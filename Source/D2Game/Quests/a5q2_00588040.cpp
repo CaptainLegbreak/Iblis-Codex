@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2UnitData.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -40,19 +41,6 @@ struct D2Act5Quest2Strc
     int nWussieGuidCount;
 };
 
-struct D2QuestDataStrc
-{
-    char unk0x00[0x04];
-    D2GameStrc* pGame;
-    char unk0x08;
-    unsigned char bNotIntro;
-    char unk0x0A;
-    unsigned char fState;
-    char unk0x0C[0x08];
-    unsigned char bStatusCycle;
-    char unk0x15[0x03];
-    D2Act5Quest2Strc* pQuestDataEx;
-};
 
 
 typedef int (__fastcall* QUESTUNITITERATEFN)(D2GameStrc*, D2UnitStrc*, void*);
@@ -73,7 +61,7 @@ int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 // 0x00587FC0
 int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
-    D2Act5Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
     const int nGUID = !pUnit ? -1 : pUnit->dwUnitId;
     for (int i = 0; i < 3; ++i)
     {
@@ -92,7 +80,7 @@ int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2U
 // 0x00588040
 void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    D2Act5Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
     if (!pQuestData->bNotIntro)
     {
         return;
@@ -132,7 +120,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
                 const int nGroup = sub_00587FC0_GetWussieGroupIndex(pQuestData, pTarget);
                 if (nGroup >= 0)
                 {
-                    D2Act5Quest2Strc* pGroupData = pQuestData->pQuestDataEx;
+                    D2Act5Quest2Strc* pGroupData = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
                     ++pGroupData->nGroupKills[nGroup];
                     if (pGroupData->nGroupKills[nGroup] >= 5)
                     {
@@ -146,9 +134,9 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         ++pQuestDataEx->nOtherKills;
     }
 
-    if (pQuestDataEx->nOtherKills >= 5 && pQuestData->fState != 12)
+    if (pQuestDataEx->nOtherKills >= 5 && pQuestData->fLastState != 12)
     {
-        pQuestData->bStatusCycle = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 12, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bCyclerActive = 0;
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, pQuestArg->pPlayer, ACT5Q2_UnitIterate_SetCompletionFlag);
@@ -157,7 +145,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     const int nGroup = sub_00587FC0_GetWussieGroupIndex(pQuestData, pQuestArg->pTarget);
     if (nGroup >= 0)
     {
-        D2Act5Quest2Strc* pGroupData = pQuestData->pQuestDataEx;
+        D2Act5Quest2Strc* pGroupData = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
         ++pGroupData->nGroupKills[nGroup];
         if (pGroupData->nGroupKills[nGroup] >= 5)
         {
@@ -179,7 +167,7 @@ int __fastcall ACT5Q2_SpawnCagedWussies(D2QuestDataStrc* pQuestData, D2ObjInitFn
 			{
 				pWussies->dwFlags |= 0x3000000;
 
-				D2Act5Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+				D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
 				pQuestDataEx->unk0xB0[nCount][nWussiesSpawned] = !pWussies ? -1 : pWussies->dwUnitId;
 				++nWussiesSpawned;
 

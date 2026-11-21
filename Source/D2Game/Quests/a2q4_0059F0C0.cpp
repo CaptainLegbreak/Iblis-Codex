@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
+#include "D2UnitData.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -11,50 +13,10 @@ struct D2UnitStrc;
 
 
 
-struct D2MonsterDataStrc
-{
-    int unk0x00[12];
-    void* pMonInteract;
-};
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
-struct D2Act2Quest4Strc
-{
-    char unk0x00[12];
-    unsigned char bOldSpawned;
-    unsigned char bSpawned;
-    char unk0x0E[3];
-    unsigned char bObjectReady;
-    char unk0x12[3];
-    unsigned char bCoordinatesSet;
-    char unk0x16[18];
-    int nX;
-    int nY;
-    int unk0x30[2];
-    int nObjectGUID;
-    int nUnitGUID;
-};
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char unk0x0D[7];
-    unsigned char bTimer;
-    char unk0x15[3];
-    D2Act2Quest4Strc* pQuestDataEx;
-};
 
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
@@ -96,10 +58,10 @@ static __forceinline D2BitBufferStrc* QUESTS_GetQuestFlags(D2GameStrc* pGame, D2
 
 static __declspec(noinline) void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest, D2CoordStrc* coords, D2ActiveRoomStrc* room)
 {
-    D2Act2Quest4Strc* ex = quest->pQuestDataEx;
-    if (ex->bOldSpawned == 1)
+    D2Act2Quest4Strc* ex = (D2Act2Quest4Strc*)quest->pQuestDataEx;
+    if (ex->bJerhynStartInitialized == 1)
     {
-        D2UnitStrc* unit = SUNIT_GetServerUnit(quest->pGame, 1, ex->nUnitGUID);
+        D2UnitStrc* unit = SUNIT_GetServerUnit(quest->pGame, 1, ex->nJerhynGUID);
         if (unit)
         {
             void* interact = QUESTS_GetMonsterInteract(unit);
@@ -109,10 +71,10 @@ static __declspec(noinline) void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDat
                 return;
             }
             GAME_RemoveUnit(unit, quest->pGame);
-            ex->bOldSpawned = 0;
+            ex->bJerhynStartInitialized = 0;
         }
     }
-    if (ex->bSpawned == 1) return;
+    if (ex->bJerhynPalaceInitialized == 1) return;
     D2QuestDataStrc* other = QUESTS_GetQuestData(quest->pGame, 13);
     if (!other || !other->bNotIntro) goto Advance;
     if (other->fState < 2) goto Retreat;
@@ -130,13 +92,13 @@ Position:
     if (npc)
     {
         npc->dwFlags |= 0x03000000;
-        ex = quest->pQuestDataEx;
-        ex->bSpawned = 1;
-        if (!ex->bCoordinatesSet)
+        ex = (D2Act2Quest4Strc*)quest->pQuestDataEx;
+        ex->bJerhynPalaceInitialized = 1;
+        if (!ex->bJerhynCoordinatesStored)
         {
-            ex->bCoordinatesSet = 1;
-            ex->nX = coords->nX;
-            ex->nY = coords->nY;
+            ex->bJerhynCoordinatesStored = 1;
+            ex->pJerhynCoords.nX = coords->nX;
+            ex->pJerhynCoords.nY = coords->nY;
         }
     }
 }
@@ -157,7 +119,7 @@ void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
         if (pQuestData->fLastState < 4)
         {
-            pQuestData->bTimer = 0;
+            pQuestData->dwFlags &= 0xFFFFFF00;
             QUESTS_UnitIterate(pQuestData, 4, 0, ACT2Q4_UnitIterate_StatusCyclerEx, 1);
         }
         else if (!bChanged)
@@ -182,13 +144,13 @@ void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         return;
     }
 
-    D2Act2Quest4Strc* pQuestDataEx = pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bOldSpawned == 1)
+    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bJerhynStartInitialized == 1)
     {
-        D2UnitStrc* pUnit = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nUnitGUID);
+        D2UnitStrc* pUnit = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nJerhynGUID);
         if (!pUnit)
         {
-            pQuestDataEx->bOldSpawned = 0;
+            pQuestDataEx->bJerhynStartInitialized = 0;
         }
         else if (MONSTERAI_HasInteractUnit(QUESTS_GetMonsterInteract(pUnit)))
         {
@@ -197,13 +159,13 @@ void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         else
         {
             GAME_RemoveUnit(pUnit, pQuestData->pGame);
-            pQuestDataEx->bOldSpawned = 0;
+            pQuestDataEx->bJerhynStartInitialized = 0;
         }
     }
 
-    if (!pQuestDataEx->bSpawned && pQuestDataEx->bObjectReady)
+    if (!pQuestDataEx->bJerhynPalaceInitialized && pQuestDataEx->bHaremBlockerInitialized)
     {
-        D2UnitStrc* pObject = SUNIT_GetServerUnit(pQuestData->pGame, 2, pQuestDataEx->nObjectGUID);
+        D2UnitStrc* pObject = SUNIT_GetServerUnit(pQuestData->pGame, 2, pQuestDataEx->nHaremBlockerGUID);
         if (pObject)
         {
             D2CoordStrc tCoords;

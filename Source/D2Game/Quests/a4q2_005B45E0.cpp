@@ -2,6 +2,9 @@
 #include "D2Path.h"
 #include "D2GameStrc.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
+#include "D2QuestData.h"
+#include "D2UnitData.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 struct D2PlayerDataStrc;
@@ -13,41 +16,9 @@ struct QueueState;
 struct QuestExtra;
 struct QuestView;
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    short nNPCNo;
-    char unk0x16[0x02];
-    short nMessageIndex;
-};
 
-struct D2Act4Quest2Strc
-{
-    unsigned char bTalkedToTyrael;
-    char unk0x01[0x43];
-    unsigned char unk0x44;
-    unsigned char bPortalToAct5Spawned;
-};
 
-struct D2QuestDataStrc
-{
-    char unk0x00[0x04];
-    D2GameStrc* pGame;
-    char unk0x08[0x0C];
-    unsigned char bActive;
-    char unk0x15[0x03];
-    D2Act4Quest2Strc* pQuestDataEx;
-};
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -200,7 +171,7 @@ static D2BitBufferStrc* GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 // 0x005B4670
 void __fastcall ACT4Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
     const short nMessageIndex = pQuestArg->nMessageIndex;
     if (pQuestArg->nNPCNo == 0x16F)
     {
@@ -250,10 +221,10 @@ void __fastcall ACT4Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         return;
     }
 
-    D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bTalkedToTyrael == 1)
     {
-        pQuestData->bActive = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT4Q2_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bTalkedToTyrael = 0;
     }

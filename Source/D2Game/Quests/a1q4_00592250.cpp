@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
+#include "D2UnitData.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -24,31 +26,9 @@ struct D2Act1Quest4Strc;
 union D2SeedStrc;
 
 
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    char unk0x10[0x04];
-    unsigned short nNPCNo;
-    char pad0x16[0x02];
-    unsigned short nMessageIndex;
-};
 
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
 
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
@@ -56,25 +36,6 @@ typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned char nFlagsLowByte;
-    char unk0x15[0x03];
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    char unk0xA0[0xF0 - 0xA0];
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 struct D2Act1Quest4Strc
 {
@@ -159,7 +120,7 @@ void __fastcall ACT1Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                     pQuestDataEx->nDecipheredScrollGUID = !pDecipheredScroll ? -1 : pDecipheredScroll->dwUnitId;
                     QUESTS_DebugOutput(pQuestData->pGame, "deciphered scroll", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 351);
                     QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 352);
-                    pQuestData->nFlagsLowByte = 0;
+                    pQuestData->dwFlags &= 0xFFFFFF00;
                     QUESTS_UnitIterate(pQuestData, 3, pQuestArg->pPlayer, ACT1Q4_UnitIterate_StatusCyclerEx, 0);
                 }
                 else
