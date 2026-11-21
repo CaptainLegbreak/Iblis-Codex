@@ -45276,6 +45276,11 @@
      "name": "?sub_00515530_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
     },
     {
+     "va": "0x005155D0",
+     "length": 202,
+     "name": "sub_005155D0_SetSoundData"
+    },
+    {
      "va": "0x005156A0",
      "length": 104,
      "name": "?sub_005156A0_PlaySound@@YIHPAUD2SoundStrc@@@Z"
@@ -45354,6 +45359,11 @@
      "va": "0x00515D60",
      "length": 16,
      "name": "?sub_00515D60_GetMasterVolume@@YAHXZ"
+    },
+    {
+     "va": "0x00515D70",
+     "length": 194,
+     "name": "sub_00515D70_StartStream"
     },
     {
      "va": "0x00515E40",
@@ -45530,16 +45540,6 @@
      "va": "0x00515020",
      "length": 54,
      "name": "?sub_00515020_FadeOutWaves@@YAXXZ"
-    },
-    {
-     "va": "0x005155D0",
-     "length": 202,
-     "name": "sub_005155D0_SetSoundData"
-    },
-    {
-     "va": "0x00515D70",
-     "length": 194,
-     "name": "sub_00515D70_StartStream"
     }
    ]
   },
