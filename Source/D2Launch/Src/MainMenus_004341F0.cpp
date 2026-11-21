@@ -1,10 +1,10 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 #include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
 class BNGatewayAccess;
-struct D2FuncTable_0077ABF0Strc;
 
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 void __cdecl sub_00433640_PlayIntroVideo(); // 0x00433640
@@ -32,13 +32,6 @@ public:
     int m_nCurGateway;
 };
 
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x98];
-    BNGatewayAccess* (__cdecl* pfnGetRecord)();
-    unsigned char unk_9C[0x1C];
-    void (__fastcall* pfnSlotB8)(char* szText);
-};
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 int __fastcall D2Win_10055(D2WinControlStrc* pTextBox); // 0x004FBAB0
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
@@ -50,27 +43,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x19];
-    char aState19[4];
-    char unk0x01D[0x70];
-    char szAccount[0x18];
-    char unk0x0A5[0x18];
-    char szCharName[0x18];
-    char nByteD5;
-    char unk0x0D6[0x17];
-    char aDataED[0x101];
-    char nClass;
-    char aFlags1EF[2];
-    char unk0x1F1[0x18];
-    char aState209[4];
-    char unk0x20D[0x20];
-    char nByte22D;
-    char unk0x22E[0x130];
-    char nByte35E;
-    char bFlag35F;
-};
 void __cdecl sub_004317D0_FlushInput(); // 0x004317D0
 int __cdecl sub_0042FA40_InitAuxBattleNet(); // 0x0042FA40
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
@@ -209,7 +181,7 @@ int __stdcall sub_00434600_CreateGatewayScreen(int nUnused)
     gpControl_00779590 = sub_0042F430_CreateControl(0x4A);
     sub_0042F430_CreateControl(0x4B);
     sub_0042F430_CreateControl(0x4C);
-    BNGatewayAccess* pGateways = gpFuncTable_0077ABF0->pfnGetRecord();
+    BNGatewayAccess* pGateways = (BNGatewayAccess*)gpFuncTable_0077ABF0->pfnGetRecord();
     int nCur = pGateways->m_nCurGateway;
     for (int i = 1; i <= pGateways->m_nNumGateways; ++i)
     {
@@ -238,7 +210,7 @@ int __stdcall sub_00435020_Callback(int nUnused)
 // 0x00435230
 void __cdecl sub_00435230_PlayIntroVideos()
 {
-    D2_ASSERT(!gpLaunchRecord_007795D4->bFlag35F, 0x8D4);
+    D2_ASSERT(!gpLaunchRecord_007795D4->bIntroPlayed, 0x8D4);
     D2Win_10029(0);
     sub_0042F480_Reset();
     sub_004317D0_FlushInput();
