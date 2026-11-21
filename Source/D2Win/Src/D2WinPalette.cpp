@@ -1,12 +1,5 @@
 #include "D2Win.h"
-
-struct D2PaletteColorStrc
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
+#include "D2Win32Types.h"
 
 struct D2Palette256Strc
 {
@@ -22,7 +15,7 @@ extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int n
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue); // 0x00605210
 void __cdecl sub_004FB010_SetPaletteTables(); // 0x004FB010
-void __stdcall D2GFX_SetPalette(D2PaletteColorStrc* pPalette); // 0x004F63D0
+void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x0040B3C0
 
 extern const char gszD2WinPaletteSourceFile_006DC828[]; // 0x006DC828
@@ -34,7 +27,7 @@ extern unsigned char gScreenPalette_007DE468[65536]; // 0x007DE468
 extern D2TransPaletteStrc gTransPalette_007EE468[3]; // 0x007EE468
 extern unsigned char gDarkenPalette_0081E468[256]; // 0x0081E468
 extern unsigned char gbyPaletteMap_0081E568[256]; // 0x0081E568
-extern D2PaletteColorStrc gRGBAPalette_0081E668[256]; // 0x0081E668
+extern tagPALETTEENTRY gRGBAPalette_0081E668[256]; // 0x0081E668
 extern D2Palette256Strc gShadowsLightGammaPalette_0081EA68[49]; // 0x0081EA68
 extern D2Palette256Strc gLightPalette_00820A68[16]; // 0x00820A68
 extern unsigned char gPalette_00821A68[256]; // 0x00821A68
@@ -50,7 +43,7 @@ unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsign
 // 0x004FB1E0
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName)
 {
-    D2PaletteColorStrc tPalette[256];
+    tagPALETTEENTRY tPalette[256];
     unsigned char* pDat = (unsigned char*)sub_00517079_LoadFile(D2Win_GetArchive(), szDatFileName, 0, gszD2WinPaletteSourceFile_006DC828, 99);
     unsigned char* pColor = pDat;
     for (unsigned int i = 0; i < 256; ++i)
@@ -78,7 +71,7 @@ int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const cha
     for (unsigned int i = 0; i < 256; ++i)
         gRGBAPalette_0081E668[i].peFlags = 5;
 
-    D2PaletteColorStrc* pEntry = gRGBAPalette_0081E668;
+    tagPALETTEENTRY* pEntry = gRGBAPalette_0081E668;
     for (unsigned int i = 0; i < 256; ++i)
     {
         const int nScaledRed = 170 * pEntry->peRed / 100;
