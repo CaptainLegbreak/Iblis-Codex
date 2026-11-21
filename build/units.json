@@ -62959,6 +62959,10 @@
      "length": 324
     },
     {
+     "va": "0x005AFEC0",
+     "length": 324
+    },
+    {
      "va": "0x005B0010",
      "length": 474
     },
@@ -62966,6 +62970,11 @@
      "va": "0x005B03E0",
      "length": 183,
      "name": "MISSMODE_SrvDo32_TigerFury"
+    },
+    {
+     "va": "0x005B04A0",
+     "length": 405,
+     "name": "?MISSMODE_SrvDo34_BaalTauntControl@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B07A0",
@@ -64471,35 +64480,6 @@
      "va": "0x005AE8A0",
      "length": 155
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AFEC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005AFEC0",
-     "length": 324
-    },
-    {
-     "va": "0x005B04A0",
-     "length": 405,
-     "name": "?MISSMODE_SrvDo34_BaalTauntControl@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
