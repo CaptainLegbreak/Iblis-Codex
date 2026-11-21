@@ -24941,126 +24941,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/inv_00480780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00480780",
-     "length": 57,
-     "name": "sub_00480780_SetPathTargetUnit"
-    },
-    {
-     "va": "0x004824A0",
-     "length": 259,
-     "name": "sub_004824A0_FreeCacheEntries"
-    },
-    {
-     "va": "0x00482C20",
-     "length": 74,
-     "name": "?sub_00482C20_Tick@@YAXXZ"
-    },
-    {
-     "va": "0x00482C70",
-     "length": 43
-    },
-    {
-     "va": "0x00483310",
-     "length": 37,
-     "name": "?sub_00483310_ResetCinematicFlags@@YAXXZ"
-    },
-    {
-     "va": "0x00483350",
-     "length": 6,
-     "name": "?sub_00483350_IsCinematicBusy@@YAEXZ"
-    },
-    {
-     "va": "0x004834A0",
-     "length": 58,
-     "name": "?sub_004834A0_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
-    },
-    {
-     "va": "0x00483AE0",
-     "length": 41,
-     "name": "?sub_00483AE0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483B10",
-     "length": 41,
-     "name": "?sub_00483B10_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483B40",
-     "length": 82,
-     "name": "?sub_00483B40_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483BA0",
-     "length": 74,
-     "name": "?sub_00483BA0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483BF0",
-     "length": 41,
-     "name": "?sub_00483BF0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483C20",
-     "length": 37,
-     "name": "?sub_00483C20_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483E10",
-     "length": 38,
-     "name": "?sub_00483E10_IsNpcStateIdle@@YAHXZ"
-    },
-    {
-     "va": "0x00487A10",
-     "length": 288,
-     "name": "sub_00487A10_SelectItemPageTab"
-    },
-    {
-     "va": "0x00488910",
-     "length": 189,
-     "name": "sub_00488910_ResetCursorMsg"
-    },
-    {
-     "va": "0x00488E70",
-     "length": 75,
-     "name": "sub_00488E70_KeyMsg"
-    },
-    {
-     "va": "0x00489060",
-     "length": 78,
-     "name": "sub_00489060_ClickMsg"
-    },
-    {
-     "va": "0x004894D0",
-     "length": 169,
-     "name": "sub_004894D0_MouseMoveMsg"
-    },
-    {
-     "va": "0x0048A0F0",
-     "length": 152,
-     "name": "sub_0048A0F0_MouseMoveMsg"
-    },
-    {
-     "va": "0x0048BD80",
-     "length": 105,
-     "name": "sub_0048BD80_ClickMsg"
-    },
-    {
-     "va": "0x00497C50",
-     "length": 157,
-     "name": "sub_00497C50_DrawSlotIcon"
-    },
-    {
-     "va": "0x00498A20",
-     "length": 98,
-     "name": "sub_00498A20_CheckState"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004807C0.cpp",
    "rank": 0,
    "functions": [
@@ -25337,66 +25217,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/inv_00483E40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00483E40",
-     "length": 316
-    },
-    {
-     "va": "0x00483FF0",
-     "length": 1000
-    },
-    {
-     "va": "0x00484C90",
-     "length": 156,
-     "name": "?sub_00484C90_FormatEarName@@YAHPAUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00484D30",
-     "length": 120,
-     "name": "?sub_00484D30_FormatEarNameTo@@YGHPAUUnicode@@PBU1@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00486370",
-     "length": 601,
-     "name": "?sub_00486370_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00486670",
-     "length": 255,
-     "name": "?sub_00486670_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00486BD0",
-     "length": 318
-    },
-    {
-     "va": "0x00487ED0",
-     "length": 531
-    },
-    {
-     "va": "0x0048B0A0",
-     "length": 493
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/inv_00483F80.cpp",
    "rank": 0,
    "functions": [
@@ -25519,6 +25339,180 @@
      "length": 536,
      "name": "?sub_0048A190_CubeMouseMove@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/inv_00483E40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00480780",
+     "length": 57,
+     "name": "sub_00480780_SetPathTargetUnit"
+    },
+    {
+     "va": "0x004824A0",
+     "length": 259,
+     "name": "sub_004824A0_FreeCacheEntries"
+    },
+    {
+     "va": "0x00482C20",
+     "length": 74,
+     "name": "?sub_00482C20_Tick@@YAXXZ"
+    },
+    {
+     "va": "0x00482C70",
+     "length": 43
+    },
+    {
+     "va": "0x00483310",
+     "length": 37,
+     "name": "?sub_00483310_ResetCinematicFlags@@YAXXZ"
+    },
+    {
+     "va": "0x00483350",
+     "length": 6,
+     "name": "?sub_00483350_IsCinematicBusy@@YAEXZ"
+    },
+    {
+     "va": "0x004834A0",
+     "length": 58,
+     "name": "?sub_004834A0_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
+    },
+    {
+     "va": "0x00483AE0",
+     "length": 41,
+     "name": "?sub_00483AE0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483B10",
+     "length": 41,
+     "name": "?sub_00483B10_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483B40",
+     "length": 82,
+     "name": "?sub_00483B40_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483BA0",
+     "length": 74,
+     "name": "?sub_00483BA0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483BF0",
+     "length": 41,
+     "name": "?sub_00483BF0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483C20",
+     "length": 37,
+     "name": "?sub_00483C20_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483E10",
+     "length": 38,
+     "name": "?sub_00483E10_IsNpcStateIdle@@YAHXZ"
+    },
+    {
+     "va": "0x00483E40",
+     "length": 316
+    },
+    {
+     "va": "0x00483FF0",
+     "length": 1000
+    },
+    {
+     "va": "0x00484C90",
+     "length": 156,
+     "name": "?sub_00484C90_FormatEarName@@YAHPAUUnicode@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00484D30",
+     "length": 120,
+     "name": "?sub_00484D30_FormatEarNameTo@@YGHPAUUnicode@@PBU1@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00486370",
+     "length": 601,
+     "name": "?sub_00486370_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00486670",
+     "length": 255,
+     "name": "?sub_00486670_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00486BD0",
+     "length": 318
+    },
+    {
+     "va": "0x00487A10",
+     "length": 288,
+     "name": "sub_00487A10_SelectItemPageTab"
+    },
+    {
+     "va": "0x00487ED0",
+     "length": 531
+    },
+    {
+     "va": "0x00488910",
+     "length": 189,
+     "name": "sub_00488910_ResetCursorMsg"
+    },
+    {
+     "va": "0x00488E70",
+     "length": 75,
+     "name": "sub_00488E70_KeyMsg"
+    },
+    {
+     "va": "0x00489060",
+     "length": 78,
+     "name": "sub_00489060_ClickMsg"
+    },
+    {
+     "va": "0x004894D0",
+     "length": 169,
+     "name": "sub_004894D0_MouseMoveMsg"
+    },
+    {
+     "va": "0x0048A0F0",
+     "length": 152,
+     "name": "sub_0048A0F0_MouseMoveMsg"
+    },
+    {
+     "va": "0x0048B0A0",
+     "length": 493
+    },
+    {
+     "va": "0x0048BD80",
+     "length": 105,
+     "name": "sub_0048BD80_ClickMsg"
+    },
+    {
+     "va": "0x00497C50",
+     "length": 157,
+     "name": "sub_00497C50_DrawSlotIcon"
+    },
+    {
+     "va": "0x00498A20",
+     "length": 98,
+     "name": "sub_00498A20_CheckState"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
