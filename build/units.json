@@ -97748,19 +97748,13 @@
     {
      "va": "0x006B9BB0",
      "length": 30,
-     "name": "?sub_006B9BB0_CloseSmack@@YIXPAUD2VideoHandleStrc@@@Z"
+     "name": "?sub_006B9BB0_CloseSmack@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x006B9BD0",
      "length": 97,
      "name": "?sub_006B9BD0_Apply@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSmack_006B9C40.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006B9C40",
      "length": 624
