@@ -77906,7 +77906,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/Tilecmp_00600CB0.cpp",
+   "file": "Source/D2CMP/SRC/Tilecmp.cpp",
    "rank": 0,
    "functions": [
     {
@@ -77940,8 +77940,86 @@
      "name": "?sub_00609670_FreeTileList@@YGXPAUD2CmpTileListStrc@@@Z"
     },
     {
+     "va": "0x00609770",
+     "length": 152,
+     "name": "?sub_00609770_IsUniformBlock@@YGHPAUD2CmpTileStrc@@PBEH@Z"
+    },
+    {
+     "va": "0x00609810",
+     "length": 292,
+     "name": "?sub_00609810_AddTileBlock@@YGXPAUD2CmpTileStrc@@PAEHHH@Z"
+    },
+    {
+     "va": "0x00609940",
+     "length": 61,
+     "name": "?sub_00609940_HasOtherColor@@YGHUD2CmpColorStrc@@PBE@Z"
+    },
+    {
+     "va": "0x00609980",
+     "length": 285
+    },
+    {
+     "va": "0x00609AA0",
+     "length": 240,
+     "name": "?sub_00609AA0_SplitFloorTile@@YAXPAUD2CmpTileStrc@@PBE@Z"
+    },
+    {
+     "va": "0x00609B90",
+     "length": 95,
+     "name": "?sub_00609B90_InitFloorTile@@YGXPAUD2CmpTileStrc@@PBE@Z"
+    },
+    {
+     "va": "0x00609BF0",
+     "length": 58,
+     "name": "?sub_00609BF0_CopyTileNode@@YAXPAUD2CmpTileSubStrc@@PAUD2CmpTileNodeStrc@@@Z"
+    },
+    {
+     "va": "0x00609C30",
+     "length": 296,
+     "name": "?sub_00609C30_ConvertTileToBlock@@YGXPAUD2CmpTileStrc@@PAUD2CmpTileBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00609D60",
+     "length": 291,
+     "name": "?sub_00609D60_BuildTileLibrary@@YGHPAUD2CmpTileListStrc@@PAPAUD2CmpTileLibraryStrc@@@Z"
+    },
+    {
+     "va": "0x00609FD0",
+     "length": 113,
+     "name": "?sub_00609FD0_GetPackedSize@@YAHPAUD2CmpTileLibraryStrc@@@Z"
+    },
+    {
+     "va": "0x0060A050",
+     "length": 149
+    },
+    {
      "va": "0x0060A0F0",
      "length": 356
+    },
+    {
+     "va": "0x0060A260",
+     "length": 47,
+     "name": "?sub_0060A260_RelocateSubTileData@@YAHPAUD2CmpTileBlockStrc@@PAE@Z"
+    },
+    {
+     "va": "0x0060A520",
+     "length": 67,
+     "name": "?sub_0060A520_ForEachDataColor@@YAXP6GXI@ZPBEH@Z"
+    },
+    {
+     "va": "0x0060A570",
+     "length": 162,
+     "name": "?TileProjectIteratePixels@@YGXPAUD2CmpTileLibraryStrc@@P6GXI@Z@Z"
+    },
+    {
+     "va": "0x0060A620",
+     "length": 40,
+     "name": "?sub_0060A620_IsSubTileDataEmpty@@YAHPBUD2CmpSubTileRecordStrc@@@Z"
+    },
+    {
+     "va": "0x0060A650",
+     "length": 243,
+     "name": "?sub_0060A650_MapSubTileRecord@@YGXUD2CmpColorStrc@@PBUD2CmpSubTileRecordStrc@@PAU2@P6GEEEE@Z@Z"
     },
     {
      "va": "0x0060A910",
@@ -79122,122 +79200,6 @@
      "va": "0x00609420",
      "length": 139,
      "name": "sub_00609420"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Tilecmp.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00609770",
-     "length": 152,
-     "name": "?sub_00609770_IsUniformBlock@@YGHPAUD2CmpTileStrc@@PBEH@Z"
-    },
-    {
-     "va": "0x00609810",
-     "length": 292,
-     "name": "?sub_00609810_AddTileBlock@@YGXPAUD2CmpTileStrc@@PAEHHH@Z"
-    },
-    {
-     "va": "0x00609940",
-     "length": 61,
-     "name": "?sub_00609940_HasOtherColor@@YGHUD2CmpColorStrc@@PBE@Z"
-    },
-    {
-     "va": "0x00609AA0",
-     "length": 240,
-     "name": "?sub_00609AA0_SplitFloorTile@@YAXPAUD2CmpTileStrc@@PBE@Z"
-    },
-    {
-     "va": "0x00609B90",
-     "length": 95,
-     "name": "?sub_00609B90_InitFloorTile@@YGXPAUD2CmpTileStrc@@PBE@Z"
-    },
-    {
-     "va": "0x00609BF0",
-     "length": 58,
-     "name": "?sub_00609BF0_CopyTileNode@@YAXPAUD2CmpTileSubStrc@@PAUD2CmpTileNodeStrc@@@Z"
-    },
-    {
-     "va": "0x00609C30",
-     "length": 296,
-     "name": "?sub_00609C30_ConvertTileToBlock@@YGXPAUD2CmpTileStrc@@PAUD2CmpTileBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00609D60",
-     "length": 291,
-     "name": "?sub_00609D60_BuildTileLibrary@@YGHPAUD2CmpTileListStrc@@PAPAUD2CmpTileLibraryStrc@@@Z"
-    },
-    {
-     "va": "0x0060A520",
-     "length": 67,
-     "name": "?sub_0060A520_ForEachDataColor@@YAXP6GXI@ZPBEH@Z"
-    },
-    {
-     "va": "0x0060A570",
-     "length": 162,
-     "name": "?TileProjectIteratePixels@@YGXPAUD2CmpTileLibraryStrc@@P6GXI@Z@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Tilecmp_00609980.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00609980",
-     "length": 285
-    },
-    {
-     "va": "0x0060A050",
-     "length": 149
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Tilecmp_00609FD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00609FD0",
-     "length": 113,
-     "name": "?sub_00609FD0_GetPackedSize@@YAHPAUD2CmpTileLibraryStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Tilecmp_0060A260.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060A260",
-     "length": 47,
-     "name": "?sub_0060A260_RelocateSubTileData@@YAHPAUD2CmpTileBlockStrc@@PAE@Z"
-    },
-    {
-     "va": "0x0060A620",
-     "length": 40,
-     "name": "?sub_0060A620_IsSubTileDataEmpty@@YAHPBUD2CmpSubTileRecordStrc@@@Z"
-    },
-    {
-     "va": "0x0060A650",
-     "length": 243,
-     "name": "?sub_0060A650_MapSubTileRecord@@YGXUD2CmpColorStrc@@PBUD2CmpSubTileRecordStrc@@PAU2@P6GEEEE@Z@Z"
     }
    ]
   },
@@ -91913,7 +91875,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/DRLG/DrlgRoom_0066AE30.cpp",
+   "file": "Source/D2Common/DRLG/DrlgRoom.cpp",
    "rank": 0,
    "functions": [
     {
@@ -91922,74 +91884,68 @@
      "name": "sub_0066AE30"
     },
     {
+     "va": "0x0066B3E0",
+     "length": 214,
+     "name": "?DRLGROOM_AllocRoomEx@@YIPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@H@Z"
+    },
+    {
+     "va": "0x0066B4C0",
+     "length": 46,
+     "name": "sub_0066B4C0"
+    },
+    {
+     "va": "0x0066B4F0",
+     "length": 52,
+     "name": "DRLGROOM_FreeRoomTiles"
+    },
+    {
+     "va": "0x0066B530",
+     "length": 47,
+     "name": "DRLGROOM_FreeRoomData"
+    },
+    {
+     "va": "0x0066B560",
+     "length": 117,
+     "name": "sub_0066B560"
+    },
+    {
+     "va": "0x0066B5E0",
+     "length": 42,
+     "name": "DRLGROOM_AllocDrlgOrthsForRooms"
+    },
+    {
+     "va": "0x0066B610",
+     "length": 89,
+     "name": "sub_0066B610"
+    },
+    {
+     "va": "0x0066B670",
+     "length": 36,
+     "name": "sub_0066B670"
+    },
+    {
+     "va": "0x0066B6A0",
+     "length": 120,
+     "name": "sub_0066B6A0"
+    },
+    {
+     "va": "0x0066B720",
+     "length": 104,
+     "name": "sub_0066B720"
+    },
+    {
+     "va": "0x0066B790",
+     "length": 91
+    },
+    {
      "va": "0x0066B860",
      "length": 27,
      "name": "DRLG_CheckNotOverlappingUsingManhattanDistance"
     },
     {
-     "va": "0x0066F240",
-     "length": 262,
-     "name": "DRLGROOMTILE_LoadDT1FilesForRoom"
-    },
-    {
-     "va": "0x00670630",
-     "length": 110,
-     "name": "DRLGTILESUB_FreeDrlgFile"
-    },
-    {
-     "va": "0x00674160",
-     "length": 49,
-     "name": "DRLGOUTDOORS_AlterAdjacentPresetGridCells"
-    },
-    {
-     "va": "0x006741A0",
-     "length": 52,
-     "name": "DRLGOUTDOORS_SetBlankGridCell"
-    },
-    {
-     "va": "0x006741E0",
-     "length": 30,
-     "name": "DRLGOUTDOORS_TestGridCellNonLvlLink"
-    },
-    {
-     "va": "0x006754C0",
-     "length": 253,
-     "name": "DRLGOUTDOORS_FreeOutdoorInfo"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066AE70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066AE70",
-     "length": 80
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgRoom.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066B3E0",
-     "length": 214,
-     "name": "?DRLGROOM_AllocRoomEx@@YIPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@H@Z"
+     "va": "0x0066B900",
+     "length": 111,
+     "name": "DRLGMAZE_CheckRoomNotOverlaping"
     },
     {
      "va": "0x0066B970",
@@ -92052,138 +92008,6 @@
      "name": "DRLGROOM_GetPickedLevelPrestFilePathFromRoomEx"
     },
     {
-     "va": "0x0066BCF0",
-     "length": 4,
-     "name": "sub_0066BCF0"
-    },
-    {
-     "va": "0x0066BFA0",
-     "length": 32,
-     "name": "?DRLGROOM_GetPresetUnits@@YIPAUD2PresetUnitStrc@@PAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0066BFC0",
-     "length": 4,
-     "name": "DRLGROOM_SetRoom"
-    },
-    {
-     "va": "0x0066C020",
-     "length": 18,
-     "name": "?sub_0066C020_GetDrlgTypeFromRoom@@YIHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0066C040",
-     "length": 79,
-     "name": "DRLGROOM_GetVisArrayFromLevelId"
-    },
-    {
-     "va": "0x0066C090",
-     "length": 17,
-     "name": "?sub_0066C090_GetVisArrayFromLevel@@YIPAHPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x0066C100",
-     "length": 277,
-     "name": "DRLGROOM_FreeRoomEx"
-    },
-    {
-     "va": "0x006706A0",
-     "length": 164,
-     "name": "?DRLGTILESUB_PickSubThemes@@YIHPAUD2DrlgRoomStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgRoom_0066B4C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066B4C0",
-     "length": 46,
-     "name": "sub_0066B4C0"
-    },
-    {
-     "va": "0x0066B4F0",
-     "length": 52,
-     "name": "DRLGROOM_FreeRoomTiles"
-    },
-    {
-     "va": "0x0066B530",
-     "length": 47,
-     "name": "DRLGROOM_FreeRoomData"
-    },
-    {
-     "va": "0x0066B560",
-     "length": 117,
-     "name": "sub_0066B560"
-    },
-    {
-     "va": "0x0066B5E0",
-     "length": 42,
-     "name": "DRLGROOM_AllocDrlgOrthsForRooms"
-    },
-    {
-     "va": "0x0066B610",
-     "length": 89,
-     "name": "sub_0066B610"
-    },
-    {
-     "va": "0x0066B670",
-     "length": 36,
-     "name": "sub_0066B670"
-    },
-    {
-     "va": "0x0066B900",
-     "length": 111,
-     "name": "DRLGMAZE_CheckRoomNotOverlaping"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgRoom_0066B6A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066B6A0",
-     "length": 120,
-     "name": "sub_0066B6A0"
-    },
-    {
-     "va": "0x0066B720",
-     "length": 104,
-     "name": "sub_0066B720"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgRoom_0066B790.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066B790",
-     "length": 91
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgRoom_0066BBC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0066BBC0",
      "length": 94,
      "name": "DRLGROOM_SortRoomListByPosition"
@@ -92192,6 +92016,11 @@
      "va": "0x0066BC20",
      "length": 200,
      "name": "sub_0066BC20"
+    },
+    {
+     "va": "0x0066BCF0",
+     "length": 4,
+     "name": "sub_0066BCF0"
     },
     {
      "va": "0x0066BD00",
@@ -92224,14 +92053,44 @@
      "name": "DRLGROOM_AllocPresetUnit"
     },
     {
+     "va": "0x0066BFA0",
+     "length": 32,
+     "name": "?DRLGROOM_GetPresetUnits@@YIPAUD2PresetUnitStrc@@PAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0066BFC0",
+     "length": 4,
+     "name": "DRLGROOM_SetRoom"
+    },
+    {
      "va": "0x0066BFD0",
      "length": 69,
      "name": "DRLGROOM_GetRGB_IntensityFromRoomEx"
     },
     {
+     "va": "0x0066C020",
+     "length": 18,
+     "name": "?sub_0066C020_GetDrlgTypeFromRoom@@YIHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0066C040",
+     "length": 79,
+     "name": "DRLGROOM_GetVisArrayFromLevelId"
+    },
+    {
+     "va": "0x0066C090",
+     "length": 17,
+     "name": "?sub_0066C090_GetVisArrayFromLevel@@YIPAHPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x0066C0B0",
      "length": 67,
      "name": "DRLGROOM_GetDrlgFromRoomEx"
+    },
+    {
+     "va": "0x0066C100",
+     "length": 277,
+     "name": "DRLGROOM_FreeRoomEx"
     },
     {
      "va": "0x0066C220",
@@ -92242,7 +92101,61 @@
      "va": "0x0066C370",
      "length": 92,
      "name": "DRLGROOM_InitNearRooms"
+    },
+    {
+     "va": "0x0066F240",
+     "length": 262,
+     "name": "DRLGROOMTILE_LoadDT1FilesForRoom"
+    },
+    {
+     "va": "0x00670630",
+     "length": 110,
+     "name": "DRLGTILESUB_FreeDrlgFile"
+    },
+    {
+     "va": "0x006706A0",
+     "length": 164,
+     "name": "?DRLGTILESUB_PickSubThemes@@YIHPAUD2DrlgRoomStrc@@HH@Z"
+    },
+    {
+     "va": "0x00674160",
+     "length": 49,
+     "name": "DRLGOUTDOORS_AlterAdjacentPresetGridCells"
+    },
+    {
+     "va": "0x006741A0",
+     "length": 52,
+     "name": "DRLGOUTDOORS_SetBlankGridCell"
+    },
+    {
+     "va": "0x006741E0",
+     "length": 30,
+     "name": "DRLGOUTDOORS_TestGridCellNonLvlLink"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0066AE70.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0066AE70",
+     "length": 80
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -93355,6 +93268,11 @@
     {
      "va": "0x00675360",
      "length": 348
+    },
+    {
+     "va": "0x006754C0",
+     "length": 253,
+     "name": "DRLGOUTDOORS_FreeOutdoorInfo"
     },
     {
      "va": "0x006757E0",
