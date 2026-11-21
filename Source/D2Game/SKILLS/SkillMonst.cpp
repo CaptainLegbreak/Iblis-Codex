@@ -178,6 +178,12 @@ int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
+typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
+
+int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
+
+int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
+
 __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -271,6 +277,99 @@ int __fastcall SKILLS_SrvSt48_SwarmMove(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     SKILLS_SetFlags(pSkill, 1);
+    return 1;
+}
+
+static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nId)
+{
+    if (nId >= 0 && nId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nId];
+    return 0;
+}
+
+// build: context SKILLS_Abs
+static int SKILLS_Abs(int nValue)
+{
+    return nValue < 0 ? -nValue : nValue;
+}
+
+// 0x005CC050
+int __fastcall sub_005CC050_PlaceSkillMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+    const int nTargetX = CLIENTS_GetUnitX(pTarget);
+    const int nTargetY = CLIENTS_GetUnitY(pTarget);
+    const int nUnitX = CLIENTS_GetUnitX(pUnit);
+    const int nUnitY = CLIENTS_GetUnitY(pUnit);
+
+    int nY = nTargetY;
+    int nX = nTargetX;
+    int i = 4;
+    if (SKILLS_Abs(nTargetX - nUnitX) < SKILLS_Abs(nTargetY - nUnitY))
+    {
+        nX = nUnitX;
+        do
+        {
+            if (nX > nTargetX)
+            {
+                --nX;
+            }
+            else if (nX < nTargetX)
+            {
+                ++nX;
+            }
+        }
+        while (--i > 0);
+    }
+    else
+    {
+        nY = nUnitY;
+        do
+        {
+            if (nY > nTargetY)
+            {
+                --nY;
+            }
+            else if (nY < nTargetY)
+            {
+                ++nY;
+            }
+        }
+        while (--i > 0);
+    }
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.pOwner = pUnit;
+    const int nDX = nX - nUnitX;
+    const int nDY = nY - nUnitY;
+    missileParams.nX = nUnitX + nDX / 6 - 1;
+    missileParams.nY = nUnitY + nDY / 6 - 1;
+    missileParams.nSkill = nSkillId;
+    missileParams.dwFlags = 3;
+    missileParams.nTargetX = nDX;
+    missileParams.nTargetY = nDY;
+    missileParams.nSkillLevel = nSkillLevel;
+    missileParams.nMissile = nMissileId;
+    MISSILES_CreateMissileFromParams(pGame, &missileParams);
     return 1;
 }
 
@@ -607,13 +706,6 @@ int __fastcall SKILLS_SrvDo097_Resurrect(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     return 1;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nId)
-{
-    if (nId >= 0 && nId < sgptDataTables->nSkillsTxtRecordCount)
-        return &sgptDataTables->pSkillsTxt[nId];
-    return 0;
-}
-
 // 0x005CCE80
 int __fastcall sub_005CCE80_ApplyFreezingSkillDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -642,6 +734,61 @@ int __fastcall sub_005CCE80_ApplyFreezingSkillDamage(D2GameStrc* pGame, D2UnitSt
             UNITS_SetOverlay(pTarget, pSkillsTxt->wSrvOverlay, 0);
     }
     return 1;
+}
+
+// 0x005CCFA0
+int __fastcall SKILLS_SrvDo101_FingerMageSpider(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissile = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2MissilesTxt* pMissilesTxtRecord = &sgptDataTables->pMissilesTxt[nMissile];
+    if (!pMissilesTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.nMissile = nMissile;
+    missileParams.dwFlags = 3;
+    missileParams.pOwner = pUnit;
+    missileParams.pOrigin = pUnit;
+    missileParams.nX = CLIENTS_GetUnitX(pUnit);
+    missileParams.nY = CLIENTS_GetUnitY(pUnit);
+    missileParams.nSkill = nSkillId;
+    missileParams.nSkillLevel = nSkillLevel;
+    missileParams.nLoops = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (pTarget)
+    {
+        D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
+        missileParams.nTargetX = CLIENTS_GetUnitX(pTarget) - CLIENTS_GetUnitX(pUnit);
+        missileParams.nTargetY = CLIENTS_GetUnitY(pTarget) - CLIENTS_GetUnitY(pUnit);
+    }
+    else
+    {
+        missileParams.nTargetX = D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath) - CLIENTS_GetUnitX(pUnit);
+        missileParams.nTargetY = D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath) - CLIENTS_GetUnitY(pUnit);
+    }
+
+    MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    return pMissilesTxtRecord ? 1 : 0;
 }
 
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)

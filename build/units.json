@@ -69196,6 +69196,10 @@
      "name": "?SKILLS_SrvSt48_SwarmMove@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CC050",
+     "length": 383
+    },
+    {
      "va": "0x005CC1D0",
      "length": 19,
      "name": "?SKILLS_SrvSt51_Submerge@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -69237,6 +69241,10 @@
     {
      "va": "0x005CCE80",
      "length": 284
+    },
+    {
+     "va": "0x005CCFA0",
+     "length": 356
     },
     {
      "va": "0x005CD2C0",
@@ -69333,34 +69341,6 @@
      "length": 52,
      "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CC050.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005CC050",
-     "length": 383
-    },
-    {
-     "va": "0x005CCFA0",
-     "length": 356
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
