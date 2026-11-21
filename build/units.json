@@ -58918,11 +58918,6 @@
      "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
-     "va": "0x00589070",
-     "length": 56,
-     "name": "ACT5Q3_SendPacket0x5DToClient"
-    },
-    {
      "va": "0x005890B0",
      "length": 163,
      "name": "ACT5Q3_RemoveDrehyaIced"
@@ -59210,6 +59205,11 @@
      "va": "0x00589000",
      "length": 105,
      "name": "?ACT5Q3_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00589070",
+     "length": 56,
+     "name": "ACT5Q3_SendPacket0x5DToClient"
     },
     {
      "va": "0x005891D0",

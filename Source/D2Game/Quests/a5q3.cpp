@@ -258,6 +258,8 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
+#define QUEST_A5Q3_PRISONOFICE 33
+
 // 0x00589000
 void __fastcall ACT5Q3_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -293,6 +295,16 @@ static __forceinline int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit)
     if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nY;
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x00589070
+void __fastcall ACT5Q3_SendPacket0x5DToClient(D2UnitStrc* pUnit)
+{
+    D2GSPacketSrv5D packet5D = {};
+    packet5D.nHeader = QUEST_LOG_PACKET;
+    packet5D.nFlags = 32;
+    packet5D.nQuestId = QUEST_A5Q3_PRISONOFICE;
+    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 286), &packet5D);
 }
 
 // 0x005891D0
