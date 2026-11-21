@@ -87366,6 +87366,10 @@
      "length": 312
     },
     {
+     "va": "0x006BB520",
+     "length": 183
+    },
+    {
      "va": "0x006BB5E0",
      "length": 88,
      "name": "?sub_006BB5E0_CreateSurfaces@@YAXXZ"
@@ -87380,6 +87384,10 @@
      "length": 111
     },
     {
+     "va": "0x006BB720",
+     "length": 329
+    },
+    {
      "va": "0x006BBA00",
      "length": 398
     },
@@ -87390,34 +87398,6 @@
    ]
   },
   {
-   "file": "Source/D2Direct3D/Unknown_006BB520.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BB520",
-     "length": 183
-    },
-    {
-     "va": "0x006BB720",
-     "length": 329
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Direct3D/Unknown_006BB870.cpp",
    "rank": 1,
    "functions": [
@@ -87425,20 +87405,6 @@
      "va": "0x006BB870",
      "length": 387
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
