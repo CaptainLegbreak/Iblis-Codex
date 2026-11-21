@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameObjs.h"
 #define COLLIDE_WALL 0x1
 #define COLLIDE_MISSILE_BARRIER 0x4
 #define COLLIDE_ITEM 0x200
@@ -22,10 +23,6 @@ struct D2CharStatsTxt;
 
 
 
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-};
 
 
 
