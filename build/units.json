@@ -69758,8 +69758,28 @@
      "name": "?SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D5080",
+     "length": 411,
+     "name": "?sub_005D5080_CreateMissileBurst@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D5220",
      "length": 656
+    },
+    {
+     "va": "0x005D54B0",
+     "length": 967,
+     "name": "?sub_005D54B0_KickDamage@@YGXPAUD2GameStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@HH2@Z"
+    },
+    {
+     "va": "0x005D5880",
+     "length": 231,
+     "name": "?sub_005D5880_KickAttack@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@HHH1@Z"
+    },
+    {
+     "va": "0x005D5A30",
+     "length": 444,
+     "name": "?SKILLS_SrvDo042_DragonTalon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D6020",
@@ -69787,14 +69807,34 @@
      "name": "SKILLS_AuraCallback_CloakOfShadows"
     },
     {
+     "va": "0x005D6630",
+     "length": 613,
+     "name": "?SKILLS_SrvDo047_CloakOfShadows@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D69B0",
      "length": 27,
      "name": "?sub_005D69B0_StatRemoveCallback_RemoveState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x005D69D0",
+     "length": 392,
+     "name": "?SKILLS_SrvSt26_BladeFury@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D6B60",
      "length": 391,
      "name": "?SKILLS_EquipMonsterFromTable@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HHHH@Z"
+    },
+    {
+     "va": "0x005D6CF0",
+     "length": 372,
+     "name": "?sub_005D6CF0_SetSummonStats@@YGXPAUD2GameStrc@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005D6E70",
+     "length": 534,
+     "name": "?sub_005D6E70_SrvDoSummonPet@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D7180",
@@ -69825,6 +69865,11 @@
      "va": "0x005D76E0",
      "length": 355,
      "name": "SKILLS_SrvDo051_MindBlast"
+    },
+    {
+     "va": "0x005D7850",
+     "length": 430,
+     "name": "?SKILLS_SrvDo052_DragonFlight@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D7B60",
@@ -70090,57 +70135,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAss_005D5080.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D5080",
-     "length": 411,
-     "name": "?sub_005D5080_CreateMissileBurst@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D54B0",
-     "length": 967,
-     "name": "?sub_005D54B0_KickDamage@@YGXPAUD2GameStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@HH2@Z"
-    },
-    {
-     "va": "0x005D5880",
-     "length": 231,
-     "name": "?sub_005D5880_KickAttack@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@HHH1@Z"
-    },
-    {
-     "va": "0x005D5A30",
-     "length": 444,
-     "name": "?SKILLS_SrvDo042_DragonTalon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D6630",
-     "length": 613,
-     "name": "?SKILLS_SrvDo047_CloakOfShadows@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D69D0",
-     "length": 392,
-     "name": "?SKILLS_SrvSt26_BladeFury@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D6CF0",
-     "length": 372,
-     "name": "?sub_005D6CF0_SetSummonStats@@YGXPAUD2GameStrc@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D6E70",
-     "length": 534,
-     "name": "?sub_005D6E70_SrvDoSummonPet@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D7850",
-     "length": 430,
-     "name": "?SKILLS_SrvDo052_DragonFlight@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
    ]
   },
   {
