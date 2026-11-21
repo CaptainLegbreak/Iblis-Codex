@@ -43922,31 +43922,11 @@
      "va": "0x00506A90",
      "length": 128,
      "name": "?SMACK_Draw@@YIHPAUD2WinControlStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinSmack_00506B70.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00506B70",
      "length": 193
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
