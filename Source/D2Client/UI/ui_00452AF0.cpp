@@ -5,11 +5,10 @@
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
-
 #include "D2GameObjs.h"
 #include "D2LevelTxt.h"
-struct D2UnitStrc;
 
+struct D2UnitStrc;
 
 struct D2TileRectStrc
 {
@@ -21,58 +20,140 @@ struct D2TileRectStrc
 };
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
+
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
+
 extern "C" unsigned int __cdecl strlen(const char* szString);
+
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
+
 extern "C" int __cdecl sub_0045AFC0();                                                          // 0x0045AFC0
+
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset();                                                      // 0x0045AFD0
+
 const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId); // 0x00453E70
+
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);                                     // 0x00451F30
+
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
+
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit);                                          // 0x00454AD0
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit);                                      // 0x00464A60
+
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
+
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY);                           // 0x004760C0
+
 D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey);                                             // 0x00478E40
+
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
+
 int __fastcall sub_00479150_FindRosterIndex(int nUnitId);                                                   // 0x00479150
+
 const char* __fastcall sub_0047A290_GetOwnerName(int nUnitId);                                              // 0x0047A290
+
 int __fastcall sub_004B3230_GetTickPair(int* pLow);                                                         // 0x004B3230
+
 int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
+
 int __cdecl sub_004A0000();                                                                                 // 0x004A0000
+
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
+
 void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
+
 const Unicode* __fastcall D2LANG_GetStringByReferenceString(const char* szKey);                                       // 0x00524E20
+
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
+
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
+
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
+
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
+
 void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, const Unicode* pFormat, int nMaxLength, int nLanguage); // 0x005272B0
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
+
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                       // 0x006203B0
+
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                       // 0x00620410
+
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
+
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
+
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords);                       // 0x00620900
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
+
 void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const Unicode* wszName);        // 0x0063E810
+
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
+
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
+
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C
+
 extern int gnGlobal_00711470;                                                                               // 0x00711470
+
 extern D2ViewStrc* gpView_007A0640;                                                                         // 0x007A0640
+
 extern int gaUIVarStates_007A27C0[];                                                                        // 0x007A27C0
+
 extern unsigned short gwszText_007A2A78[];                                                                  // 0x007A2A78
+
 extern Unicode gxGlobal_007A2C80[80];                                                                       // 0x007A2C80
+
 extern int gdwGlobal_007A2D20;                                                                              // 0x007A2D20
+
 extern int gdwGlobal_007A2D24;                                                                              // 0x007A2D24
+
 extern int gdwGlobal_007A2D28;                                                                              // 0x007A2D28
+
 extern unsigned short gwszText_007A2D30[];                                                                  // 0x007A2D30
+
 extern Unicode gwszHoverName_007A2F38[];                                                                    // 0x007A2F38
+
+struct D2CelFileStrc;
+
+int __cdecl sub_0044B850_IsHardcore();                                                                      // 0x0044B850
+
+unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+
+int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
+
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0
+
+int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+
+void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+
+void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC);  // 0x00502680
+
+int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);                  // 0x005269D0
+
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
+
+int gbDeathScreenShown_007A2890;                                                                            // 0x007A2890
+
+D2CelFileStrc* gpYouDiedHardcoreCel_007A2894;                                                              // 0x007A2894
+
+D2CelFileStrc* gpYouDiedInstCel_007A2898;                                                                  // 0x007A2898
+
+extern int gnAutomapWidth_007A5220;                                                                         // 0x007A5220
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00452AF0
@@ -217,6 +298,72 @@ void __cdecl sub_00452D20_DrawPetHover()
         return;
     }
     sub_00452BE0_ShowUnitHoverName(pPet, 1);
+}
+
+// 0x00453100
+void __cdecl sub_00453100_DrawDeathScreen()
+{
+    char szPath[0x104];
+    char szLanguage[4];
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+        return;
+
+    if (sub_00464820_IsDeadOrDying(pPlayer))
+    {
+        int nY = gnGlobal_00711470 / 2 - 0x5E;
+        sub_00525260(szLanguage, 0);
+        if (!gpYouDiedHardcoreCel_007A2894)
+        {
+            sprintf(szPath, "%s\\UI\\%s\\youdiedhardcore", szDataLocal_006D41A8, szLanguage);
+            gpYouDiedHardcoreCel_007A2894 = sub_004788B0(szPath, 0);
+        }
+        if (gpYouDiedHardcoreCel_007A2894)
+            sub_00502680_DrawCellFile(gpYouDiedHardcoreCel_007A2894, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+
+        nY += 0x30;
+        gbDeathScreenShown_007A2890 = 1;
+        if (!gpYouDiedInstCel_007A2898)
+        {
+            sprintf(szPath, "%s\\UI\\%s\\youdiedinst", szDataLocal_006D41A8, szLanguage);
+            gpYouDiedInstCel_007A2898 = sub_004788B0(szPath, 0);
+        }
+        if (gpYouDiedInstCel_007A2898)
+            sub_00502680_DrawCellFile(gpYouDiedInstCel_007A2898, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+
+        Unicode wszText[0x100];
+        if (sub_0044B850_IsHardcore())
+        {
+            sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x13E8));
+        }
+        else
+        {
+            if (!STATLIST_UnitGetStatValue(pPlayer, 0xAF, 0))
+                goto second_text;
+            sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E6), STATLIST_UnitGetStatValue(pPlayer, 0xAF, 0));
+        }
+        nY += 0x30;
+        sub_00502EF0(2);
+        {
+            const int nWidth = sub_00501820(wszText);
+            const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
+            sub_00502320(wszText, nX, nY, 1, 1);
+        }
+
+second_text:
+        if (sub_0044DCD0_GetDifficulty() > 0 && !sub_0044B850_IsHardcore())
+        {
+            sub_00502EF0(2);
+            const int nWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0x13E7));
+            const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
+            nY += 0x30;
+            sub_00502320(D2LANG_GetStringFromTblIndex(0x13E7), nX, nY, 1, 1);
+        }
+    }
+    else
+    {
+        gbDeathScreenShown_007A2890 = 0;
+    }
 }
 
 // 0x00453330

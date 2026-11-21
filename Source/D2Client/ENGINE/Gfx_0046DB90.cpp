@@ -3,92 +3,197 @@
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2ClientTypes.h"
-#include "D2ClientTypes.h"
 #include "D2CelContext.h"
 #include "D2ClientGfx.h"
 #include "D2Txt.h"
 
 #define UNIT_PLAYER 0
+
 #define UNIT_MONSTER 1
+
 #define UNIT_OBJECT 2
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2GfxLayerStrc;
+
 struct D2HashedFileEntryStrc;
+
 struct D2HashedFileStrc;
+
 struct D2GfxListNodeStrc;
+
 struct D2MonStatsTxt;
+
 struct D2MonStats2Txt;
+
 struct D2MonCofInfoStrc;
+
 struct D2CofModeEntryStrc;
+
 struct D2GfxNodeTargetStrc;
+
 struct D2MonGfxCacheStrc;
 
-
-
-
-
-
-
-
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" size_t __cdecl strlen(const char* szString);
+
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
+
 extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
+
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+
 int __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
+
 D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
+
 void __fastcall sub_0046EC80_FreeGfxNodes(D2UnitStrc* pUnit); // 0x0046EC80
+
 void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
+
 int __fastcall sub_004DB180_IsGfxUnitType(D2UnitStrc* pUnit); // 0x004DB180
+
 unsigned char __fastcall sub_004DB1A0(D2UnitStrc* pUnit, int nIndex); // 0x004DB1A0
+
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
+
 int __fastcall sub_004DBCF0_FillMonsterCelContextEx(D2CelContextStrc* pContext, int nA, int nB, int nLayer, int nMode, unsigned int dwCode, D2HashedFileEntryStrc* pEntry, D2MonCofInfoStrc* pInfo, D2MonStatsTxt* pMonStats, int nIndex); // 0x004DBCF0
+
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
+
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
+
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
+
 void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
+
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern unsigned int gdwBitMasks[]; // 0x006CE268
+
 extern D2CofModeEntryStrc gaCofModeCodes_00712B04[]; // 0x00712B04
+
 extern int gdwGlobal_007A8918; // 0x007A8918
+
 extern D2HashedFileStrc gtHashedFile_007A78F0; // 0x007A78F0
+
 extern D2HashedFileStrc gtHashedFile_007A8100; // 0x007A8100
+
 static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit);
+
 static int sub_0046EA50_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex);
+
 extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
+
 extern const char* gaszHashedFileNames_006D6C30[]; // 0x006D6C30
 
 typedef unsigned long DWORD;
 
-
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
+
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
+
 void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
+
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
-extern D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
-extern int gbPreloadForce_007A8920; // 0x007A8920
+
+D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
+
+int gbPreloadForce_007A8920; // 0x007A8920
+
 extern int gdwGlobal_007A8928; // 0x007A8928
-extern int gdwGlobal_007A8910; // 0x007A8910
+
+int gdwGlobal_007A8910; // 0x007A8910
+
 __declspec(noinline) static void sub_00470070_PreloadRoomUnits(int bAsync);
+
+static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit);
+
+static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int nMode);
+
+static D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
+
+void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit);
+
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
+
+int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit); // 0x0046D9F0
+
+void __fastcall sub_004DB1C0_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
+
+extern "C" D2GfxLayerHeaderStrc* __fastcall sub_004DB040_identity(void* pGfx); // 0x004DB040
+
+static __declspec(noinline) void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId);
+
+static unsigned int sub_0046DB90_HashName(const char* szName);
+
+static void __fastcall sub_0046DBF0_GetBaseName(char* szDest, const char* szPath);
+
+D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath);
+
+static int sub_0046E610_RemoveGfxNode(D2UnitStrc* pUnit, D2HashedFileEntryStrc* pEntry);
+
+static int __stdcall sub_0046E690_FindGfxNode(int nId, D2GfxListNodeStrc** ppNode, int* pValue, D2UnitStrc* pUnit, int nMode);
+
+static int sub_0046E8D0_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex);
+
+static int sub_0046E980_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex);
+
+
+static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int nMode, int bLoadNow, D2MonCofInfoStrc* pInfo);
+
+void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);
+
+
+void __fastcall sub_00470350_PreloadTick(int bAsync);
+
+void __cdecl sub_00470B10_PreloadForce();
+
+static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex);
+
+static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex);
+
+static void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit);
+
+static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode);
 
 inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
 {
@@ -158,6 +263,44 @@ D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* 
         }
     }
     return 0;
+}
+
+// 0x0046DDF0
+static void __stdcall sub_0046DDF0_LoadHashedFile(D2HashedFileStrc* pTable, const char* szFile)
+{
+    if (pTable->unk0x00)
+    {
+        return;
+    }
+    pTable->pData = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szFile, &pTable->nSize, ".\\ENGINE\\Gfx.cpp", 267);
+    D2_ASSERT(pTable->pData, 268);
+    unsigned char* pCursor = pTable->pData;
+    int nRemaining = pTable->nSize;
+    gdwGlobal_007A8918 += nRemaining;
+    while (nRemaining)
+    {
+        D2HashedFileEntryStrc* pEntry = (D2HashedFileEntryStrc*)pCursor;
+        if (pEntry->nFlags)
+        {
+            pEntry->nFlags = 0;
+        }
+        D2_ASSERT(pEntry->nCheck <= 0x40, 294);
+        pCursor += 0x18;
+        pEntry->pData = pCursor;
+        D2_ASSERT(strlen(pEntry->szName) < 8, 121);
+        unsigned int nHash = SStrHash(pEntry->szName, 1, 0);
+        unsigned int nBucket = nHash;
+        for (int i = 0; i < 3; i++)
+        {
+            nBucket = (nBucket >> 8) ^ nHash;
+        }
+        nBucket &= 0x1FF;
+        pEntry->pNext = pTable->pEntries[nBucket];
+        pTable->pEntries[nBucket] = pEntry;
+        pCursor += pEntry->nSize;
+        nRemaining -= 0x18 + pEntry->nSize;
+    }
+    pTable->unk0x00 = 1;
 }
 
 static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
@@ -246,6 +389,7 @@ static int __stdcall sub_0046E690_FindGfxNode(int nId, D2GfxListNodeStrc** ppNod
     return 1;
 }
 
+// 0x0046E740
 static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
 {
     int nId = 0;
@@ -278,14 +422,13 @@ static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStr
         return 0;
     }
 
-    D2GfxListNodeStrc* pNode;
-    if (sub_0046E690_FindGfxNode(nId, &pNode, pValue, pUnit, nIndex))
+    if (sub_0046E690_FindGfxNode(nId, (D2GfxListNodeStrc**)&pValue, pValue, pUnit, nIndex))
     {
         D2GfxListNodeStrc* pNewNode = (D2GfxListNodeStrc*)FOG_Alloc(sizeof(D2GfxListNodeStrc), ".\\ENGINE\\Gfx.cpp", 0x434, 0);
         D2_ASSERT(pNewNode, 0x435);
         memset(pNewNode, 0, sizeof(D2GfxListNodeStrc));
 
-        D2HashedFileStrc* pTable = !sub_0046D9F0_TestUnit(pUnit) ? &gtHashedFile_007A8100 : &gtHashedFile_007A78F0;
+        D2HashedFileStrc* pTable = !sub_0046D9F0_GetConvertedUnitType(pUnit) ? &gtHashedFile_007A8100 : &gtHashedFile_007A78F0;
         D2HashedFileEntryStrc* pEntry = sub_0046DC40_FindHashedEntry(pTable, szPath);
         if (!pEntry)
         {
@@ -297,7 +440,8 @@ static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStr
         }
 
         pNewNode->nMode = nIndex;
-        pNewNode->nId = nId;
+        int& nNodeId = pNewNode->nId;
+        nNodeId = nId;
         pNewNode->pFileEntry = pEntry;
         pNewNode->pNext = pGfxData->pList;
         pGfxData->pList = pNewNode;
@@ -383,21 +527,29 @@ static int sub_0046EA50_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex)
     return 1;
 }
 
+// 0x0046F310
+void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nIndex)
+{
+    char szPath[0x104];
+    wsprintfA(szPath, gszPathFormat_006D4124, szDataGlobal_006D4118, gaszHashedFileNames_006D6C30[nIndex]);
+    sub_0046DDF0_LoadHashedFile(&gtHashedFile_007A78F0, szPath);
+}
+
+// 0x0046F490
 static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId)
 {
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(nMonsterId);
-    if (!pMonStatsTxtRecord)
+    if (!((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0))
     {
         return;
     }
 
-    D2MonStats2Txt* pMonStats2TxtRecord = DATATBLS_GetMonStats2TxtRecordInl(pMonStatsTxtRecord->wMonStatsEx);
+    D2MonStats2Txt* pMonStats2TxtRecord = DATATBLS_GetMonStats2TxtRecordInl(((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0)->wMonStatsEx);
     if (!pMonStats2TxtRecord)
     {
         return;
     }
 
-    unsigned int dwMonCode = pMonStatsTxtRecord->dwCode;
+    unsigned int dwMonCode = ((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0)->dwCode;
     D2MonModeTxt* pModeTxtRecord = sub_0065B500_GetModeTxtRecord(nMode, 1);
     D2_ASSERT(pModeTxtRecord, 0xE86);
 
@@ -440,7 +592,7 @@ static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, 
     szToken[1] = (unsigned char)(dwToken >> 8) == 0x20 ? 0 : (unsigned char)(dwToken >> 8);
     szToken[2] = (unsigned char)(dwToken >> 16) == 0x20 ? 0 : (unsigned char)(dwToken >> 16);
     szToken[3] = 0;
-    wsprintfA(szPath, "%s\\%s\\COF\\%s%s%s.COF", "DATA\\GLOBAL\\MONSTERS", szMonster, szMonster, szToken, szWeapon);
+    wsprintfA(szPath, gszCofPathFormat_006D6C94, gszMonstersDir_006D6CAC, szMonster, szMonster, szToken, szWeapon);
 }
 
 // 0x0046F650
@@ -514,6 +666,75 @@ static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRec
     }
 }
 
+// build: context CLIENT_GetMonStats2TxtRecord
+static __forceinline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
+        {
+            return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+        }
+    }
+    return 0;
+}
+
+// build: context sub_0046C140_TestMonModeFlag
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode)
+{
+    D2MonStats2Txt* pMonStats2TxtRecord = CLIENT_GetMonStats2TxtRecord(nMonsterId);
+    if (!pMonStats2TxtRecord)
+    {
+        return 0;
+    }
+    return pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7];
+}
+
+// 0x0046F9E0
+static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
+{
+    int nUnitType;
+    int nClassId;
+    int nMode;
+
+    int nTypeValue = 6;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+    }
+
+    nUnitType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClassId = nClassValue;
+    nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x498);
+    const int nConvertedMode = nMode;
+    if (nIndex == 0xE)
+    {
+        nIndex = nConvertedMode;
+    }
+
+    if (!sub_0046C140_TestMonModeFlag(nClassId, nIndex))
+    {
+        return;
+    }
+
+    if (nIndex == 0xC)
+    {
+        sub_0046EC80_FreeGfxNodes(pUnit);
+        sub_0046F020_FillGfxEntries(pUnit, 0);
+        sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
+        return;
+    }
+
+    if (nIndex == 0xE)
+    {
+        nIndex = nConvertedMode;
+    }
+    sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
+}
+
 // build: context sub_0046F870_LoadMonsterCofs
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
 {
@@ -541,50 +762,6 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
             sub_0046F650_LoadMonsterCof(pMonStatsTxtRecord, nMode, bLoadNow, &tInfo);
         }
     }
-}
-
-// build: context sub_0046F9E0_LoadMonsterModeGfx
-static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
-{
-    int nUnitType;
-    int nClassId;
-    int nMode;
-
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x498);
-    const int nConvertedMode = nMode;
-    if (nIndex == 0xE)
-    {
-        nIndex = nConvertedMode;
-    }
-
-    if (!sub_0046C140_CheckMonStats2ModeFlag(nClassId, nIndex))
-    {
-        return;
-    }
-
-    if (nIndex == 0xC)
-    {
-        sub_0046EC80_FreeGfxNodes(pUnit);
-        sub_0046F020_FillGfxEntries(pUnit, 0);
-        sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
-        return;
-    }
-
-    if (nIndex == 0xE)
-    {
-        nIndex = nConvertedMode;
-    }
-    sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
 }
 
 // 0x0046FA80
@@ -631,95 +808,9 @@ void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId,
     return 0;
 }
 
-// 0x00470610
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg)
-{
-    int nClassId;
-    int nUnitType;
-    int nMode;
-
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0xD17);
-    switch (nUnitType)
-    {
-    case UNIT_PLAYER:
-        sub_0046EA50_LoadGfxNodeSetByte(pUnit, nMode);
-        return;
-
-    case UNIT_MONSTER:
-        sub_0046F9E0_LoadMonsterModeGfx(pUnit, nMode);
-        return;
-
-    case UNIT_OBJECT:
-        sub_0046E980_LoadObjectGfx(pUnit, nMode);
-        return;
-
-    default:
-        D2_ASSERT(0, 0xD26);
-        return;
-    }
-}
-
-// 0x0046DDF0
-static void __stdcall sub_0046DDF0_LoadHashedFile(D2HashedFileStrc* pTable, const char* szFile)
-{
-    if (pTable->unk0x00)
-    {
-        return;
-    }
-    pTable->pData = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szFile, &pTable->nSize, ".\\ENGINE\\Gfx.cpp", 267);
-    D2_ASSERT(pTable->pData, 268);
-    unsigned char* pCursor = pTable->pData;
-    int nRemaining = pTable->nSize;
-    gdwGlobal_007A8918 += nRemaining;
-    while (nRemaining)
-    {
-        D2HashedFileEntryStrc* pEntry = (D2HashedFileEntryStrc*)pCursor;
-        if (pEntry->nFlags)
-        {
-            pEntry->nFlags = 0;
-        }
-        D2_ASSERT(pEntry->nCheck <= 0x40, 294);
-        pCursor += 0x18;
-        pEntry->pData = pCursor;
-        D2_ASSERT(strlen(pEntry->szName) < 8, 121);
-        unsigned int nHash = SStrHash(pEntry->szName, 1, 0);
-        unsigned int nBucket = nHash;
-        for (int i = 0; i < 3; i++)
-        {
-            nBucket = (nBucket >> 8) ^ nHash;
-        }
-        nBucket &= 0x1FF;
-        pEntry->pNext = pTable->pEntries[nBucket];
-        pTable->pEntries[nBucket] = pEntry;
-        pCursor += pEntry->nSize;
-        nRemaining -= 0x18 + pEntry->nSize;
-    }
-    pTable->unk0x00 = 1;
-}
-
-// 0x0046F310
-void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nIndex)
-{
-    char szPath[0x104];
-    wsprintfA(szPath, gszPathFormat_006D4124, szDataGlobal_006D4118, gaszHashedFileNames_006D6C30[nIndex]);
-    sub_0046DDF0_LoadHashedFile(&gtHashedFile_007A78F0, szPath);
-}
-
-#include "gen/data/Source/D2Client/ENGINE/Gfx_0046DB90.inc"
 struct D2InventoryStrc;
-struct D2UnitStrc;
 
-static D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
+struct D2UnitStrc;
 
 // build: context IsShapeShifted
 inline int IsShapeShifted(D2UnitStrc* pUnit)
@@ -908,7 +999,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile_006D6C1C, 0x751);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x751);
     if (gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode])
     {
         return;
@@ -1012,6 +1103,14 @@ static void sub_00470070_PreloadRoomUnits(int bAsync)
     }
 }
 
+static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
+{
+    for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
+    {
+        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[i]);
+    }
+}
+
 // 0x00470350
 void __fastcall sub_00470350_PreloadTick(int bAsync)
 {
@@ -1019,6 +1118,44 @@ void __fastcall sub_00470350_PreloadTick(int bAsync)
     {
         sub_00470070_PreloadRoomUnits(bAsync);
         gdwGlobal_007A8910 = GetTickCount();
+    }
+}
+
+// 0x00470610
+void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg)
+{
+    int nClassId;
+    int nUnitType;
+    int nMode;
+
+    int nTypeValue = 6;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+    }
+
+    nUnitType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClassId = nClassValue;
+    nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0xD17);
+    switch (nUnitType)
+    {
+    case UNIT_PLAYER:
+        sub_0046EA50_LoadGfxNodeSetByte(pUnit, nMode);
+        return;
+
+    case UNIT_MONSTER:
+        sub_0046F9E0_LoadMonsterModeGfx(pUnit, nMode);
+        return;
+
+    case UNIT_OBJECT:
+        sub_0046E980_LoadObjectGfx(pUnit, nMode);
+        return;
+
+    default:
+        D2_ASSERT(0, 0xD26);
+        return;
     }
 }
 
@@ -1049,7 +1186,7 @@ void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit)
     const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile_006D6C1C, 0x1072);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x1072);
     switch (nType)
     {
     case 1:
@@ -1069,3 +1206,54 @@ void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit)
         break;
     }
 }
+
+void sub_M389_Emit_0046FF50(int bAsync, D2UnitStrc* pUnit)
+{
+    for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
+    {
+        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[i] + 0x13);
+    }
+}
+
+void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit)
+{
+    int nType;
+    int nAnimMode;
+    int nClass;
+
+    int nTypeValue = 6;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+    }
+
+    nType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClass = nClassValue;
+    nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x1072);
+    switch (nType)
+    {
+    case 1:
+        if (nClass < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            gpPoolBlock_007A80FC[nClass].nModeFlags[nAnimMode] = 0;
+            gpPoolBlock_007A80FC[nClass].aPending[nAnimMode] = 0;
+            int bAsync = 1;
+            if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || sub_00454840_Test())
+            {
+                bAsync = 0;
+            }
+            sub_0046FEB0_PreloadMonsterModes(bAsync, pUnit);
+        }
+        break;
+    }
+}
+
+int __stdcall sub_M389_Emit_0046FEB0(int bAsync, D2UnitStrc* pUnit)
+{
+    sub_0046FEB0_PreloadMonsterModes(bAsync, pUnit);
+    return 0x3B;
+}
+
+#include "gen/data/Source/D2Client/ENGINE/Gfx_0046DB90.inc"

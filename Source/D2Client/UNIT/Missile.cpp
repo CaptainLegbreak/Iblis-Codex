@@ -480,6 +480,12 @@ unsigned char gnRoomColorIntensity_007C8A6E; // 0x007C8A6E
 
 unsigned char gnRoomColorRed_007C8A6F; // 0x007C8A6F
 
+typedef char cc_M439_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
+
+typedef char cc_M338_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
+
+void __fastcall sub_004CE050_SpawnFollowUp(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);             // 0x004CE050
+
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -1728,6 +1734,22 @@ void __fastcall sub_004D33E0_CltDoOnScreen(D2UnitStrc* pMissile)
     sub_004D2D70_CltMissileHit(pMissile, 0, 0);
 }
 
+// 0x004D3460
+void __fastcall sub_004D3460_CltDoFollowUp(D2UnitStrc* pMissile)
+{
+    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    {
+        const int nMissileId = pMissile->dwClassId;
+        D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(nMissileId);
+        if (pMissilesTxtRecord && pMissilesTxtRecord->wCltSubMissile[0] >= 0)
+        {
+            sub_004CE050_SpawnFollowUp(pMissile, pMissilesTxtRecord->wCltSubMissile[0], 0, MISSILE_EvaluateMissileFormula(pMissile, sub_004639D0_GetOwnerUnit(pMissile), pMissilesTxtRecord->dwCltCalc, nMissileId, sub_0064A210(pMissile)));
+        }
+    }
+
+    sub_004D30C0_CltDoCommon(pMissile);
+}
+
 // 0x004D34E0
 void __fastcall sub_004D34E0_CltDoParamCall(D2UnitStrc* pMissile)
 {
@@ -1739,6 +1761,41 @@ void __fastcall sub_004D34E0_CltDoParamCall(D2UnitStrc* pMissile)
     }
 
     sub_004CE140_SpawnRingAround(pMissile, pMissilesTxtRecord->dwCltParam[0], pMissilesTxtRecord->dwCltParam[1], pMissilesTxtRecord->dwCltParam[2], pMissilesTxtRecord->wCltSubMissile[0]);
+    sub_004D30C0_CltDoCommon(pMissile);
+}
+
+// 0x004D3540
+void __fastcall sub_004D3540_CltDoSubLoop(D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (!pMissilesTxtRecord)
+    {
+        sub_004CD390_CltDoDefault(pMissile);
+        return;
+    }
+
+    int nFrame = pMissile->nSeqCurrentFramePrecise >> 8;
+    if (nFrame == pMissilesTxtRecord->nSubStart - 1)
+    {
+        pMissile->nSeqCurrentFramePrecise = (ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nSubStop - pMissilesTxtRecord->nSubStart) + nFrame) << 8;
+        sub_004D30C0_CltDoCommon(pMissile);
+        return;
+    }
+
+    if (sub_0064A380(pMissile) == pMissilesTxtRecord->nSubStart)
+    {
+        const int nNewFrame = pMissilesTxtRecord->nSubStart - 3;
+        pMissile->nSeqCurrentFramePrecise = (nNewFrame < 0 ? 0 : nNewFrame) << 8;
+        sub_004D30C0_CltDoCommon(pMissile);
+        return;
+    }
+
+    if (sub_0064A380(pMissile) < pMissilesTxtRecord->nSubStart)
+    {
+        nFrame -= 2;
+        pMissile->nSeqCurrentFramePrecise = (nFrame < 0 ? 0 : nFrame) << 8;
+    }
+
     sub_004D30C0_CltDoCommon(pMissile);
 }
 

@@ -1,4 +1,5 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+#include <D2UnitData.h>
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2DataTbls.h"
@@ -75,12 +76,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2ClientItemSlotStrc gaItemSlots_007C0C85[10]; // 0x007C0C85
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x40];
-    int nMinionSpawnClassId;
-};
 
 #pragma pack(push, 1)
 struct D2ClientPacket7Strc

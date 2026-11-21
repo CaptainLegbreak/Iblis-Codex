@@ -1,3 +1,4 @@
+#include <D2UnitData.h>
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2Constants.h"
@@ -73,12 +74,6 @@ struct Unicode
 {
     unsigned short wChar;
     static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
-};
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x3C];
-    int nUnk0x3C;
 };
 
 struct D2ClientNotifyStrc
@@ -300,13 +295,6 @@ extern "C" int gnFlag_007BCE28; // 0x007BCE28
 extern int gnGlobal_007BCE30; // 0x007BCE30
 extern void* gpCel_007BCE8C; // 0x007BCE8C
 extern int gnGlobal_007BCE9C; // 0x007BCE9C
-
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2ItemsTxt
 {
@@ -3238,9 +3226,9 @@ int __fastcall sub_004B1050_GetMonsterValue(D2UnitStrc* pUnit, char* pNotFound, 
 {
     *pNotFound = 1;
     *pValue = -1;
-    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nUnk0x3C != -1)
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nOwnerGUID != -1)
     {
-        *pValue = pUnit->pMonsterData->nUnk0x3C;
+        *pValue = pUnit->pMonsterData->nOwnerGUID;
         *pNotFound = 0;
         return 1;
     }
