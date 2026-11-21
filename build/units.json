@@ -77794,6 +77794,10 @@
      "name": "UNITS_BlockCollisionPath"
     },
     {
+     "va": "0x00620AE0",
+     "length": 105
+    },
+    {
      "va": "0x00620B50",
      "length": 90,
      "name": "UNITS_ResetRoom"
@@ -77894,6 +77898,10 @@
      "name": "UNITS_UpdateFrame"
     },
     {
+     "va": "0x00621330",
+     "length": 45
+    },
+    {
      "va": "0x00621360",
      "length": 109,
      "name": "?UNITS_GetBaseVelocity@@YAHHH@Z"
@@ -77972,6 +77980,10 @@
      "va": "0x006218D0",
      "length": 78,
      "name": "UNITS_SetAnimActionFrame"
+    },
+    {
+     "va": "0x00621920",
+     "length": 159
     },
     {
      "va": "0x006219C0",
@@ -78129,6 +78141,10 @@
      "name": "?sub_00622520_GetToHitFactor@@YAHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00622560",
+     "length": 141
+    },
+    {
      "va": "0x006225F0",
      "length": 297,
      "name": "?sub_006225F0_MonsterCanBlock@@YIHPAUD2UnitStrc@@@Z"
@@ -78148,8 +78164,16 @@
      "length": 173
     },
     {
+     "va": "0x00622920",
+     "length": 197
+    },
+    {
      "va": "0x006229F0",
      "length": 163
+    },
+    {
+     "va": "0x00622AA0",
+     "length": 173
     },
     {
      "va": "0x00622B50",
@@ -78296,6 +78320,10 @@
      "name": "?UNITS_IsCorpseUseable@@YGHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00623660",
+     "length": 464
+    },
+    {
      "va": "0x00623830",
      "length": 140,
      "name": "?UNITS_FreeCollisionPath@@YGXPAUD2UnitStrc@@@Z"
@@ -78309,6 +78337,10 @@
      "va": "0x00623990",
      "length": 380,
      "name": "D2Common_10434"
+    },
+    {
+     "va": "0x00623B10",
+     "length": 266
     },
     {
      "va": "0x00623C20",
@@ -78331,6 +78363,10 @@
      "name": "UNITS_GetItemComponentId"
     },
     {
+     "va": "0x00623E00",
+     "length": 322
+    },
+    {
      "va": "0x00623F50",
      "length": 1086
     },
@@ -78343,62 +78379,6 @@
      "length": 105,
      "name": "?UNITS_ChangeAnimMode@@YGHPAUD2UnitStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Units_00620AE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00620AE0",
-     "length": 105
-    },
-    {
-     "va": "0x00621330",
-     "length": 45
-    },
-    {
-     "va": "0x00621920",
-     "length": 159
-    },
-    {
-     "va": "0x00622560",
-     "length": 141
-    },
-    {
-     "va": "0x00622920",
-     "length": 197
-    },
-    {
-     "va": "0x00622AA0",
-     "length": 173
-    },
-    {
-     "va": "0x00623660",
-     "length": 464
-    },
-    {
-     "va": "0x00623B10",
-     "length": 266
-    },
-    {
-     "va": "0x00623E00",
-     "length": 322
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

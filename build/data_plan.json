@@ -6011,20 +6011,11 @@
    "state": "included"
   },
   "Source/D2Common/UNITS/Units.cpp": {
-   "bytes": 1348,
-   "definitions": 9,
+   "bytes": 1740,
+   "definitions": 10,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/UNITS/Units.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/UNITS/Units_00620AE0.cpp": {
-   "bytes": 392,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/UNITS/Units_00620AE0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -124751,7 +124742,7 @@
    "cname": "gData_006E8E60",
    "declared": true,
    "decorated": "?gaFrameBonus_006E8E60@@3PAY06HA",
-   "file": "Source/D2Common/UNITS/Units_00620AE0.cpp",
+   "file": "Source/D2Common/UNITS/Units.cpp",
    "fill": 14,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E8E60[14][7]; // 0x006E8E60",
