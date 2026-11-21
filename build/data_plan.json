@@ -5008,8 +5008,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a1q4.cpp": {
-   "bytes": 2160,
-   "definitions": 1,
+   "bytes": 2192,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q4.inc",
@@ -5103,15 +5103,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q3_005912E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q4_00592580.cpp": {
-   "bytes": 32,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q4_00592580.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -107747,7 +107738,7 @@
    "cname": "gData_00737648",
    "declared": true,
    "decorated": "?gnA1Q4MessageIndices@@3QBHB",
-   "file": "Source/D2Game/Quests/a1q4_00592580.cpp",
+   "file": "Source/D2Game/Quests/a1q4.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_00737648[8]; // 0x00737648",

@@ -61228,9 +61228,28 @@
      "name": "?ACT1Q4_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00592250",
+     "length": 813,
+     "name": "?ACT1Q4_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00592580",
+     "length": 722
+    },
+    {
      "va": "0x00592860",
      "length": 24,
      "name": "?sub_00592860_DebugStartedQuest@@YAXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005928C0",
+     "length": 160,
+     "name": "ACT1Q4_UnitIterate_RemoveCainFromTristram"
+    },
+    {
+     "va": "0x00592960",
+     "length": 425,
+     "name": "?ACT1Q4_SpawnCainInTown@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x00592B10",
@@ -61268,13 +61287,79 @@
      "name": "?ACT1Q4_Callback06_ResetInifussTree@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00592E90",
+     "length": 228
+    },
+    {
+     "va": "0x005930B0",
+     "length": 116,
+     "name": "?ACT1Q4_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00593130",
+     "length": 140,
+     "name": "?ACT1Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005931C0",
+     "length": 81,
+     "name": "?ACT1Q4_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00593220",
+     "length": 64,
+     "name": "?ACT1Q4_UnitIterate_FindPlayersInTristram@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00593290",
+     "length": 482,
+     "name": "ACT1Q4_SpawnCainInTristram"
+    },
+    {
      "va": "0x00593480",
      "length": 352,
      "name": "?OBJECTS_OperateFunction10_CainGibbet@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x005935E0",
+     "length": 194
+    },
+    {
+     "va": "0x005936B0",
+     "length": 95,
+     "name": "?ACT1Q4_UnitIterate_SetEnterAreaFlag@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00593710",
+     "length": 983
+    },
+    {
+     "va": "0x00593AF0",
+     "length": 439
+    },
+    {
      "va": "0x00593CB0",
      "length": 185
+    },
+    {
+     "va": "0x00593D70",
+     "length": 158,
+     "name": "?ACT1Q4_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00593E30",
+     "length": 58,
+     "name": "?ACT1Q4_UnitIterate_SetCustom6Flag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00593FC0",
+     "length": 83,
+     "name": "?OBJECTS_InitFunction09_InifussTree@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005940E0",
+     "length": 95,
+     "name": "?OBJECTS_InitFunction54_CainStartPosition@@YIXPAUD2ObjInitFnStrc@@@Z"
     },
     {
      "va": "0x005952C0",
@@ -61290,6 +61375,10 @@
      "va": "0x00596D70",
      "length": 97,
      "name": "?sub_00596D70_StartCainRemoval@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x00596DE0",
+     "length": 585
     },
     {
      "va": "0x005971B0",
@@ -63176,121 +63265,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a1q4_00592250.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00592250",
-     "length": 813,
-     "name": "?ACT1Q4_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00592E90",
-     "length": 228
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_00592580.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00592580",
-     "length": 722
-    },
-    {
-     "va": "0x005935E0",
-     "length": 194
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_005928C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005928C0",
-     "length": 160,
-     "name": "ACT1Q4_UnitIterate_RemoveCainFromTristram"
-    },
-    {
-     "va": "0x005930B0",
-     "length": 116,
-     "name": "?ACT1Q4_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00593130",
-     "length": 140,
-     "name": "?ACT1Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005931C0",
-     "length": 81,
-     "name": "?ACT1Q4_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00593220",
-     "length": 64,
-     "name": "?ACT1Q4_UnitIterate_FindPlayersInTristram@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00593290",
-     "length": 482,
-     "name": "ACT1Q4_SpawnCainInTristram"
-    },
-    {
-     "va": "0x005936B0",
-     "length": 95,
-     "name": "?ACT1Q4_UnitIterate_SetEnterAreaFlag@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00593D70",
-     "length": 158,
-     "name": "?ACT1Q4_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00593E30",
-     "length": 58,
-     "name": "?ACT1Q4_UnitIterate_SetCustom6Flag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00593FC0",
-     "length": 83,
-     "name": "?OBJECTS_InitFunction09_InifussTree@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_00592960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00592960",
-     "length": 425,
-     "name": "?ACT1Q4_SpawnCainInTown@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x005940E0",
-     "length": 95,
-     "name": "?OBJECTS_InitFunction54_CainStartPosition@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_00593260.cpp",
    "rank": 1,
    "functions": [
@@ -63298,54 +63272,6 @@
      "va": "0x00593260",
      "length": 34
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_00593710.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00593710",
-     "length": 983
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_00593AF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00593AF0",
-     "length": 439
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -64111,30 +64037,6 @@
      "length": 94,
      "name": "?sub_00596C40_InitQuestCallbacks@@YIXPAUD2QuestData00596C40Strc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_00596DE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00596DE0",
-     "length": 585
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

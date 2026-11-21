@@ -328,7 +328,7 @@ struct D2Net52BE10Strc
     char aData[4];
 };
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00681E09
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
