@@ -28125,11 +28125,6 @@
      "name": "?sub_004B23E0_InitPartyPanel@@YAXXZ"
     },
     {
-     "va": "0x004B7CD0",
-     "length": 475,
-     "name": "?sub_004B7CD0_CreateDialogFromFile@@YIPAUD2ClientDialogStrc@@HHHHHH@Z"
-    },
-    {
      "va": "0x004BE020",
      "length": 56,
      "name": "?sub_004BE020_LoadTextSliderCel@@YAXXZ"
@@ -31144,6 +31139,20 @@
   {
    "file": "Source/D2Client/UI/dialog.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004B7150",
@@ -31238,6 +31247,11 @@
      "va": "0x004B7C60",
      "length": 102,
      "name": "?sub_004B7C60@@YAXXZ"
+    },
+    {
+     "va": "0x004B7CD0",
+     "length": 475,
+     "name": "?sub_004B7CD0_CreateDialogFromFile@@YIPAUD2ClientDialogStrc@@HHHHHH@Z"
     },
     {
      "va": "0x004B7EB0",
