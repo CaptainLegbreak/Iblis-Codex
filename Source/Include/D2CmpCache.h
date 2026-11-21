@@ -6,6 +6,7 @@
 #include "D2StormLink.h"
 #include "D2SysTypes.h"
 #include "D2LRUNode.h"
+#include "D2CmpTileRecord.h"
 
 struct D2SpriteCacheNodeStrc;
 struct D2TileLibraryEntryStrc;
@@ -71,14 +72,6 @@ struct D2GameHashTableStrc
     unsigned int m_fullnessIndicator; // 0x10
     D2StormSlotArrayStrc m_slotlistarray; // 0x14
     unsigned int m_slotmask; // 0x24
-};
-
-struct D2TileRecordStrc
-{
-    char szLibraryName[260]; // 0x00
-    D2TileLibraryHeaderStrc* pLibrary; // 0x104
-    D2TileLibraryHashStrc* pHashBlock; // 0x108
-    D2TileRecordStrc* pPrev; // 0x10C
 };
 
 struct D2StormEntryArrayStrc
@@ -174,15 +167,6 @@ struct D2DccCellStrc
     int nPitch; // 0x08
     int nWidth; // 0x0C
     int nHeight; // 0x10
-};
-
-struct D2TileLibraryHeaderStrc
-{
-    int dwVersion; // 0x00
-    int dwFlags; // 0x04
-    char szLibraryName[260]; // 0x08
-    int nTiles; // 0x10C
-    D2TileLibraryEntryStrc* pFirst; // 0x110
 };
 
 

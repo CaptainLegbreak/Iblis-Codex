@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTileRecord.h"
 #include "D2CmpCelFile.h"
 #include "D2GameTypes.h"
 #include "D2DrlgMaps.h"
@@ -17,7 +18,6 @@ struct D2CmpTileCacheStrc;
 
 struct D2TileLibraryEntryStrc;
 
-struct D2TileLibraryHeaderStrc;
 
 struct D2TSLinkStrc;
 
@@ -33,7 +33,6 @@ struct D2CmpCacheNodeStrc;
 
 struct D2CmpCacheStrc;
 
-struct D2TileRecordStrc;
 
 struct D2CmpCelFileStrc;
 
@@ -326,15 +325,6 @@ struct D2CmpTileCacheStrc
     unsigned char unk0x30[0x20];
 };
 
-struct D2TileLibraryHeaderStrc
-{
-    int dwVersion;
-    int dwFlags;
-    char szLibraryName[260];
-    int nTiles;
-    D2TileLibraryEntryStrc* pFirst;
-};
-
 struct D2TSLinkStrc
 {
     D2TSLinkStrc* pPrevLink;
@@ -405,14 +395,6 @@ struct D2CmpCacheStrc
 };
 
 D2CmpCacheNodeStrc* __fastcall sub_005FF4A0_EvictCacheNode(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nArg); // 0x005FF4A0
-
-struct D2TileRecordStrc
-{
-    char szLibraryName[260];
-    D2TileLibraryHeaderStrc* pLibrary;
-    void* pHashBlock;
-    D2TileRecordStrc* pPrev;
-};
 
 extern D2TileRecordStrc* gpTileRecords; // 0x008ADBB4
 

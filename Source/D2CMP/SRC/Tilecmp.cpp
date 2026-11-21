@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTileLib.h"
 #include "D2CmpTypes.h"
 #include "D2CmpTiles.h"
 
@@ -20,7 +21,6 @@ struct D2CmpTileLibraryStrc;
 
 struct D2TileLibraryEntryStrc;
 
-struct D2TileLibraryHeaderStrc;
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -58,15 +58,6 @@ struct D2TileLibraryEntryStrc
     void* pUnk0x50;
     void* pUnk0x54;
     char unk0x58[0x08];
-};
-
-struct D2TileLibraryHeaderStrc
-{
-    int dwVersion;
-    int dwFlags;
-    char szLibraryName[260];
-    int nTiles;
-    D2TileLibraryEntryStrc* pFirst;
 };
 
 struct D2TileListHeaderStrc;
