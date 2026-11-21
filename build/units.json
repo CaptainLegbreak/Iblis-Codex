@@ -48970,11 +48970,6 @@
      "name": "sub_6FC90C20"
     },
     {
-     "va": "0x00568640",
-     "length": 282,
-     "name": "PLRTRADE_StopAllPlayerInteractions"
-    },
-    {
      "va": "0x00568DC0",
      "length": 147,
      "name": "PLRSAVE2_GetItemIndex"
@@ -55480,6 +55475,11 @@
     {
      "va": "0x00568060",
      "length": 1500
+    },
+    {
+     "va": "0x00568640",
+     "length": 282,
+     "name": "PLRTRADE_StopAllPlayerInteractions"
     },
     {
      "va": "0x00568760",
