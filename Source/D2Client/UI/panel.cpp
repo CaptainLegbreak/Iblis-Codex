@@ -1427,16 +1427,3 @@ int __fastcall sub_004BE340_CountLinesInView(D2TextPanelStrc* pPanel)
 
     return nLineCount;
 }
-
-// 0x004DA000
-void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (!pMotion)
-    {
-        pMotion = (D2GfxMotionStrc*)FOG_Alloc(sizeof(D2GfxMotionStrc), ".\\ENGINE\\Particle.cpp", 72, 0);
-        D2_ASSERT(pMotion, 74);
-    }
-    memset(pMotion, 0, sizeof(D2GfxMotionStrc));
-    sub_0046F070_SetGfxMotion(pUnit, pMotion);
-}

@@ -32,6 +32,22 @@ D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGe
 D2TokRecord* __stdcall DATATBLS_GetCompositTxtRecord(int nComposit);                                        // 0x0065B5E0
 D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                                               // 0x0065B620
 
+
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+// 0x004DA000
+void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (!pMotion)
+    {
+        pMotion = (D2GfxMotionStrc*)FOG_Alloc(sizeof(D2GfxMotionStrc), ".\\ENGINE\\Particle.cpp", 72, 0);
+        D2_ASSERT(pMotion, 74);
+    }
+    memset(pMotion, 0, sizeof(D2GfxMotionStrc));
+    sub_0046F070_SetGfxMotion(pUnit, pMotion);
+}
+
 // 0x004DA070
 D2GfxMotionStrc* __fastcall sub_004DA070_GetGfxMotion(D2UnitStrc* pUnit)
 {

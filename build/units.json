@@ -27294,11 +27294,6 @@
      "va": "0x004BE340",
      "length": 206,
      "name": "sub_004BE340_CountLinesInView"
-    },
-    {
-     "va": "0x004DA000",
-     "length": 99,
-     "name": "sub_004DA000_ResetGfxMotion"
     }
    ],
    "flags": [
@@ -36171,6 +36166,11 @@
    "file": "Source/D2Client/ENGINE/Particle.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004DA000",
+     "length": 99,
+     "name": "sub_004DA000_ResetGfxMotion"
+    },
     {
      "va": "0x004DA070",
      "length": 5,
