@@ -83,39 +83,4 @@ bool crashy::Report::sub_00401210_IsOpen()
     return m_pFile != 0;
 }
 
-// build: context sub_00401B00_LoadDbgHelp
-bool __cdecl sub_00401B00_LoadDbgHelp()
-{
-    if (ghDbgHelp_0098A680)
-    {
-        return true;
-    }
-    void* hModule = LoadLibraryW(L"DbgHelp.dll");
-    if (!hModule)
-    {
-        return false;
-    }
-    if (!(gpfnEnumerateLoadedModules64_0098A6A4 = GetProcAddress(hModule, "EnumerateLoadedModules64"))
-        || !(gpfnStackWalk64_0098A6A0 = GetProcAddress(hModule, "StackWalk64"))
-        || !(gpfnSymFunctionTableAccess64_0098A698 = GetProcAddress(hModule, "SymFunctionTableAccess64"))
-        || !(gpfnSymGetLineFromAddr64_0098A6E8 = GetProcAddress(hModule, "SymGetLineFromAddr64"))
-        || !(gpfnSymGetModuleBase64_0098A69C = GetProcAddress(hModule, "SymGetModuleBase64"))
-        || !(gpfnSymGetModuleInfo64_0098A684 = GetProcAddress(hModule, "SymGetModuleInfo64"))
-        || !(gpfnSymGetOptions_0098A6AC = GetProcAddress(hModule, "SymGetOptions"))
-        || !(gpfnSymGetSymFromAddr64_0098A68C = GetProcAddress(hModule, "SymGetSymFromAddr64"))
-        || !(gpfnSymInitialize_0098A6A8 = GetProcAddress(hModule, "SymInitialize"))
-        || !(gpfnSymCleanup_0098A6B8 = GetProcAddress(hModule, "SymCleanup"))
-        || !(gpfnSymSetOptions_0098A6B4 = GetProcAddress(hModule, "SymSetOptions"))
-        || !(gpfnSymEnumerateModules64_0098A688 = GetProcAddress(hModule, "SymEnumerateModules64"))
-        || !(gpfnSymSetSearchPath_0098A690 = GetProcAddress(hModule, "SymSetSearchPath"))
-        || !(gpfnSymFindFileInPath_0098A6EC = GetProcAddress(hModule, "SymFindFileInPath"))
-        || !(gpfnSymLoadModule64_0098A6DC = GetProcAddress(hModule, "SymLoadModule64"))
-        || !(gpfnSymUnloadModule64_0098A694 = GetProcAddress(hModule, "SymUnloadModule64")))
-    {
-        CloseHandle(hModule);
-        return false;
-    }
-    gpfnMiniDumpWriteDump_0098A6E0 = GetProcAddress(hModule, gszMiniDumpWriteDump_006FFB94);
-    ghDbgHelp_0098A680 = hModule;
-    return true;
-}
+bool __cdecl sub_00401B00_LoadDbgHelp(); // 0x00401B00

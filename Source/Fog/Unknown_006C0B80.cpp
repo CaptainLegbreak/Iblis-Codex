@@ -272,18 +272,7 @@ static int __stdcall sub_006C1820_GetOperandCount(
     }
 }
 
-// build: context DATATABLS_CheckPrecendence
-static __forceinline int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType)
-{
-    if (nPreviousCalcType == 1 || nNewCalcType == 1 || nPreviousCalcType >= 23)
-    {
-        return 0;
-    }
-    else
-    {
-        return gaASTOperatorPrecedence_006FC874[nPreviousCalcType] >= nNewCalcType;
-    }
-}
+int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType); // 0x006C1800
 
 // 0x006C18A0
 static FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue)

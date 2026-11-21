@@ -541,45 +541,7 @@ void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pCo
     CloseHandle(hSnapshot);
 }
 
-// build: context sub_00402820_WriteMiniDump
-bool __fastcall sub_00402820_WriteMiniDump(const char* szPath, const char* szComment, void* pExceptionPointers, unsigned long dwThreadId)
-{
-    wchar_t wszPath[0x104];
-    if (!gbMiniDumpEnabled_0098A6B1)
-    {
-        return false;
-    }
-    EnterCriticalSection(&gtSymbolLock_0098A6F0);
-    if (!ghDbgHelp_0098A680 && !sub_00401B00_LoadDbgHelp())
-    {
-        LeaveCriticalSection(&gtSymbolLock_0098A6F0);
-        return false;
-    }
-    LeaveCriticalSection(&gtSymbolLock_0098A6F0);
-    if (MultiByteToWideChar(0xFDE9, 0, szPath, -1, wszPath, 0x104) <= 0)
-    {
-        return false;
-    }
-    void* hFile = CreateFileW(wszPath, 0x40000000, 0, 0, 2, 0x80, 0);
-    if (hFile == (void*)-1)
-    {
-        return false;
-    }
-    EnterCriticalSection(&gtDbgHelpRequestLock_0098A6C4);
-    D2DbgHelpRequestStrc tRequest;
-    tRequest.hFile = hFile;
-    tRequest.dwThreadId = dwThreadId ? dwThreadId : GetCurrentThreadId();
-    tRequest.szComment = szComment;
-    tRequest.pExceptionPointers = pExceptionPointers;
-    tRequest.bResult = false;
-    gpDbgHelpRequest_0098A6E4 = &tRequest;
-    SetEvent(ghDbgHelpWorkEvent_0098A6C0);
-    WaitForSingleObject(ghDbgHelpDoneEvent_0098A6BC, (unsigned long)-1);
-    gpDbgHelpRequest_0098A6E4 = 0;
-    LeaveCriticalSection(&gtDbgHelpRequestLock_0098A6C4);
-    CloseHandle(hFile);
-    return tRequest.bResult;
-}
+bool __fastcall sub_00402820_WriteMiniDump(const char* szPath, const char* szComment, void* pExceptionPointers, unsigned long dwThreadId); // 0x00402820
 
 // 0x00403F60
 void __fastcall sub_00403F60_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused)
@@ -913,11 +875,7 @@ bool __fastcall sub_00407A20_GetProcessImageName(unsigned long dwProcessId, char
     return bResult;
 }
 
-// build: context sub_00407970_ForceCrash
-void __cdecl sub_00407970_ForceCrash()
-{
-    *(int*)0 = 0;
-}
+void __cdecl sub_00407970_ForceCrash(); // 0x00407970
 
 // 0x00408000
 const char* __fastcall sub_00408000_StripSourcePath(const char* szFile)
