@@ -495,7 +495,7 @@ static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned
     int nUnitType;
     int nGUID;
     D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, nUnitGUID);
-    if (!pObject || pObject->dwClassId != 0x10B)
+    if (!pObject || pObject->dwClassId != OBJECT_STASH)
     {
         return;
     }

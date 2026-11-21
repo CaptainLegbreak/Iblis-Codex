@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -446,7 +447,7 @@ static void __stdcall sub_00461890_OperateObject(int nObjectId, D2PlayerCmdStrc*
 
     D2_ASSERT(DATATBLS_GetObjectsTxtRecord(pObject->dwClassId), 0x4C4);
     int bSetMode = 1;
-    if (pObject->dwClassId == 0x3B && STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_JUST_PORTALED))
+    if (pObject->dwClassId == OBJECT_TOWN_PORTAL && STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_JUST_PORTALED))
         bSetMode = 0;
 
     if (sub_00623660_IsInObjectInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))

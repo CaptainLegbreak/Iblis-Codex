@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2MissileIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"
@@ -365,13 +366,13 @@ void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit)
     switch (pUnit->dwClassId)
     {
     case 0x21C:
-        nObjectId = 0x1DB;
+        nObjectId = OBJECT_ANCIENTSTATUE1;
         break;
     case 0x21D:
-        nObjectId = 0x1DC;
+        nObjectId = OBJECT_ANCIENTSTATUE2;
         break;
     case 0x21E:
-        nObjectId = 0x1DA;
+        nObjectId = OBJECT_ANCIENTSTATUE3;
         break;
     default:
         return;
