@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -80,13 +81,13 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     int bFlag;
     if (!bForce && UNIT_HasFlagEx(pUnit, 0x40000))
         return;
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 0x11 && !STATES_CheckState(pUnit, 7))
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 0x11 && !STATES_CheckState(pUnit, STATE_PLAYERBODY))
         return;
     if (!bForce && pUnit && pUnit->dwUnitType > 0 && pUnit->dwUnitType <= 2)
     {
-        if (STATES_CheckState(pUnit, 0x8F))
+        if (STATES_CheckState(pUnit, STATE_ATTACHED))
             return;
-        if (STATES_CheckState(pUnit, 0x92))
+        if (STATES_CheckState(pUnit, STATE_INVIS))
             return;
     }
     const int bPerspective = sub_004F51D0_IsPerspective();

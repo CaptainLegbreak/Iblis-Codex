@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -273,7 +274,7 @@ static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCall
 
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nEventType == 2)
     {
-        if (STATES_CheckState(pUnit, 54))
+        if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
         {
             sub_6FCBDE90(pUnit, 0);
         }

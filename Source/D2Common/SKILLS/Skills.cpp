@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Common.h"
@@ -1467,7 +1468,7 @@ static __declspec(noinline) BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(
 static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER || pSkill->pSkillsTxt->wStartMana <= 0
-        || STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) >= (int)pSkill->pSkillsTxt->wStartMana << 8 || STATES_CheckState(pUnit, 0xC))
+        || STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) >= (int)pSkill->pSkillsTxt->wStartMana << 8 || STATES_CheckState(pUnit, STATE_INFERNO))
     {
         return 1;
     }
@@ -1479,7 +1480,7 @@ static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2Un
 int __stdcall SKILLS_GetShrineSkillLevelBonus(D2UnitStrc* pUnit)
 {
     int nBonus = 0;
-    if (STATES_CheckState(pUnit, 134))
+    if (STATES_CheckState(pUnit, STATE_SHRINE_SKILL))
     {
         nBonus += 2;
     }
@@ -3216,12 +3217,12 @@ unsigned int __stdcall D2Common_11043(D2UnitStrc* pUnit)
 // 0x006461D0
 int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId)
 {
-    if (!STATES_CheckState(pUnit, 42))
+    if (!STATES_CheckState(pUnit, STATE_CONCENTRATION))
     {
         return 0;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 42);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONCENTRATION);
     if (!pStatList)
     {
         return 0;
@@ -4255,7 +4256,7 @@ static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStr
     }
 
     const int nRequiredMana = (pSkillsTxt->wMana + nSkillLevel * pSkillsTxt->wLevelMana) << pSkillsTxt->nManaShift;
-    if (STATES_CheckState(pUnit, 0x72))
+    if (STATES_CheckState(pUnit, STATE_BLOOD_MANA))
     {
         return STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >= nRequiredMana;
     }
@@ -4444,7 +4445,7 @@ static __declspec(noinline) BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* p
         return 1;
     }
 
-    if (!STATES_CheckState(pUnit, 0x79))
+    if (!STATES_CheckState(pUnit, STATE_SKILLDELAY))
     {
         return 1;
     }

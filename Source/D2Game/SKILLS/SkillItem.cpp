@@ -3147,7 +3147,7 @@ int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget
         return 0;
     }
 
-    if (STATES_CheckState(pTarget, 110))
+    if (STATES_CheckState(pTarget, STATE_PREGNANT))
     {
         return 0;
     }

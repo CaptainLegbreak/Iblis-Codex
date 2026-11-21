@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -194,9 +195,9 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
         nVelocity = (pMissilesTxtRecord->nVel + pMissileParams->nSkillLevel * pMissilesTxtRecord->nVelLev / 8) << 8;
     }
 
-    if (MISSILE_FLAGBIT(pMissilesTxtRecord, 3) && STATES_CheckState(pMissileParams->pOwner, 0x57))
+    if (MISSILE_FLAGBIT(pMissilesTxtRecord, 3) && STATES_CheckState(pMissileParams->pOwner, STATE_SLOWMISSILES))
     {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, STATE_SLOWMISSILES);
         if (pStatList)
         {
             nVelocity = STATLIST_GetStatValue(pStatList, STAT_SKILL_HANDOFATHENA, 0) * nVelocity / 100;

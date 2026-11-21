@@ -883,7 +883,7 @@ int __fastcall SKILLS_SrvDo095_MonInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     sub_005CC2E0_UpdateInfernoAnimationParameters(pUnit, pMissile, nSkillId, nSkillLevel);
     SKILLS_SetInfernoFrame(pSkillsTxtRecord, pUnit);
 
-    if (pGame->dwGameFrame < SKILLS_GetParam1(pSkill) && STATES_CheckState(pUnit, 12))
+    if (pGame->dwGameFrame < SKILLS_GetParam1(pSkill) && STATES_CheckState(pUnit, STATE_INFERNO))
     {
         int nAnimLength = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
         if (nAnimLength < 1)
@@ -951,7 +951,7 @@ int __fastcall SKILLS_SrvDo152_DiabLight(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     sub_005CC2E0_UpdateInfernoAnimationParameters(pUnit, pMissile, nSkillId, nSkillLevel);
     SKILLS_SetInfernoFrame(pSkillsTxtRecord, pUnit);
 
-    if (pGame->dwGameFrame < SKILLS_GetParam1(pSkill) && STATES_CheckState(pUnit, 12))
+    if (pGame->dwGameFrame < SKILLS_GetParam1(pSkill) && STATES_CheckState(pUnit, STATE_INFERNO))
     {
         int nAnimLength = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
         if (nAnimLength < 1)
@@ -1659,7 +1659,7 @@ int __fastcall SKILLS_SrvDo111_FetishAura(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 void __fastcall SKILLS_CurseStateCallback_BasicAura(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
     STATES_ToggleState(pUnit, nState, 0);
-    if (STATES_CheckState(pUnit, 85))
+    if (STATES_CheckState(pUnit, STATE_NOMANAREGEN))
     {
         STATES_ToggleState(pUnit, 85, 0);
     }

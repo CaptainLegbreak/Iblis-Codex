@@ -1059,7 +1059,7 @@ static unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit)
 {
 	const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
 	const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
-	D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 100);
+	D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_HEALTHPOT);
 	if (!pStatList || !nMaxLife)
 	{
 		return 0;
@@ -2208,7 +2208,7 @@ static int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
 
     D2UnitStrc* pOtherUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-    if (pOtherUnit && STATES_CheckState(pOtherUnit, 0x8F))
+    if (pOtherUnit && STATES_CheckState(pOtherUnit, STATE_ATTACHED))
     {
         D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pOtherUnit);
         if (pOwner)

@@ -1998,7 +1998,7 @@ int __fastcall sub_005AA180_CheckOwnerState(D2GameStrc* pGame, D2UnitStrc* pUnit
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pUnit);
     if (pOwner && pExpectedOwner == pOwner)
     {
-        if (STATES_CheckState(pOwner, 13))
+        if (STATES_CheckState(pOwner, STATE_BLAZE))
             nResult = 0;
     }
     return nResult;
@@ -4334,7 +4334,7 @@ void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile,
 
     pDamage->wResultFlags |= 1;
 
-    if (!STATES_CheckState(pDefender, 0x36))
+    if (!STATES_CheckState(pDefender, STATE_UNINTERRUPTABLE))
     {
         if (pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[6])
         {
@@ -4532,7 +4532,7 @@ static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2Unit
         return;
 
     EVENT_SetEvent(pGame, pUnit, 0xC, nDelay, 0, 0);
-    STATLIST_SetState(pStatList, 0x56);
+    STATLIST_SetState(pStatList, STATE_JUSTHIT);
     STATLIST_SetStatRemoveCallback(pStatList, MISSMODE_ToggleStateOff);
     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     STATES_ToggleState(pUnit, 0x56, 1);
@@ -4631,7 +4631,7 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
 
     if (pUnit)
     {
-        if ((pTxt->nNextHit && STATES_CheckState(pUnit, 0x56)) || MISSILE_CheckUnitIfOwner(pMissile, pUnit))
+        if ((pTxt->nNextHit && STATES_CheckState(pUnit, STATE_JUSTHIT)) || MISSILE_CheckUnitIfOwner(pMissile, pUnit))
         {
             return 1;
         }
@@ -6235,7 +6235,7 @@ int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamS
             D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
             if (pTargetRoom && !DUNGEON_IsRoomInTown(pTargetRoom))
             {
-                if (nLifePct < 30 && (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25 && !STATES_CheckState(pUnit, 52))
+                if (nLifePct < 30 && (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25 && !STATES_CheckState(pUnit, STATE_PREVENTHEAL))
                 {
                     int nHeal = STATLIST_UnitGetStatValue(pUnit, 12, 0) << 8;
                     const int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);

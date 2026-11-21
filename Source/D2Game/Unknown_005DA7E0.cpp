@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -409,7 +410,7 @@ static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId,
             UNITS_SetOverlay(pDefender, pSkillsTxtRecord->wSrvOverlay, 0);
         }
 
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 0x15);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, STATE_STUNNED);
         if (pStatList)
         {
             D2Common_10474(pDefender, pStatList);

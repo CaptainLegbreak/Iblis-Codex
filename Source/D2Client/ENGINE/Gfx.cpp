@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -955,7 +956,7 @@ inline int UNITS_IsFlag5SetInl(D2UnitStrc* pUnit)
 // 0x00471450
 int __fastcall sub_00471450_DrawUnitShadow(D2UnitStrc* pUnit)
 {
-    if (UNITS_IsFlag5SetInl(pUnit) || STATES_CheckState(pUnit, 0x92))
+    if (UNITS_IsFlag5SetInl(pUnit) || STATES_CheckState(pUnit, STATE_INVIS))
     {
         return 0;
     }

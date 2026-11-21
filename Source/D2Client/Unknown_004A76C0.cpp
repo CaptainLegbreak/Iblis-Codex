@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -840,7 +841,7 @@ NEXT_TEXT:;
                 nColor = 3;
             }
 
-            if (pPlayer->pInventory && INVENTORY_GetEquippedShield(pPlayer->pInventory, 0) && STATES_CheckState(pPlayer, 0x65))
+            if (pPlayer->pInventory && INVENTORY_GetEquippedShield(pPlayer->pInventory, 0) && STATES_CheckState(pPlayer, STATE_HOLYSHIELD))
             {
                 nColor = 3;
             }
@@ -1195,7 +1196,7 @@ void __cdecl sub_004AA7E0_ResetSkillIcons()
 int __cdecl sub_004AA900_IsStateOrValue()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer && STATES_CheckState(pPlayer, 0x36))
+    if (pPlayer && STATES_CheckState(pPlayer, STATE_UNINTERRUPTABLE))
     {
         return 1;
     }

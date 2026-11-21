@@ -569,7 +569,7 @@ static int sub_6FC81890(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode)
 
 static __forceinline int sub_GetConcStat(D2UnitStrc* pUnit)
 {
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x2A);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONCENTRATION);
     return STATLIST_GetStatValue(pStatList, STAT_SKILL_CONCENTRATION, 0);
 }
 
@@ -581,7 +581,7 @@ static __forceinline int sub_GetAnimMode(D2UnitStrc* pUnit)
 // 0x0057EEC0
 int __fastcall sub_0057EEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int bCheckUsedSkill, D2SkillStrc* pSkill)
 {
-    if (STATES_CheckState(pUnit, 0x36))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
         return 0;
     }
@@ -617,9 +617,9 @@ int __fastcall sub_0057EEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int
 
     if (pUsedSkillsTxtRecord->nFlags[3] & gbMask_006CE284)
     {
-        if ((STATES_CheckState(pUnit, 0x2A)
+        if ((STATES_CheckState(pUnit, STATE_CONCENTRATION)
             && (int)(SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100)) < sub_GetConcStat(pUnit))
-            || STATES_CheckState(pUnit, 0x0F))
+            || STATES_CheckState(pUnit, STATE_CONCENTRATE))
         {
             if (sub_GetAnimMode(pUnit) == 1)
             {
@@ -1639,7 +1639,7 @@ static __declspec(noinline) int EVENTS_HpRegen(D2UnitStrc* pUnit)
     if (nLife > nMaxHp)
     {
         nLife = nMaxHp;
-        D2StatListStrc* pHealthPotStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x64);
+        D2StatListStrc* pHealthPotStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_HEALTHPOT);
         if (pHealthPotStatList)
         {
             D2Common_10474(pUnit, pHealthPotStatList);
@@ -1676,7 +1676,7 @@ static __declspec(noinline) void EVENTS_ManaRegen(D2UnitStrc* pUnit)
         const int nMaxMana = STATLIST_GetMaxManaFromUnit(pUnit);
 
         int nManaRecovery = 0;
-        if (!STATES_CheckState(pUnit, 0x55))
+        if (!STATES_CheckState(pUnit, STATE_NOMANAREGEN))
         {
             D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord_Inline(pUnit->dwClassId);
             if (!pCharStatsTxtRecord)
@@ -1696,7 +1696,7 @@ static __declspec(noinline) void EVENTS_ManaRegen(D2UnitStrc* pUnit)
         nManaRecovery += STATLIST_UnitGetStatValue(pUnit, STAT_MANARECOVERY, 0);
         if (nMaxMana <= nMana && nManaRecovery > 0)
         {
-            D2StatListStrc* pManaPotStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x6A);
+            D2StatListStrc* pManaPotStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_MANAPOT);
             if (pManaPotStatList)
             {
                 D2Common_10474(pUnit, pManaPotStatList);
@@ -1894,7 +1894,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 {
     sub_6FCBC7E0(pGame, pPlayer);
 
-    if (STATES_CheckState(pPlayer, 13))
+    if (STATES_CheckState(pPlayer, STATE_BLAZE))
     {
         SKILLS_CreateBlazeMissile(pGame, pPlayer);
     }
@@ -2009,7 +2009,7 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
     D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pDefender);
     sub_6FCBCE70(pGame, pDefender);
 
-    if (!STATES_CheckState(pDefender, 0x07) && pDefender)
+    if (!STATES_CheckState(pDefender, STATE_PLAYERBODY) && pDefender)
     {
         pDefender->dwFlags &= ~0x02;
     }

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
@@ -221,16 +222,16 @@ int __fastcall sub_004C1E40_SetChargedSkill(D2UnitStrc* pItem, int nSkillId, int
 // 0x004C21F0
 void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pUnit)
 {
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x36);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_UNINTERRUPTABLE);
     if (!pStatList)
     {
         pStatList = STATLIST_AllocStatList(0, 2, 0x0C, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
-        STATLIST_SetState(pStatList, 0x36);
+        STATLIST_SetState(pStatList, STATE_UNINTERRUPTABLE);
         STATLIST_SetStatRemoveCallback(pStatList, sub_004C21E0_StatRemoveCallback_ToggleStateOff);
     }
     else
     {
-        STATLIST_SetState(pStatList, 0x36);
+        STATLIST_SetState(pStatList, STATE_UNINTERRUPTABLE);
     }
 }
 

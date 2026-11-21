@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -647,7 +648,7 @@ int __fastcall sub_004F0AB0_StartTimedState(D2UnitStrc* pUnit, int nSkillId, int
     }
 
     SKILLS_SetParam1(pSkill, sub_0044DA90_GetTick() + nDelay);
-    if (!STATES_CheckState(pUnit, 0xC))
+    if (!STATES_CheckState(pUnit, STATE_INFERNO))
     {
         STATES_ToggleState(pUnit, 0xC, 1);
     }
@@ -809,7 +810,7 @@ int __fastcall sub_004F2450_StartStateList(D2UnitStrc* pUnit, int nSkillId, int 
         return 0;
     }
 
-    if (!STATES_CheckState(pUnit, 0xC))
+    if (!STATES_CheckState(pUnit, STATE_INFERNO))
     {
         const short nOverlay = pSkillsTxtRecord->wPrgOverlay;
         if (nOverlay > 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount)
@@ -824,7 +825,7 @@ int __fastcall sub_004F2450_StartStateList(D2UnitStrc* pUnit, int nSkillId, int 
         }
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0xC);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_INFERNO);
     if (!pStatList)
     {
         pStatList = STATLIST_AllocStatList(0, 2, 0x14, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
@@ -842,7 +843,7 @@ int __fastcall sub_004F2450_StartStateList(D2UnitStrc* pUnit, int nSkillId, int 
         SKILLS_SetParam1(pSkill, 0);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATLIST_SetStatRemoveCallback(pStatList, sub_004F2440_OnStateRemove);
-        STATLIST_SetState(pStatList, 0xC);
+        STATLIST_SetState(pStatList, STATE_INFERNO);
         STATES_ToggleState(pUnit, 0xC, 1);
         return 1;
     }

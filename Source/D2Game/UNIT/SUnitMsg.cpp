@@ -927,7 +927,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     {
     case UNIT_PLAYER:
         sub_6FC82830(pUnit, pClient);
-        if (SUNIT_IsDead(pUnit) && STATES_CheckState(pUnit, 7))
+        if (SUNIT_IsDead(pUnit) && STATES_CheckState(pUnit, STATE_PLAYERBODY))
         {
             D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, 0, INVENTORY_GetOwnerId(UnitInventory(pUnit)));
             D2_ASSERT(pOwner, 184);
@@ -941,7 +941,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         break;
     case UNIT_MONSTER:
         MONSTERMSG_SendMonsterModeUpdate(pGame, pUnit, pClient);
-        if (STATES_CheckState(pUnit, 93) || pUnit->dwClassId == 291 || pUnit->dwClassId == 417 || pUnit->dwClassId == 418)
+        if (STATES_CheckState(pUnit, STATE_VALKYRIE) || pUnit->dwClassId == 291 || pUnit->dwClassId == 417 || pUnit->dwClassId == 418)
             PLAYER_SynchronizeItemsToClient(pUnit, pClient);
         break;
     case UNIT_ITEM:

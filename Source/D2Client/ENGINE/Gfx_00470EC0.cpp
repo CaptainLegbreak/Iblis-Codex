@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -9,9 +10,6 @@ struct D2InventoryStrc;
 
 
 
-enum
-{
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -386,7 +384,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         else if (nComponent == 14)
         {
             D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
-            if (pOwner && (pOwner->dwUnitType == UNIT_MISSILE || STATES_CheckState(pOwner, 0x8F)))
+            if (pOwner && (pOwner->dwUnitType == UNIT_MISSILE || STATES_CheckState(pOwner, STATE_ATTACHED)))
                 sub_004DC7B0_DrawUnitByType(pOwner, dwColor, 1);
             continue;
         }

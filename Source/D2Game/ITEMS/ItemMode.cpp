@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -1434,7 +1435,7 @@ void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitS
     }
 
     const int v_dwUnitType_74 = *(int *)&pUnit->dwUnitType;
-    if (v_dwUnitType_74 == 0 && STATES_CheckState(pUnit, 7))
+    if (v_dwUnitType_74 == 0 && STATES_CheckState(pUnit, STATE_PLAYERBODY))
     {
         return;
     }
@@ -1699,7 +1700,7 @@ void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc* pG
 {
     if (!pTarget || !pItem || pItem->dwUnitType != UNIT_ITEM)
         return;
-    if (pTarget->dwUnitType == UNIT_PLAYER && STATES_CheckState(pTarget, 7))
+    if (pTarget->dwUnitType == UNIT_PLAYER && STATES_CheckState(pTarget, STATE_PLAYERBODY))
         return;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, 9, pItem->dwUnitId);
     if (pTarget != STATLIST_GetOwner(pItem, 0))

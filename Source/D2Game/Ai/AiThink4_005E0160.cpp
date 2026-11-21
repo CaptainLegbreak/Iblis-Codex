@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -190,7 +191,7 @@ void __fastcall sub_005E2D80_ThinkControlledMinion(D2GameStrc* pGame, D2UnitStrc
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pUnit);
-    if (STATES_CheckState(pUnit, 143) && pOwner)
+    if (STATES_CheckState(pUnit, STATE_ATTACHED) && pOwner)
     {
         D2MonStatsTxt* pRecords[2] = { MONSTERMODE_GetMonStatsTxtRecord(492), MONSTERMODE_GetMonStatsTxtRecord(493) };
         D2SeedStrc* pSeed = &pUnit->pSeed;
@@ -259,13 +260,13 @@ void __fastcall AITHINK_Fn124_FrozenHorror(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if (pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < (nSkillLevel < 0 ? 0 : nSkillLevel)
         && (int)(SEED_RollRandomNumber(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 2)
-        && !STATES_CheckState(pUnit, 12))
+        && !STATES_CheckState(pUnit, STATE_INFERNO))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
         return;
     }
 
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         STATES_ToggleState(pUnit, 12, 0);
     }

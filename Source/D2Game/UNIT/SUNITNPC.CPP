@@ -2449,7 +2449,7 @@ void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* a2, D2Un
         *(unsigned char*)a4 = 1;
     }
 
-    D2StatListStrc* pStatListPoison = STATLIST_GetStatListFromUnitAndState(pUnit, 2);
+    D2StatListStrc* pStatListPoison = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_POISON);
     if (pStatListPoison)
     {
         D2Common_10474(pUnit, pStatListPoison);
@@ -2457,7 +2457,7 @@ void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* a2, D2Un
         *(unsigned char*)a4 = 1;
     }
 
-    D2StatListStrc* pStatListFreeze = STATLIST_GetStatListFromUnitAndState(pUnit, 1);
+    D2StatListStrc* pStatListFreeze = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_FREEZE);
     if (pStatListFreeze)
     {
         D2Common_10474(pUnit, pStatListFreeze);

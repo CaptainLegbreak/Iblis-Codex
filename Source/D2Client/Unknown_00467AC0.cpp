@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -705,7 +706,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
                     nPriority = -8;
                 }
 
-                if (STATES_CheckState(pUnit, 0x8F))
+                if (STATES_CheckState(pUnit, STATE_ATTACHED))
                 {
                     continue;
                 }

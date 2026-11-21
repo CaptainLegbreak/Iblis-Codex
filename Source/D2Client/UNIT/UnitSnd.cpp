@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2DataTbls.h"
@@ -947,7 +948,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         return;
     case 12:
     {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x44);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_EVADE);
         if (!pStatList)
             return;
         const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
@@ -1116,7 +1117,7 @@ static void __stdcall sub_004CC410_PlayHitSound(D2UnitStrc* pUnit, int nMode)
 {
     const int nType = sub_004CA320_GetUnitSndType(pUnit);
     const int nHitClass = pUnit->dwLastHitClass;
-    if (nType == 1 && STATES_CheckState(pUnit, 0x92))
+    if (nType == 1 && STATES_CheckState(pUnit, STATE_INVIS))
         return;
 
     int nSound1;
@@ -1133,7 +1134,7 @@ static void __stdcall sub_004CC410_PlayHitSound(D2UnitStrc* pUnit, int nMode)
         sub_004CC160_AddUnitSoundRefs(pUnit, -1);
     }
 
-    if (STATES_CheckState(pUnit, 1))
+    if (STATES_CheckState(pUnit, STATE_FREEZE))
         return;
     if ((nHitClass & 0xF0) == 0xA0)
         return;

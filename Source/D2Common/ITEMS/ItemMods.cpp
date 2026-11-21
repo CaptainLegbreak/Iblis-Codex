@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
@@ -2661,7 +2662,7 @@ int __stdcall ITEMMODS_UpdateRuneword(D2UnitStrc* pUnit, D2UnitStrc* pItem, int 
         return 0;
     }
 
-    if (sub_00625790_UnitFindStatList(pUnit, 171, 0x40))
+    if (sub_00625790_UnitFindStatList(pUnit, STATE_RUNEWORD, 0x40))
     {
         return 0;
     }
@@ -2676,7 +2677,7 @@ int __stdcall ITEMMODS_UpdateRuneword(D2UnitStrc* pUnit, D2UnitStrc* pItem, int 
             break;
         }
 
-        D2COMMON_11292_ItemAssignProperty(6, pUnit, pItem, 0, i, 0, pProperty, 171, 0x40, 0);
+        D2COMMON_11292_ItemAssignProperty(6, pUnit, pItem, 0, i, 0, pProperty, STATE_RUNEWORD, 0x40, 0);
     }
 
     return 1;

@@ -3320,7 +3320,7 @@ int __fastcall sub_005E8810_SelectBaalAction(D2AiControlStrc* pAi,D2UnitStrc* pU
         int nInitial[17]={0,0,40,70,0,40,24,40,15,0,0,0,0,0,0,0,0};
         memcpy(nWeights,nInitial,sizeof(nWeights));
         if(UNITS_GetCurrentLifePercentage(pTarget)<20)nWeights[2]=50;
-        if(STATES_CheckState(pTarget,11)){nWeights[7]=0;nWeights[8]=0;}
+        if(STATES_CheckState(pTarget,STATE_COLD)){nWeights[7]=0;nWeights[8]=0;}
         if(nFireRes>nColdRes)nWeights[6]-=10;
         if(nFireRes<nColdRes)nWeights[6]+=10;
         if(!bAttack){nWeights[5]=0;nWeights[6]=0;}
@@ -3438,7 +3438,7 @@ int __fastcall sub_005E9750_DiabloChooseAction(D2AiControlStrc* pAi,D2UnitStrc* 
         int nInitial[17]={0,0,40,70,0,75,24,40,15,0,0,0,0,0,0,0,0};
         memcpy(nWeights,nInitial,sizeof(nWeights));
         if(UNITS_GetCurrentLifePercentage(pTarget)<20)nWeights[2]=50;
-        if(STATES_CheckState(pTarget,11)){nWeights[7]=0;nWeights[8]=0;}
+        if(STATES_CheckState(pTarget,STATE_COLD)){nWeights[7]=0;nWeights[8]=0;}
         if(nFireRes>nColdRes)nWeights[6]-=10;
         if(nFireRes<nColdRes)nWeights[6]+=10;
         if(!bAttack){nWeights[5]=0;nWeights[6]=0;}
@@ -3758,7 +3758,7 @@ void __fastcall AITHINK_Fn101_AssassinSentry(D2GameStrc* pGame, D2UnitStrc* pUni
         return;
     }
 
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         STATES_ToggleState(pUnit, 12, 0);
     }
@@ -5727,7 +5727,7 @@ void __fastcall sub_005EE5D0_ThinkNihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit
     const int nTargetDistance = pAiTickParam->nTargetDistance;
     D2SeedStrc* pSeed = &pUnit->pSeed;
     ACT5Q4_OnNihlathakActivated(pGame, pUnit);
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
         STATES_ToggleState(pUnit, 12, 0);
     if (!pTarget)
     {
@@ -6807,7 +6807,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
         {
             pAiControl->dwAiParam[0] = 1;
 
-            if (pMonStatsTxt->nSkill[0] < 0 || STATES_CheckState(pUnit, 22))
+            if (pMonStatsTxt->nSkill[0] < 0 || STATES_CheckState(pUnit, STATE_SPIDERLAY))
             {
                 sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
                 return;

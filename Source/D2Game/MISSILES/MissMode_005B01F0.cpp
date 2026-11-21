@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -132,7 +133,7 @@ static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2Unit
         return;
 
     EVENT_SetEvent(pGame, pUnit, 0xC, nDelay, 0, 0);
-    STATLIST_SetState(pStatList, 0x56);
+    STATLIST_SetState(pStatList, STATE_JUSTHIT);
     STATLIST_SetStatRemoveCallback(pStatList, MISSMODE_ToggleStateOff);
     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     STATES_ToggleState(pUnit, 0x56, 1);
@@ -172,7 +173,7 @@ static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
 
     if (pUnit)
     {
-        if ((pTxt->nNextHit && STATES_CheckState(pUnit, 0x56)) || MISSILE_CheckUnitIfOwner(pMissile, pUnit))
+        if ((pTxt->nNextHit && STATES_CheckState(pUnit, STATE_JUSTHIT)) || MISSILE_CheckUnitIfOwner(pMissile, pUnit))
         {
             return 1;
         }

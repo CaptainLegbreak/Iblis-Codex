@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -1121,7 +1122,7 @@ static void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt*
         D2CharStatsTxt* pCharStats = (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount) ? &sgptDataTables->pCharStatsTxt[nClass] : 0;
         nBlock += pCharStats->nBlockFactor;
         void* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, SKILL_HOLYSHIELD);
-        if (pSkill && STATES_CheckState(pPlayer, 0x65))
+        if (pSkill && STATES_CheckState(pPlayer, STATE_HOLYSHIELD))
         {
             const int nLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
             nBlock += D2COMMON_11036_GetMonCurseResistanceSubtraction(nLevel, SKILL_HOLYSHIELD);
@@ -1165,7 +1166,7 @@ static void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsT
         nStringId = 0xD8C;
         D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
         void* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_HOLYSHIELD);
-        if (pSkill && STATES_CheckState(pUnit, 0x65))
+        if (pSkill && STATES_CheckState(pUnit, STATE_HOLYSHIELD))
         {
             const int nLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
             nMin += SKILLS_GetMinPhysDamage(pUnit, SKILL_HOLYSHIELD, nLevel, 1) >> 8;

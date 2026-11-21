@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -210,7 +211,7 @@ int __fastcall sub_004C83C0_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillI
         return 0;
     if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
-        if (STATES_CheckState(pUnit, 0x36))
+        if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
             return 0;
         if (SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillsBar.cpp", 442) == nSkillId && (SKILLS_GetFlags(pSkill) & 1))
             return 0;
@@ -559,7 +560,7 @@ int __fastcall sub_004C8D90_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, i
 
     if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
-        if (STATES_CheckState(pUnit, 0x36))
+        if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
             return 0;
 
         if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsBarSourceFile_006DAE58, 930) == nSkillId && (SKILLS_GetFlags(pSkill) & 1))
@@ -697,7 +698,7 @@ int __fastcall sub_004C9120_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, in
             return 0;
         }
 
-        if (STATES_CheckState(pUnit, 0x36))
+        if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
         {
             return 0;
         }

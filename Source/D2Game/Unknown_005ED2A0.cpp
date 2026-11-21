@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -138,7 +139,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         return;
     }
 
-    const int bState = STATES_CheckState(pUnit, 138);
+    const int bState = STATES_CheckState(pUnit, STATE_FENRIS_RAGE);
     if (pMonStatsTxtRecord->nSkill[0] >= 0 && !bState
         && ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(2) || !pTarget || pAiTickParam->pAiControl->dwAiParam[0]))
     {

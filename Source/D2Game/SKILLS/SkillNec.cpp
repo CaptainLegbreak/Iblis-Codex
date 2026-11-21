@@ -1459,9 +1459,9 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
 static __declspec(noinline) void __stdcall sub_005C4300_SetSkeletonComponents(D2UnitStrc* pPet, int nSkillLevel, D2UnitStrc* pUnit, int nSkillId)
 {
     int nLevel = 1;
-    if (STATES_CheckState(pUnit, 0x61))
+    if (STATES_CheckState(pUnit, STATE_ITEMFULLSET))
     {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x61);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_ITEMFULLSET);
         if (pStatList)
         {
             STATLIST_GetStatValue(pStatList, 0x15E, 0);
@@ -1488,9 +1488,9 @@ static __declspec(noinline) void __stdcall sub_005C4300_SetSkeletonComponents(D2
 static __declspec(noinline) void __stdcall sub_005C43D0_SetMageComponents(D2UnitStrc* pPet, D2UnitStrc* pUnit)
 {
     int nLevel = 1;
-    if (STATES_CheckState(pUnit, 0x61))
+    if (STATES_CheckState(pUnit, STATE_ITEMFULLSET))
     {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x61);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_ITEMFULLSET);
         if (pStatList)
         {
             STATLIST_GetStatValue(pStatList, 0x15E, 0);

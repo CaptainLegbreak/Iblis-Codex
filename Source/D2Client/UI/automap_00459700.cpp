@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -550,7 +551,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
 {
     const int nUnitType = AUTOMAP_GetUnitType(pUnit);
     unsigned char nColor = 0;
-    if (nUnitType == 0 && sub_00464820_IsDeadOrDying(pUnit) && !STATES_CheckState(pUnit, 7))
+    if (nUnitType == 0 && sub_00464820_IsDeadOrDying(pUnit) && !STATES_CheckState(pUnit, STATE_PLAYERBODY))
     {
         return;
     }

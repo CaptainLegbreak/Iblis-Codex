@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2DataTbls.h"
@@ -678,7 +679,7 @@ int __fastcall sub_004CA060(D2UnitStrc* pUnit, int nSkillId, int nArg, D2UnitStr
     if (pSkillsTxtRecord->nFlags[4] & gnBitMasks_006CE268[2])
     {
         int bToggled = 0;
-        if (pTarget && sub_00464820_IsDeadOrDying(pTarget) && STATES_CheckState(pTarget, 0x76))
+        if (pTarget && sub_00464820_IsDeadOrDying(pTarget) && STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT))
         {
             bToggled = 1;
             STATES_ToggleState(pTarget, 0x76, 0);

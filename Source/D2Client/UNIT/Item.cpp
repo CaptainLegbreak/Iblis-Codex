@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
@@ -1052,7 +1053,7 @@ int __fastcall sub_004C2150_FindInTable(int nValue)
 void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* hItem)
 {
     D2_ASSERT(hItem, 0xCC2);
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(hItem, 0x36);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(hItem, STATE_UNINTERRUPTABLE);
     if (pStatList)
     {
         STATES_ToggleState(hItem, 0x36, 0);
@@ -1074,7 +1075,7 @@ int __fastcall sub_004C2240(D2UnitStrc* pUnit)
     if (STATLIST_GetStatListFromUnitAndFlag(pUnit, 2))
         return 1;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer && STATES_CheckState(pPlayer, 0x36))
+    if (pPlayer && STATES_CheckState(pPlayer, STATE_UNINTERRUPTABLE))
         return 1;
     return 0;
 }

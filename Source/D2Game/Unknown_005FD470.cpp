@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -134,7 +135,7 @@ int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, in
     {
         return 0;
     }
-    if (STATES_CheckState(pUnit, 54))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
         return 0;
     }

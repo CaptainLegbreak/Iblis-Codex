@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -1071,7 +1072,7 @@ int __stdcall sub_006259B0_GetStateStat(D2UnitStrc* pUnit)
     case UNIT_PLAYER:
     case UNIT_MONSTER:
     {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x69);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_ALIGNMENT);
         if (!pStatList)
             return 0;
         return STATLIST_GetTotalStatValue(pStatList, 0xAC, 0);

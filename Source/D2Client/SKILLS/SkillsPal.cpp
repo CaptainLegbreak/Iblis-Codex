@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -89,7 +90,7 @@ int __fastcall sub_004C9B40_StartCharge(D2UnitStrc* pUnit,int nSkillId,int nSkil
   if(sound>0)sub_004B9A00(sound,pUnit,0,0,0);
  }
  if(pTarget){
-  if(!STATES_CheckState(pTarget,54)){
+  if(!STATES_CheckState(pTarget,STATE_UNINTERRUPTABLE)){
    SKILLS_SetParam1(pSkill,UNITS_GetUnitTypeChecked(pTarget));
    SKILLS_SetParam2(pSkill,UNITS_GetUnitIdChecked(pTarget));
   }else{SKILLS_SetParam1(pSkill,6);SKILLS_SetParam2(pSkill,0);}

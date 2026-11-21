@@ -542,7 +542,7 @@ static int __stdcall sub_6FCF1A50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitSt
         return 0;
     }
 
-    if (STATES_CheckState(pTarget, 0x92))
+    if (STATES_CheckState(pTarget, STATE_INVIS))
     {
         switch (pTarget->dwUnitType)
         {
@@ -1189,7 +1189,7 @@ int __fastcall sub_005DD480_CanSwitchAiMode(D2UnitStrc* pUnit, int nAiMode)
     {
         return 0;
     }
-    if (STATES_CheckState(pUnit, 0x36))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
         return 0;
     }

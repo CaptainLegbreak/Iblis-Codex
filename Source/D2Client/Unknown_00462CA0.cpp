@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -262,7 +263,7 @@ static void sub_00461010_ResetPlayerState(D2UnitStrc* pUnit)
     sub_00464810(pUnit);
     if (pUnit)
         pUnit->dwFlags &= ~4;
-    if (!STATES_CheckState(pUnit, 7) && pUnit)
+    if (!STATES_CheckState(pUnit, STATE_PLAYERBODY) && pUnit)
         pUnit->dwFlags &= ~2;
     sub_0046ECE0_PruneGfxNodes(pUnit);
     sub_0046F020_FillGfxEntries(pUnit, 0);
@@ -444,7 +445,7 @@ static void __stdcall sub_00461890_OperateObject(int nObjectId, D2PlayerCmdStrc*
 
     D2_ASSERT(DATATBLS_GetObjectsTxtRecord(pObject->dwClassId), 0x4C4);
     int bSetMode = 1;
-    if (pObject->dwClassId == 0x3B && STATES_CheckState(sub_00463DD0(), 0x66))
+    if (pObject->dwClassId == 0x3B && STATES_CheckState(sub_00463DD0(), STATE_JUST_PORTALED))
         bSetMode = 0;
 
     if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
@@ -608,7 +609,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
                 return;
             DATATBLS_GetObjectsTxtRecord(pTarget ? pTarget->dwClassId : -1);
             int bSetMode = 1;
-            if (pCmd->pTarget && pCmd->pTarget->dwClassId == 0x3B && STATES_CheckState(pPlayerUnit, 0x66))
+            if (pCmd->pTarget && pCmd->pTarget->dwClassId == 0x3B && STATES_CheckState(pPlayerUnit, STATE_JUST_PORTALED))
                 bSetMode = 0;
             if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {

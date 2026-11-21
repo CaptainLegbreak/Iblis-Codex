@@ -187,7 +187,7 @@ static int __stdcall sub_005A8730_MISSMODE_CanCollideWithUnit(D2GameStrc* pGame,
         return 0;
     }
 
-    if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pUnit, 0x56))
+    if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pUnit, STATE_JUSTHIT))
     {
         return 0;
     }

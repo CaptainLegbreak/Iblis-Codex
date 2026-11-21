@@ -2012,7 +2012,7 @@ int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         SKILLS_SetParam1(UNITS_GetUsedSkill(pUnit), nTimeout + pGame->dwGameFrame);
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 12);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_INFERNO);
     if (!pStatList)
     {
         const int nExpireFrame = pGame->dwGameFrame + 20;
@@ -2027,7 +2027,7 @@ int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         EVENT_SetEvent(pGame, pUnit, 12, nExpireFrame, 0, 0);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATLIST_SetStatRemoveCallback(pStatList, SKILLS_StatRemoveCallback_RemoveState);
-        STATLIST_SetState(pStatList, 12);
+        STATLIST_SetState(pStatList, STATE_INFERNO);
         STATES_ToggleState(pUnit, 12, 1);
         SKILLS_SetParam1(UNITS_GetUsedSkill(pUnit), 0);
         return 1;
@@ -2819,7 +2819,7 @@ int __fastcall SKILLS_SrvSt47_Jump(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         return 0;
     }
 
-    if (STATES_CheckState(pUnit, 1))
+    if (STATES_CheckState(pUnit, STATE_FREEZE))
     {
         return 0;
     }
@@ -4436,7 +4436,7 @@ void __fastcall sub_005E52D0_HirelingThink(D2GameStrc* pGame, D2UnitStrc* pUnit,
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
         return;
     }
-    if (STATES_CheckState(pUnit, 12)) STATES_ToggleState(pUnit, 12, 0);
+    if (STATES_CheckState(pUnit, STATE_INFERNO)) STATES_ToggleState(pUnit, 12, 0);
     int nMode;
     if (!pUnit) nMode = 0;
     else nMode = pUnit->dwAnimMode;

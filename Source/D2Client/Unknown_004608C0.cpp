@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Drlg.h"
 #include "D2Structs.h"
 
@@ -28,7 +29,7 @@ void __cdecl sub_004608C0_RefreshAdjacentPlayers()
     {
         for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
-            if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) == UNIT_MONSTER && STATES_CheckState(pUnit, 0x3F))
+            if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) == UNIT_MONSTER && STATES_CheckState(pUnit, STATE_DOPPLEZON))
             {
                 sub_00470610_Refresh(pUnit, 0);
             }

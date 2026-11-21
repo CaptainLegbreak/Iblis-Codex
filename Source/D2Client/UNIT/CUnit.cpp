@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -190,9 +191,6 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-enum
-{
-};
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 
@@ -974,7 +972,7 @@ int __fastcall sub_00464C40_DecrementCounter58(D2UnitStrc* pUnit)
         return 0;
     }
     --pUnit->nCounter0x58;
-    return !STATES_CheckState(pUnit, 0x8F);
+    return !STATES_CheckState(pUnit, STATE_ATTACHED);
 }
 
 // 0x00464C90

@@ -709,7 +709,7 @@ static __declspec(noinline) int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2Ga
 
     aiParams[1] += 100 - UNITS_GetCurrentLifePercentage(pUnit);
 
-    if (STATES_CheckState(pTarget, 11))
+    if (STATES_CheckState(pTarget, STATE_COLD))
     {
         aiParams[8] = 0;
         aiParams[13] = 0;

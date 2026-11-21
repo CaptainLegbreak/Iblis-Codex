@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -778,7 +779,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
         break;
 
     case 0:
-        if (STATES_CheckState(pUnit, 7))
+        if (STATES_CheckState(pUnit, STATE_PLAYERBODY))
         {
         special:
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -1112,7 +1113,7 @@ int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, 
     {
         return 0;
     }
-    if (nFlags & 0x80000 && STATES_CheckState(pTarget, 0x56))
+    if (nFlags & 0x80000 && STATES_CheckState(pTarget, STATE_JUSTHIT))
     {
         return 0;
     }
@@ -1570,7 +1571,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
     {
         sub_00480E70_SetUnitMode(pUnit, nMode);
     }
-    else if (!STATES_CheckState(pUnit, 12) || !BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 11))
+    else if (!STATES_CheckState(pUnit, STATE_INFERNO) || !BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 11))
     {
         SKILLCLT_SetCastState(pUnit);
     }
@@ -2479,7 +2480,7 @@ void __fastcall sub_004C7890(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
         return;
-    if (STATES_CheckState(pUnit, 18))
+    if (STATES_CheckState(pUnit, STATE_SKILL_MOVE))
         return;
     if (SKILLS_GetFlags(pSkill) & 2)
         return;

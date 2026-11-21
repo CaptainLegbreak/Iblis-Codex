@@ -1061,7 +1061,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             modeChange.pTargetUnit = pTarget;
             return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
         }
-        if (!STATES_CheckState(pTarget, 54)) {
+        if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE)) {
             SKILLS_SetParam1(pSkill, UNITS_GetUnitTypeChecked(pTarget));
             SKILLS_SetParam2(pSkill, UNITS_GetUnitIdChecked(pTarget));
         } else {
@@ -1460,14 +1460,14 @@ Drain:
  }
  int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, STAT_LEVEL, 0);
  int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
- if (nTargetLevel && nUnitLevel < nTargetLevel && !STATLIST_GetStatListFromUnitAndState(pTarget, 109))
+ if (nTargetLevel && nUnitLevel < nTargetLevel && !STATLIST_GetStatListFromUnitAndState(pTarget, STATE_CONVERSION_SAVE))
  {
   int nTargetId = pTarget->dwUnitId;
   int nTargetType = pTarget->dwUnitType;
   D2StatListStrc* pSave = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, nTargetType, nTargetId);
   if (pSave)
   {
-   STATLIST_SetState(pSave, 109);
+   STATLIST_SetState(pSave, STATE_CONVERSION_SAVE);
    D2COMMON_10475_PostStatToStatList(pTarget, pSave, 1);
    int nHp = STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0) >> 8;
    int nMaxHp = STATLIST_GetMaxLifeFromUnit(pTarget) >> 8;
