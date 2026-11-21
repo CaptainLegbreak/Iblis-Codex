@@ -1,7 +1,7 @@
 #pragma once
 // Win32: the window, message, palette and time records the game modules declare for themselves.
 
-#include "D2Win32Rect.h"
+#include "D2Win32Base.h"
 
 struct tagPALETTEENTRY;
 struct tagMSG;
