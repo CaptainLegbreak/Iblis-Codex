@@ -2363,8 +2363,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text_004A1600.cpp": {
-   "bytes": 1944,
-   "definitions": 29,
+   "bytes": 3074,
+   "definitions": 31,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/text_004A1600.inc",
@@ -2386,15 +2386,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/QuestLog.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_004A3E40.cpp": {
-   "bytes": 1130,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004A3E40.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -55457,7 +55448,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A3E40.cpp",
+   "file": "Source/D2Client/UI/text_004A1600.cpp",
    "fill": 51,
    "form": "declared",
    "fwd": null,
@@ -55525,7 +55516,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A3E40.cpp",
+   "file": "Source/D2Client/UI/text_004A1600.cpp",
    "fill": 62,
    "form": "declared",
    "fwd": null,
