@@ -69672,6 +69672,11 @@
      "name": "?AITHINK_Fn144_UberIzual@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F8F80",
+     "length": 743,
+     "name": "?AITHINK_Fn056_Tentacle@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F9270",
      "length": 530
     },
@@ -70764,17 +70769,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F8F80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F8F80",
-     "length": 743,
-     "name": "?AITHINK_Fn056_Tentacle@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {

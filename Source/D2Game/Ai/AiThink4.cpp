@@ -1146,6 +1146,20 @@ enum D2C_M144UberIzualAi
     COLLIDE_MASK_BARRIER = 6,
 };
 
+enum D2C_M388TentacleAi
+{
+    MONMODE_SEQUENCE = 14,
+    DEFAULT_FRAMES_PER_SECOND = 25,
+    TENTACLE_AI_PARAM_ATTACK_CHANCE_PCT = 0,
+    TENTACLE_AI_PARAM_SUBMERGE_CHANCE_PCT = 1,
+    TENTACLE_AI_PARAM_SUBMERGE_DURATION_SECONDS = 2,
+    TENTACLE_AI_PARAM_EMERGE_DURATION_SECONDS = 3,
+    TENTACLE_AI_PARAM_STALL_DURATION = 4,
+    TENTACLE_AI_PARAM_ACTIVE_DISTANCE = 5,
+};
+
+#define AI_RollChance(pGame, pSeed, pMonStatsTxt, nParamId) ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_GetParam(pGame, pMonStatsTxt, nParamId))
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -8127,6 +8141,77 @@ void __fastcall AITHINK_Fn144_UberIzual(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
 
     AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+}
+
+// 0x005F8F80
+void __fastcall AITHINK_Fn056_Tentacle(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner)
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, 0, 1);
+        return;
+    }
+
+    const int nOwnerMode = pOwner->dwAnimMode;
+    if (nOwnerMode == MONMODE_DEAD && AI_RollPercentage(pUnit) < 40)
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, SUNIT_GetTargetUnit(pGame, pOwner), 1);
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && !pAiControl->dwAiParam[2])
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        AITACTICS_Idle(pGame, pUnit, 8);
+        pAiControl->dwAiParam[1] = pGame->dwGameFrame + DEFAULT_FRAMES_PER_SECOND * AI_GetParam(pGame, pMonStatsTxt, TENTACLE_AI_PARAM_SUBMERGE_DURATION_SECONDS);
+        pAiControl->dwAiParam[2] = 1;
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && pAiControl->dwAiParam[2] == 2 && pGame->dwGameFrame > pAiControl->dwAiParam[1])
+    {
+        if (nTargetDistance > AI_GetParam(pGame, pMonStatsTxt, TENTACLE_AI_PARAM_ACTIVE_DISTANCE)
+            || !bCombat && AI_RollChance(pGame, pSeed, pMonStatsTxt, TENTACLE_AI_PARAM_SUBMERGE_CHANCE_PCT)
+            || nOwnerMode == MONMODE_SEQUENCE && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            AITACTICS_Idle(pGame, pUnit, 8);
+            pAiControl->dwAiParam[1] = pGame->dwGameFrame + DEFAULT_FRAMES_PER_SECOND * AI_GetParam(pGame, pMonStatsTxt, TENTACLE_AI_PARAM_SUBMERGE_DURATION_SECONDS);
+            pAiControl->dwAiParam[2] = 1;
+            return;
+        }
+    }
+
+    if (pMonStatsTxt->nSkill[1] >= 0 && pAiControl->dwAiParam[2] == 1 && pGame->dwGameFrame > pAiControl->dwAiParam[1]
+        && (bCombat || nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, TENTACLE_AI_PARAM_ACTIVE_DISTANCE) || nOwnerMode != MONMODE_SEQUENCE && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 5))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pUnit, 0, 0);
+        pAiControl->dwAiParam[1] = pGame->dwGameFrame + DEFAULT_FRAMES_PER_SECOND * AI_GetParam(pGame, pMonStatsTxt, TENTACLE_AI_PARAM_EMERGE_DURATION_SECONDS);
+        pAiControl->dwAiParam[2] = 2;
+        return;
+    }
+
+    if (pAiControl->dwAiParam[2] == 1)
+    {
+        AITACTICS_Idle(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, TENTACLE_AI_PARAM_STALL_DURATION));
+        return;
+    }
+
+    if (bCombat && AI_RollChance(pGame, pSeed, pMonStatsTxt, TENTACLE_AI_PARAM_ATTACK_CHANCE_PCT))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, TENTACLE_AI_PARAM_STALL_DURATION));
 }
 
 // 0x005F9270
