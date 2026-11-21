@@ -245,7 +245,7 @@ struct D2PetTypeTxt
         };
         struct
         {
-            unsigned char unk0x0E; // 0x0E
+            unsigned char nIconType; // 0x0E
             char szIcon[5][32]; // 0x0F
             char unk0xAF; // 0xAF
             unsigned short wClass[5]; // 0xB0
