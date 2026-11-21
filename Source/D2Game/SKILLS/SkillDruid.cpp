@@ -4418,7 +4418,7 @@ void __fastcall sub_005E52D0_HirelingThink(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
     if (!pOwner)
     {
-        if (nMonsterId == 271)
+        if (nMonsterId == MONSTER_ROGUEHIRE)
         {
             AITHINK_ExecuteAiFn(pGame, pUnit, pTick->pAiControl, 5);
         }
@@ -4431,7 +4431,7 @@ void __fastcall sub_005E52D0_HirelingThink(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
     if (pOwner->dwUnitType != UNIT_PLAYER)
     {
-        if (nMonsterId == 271)
+        if (nMonsterId == MONSTER_ROGUEHIRE)
         {
             D2AiControlStrc* pControl = pTick->pAiControl;
             AITHINK_ExecuteAiFn(pGame, pUnit, pControl, 5);
@@ -4495,7 +4495,7 @@ void __fastcall sub_005E52D0_HirelingThink(D2GameStrc* pGame, D2UnitStrc* pUnit,
     int bRanged;
     switch (nMonsterId)
     {
-    case 338: case 560: case 561: bRanged = 0; break;
+    case MONSTER_ACT2HIRE: case MONSTER_ACT5HIRE1: case MONSTER_ACT5HIRE2: bRanged = 0; break;
     default: bRanged = 1; break;
     }
     int bBlocked = 0;

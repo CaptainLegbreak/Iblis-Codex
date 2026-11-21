@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Unicode.h"
@@ -730,7 +731,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
     const int nId = sub_00463860_GetMonsterId(pUnit);
     const int nMonsterId = (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) ? nId : -1;
 
-    if (nMode == 0xD && nMonsterId != 0x4E)
+    if (nMode == 0xD && nMonsterId != MONSTER_SANDLEAPER1)
     {
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
         if (pPath)
@@ -759,13 +760,13 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         switch (sub_J20_GetAnimMode(pUnit))
         {
         case 8:
-            if (nMonsterId == 0x6E)
+            if (nMonsterId == MONSTER_VULTURE1)
             {
                 return;
             }
         case 5:
         case 9:
-            if (nMonsterId == 0x193 || nMonsterId == 0x194)
+            if (nMonsterId == MONSTER_TRAPPEDSOUL1 || nMonsterId == MONSTER_TRAPPEDSOUL2)
             {
                 sub_00480E70_SetUnitMode(pUnit, 8);
                 sub_00624390(pUnit);
@@ -774,7 +775,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
             break;
 
         case 10:
-            if (nMonsterId == 0x88)
+            if (nMonsterId == MONSTER_BATDEMON1)
             {
                 sub_00480E70_SetUnitMode(pUnit, 0xB);
                 sub_00624390(pUnit);
@@ -783,27 +784,27 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
             break;
 
         case 11:
-            if (nMonsterId == 0x88)
+            if (nMonsterId == MONSTER_BATDEMON1)
             {
                 return;
             }
             break;
 
         case 2:
-            if (nMonsterId == 0xE7 || nMonsterId == 0x76)
+            if (nMonsterId == MONSTER_ICEGLOBE || nMonsterId == MONSTER_WILLOWISP1)
             {
                 return;
             }
             break;
 
         case 4:
-            if (nMonsterId == 0x193 || nMonsterId == 0x194)
+            if (nMonsterId == MONSTER_TRAPPEDSOUL1 || nMonsterId == MONSTER_TRAPPEDSOUL2)
             {
                 sub_00480E70_SetUnitMode(pUnit, 8);
                 sub_00624390(pUnit);
                 return;
             }
-            if (nMonsterId == 0x1F1)
+            if (nMonsterId == MONSTER_CATAPULT1)
             {
                 sub_004AE3C0(pUnit);
                 sub_004AE400_CastRandomCurse(pUnit);
@@ -811,14 +812,14 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
             break;
 
         case 14:
-            if (nMonsterId == 0xF7)
+            if (nMonsterId == MONSTER_FROGDEMON1)
             {
                 return;
             }
             break;
 
         case 12:
-            if (nMonsterId == 0x11C)
+            if (nMonsterId == MONSTER_MAGGOTQUEEN1)
             {
                 return;
             }
@@ -1196,20 +1197,20 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         D2_ASSERT(pCommand, 0x70F);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         nValue = pCommand->nX;
-        if (nMonId == 0xE7)
+        if (nMonId == MONSTER_ICEGLOBE)
             break;
 
         sub_004643F0_SetTargetByGUID(pUnit, nValue, pCommand->nY);
-        if (nMonId == 0x130 && nCommand == 0xA)
+        if (nMonId == MONSTER_FINGERMAGE1 && nCommand == 0xA)
         {
             D2UnitStrc* pTargetUnit = sub_004648F0_GetPathTargetUnit(pUnit);
             sub_00464E50_SetOverlayWithSound(pTargetUnit, 0xA9, 0);
         }
 
         sub_00465BF0_SetPathTargetToTargetUnit(pUnit, 0);
-        if (nMonId == 0x6E)
+        if (nMonId == MONSTER_VULTURE1)
             sub_004AFCE0_UpdateCollisionForMode(pUnit, nCommand);
-        else if (nMonId == 0x9A && nCommand == 0xD)
+        else if (nMonId == MONSTER_CHARSI && nCommand == 0xD)
             D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0x38);
 
         if ((!pUnit ? -1 : pUnit->dwClassId) == 0x195 && nCommand == 0xD)
@@ -1218,12 +1219,12 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (pUnit->dwClassId == 0x195 && nCommand == 0xF)
             D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0x30);
 
-        if (nMonId == 0x9B)
+        if (nMonId == MONSTER_WARRIV1)
         {
             if (nCommand == 0xD)
                 D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0x34);
         }
-        else if (nMonId == 0xB2 && nCommand == 0xD)
+        else if (nMonId == MONSTER_FARA && nCommand == 0xD)
         {
             D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 4);
         }
@@ -1254,7 +1255,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (sub_004AFBC0_HasMonStatsFlag(pUnit, pRecord))
             sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY);
 
-        if (nMonId == 0x6E)
+        if (nMonId == MONSTER_VULTURE1)
             sub_004AFCE0_UpdateCollisionForMode(pUnit, nCommand);
         break;
 
@@ -1389,7 +1390,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
         switch (nMonId)
         {
-        case 0x7F:
+        case MONSTER_THORNHULK1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0x4F, 0);
         LABEL_MODE0:
             sub_00480E70_SetUnitMode(pUnit, 0);
@@ -1398,7 +1399,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             sub_00464930_FreeLight(pUnit);
             break;
 
-        case 0xBE:
+        case MONSTER_MAGGOTEGG1:
             if (pUnit->dwAnimMode == 0xE)
             {
                 sub_00480EC0_SetUnitModeNoOverlay(pUnit, 0);
@@ -1414,15 +1415,15 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             }
             break;
 
-        case 0xEE:
+        case MONSTER_CANTOR1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0x4E, 0);
             goto LABEL_MODE0;
 
-        case 0xF7:
+        case MONSTER_FROGDEMON1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0x52, 0);
             goto LABEL_MODE0;
 
-        case 0x6E:
+        case MONSTER_VULTURE1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0x92, 0);
             sub_00480E70_SetUnitMode(pUnit, 0);
             if (!sub_004DA0F0_GetGfxMotionField3C(pUnit))
@@ -1436,23 +1437,23 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             sub_00464930_FreeLight(pUnit);
             break;
 
-        case 0x102:
-        case 0x105:
+        case MONSTER_TENTACLE1:
+        case MONSTER_TENTACLEHEAD1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0x9D, 0);
             goto LABEL_MODE0;
 
-        case 0x164:
+        case MONSTER_DOPPLEZON:
             sub_004C5420_RequestAtTarget(pUnit, 0x148, 0, 1);
             goto LABEL_MODE0;
 
-        case 0x15F:
-        case 0x160:
-        case 0x161:
+        case MONSTER_HYDRA1:
+        case MONSTER_HYDRA2:
+        case MONSTER_HYDRA3:
             sub_0046F170_RemoveOverlays(pUnit);
             sub_00464E50_SetOverlayWithSound(pUnit, (!pUnit ? -1 : pUnit->dwClassId) - 0xAD, 0);
             goto LABEL_MODE0;
 
-        case 0x11C:
+        case MONSTER_MAGGOTQUEEN1:
         {
             D2MonCommandStrc tCommand = {};
             tCommand.nX = 0xD8;
@@ -1463,32 +1464,32 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             break;
         }
 
-        case 0x76:
+        case MONSTER_WILLOWISP1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0xB8, 0);
             goto LABEL_MODE0;
 
-        case 0x136:
-        case 0x137:
-        case 0x138:
+        case MONSTER_DOOMKNIGHT1:
+        case MONSTER_DOOMKNIGHT2:
+        case MONSTER_DOOMKNIGHT3:
             sub_00464E50_SetOverlayWithSound(pUnit, 0xBB, 0);
             goto LABEL_MODE0;
 
-        case 0xD4:
+        case MONSTER_BONEFETISH1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0xBC, 0);
             sub_00464E50_SetOverlayWithSound(pUnit, 0xBD, 0);
             goto LABEL_MODE0;
 
-        case 0x1A1:
-        case 0x1A2:
+        case MONSTER_SHADOWWARRIOR:
+        case MONSTER_SHADOWMASTER:
             sub_00464E50_SetOverlayWithSound(pUnit, 0x10F, 0);
             goto LABEL_MODE0;
 
-        case 0x168:
-        case 0x22E:
+        case MONSTER_MEGADEMON1:
+        case MONSTER_VENOMLORD:
             sub_00464E50_SetOverlayWithSound(pUnit, 0xB9, 0);
             goto LABEL_MODE0;
 
-        case 0x1C5:
+        case MONSTER_MINION1:
         {
             unsigned char nDirection = UNITS_GetDirection(pUnit);
             switch (sub_0063E7A0_GetByteTableEntry(nDirection) % 4)
@@ -1512,14 +1513,14 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             break;
         }
 
-        case 0x1CD:
+        case MONSTER_SUICIDEMINION1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0xCC, 0);
             sub_004B9A00(0x973, pUnit, 0, 0, 0);
             goto LABEL_MODE0;
 
-        case 0x1A9:
-        case 0x1AA:
-        case 0x1AB:
+        case MONSTER_PLAGUEPOPPY:
+        case MONSTER_CYCLEOFLIFE:
+        case MONSTER_VINECREATURE:
             sub_004CDB40_SubmitRequest(pUnit, 0x1D6, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
             sub_00480E70_SetUnitMode(pUnit, 0);
             sub_004B9A00(0x316, pUnit, 0, 0, 0);
@@ -1527,7 +1528,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             sub_00464930_FreeLight(pUnit);
             break;
 
-        case 0x1F1:
+        case MONSTER_CATAPULT1:
         {
             int nOverlay;
             switch (pUnit->dwClassId)
@@ -1546,21 +1547,21 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             goto LABEL_MODE0;
         }
 
-        case 0x1D5:
-        case 0x1DA:
+        case MONSTER_SUCCUBUS1:
+        case MONSTER_SUCCUBUSWITCH1:
             sub_00464E50_SetOverlayWithSound(pUnit, 0xE5, 0);
             goto LABEL_MODE0;
 
-        case 0x1B9:
+        case MONSTER_SIEGEBEAST1:
         {
             D2DynamicPathStrc* pDeadPath = pPath;
             D2COMMON_10160_PathUpdateDirection(pDeadPath, (PATH_GetDirection(pDeadPath) + 0x20) % 0x40);
             goto LABEL_MODE0;
         }
 
-        case 0x23A:
+        case MONSTER_BAALCLONE:
             sub_004CDB40_SubmitRequest(pUnit, 0x266, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
-        case 0x22F:
+        case MONSTER_BAALCRABSTAIRS:
             pUnit->dwFlagEx |= 0x40000;
             pUnit->dwFlags |= 0x20;
             sub_00480E70_SetUnitMode(pUnit, 0xC);
@@ -1585,7 +1586,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (sub_004648F0_GetPathTargetUnit(pPlayer) == pUnit)
             UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
 
-        if (nMonId == 0x11C && pUnit->dwAnimMode == 0xE)
+        if (nMonId == MONSTER_MAGGOTQUEEN1 && pUnit->dwAnimMode == 0xE)
         {
             UNITS_SetUsedSkill(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_QUEENDEATH));
         }
@@ -1595,17 +1596,17 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             sub_00464810_SetUnitFlag16(pUnit);
         }
 
-        if (pUnit->dwClassId != 0xD3 && nMonId != 0x1F1 && nMonId != 0x1A1 && nMonId != 0x1A2)
+        if (pUnit->dwClassId != 0xD3 && nMonId != MONSTER_CATAPULT1 && nMonId != MONSTER_SHADOWWARRIOR && nMonId != MONSTER_SHADOWMASTER)
             sub_0046F170_RemoveOverlays(pUnit);
 
-        if (nMonId == 0x1B3)
+        if (nMonId == MONSTER_BARRICADETOWER)
             sub_00464810_SetUnitFlag16(sub_004CDB40_SubmitRequest(pUnit, 0x1A8, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1));
 
         switch (nMonId)
         {
-        case 0x158:
-        case 0x22F:
-        case 0x23A:
+        case MONSTER_BONEWALL:
+        case MONSTER_BAALCRABSTAIRS:
+        case MONSTER_BAALCLONE:
             pUnit->dwFlagEx |= 0x40000;
             break;
         }

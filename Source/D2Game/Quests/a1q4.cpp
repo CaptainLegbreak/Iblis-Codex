@@ -910,7 +910,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
         pCoord.nY = nY;
     }
 
-    D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, 0x109, 1, 5, 0);
+    D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 5, 0);
     if (pCain)
     {
         pCain->dwFlags |= 0x3000000;
@@ -943,7 +943,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
             }
 
             ++nCounter;
-            pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, 0x109, 1, 10, 0);
+            pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 10, 0);
             if (pCain)
             {
                 pCain->dwFlags |= 0x3000000;
@@ -956,7 +956,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
         while (nCounter < 20);
     }
 
-    pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 0x109, 1, 15, 0);
+    pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_CAIN5, 1, 15, 0);
     if (!pCain)
     {
         return;
@@ -1217,7 +1217,7 @@ void __fastcall ACT1Q4_SpawnCainInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit)
         const int nY = CLIENTS_GetUnitY(pUnit) + 3;
 
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 0x92, 1, -1, 0);
+        D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_CAIN1, 1, -1, 0);
         if (!pCain)
         {
             D2CoordStrc pCoord;
@@ -1228,7 +1228,7 @@ void __fastcall ACT1Q4_SpawnCainInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit)
             QUESTS_GetFreePosition(pRoom, &pCoord, 2, 0x100, &pFreeRoom, 3, 0x64);
             if (pFreeRoom)
             {
-                pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, 0x92, 1, -1, 0);
+                pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN1, 1, -1, 0);
             }
         }
 

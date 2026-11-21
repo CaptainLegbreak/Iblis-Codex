@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -773,7 +774,7 @@ int __fastcall ACT5Q2_SpawnCagedWussies(D2QuestDataStrc* pQuestData, D2ObjInitFn
 	{
 		for (int i = 0; i < 25; ++i)
 		{
-			D2UnitStrc* pWussies = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pOp->pRoom, pOp->nX, pOp->nY, 534, 1, 5, 0);
+			D2UnitStrc* pWussies = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_ACT5POW, 1, 5, 0);
 			if (pWussies)
 			{
 				pWussies->dwFlags |= 0x3000000;

@@ -1747,7 +1747,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 break;
 
             case LEVEL_SPIDERFOREST:
-                sub_6FC68D70(pGame, pUnit, 301, 1, -1, 0);
+                sub_6FC68D70(pGame, pUnit, MONSTER_VILECHILD1, 1, -1, 0);
                 break;
             }
         }

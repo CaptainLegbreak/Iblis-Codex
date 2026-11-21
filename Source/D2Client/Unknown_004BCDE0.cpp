@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
@@ -304,9 +305,9 @@ static __declspec(noinline) void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUni
             if (pTxt->dwParm[7])
             {
                 if (pTxt->dwParm[7] == 0xFF)
-                    sub_0046C320_SpawnAroundUnit(pUnit, 0x153, 4);
+                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_MINISPIDER, 4);
                 else
-                    sub_0046C320_SpawnAroundUnit(pUnit, 0x97, 4);
+                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_RAT, 4);
             }
 
             pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;

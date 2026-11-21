@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2DataTbls.h"
 #include "D2ItemsWorld.h"
@@ -599,13 +600,13 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
                     {
                         if (nIndex < sgptDataTables->nMonStatsTxtRecordCount)
                         {
-                            if (nIndex == sub_004E6C50_ValidateMonsterId(297))
+                            if (nIndex == sub_004E6C50_ValidateMonsterId(MONSTER_NATALYA))
                             {
                                 nIndex = 382;
                                 nType = 2;
                                 nMode = 0;
                             }
-                            else if (nIndex == sub_004E6C50_ValidateMonsterId(366))
+                            else if (nIndex == sub_004E6C50_ValidateMonsterId(MONSTER_COMPELLINGORB))
                             {
                                 nIndex = 404;
                                 nType = 2;
@@ -1897,10 +1898,10 @@ void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc*
             {
                 switch (DRLGPRESET_GetMonsterId(pPresetUnit->nIndex, nMonStatsCount))
                 {
-                case 204:
-                case 205:
-                case 371:
-                case 372:
+                case MONSTER_ACT2VENDOR1:
+                case MONSTER_ACT2VENDOR2:
+                case MONSTER_LIGHTNINGSPIRE:
+                case MONSTER_FIRETOWER:
                     if (SEED_RollRandomNumber(pSeed) % 3)
                     {
                         continue;

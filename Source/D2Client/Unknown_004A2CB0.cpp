@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
 
@@ -87,7 +88,7 @@ void __fastcall sub_004A2CB0_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPa
             switch (pPacket->nId)
             {
             case 13:
-                sub_0046F870_LoadMonsterCofs(211, 1);
+                sub_0046F870_LoadMonsterCofs(MONSTER_DURIEL, 1);
                 return;
             case 23:
                 sub_0044D520();

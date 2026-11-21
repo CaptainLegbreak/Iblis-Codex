@@ -2001,7 +2001,7 @@ int __fastcall sub_005A75C0_StartModeWithPath(D2GameStrc* pGame, D2ModeChangeStr
         if (!PATH_GetNumberOfPathPoints(pPath))
         {
             const int nBaseId = sub_00463860(pUnit);
-            if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == 110)
+            if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_VULTURE1)
             {
                 D2Common_10142(pPath, pUnit, 0);
                 SUNIT_SetCombatMode(pGame, pUnit, pModeChange->nMode);
@@ -2133,7 +2133,7 @@ int __fastcall sub_005A77D0_StartKnockback(D2GameStrc* pGame, D2ModeChangeStrc* 
             nBaseId = -1;
         }
 
-        if (nBaseId != 0x4E)
+        if (nBaseId != MONSTER_SANDLEAPER1)
         {
             D2COMMON_10190_PATH_SetDistance(pPath, 5);
         }
@@ -2505,27 +2505,27 @@ void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pU
     D2MonStatsTxt* pRecord = MONSTATS_GetRecordInline(nRawId);
     if (pRecord->nSpecialEnd)
     {
-        if (nBaseId == 110)
+        if (nBaseId == MONSTER_VULTURE1)
         {
             if (nMode == 8) { MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit); return; }
         }
-        else if (nBaseId == 247)
+        else if (nBaseId == MONSTER_FROGDEMON1)
         {
             if (nMode == 14) { MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit); return; }
         }
-        else if (nBaseId == 136)
+        else if (nBaseId == MONSTER_BATDEMON1)
         {
             if (nMode == 10 || nMode == 11) { MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit); return; }
         }
-        else if (nBaseId == 230 || nBaseId == 231)
+        else if (nBaseId == MONSTER_FIREBEAST || nBaseId == MONSTER_ICEGLOBE)
         {
             MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit); return;
         }
-        else if (nBaseId == 118)
+        else if (nBaseId == MONSTER_WILLOWISP1)
         {
             if (nMode == 2) { MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit); return; }
         }
-        else if (nBaseId == 403)
+        else if (nBaseId == MONSTER_TRAPPEDSOUL1)
         {
             MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit); return;
         }

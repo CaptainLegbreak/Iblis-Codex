@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
@@ -3151,8 +3152,8 @@ int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget
 
     switch (nBaseId)
     {
-    case 546:
-    case 551:
+    case MONSTER_PUTRIDDEFILER1:
+    case MONSTER_PAINWORM1:
         return 0;
     }
 

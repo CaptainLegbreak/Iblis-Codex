@@ -572,21 +572,21 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pMonster, int* pMonsterId
     {
     case 206:
         DATATBLS_GetMonsterChainInfo(!pMonster ? -1 : pMonster->dwClassId, 0, &nChainId);
-        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(15), nChainId);
+        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(MONSTER_FOULCROW1), nChainId);
         *pX = CLIENTS_GetUnitX(pMonster);
         *pY = CLIENTS_GetUnitY(pMonster) + 3;
         *pSpawnMode = 1;
         return;
 
     case 228:
-        *pMonsterId = D2Common_11063(UNITS_GetRoom(pMonster), MONSTERS_ValidateMonsterIdInline(96));
+        *pMonsterId = D2Common_11063(UNITS_GetRoom(pMonster), MONSTERS_ValidateMonsterIdInline(MONSTER_MUMMY1));
         *pX = CLIENTS_GetUnitX(pMonster);
         *pY = CLIENTS_GetUnitY(pMonster) + 2;
         *pSpawnMode = 1;
         return;
 
     case 267:
-        *pMonsterId = MONSTERS_ValidateMonsterIdInline(6);
+        *pMonsterId = MONSTERS_ValidateMonsterIdInline(MONSTER_ZOMBIE2);
         pPath = pMonster->pDynamicPath;
         *pX = D2COMMON_10175_PathGetFirstPointX(pPath);
         *pY = D2COMMON_10176_PathGetFirstPointY(pPath);
@@ -595,20 +595,20 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pMonster, int* pMonsterId
 
     case 284:
         DATATBLS_GetMonsterChainInfo(!pMonster ? -1 : pMonster->dwClassId, 0, &nChainId);
-        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(68), nChainId);
+        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(MONSTER_SANDMAGGOT1), nChainId);
         *pX = CLIENTS_GetUnitX(pMonster) + 8;
         *pY = CLIENTS_GetUnitY(pMonster);
         *pSpawnMode = 8;
         return;
 
     case 321:
-        if (pMonster && pMonster->dwClassId == 711)
+        if (pMonster && pMonster->dwClassId == MONSTER_DEMONHOLE)
         {
-            *pMonsterId = MONSTERS_ValidateMonsterIdInline(712);
+            *pMonsterId = MONSTERS_ValidateMonsterIdInline(MONSTER_MEGADEMON6);
         }
         else
         {
-            *pMonsterId = MONSTERS_ValidateMonsterIdInline(19);
+            *pMonsterId = MONSTERS_ValidateMonsterIdInline(MONSTER_FALLEN1);
         }
         *pX = CLIENTS_GetUnitX(pMonster);
         *pY = CLIENTS_GetUnitY(pMonster);
@@ -617,7 +617,7 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pMonster, int* pMonsterId
 
     case 298:
         DATATBLS_GetMonsterChainInfo(!pMonster ? -1 : pMonster->dwClassId, 0, &nChainId);
-        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(301), nChainId);
+        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(MONSTER_VILECHILD1), nChainId);
         pPath = pMonster->pDynamicPath;
         *pX = D2COMMON_10175_PathGetFirstPointX(pPath);
         *pY = D2COMMON_10176_PathGetFirstPointY(pPath);
@@ -626,7 +626,7 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pMonster, int* pMonsterId
 
     case 334:
         DATATBLS_GetMonsterChainInfo(!pMonster ? -1 : pMonster->dwClassId, 0, &nChainId);
-        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(114), nChainId);
+        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(MONSTER_MOSQUITO1), nChainId);
         *pX = UNITS_GetXPositionInline(pMonster) - 2;
         *pY = UNITS_GetYPositionInline(pMonster) - 2;
         *pSpawnMode = 1;
@@ -634,7 +634,7 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pMonster, int* pMonsterId
 
     case 484:
         DATATBLS_GetMonsterChainInfo(!pMonster ? -1 : pMonster->dwClassId, 0, &nChainId);
-        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(453), nChainId);
+        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(MONSTER_MINION1), nChainId);
         *pX = CLIENTS_GetUnitX(pMonster);
         *pY = CLIENTS_GetUnitY(pMonster) + 3;
         *pSpawnMode = 1;
@@ -658,7 +658,7 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pMonster, int* pMonsterId
 
     case 537:
         DATATBLS_GetMonsterChainInfo(!pMonster ? -1 : pMonster->dwClassId, 0, &nChainId);
-        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(540), nChainId);
+        *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(MONSTER_ANCIENTBARB1), nChainId);
         *pX = CLIENTS_GetUnitX(pMonster);
         *pY = CLIENTS_GetUnitY(pMonster) + 2;
         *pSpawnMode = 1;
@@ -667,9 +667,9 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pMonster, int* pMonsterId
 
     case 544:
         pSeed = &pMonster->pSeed;
-        if (*pMonsterId != MONSTERS_ValidateMonsterIdInline(570))
+        if (*pMonsterId != MONSTERS_ValidateMonsterIdInline(MONSTER_BAALCLONE))
         {
-            *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(562), SEED_RollLimitedRandomNumber(pSeed, 2) + nChainSteps);
+            *pMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERS_ValidateMonsterIdInline(MONSTER_BAALTENTACLE1), SEED_RollLimitedRandomNumber(pSeed, 2) + nChainSteps);
             *pX = CLIENTS_GetUnitX(pMonster) + SEED_RollLimitedRandomNumber(pSeed, 24) - 12;
             *pY = CLIENTS_GetUnitY(pMonster) + SEED_RollLimitedRandomNumber(pSeed, 24) - 12;
             *pSpawnMode = 4;

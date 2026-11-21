@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Common.h"
 #include "D2ClientTypes.h"
 #include "D2Structs.h"
@@ -3710,13 +3711,13 @@ static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, 
         {
             switch (MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId))
             {
-            case 0x1A1:
-            case 0x1A2:
+            case MONSTER_SHADOWWARRIOR:
+            case MONSTER_SHADOWMASTER:
                 return ITEMSIsA(pItem1, 0x43) && ITEMSIsA(pItem2, 0x43);
 
-            case 0x21C:
-            case 0x21D:
-            case 0x21E:
+            case MONSTER_ANCIENTBARB1:
+            case MONSTER_ANCIENTBARB2:
+            case MONSTER_ANCIENTBARB3:
                 return 1;
 
             default:

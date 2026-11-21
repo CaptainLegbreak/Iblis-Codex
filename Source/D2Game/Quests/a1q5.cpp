@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -953,7 +954,7 @@ void __stdcall ACT1Q5_SpawnTowerChestMissiles(D2QuestDataStrc* pQuestData, D2Act
 
                 if (pRoom)
                 {
-                    pTrapFirebolt = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pRoom, pCoord.nX, pCoord.nY, 0x146, 0xC, -1, 8);
+                    pTrapFirebolt = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pRoom, pCoord.nX, pCoord.nY, MONSTER_TRAP_FIREBOLT, 0xC, -1, 8);
                 }
 
                 if (!pTrapFirebolt)
@@ -964,7 +965,7 @@ void __stdcall ACT1Q5_SpawnTowerChestMissiles(D2QuestDataStrc* pQuestData, D2Act
                     pCoord.nY += 5;
 
                     pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pObject), pCoord.nX, pCoord.nY);
-                    pTrapFirebolt = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pRoom, pCoord.nX, pCoord.nY, 0x146, 0xC, -1, 8);
+                    pTrapFirebolt = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pRoom, pCoord.nX, pCoord.nY, MONSTER_TRAP_FIREBOLT, 0xC, -1, 8);
                 }
             }
 

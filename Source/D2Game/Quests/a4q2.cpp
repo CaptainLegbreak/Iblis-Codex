@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -423,15 +424,15 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
 // 0x005B4B60
 D2UnitStrc* __fastcall sub_005B4B60_SpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2Act4Quest2Strc* pQuestDataEx)
 {
-    D2UnitStrc* pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 243, 1, -1, 0);
+    D2UnitStrc* pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, -1, 0);
     if (!pDiablo)
     {
-        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 243, 1, 5, 0);
+        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 5, 0);
     }
 
     if (!pDiablo)
     {
-        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 243, 1, 10, 0);
+        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 10, 0);
         if (!pDiablo)
         {
             return 0;

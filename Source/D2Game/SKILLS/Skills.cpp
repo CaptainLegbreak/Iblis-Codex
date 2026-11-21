@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
@@ -2811,7 +2812,7 @@ int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState)
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const int nBaseId = MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == 0x1EC && STATES_CheckState(pUnit, 0x8F))
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_IMP1 && STATES_CheckState(pUnit, 0x8F))
         {
             return 0;
         }

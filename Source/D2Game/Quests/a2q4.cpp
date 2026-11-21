@@ -621,8 +621,8 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* co
     coords->nY-=3;
     D2ActiveRoomStrc* found=sub_00463740_FindRoomAtPoint(room,coords->nX,coords->nY);
     QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
-    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,201,1,-1,0);
-    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,201,1,2,0);
+    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,MONSTER_JERHYN,1,-1,0);
+    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,MONSTER_JERHYN,1,2,0);
     if (npc) {
         npc->dwFlags|=0x03000000;
         ex=(D2Act2Quest4Strc*)quest->pQuestDataEx;

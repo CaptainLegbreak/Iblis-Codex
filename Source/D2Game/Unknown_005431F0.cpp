@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2DataTbls.h"
 #include "D2Structs.h"
@@ -272,11 +273,11 @@ static void __stdcall sub_00541FE0_SaveSpecialMonsterParameters(D2GameStrc* pGam
         const int nBaseId = MONSTERS_GetBaseIdInl(pUnit->dwClassId);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
         {
-            if (nBaseId == 0x44)
+            if (nBaseId == MONSTER_SANDMAGGOT1)
             {
                 pNode->nCmdParam1 = AIGENERAL_GetAiControlParam(pUnit, 3);
             }
-            else if (nBaseId == 0x21F)
+            else if (nBaseId == MONSTER_BAALTHRONE)
             {
                 pNode->nCmdParam1 = AIGENERAL_GetAiControlParam(pUnit, 1);
             }

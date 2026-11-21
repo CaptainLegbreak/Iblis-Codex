@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -125,7 +126,7 @@ void __fastcall sub_005A17E0_UModDamageBonus(D2UnitStrc* pUnit, int nUMod, int b
         nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
 
         const int nMonsterId = sub_00463860_GetMonsterId(pUnit);
-        if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount && nMonsterId == 0x76)
+        if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount && nMonsterId == MONSTER_WILLOWISP1)
         {
             nDamage /= 2;
         }

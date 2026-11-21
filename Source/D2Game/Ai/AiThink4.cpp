@@ -2191,7 +2191,7 @@ void __fastcall sub_005E5050_RunHirelingAction(D2GameStrc* pGame, D2UnitStrc* pU
     D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
     int nChance;
-    if (nMonsterId == 338 || nMonsterId > 559 && nMonsterId <= 561)
+    if (nMonsterId == MONSTER_ACT2HIRE || nMonsterId > 559 && nMonsterId <= 561)
         nChance = 98;
     else
     {
@@ -5792,10 +5792,10 @@ void __fastcall sub_005EE5D0_ThinkNihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit
         }
         if (pMonStatsTxt->nSkill[4] > 0)
         {
-            const int nMonsterId = MONSTERS_ValidateMonsterId(528);
+            const int nMonsterId = MONSTERS_ValidateMonsterId(MONSTER_EVILHUT);
             if (sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
             {
-                pAiTickParam->pAiControl->nMinionSpawnClassId = D2Common_11063(UNITS_GetRoom(pUnit), MONSTERS_ValidateMonsterId(453));
+                pAiTickParam->pAiControl->nMinionSpawnClassId = D2Common_11063(UNITS_GetRoom(pUnit), MONSTERS_ValidateMonsterId(MONSTER_MINION1));
                 AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[4], pMonStatsTxt->nSkill[4], pTarget, 0, 0);
                 return;
             }

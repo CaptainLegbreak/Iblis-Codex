@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -1112,18 +1113,18 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
         unsigned int nMinionCount = SEED_RollLimitedRandomNumber(&pMonster->pSeed, 5) + 2;
         for (; nMinionCount; --nMinionCount)
         {
-            sub_6FC68D70(pGame, pMonster, 4, 1, 4, 64);
+            sub_6FC68D70(pGame, pMonster, MONSTER_SKELETON5, 1, 4, 64);
         }
 
-        sub_6FC68D70(pGame, pMonster, 0x114, 1, 4, 64);
-        sub_6FC68D70(pGame, pMonster, 0x17E, 1, 4, 64);
-        sub_6FC68D70(pGame, pMonster, 0x181, 1, 4, 64);
-        sub_6FC68D70(pGame, pMonster, 0x185, 1, 4, 64);
+        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_POIS3, 1, 4, 64);
+        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_COLD4, 1, 4, 64);
+        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_FIRE3, 1, 4, 64);
+        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_LTNG3, 1, 4, 64);
         break;
     }
 
     case 42:
-        sub_6FC6A230(pGame, pMonster, 0x1C5, 1, 20, 20, 0);
+        sub_6FC6A230(pGame, pMonster, MONSTER_MINION1, 1, 20, 20, 0);
         QUESTS_CreateChainRecord(pGame, pMonster, 0x1F);
         QUESTS_MonsterSpawn(pGame, pMonster);
         STATES_ToggleState(pMonster, 0x76, 1);
@@ -1146,7 +1147,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
     }
 
     case 62:
-        sub_6FC6A230(pGame, pMonster, 0x17D, 1, 20, 10, 64);
+        sub_6FC6A230(pGame, pMonster, MONSTER_SKMAGE_COLD3, 1, 20, 10, 64);
         break;
 
     default:

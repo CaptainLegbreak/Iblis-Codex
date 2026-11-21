@@ -2653,10 +2653,10 @@ static __forceinline int sub_00649FF0_GetCollisionPattern(D2UnitStrc* pUnit)
     {
         switch (nBaseId)
         {
-        case 38:
-        case 157:
-        case 158:
-        case 319:
+        case MONSTER_WRAITH1:
+        case MONSTER_BIRD1:
+        case MONSTER_BIRD2:
+        case MONSTER_PARROT:
             nPattern = 5;
             break;
         }

@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -196,11 +197,11 @@ static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevel
         switch (nLevelId)
         {
         case LEVEL_BLACKMARSH:
-            return MONSTERREGION_SanitizeMonsterId_Inline(0x14);
+            return MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_FALLEN2);
         case LEVEL_TAMOEHIGHLAND:
         case LEVEL_PITLEV1:
         case LEVEL_PITLEV2:
-            return MONSTERREGION_SanitizeMonsterId_Inline(0x15);
+            return MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_FALLEN3);
         }
         break;
 
@@ -209,10 +210,10 @@ static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevel
         {
         case LEVEL_BLACKMARSH:
         case LEVEL_TAMOEHIGHLAND:
-            return MONSTERREGION_SanitizeMonsterId_Inline(0x3B);
+            return MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_FALLENSHAMAN2);
         case LEVEL_PITLEV1:
         case LEVEL_PITLEV2:
-            return MONSTERREGION_SanitizeMonsterId_Inline(0x3C);
+            return MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_FALLENSHAMAN3);
         }
         break;
     }

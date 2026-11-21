@@ -6208,7 +6208,7 @@ int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamS
     const int nBaseId = (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) ? nId : -1;
 
     int bNoHeal = sub_00457490_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, 1);
-    if (nBaseId == 10 || nBaseId == 345 || nBaseId == 557)
+    if (nBaseId == MONSTER_BIGHEAD1 || nBaseId == MONSTER_COUNCILMEMBER1 || nBaseId == MONSTER_BAALHIGHPRIEST)
     {
         bNoHeal = 1;
     }

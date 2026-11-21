@@ -1137,7 +1137,7 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
         return;
     }
 
-    if (pNpc->dwClassId != 150 && pNpc->dwClassId != 198 && pNpc->dwClassId != 515 && pNpc->dwClassId != 252)
+    if (pNpc->dwClassId != MONSTER_KASHYA && pNpc->dwClassId != MONSTER_GREIZ && pNpc->dwClassId != MONSTER_QUAL_KEHK && pNpc->dwClassId != MONSTER_ASHEARA)
     {
         return;
     }
@@ -1492,7 +1492,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
 
     if (pNpc)
     {
-        if (pNpc->dwClassId == 0x203)
+        if (pNpc->dwClassId == MONSTER_QUAL_KEHK)
         {
             D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
             if (!QUESTRECORD_GetQuestState(pQuestRecord, 0x24, 0))
@@ -1502,7 +1502,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
             }
         }
 
-        if (pNpc->dwClassId == 0x96 && nLevel < 8)
+        if (pNpc->dwClassId == MONSTER_KASHYA && nLevel < 8)
         {
             D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
             if (!QUESTRECORD_GetQuestState(pQuestRecord, 2, 0))
@@ -2002,7 +2002,7 @@ int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* ptGame, D2UnitStrc* pUnit,
         return 1;
     }
 
-    if (pNpc->dwClassId != 257 && pNpc->dwClassId != 154 && pNpc->dwClassId != 178 && pNpc->dwClassId != 511 && pNpc->dwClassId != 253)
+    if (pNpc->dwClassId != MONSTER_HALBU && pNpc->dwClassId != MONSTER_CHARSI && pNpc->dwClassId != MONSTER_FARA && pNpc->dwClassId != MONSTER_LARZUK && pNpc->dwClassId != MONSTER_HRATLI)
     {
         SEND_0x2A(9, 0x9D2, 0);
         return 1;
