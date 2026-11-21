@@ -111,43 +111,8 @@ int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-// 0x005017D0
-int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength)
-{
-    int nCount = 0;
-    int nWidth = 0;
-    for (const Unicode* i = wszText; i->wChar; ++i)
-    {
-        if (nCount >= nTextLength)
-            break;
-        const unsigned short wChar = i->wChar;
-        if (wChar != '\n')
-            nWidth += gpfGetCharInfo_00841DA0(wChar)->nWidth;
-        ++nCount;
-    }
-    return nWidth;
-}
 
-// 0x00502280
-void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign)
-{
-    if (wszText && sub_00526800(wszText) < 1024)
-        sub_005267E0(gwszFramedText_00841EC8, wszText);
-    else
-        memset(gwszFramedText_00841EC8, 0, sizeof(gwszFramedText_00841EC8));
-    gnFramedTextX_008426C8 = nX;
-    gnFramedTextY_008426CC = nY;
-    gnFramedTextColor_008426D0 = nTextColor;
-    gnFramedTextAlign_008426D4 = nAlign;
-    gnFramedTextRectColor_008426D8 = 0;
-}
 
-// 0x005022F0
-void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign, int nRectangleColor)
-{
-    D2Win_10129_DrawFramedText(wszText, nX, nY, nTextColor, nAlign);
-    gnFramedTextRectColor_008426D8 = nRectangleColor;
-}
 
 // 0x00504270
 void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* a2, const Unicode* a3, const Unicode* a4, const Unicode* a5, int a6, int a7)

@@ -104,6 +104,10 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern int gnListFontHeight_006DD024[]; // 0x006DD024
 
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
 // 0x00507000
 int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* ptListData)
 {
@@ -369,6 +373,19 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
     pList->pSelectedDataEntry = pList->pDataList;
     CONTROL_AppendToList(&pList->controlHeader);
     return pList;
+}
+
+// 0x00506E60
+int __fastcall LIST_Destroy(D2WinListStrc* pList)
+{
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x80);
+    D2WinListDataStrc* pNext = 0;
+    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pNext)
+    {
+        pNext = pData->pNext;
+        FOG_Free(pData, ".\\Src\\D2WinList.cpp", 0x85, 0);
+    }
+    return CONTROL_RemoveFromList(&pList->controlHeader);
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinList.inc"

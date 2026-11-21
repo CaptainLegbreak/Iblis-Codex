@@ -167,31 +167,7 @@ void __fastcall sub_004FDA50_2(D2WinTimerStrc* ptTimerData)
 
 
 
-// 0x005015F0
-void __stdcall D2Win_10116()
-{
-    for (int i = 0; i < 14; ++i)
-    {
-        if (gFontCache_00841DA8[i].pCellFile)
-        {
-            sub_004FAAE0_FreeCellFile(gFontCache_00841DA8[i].pCellFile);
-            gFontCache_00841DA8[i].pCellFile = 0;
-        }
-        if (gFontCache_00841DA8[i].pFontInfo[0])
-        {
-            FOG_Free(gFontCache_00841DA8[i].pFontInfo[0], ".\\Src\\D2WinFont.cpp", 0x135, 0);
-            gFontCache_00841DA8[i].pFontInfo[0] = 0;
-        }
-    }
-    sub_004FAAE0_FreeCellFile(ghMonsterIndicators_00841DA4);
-    ghMonsterIndicators_00841DA4 = 0;
-}
 
-// 0x00501820
-int __fastcall sub_00501820(const Unicode* wszText)
-{
-    return D2Win_10122(wszText, sub_00526800(wszText));
-}
 
 // build: context sub_D2Win_10143_ApplyCof
 static int sub_D2Win_10143_ApplyCof(D2CompositeUnitStrc* pCompositeUnit, D2CofNodeStrc* pCofNode, int nMode)
@@ -257,90 +233,15 @@ void __fastcall sub_005055D0_ApplyPalette()
         gabEmblemColor2_0087E82C[i] = D2Win_10034_MixRGB(gaEmblemColorRGB2_0072E1BC[i].nRed, gaEmblemColorRGB2_0072E1BC[i].nGreen, gaEmblemColorRGB2_0072E1BC[i].nBlue);
 }
 
-// 0x00506A40
-int __fastcall SMACK_Destroy(D2WinSmackStrc* pSmack)
-{
-    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0x8C);
-    SMACK_DeleteFile(pSmack);
-    return CONTROL_RemoveFromList(&pSmack->controlHeader);
-}
-
-// 0x00506E60
-int __fastcall LIST_Destroy(D2WinListStrc* pList)
-{
-    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x80);
-    D2WinListDataStrc* pNext = 0;
-    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pNext)
-    {
-        pNext = pData->pNext;
-        FOG_Free(pData, ".\\Src\\D2WinList.cpp", 0x85, 0);
-    }
-    return CONTROL_RemoveFromList(&pList->controlHeader);
-}
-
-// 0x00507850
-void __fastcall ACCOUNTLIST_FreeData(D2WinAccountListStrc* ptListData)
-{
-    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x5D);
-    D2WinAccountListDataStrc* pNext = 0;
-    for (D2WinAccountListDataStrc* pData = ptListData->pDataList; pData; pData = pNext)
-    {
-        pNext = pData->pNext;
-        FOG_Free(pData, ".\\Src\\D2WinAccountList.cpp", 0x63, 0);
-    }
-}
-
-// 0x00507AF0
-int __fastcall ACCOUNTLIST_Destroy(D2WinAccountListStrc* ptListData)
-{
-    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x50);
-    ACCOUNTLIST_FreeData(ptListData);
-    return CONTROL_RemoveFromList(&ptListData->controlHeader);
-}
 
 
 
 
-// 0x005085A0
-int __stdcall POPUP_Destroy()
-{
-    int nResult = 0;
-    if (gpPopUp_0087E974)
-    {
-        nResult = CONTROL_RemoveFromList(&gpPopUp_0087E974->controlHeader);
-        gpPopUp_0087E974 = 0;
-    }
-    return nResult;
-}
 
-// 0x005085C0
-int __stdcall POPUP_IsActive()
-{
-    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
-    if (!pPopUp)
-        return 0;
-    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x62);
-    if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
-        return 0;
-    return 1;
-}
 
-// 0x005086A0
-int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
-    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x90);
-    if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
-        return 0;
-    const int nCurrentLine = pPopUp->nCurrentLine;
-    if (nCurrentLine == -1)
-        return 0;
-    void (__stdcall* pfHandleMouseInput)() = pPopUp->lines[nCurrentLine].pfHandleMouseInput;
-    if (!pfHandleMouseInput)
-        return 0;
-    pfHandleMouseInput();
-    return 1;
-}
+
+
+
 
 // 0x004FDCC0
 void __fastcall sub_004FDCC0(D2WinEditBoxStrc* ptEditData)

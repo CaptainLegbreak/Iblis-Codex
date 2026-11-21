@@ -42193,21 +42193,6 @@
      "name": "TIMER_HandleVirtualKeyInput"
     },
     {
-     "va": "0x005017D0",
-     "length": 71,
-     "name": "D2Win_10122"
-    },
-    {
-     "va": "0x00502280",
-     "length": 107,
-     "name": "D2Win_10129_DrawFramedText"
-    },
-    {
-     "va": "0x005022F0",
-     "length": 33,
-     "name": "D2Win_10130_DrawFramedTextEx"
-    },
-    {
      "va": "0x00504270",
      "length": 121,
      "name": "D2Win_10154"
@@ -42328,16 +42313,6 @@
      "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
     },
     {
-     "va": "0x005015F0",
-     "length": 88,
-     "name": "?D2Win_10116@@YGXXZ"
-    },
-    {
-     "va": "0x00501820",
-     "length": 18,
-     "name": "?sub_00501820@@YIHPBUUnicode@@@Z"
-    },
-    {
      "va": "0x005042F0",
      "length": 118,
      "name": "?D2Win_10143@@YIHPAUD2CompositeUnitStrc@@H@Z"
@@ -42361,41 +42336,6 @@
      "va": "0x005055D0",
      "length": 106,
      "name": "?sub_005055D0_ApplyPalette@@YIXXZ"
-    },
-    {
-     "va": "0x00506A40",
-     "length": 53,
-     "name": "?SMACK_Destroy@@YIHPAUD2WinSmackStrc@@@Z"
-    },
-    {
-     "va": "0x00506E60",
-     "length": 86,
-     "name": "?LIST_Destroy@@YIHPAUD2WinListStrc@@@Z"
-    },
-    {
-     "va": "0x00507850",
-     "length": 73,
-     "name": "?ACCOUNTLIST_FreeData@@YIXPAUD2WinAccountListStrc@@@Z"
-    },
-    {
-     "va": "0x00507AF0",
-     "length": 49,
-     "name": "?ACCOUNTLIST_Destroy@@YIHPAUD2WinAccountListStrc@@@Z"
-    },
-    {
-     "va": "0x005085A0",
-     "length": 29,
-     "name": "?POPUP_Destroy@@YGHXZ"
-    },
-    {
-     "va": "0x005085C0",
-     "length": 70,
-     "name": "?POPUP_IsActive@@YGHXZ"
-    },
-    {
-     "va": "0x005086A0",
-     "length": 104,
-     "name": "?POPUP_HandleMouseButtonInput@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
@@ -42845,9 +42785,24 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x005015F0",
+     "length": 88,
+     "name": "?D2Win_10116@@YGXXZ"
+    },
+    {
      "va": "0x00501650",
      "length": 49,
      "name": "?sub_6F8AA100@@YIPAUD2CharStrc@@G@Z"
+    },
+    {
+     "va": "0x005017D0",
+     "length": 71,
+     "name": "D2Win_10122"
+    },
+    {
+     "va": "0x00501820",
+     "length": 18,
+     "name": "?sub_00501820@@YIHPBUUnicode@@@Z"
     },
     {
      "va": "0x005019C0",
@@ -42863,6 +42818,16 @@
      "va": "0x00501A60",
      "length": 29,
      "name": "?sub_00501A60_DrawRectUp@@YGXHHHHIH@Z"
+    },
+    {
+     "va": "0x00502280",
+     "length": 107,
+     "name": "D2Win_10129_DrawFramedText"
+    },
+    {
+     "va": "0x005022F0",
+     "length": 33,
+     "name": "D2Win_10130_DrawFramedTextEx"
     },
     {
      "va": "0x00502680",
@@ -43637,6 +43602,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00506A40",
+     "length": 53,
+     "name": "?SMACK_Destroy@@YIHPAUD2WinSmackStrc@@@Z"
+    },
+    {
      "va": "0x00506A80",
      "length": 11,
      "name": "?D2Win_10184@@YGXXZ"
@@ -43656,6 +43626,11 @@
    "file": "Source/D2Win/Src/D2WinList.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00506E60",
+     "length": 86,
+     "name": "?LIST_Destroy@@YIHPAUD2WinListStrc@@@Z"
+    },
     {
      "va": "0x00507000",
      "length": 77,
@@ -43722,6 +43697,16 @@
    "file": "Source/D2Win/Src/D2WinAccountList.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00507850",
+     "length": 73,
+     "name": "?ACCOUNTLIST_FreeData@@YIXPAUD2WinAccountListStrc@@@Z"
+    },
+    {
+     "va": "0x00507AF0",
+     "length": 49,
+     "name": "?ACCOUNTLIST_Destroy@@YIHPAUD2WinAccountListStrc@@@Z"
+    },
     {
      "va": "0x00507B30",
      "length": 367,
@@ -43805,6 +43790,21 @@
    "file": "Source/D2Win/Src/D2WinPopup.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005085A0",
+     "length": 29,
+     "name": "?POPUP_Destroy@@YGHXZ"
+    },
+    {
+     "va": "0x005085C0",
+     "length": 70,
+     "name": "?POPUP_IsActive@@YGHXZ"
+    },
+    {
+     "va": "0x005086A0",
+     "length": 104,
+     "name": "?POPUP_HandleMouseButtonInput@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
     {
      "va": "0x00508710",
      "length": 138,
