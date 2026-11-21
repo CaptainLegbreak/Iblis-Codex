@@ -407,6 +407,7 @@ bool __stdcall sub_00402A90_GetDbgHelpModuleRange(void** ppBase, unsigned long* 
         return false;
     if (!GetModuleInformation(GetCurrentProcess(), ghDbgHelp_0098A680, &tInfo, sizeof(tInfo)))
         return false;
+    // stands for the original reading both module-info fields before it loads the out pointers (no plain-C form found)
     *ppBase = *(void* volatile*)&tInfo.lpBaseOfDll;
     const unsigned long nSize = *(volatile unsigned long*)&tInfo.SizeOfImage;
     *pSize = nSize;
