@@ -291,6 +291,8 @@ static D2UnitStrc* __stdcall sub_005DA490_FindLeapAttackTarget(D2GameStrc* pGame
 
 static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit);
 
+int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
 // 0x005D80C0
 int __fastcall SKILLS_SrvSt33_FindPotion_GrimWard(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1241,46 +1243,6 @@ static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX,
     return 1;
 }
 
-int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    const int nSkillFlags = SKILLS_GetFlags(pSkill);
-    if (nSkillFlags & 0x100)
-    {
-        if (sub_005DA120_Leap(pGame, pSkill, pUnit))
-        {
-            if (!sub_005DA490_FindLeapAttackTarget(pGame, pUnit, pSkill))
-            {
-                D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
-                EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 4, 0, 0);
-                return 0;
-            }
-
-            D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, 16);
-        }
-
-        return 1;
-    }
-
-    if (nSkillFlags & 0x80)
-    {
-        return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
-    }
-
-    if (!(SKILLS_GetFlags(pSkill) & 0x200))
-    {
-        SKILLS_SetFlags(pSkill, 0x1000);
-        return 1;
-    }
-
-    return sub_005DA660_LeapAttackHit(pGame, nSkillId, nSkillLevel, pUnit);
-}
-
 // 0x005DA120
 static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
@@ -1611,6 +1573,47 @@ static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId,
         }
     }
 
+    return 1;
+}
+
+// 0x005DA7E0
+int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    const int nSkillFlags = SKILLS_GetFlags(pSkill);
+    if (nSkillFlags & 0x100)
+    {
+        if (sub_005DA120_Leap(pGame, pSkill, pUnit))
+        {
+            if (!sub_005DA490_FindLeapAttackTarget(pGame, pUnit, pSkill))
+            {
+                D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+                EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 4, 0, 0);
+                return 0;
+            }
+
+            D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, 16);
+        }
+
+        return 1;
+    }
+
+    if (nSkillFlags & 0x80)
+    {
+        return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
+    }
+
+    if (SKILLS_GetFlags(pSkill) & 0x200)
+    {
+        return sub_005DA660_LeapAttackHit(pGame, nSkillId, nSkillLevel, pUnit);
+    }
+
+    SKILLS_SetFlags(pSkill, 0x1000);
     return 1;
 }
 
