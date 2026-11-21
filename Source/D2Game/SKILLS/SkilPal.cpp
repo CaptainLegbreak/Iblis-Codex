@@ -9,6 +9,8 @@
 #include "D2UnitData.h"
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
+#include "D2GameTypes.h"
+#include "D2LevelTxt.h"
 struct D2ActiveRoomStrc;
 struct D2UnkCallRecordStrc;
 
@@ -72,66 +74,6 @@ enum D2C_F39Constants
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
-};
-
-struct D2ModeChangeStrc
-{
-    int unk0x00[9];
-};
-
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int unk0x10[9];
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int unk0x40[3];
-    int dwDmgTotal;
-    int unk0x50[4];
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
-
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[7];
-    void (__fastcall* pInitFunc)(D2UnitStrc* pMissile, int nInitArg);
-    int nInitArg;
-};
-
-struct D2AiCmdStrc
-{
-    int unk0x00[2];
-    int nCmdParam[5];
-};
-
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x40];
-    int dwStaticFieldMin;
 };
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
@@ -251,8 +193,6 @@ int __fastcall SKILLS_AuraCallback_Redemption(D2AuraCallbackStrc* pAuraCallback,
 int __fastcall SKILLS_ResurrectUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005CC960
 int __fastcall SKILLS_AuraCallback_StaticField(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pDefender); // 0x005C96A0
 D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
-
-typedef void(__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x005D3CF0
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
