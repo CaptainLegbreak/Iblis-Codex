@@ -32285,6 +32285,10 @@
      "length": 410
     },
     {
+     "va": "0x004C1350",
+     "length": 870
+    },
+    {
      "va": "0x004C1E40",
      "length": 236
     },
@@ -32295,30 +32299,6 @@
     {
      "va": "0x004C2C80",
      "length": 519
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C1350.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C1350",
-     "length": 870
     }
    ],
    "flags": [
