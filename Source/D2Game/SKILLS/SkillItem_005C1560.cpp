@@ -12,11 +12,6 @@ struct D2MagicAffixIndexAndPtrStrc
     D2MagicAffixTxt* pMagicAffixRecord;
 };
 
-struct D2RareAffixTxt
-{
-    char unk0x00[0x48];
-};
-
 struct D2RareAffixDataTbl
 {
     int nRareAffixTxtRecordCount;
