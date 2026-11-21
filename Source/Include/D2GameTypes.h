@@ -15,6 +15,8 @@ struct D2MapAIStrc;
 struct D2AiCmdStrc;
 struct D2AiControlStrc;
 struct D2TextHeaderStrc;
+struct D2ObjectControlStrc;
+struct D2ObjectsTxt;
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -140,8 +142,8 @@ struct D2ObjInitFnStrc
     D2GameStrc* pGame; // 0x00
     D2UnitStrc* pObject; // 0x04
     D2ActiveRoomStrc* pRoom; // 0x08
-    void* pObjectregion; // 0x0C
-    void* pObjectTxt; // 0x10
+    D2ObjectControlStrc* pObjectregion; // 0x0C
+    D2ObjectsTxt* pObjectTxt; // 0x10
     int nX; // 0x14
     int nY; // 0x18
 };
