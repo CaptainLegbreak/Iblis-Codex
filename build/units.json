@@ -68312,6 +68312,10 @@
      "name": "?AITHINK_Fn027_ThornHulk@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F4A70",
+     "length": 1375
+    },
+    {
      "va": "0x005F4FD0",
      "length": 100,
      "name": "sub_005F4FD0"
@@ -69172,30 +69176,6 @@
     {
      "va": "0x005F3170",
      "length": 1467
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F4A70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F4A70",
-     "length": 1375
     }
    ],
    "flags": [

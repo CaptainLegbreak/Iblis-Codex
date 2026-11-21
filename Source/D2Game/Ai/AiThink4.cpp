@@ -8623,6 +8623,117 @@ void __fastcall AITHINK_Fn027_ThornHulk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
 }
 
+// 0x005F4A70
+void __fastcall sub_005F4A70_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+{
+    int nDistance = pTick->nTargetDistance;
+    int bCombat = pTick->bCombat;
+    D2UnitStrc* pTarget = pTick->pTarget;
+    D2MonStatsTxt* pStats = pTick->pMonstatsTxt;
+    D2AiControlStrc* pAi = pTick->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    const int nFlags = AI_PARAM(pGame, pStats, 4);
+    const int bAttack = nFlags & 1;
+    const int bSkill1 = nFlags & 2;
+    const int bSkill2 = nFlags & 4;
+    if (pAi->dwAiParam[2] > 0) --pAi->dwAiParam[2];
+    int nNewDistance;
+    D2UnitStrc* pNewTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nNewDistance, 0);
+    if (sub_6FCF2E70(pUnit)) {
+        if (!pAi->dwAiParam[0]) pAi->dwAiParam[0] = 1;
+        if (nDistance < 30 && nDistance > pAi->dwAiParam[1]) pAi->dwAiParam[1] = nDistance;
+        if (bCombat) {
+            if (AI_ROLL_PERCENT(pSeed) <= 30 && bAttack)
+            {
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[0], pStats->nSkill[0], pTarget, 0, 0);
+                else AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[3], pStats->nSkill[3], pTarget, 0, 0);
+            }
+            else AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            return;
+        }
+    }
+    const int nLife = UNITS_GetCurrentLifePercentage(pUnit);
+    if (pAi->dwAiParam[0] == 2) {
+        if (nLife >= 75) {
+            pAi->dwAiParam[0] = 1;
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+            return;
+        }
+        if (nDistance < 14 || nDistance <= pAi->dwAiParam[1]) {
+            int nVelocity = 0;
+            if (pStats->nVelocity > 0) nVelocity = 100 * pStats->nRun / pStats->nVelocity - 100;
+            nVelocity = nVelocity <= 0 ? 0 : nVelocity;
+            nVelocity = nVelocity >= 120 ? 120 : nVelocity;
+            sub_005DE190_SetAiParam(pUnit, 0, nVelocity, 0);
+            if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 1)) return;
+        }
+        if (nDistance < AI_PARAM(pGame, pStats, 2) && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 1)) {
+            if (bSkill1 && pAi->dwAiParam[2] <= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 3)) {
+                AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[1], pStats->nSkill[1], pTarget, 0, 0);
+                pAi->dwAiParam[2] = 11;
+                return;
+            }
+            if (bSkill2 && pAi->dwAiParam[2] <= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 3)) {
+                AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[2], pStats->nSkill[2], pTarget, 0, 0);
+                pAi->dwAiParam[2] = 11;
+                return;
+            }
+            if (bAttack && pNewTarget && nNewDistance <= 20) { if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) { AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[0], pStats->nSkill[0], pNewTarget, 0, 0); return; } AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[3], pStats->nSkill[3], pNewTarget, 0, 0); return; }
+            else sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+            return;
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+        return;
+    }
+    if (nLife < 33) {
+        pAi->dwAiParam[0] = 2;
+        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0)) return;
+    }
+    if (bCombat) {
+        pAi->dwAiParam[0] = 1;
+        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pStats, 0)) {
+            if (!bAttack || !pNewTarget || (int)SEED_RollLimitedRandomNumber(pSeed, 100) > 30) {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                return;
+            }
+            if (nNewDistance <= 20) { { if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) { AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[0], pStats->nSkill[0], pNewTarget, 0, 0); return; } AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[3], pStats->nSkill[3], pNewTarget, 0, 0); return; } return; }
+        }
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 33) sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+        else AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+    if (nDistance < AI_PARAM(pGame, pStats, 2)) {
+        pAi->dwAiParam[0] = 1;
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 1)) {
+            if (bSkill1 && pAi->dwAiParam[2] <= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 3)) {
+                AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[1], pStats->nSkill[1], pTarget, 0, 0);
+                pAi->dwAiParam[2] = 11;
+                return;
+            }
+            if (bSkill2 && pAi->dwAiParam[2] <= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 3)) {
+                AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[2], pStats->nSkill[2], pTarget, 0, 0);
+                pAi->dwAiParam[2] = 11;
+                return;
+            }
+            if (bAttack && pNewTarget && nNewDistance <= 20) {
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 75) { if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) { AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[0], pStats->nSkill[0], pNewTarget, 0, 0); return; } AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[3], pStats->nSkill[3], pNewTarget, 0, 0); return; }
+                else sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+            } else AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+            return;
+        }
+        if (nDistance > 20) { AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7); return; }
+        if (nDistance < 9 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) {
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
+            return;
+        }
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+        else AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+    if (pAi->dwAiParam[0] == 1) { AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7); return; }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+}
+
 // 0x005F4FD0
 void __fastcall sub_005F4FD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
