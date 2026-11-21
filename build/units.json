@@ -57778,6 +57778,10 @@
      "name": "sub_00575FF0"
     },
     {
+     "va": "0x00576070",
+     "length": 336
+    },
+    {
      "va": "0x005761C0",
      "length": 230,
      "name": "?D2GAME_NPC_RepairItem_6FCC6970@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
@@ -57793,6 +57797,10 @@
      "name": "?sub_005762C0_SetItemTradeFlags@@YIXPAUD2UnitStrc@@00HH@Z"
     },
     {
+     "va": "0x00576330",
+     "length": 798
+    },
+    {
      "va": "0x00576650",
      "length": 123,
      "name": "?sub_00576650_AddGambleItem@@YIXPAUD2UnitStrc@@00PAUD2GameStrc@@H@Z"
@@ -57803,13 +57811,27 @@
      "name": "?sub_005766D0@@YIXPAUUnit@@0PAUGame@@H@Z"
     },
     {
+     "va": "0x00576770",
+     "length": 280
+    },
+    {
      "va": "0x00576900",
      "length": 115
+    },
+    {
+     "va": "0x00576980",
+     "length": 674,
+     "name": "?D2GAME_NPC_FillStoreInventory_6FCC7100@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NpcTradeStrc@@@Z"
     },
     {
      "va": "0x00576C30",
      "length": 93,
      "name": "?sub_00576C30_AddItemsToTrade@@YIXPAUD2UnitStrc@@PAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x00576C90",
+     "length": 248,
+     "name": "?sub_00576C90_RollTraderItemCode@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PATD2SeedStrc@@HPAIPAH@Z"
     },
     {
      "va": "0x00576D90",
@@ -57832,6 +57854,15 @@
      "name": "sub_6FCC7E20"
     },
     {
+     "va": "0x00577010",
+     "length": 199
+    },
+    {
+     "va": "0x005770E0",
+     "length": 750,
+     "name": "?SUNITNPC_HireMercenaryFromRoster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1G@Z"
+    },
+    {
      "va": "0x005773D0",
      "length": 147,
      "name": "?sub_005773D0_UpdateMercForOwnerMove@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -57842,6 +57873,19 @@
      "name": "sub_00577470_RelinkItemStatLists"
     },
     {
+     "va": "0x005774F0",
+     "length": 378
+    },
+    {
+     "va": "0x00577700",
+     "length": 294,
+     "name": "?sub_6FCC87C0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAH@Z"
+    },
+    {
+     "va": "0x00577830",
+     "length": 1787
+    },
+    {
      "va": "0x00577F30",
      "length": 168,
      "name": "?D2GAME_NPC_BuyItemHandler_6FCC92A0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHH@Z"
@@ -57850,6 +57894,10 @@
      "va": "0x00577FE0",
      "length": 112,
      "name": "?D2GAME_NPC_HireMerc_6FCC9540@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00578050",
+     "length": 1037
     },
     {
      "va": "0x00578460",
@@ -57867,14 +57915,33 @@
      "name": "D2GAME_NPC_IdentifyBoughtItem_6FCCA990"
     },
     {
+     "va": "0x005786A0",
+     "length": 238,
+     "name": "?sub_005786A0_RollGambleUpgrade@@YGHHHHPAUD2GameStrc@@H@Z"
+    },
+    {
+     "va": "0x00578790",
+     "length": 833
+    },
+    {
      "va": "0x00578AE0",
      "length": 77,
      "name": "?sub_00578AE0_FillGambleIfMissing@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NpcRecordStrc@@@Z"
     },
     {
+     "va": "0x00578B30",
+     "length": 225,
+     "name": "?D2GAME_STORES_CreateVendorCache_6FCCAE20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    },
+    {
      "va": "0x00578C20",
      "length": 113,
      "name": "D2GAME_NPC_RemoveStates_6FCCAF30"
+    },
+    {
+     "va": "0x00578CA0",
+     "length": 129,
+     "name": "SUNITNPC_PetIterate_Heal"
     },
     {
      "va": "0x00578D30",
@@ -57885,6 +57952,19 @@
      "va": "0x00578E70",
      "length": 91,
      "name": "?D2GAME_NPC_Heal_6FCCB220@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x00578ED0",
+     "length": 350,
+     "name": "D2GAME_NPC_PurchaseHeal_6FCCB280"
+    },
+    {
+     "va": "0x00579030",
+     "length": 89
+    },
+    {
+     "va": "0x00579090",
+     "length": 149
     },
     {
      "va": "0x00579180",
@@ -57901,9 +57981,21 @@
      "name": "?D2GAME_STORES_CreateVendorCache_6FCC74F0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
+     "va": "0x00579510",
+     "length": 1414
+    },
+    {
+     "va": "0x00579AA0",
+     "length": 345
+    },
+    {
      "va": "0x00579C00",
      "length": 352,
      "name": "?D2GAME_NPC_ResurrectMerc_6FCC9350@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00579D60",
+     "length": 2765
     }
    ]
   },
@@ -58136,236 +58228,6 @@
      "length": 270,
      "name": "?PLAYERPETS_AddPetWithInfo@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HPAUD2PetInfoStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_00576070.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00576070",
-     "length": 336
-    },
-    {
-     "va": "0x00576330",
-     "length": 798
-    },
-    {
-     "va": "0x00577830",
-     "length": 1787
-    },
-    {
-     "va": "0x00579030",
-     "length": 89
-    },
-    {
-     "va": "0x00579AA0",
-     "length": 345
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_00576770.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00576770",
-     "length": 280
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_00576980.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00576980",
-     "length": 674,
-     "name": "?D2GAME_NPC_FillStoreInventory_6FCC7100@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NpcTradeStrc@@@Z"
-    },
-    {
-     "va": "0x00576C90",
-     "length": 248,
-     "name": "?sub_00576C90_RollTraderItemCode@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PATD2SeedStrc@@HPAIPAH@Z"
-    },
-    {
-     "va": "0x00579D60",
-     "length": 2765
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_00577010.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00577010",
-     "length": 199
-    },
-    {
-     "va": "0x00578790",
-     "length": 833
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_005770E0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005770E0",
-     "length": 750,
-     "name": "?SUNITNPC_HireMercenaryFromRoster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1G@Z"
-    },
-    {
-     "va": "0x005786A0",
-     "length": 238,
-     "name": "?sub_005786A0_RollGambleUpgrade@@YGHHHHPAUD2GameStrc@@H@Z"
-    },
-    {
-     "va": "0x00579090",
-     "length": 149
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_005774F0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005774F0",
-     "length": 378
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_00577700.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00577700",
-     "length": 294,
-     "name": "?sub_6FCC87C0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAH@Z"
-    },
-    {
-     "va": "0x00578B30",
-     "length": 225,
-     "name": "?D2GAME_STORES_CreateVendorCache_6FCCAE20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
-    },
-    {
-     "va": "0x00578CA0",
-     "length": 129,
-     "name": "SUNITNPC_PetIterate_Heal"
-    },
-    {
-     "va": "0x00578ED0",
-     "length": 350,
-     "name": "D2GAME_NPC_PurchaseHeal_6FCCB280"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_00578050.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00578050",
-     "length": 1037
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUNITNPC_00579510.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00579510",
-     "length": 1414
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
