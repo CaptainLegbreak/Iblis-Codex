@@ -65053,11 +65053,6 @@
      "name": "?ACT4Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
-     "va": "0x005B4530",
-     "length": 35,
-     "name": "?ACT4Q2_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
      "va": "0x005B4560",
      "length": 119,
      "name": "?ACT4Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -65201,6 +65196,11 @@
      "va": "0x005B4440",
      "length": 15,
      "name": "?ACT4Q1_AttachCompletionSoundToPlayers@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005B4530",
+     "length": 35,
+     "name": "?ACT4Q2_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x005B45E0",
