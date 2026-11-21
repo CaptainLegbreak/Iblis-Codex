@@ -6499,31 +6499,7 @@
   "Source/D2Client/UNIT/Object.cpp": {
    "bytes": 600,
    "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004BD090_OperateReverseNameShrine(); // 0x004BD090",
-    "extern \"C\" void __cdecl sub_004BD0C0_SpawnMissileGrid(); // 0x004BD0C0",
-    "extern \"C\" void __cdecl sub_004BD220_SpawnMissileStar(); // 0x004BD220",
-    "extern \"C\" void __cdecl sub_004BD360_SpawnMissileStar(); // 0x004BD360",
-    "extern \"C\" void __cdecl sub_004BD4A0_InitShrineOverlays(); // 0x004BD4A0",
-    "extern \"C\" void __cdecl sub_004BD730_AnimCycle(); // 0x004BD730",
-    "extern \"C\" void __cdecl sub_004BD7C0_AnimCycleUpdate(); // 0x004BD7C0",
-    "extern \"C\" void __cdecl sub_004BD860_TimedSpecial(); // 0x004BD860",
-    "extern \"C\" void __cdecl sub_004BD900_TimedSpecialRandom(); // 0x004BD900",
-    "extern \"C\" void __cdecl sub_004BD9C0_TimedSpecialExact(); // 0x004BD9C0",
-    "extern \"C\" void __cdecl sub_004BDA60_TimedOperate(); // 0x004BDA60",
-    "extern \"C\" void __cdecl sub_004BDAF0_AlwaysOne(); // 0x004BDAF0",
-    "extern \"C\" void __cdecl sub_004BDB00_TimedOperateShort(); // 0x004BDB00",
-    "extern \"C\" void __cdecl sub_004BDB90_AlwaysOne(); // 0x004BDB90",
-    "extern \"C\" void __cdecl sub_004BDBA0_RemoveWhenFar(); // 0x004BDBA0",
-    "extern \"C\" void __cdecl sub_004BDBF0_TriggerOnce219(); // 0x004BDBF0",
-    "extern \"C\" void __cdecl sub_004BDC10_QuestObject(); // 0x004BDC10",
-    "extern \"C\" void __cdecl sub_004BDCA0_TriggerOnceD3(); // 0x004BDCA0",
-    "extern \"C\" void __cdecl sub_004BDCC0_UpdateEnvObject(); // 0x004BDCC0",
-    "extern \"C\" void __cdecl sub_004BDCF0_TimedOverlay(); // 0x004BDCF0",
-    "extern \"C\" void __cdecl sub_004BDD50_RandomSound(); // 0x004BDD50",
-    "extern \"C\" void __cdecl sub_004BDE00_FinishOperate(); // 0x004BDE00",
-    "extern \"C\" void __cdecl sub_004BDE40_ReportPosition(); // 0x004BDE40"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Object.inc",
    "lang": "cpp",
@@ -61735,18 +61711,23 @@
        }
       ],
       [
-       "unk0x08",
+       "f_8",
        8,
        {
-        "elem": {
-         "k": "prim",
-         "kind": "c",
-         "name": "char",
-         "size": 1
-        },
-        "k": "arr",
-        "n": 8,
-        "size": 8
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "f_C",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
        }
       ],
       [
@@ -61772,7 +61753,7 @@
     [
      120,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61780,7 +61761,7 @@
     [
      140,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61788,7 +61769,7 @@
     [
      160,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61796,7 +61777,7 @@
     [
      180,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61804,7 +61785,7 @@
     [
      200,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61812,7 +61793,7 @@
     [
      220,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61820,7 +61801,7 @@
     [
      240,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61828,7 +61809,7 @@
     [
      260,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61836,7 +61817,7 @@
     [
      280,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61844,7 +61825,7 @@
     [
      300,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61852,7 +61833,7 @@
     [
      324,
      "0x004BD090",
-     "names.json",
+     "owner",
      "sub_004BD090_OperateReverseNameShrine",
      0,
      "func"
@@ -61860,7 +61841,7 @@
     [
      384,
      "0x004BD0C0",
-     "names.json",
+     "owner",
      "sub_004BD0C0_SpawnMissileGrid",
      0,
      "func"
@@ -61868,7 +61849,7 @@
     [
      424,
      "0x004BD220",
-     "names.json",
+     "owner",
      "sub_004BD220_SpawnMissileStar",
      0,
      "func"
@@ -61876,7 +61857,7 @@
     [
      444,
      "0x004BD360",
-     "names.json",
+     "owner",
      "sub_004BD360_SpawnMissileStar",
      0,
      "func"
@@ -61941,7 +61922,7 @@
     [
      4,
      "0x004BDB90",
-     "names.json",
+     "owner",
      "sub_004BDB90_AlwaysOne",
      0,
      "func"
@@ -61949,7 +61930,7 @@
     [
      8,
      "0x004BD730",
-     "names.json",
+     "owner",
      "sub_004BD730_AnimCycle",
      0,
      "func"
@@ -61957,7 +61938,7 @@
     [
      12,
      "0x004BD7C0",
-     "names.json",
+     "owner",
      "sub_004BD7C0_AnimCycleUpdate",
      0,
      "func"
@@ -61965,7 +61946,7 @@
     [
      16,
      "0x004BD860",
-     "names.json",
+     "owner",
      "sub_004BD860_TimedSpecial",
      0,
      "func"
@@ -61973,7 +61954,7 @@
     [
      20,
      "0x004BD900",
-     "names.json",
+     "owner",
      "sub_004BD900_TimedSpecialRandom",
      0,
      "func"
@@ -61981,7 +61962,7 @@
     [
      24,
      "0x004BD9C0",
-     "names.json",
+     "owner",
      "sub_004BD9C0_TimedSpecialExact",
      0,
      "func"
@@ -61989,7 +61970,7 @@
     [
      28,
      "0x004BDA60",
-     "names.json",
+     "owner",
      "sub_004BDA60_TimedOperate",
      0,
      "func"
@@ -61997,7 +61978,7 @@
     [
      32,
      "0x004BDCA0",
-     "names.json",
+     "owner",
      "sub_004BDCA0_TriggerOnceD3",
      0,
      "func"
@@ -62005,7 +61986,7 @@
     [
      36,
      "0x004BDBA0",
-     "names.json",
+     "owner",
      "sub_004BDBA0_RemoveWhenFar",
      0,
      "func"
@@ -62013,7 +61994,7 @@
     [
      40,
      "0x004BDB00",
-     "names.json",
+     "owner",
      "sub_004BDB00_TimedOperateShort",
      0,
      "func"
@@ -62021,7 +62002,7 @@
     [
      44,
      "0x004BDAF0",
-     "names.json",
+     "owner",
      "sub_004BDAF0_AlwaysOne",
      0,
      "func"
@@ -62029,7 +62010,7 @@
     [
      48,
      "0x004BDBF0",
-     "names.json",
+     "owner",
      "sub_004BDBF0_TriggerOnce219",
      0,
      "func"
@@ -62037,7 +62018,7 @@
     [
      52,
      "0x004BDC10",
-     "names.json",
+     "owner",
      "sub_004BDC10_QuestObject",
      0,
      "func"
@@ -62045,7 +62026,7 @@
     [
      56,
      "0x004BDCC0",
-     "names.json",
+     "owner",
      "sub_004BDCC0_UpdateEnvObject",
      0,
      "func"
@@ -62053,7 +62034,7 @@
     [
      60,
      "0x004BDCF0",
-     "names.json",
+     "owner",
      "sub_004BDCF0_TimedOverlay",
      0,
      "func"
@@ -62061,7 +62042,7 @@
     [
      64,
      "0x004BDE00",
-     "names.json",
+     "owner",
      "sub_004BDE00_FinishOperate",
      0,
      "func"
@@ -62069,7 +62050,7 @@
     [
      68,
      "0x004BDE40",
-     "names.json",
+     "owner",
      "sub_004BDE40_ReportPosition",
      0,
      "func"
@@ -62077,7 +62058,7 @@
     [
      72,
      "0x004BDD50",
-     "names.json",
+     "owner",
      "sub_004BDD50_RandomSound",
      0,
      "func"

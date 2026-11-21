@@ -31425,9 +31425,79 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Object_004BCA90.cpp",
+   "file": "Source/D2Client/UNIT/Object.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00457450",
+     "length": 9,
+     "name": "?sub_00457450_Abs@@YIHH@Z"
+    },
+    {
+     "va": "0x00457460",
+     "length": 35,
+     "name": "@sub_00457460@12"
+    },
+    {
+     "va": "0x00457750",
+     "length": 31,
+     "name": "?sub_00457750_SaveAutomapCenters@@YIHH@Z"
+    },
+    {
+     "va": "0x00457780",
+     "length": 43,
+     "name": "?sub_00457780_SaveAutomapLeft@@YIHH@Z"
+    },
+    {
+     "va": "0x004577C0",
+     "length": 31,
+     "name": "?sub_004577C0_SaveAutomapParty@@YIHH@Z"
+    },
+    {
+     "va": "0x004577F0",
+     "length": 31,
+     "name": "?sub_004577F0_SaveAutomapPartyNames@@YIHH@Z"
+    },
+    {
+     "va": "0x00457810",
+     "length": 17,
+     "name": "?sub_00457810_SubtractAutomapOffset@@YAXPAH0@Z"
+    },
+    {
+     "va": "0x00457830",
+     "length": 44,
+     "name": "?sub_00457830_ScaleAutomapPoint@@YAXPAH0@Z"
+    },
+    {
+     "va": "0x00457AC0",
+     "length": 60,
+     "name": "?sub_00457AC0_CompareAutomapCells@@YIHPBUD2AutomapCellStrc@@0@Z"
+    },
+    {
+     "va": "0x004BC580",
+     "length": 88,
+     "name": "?sub_004BC580_UpdateLight@@YGXPAUD2UnitStrc@@GHHH@Z"
+    },
+    {
+     "va": "0x004BC5E0",
+     "length": 320,
+     "name": "?sub_004BC5E0_UpdateEnvObject@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004BC720",
+     "length": 428,
+     "name": "?sub_004BC720_InitObject@@YIXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHE@Z"
+    },
+    {
+     "va": "0x004BC8D0",
+     "length": 384,
+     "name": "?sub_004BC8D0_UpdateObjectOverlay@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004BCA50",
+     "length": 58,
+     "name": "?sub_004BCA50_ReleaseUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
     {
      "va": "0x004BCA90",
      "length": 143,
@@ -31466,6 +31536,31 @@
      "va": "0x004BD4A0",
      "length": 161,
      "name": "?sub_004BD4A0_InitShrineOverlays@@YIXPAUD2UnitStrc@@PAUD2ShrinesTxt@@@Z"
+    },
+    {
+     "va": "0x004BD550",
+     "length": 101,
+     "name": "?sub_004BD550_PlayShrineSound@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004BD5C0",
+     "length": 132,
+     "name": "?sub_004BD5C0_OperateShrine@@YGXPAUD2UnitTargetStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004BD650",
+     "length": 84,
+     "name": "?sub_004BD650_InitShrine@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004BD6B0",
+     "length": 30,
+     "name": "?sub_004BD6B0_SetShrine@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004BD6D0",
+     "length": 91,
+     "name": "?sub_004BD6D0_ObjectCommand@@YIXHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@@Z"
     },
     {
      "va": "0x004BD730",
@@ -31556,107 +31651,6 @@
      "va": "0x004BDE40",
      "length": 150,
      "name": "?sub_004BDE40_ReportPosition@@YIDPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Object.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00457450",
-     "length": 9,
-     "name": "?sub_00457450_Abs@@YIHH@Z"
-    },
-    {
-     "va": "0x00457460",
-     "length": 35,
-     "name": "@sub_00457460@12"
-    },
-    {
-     "va": "0x00457750",
-     "length": 31,
-     "name": "?sub_00457750_SaveAutomapCenters@@YIHH@Z"
-    },
-    {
-     "va": "0x00457780",
-     "length": 43,
-     "name": "?sub_00457780_SaveAutomapLeft@@YIHH@Z"
-    },
-    {
-     "va": "0x004577C0",
-     "length": 31,
-     "name": "?sub_004577C0_SaveAutomapParty@@YIHH@Z"
-    },
-    {
-     "va": "0x004577F0",
-     "length": 31,
-     "name": "?sub_004577F0_SaveAutomapPartyNames@@YIHH@Z"
-    },
-    {
-     "va": "0x00457810",
-     "length": 17,
-     "name": "?sub_00457810_SubtractAutomapOffset@@YAXPAH0@Z"
-    },
-    {
-     "va": "0x00457830",
-     "length": 44,
-     "name": "?sub_00457830_ScaleAutomapPoint@@YAXPAH0@Z"
-    },
-    {
-     "va": "0x00457AC0",
-     "length": 60,
-     "name": "?sub_00457AC0_CompareAutomapCells@@YIHPBUD2AutomapCellStrc@@0@Z"
-    },
-    {
-     "va": "0x004BC580",
-     "length": 88,
-     "name": "?sub_004BC580_UpdateLight@@YGXPAUD2UnitStrc@@GHHH@Z"
-    },
-    {
-     "va": "0x004BC5E0",
-     "length": 320,
-     "name": "?sub_004BC5E0_UpdateEnvObject@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004BC720",
-     "length": 428,
-     "name": "?sub_004BC720_InitObject@@YIXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHE@Z"
-    },
-    {
-     "va": "0x004BC8D0",
-     "length": 384,
-     "name": "?sub_004BC8D0_UpdateObjectOverlay@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BCA50",
-     "length": 58,
-     "name": "?sub_004BCA50_ReleaseUnit@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BD550",
-     "length": 101,
-     "name": "?sub_004BD550_PlayShrineSound@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004BD5C0",
-     "length": 132,
-     "name": "?sub_004BD5C0_OperateShrine@@YGXPAUD2UnitTargetStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BD650",
-     "length": 84,
-     "name": "?sub_004BD650_InitShrine@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BD6B0",
-     "length": 30,
-     "name": "?sub_004BD6B0_SetShrine@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BD6D0",
-     "length": 91,
-     "name": "?sub_004BD6D0_ObjectCommand@@YIXHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@@Z"
     },
     {
      "va": "0x004BDEE0",
