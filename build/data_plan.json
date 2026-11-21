@@ -6036,22 +6036,13 @@
    "state": "included"
   },
   "Source/D2Common/Chat/Ignorelist.cpp": {
-   "bytes": 3004,
-   "definitions": 6,
+   "bytes": 3012,
+   "definitions": 7,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Chat/Ignorelist.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Chat/Ignorelist_0060F0A0.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Chat/Ignorelist_0060F0A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -122465,7 +122456,7 @@
    "cname": "gData_006E62A8",
    "declared": true,
    "decorated": "?gszSecondFormat_006E62A8@@3QBDB",
-   "file": "Source/D2Common/Chat/Ignorelist_0060F0A0.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006E62A8[8]; // 0x006E62A8",

@@ -76338,6 +76338,10 @@
      "name": "?0D2CommonStormListFStrc"
     },
     {
+     "va": "0x0060F0A0",
+     "length": 164
+    },
+    {
      "va": "0x0060F150",
      "length": 8,
      "name": "?sub_0060F150_Clear@D2CommonStormHashTableBStrc@@QAEXXZ"
@@ -76592,6 +76596,10 @@
      "name": "?sub_00610830_SetCountForward@D2CommonStormSlotArrayBStrc@@QAEXI@Z"
     },
     {
+     "va": "0x00610840",
+     "length": 144
+    },
+    {
      "va": "0x006108D0",
      "length": 451,
      "name": "?sub_006108D0_GrowListArray@D2CommonStormHashTableBStrc@@QAEXXZ"
@@ -76605,6 +76613,10 @@
      "va": "0x00610BE0",
      "length": 191,
      "name": "sub_00610BE0_InternalNewNode"
+    },
+    {
+     "va": "0x00610CA0",
+     "length": 144
     },
     {
      "va": "0x00610D30",
@@ -76802,38 +76814,6 @@
      "length": 184,
      "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F0A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060F0A0",
-     "length": 164
-    },
-    {
-     "va": "0x00610840",
-     "length": 144
-    },
-    {
-     "va": "0x00610CA0",
-     "length": 144
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
@@ -1241,43 +1242,148 @@ extern "C" int __cdecl fclose(_iobuf* pFile);                                   
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
-struct D2StormLinkStrc;
-
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);
 
 char* __stdcall sub_00414200_StrLower(char* szString); // 0x00414200
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
+struct D2Cache00610840Strc;
 
-    D2StormLinkStrc()
+struct D2Cache00610CA0Strc;
+
+struct D2StormSlotListStrc;
+
+struct D2IgnoreKeyNodeStrc;
+
+struct D2StormHashTableStrc;
+
+struct D2IgnoreListStrc;
+
+struct D2CacheLink00610840Strc;
+
+struct D2CacheList00610840Strc;
+
+struct D2CacheLink00610CA0Strc;
+
+struct D2CacheList00610CA0Strc;
+
+struct D2StormSlotListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    D2StormLinkStrc* Link(char* pNode)
     {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
+        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
     }
 };
+
+struct D2IgnoreKeyNodeStrc
+{
+    unsigned char unk_00[0x14];
+    const char* m_key;
+};
+
+struct D2StormHashTableStrc
+{
+    void* pVtable;
+    D2StormSlotListStrc m_fulllist;
+    unsigned char unk_10[0x18];
+
+    char* Head()
+    {
+        char* pHead = m_fulllist.m_terminator.Next();
+        return pHead;
+    }
+    char* Next(char* pNode)
+    {
+        pNode += m_fulllist.m_linkoffset;
+        D2StormLinkStrc* pLink = (D2StormLinkStrc*)pNode;
+        return pLink->Next();
+    }
+};
+
+struct D2IgnoreListStrc
+{
+    void* pVtable;
+    D2StormHashTableStrc m_table;
+    D2StormHashTableStrc m_table2;
+    unsigned char unk_54[0x2C];
+    char szFileName[0x104];
+};
+
+extern "C" int __cdecl fprintf(_iobuf*, const char*, ...); // 0x00684C94
+
+extern const char gszFileMode_006FF97C[]; // 0x006FF97C
+
+extern const char gszFirstFormat_006CD90C[]; // 0x006CD90C
+
+extern const char gszSecondFormat_006E62A8[]; // 0x006E62A8
+
+struct D2CacheLink00610840Strc
+{
+	char* pPrev;
+	char* pNext;
+
+	__forceinline char* Next()
+	{
+		char* const pResult = (int)pNext <= 0 ? 0 : pNext;
+		return pResult;
+	}
+};
+
+struct D2CacheList00610840Strc
+{
+	int nLinkOffset;
+	D2CacheLink00610840Strc tTerminator;
+};
+
+struct D2Cache00610840Strc
+{
+	char unk_00[0x10];
+	unsigned int nCounter;
+	char unk_14[0x08];
+	D2CacheList00610840Strc* pLists;
+	int unk_20;
+	unsigned int nCount;
+
+	int sub_00610840_Touch(int nIndex);
+};
+
+void __fastcall sub_006101B0_GrowListArray(D2Cache00610840Strc* pCache); // 0x006101B0
+
+struct D2CacheLink00610CA0Strc
+{
+	char* pPrev;
+	char* pNext;
+
+	__forceinline char* Next()
+	{
+		char* const pResult = (int)pNext <= 0 ? 0 : pNext;
+		return pResult;
+	}
+};
+
+struct D2CacheList00610CA0Strc
+{
+	int nLinkOffset;
+	D2CacheLink00610CA0Strc tTerminator;
+};
+
+struct D2Cache00610CA0Strc
+{
+	char unk_00[0x10];
+	unsigned int nCounter;
+	char unk_14[0x08];
+	D2CacheList00610CA0Strc* pLists;
+	int unk_20;
+	unsigned int nCount;
+
+	int sub_00610CA0_Touch(int nIndex);
+};
+
+void __fastcall sub_006108D0_GrowListArray(D2Cache00610CA0Strc* pCache); // 0x006108D0
 
 // build: symbol ??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z 0x0060DCB0
 // build: symbol ??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z 0x0060E130
@@ -1862,6 +1968,20 @@ D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& sou
     m_linkoffset = source.m_linkoffset;
     m_terminator.m_prevlink = &m_terminator;
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x0060F0A0
+int __fastcall sub_0060F0A0_WriteLists(D2IgnoreListStrc* pList)
+{
+    _iobuf* pFile = fopen(pList->szFileName, gszFileMode_006FF97C);
+    if (!pFile)
+        return 0;
+    for (char* pNode = pList->m_table.Head(); (int)pNode > 0; pNode = pList->m_table.Next(pNode))
+        fprintf(pFile, gszFirstFormat_006CD90C, ((D2IgnoreKeyNodeStrc*)pNode)->m_key);
+    for (char* pNode = pList->m_table2.Head(); (int)pNode > 0; pNode = pList->m_table2.Next(pNode))
+        fprintf(pFile, gszSecondFormat_006E62A8, ((D2IgnoreKeyNodeStrc*)pNode)->m_key);
+    fclose(pFile);
+    return 1;
 }
 
 // 0x0060F150
@@ -2562,6 +2682,42 @@ void D2CommonStormSlotArrayBStrc::sub_00610830_SetCountForward(unsigned int nCou
     sub_006100B0_SetCount(nCount);
 }
 
+// 0x00610840
+int D2Cache00610840Strc::sub_00610840_Touch(int nIndex)
+{
+	D2CacheList00610840Strc* const& pListArray = pLists;
+	if (nCount >= 0x3FF)
+	{
+		return 0;
+	}
+
+	if (nCounter > 3)
+	{
+		nCounter -= 3;
+	}
+	else
+	{
+		nCounter = 0;
+	}
+
+	for (char* pEntry = pListArray[nIndex].tTerminator.Next(); (int)pEntry > 0; )
+	{
+		++nCounter;
+		if (nCounter > 13)
+		{
+			nCounter = 0;
+			sub_006101B0_GrowListArray(this);
+			return 1;
+		}
+
+		D2CacheList00610840Strc* pList = &pListArray[nIndex];
+		D2CacheLink00610840Strc* pLink = pEntry ? (D2CacheLink00610840Strc*)(pEntry + pList->nLinkOffset) : &pList->tTerminator;
+		pEntry = pLink->pNext;
+	}
+
+	return 0;
+}
+
 // 0x006108D0
 void D2CommonStormHashTableBStrc::sub_006108D0_GrowListArray()
 {
@@ -2606,6 +2762,42 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::sub_00610BE0_InternalN
     pNode->f_0 = nHashVal;
     pNode->f_14 = key;
     return pNode;
+}
+
+// 0x00610CA0
+int D2Cache00610CA0Strc::sub_00610CA0_Touch(int nIndex)
+{
+	D2CacheList00610CA0Strc* const& pListArray = pLists;
+	if (nCount >= 0x3FF)
+	{
+		return 0;
+	}
+
+	if (nCounter > 3)
+	{
+		nCounter -= 3;
+	}
+	else
+	{
+		nCounter = 0;
+	}
+
+	for (char* pEntry = pListArray[nIndex].tTerminator.Next(); (int)pEntry > 0; )
+	{
+		++nCounter;
+		if (nCounter > 13)
+		{
+			nCounter = 0;
+			sub_006108D0_GrowListArray(this);
+			return 1;
+		}
+
+		D2CacheList00610CA0Strc* pList = &pListArray[nIndex];
+		D2CacheLink00610CA0Strc* pLink = pEntry ? (D2CacheLink00610CA0Strc*)(pEntry + pList->nLinkOffset) : &pList->tTerminator;
+		pEntry = pLink->pNext;
+	}
+
+	return 0;
 }
 
 // 0x00610D30
