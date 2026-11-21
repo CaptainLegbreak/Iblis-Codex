@@ -98471,57 +98471,9 @@
      "length": 829
     },
     {
-     "va": "0x006C2D70",
-     "length": 694
-    },
-    {
-     "va": "0x006C3030",
-     "length": 152
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C2760.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x006C2760",
      "length": 162
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C2810.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C2810",
      "length": 67
@@ -98529,31 +98481,23 @@
     {
      "va": "0x006C2860",
      "length": 1036
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C2C70.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C2C70",
      "length": 251
+    },
+    {
+     "va": "0x006C2D70",
+     "length": 694
+    },
+    {
+     "va": "0x006C3030",
+     "length": 152
+    },
+    {
+     "va": "0x006C3120",
+     "length": 569
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -98564,16 +98508,6 @@
      "va": "0x006C30D0",
      "length": 73,
      "name": "?sub_006C30D0_ServiceSlots@@YIHPAUD2Object006C30D0Strc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C3120.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3120",
-     "length": 569
     }
    ]
   },
