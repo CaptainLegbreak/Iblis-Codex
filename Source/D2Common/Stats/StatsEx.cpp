@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 
 #define STATLIST_SET 0x2000
 
@@ -67,7 +68,7 @@ int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nB
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-static __forceinline int STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
+static __forceinline int STATLIST_GetTotalStatValue_Inl(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);
 
 int __fastcall sub_00626200_GetStatFromLayer(D2StatListStrc* pStatListEx, int nLayer_StatId);
 
@@ -168,6 +169,46 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
 
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit);
+
+#define STATLIST_NEWLENGTH 0x00000002
+
+#define STATLIST_UNK_0x100 0x00000100
+
+struct D2StatesTxt;
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
+extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
+
+extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+
+int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
+
+int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
+
+D2StatListStrc* __stdcall D2Common_GetStateFromStatListEx_6FDB8190(D2StatListStrc* pStatListEx, int nStateId); // 0x00625650
+
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
+
+void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList); // 0x00627340
+
+int __stdcall STATES_CheckStateMaskStayDeathOnUnitByStateId(D2UnitStrc* pUnit, int nState); // 0x0063A4A0
+
+unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
+
+int __stdcall D2Common_11274(D2UnitStrc* pTarget, D2UnitStrc* pUnit); // 0x00627860
+
+int __stdcall D2Common_11275(D2UnitStrc* pTarget, D2UnitStrc* pUnit); // 0x00627A40
+
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
+
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
+
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
+
+inline int STATLIST_IsExtended(D2StatListStrc* pStatList);
 
 static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
@@ -529,6 +570,21 @@ static void __stdcall sub_00625150_UpdateUnitStat(D2StatListExStrc* pStatListEx,
     }
 }
 
+// 0x006251F0
+D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID)
+{
+    D2StatListStrc* pStatList = (D2StatListStrc*)sub_0040B430(pMemPool, 0x3C, ".\\Stats\\StatsEx.cpp", 1386, 0);
+    memset(pStatList, 0x00, 0x3C);
+
+    pStatList->dwOwnerType = nUnitType;
+    pStatList->dwOwnerId = nUnitGUID;
+    pStatList->pMemPool = pMemPool;
+    pStatList->dwFlags = fFilter;
+    pStatList->dwExpireFrame = dwTimeout;
+
+    return pStatList;
+}
+
 // 0x00625250
 extern "C" __declspec(dllexport) unsigned int __stdcall sub_00625250(Obj00625250* pObj) {
     if (!pObj) {
@@ -582,6 +638,20 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_006252F0(Obj006252F0
     return pObj->dwValue14;
 }
 
+// 0x00625310
+void __stdcall STATLIST_SetExpireFrame(D2StatListStrc* pStatList, int nExpireFrame)
+{
+    if (pStatList)
+    {
+        if (nExpireFrame > 0)
+        {
+            pStatList->dwFlags |= STATLIST_NEWLENGTH;
+        }
+
+        pStatList->dwExpireFrame = nExpireFrame;
+    }
+}
+
 // 0x00625330
 extern "C" __declspec(dllexport) unsigned int __stdcall sub_00625330(Obj00625330* pObj) {
     if (!pObj) {
@@ -630,6 +700,46 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned 
     return sub_00624ED0_GetBaseStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
 }
 
+// 0x00625420
+int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+{
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(nStatId);
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
+}
+
+// 0x00625480
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(nStatId);
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
+}
+
 __forceinline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -641,6 +751,23 @@ __forceinline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecord(int nSkillId)
 int __stdcall sub_006254E0_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     return sub_00625350(pStatList, nStatId, nLayer);
+}
+
+// 0x006255A0
+int __stdcall sub_006255A0_GetStatValueWithPercent(D2StatListStrc* pStatList, int nStatId, int nPercentStatId, int bAddBonus)
+{
+    if (!pStatList)
+    {
+        return 0;
+    }
+    const int nPercent = STATLIST_GetTotalStatValue(pStatList, nPercentStatId, 0);
+    const int nBase = sub_00625350(pStatList, nStatId, 0);
+    int nBonus = 0;
+    if (bAddBonus)
+    {
+        nBonus = STATLIST_GetTotalStatValue(pStatList, nStatId, 0) - nBase;
+    }
+    return DATATBLS_ApplyRatio(nBase, nPercent, 100) + nBonus + nBase;
 }
 
 // 0x00625600
@@ -703,6 +830,63 @@ D2StatListStrc* __stdcall D2Common_GetStateFromStatListEx_6FDB8190(D2StatListStr
     return 0;
 }
 
+// 0x006256B0
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState)
+{
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx)
+    {
+        return 0;
+    }
+    if (!(pStatListEx->dwFlags & 0x80000000))
+    {
+        return 0;
+    }
+    return D2Common_GetStateFromStatListEx_6FDB8190(pStatListEx, nState);
+}
+
+// 0x006256E0
+D2StatListStrc* __stdcall sub_006256E0_StatListFindByFlags(D2StatListStrc* pStatList, int nFlag)
+{
+    D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
+    if (pStatList)
+    {
+        if (pStatList->dwFlags & STATLIST_EXTENDED)
+        {
+            pStatList = nFlag & STATLIST_SET ? pStatListEx->pMyStats : pStatListEx->pMyLastList;
+        }
+        nFlag &= ~STATLIST_SET;
+
+        while (pStatList)
+        {
+            if (nFlag & pStatList->dwFlags)
+            {
+                return pStatList;
+            }
+            pStatList = pStatList->pPrevLink;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00625730
+D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag)
+{
+    if (pStatList)
+    {
+        for (pStatList = pStatList->pPrevLink; pStatList; pStatList = pStatList->pPrevLink)
+        {
+            if (nFlag & pStatList->dwFlags)
+            {
+                return pStatList;
+            }
+        }
+    }
+
+    return 0;
+}
+
 // 0x00625760
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag)
 {
@@ -718,6 +902,51 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit,
     }
 
     return sub_006256E0_StatListFindByFlags(pStatListEx, nFlag);
+}
+
+// 0x00625790
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag)
+{
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx)
+    {
+        return 0;
+    }
+    if (!(pStatListEx->dwFlags & 0x80000000))
+    {
+        return 0;
+    }
+    if (nState)
+    {
+        return D2Common_GetStateFromStatListEx_6FDB8190(pStatListEx, nState);
+    }
+    return sub_006256E0_StatListFindByFlags(pStatListEx, nFlag);
+}
+
+// 0x006257D0
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc* pUnit, int nState, int nFlag)
+{
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (pStatListEx && pStatListEx->dwFlags & STATLIST_EXTENDED)
+    {
+        D2StatListStrc* pStatList = pStatListEx->pMyLastList;
+        if (nFlag & STATLIST_SET)
+        {
+            pStatList = pStatListEx->pMyStats;
+            nFlag &= ~STATLIST_SET;
+        }
+
+        while (pStatList)
+        {
+            if (pStatList->dwStateNo == nState && (!nFlag || nFlag & pStatList->dwFlags))
+            {
+                return pStatList;
+            }
+            pStatList = pStatList->pPrevLink;
+        }
+    }
+
+    return 0;
 }
 
 // 0x00625820
@@ -815,6 +1044,116 @@ void __stdcall D2Common_10513(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, StatListUn
     }
 }
 
+// 0x00625960
+void __stdcall STATLIST_FreeModStats(D2UnitStrc* pUnit)
+{
+    D2StatListExStrc* pStatListEx = pUnit ? pUnit->pStatListEx : 0;
+    if (pStatListEx && pStatListEx->dwFlags & STATLIST_EXTENDED)
+    {
+        if (pStatListEx->ModStats.pStat)
+        {
+            FOG_FreeServerMemory(pStatListEx->pMemPool, pStatListEx->ModStats.pStat, ".\\Stats\\StatsEx.cpp", 2590, 0);
+            pStatListEx->ModStats.pStat = 0;
+        }
+
+        pStatListEx->ModStats.nCapacity = 0;
+        pStatListEx->ModStats.nStatCount = 0;
+    }
+}
+
+// 0x006259B0
+int __stdcall sub_006259B0_GetStateStat(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 0;
+    if (!pUnit->pStatListEx)
+        return 0;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+    case UNIT_MONSTER:
+    {
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x69);
+        if (!pStatList)
+            return 0;
+        return STATLIST_GetTotalStatValue(pStatList, 0xAC, 0);
+    }
+    default:
+        return 2;
+    }
+}
+
+// 0x00625A00
+void __stdcall D2Common_10534(D2UnitStrc* pUnit)
+{
+    D2StatListExStrc* pStatListEx = pUnit ? pUnit->pStatListEx : 0;
+    if (pStatListEx)
+    {
+        pStatListEx->dwFlags |= STATLIST_UNK_0x100;
+    }
+}
+
+// 0x00625A20
+int __stdcall D2COMMON_10530_D2CheckStatlistFlagDMGRed(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx)
+    {
+        return 0;
+    }
+
+    return (pStatListEx->dwFlags & STATLIST_UNK_0x100) != 0;
+}
+
+// 0x00625A70
+void __stdcall sub_00625A70_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
+{
+    if (pUnit)
+    {
+        D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+        if (pStatListEx && (pStatListEx->dwFlags & STATLIST_EXTENDED))
+        {
+            const unsigned int bWasSet = pStatListEx->StatFlags[nState >> 5] & gdwBitMasks[nState & 31];
+            if (bSet)
+                pStatListEx->StatFlags[nState >> 5] |= gdwBitMasks[nState & 31];
+            else
+                pStatListEx->StatFlags[nState >> 5] &= gdwInvBitMasks[nState & 31];
+
+            if (!bWasSet)
+            {
+                if (!bSet)
+                    return;
+            }
+            else
+            {
+                if (bSet)
+                    return;
+            }
+
+            pStatListEx->StatFlags[(nState >> 5) + (sgptDataTables->nStatesTxtRecordCount + 31) / 32] |= gdwBitMasks[nState & 31];
+
+            D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
+            if (pStatesTxtRecord)
+            {
+                if (bSet)
+                {
+                    if (STATES_CHECKFLAG(pStatesTxtRecord, STATEMASK_DISGUISE))
+                        pUnit->dwFlagEx |= UNITFLAGEX_ISSHAPESHIFTED;
+                }
+                else if (STATES_CHECKFLAG(pStatesTxtRecord, STATEMASK_DISGUISE) && !STATES_CheckStateMaskOnUnit(pUnit, STATEMASK_DISGUISE))
+                {
+                    pUnit->dwFlagEx &= ~UNITFLAGEX_ISSHAPESHIFTED;
+                }
+            }
+        }
+    }
+}
+
 // 0x00625B70
 int __stdcall sub_00625B70_CheckStatFlag(D2UnitStrc* pUnit, int nState)
 {
@@ -885,6 +1224,28 @@ int __stdcall STATLIST_GetFullStatsDataFromUnit(D2UnitStrc* pUnit, D2StatStrc* p
         nStatCount = nBufferSize;
     }
     D2StatStrc* pStat = pStatListEx->FullStats.pStat;
+    D2StatStrc* pEnd = &pStat[nStatCount];
+    for (; pStat < pEnd; ++pStat)
+    {
+        *pOutStatBuffer = *pStat;
+        ++pOutStatBuffer;
+    }
+    return nStatCount;
+}
+
+// 0x00625C90
+int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* pOutStatBuffer, int nBufferSize)
+{
+    if (!pStatList)
+    {
+        return 0;
+    }
+    int nStatCount = pStatList->Stats.nStatCount;
+    if (nStatCount >= nBufferSize)
+    {
+        nStatCount = nBufferSize;
+    }
+    D2StatStrc* pStat = pStatList->Stats.pStat;
     D2StatStrc* pEnd = &pStat[nStatCount];
     for (; pStat < pEnd; ++pStat)
     {
@@ -976,8 +1337,8 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit)
     return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(11, 0), pItemStatCostTxtRecord);
 }
 
-// build: context STATLIST_GetTotalStatValue
-static __forceinline int STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+// build: context STATLIST_GetTotalStatValue_Inl
+static __forceinline int STATLIST_GetTotalStatValue_Inl(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     if (!pStatList)
     {
@@ -1000,7 +1361,7 @@ int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    return STATLIST_GetTotalStatValue(pUnit->pStatListEx, STAT_MAXDURABILITY, 0);
+    return STATLIST_GetTotalStatValue_Inl(pUnit->pStatListEx, STAT_MAXDURABILITY, 0);
 }
 
 // 0x00625E60
@@ -1184,28 +1545,6 @@ extern "C" __declspec(dllexport) void __stdcall sub_006260B0(Obj006260B0* pObj, 
         }
         pObj->nValue18 = nValue;
     }
-}
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2StatListStrc* pStatList = pUnit->pStatListEx;
-    if (!pStatList)
-    {
-        return 0;
-    }
-
-    D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(nStatId);
-    if (!pItemStatCostTxtRecord)
-    {
-        return 0;
-    }
-
-    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
 }
 
 // 0x006260E0
@@ -1838,8 +2177,6 @@ void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pSta
     FOG_FreePool(pStatList->pMemPool, pStatList, ".\\Stats\\StatsEx.cpp", 0x502, 0);
 }
 
-inline int STATLIST_IsExtended(D2StatListStrc* pStatList);
-
 // 0x00626CD0
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList)
 {
@@ -2114,6 +2451,155 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
     }
 }
 
+// 0x006272E0
+void __stdcall STATLIST_DeactivateTemporaryStates(D2UnitStrc* pUnit)
+{
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx || !(pStatListEx->dwFlags & 2))
+    {
+        return;
+    }
+
+    D2StatListStrc* pPrevious;
+    for (D2StatListStrc* pCurrent = pStatListEx->pMyLastList; pCurrent; pCurrent = pPrevious)
+    {
+        pPrevious = pCurrent->pPrevLink;
+        if (!(pCurrent->dwFlags & 4))
+        {
+            continue;
+        }
+        if (pCurrent->dwStateNo)
+        {
+            STATES_ToggleState(pUnit, pCurrent->dwStateNo, 0);
+        }
+        if (!(pCurrent->dwFlags & 0x80000000))
+        {
+            D2Common_STATLIST_FreeStatListImpl_6FDB7050(pCurrent);
+        }
+        pPrevious = pStatListEx->pMyLastList;
+    }
+    pStatListEx->dwFlags &= ~2;
+}
+
+// 0x00627410
+void __stdcall STATLIST_RemoveAllStatsFromOverlay(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+        if (pStatListEx)
+        {
+            pStatListEx->dwFlags &= ~0x100;
+            if (pUnit->pStatListEx && (pUnit->pStatListEx->dwFlags & 0x80000000))
+            {
+                if (D2StatListStrc* pStatList = sub_006256E0_StatListFindByFlags(pUnit->pStatListEx, 0x80))
+                {
+                    STATLIST_RemoveAllStats(pStatList);
+                }
+            }
+        }
+    }
+}
+
+// 0x00627460
+void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* pUnit, int nFrame)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx || !(pStatListEx->dwFlags & 0x80000000))
+    {
+        return;
+    }
+
+    D2StatListStrc* pCurrent = pStatListEx->pMyLastList;
+    D2StatListStrc* pPrevious;
+    if (nFrame)
+    {
+        for (; pCurrent; pCurrent = pPrevious)
+        {
+            pPrevious = pCurrent->pPrevLink;
+            if ((pCurrent->dwFlags & 2) && pCurrent->dwExpireFrame <= nFrame)
+            {
+                if (!(pCurrent->dwFlags & 0x80000000))
+                {
+                    D2Common_STATLIST_FreeStatListImpl_6FDB7050(pCurrent);
+                }
+                pPrevious = pStatListEx->pMyLastList;
+            }
+        }
+    }
+    else
+    {
+        for (; pCurrent; pCurrent = pPrevious)
+        {
+            pPrevious = pCurrent->pPrevLink;
+            if (pCurrent->dwFlags & 2)
+            {
+                --pCurrent->dwExpireFrame;
+                if (pCurrent->dwExpireFrame <= nFrame)
+                {
+                    if (!(pCurrent->dwFlags & 0x80000000))
+                    {
+                        D2Common_STATLIST_FreeStatListImpl_6FDB7050(pCurrent);
+                    }
+                    pPrevious = pStatListEx->pMyLastList;
+                }
+            }
+        }
+    }
+}
+
+// 0x006274F0
+void __stdcall STATLIST_MergeBaseStats(D2StatListStrc* pTargetStatList, D2StatListStrc* pSourceStatlist)
+{
+    if (pTargetStatList && pSourceStatlist)
+    {
+        D2StatStrc* pStat = pSourceStatlist->Stats.pStat;
+        D2StatStrc* pEnd = &pStat[pSourceStatlist->Stats.nStatCount];
+        for (; pStat < pEnd; ++pStat)
+        {
+            STATLIST_AddStat(pTargetStatList, pStat->nStat, pStat->nValue, pStat->nLayer);
+        }
+    }
+}
+
+// 0x00627540
+void __stdcall D2Common_10469(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx || !(pStatListEx->dwFlags & 0x80000000))
+    {
+        return;
+    }
+    D2StatListStrc* pCurrent = pStatListEx->pMyLastList;
+    if (!pCurrent)
+    {
+        return;
+    }
+    D2StatListStrc* pPrevious;
+    do
+    {
+        pPrevious = pCurrent->pPrevLink;
+        if (pCurrent->dwOwnerType != 4 && !(pCurrent->dwFlags & 0x181) && !STATES_CheckStateMaskStayDeathOnUnitByStateId(pUnit, pCurrent->dwStateNo))
+        {
+            if (!(pCurrent->dwFlags & 0x80000000))
+            {
+                D2Common_STATLIST_FreeStatListImpl_6FDB7050(pCurrent);
+            }
+            pPrevious = pStatListEx->pMyLastList;
+        }
+        pCurrent = pPrevious;
+    }
+    while (pPrevious);
+}
+
 // build: context STATLIST_RemoveAllStats
 void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList)
 {
@@ -2236,6 +2722,82 @@ int __stdcall D2Common_11274(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
             sub_00626920_UpdateStatValue(pTargetStatListEx, nPacked, i->nValue, pUnit);
     }
     return 1;
+}
+
+// 0x00627910
+void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType)
+{
+    if (!pTarget || !pUnit)
+    {
+        return;
+    }
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx)
+    {
+        return;
+    }
+    if (pUnit->dwUnitType == 4)
+    {
+        const unsigned char nBodyLoc = ITEMS_GetBodyLocation(pUnit);
+        if (nBodyLoc == 11 || nBodyLoc == 12)
+        {
+            D2Common_ExpireStatList_6FDB6E30(pStatListEx);
+            return;
+        }
+    }
+    if (pStatListEx->pUnit == pTarget)
+    {
+        if (bType)
+        {
+            if (pStatListEx->dwFlags & 0x40000000)
+            {
+                D2Common_11274(pTarget, pUnit);
+            }
+        }
+        else if (!(pStatListEx->dwFlags & 0x40000000))
+        {
+            D2Common_11275(pTarget, pUnit);
+        }
+    }
+    else
+    {
+        D2COMMON_10475_PostStatToStatList(pTarget, pStatListEx, bType);
+        pStatListEx->pUnit = pTarget;
+    }
+}
+
+// 0x006279A0
+int __stdcall D2Common_10574(D2UnitStrc* pUnit, int nStateId, int bSet)
+{
+    if (!nStateId)
+    {
+        return 0;
+    }
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (pStatListEx && (pStatListEx->dwFlags & 0x80000000))
+    {
+        if (D2StatListStrc* pStatList = D2Common_GetStateFromStatListEx_6FDB8190(pStatListEx, nStateId))
+        {
+            if (bSet)
+            {
+                if (!(pStatList->dwFlags & 0x2000))
+                {
+                    D2Common_ExpireStatList_6FDB6E30(pStatList);
+                    pStatList->dwFlags |= 0x2000;
+                    D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+                    return 1;
+                }
+            }
+            else if (pStatList->dwFlags & 0x2000)
+            {
+                D2Common_ExpireStatList_6FDB6E30(pStatList);
+                pStatList->dwFlags &= ~0x2000;
+                D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 // 0x00627A40

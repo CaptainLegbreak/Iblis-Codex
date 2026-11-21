@@ -78530,6 +78530,11 @@
      "name": "?sub_00625150_UpdateUnitStat@@YGXPAUD2StatListStrc@@HHPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x006251F0",
+     "length": 81,
+     "name": "STATLIST_AllocStatList"
+    },
+    {
      "va": "0x00625250",
      "length": 26,
      "name": "_sub_00625250@4"
@@ -78560,6 +78565,11 @@
      "name": "_sub_006252F0@4"
     },
     {
+     "va": "0x00625310",
+     "length": 28,
+     "name": "STATLIST_SetExpireFrame"
+    },
+    {
      "va": "0x00625330",
      "length": 21,
      "name": "_sub_00625330@4"
@@ -78575,9 +78585,24 @@
      "name": "?STATLIST_GetUnitBaseStat@@YGHPAUD2UnitStrc@@HG@Z"
     },
     {
+     "va": "0x00625420",
+     "length": 85,
+     "name": "?STATLIST_GetTotalStatValue@@YGHPAUD2StatListStrc@@HG@Z"
+    },
+    {
+     "va": "0x00625480",
+     "length": 96,
+     "name": "?STATLIST_UnitGetStatValue@@YGHPAUD2UnitStrc@@HG@Z"
+    },
+    {
      "va": "0x006254E0",
      "length": 9,
      "name": "?sub_006254E0_GetStatValue@@YGHPAUD2StatListStrc@@HG@Z"
+    },
+    {
+     "va": "0x006255A0",
+     "length": 94,
+     "name": "sub_006255A0_GetStatValueWithPercent"
     },
     {
      "va": "0x00625600",
@@ -78595,9 +78620,34 @@
      "name": "D2Common_GetStateFromStatListEx_6FDB8190"
     },
     {
+     "va": "0x006256B0",
+     "length": 42,
+     "name": "STATLIST_GetStatListFromUnitAndState"
+    },
+    {
+     "va": "0x006256E0",
+     "length": 66,
+     "name": "sub_006256E0_StatListFindByFlags"
+    },
+    {
+     "va": "0x00625730",
+     "length": 38,
+     "name": "STATLIST_GetStatListFromFlag"
+    },
+    {
      "va": "0x00625760",
      "length": 42,
      "name": "STATLIST_GetStatListFromUnitAndFlag"
+    },
+    {
+     "va": "0x00625790",
+     "length": 60,
+     "name": "STATLIST_GetStatListFromUnitStateOrFlag"
+    },
+    {
+     "va": "0x006257D0",
+     "length": 79,
+     "name": "STATLIST_GetStatListFromUnitStateAndFlag"
     },
     {
      "va": "0x00625820",
@@ -78613,6 +78663,31 @@
      "va": "0x006258D0",
      "length": 132,
      "name": "?D2Common_10513@@YGXPAUD2UnitStrc@@0P6IX0HH0@Z@Z"
+    },
+    {
+     "va": "0x00625960",
+     "length": 77,
+     "name": "STATLIST_FreeModStats"
+    },
+    {
+     "va": "0x006259B0",
+     "length": 65,
+     "name": "?sub_006259B0_GetStateStat@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00625A00",
+     "length": 28,
+     "name": "D2Common_10534"
+    },
+    {
+     "va": "0x00625A20",
+     "length": 36,
+     "name": "D2COMMON_10530_D2CheckStatlistFlagDMGRed"
+    },
+    {
+     "va": "0x00625A70",
+     "length": 244,
+     "name": "?sub_00625A70_ToggleState@@YGXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00625B70",
@@ -78633,6 +78708,11 @@
      "va": "0x00625C30",
      "length": 90,
      "name": "?STATLIST_GetFullStatsDataFromUnit@@YGHPAUD2UnitStrc@@PAUD2StatStrc@@H@Z"
+    },
+    {
+     "va": "0x00625C90",
+     "length": 74,
+     "name": "STATLIST_GetBaseStatsData"
     },
     {
      "va": "0x00625CE0",
@@ -78807,6 +78887,31 @@
      "name": "STATLIST_AddUnitStat"
     },
     {
+     "va": "0x006272E0",
+     "length": 93,
+     "name": "STATLIST_DeactivateTemporaryStates"
+    },
+    {
+     "va": "0x00627410",
+     "length": 65,
+     "name": "STATLIST_RemoveAllStatsFromOverlay"
+    },
+    {
+     "va": "0x00627460",
+     "length": 140,
+     "name": "STATLIST_UpdateStatListsExpiration"
+    },
+    {
+     "va": "0x006274F0",
+     "length": 67,
+     "name": "STATLIST_MergeBaseStats"
+    },
+    {
+     "va": "0x00627540",
+     "length": 105,
+     "name": "D2Common_10469"
+    },
+    {
      "va": "0x006276C0",
      "length": 283,
      "name": "?D2Common_10525@@YGXPAUD2UnitStrc@@0@Z"
@@ -78835,6 +78940,16 @@
      "va": "0x00627860",
      "length": 174,
      "name": "?D2Common_11274@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00627910",
+     "length": 137,
+     "name": "STATLIST_MergeStatLists"
+    },
+    {
+     "va": "0x006279A0",
+     "length": 148,
+     "name": "D2Common_10574"
     },
     {
      "va": "0x00627A40",
@@ -78881,127 +78996,6 @@
      "va": "0x00624C60",
      "length": 20,
      "name": "?sub_00624C60_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_006251F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006251F0",
-     "length": 81,
-     "name": "STATLIST_AllocStatList"
-    },
-    {
-     "va": "0x00625310",
-     "length": 28,
-     "name": "STATLIST_SetExpireFrame"
-    },
-    {
-     "va": "0x00625420",
-     "length": 85,
-     "name": "?STATLIST_GetTotalStatValue@@YGHPAUD2StatListStrc@@HG@Z"
-    },
-    {
-     "va": "0x00625480",
-     "length": 96,
-     "name": "?STATLIST_UnitGetStatValue@@YGHPAUD2UnitStrc@@HG@Z"
-    },
-    {
-     "va": "0x006255A0",
-     "length": 94,
-     "name": "sub_006255A0_GetStatValueWithPercent"
-    },
-    {
-     "va": "0x006256B0",
-     "length": 42,
-     "name": "STATLIST_GetStatListFromUnitAndState"
-    },
-    {
-     "va": "0x006256E0",
-     "length": 66,
-     "name": "sub_006256E0_StatListFindByFlags"
-    },
-    {
-     "va": "0x00625730",
-     "length": 38,
-     "name": "STATLIST_GetStatListFromFlag"
-    },
-    {
-     "va": "0x00625790",
-     "length": 60,
-     "name": "STATLIST_GetStatListFromUnitStateOrFlag"
-    },
-    {
-     "va": "0x006257D0",
-     "length": 79,
-     "name": "STATLIST_GetStatListFromUnitStateAndFlag"
-    },
-    {
-     "va": "0x00625960",
-     "length": 77,
-     "name": "STATLIST_FreeModStats"
-    },
-    {
-     "va": "0x006259B0",
-     "length": 65,
-     "name": "?sub_006259B0_GetStateStat@@YGHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00625A00",
-     "length": 28,
-     "name": "D2Common_10534"
-    },
-    {
-     "va": "0x00625A20",
-     "length": 36,
-     "name": "D2COMMON_10530_D2CheckStatlistFlagDMGRed"
-    },
-    {
-     "va": "0x00625A70",
-     "length": 244,
-     "name": "?sub_00625A70_ToggleState@@YGXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x00625C90",
-     "length": 74,
-     "name": "STATLIST_GetBaseStatsData"
-    },
-    {
-     "va": "0x006272E0",
-     "length": 93,
-     "name": "STATLIST_DeactivateTemporaryStates"
-    },
-    {
-     "va": "0x00627410",
-     "length": 65,
-     "name": "STATLIST_RemoveAllStatsFromOverlay"
-    },
-    {
-     "va": "0x00627460",
-     "length": 140,
-     "name": "STATLIST_UpdateStatListsExpiration"
-    },
-    {
-     "va": "0x006274F0",
-     "length": 67,
-     "name": "STATLIST_MergeBaseStats"
-    },
-    {
-     "va": "0x00627540",
-     "length": 105,
-     "name": "D2Common_10469"
-    },
-    {
-     "va": "0x00627910",
-     "length": 137,
-     "name": "STATLIST_MergeStatLists"
-    },
-    {
-     "va": "0x006279A0",
-     "length": 148,
-     "name": "D2Common_10574"
     }
    ]
   },
