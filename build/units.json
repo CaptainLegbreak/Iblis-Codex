@@ -57629,6 +57629,11 @@
      "name": "?SKILLS_SrvSt19_BonePrison@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005C32A0",
+     "length": 85,
+     "name": "?SKILLS_SrvSt20_IronGolem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005C3300",
      "length": 71
     },
@@ -66739,11 +66744,6 @@
      "va": "0x005C2FF0",
      "length": 120,
      "name": "sub_005C2FF0_DamagePaladinCaster"
-    },
-    {
-     "va": "0x005C32A0",
-     "length": 85,
-     "name": "?SKILLS_SrvSt20_IronGolem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005C34B0",
