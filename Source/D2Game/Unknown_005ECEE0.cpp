@@ -3,9 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 
-struct D2AiControlStrc { char unk_00[0x14]; int dwAiParam[3]; };
-struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk_04; D2UnitStrc* pTarget; int unk_0C[2]; int nDistance; int bCombat; D2MonStatsTxt* pMonstatsTxt; };
-
+#include "D2GameTypes.h"
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
