@@ -94364,54 +94364,42 @@
     {
      "va": "0x006B5D40",
      "length": 1120
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B61A0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006B61A0",
      "length": 578
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B63F0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006B63F0",
      "length": 650
+    },
+    {
+     "va": "0x006B6730",
+     "length": 1040
+    },
+    {
+     "va": "0x006B6B40",
+     "length": 168
+    },
+    {
+     "va": "0x006B6BF0",
+     "length": 158
+    },
+    {
+     "va": "0x006B6C90",
+     "length": 224
+    },
+    {
+     "va": "0x006B6D70",
+     "length": 367
+    },
+    {
+     "va": "0x006B6EE0",
+     "length": 274
+    },
+    {
+     "va": "0x006B7000",
+     "length": 137
     }
    ],
    "flags": [
@@ -94458,174 +94446,6 @@
      "va": "0x006B7110",
      "length": 312
     }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B6730.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B6730",
-     "length": 1040
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B6B40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B6B40",
-     "length": 168
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B6BF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B6BF0",
-     "length": 158
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B6C90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B6C90",
-     "length": 224
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B6D70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B6D70",
-     "length": 367
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B6EE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B6EE0",
-     "length": 274
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B7000.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B7000",
-     "length": 137
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

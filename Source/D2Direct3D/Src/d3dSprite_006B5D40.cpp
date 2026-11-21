@@ -2,6 +2,8 @@
 #include "D2GfxTypes.h"
 #include "D2DDrawTypes.h"
 #include "D2CelContext.h"
+#include "D2Direct3D.h"
+#include "D2ClientTypes.h"
 
 struct D2CelStrc;
 
@@ -27,62 +29,164 @@ struct D2TexturePoolStrc
 };
 
 typedef char check_desc_size[(sizeof(D2DDSurfaceDesc2Strc) == 0x7C) ? 1 : -1];
+
 typedef char check_pool_size[(sizeof(D2TexturePoolStrc) == 0x1C) ? 1 : -1];
+
 typedef char check_entry_size[(sizeof(D2TexturePoolEntryStrc) == 0x20) ? 1 : -1];
 
 extern "C" const char gszEmptyAssertText;                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                               // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                // 0x00681EF0
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
+
 void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
+
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
+
 void __fastcall sub_006B38A0_Copy(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
+
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
+
 void __fastcall sub_006BA760_TouchEntry(D2TexturePoolStrc* pPool, int nIndex); // 0x006BA760
+
 int __fastcall sub_006BA920_AllocEntry(D2TexturePoolStrc* pPool); // 0x006BA920
 
 extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
+
 extern const unsigned int gnRenderFlag_006CE290; // 0x006CE290
+
 extern D2TexturePoolStrc gaTexturePools_00970EAC[]; // 0x00970EAC
+
 extern D2D3DTextureStrc* gapTextures_00970F18[]; // 0x00970F18
+
 extern D2DDSurfaceStrc* gapSurfaces_00970F24[]; // 0x00970F24
+
 extern unsigned char* gpBuffer_00970F34; // 0x00970F34
+
 extern unsigned char* gpBuffer_00970F38; // 0x00970F38
+
 extern "C" const char gszSetTextureFailed_006FC26C[]; // 0x006FC26C
+
 extern "C" const char gszUnlockFailed_006FC284[]; // 0x006FC284
+
 extern "C" const char gszLockFailed_006FC2A4[]; // 0x006FC2A4
+
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
-extern D2VertexBufferStrc* gpVertexBuffer_00970F3C; // 0x00970F3C
-extern int gnVertexIndex_00970F40; // 0x00970F40
-extern int gnScale_00989748; // 0x00989748
+
+D2VertexBufferStrc* gpVertexBuffer_00970F3C;        // 0x00970F3C
+
+int gnVertexIndex_00970F40;        // 0x00970F40
+
+int gnScale_00989748;        // 0x00989748
+
 extern const char gszSpriteError_006FC238[]; // 0x006FC238
 
 int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
+
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
+
 int __stdcall sub_006018C0(D2CelStrc* cel); // 0x006018C0
+
 int __stdcall sub_006018F0(D2CelStrc* cel); // 0x006018F0
+
 int __stdcall sub_00601920(D2CelStrc* cel); // 0x00601920
+
 int __stdcall sub_00601950(D2CelStrc* cel); // 0x00601950
+
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
+
 void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
+
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
+
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
+
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
+
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 
 static __declspec(noinline) int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info);
+
 static __declspec(noinline) void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
-static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor);
+
+static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
+
 static __declspec(noinline) void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
 static __declspec(noinline) unsigned char sub_006B6680_SetBlendAndAlpha(int mode);
 
-static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
-// 0x006B5C80
+struct D2TexLocationStrc
+{
+    int nCache;
+    int nIndex;
+};
+
+struct D2SpriteQuad006B61A0Strc
+{
+    int unk_00[3];
+    int nX;
+    int nHalf;
+    int nWidth;
+    int nHeight;
+    int unk_1C;
+    float fU0;
+    float fU1;
+    float fV0;
+    float fV1;
+};
+
+static int gnVertexCount_00970F40; // 0x00970F40
+
+static __declspec(noinline) void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad);
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+
+
+int __stdcall sub_00601B10_GetCelPixels(D2CelStrc* pCel);                                                  // 0x00601B10
+
+void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);                  // 0x006B9860
+
+extern int gnVertexBufferPos_00970F40;                                                                      // 0x00970F40
+
+static int __declspec(noinline) sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo);
+
+
+static int __declspec(noinline) __stdcall sub_006B5D40_UploadSprite(D2SpriteInfoStrc* pInfo, int nType, unsigned char* pPalette, int nUnused); // 0x006B5D40
+
+static unsigned char __declspec(noinline) sub_006B6680_GetAlpha(int nDrawMode);
+
+extern int gnScreenWidth_007C9138; // 0x007C9138
+
+extern int gnScreenHeight_007C913C; // 0x007C913C
+
+void __fastcall sub_006BA760_Touch(int* pValue, int nValue); // 0x006BA760
+
+
+
+
+extern const char gszEmpty_006CC837[]; // 0x006CC837
+
+static __declspec(noinline) int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip);
+
+
+int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
+
+static __declspec(noinline) void __stdcall sub_006B61A0_DrawShadowQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteInfoStrc* pQuad);
+
+
+void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode);
+
+void __fastcall sub_006B6EE0_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode);
+
 int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info)
 {
     if (!sub_006001F0(context, 0, 1))
@@ -100,7 +204,6 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
     return 1;
 }
 
-// 0x006B5CF0
 void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo)
 {
     int nSize = 32;
@@ -125,12 +228,6 @@ done:
     pInfo->fV0 = 0.0f;
     pInfo->fV1 = 1.0f;
 }
-
-struct D2TexLocationStrc
-{
-    int nCache;
-    int nIndex;
-};
 
 // 0x006B5D40
 int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor)
@@ -289,6 +386,113 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     return 1;
 }
 
+unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
+{
+    unsigned char alpha = 255;
+    switch (mode)
+    {
+    case 5:
+    case 7:
+        sub_006B1F40_SetBlendMode(1);
+        break;
+    case 3:
+        sub_006B1F40_SetBlendMode(2);
+        break;
+    case 4:
+        sub_006B1F40_SetBlendMode(3);
+        break;
+    default:
+        sub_006B1F40_SetBlendMode(4);
+        if (mode == 0)
+            alpha = 64;
+        else if (mode == 1)
+            alpha = 128;
+        else if (mode == 2)
+            alpha = 192;
+        break;
+    }
+    return alpha;
+}
+
+// 0x006B61A0
+static void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad)
+{
+    float fU0 = pQuad->fU0;
+    float fU1 = pQuad->fU1;
+    float fV0 = pQuad->fV0;
+    float fV1 = pQuad->fV1;
+    int bPerspective = sub_006B9830_GetPerspective();
+
+    D2QuadRectStrc tRect;
+    tRect.nHeight = pQuad->nHeight >> 1;
+    pQuad->nHalf >>= 1;
+    tRect.nWidth = pQuad->nWidth;
+    tRect.nX = pQuad->nX + pQuad->nHalf;
+    tRect.nY = pQuad->nHalf - tRect.nHeight;
+
+    if (bPerspective && gnScale_00989748 != 256)
+    {
+        tRect.nX = gnScale_00989748 * tRect.nX / 256;
+        tRect.nY = gnScale_00989748 * tRect.nY / 256;
+        tRect.nWidth = gnScale_00989748 * tRect.nWidth / 256;
+        tRect.nHeight = gnScale_00989748 * tRect.nHeight / 256;
+    }
+
+    int nX = tRect.nX + nOffsetX;
+    int nY = tRect.nY + nOffsetY;
+    int nWidth = tRect.nWidth;
+    int nHeight = tRect.nHeight;
+    float fTop = (float)nY;
+    float fBottom = (float)(nY + nHeight);
+
+    D2TLVertexStrc* pVertices;
+    if (gpVertexBuffer_00970F3C->lpVtbl->Lock(gpVertexBuffer_00970F3C, 0x21, (void**)&pVertices, 0))
+        return;
+
+    pVertices += gnVertexCount_00970F40;
+    int nLeft = nX - nHeight;
+    pVertices[0].fX = (float)nLeft;
+    pVertices[0].fY = fTop;
+    pVertices[0].fZ = 0.5f;
+    pVertices[0].fRhw = 1.0f;
+    pVertices[0].fU = fU0;
+    pVertices[0].fV = fV0;
+    pVertices[1].fX = (float)nX;
+    pVertices[1].fY = fBottom;
+    pVertices[1].fZ = 0.5f;
+    pVertices[1].fRhw = 1.0f;
+    pVertices[1].fU = fU0;
+    pVertices[1].fV = fV1;
+    pVertices[2].fX = (float)(nX + nWidth);
+    pVertices[2].fY = fBottom;
+    pVertices[2].fZ = 0.5f;
+    pVertices[2].fRhw = 1.0f;
+    pVertices[2].fU = fU1;
+    pVertices[2].fV = fV1;
+    pVertices[3].fX = (float)(nLeft + nWidth);
+    pVertices[3].fY = fTop;
+    pVertices[3].fZ = 0.5f;
+    pVertices[3].fRhw = 1.0f;
+    pVertices[3].fU = fU1;
+    pVertices[3].fV = fV0;
+    pVertices[0].dwColor = (unsigned int)nAlpha << 24;
+    pVertices[1].dwColor = pVertices[0].dwColor;
+    pVertices[2].dwColor = pVertices[1].dwColor;
+    pVertices[3].dwColor = pVertices[2].dwColor;
+
+    gpVertexBuffer_00970F3C->lpVtbl->Unlock(gpVertexBuffer_00970F3C);
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer_00970F3C, gnVertexCount_00970F40, 4, 0x1C);
+
+    gnVertexCount_00970F40 += 4;
+    if (gnVertexCount_00970F40 > 0x2B)
+        gnVertexCount_00970F40 = 0;
+}
+
+void __fastcall sub_006B61A0_EmitDrawQuad(D2SpriteQuad006B61A0Strc* pQuad, int nX, int nY, unsigned char nAlpha)
+{
+    sub_006B61A0_DrawQuad(nX, nY, nAlpha, pQuad);
+}
+
 // 0x006B63F0
 void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
 {
@@ -378,33 +582,291 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     }
 }
 
-// 0x006B6680
-unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
+void __fastcall sub_006B63F0_Emit(int nX, int nY, unsigned int nColor, unsigned char nAlpha)
 {
-    unsigned char alpha = 255;
-    switch (mode)
+    D2SpriteInfoStrc tSprite;
+    tSprite.nOffsetX = nX;
+    sub_006B63F0_DrawQuad(&tSprite, nX, nY, nColor, 0, nAlpha, 0);
+}
+
+static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo)
+{
+	if (!sub_006001F0((D2CelContextStrc*)pData, 0, 1))
+	{
+		return 0;
+	}
+
+	if (!pData->pCel)
+	{
+		sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pData->nUnitType, pData->nUnitIndex, pData->nMode, pData->pOverlays);
+		return 0;
+	}
+
+	pInfo->pContext = (D2CelContextStrc*)pData;
+	pInfo->nWidth = sub_006018C0(pData->pCel);
+	pInfo->nOffsetX = sub_00601920(pData->pCel);
+	pInfo->nHeight = sub_006018F0(pData->pCel);
+	pInfo->nOffsetY = sub_00601950(pData->pCel);
+	return 1;
+}
+
+
+// build: context sub_006B5D40_UploadSprite
+// calling-convention shim (not game code)
+static int __stdcall sub_006B5D40_UploadSprite(D2SpriteInfoStrc* pInfo, int nType, unsigned char* pPalette, int nFlags)
+{
+	int nResult = sub_00601B10_GetCelPixels(pInfo->pContext->pCel);
+	if (nType == 4)
+	{
+		nType = 1;
+	}
+	pInfo->nWidth = nResult;
+	D2SpriteInfoStrc* pNext = (D2SpriteInfoStrc*)pInfo->pContext;
+	nResult = sub_00601B10_GetCelPixels(pNext->pContext->pCel);
+	pNext->nWidth = nResult + nType;
+	return (int)pPalette + nFlags;
+}
+
+static unsigned char sub_006B6680_GetAlpha(int nDrawMode)
+{
+	unsigned char nAlpha = 0xFF;
+
+	switch (nDrawMode)
+	{
+	case 5:
+	case 7:
+		sub_006B1F40_SetBlendMode(1);
+		break;
+
+	case 3:
+		sub_006B1F40_SetBlendMode(2);
+		break;
+
+	case 4:
+		sub_006B1F40_SetBlendMode(3);
+		break;
+
+	default:
+		sub_006B1F40_SetBlendMode(4);
+		if (nDrawMode == 0)
+		{
+			nAlpha = 0x40;
+		}
+		else if (nDrawMode == 1)
+		{
+			nAlpha = 0x80;
+		}
+		else if (nDrawMode == 2)
+		{
+			nAlpha = 0xC0;
+		}
+		break;
+	}
+
+	return nAlpha;
+}
+
+// 0x006B6730
+int __fastcall sub_006B6730_DrawFlatSprite(D2GfxDataStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
+{
+	D2SpriteInfoStrc tInfo;
+	D2TLVertexStrc pVertices[4];
+	int nScreenX;
+	int nScreenY;
+
+	if (!sub_006B5C80_GetSpriteInfo(pData, &tInfo))
+	{
+		return 0;
+	}
+
+	sub_006B5CF0_SetTextureSize(&tInfo);
+
+	const int nOffsetX = tInfo.nOffsetX << 11;
+	const int nOffsetY = tInfo.nOffsetY << 12;
+	nX += nOffsetY + nOffsetX;
+	nY += nOffsetY - nOffsetX;
+	const int nHeight = tInfo.nTexHeight << 12;
+	const int nWidth = tInfo.nTexWidth << 11;
+	const int nTopY = nY - nHeight;
+
+	sub_006B9860_Project(nX - nHeight, nTopY, 0, &nScreenX, &nScreenY);
+	pVertices[0].fX = (float)nScreenX;
+	pVertices[0].fY = (float)nScreenY;
+	pVertices[0].fZ = 0.5f;
+	pVertices[0].fRhw = 1.0f;
+	pVertices[0].fU = tInfo.fU0;
+	pVertices[0].fV = tInfo.fV0;
+
+	sub_006B9860_Project(nX, nY, 0, &nScreenX, &nScreenY);
+	pVertices[1].fX = (float)nScreenX;
+	pVertices[1].fY = (float)nScreenY;
+	pVertices[1].fZ = 0.5f;
+	pVertices[1].fRhw = 1.0f;
+	pVertices[1].fU = tInfo.fU0;
+	pVertices[1].fV = tInfo.fV1;
+
+	sub_006B9860_Project(nX + nWidth, nY - nWidth, 0, &nScreenX, &nScreenY);
+	pVertices[2].fX = (float)nScreenX;
+	pVertices[2].fY = (float)nScreenY;
+	pVertices[2].fZ = 0.5f;
+	pVertices[2].fRhw = 1.0f;
+	pVertices[2].fU = tInfo.fU1;
+	pVertices[2].fV = tInfo.fV1;
+
+	sub_006B9860_Project(nX + nWidth - nHeight, nTopY - nWidth, 0, &nScreenX, &nScreenY);
+	pVertices[3].fX = (float)nScreenX;
+	pVertices[3].fY = (float)nScreenY;
+	pVertices[3].fZ = 0.5f;
+	pVertices[3].fRhw = 1.0f;
+	pVertices[3].fU = tInfo.fU1;
+	pVertices[3].fV = tInfo.fV0;
+
+	switch (nScreenMode)
+	{
+	case 1:
+	{
+		const float fShift = (float)(gnScreenWidth_007C9138 / 4);
+		pVertices[0].fX -= fShift;
+		pVertices[1].fX -= fShift;
+		pVertices[2].fX -= fShift;
+		pVertices[3].fX -= fShift;
+		break;
+	}
+	case 2:
+	{
+		const float fShift = (float)(gnScreenWidth_007C9138 / 4);
+		pVertices[0].fX += fShift;
+		pVertices[1].fX += fShift;
+		pVertices[2].fX += fShift;
+		pVertices[3].fX += fShift;
+		break;
+	}
+	}
+
+	const int nScreenWidth = gnScreenWidth_007C9138;
+	const int nScreenHeight = gnScreenHeight_007C913C - 47;
+	if ((pVertices[0].fX >= 0.0f && pVertices[0].fX < nScreenWidth && pVertices[0].fY >= 0.0f && pVertices[0].fY < nScreenHeight)
+		|| (pVertices[1].fX >= 0.0f && pVertices[1].fX < nScreenWidth && pVertices[1].fY >= 0.0f && pVertices[1].fY < nScreenHeight)
+		|| (pVertices[2].fX >= 0.0f && pVertices[2].fX < nScreenWidth && pVertices[2].fY >= 0.0f && pVertices[2].fY < nScreenHeight)
+		|| (pVertices[3].fX >= 0.0f && pVertices[3].fX < nScreenWidth && pVertices[3].fY >= 0.0f && pVertices[3].fY < nScreenHeight))
+	{
+		const unsigned char nAlpha = sub_006B6680_GetAlpha(eDrawMode);
+		if (!sub_006B5D40_UploadSprite(&tInfo, 1, pPalette, 0))
+		{
+			return 1;
+		}
+
+		sub_006B1EA0_SetState(1);
+		sub_006B2030_SetFilterMode(1);
+		sub_006B9780_SetColor(pVertices, dwGamma, nAlpha);
+		pVertices[1].dwColor = pVertices[0].dwColor;
+		pVertices[2].dwColor = pVertices[0].dwColor;
+		pVertices[3].dwColor = pVertices[0].dwColor;
+
+		D2TLVertexStrc* pLocked;
+		if (gpVertexBuffer_00970F3C->lpVtbl->Lock(gpVertexBuffer_00970F3C, 0x21, (void**)&pLocked, 0))
+		{
+			return 1;
+		}
+
+		pLocked += gnVertexBufferPos_00970F40;
+		memcpy(pLocked, pVertices, sizeof(pVertices));
+		gpVertexBuffer_00970F3C->lpVtbl->Unlock(gpVertexBuffer_00970F3C);
+		gpD3DDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpD3DDevice_00970E78, 6, gpVertexBuffer_00970F3C, gnVertexBufferPos_00970F40, 4, 0x1C);
+
+		gnVertexBufferPos_00970F40 += 4;
+		if (gnVertexBufferPos_00970F40 > 43)
+		{
+			gnVertexBufferPos_00970F40 = 0;
+			return 1;
+		}
+	}
+
+	return 1;
+}
+
+// 0x006B6B40
+int __fastcall sub_006B6B40_DrawSprite(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nArg)
+{
+    D2SpriteInfoStrc tInfo;
+
+    if (!sub_006B5C80_LoadSpriteInfo(pContext, &tInfo))
     {
-    case 5:
-    case 7:
-        sub_006B1F40_SetBlendMode(1);
-        break;
-    case 3:
-        sub_006B1F40_SetBlendMode(2);
-        break;
-    case 4:
-        sub_006B1F40_SetBlendMode(3);
-        break;
-    default:
-        sub_006B1F40_SetBlendMode(4);
-        if (mode == 0)
-            alpha = 64;
-        else if (mode == 1)
-            alpha = 128;
-        else if (mode == 2)
-            alpha = 192;
-        break;
+        return 0;
     }
-    return alpha;
+
+    const int nLeft = nX + tInfo.nOffsetX;
+    if (nLeft > gnScreenWidth_007C9138)
+        return 0;
+    if (nLeft + tInfo.nWidth < 0)
+        return 0;
+    const int nBottom = nY + tInfo.nOffsetY;
+    if (nBottom < 0)
+        return 0;
+    if (nBottom - tInfo.nHeight >= gnScreenHeight_007C913C)
+        return 0;
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+    if (nBlendMode == 7)
+    {
+        if (sub_006B5D40_UploadTexture(&tInfo, 2, nArg, 0))
+        {
+            sub_006B63F0_DrawQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
+        }
+    }
+    else
+    {
+        if (sub_006B5D40_UploadTexture(&tInfo, 1, nArg, 0))
+        {
+            sub_006B63F0_DrawQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
+        }
+    }
+    return 1;
+}
+
+
+// build: context sub_006B6BF0_IsOnScreen
+static int sub_006B6BF0_IsOnScreen(D2SpriteInfoStrc* pInfo, int nX, int nY)
+{
+    nX += pInfo->nOffsetX;
+    if (nX > gnScreenWidth_007C9138 || nX + pInfo->nWidth < 0)
+    {
+        return 0;
+    }
+
+    nY += pInfo->nOffsetY;
+    if (nY < 0 || nY - pInfo->nHeight >= gnScreenHeight_007C913C)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x006B6BF0
+int __fastcall sub_006B6BF0_DrawSprite(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nPaletteIndex)
+{
+    D2SpriteInfoStrc tInfo;
+
+    if (!sub_006B5C80_LoadSpriteInfo(pContext, &tInfo))
+    {
+        return 0;
+    }
+
+    if (!sub_006B6BF0_IsOnScreen(&tInfo, nX, nY))
+    {
+        return 0;
+    }
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    if (sub_006B5D40_UploadTexture(&tInfo, 1, 0, 0))
+    {
+        const unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+        sub_006B63F0_DrawQuad(&tInfo, nX, nY, nColor, nPaletteIndex, nAlpha, 0);
+    }
+
+    return 1;
 }
 
 // 0x006B6C90
@@ -440,6 +902,218 @@ void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, 
 
     tInfo.nTexHeight = nRows;
     sub_006B63F0_DrawQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
+}
+
+// 0x006B6D70
+int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip)
+{
+    nX += pInfo->nOffsetX;
+    int nWidth = pInfo->nWidth;
+    int nHeight = pInfo->nHeight;
+    nY += pInfo->nOffsetY;
+
+    pClip->nLeft = 0;
+    pClip->nWidth = nWidth;
+    pClip->nTop = 0;
+    pClip->nHeight = nHeight;
+
+    int nLeft = pBounds->nLeft > 0 ? pBounds->nLeft : 0;
+    int nRight = pBounds->nRight < gnScreenWidth_007C9138 ? pBounds->nRight : gnScreenWidth_007C9138;
+    if (nLeft > nRight || nX >= nRight || nX + nWidth < nLeft)
+    {
+        return 1;
+    }
+
+    int nTop = pBounds->nTop + 2 > 0 ? pBounds->nTop + 2 : 0;
+    int nBottom = pBounds->nBottom < gnScreenHeight_007C913C ? pBounds->nBottom : gnScreenHeight_007C913C;
+    if (nTop > nBottom || nY < nTop || nY - nHeight > nBottom)
+    {
+        return 1;
+    }
+
+    if (nX >= nLeft)
+        pClip->nLeft = 0;
+    else
+        pClip->nLeft = nLeft - nX;
+
+    if (nX + nWidth < nRight)
+        pClip->nWidth = nWidth - pClip->nLeft;
+    else
+        pClip->nWidth = nRight - pClip->nLeft - nX;
+
+    if (nY <= nBottom)
+        pClip->nTop = 0;
+    else
+        pClip->nTop = nY - nBottom - 1;
+
+    if (nY - nHeight >= nTop)
+        pClip->nHeight = nHeight - pClip->nTop;
+    else
+        pClip->nHeight = nY - pClip->nTop - nTop + 1;
+
+    if (pClip->nHeight <= 0)
+    {
+        sub_00408A60(gszEmpty_006CC837, sub_00408090(), 1114);
+        exit(-1);
+    }
+    return 0;
+}
+
+// 0x006B6EE0
+void __fastcall sub_006B6EE0_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode)
+{
+    D2SpriteInfoStrc tInfo;
+    D2ClipStrc tClip;
+
+    unsigned char nAlpha = sub_006B6680_SetBlendAndAlpha(nBlendMode);
+    if (!sub_006B5C80_LoadSpriteInfo(pContext, &tInfo))
+    {
+        return;
+    }
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    if (!sub_006B5D40_UploadTexture(&tInfo, 1, 0, 0))
+    {
+        return;
+    }
+
+    if (sub_006B6D70_ClipSprite(&tInfo, nX, nY, pBounds, &tClip))
+    {
+        return;
+    }
+
+    float fScaleV = 1.0f / (float)tInfo.nTexHeight;
+    float fScaleU = 1.0f / (float)tInfo.nTexWidth;
+    if (tClip.nTop)
+    {
+        tInfo.fV0 = (float)(tInfo.nTexHeight - tClip.nHeight - tClip.nTop) * fScaleV;
+        nY -= tClip.nTop;
+        tInfo.fV1 = (float)(tInfo.nTexHeight - tClip.nTop) * fScaleV;
+    }
+    else
+    {
+        tInfo.fV0 = (float)(tInfo.nTexHeight - tClip.nHeight) * fScaleV;
+    }
+    tInfo.nTexHeight = tClip.nHeight;
+
+    if (tClip.nLeft)
+    {
+        nX += tClip.nLeft;
+        tInfo.fU0 = (float)tClip.nLeft * fScaleU;
+        tInfo.fU1 = (float)(tClip.nLeft + tClip.nWidth) * fScaleU;
+    }
+    else
+    {
+        tInfo.fU1 = (float)tClip.nWidth * fScaleU;
+    }
+    tInfo.nTexWidth = tClip.nWidth;
+
+    sub_006B63F0_DrawQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
+}
+
+// build: context sub_006B61A0_DrawShadowQuad
+void __stdcall sub_006B61A0_DrawShadowQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteInfoStrc* pQuad)
+{
+    float fU0 = pQuad->fU0;
+    float fU1 = pQuad->fU1;
+    float fV0 = pQuad->fV0;
+    float fV1 = pQuad->fV1;
+    int bPerspective = sub_006B9830_GetPerspective();
+
+    D2QuadRectStrc tRect;
+    tRect.nHeight = pQuad->nTexHeight >> 1;
+    pQuad->nOffsetY >>= 1;
+    tRect.nWidth = pQuad->nTexWidth;
+    tRect.nX = pQuad->nOffsetX + pQuad->nOffsetY;
+    tRect.nY = pQuad->nOffsetY - tRect.nHeight;
+
+    if (bPerspective && gnScale_00989748 != 256)
+    {
+        tRect.nX = gnScale_00989748 * tRect.nX / 256;
+        tRect.nY = gnScale_00989748 * tRect.nY / 256;
+        tRect.nWidth = gnScale_00989748 * tRect.nWidth / 256;
+        tRect.nHeight = gnScale_00989748 * tRect.nHeight / 256;
+    }
+
+    int nX = tRect.nX + nOffsetX;
+    int nY = tRect.nY + nOffsetY;
+    int nWidth = tRect.nWidth;
+    int nHeight = tRect.nHeight;
+    float fTop = (float)nY;
+    float fBottom = (float)(nY + nHeight);
+
+    D2TLVertexStrc* pVertices;
+    if (gpVertexBuffer_00970F3C->lpVtbl->Lock(gpVertexBuffer_00970F3C, 0x21, (void**)&pVertices, 0))
+        return;
+
+    pVertices += gnVertexIndex_00970F40;
+    int nLeft = nX - nHeight;
+    pVertices[0].fX = (float)nLeft;
+    pVertices[0].fY = fTop;
+    pVertices[0].fZ = 0.5f;
+    pVertices[0].fRhw = 1.0f;
+    pVertices[0].fU = fU0;
+    pVertices[0].fV = fV0;
+    pVertices[1].fX = (float)nX;
+    pVertices[1].fY = fBottom;
+    pVertices[1].fZ = 0.5f;
+    pVertices[1].fRhw = 1.0f;
+    pVertices[1].fU = fU0;
+    pVertices[1].fV = fV1;
+    pVertices[2].fX = (float)(nX + nWidth);
+    pVertices[2].fY = fBottom;
+    pVertices[2].fZ = 0.5f;
+    pVertices[2].fRhw = 1.0f;
+    pVertices[2].fU = fU1;
+    pVertices[2].fV = fV1;
+    pVertices[3].fX = (float)(nLeft + nWidth);
+    pVertices[3].fY = fTop;
+    pVertices[3].fZ = 0.5f;
+    pVertices[3].fRhw = 1.0f;
+    pVertices[3].fU = fU1;
+    pVertices[3].fV = fV0;
+    pVertices[0].dwColor = (unsigned int)nAlpha << 24;
+    pVertices[1].dwColor = pVertices[0].dwColor;
+    pVertices[2].dwColor = pVertices[1].dwColor;
+    pVertices[3].dwColor = pVertices[2].dwColor;
+
+    gpVertexBuffer_00970F3C->lpVtbl->Unlock(gpVertexBuffer_00970F3C);
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer_00970F3C, gnVertexIndex_00970F40, 4, 0x1C);
+
+    gnVertexIndex_00970F40 += 4;
+    if (gnVertexIndex_00970F40 > 0x2B)
+        gnVertexIndex_00970F40 = 0;
+}
+
+// 0x006B7000
+void __fastcall sub_006B7000_DrawSpriteShadow(D2CelContextStrc* pContext, int nX, int nY)
+{
+    D2SpriteInfoStrc tInfo;
+    unsigned char nAlpha = 255;
+
+    if (!sub_006B5C80_LoadSpriteInfo(pContext, &tInfo))
+    {
+        return;
+    }
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    if (!sub_006B5D40_UploadTexture(&tInfo, 4, 0, 0))
+    {
+        return;
+    }
+
+    sub_006B1EA0_SetState(1);
+    if (sub_006B77A0_GetBlendedShadows())
+    {
+        sub_006B1F40_SetBlendMode(4);
+        nAlpha = 192;
+    }
+    else
+    {
+        sub_006B1F40_SetBlendMode(1);
+    }
+    sub_006B2030_SetFilterMode(1);
+    sub_006B61A0_DrawShadowQuad(nX, nY, nAlpha, &tInfo);
 }
 
 #include "gen/data/Source/D2Direct3D/Src/d3dSprite_006B5D40.inc"
