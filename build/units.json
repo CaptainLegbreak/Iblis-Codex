@@ -14662,152 +14662,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0044B190.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044B190",
-     "length": 39,
-     "name": "?sub_0044B190_DispatchPacket@@YIHPBEI@Z"
-    },
-    {
-     "va": "0x0044B1F0",
-     "length": 7,
-     "name": "?sub_0044B1F0_SetMcpCallbackA@@YIXP6IXGPAE@Z@Z"
-    },
-    {
-     "va": "0x0044B200",
-     "length": 7,
-     "name": "?sub_0044B200_SetMcpCallbackB@@YIXP6IXGPAE@Z@Z"
-    },
-    {
-     "va": "0x0044B220",
-     "length": 7,
-     "name": "?sub_0044B220_SetCallback@@YIXP6IXPAX@Z@Z"
-    },
-    {
-     "va": "0x0044B440",
-     "length": 57,
-     "name": "?sub_0044B440_PushValue@@YIXH@Z"
-    },
-    {
-     "va": "0x0044B480",
-     "length": 89,
-     "name": "?sub_0044B480_PopValue@@YAHXZ"
-    },
-    {
-     "va": "0x0044B780",
-     "length": 27,
-     "name": "?sub_0044B780_RaiseGameWindow@@YAXXZ"
-    },
-    {
-     "va": "0x0044B7B0",
-     "length": 12,
-     "name": "?sub_0044B7B0_GetNotify@@YAPAUD2ClientNotifyStrc@@XZ"
-    },
-    {
-     "va": "0x0044B7C0",
-     "length": 38,
-     "name": "?sub_0044B7C0_GetRecordText1F@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B7F0",
-     "length": 40,
-     "name": "?sub_0044B7F0_GetRecordText245@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B820",
-     "length": 38,
-     "name": "?sub_0044B820_GetRecordText37@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B850",
-     "length": 16,
-     "name": "?sub_0044B850_IsHardcore@@YAHXZ"
-    },
-    {
-     "va": "0x0044B860",
-     "length": 14,
-     "name": "?sub_0044B860@@YAXXZ"
-    },
-    {
-     "va": "0x0044B870",
-     "length": 11,
-     "name": "?sub_0044B870_SetLaunchState1@@YAXXZ"
-    },
-    {
-     "va": "0x0044B880",
-     "length": 7,
-     "name": "?sub_0044B880_SetValue@@YIXH@Z"
-    },
-    {
-     "va": "0x0044BA20",
-     "length": 167,
-     "name": "?sub_0044BA20@@YIXH@Z"
-    },
-    {
-     "va": "0x0044BB70",
-     "length": 15,
-     "name": "?sub_0044BB70_StartGame@@YGHXZ"
-    },
-    {
-     "va": "0x0044BC10",
-     "length": 23,
-     "name": "?sub_0044BC10_RunClient@@YIHHPBD@Z"
-    },
-    {
-     "va": "0x0044BE10",
-     "length": 6,
-     "name": "?sub_0044BE10_GetRangeEnd@@YIHPAUD2RangeStrc@@@Z"
-    },
-    {
-     "va": "0x0044BE80",
-     "length": 7,
-     "name": "?sub_0044BE80@@YIXH@Z"
-    },
-    {
-     "va": "0x0044BEA0",
-     "length": 7,
-     "name": "?sub_0044BEA0_SetValue@@YIXH@Z"
-    },
-    {
-     "va": "0x0044BEC0",
-     "length": 40,
-     "name": "?sub_0044BEC0_GetClickFlags@@YAGXZ"
-    },
-    {
-     "va": "0x0044BEF0",
-     "length": 11,
-     "name": "?sub_0044BEF0@@YAXXZ"
-    },
-    {
-     "va": "0x0044BFE0",
-     "length": 12,
-     "name": "?sub_0044BFE0@@YAHXZ"
-    },
-    {
-     "va": "0x0044C060",
-     "length": 132,
-     "name": "?sub_0044C060_Refresh@@YAXXZ"
-    },
-    {
-     "va": "0x0044C2C0",
-     "length": 116,
-     "name": "?sub_0044C2C0@@YAXXZ"
-    },
-    {
-     "va": "0x0044C750",
-     "length": 63,
-     "name": "?sub_0044C750_InitRooms@@YAXXZ"
-    },
-    {
-     "va": "0x0044C860",
-     "length": 7,
-     "name": "?sub_0044C860_SetValue@@YIXH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_0044B210.cpp",
    "rank": 0,
    "functions": [
@@ -15528,9 +15382,219 @@
    ]
   },
   {
+   "file": "Source/D2Client/GAME/Game_0044C990.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0044C990",
+     "length": 452,
+     "name": "sub_0044C990_DrawGameView"
+    },
+    {
+     "va": "0x0044CB60",
+     "length": 308,
+     "name": "?sub_0044CB60_DrawLoadingText@@YAXXZ"
+    },
+    {
+     "va": "0x0044CDB0",
+     "length": 137
+    },
+    {
+     "va": "0x0044DCE0",
+     "length": 58,
+     "name": "_sub_0044DCE0_MouseExtTables_451E10"
+    },
+    {
+     "va": "0x0044DD20",
+     "length": 58,
+     "name": "_sub_0044DD20_MouseExtTables_451DB0"
+    },
+    {
+     "va": "0x0044DEF0",
+     "length": 4,
+     "name": "?sub_0060E280_AddLinkOffset@@YIPADPADH@Z"
+    },
+    {
+     "va": "0x0044E380",
+     "length": 125,
+     "name": "?sub_0044E380_ShowLoadingMessage@@YIXH@Z"
+    },
+    {
+     "va": "0x0044E400",
+     "length": 94,
+     "name": "?sub_0044E400_LoadingTimerCallback@@YGHPAX@Z"
+    },
+    {
+     "va": "0x0044E460",
+     "length": 131,
+     "name": "?sub_0044E460_ButtonMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0044E4F0",
+     "length": 163,
+     "name": "sub_0044E4F0_MouseMsg"
+    },
+    {
+     "va": "0x0044ED10",
+     "length": 16,
+     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x0044EE70",
+     "length": 17,
+     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0044EEC0",
+     "length": 212,
+     "name": "?sub_0044EEC0_CheckConnectionTimeouts@@YAXXZ"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/GAME/Game_0044C880.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0044B190",
+     "length": 39,
+     "name": "?sub_0044B190_DispatchPacket@@YIHPBEI@Z"
+    },
+    {
+     "va": "0x0044B1F0",
+     "length": 7,
+     "name": "?sub_0044B1F0_SetMcpCallbackA@@YIXP6IXGPAE@Z@Z"
+    },
+    {
+     "va": "0x0044B200",
+     "length": 7,
+     "name": "?sub_0044B200_SetMcpCallbackB@@YIXP6IXGPAE@Z@Z"
+    },
+    {
+     "va": "0x0044B220",
+     "length": 7,
+     "name": "?sub_0044B220_SetCallback@@YIXP6IXPAX@Z@Z"
+    },
+    {
+     "va": "0x0044B440",
+     "length": 57,
+     "name": "?sub_0044B440_PushValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0044B480",
+     "length": 89,
+     "name": "?sub_0044B480_PopValue@@YAHXZ"
+    },
+    {
+     "va": "0x0044B780",
+     "length": 27,
+     "name": "?sub_0044B780_RaiseGameWindow@@YAXXZ"
+    },
+    {
+     "va": "0x0044B7B0",
+     "length": 12,
+     "name": "?sub_0044B7B0_GetNotify@@YAPAUD2ClientNotifyStrc@@XZ"
+    },
+    {
+     "va": "0x0044B7C0",
+     "length": 38,
+     "name": "?sub_0044B7C0_GetRecordText1F@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B7F0",
+     "length": 40,
+     "name": "?sub_0044B7F0_GetRecordText245@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B820",
+     "length": 38,
+     "name": "?sub_0044B820_GetRecordText37@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B850",
+     "length": 16,
+     "name": "?sub_0044B850_IsHardcore@@YAHXZ"
+    },
+    {
+     "va": "0x0044B860",
+     "length": 14,
+     "name": "?sub_0044B860@@YAXXZ"
+    },
+    {
+     "va": "0x0044B870",
+     "length": 11,
+     "name": "?sub_0044B870_SetLaunchState1@@YAXXZ"
+    },
+    {
+     "va": "0x0044B880",
+     "length": 7,
+     "name": "?sub_0044B880_SetValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0044BA20",
+     "length": 167,
+     "name": "?sub_0044BA20@@YIXH@Z"
+    },
+    {
+     "va": "0x0044BB70",
+     "length": 15,
+     "name": "?sub_0044BB70_StartGame@@YGHXZ"
+    },
+    {
+     "va": "0x0044BC10",
+     "length": 23,
+     "name": "?sub_0044BC10_RunClient@@YIHHPBD@Z"
+    },
+    {
+     "va": "0x0044BE10",
+     "length": 6,
+     "name": "?sub_0044BE10_GetRangeEnd@@YIHPAUD2RangeStrc@@@Z"
+    },
+    {
+     "va": "0x0044BE80",
+     "length": 7,
+     "name": "?sub_0044BE80@@YIXH@Z"
+    },
+    {
+     "va": "0x0044BEA0",
+     "length": 7,
+     "name": "?sub_0044BEA0_SetValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0044BEC0",
+     "length": 40,
+     "name": "?sub_0044BEC0_GetClickFlags@@YAGXZ"
+    },
+    {
+     "va": "0x0044BEF0",
+     "length": 11,
+     "name": "?sub_0044BEF0@@YAXXZ"
+    },
+    {
+     "va": "0x0044BFE0",
+     "length": 12,
+     "name": "?sub_0044BFE0@@YAHXZ"
+    },
+    {
+     "va": "0x0044C060",
+     "length": 132,
+     "name": "?sub_0044C060_Refresh@@YAXXZ"
+    },
+    {
+     "va": "0x0044C2C0",
+     "length": 116,
+     "name": "?sub_0044C2C0@@YAXXZ"
+    },
+    {
+     "va": "0x0044C750",
+     "length": 63,
+     "name": "?sub_0044C750_InitRooms@@YAXXZ"
+    },
+    {
+     "va": "0x0044C860",
+     "length": 7,
+     "name": "?sub_0044C860_SetValue@@YIXH@Z"
+    },
     {
      "va": "0x0044C880",
      "length": 5,
@@ -15705,76 +15769,6 @@
      "va": "0x004538D0",
      "length": 44,
      "name": "?sub_004538D0@@YIHI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Game_0044C990.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044C990",
-     "length": 452,
-     "name": "sub_0044C990_DrawGameView"
-    },
-    {
-     "va": "0x0044CB60",
-     "length": 308,
-     "name": "?sub_0044CB60_DrawLoadingText@@YAXXZ"
-    },
-    {
-     "va": "0x0044CDB0",
-     "length": 137
-    },
-    {
-     "va": "0x0044DCE0",
-     "length": 58,
-     "name": "_sub_0044DCE0_MouseExtTables_451E10"
-    },
-    {
-     "va": "0x0044DD20",
-     "length": 58,
-     "name": "_sub_0044DD20_MouseExtTables_451DB0"
-    },
-    {
-     "va": "0x0044DEF0",
-     "length": 4,
-     "name": "?sub_0060E280_AddLinkOffset@@YIPADPADH@Z"
-    },
-    {
-     "va": "0x0044E380",
-     "length": 125,
-     "name": "?sub_0044E380_ShowLoadingMessage@@YIXH@Z"
-    },
-    {
-     "va": "0x0044E400",
-     "length": 94,
-     "name": "?sub_0044E400_LoadingTimerCallback@@YGHPAX@Z"
-    },
-    {
-     "va": "0x0044E460",
-     "length": 131,
-     "name": "?sub_0044E460_ButtonMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0044E4F0",
-     "length": 163,
-     "name": "sub_0044E4F0_MouseMsg"
-    },
-    {
-     "va": "0x0044ED10",
-     "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x0044EE70",
-     "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0044EEC0",
-     "length": 212,
-     "name": "?sub_0044EEC0_CheckConnectionTimeouts@@YAXXZ"
     }
    ]
   },

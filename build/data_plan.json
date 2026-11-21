@@ -1342,9 +1342,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0044B190.cpp": {
-   "bytes": 108,
-   "definitions": 2,
+  "Source/D2Client/GAME/Game_0044C880.cpp": {
+   "bytes": 340,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_0044AB70_McpIncomingIgnore(); // 0x0044AB70",
     "extern \"C\" void __cdecl sub_0044ABA0_McpIncoming02(); // 0x0044ABA0",
@@ -1367,50 +1367,7 @@
     "extern \"C\" void __cdecl sub_0044B150_McpSetValue(); // 0x0044B150",
     "extern \"C\" void __cdecl sub_0044B170_McpStorePacket(); // 0x0044B170",
     "extern \"C\" void __cdecl sub_0044B180_McpStorePacket(); // 0x0044B180",
-    "extern \"C\" void __cdecl sub_0044B2D0_McpIncoming05(); // 0x0044B2D0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0044B190.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_0044B8A0.cpp": {
-   "bytes": 160,
-   "definitions": 4,
-   "externs": [
-    "extern \"C\" void __cdecl sub_0044BC30_Start(); // 0x0044BC30",
-    "extern \"C\" void __cdecl sub_0044BD90_Stop(); // 0x0044BD90",
-    "extern \"C\" void __cdecl sub_0044D080_PushState(); // 0x0044D080",
-    "extern \"C\" void __cdecl sub_0044D550_Shutdown(); // 0x0044D550",
-    "extern \"C\" void __cdecl sub_0044F360(); // 0x0044F360"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0044B8A0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/inv.cpp": {
-   "bytes": 732,
-   "definitions": 4,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/inv.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_0044C5E0.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0044C5E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/GAME/Game_0044C880.cpp": {
-   "bytes": 232,
-   "definitions": 3,
-   "externs": [
+    "extern \"C\" void __cdecl sub_0044B2D0_McpIncoming05(); // 0x0044B2D0",
     "extern \"C\" void __cdecl sub_0044D580_ApplyConfig219(); // 0x0044D580",
     "extern \"C\" void __cdecl sub_0044D5A0_ApplyConfigAct(); // 0x0044D5A0",
     "extern \"C\" void __cdecl sub_0044D5F0_ApplyConfigGame(); // 0x0044D5F0",
@@ -1452,7 +1409,40 @@
     "extern \"C\" void __cdecl sub_0044D9E0_ApplyConfigNop(); // 0x0044D9E0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/Game_0044C880.inc",
+   "include": "gen/data/Source/D2Client/Unknown_0044B190.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_0044B8A0.cpp": {
+   "bytes": 160,
+   "definitions": 4,
+   "externs": [
+    "extern \"C\" void __cdecl sub_0044BC30_Start(); // 0x0044BC30",
+    "extern \"C\" void __cdecl sub_0044BD90_Stop(); // 0x0044BD90",
+    "extern \"C\" void __cdecl sub_0044D080_PushState(); // 0x0044D080",
+    "extern \"C\" void __cdecl sub_0044D550_Shutdown(); // 0x0044D550",
+    "extern \"C\" void __cdecl sub_0044F360(); // 0x0044F360"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_0044B8A0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/UI/inv.cpp": {
+   "bytes": 732,
+   "definitions": 4,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/UI/inv.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_0044C5E0.cpp": {
+   "bytes": 8,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_0044C5E0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -31751,7 +31741,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044B190.cpp",
+   "file": "Source/D2Client/GAME/Game_0044C880.cpp",
    "fill": 26,
    "form": "declared",
    "fwd": null,
@@ -31959,7 +31949,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044B190.cpp",
+   "file": "Source/D2Client/GAME/Game_0044C880.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnGlobal_00711474 = ",
