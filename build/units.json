@@ -34467,6 +34467,10 @@
     {
      "va": "0x004D6130",
      "length": 379
+    },
+    {
+     "va": "0x004D7930",
+     "length": 1230
     }
    ],
    "flags": [
@@ -34733,30 +34737,6 @@
     {
      "va": "0x004D7E00",
      "length": 435
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D7930.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004D7930",
-     "length": 1230
     }
    ],
    "flags": [
