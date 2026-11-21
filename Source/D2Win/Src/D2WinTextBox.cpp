@@ -828,6 +828,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
 
                     if (pTextBox->unk0x7C[i] & 2)
                     {
+                        // the original keeps the column pointer in a stack slot and reloads it here; a plain read is taken again from pLine->pColumns[i]
                         int nOffset = (v18 - sub_00501820(*(const Unicode* volatile*)&wszColumn)) / 2;
                         if (nOffset < 0)
                         {
