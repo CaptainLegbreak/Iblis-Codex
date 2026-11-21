@@ -69681,6 +69681,11 @@
      "length": 530
     },
     {
+     "va": "0x005F96C0",
+     "length": 651,
+     "name": "?AITHINK_Fn064_SkeletonMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F9950",
      "length": 76,
      "name": "D2GAME_AI_SpecialState04_6FCDC170"
@@ -70793,17 +70798,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F96C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F96C0",
-     "length": 651,
-     "name": "?AITHINK_Fn064_SkeletonMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
