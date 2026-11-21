@@ -1,4 +1,7 @@
 #include <D2UnitData.h>
+#include "D2DataTbls.h"
+#include "D2StormTypes.h"
+#include "D2ClientTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
@@ -47,29 +50,6 @@ extern int gnGlobal_007A5254; // 0x007A5254
 
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned short nWParamLo;
-    short nWParamHi;
-    union
-    {
-        struct
-        {
-            unsigned int lParam;
-        };
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct Unicode
 {
@@ -236,15 +216,6 @@ struct D2ItemStatCostTxt
     char unk0x00[0x144];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBCC];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0xBD4 - 0xBD0];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x18];
-    int nPetTypeTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
@@ -515,15 +486,6 @@ int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 int __stdcall sub_0064B2A0(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCellFile;
-    char unk0x38[0x08];
-    int nDirection;
-    char unk0x44[0x04];
-};
 
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820

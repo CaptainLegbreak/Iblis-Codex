@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -403,26 +404,6 @@ enum DrawMode
     DRAWMODE_HIGHLIGHT
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int unk0x24;
-    int unk0x28;
-    int unk0x2C;
-    int unk0x30;
-    struct D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nGamma, DrawMode eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -1910,7 +1891,7 @@ void __stdcall sub_0048BC10()
 
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpRecipeScrollCel_007BCE8C;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     TEXTURE_CelDraw(&tContext, gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 224, -1, DRAWMODE_NORMAL, 0);
     tContext.nFrame = 1;

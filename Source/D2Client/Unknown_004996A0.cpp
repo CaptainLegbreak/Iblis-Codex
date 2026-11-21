@@ -1,9 +1,8 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
+#include "D2ClientUi.h"
 #include "D2Structs.h"
 
-struct D2UiRectStrc { int nLeft,nRight,nTop,nBottom; };
-struct D2UiRecordStrc { int unknown00; unsigned char nBoxes,unknown05; unsigned short unknown06; D2UiRectStrc aRects[16]; };
-struct SMSGHANDLER_PARAMS { void* hWnd; unsigned int uMessage,wParam; unsigned short nX,nY; unsigned int dwCommandSource,dwArg; int bUseResult,lResult; };
 void __stdcall sub_00660CB0_GetUiRecord(int,int,D2UiRecordStrc*); // 0x00660CB0
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int,int,D2UiRectStrc*,int); // 0x00660D10
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
@@ -110,12 +109,12 @@ static __forceinline void CancelCursorMode()
 void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
 {
     if(sub_0044DA30() || sub_00463DF0()) {
-        pMsg->bUseResult=0;
+        pMsg->bReturn=0;
         return;
     }
     D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
-    const int x=pMsg->nX;
-    const int y=pMsg->nY;
+    const int x=pMsg->nXpos;
+    const int y=pMsg->nYpos;
     gnGlobal_007BEF88=0;
     gnGlobal_007BEF84=0;
     if(gnGlobal_007BEFA4) {
@@ -123,7 +122,7 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
             if(sub_00498DC0_MouseMoveMsg(pMsg)) {
                 CancelCursorMode();
                 sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
-                pMsg->bUseResult=1;
+                pMsg->bReturn=1;
                 pMsg->lResult=0;
                 sub_00420290_BreakHandlerChain(pMsg);
             }
@@ -171,12 +170,12 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
             }
             gnGlobal_007BEFA4=0;
             gnGlobal_00722358=0;
-            pMsg->bUseResult=1;
+            pMsg->bReturn=1;
             pMsg->lResult=0;
             sub_00420290_BreakHandlerChain(pMsg);
         }
         else {
-            pMsg->bUseResult=0;
+            pMsg->bReturn=0;
         }
     }
     else {
@@ -185,7 +184,7 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
             if(sub_004538D0(3)) sub_00455F20(3,1,0);
         }
         gnGlobal_007BEFA4=0;
-        pMsg->bUseResult=0;
+        pMsg->bReturn=0;
     }
     gnGlobal_007BEFD0=0;
     gnGlobal_007BEFD8=0;

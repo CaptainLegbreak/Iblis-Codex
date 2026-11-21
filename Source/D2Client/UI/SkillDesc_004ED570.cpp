@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2Records.h"
+#include "D2Unicode.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Constants.h"
@@ -6,9 +8,7 @@
 #include "D2Path.h"
 #include "D2GameTypes.h"
 
-struct Unicode { unsigned short wChar; Unicode(unsigned short ch = 0) : wChar(ch) {} };
 
-struct D2SkillDescTxt { char unknown00[0x0E]; unsigned short wStrAlt; char unknown10[2]; unsigned short wDamageFunc, wDescFunc; char unknown16[0x120-0x16]; };
 
 struct D2SkillTextPositionStrc { int nLeft, nY, nRight; };
 
@@ -198,14 +198,14 @@ void __fastcall sub_004ED570_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSki
         bDescription = 1;
         break;
     }
-    if (pDesc->wDamageFunc >= 144 || !gpfSkillDamageFuncs_0072D768[pDesc->wDamageFunc]) bDamage = 0;
+    if (pDesc->wDescDam >= 144 || !gpfSkillDamageFuncs_0072D768[pDesc->wDescDam]) bDamage = 0;
     if (pDesc->wDescFunc >= 72 || !gpfSkillDescFuncs_0072D7F8[pDesc->wDescFunc]) bDescription = 0;
     ++nIndex;
     if (bDamage)
         DRAW_SKILL_TEXT(nIndex, D2LANG_GetStringFromTblIndex(0xFDD));
     ++nIndex;
     if (bDamage)
-        gpfSkillDamageFuncs_0072D768[pDesc->wDamageFunc](pUnit, pSkill, pSkillsTxt, nLevel, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight);
+        gpfSkillDamageFuncs_0072D768[pDesc->wDescDam](pUnit, pSkill, pSkillsTxt, nLevel, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight);
     if (!bDescription)
         return;
     UnicodeChar wszDescription[200];

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientGame.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -143,16 +144,6 @@ extern const D2PanelHotkeysStrc gtPanelHotkeys_006D62A0; // 0x006D62A0
 extern int gnPanelState_007A27E8; // 0x007A27E8
 
 
-struct D2RosterPetStrc
-{
-    int nClassId;
-    int nType;
-    int dwUnitId;
-    int dwOwnerId;
-    int unk0x10[5];
-    D2ClientEntryStrc tEntry;
-    D2RosterPetStrc* pNext;
-};
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __cdecl sub_00454740_LoadLoadingPalette(); // 0x00454740

@@ -1348,7 +1348,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/GAME/Game_0044B8A0.cpp": {
+  "Source/D2Client/GAME/Game_0044E5A0.cpp": {
    "bytes": 160,
    "definitions": 4,
    "externs": [
@@ -1637,8 +1637,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/CUnit_00463940.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 28,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/CUnit_00463940.inc",
@@ -1667,15 +1667,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/CUnit_004645B0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/CUnit_00464D20.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/CUnit_00464D20.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2276,7 +2267,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/text_004A5060.cpp": {
+  "Source/D2Client/UI/text_0049DC40.cpp": {
    "bytes": 86,
    "definitions": 3,
    "externs": [
@@ -2485,14 +2476,10 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/useitem_004BFA70.cpp": {
+  "Source/D2Client/UI/useitem.cpp": {
    "bytes": 216,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl sub_004BFA30_MouseMoveMsg(); // 0x004BFA30",
-    "extern \"C\" void __cdecl sub_004BFC50(); // 0x004BFC50",
-    "extern \"C\" void __cdecl sub_004BFDB0_BreakMsg(); // 0x004BFDB0",
-    "extern \"C\" void __cdecl sub_004C0150_OnPanelClose(); // 0x004C0150",
     "extern \"C\" void __cdecl sub_004C04E0_OnHotspotClick(); // 0x004C04E0"
    ],
    "fn_types": {},
@@ -6512,31 +6499,7 @@
   "Source/D2Client/UNIT/Object.cpp": {
    "bytes": 600,
    "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004BD090_OperateReverseNameShrine(); // 0x004BD090",
-    "extern \"C\" void __cdecl sub_004BD0C0_SpawnMissileGrid(); // 0x004BD0C0",
-    "extern \"C\" void __cdecl sub_004BD220_SpawnMissileStar(); // 0x004BD220",
-    "extern \"C\" void __cdecl sub_004BD360_SpawnMissileStar(); // 0x004BD360",
-    "extern \"C\" void __cdecl sub_004BD4A0_InitShrineOverlays(); // 0x004BD4A0",
-    "extern \"C\" void __cdecl sub_004BD730_AnimCycle(); // 0x004BD730",
-    "extern \"C\" void __cdecl sub_004BD7C0_AnimCycleUpdate(); // 0x004BD7C0",
-    "extern \"C\" void __cdecl sub_004BD860_TimedSpecial(); // 0x004BD860",
-    "extern \"C\" void __cdecl sub_004BD900_TimedSpecialRandom(); // 0x004BD900",
-    "extern \"C\" void __cdecl sub_004BD9C0_TimedSpecialExact(); // 0x004BD9C0",
-    "extern \"C\" void __cdecl sub_004BDA60_TimedOperate(); // 0x004BDA60",
-    "extern \"C\" void __cdecl sub_004BDAF0_AlwaysOne(); // 0x004BDAF0",
-    "extern \"C\" void __cdecl sub_004BDB00_TimedOperateShort(); // 0x004BDB00",
-    "extern \"C\" void __cdecl sub_004BDB90_AlwaysOne(); // 0x004BDB90",
-    "extern \"C\" void __cdecl sub_004BDBA0_RemoveWhenFar(); // 0x004BDBA0",
-    "extern \"C\" void __cdecl sub_004BDBF0_TriggerOnce219(); // 0x004BDBF0",
-    "extern \"C\" void __cdecl sub_004BDC10_QuestObject(); // 0x004BDC10",
-    "extern \"C\" void __cdecl sub_004BDCA0_TriggerOnceD3(); // 0x004BDCA0",
-    "extern \"C\" void __cdecl sub_004BDCC0_UpdateEnvObject(); // 0x004BDCC0",
-    "extern \"C\" void __cdecl sub_004BDCF0_TimedOverlay(); // 0x004BDCF0",
-    "extern \"C\" void __cdecl sub_004BDD50_RandomSound(); // 0x004BDD50",
-    "extern \"C\" void __cdecl sub_004BDE00_FinishOperate(); // 0x004BDE00",
-    "extern \"C\" void __cdecl sub_004BDE40_ReportPosition(); // 0x004BDE40"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Object.inc",
    "lang": "cpp",
@@ -31623,7 +31586,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLaunchState_0070EE4C = ",
@@ -31648,7 +31611,7 @@
    "cname": "gData_0070EE54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54; // 0x0070EE54",
    "head": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54 = ",
@@ -31706,7 +31669,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0070EE8C = ",
@@ -31731,7 +31694,7 @@
    "cname": "gData_0070EE90",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE90_t gData_0070EE90; // 0x0070EE90",
    "head": "extern \"C\" struct d2data_0070EE90_t gData_0070EE90 = ",
@@ -42157,7 +42120,7 @@
    "cname": "gData_006D6ABC",
    "declared": true,
    "decorated": "?gnUnitTypes_006D6ABC@@3QBHB",
-   "file": "Source/D2Client/UNIT/CUnit_00464D20.cpp",
+   "file": "Source/D2Client/UNIT/CUnit_00463940.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6ABC[6]; // 0x006D6ABC",
    "head": "extern \"C\" const int gData_006D6ABC[6] = ",
@@ -55847,7 +55810,7 @@
    "cname": "gData_007246D8",
    "declared": true,
    "decorated": "?gaSliderButtons_007246D8@@3PAUD2SliderButtonStrc@@A",
-   "file": "Source/D2Client/UI/text_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_0049DC40.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007246D8_t gData_007246D8; // 0x007246D8",
    "head": "extern \"C\" struct d2data_007246D8_t gData_007246D8 = ",
@@ -55892,7 +55855,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_0049DC40.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gnScreenWidth_0071146C = ",
@@ -55917,7 +55880,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_0049DC40.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ClientListEntryStrc* gpListEntries_00724264 = ",
@@ -61748,18 +61711,23 @@
        }
       ],
       [
-       "unk0x08",
+       "f_8",
        8,
        {
-        "elem": {
-         "k": "prim",
-         "kind": "c",
-         "name": "char",
-         "size": 1
-        },
-        "k": "arr",
-        "n": 8,
-        "size": 8
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "f_C",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
        }
       ],
       [
@@ -61785,7 +61753,7 @@
     [
      120,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61793,7 +61761,7 @@
     [
      140,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61801,7 +61769,7 @@
     [
      160,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61809,7 +61777,7 @@
     [
      180,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61817,7 +61785,7 @@
     [
      200,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61825,7 +61793,7 @@
     [
      220,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61833,7 +61801,7 @@
     [
      240,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61841,7 +61809,7 @@
     [
      260,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61849,7 +61817,7 @@
     [
      280,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61857,7 +61825,7 @@
     [
      300,
      "0x004BD4A0",
-     "names.json",
+     "owner",
      "sub_004BD4A0_InitShrineOverlays",
      0,
      "func"
@@ -61865,7 +61833,7 @@
     [
      324,
      "0x004BD090",
-     "names.json",
+     "owner",
      "sub_004BD090_OperateReverseNameShrine",
      0,
      "func"
@@ -61873,7 +61841,7 @@
     [
      384,
      "0x004BD0C0",
-     "names.json",
+     "owner",
      "sub_004BD0C0_SpawnMissileGrid",
      0,
      "func"
@@ -61881,7 +61849,7 @@
     [
      424,
      "0x004BD220",
-     "names.json",
+     "owner",
      "sub_004BD220_SpawnMissileStar",
      0,
      "func"
@@ -61889,7 +61857,7 @@
     [
      444,
      "0x004BD360",
-     "names.json",
+     "owner",
      "sub_004BD360_SpawnMissileStar",
      0,
      "func"
@@ -61954,7 +61922,7 @@
     [
      4,
      "0x004BDB90",
-     "names.json",
+     "owner",
      "sub_004BDB90_AlwaysOne",
      0,
      "func"
@@ -61962,7 +61930,7 @@
     [
      8,
      "0x004BD730",
-     "names.json",
+     "owner",
      "sub_004BD730_AnimCycle",
      0,
      "func"
@@ -61970,7 +61938,7 @@
     [
      12,
      "0x004BD7C0",
-     "names.json",
+     "owner",
      "sub_004BD7C0_AnimCycleUpdate",
      0,
      "func"
@@ -61978,7 +61946,7 @@
     [
      16,
      "0x004BD860",
-     "names.json",
+     "owner",
      "sub_004BD860_TimedSpecial",
      0,
      "func"
@@ -61986,7 +61954,7 @@
     [
      20,
      "0x004BD900",
-     "names.json",
+     "owner",
      "sub_004BD900_TimedSpecialRandom",
      0,
      "func"
@@ -61994,7 +61962,7 @@
     [
      24,
      "0x004BD9C0",
-     "names.json",
+     "owner",
      "sub_004BD9C0_TimedSpecialExact",
      0,
      "func"
@@ -62002,7 +61970,7 @@
     [
      28,
      "0x004BDA60",
-     "names.json",
+     "owner",
      "sub_004BDA60_TimedOperate",
      0,
      "func"
@@ -62010,7 +61978,7 @@
     [
      32,
      "0x004BDCA0",
-     "names.json",
+     "owner",
      "sub_004BDCA0_TriggerOnceD3",
      0,
      "func"
@@ -62018,7 +61986,7 @@
     [
      36,
      "0x004BDBA0",
-     "names.json",
+     "owner",
      "sub_004BDBA0_RemoveWhenFar",
      0,
      "func"
@@ -62026,7 +61994,7 @@
     [
      40,
      "0x004BDB00",
-     "names.json",
+     "owner",
      "sub_004BDB00_TimedOperateShort",
      0,
      "func"
@@ -62034,7 +62002,7 @@
     [
      44,
      "0x004BDAF0",
-     "names.json",
+     "owner",
      "sub_004BDAF0_AlwaysOne",
      0,
      "func"
@@ -62042,7 +62010,7 @@
     [
      48,
      "0x004BDBF0",
-     "names.json",
+     "owner",
      "sub_004BDBF0_TriggerOnce219",
      0,
      "func"
@@ -62050,7 +62018,7 @@
     [
      52,
      "0x004BDC10",
-     "names.json",
+     "owner",
      "sub_004BDC10_QuestObject",
      0,
      "func"
@@ -62058,7 +62026,7 @@
     [
      56,
      "0x004BDCC0",
-     "names.json",
+     "owner",
      "sub_004BDCC0_UpdateEnvObject",
      0,
      "func"
@@ -62066,7 +62034,7 @@
     [
      60,
      "0x004BDCF0",
-     "names.json",
+     "owner",
      "sub_004BDCF0_TimedOverlay",
      0,
      "func"
@@ -62074,7 +62042,7 @@
     [
      64,
      "0x004BDE00",
-     "names.json",
+     "owner",
      "sub_004BDE00_FinishOperate",
      0,
      "func"
@@ -62082,7 +62050,7 @@
     [
      68,
      "0x004BDE40",
-     "names.json",
+     "owner",
      "sub_004BDE40_ReportPosition",
      0,
      "func"
@@ -62090,7 +62058,7 @@
     [
      72,
      "0x004BDD50",
-     "names.json",
+     "owner",
      "sub_004BDD50_RandomSound",
      0,
      "func"
@@ -63057,7 +63025,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem_004BFA70.cpp",
+   "file": "Source/D2Client/UI/useitem.cpp",
    "fill": 18,
    "form": "declared",
    "fwd": null,
@@ -63116,16 +63084,16 @@
     [
      20,
      "0x004BFC50",
-     "queue_function",
-     "sub_004BFC50",
+     "owner",
+     "sub_004BFC50_OnClick",
      0,
      "func"
     ],
     [
      32,
      "0x004BFC50",
-     "queue_function",
-     "sub_004BFC50",
+     "owner",
+     "sub_004BFC50_OnClick",
      0,
      "func"
     ],
@@ -63140,7 +63108,7 @@
     [
      56,
      "0x004BFA30",
-     "names.json",
+     "owner",
      "sub_004BFA30_MouseMoveMsg",
      0,
      "func"
@@ -63148,7 +63116,7 @@
     [
      68,
      "0x004C0150",
-     "names.json",
+     "owner",
      "sub_004C0150_OnPanelClose",
      0,
      "func"
@@ -63156,7 +63124,7 @@
     [
      80,
      "0x004C0150",
-     "names.json",
+     "owner",
      "sub_004C0150_OnPanelClose",
      0,
      "func"
@@ -63164,7 +63132,7 @@
     [
      92,
      "0x004BFDB0",
-     "names.json",
+     "owner",
      "sub_004BFDB0_BreakMsg",
      0,
      "func"

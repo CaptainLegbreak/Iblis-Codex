@@ -1,11 +1,11 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 #include "D2Structs.h"
 
 struct D2TextRowStrc { void* pText; D2TextRowStrc* pNext; };
 #pragma pack(push, 2)
 struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; int unknown16; };
 #pragma pack(pop)
-struct Unicode { unsigned short wChar; };
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_0044DA40(); // 0x0044DA40

@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2Records.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -61,7 +62,6 @@ extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
 extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
 extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 
-struct D2SkillDescTxt { char pad[7]; unsigned char icon; char tail[0x118]; };
 
 struct D2DataTables { char pad[0xb8c]; D2SkillDescTxt* descs; int pad90; int descCount; D2SkillsTxt* skills; int pad9c; int skillCount; };
 
@@ -262,7 +262,7 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
  D2SkillDescTxt* desc;
  if(id>=0 && id<gpDataTables->descCount)desc=&gpDataTables->descs[id];else desc=0;
  if(!desc)return;
- int frame=desc->icon;
+ int frame=desc->nIconCel;
  int mouseX=sub_00468730_GetMouseX();
  int mouseY=sub_00468740_GetMouseY();
  int drawState;
@@ -320,7 +320,7 @@ void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* skills,int owner,int cha
  D2SkillDescTxt* desc;
  if(id>=0 && id<gpDataTables->descCount)desc=&gpDataTables->descs[id];else desc=0;
  if(!desc)return;
- int frame=desc->icon;
+ int frame=desc->nIconCel;
  int mouseX=sub_00468730_GetMouseX();
  int mouseY=sub_00468740_GetMouseY();
  int drawState,drawY;

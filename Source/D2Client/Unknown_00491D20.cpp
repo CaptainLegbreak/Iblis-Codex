@@ -1,4 +1,8 @@
 #include "D2Structs.h"
+#include "D2Unicode.h"
+#include "D2ClientUi.h"
+#include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 #include "D2Txt.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
@@ -417,9 +421,6 @@ LBL_DONE:
     return nResult;
 }
 
-struct SMSGHANDLER_PARAMS { void* hWnd; unsigned int uMessage,wParam; unsigned short nXpos,nYpos; unsigned int dwCommandSource,dwArg; int bReturn,lResult; };
-struct D2InvRectStrc { int nLeft,nRight,nTop,nBottom; };
-struct D2InvCompGridStrc { D2InvRectStrc rect; unsigned char nWidth,nHeight; unsigned short pad12; };
 extern D2InvRectStrc gInvRect_007BCAA0; // 0x007BCAA0
 extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
 extern D2InventoryGridInfoStrc gGrid_007BCA30; // 0x007BCA30
@@ -692,10 +693,6 @@ AFTER_BODY:
     sub_00486E60_ClickOutsidePanel(y,pMsg,x);
 }
 
-struct Unicode {
-    unsigned short wChar;
-    Unicode(); // 0x0042F530
-};
 struct D2PanelButtonStrc { int active,selected; unsigned short text,padA; int padC[2]; };
 extern D2PanelButtonStrc gaPanelButtons_007BC9E0[]; // 0x007BC9E0
 extern int gnButtonCount_00722160; // 0x00722160

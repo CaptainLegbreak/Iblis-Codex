@@ -1,4 +1,7 @@
 #include "D2ItemTypes.h"
+#include "D2ClientUi.h"
+#include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 #include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -271,11 +274,8 @@ int __cdecl sub_00486B30_IsNpcStateA(); // 0x00486B30
 
 static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, unsigned int nX, unsigned int nY, int nFlags, D2InventoryGridInfoStrc* pGrid, unsigned char nPage);
 
-struct SMSGHANDLER_PARAMS { void* hWnd; unsigned int uMessage,wParam; unsigned short nXpos,nYpos; unsigned int dwCommandSource,dwArg; int bReturn,lResult; };
 
-struct D2InvRectStrc { int nLeft,nRight,nTop,nBottom; };
 
-struct D2InvCompGridStrc { D2InvRectStrc rect; unsigned char nWidth,nHeight; unsigned short pad12; };
 
 extern D2InvRectStrc gInvRect_007BCAA0; // 0x007BCAA0
 

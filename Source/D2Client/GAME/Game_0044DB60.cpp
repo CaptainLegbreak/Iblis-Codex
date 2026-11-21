@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2SysTypes.h"
+#include "D2ClientTypes.h"
 #include "D2Unicode.h"
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
@@ -152,11 +154,9 @@ extern int gnValue_007A27B8; // 0x007A27B8
 
 extern int gnValue_007A0624; // 0x007A0624
 
-struct D2MsgHandlerEntryStrc { int nType,nId; void* pfnHandler; };
 
 struct D2MessageStrc { void* hWnd; unsigned int uMessage,wParam,lParam,time; int x,y; };
 
-struct D2CriticalSectionStrc { int fields[6]; };
 
 struct D2VersionInfoStrc { unsigned long dwSize; char unknown04[144]; };
 

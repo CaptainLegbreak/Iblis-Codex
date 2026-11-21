@@ -1,4 +1,5 @@
 #include "D2MissileIds.h"
+#include "D2Unicode.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2MonModes.h"
@@ -283,7 +284,6 @@ struct D2ClientDialogStrc;
 
 struct D2UnitStrc;
 
-struct Unicode { unsigned short wChar; Unicode(unsigned short ch=0):wChar(ch){} };
 
 struct UnicodeChar:Unicode
 {

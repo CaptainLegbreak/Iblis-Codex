@@ -1,4 +1,5 @@
 #include "D2MissileIds.h"
+#include "D2Path.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2GameTypes.h"
@@ -55,7 +56,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed);              
 
 int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed);                                                          // 0x00650E50
 
-struct D2StaticPathStrc { int unk0x00[3]; int nXPos; int nYPos; };
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
