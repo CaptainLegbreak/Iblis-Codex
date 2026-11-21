@@ -20240,11 +20240,6 @@
      "length": 1080
     },
     {
-     "va": "0x004698D0",
-     "length": 373,
-     "name": "?sub_004698D0_LoadKeyConfig@@YGXH@Z"
-    },
-    {
      "va": "0x0046C060",
      "length": 208,
      "name": "?sub_0046C060_DrawCountdown@@YAXXZ"
@@ -21139,6 +21134,20 @@
   {
    "file": "Source/D2Client/UI/CmdTbl.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004690A0",
@@ -21164,6 +21173,11 @@
      "va": "0x004694A0",
      "length": 420,
      "name": "?sub_004694A0_BindMouseHotkeys@@YAXXZ"
+    },
+    {
+     "va": "0x004698D0",
+     "length": 373,
+     "name": "?sub_004698D0_LoadKeyConfig@@YGXH@Z"
     },
     {
      "va": "0x00469A50",

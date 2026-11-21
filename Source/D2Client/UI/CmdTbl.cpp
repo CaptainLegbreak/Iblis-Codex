@@ -122,6 +122,22 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 const Unicode* __fastcall sub_00469DE0_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+struct D2KeyConfigFileStrc
+{
+    unsigned short wTag;
+    unsigned short wVersion;
+    unsigned short wSize;
+    unsigned char aBody[0x474];
+};
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
+void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+
+int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
+
 // 0x004690A0
 void __cdecl sub_004690A0_HotkeyCmd4()
 {
@@ -236,6 +252,51 @@ void __cdecl sub_004694A0_BindMouseHotkeys()
             }
         }
     }
+}
+
+
+// 0x004698D0
+void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir)
+{
+    char szLang[4];
+    char szPath[0x104];
+    D2KeyConfigFileStrc tFile;
+    sub_00525260(szLang, 0);
+    void* pData;
+    int bLoaded = 0;
+    if (bInstallDir)
+    {
+        FOG_GetInstallPath(szPath, 0xDC);
+        strcat(szPath, "default.key");
+        void* hFile = sub_00406960_CreateFile(szPath, 0x80000000, 0, 0, 3, 0x80, 0);
+        if (hFile != (void*)-1)
+        {
+            unsigned long nRead;
+            sub_004069B0_ReadFile(hFile, &tFile, sizeof(tFile), &nRead, 0);
+            sub_004069A0_CloseFile(hFile);
+            if (nRead == sizeof(tFile))
+            {
+                pData = FOG_AllocPool(0, sizeof(tFile), ".\\UI\\CmdTbl.cpp", 0x50F, 0);
+                memcpy(pData, &tFile, sizeof(tFile));
+                bLoaded = 1;
+            }
+        }
+    }
+    if (!bLoaded)
+    {
+        sprintf(szPath, "%s\\CMD\\%s\\default.key", szDataLocal_006D41A8, szLang);
+        pData = ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szPath, 0, ".\\UI\\CmdTbl.cpp", 0x51E);
+    }
+    if (!pData)
+        return;
+    D2KeyConfigFileStrc* pFile = (D2KeyConfigFileStrc*)pData;
+    if (pFile->wTag == 0x5357 && pFile->wVersion == 0x25 && pFile->wSize == sizeof(D2KeyConfigFileStrc))
+    {
+        memcpy(gaKeyTable_00712220, pFile->aBody, sizeof(gaKeyTable_00712220));
+        FOG_Free(pData, ".\\UI\\CmdTbl.cpp", 0x52C, 0);
+        return;
+    }
+    FOG_Free(pData, ".\\UI\\CmdTbl.cpp", 0x531, 0);
 }
 
 // 0x00469A50
