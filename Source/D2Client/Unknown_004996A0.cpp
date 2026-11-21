@@ -1,8 +1,7 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 #include "D2Structs.h"
 
-struct D2UiRectStrc { int nLeft,nRight,nTop,nBottom; };
-struct D2UiRecordStrc { int unknown00; unsigned char nBoxes,unknown05; unsigned short unknown06; D2UiRectStrc aRects[16]; };
 struct SMSGHANDLER_PARAMS { void* hWnd; unsigned int uMessage,wParam; unsigned short nX,nY; unsigned int dwCommandSource,dwArg; int bUseResult,lResult; };
 void __stdcall sub_00660CB0_GetUiRecord(int,int,D2UiRecordStrc*); // 0x00660CB0
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int,int,D2UiRectStrc*,int); // 0x00660D10
