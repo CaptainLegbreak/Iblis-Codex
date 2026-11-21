@@ -4,26 +4,76 @@
 struct D2TileLibraryEntryStrc;
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
+
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
+
 extern D2GrTexInfoStrc gGlideTileTexInfo_0072F6A8; // 0x0072F6A8
+
 extern D2GrTexInfoStrc gGlideFloorTexInfo_0072F6BC; // 0x0072F6BC
+
 extern unsigned char* gpGlideSmackBufferB_00880B70; // 0x00880B70
+
 extern unsigned char* gpGlideSmackBufferC_00880B74; // 0x00880B74
-extern D2GlideSpriteVertexStrc gaGlideSmackVertices_00880B78[4]; // 0x00880B78
-extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
+
+D2GlideSpriteVertexStrc gaGlideSmackVertices_00880B78[4];                                                         // 0x00880B78
+
+unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
+
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
+
 extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
+
 extern "C" __declspec(dllimport) void* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
+
 extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsigned int nLeft, unsigned int nTop, unsigned int nPitch, unsigned int nHeight, void* pBuffer, unsigned int nFlags); // 0x006CC60C
+
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
+
 void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* pColors); // 0x0050E070
+
 void __cdecl sub_0050E330_GlideRefresh(); // 0x0050E330
+
 int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
+
 extern int gbRenderPaused_007C9144; // 0x007C9144
+
+extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
+
+extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack);                         // 0x006CC5FC
+
+extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
+
+void __fastcall sub_005094B0_GlideSetState(int nState);                                                     // 0x005094B0
+
+void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                    // 0x00509500
+
+void __fastcall sub_005095D0_GlideSetDepth(int nMode);                                                      // 0x005095D0
+
+void __fastcall sub_00509460_GlideSelectTmuState(int nTmu);                                                 // 0x00509460
+
+void __fastcall sub_0050E040_GlideCloseSmacker(D2SmackRecordStrc* pRecord);                                  // 0x0050E040
+
+extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable);                                                // 0x0087EB8C
+
+void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);        // 0x0087EB98
+
+extern void (__stdcall* gpfGlideDrawVertexArrayContiguous_0087EAC4)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
+
+int gnGlideSmackTmu_00880BF4;                                                                               // 0x00880BF4
+
+extern int gnGlideSmackTexAddrA_00880BE8;                                                                   // 0x00880BE8
+
+extern int gnGlideSmackTexAddrB_00880BEC;                                                                   // 0x00880BEC
+
+extern D2GrTexInfoStrc gGlideSmackTexInfoA_0072F680;                                                        // 0x0072F680
+
+extern D2GrTexInfoStrc gGlideSmackTexInfoB_0072F694;                                                        // 0x0072F694
 
 // 0x0050DF10
 void __cdecl sub_0050DF10_GlideSmackInit()
@@ -152,7 +202,71 @@ void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* colors)
  }
 }
 
-unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
+// 0x0050E370
+static void __stdcall sub_0050E370_GlideDrawSmackFrame(int nHeight, D2SmackRecordStrc* pRecord, int nWidth)
+{
+    sub_005094B0_GlideSetState(1);
+    sub_00509500_GlideSetCombine(1);
+    sub_005095D0_GlideSetDepth(2);
+    sub_00509460_GlideSelectTmuState(gnGlideSmackTmu_00880BF4);
+    gpfGlideMask_0087EB8C(0);
+    int nTop = pRecord->nY - nHeight;
+    int nY = pRecord->nY;
+    gpfGlideTexSource_0087EB98(gnGlideSmackTmu_00880BF4, gnGlideSmackTexAddrA_00880BE8, 3, &gGlideSmackTexInfoA_0072F680);
+    int nX = pRecord->nX;
+    int nRight = nX + 0x100;
+    int nTexWidth = 0x100;
+    if (nWidth <= 0x100)
+        nTexWidth = nWidth;
+    gaGlideSmackVertices_00880B78[0].x = (float)nX;
+    gaGlideSmackVertices_00880B78[0].y = (float)nTop;
+    gaGlideSmackVertices_00880B78[0].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[0].sow = 0.0f;
+    gaGlideSmackVertices_00880B78[0].tow = 0.0f;
+    gaGlideSmackVertices_00880B78[1].x = (float)nX;
+    gaGlideSmackVertices_00880B78[1].y = (float)nY;
+    gaGlideSmackVertices_00880B78[1].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[1].sow = 0.0f;
+    gaGlideSmackVertices_00880B78[1].tow = (float)nHeight;
+    gaGlideSmackVertices_00880B78[2].x = (float)nRight;
+    gaGlideSmackVertices_00880B78[2].y = (float)nY;
+    gaGlideSmackVertices_00880B78[2].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[2].sow = (float)nTexWidth;
+    gaGlideSmackVertices_00880B78[2].tow = (float)nHeight;
+    gaGlideSmackVertices_00880B78[3].x = (float)nRight;
+    gaGlideSmackVertices_00880B78[3].y = (float)nTop;
+    gaGlideSmackVertices_00880B78[3].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[3].sow = (float)nTexWidth;
+    gaGlideSmackVertices_00880B78[3].tow = 0.0f;
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(D2GlideSpriteVertexStrc));
+
+    gpfGlideTexSource_0087EB98(gnGlideSmackTmu_00880BF4, gnGlideSmackTexAddrB_00880BEC, 3, &gGlideSmackTexInfoB_0072F694);
+    nX = nRight;
+    nRight = nX + nWidth - 0x100;
+    nTexWidth = nWidth - 0x100;
+    gaGlideSmackVertices_00880B78[0].x = (float)nX;
+    gaGlideSmackVertices_00880B78[0].y = (float)nTop;
+    gaGlideSmackVertices_00880B78[0].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[0].sow = 0.0f;
+    gaGlideSmackVertices_00880B78[0].tow = 0.0f;
+    gaGlideSmackVertices_00880B78[1].x = (float)nX;
+    gaGlideSmackVertices_00880B78[1].y = (float)nY;
+    gaGlideSmackVertices_00880B78[1].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[1].sow = 0.0f;
+    gaGlideSmackVertices_00880B78[1].tow = (float)nHeight;
+    gaGlideSmackVertices_00880B78[2].x = (float)nRight;
+    gaGlideSmackVertices_00880B78[2].y = (float)nY;
+    gaGlideSmackVertices_00880B78[2].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[2].sow = (float)nTexWidth;
+    gaGlideSmackVertices_00880B78[2].tow = (float)nHeight;
+    gaGlideSmackVertices_00880B78[3].x = (float)nRight;
+    gaGlideSmackVertices_00880B78[3].y = (float)nTop;
+    gaGlideSmackVertices_00880B78[3].oow = 1.0f;
+    gaGlideSmackVertices_00880B78[3].sow = (float)nTexWidth;
+    gaGlideSmackVertices_00880B78[3].tow = 0.0f;
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(D2GlideSpriteVertexStrc));
+    gpfGlideMask_0087EB8C(1);
+}
 
 // 0x0050E5D0
 void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
@@ -230,6 +344,41 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2SmackRecor
         pSmack->hSmack = 0;
     }
     pSmack->nType = 0;
+}
+
+// 0x0050E7F0
+void __fastcall sub_0050E7F0_GlidePlaySmacker(D2SmackRecordStrc* pRecord)
+{
+    switch (pRecord->nType)
+    {
+    case 's':
+    {
+        D2SmackStrc* hSmack = (D2SmackStrc*)pRecord->hSmack;
+        if (!hSmack)
+            return;
+        if (!SmackWait(hSmack))
+        {
+            if (!gbSurfaceActive_007C9140)
+                return;
+            SmackDoFrame(hSmack);
+            if (hSmack->nFrameNum == hSmack->nFrames)
+                sub_0050E040_GlideCloseSmacker(pRecord);
+            else
+                SmackNextFrame(hSmack);
+            if (gbRenderPaused_007C9144)
+                return;
+            sub_0050E070_GlideSetSmackPalette(hSmack->aPalette);
+            sub_0050E330_GlideRefresh();
+        }
+        if (gbRenderPaused_007C9144)
+            return;
+        sub_0050E370_GlideDrawSmackFrame(hSmack->nHeight, pRecord, hSmack->nWidth);
+    }
+    case 'p':
+        if (!gbRenderPaused_007C9144)
+            sub_0050E370_GlideDrawSmackFrame(60, pRecord, 468);
+        break;
+    }
 }
 
 // 0x0050EAE0
