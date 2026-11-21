@@ -1,26 +1,38 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+
 struct D2DrlgCoordStrc;
+
 struct D2DrlgVertexStrc;
+
 struct D2DrlgOrthStrc;
 
-
-
-
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
 extern "C" const char* __cdecl sub_00408090();
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData); // 0x0067CE20
+
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);
+
 static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit);
+
 static void __fastcall sub_0067D030(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst);
+
 void __fastcall sub_0067D050(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth);
+
 void __fastcall sub_0067D250(D2DrlgVertexStrc** ppVertex);
+
 void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY);
 
 // build: symbol ?DRLGVER_AllocVertex@@YIPAUD2DrlgVertexStrc@@PAXE@Z 0x0067CDD0
@@ -42,69 +54,66 @@ static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bIn
     }
 }
 
-// build: context sub_0067CE20
-void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoordStrc* pDefaultCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth)
+// 0x0067CE20
+void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData)
 {
-    D2DrlgVertexStrc* pVertex1 = pVertex->pNext;
-    D2DrlgVertexStrc* pVertex2 = pVertex1->pNext;
-    D2DrlgVertexStrc* pVertex3 = pVertex2->pNext;
+    int nSign = 0;
+    D2DrlgVertexStrc* pNextVertex = pCurrentVertex->pNext;
+    D2DrlgVertexStrc* pLastVertex = pCurrentVertex->pNext->pNext;
+    D2DrlgVertexStrc* pPreviousVertex = pCurrentVertex->pNext->pNext->pNext;
 
-    for (; pOrth; pOrth = pOrth->pNext)
+    while (pCurrentRoomData)
     {
-        D2DrlgCoordStrc* pCoords = pOrth->pBox;
-        if (!pCoords)
-        {
-            pCoords = pDefaultCoords;
-        }
+        D2DrlgCoordStrc* pCurrentCoords;
+        if (pCurrentRoomData->pBox)
+            pCurrentCoords = pCurrentRoomData->pBox;
+        else
+            pCurrentCoords = pDrlgCoord;
 
-        D2DrlgVertexStrc* pStart;
-        int nStart;
-        int nEnd;
+        D2DrlgVertexStrc* pVertex;
+        D2DrlgVertexStrc* pEndVertex;
+        bool bDirection;
         int nFirst;
         int nSecond;
-        int nStep;
-        int bVertical;
+        int nStart;
+        int nEnd;
 
-        switch (pOrth->nDirection)
+        switch (pCurrentRoomData->nDirection)
         {
         case 0:
-            pStart = pVertex;
-            nStart = pVertex->nPosY;
-            nEnd = pVertex1->nPosY;
-            nFirst = pCoords->nPosY + pCoords->nHeight;
-            nSecond = pCoords->nPosY;
-            nStep = -1;
-            bVertical = 1;
+            pVertex = pCurrentVertex;
+            bDirection = true;
+            nSign = -1;
+            pEndVertex = pNextVertex;
+            nFirst = pCurrentCoords->nPosY + pCurrentCoords->nHeight;
+            nSecond = pCurrentCoords->nPosY;
             break;
 
         case 1:
-            pStart = pVertex1;
-            nStart = pVertex1->nPosX;
-            nEnd = pVertex2->nPosX;
-            nFirst = pCoords->nPosX;
-            nSecond = pCoords->nPosX + pCoords->nWidth;
-            nStep = 1;
-            bVertical = 0;
+            pVertex = pNextVertex;
+            bDirection = false;
+            nSign = 1;
+            pEndVertex = pLastVertex;
+            nFirst = pCurrentCoords->nPosX;
+            nSecond = pCurrentCoords->nPosX + pCurrentCoords->nWidth;
             break;
 
         case 2:
-            pStart = pVertex2;
-            nStart = pVertex2->nPosY;
-            nEnd = pVertex3->nPosY;
-            nFirst = pCoords->nPosY;
-            nSecond = pCoords->nPosY + pCoords->nHeight;
-            nStep = 1;
-            bVertical = 1;
+            pVertex = pLastVertex;
+            bDirection = true;
+            nSign = 1;
+            pEndVertex = pPreviousVertex;
+            nFirst = pCurrentCoords->nPosY;
+            nSecond = pCurrentCoords->nPosY + pCurrentCoords->nHeight;
             break;
 
         case 3:
-            pStart = pVertex3;
-            nStart = pVertex3->nPosX;
-            nEnd = pVertex->nPosX;
-            nFirst = pCoords->nPosX + pCoords->nWidth;
-            nSecond = pCoords->nPosX;
-            nStep = -1;
-            bVertical = 0;
+            pVertex = pPreviousVertex;
+            bDirection = false;
+            nSign = -1;
+            pEndVertex = pCurrentVertex;
+            nFirst = pCurrentCoords->nPosX + pCurrentCoords->nWidth;
+            nSecond = pCurrentCoords->nPosX;
             break;
 
         default:
@@ -112,51 +121,68 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
             exit(-1);
         }
 
-        if (nFirst * nStep > nStart * nStep)
+        if (bDirection)
         {
-            if (nFirst * nStep > nEnd * nStep)
+            nStart = pVertex->nPosY;
+            nEnd = pEndVertex->nPosY;
+        }
+        else
+        {
+            nStart = pVertex->nPosX;
+            nEnd = pEndVertex->nPosX;
+        }
+
+        if (nFirst * nSign <= nStart * nSign)
+        {
+            if (nSecond * nSign < nStart * nSign)
             {
-                continue;
+                goto next;
+            }
+        }
+        else
+        {
+            if (nFirst * nSign > nEnd * nSign)
+            {
+                goto next;
             }
 
-            D2DrlgVertexStrc* pNew = DRLGVER_AllocVertex(pMemPool, nDirection);
-            if (bVertical)
+            D2DrlgVertexStrc* pNewVertex = DRLGVER_AllocVertex(pMemPool, nDirection);
+            if (bDirection)
             {
-                pNew->nPosX = pStart->nPosX;
-                pNew->nPosY = nFirst;
+                pNewVertex->nPosX = pVertex->nPosX;
+                pNewVertex->nPosY = nFirst;
             }
             else
             {
-                pNew->nPosY = pStart->nPosY;
-                pNew->nPosX = nFirst;
+                pNewVertex->nPosY = pVertex->nPosY;
+                pNewVertex->nPosX = nFirst;
             }
-            pNew->pNext = pStart->pNext;
-            pStart->pNext = pNew;
-            pStart = pNew;
-        }
-        else if (nSecond * nStep < nStart * nStep)
-        {
-            continue;
+            pNewVertex->pNext = pVertex->pNext;
+            pVertex->pNext = pNewVertex;
+            pVertex = pNewVertex;
         }
 
-        sub_0067CE00_MarkVertex(pStart, pOrth->bPreset);
+        sub_0067CE00_MarkVertex(pVertex, pCurrentRoomData->bPreset);
 
-        if (nSecond * nStep < nEnd * nStep)
+        if (nSecond * nSign < nEnd * nSign)
         {
-            D2DrlgVertexStrc* pNew = DRLGVER_AllocVertex(pMemPool, nDirection);
-            if (bVertical)
+            D2DrlgVertexStrc* pNewVertex = DRLGVER_AllocVertex(pMemPool, nDirection);
+            if (bDirection)
             {
-                pNew->nPosX = pStart->nPosX;
-                pNew->nPosY = nSecond;
+                pNewVertex->nPosX = pVertex->nPosX;
+                pNewVertex->nPosY = nSecond;
             }
             else
             {
-                pNew->nPosY = pStart->nPosY;
-                pNew->nPosX = nSecond;
+                pNewVertex->nPosY = pVertex->nPosY;
+                pNewVertex->nPosX = nSecond;
             }
-            pNew->pNext = pStart->pNext;
-            pStart->pNext = pNew;
+            pNewVertex->pNext = pVertex->pNext;
+            pVertex->pNext = pNewVertex;
         }
+
+next:
+        pCurrentRoomData = pCurrentRoomData->pNext;
     }
 }
 
@@ -217,6 +243,34 @@ void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVert
     }
 }
 
+// 0x0067D1E0
+void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
+{
+    if (*ppVertex)
+    {
+        D2DrlgVertexStrc* pVertex = (*ppVertex)->pNext;
+        while (pVertex)
+        {
+            D2DrlgVertexStrc* pFree = pVertex;
+            pVertex = pVertex->pNext;
+            sub_0040B480(pMemPool, pFree, ".\\DRLG\\DrlgVer.cpp", 276, 0);
+
+            if (pVertex == *ppVertex)
+            {
+                sub_0040B480(pMemPool, pVertex, ".\\DRLG\\DrlgVer.cpp", 279, 0);
+                break;
+            }
+        }
+
+        if (!pVertex)
+        {
+            sub_0040B480(pMemPool, *ppVertex, ".\\DRLG\\DrlgVer.cpp", 287, 0);
+        }
+
+        *ppVertex = 0;
+    }
+}
+
 // 0x0067D250
 void __fastcall sub_0067D250(D2DrlgVertexStrc** ppVertex)
 {
@@ -255,33 +309,5 @@ void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* p
     else if (*pDirectionY > 0)
     {
         *pDirectionY = 1;
-    }
-}
-
-// 0x0067D1E0
-void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
-{
-    if (*ppVertex)
-    {
-        D2DrlgVertexStrc* pVertex = (*ppVertex)->pNext;
-        while (pVertex)
-        {
-            D2DrlgVertexStrc* pFree = pVertex;
-            pVertex = pVertex->pNext;
-            sub_0040B480(pMemPool, pFree, ".\\DRLG\\DrlgVer.cpp", 276, 0);
-
-            if (pVertex == *ppVertex)
-            {
-                sub_0040B480(pMemPool, pVertex, ".\\DRLG\\DrlgVer.cpp", 279, 0);
-                break;
-            }
-        }
-
-        if (!pVertex)
-        {
-            sub_0040B480(pMemPool, *ppVertex, ".\\DRLG\\DrlgVer.cpp", 287, 0);
-        }
-
-        *ppVertex = 0;
     }
 }
