@@ -96164,7 +96164,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/DRLG/OutDesr_0067F470.cpp",
+   "file": "Source/D2Common/DRLG/OutDesr.cpp",
    "rank": 0,
    "functions": [
     {
@@ -96172,33 +96172,6 @@
      "length": 229,
      "name": "?DRLGOUTDESR_PlacePresetVariants@@YGXPBHHHPAUD2DrlgLevelStrc@@@Z"
     },
-    {
-     "va": "0x0067F980",
-     "length": 526,
-     "name": "?DRLGOUTDESR_InitAct2OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x006803D0",
-     "length": 269,
-     "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067F5C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0067F5C0",
-     "length": 98,
-     "name": "?DRLGOUTDESR_PlaceCliffs@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutDesr.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0067F630",
      "length": 52,
@@ -96245,6 +96218,11 @@
      "name": "?DRLGOUTDESR_PlaceFillsInCanyon@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x0067F980",
+     "length": 526,
+     "name": "?DRLGOUTDESR_InitAct2OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x0067FC70",
      "length": 81,
      "name": "?DRLGOUTWILD_TestSpawnRiver@@YAHHPAUD2DrlgLevelStrc@@@Z"
@@ -96253,6 +96231,22 @@
      "va": "0x006801A0",
      "length": 76,
      "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
+    },
+    {
+     "va": "0x006803D0",
+     "length": 269,
+     "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0067F5C0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0067F5C0",
+     "length": 98,
+     "name": "?DRLGOUTDESR_PlaceCliffs@@YAXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },
