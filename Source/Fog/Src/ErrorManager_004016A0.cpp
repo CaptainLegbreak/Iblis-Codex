@@ -1,7 +1,77 @@
 #include "Fog.h"
-#include "D2NetTypes.h"
 #include "D2FogTypes.h"
+#include "D2NetTypes.h"
 #include "D2Primitives.h"
+#include "D2GameTypes.h"
+
+typedef unsigned int size_t;
+
+typedef char* va_list;
+
+struct _iobuf;
+
+struct tm
+{
+    int tm_sec;
+    int tm_min;
+    int tm_hour;
+    int tm_mday;
+    int tm_mon;
+    int tm_year;
+    int tm_wday;
+    int tm_yday;
+    int tm_isdst;
+};
+
+extern "C" __int64 __cdecl _time64(__int64* pTime);                                                         // 0x0068568B
+
+extern "C" int __cdecl _localtime64_s(tm* pTm, const __int64* pTime);                                       // 0x006856E9
+
+extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args);         // 0x00682F22
+
+extern "C" char* __cdecl strrchr(const char* szString, int nChar);                                          // 0x00682990
+
+extern "C" size_t __cdecl strlen(const char* szString);
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTempPathW(unsigned long nBufferLength, wchar_t* wszBuffer); // 0x006CC2BC
+
+extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned int nCodePage, unsigned long dwFlags, const wchar_t* wszSource, int nSource, char* szDest, int nDest, const char* szDefaultChar, int* pbUsedDefaultChar); // 0x006CC194
+
+bool __stdcall sub_004045F0_UseUtf8Path(const char* szPath);                                                // 0x004045F0
+
+_iobuf* __stdcall sub_004043C0_OpenUtf8FileForWrite(const char* szPath);                                    // 0x004043C0
+
+char gszLogDirectory_00992708[0x400];                                                                       // 0x00992708
+
+namespace crashy
+{
+class Report
+{
+public:
+    Report();                                                               // 0x00401070
+    virtual ~Report();                                                      // 0x004010D0
+    bool sub_00401100_Open(const char* szFileName);                         // 0x00401100
+    bool sub_00401210_IsOpen();                                             // 0x00401210
+    bool sub_00401220_AddFile(const char* szPath, bool bCopy);              // 0x00401220
+    int sub_00401380(const char* szFormat, ...);                            // 0x00401380
+    bool sub_00407A80_WriteInspectorHeader();                               // 0x00407A80
+
+    _iobuf* m_pFile;
+    char m_szText08[0x400];
+    char m_szText408[0x400];
+    int m_nLineCount;
+    char m_aszLines[16][0x400];
+};
+}
+extern "C" __declspec(dllimport) void __stdcall RtlCaptureContext(D2ThreadContextStrc* pContext);             // 0x006CC290
+
+extern "C" __declspec(dllimport) void* __stdcall OpenThread(unsigned long dwDesiredAccess, int bInheritHandle, unsigned long dwThreadId); // 0x006CC27C
+
+extern "C" __declspec(dllimport) unsigned long __stdcall SuspendThread(void* hThread);                         // 0x006CC288
+
+extern "C" __declspec(dllimport) unsigned long __stdcall ResumeThread(void* hThread);                          // 0x006CC28C
+
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -149,15 +219,11 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern "C" size_t __cdecl strlen(const char* szString);
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
 
 extern "C" double __cdecl floor(double x); // 0x00683080
 
 extern "C" unsigned long __readfsdword(unsigned long nOffset);
-
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 
 extern "C" __declspec(dllimport) int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006CC564
 
@@ -198,8 +264,6 @@ extern "C" __declspec(dllimport) void* __stdcall OpenServiceA(void* hSCManager, 
 extern "C" __declspec(dllimport) int __stdcall CloseServiceHandle(void* hSCObject); // 0x006CC01C
 
 extern "C" __declspec(dllimport) int __stdcall StartServiceCtrlDispatcherA(const D2ServiceTableEntryStrc* pServiceTable); // 0x006CC020
-
-extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned int nCodePage, unsigned long dwFlags, const wchar_t* wszSource, int nSource, char* szDest, int nDest, const char* szDefaultChar, int* pbUsedDefaultChar); // 0x006CC194
 
 extern "C" __declspec(dllimport) void __stdcall CoTaskMemFree(void* pMemory); // 0x006CC5F0
 
@@ -333,6 +397,302 @@ char szSRegReadBuf[260]; // 0x0074C728
 
 unsigned long gdwTotalPhys_0074D898; // 0x0074D898
 
+#define OUTPUT_SIZE 0x80
+
+extern int gdwGlobal_00992B1C;  // 0x00992B1C
+
+extern "C" const char gszMainThread_006FF988[];  // 0x006FF988
+
+extern "C" int __cdecl strncpy_s(char*,unsigned int,const char*,unsigned int);  // 0x006859D2
+
+struct D2PoolSystemStrc;
+
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
+
+void __cdecl FOG_AsyncDataDestroy();                                                                        // 0x0040A440
+
+void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem);                                        // 0x00409C80
+
+int __cdecl sub_0040B500_UnloadImageHlp();                                                                  // 0x0040B500
+
+void __cdecl sub_0040F8A0_CloseLogFilesNow();                                                               // 0x0040F8A0
+
+void __cdecl sub_004107A0_DeleteTimeLock();                                                                 // 0x004107A0
+
+void __cdecl sub_0040FFD0_ShutdownLogSystem();                                                              // 0x0040FFD0
+
+extern "C" const char gszStringFormat_006FFC58[];                                                           // 0x006FFC58
+
+D2CriticalSectionStrc gtLock_0074C830;                                                                      // 0x0074C830
+
+D2CriticalSectionStrc gtLock_0074D848;                                                                      // 0x0074D848
+
+int gbErrorMgrInit_0074F0D0;                                                                                // 0x0074F0D0
+
+extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
+
+extern "C" __declspec(dllimport) int __stdcall CopyFileW(const wchar_t* wszExistingFile, const wchar_t* wszNewFile, int bFailIfExists); // 0x006CC2CC
+
+static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut, size_t nSize);
+
+static bool __stdcall sub_00404450_CopyFileUtf8(const char* szSource, const char* szDest);
+
+static size_t sub_00404110_StrLCopy(char* szDest, const char* szSource, size_t nSize);
+
+static bool sub_004040B0_SetErrorDirectory(char* szPath);
+
+static int sub_004041F0_FormatText(char* szDest, size_t nSize, const char* szFormat, ...);
+
+static bool sub_004044F0_GetTempPathUtf8(char* szOut);
+
+static bool __stdcall sub_00403FA0_CopyPathIfHasDirectory(const char* szPath, char* szOut, size_t nSize);
+
+extern "C" __declspec(dllimport) int __stdcall AllocateAndInitializeSid(D2SidAuthorityStrc* pAuthority, unsigned char nSubAuthorityCount, unsigned long dwSub0, unsigned long dwSub1, unsigned long dwSub2, unsigned long dwSub3, unsigned long dwSub4, unsigned long dwSub5, unsigned long dwSub6, unsigned long dwSub7, void** ppSid); // 0x006CC014
+
+extern "C" __declspec(dllimport) int __stdcall CheckTokenMembership(void* hToken, void* pSid, int* pbIsMember); // 0x006CC050
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentProcessId();                             // 0x006CC1EC
+
+bool __fastcall sub_00407A20_GetProcessImageName(unsigned long dwProcessId, char* szName, unsigned long nSize); // 0x00407A20
+
+unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId);                         // 0x00407990
+
+unsigned int __fastcall sub_0040EB90_GetLogFiles(char** apszFiles, unsigned int nCount);                     // 0x0040EB90
+
+int __stdcall sub_00525150();                                                                       // 0x00525150
+
+int __stdcall sub_005251C0_GetLanguage();                                                                   // 0x005251C0
+
+extern D2InspectorInfoStrc gtInspectorInfo_0074D868;                                                       // 0x0074D868
+
+char gszProcessPath_0074E8C8[2048];                                                                         // 0x0074E8C8
+
+extern const char* const gaszLanguageNames_00706618[];                                                      // 0x00706618
+
+extern "C" const char gszUnknownUpper_006CCED8[];                                                           // 0x006CCED8
+
+// 0x00401000
+static __declspec(noinline) int __cdecl sub_00401000_LocalTime(tm* pTm, const __int64* pTime)
+{
+    return _localtime64_s(pTm, pTime);
+}
+
+// calling-convention shim (not game code)
+int __cdecl sub_M126_Emit_00401000(tm* pTm, const __int64* pTime)
+{
+    return sub_00401000_LocalTime(pTm, pTime);
+}
+
+bool __stdcall sub_K01_Emit_00403FA0(const char* szPath, char* szOut, size_t nSize)
+{
+    return sub_00403FA0_CopyPathIfHasDirectory(szPath, szOut, nSize);
+}
+
+// 0x00401100
+bool crashy::Report::sub_00401100_Open(const char* szFileName)
+{
+    __int64 nTime = _time64(0);
+    tm tTime;
+    _localtime64_s(&tTime, &nTime);
+    if (!gszLogDirectory_00992708[0])
+    {
+        if (!sub_004044F0_GetTempPathUtf8(gszLogDirectory_00992708))
+        {
+            return false;
+        }
+        if (!sub_004040B0_SetErrorDirectory(gszLogDirectory_00992708))
+        {
+            return false;
+        }
+    }
+    if ((size_t)(sub_004041F0_FormatText(m_szText408, 0x400, "%s/%04d-%02d-%02d %02d.%02d.%02d", gszLogDirectory_00992708, tTime.tm_year + 0x76C, tTime.tm_mon + 1, tTime.tm_mday, tTime.tm_hour, tTime.tm_min, tTime.tm_sec) + 1) > 0x400)
+    {
+        return false;
+    }
+    if (!sub_004045F0_UseUtf8Path(m_szText408))
+    {
+        return false;
+    }
+    if ((size_t)(sub_004041F0_FormatText(m_szText08, 0x400, "%s/%s", m_szText408, szFileName) + 1) > 0x400)
+    {
+        return false;
+    }
+    m_pFile = sub_004043C0_OpenUtf8FileForWrite(m_szText08);
+    return m_pFile != 0;
+}
+
+// 0x00401480
+static unsigned char __stdcall sub_00401480_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
+{
+    D2MemoryBasicInfoStrc tInfo;
+    if (!VirtualQuery(pAddress, &tInfo, sizeof(tInfo)))
+        return 0;
+    if (tInfo.State != 0x1000)
+        return 0;
+    if (tInfo.Type != 0x20000)
+        return 0;
+    if (tInfo.Protect != 4)
+        return 0;
+    *pEnd = (unsigned long)tInfo.BaseAddress + tInfo.RegionSize;
+    if (*pEnd <= (unsigned long)pAddress)
+        return 0;
+    *ppBase = tInfo.AllocationBase;
+    if (!VirtualQuery(tInfo.AllocationBase, &tInfo, sizeof(tInfo)))
+        return 0;
+    if (tInfo.Type != 0x20000)
+        return 0;
+    if (tInfo.BaseAddress != *ppBase)
+        return 0;
+    unsigned long dwEnd = (unsigned long)*ppBase + tInfo.RegionSize;
+    if (tInfo.State == 0x1000)
+    {
+        if (dwEnd != *pEnd)
+            return 0;
+        *ppBase = tInfo.AllocationBase;
+        return 1;
+    }
+    if (tInfo.State == 0x2000)
+    {
+        if (dwEnd >= *pEnd)
+            return 0;
+        *ppBase = tInfo.AllocationBase;
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00401540
+static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
+{
+    D2ThreadContextStrc tContext;
+    void* hThread = 0;
+    tContext.ContextFlags = 0x10001;
+    if (GetCurrentThreadId() == dwThreadId)
+    {
+        RtlCaptureContext(&tContext);
+    }
+    else
+    {
+        hThread = OpenThread(0x4A, 0, dwThreadId);
+        if (!hThread)
+            return 0;
+        if (SuspendThread(hThread) == -1)
+            return 0;
+        if (!GetThreadContext(hThread, &tContext))
+        {
+            ResumeThread(hThread);
+            CloseHandle(hThread);
+            return 0;
+        }
+    }
+    *pStackPointer = tContext.Esp;
+    void* pBase;
+    unsigned long dwEnd;
+    unsigned char bResult = sub_00401480_GetStackRange(&pBase, &dwEnd, (const void*)tContext.Esp);
+    if (bResult)
+    {
+        *pStackTop = dwEnd;
+        *pStackSize = dwEnd - (unsigned long)pBase;
+    }
+    if (hThread)
+    {
+        ResumeThread(hThread);
+        CloseHandle(hThread);
+    }
+    return bResult;
+}
+
+// 0x00401640
+static __declspec(noinline) bool __stdcall sub_00401640_GetThreadName(int threadId,char* output) {
+ if(gdwGlobal_00992B1C==threadId) strncpy_s(output,OUTPUT_SIZE,gszMainThread_006FF988,(unsigned int)-1);
+ else output[0]=0;
+ return true;
+}
+
+int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nSkipFrames)
+{
+    D2ThreadContextStrc tContext;
+    void* hThread = 0;
+    if (this)
+    {
+        tContext = *this;
+    }
+    else
+    {
+        tContext.ContextFlags = 0x10001;
+        if (GetCurrentThreadId() == dwThreadId)
+        {
+            RtlCaptureContext(&tContext);
+        }
+        else
+        {
+            hThread = OpenThread(0x4A, 0, dwThreadId);
+            if (!hThread)
+                return 0;
+            if (SuspendThread(hThread) == -1)
+                return 0;
+            if (!GetThreadContext(hThread, &tContext))
+            {
+                ResumeThread(hThread);
+                CloseHandle(hThread);
+                return 0;
+            }
+        }
+    }
+    unsigned int nCount = 0;
+    unsigned long dwPc = tContext.Eip;
+    unsigned long dwFrame = tContext.Ebp;
+    unsigned long dwStack = tContext.Esp;
+    unsigned long dwStackTop;
+    unsigned long dwStackSize;
+    unsigned long dwStackPointer;
+    if (!sub_00401540_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer))
+    {
+        if (hThread)
+        {
+            ResumeThread(hThread);
+            CloseHandle(hThread);
+        }
+        return 0;
+    }
+    __try
+    {
+        for (unsigned int i = 0; i < 0x80; i++)
+        {
+            if (i >= (unsigned int)nSkipFrames)
+            {
+                pFrames[nCount].dwPc = dwPc;
+                pFrames[nCount].dwStack = dwStack;
+                pFrames[nCount].dwFrame = dwFrame;
+                nCount++;
+                if (nCount >= 0x80)
+                    break;
+            }
+            if (dwFrame <= dwStack)
+                break;
+            if (dwFrame + 8 > dwStackTop)
+                break;
+            unsigned long dwNext = *(unsigned long*)dwFrame;
+            if (dwNext & 3)
+                break;
+            if (dwNext <= dwFrame)
+                break;
+            dwStack = dwFrame + 4;
+            dwPc = *(unsigned long*)dwStack;
+            dwFrame = dwNext;
+        }
+    }
+    __except (1)
+    {
+    }
+    if (hThread)
+    {
+        ResumeThread(hThread);
+        CloseHandle(hThread);
+    }
+    return nCount;
+}
+
 // 0x004016A0
 void __cdecl sub_004016A0_StartDbgHelpThread()
 {
@@ -391,6 +751,225 @@ void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContex
         }
         sub_00403100_PrintFrames(dwThreadId, aFrames, nFrames, pfnPrint, pContext, nArg5, nArg6);
     }
+}
+
+// 0x00403FA0
+static bool __stdcall sub_00403FA0_CopyPathIfHasDirectory(const char* szPath, char* szOut, size_t nSize)
+{
+    const char* pSep = 0;
+    const char* p = strrchr(szPath, '/');
+    if (p > pSep)
+    {
+        pSep = p;
+    }
+    p = strrchr(szPath, '\\');
+    if (p && p > pSep)
+    {
+        pSep = p;
+    }
+    p = strrchr(szPath, ':');
+    if (p && p > pSep)
+    {
+        pSep = p;
+    }
+    if (!pSep)
+    {
+        *szOut = 0;
+    }
+    else if (sub_00404110_StrLCopy(szOut, szPath, nSize) >= nSize)
+    {
+        return false;
+    }
+    return true;
+}
+
+static __forceinline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
+{
+    const char* p = szSource;
+    if (nSize)
+    {
+        size_t n = nSize - 1;
+        if (n)
+        {
+            do
+            {
+                const char c = *p;
+                *szDest = c;
+                szDest++;
+                p++;
+                if (!c)
+                {
+                    break;
+                }
+            } while (--n);
+        }
+        if (!n)
+        {
+            *szDest = 0;
+        }
+        else
+        {
+            return p - szSource - 1;
+        }
+    }
+    while (*p++)
+    {
+    }
+    return p - szSource - 1;
+}
+
+bool crashy::Report::sub_00401220_AddFile(const char* szPath, bool bCopy)
+{
+    if (m_nLineCount >= 16)
+    {
+        return false;
+    }
+    char szCopy[0x400];
+    const char* szSource;
+    if (bCopy)
+    {
+        if (!m_szText408[0])
+        {
+            return false;
+        }
+        const size_t nLength = StrLCopy(szCopy, m_szText408, 0x400);
+        if (nLength >= 0x400)
+        {
+            return false;
+        }
+        char* pName = szCopy + nLength;
+        *pName++ = '/';
+        if (!sub_00404010_CopyFileName(szPath, pName, szCopy + 0x400 - pName))
+        {
+            return false;
+        }
+        sub_00404450_CopyFileUtf8(szPath, szCopy);
+        szSource = szCopy;
+    }
+    else
+    {
+        if (strlen(szPath) >= 0x400)
+        {
+            return false;
+        }
+        szSource = szPath;
+    }
+    StrLCopy(m_aszLines[m_nLineCount], szSource, 0x400);
+    m_nLineCount++;
+    return true;
+}
+
+// 0x00404010
+static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut, size_t nSize)
+{
+    const char* pSep = 0;
+    const char* p = strrchr(szPath, '/');
+    if (p > pSep)
+    {
+        pSep = p;
+    }
+    p = strrchr(szPath, '\\');
+    if (p && p > pSep)
+    {
+        pSep = p;
+    }
+    p = strrchr(szPath, ':');
+    if (p && p > pSep)
+    {
+        pSep = p;
+    }
+    if (pSep)
+    {
+        szPath = pSep + 1;
+    }
+    return StrLCopy(szOut, szPath, nSize) < nSize ? true : false;
+}
+
+// 0x004040B0
+static bool sub_004040B0_SetErrorDirectory(char* szPath)
+{
+    char* pEnd = szPath + strlen(szPath);
+    if (pEnd == szPath + 0x400)
+    {
+        return false;
+    }
+    if (pEnd != szPath && pEnd[-1] != '/' && pEnd[-1] != '\\')
+    {
+        *pEnd = '\\';
+    }
+    return sub_00404110_StrLCopy(szPath, "BlizzardError", 0x400) < 0x400;
+}
+
+// 0x00404110
+static __declspec(noinline) size_t sub_00404110_StrLCopy(char* szDest, const char* szSource, size_t nSize)
+{
+    const char* p = szSource;
+    if (nSize)
+    {
+        size_t n = nSize - 1;
+        if (n)
+        {
+            do
+            {
+                const char c = *p;
+                *szDest = c;
+                szDest++;
+                p++;
+                if (!c)
+                {
+                    break;
+                }
+            } while (--n);
+        }
+        if (!n)
+        {
+            *szDest = 0;
+        }
+        else
+        {
+            return p - szSource - 1;
+        }
+    }
+    while (*p++)
+    {
+    }
+    return p - szSource - 1;
+}
+
+// 0x004041F0
+static int sub_004041F0_FormatText(char* szDest, size_t nSize, const char* szFormat, ...)
+{
+    const int nResult = _vsnprintf(szDest, nSize - 1, szFormat, (va_list)(&szFormat + 1));
+    szDest[nSize - 1] = 0;
+    return nResult;
+}
+
+// 0x00404450
+static bool __stdcall sub_00404450_CopyFileUtf8(const char* szSource, const char* szDest)
+{
+    wchar_t wszSource[0x104];
+    wchar_t wszDest[0x104];
+    if (!MultiByteToWideChar(0xFDE9, 0, szSource, -1, wszSource, 0x104))
+    {
+        return false;
+    }
+    if (!MultiByteToWideChar(0xFDE9, 0, szDest, -1, wszDest, 0x104))
+    {
+        return false;
+    }
+    return CopyFileW(wszSource, wszDest, 1) != 0;
+}
+
+// 0x004044F0
+static bool sub_004044F0_GetTempPathUtf8(char* szOut)
+{
+    wchar_t wszPath[0x104];
+    const unsigned long nLength = GetTempPathW(0x104, wszPath);
+    if (!nLength)
+    {
+        return false;
+    }
+    return WideCharToMultiByte(0xFDE9, 0, wszPath, nLength + 1, szOut, 0x400, 0, 0) != 0;
 }
 
 // 0x004045F0
@@ -972,6 +1551,12 @@ void __cdecl sub_004076B0_LogSystemInfo()
     sub_00410610_WriteLogLine(&gszEmptyAssertText);
 }
 
+// 0x00407980
+void __fastcall sub_00407980_ReportPrint(void* pContext, const char* szText)
+{
+    ((crashy::Report*)pContext)->sub_00401380(gszStringFormat_006FFC58, szText);
+}
+
 // 0x00407990
 unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId)
 {
@@ -996,6 +1581,92 @@ unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId
     }
     CloseHandle(hSnapshot);
     return dwParent;
+}
+
+// 0x00407A80
+bool crashy::Report::sub_00407A80_WriteInspectorHeader()
+{
+    if (!sub_00401210_IsOpen())
+    {
+        return false;
+    }
+
+    sub_00401380("<Application>%s\n", gtInspectorInfo_0074D868.szApplication);
+    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo_0074D868.f_0);
+    sub_00401380("<Inspector.Module>%s\n", gtInspectorInfo_0074D868.szModule);
+    sub_00401380("<Inspector.Milestone>%s\n", gtInspectorInfo_0074D868.szMilestone);
+    sub_00401380("<Inspector.BuildNumber>%s\n", gtInspectorInfo_0074D868.szBuildNumber);
+    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo_0074D868.f_18);
+    sub_00401380("<Inspector.IssueType>%s\n", "Exception");
+    sub_00401380("<Inspector.Priority>%s\n", "1 - Critical");
+    sub_00401380("<Inspector.PrimaryAssignment>%s\n", gtInspectorInfo_0074D868.szPrimaryAssignment);
+    sub_00401380("<Inspector.Assignments>%s\n", gtInspectorInfo_0074D868.szAssignments);
+
+    int bIsAdmin = 0;
+    D2SidAuthorityStrc tNtAuthority = { { 0, 0, 0, 0, 0, 5 } };
+    void* pSid;
+    if (AllocateAndInitializeSid(&tNtAuthority, 2, 0x20, 0x220, 0, 0, 0, 0, 0, 0, &pSid))
+    {
+        bIsAdmin = CheckTokenMembership(0, pSid, &bIsAdmin);
+        sub_00401380("<Process.UserIsAdmin> %s\n", bIsAdmin ? "TRUE" : "FALSE");
+        FreeSid(pSid);
+    }
+    sub_00401380("<Process.Elevated> %s\n", gszUnknownUpper_006CCED8);
+
+    unsigned long dwProcessId = GetCurrentProcessId();
+    bool bFound = sub_00407A20_GetProcessImageName(dwProcessId, gszProcessPath_0074E8C8, 0x800);
+    sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
+    const char* szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    const char* szName = szSlash ? szSlash + 1 : 0;
+    sub_00401380("<Process.Name> %s\n", (szName && bFound) ? szName : "Unknown");
+
+    unsigned long dwParentId = sub_00407990_FindOwnerProcess(dwProcessId);
+    bFound = sub_00407A20_GetProcessImageName(dwParentId, gszProcessPath_0074E8C8, 0x800);
+    sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
+    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    szName = szSlash ? szSlash + 1 : 0;
+    sub_00401380("<Process.ParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
+
+    unsigned long dwGrandParentId = sub_00407990_FindOwnerProcess(dwParentId);
+    bFound = sub_00407A20_GetProcessImageName(dwGrandParentId, gszProcessPath_0074E8C8, 0x800);
+    sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
+    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    szName = szSlash ? szSlash + 1 : 0;
+    sub_00401380("<Process.GrandParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
+
+    sub_00401380("<Locale.Game> %s\n", gaszLanguageNames_00706618[sub_00525150()]);
+    sub_00401380("<Locale.System> %s\n", gaszLanguageNames_00706618[sub_005251C0_GetLanguage()]);
+    sub_00401380("<Game.Type> %s\n", "Client");
+    sub_00401380("<Game.Build> %s\n", "79b7ae8fe1e97d05d57ebdc4b65bf012d38c797e");
+
+    char* apszFiles[0x15];
+    memset(apszFiles, 0, sizeof(apszFiles));
+    sub_0040EB90_GetLogFiles(apszFiles, 0x15);
+    for (unsigned int i = 0; i < 0x15; ++i)
+    {
+        if (apszFiles[i] && *apszFiles[i])
+        {
+            sub_00401220_AddFile(apszFiles[i], true);
+        }
+    }
+    return true;
+}
+
+// 0x00407F20
+void __cdecl sub_00407F20_ExitHandler()
+{
+    if (gbErrorMgrInit_0074F0D0)
+    {
+        FOG_AsyncDataDestroy();
+        FOG_DestroyMemoryPoolSystem(0);
+        sub_0040B500_UnloadImageHlp();
+        sub_0040F8A0_CloseLogFilesNow();
+        sub_004107A0_DeleteTimeLock();
+        sub_0040FFD0_ShutdownLogSystem();
+        gbErrorMgrInit_0074F0D0 = 0;
+        DeleteCriticalSection(&gtLock_0074C830);
+        DeleteCriticalSection(&gtLock_0074D848);
+    }
 }
 
 // 0x00407F80
@@ -1040,6 +1711,10 @@ int __fastcall sub_004088C0_ReportNestedError(const char* szFile, int nLine, con
 // 0x00413740
 void __cdecl sub_00413740_Nop()
 {
+}
+
+bool __fastcall EmitThreadName(int threadId,char* output) {
+ return sub_00401640_GetThreadName(threadId,output);
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager_004016A0.inc"

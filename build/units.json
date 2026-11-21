@@ -2,12 +2,237 @@
  "note": "compilation units in link order; flags only where a unit differs from config.json flags; rank 0 units take precedence over rank 1 units for a function both define; ltcg units are compiled /GL and linked /LTCG",
  "units": [
   {
-   "file": "Source/Fog/Unknown_00401000.cpp",
-   "rank": 1,
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x00401000",
      "length": 11
+    },
+    {
+     "va": "0x00401100",
+     "length": 237,
+     "name": "?sub_00401100_Open@Report@crashy@@QAE_NPBD@Z"
+    },
+    {
+     "va": "0x00401480",
+     "length": 185,
+     "name": "?sub_00401480_GetStackRange@@YGEPAPAXPAKPBX@Z"
+    },
+    {
+     "va": "0x00401540",
+     "length": 256,
+     "name": "?sub_00401540_GetThreadStack@@YGEPAKK00@Z"
+    },
+    {
+     "va": "0x00401640",
+     "length": 50,
+     "name": "?sub_00401640_GetThreadName@@YG_NHPAD@Z"
+    },
+    {
+     "va": "0x004016A0",
+     "length": 5,
+     "name": "?sub_004016A0_StartDbgHelpThread@@YAXXZ"
+    },
+    {
+     "va": "0x004016C0",
+     "length": 120,
+     "name": "sub_004016C0_IsInternalCheckLoopback"
+    },
+    {
+     "va": "0x00401A70",
+     "length": 143,
+     "name": "sub_00401A70_SetMiniDumpThreadName"
+    },
+    {
+     "va": "0x00403040",
+     "length": 39,
+     "name": "?_H"
+    },
+    {
+     "va": "0x00403070",
+     "length": 142,
+     "name": "sub_00403070_DumpThread"
+    },
+    {
+     "va": "0x00403FA0",
+     "length": 108,
+     "name": "?sub_00403FA0_CopyPathIfHasDirectory@@YG_NPBDPADI@Z"
+    },
+    {
+     "va": "0x00404010",
+     "length": 153,
+     "name": "?sub_00404010_CopyFileName@@YG_NPBDPADI@Z"
+    },
+    {
+     "va": "0x004040B0",
+     "length": 80,
+     "name": "?sub_004040B0_SetErrorDirectory@@YA_NPAD@Z"
+    },
+    {
+     "va": "0x00404110",
+     "length": 64,
+     "name": "?sub_00404110_StrLCopy@@YAIPADPBDI@Z"
+    },
+    {
+     "va": "0x004041F0",
+     "length": 31,
+     "name": "?sub_004041F0_FormatText@@YAHPADIPBDZZ"
+    },
+    {
+     "va": "0x00404450",
+     "length": 149,
+     "name": "?sub_00404450_CopyFileUtf8@@YG_NPBD0@Z"
+    },
+    {
+     "va": "0x004044F0",
+     "length": 111,
+     "name": "?sub_004044F0_GetTempPathUtf8@@YA_NPAD@Z"
+    },
+    {
+     "va": "0x004045F0",
+     "length": 99,
+     "name": "sub_004045F0_UseUtf8Path"
+    },
+    {
+     "va": "0x00404E60",
+     "length": 181,
+     "name": "sub_00404E60_EnumLoadedModules"
+    },
+    {
+     "va": "0x004059D0",
+     "length": 126,
+     "name": "sub_004059D0_RunModeInterface"
+    },
+    {
+     "va": "0x00405F00",
+     "length": 305,
+     "name": "SaveCmdLine"
+    },
+    {
+     "va": "0x00406040",
+     "length": 327,
+     "name": "MoveBetaSettingsToRelease"
+    },
+    {
+     "va": "0x004061C0",
+     "length": 376,
+     "name": "sub_004061C0_DenyProcessAccess"
+    },
+    {
+     "va": "0x00406650",
+     "length": 131,
+     "name": "sub_00406650_StartServiceDispatcher"
+    },
+    {
+     "va": "0x004067C0",
+     "length": 11,
+     "name": "?sub_004067C0_SetBasePathToCurrent@@YAHXZ"
+    },
+    {
+     "va": "0x004067D0",
+     "length": 146,
+     "name": "sub_004067D0_GetKnownFolderPathA"
+    },
+    {
+     "va": "0x004068E0",
+     "length": 8,
+     "name": "sub_004068E0"
+    },
+    {
+     "va": "0x00406900",
+     "length": 34,
+     "name": "sub_00406900"
+    },
+    {
+     "va": "0x00406930",
+     "length": 8,
+     "name": "sub_00406930"
+    },
+    {
+     "va": "0x00406940",
+     "length": 22,
+     "name": "?sub_00406940_mpqSetFilePointer@@YIHPAXJPAJH@Z"
+    },
+    {
+     "va": "0x00406A10",
+     "length": 261,
+     "name": "sub_00406A10_CreateDirectoryTree"
+    },
+    {
+     "va": "0x00406C40",
+     "length": 217,
+     "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
+    },
+    {
+     "va": "0x00406DE0",
+     "length": 622,
+     "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x00407260",
+     "length": 16,
+     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+    },
+    {
+     "va": "0x00407370",
+     "length": 208,
+     "name": "sub_00407370_JulianDay"
+    },
+    {
+     "va": "0x00407570",
+     "length": 319,
+     "name": "?sub_00407570_DeleteOldDatedLogs@@YIXPBD@Z"
+    },
+    {
+     "va": "0x004076B0",
+     "length": 684,
+     "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
+    },
+    {
+     "va": "0x00407980",
+     "length": 16,
+     "name": "?sub_00407980_ReportPrint@@YIXPAXPBD@Z"
+    },
+    {
+     "va": "0x00407990",
+     "length": 129,
+     "name": "sub_00407990_FindOwnerProcess"
+    },
+    {
+     "va": "0x00407A80",
+     "length": 838,
+     "name": "?sub_00407A80_WriteInspectorHeader@Report@crashy@@QAE_NXZ"
+    },
+    {
+     "va": "0x00407F20",
+     "length": 77,
+     "name": "?sub_00407F20_ExitHandler@@YAXXZ"
+    },
+    {
+     "va": "0x00407F80",
+     "length": 1,
+     "name": "?sub_00407F80_ThreadHookNop2@@YIXIPAX@Z"
+    },
+    {
+     "va": "0x00407F90",
+     "length": 1,
+     "name": "?sub_00407F90_ThreadHookNop1@@YIXI@Z"
+    },
+    {
+     "va": "0x00407FC0",
+     "length": 40,
+     "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
+    },
+    {
+     "va": "0x004088C0",
+     "length": 56,
+     "name": "sub_004088C0_ReportNestedError"
+    },
+    {
+     "va": "0x00413740",
+     "length": 1,
+     "name": "?sub_00413740_Nop@@YAXXZ"
     }
    ]
   },
@@ -91,42 +316,6 @@
      "va": "0x004072A0",
      "length": 20,
      "name": "sub_004072A0_GetLine"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00404110.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401100",
-     "length": 237,
-     "name": "?sub_00401100_Open@Report@crashy@@QAE_NPBD@Z"
-    },
-    {
-     "va": "0x00403FA0",
-     "length": 108,
-     "name": "?sub_00403FA0_CopyPathIfHasDirectory@@YG_NPBDPADI@Z"
-    },
-    {
-     "va": "0x004040B0",
-     "length": 80,
-     "name": "?sub_004040B0_SetErrorDirectory@@YA_NPAD@Z"
-    },
-    {
-     "va": "0x00404110",
-     "length": 64,
-     "name": "?sub_00404110_StrLCopy@@YAIPADPBDI@Z"
-    },
-    {
-     "va": "0x004041F0",
-     "length": 31,
-     "name": "?sub_004041F0_FormatText@@YAHPADIPBDZZ"
-    },
-    {
-     "va": "0x004044F0",
-     "length": 111,
-     "name": "?sub_004044F0_GetTempPathUtf8@@YA_NPAD@Z"
     }
    ]
   },
@@ -596,33 +785,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00401480.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401480",
-     "length": 185,
-     "name": "?sub_00401480_GetStackRange@@YGEPAPAXPAKPBX@Z"
-    },
-    {
-     "va": "0x00401540",
-     "length": 256,
-     "name": "?sub_00401540_GetThreadStack@@YGEPAKK00@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401640.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401640",
-     "length": 50,
-     "name": "?sub_00401640_GetThreadName@@YG_NHPAD@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00401680.cpp",
    "rank": 0,
    "functions": [
@@ -706,167 +868,6 @@
      "va": "0x00401CB0",
      "length": 279,
      "name": "?sub_00401CB0_InitSymbols@@YA_NXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004016A0",
-     "length": 5,
-     "name": "?sub_004016A0_StartDbgHelpThread@@YAXXZ"
-    },
-    {
-     "va": "0x004016C0",
-     "length": 120,
-     "name": "sub_004016C0_IsInternalCheckLoopback"
-    },
-    {
-     "va": "0x00401A70",
-     "length": 143,
-     "name": "sub_00401A70_SetMiniDumpThreadName"
-    },
-    {
-     "va": "0x00403040",
-     "length": 39,
-     "name": "?_H"
-    },
-    {
-     "va": "0x00403070",
-     "length": 142,
-     "name": "sub_00403070_DumpThread"
-    },
-    {
-     "va": "0x004045F0",
-     "length": 99,
-     "name": "sub_004045F0_UseUtf8Path"
-    },
-    {
-     "va": "0x00404E60",
-     "length": 181,
-     "name": "sub_00404E60_EnumLoadedModules"
-    },
-    {
-     "va": "0x004059D0",
-     "length": 126,
-     "name": "sub_004059D0_RunModeInterface"
-    },
-    {
-     "va": "0x00405F00",
-     "length": 305,
-     "name": "SaveCmdLine"
-    },
-    {
-     "va": "0x00406040",
-     "length": 327,
-     "name": "MoveBetaSettingsToRelease"
-    },
-    {
-     "va": "0x004061C0",
-     "length": 376,
-     "name": "sub_004061C0_DenyProcessAccess"
-    },
-    {
-     "va": "0x00406650",
-     "length": 131,
-     "name": "sub_00406650_StartServiceDispatcher"
-    },
-    {
-     "va": "0x004067C0",
-     "length": 11,
-     "name": "?sub_004067C0_SetBasePathToCurrent@@YAHXZ"
-    },
-    {
-     "va": "0x004067D0",
-     "length": 146,
-     "name": "sub_004067D0_GetKnownFolderPathA"
-    },
-    {
-     "va": "0x004068E0",
-     "length": 8,
-     "name": "sub_004068E0"
-    },
-    {
-     "va": "0x00406900",
-     "length": 34,
-     "name": "sub_00406900"
-    },
-    {
-     "va": "0x00406930",
-     "length": 8,
-     "name": "sub_00406930"
-    },
-    {
-     "va": "0x00406940",
-     "length": 22,
-     "name": "?sub_00406940_mpqSetFilePointer@@YIHPAXJPAJH@Z"
-    },
-    {
-     "va": "0x00406A10",
-     "length": 261,
-     "name": "sub_00406A10_CreateDirectoryTree"
-    },
-    {
-     "va": "0x00406C40",
-     "length": 217,
-     "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
-    },
-    {
-     "va": "0x00406DE0",
-     "length": 622,
-     "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x00407260",
-     "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
-    },
-    {
-     "va": "0x00407370",
-     "length": 208,
-     "name": "sub_00407370_JulianDay"
-    },
-    {
-     "va": "0x00407570",
-     "length": 319,
-     "name": "?sub_00407570_DeleteOldDatedLogs@@YIXPBD@Z"
-    },
-    {
-     "va": "0x004076B0",
-     "length": 684,
-     "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
-    },
-    {
-     "va": "0x00407990",
-     "length": 129,
-     "name": "sub_00407990_FindOwnerProcess"
-    },
-    {
-     "va": "0x00407F80",
-     "length": 1,
-     "name": "?sub_00407F80_ThreadHookNop2@@YIXIPAX@Z"
-    },
-    {
-     "va": "0x00407F90",
-     "length": 1,
-     "name": "?sub_00407F90_ThreadHookNop1@@YIXI@Z"
-    },
-    {
-     "va": "0x00407FC0",
-     "length": 40,
-     "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
-    },
-    {
-     "va": "0x004088C0",
-     "length": 56,
-     "name": "sub_004088C0_ReportNestedError"
-    },
-    {
-     "va": "0x00413740",
-     "length": 1,
-     "name": "?sub_00413740_Nop@@YAXXZ"
     }
    ]
   },
@@ -1628,22 +1629,6 @@
    "link": [
     "/OPT:REF",
     "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00404010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00404010",
-     "length": 153,
-     "name": "?sub_00404010_CopyFileName@@YG_NPBDPADI@Z"
-    },
-    {
-     "va": "0x00404450",
-     "length": 149,
-     "name": "?sub_00404450_CopyFileUtf8@@YG_NPBD0@Z"
-    }
    ]
   },
   {
@@ -2664,33 +2649,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00407980.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00407980",
-     "length": 16,
-     "name": "?sub_00407980_ReportPrint@@YIXPAXPBD@Z"
-    },
-    {
-     "va": "0x00407F20",
-     "length": 77,
-     "name": "?sub_00407F20_ExitHandler@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00407A80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00407A80",
-     "length": 838,
-     "name": "?sub_00407A80_WriteInspectorHeader@Report@crashy@@QAE_NXZ"
-    }
    ]
   },
   {
