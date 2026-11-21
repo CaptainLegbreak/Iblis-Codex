@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
 
@@ -48,16 +49,6 @@ int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2Unit
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x94];
-    int dwPspell;
-    short wState;
-    short wCurseState[2];
-    short wStat[3];
-    unsigned int dwCalc[3];
-    unsigned int dwLen;
-};
 
 typedef int (__fastcall* PSPELLFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId);
 
@@ -131,31 +122,11 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x00621E40
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x2A];
-    short nMonEquipTxtRecordId;
-    char unk0x02C[0x22];
-    unsigned char nThreat;
-    char unk0x04F[0x159];
-};
 
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pHireling); // 0x0063EE90
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x3A];
-    short wSrvMissile[4];
-    char unk0x04E[0x06];
-    short wAuraStat[6];
-    char unk0x060[0x20];
-    short nAuraState;
-    char unk0x082[0x1BA];
-};
 
 enum D2C_Y09SkillConstants
 {
@@ -202,14 +173,6 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 int __fastcall MONSTER_GetHpBonus(int nPlayerCount); // 0x005738F0
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
-struct D2ItemStatCostTxt
-{
-    char pad00[0x18];
-    unsigned char valueShift;
-    char pad19[0x19];
-    unsigned short maximumStat;
-    char pad34[0x110];
-};
 
 typedef void (__fastcall* RemoveCallback)(D2UnitStrc*,int,D2StatListStrc*);
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
@@ -317,7 +280,7 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
   if(!cost)continue;
   int value=ITEMMODS_EvaluateItemFormula(unit,item,record->dwCalc[i]);
   if(stat==26 || stat==74)value<<=8;
-  value=value<<cost->valueShift;
+  value=value<<cost->nValShift;
   if(value<=0)continue;
   switch(stat){
    case 6:updateLife=1;
@@ -325,8 +288,8 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
   }
   if(duration<=0){
    const int current=STATLIST_UnitGetStatValue(unit,stat,0);
-   if(cost->maximumStat<sgptDataTables->nItemStatCostTxtRecordCount){
-    int maximum=STATLIST_UnitGetStatValue(unit,cost->maximumStat,0);
+   if(cost->wMaxStat<sgptDataTables->nItemStatCostTxtRecordCount){
+    int maximum=STATLIST_UnitGetStatValue(unit,cost->wMaxStat,0);
     if(current+value>maximum)value=maximum-current;
    }
    STATLIST_AddUnitStat(unit,stat,value,0);
@@ -417,12 +380,12 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
     {
         const int nStatId = pItemsTxtRecord->wStat[i];
         D2ItemStatCostTxt* pItemStatCostTxtRecord = SKILLS_GetItemStatCostTxtRecord(nStatId);
-        if (pItemStatCostTxtRecord && pItemStatCostTxtRecord->maximumStat < sgptDataTables->nItemStatCostTxtRecordCount)
+        if (pItemStatCostTxtRecord && pItemStatCostTxtRecord->wMaxStat < sgptDataTables->nItemStatCostTxtRecordCount)
         {
             const int nPercentage = ITEMMODS_EvaluateItemFormula(pUnit, pItem, pItemsTxtRecord->dwCalc[i]);
             if (nPercentage > 0)
             {
-                const int nMaxValue = STATLIST_UnitGetStatValue(pUnit, pItemStatCostTxtRecord->maximumStat, 0);
+                const int nMaxValue = STATLIST_UnitGetStatValue(pUnit, pItemStatCostTxtRecord->wMaxStat, 0);
                 int nAddValue = DATATBLS_ApplyRatio(nMaxValue, nPercentage, 100);
                 if (nPercentage == 100)
                 {
@@ -1503,12 +1466,12 @@ int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkill
                     nIndex = 1;
                 }
 
-                return pSkillsTxtRecord->wSrvMissile[nIndex];
+                return (&pSkillsTxtRecord->wSrvMissile)[nIndex];
             }
         }
     }
 
-    return pSkillsTxtRecord->wSrvMissile[1];
+    return pSkillsTxtRecord->wSrvMissileA;
 }
 
 // 0x005DC5C0
