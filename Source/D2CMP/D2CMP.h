@@ -152,6 +152,8 @@ struct D2ChatStormListAStrc
     void sub_0060E260_InitializeTerminator();
     char* sub_0060E440_Head();
     void sub_0060E5F0_Reset();
+    char* sub_006020C0_Head();
+    void sub_00603510_Reset();
 };
 
 struct D2ChatStormHashTableStrc
@@ -199,6 +201,14 @@ struct D2ChatStormListCStrc
     D2ChatStormCtorLinkStrc m_terminator;
 
     D2ChatStormListCStrc();
+};
+
+struct D2ChatStormListFStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListFStrc();
 };
 
 struct D2ChatStormListDStrc
