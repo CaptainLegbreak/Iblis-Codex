@@ -3334,8 +3334,8 @@
    "state": "included"
   },
   "Source/D2Game/GAME/Game.cpp": {
-   "bytes": 444,
-   "definitions": 10,
+   "bytes": 446,
+   "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl sub_0052BF80_ZeroBlock8(); // 0x0052BF80",
     "extern \"C\" void __cdecl sub_00548090(); // 0x00548090",
@@ -3436,15 +3436,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Net/Unknown_0052B920.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_0052C030.cpp": {
-   "bytes": 2,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_0052C030.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -91800,7 +91791,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_0052C030.cpp",
+   "file": "Source/D2Game/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned short gwGameId = ",

@@ -43741,6 +43741,11 @@
      "name": "sub_0052BFA0"
     },
     {
+     "va": "0x0052C030",
+     "length": 48,
+     "name": "?GAME_Shutdown@@YGHXZ"
+    },
+    {
      "va": "0x0052C060",
      "length": 55,
      "name": "?GAME_GetGameGUIDFromGameId@@YIHG@Z"
@@ -46559,17 +46564,6 @@
      "va": "0x0052BF80",
      "length": 9,
      "name": "?sub_0052BF80_ZeroBlock8@@YIXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0052C030.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052C030",
-     "length": 48,
-     "name": "?GAME_Shutdown@@YGHXZ"
     }
    ]
   },

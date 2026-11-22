@@ -1621,6 +1621,26 @@ void* __cdecl sub_0052BFA0()
     return gData_006E0568;
 }
 
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
+
+void __fastcall CLIENTS_Release();                                                                          // 0x00537730
+
+void __fastcall SUNITPROXY_ClearGlobalItemCache();                                                          // 0x00537120
+
+extern unsigned short gwGameId_6FD2CA04;                                                                    // 0x00731000
+
+// 0x0052C030
+int __stdcall GAME_Shutdown()
+{
+    CLIENTS_Release();
+    DeleteCriticalSection(&gCriticalSection_6FD45800);
+    SUNITPROXY_ClearGlobalItemCache();
+    gwGameId_6FD2CA04 = 1;
+    gpGameDataTbl_6FD45818 = 0;
+    gnAct_6FD45824 = 0;
+    return 1;
+}
+
 // 0x0052C060
 int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId)
 {
