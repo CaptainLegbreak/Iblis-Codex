@@ -40778,6 +40778,11 @@
      "name": "?sub_0050ECB0_TexCacheDestroy@@YIXPAUD2GlideTexCacheStrc@@H@Z"
     },
     {
+     "va": "0x0050ED10",
+     "length": 122,
+     "name": "?sub_0050ED10_ListRefill@@YIHPAUD2GlideTexCacheStrc@@@Z"
+    },
+    {
      "va": "0x0050EF60",
      "length": 29,
      "name": "?sub_0050EF60_TileCacheAppendFree@@YAXPAUD2GlideTileCacheEntryStrc@@PAUD2GlideTileCacheStrc@@@Z"
@@ -40791,17 +40796,6 @@
      "va": "0x0050FAD0",
      "length": 248,
      "name": "?sub_0050FAD0_GlideBindFloorTexture@@YIHPAUD2TileLibraryEntryStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050ED10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050ED10",
-     "length": 122,
-     "name": "?sub_0050ED10_ListRefill@@YIHPAUD2GlideTexCacheStrc@@@Z"
     }
    ]
   },
