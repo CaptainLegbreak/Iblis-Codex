@@ -1,18 +1,41 @@
 #include "Storm.h"
+#include "D2StormAutoLink.h"
+#include "D2GameTypes.h"
 
 #define OPTION_BIAS 0
+
 #define OUTPUT_BYTES 4
+
 #define ERROR_INVALID 0x57
+
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
+
 int gnErrorOutputMode_0077909C;         // 0x0077909C
+
 int gnOption_007790A0;         // 0x007790A0
+
 int gnFlag_00779098;         // 0x00779098
+
 int gbAlignReads_007790A4;         // 0x007790A4
+
 extern int gbSLogDebugOutput_007790AC;  // 0x007790AC
+
 #define INPUT_INDEX 0
+
 void __cdecl SLogInitialize(); // 0x00420040
+
 void __cdecl SMemInitialize(); // 0x00411CD0
+
 extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
+
+struct D2StormInit0041C0C0Strc;
+
+struct D2StormInit0041C0C0Strc
+{
+    D2StormInit0041C0C0Strc();
+};
+
+void __cdecl sub_0041BEE0_InitStorm(); // 0x0041BEE0
 
 // 0x0041BEE0
 void __cdecl sub_0041BEE0_InitStorm()
@@ -104,4 +127,10 @@ int __stdcall StormGetOption(unsigned int nOption, const void* pInput, unsigned 
     }
     sub_0041C340_SetLastError(0);
     return nValid ? 1 : 0;
+}
+
+// 0x0041C0C0
+D2StormInit0041C0C0Strc::D2StormInit0041C0C0Strc()
+{
+    sub_0041BEE0_InitStorm();
 }
