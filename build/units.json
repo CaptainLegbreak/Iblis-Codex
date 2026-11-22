@@ -26029,9 +26029,32 @@
      "name": "PANEL_DrawMiniPanelButton"
     },
     {
+     "va": "0x004978D0",
+     "length": 73,
+     "name": "?PANEL_DrawBeltBoxFrame@@YGXHH@Z"
+    },
+    {
+     "va": "0x00497920",
+     "length": 190,
+     "name": "?PANEL_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x00497A40",
+     "length": 524
+    },
+    {
      "va": "0x00497CF0",
      "length": 268,
      "name": "?sub_00497CF0_DrawDurabilityIcon@@YGXHHHH@Z"
+    },
+    {
+     "va": "0x00497E00",
+     "length": 476
+    },
+    {
+     "va": "0x00497FE0",
+     "length": 306,
+     "name": "?PANEL_DrawDurabilityIcons@@YAXXZ"
     },
     {
      "va": "0x00498120",
@@ -26047,6 +26070,11 @@
      "va": "0x00498340",
      "length": 138,
      "name": "_PANEL_UpdateMiniPanelTooltip"
+    },
+    {
+     "va": "0x004983D0",
+     "length": 606,
+     "name": "?PANEL_DrawControlPanelFrame@@YAXH@Z"
     },
     {
      "va": "0x00498630",
@@ -26066,6 +26094,15 @@
     {
      "va": "0x00498870",
      "length": 189
+    },
+    {
+     "va": "0x00498930",
+     "length": 235
+    },
+    {
+     "va": "0x00498A90",
+     "length": 365,
+     "name": "?sub_00498A90_UseBeltSlot@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
      "va": "0x00498C00",
@@ -26122,6 +26159,19 @@
      "length": 1036
     },
     {
+     "va": "0x00499450",
+     "length": 170,
+     "name": "?PANEL_DrawControlPanel@@YAXXZ"
+    },
+    {
+     "va": "0x004996A0",
+     "length": 1289
+    },
+    {
+     "va": "0x00499BB0",
+     "length": 340
+    },
+    {
      "va": "0x00499D10",
      "length": 208,
      "name": "?PANEL_BeltClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -26155,72 +26205,6 @@
      "va": "0x004BE340",
      "length": 206,
      "name": "PANEL_CountLinesInView"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/panel_004978D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004978D0",
-     "length": 73,
-     "name": "?PANEL_DrawBeltBoxFrame@@YGXHH@Z"
-    },
-    {
-     "va": "0x00497920",
-     "length": 190,
-     "name": "?PANEL_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
-    },
-    {
-     "va": "0x00497A40",
-     "length": 524
-    },
-    {
-     "va": "0x00497E00",
-     "length": 476
-    },
-    {
-     "va": "0x00497FE0",
-     "length": 306,
-     "name": "?PANEL_DrawDurabilityIcons@@YAXXZ"
-    },
-    {
-     "va": "0x004983D0",
-     "length": 606,
-     "name": "?PANEL_DrawControlPanelFrame@@YAXH@Z"
-    },
-    {
-     "va": "0x00498930",
-     "length": 235
-    },
-    {
-     "va": "0x00498A90",
-     "length": 365,
-     "name": "?sub_00498A90_UseBeltSlot@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
-    },
-    {
-     "va": "0x00499450",
-     "length": 170,
-     "name": "?PANEL_DrawControlPanel@@YAXXZ"
-    },
-    {
-     "va": "0x004996A0",
-     "length": 1289
     }
    ],
    "flags": [
@@ -26276,30 +26260,6 @@
      "length": 188,
      "name": "sub_004AB530_DrawTabCel"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/panel_00499BB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00499BB0",
-     "length": 340
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
