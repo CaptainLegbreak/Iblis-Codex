@@ -63,24 +63,7 @@ extern D2PaletteEntry006C7C10Strc gaPalette_007C8CC8[256]; // 0x007C8CC8
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
-// 0x006C7CF0
-int __cdecl sub_006C7CF0_Close()
-{
-    sub_006C8960_DeleteGraphicObject();
-    DeleteObject(ghObject_0098A164);
-    gnValue_007C9154 = 0;
-    gpCallbacks_007C914C->pfnCallback00(0, 0, 0, 0);
-    return 1;
-}
 
-// 0x006C7D30
-void __stdcall sub_006C7D30_SetValue(int nValue)
-{
-    D2_ASSERT(gpLock_007C9134, 0xF9);
-    EnterCriticalSection(gpLock_007C9134);
-    gnValue_007C9144 = nValue;
-    LeaveCriticalSection(gpLock_007C9134);
-}
 
 // 0x006C7D80
 int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b)
@@ -98,13 +81,6 @@ int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b)
     return 1;
 }
 
-// 0x006C7DF0
-int __cdecl sub_006C7DF0_Unlock()
-{
-    D2_ASSERT(gpLock_007C9134, 0x11D);
-    LeaveCriticalSection(gpLock_007C9134);
-    return 1;
-}
 
 void* ghWindow_007C9140; // 0x007C9140
 
@@ -134,18 +110,6 @@ void __fastcall sub_006C7F90_GetScreenSize(int* width, int* height)
     *height = gnScreenHeight_007C913C;
 }
 
-// 0x006C7FA0
-void __fastcall sub_006C7FA0_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
-{
-    for (int i = 0; i < 256; ++i)
-    {
-        gaColors_00989C40[i].rgbRed = pEntries[i].peRed;
-        gaColors_00989C40[i].rgbGreen = pEntries[i].peGreen;
-        gaColors_00989C40[i].rgbBlue = pEntries[i].peBlue;
-    }
-    SetPaletteEntries(ghPalette_0098A160, 0, 256, pEntries);
-    memcpy(gaPalette_007C8CC8, pEntries, sizeof(gaPalette_007C8CC8));
-}
 
 D2PaletteTableStrc gPaletteView_0098A040; // 0x0098A040
 

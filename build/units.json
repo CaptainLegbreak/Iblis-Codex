@@ -87212,6 +87212,26 @@
      "length": 122
     },
     {
+     "va": "0x006C7CF0",
+     "length": 50,
+     "name": "?sub_006C7CF0_Close@@YAHXZ"
+    },
+    {
+     "va": "0x006C7D30",
+     "length": 75,
+     "name": "?sub_006C7D30_SetValue@@YGXH@Z"
+    },
+    {
+     "va": "0x006C7DF0",
+     "length": 53,
+     "name": "?sub_006C7DF0_Unlock@@YAHXZ"
+    },
+    {
+     "va": "0x006C7FA0",
+     "length": 84,
+     "name": "?sub_006C7FA0_SetPalette@@YIXPAUD2PaletteEntry006C7C10Strc@@@Z"
+    },
+    {
      "va": "0x006C80B0",
      "length": 63
     }
@@ -87258,24 +87278,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x006C7CF0",
-     "length": 50,
-     "name": "?sub_006C7CF0_Close@@YAHXZ"
-    },
-    {
-     "va": "0x006C7D30",
-     "length": 75,
-     "name": "?sub_006C7D30_SetValue@@YGXH@Z"
-    },
-    {
      "va": "0x006C7D80",
      "length": 108,
      "name": "?sub_006C7D80_LockAndSend@@YIHPAXDHH@Z"
-    },
-    {
-     "va": "0x006C7DF0",
-     "length": 53,
-     "name": "?sub_006C7DF0_Unlock@@YAHXZ"
     },
     {
      "va": "0x006C7E30",
@@ -87285,11 +87290,6 @@
      "va": "0x006C7F90",
      "length": 16,
      "name": "?sub_006C7F90_GetScreenSize@@YIXPAH0@Z"
-    },
-    {
-     "va": "0x006C7FA0",
-     "length": 84,
-     "name": "?sub_006C7FA0_SetPalette@@YIXPAUD2PaletteEntry006C7C10Strc@@@Z"
     },
     {
      "va": "0x006C8000",
