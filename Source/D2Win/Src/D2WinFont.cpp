@@ -138,8 +138,6 @@ static int FONT_GetFirstLineWidth(const Unicode* pText); // 0x00501910
 
 static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered);
 
-static int FONT_GetMaxLineWidth(const Unicode* pText); // 0x00501840
-
 static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode); // 0x00501C30
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -158,13 +156,9 @@ static int shim_2;
 
 void __stdcall shim_1(int nLength, int nY, int nWidth, int nPalette, int bCentered);
 
-static int FONT_GetTextHeight(const Unicode* pText); // 0x005019C0
-
 __declspec(noinline) static void __stdcall sub_00501A80_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nPalette, int bCentered);
 
 extern unsigned int gaFontCharValidBits_006DC9B8[8]; // 0x006DC9B8
-
-static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered);
 
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 
@@ -183,6 +177,8 @@ static void FONT_LoadFontTable(int nFont); // 0x00501580
 int __fastcall sub_00502EF0(int nFontSize);
 
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);              // 0x0040B430
+
+void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered, int eDrawMode);
 
 // 0x005013A0
 static void __stdcall FONT_BuildFontPath(int nFont, char* pBuffer, int nLength)
@@ -618,14 +614,6 @@ static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int 
     while (nCount < nLength);
 }
 
-void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered, int eDrawMode)
-{
-    int nWidth = 0;
-    if (bCentered)
-        nWidth = FONT_GetMaxLineWidth(wszText) + 8;
-    FONT_DrawTextLineWithDrawMode(wszText, nX, nY, nWidth, nColor, bCentered, eDrawMode);
-}
-
 inline int sub_K08_IsColorCodePrefix(unsigned short wChar)
 {
     if (wChar >= 0x100)
@@ -702,6 +690,15 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
     if (bCentered)
         nWidth = FONT_GetMaxLineWidth(wszText) + 8;
     sub_00501A80_DrawTextLine(nY, nWidth, nColor, bCentered, wszText, nX);
+}
+
+// 0x00502360
+void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered, int eDrawMode)
+{
+    int nWidth = 0;
+    if (bCentered)
+        nWidth = FONT_GetMaxLineWidth(wszText) + 8;
+    FONT_DrawTextLineWithDrawMode(wszText, nX, nY, nWidth, nColor, bCentered, eDrawMode);
 }
 
 // 0x005023A0
@@ -896,6 +893,126 @@ void __fastcall FONT_DrawTextWithBackground(const Unicode* wszText, int nX, int 
     const int nInset = nLeft - 4;
     D2GFX_DrawBox(nInset, nY + nPad - nTextHeight, nInset + nWidth, nY, nColor, eDrawMode);
     sub_00501A80_DrawTextLine(nY - 2, 0, nTextColor, 0, wszText, nLeft);
+}
+
+void __fastcall sub_M98_Emit_005019C0(const Unicode* pText, int* pHeight, int nExtra)
+{
+    *pHeight = FONT_GetTextHeight(pText) + nExtra;
+}
+
+// 0x00502680
+void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nAlign, int eDrawMode, int nShift)
+{
+    const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)pCell);
+    unsigned int nWidth;
+    D2GfxDataStrc tGfxData;
+    memset(&tGfxData, 0, sizeof(tGfxData));
+    tGfxData.pCellFile = (D2CelFileStrc*)pCell;
+    tGfxData.nDirection = 0;
+    nWidth = 0;
+
+    if (nAlign == 1 || nAlign == 2)
+    {
+        for (unsigned int i = 0; i < nFrames; ++i)
+        {
+            tGfxData.nFrame = i;
+            D2CelStrc* pCel = CelGetHandle((D2CmpCelContextStrc*)&tGfxData);
+            nWidth += CelGetWidth(pCel);
+        }
+
+        if (nAlign == 1)
+        {
+            nX -= (nWidth >> 1) + 1;
+        }
+        else
+        {
+            nX -= nWidth;
+        }
+    }
+
+    unsigned int j = 0;
+    if (j < nFrames)
+    {
+        int nPosX = nX;
+        do
+        {
+            tGfxData.nFrame = j;
+            if (nShift == -1)
+            {
+                TEXTURE_CelDraw(&tGfxData, nPosX, nY, (unsigned int)-1, eDrawMode, 0);
+            }
+            else
+            {
+                TEXTURE_CelDrawColor(&tGfxData, nPosX, nY, (unsigned int)-1, eDrawMode, nShift);
+            }
+            nPosX += 0x100;
+        } while (++j < nFrames);
+    }
+}
+
+// 0x00502750
+void __fastcall D2Win_10120(const Unicode* text,int x,int y,int color,int centered,int fill)
+{
+ if(!sub_00526800(text)) return;
+ const int width=FONT_GetMaxLineWidth(text)+8;
+ int screenWidth,screenHeight;
+ int rest;
+ int height=FONT_GetTextHeight(text);
+ if(centered==1) { rest=width>>1; x-=rest; }
+ y+=2;
+ WINDOW_GetDimensions(&screenWidth,&screenHeight);
+ const int left=((0<x?x:0)<screenWidth-width?(0<x?x:0):screenWidth-width);
+ y=((y>height?y:height)<screenHeight-31?(y>height?y:height):screenHeight-31);
+ if(fill) {
+  if(!gnTooltipColor_00841EC4) gnTooltipColor_00841EC4=sub_004FB180_FindPaletteIndex(80,0,0);
+  const int filled=(width*fill)>>7;
+  const int right=filled+left;
+  ((void (__stdcall*)(int,int,int,int,unsigned char,int))D2GFX_DrawBox)(left,y-height,right,y,gnTooltipColor_00841EC4,1);
+  rest=width-filled;
+  if(rest) D2GFX_DrawBox(right,y-height,right+rest,y,0,2);
+ } else D2GFX_DrawBox(left,y-height,left+width,y,0,2);
+ const int inset=3*gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight/10;
+ FONT_DrawString(text,left,y-inset,width,color,1);
+}
+
+// 0x005028A0
+void __fastcall D2Win_10200(T0044CB60* pLines)
+{
+    while (pLines)
+    {
+        T0044CB60* pNext = pLines->pNext;
+        FOG_Free(pLines->pText, ".\\Src\\D2WinFont.cpp", 0x579, 0);
+        FOG_Free(pLines, ".\\Src\\D2WinFont.cpp", 0x57A, 0);
+        pLines = pNext;
+    }
+}
+
+// 0x005028E0
+D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, int nLength, int bSkipSpace)
+{
+    const Unicode* pText = wszText;
+    D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\Src\\D2WinFont.cpp", 0x588, 0);
+    int nCount = nLength;
+    if (bSkipSpace && pText->wChar < 0x100 && isspace(pText->wChar))
+    {
+        nCount = nCount - 1;
+        pText = pText + 1;
+    }
+    pSplitText->wszLine = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nCount + 1), ".\\Src\\D2WinFont.cpp", 0x591, 0);
+    pSplitText->pNextLine = 0;
+    Unicode::strncpy(pSplitText->wszLine, pText, nCount);
+    pSplitText->wszLine[nCount].wChar = 0;
+    return pSplitText;
+}
+
+// 0x00502C40
+int* __fastcall sub_00502C40_ClearTable(int* pTable)
+{
+    for (int i = 0; i < 0x200; ++i)
+    {
+        pTable[i] = 0;
+    }
+    return pTable;
 }
 
 extern "C" void __stdcall sub_K08_EmitDrawRect(int nX, int nY, int nWidth, int nHeight, unsigned int dwColor, int nDrawMode)
@@ -1127,126 +1244,6 @@ void __stdcall D2Win_10124()
     {
         sub_00502EF0(nSavedFont);
     }
-}
-
-void __fastcall sub_M98_Emit_005019C0(const Unicode* pText, int* pHeight, int nExtra)
-{
-    *pHeight = FONT_GetTextHeight(pText) + nExtra;
-}
-
-// 0x00502680
-void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nAlign, int eDrawMode, int nShift)
-{
-    const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)pCell);
-    unsigned int nWidth;
-    D2GfxDataStrc tGfxData;
-    memset(&tGfxData, 0, sizeof(tGfxData));
-    tGfxData.pCellFile = (D2CelFileStrc*)pCell;
-    tGfxData.nDirection = 0;
-    nWidth = 0;
-
-    if (nAlign == 1 || nAlign == 2)
-    {
-        for (unsigned int i = 0; i < nFrames; ++i)
-        {
-            tGfxData.nFrame = i;
-            D2CelStrc* pCel = CelGetHandle((D2CmpCelContextStrc*)&tGfxData);
-            nWidth += CelGetWidth(pCel);
-        }
-
-        if (nAlign == 1)
-        {
-            nX -= (nWidth >> 1) + 1;
-        }
-        else
-        {
-            nX -= nWidth;
-        }
-    }
-
-    unsigned int j = 0;
-    if (j < nFrames)
-    {
-        int nPosX = nX;
-        do
-        {
-            tGfxData.nFrame = j;
-            if (nShift == -1)
-            {
-                TEXTURE_CelDraw(&tGfxData, nPosX, nY, (unsigned int)-1, eDrawMode, 0);
-            }
-            else
-            {
-                TEXTURE_CelDrawColor(&tGfxData, nPosX, nY, (unsigned int)-1, eDrawMode, nShift);
-            }
-            nPosX += 0x100;
-        } while (++j < nFrames);
-    }
-}
-
-// 0x00502750
-void __fastcall D2Win_10120(const Unicode* text,int x,int y,int color,int centered,int fill)
-{
- if(!sub_00526800(text)) return;
- const int width=FONT_GetMaxLineWidth(text)+8;
- int screenWidth,screenHeight;
- int rest;
- int height=FONT_GetTextHeight(text);
- if(centered==1) { rest=width>>1; x-=rest; }
- y+=2;
- WINDOW_GetDimensions(&screenWidth,&screenHeight);
- const int left=((0<x?x:0)<screenWidth-width?(0<x?x:0):screenWidth-width);
- y=((y>height?y:height)<screenHeight-31?(y>height?y:height):screenHeight-31);
- if(fill) {
-  if(!gnTooltipColor_00841EC4) gnTooltipColor_00841EC4=sub_004FB180_FindPaletteIndex(80,0,0);
-  const int filled=(width*fill)>>7;
-  const int right=filled+left;
-  ((void (__stdcall*)(int,int,int,int,unsigned char,int))D2GFX_DrawBox)(left,y-height,right,y,gnTooltipColor_00841EC4,1);
-  rest=width-filled;
-  if(rest) D2GFX_DrawBox(right,y-height,right+rest,y,0,2);
- } else D2GFX_DrawBox(left,y-height,left+width,y,0,2);
- const int inset=3*gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight/10;
- FONT_DrawString(text,left,y-inset,width,color,1);
-}
-
-// 0x005028A0
-void __fastcall D2Win_10200(T0044CB60* pLines)
-{
-    while (pLines)
-    {
-        T0044CB60* pNext = pLines->pNext;
-        FOG_Free(pLines->pText, ".\\Src\\D2WinFont.cpp", 0x579, 0);
-        FOG_Free(pLines, ".\\Src\\D2WinFont.cpp", 0x57A, 0);
-        pLines = pNext;
-    }
-}
-
-// 0x005028E0
-D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, int nLength, int bSkipSpace)
-{
-    const Unicode* pText = wszText;
-    D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\Src\\D2WinFont.cpp", 0x588, 0);
-    int nCount = nLength;
-    if (bSkipSpace && pText->wChar < 0x100 && isspace(pText->wChar))
-    {
-        nCount = nCount - 1;
-        pText = pText + 1;
-    }
-    pSplitText->wszLine = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nCount + 1), ".\\Src\\D2WinFont.cpp", 0x591, 0);
-    pSplitText->pNextLine = 0;
-    Unicode::strncpy(pSplitText->wszLine, pText, nCount);
-    pSplitText->wszLine[nCount].wChar = 0;
-    return pSplitText;
-}
-
-// 0x00502C40
-int* __fastcall sub_00502C40_ClearTable(int* pTable)
-{
-    for (int i = 0; i < 0x200; ++i)
-    {
-        pTable[i] = 0;
-    }
-    return pTable;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinFont.inc"

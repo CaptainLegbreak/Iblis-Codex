@@ -39096,6 +39096,10 @@
      "name": "?D2Win_10117_DrawText@@YIXPBUUnicode@@HHHH@Z"
     },
     {
+     "va": "0x00502360",
+     "length": 58
+    },
+    {
      "va": "0x005023A0",
      "length": 15,
      "name": "?FONT_DrawTextFromCache@@YIXPBUUnicode@@HH@Z"
@@ -39199,30 +39203,6 @@
     {
      "va": "0x00502970",
      "length": 716
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00502360.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00502360",
-     "length": 58
     }
    ],
    "flags": [
