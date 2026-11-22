@@ -1,4 +1,4 @@
-struct Unicode { unsigned short wChar; };
+#include "D2Unicode.h"
 typedef void (__fastcall* D2UnicodeConstructor)(Unicode*);
 void __fastcall sub_0042F530_ClearUnicode(Unicode* pChar); // 0x0042F530
 void __stdcall sub_00403040_VectorConstruct(void* pArray, unsigned int nElementSize, int nCount, D2UnicodeConstructor pConstructor); // 0x00403040
