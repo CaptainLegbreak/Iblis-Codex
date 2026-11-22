@@ -38598,92 +38598,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FDCC0",
-     "length": 62,
-     "name": "?EDITBOX_ClearSelection@@YIXPAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x00504270",
-     "length": 121,
-     "name": "D2Win_10154"
-    },
-    {
-     "va": "0x005042F0",
-     "length": 118,
-     "name": "?D2Win_10143@@YIHPAUD2CompositeUnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00504370",
-     "length": 51,
-     "name": "D2COMP_GetPairValue"
-    },
-    {
-     "va": "0x005043B0",
-     "length": 29,
-     "name": "D2COMP_FreePoolMemory"
-    },
-    {
-     "va": "0x00504D30",
-     "length": 45,
-     "name": "D2Win_10159"
-    },
-    {
-     "va": "0x00505100",
-     "length": 68,
-     "name": "?D2Win_10146@@YGXXZ"
-    },
-    {
-     "va": "0x00505160",
-     "length": 51,
-     "name": "D2Win_10148"
-    },
-    {
-     "va": "0x005051A0",
-     "length": 89,
-     "name": "D2Win_10149"
-    },
-    {
-     "va": "0x00505200",
-     "length": 48,
-     "name": "D2Win_10150"
-    },
-    {
-     "va": "0x00505230",
-     "length": 48,
-     "name": "?D2Win_10169@@YGHPAUD2CompositeUnitStrc@@@Z"
-    },
-    {
-     "va": "0x00505260",
-     "length": 75,
-     "name": "?D2Win_10151@@YGXPAUD2CompositeUnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005052B0",
-     "length": 51,
-     "name": "D2Win_10152"
-    },
-    {
-     "va": "0x005052F0",
-     "length": 51,
-     "name": "D2Win_10153"
-    },
-    {
-     "va": "0x00505330",
-     "length": 47,
-     "name": "D2Win_10155"
-    },
-    {
-     "va": "0x005055D0",
-     "length": 106,
-     "name": "?D2COMP_InitEmblemColorTables@@YIXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Win/Unknown_004FDA80.cpp",
    "rank": 0,
    "functions": [
@@ -38833,6 +38747,17 @@
      "va": "0x005001D0",
      "length": 298,
      "name": "D2Win_10070_EDITBOX_Create"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Src/D2WinEditBox_004FDCC0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004FDCC0",
+     "length": 62,
+     "name": "?EDITBOX_ClearSelection@@YIXPAUD2WinEditBoxStrc@@@Z"
     }
    ]
   },
@@ -39366,6 +39291,31 @@
    ]
   },
   {
+   "file": "Source/D2Win/Src/D2Comp_00503640.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00503640",
+     "length": 248,
+     "name": "?sub_00503640_GetCofData@@YGPAUD2CofDataStrc@@PAUD2GfxInfoStrc@@III@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Win/Src/D2Comp.cpp",
    "rank": 0,
    "functions": [
@@ -39404,6 +39354,26 @@
      "name": "?D2Win_10142_CompUnitDestroy@@YGXPAUD2CompositeUnitStrc@@H@Z"
     },
     {
+     "va": "0x00504270",
+     "length": 121,
+     "name": "D2Win_10154"
+    },
+    {
+     "va": "0x005042F0",
+     "length": 118,
+     "name": "?D2Win_10143@@YIHPAUD2CompositeUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00504370",
+     "length": 51,
+     "name": "D2COMP_GetPairValue"
+    },
+    {
+     "va": "0x005043B0",
+     "length": 29,
+     "name": "D2COMP_FreePoolMemory"
+    },
+    {
      "va": "0x005043D0",
      "length": 3,
      "name": "?sub_005043D0_Stub4@@YGXHHHH@Z"
@@ -39424,9 +39394,64 @@
      "name": "?D2COMP_IsItemTypeDescendant@@YGHHH@Z"
     },
     {
+     "va": "0x00504D30",
+     "length": 45,
+     "name": "D2Win_10159"
+    },
+    {
+     "va": "0x00505100",
+     "length": 68,
+     "name": "?D2Win_10146@@YGXXZ"
+    },
+    {
+     "va": "0x00505160",
+     "length": 51,
+     "name": "D2Win_10148"
+    },
+    {
+     "va": "0x005051A0",
+     "length": 89,
+     "name": "D2Win_10149"
+    },
+    {
+     "va": "0x00505200",
+     "length": 48,
+     "name": "D2Win_10150"
+    },
+    {
+     "va": "0x00505230",
+     "length": 48,
+     "name": "?D2Win_10169@@YGHPAUD2CompositeUnitStrc@@@Z"
+    },
+    {
+     "va": "0x00505260",
+     "length": 75,
+     "name": "?D2Win_10151@@YGXPAUD2CompositeUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005052B0",
+     "length": 51,
+     "name": "D2Win_10152"
+    },
+    {
+     "va": "0x005052F0",
+     "length": 51,
+     "name": "D2Win_10153"
+    },
+    {
+     "va": "0x00505330",
+     "length": 47,
+     "name": "D2Win_10155"
+    },
+    {
      "va": "0x00505360",
      "length": 50,
      "name": "D2Win_10156"
+    },
+    {
+     "va": "0x005055D0",
+     "length": 106,
+     "name": "?D2COMP_InitEmblemColorTables@@YIXXZ"
     },
     {
      "va": "0x005068A0",
@@ -39503,31 +39528,6 @@
      "length": 171,
      "name": "SCROLLBAR_Create"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2Comp_00503640.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00503640",
-     "length": 248,
-     "name": "?sub_00503640_GetCofData@@YGPAUD2CofDataStrc@@PAUD2GfxInfoStrc@@III@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

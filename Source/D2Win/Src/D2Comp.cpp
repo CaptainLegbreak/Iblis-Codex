@@ -5,40 +5,67 @@
 #include "D2Records.h"
 #include "D2StormTypes.h"
 #include "D2TxtTables.h"
+#include "D2Unicode.h"
+#include "D2Win.h"
 
 struct D2WinEditBoxStrc;
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CelFileStrc;
+
 struct D2TxtLinkStrc;
+
 struct D2WinControlStrc;
+
 struct D2WinAccountListDataStrc;
+
 struct D2WinTextBoxStrc;
+
 struct D2CofNodeStrc;
+
 struct D2CofInfoStrc;
+
 struct D2GfxInfoStrc;
+
 struct D2CompositeUnitStrc;
+
 struct D2PaletteRecordStrc;
+
 struct D2BinFieldStrc;
+
 struct D2ItemTypesTxt;
+
 struct SMSGHANDLER_PARAMS;
+
 struct Unicode;
+
 struct D2WinSmackStrc;
+
 struct D2WinListDataStrc;
+
 struct D2WinListStrc;
+
 struct D2WinAccountListStrc;
+
 struct D2WinAccountListFontStrc;
+
 struct D2WinProgressBarStrc;
+
 struct D2WinScrollBarStrc;
 
-
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+
 void __fastcall D2COMP_UnlinkCompositeUnit(D2CompositeUnitStrc* pCompositeUnit); // 0x00504100
 
 struct D2PaletteRecordStrc
@@ -46,25 +73,37 @@ struct D2PaletteRecordStrc
     unsigned char ab[0x100];
 };
 
-extern D2CompositeUnitStrc* gpCompositeUnitList_0087E838; // 0x0087E838
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
-extern D2TxtLinkStrc* gpHitClassLinker_0087D820; // 0x0087D820
-extern D2TxtLinkStrc* gpCompItemsLinker_0087D824; // 0x0087D824
-extern D2TxtLinkStrc* gpItemTypesLinker_0087D828; // 0x0087D828
-extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
+D2CompositeUnitStrc* gpCompositeUnitList_0087E838;                                                          // 0x0087E838
 
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
+
+extern D2TxtLinkStrc* gpHitClassLinker_0087D820; // 0x0087D820
+
+extern D2TxtLinkStrc* gpCompItemsLinker_0087D824; // 0x0087D824
+
+extern D2TxtLinkStrc* gpItemTypesLinker_0087D828; // 0x0087D828
+
+D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 
 extern "C" const char szItemTypesFieldCode_006DCCE0[]; // 0x006DCCE0
-extern "C" const char szItemTypesFieldEquiv1_006DCD14[]; // 0x006DCD14
-extern "C" const char szItemTypesFieldEquiv2_006DCD0C[]; // 0x006DCD0C
-extern "C" const char szBinFieldEnd_006D9060[]; // 0x006D9060
-extern "C" const char szItemTypesTable_006DCD00[]; // 0x006DCD00
-extern void* gpItemTypesTxt_0087D82C; // 0x0087D82C
-extern int gnItemTypesTxtRecordCount_0087D830; // 0x0087D830
-D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine); // 0x006BD040
-void* __stdcall D2COMP_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount, int nRecordSize); // 0x00504430
 
+extern "C" const char szItemTypesFieldEquiv1_006DCD14[]; // 0x006DCD14
+
+extern "C" const char szItemTypesFieldEquiv2_006DCD0C[]; // 0x006DCD0C
+
+extern "C" const char szBinFieldEnd_006D9060[]; // 0x006D9060
+
+extern "C" const char szItemTypesTable_006DCD00[]; // 0x006DCD00
+
+extern void* gpItemTypesTxt_0087D82C; // 0x0087D82C
+
+extern int gnItemTypesTxtRecordCount_0087D830; // 0x0087D830
+
+D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine); // 0x006BD040
+
+void* __stdcall D2COMP_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount, int nRecordSize); // 0x00504430
 
 enum D2ControlTypes
 {
@@ -82,9 +121,6 @@ enum D2ControlTypes
     D2WIN_ACCOUNTLIST = 12,
     D2WIN_IMAGE2 = 13,
 };
-
-
-#include "D2Unicode.h"
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
@@ -121,35 +157,170 @@ struct D2WinProgressBarStrc
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
+
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
+
 int __stdcall SMsgRegisterCommand(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420BF0
+
 int __stdcall SMsgRegisterKeyDown(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C10
+
 int __stdcall SMsgRegisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C30
+
 int __stdcall SMsgRegisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C50
+
 int __stdcall SMsgUnregisterCommand(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C70
+
 int __stdcall SMsgUnregisterKeyDown(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C90
+
 int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CB0
+
 int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CD0
+
 void __stdcall WINDOW_DecodeSmacker(const char* szSmacker, unsigned char* pBuffer, int nVersion); // 0x004F5E00
+
 void __stdcall WINDOW_CloseSmacker(void* pContext); // 0x004F5E80
+
 int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
+
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
+
 const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
+
 int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00507A10
+
 int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl); // 0x00507B30
+
 int __fastcall PROGRESSBAR_Draw(D2WinControlStrc* pControl); // 0x00507DC0
+
 int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00508120
+
 int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl); // 0x00508370
+
 extern unsigned int gdwBitMasks[]; // 0x006CE268
+
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
+
 extern char gszSmackFileName_0087E860[260]; // 0x0087E860
+
 extern char gnSmackVersion_0087E964; // 0x0087E964
+
 extern int gbSmackKeepFile_0087E968; // 0x0087E968
+
 int __stdcall SCROLLBAR_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);
 
-D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
+struct D2FontStrc;
+
+struct D2CharStrc;
+
+struct D2WinTimerStrc
+{
+    D2WinControlStrc controlHeader;
+    unsigned int nTimeout;
+    unsigned int dwTickCount;
+};
+
+struct D2WinPopUpLineStrc
+{
+    Unicode wszText[64];
+    void (__stdcall* pfHandleMouseInput)();
+};
+
+struct D2WinPopUpStrc
+{
+    D2WinControlStrc controlHeader;
+    int nLines;
+    D2WinPopUpLineStrc lines[8];
+    int nCurrentLine;
+};
+
+struct D2EmblemColorStrc
+{
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+};
+
+extern "C" __declspec(dllimport) int __stdcall GlobalUnlock(void* hMem);                                    // 0x006CC364
+
+extern "C" __declspec(dllimport) void* __stdcall GlobalLock(void* hMem);                                    // 0x006CC368
+
+extern "C" __declspec(dllimport) void* __stdcall GlobalAlloc(unsigned int uFlags, unsigned int dwBytes);    // 0x006CC36C
+
+extern "C" __declspec(dllimport) void* __stdcall GlobalFree(void* hMem);                                    // 0x006CC370
+
+extern "C" __declspec(dllimport) void* __stdcall GetClipboardData(unsigned int uFormat);                    // 0x006CC454
+
+extern "C" __declspec(dllimport) int __stdcall CloseClipboard();                                            // 0x006CC51C
+
+extern "C" __declspec(dllimport) int __stdcall OpenClipboard(void* hWnd);                                   // 0x006CC524
+
+extern "C" __declspec(dllimport) int __stdcall IsClipboardFormatAvailable(unsigned int uFormat);            // 0x006CC528
+
+extern "C" __declspec(dllimport) void* __stdcall SetClipboardData(unsigned int uFormat, void* hMem);        // 0x006CC52C
+
+extern "C" __declspec(dllimport) int __stdcall EmptyClipboard();                                            // 0x006CC530
+
+void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
+
+int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack);                                                     // 0x00506990
+
+int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
+
+extern D2EmblemColorStrc gaEmblemColorRGB1_0072E19C[10];                                                    // 0x0072E19C
+
+extern D2EmblemColorStrc gaEmblemColorRGB2_0072E1BC[10];                                                    // 0x0072E1BC
+
+extern unsigned char gabEmblemColor1_0087D810[];                                                            // 0x0087D810
+
+extern unsigned char gabEmblemColor2_0087E82C[];                                                            // 0x0087E82C
+
+struct D2CelStrc;
+
+struct D2WinImageClickRectStrc;
+
+struct D2WinImage2Strc
+{
+    D2WinControlStrc controlHeader;
+    int nFrame;
+    int eDrawMode;
+    D2WinImageClickRectStrc* pClickRect;
+};
+
+struct D2AnimatedImageDescriptor;
+
+struct D2CompPairStrc
+{
+    int nKey;
+    int nValue;
+};
+
+int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
+
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
+
+extern D2CompPairStrc gaCompPairs_0072EF68[];                                                               // 0x0072EF68
+
+extern unsigned int gnCompPairs_0072EFD0;                                                                   // 0x0072EFD0
+
+extern D2CharStrc* (__fastcall* gpfGetCharInfo_00841DA0)(int nChar);                                        // 0x00841DA0
+
+extern D2CelFileStrc* ghSquelchCelFile_0087E844;                                                            // 0x0087E844
+
+extern int gnSquelchCelFileFrameCount_0087E848;                                                             // 0x0087E848
+
+extern D2CelFileStrc* ghSelectedCelFile_0087E850;                                                           // 0x0087E850
+
+extern int gnSelectedCelFileFrameCount_0087E854;                                                            // 0x0087E854
+
+unsigned char gabItemPalettes_00842710[9][0x6900]; // 0x00842710
+
+unsigned long gdwListLastClickTick_0087E970; // 0x0087E970
 
 // 0x00503410
 static void __stdcall D2COMP_ReleaseCofNode(int bFree, D2CofNodeStrc* pCofNode)
@@ -189,8 +360,6 @@ static void __stdcall D2COMP_ReleaseCofNode(int bFree, D2CofNodeStrc* pCofNode)
 
     FOG_Free(pCofNode, ".\\Src\\D2Comp.cpp", 0x47A, 0);
 }
-
-unsigned char gabItemPalettes_00842710[9][0x6900]; // 0x00842710
 
 // 0x005038D0
 unsigned char* __fastcall D2COMP_GetComponentPalette(int nColor)
@@ -278,31 +447,6 @@ int* __cdecl D2COMP_AllocGfxInfo()
     return pValue;
 }
 
-// 0x005043D0
-void __stdcall sub_005043D0_Stub4(int a1, int a2, int a3, int a4)
-{
-}
-
-// 0x005049D0
-void __stdcall D2COMP_FreeLinkers()
-{
-    if (gpCompItemsLinker_0087D824)
-    {
-        FOG_FreeLinker(gpCompItemsLinker_0087D824);
-        gpCompItemsLinker_0087D824 = 0;
-    }
-    if (gpItemTypesLinker_0087D828)
-    {
-        FOG_FreeLinker(gpItemTypesLinker_0087D828);
-        gpItemTypesLinker_0087D828 = 0;
-    }
-    if (gpHitClassLinker_0087D820)
-    {
-        FOG_FreeLinker(gpHitClassLinker_0087D820);
-        gpHitClassLinker_0087D820 = 0;
-    }
-}
-
 // 0x005041B0
 void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink)
 {
@@ -338,6 +482,65 @@ void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, 
         D2COMP_UnlinkCompositeUnit(pCompositeUnit);
 }
 
+// 0x00504270
+void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* a2, const Unicode* a3, const Unicode* a4, const Unicode* a5, int a6, int a7)
+{
+    D2_ASSERT(hCompositeUnit, 0x8A8);
+    sub_005267E0((Unicode*)hCompositeUnit->wszAccountName, a2);
+    sub_005267E0((Unicode*)hCompositeUnit->wszCharName, a3);
+    sub_005267E0((Unicode*)hCompositeUnit->wszGuildTag, a4);
+    sub_005267E0((Unicode*)hCompositeUnit->wszRealmName, a5);
+    hCompositeUnit->nCharLevel = a6;
+    hCompositeUnit->dwProductCode = a7;
+}
+
+// build: context sub_D2Win_10143_ApplyCof
+static int sub_D2Win_10143_ApplyCof(D2CompositeUnitStrc* pCompositeUnit, D2CofNodeStrc* pCofNode, int nMode)
+{
+    D2CofDataStrc* pCofData = pCofNode->pCofData;
+    D2_ASSERT(pCofData, 0x3DD);
+    pCompositeUnit->nMode = nMode;
+    pCompositeUnit->nFrameCount = pCofData->nFramesPerDirection;
+    pCompositeUnit->nFrame = 0;
+    pCompositeUnit->nAnimSpeed = pCofData->nAnimSpeed;
+    pCompositeUnit->nDirections = pCofData->nDirections;
+    return 1;
+}
+
+// 0x005042F0
+int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode)
+{
+    D2_ASSERT(pCompositeUnit, 0x8BF);
+    for (D2CofInfoStrc* pCofInfo = pCompositeUnit->pGfxInfo->pCofInfo; pCofInfo; pCofInfo = pCofInfo->pNext)
+    {
+        if (pCofInfo->pCofNode->nMode == nMode)
+            return sub_D2Win_10143_ApplyCof(pCompositeUnit, pCofInfo->pCofNode, nMode);
+    }
+    return 0;
+}
+
+// 0x00504370
+int __stdcall D2COMP_GetPairValue(int nKey)
+{
+    for (unsigned int i = 0; i < gnCompPairs_0072EFD0; ++i)
+    {
+        if (nKey == gaCompPairs_0072EF68[i].nKey)
+            return gaCompPairs_0072EF68[i].nValue;
+    }
+    return 0;
+}
+
+// 0x005043B0
+void __stdcall D2COMP_FreePoolMemory(void* pMemory)
+{
+    FOG_FreePool(0, pMemory, ".\\Src\\D2Comp.cpp", 0x939, 0);
+}
+
+// 0x005043D0
+void __stdcall sub_005043D0_Stub4(int a1, int a2, int a3, int a4)
+{
+}
+
 // 0x00504920
 void __fastcall D2COMP_LoadItemTypes(void* hArchive)
 {
@@ -351,6 +554,26 @@ void __fastcall D2COMP_LoadItemTypes(void* hArchive)
 
     gpItemTypesLinker_0087D828 = sub_006BD040(".\\Src\\D2Comp.cpp", 0xA97);
     gpItemTypesTxt_0087D82C = D2COMP_CompileTxt(hArchive, szItemTypesTable_006DCD00, aItemTypesFields, &gnItemTypesTxtRecordCount_0087D830, 0xE4);
+}
+
+// 0x005049D0
+void __stdcall D2COMP_FreeLinkers()
+{
+    if (gpCompItemsLinker_0087D824)
+    {
+        FOG_FreeLinker(gpCompItemsLinker_0087D824);
+        gpCompItemsLinker_0087D824 = 0;
+    }
+    if (gpItemTypesLinker_0087D828)
+    {
+        FOG_FreeLinker(gpItemTypesLinker_0087D828);
+        gpItemTypesLinker_0087D828 = 0;
+    }
+    if (gpHitClassLinker_0087D820)
+    {
+        FOG_FreeLinker(gpHitClassLinker_0087D820);
+        gpHitClassLinker_0087D820 = 0;
+    }
 }
 
 // 0x00504A20
@@ -399,13 +622,102 @@ int __stdcall D2COMP_IsItemTypeDescendant(int a1, int nItemType)
     return 0;
 }
 
-unsigned long gdwListLastClickTick_0087E970; // 0x0087E970
+// 0x00504D30
+void __stdcall D2Win_10159(D2CelFileStrc* pSquelchCelFile, D2CelFileStrc* pSelectedCelFile)
+{
+    ghSquelchCelFile_0087E844 = pSquelchCelFile;
+    gnSquelchCelFileFrameCount_0087E848 = CelFileGetCelsPerDirection(pSquelchCelFile);
+    ghSelectedCelFile_0087E850 = pSelectedCelFile;
+    gnSelectedCelFileFrameCount_0087E854 = CelFileGetCelsPerDirection(pSelectedCelFile);
+}
+
+// 0x00505100
+void __stdcall D2Win_10146()
+{
+    D2CompositeUnitStrc* pCompositeUnit = gpCompositeUnitList_0087E838;
+    while (pCompositeUnit)
+    {
+        D2CompositeUnitStrc* pNext = pCompositeUnit->pNext;
+        D2Win_10142_CompUnitDestroy(pCompositeUnit, 0);
+        FOG_Free(pCompositeUnit, ".\\Src\\D2Comp.cpp", 0xD38, 0);
+        pCompositeUnit = pNext;
+    }
+    gpCompositeUnitList_0087E838 = 0;
+}
+
+// 0x00505160
+D2CompositeUnitStrc* __stdcall D2Win_10148(D2CompositeUnitStrc* ptUnit)
+{
+    D2_ASSERT(ptUnit, 0xD4C);
+    return ptUnit->pNext;
+}
+
+// 0x005051A0
+void __stdcall D2Win_10149(D2CompositeUnitStrc* ptUnit, unsigned char nValue)
+{
+    D2_ASSERT(ptUnit, 0xD57);
+    const int nLow = nValue > 0 ? nValue : 0;
+    ptUnit->nDirection = nLow < ptUnit->nDirections ? (nValue > 0 ? nValue : 0) : ptUnit->nDirections;
+}
+
+// 0x00505200
+unsigned char __stdcall D2Win_10150(D2CompositeUnitStrc* ptUnit)
+{
+    D2_ASSERT(ptUnit, 0xD61);
+    return ptUnit->nDirections;
+}
+
+// 0x00505230
+int __stdcall D2Win_10169(D2CompositeUnitStrc* ptUnit)
+{
+    D2_ASSERT(ptUnit, 0xD6B);
+    return ptUnit->nFrameCount;
+}
+
+// 0x00505260
+void __stdcall D2Win_10151(D2CompositeUnitStrc* ptUnit, int nFrame)
+{
+    D2_ASSERT(ptUnit, 0xD76);
+    const int nValue = nFrame > 0 ? nFrame : 0;
+    const int nMax = ptUnit->nFrameCount << 8;
+    ptUnit->nFrame = nValue < nMax ? nValue : nMax;
+}
+
+// 0x005052B0
+void __stdcall D2Win_10152(D2CompositeUnitStrc* ptUnit, int nX)
+{
+    D2_ASSERT(ptUnit, 0xD81);
+    ptUnit->nX = nX;
+}
+
+// 0x005052F0
+void __stdcall D2Win_10153(D2CompositeUnitStrc* ptUnit, int nY)
+{
+    D2_ASSERT(ptUnit, 0xD8C);
+    ptUnit->nY = nY;
+}
+
+// 0x00505330
+unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* hCompositeUnit)
+{
+    D2_ASSERT(hCompositeUnit, 0xD95);
+    return hCompositeUnit->dwFlags;
+}
 
 // 0x00505360
 void __stdcall D2Win_10156(D2CompositeUnitStrc* hCompositeUnit, int nFlags)
 {
     D2_ASSERT(hCompositeUnit, 0xDA2);
     hCompositeUnit->dwFlags = nFlags;
+}
+
+// 0x005055D0
+void __fastcall D2COMP_InitEmblemColorTables()
+{
+    for (int i = 0; i < 10; ++i)
+        gabEmblemColor1_0087D810[i] = D2Win_10034_MixRGB(gaEmblemColorRGB1_0072E19C[i].nRed, gaEmblemColorRGB1_0072E19C[i].nGreen, gaEmblemColorRGB1_0072E19C[i].nBlue);
+    for (int i = 0; i < 10; ++i)
+        gabEmblemColor2_0087E82C[i] = D2Win_10034_MixRGB(gaEmblemColorRGB2_0072E1BC[i].nRed, gaEmblemColorRGB2_0072E1BC[i].nGreen, gaEmblemColorRGB2_0072E1BC[i].nBlue);
 }
 
 // 0x005068A0
@@ -753,3 +1065,5 @@ D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int 
     CONTROL_AppendToList(&pScrollBar->controlHeader);
     return pScrollBar;
 }
+
+#include "gen/data/Source/D2Win/Src/D2Comp.inc"
