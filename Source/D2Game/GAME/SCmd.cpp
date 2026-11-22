@@ -1,19 +1,62 @@
 #include "D2StateIds.h"
 #include "D2StatIds.h"
+#include "D2MonModes.h"
 #include "D2Game.h"
-#include "D2GameRecords.h"
-#include "D2UnitData.h"
 #include "D2Structs.h"
-#include "D2Path.h"
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
+#include "D2UnitData.h"
+#include "D2GameRecords.h"
+#include "D2Path.h"
 #include "D2Primitives.h"
 #include "D2GameObjs.h"
 #include "D2GameClient.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2MonsterDataStrc;
+
+struct D2GSPacketSrvB1;
+
+void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
+
+void __fastcall OBJECTS_RemoveAll(D2GameStrc* pGame); // 0x00552A40
+
+void __fastcall PLAYER_RemoveAllPlayers(D2GameStrc* pGame); // 0x00534A50
+
+void __fastcall ITEMS_RemoveAll(D2GameStrc* pGame); // 0x00557F10
+
+void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame); // 0x0059F840
+
+void __fastcall sub_00555770_RemoveAllTiles(D2GameStrc* pGame); // 0x00555770
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
+
+int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
+
+#pragma pack(push, 1)
+
+struct D2GSPacketSrvB1
+{
+    unsigned char nHeader;
+    char szGameName[48];
+    unsigned short nClientCount;
+    unsigned short nGameId;
+};
+
+#pragma pack(pop)
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 #define ITEMACTION_REMOVEFROMCONTAINER 5
 
@@ -35,11 +78,8 @@
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-#define UNIT_MONSTER 1
 
-#define UNIT_TYPES_COUNT 6
 
-#define UNIT_PLAYER 0
 
 #define ITEMACTION_ADDTOGROUND 0
 
@@ -75,7 +115,6 @@
 
 #define IFLAG_QUANTITY 0x00000020
 
-#define STAT_GOLD 14
 
 struct D2GSPacketSrvB0;
 
@@ -213,8 +252,6 @@ struct D2GSPacketSrv90;
 
 struct D2LifeSyncStrc;
 
-struct D2MonsterDataStrc;
-
 struct D2PlayerDataStrc;
 
 struct D2GSPacketSrv3E;
@@ -309,23 +346,15 @@ struct D2GSPacketSrvA6;
 
 struct D2GSPacketSrvAE;
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
-
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
-
 #pragma pack(push, 1)
+
 struct D2UnitUpdateEntry
 {
     int nFirst;
     int nSecond;
     unsigned char nType;
 };
+
 #pragma pack(pop)
 
 void __fastcall D2GAME_SendPacket0x9D_6FC3E6F0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053CEF0
@@ -349,27 +378,33 @@ struct D2GSPacketSrv06
 };
 
 #pragma pack(push, 1)
+
 struct D2PacketHeaderOnlyStrc
 {
     unsigned char nHeader;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2PacketSize06Strc
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     int nUnitGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2PacketSize05Strc
 {
     unsigned char nHeader;
     int nValue;
 };
+
 #pragma pack(pop)
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
@@ -383,6 +418,7 @@ D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetTail(D2ClientStrc* pClien
 void __fastcall CLIENTS_PacketDataList_Append(D2ClientStrc* pClient, D2PacketDataStrc* pPacketData); // 0x00539240
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv01
 {
     unsigned char nHeader;
@@ -391,60 +427,74 @@ struct D2GSPacketSrv01
     unsigned char nExpansion;
     unsigned char nLadder;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv1A
 {
     unsigned char nHeader;
     unsigned char nExperience;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv1B
 {
     unsigned char nHeader;
     unsigned short nExperience;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv1C
 {
     unsigned char nHeader;
     unsigned int nExperience;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv1D
 {
     unsigned char nHeader;
     unsigned char nStat;
     unsigned char nValue;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv1E
 {
     unsigned char nHeader;
     unsigned char nStat;
     unsigned short nValue;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv1F
 {
     unsigned char nHeader;
     unsigned char nStat;
     unsigned int nValue;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv69
 {
     unsigned char nHeader;
@@ -455,9 +505,11 @@ struct D2GSPacketSrv69
     unsigned char unk0x0A;
     unsigned char unk0x0B;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv6A
 {
     unsigned char nHeader;
@@ -467,9 +519,11 @@ struct D2GSPacketSrv6A
     unsigned int nTargetUnitGuid;
     unsigned char nDirection;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv6B
 {
     unsigned char nHeader;
@@ -482,9 +536,11 @@ struct D2GSPacketSrv6B
     unsigned short unk0x0C;
     unsigned short unk0x0E;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv6C
 {
     unsigned char nHeader;
@@ -496,9 +552,11 @@ struct D2GSPacketSrv6C
     unsigned short unk0x0C;
     unsigned short unk0x0E;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv6D
 {
     unsigned char nHeader;
@@ -507,9 +565,11 @@ struct D2GSPacketSrv6D
     unsigned short unk0x07;
     unsigned char unk0x09;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv67
 {
     unsigned char nHeader;
@@ -523,9 +583,11 @@ struct D2GSPacketSrv67
     short nVelocity;
     char unk0x0F;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv68
 {
     unsigned char nHeader;
@@ -541,9 +603,11 @@ struct D2GSPacketSrv68
     short nVelocity;
     char unk0x14;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv9E
 {
     unsigned char nHeader;
@@ -551,9 +615,11 @@ struct D2GSPacketSrv9E
     unsigned int dwGUID;
     unsigned char nValue;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv9F
 {
     unsigned char nHeader;
@@ -561,9 +627,11 @@ struct D2GSPacketSrv9F
     unsigned int dwGUID;
     unsigned short nValue;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA0
 {
     unsigned char nHeader;
@@ -571,9 +639,11 @@ struct D2GSPacketSrvA0
     unsigned int dwGUID;
     unsigned int nValue;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA1
 {
     unsigned char nHeader;
@@ -581,9 +651,11 @@ struct D2GSPacketSrvA1
     unsigned int dwGUID;
     unsigned char nValue;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA2
 {
     unsigned char nHeader;
@@ -591,6 +663,7 @@ struct D2GSPacketSrvA2
     unsigned int dwGUID;
     unsigned short nValue;
 };
+
 #pragma pack(pop)
 
 unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame); // 0x0053FD40
@@ -612,6 +685,7 @@ int __stdcall sub_00648A60_GetTargetY(D2DynamicPathStrc* pPath); // 0x00648A60
 unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pPath); // 0x00648EA0
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv03Strc
 {
     unsigned char nHeader;
@@ -620,9 +694,11 @@ struct D2GSPacketSrv03Strc
     unsigned short nTownLevelId;
     unsigned int nObjectSeed;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv0C
 {
     unsigned char nHeader;
@@ -632,9 +708,11 @@ struct D2GSPacketSrv0C
     unsigned char nHitClass;
     unsigned char nLife;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv0D
 {
     unsigned char nHeader;
@@ -646,9 +724,11 @@ struct D2GSPacketSrv0D
     unsigned char nHitType;
     unsigned char nUnitLifePct;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv15
 {
     unsigned char nHeader;
@@ -658,9 +738,11 @@ struct D2GSPacketSrv15
     unsigned short nPosY;
     unsigned char bReassign;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv07
 {
     unsigned char nHeader;
@@ -668,9 +750,11 @@ struct D2GSPacketSrv07
     unsigned short nY;
     unsigned char nLevelId;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv21
 {
     unsigned char nHeader;
@@ -682,9 +766,11 @@ struct D2GSPacketSrv21
     unsigned char nBonusSkillLevel;
     unsigned char unk0x0B;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv23
 {
     unsigned char nHeader;
@@ -694,9 +780,11 @@ struct D2GSPacketSrv23
     unsigned short nSkill;
     unsigned int nOwnerGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv3F
 {
     unsigned char nHeader;
@@ -704,9 +792,11 @@ struct D2GSPacketSrv3F
     unsigned int dwItemId;
     unsigned short nSkill;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv57
 {
     unsigned char nHeader;
@@ -717,9 +807,11 @@ struct D2GSPacketSrv57
     unsigned short nUMods23;
     unsigned short bChampion;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv99
 {
     unsigned char nHeader;
@@ -731,9 +823,11 @@ struct D2GSPacketSrv99
     int nUnitGUID;
     unsigned short nItemEffect;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv9A
 {
     unsigned char nHeader;
@@ -745,6 +839,7 @@ struct D2GSPacketSrv9A
     unsigned short nY;
     unsigned short nItemEffect;
 };
+
 #pragma pack(pop)
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
@@ -760,6 +855,7 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv0EStrc
 {
     unsigned char nHeader;
@@ -769,9 +865,11 @@ struct D2GSPacketSrv0EStrc
     unsigned char a6;
     int nAnimMode;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv10Strc
 {
     unsigned char nHeader;
@@ -783,9 +881,11 @@ struct D2GSPacketSrv10Strc
     short nCurrentPosX;
     short nCurrentPosY;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv0FStrc
 {
     unsigned char nHeader;
@@ -798,6 +898,7 @@ struct D2GSPacketSrv0FStrc
     short nCurrentPosX;
     short nCurrentPosY;
 };
+
 #pragma pack(pop)
 
 struct FieldStrc_005A6220
@@ -807,6 +908,7 @@ struct FieldStrc_005A6220
 };
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv08
 {
     unsigned char nHeader;
@@ -814,9 +916,11 @@ struct D2GSPacketSrv08
     unsigned short nY;
     unsigned char nLevelId;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv09
 {
     unsigned char nHeader;
@@ -826,9 +930,11 @@ struct D2GSPacketSrv09
     unsigned short nPosX;
     unsigned short nPosY;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv51
 {
     unsigned char nHeader;
@@ -840,33 +946,40 @@ struct D2GSPacketSrv51
     unsigned char nObjectParam;
     unsigned char nInteractType;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct PacketA1
 {
     unsigned char header,stat;
     int guid;
     unsigned char value;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct PacketA2
 {
     unsigned char header,stat;
     int guid;
     unsigned short value;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct PacketA0
 {
     unsigned char header,stat;
     int guid;
     unsigned int value;
 };
+
 #pragma pack(pop)
 
 extern const char text_006CC837[]; // 0x006CC837
@@ -878,6 +991,7 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA3
 {
     unsigned char nHeader;
@@ -891,9 +1005,11 @@ struct D2GSPacketSrvA3
     unsigned int unk0x10;
     unsigned int unk0x14;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvAB
 {
     unsigned char nHeader;
@@ -901,9 +1017,11 @@ struct D2GSPacketSrvAB
     unsigned int dwUnitGUID;
     unsigned char nLife;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA5
 {
     unsigned char nHeader;
@@ -911,9 +1029,11 @@ struct D2GSPacketSrvA5
     int unk0x02;
     unsigned short unk0x06;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv22
 {
     unsigned char nHeader;
@@ -925,34 +1045,42 @@ struct D2GSPacketSrv22
     unsigned char unk0x0A;
     unsigned char bIsCorpse;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv5C
 {
     unsigned char nHeader;
     unsigned int dwPlayerGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv77
 {
     unsigned char nHeader;
     unsigned char nAction;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv78
 {
     unsigned char nHeader;
     char szName[16];
     unsigned int dwPlayerGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv7A
 {
     unsigned char nHeader;
@@ -962,9 +1090,11 @@ struct D2GSPacketSrv7A
     unsigned int unk0x05;
     unsigned int unk0x09;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv81
 {
     unsigned char nHeader;
@@ -975,6 +1105,7 @@ struct D2GSPacketSrv81
     unsigned int unk0x0C;
     unsigned int unk0x10;
 };
+
 #pragma pack(pop)
 
 struct D2GSPacketSrv27
@@ -1025,6 +1156,7 @@ struct D2GSPacketSrv26
 };
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv20Strc
 {
     unsigned char nHeader;
@@ -1032,15 +1164,15 @@ struct D2GSPacketSrv20Strc
     unsigned char nStat;
     int nValue;
 };
+
 #pragma pack(pop)
 
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 
-void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
-
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv23Strc
 {
     unsigned char nHeader;
@@ -1050,9 +1182,11 @@ struct D2GSPacketSrv23Strc
     unsigned short nSkill;
     int nOwnerGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv93Strc
 {
     unsigned char nHeader;
@@ -1061,18 +1195,22 @@ struct D2GSPacketSrv93Strc
     unsigned char nCharClass;
     unsigned char nSkillTab;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv79
 {
     unsigned char nHeader;
     unsigned char bOwnGold;
     unsigned int dwGold;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv7F
 {
     unsigned char nHeader;
@@ -1081,9 +1219,11 @@ struct D2GSPacketSrv7F
     int nUnitGUID;
     unsigned short nLevelId;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv90
 {
     unsigned char nHeader;
@@ -1091,6 +1231,7 @@ struct D2GSPacketSrv90
     int dwPosX;
     int dwPosY;
 };
+
 #pragma pack(pop)
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
@@ -1119,15 +1260,18 @@ struct D2GSPacketSrv3E
 void __fastcall sub_0053B0E0_WriteVarLength(D2BitBufferStrc* pBuffer, unsigned int nValue); // 0x0053B0E0
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv42
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     unsigned int dwUnitGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv47
 {
     unsigned char nHeader;
@@ -1136,9 +1280,11 @@ struct D2GSPacketSrv47
     unsigned int nUnitGUID;
     unsigned int unk0x07;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv48
 {
     unsigned char nHeader;
@@ -1147,6 +1293,7 @@ struct D2GSPacketSrv48
     unsigned int nUnitGUID;
     unsigned int unk0x07;
 };
+
 #pragma pack(pop)
 
 void __fastcall D2GAME_SendPacket0x9C_6FC3E570(D2ClientStrc* pClient, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053EAE0
@@ -1165,13 +1312,12 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 int __fastcall OBJECTS_GetUnitIdFromTimerArg(D2UnitStrc* pUnit); // 0x00552B10
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
 unsigned short __fastcall PLAYERLIST_GetFlags(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B350
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv7D
 {
     unsigned char nHeader;
@@ -1181,9 +1327,11 @@ struct D2GSPacketSrv7D
     int unk0x0A;
     int unk0x0E;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv28
 {
     unsigned char nHeader;
@@ -1192,17 +1340,21 @@ struct D2GSPacketSrv28
     unsigned char unk0x06;
     unsigned char pData[96];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv29
 {
     unsigned char nHeader;
     unsigned char pData[96];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv5D
 {
     unsigned char nHeader;
@@ -1211,9 +1363,11 @@ struct D2GSPacketSrv5D
     unsigned char nState;
     unsigned short field_4;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv2C
 {
     unsigned char nHeader;
@@ -1221,18 +1375,22 @@ struct D2GSPacketSrv2C
     int dwUnitGUID;
     unsigned short nSoundEvent;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv4E
 {
     unsigned char nHeader;
     unsigned short nMercName;
     int nSeed;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv50
 {
     unsigned char nHeader;
@@ -1242,25 +1400,31 @@ struct D2GSPacketSrv50
     unsigned short nBarbsToBeRescued;
     unsigned char unk0x09[6];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv5E
 {
     unsigned char nHeader;
     unsigned char unk0x001[37];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv52
 {
     unsigned char nHeader;
     unsigned char pQuestList[41];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv11
 {
     unsigned char nHeader;
@@ -1268,9 +1432,11 @@ struct D2GSPacketSrv11
     int dwUnitGUID;
     unsigned short unk0x06;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv58
 {
     unsigned char nHeader;
@@ -1278,9 +1444,11 @@ struct D2GSPacketSrv58
     unsigned char unk0x05;
     unsigned char unk0x06;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv60
 {
     unsigned char nHeader;
@@ -1288,17 +1456,21 @@ struct D2GSPacketSrv60
     unsigned char nLevel;
     int dwUnitGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv61
 {
     unsigned char nHeader;
     unsigned char unk0x01;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv73
 {
     unsigned char nHeader;
@@ -1314,9 +1486,11 @@ struct D2GSPacketSrv73
     unsigned char nLevel;
     unsigned char nPierce;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv75
 {
     unsigned char nHeader;
@@ -1326,9 +1500,11 @@ struct D2GSPacketSrv75
     unsigned short nFlags;
     unsigned short unk0x0B;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv7B
 {
     unsigned char nHeader;
@@ -1336,17 +1512,21 @@ struct D2GSPacketSrv7B
     unsigned short nSkill;
     int nItemGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv7E
 {
     unsigned char nHeader;
     unsigned int unk0x01;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv82
 {
     unsigned char nHeader;
@@ -1355,9 +1535,11 @@ struct D2GSPacketSrv82
     int dwPortalGUID0;
     int dwPortalGUID1;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv8E
 {
     unsigned char nHeader;
@@ -1365,26 +1547,32 @@ struct D2GSPacketSrv8E
     int dwPlayerGUID;
     int dwCorpseGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv89
 {
     unsigned char nHeader;
     unsigned char nEvent;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv8A
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     int dwUnitGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2PacketInteractStrc
 {
     unsigned char nHeader;
@@ -1392,9 +1580,11 @@ struct D2PacketInteractStrc
     int nUnitGUID;
     unsigned char unk0x06;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2PacketSrv2AStrc
 {
     unsigned char nHeader;
@@ -1404,18 +1594,22 @@ struct D2PacketSrv2AStrc
     int nUnitGUID;
     int nGold;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv65Strc
 {
     unsigned char nHeader;
     unsigned int dwUnitId;
     unsigned short nKillCount;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv74
 {
     unsigned char nHeader;
@@ -1423,59 +1617,73 @@ struct D2GSPacketSrv74
     int nPlayerGUID;
     int nCorpseGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv8BStrc
 {
     unsigned char nHeader;
     int nUnitGUID;
     unsigned char bParty;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv8F
 {
     unsigned char nHeader;
     unsigned int unk0x01[8];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv98
 {
     unsigned char nHeader;
     unsigned int unk0x01;
     unsigned short unk0x05;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv9B
 {
     unsigned char nHeader;
     unsigned short unk0x01;
     int unk0x03;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv97
 {
     unsigned char nHeader;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA4
 {
     unsigned char nHeader;
     short unk0x01;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA7
 {
     unsigned char nHeader;
@@ -1483,9 +1691,11 @@ struct D2GSPacketSrvA7
     int nUnitId;
     unsigned char nState;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvA9
 {
     unsigned char nHeader;
@@ -1493,9 +1703,11 @@ struct D2GSPacketSrvA9
     int nUnitId;
     unsigned char nState;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv59
 {
     unsigned char nHeader;
@@ -1505,17 +1717,21 @@ struct D2GSPacketSrv59
     short nPosX;
     short nPosY;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv19
 {
     unsigned char nHeader;
     unsigned char nGold;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv9C
 {
     unsigned char nHeader;
@@ -1525,6 +1741,7 @@ struct D2GSPacketSrv9C
     int nItemId;
     unsigned char pBitstream[244];
 };
+
 #pragma pack(pop)
 
 void __fastcall SCMD_Send0x75_PartyRosterUpdate(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0053DA90
@@ -1540,6 +1757,7 @@ int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* p
 int __fastcall sub_0053EA50_SendSocketedItems(D2ClientStrc* pClient, D2UnitStrc* pItem, int nFlags); // 0x0053EA50
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv16
 {
     unsigned char nHeader;
@@ -1547,6 +1765,7 @@ struct D2GSPacketSrv16
     unsigned char nCount;
     D2UnitUpdateEntry entries[1];
 };
+
 #pragma pack(pop)
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc*); // 0x005392E0
@@ -1561,12 +1780,14 @@ struct D2GSPacketSrvA6
 };
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvAE
 {
     unsigned char nHeader;
     unsigned short nSize;
     unsigned char data[0x1FD];
 };
+
 #pragma pack(pop)
 
 struct D2PacketTarget3FStrc;
@@ -1576,6 +1797,7 @@ static int __stdcall sub_0053CC40_ShouldSendMinionLifeUpdate(D2UnitStrc*, D2Unit
 static int __stdcall SCMD_ShouldSendPartyLifeUpdate(D2UnitStrc* pUnit, int nLifePercentage, int nLevelId, D2UnitStrc* pPlayer); // 0x0053CC90
 
 #pragma pack(push, 1)
+
 struct D2PacketTarget3FStrc
 {
     unsigned char nHeader;
@@ -1583,6 +1805,7 @@ struct D2PacketTarget3FStrc
     int nUnitGUID;
     unsigned short nValue;
 };
+
 #pragma pack(pop)
 
 static void __stdcall D2GAME_PACKETS_SendPacket_6FC3C710(D2ClientStrc* pClient, const void* pPacket, int nPacketSize); // 0x0053B280
@@ -1600,20 +1823,24 @@ void __fastcall D2GAME_SendPacketSize05_6FC3C880(D2ClientStrc* pClient, unsigned
 struct D2SkillListStrc;
 
 #pragma pack(push, 1)
+
 struct D2SkillPacketEntryStrc
 {
     unsigned short nSkill;
     unsigned char nLevel;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv94
 {
     unsigned char nHeader;
     unsigned char nCount;
     int nGUID;
 };
+
 #pragma pack(pop)
 
 D2SkillStrc* __stdcall SKILLS_GetNextSkill(D2SkillStrc*); // 0x006438F0
@@ -1629,6 +1856,7 @@ void __fastcall FOG_FreePool(void*, void*, const char*, int, int); // 0x0040B480
 extern "C" const char szSCmdCppFile_006D69E4[];                                                             // 0x006D69E4
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv5B
 {
     unsigned char nHeader;
@@ -1643,11 +1871,11 @@ struct D2GSPacketSrv5B
     unsigned short nGuildFlags;
     char szGuildTag[0x100];
 };
+
 #pragma pack(pop)
 
 #define offsetof(s, m) ((unsigned int)&(((s*)0)->m))
 
-#define STAT_LEVEL 12
 
 extern "C" unsigned short __fastcall sub_00539110(D2ClientStrc* pClient);                                 // 0x00539110
 
@@ -1658,14 +1886,17 @@ extern "C" void __fastcall sub_00539150(D2ClientStrc* pClient, char* pDst);     
 void __fastcall sub_00574F80(D2ClientStrc* pClient, D2UnitStrc* pPlayer);               // 0x00574F80
 
 #pragma pack(push, 1)
+
 union D2GSPacketSrv7F90
 {
     D2GSPacketSrv7F packet7F;
     D2GSPacketSrv90 packet90;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv9D
 {
     unsigned char nHeader;
@@ -1677,9 +1908,11 @@ struct D2GSPacketSrv9D
     int nUnitId;
     unsigned char pBitstream[244];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct Packet40
 {
     unsigned char header;
@@ -1687,15 +1920,13 @@ struct Packet40
     int x;
     int y;
 };
+
 #pragma pack(pop)
 
 enum { HEADER = 0x40 };
 
-#define UNIT_OBJECT 2
 
-#define UNIT_ITEM 4
 
-#define UNIT_TILE 5
 
 #define MONTYPEFLAG_CHAMPION 4
 
@@ -1722,6 +1953,7 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv4D
 {
     unsigned char nHeader;
@@ -1733,9 +1965,11 @@ struct D2GSPacketSrv4D
     unsigned short unk0x0D;
     unsigned short unk0x0F;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv8C
 {
     unsigned char nHeader;
@@ -1743,18 +1977,22 @@ struct D2GSPacketSrv8C
     int dwPlayerGUID2;
     unsigned short nFlags;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv8D
 {
     unsigned char nHeader;
     int dwPlayerGUID;
     unsigned short nPartyGUID;
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrvAC
 {
     unsigned char nHeader;
@@ -1766,6 +2004,7 @@ struct D2GSPacketSrvAC
     unsigned char nPacketLength;
     unsigned char bitstream[0xF4];
 };
+
 #pragma pack(pop)
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -1793,6 +2032,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc* p
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* pOutStatBuffer, int nBufferSize); // 0x00625C90
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv4C
 {
     unsigned char nHeader;
@@ -1804,6 +2044,7 @@ struct D2GSPacketSrv4C
     int dwTargetGUID;
     unsigned short unk0x0E;
 };
+
 #pragma pack(pop)
 
 void __fastcall sub_6FC3F060(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9);
@@ -1831,6 +2072,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, ch
 void __fastcall D2GAME_PACKETS_SendPacket0x81_6FC3E160(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName);
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv83
 {
     unsigned char nHeader;
@@ -1840,15 +2082,18 @@ struct D2GSPacketSrv83
     unsigned short f_9;
     unsigned char pData[0x190];
 };
+
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+
 struct D2GSPacketSrv84
 {
     unsigned char nHeader;
     unsigned char nArg;
     unsigned char pData[0x190];
 };
+
 #pragma pack(pop)
 
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
@@ -1858,6 +2103,20 @@ extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 #define ITEMACTION_DROPTOGROUND 2
 
 #define ITEMACTION_ONGROUND 3
+
+// 0x0053B1B0
+int __fastcall sub_6FC3C640(int nClientId, short nGameId, short nClientCount, const char* szGameName)
+{
+    D2GSPacketSrvB1 packetB1;
+
+    packetB1.nHeader = 0xB2;
+    packetB1.nGameId = nGameId;
+    packetB1.nClientCount = nClientCount;
+
+    SStrCopy(packetB1.szGameName, szGameName, 0x10);
+
+    return sub_0052B330(0, nClientId, &packetB1, sizeof(packetB1));
+}
 
 // 0x0053B220
 void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId)
