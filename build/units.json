@@ -30180,11 +30180,6 @@
      "va": "0x004B9070",
      "length": 49,
      "name": "?sub_004B9070_SendPosition@@YAXXZ"
-    },
-    {
-     "va": "0x004B9EF0",
-     "length": 304,
-     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
     }
    ]
   },
@@ -30282,6 +30277,17 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Sound/SoundInst_004B9EF0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9EF0",
+     "length": 304,
+     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
+    }
    ]
   },
   {
