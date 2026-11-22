@@ -2153,8 +2153,8 @@
    "static_definitions": 1
   },
   "Source/D2Client/UI/text_0049A950.cpp": {
-   "bytes": 8,
-   "definitions": 2,
+   "bytes": 116,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/text_0049A950.inc",
@@ -2228,15 +2228,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/text_004A1600.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/text_004A1760.cpp": {
-   "bytes": 108,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/text_004A1760.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -54562,7 +54553,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_004A1760.cpp",
+   "file": "Source/D2Client/UI/text_0049A950.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": null,
@@ -54634,7 +54625,7 @@
    "cname": "gData_00723F00",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_004A1760.cpp",
+   "file": "Source/D2Client/UI/text_0049A950.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00723F00_t gData_00723F00; // 0x00723F00",
    "head": "extern \"C\" struct d2data_00723F00_t gData_00723F00 = ",
@@ -54651,7 +54642,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_004A1760.cpp",
+   "file": "Source/D2Client/UI/text_0049A950.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
