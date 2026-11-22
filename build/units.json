@@ -2841,21 +2841,6 @@
      "name": "FOG_DisplayAssert"
     },
     {
-     "va": "0x00408A90",
-     "length": 42,
-     "name": "FOG_DisplayWarning"
-    },
-    {
-     "va": "0x00408AC0",
-     "length": 43,
-     "name": "sub_00408AC0_DisplayDeadlock"
-    },
-    {
-     "va": "0x00408AF0",
-     "length": 44,
-     "name": "FOG_DisplayError"
-    },
-    {
      "va": "0x00409C80",
      "length": 333,
      "name": "FOG_DestroyMemoryPoolSystem"
@@ -2905,6 +2890,21 @@
      "va": "0x00408A60",
      "length": 42,
      "name": "_sub_00408A60"
+    },
+    {
+     "va": "0x00408A90",
+     "length": 42,
+     "name": "FOG_DisplayWarning"
+    },
+    {
+     "va": "0x00408AC0",
+     "length": 43,
+     "name": "sub_00408AC0_DisplayDeadlock"
+    },
+    {
+     "va": "0x00408AF0",
+     "length": 44,
+     "name": "FOG_DisplayError"
     },
     {
      "va": "0x00408B20",

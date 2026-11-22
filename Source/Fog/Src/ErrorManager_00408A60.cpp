@@ -278,3 +278,27 @@ void __cdecl sub_004BF9C0_Nop()
 void __cdecl sub_0050B7A0_Nop()
 {
 }
+
+// 0x00408A90
+void __cdecl FOG_DisplayWarning(const char* szMsg, const char* szFile, int nLine)
+{
+    FOG_SOCKET_WSACleanup();
+    sub_00408900_RaiseErrorReport(7, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
+    sub_0040F960_CloseLogFiles();
+}
+
+// 0x00408AC0
+void __cdecl sub_00408AC0_DisplayDeadlock(unsigned long dwThreadId, int nTicks)
+{
+    FOG_SOCKET_WSACleanup();
+    sub_00408900_RaiseErrorReport(10, (const char*)dwThreadId, 2175, "Deadlocked in thread %X for %d ticks", dwThreadId, nTicks);
+    sub_0040F960_CloseLogFiles();
+}
+
+// 0x00408AF0
+void __cdecl FOG_DisplayError(int nCategory, const char* szMsg, const char* szFile, int nLine)
+{
+    FOG_SOCKET_WSACleanup();
+    sub_00408900_RaiseErrorReport(nCategory, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
+    sub_0040F960_CloseLogFiles();
+}
