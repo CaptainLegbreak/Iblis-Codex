@@ -31178,6 +31178,16 @@
      "name": "?sub_004C0150_OnPanelClose@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004C02F0",
+     "length": 133,
+     "name": "?sub_004C02F0_ClosePanel@@YAHXZ"
+    },
+    {
+     "va": "0x004C0380",
+     "length": 189,
+     "name": "sub_004C0380_OpenPanel"
+    },
+    {
      "va": "0x004C0620",
      "length": 21,
      "name": "?sub_004C0620_OpenPanelMode1@@YIXH@Z"
@@ -31896,22 +31906,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004C02F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C02F0",
-     "length": 133,
-     "name": "?sub_004C02F0_ClosePanel@@YAHXZ"
-    },
-    {
-     "va": "0x004C0380",
-     "length": 189,
-     "name": "sub_004C0380_OpenPanel"
-    }
    ]
   },
   {
