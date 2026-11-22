@@ -9,6 +9,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2StatIds.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
@@ -197,21 +198,6 @@ void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-
-enum D2C_M187TrapConstants
-{
-    STAT_LEVEL = 12,
-    STAT_TOHIT = 19,
-    STAT_MINDAMAGE = 21,
-    STAT_MAXDAMAGE = 22,
-    STAT_FIREMINDAM = 48,
-    STAT_FIREMAXDAM = 49,
-    STAT_LIGHTMINDAM = 50,
-    STAT_LIGHTMAXDAM = 51,
-    STAT_POISONMINDAM = 57,
-    STAT_POISONMAXDAM = 58,
-    STAT_POISONLENGTH = 59,
-};
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -947,7 +933,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-enum { STAT_HITPOINTS = 6, STAT_MAXHP = 7, MONTYPEFLAG_POSSESSED = 0x20 };
+enum { MONTYPEFLAG_POSSESSED = 0x20 };
 
 static inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterData(D2UnitStrc* pUnit)
 {
@@ -1172,6 +1158,136 @@ static inline unsigned int MONUNIQUE_RollSeed_Inline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
+#define UNIT_OBJECT 2
+
+#define UNIT_ITEM 4
+
+#define UNIT_TILE 5
+
+#define STAT_LEVEL 12
+
+#define UNIT_MONSTER 1
+
+struct D2DifficultyLevelsTxt;
+
+struct D2CurseStrc;
+
+struct D2MonStatsInitStrc;
+
+D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
+
+D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
+
+void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
+
+int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
+
+D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);
+
+struct D2MonStatsInitStrc
+{
+    int nMinHP;
+    int nMaxHP;
+    int nAC;
+    int nTH;
+    int nExp;
+    int nA1MinD;
+    int nA1MaxD;
+    int nA2MinD;
+    int nA2MaxD;
+    int nS1MinD;
+    int nS1MaxD;
+    int nElMinD;
+    int nElMaxD;
+    int nElDur;
+};
+
+int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, short nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
+
+int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
+
+static __forceinline int sub_A17E0_GetUModConstant(int nUMod)
+{
+    if (nUMod >= sgptDataTables->nMonUModTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2MonUModTxt* pMonUModTxtRecord = &sgptDataTables->pMonUModTxt[nUMod];
+    if (!pMonUModTxtRecord)
+    {
+        return 0;
+    }
+    return pMonUModTxtRecord->dwConstants;
+}
+
+// 0x005A17E0
+void __fastcall MONSTERUNIQUE_UMod5_Strong(D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        return;
+    }
+
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
+    if (!pGame)
+    {
+        return;
+    }
+
+    int nDamage;
+    int nToHit;
+    if (bUnique)
+    {
+        nDamage = sub_A17E0_GetUModConstant(15);
+        nToHit = sub_A17E0_GetUModConstant(13);
+    }
+    else
+    {
+        nDamage = sub_A17E0_GetUModConstant(14);
+        nToHit = sub_A17E0_GetUModConstant(12);
+    }
+
+    D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
+    if (pDifficultyLevelsTxtRecord)
+    {
+        nDamage = nDamage * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
+        nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
+
+        const int nMonsterId = sub_00463860_GetMonsterId(pUnit);
+        if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount && nMonsterId == MONSTER_WILLOWISP1)
+        {
+            nDamage /= 2;
+        }
+    }
+
+    STATLIST_AddUnitStat(pUnit, STAT_DAMAGEPERCENT, nDamage, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
+}
+
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+// 0x005A1910
+void __fastcall MONSTERUNIQUE_UMod6_Fast(D2UnitStrc* pUnit, int nUnused1, int nUnused2)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nVelocity > 0)
+        {
+            const int nValue = 0x800 / pMonStatsTxtRecord->nVelocity - 0x80;
+            STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, D2_MIN(D2_MAX(nValue, 10), 100), 0);
+        }
+    }
+}
+
 // 0x005A21D0
 static void __stdcall sub_005A21D0_ApplyElementalDamageStats(D2UnitStrc* pUnit, int nMinDamageStatId, int nMaxDamageStatId, int nLengthStatId, D2GameStrc* pGame)
 {
@@ -1217,6 +1333,56 @@ static void __stdcall sub_005A21D0_ApplyElementalDamageStats(D2UnitStrc* pUnit, 
         STATLIST_SetUnitStat(pUnit, nLengthStatId, nLength, 0);
 }
 
+// 0x005A23D0
+void __fastcall MONSTERUNIQUE_CurseCallback_ApplyAmplifyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel)
+{
+    if (!sub_00554200(pGame, pUnit, pTarget))
+    {
+        return;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(SKILL_AMPLIFYDAMAGE);
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->wAuraStat[0] < -1 || pSkillsTxtRecord->wAuraStat[0] >= sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return;
+    }
+
+    if (pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2CurseStrc curse = {};
+
+    curse.pTarget = pTarget;
+    curse.pUnit = pUnit;
+    curse.nSkill = SKILL_AMPLIFYDAMAGE;
+    curse.nSkillLevel = nSkillLevel;
+    curse.nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, SKILL_AMPLIFYDAMAGE, nSkillLevel);
+    curse.nStat = pSkillsTxtRecord->wAuraStat[0];
+    curse.nStatValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraStatCalc[0], SKILL_AMPLIFYDAMAGE, nSkillLevel);
+    curse.nState = pSkillsTxtRecord->wAuraTargetState;
+    curse.pStateRemoveCallback = 0;
+
+    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    for (int i = 1; i < 6; ++i)
+    {
+        if (pSkillsTxtRecord->wAuraStat[i] >= 0 && pSkillsTxtRecord->wAuraStat[i] < sgptDataTables->nItemStatCostTxtRecordCount)
+        {
+            const int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraStatCalc[i], SKILL_AMPLIFYDAMAGE, nSkillLevel);
+            if (nValue)
+            {
+                STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wAuraStat[i], nValue, 0);
+            }
+        }
+    }
+}
+
 // 0x005A2530
 void __fastcall MONSTERUNIQUE_CastAmplifyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
@@ -1244,6 +1410,63 @@ void __fastcall MONSTERUNIQUE_CastAmplifyDamage(D2GameStrc* pGame, D2UnitStrc* p
 
     const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, SKILL_AMPLIFYDAMAGE, nSkillLevel);
     SKILLS_ApplyCurseAroundTarget(pGame, 3, pUnit, nSkillLevel, D2_MIN(D2_MAX(nRange, 1), 40), MONSTERUNIQUE_CurseCallback_ApplyAmplifyDamage);
+}
+
+static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
+{
+    if (!nDivisor)
+    {
+        return 0;
+    }
+
+    if (nValue > 0x100000)
+    {
+        if (nDivisor > (nValue >> 4))
+        {
+            return (int)(nValue * (__int64)nMultiplier / nDivisor);
+        }
+        return nMultiplier * (nValue / nDivisor);
+    }
+
+    if (nMultiplier > 0x10000)
+    {
+        if (nDivisor <= (nMultiplier >> 4))
+        {
+            return nValue * (nMultiplier / nDivisor);
+        }
+        return (int)(nValue * (__int64)nMultiplier / nDivisor);
+    }
+
+    return nMultiplier * nValue / nDivisor;
+}
+
+// 0x005A2620
+void __fastcall MONSTERUNIQUE_CastCorpseExplode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    const int nX = CLIENTS_GetUnitXInline(pUnit);
+    const int nY = CLIENTS_GetUnitYInline(pUnit);
+    D2UnitStrc* pMissile = SKILLS_CreateMissileAtOffset(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
+    if (!pMissile) return;
+    int nGameType;
+    if (pGame->nGameType || pGame->dwGameType) nGameType = 1;
+    else nGameType = 0;
+    D2MonStatsInitStrc monStatsInit;
+    memset(&monStatsInit, 0, sizeof(monStatsInit));
+    const int nMonsterId = pUnit->dwClassId;
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, nGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 1, &monStatsInit);
+    D2DifficultyLevelsTxt* pDifficulty = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
+    if (!pDifficulty) return;
+    int nDamage = DATATBLS_ApplyRatio(monStatsInit.nMaxHP, pDifficulty->nMonsterCEDamagePercent, 100);
+    if (pGame->nDifficulty == 0) nDamage += nDamage / -4;
+    else if (pGame->nDifficulty == 1) nDamage += nDamage / -3;
+    else if (pGame->nDifficulty == 2) nDamage /= 8;
+    const int nMinDamage = ApplyRatio_Inline(nDamage, 60, 100);
+    const int nRoll = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nDamage - nMinDamage) + nMinDamage;
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.dwPhysDamage = nRoll << 6;
+    damage.dwFireDamage = nRoll << 6;
+    SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pMissile, nX, nY, pGame->nDifficulty + 4, &damage, 0, 0, 0, 0x581);
 }
 
 // 0x005A2C20
@@ -1302,6 +1525,34 @@ static D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInline(D2UnitStrc* pUnit)
     }
 
     return 0;
+}
+
+void __fastcall MONSTERUNIQUE_MinionCallback_KillMinion(D2UnitStrc* pUnit, void* pGameArg, void* pUnused); // 0x005A2CC0
+
+// 0x005A2D10
+void __fastcall MONSTERUNIQUE_KillMinions(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (pUnit && pUnit->dwAnimMode != MONMODE_DEATH)
+    {
+        return;
+    }
+
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner)
+    {
+        return;
+    }
+
+    AIGENERAL_ExecuteCallbackOnMinions(pUnit, pGame, 0, MONSTERUNIQUE_MinionCallback_KillMinion);
+    AIGENERAL_SetOwnerData(pGame, pOwner, -1, UNIT_MONSTER, 0, 0);
+    if (pOwner == pUnit || pOwner->dwUnitType != UNIT_MONSTER)
+    {
+        return;
+    }
+
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pOwner, MONMODE_DEATH, &modeChange);
+    D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
 }
 
 // 0x005A6000
