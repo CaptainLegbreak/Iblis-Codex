@@ -19,7 +19,7 @@ int __stdcall sub_00604BC0_GetTileFlags(D2TileLibraryEntryStrc*);
 unsigned short __stdcall sub_0064CB30_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short);
 unsigned short __stdcall sub_0064D9B0_CheckSize(D2ActiveRoomStrc*,int,int,int,unsigned short);
 // 0x005B2700
-int __stdcall sub_005B2700_FindPosition(Room* room,int* outX,int* outY)
+int __stdcall MONSTERSPAWN_FindFloorPosition(Room* room,int* outX,int* outY)
 {
     int count;
     Tile* tiles=sub_00619660_GetFloorTiles(room,&count);

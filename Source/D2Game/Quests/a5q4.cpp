@@ -169,9 +169,9 @@ void __fastcall ACT5Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 
 int __fastcall ACT5Q4_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);      // 0x0058B4A0
 
-void __fastcall sub_0058B5B0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);  // 0x0058B5B0
+void __fastcall ACT5Q4_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);  // 0x0058B5B0
 
-int __fastcall sub_0058B730_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058B730
+int __fastcall ACT5Q4_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058B730
 
 bool __fastcall ACT5Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0058B870
 
@@ -231,7 +231,7 @@ void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDest
 
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
-void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
+void __fastcall D2GAME_PACKETS_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 
@@ -326,7 +326,7 @@ inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x0058AF90
-static bool __stdcall sub_0058AF90_OpenDrehyaPortal(D2QuestDataStrc* pQuestData, D2UnitStrc* pTarget)
+static bool __stdcall ACT5Q4_OpenDrehyaPortal(D2QuestDataStrc* pQuestData, D2UnitStrc* pTarget)
 {
     D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bPortalCreated)
@@ -362,7 +362,7 @@ void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 
     if (pQuestDataEx->bNeedsToOpenPortal && !pQuestDataEx->bPortalCreated)
     {
-        sub_0058AF90_OpenDrehyaPortal(pQuestData, pQuestArg->pTarget);
+        ACT5Q4_OpenDrehyaPortal(pQuestData, pQuestArg->pTarget);
     }
 }
 
@@ -486,7 +486,7 @@ void __fastcall ACT5Q4_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 }
 
 // 0x0058B5B0
-void __fastcall sub_0058B5B0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
+void __fastcall ACT5Q4_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0) == 1
@@ -535,7 +535,7 @@ int __fastcall ACT5Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
     const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
     if (nPartyId != 0xFFFF)
     {
-        PARTY_IteratePartyMembers(pGame, nPartyId, sub_0058B5B0, 0);
+        PARTY_IteratePartyMembers(pGame, nPartyId, ACT5Q4_UnitIterate_SetPrimaryGoalDone, 0);
     }
 
     return 0;
@@ -558,7 +558,7 @@ int __fastcall ACT5Q4_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x0058B730
-int __fastcall sub_0058B730_AttachCompletionSound(D2GameStrc* game, D2UnitStrc* player, void* unused)
+int __fastcall ACT5Q4_UnitIterate_AttachCompletionSound(D2GameStrc* game, D2UnitStrc* player, void* unused)
 {
     D2BitBufferStrc* flags = UNITS_GetPlayerData(player)->pQuestData[game->nDifficulty];
     if (QUESTRECORD_GetQuestState(flags, 38, 13))
@@ -601,7 +601,7 @@ void __fastcall ACT5Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT5Q4_UnitIterate_SetRewardPending);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT5Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT5Q4_UnitIterate_SetCompletionFlag);
-    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, sub_0058B730_AttachCompletionSound);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT5Q4_UnitIterate_AttachCompletionSound);
 
     QUESTS_SetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A5Q4, QFLAG_PRIMARYGOALDONE);
     QUESTS_TriggerFX(pQuestData->pGame, QUESTFX_A5Q4);
@@ -615,7 +615,7 @@ void __fastcall ACT5Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 }
 
 // 0x0058B870
-bool __fastcall sub_0058B870(Quest* quest,int npc,void* player,void* flags,void* extra) {
+bool __fastcall ACT5Q4_ActiveFilterCallback(Quest* quest,int npc,void* player,void* flags,void* extra) {
  if(npc==512) {
   if(quest->state==1) {
    if(!(sub_0065C310(flags,37,0) || sub_0065C310(flags,37,1))) goto inactive;
@@ -632,7 +632,7 @@ inactive:
 }
 
 // 0x0058B900
-void __fastcall sub_0058B900_RescheduleDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall ACT5Q4_RescheduleDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK);
     if (pQuestData && ((D2Act5Quest4Strc*)pQuestData->pQuestDataEx)->bNeedsToOpenPortal)
@@ -642,7 +642,7 @@ void __fastcall sub_0058B900_RescheduleDrehyaPortal(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x0058B940
-void __fastcall sub_0058B940_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall ACT5Q4_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK);
     if (!pQuestData || !((D2Act5Quest4Strc*)pQuestData->pQuestDataEx)->bNeedsToOpenPortal)
@@ -650,7 +650,7 @@ void __fastcall sub_0058B940_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pU
         return;
     }
 
-    if (!sub_0058AF90_OpenDrehyaPortal(pQuestData, pUnit))
+    if (!ACT5Q4_OpenDrehyaPortal(pQuestData, pUnit))
     {
         EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 12, 0, 0);
     }
@@ -827,7 +827,7 @@ struct D2GameStrc;
 struct D2UnitStrc;
 
 // 0x0058BF40
-int __stdcall sub_0058BF40_ActivateAncientStatues(D2QuestDataStrc* pQuestData, D2Act5Quest5Strc* pQuestDataEx)
+int __stdcall ACT5Q5_ActivateAncientStatues(D2QuestDataStrc* pQuestData, D2Act5Quest5Strc* pQuestDataEx)
 {
     D2UnitStrc* pUnit[3];
     for (int i = 0; i < 3; ++i)
@@ -855,7 +855,7 @@ int __stdcall sub_0058BF40_ActivateAncientStatues(D2QuestDataStrc* pQuestData, D
 }
 
 // 0x0058D030
-D2UnitStrc* __fastcall sub_0058D030_FindAncientMonsterByClassId(D2GameStrc* pGame, int nClassId)
+D2UnitStrc* __fastcall ACT5Q5_FindAncientMonsterByClassId(D2GameStrc* pGame, int nClassId)
 {
     D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q5_ANCIENTS)->pQuestDataEx;
     for (int i = 0; i < pQuestDataEx->nAncientsSpawned; ++i)
@@ -1214,7 +1214,7 @@ int __fastcall ACT1Q4_GetCainPortalOutsideTownCoordinates(D2GameStrc* pGame, D2U
 }
 
 // 0x00595160
-void __fastcall sub_00595160_UpdateCountessQuestState(D2GameStrc* pGame, D2UnitStrc* pUnit, int bPending)
+void __fastcall ACT1Q5_UpdateCountessQuestState(D2GameStrc* pGame, D2UnitStrc* pUnit, int bPending)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q5_COUNTESS);
     if (!pQuestData)

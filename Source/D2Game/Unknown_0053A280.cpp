@@ -21,10 +21,10 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005387F0
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
-void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
-void __fastcall sub_6FC81650(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00580860
-void __fastcall sub_6FC75350(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00581AD0
-void __fastcall sub_6FC420B0(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x0055BF30
+void __fastcall SUNITMSG_SendUnitToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
+void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00580860
+void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00581AD0
+void __fastcall ITEMMODE_SendUpdatedGroundItemToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x0055BF30
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
@@ -66,23 +66,23 @@ static void __stdcall sub_0053A500_UpdateUnitForClient(D2GameStrc* pGame, D2Unit
             {
                 return;
             }
-            sub_00571F90(pGame, pUnit, pClient);
+            SUNITMSG_SendUnitToClient(pGame, pUnit, pClient);
             v10 = 1;
         }
     }
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        sub_6FC81650(pGame, pUnit, pClient, v10);
+        PLRMODE_SendPlayerUpdates(pGame, pUnit, pClient, v10);
         break;
     case UNIT_MONSTER:
         sub_6FC659E0(pGame, pUnit, pClient, v10);
         break;
     case UNIT_OBJECT:
-        sub_6FC75350(pGame, pUnit, pClient);
+        OBJMODE_SendObjectUpdates(pGame, pUnit, pClient);
         break;
     case UNIT_ITEM:
-        sub_6FC420B0(pUnit, pClient);
+        ITEMMODE_SendUpdatedGroundItemToClient(pUnit, pClient);
         break;
     default:
         break;

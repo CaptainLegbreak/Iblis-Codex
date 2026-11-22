@@ -50,7 +50,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient); // 0x0053A8E0
 void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient); // 0x0053A9B0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-void __fastcall sub_6FC81650(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00580860
+void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00580860
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags); // 0x006221E0
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
@@ -121,7 +121,7 @@ extern EventCallbackFunction scpfnItemEventFunctions_6FD27DDC[15]; // 0x006E117C
 extern EventCallbackFunction gpEventFunctions_6FD28CD8[15]; // 0x006E19B0
 extern MonEventFunc gpMonsterEventFunctions[15]; // 0x006E2490
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-void __fastcall sub_005404C0_AddLivingMemberLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x005404C0
+void __fastcall PARTY_AddLivingMemberLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x005404C0
 void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits); // 0x005404F0
 void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, PartyCallbackFunction pCallback, void* pArgs); // 0x005405A0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
@@ -238,7 +238,7 @@ static void __stdcall sub_00537B50_ChangeClientRoom(D2ActiveRoomStrc* pRoom, D2C
             LEVEL_RemoveClient(pClient->pGame, ppClientAdjacentRooms[i], pClient);
             if (pClient->hRoom == ppClientAdjacentRooms[i])
             {
-                sub_6FC81650(pClient->pGame, sub_M08_GetClientPlayerUnit(pClient), pClient, 0);
+                PLRMODE_SendPlayerUpdates(pClient->pGame, sub_M08_GetClientPlayerUnit(pClient), pClient, 0);
             }
         }
     }
@@ -264,7 +264,7 @@ inline int UNITS_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // 0x005380D0
-void __fastcall sub_6FC33670(D2GameStrc* pGame, D2ClientStrc* pClient)
+void __fastcall CLIENTS_SynchronizePlayer(D2GameStrc* pGame, D2ClientStrc* pClient)
 {
     if (!pGame || !pClient)
     {
@@ -323,7 +323,7 @@ static void sub_M08_RemoveUnitFromRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x0053A2F0
-void __fastcall sub_0053A2F0_ResetClientInAct(D2ClientStrc* pClient, int nAct)
+void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
 {
     D2_ASSERT(pClient, 2386);
     pClient->nClassId = nAct;
@@ -351,7 +351,7 @@ D2ClientStrc* gpClientList_008842A8[256]; // 0x008842A8
 D2ClientStrc* gpClientListByName_00883EA8[256]; // 0x00883EA8
 
 // 0x00538B70
-int __fastcall sub_6FC33EA0(int nClientId, char* szName)
+int __fastcall CLIENTS_GetNameById(int nClientId, char* szName)
 {
     if (!gbClientListInitialized_008846D8)
     {
@@ -464,7 +464,7 @@ void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, sho
 }
 
 // 0x00540890
-int __fastcall sub_00540890_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall PARTY_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nLevelSum = 0;
     if (SUNIT_GetPartyId(pUnit) == -1)
@@ -472,7 +472,7 @@ int __fastcall sub_00540890_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D
         return STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     }
 
-    PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, sub_005404C0_AddLivingMemberLevel, &nLevelSum);
+    PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_AddLivingMemberLevelCallback, &nLevelSum);
     return nLevelSum;
 }
 
@@ -485,7 +485,7 @@ int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2U
 }
 
 // 0x00541830
-void __fastcall sub_00541830_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nComponent, unsigned char nValue)
+void __fastcall SKILLS_SetMonsterComponent(D2UnitStrc* pUnit, unsigned char nComponent, unsigned char nValue)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nComponent < MONSTER_COMPONENT_COUNT && pUnit->pMonsterData)
     {
@@ -522,7 +522,7 @@ void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int
 }
 
 // 0x005544B0
-void __fastcall sub_6FCBDE90(D2UnitStrc* hUnit, int bSetUninterruptable)
+void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* hUnit, int bSetUninterruptable)
 {
     STATES_ToggleState(hUnit, STATE_UNINTERRUPTABLE, bSetUninterruptable);
 
@@ -572,7 +572,7 @@ void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D
 }
 
 // 0x005A6260
-void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20)
+void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20)
 {
     if (nParam18)
     {

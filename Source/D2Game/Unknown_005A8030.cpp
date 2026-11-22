@@ -18,7 +18,7 @@ extern ModeCallback gpModeCallback_006E2498; // 0x006E2498
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
 int __fastcall SUNIT_IsDead(D2UnitStrc*); // 0x005541B0
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
-void __fastcall sub_6FCBDE90(D2UnitStrc*, int); // 0x005544B0
+void __fastcall SUNIT_SetUninterruptable(D2UnitStrc*, int); // 0x005544B0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, int); // 0x00620210
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
@@ -115,7 +115,7 @@ void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pU
     }
     if (STATES_CheckState(pUnit, 54))
     {
-        sub_6FCBDE90(pUnit, 0);
+        SUNIT_SetUninterruptable(pUnit, 0);
         if (SUNIT_IsDead(pUnit)) return;
     }
     UNITS_SetUsedSkill(pUnit, 0);

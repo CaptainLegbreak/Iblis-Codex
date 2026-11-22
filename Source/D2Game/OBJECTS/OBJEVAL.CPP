@@ -44,7 +44,7 @@ static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x005DF990
-static int sub_005DF990_RollTrapDamage(D2UnitStrc* pSrcUnit, unsigned int nMinDamage, unsigned int nMaxDamage)
+static int OBJEVAL_RollTrapDamage(D2UnitStrc* pSrcUnit, unsigned int nMinDamage, unsigned int nMaxDamage)
 {
     D2_ASSERT(nMinDamage <= nMaxDamage, 20);
 
@@ -87,7 +87,7 @@ void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSr
         return;
     }
 
-    const int nDamage = sub_005DF990_RollTrapDamage(pSrcUnit, nMinDamage, nMaxDamage);
+    const int nDamage = OBJEVAL_RollTrapDamage(pSrcUnit, nMinDamage, nMaxDamage);
     if (!nDamage)
     {
         return;

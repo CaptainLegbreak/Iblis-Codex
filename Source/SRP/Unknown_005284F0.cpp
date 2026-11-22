@@ -110,8 +110,8 @@ void D2BigPairStrc::sub_00528630_Release()
 {
     if (pState->bValid)
     {
-        sub_0052A600(pState->hModulus);
-        sub_0052A600(pState->hBase);
+        BNCLIENT_DeleteBigNum(pState->hModulus);
+        BNCLIENT_DeleteBigNum(pState->hBase);
     }
     pState->bValid = 0;
 }
@@ -127,10 +127,10 @@ void D2BigPairStrc::sub_005289F0_ComputeServerPublic(D2BigServerRecordStrc* pRec
     sub_0052A350_BigOp_423790(hPublic, hPublic, hVerifier);
     while (sub_0052A2E0_BigCompare(hPublic, pState->hModulus) > 0)
         sub_0052A3B0_BigOp_423AC0(hPublic, hPublic, pState->hModulus);
-    sub_0052A600(hPrivate);
-    sub_0052A600(hVerifier);
+    BNCLIENT_DeleteBigNum(hPrivate);
+    BNCLIENT_DeleteBigNum(hVerifier);
     sub_0052A2A0_BigToBinary(hPublic, pRecord->abServerPublic, 0x20);
-    sub_0052A600(hPublic);
+    BNCLIENT_DeleteBigNum(hPublic);
 }
 
 // 0x00528C60
@@ -152,20 +152,20 @@ int D2BigPowModStrc::sub_005281D0_ComputeServerKey(void* const& hClientPublic, v
     sub_0052A560_BigOpPair_424F10_424ED0(hTemp, hClientPublic, hTemp, hModulus);
     if (sub_0052A2F0_BigCompareUnsigned(hTemp, 1) <= 0)
     {
-        sub_0052A600(hTemp);
+        BNCLIENT_DeleteBigNum(hTemp);
         return 0;
     }
     void* hCheck = sub_0052A240_BigFromUnsigned(0);
     sub_0052A370_BigOpUnsigned_423790(hCheck, hTemp, 1);
     if (!sub_0052A2E0_BigCompare(hCheck, hModulus))
     {
-        sub_0052A600(hCheck);
-        sub_0052A600(hTemp);
+        BNCLIENT_DeleteBigNum(hCheck);
+        BNCLIENT_DeleteBigNum(hTemp);
         return 0;
     }
-    sub_0052A600(hCheck);
+    BNCLIENT_DeleteBigNum(hCheck);
     sub_0052A590_BigOp_425330(hKey, hTemp, hSecret, hModulus);
-    sub_0052A600(hTemp);
+    BNCLIENT_DeleteBigNum(hTemp);
     return 1;
 }
 
@@ -180,12 +180,12 @@ int D2BigPairStrc::sub_00528AC0_VerifyClientProof(D2BigServerRecordStrc* pRecord
     tHandles.hServerPublic = sub_0052A270_BigFromBinary(pRecord->abServerPublic, 0x20);
     tHandles.hClientPublic = sub_0052A270_BigFromBinary(pRecord->abClientPublic, 0x20);
     pState->sub_005281D0_ComputeServerKey(tHandles.hClientPublic, tHandles.hServerPublic, tHandles.hPrivate, tHandles.hVerifier, hKey);
-    sub_0052A600(tHandles.hClientPublic);
-    sub_0052A600(tHandles.hServerPublic);
-    sub_0052A600(tHandles.hPrivate);
-    sub_0052A600(tHandles.hVerifier);
+    BNCLIENT_DeleteBigNum(tHandles.hClientPublic);
+    BNCLIENT_DeleteBigNum(tHandles.hServerPublic);
+    BNCLIENT_DeleteBigNum(tHandles.hPrivate);
+    BNCLIENT_DeleteBigNum(tHandles.hVerifier);
     const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
-    sub_0052A600(hKey);
+    BNCLIENT_DeleteBigNum(hKey);
     sub_0052A120_ShaInterleave(pRecord->abKey, abKey, nSize);
     pState->sub_005282A0_ComputeProof(pRecord->szName, pRecord->abSalt, pRecord->abClientPublic, pRecord->abServerPublic, pRecord->abKey, pRecord->abClientProof);
     return memcmp(pRecord->abClientProof, pClientProof, sizeof(pRecord->abClientProof)) == 0;

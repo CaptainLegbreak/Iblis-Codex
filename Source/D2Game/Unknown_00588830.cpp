@@ -25,7 +25,7 @@ typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
 
-int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x00587FC0
+int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x00587FC0
 
 typedef int (__stdcall* FARPROC)();
 
@@ -52,7 +52,7 @@ int __fastcall ACT5Q2_CheckWussieCounters(D2GameStrc* pGame, D2UnitStrc* pWussie
         return 0;
     }
 
-    const int nIndex = sub_00587FC0_GetWussieGroupIndex(pQuestData, pWussie);
+    const int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pWussie);
     if (nIndex >= 0 && ((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nGroupKills[nIndex])
     {
         return 1;

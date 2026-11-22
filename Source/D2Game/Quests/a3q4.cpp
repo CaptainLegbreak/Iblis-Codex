@@ -127,7 +127,7 @@ void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* pQuestRe
 
 void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x005BA0B0
 
-static int __stdcall sub_005BA2F0_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer);
+static int __stdcall ACT3Q4_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
 #define QUEST_A3Q3_GIDBINN 0x11
 
@@ -203,7 +203,7 @@ Player* __stdcall sub_006221A0(Unit*); // 0x006221A0
 
 int __stdcall sub_0065C310(Bits*,int,int); // 0x0065C310
 
-int __fastcall sub_005452C0(Quest*,int); // 0x005452C0
+int __fastcall QUESTS_CheckPlayerGUID(Quest*,int); // 0x005452C0
 
 Unit* __fastcall sub_00558110(Game*,Unit*,unsigned); // 0x00558110
 
@@ -238,14 +238,14 @@ int __fastcall ACT3Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x005B9ED0
-void __fastcall sub_005B9ED0(Quest* quest,Args* args)
+void __fastcall ACT3Q4_Callback00_NpcActivate(Quest* quest,Args* args)
 {
     Game* game=args->game;
     Bits* flags=GetFlags(args->player,game);
     int reward=sub_0065C310(flags,QUEST_ID,0);
     int npc=!args->target ? -1 : args->target->classId;
     if(reward==1) {
-        if(sub_005452C0(quest,!args->player ? -1 : args->player->id)) sub_00543790(quest,args->text,npc,6);
+        if(QUESTS_CheckPlayerGUID(quest,!args->player ? -1 : args->player->id)) sub_00543790(quest,args->text,npc,6);
         return;
     }
     if(npc==254 && quest->ex->birdBrought==1) return;
@@ -365,7 +365,7 @@ bool __fastcall ACT3Q4_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
 }
 
 // 0x005BA290
-void __fastcall sub_005BA290_UpdateQuest20(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
+void __fastcall ACT3Q4_UnitIterate_UpdateCurrentQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x12);
     if (pQuestData)
@@ -389,7 +389,7 @@ static inline int ACT3Q4_UpdatePartyQuestStateInline(D2GameStrc* pGame, D2UnitSt
 }
 
 // 0x005BA2F0
-static int __stdcall sub_005BA2F0_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static int __stdcall ACT3Q4_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     const unsigned short nPartyId = SUNIT_GetPartyId(pPlayer);
     if (nPartyId != 0xFFFF)
@@ -432,7 +432,7 @@ void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             pQuestDataEx->bTalkedToCainTwice = 1;
             QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
             pQuestDataEx->nCurrentQuestFlag = 4;
-            sub_005BA2F0_UpdatePartyQuestState(pQuestArg->pGame, pQuestArg->pPlayer);
+            ACT3Q4_UpdatePartyQuestState(pQuestArg->pGame, pQuestArg->pPlayer);
         }
     }
     else if (nNpcId == 254)
@@ -454,7 +454,7 @@ void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 pQuestDataEx->bTalkedToAlkor = 1;
                 pQuestData->pCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
                 pQuestDataEx->nCurrentQuestFlag = 1;
-                sub_005BA2F0_UpdatePartyQuestState(pQuestArg->pGame, pQuestArg->pPlayer);
+                ACT3Q4_UpdatePartyQuestState(pQuestArg->pGame, pQuestArg->pPlayer);
             }
         }
         else if (nMessageIndex == 538)
@@ -734,7 +734,7 @@ int __fastcall ACT3Q4_UnitIterate_SetGoldenBirdBoss(D2QuestDataStrc* pQuestData,
 }
 
 // 0x005BACF0
-void __fastcall sub_005BACF0_GoldenBirdSpawnCheck(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+void __fastcall ACT3Q4_CheckGoldenBirdBoss(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->unk0x02 != 1)

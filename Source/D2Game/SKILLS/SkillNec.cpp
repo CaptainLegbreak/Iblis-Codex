@@ -97,13 +97,13 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 
-void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
-int __fastcall sub_005C31F0_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C31F0
+int __fastcall SKILLS_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C31F0
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
@@ -145,13 +145,13 @@ int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageSt
 
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nFlags); // 0x0057DBF0
 
-int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C3D50
+int __fastcall SKILLS_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C3D50
 
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
-void __fastcall sub_6FC40280(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4); // 0x005B1990
+void __fastcall TARGETS_InsertUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4); // 0x005B1990
 
 void __fastcall SKILLS_CurseStateCallback_ResetAlignment(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005C3DB0
 
@@ -270,7 +270,7 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D
 
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x00621E40
 
-D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
+D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -303,7 +303,7 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
-int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030
 
@@ -384,7 +384,7 @@ enum D2SkillNecConstants
 
 int __fastcall SKILLS_CanApplyCurseToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C3420
 
-void __fastcall sub_6FD0B250(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005C3370
+void __fastcall SKILLS_CurseStateCallback_ResetAi(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005C3370
 
 void __fastcall SKILLS_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x005C34B0
 
@@ -909,7 +909,7 @@ int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, D2UnkNecSkillSt
     curse.nStat = pArgs->nAuraStat[0];
     curse.nStatValue = nValue;
     curse.nState = pArgs->nAuraTargetState;
-    curse.pStateRemoveCallback = pArgs->unk0x08 ? sub_6FD0B250 : 0;
+    curse.pStateRemoveCallback = pArgs->unk0x08 ? SKILLS_CurseStateCallback_ResetAi : 0;
 
     D2StatListStrc* pStatList = sub_0056E970(&curse);
     if (!pStatList)
@@ -1114,7 +1114,7 @@ void __fastcall SKILLS_ApplyDimVisionToTarget(D2GameStrc* pGame, D2UnitStrc* pUn
 // 0x005C3B00
 void __fastcall SKILLS_CurseStateCallback_EndAttract(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
-    sub_005543B0_AssignAlignment(pUnit, 0, 1);
+    SUNIT_SetAlignment(pUnit, 0, 1);
     STATES_ToggleState(pUnit, nState, 0);
     sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
@@ -1123,7 +1123,7 @@ void __fastcall SKILLS_CurseStateCallback_EndAttract(D2UnitStrc* pUnit, int nSta
 int __fastcall SKILLS_AuraCallback_SetAttractTarget(D2UnitStrc* pUnit, void* pArg)
 {
     D2UnkNecSkillStrc3* pParam = (D2UnkNecSkillStrc3*)pArg;
-    if (!sub_005C31F0_IsValidAttractTarget(pParam->pGame, pParam->pUnit, pUnit))
+    if (!SKILLS_IsValidAttractTarget(pParam->pGame, pParam->pUnit, pUnit))
     {
         return 0;
     }
@@ -1188,7 +1188,7 @@ int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     }
 
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!sub_005C31F0_IsValidAttractTarget(pGame, pUnit, pTarget))
+    if (!SKILLS_IsValidAttractTarget(pGame, pUnit, pTarget))
     {
         return 0;
     }
@@ -1203,8 +1203,8 @@ int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         pUnit->dwFlags |= 0x40;
     }
 
-    sub_005543B0_AssignAlignment(pTarget, 1, 1);
-    sub_6FC40280(pGame, pTarget, 0, 9);
+    SUNIT_SetAlignment(pTarget, 1, 1);
+    TARGETS_InsertUnitNode(pGame, pTarget, 0, 9);
     SKILLS_ClearMonsterMinionOwnership(pTarget);
 
     const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
@@ -1237,7 +1237,7 @@ int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 // 0x005C3DB0
 void __fastcall SKILLS_CurseStateCallback_ResetAlignment(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
-    sub_005543B0_AssignAlignment(pUnit, 0, 1);
+    SUNIT_SetAlignment(pUnit, 0, 1);
     STATES_ToggleState(pUnit, nState, 0);
     sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
@@ -1245,7 +1245,7 @@ void __fastcall SKILLS_CurseStateCallback_ResetAlignment(D2UnitStrc* pUnit, int 
 // 0x005C3DE0
 int __fastcall SKILLS_AuraCallback_ApplyConfuse(D2UnitStrc* pUnit, D2UnkNecSkillStrc* pArgs)
 {
-    if (!sub_005C3D50_IsValidTerrorTarget(pArgs->pGame, pArgs->pUnit, pUnit))
+    if (!SKILLS_IsValidTerrorTarget(pArgs->pGame, pArgs->pUnit, pUnit))
     {
         return 0;
     }
@@ -1291,8 +1291,8 @@ int __fastcall SKILLS_AuraCallback_ApplyConfuse(D2UnitStrc* pUnit, D2UnkNecSkill
         UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillNec.cpp", 983);
     }
 
-    sub_005543B0_AssignAlignment(pUnit, 1, 1);
-    sub_6FC40280(pArgs->pGame, pUnit, 0, 9);
+    SUNIT_SetAlignment(pUnit, 1, 1);
+    TARGETS_InsertUnitNode(pArgs->pGame, pUnit, 0, 9);
     sub_6FC61E30(pUnit, 3, 0);
     EVENT_SetEvent(pArgs->pGame, pUnit, EVENTTYPE_AIRESET, pArgs->pGame->dwGameFrame + pArgs->nDuration, 0, 0);
     return 1;
@@ -1973,7 +1973,7 @@ static int __stdcall SKILLS_RelocateRevivedTarget(D2GameStrc* pGame, D2UnitStrc*
     {
         SKILLS_SetRightActiveSkill(pTarget, SKILL_ATTACK, -1);
     }
-    return sub_6FCBDFE0(pGame, pTarget, pRoom, tCoords.nX, tCoords.nY, 0, 0);
+    return SUNIT_TeleportUnit(pGame, pTarget, pRoom, tCoords.nX, tCoords.nY, 0, 0);
 }
 
 // 0x005C55C0
@@ -1986,7 +1986,7 @@ static void __stdcall SKILLS_InitializeRevivedMonster(D2GameStrc* pGame, D2UnitS
         AIUTIL_SetOwnerGUIDAndType(pMonster, (pUnit));
         D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 2, 0);
         EVENT_SetEvent(pGame, pMonster, 2, pGame->dwGameFrame + 15, 0, 0);
-        sub_005543B0_AssignAlignment(pMonster, 2, 0);
+        SUNIT_SetAlignment(pMonster, 2, 0);
         MONSTERAI_ClearTargetOverride(pMonster);
 
         if (pMonster)
@@ -2102,7 +2102,7 @@ int __fastcall SKILLS_SrvDo060_BoneWall(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     AIGENERAL_SetOwnerData(pGame, pPet, sub_00451F50(pUnit), sub_0044BE50(pUnit), 0, 1);
     D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 15, 0);
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
-    sub_6FC40280(pGame, pPet, 0, 9);
+    TARGETS_InsertUnitNode(pGame, pPet, 0, 9);
     nX = CLIENTS_GetUnitX(pPet);
     nY = CLIENTS_GetUnitY(pPet);
     if (!DUNGEON_IsRoomInTown(pRoom))
@@ -2215,7 +2215,7 @@ static D2UnitStrc* __stdcall SKILLS_SpawnBonePrisonPet(D2GameStrc* pGame, int nS
 
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
     D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 15, 0);
-    sub_6FC40280(pGame, pPet, 0, 9);
+    TARGETS_InsertUnitNode(pGame, pPet, 0, 9);
     return pPet;
 }
 
@@ -2592,7 +2592,7 @@ int __fastcall sub_005C6870_FeedBloodGolem(D2GameStrc* pGame, D2UnitStrc* pUnit,
         return nValue;
     }
 
-    D2UnitStrc* pGolem = sub_6FC7E8B0(pGame, pUnit, 3, 0);
+    D2UnitStrc* pGolem = PLAYERPETS_GetFirstPetByType(pGame, pUnit, 3, 0);
     if (!pGolem)
     {
         return nValue;
@@ -2828,7 +2828,7 @@ int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc* pGame, D2UnitStr
         return nLife;
     }
 
-    D2UnitStrc* pBloodGolem = sub_6FC7E8B0(pGame, pUnit, 3, 0);
+    D2UnitStrc* pBloodGolem = PLAYERPETS_GetFirstPetByType(pGame, pUnit, 3, 0);
     if (!sub_IsBloodGolem(pBloodGolem))
     {
         return nLife;

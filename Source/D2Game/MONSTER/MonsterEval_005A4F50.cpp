@@ -12,7 +12,7 @@ int __fastcall sub_00451F60_GetClassId(Unit*); // 0x00451F60
 unsigned int __fastcall SEED_RollLimitedRandomNumber(Seed*, int); // 0x0045C390
 Game* __fastcall SUNIT_GetGameFromUnit(Unit*); // 0x00554010
 void __fastcall SKILLS_FillMinionSkillDamage(Unit*, int, SkillInfo*); // 0x0056E050
-int __fastcall sub_005A4F20_GetDifficultyScaledBonus(Game*, int); // 0x005A4F20
+int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(Game*, int); // 0x005A4F20
 int __stdcall STATLIST_UnitGetStatValue(Unit*, int, unsigned short); // 0x00625480
 StatList* __stdcall STATLIST_GetStatListFromUnitAndFlag(Unit*, int); // 0x00625760
 int __stdcall STATLIST_GetUnitAlignment(Unit*); // 0x006259B0
@@ -47,7 +47,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
     if (!STATLIST_GetUnitAlignment(unit)) {
         int players = STATLIST_UnitGetStatValue(unit, STAT_MONSTER_PLAYERCOUNT, 0);
         if (players < 1) players = 1;
-        bonus = sub_005A4F20_GetDifficultyScaledBonus(game, players);
+        bonus = MONSTEREVAL_GetDifficultyScaledBonus(game, players);
     }
     int minDamage, maxDamage, toHit;
     switch (mode) {

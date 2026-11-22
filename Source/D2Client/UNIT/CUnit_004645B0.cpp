@@ -39,7 +39,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-D2UnitStrc* __stdcall sub_00534650_GetServerUnitFromFirstGame(int nUnitType, int nUnitId); // 0x00534650
+D2UnitStrc* __stdcall DEBUG_GetUnitFromTypeAndGUID(int nUnitType, int nUnitId); // 0x00534650
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_unused, D2ActiveRoomStrc* pRooms, unsigned short nX, unsigned short nY); // 0x00650C20
 int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pPath); // 0x00648770
@@ -216,7 +216,7 @@ void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit)
 
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-    D2UnitStrc* pServerUnit = sub_00534650_GetServerUnitFromFirstGame(nUnitType, nUnitId);
+    D2UnitStrc* pServerUnit = DEBUG_GetUnitFromTypeAndGUID(nUnitType, nUnitId);
     if (!pServerUnit)
         return;
 

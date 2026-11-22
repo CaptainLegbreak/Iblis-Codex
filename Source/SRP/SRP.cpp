@@ -21,20 +21,20 @@ int D2BigPowModStrc::sub_005281D0_ComputeServerKey(void* const& hClientPublic, v
     sub_0052A560_BigOpPair_424F10_424ED0(hTemp, hClientPublic, hTemp, hModulus);
     if (sub_0052A2F0_BigCompareUnsigned(hTemp, 1) <= 0)
     {
-        sub_0052A600(hTemp);
+        BNCLIENT_DeleteBigNum(hTemp);
         return 0;
     }
     void* hCheck = sub_0052A240_BigFromUnsigned(0);
     sub_0052A370_BigOpUnsigned_423790(hCheck, hTemp, 1);
     if (!sub_0052A2E0_BigCompare(hCheck, hModulus))
     {
-        sub_0052A600(hCheck);
-        sub_0052A600(hTemp);
+        BNCLIENT_DeleteBigNum(hCheck);
+        BNCLIENT_DeleteBigNum(hTemp);
         return 0;
     }
-    sub_0052A600(hCheck);
+    BNCLIENT_DeleteBigNum(hCheck);
     sub_0052A590_BigOp_425330(hKey, hTemp, hSecret, hModulus);
-    sub_0052A600(hTemp);
+    BNCLIENT_DeleteBigNum(hTemp);
     return 1;
 }
 
@@ -55,16 +55,16 @@ int D2BigPairStrc::sub_005285A0_Init(int nSize1, const unsigned char* pData1, in
 {
     if (pState->bValid)
     {
-        sub_0052A600(pState->hModulus);
-        sub_0052A600(pState->hBase);
+        BNCLIENT_DeleteBigNum(pState->hModulus);
+        BNCLIENT_DeleteBigNum(pState->hBase);
     }
     pState->hBase = sub_0052A270_BigFromBinary(pData1, nSize1);
     pState->hModulus = sub_0052A270_BigFromBinary(pData2, nSize2);
     pState->bValid = 1;
     if (!sub_005284F0_IsValid(pState))
     {
-        sub_0052A600(pState->hModulus);
-        sub_0052A600(pState->hBase);
+        BNCLIENT_DeleteBigNum(pState->hModulus);
+        BNCLIENT_DeleteBigNum(pState->hBase);
         pState->bValid = 0;
     }
     return pState->bValid;
@@ -82,6 +82,6 @@ void D2BigPairStrc::sub_00528660_MakeVerifier(const char* szName, const char* sz
         pState->sub_00528010_PowMod(hExp, hResult);
     }
     sub_0052A2A0_BigToBinary(hVerifier, pVerifier, 0x20);
-    sub_0052A600(hExp);
-    sub_0052A600(hVerifier);
+    BNCLIENT_DeleteBigNum(hExp);
+    BNCLIENT_DeleteBigNum(hVerifier);
 }

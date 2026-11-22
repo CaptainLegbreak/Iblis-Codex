@@ -285,7 +285,7 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 
 int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
 
-void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 
 static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseEligibilityCheck, D2UnitStrc** ppUnit, int* pDistance, D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005DD610
 
@@ -366,7 +366,7 @@ int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);                  
 
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask);                   // 0x00648CE0
 
-int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 
 struct D2GameStrc;
 
@@ -1497,22 +1497,22 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         {
             if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
             {
-                sub_005543B0_AssignAlignment(pUnit, 2, 1);
+                SUNIT_SetAlignment(pUnit, 2, 1);
             }
             else
             {
-                sub_005543B0_AssignAlignment(pUnit, 0, 1);
+                SUNIT_SetAlignment(pUnit, 0, 1);
             }
         }
         else if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
         {
             if (nAlignment == 0)
             {
-                sub_005543B0_AssignAlignment(pUnit, 2, 1);
+                SUNIT_SetAlignment(pUnit, 2, 1);
             }
             else if (nAlignment == 2)
             {
-                sub_005543B0_AssignAlignment(pUnit, 0, 1);
+                SUNIT_SetAlignment(pUnit, 0, 1);
             }
         }
 
@@ -1540,7 +1540,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
 
         pTarget = arg.pTarget;
         nDistance = arg.nDistance;
-        sub_005543B0_AssignAlignment(pUnit, nAlignment, 1);
+        SUNIT_SetAlignment(pUnit, nAlignment, 1);
         break;
     }
 
@@ -1793,7 +1793,7 @@ int __fastcall AITHINK_TryRestoreGroundCollision(D2GameStrc* pGame, D2UnitStrc* 
 
     if (PATH_GetUnitCollisionPattern(pUnit) != 1)
     {
-        if (!sub_6FCBDFE0(pGame, pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 0))
+        if (!SUNIT_TeleportUnit(pGame, pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 0))
         {
             return 0;
         }

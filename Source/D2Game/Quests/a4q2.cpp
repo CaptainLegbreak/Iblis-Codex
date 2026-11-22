@@ -102,7 +102,7 @@ void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDest
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
@@ -186,11 +186,11 @@ void __fastcall GAME_EndGameForConnectedClient(D2GameStrc* pGame, D2ClientStrc* 
 
 int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B4A80
 
-D2UnitStrc* __fastcall sub_005B4B60_SpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2Act4Quest2Strc* pQuestDataEx); // 0x005B4B60
+D2UnitStrc* __fastcall ACT4Q2_TrySpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2Act4Quest2Strc* pQuestDataEx); // 0x005B4B60
 
 struct D2QuestDataStrc;
 
-void __fastcall sub_00545990(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
+void __fastcall D2Game_10034_Return(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
 
 int __fastcall ACT4Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B4970
 
@@ -204,7 +204,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 D2UnitStrc* __fastcall QUESTS_SpawnMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pPosition, int nType, int nIndex); // 0x00545C30
 
-void __fastcall sub_005B4DA0_ACT4Q2_UnitIterate_SetCompleted(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
+void __fastcall ACT4Q2_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 int __fastcall ACT4Q2_UnitIterate_UpdatePlayerState(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B5140
 
@@ -212,7 +212,7 @@ int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp);
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* pOrigin); // 0x00553380
 
-void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005351C0
+void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005351C0
 
 struct D2GSPacketSrv50
 {
@@ -227,7 +227,7 @@ int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
-void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
+void __fastcall D2GAME_PACKETS_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
 
 void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc); // 0x0054B830
 
@@ -284,7 +284,7 @@ bool __fastcall ACT4Q2_SeqCallback(D2QuestDataStrc* pQuestData)
 }
 
 // 0x005B45E0
-static void sub_005B45E0_ACT4Q2_SpawnPortalToAct5(D2QuestArgStrc* pQuestArg, D2Act4Quest2Strc* pQuestDataEx)
+static void ACT4Q2_SpawnPortalToHarrogath(D2QuestArgStrc* pQuestArg, D2Act4Quest2Strc* pQuestDataEx)
 {
     D2CoordStrc pCoord;
     UNITS_GetCoords(pQuestArg->pTarget, &pCoord);
@@ -341,7 +341,7 @@ void __fastcall ACT4Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             QUESTRECORD_SetQuestState(sub_00543520(pQuestData->pGame, pQuestArg->pPlayer), 0x1A, 9);
             if (!pQuestDataEx->bPortalToAct5Spawned)
             {
-                sub_005B45E0_ACT4Q2_SpawnPortalToAct5(pQuestArg, pQuestDataEx);
+                ACT4Q2_SpawnPortalToHarrogath(pQuestArg, pQuestDataEx);
             }
         }
     }
@@ -372,13 +372,13 @@ int __fastcall ACT4Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
     packet5D.nHeader = 0x5D;
     packet5D.nQuestId = 23;
     packet5D.nFlags = 2;
-    sub_6FC3F380(pClient, &packet5D);
+    SCMD_SendPacket0x5D(pClient, &packet5D);
     SUNIT_AttachSound(pUnit, 75, pUnit);
     return 0;
 }
 
 // 0x005B4A30
-static void sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static void ACT4Q2_WarpPlayerToFortress(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     LEVEL_WarpUnit(pGame, pPlayer, 103, 0);
     D2ClientStrc* pClient = UnitGetClient(pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 440);
@@ -386,13 +386,13 @@ static void sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket(D2GameStrc* pGame, 
     packet.nHeader = 0x5D;
     packet.nQuestId = 0x17;
     packet.nFlags = 1;
-    sub_6FC3F380(pClient, &packet);
+    SCMD_SendPacket0x5D(pClient, &packet);
 }
 
 // 0x005B4A80
 int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
-    sub_6FC7BEC0(pGame, pUnit);
+    PLAYER_CloseInteraction(pGame, pUnit);
     UNITS_GetPlayerData(pUnit)->bBusy = 1;
 
     D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)QUESTS_GetQuestData(pGame, 23)->pQuestDataEx;
@@ -408,7 +408,7 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
         packet5D.nHeader = 0x5D;
         packet5D.nQuestId = 23;
         packet5D.nFlags = 1;
-        sub_6FC3F380(pClient, &packet5D);
+        SCMD_SendPacket0x5D(pClient, &packet5D);
     }
     else
     {
@@ -422,7 +422,7 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x005B4B60
-D2UnitStrc* __fastcall sub_005B4B60_SpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2Act4Quest2Strc* pQuestDataEx)
+D2UnitStrc* __fastcall ACT4Q2_TrySpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2Act4Quest2Strc* pQuestDataEx)
 {
     D2UnitStrc* pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, -1, 0);
     if (!pDiablo)
@@ -458,7 +458,7 @@ bool __fastcall ACT4Q2_SpawnDiablo(D2GameStrc* pGame, D2QuestDataStrc* pQuestDat
         if (!pObject)
             return false;
 
-        if (!sub_005B4B60_SpawnDiablo(pQuestData->pGame, UNITS_GetRoom(pObject), CLIENTS_GetUnitX(pObject), CLIENTS_GetUnitY(pObject), pQuestDataEx))
+        if (!ACT4Q2_TrySpawnDiablo(pQuestData->pGame, UNITS_GetRoom(pObject), CLIENTS_GetUnitX(pObject), CLIENTS_GetUnitY(pObject), pQuestDataEx))
             return false;
 
         pQuestDataEx->bNeedToSpawnDiablo = 0;
@@ -506,11 +506,11 @@ bool __fastcall ACT4Q2_SpawnDiablo(D2GameStrc* pGame, D2QuestDataStrc* pQuestDat
 // build: context sub_K13_Emit_005B4A30
 void __fastcall sub_K13_Emit_005B4A30(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket(pGame, pPlayer);
+    ACT4Q2_WarpPlayerToFortress(pGame, pPlayer);
 }
 
 // 0x005B4D20
-static void __stdcall sub_005B4D20(D2GameStrc* pGame, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pUnit)
+static void __stdcall ACT4Q2_SetQuestCompleted(D2GameStrc* pGame, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pUnit)
 {
     QUESTRECORD_SetQuestState(pQuestFlags, 26, 13);
     QUESTRECORD_SetQuestState(pQuestFlags, 26, 0);
@@ -530,7 +530,7 @@ static void __stdcall sub_005B4D20(D2GameStrc* pGame, D2BitBufferStrc* pQuestFla
 }
 
 // 0x005B4DA0
-void __fastcall sub_005B4DA0_ACT4Q2_UnitIterate_SetCompleted(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+void __fastcall ACT4Q2_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) == 1)
@@ -549,7 +549,7 @@ void __fastcall sub_005B4DA0_ACT4Q2_UnitIterate_SetCompleted(D2GameStrc* pGame, 
         return;
     }
 
-    sub_005B4D20(pGame, pQuestFlags, pUnit);
+    ACT4Q2_SetQuestCompleted(pGame, pQuestFlags, pUnit);
 }
 
 // 0x005B4EA0
@@ -602,7 +602,7 @@ void __fastcall ACT4Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 
     if (pQuestData->pGame->bExpansion && pQuestDataEx->unk0x44 && !pQuestDataEx->bPortalToAct5Spawned)
     {
-        sub_005B45E0_ACT4Q2_SpawnPortalToAct5(pQuestArg, pQuestDataEx);
+        ACT4Q2_SpawnPortalToHarrogath(pQuestArg, pQuestDataEx);
     }
 }
 
@@ -703,14 +703,14 @@ int __fastcall ACT4Q2_UnitIterate_UpdatePlayerState(D2GameStrc* pGame, D2UnitStr
 
     if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 1) && bInRange)
     {
-        sub_005B4D20(pGame, pQuestFlags, pUnit);
+        ACT4Q2_SetQuestCompleted(pGame, pQuestFlags, pUnit);
     }
 
     return 0;
 }
 
 // 0x005B5210
-extern "C" unsigned int __fastcall sub_005B5210_ReadQuestFlag(D2GameStrc* pGame)
+extern "C" unsigned int __fastcall ACT4Q2_IsChaosSanctumCleared(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x17);
     if (pQuestData)
@@ -844,7 +844,7 @@ void __fastcall ACT4Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     for (int i = 0; i < pQuestDataEx->nPlayerCount; ++i)
     {
-        sub_00545990(pQuestData, pQuestArg, 0x40);
+        D2Game_10034_Return(pQuestData, pQuestArg, 0x40);
     }
 }
 
@@ -918,7 +918,7 @@ void __fastcall OBJECTS_InitFunction55_DiabloStartPoint(D2ObjInitFnStrc* pOp)
 }
 
 // 0x005B5620
-void __cdecl sub_005B5620_Return()
+void __cdecl OBJECTS_InitFunction56_Unused()
 {
 }
 
@@ -991,7 +991,7 @@ int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp)
 }
 
 // 0x005B5730
-unsigned char __fastcall sub_005B5730_GetDiabloKilled(D2GameStrc* pGame)
+unsigned char __fastcall ACT4Q2_IsDiabloKilled(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 23);
     if (pQuestData) return ((D2Act4Quest2Strc*)pQuestData->pQuestDataEx)->bDiabloKilled;
@@ -999,7 +999,7 @@ unsigned char __fastcall sub_005B5730_GetDiabloKilled(D2GameStrc* pGame)
 }
 
 // 0x005B5750
-void __fastcall sub_005B5750_SpawnQuestMonster(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall ACT4Q2_SpawnSealBoss(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2CoordStrc tCoords;
     UNITS_GetCoords(pUnit, &tCoords);
@@ -1131,8 +1131,8 @@ int __fastcall OBJECTS_OperateFunction73_LastLastPortal(D2ObjOperateFnStrc* pOp,
             packet5D.nHeader = 0x5D;
             packet5D.nQuestId = 23;
             packet5D.nFlags = 2;
-            sub_6FC3F380(pClient, &packet5D);
-            sub_0053D940_SendPacket0x61(pClient, 5);
+            SCMD_SendPacket0x5D(pClient, &packet5D);
+            D2GAME_PACKETS_SendPacket0x61(pClient, 5);
         }
     }
 
@@ -1143,7 +1143,7 @@ int __fastcall OBJECTS_OperateFunction73_LastLastPortal(D2ObjOperateFnStrc* pOp,
 }
 
 // 0x005B6930
-void __fastcall sub_005B6930_Return(D2GameStrc* pGame, int nSoulStonesDropped)
+void __fastcall ACT4Q3_OnSoulstonesDropped(D2GameStrc* pGame, int nSoulStonesDropped)
 {
 }
 
@@ -1213,7 +1213,7 @@ void __fastcall ACT3Q4_ResetAlkor(D2GameStrc* pGame)
 }
 
 // 0x005BBF80
-bool __fastcall sub_005BBF80_IsOrbNotSmashed(D2GameStrc* pGame)
+bool __fastcall ACT3Q5_IsOrbNotSmashed(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 19);
     if (pQuestData)

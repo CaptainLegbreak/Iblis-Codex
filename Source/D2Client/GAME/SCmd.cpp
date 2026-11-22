@@ -2805,7 +2805,7 @@ void __fastcall sub_0045D0E0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned cha
 {
 }
 
-void __fastcall sub_00581A10_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pObject)
+void __fastcall OBJMODE_HandleQuestObjectEvent(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
     QUESTS_ObjectEvents(pGame, pObject);
 }

@@ -7,23 +7,23 @@ struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2EventTimerSlabListStrc* __stdcall sub_00540BB0_AllocateSlab(D2GameStrc* pGame); // 0x00540BB0
+D2EventTimerSlabListStrc* __stdcall EVENT_AllocTimerSlab(D2GameStrc* pGame); // 0x00540BB0
 D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit); // 0x00553980
-__declspec(noinline) D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue);
+__declspec(noinline) D2EventTimerStrc* __stdcall EVENT_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue);
 __declspec(noinline) static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
-__declspec(noinline) static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
+__declspec(noinline) static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int bUninterruptable); // 0x005544B0
-__declspec(noinline) static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
+void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* pUnit, int bUninterruptable); // 0x005544B0
+__declspec(noinline) static void __stdcall EVENT_ScheduleTimer(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
 
-D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue); // 0x00540C30
+D2EventTimerStrc* __stdcall EVENT_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue); // 0x00540C30
 
 // 0x00540DF0
 static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2EventTimerQueueStrc* pQueue = pGame->pTimerQueue;
-    D2EventTimerStrc* pTimer = sub_00540C30_AllocateTimer(pGame, pQueue);
+    D2EventTimerStrc* pTimer = EVENT_AllocateTimer(pGame, pQueue);
     pTimer->pUnit = pUnit;
     pTimer->pNext = SUNIT_GetTimerFromUnit(pUnit);
     if (pTimer->pNext)
@@ -40,7 +40,7 @@ static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2
 }
 
 // 0x005415E0
-static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType)
+static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType)
 {
     if (nEventType >= 15)
     {
@@ -66,9 +66,9 @@ static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, 
 }
 
 // 0x00541650
-void __fastcall sub_00541650_DirectInfinite(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nCustomId, int nCustomParam)
+void __fastcall EVENT_SetRecurringEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nCustomId, int nCustomParam)
 {
-    sub_005415E0_InsertInfinite(0, nCustomId, nCustomParam, pGame, pUnit, nEventType);
+    EVENT_InsertInfiniteTimer(0, nCustomId, nCustomParam, pGame, pUnit, nEventType);
 }
 
 static __forceinline D2EventTimerStrc** EVENT_GetTimerListHead(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
@@ -94,7 +94,7 @@ static __forceinline D2EventTimerStrc** EVENT_GetTimerListTail(D2GameStrc* pGame
 }
 
 // 0x005416B0
-static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame)
+static void __stdcall EVENT_ScheduleTimer(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame)
 {
     if (nEventType >= 15)
     {
@@ -103,7 +103,7 @@ static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCall
 
     if (nExpireFrame == -1)
     {
-        sub_005415E0_InsertInfinite(0, nCustomId, nCustomParam, pGame, pUnit, nEventType);
+        EVENT_InsertInfiniteTimer(0, nCustomId, nCustomParam, pGame, pUnit, nEventType);
         return;
     }
 
@@ -116,7 +116,7 @@ static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCall
     {
         if (STATES_CheckState(pUnit, 54))
         {
-            sub_6FCBDE90(pUnit, 0);
+            SUNIT_SetUninterruptable(pUnit, 0);
         }
     }
 
@@ -147,11 +147,11 @@ static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCall
 // 0x005417D0
 void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam)
 {
-    sub_005416B0_InsertDated(pUnit, 0, nCustomId, nCustomParam, pGame, nEventType, nExpireFrame);
+    EVENT_ScheduleTimer(pUnit, 0, nCustomId, nCustomParam, pGame, nEventType, nExpireFrame);
 }
 
 // 0x00541800
-void __fastcall sub_00541800_DirectDatedCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pCallback, int nCustomId, int nCustomParam)
+void __fastcall EVENT_SetEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pCallback, int nCustomId, int nCustomParam)
 {
-    sub_005416B0_InsertDated(pUnit, pCallback, nCustomId, nCustomParam, pGame, nEventType, nExpireFrame);
+    EVENT_ScheduleTimer(pUnit, pCallback, nCustomId, nCustomParam, pGame, nEventType, nExpireFrame);
 }

@@ -86,7 +86,7 @@ struct D2GSPacketSrv5D
     unsigned short field_4;
 };
 
-void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
@@ -290,7 +290,7 @@ int __fastcall ACT5Q1_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
 bool __fastcall ACT5Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005874E0
 
-bool __fastcall sub_00587560_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00587560
+bool __fastcall ACT5Q1_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00587560
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
@@ -763,7 +763,7 @@ bool __fastcall ACT5Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 }
 
 // 0x00587560
-bool __fastcall sub_00587560_SeqCallback(D2QuestDataStrc* pQuestData)
+bool __fastcall ACT5Q1_SeqCallback(D2QuestDataStrc* pQuestData)
 {
     if (pQuestData->fState != TERMINAL_STATE && pQuestData->bNotIntro)
         return true;
@@ -834,7 +834,7 @@ void __fastcall ACT5Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfStatusFilter = ACT5Q1_StatusFilterCallback;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT5Q1_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = sub_00587560_SeqCallback;
+    pQuestData->pfSeqFilter = ACT5Q1_SeqCallback;
     pQuestData->nSeqId = 0x20;
     memset(pQuestDataEx, 0x00, sizeof(D2Act5Quest1Strc));
 }
@@ -876,7 +876,7 @@ void __cdecl sub_004DF930_Nop()
 }
 
 // 0x00587830
-void __cdecl sub_00587830_Nop()
+void __cdecl OBJECTS_InitFunction70_Unused()
 {
 }
 
@@ -1037,7 +1037,7 @@ int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x00587FC0
-int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
     const int nGUID = !pUnit ? -1 : pUnit->dwUnitId;
@@ -1251,7 +1251,7 @@ void __fastcall ACT5Q3_UpdateResistances(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 }
 
 // 0x0058A7D0
-int __fastcall sub_0058A7D0_GetDrehyaPortalInTownCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
+int __fastcall ACT5Q3_GetDrehyaPortalInTownCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q3_PRISONOFICE);
     if (!pQuestData || !pQuestData->bNotIntro)

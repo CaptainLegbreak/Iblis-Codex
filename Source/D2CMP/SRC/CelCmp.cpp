@@ -1809,7 +1809,7 @@ bool R0052E0F0::sub_0052E0F0_IsOpen()
     return m_pFile != 0;
 }
 
-int __stdcall sub_00551FF0_AlwaysOne(int nArg)
+int __stdcall OBJECTS_SpawnNothing(int nArg)
 {
     return 1;
 }

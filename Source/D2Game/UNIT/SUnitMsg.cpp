@@ -52,7 +52,7 @@ void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); 
 
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
-void __fastcall sub_0053E8D0_SendPacket(D2ClientStrc* pClient, const void* pPacket, int nPacketSize); // 0x0053E8D0
+void __fastcall SCMD_SendRawPacket(D2ClientStrc* pClient, const void* pPacket, int nPacketSize); // 0x0053E8D0
 
 void __fastcall D2GAME_PACKETS_SendPacket0xA7_StateOn_6FC3FC20(D2ClientStrc* pClient, unsigned char nUnitType, unsigned long dwUnitId, unsigned char nState); // 0x0053E260
 
@@ -156,7 +156,7 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 
 void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
 
-void __fastcall sub_0053BDA0_SendUnitRemoval(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID); // 0x0053BDA0
+void __fastcall D2GAME_PACKETS_SendPacket0x0A_RemoveObject(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID); // 0x0053BDA0
 
 void __fastcall D2GAME_PACKETS_SendPacket0x11_6FC3F4A0(D2ClientStrc* pClient, int nUnitType, int nUnitGUID, int nOverlay); // 0x0053D850
 
@@ -248,39 +248,39 @@ void __fastcall D2GAME_PACKETS_SendPacket0x51_6FC3D300(D2ClientStrc*, unsigned c
 
 void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned short nSkillId, unsigned char nSkillLevel, unsigned char bRemove); // 0x0053C4A0
 
-void __fastcall sub_6FC3F550(D2ClientStrc*, D2UnitStrc*); // 0x0053D900
+void __fastcall SCMD_SendPortalState(D2ClientStrc*, D2UnitStrc*); // 0x0053D900
 
 void __fastcall D2GAME_PACKETS_SendPacket0x74_6FC3F640(D2ClientStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x0053DA40
 
 void __fastcall D2GAME_PACKETS_SendPacket0x82_6FC3F790(D2GameStrc*, D2ClientStrc*, int, int); // 0x0053DB90
 
-void __fastcall sub_6FC3FAF0(D2ClientStrc*, unsigned int, unsigned short); // 0x0053E0A0
+void __fastcall D2GAME_PACKETS_SendPacket0x98(D2ClientStrc*, unsigned int, unsigned short); // 0x0053E0A0
 
-void __fastcall sub_6FC3FC80(D2ClientStrc*, D2UnitStrc*); // 0x0053E2E0
+void __fastcall SCMD_SendMonsterAssign(D2ClientStrc*, D2UnitStrc*); // 0x0053E2E0
 
-void __fastcall sub_6FC3D1F0(D2ClientStrc*, int, unsigned char, const char*, short, short); // 0x0053E8F0
+void __fastcall SCMD_SendPlayerSpawnAndPartyRoster(D2ClientStrc*, int, unsigned char, const char*, short, short); // 0x0053E8F0
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(D2ClientStrc*, D2UnitStrc*, unsigned int); // 0x0053EC00
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x0053EC90
 
-void __fastcall sub_6FC82270(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x005484B0
+void __fastcall PLRMSG_SendUnitMode(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x005484B0
 
-void __fastcall sub_6FC82830(D2UnitStrc*, D2ClientStrc*); // 0x005489F0
+void __fastcall PLRMSG_SendUnitBaseStats(D2UnitStrc*, D2ClientStrc*); // 0x005489F0
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
 
-D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc*, D2UnitStrc*); // 0x00553720
+D2UnitStrc* __fastcall SUNIT_GetPortalOwner(D2GameStrc*, D2UnitStrc*); // 0x00553720
 
 int __fastcall SUNIT_IsDead(D2UnitStrc*); // 0x005541B0
 
-void __fastcall sub_6FC42050(D2UnitStrc*, D2ClientStrc*); // 0x0055BED0
+void __fastcall ITEMMODE_SendGroundItemToClient(D2UnitStrc*, D2ClientStrc*); // 0x0055BED0
 
 void __fastcall D2GAME_STATES_SendUnitStates_6FCC58E0(D2UnitStrc*, D2ClientStrc*); // 0x00570E30
 
-void __fastcall sub_00571620(D2UnitStrc*, D2ClientStrc*); // 0x00571620
+void __fastcall SUNITMSG_SendHoverText(D2UnitStrc*, D2ClientStrc*); // 0x00571620
 
-void __fastcall sub_6FCC6540(D2UnitStrc*, D2ClientStrc*); // 0x00571CD0
+void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc*, D2ClientStrc*); // 0x00571CD0
 
 int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc*); // 0x0058F710
 
@@ -403,7 +403,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0(D2ClientStrc* pClient, un
 
 void __fastcall D2GAME_PACKETS_SendPacket0x23_6FC3DC60(D2ClientStrc* pClient, unsigned char nUnitType, int nUnitGUID, unsigned char a4, unsigned short a5, int a6); // 0x0053C590
 
-void __fastcall sub_6FC3F060(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
+void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
 
 void __fastcall sub_0053D530(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned char nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
 
@@ -547,7 +547,7 @@ void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D
                             BITMANIP_Write(&bitBuffer, 511, 9);
                             int nPacketSize = BITMANIP_GetSize(&bitBuffer) + 8;
                             packet.nSize = (unsigned char)nPacketSize;
-                            sub_0053E8D0_SendPacket(pClient, &packet, nPacketSize);
+                            SCMD_SendRawPacket(pClient, &packet, nPacketSize);
                         }
                         else D2GAME_PACKETS_SendPacket0xA7_StateOn_6FC3FC20(pClient, (unsigned char)nUnitType, nUnitId, (unsigned char)nState);
                     }
@@ -561,7 +561,7 @@ void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D
 }
 
 // 0x005715A0
-void __fastcall sub_6FCC5F20(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall SUNITMSG_SendOverlay(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pUnit, 0x80);
     if (pStatList)
@@ -575,13 +575,13 @@ void __fastcall sub_6FCC5F20(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 }
 
 // 0x00571600
-void __fastcall sub_00571600(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall SUNITMSG_SendRemoveObject(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
-    sub_0053BDA0_SendUnitRemoval(pClient, 0x0A, pUnit->dwUnitType, pUnit->dwUnitId);
+    D2GAME_PACKETS_SendPacket0x0A_RemoveObject(pClient, 0x0A, pUnit->dwUnitType, pUnit->dwUnitId);
 }
 
 // 0x00571620
-void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     if (pUnit && pUnit->pHoverText)
     {
@@ -637,7 +637,7 @@ void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pCli
 }
 
 // 0x00571790
-static inline void sub_00571790_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
+static inline void SUNITMSG_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
 {
     if (!pUnit->pMsgFirst)
     {
@@ -654,7 +654,7 @@ static inline void sub_00571790_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacke
 }
 
 // 0x005717C0
-void __fastcall sub_6FCC60D0(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6)
+void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6)
 {
     D2UnitPacketListStrc* pMsg = (D2UnitPacketListStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, 20, ".\\UNIT\\SUnitMsg.cpp", 644, 0);
     *((unsigned char*)pMsg + 10) = nSkillLevel;
@@ -680,7 +680,7 @@ void __fastcall sub_6FCC60D0(D2UnitStrc* pUnit, int nSkillId, unsigned char nSki
 }
 
 // 0x00571840
-void __fastcall sub_6FCC6150(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6)
+void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6)
 {
     D2UnitPacketListStrc* pMsg = (D2UnitPacketListStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, 20, ".\\UNIT\\SUnitMsg.cpp", 667, 0);
     *((unsigned char*)pMsg + 10) = nSkillLevel;
@@ -732,7 +732,7 @@ void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc* pUnit, unsigned short
 }
 
 // 0x00571960
-void __fastcall sub_00571960_QueueStatChange(D2UnitStrc* pUnit, unsigned short nStat, int nOldValue, int nNewValue)
+void __fastcall SUNITMSG_QueueStatChange(D2UnitStrc* pUnit, unsigned short nStat, int nOldValue, int nNewValue)
 {
     D2_ASSERT(nStat < STAT_ID_LIMIT, ASSERT_LINE);
     if (nOldValue != nNewValue)
@@ -780,7 +780,7 @@ void __fastcall SUNITMSG_QueueLifeUpdate(D2UnitStrc* pUnit, unsigned char nLifeP
 struct D2ClientStrc;
 
 // 0x00571AA0
-void __fastcall sub_6FCC6300(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, short nSkillId, short nSkillLevel, int nX, int nY, unsigned char a7)
+void __fastcall SUNITMSG_QueueSkillEvent(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, short nSkillId, short nSkillLevel, int nX, int nY, unsigned char a7)
 {
     D2UnitPacketSkillEventStrc* pMsg = (D2UnitPacketSkillEventStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, sizeof(D2UnitPacketSkillEventStrc), ".\\UNIT\\SUnitMsg.cpp", 746, 0);
     memset(pMsg, 0, sizeof(D2UnitPacketSkillEventStrc));
@@ -821,7 +821,7 @@ void __fastcall sub_6FCC6300(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, short n
 }
 
 // 0x00571B70
-void __fastcall sub_00571B70_SkillUpdate(D2UnitStrc* pUnit, int nSkillId)
+void __fastcall SUNITMSG_QueueSkillStop(D2UnitStrc* pUnit, int nSkillId)
 {
     STATES_ToggleState(pUnit, STATE_SKILL_MOVE, 0);
 
@@ -870,7 +870,7 @@ void __fastcall SUNITMSG_QueueMonsterPrecache(D2UnitStrc* pUnit, int nMonsterCla
 }
 
 // 0x00571C60
-void __fastcall sub_6FCC64D0(D2UnitStrc* pUnit, int bLeftSkill, short nSkillId, int nOwnerGUID)
+void __fastcall SUNITMSG_QueueSkillSelection(D2UnitStrc* pUnit, int bLeftSkill, short nSkillId, int nOwnerGUID)
 {
     D2UnitPacketListStrc* pMsg = (D2UnitPacketListStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, 16, ".\\UNIT\\SUnitMsg.cpp", 818, 0);
     pMsg->nHeader = 0x23;
@@ -894,7 +894,7 @@ void __fastcall sub_6FCC64D0(D2UnitStrc* pUnit, int bLeftSkill, short nSkillId, 
 }
 
 // 0x00571CD0
-void __fastcall sub_6FCC6540(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     for (D2UnitPacketListStrc* pMsg = pUnit->pMsgFirst; pMsg; pMsg = pMsg->pNext)
     {
@@ -905,7 +905,7 @@ void __fastcall sub_6FCC6540(D2UnitStrc* pUnit, D2ClientStrc* pClient)
             break;
 
         case 0x9A:
-            sub_6FC3F060(pClient, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
+            SCMD_SendUnitActionAtPosition(pClient, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
             break;
 
         case 0x9E:
@@ -990,7 +990,7 @@ static inline D2InventoryStrc* UnitInventory(D2UnitStrc* pUnit)
 }
 
 // 0x00571F90
-void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall SUNITMSG_SendUnitToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
     D2CoordStrc tCoords;
@@ -999,7 +999,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        sub_6FC3D1F0(pClient, pUnit->dwUnitId, pUnit->dwClassId, pUnit->pPlayerData->szName, tCoords.nX, tCoords.nY);
+        SCMD_SendPlayerSpawnAndPartyRoster(pClient, pUnit->dwUnitId, pUnit->dwClassId, pUnit->pPlayerData->szName, tCoords.nX, tCoords.nY);
         break;
     case UNIT_ITEM:
         if (UnitHasFlag(pUnit, 0x10))
@@ -1013,10 +1013,10 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         D2GAME_PACKETS_SendPacket0x51_6FC3D300(pClient, 0x51, 2, pUnit->dwUnitId, pUnit->dwClassId, tCoords.nX, tCoords.nY, pUnit->dwAnimMode, pUnit->pObjectData->InteractType);
         if (pUnit->pObjectData->pObjectTxt->nSubClass & 4)
         {
-            sub_6FC3F550(pClient, pUnit);
+            SCMD_SendPortalState(pClient, pUnit);
             if ((short)nClassId == 59)
             {
-                D2UnitStrc* pOwner = sub_00553720_ResolveObjectOwner(pGame, pUnit);
+                D2UnitStrc* pOwner = SUNIT_GetPortalOwner(pGame, pUnit);
                 int nOwnerId = -1;
                 if (pOwner) nOwnerId = pOwner->dwUnitId;
                 const int nPortalId = UnitGUID(pUnit);
@@ -1027,10 +1027,10 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     case UNIT_MONSTER:
         if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskHideOnUnit(pUnit))
         {
-            sub_6FC3FC80(pClient, pUnit);
+            SCMD_SendMonsterAssign(pClient, pUnit);
             STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, (unsigned short)(tCoords.nX + tCoords.nY), 0);
             if (pUnit->dwClassId == 528)
-                sub_6FC3FAF0(pClient, pUnit->dwUnitId, AIGENERAL_GetMinionSpawnClassId(pUnit));
+                D2GAME_PACKETS_SendPacket0x98(pClient, pUnit->dwUnitId, AIGENERAL_GetMinionSpawnClassId(pUnit));
             D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
             if (pMonStatsTxt)
             {
@@ -1051,7 +1051,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
                 }
             }
             D2GAME_STATES_SendUnitStates_6FCC58E0(pUnit, pClient);
-            sub_6FCC6540(pUnit, pClient);
+            SUNITMSG_SendQueuedMessages(pUnit, pClient);
         }
         break;
     case UNIT_MISSILE:
@@ -1064,7 +1064,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        sub_6FC82830(pUnit, pClient);
+        PLRMSG_SendUnitBaseStats(pUnit, pClient);
         if (SUNIT_IsDead(pUnit) && STATES_CheckState(pUnit, STATE_PLAYERBODY))
         {
             D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, 0, INVENTORY_GetOwnerId(UnitInventory(pUnit)));
@@ -1073,9 +1073,9 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         }
         else PLAYER_SynchronizeItemsToClient(pUnit, pClient);
         D2GAME_STATES_SendUnitStates_6FCC58E0(pUnit, pClient);
-        sub_6FC82270(pGame, pUnit, pClient);
-        sub_6FCC6540(pUnit, pClient);
-        sub_00571620(pUnit, pClient);
+        PLRMSG_SendUnitMode(pGame, pUnit, pClient);
+        SUNITMSG_SendQueuedMessages(pUnit, pClient);
+        SUNITMSG_SendHoverText(pUnit, pClient);
         break;
     case UNIT_MONSTER:
         MONSTERMSG_SendMonsterModeUpdate(pGame, pUnit, pClient);
@@ -1083,7 +1083,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
             PLAYER_SynchronizeItemsToClient(pUnit, pClient);
         break;
     case UNIT_ITEM:
-        sub_6FC42050(pUnit, pClient);
+        ITEMMODE_SendGroundItemToClient(pUnit, pClient);
         break;
     case UNIT_OBJECT:
     case UNIT_MISSILE:
@@ -1127,7 +1127,7 @@ void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer
 }
 
 // 0x00573750
-void __fastcall sub_00573750_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+void __fastcall MONSTER_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     if (pTarget == SUNIT_GetTargetUnit(pGame, pUnit))
     {
@@ -1161,7 +1161,7 @@ void __fastcall PLAYERPETS_UpdatePetInfo(D2UnitStrc* pUnit, int nPetType, int nU
 }
 
 // 0x00576890
-int __fastcall sub_00576890(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
+int __fastcall SUNITNPC_CapStoreItemLevel(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
 {
     if (pGame->nDifficulty == DIFFMODE_NORMAL)
     {
@@ -1182,7 +1182,7 @@ int __fastcall sub_00576890(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
 }
 
 // 0x00576ED0
-bool __fastcall sub_00576ED0(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem)
+bool __fastcall SUNITNPC_IsPermanentStoreItem(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem)
 {
     int nUnused;
     D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
@@ -1220,35 +1220,35 @@ void __fastcall D2GAME_NPC_ResetInteract_6FCCB4D0(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x00585160
-int __fastcall sub_00585160_StatCallback1(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseEnergy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
 {
     sub_006272B0_UnitStatListCall(pUnit, 1, nValue, 0);
     return 1;
 }
 
 // 0x00585180
-int __fastcall sub_00585180_StatCallback2(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseDexterity(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
 {
     sub_006272B0_UnitStatListCall(pUnit, 2, nValue, 0);
     return 1;
 }
 
 // 0x005851A0
-int __fastcall sub_005851A0_StatCallback3(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseVitality(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
 {
     sub_006272B0_UnitStatListCall(pUnit, 3, nValue, 0);
     return 1;
 }
 
 // 0x005851C0
-int __fastcall sub_005851C0_StatCallback0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseStrength(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
 {
     sub_006272B0_UnitStatListCall(pUnit, 0, nValue, 0);
     return 1;
 }
 
 // 0x00585220
-int __fastcall sub_00585220_StatCallback5(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+int __fastcall OBJMODE_ObeliskPowerUp_IncreaseSkillpoints(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
 {
     sub_006272B0_UnitStatListCall(pUnit, 5, nValue, 0);
     return 1;
@@ -1256,7 +1256,7 @@ int __fastcall sub_00585220_StatCallback5(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 void __fastcall sub_M120_Emit_00571790(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
 {
-    sub_00571790_AppendUnitMessage(pUnit, pMsg);
+    SUNITMSG_AppendUnitMessage(pUnit, pMsg);
 }
 
 #include "gen/data/Source/D2Game/UNIT/SUnitMsg.inc"

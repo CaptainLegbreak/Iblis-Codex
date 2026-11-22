@@ -19,12 +19,12 @@ int __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, short nPartyId, PARTYCALLBACK pfCallback, void* pArg); // 0x00540510
-void __fastcall sub_6FC7B3F0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);                             // 0x005A5D50
+void __fastcall PARTYSCREEN_PartyIterate_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);                             // 0x005A5D50
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 void __fastcall PLAYERLIST_AllocPlayerList(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);  // 0x0055B140
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
-void __fastcall sub_6FCBAAA0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);                // 0x0055B4C0
+void __fastcall PLAYERLIST_BroadcastFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);                // 0x0055B4C0
 int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B6C0
 void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3); // 0x0055B720
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);             // 0x00553380
@@ -34,7 +34,7 @@ void __fastcall PARTYSCREEN_PlayerLeftParty(D2GameStrc* pGame, D2UnitStrc* pPlay
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
 // 0x005A5DC0
-static void __stdcall sub_005A5DC0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
+static void __stdcall PARTYSCREEN_OpenHostilityWithPlayerOrParty(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
 {
     const unsigned short nPartyId = SUNIT_GetPartyId(pPlayer2);
     if (nPartyId == 0xFFFF)
@@ -45,7 +45,7 @@ static void __stdcall sub_005A5DC0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2Un
     }
     else if (STATLIST_GetUnitBaseStat(pPlayer1, STAT_LEVEL, 0) >= 9)
     {
-        PARTY_IteratePartyMembers(pGame, nPartyId, sub_6FC7B3F0, pPlayer1);
+        PARTY_IteratePartyMembers(pGame, nPartyId, PARTYSCREEN_PartyIterate_OpenHostility, pPlayer1);
     }
 }
 
@@ -64,8 +64,8 @@ void __fastcall PARTYSCREEN_ToggleHostile(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
     if (PLAYERLIST_CheckFlag(pPlayer1, pPlayer2, 8) == nParam)
     {
-        sub_6FCBAAA0(pGame, pPlayer1, pPlayer2);
-        sub_6FCBAAA0(pGame, pPlayer2, pPlayer1);
+        PLAYERLIST_BroadcastFlags(pGame, pPlayer1, pPlayer2);
+        PLAYERLIST_BroadcastFlags(pGame, pPlayer2, pPlayer1);
         return;
     }
 
@@ -80,13 +80,13 @@ void __fastcall PARTYSCREEN_ToggleHostile(D2GameStrc* pGame, D2UnitStrc* pPlayer
         {
             SUNIT_AttachSound(pPlayer1, 19, pPlayer1);
             PLRTRADE_SendEventPacketToPlayer(pPlayer1, 16, 0);
-            sub_6FCBAAA0(pGame, pPlayer1, pPlayer2);
-            sub_6FCBAAA0(pGame, pPlayer2, pPlayer1);
+            PLAYERLIST_BroadcastFlags(pGame, pPlayer1, pPlayer2);
+            PLAYERLIST_BroadcastFlags(pGame, pPlayer2, pPlayer1);
             return;
         }
 
         PLAYERLIST_SetHostileDelay(pPlayer1, pPlayer2, GetTickCount() + 60000);
-        sub_005A5DC0(pGame, pPlayer1, pPlayer2);
+        PARTYSCREEN_OpenHostilityWithPlayerOrParty(pGame, pPlayer1, pPlayer2);
         PLAYER_RemoveTownPortal(pGame, pPlayer1);
 
         short nPartyId = SUNIT_GetPartyId(pPlayer1);

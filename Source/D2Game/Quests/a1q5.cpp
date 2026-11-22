@@ -208,7 +208,7 @@ void __fastcall ACT1Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
 bool __fastcall ACT1Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005952C0
 
-void __fastcall sub_00595420_UpdatePlayerListQuestState(D2GameStrc* pGame, D2QuestGUIDStrc* pQuestGUID, int nQuestId, int nSoundId); // 0x00595420
+void __fastcall ACT1Q5_UpdatePlayerListQuestState(D2GameStrc* pGame, D2QuestGUIDStrc* pQuestGUID, int nQuestId, int nSoundId); // 0x00595420
 
 void __stdcall ACT1Q5_SpawnTowerChestMissiles(D2QuestDataStrc* pQuestData, D2Act1Quest5Strc* pQuestDataEx); // 0x005954F0
 
@@ -256,7 +256,7 @@ void __fastcall OBJECTS_InitFunction13_InvisibleObject(D2ObjInitFnStrc* pOp)
 }
 
 // 0x00594060
-void __fastcall sub_00594060_InitCainGibbet(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+void __fastcall ACT1Q4_InitCainGibbet(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
 {
     if (pQuestData)
     {
@@ -414,7 +414,7 @@ int __fastcall ACT1Q4_UpdateCainPortalCoordinates(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x00594700
-static void __stdcall sub_00594700_ACT1Q5_AddUnitGUID(D2Act1Quest5Strc* pQuestDataEx, int nUnitId, int bSecondList)
+static void __stdcall ACT1Q5_AddUnitGUID(D2Act1Quest5Strc* pQuestDataEx, int nUnitId, int bSecondList)
 {
     if (bSecondList)
     {
@@ -633,7 +633,7 @@ void __fastcall ACT1Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 }
 
 // 0x00594DB0
-void __fastcall sub_00594DB0_InitTowerTome(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+void __fastcall ACT1Q5_InitTowerTome(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
 {
     if (!pQuestData->bNotIntro)
         UNITS_ChangeAnimMode(pOp->pObject, 3);
@@ -735,7 +735,7 @@ int __fastcall ACT1Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
         D2Act1Quest5Strc* pQuestDataEx = (D2Act1Quest5Strc*)pQuestData->pQuestDataEx;
         const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-        sub_00594700_ACT1Q5_AddUnitGUID(pQuestDataEx, nUnitId, 1);
+        ACT1Q5_AddUnitGUID(pQuestDataEx, nUnitId, 1);
         return 0;
     }
 
@@ -744,7 +744,7 @@ int __fastcall ACT1Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 }
 
 // 0x00594FD0
-static inline void sub_00594FD0_FinishCountessQuest(D2QuestDataStrc* pQuestData)
+static inline void ACT1Q5_FinishCountessQuest(D2QuestDataStrc* pQuestData)
 {
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q5_UnitIterate_AttachCompletionSound);
     QUESTS_SetGlobalState(pQuestData->pGame, 5, 13);
@@ -756,7 +756,7 @@ static inline void sub_00594FD0_FinishCountessQuest(D2QuestDataStrc* pQuestData)
 
 void __fastcall sub_M129_Emit_00594FD0(D2QuestDataStrc* pQuestData)
 {
-    sub_00594FD0_FinishCountessQuest(pQuestData);
+    ACT1Q5_FinishCountessQuest(pQuestData);
 }
 
 // 0x00595010
@@ -894,7 +894,7 @@ int __fastcall ACT1Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
 }
 
 // 0x00595420
-void __fastcall sub_00595420_UpdatePlayerListQuestState(D2GameStrc* pGame, D2QuestGUIDStrc* pQuestGUID, int nQuestId, int nSoundId)
+void __fastcall ACT1Q5_UpdatePlayerListQuestState(D2GameStrc* pGame, D2QuestGUIDStrc* pQuestGUID, int nQuestId, int nSoundId)
 {
     for (int i = 0; i < pQuestGUID->nPlayerCount; ++i)
     {
@@ -1034,7 +1034,7 @@ void __fastcall ACT1Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         pQuestData->pCallback[8] = 0;
         QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, 13);
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q5_UnitIterate_SetRewardGranted);
-        sub_00595420_UpdatePlayerListQuestState(pQuestArg->pGame, &pQuestDataEx->tPlayerGUIDs, pQuestData->eFilter, 37);
+        ACT1Q5_UpdatePlayerListQuestState(pQuestArg->pGame, &pQuestDataEx->tPlayerGUIDs, pQuestData->eFilter, 37);
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q5_UnitIterate_SetCompletionFlag);
         QUESTS_CreateTimer(pQuestData, ACT1Q5_Timer_StatusCycler, 7);

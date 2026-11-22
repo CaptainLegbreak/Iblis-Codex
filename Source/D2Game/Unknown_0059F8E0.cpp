@@ -10,7 +10,7 @@ struct D2MissilesTxt;
 struct D2MissileUnitFindTableStrc;
 
 void __stdcall MISSILE_FreeMissileData(D2UnitStrc* pMissile); // 0x0064A150
-void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
+void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 
 typedef void(__fastcall* MISSILEINITFUNC)(D2UnitStrc* pMissile, int nInitArg);
 

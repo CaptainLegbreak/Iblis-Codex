@@ -148,7 +148,7 @@ struct D2GSPacketSrv5D
     unsigned short field_4;
 };
 
-void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
@@ -302,14 +302,14 @@ bool __fastcall ACT3Q2_SeqCallback(D2QuestDataStrc* pQuestData)
 }
 
 // 0x005B81C0
-static void __stdcall sub_005B81C0_SendKhalimPacket(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, unsigned char nState)
+static void __stdcall ACT3Q2_SendKhalimPacket(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, unsigned char nState)
 {
     D2GSPacketSrv5D packet5D = {};
     packet5D.nHeader = 0x5D;
     packet5D.nQuestId = QUEST_A3Q2_KHALIMFLAIL;
     packet5D.nFlags = (unsigned char)pQuestData->dwFlags;
     packet5D.nState = nState;
-    sub_6FC3F380(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 568), &packet5D);
+    SCMD_SendPacket0x5D(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 568), &packet5D);
 }
 
 // 0x005B8210
@@ -379,91 +379,91 @@ void __fastcall ACT3Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
 
         if (bNoCustom3)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 5);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 5);
         }
         else
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 6);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 6);
         }
     }
     else if (dwItemCode == ' 1fq')
     {
         if (!bEyeAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 1);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 1);
         }
         else if (!bBrainAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 2);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 2);
         }
         else if (!bHeartAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 4);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 4);
         }
         else if (bNoCustom1)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 5);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 5);
         }
         else
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 7);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 7);
         }
     }
     else if (dwItemCode == ' yeq')
     {
         if (!bBrainAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 2);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 2);
         }
         else if (!bBaseFlailAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 3);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 3);
         }
         else if (!bHeartAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 4);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 4);
         }
         else
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 7);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 7);
         }
     }
     else if (dwItemCode == ' rhq')
     {
         if (!bBrainAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 2);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 2);
         }
         else if (!bBaseFlailAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 3);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 3);
         }
         else if (!bEyeAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 1);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 1);
         }
         else
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 7);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 7);
         }
     }
     else if (dwItemCode == ' rbq')
     {
         if (!bHeartAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 4);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 4);
         }
         else if (!bBaseFlailAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 3);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 3);
         }
         else if (!bEyeAvailable)
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 1);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 1);
         }
         else
         {
-            sub_005B81C0_SendKhalimPacket(pQuestData, pQuestArg, 7);
+            ACT3Q2_SendKhalimPacket(pQuestData, pQuestArg, 7);
         }
     }
 }
@@ -514,7 +514,7 @@ int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, in
 }
 
 // 0x005B8530
-int __fastcall sub_005B8530_OperateSewerLever(D2ObjOperateFnStrc* pOp, int nOperate)
+int __fastcall OBJECTS_OperateFunction45_SewerLever(D2ObjOperateFnStrc* pOp, int nOperate)
 {
     D2UnitStrc* pObject = pOp->hObject;
     if (!pObject || !pObject->dwAnimMode)
@@ -927,7 +927,7 @@ int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent
 }
 
 // 0x005C31F0
-int __fastcall sub_005C31F0_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+int __fastcall SKILLS_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     if (!pTarget)
     {
@@ -958,7 +958,7 @@ int __fastcall sub_005C31F0_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x005C3370
-void __fastcall sub_6FD0B250(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+void __fastcall SKILLS_CurseStateCallback_ResetAi(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
     if (pUnit)
     {
@@ -975,7 +975,7 @@ void __fastcall sub_6FD0B250(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 }
 
 // 0x005C3D50
-int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+int __fastcall SKILLS_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nType != 1)

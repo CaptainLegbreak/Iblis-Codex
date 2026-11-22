@@ -337,7 +337,7 @@ void __fastcall PLAYER_SetUniqueIdInPlayerData(D2UnitStrc* unit,int id); // 0x00
 
 void __fastcall OBJECTS_SetUnitIdInTimerArg(D2UnitStrc* unit,int id); // 0x00552AF0
 
-D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* game,D2UnitStrc* unit); // 0x00553720
+D2UnitStrc* __fastcall SUNIT_GetPortalOwner(D2GameStrc* game,D2UnitStrc* unit); // 0x00553720
 
 void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* game,D2UnitStrc* unit); // 0x0058CF00
 
@@ -399,7 +399,7 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);            // 0x00463740
 
-int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
 
@@ -491,7 +491,7 @@ D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); /
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nGUID); // 0x00552F60
 
-void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 
@@ -570,7 +570,7 @@ D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUni
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
-void __fastcall sub_6FCC60D0(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6); // 0x005717C0
+void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6); // 0x005717C0
 
 int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
 
@@ -677,7 +677,7 @@ int __fastcall SKILLITEM_pSpell02_CastPortal(D2GameStrc* game,D2UnitStrc* unit,D
   PLAYER_SetUniqueIdInPlayerData(unit,!portal?-1:portal->dwUnitId);
   if(portal) {
    OBJECTS_SetUnitIdInTimerArg(portal,unit->dwUnitId);
-   D2UnitStrc* other=sub_00553720_ResolveObjectOwner(game,portal);
+   D2UnitStrc* other=SUNIT_GetPortalOwner(game,portal);
    if(other) {
     OBJECTS_SetUnitIdInTimerArg(other,unit->dwUnitId);
     ACT5Q5_OnPortalOpened(game,other);
@@ -2355,7 +2355,7 @@ int __fastcall SKILLITEM_TimerCallback_ReanimateMonster(D2GameStrc* pGame, int n
     AIUTIL_SetOwnerGUIDAndType(pPet, pOwner);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, 2, 0);
     EVENT_SetEvent(pGame, pPet, 2, pGame->dwGameFrame + 25, 0, 0);
-    sub_005543B0_AssignAlignment(pPet, 2, 0);
+    SUNIT_SetAlignment(pPet, 2, 0);
     pPet->dwFlags |= 0x80000000;
     STATES_ToggleState(pPet, 96, 1);
     D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 21, 0);
@@ -2794,7 +2794,7 @@ int __fastcall SKILLS_SrvDo027_Teleport(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom));
     if (pLevelsTxtRecord && pLevelsTxtRecord->nTeleport != 0 && (pLevelsTxtRecord->nTeleport != 2 || !UNITS_TestCollisionByCoordinates(pUnit, nTargetX, nTargetY, COLLIDE_MASK_PLAYER_FLYING)))
     {
-        return sub_6FCBDFE0(pGame, pUnit, 0, nTargetX, nTargetY, 0, 0);
+        return SUNIT_TeleportUnit(pGame, pUnit, 0, nTargetX, nTargetY, 0, 0);
     }
 
     return 0;
@@ -2921,7 +2921,7 @@ int __fastcall SKILLS_SrvDo098_MonTeleport(D2GameStrc* pGame, D2UnitStrc* pUnit,
         }
     }
 
-    if (!sub_6FCBDFE0(pGame, pUnit, pRoom, nX, nY, 0, 0))
+    if (!SUNIT_TeleportUnit(pGame, pUnit, pRoom, nX, nY, 0, 0))
     {
         return 0;
     }
@@ -3410,7 +3410,7 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
         nUnitGUID = nTargetUnitGUID;
     }
 
-    sub_6FCC60D0(pUnit, nSkillId, nSkillLevel, nUnitType, nUnitGUID, a5);
+    SUNITMSG_QueueItemSkillOnUnit(pUnit, nSkillId, nSkillLevel, nUnitType, nUnitGUID, a5);
     return 1;
 }
 

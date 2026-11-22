@@ -439,7 +439,7 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* pOrigin); // 0x00553380
 
@@ -585,7 +585,7 @@ struct D2MissileFindArgStrc
 
 extern D2MissileUnitFindTableStrc gtMissileCollisionModes[]; // 0x0073C720
 
-int __fastcall sub_6FCBC930(D2GameStrc*, D2UnitStrc*); // 0x00554CA0
+int __fastcall SUNIT_UpdateUnitPath(D2GameStrc*, D2UnitStrc*); // 0x00554CA0
 
 int __stdcall PATH_GetVelocity(D2DynamicPathStrc*); // 0x006486C0
 
@@ -601,7 +601,7 @@ D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc*, int, int, void*, void*, 
 
 void __fastcall MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles(D2GameStrc* pGame, D2UnitStrc* pOrigin, int nMissileId, int nRange, int nLoops); // 0x005A9720
 
-void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00553490
+void __fastcall SUNIT_ValidateTargetUnit(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00553490
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
@@ -654,7 +654,7 @@ int __stdcall sub_0064A280_GetSkill(D2UnitStrc*); // 0x0064A280
 
 int __stdcall sub_0064A210_GetSkillLevel(D2UnitStrc*); // 0x0064A210
 
-int __fastcall sub_0056E620_GetValidMonsterId(D2UnitStrc*,int,int,int,int*,int,int); // 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc*,int,int,int,int*,int,int); // 0x0056E620
 
 int __stdcall sub_0064A730_GetUnitId(D2UnitStrc*); // 0x0064A730
 
@@ -670,7 +670,7 @@ void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc*,D2UnitStrc*,D2
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
 
-void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
+void __fastcall TARGETS_InsertUnitNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 
 static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc* pGame, int nMissileId, int nRange, int nStep, D2UnitStrc* pMissile);
 
@@ -680,7 +680,7 @@ struct D2ObjOperateFnStrc;
 
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 
-void __fastcall sub_6FC75EB0(D2ObjOperateFnStrc* pOp); // 0x00585E00
+void __fastcall OBJMODE_OpenTowerChest(D2ObjOperateFnStrc* pOp); // 0x00585E00
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 
@@ -690,7 +690,7 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
 
-void __fastcall sub_0056DDE0_FillRecordAndCall(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8); // 0x0056DDE0
+void __fastcall SKILLS_ApplyAreaEffectAtCoordinates(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8); // 0x0056DDE0
 
 int __fastcall MISSMODE_RadamentDeathAreaEffectCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillLevel, int nUnused); // 0x005AD8F0
 
@@ -712,7 +712,7 @@ typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2U
 
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
 
-int __fastcall sub_6FC78B20(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short nObjectType, int nObjectGUID); // 0x00584540
+int __fastcall OBJMODE_OperateObjectInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short nObjectType, int nObjectGUID); // 0x00584540
 
 int __fastcall AITHINK_TryOpenNearbyDoor(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B0F50
 
@@ -4920,7 +4920,7 @@ int __fastcall MISSMODE_HandleMissileCollision(D2GameStrc* pGame, D2UnitStrc* pM
 {
     D2MissilesTxt* pMissilesTxtRecord = GetMissilesTxt(pMissile);
     if (!pMissilesTxtRecord) return MISSMODE_SrvDmgHitHandler(pGame, pMissile, 0, 1);
-    if (PATH_GetVelocity(pMissile->pDynamicPath) && sub_6FCBC930(pGame, pMissile) == 2)
+    if (PATH_GetVelocity(pMissile->pDynamicPath) && SUNIT_UpdateUnitPath(pGame, pMissile) == 2)
         return MISSMODE_SrvDmgHitHandler(pGame, pMissile, 0, 1);
     const int nFrame = MISSILE_GetCurrentFrame(pMissile) - 1;
     MISSILE_SetCurrentFrame(pMissile, nFrame);
@@ -5067,7 +5067,7 @@ int __fastcall MISSMODE_SrvDo07_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Unit
 
     if (MISSILE_GetTargetX(pMissile) & 1)
     {
-        sub_6FCBC7E0(pGame, pMissile);
+        SUNIT_ValidateTargetUnit(pGame, pMissile);
 
         D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
         D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pMissile);
@@ -5305,7 +5305,7 @@ int __fastcall MISSMODE_SrvDo13_BoneWallMaker(D2GameStrc* game,D2UnitStrc* unit)
   skill=sub_0045C4B0_GetSkillsTxtRecord(skillId);
   if(!skill) return 2;
   int variant;
-  int monsterId=sub_0056E620_GetValidMonsterId(owner,0,skillId,skillLevel,&variant,0,0);
+  int monsterId=D2GAME_GetSummonIdFromSkill(owner,0,skillId,skillLevel,&variant,0,0);
   if(monsterId<0) return 0;
   unsigned char petType=skill->nPetType;
   if(petType>=sgptDataTables->nPetTypeTxtRecordCount) petType=0;
@@ -5322,7 +5322,7 @@ int __fastcall MISSMODE_SrvDo13_BoneWallMaker(D2GameStrc* game,D2UnitStrc* unit)
     D2GAME_BOSSES_AssignUMod_6FC6FF10(game,summoned,15,0);
     D2GAME_SetSummonPassiveStats_6FD0C530(game,owner,summoned,skillId,skillLevel,0);
     UNITS_StoreOwner(summoned,owner);
-    sub_6FC40280(game,summoned,0,9);
+    TARGETS_InsertUnitNode(game,summoned,0,9);
     int count=sub_0064A780_GetCount(unit);--count;MISSILE_SetTargetY(unit,count);
    }
   }
@@ -5458,7 +5458,7 @@ int __fastcall MISSMODE_SrvDo18_TowerChestSpawner(D2GameStrc* pGame, D2UnitStrc*
             op.pObjectregion = (D2ObjectControlStrc*)&pObject->pSeed;
             op.hObject = pObject;
             op.nObjectIdx = pObject->dwClassId;
-            sub_6FC75EB0(&op);
+            OBJMODE_OpenTowerChest(&op);
         }
         MISSILE_SetTargetY(pMissile, 1);
     }
@@ -6219,11 +6219,11 @@ int __fastcall MISSMODE_SrvDo19_RadamentDeath(D2GameStrc* pGame, D2UnitStrc* pMi
     const int nCurrentFrame = sub_0064A380_GetRemainingFrames(pMissile);
     if (nCurrentFrame > 1 && nCurrentFrame < 25)
     {
-        sub_0056DDE0_FillRecordAndCall(pGame, 0x3002, MISSMODE_GetUnitX(pMissile), MISSMODE_GetUnitY(pMissile), (int)pMissile, 124, 1, (void*)MISSMODE_RadamentDeathAreaEffectCallback);
+        SKILLS_ApplyAreaEffectAtCoordinates(pGame, 0x3002, MISSMODE_GetUnitX(pMissile), MISSMODE_GetUnitY(pMissile), (int)pMissile, 124, 1, (void*)MISSMODE_RadamentDeathAreaEffectCallback);
     }
     else if (nCurrentFrame == 1)
     {
-        sub_0056DDE0_FillRecordAndCall(pGame, 0x3002, MISSMODE_GetUnitX(pMissile), MISSMODE_GetUnitY(pMissile), (int)pMissile, 124, 1, (void*)MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame);
+        SKILLS_ApplyAreaEffectAtCoordinates(pGame, 0x3002, MISSMODE_GetUnitX(pMissile), MISSMODE_GetUnitY(pMissile), (int)pMissile, 124, 1, (void*)MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame);
     }
 
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
@@ -6317,7 +6317,7 @@ int __fastcall AITHINK_TryOpenNearbyDoor(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             if (DATATBLS_GetObjectsTxtRecord(nClassId)->nMonsterOK)
             {
                 const int nDoorId = (pDoor ? pDoor->dwUnitId : -1);
-                sub_6FC78B20(pGame, pUnit, 2, nDoorId);
+                OBJMODE_OperateObjectInRange(pGame, pUnit, 2, nDoorId);
                 AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
                 return 1;
             }

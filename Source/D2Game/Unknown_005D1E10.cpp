@@ -51,7 +51,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern "C" DataTables* sgptDataTables; // 0x00744304
 extern "C" int __stdcall SKILLS_EvaluateSkillFormula(Unit*, U32, int, int); // 0x00646CA0
 extern "C" void __fastcall SKILLS_ApplyAuraStatsToStatList(Unit*, T005C40D0*, SkillRecord*, int, int); // 0x005C6CC0
-extern "C" int __fastcall sub_0056E620_GetValidMonsterId(Unit*, int, int, int, int*, int, int); // 0x0056E620
+extern "C" int __fastcall D2GAME_GetSummonIdFromSkill(Unit*, int, int, int, int*, int, int); // 0x0056E620
 extern "C" int __stdcall DATATBLS_GetMonsterChainInfo(int, int*, int*); // 0x006510C0
 extern "C" int __fastcall SKILLS_GetMonsterClassFromChain(int, int); // 0x0054DA60
 extern "C" int __fastcall MONSTER_Reinitialize(Game*, Unit*, int, int); // 0x00574370
@@ -130,7 +130,7 @@ static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, 
     if (!record)
         return;
 
-    int selected = sub_0056E620_GetValidMonsterId(owner, 0, skill, level, &level, 0, 0);
+    int selected = D2GAME_GetSummonIdFromSkill(owner, 0, skill, level, &level, 0, 0);
     if (selected < 0)
         return;
     if (GetUnitType(target) != 1)

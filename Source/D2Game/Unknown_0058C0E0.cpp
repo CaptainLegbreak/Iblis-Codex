@@ -26,7 +26,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);              // 0x00552F60
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
-void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int a2);                                                    // 0x005544B0
+void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* pUnit, int a2);                                                    // 0x005544B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange);  // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);         // 0x005A7C20
@@ -44,7 +44,7 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 int __fastcall ACT5Q5_UnitIterate_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);            // 0x0058D510
 
-static bool sub_0058BEC0_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGUID)
+static bool ACT5Q5_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGUID)
 {
     D2UnitStrc* pAncientMonster = SUNIT_GetServerUnit(pGame, 1, nAncientMonsterGUID);
     if (!pAncientMonster)
@@ -54,7 +54,7 @@ static bool sub_0058BEC0_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMon
 
     if (STATES_CheckState(pAncientMonster, STATE_UNINTERRUPTABLE))
     {
-        sub_6FCBDE90(pAncientMonster, 0);
+        SUNIT_SetUninterruptable(pAncientMonster, 0);
     }
 
     if (UNITS_GetRoom(pAncientMonster))
@@ -78,7 +78,7 @@ static void __stdcall ACT5Q5_DeactivateAncientMonsters(D2GameStrc* pGame, D2Ques
     {
         if (pQuestDataEx->bAncientMonsterSpawned[i])
         {
-            if (sub_0058BEC0_RemoveAncientMonster(pGame, pQuestDataEx->nAncientMonsterGUID[i]))
+            if (ACT5Q5_RemoveAncientMonster(pGame, pQuestDataEx->nAncientMonsterGUID[i]))
             {
                 --pQuestDataEx->nAncientsSpawned;
                 --pQuestDataEx->nAncientsAlive;

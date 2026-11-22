@@ -24,7 +24,7 @@ void __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1,
 int __fastcall sub_00520520_SetState(int nState); // 0x00520520
 int __fastcall sub_00520550_SetStateArg(void* pArg); // 0x00520550
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-int __fastcall sub_0052A600(void* pArg); // 0x0052A600
+int __fastcall BNCLIENT_DeleteBigNum(void* pArg); // 0x0052A600
 int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 void __fastcall sub_00529F50_Sha1Init(D2SrpSha1ContextStrc* pContext); // 0x00529F50

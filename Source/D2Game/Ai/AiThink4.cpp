@@ -133,7 +133,7 @@ struct D2SandRaiderAiCallbackArgStrc
 
 int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags); // 0x005DEB60
 
-void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int a2, int nVel, unsigned char a4); // 0x005A6260
+void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int a2, int nVel, unsigned char a4); // 0x005A6260
 
 void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 
@@ -371,7 +371,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
+D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit); // 0x00535BC0
 
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 
@@ -479,7 +479,7 @@ void __fastcall AITHINK_MinionCallback_CheckDead(D2UnitStrc* pUnit, void* a2, vo
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
-int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                                     // 0x00555600
 
@@ -531,7 +531,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
-int __fastcall sub_005429B0_IsDeadMonsterAt(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nIndex); // 0x005429B0
+int __fastcall SUNITINACTIVE_IsDeadMonsterAt(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nIndex); // 0x005429B0
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_BaalToStairs(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005EF5E0
 
@@ -611,7 +611,7 @@ int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitS
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005EB6D0
 
-int __fastcall sub_005EB7F0_IsStateGroupActive(D2UnitStrc* pUnit, int nState);                              // 0x005EB7F0
+int __fastcall AITHINK_IsStateGroupActive(D2UnitStrc* pUnit, int nState);                              // 0x005EB7F0
 
 int __fastcall AITHINK_UseShadowMasterSkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSkillId, int bCombat, D2UnitStrc* pTarget, int nX, int nY, D2AiTickParamStrc* pAiTickParam); // 0x005EB8B0
 
@@ -722,7 +722,7 @@ int __fastcall sub_00588E10_IsMonsterNearby(D2GameStrc*,D2UnitStrc*,D2UnitStrc*)
 
 void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x005888D0
 
-void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
+void __fastcall TARGETS_InsertUnitNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 
 void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00588DD0
 
@@ -976,7 +976,7 @@ int __fastcall ACT1Q4_UpdateCainPortalCoordinates(D2GameStrc* pGame, D2UnitStrc*
 
 int __fastcall ACT5Q3_InitializeDrehyaPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A940
 
-void __fastcall sub_6FCB53D0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A980
+void __fastcall ACT5Q3_OnDrehyaRescued(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A980
 
 int gnNpcWalkSequenceCounter; // 0x0088CADC
 
@@ -1337,13 +1337,13 @@ enum D2C_M86ReanimatedHordeAi
 
 int __fastcall AITHINK_SpawnNpcPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pTick); // 0x005E77A0
 
-void __fastcall sub_0058AA10_ACT5Q3_UpdateStatusOnActivate(D2GameStrc* pGame); // 0x0058AA10
+void __fastcall ACT5Q3_UpdateStatusOnActivate(D2GameStrc* pGame); // 0x0058AA10
 
 int __fastcall ACT1Q4_GetCainPortalOutsideTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoords); // 0x00594450
 
 int __fastcall ACT5Q3_GetDrehyaPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoords); // 0x0058A8D0
 
-int __fastcall sub_0058A9F0_ACT5Q3_IsDrehyaStateZero(D2GameStrc* pGame); // 0x0058A9F0
+int __fastcall ACT5Q3_IsDrehyaNotRescued(D2GameStrc* pGame); // 0x0058A9F0
 
 int __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005943B0
 
@@ -3663,7 +3663,7 @@ int __fastcall AITHINK_PetMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStr
         int nClass=363>=gpDataTables->nMonStatsTxtRecordCount ? -1 : 363;
         if (!sub_0054DC40_FindSpawnCoordinates(pGame,pRoom,pCoords,nClass,&nX,&nY,0)) return 0;
         D2ActiveRoomStrc* pNewRoom=sub_00463740_FindRoomAtPoint(pRoom,nX,nY);
-        if (!pNewRoom || !sub_6FCBDFE0(pGame,pPet,pNewRoom,nX,nY,0,0)) return 0;
+        if (!pNewRoom || !SUNIT_TeleportUnit(pGame,pPet,pNewRoom,nX,nY,0,0)) return 0;
         UNITROOM_RefreshUnit(pPet);
         if (pPet) pPet->dwFlagEx|=0x10000;
         AITACTICS_IdleInNeutralMode(pGame,pPet,5);
@@ -3805,7 +3805,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
                 }
                 if (!bChanged) {
                     bChanged = 1;
-                    sub_005A6260_SetAiParamFields(pAiParam, 1, nSpeed, 100);
+                    MONSTERMODE_SetVelocityParams(pAiParam, 1, nSpeed, 100);
                     if (bRun) {
                         if (AITACTICS_RunToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nTargetX, nTargetY)) return 1;
                     } else {
@@ -3837,7 +3837,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
             if (!MONSTERREGION_FindSpawnLocation(pGame, pRoom, pCoords, GetMonsterId(363), &nSpawnX, &nSpawnY, 0)) break;
             pRoom = sub_00463740_FindRoomAtPoint(pRoom, nSpawnX, nSpawnY);
             if (!pRoom) break;
-            if (!sub_6FCBDFE0(pGame, pUnit, pRoom, nSpawnX, nSpawnY, 0, 0)) break;
+            if (!SUNIT_TeleportUnit(pGame, pUnit, pRoom, nSpawnX, nSpawnY, 0, 0)) break;
             UNITROOM_RefreshUnit(pUnit);
             pUnit->dwFlagEx |= 0x10000;
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
@@ -4492,7 +4492,7 @@ void __fastcall AITHINK_SpecialState13_Countess(D2GameStrc* pGame, D2UnitStrc* p
     int nRegion = D2Common_10095(pRoom, pCmd->nCmdParam[1], pCmd->nCmdParam[2]);
     if (nRegion != D2Common_10095(pRoom, GetX(pUnit), GetY(pUnit)))
     {
-        sub_005A6260_SetAiParamFields(GetAiParam(pUnit), 1, 0, 0);
+        MONSTERMODE_SetVelocityParams(GetAiParam(pUnit), 1, 0, 0);
         if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
@@ -4504,13 +4504,13 @@ void __fastcall AITHINK_SpecialState13_Countess(D2GameStrc* pGame, D2UnitStrc* p
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
             return;
         }
-        sub_005A6260_SetAiParamFields(GetAiParam(pUnit), 1, 0, 0);
+        MONSTERMODE_SetVelocityParams(GetAiParam(pUnit), 1, 0, 0);
         if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
     if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2]) > 40)
     {
-        sub_005A6260_SetAiParamFields(GetAiParam(pUnit), 1, 0, 0);
+        MONSTERMODE_SetVelocityParams(GetAiParam(pUnit), 1, 0, 0);
         if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
@@ -5562,7 +5562,7 @@ int __fastcall AITHINK_SpawnNpcPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, void
     if (pUnit && pUnit->dwClassId == MONSTER_DREHYAICED)
     {
         pfUpdatePortalCoordinates = ACT5Q3_InitializeDrehyaPortalCoordinates;
-        pfSpawnPortal = sub_6FCB53D0;
+        pfSpawnPortal = ACT5Q3_OnDrehyaRescued;
     }
 
     if (!pfUpdatePortalCoordinates(pGame, pUnit))
@@ -5607,7 +5607,7 @@ void __fastcall AITHINK_Fn031_NpcOutOfTown(D2GameStrc* pGame, D2UnitStrc* pUnit,
     if (AITHINK_SpawnNpcPortal(pGame, pUnit, pTick))
         return;
     if (bDrehya)
-        sub_0058AA10_ACT5Q3_UpdateStatusOnActivate(pGame);
+        ACT5Q3_UpdateStatusOnActivate(pGame);
     if (MONSTERAI_HasInteractUnit(GetMonInteract(pUnit)))
     {
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 40);
@@ -5627,7 +5627,7 @@ void __fastcall AITHINK_Fn031_NpcOutOfTown(D2GameStrc* pGame, D2UnitStrc* pUnit,
             if (bDrehya)
             {
                 pfGetCoords = ACT5Q3_GetDrehyaPortalCoordinates;
-                pfSpawnPortal = sub_6FCB53D0;
+                pfSpawnPortal = ACT5Q3_OnDrehyaRescued;
             }
             D2CoordStrc coords;
             if (pfGetCoords(pGame, pUnit, &coords))
@@ -5648,7 +5648,7 @@ void __fastcall AITHINK_Fn031_NpcOutOfTown(D2GameStrc* pGame, D2UnitStrc* pUnit,
             if ((int)(unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2]) > 1 && pCmd->nCmdParam[4] <= 5)
             {
                 pCmd->nCmdParam[4] += 1;
-                if (bDrehya && sub_0058A9F0_ACT5Q3_IsDrehyaStateZero(pGame))
+                if (bDrehya && ACT5Q3_IsDrehyaNotRescued(pGame))
                 {
                     AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
                     pCmd->nCmdParam[4] = 0;
@@ -6827,7 +6827,7 @@ void __fastcall AITHINK_Fn102_BladeCreeper(D2GameStrc* pGame, D2UnitStrc* pUnit,
                 STATLIST_AddUnitStat(pUnit, STAT_TOHIT, nAttackRate, 0);
 
                 int nToHitPercent = STATLIST_UnitGetStatValue(pOwner, STAT_ITEM_TOHIT_PERCENT, 0);
-                D2UnitStrc* pWeapon = sub_6FC7C7B0(pOwner);
+                D2UnitStrc* pWeapon = PLAYER_GetWeaponForSkill(pOwner);
                 if (pWeapon)
                 {
                     nToHitPercent += SKILLS_GetWeaponMasteryBonus(pOwner, pWeapon, 0, 0);
@@ -7626,7 +7626,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
                 case 1:
                     if (pSkillsTxtRecord->nAiType == 1 && pSkillsTxtRecord->nAuraState > 0 && !STATES_CheckState(pUnit, pSkillsTxtRecord->nAuraState))
                     {
-                        if (!sub_005EB7F0_IsStateGroupActive(pUnit, pSkillsTxtRecord->nAuraState) || (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 4)
+                        if (!AITHINK_IsStateGroupActive(pUnit, pSkillsTxtRecord->nAuraState) || (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 4)
                         {
                             if ((int)(SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 100) < 60)
                             {
@@ -7852,7 +7852,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
                             nTemp -= 6;
                         }
 
-                        if (sub_005EB7F0_IsStateGroupActive(pUnit, pSkillsTxtRecord->nAuraState))
+                        if (AITHINK_IsStateGroupActive(pUnit, pSkillsTxtRecord->nAuraState))
                         {
                             nTemp -= 10;
                         }
@@ -8753,7 +8753,7 @@ void __fastcall AITHINK_Fn109_Totem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     const int nOwnerDistance = sub_006416D0_UnitEdgeDistance(pUnit, pOwner);
     if (nOwnerDistance > AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_TELEPORT_TO_OWNER_DISTANCE))
     {
-        if (sub_6FCBDFE0(pGame, pUnit, UNITS_GetRoom(pOwner), CLIENTS_GetUnitXInline_Totem(pOwner), CLIENTS_GetUnitYInline_Totem(pOwner), 0, 0))
+        if (SUNIT_TeleportUnit(pGame, pUnit, UNITS_GetRoom(pOwner), CLIENTS_GetUnitXInline_Totem(pOwner), CLIENTS_GetUnitYInline_Totem(pOwner), 0, 0))
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
             return;
@@ -8807,7 +8807,7 @@ int __fastcall AITHINK_FindDeadMonsterBehind(D2GameStrc* pGame, D2UnitStrc* pUni
     {
         nX += coords.nSubtileWidth * nDirX;
         nY += coords.nSubtileHeight * nDirY;
-        bResult = sub_005429B0_IsDeadMonsterAt(pGame, pRoom, nX, nY, nIndex);
+        bResult = SUNITINACTIVE_IsDeadMonsterAt(pGame, pRoom, nX, nY, nIndex);
     }
     return bResult;
 }
@@ -8854,7 +8854,7 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
                 sub_005888D0_SpawnRescuePortal(pGame,pPlayer,pUnit);
                 if (pUnit->dwNodeIndex == 11)
                 {
-                    sub_6FC40280(pGame,pUnit,0,8);
+                    TARGETS_InsertUnitNode(pGame,pUnit,0,8);
                     AITACTICS_IdleInNeutralMode(pGame,pUnit,25);
                     return;
                 }
@@ -9428,7 +9428,7 @@ void __fastcall AITHINK_Fn136_BaalTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         }
     }
 
-    if ((nDistance <= AI_GetParamValue(pGame, pMonStatsTxt, 2) || !sub_6FCBDFE0(pGame, pUnit, UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0, 0))
+    if ((nDistance <= AI_GetParamValue(pGame, pMonStatsTxt, 2) || !SUNIT_TeleportUnit(pGame, pUnit, UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0, 0))
         && nDistance > AI_GetParamValue(pGame, pMonStatsTxt, 0))
     {
         AITACTICS_WalkToTargetUnit(pGame, pUnit, pTarget);

@@ -11,7 +11,7 @@ enum
 
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion);       // 0x0058F100
-D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2UnkMonCreateStrc* pMonCreate);                    // 0x005B2A00
+D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc* pMonCreate);                    // 0x005B2A00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
@@ -52,7 +52,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static inline D2UnitStrc* sub_005B3090_SpawnAtPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags)
+static inline D2UnitStrc* MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags)
 {
     D2UnkMonCreateStrc monCreate;
     monCreate.nUnitGUID = 0;
@@ -65,7 +65,7 @@ static inline D2UnitStrc* sub_005B3090_SpawnAtPosition(D2GameStrc* pGame, D2Acti
     monCreate.nFlags = nFlags;
     monCreate.nX = nX;
     monCreate.nY = nY;
-    return sub_005B2A00_SpawnNormalMonster(&monCreate);
+    return D2GAME_SpawnNormalMonster(&monCreate);
 }
 
 // 0x005B2570
@@ -94,7 +94,7 @@ int __fastcall sub_005B2570_SpawnMinionsAround(D2GameStrc* pGame, D2UnitStrc* pU
         const int nSpawnY = nY + gaMinionSpawnOffsets_006E2CF0[nOffset][nDirection].nY;
         nDirection = (nDirection + 5) % 6;
 
-        D2UnitStrc* pMinion = sub_005B3090_SpawnAtPosition(pGame, pRoom, nSpawnX, nSpawnY, nMonsterId, nAnimMode, nFlags);
+        D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtCoordinates(pGame, pRoom, nSpawnX, nSpawnY, nMonsterId, nAnimMode, nFlags);
         if (pMinion)
         {
             bSpawned = 1;

@@ -166,7 +166,7 @@ enum
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 
-void __fastcall sub_0059B660_ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame); // 0x0059B660
+void __fastcall ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame); // 0x0059B660
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -200,7 +200,7 @@ void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArg
 
 void __fastcall GAME_RemoveUnit(D2UnitStrc* pUnit, D2GameStrc* pGame);                                      // 0x0052E050
 
-static void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* pQuestData, D2CoordStrc* pCoords, D2ActiveRoomStrc* pRoom); // 0x0059EF70
+static void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* pQuestData, D2CoordStrc* pCoords, D2ActiveRoomStrc* pRoom); // 0x0059EF70
 
 int __fastcall MONSTERAI_HasInteractUnit(void*); // 0x00572DC0
 
@@ -370,7 +370,7 @@ int __fastcall ACT2Q4_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 }
 
 // 0x0059AEF0
-static void sub_0059AEF0_ACT2Q4_OpenPalace(D2QuestDataStrc* pQuestData, D2Act2Quest4Strc* pQuestDataEx)
+static void ACT2Q4_OpenPalace(D2QuestDataStrc* pQuestData, D2Act2Quest4Strc* pQuestDataEx)
 {
     pQuestDataEx->bPalaceOpen = 1;
     if (pQuestDataEx->nHaremBlockerObjectMode == OBJMODE_NEUTRAL)
@@ -467,7 +467,7 @@ void __fastcall ACT2Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             {
                 QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q4.cpp", 466);
                 pQuestDataEx->bDrognanActivated = 1;
-                sub_0059AEF0_ACT2Q4_OpenPalace(pQuestData, pQuestDataEx);
+                ACT2Q4_OpenPalace(pQuestData, pQuestDataEx);
                 QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
             }
         }
@@ -618,7 +618,7 @@ struct D2GameStrc;
 struct D2UnitStrc;
 
 // 0x0059B4A0
-static bool sub_0059B4A0_ACT2Q4_RunSeqFilter(D2QuestDataStrc* pQuestData)
+static bool ACT2Q4_RunSeqFilter(D2QuestDataStrc* pQuestData)
 {
     D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
     if (pQuest)
@@ -636,13 +636,13 @@ bool __fastcall ACT2Q4_SeqCallback(D2QuestDataStrc* pQuestData)
     if (!pQuestData->fState && pQuestData->bNotIntro == 1)
     {
         QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q4.cpp", 0x35A);
-        sub_0059B4A0_ACT2Q4_RunSeqFilter(pQuestData);
+        ACT2Q4_RunSeqFilter(pQuestData);
     }
     return true;
 }
 
 // 0x0059B660
-void __fastcall sub_0059B660_ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame)
+void __fastcall ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q4_HORAZONTOME);
     if (!pQuestData)
@@ -666,7 +666,7 @@ void __fastcall sub_0059B660_ACT2Q4_OpenPalaceOrCycle(D2GameStrc* pGame)
     }
     else
     {
-        sub_0059AEF0_ACT2Q4_OpenPalace(pQuestData, pQuestDataEx);
+        ACT2Q4_OpenPalace(pQuestData, pQuestDataEx);
     }
 }
 
@@ -755,7 +755,7 @@ static inline void* GetMonsterInteract(D2UnitStrc* unit) {
 
 static
 // 0x0059EF70
-void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* coords,D2ActiveRoomStrc* room) {
+void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2CoordStrc* coords,D2ActiveRoomStrc* room) {
     D2Act2Quest4Strc* ex=(D2Act2Quest4Strc*)quest->pQuestDataEx;
     if (ex->bJerhynStartInitialized==1) {
         D2UnitStrc* unit=SUNIT_GetServerUnit(quest->pGame,1,ex->nJerhynGUID);
@@ -793,7 +793,7 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* co
 }
 
 void __stdcall EmitQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* coords,D2ActiveRoomStrc* room) {
-    sub_0059EF70_SpawnQuestNpc(quest,coords+1,room);
+    ACT2Q4_InitializeJerhynMonster(quest,coords+1,room);
 }
 
 // 0x0059B940
@@ -947,7 +947,7 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* p
 
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM7);
 
-    sub_0059B660_ACT2Q4_OpenPalaceOrCycle(pGame);
+    ACT2Q4_OpenPalaceOrCycle(pGame);
 }
 
 static inline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
@@ -1031,7 +1031,7 @@ void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         {
             D2CoordStrc tCoords;
             UNITS_GetCoords(pObject, &tCoords);
-            sub_0059EF70_SpawnQuestNpc(pQuestData, &tCoords, UNITS_GetRoom(pObject));
+            ACT2Q4_InitializeJerhynMonster(pQuestData, &tCoords, UNITS_GetRoom(pObject));
         }
     }
 

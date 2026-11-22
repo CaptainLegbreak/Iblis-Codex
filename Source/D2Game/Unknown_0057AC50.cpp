@@ -129,7 +129,7 @@ static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedMana(D2UnitStrc* pU
 }
 
 // 0x0057AA60
-static __declspec(noinline) int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nDrain)
+static __declspec(noinline) int SUNITDMG_DrainMana(D2UnitStrc* pUnit, int nDrain)
 {
     if (nDrain <= 0)
     {
@@ -147,7 +147,7 @@ static __declspec(noinline) int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nD
 }
 
 // 0x0057AAA0
-static __declspec(noinline) int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int nDrain)
+static __declspec(noinline) int SUNITDMG_DrainStamina(D2UnitStrc* pUnit, int nDrain)
 {
     if (nDrain <= 0)
     {
@@ -165,7 +165,7 @@ static __declspec(noinline) int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int
 }
 
 // 0x0057AAE0
-static __declspec(noinline) void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender)
+static __declspec(noinline) void __stdcall SUNITDMG_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender)
 {
     if (nStunLength <= 0)
     {
@@ -374,6 +374,6 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
 
 void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFreezeLength, D2UnitStrc* pDefender); // 0x0057B230
 
-void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2GameStrc* pGame, D2UnitStrc* pAttacker, D2DamageStrc* pDamage); // 0x0057C420
+void __stdcall SUNITDMG_ApplyLeech(D2UnitStrc* pDefender, D2GameStrc* pGame, D2UnitStrc* pAttacker, D2DamageStrc* pDamage); // 0x0057C420
 
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0

@@ -79,9 +79,9 @@ void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc*
 
 void __fastcall ARENA_FreeArenaUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0053F580
 
-void __fastcall sub_00534880_FreePlayerDataExtras(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00534880
+void __fastcall PLAYER_FreePlayerDataExtras(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00534880
 
-void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
+void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
@@ -129,7 +129,7 @@ void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSe
 
 void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
 
-int __fastcall sub_6FC48940(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6); // 0x0055E9B0
+int __fastcall ITEMMODE_PlaceCursorItemInBelt(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6); // 0x0055E9B0
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
@@ -141,13 +141,13 @@ int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUni
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall sub_6FC3F340(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
+void __fastcall SCMD_SendInteractionTarget(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
 
 void __fastcall D2GAME_NPC_ResetInteract_6FCCB4D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00579130
 
-void __fastcall sub_6FC79B50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x005854D0
+void __fastcall OBJMODE_CloseObjectInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x005854D0
 
-void __fastcall sub_6FC92EF0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00567330
+void __fastcall PLRTRADE_CloseCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00567330
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
@@ -155,13 +155,13 @@ int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE
 
 void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat, int nValue); // 0x00530EA0
 
-void __fastcall sub_0055A090_DropGoldPiles(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nAmount, D2UnitStrc** ppGold, int* pCount, int nMaxCount); // 0x0055A090
+void __fastcall ITEMS_DropGoldPiles(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nAmount, D2UnitStrc** ppGold, int* pCount, int nMaxCount); // 0x0055A090
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
 
-D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x00553720
+D2UnitStrc* __fastcall SUNIT_GetPortalOwner(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x00553720
 
 void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x0058CF50
 
@@ -177,7 +177,7 @@ struct D2DifficultyLevelsTxt;
 
 unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 
-int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, int nValue); // 0x00535510
+int __fastcall PLAYER_DropGold(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, int nValue); // 0x00535510
 
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 
@@ -189,15 +189,15 @@ void __fastcall CLIENTS_SetExperienceLoss(D2ClientStrc* pClient, int nExpLoss); 
 
 static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2UnitStrc* pItem, D2UnitStrc* pPlayer);
 
-static int __stdcall sub_00534BB0(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer);
+static int __stdcall PLAYER_EquipStartItem(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer);
 
-static D2UnitStrc* __stdcall sub_00534C70(D2GameStrc* pGame, int nCount, int nItemId, D2UnitStrc* pPlayer, D2CharStatsTxt* pCharStatsTxt);
+static D2UnitStrc* __stdcall PLAYER_CreateStartItemStack(D2GameStrc* pGame, int nCount, int nItemId, D2UnitStrc* pPlayer, D2CharStatsTxt* pCharStatsTxt);
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);             // 0x00625480
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer);     // 0x00627260
 
-static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitStrc* pKiller, D2UnitStrc* pPlayer);
+static void __stdcall PLAYER_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitStrc* pKiller, D2UnitStrc* pPlayer);
 
 void __fastcall PLAYER_Destroy(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
@@ -205,7 +205,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
 
 int gnVirtualPlayerCount_6FD4DC1C; // 0x00883D70
 
-static void __stdcall sub_005359F0(D2GameStrc* pGame, D2UnitStrc* pDefender);
+static void __stdcall PLAYER_ApplyDeathExperienceLoss(D2GameStrc* pGame, D2UnitStrc* pDefender);
 
 void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker);
 
@@ -215,7 +215,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID); // 0x005390A0
 
 // 0x00534840
-static void sub_00534840_FreePlayerUnk98List(D2GameStrc* pGame, D2PlayerDataStrc* pPlayerData)
+static void PLAYER_FreePartyLifeList(D2GameStrc* pGame, D2PlayerDataStrc* pPlayerData)
 {
     D2LifeSyncStrc* pNode = pPlayerData->pPartyLifeList;
     while (pNode)
@@ -228,12 +228,12 @@ static void sub_00534840_FreePlayerUnk98List(D2GameStrc* pGame, D2PlayerDataStrc
 }
 
 // 0x00534880
-void __fastcall sub_00534880_FreePlayerDataExtras(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+void __fastcall PLAYER_FreePlayerDataExtras(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData)
     {
-        sub_00534840_FreePlayerUnk98List(pGame, pPlayerData);
+        PLAYER_FreePartyLifeList(pGame, pPlayerData);
         for (int i = 0; i < 3; ++i)
         {
             PLRINTRO_Destroy(pGame, pPlayerData->pPlayerIntro[i]);
@@ -272,13 +272,13 @@ void __fastcall PLAYER_Destroy(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     SUNIT_RemoveAllItemsFromInventory(pGame, pPlayer);
     INVENTORY_FreeInventory(pPlayer->pInventory);
     ARENA_FreeArenaUnit(pGame, pPlayer);
-    sub_00534880_FreePlayerDataExtras(pGame, pPlayer);
+    PLAYER_FreePlayerDataExtras(pGame, pPlayer);
     UNITS_FreePlayerData(pGame->pMemoryPool, pPlayer);
     if (pPlayer->pHoverText)
     {
         CHAT_FreeHoverMsg(pGame->pMemoryPool, pPlayer->pHoverText);
     }
-    sub_6FC349F0(pGame, pPlayer);
+    EVENT_FreeUnitTimers(pGame, pPlayer);
 }
 
 inline int M08_UNITS_GetXPositionInline(D2UnitStrc* pUnit)
@@ -304,7 +304,7 @@ static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2Un
 }
 
 // 0x00534BB0
-static int __stdcall sub_00534BB0(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer)
+static int __stdcall PLAYER_EquipStartItem(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer)
 {
     D2_ASSERT(pItem, 198);
     D2_ASSERT(pPlayer, 199);
@@ -320,21 +320,21 @@ static __forceinline int __stdcall sub_M08_PlaceStartItemInBelt(D2GameStrc* pGam
     int nUnused;
     const int nX = M08_UNITS_GetXPositionInline(pItem);
     const int nItemGUID = pItem->dwUnitId;
-    return sub_6FC48940(pGame, pPlayer, nItemGUID, nX, bFindFreeSlot, &nUnused) != 0;
+    return ITEMMODE_PlaceCursorItemInBelt(pGame, pPlayer, nItemGUID, nX, bFindFreeSlot, &nUnused) != 0;
 }
 
 // 0x00534C10
-static int __stdcall sub_00534C10_PlaceStartItemInBelt(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int bFindFreeSlot)
+static int __stdcall PLAYER_PlaceStartItemInBelt(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int bFindFreeSlot)
 {
     D2_ASSERT(pItem, 216);
     D2_ASSERT(pPlayer, 217);
     const int nItemGUID = pItem->dwUnitId;
     int nUnused;
-    return sub_6FC48940(pGame, pPlayer, nItemGUID, CLIENTS_GetUnitX(pItem), bFindFreeSlot, &nUnused) != 0;
+    return ITEMMODE_PlaceCursorItemInBelt(pGame, pPlayer, nItemGUID, CLIENTS_GetUnitX(pItem), bFindFreeSlot, &nUnused) != 0;
 }
 
 // 0x00534C70
-static D2UnitStrc* __stdcall sub_00534C70(D2GameStrc* pGame, int nCount, int nItemId, D2UnitStrc* pPlayer, D2CharStatsTxt* pCharStatsTxt)
+static D2UnitStrc* __stdcall PLAYER_CreateStartItemStack(D2GameStrc* pGame, int nCount, int nItemId, D2UnitStrc* pPlayer, D2CharStatsTxt* pCharStatsTxt)
 {
     if (!pPlayer)
     {
@@ -380,7 +380,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
     }
     for (int i = 0; i < pCharItem->nItemCount; ++i)
     {
-        D2UnitStrc* pItem = sub_00534C70(pGame, nCount, nItemId, pPlayer, pCharStatsTxt);
+        D2UnitStrc* pItem = PLAYER_CreateStartItemStack(pGame, nCount, nItemId, pPlayer, pCharStatsTxt);
         ITEMS_SetItemFlag(pItem, IFLAG_STARTITEM, 1);
         ITEMS_SetBodyLocation(pItem, pCharItem->nBodyLoc);
         if (ITEMS_CheckIfBeltable(pItem))
@@ -392,7 +392,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
         }
         else if (pCharItem->nBodyLoc)
         {
-            if (!sub_00534BB0(pGame, pItem, pPlayer))
+            if (!PLAYER_EquipStartItem(pGame, pItem, pPlayer))
             {
                 PLAYER_PlaceItemInInventory(pGame, 1, pItem, pPlayer);
             }
@@ -426,11 +426,11 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
 
 int __fastcall sub_K10_EmitPlaceStartItemInBelt(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
-    return sub_00534C10_PlaceStartItemInBelt(pGame, pPlayer, pItem, 1);
+    return PLAYER_PlaceStartItemInBelt(pGame, pPlayer, pItem, 1);
 }
 
 // 0x005351C0
-void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nUnitType;
     int nUnitGUID;
@@ -444,13 +444,13 @@ void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit)
             case UNIT_MONSTER:
                 D2GAME_NPC_ResetInteract_6FCCB4D0(pGame, pUnit, pInteractUnit);
                 nInteractUnitId = pInteractUnit->dwUnitId;
-                sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x202), 0x62, UNIT_MONSTER, nInteractUnitId, 0);
+                SCMD_SendInteractionTarget(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x202), 0x62, UNIT_MONSTER, nInteractUnitId, 0);
                 return;
 
             case UNIT_OBJECT:
-                sub_6FC79B50(pGame, pUnit, pInteractUnit);
+                OBJMODE_CloseObjectInteraction(pGame, pUnit, pInteractUnit);
                 nInteractUnitId = pInteractUnit->dwUnitId;
-                sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x206), 0x62, UNIT_OBJECT, nInteractUnitId, 0);
+                SCMD_SendInteractionTarget(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x206), 0x62, UNIT_OBJECT, nInteractUnitId, 0);
                 return;
 
             case UNIT_PLAYER:
@@ -460,16 +460,16 @@ void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit)
             case UNIT_ITEM:
                 if (DATATBLS_GetItemsTxtRecord(pInteractUnit->dwClassId)->dwCode == ' xob')
                 {
-                    sub_6FC92EF0(pGame, pUnit);
+                    PLRTRADE_CloseCubeInteraction(pGame, pUnit);
                     nInteractUnitId = pInteractUnit->dwUnitId;
-                    sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x211), 0x62, UNIT_ITEM, nInteractUnitId, 0);
+                    SCMD_SendInteractionTarget(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x211), 0x62, UNIT_ITEM, nInteractUnitId, 0);
                 }
                 return;
             }
         }
     }
 
-    sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x217), 0x62, UNIT_INVALID, 0, 0);
+    SCMD_SendInteractionTarget(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x217), 0x62, UNIT_INVALID, 0, 0);
 }
 
 // 0x005353B0
@@ -499,7 +499,7 @@ void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 
 	ACT5Q5_OnPortalClosed(pGame, pPortal);
 
-	D2UnitStrc* pOwner = sub_00553720_ResolveObjectOwner(pGame, pPortal);
+	D2UnitStrc* pOwner = SUNIT_GetPortalOwner(pGame, pPortal);
 	D2ActiveRoomStrc* pPortalRoom = UNITS_GetRoom(pPortal);
 	if (pPortalRoom)
 	{
@@ -527,7 +527,7 @@ void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 }
 
 // 0x00535510
-int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, int nValue)
+int __fastcall PLAYER_DropGold(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, int nValue)
 {
     if (SUNIT_GetServerUnit(pGame, 0, nUnitGUID) != pUnit)
     {
@@ -563,7 +563,7 @@ int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID,
 
         D2UnitStrc* pGoldPiles[0x20];
         int nCount = 0;
-        sub_0055A090_DropGoldPiles(pGame, pUnit, nGoldValue, pGoldPiles, &nCount, 0x20);
+        ITEMS_DropGoldPiles(pGame, pUnit, nGoldValue, pGoldPiles, &nCount, 0x20);
         if (nCount)
         {
             for (int i = 0; i < nCount; ++i)
@@ -584,7 +584,7 @@ int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID,
 }
 
 // 0x005356B0
-int __fastcall sub_005356B0_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, unsigned char nHand, int nFlags)
+int __fastcall PLAYER_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, unsigned char nHand, int nFlags)
 {
     D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\Player.cpp", 755);
     if (!pClient)
@@ -597,7 +597,7 @@ int __fastcall sub_005356B0_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlaye
 }
 
 // 0x00535780
-void __fastcall sub_00535780_SetPlayerCount(int nPlayers)
+void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers)
 {
     if (nPlayers >= 0 && nPlayers <= 8)
     {
@@ -643,7 +643,7 @@ static inline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat, int n
 }
 
 // 0x005357D0
-static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitStrc* pKiller, D2UnitStrc* pPlayer)
+static void __stdcall PLAYER_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitStrc* pKiller, D2UnitStrc* pPlayer)
 {
     const int nLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
     const int nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
@@ -696,14 +696,14 @@ static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitS
             PLAYER_SetStatOrResetGold(pPlayer, 14, nLoss);
         }
 
-        sub_6FC7C260(pGame, pPlayer, !pPlayer ? -1 : pPlayer->dwUnitId, nLoss);
+        PLAYER_DropGold(pGame, pPlayer, !pPlayer ? -1 : pPlayer->dwUnitId, nLoss);
     }
     else
     {
         if (!(nLoss > nGold))
         {
             const int nDrop = nGold - nLoss;
-            sub_6FC7C260(pGame, pPlayer, !pPlayer ? -1 : pPlayer->dwUnitId, nDrop);
+            PLAYER_DropGold(pGame, pPlayer, !pPlayer ? -1 : pPlayer->dwUnitId, nDrop);
         }
         else
         {
@@ -721,7 +721,7 @@ static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitS
 
 
 // 0x005359F0
-static void __stdcall sub_005359F0(D2GameStrc* pGame, D2UnitStrc* pDefender)
+static void __stdcall PLAYER_ApplyDeathExperienceLoss(D2GameStrc* pGame, D2UnitStrc* pDefender)
 {
     D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
     const int nClassId = !pDefender ? -1 : pDefender->dwClassId;
@@ -754,7 +754,7 @@ static void __stdcall sub_005359F0(D2GameStrc* pGame, D2UnitStrc* pDefender)
 // 0x00535AB0
 void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker)
 {
-    sub_005357D0_ApplyDeathGoldLoss(pGame, pAttacker, pDefender);
+    PLAYER_ApplyDeathGoldLoss(pGame, pAttacker, pDefender);
     if (pAttacker)
     {
         if (pAttacker->dwUnitType == UNIT_PLAYER)
@@ -767,6 +767,6 @@ void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefende
             return;
         }
     }
-    sub_005359F0(pGame, pDefender);
+    PLAYER_ApplyDeathExperienceLoss(pGame, pDefender);
 }
 

@@ -91,7 +91,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
-int __fastcall sub_005564D0_IsDroppedUnique(D2GameStrc* pGame, D2UnitStrc* pItem); // 0x005564D0
+int __fastcall ITEMS_IsUniqueAlreadyDropped(D2GameStrc* pGame, D2UnitStrc* pItem); // 0x005564D0
 
 struct D2UniqueSelection
 {
@@ -162,9 +162,9 @@ void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2
 
 int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
 
-void __fastcall sub_6FC4B580(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F850
+void __fastcall ITEMMODE_BreakItem(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F850
 
-void __fastcall sub_6FC80A30(D2GameStrc*,D2UnitStrc*); // 0x00580310
+void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc*,D2UnitStrc*); // 0x00580310
 
 
 
@@ -185,7 +185,7 @@ struct D2SaveHeaderStrc;
 
 struct D2PlayerDataStrc;
 
-int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame, D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005566B0
+int __stdcall ITEMS_RollUniqueItem(D2GameStrc* pGame, D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005566B0
 
 int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x00556F60
 
@@ -239,7 +239,7 @@ extern const int gnQualityOrder_006E1138[6]; // 0x006E1138
 
 void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555AE0
 
-void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
+void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
 
@@ -277,7 +277,7 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 
-int __fastcall sub_00558610_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2); // 0x00558610
+int __fastcall ITEMS_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2); // 0x00558610
 
 struct D2SaveHeaderStrc
 {
@@ -305,9 +305,9 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAtt
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x0055BF50
+void __fastcall ITEMMODE_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x0055BF50
 
-void __fastcall sub_0055C270_OnItemToBelt(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C270
+void __fastcall ITEMMODE_AddItemScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C270
 
 void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
 
@@ -347,9 +347,9 @@ static void __stdcall ITEMS_ResetToNormalQuality(D2GameStrc* pGame, D2ItemDropSt
 
 static int ITEMS_ResetToSuperiorQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed);
 
-static int __stdcall sub_00557380_ResetToMagicQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed);
+static int __stdcall ITEMS_ResetToMagicQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed);
 
-static int sub_005573F0_ResetToRareQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed);
+static int ITEMS_ResetToRareQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed);
 
 static void __stdcall ITEMS_AssignSpecialPropertiesForFormat(D2GameStrc* pGame, D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);
 
@@ -503,11 +503,11 @@ int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitst
 
 int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc*, unsigned char*, int, int, int, int); // 0x006313E0
 
-static int sub_005585D0_GetMagicFindBonus(D2UnitStrc* pPlayer);
+static int ITEMS_GetMagicFindBonus(D2UnitStrc* pPlayer);
 
-static int __stdcall sub_00558640_RollItemQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, int nItemId);
+static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, int nItemId);
 
-static D2UnitStrc* __stdcall sub_0055A550_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit);
+static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit);
 
 int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int a4); // 0x00557AB0
 
@@ -517,17 +517,17 @@ void __stdcall ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel);           
 
 void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat);                          // 0x0062A6C0
 
-D2UnitStrc* __fastcall sub_00559130_DropRandomItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDropOut);
+D2UnitStrc* __fastcall ITEMS_DropRandomItemNearCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDropOut);
 
 static unsigned int ITEMS_HasUniqueBeenDroppedAlready(D2GameStrc* pGame, int nUniqueItemId);
 
 static int __stdcall ITEMS_CanUniqueItemBeDropped(D2GameStrc* pGame, D2UnitStrc* pItem);
 
-static void sub_00556360_RollArmorClass(D2UnitStrc* pItem);
+static void ITEMS_RollArmorClass(D2UnitStrc* pItem);
 
-static void sub_005563D0_SetWeaponDamage(D2UnitStrc* pItem);
+static void ITEMS_SetWeaponDamage(D2UnitStrc* pItem);
 
-static void sub_00557A70_RollVarInvGfx(D2UnitStrc* pItem);
+static void ITEMS_RollVarInvGfx(D2UnitStrc* pItem);
 
 static int s_nGoldItemId_0088C6F8; // 0x0088C6F8
 
@@ -557,7 +557,7 @@ static inline unsigned int SEED_RollLimitedRandomNumber_00555E00(D2SeedStrc* pSe
 }
 
 // 0x00555E00
-static int __stdcall sub_00555E00_CanSelectItem(D2SeedStrc* pSeed, int bIgnoreRarity, D2ItemsTxt* pItemsTxtRecord, int nItemType, int nLevelId)
+static int __stdcall ITEMS_CanSelectRandomItem(D2SeedStrc* pSeed, int bIgnoreRarity, D2ItemsTxt* pItemsTxtRecord, int nItemType, int nLevelId)
 {
     if (nLevelId <= 0)
     {
@@ -600,7 +600,7 @@ int __fastcall ITEMMODE_SelectRandomArmorItemId(D2GameStrc* pGame, D2SeedStrc* p
     D2ItemUnkStrc data[1024];
     for (int i = 0; i < nCount; ++i)
     {
-        if (sub_00555E00_CanSelectItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
+        if (ITEMS_CanSelectRandomItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
             && (pGame->bExpansion || pItemsTxtRecord[i].wVersion < 100) && nMax < 1023)
         {
             data[nMax].pItemsTxtRecord = &pItemsTxtRecord[i];
@@ -640,7 +640,7 @@ int __fastcall ITEMMODE_SelectRandomWeaponItemId(D2GameStrc* pGame, D2SeedStrc* 
     D2ItemUnkStrc data[1024];
     for (int i = 0; i < nCount; ++i)
     {
-        if (sub_00555E00_CanSelectItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
+        if (ITEMS_CanSelectRandomItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
             && (pGame->bExpansion || pItemsTxtRecord[i].wVersion < 100) && nMax < 1023)
         {
             data[nMax].pItemsTxtRecord = &pItemsTxtRecord[i];
@@ -683,7 +683,7 @@ int __fastcall ITEMMODE_SelectRandomMiscItemId(D2GameStrc* pGame, D2SeedStrc* pS
     {
         if (bAllowBodyParts || pItemsTxtRecord[i].wType[0] != ITEMTYPE_BODY_PART)
         {
-            if (sub_00555E00_CanSelectItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
+            if (ITEMS_CanSelectRandomItem(pSeed, bIgnoreRarity, &pItemsTxtRecord[i], nItemType, nLevelId)
                 && (pGame->bExpansion || pItemsTxtRecord[i].wVersion < 100) && nMax < 1023)
             {
                 data[nMax].pItemsTxtRecord = &pItemsTxtRecord[i];
@@ -758,7 +758,7 @@ static int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc*
 }
 
 // 0x00556360
-static void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
+static void ITEMS_RollArmorClass(D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pItemsTxtRecord, 0x1C9);
@@ -771,7 +771,7 @@ static void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
 }
 
 // 0x005563D0
-static void sub_005563D0_SetWeaponDamage(D2UnitStrc* pItem)
+static void ITEMS_SetWeaponDamage(D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pItemsTxtRecord, 0x1DB);
@@ -807,11 +807,11 @@ void sub_A04_Emit_00557AB0(D2UnitStrc** ppItem, int bWeapon)
 {
     if (bWeapon)
     {
-        sub_005563D0_SetWeaponDamage(*ppItem);
+        ITEMS_SetWeaponDamage(*ppItem);
     }
     else
     {
-        sub_00556360_RollArmorClass(*ppItem);
+        ITEMS_RollArmorClass(*ppItem);
     }
 }
 
@@ -878,7 +878,7 @@ static int __stdcall ITEMS_CanUniqueItemBeDropped(D2GameStrc* pGame, D2UnitStrc*
         return 1;
     }
 
-    if ((pItemsTxtRecord->nQuest || !sub_005564D0_IsDroppedUnique(pGame, pItem)) && nFileIndex <= 4096)
+    if ((pItemsTxtRecord->nQuest || !ITEMS_IsUniqueAlreadyDropped(pGame, pItem)) && nFileIndex <= 4096)
     {
         pGame->dwUniqueFlags[nFileIndex >> 5] |= gdwBitMasks[nFileIndex & 0x1F];
         return 1;
@@ -946,7 +946,7 @@ static int __stdcall ITEMS_AssignDropMagicAffixes(D2ItemDropStrc* pItemDrop, D2U
 }
 
 // 0x005566B0
-int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2ItemDropStrc* pItemDrop)
+int __stdcall ITEMS_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2ItemDropStrc* pItemDrop)
 {
  unsigned char* const pnGameType = &pGame->nGameType;
  D2ItemsTxt* pItemsTxtRecord=DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
@@ -1455,7 +1455,7 @@ static int ITEMS_ResetToSuperiorQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** 
 }
 
 // 0x00557380
-static int __stdcall sub_00557380_ResetToMagicQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed)
+static int __stdcall ITEMS_ResetToMagicQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed)
 {
     ITEMS_ClearAffixesAndFileIndex(ppItem);
     ITEMS_SetItemStartSeed(*ppItem, *pLowSeed);
@@ -1468,7 +1468,7 @@ static int __stdcall sub_00557380_ResetToMagicQuality(D2ItemDropStrc* pItemDrop,
 }
 
 // 0x005573F0
-static int sub_005573F0_ResetToRareQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed)
+static int ITEMS_ResetToRareQuality(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem, unsigned int* pLowSeed)
 {
     ITEMS_ClearAffixesAndFileIndex(ppItem);
     ITEMS_SetItemStartSeed(*ppItem, *pLowSeed);
@@ -1571,7 +1571,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
         if (!D2GAME_RollRareItem_6FC53360(*ppItem, pItemDrop))
         {
-            if (!sub_00557380_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
+            if (!ITEMS_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
             {
                 ITEMS_ResetToNormalQuality(pGame, pItemDrop, ppItem, nSeed);
             }
@@ -1592,7 +1592,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
     case ITEMQUAL_UNIQUE:
         ITEMS_SetFileIndex(*ppItem, -1);
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
-        if (!sub_005566B0_RollUniqueItem(pGame, *ppItem, pItemDrop))
+        if (!ITEMS_RollUniqueItem(pGame, *ppItem, pItemDrop))
         {
             if (ITEMS_HasDurability(*ppItem) && ITEMS_GetItemFormat(*ppItem) >= 1)
             {
@@ -1602,7 +1602,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
                 STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, D2_MIN(3 * nMaxDurability, 255), 0);
             }
 
-            if (!sub_005573F0_ResetToRareQuality(pItemDrop, ppItem, &nSeed) && !sub_00557380_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
+            if (!ITEMS_ResetToRareQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
             {
                 ITEMS_ResetToNormalQuality(pGame, pItemDrop, ppItem, nSeed);
             }
@@ -1651,7 +1651,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
                 STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, D2_MIN(2 * nMaxDurability, 255), 0);
             }
 
-            if (!sub_00557380_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
+            if (!ITEMS_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
             {
                 ITEMS_ResetToNormalQuality(pGame, pItemDrop, ppItem, nSeed);
             }
@@ -1717,7 +1717,7 @@ struct D2CoordStrc;
 struct D2MagicAffixTxt;
 
 // 0x00557A70
-static void sub_00557A70_RollVarInvGfx(D2UnitStrc* pItem)
+static void ITEMS_RollVarInvGfx(D2UnitStrc* pItem)
 {
     if (ITEMS_GetVarInvGfxCount(pItem))
     {
@@ -1810,7 +1810,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             }
             STATLIST_SetUnitStat(*ppItem, STAT_DURABILITY, nValue, 0);
             STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, nMaxDurability >= 255 ? 255 : nMaxDurability, 0);
-            sub_00556360_RollArmorClass(*ppItem);
+            ITEMS_RollArmorClass(*ppItem);
         }
         else if (ITEMSIsA(*ppItem, 45))
         {
@@ -1840,7 +1840,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             const unsigned int nDurability = pItemsTxtRecord->nDurability;
             STATLIST_SetUnitStat(*ppItem, STAT_DURABILITY, D2_MinU(ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nDurability >> 1) + (nDurability >> 1), 255), 0);
             STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, D2_MinU(nDurability, 255), 0);
-            sub_005563D0_SetWeaponDamage(*ppItem);
+            ITEMS_SetWeaponDamage(*ppItem);
             STATLIST_SetUnitStat(*ppItem, STAT_ATTACKRATE, -pItemsTxtRecord->dwSpeed, 0);
         }
         else
@@ -1876,7 +1876,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
         }
     }
 
-    sub_00557A70_RollVarInvGfx(*ppItem);
+    ITEMS_RollVarInvGfx(*ppItem);
 
     int nResult = 1;
     if (bQuestItem && pItemDrop)
@@ -1903,7 +1903,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
 
 void sub_G07_Emit_00557A70(D2UnitStrc** ppItem)
 {
-    sub_00557A70_RollVarInvGfx(*ppItem);
+    ITEMS_RollVarInvGfx(*ppItem);
 }
 
 // 0x00557EE0
@@ -1915,7 +1915,7 @@ void __fastcall ITEMS_FreeSocketInventoryAndTimers(D2GameStrc* pGame, D2UnitStrc
         INVENTORY_FreeInventory(pItem->pInventory);
     }
 
-    sub_6FC349F0(pGame, pItem);
+    EVENT_FreeUnitTimers(pGame, pItem);
 }
 
 // 0x00557F10
@@ -1942,7 +1942,7 @@ void __fastcall ITEMS_RemoveAll(D2GameStrc* pGame)
 }
 
 // 0x00557F50
-static void sub_00557F50_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
+static void ITEMS_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
 {
     for (D2UnitStrc* i = INVENTORY_GetFirstItem(pInventory); i; i = INVENTORY_GetNextItem(i))
     {
@@ -1963,11 +1963,11 @@ static void sub_00557F50_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2
 // 0x00557FA0
 void __fastcall ITEMS_PlayerIterateCallback_RemoveItem(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
 {
-    sub_00557F50_RemoveItemFromInventory(pUnit->pInventory, (D2UnitStrc*)pArg);
+    ITEMS_RemoveItemFromInventory(pUnit->pInventory, (D2UnitStrc*)pArg);
 }
 
 // 0x00557FC0
-static inline void sub_00557FC0_RemoveItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pItem)
+static inline void ITEMS_RemoveItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pItem)
 {
     SUNIT_IterateLivingPlayers(pGame, ITEMS_PlayerIterateCallback_RemoveItem, pItem);
 }
@@ -1975,7 +1975,7 @@ static inline void sub_00557FC0_RemoveItemFromAllPlayers(D2GameStrc* pGame, D2Un
 void __fastcall sub_M110_Emit_00557FC0(D2GameStrc* pGame, D2UnitStrc* pItem)
 {
     if (pItem)
-        sub_00557FC0_RemoveItemFromAllPlayers(pGame, pItem);
+        ITEMS_RemoveItemFromAllPlayers(pGame, pItem);
 }
 
 // 0x00557FD0
@@ -1991,7 +1991,7 @@ static inline int ITEMS_IsUniqueWithFileIndex(D2UnitStrc* pItem, int nFileIndex)
 }
 
 // 0x00558070
-D2UnitStrc* __fastcall sub_00558070_FindUniqueItem(D2UnitStrc* pUnit, int nFileIndex)
+D2UnitStrc* __fastcall ITEMS_FindUniqueItem(D2UnitStrc* pUnit, int nFileIndex)
 {
     if (!pUnit)
     {
@@ -2193,7 +2193,7 @@ void __fastcall ITEMS_ScheduleQuantityReplenishment(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x005585D0
-static int sub_005585D0_GetMagicFindBonus(D2UnitStrc* pPlayer)
+static int ITEMS_GetMagicFindBonus(D2UnitStrc* pPlayer)
 {
     if (pPlayer && (unsigned int)pPlayer->dwUnitType <= UNIT_MONSTER)
     {
@@ -2209,7 +2209,7 @@ static int sub_005585D0_GetMagicFindBonus(D2UnitStrc* pPlayer)
 }
 
 // 0x00558610
-int __fastcall sub_00558610_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2)
+int __fastcall ITEMS_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2)
 {
     if (nMagicFind <= 110) return nMagicFind;
     nMagicFind -= 100;
@@ -2221,7 +2221,7 @@ int __fastcall sub_00558610_GetDiminishedMagicFind(int nMagicFind, int nFactor, 
 int sub_B05_Emit_005585D0(int nBase, int nDiv, D2UnitStrc* pPlayer, int* pOut)
 {
     nBase -= nDiv;
-    const int nMagicBonus = sub_005585D0_GetMagicFindBonus(pPlayer);
+    const int nMagicBonus = ITEMS_GetMagicFindBonus(pPlayer);
     if (nMagicBonus && nMagicBonus <= -100)
     {
         return 0;
@@ -2241,7 +2241,7 @@ static inline D2ItemTypesTxt* sub_C03_GetItemTypesTxtRecord(int nItemType)
 }
 
 // 0x00558640
-static int __stdcall sub_00558640_RollItemQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, int nItemId)
+static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, int nItemId)
 {
     int bMagicFind = 0;
     int nChance;
@@ -2277,7 +2277,7 @@ static int __stdcall sub_00558640_RollItemQuality(D2GameStrc* pGame, D2UnitStrc*
     D2_ASSERT(pItemRatioTxtRecord, 0xE8D);
 
     const int nLevel = nItemLevel - pItemsTxtRecord->nLevel;
-    int nMagicFind = sub_005585D0_GetMagicFindBonus(pPlayer);
+    int nMagicFind = ITEMS_GetMagicFindBonus(pPlayer);
     if (nMagicFind)
     {
         if (nMagicFind <= -100)
@@ -2293,7 +2293,7 @@ static int __stdcall sub_00558640_RollItemQuality(D2GameStrc* pGame, D2UnitStrc*
     nChance = (pItemRatioTxtRecord->dwUnique - nLevel / pItemRatioTxtRecord->dwUniqueDivisor) * 128;
     if (bMagicFind)
     {
-        const int nDiminished = sub_00558610_GetDiminishedMagicFind(nMagicFind, 250, 250);
+        const int nDiminished = ITEMS_GetDiminishedMagicFind(nMagicFind, 250, 250);
         if (nDiminished)
         {
             nChance = nChance * 100 / nDiminished;
@@ -2319,7 +2319,7 @@ static int __stdcall sub_00558640_RollItemQuality(D2GameStrc* pGame, D2UnitStrc*
     nChance = (pItemRatioTxtRecord->dwSet - nLevel / pItemRatioTxtRecord->dwSetDivisor) * 128;
     if (bMagicFind)
     {
-        const int nDiminished = sub_00558610_GetDiminishedMagicFind(nMagicFind, 500, 500);
+        const int nDiminished = ITEMS_GetDiminishedMagicFind(nMagicFind, 500, 500);
         if (nDiminished)
         {
             nChance = nChance * 100 / nDiminished;
@@ -2347,7 +2347,7 @@ static int __stdcall sub_00558640_RollItemQuality(D2GameStrc* pGame, D2UnitStrc*
         nChance = (pItemRatioTxtRecord->dwRare - nLevel / pItemRatioTxtRecord->dwRareDivisor) * 128;
         if (bMagicFind)
         {
-            const int nDiminished = sub_00558610_GetDiminishedMagicFind(nMagicFind, 600, 600);
+            const int nDiminished = ITEMS_GetDiminishedMagicFind(nMagicFind, 600, 600);
             if (nDiminished)
             {
                 nChance = nChance * 100 / nDiminished;
@@ -2425,7 +2425,7 @@ void __cdecl sub_00558990_Nop()
 }
 
 // 0x005589A0
-static void sub_005589A0_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+static void ITEMS_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
     if (pPlayer && pItem && ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
     {
@@ -2712,7 +2712,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 nItemQuality = nQuality;
                 if (!nItemQuality)
                 {
-                    nItemQuality = sub_00558640_RollItemQuality(pGame, pMonster, pPlayer, (D2QualityModsStrc*)&tcArray[nCounter].tMods, nLvl, nItemId);
+                    nItemQuality = ITEMS_RollDropQuality(pGame, pMonster, pPlayer, (D2QualityModsStrc*)&tcArray[nCounter].tMods, nLvl, nItemId);
                 }
             }
 
@@ -2749,7 +2749,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 nItemId = DATATBLS_GetItemIdFromItemCode(0x2064736C);
             }
 
-            D2UnitStrc* pItem = sub_0055A550_CreateDropAtUnit(pGame, nItemQuality, nItemIndex, nFlags, nItemId, pMonster);
+            D2UnitStrc* pItem = ITEMS_CreateDropAtUnit(pGame, nItemQuality, nItemIndex, nFlags, nItemId, pMonster);
             if (!pItem)
             {
                 continue;
@@ -2771,7 +2771,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 return;
             }
 
-            sub_005589A0_ApplyGoldFind(pPlayer, pItem);
+            ITEMS_ApplyGoldFind(pPlayer, pItem);
         }
     }
 }
@@ -2814,7 +2814,7 @@ int __fastcall ITEMS_GetGroundRemovalTime(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x00558B40
-void __fastcall sub_00558B40_RemoveItemFromGame(D2GameStrc* pGame, D2UnitStrc* pItem)
+void __fastcall ITEMS_RemoveItemFromGame(D2GameStrc* pGame, D2UnitStrc* pItem)
 {
     if (!pItem)
     {
@@ -2893,7 +2893,7 @@ void __fastcall ITEMS_DestroyRunewordStatList(D2GameStrc* pGame, D2UnitStrc* pIt
 
 int __stdcall sub_C03_Emit_00558640(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, unsigned short nItemId)
 {
-    return sub_00558640_RollItemQuality(pGame, pItem, pPlayer, pMods, nItemLevel, nItemId);
+    return ITEMS_RollDropQuality(pGame, pItem, pPlayer, pMods, nItemLevel, nItemId);
 }
 
 static int ITEMS_GetItemsTxtRecordCount()
@@ -3093,7 +3093,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
 }
 
 // 0x00559130
-D2UnitStrc* __fastcall sub_00559130_DropRandomItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDropOut)
+D2UnitStrc* __fastcall ITEMS_DropRandomItemNearCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDropOut)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
@@ -3158,7 +3158,7 @@ D2UnitStrc* __fastcall sub_00559130_DropRandomItem(D2GameStrc* pGame, D2ActiveRo
 }
 
 // 0x00559300
-D2UnitStrc* __fastcall sub_6FC4F640(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords)
+D2UnitStrc* __fastcall ITEMS_DropGoldAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
@@ -3342,7 +3342,7 @@ D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoo
 }
 
 // 0x00559830
-D2UnitStrc* __fastcall sub_6FC4FCA0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall ITEMS_DropMiscItemAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel;
@@ -3600,7 +3600,7 @@ inline unsigned __int64 Roll(D2UnitStrc* pUnit) {
 }
 
 // 0x00559E30
-void __fastcall sub_00559E30_DecreaseDurability(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pItem) {
+void __fastcall ITEMS_UpdateDurability(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pItem) {
  int bWeapon=ITEMSIsA(pItem,50);
  int bStack=ITEMSIsA(pItem,45);
  if ((!bWeapon && !bStack) || !ITEMS_HasDurability(pItem)) return;
@@ -3615,7 +3615,7 @@ void __fastcall sub_00559E30_DecreaseDurability(D2GameStrc* pGame,D2UnitStrc* pP
   STATLIST_SetUnitStat(pItem,STAT_DURABILITY,durability,0);
   SEND(72,durability,0xc5a);
  } else {
-  if(!bStack && !sub_006280A0(pItem,0x100,0xc5f,".\\ITEMS\\Items.cpp")) {sub_6FC4B580(pGame,pPlayer,pItem);return;}
+  if(!bStack && !sub_006280A0(pItem,0x100,0xc5f,".\\ITEMS\\Items.cpp")) {ITEMMODE_BreakItem(pGame,pPlayer,pItem);return;}
   if(ITEMS_GetItemFormat(pItem)>=1) {
    int quantity=STATLIST_UnitGetStatValue(pItem,STAT_QUANTITY,0);
    if(quantity>1) {
@@ -3625,7 +3625,7 @@ void __fastcall sub_00559E30_DecreaseDurability(D2GameStrc* pGame,D2UnitStrc* pP
    } else {
     STATLIST_SetUnitStat(pItem,STAT_DURABILITY,0,0);SEND(72,0,0xc78);
     STATLIST_SetUnitStat(pItem,STAT_QUANTITY,0,0);SEND(70,quantity,0xc7b);
-    sub_6FC80A30(pGame,pPlayer);
+    PLRMODE_HandleDepletedWeapons(pGame,pPlayer);
    }
    if(ITEMS_GetTotalMaxStack(pItem)>0) ITEMS_ScheduleDurabilityReplenishment(pGame,pItem);
   } else {STATLIST_SetUnitStat(pItem,STAT_DURABILITY,0,0);SEND(72,0,0xc87);}
@@ -3713,7 +3713,7 @@ D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2U
 }
 
 // 0x0055A550
-static D2UnitStrc* __stdcall sub_0055A550_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit)
+static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit)
 {
     if (nItemId < 0)
     {
@@ -3776,7 +3776,7 @@ static D2UnitStrc* __stdcall sub_0055A550_CreateDropAtUnit(D2GameStrc* pGame, in
 }
 
 // 0x0056A370
-int __fastcall sub_0056A370_ReadQuestSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion)
+int __fastcall PLRSAVE2_ReadQuestSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion)
 {
     unsigned char* pSection = *ppSection;
     unsigned char* pSectionEnd = pSection + 298;
@@ -3807,7 +3807,7 @@ int __fastcall sub_0056A370_ReadQuestSection(D2GameStrc* pGame, D2UnitStrc* pPla
 }
 
 // 0x0056C2D0
-int __fastcall sub_0056C2D0_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
+int __fastcall SKILLS_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
 {
     if (pUnit)
     {

@@ -198,7 +198,7 @@ void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, con
 
 void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544720
 
-extern "C" int __fastcall sub_00545290(D2QuestGUIDStrc* pQuestGUID, unsigned int dwGUID); // 0x00545290
+extern "C" int __fastcall QUESTS_QuickCheckPlayerGUID(D2QuestGUIDStrc* pQuestGUID, unsigned int dwGUID); // 0x00545290
 
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs); // 0x00545300
 
@@ -230,7 +230,7 @@ void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
 bool __fastcall ACT1Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005905B0
 
-bool __fastcall sub_00590620_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00590620
+bool __fastcall ACT1Q1_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00590620
 
 void __fastcall ACT1Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590690
 
@@ -313,7 +313,7 @@ int __fastcall ACT1Q1_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 }
 
 // 0x0058FD50
-void __fastcall sub_0058FD50_ACT1Q1_SetRespecRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall ACT1Q1_SetRespecRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
 
@@ -495,7 +495,7 @@ int __fastcall ACT1Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
 }
 
 // 0x005901E0
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_005901E0(Obj005901E0* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall ACT1Q1_GetMonstersToBeKilled(Obj005901E0* pObj) {
     return pObj->pSub18->dwValue88;
 }
 
@@ -539,7 +539,7 @@ void __fastcall ACT1Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     if (pQuestArg->pPlayer)
     {
         const int nUnitId = pQuestArg->pPlayer->dwUnitId;
-        if (!sub_00545290(&pQuestDataEx->pQuestGUID, nUnitId))
+        if (!QUESTS_QuickCheckPlayerGUID(&pQuestDataEx->pQuestGUID, nUnitId))
         {
             QUESTS_AddPlayerGUID(&pQuestDataEx->pQuestGUID, nUnitId);
         }
@@ -651,7 +651,7 @@ void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 }
 
 // 0x00590620
-bool __fastcall sub_00590620_SeqCallback(D2QuestDataStrc* pQuestData)
+bool __fastcall ACT1Q1_SeqCallback(D2QuestDataStrc* pQuestData)
 {
     if (pQuestData->fState != TERMINAL_STATE && pQuestData->bNotIntro)
         return true;
@@ -718,7 +718,7 @@ void __fastcall ACT1Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT1Q1_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = sub_00590620_SeqCallback;
+    pQuestData->pfSeqFilter = ACT1Q1_SeqCallback;
     pQuestData->nSeqId = 2;
 
     memset(pQuestDataEx, 0x00, sizeof(D2Act1Quest1Strc));

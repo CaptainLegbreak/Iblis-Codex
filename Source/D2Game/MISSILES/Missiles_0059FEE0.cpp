@@ -43,7 +43,7 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc*); // 0x00648A
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc*); // 0x0064A380
 int __stdcall MISSILE_GetLevel(D2UnitStrc*); // 0x0064A210
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
-void __fastcall sub_6FC3F610(D2ClientStrc*, D2GSPacketSrv73*); // 0x0053DA10
+void __fastcall D2GAME_PACKETS_SendPacket0x73(D2ClientStrc*, D2GSPacketSrv73*); // 0x0053DA10
 
 struct D2MonStatsTxt
 {
@@ -182,5 +182,5 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
     packet.nUnitGUID = pOwner->dwUnitId;
     packet.nLevel = MISSILE_GetLevel(pMissile);
     packet.nPierce = STATLIST_UnitGetStatValue(pMissile, STAT_PIERCE_IDX, 0);
-    sub_6FC3F610(pClient, &packet);
+    D2GAME_PACKETS_SendPacket0x73(pClient, &packet);
 }

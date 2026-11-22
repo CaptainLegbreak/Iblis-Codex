@@ -74,7 +74,7 @@ void __fastcall ACT2Q5_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
 int __fastcall ACT2Q5_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059BE70
 void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059BF70
 bool __fastcall ACT2Q5_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x0059BFD0
-int __fastcall sub_0059C6C0_ACT2Q6_UpdateRewardFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused); // 0x0059C6C0
+int __fastcall ACT2Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused); // 0x0059C6C0
 void __fastcall ACT2Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059C920
 
 int __fastcall ACT2Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059BCB0
@@ -267,7 +267,7 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x0059C020
-void __fastcall sub_0059C020_ACT2Q5_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+void __fastcall ACT2Q5_UnitIterate_SetPrimaryGoalDoneInAct(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     if (!QUESTS_GetQuestData(pGame, 12))
     {
@@ -305,7 +305,7 @@ int __fastcall ACT2Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
         const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
         if (nPartyId != 0xFFFF)
         {
-            PARTY_IteratePartyMembers(pGame, nPartyId, sub_0059C020_ACT2Q5_UnitIterate_SetPrimaryGoalDone, 0);
+            PARTY_IteratePartyMembers(pGame, nPartyId, ACT2Q5_UnitIterate_SetPrimaryGoalDoneInAct, 0);
         }
     }
 
@@ -497,7 +497,7 @@ void __fastcall ACT2Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         }
 
         pQuestData->pCallback[2] = 0;
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, (QUESTUNITITERATE)sub_0059C6C0_ACT2Q6_UpdateRewardFlags);
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, (QUESTUNITITERATE)ACT2Q6_UnitIterate_UpdateQuestStateFlags);
     }
 }
 
@@ -533,7 +533,7 @@ int __fastcall ACT2Q6_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x0059CEE0
-bool __fastcall sub_0059CEE0(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
+bool __fastcall ACT2Q6_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
     D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
     if (pQuestData->fLastState != 5 && pQuestData->fLastState != 4 && pQuestData->fLastState != 3)

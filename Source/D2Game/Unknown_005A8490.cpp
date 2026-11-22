@@ -14,7 +14,7 @@ struct D2MonStatsTxt;
 struct D2MissilesTxt;
 struct D2MissileUnitFindArgStrc;
 
-int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
+int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
 void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8030
 void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C9D90
 D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005CE4F0
@@ -55,7 +55,7 @@ int __fastcall sub_6FC64480(D2GameStrc* pGame, D2UnitStrc* pUnit)
         SKILLS_CreateSpiderLayMissile(pGame, pUnit);
     }
 
-    if (sub_6FCBC930(pGame, pUnit) == 2)
+    if (SUNIT_UpdateUnitPath(pGame, pUnit) == 2)
     {
         MONSTERMODE_HandleEndAnimation(pGame, pUnit);
         return 2;
@@ -67,7 +67,7 @@ int __fastcall sub_6FC64480(D2GameStrc* pGame, D2UnitStrc* pUnit)
 // 0x005A84F0
 int __fastcall sub_6FC64510(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (sub_6FCBC930(pGame, pUnit) == 2)
+    if (SUNIT_UpdateUnitPath(pGame, pUnit) == 2)
     {
         MONSTERMODE_HandleEndAnimation(pGame, pUnit);
         return 2;
@@ -146,7 +146,7 @@ void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 // 0x005A8630
 int __fastcall sub_6FC64E20(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    sub_6FCBC930(pGame, pUnit);
+    SUNIT_UpdateUnitPath(pGame, pUnit);
     UNITS_StopSequence(pUnit);
     if (UNITS_IsAtEndOfFrameCycle(pUnit))
     {

@@ -210,7 +210,7 @@ void __fastcall SUNITMSG_QueueMonsterPrecache(D2UnitStrc* pUnit, int nClass); //
 
 int __fastcall MONSTER_Reinitialize(D2GameStrc* pGame, D2UnitStrc* pUnit, int nClass, int nMode); // 0x00574370
 
-int __fastcall sub_00586B30_GetSuperUniqueId(unsigned int nIndex); // 0x00586B30
+int __fastcall OBJMODE_GetSuperUniqueId(unsigned int nIndex); // 0x00586B30
 
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nState); // 0x005B0E00
 
@@ -761,7 +761,7 @@ void __fastcall AITHINK_Fn134_BaalThrone(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         {
             if ((unsigned int)nWave <= 4)
             {
-                nWave = BAALTHRONE_GetSuperUniqueClass(sub_00586B30_GetSuperUniqueId(gnBaalThroneSuperUniqueIds[nWave]));
+                nWave = BAALTHRONE_GetSuperUniqueClass(OBJMODE_GetSuperUniqueId(gnBaalThroneSuperUniqueIds[nWave]));
                 if (nWave < 0) return;
                 SUNITMSG_QueueMonsterPrecache(pUnit, nWave);
                 switch (nWave)
@@ -792,7 +792,7 @@ void __fastcall AITHINK_Fn134_BaalThrone(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
             return;
         }
-        int nSuperUnique = DATATBLS_MapSuperUniqueId(2, sub_00586B30_GetSuperUniqueId(gnBaalThroneSuperUniqueIds[nWave]));
+        int nSuperUnique = DATATBLS_MapSuperUniqueId(2, OBJMODE_GetSuperUniqueId(gnBaalThroneSuperUniqueIds[nWave]));
         AITHINK_BaalThroneSpawnMinions(pUnit, nSuperUnique, pTick);
         return;
     }

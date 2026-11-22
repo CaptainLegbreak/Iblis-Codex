@@ -83,7 +83,7 @@ extern "C" void __fastcall sub_00515A60_SetValue44(D2SoundObjStrc_00515A30* pSou
 }
 
 // 0x00537970
-extern "C" void __fastcall sub_00537970_SetClientFlag1(D2ClientStrc* pClient)
+extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 518);
     pClient->dwFlags |= 1;

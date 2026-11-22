@@ -8436,7 +8436,7 @@ void __cdecl sub_004DF930_Nop()
 {
 }
 
-void __cdecl sub_00587830_Nop()
+void __cdecl OBJECTS_InitFunction70_Unused()
 {
 }
 

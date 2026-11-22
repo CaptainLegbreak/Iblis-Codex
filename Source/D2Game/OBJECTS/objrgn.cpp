@@ -43,7 +43,7 @@ struct D2GameStrc
     D2SeedStrc pGameSeed;
     char unk0xD8[0x1018];
     D2ObjectControlStrc* pObjectControl;
-    void sub_00546FF0_SendQuestText(const char* szText); // 0x00546FF0
+    void OBJRGN_BroadcastServerText(const char* szText); // 0x00546FF0
 };
 
 struct D2LevelsTxt { char unk0x00[3]; unsigned char nAct; };
@@ -212,22 +212,22 @@ unsigned int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* ptGame)
 }
 
 // 0x00546F90
-extern "C" __declspec(dllexport) void* __fastcall sub_00546F90(Obj00546F90* pObj, int nIndex) {
+extern "C" __declspec(dllexport) void* __fastcall OBJRGN_GetObjectRegionForLevel(Obj00546F90* pObj, int nIndex) {
     return pObj->pSub10F0->pEntries48[nIndex];
 }
 
 // 0x00546FA0
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_00546FA0(Obj00546FA0* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall OBJRGN_GetObjectControlFromGame(Obj00546FA0* pObj) {
     return pObj->dwValue10F0;
 }
 
 // 0x00546FB0
-extern "C" __declspec(dllexport) unsigned int* __fastcall sub_00546FB0(Obj00546FB0* pObj) {
+extern "C" __declspec(dllexport) unsigned int* __fastcall OBJRGN_GetShrineDataFromGame(Obj00546FB0* pObj) {
     return &pObj->pSub10F0->dwMember08;
 }
 
 // 0x00546FC0
-void __fastcall sub_00546FC0_IncrementGroupCount(D2GameStrc* pGame, int nGroup)
+void __fastcall OBJRGN_IncrementGroupCount(D2GameStrc* pGame, int nGroup)
 {
     if ((unsigned int)nGroup < 100)
     {
@@ -237,13 +237,13 @@ void __fastcall sub_00546FC0_IncrementGroupCount(D2GameStrc* pGame, int nGroup)
 }
 
 // 0x00546FE0
-void __fastcall sub_00546FE0_SendServerMessageCallback(D2ClientStrc* pClient, void* pContext)
+void __fastcall OBJRGN_SendServerMessageCallback(D2ClientStrc* pClient, void* pContext)
 {
     D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, *(D2GSPacketSrv26**)pContext);
 }
 
 // 0x00546FF0
-void D2GameStrc::sub_00546FF0_SendQuestText(const char* szText)
+void D2GameStrc::OBJRGN_BroadcastServerText(const char* szText)
 {
     D2GSPacketSrv26 packet;
     packet.szName[0] = 0;

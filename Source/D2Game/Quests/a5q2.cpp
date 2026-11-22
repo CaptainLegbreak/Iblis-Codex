@@ -80,7 +80,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 extern const unsigned int gdwAct5Q2RuneCodes_00732FEC[3]; // 0x00732FEC
 
-void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 
@@ -110,11 +110,11 @@ int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 int __fastcall ACT5Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00587A90
 
-extern "C" int __fastcall sub_005452C0(Obj005452C0* pObj, unsigned int dwValue); // 0x005452C0
+extern "C" int __fastcall QUESTS_CheckPlayerGUID(Obj005452C0* pObj, unsigned int dwValue); // 0x005452C0
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 
-int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x00587FC0
+int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x00587FC0
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
@@ -193,7 +193,7 @@ void __fastcall ACT5Q2_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
 
 void __fastcall ACT5Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
-static inline void sub_00588010_CountWussie(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit);
+static inline void ACT5Q2_CountWussieKill(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit);
 
 struct D2ActiveRoomUnitsStrc;
 
@@ -289,7 +289,7 @@ void __fastcall ACT5Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                         packet5D.nHeader = 0x5D;
                         packet5D.nQuestId = 0x20;
                         packet5D.nFlags = 2;
-                        sub_6FC3F380(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q2.cpp", 0x14E), &packet5D);
+                        SCMD_SendPacket0x5D(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q2.cpp", 0x14E), &packet5D);
                     }
                 }
             }
@@ -314,7 +314,7 @@ void __fastcall ACT5Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
         return;
     }
 
-    if (sub_005452C0((Obj005452C0*)pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId) == 1)
+    if (QUESTS_CheckPlayerGUID((Obj005452C0*)pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId) == 1)
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
         return;
@@ -393,7 +393,7 @@ void __fastcall ACT5Q2_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
 
 void __fastcall sub_M117_Emit_00588010(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
-    sub_00588010_CountWussie(pQuestData, pUnit);
+    ACT5Q2_CountWussieKill(pQuestData, pUnit);
 }
 
 int __fastcall ACT1Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
@@ -469,9 +469,9 @@ void __fastcall ACT1Q1_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 }
 
 // 0x00588010
-static inline void sub_00588010_CountWussie(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+static inline void ACT5Q2_CountWussieKill(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
-    const int nIndex = sub_00587FC0_GetWussieGroupIndex(pQuestData, pUnit);
+    const int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pUnit);
     if (nIndex >= 0)
     {
         D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
@@ -483,7 +483,7 @@ static inline void sub_00588010_CountWussie(D2QuestDataStrc* pQuestData, D2UnitS
     }
 }
 
-int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
     const int nGUID = !pUnit ? -1 : pUnit->dwUnitId;
@@ -541,7 +541,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         {
             if ((!pTarget ? -1 : pTarget->dwUnitId) == pQuestDataEx->nFreedWussieUnitGUIDs[i])
             {
-                const int nGroup = sub_00587FC0_GetWussieGroupIndex(pQuestData, pTarget);
+                const int nGroup = ACT5Q2_GetWussieGroupIndex(pQuestData, pTarget);
                 if (nGroup >= 0)
                 {
                     D2Act5Quest2Strc* pGroupData = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
@@ -566,7 +566,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, pQuestArg->pPlayer, ACT5Q2_UnitIterate_SetCompletionFlag);
     }
 
-    const int nGroup = sub_00587FC0_GetWussieGroupIndex(pQuestData, pQuestArg->pTarget);
+    const int nGroup = ACT5Q2_GetWussieGroupIndex(pQuestData, pQuestArg->pTarget);
     if (nGroup >= 0)
     {
         D2Act5Quest2Strc* pGroupData = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;

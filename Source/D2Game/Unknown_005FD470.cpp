@@ -18,7 +18,7 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
-int __fastcall sub_6FC6A810(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int a3, int a4, D2UnitStrc* pTarget, int a6, short a7); // 0x005B34C0
+int __fastcall MONSTERSPAWN_SpawnBonePrison(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int a3, int a4, D2UnitStrc* pTarget, int a6, short a7); // 0x005B34C0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -29,7 +29,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
-void __fastcall sub_6FCC6150(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6); // 0x00571840
+void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6); // 0x00571840
 
 static inline D2SkillsTxt* GetSkillsRecord(int nSkillId)
 {
@@ -63,7 +63,7 @@ int __fastcall sub_005FD470(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
     if (pSkillsTxt->wSrvDoFunc != 77 && pSkillsTxt->wSrvDoFunc != 78)
     {
     if (nSkillId == SKILL_DIABPRISON)
-            return sub_6FC6A810(pGame, UNITS_GetRoom(pTarget), 0, 0, pTarget, 340, 1);
+            return MONSTERSPAWN_SpawnBonePrison(pGame, UNITS_GetRoom(pTarget), 0, 0, pTarget, 340, 1);
         if (nSkillId == SKILL_MONTELEPORT)
         {
             if (!pUnit) return 0;
@@ -156,6 +156,6 @@ int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, in
     {
         nFinalY = nNewY;
     }
-    sub_6FCC6150(pUnit, nSkillId, nSkillLevel, nFinalX, nFinalY, a6);
+    SUNITMSG_QueueItemSkillOnPosition(pUnit, nSkillId, nSkillLevel, nFinalX, nFinalY, a6);
     return 1;
 }

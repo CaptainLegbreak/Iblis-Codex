@@ -197,7 +197,7 @@ const char* __fastcall sub_0052BFC0_GetLoadComplete()
 }
 
 // 0x0052BFE0
-int __fastcall sub_0052BFE0_GetGamesCount()
+int __fastcall GAME_GetGamesCount()
 {
     int nResult = 0;
     for (int i = 0; i < 1024; ++i)
