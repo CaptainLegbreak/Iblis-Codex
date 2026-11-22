@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
@@ -17,16 +18,6 @@ union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2PlayerDataStrc;
 struct D2PetMoveStrc;
-
-struct D2MonStatsTxt
-{
-    char unk00[0x56];
-    short wAiParam[8][3];
-    char unk_86[0xEA];
-    short nSkill[8];
-    signed char nSkillMode[8];
-    char unk_188[0x20];
-};
 
 extern D2DataTablesStrc* gpDataTables; // 0x00744304
 
@@ -54,7 +45,12 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-struct D2PetMoveStrc { D2UnitStrc* pUnit; D2UnitStrc* pTarget; int nCounter; };
+struct D2PetMoveStrc
+{
+    D2UnitStrc* pUnit;
+    D2UnitStrc* pTarget;
+    int nCounter;
+};
 
 extern const unsigned char gnPetDirections_006E34F0[]; // 0x006E34F0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*, int, int); // 0x00463740
@@ -79,7 +75,7 @@ D2CoordListStrc* __stdcall sub_0061B130_GetCoordList(D2ActiveRoomStrc*,int,int);
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char); // 0x0063E7A0
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char,int*,int*); // 0x0063E7E0
+void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char, unsigned int*, unsigned int*); // 0x0063E7E0
 int __stdcall PATH_GetX(D2DynamicPathStrc*); // 0x00648A20
 int __stdcall PATH_GetY(D2DynamicPathStrc*); // 0x00648A30
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc*); // 0x0064C040
@@ -221,7 +217,7 @@ void __fastcall sub_005E2D80_ThinkControlledMinion(D2GameStrc* pGame, D2UnitStrc
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
             return;
         }
-        AITACTICS_UseSkillInRange(pUnit, pRecords[0]->wAiParam[1][pGame->nDifficulty], pRecords[0]->nSkill[0], pRecords[0]->nSkillMode[0]);
+        AITACTICS_UseSkillInRange(pUnit, pRecords[0]->wAiParam[1][pGame->nDifficulty], pRecords[0]->nSkill[0], (signed char)pRecords[0]->nSkillMode[0]);
         AIGENERAL_GetAiControlFromUnit(pUnit)->dwAiParam[0] = -1;
         return;
     }
@@ -308,7 +304,7 @@ int __fastcall sub_005E3930_MovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
         for (int i=0;i<8;++i)
         {
             int nDeltaX, nDeltaY;
-            sub_0063E7E0_GetDirectionDelta(gnPetDirections_006E34F0[nDirection],&nDeltaX,&nDeltaY);
+            sub_0063E7E0_GetDirectionDelta(gnPetDirections_006E34F0[nDirection],(unsigned int*)&nDeltaX,(unsigned int*)&nDeltaY);
             const int nX=nOwnerX+8*nDeltaX;
             const int nY=nOwnerY+8*nDeltaY;
             if (sub_0061B130_GetCoordList(UNITS_GetRoom(pPlayer),nX,nY)==pCoords)
