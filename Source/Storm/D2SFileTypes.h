@@ -279,7 +279,7 @@ struct D2StormStreamListStrc
     AUDIOSTREAM* Head()
     {
         return (AUDIOSTREAM*)m_terminator.Next();
-    }
+    }    AUDIOSTREAM* sub_00419700_NewNode(unsigned int nFlags, unsigned int nArg2, unsigned int nArg3);         // 0x00419700
 };
 
 // A pending read request (0x44 bytes).

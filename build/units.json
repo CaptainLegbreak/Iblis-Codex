@@ -3795,6 +3795,10 @@
      "name": "?sub_004155B0_GetBlockEntry@@YAPAUD2StormBlockStrc@@PAUARCHIVEREC@@H@Z"
     },
     {
+     "va": "0x004155D0",
+     "length": 207
+    },
+    {
      "va": "0x004156A0",
      "length": 137,
      "name": "?sub_004156A0_ExpandEntries@D2StormBlockStrc@@QAEXI@Z"
@@ -3900,6 +3904,10 @@
      "va": "0x00416320",
      "length": 80,
      "name": "?SFileGetFileCompressedSize@@YGHPAXPAH@Z"
+    },
+    {
+     "va": "0x00416370",
+     "length": 129
     },
     {
      "va": "0x00416400",
@@ -4140,6 +4148,10 @@
      "va": "0x00416FB0",
      "length": 138,
      "name": "?sub_00416FB0_LoadBlock@@YAIIPAUFILEREC@@@Z"
+    },
+    {
+     "va": "0x00417040",
+     "length": 687
     },
     {
      "va": "0x00417770",
@@ -4412,9 +4424,17 @@
      "name": "?SFileLoadFileEx2@@YGHPAXPBDPAPAXPAIIH0H@Z"
     },
     {
+     "va": "0x0041B0B0",
+     "length": 348
+    },
+    {
      "va": "0x0041B210",
      "length": 112,
      "name": "?sub_0041B210_FindWaveChunk@@YAHPAXIPAI@Z"
+    },
+    {
+     "va": "0x0041B280",
+     "length": 962
     },
     {
      "va": "0x0041BEB0",
@@ -5737,34 +5757,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SFILE_004155D0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004155D0",
-     "length": 207
-    },
-    {
-     "va": "0x00416370",
-     "length": 129
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SFILE_004157C0.CPP",
    "rank": 1,
    "functions": [
@@ -6044,30 +6036,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SFILE_00417040.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00417040",
-     "length": 687
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SFILE_004177E0.CPP",
    "rank": 0,
    "functions": [
@@ -6314,54 +6282,6 @@
     {
      "va": "0x0041AAD0",
      "length": 1165
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_0041B0B0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041B0B0",
-     "length": 348
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_0041B280.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041B280",
-     "length": 962
     }
    ],
    "flags": [
