@@ -39930,20 +39930,14 @@
      "name": "?LIST_Create@@YIPAUD2WinListStrc@@HHHHPAUD2WinListInitStrc@@PAH@Z"
     },
     {
-     "va": "0x005079C0",
-     "length": 71,
-     "name": "?ACCOUNTLIST_GetTextFromSelectedEntry@@YIHPAUD2WinAccountListStrc@@PAD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinList_005077F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005077F0",
      "length": 85,
      "name": "?D2Win_10138@@YIXPAUD2WinListStrc@@PBDP6GHPAUSMSGHANDLER_PARAMS@@@ZDHHH@Z"
+    },
+    {
+     "va": "0x005079C0",
+     "length": 71,
+     "name": "?ACCOUNTLIST_GetTextFromSelectedEntry@@YIHPAUD2WinAccountListStrc@@PAD@Z"
     }
    ],
    "flags": [
