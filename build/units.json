@@ -781,6 +781,11 @@
      "name": "sub_0040DF20_SOCKET_GetSockName"
     },
     {
+     "va": "0x0040DF60",
+     "length": 276,
+     "name": "FOG_GetHostIPAddress"
+    },
+    {
      "va": "0x0040E1A0",
      "length": 34,
      "name": "FOG_SOCKET_SetBlockingMode"
@@ -2853,11 +2858,6 @@
      "va": "0x0040DCC0",
      "length": 182,
      "name": "FOG_SOCKET_Send"
-    },
-    {
-     "va": "0x0040DF60",
-     "length": 276,
-     "name": "FOG_GetHostIPAddress"
     },
     {
      "va": "0x0040EBD0",

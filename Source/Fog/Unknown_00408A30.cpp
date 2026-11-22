@@ -135,43 +135,6 @@ int __fastcall FOG_SOCKET_Send(FSafeSock* pSafeSock, char* pBuffer, int nBufferL
     return nResult;
 }
 
-// 0x0040DF60
-const char* __fastcall FOG_GetHostIPAddress()
-{
-    D2WSADataStrc tData;
-    D2SockAddrInStrc tLocal;
-    char szHost[0x100];
-    tLocal.sin_addr.s_addr = 0;
-    WSAStartup(0x101, &tData);
-    if (gethostname(szHost, sizeof(szHost)) != -1)
-    {
-        D2HostentStrc* pHost = gethostbyname(szHost);
-        if (pHost)
-        {
-            tLocal.sin_addr.s_addr = *(unsigned long*)pHost->h_addr_list[0];
-        }
-    }
-    if (!tLocal.sin_addr.s_addr)
-    {
-        const unsigned int nSocket = socket(2, 2, 0);
-        if (nSocket != -1)
-        {
-            D2SockAddrInStrc tRemote;
-            tRemote.sin_family = 2;
-            tRemote.sin_port = htons(7);
-            tRemote.sin_addr.s_addr = inet_addr("24.105.29.30");
-            if (connect(nSocket, &tRemote, sizeof(tRemote)) != -1)
-            {
-                int nLength = sizeof(tLocal);
-                getsockname(nSocket, &tLocal, &nLength);
-            }
-            closesocket(nSocket);
-        }
-    }
-    sprintf(gszResolvedHostIP_0075D040, gszStringFormat_006FFC58, inet_ntoa(tLocal.sin_addr));
-    WSACleanup();
-    return gszResolvedHostIP_0075D040;
-}
 
 // 0x0040EBD0
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
