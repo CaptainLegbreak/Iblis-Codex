@@ -63479,6 +63479,10 @@
      "name": "?AITHINK_Fn002_Skeleton@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005EFE20",
+     "length": 304
+    },
+    {
      "va": "0x005EFF50",
      "length": 389
     },
@@ -63496,6 +63500,10 @@
      "va": "0x005F06B0",
      "length": 73,
      "name": "AITHINK_TargetCallback_SandRaider"
+    },
+    {
+     "va": "0x005F0700",
+     "length": 800
     },
     {
      "va": "0x005F0A20",
@@ -63557,6 +63565,10 @@
      "va": "0x005F2A00",
      "length": 260,
      "name": "AITHINK_TargetCallback_GreaterMummy"
+    },
+    {
+     "va": "0x005F2B10",
+     "length": 920
     },
     {
      "va": "0x005F30F0",
@@ -68332,24 +68344,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EFE20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EFE20",
-     "length": 304
-    },
-    {
-     "va": "0x005F0700",
-     "length": 800
-    },
-    {
-     "va": "0x005F2B10",
-     "length": 920
-    }
    ]
   },
   {
