@@ -69139,7 +69139,13 @@
      "va": "0x005FE170",
      "length": 83,
      "name": "?sub_005FE170_SpriteCacheFreeCallback@@YIXPAX@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2CMP/SRC/SpriteCache_005FE1D0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005FE1D0",
      "length": 28,
@@ -69180,7 +69186,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_005FE990.cpp",
+   "file": "Source/D2CMP/SRC/SpriteCache_005FE990.cpp",
    "rank": 1,
    "functions": [
     {
@@ -69335,7 +69341,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_006000B0.cpp",
+   "file": "Source/D2CMP/SRC/SpriteCache_006000B0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -69359,7 +69365,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_006001F0.cpp",
+   "file": "Source/D2CMP/SRC/SpriteCache_006001F0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -70502,7 +70508,13 @@
     {
      "va": "0x0060BDB0",
      "length": 356
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2CMP/SRC/Codec_0060BF20.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0060BF20",
      "length": 206,
