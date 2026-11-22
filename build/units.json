@@ -43311,6 +43311,11 @@
      "length": 180
     },
     {
+     "va": "0x00521150",
+     "length": 120,
+     "name": "sub_00521150"
+    },
+    {
      "va": "0x005226D0",
      "length": 678
     },
@@ -43948,11 +43953,6 @@
      "va": "0x0051CA90",
      "length": 1539,
      "name": "?sFastestConnect@@YGHPAD@Z"
-    },
-    {
-     "va": "0x00521150",
-     "length": 120,
-     "name": "sub_00521150"
     }
    ]
   },
