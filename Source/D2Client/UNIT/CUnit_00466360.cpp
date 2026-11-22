@@ -101,7 +101,7 @@ extern D2UnitStrc* gpUnitHashTable_007A5270[6 * 0x80];                          
 
 extern D2UnitStrc* gpPlayerUnit_007A6A70;                                                                   // 0x007A6A70
 
-extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
+extern D2DrlgActStrc* gpGlobal_007A0634;                                                                             // 0x007A0634
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
 
