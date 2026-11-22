@@ -71423,6 +71423,11 @@
      "name": "DATATBLS_WriteBinFile"
     },
     {
+     "va": "0x00612280",
+     "length": 99,
+     "name": "?DATATBLS_ReadExcelFile@@YIPAXPAXPBD1PAI1H@Z"
+    },
+    {
      "va": "0x006122F0",
      "length": 683,
      "name": "?DATATBLS_CompileTxt@@YGPAXPAXPBDPAUD2BinFieldStrc@@PAHH@Z"
@@ -71431,6 +71436,11 @@
      "va": "0x006125C0",
      "length": 63,
      "name": "DATATBLS_UnloadBin"
+    },
+    {
+     "va": "0x00612600",
+     "length": 334,
+     "name": "?DATATBLS_InitUnicodeClassNamesInCharStatsTxt@@YIXPAXHHHHH@Z"
     },
     {
      "va": "0x00612750",
@@ -71448,6 +71458,11 @@
      "name": "DATATBLS_LoadCharStatsTxt"
     },
     {
+     "va": "0x00613D30",
+     "length": 289,
+     "name": "DATATBLS_LoadExperienceTxt"
+    },
+    {
      "va": "0x00613E90",
      "length": 235,
      "name": "?DATATBLS_GetBinFileHandle@@YIXPAXPBDPAPAXPAH3@Z"
@@ -71461,6 +71476,11 @@
      "va": "0x00617C30",
      "length": 338,
      "name": "?DATATBLS_UnloadSkills_SkillDescTxt@@YIXXZ"
+    },
+    {
+     "va": "0x00617D90",
+     "length": 865,
+     "name": "DATATBLS_LoadDifficultyLevelsTxt"
     },
     {
      "va": "0x00618100",
@@ -71481,6 +71501,11 @@
      "va": "0x00619100",
      "length": 59,
      "name": "?DATATBLS_UnloadPetTypeTxt@@YIXXZ"
+    },
+    {
+     "va": "0x00619140",
+     "length": 435,
+     "name": "?DATATBLS_UnloadAllBins@@YGXXZ"
     },
     {
      "va": "0x00619300",
@@ -71538,6 +71563,11 @@
      "name": "STATLIST_SetSkillLevel"
     },
     {
+     "va": "0x00638CD0",
+     "length": 172,
+     "name": "?DATATBLS_CheckItemTypesEquivalenceNested@@YIHHH@Z"
+    },
+    {
      "va": "0x00640E90",
      "length": 72,
      "name": "DATATBLS_GetObjectsTxtRecord"
@@ -71550,42 +71580,12 @@
    ]
   },
   {
-   "file": "Source/D2Common/DATATBLS/DataTbls_00612280.cpp",
+   "file": "Source/D2Common/DATATBLS/DataTbls_00613F80.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x00612280",
-     "length": 99,
-     "name": "?DATATBLS_ReadExcelFile@@YIPAXPAXPBD1PAI1H@Z"
-    },
-    {
-     "va": "0x00612600",
-     "length": 334,
-     "name": "?DATATBLS_InitUnicodeClassNamesInCharStatsTxt@@YIXPAXHHHHH@Z"
-    },
-    {
-     "va": "0x00613D30",
-     "length": 289,
-     "name": "DATATBLS_LoadExperienceTxt"
-    },
-    {
      "va": "0x00613F80",
      "length": 15520
-    },
-    {
-     "va": "0x00617D90",
-     "length": 865,
-     "name": "DATATBLS_LoadDifficultyLevelsTxt"
-    },
-    {
-     "va": "0x00619140",
-     "length": 435,
-     "name": "?DATATBLS_UnloadAllBins@@YGXXZ"
-    },
-    {
-     "va": "0x00638CD0",
-     "length": 172,
-     "name": "?DATATBLS_CheckItemTypesEquivalenceNested@@YIHHH@Z"
     }
    ]
   },
