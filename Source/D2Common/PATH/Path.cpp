@@ -2775,4 +2775,9 @@ int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath)
     return pPath->dwFlags & 8;
 }
 
+// 0x0066A280
+void __fastcall D2COMMON_10916_Return()
+{
+}
+
 #include "gen/data/Source/D2Common/PATH/Path.inc"

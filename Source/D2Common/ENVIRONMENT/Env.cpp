@@ -549,6 +549,32 @@ void __stdcall ENVIRONMENT_GetStatistics(D2DrlgActStrc* pAct, float* pCos, float
     *a5 = 0;
 }
 
+// 0x0061C3B0
+void __stdcall ENVIRONMENT_SetNextTimeRate(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom)
+{
+    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
+    if (++pEnvironment->nTimeRateIndex >= NUM_TIME_RATES)
+    {
+        pEnvironment->nTimeRateIndex = 0;
+    }
+
+    const int nTimeRate = gnTimeRates[pEnvironment->nTimeRateIndex];
+    pEnvironment->nTimeRate = nTimeRate;
+    const D2EnvironmentCycleStrc* pEnvironmentCycle = !pEnvironment->bEclipse ? &gNormalEnvironmentCycle[pEnvironment->nCycleIndex] : &gEclipseEnvironmentCycle[pEnvironment->nCycleIndex];
+    pEnvironment->nPeriodOfDay = pEnvironmentCycle->nPeriodOfDay;
+    pEnvironment->nTicks = pEnvironmentCycle->nTicksBegin * nTimeRate;
+    int nLevelId = 0;
+    if (pRoom)
+    {
+        nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    }
+
+    const int nActNo = DRLG_GetActNoFromLevelId(nLevelId);
+    ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
+    ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
+    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+}
+
 // 0x0061C450
 void __stdcall ENVIRONMENT_TaintedSunBegin(D2DrlgActStrc* pAct)
 {
