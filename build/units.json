@@ -28379,6 +28379,11 @@
      "name": "?SPELLSEL_RegisterSkillSlot@@YGHHHHPAUD2SkillStrc@@H@Z"
     },
     {
+     "va": "0x004A9BD0",
+     "length": 409,
+     "name": "SPELLSEL_SkillSelectClickMsg"
+    },
+    {
      "va": "0x004AA3A0",
      "length": 736,
      "name": "?SPELLSEL_BuildSkillRows@@YIXPAUD2UnitStrc@@HHHH@Z"
@@ -28397,17 +28402,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/spellsel_004A9BD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A9BD0",
-     "length": 409,
-     "name": "SPELLSEL_SkillSelectClickMsg"
-    }
    ]
   },
   {
