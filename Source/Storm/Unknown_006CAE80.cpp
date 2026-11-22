@@ -1,18 +1,18 @@
 #include "Storm.h"
-#include "D2StormAutoLink.h"
+#include "stpl.h"
 #include "D2BnCryptTypes.h"
 #include "D2GameTypes.h"
 
 struct D2BigPairStrc;
 struct D2CriticalSectionStrc;
-struct D2StormList00708354Strc;
-struct D2StormList00708360Strc;
-struct D2StormList0070836CStrc;
-struct D2StormList00708378Strc;
-struct D2StormList00708384Strc;
-struct D2StormList00708420Strc;
-struct D2StormList00708860Strc;
-struct D2StormList007088E8Strc;
+struct ARCHIVEREC;
+struct REQUEST;
+struct FILEREC;
+struct EVENTREC;
+struct AUDIOSTREAM;
+struct HANDLER;
+struct WNDREC;
+struct BREAKCMD;
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* section); // 0x006CC210
 extern unsigned char gCriticalSection_00881860[]; // 0x00881860
@@ -55,120 +55,39 @@ extern D2CriticalSectionStrc gCriticalSection_0075E850; // 0x0075E850
 extern D2CriticalSectionStrc gCriticalSection_00779068; // 0x00779068
 extern D2CriticalSectionStrc gCriticalSection_00779080; // 0x00779080
 
-// build: context ??_GD2StormList00708354Strc@@QAEPAXI@Z
-struct D2StormList00708354Strc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+// build: symbol ?UnlinkAll@?$TSList@UARCHIVEREC@@U?$TSGetLink@UARCHIVEREC@@@@@@QAEXXZ 0x00418900
+// build: symbol ?UnlinkAll@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEXXZ 0x00418940
+// build: symbol ?UnlinkAll@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEXXZ 0x00418980
+// build: symbol ?UnlinkAll@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEXXZ 0x004189C0
+// build: symbol ?UnlinkAll@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEXXZ 0x00418A00
+// build: symbol ?UnlinkAll@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ 0x0041C770
+// build: symbol ?UnlinkAll@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ 0x00420750
+// build: symbol ?UnlinkAll@?$TSList@UBREAKCMD@@U?$TSGetLink@UBREAKCMD@@@@@@QAEXXZ 0x00426CF0
+// build: context ??_G?$TSList@UARCHIVEREC@@U?$TSGetLink@UARCHIVEREC@@@@@@QAEPAXI@Z
+// build: context ??_G?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAXI@Z
+// build: context ??_G?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAXI@Z
+// build: context ??_G?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAXI@Z
+// build: context ??_G?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAXI@Z
+// build: context ??_G?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAXI@Z
+// build: context ??_G?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAXI@Z
+// build: context ??_G?$TSList@UBREAKCMD@@U?$TSGetLink@UBREAKCMD@@@@@@QAEPAXI@Z
+extern TSList<ARCHIVEREC> gArchiveList_00708354; // 0x00708354
 
-    ~D2StormList00708354Strc()
-    {
-        sub_00418900_UnlinkAll();
-    }
-    void sub_00418900_UnlinkAll(); // 0x00418900
-};
+extern TSList<REQUEST> gRequestList_00708360; // 0x00708360
 
-extern D2StormList00708354Strc gArchiveList_00708354; // 0x00708354
+extern TSList<FILEREC> gList_0070836C; // 0x0070836C
 
-struct D2StormList00708360Strc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+extern TSList<EVENTREC> gList_00708378; // 0x00708378
 
-    ~D2StormList00708360Strc()
-    {
-        sub_00418940_UnlinkAll();
-    }
-    void sub_00418940_UnlinkAll(); // 0x00418940
-};
+extern TSList<AUDIOSTREAM> gList_00708384; // 0x00708384
 
-extern D2StormList00708360Strc gRequestList_00708360; // 0x00708360
-
-struct D2StormList0070836CStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormList0070836CStrc()
-    {
-        sub_00418980_UnlinkAll();
-    }
-    void sub_00418980_UnlinkAll(); // 0x00418980
-};
-
-extern D2StormList0070836CStrc gList_0070836C; // 0x0070836C
-
-struct D2StormList00708378Strc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormList00708378Strc()
-    {
-        sub_004189C0_UnlinkAll();
-    }
-    void sub_004189C0_UnlinkAll(); // 0x004189C0
-};
-
-extern D2StormList00708378Strc gList_00708378; // 0x00708378
-
-struct D2StormList00708384Strc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormList00708384Strc()
-    {
-        sub_00418A00_UnlinkAll();
-    }
-    void sub_00418A00_UnlinkAll(); // 0x00418A00
-};
-
-extern D2StormList00708384Strc gList_00708384; // 0x00708384
-
-struct D2StormList00708420Strc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormList00708420Strc()
-    {
-        sub_0041C770_UnlinkAll();
-    }
-    void sub_0041C770_UnlinkAll(); // 0x0041C770
-};
-
-extern D2StormList00708420Strc gList_00708420; // 0x00708420
+extern TSList<HANDLER> gList_00708420; // 0x00708420
 extern D2CriticalSectionStrc gCriticalSection_00779214; // 0x00779214
 
-struct D2StormList00708860Strc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormList00708860Strc()
-    {
-        sub_00420750_UnlinkAll();
-    }
-    void sub_00420750_UnlinkAll(); // 0x00420750
-};
-
-extern D2StormList00708860Strc gList_00708860; // 0x00708860
+extern TSList<WNDREC> gList_00708860; // 0x00708860
 extern D2CriticalSectionStrc gCriticalSection_0077930C; // 0x0077930C
 
-struct D2StormList007088E8Strc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormList007088E8Strc()
-    {
-        sub_00426CF0_UnlinkAll();
-    }
-    void sub_00426CF0_UnlinkAll(); // 0x00426CF0
-};
-
-extern D2StormList007088E8Strc gList_007088E8; // 0x007088E8
+extern TSList<BREAKCMD> gList_007088E8; // 0x007088E8
 
 inline void* __cdecl operator new(unsigned int, void* location);
 
@@ -286,37 +205,37 @@ void __cdecl sub_006CB0B0_DeleteCriticalSection()
 // 0x006CB0C0
 void __cdecl sub_006CB0C0_DestroyList()
 {
-    gArchiveList_00708354.~D2StormList00708354Strc();
+    gArchiveList_00708354.~TSList();
 }
 
 // 0x006CB120
 void __cdecl sub_006CB120_DestroyList()
 {
-    gRequestList_00708360.~D2StormList00708360Strc();
+    gRequestList_00708360.~TSList();
 }
 
 // 0x006CB180
 void __cdecl sub_006CB180_DestroyList()
 {
-    gList_0070836C.~D2StormList0070836CStrc();
+    gList_0070836C.~TSList();
 }
 
 // 0x006CB1E0
 void __cdecl sub_006CB1E0_DestroyList()
 {
-    gList_00708378.~D2StormList00708378Strc();
+    gList_00708378.~TSList();
 }
 
 // 0x006CB240
 void __cdecl sub_006CB240_DestroyList()
 {
-    gList_00708384.~D2StormList00708384Strc();
+    gList_00708384.~TSList();
 }
 
 // 0x006CB2A0
 void __cdecl sub_006CB2A0_DestroyList()
 {
-    gList_00708420.~D2StormList00708420Strc();
+    gList_00708420.~TSList();
 }
 
 // 0x006CB300
@@ -328,7 +247,7 @@ void __cdecl sub_006CB300_DeleteCriticalSection()
 // 0x006CB310
 void __cdecl sub_006CB310_DestroyList()
 {
-    gList_00708860.~D2StormList00708860Strc();
+    gList_00708860.~TSList();
 }
 
 // 0x006CB370
@@ -340,5 +259,5 @@ void __cdecl sub_006CB370_DeleteCriticalSection()
 // 0x006CB380
 void __cdecl sub_006CB380_DestroyList()
 {
-    gList_007088E8.~D2StormList007088E8Strc();
+    gList_007088E8.~TSList();
 }

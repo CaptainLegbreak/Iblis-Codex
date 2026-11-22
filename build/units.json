@@ -7623,7 +7623,7 @@
     {
      "va": "0x00421110",
      "length": 50,
-     "name": "sub_00421110_ReallocData"
+     "name": "?ReallocData@?$TSFixedArray@IU?$TSCD@I@@@@QAEXI@Z"
     },
     {
      "va": "0x00421510",
@@ -7643,12 +7643,12 @@
     {
      "va": "0x00421680",
      "length": 46,
-     "name": "sub_00421680_ReallocData"
+     "name": "?ReallocData@?$TSFixedArray@EU?$TSCD@E@@@@QAEXI@Z"
     },
     {
      "va": "0x004216B0",
      "length": 46,
-     "name": "sub_004216B0_ReallocData"
+     "name": "?ReallocData@?$TSFixedArray@DU?$TSCD@D@@@@QAEXI@Z"
     },
     {
      "va": "0x00421860",
@@ -7658,17 +7658,17 @@
     {
      "va": "0x00421870",
      "length": 35,
-     "name": "sub_00421870_Assign"
+     "name": "??4?$TSFixedArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z"
     },
     {
      "va": "0x00421980",
      "length": 73,
-     "name": "sub_00421980_SetCount"
+     "name": "?SetCount@?$TSGrowableArray@EU?$TSCD@E@@@@QAEXI@Z"
     },
     {
      "va": "0x00421BA0",
      "length": 43,
-     "name": "sub_00421BA0_Assign"
+     "name": "??4?$TSGrowableArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z"
     }
    ]
   },
