@@ -1,72 +1,13 @@
 #include "Storm.h"
+#include "stpl.h"
 
 #define TO_UNSIGNED sub_00421510_ToUnsigned
 
-struct D2StormFixedArrayAStrc;
-struct D2StormArrayAStrc;
-struct D2StormFixedArrayBStrc;
-struct D2StormFixedArrayCStrc;
-struct D2StormArrayBStrc;
 struct BigBuffer;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
 
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
-
-struct D2StormFixedArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-
-    void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                  // 0x004215C0
-    void sub_00421110_ReallocData(unsigned int nAlloc);
-    D2StormFixedArrayAStrc& sub_00421870_Assign(const D2StormFixedArrayAStrc& tSource);
-};
-
-struct D2StormArrayAStrc : D2StormFixedArrayAStrc
-{
-    unsigned int f_C;
-
-    D2StormArrayAStrc& sub_00421BA0_Assign(const D2StormArrayAStrc& tSource);
-};
-
-struct D2StormFixedArrayBStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-
-    void sub_00421680_ReallocData(unsigned int nAlloc);
-};
-
-struct D2StormFixedArrayCStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-
-    void sub_004216B0_ReallocData(unsigned int nAlloc);
-};
-
-struct D2StormArrayBStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);                                           // 0x00421160
-    void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
-    void sub_00421980_SetCount(unsigned int nCount);
-};
 
 struct BigBuffer
 {
@@ -88,57 +29,24 @@ extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
 static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf);
 
-// 0x00421110
-void D2StormFixedArrayAStrc::sub_00421110_ReallocData(unsigned int nAlloc)
-{
-    f_0 = nAlloc;
-    if (f_8 || nAlloc)
-        f_8 = (unsigned int*)SMemReAlloc(f_8, nAlloc * sizeof(unsigned int), gszTypeNameUInt_00708874, -2, 0);
-}
-
-// 0x00421680
-void D2StormFixedArrayBStrc::sub_00421680_ReallocData(unsigned int nAlloc)
-{
-    f_0 = nAlloc;
-    if (f_8 || nAlloc)
-        f_8 = (unsigned char*)SMemReAlloc(f_8, nAlloc, gszTypeNameUChar_00708880, -2, 0);
-}
-
-// 0x004216B0
-void D2StormFixedArrayCStrc::sub_004216B0_ReallocData(unsigned int nAlloc)
-{
-    f_0 = nAlloc;
-    if (f_8 || nAlloc)
-        f_8 = (char*)SMemReAlloc(f_8, nAlloc, gszTypeNameChar_0070888C, -2, 0);
-}
-
-// 0x00421870
-D2StormFixedArrayAStrc& D2StormFixedArrayAStrc::sub_00421870_Assign(const D2StormFixedArrayAStrc& tSource)
-{
-    if (this != &tSource)
-        sub_004215C0_Set(tSource.f_4, tSource.f_8);
-    return *this;
-}
-
-// 0x00421980
-void D2StormArrayBStrc::sub_00421980_SetCount(unsigned int nCount)
-{
-    if (nCount > f_4 && nCount > f_0)
-    {
-        unsigned int nChunk = f_C ? f_C : sub_00421160_CalcChunkSize(nCount);
-        sub_004211C0_ReallocData(RoundUp(nCount, nChunk));
-    }
-    f_4 = nCount;
-}
-
-// 0x00421BA0
-D2StormArrayAStrc& D2StormArrayAStrc::sub_00421BA0_Assign(const D2StormArrayAStrc& tSource)
-{
-    if (this != &tSource)
-        sub_004215C0_Set(tSource.f_4, tSource.f_8);
-    f_C = tSource.f_C;
-    return *this;
-}
+// build: symbol ?ReallocData@?$TSFixedArray@IU?$TSCD@I@@@@QAEXI@Z 0x00421110
+// build: symbol ?ReallocData@?$TSFixedArray@EU?$TSCD@E@@@@QAEXI@Z 0x00421680
+// build: symbol ?ReallocData@?$TSFixedArray@DU?$TSCD@D@@@@QAEXI@Z 0x004216B0
+// build: symbol ??4?$TSFixedArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z 0x00421870
+// build: symbol ?SetCount@?$TSGrowableArray@EU?$TSCD@E@@@@QAEXI@Z 0x00421980
+// build: symbol ??4?$TSGrowableArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z 0x00421BA0
+// build: symbol ?Set@?$TSFixedArray@IU?$TSCD@I@@@@QAEXIPBI@Z 0x004215C0
+// build: symbol ?CalcChunkSize@?$TSGrowableArray@EU?$TSCD@E@@@@QAEII@Z 0x00421160
+// build: symbol ?ReallocData@?$TSGrowableArray@EU?$TSCD@E@@@@QAEXI@Z 0x004211C0
+// build: symbol ??_R0I@8 0x0070886C
+// build: symbol ??_R0E@8 0x00708878
+// build: symbol ??_R0D@8 0x00708884
+template void TSFixedArray<unsigned int>::ReallocData(unsigned int);
+template void TSFixedArray<unsigned char>::ReallocData(unsigned int);
+template void TSFixedArray<char>::ReallocData(unsigned int);
+template TSFixedArray<unsigned int>& TSFixedArray<unsigned int>::operator=(const TSFixedArray<unsigned int>&);
+template void TSGrowableArray<unsigned char>::SetCount(unsigned int);
+template TSGrowableArray<unsigned int>& TSGrowableArray<unsigned int>::operator=(const TSGrowableArray<unsigned int>&);
 
 // 0x00421510
 static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf)
