@@ -15758,73 +15758,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/GAME/Game_0044DB60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044DB60",
-     "length": 120,
-     "name": "?sub_0044DB60_PreloadActTiles@@YGXE@Z"
-    },
-    {
-     "va": "0x0044E770",
-     "length": 1235,
-     "name": "?sub_0044E770_DrawEndGameScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x0044F360",
-     "length": 1203
-    },
-    {
-     "va": "0x00453BB0",
-     "length": 470,
-     "name": "?sub_00453BB0_DrawEntryList@@YAXXZ"
-    },
-    {
-     "va": "0x00454600",
-     "length": 66,
-     "name": "?sub_00454600_GetBuySellButtonCells@@YAPAUD2CelFileStrc@@XZ"
-    },
-    {
-     "va": "0x00454740",
-     "length": 79,
-     "name": "?sub_00454740_LoadLoadingPalette@@YAXXZ"
-    },
-    {
-     "va": "0x00455510",
-     "length": 513,
-     "name": "?sub_00455510_DrawLevelLoadingScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00456550",
-     "length": 135,
-     "name": "?sub_00456550_LoadLoadingScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0045C3E0",
-     "length": 75
-    },
-    {
-     "va": "0x0045C520",
-     "length": 251
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/Game_0044F8E0.cpp",
    "rank": 0,
    "functions": [
@@ -15843,49 +15776,6 @@
      "length": 66,
      "name": "?UnlinkAll@D2StormChunkListStrc@@QAEXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044B8A0",
-     "length": 370,
-     "name": "?sub_0044B8A0_LauncherRun@@YGHPAXPAUD2ClientCharRecordStrc@@@Z"
-    },
-    {
-     "va": "0x0044BDD0",
-     "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0044BE30",
-     "length": 22
-    },
-    {
-     "va": "0x0044BE50",
-     "length": 12,
-     "name": "?sub_0044BE50_GetUnitTypeOrInvalid@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0044E5A0",
-     "length": 455
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -15962,6 +15852,96 @@
      "length": 170,
      "name": "InternalNew"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0044B8A0",
+     "length": 370,
+     "name": "?sub_0044B8A0_LauncherRun@@YGHPAXPAUD2ClientCharRecordStrc@@@Z"
+    },
+    {
+     "va": "0x0044BDD0",
+     "length": 4,
+     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x0044BE30",
+     "length": 22
+    },
+    {
+     "va": "0x0044BE50",
+     "length": 12,
+     "name": "?sub_0044BE50_GetUnitTypeOrInvalid@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0044DB60",
+     "length": 120,
+     "name": "?sub_0044DB60_PreloadActTiles@@YGXE@Z"
+    },
+    {
+     "va": "0x0044E5A0",
+     "length": 455
+    },
+    {
+     "va": "0x0044E770",
+     "length": 1235,
+     "name": "?sub_0044E770_DrawEndGameScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x0044F360",
+     "length": 1203
+    },
+    {
+     "va": "0x00453BB0",
+     "length": 470,
+     "name": "?sub_00453BB0_DrawEntryList@@YAXXZ"
+    },
+    {
+     "va": "0x00454600",
+     "length": 66,
+     "name": "?sub_00454600_GetBuySellButtonCells@@YAPAUD2CelFileStrc@@XZ"
+    },
+    {
+     "va": "0x00454740",
+     "length": 79,
+     "name": "?sub_00454740_LoadLoadingPalette@@YAXXZ"
+    },
+    {
+     "va": "0x00455510",
+     "length": 513,
+     "name": "?sub_00455510_DrawLevelLoadingScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00456550",
+     "length": 135,
+     "name": "?sub_00456550_LoadLoadingScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0045C3E0",
+     "length": 75
+    },
+    {
+     "va": "0x0045C520",
+     "length": 251
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
