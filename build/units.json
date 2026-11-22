@@ -4464,97 +4464,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SERR_0041C0E0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041C0E0",
-     "length": 7,
-     "name": "?sub_0041C0E0_SetCallback@@YIXPAX@Z"
-    },
-    {
-     "va": "0x0041C140",
-     "length": 31,
-     "name": "?sub_0041C140_AppendExeMsgSources@@YAXXZ"
-    },
-    {
-     "va": "0x0041C160",
-     "length": 2,
-     "name": "?sub_0041C160_DebugBreak@@YAXXZ"
-    },
-    {
-     "va": "0x0041C1A0",
-     "length": 61,
-     "name": "?sub_0041C1A0_LockErrorState@@YAXXZ"
-    },
-    {
-     "va": "0x0041C1E0",
-     "length": 12,
-     "name": "?sub_0041C1E0_UnlockErrorState@@YAXXZ"
-    },
-    {
-     "va": "0x0041C2A0",
-     "length": 6,
-     "name": "sub_0041C2A0"
-    },
-    {
-     "va": "0x0041C2B0",
-     "length": 6,
-     "name": "sub_0041C2B0"
-    },
-    {
-     "va": "0x0041C390",
-     "length": 14,
-     "name": "sub_0041C390"
-    },
-    {
-     "va": "0x0041C3A0",
-     "length": 36,
-     "name": "sub_0041C3A0_NextLink"
-    },
-    {
-     "va": "0x0041C560",
-     "length": 17,
-     "name": "sub_0041C560_Link"
-    },
-    {
-     "va": "0x0041C580",
-     "length": 161,
-     "name": "sub_0041C580_LinkNode"
-    },
-    {
-     "va": "0x0041C630",
-     "length": 32,
-     "name": "sub_0041C630_Next"
-    },
-    {
-     "va": "0x0041C690",
-     "length": 66,
-     "name": "sub_0041C690_sub_006C4290"
-    },
-    {
-     "va": "0x0041C700",
-     "length": 24,
-     "name": "sub_0041C700_RawNext"
-    },
-    {
-     "va": "0x0041C840",
-     "length": 82,
-     "name": "sub_0041C840_NewNode"
-    },
-    {
-     "va": "0x0041C8A0",
-     "length": 81,
-     "name": "?_GHANDLER"
-    },
-    {
-     "va": "0x0041CA10",
-     "length": 106,
-     "name": "sub_0041CA10_DeleteNode"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_0040EB30.cpp",
    "rank": 0,
    "functions": [
@@ -5988,6 +5897,30 @@
    ]
   },
   {
+   "file": "Source/Storm/SOURCE/SFILE_00416AD0.CPP",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x00416AD0",
+     "length": 1248
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/Storm/SOURCE/SERR.CPP",
    "rank": 0,
    "functions": [
@@ -5997,14 +5930,53 @@
      "name": "sub_0041C0D0_StrPbrk"
     },
     {
+     "va": "0x0041C0E0",
+     "length": 7,
+     "name": "?sub_0041C0E0_SetCallback@@YIXPAX@Z"
+    },
+    {
      "va": "0x0041C0F0",
      "length": 78,
      "name": "sub_0041C0F0_AppendExeMsgSource"
     },
     {
+     "va": "0x0041C140",
+     "length": 31,
+     "name": "?sub_0041C140_AppendExeMsgSources@@YAXXZ"
+    },
+    {
+     "va": "0x0041C160",
+     "length": 2,
+     "name": "?sub_0041C160_DebugBreak@@YAXXZ"
+    },
+    {
+     "va": "0x0041C170",
+     "length": 46
+    },
+    {
+     "va": "0x0041C1A0",
+     "length": 61,
+     "name": "?sub_0041C1A0_LockErrorState@@YAXXZ"
+    },
+    {
+     "va": "0x0041C1E0",
+     "length": 12,
+     "name": "?sub_0041C1E0_UnlockErrorState@@YAXXZ"
+    },
+    {
      "va": "0x0041C1F0",
      "length": 163,
      "name": "?sub_0041C1F0_FormatTypeName@@YGHPBDPADI@Z"
+    },
+    {
+     "va": "0x0041C2A0",
+     "length": 6,
+     "name": "sub_0041C2A0"
+    },
+    {
+     "va": "0x0041C2B0",
+     "length": 6,
+     "name": "sub_0041C2B0"
     },
     {
      "va": "0x0041C2C0",
@@ -6037,6 +6009,16 @@
      "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
+     "va": "0x0041C390",
+     "length": 14,
+     "name": "sub_0041C390"
+    },
+    {
+     "va": "0x0041C3A0",
+     "length": 36,
+     "name": "?NextLink@?$TSLink@UHANDLER@@@@QAEPAU1@H@Z"
+    },
+    {
      "va": "0x0041C410",
      "length": 11,
      "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
@@ -6045,6 +6027,10 @@
      "va": "0x0041C420",
      "length": 3,
      "name": "?sub_0041C420_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
+    },
+    {
+     "va": "0x0041C430",
+     "length": 171
     },
     {
      "va": "0x0041C4E0",
@@ -6057,9 +6043,29 @@
      "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
+     "va": "0x0041C560",
+     "length": 17,
+     "name": "?Link@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAU?$TSLink@UHANDLER@@@@PBUHANDLER@@@Z"
+    },
+    {
+     "va": "0x0041C580",
+     "length": 161,
+     "name": "?LinkNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXPAUHANDLER@@I0@Z"
+    },
+    {
+     "va": "0x0041C630",
+     "length": 32,
+     "name": "?Next@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PBU2@@Z"
+    },
+    {
      "va": "0x0041C650",
      "length": 50,
      "name": "?sub_0041C650@D2StormLinkStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C690",
+     "length": 66,
+     "name": "?UnlinkNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXPAUHANDLER@@@Z"
     },
     {
      "va": "0x0041C6E0",
@@ -6067,28 +6073,77 @@
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     },
     {
+     "va": "0x0041C700",
+     "length": 24,
+     "name": "?RawNext@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PBU2@@Z"
+    },
+    {
      "va": "0x0041C770",
      "length": 61,
-     "name": "?sub_0041C770_UnlinkAll@D2StormList00708420Strc@@QAEXXZ"
+     "name": "?UnlinkAll@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C7B0",
+     "length": 60,
+     "name": "??1?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C840",
+     "length": 82,
+     "name": "?NewNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@III@Z"
+    },
+    {
+     "va": "0x0041C8A0",
+     "length": 81,
+     "name": "??_GHANDLER@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x0041C900",
+     "length": 184,
+     "name": "SErrRegisterHandler"
     },
     {
      "va": "0x0041C9C0",
      "length": 78,
-     "name": "?sub_0041C9C0_DeleteAll@D2StormList00708420Strc@@QAEXXZ"
+     "name": "?Clear@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x0041CA10",
+     "length": 106,
+     "name": "?DeleteNode@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PAU2@@Z"
+    },
+    {
+     "va": "0x0041CA80",
+     "length": 107,
+     "name": "?SErrDestroy@@YAHXZ"
+    },
+    {
+     "va": "0x0041CAF0",
+     "length": 1216
+    },
+    {
+     "va": "0x0041CFB0",
+     "length": 90,
+     "name": "?SErrDisplayErrorFmt@@YAHHPBDHHH0ZZ"
+    },
+    {
+     "va": "0x0041D010",
+     "length": 256,
+     "name": "SErrReportNamedResourceLeak"
     },
     {
      "va": "0x0041D110",
      "length": 68
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00416AD0.CPP",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x00416AD0",
-     "length": 1248
+     "va": "0x0041D160",
+     "length": 128,
+     "name": "sub_0041D160_DisplayAppFatal"
+    },
+    {
+     "va": "0x0041D1E0",
+     "length": 18,
+     "name": "SErrReportResourceLeak"
     }
    ],
    "flags": [
@@ -6103,7 +6158,7 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/Ob1"
    ]
   },
   {
@@ -6520,47 +6575,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SERR_0041C7B0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041C7B0",
-     "length": 60,
-     "name": "??1D2StormList00708420Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C900",
-     "length": 184,
-     "name": "SErrRegisterHandler"
-    },
-    {
-     "va": "0x0041CA80",
-     "length": 107,
-     "name": "?SErrDestroy@@YAHXZ"
-    },
-    {
-     "va": "0x0041CFB0",
-     "length": 90,
-     "name": "?SErrDisplayErrorFmt@@YAHHPBDHHH0ZZ"
-    },
-    {
-     "va": "0x0041D010",
-     "length": 256,
-     "name": "SErrReportNamedResourceLeak"
-    },
-    {
-     "va": "0x0041D160",
-     "length": 128,
-     "name": "sub_0041D160_DisplayAppFatal"
-    },
-    {
-     "va": "0x0041D1E0",
-     "length": 18,
-     "name": "SErrReportResourceLeak"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/STORM_0041C0C0.CPP",
    "rank": 0,
    "functions": [
@@ -6595,34 +6609,6 @@
      "length": 252,
      "name": "?StormGetOption@@YGHIPBXI@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SERR_0041C170.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041C170",
-     "length": 46
-    },
-    {
-     "va": "0x0041C430",
-     "length": 171
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -7009,16 +6995,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041CAF0",
-     "length": 1216
-    }
    ]
   },
   {

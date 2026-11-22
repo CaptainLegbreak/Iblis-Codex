@@ -164,7 +164,8 @@ struct TSList
     T* NewNode(unsigned int linktype, unsigned int extrabytes, unsigned int flags)
     {
         T* ptr = new (SMemAlloc(sizeof(T) + extrabytes, STORM_TYPENAME(T), -2, flags | 8)) T;
-        LinkNode(ptr, linktype, 0);
+        if (linktype)
+            LinkNode(ptr, linktype, 0);
         return ptr;
     }
     void UnlinkAll();
