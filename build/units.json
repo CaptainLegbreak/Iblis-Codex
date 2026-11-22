@@ -45001,17 +45001,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/OBJECTS/objrgn_00546E90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00546E90",
-     "length": 250,
-     "name": "OBJRGN_FreeObjectControl"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/GAME/Clients_00538E60.cpp",
    "rank": 0,
    "functions": [
@@ -51051,23 +51040,17 @@
    ]
   },
   {
-   "file": "Source/D2Game/OBJECTS/objrgn_00547170.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00547170",
-     "length": 158,
-     "name": "OBJRGN_AllocObjectRoomCoords"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/OBJECTS/objrgn.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00546C60",
      "length": 548
+    },
+    {
+     "va": "0x00546E90",
+     "length": 250,
+     "name": "OBJRGN_FreeObjectControl"
     },
     {
      "va": "0x00546F90",
@@ -51098,6 +51081,16 @@
      "va": "0x00546FF0",
      "length": 140,
      "name": "?OBJRGN_BroadcastServerText@D2GameStrc@@QAEXPBD@Z"
+    },
+    {
+     "va": "0x00547170",
+     "length": 158,
+     "name": "OBJRGN_AllocObjectRoomCoords"
+    },
+    {
+     "va": "0x005474C0",
+     "length": 288,
+     "name": "?OBJRGN_GetTrapMonsterId@@YIHPAUD2ObjOperateFnStrc@@@Z"
     }
    ]
   },
@@ -51124,17 +51117,6 @@
      "va": "0x00547390",
      "length": 15,
      "name": "@sub_00547390@8"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/objrgn_005474C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005474C0",
-     "length": 288,
-     "name": "?OBJRGN_GetTrapMonsterId@@YIHPAUD2ObjOperateFnStrc@@@Z"
     }
    ]
   },
