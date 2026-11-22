@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -115,11 +116,6 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2KeyConfigFileStrc
 {
@@ -506,7 +502,8 @@ D2ActiveRoomStrc* __fastcall sub_00465420_FindRoomBySubtile(int nX, int nY)
 // 0x0046C060
 void __cdecl sub_0046C060_DrawCountdown()
 {
-    Unicode wszText[256];
+    unsigned short wszTextBuf[256];
+    Unicode* wszText = (Unicode*)wszTextBuf;
     const int nNow = sub_00410A80_GetTime();
     if (!gnTimerEnd_007A7464 || gnTimerEnd_007A7464 <= nNow)
         return;
