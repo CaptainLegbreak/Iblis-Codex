@@ -200,50 +200,5 @@ int __cdecl sub_006B3400_ReleaseWindow()
     return 1;
 }
 
-// 0x006B3420
-int __cdecl sub_006B3420_InitializeCutsceneMode()
-{
-    D2_ASSERT(!gbVideoUp_00970E40, 0x7CB);
-
-    gnScreenWidth_007C9138 = 640;
-    gnScreenHeight_007C913C = 480;
-
-    unsigned int nBpp = 16;
-    if (gdwBitMask7_006CE284 & gnRenderFlags_0096F3A8)
-    {
-        nBpp = 32;
-    }
-    else if (gdwBitMask8_006CE288 & gnRenderFlags_0096F3A8)
-    {
-        nBpp = 24;
-    }
-
-    const char* szError;
-    long hResult = gpDirectDraw_00970E60->SetDisplayMode(640, 480, nBpp, 0, 0);
-    if (hResult)
-    {
-        szError = "SetDisplayMode failed!";
-        goto fail;
-    }
-
-    {
-        D2DDSurfaceDesc006B3420Strc tDesc = { sizeof(tDesc) };
-        tDesc.dwFlags = 1;
-        tDesc.tCaps.dwCaps = 0x4200;
-        hResult = gpDirectDraw_00970E60->CreateSurface(&tDesc, &gpPrimary_00970E68, 0);
-    }
-    if (hResult)
-    {
-        szError = "Failed to create primary surface for cutscenes";
-fail:
-        sub_006B20E0_DDrawLogError(szError, hResult);
-        sub_00410610_WriteLogLine("Opening Direct3D window for cutscenes failed!");
-        return 0;
-    }
-
-    gbVideoUp_00970E40 = 1;
-    gnVideoState_00970E44 = 1;
-    return 1;
-}
 
 #include "gen/data/Source/D2Direct3D/Unknown_006B2F60.inc"

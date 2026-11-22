@@ -832,6 +832,57 @@ void __cdecl sub_006B3320_ReleaseResources()
     gnVideoState_00970E44 = 0;
 }
 
+extern unsigned int gnCapabilities_0096F3A8;                                                                // 0x0096F3A8
+extern const unsigned int gdwBitMask7_006CE284;                                                             // 0x006CE284
+extern const unsigned int gdwBitMask8_006CE288;                                                             // 0x006CE288
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
+
+// 0x006B3420
+int __cdecl sub_006B3420_InitializeCutsceneMode()
+{
+    D2_ASSERT(!gbVideoUp_00970E40, 0x7CB);
+
+    gnScreenWidth_007C9138 = 640;
+    gnScreenHeight_007C913C = 480;
+
+    unsigned int nBpp = 16;
+    if (gdwBitMask7_006CE284 & gnCapabilities_0096F3A8)
+    {
+        nBpp = 32;
+    }
+    else if (gdwBitMask8_006CE288 & gnCapabilities_0096F3A8)
+    {
+        nBpp = 24;
+    }
+
+    const char* szError;
+    long hResult = gpDraw->SetDisplayMode(640, 480, nBpp, 0, 0);
+    if (hResult)
+    {
+        szError = "SetDisplayMode failed!";
+        goto fail;
+    }
+
+    {
+        SurfaceDesc tDesc = { sizeof(tDesc) };
+        tDesc.flags = 1;
+        tDesc.caps = 0x4200;
+        hResult = gpDraw->CreateSurface(&tDesc, &gpPrimary, 0);
+    }
+    if (hResult)
+    {
+        szError = "Failed to create primary surface for cutscenes";
+fail:
+        sub_006B20E0_DDrawLogError(szError, hResult);
+        sub_00410610_WriteLogLine("Opening Direct3D window for cutscenes failed!");
+        return 0;
+    }
+
+    gbVideoUp_00970E40 = 1;
+    gnVideoState_00970E44 = 1;
+    return 1;
+}
+
 struct D2GammaRampStrc
 {
     int red[128];
@@ -840,7 +891,6 @@ struct D2GammaRampStrc
 };
 
 extern const unsigned int gnGammaMask_006CE278;                                                             // 0x006CE278
-extern unsigned int gnCapabilities_0096F3A8;                                                                // 0x0096F3A8
 extern int gnGammaScale_0074C020;                                                                           // 0x0074C020
 void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
