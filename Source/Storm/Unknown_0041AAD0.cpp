@@ -2,8 +2,8 @@
 #include "SValidate.h"
 struct FILEREC;
 struct D2StormBlockStrc { unsigned int nOffset,nPackedSize,nFileSize,dwFlags,unk10,unk14,nCrc; };
-struct ARCHIVEREC { char pad00[0x110];int nMode;char pad114[8];FILEREC* pCachedFile;unsigned int nCachedOffset,nBlockSize;unsigned char* pBlockBuffer;unsigned int f_12C; };
-struct FILEREC { char pad00[8];char szName[0x108];void* hFile;ARCHIVEREC* f_114;D2StormBlockStrc* pBlock;unsigned int nKey,nPosition;char pad124[0x14];unsigned char* pCache;unsigned int cachePos,cacheSize;int nRequests;unsigned int nCrc;int bCrc,nCrcState;unsigned int nCrcPos; };
+struct ARCHIVEREC { char pad00[0x110];int nMode;char pad114[8];FILEREC* pCachedFile;unsigned int nCachedOffset,sectorsize;unsigned char* pBlockBuffer;unsigned int f_12C; };
+struct FILEREC { char pad00[8];char szName[0x108];void* hFile;ARCHIVEREC* archive;D2StormBlockStrc* pBlock;unsigned int nKey,nPosition;char pad124[0x14];unsigned char* pCache;unsigned int cachePos,cacheSize;int nRequests;unsigned int nCrc;int bCrc,nCrcState;unsigned int nCrcPos; };
 struct D2StormOverlappedStrc { unsigned int internal,internalHigh,offset,offsetHigh;void* event; };
 struct D2StormSoundBufferStrc;
 struct AUDIOSTREAM { char pad00[0x4C];int nRefs; };
@@ -14,7 +14,7 @@ struct D2StormRequestLinkStrc {
  void Unlink(){if(m_prevlink){NextLink(-1)->m_prevlink=m_prevlink;m_prevlink->m_next=m_next;m_prevlink=0;m_next=0;}}
 };
 struct REQUEST {
- D2StormRequestLinkStrc f_0;int nUser;FILEREC* pFile;unsigned int nPosition,nFileOffset,nDueTime;int nArg9;void* pDest;unsigned int f_24;D2StormSoundBufferStrc* pBuffer;unsigned int f_2C;AUDIOSTREAM* pStream;unsigned int nBytes;int nArg11;unsigned int nRead;void* pCallback;
+ D2StormRequestLinkStrc f_0;int nUser;FILEREC* pFile;unsigned int location,nFileOffset,nDueTime;int nArg9;void* pDest;unsigned int f_24;D2StormSoundBufferStrc* pBuffer;unsigned int soundbufferoffset;AUDIOSTREAM* stream;unsigned int nBytes;int nArg11;unsigned int nRead;void* pCallback;
  REQUEST(){f_0.m_prevlink=0;f_0.m_next=0;}
  ~REQUEST(); // 0x0041A020
 };
@@ -107,16 +107,16 @@ static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize,
 // 0x00416FB0
 static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile)
 {
-    if (pFile->f_114->pCachedFile == pFile && pFile->f_114->nCachedOffset == nOffset)
-        return pFile->f_114->f_12C;
-    unsigned int nSize = pFile->f_114->nBlockSize;
+    if (pFile->archive->pCachedFile == pFile && pFile->archive->nCachedOffset == nOffset)
+        return pFile->archive->f_12C;
+    unsigned int nSize = pFile->archive->sectorsize;
     D2StormBlockStrc* pBlock = pFile->pBlock;
     if (nOffset + nSize > pBlock->nFileSize && !(pBlock->dwFlags & 0xFF00))
         nSize = pBlock->nFileSize - nOffset;
-    pFile->f_114->pCachedFile = pFile;
-    pFile->f_114->nCachedOffset = nOffset;
-    pFile->f_114->f_12C = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->f_114->pBlockBuffer, nSize);
-    return pFile->f_114->f_12C;
+    pFile->archive->pCachedFile = pFile;
+    pFile->archive->nCachedOffset = nOffset;
+    pFile->archive->f_12C = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
+    return pFile->archive->f_12C;
 }
 static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile); // 0x00416FB0
 static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition); // 0x00417040
@@ -135,13 +135,13 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         pFile->nCrcState = 2;
     }
     unsigned int nHead = 0;
-    if (nPosition & (pFile->f_114->nBlockSize - 1))
+    if (nPosition & (pFile->archive->sectorsize - 1))
     {
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
-        nHead = sub_00416FB0_LoadBlock(~(pFile->f_114->nBlockSize - 1) & nPosition, pFile);
-        const unsigned int nCopy = nSize < pFile->f_114->nBlockSize - ((pFile->f_114->nBlockSize - 1) & nPosition) ? nSize : pFile->f_114->nBlockSize - ((pFile->f_114->nBlockSize - 1) & nPosition);
-        SMemCopy(pBuffer, pFile->f_114->pBlockBuffer + ((pFile->f_114->nBlockSize - 1) & nPosition), nCopy);
+        nHead = sub_00416FB0_LoadBlock(~(pFile->archive->sectorsize - 1) & nPosition, pFile);
+        const unsigned int nCopy = nSize < pFile->archive->sectorsize - ((pFile->archive->sectorsize - 1) & nPosition) ? nSize : pFile->archive->sectorsize - ((pFile->archive->sectorsize - 1) & nPosition);
+        SMemCopy(pBuffer, pFile->archive->pBlockBuffer + ((pFile->archive->sectorsize - 1) & nPosition), nCopy);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
             sub_0041D810_Crc32(pBuffer, nCopy, &pFile->nCrc, 2);
@@ -149,9 +149,9 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         }
         pBuffer += nCopy;
         nSize -= nCopy;
-        if (nHead != pFile->f_114->nBlockSize || !nSize)
+        if (nHead != pFile->archive->sectorsize || !nSize)
         {
-            const unsigned int nSkip = (pFile->f_114->nBlockSize - 1) & nPosition;
+            const unsigned int nSkip = (pFile->archive->sectorsize - 1) & nPosition;
             if (nHead < nSkip)
                 return 0;
             return nCopy < nHead - nSkip ? nCopy : nHead - nSkip;
@@ -164,7 +164,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
     {
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
-        const unsigned int nAligned = ~(pFile->f_114->nBlockSize - 1) & nSize;
+        const unsigned int nAligned = ~(pFile->archive->sectorsize - 1) & nSize;
         nMiddle = sub_00416AD0_ReadBlocks(pFile, nPosition, pBuffer, nAligned);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
@@ -183,7 +183,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
         nTail = sub_00416FB0_LoadBlock(nPosition, pFile);
-        SMemCopy(pBuffer, pFile->f_114->pBlockBuffer, nSize);
+        SMemCopy(pBuffer, pFile->archive->pBlockBuffer, nSize);
         if (nSize < nTail)
             nTail = nSize;
         if (pFile->bCrc && pFile->nCrcState == 2)
@@ -204,7 +204,7 @@ static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, v
     REQUEST* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;
     pRequest->pFile = pFile;
-    pRequest->nPosition = nPosition;
+    pRequest->location = nPosition;
     if (pFile->hFile == (void*)-1)
         nPosition = (nPosition >> 1) + pFile->pBlock->nOffset;
     pRequest->nFileOffset = nPosition;
@@ -213,8 +213,8 @@ static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, v
     pRequest->pDest = pDest;
     pRequest->f_24 = nDestSize;
     pRequest->pBuffer = pBuffer;
-    pRequest->f_2C = nBufferOffset;
-    pRequest->pStream = pStream;
+    pRequest->soundbufferoffset = nBufferOffset;
+    pRequest->stream = pStream;
     pRequest->nBytes = nBytes;
     pRequest->nArg11 = nArg11;
     pRequest->pCallback = pCallback;
@@ -278,7 +278,7 @@ int __stdcall sub_0041AAD0_StormReadFile(void* hFile,unsigned char* buffer,unsig
     unsigned int count = size;
     if (!overlap)
     {
-        unsigned int limit = min(0x1000, file->f_114->nBlockSize - (file->nPosition & (file->f_114->nBlockSize - 1)));
+        unsigned int limit = min(0x1000, file->archive->sectorsize - (file->nPosition & (file->archive->sectorsize - 1)));
         if (size < limit)
         {
             dest = file->pCache;
@@ -295,7 +295,7 @@ int __stdcall sub_0041AAD0_StormReadFile(void* hFile,unsigned char* buffer,unsig
     unsigned int pos = overlap ? overlap->offset : file->nPosition;
     unsigned int total = 0;
     unsigned int chunk = gnReadUnit_00708348;
-    if (file->hFile == (void*)-1 && !file->f_114->nMode)
+    if (file->hFile == (void*)-1 && !file->archive->nMode)
     {
         total = sub_00417040_ReadArchived(dest, count, file, pos);
         if (file->bCrc && file->nCrcState == 2 && file->nCrcPos == file->pBlock->nFileSize)

@@ -141,7 +141,7 @@ struct AUDIOSTREAM
     FILEREC* pFileRec;
     char unk0x0C[0x30];
     D2StormSoundBufferStrc* pBuffer;
-    int nUnk0x40;
+    int soundbuffersize;
     int bBufferOwned;
     int nUnk0x48;
     int nRefCount;

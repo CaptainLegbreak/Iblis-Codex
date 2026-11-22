@@ -166,8 +166,8 @@ int __fastcall s_OpenArchive(ARCHIVEREC* pArchive, unsigned int nFlags, int bKee
         }
         pArchive->nArchiveOffset += 0x200;
     }
-    pArchive->nBlockSize = 0x200 << pArchive->pHeader->nSectorShift;
-    pArchive->pBlockBuffer = (unsigned char*)SMemAlloc(pArchive->nBlockSize, gszSFileCpp_006CF084, 0x110B, 0);
+    pArchive->sectorsize = 0x200 << pArchive->pHeader->nSectorShift;
+    pArchive->pBlockBuffer = (unsigned char*)SMemAlloc(pArchive->sectorsize, gszSFileCpp_006CF084, 0x110B, 0);
     pArchive->pHashTable = (D2StormHashEntryStrc*)SMemAlloc(pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), gszSFileCpp_006CF084, 0x1114, 0);
     unsigned long nRead;
     ReadFileChecked(&pArchive->nFilePos, pArchive->pHashTable, pArchive->pHeader->nHashOffset + pArchive->nArchiveOffset, pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), pArchive->szName, pArchive->hFile, &nRead);

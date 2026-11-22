@@ -49,7 +49,7 @@ struct AUDIOSTREAM
     void* pFileRec;
     char unk0x0C[0x30];
     void* pBuffer;
-    int nUnk0x40;
+    int soundbuffersize;
     int bBufferOwned;
     int nUnk0x48;
     int nRefCount;

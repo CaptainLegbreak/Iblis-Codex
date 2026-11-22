@@ -98,7 +98,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
     EnterCriticalSection(&gLock_00779068);
     if (!sub_00415950_GetFileRec(hFile, &pFile)) { LeaveCriticalSection(&gLock_00779068); return 0; }
     if (pFile->bDdaActive) sub_0041A990_DdaClose(hFile);
-    if (!((gnFlags_00779058 | nFlags) & 1) && (pFile->nKind != -1 || !pFile->pArchive)) {
+    if (!((gnFlags_00779058 | nFlags) & 1) && (pFile->nKind != -1 || !pFile->archive)) {
         sub_0041C340_SetLastError(0x8510006f);
         LeaveCriticalSection(&gLock_00779068);
         return 0;
@@ -106,8 +106,8 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
     if (!gnBlock_007790A0) gnBlock_007790A0 = 0x4000;
     gnChunk_00779038 = gnBlock_007790A0;
     if (!gpBuffer_00779050) gpBuffer_00779050 = sub_00413020_Allocate(gnChunk_00779038, gszSource_006CF084, 0xc5d, 0);
-    if (pFile->pArchive) {
-        if (pFile->pArchive->nKind == 0 || pFile->pArchive->nKind == 1) pFile->pArchive->nKind = 2;
+    if (pFile->archive) {
+        if (pFile->archive->nKind == 0 || pFile->archive->nKind == 1) pFile->archive->nKind = 2;
     }
     LeaveCriticalSection(&gLock_00779068);
     unsigned int remainder = (gnChunk_00779038 - 1) & nBufferSize;

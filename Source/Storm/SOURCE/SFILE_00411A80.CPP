@@ -921,7 +921,7 @@ inline FILEREC::FILEREC()
     tLink.m_next = 0;
     pBuffer0x10C = 0;
     hFile = (void*)-1;
-    pArchive = 0;
+    archive = 0;
     pBuffer0x12C = 0;
     pBuffer0x138 = 0;
 }
@@ -1030,7 +1030,7 @@ static void sub_004157C0_FillStreamBuffer(REQUEST* pRequest)
 {
     EnterCriticalSection(&gBasePathLock_00779068);
     unsigned long nLocked;
-    if (pRequest->pBuffer->Lock(pRequest->nBufferOffset, gnStreamChunk_00779038, (void**)&pRequest->pDest, &nLocked, 0, 0, 0) >= 0
+    if (pRequest->pBuffer->Lock(pRequest->soundbufferoffset, gnStreamChunk_00779038, (void**)&pRequest->pDest, &nLocked, 0, 0, 0) >= 0
         && nLocked == gnStreamChunk_00779038)
     {
         unsigned int nCopy = nLocked;
@@ -1038,25 +1038,25 @@ static void sub_004157C0_FillStreamBuffer(REQUEST* pRequest)
             nCopy = pRequest->nRead;
         SMemCopy(pRequest->pDest, gpStreamBuffer_00779050, nCopy);
         if (nCopy < nLocked)
-            SMemFill(pRequest->pDest + nCopy, nLocked - nCopy, pRequest->pStream->nFill);
+            SMemFill(pRequest->pDest + nCopy, nLocked - nCopy, pRequest->stream->nFill);
         pRequest->pBuffer->Unlock(pRequest->pDest, nLocked, 0, 0);
-        const unsigned int nWritten = nLocked - pRequest->pStream->nStart;
-        pRequest->pStream->nWritten = nWritten + pRequest->nPosition;
-        if (pRequest->pStream->nWritten > pRequest->pStream->nSize)
-            pRequest->pStream->nCounter = pRequest->pStream->nWritten - pRequest->pStream->nSize;
-        AUDIOSTREAM* pStream = pRequest->pStream;
-        if (pStream->nState == 1)
+        const unsigned int nWritten = nLocked - pRequest->stream->waveheadersize;
+        pRequest->stream->writecursor = nWritten + pRequest->location;
+        if (pRequest->stream->writecursor > pRequest->stream->nSize)
+            pRequest->stream->nCounter = pRequest->stream->writecursor - pRequest->stream->nSize;
+        AUDIOSTREAM* pStream = pRequest->stream;
+        if (pStream->fillstatus == 1)
         {
-            const unsigned int nQueued = pRequest->nBytes - pStream->nStart + pRequest->nPosition;
+            const unsigned int nQueued = pRequest->nBytes - pStream->waveheadersize + pRequest->location;
             unsigned int nNeeded = 0x10000;
             if (pStream->nSize <= 0x10000)
                 nNeeded = pStream->nSize;
-            if (nNeeded >= pStream->nBufferSize)
-                nNeeded = pStream->nBufferSize;
+            if (nNeeded >= pStream->soundbuffersize)
+                nNeeded = pStream->soundbuffersize;
             if (nQueued >= nNeeded)
             {
-                pRequest->pStream->pBuffer->Play(0, 0, 1);
-                pRequest->pStream->nState = 2;
+                pRequest->stream->pBuffer->Play(0, 0, 1);
+                pRequest->stream->fillstatus = 2;
             }
         }
     }
@@ -1065,16 +1065,16 @@ static void sub_004157C0_FillStreamBuffer(REQUEST* pRequest)
 
 static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile)
 {
-    if (pFile->pArchive->pCachedFile == pFile && pFile->pArchive->nCachedOffset == nOffset)
-        return pFile->pArchive->nCachedSize;
-    unsigned int nSize = pFile->pArchive->nBlockSize;
+    if (pFile->archive->pCachedFile == pFile && pFile->archive->nCachedOffset == nOffset)
+        return pFile->archive->nCachedSize;
+    unsigned int nSize = pFile->archive->sectorsize;
     D2StormBlockStrc* pBlock = pFile->pBlock;
     if (nOffset + nSize > pBlock->nFileSize && !(pBlock->dwFlags & 0xFF00))
         nSize = pBlock->nFileSize - nOffset;
-    pFile->pArchive->pCachedFile = pFile;
-    pFile->pArchive->nCachedOffset = nOffset;
-    pFile->pArchive->nCachedSize = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->pArchive->pBlockBuffer, nSize);
-    return pFile->pArchive->nCachedSize;
+    pFile->archive->pCachedFile = pFile;
+    pFile->archive->nCachedOffset = nOffset;
+    pFile->archive->nCachedSize = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
+    return pFile->archive->nCachedSize;
 }
 
 static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
@@ -1090,15 +1090,15 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         pFile->nCrcState = 2;
     }
     unsigned int nHead = 0;
-    if (nPosition & (pFile->pArchive->nBlockSize - 1))
+    if (nPosition & (pFile->archive->sectorsize - 1))
     {
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
-        nHead = sub_00416FB0_LoadBlock(~(pFile->pArchive->nBlockSize - 1) & nPosition, pFile);
+        nHead = sub_00416FB0_LoadBlock(~(pFile->archive->sectorsize - 1) & nPosition, pFile);
         unsigned int nCopy = nSize;
-        if (nCopy >= pFile->pArchive->nBlockSize - ((pFile->pArchive->nBlockSize - 1) & nPosition))
-            nCopy = pFile->pArchive->nBlockSize - ((pFile->pArchive->nBlockSize - 1) & nPosition);
-        SMemCopy(pBuffer, pFile->pArchive->pBlockBuffer + ((pFile->pArchive->nBlockSize - 1) & nPosition), nCopy);
+        if (nCopy >= pFile->archive->sectorsize - ((pFile->archive->sectorsize - 1) & nPosition))
+            nCopy = pFile->archive->sectorsize - ((pFile->archive->sectorsize - 1) & nPosition);
+        SMemCopy(pBuffer, pFile->archive->pBlockBuffer + ((pFile->archive->sectorsize - 1) & nPosition), nCopy);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
             sub_0041D810_Crc32(pBuffer, nCopy, &pFile->nCrc, 2);
@@ -1106,9 +1106,9 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         }
         pBuffer += nCopy;
         nSize -= nCopy;
-        if (nHead != pFile->pArchive->nBlockSize || !nSize)
+        if (nHead != pFile->archive->sectorsize || !nSize)
         {
-            const unsigned int nSkip = (pFile->pArchive->nBlockSize - 1) & nPosition;
+            const unsigned int nSkip = (pFile->archive->sectorsize - 1) & nPosition;
             if (nHead < nSkip)
                 return 0;
             return nCopy < nHead - nSkip ? nCopy : nHead - nSkip;
@@ -1121,7 +1121,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
     {
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
-        const unsigned int nAligned = ~(pFile->pArchive->nBlockSize - 1) & nSize;
+        const unsigned int nAligned = ~(pFile->archive->sectorsize - 1) & nSize;
         nMiddle = sub_00416AD0_ReadBlocks(pFile, nPosition, pBuffer, nAligned);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
@@ -1140,7 +1140,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
         nTail = sub_00416FB0_LoadBlock(nPosition, pFile);
-        SMemCopy(pBuffer, pFile->pArchive->pBlockBuffer, nSize);
+        SMemCopy(pBuffer, pFile->archive->pBlockBuffer, nSize);
         if (nSize < nTail)
             nTail = nSize;
         if (pFile->bCrc && pFile->nCrcState == 2)
@@ -1318,7 +1318,7 @@ unsigned long __stdcall CdThreadProc(void* pParam)
                 continue;
             }
         }
-        pLastArchive = pRequest->pFile->pArchive;
+        pLastArchive = pRequest->pFile->archive;
         nLastOffset = pRequest->nFileOffset;
         gpCurrentRequest_0077902C = pRequest;
         nLastTime = nNow;
@@ -1329,7 +1329,7 @@ unsigned long __stdcall CdThreadProc(void* pParam)
         {
             if (gpCurrentRequest_0077902C->pFile->hFile == INVALID_FILE_HANDLE)
             {
-                gpCurrentRequest_0077902C->nRead = sub_00417040_ReadArchived(pDest, gpCurrentRequest_0077902C->nBytes, gpCurrentRequest_0077902C->pFile, gpCurrentRequest_0077902C->nPosition);
+                gpCurrentRequest_0077902C->nRead = sub_00417040_ReadArchived(pDest, gpCurrentRequest_0077902C->nBytes, gpCurrentRequest_0077902C->pFile, gpCurrentRequest_0077902C->location);
                 FILEREC* pFile = gpCurrentRequest_0077902C->pFile;
                 if (pFile->bCrc && pFile->nCrcState == 2 && pFile->nCrcPos == pFile->pBlock->nFileSize)
                 {
@@ -1339,7 +1339,7 @@ unsigned long __stdcall CdThreadProc(void* pParam)
             }
             else
             {
-                sub_00415560_ReadFileRec(pDest, gpCurrentRequest_0077902C->nBytes, &gpCurrentRequest_0077902C->nRead, gpCurrentRequest_0077902C->nPosition, gpCurrentRequest_0077902C->pFile);
+                sub_00415560_ReadFileRec(pDest, gpCurrentRequest_0077902C->nBytes, &gpCurrentRequest_0077902C->nRead, gpCurrentRequest_0077902C->location, gpCurrentRequest_0077902C->pFile);
             }
         }
         else
@@ -1355,8 +1355,8 @@ unsigned long __stdcall CdThreadProc(void* pParam)
             else if (gpCurrentRequest_0077902C->nBytes)
             {
                 gpCurrentRequest_0077902C->pBuffer->Stop();
-                if (gpCurrentRequest_0077902C->pStream)
-                    gpCurrentRequest_0077902C->pStream->nState = 4;
+                if (gpCurrentRequest_0077902C->stream)
+                    gpCurrentRequest_0077902C->stream->fillstatus = 4;
             }
         }
         if (gpCurrentRequest_0077902C->pCallback && gpCurrentRequest_0077902C->pCallback->pfnDone)
@@ -1412,8 +1412,8 @@ int __fastcall s_OpenArchive(ARCHIVEREC* pArchive, unsigned int nFlags, int bKee
         pArchive->nArchiveOffset += 0x200;
     }
     SMemFree(pBuffer, ".\\SOURCE\\SFILE.CPP", 0x1106, 0);
-    pArchive->nBlockSize = 0x200 << pArchive->pHeader->nSectorShift;
-    pArchive->pBlockBuffer = (unsigned char*)SMemAlloc(pArchive->nBlockSize, ".\\SOURCE\\SFILE.CPP", 0x110B, 0);
+    pArchive->sectorsize = 0x200 << pArchive->pHeader->nSectorShift;
+    pArchive->pBlockBuffer = (unsigned char*)SMemAlloc(pArchive->sectorsize, ".\\SOURCE\\SFILE.CPP", 0x110B, 0);
     pArchive->pHashTable = (D2StormHashEntryStrc*)SMemAlloc(pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), ".\\SOURCE\\SFILE.CPP", 0x1114, 0);
     unsigned long nRead;
     ReadFileChecked(&pArchive->nFilePos, pArchive->pHashTable, pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), pArchive->szName, &nRead, pArchive->pHeader->nHashOffset + pArchive->nArchiveOffset, pArchive->hFile);
@@ -1695,10 +1695,10 @@ static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
     unsigned long nWrite = 0;
     if (pStream->pBuffer->GetCurrentPosition(&nPlay, &nWrite) < 0)
         return -1;
-    unsigned int nWritten = pStream->nWritten;
-    int nAhead = nWritten % pStream->nBufferSize - nPlay;
+    unsigned int nWritten = pStream->writecursor;
+    int nAhead = nWritten % pStream->soundbuffersize - nPlay;
     if (nAhead <= 0)
-        nAhead += pStream->nBufferSize;
+        nAhead += pStream->soundbuffersize;
     unsigned int nPlayed = nWritten - nAhead;
     if (nPlayed >= pStream->nSize)
         nPlayed = pStream->nSize;
@@ -1729,7 +1729,7 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
         else
         {
             nSize = pStream->nSize;
-            const int nState = pStream->nState;
+            const int nState = pStream->fillstatus;
             if (nState == 4)
             {
                 sub_0041C340_SetLastError(0x85100072);
@@ -1765,7 +1765,7 @@ static REQUEST* __stdcall IssueRequest(unsigned int nPosition, void* pDest, unsi
     REQUEST* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;
     pRequest->pFile = pFile;
-    pRequest->nPosition = nPosition;
+    pRequest->location = nPosition;
     if (pFile->nKind == -1)
         nPosition = (nPosition >> 1) + *pFile->pBlockWords;
     pRequest->nFileOffset = nPosition;
@@ -1774,8 +1774,8 @@ static REQUEST* __stdcall IssueRequest(unsigned int nPosition, void* pDest, unsi
     pRequest->pDest = (unsigned char*)pDest;
     pRequest->nDestSize = nDestSize;
     pRequest->pBuffer = pBuffer;
-    pRequest->nBufferOffset = nBufferOffset;
-    pRequest->pStream = pStream;
+    pRequest->soundbufferoffset = nBufferOffset;
+    pRequest->stream = pStream;
     pRequest->nBytes = nBytes;
     pRequest->bDelete = nArg11;
     pRequest->pCallback = (D2StormRequestCallbackStrc*)pCallback;
@@ -1794,12 +1794,12 @@ void __cdecl sub_00419C00_PumpStreams()
         return;
     for (AUDIOSTREAM* pStream = DdaHead(); (int)pStream > 0; pStream = (AUDIOSTREAM*)pStream->tLink.m_next)
     {
-        if (pStream->nState == 3 || (pStream->nState == 2 && pStream->pFile->nPosition >= pStream->nStart + pStream->nSize))
+        if (pStream->fillstatus == 3 || (pStream->fillstatus == 2 && pStream->pFile->nPosition >= pStream->waveheadersize + pStream->nSize))
         {
             if (pStream->bRestart)
             {
-                pStream->pFile->nPosition = pStream->nStart;
-                pStream->nWritten = 0;
+                pStream->pFile->nPosition = pStream->waveheadersize;
+                pStream->writecursor = 0;
                 pStream->nCounter = 0;
             }
             else
@@ -1810,67 +1810,67 @@ void __cdecl sub_00419C00_PumpStreams()
                 if (pStream->nPlayed >= pStream->nSize)
                 {
                     pStream->pBuffer->Stop();
-                    pStream->nState = 4;
+                    pStream->fillstatus = 4;
                     continue;
                 }
-                if ((nPlay - pStream->nWritePos) % pStream->nBufferSize >= gnStreamChunk_00779038)
+                if ((nPlay - pStream->nextwrite) % pStream->soundbuffersize >= gnStreamChunk_00779038)
                 {
                     unsigned int nCount = gnStreamChunk_00779038;
-                    if (nCount >= pStream->nBufferSize - pStream->nWritePos)
-                        nCount = pStream->nBufferSize - pStream->nWritePos;
+                    if (nCount >= pStream->soundbuffersize - pStream->nextwrite)
+                        nCount = pStream->soundbuffersize - pStream->nextwrite;
                     void* pLocked = 0;
                     unsigned long nLocked = nCount;
-                    if (pStream->pBuffer->Lock(pStream->nWritePos, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
+                    if (pStream->pBuffer->Lock(pStream->nextwrite, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
                     {
                         SMemFill(pLocked, nLocked, pStream->nFill);
                         pStream->pBuffer->Unlock(pLocked, nLocked, 0, 0);
-                        pStream->nWritten += nLocked;
+                        pStream->writecursor += nLocked;
                         pStream->nCounter += nLocked;
-                        pStream->nWritePos += nLocked;
-                        if (pStream->nWritePos >= pStream->nBufferSize)
-                            pStream->nWritePos -= pStream->nBufferSize;
+                        pStream->nextwrite += nLocked;
+                        if (pStream->nextwrite >= pStream->soundbuffersize)
+                            pStream->nextwrite -= pStream->soundbuffersize;
                     }
                 }
-                pStream->nState = 3;
+                pStream->fillstatus = 3;
             }
         }
-        if (pStream->nState == 2)
+        if (pStream->fillstatus == 2)
         {
             unsigned int nPlay = sub_00415760_UpdatePlayed(pStream);
             if (nPlay == -1)
                 continue;
-            if ((nPlay - pStream->nWritePos) % pStream->nBufferSize < gnStreamChunk_00779038)
+            if ((nPlay - pStream->nextwrite) % pStream->soundbuffersize < gnStreamChunk_00779038)
                 continue;
-            unsigned int nCount = pStream->nBufferSize - pStream->nWritePos;
+            unsigned int nCount = pStream->soundbuffersize - pStream->nextwrite;
             if (gnStreamChunk_00779038 < nCount)
                 nCount = gnStreamChunk_00779038;
-            unsigned int nLeft = pStream->nSize + pStream->nStart - pStream->pFile->nPosition;
+            unsigned int nLeft = pStream->nSize + pStream->waveheadersize - pStream->pFile->nPosition;
             if (nCount >= nLeft)
                 nCount = nLeft;
             if (gbAlignReads_007790A4)
             {
-                unsigned int nOver = (pStream->pFile->pArchive->nBlockSize - 1) & (pStream->pFile->nPosition + nCount);
+                unsigned int nOver = (pStream->pFile->archive->sectorsize - 1) & (pStream->pFile->nPosition + nCount);
                 if (nOver && nOver < nCount)
                     nCount -= nOver;
             }
-            IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->nWritePos, pStream, nCount, 0, 0, 0, 1, 0, 0, pStream->pFile);
+            IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->nextwrite, pStream, nCount, 0, 0, 0, 1, 0, 0, pStream->pFile);
             pStream->pFile->nPosition += nCount;
-            pStream->nWritePos += gnStreamChunk_00779038;
-            if (pStream->nWritePos >= pStream->nBufferSize)
-                pStream->nWritePos -= pStream->nBufferSize;
+            pStream->nextwrite += gnStreamChunk_00779038;
+            if (pStream->nextwrite >= pStream->soundbuffersize)
+                pStream->nextwrite -= pStream->soundbuffersize;
         }
-        else if (pStream->nState == 0)
+        else if (pStream->fillstatus == 0)
         {
             unsigned int nTotal = pStream->nSize - pStream->nOffset;
-            if (pStream->nBufferSize < nTotal)
-                nTotal = pStream->nBufferSize;
+            if (pStream->soundbuffersize < nTotal)
+                nTotal = pStream->soundbuffersize;
             unsigned int nDone = 0;
-            pStream->pFile->nPosition = pStream->nStart + pStream->nOffset;
+            pStream->pFile->nPosition = pStream->waveheadersize + pStream->nOffset;
             unsigned int nIndex = 0;
             if (gbAlignReads_007790A4)
             {
                 nDone = gnStreamChunk_00779038 < nTotal ? gnStreamChunk_00779038 : nTotal;
-                unsigned int nOver = (pStream->pFile->pArchive->nBlockSize - 1) & (pStream->pFile->nPosition + nDone);
+                unsigned int nOver = (pStream->pFile->archive->sectorsize - 1) & (pStream->pFile->nPosition + nDone);
                 if (nOver && nOver < nDone)
                     nDone -= nOver;
                 IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, 0, pStream, nDone, 0, 0, 0, 1, 0, 0, pStream->pFile);
@@ -1886,8 +1886,8 @@ void __cdecl sub_00419C00_PumpStreams()
                 ++nIndex;
                 pStream->pFile->nPosition += nCount;
             }
-            pStream->nState = 1;
-            pStream->nWritePos = nDone % pStream->nBufferSize;
+            pStream->fillstatus = 1;
+            pStream->nextwrite = nDone % pStream->soundbuffersize;
         }
     }
 }
@@ -2112,7 +2112,7 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
             if (dwBlockFlags & 0x20000)
                 nKey = (pFileBlock->nOffset - pFileArchive->nArchiveOffset + nKey) ^ pFileBlock->nFileSize;
 
-            const unsigned int nBlocks = (pFileBlock->nFileSize + pFileArchive->nBlockSize - 1) / pFileArchive->nBlockSize;
+            const unsigned int nBlocks = (pFileBlock->nFileSize + pFileArchive->sectorsize - 1) / pFileArchive->sectorsize;
             unsigned int* pBlockOffsets = 0;
             if (dwBlockFlags & 0xFF00)
                 pBlockOffsets = (unsigned int*)SMemAlloc((nBlocks + 1) * sizeof(unsigned int), gszSFileSourceFile_006CF084, 0x1231, 0);
@@ -2120,7 +2120,7 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
             FILEREC* pFile = (FILEREC*)gFileList_0070836C.sub_00418F20_NewNode(1, 0, 0);
             SStrCopy(pFile->name, szFileName, 0x104);
             pFile->hFile = (void*)-1;
-            pFile->pArchive = pFileArchive;
+            pFile->archive = pFileArchive;
             pFile->pBlock = pFileBlock;
             pFile->nKey = nKey;
             pFile->nBlocks = nBlocks;
@@ -2164,8 +2164,8 @@ int __stdcall SFileOpenFileAsArchive(unsigned int hMpq, const char* szName, int 
         void* pMemory = SMemAlloc(sizeof(ARCHIVEREC), gszTypeNameArchiveRec_00708398, -2, 8);
         ARCHIVEREC* pArchive = pMemory ? new (pMemory) ARCHIVEREC : 0;
         SStrCopy(pArchive->szName, szName, 0x104);
-        pArchive->hFile = pFile->pArchive->hFile;
-        pArchive->nMode = pFile->pArchive->nMode;
+        pArchive->hFile = pFile->archive->hFile;
+        pArchive->nMode = pFile->archive->nMode;
         pArchive->bNoDiskSearch = (nFlags >> 2) & 1;
         pArchive->nPriority = nPriority;
         pArchive->nRefs = 0;

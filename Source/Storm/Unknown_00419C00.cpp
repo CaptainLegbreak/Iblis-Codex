@@ -14,7 +14,7 @@ struct ARCHIVEREC
 {
 
     char pad00[0x124];
-    unsigned int nBlockSize;
+    unsigned int sectorsize;
 };
 
 struct FILEREC
@@ -22,7 +22,7 @@ struct FILEREC
 
     char pad00[0x110];
     int hFile;
-    ARCHIVEREC* f_114;
+    ARCHIVEREC* archive;
     unsigned int* pBlock;
     int unk0x11C;
     unsigned int nPosition;
@@ -72,20 +72,20 @@ struct AUDIOSTREAM
     D2StormStreamLinkStrc f_0;
 
     FILEREC* pFile;
-    unsigned int f_C;
+    unsigned int nextwrite;
     int unk0x10;
     int bRestart;
-    int nState;
+    int fillstatus;
     unsigned int nCounter;
-    unsigned int nStart;
+    unsigned int waveheadersize;
     unsigned int nSize;
     unsigned int nOffset;
     unsigned int nPlayed;
-    unsigned int f_30;
+    unsigned int writecursor;
     int f_34;
     int f_38;
     D2StormSoundBufferStrc* pBuffer;
-    unsigned int nBufferSize;
+    unsigned int soundbuffersize;
     int unk0x44;
     unsigned char nFill;
     char pad49[3];
@@ -110,15 +110,15 @@ struct REQUEST
 
     int nUser;
     FILEREC* pFile;
-    unsigned int nPosition;
+    unsigned int location;
     unsigned int nFileOffset;
     unsigned int nDueTime;
     int nArg9;
     void* pDest;
     unsigned int f_24;
     D2StormSoundBufferStrc* pBuffer;
-    unsigned int f_2C;
-    AUDIOSTREAM* pStream;
+    unsigned int soundbufferoffset;
+    AUDIOSTREAM* stream;
     unsigned int nBytes;
     int nArg11;
     unsigned int nRead;
@@ -199,10 +199,10 @@ static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
     unsigned long nWrite = 0;
     if (pStream->pBuffer->GetCurrentPosition(&nPlay, &nWrite) < 0)
         return -1;
-    unsigned int nWritten = pStream->f_30;
-    int nAhead = nWritten % pStream->nBufferSize - nPlay;
+    unsigned int nWritten = pStream->writecursor;
+    int nAhead = nWritten % pStream->soundbuffersize - nPlay;
     if (nAhead <= 0)
-        nAhead += pStream->nBufferSize;
+        nAhead += pStream->soundbuffersize;
     unsigned int nPlayed = nWritten - nAhead;
     if (nPlayed >= pStream->nSize)
         nPlayed = pStream->nSize;
@@ -222,7 +222,7 @@ static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, v
     REQUEST* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;
     pRequest->pFile = pFile;
-    pRequest->nPosition = nPosition;
+    pRequest->location = nPosition;
     if (pFile->hFile == -1)
         nPosition = (nPosition >> 1) + *pFile->pBlock;
     pRequest->nFileOffset = nPosition;
@@ -231,8 +231,8 @@ static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, v
     pRequest->pDest = pDest;
     pRequest->f_24 = nDestSize;
     pRequest->pBuffer = pBuffer;
-    pRequest->f_2C = nBufferOffset;
-    pRequest->pStream = pStream;
+    pRequest->soundbufferoffset = nBufferOffset;
+    pRequest->stream = pStream;
     pRequest->nBytes = nBytes;
     pRequest->nArg11 = nArg11;
     pRequest->pCallback = pCallback;
@@ -252,12 +252,12 @@ void __cdecl sub_00419C00_PumpStreams()
         return;
     for (AUDIOSTREAM* pStream = gDdaList_00708384.Head(); (int)pStream > 0; pStream = pStream->f_0.m_next)
     {
-        if (pStream->nState == 3 || (pStream->nState == 2 && pStream->pFile->nPosition >= pStream->nStart + pStream->nSize))
+        if (pStream->fillstatus == 3 || (pStream->fillstatus == 2 && pStream->pFile->nPosition >= pStream->waveheadersize + pStream->nSize))
         {
             if (pStream->bRestart)
             {
-                pStream->pFile->nPosition = pStream->nStart;
-                pStream->f_30 = 0;
+                pStream->pFile->nPosition = pStream->waveheadersize;
+                pStream->writecursor = 0;
                 pStream->nCounter = 0;
             }
             else
@@ -268,71 +268,71 @@ void __cdecl sub_00419C00_PumpStreams()
                 if (pStream->nPlayed >= pStream->nSize)
                 {
                     pStream->pBuffer->Stop();
-                    pStream->nState = 4;
+                    pStream->fillstatus = 4;
                     continue;
                 }
-                if ((nPlay - pStream->f_C) % pStream->nBufferSize >= gnStreamChunk_00779038)
+                if ((nPlay - pStream->nextwrite) % pStream->soundbuffersize >= gnStreamChunk_00779038)
                 {
                     unsigned int nCount;
-                    if (gnStreamChunk_00779038 >= pStream->nBufferSize - pStream->f_C)
-                        nCount = pStream->nBufferSize - pStream->f_C;
+                    if (gnStreamChunk_00779038 >= pStream->soundbuffersize - pStream->nextwrite)
+                        nCount = pStream->soundbuffersize - pStream->nextwrite;
                     else
                         nCount = gnStreamChunk_00779038;
                     void* pLocked = 0;
                     unsigned long nLocked = nCount;
-                    if (pStream->pBuffer->Lock(pStream->f_C, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
+                    if (pStream->pBuffer->Lock(pStream->nextwrite, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
                     {
                         SMemFill(pLocked, nLocked, pStream->nFill);
                         pStream->pBuffer->Unlock(pLocked, nLocked, 0, 0);
-                        pStream->f_30 += nLocked;
+                        pStream->writecursor += nLocked;
                         pStream->nCounter += nLocked;
-                        pStream->f_C += nLocked;
-                        if (pStream->f_C >= pStream->nBufferSize)
-                            pStream->f_C -= pStream->nBufferSize;
+                        pStream->nextwrite += nLocked;
+                        if (pStream->nextwrite >= pStream->soundbuffersize)
+                            pStream->nextwrite -= pStream->soundbuffersize;
                     }
                 }
-                pStream->nState = 3;
+                pStream->fillstatus = 3;
             }
         }
-        if (pStream->nState == 2)
+        if (pStream->fillstatus == 2)
         {
             unsigned int nPlay = sub_00415760_UpdatePlayed(pStream);
             if (nPlay == -1)
                 continue;
-            if ((nPlay - pStream->f_C) % pStream->nBufferSize < gnStreamChunk_00779038)
+            if ((nPlay - pStream->nextwrite) % pStream->soundbuffersize < gnStreamChunk_00779038)
                 continue;
-            unsigned int nCount = pStream->nBufferSize - pStream->f_C;
+            unsigned int nCount = pStream->soundbuffersize - pStream->nextwrite;
             if (gnStreamChunk_00779038 < nCount)
                 nCount = gnStreamChunk_00779038;
-            unsigned int nLeft = pStream->nSize + pStream->nStart - pStream->pFile->nPosition;
+            unsigned int nLeft = pStream->nSize + pStream->waveheadersize - pStream->pFile->nPosition;
             if (nCount >= nLeft)
                 nCount = nLeft;
             if (gbAlignReads_007790A4)
             {
-                unsigned int nOver = (pStream->pFile->f_114->nBlockSize - 1) & (pStream->pFile->nPosition + nCount);
+                unsigned int nOver = (pStream->pFile->archive->sectorsize - 1) & (pStream->pFile->nPosition + nCount);
                 if (nOver && nOver < nCount)
                     nCount -= nOver;
             }
-            IssueRequest(pStream->pFile, pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->f_C, pStream, nCount, 0, 0, 0, 1, 0, 0);
+            IssueRequest(pStream->pFile, pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->nextwrite, pStream, nCount, 0, 0, 0, 1, 0, 0);
             pStream->pFile->nPosition += nCount;
-            pStream->f_C += gnStreamChunk_00779038;
-            if (pStream->f_C >= pStream->nBufferSize)
-                pStream->f_C -= pStream->nBufferSize;
+            pStream->nextwrite += gnStreamChunk_00779038;
+            if (pStream->nextwrite >= pStream->soundbuffersize)
+                pStream->nextwrite -= pStream->soundbuffersize;
         }
-        else if (pStream->nState == 0)
+        else if (pStream->fillstatus == 0)
         {
             unsigned int nDone = 0;
             unsigned int nTotal;
-            if (pStream->nBufferSize < pStream->nSize - pStream->nOffset)
-                nTotal = pStream->nBufferSize;
+            if (pStream->soundbuffersize < pStream->nSize - pStream->nOffset)
+                nTotal = pStream->soundbuffersize;
             else
                 nTotal = pStream->nSize - pStream->nOffset;
-            pStream->pFile->nPosition = pStream->nStart + pStream->nOffset;
+            pStream->pFile->nPosition = pStream->waveheadersize + pStream->nOffset;
             unsigned int nIndex = 0;
             if (gbAlignReads_007790A4)
             {
                 nDone = gnStreamChunk_00779038 < nTotal ? gnStreamChunk_00779038 : nTotal;
-                unsigned int nOver = (pStream->pFile->f_114->nBlockSize - 1) & (pStream->pFile->nPosition + nDone);
+                unsigned int nOver = (pStream->pFile->archive->sectorsize - 1) & (pStream->pFile->nPosition + nDone);
                 if (nOver && nOver < nDone)
                     nDone -= nOver;
                 IssueRequest(pStream->pFile, pStream->pFile->nPosition, 0, 0, pStream->pBuffer, 0, pStream, nDone, 0, 0, 0, 1, 0, 0);
@@ -348,8 +348,8 @@ void __cdecl sub_00419C00_PumpStreams()
                 ++nIndex;
                 pStream->pFile->nPosition += nCount;
             }
-            pStream->nState = 1;
-            pStream->f_C = nDone % pStream->nBufferSize;
+            pStream->fillstatus = 1;
+            pStream->nextwrite = nDone % pStream->soundbuffersize;
         }
     }
 }

@@ -67,7 +67,7 @@ struct ARCHIVEREC
         int nUnk0x11C;
     };
     unsigned int nCachedOffset;                 // 0x120
-    unsigned int nBlockSize;                    // 0x124
+    unsigned int sectorsize;                    // 0x124
     union
     {
         unsigned char* pBlockBuffer;            // 0x128
@@ -157,7 +157,7 @@ struct FILEREC
     };
     union
     {
-        ARCHIVEREC* pArchive;        // 0x114
+        ARCHIVEREC* archive;        // 0x114
         int nValue;
     };
     union
@@ -242,20 +242,20 @@ struct AUDIOSTREAM
 {
     D2StormLinkStrc tLink;                      // 0x00
     FILEREC* pFile;                  // 0x08
-    unsigned int nWritePos;                     // 0x0C
+    unsigned int nextwrite;                     // 0x0C
     int unk0x10;                                // 0x10
     int bRestart;                               // 0x14
-    int nState;                                 // 0x18
+    int fillstatus;                                 // 0x18
     unsigned int nCounter;                      // 0x1C
-    unsigned int nStart;                        // 0x20
+    unsigned int waveheadersize;                        // 0x20
     unsigned int nSize;                         // 0x24
     unsigned int nOffset;                       // 0x28
     unsigned int nPlayed;                       // 0x2C
-    unsigned int nWritten;                      // 0x30
+    unsigned int writecursor;                      // 0x30
     int nVolume;                                // 0x34
     int nPan;                                   // 0x38
     D2StormSoundBufferStrc* pBuffer;            // 0x3C
-    unsigned int nBufferSize;                   // 0x40
+    unsigned int soundbuffersize;                   // 0x40
     int unk0x44;                                // 0x44
     unsigned char nFill;                        // 0x48
     char pad0x49[3];                            // 0x49
@@ -292,15 +292,15 @@ struct REQUEST
         int nUser;
     };
     FILEREC* pFile;                  // 0x0C
-    unsigned int nPosition;                     // 0x10
+    unsigned int location;                     // 0x10
     unsigned int nFileOffset;                   // 0x14
     unsigned int nDueTime;                      // 0x18
     int nArg9;                                  // 0x1C
     unsigned char* pDest;                       // 0x20
     unsigned int nDestSize;                     // 0x24
     D2StormSoundBufferStrc* pBuffer;            // 0x28
-    unsigned int nBufferOffset;                 // 0x2C
-    AUDIOSTREAM* pStream;                 // 0x30
+    unsigned int soundbufferoffset;                 // 0x2C
+    AUDIOSTREAM* stream;                 // 0x30
     unsigned int nBytes;                        // 0x34
     int bDelete;                                // 0x38
     unsigned int nRead;                         // 0x3C

@@ -70,7 +70,7 @@ struct AUDIOSTREAM
     FILEREC* pFileRec;
     char unk0x0C[0x30];
     D2StormSoundBufferStrc* pBuffer;
-    int nUnk0x40;
+    int soundbuffersize;
     int bBufferOwned;
     int nUnk0x48;
     int nRefCount;
@@ -162,7 +162,7 @@ struct REQUEST
     char unk0x08[0x4];
     FILEREC* pFileRec;
     char unk0x10[0x20];
-    AUDIOSTREAM* pStream;
+    AUDIOSTREAM* stream;
 
     ~REQUEST();
 };
@@ -189,7 +189,7 @@ REQUEST::~REQUEST()
     FILEREC* pFile = pFileRec;
     if (pFile && --pFile->nRefCount == 0)
         delete pFile;
-    AUDIOSTREAM* pAudio = pStream;
+    AUDIOSTREAM* pAudio = stream;
     if (pAudio && --pAudio->nRefCount == 0)
         delete pAudio;
 }
