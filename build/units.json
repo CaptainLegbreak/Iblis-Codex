@@ -2164,16 +2164,6 @@
      "name": "sub_004107F0_GetSaveDiskFreeSpace"
     },
     {
-     "va": "0x0041D160",
-     "length": 128,
-     "name": "sub_0041D160_DisplayAppFatal"
-    },
-    {
-     "va": "0x00420320",
-     "length": 61,
-     "name": "sub_00420320_RegisterHandlers"
-    },
-    {
      "va": "0x0042F540",
      "length": 380,
      "name": "sub_0042F540_ShowMessageBox"
@@ -3468,21 +3458,6 @@
      "name": "sub_00411210_InitTimer"
     },
     {
-     "va": "0x00411700",
-     "length": 11,
-     "name": "sub_00411700_ToByte"
-    },
-    {
-     "va": "0x00411A20",
-     "length": 48,
-     "name": "sub_00411A20_InitPageSize"
-    },
-    {
-     "va": "0x00411D40",
-     "length": 82,
-     "name": "sub_00411D40_SetFlags"
-    },
-    {
      "va": "0x00413F30",
      "length": 532,
      "name": "bjhash"
@@ -4159,10 +4134,102 @@
      "name": "?SFileLoadFileEx2@@YGHPAXPBDPAPAXPAIIH0H@Z"
     },
     {
-     "va": "0x0041BEF0",
-     "length": 9,
-     "name": "?StormGetInstance@@YAPAXXZ"
+     "va": "0x0041D410",
+     "length": 4,
+     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
     },
+    {
+     "va": "0x0041D9A0",
+     "length": 57,
+     "name": "?sub_0041D9A0_Flush@D2StormHuffOutputStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041E8F0",
+     "length": 14,
+     "name": "sub_0041E8F0"
+    },
+    {
+     "va": "0x0041EE40",
+     "length": 61,
+     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041F950",
+     "length": 37,
+     "name": "??0D2StormHuffTreeStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x004203E0",
+     "length": 14,
+     "name": "sub_004203E0"
+    },
+    {
+     "va": "0x00420820",
+     "length": 82,
+     "name": "sub_00420820_NewNode"
+    },
+    {
+     "va": "0x00420880",
+     "length": 81,
+     "name": "?_GD2StormWndRecStrc"
+    },
+    {
+     "va": "0x00420970",
+     "length": 106,
+     "name": "sub_00420970_DeleteNode"
+    },
+    {
+     "va": "0x00425D90",
+     "length": 49,
+     "name": "?Initialize@D2StormHashCtxStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426920",
+     "length": 14,
+     "name": "sub_00426920"
+    },
+    {
+     "va": "0x0042D450",
+     "length": 6,
+     "name": "sub_0042D450"
+    },
+    {
+     "va": "0x0042DC30",
+     "length": 6,
+     "name": "sub_0042DC30"
+    },
+    {
+     "va": "0x0042DC40",
+     "length": 6,
+     "name": "sub_0042DC40"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_00411700.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00411700",
+     "length": 11,
+     "name": "sub_00411700_ToByte"
+    },
+    {
+     "va": "0x00411A20",
+     "length": 48,
+     "name": "sub_00411A20_InitPageSize"
+    },
+    {
+     "va": "0x00411D40",
+     "length": 82,
+     "name": "sub_00411D40_SetFlags"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SERR_0041C0E0.CPP",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0041C0E0",
      "length": 7,
@@ -4247,81 +4314,6 @@
      "va": "0x0041CA10",
      "length": 106,
      "name": "sub_0041CA10_DeleteNode"
-    },
-    {
-     "va": "0x0041D410",
-     "length": 4,
-     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
-    },
-    {
-     "va": "0x0041D9A0",
-     "length": 57,
-     "name": "?sub_0041D9A0_Flush@D2StormHuffOutputStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041E8F0",
-     "length": 14,
-     "name": "sub_0041E8F0"
-    },
-    {
-     "va": "0x0041EE40",
-     "length": 61,
-     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041F950",
-     "length": 37,
-     "name": "??0D2StormHuffTreeStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00420310",
-     "length": 6,
-     "name": "sub_00420310"
-    },
-    {
-     "va": "0x004203E0",
-     "length": 14,
-     "name": "sub_004203E0"
-    },
-    {
-     "va": "0x00420820",
-     "length": 82,
-     "name": "sub_00420820_NewNode"
-    },
-    {
-     "va": "0x00420880",
-     "length": 81,
-     "name": "?_GD2StormWndRecStrc"
-    },
-    {
-     "va": "0x00420970",
-     "length": 106,
-     "name": "sub_00420970_DeleteNode"
-    },
-    {
-     "va": "0x00425D90",
-     "length": 49,
-     "name": "?Initialize@D2StormHashCtxStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426920",
-     "length": 14,
-     "name": "sub_00426920"
-    },
-    {
-     "va": "0x0042D450",
-     "length": 6,
-     "name": "sub_0042D450"
-    },
-    {
-     "va": "0x0042DC30",
-     "length": 6,
-     "name": "sub_0042DC30"
-    },
-    {
-     "va": "0x0042DC40",
-     "length": 6,
-     "name": "sub_0042DC40"
     }
    ]
   },
@@ -4687,7 +4679,13 @@
     {
      "va": "0x00411540",
      "length": 221
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_00411670.CPP",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00411670",
      "length": 107,
@@ -4741,7 +4739,13 @@
      "va": "0x004112B0",
      "length": 6,
      "name": "?sub_004112B0_GetTickCount@@YAKXZ"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_00411640.CPP",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00411640",
      "length": 18,
@@ -4770,7 +4774,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00411620.cpp",
+   "file": "Source/Storm/SOURCE/SMEM.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4886,7 +4890,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004117F0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004117F0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4897,7 +4901,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004119A0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004119A0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4908,7 +4912,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004119B0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004119B0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4932,16 +4936,6 @@
    "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00411A80",
-     "length": 21,
-     "name": "?sub_00411A80_ReleaseBlock@@YIXPAPAUD2FogBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00411CD0",
-     "length": 97,
-     "name": "?SMemInitialize@@YAXXZ"
-    },
     {
      "va": "0x00414150",
      "length": 131,
@@ -5141,7 +5135,23 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00411AA0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_00411A80.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00411A80",
+     "length": 21,
+     "name": "?sub_00411A80_ReleaseBlock@@YIXPAPAUD2FogBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00411CD0",
+     "length": 97,
+     "name": "?SMemInitialize@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_00411AA0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -5168,11 +5178,6 @@
    "file": "Source/Storm/SOURCE/SCOMP.CPP",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00412240",
-     "length": 161,
-     "name": "sub_00412240_DestroyHeaps"
-    },
     {
      "va": "0x0041DF40",
      "length": 186,
@@ -5356,7 +5361,18 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004122F0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_00412240.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00412240",
+     "length": 161,
+     "name": "sub_00412240_DestroyHeaps"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_004122F0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -5370,7 +5386,27 @@
     {
      "va": "0x00413020",
      "length": 210
-    },
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_004135D0.cpp",
+   "rank": 1,
+   "functions": [
     {
      "va": "0x004135D0",
      "length": 353
@@ -5396,7 +5432,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004129D0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004129D0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -5407,7 +5443,13 @@
      "va": "0x00413100",
      "length": 327,
      "name": "?SMemDumpState@@YGHP6GXPAXPBD@Z0@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_00413490.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00413490",
      "length": 56,
@@ -5470,7 +5512,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00412BA0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_00412BA0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -5559,6 +5601,17 @@
      "name": "_sub_00414360_CallThenSetFlag"
     },
     {
+     "va": "0x00415160",
+     "length": 34,
+     "name": "?sub_00415160_Copy@D2StormQuadStrc@@QAEAAU1@ABU1@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SREG.CPP",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x00414990",
      "length": 358
     },
@@ -5578,6 +5631,19 @@
      "name": "?SRegDeleteValue@@YGHPBD0I@Z"
     },
     {
+     "va": "0x00414DE0",
+     "length": 99
+    },
+    {
+     "va": "0x00414E50",
+     "length": 187
+    },
+    {
+     "va": "0x00414F10",
+     "length": 233,
+     "name": "?SRegLoadValue@@YGHPBD0IPAK@Z"
+    },
+    {
      "va": "0x00415000",
      "length": 106,
      "name": "?SRegSaveData@@YGHPBD0IPBXK@Z"
@@ -5591,11 +5657,6 @@
      "va": "0x004150E0",
      "length": 83,
      "name": "?SRegSaveValue@@YGHPBD0IK@Z"
-    },
-    {
-     "va": "0x00415160",
-     "length": 34,
-     "name": "?sub_00415160_Copy@D2StormQuadStrc@@QAEAAU1@ABU1@@Z"
     }
    ]
   },
@@ -5631,7 +5692,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00414930.cpp",
+   "file": "Source/Storm/SOURCE/SREG_00414930.CPP",
    "rank": 1,
    "functions": [
     {
@@ -5652,31 +5713,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00414DE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00414DE0",
-     "length": 99
-    },
-    {
-     "va": "0x00414E50",
-     "length": 187
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00414F10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00414F10",
-     "length": 233,
-     "name": "?SRegLoadValue@@YGHPBD0IPAK@Z"
-    }
    ]
   },
   {
@@ -5753,7 +5789,13 @@
      "va": "0x0041BEB0",
      "length": 36,
      "name": "sub_0041BEB0_FlushAndNotify"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SERR.CPP",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0041C0D0",
      "length": 9,
@@ -5765,6 +5807,11 @@
      "name": "sub_0041C0F0_AppendExeMsgSource"
     },
     {
+     "va": "0x0041C1F0",
+     "length": 163,
+     "name": "?sub_0041C1F0_FormatTypeName@@YGHPBDPADI@Z"
+    },
+    {
      "va": "0x0041C2C0",
      "length": 45,
      "name": "SErrPrepareAppFatal"
@@ -5773,6 +5820,66 @@
      "va": "0x0041C2F0",
      "length": 66,
      "name": "SErrRegisterMessageSource"
+    },
+    {
+     "va": "0x0041C340",
+     "length": 22,
+     "name": "sub_0041C340_SetLastError"
+    },
+    {
+     "va": "0x0041C360",
+     "length": 15,
+     "name": "sub_0041C360_SetSuppress"
+    },
+    {
+     "va": "0x0041C370",
+     "length": 16,
+     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x0041C380",
+     "length": 4,
+     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x0041C410",
+     "length": 11,
+     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+    },
+    {
+     "va": "0x0041C420",
+     "length": 3,
+     "name": "?sub_0041C420_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
+    },
+    {
+     "va": "0x0041C4E0",
+     "length": 16,
+     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x0041C540",
+     "length": 17,
+     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C650",
+     "length": 50,
+     "name": "?sub_0041C650@D2StormLinkStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C6E0",
+     "length": 32,
+     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C770",
+     "length": 61,
+     "name": "?sub_0041C770_UnlinkAll@D2StormList00708420Strc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C9C0",
+     "length": 78,
+     "name": "?sub_0041C9C0_DeleteAll@D2StormList00708420Strc@@QAEXXZ"
     }
    ]
   },
@@ -6177,132 +6284,9 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041BEE0.cpp",
+   "file": "Source/Storm/Unknown_0041D200.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041BEE0",
-     "length": 15,
-     "name": "?sub_0041BEE0_InitStorm@@YAXXZ"
-    },
-    {
-     "va": "0x0041C1F0",
-     "length": 163,
-     "name": "?sub_0041C1F0_FormatTypeName@@YGHPBDPADI@Z"
-    },
-    {
-     "va": "0x0041C340",
-     "length": 22,
-     "name": "sub_0041C340_SetLastError"
-    },
-    {
-     "va": "0x0041C360",
-     "length": 15,
-     "name": "sub_0041C360_SetSuppress"
-    },
-    {
-     "va": "0x0041C370",
-     "length": 16,
-     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0041C380",
-     "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0041C410",
-     "length": 11,
-     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    },
-    {
-     "va": "0x0041C420",
-     "length": 3,
-     "name": "?sub_0041C420_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
-    },
-    {
-     "va": "0x0041C4E0",
-     "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x0041C540",
-     "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041C650",
-     "length": 50,
-     "name": "?sub_0041C650@D2StormLinkStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041C6E0",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C770",
-     "length": 61,
-     "name": "?sub_0041C770_UnlinkAll@D2StormList00708420Strc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041C9C0",
-     "length": 78,
-     "name": "?sub_0041C9C0_DeleteAll@D2StormList00708420Strc@@QAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041BF00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041BF00",
-     "length": 180,
-     "name": "?StormSetOption@@YGHIPAXPAI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041BFC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041BFC0",
-     "length": 252,
-     "name": "?StormGetOption@@YGHIPBXI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041CA80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041C0C0",
-     "length": 12,
-     "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C7B0",
-     "length": 60,
-     "name": "??1D2StormList00708420Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041CA80",
-     "length": 107,
-     "name": "?SErrDestroy@@YAHXZ"
-    },
-    {
-     "va": "0x0041CFB0",
-     "length": 90,
-     "name": "?SErrDisplayErrorFmt@@YAHHPBDHHH0ZZ"
-    },
-    {
-     "va": "0x0041D010",
-     "length": 256,
-     "name": "sub_0041D010_ReportHandleLeak"
-    },
     {
      "va": "0x0041D200",
      "length": 148,
@@ -6331,7 +6315,70 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041C170.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041C7B0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041C7B0",
+     "length": 60,
+     "name": "??1D2StormList00708420Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041CA80",
+     "length": 107,
+     "name": "?SErrDestroy@@YAHXZ"
+    },
+    {
+     "va": "0x0041CFB0",
+     "length": 90,
+     "name": "?SErrDisplayErrorFmt@@YAHHPBDHHH0ZZ"
+    },
+    {
+     "va": "0x0041D010",
+     "length": 256,
+     "name": "sub_0041D010_ReportHandleLeak"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/STORM_0041C0C0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041C0C0",
+     "length": 12,
+     "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/STORM.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041BEE0",
+     "length": 15,
+     "name": "?sub_0041BEE0_InitStorm@@YAXXZ"
+    },
+    {
+     "va": "0x0041BEF0",
+     "length": 9,
+     "name": "?StormGetInstance@@YAPAXXZ"
+    },
+    {
+     "va": "0x0041BF00",
+     "length": 180,
+     "name": "?StormSetOption@@YGHIPAXPAI@Z"
+    },
+    {
+     "va": "0x0041BFC0",
+     "length": 252,
+     "name": "?StormGetOption@@YGHIPBXI@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SERR_0041C170.CPP",
    "rank": 1,
    "functions": [
     {
@@ -6362,16 +6409,6 @@
    "file": "Source/Storm/SOURCE/SSignature.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041C900",
-     "length": 184,
-     "name": "SErrRegisterHandler"
-    },
-    {
-     "va": "0x0041D1E0",
-     "length": 18,
-     "name": "sub_0041D1E0_ReportHandleLeak"
-    },
     {
      "va": "0x0041D340",
      "length": 46,
@@ -6461,61 +6498,6 @@
      "va": "0x0041F9E0",
      "length": 82,
      "name": "HuffmanDecompress"
-    },
-    {
-     "va": "0x00420290",
-     "length": 9,
-     "name": "sub_00420290_BreakHandlerChain"
-    },
-    {
-     "va": "0x00420360",
-     "length": 61,
-     "name": "SMsgPushRegisterState"
-    },
-    {
-     "va": "0x004203A0",
-     "length": 20,
-     "name": "SMsgSetDefaultWindow"
-    },
-    {
-     "va": "0x004203F0",
-     "length": 36,
-     "name": "sub_004203F0_NextLink"
-    },
-    {
-     "va": "0x00420520",
-     "length": 17,
-     "name": "sub_00420520_Link"
-    },
-    {
-     "va": "0x00420540",
-     "length": 161,
-     "name": "sub_00420540_LinkNode"
-    },
-    {
-     "va": "0x004205F0",
-     "length": 32,
-     "name": "sub_004205F0_Next"
-    },
-    {
-     "va": "0x00420650",
-     "length": 66,
-     "name": "sub_00420650_sub_006C4290"
-    },
-    {
-     "va": "0x004206E0",
-     "length": 24,
-     "name": "sub_004206E0_RawNext"
-    },
-    {
-     "va": "0x004208E0",
-     "length": 130,
-     "name": "sub_004208E0_AddWndRec"
-    },
-    {
-     "va": "0x00420CF0",
-     "length": 90,
-     "name": "sub_00420CF0_WindowProc"
     },
     {
      "va": "0x00420DB0",
@@ -6630,7 +6612,99 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041C900.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041C900",
+     "length": 184,
+     "name": "SErrRegisterHandler"
+    },
+    {
+     "va": "0x0041D160",
+     "length": 128,
+     "name": "sub_0041D160_DisplayAppFatal"
+    },
+    {
+     "va": "0x0041D1E0",
+     "length": 18,
+     "name": "sub_0041D1E0_ReportHandleLeak"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMSG_00420290.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00420290",
+     "length": 9,
+     "name": "sub_00420290_BreakHandlerChain"
+    },
+    {
+     "va": "0x00420310",
+     "length": 6,
+     "name": "sub_00420310"
+    },
+    {
+     "va": "0x00420320",
+     "length": 61,
+     "name": "sub_00420320_RegisterHandlers"
+    },
+    {
+     "va": "0x00420360",
+     "length": 61,
+     "name": "SMsgPushRegisterState"
+    },
+    {
+     "va": "0x004203A0",
+     "length": 20,
+     "name": "SMsgSetDefaultWindow"
+    },
+    {
+     "va": "0x004203F0",
+     "length": 36,
+     "name": "sub_004203F0_NextLink"
+    },
+    {
+     "va": "0x00420520",
+     "length": 17,
+     "name": "sub_00420520_Link"
+    },
+    {
+     "va": "0x00420540",
+     "length": 161,
+     "name": "sub_00420540_LinkNode"
+    },
+    {
+     "va": "0x004205F0",
+     "length": 32,
+     "name": "sub_004205F0_Next"
+    },
+    {
+     "va": "0x00420650",
+     "length": 66,
+     "name": "sub_00420650_sub_006C4290"
+    },
+    {
+     "va": "0x004206E0",
+     "length": 24,
+     "name": "sub_004206E0_RawNext"
+    },
+    {
+     "va": "0x004208E0",
+     "length": 130,
+     "name": "sub_004208E0_AddWndRec"
+    },
+    {
+     "va": "0x00420CF0",
+     "length": 90,
+     "name": "sub_00420CF0_WindowProc"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -6640,7 +6714,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041D110.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041D110.CPP",
    "rank": 1,
    "functions": [
     {
@@ -6872,86 +6946,6 @@
      "name": "??1D2StormHuffDecTreeStrc@@QAE@XZ"
     },
     {
-     "va": "0x0041FA40",
-     "length": 60,
-     "name": "?sub_0041FA40_FlushLog@@YAXPAUD2SLogStrc@@@Z"
-    },
-    {
-     "va": "0x0041FA80",
-     "length": 188,
-     "name": "?LockLog@@YGPAUD2SLogStrc@@PAKHPAX@Z"
-    },
-    {
-     "va": "0x0041FB40",
-     "length": 55,
-     "name": "?sub_0041FB40_AppendIndent@@YAXPAUD2SLogStrc@@@Z"
-    },
-    {
-     "va": "0x0041FB80",
-     "length": 25,
-     "name": "?sub_0041FB80_AppendNewline@@YAXPAUD2SLogStrc@@@Z"
-    },
-    {
-     "va": "0x0041FC80",
-     "length": 86,
-     "name": "?sub_0041FC80_UnlinkLog@@YAXPAUD2SLogStrc@@K@Z"
-    },
-    {
-     "va": "0x0041FCE0",
-     "length": 18,
-     "name": "?sub_0041FCE0_UnlockLog@@YAXK@Z"
-    },
-    {
-     "va": "0x0041FD00",
-     "length": 58,
-     "name": "?SLogClose@@YGXPAX@Z"
-    },
-    {
-     "va": "0x0041FDF0",
-     "length": 464,
-     "name": "?SLogDump@@YGXPAXPBXK@Z"
-    },
-    {
-     "va": "0x0041FFC0",
-     "length": 44,
-     "name": "?SLogFlush@@YGXPAX@Z"
-    },
-    {
-     "va": "0x0041FFF0",
-     "length": 67,
-     "name": "?SLogFlushAll@@YAXXZ"
-    },
-    {
-     "va": "0x00420040",
-     "length": 34,
-     "name": "?SLogInitialize@@YAXXZ"
-    },
-    {
-     "va": "0x00420070",
-     "length": 98,
-     "name": "?SLogPend@@YAXPAXPBDZZ"
-    },
-    {
-     "va": "0x004200E0",
-     "length": 52,
-     "name": "?SLogSetAbsIndent@@YGHPAXH@Z"
-    },
-    {
-     "va": "0x00420120",
-     "length": 55,
-     "name": "?SLogSetIndent@@YGHPAXH@Z"
-    },
-    {
-     "va": "0x00420160",
-     "length": 41,
-     "name": "?SLogSetTimestamp@@YGXPAXH@Z"
-    },
-    {
-     "va": "0x00420190",
-     "length": 133,
-     "name": "?SLogWrite@@YAXPAXPBDZZ"
-    },
-    {
      "va": "0x004203C0",
      "length": 16,
      "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
@@ -7000,21 +6994,6 @@
      "va": "0x00420750",
      "length": 61,
      "name": "?sub_00420750_UnlinkAll@D2TSListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00420A10",
-     "length": 89,
-     "name": "?DeleteWindow@@YAXPAX@Z"
-    },
-    {
-     "va": "0x00420AE0",
-     "length": 27,
-     "name": "?sub_00420AE0_UnregisterAllWindows@@YAHXZ"
-    },
-    {
-     "va": "0x00420B00",
-     "length": 235,
-     "name": "?SMsgDispatchMessage@@YGHPAXIIHPAH1@Z"
     },
     {
      "va": "0x00420E10",
@@ -7079,6 +7058,122 @@
    ]
   },
   {
+   "file": "Source/Storm/SOURCE/SMSG_00420A10.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00420A10",
+     "length": 89,
+     "name": "?DeleteWindow@@YAXPAX@Z"
+    },
+    {
+     "va": "0x00420AE0",
+     "length": 27,
+     "name": "?sub_00420AE0_UnregisterAllWindows@@YAHXZ"
+    },
+    {
+     "va": "0x00420B00",
+     "length": 235,
+     "name": "?SMsgDispatchMessage@@YGHPAXIIHPAH1@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SLOG.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041FA40",
+     "length": 60,
+     "name": "?sub_0041FA40_FlushLog@@YAXPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FA80",
+     "length": 188,
+     "name": "?LockLog@@YGPAUD2SLogStrc@@PAKHPAX@Z"
+    },
+    {
+     "va": "0x0041FB40",
+     "length": 55,
+     "name": "?sub_0041FB40_AppendIndent@@YAXPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FB80",
+     "length": 25,
+     "name": "?sub_0041FB80_AppendNewline@@YAXPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FBA0",
+     "length": 217,
+     "name": "?sub_0041FBA0_AppendTimestamp@@YGXHPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FC80",
+     "length": 86,
+     "name": "?sub_0041FC80_UnlinkLog@@YAXPAUD2SLogStrc@@K@Z"
+    },
+    {
+     "va": "0x0041FCE0",
+     "length": 18,
+     "name": "?sub_0041FCE0_UnlockLog@@YAXK@Z"
+    },
+    {
+     "va": "0x0041FD00",
+     "length": 58,
+     "name": "?SLogClose@@YGXPAX@Z"
+    },
+    {
+     "va": "0x0041FD40",
+     "length": 165
+    },
+    {
+     "va": "0x0041FDF0",
+     "length": 464,
+     "name": "?SLogDump@@YGXPAXPBXK@Z"
+    },
+    {
+     "va": "0x0041FFC0",
+     "length": 44,
+     "name": "?SLogFlush@@YGXPAX@Z"
+    },
+    {
+     "va": "0x0041FFF0",
+     "length": 67,
+     "name": "?SLogFlushAll@@YAXXZ"
+    },
+    {
+     "va": "0x00420040",
+     "length": 34,
+     "name": "?SLogInitialize@@YAXXZ"
+    },
+    {
+     "va": "0x00420070",
+     "length": 98,
+     "name": "?SLogPend@@YAXPAXPBDZZ"
+    },
+    {
+     "va": "0x004200E0",
+     "length": 52,
+     "name": "?SLogSetAbsIndent@@YGHPAXH@Z"
+    },
+    {
+     "va": "0x00420120",
+     "length": 55,
+     "name": "?SLogSetIndent@@YGHPAXH@Z"
+    },
+    {
+     "va": "0x00420160",
+     "length": 41,
+     "name": "?SLogSetTimestamp@@YGXPAXH@Z"
+    },
+    {
+     "va": "0x00420190",
+     "length": 133,
+     "name": "?SLogWrite@@YAXPAXPBDZZ"
+    }
+   ]
+  },
+  {
    "file": "Source/Storm/Unknown_0041EBC0.cpp",
    "rank": 1,
    "functions": [
@@ -7089,10 +7184,6 @@
     {
      "va": "0x0041EF20",
      "length": 1070
-    },
-    {
-     "va": "0x0041FD40",
-     "length": 165
     }
    ],
    "flags": [
@@ -7149,24 +7240,9 @@
      "name": "HuffmanCompress"
     },
     {
-     "va": "0x0041FBA0",
-     "length": 217,
-     "name": "?sub_0041FBA0_AppendTimestamp@@YGXHPAUD2SLogStrc@@@Z"
-    },
-    {
      "va": "0x004204F0",
      "length": 16,
      "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x00420A70",
-     "length": 62,
-     "name": "?sub_00420A70_RegisterHandler@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420D50",
-     "length": 37,
-     "name": "?SMsgGetDispatcher@@YGHH@Z"
     },
     {
      "va": "0x00420E70",
@@ -7261,71 +7337,14 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00420220.cpp",
+   "file": "Source/Storm/SOURCE/SMSG.CPP",
    "rank": 0,
    "functions": [
     {
-     "va": "0x00420220",
-     "length": 111,
-     "name": "?SLogDestroy@@YAXXZ"
+     "va": "0x00420A70",
+     "length": 62,
+     "name": "?sub_00420A70_RegisterHandler@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
     },
-    {
-     "va": "0x004202A0",
-     "length": 105,
-     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
-    },
-    {
-     "va": "0x004206C0",
-     "length": 25,
-     "name": "?sub_004206C0_IsEmpty@D2TSListStrc@@QAEHXZ"
-    },
-    {
-     "va": "0x00420790",
-     "length": 60,
-     "name": "?sub_00420790_Destroy@D2TSListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00420D80",
-     "length": 11,
-     "name": "?sub_00420D80_Clear@D2Strc00420D80@@QAEXXZ"
-    },
-    {
-     "va": "0x00420DA0",
-     "length": 7,
-     "name": "?sub_00420DA0_GetSpan@D2Strc00420DA0@@QAEHXZ"
-    },
-    {
-     "va": "0x00420E80",
-     "length": 7,
-     "name": "?sub_00420E80_GetField158@D2Strc00420E80@@QAEPAXXZ"
-    },
-    {
-     "va": "0x00420E90",
-     "length": 24,
-     "name": "?sub_00420E90_TakeLow32@@YAIPA_K@Z"
-    },
-    {
-     "va": "0x00420F00",
-     "length": 44,
-     "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004209E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004209E0",
-     "length": 36,
-     "name": "?FindWindow@@YIPAUD2StormIdNodeStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00420AB0.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00420AB0",
      "length": 42,
@@ -7372,9 +7391,88 @@
      "name": "?SMsgUnregisterMessage@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
     },
     {
+     "va": "0x00420D50",
+     "length": 37,
+     "name": "?SMsgGetDispatcher@@YGHH@Z"
+    },
+    {
      "va": "0x00420D90",
      "length": 4,
      "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_00420220.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00420D80",
+     "length": 11,
+     "name": "?sub_00420D80_Clear@D2Strc00420D80@@QAEXXZ"
+    },
+    {
+     "va": "0x00420DA0",
+     "length": 7,
+     "name": "?sub_00420DA0_GetSpan@D2Strc00420DA0@@QAEHXZ"
+    },
+    {
+     "va": "0x00420E80",
+     "length": 7,
+     "name": "?sub_00420E80_GetField158@D2Strc00420E80@@QAEPAXXZ"
+    },
+    {
+     "va": "0x00420E90",
+     "length": 24,
+     "name": "?sub_00420E90_TakeLow32@@YAIPA_K@Z"
+    },
+    {
+     "va": "0x00420F00",
+     "length": 44,
+     "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMSG_004202A0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004202A0",
+     "length": 105,
+     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
+    },
+    {
+     "va": "0x004206C0",
+     "length": 25,
+     "name": "?sub_004206C0_IsEmpty@D2TSListStrc@@QAEHXZ"
+    },
+    {
+     "va": "0x00420790",
+     "length": 60,
+     "name": "?sub_00420790_Destroy@D2TSListStrc@@QAEXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SLOG_00420220.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00420220",
+     "length": 111,
+     "name": "?SLogDestroy@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMSG_004209E0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004209E0",
+     "length": 36,
+     "name": "?FindWindow@@YIPAUD2StormIdNodeStrc@@H@Z"
     }
    ]
   },

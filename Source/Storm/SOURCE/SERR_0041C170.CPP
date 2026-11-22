@@ -28,7 +28,7 @@ const char* __stdcall EmitMessageText(int nIndex)
     return sub_0041C170_GetMessageText(nIndex);
 }
 
-#include "gen/data/Source/Storm/Unknown_0041C170.inc"
+#include "gen/data/Source/Storm/SOURCE/SERR_0041C170.inc"
 
 // 0x0041C430
 int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size)

@@ -344,32 +344,7 @@ static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFile
 
 int __stdcall SFileOpenFileAsArchive(void* hMpq, const char* szName, int nPriority, unsigned int nFlags, void** phArchive);
 
-// 0x00411A80
-void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink)
-{
-    D2FogBlockStrc* pBlock = *ppLink;
-    *ppLink = pBlock->pNext;
-    VirtualFree(pBlock, 0, 0x8000);
-}
 
-// 0x00411CD0
-void __cdecl SMemInitialize()
-{
-    if (!gbHeapInitialized_007788D0)
-    {
-        SRegLoadValue("Internal", "Debug Memory", 0, &gnFlag0_007784C4);
-        SRegLoadValue("Internal", "Protect Memory", 0, &gnFlag2_00776CBC);
-        D2CriticalSectionStrc* pLock = gaFreeBlockLocks_00776CC0;
-        int n = 0x100;
-        do
-        {
-            InitializeCriticalSection(pLock);
-            ++pLock;
-        }
-        while (--n);
-        gbHeapInitialized_007788D0 = 1;
-    }
-}
 
 // 0x004158E0
 void __cdecl sub_004158E0_InitBasePath()

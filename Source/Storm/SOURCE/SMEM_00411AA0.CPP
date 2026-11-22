@@ -17,8 +17,6 @@ extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsig
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitProcess(unsigned int nExitCode);   // 0x006CC2E0
-extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText);                     // 0x006CC200
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                          // 0x0041C340
@@ -29,10 +27,8 @@ void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFi
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 void __cdecl SMemInitialize();                                                                      // 0x00411CD0
 void __cdecl sub_00411A20_InitPageSize();                                                                   // 0x00411A20
-void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink);                                         // 0x00411A80
 void __cdecl sub_00412000_ReleaseFreeBlocks();                                                              // 0x00412000
 
-extern "C" const char gszMemNeverReleased_006CECCC[];                                                       // 0x006CECCC
 extern "C" const char szSMemFree_006CED2C[];                                                                // 0x006CED2C
 extern "C" const char szSMemGetHeapByCaller_006CED38[];                                                     // 0x006CED38
 extern "C" const char szSMemGetHeapByPtr_006CED50[];                                                        // 0x006CED50
@@ -41,7 +37,6 @@ extern "C" const char szSMemHeapCreate_006CED74[];                              
 extern "C" const char szSMemHeapFree_006CED9C[];                                                            // 0x006CED9C
 extern "C" const char szSMemHeapSize_006CEDAC[];                                                            // 0x006CEDAC
 extern "C" const char szSMemHeapAlloc_006CEDBC[];                                                           // 0x006CEDBC
-extern "C" const char szSMemAlloc_006CEDCC[];                                                               // 0x006CEDCC
 extern "C" const char szSMemHeapReAlloc_006CEE08[];                                                         // 0x006CEE08
 extern "C" const char szSMemReAlloc_006CEE1C[];                                                             // 0x006CEE1C
 

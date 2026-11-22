@@ -32,8 +32,6 @@ void __cdecl sub_00411A20_InitPageSize();                                       
 void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink);                                         // 0x00411A80
 void __cdecl sub_00412000_ReleaseFreeBlocks();                                                              // 0x00412000
 
-extern "C" const char szSMemAlloc_006CEDCC[];                                                               // 0x006CEDCC
-
 extern int gbCallerFirst_00708340;                                                                          // 0x00708340
 extern unsigned int gnHeapId_00708344;                                                                      // 0x00708344
 extern unsigned int gdwCallerId_007768A8;                                                                   // 0x007768A8
@@ -950,4 +948,4 @@ void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFil
     return pResult;
 }
 
-#include "gen/data/Source/Storm/Unknown_00411620.inc"
+#include "gen/data/Source/Storm/SOURCE/SMEM.inc"

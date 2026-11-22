@@ -265,42 +265,6 @@ struct SCompBufferState
 
 SCompBufferState gSCompBuffer_0077920C;         // 0x0077920C
 
-// 0x00412240
-int __cdecl sub_00412240_DestroyHeaps()
-{
-    int i = 0;
-    if (gbHeapInitialized_007788D0)
-    {
-        gbHeapInitialized_007788D0 = 0;
-        D2CriticalSectionStrc* pLock = gaFreeBlockLocks_00776CC0;
-        int n = 0x100;
-        do
-        {
-            EnterCriticalSection(pLock);
-            D2FogBlockStrc** ppLink = &gapFreeBlocks_007768B8[i];
-            gabFreeBlockDirty_007784C8[i] = 0;
-            while (*ppLink)
-            {
-                D2FogBlockStrc* pBlock = *ppLink;
-                if (pBlock->bInUse)
-                {
-                    ppLink = sub_00411F00_ProcessUsedBlock(ppLink);
-                }
-                else
-                {
-                    if (pBlock->bReportLeak && pBlock->dwSize >= 0x80000000)
-                        sub_0041D1E0_ReportHandleLeak("HSHEAP");
-                    sub_00411A80_ReleaseBlock(ppLink);
-                }
-            }
-            LeaveCriticalSection(pLock);
-            DeleteCriticalSection(pLock);
-            ++i;
-            ++pLock;
-        } while (--n);
-    }
-    return 1;
-}
 
 int __fastcall SSignatureVerify(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize); // 0x0041D7D0
 

@@ -1,13 +1,11 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-
 struct D2StormIdNodeStrc
 {
     D2StormIdNodeStrc* pPrevLink;
     D2StormIdNodeStrc* pNext;
     int nId;
 };
-
 struct D2StormListStrc
 {
     int m_linkoffset;
@@ -18,7 +16,6 @@ struct D2StormListStrc
         return (int)m_next > 0 ? m_next : 0;
     }
 };
-
 extern D2StormListStrc gIdList_00708860; // 0x00708860
 
 // 0x004209E0

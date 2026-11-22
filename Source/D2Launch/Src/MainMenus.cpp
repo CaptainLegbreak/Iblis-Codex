@@ -350,7 +350,6 @@ void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0
 
 int gnCmdShow_0074C71C; // 0x0074C71C
 
-void* gpStormOwnerA_007790C0; // 0x007790C0
 
 struct D2LaunchControlTemplateStrc;
 
@@ -726,36 +725,7 @@ unsigned __int64 __cdecl sub_004107F0_GetSaveDiskFreeSpace()
     return nFreeClusters * nBytesPerSector * nSectorsPerCluster;
 }
 
-// 0x0041D160
-void __cdecl sub_0041D160_DisplayAppFatal(const char* szFormat, ...)
-{
-    const char* szFile = 0;
-    int nLine = 0;
-    sub_0041C1A0_LockErrorState();
-    if (gdwStormOwnerThread_007790C8 == GetCurrentThreadId())
-    {
-        szFile = (const char*)gpStormOwnerA_007790C0;
-        nLine = (int)gpStormOwnerB_007790C4;
-        SMemZero(&gpStormOwnerA_007790C0, 12);
-    }
-    sub_0041C1E0_UnlockErrorState();
-    char szText[0x400];
-    va_list args;
-    va_start(args, szFormat);
-    vsprintf(szText, szFormat, args);
-    SErrDisplayError(0x85100084, szFile, nLine, szText, 0, 1);
-    ExitProcess(1);
-}
 
-// 0x00420320
-int __stdcall sub_00420320_RegisterHandlers(void* pContext)
-{
-    sub_004269C0_RegisterHandler(0x534D5348, pContext);
-    sub_004269C0_RegisterHandler(0x534D5349, pContext);
-    sub_004269C0_RegisterHandler(0x534D534A, pContext);
-    sub_004269C0_RegisterHandler(0x534D5347, pContext);
-    return 1;
-}
 
 // 0x0042F540
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2)

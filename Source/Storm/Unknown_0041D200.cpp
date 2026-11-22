@@ -41,78 +41,13 @@ extern "C" int __cdecl memcmp(const void* pBuf1, const void* pBuf2, unsigned int
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int gnStormDword_007790EC; // 0x007790EC
 
-// 0x0041C0C0
-D2StormInit0041C0C0Strc::D2StormInit0041C0C0Strc()
-{
-    sub_0041BEE0_InitStorm();
-}
 
-// 0x0041C7B0
-D2StormList00708420Strc::~D2StormList00708420Strc()
-{
-    sub_0041C770_UnlinkAll();
-}
 
-// 0x0041CA80
-int __cdecl SErrDestroy()
-{
-    gHandlerList_00708420.sub_0041C9C0_DeleteAll();
-    gnStormDword_007790EC = 0;
-    while (gpStormMsgSources_007790E8)
-    {
-        D2StormMsgSourceStrc* pNext = gpStormMsgSources_007790E8->pNext;
-        HeapFree(GetProcessHeap(), 0, gpStormMsgSources_007790E8);
-        gpStormMsgSources_007790E8 = pNext;
-    }
-    if (gnErrorLockUsers_0070841C != -1)
-    {
-        DeleteCriticalSection(&gErrorStateLock_007790CC);
-        gnErrorLockUsers_0070841C = -1;
-    }
-    return 1;
-}
 
-// 0x0041CFB0
-int __cdecl SErrDisplayErrorFmt(int code, const char* file, int line, int recoverable, int exitCode, const char* format, ...)
-{
-    char buffer[0x400];
-    char* args = (char*)(&format + 1);
-    vsprintf(buffer, format, args);
-    return SErrDisplayError(code, file, line, buffer, recoverable, exitCode);
-}
 
-int gbDebugMemoryLoaded_00779204; // 0x00779204
 
-unsigned long gdwDebugMemory_00779200; // 0x00779200
 
-// 0x0041D010
-void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szDetail)
-{
-    if (!gbDebugMemoryLoaded_00779204)
-    {
-        gbDebugMemoryLoaded_00779204 = 1;
-        SRegLoadValue("Internal", "Debug Memory", 0, &gdwDebugMemory_00779200);
-    }
-    if (!gdwDebugMemory_00779200)
-        return;
-    char szText[0x100];
-    if (szDetail && *szDetail)
-        SStrPrintf(szText, 0x100, "%s (%s)", szName, szDetail);
-    else
-        SStrPrintf(szText, 0x100, gszFormatName, szName);
-    if (!gnErrorOutputMode_0077909C)
-    {
-        SErrDisplayError(0x8510007F, szText, -3, 0, 1, 1);
-    }
-    else
-    {
-        char szOutput[0xC8];
-        wsprintfA(szOutput, "Storm Error : handle never released -- %s\n", szText);
-        OutputDebugStringA(szOutput);
-    }
-}
 
 // 0x0041D200
 int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize)

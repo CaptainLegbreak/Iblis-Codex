@@ -1,43 +1,84 @@
 #include "Storm.h"
 #include "D2StormLink.h"
 
+extern "C" __declspec(dllimport) void* __stdcall HeapAlloc(void* hHeap, unsigned long dwFlags, unsigned long dwBytes); // 0x006CC318
+
+int (__stdcall* gpfnStormNotify_007790B8)(int nArg);                                                        // 0x007790B8
+
+extern void* gpStormOwnerA_007790C0;                                                                        // 0x007790C0
+
+void* __cdecl StormGetInstance();                                                                  // 0x0041BEF0
+
+void __cdecl sub_0041C1A0_LockErrorState();                                                                 // 0x0041C1A0
+
+void __cdecl sub_0041C1E0_UnlockErrorState();                                                               // 0x0041C1E0
+
+D2StormMsgSourceStrc* gpStormMsgSources_007790E8;                                                           // 0x007790E8
+
+void* gpStormOwnerB_007790C4;                                                                               // 0x007790C4
+
+unsigned long gdwStormOwnerThread_007790C8;                                                                 // 0x007790C8
+
 struct D2StormLinkStrc;
+
 struct D2StormListStrc;
+
 struct D2Storm4167B0Strc;
+
 struct D2Storm4168F0Strc;
+
 struct D2Storm416A90Strc;
+
 struct D2IdentityView;
+
 struct D2ChatStormLinkStrc;
+
 struct D2ChatStormLinkAStrc;
+
 struct D2ChatStormLinkBStrc;
+
 struct D2ChatStormNodeStrc;
+
 struct D2ChatStormBaseArrayAStrc;
+
 struct D2ChatStormBaseArrayBStrc;
+
 struct D2ChatStormListAStrc;
+
 struct D2ChatStormListBStrc;
+
 struct D2ChatStormHashTableStrc;
-struct D2ChatStormCtorLinkStrc;
+
 struct D2ChatStormListCStrc;
+
 struct D2ChatStormListDStrc;
+
 struct D2ChatStormListEStrc;
-struct D2CommonStormSlotLinkStrc;
+
 struct D2CommonStormSlotListAStrc;
+
 struct D2CommonStormSlotListBStrc;
-struct D2CommonMappingEntryNodeBaseStrc;
+
 struct D2CommonMappingEntryNodeStrc;
+
 struct D2CommonStringEntryNodeStrc;
+
 struct D2CommonStormHashTableAStrc;
+
 struct D2StormListBaseStrc;
+
 struct D2StormList00708420Strc;
 
-void __cdecl SMemInitialize(); // 0x00411CD0
-void __cdecl SLogInitialize(); // 0x00420040
-extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+
 extern "C" const char gszCloseParen_006CF324[]; // 0x006CF324
+
 extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
+
 extern unsigned long gdwStormLastError_007790F4; // 0x007790F4
 
 struct D2StormListStrc
@@ -67,6 +108,7 @@ struct D2IdentityView {
 };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 struct D2StormListBaseStrc
@@ -81,12 +123,47 @@ struct D2StormList00708420Strc : D2StormListBaseStrc
     void sub_0041C9C0_DeleteAll();
 };
 
-// 0x0041BEE0
-void __cdecl sub_0041BEE0_InitStorm()
+int gbStormSuppress_007790F0; // 0x007790F0
+
+// 0x0041C0D0
+char* __cdecl sub_0041C0D0_StrPbrk(const char* szString, const char* szCharSet)
 {
-    SMemInitialize();
-    SLogInitialize();
-    sub_00414360_CallThenSetFlag();
+    return strpbrk(szString, szCharSet);
+}
+
+// 0x0041C0F0
+void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility)
+{
+    D2StormMsgSourceStrc** ppSource = &gpStormMsgSources_007790E8;
+    while (*ppSource)
+        ppSource = &(*ppSource)->pNext;
+    *ppSource = (D2StormMsgSourceStrc*)HeapAlloc(GetProcessHeap(), 4, sizeof(D2StormMsgSourceStrc));
+    (*ppSource)->wFacility = wFacility;
+    (*ppSource)->hModule = StormGetInstance();
+    (*ppSource)->pNext = 0;
+}
+
+// 0x0041C2C0
+void __stdcall SErrPrepareAppFatal(void* pOwnerA, void* pOwnerB)
+{
+    sub_0041C1A0_LockErrorState();
+    gpStormOwnerA_007790C0 = pOwnerA;
+    gpStormOwnerB_007790C4 = pOwnerB;
+    gdwStormOwnerThread_007790C8 = GetCurrentThreadId();
+    sub_0041C1E0_UnlockErrorState();
+}
+
+// 0x0041C2F0
+int __stdcall SErrRegisterMessageSource(unsigned short wFacility, void* hModule, void* pReserved)
+{
+    sub_0041C1A0_LockErrorState();
+    D2StormMsgSourceStrc* pSource = (D2StormMsgSourceStrc*)HeapAlloc(GetProcessHeap(), 4, sizeof(D2StormMsgSourceStrc));
+    pSource->wFacility = wFacility;
+    pSource->hModule = hModule;
+    pSource->pNext = gpStormMsgSources_007790E8;
+    gpStormMsgSources_007790E8 = pSource;
+    sub_0041C1E0_UnlockErrorState();
+    return 1;
 }
 
 // 0x0041C1F0
@@ -116,8 +193,6 @@ int __stdcall sub_M01_Emit_0041C1F0(const char* szName, char* szOut)
 {
     return sub_0041C1F0_FormatTypeName(szName, szOut, 0x100);
 }
-
-int gbStormSuppress_007790F0; // 0x007790F0
 
 // 0x0041C340
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode)

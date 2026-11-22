@@ -318,21 +318,21 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00411620.cpp": {
+  "Source/Storm/SOURCE/SMEM.CPP": {
    "bytes": 4,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00411620.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SMEM.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_004117F0.cpp": {
+  "Source/Storm/SOURCE/SMEM_004117F0.CPP": {
    "bytes": 12,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_004117F0.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SMEM_004117F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -356,21 +356,21 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_004122F0.cpp": {
+  "Source/Storm/SOURCE/SMEM_004122F0.CPP": {
    "bytes": 40,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_004122F0.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SMEM_004122F0.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_004129D0.cpp": {
+  "Source/Storm/SOURCE/SMEM_004129D0.CPP": {
    "bytes": 192,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_004129D0.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SMEM_004129D0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -405,12 +405,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_0041C170.cpp": {
+  "Source/Storm/SOURCE/SERR_0041C170.CPP": {
    "bytes": 48,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0041C170.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SERR_0041C170.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -423,12 +423,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_0041CAF0.cpp": {
+  "Source/Storm/SOURCE/SERR_0041CAF0.CPP": {
    "bytes": 36,
    "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0041CAF0.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SERR_0041CAF0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9591,7 +9591,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_00411620.cpp",
+   "file": "Source/Storm/SOURCE/SMEM.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned int gnHeapId_00708344 = ",
@@ -9616,7 +9616,7 @@
    "cname": "gData_006CEDCC",
    "declared": true,
    "decorated": "_szSMemAlloc_006CEDCC",
-   "file": "Source/Storm/Unknown_004117F0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004117F0.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CEDCC[12]; // 0x006CEDCC",
@@ -9770,7 +9770,7 @@
    "declared": true,
    "decorated": "_szSMemFindNextBlock_006CED04",
    "escape": "paren",
-   "file": "Source/Storm/Unknown_004122F0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004122F0.CPP",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CED04[20]; // 0x006CED04",
@@ -9802,7 +9802,7 @@
    "declared": true,
    "decorated": "_szSMemFindNextHeap_006CED18",
    "escape": "paren",
-   "file": "Source/Storm/Unknown_004122F0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004122F0.CPP",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CED18[20]; // 0x006CED18",
@@ -9833,7 +9833,7 @@
    "cname": "gData_006CEE30",
    "declared": true,
    "decorated": "_gdwSStrHashTable_006CEE30",
-   "file": "Source/Storm/Unknown_004129D0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004129D0.CPP",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_006CEE30[16]; // 0x006CEE30",
    "head": "extern \"C\" const unsigned int gData_006CEE30[16] = ",
@@ -9863,7 +9863,7 @@
    "cname": "gData_006CEE70",
    "declared": true,
    "decorated": "_gqwSStrHash64Table_006CEE70",
-   "file": "Source/Storm/Unknown_004129D0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004129D0.CPP",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned __int64 gData_006CEE70[16]; // 0x006CEE70",
    "head": "extern \"C\" const unsigned __int64 gData_006CEE70[16] = ",
@@ -10100,7 +10100,7 @@
    "cname": "gData_006CF2F4",
    "declared": true,
    "decorated": "?gpszMessageFallback_006CF2F4@@3PAPBDA",
-   "file": "Source/Storm/Unknown_0041C170.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041C170.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006CF2F4[12]; // 0x006CF2F4",
@@ -10289,7 +10289,7 @@
    "cname": "gData_006CF330",
    "declared": true,
    "decorated": "?gszDiagnosticFormat_006CF330@@3QBDB",
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CF330[12]; // 0x006CF330",
@@ -10320,7 +10320,7 @@
    "cname": "gData_006CF33C",
    "declared": true,
    "decorated": "?gszErrorFormat_006CF33C@@3QBDB",
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "fill": 16,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CF33C[16]; // 0x006CF33C",
@@ -10351,7 +10351,7 @@
    "cname": "gData_006CF34C",
    "declared": true,
    "decorated": "?gszLineFormat_006CF34C@@3QBDB",
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CF34C[8]; // 0x006CF34C",
