@@ -134,7 +134,8 @@ int __fastcall sub_0044AC20_McpIncoming04(D2McpIncoming04Strc* pPacket, int nSiz
             sub_00449BF0_SetValue(0x28);
             return 1;
         }
-        SStrCopy(gData_007992CC, sub_0040E080_AddressToString(nAddress), 0x12);
+// build: symbol ?FOG_inet_ntoa@* 0x0040E080
+        SStrCopy(gData_007992CC, FOG_inet_ntoa(nAddress), 0x12);
     }
     return 1;
 }

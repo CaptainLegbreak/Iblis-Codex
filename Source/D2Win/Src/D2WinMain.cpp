@@ -50,13 +50,13 @@ void __stdcall D2GFX_ClearScreen(int bPartial); // 0x004F63B0
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall sub_004F9250_AppendToDeadList(D2WinControlStrc* pControl); // 0x004F9250
+int __fastcall CONTROL_AppendToDeadList(D2WinControlStrc* pControl); // 0x004F9250
 
 int __stdcall CONTROL_FreeDeadList(); // 0x004F9290
 
-void __cdecl sub_004F97E0_PaintCursor(); // 0x004F97E0
+void __cdecl CURSOR_Draw(); // 0x004F97E0
 
-void __cdecl sub_004F9870_DrawFontCaches(); // 0x004F9870
+void __cdecl D2COMP_DrawAllCompositeUnits(); // 0x004F9870
 
 void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
 
@@ -106,11 +106,11 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __cdecl sub_004F5180(); // 0x004F5180
 
-void __stdcall sub_004F5570_GetResolutionSize(int nResolution, long* pWidth, long* pHeight); // 0x004F5570
+void __stdcall WINDOW_GetResolutionSize(int nResolution, long* pWidth, long* pHeight); // 0x004F5570
 
 int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 
-int __stdcall sub_004F5BC0_CenterWindow(int nResolution); // 0x004F5BC0
+int __stdcall WINDOW_CenterWindow(int nResolution); // 0x004F5BC0
 
 struct Point { int x, y; };
 
@@ -133,13 +133,13 @@ void* dword_6F8FE260; // 0x007D55D0
 
 void __stdcall D2Win_COMMANDS_VirtualKey_6F8ADB50(SMSGHANDLER_PARAMS* pMsg); // 0x004F9BF0
 
-static D2WinControlStrc* __stdcall sub_004FA200_PickScrollBar(D2WinControlStrc* pScrollBar, D2WinControlStrc* pControl);
+static D2WinControlStrc* __stdcall CONTROL_PickClosestToMouse(D2WinControlStrc* pScrollBar, D2WinControlStrc* pControl); // 0x004FA200
 
 int __fastcall BUTTON_OnMouseWheelScrolled(D2WinButtonStrc* pButton, int nMouseWheelIncrement); // 0x00500B50
 
 void __fastcall BUTTON_SimulateClick(SMSGHANDLER_PARAMS* pMsg); // 0x00500AB0
 
-int __fastcall sub_6F8AF240(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrollBar, int a3); // 0x00508030
+int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrollBar, int a3); // 0x00508030
 
 int __stdcall POPUP_IsActive(); // 0x005085C0
 
@@ -237,7 +237,7 @@ int __stdcall D2GFX_HardwareAcceleratedRenderMode(); // 0x004F6270
 
 D2WinControlStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x004FC7A0
 
-void __fastcall sub_004FDCC0(D2WinEditBoxStrc* pEditBox); // 0x004FDCC0
+void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDCC0
 
 D2WinControlStrc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8); // 0x004FD6C0
 
@@ -261,9 +261,9 @@ D2WinControlStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int 
 
 D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6); // 0x005084F0
 
-void __fastcall sub_005148F0_SetChannelValue(int nArg); // 0x005148F0
+void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 
-void __cdecl sub_00514960_FadeOutChannel(); // 0x00514960
+void __cdecl D2SOUND_FadeOutStreamChannel(); // 0x00514960
 
 int __cdecl sub_00514CF0(); // 0x00514CF0
 
@@ -351,7 +351,7 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned in
 
 int __stdcall D2GFX_Initialize(void* hInstance, WNDPROC pfWndProc, int nRenderMode, int bWindowed); // 0x004F52E0
 
-void __stdcall sub_004F98E0(); // 0x004F98E0
+void __stdcall D2Win_UpdateAndDraw(); // 0x004F98E0
 
 void __stdcall D2Win_COMMANDS_MouseMove_6F8AD670(SMSGHANDLER_PARAMS* pMsg); // 0x004FA6B0
 
@@ -361,13 +361,13 @@ int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
 
 int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 
-int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY); // 0x004FE3B0
+int __stdcall EDITBOX_PlaceMultiLineCaret(SMSGHANDLER_PARAMS* pMsg, int nX, int nY); // 0x004FE3B0
 
 int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, char nChar); // 0x004FEAE0
 
-int __fastcall sub_004FF050_EditBoxKeyDown(D2WinEditBoxStrc* pEditBox, char nKey); // 0x004FF050
+int __fastcall EDITBOX_HandleKeyDown(D2WinEditBoxStrc* pEditBox, char nKey); // 0x004FF050
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
@@ -448,19 +448,19 @@ void __stdcall D2Win_10116(); // 0x005015F0
 
 void __fastcall D2Win_10115_FONT();                                                                         // 0x00502C60
 
-void __fastcall sub_00503A50_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit);                                          // 0x00503A50
+void __fastcall D2COMP_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit);                                          // 0x00503A50
 
-int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUnit, int nGamma); // 0x00503BA0
+int __fastcall D2COMP_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUnit, int nGamma); // 0x00503BA0
 
 D2CompositeUnitStrc* __cdecl sub_00505150();                                                                // 0x00505150
 
 D2CompositeUnitStrc* __stdcall D2Win_10148(D2CompositeUnitStrc* pCompositeUnit);                            // 0x00505160
 
-void __cdecl sub_00505550_LoadItemPalettes(); // 0x00505550
+void __cdecl D2Win_10157(); // 0x00505550
 
-int __fastcall sub_00505810_DrawCompositeLabel(D2CompositeUnitStrc* unit); // 0x00505810
+int __fastcall D2COMP_DrawCompositeLabel(D2CompositeUnitStrc* unit); // 0x00505810
 
-int __fastcall sub_00505A80_DrawCompositeUnitHover(D2CompositeUnitStrc* pCompositeUnit); // 0x00505A80
+int __fastcall D2COMP_DrawCompositeHover(D2CompositeUnitStrc* pCompositeUnit); // 0x00505A80
 
 int __fastcall SMACK_Destroy(D2WinControlStrc* pControl);                                                   // 0x00506A40
 
@@ -520,9 +520,9 @@ extern "C" __declspec(dllimport) int __stdcall ijlFree(JPEG_CORE_PROPERTIES* pPr
 
 extern int gnScreenshotIndex_0072DC40; // 0x0072DC40
 
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer); // 0x004F6250
 
@@ -558,7 +558,7 @@ void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLengt
 
 int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
 
-int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
 void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext); // 0x004FDDD0
 
@@ -692,7 +692,7 @@ int __fastcall D2Win_10015()
     D2Win_10115_FONT();
     sub_00502EF0(1);
     LIST_LoadPentspinCellfile();
-    sub_00505550_LoadItemPalettes();
+    D2Win_10157();
     gpfWndProc_6F8FE268 = 0;
     WREGISTER_RegisterCommands(sub_004F59A0(), gpCommandRegister_6F8BDE28, 0x21);
     D2Win_10177(0);
@@ -725,7 +725,8 @@ void __cdecl sub_00432100_CreateLoginScreen()
     D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x2B2D));
     pControl = sub_0042F430_CreateControl(0x1E);
     D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x2B2E));
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
         pControl = sub_0042F430_CreateControl(0x21);
     else
         pControl = sub_0042F430_CreateControl(0x1F);
@@ -742,9 +743,9 @@ void __cdecl sub_00432100_CreateLoginScreen()
     gpEdit_007795A8 = sub_0042F430_CreateControl(0x5C);
     sub_004FDD50_SetMaxLength(gpEdit_007795A8, 0xD);
     if (gpLaunchRecord_007795D4->szAccount[0] != 0x0)
-        sub_004F91C0(gpEdit_00779334);
+        CONTROL_SetFocusedEditBox(gpEdit_00779334);
     else
-        sub_004F91C0(gpEdit_0077958C);
+        CONTROL_SetFocusedEditBox(gpEdit_0077958C);
     sub_004FDDD0_LinkTab(gpEdit_0077958C, gpEdit_00779334);
     sub_004FDDD0_LinkTab(gpEdit_00779334, gpEdit_00779340);
     sub_004FDDD0_LinkTab(gpEdit_00779340, gpEdit_007795A8);
@@ -778,7 +779,7 @@ void __cdecl sub_00436F30_CreateEmailScreen()
     gpEdit_007799E0 = sub_0042F430_CreateControl(0x134);
     sub_004FDB00_SetEnterCallback(gpEdit_007799E0, sub_00436F20_OnEditChange);
     D2Win_10076(gpEdit_007799DC, gpLaunchRecord_007795D4->szAccount);
-    sub_004F91C0(gpEdit_007799DC);
+    CONTROL_SetFocusedEditBox(gpEdit_007799DC);
     sub_004FDDD0_LinkTab(gpEdit_007799DC, gpEdit_007799E0);
     sub_004FDDD0_LinkTab(gpEdit_007799E0, gpEdit_007799DC);
     gpButton_007799E4 = sub_0042F430_CreateControl(0x12C);
@@ -845,7 +846,7 @@ void __cdecl sub_004372B0_CreatePasswordScreen()
     sub_004FDB00_SetEnterCallback(gpPasswordEdit_007799C4, sub_004372A0_OnEnter);
     gpPasswordOk_007799A4 = sub_0042F430_CreateControl(0x14B);
     sub_0042F430_CreateControl(0x14C);
-    sub_004F91C0(gpPasswordEdit_007799BC);
+    CONTROL_SetFocusedEditBox(gpPasswordEdit_007799BC);
     sub_004FDDD0_LinkTab(gpPasswordEdit_007799BC, gpPasswordEdit_007799C0);
     sub_004FDDD0_LinkTab(gpPasswordEdit_007799C0, gpPasswordEdit_007799C8);
     sub_004FDDD0_LinkTab(gpPasswordEdit_007799C8, gpPasswordEdit_007799C4);
@@ -877,7 +878,7 @@ void __cdecl sub_00437550_CreateStatusScreen()
 }
 
 // 0x004F9050
-int __cdecl sub_004F9050()
+int __cdecl D2Win_10003()
 {
     gdwGlobal_007D55B8 = 0x0;
     return sub_004F5D60();
@@ -902,7 +903,7 @@ void __stdcall D2Win_10004(int nResolution)
 }
 
 // 0x004F90A0
-int __stdcall sub_004F90A0_SwitchResolution(int nResolution)
+int __stdcall D2Win_10005(int nResolution)
 {
     if (!gnResolution_6F8FE248 && !gSavedWindowRect_007D5580.right)
     {
@@ -945,13 +946,13 @@ int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile)
 }
 
 // 0x004F9180
-void __stdcall sub_004F9180(int (__cdecl* a1)())
+void __stdcall D2Win_SetQuitCallback(int (__cdecl* a1)())
 {
     dword_6F8FE27C = a1;
 }
 
 // 0x004F9190
-int __fastcall sub_004F9190()
+int __fastcall D2Win_StopMessageLoop()
 {
     dword_6F8BDF78 = 0;
     return 1;
@@ -965,13 +966,13 @@ int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CelFileStrc* pCe
 }
 
 // 0x004F91C0
-int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox)
+int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox)
 {
     if (gpEditBox_6F8FE258)
     {
         if (pEditBox != gpEditBox_6F8FE258)
         {
-            sub_004FDCC0(gpEditBox_6F8FE258);
+            EDITBOX_ClearSelection(gpEditBox_6F8FE258);
         }
 
         gpEditBox_6F8FE258 = pEditBox;
@@ -1001,7 +1002,7 @@ int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl)
 }
 
 // 0x004F9250
-int __fastcall sub_004F9250_AppendToDeadList(D2WinControlStrc* pControl)
+int __fastcall CONTROL_AppendToDeadList(D2WinControlStrc* pControl)
 {
     pControl->pNext = 0;
     if (!dword_6F8FE250)
@@ -1087,7 +1088,7 @@ int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl)
     if (pPrevious == pControl)
     {
         gpControlList_6F8FE24C = pControl->pNext;
-        sub_004F9250_AppendToDeadList(pControl);
+        CONTROL_AppendToDeadList(pControl);
         return 1;
     }
 
@@ -1096,7 +1097,7 @@ int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl)
         if (pCurrent == pControl)
         {
             pPrevious->pNext = pCurrent->pNext;
-            sub_004F9250_AppendToDeadList(pControl);
+            CONTROL_AppendToDeadList(pControl);
             return 1;
         }
 
@@ -1243,7 +1244,7 @@ int __stdcall CONTROL_Destroy(D2WinControlStrc** ppControl)
 }
 
 // 0x004F96F0
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags)
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags)
 {
     if (!pControl)
     {
@@ -1261,7 +1262,7 @@ void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int n
 }
 
 // 0x004F9710
-int __fastcall sub_004F9710(D2WinControlStrc* pControl)
+int __fastcall CONTROL_IsEnabled(D2WinControlStrc* pControl)
 {
     D2_ASSERT(pControl, 0x33F);
 
@@ -1269,7 +1270,7 @@ int __fastcall sub_004F9710(D2WinControlStrc* pControl)
 }
 
 // 0x004F9740
-void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet)
+void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet)
 {
     D2_ASSERT(pControl, 0x34C);
 
@@ -1284,7 +1285,7 @@ void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet)
 }
 
 // 0x004F9780
-int __fastcall sub_004F9780(D2WinControlStrc* pControl)
+int __fastcall CONTROL_IsVisible(D2WinControlStrc* pControl)
 {
     D2_ASSERT(pControl, 0x35A);
 
@@ -1298,7 +1299,7 @@ int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect)
 }
 
 // 0x004F97E0
-void __cdecl sub_004F97E0_PaintCursor()
+void __cdecl CURSOR_Draw()
 {
     if (gpCursorCellFile && dword_6F8BDE18)
     {
@@ -1317,27 +1318,27 @@ void __cdecl sub_004F97E0_PaintCursor()
 }
 
 // 0x004F9870
-void __cdecl sub_004F9870_DrawFontCaches()
+void __cdecl D2COMP_DrawAllCompositeUnits()
 {
     for (D2CompositeUnitStrc* p = sub_00505150(); p; p = D2Win_10148(p))
     {
-        sub_00503A50_DrawCompositeShadow(p);
+        D2COMP_DrawCompositeShadow(p);
     }
 
     for (D2CompositeUnitStrc* p = sub_00505150(); p; p = D2Win_10148(p))
     {
-        sub_00503BA0_DrawCompositeUnit(p, -1);
+        D2COMP_DrawCompositeUnit(p, -1);
     }
 
     for (D2CompositeUnitStrc* p = sub_00505150(); p; p = D2Win_10148(p))
     {
-        sub_00505810_DrawCompositeLabel(p);
-        sub_00505A80_DrawCompositeUnitHover(p);
+        D2COMP_DrawCompositeLabel(p);
+        D2COMP_DrawCompositeHover(p);
     }
 }
 
 // 0x004F98E0
-void __stdcall sub_004F98E0()
+void __stdcall D2Win_UpdateAndDraw()
 {
     if (WINDOW_GetState())
     {
@@ -1397,7 +1398,7 @@ void __stdcall sub_004F98E0()
             }
         }
 
-        sub_004F9870_DrawFontCaches();
+        D2COMP_DrawAllCompositeUnits();
 
         if (dword_6F8FE278)
         {
@@ -1412,7 +1413,7 @@ void __stdcall sub_004F98E0()
             }
         }
 
-        sub_004F97E0_PaintCursor();
+        CURSOR_Draw();
         D2GFX_EndScene();
     }
 
@@ -1457,7 +1458,7 @@ long __stdcall D2Win_MAINWINDOW_WndProc_6F8AD9B0(void* hWnd, unsigned int uMsg, 
 }
 
 // 0x004F9B30
-int __fastcall sub_004F9B30_CONTROL_IsInActiveList(D2WinControlStrc* pControl)
+int __fastcall CONTROL_IsActiveListMember(D2WinControlStrc* pControl)
 {
     if (dword_6F8FE264)
     {
@@ -1546,7 +1547,7 @@ void __stdcall D2Win_COMMANDS_VirtualKey_6F8ADB50(SMSGHANDLER_PARAMS* pMsg)
         }
 
 check_edit_box:
-        if (sub_004FF050_EditBoxKeyDown(dword_6F8FE25C, nKey))
+        if (EDITBOX_HandleKeyDown(dword_6F8FE25C, nKey))
         {
             goto done;
         }
@@ -1596,7 +1597,7 @@ void __stdcall D2Win_COMMANDS_Control_6F8ADBF0(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004F9CC0
-void __stdcall sub_004F9CC0_SysCommandMaximizeMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_SysCommand(SMSGHANDLER_PARAMS* pMsg)
 {
     const unsigned short nCommand = pMsg->wParamLow & 0xFFF0;
     if (nCommand == 0xF130 || nCommand == 0xF100 || (nCommand == 0xF010 && WINDOW_IsFullScreen()))
@@ -1633,7 +1634,7 @@ void __stdcall sub_004F9CC0_SysCommandMaximizeMsg(SMSGHANDLER_PARAMS* pMsg)
 
     tagRECT tRect = {};
     const int nMode = D2GFX_GetResolutionMode();
-    sub_004F5570_GetResolutionSize(nMode, &tRect.right, &tRect.bottom);
+    WINDOW_GetResolutionSize(nMode, &tRect.right, &tRect.bottom);
 
     tagRECT tDesktopRect;
     GetClientRect(GetDesktopWindow(), &tDesktopRect);
@@ -1677,9 +1678,9 @@ void __stdcall sub_004F9CC0_SysCommandMaximizeMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         tagRECT tNewRect = { 0 };
         const int nResolution = D2GFX_GetResolutionMode();
-        sub_004F5570_GetResolutionSize(nResolution, &tNewRect.right, &tNewRect.bottom);
+        WINDOW_GetResolutionSize(nResolution, &tNewRect.right, &tNewRect.bottom);
         SetWindowPos(hWnd, (void*)-2, 0, 0, tNewRect.right, tNewRect.bottom, 0x14);
-        sub_004F5BC0_CenterWindow(nResolution);
+        WINDOW_CenterWindow(nResolution);
     }
 
     pMsg->bReturn = 1;
@@ -1725,7 +1726,7 @@ void __stdcall D2Win_COMMANDS_ActivateApp_6F8ADC40(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004F9FB0
-static void __stdcall sub_004F9FB0_WriteScreenshotJpeg(unsigned char* pData, const char* szFile, int nWidth, int nHeight)
+static void __stdcall D2Win_WriteScreenshotJpeg(unsigned char* pData, const char* szFile, int nWidth, int nHeight)
 {
     char szName[256];
     JPEG_CORE_PROPERTIES tProps;
@@ -1733,13 +1734,13 @@ static void __stdcall sub_004F9FB0_WriteScreenshotJpeg(unsigned char* pData, con
     {
         sprintf(szName, "Screenshot%03d.jpg", gnScreenshotIndex_0072DC40);
         ++gnScreenshotIndex_0072DC40;
-        void* hFile = sub_00406960_CreateFile(szFile ? szFile : szName, 0x80000000, 0, 0, 3, 0x80, 0);
+        void* hFile = FOG_CreateFileA(szFile ? szFile : szName, 0x80000000, 0, 0, 3, 0x80, 0);
         if (hFile == (void*)-1)
         {
             break;
         }
 
-        sub_004069A0_CloseFile(hFile);
+        FOG_CloseFile(hFile);
         if (szFile)
         {
             return;
@@ -1769,7 +1770,7 @@ static void __stdcall sub_004F9FB0_WriteScreenshotJpeg(unsigned char* pData, con
 }
 
 // 0x004FA0C0
-void __fastcall sub_004FA0C0_SaveScreenshot(const char* szFile)
+void __fastcall D2Win_SaveScreenshotToFile(const char* szFile)
 {
     const unsigned long dwTick = GetTickCount();
     if (dwTick - gdwLastScreenshotTick_007D5600 < 1000 && !szFile)
@@ -1783,7 +1784,7 @@ void __fastcall sub_004FA0C0_SaveScreenshot(const char* szFile)
     unsigned char* pBuffer = (unsigned char*)FOG_Alloc(nHeight * nWidth * 3, ".\\Src\\D2WinMain.cpp", 0x6A7, 0);
     if (D2GFX_GetBackBuffer(pBuffer))
     {
-        sub_004F9FB0_WriteScreenshotJpeg(pBuffer, szFile, nWidth, nHeight);
+        D2Win_WriteScreenshotJpeg(pBuffer, szFile, nWidth, nHeight);
     }
 
     gdwLastScreenshotTick_007D5600 = dwTick;
@@ -1791,7 +1792,7 @@ void __fastcall sub_004FA0C0_SaveScreenshot(const char* szFile)
 }
 
 // 0x004FA160
-void __stdcall sub_004FA160(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_ToggleMusic(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!dword_6F8FE274 || !sub_00515060())
     {
@@ -1800,12 +1801,12 @@ void __stdcall sub_004FA160(SMSGHANDLER_PARAMS* pMsg)
 
     if (sub_00514D80())
     {
-        sub_00514960_FadeOutChannel();
+        D2SOUND_FadeOutStreamChannel();
         D2SOUND_10070(0);
     }
     else
     {
-        sub_005148F0_SetChannelValue(1);
+        D2SOUND_10034(1);
         D2SOUND_10070(1);
     }
 
@@ -1814,7 +1815,7 @@ void __stdcall sub_004FA160(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004FA1B0
-static inline int sub_004FA1B0(Control* control, const Point* point)
+static inline int CONTROL_IsPointInside(Control* control, const Point* point)
 {
     if (control->shouldHandle)
         return control->shouldHandle(control);
@@ -1827,7 +1828,7 @@ static inline int sub_004FA1B0(Control* control, const Point* point)
 }
 
 // 0x004FA200
-static D2WinControlStrc* __stdcall sub_004FA200_PickScrollBar(D2WinControlStrc* first, D2WinControlStrc* second)
+static D2WinControlStrc* __stdcall CONTROL_PickClosestToMouse(D2WinControlStrc* first, D2WinControlStrc* second)
 {
     if (!first) return second;
     if (!second) return first;
@@ -1876,7 +1877,7 @@ static D2WinControlStrc* __stdcall sub_004FA200_PickScrollBar(D2WinControlStrc* 
     return second;
 }
 
-int __stdcall emit_hit_test_004FA1B0(Control* control, const Point* point) { return sub_004FA1B0(control, point); }
+int __stdcall emit_hit_test_004FA1B0(Control* control, const Point* point) { return CONTROL_IsPointInside(control, point); }
 
 inline int CONTROL_IsInActiveList(void* pControl)
 {
@@ -1915,14 +1916,14 @@ void __stdcall D2Win_COMMANDS_MouseWheel_6F8AE220(SMSGHANDLER_PARAMS* pMsg)
         {
             if (pControl->eType == D2WIN_SCROLLBAR && pControl->dwFlags & gdwBitMasks[2] && pControl->dwFlags & gdwBitMasks[0] && SCROLLBAR_GetMaxSteps((D2WinScrollBarStrc*)pControl) > 0)
             {
-                pScrollBar = sub_004FA200_PickScrollBar(pScrollBar, pControl);
+                pScrollBar = CONTROL_PickClosestToMouse(pScrollBar, pControl);
             }
 
             pControl = pControl->pNext;
         }
         while (pControl);
 
-        if (pScrollBar && sub_6F8AF240(pMsg, (D2WinScrollBarStrc*)pScrollBar, nIncrement))
+        if (pScrollBar && SCROLLBAR_HandleMouseWheel(pMsg, (D2WinScrollBarStrc*)pScrollBar, nIncrement))
         {
             goto done;
         }
@@ -1960,7 +1961,7 @@ void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, 
 }
 
 // 0x004FA450
-void __stdcall sub_004FA450(void* a1)
+void __stdcall CONTROL_SetEscapeButton(void* a1)
 {
     dword_6F8FE260 = a1;
 }
@@ -1974,7 +1975,7 @@ int __stdcall D2Win_10033(D2WinControlStrc* a1, int a2)
 }
 
 // 0x004FA490
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_004FA490(Obj004FA490* pObj) {
+extern "C" __declspec(dllexport) unsigned int __stdcall CONTROL_GetType(Obj004FA490* pObj) {
     if (!pObj) {
         return 0;
     }
@@ -1982,7 +1983,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_004FA490(Obj004FA490
 }
 
 // 0x004FA4C0
-void __stdcall sub_004FA4C0_HideCursorMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_NcMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->wParam == 2)
     {
@@ -1998,7 +1999,7 @@ void __stdcall sub_004FA4C0_HideCursorMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004FA4F0
-void __stdcall sub_004FA4F0_MouseLeaveMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_MouseLeave(SMSGHANDLER_PARAMS* pMsg)
 {
     gbMouseTracking_007D55F0 = 0;
     if (gdwGlobal_007D5590 != 4)
@@ -2030,7 +2031,7 @@ int __fastcall D2Win_10016()
 }
 
 // 0x004FA590
-int __stdcall sub_004FA590(void (__stdcall* pCallback)(unsigned long))
+int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long))
 {
     unsigned long dwCounter = 0;
     unsigned long dwTickCount = GetTickCount();
@@ -2074,7 +2075,7 @@ int __stdcall sub_004FA590(void (__stdcall* pCallback)(unsigned long))
                     dwCounter += 1;
                 }
 
-                sub_004F98E0();
+                D2Win_UpdateAndDraw();
             }
 
             dword_6F8FE25C = gpEditBox_6F8FE258;
@@ -2093,7 +2094,7 @@ int __stdcall sub_004FA590(void (__stdcall* pCallback)(unsigned long))
         }
     }
 
-    sub_004F98E0();
+    D2Win_UpdateAndDraw();
     if (!dword_6F8FE280)
     {
         dword_6F8BDF78 = 1;
@@ -2181,7 +2182,7 @@ void __stdcall D2Win_10168_WINMAIN_CreateScreenshot()
     unsigned char* pBuffer = (unsigned char*)FOG_Alloc(nHeight * nWidth * 3, ".\\Src\\D2WinMain.cpp", 0x6A7, 0);
     if (D2GFX_GetBackBuffer(pBuffer))
     {
-        sub_004F9FB0_WriteScreenshotJpeg(pBuffer, 0, nWidth, nHeight);
+        D2Win_WriteScreenshotJpeg(pBuffer, 0, nWidth, nHeight);
     }
 
     gdwLastScreenshotTick_007D5600 = dwTick;
@@ -2291,7 +2292,7 @@ int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int b
 }
 
 // 0x004FB010
-void __cdecl sub_004FB010_SetPaletteTables()
+void __cdecl PALETTE_ApplyPaletteTables()
 {
     D2PaletteTableStrc tPaletteTable;
 
@@ -2539,7 +2540,7 @@ int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004FE710
-int __stdcall sub_004FE710_EditBoxMouseDown(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall EDITBOX_HandleMultiLineMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
 
@@ -2548,11 +2549,11 @@ int __stdcall sub_004FE710_EditBoxMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
     const int nX = gMousePosition_6F8FE234.x - pEditBox->nTextInsetX - pEditBox->controlHeader.nImageX;
     const int nY = gMousePosition_6F8FE234.y + pEditBox->controlHeader.nHeight - pEditBox->nTextInsetY - pEditBox->controlHeader.nImageY;
-    return sub_004FE3B0_EditBoxClick(pMsg, nX, nY);
+    return EDITBOX_PlaceMultiLineCaret(pMsg, nX, nY);
 }
 
 // 0x00503FA0
-void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight)
+void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight)
 {
     D2HoverLineStrc* pLine = &pLines[*pCount];
     D2_ASSERT(*pCount < 7, 0x738);
@@ -2600,7 +2601,7 @@ int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00508030
-int __fastcall sub_6F8AF240(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3)
+int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3)
 {
     D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x99);
 
@@ -2655,7 +2656,7 @@ int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)
     pPopUp->lines[pPopUp->nLines] = *pPopUpLine;
     sub_00502EF0(1);
 
-    const int nTextWidth = sub_00501820(pPopUpLine->wszText);
+    const int nTextWidth = D2Win_10121_GetTextWidth(pPopUpLine->wszText);
     pPopUp->controlHeader.nWidth = pPopUp->controlHeader.nWidth > nTextWidth ? pPopUp->controlHeader.nWidth : nTextWidth;
     ++pPopUp->nLines;
     pPopUp->controlHeader.nHeight = 20 * pPopUp->nLines;

@@ -47,7 +47,7 @@ void __cdecl sub_004DFA60(); // 0x004DFA60
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pAddend); // 0x006CC208
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 int __fastcall sub_004E0000_SetSoundMode(int nMode); // 0x004E0000
-void __fastcall sub_00515F50_FadeOutMaster(int nTime); // 0x00515F50
+void __fastcall D2SOUND_FadeOutMasterVolume(int nTime); // 0x00515F50
 
 struct D2StringSoundStrc
 {
@@ -146,7 +146,8 @@ void __fastcall sub_004DF790_ReleaseSlotObject(D2SlotStrc* pSlot)
 // 0x004DF900
 unsigned int __fastcall sub_004DF900_GetSlotSampleCount(D2SlotStrc* pSlot)
 {
-    return sub_005159B0_GetSoundSampleCount(pSlot->pSound);
+// build: symbol ?D2SOUND_GetStreamPosition@* 0x005159B0
+    return D2SOUND_GetStreamPosition(pSlot->pSound);
 }
 
 // 0x004DF910
@@ -267,11 +268,12 @@ int __cdecl sub_004E00D0_ToggleSoundMode01()
         nNew = 1;
     else
         nNew = 0;
-    sub_00515F50_FadeOutMaster(0xB4);
+    D2SOUND_FadeOutMasterVolume(0xB4);
     const int nResult = sub_004E0000_SetSoundMode(nNew);
     if (!nResult)
         sub_004E0000_SetSoundMode(nOld);
-    sub_00515CE0_SetMasterVolume(0xFF);
+// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
+    D2SOUND_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnGlobal_007C8A74);
     return nResult;
 }
@@ -289,11 +291,11 @@ int __cdecl sub_004E0140_ToggleSoundMode12()
         nNew = 1;
     else
         nNew = 2;
-    sub_00515F50_FadeOutMaster(0xB4);
+    D2SOUND_FadeOutMasterVolume(0xB4);
     const int nResult = sub_004E0000_SetSoundMode(nNew);
     if (!nResult)
         sub_004E0000_SetSoundMode(nOld);
-    sub_00515CE0_SetMasterVolume(0xFF);
+    D2SOUND_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnGlobal_007C8A74);
     return nResult;
 }

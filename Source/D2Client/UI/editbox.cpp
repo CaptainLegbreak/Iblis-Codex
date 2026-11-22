@@ -140,8 +140,8 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
@@ -256,8 +256,8 @@ void ButtonImplementation::Slot01()
     {
         const int nOldFont = sub_00502EF0(1);
         const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings_007275A8[*(int*)nStringSlot].nStringIndex);
-        const int nTextWidth = sub_00501820(wszText);
-        sub_00502320(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
+        const int nTextWidth = D2Win_10121_GetTextWidth(wszText);
+        D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
         sub_00502EF0(nOldFont);
     }
 }

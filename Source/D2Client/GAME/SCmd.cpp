@@ -4238,7 +4238,8 @@ void __fastcall sub_0045F120_HandleLifePacket(unsigned char* pPacket)
         sub_0047A690(*(int*)(pPacket + 2), pPacket[6] * 100 / 128);
 }
 
-int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
+// build: symbol ?ERRORMANAGER_GetBitWidth@* 0x00409000
+int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
 {
     if (!nValue)
     {
@@ -4256,7 +4257,7 @@ int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
 // build: context Log2Ceil
 static inline int Log2Ceil(int nValue)
 {
-    return nValue < 3 ? 1 : sub_00409000_GetBitWidth(nValue - 1);
+    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
 // build: context GetMonStats2TxtRecordFromMonsterId
@@ -4552,7 +4553,8 @@ void __cdecl sub_0045FC60_DrawLoadingTexts()
 {
     const int nOldFont = sub_00502EF0(1);
     TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
         TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
     else
         TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);

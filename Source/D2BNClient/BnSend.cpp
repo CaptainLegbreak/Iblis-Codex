@@ -144,7 +144,7 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 
 extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 
-int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize); // 0x0040D290
+int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize); // 0x0040D290
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
@@ -392,7 +392,7 @@ int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, i
 
 int __fastcall SERVER_GetClientPacketSize(D2PacketBufferStrc* pBuffer, unsigned int nBufferSize, int* pSize); // 0x0052BC20
 
-int __fastcall sub_006BF6C0(void* pServer, int nClientId); // 0x006BF6C0
+int __fastcall QSERVER_CheckClientMask(void* pServer, int nClientId); // 0x006BF6C0
 
 extern "C" const char gszNewsItemTypeName_0072FF8C[]; // 0x0072FF8C
 
@@ -601,7 +601,7 @@ void __cdecl sub_005234D0_LockCDKeys();                                         
 
 void __cdecl sub_005239C0_UnlockCDKeys();                                                                   // 0x005239C0
 
-void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260
+void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField);                                                 // 0x00525260
 
 extern "C" const char gszKernel32_006CD6E4[];                                                               // 0x006CD6E4
 
@@ -1515,7 +1515,7 @@ int __cdecl sub_0051BCF0_SendBuffer()
 {
     unsigned int nSize = 0x5DC;
     char aBuffer[0x5DC];
-    if (!sub_0040D290_GetData(aBuffer, &nSize))
+    if (!EXCEPTIONS_ReadCrashDump(aBuffer, &nSize))
         return 0;
     return sub_0051C5C0_SendPacket(0x5D, aBuffer, nSize) >= 0;
 }
@@ -1718,7 +1718,7 @@ int __stdcall sub_00521BF0()
     tPacket.nPlatform = 0x49583836;
     tPacket.f_8 = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
     tPacket.nVersion = 0xE;
-    sub_00525260(&tPacket.f_10, 3);
+    STRTABLE_GetLanguageInfoField(&tPacket.f_10, 3);
 
     D2SockAddrInStrc tAddress;
     int nLength = 0x10;
@@ -1897,7 +1897,7 @@ int __fastcall SERVER_ValidateClientPacket(D2PacketBufferStrc* pPacketBuffer, in
             }
             else
             {
-                if (!sub_006BF6C0(gpGlobal_00882D08, nClientId))
+                if (!QSERVER_CheckClientMask(gpGlobal_00882D08, nClientId))
                     return 4;
                 *pType = 2;
             }

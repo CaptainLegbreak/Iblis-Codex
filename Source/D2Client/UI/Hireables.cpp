@@ -176,9 +176,9 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
@@ -244,7 +244,8 @@ void __cdecl HIREABLES_LoadHirelingIcons()
     {
         gapHirelingIcons_007BEEB0[nIcon] = (D2CelFileStrc*)sub_004520C0_LoadUiCelFile(aszClassIcons[i]);
     }
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         for (int i = 0; i < 7; ++i, ++nIcon)
         {
@@ -293,15 +294,15 @@ static void __stdcall HIREABLES_DrawFittedText(int nX, int nY, int nColor, Unico
 {
     const int nOldFont = sub_00502EF0(6);
     Unicode* pEnd = &pText[31];
-    while (sub_00501820(pText) > 0x42)
+    while (D2Win_10121_GetTextWidth(pText) > 0x42)
     {
         --pEnd;
         pEnd->wChar = 0;
     }
-    nX += 0x16 - sub_00501820(pText) / 2;
+    nX += 0x16 - D2Win_10121_GetTextWidth(pText) / 2;
     if (nX < 0)
         nX = 0;
-    sub_00502320(pText, nX, nY, nColor, 0);
+    D2Win_10117_DrawText(pText, nX, nY, nColor, 0);
     sub_00502EF0(nOldFont);
 }
 

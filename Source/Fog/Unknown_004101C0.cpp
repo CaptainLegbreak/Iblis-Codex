@@ -86,10 +86,10 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                        // 0x006CC258
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-void __fastcall sub_0040F720_WriteMessage(D2LogMessageStrc* pMessage);                                      // 0x0040F720
+void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage);                                      // 0x0040F720
 void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage);                                     // 0x0040F070
 void __cdecl AUTOMAP_CloseStaleLogs();                                                                 // 0x0040F350
-void __cdecl sub_0040F970_SweepOldLogFiles();                                                               // 0x0040F970
+void __cdecl LOGMANAGER_SweepOldLogFiles();                                                               // 0x0040F970
 
 extern int gnLogQueued_0075D140;                                                                            // 0x0075D140
 extern int gnLogQueuedBytes_0075D144;                                                                       // 0x0075D144
@@ -138,7 +138,7 @@ next:
             switch (pMessage->nType)
             {
             case 1:
-                sub_0040F720_WriteMessage(pMessage);
+                LOGMANAGER_WriteMessage(pMessage);
                 break;
             case 2:
                 sub_0040F070_WriteDumpMessage(pMessage);
@@ -153,7 +153,7 @@ next:
             Sleep(dwSleep);
             EnterCriticalSection(&gtLogLock_0075E850);
             AUTOMAP_CloseStaleLogs();
-            sub_0040F970_SweepOldLogFiles();
+            LOGMANAGER_SweepOldLogFiles();
             LeaveCriticalSection(&gtLogLock_0075E850);
         }
     }

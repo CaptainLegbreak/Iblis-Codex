@@ -307,7 +307,7 @@ typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-int __stdcall sub_0052B5C0_SetServerHandler(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
+int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 
 int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3); // 0x005300F0
 
@@ -816,7 +816,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttr
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);          // 0x0040B430
 
-int __stdcall sub_0052B4F0(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
+int __stdcall SERVER_HackListClient(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
 
 void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char* szMessage);               // 0x0052F4C0
 
@@ -878,11 +878,11 @@ struct D2GSPacketClt66
 
 extern int gbCheckHeartbeat_00730FFC;                                                                       // 0x00730FFC
 
-int __stdcall sub_0052B2D0_ObjectCallMode1(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
+int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 
-int __stdcall sub_0052B2F0_ObjectCallMode0(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
+int __stdcall SERVER_ReadSystemPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
 
-int __stdcall sub_0052B310_ObjectCallMode2(unsigned char* pBuffer, int nSize);                              // 0x0052B310
+int __stdcall SERVER_ReadAdminPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B310
 
 void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);                                                       // 0x0052CC20
 

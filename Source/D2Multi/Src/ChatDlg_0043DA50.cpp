@@ -59,22 +59,22 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
-void __cdecl sub_00524E40_UnloadStringTables(); // 0x00524E40
+void __cdecl STRTABLE_UnloadStringTables(); // 0x00524E40
 void __cdecl sub_0043CC30_LoadFrontEndCels(); // 0x0043CC30
 void __cdecl sub_0043DDD0_CreateCharControls(); // 0x0043DDD0
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
-int __stdcall sub_004F91C0(void* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox); // 0x004F91C0
 void __cdecl sub_004477A0_Refresh(); // 0x004477A0
 void __cdecl sub_0043F4D0(); // 0x0043F4D0
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
 void __fastcall sub_0044B220_SetCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
 void __cdecl sub_0044AA50_SendPacket12(); // 0x0044AA50
 void __cdecl sub_0043F730(); // 0x0043F730
-void __cdecl sub_00514DB0_InitWaveSlots(); // 0x00514DB0
-void __fastcall sub_00514E10_LoadWave(const char* szFile); // 0x00514E10
+void __cdecl D2SOUND_InitWaveSlots(); // 0x00514DB0
+void __fastcall D2SOUND_PreloadWave(const char* szFile); // 0x00514E10
 int __cdecl sub_00514D80(); // 0x00514D80
-void __fastcall sub_005148F0_SetChannelValue(int nArg); // 0x005148F0
+void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 int __cdecl sub_00441A90(); // 0x00441A90
 void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
@@ -223,7 +223,8 @@ static void __cdecl sub_0043DC50_CreateChatCellFile(D2LaunchCharInfoStrc* pInfo)
 {
     int nMode = 5;
     const unsigned short wFlags = *(unsigned short*)pInfo->wFlags0x3CB;
-    if ((wFlags & 4) && !(wFlags & 8) && (sub_00408F20_HasExpansionMpq() || pInfo->nValue0x1EE < 5))
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if ((wFlags & 4) && !(wFlags & 8) && (FOG_IsExpansion() || pInfo->nValue0x1EE < 5))
         nMode = 1;
     gpChatCellFile_0077BBFC = (D2CelFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, (char*)&pInfo->unk0x3B1);
     if (gpChatCellFile_0077BBFC)
@@ -243,7 +244,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     D2WinControlStrc* pControl4;
 
     GetTickCount();
-    if (!sub_005259C0(sub_004FAC80(sub_00408F20_HasExpansionMpq()), 0))
+    if (!sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0))
         return 1;
 
     gnLaunchMode_0077BBE4 = 0;
@@ -279,7 +280,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
         gpChatEdit_0077BD94 = CONTROL_Create(&gtControlInit_0070D270);
         sub_004FDAD0_SetKeyCallback(gpChatEdit_0077BD94, sub_0043F9B0_EditKey);
         sub_004FDB00_SetEnterCallback(gpChatEdit_0077BD94, sub_0043DB90);
-        sub_004F91C0(gpChatEdit_0077BD94);
+        CONTROL_SetFocusedEditBox(gpChatEdit_0077BD94);
         sub_004FDD50_SetMaxLength(gpChatEdit_0077BD94, 200);
         sub_004477A0_Refresh();
         D2Win_10030_CONTROL_ToggleFourthFlag(gpChatControl_0077B084, 1);
@@ -312,18 +313,19 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     const unsigned short wFlags = *(unsigned short*)gpCharInfo_0077BBD8->wFlags;
     if ((wFlags & 8) && (wFlags & 4))
     {
-        sub_004F96F0_ControlClearState(gpControlA_0077B070, 0);
-        sub_004F96F0_ControlClearState(gpControlB_0077B078, 0);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControlA_0077B070, 0);
+        CONTROL_SetEnabled(gpControlB_0077B078, 0);
     }
     sub_004FA450_SetActive(gpControl_0077B080);
     gszText_0077B1D0[0] = 0;
     gszText_0077B0B4[0] = 0;
-    sub_00514DB0_InitWaveSlots();
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\button.wav");
+    D2SOUND_InitWaveSlots();
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
     if (sub_00514D80())
-        sub_005148F0_SetChannelValue(1);
+        D2SOUND_10034(1);
     gbCheck_0077BD58 = gpCharInfo_0077BBD8->nType0x35E == 4;
-    sub_004F96F0_ControlClearState(gpControlC_0077B07C, gbCheck_0077BD58 == 0);
+    CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck_0077BD58 == 0);
     if (sub_00441A90())
     {
         sprintf(szTitle, "%s,%s", pInfo->szRealm0x22D, pInfo->szName0xBD);
@@ -411,7 +413,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     sub_004F9160_SetLoopValue(0);
     sub_0043D510_FreeCellFiles();
     }
-    sub_00524E40_UnloadStringTables();
+    STRTABLE_UnloadStringTables();
     return 1;
 }
 

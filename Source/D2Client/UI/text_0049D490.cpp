@@ -142,7 +142,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 void __fastcall sub_0049D8E0_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -416,7 +416,7 @@ int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
 
 int __stdcall sub_B05_Sink(int nA, int nB);
 
-int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
+int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
 
 void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
@@ -555,7 +555,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
@@ -873,7 +873,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
     pBox->nTextBottom = pBox->f_14;
     for (T0044CB60* pLine = pBox->pFirst; pLine; pLine = pLine->pNext)
     {
-        nMaxWidth = nMaxWidth > sub_00501820(pLine->pText) ? nMaxWidth : sub_00501820(pLine->pText);
+        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->pText) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->pText);
     }
     pBox->nWidth = nMaxWidth + 0x14;
     pBox->nHeight = pBox->nLines * 0x0F + 6;
@@ -1274,7 +1274,7 @@ T0044CB60* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLi
         }
 
         const int nLength = sub_00526800(szLine);
-        if (sub_00501820(szLine) >= 0x134)
+        if (D2Win_10121_GetTextWidth(szLine) >= 0x134)
         {
             char szMessage[80];
             wsprintfA(szMessage, "line %d of string is too long", *pLineCount);
@@ -1911,7 +1911,7 @@ int sub_B05_Emit_004A4FA0(int* pIndex)
 
 int __cdecl sub_0040D530_Call0040C720()
 {
-    return sub_0040C720_ReleaseReferences(1);
+    return EXCEPTIONS_ReleaseSymbols(1);
 }
 
 // 0x004A5010
@@ -2484,10 +2484,10 @@ void __cdecl TEXT_DrawStatButton()
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
     const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
-    const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF92));
+    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
     if (D2GFX_GetResolutionMode() != 2)
     {
-        sub_00502320(D2LANG_GetStringFromTblIndex(0xF92), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnGlobal_00711470 - 0x8E, 0, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF92), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnGlobal_00711470 - 0x8E, 0, 0);
         sub_004F6480(&tContext, nX, gnGlobal_00711470 - 0x69, -1, 5, 0);
     }
 
@@ -2509,7 +2509,7 @@ void __cdecl TEXT_DrawStatButton()
             tContext.nFrame = 0;
     }
     CelGetWidth(CelGetHandle(&tContext));
-    sub_00501820(D2LANG_GetStringFromTblIndex(0xF92));
+    D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
     if (D2GFX_GetResolutionMode() != 2)
     {
         sub_004F6480(&tContext, nX + 3, gnGlobal_00711470 - 0x6D, -1, 5, 0);
@@ -2557,10 +2557,10 @@ void __cdecl TEXT_DrawSkillButton()
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
     const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
-    const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF93));
+    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
     if (D2GFX_GetResolutionMode() != 2)
     {
-        sub_00502320(D2LANG_GetStringFromTblIndex(0xF93), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnGlobal_00711470 - 0x8E, 0, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF93), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnGlobal_00711470 - 0x8E, 0, 0);
         sub_004F6480(&tContext, nX, gnGlobal_00711470 - 0x69, -1, 5, 0);
     }
 
@@ -2582,7 +2582,7 @@ void __cdecl TEXT_DrawSkillButton()
             tContext.nFrame = 0;
     }
     CelGetWidth(CelGetHandle(&tContext));
-    sub_00501820(D2LANG_GetStringFromTblIndex(0xF93));
+    D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
     if (D2GFX_GetResolutionMode() != 2)
     {
         sub_004F6480(&tContext, nX + 3, gnGlobal_00711470 - 0x6D, -1, 5, 0);

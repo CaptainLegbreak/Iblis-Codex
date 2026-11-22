@@ -82,7 +82,7 @@ extern int gnSelectIdB_0070CD80; // 0x0070CD80
 extern int gnSelectedLine_0070EC1C; // 0x0070EC1C
 extern int gnValue_00798CCC; // 0x00798CCC
 extern unsigned short gwRequestId_0070CD60; // 0x0070CD60
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0043DB10(); // 0x0043DB10
 int __cdecl sub_0043DC30_GetStatus(); // 0x0043DC30
 int __cdecl sub_0043F850(); // 0x0043F850
@@ -95,7 +95,7 @@ int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 int __fastcall D2Win_10055(D2WinControlStrc* pTextBox); // 0x004FBAB0
 int __fastcall D2Win_10082(D2WinControlStrc* pEditBox); // 0x004FDD00
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 int __fastcall sub_0044A4E0_SendConnect(const char* szName, const char* szRealm, unsigned short wRequestId); // 0x0044A4E0
 int __fastcall sub_004F9710_TestFlag(D2WinControlStrc* pControl); // 0x004F9710
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
@@ -130,7 +130,7 @@ void __cdecl sub_00447BB0_Refresh(); // 0x00447BB0
 void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nArg); // 0x004FCFF0
 void __fastcall sub_00434A00_Join(D2LaunchCharEntryStrc* pEntry, unsigned short wFlags, int nType, char* szName); // 0x00434A00
 void __fastcall sub_0044B210_SetHandlers(void (__fastcall* pfnA)(int, int), void (__cdecl* pfnB)()); // 0x0044B210
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 void __fastcall sub_004F9740_ControlSetState(D2WinControlStrc* pControl, int nFlags); // 0x004F9740
 void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl); // 0x004FB6A0

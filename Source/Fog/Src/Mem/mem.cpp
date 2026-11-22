@@ -22,7 +22,7 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
 
 // 0x00409000
-int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
+int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
 {
     if (!nValue)
     {
@@ -40,7 +40,7 @@ int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
 // build: context Log2Ceil
 static inline int Log2Ceil(int nValue)
 {
-    return nValue < 3 ? 1 : sub_00409000_GetBitWidth(nValue - 1);
+    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
 // build: context GetPoolIndex

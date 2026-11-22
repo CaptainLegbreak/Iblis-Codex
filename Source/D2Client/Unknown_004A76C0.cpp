@@ -149,13 +149,13 @@ int __cdecl sub_004A74A0_GetPercentB(); // 0x004A74A0
 void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
 int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
-void __stdcall sub_00525350_FormatUInt(Unicode* pOut, unsigned int nValue, int nSize); // 0x00525350
+void __stdcall STR_GroupUintDigits(Unicode* pOut, unsigned int nValue, int nSize); // 0x00525350
 int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
@@ -347,13 +347,13 @@ static inline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor)
 {
     int nSpan = nRight - nLeft + 1;
-    int nWidth = sub_00501820(wszText);
+    int nWidth = D2Win_10121_GetTextWidth(wszText);
     if (nWidth < nSpan)
     {
         nLeft += (nSpan - nWidth) >> 1;
     }
 
-    sub_00502320(wszText, nLeft, nY, nColor, 0);
+    D2Win_10117_DrawText(wszText, nLeft, nY, nColor, 0);
 }
 
 static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
@@ -504,14 +504,14 @@ static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChanc
     }
 
     sub_0046EFD0_DrawFramedBox(gaHoverBoxes_006DA430[nIndex].nBoxX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nBoxY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, 0x9B, 0x1E, gnTextColor_007C02F8, 2);
-    sub_00502320(D2LANG_GetStringFromTblIndex(0x103F), gaHoverBoxes_006DA430[nIndex].nTitleX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTitleY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, 0, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), gaHoverBoxes_006DA430[nIndex].nTitleX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTitleY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, 0, 0);
 
     D2MonStatsTxt* pMonStatsTxtRecord = sub_MonStatsTxtRecord(sub_00466DC0());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
     Unicode* wszText = (Unicode*)anText;
     sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nChance);
-    sub_00502320(wszText, gaHoverBoxes_006DA430[nIndex].nTextX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTextY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, 0, 0);
+    D2Win_10117_DrawText(wszText, gaHoverBoxes_006DA430[nIndex].nTextX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTextY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, 0, 0);
 }
 
 // 0x004A7D00
@@ -867,13 +867,13 @@ NEXT_TEXT:;
                 nValue = DATATBLS_GetLevelThreshold(nClass, nLevel);
             }
 
-            sub_00525350_FormatUInt(wszText, nValue, 0x80);
+            STR_GroupUintDigits(wszText, nValue, 0x80);
             TEXT_DrawCenteredText(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, 0);
             nColor = 0;
             continue;
         }
         case STAT_EXPERIENCE:
-            sub_00525350_FormatUInt(wszText, nValue, 0x80);
+            STR_GroupUintDigits(wszText, nValue, 0x80);
             TEXT_DrawCenteredText(gaCharFields_00724928[i].nX + gnGlobal_007A2858, gaCharFields_00724928[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, gaCharFields_00724928[i].nX2 + gnGlobal_007A2858, wszText, 0);
             nColor = 0;
             continue;

@@ -30,7 +30,8 @@ static inline void sub_00472530_SetPhaseActive(int bValue)
 // 0x00472550
 void __cdecl sub_00472550_ResetWeather()
 {
-    sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
+// build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
+    DATAARRAYS_Reset(gpWeather_007A8A04);
     D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
 }
 

@@ -26,8 +26,8 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall sub_005009D0_SetValue(D2WinControlStrc* pControl, int nMode, Unicode* pText, int nArg); // 0x005009D0
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
-int __fastcall sub_004F9190(); // 0x004F9190
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
+int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
+int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 int __fastcall sub_00449920_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue); // 0x00449920
 extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
 extern int gdwGlobal_00779974; // 0x00779974
@@ -48,23 +48,23 @@ extern const char gszTosPrefix[]; // 0x006D48E8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void*, unsigned long*); // 0x006CC2F0
 extern "C" unsigned int __cdecl strlen(const char*);
 void __cdecl sub_0042F800(); // 0x0042F800
-void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
+void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260
 unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
 void __cdecl sub_00430400_PollSlot4C(); // 0x00430400
-void __stdcall sub_004FA590(D2LaunchDoneFn); // 0x004FA590
+void __stdcall D2Win_RunMessageLoop(D2LaunchDoneFn); // 0x004FA590
 void __cdecl sub_004336C0_ShowMainMenu(); // 0x004336C0
 void __fastcall sub_00433380_ShowMessage(const Unicode*, D2LaunchDoneFn, int); // 0x00433380
 void __cdecl sub_00430390_CreateScreenControls(); // 0x00430390
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int); // 0x0042F430
-void* __fastcall sub_00406960_CreateFile(const char*, unsigned long, unsigned long, void*, unsigned long, unsigned long, void*); // 0x00406960
-int __fastcall sub_004069B0_ReadFile(void*, void*, unsigned long, unsigned long*, void*); // 0x004069B0
-int __fastcall sub_004069A0_CloseFile(void*); // 0x004069A0
-int __fastcall sub_00406990_DeleteFile(const char*); // 0x00406990
+void* __fastcall FOG_CreateFileA(const char*, unsigned long, unsigned long, void*, unsigned long, unsigned long, void*); // 0x00406960
+int __fastcall FOG_ReadFile(void*, void*, unsigned long, unsigned long*, void*); // 0x004069B0
+int __fastcall FOG_CloseFile(void*); // 0x004069A0
+int __fastcall FOG_DeleteFileA(const char*); // 0x00406990
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_0042E5D0_SwapUnicode(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
-int __fastcall sub_00501820(const Unicode*); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
 void __fastcall D2Win_10053(D2WinControlStrc*, int); // 0x004FBA30
 
@@ -91,13 +91,13 @@ extern D2WinControlStrc* gpControl_007795CC; // 0x007795CC
 int __fastcall sub_004307A0(unsigned int, int, int, int); // 0x004307A0
 int __stdcall sub_004308A0_ExpansionNotice6(D2MenuCallbackArgStrc*); // 0x004308A0
 int __stdcall sub_004308E0_ExpansionNotice5(D2MenuCallbackArgStrc*); // 0x004308E0
-void __stdcall sub_004F91C0(D2WinControlStrc*); // 0x004F91C0
-void __fastcall sub_004F9740(D2WinControlStrc*, int); // 0x004F9740
-extern "C" int __fastcall sub_00500310_GetAnimImageField50(D2WinControlStrc*); // 0x00500310
+void __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc*); // 0x004F91C0
+void __fastcall CONTROL_SetVisible(D2WinControlStrc*, int); // 0x004F9740
+extern "C" int __fastcall D2Win_10106(D2WinControlStrc*); // 0x00500310
 int __fastcall D2Win_10104(D2WinControlStrc*); // 0x00500340
 extern "C" void __fastcall BUTTON_SetIsPressed(D2WinControlStrc*, int); // 0x005009A0
 void __fastcall D2SOUND_10039(const char*); // 0x00514EC0
-void __cdecl sub_00515020_FadeOutWaves(); // 0x00515020
+void __cdecl D2SOUND_FadeOutWaves(); // 0x00515020
 
 int gdwGlobal_00779990; // 0x00779990
 
@@ -144,7 +144,7 @@ int __stdcall sub_00431C90_PollSystemPacket(int nUnused)
         {
         case 0xAF:
             gdwGlobal_00779990 = 1;
-            sub_004F9190();
+            D2Win_StopMessageLoop();
             return 1;
         case 0xB0:
             gdwGlobal_00779990 = 0;
@@ -153,7 +153,7 @@ int __stdcall sub_00431C90_PollSystemPacket(int nUnused)
     }
 
     if (gdwGlobal_00779990 || gdwGlobal_00779974)
-        sub_004F9190();
+        D2Win_StopMessageLoop();
 
     return 1;
 }
@@ -169,11 +169,12 @@ void __fastcall sub_0043C750(const char* szCharName, const char* szSubdirectory)
 
     D2_ASSERT(szCharName[0], 0xAF);
 
-    sub_00407050_GetSavePath(szDir, 0x104);
+// build: symbol ?FOG_GetSavePath@* 0x00407050
+    FOG_GetSavePath(szDir, 0x104);
     if (szSubdirectory && szSubdirectory[0])
     {
         SStrPrintf(szTemp, 0x104, "%s%s\\", szDir, szSubdirectory);
-        sub_00406A10_CreateDirectoryTree(szTemp);
+        FOG_CreatePathHierarchy(szTemp);
         SStrCopy(szDir, szTemp, 0x104);
     }
 
@@ -395,12 +396,12 @@ int __cdecl sub_00433810_ShowTerms()
     char szFileName[128];
     gnCancelled = 0;
     sub_0042F800();
-    sub_00525260(szLanguage, 2);
+    STRTABLE_GetLanguageInfoField(szLanguage, 2);
     SStrCopy(szFileName, gszTosPrefix, 128);
     SStrPack(szFileName, szLanguage, 128);
     SStrPack(szFileName, gszTextExt, 128);
     gpFuncTable->pfnRequest(szFileName, strlen(szFileName));
-    sub_004FA590(sub_00430400_PollSlot4C);
+    D2Win_RunMessageLoop(sub_00430400_PollSlot4C);
     if (gnCancelled) { sub_0042F3F0_DestroyControls(); return 0; }
     if (!gpFuncTable->pfnAvailable())
     {
@@ -412,7 +413,7 @@ int __cdecl sub_00433810_ShowTerms()
     sub_00430390_CreateScreenControls();
     sub_0042F430_CreateControl(0x4D);
     D2WinControlStrc* pText = sub_0042F430_CreateControl(0x4E);
-    void* hFile = sub_00406960_CreateFile(szFileName, 0x80000000, 0, 0, 3, 0x08000000, 0);
+    void* hFile = FOG_CreateFileA(szFileName, 0x80000000, 0, 0, 3, 0x08000000, 0);
     if (hFile == (void*)-1)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x14E3);
@@ -422,9 +423,9 @@ int __cdecl sub_00433810_ShowTerms()
     unsigned long nSize = GetFileSize(hFile, 0);
     void* pBuffer = FOG_Alloc(nSize, gszMainMenus, 0xC4D, 0);
     unsigned long nRead;
-    sub_004069B0_ReadFile(hFile, pBuffer, nSize, &nRead, 0);
-    sub_004069A0_CloseFile(hFile);
-    sub_00406990_DeleteFile(szFileName);
+    FOG_ReadFile(hFile, pBuffer, nSize, &nRead, 0);
+    FOG_CloseFile(hFile);
+    FOG_DeleteFileA(szFileName);
     Unicode* pChars = 0;
     int nCount;
     if (nSize == nRead && nSize > 2)
@@ -463,7 +464,7 @@ int __cdecl sub_00433810_ShowTerms()
             if (nChar == '\r' || nChar == '\n') { wszLine[nLine].wChar = ' '; nLine = 200; ++i; }
             else if (nChar != '\t') { wszLine[nLine++].wChar = nChar; ++i; }
             else { ++i; wszLine[nLine++].wChar = ' '; }
-            if (sub_00501820(wszLine) > 540)
+            if (D2Win_10121_GetTextWidth(wszLine) > 540)
             {
                 int nLength = sub_00526800(wszLine);
                 while (nLength > 1 && !sub_00526D30_IsLineBreak(pChars + nStart, nLength)) --nLength;
@@ -530,8 +531,9 @@ static void sub_00431E70_SetModeFlags(char nMode)
 // 0x00433BF0
 int __stdcall sub_00433BF0_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
 {
-    int nImageState = sub_00500310_GetAnimImageField50(pArg->pControl);
-    if (sub_00408F20_HasExpansionMpq())
+    int nImageState = D2Win_10106(pArg->pControl);
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         for (int i = 0; i < 7; ++i)
             if (!D2Win_10104(gpClassImages_0077956C[i])) return 0;
@@ -546,7 +548,7 @@ int __stdcall sub_00433BF0_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
     gnTextSentinel_0070CB80 = -1;
     if (nPreviousClass != -1)
     {
-        sub_00515020_FadeOutWaves();
+        D2SOUND_FadeOutWaves();
         switch (nPreviousClass)
         {
         case 0: D2SOUND_10039("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav"); break;
@@ -612,59 +614,59 @@ int __stdcall sub_00433BF0_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
     sub_00431E70_SetModeFlags((char)gnTextSentinel_0070CB80);
     if (gnTextSentinel_0070CB80 == -1 && nImageState != 1)
     {
-        sub_004F9740(gpControl_00779598, 0);
-        sub_004F9740(gpControl_007795CC, 0);
-        sub_004F9740(gpControl_007795B0, 0);
-        sub_004F9740(gpControl_007795C4, 0);
-        sub_004F9740(gpControl_0077934C, 0);
-        sub_004F9740(gpControl_00779330, 0);
+        CONTROL_SetVisible(gpControl_00779598, 0);
+        CONTROL_SetVisible(gpControl_007795CC, 0);
+        CONTROL_SetVisible(gpControl_007795B0, 0);
+        CONTROL_SetVisible(gpControl_007795C4, 0);
+        CONTROL_SetVisible(gpControl_0077934C, 0);
+        CONTROL_SetVisible(gpControl_00779330, 0);
         if (gnLaunchMode_007795EC == 1)
         {
-            sub_004F9740(gpControl_007795B8, 0);
-            sub_004F9740(gpControl_00779348, 0);
+            CONTROL_SetVisible(gpControl_007795B8, 0);
+            CONTROL_SetVisible(gpControl_00779348, 0);
         }
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
-            sub_004F9740(gpControl_00779568, 0);
-            sub_004F9740(gpControl_007795C8, 0);
-            sub_004F9740(gpControl_007795B4, 0);
+            CONTROL_SetVisible(gpControl_00779568, 0);
+            CONTROL_SetVisible(gpControl_007795C8, 0);
+            CONTROL_SetVisible(gpControl_007795B4, 0);
         }
-        sub_004F91C0(0);
-        if (gnLaunchMode_007795EC == 1) sub_004F9740(gpControl_0077933C, 1);
+        CONTROL_SetFocusedEditBox(0);
+        if (gnLaunchMode_007795EC == 1) CONTROL_SetVisible(gpControl_0077933C, 1);
     }
     else
     {
-        sub_004F9740(gpControl_00779598, 1);
-        sub_004F9740(gpControl_007795CC, 1);
+        CONTROL_SetVisible(gpControl_00779598, 1);
+        CONTROL_SetVisible(gpControl_007795CC, 1);
         if (gdwGlobal_00779DA4)
         {
-            sub_004F9740(gpControl_007795B0, 1);
-            sub_004F9740(gpControl_007795C4, 1);
+            CONTROL_SetVisible(gpControl_007795B0, 1);
+            CONTROL_SetVisible(gpControl_007795C4, 1);
         }
         if (gnLaunchMode_007795EC == 1)
         {
-            sub_004F9740(gpControl_007795B8, 1);
-            sub_004F9740(gpControl_00779348, 1);
+            CONTROL_SetVisible(gpControl_007795B8, 1);
+            CONTROL_SetVisible(gpControl_00779348, 1);
         }
-        sub_004F9740(gpControl_0077934C, 1);
-        sub_004F91C0(gpControl_0077934C);
-        sub_004F9740(gpControl_00779330, 1);
-        if (gnLaunchMode_007795EC == 1) sub_004F9740(gpControl_0077933C, 0);
+        CONTROL_SetVisible(gpControl_0077934C, 1);
+        CONTROL_SetFocusedEditBox(gpControl_0077934C);
+        CONTROL_SetVisible(gpControl_00779330, 1);
+        if (gnLaunchMode_007795EC == 1) CONTROL_SetVisible(gpControl_0077933C, 0);
     }
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
     {
         if (gnTextSentinel_0070CB80 == 6 || gnTextSentinel_0070CB80 == 5)
         {
-            sub_004F9740(gpControl_00779568, 1);
-            sub_004F9740(gpControl_007795C8, 0);
-            sub_004F9740(gpControl_007795B4, 1);
+            CONTROL_SetVisible(gpControl_00779568, 1);
+            CONTROL_SetVisible(gpControl_007795C8, 0);
+            CONTROL_SetVisible(gpControl_007795B4, 1);
             gpLaunchRecord_007795D4->nFlags |= 0x20;
         }
         else if (gnTextSentinel_0070CB80 != -1)
         {
-            sub_004F9740(gpControl_00779568, 1);
-            sub_004F9740(gpControl_007795C8, 1);
-            sub_004F9740(gpControl_007795B4, 0);
+            CONTROL_SetVisible(gpControl_00779568, 1);
+            CONTROL_SetVisible(gpControl_007795C8, 1);
+            CONTROL_SetVisible(gpControl_007795B4, 0);
             BUTTON_SetIsPressed(gpControl_007795C8, 1);
             gpLaunchRecord_007795D4->nFlags |= 0x20;
         }

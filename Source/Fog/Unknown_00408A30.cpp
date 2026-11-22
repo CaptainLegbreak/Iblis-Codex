@@ -47,11 +47,11 @@ extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLe
 extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName);                                      // 0x006B0192
 extern "C" int __stdcall gethostname(char* szName, int nNameLength);                                        // 0x006B0198
 
-void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
-void __cdecl sub_0040F960_CloseLogFiles();                                                                  // 0x0040F960
-void __cdecl sub_0040F8A0_CloseLogFilesNow();                                                               // 0x0040F8A0
-void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize);                                 // 0x0040F000
-void __fastcall sub_0040F3D0_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
+void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
+void __cdecl LOGMANAGER_CloseLogFiles();                                                                  // 0x0040F960
+void __cdecl LOGMANAGER_CloseLogFilesNow();                                                               // 0x0040F8A0
+void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize);                                 // 0x0040F000
+void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                                   // 0x0074F0E8

@@ -15,7 +15,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
 
-void __fastcall sub_005173AC_Unload(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
+void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 
 extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
 
@@ -46,7 +46,7 @@ extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
 
-int __fastcall sub_00525100_LookupLanguage(const char* szLanguage); // 0x00525100
+int __fastcall STRTABLE_GetLanguageIdFromName(const char* szLanguage); // 0x00525100
 
 struct Unicode
 {
@@ -88,9 +88,9 @@ extern D2LanguageInfoStrc gaLanguageInfo_007303D8[13]; // 0x007303D8
 
 void* ghArchive_008829DC; // 0x008829DC
 
-unsigned int __stdcall sub_005249E0(const char* szKey, unsigned int nTableSize); // 0x005249E0
+unsigned int __stdcall STRTABLE_HashKey(const char* szKey, unsigned int nTableSize); // 0x005249E0
 
-wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey); // 0x00524AC0
+wchar_t* __fastcall STRTABLE_GetUntranslatedString(const char* szKey); // 0x00524AC0
 
 void __cdecl sub_00527720_FreeCodePageTables(); // 0x00527720
 
@@ -112,11 +112,11 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-static D2TblHeaderStrc* sub_00525920_LoadTblFile(const char* szPath);
+static D2TblHeaderStrc* STRTABLE_LoadTblFile(const char* szPath); // 0x00525920
 
 extern "C" char* __cdecl _ui64toa(unsigned __int64 nValue, char* szOut, int nRadix); // 0x00687708
 
-static unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable);
+static unsigned short __stdcall STRTABLE_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable); // 0x00524C60
 
 void* ghArchive_008829E0; // 0x008829E0
 
@@ -126,11 +126,11 @@ extern unsigned short gwCrc16Table_007301D8[0x100];                             
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 
-void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260
+void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField);                                                 // 0x00525260
 
-void __cdecl sub_00525770_InitUnitSuffixes();                                                               // 0x00525770
+void __cdecl STRTABLE_InitUnitSuffixes();                                                               // 0x00525770
 
-int __fastcall sub_00527790_LoadCodePageMap(void* hArchive, const char* szPath);                            // 0x00527790
+int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath);                            // 0x00527790
 
 static D2TblHeaderStrc* sghStringTable;                                                             // 0x008829B4
 
@@ -165,7 +165,7 @@ bool gbTableLanguageInitialized_008829F0; // 0x008829F0
 wchar_t gwszEmptyString_008829E8[2]; // 0x008829E8
 
 // 0x00524810
-int __cdecl sub_00524810_OpenArchives()
+int __cdecl STRTABLE_OpenArchives()
 {
     D2_ASSERT(!ghArchive_008829DC, 0x8A);
     ghArchive_008829DC = sub_00517332_LoadMpqFile(szD2DataMpq_006DC770, 0, 0, 1000);
@@ -174,16 +174,16 @@ int __cdecl sub_00524810_OpenArchives()
     ghArchive_008829E0 = sub_00517332_LoadMpqFile(szPatchD2Mpq_006DC728, 0, 0, 1000);
     if (!ghArchive_008829E0)
     {
-        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829DC);
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
         ghArchive_008829DC = 0;
         return 0;
     }
     ghArchive_008829E4 = sub_00517332_LoadMpqFile(gszExpansionMpq_006CD3A0, 0, 0, 1000);
     if (!ghArchive_008829E4)
     {
-        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829DC);
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
         ghArchive_008829DC = 0;
-        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829E0);
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E0);
         ghArchive_008829E0 = 0;
         return 0;
     }
@@ -191,21 +191,21 @@ int __cdecl sub_00524810_OpenArchives()
 }
 
 // 0x005248E0
-void __cdecl sub_005248E0_CloseArchives()
+void __cdecl STRTABLE_CloseArchives()
 {
     if (ghArchive_008829DC)
     {
-        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829DC);
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
         ghArchive_008829DC = 0;
     }
     if (ghArchive_008829E0)
     {
-        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829E0);
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E0);
         ghArchive_008829E0 = 0;
     }
     if (ghArchive_008829E4)
     {
-        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829E4);
+        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E4);
         ghArchive_008829E4 = 0;
     }
 }
@@ -227,19 +227,19 @@ const Unicode* __fastcall sub_00524930(D2TblHeaderStrc* pTable, void* pIndex, un
 }
 
 // 0x005249C0
-static inline void sub_005249C0_FreeTable(void* pTable)
+static inline void STRTABLE_FreeTable(void* pTable)
 {
     FOG_Free(pTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
 }
 
 void __fastcall sub_M129_Emit_005249C0(void* pTable1, void* pTable2)
 {
-    sub_005249C0_FreeTable(pTable1);
-    sub_005249C0_FreeTable(pTable2);
+    STRTABLE_FreeTable(pTable1);
+    STRTABLE_FreeTable(pTable2);
 }
 
 // 0x005249E0
-unsigned int __stdcall sub_005249E0(const char* szKey, unsigned int nTableSize)
+unsigned int __stdcall STRTABLE_HashKey(const char* szKey, unsigned int nTableSize)
 {
     unsigned int nHash = 0;
     while (*szKey)
@@ -280,7 +280,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex)
 }
 
 // 0x00524AC0
-wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey)
+wchar_t* __fastcall STRTABLE_GetUntranslatedString(const char* szKey)
 {
     for (D2StrCacheNodeStrc* pNode = s_pStringCache_008829B0; pNode; pNode = pNode->pNext)
     {
@@ -304,12 +304,12 @@ wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey)
 }
 
 // 0x00524C60
-static unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable)
+static unsigned short __stdcall STRTABLE_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable)
 {
 	D2TblNodeStrc* pHashTable = (D2TblNodeStrc*)((char*)pTable + sizeof(D2TblHeaderStrc) + pTable->nNumElements * sizeof(unsigned short));
 	unsigned int nLoops = 0;
 	int const tArg1 = pTable->nHashTableSize;
-	int nHash = sub_005249E0(szKey, tArg1);
+	int nHash = STRTABLE_HashKey(szKey, tArg1);
 	while (nLoops < pTable->dwNumLoops)
 	{
 		++nLoops;
@@ -336,19 +336,19 @@ unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_
         *ppText = gwszEmptyString_008829E8;
         return 0;
     }
-    unsigned short nIndex = sub_00524C60_FindKey((void**)gpPatchStringIndex_008829BC, szKey, (void**)ppText, sghPatchStringTable);
+    unsigned short nIndex = STRTABLE_FindKey((void**)gpPatchStringIndex_008829BC, szKey, (void**)ppText, sghPatchStringTable);
     if (nIndex != 0xFFFF)
         return nIndex + 10000;
     if (sghExpansionStringTable)
     {
-        nIndex = sub_00524C60_FindKey((void**)gpExpansionStringIndex_008829C0, szKey, (void**)ppText, sghExpansionStringTable);
+        nIndex = STRTABLE_FindKey((void**)gpExpansionStringIndex_008829C0, szKey, (void**)ppText, sghExpansionStringTable);
         if (nIndex != 0xFFFF)
             return nIndex + 20000;
     }
-    nIndex = sub_00524C60_FindKey((void**)gpStringIndex_008829B8, szKey, (void**)ppText, sghStringTable);
+    nIndex = STRTABLE_FindKey((void**)gpStringIndex_008829B8, szKey, (void**)ppText, sghStringTable);
     if (nIndex == 0xFFFF)
     {
-        *ppText = sub_00524AC0_GetUntranslatedString(szKey);
+        *ppText = STRTABLE_GetUntranslatedString(szKey);
         return 0;
     }
     return nIndex;
@@ -363,7 +363,7 @@ const wchar_t* __fastcall D2LANG_GetStringByReferenceString(const char* szKey)
 }
 
 // 0x00524E40
-void __cdecl sub_00524E40_UnloadStringTables()
+void __cdecl STRTABLE_UnloadStringTables()
 {
     if (sghStringTable && --gnStringTableRefs_008829D8 == 0)
     {
@@ -421,13 +421,13 @@ void __cdecl sub_00524E40_UnloadStringTables()
 }
 
 // 0x00524FD0
-void __cdecl sub_00524FD0_Crc16Init(unsigned short* pCrc)
+void __cdecl CRC16_Initialize(unsigned short* pCrc)
 {
     *pCrc = 0xFFFF;
 }
 
 // 0x00524FE0
-void __cdecl sub_00524FE0_Crc16Update(unsigned short* pCrc, unsigned char nByte)
+void __cdecl CRC16_Update(unsigned short* pCrc, unsigned char nByte)
 {
     *pCrc = (*pCrc << 8) ^ gwCrc16Table_007301D8[(*pCrc >> 8) ^ nByte];
 }
@@ -448,7 +448,7 @@ void __stdcall CRC16_CalculateChecksum(unsigned short* crc16_checksum_out, const
 }
 
 // 0x00525090
-void __fastcall sub_00525090_MapLanguageName(char* szLanguage)
+void __fastcall STRTABLE_ConvertLanguageNameToCode(char* szLanguage)
 {
     for (int i = 0; i < 13; ++i)
     {
@@ -462,7 +462,7 @@ void __fastcall sub_00525090_MapLanguageName(char* szLanguage)
 }
 
 // 0x00525100
-int __fastcall sub_00525100_LookupLanguage(const char* szLanguage)
+int __fastcall STRTABLE_GetLanguageIdFromName(const char* szLanguage)
 {
     for (int i = 0; i < 13; ++i)
     {
@@ -491,7 +491,7 @@ int __cdecl STRTABLE_GetLanguage()
 }
 
 // 0x005251C0
-int __cdecl sub_005251C0_GetLanguage()
+int __cdecl STRTABLE_GetSystemLanguage()
 {
     void* hKey;
     if (!RegOpenKeyExA((void*)0x80000001, "Control Panel\\International", 0, 0x20019, &hKey))
@@ -501,7 +501,7 @@ int __cdecl sub_005251C0_GetLanguage()
         if (!RegQueryValueExA(hKey, "sLanguage", 0, &nType, (unsigned char*)gszLanguage_008829F8, &nLength) && strlen(gszLanguage_008829F8) && strlen(gszLanguage_008829F8) < 4)
         {
             RegCloseKey(hKey);
-            return sub_00525100_LookupLanguage(gszLanguage_008829F8);
+            return STRTABLE_GetLanguageIdFromName(gszLanguage_008829F8);
         }
     }
     return 0;
@@ -511,7 +511,7 @@ int sub_M15_Emit_00525920(const char* szDir, const char* szLang)
 {
     char szPath[0x104];
     sprintf(szPath, szM15EmitFormat, szDir, szLang);
-    gpM15EmitTbl = sub_00525920_LoadTblFile(szPath);
+    gpM15EmitTbl = STRTABLE_LoadTblFile(szPath);
     return gpM15EmitTbl != 0;
 }
 
@@ -545,7 +545,7 @@ static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short 
 }
 
 // 0x00525260
-void __stdcall sub_00525260(void* pOut, int nField)
+void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField)
 {
     const int nLanguageId = sub_00525150();
     D2_ASSERT(gaLanguageInfo_007303D8[0].f_14 == 0, 0x490);
@@ -584,7 +584,7 @@ void __stdcall sub_00525260(void* pOut, int nField)
 }
 
 // 0x00525350
-void __stdcall sub_00525350_FormatUInt(Unicode* pOut, unsigned int nValue, int nSize)
+void __stdcall STR_GroupUintDigits(Unicode* pOut, unsigned int nValue, int nSize)
 {
     char szBuffer[64];
     int nGroup = 0;
@@ -625,7 +625,7 @@ void __stdcall sub_00525350_FormatUInt(Unicode* pOut, unsigned int nValue, int n
 }
 
 // 0x00525490
-void __stdcall sub_00525490_FormatInt64(Unicode* pOut, __int64 nValue, int nSize)
+void __stdcall STR_GroupInt64Digits(Unicode* pOut, __int64 nValue, int nSize)
 {
     char szBuffer[64];
     int nGroup = 0;
@@ -673,7 +673,7 @@ void __stdcall sub_00525490_FormatInt64(Unicode* pOut, __int64 nValue, int nSize
 }
 
 // 0x005255C0
-void __stdcall sub_005255C0_FormatUInt64Suffixed(Unicode* pOut, unsigned __int64 nValue, int nSize)
+void __stdcall STR_GroupUint64DigitsWithSuffix(Unicode* pOut, unsigned __int64 nValue, int nSize)
 {
     char szBuffer[64];
     int nGroup = 0;
@@ -745,7 +745,7 @@ void __stdcall sub_005255C0_FormatUInt64Suffixed(Unicode* pOut, unsigned __int64
 }
 
 // 0x00525770
-void __cdecl sub_00525770_InitUnitSuffixes()
+void __cdecl STRTABLE_InitUnitSuffixes()
 {
     char szBuffer[8];
 
@@ -791,7 +791,7 @@ void __cdecl sub_00525770_InitUnitSuffixes()
 }
 
 // 0x00525920
-static D2TblHeaderStrc* sub_00525920_LoadTblFile(const char* szPath)
+static D2TblHeaderStrc* STRTABLE_LoadTblFile(const char* szPath)
 {
     D2TblHeaderStrc* pHeader = (D2TblHeaderStrc*)sub_00517079(ghArchive_008829DC, szPath, 0, ".\\StrTable\\strtable.cpp", 0xC0);
 
@@ -810,7 +810,7 @@ static D2TblHeaderStrc* sub_00525920_LoadTblFile(const char* szPath)
 }
 
 // 0x005259C0
-int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLanguage, int bExpansion)
+int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage, int bExpansion)
 {
     char szLang[4];
     char szMapPath[0x104];
@@ -832,7 +832,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
     if (szLanguage)
         strcpy(szLang, szLanguage);
     else
-        sub_00525260(szLang, 0);
+        STRTABLE_GetLanguageInfoField(szLang, 0);
 
     if (!_stricmp(szLang, "JPN"))
         strcpy(szCodePage, "JPN");
@@ -846,11 +846,11 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
         strcpy(szCodePage, "LATIN");
 
     sprintf(szMapPath, "data\\local\\font\\%s\\default.map", szCodePage);
-    sub_00527790_LoadCodePageMap(ghArchive_008829DC, szMapPath);
+    UNISYS_LoadSysMap(ghArchive_008829DC, szMapPath);
 
     strncpy(szFormat, "data\\local\\lng\\%s\\string.tbl", 0x103);
     sprintf(szPath, szFormat, szLang);
-    sghStringTable = sub_00525920_LoadTblFile(szPath);
+    sghStringTable = STRTABLE_LoadTblFile(szPath);
     if (!sghStringTable)
         return 0;
 
@@ -883,7 +883,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
 
     strncpy(szFormat, "data\\local\\lng\\%s\\patchstring.tbl", 0x103);
     sprintf(szPath, szFormat, szLang);
-    sghPatchStringTable = sub_00525920_LoadTblFile(szPath);
+    sghPatchStringTable = STRTABLE_LoadTblFile(szPath);
     D2_ASSERT(sghPatchStringTable, 0x1C3);
 
     pTbl = sghPatchStringTable;
@@ -916,7 +916,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
     {
         strncpy(szFormat, "data\\local\\lng\\%s\\expansionstring.tbl", 0x103);
         sprintf(szPath, szFormat, szLang);
-        sghExpansionStringTable = sub_00525920_LoadTblFile(szPath);
+        sghExpansionStringTable = STRTABLE_LoadTblFile(szPath);
         D2_ASSERT(sghExpansionStringTable, 0x1F6);
 
         pTbl = sghExpansionStringTable;
@@ -946,7 +946,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
         }
     }
 
-    sub_00525770_InitUnitSuffixes();
+    STRTABLE_InitUnitSuffixes();
     return 1;
 }
 
@@ -1004,7 +1004,7 @@ bool D2LangCharSetStrc::sub_00527090_ContainsChar(const Unicode* pChar) const
 // calling-convention shim (not game code)
 unsigned short __stdcall sub_00524C60_Shim(D2TblHeaderStrc* pTable, void** ppSlots, const char* szKey, void** ppOut)
 {
-	return sub_00524C60_FindKey(ppSlots, szKey, ppOut, pTable);
+	return STRTABLE_FindKey(ppSlots, szKey, ppOut, pTable);
 }
 
 #include "gen/data/Source/D2Lang/StrTable/strtable.inc"

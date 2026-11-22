@@ -123,8 +123,8 @@ static inline const char* StrLCopyEnd(char* szDest, const char* szSource)
     return p;
 }
 
-static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut, size_t nSize);
-static bool __stdcall sub_00404450_CopyFileUtf8(const char* szSource, const char* szDest);
+static bool __stdcall ERRORMANAGER_CopyFileName(const char* szPath, char* szOut, size_t nSize); // 0x00404010
+static bool __stdcall ERRORMANAGER_CopyFileUtf8(const char* szSource, const char* szDest); // 0x00404450
 
 // 0x00401220
 bool crashy::Report::sub_00401220_AddFile(const char* szPath, bool bCopy)
@@ -149,11 +149,11 @@ bool crashy::Report::sub_00401220_AddFile(const char* szPath, bool bCopy)
         }
         char* pName = szCopy + nLength;
         *pName++ = '/';
-        if (!sub_00404010_CopyFileName(szPath, pName, szCopy + 0x400 - pName))
+        if (!ERRORMANAGER_CopyFileName(szPath, pName, szCopy + 0x400 - pName))
         {
             return false;
         }
-        sub_00404450_CopyFileUtf8(szPath, szCopy);
+        ERRORMANAGER_CopyFileUtf8(szPath, szCopy);
         szSource = szCopy;
     }
     else
@@ -170,7 +170,7 @@ bool crashy::Report::sub_00401220_AddFile(const char* szPath, bool bCopy)
 }
 
 // 0x00404010
-static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut, size_t nSize)
+static bool __stdcall ERRORMANAGER_CopyFileName(const char* szPath, char* szOut, size_t nSize)
 {
     const char* pSep = 0;
     const char* p = strrchr(szPath, '/');
@@ -196,7 +196,7 @@ static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut,
 }
 
 // 0x00404450
-static bool __stdcall sub_00404450_CopyFileUtf8(const char* szSource, const char* szDest)
+static bool __stdcall ERRORMANAGER_CopyFileUtf8(const char* szSource, const char* szDest)
 {
     wchar_t wszSource[0x104];
     wchar_t wszDest[0x104];

@@ -27,12 +27,12 @@ struct D2KeyConfigHeaderStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath);                                        // 0x00406A10
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
-int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
-int __fastcall sub_004069A0_CloseFile(void* hFile);                                                         // 0x004069A0
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_CreatePathHierarchy(const char* szPath);                                        // 0x00406A10
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
+int __fastcall FOG_CloseFile(void* hFile);                                                         // 0x004069A0
 void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir);                                                 // 0x004698D0
 void __cdecl CMDTBL_BindMouseHotkeys();                                                               // 0x004694A0
 
@@ -46,13 +46,13 @@ static void* sub_00469650_OpenKeyFile(unsigned long dwDesiredAccess, unsigned lo
     char szSavePath[0x104] = { 0 };
     char szFileName[0x104] = { 0 };
     char szDir[0x104] = { 0 };
-    sub_00407050_GetSavePath(szSavePath, sizeof(szSavePath));
+    FOG_GetSavePath(szSavePath, sizeof(szSavePath));
     if (gszAccountFolder_007A0500[0])
     {
         SStrPrintf(szDir, sizeof(szDir), "%s%s\\", szSavePath, gszAccountFolder_007A0500);
-        sub_00406A10_CreateDirectoryTree(szDir);
+        FOG_CreatePathHierarchy(szDir);
         SStrPrintf(szFileName, sizeof(szFileName), "%s%s.key", szDir, gszCharName_007A05C4);
-        void* hFile = sub_00406960_CreateFile(szFileName, dwDesiredAccess, 0, 0, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, 0);
+        void* hFile = FOG_CreateFileA(szFileName, dwDesiredAccess, 0, 0, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, 0);
         if (hFile != INVALID_HANDLE_VALUE)
         {
             return hFile;
@@ -60,7 +60,7 @@ static void* sub_00469650_OpenKeyFile(unsigned long dwDesiredAccess, unsigned lo
     }
 
     SStrPrintf(szFileName, sizeof(szFileName), "%s%s.key", szSavePath, gszCharName_007A05C4);
-    return sub_00406960_CreateFile(szFileName, dwDesiredAccess, 0, 0, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, 0);
+    return FOG_CreateFileA(szFileName, dwDesiredAccess, 0, 0, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, 0);
 }
 
 // 0x00469780
@@ -80,13 +80,13 @@ void __cdecl sub_00469780_SaveKeyConfig()
         tFile.aKeys[i].nKey = HOTKEY_UNBOUND;
     }
     memcpy(tFile.aKeys, gtHotkeys_007A6F90, sizeof(tFile.aKeys));
-    sub_004069D0_WriteFile(hFile, &tFile, sizeof(tFile), &nWritten, 0);
-    sub_004069A0_CloseFile(hFile);
+    FOG_WriteFile(hFile, &tFile, sizeof(tFile), &nWritten, 0);
+    FOG_CloseFile(hFile);
 
     char szPath[0x104];
     FOG_GetInstallPath(szPath, 0xDC);
     strcat(szPath, "default.key");
-    hFile = sub_00406960_CreateFile(szPath, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+    hFile = FOG_CreateFileA(szPath, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
     if (hFile == INVALID_HANDLE_VALUE)
     {
         return;
@@ -96,9 +96,9 @@ void __cdecl sub_00469780_SaveKeyConfig()
     tHeader.f_0 = 0x5357;
     tHeader.nVersion = HOTKEY_FILE_VERSION;
     tHeader.nSize = 0x47A;
-    sub_004069D0_WriteFile(hFile, &tHeader, sizeof(tHeader), &nWritten, 0);
-    sub_004069D0_WriteFile(hFile, gtHotkeys_007A6F90, sizeof(gtHotkeys_007A6F90), &nWritten, 0);
-    sub_004069A0_CloseFile(hFile);
+    FOG_WriteFile(hFile, &tHeader, sizeof(tHeader), &nWritten, 0);
+    FOG_WriteFile(hFile, gtHotkeys_007A6F90, sizeof(gtHotkeys_007A6F90), &nWritten, 0);
+    FOG_CloseFile(hFile);
 }
 
 // 0x0046AAE0
@@ -109,8 +109,8 @@ void __cdecl sub_0046AAE0_LoadKeyConfig()
     {
         D2HotkeyFileStrc tFile = { 0 };
         unsigned long nRead = 0;
-        sub_004069B0_ReadFile(hFile, &tFile, sizeof(tFile), &nRead, 0);
-        sub_004069A0_CloseFile(hFile);
+        FOG_ReadFile(hFile, &tFile, sizeof(tFile), &nRead, 0);
+        FOG_CloseFile(hFile);
         if (nRead != sizeof(tFile) || tFile.nVersion != HOTKEY_FILE_VERSION)
         {
             goto LOAD_DEFAULT;

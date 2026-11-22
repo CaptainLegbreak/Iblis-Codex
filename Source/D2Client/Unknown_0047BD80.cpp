@@ -82,7 +82,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 unsigned int __fastcall D2Win_10128(unsigned char nChar); // 0x00502550
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 extern int gnLanguageId_007BB5DC; // 0x007BB5DC
 extern unsigned char gbChatInputOpen_007BB5E1; // 0x007BB5E1
 extern unsigned int gnChatCaret_007BB5E8; // 0x007BB5E8
@@ -519,10 +519,11 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         for (T0044CB60* pLine = pLines; pLine; )
         {
             T0044CB60* pNext = pLine->pNext;
-            nWidth = sub_00501820(pLine->pText);
+            nWidth = D2Win_10121_GetTextWidth(pLine->pText);
             pLine = pNext;
         }
-        sub_005028A0_FreeTextLines(pLines);
+// build: symbol ?D2Win_10200@* 0x005028A0
+        D2Win_10200(pLines);
         if (nLines <= 3 && (nLines != 3 || nWidth <= gnGlobal_0071146C - 0x113))
         {
             gwszChatLine_007BB638[nLength].wChar = pMsg->wParam;
@@ -531,10 +532,10 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             for (T0044CB60* pLine = pLines; pLine; )
             {
                 T0044CB60* pNext = pLine->pNext;
-                nWidth = sub_00501820(pLine->pText);
+                nWidth = D2Win_10121_GetTextWidth(pLine->pText);
                 pLine = pNext;
             }
-            sub_005028A0_FreeTextLines(pLines);
+            D2Win_10200(pLines);
             if (nLines != 3 || nWidth < gnGlobal_0071146C - 0x113)
                 ++gnChatCaret_007BB5E8;
         }
@@ -559,7 +560,8 @@ void __cdecl sub_0047DD70_LoadOptionMenus()
     sub_0047DBB0_LoadOptionCels(&gOptionHeader_00713044, gaOptionEntries_00713220);
     sub_0047DBB0_LoadOptionCels(&gOptionHeader_00714210, gaOptionEntries_00714238);
     sub_0047DBB0_LoadOptionCels(&gOptionHeader_00714224, gaOptionEntries_00715CC8);
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         sub_0047DBB0_LoadOptionCels(&gOptionHeader_0071875C, gaOptionEntries_0071ACA0);
         sub_0047DBB0_LoadOptionCels(&gOptionHeader_0071D734, gaOptionEntries_0071F728);

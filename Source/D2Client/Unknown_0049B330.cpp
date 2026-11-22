@@ -18,9 +18,9 @@ struct D2RosterUnitStrc
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX);                  // 0x0049AAA0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
@@ -53,14 +53,14 @@ static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCen
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    return nCenterX - sub_00501820(wszText) / 2;
+    return nCenterX - D2Win_10121_GetTextWidth(wszText) / 2;
 }
 
 static inline int GetCenteredScreenXInline(unsigned short nStringIndex, int nCenterX)
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    return gnGlobal_007A2858 - sub_00501820(wszText) / 2 + nCenterX;
+    return gnGlobal_007A2858 - D2Win_10121_GetTextWidth(wszText) / 2 + nCenterX;
 }
 
 static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge); // 0x0049AAF0
@@ -79,13 +79,13 @@ static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsi
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
-    const int nWidth = sub_00501820(wszText);
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
     int nAltWidth = 0;
     if (nAltString)
     {
         Unicode wszAlt[100];
         sub_005267E0(wszAlt, D2LANG_GetStringFromTblIndex(nAltString));
-        nAltWidth = sub_00501820(wszAlt);
+        nAltWidth = D2Win_10121_GetTextWidth(wszAlt);
     }
     int nY = 0x23;
     int nHeight = 0x1E;
@@ -107,18 +107,18 @@ static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsig
         sub_0049AAF0_DrawTextFrame(0, nString1, nCenterX, 0);
         {
             const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
-            sub_00502320(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
         }
         return;
     }
     sub_0049AAF0_DrawTextFrame(nString2, nString1, nCenterX, 1);
     {
         const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
-        sub_00502320(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, nUnused);
     }
     {
         const int nTextX = TEXT_GetCenteredStringX(nString2, nCenterX);
-        sub_00502320(D2LANG_GetStringFromTblIndex(nString2), nTextX + gnGlobal_007A2858, nY2 - gnGlobal_007A285C, nColor, nUnused);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString2), nTextX + gnGlobal_007A2858, nY2 - gnGlobal_007A285C, nColor, nUnused);
     }
 }
 
@@ -181,11 +181,11 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         nColor2 = 9;
     if (nD)
         nColor2 = 4;
-    const int nWidth1 = sub_00501820(wszLine1) + 0xA;
-    const int nWidth2 = sub_00501820(wszLine2) + 0xA;
+    const int nWidth1 = D2Win_10121_GetTextWidth(wszLine1) + 0xA;
+    const int nWidth2 = D2Win_10121_GetTextWidth(wszLine2) + 0xA;
     sub_0046EFD0_DrawFramedBox(gnGlobal_007A2858 + 0x24, 0x23 - gnGlobal_007A285C, nWidth1 > nWidth2 ? nWidth1 : nWidth2, nHeight, gbGlobal_007BF034, 2);
-    sub_00502320(wszLine1, gnGlobal_007A2858 + 0x29, 0x32 - gnGlobal_007A285C, nColor1, 0);
-    sub_00502320(wszLine2, gnGlobal_007A2858 + 0x29, 0x41 - gnGlobal_007A285C, nColor2, 0);
+    D2Win_10117_DrawText(wszLine1, gnGlobal_007A2858 + 0x29, 0x32 - gnGlobal_007A285C, nColor1, 0);
+    D2Win_10117_DrawText(wszLine2, gnGlobal_007A2858 + 0x29, 0x41 - gnGlobal_007A285C, nColor2, 0);
 }
 
 // 0x0049B330
@@ -227,7 +227,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                     sub_0049AAF0_DrawTextFrame(0, 0x1019, 0x6E, 0);
                                     {
                                         const int nTextX = TEXT_GetCenteredStringX(0x1019, 0x6E);
-                                        sub_00502320(D2LANG_GetStringFromTblIndex(0x1019), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 1, 0);
+                                        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1019), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 1, 0);
                                     }
                                     return;
                                 }
@@ -240,11 +240,11 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             sub_0049AAF0_DrawTextFrame(0x101B, 0x101A, 0xA0, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x101A, 0xA0);
-                                sub_00502320(D2LANG_GetStringFromTblIndex(0x101A), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                             }
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x101B, 0xA0);
-                                sub_00502320(D2LANG_GetStringFromTblIndex(0x101B), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101B), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
                         }
@@ -252,16 +252,16 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                         {
                             Unicode wszText[100];
                             sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x101A));
-                            const int nWidth = sub_00501820(wszText);
+                            const int nWidth = D2Win_10121_GetTextWidth(wszText);
                             const int nHalfWidth = nWidth / 2;
-                            sub_00502320(D2LANG_GetStringFromTblIndex(0x101A), gnGlobal_007A2858 - nHalfWidth + 0xA0, 0x32 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), gnGlobal_007A2858 - nHalfWidth + 0xA0, 0x32 - gnGlobal_007A285C, 0, 0);
                         }
                         {
                             Unicode wszText[100];
                             sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x101B));
-                            const int nWidth = sub_00501820(wszText);
+                            const int nWidth = D2Win_10121_GetTextWidth(wszText);
                             const int nHalfWidth = nWidth / 2;
-                            sub_00502320(D2LANG_GetStringFromTblIndex(0x101B), gnGlobal_007A2858 - nHalfWidth + 0xA0, 0x41 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101B), gnGlobal_007A2858 - nHalfWidth + 0xA0, 0x41 - gnGlobal_007A285C, 0, 0);
                         }
                         return;
                     }
@@ -274,22 +274,22 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                 sub_0049AAF0_DrawTextFrame(0x1011, 0x1010, 0xFF, 1);
                                 {
                                     const int nTextX = TEXT_GetCenteredStringX(0x1010, 0xFF);
-                                    sub_00502320(D2LANG_GetStringFromTblIndex(0x1010), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1010), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                                 }
                                 {
                                     const int nTextX = TEXT_GetCenteredStringX(0x1011, 0xFF);
-                                    sub_00502320(D2LANG_GetStringFromTblIndex(0x1011), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1011), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                                 }
                                 return;
                             }
                             sub_0049AAF0_DrawTextFrame(0x100F, 0x100E, 0xFF, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x100E, 0xFF);
-                                sub_00502320(D2LANG_GetStringFromTblIndex(0x100E), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x100E), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                             }
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x100F, 0xFF);
-                                sub_00502320(D2LANG_GetStringFromTblIndex(0x100F), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x100F), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
                         }
@@ -301,22 +301,22 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             sub_0049AAF0_DrawTextFrame(0x1013, 0x1012, 0x114, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1012, 0x114);
-                                sub_00502320(D2LANG_GetStringFromTblIndex(0x1012), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1012), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                             }
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1013, 0x114);
-                                sub_00502320(D2LANG_GetStringFromTblIndex(0x1013), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1013), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
                         }
                         sub_0049AAF0_DrawTextFrame(0x1015, 0x1014, 0x114, 1);
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1014, 0x114);
-                            sub_00502320(D2LANG_GetStringFromTblIndex(0x1014), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1014), nTextX + gnGlobal_007A2858, 0x32 - gnGlobal_007A285C, 0, 0);
                         }
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1015, 0x114);
-                            sub_00502320(D2LANG_GetStringFromTblIndex(0x1015), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1015), nTextX + gnGlobal_007A2858, 0x41 - gnGlobal_007A285C, 0, 0);
                         }
                         return;
                     }
@@ -327,14 +327,14 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             sub_0049AAF0_DrawTextFrame(0, 0x1017, 0x128, 0);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1017, 0x128);
-                                sub_00502320(D2LANG_GetStringFromTblIndex(0x1017), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 0, 0);
+                                D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1017), nTextX + gnGlobal_007A2858, 0x37 - gnGlobal_007A285C, 0, 0);
                             }
                             return;
                         }
                         sub_0049AAF0_DrawTextFrame(0, 0x1016, 0x128, 0);
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1016, 0x128);
-                            sub_00502320(D2LANG_GetStringFromTblIndex(0x1016), gnGlobal_007A2858 + nTextX, 0x37 - gnGlobal_007A285C, 0, 0);
+                            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1016), gnGlobal_007A2858 + nTextX, 0x37 - gnGlobal_007A285C, 0, 0);
                         }
                         return;
                     }

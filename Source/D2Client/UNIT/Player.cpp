@@ -106,7 +106,7 @@ D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00
 
 void __fastcall sub_004647A0_SetPacketBuffer(void* pArg, D2PacketBufferStrc* pBuffer); // 0x004647A0
 
-void __fastcall sub_004F52A0_SetOffset(int nOffset); // 0x004F52A0
+void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset); // 0x004F52A0
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
@@ -678,7 +678,7 @@ void __fastcall sub_0045AEA0_SetPanelSlide(int nMode)
         break;
     }
     gdwGlobal_007A5210 = nMode;
-    sub_004F52A0_SetOffset(gnGlobal_007A5214);
+    D2GFX_SetViewMatrixAdjust(gnGlobal_007A5214);
     const int nWidth = gnAutomapWidth_007A5220;
     const int nQuarter = nWidth / 4;
     switch (nMode)

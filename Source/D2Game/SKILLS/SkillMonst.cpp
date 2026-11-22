@@ -410,7 +410,7 @@ void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg);
 
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                               // 0x004F21B0
 
-int __cdecl sub_004F51C0_IsHighVideoMode();                                                                 // 0x004F51C0
+int __cdecl D2GFX_IsHardwareRenderMode();                                                                 // 0x004F51C0
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 

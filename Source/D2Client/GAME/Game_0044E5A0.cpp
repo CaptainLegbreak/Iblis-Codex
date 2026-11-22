@@ -151,9 +151,9 @@ struct D2CharInfo { char pad[0xbd]; char name[0x132]; unsigned short flags; };
 
 D2CharInfo* __cdecl sub_0044B7A0_GetCharInfo(); // 0x0044B7A0
 
-int __fastcall sub_00501820(const Unicode*); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502320
 
 const char* __stdcall D2Win_10161(int nClass, int nLevel, int bExpansion, int bSoftCore); // 0x005068A0
 
@@ -283,7 +283,7 @@ void __fastcall sub_00492F40_SetFade(int nMode); // 0x00492F40
 
 int __fastcall sub_0044DFF0_TimerExpired(D2LoadingTimerStrc* pTimer); // 0x0044DFF0
 
-void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
+void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 
@@ -469,7 +469,7 @@ int __cdecl sub_004F59A0(); // 0x004F59A0
 
 void __stdcall D2Win_10006_ClearDrawCaches(); // 0x004F9130
 
-void __fastcall sub_00515F50_FadeOutMaster(int); // 0x00515F50
+void __fastcall D2SOUND_FadeOutMasterVolume(int); // 0x00515F50
 
 int gdwGlobal_007A0680; // 0x007A0680
 
@@ -489,7 +489,7 @@ struct D2SaveHeaderStrc;
 
 extern "C" unsigned int __cdecl fwrite(const void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684449
 
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 struct D2SaveHeaderStrc
 {
@@ -525,10 +525,12 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
         return 0;
     D2Win_10015();
     D2Win_10014_SetWndProc((WNDPROC)sub_00451B30_WindowProc);
-    if (!sub_005259C0(sub_004FAC80(sub_00408F20_HasExpansionMpq()), 0))
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0))
         return 0;
     int nLanguage;
-    sub_00525260(&nLanguage, 0);
+// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
+    STRTABLE_GetLanguageInfoField(&nLanguage, 0);
     sub_00619300(sub_004FAC80(0), *(int*)pRecord->aState == 6);
     gnLaunchState_0070EE4C = 3;
     gdwGlobal_0070EE8C = 1;
@@ -739,8 +741,8 @@ void __cdecl sub_0044E5A0_DrawOverlayB() {
  char name[100];
  strcpy(name,info->name);
  sub_00526320_ToUnicode(nameText,name,64);
- int halfNameWidth=sub_00501820(nameText)/2;
- sub_00502320(nameText,gnScreenWidth/2-halfNameWidth,187,4,0);
+ int halfNameWidth=D2Win_10121_GetTextWidth(nameText)/2;
+ D2Win_10117_DrawText(nameText,gnScreenWidth/2-halfNameWidth,187,4,0);
  int hardcore=info->flags&4;
  int expansion=info->flags&0x20;
  unsigned char classId=gnClass;
@@ -764,9 +766,9 @@ void __cdecl sub_0044E5A0_DrawOverlayB() {
  if(text) {
   strcpy(title,text);strcat(title,name);
   sub_00526320_ToUnicode(titleText,title,64);
-  int x=gnScreenWidth/2-sub_00501820(titleText)/2;
+  int x=gnScreenWidth/2-D2Win_10121_GetTextWidth(titleText)/2;
   int y=277; if(gbExpansion)y=357;
-  sub_00502320(titleText,x,y,4,0);
+  D2Win_10117_DrawText(titleText,x,y,4,0);
  }
 }
 
@@ -871,7 +873,7 @@ int __stdcall sub_0044E770_DrawEndGameScreen(int nUnused)
             {
                 nOffset = 2;
             }
-            sub_00502320(D2LANG_GetStringFromTblIndex(0x13EE), nX - nOffset, gnGlobal_00711470 + nOffset - 0x58, 0, 0);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x13EE), nX - nOffset, gnGlobal_00711470 + nOffset - 0x58, 0, 0);
             sub_004684C0();
             D2GFX_EndScene();
         }
@@ -971,7 +973,7 @@ int __cdecl sub_0044F360_RunGameSession()
     }
     sub_00451BB0_MessageLoop(sub_0044EFA0_GameFrame);
     GetTickCount();
-    sub_00515F50_FadeOutMaster(180);
+    D2SOUND_FadeOutMasterVolume(180);
     sub_00481830();
     if(sub_0044E040_TimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)sub_00451BB0_MessageLoop(sub_0044E400_LoadingTimerCallback);
     if(UI_IsRecordingEnabled())sub_00451620_WriteRecordFile();
@@ -1060,7 +1062,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
 {
     sub_0046EFD0_DrawFramedBox(0x78, 0x1E, 0x190, 0x15E, 0, 0);
     D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
-    sub_00502320(D2LANG_GetStringFromTblIndex(0xFA4), 0x96, 0x37, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xFA4), 0x96, 0x37, 4, 0);
     int nY = 2 * gnLineHeight_007111C8 + 0x1E;
     while (pEntry)
     {
@@ -1069,7 +1071,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
         sub_00526F20_ToUnicode(wszName, szName, 16);
         const int nRowY = nY + 0x19;
         wszName[15].wChar = 0;
-        sub_00502320(wszName, 0x96, nRowY, 0, 0);
+        D2Win_10117_DrawText(wszName, 0x96, nRowY, 0, 0);
 
         Unicode wszLine[20] = {};
         const Unicode* pText;
@@ -1091,7 +1093,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
             wszLine[19].wChar = 0;
             pText = wszLine;
         }
-        sub_00502320(pText, 0x140, nRowY, 0, 0);
+        D2Win_10117_DrawText(pText, 0x140, nRowY, 0, 0);
 
         if (CHAT_IsNumberDisplayEnabled())
         {
@@ -1099,7 +1101,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
             char szValue[12];
             wsprintfA(szValue, gszFormatD_006D57BC, sub_00479B80_GetRecordValue(pEntry));
             sub_00526F20_ToUnicode(wszValue, szValue, 12);
-            sub_00502320(wszValue, 0x82, nRowY, 4, 0);
+            D2Win_10117_DrawText(wszValue, 0x82, nRowY, 4, 0);
         }
 
         pEntry = sub_004795A0_GetNextEntry(pEntry);
@@ -1194,7 +1196,7 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
     {
         sprintf(szAct, "ACT%d", DRLG_GetActNoFromLevelId(nLevelId) + 1);
     }
-    sub_00525260(szLanguage, 0);
+    STRTABLE_GetLanguageInfoField(szLanguage, 0);
     sprintf(szPath, "%s\\UI\\%s\\%s\\%s", gszDataLocal_006D41A8, szLanguage, szAct, pLevelsTxt->szEntryFile);
     for (int i = 0; i < gnQuestScreens_0070F92C; ++i)
     {
@@ -1209,7 +1211,7 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
     {
         gpLoadingCell_007A2794 = sub_004788B0_LoadCellFile(szPath, 0);
     }
-    sub_00502680_DrawCellFile(gpLoadingCell_007A2794, gnGlobal_0071146C / 2, gnGlobal_00711470 / 2 - 140, 1, 5, 1);
+    D2Win_10134_DrawCellFile(gpLoadingCell_007A2794, gnGlobal_0071146C / 2, gnGlobal_00711470 / 2 - 140, 1, 5, 1);
 }
 
 // 0x00456550
@@ -1298,7 +1300,7 @@ void __cdecl sub_0045C520_SaveCharFile()
         gpCharRecord_007A0438->wValue = *(unsigned short*)(pBuffer + 0x24);
     }
 
-    sub_00407050_GetSavePath(szDir, 0x400);
+    FOG_GetSavePath(szDir, 0x400);
     sprintf(szPath, "%s%s.d2s", szDir, gszCharName_007A05C4);
     _iobuf* pFile = fopen(szPath, "wb");
     if (pFile)

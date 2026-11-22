@@ -43,7 +43,7 @@ D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                  
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage);
+static int ANIMIMAGE_UpdateState(D2WinAnimImageStrc* pAnimImage); // 0x00500480
 
 int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
@@ -54,7 +54,7 @@ int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
 // 0x00500310
-extern "C" int __fastcall sub_00500310_GetAnimImageField50(D2WinAnimImageStrc* ptAnim)
+extern "C" int __fastcall D2Win_10106(D2WinAnimImageStrc* ptAnim)
 {
     D2_ASSERT(ptAnim->controlHeader.eType == D2WIN_IMAGE, 0x50);
     return ptAnim->nAnimType;
@@ -80,7 +80,7 @@ int __fastcall D2Win_10104(D2WinAnimImageStrc* ptAnim)
 }
 
 // 0x00500480
-static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage)
+static int ANIMIMAGE_UpdateState(D2WinAnimImageStrc* pAnimImage)
 {
     D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x9A);
 
@@ -162,7 +162,7 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
 
     int nX = pAnimImage->controlHeader.nImageX;
     int nY = pAnimImage->controlHeader.nImageY;
-    sub_00500480_AnimImageUpdateState(pAnimImage);
+    ANIMIMAGE_UpdateState(pAnimImage);
 
     D2CelFileStrc* pCellFile1 = 0;
     D2CelFileStrc* pCellFile2 = 0;
@@ -241,7 +241,7 @@ extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int b
 }
 
 // 0x00500B20
-extern "C" void __fastcall sub_00500B20_SetButtonField5C(D2WinButtonStrc* ptBtnData, int nValue)
+extern "C" void __fastcall BUTTON_SetBaseFrame(D2WinButtonStrc* ptBtnData, int nValue)
 {
     D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_TYPE_6, 0xD6);
     ptBtnData->nBaseFrame = nValue;
@@ -262,7 +262,7 @@ extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* p
 }
 
 // 0x005080C0
-extern "C" void __fastcall sub_005080C0_SetScrollBarField50(D2WinScrollBarStrc* ptScrollbarData, int nValue)
+extern "C" void __fastcall D2Win_10202(D2WinScrollBarStrc* ptScrollbarData, int nValue)
 {
     D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_TYPE_5, 0xCA);
     ptScrollbarData->nPageStep = nValue;

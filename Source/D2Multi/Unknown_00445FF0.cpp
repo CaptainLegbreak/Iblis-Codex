@@ -67,7 +67,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, int (__stdcall* pfnDone)(int));                 // 0x0043FB50
 void __cdecl sub_004453B0_BuildPanel();                                                                     // 0x004453B0
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
-void __stdcall sub_004FA450(void* a1); // 0x004FA450
+void __stdcall CONTROL_SetEscapeButton(void* a1); // 0x004FA450
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));// 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));// 0x004FDB00
 extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed); // 0x005009A0
@@ -76,7 +76,7 @@ void __cdecl sub_00445300_LoadLvlRest();                                        
 void __cdecl sub_004431B0();                                                                                // 0x004431B0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue);// 0x004150E0
 void __fastcall sub_0043F560_Disable(D2WinControlStrc* pControl);                                           // 0x0043F560
-int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox);                                                      // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox);                                                      // 0x004F91C0
 int __stdcall sub_00445550(int nArg); // 0x00445550
 int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x00443540
 int __stdcall sub_004456A0_OnEnter(int nArg);                                                               // 0x004456A0
@@ -116,7 +116,7 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     }
     gpControl_00798C28 = CONTROL_Create(&gtControlInit_0070DCC0);
     gpControl_00798C48 = CONTROL_Create(&gtControlInit_0070E110);
-    sub_004FA450(gpControl_00798C48);
+    CONTROL_SetEscapeButton(gpControl_00798C48);
     gpCreateName_00798C2C = CONTROL_Create(&gtControlInit_0070DBD0);
     sub_004FDD50_SetMaxLength(gpCreateName_00798C2C, 0x10);
     sub_004FDAD0_SetKeyCallback(gpCreateName_00798C2C, sub_00443540_IsNameChar);
@@ -144,7 +144,8 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
         sub_004FDD50_SetMaxLength(gpControl_00798C3C, 3);
         sub_004FDAD0_SetKeyCallback(gpControl_00798C3C, sub_004FE770_IsDigitChar);
         sub_004FDB00_SetEnterCallback(gpControl_00798C3C, sub_004456C0_OnEnter);
-        sub_004F96F0_ControlClearState(gpControl_00798C3C, 0);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControl_00798C3C, 0);
         gpControl_00798C04 = CONTROL_Create(&gtControlInit_0070DB70);
         sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 5, 0, 0);
         gpControl_00798C08 = CONTROL_Create(&gtControlInit_0070DBA0);
@@ -157,11 +158,11 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
         sub_00500B20_SetValue(gpControl_00798C18, 2);
         sub_00500B20_SetValue(gpControl_00798C20, 2);
         sub_004F9740_SetControlState(gpControl_00798C24, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C24, 0);
+        CONTROL_SetEnabled(gpControl_00798C24, 0);
         sub_004F9740_SetControlState(gpControl_00798C1C, 0);
         sub_004F9740_SetControlState(gpControl_00798C20, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C1C, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C20, 0);
+        CONTROL_SetEnabled(gpControl_00798C1C, 0);
+        CONTROL_SetEnabled(gpControl_00798C20, 0);
         sub_004FDDD0_LinkTab(gpCreateName_00798C2C, gpControl_00798C30);
         sub_004FDDD0_LinkTab(gpControl_00798C30, gpControl_00798C34);
         sub_004FDDD0_LinkTab(gpControl_00798C34, gpControl_00798C38);
@@ -185,12 +186,12 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
         sub_004F9740_SetControlState(gpControl_00798C44, 1);
         gpControl_00798C24 = CONTROL_Create(&gtControlInit_0070DF30);
         sub_004F9740_SetControlState(gpControl_00798C24, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C24, 0);
+        CONTROL_SetEnabled(gpControl_00798C24, 0);
         gpControl_00798C0C = CONTROL_Create(&gtControlInit_0070DF60);
         sub_004F9740_SetControlState(gpControl_00798C0C, 1);
         gpControl_00798C10 = CONTROL_Create(&gtControlInit_0070DF90);
         sub_004F9740_SetControlState(gpControl_00798C10, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C10, 0);
+        CONTROL_SetEnabled(gpControl_00798C10, 0);
     }
     int bSelected = 0;
     unsigned long dwDifficulty = 0;
@@ -242,7 +243,7 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
         BUTTON_SetIsPressed((D2WinButtonStrc*)gpControl_00798C4C, 1);
         gnDiffSelect_00798CD0 = 0;
     }
-    sub_004F91C0((D2WinEditBoxStrc*)gpCreateName_00798C2C);
+    CONTROL_SetFocusedEditBox((D2WinEditBoxStrc*)gpCreateName_00798C2C);
     if (sub_00449B30_QueryAddress())
         sub_00445550(0);
 }

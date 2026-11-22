@@ -46,7 +46,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-int __cdecl sub_00408F20_HasExpansionMpq();                                                                 // 0x00408F20
+int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 void __cdecl sub_0044DA40();                                                                                // 0x0044DA40
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
@@ -184,7 +184,7 @@ static int sub_004B2E30_FindNpcIndex(D2UnitStrc* pRecord)
 
 static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
 {
-    if (!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0())
+    if (!FOG_IsExpansion() || !sub_0044DCC0())
     {
         return 0;
     }

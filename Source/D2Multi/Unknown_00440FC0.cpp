@@ -19,7 +19,7 @@ void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__s
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(void*)); // 0x004FDB00
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void* __cdecl sub_00446CF0(); // 0x00446CF0
-int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 extern D2WinControlInitStrc gtControlInit_0070D8D0; // 0x0070D8D0
 extern D2WinControlInitStrc gtControlInit_0070D900; // 0x0070D900
 extern D2WinControlInitStrc gtControlInit_0070D930; // 0x0070D930
@@ -126,7 +126,7 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
     }
 
     sub_004FFE10_SetTextA(gpEditBox_0077BCF4, (const char*)sub_00446CF0());
-    sub_004F91C0(gpEditBox_0077BCF4);
+    CONTROL_SetFocusedEditBox(gpEditBox_0077BCF4);
     D2Win_10082(gpEditBox_0077BCF4);
     D2Win_10053(gpControl_0077BCFC, 0);
     sub_0043E660_UpdateOkEnabled();

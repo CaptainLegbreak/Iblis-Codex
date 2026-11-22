@@ -15,7 +15,8 @@ static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
 static void sub_0042FD10_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile)
 {
     char szLang[4];
-    sub_00525260(szLang, 0);
+// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
+    STRTABLE_GetLanguageInfoField(szLang, 0);
     sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
     if (sub_0042FCE0_ArchiveFilePresent(szOut))
         return;

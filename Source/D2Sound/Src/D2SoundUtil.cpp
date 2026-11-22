@@ -36,7 +36,7 @@ struct D2FixedFileInfoStrc
     unsigned short wFileVersionLSLow;
 };
 
-int __fastcall sub_00516AC0_ReadVxdVersionResource(const char* szFileName, unsigned long* pSize, void* pBuffer); // 0x00516AC0
+int __fastcall D2SOUND_ReadVxdVersionResource(const char* szFileName, unsigned long* pSize, void* pBuffer); // 0x00516AC0
 extern "C" int __stdcall VerQueryValueA(const void* pBlock, const char* szSubBlock, void** ppBuffer, unsigned int* puLen); // 0x006B01A4
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* lpFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* lpSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 extern "C" __declspec(dllimport) void* __stdcall CreateFileMappingA(void* hFile, void* lpAttributes, unsigned long flProtect, unsigned long dwMaximumSizeHigh, unsigned long dwMaximumSizeLow, const char* lpName); // 0x006CC314
@@ -67,7 +67,7 @@ struct D2DosHeaderStrc
 };
 
 // 0x00516950
-void __fastcall sub_00516950_LinkEntry(T00516950** ppList, void* pData)
+void __fastcall D2SOUND_ListAddHead(T00516950** ppList, void* pData)
 {
     T00516950* pNode = (T00516950*)FOG_Alloc(sizeof(T00516950), szD2SoundUtilFile_006DEB68, 0xD5, 0);
     memset(pNode, 0, sizeof(T00516950));
@@ -78,7 +78,7 @@ void __fastcall sub_00516950_LinkEntry(T00516950** ppList, void* pData)
 }
 
 // 0x00516980
-void __fastcall sub_00516980_RemoveNode(D2SoundNode00516980Strc** ppList, int nId)
+void __fastcall D2SOUND_ListRemove(D2SoundNode00516980Strc** ppList, int nId)
 {
     D2SoundNode00516980Strc* pPrev = 0;
     for (D2SoundNode00516980Strc* pNode = *ppList; pNode; pNode = pNode->pNext)
@@ -101,7 +101,7 @@ void __fastcall sub_00516980_RemoveNode(D2SoundNode00516980Strc** ppList, int nI
 }
 
 // 0x005169D0
-extern "C" __declspec(dllexport) int __fastcall sub_005169D0(Node005169D0* pNode, int nId) {
+extern "C" __declspec(dllexport) int __fastcall D2SOUND_ListContains(Node005169D0* pNode, int nId) {
     for (; pNode; pNode = pNode->pNext) {
         if (pNode->nId == nId) {
             return 1;
@@ -111,7 +111,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_005169D0(Node005169D0* pNode
 }
 
 // 0x005169F0
-int __fastcall sub_005169F0_CountEntries(T00516950* pNode)
+int __fastcall D2SOUND_ListCount(T00516950* pNode)
 {
     int nCount = 0;
     while (pNode)
@@ -146,7 +146,7 @@ static inline void RemoveNode(D2SoundNodeStrc** ppList, int nKey)
 }
 
 // 0x00516A10
-void __fastcall sub_00516A10_FreeList(D2SoundNodeStrc** ppList)
+void __fastcall D2SOUND_ListFree(D2SoundNodeStrc** ppList)
 {
     while (*ppList)
     {
@@ -155,7 +155,7 @@ void __fastcall sub_00516A10_FreeList(D2SoundNodeStrc** ppList)
 }
 
 // 0x00516A70
-void __fastcall sub_00516A70_AppendNode(D2SoundNodeStrc** ppList, int nKey)
+void __fastcall D2SOUND_ListAddTail(D2SoundNodeStrc** ppList, int nKey)
 {
     D2SoundNodeStrc* pNew = (D2SoundNodeStrc*)FOG_Alloc(sizeof(D2SoundNodeStrc), ".\\Src\\D2SoundUtil.cpp", 0x120, 0);
     memset(pNew, 0, sizeof(D2SoundNodeStrc));
@@ -174,7 +174,7 @@ void __fastcall sub_00516A70_AppendNode(D2SoundNodeStrc** ppList, int nKey)
 }
 
 // 0x00516AC0
-int __fastcall sub_00516AC0_ReadVxdVersionResource(const char* szFileName, unsigned long* pSize, void* pBuffer)
+int __fastcall D2SOUND_ReadVxdVersionResource(const char* szFileName, unsigned long* pSize, void* pBuffer)
 {
     void* hFile = 0;
     void* hMapping = 0;
@@ -248,10 +248,10 @@ int __fastcall sub_00516AC0_ReadVxdVersionResource(const char* szFileName, unsig
 }
 
 // 0x00516C40
-unsigned long __fastcall sub_00516C40_GetVersionInfoSize(const char* szPath)
+unsigned long __fastcall D2SOUND_GetVxdVersionInfoSize(const char* szPath)
 {
     unsigned long nSize = 0;
-    if (!sub_00516AC0_ReadVxdVersionResource(szPath, &nSize, 0) && GetLastError() == 0x7A)
+    if (!D2SOUND_ReadVxdVersionResource(szPath, &nSize, 0) && GetLastError() == 0x7A)
     {
         SetLastError(0);
         return nSize;
@@ -260,20 +260,20 @@ unsigned long __fastcall sub_00516C40_GetVersionInfoSize(const char* szPath)
 }
 
 // 0x00516C80
-int __fastcall sub_00516C80_GetVersionInfo(const char* szPath, unsigned long nSize, void* pBuffer)
+int __fastcall D2SOUND_GetVxdVersionInfo(const char* szPath, unsigned long nSize, void* pBuffer)
 {
-    return sub_00516AC0_ReadVxdVersionResource(szPath, &nSize, pBuffer);
+    return D2SOUND_ReadVxdVersionResource(szPath, &nSize, pBuffer);
 }
 
 // 0x00516CA0
-int __fastcall sub_00516CA0_GetFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild)
+int __fastcall D2SOUND_GetVxdFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild)
 {
-    unsigned long nSize = sub_00516C40_GetVersionInfoSize(szPath);
+    unsigned long nSize = D2SOUND_GetVxdVersionInfoSize(szPath);
     if (!nSize)
         return 0;
 
     void* pBuffer = FOG_Alloc(nSize, szD2SoundUtilFile_006DEB68, 0x21C, 0);
-    if (!sub_00516C80_GetVersionInfo(szPath, nSize, pBuffer))
+    if (!D2SOUND_GetVxdVersionInfo(szPath, nSize, pBuffer))
     {
         FOG_Free(pBuffer, szD2SoundUtilFile_006DEB68, 0x221, 0);
         return 0;

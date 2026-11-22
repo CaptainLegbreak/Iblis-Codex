@@ -446,9 +446,10 @@ void __cdecl sub_004477A0_Refresh()
     if (pText && sub_00526800(pText))
         bHasText = 1;
 
-    sub_004F96F0_ControlClearState(gpChatControl_0077B06C, bHasText);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B058, bHasText);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B05C, gpSelectedChannelUser_00798F48 && bHasText);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+    CONTROL_SetEnabled(gpChatControl_0077B06C, bHasText);
+    CONTROL_SetEnabled(gpChatControl_0077B058, bHasText);
+    CONTROL_SetEnabled(gpChatControl_0077B05C, gpSelectedChannelUser_00798F48 && bHasText);
 
     unsigned int nFlags = 0;
     if (gpSelectedChannelUser_00798F48 && gpSelectedChannelUser_00798F48->pComposite)
@@ -457,8 +458,8 @@ void __cdecl sub_004477A0_Refresh()
         nFlags = gdwBitMasks[9] & nComposite;
     }
 
-    sub_004F96F0_ControlClearState(gpChatControl_0077B064, gpSelectedChannelUser_00798F48 && !nFlags);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B068, gpSelectedChannelUser_00798F48 && nFlags);
+    CONTROL_SetEnabled(gpChatControl_0077B064, gpSelectedChannelUser_00798F48 && !nFlags);
+    CONTROL_SetEnabled(gpChatControl_0077B068, gpSelectedChannelUser_00798F48 && nFlags);
 }
 
 // build: context sub_00446D30_Shim

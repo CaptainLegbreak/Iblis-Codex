@@ -12,7 +12,7 @@ struct _iobuf;
 struct z_stream;
 
 __declspec(noreturn) void __cdecl sub_006B1A30_ThrowAtlException(long error); // 0x006B1A30
-bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext); // 0x00404E60
+bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext); // 0x00404E60
 extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile); // 0x006CC1C4
 extern "C" __declspec(dllimport) int __stdcall FlushFileBuffers(void* hFile); // 0x006CC328
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
@@ -132,7 +132,7 @@ extern void* ghDbgHelp_0098A680; // 0x0098A680
 extern void* ghProcess_0074C6F0; // 0x0074C6F0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall deflate(z_stream* strm, int flush); // 0x00428C60
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
+int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 int __stdcall GetCmdIndex(const char* s); // 0x00405570
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned long dwMoveMethod); // 0x004165A0
 void __stdcall SErrSetLastError(unsigned int); // 0x0041C340

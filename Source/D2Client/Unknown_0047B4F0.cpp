@@ -2,9 +2,9 @@
 #include "D2Unicode.h"
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C
@@ -17,7 +17,7 @@ static void sub_0047B450_DrawBlinkingCaret(int nY, int nColor, int nX)
 {
     if (gnBlinkOn_00713004 == 1)
     {
-        sub_00502320(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
     }
 
     const unsigned long dwTick = GetTickCount();
@@ -45,16 +45,16 @@ void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
     int nTextY = nY;
     if (sub_00526800(gwChatText_007BB5F8))
     {
-        nWidth = sub_00501820(gwChatText_007BB5F8);
+        nWidth = D2Win_10121_GetTextWidth(gwChatText_007BB5F8);
         if (nWidth + nTextX - 0x83 > gnGlobal_0071146C - 0x109)
         {
             nTextX = 0x83;
             nTextY += 0xF;
         }
-        sub_00502320(gwChatText_007BB5F8, nTextX, nTextY, 4, 0);
+        D2Win_10117_DrawText(gwChatText_007BB5F8, nTextX, nTextY, 4, 0);
     }
 
-    const int nWidth2 = sub_00501820(gwChatText_007BC850);
+    const int nWidth2 = D2Win_10121_GetTextWidth(gwChatText_007BC850);
     if (sub_00526800(gwChatText_007BC850))
     {
         if (nWidth2 + nTextX + nWidth - 0x83 > gnGlobal_0071146C - 0x109)
@@ -62,7 +62,7 @@ void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
             nTextX = 0x83;
             nTextY += 0xF;
         }
-        sub_00502320(gwChatText_007BC850, nTextX + nWidth, nTextY, 4, 0);
+        D2Win_10117_DrawText(gwChatText_007BC850, nTextX + nWidth, nTextY, 4, 0);
     }
 
     sub_0047B450_DrawBlinkingCaret(nTextY, 4, nWidth2 + nTextX + nWidth - 0x83);

@@ -855,7 +855,8 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
     if (!pTxt)
         return;
 
-    if (!sub_00408F20_HasExpansionMpq() && pTxt->wPreDraw >= 0x64)
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!FOG_IsExpansion() && pTxt->wPreDraw >= 0x64)
         return;
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();

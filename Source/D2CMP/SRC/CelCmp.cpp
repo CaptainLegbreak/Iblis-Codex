@@ -1842,7 +1842,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 
 D2TileFreeCallbackFn gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
 
-int __fastcall sub_00516F14_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00516F14
+int __fastcall ARCHIVE_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00516F14
 
 void __fastcall LRUCacheTouch(D2CmpPoolStrc* pPool, D2LRUNodeStrc* pNode); // 0x00609380
 
@@ -4094,7 +4094,7 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
         return 0;
     }
 
-    sub_00516F14_SetFilePointer(0, hFile, pEntry->nFileOffset, 0, 0);
+    ARCHIVE_SetFilePointer(0, hFile, pEntry->nFileOffset, 0, 0);
     ARCHIVE_ReadFileToBuffer(0, hFile, pEntry->pBlocks, pEntry->nSize);
     ARCHIVE_CloseFile(0, hFile);
     sub_0060A4C0_TileEntryLoaded(pEntry);

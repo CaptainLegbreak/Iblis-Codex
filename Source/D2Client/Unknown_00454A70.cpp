@@ -16,8 +16,8 @@ extern int gnHoverTextState_007A2C78; // 0x007A2C78
 int __fastcall UI_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
@@ -76,9 +76,9 @@ static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int 
     }
     const int nOldFont = sub_00502EF0(nFont);
     sub_005267E0(wszBuffer, wszText);
-    const int nWidth = sub_00501820(wszBuffer);
+    const int nWidth = D2Win_10121_GetTextWidth(wszBuffer);
     const int nX = ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1);
-    sub_00502320(wszBuffer, nX, nY, nColor, 1);
+    D2Win_10117_DrawText(wszBuffer, nX, nY, nColor, 1);
     sub_00502EF0(nOldFont);
 }
 
@@ -229,7 +229,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         D2RectStrc tRect;
         if (UI_GetHoverRect(&tRect))
         {
-            const int nX = ((tRect.nRight + tRect.nLeft) >> 1) - (sub_00501820((Unicode*)wszText) >> 1);
+            const int nX = ((tRect.nRight + tRect.nLeft) >> 1) - (D2Win_10121_GetTextWidth((Unicode*)wszText) >> 1);
             D2Win_10130_DrawFramedTextEx((Unicode*)wszText, nX, 0x20, nColor, 0, nY);
             if (!bDead)
             {

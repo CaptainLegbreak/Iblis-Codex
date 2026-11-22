@@ -28,7 +28,7 @@ int __fastcall FOG_SOCKET_GetError(FSafeSock* pSafeSock, unsigned long* pFogErro
 int __fastcall sub_0044A1D0_StartConnect(D2LaunchThreadRecordStrc* pRecord);                                // 0x0044A1D0
 int __fastcall sub_0044B1C0_HandlePacket(const unsigned char* pData, unsigned int nSize, int nArg);         // 0x0044B1C0
 void __stdcall sub_006BC010_SetHandler(void* pConnection, D2LaunchPacketHandler pfnHandler, int nArg);      // 0x006BC010
-int __stdcall sub_006BC0B0_Send(void* pConnection, const char* pData, int nSize);                           // 0x006BC0B0
+int __stdcall FOG_ConnectionSend(void* pConnection, const char* pData, int nSize);                           // 0x006BC0B0
 void __stdcall sub_006BC5A0_Start(void* pConnection);                                                       // 0x006BC5A0
 void __stdcall sub_006BC680_Close(void* pConnection);                                                       // 0x006BC680
 T006BC290* __stdcall sub_006BC6A0_AllocSocketRecord(const char* szName, int nValue, const char* szLabel); // 0x006BC6A0
@@ -81,7 +81,8 @@ void __stdcall sub_00449FB0_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
 // 0x0044A070
 int __cdecl sub_0044A070_ConnectThread()
 {
-    const char* szAddress = sub_0040E080_AddressToString(gnServerAddress_00798FC8);
+// build: symbol ?FOG_inet_ntoa@* 0x0040E080
+    const char* szAddress = FOG_inet_ntoa(gnServerAddress_00798FC8);
     gnValue_0079929C = 0;
     void* pConnection = sub_006BC6A0_AllocSocketRecord(szAddress, gnServerPort_00798FCC, "clt->mcp");
     gpConnection_00798FB4 = pConnection;
@@ -101,7 +102,7 @@ int __cdecl sub_0044A070_ConnectThread()
                 return 0;
             }
             char nValue = 1;
-            sub_006BC0B0_Send(pConnection, &nValue, 1);
+            FOG_ConnectionSend(pConnection, &nValue, 1);
             sub_00449FB0_WaitConnect(&gtThreadRecord_00798FB8);
             return gnValue_0079929C == 0;
         }

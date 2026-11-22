@@ -379,7 +379,7 @@ struct D2ConfigStrc
 
 extern char gszRealm_007A0500[]; // 0x007A0500
 void __cdecl sub_004776E0_SetModeValuesOne(); // 0x004776E0
-void __cdecl sub_004F5280(); // 0x004F5280
+void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
 void __cdecl sub_004776F0(); // 0x004776F0
 void __cdecl sub_00477700(); // 0x00477700
 void __cdecl sub_00477710(); // 0x00477710
@@ -2167,7 +2167,7 @@ void __fastcall sub_0044D760_ApplyConfigWindow(D2ConfigStrc* pConfig)
 void __fastcall sub_0044D770_ApplyConfigNoFixAspect(D2ConfigStrc* pConfig)
 {
     if (pConfig->bNoFixedAspect)
-        sub_004F5280();
+        D2GFX_DisableFixedAspectRatio();
 }
 
 // 0x0044D780

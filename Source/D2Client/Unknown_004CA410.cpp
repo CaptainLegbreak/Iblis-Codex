@@ -102,8 +102,8 @@ void __stdcall sub_004CB2C0_ReleaseMonsterSfx(D2UnitStrc* pUnit);
 void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
 
 
-void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
-void __fastcall sub_00516980_RemoveNode(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516980
+void __fastcall D2SOUND_ListAddHead(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
+void __fastcall D2SOUND_ListRemove(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516980
 int __fastcall sub_004818F0_GetCacheKind(int nIndex); // 0x004818F0
 
 struct T00481920
@@ -1055,7 +1055,7 @@ int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode)
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    sub_00516980_RemoveNode((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
+    D2SOUND_ListRemove((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 // 0x004CA9C0

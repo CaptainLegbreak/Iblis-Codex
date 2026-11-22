@@ -93,7 +93,7 @@ extern "C" int __cdecl atoi(const char* szString);
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __cdecl sub_0045AE90();
 void __fastcall sub_0049D8E0_DrawTextList(T00479230* pTextBox, int nX, int nY);
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
 int __fastcall sub_00502EF0(int nArg);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -127,7 +127,7 @@ struct D2TextNodeStrc
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 extern D2TextListStrc gtTextList_007BF1EA; // 0x007BF1EA
 
 struct D2StringSoundStrc
@@ -165,7 +165,8 @@ void __cdecl TEXT_LoadWaypointPanelCels()
     }
     if (!gpCelFile_007BF075)
     {
-        if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion() && sub_0044DCC0())
         {
             sprintf(szPath, "%s\\ui\\menu\\expwaygatetabs", szDataGlobal_006D4118);
         }
@@ -229,7 +230,7 @@ void __cdecl sub_004A23D0_LoadPanelCels()
     }
     if (!gpCelFile_007BF2D9)
     {
-        if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+        if (FOG_IsExpansion() && sub_0044DCC0())
         {
             sprintf(szPath, "%s\\ui\\menu\\expquesttabs", szDataGlobal_006D4118);
         }
@@ -328,7 +329,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
     pBox->nTextBottom = pBox->f_14;
     for (T0044CB60* pLine = pBox->pFirst; pLine; pLine = pLine->pNext)
     {
-        nMaxWidth = nMaxWidth > sub_00501820(pLine->pText) ? nMaxWidth : sub_00501820(pLine->pText);
+        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->pText) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->pText);
     }
     pBox->nWidth = nMaxWidth + 0x14;
     pBox->nHeight = pBox->nLines * 0x0F + 6;
@@ -590,7 +591,7 @@ void __cdecl TEXT_DrawOverheadTextList()
                 {
                     sub_0046EFD0_DrawFramedBox(nX - 5, gnGlobal_00711470 - 25 * nBoxRow - i * 25 / 2 - 0x81,
                                                D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i])) + 10, 0x10, 0, 1);
-                    sub_00502320(pNode->pLines[i], nX, gnGlobal_00711470 + 25 * nTextRow - i * 25 / 2 - 0x73, pNode->nColor, 0);
+                    D2Win_10117_DrawText(pNode->pLines[i], nX, gnGlobal_00711470 + 25 * nTextRow - i * 25 / 2 - 0x73, pNode->nColor, 0);
                 }
             }
             pNode = pNode->pNext;

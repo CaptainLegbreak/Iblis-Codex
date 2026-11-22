@@ -9,7 +9,7 @@ int __stdcall sub_006C9B76_Bind(unsigned int socket,const D2SockAddrStrc* addres
 int __stdcall sub_006C9B70_Listen(unsigned int socket,int backlog); // 0x006C9B70
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 unsigned long __stdcall sub_006C3470_ServerThread(void* context); // 0x006C3470
-void __fastcall sub_00407F80_ThreadHookNop2(unsigned int nId, void* hThread); // 0x00407F80
+void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread); // 0x00407F80
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* attributes,int manualReset,int initialState,const char* name);
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* attributes,unsigned int stackSize,unsigned long (__stdcall* routine)(void*),void* argument,unsigned long flags,unsigned long* id);
 // 0x006C3B50
@@ -40,6 +40,6 @@ int __fastcall sub_006C3B50_StartServer(D2QueueServerStrc* server,int port)
   sub_0040D880(socket);
  server->hEvent=CreateEventA(0,0,0,0);
  server->hAcceptThreads[0]=CreateThread(0,0,sub_006C3470_ServerThread,server,0,&server->aThreadIds[0]);
- sub_00407F80_ThreadHookNop2(server->aThreadIds[0],server->hAcceptThreads[0]);
+ ERRORMANAGER_RegisterThread(server->aThreadIds[0],server->hAcceptThreads[0]);
  return 1;
 }

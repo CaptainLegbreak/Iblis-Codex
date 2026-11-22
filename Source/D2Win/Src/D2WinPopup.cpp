@@ -42,7 +42,7 @@ int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size); // 0x00681EF0
 
 // 0x00508710
-int __fastcall sub_00508710(D2WinControlStrc* pControl)
+int __fastcall POPUP_UpdateHoveredLine(D2WinControlStrc* pControl)
 {
     D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)pControl;
 
@@ -124,7 +124,7 @@ void __stdcall POPUP_Create()
     pPopUp->controlHeader.nImageX = gMousePosition_6F8FE234.x;
     pPopUp->controlHeader.nImageY = gMousePosition_6F8FE234.y;
     pPopUp->controlHeader.pfDraw = POPUP_Draw;
-    pPopUp->controlHeader.pfInitialize = sub_00508710;
+    pPopUp->controlHeader.pfInitialize = POPUP_UpdateHoveredLine;
     pPopUp->controlHeader.pNext = 0;
     pPopUp->controlHeader.pfHandleMouseDown = 0;
     pPopUp->controlHeader.pfHandleMouseUp = 0;

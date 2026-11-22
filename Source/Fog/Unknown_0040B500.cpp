@@ -13,7 +13,7 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
 extern "C" D2SETranslatorFn __cdecl _set_se_translator(D2SETranslatorFn pfnTranslator);                    // 0x00684AF3
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
-void __cdecl sub_0040D540_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo);         // 0x0040D540
+void __cdecl LOGMANAGER_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo);         // 0x0040D540
 
 extern D2CriticalSectionStrc gtImageHlpLock_0075CFBC;                                                       // 0x0075CFBC
 void* ghImageHlp_0075CFD8;                                                                                  // 0x0075CFD8
@@ -54,7 +54,7 @@ int __cdecl sub_0040D5B0_LoadImageHlp()
         return 1;
     }
     InitializeCriticalSection(&gtImageHlpLock_0075CFBC);
-    _set_se_translator(sub_0040D540_SETranslator);
+    _set_se_translator(LOGMANAGER_SETranslator);
     ghImageHlp_0075CFD8 = LoadLibraryA(".\\dbghelp.dll");
     if (!ghImageHlp_0075CFD8)
     {

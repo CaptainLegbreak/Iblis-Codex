@@ -31,7 +31,7 @@ void __cdecl sub_00443220_DestroyControls();                                    
 
 int __cdecl sub_00444E20();                                                                                 // 0x00444E20
 
-int __stdcall sub_004F91C0(void* pEditBox);                                                                  // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -87,7 +87,7 @@ struct D2CharSelCacheStrc;
 
 class BNGatewayAccess;
 
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 
 int __cdecl sub_00439210_Redraw(); // 0x00439210
 
@@ -178,15 +178,15 @@ void __fastcall sub_0043ADB0_UseName(char* szName);
 
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 
-void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
+void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 
 void __fastcall sub_004FB590(int nArg); // 0x004FB590
 
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 
-void __fastcall sub_004FD830_2(D2WinTimerStrc* pTimer); // 0x004FD830
+void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* pTimer); // 0x004FD830
 
-void __fastcall sub_004FDA50_2(D2WinTimerStrc* pTimer); // 0x004FDA50
+void __fastcall TIMER_SetRepeating(D2WinTimerStrc* pTimer); // 0x004FDA50
 
 void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight); // 0x00500A70
 
@@ -204,7 +204,7 @@ void __cdecl sub_0042F990_UpdateProgress(); // 0x0042F990
 
 int __cdecl sub_0042F6D0(); // 0x0042F6D0
 
-int __fastcall sub_004F9190(); // 0x004F9190
+int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 
@@ -300,7 +300,7 @@ void __cdecl sub_00436D50_CreateScreen()
     gpControl_007799D4 = sub_0042F430_CreateControl(0x128);
     sub_0042F430_CreateControl(0x129);
     sub_0042F430_CreateControl(0x12A);
-    sub_004F91C0(gpEdit_007799CC);
+    CONTROL_SetFocusedEditBox(gpEdit_007799CC);
     sub_004FDDD0_LinkTab(gpEdit_007799CC, gpEdit_007799D0);
     sub_004FDDD0_LinkTab(gpEdit_007799D0, gpEdit_007799CC);
     sub_00436CF0();
@@ -324,15 +324,16 @@ void __cdecl sub_00437B90_FreeCache()
 // 0x0043A730
 void __cdecl sub_0043A730_UpdateButtons()
 {
-    sub_004F96F0_ControlClearState(gpControl_007799F4, (gdwGlobal_00779DC4 > 0 && gnSelected_0070CC00 > gnSelectionA_0070CC04) ? 1 : 0);
-    sub_004F96F0_ControlClearState(gpControl_00779C68, gdwGlobal_00779DC4 > 0);
-    sub_004F96F0_ControlClearState(gpControl_007799F8, 1);
-    sub_004F96F0_ControlClearState(gpControl_00779A1C, 1);
-    sub_004F96F0_ControlClearState(gpControl_00779B64, 1);
-    if (sub_00408F20_HasExpansionMpq())
+    CONTROL_SetEnabled(gpControl_007799F4, (gdwGlobal_00779DC4 > 0 && gnSelected_0070CC00 > gnSelectionA_0070CC04) ? 1 : 0);
+    CONTROL_SetEnabled(gpControl_00779C68, gdwGlobal_00779DC4 > 0);
+    CONTROL_SetEnabled(gpControl_007799F8, 1);
+    CONTROL_SetEnabled(gpControl_00779A1C, 1);
+    CONTROL_SetEnabled(gpControl_00779B64, 1);
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
-        sub_004F96F0_ControlClearState(gpControl_00779C80, 1);
-        sub_004F96F0_ControlClearState(gpControl_00779D90, gdwGlobal_00779DB8 == 0);
+        CONTROL_SetEnabled(gpControl_00779C80, 1);
+        CONTROL_SetEnabled(gpControl_00779D90, gdwGlobal_00779DB8 == 0);
     }
     gnSelected_0070CC00 = 0;
     sub_00439210_Redraw();
@@ -372,7 +373,7 @@ static void sub_0043AD10_RequestCharList(char* szName)
 {
     sub_00438EA0_FreeCharList();
     gdwGlobal_00779DB8 = 0;
-    sub_004F96F0_ControlClearState(gpControl_00779D90, 1);
+    CONTROL_SetEnabled(gpControl_00779D90, 1);
     const unsigned int dwHash = SStrHash(szName, 0, 0);
     const int nTick = GetTickCount();
     void* pData = CharSelCache_FindData(dwHash, nTick);
@@ -403,7 +404,7 @@ void __fastcall sub_0043ADB0_UseName(char* szName)
     else if (gnLaunchMode_007795EC == 0 || gnLaunchMode_007795EC == 3 || gnLaunchMode_007795EC == 2)
     {
         sub_00438EA0_FreeCharList();
-        if (!sub_00408F20_HasExpansionMpq())
+        if (!FOG_IsExpansion())
             sub_0043A5D0_ShowMessage();
         sub_00438F70();
     }
@@ -427,7 +428,7 @@ static int sub_00437A20_FindSlotName(const char* szName)
 // 0x0043B080
 void __cdecl sub_0043B080_InitCharSelectScreen()
 {
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
     {
         sub_0043AE30_InitRealmList();
         return;
@@ -468,18 +469,18 @@ void __cdecl sub_0043B080_InitCharSelectScreen()
     gnState_00779DAC = 0;
 
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)sub_0042F430_CreateControl(0x7A);
-    sub_004FD830_2(pTimer);
-    sub_004FDA50_2(pTimer);
+    TIMER_DisableSpaceKey(pTimer);
+    TIMER_SetRepeating(pTimer);
     gpLaunchRecord_007795D4->nByte210 = 0;
 
     gpControl_007799F8 = sub_0042F430_CreateControl(0x7C);
     gpControl_007799F4 = sub_0042F430_CreateControl(0x7D);
-    sub_004F96F0_ControlClearState(gpControl_007799F4, 0);
+    CONTROL_SetEnabled(gpControl_007799F4, 0);
     gpControl_00779C68 = sub_0042F430_CreateControl(0x7E);
     gpControl_00779A1C = sub_0042F430_CreateControl(0x99);
     gpControl_00779B64 = sub_0042F430_CreateControl(0x9A);
-    sub_004F9740(gpControl_00779A1C, 0);
-    sub_004F9740(gpControl_00779B64, 0);
+    CONTROL_SetVisible(gpControl_00779A1C, 0);
+    CONTROL_SetVisible(gpControl_00779B64, 0);
     gpControl_00779B60 = sub_0042F430_CreateControl(0x9B);
     gpControl_007799F0 = sub_0042F430_CreateControl(0x9D);
     gpControl_00779C70 = sub_0042F430_CreateControl(0x9E);
@@ -537,12 +538,13 @@ void __cdecl sub_0043B080_InitCharSelectScreen()
 
     gpControl_00779D94 = sub_0042F430_CreateControl(0x96);
     gpControl_00779C78 = sub_0042F430_CreateControl(0x97);
-    sub_004F9740(gpControl_00779C78, 0);
-    sub_004F96F0_ControlClearState(gpControl_007799F8, 0);
+    CONTROL_SetVisible(gpControl_00779C78, 0);
+    CONTROL_SetEnabled(gpControl_007799F8, 0);
     sub_0043ADB0_UseName(gData_00779A40);
     if (sub_00514D80())
-        sub_005148F0_SetChannelValue(1);
-    sub_004F96F0_ControlClearState(gpControl_007799F8, 1);
+// build: symbol ?D2SOUND_10034@* 0x005148F0
+        D2SOUND_10034(1);
+    CONTROL_SetEnabled(gpControl_007799F8, 1);
 }
 
 // 0x0043B490
@@ -579,7 +581,7 @@ int __stdcall sub_0043B850_OnTick(SMSGHANDLER_PARAMS* pMsg)
         sub_0042F990_UpdateProgress();
         return 1;
     }
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -587,9 +589,9 @@ int __stdcall sub_0043B850_OnTick(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall sub_0043B890_OnTick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gpFuncTable_0077ABF0->pfnSlot0C())
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     if (gdwGlobal_0077AC04 || !gpFuncTable_0077ABF0->pfnSlot68() || sub_0042F6D0())
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -598,11 +600,11 @@ int __stdcall sub_0043B8E0_OnTick(SMSGHANDLER_PARAMS* pMsg)
 {
     int nValue;
     if (gpFuncTable_0077ABF0->pfnSlot64(&nValue))
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     if (gdwGlobal_0077AC04 || !gpFuncTable_0077ABF0->pfnSlot68() || sub_0042F6D0())
     {
         gpFuncTable_0077ABF0->pfnSlot10();
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     }
     return 1;
 }
@@ -612,11 +614,11 @@ int __stdcall sub_0043B940_OnTick(SMSGHANDLER_PARAMS* pMsg)
 {
     int nValue;
     if (gpFuncTable_0077ABF0->pfnSlotA0(&nValue))
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     if (gdwGlobal_0077AC04 || !gpFuncTable_0077ABF0->pfnSlot68() || sub_0042F6D0())
     {
         gpFuncTable_0077ABF0->pfnSlot10();
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     }
     return 1;
 }

@@ -12,7 +12,7 @@ struct D2GameDetailsStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" unsigned int __cdecl strlen(const char* szString);
-int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
@@ -57,7 +57,7 @@ static void sub_00442E30_ShowGameInfo(int nIndex)
     if (pGame->szName)
     {
         sub_004FFE10_SetTextA(gpJoinName_00798BD4, pGame->szName);
-        sub_004F91C0(0);
+        CONTROL_SetFocusedEditBox(0);
     }
 }
 
@@ -91,7 +91,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
                 }
                 sub_00442DD0_SetPendingText(szText, gwRequestId_0070CD60);
                 sub_004FF5A0_SetEditText(gpJoinName_00798BD4, pText);
-                sub_004F91C0(0);
+                CONTROL_SetFocusedEditBox(0);
             }
         }
         else

@@ -115,13 +115,13 @@ extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" int __cdecl sprintf(char*,const char*,...); // 0x006823FD
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_004390A0_UpdateSelection(); // 0x004390A0
 void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc*,int); // 0x004F96F0
-void __fastcall sub_004F9740(D2WinControlStrc*,int); // 0x004F9740
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc*,int); // 0x004F96F0
+void __fastcall CONTROL_SetVisible(D2WinControlStrc*,int); // 0x004F9740
 void __stdcall sub_004FD0B0_SetSprite(D2WinControlStrc*,int,void*); // 0x004FD0B0
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc*); // 0x004FB6A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
@@ -176,13 +176,13 @@ static inline int GetCharType(D2LaunchCharEntryStrc* entry)
 // 0x00438560
 void __cdecl sub_00438560_Refresh()
 {
-    if(sub_00408F20_HasExpansionMpq()) {sub_004380F0_UpdateCharList();return;}
+    if(FOG_IsExpansion()) {sub_004380F0_UpdateCharList();return;}
     D2LaunchCharEntryStrc* entry=gpCharList_00779DBC;
     int y=gaSlotY_007799FC[0]-13;
     int index=0;
     char unusedText[256];
     sub_005263E0(unusedText,D2LANG_GetStringFromTblIndex(0x1419),256);
-    sub_004F9740(gpControl_00779D90,0);
+    CONTROL_SetVisible(gpControl_00779D90,0);
     for(int i=0;i<gnVisibleRows_0070CC0C;++i) {
         sub_004FB6A0_ClearText(gaRowControls_00779A20[i]);
         if(STRTABLE_GetLanguage()==7) sub_004FB740_SetTextOffset(gaRowControls_00779A20[i],-1,-5);
@@ -197,7 +197,7 @@ void __cdecl sub_00438560_Refresh()
             if(entry->nState==1) {
                 sub_00505360_SetAnimFlags(entry->pAnim,0);
                 sub_004FD0B0_SetSprite(gpControl_00779D90,0x200,(void*)(gaSlotY_007799FC[row]-3));
-                sub_004F9740(gpControl_00779D90,1);
+                CONTROL_SetVisible(gpControl_00779D90,1);
                 sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1419),1,0,0);
                 if(gnLaunchMode_007795EC==1 && gbFlag_00779DD8) {
                     sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1416),0,0,0);

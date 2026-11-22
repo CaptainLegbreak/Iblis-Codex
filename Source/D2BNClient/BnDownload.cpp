@@ -158,11 +158,11 @@ int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 
 int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
 
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
 
-int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 void __fastcall sub_0051EA40_SetStatus(int nStatus); // 0x0051EA40
 
@@ -247,7 +247,7 @@ extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, 
 
 extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags); // 0x006B017A
 
-unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
+unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
 
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
@@ -510,12 +510,12 @@ int __fastcall sub_0051E3D0_SendPacket33(const char* szText, int nValue)
 static void __stdcall sub_0051E440_WriteFileWithTime(const void* pData, unsigned int nSize, const char* szFile, const D2FileTimeStrc* pFileTime)
 {
     unsigned long nWritten;
-    void* hFile = sub_00406960_CreateFile(szFile, 0x40000000, 0, 0, 2, 0x80, 0);
+    void* hFile = FOG_CreateFileA(szFile, 0x40000000, 0, 0, 2, 0x80, 0);
     if (hFile != (void*)-1)
     {
-        sub_004069D0_WriteFile(hFile, pData, nSize, &nWritten, 0);
+        FOG_WriteFile(hFile, pData, nSize, &nWritten, 0);
         SetFileTime(hFile, pFileTime, pFileTime, pFileTime);
-        sub_004069A0_CloseFile(hFile);
+        FOG_CloseFile(hFile);
     }
 }
 
@@ -543,12 +543,12 @@ static int __stdcall sub_0051E490_ExtractArchiveDll(void* hArchive, char* szPath
             if (pBuffer)
             {
                 SFileReadFile(hFile, pBuffer, nSize, 0, 0);
-                void* hOut = sub_00406960_CreateFile(szPath, 0x40000000, 0, 0, 2, 0x80, 0);
+                void* hOut = FOG_CreateFileA(szPath, 0x40000000, 0, 0, 2, 0x80, 0);
                 if (hOut != (void*)-1)
                 {
                     unsigned long nWritten;
-                    sub_004069D0_WriteFile(hOut, pBuffer, nSize, &nWritten, 0);
-                    sub_004069A0_CloseFile(hOut);
+                    FOG_WriteFile(hOut, pBuffer, nSize, &nWritten, 0);
+                    FOG_CloseFile(hOut);
                     bResult = 1;
                 }
                 SMemFree(pBuffer, gszBnDownloadFile_006DF338, 0x111, 0);
@@ -588,7 +588,7 @@ static int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, u
 // 0x0051E640
 static unsigned long sub_0051E640_GetFileSizeIfTimeMatches(const char* szFile, const __int64* pFileTime)
 {
-    void* hFile = sub_00406960_CreateFile(szFile, 0x80000000, 3, 0, 3, 0x8000000, 0);
+    void* hFile = FOG_CreateFileA(szFile, 0x80000000, 3, 0, 3, 0x8000000, 0);
     if (hFile == (void*)-1)
         return 0;
 
@@ -602,11 +602,11 @@ static unsigned long sub_0051E640_GetFileSizeIfTimeMatches(const char* szFile, c
     if (!(unsigned long)(nAbs >> 32) && (unsigned long)nAbs <= 40000000)
     {
         const unsigned long nFileSize = GetFileSize(hFile, 0);
-        sub_004069A0_CloseFile(hFile);
+        FOG_CloseFile(hFile);
         return nFileSize;
     }
 
-    sub_004069A0_CloseFile(hFile);
+    FOG_CloseFile(hFile);
     return 0;
 }
 
@@ -677,11 +677,11 @@ static void __fastcall sub_0051E920_ExtractFile(const char* member, void* archiv
     unsigned int size = sub_00416370_StormGetFileSize(source, 0);
     void* data = sub_00413020_Alloc(size, gszBnDownloadFile_006DF338, 0x583, 0);
     if (SFileReadFile(source, data, size, 0, 0)) {
-        output = sub_00406960_CreateFile(destination, 0x40000000, 3, 0, 2, 0x80, 0);
+        output = FOG_CreateFileA(destination, 0x40000000, 3, 0, 2, 0x80, 0);
         if (output != (void*)-1) {
             unsigned long written;
-            sub_004069D0_WriteFile(output, data, size, &written, 0);
-            sub_004069A0_CloseFile(output);
+            FOG_WriteFile(output, data, size, &written, 0);
+            FOG_CloseFile(output);
         }
     }
     SMemFree(data, gszBnDownloadFile_006DF338, 0x592, 0);
@@ -785,12 +785,12 @@ static int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* s
     char szBuffer[0x5B4];
     unsigned long nWritten;
 
-    void* hFile = sub_00406960_CreateFile(szFile, 0x40000000, 0, 0, 4, 0x80, 0);
+    void* hFile = FOG_CreateFileA(szFile, 0x40000000, 0, 0, 4, 0x80, 0);
     if (hFile == (void*)-1)
         return 0;
 
     if (nOffset)
-        sub_004069F0_SetFilePointer(hFile, nOffset, 0, 0);
+        FOG_SetFilePointer(hFile, nOffset, 0, 0);
 
     if (nType == 0x80000002)
     {
@@ -807,18 +807,18 @@ static int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* s
         const int nResult = recv(nSocket, szBuffer, nChunk, 0);
         if (nResult == -1 || nResult <= 0 || gbStopDownload_00881C54)
         {
-            sub_004069A0_CloseFile(hFile);
+            FOG_CloseFile(hFile);
             return 0;
         }
 
-        sub_004069D0_WriteFile(hFile, szBuffer, nResult, &nWritten, 0);
+        FOG_WriteFile(hFile, szBuffer, nResult, &nWritten, 0);
         SetFileTime(hFile, pFileTime, pFileTime, pFileTime);
         nOffset += nResult;
         if (nType == 0x80000002)
             gnPercent_00881C50 = nOffset * 100 / nTotal;
     }
 
-    sub_004069A0_CloseFile(hFile);
+    FOG_CloseFile(hFile);
     return 1;
 }
 
@@ -930,7 +930,8 @@ int __fastcall sub_0051ED00_ApplyPatches(int* pResult)
     pSlash = szValue;
     sprintf(pSlash, "%s\\Game.exe", szModuleDir);
     SRegSaveString("Patch", "Launcher", 2, pSlash);
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         pSlash += sprintf(pSlash, "%s\\%s;", szModuleDir, "d2exp.mpq");
     }

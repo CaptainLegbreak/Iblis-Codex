@@ -12,8 +12,8 @@ struct D2RectStrc;
 
 int __fastcall UI_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 unsigned short* __fastcall sub_005267E0(unsigned short* pDest, const unsigned short* pSource); // 0x005267E0
-int __fastcall sub_00501820(const unsigned short* wszText); // 0x00501820
-void __fastcall sub_00502320(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+int __fastcall D2Win_10121_GetTextWidth(const unsigned short* wszText); // 0x00501820
+void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 static void __stdcall sub_004549F0_DrawHoverLine(const unsigned short* wszText, int nFont, int nY, int nColor);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -88,8 +88,8 @@ static void __stdcall sub_004549F0_DrawHoverLine(const unsigned short* wszText, 
 
     const int nOldFont = sub_00502EF0_SetFont(nFont);
     sub_005267E0(wszBuffer, wszText);
-    const int nX = ((tRect.nLeft + tRect.nRight) >> 1) - (sub_00501820(wszBuffer) >> 1);
-    sub_00502320(wszBuffer, nX, nY, nColor, 1);
+    const int nX = ((tRect.nLeft + tRect.nRight) >> 1) - (D2Win_10121_GetTextWidth(wszBuffer) >> 1);
+    D2Win_10117_DrawText(wszBuffer, nX, nY, nColor, 1);
     sub_00502EF0_SetFont(nOldFont);
 }
 
@@ -127,7 +127,8 @@ void __cdecl sub_00456970_InitUI()
 
     {
         const int bWasOn = gaUIVarStates_007A27C0[0];
-        if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion())
             sub_0044DCC0();
         D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
         if (TEXT_IsTextBoxOpen())
@@ -178,7 +179,7 @@ mini_panel:
     UI_ToggleMiniPanel();
     {
         const int bWasOn = gaUIVarStates_007A27C0[0x22];
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
             sub_0044DCC0();
         D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
         if (TEXT_IsTextBoxOpen())

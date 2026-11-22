@@ -15,16 +15,16 @@ void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1,
 int __fastcall sub_00502EF0(int nFontSize); // 0x00502EF0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 D2BitBufferStrc* __cdecl sub_004B32D0_GetQuestFlags(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 void* __cdecl sub_00454600_GetCloseButtonCell(); // 0x00454600
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 const Unicode* __fastcall UI_GetLevelName(int nLevelId); // 0x00453E70
-void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
-int __fastcall sub_00501820(const Unicode*); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 extern int gnScreenHeight_00711470; // 0x00711470
 extern int gnOffsetX_007A2858; // 0x007A2858
@@ -79,7 +79,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
     int nActCount=5;
     int nYOffset=0;
     int nActPositions[5];
-    if(sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+    if(FOG_IsExpansion() && sub_0044DCC0())
     {
         nYOffset=1;
         nActPositions[0]=5;
@@ -116,7 +116,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
                 break;
             case 4:
                 if(!QUESTRECORD_GetQuestState(sub_004B32D0_GetQuestFlags(),26,0))bAllowed=0;
-                if(!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0())bAllowed=0;
+                if(!FOG_IsExpansion() || !sub_0044DCC0())bAllowed=0;
                 break;
             }
             if(!bAllowed)continue;
@@ -149,26 +149,26 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
             tGfx.nFrame=0;
             TEXTURE_CelDraw(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
         }
-        sub_00502320(UI_GetLevelName(gaWaypoints_007BF03C[nRow].nLevelId),gaLayouts_007224E8[nRow].nTextX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nTextY-gnOffsetY_007A285C,nColor,0);
+        D2Win_10117_DrawText(UI_GetLevelName(gaWaypoints_007BF03C[nRow].nLevelId),gaLayouts_007224E8[nRow].nTextX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nTextY-gnOffsetY_007A285C,nColor,0);
     }
     if((unsigned int)(nMouseX-273)<=35 && (unsigned int)(nMouseY-387)<=33)
     {
         const Unicode* wszText=D2LANG_GetStringFromTblIndex(0x1022);
-        int nWidth=sub_00501820(wszText);
+        int nWidth=D2Win_10121_GetTextWidth(wszText);
         D2GFX_DrawBox(gnOffsetX_007A2858-nWidth/2+287,370-gnOffsetY_007A285C,nWidth/2+gnOffsetX_007A2858+294,387-gnOffsetY_007A285C,0,2);
-        sub_00502320(wszText,gnOffsetX_007A2858-nWidth/2+292,385-gnOffsetY_007A285C,0,0);
+        D2Win_10117_DrawText(wszText,gnOffsetX_007A2858-nWidth/2+292,385-gnOffsetY_007A285C,0,0);
     }
     if(!gnPanelMode_007BF08E)
     {
         const Unicode* wszText=D2LANG_GetStringFromTblIndex(0xF97);
-        int nWidth=sub_00501820(wszText);
-        sub_00502320(wszText,gnOffsetX_007A2858-nWidth/2+160,48-gnOffsetY_007A285C,0,0);
+        int nWidth=D2Win_10121_GetTextWidth(wszText);
+        D2Win_10117_DrawText(wszText,gnOffsetX_007A2858-nWidth/2+160,48-gnOffsetY_007A285C,0,0);
     }
     else
     {
         const Unicode* wszText=D2LANG_GetStringFromTblIndex(0xF96);
-        int nWidth=sub_00501820(wszText);
-        sub_00502320(wszText,gnOffsetX_007A2858-nWidth/2+160,48-gnOffsetY_007A285C,0,0);
+        int nWidth=D2Win_10121_GetTextWidth(wszText);
+        D2Win_10117_DrawText(wszText,gnOffsetX_007A2858-nWidth/2+160,48-gnOffsetY_007A285C,0,0);
     }
 }
 

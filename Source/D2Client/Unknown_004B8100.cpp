@@ -39,7 +39,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 void* __cdecl UI_GetFocusCel(); // 0x00453AB0
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
 #pragma pack(push, 1)
@@ -92,7 +92,7 @@ int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY); // 0x004E4160
-void __fastcall sub_00516950_LinkEntry(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950
+void __fastcall D2SOUND_ListAddHead(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
 int gnSelectionFrame_007C0E50; // 0x007C0E50
@@ -166,7 +166,7 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
             }
         }
 
-        sub_00502320(pLine->wszText, nLineX, nLineY, nColor, 0);
+        D2Win_10117_DrawText(pLine->wszText, nLineX, nLineY, nColor, 0);
         nOffsetY += pLine->nHeight;
     }
 
@@ -307,7 +307,7 @@ int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDela
 
     if (pUnit)
     {
-        sub_00516950_LinkEntry(&pSound->pUnitList, pUnit);
+        D2SOUND_ListAddHead(&pSound->pUnitList, pUnit);
         sub_004CA8A0_AddUnitSound(pUnit, pSound->f_8);
     }
 

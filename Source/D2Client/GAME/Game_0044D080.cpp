@@ -157,9 +157,9 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 void __stdcall GAME_SetGlobalAct(int nAct); // 0x0052DFA0
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -225,11 +225,11 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x0048160
 
 void __cdecl INV_TickSound(); // 0x00482C20
 
-int __cdecl sub_00514840_IsChannelStreaming(); // 0x00514840
+int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
 
 void __cdecl sub_00514930_StopChannel(); // 0x00514930
 
-void __fastcall sub_00515F50_FadeOutMaster(int nArg); // 0x00515F50
+void __fastcall D2SOUND_FadeOutMasterVolume(int nArg); // 0x00515F50
 
 int __stdcall GAME_UpdateGamesProgress(int nArg); // 0x0052FC20
 
@@ -385,7 +385,7 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView); // 0x00476BC0
 
 void __fastcall UI_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 
-void __stdcall sub_004F98E0(); // 0x004F98E0
+void __stdcall D2Win_UpdateAndDraw(); // 0x004F98E0
 
 void __fastcall sub_00468820(int nArg1, int nArg2); // 0x00468820
 
@@ -627,7 +627,7 @@ void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
     if (sub_0045AE90() != 3)
         sub_00476BC0(gpView_007A0640);
     UI_DrawUIPanels(gpView_007A0640);
-    sub_004F98E0();
+    D2Win_UpdateAndDraw();
     sub_00468820(10, 10);
     if (!bNoCursor)
         sub_004684C0();
@@ -666,10 +666,10 @@ void __cdecl sub_0044CB60_DrawLoadingText()
             pText = D2LANG_GetStringFromTblIndex(0x5521);
         }
     }
-    const int nWidth = sub_00501820(pText);
+    const int nWidth = D2Win_10121_GetTextWidth(pText);
     if (nWidth < gnAutomapWidth_007A5220 - 0x28)
     {
-        sub_00502320(pText, (gnAutomapWidth_007A5220 - nWidth) >> 1, 0xC8, 0, 0);
+        D2Win_10117_DrawText(pText, (gnAutomapWidth_007A5220 - nWidth) >> 1, 0xC8, 0, 0);
     }
     else
     {
@@ -679,13 +679,14 @@ void __cdecl sub_0044CB60_DrawLoadingText()
         T0044CB60* pLine = pLines;
         for (unsigned int i = 0; i < nLines; ++i)
         {
-            const int nX = (gnAutomapWidth_007A5220 - sub_00501820(pLine->pText)) >> 1;
-            sub_00502320(pLine->pText, nX, 2 * (D2Win_10125() * i) + 0xC8, 0, 0);
+            const int nX = (gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(pLine->pText)) >> 1;
+            D2Win_10117_DrawText(pLine->pText, nX, 2 * (D2Win_10125() * i) + 0xC8, 0, 0);
             pLine = pLine->pNext;
         }
-        sub_005028A0_FreeTextLines(pLines);
+// build: symbol ?D2Win_10200@* 0x005028A0
+        D2Win_10200(pLines);
     }
-    sub_004F98E0();
+    D2Win_UpdateAndDraw();
     D2GFX_EndScene();
 }
 
@@ -783,7 +784,7 @@ int __fastcall sub_0044D390_GetTextX(unsigned short nStringIndex, int nCenterX)
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    return nCenterX - sub_00501820(wszText) / 2;
+    return nCenterX - D2Win_10121_GetTextWidth(wszText) / 2;
 }
 
 // 0x0044D3E0
@@ -793,16 +794,16 @@ void __cdecl sub_0044D3E0_DrawOverlayA()
     int nY = 0x3E;
     if (gdwGlobal_007A04F4)
         nY = 0x64;
-    sub_00502320(D2LANG_GetStringFromTblIndex(0x13EA), nX, nY, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x13EA), nX, nY, 4, 0);
     if (!gdwGlobal_007A04F4)
     {
         nX = sub_0044D390_GetTextX(0x13EB, gnGlobal_0071146C / 2);
-        sub_00502320(D2LANG_GetStringFromTblIndex(0x13EB), nX, 0x6B, 4, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x13EB), nX, 0x6B, 4, 0);
     }
     nY = 0xE8;
     if (gdwGlobal_007A04F4)
         nY = 0x110;
-    sub_00502320(D2LANG_GetStringFromTblIndex(0x13EC), sub_0044D390_GetTextX(0x13EC, gnGlobal_0071146C / 2), nY, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x13EC), sub_0044D390_GetTextX(0x13EC, gnGlobal_0071146C / 2), nY, 4, 0);
 }
 
 // 0x0044D550
@@ -1413,11 +1414,12 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
     {
         sub_00462920_ClearValue();
         sub_00467AC0_UpdateHoverUnit();
-        if (sub_00514840_IsChannelStreaming())
+        if (D2SOUND_IsStreamChannelPlaying())
         {
-            sub_00515F50_FadeOutMaster(0xB4);
+            D2SOUND_FadeOutMasterVolume(0xB4);
             sub_00514930_StopChannel();
-            sub_00515CE0_SetMasterVolume(0xFF);
+// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
+            D2SOUND_SetMasterVolume(0xFF);
         }
 
         if (!gnSkipped_007A0704)

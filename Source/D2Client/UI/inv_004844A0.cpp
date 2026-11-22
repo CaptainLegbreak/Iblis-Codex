@@ -309,9 +309,9 @@ void __cdecl INV_DrawPanelLabels(); // 0x0048A890
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
@@ -563,7 +563,8 @@ static int INV_ArchiveFilePresent(const char* szFile)
 static void INV_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile)
 {
     char szLang[4];
-    sub_00525260(szLang, 0);
+// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
+    STRTABLE_GetLanguageInfoField(szLang, 0);
     sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
     if (INV_ArchiveFilePresent(szOut))
         return;
@@ -660,7 +661,8 @@ void __fastcall INV_PlayCinematic(int nIndex)
         gbCinematicPlaying_007BC9D5 = 1;
         sub_004DC0A0();
         sub_00455F20(0x12, 0, 0);
-        if (sub_004F9050())
+// build: symbol ?D2Win_10003@* 0x004F9050
+        if (D2Win_10003())
         {
             if (gbCinematicStop_007BC9D4)
                 WINDOW_OpenSmackCutscene(szFile, nMode, 0);
@@ -703,7 +705,7 @@ void __fastcall INV_PlayCinematic(int nIndex)
             else
                 sprintf(szFile, "%s\\video\\%s", szDataGlobal_006D4118, szName);
 
-            if (sub_004F9050())
+            if (D2Win_10003())
             {
                 WINDOW_OpenSmackCutscene(szFile, nMode, (void*)sub_00477DD0);
                 INV_UpdateAuxBattleNetAddress(nIndex);
@@ -1653,11 +1655,11 @@ static void INV_DrawMercStats(D2UnitStrc* pUnit)
 
         if (!gaMercStatLines_007221A8[i].nLeft)
         {
-            sub_00502320(wszText, nRight - sub_00501820(wszText), nY, nColor, 0);
+            D2Win_10117_DrawText(wszText, nRight - D2Win_10121_GetTextWidth(wszText), nY, nColor, 0);
         }
         else if (!gaMercStatLines_007221A8[i].nRight)
         {
-            sub_00502320(wszText, nLeft, nY, nColor, 0);
+            D2Win_10117_DrawText(wszText, nLeft, nY, nColor, 0);
         }
         else
         {

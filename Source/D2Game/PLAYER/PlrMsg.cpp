@@ -5003,7 +5003,8 @@ int __fastcall D2GAME_PACKET_Handler_6FC89320(D2GameStrc* pGame,D2UnitStrc* pUni
     }
     if (!bIgnore)
     {
-        if (pGame->nSyncTimer > 1) pGame->nSyncTimer = sub_00410A80_GetTimeSeconds();
+// build: symbol ?FOG_GetSyncTime@* 0x00410A80
+        if (pGame->nSyncTimer > 1) pGame->nSyncTimer = FOG_GetSyncTime();
         if (IsBadCodePtr((void*)sgcptIncomingMessageChart[nHeader].pfCallback))
         {
             sub_00408A60(&gszEmptyAssertText,sub_00408090(),6564);

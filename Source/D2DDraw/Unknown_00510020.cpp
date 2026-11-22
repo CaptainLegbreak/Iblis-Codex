@@ -15,7 +15,7 @@ struct T004013C0
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
+T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 extern unsigned char gabDDrawDeviceGuid_00881144[16]; // 0x00881144

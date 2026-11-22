@@ -34,7 +34,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-char* __fastcall sub_0040E080_AddressToString(int nAddress);                                                // 0x0040E080
+char* __fastcall FOG_inet_ntoa(int nAddress);                                                // 0x0040E080
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);                     // 0x00526F70
@@ -42,9 +42,9 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);                             // 0x004FDD90
-void* __fastcall sub_004FBB30_GetSelectedData(D2WinControl004FBB30Strc* pControl); // 0x004FBB30
+void* __fastcall D2Win_10048(D2WinControl004FBB30Strc* pControl); // 0x004FBB30
 int __fastcall D2Win_10061(D2WinTextBoxStrc* ptTextData); // 0x004FBD20
-int __fastcall sub_004FF5A0(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
+int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone);                        // 0x00433450
 void __cdecl sub_004336C0_ShowMainMenu();                                                                                // 0x004336C0
@@ -147,7 +147,8 @@ void __cdecl sub_00443630_UpdateCreateButton()
     }
 
     if (bName && bPlayers && bLevel)
-        sub_004F96F0_ControlClearState(gpCreateButton_00798C28, 1);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpCreateButton_00798C28, 1);
     else
-        sub_004F96F0_ControlClearState(gpCreateButton_00798C28, 0);
+        CONTROL_SetEnabled(gpCreateButton_00798C28, 0);
 }

@@ -4244,7 +4244,8 @@ void __fastcall D2GAME_PACKETS_SendPacket0xA9_StateOff_6FC3FC50(D2ClientStrc* pC
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packetA9, sizeof(packetA9));
 }
 
-int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
+// build: symbol ?ERRORMANAGER_GetBitWidth@* 0x00409000
+int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
 {
     if (!nValue)
     {
@@ -4262,7 +4263,7 @@ int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
 // build: context Log2Ceil
 static inline int Log2Ceil(int nValue)
 {
-    return nValue < 3 ? 1 : sub_00409000_GetBitWidth(nValue - 1);
+    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
 // build: context sub_0044BE50

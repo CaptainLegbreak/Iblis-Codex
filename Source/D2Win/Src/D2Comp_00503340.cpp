@@ -95,7 +95,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode); // 0x005042F0
-void __stdcall sub_00506000_InitCompItems(); // 0x00506000
+void __stdcall D2COMP_InitCompItems(); // 0x00506000
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2CompItemStrc gaCompItems_0072E1E0[]; // 0x0072E1E0
 extern int gnItems_0087D834; // 0x0087D834
@@ -122,7 +122,7 @@ struct D2HoverLineStrc
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect); // 0x004F97B0
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -130,7 +130,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight);
+void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight); // 0x00503FA0
 
 typedef unsigned int size_t;
 
@@ -141,9 +141,10 @@ struct D2CompPairStrc
 };
 
 typedef char check_size_itemstxt[(sizeof(D2ItemsTxt) == 0x1A8) ? 1 : -1];
-void* __stdcall sub_00504430_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount,
+// build: symbol ?D2COMP_CompileTxt@* 0x00504430
+void* __stdcall D2COMP_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount,
     int nRecordSize); // 0x00504430
-void __fastcall sub_00504570_LoadItems(void* hArchive); // 0x00504570
+void __fastcall D2COMP_LoadItems(void* hArchive); // 0x00504570
 extern int gaWClassTokens_0072EF30[]; // 0x0072EF30
 extern D2CompPairStrc gaCompPairs_0072EF68[]; // 0x0072EF68
 extern unsigned int gnCompPairs_0072EFD0; // 0x0072EFD0
@@ -152,7 +153,8 @@ extern D2ItemsTxt* gpItemsTxt_008426F0; // 0x008426F0
 
 static D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 
-static void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
+// build: symbol ?D2COMP_CopyTokenPadded@* 0x005031D0
+static void D2COMP_CopyTokenPadded(char* pDst, const char* pSrc)
 {
     if (!pSrc[0])
     {
@@ -181,7 +183,8 @@ static void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
     pDst[3] = COF_PAD;
 }
 
-static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(const char* szPath, unsigned int* pnSize)
+// build: symbol ?D2COMP_LoadCofFile@* 0x00503250
+static __declspec(noinline) D2CofDataStrc* __stdcall D2COMP_LoadCofFile(const char* szPath, unsigned int* pnSize)
 {
     D2CofDataStrc* pCofData = (D2CofDataStrc*)sub_00517079_LoadFile(sub_004FAC80(), szPath, pnSize, ".\\Src\\D2Comp.cpp", 0x3EB);
     D2_ASSERT(pCofData, 0x3EC);
@@ -190,7 +193,7 @@ static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(co
 }
 
 // 0x00503340
-static D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -215,12 +218,13 @@ static D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, con
         pHead->pPrev = pNode;
     }
     gpCofNodeList_0087E83C = pNode;
-    pNode->pCofData = sub_00503250_LoadCofFile(szPath, &pNode->dwCofSize);
+    pNode->pCofData = D2COMP_LoadCofFile(szPath, &pNode->dwCofSize);
     D2_ASSERT(pNode->pCofData, 0x446);
     return pNode;
 }
 
-static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
+// build: symbol ?D2COMP_BuildCofPath@* 0x005034B0
+static void __stdcall D2COMP_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
 {
     D2_ASSERT(nClass < 25, 0x488);
     D2_ASSERT(nMode < gnModeTokens_0072E0B4, 0x489);
@@ -252,9 +256,11 @@ static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned in
     wsprintfA(szPath, "%s\\%s\\COF\\%s%s%s.COF", szDir, szUnit, szUnit, szMode, szWeaponClass);
 
     void* hFile;
-    if (sub_004068E0(szPath, &hFile))
+// build: symbol ?FOG_FOpenFile@* 0x004068E0
+    if (FOG_FOpenFile(szPath, &hFile))
     {
-        sub_004068F0(hFile);
+// build: symbol ?FOG_FCloseFile@* 0x004068F0
+        FOG_FCloseFile(hFile);
     }
     else
     {
@@ -262,7 +268,8 @@ static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned in
     }
 }
 
-static D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
+// build: symbol ?D2COMP_FindCofInfo@* 0x005035F0
+static D2CofInfoStrc* D2COMP_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
 {
     D2_ASSERT(pGfxInfo, 0x4B0);
     for (D2CofInfoStrc* pCofInfo = pGfxInfo->pCofInfo; pCofInfo; pCofInfo = pCofInfo->pNext)
@@ -281,12 +288,12 @@ static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo,
 
     D2_ASSERT(pGfxInfo, 0x4CA);
 
-    D2CofInfoStrc* pCofInfo = sub_005035F0_FindCofInfo(pGfxInfo, nMode, dwWeaponClass);
+    D2CofInfoStrc* pCofInfo = D2COMP_FindCofInfo(pGfxInfo, nMode, dwWeaponClass);
     if (!pCofInfo)
     {
         szPath[0] = 0;
         memset(&szPath[1], 0, sizeof(szPath) - 1);
-        sub_005034B0_BuildCofPath(nClass, nMode, dwWeaponClass, szPath);
+        D2COMP_BuildCofPath(nClass, nMode, dwWeaponClass, szPath);
         if (!szPath[0])
         {
             return 0;
@@ -296,7 +303,7 @@ static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo,
         D2_ASSERT(pCofInfo, 0x4D9);
         memset(pCofInfo, 0, sizeof(D2CofInfoStrc));
 
-        D2CofNodeStrc* pCofNode = sub_00503340_GetCofNode(nClass, szPath, nMode, dwWeaponClass);
+        D2CofNodeStrc* pCofNode = D2COMP_GetCofNode(nClass, szPath, nMode, dwWeaponClass);
         D2_ASSERT(pCofNode, 0x4DC);
         pCofInfo->pCofNode = pCofNode;
         pCofInfo->pNext = pGfxInfo->pCofInfo;
@@ -308,7 +315,8 @@ static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo,
     return pCofData;
 }
 
-void __fastcall sub_00503740_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDataStrc* pGfxData)
+// build: symbol ?D2COMP_InitGfxData@* 0x00503740
+void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDataStrc* pGfxData)
 {
     pGfxData->nUnitIndex = pCompositeUnit->nUnitIndex;
     pGfxData->nMode = pCompositeUnit->nMode;
@@ -338,7 +346,7 @@ void __fastcall sub_00503740_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2
             pGfxData->dwModeToken = gdwModeTokens_0072E0B8[pGfxData->nMode];
             D2_ASSERT(pGfxData->dwArmorType, 0x51F);
             unsigned int dwHitClass = 0;
-            sub_005031D0_CopyTokenPadded((char*)&dwHitClass, (const char*)pLayer + 5);
+            D2COMP_CopyTokenPadded((char*)&dwHitClass, (const char*)pLayer + 5);
             pGfxData->dwWClassToken = dwHitClass;
             break;
         }
@@ -360,7 +368,7 @@ void __fastcall sub_00503740_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00503FA0
-void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight)
+void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight)
 {
     D2HoverLineStrc* pLine = &pLines[*pCount];
     D2_ASSERT(*pCount < 7, 0x738);
@@ -373,7 +381,7 @@ void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc
 }
 
 // 0x00505A80
-int __fastcall sub_00505A80_DrawCompositeUnitHover(D2CompositeUnitStrc* pCompositeUnit)
+int __fastcall D2COMP_DrawCompositeHover(D2CompositeUnitStrc* pCompositeUnit)
 {
     D2_ASSERT(pCompositeUnit, 1864);
 
@@ -402,14 +410,14 @@ int __fastcall sub_00505A80_DrawCompositeUnitHover(D2CompositeUnitStrc* pComposi
     if (pCompositeUnit->dwProductCode == 'D2XP')
     {
         sub_00526320_ToUnicode(wszText, "Expansion", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
     }
 
     const int nType = pCompositeUnit->nUnitIndex;
     if (nType == 19)
     {
         sub_00526320_ToUnicode(wszText, "Moderator", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
 ShowLevel:
         {
             const int nLevel = pCompositeUnit->nCharLevel;
@@ -417,50 +425,50 @@ ShowLevel:
             {
                 memset(wszText, 0, sizeof(wszText));
                 sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(5017), nLevel);
-                sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+                D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
 
                 if (pCompositeUnit->dwFlags & gdwBitMasks[5])
                 {
-                    sub_00503FA0_AddHoverLine(D2LANG_GetStringFromTblIndex(5016), lines, &nCount, &nWidth, &nHeight);
+                    D2COMP_AddHoverTextLine(D2LANG_GetStringFromTblIndex(5016), lines, &nCount, &nWidth, &nHeight);
                 }
 
                 sub_00526320_ToUnicode(wszText, "Realm: ", 256);
                 sub_00526700(wszText, pCompositeUnit->wszRealmName);
-                sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+                D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
             }
         }
     }
     else if (nType == 20)
     {
         sub_00526320_ToUnicode(wszText, "Sysop", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
         nColor = 3;
     }
     else if (nType == 18)
     {
         sub_00526320_ToUnicode(wszText, "Blizzard Rep", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
         nColor = 3;
     }
     else if (nType == 23)
     {
         sub_00526320_ToUnicode(wszText, "Speaker", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
     }
     else if (nType == 21)
     {
         sub_00526320_ToUnicode(wszText, "Referee", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
     }
     else if (nType == 22)
     {
         sub_00526320_ToUnicode(wszText, "Chat", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
     }
     else if (nType == 24)
     {
         sub_00526320_ToUnicode(wszText, "Open Character", 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
     }
     else
     {
@@ -505,12 +513,12 @@ ShowLevel:
         }
 
         sub_00526320_ToUnicode(wszText, szProduct, 256);
-        sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+        D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
     }
 
     sub_00526320_ToUnicode(wszText, "Account Name: ", 256);
     sub_00526700(wszText, pCompositeUnit->wszAccountName);
-    sub_00503FA0_AddHoverLine(wszText, lines, &nCount, &nWidth, &nHeight);
+    D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
 
     const int nBoxHeight = nHeight + 6;
     int nLeft = nX - (nWidth >> 1);
@@ -542,7 +550,7 @@ ShowLevel:
         {
             nLineColor = nColor;
         }
-        sub_00502320(pLine->wszText, nX - (pLine->nWidth >> 1), nY, nLineColor, 0);
+        D2Win_10117_DrawText(pLine->wszText, nX - (pLine->nWidth >> 1), nY, nLineColor, 0);
     }
 
     return 1;
@@ -578,7 +586,7 @@ static inline int sub_GetCompPairValue(unsigned int nKey)
 }
 
 // 0x00506000
-void __stdcall sub_00506000_InitCompItems()
+void __stdcall D2COMP_InitCompItems()
 {
     if (gbCompItemsInit_0087E85C)
     {
@@ -617,7 +625,7 @@ void __stdcall sub_00506000_InitCompItems()
     };
 
     gpItemTypesLinker_0087D828 = sub_006BD040(".\\Src\\D2Comp.cpp", 0xACB);
-    gpItemTypesTxt_0087D82C = sub_00504430_CompileTxt(sub_004FAC80(), "itemtypes", aItemTypesFields,
+    gpItemTypesTxt_0087D82C = D2COMP_CompileTxt(sub_004FAC80(), "itemtypes", aItemTypesFields,
         &gnItemTypesTxtRecordCount_0087D830, 0xE4);
 
     D2BinFieldStrc aHitClassFields[] =
@@ -627,9 +635,9 @@ void __stdcall sub_00506000_InitCompItems()
     };
 
     gpHitClassLinker_0087D820 = sub_006BD040(".\\Src\\D2Comp.cpp", 0xAD7);
-    gpHitClassTxt_0087D81C = sub_00504430_CompileTxt(sub_004FAC80(), "hitclass", aHitClassFields, 0, 4);
+    gpHitClassTxt_0087D81C = D2COMP_CompileTxt(sub_004FAC80(), "hitclass", aHitClassFields, 0, 4);
 
-    sub_00504570_LoadItems(sub_004FAC80());
+    D2COMP_LoadItems(sub_004FAC80());
 
     gaItems_0087D838[1].dwCode = ' til';
     gaItems_0087D838[1].nItemType = ITEMTYPE_ARMOR;

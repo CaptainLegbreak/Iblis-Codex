@@ -37,9 +37,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTempPathW(unsigned l
 
 extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned int nCodePage, unsigned long dwFlags, const wchar_t* wszSource, int nSource, char* szDest, int nDest, const char* szDefaultChar, int* pbUsedDefaultChar); // 0x006CC194
 
-bool __stdcall sub_004045F0_UseUtf8Path(const char* szPath);                                                // 0x004045F0
+bool __stdcall ERRORMANAGER_CreateDirectoryUtf8(const char* szPath);                                                // 0x004045F0
 
-_iobuf* __stdcall sub_004043C0_OpenUtf8FileForWrite(const char* szPath);                                    // 0x004043C0
+_iobuf* __stdcall ERRORMANAGER_OpenFileForWriteUtf8(const char* szPath);                                    // 0x004043C0
 
 char gszLogDirectory_00992708[0x400];                                                                       // 0x00992708
 
@@ -50,12 +50,12 @@ class Report
 public:
     Report();                                                               // 0x00401070
     virtual ~Report();                                                      // 0x004010D0
-    bool sub_00401100_Open(const char* szFileName);                         // 0x00401100
+    bool OpenReport(const char* szFileName);                         // 0x00401100
     bool sub_004011F0_Close();                                              // 0x004011F0
     bool sub_00401210_IsOpen();                                             // 0x00401210
     bool sub_00401220_AddFile(const char* szPath, bool bCopy);              // 0x00401220
     int sub_00401380(const char* szFormat, ...);                            // 0x00401380
-    bool sub_00407A80_WriteInspectorHeader();                               // 0x00407A80
+    bool WriteInspectorHeader();                               // 0x00407A80
 
     _iobuf* m_pFile;
     char m_szText08[0x400];
@@ -282,7 +282,7 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
 
-bool __fastcall sub_00404560_UseWidePath(wchar_t* wszPath); // 0x00404560
+bool __fastcall ERRORMANAGER_CreateDirectoryWide(wchar_t* wszPath); // 0x00404560
 
 int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 
@@ -358,11 +358,11 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
-int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay); // 0x00407370
+int __fastcall ERRORMANAGER_GetJulianDay(int nYear, int nMonth, int nDay); // 0x00407370
 
-void __fastcall sub_00407440_JulianToDate(long nJulian, int* pYear, int* pMonth, int* pDay); // 0x00407440
+void __fastcall ERRORMANAGER_JulianDayToDate(long nJulian, int* pYear, int* pMonth, int* pDay); // 0x00407440
 
-int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
+int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 
@@ -378,13 +378,13 @@ extern int gnOsKind_0074D890; // 0x0074D890
 
 extern float gfOsVersion_0074D894; // 0x0074D894
 
-void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
+void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
 
 void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
-const char* __fastcall sub_00408000_StripSourcePath(const char* szFile); // 0x00408000
+const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile); // 0x00408000
 
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
@@ -416,7 +416,7 @@ void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem);            
 
 int __cdecl sub_0040B500_UnloadImageHlp();                                                                  // 0x0040B500
 
-void __cdecl sub_0040F8A0_CloseLogFilesNow();                                                               // 0x0040F8A0
+void __cdecl LOGMANAGER_CloseLogFilesNow();                                                               // 0x0040F8A0
 
 void __cdecl sub_004107A0_DeleteTimeLock();                                                                 // 0x004107A0
 
@@ -434,19 +434,19 @@ extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int 
 
 extern "C" __declspec(dllimport) int __stdcall CopyFileW(const wchar_t* wszExistingFile, const wchar_t* wszNewFile, int bFailIfExists); // 0x006CC2CC
 
-static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut, size_t nSize);
+static bool __stdcall ERRORMANAGER_CopyFileName(const char* szPath, char* szOut, size_t nSize); // 0x00404010
 
-static bool __stdcall sub_00404450_CopyFileUtf8(const char* szSource, const char* szDest);
+static bool __stdcall ERRORMANAGER_CopyFileUtf8(const char* szSource, const char* szDest); // 0x00404450
 
-static size_t sub_00404110_StrLCopy(char* szDest, const char* szSource, size_t nSize);
+static size_t ERRORMANAGER_StrLCopy(char* szDest, const char* szSource, size_t nSize); // 0x00404110
 
-static bool sub_004040B0_SetErrorDirectory(char* szPath);
+static bool ERRORMANAGER_AppendPathSeparator(char* szPath); // 0x004040B0
 
-static int sub_004041F0_FormatText(char* szDest, size_t nSize, const char* szFormat, ...);
+static int ERRORMANAGER_FormatText(char* szDest, size_t nSize, const char* szFormat, ...); // 0x004041F0
 
-static bool sub_004044F0_GetTempPathUtf8(char* szOut);
+static bool ERRORMANAGER_GetTempPathUtf8(char* szOut); // 0x004044F0
 
-static bool __stdcall sub_00403FA0_CopyPathIfHasDirectory(const char* szPath, char* szOut, size_t nSize);
+static bool __stdcall ERRORMANAGER_CopyPathIfHasDirectory(const char* szPath, char* szOut, size_t nSize); // 0x00403FA0
 
 extern "C" __declspec(dllimport) int __stdcall AllocateAndInitializeSid(D2SidAuthorityStrc* pAuthority, unsigned char nSubAuthorityCount, unsigned long dwSub0, unsigned long dwSub1, unsigned long dwSub2, unsigned long dwSub3, unsigned long dwSub4, unsigned long dwSub5, unsigned long dwSub6, unsigned long dwSub7, void** ppSid); // 0x006CC014
 
@@ -454,15 +454,15 @@ extern "C" __declspec(dllimport) int __stdcall CheckTokenMembership(void* hToken
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentProcessId();                             // 0x006CC1EC
 
-bool __fastcall sub_00407A20_GetProcessImageName(unsigned long dwProcessId, char* szName, unsigned long nSize); // 0x00407A20
+bool __fastcall ERRORMANAGER_GetProcessImageName(unsigned long dwProcessId, char* szName, unsigned long nSize); // 0x00407A20
 
-unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId);                         // 0x00407990
+unsigned long __fastcall ERRORMANAGER_FindParentProcessId(unsigned long dwProcessId);                         // 0x00407990
 
-unsigned int __fastcall sub_0040EB90_GetLogFiles(char** apszFiles, unsigned int nCount);                     // 0x0040EB90
+unsigned int __fastcall EXCEPTIONS_GetLogFilePaths(char** apszFiles, unsigned int nCount);                     // 0x0040EB90
 
 int __stdcall sub_00525150();                                                                       // 0x00525150
 
-int __stdcall sub_005251C0_GetLanguage();                                                                   // 0x005251C0
+int __stdcall STRTABLE_GetSystemLanguage();                                                                   // 0x005251C0
 
 extern D2InspectorInfoStrc gtInspectorInfo_0074D868;                                                       // 0x0074D868
 
@@ -474,11 +474,11 @@ extern "C" const char gszUnknownUpper_006CCED8[];                               
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
+bool __stdcall ERRORMANAGER_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
 
-int __fastcall sub_00406B20_AppendBackslash(char* szPath, size_t nSize);                                // 0x00406B20
+int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, size_t nSize);                                // 0x00406B20
 
-int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szPathA, const char* szPathB);                         // 0x00406DE0
+int __fastcall ERRORMANAGER_MoveDirectoryTree(const char* szPathA, const char* szPathB);                         // 0x00406DE0
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
@@ -504,13 +504,13 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentThreadId();                               // 0x006CC20C
 
-void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7); // 0x00403070
+void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7); // 0x00403070
 
 void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrintFn pfnPrint, void* pContext); // 0x004032F0
 
-void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId); // 0x00403A20
+void __fastcall ERRORMANAGER_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId); // 0x00403A20
 
-void __fastcall sub_00407980_ReportPrint(void* pContext, const char* szText);                               // 0x00407980
+void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText);                               // 0x00407980
 
 bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoStrc* pInfo);                // 0x00401790
 
@@ -549,9 +549,9 @@ void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameS
 
 void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint,void* pContext); // 0x00402EE0
 
-unsigned long __cdecl sub_00401690_GetCurrentThreadId(); // 0x00401690
+unsigned long __cdecl ERRORMANAGER_GetCurrentThreadId(); // 0x00401690
 
-void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nCode); // 0x004013C0
+void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nCode); // 0x004013C0
 
 bool __fastcall sub_00402820_WriteMiniDump(const char* szPath,const char* szComment,void* pExceptionPointers,unsigned long dwThreadId); // 0x00402820
 
@@ -577,7 +577,7 @@ extern const char gszMinidump_006CD0B4[]; // 0x006CD0B4
 extern const char gszMore5_006CD09C[]; // 0x006CD09C
 
 // 0x00401000
-static int __cdecl sub_00401000_LocalTime(tm* pTm, const __int64* pTime)
+static int __cdecl ERRORMANAGER_ConvertLocalTime(tm* pTm, const __int64* pTime)
 {
     return _localtime64_s(pTm, pTime);
 }
@@ -585,49 +585,49 @@ static int __cdecl sub_00401000_LocalTime(tm* pTm, const __int64* pTime)
 // calling-convention shim (not game code)
 int __cdecl sub_M126_Emit_00401000(tm* pTm, const __int64* pTime)
 {
-    return sub_00401000_LocalTime(pTm, pTime);
+    return ERRORMANAGER_ConvertLocalTime(pTm, pTime);
 }
 
 bool __stdcall sub_K01_Emit_00403FA0(const char* szPath, char* szOut, size_t nSize)
 {
-    return sub_00403FA0_CopyPathIfHasDirectory(szPath, szOut, nSize);
+    return ERRORMANAGER_CopyPathIfHasDirectory(szPath, szOut, nSize);
 }
 
 // 0x00401100
-bool crashy::Report::sub_00401100_Open(const char* szFileName)
+bool crashy::Report::OpenReport(const char* szFileName)
 {
     __int64 nTime = _time64(0);
     tm tTime;
     _localtime64_s(&tTime, &nTime);
     if (!gszLogDirectory_00992708[0])
     {
-        if (!sub_004044F0_GetTempPathUtf8(gszLogDirectory_00992708))
+        if (!ERRORMANAGER_GetTempPathUtf8(gszLogDirectory_00992708))
         {
             return false;
         }
-        if (!sub_004040B0_SetErrorDirectory(gszLogDirectory_00992708))
+        if (!ERRORMANAGER_AppendPathSeparator(gszLogDirectory_00992708))
         {
             return false;
         }
     }
-    if ((size_t)(sub_004041F0_FormatText(m_szText408, 0x400, "%s/%04d-%02d-%02d %02d.%02d.%02d", gszLogDirectory_00992708, tTime.tm_year + 0x76C, tTime.tm_mon + 1, tTime.tm_mday, tTime.tm_hour, tTime.tm_min, tTime.tm_sec) + 1) > 0x400)
+    if ((size_t)(ERRORMANAGER_FormatText(m_szText408, 0x400, "%s/%04d-%02d-%02d %02d.%02d.%02d", gszLogDirectory_00992708, tTime.tm_year + 0x76C, tTime.tm_mon + 1, tTime.tm_mday, tTime.tm_hour, tTime.tm_min, tTime.tm_sec) + 1) > 0x400)
     {
         return false;
     }
-    if (!sub_004045F0_UseUtf8Path(m_szText408))
+    if (!ERRORMANAGER_CreateDirectoryUtf8(m_szText408))
     {
         return false;
     }
-    if ((size_t)(sub_004041F0_FormatText(m_szText08, 0x400, "%s/%s", m_szText408, szFileName) + 1) > 0x400)
+    if ((size_t)(ERRORMANAGER_FormatText(m_szText08, 0x400, "%s/%s", m_szText408, szFileName) + 1) > 0x400)
     {
         return false;
     }
-    m_pFile = sub_004043C0_OpenUtf8FileForWrite(m_szText08);
+    m_pFile = ERRORMANAGER_OpenFileForWriteUtf8(m_szText08);
     return m_pFile != 0;
 }
 
 // 0x00401480
-static unsigned char __stdcall sub_00401480_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
+static unsigned char __stdcall ERRORMANAGER_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
 {
     D2MemoryBasicInfoStrc tInfo;
     if (!VirtualQuery(pAddress, &tInfo, sizeof(tInfo)))
@@ -667,7 +667,7 @@ static unsigned char __stdcall sub_00401480_GetStackRange(void** ppBase, unsigne
 }
 
 // 0x00401540
-static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
+static unsigned char __stdcall ERRORMANAGER_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
 {
     D2ThreadContextStrc tContext;
     void* hThread = 0;
@@ -693,7 +693,7 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
     *pStackPointer = tContext.Esp;
     void* pBase;
     unsigned long dwEnd;
-    unsigned char bResult = sub_00401480_GetStackRange(&pBase, &dwEnd, (const void*)tContext.Esp);
+    unsigned char bResult = ERRORMANAGER_GetStackRange(&pBase, &dwEnd, (const void*)tContext.Esp);
     if (bResult)
     {
         *pStackTop = dwEnd;
@@ -708,18 +708,18 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
 }
 
 // 0x00401640
-static bool __stdcall sub_00401640_GetThreadName(int threadId,char* output) {
+static bool __stdcall ERRORMANAGER_GetThreadName(int threadId,char* output) {
  if(gdwGlobal_00992B1C==threadId) strncpy_s(output,OUTPUT_SIZE,gszMainThread_006FF988,(unsigned int)-1);
  else output[0]=0;
  return true;
 }
 
 bool __fastcall EmitThreadName(int threadId,char* output) {
- return sub_00401640_GetThreadName(threadId,output);
+ return ERRORMANAGER_GetThreadName(threadId,output);
 }
 
 // 0x00401680
-int __cdecl sub_00401680()
+int __cdecl ERRORMANAGER_GetMainThreadId()
 {
     return gdwGlobal_00992B1C;
 }
@@ -761,7 +761,7 @@ int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2
     unsigned long dwStackTop;
     unsigned long dwStackSize;
     unsigned long dwStackPointer;
-    if (!sub_00401540_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer))
+    if (!ERRORMANAGER_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer))
     {
         if (hThread)
         {
@@ -809,14 +809,14 @@ int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2
 }
 
 // 0x004016A0
-void __cdecl sub_004016A0_StartDbgHelpThread()
+void __cdecl ERRORMANAGER_StartDbgHelpThread()
 {
     sub_00402980_StartDbgHelpWorker();
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004016C0
-bool __cdecl sub_004016C0_IsInternalCheckLoopback()
+bool __cdecl ERRORMANAGER_IsInternalCheckLoopback()
 {
     D2WSADataStrc tData;
     if (WSAStartup(0x202, &tData))
@@ -834,7 +834,7 @@ bool __cdecl sub_004016C0_IsInternalCheckLoopback()
 }
 
 // 0x00401A70
-void __cdecl sub_00401A70_SetMiniDumpThreadName()
+void __cdecl ERRORMANAGER_SetMiniDumpThreadName()
 {
     if (IsDebuggerPresent() == 1)
     {
@@ -854,7 +854,7 @@ void __cdecl sub_00401A70_SetMiniDumpThreadName()
 }
 
 // 0x00403070
-void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7)
+void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7)
 {
     D2StackFrameStrc aFrames[0x80];
     int nFrames = pThreadContext->sub_00405060_CaptureFrames(dwThreadId, aFrames, nArg7);
@@ -869,7 +869,7 @@ void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContex
 }
 
 // 0x00403FA0
-static bool __stdcall sub_00403FA0_CopyPathIfHasDirectory(const char* szPath, char* szOut, size_t nSize)
+static bool __stdcall ERRORMANAGER_CopyPathIfHasDirectory(const char* szPath, char* szOut, size_t nSize)
 {
     const char* pSep = 0;
     const char* p = strrchr(szPath, '/');
@@ -891,7 +891,7 @@ static bool __stdcall sub_00403FA0_CopyPathIfHasDirectory(const char* szPath, ch
     {
         *szOut = 0;
     }
-    else if (sub_00404110_StrLCopy(szOut, szPath, nSize) >= nSize)
+    else if (ERRORMANAGER_StrLCopy(szOut, szPath, nSize) >= nSize)
     {
         return false;
     }
@@ -954,11 +954,11 @@ bool crashy::Report::sub_00401220_AddFile(const char* szPath, bool bCopy)
         }
         char* pName = szCopy + nLength;
         *pName++ = '/';
-        if (!sub_00404010_CopyFileName(szPath, pName, szCopy + 0x400 - pName))
+        if (!ERRORMANAGER_CopyFileName(szPath, pName, szCopy + 0x400 - pName))
         {
             return false;
         }
-        sub_00404450_CopyFileUtf8(szPath, szCopy);
+        ERRORMANAGER_CopyFileUtf8(szPath, szCopy);
         szSource = szCopy;
     }
     else
@@ -975,7 +975,7 @@ bool crashy::Report::sub_00401220_AddFile(const char* szPath, bool bCopy)
 }
 
 // 0x00404010
-static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut, size_t nSize)
+static bool __stdcall ERRORMANAGER_CopyFileName(const char* szPath, char* szOut, size_t nSize)
 {
     const char* pSep = 0;
     const char* p = strrchr(szPath, '/');
@@ -1001,7 +1001,7 @@ static bool __stdcall sub_00404010_CopyFileName(const char* szPath, char* szOut,
 }
 
 // 0x004040B0
-static bool sub_004040B0_SetErrorDirectory(char* szPath)
+static bool ERRORMANAGER_AppendPathSeparator(char* szPath)
 {
     char* pEnd = szPath + strlen(szPath);
     if (pEnd == szPath + 0x400)
@@ -1012,11 +1012,11 @@ static bool sub_004040B0_SetErrorDirectory(char* szPath)
     {
         *pEnd = '\\';
     }
-    return sub_00404110_StrLCopy(szPath, "BlizzardError", 0x400) < 0x400;
+    return ERRORMANAGER_StrLCopy(szPath, "BlizzardError", 0x400) < 0x400;
 }
 
 // 0x00404110
-static __declspec(noinline) size_t sub_00404110_StrLCopy(char* szDest, const char* szSource, size_t nSize)
+static __declspec(noinline) size_t ERRORMANAGER_StrLCopy(char* szDest, const char* szSource, size_t nSize)
 {
     const char* p = szSource;
     if (nSize)
@@ -1052,7 +1052,7 @@ static __declspec(noinline) size_t sub_00404110_StrLCopy(char* szDest, const cha
 }
 
 // 0x004041F0
-static int sub_004041F0_FormatText(char* szDest, size_t nSize, const char* szFormat, ...)
+static int ERRORMANAGER_FormatText(char* szDest, size_t nSize, const char* szFormat, ...)
 {
     const int nResult = _vsnprintf(szDest, nSize - 1, szFormat, (va_list)(&szFormat + 1));
     szDest[nSize - 1] = 0;
@@ -1060,7 +1060,7 @@ static int sub_004041F0_FormatText(char* szDest, size_t nSize, const char* szFor
 }
 
 // 0x00404450
-static bool __stdcall sub_00404450_CopyFileUtf8(const char* szSource, const char* szDest)
+static bool __stdcall ERRORMANAGER_CopyFileUtf8(const char* szSource, const char* szDest)
 {
     wchar_t wszSource[0x104];
     wchar_t wszDest[0x104];
@@ -1076,7 +1076,7 @@ static bool __stdcall sub_00404450_CopyFileUtf8(const char* szSource, const char
 }
 
 // 0x004044F0
-static bool sub_004044F0_GetTempPathUtf8(char* szOut)
+static bool ERRORMANAGER_GetTempPathUtf8(char* szOut)
 {
     wchar_t wszPath[0x104];
     const unsigned long nLength = GetTempPathW(0x104, wszPath);
@@ -1088,14 +1088,14 @@ static bool sub_004044F0_GetTempPathUtf8(char* szOut)
 }
 
 // 0x004045F0
-bool __stdcall sub_004045F0_UseUtf8Path(const char* szPath)
+bool __stdcall ERRORMANAGER_CreateDirectoryUtf8(const char* szPath)
 {
     wchar_t wszPath[0x104];
     if (!MultiByteToWideChar(0xFDE9, 0, szPath, -1, wszPath, 0x104))
     {
         return false;
     }
-    return sub_00404560_UseWidePath(wszPath);
+    return ERRORMANAGER_CreateDirectoryWide(wszPath);
 }
 
 inline D2TebStrc* D2_NtCurrentTeb()
@@ -1104,7 +1104,7 @@ inline D2TebStrc* D2_NtCurrentTeb()
 }
 
 // 0x00404E60
-bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext)
+bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext)
 {
     if (!GetModuleHandleW(L"ntdll.dll"))
     {
@@ -1130,7 +1130,7 @@ bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext)
 }
 
 // 0x004059D0
-int __stdcall sub_004059D0_RunModeInterface(int nArg)
+int __stdcall ERRORMANAGER_RunModeInterface(int nArg)
 {
     if (gnMode_0074C704 < 1 || gnMode_0074C704 > 5)
     {
@@ -1214,7 +1214,7 @@ void __cdecl MoveBetaSettingsToRelease()
 }
 
 // 0x004061C0
-int __cdecl sub_004061C0_DenyProcessAccess()
+int __cdecl ERRORMANAGER_DenyProcessAccess()
 {
     D2SidAuthorityStrc tAuthority = { { 0, 0, 0, 0, 0, 1 } };
     void* hProcess = GetCurrentProcess();
@@ -1257,7 +1257,7 @@ int __cdecl sub_004061C0_DenyProcessAccess()
 }
 
 // 0x00406650
-int __cdecl sub_00406650_StartServiceDispatcher()
+int __cdecl ERRORMANAGER_StartServiceDispatcher()
 {
     if (!(GetVersion() & 0x80000000))
     {
@@ -1284,13 +1284,13 @@ int __cdecl sub_00406650_StartServiceDispatcher()
 }
 
 // 0x004067C0
-int __cdecl sub_004067C0_SetBasePathToCurrent()
+int __cdecl ERRORMANAGER_SetBasePathToCurrent()
 {
     return SFileSetBasePath(".\\");
 }
 
 // 0x004067D0
-bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize)
+bool __stdcall ERRORMANAGER_GetKnownFolderPathA(char* szPath, int nSize)
 {
     void* hShell = GetModuleHandleA("Shell32.dll");
     D2KnownFolderPathFn pfnGet = (D2KnownFolderPathFn)GetProcAddress(hShell, "SHGetKnownFolderPath");
@@ -1315,31 +1315,31 @@ int __cdecl D2CMPToggleCelDrawMode()
 }
 
 // 0x004068E0
-int __fastcall sub_004068E0(const char* szFileName, void** phFile)
+int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile)
 {
     return sub_00419980(szFileName, phFile);
 }
 
 // 0x00406900
-int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6)
+int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6)
 {
     return SFileReadFileEx2(hFile, pBuffer, nToRead, pnRead, pOverlapped, nArg6, nArg7);
 }
 
 // 0x00406930
-int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh)
+int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh)
 {
     return sub_00416370_StormGetFileSize(hFile, pnSizeHigh);
 }
 
 // 0x00406940
-int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod)
+int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod)
 {
     return SFileSetFilePointer(hFile, nOffset, pnOffsetHigh, nMethod);
 }
 
 // 0x00406A10
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath)
+int __fastcall FOG_CreatePathHierarchy(const char* szPath)
 {
     int bResult = 1;
     if (!szPath || !*szPath)
@@ -1388,7 +1388,7 @@ static int __fastcall FOG_AppendBackslash(char* szPath, int nSize)
 }
 
 // 0x00406C40
-int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize)
+int __fastcall ERRORMANAGER_GetBlizzardDataPath(char* szOutPath, int nSize)
 {
     char szPath[0x104];
     if (SHGetFolderPathA(0, 0x1C, 0, 0, szPath) < 0)
@@ -1396,7 +1396,7 @@ int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize)
     SStrPack(szPath, "\\Blizzard Entertainment", 0x7FFFFFFF);
     if (!FOG_AppendBackslash(szPath, nSize))
         return 0;
-    if (!sub_00406A10_CreateDirectoryTree(szPath))
+    if (!FOG_CreatePathHierarchy(szPath))
         return 0;
     SStrCopy(szOutPath, szPath, nSize);
     return SStrLen(szOutPath) == SStrLen(szPath);
@@ -1423,7 +1423,7 @@ static bool AppendPathSeparator_Inl(char* szPath, size_t nSize)
 }
 
 // 0x00406D30
-static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
+static bool ERRORMANAGER_GetDefaultSavePath(char* szOutPath, unsigned int nMaxLen)
 {
     char szPath[0x104];
     if (!nMaxLen)
@@ -1431,9 +1431,9 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
         return false;
     }
     D2_ASSERT(szOutPath, 68);
-    if (sub_004067D0_GetKnownFolderPathA(szOutPath, nMaxLen))
+    if (ERRORMANAGER_GetKnownFolderPathA(szOutPath, nMaxLen))
     {
-        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
+        ERRORMANAGER_AppendBackslash(szOutPath, nMaxLen);
         SStrPack(szOutPath, "Diablo II", nMaxLen);
     }
     else
@@ -1442,21 +1442,21 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
         {
             return false;
         }
-        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
+        ERRORMANAGER_AppendBackslash(szOutPath, nMaxLen);
         SStrPack(szOutPath, "Diablo II\\Save", nMaxLen);
     }
     return true;
 }
 
 // 0x00406DE0
-int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szDst)
+int __fastcall ERRORMANAGER_MoveDirectoryTree(const char* szSrc, const char* szDst)
 {
     char szDir[0x104];
     SStrCopy(szDir, szDst, 0x7FFFFFFF);
     char* pCut = strrchr(szDir, '\\') + 1;
     char cSaved = *pCut;
     *pCut = 0;
-    sub_00406A10_CreateDirectoryTree(szDir);
+    FOG_CreatePathHierarchy(szDir);
     *pCut = cSaved;
     if (MoveFileA(szSrc, szDst))
         return 2;
@@ -1473,7 +1473,7 @@ int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szD
         if (GetLastError() != 2)
             return 1;
         FOG_AppendBackslash(szDir, sizeof(szDir));
-        sub_00406A10_CreateDirectoryTree(szDir);
+        FOG_CreatePathHierarchy(szDir);
     }
     char szSrcFind[0x104];
     char szDstFind[0x104];
@@ -1490,7 +1490,7 @@ int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szD
             {
                 SStrCopy(szSrcFind + nSrcLen, tData.cFileName, 0x104 - nSrcLen);
                 SStrCopy(szDstFind + nDstLen, tData.cFileName, 0x104 - nDstLen);
-                nResult |= sub_00406DE0_MoveDirectoryTree(szSrcFind, szDstFind);
+                nResult |= ERRORMANAGER_MoveDirectoryTree(szSrcFind, szDstFind);
             }
         } while (FindNextFileA(hFind, &tData));
     }
@@ -1500,7 +1500,7 @@ int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szD
 }
 
 // 0x00407050
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize)
+int __fastcall FOG_GetSavePath(char* szPath, int nSize)
 {
     char szSavePath[0x104];
     char szNewPath[0x104];
@@ -1516,9 +1516,9 @@ int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize)
         const unsigned long dwAttributes = GetFileAttributesA(szSavePath);
         if (dwAttributes != (unsigned long)-1 && (dwAttributes & 0x10))
         {
-            if (sub_00406D30(szNewPath, 0x104))
+            if (ERRORMANAGER_GetDefaultSavePath(szNewPath, 0x104))
             {
-                if (sub_00406DE0_MoveDirectoryTree(szSavePath, szNewPath) == 1)
+                if (ERRORMANAGER_MoveDirectoryTree(szSavePath, szNewPath) == 1)
                 {
                     SStrCopy(szPath, szSavePath, nSize);
                 }
@@ -1537,7 +1537,7 @@ int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize)
     }
     if (!szPath[0])
     {
-        sub_00406D30(szPath, nSize);
+        ERRORMANAGER_GetDefaultSavePath(szPath, nSize);
         AppendPathSeparator_Inl(szPath, nSize);
         SRegSaveString("Diablo II", "NewSavePath", 1, szPath);
     }
@@ -1545,7 +1545,7 @@ int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize)
     {
         return 0;
     }
-    return sub_00406A10_CreateDirectoryTree(szPath);
+    return FOG_CreatePathHierarchy(szPath);
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
@@ -1615,7 +1615,7 @@ D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 }
 
 // 0x00407370
-int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay)
+int __fastcall ERRORMANAGER_GetJulianDay(int nYear, int nMonth, int nDay)
 {
     int nJulYear = nYear;
     if (nJulYear == 0)
@@ -1646,25 +1646,25 @@ int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay)
 }
 
 // 0x00407570
-void __fastcall sub_00407570_DeleteOldDatedLogs(const char* szPrefix)
+void __fastcall ERRORMANAGER_DeleteOldDatedLogs(const char* szPrefix)
 {
     D2SystemTimeStrc tTime;
     char szDir[0x1000];
     char szFile[0x1000];
     GetLocalTime(&tTime);
     szDir[0] = 0;
-    if (sub_0040C220_GetAppPath(szDir, 0x1000))
+    if (EXCEPTIONS_GetAppPath(szDir, 0x1000))
     {
         SStrPack(szDir, "\\", 0x1000);
-        sub_00406A10_CreateDirectoryTree(szDir);
+        FOG_CreatePathHierarchy(szDir);
     }
     int nYear = tTime.wYear;
     int nMonth = tTime.wMonth;
     int nDay = tTime.wDay;
-    int nJulianDay = sub_00407370_JulianDay(nYear, nMonth, nDay) - 5;
+    int nJulianDay = ERRORMANAGER_GetJulianDay(nYear, nMonth, nDay) - 5;
     for (int i = 0; i < 10; i++)
     {
-        sub_00407440_JulianToDate(nJulianDay, &nYear, &nMonth, &nDay);
+        ERRORMANAGER_JulianDayToDate(nJulianDay, &nYear, &nMonth, &nDay);
         SStrPrintf(szFile, 0x1000, "%s%s%02d%02d%02d.txt", szDir, szPrefix, nYear % 100, nMonth, nDay);
         DeleteFileA(szFile);
         nJulianDay--;
@@ -1702,7 +1702,7 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 }
 
 // 0x004076B0
-void __cdecl sub_004076B0_LogSystemInfo()
+void __cdecl ERRORMANAGER_LogSystemInfo()
 {
     D2SystemTimeStrc tTime;
     unsigned long nSize;
@@ -1743,7 +1743,7 @@ void __cdecl sub_004076B0_LogSystemInfo()
     sub_0040EA00_WriteProcessorReport();
     sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys_0074D898 / 1048576.0);
 
-    if (sub_0040C220_GetAppPath(szPath, sizeof(szPath)))
+    if (EXCEPTIONS_GetAppPath(szPath, sizeof(szPath)))
     {
         sub_00410610_WriteLogLine("Application Path: %s", szPath);
     }
@@ -1762,20 +1762,20 @@ void __cdecl sub_004076B0_LogSystemInfo()
 }
 
 // 0x00407970
-void __cdecl sub_00407970_ForceCrash()
+void __cdecl ERRORMANAGER_ForceCrash()
 {
     int* pNull = 0;
     *pNull = 0;
 }
 
 // 0x00407980
-void __fastcall sub_00407980_ReportPrint(void* pContext, const char* szText)
+void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText)
 {
     ((crashy::Report*)pContext)->sub_00401380(gszStringFormat_006FFC58, szText);
 }
 
 // 0x00407990
-unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId)
+unsigned long __fastcall ERRORMANAGER_FindParentProcessId(unsigned long dwProcessId)
 {
     unsigned long dwParent = 0;
     void* hSnapshot = CreateToolhelp32Snapshot(2, 0);
@@ -1801,7 +1801,7 @@ unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId
 }
 
 // 0x00407A80
-bool crashy::Report::sub_00407A80_WriteInspectorHeader()
+bool crashy::Report::WriteInspectorHeader()
 {
     if (!sub_00401210_IsOpen())
     {
@@ -1831,34 +1831,34 @@ bool crashy::Report::sub_00407A80_WriteInspectorHeader()
     sub_00401380("<Process.Elevated> %s\n", gszUnknownUpper_006CCED8);
 
     unsigned long dwProcessId = GetCurrentProcessId();
-    bool bFound = sub_00407A20_GetProcessImageName(dwProcessId, gszProcessPath_0074E8C8, 0x800);
+    bool bFound = ERRORMANAGER_GetProcessImageName(dwProcessId, gszProcessPath_0074E8C8, 0x800);
     sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
     const char* szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
     const char* szName = szSlash ? szSlash + 1 : 0;
     sub_00401380("<Process.Name> %s\n", (szName && bFound) ? szName : "Unknown");
 
-    unsigned long dwParentId = sub_00407990_FindOwnerProcess(dwProcessId);
-    bFound = sub_00407A20_GetProcessImageName(dwParentId, gszProcessPath_0074E8C8, 0x800);
+    unsigned long dwParentId = ERRORMANAGER_FindParentProcessId(dwProcessId);
+    bFound = ERRORMANAGER_GetProcessImageName(dwParentId, gszProcessPath_0074E8C8, 0x800);
     sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
     szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
     szName = szSlash ? szSlash + 1 : 0;
     sub_00401380("<Process.ParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
 
-    unsigned long dwGrandParentId = sub_00407990_FindOwnerProcess(dwParentId);
-    bFound = sub_00407A20_GetProcessImageName(dwGrandParentId, gszProcessPath_0074E8C8, 0x800);
+    unsigned long dwGrandParentId = ERRORMANAGER_FindParentProcessId(dwParentId);
+    bFound = ERRORMANAGER_GetProcessImageName(dwGrandParentId, gszProcessPath_0074E8C8, 0x800);
     sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
     szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
     szName = szSlash ? szSlash + 1 : 0;
     sub_00401380("<Process.GrandParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
 
     sub_00401380("<Locale.Game> %s\n", gaszLanguageNames_00706618[sub_00525150()]);
-    sub_00401380("<Locale.System> %s\n", gaszLanguageNames_00706618[sub_005251C0_GetLanguage()]);
+    sub_00401380("<Locale.System> %s\n", gaszLanguageNames_00706618[STRTABLE_GetSystemLanguage()]);
     sub_00401380("<Game.Type> %s\n", "Client");
     sub_00401380("<Game.Build> %s\n", "79b7ae8fe1e97d05d57ebdc4b65bf012d38c797e");
 
     char* apszFiles[0x15];
     memset(apszFiles, 0, sizeof(apszFiles));
-    sub_0040EB90_GetLogFiles(apszFiles, 0x15);
+    EXCEPTIONS_GetLogFilePaths(apszFiles, 0x15);
     for (unsigned int i = 0; i < 0x15; ++i)
     {
         if (apszFiles[i] && *apszFiles[i])
@@ -1870,14 +1870,14 @@ bool crashy::Report::sub_00407A80_WriteInspectorHeader()
 }
 
 // 0x00407F20
-void __cdecl sub_00407F20_ExitHandler()
+void __cdecl ERRORMANAGER_ExitHandler()
 {
     if (gbErrorMgrInit_0074F0D0)
     {
         FOG_AsyncDataDestroy();
         FOG_DestroyMemoryPoolSystem(0);
         sub_0040B500_UnloadImageHlp();
-        sub_0040F8A0_CloseLogFilesNow();
+        LOGMANAGER_CloseLogFilesNow();
         sub_004107A0_DeleteTimeLock();
         sub_0040FFD0_ShutdownLogSystem();
         gbErrorMgrInit_0074F0D0 = 0;
@@ -1887,21 +1887,21 @@ void __cdecl sub_00407F20_ExitHandler()
 }
 
 // 0x00407F80
-void __fastcall sub_00407F80_ThreadHookNop2(unsigned int nId, void* hThread)
+void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread)
 {
 }
 
 // 0x00407F90
-void __fastcall sub_00407F90_ThreadHookNop1(unsigned int nId)
+void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId)
 {
 }
 
 // 0x00407FC0
-static void __stdcall sub_00407FC0_LogPrefixedText(const char* szPrefix, const char* szText, int bFlag)
+static void __stdcall ERRORMANAGER_LogPrefixedText(const char* szPrefix, const char* szText, int bFlag)
 {
     if (bFlag)
     {
-        sub_004106B0_LogWritePrefixed0(szPrefix, gszPercentS_006FFC58, szText);
+        LOGMANAGER_LogWritePrefixedNoNewline(szPrefix, gszPercentS_006FFC58, szText);
     }
     else
     {
@@ -1910,7 +1910,7 @@ static void __stdcall sub_00407FC0_LogPrefixedText(const char* szPrefix, const c
 }
 
 // 0x004082E0
-int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
+int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput)
 {
     D2ThreadContextStrc* pThread = pInput->pException->pContext;
     const long nBusy = InterlockedIncrement(&gnReportBusy_007076B8);
@@ -1918,13 +1918,13 @@ int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
     {
         gdwGlobal_0074F0C8 = 1;
         crashy::Report report;
-        if (!report.sub_00401100_Open(gszCrashFile_006CD1C0))
+        if (!report.OpenReport(gszCrashFile_006CD1C0))
         {
             gdwGlobal_0074F0C8 = 0;
         }
         else
         {
-            report.sub_00407A80_WriteInspectorHeader();
+            report.WriteInspectorHeader();
             report.sub_00401380(gszCrashSummary_006CD1A8,pInput->szSummary);
             if (pInput->szDetail[0]) report.sub_00401380(gszCrashDetail_006CD1A0,pInput->szDetail);
             report.sub_00401380(gszCrashNewline_006CD188);
@@ -1933,26 +1933,26 @@ int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
             if (!pThread && !pInput->pFrames)
             {
                 nSkip = pInput->nSkip;
-                if (pInput->dwThreadId == sub_00401690_GetCurrentThreadId()) nSkip += 2;
+                if (pInput->dwThreadId == ERRORMANAGER_GetCurrentThreadId()) nSkip += 2;
             }
             if (pInput->pFrames)
-                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,sub_00407980_ReportPrint,&report,0,1);
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,1);
             else
-                sub_00403070_DumpThread(pInput->dwThreadId,pThread,sub_00407980_ReportPrint,&report,0,1,nSkip);
+                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,1,nSkip);
             report.sub_00401380(gszAssertionEnd_006CD158);
             report.sub_00401380(gszRegisters_006CD14C);
-            sub_004032F0_DumpRegisters(pInput->dwThreadId,sub_00407980_ReportPrint,&report);
+            sub_004032F0_DumpRegisters(pInput->dwThreadId,ERRORMANAGER_ReportPrint,&report);
             report.sub_00401380(gszThreads_006CD140);
-            sub_00403A20_DumpOtherThreads(sub_00407980_ReportPrint,&report,pInput->dwThreadId);
+            ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint,&report,pInput->dwThreadId);
             report.sub_00401380(gszModules_006CD124);
-            sub_00402EE0_DumpModules(sub_00407980_ReportPrint,&report);
+            sub_00402EE0_DumpModules(ERRORMANAGER_ReportPrint,&report);
             report.sub_00401380(gszMore1_006CD108);
             report.sub_00401380(gszMore2_006CD0F0);
             report.sub_00401380(gszMore3_006CD0D4);
             if (pInput->pFrames)
-                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,sub_00407980_ReportPrint,&report,0,0);
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,0);
             else
-                sub_00403070_DumpThread(pInput->dwThreadId,pThread,sub_00407980_ReportPrint,&report,0,0,nSkip);
+                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,0,nSkip);
             report.sub_00401380(gszMore4_006CD0C4);
             SStrCopy(gszProcessPath_0074E8C8,report.m_szText408,0x800);
             SStrPack(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
@@ -1975,22 +1975,22 @@ int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
             gdwGlobal_0074F0C8=0;
         }
         InterlockedDecrement(&gnReportBusy_007076B8);
-        sub_004013C0_TerminateCurrentProcess(-1);
+        ERRORMANAGER_TerminateCurrentProcess(-1);
     }
     return 2;
 }
 
 void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, int bFlag)
 {
-    sub_00407FC0_LogPrefixedText(szPrefix, szText, bFlag);
+    ERRORMANAGER_LogPrefixedText(szPrefix, szText, bFlag);
 }
 
 // 0x004088C0
-int __fastcall sub_004088C0_ReportNestedError(const char* szFile, int nLine, const char* szMessage)
+int __fastcall ERRORMANAGER_ReportNestedError(const char* szFile, int nLine, const char* szMessage)
 {
     if (gdwGlobal_0074F0C8)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "\n***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!\n%s,%d\n%s\n*****", sub_00408000_StripSourcePath(szFile), nLine, szMessage);
+        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "\n***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!\n%s,%d\n%s\n*****", ERRORMANAGER_StripSourcePath(szFile), nLine, szMessage);
         return 1;
     }
     return 0;

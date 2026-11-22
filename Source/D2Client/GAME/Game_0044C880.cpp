@@ -294,9 +294,9 @@ void __cdecl sub_00483960();                                                    
 
 void __cdecl PANEL_SetBlackColour();                                                                                // 0x00499E30
 
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
 
 D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
 
@@ -1396,7 +1396,7 @@ void __cdecl sub_00453060()
 {
     if (!sub_00526800(gxGlobal_007A2C80))
         return;
-    const int nWidth = sub_00501820(gxGlobal_007A2C80) + 8;
+    const int nWidth = D2Win_10121_GetTextWidth(gxGlobal_007A2C80) + 8;
     const int nHeight = D2Win_10125() + 7;
     int nX = gdwGlobal_007A2D20 - (nWidth >> 1);
     int nY = gdwGlobal_007A2D24 + 2;
@@ -1408,7 +1408,7 @@ void __cdecl sub_00453060()
         nY = nHeight;
     if (nY > gnGlobal_00711470 - 0x1F)
         nY = gnGlobal_00711470 - 0x1F;
-    sub_00502320(gxGlobal_007A2C80, nX, nY - 2, 0, 1);
+    D2Win_10117_DrawText(gxGlobal_007A2C80, nX, nY - 2, 0, 1);
     memset(gxGlobal_007A2C80, 0, sizeof(gxGlobal_007A2C80));
 }
 

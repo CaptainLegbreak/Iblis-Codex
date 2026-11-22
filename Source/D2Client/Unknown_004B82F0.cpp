@@ -46,7 +46,7 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
@@ -173,7 +173,7 @@ struct D2GSPacketSrv5E
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 void __fastcall sub_0046B630_FireLevelEvent(int nIndex); // 0x0046B630
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
-void __fastcall sub_00516A10_FreeList(D2SoundUnitNodeStrc** ppList); // 0x00516A10
+void __fastcall D2SOUND_ListFree(D2SoundUnitNodeStrc** ppList); // 0x00516A10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 void __fastcall sub_0044C860_SetValue(int nValue); // 0x0044C860
@@ -377,7 +377,7 @@ static void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
 {
     int nOldFont = sub_00502EF0(1);
     sub_00502EF0(pDialog->pLines[nIndex].nFont);
-    int nWidth = sub_00501820(pDialog->pLines[nIndex].wszText);
+    int nWidth = D2Win_10121_GetTextWidth(pDialog->pLines[nIndex].wszText);
     if (nWidth >= pDialog->nWidth)
         pDialog->pLines[nIndex].nX = 0;
     else
@@ -395,7 +395,7 @@ void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
     int nDisabled = 0;
     for (int i = 0; i < pDialog->nLines; ++i)
     {
-        int nWidth = sub_00501820(pDialog->pLines[i].wszText);
+        int nWidth = D2Win_10121_GetTextWidth(pDialog->pLines[i].wszText);
         if (nWidth > nMaxWidth)
             nMaxWidth = nWidth;
         if (!pDialog->pLines[i].bEnabled)
@@ -875,7 +875,7 @@ static inline void sub_004B9470_ReleaseUnits(D2ClientSoundStrc* pSound)
     {
         sub_004CA8D0_NotifyUnitHint(pNode->pUnit, pSound->f_8);
     }
-    sub_00516A10_FreeList(&pSound->pUnitList);
+    D2SOUND_ListFree(&pSound->pUnitList);
 }
 
 // 0x004B94A0

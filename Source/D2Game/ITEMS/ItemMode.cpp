@@ -117,9 +117,9 @@ void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback); // 0x005FE000
 
 extern void* gpGlobal_00882D08; // 0x00882D08
 
-int __stdcall sub_006BE450(void* pObject); // 0x006BE450
+int __stdcall FOG_10180(void* pObject); // 0x006BE450
 
-void __stdcall sub_006BF5F0(void* pObject); // 0x006BF5F0
+void __stdcall FOG_10182_Return(void* pObject); // 0x006BF5F0
 
 struct D2SaveHeaderStrc
 {
@@ -901,13 +901,13 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
 // 0x0052B270
 int __fastcall sub_0052B270()
 {
-    return sub_006BE450(gpGlobal_00882D08);
+    return FOG_10180(gpGlobal_00882D08);
 }
 
 // 0x0052B6F0
 void __fastcall sub_0052B6F0()
 {
-    sub_006BF5F0(gpGlobal_00882D08);
+    FOG_10182_Return(gpGlobal_00882D08);
 }
 
 // 0x00550130

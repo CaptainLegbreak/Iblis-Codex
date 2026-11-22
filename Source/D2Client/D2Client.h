@@ -80,7 +80,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithMaxDistance(D2Active
 D2ActiveRoomStrc* __stdcall DUNGEON_GetRoomFromAct(D2DrlgActStrc* pAct); // 0x0061A180
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); // 0x006633B0
 D2BitBufferStrc* __cdecl sub_004B32E0_GetQuestHistory(); // 0x004B32E0
-D2CacheStatsStrc* __cdecl sub_004F5290_GetCacheStats(); // 0x004F5290
+D2CacheStatsStrc* __cdecl D2GFX_GetCacheResults(); // 0x004F5290
 D2ClientServiceStrc* __cdecl sub_00518C10(); // 0x00518C10
 D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry(); // 0x004B93F0
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
@@ -115,7 +115,7 @@ D2UnitStrc* __stdcall sub_00623990_GetWeapon(D2UnitStrc* pUnit, int nArg); // 0x
 D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
 T00481720* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
-char* __fastcall sub_0040E080_AddressToString(int nAddress); // 0x0040E080
+char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 char* __fastcall sub_00430B50_GetSlotName(int nIndex); // 0x00430B50
 char* __stdcall SStrUpper(char* szString); // 0x004141E0
 const char* __fastcall sub_0047A1F0(int nIndex); // 0x0047A1F0
@@ -466,7 +466,7 @@ float __stdcall sub_0040B330_Cos(int nAngle); // 0x0040B330
 float __stdcall sub_0040B350_Sin(int nAngle); // 0x0040B350
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl sub_00407FF0(); // 0x00407FF0
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0040EB10(); // 0x0040EB10
 int __cdecl sub_00410A80_GetTime(); // 0x00410A80
 int __cdecl sub_00430BC0_HasSaveFiles(); // 0x00430BC0
@@ -489,10 +489,10 @@ int __cdecl sub_004B41E0(); // 0x004B41E0
 int __cdecl sub_004B4290(); // 0x004B4290
 int __cdecl sub_004B9180(); // 0x004B9180
 int __cdecl sub_004F5170(); // 0x004F5170
-int __cdecl sub_004F51C0_IsHighVideoMode(); // 0x004F51C0
+int __cdecl D2GFX_IsHardwareRenderMode(); // 0x004F51C0
 int __cdecl sub_004F51D0_IsPerspective(); // 0x004F51D0
 int __cdecl sub_004F65E0(); // 0x004F65E0
-int __cdecl sub_004F9050(); // 0x004F9050
+int __cdecl D2Win_10003(); // 0x004F9050
 int __cdecl sub_00513B50(); // 0x00513B50
 int __cdecl sub_00513B60(); // 0x00513B60
 int __cdecl sub_00514C90(); // 0x00514C90
@@ -503,8 +503,8 @@ int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** p
 int __fastcall D2GFX_SetOption(int nOption, int nValue); // 0x004F52B0
 int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nClassId, unsigned short nNameId); // 0x00663750
 int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
-int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
-int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
+int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 int __fastcall sub_0040A7F0_AsyncDataCheck(T00481720* pAsyncData); // 0x0040A7F0
 int __fastcall sub_00432480(const char* szName, int bFlag); // 0x00432480
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
@@ -654,7 +654,7 @@ int __stdcall sub_004DA0F0_GetUnitGfxOffsetZ(D2UnitStrc* pUnit); // 0x004DA0F0
 int __stdcall sub_004E89A0(D2UnitStrc*, int*, int*, int*, D2SkillStrc*); // 0x004E89A0
 int __stdcall sub_004F64E0(D2CelContextStrc* pContext, int nX, int nY, int nTop, int nHeight, int nDrawMode); // 0x004F64E0
 int __stdcall sub_004F66E0_IsPrecisionOnScreen(int nPrecisionX, int nPrecisionY); // 0x004F66E0
-int __stdcall sub_0052AE50_SendPacket(int nSize, int nFlags, void* pData); // 0x0052AE50
+int __stdcall CLIENT_Send(int nSize, int nFlags, void* pData); // 0x0052AE50
 int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC); // 0x005FF300
 int __stdcall sub_006004E0_LoadSprite(D2CelContextStrc* pContext); // 0x006004E0
 int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
@@ -712,7 +712,7 @@ unsigned char* __fastcall sub_004DB110_GetLayerOrder(void* pGfx, int nA, int nFr
 unsigned int __cdecl sub_0044CE60_GetPing(); // 0x0044CE60
 unsigned int __cdecl sub_005FF2A0_CountPending(); // 0x005FF2A0
 unsigned int __fastcall sub_0040AA40(T00481720* pAsync); // 0x0040AA40
-unsigned int __fastcall sub_005159B0_GetSoundSampleCount(D2SoundStrc* pSound); // 0x005159B0
+unsigned int __fastcall D2SOUND_GetStreamPosition(D2SoundStrc* pSound); // 0x005159B0
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
 unsigned int __stdcall INVENTORY_GetItemGUID(D2UnitStrc* pItem); // 0x0063E000
 unsigned int __stdcall ITEMS_GetAltGfx(D2UnitStrc* pItem); // 0x006285F0
@@ -779,7 +779,7 @@ void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuf
 void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize); // 0x00406BA0
-void __fastcall sub_004068F0(void* hFile); // 0x004068F0
+void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
 void __fastcall sub_0040AB00_FreeAsyncData(T00481720* pAsync); // 0x0040AB00
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
@@ -850,13 +850,13 @@ void __fastcall sub_004FB0D0(); // 0x004FB0D0
 void __fastcall sub_004FB130_SetActiveState(int bActive); // 0x004FB130
 void __fastcall sub_004FB480_SetActA(unsigned char nAct); // 0x004FB480
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-void __fastcall sub_005028A0_FreeTextLines(T0044CB60* pLines); // 0x005028A0
-void __fastcall sub_005148F0_SetChannelValue(int nValue); // 0x005148F0
-void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0
-void __fastcall sub_00515EE0_StopSound(D2SoundStrc* pSound); // 0x00515EE0
+void __fastcall D2Win_10200(T0044CB60* pLines); // 0x005028A0
+void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
+void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound); // 0x00515EE0
 void __fastcall sub_005179A4_VirtualFree(void* pMemory); // 0x005179A4
 void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers); // 0x00535780
-void __fastcall sub_006BCAC0_ResetDataArray(D2WeatherStrc* pArray); // 0x006BCAC0
+void __fastcall DATAARRAYS_Reset(D2WeatherStrc* pArray); // 0x006BCAC0
 void __fastcall sub_006BCCD0_FreeDataArraySlot(D2WeatherStrc* pArray, int nSlot); // 0x006BCCD0
 void __stdcall CHAT_CopyHoverMsgToBuffer(D2HoverTextStrc* pHoverMsg, char* szMessage); // 0x006611E0
 void __stdcall CHAT_SetLangIdInHoverMsg(D2HoverTextStrc* pHoverMsg, unsigned char nLangId); // 0x00661230
@@ -957,7 +957,7 @@ void __stdcall sub_004F6760_PrecisionToScreen(int nPrecisionX, int nPrecisionY, 
 void __stdcall sub_004F68E0(D2GridInfoStrc* pInfo, D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nAlpha, int nMode, int nArg); // 0x004F68E0
 void __stdcall sub_004F6980(int nHandle, int nX, int nY, int nArg4, int nArg5); // 0x004F6980
 void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
-void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
+void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260
 void __stdcall sub_0052FD90(int nArg1, int nArg2); // 0x0052FD90
 void __stdcall sub_00600C00_SetActB(int nAct); // 0x00600C00
 void __stdcall sub_00619BD0(D2ActiveRoomStrc* pRoom, void* pfCallback, D2WallRoomArgStrc* pArg); // 0x00619BD0

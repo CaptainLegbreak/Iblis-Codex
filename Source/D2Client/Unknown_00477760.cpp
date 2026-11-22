@@ -83,7 +83,8 @@ void __cdecl sub_00477760_DrawCacheStats()
         sprintf(szText, "Tile Cache: (%.2fK) %3.2f%%, Misses: %d, %d percent utilized\n", (float)nSize * 0.0009765625, fPercent, nMisses, nUtilized);
         D2GFX_OutputString(10, 0x30, szText);
     }
-    D2CacheStatsStrc* pStats = sub_004F5290_GetCacheStats();
+// build: symbol ?D2GFX_GetCacheResults@* 0x004F5290
+    D2CacheStatsStrc* pStats = D2GFX_GetCacheResults();
     if (!pStats)
         return;
     if (pStats->nFloorSize)
@@ -151,7 +152,8 @@ void __fastcall sub_00477CA0_SendPacket67(const char* szName)
     tPacket.nByte2C = gpCharRecord_007A0438->nByte20F;
     tPacket.nByte14 = gpCharRecord_007A0438->nKind;
     SStrCopy(tPacket.szCharName, gszCharName_007A05C4, 0x7FFFFFFF);
-    sub_0052AE50_SendPacket(sizeof(tPacket), 0, &tPacket);
+// build: symbol ?CLIENT_Send@* 0x0052AE50
+    CLIENT_Send(sizeof(tPacket), 0, &tPacket);
     gnSentBytes_007A6AF8 += sizeof(tPacket);
     gnSentPackets_007A6B00 += 1;
 }
@@ -174,7 +176,7 @@ void __cdecl sub_00477DA0()
 {
     D2SendPacket6BStrc tPacket;
     tPacket.nHeader = 0x6B;
-    sub_0052AE50_SendPacket(sizeof(D2SendPacket6BStrc), 0, &tPacket);
+    CLIENT_Send(sizeof(D2SendPacket6BStrc), 0, &tPacket);
     gnSentBytes_007A6AF8 += sizeof(D2SendPacket6BStrc);
     gnSentPackets_007A6B00 += 1;
 }
@@ -236,7 +238,7 @@ void __cdecl sub_00477DD0()
         *(unsigned long*)(pPacket + 1) = GetTickCount();
         *(unsigned int*)(pPacket + 5) = sub_0044CE70() >> 1;
         *(unsigned int*)(pPacket + 9) = nValue * 0xB640DE41;
-        sub_0052AE50_SendPacket(13, 0, aPacket);
+        CLIENT_Send(13, 0, aPacket);
         gnSentBytes_007A6AF8 += 13;
         gnSentPackets_007A6B00 += 1;
     }

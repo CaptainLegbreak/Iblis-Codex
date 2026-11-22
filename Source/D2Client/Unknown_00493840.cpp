@@ -8,8 +8,8 @@ int __cdecl sub_0044DB30(); // 0x0044DB30
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB); // 0x0046A530
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -77,6 +77,6 @@ void __cdecl sub_00495030_DrawKeyHelp()
         sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 0));
         sub_00526700(wszText, wszKey);
     }
-    const int nWidth = sub_00501820(wszText);
-    sub_00502320(wszText, gnGlobal_0071146C - nWidth / 2 - 0x3A, gnGlobal_00711470 - 0xC5, 0, 0);
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
+    D2Win_10117_DrawText(wszText, gnGlobal_0071146C - nWidth / 2 - 0x3A, gnGlobal_00711470 - 0xC5, 0, 0);
 }

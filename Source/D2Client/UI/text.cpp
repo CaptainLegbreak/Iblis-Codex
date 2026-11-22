@@ -99,7 +99,7 @@ void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
@@ -267,7 +267,7 @@ void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
@@ -791,7 +791,7 @@ void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
     const int nOldFont = sub_00502EF0(13);
     for (; i < nLines && pNode; ++i)
     {
-        sub_00502320(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->wCount), 0, 0);
+        D2Win_10117_DrawText(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->wCount), 0, 0);
         pNode = pNode->pNext;
     }
     sub_00502EF0(nOldFont);
@@ -1011,7 +1011,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
     pBox->nTextBottom = pBox->f_14;
     for (T0044CB60* pLine = pBox->pFirst; pLine; pLine = pLine->pNext)
     {
-        nMaxWidth = nMaxWidth > sub_00501820(pLine->pText) ? nMaxWidth : sub_00501820(pLine->pText);
+        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->pText) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->pText);
     }
     pBox->nWidth = nMaxWidth + 0x14;
     pBox->nHeight = pBox->nLines * 0x0F + 6;

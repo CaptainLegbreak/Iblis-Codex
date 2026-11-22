@@ -34,12 +34,14 @@ void __fastcall sub_00477F70_SendGameLogon(int nServerToken, int nServerHash)
     *(int*)tPacket.nServerHash = nServerHash;
     *(short*)tPacket.f_5 = (short)nServerToken;
     *(int*)tPacket.nVersion = sub_0044D540_GetClientInterface()->pfnGetVersion();
-    *(unsigned int*)tPacket.nKey1 = sub_00408F20_HasExpansionMpq() ? 0xED5DCC50 : 0x2185EDD6;
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    *(unsigned int*)tPacket.nKey1 = FOG_IsExpansion() ? 0xED5DCC50 : 0x2185EDD6;
     *(unsigned int*)tPacket.nKey2 = 0x91A519B6;
     tPacket.f_14 = STRTABLE_GetLanguage();
     tPacket.nClass = CHAT_HasClassOverride() ? sub_0047AA20_GetClassOverride() : gnCharClass_007A0522;
     SStrCopy(tPacket.szName, gszCharName_007A05C4, 0x7FFFFFFF);
-    sub_0052AE50_SendPacket(sizeof(D2GameLogonPacketStrc), 0, &tPacket);
+// build: symbol ?CLIENT_Send@* 0x0052AE50
+    CLIENT_Send(sizeof(D2GameLogonPacketStrc), 0, &tPacket);
     gnSentBytes_007A6AF8 += sizeof(D2GameLogonPacketStrc);
     gnSentPackets_007A6B00 += 1;
 }

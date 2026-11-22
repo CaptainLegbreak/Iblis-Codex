@@ -1642,7 +1642,8 @@ void __cdecl sub_00477C00_ToggleCacheStats()
     if (!gbCacheStats_007BB3A4)
         return;
 
-    D2CacheStatsStrc* pStats = sub_004F5290_GetCacheStats();
+// build: symbol ?D2GFX_GetCacheResults@* 0x004F5290
+    D2CacheStatsStrc* pStats = D2GFX_GetCacheResults();
     if (pStats)
     {
         pStats->unk0x04 = 0;

@@ -56,10 +56,10 @@ struct D2CmpTileHeaderTargetStrc
     unsigned int adwData[33];
 };
 
-int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
-int __fastcall sub_004068F0(void* pArg); // 0x004068F0
-int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
-int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
+int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
 static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt);
 

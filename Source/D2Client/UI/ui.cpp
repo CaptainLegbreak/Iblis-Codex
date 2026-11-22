@@ -370,7 +370,7 @@ int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
 
 int __fastcall UI_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
 
@@ -450,7 +450,7 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 int __fastcall sub_00479B80_GetRecordValue(D2StoredUnitRecordStrc* pRecord); // 0x00479B80
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 struct D2TileRectStrc
 {
@@ -752,7 +752,7 @@ unsigned char __cdecl sub_0044DCD0_GetDifficulty();                             
 
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0
 
-void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC);  // 0x00502680
+void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC);  // 0x00502680
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);                  // 0x005269D0
 
@@ -1137,14 +1137,15 @@ void __cdecl UI_DrawDeathScreen()
     if (sub_00464820_IsDeadOrDying(pPlayer))
     {
         int nY = gnGlobal_00711470 / 2 - 0x5E;
-        sub_00525260(szLanguage, 0);
+// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
+        STRTABLE_GetLanguageInfoField(szLanguage, 0);
         if (!gpYouDiedHardcoreCel_007A2894)
         {
             sprintf(szPath, "%s\\UI\\%s\\youdiedhardcore", szDataLocal_006D41A8, szLanguage);
             gpYouDiedHardcoreCel_007A2894 = sub_004788B0(szPath, 0);
         }
         if (gpYouDiedHardcoreCel_007A2894)
-            sub_00502680_DrawCellFile(gpYouDiedHardcoreCel_007A2894, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+            D2Win_10134_DrawCellFile(gpYouDiedHardcoreCel_007A2894, gnGlobal_0071146C / 2, nY, 1, 5, 1);
 
         nY += 0x30;
         gbDeathScreenShown_007A2890 = 1;
@@ -1154,7 +1155,7 @@ void __cdecl UI_DrawDeathScreen()
             gpYouDiedInstCel_007A2898 = sub_004788B0(szPath, 0);
         }
         if (gpYouDiedInstCel_007A2898)
-            sub_00502680_DrawCellFile(gpYouDiedInstCel_007A2898, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+            D2Win_10134_DrawCellFile(gpYouDiedInstCel_007A2898, gnGlobal_0071146C / 2, nY, 1, 5, 1);
 
         Unicode wszText[0x100];
         if (sub_0044B850_IsHardcore())
@@ -1170,19 +1171,19 @@ void __cdecl UI_DrawDeathScreen()
         nY += 0x30;
         sub_00502EF0(2);
         {
-            const int nWidth = sub_00501820(wszText);
+            const int nWidth = D2Win_10121_GetTextWidth(wszText);
             const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
-            sub_00502320(wszText, nX, nY, 1, 1);
+            D2Win_10117_DrawText(wszText, nX, nY, 1, 1);
         }
 
 second_text:
         if (sub_0044DCD0_GetDifficulty() > 0 && !sub_0044B850_IsHardcore())
         {
             sub_00502EF0(2);
-            const int nWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0x13E7));
+            const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0x13E7));
             const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
             nY += 0x30;
-            sub_00502320(D2LANG_GetStringFromTblIndex(0x13E7), nX, nY, 1, 1);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x13E7), nX, nY, 1, 1);
         }
     }
     else
@@ -1296,12 +1297,13 @@ static void UI_SetPanelHotkeys(const D2PanelHotkeysStrc* pDesc)
     SetHotkey(pDesc, pDesc->nIndex16Sec, 0x16, 0x1, 0xC0);
     SetHotkey(pDesc, pDesc->nIndex26Sec, 0x26, 0x1, 0x1B);
     SetHotkey(pDesc, pDesc->nIndex29Sec, 0x29, 0x1, 0x4E);
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
         SetHotkey(pDesc, pDesc->nIndex2CSec, 0x2C, 0x1, 0x57);
     SetHotkey(pDesc, pDesc->nIndex16, 0x16, 0x0, 0xC0);
     SetHotkey(pDesc, pDesc->nIndex26, 0x26, 0x0, 0x1B);
     SetHotkey(pDesc, pDesc->nIndex29, 0x29, 0x0, 0x4E);
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
         SetHotkey(pDesc, pDesc->nIndex2C, 0x2C, 0x0, 0x57);
 }
 
@@ -1368,7 +1370,7 @@ void __cdecl UI_DrawStoredUnitNumber()
     Unicode wszText[12];
     wsprintfA(szText, gszFormatD_006D57BC, nValue);
     sub_00526F20_ToUnicode(wszText, szText, 12);
-    sub_00502320(wszText, 600, 25, 4, 0);
+    D2Win_10117_DrawText(wszText, 600, 25, 4, 0);
 }
 
 static inline int IsGoldPanelMode(int nMode)
@@ -2170,7 +2172,7 @@ void __cdecl UI_ToggleMiniPanel()
     if (SRegLoadValue("Diablo II", "Mini Panel", 1, &dwValue) && dwValue)
         return;
     const int bWasOn = gbMiniPanel_007A2814;
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
         sub_0044DCC0();
     D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
     if (!gbMiniPanel_007A2814)
@@ -2320,7 +2322,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     {
         UI_CloseUIVars(0, 0);
         const int bWasOn = gaUIVarStates_007A27C0[33];
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
             sub_0044DCC0();
         D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
         if (!gaUIVarStates_007A27C0[33])
@@ -2677,7 +2679,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         D2RectStrc tRect;
         if (UI_GetHoverRect(&tRect))
         {
-            const int nWidth = sub_00501820((Unicode*)wszText);
+            const int nWidth = D2Win_10121_GetTextWidth((Unicode*)wszText);
             D2Win_10130_DrawFramedTextEx((Unicode*)wszText, ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1), 0x20, nColor, 0, nY);
             if (bDead)
             {

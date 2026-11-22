@@ -48,7 +48,7 @@ struct D2SplittedTextStrc
 extern "C" const char gszD2WinFontSourceFile[]; // 0x006DC9FC
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
-D2SplittedTextStrc* __stdcall sub_005028E0_AllocSplitTextLine(const Unicode* wszText, int nLength, int bSkipSpace); // 0x005028E0
+D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, int nLength, int bSkipSpace); // 0x005028E0
 
 // 0x00501FE0
 void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth)
@@ -244,11 +244,11 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
                             break;
                         }
                     }
-                    pLine = sub_005028E0_AllocSplitTextLine(&wszText[nStart], nEnd - nStart + 1, 1);
+                    pLine = D2Win_AllocateSplitText(&wszText[nStart], nEnd - nStart + 1, 1);
                 }
                 else
                 {
-                    pLine = sub_005028E0_AllocSplitTextLine(&wszText[nStart], nEnd - nStart + 1, 1);
+                    pLine = D2Win_AllocateSplitText(&wszText[nStart], nEnd - nStart + 1, 1);
                 }
                 ++*pLineCount;
                 if (pLast)
@@ -269,7 +269,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
             }
             else
             {
-                D2SplittedTextStrc* pLine = sub_005028E0_AllocSplitTextLine(&wszText[nStart], nEnd - nStart + 1, 1);
+                D2SplittedTextStrc* pLine = D2Win_AllocateSplitText(&wszText[nStart], nEnd - nStart + 1, 1);
                 ++*pLineCount;
                 if (pLast)
                 {

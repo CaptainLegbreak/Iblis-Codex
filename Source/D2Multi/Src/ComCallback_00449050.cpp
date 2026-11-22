@@ -344,7 +344,8 @@ static void __stdcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, con
     SStrCopy(pUser->szName, szName, 0x7FFFFFFF);
 
     int nMode = 5;
-    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && (sub_00408F20_HasExpansionMpq() || nResult < 5))
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && (FOG_IsExpansion() || nResult < 5))
     {
         nMode = 1;
     }
@@ -396,7 +397,7 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
 
     const unsigned char nResult = sub_00446D90_ParseStatString(pUser, nFlags, pStat);
     int nMode = 5;
-    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && !(pUser->dwFlags & 2) && (sub_00408F20_HasExpansionMpq() || nResult < 5))
+    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && !(pUser->dwFlags & 2) && (FOG_IsExpansion() || nResult < 5))
     {
         nMode = 1;
     }

@@ -141,14 +141,14 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-void __cdecl sub_00401A70_SetMiniDumpThreadName(); // 0x00401A70
+void __cdecl ERRORMANAGER_SetMiniDumpThreadName(); // 0x00401A70
 void __cdecl sub_004026D0_WriteMiniDump(); // 0x004026D0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
-void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
-void __fastcall sub_0040F470_LookupLog(const char* szName); // 0x0040F470
-void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
+void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
+void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName); // 0x0040F470
+void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern int gbImageHlpLoaded_0075D014; // 0x0075D014
@@ -177,8 +177,8 @@ extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); 
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int nFolder, void* hToken, unsigned long dwFlags, char* szPath); // 0x006CC43C
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
-int __fastcall sub_00406B20_AppendBackslash(char* szPath, unsigned int nSize); // 0x00406B20
+int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
+int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize); // 0x00406B20
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 extern int gbLogInitialized_0075D2EC; // 0x0075D2EC
@@ -956,12 +956,12 @@ extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int n
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
 // 0x004027C0
-unsigned long __stdcall sub_004027C0_DbgHelpThreadProc(void* pParam)
+unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
 {
     // stands for a stack local the original stores 0 to and reads back unused (no plain-C form found)
     volatile int nDummy = 0;
     nDummy;
-    sub_00401A70_SetMiniDumpThreadName();
+    ERRORMANAGER_SetMiniDumpThreadName();
     WaitForSingleObject(ghDbgHelpWorkEvent_0098A6C0, 0xFFFFFFFF);
     while (gpDbgHelpRequest_0098A6E4)
     {
@@ -992,7 +992,7 @@ void __fastcall sub_0040ABF0_HeapSiftDown(int* pHeap, int nCount, int nIndex)
 }
 
 // 0x0040ACA0
-void __fastcall sub_0040ACA0_CalcCodeLengths(int* pA, int nCount)
+void __fastcall LOGMANAGER_CalcCodeLengths(int* pA, int nCount)
 {
     int nRoot, nLeaf, nNext, nAvail, nUsed, nDepth;
     if (nCount == 0)
@@ -1048,20 +1048,20 @@ void __fastcall sub_0040ACA0_CalcCodeLengths(int* pA, int nCount)
 }
 
 // 0x0040B540
-void __fastcall sub_0040B540_DumpThreadStackAndCode(void* hThread)
+void __fastcall LOGMANAGER_DumpThreadStackAndCode(void* hThread)
 {
     D2ThreadContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.ContextFlags = 0x10007;
     GetThreadContext(hThread, &tContext);
     sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "Stack bytes:\n");
-    sub_00410040_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Esp, 0x1000, 0, 1, 0);
+    LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Esp, 0x1000, 0, 1, 0);
     sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "Code bytes:\n");
-    sub_00410040_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Eip, 0x20, 0, 1, 0);
+    LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Eip, 0x20, 0, 1, 0);
 }
 
 // 0x0040D540
-void __cdecl sub_0040D540_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo)
+void __cdecl LOGMANAGER_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo)
 {
     if (!gbImageHlpLoaded_0075D014)
     {
@@ -1075,21 +1075,21 @@ void __cdecl sub_0040D540_SETranslator(unsigned int nCode, D2ExceptionPointersSt
 }
 
 // 0x0040F000
-void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize)
+void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize)
 {
     char szPath[0x104];
     *szDirectory = 0;
     if (SHGetFolderPathA(0, 5, 0, 0, szPath) >= 0)
     {
         SStrCopy(szDirectory, szPath, nSize);
-        sub_00406B20_AppendBackslash(szDirectory, nSize);
+        ERRORMANAGER_AppendBackslash(szDirectory, nSize);
         SStrPack(szDirectory, "Diablo II\\GameLogs\\", nSize);
-        sub_00406A10_CreateDirectoryTree(szDirectory);
+        FOG_CreatePathHierarchy(szDirectory);
     }
 }
 
 // 0x0040F3D0
-void __fastcall sub_0040F3D0_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile)
+void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile)
 {
     int nOffset = SStrLen(szFile) - 10;
     if (nOffset > 0)
@@ -1115,19 +1115,19 @@ sub_0040F530::~sub_0040F530()
 }
 
 // 0x0040F5A0
-void __fastcall sub_0040F5A0_SetLogPrefix(const char* szName)
+void __fastcall LOGMANAGER_SetLogPrefix(const char* szName)
 {
     char szDirectory[0x104];
-    sub_0040F000_GetLogDirectory(szDirectory, 0x104);
+    LOGMANAGER_GetLogDirectory(szDirectory, 0x104);
     SStrPrintf(gszLogPrefix_00708018, 0x104, "%s%s", szDirectory, szName);
 }
 
 // 0x0040F600
-long __fastcall sub_0040F600_MeasureLogFile(const char* szName)
+long __fastcall LOGMANAGER_MeasureLogFile(const char* szName)
 {
     D2SystemTimeStrc tTime;
     EnterCriticalSection(&gtLogLock_0075E850);
-    sub_0040F470_LookupLog(szName);
+    EXCEPTIONS_CloseNamedLog(szName);
     long nSize = 0;
     _iobuf* pFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
     if (pFile)
@@ -1141,14 +1141,14 @@ long __fastcall sub_0040F600_MeasureLogFile(const char* szName)
 }
 
 // 0x0040F670
-char* __fastcall sub_0040F670_ReadLogRange(const char* szName, long nStart, long nEnd)
+char* __fastcall LOGMANAGER_ReadLogRange(const char* szName, long nStart, long nEnd)
 {
     D2SystemTimeStrc tTime;
     long nLength = nEnd - nStart;
     char* pBuffer = (char*)FOG_Alloc(nLength + 1, ".\\Src\\LogManager.cpp", 0x10A, 0);
     memset(pBuffer, 0, nLength + 1);
     EnterCriticalSection(&gtLogLock_0075E850);
-    sub_0040F470_LookupLog(szName);
+    EXCEPTIONS_CloseNamedLog(szName);
     _iobuf* pFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
     if (pFile)
     {
@@ -1161,7 +1161,7 @@ char* __fastcall sub_0040F670_ReadLogRange(const char* szName, long nStart, long
 }
 
 // 0x0040F720
-void __fastcall sub_0040F720_WriteMessage(D2LogMessageStrc* pMessage)
+void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
 {
     D2_ASSERT(pMessage->nType == 1, 0x2A1);
     char* szName = pMessage->szName;
@@ -1363,7 +1363,7 @@ void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 }
 
 // 0x0040F8A0
-void __cdecl sub_0040F8A0_CloseLogFilesNow()
+void __cdecl LOGMANAGER_CloseLogFilesNow()
 {
     D2_ASSERT(gbLogInitialized_0075D2EC, 456);
     const unsigned long dwStart = GetTickCount();
@@ -1391,9 +1391,9 @@ void __cdecl sub_0040F8A0_CloseLogFilesNow()
 }
 
 // 0x0040F960
-void __cdecl sub_0040F960_CloseLogFiles()
+void __cdecl LOGMANAGER_CloseLogFiles()
 {
-    sub_0040F8A0_CloseLogFilesNow();
+    LOGMANAGER_CloseLogFilesNow();
 }
 
 // 0x0040FAA0
@@ -1408,7 +1408,7 @@ D2LogMsgNodeStrc::D2LogMsgNodeStrc()
 }
 
 // 0x00410C40
-void __stdcall sub_00410C40_OrBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
+void __stdcall LOGMANAGER_OrBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
 {
     nBits = (nBits + 7) / 8;
     const int nAligned = 4 * (nBits / 4);
@@ -1897,7 +1897,7 @@ sub_00602760::~sub_00602760()
 }
 
 // 0x00410040
-void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int bBadPointer, int nArg7)
+void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int bBadPointer, int nArg7)
 {
     if (gbLogThreadStop_0075E830 || !gbLogInitialized_0075D2EC)
         return;
@@ -1946,7 +1946,7 @@ void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitl
 }
 
 // 0x004106B0
-void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...)
+void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...)
 {
     D2_ASSERT(szFormat, 335);
     if (!szPrefix)
@@ -1959,7 +1959,7 @@ void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* sz
 }
 
 // 0x0040F970
-void __cdecl sub_0040F970_SweepOldLogFiles()
+void __cdecl LOGMANAGER_SweepOldLogFiles()
 {
     if (gdwLastLogSweep_0075E874 && GetTickCount() - gdwLastLogSweep_0075E874 < 86400000)
     {
@@ -1967,14 +1967,14 @@ void __cdecl sub_0040F970_SweepOldLogFiles()
     }
     gdwLastLogSweep_0075E874 = GetTickCount();
     LeaveCriticalSection(&gtLogLock_0075E850);
-    sub_0040F8A0_CloseLogFilesNow();
+    LOGMANAGER_CloseLogFilesNow();
     EnterCriticalSection(&gtLogLock_0075E850);
     D2SystemTimeStrc tNow;
     GetLocalTime(&tNow);
     D2FileTimeStrc ftNow;
     SystemTimeToFileTime(&tNow, &ftNow);
     char szDirectory[0x104];
-    sub_0040F000_GetLogDirectory(szDirectory, sizeof(szDirectory));
+    LOGMANAGER_GetLogDirectory(szDirectory, sizeof(szDirectory));
     char szPattern[0x104];
     SStrPrintf(szPattern, sizeof(szPattern), "%sd2*.txt", szDirectory);
     D2FindDataStrc tFind;
@@ -1985,7 +1985,7 @@ void __cdecl sub_0040F970_SweepOldLogFiles()
         {
             char szFile[0x104];
             SStrPrintf(szFile, sizeof(szFile), "%s%s", szDirectory, tFind.cFileName);
-            sub_0040F3D0_SweepLogFile(&ftNow, szFile);
+            LOGMANAGER_SweepLogFile(&ftNow, szFile);
         }
         while (FindNextFileA(hFind, &tFind));
         FindClose(hFind);

@@ -723,7 +723,7 @@ D2TxtLinkStrc* gpHireDescLinker_0096BCE8;                                       
 
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC;                                                              // 0x0096C7CC
 
-int __cdecl sub_00408F20_HasExpansionMpq();
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 
 extern "C" const char gszField_006DCCF0[]; // 0x006DCCF0
 
@@ -2268,7 +2268,7 @@ void __fastcall DATATBLS_LoadHirelingTxt(void* hArchive)
         gaHirelingIds[0][i] = -1;
         gaHirelingIds[1][i] = -1;
     }
-    const int bExpansion = sub_00408F20_HasExpansionMpq();
+    const int bExpansion = FOG_IsExpansion();
     for (int i = 0; i < gnHirelingTxtRecordCount; ++i)
     {
         const wchar_t* pUnicode = 0;

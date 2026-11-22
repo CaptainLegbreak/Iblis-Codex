@@ -11,9 +11,9 @@ struct T0044CB60
 
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6);  // 0x0046EFD0
@@ -37,7 +37,7 @@ static void sub_0047B450_DrawBlinkingCaret(int nColor, int nY, int nX)
 {
     if (gnBlinkOn_00713004 == 1)
     {
-        sub_00502320(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
     }
 
     const unsigned long dwTick = GetTickCount();
@@ -69,14 +69,14 @@ void __cdecl sub_0047B720_DrawChatPanel()
         {
         case 0:
             sub_00526F20_ToUnicode(wszLanguage, "Alphanumeric", 20);
-            sub_00502320(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
             break;
 
         case 4:
         case 5:
             wszLanguage[1].wChar = 0x6F22;
             wszLanguage[2].wChar = 0;
-            sub_00502320(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
             sub_0047B5C0_DrawImeCandidates();
             break;
 
@@ -84,7 +84,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
             wszLanguage[0].wChar = 0xD55C;
             wszLanguage[1].wChar = 0xAE00;
             wszLanguage[2].wChar = 0;
-            sub_00502320(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
             break;
 
         case 2:
@@ -93,7 +93,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
             wszLanguage[1].wChar = 0x672C;
             wszLanguage[2].wChar = 0x8A9E;
             wszLanguage[3].wChar = 0;
-            sub_00502320(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
+            D2Win_10117_DrawText(wszLanguage, 0x14, gnGlobal_00711470 - 0x80, 0, 0);
             break;
         }
     }
@@ -126,20 +126,21 @@ void __cdecl sub_0047B720_DrawChatPanel()
             nRow = nLine;
             if (nLine < 3)
             {
-                sub_00502320(pLine->pText, 0x83, 15 * nLine + gnGlobal_00711470 - 0x58, 0, 0);
-                nWidth = sub_00501820(pLine->pText);
+                D2Win_10117_DrawText(pLine->pText, 0x83, 15 * nLine + gnGlobal_00711470 - 0x58, 0, 0);
+                nWidth = D2Win_10121_GetTextWidth(pLine->pText);
             }
 
             T0044CB60* pNext = pLine->pNext;
             if (!pNext && gbChatInputOpen_007BB5E1 && gbGlobal_007BB5E0)
             {
-                sub_0047B4F0_DrawImeText(sub_00501820(pLine->pText) + 0x83, 15 * nLine + gnGlobal_00711470 - 0x58);
+                sub_0047B4F0_DrawImeText(D2Win_10121_GetTextWidth(pLine->pText) + 0x83, 15 * nLine + gnGlobal_00711470 - 0x58);
             }
 
             nLine += 1;
             pLine = pNext;
         }
-        sub_005028A0_FreeTextLines(pLines);
+// build: symbol ?D2Win_10200@* 0x005028A0
+        D2Win_10200(pLines);
 
         if (nLine > 0)
         {

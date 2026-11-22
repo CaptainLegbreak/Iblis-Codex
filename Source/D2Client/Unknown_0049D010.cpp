@@ -36,7 +36,8 @@ extern int gnGlobal_007A285C;                                                   
 // 0x0049C490
 static int sub_0049C490_GetActTabAtPoint(int nX, int nY)
 {
-    if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion() && sub_0044DCC0())
     {
         if (nY > 0x1E || nX > 0x140)
             return -1;

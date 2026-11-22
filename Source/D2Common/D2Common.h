@@ -37,7 +37,7 @@ D2SkillDescTxt* __fastcall sub_004A89D0(int nSkillId); // 0x004A89D0
 D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine); // 0x006BD040
 D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine); // 0x006BD040
-D2TxtLinkStrc* __stdcall sub_006BD040_AllocBlock(const char* szFile, int nLine); // 0x006BD040
+D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine); // 0x006BD040
 char* __stdcall SStrDup(const char* szString); // 0x00414310
 extern "C" SkillRecord* __fastcall sub_0045C4B0_GetSkillRecord(int); // 0x0045C4B0
 extern "C" Unit* __stdcall sub_00622830_GetWeapon(Unit*); // 0x00622830
@@ -146,7 +146,7 @@ extern void* gpSkillsCalcFunctions[]; // 0x00745774
 extern void* gpUniqueItemsTxt; // 0x0096C854
 float __stdcall sub_0040B330_Cos(int nAngle); // 0x0040B330
 float __stdcall sub_0040B350_Sin(int nAngle); // 0x0040B350
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463900
 int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70

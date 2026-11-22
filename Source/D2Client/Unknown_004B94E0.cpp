@@ -32,9 +32,9 @@ float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); 
 float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY);                                           // 0x004E4160
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle);                                // 0x004CA8D0
 extern "C" void __cdecl sub_004E4280();                                                                     // 0x004E4280
-void __fastcall sub_00516980_RemoveNode(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound);               // 0x00516980
+void __fastcall D2SOUND_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound);               // 0x00516980
 int __fastcall sub_005169D0_ListHasKey(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit);                      // 0x005169D0
-void __fastcall sub_00516A10_FreeList(D2SoundUnitNodeStrc** ppList);                                        // 0x00516A10
+void __fastcall D2SOUND_ListFree(D2SoundUnitNodeStrc** ppList);                                        // 0x00516A10
 
 // 0x004B94E0
 static void sub_004B94E0_FreeSound(D2ClientSoundStrc* pSound)
@@ -42,11 +42,11 @@ static void sub_004B94E0_FreeSound(D2ClientSoundStrc* pSound)
     if (!pSound)
         return;
 
-    sub_00516980_RemoveNode(&gpSoundList_007C5458, pSound);
+    D2SOUND_ListRemove(&gpSoundList_007C5458, pSound);
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
         sub_004CA8D0_NotifyUnitHint(pNode->pUnit, pSound->f_8);
 
-    sub_00516A10_FreeList(&pSound->pUnitList);
+    D2SOUND_ListFree(&pSound->pUnitList);
     if (pSound->nType == 1)
         sub_004DF7B0(pSound->pStream);
 

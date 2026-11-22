@@ -36,8 +36,8 @@ int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory);
 int __fastcall sub_00502EF0(int nArg);
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
-int __fastcall sub_00501820(const Unicode* wszText);
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha);
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);
@@ -259,7 +259,7 @@ static void __stdcall sub_0045A760_DrawAutomapText(unsigned char nColor, const c
     Unicode wszText[0x17];
     memset(wszText, 0, sizeof(wszText));
     sub_00526320_ToUnicode(wszText, szText, 0x17);
-    sub_00502320(wszText, nX - sub_00501820(wszText) / 2, nY - 10, nColor, 0);
+    D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -345,7 +345,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
         {
             const int nOldFont = sub_00502EF0(6);
             const Unicode* wszName = sub_00464A60_GetUnitName(pUnit);
-            sub_00502320(wszName, nX - sub_00501820(wszName) / 2, nY - 10, 4, 0);
+            D2Win_10117_DrawText(wszName, nX - D2Win_10121_GetTextWidth(wszName) / 2, nY - 10, 4, 0);
             sub_00502EF0(nOldFont);
         }
 
@@ -386,7 +386,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
         {
             const int nOldFont = sub_00502EF0(6);
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(0xCF3);
-            sub_00502320(wszText, nX - sub_00501820(wszText) / 2, nY - 10, nColor, 0);
+            D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
             sub_00502EF0(nOldFont);
         }
         else

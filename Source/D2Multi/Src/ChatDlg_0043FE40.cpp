@@ -56,7 +56,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 const char* __stdcall SStrChr(const char* szString, char nChar);                                            // 0x00413490
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
-int __fastcall sub_004F9190(); // 0x004F9190
+int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed);                             // 0x005009A0
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
@@ -211,7 +211,7 @@ int __fastcall sub_0043FE40_SetupLogin(D2LaunchLoginStrc* pLogin, const char* sz
     strcpy(gpCharInfo_0077BBD8->szText0x37, szText0x37);
     gbDone_0077BDA0 = 1;
     sub_004F9160_SetLoopValue(0);
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -434,9 +434,10 @@ int __stdcall sub_00445550(int nArg)
         sub_004F9740_SetControlState(gpControl_00798C24, 0);
         sub_004F9740_SetControlState(gpControl_00798C1C, 1);
         sub_004F9740_SetControlState(gpControl_00798C20, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C3C, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C1C, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C20, 1);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControl_00798C3C, 1);
+        CONTROL_SetEnabled(gpControl_00798C1C, 1);
+        CONTROL_SetEnabled(gpControl_00798C20, 1);
         sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 4, 0, 0);
         sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 4, 0, 0);
     }
@@ -446,9 +447,9 @@ int __stdcall sub_00445550(int nArg)
         sub_004F9740_SetControlState(gpControl_00798C24, 1);
         sub_004F9740_SetControlState(gpControl_00798C1C, 0);
         sub_004F9740_SetControlState(gpControl_00798C20, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C3C, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C1C, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C20, 0);
+        CONTROL_SetEnabled(gpControl_00798C3C, 0);
+        CONTROL_SetEnabled(gpControl_00798C1C, 0);
+        CONTROL_SetEnabled(gpControl_00798C20, 0);
         sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 5, 0, 0);
         sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 5, 0, 0);
     }
@@ -505,10 +506,10 @@ void __fastcall sub_00448BD0_UpdateScroll(int nDelta)
     }
     if (gnChannelScroll_00798F44 != nOld)
         sub_00447BB0_Refresh();
-    sub_004F96F0_ControlClearState(gpChatControl_0077B084, bUp);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B088, bDown);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B08C, bUp);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B090, bDown);
+    CONTROL_SetEnabled(gpChatControl_0077B084, bUp);
+    CONTROL_SetEnabled(gpChatControl_0077B088, bDown);
+    CONTROL_SetEnabled(gpChatControl_0077B08C, bUp);
+    CONTROL_SetEnabled(gpChatControl_0077B090, bDown);
 }
 
 // 0x00449AD0

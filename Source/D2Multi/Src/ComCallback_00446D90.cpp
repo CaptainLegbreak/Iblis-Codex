@@ -73,9 +73,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTempPathA(unsigned l
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTempFileNameA(const char* szPathName, const char* szPrefix, unsigned int nUnique, char* szTempFileName); // 0x006CC340
 
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
 
 extern D2WinSmackStrc* gpSmack_0077B098; // 0x0077B098
 
@@ -496,7 +496,8 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
 
     const unsigned char nResult = sub_00446D90_ParseStatString(pUser, nFlags, pStat);
     int nMode = 5;
-    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && !(pUser->dwFlags & 2) && (sub_00408F20_HasExpansionMpq() || nResult < 5))
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && !(pUser->dwFlags & 2) && (FOG_IsExpansion() || nResult < 5))
     {
         nMode = 1;
     }
@@ -639,11 +640,12 @@ static int sub_00446B70_PlayVideoMessage(D2LaunchMsgStrc* pMsg)
     if (GetTempFileNameA(szTempPath, "BNetAd", 0, szTempFile) > 0)
     {
         DeleteFileA(gszTempFile_00798E30);
-        void* hFile = sub_00406960_CreateFile(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
+        void* hFile = FOG_CreateFileA(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
         if (hFile != (void*)-1)
         {
-            sub_004069D0_WriteFile(hFile, pMsg->pData, pMsg->nSize, &nWritten, 0);
-            sub_004069A0_CloseFile(hFile);
+            FOG_WriteFile(hFile, pMsg->pData, pMsg->nSize, &nWritten, 0);
+// build: symbol ?FOG_CloseFile@* 0x004069A0
+            FOG_CloseFile(hFile);
         }
         const char* pExt = strrchr(pMsg->szName, '.') + 1;
         SMACK_Decode(gpSmack_0077B098, szTempFile, tolower(*pExt));
@@ -857,7 +859,7 @@ static void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, un
     SStrCopy(pUser->szName, szName, 0x7FFFFFFF);
 
     int nMode = 5;
-    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && (sub_00408F20_HasExpansionMpq() || nResult < 5))
+    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && (FOG_IsExpansion() || nResult < 5))
     {
         nMode = 1;
     }
@@ -1137,7 +1139,8 @@ int __fastcall sub_004496B0_OnJoinChannel(int nA, int nB, int nC, const char* sz
     }
     for (int i = 0; i < 11; i++)
     {
-        sub_004F96F0_ControlClearState(gapChatButtons_0077AD78[i], 1);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gapChatButtons_0077AD78[i], 1);
     }
     sub_004F9740_SetControlState(gpChatControl_0077BC44, 0);
     sub_004495A0_ClearChannel();

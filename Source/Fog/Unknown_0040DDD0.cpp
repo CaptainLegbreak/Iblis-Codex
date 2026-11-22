@@ -60,7 +60,7 @@ extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 extern D2CriticalSectionStrc gTimeLock_0075E880; // 0x0075E880
 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
-int __cdecl sub_0040E870_MeasureCpuMHz(); // 0x0040E870
+int __cdecl ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
 
 struct T004013C0
 {
@@ -370,7 +370,7 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
         sub_0040E300(szName, nVendor, nFamily, nModel, nBrand, nType);
         sub_00410610_WriteLogLine(gszCpuVendorFormat_006CE0EC, gaszCpuVendorNames_00708004[nVendor]);
         sub_00410610_WriteLogLine(gszCpuVersionFormat_006CE0A8, szName, nType, nFamily, nModel, nSignature & 0xF, nBrand);
-        sub_00410610_WriteLogLine(gszCpuSpeedFormat_006CE08C, sub_0040E870_MeasureCpuMHz());
+        sub_00410610_WriteLogLine(gszCpuSpeedFormat_006CE08C, ERRORMANAGER_MeasureCpuMHz());
         break;
     }
     }

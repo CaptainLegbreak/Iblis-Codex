@@ -67,7 +67,7 @@ int __fastcall sub_006C1FD0_GetOverflow(D2QSQueueStrc* pQueue)
 }
 
 // 0x006C1FF0
-void __fastcall sub_006C1FF0_Push(D2QSQueueStrc* pQueue, const void* pSource, unsigned short nLength)
+void __fastcall D2QSQUEUE_Push(D2QSQueueStrc* pQueue, const void* pSource, unsigned short nLength)
 {
     D2_ASSERT(nLength > 0, 0x4A);
 
@@ -89,7 +89,7 @@ void __fastcall sub_006C1FF0_Push(D2QSQueueStrc* pQueue, const void* pSource, un
 }
 
 // 0x006C2090
-int __fastcall sub_006C2090_Pop(D2QSQueueStrc* pQueue, void* pDest, unsigned short nMaxLength)
+int __fastcall D2QSQUEUE_Pop(D2QSQueueStrc* pQueue, void* pDest, unsigned short nMaxLength)
 {
     int nLength;
     EnterCriticalSection(&pQueue->tLock);

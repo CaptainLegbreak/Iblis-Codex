@@ -255,9 +255,9 @@ extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x0
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
 
-int __fastcall sub_00516E46_OpenFile(HD2ARCHIVE hArchive, const char* szFilePath, HSFILE* phFile, int bQuiet); // 0x00516E46
+int __fastcall ARCHIVE_OpenFile(HD2ARCHIVE hArchive, const char* szFilePath, HSFILE* phFile, int bQuiet); // 0x00516E46
 
-void __fastcall sub_00516E84_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516E84
+void __fastcall ARCHIVE_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516E84
 
 short __stdcall sub_00524D30_FindString(const char* szReference, const Unicode** ppUnicode); // 0x00524D30
 
@@ -545,7 +545,8 @@ void __fastcall DATATBLS_LoadItemsTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gpItemsLinker_0096BCC4 = sub_006BD040_AllocBlock(".\\DATATBLS\\ItemTbls.cpp", 392);
+// build: symbol ?FOG_AllocLinker@* 0x006BD040
+    gpItemsLinker_0096BCC4 = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 392);
 
     D2ItemsTxt* pWeapons = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "weapons", pTbl, &gnWeaponsTxtRecordCount_0096CA64, sizeof(D2ItemsTxt));
     D2ItemsTxt* pArmor = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "armor", pTbl, &gnArmorTxtRecordCount_0096CA6C, sizeof(D2ItemsTxt));
@@ -1312,7 +1313,7 @@ void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gpItemStatCostLinker = sub_006BD040_AllocBlock(".\\DATATBLS\\ItemTbls.cpp", 1716);
+    gpItemStatCostLinker = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 1716);
     gpItemStatCostTxt = (D2ItemStatCostTxt*)DATATBLS_CompileTxt(hArchive, "itemstatcost", pTbl, &gnItemStatCostTxtRecordCount, sizeof(D2ItemStatCostTxt));
 
     ITEM_ASSERT(gnItemStatCostTxtRecordCount <= 511, 1718);
@@ -1612,12 +1613,12 @@ static int __stdcall DATATBLS_DoesExcelFileExist(HD2ARCHIVE hArchive, const char
     HSFILE hFile;
 
     wsprintfA(szPath, "%s\\%s%s", "DATA\\GLOBAL\\EXCEL", szFileName, szExtension);
-    if (!sub_00516E46_OpenFile(hArchive, szPath, &hFile, 1))
+    if (!ARCHIVE_OpenFile(hArchive, szPath, &hFile, 1))
     {
         return 0;
     }
 
-    sub_00516E84_CloseFile(hArchive, hFile);
+    ARCHIVE_CloseFile(hArchive, hFile);
     return 1;
 }
 
@@ -1676,7 +1677,7 @@ void __fastcall DATATBLS_LoadRunesTxt(HD2ARCHIVE hArchive)
         { "end", TXTFIELD_NONE, 0, 0, NULL },
     };
 
-    sgtDataTables.pRunesLinker = sub_006BD040_AllocBlock(".\\DATATBLS\\ItemTbls.cpp", 2303);
+    sgtDataTables.pRunesLinker = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 2303);
 
     D2_ASSERT(!DATATBLS_DoesExcelFileExist(hArchive, "runessrv", ".txt"), 2308);
     D2_ASSERT(!DATATBLS_DoesExcelFileExist(hArchive, "runessrv", ".bin"), 2312);

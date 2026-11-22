@@ -43,13 +43,13 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 void __stdcall sub_004164A0_SetValue(int nValue); // 0x004164A0
 void __stdcall SFileSetDataChunkSize(int nValue); // 0x00416570
 void __stdcall sub_0041A930_CancelRead(void* pBuffer); // 0x0041A930
-void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData); // 0x0040A4C0
+void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData); // 0x0040A4C0
 int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
 void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData); // 0x0040A960
 extern AsyncData* gpAsyncDataPostponed_0075AF90; // 0x0075AF90
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __stdcall ResetEvent(void* hEvent); // 0x006CC22C
-int __fastcall sub_004068F0(void* pArg); // 0x004068F0
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
 int gnAsyncDataPostponeCount_0075AF8C; // 0x0075AF8C
 
@@ -59,13 +59,13 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
+int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 
-int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 
-int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
-int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
+int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 
 void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine); // 0x0040A080
 
@@ -153,7 +153,7 @@ void __fastcall sub_0040ABF0_HeapSiftDown(int* pHeap, int nCount, int nIndex)
 }
 
 // 0x0040AC60
-void __fastcall sub_0040AC60_HeapSort(int* pHeap, int nCount)
+void __fastcall ASYNCDATA_HeapSort(int* pHeap, int nCount)
 {
     for (int i = nCount / 2; i;)
     {
@@ -223,7 +223,7 @@ void __cdecl FOG_AsyncDataDestroy()
 }
 
 // 0x0040A550
-AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot()
+AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot()
 {
     if (sgfAsyncDataEnabled)
     {
@@ -241,7 +241,7 @@ AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot()
             AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             if (!WaitForSingleObject(pSlot->hEvent, 0))
             {
-                sub_0040A4C0_AsyncDataFinish(pSlot->pAsyncOp);
+                ASYNCDATA_Finish(pSlot->pAsyncOp);
                 pSlot->bSlotAvailable = 0;
                 return pSlot;
             }
@@ -298,7 +298,7 @@ void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
     {
         sub_0041A930_CancelRead(ptAsyncData->ptBuffer);
         WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, (unsigned long)-1);
-        sub_0040A4C0_AsyncDataFinish(ptAsyncData);
+        ASYNCDATA_Finish(ptAsyncData);
     }
     if (ptAsyncData->dwFlags & 2)
     {
@@ -311,7 +311,7 @@ void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
 }
 
 // 0x0040A4C0
-void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData)
+void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData)
 {
     if (pAsyncData->dwFlags & 1)
     {
@@ -327,7 +327,7 @@ void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData)
     }
     if (pAsyncData->hFile)
     {
-        sub_004068F0(pAsyncData->hFile);
+        FOG_FCloseFile(pAsyncData->hFile);
         pAsyncData->hFile = 0;
     }
     pAsyncData->dwFlags |= 1;
@@ -352,7 +352,7 @@ int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData)
     {
         if (!WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, 0))
         {
-            sub_0040A4C0_AsyncDataFinish(ptAsyncData);
+            ASYNCDATA_Finish(ptAsyncData);
         }
     }
     return ptAsyncData->dwFlags & 1;
@@ -368,7 +368,7 @@ void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData)
     {
         SFilePrioritizeRequest(pAsyncData->ptBuffer, 1);
         D2_ASSERT(!WaitForSingleObject(pAsyncData->pEventSlot->hEvent, 0xFFFFFFFF), 584);
-        sub_0040A4C0_AsyncDataFinish(pAsyncData);
+        ASYNCDATA_Finish(pAsyncData);
     }
 }
 
@@ -378,7 +378,7 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
     AsyncData* pAsync = (AsyncData*)sub_0040B430(pMemPool, sizeof(AsyncData), ".\\Src\\AsyncData.cpp", 296, 0);
     memset(pAsync, 0, sizeof(AsyncData));
     pAsync->dwFlags = 0x41737960;
-    if (!sub_004068E0(szFileName, &pAsync->hFile))
+    if (!FOG_FOpenFile(szFileName, &pAsync->hFile))
     {
         FOG_FreeServerMemory(pMemPool, pAsync, ".\\Src\\AsyncData.cpp", 309, 0);
         return 0;
@@ -387,11 +387,11 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
     pAsync->nPriority = nPriority;
     if (nFileOffset)
     {
-        D2_ASSERT(sub_00406940_mpqSetFilePointer(pAsync->hFile, nFileOffset, 0, 0) != -1, 322);
+        D2_ASSERT(FOG_FSetFilePointer(pAsync->hFile, nFileOffset, 0, 0) != -1, 322);
     }
     if (nFileSize <= 0)
     {
-        pAsync->nFileSize = sub_00406930(pAsync->hFile, 0);
+        pAsync->nFileSize = FOG_FGetFileSize(pAsync->hFile, 0);
     }
     else
     {
@@ -413,12 +413,12 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
     }
     if (bAllowAsync && sgfAsyncDataEnabled)
     {
-        pAsync->pEventSlot = sub_0040A550_AsyncDataGetEventSlot();
+        pAsync->pEventSlot = ASYNCDATA_GetEventSlot();
         if (!pAsync->pEventSlot)
         {
             if (pAsync->hFile)
             {
-                sub_004068F0(pAsync->hFile);
+                FOG_FCloseFile(pAsync->hFile);
                 pAsync->hFile = 0;
             }
             if (pAsync->dwFlags & 2)
@@ -431,20 +431,20 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
         pAsync->pEventSlot->pAsyncOp = pAsync;
         pAsync->tOverlapped.hEvent = pAsync->pEventSlot->hEvent;
         pAsync->tOverlapped.Offset = nFileOffset;
-        sub_00406900(pAsync->hFile, pAsync->ptBuffer, pAsync->nFileSize, 0, &pAsync->tOverlapped, (int)pAsyncOpDesc, nPriority);
+        FOG_FReadFile(pAsync->hFile, pAsync->ptBuffer, pAsync->nFileSize, 0, &pAsync->tOverlapped, (int)pAsyncOpDesc, nPriority);
         return pAsync;
     }
-    sub_00406900(pAsync->hFile, pAsync->ptBuffer, pAsync->nFileSize, 0, 0, 0, nPriority);
+    FOG_FReadFile(pAsync->hFile, pAsync->ptBuffer, pAsync->nFileSize, 0, 0, 0, nPriority);
     if (pAsyncOpDesc && pAsyncOpDesc->callback)
     {
         pAsyncOpDesc->callback(pAsync->ptBuffer, pAsync->nFileSize, pAsyncOpDesc);
     }
-    sub_0040A4C0_AsyncDataFinish(pAsync);
+    ASYNCDATA_Finish(pAsync);
     return pAsync;
 }
 
 // 0x0040AA80
-void __fastcall sub_0040AA80_AsyncDataReplaceBuffer(AsyncData* ptAsyncData, int nUnused, void* pBuffer, unsigned int nBufferSize)
+void __fastcall ASYNCDATA_ReplaceBuffer(AsyncData* ptAsyncData, int nUnused, void* pBuffer, unsigned int nBufferSize)
 {
     D2_ASSERT(ptAsyncData, 638);
     D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 639);

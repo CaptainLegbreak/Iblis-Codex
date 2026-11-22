@@ -96,16 +96,17 @@ void __cdecl sub_0042FF20_ShowLocalAddress()
     if (!strcmp(szAddress, "127.0.0.1"))
     {
         sub_004FD060_SetText(gpControl_00779588, D2LANG_GetStringFromTblIndex(0x1404));
-        sub_004F96F0_ControlClearState(gpControl_007795A4, 0);
-        sub_004F96F0_ControlClearState(gpControl_007795A0, 0);
-        sub_004F96F0_ControlClearState(gpControl_00779338, 0);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControl_007795A4, 0);
+        CONTROL_SetEnabled(gpControl_007795A0, 0);
+        CONTROL_SetEnabled(gpControl_00779338, 0);
     }
     else
     {
         D2Win_10045(gpControl_00779588, szAddress);
-        sub_004F96F0_ControlClearState(gpControl_007795A4, 1);
-        sub_004F96F0_ControlClearState(gpControl_007795A0, 1);
-        sub_004F96F0_ControlClearState(gpControl_00779338, 1);
+        CONTROL_SetEnabled(gpControl_007795A4, 1);
+        CONTROL_SetEnabled(gpControl_007795A0, 1);
+        CONTROL_SetEnabled(gpControl_00779338, 1);
     }
 }
 

@@ -133,10 +133,10 @@ struct D2KeyConfigFileStrc
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
-int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
-int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
 // 0x004690A0
 void __cdecl CMDTBL_HotkeyClearScreen()
@@ -261,19 +261,20 @@ void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir)
     char szLang[4];
     char szPath[0x104];
     D2KeyConfigFileStrc tFile;
-    sub_00525260(szLang, 0);
+// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
+    STRTABLE_GetLanguageInfoField(szLang, 0);
     void* pData;
     int bLoaded = 0;
     if (bInstallDir)
     {
         FOG_GetInstallPath(szPath, 0xDC);
         strcat(szPath, "default.key");
-        void* hFile = sub_00406960_CreateFile(szPath, 0x80000000, 0, 0, 3, 0x80, 0);
+        void* hFile = FOG_CreateFileA(szPath, 0x80000000, 0, 0, 3, 0x80, 0);
         if (hFile != (void*)-1)
         {
             unsigned long nRead;
-            sub_004069B0_ReadFile(hFile, &tFile, sizeof(tFile), &nRead, 0);
-            sub_004069A0_CloseFile(hFile);
+            FOG_ReadFile(hFile, &tFile, sizeof(tFile), &nRead, 0);
+            FOG_CloseFile(hFile);
             if (nRead == sizeof(tFile))
             {
                 pData = FOG_AllocPool(0, sizeof(tFile), ".\\UI\\CmdTbl.cpp", 0x50F, 0);

@@ -243,12 +243,13 @@ void __cdecl sub_00473F50_UpdateWeather()
     {
         if (gpWeather_007A8A04->nCount)
         {
-            sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
+// build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
+            DATAARRAYS_Reset(gpWeather_007A8A04);
         }
 
         if (gpWeather_007A89FC->nCount)
         {
-            sub_006BCAC0_ResetDataArray(gpWeather_007A89FC);
+            DATAARRAYS_Reset(gpWeather_007A89FC);
         }
     }
 
@@ -256,7 +257,7 @@ void __cdecl sub_00473F50_UpdateWeather()
     {
         if (gpWeather_007A8A00->nCount)
         {
-            sub_006BCAC0_ResetDataArray(gpWeather_007A8A00);
+            DATAARRAYS_Reset(gpWeather_007A8A00);
         }
     }
 

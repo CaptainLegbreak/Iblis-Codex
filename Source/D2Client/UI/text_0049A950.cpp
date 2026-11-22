@@ -98,9 +98,9 @@ int __cdecl sub_004F59A0(); // 0x004F59A0
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -901,7 +901,8 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         nIndex = sub_004A26F0_GetTabAtPoint(nY, nX);
         if (nIndex != -1)
         {
-            if (nIndex < 5 && nIndex != gnGlobal_007C0255 && ((sub_00408F20_HasExpansionMpq() && sub_0044DCC0()) || nIndex != 4))
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+            if (nIndex < 5 && nIndex != gnGlobal_007C0255 && ((FOG_IsExpansion() && sub_0044DCC0()) || nIndex != 4))
             {
                 sub_004A2760(gnGlobal_007C0255);
                 sub_004A2220_SetQuestPage(nIndex);
@@ -1106,7 +1107,7 @@ static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX)
     {
         return -1;
     }
-    if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+    if (FOG_IsExpansion() && sub_0044DCC0())
     {
         int i = 0;
         for (int n = 0; n < 0x140; n += 0x40, ++i)
@@ -1302,12 +1303,12 @@ void __cdecl TEXT_DrawQuestButton()
     tCel.nFrame = 0;
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
     const int nCelWidth = CelGetWidth(CelGetHandle(&tCel));
-    const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF58));
+    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF58));
     int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts_007241C0[nIndex].nTextX + 1;
     const int nTextY = gaButtonLayouts_007241C0[nIndex].nTextY + gnGlobal_00711470 - 0x1E0;
     if (sub_0045AE90() == 2)
         nTextX += (gnGlobal_0071146C - 0x280) / 2;
-    sub_00502320(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
 
     int nCelX = gaButtonLayouts_007241C0[nIndex].nTextX;
     const int nCelY = gaButtonLayouts_007241C0[nIndex].nBottom + gnGlobal_00711470 - 0x1E0;
@@ -1813,13 +1814,13 @@ int __fastcall TEXT_IsInPanelButton(int nMode, int nX, int nY)
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor)
 {
     int nSpan = nRight - nLeft + 1;
-    int nWidth = sub_00501820(wszText);
+    int nWidth = D2Win_10121_GetTextWidth(wszText);
     if (nWidth < nSpan)
     {
         nLeft += (nSpan - nWidth) >> 1;
     }
 
-    sub_00502320(wszText, nLeft, nY, nColor, 0);
+    D2Win_10117_DrawText(wszText, nLeft, nY, nColor, 0);
 }
 
 // 0x004A8D50

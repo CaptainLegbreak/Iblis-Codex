@@ -50,7 +50,7 @@ void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nS
 void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift);
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
@@ -494,6 +494,6 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
         else if (nBonusLevel < 0)
             nColor = 1;
 
-        sub_00502320(wszLevel, nX + 0x30, nY + 0xC, nColor, 0);
+        D2Win_10117_DrawText(wszLevel, nX + 0x30, nY + 0xC, nColor, 0);
     }
 }

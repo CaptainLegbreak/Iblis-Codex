@@ -12,7 +12,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall ResumeThread(void* hThr
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 
 // 0x00401480
-static unsigned char __stdcall sub_00401480_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
+static unsigned char __stdcall ERRORMANAGER_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
 {
     D2MemoryBasicInfoStrc tInfo;
     if (!VirtualQuery(pAddress, &tInfo, sizeof(tInfo)))
@@ -52,7 +52,7 @@ static unsigned char __stdcall sub_00401480_GetStackRange(void** ppBase, unsigne
 }
 
 // 0x00401540
-static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
+static unsigned char __stdcall ERRORMANAGER_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
 {
     D2ThreadContextStrc tContext;
     void* hThread = 0;
@@ -78,7 +78,7 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
     *pStackPointer = tContext.Esp;
     void* pBase;
     unsigned long dwEnd;
-    unsigned char bResult = sub_00401480_GetStackRange(&pBase, &dwEnd, (const void*)tContext.Esp);
+    unsigned char bResult = ERRORMANAGER_GetStackRange(&pBase, &dwEnd, (const void*)tContext.Esp);
     if (bResult)
     {
         *pStackTop = dwEnd;
@@ -331,7 +331,7 @@ void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameS
         unsigned long dwStackSize;
         unsigned long dwStackTop;
         unsigned long dwStackPointer;
-        unsigned char bStack = sub_00401540_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer);
+        unsigned char bStack = ERRORMANAGER_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer);
         int nLength = _snprintf_s(szLine, 0x400, (unsigned int)-1, "Thread 0x%08x", dwThreadId);
         if (szName[0])
         {

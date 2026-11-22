@@ -47,7 +47,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_0049D8E0_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -121,7 +121,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
     pBox->nTextBottom = pBox->f_14;
     for (T0044CB60* pLine = pBox->pFirst; pLine; pLine = pLine->pNext)
     {
-        nMaxWidth = nMaxWidth > sub_00501820(pLine->pText) ? nMaxWidth : sub_00501820(pLine->pText);
+        nMaxWidth = nMaxWidth > D2Win_10121_GetTextWidth(pLine->pText) ? nMaxWidth : D2Win_10121_GetTextWidth(pLine->pText);
     }
     pBox->nWidth = nMaxWidth + 0x14;
     pBox->nHeight = pBox->nLines * 0x0F + 6;

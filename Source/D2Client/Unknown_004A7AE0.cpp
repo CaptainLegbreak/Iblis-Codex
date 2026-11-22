@@ -47,7 +47,7 @@ extern const D2HoverBoxStrc gaHoverBoxes_006DA430[2]; // 0x006DA430
 void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 int __cdecl sub_00466DC0(); // 0x00466DC0
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY);
@@ -55,7 +55,7 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
 
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix);
 extern "C" int __fastcall sub_00526800(const unsigned short* pText); // 0x00526800
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
 void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor); // 0x004A8DF0
 extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
@@ -155,13 +155,13 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
     sub_0046EFD0_DrawFramedBox(gaHoverBoxes_006DA430[nIndex].nBoxX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nBoxY + gnGlobal_007A285C + gnGlobal_00711470 - 480, 0x9B, 0x1E, gnTextColor_007C02F8, 2);
     const int nTitleY = gaHoverBoxes_006DA430[nIndex].nTitleY + gnGlobal_007A285C + gnGlobal_00711470 - 480;
     const int nTitleX = gaHoverBoxes_006DA430[nIndex].nTitleX + gnGlobal_007A2858;
-    sub_00502320(D2LANG_GetStringFromTblIndex(0x103F), nTitleX, nTitleY, 0, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), nTitleX, nTitleY, 0, 0);
 
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(sub_00466DC0());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
     sub_005269D0(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
-    sub_00502320((Unicode*)aText, gaHoverBoxes_006DA430[nIndex].nTextX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTextY + gnGlobal_007A285C + gnGlobal_00711470 - 480, 0, 0);
+    D2Win_10117_DrawText((Unicode*)aText, gaHoverBoxes_006DA430[nIndex].nTextX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTextY + gnGlobal_007A285C + gnGlobal_00711470 - 480, 0, 0);
 }
 
 // build: context sub_004A7AE0_Shim
@@ -186,13 +186,13 @@ static void __stdcall sub_004A9260_DrawSkillCharges(int nCharges, int nX, int nY
     {
         sub_00526320_ToUnicode(wszText, _itoa(nCharges, szText, 10), 16);
         int nLength = sub_00526800((const unsigned short*)wszText);
-        while (sub_00501820(wszText) > 40)
+        while (D2Win_10121_GetTextWidth(wszText) > 40)
         {
             wszText[nLength].wChar = 0;
             --nLength;
         }
-        sub_00501820(wszText);
-        sub_00502320(wszText, nX + 4, nY - 1, 3, 0);
+        D2Win_10121_GetTextWidth(wszText);
+        D2Win_10117_DrawText(wszText, nX + 4, nY - 1, 3, 0);
     }
 }
 

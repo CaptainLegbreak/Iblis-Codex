@@ -62,14 +62,14 @@ extern unsigned int gnWClassTokens_0072E198; // 0x0072E198
 extern void (__stdcall* gpfGlideTexDownloadMipMap_0087EAB8)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
 extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 int __cdecl sub_00406D20(); // 0x00406D20
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_004F9200(); // 0x004F9200
 int __cdecl sub_004FA460(); // 0x004FA460
 int __cdecl sub_004FA4B0(); // 0x004FA4B0
 int __cdecl sub_00525150(); // 0x00525150
 int __fastcall SCROLLBAR_GetCurrentStep(D2WinScrollBarStrc* pScrollBar); // 0x00507FA0
 int __fastcall SCROLLBAR_GetMaxSteps(D2WinScrollBarStrc* pScrollBar); // 0x00507EF0
-int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
+int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall WINDOW_GetState(); // 0x004F6070
@@ -81,9 +81,9 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
-unsigned char* __fastcall sub_005038D0_GetComponentPalette(int nColor); // 0x005038D0
+unsigned char* __fastcall D2COMP_GetComponentPalette(int nColor); // 0x005038D0
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
-void __fastcall sub_004068F0(void* hFile); // 0x004068F0
+void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
 void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 void __fastcall sub_004FB130_SetActiveState(int bActive); // 0x004FB130
 void __stdcall D2GFX_SetPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F6410

@@ -8,8 +8,8 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 #pragma intrinsic(strcpy, strcat)
-int __fastcall sub_00516E46_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
-void __fastcall sub_00516E84_CloseFile(void* hArchive, void* hFile);                                             // 0x00516E84
+int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
+void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile);                                             // 0x00516E84
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
 
 unsigned char gaItemShiftMaps[9][105][256];                                                                 // 0x008ADBB8
@@ -29,7 +29,7 @@ void __fastcall sub_006009C0(const char* szName, int nIndex)
         strcat(szPath, szName);
         strcat(szPath, ".dat");
         nSize = 0x1500;
-        if (!sub_00516E46_OpenFile(0, szPath, &hFile, 1))
+        if (!ARCHIVE_OpenFile(0, szPath, &hFile, 1))
         {
             D2_ASSERT(0, 0x39);
             memset(gaItemShiftMaps[nIndex], 0, nSize);
@@ -37,7 +37,7 @@ void __fastcall sub_006009C0(const char* szName, int nIndex)
         else
         {
             ARCHIVE_ReadFileToBuffer(0, hFile, gaItemShiftMaps[nIndex], nSize);
-            sub_00516E84_CloseFile(0, hFile);
+            ARCHIVE_CloseFile(0, hFile);
         }
     }
 }

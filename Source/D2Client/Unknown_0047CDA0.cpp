@@ -41,9 +41,9 @@ int __cdecl sub_00514CC0(); // 0x00514CC0
 int __cdecl sub_00514CF0(); // 0x00514CF0
 int __cdecl sub_00514D20(); // 0x00514D20
 int __cdecl sub_00514D50(); // 0x00514D50
-int __fastcall sub_00514CD0_SetMasterVolume(int nValue); // 0x00514CD0
-int __fastcall sub_00514D00_SetMusicVolume(int nValue); // 0x00514D00
-int __fastcall sub_00514D30_SetPositionalBias(int nValue); // 0x00514D30
+int __fastcall D2SOUND_SetMasterVolumeOption(int nValue); // 0x00514CD0
+int __fastcall D2SOUND_SetMusicVolumeOption(int nValue); // 0x00514D00
+int __fastcall D2SOUND_SetPositionalBiasOption(int nValue); // 0x00514D30
 int __fastcall sub_00514D60_SetNpcSpeech(int nValue); // 0x00514D60
 int __cdecl sub_004DF880(); // 0x004DF880
 int __cdecl sub_004DF980_IsSoundMode1Or2(); // 0x004DF980
@@ -69,7 +69,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
 int __cdecl UI_TickElapsed(); // 0x00454850
-void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
+void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bNoCel); // 0x0047E260
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -108,7 +108,7 @@ static unsigned int sub_0047CD00_SliderToValue(D2MenuItemStrc* pItem, unsigned i
 // 0x0047CDA0
 void __fastcall sub_0047CDA0_MasterVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00514CD0_SetMasterVolume(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetMasterVolumeOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
 }
 
 // 0x0047CDC0
@@ -120,7 +120,7 @@ void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CDF0
 void __fastcall sub_0047CDF0_MusicVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00514D00_SetMusicVolume(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetMusicVolumeOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
 }
 
 // 0x0047CE10
@@ -138,7 +138,7 @@ void __fastcall sub_0047CE50_SoundModeOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CE70
 void __fastcall sub_0047CE70_PositionalBiasSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00514D30_SetPositionalBias(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetPositionalBiasOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
 }
 
 // 0x0047CE90
@@ -443,7 +443,8 @@ void __cdecl sub_0047E3D0_DrawOptions()
     {
         bEnabled = 0;
         gpOptionEntries_007BC940[i].nY = 0;
-        if (gpOptionEntries_007BC940[i].bExpansionOnly && !sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (gpOptionEntries_007BC940[i].bExpansionOnly && !FOG_IsExpansion())
         {
             continue;
         }
@@ -466,18 +467,18 @@ void __cdecl sub_0047E3D0_DrawOptions()
         {
         case -1:
         case 0:
-            sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2, nDrawY, 1, nColor, -1);
+            D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2, nDrawY, 1, nColor, -1);
             break;
 
         case 1:
-            sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
-            sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pValueCels[gpOptionEntries_007BC940[i].nValue], gnGlobal_0071146C / 2 + 0xE6, nDrawY, 2, nColor, -1);
+            D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
+            D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pValueCels[gpOptionEntries_007BC940[i].nValue], gnGlobal_0071146C / 2 + 0xE6, nDrawY, 2, nColor, -1);
             break;
 
         case 2:
             if (gpOptionEntries_007BC940[i].pCel)
             {
-                sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
+                D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
             }
             sub_0047E260_DrawOptionSlider(&gpOptionEntries_007BC940[i], nEntryY, nColor, gpOptionEntries_007BC940[i].pCel == 0);
             break;

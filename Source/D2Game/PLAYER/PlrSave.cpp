@@ -397,7 +397,7 @@ extern "C" unsigned int __cdecl fwrite(const void* pBuffer, unsigned int nSize, 
 
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient); // 0x00538590
 
@@ -1715,7 +1715,7 @@ static void __stdcall PLRSAVE_SaveToLocalFile(int bInteractsWithPlayer, unsigned
     unsigned char pData[0x2000];
     unsigned int nSize;
 
-    sub_00407050_GetSavePath(szPath, sizeof(szPath));
+    FOG_GetSavePath(szPath, sizeof(szPath));
     sprintf(szFile, gszSaveFormat_006D4230, szPath, szName);
     nSize = 0;
     PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, sizeof(pData), bInteractsWithPlayer, dwArg);
@@ -2872,7 +2872,7 @@ static int __stdcall D2GAME_SAVE_ReadFile_6FC8C9D0(D2GameStrc* pGame, D2ClientSt
     int nResult = 0;
 
     *ppPlayer = 0;
-    sub_00407050_GetSavePath(szPath, sizeof(szPath));
+    FOG_GetSavePath(szPath, sizeof(szPath));
     sprintf(szFileName, gszSaveFormat_006D4230, szPath, szName);
 
     _iobuf* pSaveFile = fopen(szFileName, gszModeRb_006CDC90);

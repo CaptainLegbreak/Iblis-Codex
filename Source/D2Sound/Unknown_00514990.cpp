@@ -12,12 +12,12 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" int __cdecl rand();                                                                              // 0x00687461
 int __cdecl sub_00513AE0();                                                                                  // 0x00513AE0
-void __cdecl sub_00514860_ClearChannelTable();                                                               // 0x00514860
-void __fastcall sub_005157B0_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
-int __fastcall sub_00515C30_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
-int __cdecl sub_00515D60_GetMasterVolume();                                                                  // 0x00515D60
-int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
-void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound);                                                // 0x00516140
+void __cdecl D2SOUND_ClearChannelTable();                                                               // 0x00514860
+void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
+int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
+int __cdecl D2SOUND_GetMasterVolume();                                                                  // 0x00515D60
+int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
+void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound);                                                // 0x00516140
 
 static int gnChannelCountA_0072F874;                                                                        // 0x0072F874
 extern D2SoundChannelEntryStrc gaChannelTableA_0072F878[8];                                                 // 0x0072F878
@@ -31,13 +31,13 @@ extern int gnChannelTableSel_008817A4;                                          
 extern int gbChannelTableInit_008817A8;                                                                     // 0x008817A8
 
 // 0x005147D0
-int __fastcall sub_005147D0_PlayStream(const char* szFile, int bLoop)
+int __fastcall D2SOUND_PlayStreamChannel(const char* szFile, int bLoop)
 {
-    if (gpSoundChannel_00881794 && sub_00515D60_GetMasterVolume() && !sub_00515C30_IsSoundStreaming(gpSoundChannel_00881794) && szFile)
+    if (gpSoundChannel_00881794 && D2SOUND_GetMasterVolume() && !D2SOUND_IsSoundStreaming(gpSoundChannel_00881794) && szFile)
     {
-        sub_00516140_ResetSound(gpSoundChannel_00881794);
-        sub_005157B0_SetSoundVolume(gpSoundChannel_00881794, 0x6E);
-        if (sub_00515D70_StartStream(gpSoundChannel_00881794, szFile, 0, bLoop))
+        D2SOUND_ResetSound(gpSoundChannel_00881794);
+        D2SOUND_SetSoundVolume(gpSoundChannel_00881794, 0x6E);
+        if (D2SOUND_StartSoundStream(gpSoundChannel_00881794, szFile, 0, bLoop))
         {
             return 1;
         }
@@ -46,9 +46,9 @@ int __fastcall sub_005147D0_PlayStream(const char* szFile, int bLoop)
 }
 
 // 0x00514840
-int __cdecl sub_00514840_IsChannelStreaming()
+int __cdecl D2SOUND_IsStreamChannelPlaying()
 {
-    if (gpSoundChannel_00881794 && sub_00515C30_IsSoundStreaming(gpSoundChannel_00881794))
+    if (gpSoundChannel_00881794 && D2SOUND_IsSoundStreaming(gpSoundChannel_00881794))
         return 1;
     return 0;
 }
@@ -80,7 +80,7 @@ int __cdecl sub_00514990_PickRandomChannel()
     int bCleared;
 
     EnterCriticalSection(&gSoundLock_0088174C);
-    if (!gpSoundChannel_00881794 || !sub_00515D60_GetMasterVolume() || sub_00514840_IsChannelStreaming())
+    if (!gpSoundChannel_00881794 || !D2SOUND_GetMasterVolume() || D2SOUND_IsStreamChannelPlaying())
     {
         LeaveCriticalSection(&gSoundLock_0088174C);
         return 0;
@@ -101,7 +101,7 @@ int __cdecl sub_00514990_PickRandomChannel()
             LeaveCriticalSection(&gSoundLock_0088174C);
             return 0;
         }
-        sub_00514860_ClearChannelTable();
+        D2SOUND_ClearChannelTable();
         ++bCleared;
 
     found:
@@ -135,7 +135,7 @@ int __cdecl sub_00514990_PickRandomChannel()
 
         szFile = pEntry->szFile;
         pEntry->bBusy = 1;
-        if (sub_005147D0_PlayStream(szFile, 0))
+        if (D2SOUND_PlayStreamChannel(szFile, 0))
         {
             LeaveCriticalSection(&gSoundLock_0088174C);
             return 1;

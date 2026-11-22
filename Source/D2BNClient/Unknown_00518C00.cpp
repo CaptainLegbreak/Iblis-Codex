@@ -7,7 +7,7 @@ struct D2CacheHeaderStrc;
 struct D2CacheHashEntryStrc;
 struct D2CacheBlockEntryStrc;
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* pDestination, long nExchange, long nComparand); // 0x006CC3A0
-int __fastcall sub_0040DF20_SOCKET_GetSockName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DF20
+int __fastcall FOG_SOCKET_GetSockName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DF20
 void __cdecl sub_00519300_FreeCache(); // 0x00519300
 void __cdecl sub_0051AC20_FreeChannelList(); // 0x0051AC20
 void __cdecl sub_0051B210_FreeBuffer(); // 0x0051B210
@@ -79,7 +79,8 @@ void __fastcall sub_0051A560_SetValue(int nValue)
 // 0x0051BEC0
 int __cdecl sub_0051BEC0_IsExpansion()
 {
-    return sub_00408F20_HasExpansionMpq();
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    return FOG_IsExpansion();
 }
 
 // 0x0051C470
@@ -134,7 +135,7 @@ int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength)
 {
     FSafeSock* pSocket = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
     if (pSocket)
-        return sub_0040DF20_SOCKET_GetSockName(pSocket, pAddress, pnLength);
+        return FOG_SOCKET_GetSockName(pSocket, pAddress, pnLength);
     return 0;
 }
 

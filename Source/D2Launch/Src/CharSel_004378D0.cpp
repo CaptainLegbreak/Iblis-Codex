@@ -101,7 +101,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 void __stdcall sub_00411320_CapitalizeWords(char* szText); // 0x00411320
 
-char* __fastcall sub_0040E080_AddressToString(int nAddress); // 0x0040E080
+char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -313,7 +313,7 @@ extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned in
 
 extern int gnGlobal_00779DC4;                                                                               // 0x00779DC4
 
-int __cdecl sub_00408F20_HasExpansionMpq();                                                                 // 0x00408F20
+int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 
 extern "C" const char gszCharSelFile_006D4DBC[];                                                            // 0x006D4DBC
 
@@ -343,7 +343,7 @@ extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFi
 
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);
 
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize);                                           // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize);                                           // 0x00407050
 
 int __fastcall sub_0043C8A0(const char* szName, char* szPath);                                              // 0x0043C8A0
 
@@ -381,9 +381,9 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc*,int); // 0x004F96F0
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc*,int); // 0x004F96F0
 
-void __fastcall sub_004F9740(D2WinControlStrc*,int); // 0x004F9740
+void __fastcall CONTROL_SetVisible(D2WinControlStrc*,int); // 0x004F9740
 
 void __stdcall sub_004FD0B0_SetSprite(D2WinControlStrc*,int,void*); // 0x004FD0B0
 
@@ -604,7 +604,7 @@ static void sub_0043A1F0_ShowConnectError(int nError)
     gnState_00779DAC = 0;
     sub_004FB6A0_ClearText(gpControl_00779DD0);
     sub_004FC9B0_SetText(gpControl_00779DD0, D2LANG_GetStringFromTblIndex(nStringId), 4, 0, 0);
-    sub_004F96F0_ControlClearState(gpControl_00779D90, 0);
+    CONTROL_SetEnabled(gpControl_00779D90, 0);
     if (gbFlag_00779C6C)
         D2Win_10188(gpNameControl_007799E8, -1, 4);
 }
@@ -1003,7 +1003,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
         {
             nSel = sub_F4B0_IsMaleClass(nSel) ? 9 : 8;
         }
-        else if (sub_00408F20_HasExpansionMpq() || pEntry->nType < 5)
+        else if (FOG_IsExpansion() || pEntry->nType < 5)
         {
             nMode = 1;
         }
@@ -1032,7 +1032,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
     {
         D2LaunchCharEntryStrc* pPrev = 0;
         D2LaunchCharEntryStrc* pCur = gpCharList_00779DBC;
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
             while (pCur)
             {
@@ -1094,7 +1094,7 @@ int __cdecl sub_00438F70_ScanCharFiles()
     char szPattern[0x400];
 
     gnCharCount_00779DE0 = 0;
-    sub_00407050_GetSavePath(szDir, 0x400);
+    FOG_GetSavePath(szDir, 0x400);
     sprintf(szPattern, "%s*.d2s", szDir);
     void* hFind = FindFirstFileA(szPattern, &tFindData);
     if (hFind == (void*)-1)
@@ -1152,29 +1152,29 @@ static int sub_00438030_IsNotListedCode(int nValue)
 // 0x00439210
 int __cdecl sub_00439210_Redraw()
 {
-    if(sub_00408F20_HasExpansionMpq()) {sub_004390A0_UpdateSelection();return 1;}
+    if(FOG_IsExpansion()) {sub_004390A0_UpdateSelection();return 1;}
     if(!gnCount_00779DC4) gnSelected_0070CC00=0;
     int row=gnSelected_0070CC00-gnTopRow_00779DC8;
-    sub_004F96F0_ControlClearState(gpControl_007799F4,gnCount_00779DC4>0 && gnSelected_0070CC00>gnSelectionA_0070CC04 && gnSelected_0070CC00!=gnSelectionB_0070CC08 ? 1:0);
-    sub_004F96F0_ControlClearState(gpControl_00779C68,1);
+    CONTROL_SetEnabled(gpControl_007799F4,gnCount_00779DC4>0 && gnSelected_0070CC00>gnSelectionA_0070CC04 && gnSelected_0070CC00!=gnSelectionB_0070CC08 ? 1:0);
+    CONTROL_SetEnabled(gpControl_00779C68,1);
     if(row>=0 && row<gnVisibleRows_0070CC0C) {
         if(gnSelected_0070CC00==gnSelectionA_0070CC04 && gbFlag_00779DD8) {
             sub_004FD0B0_SetSprite(gpControl_00779C78,0x202,gaSprites_007799FC[row]);
-            sub_004F9740(gpControl_00779C78,1);
-            sub_004F9740(gpControl_00779D94,0);
+            CONTROL_SetVisible(gpControl_00779C78,1);
+            CONTROL_SetVisible(gpControl_00779D94,0);
         } else {
             sub_004FD0B0_SetSprite(gpControl_00779D94,0x202,gaSprites_007799FC[row]);
-            sub_004F9740(gpControl_00779D94,1);
-            sub_004F9740(gpControl_00779C78,0);
+            CONTROL_SetVisible(gpControl_00779D94,1);
+            CONTROL_SetVisible(gpControl_00779C78,0);
         }
     } else {
-        sub_004F9740(gpControl_00779D94,0);
-        sub_004F9740(gpControl_00779C78,0);
+        CONTROL_SetVisible(gpControl_00779D94,0);
+        CONTROL_SetVisible(gpControl_00779C78,0);
     }
-    if(gnTopRow_00779DC8>0) sub_004F9740(gpControl_00779A1C,1);
-    else sub_004F9740(gpControl_00779A1C,0);
-    if(gnTopRow_00779DC8+gnVisibleRows_0070CC0C<gnCount_00779DC4) sub_004F9740(gpControl_00779B64,1);
-    else sub_004F9740(gpControl_00779B64,0);
+    if(gnTopRow_00779DC8>0) CONTROL_SetVisible(gpControl_00779A1C,1);
+    else CONTROL_SetVisible(gpControl_00779A1C,0); // 0x004F9740
+    if(gnTopRow_00779DC8+gnVisibleRows_0070CC0C<gnCount_00779DC4) CONTROL_SetVisible(gpControl_00779B64,1);
+    else CONTROL_SetVisible(gpControl_00779B64,0); // 0x004F9740
     int index=0;
     D2LaunchCharEntryStrc* entry=gpCharList_00779DBC;
     if(!gpCharList_00779DBC) return 1;
@@ -1209,7 +1209,7 @@ BUILD_MODEL:
     int mode=5;
     if(gpCurrent_00779DC0->wFlags&4) {
         if(gpCurrent_00779DC0->wFlags&8) type=8+(sub_00438030_IsNotListedCode(type)!=0);
-        else if(sub_00408F20_HasExpansionMpq() || gpCurrent_00779DC0->nType<5) mode=1;
+        else if(FOG_IsExpansion() || gpCurrent_00779DC0->nType<5) mode=1;
     }
     gpCurrent_00779DC0->pAnim=sub_005066C0_CreateCompositeUnit(type,mode,gpCurrent_00779DC0->aFlags,gpCurrent_00779DC0->aColors);
     if(!gpCurrent_00779DC0->pAnim) {
@@ -1248,7 +1248,7 @@ BUILD_MODEL:
     sub_004FB6A0_ClearText(gpControl_00779C70);
     if(gpCurrent_00779DC0->wszName[0].wChar) sub_004FC9B0_SetText(gpControl_00779C70,gpCurrent_00779DC0->wszName,0,0,0);
     else sub_004FC9B0_SetText(gpControl_00779C70,D2LANG_GetStringFromTblIndex(0x142C),0,0,0);
-    if(entry->wFlags&32) sub_004F96F0_ControlClearState(gpControl_00779C68,0);
+    if(entry->wFlags&32) CONTROL_SetEnabled(gpControl_00779C68,0);
     return 1;
 }
 
@@ -1281,7 +1281,7 @@ void __cdecl sub_0043A800()
 {
     if (gnLaunchMode_007795EC == 1)
     {
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
             sub_00437BF0_CreateControls();
         }
@@ -1326,7 +1326,7 @@ void __stdcall sub_0043AAB0(const char* szName, unsigned char* pPacket, int bFla
     const char* pCursor = (const char*)pPacket + 9;
     unsigned int nCount = *(unsigned short*)(pPacket + 7);
 
-    if (!sub_00408F20_HasExpansionMpq())
+    if (!FOG_IsExpansion())
     {
         const Unicode* wszTitle = D2LANG_GetStringFromTblIndex(0x1419);
         unsigned short nText = 0x141B;
@@ -1390,7 +1390,7 @@ int __stdcall sub_0043B520_OnCharSelect(int nArg)
 {
     char szName[0x100];
 
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
     {
         D2LaunchCharEntryStrc* pEntry = gpCharList_00779DBC;
         for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
@@ -1445,7 +1445,7 @@ int __stdcall sub_0043B520_OnCharSelect(int nArg)
             }
         }
 
-        sub_004F96F0_ControlClearState(gpControl_00779C80, 0);
+        CONTROL_SetEnabled(gpControl_00779C80, 0);
     }
     return 1;
 }
@@ -1751,7 +1751,7 @@ void __cdecl sub_0043E660_UpdateOkEnabled()
         if (strlen(szText) >= 1)
             bEnable = 1;
     }
-    sub_004F96F0_ControlClearState(gpButton_0077BCEC, bEnable);
+    CONTROL_SetEnabled(gpButton_0077BCEC, bEnable);
 }
 
 // 0x00441240
@@ -1956,7 +1956,7 @@ void __cdecl sub_004437E0_UpdateButtonState()
         if (strlen(szText) >= 1)
             bEnable = 1;
     }
-    sub_004F96F0_ControlClearState(gpJoinButton_00798BCC, bEnable);
+    CONTROL_SetEnabled(gpJoinButton_00798BCC, bEnable);
 }
 
 // 0x004439F0
@@ -1990,7 +1990,7 @@ int __stdcall sub_004439F0_JoinByName(int nArg)
         {
             if (!strcmp(gaGames_0078A440[i].szName, szName))
             {
-                sub_0043FFA0_SetupCharacter(*(unsigned short*)gaGames_0078A440[i].wValue0x33, szName, szPassword, sub_0040E080_AddressToString(*(int*)gaGames_0078A440[i].nAddress0x37));
+                sub_0043FFA0_SetupCharacter(*(unsigned short*)gaGames_0078A440[i].wValue0x33, szName, szPassword, FOG_inet_ntoa(*(int*)gaGames_0078A440[i].nAddress0x37));
                 sub_00443130_Reset();
                 sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
                 return 1;
@@ -2001,7 +2001,7 @@ int __stdcall sub_004439F0_JoinByName(int nArg)
         {
             if (!strcmp(tRecord.szName, szName))
             {
-                sub_0043FFA0_SetupCharacter(*(unsigned short*)tRecord.wValue0x33, szName, szPassword, sub_0040E080_AddressToString(*(int*)tRecord.nAddress0x37));
+                sub_0043FFA0_SetupCharacter(*(unsigned short*)tRecord.wValue0x33, szName, szPassword, FOG_inet_ntoa(*(int*)tRecord.nAddress0x37));
                 sub_00443130_Reset();
                 sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
                 return 1;

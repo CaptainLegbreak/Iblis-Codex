@@ -30,8 +30,8 @@ void __stdcall INV_DrawIconNumber(int nValue, int nX);
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
-int __fastcall sub_00501820(const Unicode* wszText);
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg);
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);
@@ -62,15 +62,15 @@ static void __stdcall HIREABLES_DrawFittedText(int nX, int nY, int nColor, Unico
 {
     const int nOldFont = sub_00502EF0(6);
     Unicode* pEnd = &pText[31];
-    while (sub_00501820(pText) > 0x42)
+    while (D2Win_10121_GetTextWidth(pText) > 0x42)
     {
         --pEnd;
         pEnd->wChar = 0;
     }
-    nX += 0x16 - sub_00501820(pText) / 2;
+    nX += 0x16 - D2Win_10121_GetTextWidth(pText) / 2;
     if (nX < 0)
         nX = 0;
-    sub_00502320(pText, nX, nY, nColor, 0);
+    D2Win_10117_DrawText(pText, nX, nY, nColor, 0);
     sub_00502EF0(nOldFont);
 }
 

@@ -109,9 +109,9 @@ void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);             
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
-int __fastcall sub_6F8B1C60(D2WinControlStrc* pControl);                                                    // 0x004FD860
+int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl);                                                    // 0x004FD860
 
-int __fastcall sub_6F8B1CF0(D2WinControlStrc* pControl);                                                    // 0x004FD8F0
+int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl);                                                    // 0x004FD8F0
 
 int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg);                                        // 0x004FD970
 
@@ -227,7 +227,7 @@ extern int gnSelectedCelFileFrameCount_0087E854;                                
 
 
 // 0x004FDCC0
-void __fastcall sub_004FDCC0(D2WinEditBoxStrc* ptEditData)
+void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* ptEditData)
 {
     D2_ASSERT(ptEditData, 0x1A4);
     D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x1A6);
@@ -273,7 +273,7 @@ int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode)
 }
 
 // 0x00504370
-int __stdcall sub_00504370_LookupPairValue(int nKey)
+int __stdcall D2COMP_GetPairValue(int nKey)
 {
     for (unsigned int i = 0; i < gnCompPairs_0072EFD0; ++i)
     {
@@ -284,7 +284,7 @@ int __stdcall sub_00504370_LookupPairValue(int nKey)
 }
 
 // 0x005043B0
-void __stdcall sub_005043B0_ReleaseToPool(void* pMemory)
+void __stdcall D2COMP_FreePoolMemory(void* pMemory)
 {
     FOG_FreePool(0, pMemory, ".\\Src\\D2Comp.cpp", 0x939, 0);
 }
@@ -372,7 +372,7 @@ unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* hCompositeUnit)
 }
 
 // 0x005055D0
-void __fastcall sub_005055D0_ApplyPalette()
+void __fastcall D2COMP_InitEmblemColorTables()
 {
     for (int i = 0; i < 10; ++i)
         gabEmblemColor1_0087D810[i] = D2Win_10034_MixRGB(gaEmblemColorRGB1_0072E19C[i].nRed, gaEmblemColorRGB1_0072E19C[i].nGreen, gaEmblemColorRGB1_0072E19C[i].nBlue);

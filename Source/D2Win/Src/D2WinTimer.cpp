@@ -38,12 +38,12 @@ extern "C" const char* __cdecl sub_00408090();                                  
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-int __fastcall sub_6F8B1C60(D2WinControlStrc* pControl);                                                    // 0x004FD860
+int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl);                                                    // 0x004FD860
 
-int __fastcall sub_6F8B1CF0(D2WinControlStrc* pControl);                                                    // 0x004FD8F0
+int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl);                                                    // 0x004FD8F0
 
 // 0x004FD830
-void __fastcall sub_004FD830_2(D2WinTimerStrc* ptTimerData)
+void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* ptTimerData)
 {
     D2_ASSERT(ptTimerData->controlHeader.eType == D2WIN_TIMER, 0x3B);
     ptTimerData->controlHeader.pfHandleVirtualKeyInput = 0;
@@ -71,7 +71,7 @@ D2WinTimerStrc* __fastcall TIMER_Create(unsigned int nTimeout, D2WinMsgHandler p
     pTimer->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
     pTimer->nTimeout = nTimeout;
     pTimer->dwTickCount = GetTickCount();
-    pTimer->controlHeader.pfInitialize = sub_6F8B1C60;
+    pTimer->controlHeader.pfInitialize = TIMER_UpdateDefault;
     pTimer->controlHeader.pNext = 0;
     pTimer->controlHeader.field_34 = pfCallback;
     pTimer->controlHeader.pfHandleVirtualKeyInput = TIMER_HandleVirtualKeyInput;
@@ -80,9 +80,9 @@ D2WinTimerStrc* __fastcall TIMER_Create(unsigned int nTimeout, D2WinMsgHandler p
 }
 
 // 0x004FDA50
-void __fastcall sub_004FDA50_2(D2WinTimerStrc* ptTimerData)
+void __fastcall TIMER_SetRepeating(D2WinTimerStrc* ptTimerData)
 {
     D2_ASSERT(ptTimerData->controlHeader.eType == D2WIN_TIMER, 0x45);
-    ptTimerData->controlHeader.pfInitialize = sub_6F8B1CF0;
+    ptTimerData->controlHeader.pfInitialize = TIMER_UpdateRepeating;
 }
 

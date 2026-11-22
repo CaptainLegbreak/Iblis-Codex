@@ -232,11 +232,11 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall sub_00501820(const unsigned short* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const unsigned short* wszText); // 0x00501820
 
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-void __fastcall sub_00502320(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 T0044CB60* __fastcall sub_00502970_SplitText(unsigned short* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
 
@@ -987,7 +987,8 @@ static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX)
     {
         return -1;
     }
-    if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion() && sub_0044DCC0())
     {
         int i = 0;
         for (int n = 0; n < 0x140; n += 0x40, ++i)
@@ -1082,7 +1083,7 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
     char szPath[260];
 
     gnIndex_007BF2B9 = -1;
-    if ((!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0()) && nPage == 4)
+    if ((!FOG_IsExpansion() || !sub_0044DCC0()) && nPage == 4)
     {
         return;
     }
@@ -1205,7 +1206,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         nIndex = sub_004A26F0_GetTabAtPoint(nY, nX);
         if (nIndex != -1)
         {
-            if (nIndex < 5 && nIndex != gnGlobal_007C0255 && ((sub_00408F20_HasExpansionMpq() && sub_0044DCC0()) || nIndex != 4))
+            if (nIndex < 5 && nIndex != gnGlobal_007C0255 && ((FOG_IsExpansion() && sub_0044DCC0()) || nIndex != 4))
             {
                 sub_004A2760(gnGlobal_007C0255);
                 sub_004A2220_SetQuestPage(nIndex);

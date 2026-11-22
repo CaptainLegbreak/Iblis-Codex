@@ -39,7 +39,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 // Moved from Storm.h (used by D2Direct3D units).
 struct T004013C0;
-T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
+T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
 __declspec(noreturn) void __cdecl sub_006B1A30_ThrowAtlException(long error); // 0x006B1A30
 void __fastcall sub_006B20E0(const char*,long); // 0x006B20E0
 extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(void* hKey, const char* szValueName, unsigned long nReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034

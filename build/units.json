@@ -12,42 +12,42 @@
     {
      "va": "0x00401100",
      "length": 237,
-     "name": "?sub_00401100_Open@Report@crashy@@QAE_NPBD@Z"
+     "name": "?OpenReport@Report@crashy@@QAE_NPBD@Z"
     },
     {
      "va": "0x00401480",
      "length": 185,
-     "name": "?sub_00401480_GetStackRange@@YGEPAPAXPAKPBX@Z"
+     "name": "?ERRORMANAGER_GetStackRange@@YGEPAPAXPAKPBX@Z"
     },
     {
      "va": "0x00401540",
      "length": 256,
-     "name": "?sub_00401540_GetThreadStack@@YGEPAKK00@Z"
+     "name": "?ERRORMANAGER_GetThreadStack@@YGEPAKK00@Z"
     },
     {
      "va": "0x00401640",
      "length": 50,
-     "name": "?sub_00401640_GetThreadName@@YG_NHPAD@Z"
+     "name": "?ERRORMANAGER_GetThreadName@@YG_NHPAD@Z"
     },
     {
      "va": "0x00401680",
      "length": 6,
-     "name": "sub_00401680"
+     "name": "ERRORMANAGER_GetMainThreadId"
     },
     {
      "va": "0x004016A0",
      "length": 5,
-     "name": "?sub_004016A0_StartDbgHelpThread@@YAXXZ"
+     "name": "?ERRORMANAGER_StartDbgHelpThread@@YAXXZ"
     },
     {
      "va": "0x004016C0",
      "length": 120,
-     "name": "sub_004016C0_IsInternalCheckLoopback"
+     "name": "ERRORMANAGER_IsInternalCheckLoopback"
     },
     {
      "va": "0x00401A70",
      "length": 143,
-     "name": "sub_00401A70_SetMiniDumpThreadName"
+     "name": "ERRORMANAGER_SetMiniDumpThreadName"
     },
     {
      "va": "0x00403040",
@@ -57,57 +57,57 @@
     {
      "va": "0x00403070",
      "length": 142,
-     "name": "sub_00403070_DumpThread"
+     "name": "ERRORMANAGER_DumpThread"
     },
     {
      "va": "0x00403FA0",
      "length": 108,
-     "name": "?sub_00403FA0_CopyPathIfHasDirectory@@YG_NPBDPADI@Z"
+     "name": "?ERRORMANAGER_CopyPathIfHasDirectory@@YG_NPBDPADI@Z"
     },
     {
      "va": "0x00404010",
      "length": 153,
-     "name": "?sub_00404010_CopyFileName@@YG_NPBDPADI@Z"
+     "name": "?ERRORMANAGER_CopyFileName@@YG_NPBDPADI@Z"
     },
     {
      "va": "0x004040B0",
      "length": 80,
-     "name": "?sub_004040B0_SetErrorDirectory@@YA_NPAD@Z"
+     "name": "?ERRORMANAGER_AppendPathSeparator@@YA_NPAD@Z"
     },
     {
      "va": "0x00404110",
      "length": 64,
-     "name": "?sub_00404110_StrLCopy@@YAIPADPBDI@Z"
+     "name": "?ERRORMANAGER_StrLCopy@@YAIPADPBDI@Z"
     },
     {
      "va": "0x004041F0",
      "length": 31,
-     "name": "?sub_004041F0_FormatText@@YAHPADIPBDZZ"
+     "name": "?ERRORMANAGER_FormatText@@YAHPADIPBDZZ"
     },
     {
      "va": "0x00404450",
      "length": 149,
-     "name": "?sub_00404450_CopyFileUtf8@@YG_NPBD0@Z"
+     "name": "?ERRORMANAGER_CopyFileUtf8@@YG_NPBD0@Z"
     },
     {
      "va": "0x004044F0",
      "length": 111,
-     "name": "?sub_004044F0_GetTempPathUtf8@@YA_NPAD@Z"
+     "name": "?ERRORMANAGER_GetTempPathUtf8@@YA_NPAD@Z"
     },
     {
      "va": "0x004045F0",
      "length": 99,
-     "name": "sub_004045F0_UseUtf8Path"
+     "name": "ERRORMANAGER_CreateDirectoryUtf8"
     },
     {
      "va": "0x00404E60",
      "length": 181,
-     "name": "sub_00404E60_EnumLoadedModules"
+     "name": "ERRORMANAGER_EnumLoadedModules"
     },
     {
      "va": "0x004059D0",
      "length": 126,
-     "name": "sub_004059D0_RunModeInterface"
+     "name": "ERRORMANAGER_RunModeInterface"
     },
     {
      "va": "0x00405F00",
@@ -122,52 +122,52 @@
     {
      "va": "0x004061C0",
      "length": 376,
-     "name": "sub_004061C0_DenyProcessAccess"
+     "name": "ERRORMANAGER_DenyProcessAccess"
     },
     {
      "va": "0x00406650",
      "length": 131,
-     "name": "sub_00406650_StartServiceDispatcher"
+     "name": "ERRORMANAGER_StartServiceDispatcher"
     },
     {
      "va": "0x004067C0",
      "length": 11,
-     "name": "?sub_004067C0_SetBasePathToCurrent@@YAHXZ"
+     "name": "?ERRORMANAGER_SetBasePathToCurrent@@YAHXZ"
     },
     {
      "va": "0x004067D0",
      "length": 146,
-     "name": "sub_004067D0_GetKnownFolderPathA"
+     "name": "ERRORMANAGER_GetKnownFolderPathA"
     },
     {
      "va": "0x004068E0",
      "length": 8,
-     "name": "sub_004068E0"
+     "name": "FOG_FOpenFile"
     },
     {
      "va": "0x00406900",
      "length": 34,
-     "name": "sub_00406900"
+     "name": "FOG_FReadFile"
     },
     {
      "va": "0x00406930",
      "length": 8,
-     "name": "sub_00406930"
+     "name": "FOG_FGetFileSize"
     },
     {
      "va": "0x00406940",
      "length": 22,
-     "name": "?sub_00406940_mpqSetFilePointer@@YIHPAXJPAJH@Z"
+     "name": "?FOG_FSetFilePointer@@YIHPAXJPAJH@Z"
     },
     {
      "va": "0x00406A10",
      "length": 261,
-     "name": "sub_00406A10_CreateDirectoryTree"
+     "name": "FOG_CreatePathHierarchy"
     },
     {
      "va": "0x00406C40",
      "length": 217,
-     "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
+     "name": "?ERRORMANAGER_GetBlizzardDataPath@@YIHPADH@Z"
     },
     {
      "va": "0x00406D30",
@@ -177,12 +177,12 @@
     {
      "va": "0x00406DE0",
      "length": 622,
-     "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
+     "name": "?ERRORMANAGER_MoveDirectoryTree@@YIHPBD0@Z"
     },
     {
      "va": "0x00407050",
      "length": 513,
-     "name": "?sub_00407050_GetSavePath@@YIHPADH@Z"
+     "name": "?FOG_GetSavePath@@YIHPADH@Z"
     },
     {
      "va": "0x00407260",
@@ -192,17 +192,17 @@
     {
      "va": "0x00407370",
      "length": 208,
-     "name": "sub_00407370_JulianDay"
+     "name": "ERRORMANAGER_GetJulianDay"
     },
     {
      "va": "0x00407570",
      "length": 319,
-     "name": "?sub_00407570_DeleteOldDatedLogs@@YIXPBD@Z"
+     "name": "?ERRORMANAGER_DeleteOldDatedLogs@@YIXPBD@Z"
     },
     {
      "va": "0x004076B0",
      "length": 684,
-     "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
+     "name": "?ERRORMANAGER_LogSystemInfo@@YAXXZ"
     },
     {
      "va": "0x00407970",
@@ -211,37 +211,37 @@
     {
      "va": "0x00407980",
      "length": 16,
-     "name": "?sub_00407980_ReportPrint@@YIXPAXPBD@Z"
+     "name": "?ERRORMANAGER_ReportPrint@@YIXPAXPBD@Z"
     },
     {
      "va": "0x00407990",
      "length": 129,
-     "name": "sub_00407990_FindOwnerProcess"
+     "name": "ERRORMANAGER_FindParentProcessId"
     },
     {
      "va": "0x00407A80",
      "length": 838,
-     "name": "?sub_00407A80_WriteInspectorHeader@Report@crashy@@QAE_NXZ"
+     "name": "?WriteInspectorHeader@Report@crashy@@QAE_NXZ"
     },
     {
      "va": "0x00407F20",
      "length": 77,
-     "name": "?sub_00407F20_ExitHandler@@YAXXZ"
+     "name": "?ERRORMANAGER_ExitHandler@@YAXXZ"
     },
     {
      "va": "0x00407F80",
      "length": 1,
-     "name": "?sub_00407F80_ThreadHookNop2@@YIXIPAX@Z"
+     "name": "?ERRORMANAGER_RegisterThread@@YIXIPAX@Z"
     },
     {
      "va": "0x00407F90",
      "length": 1,
-     "name": "?sub_00407F90_ThreadHookNop1@@YIXI@Z"
+     "name": "?ERRORMANAGER_UnregisterThread@@YIXI@Z"
     },
     {
      "va": "0x00407FC0",
      "length": 40,
-     "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
+     "name": "?ERRORMANAGER_LogPrefixedText@@YGXPBD0H@Z"
     },
     {
      "va": "0x004082E0",
@@ -250,7 +250,7 @@
     {
      "va": "0x004088C0",
      "length": 56,
-     "name": "sub_004088C0_ReportNestedError"
+     "name": "ERRORMANAGER_ReportNestedError"
     },
     {
      "va": "0x00413740",
@@ -523,22 +523,22 @@
     {
      "va": "0x004013C0",
      "length": 15,
-     "name": "?sub_004013C0_TerminateCurrentProcess@@YIXI@Z"
+     "name": "?ERRORMANAGER_TerminateCurrentProcess@@YIXI@Z"
     },
     {
      "va": "0x004013D0",
      "length": 174,
-     "name": "sub_004013D0_GetCurrentProcessThreadCount"
+     "name": "ERRORMANAGER_GetProcessThreadCount"
     },
     {
      "va": "0x00401690",
      "length": 6,
-     "name": "?sub_00401690_GetCurrentThreadId@@YAKXZ"
+     "name": "?ERRORMANAGER_GetCurrentThreadId@@YAKXZ"
     },
     {
      "va": "0x00401740",
      "length": 79,
-     "name": "?sub_00401740_SetText@@YIXPBD@Z"
+     "name": "?ERRORMANAGER_SetReportText@@YIXPBD@Z"
     },
     {
      "va": "0x00401A30",
@@ -548,37 +548,37 @@
     {
      "va": "0x00401A40",
      "length": 21,
-     "name": "sub_00401A40_LockSymbols"
+     "name": "ERRORMANAGER_LockSymbols"
     },
     {
      "va": "0x00402C10",
      "length": 28,
-     "name": "sub_00402C10_CompareUInt"
+     "name": "ERRORMANAGER_CompareUInt"
     },
     {
      "va": "0x00403A20",
      "length": 151,
-     "name": "sub_00403A20_DumpOtherThreads"
+     "name": "ERRORMANAGER_DumpOtherThreads"
     },
     {
      "va": "0x00403F60",
      "length": 64,
-     "name": "?sub_00403F60_SetCrashHandler@@YIXPAX0H@Z"
+     "name": "?ERRORMANAGER_SetCrashHandler@@YIXPAX0H@Z"
     },
     {
      "va": "0x00404210",
      "length": 287,
-     "name": "sub_00404210_CreateProcessUtf8"
+     "name": "ERRORMANAGER_CreateProcessUtf8"
     },
     {
      "va": "0x004043C0",
      "length": 138,
-     "name": "sub_004043C0_OpenUtf8FileForWrite"
+     "name": "ERRORMANAGER_OpenFileForWriteUtf8"
     },
     {
      "va": "0x00404560",
      "length": 130,
-     "name": "?sub_00404560_UseWidePath@@YI_NPA_W@Z"
+     "name": "?ERRORMANAGER_CreateDirectoryWide@@YI_NPA_W@Z"
     },
     {
      "va": "0x00405570",
@@ -588,7 +588,7 @@
     {
      "va": "0x004055D0",
      "length": 51,
-     "name": "sub_004055D0_IsCmdSeparator"
+     "name": "ERRORMANAGER_IsCmdSeparator"
     },
     {
      "va": "0x00406410",
@@ -598,47 +598,47 @@
     {
      "va": "0x004068F0",
      "length": 7,
-     "name": "sub_004068F0"
+     "name": "FOG_FCloseFile"
     },
     {
      "va": "0x00406960",
      "length": 35,
-     "name": "sub_00406960_CreateFile"
+     "name": "FOG_CreateFileA"
     },
     {
      "va": "0x00406990",
      "length": 8,
-     "name": "?sub_00406990_DeleteFile@@YIHPBD@Z"
+     "name": "?FOG_DeleteFileA@@YIHPBD@Z"
     },
     {
      "va": "0x004069A0",
      "length": 8,
-     "name": "?sub_004069A0_CloseFile@@YIHPAX@Z"
+     "name": "?FOG_CloseFile@@YIHPAX@Z"
     },
     {
      "va": "0x004069B0",
      "length": 27,
-     "name": "sub_004069B0_ReadFile"
+     "name": "FOG_ReadFile"
     },
     {
      "va": "0x004069D0",
      "length": 27,
-     "name": "sub_004069D0_WriteFile"
+     "name": "FOG_WriteFile"
     },
     {
      "va": "0x004069F0",
      "length": 23,
-     "name": "sub_004069F0_SetFilePointer"
+     "name": "FOG_SetFilePointer"
     },
     {
      "va": "0x00406B20",
      "length": 60,
-     "name": "?sub_00406B20_AppendBackslash@@YIHPADI@Z"
+     "name": "?ERRORMANAGER_AppendBackslash@@YIHPADI@Z"
     },
     {
      "va": "0x00406B60",
      "length": 53,
-     "name": "?sub_00406B60_GetModuleDirectory@@YIHPADI@Z"
+     "name": "?ERRORMANAGER_GetModuleDirectory@@YIHPADI@Z"
     },
     {
      "va": "0x00406BA0",
@@ -648,22 +648,22 @@
     {
      "va": "0x00407310",
      "length": 29,
-     "name": "sub_00407310_Sprintf"
+     "name": "ERRORMANAGER_Sprintf"
     },
     {
      "va": "0x00407330",
      "length": 40,
-     "name": "sub_00407330_SprintfN"
+     "name": "ERRORMANAGER_SprintfN"
     },
     {
      "va": "0x00407360",
      "length": 15,
-     "name": "?sub_00407360_GetSystemInfo@@YAPAUD2SystemInfoStrc@@XZ"
+     "name": "?FOG_GetSystemInfo@@YAPAUD2SystemInfoStrc@@XZ"
     },
     {
      "va": "0x00407440",
      "length": 253,
-     "name": "?sub_00407440_JulianToDate@@YIXJPAH00@Z"
+     "name": "?ERRORMANAGER_JulianDayToDate@@YIXJPAH00@Z"
     },
     {
      "va": "0x00407960",
@@ -673,12 +673,12 @@
     {
      "va": "0x00407A20",
      "length": 81,
-     "name": "sub_00407A20_GetProcessImageName"
+     "name": "ERRORMANAGER_GetProcessImageName"
     },
     {
      "va": "0x00408000",
      "length": 79,
-     "name": "?sub_00408000_StripSourcePath@@YIPBDPBD@Z"
+     "name": "?ERRORMANAGER_StripSourcePath@@YIPBDPBD@Z"
     },
     {
      "va": "0x00408050",
@@ -703,57 +703,57 @@
     {
      "va": "0x004080B0",
      "length": 237,
-     "name": "?sub_004080B0_DebugPrintV@@YGXIPBDPAD@Z"
+     "name": "?ERRORMANAGER_DebugPrintV@@YGXIPBDPAD@Z"
     },
     {
      "va": "0x004081A0",
      "length": 113,
-     "name": "sub_004081A0_DebugPrintf"
+     "name": "ERRORMANAGER_DebugPrintf"
     },
     {
      "va": "0x00408220",
      "length": 125,
-     "name": "sub_00408220_DebugPrintfIfCapsLock"
+     "name": "ERRORMANAGER_DebugPrintfIfCapsLock"
     },
     {
      "va": "0x004082A0",
      "length": 24,
-     "name": "?sub_004082A0_DebugPrintf@@YAXIPBDZZ"
+     "name": "?ERRORMANAGER_DebugPrintFlags@@YAXIPBDZZ"
     },
     {
      "va": "0x004082C0",
      "length": 22,
-     "name": "?sub_004082C0_DebugPrintfLog@@YAXPBDZZ"
+     "name": "?ERRORMANAGER_DebugPrintLog@@YAXPBDZZ"
     },
     {
      "va": "0x00408660",
      "length": 604,
-     "name": "?sub_00408660_ShowErrorReport@@YI_NPBD0PAPBDHI_N@Z"
+     "name": "?ERRORMANAGER_ShowErrorReport@@YI_NPBD0PAPBDHI_N@Z"
     },
     {
      "va": "0x00408900",
      "length": 297,
-     "name": "sub_00408900_RaiseErrorReport"
+     "name": "ERRORMANAGER_RaiseErrorReport"
     },
     {
      "va": "0x00409770",
      "length": 158,
-     "name": "sub_00409770_PoolAllocLarge"
+     "name": "ERRORMANAGER_PoolAllocLarge"
     },
     {
      "va": "0x00409810",
      "length": 153,
-     "name": "sub_00409810_PoolFreeLarge"
+     "name": "ERRORMANAGER_PoolFreeLarge"
     },
     {
      "va": "0x0040B1B0",
      "length": 167,
-     "name": "sub_0040B1B0"
+     "name": "FOG_CompressPacket"
     },
     {
      "va": "0x0040B260",
      "length": 179,
-     "name": "sub_0040B260"
+     "name": "FOG_DecompressPacket"
     },
     {
      "va": "0x0040D890",
@@ -778,7 +778,7 @@
     {
      "va": "0x0040DF20",
      "length": 58,
-     "name": "sub_0040DF20_SOCKET_GetSockName"
+     "name": "FOG_SOCKET_GetSockName"
     },
     {
      "va": "0x0040DF60",
@@ -793,17 +793,17 @@
     {
      "va": "0x0040E1D0",
      "length": 33,
-     "name": "sub_0040E1D0_SOCKET_SetNonBlocking"
+     "name": "FOG_SOCKET_SetNonBlocking"
     },
     {
      "va": "0x0040E200",
      "length": 33,
-     "name": "sub_0040E200_SOCKET_SetBlocking"
+     "name": "FOG_SOCKET_SetBlocking"
     },
     {
      "va": "0x0040E870",
      "length": 226,
-     "name": "sub_0040E870_MeasureCpuMHz"
+     "name": "ERRORMANAGER_MeasureCpuMHz"
     }
    ],
    "flags": [
@@ -1195,7 +1195,7 @@
     {
      "va": "0x004027C0",
      "length": 96,
-     "name": "sub_004027C0_DbgHelpThreadProc"
+     "name": "LOGMANAGER_DbgHelpThreadProc"
     },
     {
      "va": "0x0040ABF0",
@@ -1205,27 +1205,27 @@
     {
      "va": "0x0040ACA0",
      "length": 245,
-     "name": "sub_0040ACA0_CalcCodeLengths"
+     "name": "LOGMANAGER_CalcCodeLengths"
     },
     {
      "va": "0x0040B540",
      "length": 179,
-     "name": "sub_0040B540_DumpThreadStackAndCode"
+     "name": "LOGMANAGER_DumpThreadStackAndCode"
     },
     {
      "va": "0x0040D540",
      "length": 100,
-     "name": "sub_0040D540_SETranslator"
+     "name": "LOGMANAGER_SETranslator"
     },
     {
      "va": "0x0040F000",
      "length": 111,
-     "name": "?sub_0040F000_GetLogDirectory@@YIXPADH@Z"
+     "name": "?LOGMANAGER_GetLogDirectory@@YIXPADH@Z"
     },
     {
      "va": "0x0040F3D0",
      "length": 153,
-     "name": "?sub_0040F3D0_SweepLogFile@@YIXPBUD2FileTimeStrc@@PBD@Z"
+     "name": "?LOGMANAGER_SweepLogFile@@YIXPBUD2FileTimeStrc@@PBD@Z"
     },
     {
      "va": "0x0040F530",
@@ -1235,22 +1235,22 @@
     {
      "va": "0x0040F5A0",
      "length": 84,
-     "name": "sub_0040F5A0_SetLogPrefix"
+     "name": "LOGMANAGER_SetLogPrefix"
     },
     {
      "va": "0x0040F600",
      "length": 99,
-     "name": "sub_0040F600_MeasureLogFile"
+     "name": "LOGMANAGER_MeasureLogFile"
     },
     {
      "va": "0x0040F670",
      "length": 168,
-     "name": "sub_0040F670_ReadLogRange"
+     "name": "LOGMANAGER_ReadLogRange"
     },
     {
      "va": "0x0040F720",
      "length": 157,
-     "name": "?sub_0040F720_WriteMessage@@YIXPAUD2LogMessageStrc@@@Z"
+     "name": "?LOGMANAGER_WriteMessage@@YIXPAUD2LogMessageStrc@@@Z"
     },
     {
      "va": "0x0040F7C0",
@@ -1280,17 +1280,17 @@
     {
      "va": "0x0040F8A0",
      "length": 191,
-     "name": "?sub_0040F8A0_CloseLogFilesNow@@YAXXZ"
+     "name": "?LOGMANAGER_CloseLogFilesNow@@YAXXZ"
     },
     {
      "va": "0x0040F960",
      "length": 5,
-     "name": "?sub_0040F960_CloseLogFiles@@YAXXZ"
+     "name": "?LOGMANAGER_CloseLogFiles@@YAXXZ"
     },
     {
      "va": "0x0040F970",
      "length": 301,
-     "name": "sub_0040F970_SweepOldLogFiles"
+     "name": "LOGMANAGER_SweepOldLogFiles"
     },
     {
      "va": "0x0040FAA0",
@@ -1309,12 +1309,12 @@
     {
      "va": "0x004106B0",
      "length": 72,
-     "name": "sub_004106B0_LogWritePrefixed0"
+     "name": "LOGMANAGER_LogWritePrefixedNoNewline"
     },
     {
      "va": "0x00410C40",
      "length": 173,
-     "name": "sub_00410C40_OrBits"
+     "name": "LOGMANAGER_OrBits"
     },
     {
      "va": "0x00417780",
@@ -2903,7 +2903,7 @@
     {
      "va": "0x00408AC0",
      "length": 43,
-     "name": "sub_00408AC0_DisplayDeadlock"
+     "name": "ERRORMANAGER_DisplayDeadlock"
     },
     {
      "va": "0x00408AF0",
@@ -2913,7 +2913,7 @@
     {
      "va": "0x00408B20",
      "length": 445,
-     "name": "?sub_00408B20_ShowErrorBox@@YIXHPBDH0PAD@Z"
+     "name": "?ERRORMANAGER_ShowErrorBox@@YIXHPBDH0PAD@Z"
     },
     {
      "va": "0x00408CE0",
@@ -2923,12 +2923,12 @@
     {
      "va": "0x00408F20",
      "length": 219,
-     "name": "?sub_00408F20_HasExpansionMpq@@YAHXZ"
+     "name": "?FOG_IsExpansion@@YAHXZ"
     },
     {
      "va": "0x00409000",
      "length": 32,
-     "name": "?sub_00409000_GetBitWidth@@YIHI@Z"
+     "name": "?ERRORMANAGER_GetBitWidth@@YIHI@Z"
     },
     {
      "va": "0x004091B0",
@@ -2938,7 +2938,7 @@
     {
      "va": "0x00409200",
      "length": 21,
-     "name": "?sub_00409200_GetBlockSize@@YAHH@Z"
+     "name": "?ERRORMANAGER_GetPoolBlockSize@@YAHH@Z"
     },
     {
      "va": "0x004095D0",
@@ -2948,7 +2948,7 @@
     {
      "va": "0x004099C0",
      "length": 10,
-     "name": "?sub_004099C0_GetPoolSystem@@YAPAUD2PoolSystemStrc@@PAU1@@Z"
+     "name": "?ERRORMANAGER_GetPoolSystem@@YAPAUD2PoolSystemStrc@@PAU1@@Z"
     },
     {
      "va": "0x00409C70",
@@ -3175,12 +3175,12 @@
     {
      "va": "0x0040A4C0",
      "length": 135,
-     "name": "?sub_0040A4C0_AsyncDataFinish@@YIXPAUAsyncData@@@Z"
+     "name": "?ASYNCDATA_Finish@@YIXPAUAsyncData@@@Z"
     },
     {
      "va": "0x0040A550",
      "length": 195,
-     "name": "?sub_0040A550_AsyncDataGetEventSlot@@YAPAUAsyncDataEventSlot@@XZ"
+     "name": "?ASYNCDATA_GetEventSlot@@YAPAUAsyncDataEventSlot@@XZ"
     },
     {
      "va": "0x0040A620",
@@ -3220,7 +3220,7 @@
     {
      "va": "0x0040AA80",
      "length": 115,
-     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
+     "name": "ASYNCDATA_ReplaceBuffer"
     },
     {
      "va": "0x0040AB00",
@@ -3230,7 +3230,7 @@
     {
      "va": "0x0040AC60",
      "length": 63,
-     "name": "?sub_0040AC60_HeapSort@@YIXPAHH@Z"
+     "name": "?ASYNCDATA_HeapSort@@YIXPAHH@Z"
     },
     {
      "va": "0x0040ADA0",
@@ -3298,12 +3298,12 @@
     {
      "va": "0x0040B600",
      "length": 88,
-     "name": "?sub_0040B600_GetLineFromAddrRetry@@YGHPAXKPAKPAUD2ImageHlpLineStrc@@@Z"
+     "name": "?EXCEPTIONS_GetLineFromAddrRetry@@YGHPAXKPAKPAUD2ImageHlpLineStrc@@@Z"
     },
     {
      "va": "0x0040B660",
      "length": 47,
-     "name": "@sub_0040B660_FreeList@4"
+     "name": "@EXCEPTIONS_FreeModuleList@4"
     },
     {
      "va": "0x0040B690",
@@ -3312,17 +3312,17 @@
     {
      "va": "0x0040B920",
      "length": 814,
-     "name": "?sub_0040B920_BuildModuleList@@YGPAUD2ModuleInfoStrc@@PAX@Z"
+     "name": "?EXCEPTIONS_GetModuleListPsapi@@YGPAUD2ModuleInfoStrc@@PAX@Z"
     },
     {
      "va": "0x0040BC50",
      "length": 92,
-     "name": "?sub_0040BC50_GetModuleList@@YGPAUD2ModuleInfoStrc@@PAXK@Z"
+     "name": "?EXCEPTIONS_GetModuleList@@YGPAUD2ModuleInfoStrc@@PAXK@Z"
     },
     {
      "va": "0x0040BCB0",
      "length": 52,
-     "name": "?sub_0040BCB0_FindModuleByAddress@@YIPAUD2ModuleInfoStrc@@KPAU1@@Z"
+     "name": "?EXCEPTIONS_FindModuleByAddress@@YIPAUD2ModuleInfoStrc@@KPAU1@@Z"
     },
     {
      "va": "0x0040BCF0",
@@ -3331,22 +3331,22 @@
     {
      "va": "0x0040C0F0",
      "length": 302,
-     "name": "?sub_0040C0F0_EnumModuleSymbols@@YGPAUD2ModuleInfoStrc@@KPAX@Z"
+     "name": "?EXCEPTIONS_LoadModuleSymbols@@YGPAUD2ModuleInfoStrc@@KPAX@Z"
     },
     {
      "va": "0x0040C220",
      "length": 103,
-     "name": "?sub_0040C220_GetAppPath@@YIHPADI@Z"
+     "name": "?EXCEPTIONS_GetAppPath@@YIHPADI@Z"
     },
     {
      "va": "0x0040C290",
      "length": 654,
-     "name": "?sub_0040C290_ComposeSymbolPath@@YAPADPAD@Z"
+     "name": "?EXCEPTIONS_ComposeSymbolPath@@YAPADPAD@Z"
     },
     {
      "va": "0x0040C520",
      "length": 247,
-     "name": "?sub_0040C520_GetLogicalAddress@@YGXPADPAK1PAXI@Z"
+     "name": "?EXCEPTIONS_GetLogicalAddress@@YGXPADPAK1PAXI@Z"
     },
     {
      "va": "0x0040C620",
@@ -3368,7 +3368,7 @@
     {
      "va": "0x0040D1C0",
      "length": 207,
-     "name": "?sub_0040D1C0_AppendCrashDump@@YIXKKKHPBX@Z"
+     "name": "?EXCEPTIONS_AppendCrashDump@@YIXKKKHPBX@Z"
     },
     {
      "va": "0x0040D290",
@@ -3377,17 +3377,17 @@
     {
      "va": "0x0040E080",
      "length": 36,
-     "name": "?sub_0040E080_AddressToString@@YIPADH@Z"
+     "name": "?FOG_inet_ntoa@@YIPADH@Z"
     },
     {
      "va": "0x0040EB90",
      "length": 49,
-     "name": "?sub_0040EB90_GetLogFiles@@YIIPAPADI@Z"
+     "name": "?EXCEPTIONS_GetLogFilePaths@@YIIPAPADI@Z"
     },
     {
      "va": "0x0040F470",
      "length": 123,
-     "name": "?sub_0040F470_LookupLog@@YIXPBD@Z"
+     "name": "?EXCEPTIONS_CloseNamedLog@@YIXPBD@Z"
     },
     {
      "va": "0x0040FD00",
@@ -3397,7 +3397,7 @@
     {
      "va": "0x00410540",
      "length": 196,
-     "name": "?sub_00410540_InitLogSystem@@YAXXZ"
+     "name": "?EXCEPTIONS_InitLogSystem@@YAXXZ"
     }
    ]
   },
@@ -4737,12 +4737,12 @@
     {
      "va": "0x004109D0",
      "length": 163,
-     "name": "?sub_004109D0_InitTimeBase@@YAXXZ"
+     "name": "?SYSTEM_InitTimeBase@@YAXXZ"
     },
     {
      "va": "0x00410A80",
      "length": 132,
-     "name": "?sub_00410A80_GetTimeSeconds@@YAJXZ"
+     "name": "?FOG_GetSyncTime@@YAJXZ"
     }
    ]
   },
@@ -37404,7 +37404,7 @@
     {
      "va": "0x004F5020",
      "length": 16,
-     "name": "?sub_004F5020_ClearInterface@@YGHXZ"
+     "name": "?D2GFX_ClearGraphicsInterface@@YGHXZ"
     },
     {
      "va": "0x004F5030",
@@ -37424,7 +37424,7 @@
     {
      "va": "0x004F51C0",
      "length": 13,
-     "name": "?sub_004F51C0_IsHighVideoMode@@YAHXZ"
+     "name": "?D2GFX_IsHardwareRenderMode@@YAHXZ"
     },
     {
      "va": "0x004F51D0",
@@ -37464,17 +37464,17 @@
     {
      "va": "0x004F5280",
      "length": 11,
-     "name": "?sub_004F5280@@YAXXZ"
+     "name": "?D2GFX_DisableFixedAspectRatio@@YAXXZ"
     },
     {
      "va": "0x004F5290",
      "length": 10,
-     "name": "?sub_004F5290_GetCacheStats@@YAPAUD2CacheStatsStrc@@XZ"
+     "name": "?D2GFX_GetCacheResults@@YAPAUD2CacheStatsStrc@@XZ"
     },
     {
      "va": "0x004F52A0",
      "length": 7,
-     "name": "?sub_004F52A0_SetOffset@@YIXH@Z"
+     "name": "?D2GFX_SetViewMatrixAdjust@@YIXH@Z"
     },
     {
      "va": "0x004F52B0",
@@ -37513,17 +37513,17 @@
     {
      "va": "0x004F5510",
      "length": 36,
-     "name": "?sub_004F5510_HideCursor@@YAXXZ"
+     "name": "?WINDOW_HideSystemCursor@@YAXXZ"
     },
     {
      "va": "0x004F5540",
      "length": 36,
-     "name": "?sub_004F5540_ShowCursor@@YAXXZ"
+     "name": "?WINDOW_ShowSystemCursor@@YAXXZ"
     },
     {
      "va": "0x004F5570",
      "length": 148,
-     "name": "sub_004F5570_GetResolutionSize"
+     "name": "WINDOW_GetResolutionSize"
     },
     {
      "va": "0x004F5610",
@@ -37568,7 +37568,7 @@
     {
      "va": "0x004F5BC0",
      "length": 398,
-     "name": "sub_004F5BC0_CenterWindow"
+     "name": "WINDOW_CenterWindow"
     },
     {
      "va": "0x004F5D50",
@@ -37618,7 +37618,7 @@
     {
      "va": "0x004F5FA0",
      "length": 208,
-     "name": "?sub_004F5FA0_UpdatePauseState@@YAXXZ"
+     "name": "?WINDOW_UpdatePauseState@@YAXXZ"
     },
     {
      "va": "0x004F6070",
@@ -37708,17 +37708,17 @@
     {
      "va": "0x004F7CC0",
      "length": 212,
-     "name": "_sub_004F7CC0"
+     "name": "_CMNSUBTILE_BuildGouraudCache"
     },
     {
      "va": "0x004F7E70",
      "length": 33,
-     "name": "?sub_004F7E70_InitRowOffsets@@YAXXZ"
+     "name": "?CMNSUBTILE_BuildLineOffsets@@YAXXZ"
     },
     {
      "va": "0x004F8E40",
      "length": 66,
-     "name": "?sub_004F8E40_CopyPaletteTables@@YIXPAUD2PaletteTableStrc@@@Z"
+     "name": "?CMNSUBTILE_SetPaletteTables@@YIXPAUD2PaletteTableStrc@@@Z"
     }
    ],
    "flags": [
@@ -37900,7 +37900,7 @@
     {
      "va": "0x004F9050",
      "length": 15,
-     "name": "?sub_004F9050@@YAHXZ"
+     "name": "?D2Win_10003@@YAHXZ"
     },
     {
      "va": "0x004F9060",
@@ -37910,7 +37910,7 @@
     {
      "va": "0x004F90A0",
      "length": 140,
-     "name": "sub_004F90A0_SwitchResolution"
+     "name": "D2Win_10005"
     },
     {
      "va": "0x004F9130",
@@ -37930,7 +37930,7 @@
     {
      "va": "0x004F9180",
      "length": 15,
-     "name": "sub_004F9180"
+     "name": "D2Win_SetQuitCallback"
     },
     {
      "va": "0x004F9190",
@@ -37945,7 +37945,7 @@
     {
      "va": "0x004F91C0",
      "length": 59,
-     "name": "sub_004F91C0"
+     "name": "CONTROL_SetFocusedEditBox"
     },
     {
      "va": "0x004F9210",
@@ -37955,7 +37955,7 @@
     {
      "va": "0x004F9250",
      "length": 52,
-     "name": "?sub_004F9250_AppendToDeadList@@YIHPAUD2WinControlStrc@@@Z"
+     "name": "?CONTROL_AppendToDeadList@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F9290",
@@ -37980,22 +37980,22 @@
     {
      "va": "0x004F96F0",
      "length": 27,
-     "name": "?sub_004F96F0_ControlClearState@@YIXPAUD2WinControlStrc@@H@Z"
+     "name": "?CONTROL_SetEnabled@@YIXPAUD2WinControlStrc@@H@Z"
     },
     {
      "va": "0x004F9710",
      "length": 45,
-     "name": "?sub_004F9710@@YIHPAUD2WinControlStrc@@@Z"
+     "name": "?CONTROL_IsEnabled@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F9740",
      "length": 58,
-     "name": "?sub_004F9740@@YIXPAUD2WinControlStrc@@H@Z"
+     "name": "?CONTROL_SetVisible@@YIXPAUD2WinControlStrc@@H@Z"
     },
     {
      "va": "0x004F9780",
      "length": 45,
-     "name": "?sub_004F9780@@YIHPAUD2WinControlStrc@@@Z"
+     "name": "?CONTROL_IsVisible@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F97B0",
@@ -38005,17 +38005,17 @@
     {
      "va": "0x004F97E0",
      "length": 138,
-     "name": "sub_004F97E0_PaintCursor"
+     "name": "CURSOR_Draw"
     },
     {
      "va": "0x004F9870",
      "length": 109,
-     "name": "?sub_004F9870_DrawFontCaches@@YAXXZ"
+     "name": "?D2COMP_DrawAllCompositeUnits@@YAXXZ"
     },
     {
      "va": "0x004F98E0",
      "length": 401,
-     "name": "sub_004F98E0"
+     "name": "D2Win_UpdateAndDraw"
     },
     {
      "va": "0x004F9A80",
@@ -38025,7 +38025,7 @@
     {
      "va": "0x004F9B30",
      "length": 34,
-     "name": "?sub_004F9B30_CONTROL_IsInActiveList@@YIHPAUD2WinControlStrc@@@Z"
+     "name": "?CONTROL_IsActiveListMember@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F9B60",
@@ -38050,7 +38050,7 @@
     {
      "va": "0x004F9CC0",
      "length": 604,
-     "name": "?sub_004F9CC0_SysCommandMaximizeMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?D2Win_COMMANDS_SysCommand@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004F9F20",
@@ -38060,22 +38060,22 @@
     {
      "va": "0x004F9FB0",
      "length": 269,
-     "name": "?sub_004F9FB0_WriteScreenshotJpeg@@YGXPAEPBDHH@Z"
+     "name": "?D2Win_WriteScreenshotJpeg@@YGXPAEPBDHH@Z"
     },
     {
      "va": "0x004FA0C0",
      "length": 151,
-     "name": "?sub_004FA0C0_SaveScreenshot@@YIXPBD@Z"
+     "name": "?D2Win_SaveScreenshotToFile@@YIXPBD@Z"
     },
     {
      "va": "0x004FA160",
      "length": 80,
-     "name": "sub_004FA160"
+     "name": "D2Win_COMMANDS_ToggleMusic"
     },
     {
      "va": "0x004FA1B0",
      "length": 66,
-     "name": "?sub_004FA1B0@@YAHPAUControl@@PBUPoint@@@Z"
+     "name": "?CONTROL_IsPointInside@@YAHPAUControl@@PBUPoint@@@Z"
     },
     {
      "va": "0x004FA200",
@@ -38099,7 +38099,7 @@
     {
      "va": "0x004FA450",
      "length": 15,
-     "name": "sub_004FA450"
+     "name": "CONTROL_SetEscapeButton"
     },
     {
      "va": "0x004FA470",
@@ -38109,17 +38109,17 @@
     {
      "va": "0x004FA490",
      "length": 20,
-     "name": "_sub_004FA490@4"
+     "name": "_CONTROL_GetType@4"
     },
     {
      "va": "0x004FA4C0",
      "length": 40,
-     "name": "sub_004FA4C0_HideCursorMsg"
+     "name": "D2Win_COMMANDS_NcMouseMove"
     },
     {
      "va": "0x004FA4F0",
      "length": 47,
-     "name": "sub_004FA4F0_MouseLeaveMsg"
+     "name": "D2Win_COMMANDS_MouseLeave"
     },
     {
      "va": "0x004FA520",
@@ -38134,7 +38134,7 @@
     {
      "va": "0x004FA590",
      "length": 281,
-     "name": "sub_004FA590"
+     "name": "D2Win_RunMessageLoop"
     },
     {
      "va": "0x004FA6B0",
@@ -38169,7 +38169,7 @@
     {
      "va": "0x004FB010",
      "length": 162,
-     "name": "sub_004FB010_SetPaletteTables"
+     "name": "PALETTE_ApplyPaletteTables"
     },
     {
      "va": "0x004FB740",
@@ -38199,12 +38199,12 @@
     {
      "va": "0x004FE710",
      "length": 96,
-     "name": "sub_004FE710_EditBoxMouseDown"
+     "name": "EDITBOX_HandleMultiLineMouseDown"
     },
     {
      "va": "0x00503FA0",
      "length": 128,
-     "name": "sub_00503FA0_AddHoverLine"
+     "name": "D2COMP_AddHoverTextLine"
     },
     {
      "va": "0x00507A10",
@@ -38214,7 +38214,7 @@
     {
      "va": "0x00508030",
      "length": 143,
-     "name": "sub_6F8AF240"
+     "name": "SCROLLBAR_HandleMouseWheel"
     },
     {
      "va": "0x00508610",
@@ -38399,7 +38399,7 @@
     {
      "va": "0x004FB1B0",
      "length": 11,
-     "name": "?sub_004FB1B0_ApplyPalette@@YAXXZ"
+     "name": "?PALETTE_ApplyScreenPalette@@YAXXZ"
     },
     {
      "va": "0x004FB480",
@@ -38409,7 +38409,7 @@
     {
      "va": "0x004FB5A0",
      "length": 248,
-     "name": "?sub_004FB5A0_SetTextBoxLineGap@@YAXH@Z"
+     "name": "?TEXTBOX_SetLineGapForFont@@YAXH@Z"
     },
     {
      "va": "0x004FB6A0",
@@ -38419,7 +38419,7 @@
     {
      "va": "0x004FB790",
      "length": 224,
-     "name": "?sub_004FB790@@YIHPAUD2WinTextBoxStrc@@PBUUnicode@@HH@Z"
+     "name": "?D2Win_10058_0@@YIHPAUD2WinTextBoxStrc@@PBUUnicode@@HH@Z"
     },
     {
      "va": "0x004FB870",
@@ -38483,22 +38483,22 @@
     {
      "va": "0x004FBD70",
      "length": 80,
-     "name": "?sub_004FBD70_SetControlStateWithChild@@YIXPAUD2WinControlStrc@@H@Z"
+     "name": "?D2Win_10187@@YIXPAUD2WinControlStrc@@H@Z"
     },
     {
      "va": "0x004FBDC0",
      "length": 32,
-     "name": "?sub_004FBDC0_Unsupported@@YAXXZ"
+     "name": "?TEXTBOX_AssertUnsupported@@YAXXZ"
     },
     {
      "va": "0x004FBE90",
      "length": 67,
-     "name": "?sub_004FBE90_CountLinesFromCurrent@@YAHPAUD2WinTextBoxStrc@@@Z"
+     "name": "?TEXTBOX_CountLinesFromCurrent@@YAHPAUD2WinTextBoxStrc@@@Z"
     },
     {
      "va": "0x004FBEE0",
      "length": 75,
-     "name": "?sub_004FBEE0@@YGHHPAUUnicode@@@Z"
+     "name": "?TEXTBOX_TruncateTextToWidth@@YGHHPAUUnicode@@@Z"
     },
     {
      "va": "0x004FBF30",
@@ -38512,7 +38512,7 @@
     {
      "va": "0x004FC5A0",
      "length": 58,
-     "name": "@sub_004FC5A0_GetMaxSteps@4"
+     "name": "@D2Win_10190@4"
     },
     {
      "va": "0x004FC5E0",
@@ -38576,7 +38576,7 @@
     {
      "va": "0x004FCD90",
      "length": 9,
-     "name": "?sub_004FCD90_sub_004FB790@@YIHPAUD2WinControlStrc@@PBUUnicode@@HH@Z"
+     "name": "?sub_004FCD90_D2Win_10058_0@@YIHPAUD2WinControlStrc@@PBUUnicode@@HH@Z"
     },
     {
      "va": "0x004FCDA0",
@@ -38610,7 +38610,7 @@
     {
      "va": "0x00501690",
      "length": 151,
-     "name": "sub_6F8AA140"
+     "name": "FONT_FindCharInfo"
     }
    ]
   },
@@ -38703,7 +38703,7 @@
     {
      "va": "0x004FD5A0",
      "length": 42,
-     "name": "?sub_004FD5A0_IsInClickRect@@YAHPBUD2WinImageClickRectStrc@@HH@Z"
+     "name": "?IMAGE_IsInClickRect@@YAHPBUD2WinImageClickRectStrc@@HH@Z"
     },
     {
      "va": "0x004FD6C0",
@@ -38718,17 +38718,17 @@
     {
      "va": "0x004FD860",
      "length": 134,
-     "name": "sub_6F8B1C60"
+     "name": "TIMER_UpdateDefault"
     },
     {
      "va": "0x004FD8F0",
      "length": 123,
-     "name": "sub_6F8B1CF0"
+     "name": "TIMER_UpdateRepeating"
     },
     {
      "va": "0x00503310",
      "length": 45,
-     "name": "?sub_00503310_FindCofNode@@YAPAUD2CofNodeStrc@@III@Z"
+     "name": "?D2COMP_FindCofNode@@YAPAUD2CofNodeStrc@@III@Z"
     },
     {
      "va": "0x00506DA0",
@@ -38764,7 +38764,7 @@
     {
      "va": "0x004FD830",
      "length": 41,
-     "name": "?sub_004FD830_2@@YIXPAUD2WinTimerStrc@@@Z"
+     "name": "?TIMER_DisableSpaceKey@@YIXPAUD2WinTimerStrc@@@Z"
     },
     {
      "va": "0x004FD970",
@@ -38779,7 +38779,7 @@
     {
      "va": "0x004FDA50",
      "length": 41,
-     "name": "?sub_004FDA50_2@@YIXPAUD2WinTimerStrc@@@Z"
+     "name": "?TIMER_SetRepeating@@YIXPAUD2WinTimerStrc@@@Z"
     }
    ]
   },
@@ -38790,7 +38790,7 @@
     {
      "va": "0x004FDCC0",
      "length": 62,
-     "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
+     "name": "?EDITBOX_ClearSelection@@YIXPAUD2WinEditBoxStrc@@@Z"
     },
     {
      "va": "0x00504270",
@@ -38805,12 +38805,12 @@
     {
      "va": "0x00504370",
      "length": 51,
-     "name": "sub_00504370_LookupPairValue"
+     "name": "D2COMP_GetPairValue"
     },
     {
      "va": "0x005043B0",
      "length": 29,
-     "name": "sub_005043B0_ReleaseToPool"
+     "name": "D2COMP_FreePoolMemory"
     },
     {
      "va": "0x00504D30",
@@ -38865,7 +38865,7 @@
     {
      "va": "0x005055D0",
      "length": 106,
-     "name": "?sub_005055D0_ApplyPalette@@YIXXZ"
+     "name": "?D2COMP_InitEmblemColorTables@@YIXXZ"
     }
    ]
   },
@@ -38906,27 +38906,27 @@
     {
      "va": "0x004FDAD0",
      "length": 48,
-     "name": "?sub_004FDAD0@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
+     "name": "?EDITBOX_SetKeyFilter@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
     },
     {
      "va": "0x004FDB00",
      "length": 54,
-     "name": "?sub_004FDB00@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
+     "name": "?EDITBOX_SetChangeCallback@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
     },
     {
      "va": "0x004FDB40",
      "length": 99,
-     "name": "?sub_004FDB40_GetClipboardText@@YAPBDXZ"
+     "name": "?EDITBOX_GetClipboardText@@YAPBDXZ"
     },
     {
      "va": "0x004FDBB0",
      "length": 181,
-     "name": "?sub_004FDBB0_SetClipboardText@@YIHPBD@Z"
+     "name": "?EDITBOX_SetClipboardText@@YIHPBD@Z"
     },
     {
      "va": "0x004FDC70",
      "length": 69,
-     "name": "?sub_004FDC70_HasSelection@@YAHPAUD2WinEditBoxStrc@@@Z"
+     "name": "?EDITBOX_HasSelection@@YAHPAUD2WinEditBoxStrc@@@Z"
     },
     {
      "va": "0x004FDD00",
@@ -38936,7 +38936,7 @@
     {
      "va": "0x004FDD50",
      "length": 51,
-     "name": "?sub_004FDD50@@YIXPAUD2WinEditBoxStrc@@H@Z"
+     "name": "?EDITBOX_SetMaxLength@@YIXPAUD2WinEditBoxStrc@@H@Z"
     },
     {
      "va": "0x004FDD90",
@@ -38951,12 +38951,12 @@
     {
      "va": "0x004FDE30",
      "length": 442,
-     "name": "?sub_004FDE30_GetEditTextHeight@@YGHPBUUnicode@@PAUD2WinEditBoxStrc@@@Z"
+     "name": "?EDITBOX_GetTextHeight@@YGHPBUUnicode@@PAUD2WinEditBoxStrc@@@Z"
     },
     {
      "va": "0x004FDFF0",
      "length": 860,
-     "name": "?sub_004FDFF0_GetCaretPosition@@YGXPAH0PAUD2WinEditBoxStrc@@@Z"
+     "name": "?EDITBOX_GetCaretPosition@@YGXPAH0PAUD2WinEditBoxStrc@@@Z"
     },
     {
      "va": "0x004FE350",
@@ -38970,7 +38970,7 @@
     {
      "va": "0x004FE770",
      "length": 31,
-     "name": "?sub_004FE770@@YGHPAX0PBUCharacter@@@Z"
+     "name": "?D2Win_10078_IsNumber@@YGHPAX0PBUCharacter@@@Z"
     },
     {
      "va": "0x004FE790",
@@ -38980,12 +38980,12 @@
     {
      "va": "0x004FE7C0",
      "length": 548,
-     "name": "?sub_004FE7C0_UpdateVisibleChars@@YAXPAUD2WinEditBoxStrc@@@Z"
+     "name": "?EDITBOX_UpdateVisibleChars@@YAXPAUD2WinEditBoxStrc@@@Z"
     },
     {
      "va": "0x004FE9F0",
      "length": 229,
-     "name": "?sub_004FE9F0_DeleteSelection@@YAXPAUD2WinEditBoxStrc@@@Z"
+     "name": "?EDITBOX_DeleteSelection@@YAXPAUD2WinEditBoxStrc@@@Z"
     },
     {
      "va": "0x004FEAE0",
@@ -38995,12 +38995,12 @@
     {
      "va": "0x004FF050",
      "length": 1353,
-     "name": "?sub_004FF050_EditBoxKeyDown@@YIHPAUD2WinEditBoxStrc@@D@Z"
+     "name": "?EDITBOX_HandleKeyDown@@YIHPAUD2WinEditBoxStrc@@D@Z"
     },
     {
      "va": "0x004FF5A0",
      "length": 119,
-     "name": "?sub_004FF5A0@@YIHPAUD2WinEditBoxStrc@@PBUUnicode@@@Z"
+     "name": "?EDITBOX_SetText@@YIHPAUD2WinEditBoxStrc@@PBUUnicode@@@Z"
     },
     {
      "va": "0x004FF620",
@@ -39013,7 +39013,7 @@
     {
      "va": "0x004FFE50",
      "length": 881,
-     "name": "?sub_004FFE50_EditBoxDraw@@YIHPAUD2WinEditBoxStrc@@@Z"
+     "name": "?EDITBOX_DrawSingleLine@@YIHPAUD2WinEditBoxStrc@@@Z"
     },
     {
      "va": "0x005001D0",
@@ -39029,7 +39029,7 @@
     {
      "va": "0x00500310",
      "length": 37,
-     "name": "@sub_00500310_GetAnimImageField50@4"
+     "name": "@D2Win_10106@4"
     },
     {
      "va": "0x00500340",
@@ -39073,7 +39073,7 @@
     {
      "va": "0x00500B20",
      "length": 40,
-     "name": "@sub_00500B20_SetButtonField5C@8"
+     "name": "@BUTTON_SetBaseFrame@8"
     },
     {
      "va": "0x00507EF0",
@@ -39088,7 +39088,7 @@
     {
      "va": "0x005080C0",
      "length": 40,
-     "name": "@sub_005080C0_SetScrollBarField50@8"
+     "name": "@D2Win_10202@8"
     }
    ]
   },
@@ -39139,12 +39139,12 @@
     {
      "va": "0x00500C20",
      "length": 43,
-     "name": "?sub_00500C20_IsPointInButton@@YAHPAUD2WinButtonStrc@@HH@Z"
+     "name": "?BUTTON_IsPointInside@@YAHPAUD2WinButtonStrc@@HH@Z"
     },
     {
      "va": "0x00500C50",
      "length": 337,
-     "name": "?sub_00500C50_DrawButtonText@@YGXHPAUD2WinButtonStrc@@@Z"
+     "name": "?BUTTON_DrawText@@YGXHPAUD2WinButtonStrc@@@Z"
     },
     {
      "va": "0x00500DB0",
@@ -39192,17 +39192,17 @@
     {
      "va": "0x005013A0",
      "length": 225,
-     "name": "?sub_005013A0@@YGXHPADH@Z"
+     "name": "?FONT_BuildFontPath@@YGXHPADH@Z"
     },
     {
      "va": "0x00501490",
      "length": 228,
-     "name": "?sub_00501490_BuildFontPath@@YGXHPADH@Z"
+     "name": "?FONT_BuildFontTablePath@@YGXHPADH@Z"
     },
     {
      "va": "0x00501580",
      "length": 111,
-     "name": "?sub_6F8A9E90@@YAXH@Z"
+     "name": "?FONT_LoadFontTable@@YAXH@Z"
     },
     {
      "va": "0x005015F0",
@@ -39212,7 +39212,7 @@
     {
      "va": "0x00501650",
      "length": 49,
-     "name": "?sub_6F8AA100@@YIPAUD2CharStrc@@G@Z"
+     "name": "?FONT_GetCharInfoByIndex@@YIPAUD2CharStrc@@G@Z"
     },
     {
      "va": "0x00501730",
@@ -39227,7 +39227,7 @@
     {
      "va": "0x00501820",
      "length": 18,
-     "name": "?sub_00501820@@YIHPBUUnicode@@@Z"
+     "name": "?D2Win_10121_GetTextWidth@@YIHPBUUnicode@@@Z"
     },
     {
      "va": "0x00501840",
@@ -39236,12 +39236,12 @@
     {
      "va": "0x00501910",
      "length": 174,
-     "name": "?sub_00501910_GetTextLineWidth@@YAHPBUUnicode@@@Z"
+     "name": "?FONT_GetFirstLineWidth@@YAHPBUUnicode@@@Z"
     },
     {
      "va": "0x005019C0",
      "length": 119,
-     "name": "?sub_005019C0_GetTextHeight@@YAHPBUUnicode@@@Z"
+     "name": "?FONT_GetTextHeight@@YAHPBUUnicode@@@Z"
     },
     {
      "va": "0x00501A40",
@@ -39251,7 +39251,7 @@
     {
      "va": "0x00501A60",
      "length": 29,
-     "name": "?sub_00501A60_DrawRectUp@@YGXHHHHIH@Z"
+     "name": "?FONT_DrawBox@@YGXHHHHIH@Z"
     },
     {
      "va": "0x00501A80",
@@ -39264,7 +39264,7 @@
     {
      "va": "0x00502190",
      "length": 227,
-     "name": "?sub_00502190_DrawFontText@@YAXPBUUnicode@@HH@Z"
+     "name": "?D2Win_10126_DrawTextFromCache@@YAXPBUUnicode@@HH@Z"
     },
     {
      "va": "0x00502280",
@@ -39279,12 +39279,12 @@
     {
      "va": "0x00502320",
      "length": 55,
-     "name": "?sub_00502320@@YIXPBUUnicode@@HHHH@Z"
+     "name": "?D2Win_10117_DrawText@@YIXPBUUnicode@@HHHH@Z"
     },
     {
      "va": "0x005023A0",
      "length": 15,
-     "name": "?sub_005023A0_DrawFontText@@YIXPBUUnicode@@HH@Z"
+     "name": "?FONT_DrawTextFromCache@@YIXPBUUnicode@@HH@Z"
     },
     {
      "va": "0x005023B0",
@@ -39308,12 +39308,12 @@
     {
      "va": "0x005025C0",
      "length": 186,
-     "name": "?sub_005025C0_DrawFramedText@@YIXPBUUnicode@@HHHHHH@Z"
+     "name": "?FONT_DrawTextWithBackground@@YIXPBUUnicode@@HHHHHH@Z"
     },
     {
      "va": "0x00502680",
      "length": 200,
-     "name": "?sub_00502680_DrawCellFile@@YIXPAUD2CelFileStrc@@HHHHH@Z"
+     "name": "?D2Win_10134_DrawCellFile@@YIXPAUD2CelFileStrc@@HHHHH@Z"
     },
     {
      "va": "0x00502750",
@@ -39322,12 +39322,12 @@
     {
      "va": "0x005028A0",
      "length": 58,
-     "name": "?sub_005028A0_FreeTextLines@@YIXPAUD2TextLineStrc@@@Z"
+     "name": "?D2Win_10200@@YIXPAUD2TextLineStrc@@@Z"
     },
     {
      "va": "0x005028E0",
      "length": 130,
-     "name": "sub_005028E0_AllocSplitTextLine"
+     "name": "D2Win_AllocateSplitText"
     },
     {
      "va": "0x00502C40",
@@ -39433,77 +39433,77 @@
     {
      "va": "0x005031D0",
      "length": 68,
-     "name": "?sub_005031D0_CopyTokenPadded@@YAXPADPBD@Z"
+     "name": "?D2COMP_CopyTokenPadded@@YAXPADPBD@Z"
     },
     {
      "va": "0x00503220",
      "length": 36,
-     "name": "?sub_00503220_CheckCofData@@YAPAUD2CofDataStrc@@PAU1@@Z"
+     "name": "?D2COMP_AssertCofData@@YAPAUD2CofDataStrc@@PAU1@@Z"
     },
     {
      "va": "0x00503250",
      "length": 81,
-     "name": "?sub_00503250_LoadCofFile@@YGPAUD2CofDataStrc@@PBDPAI@Z"
+     "name": "?D2COMP_LoadCofFile@@YGPAUD2CofDataStrc@@PBDPAI@Z"
     },
     {
      "va": "0x005032B0",
      "length": 84,
-     "name": "?sub_005032B0_GetLayerOrder@@YGPAEHHPAUD2CofDataStrc@@@Z"
+     "name": "?D2COMP_GetLayerOrder@@YGPAEHHPAUD2CofDataStrc@@@Z"
     },
     {
      "va": "0x005034B0",
      "length": 314,
-     "name": "?sub_005034B0_BuildCofPath@@YGXIIIPAD@Z"
+     "name": "?D2COMP_BuildCofPath@@YGXIIIPAD@Z"
     },
     {
      "va": "0x005035F0",
      "length": 70,
-     "name": "?sub_005035F0_FindCofInfo@@YAPAUD2CofInfoStrc@@PAUD2GfxInfoStrc@@II@Z"
+     "name": "?D2COMP_FindCofInfo@@YAPAUD2CofInfoStrc@@PAUD2GfxInfoStrc@@II@Z"
     },
     {
      "va": "0x00503740",
      "length": 341,
-     "name": "?sub_00503740_InitGfxData@@YIXPAUD2CompositeUnitStrc@@PAUD2GfxDataStrc@@@Z"
+     "name": "?D2COMP_InitGfxData@@YIXPAUD2CompositeUnitStrc@@PAUD2GfxDataStrc@@@Z"
     },
     {
      "va": "0x005038A0",
      "length": 35,
-     "name": "?sub_005038A0_SetupGfxData@@YGXPAUD2CompositeUnitStrc@@EHHPAUD2GfxDataStrc@@PAUD2CelFileStrc@@@Z"
+     "name": "?D2COMP_SetupGfxData@@YGXPAUD2CompositeUnitStrc@@EHHPAUD2GfxDataStrc@@PAUD2CelFileStrc@@@Z"
     },
     {
      "va": "0x00503920",
      "length": 79,
-     "name": "?sub_00503920_DirectionSlot@@YGEIE@Z"
+     "name": "?D2COMP_GetDirectionIndex@@YGEIE@Z"
     },
     {
      "va": "0x00503970",
      "length": 209,
-     "name": "?sub_00503970_CountLayerCels@@YGHPAUD2CofDataStrc@@PBEPAHEHPAUD2CompositeUnitStrc@@@Z"
+     "name": "?D2COMP_CountLayerCels@@YGHPAUD2CofDataStrc@@PBEPAHEHPAUD2CompositeUnitStrc@@@Z"
     },
     {
      "va": "0x00503A50",
      "length": 333,
-     "name": "?sub_00503A50_DrawCompositeShadow@@YIXPAUD2CompositeUnitStrc@@@Z"
+     "name": "?D2COMP_DrawCompositeShadow@@YIXPAUD2CompositeUnitStrc@@@Z"
     },
     {
      "va": "0x00503EC0",
      "length": 174,
-     "name": "?sub_00503EC0_TruncateText@@YGHPAUUnicode@@H@Z"
+     "name": "?D2COMP_TruncateTextToWidth@@YGHPAUUnicode@@H@Z"
     },
     {
      "va": "0x00504040",
      "length": 192,
-     "name": "?sub_00504040_LoadUnitCof@@YAHPAUD2CompositeUnitStrc@@@Z"
+     "name": "?D2COMP_ValidateAndLoadCOFForUnit@@YAHPAUD2CompositeUnitStrc@@@Z"
     },
     {
      "va": "0x005043E0",
      "length": 77,
-     "name": "?sub_005043E0_LoadExcelFile@@YGPAXPAXPBD1PAI@Z"
+     "name": "?D2COMP_LoadExcelFile@@YGPAXPAXPBD1PAI@Z"
     },
     {
      "va": "0x00504430",
      "length": 312,
-     "name": "?sub_00504430_CompileTxt@@YGPAXPAXPBDPAUD2BinFieldStrc@@PAHH@Z"
+     "name": "?D2COMP_CompileTxt@@YGPAXPAXPBDPAUD2BinFieldStrc@@PAHH@Z"
     },
     {
      "va": "0x00504570",
@@ -39512,7 +39512,7 @@
     {
      "va": "0x00504D60",
      "length": 542,
-     "name": "?sub_00504D60_FixComponent@@YAXHPAE@Z"
+     "name": "?D2COMP_FixComponent@@YAXHPAE@Z"
     },
     {
      "va": "0x005053A0",
@@ -39522,12 +39522,12 @@
     {
      "va": "0x00505470",
      "length": 223,
-     "name": "?sub_00505470_LoadItemPalette@@YAXPBDH@Z"
+     "name": "?D2COMP_LoadItemPalette@@YAXPBDH@Z"
     },
     {
      "va": "0x00505550",
      "length": 120,
-     "name": "?sub_00505550_LoadItemPalettes@@YAXXZ"
+     "name": "?D2Win_10157@@YAXXZ"
     },
     {
      "va": "0x00505640",
@@ -39565,7 +39565,7 @@
     {
      "va": "0x00503340",
      "length": 196,
-     "name": "?sub_00503340_GetCofNode@@YGPAUD2CofNodeStrc@@IPBDII@Z"
+     "name": "?D2COMP_GetCofNode@@YGPAUD2CofNodeStrc@@IPBDII@Z"
     },
     {
      "va": "0x00505A80",
@@ -39598,12 +39598,12 @@
     {
      "va": "0x00503410",
      "length": 156,
-     "name": "?sub_00503410@@YGXHPAUD2CofNodeStrc@@@Z"
+     "name": "?D2COMP_ReleaseCofNode@@YGXHPAUD2CofNodeStrc@@@Z"
     },
     {
      "va": "0x005038D0",
      "length": 70,
-     "name": "?sub_005038D0_GetComponentPalette@@YIPAEH@Z"
+     "name": "?D2COMP_GetComponentPalette@@YIPAEH@Z"
     },
     {
      "va": "0x00503F70",
@@ -39617,12 +39617,12 @@
     {
      "va": "0x00504100",
      "length": 105,
-     "name": "?sub_00504100_UnlinkCompositeUnit@@YIXPAUD2CompositeUnitStrc@@@Z"
+     "name": "?D2COMP_UnlinkCompositeUnit@@YIXPAUD2CompositeUnitStrc@@@Z"
     },
     {
      "va": "0x00504170",
      "length": 64,
-     "name": "?sub_00504170_AllocZeroDword@@YAPAHXZ"
+     "name": "?D2COMP_AllocGfxInfo@@YAPAHXZ"
     },
     {
      "va": "0x005041B0",
@@ -39637,17 +39637,17 @@
     {
      "va": "0x00504920",
      "length": 164,
-     "name": "?sub_00504920_LoadItemTypes@@YIXPAX@Z"
+     "name": "?D2COMP_LoadItemTypes@@YIXPAX@Z"
     },
     {
      "va": "0x005049D0",
      "length": 76,
-     "name": "?sub_005049D0_FreeCompLinkers@@YGXXZ"
+     "name": "?D2COMP_FreeLinkers@@YGXXZ"
     },
     {
      "va": "0x00504A20",
      "length": 193,
-     "name": "?sub_6F8A32B0@@YGHHH@Z"
+     "name": "?D2COMP_IsItemTypeDescendant@@YGHHH@Z"
     },
     {
      "va": "0x00505360",
@@ -39767,7 +39767,7 @@
     {
      "va": "0x00504F80",
      "length": 374,
-     "name": "?sub_00504F80_InitCompositeUnit@@YGXPAUD2CompositeUnitStrc@@IIPAEPBE@Z"
+     "name": "?D2Win_10145@@YGXPAUD2CompositeUnitStrc@@IIPAEPBE@Z"
     }
    ],
    "flags": [
@@ -39990,12 +39990,12 @@
     {
      "va": "0x00508000",
      "length": 45,
-     "name": "@sub_00508000_SetScrollBarHandler@8"
+     "name": "@SCROLLBAR_SetScrollCallback@8"
     },
     {
      "va": "0x005080F0",
      "length": 40,
-     "name": "@sub_005080F0_GetScrollBarField50@4"
+     "name": "@D2Win_10201@4"
     },
     {
      "va": "0x00508120",
@@ -40043,7 +40043,7 @@
     {
      "va": "0x00508710",
      "length": 138,
-     "name": "?sub_00508710@@YIHPAUD2WinControlStrc@@@Z"
+     "name": "?POPUP_UpdateHoveredLine@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x005088C0",
@@ -41341,52 +41341,52 @@
     {
      "va": "0x00513AF0",
      "length": 82,
-     "name": "?sub_00513AF0_ReleaseSoundObjects@@YAXXZ"
+     "name": "?D2SOUND_ReleaseSoundObjects@@YAXXZ"
     },
     {
      "va": "0x00513C50",
      "length": 631,
-     "name": "sub_00513C50_SetEaxEnvironment"
+     "name": "D2SOUND_SetEaxEnvironment"
     },
     {
      "va": "0x00513ED0",
      "length": 355,
-     "name": "?sub_00513ED0_GetDSoundErrorString@@YIPBDJ@Z"
+     "name": "?D2SOUND_GetDirectSoundErrorString@@YIPBDJ@Z"
     },
     {
      "va": "0x00514780",
      "length": 39,
-     "name": "@sub_00514780_CreateSoundChannel@4"
+     "name": "@D2SOUND_CreateStreamChannel@4"
     },
     {
      "va": "0x005147B0",
      "length": 30,
-     "name": "?sub_005147B0_DestroySoundChannel@@YAXXZ"
+     "name": "?D2SOUND_DestroyStreamChannel@@YAXXZ"
     },
     {
      "va": "0x00514860",
      "length": 131,
-     "name": "?sub_00514860_ClearChannelTable@@YAXXZ"
+     "name": "?D2SOUND_ClearChannelTable@@YAXXZ"
     },
     {
      "va": "0x00514B60",
      "length": 291,
-     "name": "?sub_00514B60_LoadSoundSettings@@YAXXZ"
+     "name": "?D2SOUND_LoadRegistrySettings@@YAXXZ"
     },
     {
      "va": "0x00514CA0",
      "length": 31,
-     "name": "?sub_00514CA0_SetSoundMode@@YIHH@Z"
+     "name": "?D2SOUND_SetSoundMixerOption@@YIHH@Z"
     },
     {
      "va": "0x00514D00",
      "length": 31,
-     "name": "?sub_00514D00_SetMusicVolume@@YIHH@Z"
+     "name": "?D2SOUND_SetMusicVolumeOption@@YIHH@Z"
     },
     {
      "va": "0x00514D90",
      "length": 31,
-     "name": "?sub_00514D90_SetOptionsMusic@@YIHH@Z"
+     "name": "?D2SOUND_SetOptionsMusicOption@@YIHH@Z"
     },
     {
      "va": "0x00515110",
@@ -41396,7 +41396,7 @@
     {
      "va": "0x00515120",
      "length": 86,
-     "name": "?sub_00515120_StopSoundThread@@YAXXZ"
+     "name": "?D2SOUND_StopSoundThread@@YAXXZ"
     },
     {
      "va": "0x00515180",
@@ -41405,107 +41405,107 @@
     {
      "va": "0x00515300",
      "length": 177,
-     "name": "sub_00515300_ClearSoundBuffer"
+     "name": "D2SOUND_ClearSoundBuffer"
     },
     {
      "va": "0x00515530",
      "length": 146,
-     "name": "?sub_00515530_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
+     "name": "?D2SOUND_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
     },
     {
      "va": "0x005155D0",
      "length": 202,
-     "name": "sub_005155D0_SetSoundData"
+     "name": "D2SOUND_SetSoundData"
     },
     {
      "va": "0x005156A0",
      "length": 104,
-     "name": "?sub_005156A0_PlaySound@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_PlaySound@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515710",
      "length": 45,
-     "name": "?sub_00515710_GetSoundPlaying@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_GetSoundPlayingFlag@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515740",
      "length": 112,
-     "name": "sub_00515740_IsSoundPlaying"
+     "name": "D2SOUND_IsSoundBufferPlaying"
     },
     {
      "va": "0x005157B0",
      "length": 167,
-     "name": "sub_005157B0_SetSoundVolume"
+     "name": "D2SOUND_SetSoundVolume"
     },
     {
      "va": "0x00515860",
      "length": 39,
-     "name": "?sub_00515860_GetField38@@YIHPAUD2SoundViewStrc@@@Z"
+     "name": "?D2SOUND_GetSoundVolume@@YIHPAUD2SoundViewStrc@@@Z"
     },
     {
      "va": "0x00515890",
      "length": 187,
-     "name": "?sub_00515890_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
+     "name": "?D2SOUND_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
     },
     {
      "va": "0x00515950",
      "length": 90,
-     "name": "sub_00515950_SetSoundPosition"
+     "name": "D2SOUND_SetSoundPosition"
     },
     {
      "va": "0x005159B0",
      "length": 119,
-     "name": "?sub_005159B0_GetSoundSampleCount@@YIIPAUD2SoundSampleStrc@@@Z"
+     "name": "?D2SOUND_GetStreamPosition@@YIIPAUD2SoundSampleStrc@@@Z"
     },
     {
      "va": "0x00515A30",
      "length": 39,
-     "name": "@sub_00515A30_SetValue40@8"
+     "name": "@D2SOUND_SetSoundNoLoop@8"
     },
     {
      "va": "0x00515A60",
      "length": 39,
-     "name": "@sub_00515A60_SetValue44@8"
+     "name": "@D2SOUND_SetSoundLoopStart@8"
     },
     {
      "va": "0x00515A90",
      "length": 163,
-     "name": "sub_00515A90_SetSoundAttenuation"
+     "name": "D2SOUND_SetSoundAttenuation"
     },
     {
      "va": "0x00515B40",
      "length": 229,
-     "name": "sub_00515B40_SetSoundReverbMix"
+     "name": "D2SOUND_SetSoundReverbMix"
     },
     {
      "va": "0x00515C30",
      "length": 44,
-     "name": "?sub_00515C30_IsSoundStreaming@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_IsSoundStreaming@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515C60",
      "length": 114,
-     "name": "sub_00515C60_StartFade"
+     "name": "D2SOUND_StartSoundFade"
     },
     {
      "va": "0x00515CE0",
      "length": 127,
-     "name": "?sub_00515CE0_SetMasterVolume@@YIXH@Z"
+     "name": "?D2SOUND_SetMasterVolume@@YIXH@Z"
     },
     {
      "va": "0x00515D60",
      "length": 16,
-     "name": "?sub_00515D60_GetMasterVolume@@YAHXZ"
+     "name": "?D2SOUND_GetMasterVolume@@YAHXZ"
     },
     {
      "va": "0x00515D70",
      "length": 194,
-     "name": "sub_00515D70_StartStream"
+     "name": "D2SOUND_StartSoundStream"
     },
     {
      "va": "0x00515E40",
      "length": 113,
-     "name": "?sub_00515E40_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515EC0",
@@ -41520,37 +41520,37 @@
     {
      "va": "0x00515EE0",
      "length": 98,
-     "name": "?sub_00515EE0_StopSound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_StopSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515F50",
      "length": 125,
-     "name": "?sub_00515F50_FadeOutMaster@@YIXH@Z"
+     "name": "?D2SOUND_FadeOutMasterVolume@@YIXH@Z"
     },
     {
      "va": "0x00515FD0",
      "length": 159,
-     "name": "?sub_00515FD0_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516070",
      "length": 85,
-     "name": "?sub_00516070_ResetSound@@YAXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_ReleaseSoundBuffers@@YAXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x005160D0",
      "length": 98,
-     "name": "?sub_005160D0_DestroySound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_DestroySound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516140",
      "length": 271,
-     "name": "?sub_00516140_ResetSound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUND_ResetSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516510",
      "length": 95,
-     "name": "sub_00516510_StartSoundThread"
+     "name": "D2SOUND_StartSoundThread"
     },
     {
      "va": "0x00516570",
@@ -41575,12 +41575,12 @@
     {
      "va": "0x005165F0",
      "length": 118,
-     "name": "sub_005165F0_RangeToVolume"
+     "name": "D2SOUND_ScaleToDecibels"
     },
     {
      "va": "0x00516670",
      "length": 93,
-     "name": "sub_00516670_VolumeToScale"
+     "name": "D2SOUND_DecibelsToScale"
     },
     {
      "va": "0x005166D0",
@@ -41590,7 +41590,7 @@
     {
      "va": "0x00516720",
      "length": 53,
-     "name": "?sub_00516720_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
+     "name": "?D2SOUND_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
     }
    ]
   },
@@ -41622,47 +41622,47 @@
     {
      "va": "0x00514060",
      "length": 104,
-     "name": "?sub_00514060_ShutdownSound@@YAXXZ"
+     "name": "?D2SOUND_CloseSoundSystem@@YAXXZ"
     },
     {
      "va": "0x005147D0",
      "length": 103,
-     "name": "?sub_005147D0_PlayStream@@YIHPBDH@Z"
+     "name": "?D2SOUND_PlayStreamChannel@@YIHPBDH@Z"
     },
     {
      "va": "0x00514840",
      "length": 28,
-     "name": "?sub_00514840_IsChannelStreaming@@YAHXZ"
+     "name": "?D2SOUND_IsStreamChannelPlaying@@YAHXZ"
     },
     {
      "va": "0x005148F0",
      "length": 39,
-     "name": "?sub_005148F0_SetChannelValue@@YIXH@Z"
+     "name": "?D2SOUND_10034@@YIXH@Z"
     },
     {
      "va": "0x00514960",
      "length": 48,
-     "name": "?sub_00514960_FadeOutChannel@@YAXXZ"
+     "name": "?D2SOUND_FadeOutStreamChannel@@YAXXZ"
     },
     {
      "va": "0x00514CD0",
      "length": 31,
-     "name": "?sub_00514CD0_SetMasterVolume@@YIHH@Z"
+     "name": "?D2SOUND_SetMasterVolumeOption@@YIHH@Z"
     },
     {
      "va": "0x00514D30",
      "length": 31,
-     "name": "?sub_00514D30_SetPositionalBias@@YIHH@Z"
+     "name": "?D2SOUND_SetPositionalBiasOption@@YIHH@Z"
     },
     {
      "va": "0x00514DB0",
      "length": 90,
-     "name": "?sub_00514DB0_InitWaveSlots@@YAXXZ"
+     "name": "?D2SOUND_InitWaveSlots@@YAXXZ"
     },
     {
      "va": "0x00514E10",
      "length": 162,
-     "name": "sub_00514E10_LoadWave"
+     "name": "D2SOUND_PreloadWave"
     },
     {
      "va": "0x00514EC0",
@@ -41671,22 +41671,22 @@
     {
      "va": "0x00514FB0",
      "length": 49,
-     "name": "?sub_00514FB0_IsAnyWavePlaying@@YAHXZ"
+     "name": "?D2SOUND_IsAnyWavePlaying@@YAHXZ"
     },
     {
      "va": "0x00514FF0",
      "length": 36,
-     "name": "?sub_00514FF0_StopAllWaves@@YAXXZ"
+     "name": "?D2SOUND_StopAllWaves@@YAXXZ"
     },
     {
      "va": "0x00515020",
      "length": 54,
-     "name": "?sub_00515020_FadeOutWaves@@YAXXZ"
+     "name": "?D2SOUND_FadeOutWaves@@YAXXZ"
     },
     {
      "va": "0x00515070",
      "length": 160,
-     "name": "?sub_00515070_FreeWaveSlots@@YAXXZ"
+     "name": "?D2SOUND_FreeWaveSlots@@YAXXZ"
     }
    ]
   },
@@ -41820,7 +41820,7 @@
     {
      "va": "0x00516950",
      "length": 47,
-     "name": "?sub_00516950_LinkEntry@@YIXPAPAUD2SoundListNodeStrc@@PAX@Z"
+     "name": "?D2SOUND_ListAddHead@@YIXPAPAUD2SoundListNodeStrc@@PAX@Z"
     },
     {
      "va": "0x00516980",
@@ -41829,17 +41829,17 @@
     {
      "va": "0x005169D0",
      "length": 24,
-     "name": "@sub_005169D0@8"
+     "name": "@D2SOUND_ListContains@8"
     },
     {
      "va": "0x005169F0",
      "length": 17,
-     "name": "?sub_005169F0_CountEntries@@YIHPAUD2SoundListNodeStrc@@@Z"
+     "name": "?D2SOUND_ListCount@@YIHPAUD2SoundListNodeStrc@@@Z"
     },
     {
      "va": "0x00516A10",
      "length": 87,
-     "name": "?sub_00516A10_FreeList@@YIXPAPAUD2SoundNodeStrc@@@Z"
+     "name": "?D2SOUND_ListFree@@YIXPAPAUD2SoundNodeStrc@@@Z"
     },
     {
      "va": "0x00516A70",
@@ -41848,22 +41848,22 @@
     {
      "va": "0x00516AC0",
      "length": 377,
-     "name": "?sub_00516AC0_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
+     "name": "?D2SOUND_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
     },
     {
      "va": "0x00516C40",
      "length": 57,
-     "name": "?sub_00516C40_GetVersionInfoSize@@YIKPBD@Z"
+     "name": "?D2SOUND_GetVxdVersionInfoSize@@YIKPBD@Z"
     },
     {
      "va": "0x00516C80",
      "length": 25,
-     "name": "?sub_00516C80_GetVersionInfo@@YIHPBDKPAX@Z"
+     "name": "?D2SOUND_GetVxdVersionInfo@@YIHPBDKPAX@Z"
     },
     {
      "va": "0x00516CA0",
      "length": 235,
-     "name": "?sub_00516CA0_GetFileVersion@@YIHPBDPAI11@Z"
+     "name": "?D2SOUND_GetVxdFileVersion@@YIHPBDPAI11@Z"
     }
    ],
    "flags": [
@@ -41945,7 +41945,7 @@
     {
      "va": "0x00516EAB",
      "length": 105,
-     "name": "?sub_00516EAB_FileSize@@YIIPAX0PAI@Z"
+     "name": "?ARCHIVE_GetFileSize@@YIIPAX0PAI@Z"
     },
     {
      "va": "0x00516F14",
@@ -41974,7 +41974,7 @@
     {
      "va": "0x005173AC",
      "length": 39,
-     "name": "?sub_005173AC_Unload@@YIXPAUD2ArchiveHandleStrc@@@Z"
+     "name": "?ARCHIVE_UnloadMPQFile@@YIXPAUD2ArchiveHandleStrc@@@Z"
     }
    ],
    "flags": [
@@ -45510,12 +45510,12 @@
     {
      "va": "0x00524810",
      "length": 199,
-     "name": "?sub_00524810_OpenArchives@@YAHXZ"
+     "name": "?STRTABLE_OpenArchives@@YAHXZ"
     },
     {
      "va": "0x005248E0",
      "length": 76,
-     "name": "?sub_005248E0_CloseArchives@@YAXXZ"
+     "name": "?STRTABLE_CloseArchives@@YAXXZ"
     },
     {
      "va": "0x00524930",
@@ -45524,12 +45524,12 @@
     {
      "va": "0x005249C0",
      "length": 18,
-     "name": "?sub_005249C0_FreeTable@@YAXPAX@Z"
+     "name": "?STRTABLE_FreeTable@@YAXPAX@Z"
     },
     {
      "va": "0x005249E0",
      "length": 68,
-     "name": "sub_005249E0"
+     "name": "STRTABLE_HashKey"
     },
     {
      "va": "0x00524A30",
@@ -45539,7 +45539,7 @@
     {
      "va": "0x00524AC0",
      "length": 401,
-     "name": "sub_00524AC0_GetUntranslatedString"
+     "name": "STRTABLE_GetUntranslatedString"
     },
     {
      "va": "0x00524C60",
@@ -45558,17 +45558,17 @@
     {
      "va": "0x00524E40",
      "length": 400,
-     "name": "?sub_00524E40_UnloadStringTables@@YAXXZ"
+     "name": "?STRTABLE_UnloadStringTables@@YAXXZ"
     },
     {
      "va": "0x00524FD0",
      "length": 13,
-     "name": "sub_00524FD0_Crc16Init"
+     "name": "CRC16_Initialize"
     },
     {
      "va": "0x00524FE0",
      "length": 42,
-     "name": "sub_00524FE0_Crc16Update"
+     "name": "CRC16_Update"
     },
     {
      "va": "0x00525010",
@@ -45583,12 +45583,12 @@
     {
      "va": "0x00525090",
      "length": 102,
-     "name": "?sub_00525090_MapLanguageName@@YIXPAD@Z"
+     "name": "?STRTABLE_ConvertLanguageNameToCode@@YIXPAD@Z"
     },
     {
      "va": "0x00525100",
      "length": 66,
-     "name": "?sub_00525100_LookupLanguage@@YIHPBD@Z"
+     "name": "?STRTABLE_GetLanguageIdFromName@@YIHPBD@Z"
     },
     {
      "va": "0x00525150",
@@ -45598,37 +45598,37 @@
     {
      "va": "0x005251C0",
      "length": 147,
-     "name": "sub_005251C0_GetLanguage"
+     "name": "STRTABLE_GetSystemLanguage"
     },
     {
      "va": "0x00525260",
      "length": 226,
-     "name": "sub_00525260"
+     "name": "STRTABLE_GetLanguageInfoField"
     },
     {
      "va": "0x00525350",
      "length": 319,
-     "name": "sub_00525350_FormatUInt"
+     "name": "STR_GroupUintDigits"
     },
     {
      "va": "0x00525490",
      "length": 298,
-     "name": "sub_00525490_FormatInt64"
+     "name": "STR_GroupInt64Digits"
     },
     {
      "va": "0x005255C0",
      "length": 424,
-     "name": "?sub_005255C0_FormatUInt64Suffixed@@YGXPAUUnicode@@_KH@Z"
+     "name": "?STR_GroupUint64DigitsWithSuffix@@YGXPAUUnicode@@_KH@Z"
     },
     {
      "va": "0x00525770",
      "length": 423,
-     "name": "sub_00525770_InitUnitSuffixes"
+     "name": "STRTABLE_InitUnitSuffixes"
     },
     {
      "va": "0x00525920",
      "length": 153,
-     "name": "?sub_00525920_LoadTblFile@@YAPAUD2TblHeaderStrc@@PBD@Z"
+     "name": "?STRTABLE_LoadTblFile@@YAPAUD2TblHeaderStrc@@PBD@Z"
     },
     {
      "va": "0x005259C0",
@@ -45902,7 +45902,7 @@
     {
      "va": "0x00527790",
      "length": 699,
-     "name": "?sub_00527790_LoadCodePageMap@@YIHPAXPBD@Z"
+     "name": "?UNISYS_LoadSysMap@@YIHPAXPBD@Z"
     }
    ]
   },
@@ -46235,7 +46235,7 @@
     {
      "va": "0x0052A610",
      "length": 42,
-     "name": "?sub_0052A610_SetConnected@@YIXH@Z"
+     "name": "?CLIENT_SetConnected@@YIXH@Z"
     },
     {
      "va": "0x0052A640",
@@ -46250,7 +46250,7 @@
     {
      "va": "0x0052A730",
      "length": 29,
-     "name": "?sub_0052A730_StartConnectThread@@YAXPBD@Z"
+     "name": "?CLIENT_StartConnectThread@@YAXPBD@Z"
     },
     {
      "va": "0x0052A750",
@@ -46275,37 +46275,37 @@
     {
      "va": "0x0052A8D0",
      "length": 450,
-     "name": "?sub_0052A8D0@@YGHXZ"
+     "name": "?CLIENT_ParseReceiveBuffer@@YGHXZ"
     },
     {
      "va": "0x0052AAA0",
      "length": 47,
-     "name": "?sub_0052AAA0_OnSocketError@@YAXXZ"
+     "name": "?CLIENT_HandleSocketError@@YAXXZ"
     },
     {
      "va": "0x0052AAD0",
      "length": 42,
-     "name": "?sub_0052AAD0_ClearConnected@@YAXXZ"
+     "name": "?CLIENT_ClearConnected@@YAXXZ"
     },
     {
      "va": "0x0052AB00",
      "length": 691,
-     "name": "?sub_0052AB00@@YGKPAX@Z"
+     "name": "?CLIENT_ReceiveThreadProc@@YGKPAX@Z"
     },
     {
      "va": "0x0052ADC0",
      "length": 53,
-     "name": "?sub_0052ADC0_SendToServerChecked@@YIHPAXGPBE@Z"
+     "name": "?CLIENT_SendToLocalServer@@YIHPAXGPBE@Z"
     },
     {
      "va": "0x0052AE00",
      "length": 70,
-     "name": "?sub_0052AE00_SendToSocket@@YAHPBEH@Z"
+     "name": "?CLIENT_SendToSocket@@YAHPBEH@Z"
     },
     {
      "va": "0x0052AE50",
      "length": 95,
-     "name": "?sub_0052AE50_SendPacket@@YGHHHPAX@Z"
+     "name": "?CLIENT_Send@@YGHHHPAX@Z"
     },
     {
      "va": "0x0052AEB0",
@@ -46315,47 +46315,47 @@
     {
      "va": "0x0052B1F0",
      "length": 23,
-     "name": "sub_0052B1F0_ObjectCall_6BE4E0"
+     "name": "SERVER_WaitForSingleObject"
     },
     {
      "va": "0x0052B210",
      "length": 27,
-     "name": "sub_0052B210_ObjectCall_6BE390"
+     "name": "SERVER_SwapSlotValue"
     },
     {
      "va": "0x0052B230",
      "length": 25,
-     "name": "sub_0052B230_ObjectCall_6BF610"
+     "name": "SERVER_AddKeyValuePair"
     },
     {
      "va": "0x0052B250",
      "length": 23,
-     "name": "sub_0052B250_ObjectCall_6BE4A0"
+     "name": "SERVER_SetMaxClientsPerGame"
     },
     {
      "va": "0x0052B280",
      "length": 23,
-     "name": "sub_0052B280_ObjectCall_6BF4E0"
+     "name": "SERVER_SetHackListEnabled"
     },
     {
      "va": "0x0052B2A0",
      "length": 40,
-     "name": "sub_0052B2A0_SendCloseAndClear"
+     "name": "SERVER_Release"
     },
     {
      "va": "0x0052B2D0",
      "length": 29,
-     "name": "sub_0052B2D0_ObjectCallMode1"
+     "name": "SERVER_ReadGamePacket"
     },
     {
      "va": "0x0052B2F0",
      "length": 29,
-     "name": "sub_0052B2F0_ObjectCallMode0"
+     "name": "SERVER_ReadSystemPacket"
     },
     {
      "va": "0x0052B310",
      "length": 29,
-     "name": "sub_0052B310_ObjectCallMode2"
+     "name": "SERVER_ReadAdminPacket"
     },
     {
      "va": "0x0052B490",
@@ -46365,32 +46365,32 @@
     {
      "va": "0x0052B4B0",
      "length": 23,
-     "name": "sub_0052B4B0_ObjectCall_6BEE20"
+     "name": "SERVER_GetIpAddressFromClientId"
     },
     {
      "va": "0x0052B4D0",
      "length": 23,
-     "name": "sub_0052B4D0_ObjectCall_6BEF40"
+     "name": "SERVER_GetSocketFromClientId"
     },
     {
      "va": "0x0052B4F0",
      "length": 30,
-     "name": "sub_0052B4F0"
+     "name": "SERVER_HackListClient"
     },
     {
      "va": "0x0052B510",
      "length": 30,
-     "name": "sub_0052B510_ObjectCall_6C0600"
+     "name": "SERVER_HackListIP"
     },
     {
      "va": "0x0052B530",
      "length": 30,
-     "name": "sub_0052B530_ObjectCall_6BEFB0"
+     "name": "SERVER_HackUnlistIP"
     },
     {
      "va": "0x0052B550",
      "length": 30,
-     "name": "sub_0052B550_ObjectCall_6C06D0"
+     "name": "SERVER_DisconnectIP"
     }
    ]
   },
@@ -47041,7 +47041,7 @@
     {
      "va": "0x0052B5C0",
      "length": 23,
-     "name": "sub_0052B5C0_SetServerHandler"
+     "name": "SERVER_SetRemoveClientCallback"
     },
     {
      "va": "0x0052B5E0",
@@ -47056,7 +47056,7 @@
     {
      "va": "0x0052B640",
      "length": 65,
-     "name": "sub_0052B640"
+     "name": "SERVER_EnqueueClientPacket"
     },
     {
      "va": "0x0052B6D0",
@@ -47071,7 +47071,7 @@
     {
      "va": "0x0052B750",
      "length": 38,
-     "name": "sub_6FC020E0"
+     "name": "SERVER_OnClientDisconnectedCallback"
     },
     {
      "va": "0x0052B7A0",
@@ -47087,7 +47087,7 @@
     {
      "va": "0x0052B690",
      "length": 64,
-     "name": "?sub_0052B690_SendToServer@@YIHPBEG@Z"
+     "name": "?SERVER_EnqueueLocalClientPacket@@YIHPBEG@Z"
     },
     {
      "va": "0x0052B7E0",
@@ -47097,7 +47097,7 @@
     {
      "va": "0x0052B800",
      "length": 13,
-     "name": "?sub_0052B800_IsConnectionMode2@@YIHXZ"
+     "name": "?NET_IsSimulatedLagConnection@@YIHXZ"
     },
     {
      "va": "0x0052B810",
@@ -47152,37 +47152,37 @@
     {
      "va": "0x0052BE40",
      "length": 3,
-     "name": "?sub_0052BE40_Stub@@YGXHHHHHHHHHHHHHHHHHH@Z"
+     "name": "?GAME_DefaultLeaveGame@@YGXHHHHHHHHHHHHHHHHHH@Z"
     },
     {
      "va": "0x0052BE60",
      "length": 3,
-     "name": "?sub_0052BE60_Stub@@YGXHHHH@Z"
+     "name": "?GAME_DefaultSaveDatabaseCharacter@@YGXHHHH@Z"
     },
     {
      "va": "0x0052BE70",
      "length": 1,
-     "name": "?sub_0052BE70_Stub@@YAXXZ"
+     "name": "?GAME_DefaultServerLogMessage@@YAXXZ"
     },
     {
      "va": "0x0052BE80",
      "length": 3,
-     "name": "?sub_0052BE80_Stub@@YGXHHH@Z"
+     "name": "?GAME_DefaultEnterGame@@YGXHHH@Z"
     },
     {
      "va": "0x0052BE90",
      "length": 5,
-     "name": "?sub_0052BE90_Stub@@YGHHHHHHHH@Z"
+     "name": "?GAME_DefaultFindPlayerToken@@YGHHHHHHHH@Z"
     },
     {
      "va": "0x0052BED0",
      "length": 3,
-     "name": "?sub_0052BED0_Stub@@YGXHHHHH@Z"
+     "name": "?GAME_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
     },
     {
      "va": "0x0052BEF0",
      "length": 1,
-     "name": "?sub_0052BEF0_Stub@@YAXXZ"
+     "name": "?GAME_DefaultGetGameServerInfo@@YAXXZ"
     },
     {
      "va": "0x0052BF40",
@@ -47197,7 +47197,7 @@
     {
      "va": "0x0052BFC0",
      "length": 25,
-     "name": "?sub_0052BFC0_GetLoadComplete@@YIPBDXZ"
+     "name": "?GAME_GetLoadCompleteString@@YIPBDXZ"
     },
     {
      "va": "0x0052BFE0",
@@ -84485,7 +84485,7 @@
     {
      "va": "0x006BE450",
      "length": 24,
-     "name": "_sub_006BE450@4"
+     "name": "_FOG_10180@4"
     },
     {
      "va": "0x006BE470",
@@ -84494,12 +84494,12 @@
     {
      "va": "0x006BE4A0",
      "length": 58,
-     "name": "?sub_006BE4A0_SetCount@@YGXPAUD2Worker006BE4A0Strc@@I@Z"
+     "name": "?FOG_SetMaxClientsPerGame@@YGXPAUD2Worker006BE4A0Strc@@I@Z"
     },
     {
      "va": "0x006BE4E0",
      "length": 38,
-     "name": "?sub_006BE4E0_Wait@@YGKPAUD2Object006BE4E0Strc@@K@Z"
+     "name": "?FOG_WaitForSingleObject@@YGKPAUD2Object006BE4E0Strc@@K@Z"
     },
     {
      "va": "0x006BE510",
@@ -84512,7 +84512,7 @@
     {
      "va": "0x006BE540",
      "length": 99,
-     "name": "?sub_006BE540_Find@@YIPAUD2QClientStrc@@PAUD2QueueServerStrc@@I@Z"
+     "name": "?QSERVER_FindClient@@YIPAUD2QClientStrc@@PAUD2QueueServerStrc@@I@Z"
     },
     {
      "va": "0x006BE5B0",
@@ -84521,7 +84521,7 @@
     {
      "va": "0x006BE640",
      "length": 11,
-     "name": "?sub_006BE640_AddReference@@YIJPAXPAUD2ReferenceStrc@@@Z"
+     "name": "?QSERVER_AddReference@@YIJPAXPAUD2ReferenceStrc@@@Z"
     },
     {
      "va": "0x006BE650",
@@ -84530,7 +84530,7 @@
     {
      "va": "0x006BE6C0",
      "length": 58,
-     "name": "?sub_006BE6C0_LogHackListSize@@YGXH@Z"
+     "name": "?QSERVER_LogHackListSize@@YGXH@Z"
     },
     {
      "va": "0x006BE700",
@@ -84543,12 +84543,12 @@
     {
      "va": "0x006BE980",
      "length": 105,
-     "name": "?sub_006BE980_Refresh@D2Server006BE980Strc@@QAEHI@Z"
+     "name": "?RefreshRecord@D2Server006BE980Strc@@QAEHI@Z"
     },
     {
      "va": "0x006BE9F0",
      "length": 119,
-     "name": "?sub_006BE9F0_CheckRecordThreshold@@YIHPAUD2RecordTableStrc@@PBI@Z"
+     "name": "?QSERVER_CheckRecordThreshold@@YIHPAUD2RecordTableStrc@@PBI@Z"
     },
     {
      "va": "0x006BEA70",
@@ -84565,7 +84565,7 @@
     {
      "va": "0x006BEC00",
      "length": 104,
-     "name": "?sub_006BEC00_FindLocked@@YIPAUD2QClientStrc@@PAUD2QueueServerStrc@@IPAPAUD2CriticalSectionStrc@@@Z"
+     "name": "?QSERVER_FindClientLocked@@YIPAUD2QClientStrc@@PAUD2QueueServerStrc@@IPAPAUD2CriticalSectionStrc@@@Z"
     },
     {
      "va": "0x006BEC70",
@@ -84590,7 +84590,7 @@
     {
      "va": "0x006BEE20",
      "length": 107,
-     "name": "?sub_006BEE20_FindLocked@@YGPAXPAUD2HashTableStrc@@I@Z"
+     "name": "?FOG_10158@@YGPAXPAUD2HashTableStrc@@I@Z"
     },
     {
      "va": "0x006BEE90",
@@ -84599,12 +84599,12 @@
     {
      "va": "0x006BEF40",
      "length": 108,
-     "name": "?sub_006BEF40_GetValue@@YGHPAUD2HashTable006BEF40Strc@@I@Z"
+     "name": "?FOG_10161@@YGHPAUD2HashTable006BEF40Strc@@I@Z"
     },
     {
      "va": "0x006BEFB0",
      "length": 73,
-     "name": "?sub_006BEFB0_HackUnlistIP@@YGXPAUD2Server006BEFB0Strc@@KPBDH@Z"
+     "name": "?QSERVER_HackUnlistIP@@YGXPAUD2Server006BEFB0Strc@@KPBDH@Z"
     },
     {
      "va": "0x006BF000",
@@ -84613,22 +84613,22 @@
     {
      "va": "0x006BF040",
      "length": 54,
-     "name": "?sub_006BF040_SetValue@@YGXPAUD2Object006BF040Strc@@H@Z"
+     "name": "?FOG_10170@@YGXPAUD2Object006BF040Strc@@H@Z"
     },
     {
      "va": "0x006BF080",
      "length": 19,
-     "name": "_sub_006BF080@8"
+     "name": "_FOG_10171@8"
     },
     {
      "va": "0x006BF0A0",
      "length": 32,
-     "name": "?sub_006BF0A0_SetValue@@YGXPAXHH@Z"
+     "name": "?FOG_10172@@YGXPAXHH@Z"
     },
     {
      "va": "0x006BF0C0",
      "length": 35,
-     "name": "?sub_006BF0C0_GetValue@@YGHPAXH@Z"
+     "name": "?FOG_10173@@YGHPAXH@Z"
     },
     {
      "va": "0x006BF0F0",
@@ -84665,7 +84665,7 @@
     {
      "va": "0x006BF4E0",
      "length": 19,
-     "name": "_sub_006BF4E0@8"
+     "name": "_FOG_SetHackListEnabled@8"
     },
     {
      "va": "0x006BF500",
@@ -84682,17 +84682,17 @@
     {
      "va": "0x006BF5F0",
      "length": 3,
-     "name": "sub_006BF5F0"
+     "name": "FOG_10182_Return"
     },
     {
      "va": "0x006BF600",
      "length": 3,
-     "name": "sub_006BF600"
+     "name": "FOG_10183_Return"
     },
     {
      "va": "0x006BF610",
      "length": 74,
-     "name": "?sub_006BF610_AddPair@@YIXPAUD2PairTable006BF610Strc@@HH@Z"
+     "name": "?FOG_10187@@YIXPAUD2PairTable006BF610Strc@@HH@Z"
     },
     {
      "va": "0x006BF660",
@@ -84701,7 +84701,7 @@
     {
      "va": "0x006BF6C0",
      "length": 7,
-     "name": "?sub_006BF6C0@@YIHPAUD2QueueServerStrc@@H@Z"
+     "name": "?QSERVER_CheckClientMask@@YIHPAUD2QueueServerStrc@@H@Z"
     },
     {
      "va": "0x006BF6D0",
@@ -84759,7 +84759,7 @@
     {
      "va": "0x006C03A0",
      "length": 117,
-     "name": "?sub_006C03A0_SendToKey@@YGHPAUD2QueueServerStrc@@IPADH@Z"
+     "name": "?FOG_10157@@YGHPAUD2QueueServerStrc@@IPADH@Z"
     },
     {
      "va": "0x006C0530",
@@ -84768,7 +84768,7 @@
     {
      "va": "0x006C0600",
      "length": 172,
-     "name": "?sub_006C0600_RecordClosedAddress@@YGXPAUD2QueueServerStrc@@IPBDH@Z"
+     "name": "?QSERVER_HackListIP@@YGXPAUD2QueueServerStrc@@IPBDH@Z"
     },
     {
      "va": "0x006C06B0",
@@ -84778,7 +84778,7 @@
     {
      "va": "0x006C06D0",
      "length": 148,
-     "name": "?sub_006C06D0_DisconnectIP@@YGXPAUD2ConnectionTableStrc@@IPBDH@Z"
+     "name": "?QSERVER_DisconnectIP@@YGXPAUD2ConnectionTableStrc@@IPBDH@Z"
     },
     {
      "va": "0x006C0770",
@@ -84787,7 +84787,7 @@
     {
      "va": "0x006C0800",
      "length": 145,
-     "name": "?sub_006C0800_BanByAddress@@YIHPAUD2QueueServerStrc@@PAIPBDH@Z"
+     "name": "?QSERVER_BanAddress@@YIHPAUD2QueueServerStrc@@PAIPBDH@Z"
     },
     {
      "va": "0x006C08A0",
@@ -85983,22 +85983,22 @@
     {
      "va": "0x006BC0B0",
      "length": 101,
-     "name": "_sub_006BC0B0_Send@12"
+     "name": "_FOG_ConnectionSend@12"
     },
     {
      "va": "0x006BC120",
      "length": 36,
-     "name": "_sub_006BC120_receive@12"
+     "name": "_FOG_ConnectionReceive@12"
     },
     {
      "va": "0x006BCDA0",
      "length": 52,
-     "name": "_sub_006BCDA0_freeBinFile@4"
+     "name": "_FOG_FreeBinFile@4"
     },
     {
      "va": "0x006BCDE0",
      "length": 13,
-     "name": "_sub_006BCDE0@4"
+     "name": "_FOG_GetRecordCountFromBinFile@4"
     },
     {
      "va": "0x006BCDF0",
@@ -86015,22 +86015,22 @@
     {
      "va": "0x006BD040",
      "length": 42,
-     "name": "?sub_006BD040_AllocBlock@@YGPAUD2Block006BD040Strc@@PBDH@Z"
+     "name": "?FOG_AllocLinker@@YGPAUD2Block006BD040Strc@@PBDH@Z"
     },
     {
      "va": "0x006BD070",
      "length": 50,
-     "name": "?sub_006BD070_FreeTree@@YIXPAUD2ExcelNode006BD070Strc@@@Z"
+     "name": "?EXCEL_FreeLinkTree@@YIXPAUD2ExcelNode006BD070Strc@@@Z"
     },
     {
      "va": "0x006BD0B0",
      "length": 117,
-     "name": "_sub_006BD0B0_FreeLinker@4"
+     "name": "_FOG_FreeLinker@4"
     },
     {
      "va": "0x006BD130",
      "length": 75,
-     "name": "_sub_006BD130_findKey@12"
+     "name": "_FOG_GetLinkIndexByCode@12"
     },
     {
      "va": "0x006BD180",
@@ -86090,7 +86090,7 @@
     {
      "va": "0x006BE390",
      "length": 36,
-     "name": "?sub_006BE390_SwapSlot@@YGHPAUD2Object006BE390Strc@@HH@Z"
+     "name": "?FOG_10186@@YGHPAUD2Object006BE390Strc@@HH@Z"
     }
    ]
   },
@@ -86322,17 +86322,17 @@
     {
      "va": "0x006BCA10",
      "length": 116,
-     "name": "?sub_006BCA10_CreateDataArray@@YIPAUD2DataArrayStrc@@PBDHH@Z"
+     "name": "?DATAARRAYS_Create@@YIPAUD2DataArrayStrc@@PBDHH@Z"
     },
     {
      "va": "0x006BCA90",
      "length": 37,
-     "name": "?sub_006BCA90_ClearAndFree@@YIXPAX@Z"
+     "name": "?DATAARRAYS_Destroy@@YIXPAX@Z"
     },
     {
      "va": "0x006BCAC0",
      "length": 114,
-     "name": "?sub_006BCAC0_ResetDataArray@@YIXPAUD2DataArrayStrc@@@Z"
+     "name": "?DATAARRAYS_Reset@@YIXPAUD2DataArrayStrc@@@Z"
     },
     {
      "va": "0x006BCB40",
@@ -86498,7 +86498,7 @@
     {
      "va": "0x006C2090",
      "length": 125,
-     "name": "?sub_006C2090_Pop@@YIHPAUD2QSQueueStrc@@PAXG@Z"
+     "name": "?D2QSQUEUE_Pop@@YIHPAUD2QSQueueStrc@@PAXG@Z"
     }
    ]
   },

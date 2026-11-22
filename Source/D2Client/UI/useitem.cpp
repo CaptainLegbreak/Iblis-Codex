@@ -245,9 +245,9 @@ void __fastcall sub_004B8100_DrawControl(void*); // 0x004B8100
 
 int __stdcall sub_004F6480(D2CelContextStrc*,int,int,int,int,int); // 0x004F6480
 
-int __fastcall sub_00501820(const Unicode*); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502320
 
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode*,int*,int); // 0x00502970
 
@@ -637,9 +637,9 @@ void __cdecl USEITEM_DrawUseItemPanel()
       else if(sub_004B1670()==512)textIndex=22749;
      }
      const Unicode* text=D2LANG_GetStringFromTblIndex(textIndex);
-     int width=sub_00501820(text);
+     int width=D2Win_10121_GetTextWidth(text);
      sub_0046EFD0_DrawFramedBox(spot->tooltipX-(width/2)+10,spot->tooltipY-D2Win_10125()-42,width+12,D2Win_10125()+6,0,2);
-     sub_00502320(text,spot->tooltipX-(width/2)+16,spot->tooltipY-38,0,0);
+     D2Win_10117_DrawText(text,spot->tooltipX-(width/2)+16,spot->tooltipY-38,0,0);
     }
    }
   }
@@ -653,8 +653,8 @@ void __cdecl USEITEM_DrawUseItemPanel()
    if(line){
     int y=30;
     do {
-    int lineWidth=sub_00501820(line->text);
-    sub_00502320(line->text,160-lineWidth/2,y,4,0);
+    int lineWidth=D2Win_10121_GetTextWidth(line->text);
+    D2Win_10117_DrawText(line->text,160-lineWidth/2,y,4,0);
     T0044CB60* next=line->next;
     FOG_Free(line->text,gszUseItemCpp_006DAB50,707,0);
     FOG_Free(line,gszUseItemCpp_006DAB50,708,0);

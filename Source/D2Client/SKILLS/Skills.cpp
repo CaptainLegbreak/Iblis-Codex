@@ -94,7 +94,7 @@ struct T004013C0
     unsigned int nTotalMemory;
 };
 
-T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
+T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall sub_00481840_SetCacheMax(unsigned int nSize); // 0x00481840
 
@@ -557,7 +557,7 @@ bool R00601DC0::sub_00601DC0_IsOpen()
 // 0x00457300
 void __fastcall sub_00457300_InitGfxCaches(void* pMemPool, int bCelPool)
 {
-    T004013C0* pInfo = sub_00407360_GetSystemInfo();
+    T004013C0* pInfo = FOG_GetSystemInfo();
     D2_ASSERT(pInfo, 0x30);
     if (pInfo->nTotalMemory < 0x167D000)
     {

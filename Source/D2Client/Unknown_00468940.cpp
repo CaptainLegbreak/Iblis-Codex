@@ -551,7 +551,8 @@ void __cdecl sub_00469170_HotkeyPetUi()
         return;
     if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
         return;
-    if (!sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!FOG_IsExpansion())
         return;
     sub_00455F20(0x24, 2, 1);
 }

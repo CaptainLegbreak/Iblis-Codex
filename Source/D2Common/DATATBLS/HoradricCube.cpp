@@ -23,7 +23,7 @@ enum
 extern D2DataTablesStrc sgtDataTables;                                                                      // 0x0096BC30
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
-int __fastcall sub_00516E46_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped);// 0x00516E46
+int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped);// 0x00516E46
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x00669080
 void __fastcall DATATBLS_CubeMainOutputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006690B0
@@ -144,10 +144,10 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive)
     };
 
     wsprintfA(szPath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, "cubeserver.bin");
-    D2_ASSERT(!sub_00516E46_OpenFile(hArchive, szPath, &pFileHandle, 1), 752);
+    D2_ASSERT(!ARCHIVE_OpenFile(hArchive, szPath, &pFileHandle, 1), 752);
 
     wsprintfA(szPath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, "cubeserver.txt");
-    D2_ASSERT(!sub_00516E46_OpenFile(hArchive, szPath, &pFileHandle, 1), 756);
+    D2_ASSERT(!ARCHIVE_OpenFile(hArchive, szPath, &pFileHandle, 1), 756);
 
     sgtDataTables.pCubeMainTxt = (D2CubeMainTxt*)DATATBLS_CompileTxt(hArchive, "cubemain", pTbl, &sgtDataTables.nCubeMainTxtRecordCount, 0x148);
 }

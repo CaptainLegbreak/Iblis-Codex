@@ -367,6 +367,6 @@ inline D2TebStrc* D2_NtCurrentTeb()
     return (D2TebStrc*)__readfsdword(0x18);
 }
 
-bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext); // 0x00404E60
+bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext); // 0x00404E60
 
 bool sub_00404F20_EnumModules(D2CrashModuleListStrc* pList); // 0x00404F20

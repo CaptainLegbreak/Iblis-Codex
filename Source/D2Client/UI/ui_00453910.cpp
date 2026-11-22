@@ -572,7 +572,8 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     D2_ASSERT(nUIVar < 0x26, 0x13FB);
     D2_ASSERT(nState <= 2, 0x13FC);
     const int nOldState = gaUIVarStates_007A27C0[nUIVar];
-    if (!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!FOG_IsExpansion() || !sub_0044DCC0())
     {
         if (nUIVar == 0x23 || nUIVar == 0x24 || nUIVar == 0x25)
         {
@@ -762,7 +763,7 @@ int __fastcall UI_CloseUIVars(int bArg1, int nArg2)
 void __cdecl UI_ShutdownUI()
 {
     const int nPrevState = gaUIVarStates_007A27C0[0];
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
     {
         sub_0044DCC0();
     }

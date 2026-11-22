@@ -508,7 +508,8 @@ int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 int __fastcall SKILLS_EventFunc04_ReflectPhysicalDamage(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel);
 
-static inline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
+// build: symbol ?IMAGE_IsInClickRect@* 0x004FD5A0
+static inline int IMAGE_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
 {
     const int nTop = pClickRect->nY;
     if (nX >= pClickRect->nX && nY >= nTop - pClickRect->nHeight && nX < pClickRect->nX + pClickRect->nWidth && nY < nTop)
@@ -518,7 +519,8 @@ static inline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pCli
     return 0;
 }
 
-static inline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+// build: symbol ?D2COMP_FindCofNode@* 0x00503310
+static inline D2CofNodeStrc* D2COMP_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -797,7 +799,7 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
 {
     while (pClickRect && pClickRect->pCallback)
     {
-        if (sub_004FD5A0_IsInClickRect(pClickRect, nX, nY))
+        if (IMAGE_IsInClickRect(pClickRect, nX, nY))
         {
             return 1;
         }
@@ -808,7 +810,7 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
 
 D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
-    return sub_00503310_FindCofNode(nClass, nMode, dwWeaponClass);
+    return D2COMP_FindCofNode(nClass, nMode, dwWeaponClass);
 }
 
 void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)

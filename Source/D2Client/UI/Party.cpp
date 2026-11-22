@@ -125,13 +125,13 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
 
@@ -291,12 +291,12 @@ static void __stdcall PARTY_DrawRosterName(int nY, int nColor, int bShort, const
     Unicode* pEnd = &wszName[99];
     char szDots[5] = "...";
     Unicode wszDots[5];
-    const int nWidth = sub_00501820(wszName);
+    const int nWidth = D2Win_10121_GetTextWidth(wszName);
     if (bShort)
     {
         if (nWidth > 0x5F)
         {
-            while (sub_00501820(wszName) > 0x5F)
+            while (D2Win_10121_GetTextWidth(wszName) > 0x5F)
             {
                 --pEnd;
                 *pEnd = 0;
@@ -307,7 +307,7 @@ static void __stdcall PARTY_DrawRosterName(int nY, int nColor, int bShort, const
     }
     else if (nWidth > 0x87)
     {
-        while (sub_00501820(wszName) > 0x87)
+        while (D2Win_10121_GetTextWidth(wszName) > 0x87)
         {
             --pEnd;
             *pEnd = 0;
@@ -315,7 +315,7 @@ static void __stdcall PARTY_DrawRosterName(int nY, int nColor, int bShort, const
         sub_00526320_ToUnicode(wszDots, szDots, 5);
         sub_00526700(wszName, wszDots);
     }
-    sub_00502320(wszName, gnGlobal_007A2858 + 0x24, nY - gnGlobal_007A285C - 2, nColor, 0);
+    D2Win_10117_DrawText(wszName, gnGlobal_007A2858 + 0x24, nY - gnGlobal_007A285C - 2, nColor, 0);
 }
 
 // 0x0049A3D0
@@ -348,7 +348,7 @@ static void __stdcall PARTY_DrawRosterClass(int nColor, int nY, int nClass)
     default:
         return;
     }
-    sub_00502320(D2LANG_GetStringFromTblIndex(nStringId), gnGlobal_007A2858 + 0x24, nY - gnGlobal_007A285C, nColor, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nStringId), gnGlobal_007A2858 + 0x24, nY - gnGlobal_007A285C, nColor, 0);
 }
 
 // 0x0049A510
@@ -537,7 +537,7 @@ static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2RosterUnitStrc* pEnt
     Unicode wszName[0xFF];
     sub_005267E0(wszName, UI_GetLevelName(pEntry->nLevelId));
     Unicode* pEnd = &wszName[0xFE];
-    if (sub_00501820(wszName) > 0x8C)
+    if (D2Win_10121_GetTextWidth(wszName) > 0x8C)
     {
         const int nLength = sub_00526800(wszName);
         const Unicode wLast = wszName[nLength - 1];
@@ -545,15 +545,15 @@ static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2RosterUnitStrc* pEnt
         Unicode wszDots[5];
         sub_00526320_ToUnicode(wszDots, szDots, 5);
         wszDots[3] = wLast;
-        const int nMax = 0x8B - sub_00501820(wszDots);
-        while (sub_00501820(wszName) > nMax)
+        const int nMax = 0x8B - D2Win_10121_GetTextWidth(wszDots);
+        while (D2Win_10121_GetTextWidth(wszName) > nMax)
         {
             --pEnd;
             *pEnd = 0;
         }
         sub_00526700(wszName, wszDots);
     }
-    sub_00502320(wszName, gnGlobal_007A2858 + 0x7E, nY - gnGlobal_007A285C + 0xC, nColor, 0);
+    D2Win_10117_DrawText(wszName, gnGlobal_007A2858 + 0x7E, nY - gnGlobal_007A285C + 0xC, nColor, 0);
 }
 
 static void __stdcall sub_0049C170_DrawRosterLevel(int nY, int nLevel, int nColor)
@@ -567,7 +567,7 @@ static void __stdcall sub_0049C170_DrawRosterLevel(int nY, int nLevel, int nColo
     wsprintfA(szNumber, gszFormat2u_006DA0CC, nLevel);
     sub_00526F20_ToUnicode(wszNumber, szNumber, 9);
     sub_00526700(wszText, wszNumber);
-    sub_00502320(wszText, gnGlobal_007A2858 + 0x10A, nY - gnGlobal_007A285C, nColor, 0);
+    D2Win_10117_DrawText(wszText, gnGlobal_007A2858 + 0x10A, nY - gnGlobal_007A285C, nColor, 0);
 }
 
 // 0x0049C270

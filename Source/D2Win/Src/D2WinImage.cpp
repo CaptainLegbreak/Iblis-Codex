@@ -160,7 +160,7 @@ void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, uns
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
@@ -206,7 +206,7 @@ extern unsigned int gdwBitMasks[];                                              
 // build: symbol ?IMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z 0x004FD470
 
 // 0x004FD110
-int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
+int __stdcall IMAGE_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
 {
     D2_ASSERT(pControl->eType == 2, 0x8B);
     const int nFrames = CelFileGetCelsPerDirection(pControl->pCellFile);
@@ -271,7 +271,8 @@ int __fastcall IMAGE2_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
-int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn)
+// build: symbol ?D2Win_10058@* 0x004FCD90
+int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn)
 {
     return D2Win_10058_0(pControl, pText, a3, nColumn);
 }
@@ -324,7 +325,7 @@ int __fastcall sub_005C33D0_GetSkillValue(int nSkillId)
 }
 
 // 0x004FD5A0
-static inline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
+static inline int IMAGE_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
 {
     const int nTop = pClickRect->nY;
     if (nX >= pClickRect->nX && nY >= nTop - pClickRect->nHeight && nX < pClickRect->nX + pClickRect->nWidth && nY < nTop)
@@ -335,7 +336,7 @@ static inline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pCli
 }
 
 // 0x004FD860
-int __fastcall sub_6F8B1C60(D2WinControlStrc* pControl)
+int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl)
 {
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
 
@@ -365,7 +366,7 @@ int __fastcall sub_6F8B1C60(D2WinControlStrc* pControl)
 }
 
 // 0x004FD8F0
-int __fastcall sub_6F8B1CF0(D2WinControlStrc* pControl)
+int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl)
 {
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
 
@@ -395,7 +396,7 @@ int __fastcall sub_6F8B1CF0(D2WinControlStrc* pControl)
 }
 
 // 0x00503310
-static inline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+static inline D2CofNodeStrc* D2COMP_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -426,7 +427,7 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
 {
     while (pClickRect && pClickRect->pCallback)
     {
-        if (sub_004FD5A0_IsInClickRect(pClickRect, nX, nY))
+        if (IMAGE_IsInClickRect(pClickRect, nX, nY))
         {
             return 1;
         }
@@ -437,7 +438,7 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
 
 D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
-    return sub_00503310_FindCofNode(nClass, nMode, dwWeaponClass);
+    return D2COMP_FindCofNode(nClass, nMode, dwWeaponClass);
 }
 
 void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
@@ -517,7 +518,7 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
             sub_004F6480(&tContext, nImageX2, nImageY, -1, 5, 0);
         }
 
-        sub_00502320(pData->wszText, nTextX, nTextY, 0, 0);
+        D2Win_10117_DrawText(pData->wszText, nTextX, nTextY, 0, 0);
 
         pData->field_208 = pList->controlHeader.nImageX;
         pData->field_20C = pData->field_208 + pList->controlHeader.nWidth;
@@ -587,7 +588,7 @@ int __fastcall POPUP_Draw(D2WinControlStrc* pControl)
 
     for (int i = 0; i < pPopUp->nLines; ++i)
     {
-        sub_00502320(pPopUp->lines[i].wszText, pPopUp->controlHeader.nImageX, pPopUp->controlHeader.nImageY + 20 * (i - pPopUp->nLines + 1), ((i != pPopUp->nCurrentLine) - 1) & 3, 0);
+        D2Win_10117_DrawText(pPopUp->lines[i].wszText, pPopUp->controlHeader.nImageX, pPopUp->controlHeader.nImageY + 20 * (i - pPopUp->nLines + 1), ((i != pPopUp->nCurrentLine) - 1) & 3, 0);
     }
 
     return 1;

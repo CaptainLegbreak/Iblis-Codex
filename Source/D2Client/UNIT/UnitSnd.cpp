@@ -236,7 +236,7 @@ void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit);
 extern struct D2TimedHintEntryStrc;
 extern struct D2TimedHintNodeStrc;
 
-void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
+void __fastcall D2SOUND_ListAddHead(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
 
 // 0x004CA2C0
 static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
@@ -432,7 +432,7 @@ int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
 void __fastcall sub_004CA8A0_AddUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    sub_00516950_LinkEntry((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
+    D2SOUND_ListAddHead((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 // 0x004CAB30

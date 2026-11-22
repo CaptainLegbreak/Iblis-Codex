@@ -5,7 +5,7 @@ extern "C" __declspec(dllimport) char* __stdcall lstrcpyA(char* szDst, const cha
 extern "C" void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);
 
-static void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething);
+static void* __stdcall ARCHIVE_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething); // 0x00517299
 
 // 0x00517128
 static int __stdcall sub_00517128_FindArchive(const char* filename,int priority,void** outHandle,char* path)
@@ -40,8 +40,8 @@ int __cdecl EmitFindArchive(const char* filename,int priority,void** outHandle,c
  return sub_00517128_FindArchive(filename,priority,outHandle,path);
 }
 
-// build: context sub_00517299_FindAndOpenArchive
-static void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething)
+// build: context ARCHIVE_FindAndOpenArchive
+static void* __stdcall ARCHIVE_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething)
 {
     unsigned int nFlags = 2;
     if (bSomething)
@@ -82,7 +82,7 @@ D2ArchiveHandleStrc* __fastcall ARCHIVE_LoadMPQFile(const char* szName, const ch
     pMpqHandle->hArchive = 0;
     do
     {
-        pMpqHandle->hArchive = sub_00517299_FindAndOpenArchive(pMpqHandle->szPath, szName, nPriority, (int)szModule);
+        pMpqHandle->hArchive = ARCHIVE_FindAndOpenArchive(pMpqHandle->szPath, szName, nPriority, (int)szModule);
         if (!pMpqHandle->hArchive)
         {
             if (!pfShowMessage || !pfShowMessage())
