@@ -127,7 +127,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-extern "C" const char gszSUnitInactiveSourceFile_006E0BC8[]; // 0x006E0BC8
+extern "C" const char gszSUnitInactiveSourceFile[]; // 0x006E0BC8
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -203,11 +203,14 @@ struct D2AiControlStrc;
 
 struct D2DynamicPathStrc;
 
-#include "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveCmdParam1_007314C0.inc"
+// build: symbol ?gnInactiveCmdParam1@* 0x007314C0
+#include "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveCmdParam1.inc"
 
-#include "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveNoXpParam2_007314C4.inc"
+// build: symbol ?gnInactiveNoXpParam2@* 0x007314C4
+#include "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveNoXpParam2.inc"
 
-#include "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveNoTcParam2_007314C8.inc"
+// build: symbol ?gnInactiveNoTcParam2@* 0x007314C8
+#include "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveNoTcParam2.inc"
 
 int __fastcall MONSTER_CheckSummonerFlag(D2UnitStrc* pUnit, int nFlag);                                      // 0x00573540
 
@@ -589,7 +592,7 @@ static D2InactiveUnitListStrc* __stdcall SUNITINACTIVE_GetListNodeFromActAndCoor
 
     if (!bFound)
     {
-        D2InactiveUnitListStrc* pNew = (D2InactiveUnitListStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2InactiveUnitListStrc), gszSUnitInactiveSourceFile_006E0BC8, 0x424, 0);
+        D2InactiveUnitListStrc* pNew = (D2InactiveUnitListStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2InactiveUnitListStrc), gszSUnitInactiveSourceFile, 0x424, 0);
         memset(&pNew->pInactiveItems, 0, 12);
         pNew->nX = nX;
         pNew->nY = nY;
@@ -783,14 +786,14 @@ static void __stdcall SUNITINACTIVE_RestoreSpecialMonsterParameters(D2GameStrc* 
         MONSTERS_SetComponentInl(pUnit, 10, nValue);
     }
 
-    if (pNode->nCmdParam1 == gnInactiveCmdParam1_007314C0)
+    if (pNode->nCmdParam1 == gnInactiveCmdParam1)
     {
-        if (pNode->nCmdParam2 & gnInactiveNoXpParam2_007314C4)
+        if (pNode->nCmdParam2 & gnInactiveNoXpParam2)
         {
             pUnit->dwFlags |= 0x04000000;
         }
 
-        if (pNode->nCmdParam2 & gnInactiveNoTcParam2_007314C8)
+        if (pNode->nCmdParam2 & gnInactiveNoTcParam2)
         {
             pUnit->dwFlags |= 0x00020000;
         }
@@ -805,14 +808,14 @@ static void __stdcall SUNITINACTIVE_SaveSpecialMonsterParameters(D2GameStrc* pGa
 
     if (UNIT_HasFlag(pUnit, 0x04000000))
     {
-        pNode->nCmdParam1 = gnInactiveCmdParam1_007314C0;
-        pNode->nCmdParam2 |= gnInactiveNoXpParam2_007314C4;
+        pNode->nCmdParam1 = gnInactiveCmdParam1;
+        pNode->nCmdParam2 |= gnInactiveNoXpParam2;
     }
 
     if (UNIT_HasFlag(pUnit, 0x00020000))
     {
-        pNode->nCmdParam1 = gnInactiveCmdParam1_007314C0;
-        pNode->nCmdParam2 |= gnInactiveNoTcParam2_007314C8;
+        pNode->nCmdParam1 = gnInactiveCmdParam1;
+        pNode->nCmdParam2 |= gnInactiveNoTcParam2;
     }
 
     if (BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, 9)
@@ -1134,7 +1137,7 @@ fallbackLocation:
         }
 cleanup:
         if (node->pMapAI) DRLGPRESET_FreeMapAI(pGame->pMemoryPool,node->pMapAI);
-        FOG_FreeServerMemory(pGame->pMemoryPool,node,gszSUnitInactiveSourceFile_006E0BC8,0x8C,0);
+        FOG_FreeServerMemory(pGame->pMemoryPool,node,gszSUnitInactiveSourceFile,0x8C,0);
     }
 }
 

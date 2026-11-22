@@ -33,7 +33,7 @@ extern D2ObjGroupTxt* gpObjgroupTxt;                                            
 
 int gnObjgroupTxtRecordCount;                                                                               // 0x0096D47C
 
-extern const int gnTownLevelIds_006EB2F0[];                                                                 // 0x006EB2F0
+extern const int gnFirstLevelIdByAct[];                                                                 // 0x006EB2F0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 
@@ -185,7 +185,7 @@ struct D2DrlgEntryTableStrc
     int nEntries;
 };
 
-extern const int gnTileTypeMappingTable_006EEF20[]; // 0x006EEF20
+extern const int gnTileTypeMappingTable[]; // 0x006EEF20
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -210,9 +210,9 @@ struct D2UnkDrlgRoomTileStrc
     int nArrayEndId;
 };
 
-extern const D2UnkDrlgRoomTileStrc gDrlgRoomTileLevelRanges_006EEFC8[37]; // 0x006EEFC8
+extern const D2UnkDrlgRoomTileStrc gaDrlgRoomTileLevelRanges[37]; // 0x006EEFC8
 
-extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[]; // 0x006EF188
+extern const D2UnkDrlgRoomTileStrc2 gaDrlgRoomTilePresetUnits[]; // 0x006EF188
 
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
 
@@ -787,7 +787,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId)
 {
     for (int nAct = 1; nAct <= 5; ++nAct)
     {
-        if (nLevelId < gnTownLevelIds_006EB2F0[nAct])
+        if (nLevelId < gnFirstLevelIdByAct[nAct])
         {
             return nAct - 1;
         }
@@ -1197,7 +1197,7 @@ void __stdcall DUNGEON_GameToClientTileDrawPositionCoords(int nX, int nY, int* p
 // 0x0066D7F0
 int __fastcall DRLGPRESET_MapTileType(int nId)
 {
-    return gnTileTypeMappingTable_006EEF20[nId];
+    return gnTileTypeMappingTable[nId];
 }
 
 // 0x00674200

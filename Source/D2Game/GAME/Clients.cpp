@@ -89,12 +89,12 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
-extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
-extern D2ClientStrc* gpClientListByName_00883EA8[256]; // 0x00883EA8
-extern D2ClientStrc* gpClientList_008842A8[256]; // 0x008842A8
-extern D2CriticalSectionStrc gClientListLock_008846A8; // 0x008846A8
-extern int gbClientListInitialized_008846D8; // 0x008846D8
-extern D2CriticalSectionStrc gSrvClientListByNameLock_008846C0; // 0x008846C0
+extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
+extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
+extern D2ClientStrc* gpClientList[256]; // 0x008842A8
+extern D2CriticalSectionStrc gClientListLock; // 0x008846A8
+extern int gbClientListInitialized; // 0x008846D8
+extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 typedef int (__stdcall* FARPROC)();
@@ -231,61 +231,61 @@ static void __stdcall CLIENTS_InsertPlayerUnitUpdate(D2UnitStrc* pRoomUnit, int 
 static int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit);
 static int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit);
 
-D2CriticalSectionStrc gSrvClientListByNameLock_008846C0; // 0x008846C0
+D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 
 // 0x005376C0
 void __fastcall CLIENTS_Initialize()
 {
-    InitializeCriticalSection(&gClientListLock_008846A8);
+    InitializeCriticalSection(&gClientListLock);
 
-    EnterCriticalSection(&gClientListLock_008846A8);
+    EnterCriticalSection(&gClientListLock);
     for (int i = 0; i < 256; ++i)
     {
-        gpClientList_008842A8[i] = 0;
+        gpClientList[i] = 0;
     }
-    LeaveCriticalSection(&gClientListLock_008846A8);
+    LeaveCriticalSection(&gClientListLock);
 
-    InitializeCriticalSection(&gSrvClientListByNameLock_008846C0);
+    InitializeCriticalSection(&gSrvClientListByNameLock);
 
-    EnterCriticalSection(&gSrvClientListByNameLock_008846C0);
+    EnterCriticalSection(&gSrvClientListByNameLock);
     for (int i = 0; i < 256; ++i)
     {
-        gpClientListByName_00883EA8[i] = 0;
+        gpClientListByName[i] = 0;
     }
-    LeaveCriticalSection(&gSrvClientListByNameLock_008846C0);
+    LeaveCriticalSection(&gSrvClientListByNameLock);
 
-    gbClientListInitialized_008846D8 = 1;
+    gbClientListInitialized = 1;
 }
 
-D2CriticalSectionStrc gClientListLock_008846A8; // 0x008846A8
+D2CriticalSectionStrc gClientListLock; // 0x008846A8
 
 // 0x00537730
 void __fastcall CLIENTS_Release()
 {
-    DeleteCriticalSection(&gClientListLock_008846A8);
-    DeleteCriticalSection(&gSrvClientListByNameLock_008846C0);
-    gbClientListInitialized_008846D8 = 0;
+    DeleteCriticalSection(&gClientListLock);
+    DeleteCriticalSection(&gSrvClientListByNameLock);
+    gbClientListInitialized = 0;
 }
 
 // 0x00537760
 D2ClientStrc* __fastcall CLIENTS_GetLockedClientFromId(int nClientId)
 {
-    EnterCriticalSection(&gClientListLock_008846A8);
-    for (D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
+    EnterCriticalSection(&gClientListLock);
+    for (D2ClientStrc* pClient = gpClientList[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
     {
         if (pClient->dwClientId == nClientId)
         {
             return pClient;
         }
     }
-    LeaveCriticalSection(&gClientListLock_008846A8);
+    LeaveCriticalSection(&gClientListLock);
     return 0;
 }
 
 // 0x005377A0
 void __fastcall CLIENTS_UnlockClientList(int nClientId)
 {
-    LeaveCriticalSection(&gClientListLock_008846A8);
+    LeaveCriticalSection(&gClientListLock);
 }
 
 static D2ClientStrc* __fastcall CLIENTS_GetClientFromClientListWithId(D2ClientStrc* pClientList, int nClientId)
@@ -497,9 +497,9 @@ void __fastcall CLIENTS_SetGameData(D2ClientStrc* pClient)
 {
     pClient->nValue_08C = 0;
     pClient->nValue_088 = 0;
-    if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfGetValue)
+    if (gpD2EventCallbackTable && gpD2EventCallbackTable->pfGetValue)
     {
-        *(int*)&pClient->szAccount[3] = gpD2EventCallbackTable_6FD45830->pfGetValue();
+        *(int*)&pClient->szAccount[3] = gpD2EventCallbackTable->pfGetValue();
     }
 }
 
@@ -571,7 +571,7 @@ struct D2QuestGUIDStrc;
 
 struct D2RegurgitatorAiCallbackArgStrc;
 
-D2UnitProxyStrc gUnitProxyItemCache_00883D78[17]; // 0x00883D78
+D2UnitProxyStrc gaUnitProxyItemCache[17]; // 0x00883D78
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -722,7 +722,7 @@ struct D2ItemDataTbl
     D2ItemsTxt* pItemsTxt;
 };
 
-unsigned char gbUnitProxyItemCacheInitialized_00883E88[17]; // 0x00883E88
+unsigned char gbUnitProxyItemCacheInitialized[17]; // 0x00883E88
 
 struct D2RegurgitatorAiCallbackArgStrc
 {
@@ -745,7 +745,7 @@ int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
 
-extern const int gnDifficultyBonus_006E21F4[]; // 0x006E21F4
+extern const int gnDifficultyBonus[]; // 0x006E21F4
 
 #define MAX_NPC_INVENTORY 17
 
@@ -774,9 +774,9 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2NpcConfigTableStrc gNpcConfig; // 0x00731184
 
-extern int gnItemCode_00883E9C; // 0x00883E9C
+extern int gnCrossbowQuiverItemId; // 0x00883E9C
 
-extern int gnItemCode_00883EA0; // 0x00883EA0
+extern int gnArrowQuiverItemId; // 0x00883EA0
 
 void __fastcall SEED_InitSeed(D2SeedStrc*); // 0x00650E30
 
@@ -788,7 +788,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 #define NPCREC_FIELD(type, cursor, offset) (*(type*)((cursor) + (offset) - 0x2C))
 
-extern "C" const char szSUnitProxyCppFile_006E0A30[]; // 0x006E0A30
+extern "C" const char szSUnitProxyCppFile[]; // 0x006E0A30
 
 static void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory);
 
@@ -923,9 +923,9 @@ typedef void (__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* 
 
 typedef void (__fastcall* MonEventFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
-extern EventCallbackFunction scpfnItemEventFunctions_6FD27DDC[15]; // 0x006E117C
+extern EventCallbackFunction gpfnItemEventFunctions[15]; // 0x006E117C
 
-extern EventCallbackFunction gpEventFunctions_6FD28CD8[15]; // 0x006E19B0
+extern EventCallbackFunction gpfnObjectEventFunctions[15]; // 0x006E19B0
 
 extern MonEventFunc gpMonsterEventFunctions[15]; // 0x006E2490
 
@@ -1593,10 +1593,10 @@ void __fastcall CLIENTS_UpdatePing(int nClientId, int nTick, int nDelay, int nUn
         }
         GAME_LeaveGamesCriticalSection(pGame);
     }
-    else if (gbClientListInitialized_008846D8)
+    else if (gbClientListInitialized)
     {
-        EnterCriticalSection(&gClientListLock_008846A8);
-        D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 255];
+        EnterCriticalSection(&gClientListLock);
+        D2ClientStrc* pClient = gpClientList[nClientId & 255];
         for (; pClient; pClient = pClient->pServerNext)
         {
             if (pClient->dwClientId == nClientId)
@@ -1615,22 +1615,22 @@ void __fastcall CLIENTS_UpdatePing(int nClientId, int nTick, int nDelay, int nUn
                 break;
             }
         }
-        LeaveCriticalSection(&gClientListLock_008846A8);
+        LeaveCriticalSection(&gClientListLock);
     }
 }
 
 // 0x00538B70
 int __fastcall CLIENTS_GetNameById(int nClientId, char* szName)
 {
-    if (!gbClientListInitialized_008846D8)
+    if (!gbClientListInitialized)
     {
         return 1;
     }
 
     int nResult = 1;
-    EnterCriticalSection(&gClientListLock_008846A8);
+    EnterCriticalSection(&gClientListLock);
 
-    for (D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
+    for (D2ClientStrc* pClient = gpClientList[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
     {
         if (!nResult)
         {
@@ -1648,7 +1648,7 @@ int __fastcall CLIENTS_GetNameById(int nClientId, char* szName)
         }
     }
 
-    LeaveCriticalSection(&gClientListLock_008846A8);
+    LeaveCriticalSection(&gClientListLock);
     return nResult;
 }
 
@@ -1779,7 +1779,7 @@ int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* p
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
-extern const int dword_6FD307F8[]; // 0x00731AD8
+extern const int gnBaseStatIdsToSend[]; // 0x00731AD8
 
 void __fastcall sub_M93_UseCount_00531750(int nCount);
 
@@ -1844,7 +1844,7 @@ extern int gbHasHighResolutionClock; // 0x0088C7A0
 
 extern D2LargeIntegerStrc gPerformanceFrequency; // 0x0088C790
 
-extern int gbD2ServerCallbackFunctionsInitialized_6FD45834; // 0x00883D54
+extern int gbD2ServerCallbackFunctionsInitialized; // 0x00883D54
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerStrc* pCount); // 0x006CC25C
 
@@ -1902,11 +1902,11 @@ extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 
 extern "C" const char gszFileModeWb_006D69E0[]; // 0x006D69E0
 
-extern "C" const char gszSaveOpenError_006E09C4[]; // 0x006E09C4
+extern "C" const char gszSaveOpenError[]; // 0x006E09C4
 
-extern "C" const char szPlrSaveCppFile_006E09AC[]; // 0x006E09AC
+extern "C" const char gszPlrSaveSourceFile[]; // 0x006E09AC
 
-extern int gnGlobal_00883D6C; // 0x00883D6C
+extern int gnUnchangedSaveCount; // 0x00883D6C
 
 int __fastcall D2GAME_SAVE_CalculateChecksum_6FC8A140(D2SaveHeaderStrc* pSaveHeader, int nSize); // 0x00531E30
 
@@ -2082,14 +2082,14 @@ int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int 
 {
     int nResult = 0;
 
-    if (!gbClientListInitialized_008846D8)
+    if (!gbClientListInitialized)
     {
         return 0;
     }
 
-    EnterCriticalSection(&gClientListLock_008846A8);
+    EnterCriticalSection(&gClientListLock);
 
-    D2ClientStrc* ptClient = gpClientList_008842A8[nClientId & 0xFF];
+    D2ClientStrc* ptClient = gpClientList[nClientId & 0xFF];
     while (ptClient)
     {
         if (ptClient->dwClientId == nClientId)
@@ -2128,7 +2128,7 @@ int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int 
         }
     }
 
-    LeaveCriticalSection(&gClientListLock_008846A8);
+    LeaveCriticalSection(&gClientListLock);
     return nResult;
 }
 
@@ -2240,7 +2240,7 @@ extern int gdwGlobal_00882750; // 0x00882750
 
 int __stdcall sub_00424E40(void* pArg); // 0x00424E40
 
-extern char gData_006E0498[]; // 0x006E0498
+extern char gszEmptyLoadComplete[]; // 0x006E0498
 
 extern char gData_006E0550[]; // 0x006E0550
 
@@ -2288,11 +2288,11 @@ void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc
 
 void __stdcall DUNGEON_FreeAct(D2DrlgActStrc* pAct); // 0x0061AFD0
 
-D2CriticalSectionStrc gCriticalSection_6FD45800; // 0x00882D18
+D2CriticalSectionStrc gGameListLock; // 0x00882D18
 
-D2GameStrc* gpGame_6FD457FC; // 0x00882D34
+D2GameStrc* gpGame; // 0x00882D34
 
-int gnGamesGUIDs_6FD447F8[1024];                                                                            // 0x00882D38
+int gnGamesGUIDs[1024];                                                                            // 0x00882D38
 
 void __fastcall SCMD_SendPlayerJoinAndPets(D2ClientStrc*, D2UnitStrc*, D2ClientStrc*); // 0x0053C940
 
@@ -2374,13 +2374,14 @@ struct D2Net52BE10Strc
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
-extern "C" const char szD2NetCpp_006E0488[];
+// build: symbol _gszD2NetSourceFile 0x006E0488
+extern "C" const char gszD2NetSourceFile[];
 
 extern int gnConnectionMode_00882D10;
 
 typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClassId);
 
-extern UnitDescriptionFunction gpfGetDescription_6FD2CA64[5]; // 0x0073107C
+extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -2627,7 +2628,7 @@ void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame); // 0x0052C7F0
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void); // 0x006CC544
 
-extern int dword_6FD2CA10; // 0x0073100C
+extern int gbFixedCpuTargetRatio; // 0x0073100C
 
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame); // 0x0052D870
 
@@ -2744,13 +2745,13 @@ struct D2GameInfoStrc
 
 static int GAME_CountUnitsInLists(D2UnitStrc** pUnitLists);
 
-unsigned long gdwPlayerPos_00883D4C; // 0x00883D4C
+unsigned long gdwPlayerPos; // 0x00883D4C
 
-D2GameDataTableStrc* gpGameDataTbl_6FD45818; // 0x00883D38
+D2GameDataTableStrc* gpGameDataTbl; // 0x00883D38
 
-int dword_6FD45844; // 0x00883D58
+int gnLastGamesUpdateTimeMs; // 0x00883D58
 
-int gnTargetMsPerFrame_6FD457F8; // 0x00883D60
+int gnTargetMsPerFrame; // 0x00883D60
 
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 
@@ -2839,9 +2840,9 @@ int dword_6FD45820;                                                             
 
 int gnPeakMemoryUsageInLast10s_6FD45828;                                                                    // 0x00883D48
 
-extern int gnTargetFrameRate_6FD2CA60;                                                                      // 0x00731014
+extern int gnTargetFrameRate;                                                                      // 0x00731014
 
-int gnAct_6FD45824;                                                                                         // 0x00883D44
+int gnAct;                                                                                         // 0x00883D44
 
 void __cdecl GAME_LogMessage(int nLevel, const char* szFormat, ...);                                        // 0x0052BE20
 
@@ -2865,7 +2866,7 @@ struct D2GSPacketClt66
     unsigned char nLocale;
 };
 
-extern int gbCheckHeartbeat_00730FFC;                                                                       // 0x00730FFC
+extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
 int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 
@@ -2941,7 +2942,7 @@ struct Reply {
  char reserved[0x4A];
 };
 
-long gnCounter_00883D64;         // 0x00883D64
+long gnAdminConnectionCount;         // 0x00883D64
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);  // 0x006CC208
 
@@ -2973,7 +2974,7 @@ int __cdecl sub_005377B0_CountFlaggedClients(); // 0x005377B0
 
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
-extern int gnFrameRate_00731010; // 0x00731010
+extern int gnFrameRate; // 0x00731010
 
 void __fastcall GAME_SynchronizePlayerWithClients(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0052C410
 
@@ -3013,9 +3014,9 @@ struct D2GameStatisticsStrc
 
 extern "C" const char gszGameSourceFile; // 0x006D5D1C
 
-static unsigned int gnPeakMemoryUsage_00883D48; // 0x00883D48
+static unsigned int gnPeakMemoryUsageInLast10s; // 0x00883D48
 
-static unsigned int gnPreviousMemUsageTick_00883D68; // 0x00883D68
+static unsigned int gnPreviousMemUsageTick; // 0x00883D68
 
 void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescriptionListStrc* pUnitDescriptionsList, unsigned int eType);
 
@@ -3130,7 +3131,7 @@ struct D2UnkPlrMsgStrc
 
 extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 
-extern D2UnkPlrMsgStrc stru_6FD30708[20]; // 0x007319E8
+extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
 
 void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId); // 0x00536D50
 
@@ -3185,7 +3186,7 @@ struct D2GSPacketSrv8E
     unsigned char dwCorpseGUID3;
 };
 
-extern int gnVirtualPlayerCount_6FD4DC1C; // 0x00883D70
+extern int gnVirtualPlayerCount; // 0x00883D70
 
 void __fastcall sub_0056DEB0(int a1, int a2, int a3, int a4); // 0x0056DEB0
 
@@ -3232,7 +3233,7 @@ struct D2SavePartPacketStrc
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 
-unsigned long dword_6FD45848;                                                                               // 0x00883D5C
+unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
 
 int __cdecl sub_0052B910();                                                                                 // 0x0052B910
 
@@ -3687,7 +3688,7 @@ int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame,
 // 0x00539A30
 D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int a8, int a9)
 {
-    if (!gbClientListInitialized_008846D8 || !pGame)
+    if (!gbClientListInitialized || !pGame)
     {
         return 0;
     }
@@ -3736,17 +3737,17 @@ D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsig
     pGame->pClientList = pClient;
 
     const int nClientIndex = nClientId & 0xFF;
-    EnterCriticalSection(&gClientListLock_008846A8);
-    pClient->pServerNext = gpClientList_008842A8[nClientIndex];
-    gpClientList_008842A8[nClientIndex] = pClient;
-    LeaveCriticalSection(&gClientListLock_008846A8);
+    EnterCriticalSection(&gClientListLock);
+    pClient->pServerNext = gpClientList[nClientIndex];
+    gpClientList[nClientIndex] = pClient;
+    LeaveCriticalSection(&gClientListLock);
 
     const int nIndex = FOG_ComputeStringCRC16(szClientName) & 0xFF;
 
-    EnterCriticalSection(&gSrvClientListByNameLock_008846C0);
-    pClient->pServerNextByName = gpClientListByName_00883EA8[nIndex];
-    gpClientListByName_00883EA8[nIndex] = pClient;
-    LeaveCriticalSection(&gSrvClientListByNameLock_008846C0);
+    EnterCriticalSection(&gSrvClientListByNameLock);
+    pClient->pServerNextByName = gpClientListByName[nIndex];
+    gpClientListByName[nIndex] = pClient;
+    LeaveCriticalSection(&gSrvClientListByNameLock);
 
     ++pGame->nClients;
 
@@ -3855,38 +3856,38 @@ void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc*,D2ClientSt
 static __forceinline void CLIENTS_UnlinkId(int nClientId,char* szName)
 {
  const int nIndex=nClientId & 0xFF;
- if(gbClientListInitialized_008846D8) {
-  EnterCriticalSection(&gClientListLock_008846A8);
-  D2ClientStrc* pCurrent=gpClientList_008842A8[nIndex];
+ if(gbClientListInitialized) {
+  EnterCriticalSection(&gClientListLock);
+  D2ClientStrc* pCurrent=gpClientList[nIndex];
   if(pCurrent) {
-   if(pCurrent->dwClientId==nClientId) { strcpy(szName,pCurrent->szName);gpClientList_008842A8[nIndex]=pCurrent->pServerNext; }
+   if(pCurrent->dwClientId==nClientId) { strcpy(szName,pCurrent->szName);gpClientList[nIndex]=pCurrent->pServerNext; }
    else {
-    D2ClientStrc* pPrevious=gpClientList_008842A8[nIndex];
+    D2ClientStrc* pPrevious=gpClientList[nIndex];
     while(pPrevious->pServerNext->dwClientId!=nClientId) pPrevious=pPrevious->pServerNext;
     D2_ASSERT(pPrevious->pServerNext,0x4EF);
     strcpy(szName,pPrevious->pServerNext->szName);
     pPrevious->pServerNext=pPrevious->pServerNext->pServerNext;
    }
   }
-  LeaveCriticalSection(&gClientListLock_008846A8);
+  LeaveCriticalSection(&gClientListLock);
  }
 }
 
 static __forceinline void CLIENTS_UnlinkName(char* szName)
 {
- if(gbClientListInitialized_008846D8) {
+ if(gbClientListInitialized) {
   const int nNameIndex=FOG_ComputeStringCRC16(szName)&0xFF;
-  EnterCriticalSection(&gSrvClientListByNameLock_008846C0);
-  if(gpClientListByName_00883EA8[nNameIndex]) {
-   if(!SStrCmpI(gpClientListByName_00883EA8[nNameIndex]->szName,szName,16)) gpClientListByName_00883EA8[nNameIndex]=gpClientListByName_00883EA8[nNameIndex]->pServerNextByName;
+  EnterCriticalSection(&gSrvClientListByNameLock);
+  if(gpClientListByName[nNameIndex]) {
+   if(!SStrCmpI(gpClientListByName[nNameIndex]->szName,szName,16)) gpClientListByName[nNameIndex]=gpClientListByName[nNameIndex]->pServerNextByName;
    else {
-    D2ClientStrc* pName=gpClientListByName_00883EA8[nNameIndex];
+    D2ClientStrc* pName=gpClientListByName[nNameIndex];
     D2_ASSERT(pName->pServerNextByName,0x526);
     while(SStrCmpI(pName->pServerNextByName->szName,szName,16)) { pName=pName->pServerNextByName; if(!pName->pServerNextByName) break; }
     if(pName->pServerNextByName) pName->pServerNextByName=pName->pServerNextByName->pServerNextByName;
    }
   }
-  LeaveCriticalSection(&gSrvClientListByNameLock_008846C0);
+  LeaveCriticalSection(&gSrvClientListByNameLock);
  }
 }
 
@@ -3926,14 +3927,14 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
   SUNIT_RemoveUnit(pClient->pGame,pPlayer);
   DUNGEON_ChangeClientRoom(pRoom,0);
   D2Common_10077(pRoom,0);
-  if(gpD2EventCallbackTable_6FD45830) {
-   D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable_6FD45830->pfLeaveGame),0x5A6);
-   if(gpD2EventCallbackTable_6FD45830->pfLeaveGame) gpD2EventCallbackTable_6FD45830->pfLeaveGame(&pClient->pClientInfo,ptGame->nGameId,nClassId,nLevel,nExperience,pClient->nSaveFlags,pClient->szName,pClient->szPreview,pClient->bUnlockCharacter,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,&pClient->nSaveCreationTimestamp);
+  if(gpD2EventCallbackTable) {
+   D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable->pfLeaveGame),0x5A6);
+   if(gpD2EventCallbackTable->pfLeaveGame) gpD2EventCallbackTable->pfLeaveGame(&pClient->pClientInfo,ptGame->nGameId,nClassId,nLevel,nExperience,pClient->nSaveFlags,pClient->szName,pClient->szPreview,pClient->bUnlockCharacter,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,&pClient->nSaveCreationTimestamp);
   }
- } else if(gpD2EventCallbackTable_6FD45830) {
+ } else if(gpD2EventCallbackTable) {
   pClient->szPreview[0]=0;
-  D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable_6FD45830->pfLeaveGame),0x5CE);
-  if(gpD2EventCallbackTable_6FD45830->pfLeaveGame) gpD2EventCallbackTable_6FD45830->pfLeaveGame(&pClient->pClientInfo,ptGame->nGameId,0,0,0,0,pClient->szName,pClient->szPreview,pClient->bUnlockCharacter,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,&pClient->nSaveCreationTimestamp);
+  D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable->pfLeaveGame),0x5CE);
+  if(gpD2EventCallbackTable->pfLeaveGame) gpD2EventCallbackTable->pfLeaveGame(&pClient->pClientInfo,ptGame->nGameId,0,0,0,0,pClient->szName,pClient->szPreview,pClient->bUnlockCharacter,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,&pClient->nSaveCreationTimestamp);
  }
  if(pClient->hRoom) LEVEL_RemoveClientFromAdjacentRooms(pClient->hRoom,pClient);
  if(pClient->pSaveHeader) {
@@ -4069,7 +4070,8 @@ void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoo
     if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
     {
         D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
-        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity_00731BBD, nObjectId, 100);
+// build: symbol ?gnObjectPopulateDensity@* 0x00731BBD
+        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity, nObjectId, 100);
     }
 }
 
@@ -4123,15 +4125,15 @@ void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* hUnit, int bSetUninterrupta
 // 0x00562DA0
 void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
 {
-    D2_ASSERT(!IsBadCodePtr((FARPROC)scpfnItemEventFunctions_6FD27DDC[eEventType]), 5610);
-    scpfnItemEventFunctions_6FD27DDC[eEventType](pGame, pUnit);
+    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnItemEventFunctions[eEventType]), 5610);
+    gpfnItemEventFunctions[eEventType](pGame, pUnit);
 }
 
 // 0x00586AD0
 void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int eEventType)
 {
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gpEventFunctions_6FD28CD8[eEventType]), 576);
-    gpEventFunctions_6FD28CD8[eEventType](pGame, pObject);
+    D2_ASSERT(!IsBadCodePtr((FARPROC)gpfnObjectEventFunctions[eEventType]), 576);
+    gpfnObjectEventFunctions[eEventType](pGame, pObject);
 }
 
 // 0x005A6260
@@ -4299,14 +4301,14 @@ unsigned char __fastcall CLIENTS_GetCharTemplate(D2ClientStrc* pClient)
 // 0x00538930
 int __fastcall CLIENTS_CheckState(int nClientId, int nExpectedClientState)
 {
-    if (!gbClientListInitialized_008846D8)
+    if (!gbClientListInitialized)
     {
         return 0;
     }
 
     int bResult = 0;
-    EnterCriticalSection(&gClientListLock_008846A8);
-    for (D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
+    EnterCriticalSection(&gClientListLock);
+    for (D2ClientStrc* pClient = gpClientList[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
     {
         if (pClient->dwClientId == nClientId)
         {
@@ -4314,7 +4316,7 @@ int __fastcall CLIENTS_CheckState(int nClientId, int nExpectedClientState)
             break;
         }
     }
-    LeaveCriticalSection(&gClientListLock_008846A8);
+    LeaveCriticalSection(&gClientListLock);
     return bResult;
 }
 
@@ -4324,9 +4326,9 @@ int __fastcall CLIENTS_GetClientIdByName(const char* szName)
     int nClientId = 0;
     const int nIndex = FOG_ComputeStringCRC16(szName) & 0xFF;
 
-    EnterCriticalSection(&gSrvClientListByNameLock_008846C0);
+    EnterCriticalSection(&gSrvClientListByNameLock);
 
-    for (D2ClientStrc* pClient = gpClientListByName_00883EA8[nIndex]; pClient; pClient = pClient->pServerNextByName)
+    for (D2ClientStrc* pClient = gpClientListByName[nIndex]; pClient; pClient = pClient->pServerNextByName)
     {
         if (nClientId)
         {
@@ -4339,7 +4341,7 @@ int __fastcall CLIENTS_GetClientIdByName(const char* szName)
         }
     }
 
-    LeaveCriticalSection(&gSrvClientListByNameLock_008846C0);
+    LeaveCriticalSection(&gSrvClientListByNameLock);
     return nClientId;
 }
 

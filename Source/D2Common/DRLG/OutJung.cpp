@@ -24,8 +24,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
-extern const int gnJungleDefOffsets_006F2370[3]; // 0x006F2370
-extern const int gnJungleFiles_006F2328[18]; // 0x006F2328
+extern const int gnJungleDefOffsets[3]; // 0x006F2370
+extern const int gnJungleFiles[18]; // 0x006F2328
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x00675770
 void __fastcall DRLGOUTJUNG_BuildJungle(D2DrlgLevelStrc* pLevel); // 0x0067E910
@@ -77,8 +77,8 @@ void __fastcall DRLGOUTJUNG_BuildJungle(D2DrlgLevelStrc* ptDrlgLevel)
                     {
                         D2_ASSERT(nFileIndex < 3, 0x47);
 
-                        nJungleDef += gnJungleDefOffsets_006F2370[ptDrlgLevel->eLevelId - LEVEL_SPIDERFOREST];
-                        nPickedFile = gnJungleFiles_006F2328[nFileIndex + 3 * nRand];
+                        nJungleDef += gnJungleDefOffsets[ptDrlgLevel->eLevelId - LEVEL_SPIDERFOREST];
+                        nPickedFile = gnJungleFiles[nFileIndex + 3 * nRand];
                         ++nFileIndex;
                     }
 

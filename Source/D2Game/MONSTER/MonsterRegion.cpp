@@ -298,7 +298,7 @@ extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 
 int dword_6FD4DC34; // 0x008846DC
 
-extern const D2UnkPlrMsgStrc stru_6FD30708[]; // 0x007319E8
+extern const D2UnkPlrMsgStrc gaUnitModeMessages[]; // 0x007319E8
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -663,11 +663,11 @@ struct D2QuestIntroTableStrc
     unsigned char pad0x05[3];
 };
 
-extern int gnQuestInitTableCount_00731888;                                                                  // 0x00731888
+extern int gnQuestInitTableCount;                                                                  // 0x00731888
 
 extern D2QuestIntroTableStrc sgQuestIntro[];                                                  // 0x0073188C
 
-extern int gnQuestIntroTableCount_007318AC;                                                                 // 0x007318AC
+extern int gnQuestIntroTableCount;                                                                 // 0x007318AC
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                                                           // 0x00650E30
 

@@ -618,7 +618,8 @@ struct D2CommonStormZeroFE70Strc
     D2CommonStormZeroFE70Strc();
 };
 
-extern const int gnTileTypeTable_006EEF88[];
+// build: symbol ?gnTileTypeTable@* 0x006EEF88
+extern const int gnTileTypeTable[];
 
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);
 
@@ -923,7 +924,7 @@ extern "C" const char gszTypeNameStringEntryNode_0074364C[]; // 0x0074364C
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
 
-D2CommonIgnoreListStrc* gpIgnoreList_0096BC20; // 0x0096BC20
+D2CommonIgnoreListStrc* gpIgnoreList; // 0x0096BC20
 
 struct D2StormCtorLinkStrc
 {
@@ -1008,11 +1009,11 @@ __declspec(nothrow) void* __stdcall SMemAlloc(unsigned int nSize, const char* sz
 
 extern "C" int __cdecl fprintf(_iobuf*, const char*, ...); // 0x00684C94
 
-extern const char gszFileMode_006FF97C[]; // 0x006FF97C
+extern const char gszFileModeW[]; // 0x006FF97C
 
 extern const char gszFirstFormat_006CD90C[]; // 0x006CD90C
 
-extern const char gszSecondFormat_006E62A8[]; // 0x006E62A8
+extern const char gszBangLineFormat[]; // 0x006E62A8
 
 void __cdecl operator delete(void* pMemory, void* pWhere) throw();
 
@@ -1502,8 +1503,8 @@ D2CommonStormListDStrc::D2CommonStormListDStrc(const D2CommonStormListDStrc& sou
 // 0x0060DDB0
 void __cdecl IGNORELIST_FreeIgnoreList()
 {
-    delete gpIgnoreList_0096BC20;
-    gpIgnoreList_0096BC20 = 0;
+    delete gpIgnoreList;
+    gpIgnoreList = 0;
 }
 
 // 0x0060EA10
@@ -1705,13 +1706,13 @@ D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& sou
 // 0x0060F0A0
 int D2CommonIgnoreListStrc::sub_0060F0A0_Save()
 {
-    _iobuf* pFile = fopen(szFileName, gszFileMode_006FF97C);
+    _iobuf* pFile = fopen(szFileName, gszFileModeW);
     if (!pFile)
         return 0;
     for (char* pNode = m_table.m_fulllist.m_terminator.NextChecked(); (int)pNode > 0; pNode = ((D2CommonStormSlotLinkStrc*)(pNode + m_table.m_fulllist.m_linkoffset))->Next())
         fprintf(pFile, gszFirstFormat_006CD90C, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str);
     for (char* pNode = m_table2.m_fulllist.m_terminator.NextChecked(); (int)pNode > 0; pNode = ((D2CommonStormSlotLinkStrc*)(pNode + m_table2.m_fulllist.m_linkoffset))->Next())
-        fprintf(pFile, gszSecondFormat_006E62A8, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str);
+        fprintf(pFile, gszBangLineFormat, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str);
     fclose(pFile);
     return 1;
 }
@@ -2401,7 +2402,7 @@ D2CommonStormHashTableBStrc::~TSHashTable()
 
 int __fastcall sub_0066D7E0_MapTileType(int nId)
 {
-    return gnTileTypeTable_006EEF88[nId];
+    return gnTileTypeTable[nId];
 }
 
 void __fastcall sub_0066D800_TileToClientCoords(int* pX, int* pY)
@@ -2616,19 +2617,19 @@ D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_InternalNe
 // 0x006114E0
 void IGNORELIST_CreateIgnoreList()
 {
-    gpIgnoreList_0096BC20 = ::new (SMemAlloc(sizeof(D2CommonIgnoreListStrc), ".\\Chat\\Ignorelist.cpp", 0x41, 0))
+    gpIgnoreList = ::new (SMemAlloc(sizeof(D2CommonIgnoreListStrc), ".\\Chat\\Ignorelist.cpp", 0x41, 0))
         D2CommonIgnoreListStrc;
 }
 
 // 0x00611560
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList()
 {
-    if (!gpIgnoreList_0096BC20)
+    if (!gpIgnoreList)
     {
-        gpIgnoreList_0096BC20 = ::new (SMemAlloc(sizeof(D2CommonIgnoreListStrc), ".\\Chat\\Ignorelist.cpp", 0x48, 0))
+        gpIgnoreList = ::new (SMemAlloc(sizeof(D2CommonIgnoreListStrc), ".\\Chat\\Ignorelist.cpp", 0x48, 0))
             D2CommonIgnoreListStrc;
     }
-    return gpIgnoreList_0096BC20;
+    return gpIgnoreList;
 }
 
 // 0x006117D0

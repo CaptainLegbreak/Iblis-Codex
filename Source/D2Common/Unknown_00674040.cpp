@@ -11,7 +11,7 @@ struct D2LvlPrestTxt;
 
 struct D2OutdoorOffsetStrc { int nX; int nY; };
 
-extern D2OutdoorOffsetStrc gaOffsets_006F05D8[]; // 0x006F05D8
+extern D2OutdoorOffsetStrc gaOutLinkVisOffsets[]; // 0x006F05D8
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY); // 0x0066B980
 int __fastcall DATATBLS_GetVisFlagToLevel(D2DrlgLevelStrc* pLevel, D2DrlgLevelStrc* pOtherLevel); // 0x00673FF0
 
@@ -43,8 +43,8 @@ int __fastcall DRLGOUTDOORS_GetOutLinkVisFlag(D2DrlgLevelStrc* pLevel, D2DrlgVer
         else
             return 0;
     }
-    int nSubtileX = gaOffsets_006F05D8[side].nX + 8 * pVertex->nPosX + pLevel->nPosX;
-    int nSubtileY = gaOffsets_006F05D8[side].nY + 8 * pVertex->nPosY + pLevel->nPosY;
+    int nSubtileX = gaOutLinkVisOffsets[side].nX + 8 * pVertex->nPosX + pLevel->nPosX;
+    int nSubtileY = gaOutLinkVisOffsets[side].nY + 8 * pVertex->nPosY + pLevel->nPosY;
     for (D2DrlgOrthStrc* pLink = pOutdoor->pRoomData; pLink; pLink = pLink->pNext)
     {
         if (side == pLink->nDirection && DRLGROOM_AreXYInsideCoordinates(pLink->pBox, nSubtileX, nSubtileY))

@@ -238,7 +238,7 @@ extern D2TxtLinkStrc* gpSkillCodeLinker_0096BCA0; // 0x0096BCA0
 
 extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
 
-extern char* gpMissCode_0096BC90; // 0x0096BC90
+extern char* gpMissCode; // 0x0096BC90
 
 int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize); // 0x006118B0
 
@@ -252,9 +252,9 @@ static int __stdcall sub_00661A30_ClampMissileField(D2BinFieldStrc* pFields, int
 
 D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 
-int gnMissCodeSize_0096BC94; // 0x0096BC94
+int gnMissCodeSize; // 0x0096BC94
 
-int gnMissCodeSizeEx_0096BC98; // 0x0096BC98
+int gnMissCodeSizeEx; // 0x0096BC98
 
 int __stdcall FOG_GetRowFromTxt(D2TxtLinkStrc* pLinker, const char* szText, int nColumn); // 0x006BD3C0
 
@@ -404,7 +404,7 @@ void __fastcall DATATBLS_MissileCalcLinker(char* pSrc, void* pRecord, int nOffse
         return;
     }
 
-    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpMissCode_0096BC90, &gnMissCodeSize_0096BC94, &gnMissCodeSizeEx_0096BC98, pBuffer, nBufferSize);
+    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpMissCode, &gnMissCodeSize, &gnMissCodeSizeEx, pBuffer, nBufferSize);
 }
 
 // 0x00661A30

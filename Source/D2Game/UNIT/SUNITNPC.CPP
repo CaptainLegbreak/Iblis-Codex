@@ -646,7 +646,7 @@ D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int); // 0x006374B0
 
 static inline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAnimMode; return 0; }
 
-#define SEND_ERROR(code,line) D2GAME_SendPacket0x2A(UnitGetClient(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,STAT_GOLD,0),-1,0)
+#define SEND_ERROR(code,line) D2GAME_SendPacket0x2A(UnitGetClient(player,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(player,STAT_GOLD,0),-1,0)
 
 int gnRingId; // 0x0088CACC
 
@@ -654,7 +654,7 @@ int gnAmuletId; // 0x0088CAC8
 
 static int __stdcall SUNITNPC_RollGambleUpgrade(int nItemId, int nUberChance, int nUltraChance, D2GameStrc* pGame, int nItemLevel);
 
-int gnNpcGUID_0088CAC4; // 0x0088CAC4
+int gnNpcGUID; // 0x0088CAC4
 
 // 0x00573B20
 void __fastcall MONSTERAI_CreateAndEquipItem(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterItemCodeStrc* pItemCode, int dwILvl, int dwQuality)
@@ -2486,7 +2486,7 @@ void __fastcall D2GAME_NPC_Heal_6FCCB220(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 {
     const int nGUID = !pNpc ? -1 : pNpc->dwUnitId;
 
-    gnNpcGUID_0088CAC4 = nGUID;
+    gnNpcGUID = nGUID;
     if (pNpc)
     {
         const int nClass = pNpc->dwClassId;
@@ -2829,12 +2829,12 @@ void __fastcall SUNITNPC_FillGambleIfMissing(D2GameStrc* pGame, D2UnitStrc* pNpc
 // 0x00579090
 void __fastcall SUNITNPC_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    if (!gnNpcGUID_0088CAC4)
+    if (!gnNpcGUID)
     {
         return;
     }
 
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, gnNpcGUID_0088CAC4);
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, gnNpcGUID);
     if (!pNpc)
     {
         return;
@@ -2894,11 +2894,11 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
     int price=ITEMS_GetTransactionCost(player,item,ptGame->nDifficulty,sub_00543520(ptGame,player),vendorId,1);
     int keep=1;
     if (ITEMS_GetItemQuality(item)==ITEMQUAL_INFERIOR) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
-    if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSource_006E15F0)) keep=0;
+    if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSourceFile)) keep=0;
     if (ITEMS_GetItemType(item)==ITEMTYPE_PLAYER_BODY_PART) keep=0;
-    if (ITEMS_CheckItemFlag(item,0x1000000,0x50D,gszNpcSource_006E15F0)) keep=0;
-    if (ITEMS_CheckItemFlag(item,0x400000,0x511,gszNpcSource_006E15F0)) keep=0;
-    if (D2GAME_CheckHasFilledSockets(item,gszNpcSource_006E15F0,0x513)) keep=0;
+    if (ITEMS_CheckItemFlag(item,0x1000000,0x50D,gszNpcSourceFile)) keep=0;
+    if (ITEMS_CheckItemFlag(item,0x400000,0x511,gszNpcSourceFile)) keep=0;
+    if (D2GAME_CheckHasFilledSockets(item,gszNpcSourceFile,0x513)) keep=0;
     if (SUNITNPC_IsUniqueCarryOneItem(item)) keep=0;
     int npcIndex;
     D2NpcRecordStrc* npcRecord=SUNITPROXY_GetNpcRecordFromUnit(ptGame,npc,&npcIndex);
@@ -2913,11 +2913,11 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
         else {
             ITEMS_SetInvPage(copy,page);
             const int copyId=GetId(copy);
-            if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0,0x558,ptGame,npc,copyId,CLIENTS_GetUnitX(copy),CLIENTS_GetUnitY(copy),1,1,0)) {
+            if (!D2GAME_PlaceItem_6FC44410(gszNpcSourceFile,0x558,ptGame,npc,copyId,CLIENTS_GetUnitX(copy),CLIENTS_GetUnitY(copy),1,1,0)) {
                 if (page==1) {
                     ITEMS_SetInvPage(copy,2);
                     const int copyId=GetId(copy);
-                    if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0,0x55E,ptGame,npc,copyId,CLIENTS_GetUnitX(copy),CLIENTS_GetUnitY(copy),1,1,0)) ITEMS_RemoveFromAllPlayers(ptGame,copy);
+                    if (!D2GAME_PlaceItem_6FC44410(gszNpcSourceFile,0x55E,ptGame,npc,copyId,CLIENTS_GetUnitX(copy),CLIENTS_GetUnitY(copy),1,1,0)) ITEMS_RemoveFromAllPlayers(ptGame,copy);
                     else {
                         SUNITNPC_SetItemTradeFlags(npc,copy,ptGame,1,1);
                         const int durability=STATLIST_GetMaxDurabilityFromUnit(copy);
@@ -2949,7 +2949,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
             int quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);
             if (quantity>=0) SUNITNPC_DecreaseSkillQuantity(player,DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(item,0))->dwBookSkillId,quantity);
         }
-        D2ClientStrc* client=UnitGetClient(player,gszNpcSource_006E15F0,0x594);
+        D2ClientStrc* client=UnitGetClient(player,gszNpcSourceFile,0x594);
         int flags=0;
         ITEMS_SetOrRemoveFlag(&flags,0x20,1);
         ITEMS_SetItemCell(item,ITEMS_GetInvPage(item));
@@ -2967,7 +2967,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
         }
     }
     ITEMS_HandleGoldTransaction(ptGame,player,price);
-    D2GAME_SendPacket0x2A(UnitGetClient(player,gszNpcSource_006E15F0,0x5BD),0x2A,1,STATLIST_UnitGetStatValue(player,STAT_GOLD,0),itemId,3);
+    D2GAME_SendPacket0x2A(UnitGetClient(player,gszNpcSourceFile,0x5BD),0x2A,1,STATLIST_UnitGetStatValue(player,STAT_GOLD,0),itemId,3);
     return 0;
     }
     SEND_ERROR(9,0x4C7);
@@ -3138,7 +3138,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
     if (nType == 3)
     {
-        D2GAME_NPC_BuildHirelingList_6FCC6FF0(pGame, UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xB50), pMonster,
+        D2GAME_NPC_BuildHirelingList_6FCC6FF0(pGame, UnitGetClient(pPlayer, gszNpcSourceFile, 0xB50), pMonster,
             MONSTERAI_GetInteractUnitCount(sub_00535E80_GetMonInteract(pMonster)) <= 1);
         return 0;
     }
@@ -3149,7 +3149,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         packet58.nHeader = 0x58;
         packet58.nUnitId = nNpcGUID;
 
-        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xB59);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSourceFile, 0xB59);
         if (!SUNITNPC_IsCursorItem(nItemGUID, pPlayer))
         {
             return 3;
@@ -3220,7 +3220,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
             }
 
             const int nOutputGUID = pOutput->dwUnitId;
-            if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0, 0xBA9, pGame, pPlayer, nOutputGUID, 0, 0, 1, 1, 0))
+            if (!D2GAME_PlaceItem_6FC44410(gszNpcSourceFile, 0xBA9, pGame, pPlayer, nOutputGUID, 0, 0, 1, 1, 0))
             {
                 UNITS_ChangeAnimMode(pOutput, 3);
                 D2CoordStrc coords;
@@ -3267,7 +3267,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         packet58.nHeader = 0x58;
         packet58.nUnitId = nNpcGUID;
 
-        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xBE2);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSourceFile, 0xBE2);
         if (!SUNITNPC_IsCursorItem(nItemGUID, pPlayer))
         {
             return 3;
@@ -3338,7 +3338,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
             ITEMS_SetInvPage(pOutput, 0);
 
             const int nOutputGUID = pOutput->dwUnitId;
-            if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0, 0xC36, pGame, pPlayer, nOutputGUID, 0, 0, 1, 1, 0))
+            if (!D2GAME_PlaceItem_6FC44410(gszNpcSourceFile, 0xC36, pGame, pPlayer, nOutputGUID, 0, 0, 1, 1, 0))
             {
                 UNITS_ChangeAnimMode(pOutput, 3);
                 D2CoordStrc coords;
@@ -3366,7 +3366,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         packet58.nHeader = 0x58;
         packet58.nUnitId = nNpcGUID;
 
-        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xC57);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSourceFile, 0xC57);
         if (!SUNITNPC_IsCursorItem(nItemGUID, pPlayer))
         {
             return 3;
@@ -3409,7 +3409,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
             ITEMS_SetInvPage(pOutput, 0);
 
             const int nOutputGUID = UNITS_GetUnitId(pOutput);
-            if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0, 0xC91, pGame, pPlayer, nOutputGUID, 0, 0, 1, 1, 0))
+            if (!D2GAME_PlaceItem_6FC44410(gszNpcSourceFile, 0xC91, pGame, pPlayer, nOutputGUID, 0, 0, 1, 1, 0))
             {
                 UNITS_ChangeAnimMode(pOutput, 3);
                 D2CoordStrc coords;

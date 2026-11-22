@@ -341,7 +341,7 @@ struct D2UnkAiTableStrc
     AIUTIL_TargetCallback pfCallback;
 };
 
-extern const D2UnkAiTableStrc gAiTargetSearchTable_006E3300[]; // 0x006E3300
+extern const D2UnkAiTableStrc gaAiTargetSearchTable[]; // 0x006E3300
 
 void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* a2, void* a3, void(__fastcall* pfnParty)(D2UnitStrc*, void*, void*)); // 0x0058F380
 
@@ -1013,8 +1013,8 @@ static D2UnitStrc* __stdcall AIUTIL_FindTargetAmongMinions(D2GameStrc* pGame, vo
 // 0x005DD0B0
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfFallbackCallback, int nCallbackId)
 {
-    const int nType = gAiTargetSearchTable_006E3300[nCallbackId].nType;
-    AIUTIL_TargetCallback pfCallback = gAiTargetSearchTable_006E3300[nCallbackId].pfCallback ? gAiTargetSearchTable_006E3300[nCallbackId].pfCallback : pfFallbackCallback;
+    const int nType = gaAiTargetSearchTable[nCallbackId].nType;
+    AIUTIL_TargetCallback pfCallback = gaAiTargetSearchTable[nCallbackId].pfCallback ? gaAiTargetSearchTable[nCallbackId].pfCallback : pfFallbackCallback;
     if (!pfCallback)
     {
         return 0;
@@ -1132,7 +1132,7 @@ extern "C" __declspec(dllexport) void __fastcall AIUTIL_ToggleAiControlFlag(Obj0
 
 D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId)
 {
-    AIUTIL_TargetCallback pfCallback = gAiTargetSearchTable_006E3300[nCallbackId].pfCallback;
+    AIUTIL_TargetCallback pfCallback = gaAiTargetSearchTable[nCallbackId].pfCallback;
     if (!pfCallback)
     {
         pfCallback = a4;
@@ -1142,7 +1142,7 @@ D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* 
         }
     }
 
-    const int nType = gAiTargetSearchTable_006E3300[nCallbackId].nType;
+    const int nType = gaAiTargetSearchTable[nCallbackId].nType;
     switch (nType)
     {
     case 1:

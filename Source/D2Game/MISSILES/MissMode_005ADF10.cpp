@@ -20,8 +20,8 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 extern int gnMissileSrvHitFnCount;                                                                          // 0x0073C83C
 extern MISSILESRVHITFN gpfMissileSrvHitFn[];                                                                // 0x0073C840
-extern int gnMissileSrvDmgFnCount_0073C95C;                                                                 // 0x0073C95C
-extern MISSILESRVDMGFN gpfMissileSrvDmgFn_0073C960[];                                                       // 0x0073C960
+extern int gnMissileSrvDmgFnCount;                                                                 // 0x0073C95C
+extern MISSILESRVDMGFN gpfnMissileSrvDmgFunctions[];                                                       // 0x0073C960
 void __fastcall SKILLDESC_ToggleStateOffCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);          // 0x005ADAF0
 void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage);// 0x005AD730
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x00552FD0
@@ -251,9 +251,9 @@ int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile
         D2DamageStrc tDamage;
         MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &tDamage);
         const short nDmgFunc = pTxt->wSrvDmgFunc;
-        if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount_0073C95C)
+        if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount)
         {
-            gpfMissileSrvDmgFn_0073C960[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
+            gpfnMissileSrvDmgFunctions[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
         }
         MISSMODE_ApplyDamageFlagsAndTargetAc(pGame, pMissile, pUnit, &tDamage);
     }

@@ -51,7 +51,7 @@ void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, 
 
 int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
-extern "C" const int gdwAct12ShrineFlags_006F061C[4]; // 0x006F061C
+extern "C" const int gdwAct12ShrineFlags[4]; // 0x006F061C
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
@@ -69,9 +69,9 @@ int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
 
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 
-extern const signed char gOffsetX_006F0614[8];  // 0x006F0614
+extern const signed char gnRandomOutdoorDs1OffsetX[8];  // 0x006F0614
 
-extern const signed char gOffsetY_006F060C[8];  // 0x006F060C
+extern const signed char gnRandomOutdoorDs1OffsetY[8];  // 0x006F060C
 
 struct Point { int x, y; };
 
@@ -319,8 +319,8 @@ int __fastcall DRLGOUTDOORS_SpawnRandomOutdoorDS1(D2DrlgLevelStrc* pLevel, int n
         {
             for (int j = 0; j < 8; ++j)
             {
-                const int tx = x + gOffsetX_006F0614[j];
-                const int ty = y + gOffsetY_006F060C[j];
+                const int tx = x + gnRandomOutdoorDs1OffsetX[j];
+                const int ty = y + gnRandomOutdoorDs1OffsetY[j];
                 if (DRLGOUTDOORS_TestOutdoorLevelPreset(pLevel, tx, ty, nLvlPrestId, 0, TEST_FLAGS))
                 {
                     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, tx, ty, nLvlPrestId, nRand, 0);
@@ -471,7 +471,7 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Shrines(D2DrlgLevelStrc* pLevel, int nShr
 
             if (DRLGOUTDOORS_TestGridCellSpawnValid(pLevel, nX, nY))
             {
-                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[1], nX, nY, gdwAct12ShrineFlags_006F061C[nIndex], 0);
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[1], nX, nY, gdwAct12ShrineFlags[nIndex], 0);
                 DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x1000, 0);
                 nIndex = (nIndex + 1) % 4;
                 --nShrines;

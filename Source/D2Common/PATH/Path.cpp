@@ -161,9 +161,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn); // 0x006CC34C
 
-extern const D2CoordStrc gatDirectionToOffset_006EB398[8]; // 0x006EB398
+extern const D2CoordStrc gaDirectionToOffset[8]; // 0x006EB398
 
-extern PATH_FUNCTION const scpfnPathFunction_006EB6D8[]; // 0x006EB6D8
+extern PATH_FUNCTION const gpfnPathFunctions[]; // 0x006EB6D8
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -791,7 +791,8 @@ typedef char check_DirectionRecord_angle[OFFSET(DirectionRecord,angle)==8?1:-1];
 
 typedef char check_DirectionRecord_size[sizeof(DirectionRecord)==12?1:-1];
 
-extern DirectionRecord gDirectionTable_006EB7E0[128];
+// build: symbol ?gaTanToDirectionTable@* 0x006EB7E0
+extern DirectionRecord gaTanToDirectionTable[128];
 
 struct B25TargetUnit
 {
@@ -995,9 +996,9 @@ int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 
 int __stdcall D2Common_10227(D2UnitStrc* pUnit); // 0x00650540
 
-extern int gaOffsetForPathType_006EB648[]; // 0x006EB648
+extern int gaOffsetForPathType[]; // 0x006EB648
 
-extern int gaPathTypeFlags_006EB690[]; // 0x006EB690
+extern int gaPathTypeFlags[]; // 0x006EB690
 
 void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY); // 0x00643540
 
@@ -1065,8 +1066,9 @@ static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPath
         int nX = pPathInfo->tTargetCoord.X;
         const int nCollisionPattern = pPathInfo->nCollisionPattern;
         const int nCollisionMask = pPathInfo->nCollisionMask;
-        const int nOffsetX = gnTable_006EB490[nDeltaY][nDeltaX];
-        const int nOffsetY = gnTable_006EB490[nDeltaX][nDeltaY];
+// build: symbol ?gnOrthogonalStepTable@* 0x006EB490
+        const int nOffsetX = gnOrthogonalStepTable[nDeltaY][nDeltaX];
+        const int nOffsetY = gnOrthogonalStepTable[nDeltaX][nDeltaY];
         nY = pPathInfo->tTargetCoord.Y;
         int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
         while (nChebyshevDistance < PATH_SNAP_RANGE)
@@ -1142,8 +1144,8 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
             break;
         }
 
-        aTestDirPathPoints[0].X += gatDirectionToOffset_006EB398[aTestDir[0]].nX;
-        aTestDirPathPoints[0].Y += gatDirectionToOffset_006EB398[aTestDir[0]].nY;
+        aTestDirPathPoints[0].X += gaDirectionToOffset[aTestDir[0]].nX;
+        aTestDirPathPoints[0].Y += gaDirectionToOffset[aTestDir[0]].nY;
         if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[0].X, aTestDirPathPoints[0].Y, nCollisionPattern, nCollisionMask))
         {
             pPathInfo->tTargetCoord.X = aTestDirPathPoints[0].X;
@@ -1160,8 +1162,8 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
             return PATH_TRUE;
         }
 
-        aTestDirPathPoints[1].X += gatDirectionToOffset_006EB398[aTestDir[1]].nX;
-        aTestDirPathPoints[1].Y += gatDirectionToOffset_006EB398[aTestDir[1]].nY;
+        aTestDirPathPoints[1].X += gaDirectionToOffset[aTestDir[1]].nX;
+        aTestDirPathPoints[1].Y += gaDirectionToOffset[aTestDir[1]].nY;
         if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[1].X, aTestDirPathPoints[1].Y, nCollisionPattern, nCollisionMask))
         {
             pPathInfo->tTargetCoord.X = aTestDirPathPoints[1].X;
@@ -1180,8 +1182,8 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 
         if (aTestDir[2] != PATH_DIR_NULL)
         {
-            aTestDirPathPoints[2].X += gatDirectionToOffset_006EB398[aTestDir[2]].nX;
-            aTestDirPathPoints[2].Y += gatDirectionToOffset_006EB398[aTestDir[2]].nY;
+            aTestDirPathPoints[2].X += gaDirectionToOffset[aTestDir[2]].nX;
+            aTestDirPathPoints[2].Y += gaDirectionToOffset[aTestDir[2]].nY;
             if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[2].X, aTestDirPathPoints[2].Y, nCollisionPattern, nCollisionMask))
             {
                 pPathInfo->tTargetCoord.X = aTestDirPathPoints[2].X;
@@ -1387,7 +1389,8 @@ void __fastcall PATH_SetNewDirection(D2DynamicPathStrc* pDynamicPath, unsigned c
         {
             pDynamicPath->nNewDirection = nDirection;
             const unsigned char nDiff = nDirection - pDynamicPath->nDirection;
-            pDynamicPath->nDiffDirection = gnDirectionDiffTable_006EB548[nDiff & 63];
+// build: symbol ?gnDirectionDiffTable@* 0x006EB548
+            pDynamicPath->nDiffDirection = gnDirectionDiffTable[nDiff & 63];
         }
         break;
     }
@@ -1535,7 +1538,7 @@ void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPat
         {
             pDynamicPath->nNewDirection = nNormalizedDirection;
             const unsigned char nDiff = nNormalizedDirection - pDynamicPath->nDirection;
-            pDynamicPath->nDiffDirection = gnDirectionDiffTable_006EB548[nDiff & (PATH_NB_DIRECTIONS - 1)];
+            pDynamicPath->nDiffDirection = gnDirectionDiffTable[nDiff & (PATH_NB_DIRECTIONS - 1)];
         }
         break;
     }
@@ -1791,8 +1794,8 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                         int nPathPoints = 0;
                         if (bUpdatePath)
                         {
-                            D2_ASSERT(!IsBadCodePtr((void*)scpfnPathFunction_006EB6D8[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
-                            nPathPoints = scpfnPathFunction_006EB6D8[tPathInfo.nPathType](&tPathInfo);
+                            D2_ASSERT(!IsBadCodePtr((void*)gpfnPathFunctions[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
+                            nPathPoints = gpfnPathFunctions[tPathInfo.nPathType](&tPathInfo);
                         }
                         pPath->dwPathPoints = nPathPoints;
 
@@ -2572,7 +2575,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
 {
     D2_ASSERT(!(ptPath->pUnit && ptPath->pUnit->dwUnitType == UNIT_PLAYER && eType == 2), 0x861);
 
-    int nFlag = gaPathTypeFlags_006EB690[eType];
+    int nFlag = gaPathTypeFlags[eType];
     if ((nFlag & 0x2000) && !(ptPath->dwFlags & 0x4000))
     {
         ptPath->ePrevType = ptPath->eType;
@@ -2585,7 +2588,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
 
     ptPath->eType = eType;
     ptPath->dwFlags = nFlag | ptPath->dwFlags & 0xFFF800FF;
-    ptPath->nDirOffset = gaOffsetForPathType_006EB648[eType];
+    ptPath->nDirOffset = gaOffsetForPathType[eType];
 
     D2_ASSERT(ptPath->ePrevType != 0xB, 0x871);
     D2_ASSERT(ptPath->ePrevType != 8, 0x872);

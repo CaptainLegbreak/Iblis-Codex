@@ -37,7 +37,7 @@ extern int gnCopy_00731EC0; // 0x00731EC0
 extern int gnCopy_00731EC8; // 0x00731EC8
 extern int gnCopy_00731ED0; // 0x00731ED0
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
-extern unsigned int gdwStartTick_008846E8; // 0x008846E8
+extern unsigned int gnUnitInitSeed; // 0x008846E8
 extern unsigned char gCriticalSection_0088CAA8[]; // 0x0088CAA8
 void __cdecl sub_006CB490_DestroyLock(); // 0x006CB490
 void __cdecl sub_006CB4E0_DestroyLock(); // 0x006CB4E0
@@ -147,7 +147,7 @@ void __cdecl sub_006CAF30_SnapshotCounters()
 // 0x006CAF60
 void __cdecl sub_006CAF60_InitStartTick()
 {
-    gdwStartTick_008846E8 = GetTickCount();
+    gnUnitInitSeed = GetTickCount();
 }
 
 // 0x006CAF70

@@ -15,7 +15,7 @@ struct D2AnimDataRecordStrc;
 struct D2MonStatsTxt;
 struct D2ChainRecordStrc;
 
-extern int gDirectionTable_006EB7E0[128 * 3]; // 0x006EB7E0
+extern int gaTanToDirectionTable[128 * 3]; // 0x006EB7E0
 
 typedef int BOOL;
 
@@ -23,7 +23,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern const D2CoordStrc gtPathZeroVelocity_006EB7D4; // 0x006EB7D4
+extern const D2CoordStrc gtPathZeroVelocity; // 0x006EB7D4
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
@@ -63,7 +63,7 @@ struct D2ChainRecordStrc
 };
 
 extern D2ChainRecordStrc* gpChainTable_0096C6A8; // 0x0096C6A8
-extern int gnChainCount_0096C6B0; // 0x0096C6B0
+extern int gnMonstatsTxtRecordCount; // 0x0096C6B0
 
 static inline void SwapPrecision(unsigned int& a, unsigned int& b)
 {
@@ -122,17 +122,17 @@ void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOut
     else
         nIndex = 0;
     const int nEntry = 3 * nIndex;
-    int nDirection = gDirectionTable_006EB7E0[nEntry + 2];
+    int nDirection = gaTanToDirectionTable[nEntry + 2];
     if (bSwapped)
     {
-        pDirectionVector->nY = gDirectionTable_006EB7E0[nEntry];
-        pDirectionVector->nX = gDirectionTable_006EB7E0[nEntry + 1];
+        pDirectionVector->nY = gaTanToDirectionTable[nEntry];
+        pDirectionVector->nX = gaTanToDirectionTable[nEntry + 1];
         nDirection = (-1 - nDirection) & 0x0F;
     }
     else
     {
-        pDirectionVector->nX = gDirectionTable_006EB7E0[nEntry];
-        pDirectionVector->nY = gDirectionTable_006EB7E0[nEntry + 1];
+        pDirectionVector->nX = gaTanToDirectionTable[nEntry];
+        pDirectionVector->nY = gaTanToDirectionTable[nEntry + 1];
     }
     if (!bPositiveY)
     {
@@ -566,7 +566,7 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
 static void PATH_ResetMovement(D2DynamicPathStrc* pPath)
 {
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
-    const D2CoordStrc tZeroVelocity = gtPathZeroVelocity_006EB7D4;
+    const D2CoordStrc tZeroVelocity = gtPathZeroVelocity;
     pPath->dwFlags &= 0xFFFFFFDF;
     pPath->dwPathPoints = 0;
     pPath->dwCurrentPointIdx = 0;
@@ -838,7 +838,7 @@ void __stdcall sub_00650F00(int nRecordCount)
 // 0x00651040
 void __cdecl sub_00651040_ComputeDepths()
 {
-    for (short i = 0; i < gnChainCount_0096C6B0; ++i)
+    for (short i = 0; i < gnMonstatsTxtRecordCount; ++i)
     {
         unsigned short nNext = gpChainTable_0096C6A8[i].wParent;
         int nDepth = 0;

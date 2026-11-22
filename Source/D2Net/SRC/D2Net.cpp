@@ -24,10 +24,10 @@ typedef const char* (__stdcall* FnLoadComplete)();
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-extern char gData_006E0498[]; // 0x006E0498
-extern int gnGamesGUIDs_6FD447F8[1024]; // 0x00882D38
-extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
-extern int gbD2ServerCallbackFunctionsInitialized_6FD45834; // 0x00883D54
+extern char gszEmptyLoadComplete[]; // 0x006E0498
+extern int gnGamesGUIDs[1024]; // 0x00882D38
+extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
+extern int gbD2ServerCallbackFunctionsInitialized; // 0x00883D54
 
 // 0x0052B7E0
 int __fastcall NET_IsLocalConnection()
@@ -160,11 +160,11 @@ void __stdcall sub_0052BFB0_Stub(int a1, int a2, int a3, int a4)
 // 0x0052BFC0
 const char* __fastcall GAME_GetLoadCompleteString()
 {
-    if (!gbD2ServerCallbackFunctionsInitialized_6FD45834)
+    if (!gbD2ServerCallbackFunctionsInitialized)
     {
-        return gData_006E0498;
+        return gszEmptyLoadComplete;
     }
-    return gpD2EventCallbackTable_6FD45830->pfLoadComplete();
+    return gpD2EventCallbackTable->pfLoadComplete();
 }
 
 // 0x0052BFE0
@@ -173,7 +173,7 @@ int __fastcall GAME_GetGamesCount()
     int nResult = 0;
     for (int i = 0; i < 1024; ++i)
     {
-        if (gnGamesGUIDs_6FD447F8[i] != 0 && gnGamesGUIDs_6FD447F8[i] != -1)
+        if (gnGamesGUIDs[i] != 0 && gnGamesGUIDs[i] != -1)
         {
             ++nResult;
         }

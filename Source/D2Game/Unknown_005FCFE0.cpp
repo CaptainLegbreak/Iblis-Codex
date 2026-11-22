@@ -369,7 +369,8 @@ static int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
         return 0;
     }
 
-    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szAiBaalCpp_006E3580, 0x131);
+// build: symbol ?gszAiBaalSourceFile@* 0x006E3580
+    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszAiBaalSourceFile, 0x131);
     if (nSkillId == SKILL_BLIZZARD || nSkillId == SKILL_METEOR)
     {
         return 1;
@@ -395,7 +396,7 @@ static int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 
 static inline int AIBAAL_GetSkillId_Inline(D2SkillStrc* pSkill)
 {
-    return SKILLS_GetSkillIdFromSkill(pSkill, szAiBaalCpp_006E3580, 0x131);
+    return SKILLS_GetSkillIdFromSkill(pSkill, gszAiBaalSourceFile, 0x131);
 }
 
 static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit);

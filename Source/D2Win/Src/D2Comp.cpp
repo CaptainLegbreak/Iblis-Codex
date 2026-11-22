@@ -149,7 +149,7 @@ extern "C" const char szBinExtension_006DCC68[]; // 0x006DCC68
 
 extern int gbD2WinBinMode_0072EF2C; // 0x0072EF2C
 
-extern "C" const char szBinFieldEnd_006D9060[]; // 0x006D9060
+extern "C" const char gszTxtField_end[]; // 0x006D9060
 
 extern "C" const char szItemsTableMisc_006DCC70[]; // 0x006DCC70
 
@@ -1352,7 +1352,7 @@ void __fastcall D2COMP_LoadItems(void* hArchive)
         { szItemsField2HandedWClass_006DCC98, 9, 0, 0xC4, 0 },
         { szItemsField1or2Handed_006DCC8C, 6, 0, 0x13D, 0 },
         { szItemsFieldTransform_006DCC80, 4, 0, 0x141, 0 },
-        { szBinFieldEnd_006D9060, 0, 0, 0, 0 },
+        { gszTxtField_end, 0, 0, 0, 0 },
     };
 
     D2ItemsTxt* pWeapons = (D2ItemsTxt*)D2COMP_CompileTxt(hArchive, szItemsTableWeapons_006DCCF8, aItemsFields, &gnWeaponsTxtRecordCount_008426F8, sizeof(D2ItemsTxt));
@@ -1411,7 +1411,7 @@ void __fastcall D2COMP_LoadItemTypes(void* hArchive)
         { szItemTypesFieldCode_006DCCE0, 0xA, 0, 0, &gpItemTypesLinker_0087D828 },
         { szItemTypesFieldEquiv1_006DCD14, 0xF, 0, 4, &gpItemTypesLinker_0087D828 },
         { szItemTypesFieldEquiv2_006DCD0C, 0xF, 0, 6, &gpItemTypesLinker_0087D828 },
-        { szBinFieldEnd_006D9060, 0, 0, 0, 0 },
+        { gszTxtField_end, 0, 0, 0, 0 },
     };
 
     gpItemTypesLinker_0087D828 = sub_006BD040(".\\Src\\D2Comp.cpp", 0xA97);

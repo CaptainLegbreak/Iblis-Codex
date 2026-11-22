@@ -100,7 +100,7 @@ struct D2UnkPlrMsgStrc
     int field_8;
 };
 
-extern D2UnkPlrMsgStrc stru_6FD30708[20]; // 0x007319E8
+extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
 
 void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc* pClient, unsigned char nPacketId, unsigned char nUnitType, int nUnitId, unsigned char nHitClass, unsigned short nX, unsigned short nY, unsigned char nHitType, unsigned char nLife); // 0x0053B4B0
 
@@ -683,9 +683,9 @@ typedef void (__fastcall* D2ClientCallback)(D2ClientStrc*, void*);
 
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
-extern int gbWhispTextNotListening_6FD4DC24; // 0x008846E0
+extern int gbWhispReceiverNotListening; // 0x008846E0
 
-extern int gbWhispTextInGame_6FD4DC20; // 0x008846E4
+extern int gbWhispReceiverInGame; // 0x008846E4
 
 void __fastcall D2GAME_PACKETS_HandlePlayerMessage_6FC847B0(D2ClientStrc*, void*); // 0x0054A470
 
@@ -732,7 +732,7 @@ struct D2WarpDelayStrc
     int nDelay;
 };
 
-extern const D2WarpDelayStrc gWarpDelays_006E1064[3]; // 0x006E1064
+extern const D2WarpDelayStrc gaWarpDelays[3]; // 0x006E1064
 
 void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00539360
 
@@ -993,13 +993,13 @@ void __fastcall PLRMSG_SendKnockbackMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     else
         nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     const int nUnitId = pUnit->dwUnitId;
-    D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)stru_6FD30708[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), nHitClass, nX, nY);
+    D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)gaUnitModeMessages[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), nHitClass, nX, nY);
 }
 
 // 0x00548350
 void __fastcall PLRMSG_SendGetHitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
 {
-    const int nField = stru_6FD30708[nAnimMode].field_4;
+    const int nField = gaUnitModeMessages[nAnimMode].field_4;
     const char nHitClass = pUnit->dwLastHitClass;
     const char nLife = UNITS_GetCurrentLifePercentage(pUnit);
     int nY;
@@ -1021,7 +1021,7 @@ void __fastcall PLRMSG_SendNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2C
     if (pUnit != CLIENTS_GetPlayerFromClient(pClient, 0))
     {
         const unsigned char nLife = UNITS_GetCurrentLifePercentage(pUnit);
-        const int nHitClass = stru_6FD30708[nAnimMode].field_4;
+        const int nHitClass = gaUnitModeMessages[nAnimMode].field_4;
         int nY;
         if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
             nY = pUnit->pStaticPath->tGameCoords.nY;
@@ -2668,8 +2668,8 @@ MalformedChat:
     D2ClientCallback pCallback;
     if (bWhisper) { packet26.nMessageType = 2; pCallback = D2GAME_PACKETS_HandleWhisper_6FC848A0; }
     else { packet26.nMessageType = 1; pCallback = D2GAME_PACKETS_HandlePlayerMessage_6FC847B0; }
-    gbWhispTextInGame_6FD4DC20 = 0;
-    gbWhispTextNotListening_6FD4DC24 = 0;
+    gbWhispReceiverInGame = 0;
+    gbWhispReceiverNotListening = 0;
     D2GSPacketSrv26Args args;
     args.pPacket26 = &packet26;
     args.pPacket15 = &packet15;
@@ -2677,7 +2677,7 @@ MalformedChat:
     GAME_ForEachIngameClient(pGame, pCallback, &args);
     if (packet26.nMessageType == 2)
     {
-        if (gbWhispTextNotListening_6FD4DC24)
+        if (gbWhispReceiverNotListening)
         {
             D2GSPacketSrv5A packet5A = {};
             packet5A.nHeader = 0x5A;
@@ -2688,7 +2688,7 @@ MalformedChat:
             packet5A.szText[15] = 0;
             D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0xA2C), &packet5A);
         }
-        else if (!gbWhispTextInGame_6FD4DC20)
+        else if (!gbWhispReceiverInGame)
         {
             D2GSPacketSrv5A packet5A = {};
             packet5A.nHeader = 0x5A;
@@ -4498,13 +4498,13 @@ static int __stdcall PLRMSG_WarpToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         int nRand = (unsigned int)lSeed % 100;
         for (int i = 0; i < 3; ++i)
         {
-            if (nRand < gWarpDelays_006E1064[i].nChance)
+            if (nRand < gaWarpDelays[i].nChance)
             {
-                nDelay = gWarpDelays_006E1064[i].nDelay;
+                nDelay = gaWarpDelays[i].nDelay;
                 break;
             }
 
-            nRand -= gWarpDelays_006E1064[i].nChance;
+            nRand -= gaWarpDelays[i].nChance;
         }
     }
 

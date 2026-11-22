@@ -94,7 +94,7 @@ void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc
 
 void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
 
-extern const int gnTownLevelIds_006E7D1C[5]; // 0x006E7D1C
+extern const int gnTownLevelIdsByAct[5]; // 0x006E7D1C
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 

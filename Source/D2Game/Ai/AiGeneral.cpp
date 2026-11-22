@@ -131,7 +131,7 @@ extern const char gszAiGeneralSourceFile[]; // 0x006E1B24
 
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit);
 
-extern const char gszAiGeneral_006E1B24[]; // 0x006E1B24
+extern const char gszAiGeneralSourceFile[]; // 0x006E1B24
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -702,7 +702,7 @@ void __fastcall AIGENERAL_DetachOwnedMinions(D2UnitStrc* pUnit)
    minionControl->dwOwnerTypeEx=1;
    minionControl->pGame=game;
   }
-  FOG_FreePool(game->pMemoryPool,node,gszAiGeneral_006E1B24,567,0);
+  FOG_FreePool(game->pMemoryPool,node,gszAiGeneralSourceFile,567,0);
   node=next;
  }
  ownerControl->pMinionList=0;

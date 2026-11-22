@@ -17,8 +17,8 @@ struct D2WanderingRange
     unsigned char nBase;
     unsigned char nCount;
 };
-extern D2WanderingRange gWanderingRanges_00731B30[]; // 0x00731B30
-extern int gWanderingIds_00731B2C[]; // 0x00731B2C
+extern D2WanderingRange gaWanderingRanges[]; // 0x00731B30
+extern int gnWanderingIds[]; // 0x00731B2C
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 int __fastcall sub_0054DC40_FindSpawnPosition(D2GameStrc*, D2ActiveRoomStrc*, D2UnitStrc*, int, int*, int*, int); // 0x0054DC40
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
@@ -42,11 +42,11 @@ static void __stdcall sub_0054EF50_SpawnWandering(
     unsigned char nAct = pLevels->nAct;
     if (nAct >= 5)
         return;
-    int nCount = gWanderingRanges_00731B30[nAct].nCount;
-    int nBase = gWanderingRanges_00731B30[nAct].nBase;
+    int nCount = gaWanderingRanges[nAct].nCount;
+    int nBase = gaWanderingRanges[nAct].nBase;
     if (!nCount)
         return;
-    int nMonster = gWanderingIds_00731B2C[SEED_RollLimitedRandomNumber(pRoom ? &pRoom->pSeed : 0, nCount) + nBase];
+    int nMonster = gnWanderingIds[SEED_RollLimitedRandomNumber(pRoom ? &pRoom->pSeed : 0, nCount) + nBase];
     int nX;
     int nY;
     if (!sub_0054DC40_FindSpawnPosition(pGame, pRoom, 0, nMonster, &nX, &nY, 0))

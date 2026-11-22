@@ -111,9 +111,9 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
 
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 
-extern const int gnBugLightningXOffsets_006E21A8[]; // 0x006E21A8
+extern const int gnBugLightningXOffsets[]; // 0x006E21A8
 
-extern const int gnBugLightningYOffsets_006E2198[]; // 0x006E2198
+extern const int gnBugLightningYOffsets[]; // 0x006E2198
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -175,7 +175,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern PartyCommandFunc gpfPartyCommands_6FD28E60[10]; // 0x006E2218
+extern PartyCommandFunc gpfnPartyCommands[10]; // 0x006E2218
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
@@ -261,7 +261,7 @@ typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUniqu
 
 typedef void (__fastcall* MinionCallbackFunc)(D2UnitStrc* pUnit, void* pArg1, void* pArg2);
 
-extern UModInitFunc gpUModInitFunctions_0073C008[];                                                         // 0x0073C008
+extern UModInitFunc gpfnUModInitFunctions[];                                                         // 0x0073C008
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 
@@ -330,7 +330,7 @@ struct D2AuraEnchantStrc
     int nSkillId;
 };
 
-extern D2AuraEnchantStrc gAuraEnchantTable_0073BF68[8]; // 0x0073BF68
+extern D2AuraEnchantStrc gaAuraEnchantTable[8]; // 0x0073BF68
 
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
@@ -503,7 +503,7 @@ static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 // build: context InitUMod
 static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    UModInitFunc pfnInit = gpUModInitFunctions_0073C008[nUMod];
+    UModInitFunc pfnInit = gpfnUModInitFunctions[nUMod];
     if (pfnInit)
     {
         pfnInit(pUnit, nUMod, bUnique);
@@ -1091,7 +1091,7 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
     int nCount = 0;
     for (int i = 0; i < 8; ++i)
     {
-        if (gAuraEnchantTable_0073BF68[i].nLevel <= nLevel)
+        if (gaAuraEnchantTable[i].nLevel <= nLevel)
         {
             ++nCount;
         }
@@ -1119,11 +1119,11 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
         return;
     }
 
-    int nSkillLevel = (gAuraEnchantTable_0073BF68[nIndex].nLevelAdd + nLevel) * gAuraEnchantTable_0073BF68[nIndex].nMul / gAuraEnchantTable_0073BF68[nIndex].nDiv;
+    int nSkillLevel = (gaAuraEnchantTable[nIndex].nLevelAdd + nLevel) * gaAuraEnchantTable[nIndex].nMul / gaAuraEnchantTable[nIndex].nDiv;
     nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), 99);
 
-    D2GAME_SetSkills_6FD14C60(pUnit, gAuraEnchantTable_0073BF68[nIndex].nSkillId, nSkillLevel, 1);
-    D2GAME_AssignSkill_6FD13800(pUnit, 0, gAuraEnchantTable_0073BF68[nIndex].nSkillId, -1);
+    D2GAME_SetSkills_6FD14C60(pUnit, gaAuraEnchantTable[nIndex].nSkillId, nSkillLevel, 1);
+    D2GAME_AssignSkill_6FD13800(pUnit, 0, gaAuraEnchantTable[nIndex].nSkillId, -1);
 }
 
 static inline D2MissilesTxt* MONUNIQUE_GetMissilesTxtRecord_Inline(int nMissileId)
@@ -1566,14 +1566,14 @@ int __fastcall PARTYSCREEN_CommandHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         return 0;
     }
 
-    if (gpfPartyCommands_6FD28E60[nCallbackId])
+    if (gpfnPartyCommands[nCallbackId])
     {
-        if (IsBadCodePtr((FARPROC)gpfPartyCommands_6FD28E60[nCallbackId]))
+        if (IsBadCodePtr((FARPROC)gpfnPartyCommands[nCallbackId]))
         {
             return 3;
         }
 
-        gpfPartyCommands_6FD28E60[nCallbackId](pGame, pUnit, pOtherPlayer, nParam, &bFailure);
+        gpfnPartyCommands[nCallbackId](pGame, pUnit, pOtherPlayer, nParam, &bFailure);
         if (bFailure)
         {
             return 3;
@@ -1810,8 +1810,8 @@ void __fastcall MONSTERUNIQUE_CastBugLightningMissile(D2GameStrc* pGame, D2UnitS
     {
         const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
         const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
-        const int nX = gnBugLightningXOffsets_006E21A8[i] + nUnitX;
-        const int nY = gnBugLightningYOffsets_006E2198[i] + nUnitY;
+        const int nX = gnBugLightningXOffsets[i] + nUnitX;
+        const int nY = gnBugLightningYOffsets[i] + nUnitY;
 
         for (int j = 0; j < 2; ++j)
         {
@@ -2479,7 +2479,8 @@ static void __stdcall MONSTERUNIQUE_SpawnMinions(D2GameStrc* pGame, D2ActiveRoom
 
     for (int i = 0; i < 4; ++i)
     {
-        const int nUMod = gnBaseUMods_006E2168[i];
+// build: symbol ?gnBaseUMods@* 0x006E2168
+        const int nUMod = gnBaseUMods[i];
         InitUMod(pUnit, nUMod, 1);
         AIGENERAL_ExecuteCallbackOnMinions(pUnit, (void*)nUMod, 0, (MinionCallbackFunc)MONSTERUNIQUE_InitializeUMod);
     }
@@ -2719,7 +2720,8 @@ void __fastcall MONSTERUNIQUE_ApplyElementalDamage(D2GameStrc* pGame, D2UnitStrc
         return;
 
     const unsigned int nRand = MONUNIQUE_RollSeed_Inline(&pUnit->pSeed) % 5;
-    sub_005A21D0_ApplyElementalDamageStats(pUnit, gnUniqueElementalStats_006E21B8[nRand][0], gnUniqueElementalStats_006E21B8[nRand][1], gnUniqueElementalStats_006E21B8[nRand][2], pGame);
+// build: symbol ?gnUniqueElementalStats@* 0x006E21B8
+    sub_005A21D0_ApplyElementalDamageStats(pUnit, gnUniqueElementalStats[nRand][0], gnUniqueElementalStats[nRand][1], gnUniqueElementalStats[nRand][2], pGame);
 }
 
 #include "gen/data/Source/D2Game/MONSTER/MonsterUnique.inc"

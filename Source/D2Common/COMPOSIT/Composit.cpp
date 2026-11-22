@@ -40,15 +40,15 @@ struct D2ModeTypeTxt {char pad[0x20]; unsigned int token;};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern D2CompositStrc gPlayerModes_00745900[]; // 0x00745900
-extern unsigned int gPlayerModeCount_00745910; // 0x00745910
-extern D2CompositStrc gMonsterModes_00745914[]; // 0x00745914
-extern unsigned int gMonsterModeCount_0074591C; // 0x0074591C
+extern D2CompositStrc gaCompositPlayerModes[]; // 0x00745900
+extern unsigned int gnCompositPlayerModeCount; // 0x00745910
+extern D2CompositStrc gaCompositMonsterModes[]; // 0x00745914
+extern unsigned int gnCompositMonsterModeCount; // 0x0074591C
 extern const char gChars_006DCC34[]; // 0x006DCC34
 extern const char gMonsters_006D6CAC[]; // 0x006D6CAC
 extern const char gObjects_006E3628[]; // 0x006E3628
 extern const char gFormatPath_006D6C94[]; // 0x006D6C94
-extern const char gFormatCode_006D5514[]; // 0x006D5514
+extern const char gszCofTokenFormat[]; // 0x006D5514
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*,const char*,...); // 0x006CC468
 D2ModeTypeTxt* __stdcall DATATBLS_GetPlrModeTypeTxtRecord(int,int); // 0x0065B480
 D2ModeTypeTxt* __stdcall DATATBLS_GetMonModeTxtRecord(int,int); // 0x0065B500
@@ -184,7 +184,7 @@ static __forceinline void COMPOSIT_FormatPathInto(char* path,unsigned int classC
  m[1]=TOKEN_CHAR(((char*)&modeCode)[1]);
  m[2]=TOKEN_CHAR(((char*)&modeCode)[2]);
  m[3]=0;
- if(full)wsprintfA(path,gFormatPath_006D6C94,prefix,c,c,m,w);else wsprintfA(path,gFormatCode_006D5514,c,m,w);
+ if(full)wsprintfA(path,gFormatPath_006D6C94,prefix,c,c,m,w);else wsprintfA(path,gszCofTokenFormat,c,m,w);
 }
 
 // 0x0064F5B0
@@ -198,7 +198,7 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
   clsCode=DATATBLS_GetPlrModeTypeTxtRecord(cls,0)->token;
   modeCode=DATATBLS_GetPlrModeTypeTxtRecord(mode,1)->token;
   if(determine){if(mode && mode!=17){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,0,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
-  for(unsigned int i=0;i<gPlayerModeCount_00745910;++i)if(mode==gPlayerModes_00745900[i].nWeaponClassId)modeCode=gPlayerModes_00745900[i].code;
+  for(unsigned int i=0;i<gnCompositPlayerModeCount;++i)if(mode==gaCompositPlayerModes[i].nWeaponClassId)modeCode=gaCompositPlayerModes[i].code;
   if(mode==11 && *weapon!=0x20736831 && *weapon!=0x20746831 && *weapon!=0x20736A31 && *weapon!=0x20746A31 && *weapon!=0x20737331 && *weapon!=0x20747331)*weapon=0x20687468;
   COMPOSIT_FormatPathInto(path,clsCode,modeCode,weapon,gChars_006DCC34,full,w,c,m);return;
  }
@@ -209,7 +209,7 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
   modeCode=DATATBLS_GetMonModeTxtRecord(mode,1)->token;
   if(mode && mode!=12){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}
   else{if(MONSTERREGION_CheckMonStats2Flag(cls,16)){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
-  for(unsigned int i=0;i<gMonsterModeCount_0074591C;++i)if(mode==gMonsterModes_00745914[i].nWeaponClassId)modeCode=gMonsterModes_00745914[i].code;
+  for(unsigned int i=0;i<gnCompositMonsterModeCount;++i)if(mode==gaCompositMonsterModes[i].nWeaponClassId)modeCode=gaCompositMonsterModes[i].code;
   COMPOSIT_FormatPathInto(path,clsCode,modeCode,weapon,gMonsters_006D6CAC,full,w,c,m);return;
  }
  case 2:

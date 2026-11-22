@@ -162,7 +162,8 @@ extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int lin
 
 extern "C" ClientNode* __fastcall sub_006BE540_FindClient(Server* server,int clientId);
 
-extern "C" const int gCollisionPatterns_006EB3DC[4];
+// build: symbol _gaCollisionPatternsFromSize 0x006EB3DC
+extern "C" const int gaCollisionPatternsFromSize[4];
 
 struct Obj006BCDE0 {
     unsigned int dwUnknown00;
@@ -309,7 +310,8 @@ typedef char check_DirectionRecord_angle[OFFSET(DirectionRecord,angle)==8?1:-1];
 
 typedef char check_DirectionRecord_size[sizeof(DirectionRecord)==12?1:-1];
 
-extern DirectionRecord gDirectionTable_006EB7E0[128];
+// build: symbol ?gaTanToDirectionTable@* 0x006EB7E0
+extern DirectionRecord gaTanToDirectionTable[128];
 
 struct D2TxtLinkEntryStrc { char code[4]; int index; };
 

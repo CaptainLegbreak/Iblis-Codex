@@ -88,7 +88,7 @@ typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 typedef char D2UnkNecSkillStrcSizeCheck[sizeof(D2UnkNecSkillStrc) == 0x68 ? 1 : -1];
 
-extern const int gaMonCurseIds_006E3228[5]; // 0x006E3228
+extern const int gaMonCurseIds[5]; // 0x006E3228
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
 int __fastcall sub_6FD0B450(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
@@ -172,7 +172,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 int __fastcall SKILLS_SrvDo112_MonCurseCast(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const unsigned int nIndex = SEED_RollRandomNumber(&pUnit->pSeed) % 5;
-    const int nCurseSkillId = gaMonCurseIds_006E3228[nIndex];
+    const int nCurseSkillId = gaMonCurseIds[nIndex];
 
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nCurseSkillId);
     if (!pSkillsTxtRecord || pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount)

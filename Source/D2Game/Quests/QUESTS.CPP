@@ -260,7 +260,7 @@ extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 
 int dword_6FD4DC34; // 0x008846DC
 
-extern const D2UnkPlrMsgStrc stru_6FD30708[]; // 0x007319E8
+extern const D2UnkPlrMsgStrc gaUnitModeMessages[]; // 0x007319E8
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -640,11 +640,11 @@ struct D2QuestIntroTableStrc
     unsigned char pad0x05[3];
 };
 
-extern int gnQuestInitTableCount_00731888;                                                                  // 0x00731888
+extern int gnQuestInitTableCount;                                                                  // 0x00731888
 
 extern D2QuestIntroTableStrc sgQuestIntro[];                                                  // 0x0073188C
 
-extern int gnQuestIntroTableCount_007318AC;                                                                 // 0x007318AC
+extern int gnQuestIntroTableCount;                                                                 // 0x007318AC
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 
@@ -1707,7 +1707,8 @@ void __fastcall OBJECTS_InitFunction07_CainGibbet(D2ObjInitFnStrc* pOp)
 // 0x005449D0
 void __cdecl QUESTS_DisableSequences()
 {
-    byte_0073150C = 0;
+// build: symbol ?gbQuestStateInitializationEnabled@* 0x0073150C
+    gbQuestStateInitializationEnabled = 0;
 }
 
 struct D2GameStrc;
@@ -1941,28 +1942,32 @@ static void QUESTS_SetActNpcIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
     {
         D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
         for (int i = 0; i < 6; ++i)
-            PLRINTRO_SetNpcIntroFlag(pIntro, gpAct1_NPCIds_007318B0[i]);
+// build: symbol ?gnAct1NpcIds@* 0x007318B0
+            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct1NpcIds[i]);
         break;
     }
     case 1:
     {
         D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
         for (int i = 0; i < 11; ++i)
-            PLRINTRO_SetNpcIntroFlag(pIntro, gpAct2_NPCIds_007318C8[i]);
+// build: symbol ?gnAct2NpcIds@* 0x007318C8
+            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct2NpcIds[i]);
         break;
     }
     case 2:
     {
         D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
         for (int i = 0; i < 7; ++i)
-            PLRINTRO_SetNpcIntroFlag(pIntro, gpAct3_NPCIds_007318F4[i]);
+// build: symbol ?gnAct3NpcIds@* 0x007318F4
+            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct3NpcIds[i]);
         break;
     }
     case 4:
     {
         D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
         for (int i = 0; i < 7; ++i)
-            PLRINTRO_SetNpcIntroFlag(pIntro, gpAct5_NPCIds_00731910[i]);
+// build: symbol ?gnAct5NpcIds@* 0x00731910
+            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct5NpcIds[i]);
         break;
     }
     }
@@ -2050,16 +2055,16 @@ void __fastcall QUESTS_UpdateNPCIntros(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
     switch (nAct)
     {
     case 0:
-        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gpAct1_NPCIds_007318B0, 6, &packet91);
+        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gnAct1NpcIds, 6, &packet91);
         break;
     case 1:
-        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gpAct2_NPCIds_007318C8, 11, &packet91);
+        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gnAct2NpcIds, 11, &packet91);
         break;
     case 2:
-        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gpAct3_NPCIds_007318F4, 7, &packet91);
+        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gnAct3NpcIds, 7, &packet91);
         break;
     case 4:
-        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gpAct5_NPCIds_00731910, 7, &packet91);
+        bUpdate = QUESTS_FillNpcIntroFlags(pIntroFlags, gnAct5NpcIds, 7, &packet91);
         break;
     default:
         return;
@@ -2642,7 +2647,7 @@ void __fastcall QUESTS_QuestInit(D2GameStrc* pGame)
     D2QuestDataStrc* pCurrent = 0;
     int i;
 
-    for (i = 0; i < gnQuestInitTableCount_00731888; ++i)
+    for (i = 0; i < gnQuestInitTableCount; ++i)
     {
         pCurrent = (D2QuestDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2QuestDataStrc), gszQuestsSourceFile, 0x195, 0);
         QUESTS_InitQuestData(pCurrent, pGame, sgQuestInit[i].nChainNo, sgQuestInit[i].bAct);
@@ -2656,7 +2661,7 @@ void __fastcall QUESTS_QuestInit(D2GameStrc* pGame)
         }
     }
 
-    for (i = 0; i < gnQuestIntroTableCount_007318AC; ++i)
+    for (i = 0; i < gnQuestIntroTableCount; ++i)
     {
         pCurrent = (D2QuestDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2QuestDataStrc), gszQuestsSourceFile, 0x1A1, 0);
         memset(pCurrent, 0, sizeof(D2QuestDataStrc));
@@ -2824,9 +2829,9 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
         pQuestControl->bPickedSet = 1;
         if (!bGameEnter)
         {
-            if (byte_0073150C)
+            if (gbQuestStateInitializationEnabled)
             {
-                for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
+                for (int i = 0; i < gnQuestInitTableCount; ++i)
                 {
                     D2QuestInitTableStrc* pQuestInit = &sgQuestInit[i];
                     D2_ASSERT(pQuestInit->bAct < 5, 0x637);
@@ -2887,7 +2892,7 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 
     D2GSPacketSrv5E packet5E;
     packet5E.nHeader = 0x5E;
-    for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
+    for (int i = 0; i < gnQuestInitTableCount; ++i)
     {
         D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pGame, sgQuestInit[i].nChainNo);
         D2_ASSERT(pQuest, 0x67C);
@@ -3291,7 +3296,7 @@ void __fastcall PLRMSG_SendUnitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Clie
 {
     const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
 
-    PlrMsgFunc pfSendMode = stru_6FD30708[nAnimMode].field_0;
+    PlrMsgFunc pfSendMode = gaUnitModeMessages[nAnimMode].field_0;
     if (pfSendMode)
     {
         D2_ASSERT(!IsBadCodePtr((FARPROC)pfSendMode), 328);

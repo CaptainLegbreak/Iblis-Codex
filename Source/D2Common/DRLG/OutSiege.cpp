@@ -176,7 +176,7 @@ static void DRLGOUTSIEGE_PlacePrisons(D2DrlgLevelStrc* pLevel);
 
 static void DRLGOUTSIEGE_ConnectBarricadeAndSiege(D2DrlgLevelStrc* pLevel);
 
-extern const D2CoordStrc gAct5WallSteps_006F1FD8[12]; // 0x006F1FD8
+extern const D2CoordStrc gaAct5WallSteps[12]; // 0x006F1FD8
 
 static const D2Act5CornerPresetStrc gAct5CornerPresets[3] =
 {
@@ -379,8 +379,8 @@ void __stdcall DRLGOUTSIEGE_PlaceRavineBorder(D2DrlgLevelStrc* pLevel)
     {
         const int nEntry = DRLGGRID_GetGridEntry(&pInfo->pGrid[0], nX, nY);
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nEntry - nKindBase + nPresetBase, -1, 0);
-        nX += 2 * gAct5WallSteps_006F1FD8[nEntry - nKindBase].nX;
-        nY += 2 * gAct5WallSteps_006F1FD8[nEntry - nKindBase].nY;
+        nX += 2 * gaAct5WallSteps[nEntry - nKindBase].nX;
+        nY += 2 * gaAct5WallSteps[nEntry - nKindBase].nY;
     }
 
     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nRight, 0, bTundra ? 0x3D6 : 0x38A, -1, 0);

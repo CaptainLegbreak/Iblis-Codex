@@ -6,7 +6,8 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIn
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
-#include "gen/data/Source/D2Game/Unknown_0052C280/gnInitSeed_00731004.inc"
+// build: symbol ?gnInitSeed@* 0x00731004
+#include "gen/data/Source/D2Game/Unknown_0052C280/gnInitSeed.inc"
 
 inline unsigned __int64 sub_I08_RollGameSeed(D2SeedStrc* pSeed)
 {
@@ -19,7 +20,7 @@ inline unsigned __int64 sub_I08_RollGameSeed(D2SeedStrc* pSeed)
 // 0x0052C280
 static void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
 {
-    if (gnInitSeed_00731004 == -1)
+    if (gnInitSeed == -1)
     {
         pGame->InitSeed = 0;
         D2LargeIntegerPartsStrc tCount;
@@ -31,9 +32,9 @@ static void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
     else
     {
         pGame->InitSeed = 1;
-        pGame->dwInitSeed = gnInitSeed_00731004;
+        pGame->dwInitSeed = gnInitSeed;
         SEED_InitSeed(&pGame->pGameSeed);
-        SEED_InitLowSeed(&pGame->pGameSeed, gnInitSeed_00731004);
+        SEED_InitLowSeed(&pGame->pGameSeed, gnInitSeed);
     }
 }
 

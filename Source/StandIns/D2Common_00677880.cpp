@@ -106,8 +106,8 @@ D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E47
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
 int __fastcall DRLG_CheckNotOverlappingUsingManhattanDistance(D2OffsetPosStrc* pCoord1, D2OffsetPosStrc* pCoord2, int nDistance); // 0x0066B860
 
-extern const int gnSpiderForestPresets_006F13BC[]; // 0x006F13BC
-extern const int gnJunglePresets_006F13F0[][4]; // 0x006F13F0
+extern const int gnSpiderForestPresets[]; // 0x006F13BC
+extern const int gnJunglePresets[][4]; // 0x006F13F0
 
 static void __stdcall sub_006777D0_OffsetByDirection(const D2PosStrc* pBase, int nDir, int nA, int nB, D2OffsetPosStrc* pOut); // 0x006777D0
 
@@ -162,19 +162,19 @@ static __forceinline int JUNGLE_NormalizePresetId(int nId)
         {
             if (nId & 0x10)
             {
-                nPDef = gnJunglePresets_006F13F0[nPDef][0];
+                nPDef = gnJunglePresets[nPDef][0];
             }
             if (nId & 0x20)
             {
-                nPDef = gnJunglePresets_006F13F0[nPDef][1];
+                nPDef = gnJunglePresets[nPDef][1];
             }
             if (nId & 0x40)
             {
-                nPDef = gnJunglePresets_006F13F0[nPDef][2];
+                nPDef = gnJunglePresets[nPDef][2];
             }
             if (nId & 0x80)
             {
-                nPDef = gnJunglePresets_006F13F0[nPDef][3];
+                nPDef = gnJunglePresets[nPDef][3];
             }
             D2_ASSERT(nPDef != 0, 0x78C);
             return nPDef;
@@ -185,7 +185,7 @@ static __forceinline int JUNGLE_NormalizePresetId(int nId)
 
     if (nId >= 16)
     {
-        nPDef = gnSpiderForestPresets_006F13BC[nId >> 4];
+        nPDef = gnSpiderForestPresets[nId >> 4];
         D2_ASSERT(nPDef != 0, 0x799);
     }
 
@@ -809,7 +809,8 @@ extern D2DrlgLinkStrc gAct4OutdoorDrlgLink[15]; // 0x006F0C00
 extern D2DrlgLinkStrc gAct4ChaosSanctumDrlgLink[15]; // 0x006F0CF0
 extern D2DrlgLinkStrc gAct5OutdoorDrlgLink[15];
 extern D2DrlgLinkStrc gAct5TundraDrlgLink[15];
-extern int dword_6FDEA6FC;
+// build: symbol ?gnDrlgLinkFlags@* 0x0096D66C
+extern int gnDrlgLinkFlags;
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -1037,7 +1038,7 @@ static __declspec(noinline) void sub_00678A20_CreateAct4LevelConnections(D2DrlgS
     sub_006772C0_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
     sub_006772C0_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
 
-    DRLG_GetLevel(pDrlg, 0x68)->pOutdoors->dwFlags |= dword_6FDEA6FC;
+    DRLG_GetLevel(pDrlg, 0x68)->pOutdoors->dwFlags |= gnDrlgLinkFlags;
 
     sub_00677680_AddLevelOrths(pDrlg, 0x6A, 0x67);
 }

@@ -366,9 +366,9 @@ void __fastcall SKILLS_StatRemoveCallback_MindBlast(D2UnitStrc* pUnit, int nStat
 
 typedef int (__fastcall *SkillDoFunc)(D2GameStrc*, D2UnitStrc*, int, int);
 
-extern const int gnSkillSrvDoFnCount_006E1274; // 0x006E1274
+extern const int gnSkillSrvDoFnCount; // 0x006E1274
 
-extern const SkillDoFunc gpSkillSrvDoFnTable_007322B0[]; // 0x007322B0
+extern const SkillDoFunc gpfnSkillSrvDoFunctions[]; // 0x007322B0
 
 unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc*); // 0x0045C370
 
@@ -465,13 +465,13 @@ struct D2PathPointStrc;
 
 struct D2ModeChangeStrc;
 
-extern int gnChargedBoltTurnEvery_00741B0C; // 0x00741B0C
+extern int gnSrvChargedBoltTurnEvery; // 0x00741B0C
 
-extern int gnChargedBoltTurnBase_00741B10; // 0x00741B10
+extern int gnSrvChargedBoltTurnBase; // 0x00741B10
 
-extern const int gnDirectionOffsetY_006E328C[]; // 0x006E328C
+extern const int gnCurvingPathOffsetY[]; // 0x006E328C
 
-extern const int gnDirectionOffsetX_006E32AC[]; // 0x006E32AC
+extern const int gnCurvingPathOffsetX[]; // 0x006E32AC
 
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
 
@@ -1925,20 +1925,20 @@ void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSe
     const unsigned int nRoll = SEED_RollLowInline(&tSeed);
     pSeed->nHighSeed = tSeed.nHighSeed;
     pSeed->nLowSeed = tSeed.nLowSeed;
-    int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_00741B10; // volatile only reproduces the original re-reading the turn base at each use
+    int nStep = nRoll % 3 + *(volatile int*)&gnSrvChargedBoltTurnBase; // volatile only reproduces the original re-reading the turn base at each use
     for (int i = 0; i < nFrames; ++i)
     {
         nDirection += nSign * nStep;
         const unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection & 63);
-        nX += gnDirectionOffsetX_006E32AC[nIndex];
-        nY += gnDirectionOffsetY_006E328C[nIndex];
+        nX += gnCurvingPathOffsetX[nIndex];
+        nY += gnCurvingPathOffsetY[nIndex];
         pPathPoints[i].X = nX;
         pPathPoints[i].Y = nY;
 
-        if (!(i % gnChargedBoltTurnEvery_00741B0C))
+        if (!(i % gnSrvChargedBoltTurnEvery))
         {
             nSign = -nSign;
-            nStep = SEED_RollRandomNumberInline(pSeed) % 3 + *(volatile int*)&gnChargedBoltTurnBase_00741B10;
+            nStep = SEED_RollRandomNumberInline(pSeed) % 3 + *(volatile int*)&gnSrvChargedBoltTurnBase;
         }
     }
 
@@ -2144,19 +2144,19 @@ void __fastcall SKILLS_ReleaseProgressiveCharges(D2GameStrc* pGame, D2UnitStrc* 
                 {
                     for (int j = 0; j < nCharges; ++j)
                     {
-                        if (pSkills->wProgFunc[j] > 0 && pSkills->wProgFunc[j] < gnSkillSrvDoFnCount_006E1274)
+                        if (pSkills->wProgFunc[j] > 0 && pSkills->wProgFunc[j] < gnSkillSrvDoFnCount)
                         {
                             STATLIST_SetStat(pStatList, pSkills->wAuraStat[0], j + 1, 0);
-                            SkillDoFunc pDo = gpSkillSrvDoFnTable_007322B0[pSkills->wProgFunc[j]];
+                            SkillDoFunc pDo = gpfnSkillSrvDoFunctions[pSkills->wProgFunc[j]];
                             if (pDo)
                                 pDo(pGame, pUnit, nSkill, nLevel);
                         }
                     }
                     STATLIST_SetStat(pStatList, pSkills->wAuraStat[0], nCharges + 1, 0);
                 }
-                if (pSkills->wProgFunc[nCharges] > 0 && pSkills->wProgFunc[nCharges] < gnSkillSrvDoFnCount_006E1274)
+                if (pSkills->wProgFunc[nCharges] > 0 && pSkills->wProgFunc[nCharges] < gnSkillSrvDoFnCount)
                 {
-                    SkillDoFunc pDo = gpSkillSrvDoFnTable_007322B0[pSkills->wProgFunc[nCharges]];
+                    SkillDoFunc pDo = gpfnSkillSrvDoFunctions[pSkills->wProgFunc[nCharges]];
                     if (pDo)
                         pDo(pGame, pUnit, nSkill, nLevel);
                 }

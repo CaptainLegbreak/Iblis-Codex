@@ -9,7 +9,7 @@ struct D2PortalFlags00581410Strc;
 
 typedef int (__fastcall* D2ModeCheckFn)(D2GameStrc*, D2UnitStrc*, int, int);
 
-extern D2ModeCheckFn gpModeChecks_00732C10[]; // 0x00732C10
+extern D2ModeCheckFn gpfnModeChecks[]; // 0x00732C10
 
 void __fastcall PLRMODE_EndAnimation(D2GameStrc*, D2UnitStrc*, int, int); // 0x00581020
 
@@ -34,9 +34,9 @@ void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); /
 void __fastcall sub_005811D0_CheckPlayerMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const int nMode = !pUnit ? 0 : pUnit->dwAnimMode;
-    if (gpModeChecks_00732C10[!pUnit ? 0 : pUnit->dwAnimMode])
+    if (gpfnModeChecks[!pUnit ? 0 : pUnit->dwAnimMode])
     {
-        if (gpModeChecks_00732C10[nMode](pGame, pUnit, nSkillId, nSkillLevel) == 2)
+        if (gpfnModeChecks[nMode](pGame, pUnit, nSkillId, nSkillLevel) == 2)
         {
             PLRMODE_EndAnimation(pGame, pUnit, nSkillId, nSkillLevel);
         }

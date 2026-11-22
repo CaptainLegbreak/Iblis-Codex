@@ -102,7 +102,7 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 void __fastcall ACT3Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-extern unsigned indices_00741518[]; // 0x00741518
+extern unsigned gnAct3Q6NpcMessageIndices[]; // 0x00741518
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int nUnitGUID); // 0x005452C0
@@ -338,7 +338,7 @@ void __fastcall ACT3Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestAr
         return;
     }
     {
-        unsigned nIndex = indices_00741518[nState];
+        unsigned nIndex = gnAct3Q6NpcMessageIndices[nState];
         if (nIndex != -1 && nIndex < 8) QUESTS_InitScrollTextChain(pQuest, pQuestArg->pTextControl, nNpcId, nIndex);
     }
 }

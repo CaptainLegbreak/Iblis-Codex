@@ -107,9 +107,9 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-extern unsigned char gaByteTable_007455C0[256]; // 0x007455C0
+extern unsigned char gabDirection64To16[256]; // 0x007455C0
 
-extern unsigned char gaByteTable_00745640[256]; // 0x00745640
+extern unsigned char gabDirection8To64[256]; // 0x00745640
 
 void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
 
@@ -584,7 +584,7 @@ void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pI
 
 void __stdcall sub_006275B0(D2UnitStrc*); // 0x006275B0
 
-extern D2QuestItemPairStrc gQuestItemPairs_00731FEC[4]; // 0x00731FEC
+extern D2QuestItemPairStrc gaQuestItemPairs[4]; // 0x00731FEC
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
@@ -868,9 +868,9 @@ int __stdcall ITEMMODE_TryMergeBookQuantity(D2GameStrc* pGame, D2UnitStrc* pUnit
 
 static int __stdcall ITEMMODE_PlaceItemAtFreeInventoryPosition(D2GameStrc* pGame, int bRemove, int nPage, const char* szFile, int nLine, D2UnitStrc* pUnit, D2UnitStrc* pItem);
 
-int dword_0088C6FC; // 0x0088C6FC
+int gnHoradricCubeItemId; // 0x0088C6FC
 
-bool byte_0088C700; // 0x0088C700
+bool gbHoradricCubeItemIdInitialized; // 0x0088C700
 
 void __fastcall D2GAME_PickupItemEx_6FC42B80(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus);
 
@@ -2093,10 +2093,10 @@ int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Un
     {
         for (unsigned int i = 0; i < 4; ++i)
         {
-            if (pItemsTxtRecord->nQuest == gQuestItemPairs_00731FEC[i].nItemQuest)
+            if (pItemsTxtRecord->nQuest == gaQuestItemPairs[i].nItemQuest)
             {
                 D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-                if (QUESTRECORD_GetQuestState(pQuestFlags, gQuestItemPairs_00731FEC[i].nQuestFlag, QFLAG_REWARDGRANTED))
+                if (QUESTRECORD_GetQuestState(pQuestFlags, gaQuestItemPairs[i].nQuestFlag, QFLAG_REWARDGRANTED))
                 {
                     return 0;
                 }
@@ -4195,13 +4195,13 @@ void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
 // 0x0063E780
 unsigned char __stdcall D2Common_11052(unsigned char nIndex)
 {
-    return gaByteTable_007455C0[nIndex];
+    return gabDirection64To16[nIndex];
 }
 
 // 0x0063E7C0
 unsigned char __stdcall D2Common_11054(unsigned char nIndex)
 {
-    return gaByteTable_00745640[nIndex];
+    return gabDirection8To64[nIndex];
 }
 
 // 0x0055F2D0
@@ -5402,18 +5402,18 @@ int __fastcall ITEMMODE_SwapCursorAndStoredItem(D2GameStrc* ptGame, D2UnitStrc* 
     const char nInvPage = ITEMS_GetInventoryPage(hGridItem);
     if (nInvPage == 3)
     {
-        if (!byte_0088C700)
+        if (!gbHoradricCubeItemIdInitialized)
         {
-            if (!DATATBLS_GetItemRecordFromItemCode(0x20786F62, &dword_0088C6FC))
+            if (!DATATBLS_GetItemRecordFromItemCode(0x20786F62, &gnHoradricCubeItemId))
             {
                 return 0;
             }
 
-            byte_0088C700 = 1;
+            gbHoradricCubeItemIdInitialized = 1;
         }
 
         const int nClassId = (pCursorItem ? pCursorItem->dwClassId : -1);
-        if (nClassId == dword_0088C6FC)
+        if (nClassId == gnHoradricCubeItemId)
         {
             return 0;
         }

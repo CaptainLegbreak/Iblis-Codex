@@ -417,7 +417,7 @@ int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile);                         
 
 D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc*,D2MissileStrc*);  // 0x0059FA30
 
-extern int data_006E31E8[16],data_006E31A8[16];  // 0x006E31A8
+extern int gnPrimePoisonNovaX[16],data_006E31A8[16];  // 0x006E31A8
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
@@ -639,9 +639,9 @@ int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nObjectType, int nObjectGUID, int* pResult); // 0x00584420
 
-extern const int gnHydraOffsetX_006E312C[]; // 0x006E312C
+extern const int gnHydraOffsetX[]; // 0x006E312C
 
-extern const int gnHydraOffsetY_006E3120[]; // 0x006E3120
+extern const int gnHydraOffsetY[]; // 0x006E3120
 
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
@@ -1552,7 +1552,7 @@ inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
     return 0;
 }
 
-// build: symbol ?data_006E31E8@@3PAHA 0x006E31E8
+// build: symbol ?gnPrimePoisonNovaX@@3PAHA 0x006E31E8
 // 0x005CCD10
 int __fastcall SKILLS_SrvDo099_PrimePoisonNova(D2GameStrc* game,D2UnitStrc* unit,int skill,int level)
 {
@@ -1576,14 +1576,14 @@ int __fastcall SKILLS_SrvDo099_PrimePoisonNova(D2GameStrc* game,D2UnitStrc* unit
   int step=SKILLS_EvaluateSkillFormula(unit,record->dwCalc[1],skill,level);
   if(step<1) step=1;
   for(int i=0;i<16;i+=2) {
-   params.nTargetX=data_006E31E8[i];
+   params.nTargetX=gnPrimePoisonNovaX[i];
    params.nTargetY=data_006E31A8[i];
    sub_0059FA30(game,&params);
   }
   params.nVelocity=missileRecord->dwParam[1]<<6;
   if(step>1) {
    for(int i=0;i<15;i+=step) {
-    params.nTargetX=data_006E31E8[i+1];
+    params.nTargetX=gnPrimePoisonNovaX[i+1];
     params.nTargetY=data_006E31A8[i+1];
     sub_0059FA30(game,&params);
    }
@@ -1990,7 +1990,7 @@ typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 typedef char D2UnkNecSkillStrcSizeCheck[sizeof(D2UnkNecSkillStrc) == 0x68 ? 1 : -1];
 
-extern const int gaMonCurseIds_006E3228[5]; // 0x006E3228
+extern const int gaMonCurseIds[5]; // 0x006E3228
 
 int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
 

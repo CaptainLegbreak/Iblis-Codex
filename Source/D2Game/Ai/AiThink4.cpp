@@ -777,9 +777,9 @@ bool __fastcall AITHINK_SelectGenericSpawnClass(D2GameStrc* pGame, D2UnitStrc* p
 
 bool __fastcall AITHINK_MapAiAction_WalkToPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition); // 0x005E6DE0
 
-extern "C" const int gnDesertTurretIndices_006E33E0[64]; // 0x006E33E0
+extern "C" const int gnDesertTurretIndices[64]; // 0x006E33E0
 
-extern "C" const D2CoordStrc gDesertTurretOffsets_006E33A0[8]; // 0x006E33A0
+extern "C" const D2CoordStrc gaDesertTurretOffsets[8]; // 0x006E33A0
 
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
 
@@ -1103,7 +1103,7 @@ bool __fastcall AITHINK_ReturnToHomeIfTooFar(D2GameStrc* pGame, D2UnitStrc* pUni
 
 typedef bool (__fastcall* MAPAIACTIONFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition);
 
-extern MAPAIACTIONFN gpfMapAiActions_00741D74[7]; // 0x00741D74
+extern MAPAIACTIONFN gpfnMapAiActions[7]; // 0x00741D74
 
 int __fastcall ACT3Q3_GetAltarCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord); // 0x005B9CA0
 
@@ -1534,15 +1534,15 @@ extern "C" int __cdecl abs(int);
 
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc*, int); // 0x006488A0
 
-extern const unsigned char gnDirectionMap_006E3540[]; // 0x006E3540
+extern const unsigned char gnGargoyleTrapDirectionMap[]; // 0x006E3540
 
-extern const unsigned char gnDirectionAxis_006E353C[]; // 0x006E353C
+extern const unsigned char gnGargoyleTrapDirectionAxis[]; // 0x006E353C
 
 struct D2CoordListStrc;
 
 extern D2DataTablesStrc* gpDataTables; // 0x00744304
 
-extern const unsigned char gnPetDirections_006E34F0[]; // 0x006E34F0
+extern const unsigned char gnPetMoveDirections[]; // 0x006E34F0
 
 int __fastcall sub_0054DC40_FindSpawnCoordinates(D2GameStrc*, D2ActiveRoomStrc*, D2CoordListStrc*, int, int*, int*, int); // 0x0054DC40
 
@@ -1656,7 +1656,7 @@ enum D2C_M422FingerMageAi
 
 D2UnitStrc* __fastcall AITHINK_FindTargetForMephisto(D2GameStrc*,D2UnitStrc*,D2MonStatsTxt*,D2UnitStrc*); // 0x005F77C0
 
-extern D2CoordStrc offsets_006E337C[]; // 0x006E337C
+extern D2CoordStrc gaHighPriestSkillOffsets[]; // 0x006E337C
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E0430
 
@@ -1996,8 +1996,8 @@ void __fastcall sub_005E0490_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         if (pMonStatsTxt->nSkill[0] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1] && nDistance < AI_PARAM(pGame, pMonStatsTxt, 7)
             && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 3)) {
             int nIndex = sub_00472210_SeedRollMasked(pSeed, 4);
-            int nX = CLIENTS_GetUnitX(pTarget) + offsets_006E337C[nIndex].nX;
-            int nY = CLIENTS_GetUnitY(pTarget) + offsets_006E337C[nIndex].nY;
+            int nX = CLIENTS_GetUnitX(pTarget) + gaHighPriestSkillOffsets[nIndex].nX;
+            int nY = CLIENTS_GetUnitY(pTarget) + gaHighPriestSkillOffsets[nIndex].nY;
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, nX, nY);
             pAiControl->dwAiParam[1] = pGame->dwGameFrame + 100;
             return;
@@ -2117,11 +2117,11 @@ void __fastcall AITHINK_Fn094_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit,
     const int nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nTargetX, nTargetY);
     const int nIndex1 = pAiControl->dwAiParam[2] % 8;
     const int nIndex2 = INVENTORY_GetEightWayDirection(nDirection) % 8;
-    pAiControl->dwAiParam[2] = gnDesertTurretIndices_006E33E0[nIndex1 + 8 * nIndex2];
+    pAiControl->dwAiParam[2] = gnDesertTurretIndices[nIndex1 + 8 * nIndex2];
 
     const int nSpread = AITHINK_GetParam_Desert(pGame, pMonStatsTxt, 4);
-    const int nX = nUnitX + nSpread * gDesertTurretOffsets_006E33A0[pAiControl->dwAiParam[2]].nX;
-    const int nY = nUnitY + nSpread * gDesertTurretOffsets_006E33A0[pAiControl->dwAiParam[2]].nY;
+    const int nX = nUnitX + nSpread * gaDesertTurretOffsets[pAiControl->dwAiParam[2]].nX;
+    const int nY = nUnitY + nSpread * gaDesertTurretOffsets[pAiControl->dwAiParam[2]].nY;
 
     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
 
@@ -3654,7 +3654,7 @@ int __fastcall AITHINK_PetMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStr
         for (int i=0;i<8;++i)
         {
             int nDeltaX, nDeltaY;
-            INVENTORY_GetDirectionDelta(gnPetDirections_006E34F0[nDirection],(unsigned int*)&nDeltaX,(unsigned int*)&nDeltaY);
+            INVENTORY_GetDirectionDelta(gnPetMoveDirections[nDirection],(unsigned int*)&nDeltaX,(unsigned int*)&nDeltaY);
             const int nX=nOwnerX+8*nDeltaX;
             const int nY=nOwnerY+8*nDeltaY;
             if (sub_0061B130_GetCoordList(UNITS_GetRoom(pPlayer),nX,nY)==pCoords)
@@ -5708,7 +5708,7 @@ bool __fastcall AITHINK_ExecuteMapAiAction(D2GameStrc* pGame, D2UnitStrc* pUnit,
             return false;
         }
 
-        MAPAIACTIONFN pfAction = gpfMapAiActions_00741D74[pPosition->nMapAIAction];
+        MAPAIACTIONFN pfAction = gpfnMapAiActions[pPosition->nMapAIAction];
         if (pfAction)
         {
             bResult = pfAction(pGame, pUnit, pAiTickParam, pPosition);
@@ -14199,7 +14199,7 @@ void __fastcall AITHINK_Fn063_GargoyleTrap(D2GameStrc* pGame, D2UnitStrc* pUnit,
         nY = nUnitY;
     }
     const unsigned char nDirection = UNITS_GetDirectionToCoords(pUnit, nX, nY);
-    sub_006488A0_SetDirection(pUnit->pDynamicPath, gnDirectionAxis_006E353C[gnDirectionMap_006E3540[nDirection]]);
+    sub_006488A0_SetDirection(pUnit->pDynamicPath, gnGargoyleTrapDirectionAxis[gnGargoyleTrapDirectionMap[nDirection]]);
     if ((ABS_VALUE(nTargetX - nUnitX) < 6 || ABS_VALUE(nTargetY - nUnitY) < 6)
         && pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 0) && AI_RollPercentage_005F9490(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 1))
     {

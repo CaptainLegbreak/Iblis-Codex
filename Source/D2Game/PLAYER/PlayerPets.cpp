@@ -51,7 +51,7 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pUnit, const char* szFile, in
 
 void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 
-extern const char gszPlayerPets_006E15D8[]; // 0x006E15D8
+extern const char gszPlayerPetsSourceFile[]; // 0x006E15D8
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -296,7 +296,7 @@ static inline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
 // 0x00574410
 void __fastcall PLAYERPETS_PlayerIterate_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2PetUpdateStrc* pData)
 {
-    D2GAME_PACKETS_SendPacket0x7A_6FC3E100(UnitGetClient(pUnit, gszPlayerPets_006E15D8, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
+    D2GAME_PACKETS_SendPacket0x7A_6FC3E100(UnitGetClient(pUnit, gszPlayerPetsSourceFile, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
 }
 
 // 0x00574450

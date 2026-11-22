@@ -35,7 +35,7 @@ struct D2MonsterItemCodeStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern D2MonsterItemCodeStrc gaAncientBarbItems_006E1BB0[4][3]; // 0x006E1BB0
+extern D2MonsterItemCodeStrc gaAncientBarbItems[4][3]; // 0x006E1BB0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
@@ -117,7 +117,7 @@ static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     for (int i = 0; i < 4; ++i)
     {
-        D2MonsterItemCodeStrc tCode = gaAncientBarbItems_006E1BB0[i][nClassId];
+        D2MonsterItemCodeStrc tCode = gaAncientBarbItems[i][nClassId];
         int nItemId;
         D2ItemsTxt* pItemsTxt = DATATBLS_GetItemRecordFromItemCode(tCode.dwCode, &nItemId);
         switch (pGame->nDifficulty)

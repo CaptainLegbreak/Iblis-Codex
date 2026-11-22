@@ -41,15 +41,15 @@ void __stdcall sub_00564460_TASK_BalanceQueues(D2TaskStrc* pTask); // 0x00564460
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-D2TaskStrc* gtTaskSlots_0088C708[32]; // 0x0088C708
+D2TaskStrc* gtTaskSlots[32]; // 0x0088C708
 
-unsigned int gnNumberOfTasksCreated_0088C798; // 0x0088C798
+unsigned int gnNumberOfTasksCreated; // 0x0088C798
 
-static unsigned int gnGamesCount_0088C79C;        // 0x0088C79C
+static unsigned int gnGamesCount;        // 0x0088C79C
 
-D2CriticalSectionStrc gtTaskQueuesCriticalSections_0088C7A8[32]; // 0x0088C7A8
+D2CriticalSectionStrc gtTaskQueuesCriticalSections[32]; // 0x0088C7A8
 
-D2CriticalSectionStrc gTaskSlotsCriticalSection_0088CAA8; // 0x0088CAA8
+D2CriticalSectionStrc gTaskSlotsCriticalSection; // 0x0088CAA8
 
 struct D2TaskQueueStrc
 {
@@ -77,7 +77,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 
 extern D2TaskQueueStrc* gpTaskQueues_0088C708[32]; // 0x0088C708
 
-static D2LinkStrc gpTaskQueueLink_0088C788; // 0x0088C788
+static D2LinkStrc gpTaskQueueLink; // 0x0088C788
 
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
 
@@ -200,11 +200,11 @@ int __fastcall TASK_GetClockTime()
 static inline D2TaskStrc* TASK_LockTaskSlot(int nTaskNumber)
 {
     const int nIndex = nTaskNumber & 0x1F;
-    EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
-    D2TaskStrc* pTask = gtTaskSlots_0088C708[nIndex];
+    EnterCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
+    D2TaskStrc* pTask = gtTaskSlots[nIndex];
     if (!pTask)
     {
-        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
+        LeaveCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
     }
     return pTask;
 }
@@ -215,7 +215,7 @@ static inline void TASK_UnlockTaskSlot(D2TaskStrc* pTask)
     if (pTask)
     {
         D2_ASSERT((unsigned int)pTask->dwTaskQ < 32, 0x97);
-        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->dwTaskQ]);
+        LeaveCriticalSection(&gtTaskQueuesCriticalSections[pTask->dwTaskQ]);
     }
 }
 
@@ -264,23 +264,23 @@ static inline int TASK_GetScheduledTimeDelta(D2LinkStrc* pTaskLink, D2LinkStrc* 
 // 0x00564460
 void __stdcall sub_00564460_TASK_BalanceQueues(D2TaskQueueStrc* pNewQueue)
 {
-    const unsigned int nGamesPerQueue = gnGamesCount_0088C79C / gnNumberOfTasksCreated_0088C798;
-    const unsigned int nExtraGames = gnGamesCount_0088C79C % gnNumberOfTasksCreated_0088C798;
-    unsigned int nOtherQueueCount = gnNumberOfTasksCreated_0088C798 - 1;
+    const unsigned int nGamesPerQueue = gnGamesCount / gnNumberOfTasksCreated;
+    const unsigned int nExtraGames = gnGamesCount % gnNumberOfTasksCreated;
+    unsigned int nOtherQueueCount = gnNumberOfTasksCreated - 1;
     if (nOtherQueueCount >= 32)
     {
         nOtherQueueCount = 32;
     }
     int nQueuesWithExtraGame = (int)(nOtherQueueCount - nExtraGames);
 
-    for (D2LinkStrc* pQueueLink = gpTaskQueueLink_0088C788.pNext; pQueueLink != &gpTaskQueueLink_0088C788; pQueueLink = pQueueLink->pNext)
+    for (D2LinkStrc* pQueueLink = gpTaskQueueLink.pNext; pQueueLink != &gpTaskQueueLink; pQueueLink = pQueueLink->pNext)
     {
         D2TaskQueueStrc* pQueue = TASK_GetTaskQueueFromLink(pQueueLink);
         const bool bExtraGame = --nQueuesWithExtraGame >= 0;
         const unsigned int nQueueShare = nGamesPerQueue + (bExtraGame ? 1 : 0);
         int nWalkSteps = pQueue->nGameCount - (nQueueShare == 0 ? 1 : 0);
 
-        EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pQueue->nQueueIndex]);
+        EnterCriticalSection(&gtTaskQueuesCriticalSections[pQueue->nQueueIndex]);
         D2LinkStrc* pLastMoved = pQueue->tGameTasks.pPrev;
         D2LinkStrc* pGameTasks = &pQueue->tGameTasks;
         D2LinkStrc* pLastKept = pLastMoved;
@@ -295,7 +295,7 @@ void __stdcall sub_00564460_TASK_BalanceQueues(D2TaskQueueStrc* pNewQueue)
         D2LinkStrc* pMoved = pLastKept->pNext;
         pLastKept->pNext = pGameTasks;
         pGameTasks->pPrev = pLastKept;
-        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pQueue->nQueueIndex]);
+        LeaveCriticalSection(&gtTaskQueuesCriticalSections[pQueue->nQueueIndex]);
         if (pMoved == pGameTasks)
         {
             continue;
@@ -342,10 +342,10 @@ next_queue:
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x78);
         exit(-1);
     }
-    pLink->pPrev = &gpTaskQueueLink_0088C788;
-    pLink->pNext = gpTaskQueueLink_0088C788.pNext;
-    gpTaskQueueLink_0088C788.pNext->pPrev = pLink;
-    gpTaskQueueLink_0088C788.pNext = pLink;
+    pLink->pPrev = &gpTaskQueueLink;
+    pLink->pNext = gpTaskQueueLink.pNext;
+    gpTaskQueueLink.pNext->pPrev = pLink;
+    gpTaskQueueLink.pNext = pLink;
 }
 
 void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask); // 0x005645E0
@@ -359,25 +359,25 @@ void __stdcall sub_00564870_TASK_InitializeClock()
 // 0x00564890
 void __stdcall TASK_FreeAllQueueSlots()
 {
-    EnterCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
+    EnterCriticalSection(&gTaskSlotsCriticalSection);
 
     for (unsigned int i = 0; i < 32; ++i)
     {
-        EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[i]);
+        EnterCriticalSection(&gtTaskQueuesCriticalSections[i]);
 
-        if (D2TaskStrc* pTask = gtTaskSlots_0088C708[i])
+        if (D2TaskStrc* pTask = gtTaskSlots[i])
         {
             TASK_LinkList_Remove(&pTask->pTaskQueueLink);
-            FOG_FreeServerMemory(0, gtTaskSlots_0088C708[i], ".\\GAME\\Task.cpp", 0x330, 0);
-            gtTaskSlots_0088C708[i] = 0;
+            FOG_FreeServerMemory(0, gtTaskSlots[i], ".\\GAME\\Task.cpp", 0x330, 0);
+            gtTaskSlots[i] = 0;
         }
 
-        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[i]);
+        LeaveCriticalSection(&gtTaskQueuesCriticalSections[i]);
     }
 
-    gnNumberOfTasksCreated_0088C798 = 0;
-    gnGamesCount_0088C79C = 0;
-    LeaveCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
+    gnNumberOfTasksCreated = 0;
+    gnGamesCount = 0;
+    LeaveCriticalSection(&gTaskSlotsCriticalSection);
 }
 
 // 0x00564940
@@ -394,16 +394,16 @@ void __fastcall TASK_ClearValue(void* pUnused, int* pValue)
 // 0x00564960
 int __cdecl TASK_CreateQueue()
 {
-    EnterCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
-    if (!gpTaskQueueLink_0088C788.pPrev)
+    EnterCriticalSection(&gTaskSlotsCriticalSection);
+    if (!gpTaskQueueLink.pPrev)
     {
-        gpTaskQueueLink_0088C788.pPrev = &gpTaskQueueLink_0088C788;
-        gpTaskQueueLink_0088C788.pNext = &gpTaskQueueLink_0088C788;
+        gpTaskQueueLink.pPrev = &gpTaskQueueLink;
+        gpTaskQueueLink.pNext = &gpTaskQueueLink;
     }
 
-    const int nIndex = gnNumberOfTasksCreated_0088C798++ & 0x1F;
-    EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
-    if (!gtTaskSlots_0088C708[nIndex])
+    const int nIndex = gnNumberOfTasksCreated++ & 0x1F;
+    EnterCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
+    if (!gtTaskSlots[nIndex])
     {
         D2TaskStrc* pTask = (D2TaskStrc*)sub_0040B430(0, sizeof(D2TaskStrc), ".\\GAME\\Task.cpp", 0x3FB, 0);
         pTask->dwTaskQ = nIndex;
@@ -411,11 +411,11 @@ int __cdecl TASK_CreateQueue()
         D2LinkStrc* pBalanceLink = &pTask->pTaskBalanceLink;
         pBalanceLink->pPrev = pBalanceLink;
         pBalanceLink->pNext = pBalanceLink;
-        gtTaskSlots_0088C708[nIndex] = pTask;
+        gtTaskSlots[nIndex] = pTask;
         sub_00564460_TASK_BalanceQueues(pTask);
     }
-    LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
-    LeaveCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
+    LeaveCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
+    LeaveCriticalSection(&gTaskSlotsCriticalSection);
     return nIndex;
 }
 
@@ -453,30 +453,30 @@ int __fastcall sub_00564A00_QueueGame(D2TaskGameStrc* pTaskGame, int nArg, unsig
     pTaskGame->nArg = nArg;
     pTaskGame->hGame = hGame;
 
-    EnterCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
-    if (!gpTaskQueueLink_0088C788.pPrev)
+    EnterCriticalSection(&gTaskSlotsCriticalSection);
+    if (!gpTaskQueueLink.pPrev)
     {
-        gpTaskQueueLink_0088C788.pPrev = &gpTaskQueueLink_0088C788;
-        gpTaskQueueLink_0088C788.pNext = &gpTaskQueueLink_0088C788;
+        gpTaskQueueLink.pPrev = &gpTaskQueueLink;
+        gpTaskQueueLink.pNext = &gpTaskQueueLink;
     }
     else
     {
-        D2LinkStrc* pLink = gpTaskQueueLink_0088C788.pNext;
-        if (pLink != &gpTaskQueueLink_0088C788 && pLink)
+        D2LinkStrc* pLink = gpTaskQueueLink.pNext;
+        if (pLink != &gpTaskQueueLink && pLink)
         {
-            D2TaskStrc* pTask = TASK_GetTaskFromTaskQueueLink(gpTaskQueueLink_0088C788.pNext);
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->dwTaskQ]);
+            D2TaskStrc* pTask = TASK_GetTaskFromTaskQueueLink(gpTaskQueueLink.pNext);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections[pTask->dwTaskQ]);
             TASK_LinkList_PushFrontInline(&pTask->pTaskBalanceLink, &pTaskGame->tLink);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->dwTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections[pTask->dwTaskQ]);
             ++pTask->nType;
-            ++gnGamesCount_0088C79C;
+            ++gnGamesCount;
             TASK_LinkList_RemoveInline(pLink);
-            TASK_LinkList_InsertInline(gpTaskQueueLink_0088C788.pPrev, pLink);
+            TASK_LinkList_InsertInline(gpTaskQueueLink.pPrev, pLink);
             bResult = 1;
         }
     }
 
-    LeaveCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
+    LeaveCriticalSection(&gTaskSlotsCriticalSection);
     return bResult;
 }
 
@@ -484,11 +484,11 @@ int __fastcall sub_00564A00_QueueGame(D2TaskGameStrc* pTaskGame, int nArg, unsig
 static inline D2TaskQueueStrc* TASK_LockQueueSlot(int nTaskNumber)
 {
     const int nIndex = nTaskNumber & 0x1F;
-    EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
+    EnterCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
     D2TaskQueueStrc* pQueue = gpTaskQueues_0088C708[nIndex];
     if (!pQueue)
     {
-        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
+        LeaveCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
     }
     return pQueue;
 }
@@ -498,7 +498,7 @@ static inline void TASK_UnlockQueueSlot(D2TaskQueueStrc* pQueue)
     if (pQueue)
     {
         D2_ASSERT((unsigned int)pQueue->nQueueIndex < 32, 0x97);
-        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pQueue->nQueueIndex]);
+        LeaveCriticalSection(&gtTaskQueuesCriticalSections[pQueue->nQueueIndex]);
     }
 }
 
@@ -624,24 +624,24 @@ void __fastcall TASK_SetType(D2TaskStrc* pTask, int nType)
 static inline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc* ptTask)
 {
     GAME_CloseGame(nGameHashKey);
-    EnterCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
-    if (D2TaskStrc* pTaskSlot = gtTaskSlots_0088C708[nTaskNumber & 0x1F])
+    EnterCriticalSection(&gTaskSlotsCriticalSection);
+    if (D2TaskStrc* pTaskSlot = gtTaskSlots[nTaskNumber & 0x1F])
     {
-        D2LinkStrc* ptTaskQTailLink = TASK_GetLastTaskFromListHead(&gpTaskQueueLink_0088C788);
+        D2LinkStrc* ptTaskQTailLink = TASK_GetLastTaskFromListHead(&gpTaskQueueLink);
         D2_ASSERT(ptTaskQTailLink, 0x2EC);
         const int nTaskSlotType = pTaskSlot->nType;
         D2TaskStrc* ptTaskQTail = TASK_GetTaskFromTaskQueueLink(ptTaskQTailLink);
         D2LinkStrc* pNewTaskLink;
         if (ptTaskQTail->nType == nTaskSlotType + 1)
         {
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->dwTaskQ]);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections[ptTaskQTail->dwTaskQ]);
             D2LinkStrc* ptTaskBalanceLink = TASK_GetLastTaskFromListHead(&ptTaskQTail->pTaskBalanceLink);
             D2_ASSERT(ptTaskBalanceLink, 0x2F5);
             TASK_LinkList_Remove(ptTaskBalanceLink);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->dwTaskQ]);
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->dwTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections[ptTaskQTail->dwTaskQ]);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections[pTaskSlot->dwTaskQ]);
             TASK_QueueIncrement(pTaskSlot, &TASK_GetTaskFromTaskQueueLink(ptTaskBalanceLink)->nType, 0);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->dwTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections[pTaskSlot->dwTaskQ]);
             --ptTaskQTail->nType;
             pNewTaskLink = ptTaskQTailLink;
         }
@@ -651,11 +651,11 @@ static inline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc*
             pNewTaskLink = &pTaskSlot->pTaskQueueLink;
         }
         TASK_LinkList_Remove(pNewTaskLink);
-        TASK_LinkList_PushFront(&gpTaskQueueLink_0088C788, pNewTaskLink);
+        TASK_LinkList_PushFront(&gpTaskQueueLink, pNewTaskLink);
         FOG_Free(ptTask, ".\\GAME\\Task.cpp", 0x309, 0);
     }
-    --gnGamesCount_0088C79C;
-    LeaveCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
+    --gnGamesCount;
+    LeaveCriticalSection(&gTaskSlotsCriticalSection);
 }
 
 void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
@@ -702,16 +702,16 @@ void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask
         }
         GAME_LeaveGamesCriticalSection(pGame);
         const int nTaskSlotIdx = nTaskNumber & 0x1F;
-        EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nTaskSlotIdx]);
-        if (D2TaskStrc* ptTaskQ = gtTaskSlots_0088C708[nTaskSlotIdx])
+        EnterCriticalSection(&gtTaskQueuesCriticalSections[nTaskSlotIdx]);
+        if (D2TaskStrc* ptTaskQ = gtTaskSlots[nTaskSlotIdx])
         {
             TASK_QueueIncrement(ptTaskQ, &ptTask->dwTaskQ, 40);
             D2_ASSERT(ptTaskQ->dwTaskQ < 32, 0x97);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQ->dwTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections[ptTaskQ->dwTaskQ]);
         }
         else
         {
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nTaskSlotIdx]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections[nTaskSlotIdx]);
         }
         return;
     }

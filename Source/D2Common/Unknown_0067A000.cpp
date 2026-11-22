@@ -964,7 +964,8 @@ int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo)
 // 0x0067BBC0
 int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    return gaPathDeltaTable_006F1E28[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
+// build: symbol ?gaPathDeltaTable@* 0x006F1E28
+    return gaPathDeltaTable[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
 }
 
 // build: context PATH_TestNewTargetPoint

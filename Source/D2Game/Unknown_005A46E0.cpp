@@ -13,7 +13,7 @@ struct D2SpawnAreaStrc;
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 
-extern UModInitFunc gpUModInitFunctions_0073C008[];                                                         // 0x0073C008
+extern UModInitFunc gpfnUModInitFunctions[];                                                         // 0x0073C008
 
 int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
 
@@ -42,7 +42,7 @@ static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int b
 
 static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    UModInitFunc pfnInit = gpUModInitFunctions_0073C008[nUMod];
+    UModInitFunc pfnInit = gpfnUModInitFunctions[nUMod];
     if (pfnInit)
     {
         pfnInit(pUnit, nUMod, bUnique);

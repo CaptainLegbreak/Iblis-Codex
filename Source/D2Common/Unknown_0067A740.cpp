@@ -98,7 +98,8 @@ static void PATH_IDAStar_GetNextNeighborIndex(D2PathIDAStarNodeStrc* pNode, D2Pa
     if (pContext->bRandomDirection)
     {
         const unsigned int nRand = SEED_RollRandomNumber_Inline(pContext->pSeed);
-        pNode->nNextNeighborIndex = (dword_6FDD1CE0[nRand & 0x1F] + *pNode->pNeighborsSequence + pNode->nNextNeighborIndex) & 7;
+// build: symbol ?gnIdaStarNeighborRandOffsets@* 0x006F18D8
+        pNode->nNextNeighborIndex = (gnIdaStarNeighborRandOffsets[nRand & 0x1F] + *pNode->pNeighborsSequence + pNode->nNextNeighborIndex) & 7;
     }
     else
     {
@@ -205,11 +206,12 @@ static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutof
                     pCurrentNode->nFScore = nNewNodeFScore;
                     pCurrentNode->nEvaluationsCount = 0;
                     const int nDirection = sub_6FDAB770(tNeighborCoords, tTargetCoord);
-                    pCurrentNode->pNeighborsSequence = dword_6FDD1BE0[(nDirection - pCurrentNode->pParent->nNextNeighborIndex) & 7];
+// build: symbol ?gnIdaStarNeighborSequences@* 0x006F17D8
+                    pCurrentNode->pNeighborsSequence = gnIdaStarNeighborSequences[(nDirection - pCurrentNode->pParent->nNextNeighborIndex) & 7];
                     if (pContext->bRandomDirection)
                     {
                         const unsigned int nRand = SEED_RollRandomNumber_Inline(pContext->pSeed);
-                        pCurrentNode->nNextNeighborIndex = (dword_6FDD1CE0[nRand & 0x1F] + pCurrentNode->pParent->nNextNeighborIndex + *pCurrentNode->pNeighborsSequence) & 7;
+                        pCurrentNode->nNextNeighborIndex = (gnIdaStarNeighborRandOffsets[nRand & 0x1F] + pCurrentNode->pParent->nNextNeighborIndex + *pCurrentNode->pNeighborsSequence) & 7;
                     }
                     else
                     {
@@ -317,7 +319,7 @@ int D2DrlgCoordsStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPathInf
     tStartNode.pParent = 0;
     memset(&tContext.aNodesStorage[0], 0, sizeof(tContext.aNodesStorage[0]));
     tContext.pCurrentNode = &tContext.aNodesStorage[0];
-    tStartNode.pNeighborsSequence = dword_6FDD1BE0[0];
+    tStartNode.pNeighborsSequence = gnIdaStarNeighborSequences[0];
     tContext.nNodesCount = 1;
 
     int nFScoreCutoff = (short)tStartNode.nHeuristicDistanceToTarget;

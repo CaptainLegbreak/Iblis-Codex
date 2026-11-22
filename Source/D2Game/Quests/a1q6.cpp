@@ -264,17 +264,17 @@ bool __fastcall ACT1Q6_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
 
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 
-static unsigned int nIndices_007382AC[] =                                                                   // 0x007382AC
+static unsigned int gnAct1Q5NpcMessageIndices[] =                                                                   // 0x007382AC
 {
     0xFFFFFFFF, 0xFFFFFFFF, 0, 1, 2, 3
 };
 
-static unsigned int nIndices_007382C4[] =                                                                   // 0x007382C4
+static unsigned int gnAct1Q6NpcMessageIndices[] =                                                                   // 0x007382C4
 {
     0xFFFFFFFF, 0, 1, 2, 3, 4, 0
 };
 
-static int nIndices_007398FC[] =                                                                            // 0x007398FC
+static int gnAct2Q1NpcMessageIndices[] =                                                                            // 0x007398FC
 {
     -1, 0, 1, 2, 3, 4, 0
 };
@@ -436,7 +436,7 @@ void __fastcall ACT1Q5_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
         return;
     }
 
-    const unsigned int nIndex = nIndices_007382AC[pQuestData->fState];
+    const unsigned int nIndex = gnAct1Q5NpcMessageIndices[pQuestData->fState];
     if (nIndex != -1 && nIndex < 5)
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -678,7 +678,7 @@ void __fastcall ACT1Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
             return;
         }
 
-        const unsigned int nIndex = nIndices_007382C4[pQuestData->fState];
+        const unsigned int nIndex = gnAct1Q6NpcMessageIndices[pQuestData->fState];
         if (nIndex != -1 && nIndex < 6)
         {
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -767,12 +767,12 @@ static void __stdcall ACT1Q6_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* p
     CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q6.cpp", 451), 1, pGame->nDifficulty);
 }
 
-static int nIndices_0073A620[] =                                                                            // 0x0073A620
+static int gnAct2Q3NpcMessageIndices[] =                                                                            // 0x0073A620
 {
     -1, 0, 1, 2, 3, 0
 };
 
-static int nArcaneThingObjectIds_00738FAC[] =                                                               // 0x00738FAC
+static int gnArcaneThingObjectIds[] =                                                               // 0x00738FAC
 {
     313, 312, 308, 310, 311, 309, 307
 };
@@ -1223,7 +1223,7 @@ void __fastcall ACT2Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
             return;
         }
 
-        const unsigned int nIndex = nIndices_007398FC[pQuestData->fState];
+        const unsigned int nIndex = gnAct2Q1NpcMessageIndices[pQuestData->fState];
         if (nIndex != -1 && nIndex < 9)
         {
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -1390,7 +1390,7 @@ void __fastcall ACT2Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
         }
         else if (pQuestData->fState && pQuestData->bNotIntro && QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) != 1 && pQuestData->fState < 4)
         {
-            const int nIndex = nIndices_0073A620[pQuestData->fState];
+            const int nIndex = gnAct2Q3NpcMessageIndices[pQuestData->fState];
             if (nIndex != -1 && (unsigned int)nIndex < 6)
             {
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -1569,7 +1569,7 @@ int __fastcall ACT2Q6_GetTombArcaneThingObjectId(D2QuestDataStrc* pQuestData)
                 }
                 else if (j < 7 && i < 6)
                 {
-                    pQuestDataEx->nArcaneThingObjectIds[i] = nArcaneThingObjectIds_00738FAC[j];
+                    pQuestDataEx->nArcaneThingObjectIds[i] = gnArcaneThingObjectIds[j];
                     ++i;
                     ++j;
                 }

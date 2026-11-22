@@ -98,7 +98,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern "C" UModInitFunc gpUModInitFunctions_0073C008[]; // 0x0073C008
+extern "C" UModInitFunc gpfnUModInitFunctions[]; // 0x0073C008
 
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
 
@@ -206,9 +206,9 @@ void __cdecl UI_ClearGlobals();
 
 int __fastcall MONSTERSPAWN_SpawnRandomMonsterForLevel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005B3570
 
-extern const int gnSrvHit52_XOffsets_006E2A58[8]; // 0x006E2A58
+extern const int gnSrvHit52_XOffsets[8]; // 0x006E2A58
 
-extern const int gnSrvHit52_YOffsets_006E2A38[8]; // 0x006E2A38
+extern const int gnSrvHit52_YOffsets[8]; // 0x006E2A38
 
 int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
@@ -278,9 +278,9 @@ typedef int(__fastcall* MISSMODE_SRVDO)(D2GameStrc* pGame, D2UnitStrc* pMissile)
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern MISSMODE_SRVDO gMissileSrvDoFuncTable_0073C768[]; // 0x0073C768
+extern MISSMODE_SRVDO gpfnMissileSrvDoFunctions[]; // 0x0073C768
 
-extern int gnMissileSrvDoFuncCount_0073C71C; // 0x0073C71C
+extern int gnMissileSrvDoFuncCount; // 0x0073C71C
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
@@ -306,7 +306,7 @@ typedef void (__fastcall* MISSILESRVDMGFN)(D2GameStrc* pGame, D2UnitStrc* pMissi
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-extern MISSILESRVDMGFN gpfMissileSrvDmgFn_0073C960[]; // 0x0073C960
+extern MISSILESRVDMGFN gpfnMissileSrvDmgFunctions[]; // 0x0073C960
 
 void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005AD730
 
@@ -819,7 +819,7 @@ struct D2AiTableStrc
     int a, b, c, d;
 };
 
-extern const D2AiTableStrc gpAiTable_6FD3F990[148]; // 0x0073CA18
+extern const D2AiTableStrc gaAiTable[148]; // 0x0073CA18
 
 struct D2AiStateStrc
 {
@@ -2500,8 +2500,10 @@ static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc*
 
     for (int i = 0; i < 18; i += nStep)
     {
-        missileParams.nX = nX + gnMeteorSubmissileOffsetsX_006E2550[i];
-        missileParams.nY = nY + gnMeteorSubmissileOffsetsY_006E2598[i];
+// build: symbol ?gnMeteorSubmissileOffsetsX@* 0x006E2550
+        missileParams.nX = nX + gnMeteorSubmissileOffsetsX[i];
+// build: symbol ?gnMeteorSubmissileOffsetsY@* 0x006E2598
+        missileParams.nY = nY + gnMeteorSubmissileOffsetsY[i];
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
 }
@@ -3702,14 +3704,14 @@ int __fastcall MISSMODE_SrvHit52_BladeFury(D2GameStrc* pGame, D2UnitStrc* pMissi
 
     for (int i = 0; i < 8; i += nParam)
     {
-        missileParams.nTargetX = gnSrvHit52_XOffsets_006E2A58[i];
-        missileParams.nTargetY = gnSrvHit52_YOffsets_006E2A38[i];
+        missileParams.nTargetX = gnSrvHit52_XOffsets[i];
+        missileParams.nTargetY = gnSrvHit52_YOffsets[i];
 
         D2UnitStrc* pHitSubMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
         if (pHitSubMissile)
         {
-            MISSILE_SetTargetX(pHitSubMissile, gnSrvHit52_XOffsets_006E2A58[i]);
-            MISSILE_SetTargetY(pHitSubMissile, gnSrvHit52_YOffsets_006E2A38[i]);
+            MISSILE_SetTargetX(pHitSubMissile, gnSrvHit52_XOffsets[i]);
+            MISSILE_SetTargetY(pHitSubMissile, gnSrvHit52_YOffsets[i]);
         }
     }
 
@@ -4194,7 +4196,7 @@ void __fastcall MONSTERUNIQUE_UMod26_Teleport(D2UnitStrc* pUnit, int nUMod, int 
 // 0x005A2100
 void __fastcall MONSTERUNIQUE_InitializeUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    UModInitFunc pCallback = gpUModInitFunctions_0073C008[nUMod];
+    UModInitFunc pCallback = gpfnUModInitFunctions[nUMod];
     if (pCallback)
     {
         pCallback(pUnit, nUMod, bUnique);
@@ -4501,7 +4503,7 @@ static void __stdcall MISSMODE_SrvDoHandler(D2GameStrc* pGame, D2UnitStrc* pMiss
     }
 
     D2MissilesTxt* pMissilesTxtRecord = GetMissilesTxtRecord(pMissile->dwClassId);
-    if (!pMissilesTxtRecord || (short)pMissilesTxtRecord->wSrvDoFunc <= 0 || (short)pMissilesTxtRecord->wSrvDoFunc >= gnMissileSrvDoFuncCount_0073C71C)
+    if (!pMissilesTxtRecord || (short)pMissilesTxtRecord->wSrvDoFunc <= 0 || (short)pMissilesTxtRecord->wSrvDoFunc >= gnMissileSrvDoFuncCount)
     {
         return;
     }
@@ -4516,7 +4518,7 @@ static void __stdcall MISSMODE_SrvDoHandler(D2GameStrc* pGame, D2UnitStrc* pMiss
     if ((pMissilesTxtRecord->nMissileFlags[MISSILESFLAGINDEX_SRCTOWN >> 3] & gdwBitMasks[MISSILESFLAGINDEX_SRCTOWN & 7]) && pOwner && IsUnitInTown(pOwner)
         || pOwner && pOwner->dwUnitType == UNIT_PLAYER && IsUnitInTown(pOwner)
         || !(pMissilesTxtRecord->nMissileFlags[MISSILESFLAGINDEX_TOWN >> 3] & gdwBitMasks[MISSILESFLAGINDEX_TOWN & 7]) && DUNGEON_IsRoomInTown(pRoom)
-        || gMissileSrvDoFuncTable_0073C768[(short)pMissilesTxtRecord->wSrvDoFunc](pGame, pMissile) == 2)
+        || gpfnMissileSrvDoFunctions[(short)pMissilesTxtRecord->wSrvDoFunc](pGame, pMissile) == 2)
     {
         SUNIT_RemoveUnit(pGame, pMissile);
     }
@@ -4687,9 +4689,10 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
         D2DamageStrc tDamage;
         MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &tDamage);
         const short nDmgFunc = pTxt->wSrvDmgFunc;
-        if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount_0073C95C)
+// build: symbol ?gnMissileSrvDmgFnCount@* 0x0073C95C
+        if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount)
         {
-            gpfMissileSrvDmgFn_0073C960[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
+            gpfnMissileSrvDmgFunctions[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
         }
         MISSMODE_ApplyDamageFlagsAndTargetAc(pGame, pMissile, pUnit, &tDamage);
     }
@@ -4807,9 +4810,9 @@ static inline int __fastcall MISSMODE_SrvDmgHitHandler_005B01F0(D2GameStrc* pGam
         D2DamageStrc tDamage;
         MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &tDamage);
         const short nDmgFunc = pTxt->wSrvDmgFunc;
-        if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount_0073C95C)
+        if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount)
         {
-            gpfMissileSrvDmgFn_0073C960[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
+            gpfnMissileSrvDmgFunctions[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
         }
         MISSMODE_ApplyDamageFlagsAndTargetAc(pGame, pMissile, pUnit, &tDamage);
     }
@@ -5311,8 +5314,10 @@ int __fastcall MISSMODE_SrvDo15_FrozenOrb(D2GameStrc* pGame, D2UnitStrc* pMissil
 
     int nIndex = MISSILE_GetTargetX(pMissile) % 64;
     nIndex = nIndex < 0 ? -nIndex : nIndex;
-    missileParams.nTargetX = gnSrvDo15_XPositions_006E2B78[nIndex];
-    missileParams.nTargetY = gnSrvDo15_YPositions_006E2A78[nIndex];
+// build: symbol ?gnSrvDo15_XPositions@* 0x006E2B78
+    missileParams.nTargetX = gnSrvDo15_XPositions[nIndex];
+// build: symbol ?gnSrvDo15_YPositions@* 0x006E2A78
+    missileParams.nTargetY = gnSrvDo15_YPositions[nIndex];
     MISSILE_SetTargetX(pMissile, (nIndex + pMissilesTxtRecord->dwParam[1]) % 64);
     MISSILES_CreateMissileFromParams(pGame, &missileParams);
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
@@ -6634,9 +6639,9 @@ static inline const D2AiTableStrc* GetByIndex(D2MonStatsTxt* pRecord)
 {
     short nIndex = pRecord->wAI;
     if (nIndex >= 0 && (unsigned short)nIndex < 148) {
-        return &gpAiTable_6FD3F990[nIndex];
+        return &gaAiTable[nIndex];
     }
-    return &gpAiTable_6FD3F990[0];
+    return &gaAiTable[0];
 }
 
 // 0x005B15D0
@@ -6649,7 +6654,7 @@ const D2AiTableStrc* __fastcall AITHINK_GetAiTableRecord(D2UnitStrc* pUnit, int 
                 return GetByIndex(pRecord);
             }
         }
-        return &gpAiTable_6FD3F990[148 + nMode];
+        return &gaAiTable[148 + nMode];
     }
     return GetByIndex(pRecord);
 }

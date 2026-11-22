@@ -1187,7 +1187,8 @@ int gnLargePacketBlocks_007A6B04; // 0x007A6B04
 
 unsigned char gnLastPacketId_007A5234; // 0x007A5234
 
-extern "C" const char szSCmdCppFile_006D69E4[];
+// build: symbol _gszSCmdSourceFile 0x006D69E4
+extern "C" const char gszSCmdSourceFile[];
 
 int gnGlobal_007A5230; // 0x007A5230
 

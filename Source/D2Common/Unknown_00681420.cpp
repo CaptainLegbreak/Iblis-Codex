@@ -32,8 +32,8 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel); // 0x00680D70
 void __stdcall sub_00681000(D2DrlgLevelStrc* pLevel); // 0x00681000
 int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad); // 0x006817D0
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection); // 0x0067CDD0
-extern const int gnAct1PathOffsetX_006F2820[4]; // 0x006F2820
-extern const int gnAct1PathOffsetY_006F2830[4]; // 0x006F2830
+extern const int gnAct1PathOffsetX[4]; // 0x006F2820
+extern const int gnAct1PathOffsetY[4]; // 0x006F2830
 
 // build: context SEED_RollRandomNumber
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -82,8 +82,8 @@ static void __stdcall sub_00681240(D2DrlgLevelStrc* pLevel, int nRoad)
             return;
         }
 
-        int nOffsetX = ((SEED_RollRandomNumber(&pLevel->pSeed) & 1) + 2) * gnAct1PathOffsetX_006F2820[nRand];
-        int nOffsetY = ((SEED_RollRandomNumber(&pLevel->pSeed) & 1) + 2) * gnAct1PathOffsetY_006F2830[nRand];
+        int nOffsetX = ((SEED_RollRandomNumber(&pLevel->pSeed) & 1) + 2) * gnAct1PathOffsetX[nRand];
+        int nOffsetY = ((SEED_RollRandomNumber(&pLevel->pSeed) & 1) + 2) * gnAct1PathOffsetY[nRand];
         nRand = (nRand + 1) % 4;
         pVertex->nPosX *= 8;
         pVertex->nPosY *= 8;

@@ -15,17 +15,17 @@ struct D2DrlgRoomStrc;
 
 #define ROOMFLAG_4 0x00000004
 
-#define gpUniquePrefixTxt (gpUniqueNameTxtTables_0096D488[1])
+#define gpUniquePrefixTxt (gpUniqueNameTxtTables[1])
 
-#define gpUniqueSuffixTxt (gpUniqueNameTxtTables_0096D488[2])
+#define gpUniqueSuffixTxt (gpUniqueNameTxtTables[2])
 
-#define gpUniqueAppellationTxt (gpUniqueNameTxtTables_0096D488[3])
+#define gpUniqueAppellationTxt (gpUniqueNameTxtTables[3])
 
-#define gnUniquePrefixTxtRecordCount (gnUniqueNameTxtRecordCounts_0096D498[1])
+#define gnUniquePrefixTxtRecordCount (gnUniqueNameTxtRecordCounts[1])
 
-#define gnUniqueSuffixTxtRecordCount (gnUniqueNameTxtRecordCounts_0096D498[2])
+#define gnUniqueSuffixTxtRecordCount (gnUniqueNameTxtRecordCounts[2])
 
-#define gnUniqueAppellationTxtRecordCount (gnUniqueNameTxtRecordCounts_0096D498[3])
+#define gnUniqueAppellationTxtRecordCount (gnUniqueNameTxtRecordCounts[3])
 
 struct D2GameStrc;
 
@@ -295,7 +295,7 @@ typedef void (__fastcall* LEVELNODEFN)(D2CommonLevelNodeStrc* pNode);
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-extern const LEVELNODEFN gpfnLevelNodeHandlers_00744384[]; // 0x00744384
+extern const LEVELNODEFN gpfnRoomExSetStatus[]; // 0x00744384
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
@@ -319,9 +319,9 @@ void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2CommonLevelNodeSt
 
 int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY); // 0x0066CE30
 
-D2UniqueNameTxt* gpUniqueNameTxtTables_0096D488[4]; // 0x0096D488
+D2UniqueNameTxt* gpUniqueNameTxtTables[4]; // 0x0096D488
 
-int gnUniqueNameTxtRecordCounts_0096D498[4]; // 0x0096D498
+int gnUniqueNameTxtRecordCounts[4]; // 0x0096D498
 
 Unicode gwszDataTablesDefault; // 0x0096D4B4
 
@@ -381,7 +381,7 @@ void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc
 
 void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
 
-extern const int gnTownLevelIds_006E7D1C[5]; // 0x006E7D1C
+extern const int gnTownLevelIdsByAct[5]; // 0x006E7D1C
 
 int __fastcall DRLG_GetHoradricStaffTombLevelId(D2DrlgStrc* pDrlg); // 0x00642230
 
@@ -1333,7 +1333,7 @@ int __stdcall D2Common_10084(D2ActiveRoomStrc* pRoom)
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct)
 {
     D2_ASSERT(nAct < 5, 0x59A);
-    return gnTownLevelIds_006E7D1C[nAct];
+    return gnTownLevelIdsByAct[nAct];
 }
 
 // 0x0061ABB0
@@ -1529,7 +1529,7 @@ static inline int sub_F45_IsFirstAtLevel(D2CommonLevelNodeStrc* pNode, int nLeve
 static inline void sub_F45_VisitChild(D2CommonLevelNodeStrc* pChild, int nLevel)
 {
     if (pChild->nMaxLevel >= nLevel && sub_F45_IsFirstAtLevel(pChild, nLevel))
-        gpfnLevelNodeHandlers_00744384[nLevel](pChild);
+        gpfnRoomExSetStatus[nLevel](pChild);
     ++pChild->wLevelCounts[nLevel];
 }
 

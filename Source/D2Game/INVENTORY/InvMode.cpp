@@ -92,13 +92,13 @@ int __stdcall INVENTORY_GetItemGUIDFromNode(D2InventoryNodeStrc* pNode); // 0x00
 
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 
-extern unsigned int gdwItemFlags_00738C4C[8]; // 0x00738C4C
+extern unsigned int gdwItemFlags[8]; // 0x00738C4C
 
-extern unsigned int gnItemFlagCount_00738C6C; // 0x00738C6C
+extern unsigned int gnItemFlagCount; // 0x00738C6C
 
-extern unsigned int gdwItemCmdFlags_00738C70[21]; // 0x00738C70
+extern unsigned int gdwItemCmdFlags[21]; // 0x00738C70
 
-extern unsigned int gnItemCmdFlagCount_00738CC4; // 0x00738CC4
+extern unsigned int gnItemCmdFlagCount; // 0x00738CC4
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
@@ -397,14 +397,14 @@ void __fastcall D2GAME_ResetSomeItemFlags_6FC415F0(D2GameStrc* pGame, D2UnitStrc
         pItem->dwFlagEx &= ~0x14;
     }
 
-    for (unsigned int i = 0; i < gnItemCmdFlagCount_00738CC4; ++i)
+    for (unsigned int i = 0; i < gnItemCmdFlagCount; ++i)
     {
-        ITEMS_SetItemCMDFlag(pItem, gdwItemCmdFlags_00738C70[i], 0);
+        ITEMS_SetItemCMDFlag(pItem, gdwItemCmdFlags[i], 0);
     }
 
-    for (unsigned int i = 0; i < gnItemFlagCount_00738C6C; ++i)
+    for (unsigned int i = 0; i < gnItemFlagCount; ++i)
     {
-        ITEMS_SetItemFlag(pItem, gdwItemFlags_00738C4C[i], 0);
+        ITEMS_SetItemFlag(pItem, gdwItemFlags[i], 0);
     }
 }
 

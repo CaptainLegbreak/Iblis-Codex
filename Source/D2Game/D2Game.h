@@ -153,15 +153,15 @@ extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned in
 extern "C" const char gszA1Q2SourceFile[]; // 0x006E1B98
 extern "C" const char gszA1Q4SourceFile[]; // 0x006E1C48
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
-extern "C" const char gszMissilesCppFile_006E2150[]; // 0x006E2150
-extern "C" const char gszModeRb_006CDC90[]; // 0x006CDC90
+extern "C" const char gszMissilesSourceFile[]; // 0x006E2150
+extern "C" const char gszFileModeRb[]; // 0x006CDC90
 extern "C" const char gszPlayerPetsSourceFile[]; // 0x006E15D8
 extern "C" const char gszSUnitDmgSourceFile; // 0x006E16C0
 extern "C" const char gszSkillDruidSourceFile[]; // 0x006E30AC
 extern "C" const char gszSkillPalSourceFile[]; // 0x006E323C
 extern "C" const char gszSkillSorSourceFile[]; // 0x006E30C4
 extern "C" const char gszTargetsSourceFile[]; // 0x006E2C78
-extern "C" const char szAiBaalCpp_006E3580[]; // 0x006E3580
+extern "C" const char gszAiBaalSourceFile[]; // 0x006E3580
 extern "C" const char szPlayerCppFile[]; // 0x006E0A1C
 extern "C" const int gnAct2Quest5NpcIndices[]; // 0x0073B278
 extern "C" const unsigned int gnA5Q2NpcActivateIndices[]; // 0x00734270
@@ -204,32 +204,32 @@ extern D2DataTablesStrc* sgptDataTable; // 0x00744304
 extern D2EventTimerStrc* __fastcall sub_00553980_GetTimer(D2UnitStrc*); // 0x00553980
 extern Difficulty* __stdcall sub_00611D30_Difficulty(int); // 0x00611D30
 extern Tables* tables; // 0x00744304
-extern char byte_0073150C; // 0x0073150C
+extern char gbQuestStateInitializationEnabled; // 0x0073150C
 extern char gpAct1Q3NpcMessages[]; // 0x00737198
 extern char gpAct1Q4NpcMessages[]; // 0x00737668
 extern char gpAct2Q2NpcMessages[]; // 0x00739918
 extern const char empty_assert; // 0x006CC837
-extern const char gszNpcSource_006E15F0[]; // 0x006E15F0
-extern const int gaSlotRows_006E0B9C[]; // 0x006E0B9C
-extern const int gnActEntries_006E1520[5]; // 0x006E1520
-extern const int gnBaseUMods_006E2168[4]; // 0x006E2168
-extern const int gnBonePrisonOffsetX_006E304C[12]; // 0x006E304C
-extern const int gnBonePrisonOffsetY_006E307C[12]; // 0x006E307C
-extern const int gnExpFactorHigherLevel_006E1694[11]; // 0x006E1694
-extern const int gnExpFactorLowerLevel_006E1668[11]; // 0x006E1668
-extern const int gnMeteorSubmissileOffsetsX_006E2550[18]; // 0x006E2550
-extern const int gnMeteorSubmissileOffsetsY_006E2598[18]; // 0x006E2598
+extern const char gszNpcSourceFile[]; // 0x006E15F0
+extern const int gaSlotRows[]; // 0x006E0B9C
+extern const int gnStartingActTargetLevels[5]; // 0x006E1520
+extern const int gnBaseUMods[4]; // 0x006E2168
+extern const int gnBonePrisonOffsetX[12]; // 0x006E304C
+extern const int gnBonePrisonOffsetY[12]; // 0x006E307C
+extern const int gnExpFactorHigherLevel[11]; // 0x006E1694
+extern const int gnExpFactorLowerLevel[11]; // 0x006E1668
+extern const int gnMeteorSubmissileOffsetsX[18]; // 0x006E2550
+extern const int gnMeteorSubmissileOffsetsY[18]; // 0x006E2598
 extern const int gnPrimePoisonNovaX_006E31E8[16]; // 0x006E31E8
-extern const int gnPrimePoisonNovaY_006E31A8[16]; // 0x006E31A8
-extern const int gnSrvDo15_XPositions_006E2B78[64]; // 0x006E2B78
-extern const int gnSrvDo15_YPositions_006E2A78[64]; // 0x006E2A78
-extern const int gnUniqueElementalStats_006E21B8[5][3]; // 0x006E21B8
-extern const int gnVolleyOffsetX_006E3254[4]; // 0x006E3254
-extern const int gnVolleyOffsetY_006E3264[4]; // 0x006E3264
-extern const int s_anUnitListOffset_006E10E0[6]; // 0x006E10E0
-extern const unsigned char gnAndrialSprayDirections_006E3188[8]; // 0x006E3188
-extern const unsigned char gnAndrialSprayOffsets_006E3140[72]; // 0x006E3140
-extern const unsigned char gnMaggotLayDirections_006E3138[8]; // 0x006E3138
+extern const int gnPrimePoisonNovaY[16]; // 0x006E31A8
+extern const int gnSrvDo15_XPositions[64]; // 0x006E2B78
+extern const int gnSrvDo15_YPositions[64]; // 0x006E2A78
+extern const int gnUniqueElementalStats[5][3]; // 0x006E21B8
+extern const int gnVolleyOffsetX[4]; // 0x006E3254
+extern const int gnVolleyOffsetY[4]; // 0x006E3264
+extern const int gnUnitListOffsets[6]; // 0x006E10E0
+extern const unsigned char gnAndrialSprayDirections[8]; // 0x006E3188
+extern const unsigned char gnAndrialSprayOffsets[72]; // 0x006E3140
+extern const unsigned char gnMaggotLayDirections[8]; // 0x006E3138
 extern int __fastcall sub_00483360_Ratio(int,int,int); // 0x00483360
 extern int __fastcall sub_005C0C30_Event(Game*,int,Unit*,Unit*,Damage*); // 0x005C0C30
 extern int __stdcall sub_00625480_Stat(Unit*,int,int); // 0x00625480
@@ -241,30 +241,30 @@ extern int __stdcall sub_0063E990_ClassB(Unit*); // 0x0063E990
 extern int __stdcall sub_0063E9F0_ClassC(Game*,Unit*); // 0x0063E9F0
 extern int __stdcall sub_0063EDC0_ClassD(Unit*); // 0x0063EDC0
 extern int __stdcall sub_0063EE90_ClassE(Unit*); // 0x0063EE90
-extern int gnActCount_007326B4; // 0x007326B4
-extern int gnArmorStandOrRackCount_00731EB0; // 0x00731EB0
-extern int gnArmorStandOrRackIds_00731EA0[]; // 0x00731EA0
+extern int gnActCount; // 0x007326B4
+extern int gnArmorStandOrRackCount; // 0x00731EB0
+extern int gnArmorStandOrRackIds[]; // 0x00731EA0
 extern int gnBitMasks_006CE268[8]; // 0x006CE268
-extern int gnCoordInitCount_00731E64; // 0x00731E64
-extern int gnGlobal_007310CC; // 0x007310CC
-extern int gnInactiveCmdParam1_007314C0; // 0x007314C0
-extern int gnInactiveNoTcParam2_007314C8; // 0x007314C8
-extern int gnInactiveNoXpParam2_007314C4; // 0x007314C4
-extern int gnInitSeed_00731004; // 0x00731004
-extern int gnMissileSrvDmgFnCount_0073C95C; // 0x0073C95C
+extern int gnCoordInitCount; // 0x00731E64
+extern int gbWriteSaveFile; // 0x007310CC
+extern int gnInactiveCmdParam1; // 0x007314C0
+extern int gnInactiveNoTcParam2; // 0x007314C8
+extern int gnInactiveNoXpParam2; // 0x007314C4
+extern int gnInitSeed; // 0x00731004
+extern int gnMissileSrvDmgFnCount; // 0x0073C95C
 extern int gnMissileSrvHitFnCount; // 0x0073C83C
-extern int gnObeliskPowerUps_00732FAC; // 0x00732FAC
-extern int gnObjectTrapHandlerCount_00732D14; // 0x00732D14
-extern int gnPSpellTableCount_0074178C; // 0x0074178C
+extern int gnObeliskPowerUpCount; // 0x00732FAC
+extern int gnObjectTrapHandlerCount; // 0x00732D14
+extern int gnPSpellTableCount; // 0x0074178C
 extern int gnPlrIntroNpcIndexMapCount; // 0x00732734
-extern int gnQuestInitTableCount_00731888; // 0x00731888
-extern int gnShrineTableCount_00732EAC; // 0x00732EAC
-extern int gpAct1_NPCIds_007318B0[6]; // 0x007318B0
-extern int gpAct2_NPCIds_007318C8[11]; // 0x007318C8
-extern int gpAct3_NPCIds_007318F4[7]; // 0x007318F4
-extern int gpAct5_NPCIds_00731910[7]; // 0x00731910
-extern unsigned char gnObjectGoreLevel_00731BBC; // 0x00731BBC
-extern unsigned char gnObjectPopulateDensity_00731BBD; // 0x00731BBD
+extern int gnQuestInitTableCount; // 0x00731888
+extern int gnShrineTableCount; // 0x00732EAC
+extern int gnAct1NpcIds[6]; // 0x007318B0
+extern int gnAct2NpcIds[11]; // 0x007318C8
+extern int gnAct3NpcIds[7]; // 0x007318F4
+extern int gnAct5NpcIds[7]; // 0x00731910
+extern unsigned char gnObjectGoreLevel; // 0x00731BBC
+extern unsigned char gnObjectPopulateDensity; // 0x00731BBD
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 extern void __fastcall sub_005347D0_Report(Game*,Unit*,Unit*,int,int,int,int,const char*,unsigned char); // 0x005347D0
 extern void __fastcall sub_005347E0_ReportAbsorb(Game*,Unit*,Unit*,int,const char*); // 0x005347E0

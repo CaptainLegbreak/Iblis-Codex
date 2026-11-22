@@ -16,7 +16,7 @@ struct D2MotionPathStrc;
 
 
 
-extern int gaDesertBorderIds_006F112C[][2]; // 0x006F112C
+extern int gaDesertBorderIds[][2]; // 0x006F112C
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nPickedFile, int bFlag); // 0x006743C0
 void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel); // 0x00675670
@@ -45,12 +45,15 @@ void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector,
 // 0x006755C0
 int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
 {
-    const int nRow = gaLookupRow_006F0FD0[nA + 3 * nB];
+// build: symbol ?gaBorderIndices@* 0x006F0FD0
+    const int nRow = gaBorderIndices[nA + 3 * nB];
     if (nC >= 4)
     {
-        return gaLookupLarge_006F06F0[nRow][nC - 4];
+// build: symbol ?gaBarricadeCliffBorderIds@* 0x006F06F0
+        return gaBarricadeCliffBorderIds[nRow][nC - 4];
     }
-    return gaLookupSmall_006F0630[nRow][nC];
+// build: symbol ?gaBorderLevelPrestIds@* 0x006F0630
+    return gaBorderLevelPrestIds[nRow][nC];
 }
 
 // 0x00675600
@@ -74,7 +77,8 @@ int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
         nC += 2;
     }
 
-    const int nRow = gaLookupRow_006F1088[nA + 9 * (nC + nD) + nB];
+// build: symbol ?gaBorderIndicesByDelta@* 0x006F1088
+    const int nRow = gaBorderIndicesByDelta[nA + 9 * (nC + nD) + nB];
     if (nRow == -1)
     {
         return 0;
@@ -82,10 +86,10 @@ int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
 
     if (nE >= 4)
     {
-        return gaLookupLarge_006F06F0[nRow - 1][nE - 4];
+        return gaBarricadeCliffBorderIds[nRow - 1][nE - 4];
     }
 
-    return gaLookupSmall_006F0630[nRow - 1][nE];
+    return gaBorderLevelPrestIds[nRow - 1][nE];
 }
 
 // 0x006757E0
@@ -238,8 +242,8 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
                 nY = (pVertex->nPosY < pNext->nPosY ? pVertex->nPosY : pNext->nPosY) + nCurrentDiffYAbs * nDiff / 2;
 
                 nIndex = nCurrentDiffX + 2 * nCurrentDiffY + 2;
-                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, gaDesertBorderIds_006F112C[nIndex][0], -1, 0);
-                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX + nCurrentDiffXAbs, nY + nCurrentDiffYAbs, gaDesertBorderIds_006F112C[nIndex][1], -1, 0);
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, gaDesertBorderIds[nIndex][0], -1, 0);
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX + nCurrentDiffXAbs, nY + nCurrentDiffYAbs, gaDesertBorderIds[nIndex][1], -1, 0);
                 break;
             }
         }

@@ -32,8 +32,8 @@ typedef void (__fastcall* MinionCallbackFunc)(D2UnitStrc* pUnit, void* pArg1, vo
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
-extern UModInitFunc gpUModInitFunctions_0073C008[];                                                         // 0x0073C008
-extern const int gnBaseUMods_006E2168[4];                                                                // 0x006E2168
+extern UModInitFunc gpfnUModInitFunctions[];                                                         // 0x0073C008
+extern const int gnBaseUMods[4];                                                                // 0x006E2168
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                 // 0x00681EF0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
@@ -177,7 +177,7 @@ static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 // build: context InitUMod
 static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    UModInitFunc pfnInit = gpUModInitFunctions_0073C008[nUMod];
+    UModInitFunc pfnInit = gpfnUModInitFunctions[nUMod];
     if (pfnInit)
     {
         pfnInit(pUnit, nUMod, bUnique);
@@ -724,7 +724,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinions(D2GameStrc* pGame, D2ActiveRoom
 
     for (int i = 0; i < 4; ++i)
     {
-        const int nUMod = gnBaseUMods_006E2168[i];
+        const int nUMod = gnBaseUMods[i];
         InitUMod(pUnit, nUMod, 1);
         AIGENERAL_ExecuteCallbackOnMinions(pUnit, (void*)nUMod, 0, (MinionCallbackFunc)MONSTERUNIQUE_InitializeUMod);
     }

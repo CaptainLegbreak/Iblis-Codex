@@ -90,7 +90,7 @@ struct D2pSpellTblStrc
     PSPELLFN pfSpellDo;
 };
 
-extern D2pSpellTblStrc gPSpellTable_00741790[]; // 0x00741790
+extern D2pSpellTblStrc gaPSpellTable[]; // 0x00741790
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
@@ -1561,14 +1561,15 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             }
         }
 
-        if (nPSpell >= gnPSpellTableCount_0074178C)
+// build: symbol ?gnPSpellTableCount@* 0x0074178C
+        if (nPSpell >= gnPSpellTableCount)
         {
             return 0;
         }
 
-        if (gPSpellTable_00741790[nPSpell].pfSpellPrepare && !ITEMS_CheckItemFlag(pItem, IFLAG_TARGETING, 1130, ".\\SKILLS\\SkillItem.cpp"))
+        if (gaPSpellTable[nPSpell].pfSpellPrepare && !ITEMS_CheckItemFlag(pItem, IFLAG_TARGETING, 1130, ".\\SKILLS\\SkillItem.cpp"))
         {
-            if (!gPSpellTable_00741790[nPSpell].pfSpellPrepare(pGame, pUnit, pItem, 0, nX, nY, nSkillId))
+            if (!gaPSpellTable[nPSpell].pfSpellPrepare(pGame, pUnit, pItem, 0, nX, nY, nSkillId))
             {
                 SKILLITEM_ClearTargetingItems(pUnit);
                 const unsigned int nItemGUID = pItem->dwUnitId;
@@ -1579,14 +1580,14 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             return 0;
         }
 
-        if (!gPSpellTable_00741790[nPSpell].pfSpellDo)
+        if (!gaPSpellTable[nPSpell].pfSpellDo)
         {
             return 0;
         }
 
         ITEMS_SetItemFlag(pItem, IFLAG_TARGETING, 1);
 
-        const int nResult = gPSpellTable_00741790[nPSpell].pfSpellDo(pGame, pUnit, pItem, pTarget, nX, nY, nSkillId);
+        const int nResult = gaPSpellTable[nPSpell].pfSpellDo(pGame, pUnit, pItem, pTarget, nX, nY, nSkillId);
         if (!nResult)
         {
             SKILLITEM_ClearTargetingItems(pUnit);

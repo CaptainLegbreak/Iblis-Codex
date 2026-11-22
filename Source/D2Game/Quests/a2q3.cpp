@@ -297,7 +297,7 @@ short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
 
-extern "C" const char szA2Q3Cpp_006E1FB0[];                                                                 // 0x006E1FB0
+extern "C" const char gszA2Q3SourceFile[];                                                                 // 0x006E1FB0
 
 void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID);                              // 0x00545200
 
@@ -1364,7 +1364,7 @@ void __fastcall ACT2Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
 
             if (pQuestData->fState == 1)
             {
-                QUESTS_StateDebug(pQuestData, 2, szA2Q3Cpp_006E1FB0, 0xCD);
+                QUESTS_StateDebug(pQuestData, 2, gszA2Q3SourceFile, 0xCD);
                 SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q3_UnitIterate_UpdateQuestStateFlags);
             }
         }
@@ -1393,7 +1393,7 @@ void __fastcall ACT2Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         {
             pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 13, 0, ACT2Q3_UnitIterate_StatusCyclerEx, 0);
-            QUESTS_StateDebug(pQuestData, 5, szA2Q3Cpp_006E1FB0, 0xDC);
+            QUESTS_StateDebug(pQuestData, 5, gszA2Q3SourceFile, 0xDC);
             if (IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter))
             {
                 sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xDD);

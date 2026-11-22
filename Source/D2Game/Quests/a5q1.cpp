@@ -110,9 +110,9 @@ typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
-extern unsigned int gnA5Q1NpcIndices_00733928[]; // 0x00733928
+extern unsigned int gnA5Q1NpcIndices[]; // 0x00733928
 
-extern unsigned int gnA5Q4NpcIndices_007350E8[]; // 0x007350E8
+extern unsigned int gnA5Q4NpcIndices[]; // 0x007350E8
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -686,7 +686,7 @@ void __fastcall ACT5Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
             return;
         }
 
-        const unsigned int nIndex = gnA5Q1NpcIndices_00733928[pQuestData->fState];
+        const unsigned int nIndex = gnA5Q1NpcIndices[pQuestData->fState];
         if (nIndex != -1 && nIndex < 8)
         {
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -1453,7 +1453,7 @@ void __fastcall ACT5Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
         return;
     }
 
-    const unsigned int nIndex = gnA5Q4NpcIndices_007350E8[pQuestData->fState];
+    const unsigned int nIndex = gnA5Q4NpcIndices[pQuestData->fState];
     if (nIndex != -1 && nIndex < 8)
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);

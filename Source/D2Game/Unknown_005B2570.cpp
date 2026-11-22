@@ -16,7 +16,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                   
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 
-extern const D2CoordStrc gaMinionSpawnOffsets_006E2CF0[3][6];                                               // 0x006E2CF0
+extern const D2CoordStrc gaMinionSpawnOffsets[3][6];                                               // 0x006E2CF0
 
 inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
@@ -90,8 +90,8 @@ int __fastcall sub_005B2570_SpawnMinionsAround(D2GameStrc* pGame, D2UnitStrc* pU
 
     for (int i = 0; i < nCount; ++i)
     {
-        const int nSpawnX = nX + gaMinionSpawnOffsets_006E2CF0[nOffset][nDirection].nX;
-        const int nSpawnY = nY + gaMinionSpawnOffsets_006E2CF0[nOffset][nDirection].nY;
+        const int nSpawnX = nX + gaMinionSpawnOffsets[nOffset][nDirection].nX;
+        const int nSpawnY = nY + gaMinionSpawnOffsets[nOffset][nDirection].nY;
         nDirection = (nDirection + 5) % 6;
 
         D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtCoordinates(pGame, pRoom, nSpawnX, nSpawnY, nMonsterId, nAnimMode, nFlags);

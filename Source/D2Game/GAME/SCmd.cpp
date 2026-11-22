@@ -1853,7 +1853,7 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A
 
 void __fastcall FOG_FreePool(void*, void*, const char*, int, int); // 0x0040B480
 
-extern "C" const char szSCmdCppFile_006D69E4[];                                                             // 0x006D69E4
+extern "C" const char gszSCmdSourceFile[];                                                             // 0x006D69E4
 
 #pragma pack(push, 1)
 

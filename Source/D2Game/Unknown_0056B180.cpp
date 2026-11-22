@@ -37,7 +37,7 @@ struct D2SaveHeaderStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern const int dwErrorCodesRemap_006E1208[PLRSAVE2ERROR_COUNT]; // 0x006E1208
+extern const int gnPlrSave2ErrorRemap[PLRSAVE2ERROR_COUNT]; // 0x006E1208
 int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient); // 0x005385F0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient); // 0x00569F20
@@ -253,7 +253,7 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
         }
 
         CLIENTS_SetPlayerInClient(pClient, 0);
-        return dwErrorCodesRemap_006E1208[nErrorCode];
+        return gnPlrSave2ErrorRemap[nErrorCode];
     }
 
     PLRSAVE2_InitializeStats(pGame, pPlayer, nHitpoints, nMana);

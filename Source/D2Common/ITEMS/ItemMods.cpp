@@ -257,7 +257,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem); // 0x0065E4D0
 
-extern D2PropertyAssignStrc gtPropertyAssignTable_00745B58[]; // 0x00745B58
+extern D2PropertyAssignStrc gaPropertyAssignTable[]; // 0x00745B58
 
 int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
 
@@ -285,11 +285,11 @@ int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
 
-extern int gaItemFileIndices_0074638C[]; // 0x0074638C
+extern int gaItemFileIndices[]; // 0x0074638C
 
-extern int gnItemFileIndexCount_007463A4; // 0x007463A4
+extern int gnItemFileIndexCount; // 0x007463A4
 
-extern "C" const char gszItemModsFile_006EDB78[]; // 0x006EDB78
+extern "C" const char gszItemModsSourceFile[]; // 0x006EDB78
 
 #define STAT_ITEM_INDESTRUCTIBLE 152
 
@@ -737,7 +737,8 @@ static inline int ITEMMODS_GetSetItemsCountFromMask(unsigned int nMask)
 {
     if (nMask >= 0x40)
         return 0;
-    return gnSetItemsCount_006EDA40[nMask];
+// build: symbol ?gnSetItemsCount@* 0x006EDA40
+    return gnSetItemsCount[nMask];
 }
 
 static inline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax)
@@ -1533,12 +1534,12 @@ static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed
 // 0x0065E8E0
 void __stdcall ITEMMODS_SetRandomElixirFileIndex(D2UnitStrc* pItem)
 {
-    const int nCount = gnItemFileIndexCount_007463A4;
+    const int nCount = gnItemFileIndexCount;
     D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);
     const int nIndex = SEED_RollLimitedRandomNumber_Inline(pSeed, nCount);
-    ITEMS_SetFileIndex(pItem, gaItemFileIndices_0074638C[nIndex]);
+    ITEMS_SetFileIndex(pItem, gaItemFileIndices[nIndex]);
 
-    const int nFileIndex = gaItemFileIndices_0074638C[nIndex];
+    const int nFileIndex = gaItemFileIndices[nIndex];
     int nValue;
     if (nFileIndex == 9)
     {
@@ -2433,10 +2434,10 @@ static void __stdcall ITEMMODS_DispatchPropertyAssign(int nType, D2UnitStrc* pUn
         const int nProperty = ptProperty->nProperty;
         if (nProperty != -1 && nProperty >= 0 && nProperty < sgptDataTables->nPropertiesTxtRecordCount)
         {
-            ITEMMODS_PROPERTYFN pfAssign = gtPropertyAssignTable_00745B58[nProperty].pfAssign;
+            ITEMMODS_PROPERTYFN pfAssign = gaPropertyAssignTable[nProperty].pfAssign;
             if (pfAssign)
             {
-                pfAssign(nType, pUnit, pItem, ptProperty, gtPropertyAssignTable_00745B58[nProperty].nStatId, nApplyType, nState, fStatlist, a11);
+                pfAssign(nType, pUnit, pItem, ptProperty, gaPropertyAssignTable[nProperty].nStatId, nApplyType, nState, fStatlist, a11);
             }
         }
     }
@@ -2542,7 +2543,8 @@ static inline int SetItemFlag(const D2SetItemsTxt* pRecord, int nIndex)
 {
     if (!pRecord->nAddFunc)
         return 0x40;
-    return gnSetItemStatlistFlags_006EDB5C[nIndex];
+// build: symbol ?gnSetItemStatlistFlags@* 0x006EDB5C
+    return gnSetItemStatlistFlags[nIndex];
 }
 
 // build: context SetItemState
@@ -2550,7 +2552,8 @@ static inline int SetItemState(const D2SetItemsTxt* pRecord, int nIndex)
 {
     if (!pRecord->nAddFunc)
         return 0;
-    return gnSetItemStates_006EDB40[nIndex];
+// build: symbol ?gnSetItemStates@* 0x006EDB40
+    return gnSetItemStates[nIndex];
 }
 
 // 0x0065FEC0
@@ -2685,7 +2688,7 @@ void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem,
                 }
                 else
                 {
-                    nItems = gnSetItemsCount_006EDA40[nMask];
+                    nItems = gnSetItemsCount[nMask];
                 }
 
                 const int nCount = nItems < pSetsTxtRecord->nSetItems - 1 ? nItems : pSetsTxtRecord->nSetItems - 1;

@@ -55,8 +55,8 @@ struct D2SummonArgStrc
     int nPetMax;
 };
 
-extern const int gnHydraOffsetX_006E312C[]; // 0x006E312C
-extern const int gnHydraOffsetY_006E3120[]; // 0x006E3120
+extern const int gnHydraOffsetX[]; // 0x006E312C
+extern const int gnHydraOffsetY[]; // 0x006E3120
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
@@ -209,8 +209,8 @@ int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     for (int i = 0; i < 3; i += 1)
     {
         summonArg.nHcIdx = nSummonId + i;
-        summonArg.nX = nX + gnHydraOffsetX_006E312C[i];
-        summonArg.nY = nY + gnHydraOffsetY_006E3120[i];
+        summonArg.nX = nX + gnHydraOffsetX[i];
+        summonArg.nY = nY + gnHydraOffsetY[i];
         D2UnitStrc* pPet = D2GAME_SummonPet_6FD14430(pGame, &summonArg);
         if (pPet)
         {

@@ -55,7 +55,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-D2UnitProxyStrc gUnitProxyItemCache_00883D78[17]; // 0x00883D78
+D2UnitProxyStrc gaUnitProxyItemCache[17]; // 0x00883D78
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -210,7 +210,7 @@ struct D2ItemDataTbl
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-unsigned char gbUnitProxyItemCacheInitialized_00883E88[17]; // 0x00883E88
+unsigned char gbUnitProxyItemCacheInitialized[17]; // 0x00883E88
 
 struct D2RegurgitatorAiCallbackArgStrc
 {
@@ -233,7 +233,7 @@ int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
 
-extern const int gnDifficultyBonus_006E21F4[]; // 0x006E21F4
+extern const int gnDifficultyBonus[]; // 0x006E21F4
 
 #define MAX_NPC_INVENTORY 17
 
@@ -264,9 +264,9 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2NpcConfigTableStrc gNpcConfig; // 0x00731184
 
-extern int gnItemCode_00883E9C; // 0x00883E9C
+extern int gnCrossbowQuiverItemId; // 0x00883E9C
 
-extern int gnItemCode_00883EA0; // 0x00883EA0
+extern int gnArrowQuiverItemId; // 0x00883EA0
 
 void __fastcall SEED_InitSeed(D2SeedStrc*); // 0x00650E30
 
@@ -278,7 +278,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 #define NPCREC_FIELD(type, cursor, offset) (*(type*)((cursor) + (offset) - 0x2C))
 
-extern "C" const char szSUnitProxyCppFile_006E0A30[]; // 0x006E0A30
+extern "C" const char szSUnitProxyCppFile[]; // 0x006E0A30
 
 static void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory);
 
@@ -316,12 +316,12 @@ void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2
 static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* pUnitProxy, int nNpcInventoryId)
 {
     D2_ASSERT(nNpcInventoryId < MAX_NPC_INVENTORY, 164);
-    pUnitProxy->nItems = gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems;
-    pUnitProxy->pItemCache = (D2ItemCacheStrc*)FOG_AllocPool(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc), ".\\UNIT\\sunitproxy.cpp", 168, 0);
-    memcpy(pUnitProxy->pItemCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].pItemCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc));
-    pUnitProxy->nPerms = gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms;
-    pUnitProxy->pPermCache = (unsigned int*)FOG_AllocPool(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms * sizeof(unsigned int), ".\\UNIT\\sunitproxy.cpp", 171, 0);
-    memcpy(pUnitProxy->pPermCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].pPermCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms * sizeof(unsigned int));
+    pUnitProxy->nItems = gaUnitProxyItemCache[nNpcInventoryId].nItems;
+    pUnitProxy->pItemCache = (D2ItemCacheStrc*)FOG_AllocPool(pGame->pMemoryPool, gaUnitProxyItemCache[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc), ".\\UNIT\\sunitproxy.cpp", 168, 0);
+    memcpy(pUnitProxy->pItemCache, gaUnitProxyItemCache[nNpcInventoryId].pItemCache, gaUnitProxyItemCache[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc));
+    pUnitProxy->nPerms = gaUnitProxyItemCache[nNpcInventoryId].nPerms;
+    pUnitProxy->pPermCache = (unsigned int*)FOG_AllocPool(pGame->pMemoryPool, gaUnitProxyItemCache[nNpcInventoryId].nPerms * sizeof(unsigned int), ".\\UNIT\\sunitproxy.cpp", 171, 0);
+    memcpy(pUnitProxy->pPermCache, gaUnitProxyItemCache[nNpcInventoryId].pPermCache, gaUnitProxyItemCache[nNpcInventoryId].nPerms * sizeof(unsigned int));
 }
 
 // build: context SUNITPROXY_GetMonStatsTxtRecordInline
@@ -352,8 +352,8 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
     pControl->nNpcCount = 0;
     SEED_InitSeed(&pControl->pSeed);
     SEED_InitLowSeed(&pControl->pSeed, RollSeed(&pGame->pGameSeed));
-    if (!gnItemCode_00883E9C) DATATBLS_GetItemRecordFromItemCode(0x20767163, &gnItemCode_00883E9C);
-    if (!gnItemCode_00883EA0) DATATBLS_GetItemRecordFromItemCode(0x20767161, &gnItemCode_00883EA0);
+    if (!gnCrossbowQuiverItemId) DATATBLS_GetItemRecordFromItemCode(0x20767163, &gnCrossbowQuiverItemId);
+    if (!gnArrowQuiverItemId) DATATBLS_GetItemRecordFromItemCode(0x20767161, &gnArrowQuiverItemId);
     DATATBLS_GetItemDataTables();
     int nCount = 0;
     const int nTotal = sgptDataTables->nMonStatsTxtRecordCount;
@@ -805,7 +805,7 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
                     pGamble->pInventory = 0;
                 }
 
-                sub_0040B480(pGame->pMemoryPool, pGamble, szSUnitProxyCppFile_006E0A30, 0x48F, 0);
+                sub_0040B480(pGame->pMemoryPool, pGamble, szSUnitProxyCppFile, 0x48F, 0);
                 break;
             }
 
@@ -833,7 +833,7 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
                 pNpcRecord->pVendorChain = pVendorChain->pNext;
             }
 
-            sub_0040B480(pGame->pMemoryPool, pVendorChain, szSUnitProxyCppFile_006E0A30, 0x4A7, 0);
+            sub_0040B480(pGame->pMemoryPool, pVendorChain, szSUnitProxyCppFile, 0x4A7, 0);
             return;
         }
 
@@ -880,12 +880,12 @@ void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc*
 void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId)
 {
     D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
-    if (gbUnitProxyItemCacheInitialized_00883E88[nNpcId])
+    if (gbUnitProxyItemCacheInitialized[nNpcId])
     {
         return;
     }
 
-    gbUnitProxyItemCacheInitialized_00883E88[nNpcId] = 1;
+    gbUnitProxyItemCacheInitialized[nNpcId] = 1;
 
     int nItemCount = 0;
     int nPermStoreItemCount = 0;
@@ -904,13 +904,13 @@ void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId)
         }
     }
 
-    gUnitProxyItemCache_00883D78[nNpcId].pItemCache = (D2ItemCacheStrc*)FOG_AllocPool(0, sizeof(D2ItemCacheStrc) * nItemCount, ".\\UNIT\\sunitproxy.cpp", 0x523, 0);
-    memset(gUnitProxyItemCache_00883D78[nNpcId].pItemCache, 0, sizeof(D2ItemCacheStrc) * nItemCount);
-    gUnitProxyItemCache_00883D78[nNpcId].nItems = nItemCount;
+    gaUnitProxyItemCache[nNpcId].pItemCache = (D2ItemCacheStrc*)FOG_AllocPool(0, sizeof(D2ItemCacheStrc) * nItemCount, ".\\UNIT\\sunitproxy.cpp", 0x523, 0);
+    memset(gaUnitProxyItemCache[nNpcId].pItemCache, 0, sizeof(D2ItemCacheStrc) * nItemCount);
+    gaUnitProxyItemCache[nNpcId].nItems = nItemCount;
 
-    gUnitProxyItemCache_00883D78[nNpcId].pPermCache = (unsigned int*)FOG_AllocPool(0, sizeof(unsigned int) * nPermStoreItemCount, ".\\UNIT\\sunitproxy.cpp", 0x528, 0);
-    memset(gUnitProxyItemCache_00883D78[nNpcId].pPermCache, 0, sizeof(unsigned int) * nPermStoreItemCount);
-    gUnitProxyItemCache_00883D78[nNpcId].nPerms = nPermStoreItemCount;
+    gaUnitProxyItemCache[nNpcId].pPermCache = (unsigned int*)FOG_AllocPool(0, sizeof(unsigned int) * nPermStoreItemCount, ".\\UNIT\\sunitproxy.cpp", 0x528, 0);
+    memset(gaUnitProxyItemCache[nNpcId].pPermCache, 0, sizeof(unsigned int) * nPermStoreItemCount);
+    gaUnitProxyItemCache[nNpcId].nPerms = nPermStoreItemCount;
 
     int nItemCacheIndex = 0;
     int nPermCacheIndex = 0;
@@ -920,17 +920,17 @@ void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId)
         {
             if (!pItemDataTbl->pItemsTxt[i].nPermStoreItem)
             {
-                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMin = pItemDataTbl->pItemsTxt[i].nVendorMin[nNpcId];
-                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMax = pItemDataTbl->pItemsTxt[i].nVendorMax[nNpcId];
-                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMagicMin = pItemDataTbl->pItemsTxt[i].nVendorMagicMin[nNpcId];
-                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMagicMax = pItemDataTbl->pItemsTxt[i].nVendorMagicMax[nNpcId];
-                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMagicLevel = pItemDataTbl->pItemsTxt[i].nVendorMagicLvl[nNpcId];
-                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].dwCode = pItemDataTbl->pItemsTxt[i].dwCode;
+                gaUnitProxyItemCache[nNpcId].pItemCache[nItemCacheIndex].nMin = pItemDataTbl->pItemsTxt[i].nVendorMin[nNpcId];
+                gaUnitProxyItemCache[nNpcId].pItemCache[nItemCacheIndex].nMax = pItemDataTbl->pItemsTxt[i].nVendorMax[nNpcId];
+                gaUnitProxyItemCache[nNpcId].pItemCache[nItemCacheIndex].nMagicMin = pItemDataTbl->pItemsTxt[i].nVendorMagicMin[nNpcId];
+                gaUnitProxyItemCache[nNpcId].pItemCache[nItemCacheIndex].nMagicMax = pItemDataTbl->pItemsTxt[i].nVendorMagicMax[nNpcId];
+                gaUnitProxyItemCache[nNpcId].pItemCache[nItemCacheIndex].nMagicLevel = pItemDataTbl->pItemsTxt[i].nVendorMagicLvl[nNpcId];
+                gaUnitProxyItemCache[nNpcId].pItemCache[nItemCacheIndex].dwCode = pItemDataTbl->pItemsTxt[i].dwCode;
                 ++nItemCacheIndex;
             }
             else
             {
-                gUnitProxyItemCache_00883D78[nNpcId].pPermCache[nPermCacheIndex] = pItemDataTbl->pItemsTxt[i].dwCode;
+                gaUnitProxyItemCache[nNpcId].pPermCache[nPermCacheIndex] = pItemDataTbl->pItemsTxt[i].dwCode;
                 ++nPermCacheIndex;
             }
         }
@@ -951,20 +951,20 @@ void __fastcall SUNITPROXY_ClearGlobalItemCache()
 {
     for (int i = 0; i < MAX_NPC_INVENTORY; ++i)
     {
-        if (gbUnitProxyItemCacheInitialized_00883E88[i] == 1)
+        if (gbUnitProxyItemCacheInitialized[i] == 1)
         {
-            gbUnitProxyItemCacheInitialized_00883E88[i] = 0;
+            gbUnitProxyItemCacheInitialized[i] = 0;
 
-            if (gUnitProxyItemCache_00883D78[i].pItemCache)
+            if (gaUnitProxyItemCache[i].pItemCache)
             {
-                FOG_FreePool(0, gUnitProxyItemCache_00883D78[i].pItemCache, ".\\UNIT\\sunitproxy.cpp", 0x59D, 0);
-                gUnitProxyItemCache_00883D78[i].pItemCache = 0;
+                FOG_FreePool(0, gaUnitProxyItemCache[i].pItemCache, ".\\UNIT\\sunitproxy.cpp", 0x59D, 0);
+                gaUnitProxyItemCache[i].pItemCache = 0;
             }
 
-            if (gUnitProxyItemCache_00883D78[i].pPermCache)
+            if (gaUnitProxyItemCache[i].pPermCache)
             {
-                FOG_FreePool(0, gUnitProxyItemCache_00883D78[i].pPermCache, ".\\UNIT\\sunitproxy.cpp", 0x5A2, 0);
-                gUnitProxyItemCache_00883D78[i].pPermCache = 0;
+                FOG_FreePool(0, gaUnitProxyItemCache[i].pPermCache, ".\\UNIT\\sunitproxy.cpp", 0x5A2, 0);
+                gaUnitProxyItemCache[i].pPermCache = 0;
             }
         }
     }
@@ -1041,7 +1041,7 @@ int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCoun
 
     if (nCount < 9)
     {
-        return gnDifficultyBonus_006E21F4[nCount];
+        return gnDifficultyBonus[nCount];
     }
 
     return 8 * nCount - 16;

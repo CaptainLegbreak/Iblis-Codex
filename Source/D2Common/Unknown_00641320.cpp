@@ -69,7 +69,7 @@ int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 int __stdcall DATATBLS_GetMissileVelocityFromMissilesTxt(int nMissileId, int nLevel); // 0x00663270
 unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
-extern int data_006EB180[64]; // 0x006EB180
+extern int gnUnitDistanceTable[64]; // 0x006EB180
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
 
@@ -176,7 +176,7 @@ int __stdcall sub_00641530(D2UnitStrc* a,D2UnitStrc* b)
  const int sizeA=sub_00620510(a);
  const int sizeB=sub_00620510(b);
  if(dx<8 && dy<8 && sizeA<4 && sizeB<4) {
-  int distance=data_006EB180[dx+8*dy];
+  int distance=gnUnitDistanceTable[dx+8*dy];
   if(distance<0) return 0;
   if(sizeA==3 || sizeB==3) --distance;
   if(distance<0) distance=0;

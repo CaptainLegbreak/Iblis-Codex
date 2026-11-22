@@ -31,8 +31,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn); // 0x006CC34C
-extern const D2CoordStrc gatDirectionToOffset_006EB398[8]; // 0x006EB398
-extern PATH_FUNCTION const scpfnPathFunction_006EB6D8[]; // 0x006EB6D8
+extern const D2CoordStrc gaDirectionToOffset[8]; // 0x006EB398
+extern PATH_FUNCTION const gpfnPathFunctions[]; // 0x006EB6D8
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
@@ -55,8 +55,9 @@ int __stdcall PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath); // 0x006
 // 0x00648020
 static void __stdcall sub_00648020_GetTablePair(int b, int a, int* pOut1, int* pOut2)
 {
-    *pOut1 = gnTable_006EB490[a][b];
-    *pOut2 = gnTable_006EB490[b][a];
+// build: symbol ?gnOrthogonalStepTable@* 0x006EB490
+    *pOut1 = gnOrthogonalStepTable[a][b];
+    *pOut2 = gnOrthogonalStepTable[b][a];
 }
 
 void __stdcall sub_K15_Emit8(int* p, int n)
@@ -81,8 +82,8 @@ static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPath
         int nX = pPathInfo->tTargetCoord.X;
         const int nCollisionPattern = pPathInfo->nCollisionPattern;
         const int nCollisionMask = pPathInfo->nCollisionMask;
-        const int nOffsetX = gnTable_006EB490[nDeltaY][nDeltaX];
-        const int nOffsetY = gnTable_006EB490[nDeltaX][nDeltaY];
+        const int nOffsetX = gnOrthogonalStepTable[nDeltaY][nDeltaX];
+        const int nOffsetY = gnOrthogonalStepTable[nDeltaX][nDeltaY];
         nY = pPathInfo->tTargetCoord.Y;
         int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
         while (nChebyshevDistance < PATH_SNAP_RANGE)
@@ -132,15 +133,15 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
             return FALSE;
         }
 
-        aTestDirPathPoints[0].X += gatDirectionToOffset_006EB398[aTestDir[0]].nX;
-        aTestDirPathPoints[0].Y += gatDirectionToOffset_006EB398[aTestDir[0]].nY;
+        aTestDirPathPoints[0].X += gaDirectionToOffset[aTestDir[0]].nX;
+        aTestDirPathPoints[0].Y += gaDirectionToOffset[aTestDir[0]].nY;
         if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[0].X, aTestDirPathPoints[0].Y, nCollisionPattern, nCollisionMask))
         {
             PATH_SET_TARGET_AND_LEAVE(aTestDirPathPoints[0])
         }
 
-        aTestDirPathPoints[1].X += gatDirectionToOffset_006EB398[aTestDir[1]].nX;
-        aTestDirPathPoints[1].Y += gatDirectionToOffset_006EB398[aTestDir[1]].nY;
+        aTestDirPathPoints[1].X += gaDirectionToOffset[aTestDir[1]].nX;
+        aTestDirPathPoints[1].Y += gaDirectionToOffset[aTestDir[1]].nY;
         if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[1].X, aTestDirPathPoints[1].Y, nCollisionPattern, nCollisionMask))
         {
             PATH_SET_TARGET_AND_LEAVE(aTestDirPathPoints[1])
@@ -148,8 +149,8 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 
         if (aTestDir[2] != PATH_DIR_NULL)
         {
-            aTestDirPathPoints[2].X += gatDirectionToOffset_006EB398[aTestDir[2]].nX;
-            aTestDirPathPoints[2].Y += gatDirectionToOffset_006EB398[aTestDir[2]].nY;
+            aTestDirPathPoints[2].X += gaDirectionToOffset[aTestDir[2]].nX;
+            aTestDirPathPoints[2].Y += gaDirectionToOffset[aTestDir[2]].nY;
             if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[2].X, aTestDirPathPoints[2].Y, nCollisionPattern, nCollisionMask))
             {
                 PATH_SET_TARGET_AND_LEAVE(aTestDirPathPoints[2])
@@ -302,8 +303,8 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                         int nPathPoints = 0;
                         if (bUpdatePath)
                         {
-                            D2_ASSERT(!IsBadCodePtr((void*)scpfnPathFunction_006EB6D8[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
-                            nPathPoints = scpfnPathFunction_006EB6D8[tPathInfo.nPathType](&tPathInfo);
+                            D2_ASSERT(!IsBadCodePtr((void*)gpfnPathFunctions[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
+                            nPathPoints = gpfnPathFunctions[tPathInfo.nPathType](&tPathInfo);
                         }
                         pPath->dwPathPoints = nPathPoints;
 

@@ -100,7 +100,7 @@ void __stdcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int nType, i
 
 // build: context DRLGOUTROOM_LinkLevelsByOffsetCoords
 
-extern const D2CoordStrc gOutdoorOrthOffsets_006F1F7C[4]; // 0x006F1F7C
+extern const D2CoordStrc gaOutdoorOrthOffsets[4]; // 0x006F1F7C
 
 struct D2DrlgOutSiegeInitStrc
 {
@@ -139,8 +139,8 @@ static inline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordStrc* pCoo
     }
 
     const int nIndex = nRand + 2 * nLinkRand;
-    pCoords->nPosX = gOutdoorOrthOffsets_006F1F7C[nIndex].nX + pLinkCoords->nPosX;
-    pCoords->nPosY = gOutdoorOrthOffsets_006F1F7C[nIndex].nY + pLinkCoords->nPosY;
+    pCoords->nPosX = gaOutdoorOrthOffsets[nIndex].nX + pLinkCoords->nPosX;
+    pCoords->nPosY = gaOutdoorOrthOffsets[nIndex].nY + pLinkCoords->nPosY;
 }
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

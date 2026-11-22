@@ -36,13 +36,13 @@ D2CommonStormZero6105F0Strc::D2CommonStormZero6105F0Strc() : n0x04(0), n0x08(0),
 {
 }
 
-extern const int gnTileTypeTable_006EEF88[];                                                                // 0x006EEF88
+extern const int gnTileTypeTable[];                                                                // 0x006EEF88
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);                                            // 0x00643310
 
 // 0x0066D7E0
 int __fastcall sub_0066D7E0_MapTileType(int nId)
 {
-    return gnTileTypeTable_006EEF88[nId];
+    return gnTileTypeTable[nId];
 }
 
 // 0x0066D800

@@ -530,9 +530,9 @@ int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nObjectType, int nObjectGUID, int* pResult); // 0x00584420
 
-extern const int gnHydraOffsetX_006E312C[]; // 0x006E312C
+extern const int gnHydraOffsetX[]; // 0x006E312C
 
-extern const int gnHydraOffsetY_006E3120[]; // 0x006E3120
+extern const int gnHydraOffsetY[]; // 0x006E3120
 
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
@@ -1918,8 +1918,8 @@ int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     for (int i = 0; i < 3; i += 1)
     {
         summonArg.nHcIdx = nSummonId + i;
-        summonArg.pPosition.nX = nX + gnHydraOffsetX_006E312C[i];
-        summonArg.pPosition.nY = nY + gnHydraOffsetY_006E3120[i];
+        summonArg.pPosition.nX = nX + gnHydraOffsetX[i];
+        summonArg.pPosition.nY = nY + gnHydraOffsetY[i];
         D2UnitStrc* pPet = D2GAME_SummonPet_6FD14430(pGame, &summonArg);
         if (pPet)
         {
@@ -2746,7 +2746,8 @@ int __fastcall SKILLS_SrvDo087_MaggotLay(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
     int nOffsetX;
     int nOffsetY;
-    INVENTORY_GetDirectionDelta(gnMaggotLayDirections_006E3138[(unsigned char)nIndex], &nOffsetX, &nOffsetY);
+// build: symbol ?gnMaggotLayDirections@* 0x006E3138
+    INVENTORY_GetDirectionDelta(gnMaggotLayDirections[(unsigned char)nIndex], &nOffsetX, &nOffsetY);
 
     const int nX = CLIENTS_GetUnitX(pUnit) + nOffsetX;
     const int nY = CLIENTS_GetUnitY(pUnit) + nOffsetY;
@@ -2812,7 +2813,8 @@ int __fastcall SKILLS_SrvDo088_AndrialSpray(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     int nOffsetX;
     int nOffsetY;
-    INVENTORY_GetDirectionDelta(gnAndrialSprayDirections_006E3188[nIndex], &nOffsetX, &nOffsetY);
+// build: symbol ?gnAndrialSprayDirections@* 0x006E3188
+    INVENTORY_GetDirectionDelta(gnAndrialSprayDirections[nIndex], &nOffsetX, &nOffsetY);
     nX += nOffsetX;
     nY += nOffsetY;
 
@@ -2823,7 +2825,8 @@ int __fastcall SKILLS_SrvDo088_AndrialSpray(D2GameStrc* pGame, D2UnitStrc* pUnit
     const int nClampedFrame = nFrame > 0 ? nFrame : 0;
     nFrame = nClampedFrame < 8 ? nClampedFrame : 8;
 
-    const unsigned char nSprayDirection = gnAndrialSprayOffsets_006E3140[9 * nIndex + nFrame];
+// build: symbol ?gnAndrialSprayOffsets@* 0x006E3140
+    const unsigned char nSprayDirection = gnAndrialSprayOffsets[9 * nIndex + nFrame];
     if (nSprayDirection != 99)
     {
         INVENTORY_GetDirectionDelta(nSprayDirection, &nOffsetX, &nOffsetY);
@@ -3599,8 +3602,10 @@ static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, D2UnitStrc* p
 
     for (int i = 0; i < nCount; ++i)
     {
-        missileParams.nTargetX = gnVolleyOffsetX_006E3254[i & 3];
-        missileParams.nTargetY = gnVolleyOffsetY_006E3264[i & 3];
+// build: symbol ?gnVolleyOffsetX@* 0x006E3254
+        missileParams.nTargetX = gnVolleyOffsetX[i & 3];
+// build: symbol ?gnVolleyOffsetY@* 0x006E3264
+        missileParams.nTargetY = gnVolleyOffsetY[i & 3];
         missileParams.nInitArg = i;
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }

@@ -30,12 +30,12 @@ struct D2DrlgLevelStrc
     D2DrlgRoomStrc* sub_0066AC40_GetTileRoom(int nTileIndex, int* pX, int* pY);
 };
 
-extern D2TileGroupStrc gaTileGroups_006EED88[];                                                             // 0x006EED88
+extern D2TileGroupStrc gaTileGroups[];                                                             // 0x006EED88
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pRoomHint, D2DrlgLevelStrc* pLevel); // 0x00642C30
 
 static inline int TileMatches(int nTileIndex, int nOther)
 {
-    return nTileIndex == nOther || (gaTileGroups_006EED88[nTileIndex].bValid && gaTileGroups_006EED88[nTileIndex].nGroup == gaTileGroups_006EED88[nOther].nGroup);
+    return nTileIndex == nOther || (gaTileGroups[nTileIndex].bValid && gaTileGroups[nTileIndex].nGroup == gaTileGroups[nOther].nGroup);
 }
 
 static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
@@ -87,7 +87,7 @@ D2DrlgRoomStrc* D2DrlgLevelStrc::sub_0066AC40_GetTileRoom(int nTileIndex, int* p
     for (; i < nTileInfo; ++i, ++pInfo)
     {
         const int nTile = pInfo->nTileIndex;
-        if (nTileIndex == nTile || (gaTileGroups_006EED88[nTileIndex].bValid && gaTileGroups_006EED88[nTileIndex].nGroup == gaTileGroups_006EED88[nTile].nGroup))
+        if (nTileIndex == nTile || (gaTileGroups[nTileIndex].bValid && gaTileGroups[nTileIndex].nGroup == gaTileGroups[nTile].nGroup))
         {
             --nPick;
         }

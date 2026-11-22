@@ -469,7 +469,7 @@ struct D2SkillStrc;
 
 
 
-extern "C" const char gszMonsterModeSourceFile_006E23B0[];                                                  // 0x006E23B0
+extern "C" const char gszMonsterModeSourceFile[];                                                  // 0x006E23B0
 
 int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit);                                                              // 0x006217C0
 
@@ -529,11 +529,11 @@ struct D2MissilesTxt;
 
 struct D2MissileUnitFindArgStrc;
 
-extern unsigned char gbModeReset_0073C6D0[]; // 0x0073C6D0
+extern unsigned char gbModeReset[]; // 0x0073C6D0
 
 typedef void (__fastcall *ModeCallback)(D2GameStrc*, D2UnitStrc*, int, int);
 
-extern ModeCallback gpModeCallback_006E2498; // 0x006E2498
+extern ModeCallback gpfnMonsterEventCallbacks; // 0x006E2498
 
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 
@@ -2492,7 +2492,7 @@ static inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 static __forceinline void MONSTERMODE_AiThinkUnlessFrozen(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit)) return;
-    if (gpModeCallback_006E2498) gpModeCallback_006E2498(pGame, pUnit, 0, 0);
+    if (gpfnMonsterEventCallbacks) gpfnMonsterEventCallbacks(pGame, pUnit, 0, 0);
 }
 
 // 0x005A8030
@@ -2529,7 +2529,7 @@ void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pU
             MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit); return;
         }
     }
-    if (gbModeReset_0073C6D0[nMode])
+    if (gbModeReset[nMode])
     {
         UNITS_ChangeAnimMode(pUnit, 1);
         MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit);

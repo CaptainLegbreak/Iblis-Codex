@@ -7,8 +7,8 @@
 union D2SeedStrc;
 struct D2SkillsTxt;
 
-extern int gnPotionTableMax_00741B54; // 0x00741B54
-extern int gaPotionTable_00741B58[][3]; // 0x00741B58
+extern int gnPotionTableMax; // 0x00741B54
+extern int gaPotionTable[][3]; // 0x00741B58
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
@@ -63,12 +63,12 @@ static int __stdcall sub_005D8100_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStr
         nType = 2;
     }
 
-    if (nIndex > gnPotionTableMax_00741B54)
+    if (nIndex > gnPotionTableMax)
     {
         return 0;
     }
 
-    return gaPotionTable_00741B58[nIndex][nType];
+    return gaPotionTable[nIndex][nType];
 }
 
 int __fastcall sub_005D8100_EmitCaller(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId)

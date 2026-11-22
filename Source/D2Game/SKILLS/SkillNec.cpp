@@ -404,7 +404,7 @@ int __fastcall SKILLS_AuraCallback_SetAttractTarget(D2UnitStrc* pUnit, void* pAr
 
 void __fastcall SKILLS_CurseStateCallback_EndAttract(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005C3B00
 
-extern const D2NecroSkeletonComponentStrc gaNecroSkeletonComponents_00741940[]; // 0x00741940
+extern const D2NecroSkeletonComponentStrc gaNecroSkeletonComponents[]; // 0x00741940
 
 void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2); // 0x005B0D70
 
@@ -1407,24 +1407,24 @@ static void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpec
         nLevel = 10;
     }
 
-    const char nHead = gaNecroSkeletonComponents_00741940[nLevel].nHead;
+    const char nHead = gaNecroSkeletonComponents[nLevel].nHead;
     MONSTERS_SetComponentInl(pPet, 0, nHead);
-    const char nTorso = gaNecroSkeletonComponents_00741940[nLevel].nTorso;
+    const char nTorso = gaNecroSkeletonComponents[nLevel].nTorso;
     MONSTERS_SetComponentInl(pPet, 1, nTorso);
-    const char nSpecial1 = gaNecroSkeletonComponents_00741940[nLevel].nSpecial1;
+    const char nSpecial1 = gaNecroSkeletonComponents[nLevel].nSpecial1;
     MONSTERS_SetComponentInl(pPet, 8, nSpecial1);
-    const char nSpecial2 = gaNecroSkeletonComponents_00741940[nLevel].nSpecial2;
+    const char nSpecial2 = gaNecroSkeletonComponents[nLevel].nSpecial2;
     MONSTERS_SetComponentInl(pPet, 9, nSpecial2);
-    const char nLegs = gaNecroSkeletonComponents_00741940[nLevel].nLegs;
+    const char nLegs = gaNecroSkeletonComponents[nLevel].nLegs;
     MONSTERS_SetComponentInl(pPet, 2, nLegs);
-    const char nRightArm = gaNecroSkeletonComponents_00741940[nLevel].nRightArm;
+    const char nRightArm = gaNecroSkeletonComponents[nLevel].nRightArm;
     MONSTERS_SetComponentInl(pPet, 3, nRightArm);
-    const char nLeftArm = gaNecroSkeletonComponents_00741940[nLevel].nLeftArm;
+    const char nLeftArm = gaNecroSkeletonComponents[nLevel].nLeftArm;
     MONSTERS_SetComponentInl(pPet, 4, nLeftArm);
 
     if (bHasShield)
     {
-        const char nShield = gaNecroSkeletonComponents_00741940[nLevel].nShield;
+        const char nShield = gaNecroSkeletonComponents[nLevel].nShield;
         MONSTERS_SetComponentInl(pPet, 7, nShield);
     }
 
@@ -1437,7 +1437,7 @@ static void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpec
     }
     else
     {
-        const char nRightHand = gaNecroSkeletonComponents_00741940[nLevel].nRightHand;
+        const char nRightHand = gaNecroSkeletonComponents[nLevel].nRightHand;
         MONSTERS_SetComponentInl(pPet, 5, nRightHand);
     }
 }
@@ -2241,7 +2241,9 @@ int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     D2UnitStrc* pOwner = 0;
     for (int i = 0; i < 12; ++i)
     {
-        D2UnitStrc* pPet = SKILLS_SpawnBonePrisonPet(pGame, nSkillId, pUnit, nTargetX + gnBonePrisonOffsetX_006E304C[i], nTargetY + gnBonePrisonOffsetY_006E307C[i], nSkillLevel);
+// build: symbol ?gnBonePrisonOffsetX@* 0x006E304C
+// build: symbol ?gnBonePrisonOffsetY@* 0x006E307C
+        D2UnitStrc* pPet = SKILLS_SpawnBonePrisonPet(pGame, nSkillId, pUnit, nTargetX + gnBonePrisonOffsetX[i], nTargetY + gnBonePrisonOffsetY[i], nSkillLevel);
         if (pPet)
         {
             if (!pOwner)

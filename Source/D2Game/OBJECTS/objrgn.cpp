@@ -246,7 +246,7 @@ extern int gdwGlobal_00882750; // 0x00882750
 
 int __stdcall sub_00424E40(void* pArg); // 0x00424E40
 
-extern char gData_006E0498[]; // 0x006E0498
+extern char gszEmptyLoadComplete[]; // 0x006E0498
 
 extern char gData_006E0550[]; // 0x006E0550
 
@@ -304,11 +304,11 @@ void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc
 
 void __stdcall DUNGEON_FreeAct(D2DrlgActStrc* pAct); // 0x0061AFD0
 
-D2CriticalSectionStrc gCriticalSection_6FD45800; // 0x00882D18
+D2CriticalSectionStrc gGameListLock; // 0x00882D18
 
-D2GameStrc* gpGame_6FD457FC; // 0x00882D34
+D2GameStrc* gpGame; // 0x00882D34
 
-int gnGamesGUIDs_6FD447F8[1024];                                                                            // 0x00882D38
+int gnGamesGUIDs[1024];                                                                            // 0x00882D38
 
 void __fastcall SCMD_SendPlayerJoinAndPets(D2ClientStrc*, D2UnitStrc*, D2ClientStrc*); // 0x0053C940
 
@@ -336,7 +336,7 @@ int __fastcall CLIENTS_GetCanonicalName(const char* szName, char* szGameName); /
 
 int __fastcall CCMD_IsStringZeroTerminated(const char* pData, int nDataSize); // 0x0053EFC0
 
-D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830;                                                 // 0x00883D50
+D2ServerCallbackFunctions* gpD2EventCallbackTable;                                                 // 0x00883D50
 
 void __fastcall D2GAME_PACKETS_SendGameLeft(int nClientId); // 0x0053B220
 
@@ -438,17 +438,18 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
-extern "C" const char szD2NetCpp_006E0488[];
+// build: symbol _gszD2NetSourceFile 0x006E0488
+extern "C" const char gszD2NetSourceFile[];
 
 extern int gnConnectionMode_00882D10;
 
-int gbD2ServerCallbackFunctionsInitialized_6FD45834;                                                        // 0x00883D54
+int gbD2ServerCallbackFunctionsInitialized;                                                        // 0x00883D54
 
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
 
 typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClassId);
 
-extern UnitDescriptionFunction gpfGetDescription_6FD2CA64[5]; // 0x0073107C
+extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -705,7 +706,7 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIn
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void); // 0x006CC544
 
-extern int dword_6FD2CA10; // 0x0073100C
+extern int gbFixedCpuTargetRatio; // 0x0073100C
 
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame); // 0x0052D870
 
@@ -830,13 +831,13 @@ unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame);                      
 
 static int GAME_CountUnitsInLists(D2UnitStrc** pUnitLists);
 
-unsigned long gdwPlayerPos_00883D4C; // 0x00883D4C
+unsigned long gdwPlayerPos; // 0x00883D4C
 
-D2GameDataTableStrc* gpGameDataTbl_6FD45818; // 0x00883D38
+D2GameDataTableStrc* gpGameDataTbl; // 0x00883D38
 
-int dword_6FD45844; // 0x00883D58
+int gnLastGamesUpdateTimeMs; // 0x00883D58
 
-int gnTargetMsPerFrame_6FD457F8; // 0x00883D60
+int gnTargetMsPerFrame; // 0x00883D60
 
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 
@@ -929,9 +930,9 @@ int dword_6FD45820;                                                             
 
 int gnPeakMemoryUsageInLast10s_6FD45828;                                                                    // 0x00883D48
 
-extern int gnTargetFrameRate_6FD2CA60;                                                                      // 0x00731014
+extern int gnTargetFrameRate;                                                                      // 0x00731014
 
-int gnAct_6FD45824;                                                                                         // 0x00883D44
+int gnAct;                                                                                         // 0x00883D44
 
 struct D2ClientInfoStrc;
 
@@ -963,7 +964,7 @@ struct D2GSPacketClt66
     unsigned char nLocale;
 };
 
-extern int gbCheckHeartbeat_00730FFC;                                                                       // 0x00730FFC
+extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
 int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 
@@ -1049,7 +1050,7 @@ struct Reply {
 
 #pragma pack(pop)
 
-long gnCounter_00883D64;         // 0x00883D64
+long gnAdminConnectionCount;         // 0x00883D64
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);  // 0x006CC208
 
@@ -1081,7 +1082,7 @@ int __cdecl sub_005377B0_CountFlaggedClients(); // 0x005377B0
 
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
-extern int gnFrameRate_00731010; // 0x00731010
+extern int gnFrameRate; // 0x00731010
 
 void __fastcall GAME_SynchronizePlayerWithClients(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0052C410
 
@@ -1127,9 +1128,9 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 
 extern "C" const char gszGameSourceFile; // 0x006D5D1C
 
-static unsigned int gnPeakMemoryUsage_00883D48; // 0x00883D48
+static unsigned int gnPeakMemoryUsageInLast10s; // 0x00883D48
 
-static unsigned int gnPreviousMemUsageTick_00883D68; // 0x00883D68
+static unsigned int gnPreviousMemUsageTick; // 0x00883D68
 
 void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescriptionListStrc* pUnitDescriptionsList, unsigned int eType);
 
@@ -1279,7 +1280,7 @@ extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern D2UnkPlrMsgStrc stru_6FD30708[20]; // 0x007319E8
+extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -1375,7 +1376,7 @@ struct D2GSPacketSrv8E
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
-extern int gnVirtualPlayerCount_6FD4DC1C; // 0x00883D70
+extern int gnVirtualPlayerCount; // 0x00883D70
 
 void __fastcall sub_0056DEB0(int a1, int a2, int a3, int a4); // 0x0056DEB0
 
@@ -1446,7 +1447,7 @@ struct D2SavePartPacketStrc
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 
-unsigned long dword_6FD45848;                                                                               // 0x00883D5C
+unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
 
 int __cdecl sub_0052B910();                                                                                 // 0x0052B910
 
@@ -2081,11 +2082,11 @@ struct D2QuestIntroTableStrc
     unsigned char pad0x05[3];
 };
 
-extern int gnQuestInitTableCount_00731888;                                                                  // 0x00731888
+extern int gnQuestInitTableCount;                                                                  // 0x00731888
 
 extern D2QuestIntroTableStrc sgQuestIntro[];                                                  // 0x0073188C
 
-extern int gnQuestIntroTableCount_007318AC;                                                                 // 0x007318AC
+extern int gnQuestIntroTableCount;                                                                 // 0x007318AC
 
 D2BitBufferStrc* __stdcall QUESTRECORD_AllocRecord(void* pMemPool);                                         // 0x0065C430
 

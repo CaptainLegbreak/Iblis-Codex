@@ -347,9 +347,9 @@ struct D2BodyLocWeightStrc
     int nWeight;
 };
 
-extern D2BodyLocWeightStrc gaBodyLocWeights_00732B90[];                                                     // 0x00732B90
+extern D2BodyLocWeightStrc gaBodyLocWeights[];                                                     // 0x00732B90
 
-extern int gnBodyLocWeightCount_00732BC8;                                                                   // 0x00732BC8
+extern int gnBodyLocWeightCount;                                                                   // 0x00732BC8
 
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
 
@@ -385,7 +385,7 @@ struct D2ModeChangeStrc;
 
 struct D2DamageHitClassMappingStrc;
 
-extern "C" const D2DamageHitClassMappingStrc gsDamageHitClassMapping_006E16D8[8]; // 0x006E16D8
+extern "C" const D2DamageHitClassMappingStrc gaDamageHitClassMapping[8]; // 0x006E16D8
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
@@ -439,7 +439,7 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 
-static unsigned char s_nHitClassCounter_0088CAD0; // 0x0088CAD0
+static unsigned char gnHitClassCounter; // 0x0088CAD0
 
 #define STAT_ITEM_UNDEADDAMAGE_PERCENT 122
 
@@ -2443,16 +2443,16 @@ void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D
 static unsigned int SUNITDMG_GetHitClass(D2DamageStrc* pDamage, unsigned int nBaseHitClass)
 {
     unsigned int nHitClass = 0;
-    int nIndex = s_nHitClassCounter_0088CAD0 % 0x04;
-    ++s_nHitClassCounter_0088CAD0;
+    int nIndex = gnHitClassCounter % 0x04;
+    ++gnHitClassCounter;
 
     const int nEnd = nIndex + 0x04;
 
     while (nIndex < nEnd)
     {
-        if (*(int*)((char*)pDamage + gsDamageHitClassMapping_006E16D8[nIndex].nDamageStrcOffset) > 0)
+        if (*(int*)((char*)pDamage + gaDamageHitClassMapping[nIndex].nDamageStrcOffset) > 0)
         {
-            nHitClass = gsDamageHitClassMapping_006E16D8[nIndex].nHitClass;
+            nHitClass = gaDamageHitClassMapping[nIndex].nHitClass;
             break;
         }
 
@@ -2756,33 +2756,33 @@ static void __stdcall SUNITDMG_DamageItems(D2UnitStrc* pAttacker, D2GameStrc* pG
     {
         D2UnitStrc* pItems[7] = {};
         int nTotalWeight = 0;
-        for (int i = 0; i < gnBodyLocWeightCount_00732BC8; ++i)
+        for (int i = 0; i < gnBodyLocWeightCount; ++i)
         {
-            D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocWeights_00732B90[i].nBodyLoc);
+            D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocWeights[i].nBodyLoc);
             if (pItem && ITEMSIsA(pItem, 0x32))
             {
                 pItems[i] = pItem;
-                nTotalWeight += gaBodyLocWeights_00732B90[i].nWeight;
+                nTotalWeight += gaBodyLocWeights[i].nWeight;
             }
         }
 
         if (nTotalWeight > 0)
         {
-            int nIndex = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, gnBodyLocWeightCount_00732BC8);
+            int nIndex = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, gnBodyLocWeightCount);
             int nWeight = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, nTotalWeight);
             do
             {
                 if (pItems[nIndex])
                 {
-                    if (nWeight < gaBodyLocWeights_00732B90[nIndex].nWeight)
+                    if (nWeight < gaBodyLocWeights[nIndex].nWeight)
                     {
                         ITEMS_UpdateDurability(pGame, pDefender, pItems[nIndex]);
                         break;
                     }
-                    nWeight -= gaBodyLocWeights_00732B90[nIndex].nWeight;
+                    nWeight -= gaBodyLocWeights[nIndex].nWeight;
                 }
                 _ReadWriteBarrier();
-                nIndex = (nIndex + 1) % gnBodyLocWeightCount_00732BC8;
+                nIndex = (nIndex + 1) % gnBodyLocWeightCount;
             }
             while (nWeight >= 0);
         }
@@ -3854,7 +3854,8 @@ static int SUNITDMG_ApplyLevelDifferenceFactor(int nAttackerLevel, int nExperien
             nIndex = 10;
         }
 
-        const int nFactor = gnExpFactorLowerLevel_006E1668[nIndex];
+// build: symbol ?gnExpFactorLowerLevel@* 0x006E1668
+        const int nFactor = gnExpFactorLowerLevel[nIndex];
         if (nFactor != 256)
         {
             return DATATBLS_ApplyRatio(nExperience, nFactor, 256);
@@ -3873,7 +3874,8 @@ static int SUNITDMG_ApplyLevelDifferenceFactor(int nAttackerLevel, int nExperien
             nIndex = 10;
         }
 
-        const int nFactor = gnExpFactorHigherLevel_006E1694[nIndex];
+// build: symbol ?gnExpFactorHigherLevel@* 0x006E1694
+        const int nFactor = gnExpFactorHigherLevel[nIndex];
         if (nFactor != 256)
         {
             return DATATBLS_ApplyRatio(nExperience, nFactor, 256);

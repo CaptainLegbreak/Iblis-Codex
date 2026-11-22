@@ -470,7 +470,7 @@ struct D2SkillStrc;
 
 struct D2CharStatsTxt;
 
-extern const int dwErrorCodesRemap_006E1208[PLRSAVE2ERROR_COUNT]; // 0x006E1208
+extern const int gnPlrSave2ErrorRemap[PLRSAVE2ERROR_COUNT]; // 0x006E1208
 
 void __fastcall sub_005385D0(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
 
@@ -1407,7 +1407,7 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
     }
 
     CLIENTS_SetPlayerInClient(pClient, 0);
-    return dwErrorCodesRemap_006E1208[nErrorCode];
+    return gnPlrSave2ErrorRemap[nErrorCode];
 }
 
 // 0x0056A620
