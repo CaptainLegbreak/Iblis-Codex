@@ -451,6 +451,8 @@ extern unsigned int gdwColors_009702C0[256]; // 0x009702C0
 
 extern unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
 
+extern D2DDSurfaceStrc* gpSurface_00970E6C; // 0x00970E6C
+
 // 0x006B4FD0
 static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
 {
@@ -1033,6 +1035,49 @@ void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSrc, unsigned short
         pRowSrc += nWidth;
         pRowDst += nDstPitch;
     }
+}
+
+// 0x006B3610
+int __fastcall sub_006B3610_ReadScreenRGB(unsigned char* pDst)
+{
+    D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
+    if (!gpSurface_00970E6C)
+    {
+        return 0;
+    }
+
+    long hResult = gpSurface_00970E6C->lpVtbl->Lock(gpSurface_00970E6C, 0, &tDesc, 0x11, 0);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("Lock failed!", hResult);
+        return 0;
+    }
+
+    int nPitch = tDesc.lPitch / 4;
+    unsigned char* pOutRow = pDst;
+    unsigned int* pSrcRow = (unsigned int*)tDesc.lpSurface;
+    for (int y = 0; y < gnScreenHeight_007C913C; ++y)
+    {
+        unsigned char* pOut = pOutRow;
+        unsigned int* pSrc = pSrcRow;
+        for (int x = 0; x < gnScreenWidth_007C9138; ++x)
+        {
+            unsigned int dwPixel = *pSrc++;
+            *pOut++ = (unsigned char)(dwPixel >> 16);
+            *pOut++ = (unsigned char)(dwPixel >> 8);
+            *pOut++ = (unsigned char)dwPixel;
+        }
+        pOutRow += gnScreenWidth_007C9138 * 3;
+        pSrcRow += nPitch;
+    }
+
+    hResult = gpSurface_00970E6C->lpVtbl->Unlock(gpSurface_00970E6C, 0);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("Unlock failed!", hResult);
+        return 0;
+    }
+    return 1;
 }
 
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"

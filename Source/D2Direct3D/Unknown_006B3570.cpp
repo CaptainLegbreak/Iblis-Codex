@@ -106,48 +106,6 @@ struct D2VideoKeyStrc { unsigned int words[5]; unsigned short tail; };
 extern const D2VideoKeyStrc gVideoKey_006DD634; // 0x006DD634
 
 
-// 0x006B3610
-int __fastcall sub_006B3610_ReadScreenRGB(unsigned char* pDst)
-{
-    D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
-    if (!gpSurface_00970E6C)
-    {
-        return 0;
-    }
-
-    long hResult = gpSurface_00970E6C->lpVtbl->Lock(gpSurface_00970E6C, 0, &tDesc, 0x11, 0);
-    if (hResult)
-    {
-        sub_006B20E0_DDrawLogError("Lock failed!", hResult);
-        return 0;
-    }
-
-    int nPitch = tDesc.lPitch / 4;
-    unsigned char* pOutRow = pDst;
-    unsigned int* pSrcRow = (unsigned int*)tDesc.lpSurface;
-    for (int y = 0; y < gnScreenHeight_007C913C; ++y)
-    {
-        unsigned char* pOut = pOutRow;
-        unsigned int* pSrc = pSrcRow;
-        for (int x = 0; x < gnScreenWidth_007C9138; ++x)
-        {
-            unsigned int dwPixel = *pSrc++;
-            *pOut++ = (unsigned char)(dwPixel >> 16);
-            *pOut++ = (unsigned char)(dwPixel >> 8);
-            *pOut++ = (unsigned char)dwPixel;
-        }
-        pOutRow += gnScreenWidth_007C9138 * 3;
-        pSrcRow += nPitch;
-    }
-
-    hResult = gpSurface_00970E6C->lpVtbl->Unlock(gpSurface_00970E6C, 0);
-    if (hResult)
-    {
-        sub_006B20E0_DDrawLogError("Unlock failed!", hResult);
-        return 0;
-    }
-    return 1;
-}
 
 // 0x006B3730
 int __fastcall sub_006B3730_CreateMemoryTexture(D2ComObject006B3730Strc** ppSurface, D2ComObject006B3730Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
