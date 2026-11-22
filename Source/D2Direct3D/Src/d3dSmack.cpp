@@ -240,6 +240,7 @@ static void __stdcall sub_006B9C40_BlitVideo(D2SmackRecordStrc* video, int width
     gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gVideoVertices_00989750, 4, 0x1C);
 }
 
+// 0x006BA390
 void __fastcall sub_006BA390_PlaySmack(D2SmackRecordStrc* video)
 {
     switch (video->nType)
