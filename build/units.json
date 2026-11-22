@@ -63010,6 +63010,10 @@
      "name": "sub_005E2FD0"
     },
     {
+     "va": "0x005E2FF0",
+     "length": 1231
+    },
+    {
      "va": "0x005E34C0",
      "length": 106,
      "name": "?AITHINK_Fn123_Catapult@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68192,30 +68196,6 @@
      "length": 501,
      "name": "AITHINK_Fn110_Vines"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E2FF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E2FF0",
-     "length": 1231
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

@@ -3256,6 +3256,105 @@ void __fastcall sub_005E2FD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     pAiTickParam->pAiControl->dwAiParam[0] = -1;
 }
 
+// 0x005E2FF0
+void __fastcall sub_005E2FF0_MonsterThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2MonStatsTxt* pRecords[4] = { MONSTERMODE_GetMonStatsTxtRecord(492), MONSTERMODE_GetMonStatsTxtRecord(493), MONSTERMODE_GetMonStatsTxtRecord(494), MONSTERMODE_GetMonStatsTxtRecord(495) };
+    if (pAiControl->dwAiParam[0] != -1 && !STATLIST_GetUnitAlignment(pUnit))
+    {
+        const int nOtherId = pAiControl->dwAiParam[0];
+        D2UnitStrc* pOther = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, nOtherId);
+        if (!pOther || SUNIT_IsDead(pOther) || SUNIT_GetOwner(pGame, pOther) || STATLIST_GetUnitAlignment(pOther))
+        {
+            AIGENERAL_GetAiControlFromUnitInline(pUnit)->dwAiParam[0] = -1;
+        }
+        else
+        {
+            if (AITHINK_GetSquaredDistance(pUnit, pOther) > AI_PARAM(pGame, pRecords[1], 0) * AI_PARAM(pGame, pRecords[1], 0))
+            {
+                AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pOther, 0);
+                return;
+            }
+
+            if (pMonStatsTxt->nSkill[0] >= 0)
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pOther, 0, 0);
+                return;
+            }
+        }
+    }
+
+    if (bCombat)
+    {
+        if (pMonStatsTxt->nSkill[0] >= 0 && sub_005DD280(pUnit) < AI_PARAM(pGame, pRecords[0], 0))
+        {
+            AITACTICS_UseSkillInRange(pUnit, AI_PARAM(pGame, pRecords[0], 1), pMonStatsTxt->nSkill[0], (signed char)pMonStatsTxt->nSkillMode[0]);
+            return;
+        }
+
+        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pRecords[2], 1) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 1))
+        {
+            return;
+        }
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pRecords[0], 2))
+    {
+        AITACTICS_UseSkillInRange(pUnit, AI_PARAM(pGame, pRecords[0], 1), pMonStatsTxt->nSkill[0], (signed char)pMonStatsTxt->nSkillMode[0]);
+        return;
+    }
+
+    if (nDistance < AI_PARAM(pGame, pRecords[2], 0) && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pRecords[2], 1))
+    {
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 0);
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[3] >= 0)
+    {
+        D2UnitStrc* pSelected = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
+        if (pSelected)
+        {
+            if (nDistance < AI_PARAM(pGame, pRecords[2], 2))
+            {
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pRecords[2], 3))
+                {
+                    AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[3], pMonStatsTxt->nSkill[3], pSelected, 0, 0);
+                    return;
+                }
+            }
+            else if (nDistance < AI_PARAM(pGame, pRecords[3], 2))
+            {
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pRecords[3], 3))
+                {
+                    AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[3], pMonStatsTxt->nSkill[3], pSelected, 0, 0);
+                    return;
+                }
+            }
+        }
+    }
+
+    if (AI_ROLL_PERCENT(pSeed) < 33)
+    {
+        AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, 4);
+        return;
+    }
+
+    if (AI_ROLL_PERCENT(pSeed) < 20)
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 8);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
 static int AI_RollPercentage_005E0C80(D2UnitStrc* pUnit)
 {
     return SEED_RollRandomNumber_005E0C80(&pUnit->pSeed) % 100;
