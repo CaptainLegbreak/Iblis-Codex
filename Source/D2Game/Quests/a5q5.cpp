@@ -8,6 +8,9 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2GameStrc.h"
+#include "D2DataTbls.h"
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
@@ -46,13 +49,6 @@ struct D2ObjectsTxt;
 
 struct D2QuestArgStrc;
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB36];
-    unsigned short wAncientSuperUniqueIds[3];
-};
-
-extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -911,21 +907,22 @@ void __fastcall ACT5Q5_SpawnAncientMonsters(D2QuestDataStrc* pQuestData, D2UnitS
     D2CoordStrc tCoord;
     int nIndex = 0;
     int nMonsterId = 0;
+    // the three Ancients are super-unique ids 43, 44 and 45
     switch (nObjectId)
     {
     case OBJECT_ANCIENTSTATUE3:
         nIndex = 1;
-        nMonsterId = sgptDataTables->wAncientSuperUniqueIds[2];
+        nMonsterId = sgptDataTables->nSuperUniqueIds[45];
         break;
 
     case OBJECT_ANCIENTSTATUE1:
         nIndex = 0;
-        nMonsterId = sgptDataTables->wAncientSuperUniqueIds[0];
+        nMonsterId = sgptDataTables->nSuperUniqueIds[43];
         break;
 
     case OBJECT_ANCIENTSTATUE2:
         nIndex = 0x02;
-        nMonsterId = sgptDataTables->wAncientSuperUniqueIds[1];
+        nMonsterId = sgptDataTables->nSuperUniqueIds[44];
         break;
 
     default:
