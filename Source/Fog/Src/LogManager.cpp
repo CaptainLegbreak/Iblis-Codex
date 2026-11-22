@@ -141,8 +141,15 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2LogMessageStrc
 {
-    void* pLinkPrev;
-    char* pLinkNext;
+    union
+    {
+        struct
+        {
+            void* pLinkPrev;
+            char* pLinkNext;
+        };
+        D2StormLinkStrc f_0;
+    };
     unsigned int nSize;
     int nType;
     int bTimeStamp;
@@ -902,6 +909,33 @@ struct D2LogMsgNodeStrc
 D2CriticalSectionStrc gtLogLock_0075E850; // 0x0075E850
 
 void* gpDbgHelpRequest_0098A6E4; // 0x0098A6E4
+
+struct D2LogMsgListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
+};
+
+struct D2LogMemoryInfoStrc
+{
+    const void* pAddress;
+    unsigned int nSize;
+    int nArg5;
+    int bBadPointer;
+    int bArg7;
+};
+
+extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* pAddress, unsigned int nSize); // 0x006CC238
+
+extern int gnLogQueuedBytes_0075D144; // 0x0075D144
+
+extern int gnLogQueued_0075D140; // 0x0075D140
+
+extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
+
+extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 
 // 0x004027C0
 unsigned long __stdcall sub_004027C0_DbgHelpThreadProc(void* pParam)
@@ -1842,4 +1876,53 @@ sub_00602750::sub_00602750()
 sub_00602760::~sub_00602760()
 {
     f_0.Unlink();
+}
+
+// 0x00410040
+void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int bBadPointer, int nArg7)
+{
+    if (gbLogThreadStop_0075E830 || !gbLogInitialized_0075D2EC)
+        return;
+    if (!bBadPointer && IsBadReadPtr((const void*)dwAddress, nSize))
+        bBadPointer = 1;
+    unsigned int nExtraBytes = SStrLen(szPrefix) + 1 + sizeof(D2LogMemoryInfoStrc);
+    nExtraBytes += SStrLen(szTitle) + 1;
+    if (!bBadPointer)
+        nExtraBytes += nSize;
+    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
+    LeaveCriticalSection(&gtLogQueueLock_0075E838);
+    pMessage->nSize = nExtraBytes + 0x24;
+    pMessage->nType = 2;
+    pMessage->bTimeStamp = 1;
+    GetLocalTime(&pMessage->f_14);
+    char* pText = pMessage->szName;
+    pText += SStrCopy(pText, szPrefix, 0x7FFFFFFF) + 1;
+    D2LogMemoryInfoStrc* pInfo = (D2LogMemoryInfoStrc*)pText;
+    pInfo->pAddress = (const void*)dwAddress;
+    pInfo->nSize = nSize;
+    pInfo->nArg5 = nArg5;
+    pInfo->bBadPointer = bBadPointer;
+    pInfo->bArg7 = !nArg7;
+    pText = (char*)(pInfo + 1);
+    pText += SStrCopy(pText, szTitle, 0x7FFFFFFF) + 1;
+    if (!bBadPointer)
+        memcpy(pText, (const void*)dwAddress, nSize);
+    EnterCriticalSection(&gtLogQueueLock_0075E838);
+    D2StormLinkStrc* pLink = &pMessage->f_0;
+    if (pLink->m_prevlink)
+    {
+        pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
+        pLink->m_prevlink->m_next = pLink->m_next;
+        pLink->m_prevlink = 0;
+        pLink->m_next = 0;
+    }
+    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
+    pLink->m_prevlink = pPrev;
+    pLink->m_next = pPrev->m_next;
+    pPrev->m_next = (char*)pMessage;
+    gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
+    ++gnLogQueued_0075D140;
+    gnLogQueuedBytes_0075D144 += pMessage->nSize;
+    LeaveCriticalSection(&gtLogQueueLock_0075E838);
 }

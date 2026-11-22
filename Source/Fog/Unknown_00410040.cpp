@@ -84,54 +84,6 @@ int gnLogQueued_0075D140; // 0x0075D140
 
 int gnLogQueuedBytes_0075D144; // 0x0075D144
 
-// 0x00410040
-void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitle, const void* pAddress, unsigned int nSize, int nArg5, int bBadPointer, int nArg7)
-{
-    if (gbLogThreadStop_0075E830 || !gbLogInitialized_0075D2EC)
-        return;
-    if (!bBadPointer && IsBadReadPtr(pAddress, nSize))
-        bBadPointer = 1;
-    unsigned int nExtraBytes = SStrLen(szPrefix) + 1 + sizeof(D2LogMemoryInfoStrc);
-    nExtraBytes += SStrLen(szTitle) + 1;
-    if (!bBadPointer)
-        nExtraBytes += nSize;
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
-    D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
-    pMessage->nSize = nExtraBytes + 0x24;
-    pMessage->nType = 2;
-    pMessage->bTimeStamp = 1;
-    GetLocalTime(&pMessage->f_14);
-    char* pText = pMessage->szName;
-    pText += SStrCopy(pText, szPrefix, 0x7FFFFFFF) + 1;
-    D2LogMemoryInfoStrc* pInfo = (D2LogMemoryInfoStrc*)pText;
-    pInfo->pAddress = pAddress;
-    pInfo->nSize = nSize;
-    pInfo->nArg5 = nArg5;
-    pInfo->bBadPointer = bBadPointer;
-    pInfo->bArg7 = !nArg7;
-    pText = (char*)(pInfo + 1);
-    pText += SStrCopy(pText, szTitle, 0x7FFFFFFF) + 1;
-    if (!bBadPointer)
-        memcpy(pText, pAddress, nSize);
-    EnterCriticalSection(&gtLogQueueLock_0075E838);
-    D2StormLinkStrc* pLink = &pMessage->f_0;
-    if (pLink->m_prevlink)
-    {
-        pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
-        pLink->m_prevlink->m_next = pLink->m_next;
-        pLink->m_prevlink = 0;
-        pLink->m_next = 0;
-    }
-    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
-    pLink->m_prevlink = pPrev;
-    pLink->m_next = pPrev->m_next;
-    pPrev->m_next = (char*)pMessage;
-    gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
-    ++gnLogQueued_0075D140;
-    gnLogQueuedBytes_0075D144 += pMessage->nSize;
-    LeaveCriticalSection(&gtLogQueueLock_0075E838);
-}
 
 // 0x00410340
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args)

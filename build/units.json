@@ -1293,6 +1293,10 @@
      "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
     },
     {
+     "va": "0x00410040",
+     "length": 375
+    },
+    {
      "va": "0x00410C40",
      "length": 173,
      "name": "sub_00410C40_OrBits"
@@ -4611,10 +4615,6 @@
    "file": "Source/Fog/Unknown_00410040.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00410040",
-     "length": 375
-    },
     {
      "va": "0x00410340",
      "length": 508,
