@@ -29,7 +29,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
 
-int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth);
+int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
 extern tagPALETTEENTRY gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
 
@@ -162,7 +162,7 @@ void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecor
         int nHeight;
         int nDepth;
         int nWidth;
-        const int bDecoded = sub_006C6A80_DecodeImage(2, pData, nSize, aPalette, (unsigned char*)gpDDrawSmackBuffer_008816B0, 0x6DB0, &nWidth, &nHeight, &nDepth);
+        const int bDecoded = SBmpDecodeImage(2, pData, nSize, aPalette, (unsigned char*)gpDDrawSmackBuffer_008816B0, 0x6DB0, &nWidth, &nHeight, &nDepth);
         SMemFree(pData, szDDSmackFile_006DE20C, 0x78, 0);
         if (!bDecoded || nWidth != 0x1D4 || nHeight != 0x3C || nDepth != 8)
         {
