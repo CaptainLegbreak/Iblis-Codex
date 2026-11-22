@@ -56687,11 +56687,6 @@
      "name": "ACT1Q2_UnitIterate_SetRewardPending"
     },
     {
-     "va": "0x00591AC0",
-     "length": 367,
-     "name": "OBJECTS_OperateFunction21_HoradrimMalus"
-    },
-    {
      "va": "0x00591C30",
      "length": 112,
      "name": "ACT1Q3_ActiveFilterCallback"
@@ -57565,6 +57560,11 @@
      "va": "0x00591A90",
      "length": 37,
      "name": "?ACT1Q3_Callback06_MalusRemoved@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00591AC0",
+     "length": 367,
+     "name": "OBJECTS_OperateFunction21_HoradrimMalus"
     },
     {
      "va": "0x00591CA0",
