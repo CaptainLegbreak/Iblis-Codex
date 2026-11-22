@@ -194,15 +194,11 @@ struct D2StaticPathStrc;
 
 struct D2MissileStrc;
 
-
 extern "C" const char gszUnitSourceFile_006DAA8C[];
-
-
 
 void __fastcall sub_004CB460(D2UnitStrc* pUnit);
 
 int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit);
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -270,12 +266,13 @@ void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2Un
 
 void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit);
 
-static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit);
 
 
-static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit);
+static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
 
-static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit);
+static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
+
+static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
 
 // 0x00457450
 int __fastcall sub_00457450_Abs(int nValue)
@@ -592,47 +589,6 @@ static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
         pUnit->dwFlags &= ~2;
 }
 
-static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
-{
-    D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
-    if (pTxt->nIsDoor)
-    {
-        sub_004BCDE0_SetDoorMode(pTarget->nParam1, pUnit, pTarget->nParam2);
-    }
-    else
-    {
-        UNITS_ChangeAnimMode(pUnit, pTarget->nParam2);
-        sub_00470610_Refresh(pUnit, 0);
-        if (pTxt->nOverlay)
-        {
-            const int nClassId = pUnit->dwClassId;
-            if ((nClassId == 0x162 || nClassId == 0x163 || nClassId == 0x18D || nClassId == 0x195
-                || nClassId == 0x197 || nClassId == 0x196 || nClassId == 0x164) && pUnit->dwAnimMode == 0)
-                sub_00470390(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
-        }
-
-        if (pTxt->nSelectable[pUnit->dwAnimMode])
-            pUnit->dwFlags |= 2;
-        else
-            pUnit->dwFlags &= ~2;
-
-        if (!pTxt->nHasCollision[pUnit->dwAnimMode])
-            UNITS_FreeCollisionPath(pUnit);
-
-        if (pTxt->nOrderFlag[pUnit->dwAnimMode] == 1)
-            pUnit->dwFlags |= 0x100000;
-
-        sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pTarget->nParam2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
-    }
-
-    sub_004CB460_UpdateModeSound(pUnit);
-    sub_00624390_AnimInit(pUnit);
-    if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
-        pUnit->dwFlags |= 0x20;
-    else
-        pUnit->dwFlags &= ~0x20;
-}
-
 // 0x004BCB20
 static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
 {
@@ -763,6 +719,48 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
         else
             pUnit->nSeqCurrentFramePrecise = (pTxt->nStart[pUnit->dwAnimMode] << 8) - nFrameCnt + nFrame;
     }
+}
+
+// 0x004BCF60
+static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
+{
+    D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
+    if (pTxt->nIsDoor)
+    {
+        sub_004BCDE0_SetDoorMode(pTarget->nParam1, pUnit, pTarget->nParam2);
+    }
+    else
+    {
+        UNITS_ChangeAnimMode(pUnit, pTarget->nParam2);
+        sub_00470610_Refresh(pUnit, 0);
+        if (pTxt->nOverlay)
+        {
+            const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
+            if ((nClassId == 0x162 || nClassId == 0x163 || nClassId == 0x18D || nClassId == 0x195
+                || nClassId == 0x197 || nClassId == 0x196 || nClassId == 0x164) && pUnit->dwAnimMode == 0)
+                sub_00470390(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
+        }
+
+        if (pTxt->nSelectable[pUnit->dwAnimMode])
+            pUnit->dwFlags |= 2;
+        else
+            pUnit->dwFlags &= ~2;
+
+        if (!pTxt->nHasCollision[pUnit->dwAnimMode])
+            UNITS_FreeCollisionPath(pUnit);
+
+        if (pTxt->nOrderFlag[pUnit->dwAnimMode] == 1)
+            pUnit->dwFlags |= 0x100000;
+
+        sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pTarget->nParam2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+    }
+
+    sub_004CB460_UpdateModeSound(pUnit);
+    sub_00624390_AnimInit(pUnit);
+    if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
+        pUnit->dwFlags |= 0x20;
+    else
+        pUnit->dwFlags &= ~0x20;
 }
 
 void __fastcall sub_M256_Emit_004BCB20(D2UnitStrc* pUnit)
