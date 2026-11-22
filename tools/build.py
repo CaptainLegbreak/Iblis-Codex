@@ -17,7 +17,7 @@ Settings come from local.json (written by tools/setup.py) unless given on the co
 import os, re, sys, json, glob, shutil, subprocess, time, hashlib, threading, concurrent.futures as cf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import ROOT, CFG, settings, check_image, check_toolchain, compile_env, unit_env, unit_headers, cl_command, \
+from common import ROOT, CFG, default_flags, settings, check_image, check_toolchain, compile_env, unit_env, unit_headers, cl_command, \
     sha256, expand_gen_includes, missing_gen_includes, gen_includes, load_json, norm_va, PE, die
 import checker
 
@@ -94,7 +94,7 @@ class Builder:
         return self.lengths.get(va)
 
     def flags(self, u):
-        return list(u.get("flags") or self.base)
+        return list(u.get("flags") or default_flags(u["file"]))
 
     def ltcg_env(self):
         with self._lock:
