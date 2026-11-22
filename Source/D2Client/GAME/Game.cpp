@@ -223,17 +223,35 @@ struct D2McpInfoStrc
     char aNames[16][0x10];
 };
 
+#pragma pack(push, 1)
 struct D2ClientCharRecordStrc
 {
-    char unk0x00[0x1F];
-    char szName[0x1D0];
-    unsigned char aFlags[2];
+    char unk0x00[0x19];
+    char aState[4];
+    char unk0x1D[2];
+    union
+    {
+        char szName[0x1D0];
+        struct
+        {
+            char szText0x1F[0x18];
+            char szText0x37[0x1B8];
+        };
+    };
+    union
+    {
+        unsigned char aFlags[2];
+        unsigned short wValue;
+    };
     char unk0x1F1[0x1F];
     unsigned char nKind;
-    char unk0x211[0x34];
+    char unk0x211[0x14];
+    D2ClientNotifyStrc* pNotify;
+    char unk0x229[0x1C];
     char szText245[0x18];
     char szText25D[0x10];
 };
+#pragma pack(pop)
 
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId); // 0x0052EFF0
@@ -940,7 +958,17 @@ extern "C" const char gszIgnoreListSourceFile_006E6290[];
 struct D2ClientInfoStrc
 {
     char unk0x00[0x1EF];
-    unsigned short wFlags;
+    union
+    {
+        unsigned short wFlags;
+        struct
+        {
+            unsigned char lowFlags;
+            unsigned char progress;
+        };
+    };
+    char unk0x1F1[0x33];
+    unsigned char nSoundArg;
 };
 
 #pragma pack(pop)

@@ -40,7 +40,18 @@ struct D2ClientConfigStrc;
 
 struct D2ConfigStrc
 {
-    char unk0x000[0x19];
+    char unk0x000[0x08];
+    unsigned char bWindow;
+    unsigned char bNoFixedAspect;
+    unsigned char b3DFX;
+    unsigned char bOpenGL;
+    unsigned char bRave;
+    unsigned char bD3D;
+    unsigned char bPerspective;
+    unsigned char bQuality;
+    int dwGamma;
+    unsigned char bVSync;
+    int dwFramerate;
     int dwGameType;
     unsigned short wJoinID;
     char szGameName[0x18];
@@ -55,14 +66,26 @@ struct D2ConfigStrc
     char bBarbarian;
     char bDruid;
     char bAssassin;
-    unsigned char unk_8C[0x31];
+    char unk0x08C[0x0BD - 0x08C];
     char szName[0x18];
     char szRealm[0x18];
-    unsigned char unk_ED[0x112];
+    char unk0x0ED[0x1ED - 0x0ED];
+    unsigned char nCTemp;
+    char unk0x1EE[0x1FF - 0x1EE];
     int dwAct;
-    char unk0x203[0x219 - 0x203];
+    unsigned char bNoPreload;
+    unsigned char bDirect;
+    unsigned char bLowEnd;
+    unsigned char bNoCompress;
+    char unk0x207[0x215 - 0x207];
+    unsigned char bTxt;
+    unsigned char bLog;
+    unsigned char bMsgLog;
+    unsigned char bSafeMode;
     char bFlag219;
-    char unk0x21A[0x229 - 0x21A];
+    int dwSeed;
+    char unk0x21E[0x225 - 0x21E];
+    void* pComInterface;
     int dwValue229;
 };
 
@@ -386,11 +409,36 @@ struct T0044CB60
 
 #pragma pack(push, 1)
 
+struct D2ClientNotifyStrc;
+#pragma pack(push, 1)
 struct D2ClientCharRecordStrc
 {
-    char unk0x00[0x1EF];
-    unsigned char aFlags[2];
+    char unk0x00[0x19];
+    char aState[4];
+    char unk0x1D[2];
+    union
+    {
+        char szName[0x1D0];
+        struct
+        {
+            char szText0x1F[0x18];
+            char szText0x37[0x1B8];
+        };
+    };
+    union
+    {
+        unsigned char aFlags[2];
+        unsigned short wValue;
+    };
+    char unk0x1F1[0x1F];
+    unsigned char nKind;
+    char unk0x211[0x14];
+    D2ClientNotifyStrc* pNotify;
+    char unk0x229[0x1C];
+    char szText245[0x18];
+    char szText25D[0x10];
 };
+#pragma pack(pop)
 
 #pragma pack(pop)
 
@@ -453,6 +501,9 @@ struct D2LoadingTimerStrc
 {
     unsigned long dwStart;
     unsigned long dwLength;
+    D2LoadingTimerStrc() : dwStart(0), dwLength(0)
+    {
+    }
 };
 
 extern int gdwGlobal_007A0524; // 0x007A0524

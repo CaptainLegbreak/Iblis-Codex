@@ -1331,14 +1331,17 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game_0044E5A0.cpp": {
-   "bytes": 160,
-   "definitions": 4,
+   "bytes": 278,
+   "definitions": 8,
    "externs": [
     "extern \"C\" void __cdecl sub_0044BC30_Start(); // 0x0044BC30",
     "extern \"C\" void __cdecl sub_0044BD90_Stop(); // 0x0044BD90",
     "extern \"C\" void __cdecl sub_0044D080_PushState(); // 0x0044D080",
     "extern \"C\" void __cdecl sub_0044D550_Shutdown(); // 0x0044D550",
-    "extern \"C\" void __cdecl sub_0044F360(); // 0x0044F360"
+    "extern \"C\" void __cdecl sub_0044C5C0_DefaultMsg(); // 0x0044C5C0",
+    "extern \"C\" void __cdecl sub_0044C5E0_ActivateMsg(); // 0x0044C5E0",
+    "extern \"C\" void __cdecl sub_0044D0A0_IncCounterMsg(); // 0x0044D0A0",
+    "extern \"C\" void __cdecl sub_0044D0D0_IncCounterNoRepeatMsg(); // 0x0044D0D0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game_0044B8A0.inc",
@@ -1373,20 +1376,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0044C5E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/GAME/Game_0044DB60.cpp": {
-   "bytes": 118,
-   "definitions": 4,
-   "externs": [
-    "extern \"C\" void __cdecl sub_0044C5C0_DefaultMsg(); // 0x0044C5C0",
-    "extern \"C\" void __cdecl sub_0044C5E0_ActivateMsg(); // 0x0044C5E0",
-    "extern \"C\" void __cdecl sub_0044D0A0_IncCounterMsg(); // 0x0044D0A0",
-    "extern \"C\" void __cdecl sub_0044D0D0_IncCounterNoRepeatMsg(); // 0x0044D0D0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/Game_0044DB60.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -31508,8 +31497,8 @@
     [
      8,
      "0x0044F360",
-     "queue_function",
-     "sub_0044F360",
+     "owner",
+     "sub_0044F360_RunGameSession",
      0,
      "func"
     ],
@@ -33129,7 +33118,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044DB60.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "fill": 2,
    "form": "declared",
    "fwd": null,
@@ -33207,7 +33196,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044DB60.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnQuestScreens_0070F92C = ",
@@ -33232,7 +33221,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044DB60.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLineHeight_007111C8 = ",
@@ -33257,7 +33246,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044DB60.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2MsgHandlerEntryStrc gtHandlers_0070F3C0[7] = ",
