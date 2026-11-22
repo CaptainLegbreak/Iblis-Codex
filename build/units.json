@@ -32284,6 +32284,11 @@
     {
      "va": "0x004C9120",
      "length": 504
+    },
+    {
+     "va": "0x004C9320",
+     "length": 255,
+     "name": "?sub_004C9320_SkillCltDoCollide@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -32291,11 +32296,6 @@
    "file": "Source/D2Client/Unknown_004C9320.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004C9320",
-     "length": 255,
-     "name": "?sub_004C9320_SkillCltDoCollide@@YIHPAUD2UnitStrc@@HH@Z"
-    },
     {
      "va": "0x004C9490",
      "length": 322,

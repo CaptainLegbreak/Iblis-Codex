@@ -203,6 +203,10 @@ static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc*
     return sub_004C52E0_GetTargetPosition((D2UnitStrc*)pSkillsTxt, (int*)&pY, (int*)&pUnit);
 }
 
+void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+
+void __fastcall sub_004BA840(void* pUnitSfx); // 0x004BA840
+
 // 0x004C83C0
 int __fastcall sub_004C83C0_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -761,3 +765,34 @@ int __fastcall sub_004C9120_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, in
     sub_004C7950(pUnit);
     return 1;
 }
+
+// 0x004C9320
+int __fastcall sub_004C9320_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
+    if (!pSkill || !pDynamicPath)
+        return 0;
+
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    const int bPlayer = nUnitType == 0;
+    const int nMask = bPlayer ? 0x80 : 0x100;
+    const int nX = SKILLS_GetParam1(pSkill);
+    const int nY = SKILLS_GetParam2(pSkill);
+    const int nFlags = SKILLS_GetFlags(pSkill);
+    if ((nFlags & 3) == 3)
+    {
+        COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pUnit), nX, nY, PATH_GetUnitCollisionPattern(pUnit), nMask);
+        PATH_SetFootprintCollisionMask(pDynamicPath, nMask);
+        PATH_SetMoveTestCollisionMask(pDynamicPath, bPlayer ? 0x1C09 : 0x3C01);
+        SKILLS_SetFlags(pSkill, 0);
+        sub_004BA840(sub_004CA900_FindUnitSfxInRange(pUnit, 0x9E3));
+    }
+    else if (nFlags & 1)
+    {
+        UNITS_SetAnimationFrame(pUnit, 3);
+        pUnit->dwFrameCountPrecise = 0x500;
+    }
+    return 1;
+}
+
