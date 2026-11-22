@@ -124,7 +124,7 @@ typedef int (__stdcall* D2FarProcFn)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn); // 0x006CC34C
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
+void __fastcall sub_004743D0_ReleaseOverlayResource(D2GfxLightStrc* pLight); // 0x004743D0
 void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
