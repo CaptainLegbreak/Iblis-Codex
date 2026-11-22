@@ -61243,6 +61243,10 @@
      "name": "MONSTERMODE_DistributeExperienceIfEligible"
     },
     {
+     "va": "0x005A4F50",
+     "length": 1312
+    },
+    {
      "va": "0x005A5470",
      "length": 22,
      "name": "?MONSTERMODE_GetAttackResultFlags@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
@@ -61297,30 +61301,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterEval_005A4F50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A4F50",
-     "length": 1312
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

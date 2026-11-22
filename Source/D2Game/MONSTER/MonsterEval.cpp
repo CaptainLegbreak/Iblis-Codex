@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2MissileIds.h"
 #include "D2GameClient.h"
 #include "D2StateIds.h"
@@ -18,7 +19,6 @@
 
 
 
-#define STAT_LEVEL 12
 
 union D2SeedStrc;
 
@@ -64,7 +64,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, short nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
+int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, int nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
 
 int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int a7, int a8, int(__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*), int a10); // 0x0057E090
 
@@ -90,11 +90,8 @@ enum { RANGE_OVERRIDE = 0 };
 
 #define UNITFLAG_ISVALIDTARGET 0x00000008
 
-#define STAT_ITEM_ARMOR_PERCENT 16
 
-#define STAT_SECONDARY_MINDAMAGE 23
 
-#define STAT_SECONDARY_MAXDAMAGE 24
 
 #define UNIT_ALIGNMENT_EVIL 0
 
@@ -244,19 +241,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-enum D2C_M187TrapConstants
-{
-    STAT_TOHIT = 19,
-    STAT_MINDAMAGE = 21,
-    STAT_MAXDAMAGE = 22,
-    STAT_FIREMINDAM = 48,
-    STAT_FIREMAXDAM = 49,
-    STAT_LIGHTMINDAM = 50,
-    STAT_LIGHTMAXDAM = 51,
-    STAT_POISONMINDAM = 57,
-    STAT_POISONMAXDAM = 58,
-    STAT_POISONLENGTH = 59,
-};
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -322,20 +306,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0)
-    {
-        return 0;
-    }
-
-    if ((nMax - 1) & nMax)
-    {
-        return SEED_RollRandomNumber(pSeed) % nMax;
-    }
-
-    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
-}
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
 {
@@ -417,5 +388,171 @@ void __fastcall MONSTERMODE_AllocateTargetCombat(D2UnitStrc* pUnit, D2GameStrc* 
         D2DamageStrc damage = {};
         damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, 0, 0);
         SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
+    }
+}
+
+struct D2MonSkillInfoStrc
+{
+    int nMinDamage;
+    int nMaxDamage;
+    int nToHit;
+};
+
+void __fastcall SKILLS_FillMinionSkillDamage(D2UnitStrc* pUnit, int nUnused, D2MonSkillInfoStrc* pMonSkillInfo); // 0x0056E050
+int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount); // 0x005A4F20
+void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList); // 0x00627340
+int __fastcall sub_00451F60_GetClassId(D2UnitStrc* pUnit); // 0x00451F60
+D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
+
+// build: context MONSTEREVAL_GetUnitType
+static inline int MONSTEREVAL_GetUnitType(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+// build: context MONSTEREVAL_GetMonStatsTxt
+static inline D2MonStatsTxt* MONSTEREVAL_GetMonStatsTxt(D2UnitStrc* pUnit)
+{
+    if (pUnit && MONSTEREVAL_GetUnitType(pUnit) == 1 && pUnit->pMonsterData)
+    {
+        return (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
+    }
+    return 0;
+}
+
+// 0x005A4F50
+void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode)
+{
+    D2MonStatsTxt* pRecord = MONSTEREVAL_GetMonStatsTxt(pUnit);
+    if (!pRecord) return;
+    D2MonSkillInfoStrc skill = {};
+    SKILLS_FillMinionSkillDamage(pUnit, nMode, &skill);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pUnit, 1);
+    if (!pStatList) return;
+    STATLIST_RemoveAllStats(pStatList);
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
+    int difficulty = pGame->nDifficulty;
+    int gameType = pGame->nGameType != 0 || pGame->dwGameType != 0;
+    int bonus = 0;
+    if (!STATLIST_GetUnitAlignment(pUnit)) {
+        int players = STATLIST_UnitGetStatValue(pUnit, STAT_MONSTER_PLAYERCOUNT, 0);
+        if (players < 1) players = 1;
+        bonus = MONSTEREVAL_GetDifficultyScaledBonus(pGame, players);
+    }
+    int minDamage, maxDamage, toHit;
+    switch (nMode) {
+    default:
+    {
+        D2MonStatsInitStrc init;
+        memset(&init, 0, sizeof(init));
+        const int classId = pUnit->dwClassId;
+        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 8, &init);
+        minDamage = init.nA1MinD + skill.nMinDamage;
+        maxDamage = init.nA1MaxD + skill.nMaxDamage;
+        toHit = init.nTH + skill.nToHit;
+        break;
+    }
+    case 7:
+    case 8:
+    {
+        D2MonStatsInitStrc init;
+        memset(&init, 0, sizeof(init));
+        const int classId = pUnit->dwClassId;
+        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 32, &init);
+        minDamage = skill.nMinDamage + init.nS1MinD;
+        maxDamage = skill.nMaxDamage + init.nS1MaxD;
+        toHit = skill.nToHit + init.nTH;
+        break;
+    }
+    case 5:
+    {
+        D2MonStatsInitStrc init;
+        memset(&init, 0, sizeof(init));
+        const int classId = pUnit->dwClassId;
+        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 16, &init);
+        minDamage = init.nA2MinD + skill.nMinDamage;
+        maxDamage = init.nA2MaxD + skill.nMaxDamage;
+        toHit = init.nTH + skill.nToHit;
+        break;
+    }
+    }
+    if (!pGame->bExpansion && pGame->nDifficulty && pRecord->nAlign != 1) {
+        minDamage = 10 * minDamage / 12;
+        maxDamage = 10 * maxDamage / 12;
+        toHit = 10 * toHit / 15;
+    }
+    if (pGame->bExpansion && bonus) {
+        minDamage += minDamage * bonus / 128;
+        maxDamage += maxDamage * bonus / 128;
+        toHit += toHit * bonus / 128;
+    }
+    STATLIST_SetStatIfListIsValid(pStatList, STAT_MINDAMAGE, minDamage, 0);
+    STATLIST_SetStatIfListIsValid(pStatList, STAT_MAXDAMAGE, maxDamage, 0);
+    STATLIST_SetStatIfListIsValid(pStatList, STAT_TOHIT, toHit, 0);
+    for (int i = 0; i < 3; ++i) {
+        if (pRecord->unk0xFE[i] > 0 && nMode == pRecord->unk0xFE[i]) {
+            if (pRecord->unk0xFE[6 + 3 * i + difficulty] > 0 && (pRecord->unk0xFE[6 + 3 * i + difficulty] >= 100 || (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < pRecord->unk0xFE[6 + 3 * i + difficulty])) {
+            D2MonStatsInitStrc init;
+            memset(&init, 0, sizeof(init));
+            DATATBLS_CalculateMonsterStatsByLevel(sub_00451F60_GetClassId(pUnit), gameType, difficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 64 + i, &init);
+            int minElement = init.nElMinD;
+            int maxElement = init.nElMaxD;
+            int duration = init.nElDur;
+            if (pGame->bExpansion && bonus) {
+                minElement += minElement * bonus / 128;
+                maxElement += maxElement * bonus / 128;
+                duration += duration * bonus / 128;
+            }
+            unsigned char element = pRecord->unk0xFE[3 + i];
+            if (element == 10) {
+                element = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 5) + 1;
+                if (!duration) duration = 25;
+            }
+            switch (element) {
+            case 1:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_FIREMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_FIREMAXDAM, maxElement, 0);
+                break;
+            case 2:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_LIGHTMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_LIGHTMAXDAM, maxElement, 0);
+                break;
+            case 3:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_MAGICMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_MAGICMAXDAM, maxElement, 0);
+                break;
+            case 4:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_COLDMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_COLDMAXDAM, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_COLDLENGTH, duration, 0);
+                break;
+            case 5:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_POISONMINDAM, 10 * minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_POISONMAXDAM, 10 * maxElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_POISONLENGTH, 2 * duration, 0);
+                break;
+            case 6:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_LIFEDRAINMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_LIFEDRAINMAXDAM, maxElement, 0);
+                break;
+            case 7:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_MANADRAINMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_MANADRAINMAXDAM, maxElement, 0);
+                break;
+            case 8:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_STAMDRAINMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_STAMDRAINMAXDAM, maxElement, 0);
+                break;
+            case 9:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_STUNLENGTH, duration, 0);
+                break;
+            case 11:
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_BURNINGMIN, minElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_BURNINGMAX, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_FIRELENGTH, duration, 0);
+                break;
+            }
+        }
+        }
     }
 }
