@@ -9,19 +9,12 @@
 
 struct D2GfxLightStrc;
 union D2SeedStrc;
-struct D2MonsterDataStrc;
 struct D2MonStats2Txt;
-
-
-
-
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 int __fastcall sub_00474350_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
 
 static inline unsigned __int64 SEED_RollLocalSeed(D2SeedStrc* pSeed)
 {
@@ -29,11 +22,6 @@ static inline unsigned __int64 SEED_RollLocalSeed(D2SeedStrc* pSeed)
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
     pSeed->nLowSeed = (unsigned int)lSeed;
     return lSeed;
-}
-
-static inline int GetUnitType(D2UnitStrc* unit)
-{
-    return !unit ? 6 : unit->dwUnitType;
 }
 
 // 0x004ACC70

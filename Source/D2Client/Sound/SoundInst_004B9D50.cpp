@@ -15,25 +15,18 @@ struct D2TimedHintEntryStrc
 };
 #pragma pack(pop)
 
-typedef char check_size_hintentry[(sizeof(D2TimedHintEntryStrc) == 0x59) ? 1 : -1];
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry);       // 0x00516950
-int __fastcall sub_004B9590(int nKey);                                                                      // 0x004B9590
-int __fastcall sub_004DFA40_IsSoundPlaying(void* pSound);                                                   // 0x004DFA40
 int __fastcall sub_004DF900_GetSoundPosition(void* pSound);                                                 // 0x004DF900
 D2HintCursorStrc* __fastcall sub_00481860(int nId);                                                         // 0x00481860
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount);               // 0x004B9EF0
 int __cdecl sub_004817F0();                                                                                 // 0x004817F0
 int __cdecl sub_00481800();                                                                                 // 0x00481800
 
-extern D2TimedHintEntryStrc gaHintEntries_007C0ED0[];
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458;                                                       // 0x007C5458
 extern "C" { int gnSoundSerial_007C5460; }                                                                  // 0x007C5460
 
@@ -55,7 +48,6 @@ int __fastcall sub_004B9D50_GetPosition(int nKey)
 
     return 0;
 }
-
 
 // 0x004BA840
 void __fastcall sub_004BA840(int nHandle)
@@ -81,7 +73,6 @@ void __fastcall sub_004BA840(int nHandle)
     }
 }
 
-
 // 0x004BA8F0
 void __cdecl sub_004BA8F0()
 {
@@ -106,7 +97,6 @@ void __cdecl sub_004BA8F0()
         }
     }
 }
-
 
 // 0x004BAA50
 void __cdecl sub_004BAA50_RefreshHintRange()

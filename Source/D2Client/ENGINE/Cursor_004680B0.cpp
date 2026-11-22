@@ -2,19 +2,13 @@
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 
-struct SGAMEDATA;
 struct D2MsgHandlerEntryStrc;
 struct D2PanelAnimEntryStrc;
-
-extern int gdwGlobal_007A6A94; // 0x007A6A94
-extern int gdwGlobal_007A6A98; // 0x007A6A98
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 enum D2C_W04CursorConstants
 {
     NUM_CURSOR_CELLS = 7,
 };
-
 
 struct D2PanelAnimEntryStrc
 {
@@ -71,7 +65,6 @@ int __fastcall sub_004680B0_InitCursor(int nArg)
     gnGlobal_007A6AAC = gnGlobal_00711470 / 2;
     return 1;
 }
-
 
 // 0x00468170
 void __cdecl sub_00468170_ShutdownCursor()

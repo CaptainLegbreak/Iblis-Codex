@@ -6,14 +6,7 @@
 #include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
-struct Unicode;
 struct D2HotkeySlotTableStrc;
-struct D2SkillsTxt;
-struct D2SkillIconStateStrc;
-struct D2UiCelFileStrc;
-struct D2WeatherLayerStateStrc;
-struct D2MonsterDataStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -33,50 +26,6 @@ int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 extern int gnGlobal_00711470; // 0x00711470
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 extern int gbGlobal_007C07FC; // 0x007C07FC
-extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
-extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
-extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
-int __cdecl sub_00463DF0(); // 0x00463DF0
-void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
-void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
-
-D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
-extern unsigned int gdwBitMasks[]; // 0x006CE268
-
-extern D2SkillIconStateStrc gtSkillIconState_007C0300; // 0x007C0300
-void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
-
-#pragma pack(push, 1)
-struct D2UiCelFileStrc
-{
-    void* pCelFile;
-    char szPath[0x1E];
-};
-
-#pragma pack(pop)
-struct D2WeatherLayerStateStrc
-{
-    void* apCelFiles[4];
-};
-
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
-void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry); // 0x004B1680
-extern unsigned char gbGlobal_007A0522; // 0x007A0522
-extern D2UiCelFileStrc gaPanelCels_00724BF0[7]; // 0x00724BF0
-extern D2WeatherLayerStateStrc gtWeatherLayer_007A89B0; // 0x007A89B0
-extern D2WeatherLayerStateStrc gtWeatherLayer_007A893C; // 0x007A893C
-extern D2NpcEntryStrc gaNpcEntries_00726850[]; // 0x00726850
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-extern int gnAutomapWidth_007A5220; // 0x007A5220
-extern int gnGlobal_007A2858; // 0x007A2858
-extern int gnGlobal_007A285C; // 0x007A285C
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
-int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
-
-extern int gnSelectedHotkey_007C0708;
 
 // 0x004A9BD0
 void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)

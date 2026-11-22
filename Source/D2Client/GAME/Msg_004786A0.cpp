@@ -7,12 +7,10 @@ struct D2PacketDwords9Strc;
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" int __cdecl memcmp(const void* p1, const void* p2, unsigned int nSize);
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 extern unsigned char gaLastSentPacket_007BB3B8[0x200]; // 0x007BB3B8
 extern unsigned int gdwLastSendTick_007BB5B8; // 0x007BB5B8
 extern int gnSentBytes_007A6AF8; // 0x007A6AF8
