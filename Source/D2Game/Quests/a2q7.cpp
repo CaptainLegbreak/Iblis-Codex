@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -19,17 +20,6 @@ typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArg
 typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
 typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-
-struct D2Act2Quest7Strc
-{
-    unsigned char unk0x00;
-};
-
-struct D2Act2Quest8Strc
-{
-    unsigned char unk0x00;
-    unsigned char unk0x01;
-};
 
 enum
 {
