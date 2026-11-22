@@ -484,13 +484,9 @@ int gnTimerTicksPerMs_0075E89C; // 0x0075E89C
 
 int gnTimerTicksPerUs_0075E898; // 0x0075E898
 
-unsigned int gnPageSize_00776CB8; // 0x00776CB8
 
-int gnFlag0_007784C4; // 0x007784C4
 
-int gnFlag2_00776CBC; // 0x00776CBC
 
-int gnFlag1_007784C0; // 0x007784C0
 
 int gnValueA_00779060; // 0x00779060
 
@@ -625,34 +621,8 @@ void __cdecl sub_00411210_InitTimer()
     gnTimerStartTick_007768A0 = GetTickCount();
 }
 
-// 0x00411700
-int __stdcall sub_00411700_ToByte(unsigned char nValue)
-{
-    return nValue;
-}
 
-// 0x00411A20
-void __cdecl sub_00411A20_InitPageSize()
-{
-    T004013C0 systemInfo;
-    GetSystemInfo(&systemInfo);
-    gnPageSize_00776CB8 = 1;
-    while (gnPageSize_00776CB8 < systemInfo.dwPageSize)
-        gnPageSize_00776CB8 *= 2;
-}
 
-// 0x00411D40
-void __stdcall sub_00411D40_SetFlags(unsigned int dwValues, unsigned int dwMask)
-{
-    if (dwMask & 1)
-        gnFlag0_007784C4 = dwValues & 1;
-    if (dwMask & 8)
-        gnFlag3_007788CC = (dwValues >> 3) & 1;
-    if (dwMask & 4)
-        gnFlag2_00776CBC = (dwValues >> 2) & 1;
-    if (dwMask & 2)
-        gnFlag1_007784C0 = (dwValues >> 1) & 1;
-}
 
 // 0x00413F30
 unsigned int __fastcall bjhash(const unsigned char* k, unsigned int nLength, unsigned int nInitVal)

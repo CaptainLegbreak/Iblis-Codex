@@ -350,7 +350,6 @@ void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0
 
 int gnCmdShow_0074C71C; // 0x0074C71C
 
-void* gpStormOwnerA_007790C0; // 0x007790C0
 
 struct D2LaunchControlTemplateStrc;
 

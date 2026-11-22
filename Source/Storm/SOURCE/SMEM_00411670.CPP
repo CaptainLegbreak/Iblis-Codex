@@ -1,9 +1,13 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2Primitives.h"
 #include "D2StormTypes.h"
 
 struct D2CriticalSectionStrc;
-struct D2SMemHeapInfoStrc;
+
+enum { BIT_MASK = 7 };
+
+enum { ROUND_BITS = 7, TAIL_HIGH = 2 };
 
 enum D2SMemBlockFlags
 {
@@ -25,7 +29,6 @@ extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* s
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
@@ -37,10 +40,7 @@ void __cdecl sub_00412000_ReleaseFreeBlocks(); // 0x00412000
 extern "C" const char szSMemAlloc_006CEDCC[]; // 0x006CEDCC
 extern int gbCallerFirst_00708340; // 0x00708340
 extern unsigned int gnHeapId_00708344; // 0x00708344
-extern unsigned int gdwCallerId_007768A8; // 0x007768A8
-extern unsigned int gdwCallerWord_007768AC; // 0x007768AC
-extern int gnCallerLine_007768B0; // 0x007768B0
-extern const char* gszCallerFile_007768B4; // 0x007768B4
+extern D2SMemHeapStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
 extern unsigned int gnPageSize_00776CB8; // 0x00776CB8
 extern int gnFlag2_00776CBC; // 0x00776CBC
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
@@ -53,22 +53,16 @@ extern int gbHeapInitialized_007788D0; // 0x007788D0
 extern int gnFlag_00779098; // 0x00779098
 static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError);
 static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
-static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine);
-
-typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
-
-int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, D2SMemHeapInfoStrc* pInfo); // 0x004124B0
-extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned int nCount);
-
-extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22
-extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args); // 0x00682DA1
-const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-extern "C" const unsigned int gdwSStrHashTable_006CEE30[16]; // 0x006CEE30
-extern "C" const unsigned __int64 gqwSStrHash64Table_006CEE70[16]; // 0x006CEE70
 
 void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned int nSize);
 
-D2SMemHeapStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
+unsigned int gdwCallerId_007768A8; // 0x007768A8
+
+unsigned int gdwCallerWord_007768AC; // 0x007768AC
+
+int gnCallerLine_007768B0; // 0x007768B0
+
+const char* gszCallerFile_007768B4; // 0x007768B4
 
 static __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
 {
@@ -76,13 +70,14 @@ static __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, co
     ExitProcess(1);
 }
 
+// 0x00411670
 static unsigned int sub_00411670_GetCallerId(int nLine, const char* szFile)
 {
     unsigned int dwWord = szFile ? *(const unsigned int*)szFile : 0;
     int bHit = 0;
-    if (gbCallerFirst_00708340)
+    if (gbCallerFirst_00708340 && szFile == gszCallerFile_007768B4 && nLine == gnCallerLine_007768B0)
     {
-        if (szFile == gszCallerFile_007768B4 && nLine == gnCallerLine_007768B0 && dwWord == gdwCallerWord_007768AC)
+        if (dwWord == gdwCallerWord_007768AC)
             bHit = 1;
         else
             gbCallerFirst_00708340 = 0;
@@ -109,15 +104,6 @@ static D2SMemHeapStrc* __stdcall sub_00411710_LockHeap(int* pLockIndex, D2SMemBl
     return pHeap;
 }
 
-static __declspec(noinline) void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
-{
-    sub_0041C340_SetLastError(nError);
-    if (gnFlag1_007784C0)
-    {
-        SErrDisplayError(nError, szFile, nLine, 0, 1, 1);
-    }
-}
-
 static void sub_004117D0_ReleaseHeapLock(int* pLockIndex)
 {
     if (*pLockIndex != -1)
@@ -127,53 +113,8 @@ static void sub_004117D0_ReleaseHeapLock(int* pLockIndex)
     }
 }
 
-static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int dwId, int nLockIndex, unsigned int nPageSize, unsigned int nCommit, unsigned int nReserve, const char* szFile)
-{
-    unsigned int nNameSize;
-    unsigned int nHeaderSize;
-    D2SMemBlockStrc tHeader;
-    D2SMemHeapStrc* pHeap = (D2SMemHeapStrc*)VirtualAlloc(0, nReserve, 0x2000, 1);
-    if (!pHeap)
-        sub_00411620_FatalError(8, szFile, nLine);
-    if (!VirtualAlloc(pHeap, nCommit, 0x1000, 4))
-        sub_00411620_FatalError(8, szFile, nLine);
-    nNameSize = (szFile ? SStrLen(szFile) : 0) + 1;
-    nHeaderSize = nNameSize + 0x63;
-    if (nHeaderSize & 3)
-        nHeaderSize += 4 - (nHeaderSize & 3);
-    pHeap->dwId = dwId;
-    pHeap->pNext = gapFreeBlocks_007768B8[nLockIndex];
+D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int dwId, int nLockIndex, unsigned int nPageSize, unsigned int nCommit, unsigned int nReserve, const char* szFile); // 0x004117F0
 
-    pHeap->pFirst = (D2SMemBlockStrc*)((char*)pHeap + nHeaderSize);
-    pHeap->pEnd = pHeap->pFirst;
-    pHeap->nPageSize = nPageSize;
-    pHeap->nCommitted = nCommit;
-    pHeap->nLockIndex = nLockIndex;
-    pHeap->bReportLeak = 1;
-    pHeap->nFragments = 0;
-    pHeap->nReserved = nReserve;
-    pHeap->nLine = nLine;
-    pHeap->apFree[0] = 0;
-    pHeap->apFree[1] = 0;
-    pHeap->apFree[2] = 0;
-    pHeap->apFree[3] = 0;
-    pHeap->apFree[4] = 0;
-    pHeap->apFree[5] = 0;
-    pHeap->apFree[6] = 0;
-    pHeap->apFree[7] = 0;
-    pHeap->apFree[8] = 0;
-    if (szFile)
-        SMemCopy(pHeap->szFile, szFile, nNameSize);
-    else
-        pHeap->szFile[0] = 0;
-    tHeader.tSig.wHeapHigh = (unsigned short)((unsigned int)pHeap >> 16);
-    tHeader.tSig.wMagic = 0x6F6D;
-    pHeap->tSig = tHeader.tSig;
-    gapFreeBlocks_007768B8[nLockIndex] = pHeap;
-    return pHeap;
-}
-
-// 0x00411910
 static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine)
 {
     if (!pMemory)
@@ -208,16 +149,7 @@ static unsigned int sub_A21_FreeListIndex(unsigned int nSize)
     return nIndex;
 }
 
-static void __stdcall sub_004119B0_CalcBlockSize(unsigned int* pTotal, unsigned int* pPadding, int* pbLarge, int* pbSentinel, unsigned int nSize)
-{
-    *pbLarge = gnFlag2_00776CBC || nSize > 0xFE87;
-    *pbSentinel = gnFlag0_007784C4 && !*pbLarge;
-    if (*pbLarge)
-        nSize = 4;
-    nSize += (*pbSentinel ? 2 : 0) + sizeof(D2SMemBlockStrc);
-    *pTotal = nSize + ((0 - nSize) & 7);
-    *pPadding = *pTotal - nSize;
-}
+void __stdcall sub_004119B0_CalcBlockSize(unsigned int* pTotal, unsigned int* pPadding, int* pbLarge, int* pbSentinel, unsigned int nSize); // 0x004119B0
 
 static void __stdcall sub_00411A50_InitBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock, unsigned int nSize, unsigned int nPadding, unsigned char nFlags)
 {
@@ -239,7 +171,9 @@ static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBloc
         {
             nSize = pLarge[-1].nSize;
             pHeap->nLargeBytes -= nSize;
-            VirtualFree((void*)(((unsigned int)pLarge - sizeof(D2SMemLargeHeaderStrc)) & ~(gnPageSize_00776CB8 - 1)), 0, 0x8000);
+            const unsigned int nPageLow = gnPageSize_00776CB8 - 1;
+            const unsigned int nBase = (unsigned int)pLarge - sizeof(D2SMemLargeHeaderStrc);
+            VirtualFree((void*)(nBase & ~nPageLow), 0, 0x8000);
         }
         else
             nSize = 0;
@@ -350,6 +284,7 @@ static void __stdcall sub_00411C70_SplitBlock(unsigned int* pPadding, D2SMemHeap
     *pPadding += nRemain;
 }
 
+// 0x00411DC0
 static void sub_00411DC0_RebuildFreeLists(D2SMemHeapStrc* pHeap)
 {
     D2SMemBlockStrc** apTail[9];
@@ -378,7 +313,7 @@ static void sub_00411DC0_RebuildFreeLists(D2SMemHeapStrc* pHeap)
                 unsigned int nMerged = wSize + nPrevSize;
                 if (nMerged <= 0xFFFF)
                 {
-                    pPrev->wSize = wSize + pPrev->wSize;
+                    pPrev->wSize = pBlock->wSize + pPrev->wSize;
                     continue;
                 }
             }
@@ -444,79 +379,9 @@ D2SMemHeapStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2SMemHeapStrc** ppLin
     return &pHeap->pNext;
 }
 
-static int __stdcall sub_00412080_GrowBlock(D2SMemBlockStrc* pBlock, unsigned int nOldSize, unsigned int nNewSize, D2SMemHeapStrc* pHeap)
-{
-    int bSentinel;
-    int bLarge;
-    unsigned int nTotal;
-    unsigned int nPadding;
-    sub_004119B0_CalcBlockSize(&nTotal, &nPadding, &bLarge, &bSentinel, nNewSize);
-    if (nTotal > 0xFFFF || bLarge)
-        return 0;
-    if (nTotal <= pBlock->wSize)
-    {
-        unsigned int nExtra = pBlock->wSize - nTotal;
-        nTotal += nExtra;
-        nPadding += nExtra;
-    }
-    else
-    {
-        unsigned int nNeeded = nTotal - pBlock->wSize;
-        D2SMemBlockStrc* pNewEnd = (D2SMemBlockStrc*)((char*)pBlock + nTotal);
-        unsigned int nFound = 0;
-        D2SMemBlockStrc* pNext = (D2SMemBlockStrc*)((char*)pBlock + pBlock->wSize);
-        while (nFound < nNeeded)
-        {
-            if (pNext == pHeap->pEnd)
-                break;
-            if (!(pNext->nFlags & SMEM_BLOCK_FREE))
-                return 0;
-            nFound += pNext->wSize;
-            pNext = (D2SMemBlockStrc*)((char*)pNext + pNext->wSize);
-        }
-        unsigned int nNewBlockSize = pBlock->wSize + (nFound > nNeeded ? nFound : nNeeded);
-        if (nNewBlockSize > 0xFFFF)
-            return 0;
-        if (nFound < nNeeded)
-        {
-            unsigned int nEnd = (char*)pNewEnd - (char*)pHeap;
-            if (nEnd > pHeap->nCommitted)
-            {
-                if (nEnd > pHeap->nReserved)
-                    return 0;
-                if (!sub_00411BD0_CommitHeap(pHeap, nEnd))
-                    return 0;
-            }
-            pHeap->pEnd = pNewEnd;
-        }
-        pBlock->wSize = (unsigned short)nNewBlockSize;
-        sub_00411C70_SplitBlock(&nPadding, pHeap, &nTotal, pBlock);
-        pBlock->wSize = (unsigned short)nTotal;
-        if (pNewEnd != pHeap->pEnd)
-        {
-            pNewEnd->nFlags &= ~SMEM_BLOCK_PREVFREE;
-            if ((pNewEnd->nFlags & SMEM_BLOCK_FREE) && pHeap->nFragments)
-                pHeap->nFragments -= 1;
-        }
-        sub_00411DC0_RebuildFreeLists(pHeap);
-    }
-    sub_00411A50_InitBlock(pHeap, pBlock, nTotal, nPadding, (pBlock->nFlags & ~SMEM_BLOCK_SENTINEL) | (bSentinel != 0));
-    pHeap->nUsedBytes += nNewSize - nOldSize;
-    return 1;
-}
+int __stdcall sub_00412080_GrowBlock(D2SMemBlockStrc* pBlock, unsigned int nOldSize, unsigned int nNewSize, D2SMemHeapStrc* pHeap); // 0x00412080
 
-static void __stdcall sub_004121D0_ShrinkBlock(D2SMemBlockStrc* pBlock, unsigned int nOldSize, unsigned int nNewSize, D2SMemHeapStrc* pHeap)
-{
-    int bLarge;
-    int bSentinel;
-    unsigned int nTotal;
-    unsigned int nPadding;
-    sub_004119B0_CalcBlockSize(&nTotal, &nPadding, &bLarge, &bSentinel, nNewSize);
-    unsigned char nFlags = (pBlock->nFlags & ~SMEM_BLOCK_SENTINEL) | (bSentinel != 0);
-    sub_00411C70_SplitBlock(&nPadding, pHeap, &nTotal, pBlock);
-    sub_00411A50_InitBlock(pHeap, pBlock, nTotal, nPadding, nFlags);
-    pHeap->nUsedBytes += nNewSize - nOldSize;
-}
+void __stdcall sub_004121D0_ShrinkBlock(D2SMemBlockStrc* pBlock, unsigned int nOldSize, unsigned int nNewSize, D2SMemHeapStrc* pHeap); // 0x004121D0
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags)
 {
@@ -588,7 +453,6 @@ unsigned int __stdcall SMemGetHeapByPtr(void* pMemory)
     return ((D2SMemHeapStrc*)(pBlock->tSig.wHeapHigh << 16))->dwId;
 }
 
-// 0x004127E0
 unsigned int __stdcall SMemGetSize(void* pMemory, const char* szFile, int nLine)
 {
     if (!gbHeapInitialized_007788D0)
@@ -668,38 +532,6 @@ unsigned int __stdcall SMemHeapCreate(unsigned int dwOptions, unsigned int nInit
     return gnHeapId_00708344;
 }
 
-// 0x004129D0
-int __stdcall SMemHeapDestroy(unsigned int hHeap)
-{
-    if (!gbHeapInitialized_007788D0)
-    {
-        SMemInitialize();
-        if (!gbHeapInitialized_007788D0)
-        {
-            sub_004117A0_SetAndShowError("SMemHeapDestroy()", -1, 0x8510007D);
-            return 0;
-        }
-    }
-    int nLockIndex = (unsigned char)hHeap;
-    EnterCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
-    int bResult = 0;
-    D2SMemHeapStrc** ppLink = &gapFreeBlocks_007768B8[nLockIndex];
-    while (*ppLink)
-    {
-        if ((*ppLink)->dwId == hHeap)
-        {
-            bResult = 1;
-            ppLink = sub_00411F00_ProcessUsedBlock(ppLink);
-        }
-        else
-        {
-            ppLink = &(*ppLink)->pNext;
-        }
-    }
-    LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
-    return bResult;
-}
-
 int __stdcall SMemHeapFree(unsigned int hHeap, unsigned int dwFlags, void* pMemory)
 {
     if (!gbHeapInitialized_007788D0)
@@ -732,7 +564,6 @@ int __stdcall SMemHeapFree(unsigned int hHeap, unsigned int dwFlags, void* pMemo
     return pHeap != 0;
 }
 
-// 0x00412B10
 unsigned int __stdcall SMemHeapSize(unsigned int hHeap, unsigned int dwFlags, void* pMemory)
 {
     if (!gbHeapInitialized_007788D0)
@@ -1064,403 +895,23 @@ void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFil
     return pResult;
 }
 
-// 0x00413100
-int __stdcall SMemDumpState(SMEMDUMPCALLBACK pfnCallback, void* pParam)
+// 0x004117A0
+static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
 {
-    if (!gbHeapInitialized_007788D0)
+    sub_0041C340_SetLastError(nError);
+    if (gnFlag1_007784C0)
     {
-        SMemInitialize();
-        if (!gbHeapInitialized_007788D0)
-        {
-            sub_004117A0_SetAndShowError("SMemDumpState()", -1, 0x8510007D);
-            return 0;
-        }
+        SErrDisplayError(nError, szFile, nLine, 0, 1, 1);
     }
-    VALIDATEBEGIN;
-    VALIDATE(pfnCallback);
-    VALIDATEEND;
-    D2SMemHeapInfoStrc tInfo;
-    tInfo.dwSize = 0x128;
-    unsigned int hHeap = 0;
-    if (SMemFindNextHeap(0, &hHeap, &tInfo))
-    {
-        do
-        {
-            char szText[0x100];
-            wsprintfA(szText, "%s:%d  blocks=%u  %uk/%uk/%uk", tInfo.szName, tInfo.nLine, tInfo.nBlocks,
-                (tInfo.dwSizeC + 0x200) >> 10, (tInfo.dwSizeA + 0x200) >> 10, (tInfo.dwSizeB + 0x200) >> 10);
-            pfnCallback(pParam, szText);
-        } while (SMemFindNextHeap(hHeap, &hHeap, &tInfo));
-    }
-    return nValid ? 1 : 0;
 }
 
-// 0x00413490
-__declspec(noinline) const char* __stdcall SStrChr(const char* szString, char nChar)
+int __stdcall sub_L01_Emit_004117A0(const char* szFile, int nArg)
 {
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    for (; *szString; ++szString)
+    if (nArg)
     {
-        if (*szString == nChar)
-            return nValid ? szString : 0;
-    }
-    return 0;
-}
-
-// 0x004134D0
-const char* __stdcall SStrChrR(const char* szString, char nChar)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    const char* pLast = 0;
-    for (const char* pString = szString; *pString; ++pString)
-    {
-        if (*pString == nChar)
-            pLast = pString;
-    }
-    return nValid ? pLast : 0;
-}
-
-// 0x00413510
-const char* __stdcall sub_00413510_SStrChrDir(const char* szString, char nChar, int bReverse)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    if (bReverse)
-        return SStrChrR(szString, nChar);
-    return nValid ? SStrChr(szString, nChar) : 0;
-}
-
-// 0x00413550
-int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString1);
-    VALIDATE(szString2);
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return (int)(szString1 - szString2);
-    }
-    return nValid ? strncmp(szString1, szString2, nMaxChars) : 0;
-}
-
-// 0x00413590
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString1);
-    VALIDATE(szString2);
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return szString1 - szString2;
-    }
-    return nValid ? _strnicmp(szString1, szString2, nMaxChars) : 0;
-}
-
-// 0x00413750
-unsigned int __stdcall SStrLen(const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    unsigned int dwOnes = 0xFFFFFFFF;
-    const char* p = szString;
-    while ((unsigned int)p & 3)
-    {
-        if (!*p)
-        {
-            goto done;
-        }
-        ++p;
-    }
-    for (;;)
-    {
-        const unsigned int w = *(const unsigned int*)p;
-        dwOnes -= w;
-        unsigned int dwTest = (w + 0x7EFEFEFF) ^ dwOnes;
-        p += 4;
-        dwOnes |= w;
-        dwTest &= 0x81010101;
-        if (dwTest)
-        {
-            if (!(char)w)
-            {
-                p -= 4;
-                break;
-            }
-            if (!(char)(w >> 8))
-            {
-                p -= 3;
-                break;
-            }
-            if (!(w & 0xFF0000))
-            {
-                p -= 2;
-                break;
-            }
-            if (!(w & 0xFF000000))
-            {
-                p -= 1;
-                break;
-            }
-            gdwSStrScanWord_007788D8 = dwTest;
-        }
-    }
-done:
-    return nValid ? p - szString : 0;
-}
-
-// 0x00413A00
-static int sub_00413A00_VPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args)
-{
-    if (nSize)
-    {
-        if (nSize != 0x7FFFFFFF)
-        {
-            size_t nResult = _vsnprintf(szDest, nSize, szFormat, args);
-            if (nResult >= nSize)
-            {
-                nResult = nSize - 1;
-                szDest[nResult] = 0;
-            }
-            return nResult;
-        }
-        return vsprintf(szDest, szFormat, args);
-    }
-    return 0;
-}
-
-// calling-convention shim (not game code)
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...)
-{
-    if (!szDest || !szFormat)
-    {
-        sub_0041C340_SetLastError(0x57);
+        sub_004117A0_SetAndShowError(szFile, -1, 0x8510007D);
         return 0;
     }
-    return sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, (va_list)(&szFormat + 1));
+    return nArg + 5;
 }
 
-// calling-convention shim (not game code)
-extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, va_list args)
-{
-    if (!szDest || !szFormat)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return 0;
-    }
-    return sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, args);
-}
-
-// 0x00413AC0
-int __stdcall SStrToInt(const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    const int bNegative = (*szString == '-');
-    if (bNegative)
-    {
-        ++szString;
-    }
-    int nResult = *szString - '0';
-    if ((unsigned int)nResult < 10)
-    {
-        unsigned int nDigit = *++szString - '0';
-        while (nDigit < 10)
-        {
-            ++szString;
-            nResult = nResult * 10 + nDigit;
-            nDigit = *szString - '0';
-        }
-    }
-    else
-    {
-        nResult = 0;
-    }
-    return nValid ? (bNegative ? -nResult : nResult) : 0;
-}
-
-// 0x00413B30
-int __stdcall sub_00413B30_ParseUnsignedDecimal(const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    int nResult = *szString - '0';
-    if ((unsigned int)nResult < 10)
-    {
-        unsigned int nDigit = *++szString - '0';
-        while (nDigit < 10)
-        {
-            ++szString;
-            nResult = nResult * 10 + nDigit;
-            nDigit = *szString - '0';
-        }
-    }
-    else
-    {
-        nResult = 0;
-    }
-    return nValid ? nResult : 0;
-}
-
-// 0x00413B80
-void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted)
-{
-    VALIDATEBEGIN;
-    VALIDATE(pszString);
-    VALIDATE(*pszString);
-    VALIDATE(szBuffer || !nBufferChars);
-    VALIDATE(szWhitespace);
-    VALIDATEENDVOID;
-
-    const int bQuotesAllowed = SStrChr(szWhitespace, '"') != 0;
-    const char* pCurr = *pszString;
-    int bInQuotes = 0;
-    int bUsedQuotes = 0;
-    while (*pCurr && SStrChr(szWhitespace, *pCurr))
-    {
-        if (bQuotesAllowed && *pCurr == '"')
-        {
-            bUsedQuotes = 1;
-            bInQuotes = 1;
-            ++pCurr;
-            break;
-        }
-        ++pCurr;
-    }
-
-    unsigned int nLength = 0;
-    char nChar;
-    while ((nChar = *pCurr) != 0)
-    {
-        if (bQuotesAllowed && nChar == '"')
-        {
-            if (nLength && !bInQuotes)
-            {
-                break;
-            }
-            bInQuotes = !bInQuotes;
-            ++pCurr;
-            bUsedQuotes = 1;
-            if (!bInQuotes)
-            {
-                break;
-            }
-            continue;
-        }
-        if (!bInQuotes && SStrChr(szWhitespace, nChar))
-        {
-            ++pCurr;
-            break;
-        }
-        if (nLength + 1 < nBufferChars)
-        {
-            szBuffer[nLength++] = nChar;
-        }
-        ++pCurr;
-    }
-
-    if (nLength < nBufferChars)
-    {
-        szBuffer[nLength] = 0;
-    }
-    *pszString = pCurr;
-    if (nValid && pQuoted)
-    {
-        *pQuoted = bUsedQuotes;
-    }
-}
-
-// 0x00413CE0
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    unsigned int nResult = nSeed ? nSeed : 0x7FED7FED;
-    unsigned int nAdjust = 0xEEEEEEEE;
-    unsigned int nChar;
-    if (nFlags & 1)
-    {
-        while ((nChar = (unsigned char)*szString) != 0)
-        {
-            ++szString;
-            nResult = (gdwSStrHashTable_006CEE30[nChar >> 4] - gdwSStrHashTable_006CEE30[nChar & 0xF]) ^ (nResult + nAdjust);
-            nAdjust = (nAdjust << 5) + nChar + nAdjust + nResult + 3;
-        }
-    }
-    else
-    {
-        while ((nChar = (unsigned char)*szString) != 0)
-        {
-            ++szString;
-            if (nChar >= 'a' && nChar <= 'z')
-            {
-                nChar -= 0x20;
-            }
-            if (nChar == '/')
-            {
-                nChar = '\\';
-            }
-            nResult = (gdwSStrHashTable_006CEE30[nChar >> 4] - gdwSStrHashTable_006CEE30[nChar & 0xF]) ^ (nResult + nAdjust);
-            nAdjust = (nAdjust << 5) + nChar + nAdjust + nResult + 3;
-        }
-    }
-    if (!nResult)
-    {
-        nResult = 1;
-    }
-    return nValid ? nResult : 0;
-}
-
-#include "gen/data/Source/Storm/Unknown_004129D0.inc"
-
-// 0x00413DC0
-unsigned __int64 __stdcall SStrHash64(const char* szString, unsigned int nFlags, unsigned __int64 nSeed)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    unsigned __int64 nResult = nSeed ? nSeed : 0x7FED7FED7FED7FEDui64;
-    unsigned __int64 nAdjust = 0xEEEEEEEEEEEEEEEEui64;
-    unsigned int nChar;
-    if (nFlags & 1)
-    {
-        while ((nChar = (unsigned char)*szString) != 0)
-        {
-            ++szString;
-            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
-            nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
-        }
-    }
-    else
-    {
-        while ((nChar = (unsigned char)*szString) != 0)
-        {
-            ++szString;
-            if (nChar >= 'a' && nChar <= 'z')
-            {
-                nChar -= 0x20;
-            }
-            if (nChar == '/')
-            {
-                nChar = '\\';
-            }
-            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
-            nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
-        }
-    }
-    if (!nResult)
-    {
-        nResult = 1;
-    }
-    return nValid ? nResult : 0;
-}

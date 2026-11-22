@@ -3458,21 +3458,6 @@
      "name": "sub_00411210_InitTimer"
     },
     {
-     "va": "0x00411700",
-     "length": 11,
-     "name": "sub_00411700_ToByte"
-    },
-    {
-     "va": "0x00411A20",
-     "length": 48,
-     "name": "sub_00411A20_InitPageSize"
-    },
-    {
-     "va": "0x00411D40",
-     "length": 82,
-     "name": "sub_00411D40_SetFlags"
-    },
-    {
      "va": "0x00413F30",
      "length": 532,
      "name": "bjhash"
@@ -4221,6 +4206,27 @@
    ]
   },
   {
+   "file": "Source/Storm/SOURCE/SMEM_00411700.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00411700",
+     "length": 11,
+     "name": "sub_00411700_ToByte"
+    },
+    {
+     "va": "0x00411A20",
+     "length": 48,
+     "name": "sub_00411A20_InitPageSize"
+    },
+    {
+     "va": "0x00411D40",
+     "length": 82,
+     "name": "sub_00411D40_SetFlags"
+    }
+   ]
+  },
+  {
    "file": "Source/Storm/SOURCE/SERR_0041C0E0.CPP",
    "rank": 0,
    "functions": [
@@ -4673,7 +4679,13 @@
     {
      "va": "0x00411540",
      "length": 221
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_00411670.CPP",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00411670",
      "length": 107,
@@ -4727,7 +4739,13 @@
      "va": "0x004112B0",
      "length": 6,
      "name": "?sub_004112B0_GetTickCount@@YAKXZ"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_00411640.CPP",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00411640",
      "length": 18,
@@ -4756,7 +4774,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00411620.cpp",
+   "file": "Source/Storm/SOURCE/SMEM.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4872,7 +4890,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004117F0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004117F0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4883,7 +4901,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004119A0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004119A0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4894,7 +4912,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004119B0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004119B0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -4918,16 +4936,6 @@
    "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00411A80",
-     "length": 21,
-     "name": "?sub_00411A80_ReleaseBlock@@YIXPAPAUD2FogBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00411CD0",
-     "length": 97,
-     "name": "?SMemInitialize@@YAXXZ"
-    },
     {
      "va": "0x00414150",
      "length": 131,
@@ -5127,7 +5135,23 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00411AA0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_00411A80.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00411A80",
+     "length": 21,
+     "name": "?sub_00411A80_ReleaseBlock@@YIXPAPAUD2FogBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00411CD0",
+     "length": 97,
+     "name": "?SMemInitialize@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_00411AA0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -5154,11 +5178,6 @@
    "file": "Source/Storm/SOURCE/SCOMP.CPP",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00412240",
-     "length": 161,
-     "name": "sub_00412240_DestroyHeaps"
-    },
     {
      "va": "0x0041DF40",
      "length": 186,
@@ -5342,7 +5361,18 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004122F0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_00412240.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00412240",
+     "length": 161,
+     "name": "sub_00412240_DestroyHeaps"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SMEM_004122F0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -5356,7 +5386,27 @@
     {
      "va": "0x00413020",
      "length": 210
-    },
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_004135D0.cpp",
+   "rank": 1,
+   "functions": [
     {
      "va": "0x004135D0",
      "length": 353
@@ -5382,7 +5432,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004129D0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_004129D0.CPP",
    "rank": 0,
    "functions": [
     {
@@ -5393,7 +5443,13 @@
      "va": "0x00413100",
      "length": 327,
      "name": "?SMemDumpState@@YGHP6GXPAXPBD@Z0@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_00413490.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00413490",
      "length": 56,
@@ -5456,7 +5512,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00412BA0.cpp",
+   "file": "Source/Storm/SOURCE/SMEM_00412BA0.CPP",
    "rank": 1,
    "functions": [
     {
