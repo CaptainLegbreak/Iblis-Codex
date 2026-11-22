@@ -81,13 +81,6 @@ struct D2StormList00708420Strc : D2StormListBaseStrc
     void sub_0041C9C0_DeleteAll();
 };
 
-// 0x0041BEE0
-void __cdecl sub_0041BEE0_InitStorm()
-{
-    SMemInitialize();
-    SLogInitialize();
-    sub_00414360_CallThenSetFlag();
-}
 
 // 0x0041C1F0
 static int __stdcall sub_0041C1F0_FormatTypeName(const char* szName, char* szOut, unsigned int nSize)

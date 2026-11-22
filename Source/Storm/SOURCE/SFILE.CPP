@@ -3008,11 +3008,6 @@ void __cdecl sub_0041A880_StartThread()
     }
 }
 
-// 0x0041BEF0
-void* __cdecl StormGetInstance()
-{
-    return GetModuleHandleA(0);
-}
 
 // 0x0041C0E0
 void __fastcall sub_0041C0E0_SetCallback(void* pCallback)
