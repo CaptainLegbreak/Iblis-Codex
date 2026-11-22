@@ -1,4 +1,5 @@
 #include "D2StateIds.h"
+#include "D2ClientUi.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
@@ -136,12 +137,6 @@ struct D2PanelGfxStrc
     int unk0x40[2];
 };
 
-struct D2HintCursorStrc
-{
-    char unk0x00[0x50];
-    int aValues[1];
-};
-
 struct D2TimedHintStrc
 {
     int bActive;
@@ -221,14 +216,6 @@ struct D2SlotObjectStrc
     unsigned int nKey;
 };
 
-struct D2SlotStrc
-{
-    int f_0;
-    int unk0x04;
-    D2SlotObjectStrc* pObject;
-    char unk0x0C[0x14];
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" const char gszGfxUtilSourceFile[]; // 0x006DB974
 extern D2HotspotStrc gaHotspots_00727902[]; // 0x00727902
@@ -252,14 +239,14 @@ int __cdecl sub_00481820(); // 0x00481820
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_004B9590(void* pEntry); // 0x004B9590
 void* __fastcall sub_004B9610(int nId); // 0x004B9610
-int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
+int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __cdecl sub_004BFDD0_DrawUseItemPanel(); // 0x004BFDD0
 int __fastcall sub_004DBB50(D2PanelGfxStrc* pGfx, D2UnitStrc* pUnit, int nArg3, int nArg4, int nArg5, int* pOut, int nArg7, int nArg8); // 0x004DBB50
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
 int __fastcall sub_004DC110(void* pArg1, int nArg2, int nArg3, int nArg4, void* pfnCallback, int nArg6, int nArg7); // 0x004DC110
 void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nArg, D2CellGridViewStrc* pView); // 0x004DEF80
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-int __fastcall sub_00515710(int nHandle); // 0x00515710
+int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 int __fastcall sub_00516760(int nSocket, int* pParam, D2AddressInfoStrc* pInfo); // 0x00516760
 int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006001F0
 D2TileStrc* __stdcall sub_00619720(void* pAct); // 0x00619720
@@ -2442,7 +2429,7 @@ D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
     for (int i = 0; i < 16; i++)
     {
         D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
-        if (sub_00515710(pSlot->f_0) && pSlot->pObject && pSlot->pObject->f_4 == nOwner)
+        if (sub_00515710(pSlot->pSound) && pSlot->pObject && pSlot->pObject->f_4 == nOwner)
         {
             if (!pBest || pSlot->pObject->nKey < pBest->pObject->nKey)
             {

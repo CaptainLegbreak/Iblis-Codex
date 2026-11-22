@@ -1618,7 +1618,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UNIT/CUnit_00463940.cpp": {
+  "Source/D2Client/UNIT/CUnit.cpp": {
    "bytes": 28,
    "definitions": 2,
    "externs": [],
@@ -41718,7 +41718,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit_00463940.cpp",
+   "file": "Source/D2Client/UNIT/CUnit.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned int gnPresetUnitId_00711F30 = ",
@@ -42017,7 +42017,7 @@
    "cname": "gData_006D6ABC",
    "declared": true,
    "decorated": "?gnUnitTypes_006D6ABC@@3QBHB",
-   "file": "Source/D2Client/UNIT/CUnit_00463940.cpp",
+   "file": "Source/D2Client/UNIT/CUnit.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6ABC[6]; // 0x006D6ABC",
    "head": "extern \"C\" const int gData_006D6ABC[6] = ",

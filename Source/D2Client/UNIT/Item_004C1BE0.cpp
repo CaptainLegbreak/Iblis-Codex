@@ -430,7 +430,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 struct Unit006280A0;
 extern "C" unsigned int __stdcall sub_006280A0(Unit006280A0* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer);     // 0x00627260
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer);     // 0x00627260
 int __fastcall sub_004C1E40_SetChargedSkill(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges);
 
 // 0x004C1F30

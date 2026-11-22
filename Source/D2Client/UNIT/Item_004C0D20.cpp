@@ -86,10 +86,10 @@ struct D2GSPacketSrv9D
     unsigned char nAction;
     unsigned char nPacketSize;
     unsigned char nComponent;
-    unsigned int nItemId;
+    int nItemId;
     unsigned char nUnitType;
-    unsigned int nUnitId;
-    unsigned char pBitstream[0xF4];
+    int nUnitId;
+    unsigned char pBitstream[244];
 };
 
 #pragma pack(pop)
@@ -154,7 +154,7 @@ void __fastcall sub_0046F950(D2UnitStrc* pUnit);                                
 
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 
-void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pCommand); // 0x004AFF60
+void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 
 int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem);                               // 0x004C10E0
 

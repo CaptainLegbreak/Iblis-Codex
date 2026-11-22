@@ -19183,14 +19183,43 @@
      "name": "?sub_00463900_GetValidMonsterId@@YIHH@Z"
     },
     {
+     "va": "0x00463940",
+     "length": 73,
+     "name": "?sub_00463940_FindUnitInTable@@YGPAUD2UnitStrc@@PAPAU1@IHH@Z"
+    },
+    {
+     "va": "0x00463990",
+     "length": 21,
+     "name": "?sub_00463990@@YIPAUD2UnitStrc@@IH@Z"
+    },
+    {
+     "va": "0x004639B0",
+     "length": 21,
+     "name": "?sub_004639B0_FindServerSideUnit@@YIPAUD2UnitStrc@@IH@Z"
+    },
+    {
+     "va": "0x004639D0",
+     "length": 115,
+     "name": "?sub_004639D0_GetOwnerUnit@@YIPAUD2UnitStrc@@PAU1@@Z"
+    },
+    {
      "va": "0x00463B80",
      "length": 53,
      "name": "?sub_00463B80_QueueIdleMove@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00463C90",
+     "length": 48,
+     "name": "?sub_00463C90_ForEachUnitInTable@@YGXPAPAUD2UnitStrc@@P6IXPAU1@@Z@Z"
+    },
+    {
      "va": "0x00463CC0",
      "length": 176,
      "name": "?sub_00463CC0_FreeUnitTable@@YGXPAPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463D90",
+     "length": 60
     },
     {
      "va": "0x00463DE0",
@@ -19221,6 +19250,10 @@
      "va": "0x00463EB0",
      "length": 43,
      "name": "?sub_00463EB0_GetGfxField38@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004640A0",
+     "length": 363
     },
     {
      "va": "0x00464210",
@@ -19266,6 +19299,11 @@
      "va": "0x004643B0",
      "length": 55,
      "name": "?sub_004643B0_IsPlayerOrMonster@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004643F0",
+     "length": 41,
+     "name": "?sub_004643F0_SetTargetByGUID@@YIXPAUD2UnitStrc@@HI@Z"
     },
     {
      "va": "0x00464420",
@@ -19327,6 +19365,21 @@
      "name": "?sub_00464930_FreeLight@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00464950",
+     "length": 50,
+     "name": "?sub_00464950@@YIXP6IXPAUD2UnitStrc@@@Z@Z"
+    },
+    {
+     "va": "0x00464990",
+     "length": 50,
+     "name": "?sub_00464990@@YIXP6IXPAUD2UnitStrc@@@Z@Z"
+    },
+    {
+     "va": "0x004649D0",
+     "length": 50,
+     "name": "?sub_004649D0@@YIXP6IXPAUD2UnitStrc@@@Z@Z"
+    },
+    {
      "va": "0x00464A10",
      "length": 22,
      "name": "?sub_00464A10_FindTileUnit@@YAPAUD2UnitStrc@@PAU1@@Z"
@@ -19362,6 +19415,16 @@
      "name": "?sub_00464CF0_SetStartLight@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00464D20",
+     "length": 108,
+     "name": "?sub_00464D20_IsItemInInventory@@YGHPAUD2UnitStrc@@00@Z"
+    },
+    {
+     "va": "0x00464D90",
+     "length": 130,
+     "name": "?sub_00464D90_IsItemOwnedByOther@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x00464E20",
      "length": 43,
      "name": "?sub_00464E20_PlayOverlaySound@@YAXPAUD2UnitStrc@@H@Z"
@@ -19370,6 +19433,10 @@
      "va": "0x00464E50",
      "length": 102,
      "name": "?sub_00464E50_SetOverlayWithSound@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00464EC0",
+     "length": 175
     },
     {
      "va": "0x00465400",
@@ -19387,14 +19454,79 @@
      "name": "?sub_004656C0_ClassEffects@@YAXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00465870",
+     "length": 332,
+     "name": "?sub_00465870_FreeUnit@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004659C0",
+     "length": 213,
+     "name": "?sub_004659C0_FreeAllUnits@@YAXXZ"
+    },
+    {
+     "va": "0x00465AA0",
+     "length": 321,
+     "name": "?sub_00465AA0_ResetUnitTables@@YAXXZ"
+    },
+    {
      "va": "0x00465BF0",
      "length": 107,
      "name": "?sub_00465BF0_SetPathTargetToTargetUnit@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00465E80",
+     "length": 85,
+     "name": "?sub_00465E80_RemoveUnitFromTable@@YAXIHPAPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00465EE0",
+     "length": 26,
+     "name": "?sub_00465EE0_RemoveClientSideUnit@@YIXIH@Z"
+    },
+    {
+     "va": "0x00465F00",
+     "length": 26,
+     "name": "?sub_00465F00_RemoveServerSideUnit@@YIXIH@Z"
+    },
+    {
+     "va": "0x00465F20",
+     "length": 161,
+     "name": "?sub_00465F20_InsertUnit@@YAPAUD2UnitStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x00465FD0",
+     "length": 488,
+     "name": "?sub_00465FD0_InitUnit@@YGPAUD2UnitStrc@@IHHHHHPAU1@H@Z"
+    },
+    {
+     "va": "0x004661C0",
+     "length": 60,
+     "name": "?sub_004661C0_AllocClientUnit@@YIPAUD2UnitStrc@@IHHHHH@Z"
+    },
+    {
+     "va": "0x00466200",
+     "length": 255,
+     "name": "?sub_00466200_CreatePlayerUnit@@YIPAUD2UnitStrc@@IHHHPAD@Z"
+    },
+    {
+     "va": "0x00466300",
+     "length": 96,
+     "name": "?sub_00466300_CreateObjectUnit@@YIPAUD2UnitStrc@@IHHHHHHE@Z"
+    },
+    {
+     "va": "0x00466730",
+     "length": 180,
+     "name": "?sub_00466730_SpawnPresetUnit@@YIPAUD2UnitStrc@@HHHHH@Z"
+    },
+    {
      "va": "0x004667F0",
      "length": 48,
      "name": "?sub_004667F0_SpawnPresetUnitInRoom@@YAXPAUD2ActiveRoomStrc@@PAUD2PresetUnitStrc@@@Z"
+    },
+    {
+     "va": "0x00466CB0",
+     "length": 272,
+     "name": "?sub_00466CB0_RemoveInventoryUnits@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004693B0",
@@ -19469,136 +19601,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/CUnit_00463940.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00463940",
-     "length": 73,
-     "name": "?sub_00463940_FindUnitInTable@@YGPAUD2UnitStrc@@PAPAU1@IHH@Z"
-    },
-    {
-     "va": "0x00463990",
-     "length": 21,
-     "name": "?sub_00463990@@YIPAUD2UnitStrc@@IH@Z"
-    },
-    {
-     "va": "0x004639B0",
-     "length": 21,
-     "name": "?sub_004639B0_FindServerSideUnit@@YIPAUD2UnitStrc@@IH@Z"
-    },
-    {
-     "va": "0x004639D0",
-     "length": 115,
-     "name": "?sub_004639D0_GetOwnerUnit@@YIPAUD2UnitStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x00463C90",
-     "length": 48,
-     "name": "?sub_00463C90_ForEachUnitInTable@@YGXPAPAUD2UnitStrc@@P6IXPAU1@@Z@Z"
-    },
-    {
-     "va": "0x004643F0",
-     "length": 41,
-     "name": "?sub_004643F0_SetTargetByGUID@@YIXPAUD2UnitStrc@@HI@Z"
-    },
-    {
-     "va": "0x00464950",
-     "length": 50,
-     "name": "?sub_00464950@@YIXP6IXPAUD2UnitStrc@@@Z@Z"
-    },
-    {
-     "va": "0x00464990",
-     "length": 50,
-     "name": "?sub_00464990@@YIXP6IXPAUD2UnitStrc@@@Z@Z"
-    },
-    {
-     "va": "0x004649D0",
-     "length": 50,
-     "name": "?sub_004649D0@@YIXP6IXPAUD2UnitStrc@@@Z@Z"
-    },
-    {
-     "va": "0x00464D20",
-     "length": 108,
-     "name": "?sub_00464D20_IsItemInInventory@@YGHPAUD2UnitStrc@@00@Z"
-    },
-    {
-     "va": "0x00464D90",
-     "length": 130,
-     "name": "?sub_00464D90_IsItemOwnedByOther@@YGHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00464EC0",
-     "length": 175
-    },
-    {
-     "va": "0x00465870",
-     "length": 332,
-     "name": "?sub_00465870_FreeUnit@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004659C0",
-     "length": 213,
-     "name": "?sub_004659C0_FreeAllUnits@@YAXXZ"
-    },
-    {
-     "va": "0x00465AA0",
-     "length": 321,
-     "name": "?sub_00465AA0_ResetUnitTables@@YAXXZ"
-    },
-    {
-     "va": "0x00465E80",
-     "length": 85,
-     "name": "?sub_00465E80_RemoveUnitFromTable@@YAXIHPAPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00465EE0",
-     "length": 26,
-     "name": "?sub_00465EE0_RemoveClientSideUnit@@YIXIH@Z"
-    },
-    {
-     "va": "0x00465F00",
-     "length": 26,
-     "name": "?sub_00465F00_RemoveServerSideUnit@@YIXIH@Z"
-    },
-    {
-     "va": "0x00465F20",
-     "length": 161,
-     "name": "?sub_00465F20_InsertUnit@@YAPAUD2UnitStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x00465FD0",
-     "length": 488,
-     "name": "?sub_00465FD0_InitUnit@@YGPAUD2UnitStrc@@IHHHHHPAU1@H@Z"
-    },
-    {
-     "va": "0x004661C0",
-     "length": 60,
-     "name": "?sub_004661C0_AllocClientUnit@@YIPAUD2UnitStrc@@IHHHHH@Z"
-    },
-    {
-     "va": "0x00466200",
-     "length": 255,
-     "name": "?sub_00466200_CreatePlayerUnit@@YIPAUD2UnitStrc@@IHHHPAD@Z"
-    },
-    {
-     "va": "0x00466300",
-     "length": 96,
-     "name": "?sub_00466300_CreateObjectUnit@@YIPAUD2UnitStrc@@IHHHHHHE@Z"
-    },
-    {
-     "va": "0x00466730",
-     "length": 180,
-     "name": "?sub_00466730_SpawnPresetUnit@@YIPAUD2UnitStrc@@HHHHH@Z"
-    },
-    {
-     "va": "0x00466CB0",
-     "length": 272,
-     "name": "?sub_00466CB0_RemoveInventoryUnits@@YIXPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_00463BC0.cpp",
    "rank": 0,
    "functions": [
@@ -19607,34 +19609,6 @@
      "length": 49,
      "name": "?sub_00463BC0_PlaceUnitInRoom@@YGXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/CUnit_00463D90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00463D90",
-     "length": 60
-    },
-    {
-     "va": "0x004640A0",
-     "length": 363
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
