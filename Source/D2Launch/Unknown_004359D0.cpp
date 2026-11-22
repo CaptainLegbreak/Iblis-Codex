@@ -12,7 +12,6 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 void __cdecl sub_0042E6D0_LoadFrontEndCells();                                                              // 0x0042E6D0
 void __cdecl sub_0042EF50_FreeFrontEndCells();                                                              // 0x0042EF50
-void __cdecl sub_0042FFE0_CreateScreen();                                                                   // 0x0042FFE0
 int __cdecl sub_004309B0_ClearState();                                                                      // 0x004309B0
 void __stdcall sub_00430BB0_LoopCallback(unsigned long nArg);                                               // 0x00430BB0
 void __cdecl sub_00435230_PlayIntroVideos();                                                                // 0x00435230
