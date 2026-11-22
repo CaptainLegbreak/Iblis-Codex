@@ -193,6 +193,23 @@ void __fastcall PLAYERLIST_IterateCallback_InitializePlayerRelation(D2GameStrc* 
 
 void __fastcall PLAYERLIST_FreePlayerListCallback(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg); // 0x0055B780
 
+// 0x0055B790
+void __fastcall PLAYERLIST_FreePlayerLists(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    SUNIT_IterateLivingPlayers(pGame, PLAYERLIST_FreePlayerListCallback, pPlayer);
+
+    D2PlayerListStrc* pPlayerList = pPlayerData->pPlayerList;
+    while (pPlayerList)
+    {
+        D2PlayerListStrc* pNext = pPlayerList->pNext;
+        FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerList, ".\\UNIT\\PlayerList.cpp", 0x4E, 0);
+        pPlayerList = pNext;
+    }
+
+    pPlayerData->pPlayerList = 0;
+}
+
 // 0x0055B350
 unsigned short __fastcall PLAYERLIST_GetFlags(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
 {
@@ -258,21 +275,4 @@ int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
     }
 
     return pPlayerList->field_8;
-}
-
-// 0x0055B790
-void __fastcall PLAYERLIST_FreePlayerLists(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    SUNIT_IterateLivingPlayers(pGame, PLAYERLIST_FreePlayerListCallback, pPlayer);
-
-    D2PlayerListStrc* pPlayerList = pPlayerData->pPlayerList;
-    while (pPlayerList)
-    {
-        D2PlayerListStrc* pNext = pPlayerList->pNext;
-        FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerList, ".\\UNIT\\PlayerList.cpp", 0x4E, 0);
-        pPlayerList = pNext;
-    }
-
-    pPlayerData->pPlayerList = 0;
 }

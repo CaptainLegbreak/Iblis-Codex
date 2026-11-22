@@ -396,6 +396,45 @@ static void ACT2Q4_OpenPalace(D2QuestDataStrc* pQuestData, D2Act2Quest4Strc* pQu
     UNITS_FreeCollisionPath(pHaremBlocker);
 }
 
+// 0x0059F2A0
+void __fastcall ACT2Q4_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pNPCMessages = gpAct2Q4NpcMessages;
+    pQuestData->pCallback[0] = ACT2Q4_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Q4_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT2Q4_Callback03_ChangedLevel;
+    pQuestData->pCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[2] = ACT2Q4_Callback02_NpcDeactivate;
+    pQuestData->pCallback[13] = ACT2Q4_Callback13_PlayerStartedGame;
+    pQuestData->bActive = 1;
+    pQuestData->fState = 0;
+    pQuestData->pQuestDataEx = FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q4.cpp", 989, 0);
+    pQuestData->eFilter = 12;
+    pQuestData->pfStatusFilter = 0;
+    pQuestData->nInitNo = 5;
+    pQuestData->pfActiveFilter = ACT2Q4_ActiveFilterCallback;
+    pQuestData->pfSeqFilter = ACT2Q4_SeqCallback;
+    pQuestData->nSeqId = 13;
+    QUESTS_ResetPlayerGUIDCount(&pQuestData->tPlayerGUIDs);
+
+    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest4Strc));
+    pQuestDataEx->unk0x00 = 0;
+    pQuestDataEx->unk0x01 = 0;
+    pQuestDataEx->unk0x02 = 0;
+    pQuestDataEx->unk0x03 = 0;
+    pQuestDataEx->bDrognanActivated = 0;
+}
+
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    return (unsigned int)lSeed;
+}
+
 // 0x0059AF50
 void __fastcall ACT2Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -483,14 +522,6 @@ void __fastcall ACT2Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             }
         }
     }
-}
-
-static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    return (unsigned int)lSeed;
 }
 
 // 0x0059B1C0
@@ -582,6 +613,10 @@ void __fastcall ACT2Q4_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q4, QFLAG_CUSTOM3);
 }
 
+struct D2GameStrc;
+
+struct D2UnitStrc;
+
 // 0x0059B3F0
 int __fastcall ACT2Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -612,10 +647,6 @@ int __fastcall ACT2Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
 
     return 0;
 }
-
-struct D2GameStrc;
-
-struct D2UnitStrc;
 
 // 0x0059B4A0
 static bool ACT2Q4_RunSeqFilter(D2QuestDataStrc* pQuestData)
@@ -723,6 +754,15 @@ void __fastcall OBJECTS_InitFunction30_HaremBlocker(D2ObjInitFnStrc* pOp)
     }
 }
 
+struct D2ActiveRoomStrc;
+
+struct D2CoordStrc;
+
+static inline void* GetMonsterInteract(D2UnitStrc* unit) {
+    if (unit && unit->dwUnitType==UNIT_MONSTER && unit->pMonsterData) return unit->pMonsterData->pMonInteract;
+    return 0;
+}
+
 // 0x0059B820
 int __fastcall ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -744,13 +784,8 @@ int __fastcall ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker(D2GameStrc* pGame,
     return 1;
 }
 
-struct D2ActiveRoomStrc;
-
-struct D2CoordStrc;
-
-static inline void* GetMonsterInteract(D2UnitStrc* unit) {
-    if (unit && unit->dwUnitType==UNIT_MONSTER && unit->pMonsterData) return unit->pMonsterData->pMonInteract;
-    return 0;
+void __stdcall EmitQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* coords,D2ActiveRoomStrc* room) {
+    ACT2Q4_InitializeJerhynMonster(quest,coords+1,room);
 }
 
 static
@@ -790,10 +825,6 @@ void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2CoordStrc
             ex->pJerhynCoords.nY=coords->nY;
         }
     }
-}
-
-void __stdcall EmitQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* coords,D2ActiveRoomStrc* room) {
-    ACT2Q4_InitializeJerhynMonster(quest,coords+1,room);
 }
 
 // 0x0059B940
@@ -925,6 +956,20 @@ bool __fastcall ACT2Q5_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
     return true;
 }
 
+static inline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pMonInteract;
+    }
+    return 0;
+}
+
+static inline D2BitBufferStrc* QUESTS_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
+
 // 0x0059E5C0
 void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -948,20 +993,6 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* p
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_CUSTOM7);
 
     ACT2Q4_OpenPalaceOrCycle(pGame);
-}
-
-static inline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
-    {
-        return pUnit->pMonsterData->pMonInteract;
-    }
-    return 0;
-}
-
-static inline D2BitBufferStrc* QUESTS_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
 // 0x0059F0C0
@@ -1053,37 +1084,6 @@ void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q4.cpp", 734);
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q4_UnitIterate_UpdateQuestStateFlags);
     }
-}
-
-// 0x0059F2A0
-void __fastcall ACT2Q4_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pNPCMessages = gpAct2Q4NpcMessages;
-    pQuestData->pCallback[0] = ACT2Q4_Callback00_NpcActivate;
-    pQuestData->pCallback[11] = ACT2Q4_Callback11_ScrollMessage;
-    pQuestData->pCallback[3] = ACT2Q4_Callback03_ChangedLevel;
-    pQuestData->pCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[2] = ACT2Q4_Callback02_NpcDeactivate;
-    pQuestData->pCallback[13] = ACT2Q4_Callback13_PlayerStartedGame;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    pQuestData->pQuestDataEx = FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q4.cpp", 989, 0);
-    pQuestData->eFilter = 12;
-    pQuestData->pfStatusFilter = 0;
-    pQuestData->nInitNo = 5;
-    pQuestData->pfActiveFilter = ACT2Q4_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT2Q4_SeqCallback;
-    pQuestData->nSeqId = 13;
-    QUESTS_ResetPlayerGUIDCount(&pQuestData->tPlayerGUIDs);
-
-    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest4Strc));
-    pQuestDataEx->unk0x00 = 0;
-    pQuestDataEx->unk0x01 = 0;
-    pQuestDataEx->unk0x02 = 0;
-    pQuestDataEx->unk0x03 = 0;
-    pQuestDataEx->bDrognanActivated = 0;
 }
 
 #include "gen/data/Source/D2Game/Quests/a2q4.inc"

@@ -1527,16 +1527,96 @@ int __stdcall sub_00415960_CheckVolume(const char* szPath)
     return wKey == 0x1F00 || wKey == 0x805;
 }
 
-// 0x0041B050
-int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped)
+// 0x00415760
+static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
 {
-    return SFileReadFileEx2(hFile, pBuffer, nToRead, pnRead, pOverlapped, 0, 0);
+    unsigned long nPlay = 0;
+    unsigned long nWrite = 0;
+    if (pStream->pBuffer->GetCurrentPosition(&nPlay, &nWrite) < 0)
+        return -1;
+    unsigned int nWritten = pStream->writecursor;
+    int nAhead = nWritten % pStream->soundbuffersize - nPlay;
+    if (nAhead <= 0)
+        nAhead += pStream->soundbuffersize;
+    unsigned int nPlayed = nWritten - nAhead;
+    if (nPlayed >= pStream->nSize)
+        nPlayed = pStream->nSize;
+    pStream->nPlayed = nPlayed;
+    return nPlay;
 }
 
-// 0x0041B080
-int __stdcall SFileReadFileEx(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6)
+// 0x00418140
+int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)
 {
-    return SFileReadFileEx2(hFile, pBuffer, nToRead, pnRead, pOverlapped, 0, nArg6);
+    int bResult = 0;
+    unsigned int nSize = 0;
+    unsigned int nPlayed = 0;
+    EnterCriticalSection(&gBasePathLock_00779068);
+    FILEREC* pRec;
+    if (sub_00415950_GetFileRec(hFile, &pRec))
+    {
+        AUDIOSTREAM* pStream;
+        for (pStream = gDdaList_00708384.Head(); pStream; pStream = (AUDIOSTREAM*)pStream->tLink.Next())
+        {
+            if (pStream->pFile == pRec)
+                break;
+        }
+        if (!pStream)
+        {
+            sub_0041C340_SetLastError(0x85100072);
+        }
+        else
+        {
+            nSize = pStream->nSize;
+            const int nState = pStream->fillstatus;
+            if (nState == 4)
+            {
+                sub_0041C340_SetLastError(0x85100072);
+            }
+            else
+            {
+                bResult = 1;
+                if (nState != 0 && nState != 1)
+                {
+                    sub_00415760_UpdatePlayed(pStream);
+                    nPlayed = pStream->nPlayed;
+                }
+            }
+        }
+    }
+    if (pnPlayed)
+        *pnPlayed = nPlayed;
+    if (pnSize)
+        *pnSize = nSize;
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return bResult;
+}
+
+// 0x00415EE0
+extern "C" int __stdcall SFileDdaInitialize(int nValue)
+{
+    VALIDATEBEGIN;
+    VALIDATE(nValue);
+    if (!nValid)
+    {
+        sub_0041C340_SetLastError(0x57);
+        return nValid;
+    }
+    gpDirectSound_00778F20 = (void*)nValue;
+    return nValid ? 1 : 0;
+}
+
+// 0x00415F70
+int __stdcall sub_00415F70(int nFlags)
+{
+    gnStormDirectFlags_00779058 = nFlags;
+    return 1;
+}
+
+// 0x00419980
+int __stdcall sub_00419980(const char* szFileName, void** phFile)
+{
+    return SFileOpenFileEx(0, szFileName, sub_00418B50(), phFile);
 }
 
 // 0x0041B650
@@ -1650,33 +1730,6 @@ unsigned int __stdcall sub_00415D50_ChecksumFile(const char* szFileName)
     return nCrc;
 }
 
-// 0x00415EE0
-extern "C" int __stdcall SFileDdaInitialize(int nValue)
-{
-    VALIDATEBEGIN;
-    VALIDATE(nValue);
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return nValid;
-    }
-    gpDirectSound_00778F20 = (void*)nValue;
-    return nValid ? 1 : 0;
-}
-
-// 0x00415F70
-int __stdcall sub_00415F70(int nFlags)
-{
-    gnStormDirectFlags_00779058 = nFlags;
-    return 1;
-}
-
-// 0x00419980
-int __stdcall sub_00419980(const char* szFileName, void** phFile)
-{
-    return SFileOpenFileEx(0, szFileName, sub_00418B50(), phFile);
-}
-
 // 0x0041B680
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped)
 {
@@ -1688,69 +1741,16 @@ static inline AUDIOSTREAM* DdaHead()
     return (int)gpDdaHead_0070838C > 0 ? gpDdaHead_0070838C : 0;
 }
 
-// 0x00415760
-static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
+// 0x0041B050
+int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped)
 {
-    unsigned long nPlay = 0;
-    unsigned long nWrite = 0;
-    if (pStream->pBuffer->GetCurrentPosition(&nPlay, &nWrite) < 0)
-        return -1;
-    unsigned int nWritten = pStream->writecursor;
-    int nAhead = nWritten % pStream->soundbuffersize - nPlay;
-    if (nAhead <= 0)
-        nAhead += pStream->soundbuffersize;
-    unsigned int nPlayed = nWritten - nAhead;
-    if (nPlayed >= pStream->nSize)
-        nPlayed = pStream->nSize;
-    pStream->nPlayed = nPlayed;
-    return nPlay;
+    return SFileReadFileEx2(hFile, pBuffer, nToRead, pnRead, pOverlapped, 0, 0);
 }
 
-// 0x00418140
-int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)
+// 0x0041B080
+int __stdcall SFileReadFileEx(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6)
 {
-    int bResult = 0;
-    unsigned int nSize = 0;
-    unsigned int nPlayed = 0;
-    EnterCriticalSection(&gBasePathLock_00779068);
-    FILEREC* pRec;
-    if (sub_00415950_GetFileRec(hFile, &pRec))
-    {
-        AUDIOSTREAM* pStream;
-        for (pStream = gDdaList_00708384.Head(); pStream; pStream = (AUDIOSTREAM*)pStream->tLink.Next())
-        {
-            if (pStream->pFile == pRec)
-                break;
-        }
-        if (!pStream)
-        {
-            sub_0041C340_SetLastError(0x85100072);
-        }
-        else
-        {
-            nSize = pStream->nSize;
-            const int nState = pStream->fillstatus;
-            if (nState == 4)
-            {
-                sub_0041C340_SetLastError(0x85100072);
-            }
-            else
-            {
-                bResult = 1;
-                if (nState != 0 && nState != 1)
-                {
-                    sub_00415760_UpdatePlayed(pStream);
-                    nPlayed = pStream->nPlayed;
-                }
-            }
-        }
-    }
-    if (pnPlayed)
-        *pnPlayed = nPlayed;
-    if (pnSize)
-        *pnSize = nSize;
-    LeaveCriticalSection(&gBasePathLock_00779068);
-    return bResult;
+    return SFileReadFileEx2(hFile, pBuffer, nToRead, pnRead, pOverlapped, 0, nArg6);
 }
 
 static REQUEST* __stdcall IssueRequest(unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, AUDIOSTREAM* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback, FILEREC* pFile)
@@ -1904,23 +1904,6 @@ void __fastcall sub_M126_Emit_00419760(int a, FILEREC* pFile, int nUnused)
     RemoveFileRef(pFile);
 }
 
-// 0x004198D0
-int __stdcall SFileCloseFile(void* hFile)
-{
-    EnterCriticalSection(&gBasePathLock_00779068);
-    FILEREC* pRec;
-    if (!sub_00415950_GetFileRec(hFile, &pRec))
-    {
-        LeaveCriticalSection(&gBasePathLock_00779068);
-        return 0;
-    }
-    (pRec ? &pRec->tLink : &gFileList_0070836C.m_terminator)->Unlink();
-    if (pRec && !--pRec->nRefCount)
-        delete pRec;
-    LeaveCriticalSection(&gBasePathLock_00779068);
-    return 1;
-}
-
 // 0x00419A80
 int __stdcall SFileCloseArchive(void* hArchive)
 {
@@ -1948,6 +1931,23 @@ int __stdcall SFileCloseArchive(void* hArchive)
         }
     }
     (pRec ? &pRec->tLink : &gStormList_00708354.m_terminator)->Unlink();
+    if (pRec && !--pRec->nRefCount)
+        delete pRec;
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return 1;
+}
+
+// 0x004198D0
+int __stdcall SFileCloseFile(void* hFile)
+{
+    EnterCriticalSection(&gBasePathLock_00779068);
+    FILEREC* pRec;
+    if (!sub_00415950_GetFileRec(hFile, &pRec))
+    {
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        return 0;
+    }
+    (pRec ? &pRec->tLink : &gFileList_0070836C.m_terminator)->Unlink();
     if (pRec && !--pRec->nRefCount)
         delete pRec;
     LeaveCriticalSection(&gBasePathLock_00779068);

@@ -171,6 +171,33 @@ static int sub_00599570_ACT2Q2_CycleStatusIfDone(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+// 0x0059EB00
+void __fastcall ACT2Q2_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pNPCMessages = gpAct2Q2NpcMessages;
+    pQuestData->bActive = 1;
+
+    D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q2.cpp", 1005, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    pQuestData->eFilter = QUESTSTATEFLAG_A2Q2;
+    pQuestData->pfStatusFilter = ACT2Q2_StatusFilterCallback;
+    pQuestData->nInitNo = 0;
+    pQuestData->pfActiveFilter = ACT2Q2_ActiveFilterCallback;
+    pQuestData->pCallback[3] = ACT2Q2_Callback03_ChangedLevel;
+    pQuestData->pCallback[0] = ACT2Q2_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Q2_Callback11_ScrollMessage;
+    pQuestData->pCallback[10] = ACT2Q2_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[4] = ACT2Q2_Callback04_ItemPickedUp;
+    pQuestData->pCallback[5] = ACT2Q2_Callback05_ItemDropped;
+    pQuestData->pCallback[8] = sub_00599A20_ACT2Q2_Callback08_Empty;
+    pQuestData->pCallback[13] = ACT2Q2_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[14] = ACT2Q2_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[9] = ACT2Q2_Callback09_PlayerDroppedWithQuestItem;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest2Strc));
+    pQuestData->fLastState = 13;
+}
+
 // 0x00599A30
 void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -241,6 +268,12 @@ void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
     }
 }
 
+D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
+
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
+
+bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest);                              // 0x0059AC80
+
 // 0x00599B30
 void __fastcall ACT2Q2_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -264,11 +297,7 @@ void __fastcall ACT2Q2_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2Que
     }
 }
 
-D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
-
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
-
-bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest);                              // 0x0059AC80
+extern "C" const char gszA2Q2SourceFile[];                                                                  // 0x006E211C
 
 // 0x0059E630
 bool __fastcall ACT2Q2_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
@@ -345,8 +374,6 @@ bool __fastcall ACT2Q2_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
 
     return true;
 }
-
-extern "C" const char gszA2Q2SourceFile[];                                                                  // 0x006E211C
 
 // 0x0059E850
 void __fastcall ACT2Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* q,D2QuestArgStrc* arg)
@@ -474,33 +501,6 @@ void __fastcall ACT2Q2_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
         }
     }
     pQuestDataEx->bStaffMissingDetected = 1;
-}
-
-// 0x0059EB00
-void __fastcall ACT2Q2_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pNPCMessages = gpAct2Q2NpcMessages;
-    pQuestData->bActive = 1;
-
-    D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q2.cpp", 1005, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->eFilter = QUESTSTATEFLAG_A2Q2;
-    pQuestData->pfStatusFilter = ACT2Q2_StatusFilterCallback;
-    pQuestData->nInitNo = 0;
-    pQuestData->pfActiveFilter = ACT2Q2_ActiveFilterCallback;
-    pQuestData->pCallback[3] = ACT2Q2_Callback03_ChangedLevel;
-    pQuestData->pCallback[0] = ACT2Q2_Callback00_NpcActivate;
-    pQuestData->pCallback[11] = ACT2Q2_Callback11_ScrollMessage;
-    pQuestData->pCallback[10] = ACT2Q2_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[4] = ACT2Q2_Callback04_ItemPickedUp;
-    pQuestData->pCallback[5] = ACT2Q2_Callback05_ItemDropped;
-    pQuestData->pCallback[8] = sub_00599A20_ACT2Q2_Callback08_Empty;
-    pQuestData->pCallback[13] = ACT2Q2_Callback13_PlayerStartedGame;
-    pQuestData->pCallback[14] = ACT2Q2_Callback14_PlayerJoinedGame;
-    pQuestData->pCallback[9] = ACT2Q2_Callback09_PlayerDroppedWithQuestItem;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest2Strc));
-    pQuestData->fLastState = 13;
 }
 
 #include "gen/data/Source/D2Game/Quests/a2q2.inc"

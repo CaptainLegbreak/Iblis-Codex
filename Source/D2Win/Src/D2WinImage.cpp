@@ -658,30 +658,6 @@ int __stdcall IMAGE_SetCellFile(D2WinImageStrc* pImage, D2CelFileStrc* pCellFile
     return 1;
 }
 
-// 0x004FD0B0
-int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* ptImageData, int nX, int nY)
-{
-    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x6C);
-    ptImageData->controlHeader.nImageX = nX;
-    ptImageData->controlHeader.nImageY = nY;
-    return 1;
-}
-
-// 0x004FD170
-int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused)
-{
-    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x9D);
-    ptImageData->eDrawMode = 5;
-    return 1;
-}
-
-// 0x004FD1B0
-int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)
-{
-    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0xA9);
-    return CelFileGetCelsPerDirection(ptImageData->controlHeader.pCellFile);
-}
-
 // 0x004FD6C0
 D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler a6, D2WinImageClickRectStrc* pClickRect, D2WinMsgHandler pfHandleVirtualKeyInput)
 {
@@ -736,6 +712,30 @@ D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight,
     pImage->field_50 = a7;
     CONTROL_AppendToList(&pImage->controlHeader);
     return pImage;
+}
+
+// 0x004FD0B0
+int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* ptImageData, int nX, int nY)
+{
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x6C);
+    ptImageData->controlHeader.nImageX = nX;
+    ptImageData->controlHeader.nImageY = nY;
+    return 1;
+}
+
+// 0x004FD170
+int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused)
+{
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x9D);
+    ptImageData->eDrawMode = 5;
+    return 1;
+}
+
+// 0x004FD1B0
+int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)
+{
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0xA9);
+    return CelFileGetCelsPerDirection(ptImageData->controlHeader.pCellFile);
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinImage.inc"

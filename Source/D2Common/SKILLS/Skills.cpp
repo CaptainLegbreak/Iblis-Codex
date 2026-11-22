@@ -2659,154 +2659,43 @@ int __stdcall D2COMMON_11019(D2UnitStrc* pUnit)
     return 1;
 }
 
-// 0x00645630
-int __stdcall D2Common_11020(D2UnitStrc* pUnit)
+// 0x00648390
+int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
 {
-    if (!CORPSE_CanUnitCorpseBeSelected(pUnit))
-        return 0;
-    return UNITS_IsSoftMonster(pUnit) != 0;
-}
-
-// 0x00645680
-int __stdcall D2COMMON_11021(D2UnitStrc* pUnit)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
-    if (!bCorpseSelectable)
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// 0x006456D0
-int __stdcall SKILLS_CanUnitCorpseBeSelected(D2UnitStrc* pUnit)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
-    if (!bCorpseSelectable)
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// 0x00645720
-int __stdcall D2Common_11024(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType, int* pHasThrowBonus)
-{
-    int nStatId = 0;
-    D2StatStrc pStat[32];
-
-    if (pHasThrowBonus)
-    {
-        *pHasThrowBonus = 0;
-    }
-
-    if (!pSkill)
-    {
-        pSkill = UNITS_GetUsedSkill(pUnit);
-        if (!pSkill)
-        {
-            return 0;
-        }
-    }
-
-    if (!ITEMS_CheckIfThrowable(pItem) || !pSkill)
-    {
-        return 0;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = pSkill->pSkillsTxt;
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], ITEMTYPE_THROWN_WEAPON)
-        || pSkillsTxtRecord->nAuraTargetState != 2)
-    {
-        return 0;
-    }
-
-    switch (nType)
-    {
-    case 0:
-        nStatId = 345;
-        break;
-    case 1:
-        nStatId = 346;
-        break;
-    case 2:
-        nStatId = 347;
-        break;
-    default:
-        return 0;
-    }
-
-    int nCount = STATLIST_CopyStats(pUnit, nStatId, pStat, 32);
-    int nValue = 0;
-    for (int i = 0; i < nCount; ++i)
-    {
-        if (ITEMSIsA(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
-        {
-            nValue = pStat[i].nValue;
-        }
-    }
-
-    if (pHasThrowBonus)
-    {
-        *pHasThrowBonus = 1;
-    }
-
-    return nValue;
-}
-
-// 0x00645830
-int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType)
-{
-    int nStatId = 0;
-    D2StatStrc pStat[32];
-
-    if (pUnit && pItem)
-    {
-        if (!pSkill)
-        {
-            pSkill = UNITS_GetUsedSkill(pUnit);
-        }
-
-        int bHasThrowBonus = 0;
-        int nThrowBonus = D2Common_11024(pUnit, pItem, pSkill, nType, &bHasThrowBonus);
-        if (bHasThrowBonus)
-        {
-            return nThrowBonus;
-        }
-
-        switch (nType)
-        {
-        case 0:
-            nStatId = 342;
-            break;
-        case 1:
-            nStatId = 343;
-            break;
-        case 2:
-            nStatId = 344;
-            break;
-        default:
-            return 0;
-        }
-
-        int nCount = STATLIST_CopyStats(pUnit, nStatId, pStat, 32);
-        int nValue = 0;
-        for (int i = 0; i < nCount; ++i)
-        {
-            if (ITEMSIsA(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
-            {
-                nValue = pStat[i].nValue;
-            }
-        }
-
-        return nValue;
-    }
-
     return 0;
+}
+
+// 0x00648640
+void __stdcall D2COMMON_10193_PATH_AdjustDirection(D2DynamicPathStrc* pDynamicPath)
+{
+    if ((pDynamicPath->nDirection != pDynamicPath->nNewDirection) && !(pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00040))
+    {
+        pDynamicPath->nDirection = (pDynamicPath->nDirection + pDynamicPath->nDiffDirection) & 63;
+
+        const unsigned char dirDiff = (pDynamicPath->nDirection - pDynamicPath->nNewDirection) & 63;
+        if ((dirDiff > 31 && pDynamicPath->nDiffDirection > 63) || (dirDiff < 31 && pDynamicPath->nDiffDirection < 63))
+        {
+            pDynamicPath->nDirection = pDynamicPath->nNewDirection;
+        }
+    }
+}
+
+// 0x006486F0
+int __stdcall PATH_GetMaxVelocity(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwMaxVelocity;
+}
+
+// 0x00648720
+int __stdcall PATH_GetAcceleration(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwAcceleration;
+}
+
+// 0x00648770
+int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pDynamicPath)
+{
+    return (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00020);
 }
 
 inline int UNITS_GetXPositionInl(D2UnitStrc* pUnit)
@@ -2845,142 +2734,149 @@ inline int UNITS_GetYPositionInl(D2UnitStrc* pUnit)
     }
 }
 
-// 0x00645910
-int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int a6)
+// 0x006484E0
+int __stdcall PATH_GetCollisionPatternFromMonStats2Txt(int nMonsterId)
 {
-    D2CoordStrc pCoords1;
-    D2CoordStrc pCoords2;
+    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(nMonsterId);
+    if (pMonStats2TxtRecord)
+    {
+        int nSizeX = pMonStats2TxtRecord->nSizeX;
+        if (nSizeX >= 0 && nSizeX < COLLISION_UNIT_SIZE_COUNT)
+        {
+            int nCollisionPattern = gaCollisionPatternsFromSize[nSizeX];
 
-    pCoords1.nX = nX1;
-    pCoords1.nY = nY1;
-    pCoords2.nX = nX2;
-    pCoords2.nY = nY2;
+            if (pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_REVIVE >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_REVIVE & 7]
+                || pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_SMALL >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_SMALL & 7])
+            {
+                if (!(pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_ISATT >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_ISATT & 7]))
+                {
+                    switch (nCollisionPattern)
+                    {
+                    case COLLISION_PATTERN_SMALL_UNIT_PRESENCE:
+                        nCollisionPattern = COLLISION_PATTERN_SMALL_PET_PRESENCE;
+                        break;
+                    case COLLISION_PATTERN_BIG_UNIT_PRESENCE:
+                        nCollisionPattern = COLLISION_PATTERN_BIG_PET_PRESENCE;
+                        break;
+                    }
+                }
+            }
 
-    return COLLISION_RayTrace(pRoom, &pCoords1, &pCoords2, a6) == 0;
+            return nCollisionPattern;
+        }
+    }
+
+    return COLLISION_PATTERN_SMALL_UNIT_PRESENCE;
 }
 
-// 0x00645950
-int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nColMask)
+// 0x006487C0
+int __stdcall D2Common_10155(D2DynamicPathStrc* pDynamicPath)
 {
-    int nUnitY = UNITS_GetYPositionInl(pUnit);
-    int nUnitX = UNITS_GetXPositionInl(pUnit);
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2CoordStrc pCoords1;
-    D2CoordStrc pCoords2;
-
-    pCoords1.nX = nX;
-    pCoords1.nY = nY;
-    pCoords2.nX = nUnitX;
-    pCoords2.nY = nUnitY;
-
-    return COLLISION_RayTrace(pRoom, &pCoords1, &pCoords2, nColMask) == 0;
+    return pDynamicPath->dwCurrentPointIdx;
 }
 
-// 0x006459F0
-int __stdcall SKILLS_GetShiftedManaCosts(int nSkillId, int nSkillLevel)
+// 0x0064B700
+int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 {
-    D2SkillsTxt* ptSkill = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    SKILLS_ASSERT(ptSkill, 4108);
-
-    int nMana = ((ptSkill->wMana + (nSkillLevel - 1) * ptSkill->wLevelMana) << ptSkill->nManaShift) >> 8;
-    if (nMana < 0)
-    {
-        nMana = 0;
-    }
-
-    return nMana;
+    return nA < nB ? nA : nB;
 }
 
-// 0x00645A70
-int __stdcall D2Common_11028(int nLevel)
+// 0x0064B710
+int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
 {
-    return 20 * (5 * nLevel + 5) / (nLevel + 8);
+    return nA > nB ? nA : nB;
 }
 
-// 0x00645A90
-int __fastcall SKILLS_GetDiminishingValue(int nLevel, int nMin, int nMax)
+// 0x00654E80
+D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(int nDifficulty, int nAct, int nIndex)
 {
-    int nValue = nMin + (nMax - nMin) * (110 * nLevel / (nLevel + 6)) / 100;
-    int nPrevValue = nMin + (nMax - nMin) * (110 * (nLevel - 1) / (nLevel - 1 + 6)) / 100;
+    const int nDifficultyFloor = nDifficulty > 0 ? nDifficulty : 0;
+    const int nDifficultyIndex = nDifficultyFloor < 2 ? nDifficultyFloor : 2;
+    const int nActFloor = nAct > 0 ? nAct : 0;
+    const int nActIndex = nActFloor < 4 ? nActFloor : 4;
+    const int nIndexFloor = nIndex > 0 ? nIndex : 0;
+    const int nChestIndex = nIndexFloor < 2 ? nIndexFloor : 2;
 
-    if (nValue <= nPrevValue + 1)
-    {
-        return SKILLS_GetDiminishingValue(nLevel - 1, nMin, nMax) + 1;
-    }
-
-    if (nValue > nMax)
-    {
-        nValue = nMax;
-    }
-
-    return nValue;
+    return gpChestTreasureClasses[nChestIndex + 3 * (nActIndex + 5 * nDifficultyIndex)];
 }
 
-// 0x00645B20
-int __stdcall D2Common_11033(int nLevel, int nParam, int nMax)
+// 0x00667030
+void __fastcall sub_00667030_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
 {
-    int nValue = nParam + (nMax - nParam) * (110 * nLevel / (nLevel + 6)) / 100;
-
-    if (nValue > nMax)
+    D2Unk00667030MidStrc* pMid = pRecord->pMid;
+    if (pValue0)
     {
-        nValue = nMax;
+        *pValue0 = pMid->pInner->nValue0;
     }
-
-    return nValue;
+    if (pValue1)
+    {
+        *pValue1 = pMid->pInner->nValue1;
+    }
 }
 
-// 0x00645B70
-int __stdcall D2Common_11034(int nLevel, int nSkillId)
+// 0x0066B880
+int __fastcall DRLG_CheckOverlappingWithOrthogonalMargin(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nOrthogonalDistanceMax)
 {
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    int nSignedDistanceX = 0;
+    int nSignedDistanceY = 0;
 
-    if (!pSkillsTxtRecord)
+    if (pDrlgCoord1->nPosX <= pDrlgCoord2->nPosX)
     {
-        return 0;
+        nSignedDistanceX = pDrlgCoord2->nPosX - pDrlgCoord1->nWidth - pDrlgCoord1->nPosX;
+    }
+    if (pDrlgCoord1->nPosX > pDrlgCoord2->nPosX)
+    {
+        nSignedDistanceX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth - pDrlgCoord2->nPosX;
     }
 
-    if (nLevel <= 0)
+    if (pDrlgCoord1->nPosY <= pDrlgCoord2->nPosY)
     {
-        return 0;
+        nSignedDistanceY = pDrlgCoord2->nPosY - pDrlgCoord1->nHeight - pDrlgCoord1->nPosY;
+    }
+    if (pDrlgCoord1->nPosY > pDrlgCoord2->nPosY)
+    {
+        nSignedDistanceY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight - pDrlgCoord2->nPosY;
     }
 
-    return D2Common_11033(nLevel, pSkillsTxtRecord->dwParam[0], pSkillsTxtRecord->dwParam[1]);
+    if (!nOrthogonalDistanceMax)
+    {
+        return nSignedDistanceX <= 0 && nSignedDistanceY <= 0;
+    }
+
+    if (nSignedDistanceX == 0 && nSignedDistanceY <= nOrthogonalDistanceMax)
+    {
+        return 1;
+    }
+
+    return nSignedDistanceY == 0 && nSignedDistanceX <= nOrthogonalDistanceMax;
 }
 
-// 0x00645BC0
-int __stdcall D2Common_11035(int nLevel, int nSkillId)
+// 0x0066E140
+char __stdcall sub_0066E140_GetModeChar(int nMode)
 {
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (nLevel <= 0)
-    {
-        return 0;
-    }
-
-    return D2Common_11033(nLevel, pSkillsTxtRecord->dwParam[2], pSkillsTxtRecord->dwParam[3]);
+    return nMode == 11 ? 'r' : 'l';
 }
 
-// 0x00645C10
-int __stdcall D2COMMON_11036_GetMonCurseResistanceSubtraction(int nLevel, int nSkillId)
+// 0x006752A0
+void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nLvlSubId, int nLevelPrestId)
 {
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    D2UnkOutdoorStrc a1 = {};
 
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
+    a1.pLevel = pLevel;
+    a1.field_4 = &pOutdoors->unk0x54;
+    a1.pGrid1 = &pOutdoors->pGrid[0];
+    a1.pGrid2 = &pOutdoors->pGrid[2];
+    a1.nLevelPrestId = nLevelPrestId;
+    a1.field_14 = -1;
+    a1.nLvlSubId = nLvlSubId;
+    a1.field_1C = DRLGOUTDOORS_TestGridCellNonLvlLink;
+    a1.field_20 = DRLGOUTDOORS_TestOutdoorLevelPreset;
+    a1.field_2C = DRLGOUTDOORS_AlterAdjacentPresetGridCells;
+    a1.field_30 = DRLGOUTDOORS_SetBlankGridCell;
+    a1.field_34 = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
 
-    if (nLevel <= 0)
-    {
-        return 0;
-    }
-
-    return D2Common_11033(nLevel, pSkillsTxtRecord->dwParam[4], pSkillsTxtRecord->dwParam[5]);
+    sub_00670750_ApplySubstitutionBorder(&a1);
 }
 
 static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
@@ -3007,434 +2903,176 @@ static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// 0x00645C60
-static int __stdcall SKILLS_IsPointOutsideTown(int nX, int nY, D2UnitStrc* pUnit)
+// 0x0064FC20
+void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath)
 {
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return 0;
-    }
+    const int nPrecisionX = gdwPathResetPrecisionX_006EB7C8;
+    const int nPrecisionY = gdwPathResetPrecisionY_006EB7CC;
 
-    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
-    if (!pRoom)
-    {
-        return 0;
-    }
+    pDynamicPath->tGameCoords.dwPrecisionX = nPrecisionX;
+    pDynamicPath->dwClientCoordX = nPrecisionX;
+    pDynamicPath->tGameCoords.dwPrecisionY = nPrecisionY;
+    pDynamicPath->dwClientCoordY = nPrecisionY;
+    pDynamicPath->dwPathPoints = 0;
 
-    return !DUNGEON_IsRoomInTown(pRoom);
+    if (pDynamicPath->pRoom)
+    {
+        pDynamicPath->pPreviousRoom = pDynamicPath->pRoom;
+        UNITROOM_RemoveUnitFromRoom(pDynamicPath->pUnit);
+        pDynamicPath->dwFlags |= PATH_CURRENT_ROOM_INVALID;
+    }
 }
 
-// 0x00645CA0
-int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY)
+// 0x00650540
+int __stdcall D2Common_10227(D2UnitStrc* pUnit)
 {
-    struct { int n; } tX2 = {}, tY2 = {};
-
-    if (pUnit2 && UNITS_IsInMeleeRange(pUnit1, pUnit2, 0))
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (!pDynamicPath)
     {
-        return 0;
+        return 1;
     }
 
-    const int nX1 = UNITS_GetXPositionForceInl(pUnit1);
-    const int nY1 = UNITS_GetYPositionForceInl(pUnit1);
-
-    if (pUnit2)
+    if (pDynamicPath->hTarget && D2Common_10399(pDynamicPath->hTarget, pUnit) <= pDynamicPath->nStepNum)
     {
-        tX2.n = UNITS_GetXPositionForceInl(pUnit2);
-        tY2.n = UNITS_GetYPositionForceInl(pUnit2);
-    }
-    else
-    {
-        tX2.n = D2COMMON_10175_PathGetFirstPointX(pUnit1->pDynamicPath);
-        tY2.n = D2COMMON_10176_PathGetFirstPointY(pUnit1->pDynamicPath);
+        return 1;
     }
 
-    const int nDivisor = sub_006417F0_GetDistanceToXY(pUnit1, tX2.n, tY2.n);
-    if (!nDivisor)
+    return pDynamicPath->tGameCoords.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.wPosY == pDynamicPath->tTargetCoord.Y;
+}
+
+// 0x006755C0
+int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
+{
+    const int nRow = gaLookupRow_006F0FD0[nA + 3 * nB];
+    if (nC >= 4)
     {
-        return 0;
+        return gaLookupLarge_006F06F0[nRow][nC - 4];
+    }
+    return gaLookupSmall_006F0630[nRow][nC];
+}
+
+// 0x00678B40
+int __stdcall sub_00678B40_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+{
+    int nDiffX = tPoint2.X - tPoint1.X;
+    if (nDiffX < 0)
+    {
+        nDiffX = -nDiffX;
     }
 
-    int nX = tX2.n + 2 * (tX2.n - nX1) / nDivisor;
-    int nY = tY2.n + 2 * (tY2.n - nY1) / nDivisor;
-
-    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pUnit1);
-    D2_ASSERT(hRoom, 4286);
-
-    const int nPattern = PATH_GetUnitCollisionPattern(pUnit1);
-    if (COLLISION_CheckAnyCollisionWithPattern(hRoom, nX, nY, nPattern, COLLIDE_MASK_PLAYER_PATH))
+    int nDiffY = tPoint2.Y - tPoint1.Y;
+    if (nDiffY < 0)
     {
-        D2CoordStrc tCoord;
-        tCoord.nX = tX2.n;
-        tCoord.nY = tY2.n;
-        hRoom = COLLISION_GetFreeCoordinates(hRoom, &tCoord, UNITS_GetUnitSizeX(pUnit1), COLLIDE_MASK_PLAYER_PATH, 0);
-        if (!hRoom)
+        nDiffY = -nDiffY;
+    }
+
+    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
+    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
+    return nMin + 2 * nMax;
+}
+
+// 0x00679380
+int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
+{
+    int nDiffX = pPoint1.X - pPoint2.X;
+    if (nDiffX < 0)
+    {
+        nDiffX = -nDiffX;
+    }
+
+    int nDiffY = pPoint1.Y - pPoint2.Y;
+    if (nDiffY < 0)
+    {
+        nDiffY = -nDiffY;
+    }
+
+    if (nDiffX < 8 && nDiffY < 8)
+    {
+        const int nResult = gaPathHeuristicTable_006F1698[nDiffX + 8 * nDiffY];
+        if (nResult < 0)
         {
             return 0;
         }
-        nX = tCoord.nX;
-        nY = tCoord.nY;
+        return nResult + 1;
     }
 
-    if (!sub_00645910_TestLine(UNITS_GetXPositionForceInl(pUnit1), UNITS_GetYPositionForceInl(pUnit1), nX, nY, hRoom, COLLIDE_MASK_LINE))
+    if (nDiffX > nDiffY)
     {
-        return 0;
+        return nDiffY + 2 * nDiffX;
     }
-
-    *pX = nX;
-    *pY = nY;
-    return SKILLS_IsPointOutsideTown(nX, nY, pUnit1) != 0;
+    return nDiffX + 2 * nDiffY;
 }
 
-// 0x00645F00
-int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* pValue)
+// 0x0067A390
+void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    int nWeaponClass = 0;
-    int nValue = 0;
-
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    if (pUnit->dwUnitType != UNIT_PLAYER)
-    {
-        nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_MAGICARROW, 0);
-        if (nValue > 0)
-        {
-            if (pValue)
-            {
-                *pValue = nValue;
-            }
-            return 27;
-        }
-
-        nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXPLOSIVEARROW, 0);
-        if (nValue > 0)
-        {
-            if (pValue)
-            {
-                *pValue = nValue;
-            }
-            return 41;
-        }
-
-        return 0;
-    }
-    else
-    {
-        nWeaponClass = UNITS_GetWeaponClass(pUnit);
-        if (nWeaponClass == 1)
-        {
-            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_MAGICARROW, 0);
-            if (nValue > 0)
-            {
-                if (pValue)
-                {
-                    *pValue = nValue;
-                }
-                return 27;
-            }
-
-            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXPLOSIVEARROW, 0);
-            if (nValue > 0)
-            {
-                if (pValue)
-                {
-                    *pValue = nValue;
-                }
-                return 41;
-            }
-
-            return 0;
-        }
-        else if (nWeaponClass == 7)
-        {
-            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_MAGICARROW, 0);
-            if (nValue > 0)
-            {
-                if (pValue)
-                {
-                    *pValue = nValue;
-                }
-                return 27;
-            }
-
-            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXPLOSIVEARROW, 0);
-            if (nValue > 0)
-            {
-                if (pValue)
-                {
-                    *pValue = nValue;
-                }
-                return 41;
-            }
-
-            return 31;
-        }
-
-        return -1;
-    }
+    int nDirection;
+    PATH_GetDirectionVectorFromPoints(pDirectionVector, &nDirection, tPoint1, tPoint2);
+    pDirectionVector->nX = (pDirectionVector->nX * nVelocity) >> 8;
+    pDirectionVector->nY = (pDirectionVector->nY * nVelocity) >> 8;
+    D2_ASSERT(D2_MAX(D2_ABS(pDirectionVector->nX), D2_ABS(pDirectionVector->nY)) < 0x200000, 817);
 }
 
-// 0x00645FB0
-int __stdcall SKILLS_IsEnhanceable(int nSkillId)
+// 0x0067A550
+int __stdcall sub_0067A550_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-
-    if (!pSkillsTxtRecord)
+    int nDiffX = tPoint2.X - tPoint1.X;
+    if (nDiffX < 0)
     {
-        return 0;
+        nDiffX = -nDiffX;
     }
 
-    return BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 17);
+    int nDiffY = tPoint2.Y - tPoint1.Y;
+    if (nDiffY < 0)
+    {
+        nDiffY = -nDiffY;
+    }
+
+    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
+    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
+    return nMin + 2 * nMax;
 }
 
-// 0x00645FF0
-int __stdcall sub_00645FF0_AlwaysZero(int nUnused)
+// 0x0067A5F0
+int __fastcall PATH_IsPointInBounds(D2PathBoundsContextStrc* pContext, int nUnused, D2PathPointStrc tPoint)
 {
-    return 0;
+    return tPoint.X >= pContext->tMin.X && tPoint.X <= pContext->tMax.X && tPoint.Y >= pContext->tMin.Y && tPoint.Y <= pContext->tMax.Y;
 }
 
-// 0x00646000
-int __stdcall SKILLS_Return0(int nUnused)
+// 0x0067ADC0
+int __stdcall PATH_AStar_Heuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    return 0;
+    int nDiffX = tPoint1.X - tPoint2.X;
+    if (nDiffX < 0)
+    {
+        nDiffX = -nDiffX;
+    }
+
+    int nDiffY = tPoint1.Y - tPoint2.Y;
+    if (nDiffY < 0)
+    {
+        nDiffY = -nDiffY;
+    }
+
+    if (nDiffX >= nDiffY)
+    {
+        return nDiffY + 2 * nDiffX;
+    }
+    return nDiffX + 2 * nDiffY;
 }
 
-// 0x00646010
-void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
+// 0x0067B9C0
+int __stdcall PATH_GetSquaredDistanceBetweenPoints(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
+    const int nDiffX = tPoint1.X - tPoint2.X;
+    const int nDiffY = tPoint1.Y - tPoint2.Y;
+    return nDiffY * nDiffY + nDiffX * nDiffX;
 }
 
-// 0x00646020
-int __stdcall SKILLS_RemoveTransformStatesFromShapeshiftedUnit(D2UnitStrc* pUnit)
+// 0x0067BBC0
+int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    if (!STATES_IsUnitShapeShifted(pUnit))
-    {
-        return 0;
-    }
-
-    for (int i = 0; i < sgptDataTables->nTransformStates; ++i)
-    {
-        short nState = sgptDataTables->pTransformStates[i];
-        if (STATES_CheckState(pUnit, nState))
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-            if (pStatList)
-            {
-                D2Common_10474(pUnit, pStatList);
-                STATLIST_FreeStatList(pStatList);
-            }
-
-            STATES_ToggleState(pUnit, nState, 0);
-        }
-    }
-
-    return 1;
-}
-
-// 0x006460B0
-extern "C" void __stdcall sub_006460B0(unsigned arg0,unsigned arg1,unsigned arg2) {}
-
-// 0x006460C0
-void __stdcall sub_006460C0_Empty(int nUnused)
-{
-}
-
-// 0x006460D0
-void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
-{
-}
-
-// 0x006460E0
-void __stdcall sub_006460E0_Empty(int nUnused)
-{
-}
-
-// 0x006460F0
-int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition)
-{
-    if (nClassId >= 0 && nClassId < 7)
-    {
-        if (nPosition >= 0 && nPosition < sgptDataTables->nClassSkillCount[nClassId])
-        {
-            return sgptDataTables->nClassSkillList[nPosition + nClassId * sgptDataTables->nHighestClassSkillCount];
-        }
-
-        return -1;
-    }
-
-    return -1;
-}
-
-// 0x00646140
-int __stdcall SKILLS_GetPlayerSkillCount(int nClassId)
-{
-    if (nClassId >= 0 && nClassId < 7)
-    {
-        return sgptDataTables->nClassSkillCount[nClassId];
-    }
-
-    return 0;
-}
-
-// 0x00646170
-unsigned int __stdcall D2Common_11043(D2UnitStrc* pUnit)
-{
-    D2UnitStrc* pItem = 0;
-    int nAttackSpeed;
-
-    int bShapeShifted = 0;
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        bShapeShifted = STATES_IsUnitShapeShifted(pUnit);
-    }
-
-    if (!bShapeShifted)
-    {
-        return 0;
-    }
-
-    nAttackSpeed = 19;
-    pItem = D2Common_10434(pUnit, 0);
-    if (pItem)
-    {
-        nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pUnit, pItem);
-        if (nAttackSpeed <= 0)
-        {
-            return 0;
-        }
-    }
-
-    return (pUnit->dwFrameCountPrecise & ~0xFF) / nAttackSpeed;
-}
-
-// 0x006461D0
-int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId)
-{
-    if (!STATES_CheckState(pUnit, STATE_CONCENTRATION))
-    {
-        return 0;
-    }
-
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONCENTRATION);
-    if (!pStatList)
-    {
-        return 0;
-    }
-
-    int nDamagePercent = STATLIST_GetStatValue(pStatList, STAT_DAMAGEPERCENT, 0);
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    int nParam;
-    if (!pSkillsTxtRecord)
-    {
-        nParam = 0;
-    }
-    else
-    {
-        nParam = pSkillsTxtRecord->dwParam[0];
-    }
-
-    return nDamagePercent * nParam / 8;
-}
-
-// 0x00646260
-int __stdcall sub_00646260_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x00646270
-int __stdcall sub_00646270_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x00646280
-void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pDamagePercent)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    const int nKickDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_KICKDAMAGE, 0);
-    *pMinDamage += nKickDamage;
-    *pMaxDamage += nKickDamage;
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (!pInventory)
-    {
-        return;
-    }
-
-    int nValue;
-    D2UnitStrc* pLeftHand = INVENTORY_GetLeftHandWeapon(pInventory);
-    D2UnitStrc* pOtherHand = 0;
-    if (pLeftHand)
-    {
-        nValue = ITEMS_GetBodyLocation(pLeftHand);
-        pOtherHand = INVENTORY_GetItemFromBodyLoc(pInventory, (nValue == 4) + 4);
-    }
-
-    if (ITEMSIsA(pLeftHand, 0x2D) && ITEMS_CanBeEquipped(pLeftHand) && STATLIST_GetOwner(pLeftHand, 0))
-    {
-        STATLIST_MergeStatLists(pUnit, pLeftHand, 0);
-    }
-    else
-    {
-        pLeftHand = 0;
-    }
-
-    if (pOtherHand && pOtherHand != pLeftHand && ITEMSIsA(pOtherHand, 0x2D) && ITEMS_CanBeEquipped(pOtherHand) && STATLIST_GetOwner(pOtherHand, 0))
-    {
-        STATLIST_MergeStatLists(pUnit, pOtherHand, 0);
-    }
-
-    D2UnitStrc* pBoots = INVENTORY_GetItemFromBodyLoc(pInventory, 9);
-    if (pBoots && pBoots->dwUnitType == UNIT_ITEM)
-    {
-        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pBoots ? -1 : pBoots->dwClassId);
-        if (pItemsTxtRecord)
-        {
-            int nMin = nKickDamage + pItemsTxtRecord->nMinDam;
-            int nMax = nKickDamage + pItemsTxtRecord->nMaxDam;
-            int nBonus = 0;
-            nValue = ITEMS_GetStrengthBonus(pBoots);
-            if (nValue)
-            {
-                nBonus = DATATBLS_ApplyRatio(STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0), nValue, 100);
-            }
-
-            nValue = ITEMS_GetDexBonus(pBoots);
-            if (nValue)
-            {
-                nBonus += DATATBLS_ApplyRatio(STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0), nValue, 100);
-            }
-
-            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
-            if (nBonus <= -90)
-            {
-                nBonus = -90;
-            }
-
-            const int nPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
-            if (nMin >= nMax)
-            {
-                nMax = nMin;
-            }
-
-            *pDamagePercent += nPercent + nBonus;
-            *pMinDamage += nMin;
-            *pMaxDamage += nMax;
-        }
-    }
-
-    if (pLeftHand)
-    {
-        STATLIST_MergeStatLists(pUnit, pLeftHand, 1);
-    }
+    return gaPathDeltaTable_006F1E28[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
 }
 
 // 0x00646460
@@ -4022,89 +3660,6 @@ void __stdcall SKILLS_RemoveSkill(D2UnitStrc* pUnit, int nSkillId, const char* s
     sSkillsRemoveSkill(nSkillId, 1, pUnit);
 }
 
-// 0x00647110
-D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nPassiveState = SKILLS_GetPassiveState(nSkillId);
-    if (nPassiveState)
-    {
-        STATES_ToggleState(pUnit, nPassiveState, 1);
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit);
-    while (pSkill && (pSkill->pSkillsTxt != pSkillsTxtRecord || pSkill->nOwnerGUID != -1))
-    {
-        pSkill = pSkill->pNextSkill;
-    }
-
-    if (!pSkill)
-    {
-        D2SkillListStrc* pSkillList = pUnit->pSkills;
-        if (!pSkillList)
-        {
-            return 0;
-        }
-
-        pSkill = (D2SkillStrc*)sub_0040B430(pSkillList->pMemPool, sizeof(D2SkillStrc), ".\\SKILLS\\Skills.cpp", 1337, 0);
-        memset(pSkill, 0x00, sizeof(D2SkillStrc));
-        pSkill->pSkillsTxt = pSkillsTxtRecord;
-
-        if (pUnit->dwUnitType == UNIT_MONSTER)
-        {
-            pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nMonAnim;
-        }
-        else if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwClassId == 6 && nSkillId == SKILL_LEFTHANDSWING)
-        {
-            pSkill->dwSkillMode = 16;
-        }
-        else
-        {
-            pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
-        }
-
-        pSkill->nSkillLevel = 1;
-        pSkill->nOwnerGUID = -1;
-        pSkill->pNextSkill = 0;
-
-        D2SkillStrc* pPreviousSkill = pSkillList->pFirstSkill;
-        if (pPreviousSkill)
-        {
-            while (pPreviousSkill->pNextSkill)
-            {
-                pPreviousSkill = pPreviousSkill->pNextSkill;
-            }
-            pPreviousSkill->pNextSkill = pSkill;
-        }
-        else
-        {
-            pSkillList->pFirstSkill = pSkill;
-        }
-
-        SKILLS_RefreshSkill(pUnit, nSkillId);
-        return pSkill;
-    }
-
-    const int nSkillLevel = pSkill->nSkillLevel;
-    if (nSkillLevel < sub_004AA8B0_GetSkillMaxLevel(nSkillId) || pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        pSkill->nSkillLevel = nSkillLevel + 1;
-    }
-
-    SKILLS_RefreshSkill(pUnit, nSkillId);
-    return pSkill;
-}
-
 // 0x00647280
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine)
 {
@@ -4151,6 +3706,277 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
     }
 }
 
+// 0x00647530
+void __stdcall D2Common_10954(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, int nSkillLevel, int nCharges, int bFreeMemory)
+{
+    SKILLS_UpdateChargedSkill(pUnit, nOwnerGUID, nSkillId, nSkillLevel, nCharges, bFreeMemory);
+}
+
+// 0x00647540
+static BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* hSkill)
+{
+    D2_ASSERT(hSkill, 0x637);
+
+    if (hSkill->nOwnerGUID != -1)
+    {
+        return hSkill->nCharges > 0;
+    }
+
+    D2SkillsTxt* pSkillsTxt = hSkill->pSkillsTxt;
+    int nSkillLevel = SKILLS_GetSkillLevel(pUnit, hSkill, 1) - 1;
+    D2_ASSERT(pSkillsTxt, 0x6EE);
+    if (nSkillLevel < 0)
+    {
+        nSkillLevel = 0;
+    }
+
+    const int nRequiredMana = (pSkillsTxt->wMana + nSkillLevel * pSkillsTxt->wLevelMana) << pSkillsTxt->nManaShift;
+    if (STATES_CheckState(pUnit, STATE_BLOOD_MANA))
+    {
+        return STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >= nRequiredMana;
+    }
+
+    if (pSkillsTxt->wSrvDoFunc == 0x74 && STATES_IsUnitShapeShifted(pUnit))
+    {
+        return 1;
+    }
+
+    return STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) >= nRequiredMana;
+}
+
+// 0x00647840
+static BOOL SKILLS_HasChargesLeft(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+{
+    if (!pUnit || !pSkill)
+    {
+        return FALSE;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return 1;
+    }
+
+    if (pSkill->nOwnerGUID == -1)
+    {
+        return 1;
+    }
+
+    const int nSkillId = pSkill->pSkillsTxt->nSkillId;
+    const int nLayer = (nSkillId << 6) + (SKILLS_GetSkillLevel(pUnit, pSkill, FALSE) & 0x3F);
+    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
+    {
+        D2UnitStrc* pChargedItem = INVENTORY_UnitIsItem(pItem);
+        if (pChargedItem && pChargedItem->dwUnitId == pSkill->nOwnerGUID)
+        {
+            return (STATLIST_UnitGetStatValue(pChargedItem, STAT_ITEM_CHARGED_SKILL, nLayer) & 0xFF) > 0;
+        }
+    }
+
+    return 1;
+}
+
+// 0x00647960
+int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* ptSkill)
+{
+    D2_ASSERT(ptSkill, 0x8E9);
+
+    if (!ptSkill->pSkillsTxt || !SKILLS_HasFlag(ptSkill->pSkillsTxt, 10))
+    {
+        return 3;
+    }
+
+    if (!SKILLS_GetSkillLevel(pUnit, ptSkill, 1))
+    {
+        return 7;
+    }
+
+    if (SKILLS_HasFlag(ptSkill->pSkillsTxt, 5))
+    {
+        return 6;
+    }
+
+    if (SKILLS_HasFlag(ptSkill->pSkillsTxt, 4))
+    {
+        return 5;
+    }
+
+    if (!SKILLS_CheckSkillQuantity(pUnit, ptSkill))
+    {
+        return 2;
+    }
+
+    if (!SKILLS_CheckWeaponTypes(pUnit, ptSkill))
+    {
+        return 2;
+    }
+
+    if (!D2Common_SKILLMANA_CheckStat_6FDB0F50(pUnit, ptSkill))
+    {
+        return 1;
+    }
+
+    if (!D2Common_SKILLS_CheckShapeRestriction_6FDB1380(pUnit, ptSkill))
+    {
+        return 4;
+    }
+
+    if (!D2Common_SKILLMANA_CheckStartStat_6FDB1400(pUnit, ptSkill))
+    {
+        return 1;
+    }
+
+    if (!SKILLS_HasChargesLeft(pUnit, ptSkill))
+    {
+        return 2;
+    }
+
+    return SKILLS_CheckSkillDelay(ptSkill, pUnit) ? 0 : 8;
+}
+
+// 0x00647AA0
+void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int a3)
+{
+    D2SkillStrc* pSkill = 0;
+
+    if (pUnit)
+    {
+        pSkill = SKILLS_GetSkill(pUnit, nSkillId, -1);
+        if (!pSkill)
+        {
+            if (a3 <= 0)
+            {
+                return;
+            }
+
+            pSkill = SKILLS_AddSkill(pUnit, nSkillId);
+            if (!pSkill)
+            {
+                return;
+            }
+
+            D2SkillStrc* pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
+            if (!pAssigned)
+            {
+                SKILLS_AddSkill(pUnit, nSkillId);
+                pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
+            }
+
+            if (pAssigned)
+            {
+                pAssigned->nSkillLevel = 0;
+                SKILLS_RefreshSkill(pUnit, nSkillId);
+            }
+        }
+
+        if (pSkill->nOwnerGUID == -1)
+        {
+            pSkill->nLevelBonus = a3;
+            SKILLS_RefreshSkill(pUnit, nSkillId);
+        }
+    }
+}
+
+// 0x00645630
+int __stdcall D2Common_11020(D2UnitStrc* pUnit)
+{
+    if (!CORPSE_CanUnitCorpseBeSelected(pUnit))
+        return 0;
+    return UNITS_IsSoftMonster(pUnit) != 0;
+}
+
+// 0x00645680
+int __stdcall D2COMMON_11021(D2UnitStrc* pUnit)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
+    if (!bCorpseSelectable)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x006456D0
+int __stdcall SKILLS_CanUnitCorpseBeSelected(D2UnitStrc* pUnit)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
+    if (!bCorpseSelectable)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x00645720
+int __stdcall D2Common_11024(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType, int* pHasThrowBonus)
+{
+    int nStatId = 0;
+    D2StatStrc pStat[32];
+
+    if (pHasThrowBonus)
+    {
+        *pHasThrowBonus = 0;
+    }
+
+    if (!pSkill)
+    {
+        pSkill = UNITS_GetUsedSkill(pUnit);
+        if (!pSkill)
+        {
+            return 0;
+        }
+    }
+
+    if (!ITEMS_CheckIfThrowable(pItem) || !pSkill)
+    {
+        return 0;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = pSkill->pSkillsTxt;
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], ITEMTYPE_THROWN_WEAPON)
+        || pSkillsTxtRecord->nAuraTargetState != 2)
+    {
+        return 0;
+    }
+
+    switch (nType)
+    {
+    case 0:
+        nStatId = 345;
+        break;
+    case 1:
+        nStatId = 346;
+        break;
+    case 2:
+        nStatId = 347;
+        break;
+    default:
+        return 0;
+    }
+
+    int nCount = STATLIST_CopyStats(pUnit, nStatId, pStat, 32);
+    int nValue = 0;
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (ITEMSIsA(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
+        {
+            nValue = pStat[i].nValue;
+        }
+    }
+
+    if (pHasThrowBonus)
+    {
+        *pHasThrowBonus = 1;
+    }
+
+    return nValue;
+}
+
 static __forceinline void SKILLS_RemoveChargedSkill(D2UnitStrc* pUnit, D2SkillListStrc* pSkillList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nOwnerGUID)
 {
     D2SkillStrc* pLeftSkill = pSkillList->pLeftSkill;
@@ -4193,6 +4019,81 @@ static __forceinline void SKILLS_RemoveChargedSkill(D2UnitStrc* pUnit, D2SkillLi
 
         FOG_FreePool(pUnit->pMemoryPool, pSkill, ".\\SKILLS\\Skills.cpp", 1511, 0);
     }
+}
+
+// 0x00648300
+void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY)
+{
+    if (pUnit && UNITS_IsInMovingMode(pUnit))
+    {
+        D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+        if (pDynamicPath->dwPathPoints)
+        {
+            *pX = pDynamicPath->tVelocityVector.nX;
+            *pY = pDynamicPath->tVelocityVector.nY;
+            *pX >>= 11;
+            *pY >>= 11;
+            DUNGEON_GameToClientCoords(pX, pY);
+        }
+        else
+        {
+            *pX = 0;
+            *pY = 0;
+        }
+    }
+    else
+    {
+        *pX = 0;
+        *pY = 0;
+    }
+}
+
+// 0x0064A7F0
+void __stdcall MISSILE_GetHomeType(D2UnitStrc* pMissile, int* nHomeType, int* nHomeGUID)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
+    {
+        D2MissileDataStrc* pMissileData = pMissile->pMissileData;
+        if (!pMissileData)
+        {
+            *nHomeType = 0;
+            *nHomeGUID = D2UnitInvalidGUID;
+        }
+        else
+        {
+            *nHomeType = pMissileData->nHomeType;
+            *nHomeGUID = pMissileData->dwHomeGUID;
+        }
+    }
+    else
+    {
+        *nHomeType = 0;
+        *nHomeGUID = D2UnitInvalidGUID;
+    }
+}
+
+// 0x0066B800
+int __fastcall DRLG_GetRectanglesManhattanDistanceAndCheckNotOverlapping(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nMaxDistance, int* pDistanceX, int* pDistanceY)
+{
+    if (pDrlgCoord1->nPosX < pDrlgCoord2->nPosX)
+    {
+        *pDistanceX = pDrlgCoord2->nPosX - pDrlgCoord1->nWidth - pDrlgCoord1->nPosX;
+    }
+    else
+    {
+        *pDistanceX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth - pDrlgCoord2->nPosX;
+    }
+
+    if (pDrlgCoord1->nPosY < pDrlgCoord2->nPosY)
+    {
+        *pDistanceY = pDrlgCoord2->nPosY - pDrlgCoord1->nHeight - pDrlgCoord1->nPosY;
+    }
+    else
+    {
+        *pDistanceY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight - pDrlgCoord2->nPosY;
+    }
+
+    return *pDistanceX >= nMaxDistance || *pDistanceY >= nMaxDistance;
 }
 
 // 0x00647320
@@ -4285,44 +4186,6 @@ void __stdcall SKILLS_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID, int 
     {
         pSkillList->pFirstSkill = pSkill;
     }
-}
-
-// 0x00647530
-void __stdcall D2Common_10954(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, int nSkillLevel, int nCharges, int bFreeMemory)
-{
-    SKILLS_UpdateChargedSkill(pUnit, nOwnerGUID, nSkillId, nSkillLevel, nCharges, bFreeMemory);
-}
-
-// 0x00647540
-static BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* hSkill)
-{
-    D2_ASSERT(hSkill, 0x637);
-
-    if (hSkill->nOwnerGUID != -1)
-    {
-        return hSkill->nCharges > 0;
-    }
-
-    D2SkillsTxt* pSkillsTxt = hSkill->pSkillsTxt;
-    int nSkillLevel = SKILLS_GetSkillLevel(pUnit, hSkill, 1) - 1;
-    D2_ASSERT(pSkillsTxt, 0x6EE);
-    if (nSkillLevel < 0)
-    {
-        nSkillLevel = 0;
-    }
-
-    const int nRequiredMana = (pSkillsTxt->wMana + nSkillLevel * pSkillsTxt->wLevelMana) << pSkillsTxt->nManaShift;
-    if (STATES_CheckState(pUnit, STATE_BLOOD_MANA))
-    {
-        return STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >= nRequiredMana;
-    }
-
-    if (pSkillsTxt->wSrvDoFunc == 0x74 && STATES_IsUnitShapeShifted(pUnit))
-    {
-        return 1;
-    }
-
-    return STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) >= nRequiredMana;
 }
 
 // 0x00647640
@@ -4455,39 +4318,6 @@ static BOOL SKILLS_CheckSkillQuantity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
     return 1;
 }
 
-// 0x00647840
-static BOOL SKILLS_HasChargesLeft(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
-{
-    if (!pUnit || !pSkill)
-    {
-        return FALSE;
-    }
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (!pInventory)
-    {
-        return 1;
-    }
-
-    if (pSkill->nOwnerGUID == -1)
-    {
-        return 1;
-    }
-
-    const int nSkillId = pSkill->pSkillsTxt->nSkillId;
-    const int nLayer = (nSkillId << 6) + (SKILLS_GetSkillLevel(pUnit, pSkill, FALSE) & 0x3F);
-    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
-    {
-        D2UnitStrc* pChargedItem = INVENTORY_UnitIsItem(pItem);
-        if (pChargedItem && pChargedItem->dwUnitId == pSkill->nOwnerGUID)
-        {
-            return (STATLIST_UnitGetStatValue(pChargedItem, STAT_ITEM_CHARGED_SKILL, nLayer) & 0xFF) > 0;
-        }
-    }
-
-    return 1;
-}
-
 static inline BOOL U04_IsPlayerUnit(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwUnitType == UNIT_PLAYER;
@@ -4514,169 +4344,6 @@ static BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* pSkill, D2UnitStrc* pU
 
     const int nSkillId = pSkillsTxt->nSkillId;
     return SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwDelay, nSkillId, SKILLS_GetSkillLevel(pUnit, pSkill, 1)) <= 0;
-}
-
-// 0x00647960
-int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* ptSkill)
-{
-    D2_ASSERT(ptSkill, 0x8E9);
-
-    if (!ptSkill->pSkillsTxt || !SKILLS_HasFlag(ptSkill->pSkillsTxt, 10))
-    {
-        return 3;
-    }
-
-    if (!SKILLS_GetSkillLevel(pUnit, ptSkill, 1))
-    {
-        return 7;
-    }
-
-    if (SKILLS_HasFlag(ptSkill->pSkillsTxt, 5))
-    {
-        return 6;
-    }
-
-    if (SKILLS_HasFlag(ptSkill->pSkillsTxt, 4))
-    {
-        return 5;
-    }
-
-    if (!SKILLS_CheckSkillQuantity(pUnit, ptSkill))
-    {
-        return 2;
-    }
-
-    if (!SKILLS_CheckWeaponTypes(pUnit, ptSkill))
-    {
-        return 2;
-    }
-
-    if (!D2Common_SKILLMANA_CheckStat_6FDB0F50(pUnit, ptSkill))
-    {
-        return 1;
-    }
-
-    if (!D2Common_SKILLS_CheckShapeRestriction_6FDB1380(pUnit, ptSkill))
-    {
-        return 4;
-    }
-
-    if (!D2Common_SKILLMANA_CheckStartStat_6FDB1400(pUnit, ptSkill))
-    {
-        return 1;
-    }
-
-    if (!SKILLS_HasChargesLeft(pUnit, ptSkill))
-    {
-        return 2;
-    }
-
-    return SKILLS_CheckSkillDelay(ptSkill, pUnit) ? 0 : 8;
-}
-
-// 0x00647AA0
-void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int a3)
-{
-    D2SkillStrc* pSkill = 0;
-
-    if (pUnit)
-    {
-        pSkill = SKILLS_GetSkill(pUnit, nSkillId, -1);
-        if (!pSkill)
-        {
-            if (a3 <= 0)
-            {
-                return;
-            }
-
-            pSkill = SKILLS_AddSkill(pUnit, nSkillId);
-            if (!pSkill)
-            {
-                return;
-            }
-
-            D2SkillStrc* pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
-            if (!pAssigned)
-            {
-                SKILLS_AddSkill(pUnit, nSkillId);
-                pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
-            }
-
-            if (pAssigned)
-            {
-                pAssigned->nSkillLevel = 0;
-                SKILLS_RefreshSkill(pUnit, nSkillId);
-            }
-        }
-
-        if (pSkill->nOwnerGUID == -1)
-        {
-            pSkill->nLevelBonus = a3;
-            SKILLS_RefreshSkill(pUnit, nSkillId);
-        }
-    }
-}
-
-// build: context SKILLS_GetSkillForceInl
-static inline D2SkillStrc* SKILLS_GetSkillForceInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
-{
-    D2SkillStrc* pSkill;
-    if (pUnit->pSkills)
-    {
-        for (pSkill = pUnit->pSkills->pFirstSkill; pSkill; pSkill = pSkill->pNextSkill)
-        {
-            if (pSkill->pSkillsTxt->nSkillId == nSkillId && pSkill->nOwnerGUID == nOwnerGUID)
-            {
-                goto found;
-            }
-        }
-    }
-
-    pSkill = 0;
-found:
-    return pSkill;
-}
-
-// 0x00647B20
-void __stdcall D2Common_11031(D2UnitStrc* pUnit, int nSkillId, int a3)
-{
-    D2SkillStrc* pSkill = SKILLS_GetSkillForceInl(pUnit, nSkillId, -1);
-
-    if (!pSkill)
-    {
-        if (a3 <= 0)
-        {
-            return;
-        }
-
-        pSkill = SKILLS_AddSkill(pUnit, nSkillId);
-        if (!pSkill)
-        {
-            return;
-        }
-
-        D2SkillStrc* pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
-        if (!pAssigned)
-        {
-            SKILLS_AddSkill(pUnit, nSkillId);
-            pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
-        }
-
-        if (pAssigned)
-        {
-            pAssigned->nSkillLevel = 0;
-            SKILLS_RefreshSkill(pUnit, nSkillId);
-        }
-    }
-
-    if (pSkill->nOwnerGUID == -1)
-    {
-        pSkill->nLevelBonus += a3;
-        if (pSkill->nLevelBonus < 0)
-        {
-            pSkill->nLevelBonus = 0;
-        }
-    }
 }
 
 // 0x00647BC0
@@ -4799,6 +4466,240 @@ int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
     }
 }
 
+// build: context SKILLS_GetSkillForceInl
+static inline D2SkillStrc* SKILLS_GetSkillForceInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+{
+    D2SkillStrc* pSkill;
+    if (pUnit->pSkills)
+    {
+        for (pSkill = pUnit->pSkills->pFirstSkill; pSkill; pSkill = pSkill->pNextSkill)
+        {
+            if (pSkill->pSkillsTxt->nSkillId == nSkillId && pSkill->nOwnerGUID == nOwnerGUID)
+            {
+                goto found;
+            }
+        }
+    }
+
+    pSkill = 0;
+found:
+    return pSkill;
+}
+
+// 0x0067AE00
+D2PathFoWallNodeStrc* __stdcall PATH_AStar_GetNodeFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint)
+{
+    const int nHash = (gaIdaStar_PointCacheHashMaskY[tPathPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[tPathPoint.X & 0x7F]) & 0x7F;
+    for (D2PathFoWallNodeStrc* pNode = pContext->aPendingCache[nHash]; pNode != 0; pNode = pNode->pNextCachePoint)
+    {
+        if (tPathPoint.X == pNode->tPoint.X && tPathPoint.Y == pNode->tPoint.Y)
+        {
+            return pNode;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0067AE50
+D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint)
+{
+    const int nHash = (gaIdaStar_PointCacheHashMaskY[tPathPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[tPathPoint.X & 0x7F]) & 0x7F;
+    for (D2PathFoWallNodeStrc* pNode = pContext->aVisitedCache[nHash]; pNode != 0; pNode = pNode->pNextCachePoint)
+    {
+        if (tPathPoint.X == pNode->tPoint.X && tPathPoint.Y == pNode->tPoint.Y)
+        {
+            return pNode;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00647EE0
+void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit)
+{
+    D2CharStatsTxt* pCharStatsTxtRecord = 0;
+    int nClass = 0;
+
+    if (SKILLS_GetSkillInl(pUnit, SKILL_ATTACK, -1) == 0)
+    {
+        nClass = pUnit->dwClassId;
+        if (nClass < 0 || nClass >= sgptDataTables->nCharStatsTxtRecordCount)
+        {
+            return;
+        }
+
+        pCharStatsTxtRecord = &sgptDataTables->pCharStatsTxt[nClass];
+        if (!pCharStatsTxtRecord)
+        {
+            return;
+        }
+
+        SKILLS_AddSkill(pUnit, SKILL_ATTACK);
+
+        for (int i = 0; i < 10; ++i)
+        {
+            short nSkillId = pCharStatsTxtRecord->nBaseSkill[i];
+            if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+            {
+                SKILLS_AddSkill(pUnit, nSkillId);
+            }
+        }
+    }
+
+    if (UNITS_GetLeftSkill(pUnit) == 0)
+    {
+        SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
+    }
+
+    if (UNITS_GetRightSkill(pUnit) == 0)
+    {
+        SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
+    }
+}
+
+// 0x00647110
+D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nPassiveState = SKILLS_GetPassiveState(nSkillId);
+    if (nPassiveState)
+    {
+        STATES_ToggleState(pUnit, nPassiveState, 1);
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit);
+    while (pSkill && (pSkill->pSkillsTxt != pSkillsTxtRecord || pSkill->nOwnerGUID != -1))
+    {
+        pSkill = pSkill->pNextSkill;
+    }
+
+    if (!pSkill)
+    {
+        D2SkillListStrc* pSkillList = pUnit->pSkills;
+        if (!pSkillList)
+        {
+            return 0;
+        }
+
+        pSkill = (D2SkillStrc*)sub_0040B430(pSkillList->pMemPool, sizeof(D2SkillStrc), ".\\SKILLS\\Skills.cpp", 1337, 0);
+        memset(pSkill, 0x00, sizeof(D2SkillStrc));
+        pSkill->pSkillsTxt = pSkillsTxtRecord;
+
+        if (pUnit->dwUnitType == UNIT_MONSTER)
+        {
+            pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nMonAnim;
+        }
+        else if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwClassId == 6 && nSkillId == SKILL_LEFTHANDSWING)
+        {
+            pSkill->dwSkillMode = 16;
+        }
+        else
+        {
+            pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
+        }
+
+        pSkill->nSkillLevel = 1;
+        pSkill->nOwnerGUID = -1;
+        pSkill->pNextSkill = 0;
+
+        D2SkillStrc* pPreviousSkill = pSkillList->pFirstSkill;
+        if (pPreviousSkill)
+        {
+            while (pPreviousSkill->pNextSkill)
+            {
+                pPreviousSkill = pPreviousSkill->pNextSkill;
+            }
+            pPreviousSkill->pNextSkill = pSkill;
+        }
+        else
+        {
+            pSkillList->pFirstSkill = pSkill;
+        }
+
+        SKILLS_RefreshSkill(pUnit, nSkillId);
+        return pSkill;
+    }
+
+    const int nSkillLevel = pSkill->nSkillLevel;
+    if (nSkillLevel < sub_004AA8B0_GetSkillMaxLevel(nSkillId) || pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        pSkill->nSkillLevel = nSkillLevel + 1;
+    }
+
+    SKILLS_RefreshSkill(pUnit, nSkillId);
+    return pSkill;
+}
+
+inline D2SkillStrc* __fastcall SKILLS_GetSkillInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+{
+    if (pUnit->pSkills)
+    {
+        for (D2SkillStrc* pSkill = pUnit->pSkills->pFirstSkill; pSkill; pSkill = pSkill->pNextSkill)
+        {
+            if (pSkill->pSkillsTxt->nSkillId == nSkillId && pSkill->nOwnerGUID == nOwnerGUID)
+            {
+                return pSkill;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x00647B20
+void __stdcall D2Common_11031(D2UnitStrc* pUnit, int nSkillId, int a3)
+{
+    D2SkillStrc* pSkill = SKILLS_GetSkillForceInl(pUnit, nSkillId, -1);
+
+    if (!pSkill)
+    {
+        if (a3 <= 0)
+        {
+            return;
+        }
+
+        pSkill = SKILLS_AddSkill(pUnit, nSkillId);
+        if (!pSkill)
+        {
+            return;
+        }
+
+        D2SkillStrc* pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
+        if (!pAssigned)
+        {
+            SKILLS_AddSkill(pUnit, nSkillId);
+            pAssigned = SKILLS_GetSkill(pUnit, nSkillId, -1);
+        }
+
+        if (pAssigned)
+        {
+            pAssigned->nSkillLevel = 0;
+            SKILLS_RefreshSkill(pUnit, nSkillId);
+        }
+    }
+
+    if (pSkill->nOwnerGUID == -1)
+    {
+        pSkill->nLevelBonus += a3;
+        if (pSkill->nLevelBonus < 0)
+        {
+            pSkill->nLevelBonus = 0;
+        }
+    }
+}
+
 // 0x00647E00
 int __stdcall D2Common_11032(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nType)
 {
@@ -4853,208 +4754,627 @@ int __stdcall D2Common_11032(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, i
     }
 }
 
-inline D2SkillStrc* __fastcall SKILLS_GetSkillInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+// 0x00645830
+int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType)
 {
-    if (pUnit->pSkills)
+    int nStatId = 0;
+    D2StatStrc pStat[32];
+
+    if (pUnit && pItem)
     {
-        for (D2SkillStrc* pSkill = pUnit->pSkills->pFirstSkill; pSkill; pSkill = pSkill->pNextSkill)
+        if (!pSkill)
         {
-            if (pSkill->pSkillsTxt->nSkillId == nSkillId && pSkill->nOwnerGUID == nOwnerGUID)
+            pSkill = UNITS_GetUsedSkill(pUnit);
+        }
+
+        int bHasThrowBonus = 0;
+        int nThrowBonus = D2Common_11024(pUnit, pItem, pSkill, nType, &bHasThrowBonus);
+        if (bHasThrowBonus)
+        {
+            return nThrowBonus;
+        }
+
+        switch (nType)
+        {
+        case 0:
+            nStatId = 342;
+            break;
+        case 1:
+            nStatId = 343;
+            break;
+        case 2:
+            nStatId = 344;
+            break;
+        default:
+            return 0;
+        }
+
+        int nCount = STATLIST_CopyStats(pUnit, nStatId, pStat, 32);
+        int nValue = 0;
+        for (int i = 0; i < nCount; ++i)
+        {
+            if (ITEMSIsA(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
             {
-                return pSkill;
+                nValue = pStat[i].nValue;
             }
         }
+
+        return nValue;
     }
 
     return 0;
 }
 
-// 0x00647EE0
-void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit)
+// 0x00645910
+int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int a6)
 {
-    D2CharStatsTxt* pCharStatsTxtRecord = 0;
-    int nClass = 0;
+    D2CoordStrc pCoords1;
+    D2CoordStrc pCoords2;
 
-    if (SKILLS_GetSkillInl(pUnit, SKILL_ATTACK, -1) == 0)
+    pCoords1.nX = nX1;
+    pCoords1.nY = nY1;
+    pCoords2.nX = nX2;
+    pCoords2.nY = nY2;
+
+    return COLLISION_RayTrace(pRoom, &pCoords1, &pCoords2, a6) == 0;
+}
+
+// 0x00645950
+int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nColMask)
+{
+    int nUnitY = UNITS_GetYPositionInl(pUnit);
+    int nUnitX = UNITS_GetXPositionInl(pUnit);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2CoordStrc pCoords1;
+    D2CoordStrc pCoords2;
+
+    pCoords1.nX = nX;
+    pCoords1.nY = nY;
+    pCoords2.nX = nUnitX;
+    pCoords2.nY = nUnitY;
+
+    return COLLISION_RayTrace(pRoom, &pCoords1, &pCoords2, nColMask) == 0;
+}
+
+// 0x006459F0
+int __stdcall SKILLS_GetShiftedManaCosts(int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* ptSkill = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    SKILLS_ASSERT(ptSkill, 4108);
+
+    int nMana = ((ptSkill->wMana + (nSkillLevel - 1) * ptSkill->wLevelMana) << ptSkill->nManaShift) >> 8;
+    if (nMana < 0)
     {
-        nClass = pUnit->dwClassId;
-        if (nClass < 0 || nClass >= sgptDataTables->nCharStatsTxtRecordCount)
-        {
-            return;
-        }
-
-        pCharStatsTxtRecord = &sgptDataTables->pCharStatsTxt[nClass];
-        if (!pCharStatsTxtRecord)
-        {
-            return;
-        }
-
-        SKILLS_AddSkill(pUnit, SKILL_ATTACK);
-
-        for (int i = 0; i < 10; ++i)
-        {
-            short nSkillId = pCharStatsTxtRecord->nBaseSkill[i];
-            if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-            {
-                SKILLS_AddSkill(pUnit, nSkillId);
-            }
-        }
+        nMana = 0;
     }
 
-    if (UNITS_GetLeftSkill(pUnit) == 0)
+    return nMana;
+}
+
+// 0x00645A70
+int __stdcall D2Common_11028(int nLevel)
+{
+    return 20 * (5 * nLevel + 5) / (nLevel + 8);
+}
+
+// 0x00645A90
+int __fastcall SKILLS_GetDiminishingValue(int nLevel, int nMin, int nMax)
+{
+    int nValue = nMin + (nMax - nMin) * (110 * nLevel / (nLevel + 6)) / 100;
+    int nPrevValue = nMin + (nMax - nMin) * (110 * (nLevel - 1) / (nLevel - 1 + 6)) / 100;
+
+    if (nValue <= nPrevValue + 1)
     {
-        SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
+        return SKILLS_GetDiminishingValue(nLevel - 1, nMin, nMax) + 1;
     }
 
-    if (UNITS_GetRightSkill(pUnit) == 0)
+    if (nValue > nMax)
     {
-        SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
-    }
-}
-
-// 0x00648300
-void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY)
-{
-    if (pUnit && UNITS_IsInMovingMode(pUnit))
-    {
-        D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-        if (pDynamicPath->dwPathPoints)
-        {
-            *pX = pDynamicPath->tVelocityVector.nX;
-            *pY = pDynamicPath->tVelocityVector.nY;
-            *pX >>= 11;
-            *pY >>= 11;
-            DUNGEON_GameToClientCoords(pX, pY);
-        }
-        else
-        {
-            *pX = 0;
-            *pY = 0;
-        }
-    }
-    else
-    {
-        *pX = 0;
-        *pY = 0;
-    }
-}
-
-// 0x00648390
-int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x006484E0
-int __stdcall PATH_GetCollisionPatternFromMonStats2Txt(int nMonsterId)
-{
-    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(nMonsterId);
-    if (pMonStats2TxtRecord)
-    {
-        int nSizeX = pMonStats2TxtRecord->nSizeX;
-        if (nSizeX >= 0 && nSizeX < COLLISION_UNIT_SIZE_COUNT)
-        {
-            int nCollisionPattern = gaCollisionPatternsFromSize[nSizeX];
-
-            if (pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_REVIVE >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_REVIVE & 7]
-                || pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_SMALL >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_SMALL & 7])
-            {
-                if (!(pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_ISATT >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_ISATT & 7]))
-                {
-                    switch (nCollisionPattern)
-                    {
-                    case COLLISION_PATTERN_SMALL_UNIT_PRESENCE:
-                        nCollisionPattern = COLLISION_PATTERN_SMALL_PET_PRESENCE;
-                        break;
-                    case COLLISION_PATTERN_BIG_UNIT_PRESENCE:
-                        nCollisionPattern = COLLISION_PATTERN_BIG_PET_PRESENCE;
-                        break;
-                    }
-                }
-            }
-
-            return nCollisionPattern;
-        }
+        nValue = nMax;
     }
 
-    return COLLISION_PATTERN_SMALL_UNIT_PRESENCE;
+    return nValue;
 }
 
-// 0x00648640
-void __stdcall D2COMMON_10193_PATH_AdjustDirection(D2DynamicPathStrc* pDynamicPath)
+// 0x00645B20
+int __stdcall D2Common_11033(int nLevel, int nParam, int nMax)
 {
-    if ((pDynamicPath->nDirection != pDynamicPath->nNewDirection) && !(pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00040))
+    int nValue = nParam + (nMax - nParam) * (110 * nLevel / (nLevel + 6)) / 100;
+
+    if (nValue > nMax)
     {
-        pDynamicPath->nDirection = (pDynamicPath->nDirection + pDynamicPath->nDiffDirection) & 63;
-
-        const unsigned char dirDiff = (pDynamicPath->nDirection - pDynamicPath->nNewDirection) & 63;
-        if ((dirDiff > 31 && pDynamicPath->nDiffDirection > 63) || (dirDiff < 31 && pDynamicPath->nDiffDirection < 63))
-        {
-            pDynamicPath->nDirection = pDynamicPath->nNewDirection;
-        }
+        nValue = nMax;
     }
-}
 
-// 0x006486F0
-int __stdcall PATH_GetMaxVelocity(D2DynamicPathStrc* pDynamicPath)
-{
-    return pDynamicPath->dwMaxVelocity;
-}
-
-// 0x00648720
-int __stdcall PATH_GetAcceleration(D2DynamicPathStrc* pDynamicPath)
-{
-    return pDynamicPath->dwAcceleration;
-}
-
-// 0x00648770
-int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pDynamicPath)
-{
-    return (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00020);
-}
-
-// 0x006487C0
-int __stdcall D2Common_10155(D2DynamicPathStrc* pDynamicPath)
-{
-    return pDynamicPath->dwCurrentPointIdx;
+    return nValue;
 }
 
 int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x0064A470
 
-// 0x0064A7F0
-void __stdcall MISSILE_GetHomeType(D2UnitStrc* pMissile, int* nHomeType, int* nHomeGUID)
+// 0x00645B70
+int __stdcall D2Common_11034(int nLevel, int nSkillId)
 {
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+
+    if (!pSkillsTxtRecord)
     {
-        D2MissileDataStrc* pMissileData = pMissile->pMissileData;
-        if (!pMissileData)
-        {
-            *nHomeType = 0;
-            *nHomeGUID = D2UnitInvalidGUID;
-        }
-        else
-        {
-            *nHomeType = pMissileData->nHomeType;
-            *nHomeGUID = pMissileData->dwHomeGUID;
-        }
+        return 0;
+    }
+
+    if (nLevel <= 0)
+    {
+        return 0;
+    }
+
+    return D2Common_11033(nLevel, pSkillsTxtRecord->dwParam[0], pSkillsTxtRecord->dwParam[1]);
+}
+
+// 0x00645BC0
+int __stdcall D2Common_11035(int nLevel, int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (nLevel <= 0)
+    {
+        return 0;
+    }
+
+    return D2Common_11033(nLevel, pSkillsTxtRecord->dwParam[2], pSkillsTxtRecord->dwParam[3]);
+}
+
+// 0x00645C10
+int __stdcall D2COMMON_11036_GetMonCurseResistanceSubtraction(int nLevel, int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (nLevel <= 0)
+    {
+        return 0;
+    }
+
+    return D2Common_11033(nLevel, pSkillsTxtRecord->dwParam[4], pSkillsTxtRecord->dwParam[5]);
+}
+
+// 0x00645C60
+static int __stdcall SKILLS_IsPointOutsideTown(int nX, int nY, D2UnitStrc* pUnit)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    return !DUNGEON_IsRoomInTown(pRoom);
+}
+
+// 0x00645CA0
+int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY)
+{
+    struct { int n; } tX2 = {}, tY2 = {};
+
+    if (pUnit2 && UNITS_IsInMeleeRange(pUnit1, pUnit2, 0))
+    {
+        return 0;
+    }
+
+    const int nX1 = UNITS_GetXPositionForceInl(pUnit1);
+    const int nY1 = UNITS_GetYPositionForceInl(pUnit1);
+
+    if (pUnit2)
+    {
+        tX2.n = UNITS_GetXPositionForceInl(pUnit2);
+        tY2.n = UNITS_GetYPositionForceInl(pUnit2);
     }
     else
     {
-        *nHomeType = 0;
-        *nHomeGUID = D2UnitInvalidGUID;
+        tX2.n = D2COMMON_10175_PathGetFirstPointX(pUnit1->pDynamicPath);
+        tY2.n = D2COMMON_10176_PathGetFirstPointY(pUnit1->pDynamicPath);
+    }
+
+    const int nDivisor = sub_006417F0_GetDistanceToXY(pUnit1, tX2.n, tY2.n);
+    if (!nDivisor)
+    {
+        return 0;
+    }
+
+    int nX = tX2.n + 2 * (tX2.n - nX1) / nDivisor;
+    int nY = tY2.n + 2 * (tY2.n - nY1) / nDivisor;
+
+    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pUnit1);
+    D2_ASSERT(hRoom, 4286);
+
+    const int nPattern = PATH_GetUnitCollisionPattern(pUnit1);
+    if (COLLISION_CheckAnyCollisionWithPattern(hRoom, nX, nY, nPattern, COLLIDE_MASK_PLAYER_PATH))
+    {
+        D2CoordStrc tCoord;
+        tCoord.nX = tX2.n;
+        tCoord.nY = tY2.n;
+        hRoom = COLLISION_GetFreeCoordinates(hRoom, &tCoord, UNITS_GetUnitSizeX(pUnit1), COLLIDE_MASK_PLAYER_PATH, 0);
+        if (!hRoom)
+        {
+            return 0;
+        }
+        nX = tCoord.nX;
+        nY = tCoord.nY;
+    }
+
+    if (!sub_00645910_TestLine(UNITS_GetXPositionForceInl(pUnit1), UNITS_GetYPositionForceInl(pUnit1), nX, nY, hRoom, COLLIDE_MASK_LINE))
+    {
+        return 0;
+    }
+
+    *pX = nX;
+    *pY = nY;
+    return SKILLS_IsPointOutsideTown(nX, nY, pUnit1) != 0;
+}
+
+// 0x00645F00
+int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* pValue)
+{
+    int nWeaponClass = 0;
+    int nValue = 0;
+
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    if (pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_MAGICARROW, 0);
+        if (nValue > 0)
+        {
+            if (pValue)
+            {
+                *pValue = nValue;
+            }
+            return 27;
+        }
+
+        nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXPLOSIVEARROW, 0);
+        if (nValue > 0)
+        {
+            if (pValue)
+            {
+                *pValue = nValue;
+            }
+            return 41;
+        }
+
+        return 0;
+    }
+    else
+    {
+        nWeaponClass = UNITS_GetWeaponClass(pUnit);
+        if (nWeaponClass == 1)
+        {
+            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_MAGICARROW, 0);
+            if (nValue > 0)
+            {
+                if (pValue)
+                {
+                    *pValue = nValue;
+                }
+                return 27;
+            }
+
+            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXPLOSIVEARROW, 0);
+            if (nValue > 0)
+            {
+                if (pValue)
+                {
+                    *pValue = nValue;
+                }
+                return 41;
+            }
+
+            return 0;
+        }
+        else if (nWeaponClass == 7)
+        {
+            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_MAGICARROW, 0);
+            if (nValue > 0)
+            {
+                if (pValue)
+                {
+                    *pValue = nValue;
+                }
+                return 27;
+            }
+
+            nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXPLOSIVEARROW, 0);
+            if (nValue > 0)
+            {
+                if (pValue)
+                {
+                    *pValue = nValue;
+                }
+                return 41;
+            }
+
+            return 31;
+        }
+
+        return -1;
     }
 }
 
-// 0x0064B700
-int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
+int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FE10
+
+// 0x00645FB0
+int __stdcall SKILLS_IsEnhanceable(int nSkillId)
 {
-    return nA < nB ? nA : nB;
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    return BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 17);
 }
 
-// 0x0064B710
-int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
+// 0x00645FF0
+int __stdcall sub_00645FF0_AlwaysZero(int nUnused)
 {
-    return nA > nB ? nA : nB;
+    return 0;
+}
+
+// 0x00646000
+int __stdcall SKILLS_Return0(int nUnused)
+{
+    return 0;
+}
+
+// 0x00646010
+void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
+{
+}
+
+// 0x00646020
+int __stdcall SKILLS_RemoveTransformStatesFromShapeshiftedUnit(D2UnitStrc* pUnit)
+{
+    if (!STATES_IsUnitShapeShifted(pUnit))
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < sgptDataTables->nTransformStates; ++i)
+    {
+        short nState = sgptDataTables->pTransformStates[i];
+        if (STATES_CheckState(pUnit, nState))
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+            if (pStatList)
+            {
+                D2Common_10474(pUnit, pStatList);
+                STATLIST_FreeStatList(pStatList);
+            }
+
+            STATES_ToggleState(pUnit, nState, 0);
+        }
+    }
+
+    return 1;
+}
+
+// 0x006460B0
+extern "C" void __stdcall sub_006460B0(unsigned arg0,unsigned arg1,unsigned arg2) {}
+
+// 0x006460C0
+void __stdcall sub_006460C0_Empty(int nUnused)
+{
+}
+
+// 0x006460D0
+void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
+{
+}
+
+// 0x006460E0
+void __stdcall sub_006460E0_Empty(int nUnused)
+{
+}
+
+// 0x006460F0
+int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition)
+{
+    if (nClassId >= 0 && nClassId < 7)
+    {
+        if (nPosition >= 0 && nPosition < sgptDataTables->nClassSkillCount[nClassId])
+        {
+            return sgptDataTables->nClassSkillList[nPosition + nClassId * sgptDataTables->nHighestClassSkillCount];
+        }
+
+        return -1;
+    }
+
+    return -1;
+}
+
+// 0x00646140
+int __stdcall SKILLS_GetPlayerSkillCount(int nClassId)
+{
+    if (nClassId >= 0 && nClassId < 7)
+    {
+        return sgptDataTables->nClassSkillCount[nClassId];
+    }
+
+    return 0;
+}
+
+// 0x00646170
+unsigned int __stdcall D2Common_11043(D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pItem = 0;
+    int nAttackSpeed;
+
+    int bShapeShifted = 0;
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        bShapeShifted = STATES_IsUnitShapeShifted(pUnit);
+    }
+
+    if (!bShapeShifted)
+    {
+        return 0;
+    }
+
+    nAttackSpeed = 19;
+    pItem = D2Common_10434(pUnit, 0);
+    if (pItem)
+    {
+        nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pUnit, pItem);
+        if (nAttackSpeed <= 0)
+        {
+            return 0;
+        }
+    }
+
+    return (pUnit->dwFrameCountPrecise & ~0xFF) / nAttackSpeed;
+}
+
+// 0x006461D0
+int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId)
+{
+    if (!STATES_CheckState(pUnit, STATE_CONCENTRATION))
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONCENTRATION);
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    int nDamagePercent = STATLIST_GetStatValue(pStatList, STAT_DAMAGEPERCENT, 0);
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    int nParam;
+    if (!pSkillsTxtRecord)
+    {
+        nParam = 0;
+    }
+    else
+    {
+        nParam = pSkillsTxtRecord->dwParam[0];
+    }
+
+    return nDamagePercent * nParam / 8;
+}
+
+// 0x00646260
+int __stdcall sub_00646260_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x00646270
+int __stdcall sub_00646270_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x00646280
+void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pDamagePercent)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    const int nKickDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_KICKDAMAGE, 0);
+    *pMinDamage += nKickDamage;
+    *pMaxDamage += nKickDamage;
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return;
+    }
+
+    int nValue;
+    D2UnitStrc* pLeftHand = INVENTORY_GetLeftHandWeapon(pInventory);
+    D2UnitStrc* pOtherHand = 0;
+    if (pLeftHand)
+    {
+        nValue = ITEMS_GetBodyLocation(pLeftHand);
+        pOtherHand = INVENTORY_GetItemFromBodyLoc(pInventory, (nValue == 4) + 4);
+    }
+
+    if (ITEMSIsA(pLeftHand, 0x2D) && ITEMS_CanBeEquipped(pLeftHand) && STATLIST_GetOwner(pLeftHand, 0))
+    {
+        STATLIST_MergeStatLists(pUnit, pLeftHand, 0);
+    }
+    else
+    {
+        pLeftHand = 0;
+    }
+
+    if (pOtherHand && pOtherHand != pLeftHand && ITEMSIsA(pOtherHand, 0x2D) && ITEMS_CanBeEquipped(pOtherHand) && STATLIST_GetOwner(pOtherHand, 0))
+    {
+        STATLIST_MergeStatLists(pUnit, pOtherHand, 0);
+    }
+
+    D2UnitStrc* pBoots = INVENTORY_GetItemFromBodyLoc(pInventory, 9);
+    if (pBoots && pBoots->dwUnitType == UNIT_ITEM)
+    {
+        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pBoots ? -1 : pBoots->dwClassId);
+        if (pItemsTxtRecord)
+        {
+            int nMin = nKickDamage + pItemsTxtRecord->nMinDam;
+            int nMax = nKickDamage + pItemsTxtRecord->nMaxDam;
+            int nBonus = 0;
+            nValue = ITEMS_GetStrengthBonus(pBoots);
+            if (nValue)
+            {
+                nBonus = DATATBLS_ApplyRatio(STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0), nValue, 100);
+            }
+
+            nValue = ITEMS_GetDexBonus(pBoots);
+            if (nValue)
+            {
+                nBonus += DATATBLS_ApplyRatio(STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0), nValue, 100);
+            }
+
+            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
+            if (nBonus <= -90)
+            {
+                nBonus = -90;
+            }
+
+            const int nPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
+            if (nMin >= nMax)
+            {
+                nMax = nMin;
+            }
+
+            *pDamagePercent += nPercent + nBonus;
+            *pMinDamage += nMin;
+            *pMaxDamage += nMax;
+        }
+    }
+
+    if (pLeftHand)
+    {
+        STATLIST_MergeStatLists(pUnit, pLeftHand, 1);
+    }
 }
 
 // 0x0064C350
@@ -5073,326 +5393,6 @@ void __fastcall SKILLS_FixThrowWeaponClassCode(unsigned int* pWeaponClassCode, i
             *pWeaponClassCode = ' hth';
         }
     }
-}
-
-// 0x0064FC20
-void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath)
-{
-    const int nPrecisionX = gdwPathResetPrecisionX_006EB7C8;
-    const int nPrecisionY = gdwPathResetPrecisionY_006EB7CC;
-
-    pDynamicPath->tGameCoords.dwPrecisionX = nPrecisionX;
-    pDynamicPath->dwClientCoordX = nPrecisionX;
-    pDynamicPath->tGameCoords.dwPrecisionY = nPrecisionY;
-    pDynamicPath->dwClientCoordY = nPrecisionY;
-    pDynamicPath->dwPathPoints = 0;
-
-    if (pDynamicPath->pRoom)
-    {
-        pDynamicPath->pPreviousRoom = pDynamicPath->pRoom;
-        UNITROOM_RemoveUnitFromRoom(pDynamicPath->pUnit);
-        pDynamicPath->dwFlags |= PATH_CURRENT_ROOM_INVALID;
-    }
-}
-
-int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FE10
-
-// 0x00650540
-int __stdcall D2Common_10227(D2UnitStrc* pUnit)
-{
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-    if (!pDynamicPath)
-    {
-        return 1;
-    }
-
-    if (pDynamicPath->hTarget && D2Common_10399(pDynamicPath->hTarget, pUnit) <= pDynamicPath->nStepNum)
-    {
-        return 1;
-    }
-
-    return pDynamicPath->tGameCoords.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.wPosY == pDynamicPath->tTargetCoord.Y;
-}
-
-// 0x00654E80
-D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(int nDifficulty, int nAct, int nIndex)
-{
-    const int nDifficultyFloor = nDifficulty > 0 ? nDifficulty : 0;
-    const int nDifficultyIndex = nDifficultyFloor < 2 ? nDifficultyFloor : 2;
-    const int nActFloor = nAct > 0 ? nAct : 0;
-    const int nActIndex = nActFloor < 4 ? nActFloor : 4;
-    const int nIndexFloor = nIndex > 0 ? nIndex : 0;
-    const int nChestIndex = nIndexFloor < 2 ? nIndexFloor : 2;
-
-    return gpChestTreasureClasses[nChestIndex + 3 * (nActIndex + 5 * nDifficultyIndex)];
-}
-
-// 0x00667030
-void __fastcall sub_00667030_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
-{
-    D2Unk00667030MidStrc* pMid = pRecord->pMid;
-    if (pValue0)
-    {
-        *pValue0 = pMid->pInner->nValue0;
-    }
-    if (pValue1)
-    {
-        *pValue1 = pMid->pInner->nValue1;
-    }
-}
-
-// 0x0066B800
-int __fastcall DRLG_GetRectanglesManhattanDistanceAndCheckNotOverlapping(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nMaxDistance, int* pDistanceX, int* pDistanceY)
-{
-    if (pDrlgCoord1->nPosX < pDrlgCoord2->nPosX)
-    {
-        *pDistanceX = pDrlgCoord2->nPosX - pDrlgCoord1->nWidth - pDrlgCoord1->nPosX;
-    }
-    else
-    {
-        *pDistanceX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth - pDrlgCoord2->nPosX;
-    }
-
-    if (pDrlgCoord1->nPosY < pDrlgCoord2->nPosY)
-    {
-        *pDistanceY = pDrlgCoord2->nPosY - pDrlgCoord1->nHeight - pDrlgCoord1->nPosY;
-    }
-    else
-    {
-        *pDistanceY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight - pDrlgCoord2->nPosY;
-    }
-
-    return *pDistanceX >= nMaxDistance || *pDistanceY >= nMaxDistance;
-}
-
-// 0x0066B880
-int __fastcall DRLG_CheckOverlappingWithOrthogonalMargin(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nOrthogonalDistanceMax)
-{
-    int nSignedDistanceX = 0;
-    int nSignedDistanceY = 0;
-
-    if (pDrlgCoord1->nPosX <= pDrlgCoord2->nPosX)
-    {
-        nSignedDistanceX = pDrlgCoord2->nPosX - pDrlgCoord1->nWidth - pDrlgCoord1->nPosX;
-    }
-    if (pDrlgCoord1->nPosX > pDrlgCoord2->nPosX)
-    {
-        nSignedDistanceX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth - pDrlgCoord2->nPosX;
-    }
-
-    if (pDrlgCoord1->nPosY <= pDrlgCoord2->nPosY)
-    {
-        nSignedDistanceY = pDrlgCoord2->nPosY - pDrlgCoord1->nHeight - pDrlgCoord1->nPosY;
-    }
-    if (pDrlgCoord1->nPosY > pDrlgCoord2->nPosY)
-    {
-        nSignedDistanceY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight - pDrlgCoord2->nPosY;
-    }
-
-    if (!nOrthogonalDistanceMax)
-    {
-        return nSignedDistanceX <= 0 && nSignedDistanceY <= 0;
-    }
-
-    if (nSignedDistanceX == 0 && nSignedDistanceY <= nOrthogonalDistanceMax)
-    {
-        return 1;
-    }
-
-    return nSignedDistanceY == 0 && nSignedDistanceX <= nOrthogonalDistanceMax;
-}
-
-// 0x0066E140
-char __stdcall sub_0066E140_GetModeChar(int nMode)
-{
-    return nMode == 11 ? 'r' : 'l';
-}
-
-// 0x006752A0
-void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nLvlSubId, int nLevelPrestId)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    D2UnkOutdoorStrc a1 = {};
-
-    a1.pLevel = pLevel;
-    a1.field_4 = &pOutdoors->unk0x54;
-    a1.pGrid1 = &pOutdoors->pGrid[0];
-    a1.pGrid2 = &pOutdoors->pGrid[2];
-    a1.nLevelPrestId = nLevelPrestId;
-    a1.field_14 = -1;
-    a1.nLvlSubId = nLvlSubId;
-    a1.field_1C = DRLGOUTDOORS_TestGridCellNonLvlLink;
-    a1.field_20 = DRLGOUTDOORS_TestOutdoorLevelPreset;
-    a1.field_2C = DRLGOUTDOORS_AlterAdjacentPresetGridCells;
-    a1.field_30 = DRLGOUTDOORS_SetBlankGridCell;
-    a1.field_34 = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
-
-    sub_00670750_ApplySubstitutionBorder(&a1);
-}
-
-// 0x006755C0
-int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
-{
-    const int nRow = gaLookupRow_006F0FD0[nA + 3 * nB];
-    if (nC >= 4)
-    {
-        return gaLookupLarge_006F06F0[nRow][nC - 4];
-    }
-    return gaLookupSmall_006F0630[nRow][nC];
-}
-
-// 0x00678B40
-int __stdcall sub_00678B40_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint2.X - tPoint1.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = tPoint2.Y - tPoint1.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
-    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
-    return nMin + 2 * nMax;
-}
-
-// 0x00679380
-int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
-{
-    int nDiffX = pPoint1.X - pPoint2.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = pPoint1.Y - pPoint2.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    if (nDiffX < 8 && nDiffY < 8)
-    {
-        const int nResult = gaPathHeuristicTable_006F1698[nDiffX + 8 * nDiffY];
-        if (nResult < 0)
-        {
-            return 0;
-        }
-        return nResult + 1;
-    }
-
-    if (nDiffX > nDiffY)
-    {
-        return nDiffY + 2 * nDiffX;
-    }
-    return nDiffX + 2 * nDiffY;
-}
-
-// 0x0067A390
-void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDirection;
-    PATH_GetDirectionVectorFromPoints(pDirectionVector, &nDirection, tPoint1, tPoint2);
-    pDirectionVector->nX = (pDirectionVector->nX * nVelocity) >> 8;
-    pDirectionVector->nY = (pDirectionVector->nY * nVelocity) >> 8;
-    D2_ASSERT(D2_MAX(D2_ABS(pDirectionVector->nX), D2_ABS(pDirectionVector->nY)) < 0x200000, 817);
-}
-
-// 0x0067A550
-int __stdcall sub_0067A550_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint2.X - tPoint1.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = tPoint2.Y - tPoint1.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
-    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
-    return nMin + 2 * nMax;
-}
-
-// 0x0067A5F0
-int __fastcall PATH_IsPointInBounds(D2PathBoundsContextStrc* pContext, int nUnused, D2PathPointStrc tPoint)
-{
-    return tPoint.X >= pContext->tMin.X && tPoint.X <= pContext->tMax.X && tPoint.Y >= pContext->tMin.Y && tPoint.Y <= pContext->tMax.Y;
-}
-
-// 0x0067ADC0
-int __stdcall PATH_AStar_Heuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint1.X - tPoint2.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = tPoint1.Y - tPoint2.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    if (nDiffX >= nDiffY)
-    {
-        return nDiffY + 2 * nDiffX;
-    }
-    return nDiffX + 2 * nDiffY;
-}
-
-// 0x0067AE00
-D2PathFoWallNodeStrc* __stdcall PATH_AStar_GetNodeFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint)
-{
-    const int nHash = (gaIdaStar_PointCacheHashMaskY[tPathPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[tPathPoint.X & 0x7F]) & 0x7F;
-    for (D2PathFoWallNodeStrc* pNode = pContext->aPendingCache[nHash]; pNode != 0; pNode = pNode->pNextCachePoint)
-    {
-        if (tPathPoint.X == pNode->tPoint.X && tPathPoint.Y == pNode->tPoint.Y)
-        {
-            return pNode;
-        }
-    }
-
-    return 0;
-}
-
-// 0x0067AE50
-D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint)
-{
-    const int nHash = (gaIdaStar_PointCacheHashMaskY[tPathPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[tPathPoint.X & 0x7F]) & 0x7F;
-    for (D2PathFoWallNodeStrc* pNode = pContext->aVisitedCache[nHash]; pNode != 0; pNode = pNode->pNextCachePoint)
-    {
-        if (tPathPoint.X == pNode->tPoint.X && tPathPoint.Y == pNode->tPoint.Y)
-        {
-            return pNode;
-        }
-    }
-
-    return 0;
-}
-
-// 0x0067B9C0
-int __stdcall PATH_GetSquaredDistanceBetweenPoints(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    const int nDiffX = tPoint1.X - tPoint2.X;
-    const int nDiffY = tPoint1.Y - tPoint2.Y;
-    return nDiffY * nDiffY + nDiffX * nDiffX;
-}
-
-// 0x0067BBC0
-int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    return gaPathDeltaTable_006F1E28[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
 }
 
 #include "gen/data/Source/D2Common/SKILLS/Skills.inc"

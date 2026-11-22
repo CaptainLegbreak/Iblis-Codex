@@ -168,6 +168,38 @@ void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); // 0x00545200
 
+// 0x00591210
+void __fastcall ACT1Q2_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT1Q2_Callback03_ChangedLevel;
+    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT1Q2_Callback08_MonsterKilled;
+    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q2_Callback00_NpcActivate;
+    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q2_Callback11_ScrollMessage;
+    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT1Q2_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q2_Callback02_NpcDeactivate;
+    pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q2_Callback13_PlayerStartedGame;
+    pQuestData->pfSeqFilter = ACT1Q2_SeqCallback;
+    pQuestData->pNPCMessages = gpAct1Q2NpcMessages;
+    pQuestData->eFilter = QUESTSTATEFLAG_A1Q2;
+    pQuestData->bActive = 1;
+
+    D2Act1Quest2Strc* pQuestDataEx = (D2Act1Quest2Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest2Strc), gszA1Q2SourceFile, LINE_INIT_ALLOC, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    pQuestData->pfStatusFilter = 0;
+    pQuestData->nInitNo = A1Q2_INITNO;
+    pQuestData->nSeqId = A1Q2_SEQID;
+    pQuestData->pfActiveFilter = ACT1Q2_ActiveFilterCallback;
+
+    pQuestDataEx->bUnk0x01 = 0;
+    pQuestDataEx->bUnk0x00 = 0;
+    pQuestDataEx->bKashyaActivated = 0;
+    pQuestDataEx->bBloodravenKilled = 0;
+    pQuestDataEx->nBloodravenGUID = 0;
+
+    pQuestData->fState = 0;
+}
+
 // 0x00590980
 void __fastcall ACT1Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -338,38 +370,6 @@ void __fastcall ACT1Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         pQuestData->fState = QSTATE_2;
         pQuestData->fLastState = 1;
     }
-}
-
-// 0x00591210
-void __fastcall ACT1Q2_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT1Q2_Callback03_ChangedLevel;
-    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT1Q2_Callback08_MonsterKilled;
-    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q2_Callback00_NpcActivate;
-    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q2_Callback11_ScrollMessage;
-    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT1Q2_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q2_Callback02_NpcDeactivate;
-    pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q2_Callback13_PlayerStartedGame;
-    pQuestData->pfSeqFilter = ACT1Q2_SeqCallback;
-    pQuestData->pNPCMessages = gpAct1Q2NpcMessages;
-    pQuestData->eFilter = QUESTSTATEFLAG_A1Q2;
-    pQuestData->bActive = 1;
-
-    D2Act1Quest2Strc* pQuestDataEx = (D2Act1Quest2Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest2Strc), gszA1Q2SourceFile, LINE_INIT_ALLOC, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->pfStatusFilter = 0;
-    pQuestData->nInitNo = A1Q2_INITNO;
-    pQuestData->nSeqId = A1Q2_SEQID;
-    pQuestData->pfActiveFilter = ACT1Q2_ActiveFilterCallback;
-
-    pQuestDataEx->bUnk0x01 = 0;
-    pQuestDataEx->bUnk0x00 = 0;
-    pQuestDataEx->bKashyaActivated = 0;
-    pQuestDataEx->bBloodravenKilled = 0;
-    pQuestDataEx->nBloodravenGUID = 0;
-
-    pQuestData->fState = 0;
 }
 
 #include "gen/data/Source/D2Game/Quests/a1q2.inc"

@@ -157,6 +157,27 @@ void __cdecl RECORD_WriteRecordFile()
 
 static D2RecordBlockStrc* gpRecordBlock_0070F7A0; // 0x0070F7A0
 
+// 0x00451850
+void __cdecl RECORD_FreeMsgRecordChunks()
+{
+    D2MsgRecordChunkStrc* pChunk = gpMsgRecordChunkHead_007A2760;
+    while (pChunk)
+    {
+        D2MsgRecordChunkStrc* pFree = pChunk;
+        pChunk = pChunk->pNext;
+        FOG_Free(pFree, ".\\GAME\\Record.cpp", 0x120, 0);
+    }
+}
+
+// 0x00451880
+int __fastcall RECORD_DispatchRecordedMessage(D2WinMsgStrc* pMsg)
+{
+    int bUseResult = 0;
+    int lResult = 0;
+    D2_ASSERT(pMsg->dwTick == sub_0044DA90(), 0x12A);
+    return SMsgDispatchMessage(sub_004F59A0(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
+}
+
 // 0x00451710
 void __cdecl RECORD_LoadRecordFile()
 {
@@ -200,26 +221,5 @@ void __cdecl RECORD_LoadRecordFile()
 
     gpRecordBlock_0070F7A0 = &gFirstRecordBlock_007A0818;
     CloseHandle(hFile);
-}
-
-// 0x00451850
-void __cdecl RECORD_FreeMsgRecordChunks()
-{
-    D2MsgRecordChunkStrc* pChunk = gpMsgRecordChunkHead_007A2760;
-    while (pChunk)
-    {
-        D2MsgRecordChunkStrc* pFree = pChunk;
-        pChunk = pChunk->pNext;
-        FOG_Free(pFree, ".\\GAME\\Record.cpp", 0x120, 0);
-    }
-}
-
-// 0x00451880
-int __fastcall RECORD_DispatchRecordedMessage(D2WinMsgStrc* pMsg)
-{
-    int bUseResult = 0;
-    int lResult = 0;
-    D2_ASSERT(pMsg->dwTick == sub_0044DA90(), 0x12A);
-    return SMsgDispatchMessage(sub_004F59A0(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
 }
 

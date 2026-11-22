@@ -346,12 +346,6 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
     return 1;
 }
 
-// 0x00453A90
-int __fastcall UI_GetUIVarUnchecked(int nUIVar)
-{
-    return gaUIVarStates_007A27C0[nUIVar];
-}
-
 // 0x00453AE0
 void __cdecl UI_StartUIVarDelay()
 {
@@ -359,6 +353,12 @@ void __cdecl UI_StartUIVarDelay()
     {
         gdwUIVarTick_007A2790 = GetTickCount() + 0x64;
     }
+}
+
+// 0x00453A90
+int __fastcall UI_GetUIVarUnchecked(int nUIVar)
+{
+    return gaUIVarStates_007A27C0[nUIVar];
 }
 
 // 0x00453B00
@@ -740,25 +740,6 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     return 1;
 }
 
-// 0x00456300
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2)
-{
-    int bResult = 0;
-    for (int i = 0; i < 0x26; i++)
-    {
-        if (gaUIVarStates_007A27C0[i] == 1 && (gaUIVarDefaults_006D6378[i] == 1 || (bArg1 && i == 0x0A)))
-        {
-            sub_00455F20(i, 1, nArg2);
-            bResult = 1;
-            if (i == 0x19 || i == 1)
-            {
-                INV_ResetHover();
-            }
-        }
-    }
-    return bResult;
-}
-
 // 0x00456D80
 void __cdecl UI_ShutdownUI()
 {
@@ -827,6 +808,25 @@ void __cdecl UI_ShutdownUI()
     CMDTBL_DisableHotkeyHandlers();
     sub_0047DFD0_FreeOptionMenus();
     TEXT_FreeTextSliderCel();
+}
+
+// 0x00456300
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2)
+{
+    int bResult = 0;
+    for (int i = 0; i < 0x26; i++)
+    {
+        if (gaUIVarStates_007A27C0[i] == 1 && (gaUIVarDefaults_006D6378[i] == 1 || (bArg1 && i == 0x0A)))
+        {
+            sub_00455F20(i, 1, nArg2);
+            bResult = 1;
+            if (i == 0x19 || i == 1)
+            {
+                INV_ResetHover();
+            }
+        }
+    }
+    return bResult;
 }
 
 #include "gen/data/Source/D2Client/UI/ui_00453910.inc"

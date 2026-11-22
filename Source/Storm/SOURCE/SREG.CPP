@@ -171,59 +171,6 @@ static int __stdcall InternalSaveEntry(const char* szKeyName, const char* szValu
     return 0;
 }
 
-// 0x00414D90
-int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szKeyName);
-    VALIDATE(*szKeyName);
-    VALIDATE(szValueName);
-    VALIDATE(*szValueName);
-    VALIDATEEND;
-    return InternalDeleteEntry(nFlags, szKeyName, szValueName);
-}
-
-// 0x00415000
-int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szKeyName);
-    VALIDATE(*szKeyName);
-    VALIDATE(szValueName);
-    VALIDATE(*szValueName);
-    VALIDATEEND;
-    if (!pData)
-    {
-        pData = &gszEmptyString_006CC837;
-    }
-    return InternalSaveEntry(szKeyName, szValueName, nFlags, ((nFlags & 0x80) | 0x60) >> 5, (const unsigned char*)pData, nSize);
-}
-
-// 0x00415070
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szKeyName);
-    VALIDATE(*szKeyName);
-    VALIDATE(szValueName);
-    VALIDATE(*szValueName);
-    VALIDATE(szString);
-    VALIDATEEND;
-    return nValid ? InternalSaveEntry(szKeyName, szValueName, nFlags, 1, (const unsigned char*)szString, SStrLen(szString) + 1) : 0;
-}
-
-// 0x004150E0
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szKeyName);
-    VALIDATE(*szKeyName);
-    VALIDATE(szValueName);
-    VALIDATE(*szValueName);
-    VALIDATEEND;
-    return InternalSaveEntry(szKeyName, szValueName, nFlags, 4, (const unsigned char*)&dwValue, 4);
-}
-
 // 0x00414DE0
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned char* pData, unsigned long nSize, unsigned long* pcbData)
 {
@@ -307,4 +254,57 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
         break;
     }
     return nValid ? 1 : 0;
+}
+
+// 0x00415000
+int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szKeyName);
+    VALIDATE(*szKeyName);
+    VALIDATE(szValueName);
+    VALIDATE(*szValueName);
+    VALIDATEEND;
+    if (!pData)
+    {
+        pData = &gszEmptyString_006CC837;
+    }
+    return InternalSaveEntry(szKeyName, szValueName, nFlags, ((nFlags & 0x80) | 0x60) >> 5, (const unsigned char*)pData, nSize);
+}
+
+// 0x00415070
+int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szKeyName);
+    VALIDATE(*szKeyName);
+    VALIDATE(szValueName);
+    VALIDATE(*szValueName);
+    VALIDATE(szString);
+    VALIDATEEND;
+    return nValid ? InternalSaveEntry(szKeyName, szValueName, nFlags, 1, (const unsigned char*)szString, SStrLen(szString) + 1) : 0;
+}
+
+// 0x004150E0
+int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szKeyName);
+    VALIDATE(*szKeyName);
+    VALIDATE(szValueName);
+    VALIDATE(*szValueName);
+    VALIDATEEND;
+    return InternalSaveEntry(szKeyName, szValueName, nFlags, 4, (const unsigned char*)&dwValue, 4);
+}
+
+// 0x00414D90
+int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szKeyName);
+    VALIDATE(*szKeyName);
+    VALIDATE(szValueName);
+    VALIDATE(*szValueName);
+    VALIDATEEND;
+    return InternalDeleteEntry(nFlags, szKeyName, szValueName);
 }

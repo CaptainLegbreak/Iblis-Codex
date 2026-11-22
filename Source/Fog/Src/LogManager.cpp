@@ -1160,20 +1160,31 @@ char* __fastcall LOGMANAGER_ReadLogRange(const char* szName, long nStart, long n
     return pBuffer;
 }
 
-// 0x0040F720
-void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
+// 0x0040F8A0
+void __cdecl LOGMANAGER_CloseLogFilesNow()
 {
-    D2_ASSERT(pMessage->nType == 1, 0x2A1);
-    char* szName = pMessage->szName;
-    char* szText = szName + SStrLen(szName) + 1;
-    int nSlot;
-    _iobuf* pFile = sub_0040EDE0_GetLogFile(szName, &nSlot);
-    if (pFile)
+    D2_ASSERT(gbLogInitialized_0075D2EC, 456);
+    const unsigned long dwStart = GetTickCount();
+    while (GetTickCount() - dwStart < 1000)
     {
-        if (pMessage->bTimeStamp)
-            fprintf(pFile, "%02d:%02d:%02d.%03d  ", pMessage->f_14.wHour, pMessage->f_14.wMinute, pMessage->f_14.wSecond, pMessage->f_14.wMilliseconds);
-        fwrite(szText, SStrLen(szText), 1, pFile);
-        gadwLogWriteTick_0075D2F0[nSlot] = GetTickCount();
+        EnterCriticalSection(&gtLogQueueLock_0075E838);
+        const int nQueued = gnLogQueueCount_0075E870 > 0 ? gnLogQueueCount_0075E870 : 0;
+        LeaveCriticalSection(&gtLogQueueLock_0075E838);
+        if (!nQueued)
+        {
+            break;
+        }
+        Sleep(10);
+    }
+    for (int i = 0; i < 20; i++)
+    {
+        EnterCriticalSection(&gtLogLock_0075E850);
+        if (gapLogFiles_0075E790[i])
+        {
+            fclose(gapLogFiles_0075E790[i]);
+            gapLogFiles_0075E790[i] = 0;
+        }
+        LeaveCriticalSection(&gtLogLock_0075E850);
     }
 }
 
@@ -1258,10 +1269,10 @@ void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
     InitializeTerminator();
 }
 
-// 0x0040F7C0
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
+// 0x0040F960
+void __cdecl LOGMANAGER_CloseLogFiles()
 {
-    return m_terminator.MaskNext();
+    LOGMANAGER_CloseLogFilesNow();
 }
 
 void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
@@ -1340,60 +1351,6 @@ void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
 void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 {
     IGNORELIST_InternalClearStringTable(0);
-}
-
-// 0x0040F7D0
-sub_0040F7D0::~sub_0040F7D0()
-{
-    f_0.Unlink();
-}
-
-// 0x0040F810
-sub_0040F810::sub_0040F810()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0040F860
-void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
-// 0x0040F8A0
-void __cdecl LOGMANAGER_CloseLogFilesNow()
-{
-    D2_ASSERT(gbLogInitialized_0075D2EC, 456);
-    const unsigned long dwStart = GetTickCount();
-    while (GetTickCount() - dwStart < 1000)
-    {
-        EnterCriticalSection(&gtLogQueueLock_0075E838);
-        const int nQueued = gnLogQueueCount_0075E870 > 0 ? gnLogQueueCount_0075E870 : 0;
-        LeaveCriticalSection(&gtLogQueueLock_0075E838);
-        if (!nQueued)
-        {
-            break;
-        }
-        Sleep(10);
-    }
-    for (int i = 0; i < 20; i++)
-    {
-        EnterCriticalSection(&gtLogLock_0075E850);
-        if (gapLogFiles_0075E790[i])
-        {
-            fclose(gapLogFiles_0075E790[i]);
-            gapLogFiles_0075E790[i] = 0;
-        }
-        LeaveCriticalSection(&gtLogLock_0075E850);
-    }
-}
-
-// 0x0040F960
-void __cdecl LOGMANAGER_CloseLogFiles()
-{
-    LOGMANAGER_CloseLogFilesNow();
 }
 
 // 0x0040FAA0
@@ -1956,6 +1913,49 @@ void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const ch
     va_list args;
     va_start(args, szFormat);
     sub_00410340_LogV(szPrefix, 1, 0, szFormat, args);
+}
+
+// 0x0040F720
+void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
+{
+    D2_ASSERT(pMessage->nType == 1, 0x2A1);
+    char* szName = pMessage->szName;
+    char* szText = szName + SStrLen(szName) + 1;
+    int nSlot;
+    _iobuf* pFile = sub_0040EDE0_GetLogFile(szName, &nSlot);
+    if (pFile)
+    {
+        if (pMessage->bTimeStamp)
+            fprintf(pFile, "%02d:%02d:%02d.%03d  ", pMessage->f_14.wHour, pMessage->f_14.wMinute, pMessage->f_14.wSecond, pMessage->f_14.wMilliseconds);
+        fwrite(szText, SStrLen(szText), 1, pFile);
+        gadwLogWriteTick_0075D2F0[nSlot] = GetTickCount();
+    }
+}
+
+// 0x0040F7C0
+char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
+{
+    return m_terminator.MaskNext();
+}
+
+// 0x0040F7D0
+sub_0040F7D0::~sub_0040F7D0()
+{
+    f_0.Unlink();
+}
+
+// 0x0040F810
+sub_0040F810::sub_0040F810()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0040F860
+void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
+{
+    m_linkoffset = 0;
+    InitializeTerminator();
 }
 
 // 0x0040F970

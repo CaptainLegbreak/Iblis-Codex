@@ -437,18 +437,48 @@ void __cdecl CMDTBL_SaveHotkeys()
     CMDTBL_BindMouseHotkeys();
 }
 
-// 0x00469D40
-void __cdecl CMDTBL_SaveAndBindHotkeys()
+// 0x0046AA20
+void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
 {
-    sub_00469780_SaveKeyConfig();
-    CMDTBL_BindMouseHotkeys();
+    gnGlobal_007A7418 = bEnable;
+    if (bEnable)
+    {
+        if (gnGlobal_007A7428 == 0)
+        {
+            gnGlobal_007A7428 = 1;
+            if (bFlag && gnGlobal_007A7424 != 0)
+            {
+                sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712974, 2);
+                gnGlobal_007A7424 = 0;
+            }
+            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+        }
+    }
+    else
+    {
+        if (gnGlobal_007A7428 == 1)
+        {
+            gnGlobal_007A7428 = 0;
+            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+            if (bFlag && gnGlobal_007A7424 == 0)
+            {
+                sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712974, 2);
+                gnGlobal_007A7424 = 1;
+            }
+        }
+    }
 }
 
-// 0x00469D50
-void __cdecl CMDTBL_RestoreHotkeys()
+// 0x0046AC70
+void __cdecl CMDTBL_EnableHotkeyHandlers()
 {
-    memcpy(gtHotkeys_007A6F90, gtHotkeysSaved_007A6B18, sizeof(gtHotkeys_007A6F90));
-    CMDTBL_BindMouseHotkeys();
+    sub_0046AAE0_LoadKeyConfig();
+    gnGlobal_007A7418 = 1;
+    if (gnGlobal_007A7428 == 0)
+    {
+        gnGlobal_007A7428 = 1;
+        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+    }
 }
 
 // build: symbol ?CUNIT_GetHotkeyBinding@* 0x00469AA0
@@ -463,6 +493,45 @@ static inline unsigned short CUNIT_GetHotkeyBinding(int nA, int nB)
     }
 
     return 0xFFFF;
+}
+
+// 0x0046ACB0
+void __cdecl CMDTBL_DisableHotkeyHandlers()
+{
+    gnGlobal_007A7418 = 0;
+    if (gnGlobal_007A7428 == 1)
+    {
+        gnGlobal_007A7428 = 0;
+        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+    }
+}
+
+static inline unsigned short FindHotkeyKey_Inline(int nId, int nMode)
+{
+    for (int i = 0; i < NUM_HOTKEYS; ++i)
+    {
+        if (gtHotkeys_007A6F90[i].nCommand == nId && gtHotkeys_007A6F90[i].nMode == nMode)
+        {
+            return gtHotkeys_007A6F90[i].nKey;
+        }
+    }
+    return 0xFFFF;
+}
+
+// 0x00469D40
+void __cdecl CMDTBL_SaveAndBindHotkeys()
+{
+    sub_00469780_SaveKeyConfig();
+    CMDTBL_BindMouseHotkeys();
+}
+
+D2KeyBindingStrc gaBindings_007A6F90[114]; // 0x007A6F90
+
+// 0x00469D50
+void __cdecl CMDTBL_RestoreHotkeys()
+{
+    memcpy(gtHotkeys_007A6F90, gtHotkeysSaved_007A6B18, sizeof(gtHotkeys_007A6F90));
+    CMDTBL_BindMouseHotkeys();
 }
 
 // 0x00469DE0
@@ -787,18 +856,6 @@ const Unicode* __fastcall CMDTBL_GetKeyText(int nA, int nB)
     return gwszKeyText_007A741C;
 }
 
-static inline unsigned short FindHotkeyKey_Inline(int nId, int nMode)
-{
-    for (int i = 0; i < NUM_HOTKEYS; ++i)
-    {
-        if (gtHotkeys_007A6F90[i].nCommand == nId && gtHotkeys_007A6F90[i].nMode == nMode)
-        {
-            return gtHotkeys_007A6F90[i].nKey;
-        }
-    }
-    return 0xFFFF;
-}
-
 // 0x0046A530
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB)
 {
@@ -870,8 +927,6 @@ const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB)
     return CMDTBL_GetKeyText(nA, nB);
 }
 
-D2KeyBindingStrc gaBindings_007A6F90[114]; // 0x007A6F90
-
 // 0x0046A940
 void __stdcall CMDTBL_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -892,61 +947,6 @@ void __stdcall CMDTBL_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
-    }
-}
-
-// 0x0046AA20
-void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
-{
-    gnGlobal_007A7418 = bEnable;
-    if (bEnable)
-    {
-        if (gnGlobal_007A7428 == 0)
-        {
-            gnGlobal_007A7428 = 1;
-            if (bFlag && gnGlobal_007A7424 != 0)
-            {
-                sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712974, 2);
-                gnGlobal_007A7424 = 0;
-            }
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
-        }
-    }
-    else
-    {
-        if (gnGlobal_007A7428 == 1)
-        {
-            gnGlobal_007A7428 = 0;
-            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
-            if (bFlag && gnGlobal_007A7424 == 0)
-            {
-                sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712974, 2);
-                gnGlobal_007A7424 = 1;
-            }
-        }
-    }
-}
-
-// 0x0046AC70
-void __cdecl CMDTBL_EnableHotkeyHandlers()
-{
-    sub_0046AAE0_LoadKeyConfig();
-    gnGlobal_007A7418 = 1;
-    if (gnGlobal_007A7428 == 0)
-    {
-        gnGlobal_007A7428 = 1;
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
-    }
-}
-
-// 0x0046ACB0
-void __cdecl CMDTBL_DisableHotkeyHandlers()
-{
-    gnGlobal_007A7418 = 0;
-    if (gnGlobal_007A7428 == 1)
-    {
-        gnGlobal_007A7428 = 0;
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
     }
 }
 

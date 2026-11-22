@@ -72,6 +72,61 @@ extern "C" int __fastcall D2Win_10201(D2WinScrollBarStrc* pScrollBar)
     return pScrollBar->nPageStep;
 }
 
+// 0x00508370
+int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
+{
+    D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)pControl;
+    D2_ASSERT(pScrollBar, 0xE7);
+    D2_ASSERT(pScrollBar->controlHeader.eType == 5, 0xE8);
+    if (!(pScrollBar->controlHeader.dwFlags & gdwBitMasks[2]) ||
+        !(pScrollBar->controlHeader.dwFlags & gdwBitMasks[0]))
+        return 0;
+
+    D2CelFileStrc* pCellFile = pScrollBar->controlHeader.pCellFile;
+    int nX = pScrollBar->controlHeader.nImageX;
+    int nY = pScrollBar->controlHeader.nImageY - 1;
+    if (pScrollBar->nMaxSteps)
+    {
+        if (!sub_004FA460())
+            pScrollBar->bIsStepIndicatorDragged = 0;
+        if (pScrollBar->bIsStepIndicatorDragged)
+        {
+            SMSGHANDLER_PARAMS msg;
+            msg.hWnd = pScrollBar;
+            msg.uMessage = 0x201;
+            SCROLLBAR_HandleMouseDown(&msg);
+        }
+
+        D2CelContextStrc context;
+        memset(&context, 0, sizeof(context));
+        context.pCellFile = pCellFile;
+        context.nDirection = 0;
+        context.nFrame = pScrollBar->bIsLowerArrowPressed ? 3 : 1;
+        sub_004F6480(&context, nX, nY, -1, 5, 0);
+        context.nFrame = 5;
+        if (pScrollBar->controlHeader.nHeight - 10 > 10)
+        {
+            int nOffset = 10;
+            do
+            {
+                nOffset += 10;
+                nY -= 10;
+                sub_004F6480(&context, nX, nY, -1, 5, 0);
+            } while (nOffset < pScrollBar->controlHeader.nHeight - 10);
+        }
+        context.nFrame = pScrollBar->bIsUpperArrowPressed != 0 ? 2 : 0;
+        sub_004F6480(&context, nX,
+            pScrollBar->controlHeader.nImageY - pScrollBar->controlHeader.nHeight + 9,
+            -1, 5, 0);
+        context.nFrame = 4;
+        sub_004F6480(&context, nX,
+            (pScrollBar->controlHeader.nHeight - 30) * pScrollBar->nCurrentStep / pScrollBar->nMaxSteps
+                - pScrollBar->controlHeader.nHeight + pScrollBar->controlHeader.nImageY + 19,
+            -1, 5, 0);
+    }
+    return 1;
+}
+
 // 0x00508120
 int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -182,61 +237,6 @@ int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
     }
 
     return 0;
-}
-
-// 0x00508370
-int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
-{
-    D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)pControl;
-    D2_ASSERT(pScrollBar, 0xE7);
-    D2_ASSERT(pScrollBar->controlHeader.eType == 5, 0xE8);
-    if (!(pScrollBar->controlHeader.dwFlags & gdwBitMasks[2]) ||
-        !(pScrollBar->controlHeader.dwFlags & gdwBitMasks[0]))
-        return 0;
-
-    D2CelFileStrc* pCellFile = pScrollBar->controlHeader.pCellFile;
-    int nX = pScrollBar->controlHeader.nImageX;
-    int nY = pScrollBar->controlHeader.nImageY - 1;
-    if (pScrollBar->nMaxSteps)
-    {
-        if (!sub_004FA460())
-            pScrollBar->bIsStepIndicatorDragged = 0;
-        if (pScrollBar->bIsStepIndicatorDragged)
-        {
-            SMSGHANDLER_PARAMS msg;
-            msg.hWnd = pScrollBar;
-            msg.uMessage = 0x201;
-            SCROLLBAR_HandleMouseDown(&msg);
-        }
-
-        D2CelContextStrc context;
-        memset(&context, 0, sizeof(context));
-        context.pCellFile = pCellFile;
-        context.nDirection = 0;
-        context.nFrame = pScrollBar->bIsLowerArrowPressed ? 3 : 1;
-        sub_004F6480(&context, nX, nY, -1, 5, 0);
-        context.nFrame = 5;
-        if (pScrollBar->controlHeader.nHeight - 10 > 10)
-        {
-            int nOffset = 10;
-            do
-            {
-                nOffset += 10;
-                nY -= 10;
-                sub_004F6480(&context, nX, nY, -1, 5, 0);
-            } while (nOffset < pScrollBar->controlHeader.nHeight - 10);
-        }
-        context.nFrame = pScrollBar->bIsUpperArrowPressed != 0 ? 2 : 0;
-        sub_004F6480(&context, nX,
-            pScrollBar->controlHeader.nImageY - pScrollBar->controlHeader.nHeight + 9,
-            -1, 5, 0);
-        context.nFrame = 4;
-        sub_004F6480(&context, nX,
-            (pScrollBar->controlHeader.nHeight - 30) * pScrollBar->nCurrentStep / pScrollBar->nMaxSteps
-                - pScrollBar->controlHeader.nHeight + pScrollBar->controlHeader.nImageY + 19,
-            -1, 5, 0);
-    }
-    return 1;
 }
 
 

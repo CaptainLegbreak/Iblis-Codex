@@ -13,87 +13,6 @@ const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 
 extern "C" const unsigned __int64 gqwSStrHash64Table_006CEE70[16]; // 0x006CEE70
 
-// 0x00414310
-char* __stdcall SStrDup(const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    const unsigned int nSize = SStrLen(szString) + 1;
-    char* szResult = (char*)SMemAlloc(nSize, ".\\SOURCE\\SSTR.CPP", 0x1F2, 0);
-    SMemCopy(szResult, szString, nSize);
-    return nValid ? szResult : 0;
-}
-
-// 0x00414370
-__int64 __stdcall SStrToInt64(const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    const int bNegative = *szString == '-';
-    if (bNegative)
-    {
-        ++szString;
-    }
-    unsigned int nAccum = *szString - '0';
-    __int64 nResult = 0;
-    const char* pStart = szString;
-    if (nAccum < 10)
-    {
-        ++szString;
-        unsigned int nDigit;
-        while ((nDigit = *szString - '0') < 10)
-        {
-            nAccum = nAccum * 10 + nDigit;
-            ++szString;
-            if (nAccum >= 0x19999999)
-            {
-                double dPow;
-                double x = 10.0;
-                const int nExp = (int)(szString - pStart);
-                unsigned int nBits;
-                if (nExp >= 0)
-                {
-                    nBits = (unsigned int)nExp;
-                }
-                else
-                {
-                    nBits = (unsigned int)-nExp;
-                }
-                for (double z = 1.0; ; x *= x)
-                {
-                    if ((nBits & 1) != 0)
-                    {
-                        z *= x;
-                    }
-                    if ((nBits >>= 1) == 0)
-                    {
-                        dPow = nExp < 0 ? 1.0 / z : z;
-                        break;
-                    }
-                }
-                nResult = (__int64)(dPow + 0.5) * nResult + nAccum;
-                nAccum = 0;
-                pStart = szString;
-            }
-        }
-    }
-    else
-    {
-        nAccum = 0;
-    }
-    if (nResult)
-    {
-        nResult = (__int64)(sub_00414260_PowInt(10.0, (int)(szString - pStart)) + 0.5) * nResult + nAccum;
-    }
-    else
-    {
-        nResult = nAccum;
-    }
-    return nValid ? (bNegative ? -nResult : nResult) : 0;
-}
-
 // 0x00413550
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars)
 {
@@ -120,6 +39,18 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned in
         return szString1 - szString2;
     }
     return nValid ? _strnicmp(szString1, szString2, nMaxChars) : 0;
+}
+
+// 0x00414310
+char* __stdcall SStrDup(const char* szString)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    const unsigned int nSize = SStrLen(szString) + 1;
+    char* szResult = (char*)SMemAlloc(nSize, ".\\SOURCE\\SSTR.CPP", 0x1F2, 0);
+    SMemCopy(szResult, szString, nSize);
+    return nValid ? szResult : 0;
 }
 
 // 0x00413750
@@ -252,6 +183,75 @@ Done:
  return valid ? offset-(unsigned int)dest+end : 0;
 }
 
+// 0x00414370
+__int64 __stdcall SStrToInt64(const char* szString)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    const int bNegative = *szString == '-';
+    if (bNegative)
+    {
+        ++szString;
+    }
+    unsigned int nAccum = *szString - '0';
+    __int64 nResult = 0;
+    const char* pStart = szString;
+    if (nAccum < 10)
+    {
+        ++szString;
+        unsigned int nDigit;
+        while ((nDigit = *szString - '0') < 10)
+        {
+            nAccum = nAccum * 10 + nDigit;
+            ++szString;
+            if (nAccum >= 0x19999999)
+            {
+                double dPow;
+                double x = 10.0;
+                const int nExp = (int)(szString - pStart);
+                unsigned int nBits;
+                if (nExp >= 0)
+                {
+                    nBits = (unsigned int)nExp;
+                }
+                else
+                {
+                    nBits = (unsigned int)-nExp;
+                }
+                for (double z = 1.0; ; x *= x)
+                {
+                    if ((nBits & 1) != 0)
+                    {
+                        z *= x;
+                    }
+                    if ((nBits >>= 1) == 0)
+                    {
+                        dPow = nExp < 0 ? 1.0 / z : z;
+                        break;
+                    }
+                }
+                nResult = (__int64)(dPow + 0.5) * nResult + nAccum;
+                nAccum = 0;
+                pStart = szString;
+            }
+        }
+    }
+    else
+    {
+        nAccum = 0;
+    }
+    if (nResult)
+    {
+        nResult = (__int64)(sub_00414260_PowInt(10.0, (int)(szString - pStart)) + 0.5) * nResult + nAccum;
+    }
+    else
+    {
+        nResult = nAccum;
+    }
+    return nValid ? (bNegative ? -nResult : nResult) : 0;
+}
+
 // 0x00413800
 unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit)
 {
@@ -376,26 +376,6 @@ static __declspec(noinline) int sub_00413A00_VPrintf(char* szDest, size_t nSize,
         return vsprintf(szDest, szFormat, args);
     }
     return 0;
-}
-
-// 0x00413A40
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szDest);
-    VALIDATE(szFormat);
-    VALIDATEEND;
-    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, (va_list)(&szFormat + 1)) : 0;
-}
-
-// 0x00413A80
-extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, va_list args)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szDest);
-    VALIDATE(szFormat);
-    VALIDATEEND;
-    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, args) : 0;
 }
 
 // 0x00413490
@@ -560,6 +540,26 @@ unsigned __int64 __stdcall SStrHash64(const char* szString, unsigned int nFlags,
         nResult = 1;
     }
     return nValid ? nResult : 0;
+}
+
+// 0x00413A40
+extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szDest);
+    VALIDATE(szFormat);
+    VALIDATEEND;
+    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, (va_list)(&szFormat + 1)) : 0;
+}
+
+// 0x00413A80
+extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, va_list args)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szDest);
+    VALIDATE(szFormat);
+    VALIDATEEND;
+    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, args) : 0;
 }
 
 extern "C" { int gnFlag_007788DC; }                                                                         // 0x007788DC

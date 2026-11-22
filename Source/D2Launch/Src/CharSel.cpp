@@ -793,72 +793,21 @@ static int sub_00437A20_FindSlotName(const char* szName)
     return 0;
 }
 
-// 0x0043A2B0
-int __cdecl sub_0043A2B0_InitRealmScreen()
+// 0x00451920
+void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3)
 {
-    unsigned short nStringId;
-    gnState_00779DAC = 0;
-    if (gnLaunchMode_007795EC == 1)
-    {
-        sub_00434060();
-        const int nCount = GAME_GetSlotNameCount();
-        if (nCount != -1)
-        {
-            if (nCount != 0)
-            {
-                D2WinControlStrc* pControl = sub_0042F430_CreateControl(0x7A);
-                sub_004FD830(pControl);
-                sub_004FDA50(pControl);
-                gpControl_00779DD0 = sub_0042F430_CreateControl(0x94);
-                gpCharSelectText_00779DD4 = sub_0042F430_CreateControl(0x95);
-                sub_0042F430_CreateControl(0x69);
-                gpControl_00779D98 = sub_0042F430_CreateControl(0x6B);
-                gpControl_00779D8C = sub_0042F430_CreateControl(0x6C);
-                sub_004FC9B0_SetText(sub_0042F430_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
-
-                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gData_00779A40, 0x100) || !sub_00437A20_FindSlotName(gData_00779A40))
-                {
-                    D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
-                    const int nIndex = pRecord->nIndex;
-                    SStrCopy(gData_00779A40, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
-                    SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
-                    if (!sub_00437A20_FindSlotName(gData_00779A40))
-                    {
-                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? sub_00430B50_GetSlotName(0) : 0;
-                        SStrCopy(gData_00779A40, szFirst, 0x7FFFFFFF);
-                        SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
-                    }
-                }
-            }
-            else
-            {
-                sub_0043B9A0();
-                nStringId = 0x14AA;
-                goto fail;
-            }
-        }
-        else
-        {
-            sub_0043B9A0();
-            nStringId = 0x14E3;
-            goto fail;
-        }
-    }
-    return 1;
-
-fail:
-    sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
-    return 0;
+    RECORD_WriteRecordFile();
+    if (gpfnPrevHandler_007A2764)
+        gpfnPrevHandler_007A2764(nArg1, nArg2, nArg3);
 }
 
-// 0x0043A610
-void __cdecl sub_0043A610_ShowString()
+// 0x00458CD0
+void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
 {
-    const Unicode* pTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
-    Unicode wEmpty;
-    wEmpty.wChar = 0;
-    gdwGlobal_0070CC08 = gdwGlobal_00779DC4;
-    sub_0043A460_CreateNotice(pTitle, &wEmpty, 2, 0x12);
+    AUTOMAP_SaveAutomapLayer();
+    AUTOMAP_ResetAutomapCells();
+    gpAutomapContext_007A5164 = pContext;
+    AUTOMAP_LoadAutomapLayer();
 }
 
 unsigned long gdwLastClick_00779DEC; // 0x00779DEC
@@ -975,14 +924,6 @@ void __cdecl sub_00445020_SendLaunchRequest()
     }
 }
 
-// 0x00451920
-void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3)
-{
-    RECORD_WriteRecordFile();
-    if (gpfnPrevHandler_007A2764)
-        gpfnPrevHandler_007A2764(nArg1, nArg2, nArg3);
-}
-
 // 0x00453470
 void __cdecl sub_00453470_DrawProgressiveStates()
 {
@@ -1023,15 +964,6 @@ void __cdecl sub_00453470_DrawProgressiveStates()
     }
 }
 
-// 0x00458CD0
-void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
-{
-    AUTOMAP_SaveAutomapLayer();
-    AUTOMAP_ResetAutomapCells();
-    gpAutomapContext_007A5164 = pContext;
-    AUTOMAP_LoadAutomapLayer();
-}
-
 // 0x004756D0
 void __cdecl sub_004756D0_ScanGridCollision()
 {
@@ -1069,6 +1001,74 @@ void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal)
         Sleep(250);
         ++nPosition;
     }
+}
+
+// 0x0043A2B0
+int __cdecl sub_0043A2B0_InitRealmScreen()
+{
+    unsigned short nStringId;
+    gnState_00779DAC = 0;
+    if (gnLaunchMode_007795EC == 1)
+    {
+        sub_00434060();
+        const int nCount = GAME_GetSlotNameCount();
+        if (nCount != -1)
+        {
+            if (nCount != 0)
+            {
+                D2WinControlStrc* pControl = sub_0042F430_CreateControl(0x7A);
+                sub_004FD830(pControl);
+                sub_004FDA50(pControl);
+                gpControl_00779DD0 = sub_0042F430_CreateControl(0x94);
+                gpCharSelectText_00779DD4 = sub_0042F430_CreateControl(0x95);
+                sub_0042F430_CreateControl(0x69);
+                gpControl_00779D98 = sub_0042F430_CreateControl(0x6B);
+                gpControl_00779D8C = sub_0042F430_CreateControl(0x6C);
+                sub_004FC9B0_SetText(sub_0042F430_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
+
+                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gData_00779A40, 0x100) || !sub_00437A20_FindSlotName(gData_00779A40))
+                {
+                    D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
+                    const int nIndex = pRecord->nIndex;
+                    SStrCopy(gData_00779A40, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
+                    SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
+                    if (!sub_00437A20_FindSlotName(gData_00779A40))
+                    {
+                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? sub_00430B50_GetSlotName(0) : 0;
+                        SStrCopy(gData_00779A40, szFirst, 0x7FFFFFFF);
+                        SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
+                    }
+                }
+            }
+            else
+            {
+                sub_0043B9A0();
+                nStringId = 0x14AA;
+                goto fail;
+            }
+        }
+        else
+        {
+            sub_0043B9A0();
+            nStringId = 0x14E3;
+            goto fail;
+        }
+    }
+    return 1;
+
+fail:
+    sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
+    return 0;
+}
+
+// 0x0043A610
+void __cdecl sub_0043A610_ShowString()
+{
+    const Unicode* pTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
+    Unicode wEmpty;
+    wEmpty.wChar = 0;
+    gdwGlobal_0070CC08 = gdwGlobal_00779DC4;
+    sub_0043A460_CreateNotice(pTitle, &wEmpty, 2, 0x12);
 }
 
 #include "gen/data/Source/D2Launch/Src/CharSel.inc"

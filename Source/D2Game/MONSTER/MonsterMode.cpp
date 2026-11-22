@@ -1209,6 +1209,57 @@ static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
+// 0x005A68E0
+static void MONSTERMODE_SetAiStateForMode(int nMode, D2UnitStrc* pMonster)
+{
+    const int nAiState = MONSTER_GetAiState(pMonster);
+    if (nAiState >= 16)
+    {
+        nMode = nAiState - 16;
+    }
+    else if (nAiState == 13 && nMode == 3)
+    {
+        nMode = nAiState;
+    }
+
+    MONSTER_SetAiState(pMonster, nMode);
+}
+
+inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlags & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+// 0x005A6830
+void __fastcall MONSTERMODE_TryDropTreasure(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3)
+{
+    D2UnitStrc* hUnit = pModeChange->pUnit;
+    D2_ASSERT(hUnit, 493);
+
+    if (UNIT_HasFlag(hUnit, UNITFLAG_NOTC))
+    {
+        return;
+    }
+
+    D2_ASSERT(hUnit->dwClassId != MONSTER_BONEWALL, 504);
+
+    if (!COLLISION_CheckMask(UNITS_GetRoom(hUnit), CLIENTS_GetUnitX(hUnit), CLIENTS_GetUnitY(hUnit), 0x801))
+    {
+        D2ActiveRoomStrc* hRoom = UNITS_GetRoom(hUnit);
+        D2_ASSERT(hRoom, 511);
+
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(hUnit->dwClassId);
+        D2_ASSERT(pMonStatsTxtRecord, 516);
+
+        MONSTERMODE_DropTreasure(pGame, hUnit, 0, pModeChange);
+    }
+}
+
 // 0x005A6600
 void __stdcall MONSTERMODE_DropTreasure(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2ModeChangeStrc* pModeChange)
 {
@@ -1296,55 +1347,415 @@ void __stdcall MONSTERMODE_DropTreasure(D2GameStrc* pGame, D2UnitStrc* hUnit, in
     ITEMS_DropTreasureClassById(pGame, hUnit, pModeChange->pTargetUnit, nTCId, 0, nItemLevel, a7, 0, 0, 0);
 }
 
-inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+// 0x005A6D50
+int __fastcall MONSTERMODE_CreateMonsterMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nParam)
 {
-    if (pUnit)
+    if (!pUnit)
     {
-        return (pUnit->dwFlags & nFlag) != 0;
+        return 0;
     }
 
+    const int nMissileId = D2Common_11050(pUnit, nParam);
+    if (nMissileId < 0)
+    {
+        return 0;
+    }
+
+    int nSkillLevel = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty)->dwMonsterSkillBonus + 1;
+    if (UNIT_HasFlag(pUnit, 0x200))
+    {
+        nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    }
+
+    if (SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, 0, nSkillLevel, 0, 0, 0, 0, 1))
+    {
+        MONSTERMODE_FireMissileVolley(pGame, pUnit, nMissileId);
+    }
+
+    return 1;
+}
+
+// 0x005A6DE0
+int __fastcall D2GAME_RemoveModeChangeEventCallback_6FC63B20(D2GameStrc* pGame, D2UnitStrc* pMonster)
+{
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 0, 0);
+    return 1;
+}
+
+static inline int D2GAME_GetMonsterBaseId_6FC64B10(D2UnitStrc* pUnit)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType == UNIT_MONSTER)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit->dwClassId);
+        if (pMonStatsTxtRecord)
+        {
+            return pMonStatsTxtRecord->nBaseId;
+        }
+
+        return pUnit->dwClassId;
+    }
+
+    return -1;
+}
+
+inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+static inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline void sub_005A6B70_GetTargetCoords(D2UnitStrc* pTarget, D2DynamicPathStrc* pPath, int* pX, int* pY)
+{
+    if (!pTarget)
+    {
+        *pX = D2COMMON_10175_PathGetFirstPointX(pPath);
+        *pY = D2COMMON_10176_PathGetFirstPointY(pPath);
+    }
+    else
+    {
+        *pX = UNITS_GetUnitXPosition(pTarget);
+        *pY = UNITS_GetUnitYPosition(pTarget);
+    }
+}
+
+// 0x005A6B70
+void __stdcall MONSTERMODE_FireMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId)
+{
+    const int nBaseId = D2GAME_GetMonsterBaseId_6FC64B10(pUnit);
+    if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_BASEID_63)
+    {
+        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+        D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+        int nX;
+        int nY;
+        sub_005A6B70_GetTargetCoords(pTarget, pPath, &nX, &nY);
+
+        int nOffsetX = 5;
+        int nOffsetY = 5;
+        PATH_SetTargetUnit(pPath, 0);
+
+        D2SeedStrc tSeed;
+        SEED_InitSeed(&tSeed);
+        SEED_InitLowSeed(&tSeed, 0x53454953);
+        const int nClassId = pUnit->dwClassId;
+        tSeed.nHighSeed = pUnit->dwUnitId;
+
+        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(nClassId);
+        for (int nCount = pMonStatsTxtRecord->wAiParam[2][pGame->nDifficulty]; nCount > 0; --nCount)
+        {
+            if ((unsigned int)SEED_RollRandomNumber(&tSeed) & 1)
+            {
+                nOffsetX = -nOffsetX;
+            }
+            if ((unsigned int)SEED_RollRandomNumber(&tSeed) & 1)
+            {
+                nOffsetY = -nOffsetY;
+            }
+            D2COMMON_10170_PathSetTargetPos(pPath, nOffsetX + nX, nOffsetY + nY);
+            SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, 0, 1, 0, 0, 0, 0, 0);
+        }
+
+        PATH_SetTargetUnit(pPath, pTarget);
+    }
+}
+
+// 0x005A6DF0
+static void MONSTERMODE_ApplyDeathAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    for (D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
+    {
+        if ((!pTarget ? 6 : pTarget->dwUnitType) == 0 && pTarget->dwAnimMode != 17
+            && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2
+            && !UNITS_TestCollisionBetweenInteractingUnits(pTarget, pUnit, 0x3C01))
+        {
+            D2DamageStrc damage;
+            memset(&damage, 0, sizeof(damage));
+            damage.dwPhysDamage = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 5;
+            damage.wResultFlags = 1;
+            if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE))
+                damage.wResultFlags |= 4;
+            SUNITDMG_CalculateTotalDamage(pGame, pUnit, pTarget, &damage);
+            SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
+            SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pTarget, &damage);
+        }
+    }
+}
+
+// 0x005A6EB0
+void __stdcall MONSTERMODE_HandleSiegeBeastDeath(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pMonster = SUNIT_GetOwner(pGame, pUnit);
+    if (pMonster)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Static(pMonster->dwClassId);
+        if (pMonStatsTxtRecord)
+        {
+            D2CoordStrc pCoord;
+            pCoord.nX = UNITS_GetXPosition_Static(pMonster);
+            pCoord.nY = UNITS_GetYPosition_Static(pMonster);
+            const int bFree = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pMonster), &pCoord, UNITS_GetUnitSizeX(pMonster), 0x3C01, 0) != 0;
+            if (STATLIST_GetUnitAlignment(pUnit) == 0 && bFree && AITACTICS_UseSkill(pGame, pMonster, pMonStatsTxtRecord->nSkillMode[0], pMonStatsTxtRecord->nSkill[0], 0, pCoord.nX, pCoord.nY))
+            {
+                D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 2, 0);
+            }
+            else
+            {
+                SUNITDMG_KillMonster(pGame, pMonster, 0, 1);
+            }
+        }
+    }
+}
+
+// 0x005A7EF0
+void __fastcall MONSTERMODE_EventUpdateStatListExpirations(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+{
+    STATLIST_UpdateStatListsExpiration(pUnit, pGame->dwGameFrame);
+}
+
+// 0x005A7F70
+void __fastcall MONSTERMODE_EventClearTargetOverride(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+{
+    MONSTERAI_ClearTargetOverride(pUnit);
+}
+
+// build: context sub_6FC63FD0
+static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
+    while (pTarget)
+    {
+        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !UNITS_TestCollisionBetweenInteractingUnits(pTarget, pUnit, 0x3C01))
+        {
+            D2DamageStrc damage;
+            memset(&damage, 0, sizeof(damage));
+            damage.dwPhysDamage = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 5;
+            damage.wResultFlags = 1;
+            if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE)) damage.wResultFlags |= 4;
+            sub_0057C1E0_CalculateDamage(pGame, pUnit, pTarget, &damage);
+            SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
+            sub_0057CEE0_ApplyDamage(pGame, pUnit, pTarget, &damage);
+        }
+        pTarget = pTarget->ptRoomNext;
+    }
+}
+
+inline D2MonStatsTxt* GetMonStatsById(int nId)
+{
+    if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) return &sgptDataTables->pMonStatsTxt[nId];
     return 0;
 }
 
-// 0x005A6830
-void __fastcall MONSTERMODE_TryDropTreasure(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3)
+__forceinline int GetBaseId(int nId)
 {
-    D2UnitStrc* hUnit = pModeChange->pUnit;
-    D2_ASSERT(hUnit, 493);
-
-    if (UNIT_HasFlag(hUnit, UNITFLAG_NOTC))
-    {
-        return;
-    }
-
-    D2_ASSERT(hUnit->dwClassId != MONSTER_BONEWALL, 504);
-
-    if (!COLLISION_CheckMask(UNITS_GetRoom(hUnit), CLIENTS_GetUnitX(hUnit), CLIENTS_GetUnitY(hUnit), 0x801))
-    {
-        D2ActiveRoomStrc* hRoom = UNITS_GetRoom(hUnit);
-        D2_ASSERT(hRoom, 511);
-
-        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(hUnit->dwClassId);
-        D2_ASSERT(pMonStatsTxtRecord, 516);
-
-        MONSTERMODE_DropTreasure(pGame, hUnit, 0, pModeChange);
-    }
+    D2MonStatsTxt* pRecord = GetMonStatsById(nId);
+    return pRecord ? pRecord->nBaseId : nId;
 }
 
-// 0x005A68E0
-static void MONSTERMODE_SetAiStateForMode(int nMode, D2UnitStrc* pMonster)
+static inline int GetUnitType(D2UnitStrc* pUnit)
 {
-    const int nAiState = MONSTER_GetAiState(pMonster);
-    if (nAiState >= 16)
+    int nType = 6;
+    if (pUnit) nType = pUnit->dwUnitType;
+    return nType;
+}
+
+inline int GetX(D2UnitStrc* pUnit)
+{
+    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int GetY(D2UnitStrc* pUnit)
+{
+    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int HasCorpseExplosion(D2MonStatsTxt* pRecord)
+{
+    if (pRecord) return pRecord->nMonStatsFlags[2] & gdwBitMasks[4];
+    return 0;
+}
+
+static __forceinline int GetValidBaseId(D2UnitStrc* pUnit)
+{
+    if (pUnit && GetUnitType(pUnit) == 1 && pUnit->dwClassId >= 0)
     {
-        nMode = nAiState - 16;
+        int nBaseId = GetBaseId(pUnit->dwClassId);
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            return nBaseId;
+        }
     }
-    else if (nAiState == 13 && nMode == 3)
+    return -1;
+}
+
+// 0x005A7C20
+int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill)
+{
+    D2UnitStrc* pUnit = pModeChange->pUnit;
+    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != UNIT_MONSTER)
     {
-        nMode = nAiState;
+        return 0;
     }
 
-    MONSTER_SetAiState(pMonster, nMode);
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    const int nMode = pModeChange->nMode;
+
+    D2_ASSERT(!STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE), 1875);
+
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
+    {
+        SUNIT_SetUninterruptable(pUnit, 0);
+        if (SUNIT_IsDead(pUnit))
+        {
+            return 1;
+        }
+    }
+
+    if (!SUNIT_IsDead(pUnit))
+    {
+        PATH_AddCollisionFootprintForUnit(pUnit);
+    }
+
+    if (pUnit->dwAnimMode != MONMODE_NEUTRAL)
+    {
+        MONSTERMODE_SetAiStateForMode(pUnit->dwAnimMode, pUnit);
+    }
+
+    D2MonVelocityParamStrc* pAiParam = 0;
+    if (nMode != MONMODE_GETHIT)
+    {
+        if (pModeChange->pTargetUnit)
+        {
+            PATH_SetTargetUnit(pPath, pModeChange->pTargetUnit);
+        }
+        else
+        {
+            D2COMMON_10170_PathSetTargetPos(pPath, pModeChange->nX, pModeChange->nY);
+        }
+
+        PATH_SetDistance(pPath, 20);
+
+        pAiParam = (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? (D2MonVelocityParamStrc*)pUnit->pMonsterData->pAiParam : 0;
+        MONSTERMODE_UpdateModePath(pGame, pUnit, pModeChange->nVelocityPercent, pAiParam, pModeChange->nEventFlag, pModeChange->nNewDist);
+        MONSTERMODE_UpdateModeAttackStats(pUnit, nMode);
+        MONSTERUNIQUE_ExecuteUModModeStartCallbacks(pGame, pUnit);
+    }
+
+    const D2MonModeCallbackTableStrc* pTargetRecord = MONSTERMODE_GetCallbackTableRecord(pUnit, nMode);
+    if (!pTargetRecord)
+    {
+        MONSTERMODE_StartNeutralUnlessDead(pGame, nMode, pUnit);
+        return 0;
+    }
+    if (!pTargetRecord->pfnStart)
+    {
+        MONSTERMODE_StartNeutralUnlessDead(pGame, nMode, pUnit);
+        return 0;
+    }
+
+    const int nResult = pTargetRecord->pfnStart(pGame, pModeChange);
+    if (!nResult)
+    {
+        UNITS_SetUsedSkill(pUnit, 0);
+        if (nMode != MONMODE_DEATH && nMode != MONMODE_DEAD && SUNIT_IsDead(pUnit))
+        {
+            return 1;
+        }
+
+        MONSTERMODE_StartNeutral(pGame, pModeChange);
+    }
+
+    pUnit->dwFlags |= UNITFLAG_MONMODEISCHANGING;
+    SUNIT_InitializeAnimation(pUnit);
+
+    if (pAiParam)
+    {
+        MONSTERMODE_SetVelocityPercent(pUnit, pAiParam);
+    }
+
+    MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(pGame, pUnit);
+
+    const int nCurrentAnimMode = pUnit->dwAnimMode;
+    if (bClearUsedSkill && nMode == nCurrentAnimMode)
+    {
+        UNITS_SetUsedSkill(pUnit, 0);
+    }
+
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pUnit);
+
+    const D2MonModeCallbackTableStrc* pCurrentRecord = MONSTERMODE_GetCallbackTableRecord(pUnit, nCurrentAnimMode);
+    if (!pCurrentRecord)
+    {
+        MONSTERMODE_StartNeutralUnlessDead(pGame, nMode, pUnit);
+        return 0;
+    }
+
+    if (pCurrentRecord->bScheduleEvents)
+    {
+        if (MONSTERMODE_IsModeEventEnabled(pUnit, nCurrentAnimMode))
+        {
+            SUNIT_ResetRecurringModeChangeEvent(pGame, pUnit);
+        }
+        else
+        {
+            SUNIT_ScheduleAnimationEvents(pGame, pUnit);
+        }
+    }
+
+    if (nCurrentAnimMode == MONMODE_GETHIT)
+    {
+        PATH_SetType(pPath, 0);
+        PATH_SetNewDistance(pPath, 0);
+    }
+
+    return nResult;
+}
+
+// 0x005A7E60
+void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange)
+{
+    D2_ASSERT(nMode < 16, 1976);
+    UNITS_SetUsedSkill(pUnit, 0);
+    memset(pModeChange, 0, sizeof(D2ModeChangeStrc));
+    pModeChange->nMode = nMode;
+    pModeChange->pUnit = pUnit;
+    int nEventFlag = 100;
+    if (MONSTERMODE_IsModeEventEnabled(pUnit, nMode))
+    {
+        nEventFlag = 101;
+    }
+
+    pModeChange->nEventFlag = nEventFlag;
 }
 
 // 0x005A6920
@@ -1471,263 +1882,43 @@ static int MONSTERMODE_IsModeEventEnabled(D2UnitStrc* pUnit, int nMode)
     return 0;
 }
 
-static inline int D2GAME_GetMonsterBaseId_6FC64B10(D2UnitStrc* pUnit)
+// 0x005A75C0
+int __fastcall MONSTERMODE_StartAttackOrSkill(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType == UNIT_MONSTER)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit->dwClassId);
-        if (pMonStatsTxtRecord)
-        {
-            return pMonStatsTxtRecord->nBaseId;
-        }
-
-        return pUnit->dwClassId;
-    }
-
-    return -1;
-}
-
-inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return lSeed;
-}
-
-static inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-static inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-static __forceinline void sub_005A6B70_GetTargetCoords(D2UnitStrc* pTarget, D2DynamicPathStrc* pPath, int* pX, int* pY)
-{
-    if (!pTarget)
-    {
-        *pX = D2COMMON_10175_PathGetFirstPointX(pPath);
-        *pY = D2COMMON_10176_PathGetFirstPointY(pPath);
-    }
-    else
-    {
-        *pX = UNITS_GetUnitXPosition(pTarget);
-        *pY = UNITS_GetUnitYPosition(pTarget);
-    }
-}
-
-// 0x005A6B70
-void __stdcall MONSTERMODE_FireMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId)
-{
-    const int nBaseId = D2GAME_GetMonsterBaseId_6FC64B10(pUnit);
-    if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_BASEID_63)
+    D2UnitStrc* pUnit = pModeChange->pUnit;
+    if (MONSTERMODE_IsModeEventEnabled(pUnit, pModeChange->nMode))
     {
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-        D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-        int nX;
-        int nY;
-        sub_005A6B70_GetTargetCoords(pTarget, pPath, &nX, &nY);
-
-        int nOffsetX = 5;
-        int nOffsetY = 5;
-        PATH_SetTargetUnit(pPath, 0);
-
-        D2SeedStrc tSeed;
-        SEED_InitSeed(&tSeed);
-        SEED_InitLowSeed(&tSeed, 0x53454953);
-        const int nClassId = pUnit->dwClassId;
-        tSeed.nHighSeed = pUnit->dwUnitId;
-
-        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(nClassId);
-        for (int nCount = pMonStatsTxtRecord->wAiParam[2][pGame->nDifficulty]; nCount > 0; --nCount)
+        if (!PATH_GetNumberOfPathPoints(pPath))
         {
-            if ((unsigned int)SEED_RollRandomNumber(&tSeed) & 1)
+            const int nBaseId = sub_00463860(pUnit);
+            if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_VULTURE1)
             {
-                nOffsetX = -nOffsetX;
+                D2Common_10142(pPath, pUnit, 0);
+                SUNIT_SetCombatMode(pGame, pUnit, pModeChange->nMode);
+                return 1;
             }
-            if ((unsigned int)SEED_RollRandomNumber(&tSeed) & 1)
-            {
-                nOffsetY = -nOffsetY;
-            }
-            D2COMMON_10170_PathSetTargetPos(pPath, nOffsetX + nX, nOffsetY + nY);
-            SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, 0, 1, 0, 0, 0, 0, 0);
+
+            return 0;
         }
 
-        PATH_SetTargetUnit(pPath, pTarget);
-    }
-}
-
-// 0x005A6D50
-int __fastcall MONSTERMODE_CreateMonsterMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nParam)
-{
-    if (!pUnit)
-    {
-        return 0;
+        D2Common_10142(pPath, pUnit, 0);
     }
 
-    const int nMissileId = D2Common_11050(pUnit, nParam);
-    if (nMissileId < 0)
+    SUNIT_SetCombatMode(pGame, pUnit, pModeChange->nMode);
+    if (UNITS_GetUsedSkill(pUnit))
     {
-        return 0;
-    }
-
-    int nSkillLevel = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty)->dwMonsterSkillBonus + 1;
-    if (UNIT_HasFlag(pUnit, 0x200))
-    {
-        nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
-    }
-
-    if (SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, 0, nSkillLevel, 0, 0, 0, 0, 1))
-    {
-        MONSTERMODE_FireMissileVolley(pGame, pUnit, nMissileId);
+        SKILLS_StartUsedSkill(pGame, pUnit);
     }
 
     return 1;
 }
 
-// 0x005A6DE0
-int __fastcall D2GAME_RemoveModeChangeEventCallback_6FC63B20(D2GameStrc* pGame, D2UnitStrc* pMonster)
+// 0x005A77C0
+int __fastcall MONSTERMODE_StartBlock(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
 {
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 0, 0);
+    SUNIT_SetCombatMode(pGame, pModeChange->pUnit, MONMODE_BLOCK);
     return 1;
-}
-
-// 0x005A6DF0
-static void MONSTERMODE_ApplyDeathAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    for (D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
-    {
-        if ((!pTarget ? 6 : pTarget->dwUnitType) == 0 && pTarget->dwAnimMode != 17
-            && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2
-            && !UNITS_TestCollisionBetweenInteractingUnits(pTarget, pUnit, 0x3C01))
-        {
-            D2DamageStrc damage;
-            memset(&damage, 0, sizeof(damage));
-            damage.dwPhysDamage = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 5;
-            damage.wResultFlags = 1;
-            if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE))
-                damage.wResultFlags |= 4;
-            SUNITDMG_CalculateTotalDamage(pGame, pUnit, pTarget, &damage);
-            SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
-            SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pTarget, &damage);
-        }
-    }
-}
-
-// 0x005A6EB0
-void __stdcall MONSTERMODE_HandleSiegeBeastDeath(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2UnitStrc* pMonster = SUNIT_GetOwner(pGame, pUnit);
-    if (pMonster)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Static(pMonster->dwClassId);
-        if (pMonStatsTxtRecord)
-        {
-            D2CoordStrc pCoord;
-            pCoord.nX = UNITS_GetXPosition_Static(pMonster);
-            pCoord.nY = UNITS_GetYPosition_Static(pMonster);
-            const int bFree = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pMonster), &pCoord, UNITS_GetUnitSizeX(pMonster), 0x3C01, 0) != 0;
-            if (STATLIST_GetUnitAlignment(pUnit) == 0 && bFree && AITACTICS_UseSkill(pGame, pMonster, pMonStatsTxtRecord->nSkillMode[0], pMonStatsTxtRecord->nSkill[0], 0, pCoord.nX, pCoord.nY))
-            {
-                D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 2, 0);
-            }
-            else
-            {
-                SUNITDMG_KillMonster(pGame, pMonster, 0, 1);
-            }
-        }
-    }
-}
-
-// build: context sub_6FC63FD0
-static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
-    while (pTarget)
-    {
-        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !UNITS_TestCollisionBetweenInteractingUnits(pTarget, pUnit, 0x3C01))
-        {
-            D2DamageStrc damage;
-            memset(&damage, 0, sizeof(damage));
-            damage.dwPhysDamage = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 5;
-            damage.wResultFlags = 1;
-            if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE)) damage.wResultFlags |= 4;
-            sub_0057C1E0_CalculateDamage(pGame, pUnit, pTarget, &damage);
-            SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
-            sub_0057CEE0_ApplyDamage(pGame, pUnit, pTarget, &damage);
-        }
-        pTarget = pTarget->ptRoomNext;
-    }
-}
-
-inline D2MonStatsTxt* GetMonStatsById(int nId)
-{
-    if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) return &sgptDataTables->pMonStatsTxt[nId];
-    return 0;
-}
-
-__forceinline int GetBaseId(int nId)
-{
-    D2MonStatsTxt* pRecord = GetMonStatsById(nId);
-    return pRecord ? pRecord->nBaseId : nId;
-}
-
-static inline int GetUnitType(D2UnitStrc* pUnit)
-{
-    int nType = 6;
-    if (pUnit) nType = pUnit->dwUnitType;
-    return nType;
-}
-
-inline int GetX(D2UnitStrc* pUnit)
-{
-    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-inline int GetY(D2UnitStrc* pUnit)
-{
-    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int HasCorpseExplosion(D2MonStatsTxt* pRecord)
-{
-    if (pRecord) return pRecord->nMonStatsFlags[2] & gdwBitMasks[4];
-    return 0;
-}
-
-static __forceinline int GetValidBaseId(D2UnitStrc* pUnit)
-{
-    if (pUnit && GetUnitType(pUnit) == 1 && pUnit->dwClassId >= 0)
-    {
-        int nBaseId = GetBaseId(pUnit->dwClassId);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
-        {
-            return nBaseId;
-        }
-    }
-    return -1;
 }
 
 // 0x005A6FF0
@@ -1836,87 +2027,6 @@ int __fastcall MONSTERMODE_UpdateDeath(D2GameStrc* pGame, D2UnitStrc* pUnit)
     return 1;
 }
 
-// 0x005A7390
-int __fastcall MONSTERMODE_StartDead(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
-{
-    D2UnitStrc* pUnit = pModeChange->pUnit;
-    if (pUnit && pUnit->dwAnimMode)
-    {
-        MONSTERMODE_CleanupDeath(pModeChange->nDirection, pGame, pUnit);
-    }
-
-    SUNIT_SetCombatMode(pGame, pUnit, 12);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 8, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, 0);
-    return 1;
-}
-
-// 0x005A73E0
-int __fastcall MONSTERMODE_StartNeutral(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
-{
-    D2UnitStrc* pUnit = pModeChange->pUnit;
-    SUNIT_SetCombatMode(pGame, pUnit, 1);
-
-    if (EVENT_GetEventFrame(pGame, pUnit, 2) <= pGame->dwGameFrame)
-    {
-        if (STATES_CheckState(pUnit, STATE_STUNNED))
-        {
-            EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 45, 0, 0);
-            return 1;
-        }
-
-        if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
-        {
-            D2MonStatsTxt* pMonStatsTxtRecord = (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
-            if (pMonStatsTxtRecord)
-            {
-                int nAiDelay;
-                if (!pGame->nGameType && !pGame->dwGameType)
-                {
-                    nAiDelay = pMonStatsTxtRecord->nAIdel[0];
-                }
-                else
-                {
-                    nAiDelay = pMonStatsTxtRecord->nAIdel[pGame->nDifficulty];
-                }
-
-                if (nAiDelay <= 0)
-                {
-                    nAiDelay = 15;
-                }
-
-                EVENT_SetEvent(pGame, pUnit, 2, nAiDelay + pGame->dwGameFrame, 0, 0);
-            }
-        }
-    }
-
-    return 1;
-}
-
-// 0x005A7490
-int __fastcall MONSTERMODE_StartSkill3(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
-{
-    SUNIT_SetCombatMode(pGame, pModeChange->pUnit, MONMODE_SKILL3);
-    return 1;
-}
-
-// 0x005A74A0
-int __fastcall MONSTERMODE_UpdateSkill3(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    SUNIT_UpdateUnitPath(pGame, pUnit);
-    UNITS_StopSequence(pUnit);
-    if (UNITS_IsAtEndOfFrameCycle(pUnit))
-    {
-        SUNIT_SetCombatMode(pGame, pUnit, MONMODE_SKILL4);
-    }
-    return 1;
-}
-
-// 0x005A74D0
-void __fastcall MONSTERMODE_EndSkill3(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-}
-
 // 0x005A74E0
 int __fastcall MONSTERMODE_StartSkill4(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
 {
@@ -1965,38 +2075,6 @@ int __fastcall MONSTERMODE_StartGetHit(D2GameStrc* pGame, D2ModeChangeStrc* pMod
             SUNIT_SetCombatMode(pGame, pUnit, MONMODE_GETHIT);
         }
     }
-    return 1;
-}
-
-// 0x005A75C0
-int __fastcall MONSTERMODE_StartAttackOrSkill(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
-{
-    D2UnitStrc* pUnit = pModeChange->pUnit;
-    if (MONSTERMODE_IsModeEventEnabled(pUnit, pModeChange->nMode))
-    {
-        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-        if (!PATH_GetNumberOfPathPoints(pPath))
-        {
-            const int nBaseId = sub_00463860(pUnit);
-            if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_VULTURE1)
-            {
-                D2Common_10142(pPath, pUnit, 0);
-                SUNIT_SetCombatMode(pGame, pUnit, pModeChange->nMode);
-                return 1;
-            }
-
-            return 0;
-        }
-
-        D2Common_10142(pPath, pUnit, 0);
-    }
-
-    SUNIT_SetCombatMode(pGame, pUnit, pModeChange->nMode);
-    if (UNITS_GetUsedSkill(pUnit))
-    {
-        SKILLS_StartUsedSkill(pGame, pUnit);
-    }
-
     return 1;
 }
 
@@ -2073,10 +2151,18 @@ int __fastcall MONSTERMODE_UpdateAttackOrSkill(D2GameStrc* pGame, D2UnitStrc* pU
     return 1;
 }
 
-// 0x005A77C0
-int __fastcall MONSTERMODE_StartBlock(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
+// 0x005A7390
+int __fastcall MONSTERMODE_StartDead(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
 {
-    SUNIT_SetCombatMode(pGame, pModeChange->pUnit, MONMODE_BLOCK);
+    D2UnitStrc* pUnit = pModeChange->pUnit;
+    if (pUnit && pUnit->dwAnimMode)
+    {
+        MONSTERMODE_CleanupDeath(pModeChange->nDirection, pGame, pUnit);
+    }
+
+    SUNIT_SetCombatMode(pGame, pUnit, 12);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 8, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, 0);
     return 1;
 }
 
@@ -2084,6 +2170,88 @@ void __fastcall sub_Emit_005A6DF0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (pUnit)
         MONSTERMODE_ApplyDeathAreaDamage(pGame, pUnit);
+}
+
+// 0x005A7B30
+static int __stdcall MONSTERMODE_StartNeutralUnlessDead(D2GameStrc* pGame, int nMode, D2UnitStrc* pUnit)
+{
+    UNITS_SetUsedSkill(pUnit, 0);
+    if (nMode && nMode != 12 && SUNIT_IsDead(pUnit))
+    {
+        return 1;
+    }
+
+    D2ModeChangeStrc tModeChange = {};
+    tModeChange.pUnit = pUnit;
+    tModeChange.nMode = MONMODE_NEUTRAL;
+    MONSTERMODE_StartNeutral(pGame, &tModeChange);
+    return 0;
+}
+
+// 0x005A73E0
+int __fastcall MONSTERMODE_StartNeutral(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
+{
+    D2UnitStrc* pUnit = pModeChange->pUnit;
+    SUNIT_SetCombatMode(pGame, pUnit, 1);
+
+    if (EVENT_GetEventFrame(pGame, pUnit, 2) <= pGame->dwGameFrame)
+    {
+        if (STATES_CheckState(pUnit, STATE_STUNNED))
+        {
+            EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 45, 0, 0);
+            return 1;
+        }
+
+        if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+        {
+            D2MonStatsTxt* pMonStatsTxtRecord = (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
+            if (pMonStatsTxtRecord)
+            {
+                int nAiDelay;
+                if (!pGame->nGameType && !pGame->dwGameType)
+                {
+                    nAiDelay = pMonStatsTxtRecord->nAIdel[0];
+                }
+                else
+                {
+                    nAiDelay = pMonStatsTxtRecord->nAIdel[pGame->nDifficulty];
+                }
+
+                if (nAiDelay <= 0)
+                {
+                    nAiDelay = 15;
+                }
+
+                EVENT_SetEvent(pGame, pUnit, 2, nAiDelay + pGame->dwGameFrame, 0, 0);
+            }
+        }
+    }
+
+    return 1;
+}
+
+// 0x005A7490
+int __fastcall MONSTERMODE_StartSkill3(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
+{
+    SUNIT_SetCombatMode(pGame, pModeChange->pUnit, MONMODE_SKILL3);
+    return 1;
+}
+
+// 0x005A74A0
+int __fastcall MONSTERMODE_UpdateSkill3(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    SUNIT_UpdateUnitPath(pGame, pUnit);
+    UNITS_StopSequence(pUnit);
+    if (UNITS_IsAtEndOfFrameCycle(pUnit))
+    {
+        SUNIT_SetCombatMode(pGame, pUnit, MONMODE_SKILL4);
+    }
+    return 1;
+}
+
+// 0x005A74D0
+void __fastcall MONSTERMODE_EndSkill3(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
 }
 
 // 0x005A77D0
@@ -2229,22 +2397,6 @@ const D2MonModeCallbackTableStrc* __fastcall MONSTERMODE_GetCallbackTableRecord(
     return &gMonModeCallbacks[nMode];
 }
 
-// 0x005A7B30
-static int __stdcall MONSTERMODE_StartNeutralUnlessDead(D2GameStrc* pGame, int nMode, D2UnitStrc* pUnit)
-{
-    UNITS_SetUsedSkill(pUnit, 0);
-    if (nMode && nMode != 12 && SUNIT_IsDead(pUnit))
-    {
-        return 1;
-    }
-
-    D2ModeChangeStrc tModeChange = {};
-    tModeChange.pUnit = pUnit;
-    tModeChange.nMode = MONMODE_NEUTRAL;
-    MONSTERMODE_StartNeutral(pGame, &tModeChange);
-    return 0;
-}
-
 // 0x005A7BA0
 void __fastcall MONSTERMODE_EventModeChange(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
 {
@@ -2279,158 +2431,6 @@ void __fastcall MONSTERMODE_EventEndAnimation(D2GameStrc* pGame, D2UnitStrc* pUn
         return;
     }
     pMonModeCallbackTableRecord->pfnEnd(pGame, pUnit);
-}
-
-// 0x005A7C20
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill)
-{
-    D2UnitStrc* pUnit = pModeChange->pUnit;
-    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != UNIT_MONSTER)
-    {
-        return 0;
-    }
-
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    const int nMode = pModeChange->nMode;
-
-    D2_ASSERT(!STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE), 1875);
-
-    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
-    {
-        SUNIT_SetUninterruptable(pUnit, 0);
-        if (SUNIT_IsDead(pUnit))
-        {
-            return 1;
-        }
-    }
-
-    if (!SUNIT_IsDead(pUnit))
-    {
-        PATH_AddCollisionFootprintForUnit(pUnit);
-    }
-
-    if (pUnit->dwAnimMode != MONMODE_NEUTRAL)
-    {
-        MONSTERMODE_SetAiStateForMode(pUnit->dwAnimMode, pUnit);
-    }
-
-    D2MonVelocityParamStrc* pAiParam = 0;
-    if (nMode != MONMODE_GETHIT)
-    {
-        if (pModeChange->pTargetUnit)
-        {
-            PATH_SetTargetUnit(pPath, pModeChange->pTargetUnit);
-        }
-        else
-        {
-            D2COMMON_10170_PathSetTargetPos(pPath, pModeChange->nX, pModeChange->nY);
-        }
-
-        PATH_SetDistance(pPath, 20);
-
-        pAiParam = (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? (D2MonVelocityParamStrc*)pUnit->pMonsterData->pAiParam : 0;
-        MONSTERMODE_UpdateModePath(pGame, pUnit, pModeChange->nVelocityPercent, pAiParam, pModeChange->nEventFlag, pModeChange->nNewDist);
-        MONSTERMODE_UpdateModeAttackStats(pUnit, nMode);
-        MONSTERUNIQUE_ExecuteUModModeStartCallbacks(pGame, pUnit);
-    }
-
-    const D2MonModeCallbackTableStrc* pTargetRecord = MONSTERMODE_GetCallbackTableRecord(pUnit, nMode);
-    if (!pTargetRecord)
-    {
-        MONSTERMODE_StartNeutralUnlessDead(pGame, nMode, pUnit);
-        return 0;
-    }
-    if (!pTargetRecord->pfnStart)
-    {
-        MONSTERMODE_StartNeutralUnlessDead(pGame, nMode, pUnit);
-        return 0;
-    }
-
-    const int nResult = pTargetRecord->pfnStart(pGame, pModeChange);
-    if (!nResult)
-    {
-        UNITS_SetUsedSkill(pUnit, 0);
-        if (nMode != MONMODE_DEATH && nMode != MONMODE_DEAD && SUNIT_IsDead(pUnit))
-        {
-            return 1;
-        }
-
-        MONSTERMODE_StartNeutral(pGame, pModeChange);
-    }
-
-    pUnit->dwFlags |= UNITFLAG_MONMODEISCHANGING;
-    SUNIT_InitializeAnimation(pUnit);
-
-    if (pAiParam)
-    {
-        MONSTERMODE_SetVelocityPercent(pUnit, pAiParam);
-    }
-
-    MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(pGame, pUnit);
-
-    const int nCurrentAnimMode = pUnit->dwAnimMode;
-    if (bClearUsedSkill && nMode == nCurrentAnimMode)
-    {
-        UNITS_SetUsedSkill(pUnit, 0);
-    }
-
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pUnit);
-
-    const D2MonModeCallbackTableStrc* pCurrentRecord = MONSTERMODE_GetCallbackTableRecord(pUnit, nCurrentAnimMode);
-    if (!pCurrentRecord)
-    {
-        MONSTERMODE_StartNeutralUnlessDead(pGame, nMode, pUnit);
-        return 0;
-    }
-
-    if (pCurrentRecord->bScheduleEvents)
-    {
-        if (MONSTERMODE_IsModeEventEnabled(pUnit, nCurrentAnimMode))
-        {
-            SUNIT_ResetRecurringModeChangeEvent(pGame, pUnit);
-        }
-        else
-        {
-            SUNIT_ScheduleAnimationEvents(pGame, pUnit);
-        }
-    }
-
-    if (nCurrentAnimMode == MONMODE_GETHIT)
-    {
-        PATH_SetType(pPath, 0);
-        PATH_SetNewDistance(pPath, 0);
-    }
-
-    return nResult;
-}
-
-// 0x005A7E60
-void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange)
-{
-    D2_ASSERT(nMode < 16, 1976);
-    UNITS_SetUsedSkill(pUnit, 0);
-    memset(pModeChange, 0, sizeof(D2ModeChangeStrc));
-    pModeChange->nMode = nMode;
-    pModeChange->pUnit = pUnit;
-    int nEventFlag = 100;
-    if (MONSTERMODE_IsModeEventEnabled(pUnit, nMode))
-    {
-        nEventFlag = 101;
-    }
-
-    pModeChange->nEventFlag = nEventFlag;
-}
-
-// 0x005A7EF0
-void __fastcall MONSTERMODE_EventUpdateStatListExpirations(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
-{
-    STATLIST_UpdateStatListsExpiration(pUnit, pGame->dwGameFrame);
-}
-
-// 0x005A7F70
-void __fastcall MONSTERMODE_EventClearTargetOverride(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
-{
-    MONSTERAI_ClearTargetOverride(pUnit);
 }
 
 // build: context MONSTATS_GetRecordInline

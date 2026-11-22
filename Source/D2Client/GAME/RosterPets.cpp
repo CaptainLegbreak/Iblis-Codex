@@ -217,6 +217,36 @@ void __cdecl ROSTERPETS_FreeRosterPets()
     gpRosterPets_007BB5BC = 0;
 }
 
+// 0x00478B10
+void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue)
+{
+    if (nType == 7)
+    {
+        ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
+    }
+    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nKey == nKey)
+        {
+            pNode->nType = nType;
+            pNode->nArg = nArg;
+            pNode->nValue = nValue;
+            pNode->nClear = 0;
+            return;
+        }
+    }
+    D2RosterPetNodeStrc* pNew = (D2RosterPetNodeStrc*)FOG_Alloc(sizeof(D2RosterPetNodeStrc), ".\\GAME\\RosterPets.cpp", 0x7A, 0);
+    memset(pNew, 0, sizeof(D2RosterPetNodeStrc));
+    D2RosterPetNodeStrc* pHead = gpRosterPets_007BB5BC;
+    pNew->nKey = nKey;
+    pNew->nArg = nArg;
+    pNew->nType = nType;
+    pNew->nValue = nValue;
+    pNew->nInit = 0x64;
+    pNew->pNext = pHead;
+    gpRosterPets_007BB5BC = pNew;
+}
+
 // 0x00478AB0
 void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey)
 {
@@ -249,36 +279,6 @@ void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x00478B10
-void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue)
-{
-    if (nType == 7)
-    {
-        ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
-    }
-    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nKey == nKey)
-        {
-            pNode->nType = nType;
-            pNode->nArg = nArg;
-            pNode->nValue = nValue;
-            pNode->nClear = 0;
-            return;
-        }
-    }
-    D2RosterPetNodeStrc* pNew = (D2RosterPetNodeStrc*)FOG_Alloc(sizeof(D2RosterPetNodeStrc), ".\\GAME\\RosterPets.cpp", 0x7A, 0);
-    memset(pNew, 0, sizeof(D2RosterPetNodeStrc));
-    D2RosterPetNodeStrc* pHead = gpRosterPets_007BB5BC;
-    pNew->nKey = nKey;
-    pNew->nArg = nArg;
-    pNew->nType = nType;
-    pNew->nValue = nValue;
-    pNew->nInit = 0x64;
-    pNew->pNext = pHead;
-    gpRosterPets_007BB5BC = pNew;
 }
 
 // 0x004890B0
@@ -493,34 +493,6 @@ D2RosterPetNodeStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
     return 0;
 }
 
-// 0x00478C90
-void __fastcall ROSTERPETS_DropPetEntry(int nKey)
-{
-    D2RosterPetNodeStrc* pPrev = 0;
-    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nKey == nKey)
-        {
-            if (pNode->nType == 7)
-            {
-                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-                if (pNode->nArg == (!pPlayer ? -1 : pPlayer->dwUnitId))
-                {
-                    pNode->nClear = 1;
-                    return;
-                }
-            }
-            if (pPrev)
-                pPrev->pNext = pNode->pNext;
-            else
-                gpRosterPets_007BB5BC = pNode->pNext;
-            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0xD1, 0);
-            return;
-        }
-        pPrev = pNode;
-    }
-}
-
 // 0x00478BB0
 void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs)
 {
@@ -557,6 +529,34 @@ void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nV
             MONSTER_SetMonsterLight(pUnit);
             UNITS_ChangeAnimMode(pUnit, 1);
         }
+    }
+}
+
+// 0x00478C90
+void __fastcall ROSTERPETS_DropPetEntry(int nKey)
+{
+    D2RosterPetNodeStrc* pPrev = 0;
+    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nKey == nKey)
+        {
+            if (pNode->nType == 7)
+            {
+                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+                if (pNode->nArg == (!pPlayer ? -1 : pPlayer->dwUnitId))
+                {
+                    pNode->nClear = 1;
+                    return;
+                }
+            }
+            if (pPrev)
+                pPrev->pNext = pNode->pNext;
+            else
+                gpRosterPets_007BB5BC = pNode->pNext;
+            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0xD1, 0);
+            return;
+        }
+        pPrev = pNode;
     }
 }
 

@@ -1626,32 +1626,6 @@ static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo)
     return pLayer;
 }
 
-// 0x00458F40
-void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
-{
-    unsigned int nCount = 0;
-    D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
-    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        D2DrlgTileDataStrc* pTileData = &pTiles[i];
-        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
-        {
-            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
-        }
-    }
-    pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        D2DrlgTileDataStrc* pTileData = &pTiles[i];
-        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
-        {
-            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
-        }
-    }
-    AUTOMAP_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
-}
-
 // 0x00459020
 void __cdecl AUTOMAP_UpdateAutomapReveal()
 {
@@ -1695,6 +1669,32 @@ void __cdecl AUTOMAP_UpdateAutomapReveal()
         if (nLayerNo == DATATBLS_GetLevelDefRecord(DUNGEON_GetLevelIdFromRoom(ppRoomList[i]))->dwLayer)
             AUTOMAP_RevealRoomTiles(ppRoomList[i], 0, pLayer);
     }
+}
+
+// 0x00458F40
+void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
+{
+    unsigned int nCount = 0;
+    D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
+    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        D2DrlgTileDataStrc* pTileData = &pTiles[i];
+        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
+        {
+            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
+        }
+    }
+    pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        D2DrlgTileDataStrc* pTileData = &pTiles[i];
+        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
+        {
+            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
+        }
+    }
+    AUTOMAP_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
 }
 
 void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY)

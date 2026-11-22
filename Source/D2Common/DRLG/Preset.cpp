@@ -1690,146 +1690,76 @@ static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* ptRoom, in
     }
 }
 
-// 0x006671E0
-void __fastcall DRLGPRESET_UpdatePops(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY, int bOtherRoom)
+// 0x00668240
+void __fastcall DRLGPRESET_FreeDrlgFileData(D2DrlgFileStrc* pDrlgFile)
 {
-    D2DrlgMapStrc* pDrlgMap;
-    int bUpdate;
-    int nTick;
-    int nPopIndex;
-
-    pDrlgMap = 0;
-    bUpdate = 0;
-    nTick = GetTickCount() + 500;
-    nPopIndex = 0;
-    int i;
-    int j;
-    D2DrlgRoomStrc* pAdjacentRoom;
-    D2DrlgMapStrc* pAdjacentMap;
-    int nOrientation;
-
-    if (pDrlgRoom->nType == 2)
+    if (pDrlgFile->pDS1File)
     {
-        pDrlgMap = pDrlgRoom->pMaze->pMap;
-        for (i = 0; i < pDrlgMap->nPops; ++i)
-        {
-            D2DrlgCoordStrc tDrlgCoord = { 0 };
-            tDrlgCoord.nPosX = 5 * pDrlgMap->pPopsLocation[i].nPosX;
-            tDrlgCoord.nPosY = 5 * pDrlgMap->pPopsLocation[i].nPosY;
-            tDrlgCoord.nWidth = pDrlgMap->pLvlPrestTxtRecord->dwPopPad + 5 * pDrlgMap->pPopsLocation[i].nWidth;
-            tDrlgCoord.nHeight = pDrlgMap->pLvlPrestTxtRecord->dwPopPad + 5 * pDrlgMap->pPopsLocation[i].nHeight;
-
-            if (DRLGROOM_AreXYInsideCoordinates(&tDrlgCoord, nX, nY))
-            {
-                nPopIndex = pDrlgMap->pPopsIndex[i];
-                break;
-            }
-        }
+        FOG_Free(pDrlgFile->pDS1File, &gszDrlgPresetSourceFile, 1272, 0);
     }
 
-    for (i = 0; i < pDrlgRoom->nRoomsNear; ++i)
+    if (pDrlgFile->pSubstGroups)
     {
-        pAdjacentRoom = pDrlgRoom->ppRoomsNear[i];
-        if (pAdjacentRoom->nType == 2 && pAdjacentRoom->pRoom)
-        {
-            pAdjacentMap = pAdjacentRoom->pMaze->pMap;
-            for (j = 0; j < pAdjacentMap->nPops; ++j)
-            {
-                nOrientation = pAdjacentMap->pPopsOrientation[j];
-                if ((pAdjacentMap != pDrlgMap || pAdjacentMap->pPopsIndex[j] != nPopIndex) && nOrientation)
-                {
-                    DRLGPRESET_TogglePopsVisibility(pAdjacentRoom, pAdjacentMap->pPopsSubIndex[j], &pAdjacentMap->pPopsLocation[j], nTick, 1);
-                    bUpdate = 1;
-                }
-
-                if (pAdjacentMap == pDrlgMap && pAdjacentMap->pPopsIndex[j] == nPopIndex)
-                {
-                    if (!nOrientation)
-                    {
-                        DRLGPRESET_TogglePopsVisibility(pAdjacentRoom, pAdjacentMap->pPopsSubIndex[j], &pAdjacentMap->pPopsLocation[j], nTick, 0);
-                        bUpdate = 1;
-                    }
-                    else if (bOtherRoom)
-                    {
-                        DRLGPRESET_TogglePopsVisibility(pAdjacentRoom, pAdjacentMap->pPopsSubIndex[j], &pAdjacentMap->pPopsLocation[j], nOrientation, 0);
-                        bUpdate = 1;
-                    }
-                }
-            }
-        }
+        sub_0040B480(0, pDrlgFile->pSubstGroups, &gszDrlgPresetSourceFile, 1273, 0);
     }
 
-    if (bUpdate)
+    D2PresetUnitStrc* pNext = pDrlgFile->pPresetUnit;
+    while (pNext)
     {
-        for (i = 0; i < pDrlgRoom->nRoomsNear; ++i)
-        {
-            pAdjacentRoom = pDrlgRoom->ppRoomsNear[i];
-            if (pAdjacentRoom->nType == 2)
-            {
-                pAdjacentMap = pAdjacentRoom->pMaze->pMap;
-                for (j = 0; j < pAdjacentMap->nPops; ++j)
-                {
-                    if (pAdjacentMap != pDrlgMap || pAdjacentMap->pPopsIndex[j] != nPopIndex)
-                    {
-                        pAdjacentMap->pPopsOrientation[j] = 0;
-                    }
-
-                    if (pAdjacentMap == pDrlgMap && pAdjacentMap->pPopsIndex[j] == nPopIndex)
-                    {
-                        pAdjacentMap->pPopsOrientation[j] = nTick;
-                    }
-                }
-            }
-        }
+        D2PresetUnitStrc* pPresetUnit = pNext;
+        pNext = pPresetUnit->pNext;
+        DRLGPRESET_FreePresetUnit(0, pPresetUnit);
     }
+
+    sub_0040B480(0, pDrlgFile, &gszDrlgPresetSourceFile, 1285, 0);
 }
 
-// 0x00667420
-int __fastcall sub_00667420_GetChainField20(D2Unk00667420Strc* p)
+// 0x00668300
+void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile)
 {
-    return p->p14->p00->n20;
+    if (!*ppDrlgFile)
+    {
+        return;
+    }
+
+    EnterCriticalSection(&gLevelFilesCriticalSection);
+
+    D2LevelFileListStrc* pPrevious = 0;
+    D2LevelFileListStrc* pCurrent = gpLevelFilesList;
+    while (pCurrent && pCurrent->pFile != *ppDrlgFile)
+    {
+        pPrevious = pCurrent;
+        pCurrent = pCurrent->pNext;
+    }
+
+    InterlockedDecrement(&pCurrent->nRefCount);
+
+    if (pCurrent && pCurrent->nRefCount <= 0)
+    {
+        if (pPrevious)
+        {
+            pPrevious->pNext = pCurrent->pNext;
+        }
+        else
+        {
+            gpLevelFilesList = pCurrent->pNext;
+        }
+
+        LeaveCriticalSection(&gLevelFilesCriticalSection);
+        DRLGPRESET_FreeDrlgFileData(*ppDrlgFile);
+        sub_0040B480(0, pCurrent, &gszDrlgPresetSourceFile, 1336, 0);
+        *ppDrlgFile = 0;
+    }
+    else
+    {
+        LeaveCriticalSection(&gLevelFilesCriticalSection);
+    }
 }
 
 // build: context DRLGPRESET_GetFileCount
 static inline int DRLGPRESET_GetFileCount(D2LvlPrestTxt* pLvlPrestTxtRecord)
 {
 	return pLvlPrestTxtRecord->dwFiles;
-}
-
-// 0x00667430
-void __fastcall DRLGPRESET_InitLevelData(D2DrlgLevelStrc* pLevel)
-{
-	void* const tArg1 = pLevel->pDrlg->pMempool;
-	D2DrlgPresetInfoStrc* pPreset = (D2DrlgPresetInfoStrc*)FOG_AllocPool(tArg1, sizeof(D2DrlgPresetInfoStrc), gszPresetFile, 2809, 0);
-	D2LvlPrestTxt* pLvlPrestTxtRecord = DATATBLS_GetLvlPrestTxtRecordFromLevelId(pLevel->eLevelId);
-	D2_ASSERT(pLvlPrestTxtRecord, 2811);
-
-	pLevel->pPreset = pPreset;
-	memset(pPreset, 0, sizeof(D2DrlgPresetInfoStrc));
-
-	const int nFiles = DRLGPRESET_GetFileCount(pLvlPrestTxtRecord);
-	if (nFiles)
-	{
-		pPreset->nDirection = sub_0045C3E0(&pLevel->pSeed, nFiles);
-	}
-	else
-	{
-		pPreset->nDirection = -1;
-	}
-
-	DRLG_SetLevelPositionAndSize(pLevel->pDrlg, pLevel);
-}
-
-// 0x006674D0
-void __fastcall DRLGPRESET_ResetDrlgMap(D2DrlgLevelStrc* pLevel, int bKeepPreset)
-{
-    pLevel->pPreset->pDrlgMap = 0;
-
-    if (!bKeepPreset)
-    {
-        sub_0040B480(pLevel->pDrlg->pMempool, pLevel->pPreset, &gszDrlgPresetSourceFile, 2906, 0);
-        pLevel->pPreset = 0;
-    }
 }
 
 // 0x00667510
@@ -1867,103 +1797,6 @@ void __fastcall DRLGPRESET_FreePresetUnit(void* pMemPool, D2PresetUnitStrc* pPre
     }
 
     sub_0040B480(pMemPool, pPresetUnit, &gszDrlgPresetSourceFile, 1387, 0);
-}
-
-static inline int DRLGPRESET_GetMonsterId(int nMonsterId, int nMonStatsCount)
-{
-    if (nMonsterId >= 0 && nMonsterId < nMonStatsCount)
-    {
-        return nMonsterId;
-    }
-
-    return -1;
-}
-
-// 0x00667620
-void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap, D2SeedStrc* pSeed)
-{
-    D2PresetUnitStrc* pPresetUnit = pDrlgMap->ptFile->pPresetUnit;
-    int nX = pDrlgMap->tCoords.nPosX;
-    int nY = pDrlgMap->tCoords.nPosY;
-    DUNGEON_GameTileToSubtileCoords(&nX, &nY);
-
-    for (; pPresetUnit; pPresetUnit = pPresetUnit->pNext)
-    {
-        switch (pPresetUnit->nUnitType)
-        {
-        case 1:
-        {
-            const int nMonStatsCount = sgptDataTables->nMonStatsTxtRecordCount;
-            if (pPresetUnit->nIndex < nMonStatsCount)
-            {
-                switch (DRLGPRESET_GetMonsterId(pPresetUnit->nIndex, nMonStatsCount))
-                {
-                case MONSTER_ACT2VENDOR1:
-                case MONSTER_ACT2VENDOR2:
-                case MONSTER_LIGHTNINGSPIRE:
-                case MONSTER_FIRETOWER:
-                    if (SEED_RollRandomNumber(pSeed) % 3)
-                    {
-                        continue;
-                    }
-                    break;
-                }
-            }
-            else if (pPresetUnit->nIndex - nMonStatsCount >= DATATBLS_GetSuperUniquesTxtRecordCount())
-            {
-                const int nCount = sgptDataTables->nMonStatsTxtRecordCount;
-                switch (pPresetUnit->nIndex - nCount - DATATBLS_GetSuperUniquesTxtRecordCount())
-                {
-                case 33:
-                    if (!(SEED_RollRandomNumber(pSeed) & 3))
-                    {
-                        continue;
-                    }
-                    break;
-
-                case 34:
-                    if (!(SEED_RollRandomNumber(pSeed) & 1))
-                    {
-                        continue;
-                    }
-                    break;
-
-                case 35:
-                    if (SEED_RollRandomNumber(pSeed) & 3)
-                    {
-                        continue;
-                    }
-                    break;
-                }
-            }
-            break;
-        }
-
-        case 2:
-            switch (pPresetUnit->nIndex)
-            {
-            case 196:
-            case 261:
-                if (SEED_RollRandomNumber(pSeed) & 1)
-                {
-                    continue;
-                }
-                break;
-
-            case 581:
-                if (!(SEED_RollRandomNumber(pSeed) & 3))
-                {
-                    continue;
-                }
-                break;
-            }
-            break;
-        }
-
-        D2PresetUnitStrc* pNew = DRLGPRESET_CopyPresetUnit(pMemPool, pPresetUnit, nX, nY);
-        pNew->pNext = pDrlgMap->pPresetUnit;
-        pDrlgMap->pPresetUnit = pNew;
-    }
 }
 
 // 0x00667890
@@ -2198,6 +2031,103 @@ static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2Drlg
     }
 }
 
+static inline int DRLGPRESET_GetMonsterId(int nMonsterId, int nMonStatsCount)
+{
+    if (nMonsterId >= 0 && nMonsterId < nMonStatsCount)
+    {
+        return nMonsterId;
+    }
+
+    return -1;
+}
+
+// 0x00667620
+void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap, D2SeedStrc* pSeed)
+{
+    D2PresetUnitStrc* pPresetUnit = pDrlgMap->ptFile->pPresetUnit;
+    int nX = pDrlgMap->tCoords.nPosX;
+    int nY = pDrlgMap->tCoords.nPosY;
+    DUNGEON_GameTileToSubtileCoords(&nX, &nY);
+
+    for (; pPresetUnit; pPresetUnit = pPresetUnit->pNext)
+    {
+        switch (pPresetUnit->nUnitType)
+        {
+        case 1:
+        {
+            const int nMonStatsCount = sgptDataTables->nMonStatsTxtRecordCount;
+            if (pPresetUnit->nIndex < nMonStatsCount)
+            {
+                switch (DRLGPRESET_GetMonsterId(pPresetUnit->nIndex, nMonStatsCount))
+                {
+                case MONSTER_ACT2VENDOR1:
+                case MONSTER_ACT2VENDOR2:
+                case MONSTER_LIGHTNINGSPIRE:
+                case MONSTER_FIRETOWER:
+                    if (SEED_RollRandomNumber(pSeed) % 3)
+                    {
+                        continue;
+                    }
+                    break;
+                }
+            }
+            else if (pPresetUnit->nIndex - nMonStatsCount >= DATATBLS_GetSuperUniquesTxtRecordCount())
+            {
+                const int nCount = sgptDataTables->nMonStatsTxtRecordCount;
+                switch (pPresetUnit->nIndex - nCount - DATATBLS_GetSuperUniquesTxtRecordCount())
+                {
+                case 33:
+                    if (!(SEED_RollRandomNumber(pSeed) & 3))
+                    {
+                        continue;
+                    }
+                    break;
+
+                case 34:
+                    if (!(SEED_RollRandomNumber(pSeed) & 1))
+                    {
+                        continue;
+                    }
+                    break;
+
+                case 35:
+                    if (SEED_RollRandomNumber(pSeed) & 3)
+                    {
+                        continue;
+                    }
+                    break;
+                }
+            }
+            break;
+        }
+
+        case 2:
+            switch (pPresetUnit->nIndex)
+            {
+            case 196:
+            case 261:
+                if (SEED_RollRandomNumber(pSeed) & 1)
+                {
+                    continue;
+                }
+                break;
+
+            case 581:
+                if (!(SEED_RollRandomNumber(pSeed) & 3))
+                {
+                    continue;
+                }
+                break;
+            }
+            break;
+        }
+
+        D2PresetUnitStrc* pNew = DRLGPRESET_CopyPresetUnit(pMemPool, pPresetUnit, nX, nY);
+        pNew->pNext = pDrlgMap->pPresetUnit;
+        pDrlgMap->pPresetUnit = pNew;
+    }
+}
+
 // 0x00667ED0
 D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom)
 {
@@ -2282,6 +2212,175 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgM
     return pDrlgRoom;
 }
 
+// 0x006683D0
+void __fastcall DRLGPRESET_FreeDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap)
+{
+    D2DrlgMapStrc* pMap = pDrlgMap;
+    while (pMap)
+    {
+        D2DrlgMapStrc* pNextMap = pMap->pNext;
+
+        DRLGGRID_FreeGrid(pMemPool, &pMap->pMapGrid);
+        DRLGVER_FreeVertices(pMemPool, &pMap->pVertices);
+        DRLGPRESET_FreeDrlgFile(&pMap->ptFile);
+
+        D2PresetUnitStrc* pPresetUnit = pMap->pPresetUnit;
+        while (pPresetUnit)
+        {
+            D2PresetUnitStrc* pFreePresetUnit = pPresetUnit;
+            pPresetUnit = pPresetUnit->pNext;
+            DRLGPRESET_FreePresetUnit(pMemPool, pFreePresetUnit);
+        }
+
+        if (pMap->pPopsIndex)
+        {
+            sub_0040B480(pMemPool, pMap->pPopsIndex, &gszDrlgPresetSourceFile, 2554, 0);
+        }
+
+        if (pMap->pPopsSubIndex)
+        {
+            sub_0040B480(pMemPool, pMap->pPopsSubIndex, &gszDrlgPresetSourceFile, 2555, 0);
+        }
+
+        if (pMap->pPopsOrientation)
+        {
+            sub_0040B480(pMemPool, pMap->pPopsOrientation, &gszDrlgPresetSourceFile, 2556, 0);
+        }
+
+        if (pMap->pPopsLocation)
+        {
+            sub_0040B480(pMemPool, pMap->pPopsLocation, &gszDrlgPresetSourceFile, 2557, 0);
+        }
+
+        sub_0040B480(pMemPool, pMap, &gszDrlgPresetSourceFile, 2559, 0);
+        pMap = pNextMap;
+    }
+}
+
+// 0x006671E0
+void __fastcall DRLGPRESET_UpdatePops(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY, int bOtherRoom)
+{
+    D2DrlgMapStrc* pDrlgMap;
+    int bUpdate;
+    int nTick;
+    int nPopIndex;
+
+    pDrlgMap = 0;
+    bUpdate = 0;
+    nTick = GetTickCount() + 500;
+    nPopIndex = 0;
+    int i;
+    int j;
+    D2DrlgRoomStrc* pAdjacentRoom;
+    D2DrlgMapStrc* pAdjacentMap;
+    int nOrientation;
+
+    if (pDrlgRoom->nType == 2)
+    {
+        pDrlgMap = pDrlgRoom->pMaze->pMap;
+        for (i = 0; i < pDrlgMap->nPops; ++i)
+        {
+            D2DrlgCoordStrc tDrlgCoord = { 0 };
+            tDrlgCoord.nPosX = 5 * pDrlgMap->pPopsLocation[i].nPosX;
+            tDrlgCoord.nPosY = 5 * pDrlgMap->pPopsLocation[i].nPosY;
+            tDrlgCoord.nWidth = pDrlgMap->pLvlPrestTxtRecord->dwPopPad + 5 * pDrlgMap->pPopsLocation[i].nWidth;
+            tDrlgCoord.nHeight = pDrlgMap->pLvlPrestTxtRecord->dwPopPad + 5 * pDrlgMap->pPopsLocation[i].nHeight;
+
+            if (DRLGROOM_AreXYInsideCoordinates(&tDrlgCoord, nX, nY))
+            {
+                nPopIndex = pDrlgMap->pPopsIndex[i];
+                break;
+            }
+        }
+    }
+
+    for (i = 0; i < pDrlgRoom->nRoomsNear; ++i)
+    {
+        pAdjacentRoom = pDrlgRoom->ppRoomsNear[i];
+        if (pAdjacentRoom->nType == 2 && pAdjacentRoom->pRoom)
+        {
+            pAdjacentMap = pAdjacentRoom->pMaze->pMap;
+            for (j = 0; j < pAdjacentMap->nPops; ++j)
+            {
+                nOrientation = pAdjacentMap->pPopsOrientation[j];
+                if ((pAdjacentMap != pDrlgMap || pAdjacentMap->pPopsIndex[j] != nPopIndex) && nOrientation)
+                {
+                    DRLGPRESET_TogglePopsVisibility(pAdjacentRoom, pAdjacentMap->pPopsSubIndex[j], &pAdjacentMap->pPopsLocation[j], nTick, 1);
+                    bUpdate = 1;
+                }
+
+                if (pAdjacentMap == pDrlgMap && pAdjacentMap->pPopsIndex[j] == nPopIndex)
+                {
+                    if (!nOrientation)
+                    {
+                        DRLGPRESET_TogglePopsVisibility(pAdjacentRoom, pAdjacentMap->pPopsSubIndex[j], &pAdjacentMap->pPopsLocation[j], nTick, 0);
+                        bUpdate = 1;
+                    }
+                    else if (bOtherRoom)
+                    {
+                        DRLGPRESET_TogglePopsVisibility(pAdjacentRoom, pAdjacentMap->pPopsSubIndex[j], &pAdjacentMap->pPopsLocation[j], nOrientation, 0);
+                        bUpdate = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    if (bUpdate)
+    {
+        for (i = 0; i < pDrlgRoom->nRoomsNear; ++i)
+        {
+            pAdjacentRoom = pDrlgRoom->ppRoomsNear[i];
+            if (pAdjacentRoom->nType == 2)
+            {
+                pAdjacentMap = pAdjacentRoom->pMaze->pMap;
+                for (j = 0; j < pAdjacentMap->nPops; ++j)
+                {
+                    if (pAdjacentMap != pDrlgMap || pAdjacentMap->pPopsIndex[j] != nPopIndex)
+                    {
+                        pAdjacentMap->pPopsOrientation[j] = 0;
+                    }
+
+                    if (pAdjacentMap == pDrlgMap && pAdjacentMap->pPopsIndex[j] == nPopIndex)
+                    {
+                        pAdjacentMap->pPopsOrientation[j] = nTick;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 0x00667420
+int __fastcall sub_00667420_GetChainField20(D2Unk00667420Strc* p)
+{
+    return p->p14->p00->n20;
+}
+
+// 0x00667430
+void __fastcall DRLGPRESET_InitLevelData(D2DrlgLevelStrc* pLevel)
+{
+	void* const tArg1 = pLevel->pDrlg->pMempool;
+	D2DrlgPresetInfoStrc* pPreset = (D2DrlgPresetInfoStrc*)FOG_AllocPool(tArg1, sizeof(D2DrlgPresetInfoStrc), gszPresetFile, 2809, 0);
+	D2LvlPrestTxt* pLvlPrestTxtRecord = DATATBLS_GetLvlPrestTxtRecordFromLevelId(pLevel->eLevelId);
+	D2_ASSERT(pLvlPrestTxtRecord, 2811);
+
+	pLevel->pPreset = pPreset;
+	memset(pPreset, 0, sizeof(D2DrlgPresetInfoStrc));
+
+	const int nFiles = DRLGPRESET_GetFileCount(pLvlPrestTxtRecord);
+	if (nFiles)
+	{
+		pPreset->nDirection = sub_0045C3E0(&pLevel->pSeed, nFiles);
+	}
+	else
+	{
+		pPreset->nDirection = -1;
+	}
+
+	DRLG_SetLevelPositionAndSize(pLevel->pDrlg, pLevel);
+}
+
 // 0x00668100
 void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
 {
@@ -2334,114 +2433,15 @@ void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
     }
 }
 
-// 0x00668240
-void __fastcall DRLGPRESET_FreeDrlgFileData(D2DrlgFileStrc* pDrlgFile)
+// 0x006674D0
+void __fastcall DRLGPRESET_ResetDrlgMap(D2DrlgLevelStrc* pLevel, int bKeepPreset)
 {
-    if (pDrlgFile->pDS1File)
+    pLevel->pPreset->pDrlgMap = 0;
+
+    if (!bKeepPreset)
     {
-        FOG_Free(pDrlgFile->pDS1File, &gszDrlgPresetSourceFile, 1272, 0);
-    }
-
-    if (pDrlgFile->pSubstGroups)
-    {
-        sub_0040B480(0, pDrlgFile->pSubstGroups, &gszDrlgPresetSourceFile, 1273, 0);
-    }
-
-    D2PresetUnitStrc* pNext = pDrlgFile->pPresetUnit;
-    while (pNext)
-    {
-        D2PresetUnitStrc* pPresetUnit = pNext;
-        pNext = pPresetUnit->pNext;
-        DRLGPRESET_FreePresetUnit(0, pPresetUnit);
-    }
-
-    sub_0040B480(0, pDrlgFile, &gszDrlgPresetSourceFile, 1285, 0);
-}
-
-// 0x00668300
-void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile)
-{
-    if (!*ppDrlgFile)
-    {
-        return;
-    }
-
-    EnterCriticalSection(&gLevelFilesCriticalSection);
-
-    D2LevelFileListStrc* pPrevious = 0;
-    D2LevelFileListStrc* pCurrent = gpLevelFilesList;
-    while (pCurrent && pCurrent->pFile != *ppDrlgFile)
-    {
-        pPrevious = pCurrent;
-        pCurrent = pCurrent->pNext;
-    }
-
-    InterlockedDecrement(&pCurrent->nRefCount);
-
-    if (pCurrent && pCurrent->nRefCount <= 0)
-    {
-        if (pPrevious)
-        {
-            pPrevious->pNext = pCurrent->pNext;
-        }
-        else
-        {
-            gpLevelFilesList = pCurrent->pNext;
-        }
-
-        LeaveCriticalSection(&gLevelFilesCriticalSection);
-        DRLGPRESET_FreeDrlgFileData(*ppDrlgFile);
-        sub_0040B480(0, pCurrent, &gszDrlgPresetSourceFile, 1336, 0);
-        *ppDrlgFile = 0;
-    }
-    else
-    {
-        LeaveCriticalSection(&gLevelFilesCriticalSection);
-    }
-}
-
-// 0x006683D0
-void __fastcall DRLGPRESET_FreeDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap)
-{
-    D2DrlgMapStrc* pMap = pDrlgMap;
-    while (pMap)
-    {
-        D2DrlgMapStrc* pNextMap = pMap->pNext;
-
-        DRLGGRID_FreeGrid(pMemPool, &pMap->pMapGrid);
-        DRLGVER_FreeVertices(pMemPool, &pMap->pVertices);
-        DRLGPRESET_FreeDrlgFile(&pMap->ptFile);
-
-        D2PresetUnitStrc* pPresetUnit = pMap->pPresetUnit;
-        while (pPresetUnit)
-        {
-            D2PresetUnitStrc* pFreePresetUnit = pPresetUnit;
-            pPresetUnit = pPresetUnit->pNext;
-            DRLGPRESET_FreePresetUnit(pMemPool, pFreePresetUnit);
-        }
-
-        if (pMap->pPopsIndex)
-        {
-            sub_0040B480(pMemPool, pMap->pPopsIndex, &gszDrlgPresetSourceFile, 2554, 0);
-        }
-
-        if (pMap->pPopsSubIndex)
-        {
-            sub_0040B480(pMemPool, pMap->pPopsSubIndex, &gszDrlgPresetSourceFile, 2555, 0);
-        }
-
-        if (pMap->pPopsOrientation)
-        {
-            sub_0040B480(pMemPool, pMap->pPopsOrientation, &gszDrlgPresetSourceFile, 2556, 0);
-        }
-
-        if (pMap->pPopsLocation)
-        {
-            sub_0040B480(pMemPool, pMap->pPopsLocation, &gszDrlgPresetSourceFile, 2557, 0);
-        }
-
-        sub_0040B480(pMemPool, pMap, &gszDrlgPresetSourceFile, 2559, 0);
-        pMap = pNextMap;
+        sub_0040B480(pLevel->pDrlg->pMempool, pLevel->pPreset, &gszDrlgPresetSourceFile, 2906, 0);
+        pLevel->pPreset = 0;
     }
 }
 

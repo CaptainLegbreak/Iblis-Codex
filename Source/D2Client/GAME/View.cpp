@@ -875,6 +875,125 @@ void __fastcall sub_00467410_SetEntryValue(void* pOwner, D2ClientRecordStrc* pRe
     }
 }
 
+// 0x00475FD0
+void __fastcall VIEW_FreeView(D2ViewStrc* pView)
+{
+    WALL2_FreeViewCells(pView);
+    FOG_Free(pView, ".\\GAME\\View.cpp", 0x141, 0);
+}
+
+// 0x00475FF0
+void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView)
+{
+    pView->dwFlags |= 1;
+}
+
+// 0x00476000
+void __fastcall VIEW_SetViewRects(D2ClientViewStrc* pView, int nLeft, int nTop, int nRight, int nBottom)
+{
+    if (!pView)
+        return;
+
+    SetRect(&pView->tViewRect, nLeft, nTop, nRight, nBottom);
+    nBottom = sub_004F51D0_IsPerspective();
+    SetRect(&pView->tClipRect, -0x50, -0x50, gnGlobal_0071146C + 0x50, gnGlobal_00711470 - 0x2F);
+    if (nBottom)
+    {
+        pView->tClipRect.top -= 30;
+        pView->tClipRect.left -= 45;
+        pView->tClipRect.right += 30;
+    }
+    pView->dwFlags |= 1;
+}
+
+// 0x00476070
+void __fastcall VIEW_GetViewRect(D2ClientViewStrc* pView, int* pValue04, int* pValue08, int* pValue0C, int* pValue10)
+{
+    *pValue04 = pView->nValue04;
+    *pValue08 = pView->nValue08;
+    *pValue0C = pView->nValue0C;
+    *pValue10 = pView->nValue10;
+}
+
+// 0x004760A0
+void __fastcall VIEW_SetViewPos(D2ClientViewStrc* pView, int nX, int nY)
+{
+    if (pView->nPosX != nX || pView->nPosY != nY)
+    {
+        pView->dwFlags |= 1;
+        pView->nPosX = nX;
+        pView->nPosY = nY;
+    }
+}
+
+void* gpLerpTable_007B9540; // 0x007B9540
+
+void* gpLerpTable_007B9544; // 0x007B9544
+
+void* gpLerpTable_007B954C; // 0x007B954C
+
+void* gpLerpTable_007B9550; // 0x007B9550
+
+D2PalShiftNodeStrc* gpPalShiftList_007B957C; // 0x007B957C
+
+int gbCacheStats_007BB3A4; // 0x007BB3A4
+
+// 0x00475EF0
+void __cdecl VIEW_FreeLerpTables()
+{
+    if (!gppLerpRows_007B953C)
+        return;
+
+    D2_ASSERT(gpLerpTable_007B9540, 0xFB);
+    D2_ASSERT(gpLerpTable_007B9544, 0xFC);
+    D2_ASSERT(gpLerpTable_007B954C, 0xFD);
+    D2_ASSERT(gpLerpTable_007B9550, 0xFE);
+    sub_005179A4_VirtualFree(gppLerpRows_007B953C);
+    if (gpLerpTable_007B9540)
+        sub_005179A4_VirtualFree(gpLerpTable_007B9540);
+    if (gpLerpTable_007B9544)
+        sub_005179A4_VirtualFree(gpLerpTable_007B9544);
+    if (gpLerpTable_007B954C)
+        sub_005179A4_VirtualFree(gpLerpTable_007B954C);
+    if (gpLerpTable_007B9550)
+        sub_005179A4_VirtualFree(gpLerpTable_007B9550);
+    gppLerpRows_007B953C = 0;
+    gpLerpTable_007B9540 = 0;
+    gpLerpTable_007B9544 = 0;
+    gpLerpTable_007B954C = 0;
+    gpLerpTable_007B9550 = 0;
+    gnGlobal_007B8D2C = 0;
+    sub_00475EB0_FreeCels();
+}
+
+// 0x004760C0
+void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
+{
+    *pX = pView->nPosX;
+    *pY = pView->nPosY;
+}
+
+// 0x004760E0
+void __fastcall VIEW_ViewToGameCoords(D2ClientViewStrc* pView, int nX, int nY, int* pX, int* pY)
+{
+    D2_ASSERT(pView, 0x1CD);
+    D2_ASSERT(pX, 0x1CE);
+    D2_ASSERT(pY, 0x1CF);
+    DUNGEON_ClientSubileDrawPositionToGameCoords(pView->nPosX + nX, pView->nPosY + nY, pX, pY);
+}
+
+// 0x00476140
+void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
+{
+    D2_ASSERT(pView, 0x1DD);
+    if (pView->tRect.right || pView->tRect.bottom)
+    {
+        if (sub_0045AE90() != 3)
+            sub_004DDB70_PrepareWallCells(pView, nArg);
+        pView->dwFlags &= ~1;
+    }
+}
+
 // 0x0046AE50
 void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce)
 {
@@ -918,6 +1037,16 @@ void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit)
     tMissileParams.nMissile = MISSILE_BRDEATHSMOKES1;
     sub_004CD540_CreateMissile(&tMissileParams);
 }
+
+int gdwGlobal_007BEFAC; // 0x007BEFAC
+
+unsigned char gnLifeColorHigh_007BEED0; // 0x007BEED0
+
+unsigned char gnLifeColorMid_007BEED1; // 0x007BEED1
+
+unsigned char gnLifeColorLow_007BEED2; // 0x007BEED2
+
+unsigned char gbLifeColorsInit_007BEED3; // 0x007BEED3
 
 // 0x0046B9A0
 void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit)
@@ -973,135 +1102,6 @@ void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit)
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
     sub_004CD540_CreateMissile(&tMissileParams);
-}
-
-void* gpLerpTable_007B9540; // 0x007B9540
-
-void* gpLerpTable_007B9544; // 0x007B9544
-
-void* gpLerpTable_007B954C; // 0x007B954C
-
-void* gpLerpTable_007B9550; // 0x007B9550
-
-D2PalShiftNodeStrc* gpPalShiftList_007B957C; // 0x007B957C
-
-int gbCacheStats_007BB3A4; // 0x007BB3A4
-
-// 0x00475EF0
-void __cdecl VIEW_FreeLerpTables()
-{
-    if (!gppLerpRows_007B953C)
-        return;
-
-    D2_ASSERT(gpLerpTable_007B9540, 0xFB);
-    D2_ASSERT(gpLerpTable_007B9544, 0xFC);
-    D2_ASSERT(gpLerpTable_007B954C, 0xFD);
-    D2_ASSERT(gpLerpTable_007B9550, 0xFE);
-    sub_005179A4_VirtualFree(gppLerpRows_007B953C);
-    if (gpLerpTable_007B9540)
-        sub_005179A4_VirtualFree(gpLerpTable_007B9540);
-    if (gpLerpTable_007B9544)
-        sub_005179A4_VirtualFree(gpLerpTable_007B9544);
-    if (gpLerpTable_007B954C)
-        sub_005179A4_VirtualFree(gpLerpTable_007B954C);
-    if (gpLerpTable_007B9550)
-        sub_005179A4_VirtualFree(gpLerpTable_007B9550);
-    gppLerpRows_007B953C = 0;
-    gpLerpTable_007B9540 = 0;
-    gpLerpTable_007B9544 = 0;
-    gpLerpTable_007B954C = 0;
-    gpLerpTable_007B9550 = 0;
-    gnGlobal_007B8D2C = 0;
-    sub_00475EB0_FreeCels();
-}
-
-// 0x00475FD0
-void __fastcall VIEW_FreeView(D2ViewStrc* pView)
-{
-    WALL2_FreeViewCells(pView);
-    FOG_Free(pView, ".\\GAME\\View.cpp", 0x141, 0);
-}
-
-// 0x00475FF0
-void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView)
-{
-    pView->dwFlags |= 1;
-}
-
-// 0x00476000
-void __fastcall VIEW_SetViewRects(D2ClientViewStrc* pView, int nLeft, int nTop, int nRight, int nBottom)
-{
-    if (!pView)
-        return;
-
-    SetRect(&pView->tViewRect, nLeft, nTop, nRight, nBottom);
-    nBottom = sub_004F51D0_IsPerspective();
-    SetRect(&pView->tClipRect, -0x50, -0x50, gnGlobal_0071146C + 0x50, gnGlobal_00711470 - 0x2F);
-    if (nBottom)
-    {
-        pView->tClipRect.top -= 30;
-        pView->tClipRect.left -= 45;
-        pView->tClipRect.right += 30;
-    }
-    pView->dwFlags |= 1;
-}
-
-// 0x00476070
-void __fastcall VIEW_GetViewRect(D2ClientViewStrc* pView, int* pValue04, int* pValue08, int* pValue0C, int* pValue10)
-{
-    *pValue04 = pView->nValue04;
-    *pValue08 = pView->nValue08;
-    *pValue0C = pView->nValue0C;
-    *pValue10 = pView->nValue10;
-}
-
-// 0x004760A0
-void __fastcall VIEW_SetViewPos(D2ClientViewStrc* pView, int nX, int nY)
-{
-    if (pView->nPosX != nX || pView->nPosY != nY)
-    {
-        pView->dwFlags |= 1;
-        pView->nPosX = nX;
-        pView->nPosY = nY;
-    }
-}
-
-int gdwGlobal_007BEFAC; // 0x007BEFAC
-
-unsigned char gnLifeColorHigh_007BEED0; // 0x007BEED0
-
-unsigned char gnLifeColorMid_007BEED1; // 0x007BEED1
-
-unsigned char gnLifeColorLow_007BEED2; // 0x007BEED2
-
-unsigned char gbLifeColorsInit_007BEED3; // 0x007BEED3
-
-// 0x004760C0
-void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
-{
-    *pX = pView->nPosX;
-    *pY = pView->nPosY;
-}
-
-// 0x004760E0
-void __fastcall VIEW_ViewToGameCoords(D2ClientViewStrc* pView, int nX, int nY, int* pX, int* pY)
-{
-    D2_ASSERT(pView, 0x1CD);
-    D2_ASSERT(pX, 0x1CE);
-    D2_ASSERT(pY, 0x1CF);
-    DUNGEON_ClientSubileDrawPositionToGameCoords(pView->nPosX + nX, pView->nPosY + nY, pX, pY);
-}
-
-// 0x00476140
-void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
-{
-    D2_ASSERT(pView, 0x1DD);
-    if (pView->tRect.right || pView->tRect.bottom)
-    {
-        if (sub_0045AE90() != 3)
-            sub_004DDB70_PrepareWallCells(pView, nArg);
-        pView->dwFlags &= ~1;
-    }
 }
 
 void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
@@ -1581,17 +1581,6 @@ static void VIEW_UpdateShakeSound(int nIntensity)
     gnGlobal_007B8D2C = 0;
 }
 
-// 0x00476AC0
-int __fastcall VIEW_GetViewShift(int* pX, int* pY)
-{
-    if (!gnGlobal_007B9534)
-        return 0;
-
-    *pX = gnGlobal_007B9538;
-    *pY = gnGlobal_007B8D20;
-    return 1;
-}
-
 // 0x00476B10
 Obj004DCF10* __cdecl VIEW_CreateView()
 {
@@ -1634,6 +1623,26 @@ int __cdecl VIEW_IsAcceleratedRenderMode()
     return gnModeValue_00712CCC >= 4;
 }
 
+// 0x00479010
+void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg)
+{
+    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    {
+        if (pPet->dwUnitId == nUnitId)
+        {
+            pPet->nLifePercent = nLifePercent;
+            pPet->nArg10 = nArg;
+            if (pPet->nType == PET_TYPE_LIFE)
+            {
+                D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, UNIT_MONSTER);
+                if (pUnit)
+                    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pUnit) * nLifePercent / 100, 0);
+            }
+            return;
+        }
+    }
+}
+
 // 0x00477C00
 void __cdecl VIEW_ToggleCacheStats()
 {
@@ -1658,26 +1667,6 @@ void __cdecl VIEW_ToggleCacheStats()
     D2CMPResetTileCacheHits();
 }
 
-// 0x00479010
-void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg)
-{
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->dwUnitId == nUnitId)
-        {
-            pPet->nLifePercent = nLifePercent;
-            pPet->nArg10 = nArg;
-            if (pPet->nType == PET_TYPE_LIFE)
-            {
-                D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, UNIT_MONSTER);
-                if (pUnit)
-                    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pUnit) * nLifePercent / 100, 0);
-            }
-            return;
-        }
-    }
-}
-
 // 0x0047E860
 void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
 {
@@ -1688,13 +1677,13 @@ void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
 }
 
-
-static int gnPopupX_007BEED4; // 0x007BEED4
-
 // 0x004801C0
 D2WardenClientM114Strc::D2WardenClientM114Strc() : pServices(gapWardenServices_006D8E68)
 {
 }
+
+
+static int gnPopupX_007BEED4; // 0x007BEED4
 
 // 0x00480400
 int __fastcall VIEW_GetPlayerInteractState(D2UnitStrc* pUnit)
@@ -1766,6 +1755,12 @@ int __cdecl VIEW_GetPetTypeCount()
     return sgptDataTables->nPetTypeTxtRecordCount;
 }
 
+// 0x00492C10
+int __cdecl VIEW_IsPetIconVisible()
+{
+    return gnGlobal_007BEECC != 2;
+}
+
 static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
 {
     return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
@@ -1783,12 +1778,6 @@ void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 {
     gnGlobal_007BEECC = nMode;
     gnPopupX_007BEED4 = nPopupX;
-}
-
-// 0x00492C10
-int __cdecl VIEW_IsPetIconVisible()
-{
-    return gnGlobal_007BEECC != 2;
 }
 
 // 0x00492F40
@@ -2002,6 +1991,13 @@ void __cdecl VIEW_InitBeltColors()
     gabBeltColors_007BEF6C[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
 }
 
+// 0x00498D50
+void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
+{
+    if ((unsigned int)nX < 4)
+        gabBeltHotkey_007BEFB0[nX] = (unsigned char)nArg;
+}
+
 static int ButtonHitTest_00497480(int nX, int nY)
 {
     int nHeight = gnGlobal_00711470;
@@ -2046,13 +2042,6 @@ void __cdecl VIEW_DrawRunButton()
     {
         sub_00497300();
     }
-}
-
-// 0x00498D50
-void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
-{
-    if ((unsigned int)nX < 4)
-        gabBeltHotkey_007BEFB0[nX] = (unsigned char)nArg;
 }
 
 // 0x00498D60
@@ -2149,6 +2138,17 @@ void __fastcall VIEW_DrawUnitClickCross(D2UnitStrc* pUnit)
     const int nBoxX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
     const int nBoxY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
     D2GFX_DrawBox(nBoxX, nBoxY, nBoxX + 4, nBoxY + 4, 0xFF, DRAW_MODE_5);
+}
+
+// 0x00476AC0
+int __fastcall VIEW_GetViewShift(int* pX, int* pY)
+{
+    if (!gnGlobal_007B9534)
+        return 0;
+
+    *pX = gnGlobal_007B9538;
+    *pY = gnGlobal_007B8D20;
+    return 1;
 }
 
 void __stdcall LIST_UnloadPentspinCellfile()

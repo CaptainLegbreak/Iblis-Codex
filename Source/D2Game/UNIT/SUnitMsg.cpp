@@ -475,6 +475,27 @@ static inline D2ItemStatCostTxt* GetStatCostRecord(int nStat)
     return 0;
 }
 
+// 0x00576890
+int __fastcall SUNITNPC_CapStoreItemLevel(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
+{
+    if (pGame->nDifficulty == DIFFMODE_NORMAL)
+    {
+        int nUnused;
+        D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
+        if (pNpcRecord)
+        {
+            const int npcLevels[NPC_LEVEL_COUNT] = { 12, 20, 28, 36, 45 };
+            if (pNpcRecord->nAct < NPC_LEVEL_COUNT)
+            {
+                const int nCap = npcLevels[pNpcRecord->nAct];
+                return nCap < nLevel ? nCap : nLevel;
+            }
+        }
+    }
+
+    return nLevel;
+}
+
 // 0x005711D0
 void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -578,37 +599,6 @@ void __fastcall SUNITMSG_SendOverlay(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 void __fastcall SUNITMSG_SendRemoveObject(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     D2GAME_PACKETS_SendPacket0x0A_RemoveObject(pClient, 0x0A, pUnit->dwUnitType, pUnit->dwUnitId);
-}
-
-// 0x00571620
-void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    if (pUnit && pUnit->pHoverText)
-    {
-        D2HoverTextStrc* pHoverText = pUnit->pHoverText;
-        CLIENTS_GetGame(pClient);
-        D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-        if (pPlayer && pUnit->dwUnitType == UNIT_PLAYER)
-        {
-            if (PLAYERLIST_CheckFlag(pPlayer, pUnit, 4) || PLAYERLIST_CheckFlag(pUnit, pPlayer, 2))
-                return;
-        }
-        D2GSPacketSrv26 packet;
-        packet.nUnitGUID = pUnit ? pUnit->dwUnitId : -1;
-        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-        packet.nHeader = 0x26;
-        packet.nUnitType = nType;
-        packet.szName[0] = 0;
-        packet.nChatType = 5;
-        packet.nLanguage = CHAT_GetLangIdFromHoverMsg(pHoverText);
-        memset(packet.szMessage, 0, 256);
-        CHAT_CopyHoverMsgToBuffer(pHoverText, packet.szMessage);
-        D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, &packet);
-    }
-    else
-    {
-        D2GAME_PACKETS_SendPacketSize06_6FC3C850(pClient, 0x76, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
-    }
 }
 
 static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
@@ -893,62 +883,6 @@ void __fastcall SUNITMSG_QueueSkillSelection(D2UnitStrc* pUnit, int bLeftSkill, 
     UNITROOM_RefreshUnit(pUnit);
 }
 
-// 0x00571CD0
-void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    for (D2UnitPacketListStrc* pMsg = pUnit->pMsgFirst; pMsg; pMsg = pMsg->pNext)
-    {
-        switch (pMsg->nHeader)
-        {
-        case 0x99:
-            sub_0053D530(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p99.nUnitType, pMsg->p99.dwUnitGUID, pMsg->p99.wSkill, pMsg->p99.nParam, pMsg->p99.nSkillLevel, 1);
-            break;
-
-        case 0x9A:
-            SCMD_SendUnitActionAtPosition(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
-            break;
-
-        case 0x9E:
-            D2GAME_PACKETS_SendPacket0x9E_9F_A0_6FC3D520(pClient, pUnit, pMsg->pStat.nStatId, pMsg->pStat.dwValue);
-            break;
-
-        case 0xA1:
-            D2GAME_PACKETS_SendPacket0xA0_A1_A2_6FC3D610(pClient, pUnit, pMsg->pStat.nStatId, pMsg->pStat.dwValue, pMsg->pStat.dwFullValue);
-            break;
-
-        case 0xA4:
-            D2GAME_PACKETS_SendPacket0xA4_6FC3FC00(pClient, pMsg->pA4.a2);
-            break;
-
-        case 0xA3:
-            D2GAME_PACKETS_SendPacket0xA3_6FC3D730(pClient, pMsg->pA3.a2, pMsg->pA3.a3, pMsg->pA3.a4, pMsg->pA3.a5, pMsg->pA3.a6, pMsg->pA3.a7, pMsg->pA3.a8, pMsg->pA3.a9, pMsg->pA3.a10);
-            break;
-
-        case 0xAB:
-            if (!sub_00451F30_TestUnitFlag(pUnit, UNITFLAG_UPGRLIFENHITCLASS))
-            {
-                D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-                if (pPlayer && SUNIT_AreUnitsHostile(SUNIT_GetGameFromUnit(pPlayer), pPlayer, pUnit))
-                {
-                    D2GAME_PACKETS_SendPacket0xAB_6FC3D7B0(pClient, pMsg->pAB.nUnitType, pMsg->pAB.dwUnitId, pMsg->pAB.nUnitLife);
-                }
-            }
-            break;
-
-        case 0xA5:
-            D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0(pClient, pMsg->pA5.a2, pMsg->pA5.a3, pMsg->pA5.a4);
-            break;
-
-        case 0x23:
-            D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p23.nParam, pMsg->p23.wParam, pMsg->p23.dwParam);
-            break;
-
-        default:
-            break;
-        }
-    }
-}
-
 // 0x00571F40
 void __fastcall D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(D2UnitStrc* pUnit)
 {
@@ -966,6 +900,13 @@ void __fastcall D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(D2UnitStrc* pUnit)
         pUnit->pMsgLast = 0;
         pUnit->pMsgFirst = 0;
     }
+}
+
+// 0x00579130
+void __fastcall D2GAME_NPC_ResetInteract_6FCCB4D0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
+{
+    SUNIT_ResetInteractInfo(pPlayer);
+    MONSTERAI_RemoveInteractInfoFor(pGame, pPlayer, (pNpc && pNpc->dwUnitType == UNIT_MONSTER && pNpc->pMonsterData) ? pNpc->pMonsterData->pMonInteract : 0);
 }
 
 static inline int UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -1160,27 +1101,6 @@ void __fastcall PLAYERPETS_UpdatePetInfo(D2UnitStrc* pUnit, int nPetType, int nU
     }
 }
 
-// 0x00576890
-int __fastcall SUNITNPC_CapStoreItemLevel(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel)
-{
-    if (pGame->nDifficulty == DIFFMODE_NORMAL)
-    {
-        int nUnused;
-        D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
-        if (pNpcRecord)
-        {
-            const int npcLevels[NPC_LEVEL_COUNT] = { 12, 20, 28, 36, 45 };
-            if (pNpcRecord->nAct < NPC_LEVEL_COUNT)
-            {
-                const int nCap = npcLevels[pNpcRecord->nAct];
-                return nCap < nLevel ? nCap : nLevel;
-            }
-        }
-    }
-
-    return nLevel;
-}
-
 // 0x00576ED0
 bool __fastcall SUNITNPC_IsPermanentStoreItem(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem)
 {
@@ -1212,11 +1132,91 @@ bool __fastcall SUNITNPC_IsPermanentStoreItem(D2GameStrc* pGame, D2UnitStrc* pNp
     return false;
 }
 
-// 0x00579130
-void __fastcall D2GAME_NPC_ResetInteract_6FCCB4D0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
+// 0x00571620
+void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
-    SUNIT_ResetInteractInfo(pPlayer);
-    MONSTERAI_RemoveInteractInfoFor(pGame, pPlayer, (pNpc && pNpc->dwUnitType == UNIT_MONSTER && pNpc->pMonsterData) ? pNpc->pMonsterData->pMonInteract : 0);
+    if (pUnit && pUnit->pHoverText)
+    {
+        D2HoverTextStrc* pHoverText = pUnit->pHoverText;
+        CLIENTS_GetGame(pClient);
+        D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+        if (pPlayer && pUnit->dwUnitType == UNIT_PLAYER)
+        {
+            if (PLAYERLIST_CheckFlag(pPlayer, pUnit, 4) || PLAYERLIST_CheckFlag(pUnit, pPlayer, 2))
+                return;
+        }
+        D2GSPacketSrv26 packet;
+        packet.nUnitGUID = pUnit ? pUnit->dwUnitId : -1;
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        packet.nHeader = 0x26;
+        packet.nUnitType = nType;
+        packet.szName[0] = 0;
+        packet.nChatType = 5;
+        packet.nLanguage = CHAT_GetLangIdFromHoverMsg(pHoverText);
+        memset(packet.szMessage, 0, 256);
+        CHAT_CopyHoverMsgToBuffer(pHoverText, packet.szMessage);
+        D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, &packet);
+    }
+    else
+    {
+        D2GAME_PACKETS_SendPacketSize06_6FC3C850(pClient, 0x76, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
+    }
+}
+
+// 0x00571CD0
+void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    for (D2UnitPacketListStrc* pMsg = pUnit->pMsgFirst; pMsg; pMsg = pMsg->pNext)
+    {
+        switch (pMsg->nHeader)
+        {
+        case 0x99:
+            sub_0053D530(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p99.nUnitType, pMsg->p99.dwUnitGUID, pMsg->p99.wSkill, pMsg->p99.nParam, pMsg->p99.nSkillLevel, 1);
+            break;
+
+        case 0x9A:
+            SCMD_SendUnitActionAtPosition(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
+            break;
+
+        case 0x9E:
+            D2GAME_PACKETS_SendPacket0x9E_9F_A0_6FC3D520(pClient, pUnit, pMsg->pStat.nStatId, pMsg->pStat.dwValue);
+            break;
+
+        case 0xA1:
+            D2GAME_PACKETS_SendPacket0xA0_A1_A2_6FC3D610(pClient, pUnit, pMsg->pStat.nStatId, pMsg->pStat.dwValue, pMsg->pStat.dwFullValue);
+            break;
+
+        case 0xA4:
+            D2GAME_PACKETS_SendPacket0xA4_6FC3FC00(pClient, pMsg->pA4.a2);
+            break;
+
+        case 0xA3:
+            D2GAME_PACKETS_SendPacket0xA3_6FC3D730(pClient, pMsg->pA3.a2, pMsg->pA3.a3, pMsg->pA3.a4, pMsg->pA3.a5, pMsg->pA3.a6, pMsg->pA3.a7, pMsg->pA3.a8, pMsg->pA3.a9, pMsg->pA3.a10);
+            break;
+
+        case 0xAB:
+            if (!sub_00451F30_TestUnitFlag(pUnit, UNITFLAG_UPGRLIFENHITCLASS))
+            {
+                D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+                if (pPlayer && SUNIT_AreUnitsHostile(SUNIT_GetGameFromUnit(pPlayer), pPlayer, pUnit))
+                {
+                    D2GAME_PACKETS_SendPacket0xAB_6FC3D7B0(pClient, pMsg->pAB.nUnitType, pMsg->pAB.dwUnitId, pMsg->pAB.nUnitLife);
+                }
+            }
+            break;
+
+        case 0xA5:
+            D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0(pClient, pMsg->pA5.a2, pMsg->pA5.a3, pMsg->pA5.a4);
+            break;
+
+        case 0x23:
+            D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p23.nParam, pMsg->p23.wParam, pMsg->p23.dwParam);
+            break;
+
+        default:
+            break;
+        }
+    }
 }
 
 // 0x00585160

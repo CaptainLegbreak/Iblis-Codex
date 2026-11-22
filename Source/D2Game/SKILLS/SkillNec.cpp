@@ -1123,26 +1123,12 @@ void __fastcall SKILLS_CurseStateCallback_EndAttract(D2UnitStrc* pUnit, int nSta
     sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
 
-// 0x005C3B30
-int __fastcall SKILLS_AuraCallback_SetAttractTarget(D2UnitStrc* pUnit, void* pArg)
+// 0x005C3DB0
+void __fastcall SKILLS_CurseStateCallback_ResetAlignment(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
-    D2UnkNecSkillStrc3* pParam = (D2UnkNecSkillStrc3*)pArg;
-    if (!SKILLS_IsValidAttractTarget(pParam->pGame, pParam->pUnit, pUnit))
-    {
-        return 0;
-    }
-
-    if (pParam->nUnitType == 0)
-    {
-        sub_6FC61E30(pUnit, 1, pParam->nUnitGUID);
-    }
-    else
-    {
-        sub_6FC61E30(pUnit, 2, pParam->nUnitGUID);
-    }
-
-    EVENT_SetEvent(pParam->pGame, pUnit, 0x0A, pParam->pGame->dwGameFrame + pParam->nLength, 0, 0);
-    return 1;
+    SUNIT_SetAlignment(pUnit, 0, 1);
+    STATES_ToggleState(pUnit, nState, 0);
+    sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
 
 // build: context sub_005C3300_Shim
@@ -1238,12 +1224,26 @@ int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     return 1;
 }
 
-// 0x005C3DB0
-void __fastcall SKILLS_CurseStateCallback_ResetAlignment(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+// 0x005C3B30
+int __fastcall SKILLS_AuraCallback_SetAttractTarget(D2UnitStrc* pUnit, void* pArg)
 {
-    SUNIT_SetAlignment(pUnit, 0, 1);
-    STATES_ToggleState(pUnit, nState, 0);
-    sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
+    D2UnkNecSkillStrc3* pParam = (D2UnkNecSkillStrc3*)pArg;
+    if (!SKILLS_IsValidAttractTarget(pParam->pGame, pParam->pUnit, pUnit))
+    {
+        return 0;
+    }
+
+    if (pParam->nUnitType == 0)
+    {
+        sub_6FC61E30(pUnit, 1, pParam->nUnitGUID);
+    }
+    else
+    {
+        sub_6FC61E30(pUnit, 2, pParam->nUnitGUID);
+    }
+
+    EVENT_SetEvent(pParam->pGame, pUnit, 0x0A, pParam->pGame->dwGameFrame + pParam->nLength, 0, 0);
+    return 1;
 }
 
 // 0x005C3DE0

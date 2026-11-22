@@ -92,6 +92,21 @@ unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId
     return FOG_10157(gpServer_00882D08, (unsigned int)pClientId, pPacket, nPacketSize) != 0 ? nPacketSize : 0;
 }
 
+// 0x0052B750
+int __fastcall SERVER_OnClientDisconnectedCallback(int a1, int a2, int a3, int a4)
+{
+    const unsigned char data[1] = { 0x70 };
+
+    FOG_10175(gpServer, data, sizeof(data), a2);
+    return 1;
+}
+
+// 0x0052B7A0
+void __stdcall SERVER_Initialize(int a1, int a2)
+{
+    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, sub_6FC020B0, SERVER_OnClientDisconnectedCallback, sub_0052B0E0);
+}
+
 // 0x0052B570
 void __stdcall D2NET_10016(int nClientId)
 {
@@ -157,19 +172,4 @@ int __stdcall D2NET_10022(int dwMilliseconds)
 void __stdcall D2NET_10029_Return(int nUnused)
 {
     FOG_10183_Return(gpServer, nUnused);
-}
-
-// 0x0052B750
-int __fastcall SERVER_OnClientDisconnectedCallback(int a1, int a2, int a3, int a4)
-{
-    const unsigned char data[1] = { 0x70 };
-
-    FOG_10175(gpServer, data, sizeof(data), a2);
-    return 1;
-}
-
-// 0x0052B7A0
-void __stdcall SERVER_Initialize(int a1, int a2)
-{
-    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, sub_6FC020B0, SERVER_OnClientDisconnectedCallback, sub_0052B0E0);
 }

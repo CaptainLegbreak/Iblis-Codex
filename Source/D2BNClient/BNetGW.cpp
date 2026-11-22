@@ -190,46 +190,6 @@ int __stdcall BNGatewayAccess::GMT(int nGateway)
     return strtol(szEntry, &pEnd, 10);
 }
 
-// 0x005180A0
-const char* __stdcall BNGatewayAccess::Name(int nGateway)
-{
-    const char* szEntry = Nth(nGateway);
-    if (*szEntry)
-    {
-        szEntry += SStrLen(szEntry) + 1;
-        if (*szEntry)
-        {
-            szEntry += SStrLen(szEntry) + 1;
-        }
-    }
-
-    return szEntry;
-}
-
-// 0x005180E0
-const char* __stdcall BNGatewayAccess::Realm(int nGateway)
-{
-    const char* szName = Nth(nGateway);
-    const char* szRealm = (const char*)m_pRealms;
-    while (*szRealm)
-    {
-        if (!SStrCmpI(szRealm, szName, 0x7FFFFFFF))
-        {
-            return szRealm + SStrLen(szRealm) + 1;
-        }
-
-        szRealm += SStrLen(szRealm) + 1;
-        if (!*szRealm)
-        {
-            break;
-        }
-
-        szRealm += SStrLen(szRealm) + 1;
-    }
-
-    return &gszEmptyAssertText;
-}
-
 // 0x00518150
 void __stdcall BNGatewayAccess::SetCurGateway(int nGateway)
 {
@@ -344,35 +304,6 @@ char* BNGatewayAccess::FindSection(char* pText, const char* szSection)
     return 0;
 }
 
-inline char* BnSkipToEOL(char* p, char* pEnd)
-{
-    while (p < pEnd && *p && *p != '\r' && *p != '\n')
-        ++p;
-    return p;
-}
-
-inline char* BnSkipEOL(char* p, char* pEnd)
-{
-    while (p < pEnd && *p && (*p == '\r' || *p == '\n'))
-        ++p;
-    return p;
-}
-
-// 0x005184C0
-char* BNGatewayAccess::FindKey(char* pSection, const char* szKey)
-{
-    const int nSectionLength = strlen(pSection);
-    const int nKeyLength = strlen(szKey);
-    char* p = pSection;
-    while (*p && *p != ']')
-    {
-        if (!_strnicmp(p, szKey, nKeyLength))
-            return p + nKeyLength + 1;
-        p = BnSkipEOL(BnSkipToEOL(p, pSection + nSectionLength), pSection + nSectionLength);
-    }
-    return 0;
-}
-
 // 0x00518580
 void BNGatewayAccess::PickClosestZone(int nTimeZone)
 {
@@ -407,7 +338,36 @@ void BNGatewayAccess::PickClosestZone(int nTimeZone)
     }
 }
 
-// build: symbol ?PickClosestZone@BNGatewayAccess@@AAEXH@Z 0x00518580
+// 0x005180A0
+const char* __stdcall BNGatewayAccess::Name(int nGateway)
+{
+    const char* szEntry = Nth(nGateway);
+    if (*szEntry)
+    {
+        szEntry += SStrLen(szEntry) + 1;
+        if (*szEntry)
+        {
+            szEntry += SStrLen(szEntry) + 1;
+        }
+    }
+
+    return szEntry;
+}
+
+inline char* BnSkipToEOL(char* p, char* pEnd)
+{
+    while (p < pEnd && *p && *p != '\r' && *p != '\n')
+        ++p;
+    return p;
+}
+
+inline char* BnSkipEOL(char* p, char* pEnd)
+{
+    while (p < pEnd && *p && (*p == '\r' || *p == '\n'))
+        ++p;
+    return p;
+}
+
 // 0x005186D0
 void __stdcall BNGatewayAccess::Load()
 {
@@ -612,4 +572,44 @@ void __stdcall BNGatewayAccess::UpdateGatewaysFromIni(char* szText)
         }
     }
 
+}
+
+// build: symbol ?PickClosestZone@BNGatewayAccess@@AAEXH@Z 0x00518580
+// 0x005184C0
+char* BNGatewayAccess::FindKey(char* pSection, const char* szKey)
+{
+    const int nSectionLength = strlen(pSection);
+    const int nKeyLength = strlen(szKey);
+    char* p = pSection;
+    while (*p && *p != ']')
+    {
+        if (!_strnicmp(p, szKey, nKeyLength))
+            return p + nKeyLength + 1;
+        p = BnSkipEOL(BnSkipToEOL(p, pSection + nSectionLength), pSection + nSectionLength);
+    }
+    return 0;
+}
+
+// 0x005180E0
+const char* __stdcall BNGatewayAccess::Realm(int nGateway)
+{
+    const char* szName = Nth(nGateway);
+    const char* szRealm = (const char*)m_pRealms;
+    while (*szRealm)
+    {
+        if (!SStrCmpI(szRealm, szName, 0x7FFFFFFF))
+        {
+            return szRealm + SStrLen(szRealm) + 1;
+        }
+
+        szRealm += SStrLen(szRealm) + 1;
+        if (!*szRealm)
+        {
+            break;
+        }
+
+        szRealm += SStrLen(szRealm) + 1;
+    }
+
+    return &gszEmptyAssertText;
 }

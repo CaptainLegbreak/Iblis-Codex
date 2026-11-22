@@ -391,25 +391,17 @@ static void sub_0043AD10_RequestCharList(char* szName)
     sub_0043AAB0(szName, (int)pData, 0);
 }
 
-// 0x0043ADB0
-void __fastcall sub_0043ADB0_UseName(char* szName)
+// 0x0043B490
+int __stdcall sub_0043B490_OnName(SMSGHANDLER_PARAMS* pMsg)
 {
-    gbFlag_00779DD8 = 0;
+    sub_0043ADB0_UseName(gData_00779A40);
     if (gnLaunchMode_007795EC == 1)
     {
-        D2Win_10047((D2WinTextBoxStrc*)gpControl_00779D8C);
-        D2Win_10046(gpControl_00779D8C, szName, 0);
-        sub_0043AD10_RequestCharList(szName);
+        sub_0042F3F0_DestroyControls();
+        sub_0043A730_UpdateButtons();
     }
-    else if (gnLaunchMode_007795EC == 0 || gnLaunchMode_007795EC == 3 || gnLaunchMode_007795EC == 2)
-    {
-        sub_00438EA0_FreeCharList();
-        if (!FOG_IsExpansion())
-            sub_0043A5D0_ShowMessage();
-        sub_00438F70();
-    }
-    sub_00439210_Redraw();
-    sub_00438560_Refresh();
+    gbFlag_00779C6C = 0;
+    return 1;
 }
 
 static int sub_00437A20_FindSlotName(const char* szName)
@@ -547,17 +539,25 @@ void __cdecl sub_0043B080_InitCharSelectScreen()
     CONTROL_SetEnabled(gpControl_007799F8, 1);
 }
 
-// 0x0043B490
-int __stdcall sub_0043B490_OnName(SMSGHANDLER_PARAMS* pMsg)
+// 0x0043ADB0
+void __fastcall sub_0043ADB0_UseName(char* szName)
 {
-    sub_0043ADB0_UseName(gData_00779A40);
+    gbFlag_00779DD8 = 0;
     if (gnLaunchMode_007795EC == 1)
     {
-        sub_0042F3F0_DestroyControls();
-        sub_0043A730_UpdateButtons();
+        D2Win_10047((D2WinTextBoxStrc*)gpControl_00779D8C);
+        D2Win_10046(gpControl_00779D8C, szName, 0);
+        sub_0043AD10_RequestCharList(szName);
     }
-    gbFlag_00779C6C = 0;
-    return 1;
+    else if (gnLaunchMode_007795EC == 0 || gnLaunchMode_007795EC == 3 || gnLaunchMode_007795EC == 2)
+    {
+        sub_00438EA0_FreeCharList();
+        if (!FOG_IsExpansion())
+            sub_0043A5D0_ShowMessage();
+        sub_00438F70();
+    }
+    sub_00439210_Redraw();
+    sub_00438560_Refresh();
 }
 
 // 0x0043B800

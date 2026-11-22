@@ -951,12 +951,94 @@ void __cdecl sub_005385E0()
 {
 }
 
-// 0x00538650
-extern "C" __declspec(dllexport) void __fastcall CLIENTS_ToggleFlag(Obj00538650* pObj, unsigned short wMask, int bSet) {
-    if (bSet) {
-        pObj->wFlags0A |= wMask;
-    } else {
-        pObj->wFlags0A &= ~wMask;
+// 0x005394A0
+void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nXArg, int nYArg)
+{
+    if (!pGame || !pPlayer || !pClient)
+    {
+        return;
+    }
+
+    const unsigned char nAct = CLIENTS_GetActNo(pClient);
+    int nX;
+    int nY;
+    if (!hRoom)
+    {
+        const int nTownLevelId = DUNGEON_GetTownLevelIdFromAct(pGame->pAct[nAct]);
+        hRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nAct], nTownLevelId, 0, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
+        D2_ASSERT(hRoom, 0x1A1);
+
+        D2DrlgCoordsStrc tDrlgCoords;
+        DUNGEON_GetRoomCoordinates(hRoom, &tDrlgCoords);
+        D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), tDrlgCoords.nTileXPos, tDrlgCoords.nTileYPos);
+    }
+    else
+    {
+        nX = nXArg;
+        nY = nYArg;
+    }
+
+    CLIENTS_SetRoomInClient(pClient, hRoom);
+    SUNIT_Add(pPlayer, nX, nY, pGame, hRoom, 0);
+    pClient->dwFlags &= ~1;
+    const int nUnitGUID = pPlayer->dwUnitId;
+    const int nUnitType = (pPlayer ? pPlayer->dwUnitType : UNIT_INVALID);
+    D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, 1);
+    D2GAME_PACKETS_SendPacket0x7E_6FC3F770(pClient, pGame->unk0xEC);
+
+    D2CorpseStrc* pCorpse = INVENTORY_GetFirstCorpse(pPlayer->pInventory);
+    while (pCorpse)
+    {
+        const int nCorpseGUID = INVENTORY_GetUnitGUIDFromCorpse(pCorpse);
+        if (!INVENTORY_IsPlayerCorpse(pCorpse))
+        {
+            const unsigned short wName = INVENTORY_GetCorpseMercNameId(pCorpse);
+            pCorpse = INVENTORY_GetNextCorpse(pCorpse);
+            INVENTORY_FreeCorpse(pPlayer->pInventory, nCorpseGUID, 0);
+            if (nCorpseGUID && wName)
+            {
+                D2GAME_MERCS_Create_6FCC8630(pGame, pPlayer, wName, nCorpseGUID, 0xFFFF, 0, 0);
+            }
+        }
+        else
+        {
+            D2UnitStrc* pCorpsePlayer = SUNIT_GetServerUnit(pGame, 0, nCorpseGUID);
+            if (pCorpsePlayer)
+            {
+                const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nAct);
+                int nCorpseX = 0;
+                int nCorpseY = 0;
+                D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nAct], nTownLevelId, 0, &nCorpseX, &nCorpseY, UNITS_GetUnitSizeX(pCorpsePlayer));
+                D2CoordStrc tCoord;
+                tCoord.nX = nCorpseX;
+                tCoord.nY = nCorpseY;
+                PLAYER_PlaceCorpse(pGame, pSpawnRoom, nCorpseGUID, &tCoord);
+            }
+
+            pCorpse = INVENTORY_GetNextCorpse(pCorpse);
+        }
+    }
+
+    SUNITNPC_UpdateHirelingPosition(pGame, pPlayer);
+
+    const int nIronGolemItemGUID = pClient->nIronGolemItemGUID;
+    if (nIronGolemItemGUID && nIronGolemItemGUID != -1)
+    {
+        D2UnitStrc* pIronGolemItem = SUNIT_GetServerUnit(pGame, 4, nIronGolemItemGUID);
+        if (pIronGolemItem)
+        {
+            D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, SKILL_IRONGOLEM);
+            if (pSkill)
+            {
+                const int nSkillLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
+                UNITS_SetXForStaticUnit(pIronGolemItem, CLIENTS_GetUnitX(pPlayer));
+                UNITS_SetYForStaticUnit(pIronGolemItem, CLIENTS_GetUnitY(pPlayer));
+                UNITS_SetTargetUnitForDynamicUnit(pPlayer, pIronGolemItem);
+                sub_0056F7F0(pGame, pPlayer, SKILL_IRONGOLEM, nSkillLevel, 1, 0, 0);
+            }
+        }
+
+        pClient->nIronGolemItemGUID = -1;
     }
 }
 
@@ -964,6 +1046,190 @@ extern "C" __declspec(dllexport) void __fastcall CLIENTS_ToggleFlag(Obj00538650*
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag)
 {
     return pClient->nSaveFlags & nFlag;
+}
+
+// 0x00539BE0
+void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc* pClient, char* szInfo)
+{
+    sub_006BBF40((unsigned char*)szInfo, PREVIEW_VERSION);
+    D2CharacterPreviewRecordStrc* pPreview = (D2CharacterPreviewRecordStrc*)(szInfo + 2);
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    if (pPlayer)
+    {
+        unsigned char aColors[16];
+        unsigned char aComponents[16];
+        unsigned char aGfx[16];
+        const unsigned char nLevel = (unsigned char)STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
+        const unsigned int nClassId = pPlayer->dwClassId;
+
+        memset(aComponents, 0xFF, sizeof(aComponents));
+        sub_0063E510_FillInventoryTables(pPlayer, aComponents, aGfx);
+        SMemCopy(pPreview->pComponents, aComponents, PREVIEW_COPY_SIZE);
+        pPreview->nClass = (unsigned char)nClassId < NUMBER_OF_PLAYERCLASSES ? (unsigned char)nClassId + 1 : 1;
+
+        memset(aColors, 0xFF, sizeof(aColors));
+        sub_0063E510_FillInventoryTables(pPlayer, aGfx, aColors);
+        for (int i = 0; i < 16; ++i)
+        {
+            if (!aColors[i])
+            {
+                aColors[i] = 0xFF;
+            }
+        }
+        SMemCopy(pPreview->pComponentColors, aColors, PREVIEW_COPY_SIZE);
+
+        const unsigned char nLevelIndex = nLevel - 1;
+        pPreview->nLevel = nLevelIndex <= PREVIEW_MAX_LEVEL_INDEX ? nLevel : 1;
+
+        const unsigned int nMode = pPlayer->dwAnimMode;
+        const unsigned short wSaveFlags = pClient->nSaveFlags;
+        unsigned int nFlags = wSaveFlags;
+        if ((nMode == PLRMODE_DEAD || nMode == PLRMODE_DEATH) && (wSaveFlags & CLIENTSAVEFLAG_HARDCORE))
+        {
+            nFlags |= CLIENTSAVEFLAG_DEAD;
+        }
+        else
+        {
+            nFlags &= 0xFFF7;
+        }
+        sub_006BBF40(pPreview->nClientFlags, nFlags);
+        sub_006BBF40(pPreview->nGuildFlags, pClient->nGuildFlags);
+
+        unsigned char nBgColor = pClient->nGuildBgColor;
+        unsigned char nFgColor = pClient->nGuildFgColor;
+        unsigned char nEmblem = pClient->f_482;
+        if (!nBgColor)
+        {
+            nBgColor = 0xFF;
+        }
+        if (!nFgColor)
+        {
+            nFgColor = 0xFF;
+        }
+        if (!nEmblem)
+        {
+            nEmblem = 0xFF;
+        }
+        pPreview->nGuildBgColor = nBgColor;
+        pPreview->nGuildFgColor = nFgColor;
+        pPreview->f_1E = nEmblem;
+        pPreview->f_1F = pClient->f_460;
+
+        const int bBadLevel = nLevelIndex > PREVIEW_MAX_LEVEL_INDEX;
+        const int bBadClass = (unsigned char)nClassId >= NUMBER_OF_PLAYERCLASSES;
+        const int bBadFlags = (nFlags & CLIENTSAVEFLAG_INVALID_1) || (nFlags & CLIENTSAVEFLAG_INVALID_2) || (nFlags & CLIENTSAVEFLAG_INVALID_10);
+        const int bBadLength = SStrLen(szInfo) != PREVIEW_STRING_LENGTH;
+        if (bBadLevel || bBadClass || bBadFlags || bBadLength)
+        {
+            *szInfo = 0;
+        }
+    }
+}
+
+// 0x0053AB10
+void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
+{
+    D2_ASSERT(pRoom, 0x141);
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+        LEVEL_ClearRoomUnitTargets(pGame, ppRoomList[i], pTarget);
+}
+
+// 0x0053E2C0
+void D2BitBufferStrc::SCMD_WriteBitBufferBool(int bValue)
+{
+    BITMANIP_Write(this, bValue != 0, 1);
+}
+
+// 0x00547080
+void __fastcall OBJRGN_PrintObjectPlacementStats(D2GameStrc* pGame)
+{
+    char szText[0x80];
+    D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
+    for (int i = 1; i < 0x61; ++i)
+    {
+        if (pObjectControl->wGroupCount[i])
+        {
+            wsprintfA(szText, "Attempted to place group %d %d times\n", i, pObjectControl->wGroupCount[i]);
+            pGame->OBJRGN_BroadcastServerText(szText);
+        }
+    }
+    wsprintfA(szText, "%d Rooms where we wanted to place - no group beat the odds\n", pObjectControl->wRoomsNoGroup);
+    pGame->OBJRGN_BroadcastServerText(szText);
+    wsprintfA(szText, "%d rooms tried to place 1+ group(s); %d rooms w/no objs\n", pObjectControl->wRoomsTried, pObjectControl->wGroupCount[0]);
+    pGame->OBJRGN_BroadcastServerText(szText);
+}
+
+// 0x00552840
+void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjectId)
+{
+    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
+        return;
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xC7D);
+    if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
+    {
+        D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
+        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity_00731BBD, nObjectId, 100);
+    }
+}
+
+// 0x005536E0
+void __fastcall SUNIT_StoreRoomTile(D2W11RoomTileOwnerStrc* pOwner, D2ActiveRoomStrc* pRoom, int nArg1, int nArg2)
+{
+    pOwner->pRecord->nArg1 = nArg1;
+    pOwner->pRecord->nArg2 = nArg2;
+    D2DrlgCoordsStrc tCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
+    pOwner->pRecord->nTileX = tCoords.nTileXPos;
+    pOwner->pRecord->nTileY = tCoords.nTileYPos;
+}
+
+// 0x005B7230
+void __fastcall ACT3Q0_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x0E);
+    if (!pQuestData)
+        return;
+    D2W11QuestEx5B7230Strc* pQuestDataEx = (D2W11QuestEx5B7230Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->pMapAI = pMapAI;
+    if (!pQuestDataEx->bNpcSpawned)
+        return;
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nNpcGUID);
+    if (pNpc && pQuestDataEx->pMapAI && pQuestDataEx->pMapAI->pPosition && !pQuestDataEx->bMapAIChanged)
+    {
+        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pMapAI, AIGENERAL_GetMapAiFromUnit(pNpc));
+        pQuestDataEx->bMapAIChanged = 1;
+    }
+}
+
+// 0x005BD040
+void __fastcall ACT3Q6_ChangeNatalyaMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x14);
+    if (!pQuestData)
+        return;
+    D2W11QuestEx5BD040Strc* pQuestDataEx = (D2W11QuestEx5BD040Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->pMapAI = pMapAI;
+    if (!pQuestDataEx->bNpcSpawned)
+        return;
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nNpcGUID);
+    if (pNpc && pQuestDataEx->pMapAI && pQuestDataEx->pMapAI->pPosition && !pQuestDataEx->bMapAIChanged)
+    {
+        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pMapAI, AIGENERAL_GetMapAiFromUnit(pNpc));
+        pQuestDataEx->bMapAIChanged = 1;
+    }
+}
+
+// 0x00538650
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_ToggleFlag(Obj00538650* pObj, unsigned short wMask, int bSet) {
+    if (bSet) {
+        pObj->wFlags0A |= wMask;
+    } else {
+        pObj->wFlags0A &= ~wMask;
+    }
 }
 
 // 0x00538680
@@ -1141,6 +1407,24 @@ extern "C" __declspec(dllexport) unsigned char __fastcall CLIENTS_GetWeaponSwitc
     return pObj->nValue45C;
 }
 
+inline void W11_InlineFixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pRoom, 0x62);
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
+        SUNIT_UpdateClientIfRoomInvalid(pUnit, pClient);
+}
+
+// 0x0053A6F0
+void __fastcall LEVEL_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pRoom, 0x75);
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+        W11_InlineFixRoomUnits(ppRoomList[i], pClient);
+}
+
 // 0x00539230
 extern "C" __declspec(dllexport) void __fastcall CLIENTS_SetWeaponSwitch(Obj00539230* pObj, unsigned char nValue) {
     pObj->nValue45C = nValue;
@@ -1198,288 +1482,4 @@ extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetCharSaveTransactionT
 // 0x00539310
 extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetClientInfo(Obj00539310* pObj, unsigned int* pOut) {
     *pOut = pObj->dwValue68;
-}
-
-// 0x005394A0
-void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nXArg, int nYArg)
-{
-    if (!pGame || !pPlayer || !pClient)
-    {
-        return;
-    }
-
-    const unsigned char nAct = CLIENTS_GetActNo(pClient);
-    int nX;
-    int nY;
-    if (!hRoom)
-    {
-        const int nTownLevelId = DUNGEON_GetTownLevelIdFromAct(pGame->pAct[nAct]);
-        hRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nAct], nTownLevelId, 0, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
-        D2_ASSERT(hRoom, 0x1A1);
-
-        D2DrlgCoordsStrc tDrlgCoords;
-        DUNGEON_GetRoomCoordinates(hRoom, &tDrlgCoords);
-        D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), tDrlgCoords.nTileXPos, tDrlgCoords.nTileYPos);
-    }
-    else
-    {
-        nX = nXArg;
-        nY = nYArg;
-    }
-
-    CLIENTS_SetRoomInClient(pClient, hRoom);
-    SUNIT_Add(pPlayer, nX, nY, pGame, hRoom, 0);
-    pClient->dwFlags &= ~1;
-    const int nUnitGUID = pPlayer->dwUnitId;
-    const int nUnitType = (pPlayer ? pPlayer->dwUnitType : UNIT_INVALID);
-    D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, 1);
-    D2GAME_PACKETS_SendPacket0x7E_6FC3F770(pClient, pGame->unk0xEC);
-
-    D2CorpseStrc* pCorpse = INVENTORY_GetFirstCorpse(pPlayer->pInventory);
-    while (pCorpse)
-    {
-        const int nCorpseGUID = INVENTORY_GetUnitGUIDFromCorpse(pCorpse);
-        if (!INVENTORY_IsPlayerCorpse(pCorpse))
-        {
-            const unsigned short wName = INVENTORY_GetCorpseMercNameId(pCorpse);
-            pCorpse = INVENTORY_GetNextCorpse(pCorpse);
-            INVENTORY_FreeCorpse(pPlayer->pInventory, nCorpseGUID, 0);
-            if (nCorpseGUID && wName)
-            {
-                D2GAME_MERCS_Create_6FCC8630(pGame, pPlayer, wName, nCorpseGUID, 0xFFFF, 0, 0);
-            }
-        }
-        else
-        {
-            D2UnitStrc* pCorpsePlayer = SUNIT_GetServerUnit(pGame, 0, nCorpseGUID);
-            if (pCorpsePlayer)
-            {
-                const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nAct);
-                int nCorpseX = 0;
-                int nCorpseY = 0;
-                D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nAct], nTownLevelId, 0, &nCorpseX, &nCorpseY, UNITS_GetUnitSizeX(pCorpsePlayer));
-                D2CoordStrc tCoord;
-                tCoord.nX = nCorpseX;
-                tCoord.nY = nCorpseY;
-                PLAYER_PlaceCorpse(pGame, pSpawnRoom, nCorpseGUID, &tCoord);
-            }
-
-            pCorpse = INVENTORY_GetNextCorpse(pCorpse);
-        }
-    }
-
-    SUNITNPC_UpdateHirelingPosition(pGame, pPlayer);
-
-    const int nIronGolemItemGUID = pClient->nIronGolemItemGUID;
-    if (nIronGolemItemGUID && nIronGolemItemGUID != -1)
-    {
-        D2UnitStrc* pIronGolemItem = SUNIT_GetServerUnit(pGame, 4, nIronGolemItemGUID);
-        if (pIronGolemItem)
-        {
-            D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, SKILL_IRONGOLEM);
-            if (pSkill)
-            {
-                const int nSkillLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
-                UNITS_SetXForStaticUnit(pIronGolemItem, CLIENTS_GetUnitX(pPlayer));
-                UNITS_SetYForStaticUnit(pIronGolemItem, CLIENTS_GetUnitY(pPlayer));
-                UNITS_SetTargetUnitForDynamicUnit(pPlayer, pIronGolemItem);
-                sub_0056F7F0(pGame, pPlayer, SKILL_IRONGOLEM, nSkillLevel, 1, 0, 0);
-            }
-        }
-
-        pClient->nIronGolemItemGUID = -1;
-    }
-}
-
-// 0x00539BE0
-void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc* pClient, char* szInfo)
-{
-    sub_006BBF40((unsigned char*)szInfo, PREVIEW_VERSION);
-    D2CharacterPreviewRecordStrc* pPreview = (D2CharacterPreviewRecordStrc*)(szInfo + 2);
-    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-    if (pPlayer)
-    {
-        unsigned char aColors[16];
-        unsigned char aComponents[16];
-        unsigned char aGfx[16];
-        const unsigned char nLevel = (unsigned char)STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
-        const unsigned int nClassId = pPlayer->dwClassId;
-
-        memset(aComponents, 0xFF, sizeof(aComponents));
-        sub_0063E510_FillInventoryTables(pPlayer, aComponents, aGfx);
-        SMemCopy(pPreview->pComponents, aComponents, PREVIEW_COPY_SIZE);
-        pPreview->nClass = (unsigned char)nClassId < NUMBER_OF_PLAYERCLASSES ? (unsigned char)nClassId + 1 : 1;
-
-        memset(aColors, 0xFF, sizeof(aColors));
-        sub_0063E510_FillInventoryTables(pPlayer, aGfx, aColors);
-        for (int i = 0; i < 16; ++i)
-        {
-            if (!aColors[i])
-            {
-                aColors[i] = 0xFF;
-            }
-        }
-        SMemCopy(pPreview->pComponentColors, aColors, PREVIEW_COPY_SIZE);
-
-        const unsigned char nLevelIndex = nLevel - 1;
-        pPreview->nLevel = nLevelIndex <= PREVIEW_MAX_LEVEL_INDEX ? nLevel : 1;
-
-        const unsigned int nMode = pPlayer->dwAnimMode;
-        const unsigned short wSaveFlags = pClient->nSaveFlags;
-        unsigned int nFlags = wSaveFlags;
-        if ((nMode == PLRMODE_DEAD || nMode == PLRMODE_DEATH) && (wSaveFlags & CLIENTSAVEFLAG_HARDCORE))
-        {
-            nFlags |= CLIENTSAVEFLAG_DEAD;
-        }
-        else
-        {
-            nFlags &= 0xFFF7;
-        }
-        sub_006BBF40(pPreview->nClientFlags, nFlags);
-        sub_006BBF40(pPreview->nGuildFlags, pClient->nGuildFlags);
-
-        unsigned char nBgColor = pClient->nGuildBgColor;
-        unsigned char nFgColor = pClient->nGuildFgColor;
-        unsigned char nEmblem = pClient->f_482;
-        if (!nBgColor)
-        {
-            nBgColor = 0xFF;
-        }
-        if (!nFgColor)
-        {
-            nFgColor = 0xFF;
-        }
-        if (!nEmblem)
-        {
-            nEmblem = 0xFF;
-        }
-        pPreview->nGuildBgColor = nBgColor;
-        pPreview->nGuildFgColor = nFgColor;
-        pPreview->f_1E = nEmblem;
-        pPreview->f_1F = pClient->f_460;
-
-        const int bBadLevel = nLevelIndex > PREVIEW_MAX_LEVEL_INDEX;
-        const int bBadClass = (unsigned char)nClassId >= NUMBER_OF_PLAYERCLASSES;
-        const int bBadFlags = (nFlags & CLIENTSAVEFLAG_INVALID_1) || (nFlags & CLIENTSAVEFLAG_INVALID_2) || (nFlags & CLIENTSAVEFLAG_INVALID_10);
-        const int bBadLength = SStrLen(szInfo) != PREVIEW_STRING_LENGTH;
-        if (bBadLevel || bBadClass || bBadFlags || bBadLength)
-        {
-            *szInfo = 0;
-        }
-    }
-}
-
-inline void W11_InlineFixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
-{
-    D2_ASSERT(pRoom, 0x62);
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-        SUNIT_UpdateClientIfRoomInvalid(pUnit, pClient);
-}
-
-// 0x0053A6F0
-void __fastcall LEVEL_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
-{
-    D2_ASSERT(pRoom, 0x75);
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-        W11_InlineFixRoomUnits(ppRoomList[i], pClient);
-}
-
-// 0x0053AB10
-void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
-{
-    D2_ASSERT(pRoom, 0x141);
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-        LEVEL_ClearRoomUnitTargets(pGame, ppRoomList[i], pTarget);
-}
-
-// 0x0053E2C0
-void D2BitBufferStrc::SCMD_WriteBitBufferBool(int bValue)
-{
-    BITMANIP_Write(this, bValue != 0, 1);
-}
-
-// 0x00547080
-void __fastcall OBJRGN_PrintObjectPlacementStats(D2GameStrc* pGame)
-{
-    char szText[0x80];
-    D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
-    for (int i = 1; i < 0x61; ++i)
-    {
-        if (pObjectControl->wGroupCount[i])
-        {
-            wsprintfA(szText, "Attempted to place group %d %d times\n", i, pObjectControl->wGroupCount[i]);
-            pGame->OBJRGN_BroadcastServerText(szText);
-        }
-    }
-    wsprintfA(szText, "%d Rooms where we wanted to place - no group beat the odds\n", pObjectControl->wRoomsNoGroup);
-    pGame->OBJRGN_BroadcastServerText(szText);
-    wsprintfA(szText, "%d rooms tried to place 1+ group(s); %d rooms w/no objs\n", pObjectControl->wRoomsTried, pObjectControl->wGroupCount[0]);
-    pGame->OBJRGN_BroadcastServerText(szText);
-}
-
-// 0x00552840
-void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjectId)
-{
-    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
-        return;
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xC7D);
-    if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
-        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity_00731BBD, nObjectId, 100);
-    }
-}
-
-// 0x005536E0
-void __fastcall SUNIT_StoreRoomTile(D2W11RoomTileOwnerStrc* pOwner, D2ActiveRoomStrc* pRoom, int nArg1, int nArg2)
-{
-    pOwner->pRecord->nArg1 = nArg1;
-    pOwner->pRecord->nArg2 = nArg2;
-    D2DrlgCoordsStrc tCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-    pOwner->pRecord->nTileX = tCoords.nTileXPos;
-    pOwner->pRecord->nTileY = tCoords.nTileYPos;
-}
-
-// 0x005B7230
-void __fastcall ACT3Q0_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x0E);
-    if (!pQuestData)
-        return;
-    D2W11QuestEx5B7230Strc* pQuestDataEx = (D2W11QuestEx5B7230Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->pMapAI = pMapAI;
-    if (!pQuestDataEx->bNpcSpawned)
-        return;
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nNpcGUID);
-    if (pNpc && pQuestDataEx->pMapAI && pQuestDataEx->pMapAI->pPosition && !pQuestDataEx->bMapAIChanged)
-    {
-        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pMapAI, AIGENERAL_GetMapAiFromUnit(pNpc));
-        pQuestDataEx->bMapAIChanged = 1;
-    }
-}
-
-// 0x005BD040
-void __fastcall ACT3Q6_ChangeNatalyaMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x14);
-    if (!pQuestData)
-        return;
-    D2W11QuestEx5BD040Strc* pQuestDataEx = (D2W11QuestEx5BD040Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->pMapAI = pMapAI;
-    if (!pQuestDataEx->bNpcSpawned)
-        return;
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nNpcGUID);
-    if (pNpc && pQuestDataEx->pMapAI && pQuestDataEx->pMapAI->pPosition && !pQuestDataEx->bMapAIChanged)
-    {
-        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pMapAI, AIGENERAL_GetMapAiFromUnit(pNpc));
-        pQuestDataEx->bMapAIChanged = 1;
-    }
 }

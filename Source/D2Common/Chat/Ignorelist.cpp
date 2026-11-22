@@ -1895,6 +1895,23 @@ void D2CommonStormSlotArrayBStrc::IGNORELIST_ReallocMappingSlotArray(unsigned in
     }
 }
 
+// 0x00610EB0
+int D2CommonIgnoreListStrc::IGNORELIST_AddName(const char* szName)
+{
+    if (!szName || !*szName || !IGNORELIST_IsEnabled())
+        return 0;
+    char szKey[0x100] = "";
+    IGNORELIST_NormalizeKey(szName, szKey, 0x100);
+    if (!szKey[0])
+        return 0;
+    if (!m_table.IGNORELIST_FindStringTableNode(szKey))
+    {
+        m_table.IGNORELIST_NewStringTableNode(szKey, 0, 0);
+        IGNORELIST_AppendLineToFile(szKey);
+    }
+    return 1;
+}
+
 // 0x0060DF10
 int D2CommonIgnoreListStrc::IGNORELIST_AppendLineToFile(const char* szLine)
 {
@@ -1948,11 +1965,6 @@ int D2CommonIgnoreListStrc::IGNORELIST_TranslateAlias(const char* szName, char* 
 D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_FindStringTableNode(const char* szKey)
 {
     return IGNORELIST_InternalFindStringTableNode(SStrHash(szKey, 0, 0), D2StormHashKeyStrIStrc(szKey));
-}
-
-// 0x0060F930
-D2CommonStormSlotArrayAViewStrc::~D2CommonStormSlotArrayAViewStrc()
-{
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
@@ -2009,6 +2021,11 @@ void D2StormArray408Strc::sub_0051D670_FreeData()
 {
     if (f_8)
         SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+// 0x0060F930
+D2CommonStormSlotArrayAViewStrc::~D2CommonStormSlotArrayAViewStrc()
+{
 }
 
 // 0x0060F940
@@ -2129,6 +2146,7 @@ int D2CommonIgnoreListStrc::IGNORELIST_IsTextFiltered(const char* szName)
     return 0;
 }
 
+// build: symbol ??_7?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62B4
 // 0x0060FD50
 int D2CommonIgnoreListStrc::IGNORELIST_ContainsName(const char* szKey)
 {
@@ -2139,7 +2157,6 @@ int D2CommonIgnoreListStrc::IGNORELIST_ContainsName(const char* szKey)
     return m_table.IGNORELIST_FindStringTableNode(szKey) != 0;
 }
 
-// build: symbol ??_7?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62B4
 // 0x0060FD90
 D2CommonStormHashTableAStrc::~TSHashTable()
 {
@@ -2148,12 +2165,6 @@ D2CommonStormHashTableAStrc::~TSHashTable()
 
 // 0x0060FE30
 D2CommonStormZeroAStrc::D2CommonStormZeroAStrc()
-{
-    m_value = 0;
-}
-
-// 0x0060FE40
-D2CommonStormZeroBStrc::D2CommonStormZeroBStrc()
 {
     m_value = 0;
 }
@@ -2188,9 +2199,10 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
     return &f_8[f_4++];
 }
 
-// 0x0060FE50
-D2CommonStormZeroFE50Strc::D2CommonStormZeroFE50Strc() : n0x04(0), n0x08(0), n0x0C(0), n0x10(0), n0x14(0)
+// 0x0060FE40
+D2CommonStormZeroBStrc::D2CommonStormZeroBStrc()
 {
+    m_value = 0;
 }
 
 void sub_F44_EmitMappingEntryNode(D2CommonMappingEntryNodeStrc* p)
@@ -2215,11 +2227,20 @@ void sub_F44_EmitSlotListB(D2CommonStormSlotListBStrc* p)
     delete p;
 }
 
+// 0x0060FE50
+D2CommonStormZeroFE50Strc::D2CommonStormZeroFE50Strc() : n0x04(0), n0x08(0), n0x0C(0), n0x10(0), n0x14(0)
+{
+}
+
 // 0x0060FE70
 D2CommonStormZeroFE70Strc::D2CommonStormZeroFE70Strc() : n0x04(0), n0x08(0), n0x0C(0), n0x10(0), n0x14(0)
 {
 }
 
+// build: symbol ??_G?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z 0x00610050
+// build: symbol ??_G?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z 0x00610800
+// build: symbol ??_GD2CommonStormSlotArrayAStrc@@QAEPAXI@Z 0x0060FFD0
+// build: symbol ??_GD2CommonStormSlotArrayBStrc@@QAEPAXI@Z 0x00610780
 // 0x0060FE90
 D2CommonStringEntryNodeStrc* D2CommonStormSlotListAStrc::IGNORELIST_NewStringListNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
@@ -2229,10 +2250,6 @@ D2CommonStringEntryNodeStrc* D2CommonStormSlotListAStrc::IGNORELIST_NewStringLis
     return pNode;
 }
 
-// build: symbol ??_G?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z 0x00610050
-// build: symbol ??_G?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z 0x00610800
-// build: symbol ??_GD2CommonStormSlotArrayAStrc@@QAEPAXI@Z 0x0060FFD0
-// build: symbol ??_GD2CommonStormSlotArrayBStrc@@QAEPAXI@Z 0x00610780
 // 0x0060FEF0
 D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_AllocStringTableNodeInList(D2CommonStormSlotListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
 {
@@ -2363,6 +2380,7 @@ int D2CommonIgnoreListStrc::IGNORELIST_IsListed(const char* szName)
     return 0;
 }
 
+// build: symbol ??_7?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62C8
 // 0x006104A0
 D2CommonStormHashTableAStrc::TSHashTable()
 {
@@ -2374,16 +2392,10 @@ D2CommonStormHashTableAStrc::TSHashTable()
         m_slotlistarray.f_8[i].ChangeLinkOffset(4);
 }
 
-// build: symbol ??_7?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62C8
 // 0x00610550
 D2CommonStormHashTableBStrc::~TSHashTable()
 {
     IGNORELIST_InternalClearMappingTable(1);
-}
-
-// 0x006105F0
-D2CommonStormZero6105F0Strc::D2CommonStormZero6105F0Strc() : n0x04(0), n0x08(0), n0x0C(0), n0x10(0), n0x14(0)
-{
 }
 
 int __fastcall sub_0066D7E0_MapTileType(int nId)
@@ -2398,13 +2410,18 @@ void __fastcall sub_0066D800_TileToClientCoords(int* pX, int* pY)
     *pY += 0x28;
 }
 
+// 0x006105F0
+D2CommonStormZero6105F0Strc::D2CommonStormZero6105F0Strc() : n0x04(0), n0x08(0), n0x0C(0), n0x10(0), n0x14(0)
+{
+}
+
+// build: symbol ?sub_0060E890@List@@QAEXPADH0@Z 0x0060E890
 // 0x00610610
 D2CommonRecord610610Strc::D2CommonRecord610610Strc(int nValue)
     : f_4(0), f_8(0), nFieldC(0), nField10(0), nField14(0), nField18(nValue)
 {
 }
 
-// build: symbol ?sub_0060E890@List@@QAEXPADH0@Z 0x0060E890
 // 0x00610630
 Node* List::IGNORELIST_NewMappingListNode(int linkType,unsigned extra,unsigned flags)
 {
@@ -2485,6 +2502,8 @@ int D2CommonStormHashTableAStrc::sub_00610840(unsigned int nSlot)
     return 0;
 }
 
+// build: symbol ??_7ChatIgnoreList@@6B@ 0x006E6248
+// build: symbol ??_7IgnoreList@@6B@ 0x006E62DC
 // 0x006108D0
 void D2CommonStormHashTableBStrc::IGNORELIST_GrowMappingTableSlots()
 {
@@ -2507,8 +2526,6 @@ void D2CommonStormHashTableBStrc::IGNORELIST_GrowMappingTableSlots()
         InternalLinkNode(pNode, pNode->f_0);
 }
 
-// build: symbol ??_7ChatIgnoreList@@6B@ 0x006E6248
-// build: symbol ??_7IgnoreList@@6B@ 0x006E62DC
 // 0x00610AA0
 D2CommonIgnoreListStrc::~IgnoreList()
 {
@@ -2595,161 +2612,6 @@ D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_InternalNe
     return pNode;
 }
 
-// 0x00610EB0
-int D2CommonIgnoreListStrc::IGNORELIST_AddName(const char* szName)
-{
-    if (!szName || !*szName || !IGNORELIST_IsEnabled())
-        return 0;
-    char szKey[0x100] = "";
-    IGNORELIST_NormalizeKey(szName, szKey, 0x100);
-    if (!szKey[0])
-        return 0;
-    if (!m_table.IGNORELIST_FindStringTableNode(szKey))
-    {
-        m_table.IGNORELIST_NewStringTableNode(szKey, 0, 0);
-        IGNORELIST_AppendLineToFile(szKey);
-    }
-    return 1;
-}
-
-// 0x00610F90
-int D2CommonIgnoreListStrc::IGNORELIST_AddAlias(const char* szName)
-{
-    if (!szName || !*szName || !IGNORELIST_IsEnabled() || !*szName)
-    {
-        return 0;
-    }
-
-    if (!m_table2.IGNORELIST_FindStringTableNode(szName))
-    {
-        m_table2.IGNORELIST_NewStringTableNode(szName, 0, 0);
-        char szLine[0x100] = "";
-        szLine[0] = '!';
-        SStrPack(szLine, szName, sizeof(szLine));
-        IGNORELIST_AppendLineToFile(szLine);
-    }
-
-    return 1;
-}
-
-// 0x00611050
-void D2CommonIgnoreListStrc::IGNORELIST_LoadFromFile()
-{
-    _iobuf* pFile = fopen(szFileName, "rt");
-    if (!pFile)
-    {
-        return;
-    }
-
-    char szLine[0x100] = "";
-    while (fgets(szLine, sizeof(szLine), pFile))
-    {
-        for (unsigned int i = 0; i < SStrLen(szLine); ++i)
-        {
-            if (szLine[i] == '\r' || szLine[i] == '\n')
-            {
-                szLine[i] = '\0';
-            }
-        }
-
-        if (szLine[0] == '!' && szLine[1])
-        {
-            m_table2.IGNORELIST_NewStringTableNode(&szLine[1], 0, 0);
-        }
-        else
-        {
-            m_table.IGNORELIST_NewStringTableNode(szLine, 0, 0);
-        }
-    }
-
-    fclose(pFile);
-}
-
-// 0x00611170
-D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_NewMappingTableNode(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    D2StormHashKeyStrIStrc key(szKey);
-    return IGNORELIST_InternalNewMappingTableNode(SStrHash(szKey, 0, 0), key, nExtraBytes, nFlags);
-}
-
-// 0x00611200
-D2CommonIgnoreListStrc::IgnoreList()
-{
-    m_pFile = 0;
-    m_bEnabled = 1;
-
-    char szPath[0x104];
-    ERRORMANAGER_GetModuleDirectory(szPath, 0x104);
-    SMemZero(szFileName, 0x104);
-    char* pSep = (char*)SStrChrR(szPath, 0x5C);
-    if (pSep)
-        pSep[1] = 0;
-    SStrPack(szPath, "ignorelist", 0x104);
-    SStrCopy(szFileName, szPath, 0x104);
-
-    unsigned long dwEnabled = 1;
-    SRegLoadValue("Diablo II", "Persistent Ignore", 0, &dwEnabled);
-    m_bEnabled = dwEnabled;
-    IGNORELIST_LoadFromFile();
-}
-
-// 0x00611320
-int D2CommonIgnoreListStrc::IGNORELIST_StoreAccountAlias(char* szRaw, int nRawLen)
-{
-    if (!szRaw || !*szRaw || !IGNORELIST_IsEnabled())
-    {
-        return 0;
-    }
-
-    char szAccount[0x100];
-    char szName[0x100];
-    SMemZero(szAccount, sizeof(szAccount));
-    SMemZero(szName, sizeof(szName));
-
-    unsigned int nStart = 0;
-    for (unsigned int i = 0; szRaw[i] && i < nRawLen - 1; ++i)
-    {
-        if (szRaw[i + 1] == '(')
-        {
-            nStart = i + 1;
-            SMemCopy(szName, szRaw, nStart);
-        }
-
-        if (szRaw[i + 1] == ')')
-        {
-            SMemCopy(szAccount, &szRaw[nStart + 1], i - nStart);
-        }
-
-        if (szName[0] && szAccount[0])
-        {
-            break;
-        }
-    }
-
-    if (!szName[0] || !szAccount[0])
-    {
-        return 0;
-    }
-
-    D2CommonMappingEntryNodeStrc* pNode = m_table3.IGNORELIST_FindMappingTableNode(szName);
-    if (!pNode)
-    {
-        pNode = m_table3.IGNORELIST_NewMappingTableNode(szName, 0, 0);
-    }
-
-    if (pNode->pMapped)
-    {
-        SMemFree(pNode->pMapped, ".\\Chat\\Ignorelist.cpp", 322, 0);
-    }
-
-    char szMapped[0x100] = "";
-    szMapped[0] = '*';
-    SStrPack(szMapped, szAccount, sizeof(szMapped));
-    pNode->pMapped = SStrDup(szMapped);
-    return 1;
-}
-
-// build: symbol ??3@YAXPAX0@Z 0x0040EB30
 // 0x006114E0
 void IGNORELIST_CreateIgnoreList()
 {
@@ -2792,6 +2654,7 @@ int __stdcall DATATBLS_GetMaxLevel(int nClass)
     return gpExperienceTxt->tMax.dwClass[nClass];
 }
 
+// build: symbol ??3@YAXPAX0@Z 0x0040EB30
 // 0x006125A0
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bSilent)
 {
@@ -2850,6 +2713,143 @@ int __stdcall DUNGEON_GetWarpDestinationLevel(D2ActiveRoomStrc* pRoom, int nSour
     if (!pRoom)
         return 0;
     return DRLGROOM_GetWarpDestinationLevel(pRoom->pDrlgRoom, nSourceLevel);
+}
+
+// 0x00610F90
+int D2CommonIgnoreListStrc::IGNORELIST_AddAlias(const char* szName)
+{
+    if (!szName || !*szName || !IGNORELIST_IsEnabled() || !*szName)
+    {
+        return 0;
+    }
+
+    if (!m_table2.IGNORELIST_FindStringTableNode(szName))
+    {
+        m_table2.IGNORELIST_NewStringTableNode(szName, 0, 0);
+        char szLine[0x100] = "";
+        szLine[0] = '!';
+        SStrPack(szLine, szName, sizeof(szLine));
+        IGNORELIST_AppendLineToFile(szLine);
+    }
+
+    return 1;
+}
+
+// 0x00611200
+D2CommonIgnoreListStrc::IgnoreList()
+{
+    m_pFile = 0;
+    m_bEnabled = 1;
+
+    char szPath[0x104];
+    ERRORMANAGER_GetModuleDirectory(szPath, 0x104);
+    SMemZero(szFileName, 0x104);
+    char* pSep = (char*)SStrChrR(szPath, 0x5C);
+    if (pSep)
+        pSep[1] = 0;
+    SStrPack(szPath, "ignorelist", 0x104);
+    SStrCopy(szFileName, szPath, 0x104);
+
+    unsigned long dwEnabled = 1;
+    SRegLoadValue("Diablo II", "Persistent Ignore", 0, &dwEnabled);
+    m_bEnabled = dwEnabled;
+    IGNORELIST_LoadFromFile();
+}
+
+// 0x00611050
+void D2CommonIgnoreListStrc::IGNORELIST_LoadFromFile()
+{
+    _iobuf* pFile = fopen(szFileName, "rt");
+    if (!pFile)
+    {
+        return;
+    }
+
+    char szLine[0x100] = "";
+    while (fgets(szLine, sizeof(szLine), pFile))
+    {
+        for (unsigned int i = 0; i < SStrLen(szLine); ++i)
+        {
+            if (szLine[i] == '\r' || szLine[i] == '\n')
+            {
+                szLine[i] = '\0';
+            }
+        }
+
+        if (szLine[0] == '!' && szLine[1])
+        {
+            m_table2.IGNORELIST_NewStringTableNode(&szLine[1], 0, 0);
+        }
+        else
+        {
+            m_table.IGNORELIST_NewStringTableNode(szLine, 0, 0);
+        }
+    }
+
+    fclose(pFile);
+}
+
+// 0x00611170
+D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_NewMappingTableNode(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    D2StormHashKeyStrIStrc key(szKey);
+    return IGNORELIST_InternalNewMappingTableNode(SStrHash(szKey, 0, 0), key, nExtraBytes, nFlags);
+}
+
+// 0x00611320
+int D2CommonIgnoreListStrc::IGNORELIST_StoreAccountAlias(char* szRaw, int nRawLen)
+{
+    if (!szRaw || !*szRaw || !IGNORELIST_IsEnabled())
+    {
+        return 0;
+    }
+
+    char szAccount[0x100];
+    char szName[0x100];
+    SMemZero(szAccount, sizeof(szAccount));
+    SMemZero(szName, sizeof(szName));
+
+    unsigned int nStart = 0;
+    for (unsigned int i = 0; szRaw[i] && i < nRawLen - 1; ++i)
+    {
+        if (szRaw[i + 1] == '(')
+        {
+            nStart = i + 1;
+            SMemCopy(szName, szRaw, nStart);
+        }
+
+        if (szRaw[i + 1] == ')')
+        {
+            SMemCopy(szAccount, &szRaw[nStart + 1], i - nStart);
+        }
+
+        if (szName[0] && szAccount[0])
+        {
+            break;
+        }
+    }
+
+    if (!szName[0] || !szAccount[0])
+    {
+        return 0;
+    }
+
+    D2CommonMappingEntryNodeStrc* pNode = m_table3.IGNORELIST_FindMappingTableNode(szName);
+    if (!pNode)
+    {
+        pNode = m_table3.IGNORELIST_NewMappingTableNode(szName, 0, 0);
+    }
+
+    if (pNode->pMapped)
+    {
+        SMemFree(pNode->pMapped, ".\\Chat\\Ignorelist.cpp", 322, 0);
+    }
+
+    char szMapped[0x100] = "";
+    szMapped[0] = '*';
+    SStrPack(szMapped, szAccount, sizeof(szMapped));
+    pNode->pMapped = SStrDup(szMapped);
+    return 1;
 }
 
 void sub_F45_EmitHashTables(void* pTableA, void* pTableB)

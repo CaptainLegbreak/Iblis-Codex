@@ -215,6 +215,32 @@ void __fastcall ACT3Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_UpdateQuestStateFlags);
 }
 
+// 0x005BBEB0
+void __fastcall ACT3Q5_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pNPCMessages = gpAct3Q5NpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->pCallback[8] = ACT3Q5_Callback08_MonsterKilled;
+    pQuestData->pCallback[0] = ACT3Q5_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q5_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q5_Callback03_ChangedLevel;
+    pQuestData->pCallback[13] = ACT3Q5_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
+    pQuestData->pfSeqFilter = ACT3Q5_SeqCallback;
+    pQuestData->nSeqId = 20;
+    pQuestData->fState = 0;
+    pQuestData->eFilter = 21;
+    pQuestData->pfActiveFilter = ACT3Q5_ActiveFilterCallback;
+    pQuestData->nInitNo = 6;
+    pQuestData->pfStatusFilter = 0;
+
+    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 1061, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
+    memset(pQuestData->pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
+}
+
 // 0x005BB210
 void __fastcall ACT3Q5_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -444,6 +470,19 @@ int __fastcall ACT3Q5_UnitIterate_DetermineFlailAndCubeDropCounts(D2GameStrc* pG
     return 0;
 }
 
+inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwClassId;
+}
+
+inline void SetUnitFlagMask(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= nFlag;
+    }
+}
+
 // 0x005BB850
 void __fastcall ACT3Q5_UnitIterate_DeleteKhalimItems(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -485,19 +524,6 @@ void __fastcall ACT3Q5_UnitIterate_DeleteKhalimItems(D2GameStrc* pGame, D2UnitSt
     if (QUESTRECORD_GetQuestState(pQuestFlags, 21, 4) && !QUESTRECORD_GetQuestState(pQuestFlags, 21, 0))
     {
         QUESTRECORD_SetQuestState(pQuestFlags, 21, 0);
-    }
-}
-
-inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
-{
-    return !pUnit ? -1 : pUnit->dwClassId;
-}
-
-inline void SetUnitFlagMask(D2UnitStrc* pUnit, unsigned int nFlag)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags |= nFlag;
     }
 }
 
@@ -587,32 +613,6 @@ void __fastcall ACT3Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT3Q5_UnitIterate_SetCompletionFlag);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT3Q5_UnitIterate_AttachCompletionSound);
     QUESTS_SetGlobalState(pQuestData->pGame, 21, 13);
-}
-
-// 0x005BBEB0
-void __fastcall ACT3Q5_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pNPCMessages = gpAct3Q5NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->pCallback[8] = ACT3Q5_Callback08_MonsterKilled;
-    pQuestData->pCallback[0] = ACT3Q5_Callback00_NpcActivate;
-    pQuestData->pCallback[11] = ACT3Q5_Callback11_ScrollMessage;
-    pQuestData->pCallback[3] = ACT3Q5_Callback03_ChangedLevel;
-    pQuestData->pCallback[13] = ACT3Q5_Callback13_PlayerStartedGame;
-    pQuestData->pCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
-    pQuestData->pfSeqFilter = ACT3Q5_SeqCallback;
-    pQuestData->nSeqId = 20;
-    pQuestData->fState = 0;
-    pQuestData->eFilter = 21;
-    pQuestData->pfActiveFilter = ACT3Q5_ActiveFilterCallback;
-    pQuestData->nInitNo = 6;
-    pQuestData->pfStatusFilter = 0;
-
-    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 1061, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
-    memset(pQuestData->pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
 }
 
 #include "gen/data/Source/D2Game/Quests/a3q5.inc"

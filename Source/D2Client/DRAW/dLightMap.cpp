@@ -1219,51 +1219,11 @@ static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight)
     DLIGHTMAP_AddAreaLight(pLight, nLevel);
 }
 
-// 0x00475780
-int __cdecl DLIGHTMAP_GetIndicatorLevel()
+// 0x00475B20
+void __cdecl DLIGHTMAP_DebugDrawLights()
 {
-    int nValue;
-    int nLevel = 2;
-    if (sub_004F5210())
-    {
-        if (!sub_004CCF30())
-        {
-            goto low;
-        }
-        nLevel = 1;
-    }
-    nValue = GAME_GetFramesPerSecond();
-    if (nValue <= 9)
-    {
-low:
-        nLevel = 0;
-    }
-    else if (nValue <= 12)
-    {
-        nLevel = 1;
-    }
-    else if (nValue <= 15)
-    {
-        if (gnIndicatorLevel_007B567C >= 1)
-        {
-            return gnIndicatorLevel_007B567C;
-        }
-        nLevel = 1;
-    }
-    if (nLevel != gnIndicatorLevel_007B567C)
-    {
-        const unsigned long dwTick = GetTickCount();
-        if (dwTick - gdwIndicatorTick_007B5678 > INDICATOR_HOLD_MS)
-        {
-            gdwIndicatorTick_007B5678 = dwTick;
-            gnIndicatorLevel_007B567C = nLevel;
-        }
-        else
-        {
-            return gnIndicatorLevel_007B567C;
-        }
-    }
-    return nLevel;
+    D2R01LightStrc* pLight = gpLights_007B5668;
+    D2GFX_DebugDraw(gdwLightMap_007A8A50, gdwLightGrid_007B0E68, pLight->nX, pLight->nY);
 }
 
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
@@ -1290,53 +1250,6 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }
-}
-
-// 0x00475800
-void __cdecl sub_00475800_RunLightPass()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    const int nX = CLIENTS_GetUnitXInline(pPlayer);
-    const int nY = CLIENTS_GetUnitYInline(pPlayer);
-    gnGlobal_007B0A54 = nX - 0x18;
-    gnGlobal_007B0A58 = nY - 0x18;
-    gnGlobal_007B0A5C = gnGlobal_007B0A54 + 0x30;
-    gnGlobal_007B0A60 = gnGlobal_007B0A58 + 0x30;
-    DLIGHTMAP_UpdateLightGrid(0);
-    sub_004756D0_ScanGridCollision();
-    const int nLevel = DLIGHTMAP_GetIndicatorLevel();
-    gnLightCount_007B5674 = 0;
-    D2R01LightStrc* pLight = gpLights_007B5668;
-    while (pLight)
-    {
-        ++gnLightCount_007B5674;
-        D2R01LightStrc* pNext = pLight->pNext;
-        DLIGHTMAP_UpdateLight(nLevel, pLight);
-        pLight = pNext;
-    }
-}
-
-void sub_M241_Emit_00474D70(D2R01LightStrc* pLight)
-{
-    DLIGHTMAP_BuildOverrideWindow(pLight);
-}
-
-// 0x004758D0
-void __cdecl DLIGHTMAP_FreeAllLights()
-{
-    D2R01LightStrc* pLight = gpLights_007B5668;
-    while (pLight)
-    {
-        D2R01LightStrc* pNext = pLight->pNext;
-        if (pLight->pMask)
-        {
-            FOG_Free(pLight->pMask, ".\\DRAW\\dLightMap.cpp", 1405, 0);
-        }
-        FOG_Free(pLight, ".\\DRAW\\dLightMap.cpp", 1407, 0);
-        pLight = pNext;
-    }
-
-    gpLights_007B5668 = 0;
 }
 
 // 0x00475930
@@ -1382,11 +1295,9 @@ void __fastcall DLIGHTMAP_ActRoomCallback(D2ActiveRoomStrc* pRoom)
     }
 }
 
-// 0x00475B20
-void __cdecl DLIGHTMAP_DebugDrawLights()
+void sub_M241_Emit_00474D70(D2R01LightStrc* pLight)
 {
-    D2R01LightStrc* pLight = gpLights_007B5668;
-    D2GFX_DebugDraw(gdwLightMap_007A8A50, gdwLightGrid_007B0E68, pLight->nX, pLight->nY);
+    DLIGHTMAP_BuildOverrideWindow(pLight);
 }
 
 // 0x00475B40
@@ -1555,6 +1466,95 @@ int __cdecl DLIGHTMAP_GetTextHeader()
 int __cdecl sub_004A8A20()
 {
     return 7;
+}
+
+// 0x00475780
+int __cdecl DLIGHTMAP_GetIndicatorLevel()
+{
+    int nValue;
+    int nLevel = 2;
+    if (sub_004F5210())
+    {
+        if (!sub_004CCF30())
+        {
+            goto low;
+        }
+        nLevel = 1;
+    }
+    nValue = GAME_GetFramesPerSecond();
+    if (nValue <= 9)
+    {
+low:
+        nLevel = 0;
+    }
+    else if (nValue <= 12)
+    {
+        nLevel = 1;
+    }
+    else if (nValue <= 15)
+    {
+        if (gnIndicatorLevel_007B567C >= 1)
+        {
+            return gnIndicatorLevel_007B567C;
+        }
+        nLevel = 1;
+    }
+    if (nLevel != gnIndicatorLevel_007B567C)
+    {
+        const unsigned long dwTick = GetTickCount();
+        if (dwTick - gdwIndicatorTick_007B5678 > INDICATOR_HOLD_MS)
+        {
+            gdwIndicatorTick_007B5678 = dwTick;
+            gnIndicatorLevel_007B567C = nLevel;
+        }
+        else
+        {
+            return gnIndicatorLevel_007B567C;
+        }
+    }
+    return nLevel;
+}
+
+// 0x00475800
+void __cdecl sub_00475800_RunLightPass()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    const int nX = CLIENTS_GetUnitXInline(pPlayer);
+    const int nY = CLIENTS_GetUnitYInline(pPlayer);
+    gnGlobal_007B0A54 = nX - 0x18;
+    gnGlobal_007B0A58 = nY - 0x18;
+    gnGlobal_007B0A5C = gnGlobal_007B0A54 + 0x30;
+    gnGlobal_007B0A60 = gnGlobal_007B0A58 + 0x30;
+    DLIGHTMAP_UpdateLightGrid(0);
+    sub_004756D0_ScanGridCollision();
+    const int nLevel = DLIGHTMAP_GetIndicatorLevel();
+    gnLightCount_007B5674 = 0;
+    D2R01LightStrc* pLight = gpLights_007B5668;
+    while (pLight)
+    {
+        ++gnLightCount_007B5674;
+        D2R01LightStrc* pNext = pLight->pNext;
+        DLIGHTMAP_UpdateLight(nLevel, pLight);
+        pLight = pNext;
+    }
+}
+
+// 0x004758D0
+void __cdecl DLIGHTMAP_FreeAllLights()
+{
+    D2R01LightStrc* pLight = gpLights_007B5668;
+    while (pLight)
+    {
+        D2R01LightStrc* pNext = pLight->pNext;
+        if (pLight->pMask)
+        {
+            FOG_Free(pLight->pMask, ".\\DRAW\\dLightMap.cpp", 1405, 0);
+        }
+        FOG_Free(pLight, ".\\DRAW\\dLightMap.cpp", 1407, 0);
+        pLight = pNext;
+    }
+
+    gpLights_007B5668 = 0;
 }
 
 #include "gen/data/Source/D2Client/DRAW/dLightMap.inc"

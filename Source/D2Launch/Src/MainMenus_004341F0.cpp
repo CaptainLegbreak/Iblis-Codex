@@ -147,23 +147,22 @@ int __stdcall sub_00434D90_PlayIntroAndLeave(int nArg)
     return 1;
 }
 
+// 0x00435020
+int __stdcall sub_00435020_Callback(int nUnused)
+{
+    sub_004336C0();
+    return 1;
+}
+
+// 0x00436270
+int __stdcall sub_00436270_OnShowLogin(int nArg)
+{
+    sub_00435330_ShowLoginScreen();
+    return 1;
+}
+
 // 0x00434DC0
 int __stdcall sub_00434DC0_Leave(int nArg)
-{
-    sub_004336C0();
-    return 1;
-}
-
-// 0x00434DD0
-int __stdcall sub_00434DD0_ClearAndLeave(int nArg)
-{
-    sub_0043B9A0();
-    sub_004336C0();
-    return 1;
-}
-
-// 0x00434DF0
-int __stdcall sub_00434DF0_Leave(int nArg)
 {
     sub_004336C0();
     return 1;
@@ -201,10 +200,11 @@ int __stdcall sub_00434600_CreateGatewayScreen(int nUnused)
     return 1;
 }
 
-// 0x00435020
-int __stdcall sub_00435020_Callback(int nUnused)
+// 0x00436300
+int __stdcall sub_00436300_BackToLogin(int nArg)
 {
-    sub_004336C0();
+    sub_0042F3F0_DestroyControls();
+    sub_00435330_ShowLoginScreen();
     return 1;
 }
 
@@ -254,13 +254,6 @@ int gdwGlobal_007795F4; // 0x007795F4
 
 int gdwGlobal_007799D8; // 0x007799D8
 
-// 0x00436270
-int __stdcall sub_00436270_OnShowLogin(int nArg)
-{
-    sub_00435330_ShowLoginScreen();
-    return 1;
-}
-
 // 0x00436280
 int __stdcall sub_00436280_ConnectOk(int nArg)
 {
@@ -285,14 +278,6 @@ int __stdcall sub_00436280_ConnectOk(int nArg)
         }
         sub_00435580();
     }
-    return 1;
-}
-
-// 0x00436300
-int __stdcall sub_00436300_BackToLogin(int nArg)
-{
-    sub_0042F3F0_DestroyControls();
-    sub_00435330_ShowLoginScreen();
     return 1;
 }
 
@@ -347,6 +332,21 @@ int __stdcall sub_00436360_SubmitCharacter(int nArg)
     }
     if (gnLaunchMode_007795EC == 1)
         sub_00435E10();
+    return 1;
+}
+
+// 0x00434DD0
+int __stdcall sub_00434DD0_ClearAndLeave(int nArg)
+{
+    sub_0043B9A0();
+    sub_004336C0();
+    return 1;
+}
+
+// 0x00434DF0
+int __stdcall sub_00434DF0_Leave(int nArg)
+{
+    sub_004336C0();
     return 1;
 }
 

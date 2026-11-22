@@ -849,6 +849,59 @@ int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return 0;
 }
 
+// 0x00544070
+void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine)
+{
+    if (dword_6FD4DC34)
+    {
+        PLRMSG_BroadcastChatMessage(pGame, szMessage, STRCOLOR_DARK_GOLD);
+    }
+}
+
+// 0x00544090
+void __fastcall QUESTS_SetQuestDebugFlag(int nValue)
+{
+    dword_6FD4DC34 = nValue;
+}
+
+// 0x005440A0
+static void __stdcall QUESTS_DeleteItemEx(D2InventoryStrc* pInventory, D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+{
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 0x534);
+    int nFlags = 0;
+    ITEMS_SetOrRemoveFlag(&nFlags, 0x20, 1);
+    const int nAnimMode = !pItem ? 0 : pItem->dwAnimMode;
+    switch (nAnimMode)
+    {
+    case 0:
+        ITEMS_SetItemCell(pItem, ITEMS_GetInvPage(pItem));
+        D2GAME_UpdateClientItem_6FC3E9D0(pClient, pPlayer, pItem, nFlags);
+        D2GAME_RemoveItem_6FC471F0(pGame, pPlayer, pItem, 0);
+        break;
+    case 1:
+    {
+        const int nBodyLoc = INVENTORY_GetItemsXPosition(pInventory, pItem);
+        int a5;
+        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &a5);
+        break;
+    }
+    case 4:
+        D2GAME_RemoveItemIfOnCursor_6FC49760(pGame, pPlayer, pItem);
+        INVENTORY_SetCursorItem(pInventory, 0);
+        break;
+    }
+}
+
+// 0x00544160
+void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode)
+{
+    D2UnitStrc* pItem = ITEMS_FindQuestItem(pGame, pPlayer, dwCode);
+    if (pItem)
+    {
+        QUESTS_DeleteItemEx(pPlayer->pInventory, pGame, pPlayer, pItem);
+    }
+}
+
 // 0x00543790
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex)
 {
@@ -867,6 +920,15 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
             TEXT_AddNodeToTextList(pTextControl, pTables[nIndex].pMessages[i].nStringIndex, nMenu);
         }
     }
+}
+
+static inline int DATATBLS_GetSuperUniqueHcIdx_Inline(int nSuperUniqueId)
+{
+    if (nSuperUniqueId >= 0 && nSuperUniqueId < sgptDataTables->nSuperUniquesTxtRecordCount)
+    {
+        return sgptDataTables->pSuperUniquesTxt[nSuperUniqueId].dwHcIdx;
+    }
+    return -1;
 }
 
 // 0x00543800
@@ -905,6 +967,34 @@ D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc* pGame)
 
     sub_00408A60(&gszEmptyAssertText, sub_00408090(), 507);
     exit(-1);
+}
+
+static inline int QUESTS_GetClassIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
+}
+
+static inline D2QuestDataStrc* QUESTS_GetQuestDataInline(D2GameStrc* pGame, int nId)
+{
+    D2QuestInfoStrc* pControl = pGame->pQuestControl;
+    D2_ASSERT(nId >= 0, 119);
+    if (!pControl)
+    {
+        return 0;
+    }
+    for (D2QuestDataStrc* pQuestData = pControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
+    {
+        if (pQuestData->nQuestNo == nId)
+        {
+            return pQuestData;
+        }
+    }
+    return 0;
 }
 
 // 0x005438E0
@@ -947,15 +1037,6 @@ static void __stdcall QUESTS_StatusCycler(bool bForceActive, D2QuestArgStrc* pAr
             i->pQuestData->pCallback[pArgs->nEvent](i->pQuestData, pArgs);
         }
     }
-}
-
-static inline int DATATBLS_GetSuperUniqueHcIdx_Inline(int nSuperUniqueId)
-{
-    if (nSuperUniqueId >= 0 && nSuperUniqueId < sgptDataTables->nSuperUniquesTxtRecordCount)
-    {
-        return sgptDataTables->pSuperUniquesTxt[nSuperUniqueId].dwHcIdx;
-    }
-    return -1;
 }
 
 // 0x00543A30
@@ -1041,34 +1122,6 @@ void __fastcall QUESTS_ChangeLevel(D2GameStrc* pGame, int nOldLevelId, int nTarg
     QUESTS_EventCallback(true, false, &tArgs);
 }
 
-static inline int QUESTS_GetClassIdInline(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return -1;
-    }
-
-    return pUnit->dwClassId;
-}
-
-static inline D2QuestDataStrc* QUESTS_GetQuestDataInline(D2GameStrc* pGame, int nId)
-{
-    D2QuestInfoStrc* pControl = pGame->pQuestControl;
-    D2_ASSERT(nId >= 0, 119);
-    if (!pControl)
-    {
-        return 0;
-    }
-    for (D2QuestDataStrc* pQuestData = pControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
-    {
-        if (pQuestData->nQuestNo == nId)
-        {
-            return pQuestData;
-        }
-    }
-    return 0;
-}
-
 // 0x00543BD0
 void __fastcall QUESTS_PlayerDroppedWithQuestItem(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -1143,6 +1196,48 @@ void __fastcall QUESTS_ItemPickedUp(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
     QUESTS_StatusCycler(0, &pArgs);
 }
 
+// build: context QUESTS_GetQuestData_Inlined
+static D2QuestDataStrc* QUESTS_GetQuestData_Inlined(D2GameStrc* pGame, int nId)
+{
+    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
+    D2_ASSERT(nId >= 0, 119);
+
+    if (pQuestControl)
+    {
+        for (D2QuestDataStrc* pQuestData = pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
+        {
+            if (pQuestData->nQuestNo == nId)
+            {
+                return pQuestData;
+            }
+        }
+    }
+
+    return 0;
+}
+
+inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+static int QUESTS_QuickCheckPlayerGUID_Inlined(D2QuestGUIDStrc* pGUIDs, int dwGUID)
+{
+    for (int i = 0; i < pGUIDs->nPlayerCount; ++i)
+    {
+        if (pGUIDs->nPlayerGUIDs[i] == dwGUID)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 // 0x00543DB0
 void __fastcall QUESTS_ItemDropped(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
@@ -1152,6 +1247,20 @@ void __fastcall QUESTS_ItemDropped(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Uni
     pArgs.pTarget = pItem;
     pArgs.pPlayer = pPlayer;
     QUESTS_StatusCycler(0, &pArgs);
+}
+
+// build: context QUESTS_GetQuestData_Inl
+static inline D2QuestDataStrc* QUESTS_GetQuestData_Inl(D2GameStrc* pGame, int nId)
+{
+    D2_ASSERT(nId >= 0, 119);
+    if (!pGame->pQuestControl)
+        return 0;
+    for (D2QuestDataStrc* pQuestData = pGame->pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
+    {
+        if (pQuestData->nQuestNo == nId)
+            return pQuestData;
+    }
+    return 0;
 }
 
 // 0x00543DE0
@@ -1227,115 +1336,6 @@ void __fastcall QUESTS_RefreshStatus(D2QuestDataStrc* pQuest, unsigned char* pSt
     return;
 status12:
     *pStatus = 12;
-}
-
-// build: context QUESTS_GetQuestData_Inlined
-static D2QuestDataStrc* QUESTS_GetQuestData_Inlined(D2GameStrc* pGame, int nId)
-{
-    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
-    D2_ASSERT(nId >= 0, 119);
-
-    if (pQuestControl)
-    {
-        for (D2QuestDataStrc* pQuestData = pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
-        {
-            if (pQuestData->nQuestNo == nId)
-            {
-                return pQuestData;
-            }
-        }
-    }
-
-    return 0;
-}
-
-inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-    return 0;
-}
-
-static int QUESTS_QuickCheckPlayerGUID_Inlined(D2QuestGUIDStrc* pGUIDs, int dwGUID)
-{
-    for (int i = 0; i < pGUIDs->nPlayerCount; ++i)
-    {
-        if (pGUIDs->nPlayerGUIDs[i] == dwGUID)
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-// 0x00544070
-void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine)
-{
-    if (dword_6FD4DC34)
-    {
-        PLRMSG_BroadcastChatMessage(pGame, szMessage, STRCOLOR_DARK_GOLD);
-    }
-}
-
-// build: context QUESTS_GetQuestData_Inl
-static inline D2QuestDataStrc* QUESTS_GetQuestData_Inl(D2GameStrc* pGame, int nId)
-{
-    D2_ASSERT(nId >= 0, 119);
-    if (!pGame->pQuestControl)
-        return 0;
-    for (D2QuestDataStrc* pQuestData = pGame->pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
-    {
-        if (pQuestData->nQuestNo == nId)
-            return pQuestData;
-    }
-    return 0;
-}
-
-// 0x00544090
-void __fastcall QUESTS_SetQuestDebugFlag(int nValue)
-{
-    dword_6FD4DC34 = nValue;
-}
-
-// 0x005440A0
-static void __stdcall QUESTS_DeleteItemEx(D2InventoryStrc* pInventory, D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
-{
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 0x534);
-    int nFlags = 0;
-    ITEMS_SetOrRemoveFlag(&nFlags, 0x20, 1);
-    const int nAnimMode = !pItem ? 0 : pItem->dwAnimMode;
-    switch (nAnimMode)
-    {
-    case 0:
-        ITEMS_SetItemCell(pItem, ITEMS_GetInvPage(pItem));
-        D2GAME_UpdateClientItem_6FC3E9D0(pClient, pPlayer, pItem, nFlags);
-        D2GAME_RemoveItem_6FC471F0(pGame, pPlayer, pItem, 0);
-        break;
-    case 1:
-    {
-        const int nBodyLoc = INVENTORY_GetItemsXPosition(pInventory, pItem);
-        int a5;
-        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &a5);
-        break;
-    }
-    case 4:
-        D2GAME_RemoveItemIfOnCursor_6FC49760(pGame, pPlayer, pItem);
-        INVENTORY_SetCursorItem(pInventory, 0);
-        break;
-    }
-}
-
-// 0x00544160
-void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode)
-{
-    D2UnitStrc* pItem = ITEMS_FindQuestItem(pGame, pPlayer, dwCode);
-    if (pItem)
-    {
-        QUESTS_DeleteItemEx(pPlayer->pInventory, pGame, pPlayer, pItem);
-    }
 }
 
 static inline D2QuestDataStrc* GetQuest(D2GameStrc* game,int id) {
@@ -1992,6 +1992,55 @@ static int __stdcall QUESTS_FillNpcIntroFlags(D2PlrIntroStrc* pIntroFlags, const
     return bUpdate;
 }
 
+// 0x00545CD0
+void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int bDebug)
+{
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    if (!nLevelId)
+    {
+        return;
+    }
+
+    const unsigned char nQuestId = DATATBLS_GetLevelsTxtRecord(nLevelId)->nQuest;
+    if (!nQuestId)
+    {
+        return;
+    }
+
+    if (bDebug)
+    {
+        if (QUESTS_CreateChainRecord(pGame, pUnit, nQuestId) != 0)
+        {
+            return;
+        }
+    }
+    else
+    {
+        if (QUESTS_CreateChainRecord(pGame, pUnit, nQuestId) != 1)
+        {
+            return;
+        }
+    }
+
+    if (dword_6FD4DC34)
+    {
+        PLRMSG_BroadcastChatMessage(pGame, "Error attaching to unit", STRCOLOR_DARK_GOLD);
+    }
+}
+
+// 0x00545D40
+static void __stdcall sub_00545D40_InitRecord(D2Unk00545D40Rec* pRec, int nSecond, int nFirst, unsigned char nKind)
+{
+    memset(pRec, 0, sizeof(D2Unk00545D40Rec));
+    pRec->nFirst = nFirst;
+    pRec->nSecond = nSecond;
+    pRec->b0A = 0;
+    pRec->b0B = 0;
+    pRec->bActive = 1;
+    pRec->nKind = nKind;
+    pRec->w9C = 0;
+}
+
 // 0x00545100
 void __fastcall QUESTS_UpdateNPCIntros(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nAct)
 {
@@ -2238,25 +2287,6 @@ void __fastcall QUESTS_SendScrollMessage(D2UnitStrc* pPlayer, D2UnitStrc* pUnit,
     D2GAME_PACKETS_SendPacket0x27_6FC3DF20(pClient, &packet27);
 }
 
-// 0x005456F0
-int __fastcall QUESTS_FXIterate(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
-{
-    D2GSPacketSrv89 packet89;
-    packet89.nHeader = 0x89;
-    packet89.nEvent = pGame->pQuestControl->unk0x20;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    D2GAME_SendPacket0x28_6FC3F2F0(UnitGetClient(pUnit, gszQuestsSourceFile, 3239), QUEST_FLAGS_PACKET, QUEST_FLAGS_KIND, 0, pQuestFlags, 0);
-    D2GAME_PACKETS_SendPacket0x89(UnitGetClient(pUnit, gszQuestsSourceFile, 3342), &packet89);
-    return 0;
-}
-
-// 0x00545760
-void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2)
-{
-    pGame->pQuestControl->unk0x20 = a2;
-    SUNIT_IterateUnitsOfType(pGame, 0, 0, QUESTS_FXIterate);
-}
-
 static inline int QUESTS_GetUnitGUIDInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -2275,6 +2305,25 @@ static inline int QUESTS_GetUnitTypeInline(D2UnitStrc* pUnit)
     }
 
     return pUnit->dwUnitType;
+}
+
+// 0x00545760
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2)
+{
+    pGame->pQuestControl->unk0x20 = a2;
+    SUNIT_IterateUnitsOfType(pGame, 0, 0, QUESTS_FXIterate);
+}
+
+// 0x005456F0
+int __fastcall QUESTS_FXIterate(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
+{
+    D2GSPacketSrv89 packet89;
+    packet89.nHeader = 0x89;
+    packet89.nEvent = pGame->pQuestControl->unk0x20;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    D2GAME_SendPacket0x28_6FC3F2F0(UnitGetClient(pUnit, gszQuestsSourceFile, 3239), QUEST_FLAGS_PACKET, QUEST_FLAGS_KIND, 0, pQuestFlags, 0);
+    D2GAME_PACKETS_SendPacket0x89(UnitGetClient(pUnit, gszQuestsSourceFile, 3342), &packet89);
+    return 0;
 }
 
 // 0x00545780
@@ -2565,55 +2614,6 @@ void __fastcall QUESTS_MapPresetSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ma
     default:
         break;
     }
-}
-
-// 0x00545CD0
-void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int bDebug)
-{
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    if (!nLevelId)
-    {
-        return;
-    }
-
-    const unsigned char nQuestId = DATATBLS_GetLevelsTxtRecord(nLevelId)->nQuest;
-    if (!nQuestId)
-    {
-        return;
-    }
-
-    if (bDebug)
-    {
-        if (QUESTS_CreateChainRecord(pGame, pUnit, nQuestId) != 0)
-        {
-            return;
-        }
-    }
-    else
-    {
-        if (QUESTS_CreateChainRecord(pGame, pUnit, nQuestId) != 1)
-        {
-            return;
-        }
-    }
-
-    if (dword_6FD4DC34)
-    {
-        PLRMSG_BroadcastChatMessage(pGame, "Error attaching to unit", STRCOLOR_DARK_GOLD);
-    }
-}
-
-// 0x00545D40
-static void __stdcall sub_00545D40_InitRecord(D2Unk00545D40Rec* pRec, int nSecond, int nFirst, unsigned char nKind)
-{
-    memset(pRec, 0, sizeof(D2Unk00545D40Rec));
-    pRec->nFirst = nFirst;
-    pRec->nSecond = nSecond;
-    pRec->b0A = 0;
-    pRec->b0B = 0;
-    pRec->bActive = 1;
-    pRec->nKind = nKind;
-    pRec->w9C = 0;
 }
 
 void __fastcall sub_K10_EmitInitRecord(D2Unk00545D40Rec* pRec, int n)

@@ -192,100 +192,6 @@ void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
     *pY = pView->nPosY;
 }
 
-// 0x00507140
-void __stdcall LIST_UnloadPentspinCellfile()
-{
-    sub_004FAAE0_FreeCellFile(sghPentagram);
-    sghPentagram = 0;
-}
-
-// 0x00498D50
-void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
-{
-    if ((unsigned int)nX < 4)
-        gabBeltHotkey_007BEFB0[nX] = (unsigned char)nArg;
-}
-
-// 0x00498D60
-void __cdecl VIEW_ResetBeltHover()
-{
-    gnBeltBox_0072235C = -1;
-    gnBeltRectX_00722360 = -1;
-    gnBeltRectY_00722364 = -1;
-    gnBeltHover_007BEF94 = 0;
-    gpBeltItemA_007BEFA8 = 0;
-    gdwGlobal_007BEFAC = 0;
-}
-
-// 0x00492C10
-int __cdecl VIEW_IsPetIconVisible()
-{
-    return gnGlobal_007BEECC != 2;
-}
-
-// 0x00492F40
-void __fastcall VIEW_InitLifeColors(int nMode)
-{
-    if (!nMode)
-    {
-        if (gbLifeColorsInit_007BEED3)
-            return;
-        gbLifeColorsInit_007BEED3 = 1;
-    }
-
-    gnLifeColorHigh_007BEED0 = D2Win_10034_MixRGB(0, 0x80, 0);
-    gnLifeColorMid_007BEED1 = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
-    gnLifeColorLow_007BEED2 = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
-
-// 0x00492F90
-void __cdecl VIEW_ResetLifeColors()
-{
-    gbLifeColorsInit_007BEED3 = 0;
-}
-
-// 0x00497250
-void __cdecl VIEW_InitTextColorRed()
-{
-    gnTextColorRed_007BEFBA = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
-
-// 0x004972B0
-void __cdecl VIEW_InitBeltColors()
-{
-    gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabBeltColors_007BEF6C[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabBeltColors_007BEF6C[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabBeltColors_007BEF6C[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-}
-
-// 0x004879D0
-void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
-{
-    if (gdwGlobal_007BCBF4 == pUnit)
-    {
-        gnGlobal_00721E3C = -1;
-        gnGlobal_00721E40 = -1;
-        gnGlobal_00721E44 = -1;
-        gnGlobal_00721E48 = -1;
-        gnGlobal_00721E4C = -1;
-        gnGlobal_00721E50 = -1;
-        gdwGlobal_007BCBE4 = 0;
-        gdwGlobal_007BCBE8 = 0;
-        gdwGlobal_007BCBF4 = 0;
-        gdwGlobal_007BCBF8 = 0;
-    }
-}
-
-// 0x00487CA0
-int __cdecl VIEW_SetNpcMenuMode()
-{
-    if (gdwGlobal_007BCBF0 == 6)
-        return 0;
-    gdwGlobal_007BCBF0 = 6;
-    return 1;
-}
-
 // 0x005075E0
 D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D2WinListInitStrc* pInit, int* pFont)
 {
@@ -454,6 +360,100 @@ void __fastcall D2Win_10138(D2WinListStrc* pList, const char* szText, D2WinMsgHa
         wszText[i].wChar = 0;
     sub_00526F20_ToUnicode(wszText, szText, 256);
     D2Win_10137(pList, wszText, a3, a4, a5, a6, a7);
+}
+
+// 0x00507140
+void __stdcall LIST_UnloadPentspinCellfile()
+{
+    sub_004FAAE0_FreeCellFile(sghPentagram);
+    sghPentagram = 0;
+}
+
+// 0x00498D50
+void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
+{
+    if ((unsigned int)nX < 4)
+        gabBeltHotkey_007BEFB0[nX] = (unsigned char)nArg;
+}
+
+// 0x00498D60
+void __cdecl VIEW_ResetBeltHover()
+{
+    gnBeltBox_0072235C = -1;
+    gnBeltRectX_00722360 = -1;
+    gnBeltRectY_00722364 = -1;
+    gnBeltHover_007BEF94 = 0;
+    gpBeltItemA_007BEFA8 = 0;
+    gdwGlobal_007BEFAC = 0;
+}
+
+// 0x00492C10
+int __cdecl VIEW_IsPetIconVisible()
+{
+    return gnGlobal_007BEECC != 2;
+}
+
+// 0x00492F40
+void __fastcall VIEW_InitLifeColors(int nMode)
+{
+    if (!nMode)
+    {
+        if (gbLifeColorsInit_007BEED3)
+            return;
+        gbLifeColorsInit_007BEED3 = 1;
+    }
+
+    gnLifeColorHigh_007BEED0 = D2Win_10034_MixRGB(0, 0x80, 0);
+    gnLifeColorMid_007BEED1 = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
+    gnLifeColorLow_007BEED2 = D2Win_10034_MixRGB(0xFF, 0, 0);
+}
+
+// 0x00492F90
+void __cdecl VIEW_ResetLifeColors()
+{
+    gbLifeColorsInit_007BEED3 = 0;
+}
+
+// 0x00497250
+void __cdecl VIEW_InitTextColorRed()
+{
+    gnTextColorRed_007BEFBA = D2Win_10034_MixRGB(0xFF, 0, 0);
+}
+
+// 0x004972B0
+void __cdecl VIEW_InitBeltColors()
+{
+    gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
+    gabBeltColors_007BEF6C[1] = D2Win_10034_MixRGB(0, 0x80, 0);
+    gabBeltColors_007BEF6C[2] = D2Win_10034_MixRGB(0, 0, 0x80);
+    gabBeltColors_007BEF6C[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
+}
+
+// 0x004879D0
+void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
+{
+    if (gdwGlobal_007BCBF4 == pUnit)
+    {
+        gnGlobal_00721E3C = -1;
+        gnGlobal_00721E40 = -1;
+        gnGlobal_00721E44 = -1;
+        gnGlobal_00721E48 = -1;
+        gnGlobal_00721E4C = -1;
+        gnGlobal_00721E50 = -1;
+        gdwGlobal_007BCBE4 = 0;
+        gdwGlobal_007BCBE8 = 0;
+        gdwGlobal_007BCBF4 = 0;
+        gdwGlobal_007BCBF8 = 0;
+    }
+}
+
+// 0x00487CA0
+int __cdecl VIEW_SetNpcMenuMode()
+{
+    if (gdwGlobal_007BCBF0 == 6)
+        return 0;
+    gdwGlobal_007BCBF0 = 6;
+    return 1;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinList.inc"

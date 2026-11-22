@@ -193,17 +193,6 @@ static void SOUNDHDR_FinishCacheLoad(D2SoundsTxtStrc* pEntry)
     gnCacheLoading_007BC9C8 -= 1;
 }
 
-// 0x00481840
-void __fastcall SOUNDHDR_SetCacheMax(unsigned int nMax)
-{
-    gnCacheMax_007BC9CC = nMax;
-}
-
-// 0x00481850
-void __cdecl sub_00481850()
-{
-}
-
 // 0x00481860
 D2SoundsTxtStrc* __fastcall SOUNDHDR_GetSoundRecord(int nIndex)
 {
@@ -370,6 +359,45 @@ void __cdecl SOUNDHDR_LoadSoundTables()
     memset(gpSongTable_007BC99C, 0, nSongCount * sizeof(int));
 }
 
+// 0x004828B0
+void __cdecl SOUNDHDR_ReleaseSoundTables()
+{
+    if (sgptSoundEnvironTable)
+    {
+        FOG_Free(sgptSoundEnvironTable, ".\\Sound\\SoundHdr.cpp", 385, 0);
+        sgptSoundEnvironTable = 0;
+        gnSoundEnvironTxtRecordCount_007BC9AC = 0;
+    }
+    if (sgptSoundHeaderTable)
+    {
+        for (int index = 1; index < gnSoundsTxtRecordCount_007BC9A4; index += 1)
+            SOUNDHDR_ReleaseCacheEntry(index);
+        FOG_Free(sgptSoundHeaderTable, ".\\Sound\\SoundHdr.cpp", 398, 0);
+        sgptSoundHeaderTable = 0;
+        gnSoundsTxtRecordCount_007BC9A4 = 0;
+    }
+    gnSongMin_007BC9B0 = 0;
+    gnSongMax_007BC9B4 = 0;
+}
+
+// 0x00482710
+void __fastcall SOUNDHDR_GetSoundPath(int nIndex, char* szPath)
+{
+    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
+    if (nIndex >= 0xB76 && nIndex <= 0xB76 + 0x6BA)
+        strcpy(szPath, "DATA\\LOCAL");
+    else
+        strcpy(szPath, "DATA\\GLOBAL");
+
+    if (nIndex >= 0x1231 && nIndex <= 0x1231 + 0x29)
+        strcat(szPath, "\\MUSIC\\");
+    else
+        strcat(szPath, "\\SFX\\");
+
+    D2_ASSERT(strlen(szPath) + strlen(pEntry->szFilename) < 0x50, 0x3AB);
+    strcat(szPath, pEntry->szFilename);
+}
+
 // 0x00482260
 void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
 {
@@ -386,6 +414,18 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
     gnCacheLastTick_007BC9C0 = 0;
     gnCacheLastLoadTick_007BC9C4 = 0;
     gnCacheLoading_007BC9C8 = 0;
+}
+
+// 0x00482940
+void __cdecl SOUNDHDR_ShutdownSound()
+{
+    if (!sub_00513B50())
+        return;
+    sub_004DF800();
+    sub_004BAAB0();
+    sub_004B9D20_FreeAllSounds();
+    sub_004E00C0_CloseSoundChannels();
+    SOUNDHDR_ReleaseSoundTables();
 }
 
 // 0x004822B0
@@ -513,24 +553,6 @@ int __fastcall SOUNDHDR_PickVariant(int nIndex)
     }
 }
 
-// 0x00482710
-void __fastcall SOUNDHDR_GetSoundPath(int nIndex, char* szPath)
-{
-    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
-    if (nIndex >= 0xB76 && nIndex <= 0xB76 + 0x6BA)
-        strcpy(szPath, "DATA\\LOCAL");
-    else
-        strcpy(szPath, "DATA\\GLOBAL");
-
-    if (nIndex >= 0x1231 && nIndex <= 0x1231 + 0x29)
-        strcat(szPath, "\\MUSIC\\");
-    else
-        strcat(szPath, "\\SFX\\");
-
-    D2_ASSERT(strlen(szPath) + strlen(pEntry->szFilename) < 0x50, 0x3AB);
-    strcat(szPath, pEntry->szFilename);
-}
-
 // 0x00482860
 void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex)
 {
@@ -539,37 +561,15 @@ void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex)
     D2SOUND_ListAddTail(&gpCacheList_007BC9B8, nIndex);
 }
 
-// 0x004828B0
-void __cdecl SOUNDHDR_ReleaseSoundTables()
+// 0x00481840
+void __fastcall SOUNDHDR_SetCacheMax(unsigned int nMax)
 {
-    if (sgptSoundEnvironTable)
-    {
-        FOG_Free(sgptSoundEnvironTable, ".\\Sound\\SoundHdr.cpp", 385, 0);
-        sgptSoundEnvironTable = 0;
-        gnSoundEnvironTxtRecordCount_007BC9AC = 0;
-    }
-    if (sgptSoundHeaderTable)
-    {
-        for (int index = 1; index < gnSoundsTxtRecordCount_007BC9A4; index += 1)
-            SOUNDHDR_ReleaseCacheEntry(index);
-        FOG_Free(sgptSoundHeaderTable, ".\\Sound\\SoundHdr.cpp", 398, 0);
-        sgptSoundHeaderTable = 0;
-        gnSoundsTxtRecordCount_007BC9A4 = 0;
-    }
-    gnSongMin_007BC9B0 = 0;
-    gnSongMax_007BC9B4 = 0;
+    gnCacheMax_007BC9CC = nMax;
 }
 
-// 0x00482940
-void __cdecl SOUNDHDR_ShutdownSound()
+// 0x00481850
+void __cdecl sub_00481850()
 {
-    if (!sub_00513B50())
-        return;
-    sub_004DF800();
-    sub_004BAAB0();
-    sub_004B9D20_FreeAllSounds();
-    sub_004E00C0_CloseSoundChannels();
-    SOUNDHDR_ReleaseSoundTables();
 }
 
 // 0x00482970

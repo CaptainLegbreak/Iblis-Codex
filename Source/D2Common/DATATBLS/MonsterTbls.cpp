@@ -2847,6 +2847,42 @@ void __fastcall DATATBLS_UnloadMonTypeTxt()
     }
 }
 
+// 0x0065A2C0
+void __cdecl DATATBLS_InitChestTreasureClasses()
+{
+    char szName[0x100];
+
+    for (int nDifficulty = 0; nDifficulty < 3; ++nDifficulty)
+    {
+        for (int nAct = 0; nAct < 5; ++nAct)
+        {
+            for (int i = 0; i < 3; ++i)
+            {
+                SStrPrintf(szName, sizeof(szName), "Act %d%s Chest %s", nAct + 1, gaszDifficultySuffixes[nDifficulty], gaszChestNames[i]);
+
+                const int nId = FOG_GetRowFromTxt(gpTreasureClassExLinker, szName, 0);
+                gpChestTreasureClasses[nDifficulty][nAct][i] = nId >= 0 ? &gpTreasureClassEx[nId] : 0;
+            }
+        }
+    }
+}
+
+// 0x0065A390
+void __stdcall DATATBLS_InitTreasureClassEx(void* hArchive)
+{
+    gpTreasureClassExLinker = sub_006BD040(".\\DATATBLS\\MonsterTbls.cpp", 1550);
+    DATATBLS_CreateItemTypeTreasureClasses();
+    DATATBLS_CompileTreasureClassExTxt(hArchive);
+    DATATBLS_InitChestTreasureClasses();
+    TC_ASSERT(gnTreasureClassEx < 0xFFFF, 1558);
+}
+
+// 0x0065A3F0
+void __fastcall DATATBLS_LoadTreasureClassExTxt(void* hArchive)
+{
+    DATATBLS_InitTreasureClassEx(hArchive);
+}
+
 // 0x00658460
 int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2)
 {
@@ -3256,6 +3292,12 @@ void __fastcall DATATBLS_UnloadSoundsTxt()
     }
 }
 
+static inline D2MonStatsTxt* GetMonStatsRecord(int monster)
+{
+ if(monster>=0 && monster<sgptDataTables->nMonStatsTxtRecordCount)return &gpMonstatsTxt[monster];
+ return 0;
+}
+
 // 0x00659C60
 void __fastcall DATATBLS_LoadMonSeqTxt(void* hArchive)
 {
@@ -3320,12 +3362,6 @@ D2AnimSeqRecordStrc* __stdcall DATATBLS_GetMonSeqTableRecord(int nIndex)
     return 0;
 }
 
-static inline D2MonStatsTxt* GetMonStatsRecord(int monster)
-{
- if(monster>=0 && monster<sgptDataTables->nMonStatsTxtRecordCount)return &gpMonstatsTxt[monster];
- return 0;
-}
-
 // 0x00659E60
 void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
 {
@@ -3379,6 +3415,60 @@ void __fastcall DATATBLS_UnloadMonEquipTxt()
         DATATBLS_UnloadBin(gpMonEquipTxt);
         gnMonEquipTxtRecordCount = 0;
     }
+}
+
+// 0x0065A400
+void __fastcall DATATBLS_LoadSomeMonsterTxts(void* hArchive)
+{
+    {
+        D2BinFieldStrc pTbl[] =
+        {
+            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
+            { gszTxtField_end, 0, 0, 0, 0 },
+        };
+        gUniqueNameTables.pTables[0] = DATATBLS_CompileTxt(hArchive, "uniquetitle", pTbl, &gUniqueNameTables.nCounts[0], 2);
+    }
+
+    {
+        D2BinFieldStrc pTbl[] =
+        {
+            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
+            { gszTxtField_end, 0, 0, 0, 0 },
+        };
+        gUniqueNameTables.pTables[1] = DATATBLS_CompileTxt(hArchive, "uniqueprefix", pTbl, &gUniqueNameTables.nCounts[1], 2);
+    }
+
+    {
+        D2BinFieldStrc pTbl[] =
+        {
+            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
+            { gszTxtField_end, 0, 0, 0, 0 },
+        };
+        gUniqueNameTables.pTables[2] = DATATBLS_CompileTxt(hArchive, "uniquesuffix", pTbl, &gUniqueNameTables.nCounts[2], 2);
+    }
+
+    {
+        D2BinFieldStrc pTbl[] =
+        {
+            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
+            { gszTxtField_end, 0, 0, 0, 0 },
+        };
+        gUniqueNameTables.pTables[3] = DATATBLS_CompileTxt(hArchive, "uniqueappellation", pTbl, &gUniqueNameTables.nCounts[3], 2);
+    }
+
+    DATATBLS_LoadMonLvlTxt(hArchive);
+    DATATBLS_InitTreasureClassEx(hArchive);
+    DATATBLS_LoadMonStats2Txt(hArchive);
+    DATATBLS_LoadMonPropTxt(hArchive);
+    DATATBLS_LoadMonSoundsTxt(hArchive);
+    DATATBLS_LoadMonSeqTxt(hArchive);
+    DATATBLS_LoadMonStatsTxt(hArchive);
+    DATATBLS_LoadMonUModTxt(hArchive);
+    DATATBLS_LoadSuperUniquesTxt(hArchive);
+    DATATBLS_LoadMonPresetTxt(hArchive);
+    DATATBLS_LoadHirelingTxt(hArchive);
+    DATATBLS_LoadNpcTxt(hArchive);
+    DATATBLS_LoadMonEquipTxt(hArchive);
 }
 
 // 0x0065A190
@@ -3455,96 +3545,6 @@ void __fastcall DATATBLS_UnloadSomeMonsterTxts()
     }
 
     DATATBLS_UnloadUniqueNameTxts();
-}
-
-// 0x0065A2C0
-void __cdecl DATATBLS_InitChestTreasureClasses()
-{
-    char szName[0x100];
-
-    for (int nDifficulty = 0; nDifficulty < 3; ++nDifficulty)
-    {
-        for (int nAct = 0; nAct < 5; ++nAct)
-        {
-            for (int i = 0; i < 3; ++i)
-            {
-                SStrPrintf(szName, sizeof(szName), "Act %d%s Chest %s", nAct + 1, gaszDifficultySuffixes[nDifficulty], gaszChestNames[i]);
-
-                const int nId = FOG_GetRowFromTxt(gpTreasureClassExLinker, szName, 0);
-                gpChestTreasureClasses[nDifficulty][nAct][i] = nId >= 0 ? &gpTreasureClassEx[nId] : 0;
-            }
-        }
-    }
-}
-
-// 0x0065A390
-void __stdcall DATATBLS_InitTreasureClassEx(void* hArchive)
-{
-    gpTreasureClassExLinker = sub_006BD040(".\\DATATBLS\\MonsterTbls.cpp", 1550);
-    DATATBLS_CreateItemTypeTreasureClasses();
-    DATATBLS_CompileTreasureClassExTxt(hArchive);
-    DATATBLS_InitChestTreasureClasses();
-    TC_ASSERT(gnTreasureClassEx < 0xFFFF, 1558);
-}
-
-// 0x0065A3F0
-void __fastcall DATATBLS_LoadTreasureClassExTxt(void* hArchive)
-{
-    DATATBLS_InitTreasureClassEx(hArchive);
-}
-
-// 0x0065A400
-void __fastcall DATATBLS_LoadSomeMonsterTxts(void* hArchive)
-{
-    {
-        D2BinFieldStrc pTbl[] =
-        {
-            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
-            { gszTxtField_end, 0, 0, 0, 0 },
-        };
-        gUniqueNameTables.pTables[0] = DATATBLS_CompileTxt(hArchive, "uniquetitle", pTbl, &gUniqueNameTables.nCounts[0], 2);
-    }
-
-    {
-        D2BinFieldStrc pTbl[] =
-        {
-            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
-            { gszTxtField_end, 0, 0, 0, 0 },
-        };
-        gUniqueNameTables.pTables[1] = DATATBLS_CompileTxt(hArchive, "uniqueprefix", pTbl, &gUniqueNameTables.nCounts[1], 2);
-    }
-
-    {
-        D2BinFieldStrc pTbl[] =
-        {
-            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
-            { gszTxtField_end, 0, 0, 0, 0 },
-        };
-        gUniqueNameTables.pTables[2] = DATATBLS_CompileTxt(hArchive, "uniquesuffix", pTbl, &gUniqueNameTables.nCounts[2], 2);
-    }
-
-    {
-        D2BinFieldStrc pTbl[] =
-        {
-            { "Name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
-            { gszTxtField_end, 0, 0, 0, 0 },
-        };
-        gUniqueNameTables.pTables[3] = DATATBLS_CompileTxt(hArchive, "uniqueappellation", pTbl, &gUniqueNameTables.nCounts[3], 2);
-    }
-
-    DATATBLS_LoadMonLvlTxt(hArchive);
-    DATATBLS_InitTreasureClassEx(hArchive);
-    DATATBLS_LoadMonStats2Txt(hArchive);
-    DATATBLS_LoadMonPropTxt(hArchive);
-    DATATBLS_LoadMonSoundsTxt(hArchive);
-    DATATBLS_LoadMonSeqTxt(hArchive);
-    DATATBLS_LoadMonStatsTxt(hArchive);
-    DATATBLS_LoadMonUModTxt(hArchive);
-    DATATBLS_LoadSuperUniquesTxt(hArchive);
-    DATATBLS_LoadMonPresetTxt(hArchive);
-    DATATBLS_LoadHirelingTxt(hArchive);
-    DATATBLS_LoadNpcTxt(hArchive);
-    DATATBLS_LoadMonEquipTxt(hArchive);
 }
 
 #include "gen/data/Source/D2Common/DATATBLS/MonsterTbls.inc"

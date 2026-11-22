@@ -2776,6 +2776,270 @@ static __forceinline void DrawBodyLocRectInline(D2BodyLocRectStrc* pRect, int nC
         sub_0046EFD0_DrawFramedBox(nX, nY, pRect->nWidth, pRect->nHeight, nColor, 0);
 }
 
+// 0x00496720
+void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = pMsg->nXpos;
+    int nY = pMsg->nYpos;
+    if (gdwGlobal_007BEEFC)
+    {
+        if (D2GFX_GetResolutionMode() == 2)
+        {
+            if (nX >= 0x2AD && nX <= 0x2CD && nY >= 0x18 && nY <= 0x38)
+            {
+                sub_00455F20(0x21, 2, 0);
+                sub_00494FC0();
+                pMsg->bReturn = 1;
+                pMsg->lResult = 0;
+                sub_00420290_HandleMsg(pMsg);
+                return;
+            }
+        }
+        else
+        {
+            if (nX >= 0x20D && nX <= 0x22D && nY >= 0x18 && nY <= 0x38)
+            {
+                sub_00455F20(0x21, 2, 0);
+                sub_00494FC0();
+                pMsg->bReturn = 1;
+                pMsg->lResult = 0;
+                sub_00420290_HandleMsg(pMsg);
+                return;
+            }
+        }
+    }
+    gdwGlobal_007BEEFC = 0;
+    sub_0044DA70();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_HandleMsg(pMsg);
+}
+
+D2InventoryGridInfoStrc gInventoryGrid_007BCBC0; // 0x007BCBC0
+
+// 0x004967F0
+void __cdecl INV_LoadPanelCels()
+{
+    char szPath[0x104];
+    gpCellFile_007BEF7C = sub_004520C0_LoadUiCelFile("Panel\\btn");
+    const int nLanguage = sub_00525150();
+    int bExpansion = 0;
+    if (FOG_IsExpansion() && GAME_IsExpansion())
+    {
+        bExpansion = 1;
+    }
+    if (nLanguage >= 6 && nLanguage <= 9)
+    {
+        if (bExpansion)
+        {
+            sprintf(szPath, "%s\\UI\\InvChar6", szDataLocal_006D41A8);
+        }
+        else
+        {
+            sprintf(szPath, "%s\\UI\\InvChar", szDataLocal_006D41A8);
+        }
+        gpCellFile_007BEF64 = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+    else
+    {
+        gpCellFile_007BEF64 = sub_004520C0_LoadUiCelFile(bExpansion ? "Panel\\InvChar6" : "Panel\\InvChar");
+    }
+    gpCellFile_007BEF78 = sub_004520C0_LoadUiCelFile("Panel\\Arrow");
+    gpCellFile_007BEF24 = sub_004520C0_LoadUiCelFile("Panel\\Invwarn");
+    gpCellFile_007BEF60 = sub_004520C0_LoadUiCelFile("Panel\\DuroIcon");
+    gpCellFile_007BEF14 = sub_004520C0_LoadUiCelFile("Panel\\GemSocket");
+    gpCellFile_007BEF10 = sub_004520C0_LoadUiCelFile("Panel\\ctrlpnl_popbelt");
+    gpCellFile_007BEF68 = sub_004520C0_LoadUiCelFile("Panel\\Hlthmana");
+    gpCellFile_007BEF80 = sub_004520C0_LoadUiCelFile("Panel\\overlap");
+    gpStateButtonCel_007BEF70 = sub_004520C0_LoadUiCelFile("Panel\\menubutton");
+    gpCellFile_007BEF2C = sub_004520C0_LoadUiCelFile("Panel\\menupanel");
+    gpCellFile_007BEF20 = sub_004520C0_LoadUiCelFile("Panel\\skillpoints");
+    gpGlobal_007BEF0C = sub_004520C0_LoadUiCelFile("Panel\\runbutton");
+    gpCellFile_007BEF28 = sub_004520C0_LoadUiCelFile("Panel\\hostilepic");
+    memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
+    SRegLoadValue("Diablo II", "Show HP Text", 0, &gdwShowHpText_007BEFDC);
+    SRegLoadValue("Diablo II", "Show MP Text", 0, &gdwShowMpText_007BEFE0);
+}
+
+// 0x00497300
+void __cdecl INV_DrawKeyBindingPopup()
+{
+    unsigned short wszTextBuf[200];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 200; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    unsigned short wszKeyBuf[30];
+    Unicode* wszKey = (Unicode*)wszKeyBuf;
+    for (int i = 0; i < 30; ++i)
+    {
+        wszKey[i].wChar = 0;
+    }
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1053));
+    if (CUNIT_GetHotkeyBinding(0x23, 1) != 0xFFFF)
+    {
+        memset(wszKey, 0, sizeof(wszKeyBuf));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 1));
+        sub_00526700(wszText, wszKey);
+    }
+    if (CUNIT_GetHotkeyBinding(0x23, 0) != 0xFFFF)
+    {
+        memset(wszKey, 0, sizeof(wszKeyBuf));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 0));
+        sub_00526700(wszText, wszKey);
+    }
+    sub_00502280_SetPopUpText(wszText, gnGlobal_0071146C / 2 - 0x91, gnGlobal_00711470 - 0x17, 0, 1);
+}
+
+static inline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwUnitId;
+}
+
+// 0x004A17D0
+void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
+{
+    gdwGlobal_007BF23F = 1;
+    if (sub_00467A10())
+    {
+        if (gdwGlobal_007BF20A && CUNIT_FindClientUnit(gdwGlobal_007BF202, 1) == sub_00467A10())
+            return;
+    }
+    else if (!sub_00467A10() && gnGlobal_007BF23A)
+    {
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gdwGlobal_007BF23B, 1);
+        if (pUnit && pUnit == CUNIT_FindClientUnit(gdwGlobal_007BF202, 1))
+        {
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_HandleMsg(pMsg);
+        }
+        return;
+    }
+    sub_004A1770(pMsg);
+}
+
+// 0x004A7A80
+extern "C" void __cdecl INV_ClearGoldDialogFlag()
+{
+    gnFlag_007C02EC = 0;
+}
+
+// 0x004AA0C0
+void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC)
+{
+    gnHotkeySkill_007C06C8[nSlot] = nValueA;
+    gbHotkeyLeft_007C07B8[nSlot] = nValueB;
+    gnHotkeyOwner_007C0768[nSlot] = nValueC;
+}
+
+// 0x004AA8F0
+extern "C" void __cdecl sub_004AA8F0_ClearValue7C0C3C()
+{
+    gnValue_007C0C3C = 0;
+}
+
+// 0x004B1050
+int __fastcall INV_GetMonsterOwnerGuid(D2UnitStrc* pUnit, char* pNotFound, int* pValue)
+{
+    *pNotFound = 1;
+    *pValue = -1;
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nOwnerGUID != -1)
+    {
+        *pValue = pUnit->pMonsterData->nOwnerGUID;
+        *pNotFound = 0;
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004B92E0
+int __stdcall INV_GetTableByte(int nUnused, int nIndex)
+{
+    D2_ASSERT(gdwTableInit_007C0ECC, 0x60);
+    D2_ASSERT(nIndex < 0x25, 0x65);
+    return gaTable_007C0EA4[nIndex];
+}
+
+// 0x0048BE00
+void __fastcall INV_CutBracketToken(Unicode* pString, const Unicode* pToken)
+{
+    Unicode wszOpen[2] = { '[', 0 };
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 100; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    Unicode* pFound = sub_00526940_UnicodeStrStr(pString, pToken);
+    if (pFound)
+    {
+        pFound += 4;
+        const int nLength = sub_00526800(pFound);
+        Unicode::strncpy(wszText, pFound, nLength - sub_00526800(sub_00526940_UnicodeStrStr(pFound, wszOpen)));
+        sub_005267E0(pString, wszText);
+    }
+}
+
+// 0x00492770
+void __stdcall INV_WeaponSwapKeyMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExpansion())
+    {
+        if (!(pMsg->lParam & 0x40000000) && !UI_GetUIVarUnchecked(5))
+            sub_0048A730();
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_HandleMsg(pMsg);
+    }
+}
+
+// 0x00493100
+void __stdcall INV_DrawIconNumber(int nValue, int nX)
+{
+    unsigned short wszConvertedBuf[32];
+    Unicode* wszConverted = (Unicode*)wszConvertedBuf;
+    for (int i = 0; i < 32; ++i)
+    {
+        wszConverted[i].wChar = 0;
+    }
+    unsigned short wszTextBuf[32];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 32; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    char szNumber[0x20];
+    sprintf(szNumber, szIntFormat_006D57BC, nValue);
+    memset(wszText, 0, sizeof(wszTextBuf));
+    sub_00526320_ToUnicode(wszConverted, szNumber, 32);
+    Unicode::strncpy(wszText, wszConverted, 32);
+    wszText[31].wChar = 0;
+    Unicode* pEnd = &wszText[sub_00526800(wszText)];
+    while (D2Win_10121_GetTextWidth(wszText) > 0x2E)
+    {
+        --pEnd;
+        pEnd->wChar = 0;
+    }
+    const int nOldFont = sub_00502EF0(6);
+    D2Win_10117_DrawText(wszText, nX + 8, 0x37, 0, 0);
+    sub_00502EF0(nOldFont);
+}
+
+// 0x004953C0
+int __fastcall INV_GetCenteredX(unsigned short nString, int nX)
+{
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 100; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
+    return nX - D2Win_10121_GetTextWidth(wszText) / 2;
+}
+
 // 0x0048B3F0
 void __fastcall INV_DrawMercEquipHighlights(D2UnitStrc* pUnit)
 {
@@ -2797,8 +3061,6 @@ void __fastcall INV_DrawMercEquipHighlights(D2UnitStrc* pUnit)
         }
     }
 }
-
-D2InventoryGridInfoStrc gInventoryGrid_007BCBC0; // 0x007BCBC0
 
 // 0x0048B540
 static void sub_0048B540_DrawEquippedItems(D2UnitStrc* pUnit)
@@ -2845,11 +3107,6 @@ D2UnitStrc* __cdecl INV_GetMercUnit()
     }
     sub_00455F20(0x24, 2, 0);
     return 0;
-}
-
-static inline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
-{
-    return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
 // 0x0048B7C0
@@ -2941,263 +3198,6 @@ void __fastcall INV_OpenRecipeScroll(const Unicode* wszName, int nUnused, int nA
     sub_005267E0(gwszName_007BCEA8, wszName);
     gdwGlobal_007BCEA4 = nArg;
     sub_00455F20(0x25, 0, 0);
-}
-
-// 0x0048BE00
-void __fastcall INV_CutBracketToken(Unicode* pString, const Unicode* pToken)
-{
-    Unicode wszOpen[2] = { '[', 0 };
-    unsigned short wszTextBuf[100];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    for (int i = 0; i < 100; ++i)
-    {
-        wszText[i].wChar = 0;
-    }
-    Unicode* pFound = sub_00526940_UnicodeStrStr(pString, pToken);
-    if (pFound)
-    {
-        pFound += 4;
-        const int nLength = sub_00526800(pFound);
-        Unicode::strncpy(wszText, pFound, nLength - sub_00526800(sub_00526940_UnicodeStrStr(pFound, wszOpen)));
-        sub_005267E0(pString, wszText);
-    }
-}
-
-// 0x00492770
-void __stdcall INV_WeaponSwapKeyMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExpansion())
-    {
-        if (!(pMsg->lParam & 0x40000000) && !UI_GetUIVarUnchecked(5))
-            sub_0048A730();
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
-    }
-}
-
-// 0x00493100
-void __stdcall INV_DrawIconNumber(int nValue, int nX)
-{
-    unsigned short wszConvertedBuf[32];
-    Unicode* wszConverted = (Unicode*)wszConvertedBuf;
-    for (int i = 0; i < 32; ++i)
-    {
-        wszConverted[i].wChar = 0;
-    }
-    unsigned short wszTextBuf[32];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    for (int i = 0; i < 32; ++i)
-    {
-        wszText[i].wChar = 0;
-    }
-    char szNumber[0x20];
-    sprintf(szNumber, szIntFormat_006D57BC, nValue);
-    memset(wszText, 0, sizeof(wszTextBuf));
-    sub_00526320_ToUnicode(wszConverted, szNumber, 32);
-    Unicode::strncpy(wszText, wszConverted, 32);
-    wszText[31].wChar = 0;
-    Unicode* pEnd = &wszText[sub_00526800(wszText)];
-    while (D2Win_10121_GetTextWidth(wszText) > 0x2E)
-    {
-        --pEnd;
-        pEnd->wChar = 0;
-    }
-    const int nOldFont = sub_00502EF0(6);
-    D2Win_10117_DrawText(wszText, nX + 8, 0x37, 0, 0);
-    sub_00502EF0(nOldFont);
-}
-
-// 0x004953C0
-int __fastcall INV_GetCenteredX(unsigned short nString, int nX)
-{
-    unsigned short wszTextBuf[100];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    for (int i = 0; i < 100; ++i)
-    {
-        wszText[i].wChar = 0;
-    }
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
-    return nX - D2Win_10121_GetTextWidth(wszText) / 2;
-}
-
-// 0x00496720
-void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = pMsg->nXpos;
-    int nY = pMsg->nYpos;
-    if (gdwGlobal_007BEEFC)
-    {
-        if (D2GFX_GetResolutionMode() == 2)
-        {
-            if (nX >= 0x2AD && nX <= 0x2CD && nY >= 0x18 && nY <= 0x38)
-            {
-                sub_00455F20(0x21, 2, 0);
-                sub_00494FC0();
-                pMsg->bReturn = 1;
-                pMsg->lResult = 0;
-                sub_00420290_HandleMsg(pMsg);
-                return;
-            }
-        }
-        else
-        {
-            if (nX >= 0x20D && nX <= 0x22D && nY >= 0x18 && nY <= 0x38)
-            {
-                sub_00455F20(0x21, 2, 0);
-                sub_00494FC0();
-                pMsg->bReturn = 1;
-                pMsg->lResult = 0;
-                sub_00420290_HandleMsg(pMsg);
-                return;
-            }
-        }
-    }
-    gdwGlobal_007BEEFC = 0;
-    sub_0044DA70();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
-}
-
-// 0x004967F0
-void __cdecl INV_LoadPanelCels()
-{
-    char szPath[0x104];
-    gpCellFile_007BEF7C = sub_004520C0_LoadUiCelFile("Panel\\btn");
-    const int nLanguage = sub_00525150();
-    int bExpansion = 0;
-    if (FOG_IsExpansion() && GAME_IsExpansion())
-    {
-        bExpansion = 1;
-    }
-    if (nLanguage >= 6 && nLanguage <= 9)
-    {
-        if (bExpansion)
-        {
-            sprintf(szPath, "%s\\UI\\InvChar6", szDataLocal_006D41A8);
-        }
-        else
-        {
-            sprintf(szPath, "%s\\UI\\InvChar", szDataLocal_006D41A8);
-        }
-        gpCellFile_007BEF64 = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-    else
-    {
-        gpCellFile_007BEF64 = sub_004520C0_LoadUiCelFile(bExpansion ? "Panel\\InvChar6" : "Panel\\InvChar");
-    }
-    gpCellFile_007BEF78 = sub_004520C0_LoadUiCelFile("Panel\\Arrow");
-    gpCellFile_007BEF24 = sub_004520C0_LoadUiCelFile("Panel\\Invwarn");
-    gpCellFile_007BEF60 = sub_004520C0_LoadUiCelFile("Panel\\DuroIcon");
-    gpCellFile_007BEF14 = sub_004520C0_LoadUiCelFile("Panel\\GemSocket");
-    gpCellFile_007BEF10 = sub_004520C0_LoadUiCelFile("Panel\\ctrlpnl_popbelt");
-    gpCellFile_007BEF68 = sub_004520C0_LoadUiCelFile("Panel\\Hlthmana");
-    gpCellFile_007BEF80 = sub_004520C0_LoadUiCelFile("Panel\\overlap");
-    gpStateButtonCel_007BEF70 = sub_004520C0_LoadUiCelFile("Panel\\menubutton");
-    gpCellFile_007BEF2C = sub_004520C0_LoadUiCelFile("Panel\\menupanel");
-    gpCellFile_007BEF20 = sub_004520C0_LoadUiCelFile("Panel\\skillpoints");
-    gpGlobal_007BEF0C = sub_004520C0_LoadUiCelFile("Panel\\runbutton");
-    gpCellFile_007BEF28 = sub_004520C0_LoadUiCelFile("Panel\\hostilepic");
-    memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
-    SRegLoadValue("Diablo II", "Show HP Text", 0, &gdwShowHpText_007BEFDC);
-    SRegLoadValue("Diablo II", "Show MP Text", 0, &gdwShowMpText_007BEFE0);
-}
-
-// 0x00497300
-void __cdecl INV_DrawKeyBindingPopup()
-{
-    unsigned short wszTextBuf[200];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    for (int i = 0; i < 200; ++i)
-    {
-        wszText[i].wChar = 0;
-    }
-    unsigned short wszKeyBuf[30];
-    Unicode* wszKey = (Unicode*)wszKeyBuf;
-    for (int i = 0; i < 30; ++i)
-    {
-        wszKey[i].wChar = 0;
-    }
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1053));
-    if (CUNIT_GetHotkeyBinding(0x23, 1) != 0xFFFF)
-    {
-        memset(wszKey, 0, sizeof(wszKeyBuf));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 1));
-        sub_00526700(wszText, wszKey);
-    }
-    if (CUNIT_GetHotkeyBinding(0x23, 0) != 0xFFFF)
-    {
-        memset(wszKey, 0, sizeof(wszKeyBuf));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 0));
-        sub_00526700(wszText, wszKey);
-    }
-    sub_00502280_SetPopUpText(wszText, gnGlobal_0071146C / 2 - 0x91, gnGlobal_00711470 - 0x17, 0, 1);
-}
-
-// 0x004A17D0
-void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
-{
-    gdwGlobal_007BF23F = 1;
-    if (sub_00467A10())
-    {
-        if (gdwGlobal_007BF20A && CUNIT_FindClientUnit(gdwGlobal_007BF202, 1) == sub_00467A10())
-            return;
-    }
-    else if (!sub_00467A10() && gnGlobal_007BF23A)
-    {
-        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gdwGlobal_007BF23B, 1);
-        if (pUnit && pUnit == CUNIT_FindClientUnit(gdwGlobal_007BF202, 1))
-        {
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
-        }
-        return;
-    }
-    sub_004A1770(pMsg);
-}
-
-// 0x004A7A80
-extern "C" void __cdecl INV_ClearGoldDialogFlag()
-{
-    gnFlag_007C02EC = 0;
-}
-
-// 0x004AA0C0
-void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC)
-{
-    gnHotkeySkill_007C06C8[nSlot] = nValueA;
-    gbHotkeyLeft_007C07B8[nSlot] = nValueB;
-    gnHotkeyOwner_007C0768[nSlot] = nValueC;
-}
-
-// 0x004AA8F0
-extern "C" void __cdecl sub_004AA8F0_ClearValue7C0C3C()
-{
-    gnValue_007C0C3C = 0;
-}
-
-// 0x004B1050
-int __fastcall INV_GetMonsterOwnerGuid(D2UnitStrc* pUnit, char* pNotFound, int* pValue)
-{
-    *pNotFound = 1;
-    *pValue = -1;
-    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nOwnerGUID != -1)
-    {
-        *pValue = pUnit->pMonsterData->nOwnerGUID;
-        *pNotFound = 0;
-        return 1;
-    }
-    return 0;
-}
-
-// 0x004B92E0
-int __stdcall INV_GetTableByte(int nUnused, int nIndex)
-{
-    D2_ASSERT(gdwTableInit_007C0ECC, 0x60);
-    D2_ASSERT(nIndex < 0x25, 0x65);
-    return gaTable_007C0EA4[nIndex];
 }
 
 #include "gen/data/Source/D2Client/UI/inv.inc"

@@ -2477,6 +2477,17 @@ int __fastcall SKILLS_ScatterRequestsAroundTarget(D2UnitStrc* pMissile, int nMis
     return 1;
 }
 
+// 0x004C7950
+void __fastcall SKILLS_AttachMoveSkillEndList(D2UnitStrc* pUnit)
+{
+    D2StatListStrc* pStatList = STATLIST_AllocStatList(0, 6, 0x32, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
+    if (pStatList)
+    {
+        STATLIST_SetStatRemoveCallback(pStatList, SKILLS_HandleMoveSkillEnd);
+        D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+    }
+}
+
 // 0x004C7890
 void __fastcall SKILLS_HandleMoveSkillEnd(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
@@ -2503,17 +2514,6 @@ void __fastcall SKILLS_HandleMoveSkillEnd(D2UnitStrc* pUnit, int nState, D2StatL
     case 76:
         SKILLS_EndLoopSoundSkill(pUnit, nSkillId);
         break;
-    }
-}
-
-// 0x004C7950
-void __fastcall SKILLS_AttachMoveSkillEndList(D2UnitStrc* pUnit)
-{
-    D2StatListStrc* pStatList = STATLIST_AllocStatList(0, 6, 0x32, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
-    if (pStatList)
-    {
-        STATLIST_SetStatRemoveCallback(pStatList, SKILLS_HandleMoveSkillEnd);
-        D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     }
 }
 

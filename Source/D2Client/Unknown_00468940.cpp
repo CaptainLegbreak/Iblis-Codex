@@ -84,6 +84,20 @@ void __cdecl sub_00468990_OpenMode1()
         TEXT_ToggleQuestLog(1);
 }
 
+// 0x00468F00
+void __cdecl sub_00468F00()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (pPlayer)
+    {
+        D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, BODYLOC_BELT);
+        if (pItem && ITEMSIsA(pItem, ITEMTYPE_BELT))
+        {
+            sub_00455F20(0x1F, 2, 0);
+        }
+    }
+}
+
 // 0x004689B0
 void __cdecl sub_004689B0_SetUIVar5()
 {
@@ -376,12 +390,6 @@ void __cdecl sub_00468FE0_Phrase1F()
     sub_004785B0_SendPacket3(0x3F, 0x1F);
 }
 
-// 0x00468FF0
-void __cdecl sub_00468FF0_Phrase20()
-{
-    sub_004785B0_SendPacket3(0x3F, 0x20);
-}
-
 void (__cdecl* gpfnCallback_007A6B10)(); // 0x007A6B10
 
 void (__cdecl* gpfnCallback_007A740C)(); // 0x007A740C
@@ -391,20 +399,6 @@ void (__cdecl* gpfnCallback_007A7414)(); // 0x007A7414
 void (__cdecl* gpfnCallback_007A6B14)(); // 0x007A6B14
 
 void (__cdecl* gpfnCallback_007A7410)(); // 0x007A7410
-
-// 0x00468F00
-void __cdecl sub_00468F00()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer)
-    {
-        D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, BODYLOC_BELT);
-        if (pItem && ITEMSIsA(pItem, ITEMTYPE_BELT))
-        {
-            sub_00455F20(0x1F, 2, 0);
-        }
-    }
-}
 
 // 0x00469230
 void __cdecl sub_00469230()
@@ -456,6 +450,12 @@ void __cdecl sub_00469330()
     }
 }
 
+// 0x00468FF0
+void __cdecl sub_00468FF0_Phrase20()
+{
+    sub_004785B0_SendPacket3(0x3F, 0x20);
+}
+
 // 0x00469000
 void __cdecl sub_00469000_HotkeyRunOn()
 {
@@ -495,6 +495,13 @@ void __cdecl sub_00469090_HotkeyUiVarOff()
     sub_00455F20(0xD, 0, 0);
 }
 
+// 0x00469210
+void __cdecl sub_00469210_HotkeyUiVarOn()
+{
+    sub_00455F20(0xD, 1, 0);
+    sub_00466FE0();
+}
+
 // 0x004690B0
 void __cdecl sub_004690B0_HotkeyEscape()
 {
@@ -532,18 +539,6 @@ void __cdecl sub_00469120_HotkeyNextSkill()
     sub_004AA740_CycleHotkey(1);
 }
 
-// 0x00469140
-void __cdecl sub_00469140_HotkeyResetSounds()
-{
-    if (GAME_GetUIVarState(0xC))
-        return;
-    if (GAME_GetUIVarState(0x17))
-        return;
-    if (GAME_GetUIVarState(0x19))
-        return;
-    INV_ResetEquipSounds();
-}
-
 // 0x00469170
 void __cdecl sub_00469170_HotkeyPetUi()
 {
@@ -574,9 +569,14 @@ void __cdecl sub_004691C0_HotkeyRunOff()
     sub_00478590(0x54);
 }
 
-// 0x00469210
-void __cdecl sub_00469210_HotkeyUiVarOn()
+// 0x00469140
+void __cdecl sub_00469140_HotkeyResetSounds()
 {
-    sub_00455F20(0xD, 1, 0);
-    sub_00466FE0();
+    if (GAME_GetUIVarState(0xC))
+        return;
+    if (GAME_GetUIVarState(0x17))
+        return;
+    if (GAME_GetUIVarState(0x19))
+        return;
+    INV_ResetEquipSounds();
 }

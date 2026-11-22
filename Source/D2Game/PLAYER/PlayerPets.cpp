@@ -212,75 +212,6 @@ void __fastcall PLAYERPETS_AddSummonedPet(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
 void __fastcall PLAYERPETS_AddPetWithInfo(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet, int nPetType, D2PetInfoStrc* pPetInfo);
 
-// 0x00574410
-void __fastcall PLAYERPETS_PlayerIterate_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2PetUpdateStrc* pData)
-{
-    D2GAME_PACKETS_SendPacket0x7A_6FC3E100(UnitGetClient(pUnit, gszPlayerPets_006E15D8, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
-}
-
-static inline int sub_E09_UnitHasBeenDeleted(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    return (pUnit->dwFlagEx >> 8) & 1;
-}
-
-static inline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nMonsterId] : 0;
-
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
-}
-
-// 0x00574450
-static void PLAYERPETS_KillPet(D2GameStrc* pGame, int nPetGUID)
-{
-    D2UnitStrc* hPet = SUNIT_GetServerUnit(pGame, 1, nPetGUID);
-    if (!hPet)
-    {
-        return;
-    }
-
-    D2_ASSERT(!sub_E09_UnitHasBeenDeleted(hPet), 0x5A);
-
-    hPet->dwFlags |= 0x4000000;
-
-    if (sub_E09_CheckMonStatsFlag(hPet->dwClassId, 15))
-    {
-        SUNITDMG_KillMonster(pGame, hPet, 0, 0);
-    }
-    else
-    {
-        D2ModeChangeStrc modeChange;
-        MONSTERMODE_GetModeChangeInfo(hPet, 0, &modeChange);
-        modeChange.pTargetUnit = SUNIT_GetOwner(pGame, hPet);
-        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-    }
-
-    D2PetArgStrc arg = {};
-    arg.nPetGUID = nPetGUID;
-    SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
-}
-
-// 0x00574540
-static D2PetListStrc* __stdcall PLAYERPETS_GetPetListByType(D2PlayerPetStrc* pPlayerPets, int nPetType)
-{
-    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
-    {
-        return &pPlayerPets->pPetList[nPetType];
-    }
-
-    return 0;
-}
-
 // 0x00574570
 static void __stdcall PLAYERPETS_ClearPetList(D2UnitStrc* pPlayer, D2PetListStrc* pPetList, int bIsHirelingList, int bKeepHireling, D2GameStrc* pGame)
 {
@@ -340,27 +271,118 @@ static void __stdcall PLAYERPETS_ClearPetList(D2UnitStrc* pPlayer, D2PetListStrc
     }
 }
 
-// 0x005746D0
-void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline int sub_E09_UnitHasBeenDeleted(D2UnitStrc* pUnit)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-    D2_ASSERT(pPlayerData, 0x14F);
+    if (!pUnit)
+    {
+        return 0;
+    }
 
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
-    if (!pPlayerPets)
+    return (pUnit->dwFlagEx >> 8) & 1;
+}
+
+static inline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nMonsterId] : 0;
+
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+
+    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+}
+
+// 0x00574410
+void __fastcall PLAYERPETS_PlayerIterate_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2PetUpdateStrc* pData)
+{
+    D2GAME_PACKETS_SendPacket0x7A_6FC3E100(UnitGetClient(pUnit, gszPlayerPets_006E15D8, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
+}
+
+// 0x00574450
+static void PLAYERPETS_KillPet(D2GameStrc* pGame, int nPetGUID)
+{
+    D2UnitStrc* hPet = SUNIT_GetServerUnit(pGame, 1, nPetGUID);
+    if (!hPet)
     {
         return;
     }
 
-    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    D2_ASSERT(!sub_E09_UnitHasBeenDeleted(hPet), 0x5A);
+
+    hPet->dwFlags |= 0x4000000;
+
+    if (sub_E09_CheckMonStatsFlag(hPet->dwClassId, 15))
     {
-        D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
-        PLAYERPETS_ClearPetList(pUnit, pPetList, nPetType == 7, 0, pGame);
+        SUNITDMG_KillMonster(pGame, hPet, 0, 0);
+    }
+    else
+    {
+        D2ModeChangeStrc modeChange;
+        MONSTERMODE_GetModeChangeInfo(hPet, 0, &modeChange);
+        modeChange.pTargetUnit = SUNIT_GetOwner(pGame, hPet);
+        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
     }
 
-    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets->pPetList, gszPlayerPetsSourceFile, 0x161, 0);
-    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets, gszPlayerPetsSourceFile, 0x162, 0);
-    pPlayerData->pPlayerPets = 0;
+    D2PetArgStrc arg = {};
+    arg.nPetGUID = nPetGUID;
+    SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
+}
+
+// 0x00574540
+static D2PetListStrc* __stdcall PLAYERPETS_GetPetListByType(D2PlayerPetStrc* pPlayerPets, int nPetType)
+{
+    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        return &pPlayerPets->pPetList[nPetType];
+    }
+
+    return 0;
+}
+
+// 0x00574850
+static void __stdcall PLAYERPETS_RemovePetFromList(D2PetListStrc* pPetList, int bKillPet, D2GameStrc* pGame, int nUnitGUID)
+{
+    D2PetDataStrc* pPrevious = 0;
+    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
+    {
+        if (pPetData->nUnitGUID == nUnitGUID)
+        {
+            if (pPrevious)
+            {
+                pPrevious->pNext = pPetData->pNext;
+            }
+            else
+            {
+                pPetList->pPetData = pPetData->pNext;
+            }
+
+            D2PetArgStrc arg = {};
+            arg.nPetGUID = nUnitGUID;
+            SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
+
+            D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, 1, pPetData->nUnitGUID);
+            if (pPet)
+            {
+                if (bKillPet)
+                {
+                    PLAYERPETS_KillPet(pGame, pPetData->nUnitGUID);
+                }
+                else
+                {
+                    pPet->dwFlags &= 0x7FFFFFFF;
+                }
+            }
+
+            FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0x25C, 0);
+
+            --pPetList->nCurrent;
+            D2_ASSERT(pPetList->nCurrent >= 0, 0x260);
+            return;
+        }
+
+        pPrevious = pPetData;
+    }
 }
 
 inline D2PetListStrc* PLAYERPETS_GetPetListFromPetType(D2PlayerPetStrc* pPlayerPets, int nPetType)
@@ -413,51 +435,6 @@ int __fastcall PLAYERPETS_GetPetMaxFromPetType(D2UnitStrc* pPlayer, int nPetType
     return nMax;
 }
 
-// 0x00574850
-static void __stdcall PLAYERPETS_RemovePetFromList(D2PetListStrc* pPetList, int bKillPet, D2GameStrc* pGame, int nUnitGUID)
-{
-    D2PetDataStrc* pPrevious = 0;
-    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
-    {
-        if (pPetData->nUnitGUID == nUnitGUID)
-        {
-            if (pPrevious)
-            {
-                pPrevious->pNext = pPetData->pNext;
-            }
-            else
-            {
-                pPetList->pPetData = pPetData->pNext;
-            }
-
-            D2PetArgStrc arg = {};
-            arg.nPetGUID = nUnitGUID;
-            SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
-
-            D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, 1, pPetData->nUnitGUID);
-            if (pPet)
-            {
-                if (bKillPet)
-                {
-                    PLAYERPETS_KillPet(pGame, pPetData->nUnitGUID);
-                }
-                else
-                {
-                    pPet->dwFlags &= 0x7FFFFFFF;
-                }
-            }
-
-            FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0x25C, 0);
-
-            --pPetList->nCurrent;
-            D2_ASSERT(pPetList->nCurrent >= 0, 0x260);
-            return;
-        }
-
-        pPrevious = pPetData;
-    }
-}
-
 // 0x00574930
 void __fastcall PLAYERPETS_PlayerIterate_UpdateClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
 {
@@ -473,11 +450,11 @@ void __fastcall PLAYERPETS_PlayerIterate_UpdateClient(D2GameStrc* pGame, D2UnitS
     }
 }
 
-// 0x00574A20
-int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUID)
+// 0x00574BD0
+D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc* pUnit, int nUnitGUID)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 988);
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+    D2_ASSERT(pPlayerData, 1077);
 
     if (!pPlayerData->pPlayerPets)
     {
@@ -491,15 +468,31 @@ int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUI
         {
             for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
             {
-                if (pPetData->nUnitGUID == nPetGUID)
+                if (pPetData->nUnitGUID == nUnitGUID)
                 {
-                    return nPetType;
+                    return &pPetData->petInfo;
                 }
             }
         }
     }
 
     return 0;
+}
+
+// 0x00574C60
+static void __stdcall PLAYERPETS_KillPetList(D2PetListStrc* pPetList, D2GameStrc* pGame)
+{
+    D2PetDataStrc* pPetData = pPetList->pPetData;
+    while (pPetData)
+    {
+        D2PetDataStrc* pNext = pPetData->pNext;
+        PLAYERPETS_KillPet(pGame, pPetData->nUnitGUID);
+        FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0x4A5, 0);
+        pPetData = pNext;
+    }
+
+    pPetList->pPetData = 0;
+    pPetList->nCurrent = 0;
 }
 
 static inline D2PetListStrc* GetPetList(D2PlayerPetStrc* pPets, int nType, int nCount)
@@ -558,33 +551,38 @@ int __fastcall PLAYERPETS_MarkPetAlive(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
     return 0;
 }
 
-// 0x00574BD0
-D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc* pUnit, int nUnitGUID)
+// 0x00574CC0
+static void __stdcall PLAYERPETS_RelocatePet(D2GameStrc* pGame, D2UnitStrc* pPet, D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-    D2_ASSERT(pPlayerData, 1077);
-
-    if (!pPlayerData->pPlayerPets)
+    D2ActiveRoomStrc* pPetRoom = UNITS_GetRoom(pPet);
+    if (pRoom)
     {
-        return 0;
-    }
-
-    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
-    {
-        D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerData->pPlayerPets, nPetType);
-        if (pPetList)
+        if (pPet->nAct != DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)))
         {
-            for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
-            {
-                if (pPetData->nUnitGUID == nUnitGUID)
-                {
-                    return &pPetData->petInfo;
-                }
-            }
+            sub_00650BE0_PlaceUnit(pPet->pDynamicPath, pPet, 0, 0, 0);
         }
     }
 
-    return 0;
+    sub_00650BE0_PlaceUnit(pPet->pDynamicPath, pPet, pRoom, nX, nY);
+
+    if (pRoom != pPetRoom)
+    {
+        UNITS_SetCurrentRoomInvalid(pPet, 1);
+        SUNIT_SynchronizeRoomClients(pGame, pPet, pPetRoom);
+    }
+
+    pPet->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPet)));
+    pPet->pDrlgAct = pGame->pAct[pPet->nAct];
+    UNITROOM_RefreshUnit(pPet);
+
+    pPet->dwFlagEx |= 0x10000;
+    UNITROOM_RefreshUnit(pPet);
+
+    MONSTER_UpdateAiCallbackEvent(pGame, pPet);
+    if (!MONSTERS_IsDead(pPet) && pPet->pDynamicPath)
+    {
+        PATH_SetFootprintCollisionMask(pPet->pDynamicPath, 0x100);
+    }
 }
 
 static inline int sub_F05_UnitHasBeenDeleted(D2UnitStrc* pUnit)
@@ -672,54 +670,46 @@ static inline D2PetListStrc* sub_F05_GetPetListInl(D2PlayerDataStrc* pPlayerData
     return 0;
 }
 
-// 0x00574C60
-static void __stdcall PLAYERPETS_KillPetList(D2PetListStrc* pPetList, D2GameStrc* pGame)
+// 0x00575AF0
+void __fastcall PLAYERPETS_AllocPetList(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    D2PetDataStrc* pPetData = pPetList->pPetData;
-    while (pPetData)
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 154);
+
+    if (pPlayerData->pPlayerPets)
     {
-        D2PetDataStrc* pNext = pPetData->pNext;
-        PLAYERPETS_KillPet(pGame, pPetData->nUnitGUID);
-        FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0x4A5, 0);
-        pPetData = pNext;
+        PLAYERPETS_FreePetsFromPlayerData(pGame, pPlayer);
     }
 
-    pPetList->pPetData = 0;
-    pPetList->nCurrent = 0;
+    D2PlayerPetStrc* pPlayerPets = (D2PlayerPetStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerPetStrc), gszPlayerPetsSourceFile, 162, 0);
+    pPlayerPets->pPetList = 0;
+    pPlayerData->pPlayerPets = pPlayerPets;
+    pPlayerPets->pPetList = (D2PetListStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetListStrc) * sgptDataTables->nPetTypeTxtRecordCount, gszPlayerPetsSourceFile, 166, 0);
+    memset(pPlayerPets->pPetList, 0, sizeof(D2PetListStrc) * sgptDataTables->nPetTypeTxtRecordCount);
+    PLAYERPETS_InitPetTypeMax(pGame, pPlayer);
 }
 
-// 0x00574CC0
-static void __stdcall PLAYERPETS_RelocatePet(D2GameStrc* pGame, D2UnitStrc* pPet, D2ActiveRoomStrc* pRoom, int nX, int nY)
+// 0x005746D0
+void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2ActiveRoomStrc* pPetRoom = UNITS_GetRoom(pPet);
-    if (pRoom)
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+    D2_ASSERT(pPlayerData, 0x14F);
+
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    if (!pPlayerPets)
     {
-        if (pPet->nAct != DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)))
-        {
-            sub_00650BE0_PlaceUnit(pPet->pDynamicPath, pPet, 0, 0, 0);
-        }
+        return;
     }
 
-    sub_00650BE0_PlaceUnit(pPet->pDynamicPath, pPet, pRoom, nX, nY);
-
-    if (pRoom != pPetRoom)
+    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
     {
-        UNITS_SetCurrentRoomInvalid(pPet, 1);
-        SUNIT_SynchronizeRoomClients(pGame, pPet, pPetRoom);
+        D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
+        PLAYERPETS_ClearPetList(pUnit, pPetList, nPetType == 7, 0, pGame);
     }
 
-    pPet->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPet)));
-    pPet->pDrlgAct = pGame->pAct[pPet->nAct];
-    UNITROOM_RefreshUnit(pPet);
-
-    pPet->dwFlagEx |= 0x10000;
-    UNITROOM_RefreshUnit(pPet);
-
-    MONSTER_UpdateAiCallbackEvent(pGame, pPet);
-    if (!MONSTERS_IsDead(pPet) && pPet->pDynamicPath)
-    {
-        PATH_SetFootprintCollisionMask(pPet->pDynamicPath, 0x100);
-    }
+    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets->pPetList, gszPlayerPetsSourceFile, 0x161, 0);
+    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets, gszPlayerPetsSourceFile, 0x162, 0);
+    pPlayerData->pPlayerPets = 0;
 }
 
 // 0x00574D90
@@ -809,6 +799,496 @@ static inline D2PetListStrc* sub_00574EC0_GetPetList(D2PlayerDataStrc* pPlayerDa
         }
     }
     return 0;
+}
+
+// 0x00575A80
+void __fastcall PLAYERPETS_InitPetTypeMax(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    for (int nPetType = 0; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    {
+        D2PetTypeTxt* pPetTypeTxtRecord = 0;
+        if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
+        {
+            pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
+        }
+
+        if (pPetTypeTxtRecord)
+        {
+            PLAYERPETS_SetPetLimit(pGame, pPlayer, nPetType, pPetTypeTxtRecord->wBaseMax);
+        }
+    }
+}
+
+// 0x00575BC0
+void __fastcall D2GAME_KillPlayerPets(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x12F);
+
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    if (!pPlayerPets)
+    {
+        return;
+    }
+
+    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    {
+        D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
+        PLAYERPETS_ClearPetList(pPlayer, pPetList, nPetType == 7, nPetType == 7, pGame);
+    }
+
+    PLAYERPETS_UpdatePetLimits(pGame, pPlayer);
+}
+
+// 0x00575C70
+static int __stdcall PLAYERPETS_AppendPet(D2UnitStrc* pPet, D2PetInfoStrc* pPetInfo, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2PetListStrc* ptPet)
+{
+    if (!ptPet->nMax)
+    {
+        PLAYERPETS_UpdatePetLimits(pGame, pPlayer);
+        if (!ptPet->nMax)
+        {
+            PLAYERPETS_KillPet(pGame, sub_F05_GetUnitId(pPet));
+            return 0;
+        }
+    }
+
+    if (ptPet->nCurrent == ptPet->nMax)
+    {
+        D2_ASSERT(ptPet->pPetData, 0x312);
+
+        PLAYERPETS_RemovePetFromList(ptPet, 1, pGame, ptPet->pPetData->nUnitGUID);
+        D2_ASSERT(ptPet->nCurrent != ptPet->nMax, 0x316);
+    }
+
+    D2PetDataStrc* pPrevious = ptPet->pPetData;
+    if (pPrevious)
+    {
+        while (pPrevious->pNext)
+        {
+            pPrevious = pPrevious->pNext;
+        }
+    }
+
+    D2PetDataStrc* pPetData = (D2PetDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetDataStrc), gszPlayerPetsSourceFile, 0x322, 0);
+    memset(pPetData, 0, sizeof(D2PetDataStrc));
+
+    pPetData->nUnitGUID = sub_F05_GetUnitId(pPet);
+
+    pPetData->petInfo = *pPetInfo;
+
+    if (pPrevious)
+    {
+        pPrevious->pNext = pPetData;
+    }
+    else
+    {
+        ptPet->pPetData = pPetData;
+    }
+
+    ++ptPet->nCurrent;
+    D2_ASSERT(ptPet->nCurrent <= ptPet->nMax, 0x330);
+    return 1;
+}
+
+// 0x005751A0
+void __fastcall PLAYERPETS_HandlePetDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 672);
+
+    const int nPetGUID = !pPet ? -1 : pPet->dwUnitId;
+
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    if (!pPlayerPets)
+    {
+        return;
+    }
+
+    const int nPetType = PLAYERPETS_GetPetTypeFromPetGUID(pPlayer, nPetGUID);
+
+    if (nPetType != PETTYPE_HIREABLE)
+    {
+        PLAYERPETS_RemovePet(pGame, pPlayer, nPetGUID, 0);
+    }
+
+    D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
+    if (!pPetList)
+    {
+        return;
+    }
+
+    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
+    {
+        if (pPetData->nUnitGUID == nPetGUID)
+        {
+            pPetData->nFlags |= PETFLAG_DEAD;
+            D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 698), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
+            break;
+        }
+    }
+
+    D2PetArgStrc arg = {};
+    arg.nPetGUID = nPetGUID;
+    SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
+}
+
+// 0x00575380
+static void __stdcall PLAYERPETS_RemoveDistantPets(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMaxDistance, D2PetListStrc* pPetList)
+{
+    D2PetDataStrc* pPetData = pPetList->pPetData;
+    while (pPetData)
+    {
+        D2PetDataStrc* pNext = pPetData->pNext;
+        if (!(pPetData->nFlags & 1))
+        {
+            D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, 1, pPetData->nUnitGUID);
+            if (pPet && PATH_ComputeSquaredDistance(sub_F05_GetUnitX(pPlayer), sub_F05_GetUnitY(pPlayer), sub_F05_GetUnitX(pPet), sub_F05_GetUnitY(pPet)) > nMaxDistance)
+            {
+                PLAYERPETS_RemovePet(pGame, pPlayer, pPetData->nUnitGUID, 1);
+            }
+        }
+
+        pPetData = pNext;
+    }
+}
+
+// 0x005754B0
+void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nX, int nY)
+{
+    D2PlayerPetStrc* pPlayerPets = UNITS_GetPlayerData(pPlayer)->pPlayerPets;
+    if (!pPlayerPets)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+
+    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    {
+        D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
+        if (pPetList)
+        {
+            D2PetTypeTxt* pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
+            if (pPetTypeTxtRecord)
+            {
+                if (pPetTypeTxtRecord->nPetFlags[0] & gdwBitMasks[0])
+                {
+                    PLAYERPETS_RelocatePetList(pGame, pPetList, pRoom, nX, nY);
+                }
+                else if (pPetTypeTxtRecord->nPetFlags[0] & gdwBitMasks[1])
+                {
+                    PLAYERPETS_RemoveDistantPets(pGame, pPlayer, 0x640, pPetList);
+                }
+                else
+                {
+                    PLAYERPETS_KillPetList(pPetList, pGame);
+                }
+            }
+        }
+    }
+}
+
+static inline D2PetListStrc* sub_005752B0_GetPetList(D2PlayerPetStrc* pPlayerPets, int nPetType)
+{
+    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        return &pPlayerPets->pPetList[nPetType];
+    }
+
+    return 0;
+}
+
+// 0x005752B0
+int __fastcall PLAYERPETS_HandlePetDeactivation(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 723);
+
+    const int nPetGUID = !pPet ? -1 : pPet->dwUnitId;
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    if (!pPlayerPets)
+    {
+        return 0;
+    }
+
+    const int nPetType = PLAYERPETS_GetPetTypeFromPetGUID(pPlayer, nPetGUID);
+    if (nPetType != PETTYPE_HIREABLE)
+    {
+        PLAYERPETS_RemovePet(pGame, pPlayer, nPetGUID, 0);
+    }
+
+    D2PetListStrc* pPetList = sub_005752B0_GetPetList(pPlayerPets, nPetType);
+    if (!pPetList)
+    {
+        return 0;
+    }
+
+    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
+    {
+        if (pPetData->nUnitGUID == nPetGUID)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00575590
+static void __stdcall PLAYERPETS_RemoveDeadPets(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2PlayerPetStrc* pPlayerPets)
+{
+    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    {
+        D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, nPetType);
+        if (pPetList && nPetType != PETTYPE_HIREABLE)
+        {
+            D2PetDataStrc* pPetData = pPetList->pPetData;
+            while (pPetData)
+            {
+                D2PetDataStrc* pNext = pPetData->pNext;
+                D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pPetData->nUnitGUID);
+                if (!pPet || SUNIT_IsDead(pPet))
+                {
+                    PLAYERPETS_RemovePet(pGame, pPlayer, pPetData->nUnitGUID, 0);
+                }
+                pPetData = pNext;
+            }
+        }
+    }
+}
+
+// 0x00575850
+void __fastcall PLAYERPETS_SetPetLimit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int nBaseMax)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 512);
+
+    if (nPetType == PETTYPE_SINGLE && nBaseMax != 1 || !pPlayerData->pPlayerPets)
+    {
+        return;
+    }
+
+    D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerData->pPlayerPets, nPetType);
+    if (!pPetList)
+    {
+        return;
+    }
+
+    pPetList->nMax = nBaseMax;
+
+    while (pPetList->nCurrent > nBaseMax && pPetList->nCurrent > 0 && nPetType != PETTYPE_HIREABLE)
+    {
+        PLAYERPETS_RemovePet(pGame, pPlayer, PLAYERPETS_GetFirstPetGUID(pPlayer, nPetType), 1);
+    }
+}
+
+// 0x005750E0
+void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x276);
+
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    if (!pPlayerPets)
+    {
+        return;
+    }
+
+    const int nPetType = PLAYERPETS_GetPetTypeFromPetGUID(pPlayer, nPetGUID);
+    if (nPetType == 0 && bKillPet)
+    {
+        PLAYERPETS_KillPet(pGame, nPetGUID);
+    }
+
+    D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
+    if (pPetList)
+    {
+        PLAYERPETS_RemovePetFromList(pPetList, bKillPet, pGame, nPetGUID);
+
+        D2PetArgStrc arg = {};
+        arg.nPetGUID = nPetGUID;
+        SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
+    }
+}
+
+// 0x00574A20
+int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUID)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 988);
+
+    if (!pPlayerData->pPlayerPets)
+    {
+        return 0;
+    }
+
+    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    {
+        D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerData->pPlayerPets, nPetType);
+        if (pPetList)
+        {
+            for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
+            {
+                if (pPetData->nUnitGUID == nPetGUID)
+                {
+                    return nPetType;
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x00575630
+void __fastcall PLAYERPETS_UpdatePetStates(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2PlayerPetStrc* pPlayerPets = UNITS_GetPlayerData(pPlayer)->pPlayerPets;
+    if (!pPlayerPets)
+    {
+        return;
+    }
+
+    PLAYERPETS_RemoveDeadPets(pGame, pPlayer, pPlayerPets);
+
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 1411);
+    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    {
+        D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, nPetType);
+        if (pPetList)
+        {
+            D2PetTypeTxt* pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
+            if (pPetTypeTxtRecord && pPetTypeTxtRecord->nPetFlags[0] & gdwBitMasks[2])
+            {
+                for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
+                {
+                    if (!(pPetData->nFlags & 1))
+                    {
+                        D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pPetData->nUnitGUID);
+                        if (pPet)
+                        {
+                            sub_6FC3E200(pClient, pPet);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 0x00575720
+static void __stdcall PLAYERPETS_RemoveGroupPets(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType)
+{
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
+    {
+        return;
+    }
+
+    D2PetTypeTxt* pPetTypeTxtRecord = 0;
+    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
+    }
+
+    if (!pPetTypeTxtRecord)
+    {
+        return;
+    }
+
+    const int nGroup = pPetTypeTxtRecord->wGroup;
+    if (nGroup <= 0)
+    {
+        return;
+    }
+
+    for (int nOtherPetType = 0; nOtherPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nOtherPetType)
+    {
+        if (nOtherPetType != nPetType)
+        {
+            D2PetTypeTxt* pOtherPetTypeTxtRecord = 0;
+            if (nOtherPetType >= 0 && nOtherPetType < sgptDataTables->nPetTypeTxtRecordCount)
+            {
+                pOtherPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nOtherPetType];
+            }
+
+            if (pOtherPetTypeTxtRecord && pOtherPetTypeTxtRecord->wGroup == nGroup)
+            {
+                for (D2UnitStrc* pOtherPet = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, nOtherPetType, 1); pOtherPet; pOtherPet = sub_F05_GetFirstPetInl(pGame, pPlayer, nOtherPetType, 1))
+                {
+                    PLAYERPETS_RemovePet(pGame, pPlayer, sub_F05_GetUnitId(pOtherPet), 1);
+                }
+            }
+        }
+    }
+}
+
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+// 0x00575900
+void __fastcall PLAYERPETS_UpdatePetLimits(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
+    {
+        return;
+    }
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    if (!pPlayerData || !pPlayerData->pPlayerPets || !pPlayer->pSkills)
+    {
+        return;
+    }
+
+    int nPetCounters[256];
+    memset(nPetCounters, 0, sizeof(nPetCounters));
+
+    D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(pPlayer->pSkills);
+    while (pSkill)
+    {
+        D2SkillStrc* pNextSkill = SKILLS_GetNextSkill(pSkill);
+
+        const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerPetsSourceFile, 1139);
+        const int nLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
+        pSkill = pNextSkill;
+
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+        if (pSkillsTxtRecord)
+        {
+            if ((char)pSkillsTxtRecord->nPetType > 0 && (char)pSkillsTxtRecord->nPetType < sgptDataTables->nPetTypeTxtRecordCount)
+            {
+                int nPetMax = SKILLS_EvaluateSkillFormula(pPlayer, pSkillsTxtRecord->dwPetMax, nSkillId, nLevel);
+                if (nPetMax < 1)
+                {
+                    nPetMax = 1;
+                }
+
+                if (nPetMax > nPetCounters[(char)pSkillsTxtRecord->nPetType])
+                {
+                    nPetCounters[(char)pSkillsTxtRecord->nPetType] = nPetMax;
+                    PLAYERPETS_SetPetLimit(pGame, pPlayer, (char)pSkillsTxtRecord->nPetType, nPetMax);
+                }
+            }
+        }
+    }
+
+    for (int nPetType = 0; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
+    {
+        if (nPetCounters[nPetType] <= 0)
+        {
+            D2PetTypeTxt* pPetTypeTxtRecord = sub_00478A20_GetPetTypeTxtRecord(nPetType);
+            if (pPetTypeTxtRecord)
+            {
+                PLAYERPETS_SetPetLimit(pGame, pPlayer, nPetType, pPetTypeTxtRecord->wBaseMax);
+            }
+        }
+    }
 }
 
 // 0x00574EC0
@@ -901,457 +1381,6 @@ void __fastcall PLAYERPETS_SendPetsToClient(D2ClientStrc* pClient, D2UnitStrc* p
     }
 }
 
-// 0x00575070
-int __fastcall PLAYERPETS_HasLivingHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
-    if (!pPlayerData->pPlayerPets)
-    {
-        return 0;
-    }
-
-    UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 0x66E);
-    D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, 7);
-    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
-    {
-        if (SUNIT_GetServerUnit(pGame, 1, pPetData->nUnitGUID))
-        {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-// 0x005750E0
-void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x276);
-
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
-    if (!pPlayerPets)
-    {
-        return;
-    }
-
-    const int nPetType = PLAYERPETS_GetPetTypeFromPetGUID(pPlayer, nPetGUID);
-    if (nPetType == 0 && bKillPet)
-    {
-        PLAYERPETS_KillPet(pGame, nPetGUID);
-    }
-
-    D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
-    if (pPetList)
-    {
-        PLAYERPETS_RemovePetFromList(pPetList, bKillPet, pGame, nPetGUID);
-
-        D2PetArgStrc arg = {};
-        arg.nPetGUID = nPetGUID;
-        SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
-    }
-}
-
-// 0x005751A0
-void __fastcall PLAYERPETS_HandlePetDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 672);
-
-    const int nPetGUID = !pPet ? -1 : pPet->dwUnitId;
-
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
-    if (!pPlayerPets)
-    {
-        return;
-    }
-
-    const int nPetType = PLAYERPETS_GetPetTypeFromPetGUID(pPlayer, nPetGUID);
-
-    if (nPetType != PETTYPE_HIREABLE)
-    {
-        PLAYERPETS_RemovePet(pGame, pPlayer, nPetGUID, 0);
-    }
-
-    D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
-    if (!pPetList)
-    {
-        return;
-    }
-
-    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
-    {
-        if (pPetData->nUnitGUID == nPetGUID)
-        {
-            pPetData->nFlags |= PETFLAG_DEAD;
-            D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 698), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
-            break;
-        }
-    }
-
-    D2PetArgStrc arg = {};
-    arg.nPetGUID = nPetGUID;
-    SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_SynchronizeWithClient, &arg);
-}
-
-static inline D2PetListStrc* sub_005752B0_GetPetList(D2PlayerPetStrc* pPlayerPets, int nPetType)
-{
-    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
-    {
-        return &pPlayerPets->pPetList[nPetType];
-    }
-
-    return 0;
-}
-
-// 0x005752B0
-int __fastcall PLAYERPETS_HandlePetDeactivation(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 723);
-
-    const int nPetGUID = !pPet ? -1 : pPet->dwUnitId;
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
-    if (!pPlayerPets)
-    {
-        return 0;
-    }
-
-    const int nPetType = PLAYERPETS_GetPetTypeFromPetGUID(pPlayer, nPetGUID);
-    if (nPetType != PETTYPE_HIREABLE)
-    {
-        PLAYERPETS_RemovePet(pGame, pPlayer, nPetGUID, 0);
-    }
-
-    D2PetListStrc* pPetList = sub_005752B0_GetPetList(pPlayerPets, nPetType);
-    if (!pPetList)
-    {
-        return 0;
-    }
-
-    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
-    {
-        if (pPetData->nUnitGUID == nPetGUID)
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-// 0x00575380
-static void __stdcall PLAYERPETS_RemoveDistantPets(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMaxDistance, D2PetListStrc* pPetList)
-{
-    D2PetDataStrc* pPetData = pPetList->pPetData;
-    while (pPetData)
-    {
-        D2PetDataStrc* pNext = pPetData->pNext;
-        if (!(pPetData->nFlags & 1))
-        {
-            D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, 1, pPetData->nUnitGUID);
-            if (pPet && PATH_ComputeSquaredDistance(sub_F05_GetUnitX(pPlayer), sub_F05_GetUnitY(pPlayer), sub_F05_GetUnitX(pPet), sub_F05_GetUnitY(pPet)) > nMaxDistance)
-            {
-                PLAYERPETS_RemovePet(pGame, pPlayer, pPetData->nUnitGUID, 1);
-            }
-        }
-
-        pPetData = pNext;
-    }
-}
-
-// 0x005754B0
-void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nX, int nY)
-{
-    D2PlayerPetStrc* pPlayerPets = UNITS_GetPlayerData(pPlayer)->pPlayerPets;
-    if (!pPlayerPets)
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-
-    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
-    {
-        D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
-        if (pPetList)
-        {
-            D2PetTypeTxt* pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
-            if (pPetTypeTxtRecord)
-            {
-                if (pPetTypeTxtRecord->nPetFlags[0] & gdwBitMasks[0])
-                {
-                    PLAYERPETS_RelocatePetList(pGame, pPetList, pRoom, nX, nY);
-                }
-                else if (pPetTypeTxtRecord->nPetFlags[0] & gdwBitMasks[1])
-                {
-                    PLAYERPETS_RemoveDistantPets(pGame, pPlayer, 0x640, pPetList);
-                }
-                else
-                {
-                    PLAYERPETS_KillPetList(pPetList, pGame);
-                }
-            }
-        }
-    }
-}
-
-// 0x00575590
-static void __stdcall PLAYERPETS_RemoveDeadPets(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2PlayerPetStrc* pPlayerPets)
-{
-    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
-    {
-        D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, nPetType);
-        if (pPetList && nPetType != PETTYPE_HIREABLE)
-        {
-            D2PetDataStrc* pPetData = pPetList->pPetData;
-            while (pPetData)
-            {
-                D2PetDataStrc* pNext = pPetData->pNext;
-                D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pPetData->nUnitGUID);
-                if (!pPet || SUNIT_IsDead(pPet))
-                {
-                    PLAYERPETS_RemovePet(pGame, pPlayer, pPetData->nUnitGUID, 0);
-                }
-                pPetData = pNext;
-            }
-        }
-    }
-}
-
-// 0x00575630
-void __fastcall PLAYERPETS_UpdatePetStates(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    D2PlayerPetStrc* pPlayerPets = UNITS_GetPlayerData(pPlayer)->pPlayerPets;
-    if (!pPlayerPets)
-    {
-        return;
-    }
-
-    PLAYERPETS_RemoveDeadPets(pGame, pPlayer, pPlayerPets);
-
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 1411);
-    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
-    {
-        D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, nPetType);
-        if (pPetList)
-        {
-            D2PetTypeTxt* pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
-            if (pPetTypeTxtRecord && pPetTypeTxtRecord->nPetFlags[0] & gdwBitMasks[2])
-            {
-                for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
-                {
-                    if (!(pPetData->nFlags & 1))
-                    {
-                        D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pPetData->nUnitGUID);
-                        if (pPet)
-                        {
-                            sub_6FC3E200(pClient, pPet);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-// 0x00575720
-static void __stdcall PLAYERPETS_RemoveGroupPets(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType)
-{
-    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
-    {
-        return;
-    }
-
-    D2PetTypeTxt* pPetTypeTxtRecord = 0;
-    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
-    {
-        pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
-    }
-
-    if (!pPetTypeTxtRecord)
-    {
-        return;
-    }
-
-    const int nGroup = pPetTypeTxtRecord->wGroup;
-    if (nGroup <= 0)
-    {
-        return;
-    }
-
-    for (int nOtherPetType = 0; nOtherPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nOtherPetType)
-    {
-        if (nOtherPetType != nPetType)
-        {
-            D2PetTypeTxt* pOtherPetTypeTxtRecord = 0;
-            if (nOtherPetType >= 0 && nOtherPetType < sgptDataTables->nPetTypeTxtRecordCount)
-            {
-                pOtherPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nOtherPetType];
-            }
-
-            if (pOtherPetTypeTxtRecord && pOtherPetTypeTxtRecord->wGroup == nGroup)
-            {
-                for (D2UnitStrc* pOtherPet = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, nOtherPetType, 1); pOtherPet; pOtherPet = sub_F05_GetFirstPetInl(pGame, pPlayer, nOtherPetType, 1))
-                {
-                    PLAYERPETS_RemovePet(pGame, pPlayer, sub_F05_GetUnitId(pOtherPet), 1);
-                }
-            }
-        }
-    }
-}
-
-// 0x00575850
-void __fastcall PLAYERPETS_SetPetLimit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int nBaseMax)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 512);
-
-    if (nPetType == PETTYPE_SINGLE && nBaseMax != 1 || !pPlayerData->pPlayerPets)
-    {
-        return;
-    }
-
-    D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerData->pPlayerPets, nPetType);
-    if (!pPetList)
-    {
-        return;
-    }
-
-    pPetList->nMax = nBaseMax;
-
-    while (pPetList->nCurrent > nBaseMax && pPetList->nCurrent > 0 && nPetType != PETTYPE_HIREABLE)
-    {
-        PLAYERPETS_RemovePet(pGame, pPlayer, PLAYERPETS_GetFirstPetGUID(pPlayer, nPetType), 1);
-    }
-}
-
-inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    return 0;
-}
-
-// 0x00575900
-void __fastcall PLAYERPETS_UpdatePetLimits(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
-    {
-        return;
-    }
-
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (!pPlayerData || !pPlayerData->pPlayerPets || !pPlayer->pSkills)
-    {
-        return;
-    }
-
-    int nPetCounters[256];
-    memset(nPetCounters, 0, sizeof(nPetCounters));
-
-    D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(pPlayer->pSkills);
-    while (pSkill)
-    {
-        D2SkillStrc* pNextSkill = SKILLS_GetNextSkill(pSkill);
-
-        const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerPetsSourceFile, 1139);
-        const int nLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
-        pSkill = pNextSkill;
-
-        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-        if (pSkillsTxtRecord)
-        {
-            if ((char)pSkillsTxtRecord->nPetType > 0 && (char)pSkillsTxtRecord->nPetType < sgptDataTables->nPetTypeTxtRecordCount)
-            {
-                int nPetMax = SKILLS_EvaluateSkillFormula(pPlayer, pSkillsTxtRecord->dwPetMax, nSkillId, nLevel);
-                if (nPetMax < 1)
-                {
-                    nPetMax = 1;
-                }
-
-                if (nPetMax > nPetCounters[(char)pSkillsTxtRecord->nPetType])
-                {
-                    nPetCounters[(char)pSkillsTxtRecord->nPetType] = nPetMax;
-                    PLAYERPETS_SetPetLimit(pGame, pPlayer, (char)pSkillsTxtRecord->nPetType, nPetMax);
-                }
-            }
-        }
-    }
-
-    for (int nPetType = 0; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
-    {
-        if (nPetCounters[nPetType] <= 0)
-        {
-            D2PetTypeTxt* pPetTypeTxtRecord = sub_00478A20_GetPetTypeTxtRecord(nPetType);
-            if (pPetTypeTxtRecord)
-            {
-                PLAYERPETS_SetPetLimit(pGame, pPlayer, nPetType, pPetTypeTxtRecord->wBaseMax);
-            }
-        }
-    }
-}
-
-// 0x00575A80
-void __fastcall PLAYERPETS_InitPetTypeMax(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    for (int nPetType = 0; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
-    {
-        D2PetTypeTxt* pPetTypeTxtRecord = 0;
-        if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
-        {
-            pPetTypeTxtRecord = &sgptDataTables->pPetTypeTxt[nPetType];
-        }
-
-        if (pPetTypeTxtRecord)
-        {
-            PLAYERPETS_SetPetLimit(pGame, pPlayer, nPetType, pPetTypeTxtRecord->wBaseMax);
-        }
-    }
-}
-
-// 0x00575AF0
-void __fastcall PLAYERPETS_AllocPetList(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 154);
-
-    if (pPlayerData->pPlayerPets)
-    {
-        PLAYERPETS_FreePetsFromPlayerData(pGame, pPlayer);
-    }
-
-    D2PlayerPetStrc* pPlayerPets = (D2PlayerPetStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerPetStrc), gszPlayerPetsSourceFile, 162, 0);
-    pPlayerPets->pPetList = 0;
-    pPlayerData->pPlayerPets = pPlayerPets;
-    pPlayerPets->pPetList = (D2PetListStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetListStrc) * sgptDataTables->nPetTypeTxtRecordCount, gszPlayerPetsSourceFile, 166, 0);
-    memset(pPlayerPets->pPetList, 0, sizeof(D2PetListStrc) * sgptDataTables->nPetTypeTxtRecordCount);
-    PLAYERPETS_InitPetTypeMax(pGame, pPlayer);
-}
-
-// 0x00575BC0
-void __fastcall D2GAME_KillPlayerPets(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x12F);
-
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
-    if (!pPlayerPets)
-    {
-        return;
-    }
-
-    for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
-    {
-        D2PetListStrc* pPetList = PLAYERPETS_GetPetListByType(pPlayerPets, nPetType);
-        PLAYERPETS_ClearPetList(pPlayer, pPetList, nPetType == 7, nPetType == 7, pGame);
-    }
-
-    PLAYERPETS_UpdatePetLimits(pGame, pPlayer);
-}
-
 static inline int sub_I16_GetUnitIdRet(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -1370,57 +1399,6 @@ static inline int sub_I16_GetClassIdRet(D2UnitStrc* pUnit)
     }
 
     return pUnit->dwClassId;
-}
-
-// 0x00575C70
-static int __stdcall PLAYERPETS_AppendPet(D2UnitStrc* pPet, D2PetInfoStrc* pPetInfo, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2PetListStrc* ptPet)
-{
-    if (!ptPet->nMax)
-    {
-        PLAYERPETS_UpdatePetLimits(pGame, pPlayer);
-        if (!ptPet->nMax)
-        {
-            PLAYERPETS_KillPet(pGame, sub_F05_GetUnitId(pPet));
-            return 0;
-        }
-    }
-
-    if (ptPet->nCurrent == ptPet->nMax)
-    {
-        D2_ASSERT(ptPet->pPetData, 0x312);
-
-        PLAYERPETS_RemovePetFromList(ptPet, 1, pGame, ptPet->pPetData->nUnitGUID);
-        D2_ASSERT(ptPet->nCurrent != ptPet->nMax, 0x316);
-    }
-
-    D2PetDataStrc* pPrevious = ptPet->pPetData;
-    if (pPrevious)
-    {
-        while (pPrevious->pNext)
-        {
-            pPrevious = pPrevious->pNext;
-        }
-    }
-
-    D2PetDataStrc* pPetData = (D2PetDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetDataStrc), gszPlayerPetsSourceFile, 0x322, 0);
-    memset(pPetData, 0, sizeof(D2PetDataStrc));
-
-    pPetData->nUnitGUID = sub_F05_GetUnitId(pPet);
-
-    pPetData->petInfo = *pPetInfo;
-
-    if (pPrevious)
-    {
-        pPrevious->pNext = pPetData;
-    }
-    else
-    {
-        ptPet->pPetData = pPetData;
-    }
-
-    ++ptPet->nCurrent;
-    D2_ASSERT(ptPet->nCurrent <= ptPet->nMax, 0x330);
-    return 1;
 }
 
 // 0x00575D90
@@ -1496,4 +1474,26 @@ void __fastcall PLAYERPETS_AddPetWithInfo(D2GameStrc* pGame, D2UnitStrc* pPlayer
         arg.nName = pPetInfo->nName;
         SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_UpdateClient, &arg);
     }
+}
+
+// 0x00575070
+int __fastcall PLAYERPETS_HasLivingHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    if (!pPlayerData->pPlayerPets)
+    {
+        return 0;
+    }
+
+    UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 0x66E);
+    D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, 7);
+    for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
+    {
+        if (SUNIT_GetServerUnit(pGame, 1, pPetData->nUnitGUID))
+        {
+            return 1;
+        }
+    }
+    return 0;
 }

@@ -968,76 +968,6 @@ inline int PLRMSG_IsBodyLocValid(int nBodyLoc)
     return nBodyLoc > 0 && nBodyLoc < 11;
 }
 
-// 0x005482A0
-void __fastcall PLRMSG_SendKnockbackMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
-{
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    const char nHitClass = pUnit->dwLastHitClass;
-    int nY;
-    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-        nY = pUnit->pStaticPath->tGameCoords.nY;
-    else
-        nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    int nX;
-    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-        nX = pUnit->pStaticPath->tGameCoords.nX;
-    else
-        nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-    const int nUnitId = pUnit->dwUnitId;
-    D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)stru_6FD30708[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), nHitClass, nX, nY);
-}
-
-// 0x00548350
-void __fastcall PLRMSG_SendGetHitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
-{
-    const int nField = stru_6FD30708[nAnimMode].field_4;
-    const char nHitClass = pUnit->dwLastHitClass;
-    const char nLife = UNITS_GetCurrentLifePercentage(pUnit);
-    int nY;
-    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-        nY = pUnit->pStaticPath->tGameCoords.nY;
-    else
-        nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    int nX;
-    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-        nX = pUnit->pStaticPath->tGameCoords.nX;
-    else
-        nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-    D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient, 0x0D, 0, !pUnit ? -1 : pUnit->dwUnitId, nField, nX, nY, nHitClass, nLife);
-}
-
-// 0x00548400
-void __fastcall PLRMSG_SendNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
-{
-    if (pUnit != CLIENTS_GetPlayerFromClient(pClient, 0))
-    {
-        const unsigned char nLife = UNITS_GetCurrentLifePercentage(pUnit);
-        const int nHitClass = stru_6FD30708[nAnimMode].field_4;
-        int nY;
-        if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-            nY = pUnit->pStaticPath->tGameCoords.nY;
-        else
-            nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-        int nX;
-        if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
-            nX = pUnit->pStaticPath->tGameCoords.nX;
-        else
-            nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-        const int nUnitId = (pUnit ? pUnit->dwUnitId : -1);
-        D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient, 0x0D, 0, nUnitId, nHitClass, nX, nY, 0, nLife);
-    }
-}
-
-// build: context PoisonStat_GetPerFrame
-static inline int PoisonStat_GetPerFrame(D2StatListStrc* pStatList)
-{
-	if (pStatList)
-	{
-		return STATLIST_GetStatValue(pStatList, STAT_HPREGEN, 0);
-	}
-	return 0;
-}
-
 // 0x00548520
 void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer)
 {
@@ -1052,6 +982,34 @@ void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned shor
     {
         SCMD_SendUnitStat(hClient, 0x20, !pUnit ? -1 : pUnit->dwUnitId, nStat, nNewValue);
     }
+}
+
+// 0x00548A50
+static void __stdcall PLRMSG_RunToUnitAndInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
+{
+    StartModeID(pGame, pPlayer, 0, 3, nUnitType, nUnitGUID, 0);
+    sub_00641F20_SetPlayerModeState(pPlayer, nInteractSkill, nUnitType, nUnitGUID);
+}
+
+// 0x00548A80
+static int __stdcall PLRMSG_CheckSameAct(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit))) == DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pTarget))))
+    {
+        return 0;
+    }
+
+    return 2;
+}
+
+// build: context PoisonStat_GetPerFrame
+static inline int PoisonStat_GetPerFrame(D2StatListStrc* pStatList)
+{
+	if (pStatList)
+	{
+		return STATLIST_GetStatValue(pStatList, STAT_HPREGEN, 0);
+	}
+	return 0;
 }
 
 // 0x005485B0
@@ -1070,6 +1028,12 @@ static unsigned char PLRMSG_GetPotionLifePercent(D2UnitStrc* pUnit)
 	const unsigned char nPercent = (unsigned char)((((PoisonStat_GetPerFrame(pStatList) * nFrames + nHitpoints) >> 8) * 100) / nMaxLife);
 	const int nClamped = nPercent > 100 ? 100 : nPercent;
 	return (unsigned char)nClamped;
+}
+
+// 0x00548EB0
+static int __stdcall PLRMSG_CheckValuesEqual(int nValue, int nExpected)
+{
+    return nValue == nExpected ? 0 : 3;
 }
 
 // build: context sub_005485B0_GetPotionLifePercent
@@ -1307,47 +1271,6 @@ static __forceinline int PLRMSG_GetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-// 0x00548A50
-static void __stdcall PLRMSG_RunToUnitAndInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
-{
-    StartModeID(pGame, pPlayer, 0, 3, nUnitType, nUnitGUID, 0);
-    sub_00641F20_SetPlayerModeState(pPlayer, nInteractSkill, nUnitType, nUnitGUID);
-}
-
-// 0x00548A80
-static int __stdcall PLRMSG_CheckSameAct(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit))) == DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pTarget))))
-    {
-        return 0;
-    }
-
-    return 2;
-}
-
-inline int sub_00548AC0_GetActMismatchStatus(D2UnitStrc* pUnit, D2UnitStrc* pOther)
-{
-    const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)));
-    if (nAct == DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOther))))
-    {
-        return 0;
-    }
-    return 2;
-}
-
-// 0x00548AC0
-int __fastcall PLRMSG_IsUnitInOtherAct(D2UnitStrc* pUnit, D2UnitStrc* pOther)
-{
-    return sub_00548AC0_GetActMismatchStatus(pUnit, pOther) != 0;
-}
-
-// build: context sub_005485B0_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_005485B0_Shim(D2UnitStrc* pUnit)
-{
-	return PLRMSG_GetPotionLifePercent(pUnit);
-}
-
 // 0x00548B00
 int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, int a4, D2GameStrc* pGame)
 {
@@ -1533,10 +1456,87 @@ int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int n
     return 1;
 }
 
-// 0x00548EB0
-static int __stdcall PLRMSG_CheckValuesEqual(int nValue, int nExpected)
+// 0x00548400
+void __fastcall PLRMSG_SendNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
 {
-    return nValue == nExpected ? 0 : 3;
+    if (pUnit != CLIENTS_GetPlayerFromClient(pClient, 0))
+    {
+        const unsigned char nLife = UNITS_GetCurrentLifePercentage(pUnit);
+        const int nHitClass = stru_6FD30708[nAnimMode].field_4;
+        int nY;
+        if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+            nY = pUnit->pStaticPath->tGameCoords.nY;
+        else
+            nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+        int nX;
+        if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+            nX = pUnit->pStaticPath->tGameCoords.nX;
+        else
+            nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+        const int nUnitId = (pUnit ? pUnit->dwUnitId : -1);
+        D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient, 0x0D, 0, nUnitId, nHitClass, nX, nY, 0, nLife);
+    }
+}
+
+inline int sub_00548AC0_GetActMismatchStatus(D2UnitStrc* pUnit, D2UnitStrc* pOther)
+{
+    const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)));
+    if (nAct == DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOther))))
+    {
+        return 0;
+    }
+    return 2;
+}
+
+// 0x00548AC0
+int __fastcall PLRMSG_IsUnitInOtherAct(D2UnitStrc* pUnit, D2UnitStrc* pOther)
+{
+    return sub_00548AC0_GetActMismatchStatus(pUnit, pOther) != 0;
+}
+
+// build: context sub_005485B0_Shim
+// calling-convention shim (not game code)
+int __stdcall sub_005485B0_Shim(D2UnitStrc* pUnit)
+{
+	return PLRMSG_GetPotionLifePercent(pUnit);
+}
+
+// 0x005482A0
+void __fastcall PLRMSG_SendKnockbackMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    const char nHitClass = pUnit->dwLastHitClass;
+    int nY;
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+    else
+        nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    int nX;
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+    else
+        nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    const int nUnitId = pUnit->dwUnitId;
+    D2GAME_PACKETS_SendPacket0x0F_6FC3CA00(pClient, 0x0F, 0, nUnitId, (unsigned char)stru_6FD30708[nAnimMode].field_4, D2COMMON_10175_PathGetFirstPointX(pPath), D2COMMON_10176_PathGetFirstPointY(pPath), nHitClass, nX, nY);
+}
+
+// 0x00548350
+void __fastcall PLRMSG_SendGetHitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
+{
+    const int nField = stru_6FD30708[nAnimMode].field_4;
+    const char nHitClass = pUnit->dwLastHitClass;
+    const char nLife = UNITS_GetCurrentLifePercentage(pUnit);
+    int nY;
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+    else
+        nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    int nX;
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+    else
+        nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient, 0x0D, 0, !pUnit ? -1 : pUnit->dwUnitId, nField, nX, nY, nHitClass, nLife);
 }
 
 int __fastcall sub_K10_EmitCompareValues(int a, int b)
@@ -2112,6 +2112,51 @@ inline int PLRMSG_GetUnitYInline(D2UnitStrc* pUnit)
     }
 }
 
+// 0x0054ACD0
+int __fastcall sRemoveItemGrid(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 5)
+    {
+        return 3;
+    }
+
+    const int nItemGUID = *(int*)((char*)pPacket + 1);
+    int a6;
+    const int nResult = ((D2GameItemChecks*)pGame)->PLRMSG_CheckStoredItem(pUnit, nItemGUID);
+    if (nResult)
+    {
+        return nResult;
+    }
+
+    if (INVENTORY_GetCursorItem(pUnit->pInventory))
+    {
+        PLRMSG_SendCantDoThat(pUnit);
+        return 2;
+    }
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
+    if (!pItem)
+    {
+        return 2;
+    }
+
+    if (ITEMS_GetInvPage(pItem) == 1)
+    {
+        return 3;
+    }
+
+    if (PLAYER_CanModifyInventory(pGame, pUnit, pItem))
+    {
+        a6 = 0;
+        if (!ITEMMODE_RemoveStoredItem(pGame, pUnit, nItemGUID, &a6, 1, 0, 0, 0) && a6)
+        {
+            return 3;
+        }
+    }
+
+    return 0;
+}
+
 // 0x00549A60
 void __fastcall PLRMSG_SendCantDoThat(D2UnitStrc* pUnit)
 {
@@ -2237,6 +2282,269 @@ static int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     StartModeID(pGame, pUnit, pSkill, nSkillMode, nUnitType, nUnitGUID, 0);
     return 0;
+}
+
+// 0x0054A420
+static int __stdcall PLRMSG_CheckInteractUnit(D2GameStrc* pGame, D2UnitStrc* pExpected, D2UnitStrc* pUnit)
+{
+    int nUnitType;
+    int nUnitGUID;
+    if (SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID) && nUnitType == UNIT_PLAYER)
+    {
+        D2UnitStrc* pInteractUnit = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nUnitGUID);
+        if (pInteractUnit && pInteractUnit != pExpected)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0054A470
+void __fastcall D2GAME_PACKETS_HandlePlayerMessage_6FC847B0(D2ClientStrc* pClient, void* pArgs)
+{
+    D2GSPacketSrv26Args* pPacket26Args = (D2GSPacketSrv26Args*)pArgs;
+    D2GameStrc* pGame = CLIENTS_GetGame(pClient);
+    D2GSPacketSrv26* pPacket26 = pPacket26Args->pPacket26;
+
+    if (pPacket26Args->nUnitId != -1)
+    {
+        D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPacket26Args->nUnitId);
+        D2UnitStrc* pLocalPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+        if (pOtherPlayer && pLocalPlayer && pOtherPlayer != pLocalPlayer)
+        {
+            if (PLAYERLIST_CheckFlag(pLocalPlayer, pOtherPlayer, 4) || PLAYERLIST_CheckFlag(pOtherPlayer, pLocalPlayer, 2)
+                || PLRMSG_CheckInteractUnit(pGame, pLocalPlayer, pOtherPlayer) || PLRMSG_CheckInteractUnit(pGame, pOtherPlayer, pLocalPlayer))
+            {
+                return;
+            }
+        }
+    }
+
+    D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, pPacket26);
+}
+
+// 0x0054A510
+void __fastcall D2GAME_PACKETS_HandleWhisper_6FC848A0(D2ClientStrc* pClient, void* pArgs)
+{
+    D2GSPacketSrv26Args* pPacket26Args = (D2GSPacketSrv26Args*)pArgs;
+    D2GameStrc* pGame = CLIENTS_GetGame(pClient);
+    D2GSPacketSrv26* pPacket26 = pPacket26Args->pPacket26;
+    const char* szClientName = CLIENTS_GetName(pClient);
+    if (!SStrCmpI(szClientName, pPacket26Args->pPacket15->szName, 0x7FFFFFFF))
+    {
+        const int nUnitGUID = pPacket26Args->nUnitId;
+        if (nUnitGUID != -1)
+        {
+            D2UnitStrc* pReceiver = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nUnitGUID);
+            D2UnitStrc* pLocalPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+            if (pReceiver && pLocalPlayer)
+            {
+                if (PLAYERLIST_CheckFlag(pLocalPlayer, pReceiver, 4))
+                {
+                    gbWhispReceiverNotListening_6FD4DC24 = 1;
+                    return;
+                }
+
+                if (PLAYERLIST_CheckFlag(pReceiver, pLocalPlayer, 2))
+                {
+                    gbWhispReceiverNotListening_6FD4DC24 = 1;
+                    return;
+                }
+            }
+        }
+
+        gbWhispReceiverInGame_6FD4DC20 = 1;
+        D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, pPacket26);
+    }
+}
+
+// 0x0054A5C0
+void __fastcall j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc* pClient, void* pMsg)
+{
+    D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, (D2GSPacketSrv26*)pMsg);
+}
+
+// 0x0054A930
+void __fastcall PLRMSG_BroadcastChatMessage(D2GameStrc* game, const char* message, unsigned char color)
+{
+    D2GSPacketSrv26 packet;
+    packet.nHeader = 0x26;
+    packet.nMessageType = 1;
+    packet.nUnitType = 2;
+    packet.dwUnitGUID = 0;
+    packet.nMessageColor = color;
+    packet.szName[0] = 0;
+    packet.nLang = 0;
+    memcpy(packet.szMessage, message, sizeof(packet.szMessage));
+    GAME_ForEachIngameClient(game, j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0, &packet);
+}
+
+// 0x0054A9B0
+void __fastcall PLRMSG_BroadcastSystemMessage(D2GameStrc* pGame, const char* szMessage, unsigned char nColor)
+{
+    D2GSPacketSrv26 packet26;
+    packet26.nMessageColor = nColor;
+    packet26.nHeader = 0x26;
+    packet26.nMessageType = 4;
+    packet26.dwUnitGUID = 0;
+    packet26.nUnitType = UNIT_PLAYER;
+    memcpy(packet26.szMessage, szMessage, sizeof(packet26.szMessage));
+    packet26.nLang = 0;
+    GAME_ForEachIngameClient(pGame, j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0, &packet26);
+}
+
+// 0x0054AA30
+void __fastcall j_D2GAME_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, void* pPacket)
+{
+    D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(pClient, (D2GSPacketSrv5A*)pPacket);
+}
+
+// 0x0054AA40
+void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket)
+{
+    const char* szName = pPacket->szText;
+    int i;
+    for (i = 0; i < 16; ++i)
+    {
+        if (!szName[i])
+        {
+            break;
+        }
+    }
+    if (i < 16)
+        GAME_ForEachIngameClient(pGame, j_D2GAME_SendPacket0x5A_6FC3DEC0, pPacket);
+}
+
+// 0x0054AAD0
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x16_PickItemOnGround_6FC84DB0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 13)
+    {
+        return 3;
+    }
+
+    const unsigned int nUnitType = *(unsigned int*)((char*)pPacket + 1);
+    const int nUnitGUID = *(int*)((char*)pPacket + 5);
+    const int nArg = *(int*)((char*)pPacket + 9);
+    if (nUnitType >= 6)
+    {
+        return 2;
+    }
+
+    if ((!pUnit ? -1 : pUnit->dwUnitId) != nUnitGUID || nUnitType != 0)
+    {
+        return PLRMSG_InteractWithUnit(pUnit, nUnitType, nUnitGUID, nArg, pGame);
+    }
+
+    return 3;
+}
+
+// 0x0054ABB0
+int __fastcall sInsertItemGrid(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 17)
+    {
+        return 3;
+    }
+
+    const int nItemGUID = *(int*)((char*)pPacket + 1);
+    const int nX = *(int*)((char*)pPacket + 5);
+    const int nY = *(int*)((char*)pPacket + 9);
+    const unsigned int nInvPage = *(unsigned int*)((char*)pPacket + 13);
+    const int nResult = ((D2GameItemChecks*)pGame)->PLRMSG_CheckCursorItem(pUnit, nItemGUID);
+    if (nResult)
+    {
+        return nResult;
+    }
+
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        if (!PLAYER_IsBusy(pUnit) && nInvPage)
+        {
+            return 2;
+        }
+
+        if (nInvPage == 4)
+        {
+            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+            if (!pRoom || !DUNGEON_IsRoomInTown(pRoom))
+            {
+                return 3;
+            }
+        }
+        else
+        {
+            if (nInvPage != 3 && nInvPage != 2 && nInvPage != 0)
+            {
+                return 2;
+            }
+
+            if (nInvPage == 2 && !D2GAME_PLRTRADE_IsInteractingWithPlayer(pGame, pUnit, 1))
+            {
+                return 3;
+            }
+        }
+    }
+    else if (nInvPage >= 5)
+    {
+        return 2;
+    }
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
+    if (pItem)
+    {
+        ITEMS_SetInvPage(pItem, nInvPage);
+        return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\PlrMsg.cpp", 3062, pGame, pUnit, nItemGUID, nX, nY, 0, 1, 0) ? 0 : 3;
+    }
+
+    return 2;
+}
+
+// 0x0054B830
+void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc)
+{
+    const unsigned char nDestAct = DRLG_GetActNoFromLevelId(dwDestLvl);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    const unsigned char nSourceAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
+
+    if (!dwDestLvl)
+    {
+        const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nSourceAct);
+        LEVEL_WarpUnit(pGame, pUnit, nTownLevelId, nTileCalc);
+        return;
+    }
+
+    if (nDestAct == nSourceAct)
+    {
+        const int nX = PLRMSG_GetUnitXInline(pUnit) - 5;
+        const int nY = PLRMSG_GetUnitYInline(pUnit);
+        D2GAME_CreatePortalObject_6FD13DF0(pGame, pUnit, pRoom, nX, nY, dwDestLvl, 0, OBJECT_TOWN_PORTAL, 0);
+    }
+    else
+    {
+        LEVEL_WarpUnit(pGame, pUnit, dwDestLvl, nTileCalc);
+    }
+}
+
+// 0x0054B930
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2F_InitEntityChat_6FC868C0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 9)
+    {
+        return 3;
+    }
+
+    D2UnitStrc* pNpc;
+    const int nResult = PLRMSG_GetInteractNpc(1, pGame, pUnit, &pNpc, *(int*)((char*)pPacket + 5));
+    if (!nResult)
+    {
+        MONSTERAI_ActivateNpcInteraction(pGame, pUnit, pNpc, PLRMSG_GetMonInteract(pNpc));
+        return 0;
+    }
+
+    return nResult;
 }
 
 // 0x00549D00
@@ -2568,88 +2876,6 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x14_HandleOverheadChat_6FC84690(D2GameS
     return 0;
 }
 
-// 0x0054A420
-static int __stdcall PLRMSG_CheckInteractUnit(D2GameStrc* pGame, D2UnitStrc* pExpected, D2UnitStrc* pUnit)
-{
-    int nUnitType;
-    int nUnitGUID;
-    if (SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID) && nUnitType == UNIT_PLAYER)
-    {
-        D2UnitStrc* pInteractUnit = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nUnitGUID);
-        if (pInteractUnit && pInteractUnit != pExpected)
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-// 0x0054A470
-void __fastcall D2GAME_PACKETS_HandlePlayerMessage_6FC847B0(D2ClientStrc* pClient, void* pArgs)
-{
-    D2GSPacketSrv26Args* pPacket26Args = (D2GSPacketSrv26Args*)pArgs;
-    D2GameStrc* pGame = CLIENTS_GetGame(pClient);
-    D2GSPacketSrv26* pPacket26 = pPacket26Args->pPacket26;
-
-    if (pPacket26Args->nUnitId != -1)
-    {
-        D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPacket26Args->nUnitId);
-        D2UnitStrc* pLocalPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-        if (pOtherPlayer && pLocalPlayer && pOtherPlayer != pLocalPlayer)
-        {
-            if (PLAYERLIST_CheckFlag(pLocalPlayer, pOtherPlayer, 4) || PLAYERLIST_CheckFlag(pOtherPlayer, pLocalPlayer, 2)
-                || PLRMSG_CheckInteractUnit(pGame, pLocalPlayer, pOtherPlayer) || PLRMSG_CheckInteractUnit(pGame, pOtherPlayer, pLocalPlayer))
-            {
-                return;
-            }
-        }
-    }
-
-    D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, pPacket26);
-}
-
-// 0x0054A510
-void __fastcall D2GAME_PACKETS_HandleWhisper_6FC848A0(D2ClientStrc* pClient, void* pArgs)
-{
-    D2GSPacketSrv26Args* pPacket26Args = (D2GSPacketSrv26Args*)pArgs;
-    D2GameStrc* pGame = CLIENTS_GetGame(pClient);
-    D2GSPacketSrv26* pPacket26 = pPacket26Args->pPacket26;
-    const char* szClientName = CLIENTS_GetName(pClient);
-    if (!SStrCmpI(szClientName, pPacket26Args->pPacket15->szName, 0x7FFFFFFF))
-    {
-        const int nUnitGUID = pPacket26Args->nUnitId;
-        if (nUnitGUID != -1)
-        {
-            D2UnitStrc* pReceiver = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nUnitGUID);
-            D2UnitStrc* pLocalPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-            if (pReceiver && pLocalPlayer)
-            {
-                if (PLAYERLIST_CheckFlag(pLocalPlayer, pReceiver, 4))
-                {
-                    gbWhispReceiverNotListening_6FD4DC24 = 1;
-                    return;
-                }
-
-                if (PLAYERLIST_CheckFlag(pReceiver, pLocalPlayer, 2))
-                {
-                    gbWhispReceiverNotListening_6FD4DC24 = 1;
-                    return;
-                }
-            }
-        }
-
-        gbWhispReceiverInGame_6FD4DC20 = 1;
-        D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, pPacket26);
-    }
-}
-
-// 0x0054A5C0
-void __fastcall j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc* pClient, void* pMsg)
-{
-    D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(pClient, (D2GSPacketSrv26*)pMsg);
-}
-
 // 0x0054A5D0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x15_HandleChatMessage(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pBuffer, int nSize)
 {
@@ -2736,81 +2962,6 @@ MalformedChat:
     return 0;
 }
 
-// 0x0054A930
-void __fastcall PLRMSG_BroadcastChatMessage(D2GameStrc* game, const char* message, unsigned char color)
-{
-    D2GSPacketSrv26 packet;
-    packet.nHeader = 0x26;
-    packet.nMessageType = 1;
-    packet.nUnitType = 2;
-    packet.dwUnitGUID = 0;
-    packet.nMessageColor = color;
-    packet.szName[0] = 0;
-    packet.nLang = 0;
-    memcpy(packet.szMessage, message, sizeof(packet.szMessage));
-    GAME_ForEachIngameClient(game, j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0, &packet);
-}
-
-// 0x0054A9B0
-void __fastcall PLRMSG_BroadcastSystemMessage(D2GameStrc* pGame, const char* szMessage, unsigned char nColor)
-{
-    D2GSPacketSrv26 packet26;
-    packet26.nMessageColor = nColor;
-    packet26.nHeader = 0x26;
-    packet26.nMessageType = 4;
-    packet26.dwUnitGUID = 0;
-    packet26.nUnitType = UNIT_PLAYER;
-    memcpy(packet26.szMessage, szMessage, sizeof(packet26.szMessage));
-    packet26.nLang = 0;
-    GAME_ForEachIngameClient(pGame, j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0, &packet26);
-}
-
-// 0x0054AA30
-void __fastcall j_D2GAME_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, void* pPacket)
-{
-    D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(pClient, (D2GSPacketSrv5A*)pPacket);
-}
-
-// 0x0054AA40
-void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket)
-{
-    const char* szName = pPacket->szText;
-    int i;
-    for (i = 0; i < 16; ++i)
-    {
-        if (!szName[i])
-        {
-            break;
-        }
-    }
-    if (i < 16)
-        GAME_ForEachIngameClient(pGame, j_D2GAME_SendPacket0x5A_6FC3DEC0, pPacket);
-}
-
-// 0x0054AAD0
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x16_PickItemOnGround_6FC84DB0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 13)
-    {
-        return 3;
-    }
-
-    const unsigned int nUnitType = *(unsigned int*)((char*)pPacket + 1);
-    const int nUnitGUID = *(int*)((char*)pPacket + 5);
-    const int nArg = *(int*)((char*)pPacket + 9);
-    if (nUnitType >= 6)
-    {
-        return 2;
-    }
-
-    if ((!pUnit ? -1 : pUnit->dwUnitId) != nUnitGUID || nUnitType != 0)
-    {
-        return PLRMSG_InteractWithUnit(pUnit, nUnitType, nUnitGUID, nArg, pGame);
-    }
-
-    return 3;
-}
-
 // 0x0054AB40
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x17_DropItemOnGround_6FC84E20(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
@@ -2832,112 +2983,6 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x17_DropItemOnGround_6FC84E20(D2GameStr
     }
 
     sub_6FC44030(pGame, pUnit, nItemGUID);
-    return 0;
-}
-
-// 0x0054ABB0
-int __fastcall sInsertItemGrid(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 17)
-    {
-        return 3;
-    }
-
-    const int nItemGUID = *(int*)((char*)pPacket + 1);
-    const int nX = *(int*)((char*)pPacket + 5);
-    const int nY = *(int*)((char*)pPacket + 9);
-    const unsigned int nInvPage = *(unsigned int*)((char*)pPacket + 13);
-    const int nResult = ((D2GameItemChecks*)pGame)->PLRMSG_CheckCursorItem(pUnit, nItemGUID);
-    if (nResult)
-    {
-        return nResult;
-    }
-
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        if (!PLAYER_IsBusy(pUnit) && nInvPage)
-        {
-            return 2;
-        }
-
-        if (nInvPage == 4)
-        {
-            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-            if (!pRoom || !DUNGEON_IsRoomInTown(pRoom))
-            {
-                return 3;
-            }
-        }
-        else
-        {
-            if (nInvPage != 3 && nInvPage != 2 && nInvPage != 0)
-            {
-                return 2;
-            }
-
-            if (nInvPage == 2 && !D2GAME_PLRTRADE_IsInteractingWithPlayer(pGame, pUnit, 1))
-            {
-                return 3;
-            }
-        }
-    }
-    else if (nInvPage >= 5)
-    {
-        return 2;
-    }
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
-    if (pItem)
-    {
-        ITEMS_SetInvPage(pItem, nInvPage);
-        return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\PlrMsg.cpp", 3062, pGame, pUnit, nItemGUID, nX, nY, 0, 1, 0) ? 0 : 3;
-    }
-
-    return 2;
-}
-
-// 0x0054ACD0
-int __fastcall sRemoveItemGrid(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 5)
-    {
-        return 3;
-    }
-
-    const int nItemGUID = *(int*)((char*)pPacket + 1);
-    int a6;
-    const int nResult = ((D2GameItemChecks*)pGame)->PLRMSG_CheckStoredItem(pUnit, nItemGUID);
-    if (nResult)
-    {
-        return nResult;
-    }
-
-    if (INVENTORY_GetCursorItem(pUnit->pInventory))
-    {
-        PLRMSG_SendCantDoThat(pUnit);
-        return 2;
-    }
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
-    if (!pItem)
-    {
-        return 2;
-    }
-
-    if (ITEMS_GetInvPage(pItem) == 1)
-    {
-        return 3;
-    }
-
-    if (PLAYER_CanModifyInventory(pGame, pUnit, pItem))
-    {
-        a6 = 0;
-        if (!ITEMMODE_RemoveStoredItem(pGame, pUnit, nItemGUID, &a6, 1, 0, 0, 0) && a6)
-        {
-            return 3;
-        }
-    }
-
     return 0;
 }
 
@@ -3217,97 +3262,6 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x20_UseGridItem_6FC85990(D2GameStrc* pG
     return 3;
 }
 
-// 0x0054B280
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x27_UseItemAction_6FC85B50(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 9)
-    {
-        return 3;
-    }
-
-    const int nTargetItemGUID = *(int*)((char*)pPacket + 1);
-    const int nUseItemGUID = *(int*)((char*)pPacket + 5);
-    int nResult = PLRMSG_CheckOwnedItem(nTargetItemGUID, pGame, pUnit);
-    if (nResult)
-    {
-        return nResult;
-    }
-
-    nResult = PLRMSG_CheckOwnedItem(nUseItemGUID, pGame, pUnit);
-    if (nResult)
-    {
-        return nResult;
-    }
-
-    int nItemStatus = 0;
-    if (ITEMMODE_UseItemOnItem(pGame, pUnit, nTargetItemGUID, nUseItemGUID, &nItemStatus) || !nItemStatus)
-    {
-        return 0;
-    }
-
-    return 3;
-}
-
-// 0x0054B300
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x21_StackItems_6FC85C80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 9)
-    {
-        return 3;
-    }
-
-    const int nItemGUID1 = *(int*)((char*)pPacket + 1);
-    const int nItemGUID2 = *(int*)((char*)pPacket + 5);
-    int nResult = PLRMSG_CheckOwnedItem(nItemGUID1, pGame, pUnit);
-    if (nResult)
-    {
-        return nResult;
-    }
-
-    nResult = PLRMSG_CheckOwnedItem(nItemGUID2, pGame, pUnit);
-    if (nResult)
-    {
-        return nResult;
-    }
-
-    if (nItemGUID1 == nItemGUID2)
-    {
-        return 3;
-    }
-
-    int nItemStatus;
-    if (ITEMMODE_MergeItemStacks(pGame, pUnit, nItemGUID1, nItemGUID2, &nItemStatus) || !nItemStatus)
-    {
-        return 0;
-    }
-
-    return 3;
-}
-
-// 0x0054B380
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x22_UnstackItems_6FC85DA0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 5)
-    {
-        return 3;
-    }
-
-    const int nItemGUID = *(int*)((char*)pPacket + 1);
-    const int nResult = PLRMSG_CheckOwnedItem(nItemGUID, pGame, pUnit);
-    if (nResult)
-    {
-        return nResult;
-    }
-
-    int nItemStatus;
-    if (D2GAME_Return0_6FC48930(pGame, pUnit, nItemGUID, &nItemStatus) || !nItemStatus)
-    {
-        return 0;
-    }
-
-    return 3;
-}
-
 // 0x0054B3E0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x23_ItemToBelt_6FC85E70(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
@@ -3431,6 +3385,97 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x26_UseBeltItem_6FC86150(D2GameStrc* pG
     return 3;
 }
 
+// 0x0054B280
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x27_UseItemAction_6FC85B50(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 9)
+    {
+        return 3;
+    }
+
+    const int nTargetItemGUID = *(int*)((char*)pPacket + 1);
+    const int nUseItemGUID = *(int*)((char*)pPacket + 5);
+    int nResult = PLRMSG_CheckOwnedItem(nTargetItemGUID, pGame, pUnit);
+    if (nResult)
+    {
+        return nResult;
+    }
+
+    nResult = PLRMSG_CheckOwnedItem(nUseItemGUID, pGame, pUnit);
+    if (nResult)
+    {
+        return nResult;
+    }
+
+    int nItemStatus = 0;
+    if (ITEMMODE_UseItemOnItem(pGame, pUnit, nTargetItemGUID, nUseItemGUID, &nItemStatus) || !nItemStatus)
+    {
+        return 0;
+    }
+
+    return 3;
+}
+
+// 0x0054B300
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x21_StackItems_6FC85C80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 9)
+    {
+        return 3;
+    }
+
+    const int nItemGUID1 = *(int*)((char*)pPacket + 1);
+    const int nItemGUID2 = *(int*)((char*)pPacket + 5);
+    int nResult = PLRMSG_CheckOwnedItem(nItemGUID1, pGame, pUnit);
+    if (nResult)
+    {
+        return nResult;
+    }
+
+    nResult = PLRMSG_CheckOwnedItem(nItemGUID2, pGame, pUnit);
+    if (nResult)
+    {
+        return nResult;
+    }
+
+    if (nItemGUID1 == nItemGUID2)
+    {
+        return 3;
+    }
+
+    int nItemStatus;
+    if (ITEMMODE_MergeItemStacks(pGame, pUnit, nItemGUID1, nItemGUID2, &nItemStatus) || !nItemStatus)
+    {
+        return 0;
+    }
+
+    return 3;
+}
+
+// 0x0054B380
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x22_UnstackItems_6FC85DA0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 5)
+    {
+        return 3;
+    }
+
+    const int nItemGUID = *(int*)((char*)pPacket + 1);
+    const int nResult = PLRMSG_CheckOwnedItem(nItemGUID, pGame, pUnit);
+    if (nResult)
+    {
+        return nResult;
+    }
+
+    int nItemStatus;
+    if (D2GAME_Return0_6FC48930(pGame, pUnit, nItemGUID, &nItemStatus) || !nItemStatus)
+    {
+        return 0;
+    }
+
+    return 3;
+}
+
 // 0x0054B650
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x28_SocketItem_6FC86310(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
@@ -3545,51 +3590,6 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2C_2D_52_6FC867B0(D2GameStrc* pGame, D
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2D_Rejected(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     return 3;
-}
-
-// 0x0054B830
-void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc)
-{
-    const unsigned char nDestAct = DRLG_GetActNoFromLevelId(dwDestLvl);
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    const unsigned char nSourceAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-
-    if (!dwDestLvl)
-    {
-        const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nSourceAct);
-        LEVEL_WarpUnit(pGame, pUnit, nTownLevelId, nTileCalc);
-        return;
-    }
-
-    if (nDestAct == nSourceAct)
-    {
-        const int nX = PLRMSG_GetUnitXInline(pUnit) - 5;
-        const int nY = PLRMSG_GetUnitYInline(pUnit);
-        D2GAME_CreatePortalObject_6FD13DF0(pGame, pUnit, pRoom, nX, nY, dwDestLvl, 0, OBJECT_TOWN_PORTAL, 0);
-    }
-    else
-    {
-        LEVEL_WarpUnit(pGame, pUnit, dwDestLvl, nTileCalc);
-    }
-}
-
-// 0x0054B930
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2F_InitEntityChat_6FC868C0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
-{
-    if (nSize != 9)
-    {
-        return 3;
-    }
-
-    D2UnitStrc* pNpc;
-    const int nResult = PLRMSG_GetInteractNpc(1, pGame, pUnit, &pNpc, *(int*)((char*)pPacket + 5));
-    if (!nResult)
-    {
-        MONSTERAI_ActivateNpcInteraction(pGame, pUnit, pNpc, PLRMSG_GetMonInteract(pNpc));
-        return 0;
-    }
-
-    return nResult;
 }
 
 // 0x0054B9F0

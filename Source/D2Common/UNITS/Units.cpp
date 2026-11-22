@@ -2555,18 +2555,22 @@ static inline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
     return pCharStatsTxtRecord->dwToHitFactor;
 }
 
-// 0x00622560
-int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker)
+// 0x006238C0
+int __stdcall UNITS_GetNewDirection(D2UnitStrc* hUnit)
 {
-    const int bValid = pAttacker && pAttacker->dwUnitType == UNIT_PLAYER;
-    D2_ASSERT(bValid, 0x107F);
+    D2_ASSERT(hUnit, 3715);
 
-    int nAttackRate = STATLIST_UnitGetStatValue(pAttacker, STAT_TOHIT, 0);
-    int nDexterity = STATLIST_UnitGetStatValue(pAttacker, STAT_DEXTERITY, 0);
-    nDexterity -= 7;
-    nAttackRate += 5 * nDexterity;
+    const int nX = UNITS_GetPositionX(hUnit);
+    if (D2COMMON_10175_PathGetFirstPointX(hUnit->pDynamicPath) == nX)
+    {
+        const int nY = UNITS_GetPositionY(hUnit);
+        if (D2COMMON_10176_PathGetFirstPointY(hUnit->pDynamicPath) == nY)
+        {
+            return PATH_GetNewDirection(hUnit->pDynamicPath);
+        }
+    }
 
-    return nAttackRate + UNITS_GetToHitFactor(pAttacker);
+    return UNITS_GetDirectionToCoords(hUnit, D2COMMON_10175_PathGetFirstPointX(hUnit->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(hUnit->pDynamicPath));
 }
 
 inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
@@ -2594,6 +2598,150 @@ inline unsigned char MONSTERS_GetComponentInline(D2UnitStrc* pUnit, int nCompone
         return pUnit->pMonsterData->nComponent[nComponent];
     }
     return 0;
+}
+
+// 0x00623990
+D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
+{
+    D2UnitStrc* pItem;
+    int nBodyLoc;
+    int bIsLeftHandItem;
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return 0;
+    }
+
+    INVENTORY_GetEquippedWeapon(pInventory, &pItem, &nBodyLoc, &bIsLeftHandItem);
+
+    if (UNITS_CanDualWield(pUnit))
+    {
+        D2SkillStrc* pSkill = SKILLS_GetUsedSkillFromSkillList(pUnit->pSkills);
+        if (!pSkill)
+        {
+            return pItem;
+        }
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
+        if (!pSkillsTxtRecord)
+        {
+            return pItem;
+        }
+
+        D2UnitStrc* pWeapon = 0;
+        switch (pSkillsTxtRecord->nWeapSel)
+        {
+        case 1:
+            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+            break;
+
+        case 2:
+        {
+            const int nFlags = SKILLS_GetFlags(pSkill) & 0x2000;
+            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+            D2UnitStrc* pHandItem = sub_0063C050_GetBodyLocItem(pInventory, 6);
+            if (!pWeapon || !ITEMSIsA(pWeapon, 45) || pHandItem && ITEMSIsA(pHandItem, 45) && nFlags)
+            {
+                pWeapon = pHandItem;
+            }
+            break;
+        }
+
+        case 3:
+        {
+            const int nFrame = pUnit->dwSeqFrame >> 8;
+            int bOther;
+            if (sub_00463720_TestUnitFlagEx(pUnit, 0x4000000))
+            {
+                bOther = nFrame % 2;
+            }
+            else
+            {
+                bOther = nFrame > 5;
+            }
+
+            if (nFrame && (!a2 || bOther))
+            {
+                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+            }
+            else
+            {
+                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+            }
+            break;
+        }
+
+        case 4:
+            pItem = 0;
+            break;
+
+        default:
+            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+            if (!pWeapon || !ITEMSIsA(pWeapon, 45))
+            {
+                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+            }
+            break;
+        }
+
+        if (ITEMSIsA(pWeapon, 45) && sub_0062A4E0_TestItem(pWeapon))
+        {
+            return pWeapon;
+        }
+        return pItem;
+    }
+    return pItem;
+}
+
+static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return UNIT_TYPES;
+    }
+    return pUnit->dwUnitType;
+}
+
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+static inline int MONSTERS_HasNoShieldBlockFlagInline(int nMonsterId)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(nMonsterId);
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+    return pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_NOSHLDBLOCK >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NOSHLDBLOCK & 7];
+}
+
+static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecordInline(int nClass)
+{
+    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pCharStatsTxt[nClass];
+    }
+    return 0;
+}
+
+// 0x00622560
+int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker)
+{
+    const int bValid = pAttacker && pAttacker->dwUnitType == UNIT_PLAYER;
+    D2_ASSERT(bValid, 0x107F);
+
+    int nAttackRate = STATLIST_UnitGetStatValue(pAttacker, STAT_TOHIT, 0);
+    int nDexterity = STATLIST_UnitGetStatValue(pAttacker, STAT_DEXTERITY, 0);
+    nDexterity -= 7;
+    nAttackRate += 5 * nDexterity;
+
+    return nAttackRate + UNITS_GetToHitFactor(pAttacker);
 }
 
 // 0x006225F0
@@ -2634,43 +2782,6 @@ int __fastcall UNITS_CanMonsterBlock(D2UnitStrc* pUnit)
         return 1;
     }
 
-    return 0;
-}
-
-static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return UNIT_TYPES;
-    }
-    return pUnit->dwUnitType;
-}
-
-static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-    return 0;
-}
-
-static inline int MONSTERS_HasNoShieldBlockFlagInline(int nMonsterId)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(nMonsterId);
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-    return pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_NOSHLDBLOCK >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NOSHLDBLOCK & 7];
-}
-
-static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecordInline(int nClass)
-{
-    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pCharStatsTxt[nClass];
-    }
     return 0;
 }
 
@@ -2735,6 +2846,30 @@ D2UnitStrc* __stdcall UNITS_GetEquippedWeaponFromMonster(D2UnitStrc* pMonster)
     return INVENTORY_GetEquippedWeapon(pMonster->pInventory, &pItem, &nBodyLoc, &bIsLeftHandItem) ? pItem : 0;
 }
 
+static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
 // 0x00622870
 int __stdcall UNITS_GetMeleeRange(D2UnitStrc* hUnit)
 {
@@ -2766,6 +2901,12 @@ fail:
         goto fail;
     }
     return range;
+}
+
+static int __stdcall sub_00622920_TestCollision(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask)
+{
+    COLLISION_RayTrace((D2ActiveRoomStrc*)nSize2, (D2CoordStrc*)nX1, (D2CoordStrc*)nX2, 0);
+    return COLLISION_RayTrace(pRoom, (D2CoordStrc*)nY1, (D2CoordStrc*)nSize1, nY2 + nCollisionMask);
 }
 
 // 0x00622920
@@ -2846,30 +2987,6 @@ static int __fastcall UNITS_TestCollision(int nX1, int nY1, int nSize1, int nX2,
     return COLLISION_RayTrace(pRoom, &tBegin, &tEnd, nCollisionMask);
 }
 
-static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
 // 0x006229F0
 int __stdcall UNITS_TestCollisionByCoordinates(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask)
 {
@@ -2888,12 +3005,6 @@ int __stdcall UNITS_TestCollisionByCoordinates(D2UnitStrc* pUnit, int nX, int nY
     const int nUnitY = UNITS_GetYPositionForceInl(pUnit);
     const int nUnitSize = UNITS_GetUnitSizeX(pUnit);
     return UNITS_TestCollision(nUnitX, nUnitY, nUnitSize, nX, nY, 2, pRoom, nCollisionMask);
-}
-
-static int __stdcall sub_00622920_TestCollision(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask)
-{
-    COLLISION_RayTrace((D2ActiveRoomStrc*)nSize2, (D2CoordStrc*)nX1, (D2CoordStrc*)nX2, 0);
-    return COLLISION_RayTrace(pRoom, (D2CoordStrc*)nY1, (D2CoordStrc*)nSize1, nY2 + nCollisionMask);
 }
 
 // 0x00622AA0
@@ -2915,6 +3026,37 @@ int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
     const int nY2 = CLIENTS_GetUnitY(pUnit2);
     const int nSize2 = UNITS_GetUnitSizeX(pUnit2);
     return sub_00622920_TestCollision(nX1, nY1, nSize1, nX2, nY2, nSize2, pRoom, nCollisionMask);
+}
+
+inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return pUnit->dwAnimMode;
+    }
+    return 0;
+}
+
+// 0x00624690
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode)
+{
+    if (!pUnit || pUnit->dwUnitType == UNIT_TILE)
+        return 0;
+    if (pUnit->dwAnimMode != nMode)
+    {
+        UNITROOM_RefreshUnit(pUnit);
+        pUnit->dwAnimMode = nMode;
+        pUnit->dwFlags |= UNITFLAG_DOUPDATE;
+        STATLIST_DeactivateTemporaryStates(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
+        return 1;
+    }
+    if (!(pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_NEUTRAL))
+    {
+        UNITROOM_RefreshUnit(pUnit);
+        pUnit->dwFlags |= UNITFLAG_DOUPDATE;
+    }
+    return 0;
 }
 
 // 0x00622B50
@@ -3002,15 +3144,6 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int n
     return 0;
 }
 
-inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        return pUnit->dwAnimMode;
-    }
-    return 0;
-}
-
 // 0x00622D00
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc* hUnit)
 {
@@ -3063,6 +3196,76 @@ int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit)
     return UNITS_IsInMovingMode(pUnit) != 0;
 }
 
+// 0x00623C20
+int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        if (pUnit->dwUnitType == UNIT_PLAYER)
+        {
+            if (D2UnitStrc* pItem = D2Common_10434(pUnit, 0))
+                return ITEMS_GetHitClassFromItem(pItem);
+            else
+                return 1;
+        }
+        else if (pUnit->dwUnitType == UNIT_MONSTER)
+        {
+            if (D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId))
+                return pMonStats2TxtRecord->nHitClass;
+        }
+    }
+    return 0;
+}
+
+// 0x00623C60
+int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit)
+{
+    if (D2UnitStrc* pItem = D2Common_10434(pUnit, 1))
+        return ITEMS_GetWeaponClassId(pItem);
+    return 0;
+}
+
+// 0x00623C80
+void __stdcall UNITS_MergeDualWieldWeaponStatLists(D2UnitStrc* pUnit, int a2)
+{
+    if (!UNITS_CanDualWield(pUnit))
+    {
+        return;
+    }
+    D2UnitStrc* pWeapon = D2Common_10434(pUnit, a2);
+    D2UnitStrc* pPrimaryWeapon = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
+    if (!pWeapon)
+    {
+        if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 1);
+        }
+    }
+    else if (pWeapon == pPrimaryWeapon)
+    {
+        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pUnit->pInventory);
+        if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 1);
+        }
+        if (pSecondaryWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pUnit, pSecondaryWeapon, 0);
+        }
+    }
+    else
+    {
+        if (STATLIST_GetOwner(pWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pUnit, pWeapon, 1);
+        }
+        if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 0);
+        }
+    }
+}
+
 // 0x00622DE0
 unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit)
 {
@@ -3101,6 +3304,32 @@ unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit)
 // 0x00622E90
 void __stdcall sub_00622E90_Nop(D2UnitStrc* pUnit, int a2)
 {
+}
+
+// 0x00623D60
+unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* pItem)
+{
+    const int nBodyLoc = ITEMS_GetBodyLocation(pItem);
+    if (nBodyLoc == 5 || nBodyLoc == 4)
+    {
+        D2InventoryStrc* pInventory = pUnit->pInventory;
+        D2UnitStrc* pRightHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
+        if (!sub_0062A4E0_TestItem(pRightHandItem))
+        {
+            pRightHandItem = 0;
+        }
+        D2UnitStrc* pLeftHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
+        if (!sub_0062A4E0_TestItem(pLeftHandItem))
+        {
+            pLeftHandItem = 0;
+        }
+        if (pRightHandItem && pLeftHandItem && !ITEMS_CheckWeaponIfTwoHanded(pRightHandItem) && !ITEMS_CheckWeaponIfTwoHanded(pLeftHandItem)
+            && UNITS_CanDualWield(pUnit) && pItem != INVENTORY_GetLeftHandWeapon(pInventory))
+        {
+            return 6;
+        }
+    }
+    return ITEMS_GetComponent(pItem);
 }
 
 // 0x00622EA0
@@ -3249,6 +3478,51 @@ void __stdcall UNITS_GetSwitchLeftSkillDataResetLeftSkill(D2UnitStrc* pUnit, int
     }
 }
 
+inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    return 0;
+}
+
+static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        if (pUnit->pDynamicPath)
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        return 0;
+    }
+}
+
+static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        if (pUnit->pDynamicPath)
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        return 0;
+    }
+}
+
+// 0x00623830
+void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit)
+{
+    int nY = UNITS_GetYPositionInline(pUnit);
+    int nX = UNITS_GetXPositionInline(pUnit);
+    COLLISION_ResetMaskWithSizeXY(UNITS_GetRoom(pUnit), nX, nY, UNITS_GetUnitSizeX(pUnit), UNITS_GetUnitSizeY(pUnit), UNITS_GetCollisionMask(pUnit));
+}
+
 // 0x00623220
 void __stdcall UNITS_GetSwitchLeftSkillData(D2UnitStrc* pUnit, int* pSwitchLeftSkillId, int* pSwitchLeftSkillFlags)
 {
@@ -3352,43 +3626,6 @@ extern "C" __declspec(dllexport) int __stdcall UNITS_GetStashGoldLimit(int nUnus
     return 2500000;
 }
 
-inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    return 0;
-}
-
-static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        if (pUnit->pDynamicPath)
-            return PATH_GetXPosition(pUnit->pDynamicPath);
-        return 0;
-    }
-}
-
-static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        if (pUnit->pDynamicPath)
-            return PATH_GetYPosition(pUnit->pDynamicPath);
-        return 0;
-    }
-}
-
 // 0x00623470
 int __fastcall UNITS_CanSwitchAI(int nMonsterId)
 {
@@ -3416,6 +3653,65 @@ D2TimerArgStrc* __fastcall UNITS_GetTimerArg(D2UnitStrc* pUnit)
     D2_ASSERT(pUnit, 5395);
 
     return pUnit->pTimerArg;
+}
+
+static inline int UNITS_GetUnitType_Inl(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 6;
+    return pUnit->dwUnitType;
+}
+
+static inline int UNITS_GetClassId_Inl(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return -1;
+    return pUnit->dwClassId;
+}
+
+static inline int UNITS_GetAnimMode_Inl(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 0;
+    return pUnit->dwAnimMode;
+}
+
+// 0x00623B10
+int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit)
+{
+    int nUnitType = UNITS_GetUnitType_Inl(pUnit);
+    int nClassId = UNITS_GetClassId_Inl(pUnit);
+    int nAnimMode = UNITS_GetAnimMode_Inl(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nAnimMode, ".\\UNITS\\Units.cpp", 0x118A);
+
+    if (nUnitType != 0)
+        return 0;
+
+    switch (nAnimMode)
+    {
+    case 7:
+    case 8:
+    {
+        D2UnitStrc* pWeapon = D2Common_10434(pUnit, 1);
+        unsigned short nWeaponClass = 0;
+        if (pWeapon)
+            nWeaponClass = ITEMS_GetWeaponClassId(pWeapon);
+        return gaFrameBonus_006E8E60[nWeaponClass][nClassId];
+    }
+    case 15:
+    case 16:
+        if (UNITS_CanDualWield(pUnit))
+        {
+            D2UnitStrc* pWeapon = D2Common_10434(pUnit, 1);
+            unsigned short nWeaponClass = 0;
+            if (pWeapon)
+                nWeaponClass = ITEMS_GetWeaponClassId(pWeapon);
+            return gaFrameBonus_006E8E60[nWeaponClass][nClassId];
+        }
+        break;
+    }
+
+    return 0;
 }
 
 // 0x00623520
@@ -3491,338 +3787,6 @@ int __stdcall UNITS_IsCorpseUseable(D2UnitStrc* pUnit)
         return 0;
 
     return STATES_CheckStateMaskUdeadOnUnit(pUnit) == 0;
-}
-
-// 0x00623660
-int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject)
-{
-    int nX1 = 0;
-    int nY1 = 0;
-    int nX2 = 0;
-    int nY2 = 0;
-    int nX = 0;
-    int nY = 0;
-    int nSizeX2 = 0;
-    int nSizeY2 = 0;
-
-    const int nObjectType = pObject ? pObject->dwUnitType : UNIT_INVALID;
-    if (nObjectType != 2)
-    {
-        return 0;
-    }
-
-    if ((unsigned int)D2Common_10399(pUnit, pObject) <= 0)
-    {
-        return 1;
-    }
-
-    nX1 = UNITS_GetXPositionInline(pUnit);
-    nY1 = UNITS_GetYPositionInline(pUnit);
-
-    nX2 = UNITS_GetXPositionInline(pObject);
-    nY2 = UNITS_GetYPositionInline(pObject);
-
-    nSizeX2 = UNITS_GetUnitSizeX(pObject);
-    nSizeY2 = UNITS_GetUnitSizeY(pObject);
-
-    nX = nX2 - nSizeX2 / 2;
-    nY = nY2 - nSizeY2 / 2;
-
-    if (nSizeX2 >= 1 && nSizeY2 >= 1)
-    {
-        if (nX1 >= nX - 2 && nX1 <= nSizeX2 + nX + 2 && nY1 >= nY - 2 && nY1 <= nSizeY2 + nY + 2)
-        {
-            if ((unsigned int)UNITS_GetUnitSizeX(pUnit) > 2)
-            {
-                return 1;
-            }
-
-            if (nY1 < nY - 1)
-            {
-                return nX1 >= nX - 1 && nX1 <= nSizeX2 + nX + 1;
-            }
-
-            return nY1 <= nSizeY2 + nY + 1 || (nX1 >= nX - 1 && nX1 <= nSizeX2 + nX + 1);
-        }
-
-        return 0;
-    }
-
-    return nX1 >= nX - 1 && nX1 <= nX + 1 && nY1 >= nY - 1 && nY1 <= nY + 1;
-}
-
-// 0x00623830
-void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit)
-{
-    int nY = UNITS_GetYPositionInline(pUnit);
-    int nX = UNITS_GetXPositionInline(pUnit);
-    COLLISION_ResetMaskWithSizeXY(UNITS_GetRoom(pUnit), nX, nY, UNITS_GetUnitSizeX(pUnit), UNITS_GetUnitSizeY(pUnit), UNITS_GetCollisionMask(pUnit));
-}
-
-// 0x006238C0
-int __stdcall UNITS_GetNewDirection(D2UnitStrc* hUnit)
-{
-    D2_ASSERT(hUnit, 3715);
-
-    const int nX = UNITS_GetPositionX(hUnit);
-    if (D2COMMON_10175_PathGetFirstPointX(hUnit->pDynamicPath) == nX)
-    {
-        const int nY = UNITS_GetPositionY(hUnit);
-        if (D2COMMON_10176_PathGetFirstPointY(hUnit->pDynamicPath) == nY)
-        {
-            return PATH_GetNewDirection(hUnit->pDynamicPath);
-        }
-    }
-
-    return UNITS_GetDirectionToCoords(hUnit, D2COMMON_10175_PathGetFirstPointX(hUnit->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(hUnit->pDynamicPath));
-}
-
-// 0x00623990
-D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
-{
-    D2UnitStrc* pItem;
-    int nBodyLoc;
-    int bIsLeftHandItem;
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (!pInventory)
-    {
-        return 0;
-    }
-
-    INVENTORY_GetEquippedWeapon(pInventory, &pItem, &nBodyLoc, &bIsLeftHandItem);
-
-    if (UNITS_CanDualWield(pUnit))
-    {
-        D2SkillStrc* pSkill = SKILLS_GetUsedSkillFromSkillList(pUnit->pSkills);
-        if (!pSkill)
-        {
-            return pItem;
-        }
-        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
-        if (!pSkillsTxtRecord)
-        {
-            return pItem;
-        }
-
-        D2UnitStrc* pWeapon = 0;
-        switch (pSkillsTxtRecord->nWeapSel)
-        {
-        case 1:
-            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
-            break;
-
-        case 2:
-        {
-            const int nFlags = SKILLS_GetFlags(pSkill) & 0x2000;
-            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-            D2UnitStrc* pHandItem = sub_0063C050_GetBodyLocItem(pInventory, 6);
-            if (!pWeapon || !ITEMSIsA(pWeapon, 45) || pHandItem && ITEMSIsA(pHandItem, 45) && nFlags)
-            {
-                pWeapon = pHandItem;
-            }
-            break;
-        }
-
-        case 3:
-        {
-            const int nFrame = pUnit->dwSeqFrame >> 8;
-            int bOther;
-            if (sub_00463720_TestUnitFlagEx(pUnit, 0x4000000))
-            {
-                bOther = nFrame % 2;
-            }
-            else
-            {
-                bOther = nFrame > 5;
-            }
-
-            if (nFrame && (!a2 || bOther))
-            {
-                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
-            }
-            else
-            {
-                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-            }
-            break;
-        }
-
-        case 4:
-            pItem = 0;
-            break;
-
-        default:
-            pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-            if (!pWeapon || !ITEMSIsA(pWeapon, 45))
-            {
-                pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
-            }
-            break;
-        }
-
-        if (ITEMSIsA(pWeapon, 45) && sub_0062A4E0_TestItem(pWeapon))
-        {
-            return pWeapon;
-        }
-        return pItem;
-    }
-    return pItem;
-}
-
-static inline int UNITS_GetUnitType_Inl(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 6;
-    return pUnit->dwUnitType;
-}
-
-static inline int UNITS_GetClassId_Inl(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return -1;
-    return pUnit->dwClassId;
-}
-
-static inline int UNITS_GetAnimMode_Inl(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 0;
-    return pUnit->dwAnimMode;
-}
-
-// 0x00623B10
-int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit)
-{
-    int nUnitType = UNITS_GetUnitType_Inl(pUnit);
-    int nClassId = UNITS_GetClassId_Inl(pUnit);
-    int nAnimMode = UNITS_GetAnimMode_Inl(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nAnimMode, ".\\UNITS\\Units.cpp", 0x118A);
-
-    if (nUnitType != 0)
-        return 0;
-
-    switch (nAnimMode)
-    {
-    case 7:
-    case 8:
-    {
-        D2UnitStrc* pWeapon = D2Common_10434(pUnit, 1);
-        unsigned short nWeaponClass = 0;
-        if (pWeapon)
-            nWeaponClass = ITEMS_GetWeaponClassId(pWeapon);
-        return gaFrameBonus_006E8E60[nWeaponClass][nClassId];
-    }
-    case 15:
-    case 16:
-        if (UNITS_CanDualWield(pUnit))
-        {
-            D2UnitStrc* pWeapon = D2Common_10434(pUnit, 1);
-            unsigned short nWeaponClass = 0;
-            if (pWeapon)
-                nWeaponClass = ITEMS_GetWeaponClassId(pWeapon);
-            return gaFrameBonus_006E8E60[nWeaponClass][nClassId];
-        }
-        break;
-    }
-
-    return 0;
-}
-
-// 0x00623C20
-int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        if (pUnit->dwUnitType == UNIT_PLAYER)
-        {
-            if (D2UnitStrc* pItem = D2Common_10434(pUnit, 0))
-                return ITEMS_GetHitClassFromItem(pItem);
-            else
-                return 1;
-        }
-        else if (pUnit->dwUnitType == UNIT_MONSTER)
-        {
-            if (D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId))
-                return pMonStats2TxtRecord->nHitClass;
-        }
-    }
-    return 0;
-}
-
-// 0x00623C60
-int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit)
-{
-    if (D2UnitStrc* pItem = D2Common_10434(pUnit, 1))
-        return ITEMS_GetWeaponClassId(pItem);
-    return 0;
-}
-
-// 0x00623C80
-void __stdcall UNITS_MergeDualWieldWeaponStatLists(D2UnitStrc* pUnit, int a2)
-{
-    if (!UNITS_CanDualWield(pUnit))
-    {
-        return;
-    }
-    D2UnitStrc* pWeapon = D2Common_10434(pUnit, a2);
-    D2UnitStrc* pPrimaryWeapon = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
-    if (!pWeapon)
-    {
-        if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 1);
-        }
-    }
-    else if (pWeapon == pPrimaryWeapon)
-    {
-        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pUnit->pInventory);
-        if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 1);
-        }
-        if (pSecondaryWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pUnit, pSecondaryWeapon, 0);
-        }
-    }
-    else
-    {
-        if (STATLIST_GetOwner(pWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pUnit, pWeapon, 1);
-        }
-        if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
-        {
-            STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 0);
-        }
-    }
-}
-
-// 0x00623D60
-unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    const int nBodyLoc = ITEMS_GetBodyLocation(pItem);
-    if (nBodyLoc == 5 || nBodyLoc == 4)
-    {
-        D2InventoryStrc* pInventory = pUnit->pInventory;
-        D2UnitStrc* pRightHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-        if (!sub_0062A4E0_TestItem(pRightHandItem))
-        {
-            pRightHandItem = 0;
-        }
-        D2UnitStrc* pLeftHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-        if (!sub_0062A4E0_TestItem(pLeftHandItem))
-        {
-            pLeftHandItem = 0;
-        }
-        if (pRightHandItem && pLeftHandItem && !ITEMS_CheckWeaponIfTwoHanded(pRightHandItem) && !ITEMS_CheckWeaponIfTwoHanded(pLeftHandItem)
-            && UNITS_CanDualWield(pUnit) && pItem != INVENTORY_GetLeftHandWeapon(pInventory))
-        {
-            return 6;
-        }
-    }
-    return ITEMS_GetComponent(pItem);
 }
 
 // build: context StopSequence_SetActionFrame
@@ -4245,26 +4209,62 @@ int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit)
     return 1;
 }
 
-// 0x00624690
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode)
+// 0x00623660
+int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject)
 {
-    if (!pUnit || pUnit->dwUnitType == UNIT_TILE)
-        return 0;
-    if (pUnit->dwAnimMode != nMode)
+    int nX1 = 0;
+    int nY1 = 0;
+    int nX2 = 0;
+    int nY2 = 0;
+    int nX = 0;
+    int nY = 0;
+    int nSizeX2 = 0;
+    int nSizeY2 = 0;
+
+    const int nObjectType = pObject ? pObject->dwUnitType : UNIT_INVALID;
+    if (nObjectType != 2)
     {
-        UNITROOM_RefreshUnit(pUnit);
-        pUnit->dwAnimMode = nMode;
-        pUnit->dwFlags |= UNITFLAG_DOUPDATE;
-        STATLIST_DeactivateTemporaryStates(pUnit);
-        UNITS_SetAnimStartFrame(pUnit);
+        return 0;
+    }
+
+    if ((unsigned int)D2Common_10399(pUnit, pObject) <= 0)
+    {
         return 1;
     }
-    if (!(pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_NEUTRAL))
+
+    nX1 = UNITS_GetXPositionInline(pUnit);
+    nY1 = UNITS_GetYPositionInline(pUnit);
+
+    nX2 = UNITS_GetXPositionInline(pObject);
+    nY2 = UNITS_GetYPositionInline(pObject);
+
+    nSizeX2 = UNITS_GetUnitSizeX(pObject);
+    nSizeY2 = UNITS_GetUnitSizeY(pObject);
+
+    nX = nX2 - nSizeX2 / 2;
+    nY = nY2 - nSizeY2 / 2;
+
+    if (nSizeX2 >= 1 && nSizeY2 >= 1)
     {
-        UNITROOM_RefreshUnit(pUnit);
-        pUnit->dwFlags |= UNITFLAG_DOUPDATE;
+        if (nX1 >= nX - 2 && nX1 <= nSizeX2 + nX + 2 && nY1 >= nY - 2 && nY1 <= nSizeY2 + nY + 2)
+        {
+            if ((unsigned int)UNITS_GetUnitSizeX(pUnit) > 2)
+            {
+                return 1;
+            }
+
+            if (nY1 < nY - 1)
+            {
+                return nX1 >= nX - 1 && nX1 <= nSizeX2 + nX + 1;
+            }
+
+            return nY1 <= nSizeY2 + nY + 1 || (nX1 >= nX - 1 && nX1 <= nSizeX2 + nX + 1);
+        }
+
+        return 0;
     }
-    return 0;
+
+    return nX1 >= nX - 1 && nX1 <= nX + 1 && nY1 >= nY - 1 && nY1 <= nY + 1;
 }
 
 #include "gen/data/Source/D2Common/UNITS/Units.inc"

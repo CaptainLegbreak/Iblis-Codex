@@ -1022,6 +1022,90 @@ static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStr
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
+// 0x0059EEA0
+void __fastcall ACT2Q3_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[0] = ACT2Q3_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Q3_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT2Q3_Callback03_ChangedLevel;
+    pQuestData->pCallback[10] = ACT2Q3_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[13] = ACT2Q3_Callback13_PlayerStartedGame;
+    pQuestData->pNPCMessages = gpAct2Q3NpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->fState = 0;
+    D2Act2Quest3Strc* pQuestDataEx = (D2Act2Quest3Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 803, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    pQuestData->eFilter = QUESTSTATEFLAG_A2Q3;
+    pQuestData->pfStatusFilter = 0;
+    pQuestData->nInitNo = 4;
+    pQuestData->pfActiveFilter = ACT2Q3_ActiveFilterCallback;
+    pQuestData->pfSeqFilter = ACT2Q3_SeqCallback;
+    pQuestData->nSeqId = QUESTSTATEFLAG_A2Q3;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest3Strc));
+    pQuestDataEx->nAltarMode = 0;
+    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
+}
+
+// 0x005B37F0
+bool __fastcall ACT4Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    const int nId = nNpcId;
+    if (pQuest->bNotIntro && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q1, QFLAG_REWARDGRANTED))
+    {
+        if (nId == MONSTER_TYRAEL2)
+        {
+            if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q1, QFLAG_REWARDPENDING) == 1 || pQuest->fState == 1)
+            {
+                return true;
+            }
+        }
+        else if (nId == MONSTER_IZUALGHOST)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q1, QFLAG_CUSTOM1))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+// 0x005B5EE0
+bool __fastcall ACT4Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    const int nId = nNpcId;
+    if (nId == MONSTER_CAIN4 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDGRANTED)
+        && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDPENDING)
+        && pQuest->bNotIntro && pQuest->fState == 1 && !((D2Act4Quest3Strc*)pQuest->pQuestDataEx)->bSoulstoneAcquired)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+// 0x005BD4A0
+void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q7_DARKWANDERER);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act3Quest7Strc* pQuestDataEx = (D2Act3Quest7Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bVileDogsSpawned || pQuestDataEx->bVileDogSpawnTimerCreated)
+    {
+        return;
+    }
+
+    pQuestDataEx->bVileDogSpawnTimerCreated = 1;
+    pQuestDataEx->nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
+    QUESTS_CreateTimer(pQuestData, sub_005BD390, 2);
+}
+
 // 0x0059A7E0
 int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp, int nOperate)
 {
@@ -1391,90 +1475,6 @@ void __fastcall ACT2Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 0x270);
         }
     }
-}
-
-// 0x0059EEA0
-void __fastcall ACT2Q3_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[0] = ACT2Q3_Callback00_NpcActivate;
-    pQuestData->pCallback[11] = ACT2Q3_Callback11_ScrollMessage;
-    pQuestData->pCallback[3] = ACT2Q3_Callback03_ChangedLevel;
-    pQuestData->pCallback[10] = ACT2Q3_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[13] = ACT2Q3_Callback13_PlayerStartedGame;
-    pQuestData->pNPCMessages = gpAct2Q3NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    D2Act2Quest3Strc* pQuestDataEx = (D2Act2Quest3Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 803, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->eFilter = QUESTSTATEFLAG_A2Q3;
-    pQuestData->pfStatusFilter = 0;
-    pQuestData->nInitNo = 4;
-    pQuestData->pfActiveFilter = ACT2Q3_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT2Q3_SeqCallback;
-    pQuestData->nSeqId = QUESTSTATEFLAG_A2Q3;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest3Strc));
-    pQuestDataEx->nAltarMode = 0;
-    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
-}
-
-// 0x005B37F0
-bool __fastcall ACT4Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    const int nId = nNpcId;
-    if (pQuest->bNotIntro && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q1, QFLAG_REWARDGRANTED))
-    {
-        if (nId == MONSTER_TYRAEL2)
-        {
-            if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q1, QFLAG_REWARDPENDING) == 1 || pQuest->fState == 1)
-            {
-                return true;
-            }
-        }
-        else if (nId == MONSTER_IZUALGHOST)
-        {
-            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q1, QFLAG_CUSTOM1))
-            {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-// 0x005B5EE0
-bool __fastcall ACT4Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    const int nId = nNpcId;
-    if (nId == MONSTER_CAIN4 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDGRANTED)
-        && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A4Q3, QFLAG_REWARDPENDING)
-        && pQuest->bNotIntro && pQuest->fState == 1 && !((D2Act4Quest3Strc*)pQuest->pQuestDataEx)->bSoulstoneAcquired)
-    {
-        return true;
-    }
-
-    return false;
-}
-
-// 0x005BD4A0
-void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q7_DARKWANDERER);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    D2Act3Quest7Strc* pQuestDataEx = (D2Act3Quest7Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bVileDogsSpawned || pQuestDataEx->bVileDogSpawnTimerCreated)
-    {
-        return;
-    }
-
-    pQuestDataEx->bVileDogSpawnTimerCreated = 1;
-    pQuestDataEx->nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    QUESTS_CreateTimer(pQuestData, sub_005BD390, 2);
 }
 
 #include "gen/data/Source/D2Game/Quests/a2q3.inc"

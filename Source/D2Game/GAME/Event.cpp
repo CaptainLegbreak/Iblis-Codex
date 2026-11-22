@@ -637,16 +637,16 @@ static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, in
     *ppFirst = pTimer;
 }
 
+// 0x005417D0
+void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam)
+{
+    EVENT_ScheduleTimer(pUnit, 0, nCustomId, nCustomParam, pGame, nEventType, nExpireFrame);
+}
+
 // 0x00541650
 void __fastcall EVENT_SetRecurringEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nCustomId, int nCustomParam)
 {
     EVENT_InsertInfiniteTimer(0, nCustomId, nCustomParam, pGame, pUnit, nEventType);
-}
-
-// 0x00541680
-void __fastcall EVENT_SetRecurringEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, EventTimerCallback pCallback, int nCustomId, int nCustomParam)
-{
-    EVENT_InsertInfiniteTimer(pCallback, nCustomId, nCustomParam, pGame, pUnit, nEventType);
 }
 
 static inline D2EventTimerStrc** EVENT_GetTimerListHead(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
@@ -669,6 +669,12 @@ static inline D2EventTimerStrc** EVENT_GetTimerListTail(D2GameStrc* pGame, int n
     }
 
     return &pGame->pTimerQueue->pTail[gaSlotRows_006E0B9C[nUnitType]][nExpireFrame % 64];
+}
+
+// 0x00541680
+void __fastcall EVENT_SetRecurringEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, EventTimerCallback pCallback, int nCustomId, int nCustomParam)
+{
+    EVENT_InsertInfiniteTimer(pCallback, nCustomId, nCustomParam, pGame, pUnit, nEventType);
 }
 
 // 0x005416B0
@@ -720,12 +726,6 @@ static void __stdcall EVENT_ScheduleTimer(D2UnitStrc* pUnit, EventTimerCallback 
     {
         *ppHead = pTimer;
     }
-}
-
-// 0x005417D0
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam)
-{
-    EVENT_ScheduleTimer(pUnit, 0, nCustomId, nCustomParam, pGame, nEventType, nExpireFrame);
 }
 
 // 0x00541800

@@ -2468,23 +2468,6 @@ void __fastcall SCMD_HandleGameFlags(D2GSPacketSrv01* pPacket)
     sub_00456970_InitUI();
 }
 
-// 0x0045C8E0
-void __fastcall SCMD_HandleLoadAct(D2GSPacketSrv03* pPacket)
-{
-    GAME_LoadAct(pPacket->nAct, pPacket->dwGameSeed, pPacket->nObjectSeed, pPacket->nTownLevelId);
-}
-
-// 0x0045C900
-void __fastcall SCMD_IgnorePacket(void* pPacket)
-{
-}
-
-// 0x0045C910
-void __fastcall SCMD_HandleLoadSuccessful(void* pPacket)
-{
-    sub_00477DA0();
-}
-
 // 0x0045C920
 int __cdecl SCMD_GetPlayerActNo()
 {
@@ -2583,6 +2566,23 @@ void __fastcall SCMD_HandleUnsetClientInSight(D2ClientSightPacketStrc* pPacket)
     DUNGEON_UnsetClientIsInSight(gpDrlgAct_007A0634, pPacket->nLevelId, nX, nY, pRoom);
 }
 
+// 0x0045C8E0
+void __fastcall SCMD_HandleLoadAct(D2GSPacketSrv03* pPacket)
+{
+    GAME_LoadAct(pPacket->nAct, pPacket->dwGameSeed, pPacket->nObjectSeed, pPacket->nTownLevelId);
+}
+
+// 0x0045C900
+void __fastcall SCMD_IgnorePacket(void* pPacket)
+{
+}
+
+// 0x0045C910
+void __fastcall SCMD_HandleLoadSuccessful(void* pPacket)
+{
+    sub_00477DA0();
+}
+
 // 0x0045CB90
 void __fastcall SCMD_HandleAssignWarp(D2GSPacketSrv09* pPacket)
 {
@@ -2592,27 +2592,6 @@ void __fastcall SCMD_HandleAssignWarp(D2GSPacketSrv09* pPacket)
     D2UnitStrc* pUnit = CUNIT_AllocClientUnit(nUnitGUID, pPacket->unk0x06, nX, nY, pPacket->nUnitType, 0);
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         GFX_ResetMonsterModeGfx(pUnit);
-}
-
-// 0x0045CBD0
-void __fastcall SCMD_HandleAssignObject(D2GSPacketSrv51* pPacket)
-{
-    CUNIT_CreateObjectUnit(pPacket->dwUnitGUID, pPacket->nObject, pPacket->nPosX, pPacket->nPosY, pPacket->nUnitType, 0, pPacket->unk0x0C, pPacket->nInteractType);
-}
-
-// 0x0045CC00
-void __fastcall SCMD_HandleQuestLog(void* pPacket)
-{
-    sub_004A40D0_StorePacket52(pPacket);
-}
-
-// 0x0045CC10
-void __fastcall SCMD_HandleRemoveObject(D2GSPacketSrv0A* pPacket)
-{
-    const int nUnitGUID = pPacket->dwUnitGUID;
-    if (pPacket->nUnitType == 1 && nUnitGUID == sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
-        return;
-    CUNIT_RemoveClientSideUnit(nUnitGUID, pPacket->nUnitType);
 }
 
 // 0x0045CC50
@@ -2764,52 +2743,6 @@ void __fastcall SCMD_HandleMonsterAttack(D2UnitStrc* pUnit, const D2GSPacketSrv6
     sub_00480C10_UnitEvent(pPacket->unk0x05, pUnit, args, 1);
 }
 
-// 0x0045D010
-void __fastcall SCMD_HandleMonsterStop(D2UnitStrc* pUnit, const unsigned char* p)
-{
-    if (!pUnit)
-        return;
-    if (!p)
-        return;
-
-    const unsigned short nX = *(const unsigned short*)(p + 5);
-    const unsigned short nY = *(const unsigned short*)(p + 7);
-    int args[7] = { nX, nY, p[9], 2, 0, 4, 0 };
-    UNITMODE_SetPosition(pUnit, nX, nY, 0, 0, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
-    sub_00480C10_UnitEvent(7, pUnit, args, 1);
-}
-
-// 0x0045D0A0
-void __fastcall sub_0045D0A0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
-{
-}
-
-// 0x0045D0B0
-void __fastcall sub_0045D0B0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
-{
-}
-
-// 0x0045D0C0
-void __fastcall sub_0045D0C0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
-{
-}
-
-// 0x0045D0D0
-void __fastcall sub_0045D0D0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
-{
-}
-
-// 0x0045D0E0
-void __fastcall sub_0045D0E0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
-{
-}
-
-void __fastcall OBJMODE_HandleQuestObjectEvent(D2GameStrc* pGame, D2UnitStrc* pObject)
-{
-    QUESTS_ObjectEvents(pGame, pObject);
-}
-
 // 0x0045D0F0
 void __fastcall SCMD_HandleSetOverlay(const D2GSPacketSrv11* pPacket)
 {
@@ -2876,23 +2809,6 @@ void __fastcall SCMD_HandleReassignUnit(const unsigned char* pPacket)
     }
 }
 
-// 0x0045D260
-void __fastcall SCMD_HandleUnitEventAtPosition(D2UnitStrc* pUnit, const D2GSPacketSrv17* pPacket)
-{
-    if (pUnit != sub_00463DD0_GetPlayerUnit())
-    {
-        D2_ASSERT(pUnit, 0x841);
-
-        int args[7];
-        unsigned short pos[2];
-        pos[0] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x08;
-        pos[1] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x0A;
-        args[0] = pPacket->unk0x06 >> 1;
-        args[1] = (int)pos;
-        sub_00480C10_UnitEvent(pPacket->unk0x07, pUnit, args, 1);
-    }
-}
-
 // 0x0045D2E0
 void __fastcall SCMD_HandleUnitsUpdate(const D2GSPacketSrv16* pPacket)
 {
@@ -2928,6 +2844,11 @@ void __fastcall SCMD_HandleUnitRemoved(const D2GSPacketSrv62* pPacket)
 void __fastcall SCMD_HandleGameQuestInfo(const unsigned char* pPacket)
 {
     sub_004B2620(pPacket + 1);
+}
+
+void __fastcall OBJMODE_HandleQuestObjectEvent(D2GameStrc* pGame, D2UnitStrc* pObject)
+{
+    QUESTS_ObjectEvents(pGame, pObject);
 }
 
 // 0x0045D3B0
@@ -2974,133 +2895,20 @@ static void __stdcall SCMD_HandleStatChange(int nValue, int nStat, D2UnitStrc* p
     }
 }
 
-// 0x0045D540
-void __fastcall SCMD_HandleMercStatUpdate(D2UnitStatPacketStrc* pPacket)
+// 0x0045D260
+void __fastcall SCMD_HandleUnitEventAtPosition(D2UnitStrc* pUnit, const D2GSPacketSrv17* pPacket)
 {
-    int bAdd = 0;
-    int nValue;
-    int nStat;
-    switch (pPacket->nHeader)
+    if (pUnit != sub_00463DD0_GetPlayerUnit())
     {
-    case 0x9E:
-        nValue = pPacket->nByte;
-        nStat = pPacket->nStat;
-        break;
-    case 0xA0:
-        nValue = pPacket->nDword;
-        nStat = pPacket->nStat;
-        break;
-    case 0xA1:
-        nValue = pPacket->nByte;
-        bAdd = 1;
-        nStat = pPacket->nStat;
-        break;
-    case 0xA2:
-        bAdd = 1;
+        D2_ASSERT(pUnit, 0x841);
 
-    case 0x9F:
-        nValue = pPacket->nWord;
-        nStat = pPacket->nStat;
-        break;
-    default:
-        return;
-    }
-
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, 1);
-    if (pUnit)
-    {
-        if (nStat == 0xC)
-            SCMD_RefreshUnitItems(pUnit);
-
-        if (bAdd)
-            STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
-        else
-            STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
-    }
-}
-
-static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    return 0;
-}
-
-// 0x0045D5E0
-void __fastcall SCMD_HandleUnitSkill(D2SkillPacketStrc* pPacket)
-{
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, pPacket->nUnitType);
-    if (!pUnit)
-    {
-        return;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_FindClientUnit(pPacket->dwTargetId, pPacket->nTargetType);
-    const int nX = pPacket->nX;
-    const int nY = pPacket->nY;
-    const short nSkillId = pPacket->wSkillId;
-    const short nSkillLevel = pPacket->f_4;
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return;
-    }
-
-    if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PROGRESSIVE >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PROGRESSIVE & 7])
-    {
-        sub_004C6AC0_DoSkill(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
-    }
-    else
-    {
-        SKILLS_DoSkillPrgFunc(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
-    }
-}
-
-static inline D2SkillsTxt* GetSkillRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    return 0;
-}
-
-// 0x0045D6A0
-void __fastcall SCMD_HandleSkillEnd(D2SkillEndPacketStrc* pPacket)
-{
-    D2UnitStrc* pUnit;
-    const int nUnitType = pPacket->nUnitType;
-    const int nUnitId = pPacket->nUnitId;
-    const unsigned short nSkillId = pPacket->nSkillId;
-    pUnit = CUNIT_FindClientUnit(nUnitId, nUnitType);
-    if (!pUnit)
-        return;
-    D2SkillsTxt* pSkill = GetSkillRecord(nSkillId);
-    if (!pSkill)
-        return;
-    switch (pSkill->wSrvDoFunc)
-    {
-    case 67:
-        SKILLS_EndCharge(pUnit, nSkillId);
-        break;
-    case 77:
-    case 78:
-        SKILLSBAR_ResetLeapCollision(pUnit);
-        break;
-    case 76:
-        SKILLS_EndLoopSoundSkill(pUnit, nSkillId);
-        break;
-    }
-    sub_00639DB0_ToggleState(pUnit, 18, 0);
-}
-
-// 0x0045D760
-void __fastcall SCMD_HandlePreloadMonster(const D2GSPacketSrvA4* pPacket)
-{
-    const unsigned short wMonsterId = pPacket->wMonsterId;
-    if (wMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        sub_0046F870_LoadMonsterCofs(wMonsterId, 0);
+        int args[7];
+        unsigned short pos[2];
+        pos[0] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x08;
+        pos[1] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x0A;
+        args[0] = pPacket->unk0x06 >> 1;
+        args[1] = (int)pos;
+        sub_00480C10_UnitEvent(pPacket->unk0x07, pUnit, args, 1);
     }
 }
 
@@ -3175,6 +2983,198 @@ static void __stdcall SCMD_AddSignedByteOffsets(short nBaseY, short* pX, short* 
 
     *pX = nBaseX + nOffsetX;
     *pY = nBaseY + nOffsetY;
+}
+
+// 0x0045CBD0
+void __fastcall SCMD_HandleAssignObject(D2GSPacketSrv51* pPacket)
+{
+    CUNIT_CreateObjectUnit(pPacket->dwUnitGUID, pPacket->nObject, pPacket->nPosX, pPacket->nPosY, pPacket->nUnitType, 0, pPacket->unk0x0C, pPacket->nInteractType);
+}
+
+// 0x0045CC00
+void __fastcall SCMD_HandleQuestLog(void* pPacket)
+{
+    sub_004A40D0_StorePacket52(pPacket);
+}
+
+// 0x0045CC10
+void __fastcall SCMD_HandleRemoveObject(D2GSPacketSrv0A* pPacket)
+{
+    const int nUnitGUID = pPacket->dwUnitGUID;
+    if (pPacket->nUnitType == 1 && nUnitGUID == sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
+        return;
+    CUNIT_RemoveClientSideUnit(nUnitGUID, pPacket->nUnitType);
+}
+
+// 0x0045D010
+void __fastcall SCMD_HandleMonsterStop(D2UnitStrc* pUnit, const unsigned char* p)
+{
+    if (!pUnit)
+        return;
+    if (!p)
+        return;
+
+    const unsigned short nX = *(const unsigned short*)(p + 5);
+    const unsigned short nY = *(const unsigned short*)(p + 7);
+    int args[7] = { nX, nY, p[9], 2, 0, 4, 0 };
+    UNITMODE_SetPosition(pUnit, nX, nY, 0, 0, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
+    sub_00480C10_UnitEvent(7, pUnit, args, 1);
+}
+
+// 0x0045D0A0
+void __fastcall sub_0045D0A0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
+{
+}
+
+// 0x0045D0B0
+void __fastcall sub_0045D0B0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
+{
+}
+
+// 0x0045D0C0
+void __fastcall sub_0045D0C0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
+{
+}
+
+static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+// 0x0045D0D0
+void __fastcall sub_0045D0D0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
+{
+}
+
+static inline D2SkillsTxt* GetSkillRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    return 0;
+}
+
+// 0x0045D0E0
+void __fastcall sub_0045D0E0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
+{
+}
+
+// 0x0045D540
+void __fastcall SCMD_HandleMercStatUpdate(D2UnitStatPacketStrc* pPacket)
+{
+    int bAdd = 0;
+    int nValue;
+    int nStat;
+    switch (pPacket->nHeader)
+    {
+    case 0x9E:
+        nValue = pPacket->nByte;
+        nStat = pPacket->nStat;
+        break;
+    case 0xA0:
+        nValue = pPacket->nDword;
+        nStat = pPacket->nStat;
+        break;
+    case 0xA1:
+        nValue = pPacket->nByte;
+        bAdd = 1;
+        nStat = pPacket->nStat;
+        break;
+    case 0xA2:
+        bAdd = 1;
+
+    case 0x9F:
+        nValue = pPacket->nWord;
+        nStat = pPacket->nStat;
+        break;
+    default:
+        return;
+    }
+
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, 1);
+    if (pUnit)
+    {
+        if (nStat == 0xC)
+            SCMD_RefreshUnitItems(pUnit);
+
+        if (bAdd)
+            STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
+        else
+            STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
+    }
+}
+
+// 0x0045D5E0
+void __fastcall SCMD_HandleUnitSkill(D2SkillPacketStrc* pPacket)
+{
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, pPacket->nUnitType);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2UnitStrc* pTarget = CUNIT_FindClientUnit(pPacket->dwTargetId, pPacket->nTargetType);
+    const int nX = pPacket->nX;
+    const int nY = pPacket->nY;
+    const short nSkillId = pPacket->wSkillId;
+    const short nSkillLevel = pPacket->f_4;
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return;
+    }
+
+    if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PROGRESSIVE >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PROGRESSIVE & 7])
+    {
+        sub_004C6AC0_DoSkill(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
+    }
+    else
+    {
+        SKILLS_DoSkillPrgFunc(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
+    }
+}
+
+// 0x0045D6A0
+void __fastcall SCMD_HandleSkillEnd(D2SkillEndPacketStrc* pPacket)
+{
+    D2UnitStrc* pUnit;
+    const int nUnitType = pPacket->nUnitType;
+    const int nUnitId = pPacket->nUnitId;
+    const unsigned short nSkillId = pPacket->nSkillId;
+    pUnit = CUNIT_FindClientUnit(nUnitId, nUnitType);
+    if (!pUnit)
+        return;
+    D2SkillsTxt* pSkill = GetSkillRecord(nSkillId);
+    if (!pSkill)
+        return;
+    switch (pSkill->wSrvDoFunc)
+    {
+    case 67:
+        SKILLS_EndCharge(pUnit, nSkillId);
+        break;
+    case 77:
+    case 78:
+        SKILLSBAR_ResetLeapCollision(pUnit);
+        break;
+    case 76:
+        SKILLS_EndLoopSoundSkill(pUnit, nSkillId);
+        break;
+    }
+    sub_00639DB0_ToggleState(pUnit, 18, 0);
+}
+
+// 0x0045D760
+void __fastcall SCMD_HandlePreloadMonster(const D2GSPacketSrvA4* pPacket)
+{
+    const unsigned short wMonsterId = pPacket->wMonsterId;
+    if (wMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        sub_0046F870_LoadMonsterCofs(wMonsterId, 0);
+    }
 }
 
 void __fastcall sub_U05_Emit_0045D8C0(unsigned char* pBytes, short* pBase, short* pOut)
@@ -3312,36 +3312,158 @@ void __fastcall SCMD_HandleAssignSkill(const D2GSPacketSrv21* pPacket)
     }
 }
 
-// 0x0045DD10
-void __fastcall SCMD_HandleSkillLevelBonus(const D2GSPacketSrv93* pPacket)
+// 0x0045F9F0
+void __fastcall SCMD_FreePacketBuffer(D2UnitStrc* pUnit)
 {
-    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
-    int nValue = pPacket->unk0x05;
-    if (nValue > 0x80)
-        nValue -= 0x100;
-    const int nB = pPacket->unk0x06;
-    const char nC = pPacket->unk0x07;
-
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitGUID, UNIT_PLAYER);
-    if (pUnit)
+    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
+    if (pBuffer)
     {
-        SKILLS_ApplySkillLevelBonus(pUnit, nValue, nB, nC);
+        FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x1516, 0);
+        FOG_Free(pBuffer, ".\\GAME\\SCmd.cpp", 0x1517, 0);
+        sub_004647A0_SetPacketBuffer(pUnit, 0);
     }
 }
 
-// 0x0045DD60
-void __fastcall SCMD_HandleAssignSkills(const D2GSPacketSrv94* pPacket)
+// 0x0045FF70
+void __stdcall SCMD_ConfirmPopup(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nUnitId = pPacket->nUnitId;
-    const unsigned char nCount = pPacket->nCount;
-    const D2SkillLevelEntryStrc* pEntry = pPacket->pEntries;
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, 0);
-    if (pUnit)
+    gnGlobal_007A5254 = 1;
+    gnGlobal_007A5248 = 0;
+    sub_0044DA70();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x0045FFB0
+void __stdcall SCMD_HandlePopupEscape(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnGlobal_007A5254 = 0;
+}
+
+// 0x004603E0
+void __stdcall SCMD_ConfirmOkCancelPopup(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnGlobal_007A5258 = 1;
+    gnGlobal_007A5248 = 0;
+    sub_0044DA70();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x00462F60
+void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket)
+{
+    if (!pPacket->bActive)
+        return;
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(*(int*)pPacket->nUnitId, 0);
+    if (!pUnit)
+        return;
+    if (!CUNIT_IsDeadOrDying(pUnit))
+        UNITMODE_SetUnitMode(pUnit, 0);
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
-        for (int i = 0; i < nCount; ++i)
+        D2UnitStrc* pOther = CUNIT_FindClientUnit(*(int*)pPacket->nOtherUnitId, 0);
+        if (!pOther)
+            return;
+        D2DynamicPathStrc* pPath = pOther->pDynamicPath;
+        PATH_SetMoveTestCollisionMask(pPath, 0);
+        sub_00649190_SetPathMode(pOther, 5);
+        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
+        PATH_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
+    }
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
+    while (pItem)
+    {
+        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
+        if (INVENTORY_GetItemNodePage(pItem) == 3)
         {
-            SKILLS_AssignSkill(pUnit, pEntry->wSkillId, pEntry->nSkillLevel, 0, ".\\GAME\\SCmd.cpp", 2743);
-            ++pEntry;
+            pItem = INVENTORY_UnitIsItem(pItem);
+            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+            GFX_ClearGfxBytes(pUnit, AUTOMAP_GetItemComponent(pUnit, pItem));
+            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+            D2_ASSERT(pRemoved, 0xAC8);
+            D2_ASSERT(pRemoved == pItem, 0xAC9);
+            ITEM_UpdateItemLink(pItem, pUnit, 0, 0);
+            sub_0063BE30(pInventory, ITEMS_GetBodyLocation(pItem));
+            GFX_RefreshUnitGfx(pUnit, 0);
+            const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
+            const int nUnitId = !pItem ? -1 : pItem->dwUnitId;
+            CUNIT_RemoveClientSideUnit(nUnitId, nUnitType);
+        }
+        pItem = pNext;
+    }
+}
+
+// 0x004689D0
+void __cdecl SCMD_ShowHelpOnce()
+{
+    if (GAME_IsExitPending())
+        return;
+    if (sub_00463DF0())
+        return;
+
+    sub_00455F20(0x21, 2, 0);
+    unsigned long dwValue;
+    if (!SRegLoadValue("Diablo II", "Help Menu", 1, &dwValue) || !dwValue)
+    {
+        dwValue = 1;
+        SRegSaveValue("Diablo II", "Help Menu", 1, dwValue);
+    }
+}
+
+// 0x00469450
+int __cdecl SCMD_CompareSortEntries(const void* pA, const void* pB)
+{
+    const D2SortEntryStrc* pLeft = (const D2SortEntryStrc*)pA;
+    const D2SortEntryStrc* pRight = (const D2SortEntryStrc*)pB;
+    if (pLeft->nKey < pRight->nKey)
+    {
+        return -1;
+    }
+    if (pLeft->nKey > pRight->nKey)
+    {
+        return 1;
+    }
+    if (*(const int*)pLeft->nFlag)
+    {
+        return *(const int*)pRight->nFlag ? 0 : -1;
+    }
+    return *(const int*)pRight->nFlag ? 1 : 0;
+}
+
+// 0x0046A840
+void __stdcall SCMD_HandleHotkeyMessage(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->lParam & 0x40000000)
+    {
+        return;
+    }
+
+    for (int i = 0; i < NUM_HOTKEYS; ++i)
+    {
+        if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && gtHotkeys_007A6F90[i].nCommand != 0xFFFF
+            && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && gtHotkeys_007A6F90[i].nCommand <= 0xDF
+            && gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
+        {
+            if (gtHotkeys_007A6F90[i].nKey == VK_F4 && (GetKeyState(VK_MENU) & 0x8000))
+            {
+                return;
+            }
+
+            if (gnGlobal_007A7418 == 2 && !gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
+            {
+                return;
+            }
+
+            D2_ASSERT(!IsBadCodePtr((FARPROC)gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
+            gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
         }
     }
 }
@@ -3457,20 +3579,6 @@ void __fastcall SCMD_HandleChatMessage(const D2GSPacketSrv26* pPacket)
     szName += SStrLen(szName) + 1;
     SStrCopy(tMessage.szText, szName, 0x100);
     sub_0049F490_PrintChatMessage(&tMessage);
-}
-
-// 0x0045E050
-void __fastcall SCMD_HandleClearHoverText(const D2ClientPacket6Strc* pPacket)
-{
-    D2ClientPacket6Strc tPacket = *pPacket;
-    sub_0049F8C0_UsePacket6(&tPacket);
-}
-
-// 0x0045E070
-void __fastcall SCMD_HandleEventMessage(const D2GSPacket5AStrc* pPacket)
-{
-    D2GSPacket5AStrc tPacket = *pPacket;
-    sub_0049EB10(&tPacket);
 }
 
 // 0x0045E0A0
@@ -3657,6 +3765,13 @@ void __fastcall SCMD_HandleAssignPlayer(const D2GSPacketSrv59* pPacket)
     CUNIT_CreatePlayerUnit(pPacket->dwGUID, pPacket->nClass, pPacket->nPosX, pPacket->nPosY, (char*)pPacket->szName);
 }
 
+// 0x0045E070
+void __fastcall SCMD_HandleEventMessage(const D2GSPacket5AStrc* pPacket)
+{
+    D2GSPacket5AStrc tPacket = *pPacket;
+    sub_0049EB10(&tPacket);
+}
+
 // 0x0045E4E0
 void __fastcall SCMD_HandlePlayerJoined(const D2GSPacketSrv5B* pPacket)
 {
@@ -3815,6 +3930,13 @@ void __fastcall SCMD_HandleGoldInTrade(const D2GSPacketSrv79* pPacket)
     sub_004B90D0(pPacket->dwGold, pPacket->nOwnerGUID);
 }
 
+// 0x0045E050
+void __fastcall SCMD_HandleClearHoverText(const D2ClientPacket6Strc* pPacket)
+{
+    D2ClientPacket6Strc tPacket = *pPacket;
+    sub_0049F8C0_UsePacket6(&tPacket);
+}
+
 // 0x0045E860
 void __fastcall SCMD_HandlePetAction(const D2GSPacketSrv7A* pPacket)
 {
@@ -3827,36 +3949,6 @@ void __fastcall SCMD_HandlePetAction(const D2GSPacketSrv7A* pPacket)
     {
         ROSTERPETS_DropPetEntry(nKey);
     }
-}
-
-// 0x0045E890
-void __fastcall SCMD_HandleAssignMerc(const D2GSPacket81Strc* pPacket)
-{
-    D2Packet81ArgsStrc tArgs;
-    tArgs.nArg0C = pPacket->nArg0C;
-    tArgs.nArg10 = pPacket->nArg10;
-    tArgs.nZero = 0;
-    ROSTERPETS_AssignMercEntry(pPacket->nArg08, pPacket->nArg04, pPacket->nByte01, pPacket->nWord02, &tArgs);
-}
-
-// 0x0045E8D0
-void __fastcall SCMD_HandleAssignHotkey(const D2GSPacketSrv7B* pPacket)
-{
-    const unsigned short wSkill = pPacket->wSkill;
-    const int nHand = wSkill & 0x8000;
-    int nSkillId = wSkill & 0xFFF;
-    if (nSkillId > sgptDataTables->nSkillsTxtRecordCount)
-    {
-        nSkillId = -1;
-    }
-    INV_SetHotkeySkillSlot(pPacket->nSlot, nSkillId, nHand != 0, pPacket->nItemGUID);
-}
-
-// 0x0045E910
-void __fastcall SCMD_HandleUseScroll(const D2PacketRecord6Strc* pPacket)
-{
-    D2PacketRecord6Strc tPacket = *pPacket;
-    sub_004C51B0(&tPacket);
 }
 
 // 0x0045E930
@@ -3924,6 +4016,36 @@ void __fastcall SCMD_HandleUniqueEvent(const D2GSPacketSrv89* pPacket)
     sub_004B9330_UniqueEvent(pPacket);
 }
 
+// 0x0045E890
+void __fastcall SCMD_HandleAssignMerc(const D2GSPacket81Strc* pPacket)
+{
+    D2Packet81ArgsStrc tArgs;
+    tArgs.nArg0C = pPacket->nArg0C;
+    tArgs.nArg10 = pPacket->nArg10;
+    tArgs.nZero = 0;
+    ROSTERPETS_AssignMercEntry(pPacket->nArg08, pPacket->nArg04, pPacket->nByte01, pPacket->nWord02, &tArgs);
+}
+
+// 0x0045E8D0
+void __fastcall SCMD_HandleAssignHotkey(const D2GSPacketSrv7B* pPacket)
+{
+    const unsigned short wSkill = pPacket->wSkill;
+    const int nHand = wSkill & 0x8000;
+    int nSkillId = wSkill & 0xFFF;
+    if (nSkillId > sgptDataTables->nSkillsTxtRecordCount)
+    {
+        nSkillId = -1;
+    }
+    INV_SetHotkeySkillSlot(pPacket->nSlot, nSkillId, nHand != 0, pPacket->nItemGUID);
+}
+
+// 0x0045E910
+void __fastcall SCMD_HandleUseScroll(const D2PacketRecord6Strc* pPacket)
+{
+    D2PacketRecord6Strc tPacket = *pPacket;
+    sub_004C51B0(&tPacket);
+}
+
 // 0x0045EA40
 void __fastcall SCMD_HandleNpcWantsInteract(const D2PacketRecord6Strc* pPacket)
 {
@@ -3981,6 +4103,84 @@ void __fastcall SCMD_HandleWeaponSwitch(const D2GSPacketSrv97* pPacket)
 void __fastcall SCMD_HandlePong(const D2GSPacketSrv8F* pPacket)
 {
     GAME_StorePong(pPacket);
+}
+
+// 0x0045DD10
+void __fastcall SCMD_HandleSkillLevelBonus(const D2GSPacketSrv93* pPacket)
+{
+    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
+    int nValue = pPacket->unk0x05;
+    if (nValue > 0x80)
+        nValue -= 0x100;
+    const int nB = pPacket->unk0x06;
+    const char nC = pPacket->unk0x07;
+
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitGUID, UNIT_PLAYER);
+    if (pUnit)
+    {
+        SKILLS_ApplySkillLevelBonus(pUnit, nValue, nB, nC);
+    }
+}
+
+// 0x0045DD60
+void __fastcall SCMD_HandleAssignSkills(const D2GSPacketSrv94* pPacket)
+{
+    const int nUnitId = pPacket->nUnitId;
+    const unsigned char nCount = pPacket->nCount;
+    const D2SkillLevelEntryStrc* pEntry = pPacket->pEntries;
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, 0);
+    if (pUnit)
+    {
+        for (int i = 0; i < nCount; ++i)
+        {
+            SKILLS_AssignSkill(pUnit, pEntry->wSkillId, pEntry->nSkillLevel, 0, ".\\GAME\\SCmd.cpp", 2743);
+            ++pEntry;
+        }
+    }
+}
+
+// build: symbol ?ERRORMANAGER_GetBitWidth@* 0x00409000
+int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
+{
+    if (!nValue)
+    {
+        return 0;
+    }
+    __asm
+    {
+        bsr eax, nValue
+        inc eax
+        mov nValue, eax
+    }
+    return nValue;
+}
+
+// build: context Log2Ceil
+static inline int Log2Ceil(int nValue)
+{
+    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
+}
+
+// build: context GetMonStats2TxtRecordFromMonsterId
+static inline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
+{
+    if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount) return 0;
+    int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+    if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
+    {
+        return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+    }
+    return 0;
+}
+
+// build: context GetItemStatCostTxtRecord
+static inline D2ItemStatCostTxt* GetItemStatCostTxtRecord(int nStatId)
+{
+    if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return &sgptDataTables->pItemStatCostTxt[nStatId];
+    }
+    return 0;
 }
 
 // 0x0045EB10
@@ -4122,6 +4322,16 @@ void __fastcall SCMD_HandleDelayedState(const D2GSPacketSrvA7* pPacket)
     }
 }
 
+static inline void sub_0045F7B0_FindStoppedPlayer(const unsigned char* pPacket)
+{
+    const int nUnitId = *(const int*)(pPacket + 2);
+    __assume((nUnitId | 1) != 0);
+    if (pPacket[1] == 1)
+    {
+        CUNIT_FindClientUnit(nUnitId, 1);
+    }
+}
+
 // 0x0045EE20
 void __fastcall SCMD_HandleSetState(D2GSPacketSrvA8* pPacket)
 {
@@ -4172,6 +4382,58 @@ void __fastcall SCMD_HandleEndState(const D2GSPacketSrvA9* pPacket)
         const int nState = pPacket->nState;
         sub_004D9F40_EndClientState(pUnit, nState);
         PLRSKILLS_EndState(pUnit, nState);
+    }
+}
+
+// 0x0045FC60
+void __cdecl SCMD_DrawLoadingTexts()
+{
+    const int nOldFont = sub_00502EF0(1);
+    TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
+        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
+    else
+        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
+    sub_00502EF0(nOldFont);
+}
+
+// 0x00460730
+void __fastcall SCMD_SetMonsterClientFlags(D2UnitStrc* pUnit, unsigned short nFlags, int bSet)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        if (bSet)
+        {
+            pUnit->pMonsterData->nClientFlags |= nFlags;
+        }
+        else
+        {
+            pUnit->pMonsterData->nClientFlags &= ~nFlags;
+        }
+    }
+}
+
+// 0x00463C00
+void __fastcall SCMD_HandleMonsterModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, unsigned char nNewMode)
+{
+    int nOld = nOldMode;
+    int nNew = nNewMode;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nOld != nNew)
+    {
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+        if (pRoom)
+        {
+            if (nNew == MODE_2)
+            {
+                DUNGEON_IncreaseAlliedCountOfRoom(pRoom);
+            }
+            else if (nOld == MODE_2)
+            {
+                DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
+            }
+            D2Common_10214(pUnit);
+        }
     }
 }
 
@@ -4236,50 +4498,6 @@ void __fastcall SCMD_HandleUnitLife(unsigned char* pPacket)
         STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pPacket[6] << 8, bFlag);
     else
         ROSTER_SetPartyLife(*(int*)(pPacket + 2), pPacket[6] * 100 / 128);
-}
-
-// build: symbol ?ERRORMANAGER_GetBitWidth@* 0x00409000
-int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
-{
-    if (!nValue)
-    {
-        return 0;
-    }
-    __asm
-    {
-        bsr eax, nValue
-        inc eax
-        mov nValue, eax
-    }
-    return nValue;
-}
-
-// build: context Log2Ceil
-static inline int Log2Ceil(int nValue)
-{
-    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
-}
-
-// build: context GetMonStats2TxtRecordFromMonsterId
-static inline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
-{
-    if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount) return 0;
-    int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
-    if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
-    {
-        return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
-    }
-    return 0;
-}
-
-// build: context GetItemStatCostTxtRecord
-static inline D2ItemStatCostTxt* GetItemStatCostTxtRecord(int nStatId)
-{
-    if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
-    {
-        return &sgptDataTables->pItemStatCostTxt[nStatId];
-    }
-    return 0;
 }
 
 // 0x0045F190
@@ -4381,6 +4599,55 @@ void __fastcall SCMD_HandleWardenRequest(D2GSPacketSrvAE* pPacket)
         sub_004802E0(pPacket->pData, pPacket->nLength);
 }
 
+inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x00463EE0
+int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
+{
+    D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1419);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2TileRectStrc* pRect = sub_00619620(pRoom, pUnit);
+    if (!pRect)
+    {
+        return 0;
+    }
+
+    int nUnitX = UNITS_GetXPositionInline(pUnit);
+    int nUnitY = UNITS_GetYPositionInline(pUnit);
+    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
+
+    const int nLeft = pRect->nX + nUnitX;
+    const int nTop = pRect->nY + nUnitY;
+    if (nX >= nLeft && nY >= nTop && nX <= nLeft + pRect->nWidth && nY <= nTop + pRect->nHeight)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 // 0x0045F610
 static D2PacketBufferStrc* SCMD_GrowPacketBuffer(D2UnitStrc* pUnit)
 {
@@ -4415,6 +4682,8 @@ static D2PacketBufferStrc* SCMD_GrowPacketBuffer(D2UnitStrc* pUnit)
     return pBuffer;
 }
 
+void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467EF0
+
 // 0x0045F730
 static void __stdcall SCMD_QueuePacket(unsigned char* pPacket, int nLength, D2UnitStrc* pUnit)
 {
@@ -4426,16 +4695,6 @@ static void __stdcall SCMD_QueuePacket(unsigned char* pPacket, int nLength, D2Un
     D2_ASSERT(nLength <= gnGlobal_007A5230, 0x127F);
     memcpy(pBuffer->pData + pBuffer->nCount * gnGlobal_007A5230, pPacket, nLength);
     ++pBuffer->nCount;
-}
-
-static inline void sub_0045F7B0_FindStoppedPlayer(const unsigned char* pPacket)
-{
-    const int nUnitId = *(const int*)(pPacket + 2);
-    __assume((nUnitId | 1) != 0);
-    if (pPacket[1] == 1)
-    {
-        CUNIT_FindClientUnit(nUnitId, 1);
-    }
 }
 
 // 0x0045F7B0
@@ -4536,262 +4795,16 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
     ++gnPacketBlocks_007A6AFC;
 }
 
-// 0x0045F9F0
-void __fastcall SCMD_FreePacketBuffer(D2UnitStrc* pUnit)
+// 0x00476A80
+void __fastcall SCMD_StartTimedEffect(int nArg0, int nArg1, int nArg2, int nArg3)
 {
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
-    if (pBuffer)
+    if (nArg2)
     {
-        FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x1516, 0);
-        FOG_Free(pBuffer, ".\\GAME\\SCmd.cpp", 0x1517, 0);
-        sub_004647A0_SetPacketBuffer(pUnit, 0);
-    }
-}
-
-// 0x0045FC60
-void __cdecl SCMD_DrawLoadingTexts()
-{
-    const int nOldFont = sub_00502EF0(1);
-    TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
-// build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (FOG_IsExpansion())
-        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
-    else
-        TEXT_DrawCenteredText(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
-    sub_00502EF0(nOldFont);
-}
-
-// 0x0045FF70
-void __stdcall SCMD_ConfirmPopup(SMSGHANDLER_PARAMS* pMsg)
-{
-    gnGlobal_007A5254 = 1;
-    gnGlobal_007A5248 = 0;
-    sub_0044DA70();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x0045FFB0
-void __stdcall SCMD_HandlePopupEscape(SMSGHANDLER_PARAMS* pMsg)
-{
-    gnGlobal_007A5254 = 0;
-}
-
-// 0x004603E0
-void __stdcall SCMD_ConfirmOkCancelPopup(SMSGHANDLER_PARAMS* pMsg)
-{
-    gnGlobal_007A5258 = 1;
-    gnGlobal_007A5248 = 0;
-    sub_0044DA70();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x00460730
-void __fastcall SCMD_SetMonsterClientFlags(D2UnitStrc* pUnit, unsigned short nFlags, int bSet)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
-    {
-        if (bSet)
-        {
-            pUnit->pMonsterData->nClientFlags |= nFlags;
-        }
-        else
-        {
-            pUnit->pMonsterData->nClientFlags &= ~nFlags;
-        }
-    }
-}
-
-// 0x00462F60
-void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket)
-{
-    if (!pPacket->bActive)
-        return;
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(*(int*)pPacket->nUnitId, 0);
-    if (!pUnit)
-        return;
-    if (!CUNIT_IsDeadOrDying(pUnit))
-        UNITMODE_SetUnitMode(pUnit, 0);
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
-    {
-        D2UnitStrc* pOther = CUNIT_FindClientUnit(*(int*)pPacket->nOtherUnitId, 0);
-        if (!pOther)
-            return;
-        D2DynamicPathStrc* pPath = pOther->pDynamicPath;
-        PATH_SetMoveTestCollisionMask(pPath, 0);
-        sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
-        PATH_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
-    }
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
-    while (pItem)
-    {
-        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
-        if (INVENTORY_GetItemNodePage(pItem) == 3)
-        {
-            pItem = INVENTORY_UnitIsItem(pItem);
-            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
-            GFX_ClearGfxBytes(pUnit, AUTOMAP_GetItemComponent(pUnit, pItem));
-            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
-            D2_ASSERT(pRemoved, 0xAC8);
-            D2_ASSERT(pRemoved == pItem, 0xAC9);
-            ITEM_UpdateItemLink(pItem, pUnit, 0, 0);
-            sub_0063BE30(pInventory, ITEMS_GetBodyLocation(pItem));
-            GFX_RefreshUnitGfx(pUnit, 0);
-            const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
-            const int nUnitId = !pItem ? -1 : pItem->dwUnitId;
-            CUNIT_RemoveClientSideUnit(nUnitId, nUnitType);
-        }
-        pItem = pNext;
-    }
-}
-
-// 0x00463C00
-void __fastcall SCMD_HandleMonsterModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, unsigned char nNewMode)
-{
-    int nOld = nOldMode;
-    int nNew = nNewMode;
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nOld != nNew)
-    {
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        if (pRoom)
-        {
-            if (nNew == MODE_2)
-            {
-                DUNGEON_IncreaseAlliedCountOfRoom(pRoom);
-            }
-            else if (nOld == MODE_2)
-            {
-                DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
-            }
-            D2Common_10214(pUnit);
-        }
-    }
-}
-
-inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// 0x00463EE0
-int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
-{
-    D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1419);
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2TileRectStrc* pRect = sub_00619620(pRoom, pUnit);
-    if (!pRect)
-    {
-        return 0;
-    }
-
-    int nUnitX = UNITS_GetXPositionInline(pUnit);
-    int nUnitY = UNITS_GetYPositionInline(pUnit);
-    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
-
-    const int nLeft = pRect->nX + nUnitX;
-    const int nTop = pRect->nY + nUnitY;
-    if (nX >= nLeft && nY >= nTop && nX <= nLeft + pRect->nWidth && nY <= nTop + pRect->nHeight)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-// 0x004689D0
-void __cdecl SCMD_ShowHelpOnce()
-{
-    if (GAME_IsExitPending())
-        return;
-    if (sub_00463DF0())
-        return;
-
-    sub_00455F20(0x21, 2, 0);
-    unsigned long dwValue;
-    if (!SRegLoadValue("Diablo II", "Help Menu", 1, &dwValue) || !dwValue)
-    {
-        dwValue = 1;
-        SRegSaveValue("Diablo II", "Help Menu", 1, dwValue);
-    }
-}
-
-void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467EF0
-
-// 0x00469450
-int __cdecl SCMD_CompareSortEntries(const void* pA, const void* pB)
-{
-    const D2SortEntryStrc* pLeft = (const D2SortEntryStrc*)pA;
-    const D2SortEntryStrc* pRight = (const D2SortEntryStrc*)pB;
-    if (pLeft->nKey < pRight->nKey)
-    {
-        return -1;
-    }
-    if (pLeft->nKey > pRight->nKey)
-    {
-        return 1;
-    }
-    if (*(const int*)pLeft->nFlag)
-    {
-        return *(const int*)pRight->nFlag ? 0 : -1;
-    }
-    return *(const int*)pRight->nFlag ? 1 : 0;
-}
-
-// 0x0046A840
-void __stdcall SCMD_HandleHotkeyMessage(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (pMsg->lParam & 0x40000000)
-    {
-        return;
-    }
-
-    for (int i = 0; i < NUM_HOTKEYS; ++i)
-    {
-        if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && gtHotkeys_007A6F90[i].nCommand != 0xFFFF
-            && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && gtHotkeys_007A6F90[i].nCommand <= 0xDF
-            && gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
-        {
-            if (gtHotkeys_007A6F90[i].nKey == VK_F4 && (GetKeyState(VK_MENU) & 0x8000))
-            {
-                return;
-            }
-
-            if (gnGlobal_007A7418 == 2 && !gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
-            {
-                return;
-            }
-
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
-            gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
+        gnGlobal_007B8D10 = GetTickCount();
+        gnGlobal_007B8D14 = nArg1;
+        gnGlobal_007B8D18 = nArg2;
+        gnGlobal_007B8D1C = nArg3;
+        gnGlobal_007B9534 = nArg0;
     }
 }
 
@@ -4954,18 +4967,5 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
         }
     }
     return ppTable;
-}
-
-// 0x00476A80
-void __fastcall SCMD_StartTimedEffect(int nArg0, int nArg1, int nArg2, int nArg3)
-{
-    if (nArg2)
-    {
-        gnGlobal_007B8D10 = GetTickCount();
-        gnGlobal_007B8D14 = nArg1;
-        gnGlobal_007B8D18 = nArg2;
-        gnGlobal_007B8D1C = nArg3;
-        gnGlobal_007B9534 = nArg0;
-    }
 }
 

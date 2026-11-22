@@ -199,6 +199,35 @@ static inline D2RosterPetStrc* PETS_FindRosterPetInl(int nUnitId)
     return 0;
 }
 
+// 0x00478F20
+int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny)
+{
+    if (!pUnit)
+        return -1;
+
+    const int nUnitId = pUnit->dwUnitId;
+    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    {
+        if (pPet->nType == nType && pPet->dwOwnerId == nUnitId && (bAny || !pPet->bDead))
+            return pPet->dwUnitId;
+    }
+
+    return -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 0x00478E70
 int __fastcall sub_00478E70_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
@@ -227,33 +256,4 @@ int __fastcall sub_00478E70_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit
     }
 
     return ROSTER_IsHostileRelation(nPlayerId, nOwnerId);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 0x00478F20
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny)
-{
-    if (!pUnit)
-        return -1;
-
-    const int nUnitId = pUnit->dwUnitId;
-    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->nType == nType && pPet->dwOwnerId == nUnitId && (bAny || !pPet->bDead))
-            return pPet->dwUnitId;
-    }
-
-    return -1;
 }

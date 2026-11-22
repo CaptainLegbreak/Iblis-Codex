@@ -493,6 +493,136 @@ int __fastcall sub_0051E3B0_SetCheckRevisionValue(const char* szValue)
     return 1;
 }
 
+// 0x0051F910
+void __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink)
+{
+    if (!szFile || !*szFile)
+        return;
+
+    if (!szLink)
+        szLink = &gszEmptyAssertText;
+
+    D2FileTimeStrc tCachedTime;
+    void* pData;
+    unsigned int nSize;
+    if (sub_00519920_LoadCachedFile(szFile, &tCachedTime, &pData, &nSize))
+    {
+        if (!CompareFileTime(pFileTime, &tCachedTime))
+        {
+            if (nSubType & 2)
+                sub_0051E440_WriteFileWithTime(pData, nSize, szFile, pFileTime);
+
+            sub_0051FAB0_HandleDownloadEvent(nType, nSubType, nArg1, nArg2, pFileTime, szFile, szLink, pData, nSize, 1);
+            sub_005193C0_FreeCachedFile(pData, nSize);
+            return;
+        }
+        sub_005193C0_FreeCachedFile(pData, nSize);
+    }
+
+    D2BnDownloadRecordStrc* pRecord = (D2BnDownloadRecordStrc*)SMemAlloc(0x230, gszBnDownloadFile_006DF338, 0xA6, 0);
+    if (!pRecord)
+        return;
+
+    memset(pRecord, 0, 0x230);
+    pRecord->nSize = (unsigned short)(strlen(szFile) + 0x21);
+    pRecord->nUnk0x02 = 0;
+    pRecord->nUnk0x03 = 1;
+    pRecord->dwPlatform = 0x49583836;
+    pRecord->dwProduct = 0x44324456;
+    pRecord->nArg1 = nArg1;
+    pRecord->nArg2 = nArg2;
+    pRecord->nOffset = 0;
+    pRecord->nType = nType;
+    pRecord->nSubType = nSubType;
+    pRecord->tFileTime = *pFileTime;
+    SStrCopy(pRecord->szFile, szFile, 0x104);
+    SStrCopy(pRecord->szLink, szLink, 0x104);
+    InterlockedIncrement(&gnPendingCount_00881D5C);
+
+    unsigned int nThreadId;
+    void* hThread = (void*)_beginthreadex(0, 0, sub_0051F310_DownloadThread, pRecord, 0, &nThreadId);
+    if (hThread)
+        CloseHandle(hThread);
+}
+
+// 0x00520E50
+int __fastcall sub_00520E50_HandleVersionReply(D2VersionReplyStrc* pReply, int nSize)
+{
+    const unsigned int nResult = pReply->nResult;
+    switch (nResult)
+    {
+    case 1:
+    case 2:
+    case 3:
+        sub_0051BCF0_SendBuffer();
+        break;
+    }
+
+    SRegSaveData("Patch", "Patches", 0x82, &gszEmptyAssertText, 1);
+
+    if (nResult == 1)
+    {
+        const char* szText = pReply->szText;
+        const int nLength = nSize - 4;
+        sub_0051E370_SetText(szText, nLength);
+        SRegSaveData("Patch", "Patches", 0x82, szText, nLength);
+        D2FileTimeStrc tFileTime = { 0 };
+        sub_0051F910_Report(0x80000002, 2, 0, 0, &tFileTime, szText, 0);
+        gnUpdateState_008822C4 = 0;
+        sub_00518D40_Log("downloading upgrade");
+        return 1;
+    }
+
+    if (nResult == 2)
+    {
+        gnUpdateState_008822C4 = 1;
+        sub_00518D40_Log("user has latest version");
+        return 1;
+    }
+
+    sub_005204A0_SetError(1);
+    if (nResult == 3)
+    {
+        gnUpdateState_008822C4 = 0;
+        sub_00518D40_Log("User must reinstall and patch");
+        return 1;
+    }
+
+    gnUpdateState_008822C4 = 0;
+    sub_00518D40_Log("user has unknown version");
+    return 1;
+}
+
+// 0x00520FE0
+int __fastcall sub_00520FE0_HandleReply(D2BnReplyStrc* pReply)
+{
+    const unsigned int nResult = pReply->nResult;
+    gnReplyResult_00882420 = nResult;
+    gszReplyText_00882428[0] = 0;
+    gnReplyReady_008823B0 = 0;
+    switch (nResult)
+    {
+    case 0:
+        gnReplyReady_008823B0 = 1;
+        break;
+    case 3:
+        sub_00520520_SetState(3);
+        break;
+    case 6:
+        sub_00520520_SetState(5);
+        break;
+    case 5:
+        sub_00520520_SetState(4);
+        break;
+    case 4:
+        sub_00520520_SetState(6);
+        SStrCopy(gszReplyText_00882428, pReply->szText, 0x100);
+        sub_00520550_SetStateArg(gszReplyText_00882428);
+        break;
+    }
+    return 1;
+}
+
 // 0x0051E3D0
 int __fastcall sub_0051E3D0_SendPacket33(const char* szText, int nValue)
 {
@@ -583,6 +713,18 @@ static int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, u
         nRead += nResult;
     }
     return 1;
+}
+
+// build: context sub_0051E920_Shim
+// calling-convention shim (not game code)
+void __fastcall sub_0051E920_Shim(const char* member, void* archive, const char* destination)
+{
+    sub_0051E920_ExtractFile(member, archive, destination);
+}
+
+unsigned long __fastcall sub_H04_Emit_0051E640(const char* szFile, const __int64* pFileTime)
+{
+    return sub_0051E640_GetFileSizeIfTimeMatches(szFile, pFileTime);
 }
 
 // 0x0051E640
@@ -688,18 +830,6 @@ static void __fastcall sub_0051E920_ExtractFile(const char* member, void* archiv
     SFileCloseFile(source);
 }
 
-// build: context sub_0051E920_Shim
-// calling-convention shim (not game code)
-void __fastcall sub_0051E920_Shim(const char* member, void* archive, const char* destination)
-{
-    sub_0051E920_ExtractFile(member, archive, destination);
-}
-
-unsigned long __fastcall sub_H04_Emit_0051E640(const char* szFile, const __int64* pFileTime)
-{
-    return sub_0051E640_GetFileSizeIfTimeMatches(szFile, pFileTime);
-}
-
 // 0x0051E9D0
 static int sub_0051E9D0_RunProgramList(const char* szList, const char* szDirectory)
 {
@@ -737,88 +867,6 @@ void __fastcall sub_0051EA40_SetStatus(int nStatus)
 int __fastcall sub_0051EA80_SetArchiveName(const char* szName)
 {
     SStrCopy(gszDownloadArchive_00881C58, szName, 0x7FFFFFFF);
-    return 1;
-}
-
-// 0x0051EAA0
-int __cdecl sub_0051EAA0_HasName()
-{
-    return gszDownloadArchive_00881C58[0] != 0;
-}
-
-// 0x0051EAB0
-static int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize)
-{
-    *ppBuffer = (char*)SMemAlloc(nSize, gszBnDownloadFile_006DF338, 0x385, 8);
-    for (unsigned int nRead = 0; nRead < nSize; )
-    {
-        unsigned int nChunk = nSize - nRead;
-        if (nChunk > 0x5B4)
-            nChunk = 0x5B4;
-
-        const int nResult = recv(nSocket, *ppBuffer + nRead, nChunk, 0);
-        if (nResult == -1 || nResult <= 0 || gbStopDownload_00881C54)
-        {
-            SMemFree(*ppBuffer, gszBnDownloadFile_006DF338, 0x38F, 0);
-            *ppBuffer = 0;
-            sub_0051A480_DebugLog("<ERROR: Failed to recv file  %s in DOWNLOADTOANY, filebytes = %ld, currpos = %ld, bytes = %d", szFile, nSize, nRead, nResult);
-            return 0;
-        }
-
-        nRead += nResult;
-        if (nType == 0x80000002)
-            gnPercent_00881C50 = nRead * 100 / nSize;
-    }
-
-    if (nFlags & 1)
-        sub_00519DB0_WriteCacheFile(szFile, *ppBuffer, nSize, pFileTime, 0x13C680, 0x278D00);
-
-    if (nFlags & 2)
-        sub_0051E440_WriteFileWithTime(*ppBuffer, nSize, szFile, pFileTime);
-
-    return 1;
-}
-
-// 0x0051EBB0
-static int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, unsigned int nOffset, unsigned int nTotal, int nType)
-{
-    char szBuffer[0x5B4];
-    unsigned long nWritten;
-
-    void* hFile = FOG_CreateFileA(szFile, 0x40000000, 0, 0, 4, 0x80, 0);
-    if (hFile == (void*)-1)
-        return 0;
-
-    if (nOffset)
-        FOG_SetFilePointer(hFile, nOffset, 0, 0);
-
-    if (nType == 0x80000002)
-    {
-        gnPercent_00881C50 = nOffset * 100 / nTotal;
-        Sleep(0);
-    }
-
-    while (nOffset < nTotal)
-    {
-        unsigned int nChunk = nTotal - nOffset;
-        if (nChunk > 0x5B4)
-            nChunk = 0x5B4;
-
-        const int nResult = recv(nSocket, szBuffer, nChunk, 0);
-        if (nResult == -1 || nResult <= 0 || gbStopDownload_00881C54)
-        {
-            FOG_CloseFile(hFile);
-            return 0;
-        }
-
-        FOG_WriteFile(hFile, szBuffer, nResult, &nWritten, 0);
-        SetFileTime(hFile, pFileTime, pFileTime, pFileTime);
-        nOffset += nResult;
-        if (nType == 0x80000002)
-            gnPercent_00881C50 = nOffset * 100 / nTotal;
-    }
-
-    FOG_CloseFile(hFile);
     return 1;
 }
 
@@ -962,6 +1010,88 @@ int __fastcall sub_0051ED00_ApplyPatches(int* pResult)
 int __cdecl sub_B03_Emit_0051E9D0(const char* szList, const char* szDirectory)
 {
     return sub_0051E9D0_RunProgramList(szList, szDirectory);
+}
+
+// 0x0051EAA0
+int __cdecl sub_0051EAA0_HasName()
+{
+    return gszDownloadArchive_00881C58[0] != 0;
+}
+
+// 0x0051EAB0
+static int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize)
+{
+    *ppBuffer = (char*)SMemAlloc(nSize, gszBnDownloadFile_006DF338, 0x385, 8);
+    for (unsigned int nRead = 0; nRead < nSize; )
+    {
+        unsigned int nChunk = nSize - nRead;
+        if (nChunk > 0x5B4)
+            nChunk = 0x5B4;
+
+        const int nResult = recv(nSocket, *ppBuffer + nRead, nChunk, 0);
+        if (nResult == -1 || nResult <= 0 || gbStopDownload_00881C54)
+        {
+            SMemFree(*ppBuffer, gszBnDownloadFile_006DF338, 0x38F, 0);
+            *ppBuffer = 0;
+            sub_0051A480_DebugLog("<ERROR: Failed to recv file  %s in DOWNLOADTOANY, filebytes = %ld, currpos = %ld, bytes = %d", szFile, nSize, nRead, nResult);
+            return 0;
+        }
+
+        nRead += nResult;
+        if (nType == 0x80000002)
+            gnPercent_00881C50 = nRead * 100 / nSize;
+    }
+
+    if (nFlags & 1)
+        sub_00519DB0_WriteCacheFile(szFile, *ppBuffer, nSize, pFileTime, 0x13C680, 0x278D00);
+
+    if (nFlags & 2)
+        sub_0051E440_WriteFileWithTime(*ppBuffer, nSize, szFile, pFileTime);
+
+    return 1;
+}
+
+// 0x0051EBB0
+static int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, unsigned int nOffset, unsigned int nTotal, int nType)
+{
+    char szBuffer[0x5B4];
+    unsigned long nWritten;
+
+    void* hFile = FOG_CreateFileA(szFile, 0x40000000, 0, 0, 4, 0x80, 0);
+    if (hFile == (void*)-1)
+        return 0;
+
+    if (nOffset)
+        FOG_SetFilePointer(hFile, nOffset, 0, 0);
+
+    if (nType == 0x80000002)
+    {
+        gnPercent_00881C50 = nOffset * 100 / nTotal;
+        Sleep(0);
+    }
+
+    while (nOffset < nTotal)
+    {
+        unsigned int nChunk = nTotal - nOffset;
+        if (nChunk > 0x5B4)
+            nChunk = 0x5B4;
+
+        const int nResult = recv(nSocket, szBuffer, nChunk, 0);
+        if (nResult == -1 || nResult <= 0 || gbStopDownload_00881C54)
+        {
+            FOG_CloseFile(hFile);
+            return 0;
+        }
+
+        FOG_WriteFile(hFile, szBuffer, nResult, &nWritten, 0);
+        SetFileTime(hFile, pFileTime, pFileTime, pFileTime);
+        nOffset += nResult;
+        if (nType == 0x80000002)
+            gnPercent_00881C50 = nOffset * 100 / nTotal;
+    }
+
+    FOG_CloseFile(hFile);
+    return 1;
 }
 
 // 0x0051F310
@@ -1183,56 +1313,19 @@ done:
     return 0;
 }
 
-// 0x0051F910
-void __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink)
+int __fastcall sub_A12_Emit_0051E5F0(unsigned int nSocket, char* pBuffer, unsigned int nSize)
 {
-    if (!szFile || !*szFile)
-        return;
+    return sub_0051E5F0_RecvAll(nSocket, pBuffer, nSize);
+}
 
-    if (!szLink)
-        szLink = &gszEmptyAssertText;
+int __fastcall sub_A12_Emit_0051EAB0(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize)
+{
+    return sub_0051EAB0_RecvToBuffer(nSocket, szFile, pFileTime, nType, nFlags, ppBuffer, nSize);
+}
 
-    D2FileTimeStrc tCachedTime;
-    void* pData;
-    unsigned int nSize;
-    if (sub_00519920_LoadCachedFile(szFile, &tCachedTime, &pData, &nSize))
-    {
-        if (!CompareFileTime(pFileTime, &tCachedTime))
-        {
-            if (nSubType & 2)
-                sub_0051E440_WriteFileWithTime(pData, nSize, szFile, pFileTime);
-
-            sub_0051FAB0_HandleDownloadEvent(nType, nSubType, nArg1, nArg2, pFileTime, szFile, szLink, pData, nSize, 1);
-            sub_005193C0_FreeCachedFile(pData, nSize);
-            return;
-        }
-        sub_005193C0_FreeCachedFile(pData, nSize);
-    }
-
-    D2BnDownloadRecordStrc* pRecord = (D2BnDownloadRecordStrc*)SMemAlloc(0x230, gszBnDownloadFile_006DF338, 0xA6, 0);
-    if (!pRecord)
-        return;
-
-    memset(pRecord, 0, 0x230);
-    pRecord->nSize = (unsigned short)(strlen(szFile) + 0x21);
-    pRecord->nUnk0x02 = 0;
-    pRecord->nUnk0x03 = 1;
-    pRecord->dwPlatform = 0x49583836;
-    pRecord->dwProduct = 0x44324456;
-    pRecord->nArg1 = nArg1;
-    pRecord->nArg2 = nArg2;
-    pRecord->nOffset = 0;
-    pRecord->nType = nType;
-    pRecord->nSubType = nSubType;
-    pRecord->tFileTime = *pFileTime;
-    SStrCopy(pRecord->szFile, szFile, 0x104);
-    SStrCopy(pRecord->szLink, szLink, 0x104);
-    InterlockedIncrement(&gnPendingCount_00881D5C);
-
-    unsigned int nThreadId;
-    void* hThread = (void*)_beginthreadex(0, 0, sub_0051F310_DownloadThread, pRecord, 0, &nThreadId);
-    if (hThread)
-        CloseHandle(hThread);
+int __fastcall sub_A12_Emit_0051EBB0(unsigned int nSocket, unsigned int nOffset, unsigned int nTotal, int nType, const char* szFile, const D2FileTimeStrc* pFileTime)
+{
+    return sub_0051EBB0_RecvToFile(nSocket, szFile, pFileTime, nOffset, nTotal, nType);
 }
 
 // 0x0051FAB0
@@ -1451,21 +1544,6 @@ int __fastcall sub_00520020_SetAdList(const char* szText, int nLen)
     return _beginthreadex(0, 0, sub_0051F310_DownloadThread, pRecord, 0, &nThreadId);
 }
 
-int __fastcall sub_A12_Emit_0051E5F0(unsigned int nSocket, char* pBuffer, unsigned int nSize)
-{
-    return sub_0051E5F0_RecvAll(nSocket, pBuffer, nSize);
-}
-
-int __fastcall sub_A12_Emit_0051EAB0(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize)
-{
-    return sub_0051EAB0_RecvToBuffer(nSocket, szFile, pFileTime, nType, nFlags, ppBuffer, nSize);
-}
-
-int __fastcall sub_A12_Emit_0051EBB0(unsigned int nSocket, unsigned int nOffset, unsigned int nTotal, int nType, const char* szFile, const D2FileTimeStrc* pFileTime)
-{
-    return sub_0051EBB0_RecvToFile(nSocket, szFile, pFileTime, nOffset, nTotal, nType);
-}
-
 // 0x005206B0
 void __fastcall sub_005206B0_HashTransform(D2BnetHashContextStrc* context)
 {
@@ -1557,84 +1635,6 @@ extern "C" void __fastcall sub_00520C00_ClearSlotPair(unsigned char nSlot)
 extern "C" int __fastcall sub_00520C20_GetSlotB(unsigned char nSlot)
 {
     return gnSlotArrayB_008822A8[nSlot];
-}
-
-// 0x00520E50
-int __fastcall sub_00520E50_HandleVersionReply(D2VersionReplyStrc* pReply, int nSize)
-{
-    const unsigned int nResult = pReply->nResult;
-    switch (nResult)
-    {
-    case 1:
-    case 2:
-    case 3:
-        sub_0051BCF0_SendBuffer();
-        break;
-    }
-
-    SRegSaveData("Patch", "Patches", 0x82, &gszEmptyAssertText, 1);
-
-    if (nResult == 1)
-    {
-        const char* szText = pReply->szText;
-        const int nLength = nSize - 4;
-        sub_0051E370_SetText(szText, nLength);
-        SRegSaveData("Patch", "Patches", 0x82, szText, nLength);
-        D2FileTimeStrc tFileTime = { 0 };
-        sub_0051F910_Report(0x80000002, 2, 0, 0, &tFileTime, szText, 0);
-        gnUpdateState_008822C4 = 0;
-        sub_00518D40_Log("downloading upgrade");
-        return 1;
-    }
-
-    if (nResult == 2)
-    {
-        gnUpdateState_008822C4 = 1;
-        sub_00518D40_Log("user has latest version");
-        return 1;
-    }
-
-    sub_005204A0_SetError(1);
-    if (nResult == 3)
-    {
-        gnUpdateState_008822C4 = 0;
-        sub_00518D40_Log("User must reinstall and patch");
-        return 1;
-    }
-
-    gnUpdateState_008822C4 = 0;
-    sub_00518D40_Log("user has unknown version");
-    return 1;
-}
-
-// 0x00520FE0
-int __fastcall sub_00520FE0_HandleReply(D2BnReplyStrc* pReply)
-{
-    const unsigned int nResult = pReply->nResult;
-    gnReplyResult_00882420 = nResult;
-    gszReplyText_00882428[0] = 0;
-    gnReplyReady_008823B0 = 0;
-    switch (nResult)
-    {
-    case 0:
-        gnReplyReady_008823B0 = 1;
-        break;
-    case 3:
-        sub_00520520_SetState(3);
-        break;
-    case 6:
-        sub_00520520_SetState(5);
-        break;
-    case 5:
-        sub_00520520_SetState(4);
-        break;
-    case 4:
-        sub_00520520_SetState(6);
-        SStrCopy(gszReplyText_00882428, pReply->szText, 0x100);
-        sub_00520550_SetStateArg(gszReplyText_00882428);
-        break;
-    }
-    return 1;
 }
 
 unsigned int __fastcall sub_00522570_GetBit(const unsigned int* pKey, unsigned int nIndex)

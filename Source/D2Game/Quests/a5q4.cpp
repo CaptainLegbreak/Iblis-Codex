@@ -344,26 +344,26 @@ static bool __stdcall ACT5Q4_OpenDrehyaPortal(D2QuestDataStrc* pQuestData, D2Uni
     return false;
 }
 
-// 0x0058B050
-void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+// 0x0058B140
+bool __fastcall ACT5Q4_SeqCallback(D2QuestDataStrc* pQuestData)
 {
-    if ((unsigned short)(pQuestArg->pTarget ? pQuestArg->pTarget->dwClassId : -1) != MONSTER_DREHYA)
+    if (pQuestData->fState < QSTATE_4 && pQuestData->bNotIntro)
     {
-        return;
+        if (!pQuestData->fState)
+        {
+            QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", LINE_SEQ_DEBUG);
+        }
+        return true;
     }
 
-    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bDrehyaActivated == 1)
+    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
+    if (pQuest)
     {
-        pQuestData->nStatusFlags = 0;
-        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
-        pQuestDataEx->bDrehyaActivated = 0;
+        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), LINE_SEQ_ASSERT);
+        return pQuest->pfSeqFilter(pQuest);
     }
 
-    if (pQuestDataEx->bNeedsToOpenPortal && !pQuestDataEx->bPortalCreated)
-    {
-        ACT5Q4_OpenDrehyaPortal(pQuestData, pQuestArg->pTarget);
-    }
+    return false;
 }
 
 static inline D2BitBufferStrc* QUESTS_GetQuestFlagsInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
@@ -411,28 +411,6 @@ int __fastcall ACT5Q4_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
     }
 
     return 0;
-}
-
-// 0x0058B140
-bool __fastcall ACT5Q4_SeqCallback(D2QuestDataStrc* pQuestData)
-{
-    if (pQuestData->fState < QSTATE_4 && pQuestData->bNotIntro)
-    {
-        if (!pQuestData->fState)
-        {
-            QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", LINE_SEQ_DEBUG);
-        }
-        return true;
-    }
-
-    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
-    if (pQuest)
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), LINE_SEQ_ASSERT);
-        return pQuest->pfSeqFilter(pQuest);
-    }
-
-    return false;
 }
 
 // 0x0058B1C0
@@ -485,44 +463,6 @@ void __fastcall ACT5Q4_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
     QUESTS_FastRemovePlayerGUID(&pQuestDataEx->tPlayerGUIDs, nGUID);
 }
 
-// 0x0058B5B0
-void __fastcall ACT5Q4_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0) == 1
-        || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0xE) == 1
-        || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 1) == 1
-        || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0xD) == 1)
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return;
-    }
-
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    if (!nLevelId || DRLG_GetActNoFromLevelId(nLevelId) != 4)
-    {
-        return;
-    }
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 0x25, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 0x25, 1))
-    {
-        return;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0) || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 1))
-    {
-        return;
-    }
-
-    QUESTRECORD_SetQuestState(pQuestFlags, 0x26, 1);
-    QUESTRECORD_SetQuestState(pQuestFlags, 0x26, 0xD);
-}
-
 // 0x0058B680
 int __fastcall ACT5Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -554,15 +494,6 @@ int __fastcall ACT5Q4_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
         QUESTS_SendLogUpdateEx(pUnit, QUEST_A5Q4_NIHLATHAK, 0);
     }
 
-    return 0;
-}
-
-// 0x0058B730
-int __fastcall ACT5Q4_UnitIterate_AttachCompletionSound(D2GameStrc* game, D2UnitStrc* player, void* unused)
-{
-    D2BitBufferStrc* flags = UNITS_GetPlayerData(player)->pQuestData[game->nDifficulty];
-    if (QUESTRECORD_GetQuestState(flags, 38, 13))
-        SUNIT_AttachSound(player, 82, player);
     return 0;
 }
 
@@ -614,93 +545,6 @@ void __fastcall ACT5Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-// 0x0058B870
-bool __fastcall ACT5Q4_ActiveFilterCallback(Quest* quest,int npc,void* player,void* flags,void* extra) {
- if(npc==512) {
-  if(quest->state==1) {
-   if(!(sub_0065C310(flags,37,0) || sub_0065C310(flags,37,1))) goto inactive;
-   if(sub_0065C310(flags,quest->id,0)) goto inactive;
-   if(sub_0065C310(flags,quest->id,1)) goto inactive;
-  } else {
-   if(!sub_0065C310(flags,quest->id,13)) goto inactive;
-   if(sub_0065C310(flags,38,4)) goto inactive;
-  }
-  return true;
- }
-inactive:
- return false;
-}
-
-// 0x0058B900
-void __fastcall ACT5Q4_RescheduleDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK);
-    if (pQuestData && ((D2Act5Quest4Strc*)pQuestData->pQuestDataEx)->bNeedsToOpenPortal)
-    {
-        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_QUESTFN, pGame->dwGameFrame + 12, 0, 0);
-    }
-}
-
-// 0x0058B940
-void __fastcall ACT5Q4_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK);
-    if (!pQuestData || !((D2Act5Quest4Strc*)pQuestData->pQuestDataEx)->bNeedsToOpenPortal)
-    {
-        return;
-    }
-
-    if (!ACT5Q4_OpenDrehyaPortal(pQuestData, pUnit))
-    {
-        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 12, 0, 0);
-    }
-}
-
-static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    return 0;
-}
-
-// 0x0058B990
-void __fastcall ACT5Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestData->bNotIntro)
-    {
-        pQuestData->fState = 5;
-        D2GameStrc* pGame = pQuestArg->pGame;
-        D2WaypointDataStrc* pWaypointFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pWaypointData[pGame->nDifficulty];
-        unsigned short nWpNo;
-        if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HALLSOFDEATHSCALLING, &nWpNo) && !WAYPOINTS_IsActivated(pWaypointFlags, nWpNo))
-        {
-            pQuestDataEx->bWaypointNotActivated = 1;
-        }
-    }
-    else
-    {
-        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-        D2GameStrc* pGame = pQuestArg->pGame;
-        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
-        {
-            if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_LEAVETOWN))
-            {
-                pQuestDataEx->bNeedsToOpenPortal = 1;
-                QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
-                QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", 705);
-            }
-            else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_STARTED))
-            {
-                pQuestDataEx->bNeedsToOpenPortal = 1;
-                QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
-                QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", 711);
-            }
-        }
-    }
-}
-
 // 0x0058BAB0
 void __fastcall ACT5Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -746,6 +590,162 @@ void __fastcall ACT5Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->nSeqId = QUEST_A5Q5_ANCIENTS;
     memset(pQuestDataEx, 0x00, sizeof(D2Act5Quest4Strc));
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
+}
+
+// 0x0058B050
+void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if ((unsigned short)(pQuestArg->pTarget ? pQuestArg->pTarget->dwClassId : -1) != MONSTER_DREHYA)
+    {
+        return;
+    }
+
+    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bDrehyaActivated == 1)
+    {
+        pQuestData->nStatusFlags = 0;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
+        pQuestDataEx->bDrehyaActivated = 0;
+    }
+
+    if (pQuestDataEx->bNeedsToOpenPortal && !pQuestDataEx->bPortalCreated)
+    {
+        ACT5Q4_OpenDrehyaPortal(pQuestData, pQuestArg->pTarget);
+    }
+}
+
+// 0x0058B5B0
+void __fastcall ACT5Q4_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0) == 1
+        || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0xE) == 1
+        || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 1) == 1
+        || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0xD) == 1)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    if (!nLevelId || DRLG_GetActNoFromLevelId(nLevelId) != 4)
+    {
+        return;
+    }
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 0x25, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 0x25, 1))
+    {
+        return;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 0) || QUESTRECORD_GetQuestState(pQuestFlags, 0x26, 1))
+    {
+        return;
+    }
+
+    QUESTRECORD_SetQuestState(pQuestFlags, 0x26, 1);
+    QUESTRECORD_SetQuestState(pQuestFlags, 0x26, 0xD);
+}
+
+// 0x0058B730
+int __fastcall ACT5Q4_UnitIterate_AttachCompletionSound(D2GameStrc* game, D2UnitStrc* player, void* unused)
+{
+    D2BitBufferStrc* flags = UNITS_GetPlayerData(player)->pQuestData[game->nDifficulty];
+    if (QUESTRECORD_GetQuestState(flags, 38, 13))
+        SUNIT_AttachSound(player, 82, player);
+    return 0;
+}
+
+// 0x0058B870
+bool __fastcall ACT5Q4_ActiveFilterCallback(Quest* quest,int npc,void* player,void* flags,void* extra) {
+ if(npc==512) {
+  if(quest->state==1) {
+   if(!(sub_0065C310(flags,37,0) || sub_0065C310(flags,37,1))) goto inactive;
+   if(sub_0065C310(flags,quest->id,0)) goto inactive;
+   if(sub_0065C310(flags,quest->id,1)) goto inactive;
+  } else {
+   if(!sub_0065C310(flags,quest->id,13)) goto inactive;
+   if(sub_0065C310(flags,38,4)) goto inactive;
+  }
+  return true;
+ }
+inactive:
+ return false;
+}
+
+static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    return 0;
+}
+
+// 0x0058B900
+void __fastcall ACT5Q4_RescheduleDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK);
+    if (pQuestData && ((D2Act5Quest4Strc*)pQuestData->pQuestDataEx)->bNeedsToOpenPortal)
+    {
+        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_QUESTFN, pGame->dwGameFrame + 12, 0, 0);
+    }
+}
+
+// 0x0058B940
+void __fastcall ACT5Q4_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK);
+    if (!pQuestData || !((D2Act5Quest4Strc*)pQuestData->pQuestDataEx)->bNeedsToOpenPortal)
+    {
+        return;
+    }
+
+    if (!ACT5Q4_OpenDrehyaPortal(pQuestData, pUnit))
+    {
+        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 12, 0, 0);
+    }
+}
+
+// 0x0058B990
+void __fastcall ACT5Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestData->bNotIntro)
+    {
+        pQuestData->fState = 5;
+        D2GameStrc* pGame = pQuestArg->pGame;
+        D2WaypointDataStrc* pWaypointFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pWaypointData[pGame->nDifficulty];
+        unsigned short nWpNo;
+        if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HALLSOFDEATHSCALLING, &nWpNo) && !WAYPOINTS_IsActivated(pWaypointFlags, nWpNo))
+        {
+            pQuestDataEx->bWaypointNotActivated = 1;
+        }
+    }
+    else
+    {
+        D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+        D2GameStrc* pGame = pQuestArg->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
+        {
+            if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_LEAVETOWN))
+            {
+                pQuestDataEx->bNeedsToOpenPortal = 1;
+                QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
+                QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", 705);
+            }
+            else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_STARTED))
+            {
+                pQuestDataEx->bNeedsToOpenPortal = 1;
+                QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
+                QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", 711);
+            }
+        }
+    }
 }
 
 // 0x0058BC80

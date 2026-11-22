@@ -222,6 +222,36 @@ void __cdecl FOG_AsyncDataDestroy()
     sgfAsyncDataEnabled = 0;
 }
 
+// 0x0040A4C0
+void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData)
+{
+    if (pAsyncData->dwFlags & 1)
+    {
+        return;
+    }
+    AsyncDataEventSlot* pSlot = pAsyncData->pEventSlot;
+    if (pSlot)
+    {
+        ResetEvent(pSlot->hEvent);
+        pSlot->bSlotAvailable = 1;
+        pSlot->pAsyncOp = 0;
+        pAsyncData->pEventSlot = 0;
+    }
+    if (pAsyncData->hFile)
+    {
+        FOG_FCloseFile(pAsyncData->hFile);
+        pAsyncData->hFile = 0;
+    }
+    pAsyncData->dwFlags |= 1;
+    if (pAsyncData->pAsyncOpDesc.pData)
+    {
+        FOG_FreeServerMemory(pAsyncData->pMemPool, pAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 215, 0);
+        pAsyncData->ptBuffer = pAsyncData->pAsyncOpDesc.pData;
+        pAsyncData->nFileSize = pAsyncData->pAsyncOpDesc.nFileSize;
+        memset(&pAsyncData->pAsyncOpDesc, 0, sizeof(pAsyncData->pAsyncOpDesc));
+    }
+}
+
 // 0x0040A550
 AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot()
 {
@@ -255,121 +285,6 @@ AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot()
         }
     }
     return 0;
-}
-
-// 0x0040A9E0
-void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsyncData)
-{
-    D2_ASSERT(pAsyncData, 607);
-    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 608);
-    if (!(pAsyncData->dwFlags & 1))
-    {
-        FOG_AsyncDataWaitAndGetBuffer(pAsyncData);
-    }
-    D2_ASSERT(pAsyncData->dwFlags & 1, 614);
-    return pAsyncData->ptBuffer;
-}
-
-// 0x0040AA40
-unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData)
-{
-    D2_ASSERT(pAsyncData, 625);
-    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 626);
-    return pAsyncData->nFileSize;
-}
-
-// 0x0040AB00
-void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
-{
-    D2_ASSERT(ptAsyncData, 656);
-    D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 657);
-    if (ptAsyncData->dwFlags & 8)
-    {
-        for (AsyncData** ppLink = &gpAsyncDataPostponed_0075AF90; ppLink; ppLink = &(*ppLink)->pNextPostponedPriorityChange)
-        {
-            if (*ppLink == ptAsyncData)
-            {
-                *ppLink = ptAsyncData->pNextPostponedPriorityChange;
-                break;
-            }
-        }
-    }
-    if (!FOG_AsyncDataTestLoaded(ptAsyncData))
-    {
-        sub_0041A930_CancelRead(ptAsyncData->ptBuffer);
-        WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, (unsigned long)-1);
-        ASYNCDATA_Finish(ptAsyncData);
-    }
-    if (ptAsyncData->dwFlags & 2)
-    {
-        D2_ASSERT(ptAsyncData->ptBuffer, 707);
-        FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 710, 0);
-        ptAsyncData->dwFlags &= 0xF;
-        ptAsyncData->ptBuffer = 0;
-    }
-    FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData, ".\\Src\\AsyncData.cpp", 717, 0);
-}
-
-// 0x0040A4C0
-void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData)
-{
-    if (pAsyncData->dwFlags & 1)
-    {
-        return;
-    }
-    AsyncDataEventSlot* pSlot = pAsyncData->pEventSlot;
-    if (pSlot)
-    {
-        ResetEvent(pSlot->hEvent);
-        pSlot->bSlotAvailable = 1;
-        pSlot->pAsyncOp = 0;
-        pAsyncData->pEventSlot = 0;
-    }
-    if (pAsyncData->hFile)
-    {
-        FOG_FCloseFile(pAsyncData->hFile);
-        pAsyncData->hFile = 0;
-    }
-    pAsyncData->dwFlags |= 1;
-    if (pAsyncData->pAsyncOpDesc.pData)
-    {
-        FOG_FreeServerMemory(pAsyncData->pMemPool, pAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 215, 0);
-        pAsyncData->ptBuffer = pAsyncData->pAsyncOpDesc.pData;
-        pAsyncData->nFileSize = pAsyncData->pAsyncOpDesc.nFileSize;
-        memset(&pAsyncData->pAsyncOpDesc, 0, sizeof(pAsyncData->pAsyncOpDesc));
-    }
-}
-
-// 0x0040A7F0
-int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData)
-{
-    if (!ptAsyncData)
-    {
-        return 0;
-    }
-    D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 452);
-    if (!(ptAsyncData->dwFlags & 1))
-    {
-        if (!WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, 0))
-        {
-            ASYNCDATA_Finish(ptAsyncData);
-        }
-    }
-    return ptAsyncData->dwFlags & 1;
-}
-
-// 0x0040A960
-void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData)
-{
-    D2_ASSERT(pAsyncData, 562);
-    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 563);
-
-    if (!FOG_AsyncDataTestLoaded(pAsyncData))
-    {
-        SFilePrioritizeRequest(pAsyncData->ptBuffer, 1);
-        D2_ASSERT(!WaitForSingleObject(pAsyncData->pEventSlot->hEvent, 0xFFFFFFFF), 584);
-        ASYNCDATA_Finish(pAsyncData);
-    }
 }
 
 // 0x0040A620
@@ -452,4 +367,89 @@ void __fastcall ASYNCDATA_ReplaceBuffer(AsyncData* ptAsyncData, int nUnused, voi
     FOG_FreePool(ptAsyncData->pMemPool, ptAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 644, 0);
     ptAsyncData->ptBuffer = pBuffer;
     ptAsyncData->nFileSize = nBufferSize;
+}
+
+// 0x0040A7F0
+int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData)
+{
+    if (!ptAsyncData)
+    {
+        return 0;
+    }
+    D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 452);
+    if (!(ptAsyncData->dwFlags & 1))
+    {
+        if (!WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, 0))
+        {
+            ASYNCDATA_Finish(ptAsyncData);
+        }
+    }
+    return ptAsyncData->dwFlags & 1;
+}
+
+// 0x0040A960
+void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData)
+{
+    D2_ASSERT(pAsyncData, 562);
+    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 563);
+
+    if (!FOG_AsyncDataTestLoaded(pAsyncData))
+    {
+        SFilePrioritizeRequest(pAsyncData->ptBuffer, 1);
+        D2_ASSERT(!WaitForSingleObject(pAsyncData->pEventSlot->hEvent, 0xFFFFFFFF), 584);
+        ASYNCDATA_Finish(pAsyncData);
+    }
+}
+
+// 0x0040A9E0
+void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsyncData)
+{
+    D2_ASSERT(pAsyncData, 607);
+    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 608);
+    if (!(pAsyncData->dwFlags & 1))
+    {
+        FOG_AsyncDataWaitAndGetBuffer(pAsyncData);
+    }
+    D2_ASSERT(pAsyncData->dwFlags & 1, 614);
+    return pAsyncData->ptBuffer;
+}
+
+// 0x0040AA40
+unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData)
+{
+    D2_ASSERT(pAsyncData, 625);
+    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 626);
+    return pAsyncData->nFileSize;
+}
+
+// 0x0040AB00
+void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
+{
+    D2_ASSERT(ptAsyncData, 656);
+    D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 657);
+    if (ptAsyncData->dwFlags & 8)
+    {
+        for (AsyncData** ppLink = &gpAsyncDataPostponed_0075AF90; ppLink; ppLink = &(*ppLink)->pNextPostponedPriorityChange)
+        {
+            if (*ppLink == ptAsyncData)
+            {
+                *ppLink = ptAsyncData->pNextPostponedPriorityChange;
+                break;
+            }
+        }
+    }
+    if (!FOG_AsyncDataTestLoaded(ptAsyncData))
+    {
+        sub_0041A930_CancelRead(ptAsyncData->ptBuffer);
+        WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, (unsigned long)-1);
+        ASYNCDATA_Finish(ptAsyncData);
+    }
+    if (ptAsyncData->dwFlags & 2)
+    {
+        D2_ASSERT(ptAsyncData->ptBuffer, 707);
+        FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 710, 0);
+        ptAsyncData->dwFlags &= 0xF;
+        ptAsyncData->ptBuffer = 0;
+    }
+    FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData, ".\\Src\\AsyncData.cpp", 717, 0);
 }

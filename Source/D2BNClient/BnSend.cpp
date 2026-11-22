@@ -977,6 +977,34 @@ int __cdecl sub_0051A9C0_RequestLogon()
     return 0;
 }
 
+// 0x0051F2D0
+int __fastcall sub_0051F2D0_PatchUnk(int* pResult)
+{
+    int nState;
+    sub_0051ED00_ApplyPatches(&nState);
+    switch (nState)
+    {
+    case 0:
+        return 1;
+    case 1:
+        return 1;
+    case 2:
+        *pResult = 1;
+        break;
+    }
+    return 0;
+}
+
+// 0x0051BD60
+void __fastcall sub_0051BD60_SetReply(const void* pData, unsigned int nSize)
+{
+    if (gpReply_008818CC)
+        FOG_Free(gpReply_008818CC, ".\\BnSend.cpp", 0x19A, 0);
+    gpReply_008818CC = 0;
+    gpReply_008818CC = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x16B, 0);
+    memcpy(gpReply_008818CC, pData, nSize);
+}
+
 // 0x0051AB30
 void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize)
 {
@@ -1158,6 +1186,16 @@ int __cdecl sub_0051B010_CheckAd()
     return 1;
 }
 
+// 0x0051BDC0
+void __fastcall sub_0051BDC0_SetReply(const void* pData, unsigned int nSize)
+{
+    if (gnChannelList_008818C8)
+        FOG_Free(gnChannelList_008818C8, ".\\BnSend.cpp", 0x1EF, 0);
+    gnChannelList_008818C8 = 0;
+    gnChannelList_008818C8 = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x1E6, 0);
+    memcpy(gnChannelList_008818C8, pData, nSize);
+}
+
 // 0x0051B060
 int __cdecl sub_0051B060_SendVersion()
 {
@@ -1203,6 +1241,8 @@ int __cdecl sub_0051B1B0_SendStopAdv()
     return 1;
 }
 
+int gnClientToken_008818C4; // 0x008818C4
+
 // 0x0051B1D0
 int __cdecl sub_0051B1D0_LeaveGame()
 {
@@ -1228,8 +1268,6 @@ void __cdecl sub_0051B210_FreeBuffer()
 
     gpReply_008818D0 = 0;
 }
-
-int gnClientToken_008818C4; // 0x008818C4
 
 // 0x0051B240
 void* __fastcall sub_0051B240_GetGamesList(const char* szGameName, const char* szGamePassword, int a3, int a4)
@@ -1290,6 +1328,109 @@ void __cdecl sub_0051B3B0_FreeSizedReply()
         FOG_Free(gpSizedReply_008818D4, ".\\BnSend.cpp", 0x3B2, 0);
     }
     gpSizedReply_008818D4 = 0;
+}
+
+int gdwGlobal_00881C04; // 0x00881C04
+
+// 0x0051BE20
+void __fastcall sub_0051BE20_SetReply(const void* pData, unsigned int nSize)
+{
+    if (gpReply_008818D0)
+        FOG_Free(gpReply_008818D0, ".\\BnSend.cpp", 0x36A, 0);
+    gpReply_008818D0 = 0;
+    gpReply_008818D0 = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x326, 0);
+    memcpy(gpReply_008818D0, pData, nSize);
+}
+
+// 0x0051BEA0
+long __cdecl sub_0051BEA0_GetConnected()
+{
+    return InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+}
+
+// 0x0051BED0
+void __fastcall sub_0051BED0_SetDnsPending(int bPending)
+{
+    gbDnsPending_008818E0 = bPending;
+    Sleep(10);
+}
+
+// 0x0051C190
+void __fastcall sub_0051C190(char* szText, int nSize)
+{
+    char szBuffer[0x100];
+    *szText = 0;
+    gBnGatewayAccess_00881838.Load();
+    SStrCopy(szText, gBnGatewayAccess_00881838.DNS(gBnGatewayAccess_00881838.m_nCurGateway), nSize);
+    if (SRegLoadString("Diablo II", "BNETIP", 0, szBuffer, 0x100))
+        SStrCopy(szText, szBuffer, nSize);
+}
+
+// 0x0051C350
+int __fastcall sub_0051C350_ChangePassword(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
+{
+    switch (sub_0051A570_GetMode())
+    {
+    case 0:
+        sub_00520C00_ClearReply(0x31);
+        sub_0051A7D0_ChangePasswordLegacy(szAccountName, szOldPassword, szNewPassword);
+        return 1;
+    case 1:
+        sub_00520C00_ClearReply(0x56);
+        return sub_005221F0_ChangePasswordProof(szAccountName, szOldPassword, szNewPassword);
+    }
+    return 0;
+}
+
+// 0x0051D1C0
+void* __cdecl sub_0051D1C0_OpenBNetConnection()
+{
+    unsigned long nThreadId;
+    sub_00518D40_Log("Connecting to Battle.net...");
+    if (InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0))
+    {
+        sub_0051A480_DebugLog("   already connected");
+        return 0;
+    }
+    if (!sub_0051C470_CloseBNetConnection())
+        return 0;
+    InterlockedExchange(&gnDnsDone_00881BFC, 0);
+    gbDnsPending_008818E0 = 0;
+    Sleep(10);
+    sub_005193E0_LoadCache();
+    sub_00520B30_ResetReplies();
+    sub_00521B50_ReseedLogin();
+    gdwGlobal_00881C04 = 0;
+    return CreateThread(0, 0, BattleConnectFastest, 0, 0, &nThreadId);
+}
+
+// 0x0051DBF0
+int __fastcall sub_0051DBF0_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned int nStamp, const char* szText), int (__cdecl* pfnRefresh)())
+{
+    gbNewsActive_00881C24 = 1;
+    gpfnNewsMessage_00881C28 = pfnMessage;
+    gpfnNewsRefresh_00881C2C = pfnRefresh;
+    if (gtNewsItems_00881C30.f_8)
+        SMemFree(gtNewsItems_00881C30.f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
+    gtNewsItems_00881C30.f_0 = 0;
+    gtNewsItems_00881C30.f_4 = 0;
+    gtNewsItems_00881C30.f_8 = 0;
+    gnNewsNewest_00881C44 = 0;
+    gnNewsFirstIndex_00881C40 = 0;
+    if (sub_0051DA30_LoadNews())
+        sub_0051D510_ReportNews();
+    unsigned int nStamp = gnNewsNewest_00881C44;
+    sub_0051C5C0_SendPacket(0x46, &nStamp, sizeof(nStamp));
+    return 1;
+}
+
+// 0x0051DC80
+void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
+{
+    Sha1 tContext;
+    tContext.Initialize();
+    tContext.Append(pData, nLength);
+    tContext.sub_00425F00_Final(pDigest);
 }
 
 // 0x0051B3E0
@@ -1365,8 +1506,6 @@ void __cdecl sub_0051B540_SendLocale()
     p += strlen(p) + 1;
     sub_0051C5C0_SendPacket(0x12, &tPacket, p - tPacket.szText + 0x20);
 }
-
-int gdwGlobal_00881C04; // 0x00881C04
 
 // 0x0051B6C0
 int __fastcall sub_0051B6C0_OnAdClick(int nAdId, int bFlag)
@@ -1502,6 +1641,8 @@ int __fastcall sub_0051BAA0_ResetPassword(const char* szAccountName, const char*
     return 0;
 }
 
+unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C7E0
+
 // 0x0051BB90
 int __fastcall sub_0051BB90_SendStrings(const char* first,const char* second,const char* third)
 {
@@ -1522,139 +1663,6 @@ int __fastcall sub_0051BB90_SendStrings(const char* first,const char* second,con
  D2_ASSERT(thirdSize<=256,1460);
  memcpy(*ppCursor,third,thirdSize);
  return sub_0051C5C0_SendPacket(0x5B,buffer,thirdSize+secondSize+firstSize)>=0;
-}
-
-// 0x0051BCF0
-int __cdecl sub_0051BCF0_SendBuffer()
-{
-    unsigned int nSize = 0x5DC;
-    char aBuffer[0x5DC];
-    if (!EXCEPTIONS_ReadCrashDump(aBuffer, &nSize))
-        return 0;
-    return sub_0051C5C0_SendPacket(0x5D, aBuffer, nSize) >= 0;
-}
-
-// 0x0051BD60
-void __fastcall sub_0051BD60_SetReply(const void* pData, unsigned int nSize)
-{
-    if (gpReply_008818CC)
-        FOG_Free(gpReply_008818CC, ".\\BnSend.cpp", 0x19A, 0);
-    gpReply_008818CC = 0;
-    gpReply_008818CC = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x16B, 0);
-    memcpy(gpReply_008818CC, pData, nSize);
-}
-
-// 0x0051BDC0
-void __fastcall sub_0051BDC0_SetReply(const void* pData, unsigned int nSize)
-{
-    if (gnChannelList_008818C8)
-        FOG_Free(gnChannelList_008818C8, ".\\BnSend.cpp", 0x1EF, 0);
-    gnChannelList_008818C8 = 0;
-    gnChannelList_008818C8 = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x1E6, 0);
-    memcpy(gnChannelList_008818C8, pData, nSize);
-}
-
-// 0x0051BE20
-void __fastcall sub_0051BE20_SetReply(const void* pData, unsigned int nSize)
-{
-    if (gpReply_008818D0)
-        FOG_Free(gpReply_008818D0, ".\\BnSend.cpp", 0x36A, 0);
-    gpReply_008818D0 = 0;
-    gpReply_008818D0 = FOG_Alloc(nSize, ".\\BnSend.cpp", 0x326, 0);
-    memcpy(gpReply_008818D0, pData, nSize);
-}
-
-// 0x0051BEA0
-long __cdecl sub_0051BEA0_GetConnected()
-{
-    return InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-}
-
-// 0x0051BED0
-void __fastcall sub_0051BED0_SetDnsPending(int bPending)
-{
-    gbDnsPending_008818E0 = bPending;
-    Sleep(10);
-}
-
-// 0x0051C190
-void __fastcall sub_0051C190(char* szText, int nSize)
-{
-    char szBuffer[0x100];
-    *szText = 0;
-    gBnGatewayAccess_00881838.Load();
-    SStrCopy(szText, gBnGatewayAccess_00881838.DNS(gBnGatewayAccess_00881838.m_nCurGateway), nSize);
-    if (SRegLoadString("Diablo II", "BNETIP", 0, szBuffer, 0x100))
-        SStrCopy(szText, szBuffer, nSize);
-}
-
-// 0x0051C350
-int __fastcall sub_0051C350_ChangePassword(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
-{
-    switch (sub_0051A570_GetMode())
-    {
-    case 0:
-        sub_00520C00_ClearReply(0x31);
-        sub_0051A7D0_ChangePasswordLegacy(szAccountName, szOldPassword, szNewPassword);
-        return 1;
-    case 1:
-        sub_00520C00_ClearReply(0x56);
-        return sub_005221F0_ChangePasswordProof(szAccountName, szOldPassword, szNewPassword);
-    }
-    return 0;
-}
-
-// 0x0051D1C0
-void* __cdecl sub_0051D1C0_OpenBNetConnection()
-{
-    unsigned long nThreadId;
-    sub_00518D40_Log("Connecting to Battle.net...");
-    if (InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0))
-    {
-        sub_0051A480_DebugLog("   already connected");
-        return 0;
-    }
-    if (!sub_0051C470_CloseBNetConnection())
-        return 0;
-    InterlockedExchange(&gnDnsDone_00881BFC, 0);
-    gbDnsPending_008818E0 = 0;
-    Sleep(10);
-    sub_005193E0_LoadCache();
-    sub_00520B30_ResetReplies();
-    sub_00521B50_ReseedLogin();
-    gdwGlobal_00881C04 = 0;
-    return CreateThread(0, 0, BattleConnectFastest, 0, 0, &nThreadId);
-}
-
-// 0x0051DBF0
-int __fastcall sub_0051DBF0_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned int nStamp, const char* szText), int (__cdecl* pfnRefresh)())
-{
-    gbNewsActive_00881C24 = 1;
-    gpfnNewsMessage_00881C28 = pfnMessage;
-    gpfnNewsRefresh_00881C2C = pfnRefresh;
-    if (gtNewsItems_00881C30.f_8)
-        SMemFree(gtNewsItems_00881C30.f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
-    gtNewsItems_00881C30.f_0 = 0;
-    gtNewsItems_00881C30.f_4 = 0;
-    gtNewsItems_00881C30.f_8 = 0;
-    gnNewsNewest_00881C44 = 0;
-    gnNewsFirstIndex_00881C40 = 0;
-    if (sub_0051DA30_LoadNews())
-        sub_0051D510_ReportNews();
-    unsigned int nStamp = gnNewsNewest_00881C44;
-    sub_0051C5C0_SendPacket(0x46, &nStamp, sizeof(nStamp));
-    return 1;
-}
-
-unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C7E0
-
-// 0x0051DC80
-void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
-{
-    Sha1 tContext;
-    tContext.Initialize();
-    tContext.Append(pData, nLength);
-    tContext.sub_00425F00_Final(pDigest);
 }
 
 static inline int CheckCDKeySlot(int nSlot, int* pProduct, int* pValue1, int* pValue2, char* pKeyBlock)
@@ -1688,22 +1696,14 @@ int __stdcall sub_0051E270_CheckCDKeys()
     return bResult;
 }
 
-// 0x0051F2D0
-int __fastcall sub_0051F2D0_PatchUnk(int* pResult)
+// 0x0051BCF0
+int __cdecl sub_0051BCF0_SendBuffer()
 {
-    int nState;
-    sub_0051ED00_ApplyPatches(&nState);
-    switch (nState)
-    {
-    case 0:
-        return 1;
-    case 1:
-        return 1;
-    case 2:
-        *pResult = 1;
-        break;
-    }
-    return 0;
+    unsigned int nSize = 0x5DC;
+    char aBuffer[0x5DC];
+    if (!EXCEPTIONS_ReadCrashDump(aBuffer, &nSize))
+        return 0;
+    return sub_0051C5C0_SendPacket(0x5D, aBuffer, nSize) >= 0;
 }
 
 static unsigned int GetUILanguageId()

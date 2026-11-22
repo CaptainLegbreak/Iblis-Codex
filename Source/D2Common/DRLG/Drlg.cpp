@@ -470,6 +470,51 @@ inline D2DrlgLevelStrc* DRLG_InlineGetLevel(D2DrlgStrc* pDrlg, int nLevelId)
     return DRLG_AllocLevel(pDrlg, nLevelId);
 }
 
+// 0x00642750
+int __stdcall DRLG_GetLevelTypeFromLevelId(int nLevelId)
+{
+    return DATATBLS_GetLevelDefRecord(nLevelId)->dwLevelType;
+}
+
+// 0x00642770
+int __fastcall DRLG_GetDrlgTypeFromLevelId(int nLevelId)
+{
+    return DATATBLS_GetLevelDefRecord(nLevelId)->dwDrlgType;
+}
+
+inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+// 0x00642780
+static inline D2DrlgLevelStrc* DRLG_WalkLevelList(D2DrlgStrc* pDrlg)
+{
+    D2DrlgLevelStrc* pLevel = pDrlg->pLevel;
+    while (pLevel)
+    {
+        pLevel = pLevel->pNextLevel;
+    }
+    return pLevel;
+}
+
+// 0x006427A0
+int __fastcall DRLG_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY)
+{
+    for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
+    {
+        if (DRLGROOM_AreXYInsideCoordinates(&pLevel->pLevelCoords, nX, nY))
+        {
+            return pLevel->eLevelId;
+        }
+    }
+
+    return 0;
+}
+
 // 0x00642230
 int __fastcall DRLG_GetHoradricStaffTombLevelId(D2DrlgStrc* pDrlg)
 {
@@ -507,14 +552,6 @@ int __fastcall DRLG_GetDirectionFromCoordinates(D2DrlgCoordStrc* pDrlgCoord1, D2
     }
 
     return -1;
-}
-
-inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return lSeed;
 }
 
 // 0x006422A0
@@ -745,43 +782,6 @@ int __fastcall DRLG_IsTownLevel(int nLevelId)
     }
 }
 
-// 0x00642750
-int __stdcall DRLG_GetLevelTypeFromLevelId(int nLevelId)
-{
-    return DATATBLS_GetLevelDefRecord(nLevelId)->dwLevelType;
-}
-
-// 0x00642770
-int __fastcall DRLG_GetDrlgTypeFromLevelId(int nLevelId)
-{
-    return DATATBLS_GetLevelDefRecord(nLevelId)->dwDrlgType;
-}
-
-// 0x00642780
-static inline D2DrlgLevelStrc* DRLG_WalkLevelList(D2DrlgStrc* pDrlg)
-{
-    D2DrlgLevelStrc* pLevel = pDrlg->pLevel;
-    while (pLevel)
-    {
-        pLevel = pLevel->pNextLevel;
-    }
-    return pLevel;
-}
-
-// 0x006427A0
-int __fastcall DRLG_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY)
-{
-    for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
-    {
-        if (DRLGROOM_AreXYInsideCoordinates(&pLevel->pLevelCoords, nX, nY))
-        {
-            return pLevel->eLevelId;
-        }
-    }
-
-    return 0;
-}
-
 // 0x006427F0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId)
 {
@@ -961,87 +961,6 @@ D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId)
 
 #pragma intrinsic(memset)
 
-// 0x00642BB0
-D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId)
-{
-    for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
-    {
-        if (pLevel->eLevelId == nLevelId)
-        {
-            return pLevel;
-        }
-    }
-
-    return DRLG_AllocLevel(pDrlg, nLevelId);
-}
-
-// 0x00642BE0
-int __fastcall DRLG_GetNumberOfPopulatedRoomsInLevel(D2DrlgStrc* pDrlg, int nLevelId)
-{
-    int nCounter = 0;
-    D2DrlgLevelStrc* pLevel = DRLG_InlineGetLevel(pDrlg, nLevelId);
-
-    for (D2DrlgRoomStrc* i = pLevel->ptRoomFirst; i; i = i->pDrlgRoomNext)
-    {
-        if (!(i->dwFlags & 0x800000))
-        {
-            ++nCounter;
-        }
-    }
-
-    return nCounter;
-}
-
-// 0x00642C30
-D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoomHint, D2DrlgLevelStrc* pLevel)
-{
-    if (pDrlgRoomHint)
-    {
-        if (DRLGROOM_AreXYInsideCoordinates(&pDrlgRoomHint->pDrlgCoord, nX, nY))
-        {
-            return pDrlgRoomHint;
-        }
-
-        for (int i = 0; i < pDrlgRoomHint->nRoomsNear; ++i)
-        {
-            D2DrlgRoomStrc* pNear = pDrlgRoomHint->ppRoomsNear[i];
-            if (pDrlgRoomHint != pNear && DRLGROOM_AreXYInsideCoordinates(&pNear->pDrlgCoord, nX, nY))
-            {
-                return pNear;
-            }
-        }
-    }
-
-    if (!pLevel)
-    {
-        pLevel = DRLG_InlineGetLevel(pDrlg, DRLG_GetLevelIdFromCoordinates(pDrlg, nX, nY));
-    }
-
-    if (!pLevel->ptRoomFirst)
-    {
-        DRLG_InitLevel(pLevel);
-    }
-
-    return DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
-}
-
-int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
-
-// 0x00642D10
-void __fastcall DRLG_SetLevelPositionAndSize(D2DrlgStrc* pDrlg,D2DrlgLevelStrc* pLevel)
-{
- D2LevelDefBin* def=DATATBLS_GetLevelDefRecord(pLevel->eLevelId);
- D2DrlgLevelStrc* depend=0;
- int x=0,y=0;
- const int width=def->dwSizeX[pDrlg->nDifficulty];
- const int dependencyId=def->dwDepend;
- pLevel->nWidth=width;
- pLevel->nHeight=def->dwSizeY[pDrlg->nDifficulty];
- if(dependencyId) { depend=DRLG_GetLevel(pDrlg,dependencyId);x=depend->nPosX;y=depend->nPosY; }
- pLevel->nPosX=x+def->dwOffsetX;
- pLevel->nPosY=y+def->dwOffsetY;
-}
-
 // 0x00642DA0
 D2DrlgStrc* __fastcall DRLG_AllocDrlg(D2DrlgActStrc* pAct, unsigned char nActNo, void* hArchive, unsigned int nInitSeed, int nTownLevelId, unsigned int nFlags, D2GameStrc* pGame, unsigned char nDifficulty, AUTOMAPFN pfAutoMap, TOWNAUTOMAPFN pfTownAutoMap)
 {
@@ -1102,6 +1021,20 @@ D2DrlgStrc* __fastcall DRLG_AllocDrlg(D2DrlgActStrc* pAct, unsigned char nActNo,
     return pDrlg;
 }
 
+// 0x00642BB0
+D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId)
+{
+    for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
+    {
+        if (pLevel->eLevelId == nLevelId)
+        {
+            return pLevel;
+        }
+    }
+
+    return DRLG_AllocLevel(pDrlg, nLevelId);
+}
+
 // 0x00642F70
 void __fastcall DRLG_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta)
 {
@@ -1122,6 +1055,8 @@ void __fastcall DRLG_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta)
         }
     }
 }
+
+int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
 
 // 0x00643020
 void __fastcall DRLG_UpdateLevelActivityOnRoomChange(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2)
@@ -1355,6 +1290,71 @@ void __fastcall DRLGOUTDESR_AddExits(D2DrlgLevelStrc* pLevel)
     }
 
     D2_ASSERT(nLevelPrestId && DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nLevelPrestId, -1, 0, 15), 0xAA);
+}
+
+// 0x00642BE0
+int __fastcall DRLG_GetNumberOfPopulatedRoomsInLevel(D2DrlgStrc* pDrlg, int nLevelId)
+{
+    int nCounter = 0;
+    D2DrlgLevelStrc* pLevel = DRLG_InlineGetLevel(pDrlg, nLevelId);
+
+    for (D2DrlgRoomStrc* i = pLevel->ptRoomFirst; i; i = i->pDrlgRoomNext)
+    {
+        if (!(i->dwFlags & 0x800000))
+        {
+            ++nCounter;
+        }
+    }
+
+    return nCounter;
+}
+
+// 0x00642C30
+D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoomHint, D2DrlgLevelStrc* pLevel)
+{
+    if (pDrlgRoomHint)
+    {
+        if (DRLGROOM_AreXYInsideCoordinates(&pDrlgRoomHint->pDrlgCoord, nX, nY))
+        {
+            return pDrlgRoomHint;
+        }
+
+        for (int i = 0; i < pDrlgRoomHint->nRoomsNear; ++i)
+        {
+            D2DrlgRoomStrc* pNear = pDrlgRoomHint->ppRoomsNear[i];
+            if (pDrlgRoomHint != pNear && DRLGROOM_AreXYInsideCoordinates(&pNear->pDrlgCoord, nX, nY))
+            {
+                return pNear;
+            }
+        }
+    }
+
+    if (!pLevel)
+    {
+        pLevel = DRLG_InlineGetLevel(pDrlg, DRLG_GetLevelIdFromCoordinates(pDrlg, nX, nY));
+    }
+
+    if (!pLevel->ptRoomFirst)
+    {
+        DRLG_InitLevel(pLevel);
+    }
+
+    return DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
+}
+
+// 0x00642D10
+void __fastcall DRLG_SetLevelPositionAndSize(D2DrlgStrc* pDrlg,D2DrlgLevelStrc* pLevel)
+{
+ D2LevelDefBin* def=DATATBLS_GetLevelDefRecord(pLevel->eLevelId);
+ D2DrlgLevelStrc* depend=0;
+ int x=0,y=0;
+ const int width=def->dwSizeX[pDrlg->nDifficulty];
+ const int dependencyId=def->dwDepend;
+ pLevel->nWidth=width;
+ pLevel->nHeight=def->dwSizeY[pDrlg->nDifficulty];
+ if(dependencyId) { depend=DRLG_GetLevel(pDrlg,dependencyId);x=depend->nPosX;y=depend->nPosY; }
+ pLevel->nPosX=x+def->dwOffsetX;
+ pLevel->nPosY=y+def->dwOffsetY;
 }
 
 #include "gen/data/Source/D2Common/DRLG/Drlg.inc"

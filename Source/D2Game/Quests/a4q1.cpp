@@ -487,60 +487,38 @@ inline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
 
 D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
 
-// 0x005B24E0
-int __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags)
+// 0x005B3090
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags)
 {
-    if (!pOwner)
-        return 0;
-
-    int nResult = 0;
-    const int nOwnerId = pOwner->dwUnitId;
-    for (int i = 0; i < nCount; ++i)
-    {
-        D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtUnit(pGame, pOwner, nMonsterId, nAnimMode, a5, nFlags);
-        if (pMinion)
-        {
-            nResult = 1;
-            AIGENERAL_SetOwnerData(pGame, pMinion, nOwnerId, 1, 0, 0);
-            AIGENERAL_AllocMinionList(pGame, pOwner, pMinion);
-        }
-    }
-    return nResult;
+    D2UnkMonCreateStrc monCreate;
+    monCreate.nUnitGUID = 0;
+    monCreate.nMonsterId = nMonsterId;
+    monCreate.nAnimMode = nAnimMode;
+    monCreate.pGame = pGame;
+    monCreate.pRoom = pRoom;
+    monCreate.pRoomCoordList = 0;
+    monCreate.nMaxSearchRings = -1;
+    monCreate.nFlags = nFlags;
+    monCreate.nX = nX;
+    monCreate.nY = nY;
+    return D2GAME_SpawnNormalMonster(&monCreate);
 }
 
-// 0x005B2700
-int __stdcall MONSTERSPAWN_FindFloorPosition(D2ActiveRoomStrc* room,int* outX,int* outY)
+// 0x005B30E0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags)
 {
-    int count;
-    D2DrlgTileDataStrc* tiles=sub_00619660_GetFloorTiles(room,&count);
-    if (!tiles) return 0;
-    if (!count) return 0;
-    unsigned start=ITEMS_RollLimitedRandomNumber(room?&room->pSeed:0,count);
-    if (!start) start=1;
-    D2DrlgCoordsStrc bounds;
-    DUNGEON_GetRoomCoordinates(room,&bounds);
-    unsigned index=start;
-    unsigned stop=start-1;
-    while (index!=stop) {
-        D2DrlgTileDataStrc* tile=&tiles[index];
-        if (tile->pTile && (sub_00604BC0_GetTileFlags(tile->pTile)&2)) {
-            int x=5*(tile->nPosX+bounds.nTileXPos)+CENTER;
-            int y=5*(tile->nPosY+bounds.nTileYPos)+CENTER;
-            if (!sub_0064CB30_CheckMask(room,x,y,MASK_A)) {
-                D2CoordStrc* offset=OFFSET_BASE;
-                do {
-                    if (!COLLISION_CheckMaskWithSize(room,x+offset->nX,y+offset->nY,2,MASK_B)) {
-                        *outX=x;
-                        *outY=y;
-                        return 1;
-                    }
-                    ++offset;
-                } while ((int)offset < (int)(OFFSET_BASE+4));
-            }
-        }
-        index=(index+1)%(unsigned)count;
-    }
-    return 0;
+    D2UnkMonCreateStrc monCreate;
+    monCreate.nUnitGUID = nUnitGUID;
+    monCreate.nMonsterId = nMonsterId;
+    monCreate.nAnimMode = nAnimMode;
+    monCreate.pRoom = pRoom;
+    monCreate.nMaxSearchRings = a8;
+    monCreate.pGame = pGame;
+    monCreate.pRoomCoordList = 0;
+    monCreate.nFlags = nFlags;
+    monCreate.nX = nX;
+    monCreate.nY = nY;
+    return D2GAME_SpawnNormalMonster(&monCreate);
 }
 
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId)
@@ -550,71 +528,21 @@ static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId
     return 0;
 }
 
-// 0x005B2830
-static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit)
+// 0x005B3040
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags)
 {
-    const int nMonsterId = pMonCreate->nMonsterId;
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nMonsterId);
-    if (!pMonStatsTxtRecord)
-    {
-        return;
-    }
-
-    int nChainId;
-    DATATBLS_GetMonsterChainInfo(nMonsterId, 0, &nChainId);
-
-    D2GameStrc* pGame = pMonCreate->pGame;
-    const unsigned short nFlags = pMonCreate->nFlags;
-    const short nMinion = pMonStatsTxtRecord->wMinion[0];
-    if (nMinion < 0)
-    {
-        return;
-    }
-    const int nCount = *(volatile int*)&sgptDataTables->nMonStatsTxtRecordCount; // volatile only fixes where the original reads the count
-    if (nMinion >= nCount)
-    {
-        return;
-    }
-
-    const int nBaseId = PLAYER_GetBaseIdFromMonsterId(nMonsterId);
-    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != MONSTER_TENTACLEHEAD1)
-    {
-        if (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS])
-        {
-            AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
-        }
-
-        int nMinionIndex = 0;
-        int nThreshold = 0;
-        if (pMonStatsTxtRecord->wMinion[1] >= 0 && pMonStatsTxtRecord->wMinion[1] < sgptDataTables->nMonStatsTxtRecordCount)
-        {
-            nThreshold = 1;
-        }
-
-        const int nMinions = sub_004CC790_RollRange(&pUnit->pSeed, pMonStatsTxtRecord->nPartyMin, pMonStatsTxtRecord->nPartyMax);
-        for (int i = 0; i < nMinions; ++i)
-        {
-            D2UnitStrc* pMonster = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, pMonStatsTxtRecord->wMinion[nMinionIndex], 1, 4, 0x40);
-            if (pMonster && (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS]))
-            {
-                AIGENERAL_SetOwnerData(pGame, pMonster, sub_00451F50_GetUnitGUID(pUnit), 1, 0, 0);
-                AIGENERAL_AllocMinionList(pGame, pUnit, pMonster);
-            }
-
-            ++nMinionIndex;
-            if (nMinionIndex > nThreshold)
-            {
-                nMinionIndex = 0;
-            }
-        }
-    }
-    else
-    {
-        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
-        const int nMinions = sub_004CC790_RollRange(&pUnit->pSeed, pMonStatsTxtRecord->nPartyMin, pMonStatsTxtRecord->nPartyMax);
-        const unsigned int bNonWaterSpawn = ~((unsigned int)nFlags >> 2) & 1;
-        sub_005B2570_SpawnMinionsAround(pGame, pUnit, pMonStatsTxtRecord->wMinion[0], 1, nMinions, bNonWaterSpawn, 0x40);
-    }
+    D2UnkMonCreateStrc monCreate;
+    monCreate.nUnitGUID = 0;
+    monCreate.nMonsterId = nMonsterId;
+    monCreate.nAnimMode = nAnimMode;
+    monCreate.pRoom = pRoom;
+    monCreate.nMaxSearchRings = a8;
+    monCreate.pGame = pGame;
+    monCreate.pRoomCoordList = pCoordList;
+    monCreate.nFlags = nFlags;
+    monCreate.nX = nX;
+    monCreate.nY = nY;
+    return D2GAME_SpawnNormalMonster(&monCreate);
 }
 
 // build: context MONSTERREGION_SanitizeMonsterId_Inline
@@ -906,6 +834,157 @@ static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)SEED_RollRandomNumber(pSeed);
 }
 
+// 0x005B3130
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithOwnerData(D2GameStrc* pGame, void* pRoom, int a1, int a2, int a3, int a4, int a5, int a6, unsigned short a7)
+{
+    D2UnkMonCreateStrc tRequest;
+    tRequest.nUnitGUID = 0;
+    tRequest.nMonsterId = a3;
+    tRequest.nAnimMode = a4;
+    tRequest.pGame = pGame;
+    tRequest.pRoom = (D2ActiveRoomStrc*)pRoom;
+    tRequest.pRoomCoordList = 0;
+    tRequest.nMaxSearchRings = a5;
+    tRequest.nFlags = a7;
+    tRequest.nX = a1;
+    tRequest.nY = a2;
+    D2UnitStrc* pUnit = D2GAME_SpawnNormalMonster(&tRequest);
+    if (pUnit)
+    {
+        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, a6);
+    }
+    return pUnit;
+}
+
+struct D2BitBufferStrc;
+
+struct D2QuestDataStrc;
+
+struct D2UnitStrc;
+
+// 0x005B24E0
+int __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags)
+{
+    if (!pOwner)
+        return 0;
+
+    int nResult = 0;
+    const int nOwnerId = pOwner->dwUnitId;
+    for (int i = 0; i < nCount; ++i)
+    {
+        D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtUnit(pGame, pOwner, nMonsterId, nAnimMode, a5, nFlags);
+        if (pMinion)
+        {
+            nResult = 1;
+            AIGENERAL_SetOwnerData(pGame, pMinion, nOwnerId, 1, 0, 0);
+            AIGENERAL_AllocMinionList(pGame, pOwner, pMinion);
+        }
+    }
+    return nResult;
+}
+
+// 0x005B2700
+int __stdcall MONSTERSPAWN_FindFloorPosition(D2ActiveRoomStrc* room,int* outX,int* outY)
+{
+    int count;
+    D2DrlgTileDataStrc* tiles=sub_00619660_GetFloorTiles(room,&count);
+    if (!tiles) return 0;
+    if (!count) return 0;
+    unsigned start=ITEMS_RollLimitedRandomNumber(room?&room->pSeed:0,count);
+    if (!start) start=1;
+    D2DrlgCoordsStrc bounds;
+    DUNGEON_GetRoomCoordinates(room,&bounds);
+    unsigned index=start;
+    unsigned stop=start-1;
+    while (index!=stop) {
+        D2DrlgTileDataStrc* tile=&tiles[index];
+        if (tile->pTile && (sub_00604BC0_GetTileFlags(tile->pTile)&2)) {
+            int x=5*(tile->nPosX+bounds.nTileXPos)+CENTER;
+            int y=5*(tile->nPosY+bounds.nTileYPos)+CENTER;
+            if (!sub_0064CB30_CheckMask(room,x,y,MASK_A)) {
+                D2CoordStrc* offset=OFFSET_BASE;
+                do {
+                    if (!COLLISION_CheckMaskWithSize(room,x+offset->nX,y+offset->nY,2,MASK_B)) {
+                        *outX=x;
+                        *outY=y;
+                        return 1;
+                    }
+                    ++offset;
+                } while ((int)offset < (int)(OFFSET_BASE+4));
+            }
+        }
+        index=(index+1)%(unsigned)count;
+    }
+    return 0;
+}
+
+// 0x005B2830
+static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit)
+{
+    const int nMonsterId = pMonCreate->nMonsterId;
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nMonsterId);
+    if (!pMonStatsTxtRecord)
+    {
+        return;
+    }
+
+    int nChainId;
+    DATATBLS_GetMonsterChainInfo(nMonsterId, 0, &nChainId);
+
+    D2GameStrc* pGame = pMonCreate->pGame;
+    const unsigned short nFlags = pMonCreate->nFlags;
+    const short nMinion = pMonStatsTxtRecord->wMinion[0];
+    if (nMinion < 0)
+    {
+        return;
+    }
+    const int nCount = *(volatile int*)&sgptDataTables->nMonStatsTxtRecordCount; // volatile only fixes where the original reads the count
+    if (nMinion >= nCount)
+    {
+        return;
+    }
+
+    const int nBaseId = PLAYER_GetBaseIdFromMonsterId(nMonsterId);
+    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != MONSTER_TENTACLEHEAD1)
+    {
+        if (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS])
+        {
+            AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
+        }
+
+        int nMinionIndex = 0;
+        int nThreshold = 0;
+        if (pMonStatsTxtRecord->wMinion[1] >= 0 && pMonStatsTxtRecord->wMinion[1] < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            nThreshold = 1;
+        }
+
+        const int nMinions = sub_004CC790_RollRange(&pUnit->pSeed, pMonStatsTxtRecord->nPartyMin, pMonStatsTxtRecord->nPartyMax);
+        for (int i = 0; i < nMinions; ++i)
+        {
+            D2UnitStrc* pMonster = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, pMonStatsTxtRecord->wMinion[nMinionIndex], 1, 4, 0x40);
+            if (pMonster && (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS]))
+            {
+                AIGENERAL_SetOwnerData(pGame, pMonster, sub_00451F50_GetUnitGUID(pUnit), 1, 0, 0);
+                AIGENERAL_AllocMinionList(pGame, pUnit, pMonster);
+            }
+
+            ++nMinionIndex;
+            if (nMinionIndex > nThreshold)
+            {
+                nMinionIndex = 0;
+            }
+        }
+    }
+    else
+    {
+        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
+        const int nMinions = sub_004CC790_RollRange(&pUnit->pSeed, pMonStatsTxtRecord->nPartyMin, pMonStatsTxtRecord->nPartyMax);
+        const unsigned int bNonWaterSpawn = ~((unsigned int)nFlags >> 2) & 1;
+        sub_005B2570_SpawnMinionsAround(pGame, pUnit, pMonStatsTxtRecord->wMinion[0], 1, nMinions, bNonWaterSpawn, 0x40);
+    }
+}
+
 // 0x005B2A00
 D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc* pCreate)
 {
@@ -1030,85 +1109,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc* pCreate)
     }
     return pMonster;
     }
-}
-
-struct D2BitBufferStrc;
-
-struct D2QuestDataStrc;
-
-struct D2UnitStrc;
-
-// 0x005B3040
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags)
-{
-    D2UnkMonCreateStrc monCreate;
-    monCreate.nUnitGUID = 0;
-    monCreate.nMonsterId = nMonsterId;
-    monCreate.nAnimMode = nAnimMode;
-    monCreate.pRoom = pRoom;
-    monCreate.nMaxSearchRings = a8;
-    monCreate.pGame = pGame;
-    monCreate.pRoomCoordList = pCoordList;
-    monCreate.nFlags = nFlags;
-    monCreate.nX = nX;
-    monCreate.nY = nY;
-    return D2GAME_SpawnNormalMonster(&monCreate);
-}
-
-// 0x005B3090
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags)
-{
-    D2UnkMonCreateStrc monCreate;
-    monCreate.nUnitGUID = 0;
-    monCreate.nMonsterId = nMonsterId;
-    monCreate.nAnimMode = nAnimMode;
-    monCreate.pGame = pGame;
-    monCreate.pRoom = pRoom;
-    monCreate.pRoomCoordList = 0;
-    monCreate.nMaxSearchRings = -1;
-    monCreate.nFlags = nFlags;
-    monCreate.nX = nX;
-    monCreate.nY = nY;
-    return D2GAME_SpawnNormalMonster(&monCreate);
-}
-
-// 0x005B30E0
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags)
-{
-    D2UnkMonCreateStrc monCreate;
-    monCreate.nUnitGUID = nUnitGUID;
-    monCreate.nMonsterId = nMonsterId;
-    monCreate.nAnimMode = nAnimMode;
-    monCreate.pRoom = pRoom;
-    monCreate.nMaxSearchRings = a8;
-    monCreate.pGame = pGame;
-    monCreate.pRoomCoordList = 0;
-    monCreate.nFlags = nFlags;
-    monCreate.nX = nX;
-    monCreate.nY = nY;
-    return D2GAME_SpawnNormalMonster(&monCreate);
-}
-
-// 0x005B3130
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithOwnerData(D2GameStrc* pGame, void* pRoom, int a1, int a2, int a3, int a4, int a5, int a6, unsigned short a7)
-{
-    D2UnkMonCreateStrc tRequest;
-    tRequest.nUnitGUID = 0;
-    tRequest.nMonsterId = a3;
-    tRequest.nAnimMode = a4;
-    tRequest.pGame = pGame;
-    tRequest.pRoom = (D2ActiveRoomStrc*)pRoom;
-    tRequest.pRoomCoordList = 0;
-    tRequest.nMaxSearchRings = a5;
-    tRequest.nFlags = a7;
-    tRequest.nX = a1;
-    tRequest.nY = a2;
-    D2UnitStrc* pUnit = D2GAME_SpawnNormalMonster(&tRequest);
-    if (pUnit)
-    {
-        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, a6);
-    }
-    return pUnit;
 }
 
 // 0x005B31B0

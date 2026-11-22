@@ -1272,21 +1272,19 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
     return 0;
 }
 
-// 0x00648460
-void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath)
+// 0x00649180
+int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit)
 {
-    sub_0040B480(pMemPool, pDynamicPath, ".\\PATH\\Path.cpp", 985, 0);
+    return pUnit->pDynamicPath->dwCollisionPattern;
 }
 
-// 0x00648480
-static int PATH_GetMonsterMoveTestMask(D2UnitStrc* pUnit)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = pUnit ? DATATBLS_GetMonStatsTxtRecordInl(pUnit->dwClassId) : 0;
-    if (BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, MONSTATSFLAGINDEX_FLYING))
-    {
-        return COLLIDE_MASK_FLYING_UNIT;
+// 0x00648750
+extern "C" __declspec(dllexport) void __stdcall PATH_SetPathingFlag(Obj00648750* pObj, int bSet) {
+    if (bSet) {
+        pObj->dwFlags34 |= 0x20;
+    } else {
+        pObj->dwFlags34 &= ~0x20;
     }
-    return BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, MONSTATSFLAGINDEX_OPENDOORS) ? COLLIDE_MASK_MONSTER_THAT_CAN_OPEN_DOORS : COLLIDE_MASK_MONSTER_PATH;
 }
 
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -1307,6 +1305,23 @@ inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
     }
 
     return 0;
+}
+
+// 0x00648460
+void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath)
+{
+    sub_0040B480(pMemPool, pDynamicPath, ".\\PATH\\Path.cpp", 985, 0);
+}
+
+// 0x00648480
+static int PATH_GetMonsterMoveTestMask(D2UnitStrc* pUnit)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = pUnit ? DATATBLS_GetMonStatsTxtRecordInl(pUnit->dwClassId) : 0;
+    if (BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, MONSTATSFLAGINDEX_FLYING))
+    {
+        return COLLIDE_MASK_FLYING_UNIT;
+    }
+    return BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, MONSTATSFLAGINDEX_OPENDOORS) ? COLLIDE_MASK_MONSTER_THAT_CAN_OPEN_DOORS : COLLIDE_MASK_MONSTER_PATH;
 }
 
 // 0x00648580
@@ -1333,6 +1348,12 @@ int __stdcall D2Common_11281_CollisionPatternFromSize(D2UnitStrc* pUnit, int nSi
     }
 
     return nCollisionPattern;
+}
+
+// 0x00649190
+extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collisionPattern)
+{
+    unit->path->collisionPattern = collisionPattern;
 }
 
 // 0x006485F0
@@ -1383,6 +1404,44 @@ extern "C" __declspec(dllexport) void __stdcall PATH_SetVelocity(Obj00648690* pO
     }
 }
 
+extern "C" ActiveRoom* __fastcall DRLGACTIVATE_GetARoomInClientSight(DrlgView* drlg)
+{
+    T00648730* room = drlg->statusRooms[0].statusNext;
+    if (room == &drlg->statusRooms[0] || !room)
+    {
+        room = drlg->statusRooms[1].statusNext;
+        if (room == &drlg->statusRooms[1] || !room)
+            return 0;
+    }
+    return room->activeRoom;
+}
+
+// 0x00649F50
+void __stdcall D2Common_10228(D2UnitStrc* pUnit)
+{
+    if (pUnit->pDynamicPath)
+    {
+        PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
+    }
+}
+
+// 0x0064A0E0
+void __stdcall PATH_AddCollisionFootprintForOptionalUnit(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        PATH_AddCollisionFootprintForUnit(pUnit);
+    }
+}
+
+// 0x0064A730
+extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
+{
+    if (unit && unit->type == 3 && unit->data)
+        return unit->data->targetStatus;
+    return 0;
+}
+
 // 0x006486C0
 int __stdcall PATH_GetVelocity(D2DynamicPathStrc* pDynamicPath)
 {
@@ -1400,32 +1459,11 @@ extern "C" void __stdcall PATH_SetAcceleration(View_00648700* path, int value)
     path->acceleration = value;
 }
 
-extern "C" ActiveRoom* __fastcall DRLGACTIVATE_GetARoomInClientSight(DrlgView* drlg)
-{
-    T00648730* room = drlg->statusRooms[0].statusNext;
-    if (room == &drlg->statusRooms[0] || !room)
-    {
-        room = drlg->statusRooms[1].statusNext;
-        if (room == &drlg->statusRooms[1] || !room)
-            return 0;
-    }
-    return room->activeRoom;
-}
-
 // 0x00648730
 extern "C" void __stdcall PATH_ClearPathingFlagAndPoints(PathView* path)
 {
     path->flags &= 0xffffffdf;
     path->pointCount = 0x0;
-}
-
-// 0x00648750
-extern "C" __declspec(dllexport) void __stdcall PATH_SetPathingFlag(Obj00648750* pObj, int bSet) {
-    if (bSet) {
-        pObj->dwFlags34 |= 0x20;
-    } else {
-        pObj->dwFlags34 &= ~0x20;
-    }
 }
 
 // 0x00648780
@@ -1595,6 +1633,11 @@ extern "C" __declspec(dllexport) unsigned int __stdcall PATH_GetFinalTargetX(Obj
     return pObj->wValue18;
 }
 
+extern "C" int __stdcall sub_006489C0_clientX(View_006489C0* path)
+{
+    return path->clientX;
+}
+
 // 0x00648A30
 extern "C" __declspec(dllexport) unsigned int __stdcall PATH_GetFinalTargetY(Obj00648A30* pObj) {
     return pObj->wValue1A;
@@ -1629,9 +1672,218 @@ void __stdcall PATH_SetRoom(D2DynamicPathStrc* pDynamicPath, D2ActiveRoomStrc* p
     pDynamicPath->pRoom = pRoom;
 }
 
-extern "C" int __stdcall sub_006489C0_clientX(View_006489C0* path)
+extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
 {
-    return path->clientX;
+    if (reset)
+        room->flags &= ~0x400000U;
+    else
+        room->flags |= 0x400000U;
+}
+
+// 0x006497D0
+static unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
+{
+    D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
+    D2UnitStrc* hTarget = pPath->hTarget;
+
+    D2_ASSERT(UnitIsDoor(hTarget), LINE_DOOR);
+
+    if (UNITS_CheckIfObjectOrientationIs1(hTarget))
+    {
+        if (pPath->tGameCoords.wPosY < PATH_InlineGetUnitY(hTarget))
+        {
+            pPath->tTargetCoord.Y -= 2;
+        }
+        else
+        {
+            pPath->tTargetCoord.Y += 2;
+        }
+    }
+    else
+    {
+        if (pPath->tGameCoords.wPosX < PATH_InlineGetUnitX(hTarget))
+        {
+            pPath->tTargetCoord.X -= 2;
+        }
+        else
+        {
+            pPath->tTargetCoord.X += 2;
+        }
+    }
+
+    return 2;
+}
+
+// 0x00649970
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown)
+{
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    D2_ASSERT(pPath->pUnit == pUnit, LINE_PATH_UNIT);
+
+    if (pPath->dwFlags & PATH_MISSILE_MASK)
+    {
+        return PATH_MissileToTarget(pPath, pUnit);
+    }
+
+    pPath->nCollidedWithMask = 0;
+    D2UnitStrc* pTargetUnit = pPath->hTarget;
+    if (pTargetUnit && (!CLIENTS_GetUnitX(pTargetUnit) || !CLIENTS_GetUnitY(pTargetUnit)))
+    {
+        return 0;
+    }
+
+    D2PathInfoStrc tPathInfo;
+    D2PathPointStrc tStart;
+    tStart.X = pPath->tGameCoords.wPosX;
+    tStart.Y = pPath->tGameCoords.wPosY;
+    tPathInfo.tStartCoord = tStart;
+    if (tStart.X != 0 || tStart.Y != 0)
+    {
+        tPathInfo.nUnitSize = pPath->dwUnitSize;
+        tPathInfo.nCollisionPattern = pPath->dwCollisionPattern;
+        tPathInfo.pDynamicPath = pPath;
+        tPathInfo.nCollisionMask = pPath->nMoveTestCollisionMask;
+        tPathInfo.nDistMax = pPath->bDistMax;
+        tPathInfo.nMinimumFScoreToEvaluate = pPath->nIDAStarInitFScore;
+        tPathInfo.field_14 = PATH_UpdateTargetUnit(&tPathInfo);
+
+        if (pPath->tTargetCoord.X != 0 || pPath->tTargetCoord.Y != 0)
+        {
+            tPathInfo.tTargetCoord = pPath->tTargetCoord;
+            if (tPathInfo.tStartCoord.X != tPathInfo.tTargetCoord.X || tPathInfo.tStartCoord.Y != tPathInfo.tTargetCoord.Y)
+            {
+                const int nDeltaX = tPathInfo.tTargetCoord.X - tPathInfo.tStartCoord.X;
+                const int nDeltaY = tPathInfo.tTargetCoord.Y - tPathInfo.tStartCoord.Y;
+                if (nDeltaX <= PATH_MAX_DISTANCE && -nDeltaX <= PATH_MAX_DISTANCE && nDeltaY <= PATH_MAX_DISTANCE && -nDeltaY <= PATH_MAX_DISTANCE)
+                {
+                    tPathInfo.pStartRoom = pPath->pRoom;
+                    tPathInfo.pTargetRoom = sub_00463740_FindRoomAtPoint(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y);
+                    if (tPathInfo.pStartRoom && tPathInfo.pTargetRoom && (PATH_IsTargetDestinationAllowed(&tPathInfo, pUnit) || bAllowInTown))
+                    {
+                        tPathInfo.nPathType = pPath->eType;
+
+                        D2UnitStrc* pPathTargetUnit = pPath->hTarget;
+                        BOOL bRemovedTargetUnitFootprint = FALSE;
+                        PATH_RemoveCollisionFootprintForUnit(pUnit, FALSE);
+                        if (pPathTargetUnit && UNITS_GetUnitSizeX(pPathTargetUnit) && (pPath->dwFlags & PATH_UNKNOWN_FLAG_0x00800))
+                        {
+                            bRemovedTargetUnitFootprint = PATH_RemoveCollisionFootprintForUnit(pPathTargetUnit, FALSE);
+                        }
+
+                        BOOL bUpdatePath = PATH_TRUE;
+                        if ((pPath->dwFlags & PATH_UNKNOWN_FLAG_0x01000)
+                            && COLLISION_CheckAnyCollisionWithPattern(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y, pPath->dwCollisionPattern, pPath->nMoveTestCollisionMask))
+                        {
+                            bUpdatePath = PATH_PreparePathTargetForPathUpdate(&tPathInfo);
+                        }
+
+                        pPath->tFinalTargetCoord.X = tPathInfo.tTargetCoord.X;
+                        // volatile: the original keeps these stores, the repeated one included, in this order
+                        *(volatile int*)&pPath->dwCurrentPointIdx = 0;
+                        pPath->tFinalTargetCoord.Y = tPathInfo.tTargetCoord.Y;
+                        pPath->dwPathPoints = 0;
+                        pPath->dwCurrentPointIdx = 0;
+
+                        int nPathPoints = 0;
+                        if (bUpdatePath)
+                        {
+                            D2_ASSERT(!IsBadCodePtr((void*)scpfnPathFunction_006EB6D8[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
+                            nPathPoints = scpfnPathFunction_006EB6D8[tPathInfo.nPathType](&tPathInfo);
+                        }
+                        pPath->dwPathPoints = nPathPoints;
+
+                        D2_ASSERT(tPathInfo.tStartCoord.X == tStart.X && tPathInfo.tStartCoord.Y == tStart.Y, LINE_START_COORD);
+
+                        if (bRemovedTargetUnitFootprint)
+                        {
+                            PATH_AddCollisionFootprintForUnit(pPath->hTarget);
+                        }
+                        PATH_AddCollisionFootprintForUnit(pUnit);
+
+                        if (!pPath->dwPathPoints)
+                        {
+                            pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
+                            return 0;
+                        }
+
+                        PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_TRUE, PATH_TRUE);
+                        if (pPath->dwCurrentPointIdx < pPath->dwPathPoints)
+                        {
+                            sub_6FDA8220(pPath);
+                            D2PathPointStrc tPrev;
+                            tPrev.X = pPath->tTargetCoord.X;
+                            pPath->tPrevTargetCoord.Y = pPath->tTargetCoord.Y;
+                            const unsigned int nFlags = pPath->dwFlags;
+                            *(volatile unsigned int*)&pPath->unk0x38 = 0;
+                            *(volatile unsigned short*)&pPath->tPrevTargetCoord.X = tPrev.X;
+                            if (!(nFlags & PATH_UNKNOWN_FLAG_0x00010) && !pPath->hTarget)
+                            {
+                                pPath->tTargetCoord.X = pPath->PathPoints[pPath->dwPathPoints - 1].X;
+                                pPath->tTargetCoord.Y = pPath->PathPoints[pPath->dwPathPoints - 1].Y;
+                            }
+
+                            if (pPath->dwPathPoints)
+                            {
+                                pPath->dwFlags = nFlags | PATH_UNKNOWN_FLAG_0x00020;
+                            }
+                            else
+                            {
+                                pPath->dwFlags = nFlags & ~PATH_UNKNOWN_FLAG_0x00020;
+                            }
+                            return pPath->dwPathPoints;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    pPath->dwCurrentPointIdx = 0;
+    pPath->dwPathPoints = 0;
+    pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
+    return 0;
+}
+
+// 0x00649CA0
+void __stdcall D2Common_10214(D2UnitStrc* pUnit)
+{
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (pDynamicPath)
+    {
+        if (UNITS_GetRoom(pUnit))
+        {
+            PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
+            pUnit->pDynamicPath->dwCollisionPattern = D2Common_11281_CollisionPatternFromSize(pUnit, pDynamicPath->dwUnitSize);
+            PATH_AddCollisionFootprintForUnit(pUnit);
+        }
+        else
+        {
+            pUnit->pDynamicPath->dwCollisionPattern = D2Common_11281_CollisionPatternFromSize(pUnit, pDynamicPath->dwUnitSize);
+        }
+    }
+}
+
+// 0x00649F70
+void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, BOOL bForGameLogic)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    if (bForGameLogic || pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        D2Common_10228(pUnit);
+        COLLISION_SetMaskWithSizeXY(pPath->pRoom, pPath->wPosX, pPath->wPosY, PATH_CORPSE_SIZE, PATH_CORPSE_SIZE, COLLIDE_CORPSE);
+    }
+    else
+    {
+        PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
+        pUnit->pDynamicPath->dwCollisionPattern = COLLISION_PATTERN_SMALL_NO_PRESENCE;
+        PATH_SetFootprintCollisionMask(pPath, COLLIDE_CORPSE);
+        PATH_AddCollisionFootprintForUnit(pUnit);
+    }
+    PATH_RecacheRoomIfNeeded(pPath);
 }
 
 // 0x00648AA0
@@ -1668,14 +1920,6 @@ void __stdcall PATH_SetTargetCoordFromClient(D2DynamicPathStrc* pDynamicPath, in
 int __stdcall PATH_IsCurrentRoomInvalid(D2DynamicPathStrc* pDynamicPath)
 {
     return pDynamicPath->dwFlags & PATH_CURRENT_ROOM_INVALID;
-}
-
-extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
-{
-    if (reset)
-        room->flags &= ~0x400000U;
-    else
-        room->flags |= 0x400000U;
 }
 
 // 0x00648B40
@@ -1788,31 +2032,6 @@ extern "C" __declspec(dllexport) unsigned int __stdcall PATH_GetMoveTestCollisio
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask)
 {
     pDynamicPath->nMoveTestCollisionMask = nCollisionMask;
-}
-
-// 0x00648CF0
-void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
-{
-    D2_ASSERT(!(ptPath->pUnit && ptPath->pUnit->dwUnitType == UNIT_PLAYER && eType == 2), 0x861);
-
-    int nFlag = gaPathTypeFlags_006EB690[eType];
-    if ((nFlag & 0x2000) && !(ptPath->dwFlags & 0x4000))
-    {
-        ptPath->ePrevType = ptPath->eType;
-    }
-
-    if ((nFlag & 0x8000) && !(ptPath->dwFlags & 0x10000))
-    {
-        ptPath->nPreviousVelocity = ptPath->dwVelocity;
-    }
-
-    ptPath->eType = eType;
-    ptPath->dwFlags = nFlag | ptPath->dwFlags & 0xFFF800FF;
-    ptPath->nDirOffset = gaOffsetForPathType_006EB648[eType];
-
-    D2_ASSERT(ptPath->ePrevType != 0xB, 0x871);
-    D2_ASSERT(ptPath->ePrevType != 8, 0x872);
-    D2_ASSERT((eType != 4) || (ptPath->bDistMax < 78), 0x873);
 }
 
 // 0x00648DC0
@@ -1987,156 +2206,6 @@ extern "C" __declspec(dllexport) unsigned int __stdcall PATH_GetDistance(Obj0064
     return pObj->bValue94;
 }
 
-// 0x00649140
-void __stdcall PATH_AddToDistance(D2DynamicPathStrc* pDynamicPath, int nAddition)
-{
-    const int nDistance = pDynamicPath->nDistance + nAddition;
-    if (nDistance < 0)
-    {
-        pDynamicPath->nDistance = 0;
-    }
-    else if (nDistance > 255)
-    {
-        pDynamicPath->nDistance = 255;
-    }
-    else
-    {
-        pDynamicPath->nDistance = nDistance;
-    }
-}
-
-// 0x00649180
-int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit)
-{
-    return pUnit->pDynamicPath->dwCollisionPattern;
-}
-
-// 0x00649190
-extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collisionPattern)
-{
-    unit->path->collisionPattern = collisionPattern;
-}
-
-// 0x006491B0
-void __stdcall D2COMMON_10212_PATH_SetMoveFlags(D2UnitStrc* pUnit, int bSet)
-{
-    D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
-
-    D2_ASSERT(ptPath, 2466);
-
-    if (bSet)
-    {
-        pUnit->dwFlagEx |= UNITFLAGEX_UNK_PATH_RELATED;
-    }
-    else
-    {
-        pUnit->dwFlagEx &= ~UNITFLAGEX_UNK_PATH_RELATED;
-    }
-    ptPath->unk0x38 = 0;
-}
-
-// 0x00649210
-void __stdcall D2Common_10213(D2UnitStrc* pUnit)
-{
-    if (pUnit && !UNIT_HasFlag(pUnit, UNITFLAG_ISASYNC) && UNIT_HasFlagEx(pUnit, UNITFLAGEX_UNK_PATH_RELATED))
-    {
-        D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
-        D2_ASSERT(ptPath, 2485);
-
-        ++ptPath->unk0x38;
-        if ((int)ptPath->unk0x38 > 1)
-        {
-            ptPath->unk0x38 = 0;
-            if (!D2Common_10227(pUnit))
-            {
-                if (D2Common_10236(pUnit, PATH_GetTargetUnit(pUnit->pDynamicPath) != 0))
-                {
-                    UNITS_ChangeAnimMode(pUnit, 2);
-                }
-            }
-        }
-    }
-}
-
-// 0x006492A0
-extern "C" __declspec(dllexport) int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2) {
-    int nDX = nX2 - nX1;
-    int nDY = nY2 - nY1;
-    return nDX * nDX + nDY * nDY;
-}
-
-// 0x006492C0
-int __stdcall D2Common_10237(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-    if (!pDynamicPath)
-    {
-        return 0;
-    }
-
-    return pDynamicPath->dwCurrentPointIdx < pDynamicPath->dwPathPoints;
-}
-
-// 0x006492F0
-static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath)
-{
-    D2PathPointStrc tOldCoords;
-    tOldCoords.X = pPath->tGameCoords.wPosX;
-    tOldCoords.Y = pPath->tGameCoords.wPosY;
-
-    pPath->dwCurrentPointIdx = 0;
-
-    if (pPath->hTarget)
-    {
-        pPath->tTargetCoord.X = PATH_InlineGetUnitX(pPath->hTarget);
-        pPath->tTargetCoord.Y = PATH_InlineGetUnitY(pPath->hTarget);
-    }
-
-    int nXDistance = tOldCoords.X - pPath->tTargetCoord.X;
-    if (nXDistance < 0)
-    {
-        nXDistance = -nXDistance;
-    }
-    if (nXDistance >= PATH_MAX_DISTANCE)
-    {
-        return 0;
-    }
-
-    int nYDistance = tOldCoords.Y - pPath->tTargetCoord.Y;
-    if (nYDistance < 0)
-    {
-        nYDistance = -nYDistance;
-    }
-    if (nYDistance >= PATH_MAX_DISTANCE)
-    {
-        return 0;
-    }
-
-    if (!pPath->tTargetCoord.X || !pPath->tTargetCoord.Y)
-    {
-        return 0;
-    }
-
-    pPath->PathPoints[0] = pPath->tTargetCoord;
-    pPath->dwPathPoints = PATH_ONE;
-    pPath->unk0x38 = 0;
-    PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_ONE, PATH_ONE);
-
-    D2ActiveRoomStrc* pRoom = pPath->pRoom;
-    if (!pRoom
-        || !(pPath->tTargetCoord.X >= pRoom->tCoords.nSubtileX && pPath->tTargetCoord.X < pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
-            && pPath->tTargetCoord.Y >= pRoom->tCoords.nSubtileY && pPath->tTargetCoord.Y < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight))
-    {
-        pPath->dwFlags |= PATH_ONE;
-    }
-    return pPath->dwPathPoints;
-}
-
 inline int __fastcall UNITS_GetXPositionInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -2268,40 +2337,6 @@ static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
     }
 }
 
-// 0x006497D0
-static unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
-{
-    D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
-    D2UnitStrc* hTarget = pPath->hTarget;
-
-    D2_ASSERT(UnitIsDoor(hTarget), LINE_DOOR);
-
-    if (UNITS_CheckIfObjectOrientationIs1(hTarget))
-    {
-        if (pPath->tGameCoords.wPosY < PATH_InlineGetUnitY(hTarget))
-        {
-            pPath->tTargetCoord.Y -= 2;
-        }
-        else
-        {
-            pPath->tTargetCoord.Y += 2;
-        }
-    }
-    else
-    {
-        if (pPath->tGameCoords.wPosX < PATH_InlineGetUnitX(hTarget))
-        {
-            pPath->tTargetCoord.X -= 2;
-        }
-        else
-        {
-            pPath->tTargetCoord.X += 2;
-        }
-    }
-
-    return 2;
-}
-
 // 0x006498A0
 static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo)
 {
@@ -2344,155 +2379,61 @@ static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo)
     return 1;
 }
 
-// 0x00649970
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown)
+// 0x00649140
+void __stdcall PATH_AddToDistance(D2DynamicPathStrc* pDynamicPath, int nAddition)
 {
-    if (!pPath)
+    const int nDistance = pDynamicPath->nDistance + nAddition;
+    if (nDistance < 0)
     {
-        return 0;
+        pDynamicPath->nDistance = 0;
     }
-
-    D2_ASSERT(pPath->pUnit == pUnit, LINE_PATH_UNIT);
-
-    if (pPath->dwFlags & PATH_MISSILE_MASK)
+    else if (nDistance > 255)
     {
-        return PATH_MissileToTarget(pPath, pUnit);
+        pDynamicPath->nDistance = 255;
     }
-
-    pPath->nCollidedWithMask = 0;
-    D2UnitStrc* pTargetUnit = pPath->hTarget;
-    if (pTargetUnit && (!CLIENTS_GetUnitX(pTargetUnit) || !CLIENTS_GetUnitY(pTargetUnit)))
+    else
     {
-        return 0;
+        pDynamicPath->nDistance = nDistance;
     }
-
-    D2PathInfoStrc tPathInfo;
-    D2PathPointStrc tStart;
-    tStart.X = pPath->tGameCoords.wPosX;
-    tStart.Y = pPath->tGameCoords.wPosY;
-    tPathInfo.tStartCoord = tStart;
-    if (tStart.X != 0 || tStart.Y != 0)
-    {
-        tPathInfo.nUnitSize = pPath->dwUnitSize;
-        tPathInfo.nCollisionPattern = pPath->dwCollisionPattern;
-        tPathInfo.pDynamicPath = pPath;
-        tPathInfo.nCollisionMask = pPath->nMoveTestCollisionMask;
-        tPathInfo.nDistMax = pPath->bDistMax;
-        tPathInfo.nMinimumFScoreToEvaluate = pPath->nIDAStarInitFScore;
-        tPathInfo.field_14 = PATH_UpdateTargetUnit(&tPathInfo);
-
-        if (pPath->tTargetCoord.X != 0 || pPath->tTargetCoord.Y != 0)
-        {
-            tPathInfo.tTargetCoord = pPath->tTargetCoord;
-            if (tPathInfo.tStartCoord.X != tPathInfo.tTargetCoord.X || tPathInfo.tStartCoord.Y != tPathInfo.tTargetCoord.Y)
-            {
-                const int nDeltaX = tPathInfo.tTargetCoord.X - tPathInfo.tStartCoord.X;
-                const int nDeltaY = tPathInfo.tTargetCoord.Y - tPathInfo.tStartCoord.Y;
-                if (nDeltaX <= PATH_MAX_DISTANCE && -nDeltaX <= PATH_MAX_DISTANCE && nDeltaY <= PATH_MAX_DISTANCE && -nDeltaY <= PATH_MAX_DISTANCE)
-                {
-                    tPathInfo.pStartRoom = pPath->pRoom;
-                    tPathInfo.pTargetRoom = sub_00463740_FindRoomAtPoint(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y);
-                    if (tPathInfo.pStartRoom && tPathInfo.pTargetRoom && (PATH_IsTargetDestinationAllowed(&tPathInfo, pUnit) || bAllowInTown))
-                    {
-                        tPathInfo.nPathType = pPath->eType;
-
-                        D2UnitStrc* pPathTargetUnit = pPath->hTarget;
-                        BOOL bRemovedTargetUnitFootprint = FALSE;
-                        PATH_RemoveCollisionFootprintForUnit(pUnit, FALSE);
-                        if (pPathTargetUnit && UNITS_GetUnitSizeX(pPathTargetUnit) && (pPath->dwFlags & PATH_UNKNOWN_FLAG_0x00800))
-                        {
-                            bRemovedTargetUnitFootprint = PATH_RemoveCollisionFootprintForUnit(pPathTargetUnit, FALSE);
-                        }
-
-                        BOOL bUpdatePath = PATH_TRUE;
-                        if ((pPath->dwFlags & PATH_UNKNOWN_FLAG_0x01000)
-                            && COLLISION_CheckAnyCollisionWithPattern(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y, pPath->dwCollisionPattern, pPath->nMoveTestCollisionMask))
-                        {
-                            bUpdatePath = PATH_PreparePathTargetForPathUpdate(&tPathInfo);
-                        }
-
-                        pPath->tFinalTargetCoord.X = tPathInfo.tTargetCoord.X;
-                        // volatile: the original keeps these stores, the repeated one included, in this order
-                        *(volatile int*)&pPath->dwCurrentPointIdx = 0;
-                        pPath->tFinalTargetCoord.Y = tPathInfo.tTargetCoord.Y;
-                        pPath->dwPathPoints = 0;
-                        pPath->dwCurrentPointIdx = 0;
-
-                        int nPathPoints = 0;
-                        if (bUpdatePath)
-                        {
-                            D2_ASSERT(!IsBadCodePtr((void*)scpfnPathFunction_006EB6D8[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
-                            nPathPoints = scpfnPathFunction_006EB6D8[tPathInfo.nPathType](&tPathInfo);
-                        }
-                        pPath->dwPathPoints = nPathPoints;
-
-                        D2_ASSERT(tPathInfo.tStartCoord.X == tStart.X && tPathInfo.tStartCoord.Y == tStart.Y, LINE_START_COORD);
-
-                        if (bRemovedTargetUnitFootprint)
-                        {
-                            PATH_AddCollisionFootprintForUnit(pPath->hTarget);
-                        }
-                        PATH_AddCollisionFootprintForUnit(pUnit);
-
-                        if (!pPath->dwPathPoints)
-                        {
-                            pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
-                            return 0;
-                        }
-
-                        PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_TRUE, PATH_TRUE);
-                        if (pPath->dwCurrentPointIdx < pPath->dwPathPoints)
-                        {
-                            sub_6FDA8220(pPath);
-                            D2PathPointStrc tPrev;
-                            tPrev.X = pPath->tTargetCoord.X;
-                            pPath->tPrevTargetCoord.Y = pPath->tTargetCoord.Y;
-                            const unsigned int nFlags = pPath->dwFlags;
-                            *(volatile unsigned int*)&pPath->unk0x38 = 0;
-                            *(volatile unsigned short*)&pPath->tPrevTargetCoord.X = tPrev.X;
-                            if (!(nFlags & PATH_UNKNOWN_FLAG_0x00010) && !pPath->hTarget)
-                            {
-                                pPath->tTargetCoord.X = pPath->PathPoints[pPath->dwPathPoints - 1].X;
-                                pPath->tTargetCoord.Y = pPath->PathPoints[pPath->dwPathPoints - 1].Y;
-                            }
-
-                            if (pPath->dwPathPoints)
-                            {
-                                pPath->dwFlags = nFlags | PATH_UNKNOWN_FLAG_0x00020;
-                            }
-                            else
-                            {
-                                pPath->dwFlags = nFlags & ~PATH_UNKNOWN_FLAG_0x00020;
-                            }
-                            return pPath->dwPathPoints;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    pPath->dwCurrentPointIdx = 0;
-    pPath->dwPathPoints = 0;
-    pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
-    return 0;
 }
 
-// 0x00649CA0
-void __stdcall D2Common_10214(D2UnitStrc* pUnit)
+// 0x006491B0
+void __stdcall D2COMMON_10212_PATH_SetMoveFlags(D2UnitStrc* pUnit, int bSet)
 {
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-    if (pDynamicPath)
+    D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
+
+    D2_ASSERT(ptPath, 2466);
+
+    if (bSet)
     {
-        if (UNITS_GetRoom(pUnit))
+        pUnit->dwFlagEx |= UNITFLAGEX_UNK_PATH_RELATED;
+    }
+    else
+    {
+        pUnit->dwFlagEx &= ~UNITFLAGEX_UNK_PATH_RELATED;
+    }
+    ptPath->unk0x38 = 0;
+}
+
+// 0x00649210
+void __stdcall D2Common_10213(D2UnitStrc* pUnit)
+{
+    if (pUnit && !UNIT_HasFlag(pUnit, UNITFLAG_ISASYNC) && UNIT_HasFlagEx(pUnit, UNITFLAGEX_UNK_PATH_RELATED))
+    {
+        D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
+        D2_ASSERT(ptPath, 2485);
+
+        ++ptPath->unk0x38;
+        if ((int)ptPath->unk0x38 > 1)
         {
-            PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
-            pUnit->pDynamicPath->dwCollisionPattern = D2Common_11281_CollisionPatternFromSize(pUnit, pDynamicPath->dwUnitSize);
-            PATH_AddCollisionFootprintForUnit(pUnit);
-        }
-        else
-        {
-            pUnit->pDynamicPath->dwCollisionPattern = D2Common_11281_CollisionPatternFromSize(pUnit, pDynamicPath->dwUnitSize);
+            ptPath->unk0x38 = 0;
+            if (!D2Common_10227(pUnit))
+            {
+                if (D2Common_10236(pUnit, PATH_GetTargetUnit(pUnit->pDynamicPath) != 0))
+                {
+                    UNITS_ChangeAnimMode(pUnit, 2);
+                }
+            }
         }
     }
 }
@@ -2614,32 +2555,41 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, i
     }
 }
 
-// 0x00649F50
-void __stdcall D2Common_10228(D2UnitStrc* pUnit)
+// 0x0064FD70
+void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint)
 {
-    if (pUnit->pDynamicPath)
-    {
-        PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
-    }
+    D2CoordStrc tStart;
+    D2CoordStrc tTarget;
+    tStart.nX = (tStartPoint.X << 16) + 0x8000;
+    tStart.nY = (tStartPoint.Y << 16) + 0x8000;
+    tTarget.nX = (tTargetPoint.X << 16) + 0x8000;
+    tTarget.nY = (tTargetPoint.Y << 16) + 0x8000;
+    PATH_GetDirectionVector(pDirectionVector, pOutDirection, tStart.nX, tStart.nY, tTarget.nX, tTarget.nY);
 }
 
-// 0x00649F70
-void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, BOOL bForGameLogic)
+// 0x00648CF0
+void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
 {
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (bForGameLogic || pUnit->dwUnitType != UNIT_MONSTER)
+    D2_ASSERT(!(ptPath->pUnit && ptPath->pUnit->dwUnitType == UNIT_PLAYER && eType == 2), 0x861);
+
+    int nFlag = gaPathTypeFlags_006EB690[eType];
+    if ((nFlag & 0x2000) && !(ptPath->dwFlags & 0x4000))
     {
-        D2Common_10228(pUnit);
-        COLLISION_SetMaskWithSizeXY(pPath->pRoom, pPath->wPosX, pPath->wPosY, PATH_CORPSE_SIZE, PATH_CORPSE_SIZE, COLLIDE_CORPSE);
+        ptPath->ePrevType = ptPath->eType;
     }
-    else
+
+    if ((nFlag & 0x8000) && !(ptPath->dwFlags & 0x10000))
     {
-        PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
-        pUnit->pDynamicPath->dwCollisionPattern = COLLISION_PATTERN_SMALL_NO_PRESENCE;
-        PATH_SetFootprintCollisionMask(pPath, COLLIDE_CORPSE);
-        PATH_AddCollisionFootprintForUnit(pUnit);
+        ptPath->nPreviousVelocity = ptPath->dwVelocity;
     }
-    PATH_RecacheRoomIfNeeded(pPath);
+
+    ptPath->eType = eType;
+    ptPath->dwFlags = nFlag | ptPath->dwFlags & 0xFFF800FF;
+    ptPath->nDirOffset = gaOffsetForPathType_006EB648[eType];
+
+    D2_ASSERT(ptPath->ePrevType != 0xB, 0x871);
+    D2_ASSERT(ptPath->ePrevType != 8, 0x872);
+    D2_ASSERT((eType != 4) || (ptPath->bDistMax < 78), 0x873);
 }
 
 int __stdcall PATH_GetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath)
@@ -2701,21 +2651,28 @@ void __stdcall PATH_SetUnitAliveCollision(D2UnitStrc* pUnit, int bSkip)
     }
 }
 
-// 0x0064A0E0
-void __stdcall PATH_AddCollisionFootprintForOptionalUnit(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        PATH_AddCollisionFootprintForUnit(pUnit);
-    }
+// 0x006492A0
+extern "C" __declspec(dllexport) int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2) {
+    int nDX = nX2 - nX1;
+    int nDY = nY2 - nY1;
+    return nDX * nDX + nDY * nDY;
 }
 
-// 0x0064A730
-extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
+// 0x006492C0
+int __stdcall D2Common_10237(D2UnitStrc* pUnit)
 {
-    if (unit && unit->type == 3 && unit->data)
-        return unit->data->targetStatus;
-    return 0;
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (!pDynamicPath)
+    {
+        return 0;
+    }
+
+    return pDynamicPath->dwCurrentPointIdx < pDynamicPath->dwPathPoints;
 }
 
 // build: symbol _FOG_GetLinkIndexByCode@* 0x006BD130
@@ -2738,16 +2695,59 @@ extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unu
     return -1;
 }
 
-// 0x0064FD70
-void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint)
+// 0x006492F0
+static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath)
 {
-    D2CoordStrc tStart;
-    D2CoordStrc tTarget;
-    tStart.nX = (tStartPoint.X << 16) + 0x8000;
-    tStart.nY = (tStartPoint.Y << 16) + 0x8000;
-    tTarget.nX = (tTargetPoint.X << 16) + 0x8000;
-    tTarget.nY = (tTargetPoint.Y << 16) + 0x8000;
-    PATH_GetDirectionVector(pDirectionVector, pOutDirection, tStart.nX, tStart.nY, tTarget.nX, tTarget.nY);
+    D2PathPointStrc tOldCoords;
+    tOldCoords.X = pPath->tGameCoords.wPosX;
+    tOldCoords.Y = pPath->tGameCoords.wPosY;
+
+    pPath->dwCurrentPointIdx = 0;
+
+    if (pPath->hTarget)
+    {
+        pPath->tTargetCoord.X = PATH_InlineGetUnitX(pPath->hTarget);
+        pPath->tTargetCoord.Y = PATH_InlineGetUnitY(pPath->hTarget);
+    }
+
+    int nXDistance = tOldCoords.X - pPath->tTargetCoord.X;
+    if (nXDistance < 0)
+    {
+        nXDistance = -nXDistance;
+    }
+    if (nXDistance >= PATH_MAX_DISTANCE)
+    {
+        return 0;
+    }
+
+    int nYDistance = tOldCoords.Y - pPath->tTargetCoord.Y;
+    if (nYDistance < 0)
+    {
+        nYDistance = -nYDistance;
+    }
+    if (nYDistance >= PATH_MAX_DISTANCE)
+    {
+        return 0;
+    }
+
+    if (!pPath->tTargetCoord.X || !pPath->tTargetCoord.Y)
+    {
+        return 0;
+    }
+
+    pPath->PathPoints[0] = pPath->tTargetCoord;
+    pPath->dwPathPoints = PATH_ONE;
+    pPath->unk0x38 = 0;
+    PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_ONE, PATH_ONE);
+
+    D2ActiveRoomStrc* pRoom = pPath->pRoom;
+    if (!pRoom
+        || !(pPath->tTargetCoord.X >= pRoom->tCoords.nSubtileX && pPath->tTargetCoord.X < pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
+            && pPath->tTargetCoord.Y >= pRoom->tCoords.nSubtileY && pPath->tTargetCoord.Y < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight))
+    {
+        pPath->dwFlags |= PATH_ONE;
+    }
+    return pPath->dwPathPoints;
 }
 
 // 0x0064FDC0
