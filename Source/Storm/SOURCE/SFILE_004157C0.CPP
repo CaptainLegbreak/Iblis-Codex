@@ -146,7 +146,7 @@ static int __stdcall ReadFileChecked(unsigned int* pnFilePos, void* pBuffer, uns
 }
 
 // 0x00415560
-static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, unsigned int nOffset, FILEREC* pFile)
+static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, unsigned int nOffset, FILEREC* pFile)
 {
     unsigned int nFilePos;
     unsigned long nRead = 0;

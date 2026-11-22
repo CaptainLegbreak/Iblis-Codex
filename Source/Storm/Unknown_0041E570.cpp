@@ -30,7 +30,7 @@ static unsigned long gdwWorkBufferOwner_00779210;                               
 static D2CriticalSectionStrc gtWorkBufferLock_00779214;                                                     // 0x00779214
 
 static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared);
-static __declspec(noinline) void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer);
+static void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer);
 
 // 0x0041E440
 static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared)

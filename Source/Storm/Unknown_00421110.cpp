@@ -27,7 +27,7 @@ int __stdcall sub_004212F0_Compare(void* hLeft, void* hRight); // 0x004212F0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
-static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf);
+static void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf);
 
 // build: symbol ?ReallocData@?$TSFixedArray@IU?$TSCD@I@@@@QAEXI@Z 0x00421110
 // build: symbol ?ReallocData@?$TSFixedArray@EU?$TSCD@E@@@@QAEXI@Z 0x00421680
@@ -49,7 +49,7 @@ template void TSGrowableArray<unsigned char>::SetCount(unsigned int);
 template TSGrowableArray<unsigned int>& TSGrowableArray<unsigned int>::operator=(const TSGrowableArray<unsigned int>&);
 
 // 0x00421510
-static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf)
+static void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf)
 {
     *pnResult = 0;
     *pnResult = pBuf->At(0);

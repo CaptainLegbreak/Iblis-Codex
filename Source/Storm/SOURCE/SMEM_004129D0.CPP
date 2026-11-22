@@ -102,7 +102,7 @@ static D2SMemHeapStrc* __stdcall sub_00411710_LockHeap(int* pLockIndex, D2SMemBl
     return pHeap;
 }
 
-static __declspec(noinline) void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
+static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
 {
     sub_0041C340_SetLastError(nError);
     if (gnFlag1_007784C0)

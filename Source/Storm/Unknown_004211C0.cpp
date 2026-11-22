@@ -331,13 +331,13 @@ static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray) // 0
 }
 
 // 0x004235F0
-static __declspec(noinline) void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
+static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
-static __declspec(noinline) void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x00423770
+static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x00423770
 {
     ToBinary(pOut, pIn);
     EncodeDataBytes(pOut->f_4, pOut);

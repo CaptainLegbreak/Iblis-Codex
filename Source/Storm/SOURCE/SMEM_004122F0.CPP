@@ -85,7 +85,7 @@ extern int gnFlag_00779098; // 0x00779098
 static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
 
 // 0x004117A0
-static __declspec(noinline) void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
+static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
 {
     sub_0041C340_SetLastError(nError);
     if (gnFlag1_007784C0)
@@ -95,7 +95,7 @@ static __declspec(noinline) void __stdcall sub_004117A0_SetAndShowError(const ch
 }
 
 // 0x00411910
-static __declspec(noinline) int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine)
+static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine)
 {
     if (!pMemory)
     {
@@ -122,7 +122,7 @@ static __declspec(noinline) int sub_00411910_CheckPtr(void* pMemory, int bReport
 }
 
 // 0x00411B90
-static __declspec(noinline) void sub_00411B90_GetBlockSizes(D2SMemBlockStrc* pBlock, void* pMemory, unsigned int* pDataSize, unsigned int* pHeaderSize)
+static void sub_00411B90_GetBlockSizes(D2SMemBlockStrc* pBlock, void* pMemory, unsigned int* pDataSize, unsigned int* pHeaderSize)
 {
     if (pBlock->flags & SMEM_BLOCK_LARGE)
     {
@@ -310,7 +310,7 @@ int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, SMEMHEA
     return 1;
 }
 
-static __declspec(noinline) __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
+static __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
 {
     SErrDisplayError(nError, szFile, nLine, 0, 0, 1);
     ExitProcess(1);

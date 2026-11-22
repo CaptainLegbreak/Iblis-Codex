@@ -397,7 +397,7 @@ inline void* operator new(unsigned int, void* pPlace) throw()
 
 
 // 0x0041D340
-static __declspec(noinline) int __stdcall sub_0041D340_FindSignatureTag(const char* pData, unsigned int nSize, unsigned int nSignSize, unsigned int* pOffset)
+static int __stdcall sub_0041D340_FindSignatureTag(const char* pData, unsigned int nSize, unsigned int nSignSize, unsigned int* pOffset)
 {
     *pOffset = nSize - nSignSize - 4;
     if (nSize >= nSignSize + 4 && *(const int*)(pData + *pOffset) == 0x5349474E)
@@ -406,7 +406,7 @@ static __declspec(noinline) int __stdcall sub_0041D340_FindSignatureTag(const ch
 }
 
 // 0x0041D370
-static __declspec(noinline) void __stdcall sub_0041D370_HashData(unsigned int nLen, const unsigned char* pData, unsigned char* pDigest)
+static void __stdcall sub_0041D370_HashData(unsigned int nLen, const unsigned char* pData, unsigned char* pDigest)
 {
     Sha1 tHash;
     tHash.Initialize();
