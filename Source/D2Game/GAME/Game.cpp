@@ -41,7 +41,6 @@
 
 #define PCLASS_ASSASSIN 6
 
-
 struct D2MonsterRegionStrc;
 
 struct D2CorpseStrc;
@@ -981,7 +980,6 @@ void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A
 
 enum { MODE_MASK = 15 };
 
-
 struct D2GameStatisticsStrc;
 
 struct D2UnitInfoStrc;
@@ -1356,7 +1354,6 @@ void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
 void __fastcall sub_6FC81E10(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode);
 
-
 #define CLIENTS_MAX_UPDATES 55u
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
@@ -1447,6 +1444,10 @@ void __fastcall sub_00564A00_QueueGame(void* pTask, int a2, unsigned int hGame);
 void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct);                                // 0x005382E0
 
 void __fastcall sub_00539000(D2ClientStrc* pClient);                                       // 0x00539000
+
+void __fastcall sub_0053AFB0_EnsureAct(D2GameStrc* pGame, unsigned char nAct);                              // 0x0053AFB0
+
+void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient);                            // 0x0053ABE0
 
 static inline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)
 {
@@ -1683,6 +1684,15 @@ void __stdcall sub_0052C110(int nGameGUID, unsigned short nGameId)
     }
 
     D2_ASSERT(0, 394);
+}
+
+// 0x0052C210
+void __fastcall sub_0052C210_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pClient, 0x1C4);
+    sub_0053AFB0_EnsureAct(pGame, pClient->bAct);
+    LEVEL_SynchronizeDayNightCycleWithClient(pGame, pClient);
+    CLIENTS_SetClientState(pClient, 2);
 }
 
 // 0x0052C260

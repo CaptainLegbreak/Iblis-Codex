@@ -44623,6 +44623,11 @@
      "name": "sub_0052C110"
     },
     {
+     "va": "0x0052C210",
+     "length": 75,
+     "name": "?sub_0052C210_ClientEnterAct@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
      "va": "0x0052C260",
      "length": 31,
      "name": "?sub_0052C260_SendGameInit@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
@@ -47732,17 +47737,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052C210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052C210",
-     "length": 75,
-     "name": "?sub_0052C210_ClientEnterAct@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    }
    ]
   },
   {
