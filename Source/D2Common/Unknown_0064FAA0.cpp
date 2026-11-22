@@ -786,7 +786,8 @@ int __stdcall STATLIST_AreUnitsAligned(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 }
 
 // 0x00650DD0
-static long sub_0051DC70_GetTime(long* pTime)
+// build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40
+static long BNDOWNLOAD_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
@@ -814,7 +815,7 @@ static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 {
-    return sub_0051DC70_GetTime(pTime);
+    return BNDOWNLOAD_GetTime(pTime);
 }
 
 unsigned int __stdcall sub_M106_Emit_0051DD10(int n)

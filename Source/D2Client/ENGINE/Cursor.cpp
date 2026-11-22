@@ -26,9 +26,9 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char*
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -118,7 +118,7 @@ int __fastcall CURSOR_InitCursor(int nArg)
 {
     char szPath[0x50];
     gnGlobal_007A6AB4 = nArg;
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaCursorMsgHandlers_00711FEC, 3);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaCursorMsgHandlers_00711FEC, 3);
     for (int i = 0; i < NUM_CURSOR_CELLS; ++i)
     {
         wsprintfA(szPath, "%s\\UI\\CURSOR\\%s", szDataGlobal_006D4118, gaPanelAnim_00712020[i].f_8);
@@ -138,7 +138,7 @@ int __fastcall CURSOR_InitCursor(int nArg)
 // 0x00468170
 void __cdecl CURSOR_ShutdownCursor()
 {
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaCursorMsgHandlers_00711FEC, NUM_CURSOR_MSG_HANDLERS);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaCursorMsgHandlers_00711FEC, NUM_CURSOR_MSG_HANDLERS);
     gnGlobal_007A6B08 = 0;
     for (int i = 0; i < NUM_CURSOR_CELLS; ++i)
     {

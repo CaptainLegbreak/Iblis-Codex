@@ -188,7 +188,7 @@ void __cdecl sub_004BE060(); // 0x004BE060
 
 void __cdecl USEITEM_FreeUseItemPanel(); // 0x004C0100
 
-void* __cdecl sub_004F59A0(); // 0x004F59A0
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __stdcall D2Win_10116(); // 0x005015F0
 
@@ -364,7 +364,7 @@ int __fastcall UI_GetUIVarUnchecked(int nUIVar)
 // 0x00453B00
 void __cdecl UI_SendMouseMove()
 {
-    SendMessageA(sub_004F59A0(), 0x200, 0, ((unsigned short)sub_00468740() << 16) | (unsigned short)sub_00468730());
+    SendMessageA(WINDOW_GetWindow(), 0x200, 0, ((unsigned short)sub_00468740() << 16) | (unsigned short)sub_00468730());
 }
 
 // 0x00453D90
@@ -753,7 +753,7 @@ void __cdecl UI_ShutdownUI()
     gaUIVarStates_007A27C0[0] = 0;
     if (nPrevState)
     {
-        AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F28, 4);
+        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 4);
     }
     sub_00468730();
     sub_00468740();

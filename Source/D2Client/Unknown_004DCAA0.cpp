@@ -44,8 +44,8 @@ int __cdecl sub_004B9C60_IsSongPlaying();                                       
 int __fastcall sub_004B9D50_GetPosition(void* pEntry);                                                      // 0x004B9D50
 void __fastcall sub_004BA890_RefreshHintsById(int nHintId);                                                 // 0x004BA890
 void __cdecl MISSILE_CheckLevelSpeech();                                                               // 0x004CC270
-int __cdecl sub_00514CC0();                                                                                 // 0x00514CC0
-int __cdecl sub_00514CF0();                                                                                 // 0x00514CF0
+int __cdecl D2SOUND_GetMasterVolumeOption();                                                                                 // 0x00514CC0
+int __cdecl D2SOUND_GetMusicVolumeOption();                                                                                 // 0x00514CF0
 
 // 0x004DCAA0
 void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
@@ -73,7 +73,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         }
     }
 
-    int bEnabled = sub_00514CC0() && sub_00514CF0() ? 1 : 0;
+    int bEnabled = D2SOUND_GetMasterVolumeOption() && D2SOUND_GetMusicVolumeOption() ? 1 : 0;
     int bChange = 0;
     if (!gnGlobal_007C89D8)
     {

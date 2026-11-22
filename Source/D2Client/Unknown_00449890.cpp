@@ -6,7 +6,8 @@ void* __stdcall sub_006BC810_LookupHandle(int nKey); // 0x006BC810
 int __fastcall sub_0040DEE0_QueryAddress(void* pHandle, D2LaunchAddressStrc* pAddress, int* pSize); // 0x0040DEE0
 extern int gnLaunchKey_00798FB4; // 0x00798FB4
 
-unsigned int __fastcall sub_00449840_NibbleToHex(unsigned int nValue)
+// build: symbol ?COMCALLBACK_NibbleToHex@* 0x00449840
+unsigned int __fastcall COMCALLBACK_NibbleToHex(unsigned int nValue)
 {
     unsigned int nResult = nValue & 0xF;
     if (nResult >= 10)
@@ -30,8 +31,8 @@ void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum)
             nValue -= 0x100;
             *pChecksum |= nBit;
         }
-        szKey[i] = (char)sub_00449840_NibbleToHex(nValue >> 4);
-        szKey[i + 1] = (char)sub_00449840_NibbleToHex(nValue);
+        szKey[i] = (char)COMCALLBACK_NibbleToHex(nValue >> 4);
+        szKey[i + 1] = (char)COMCALLBACK_NibbleToHex(nValue);
     }
 }
 

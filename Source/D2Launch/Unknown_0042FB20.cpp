@@ -18,13 +18,15 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 // 0x0042FB20
 void __cdecl sub_0042FB20()
 {
-    sub_0042F480_Reset();
-    sub_0042F430_CreateControl(2);
-    sub_0042F430_CreateControl(3);
-    sub_0042F430_CreateControl(6);
-    sub_0042F430_CreateControl(7);
+// build: symbol ?MAINMENUS_Reset@* 0x0042F480
+    MAINMENUS_Reset();
+// build: symbol ?MAINMENUS_CreateControl@* 0x0042F430
+    MAINMENUS_CreateControl(2);
+    MAINMENUS_CreateControl(3);
+    MAINMENUS_CreateControl(6);
+    MAINMENUS_CreateControl(7);
     sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
-    D2WinControlStrc* pControl = sub_0042F430_CreateControl(4);
+    D2WinControlStrc* pControl = MAINMENUS_CreateControl(4);
     char szTail[0x200] = { 0 };
     char szText[0x200] = { 0 };
     Unicode wszText[0x200];
@@ -55,6 +57,7 @@ void __cdecl sub_0042FB20()
     sub_004FC9B0_SetText(pControl, wszText, 4, 0, 0);
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x13F1), 4, 0, 0);
     D2Win_10029(0);
-    if (sub_00514D80())
+// build: symbol ?D2SOUND_GetOptionsMusicOption@* 0x00514D80
+    if (D2SOUND_GetOptionsMusicOption())
         D2SOUND_10034(1);
 }

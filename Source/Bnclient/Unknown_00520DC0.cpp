@@ -8,8 +8,8 @@ struct D2IdeaUserKeyStrc;
 struct D2IdeaKeyScheduleStrc;
 
 extern int gnLastStatus_0072FFA8; // 0x0072FFA8
-int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
-int __fastcall sub_005204D0_SetErrorText(int nError, const char* szText); // 0x005204D0
+int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
+int __fastcall BNSEND_SetErrorText(int nError, const char* szText); // 0x005204D0
 
 struct D2BnReply00520DC0Strc
 {
@@ -33,8 +33,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern D2BnHashCtxStrc gaBnHashCtx_00882760[]; // 0x00882760
 extern D2IdeaKeyScheduleStrc gaIdeaKeySchedules_00882878[]; // 0x00882878
-void __fastcall sub_00522BC0_FillRandomBytes(unsigned char* pBuffer, int nSize); // 0x00522BC0
-unsigned int __fastcall sub_00522E10_Decrypt(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
+void __fastcall BNDOWNLOAD_FillRandomBytes(unsigned char* pBuffer, int nSize); // 0x00522BC0
+unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 
 // 0x00520DC0
@@ -47,19 +47,19 @@ int __fastcall sub_00520DC0_HandleStatus(D2BnReply00520DC0Strc* pReply)
     case 0:
         break;
     case 1:
-        sub_005204A0_SetError(0xD);
+        BNMESSQUEUE_SetError(0xD);
         break;
     case 2:
-        sub_005204A0_SetError(0xE);
+        BNMESSQUEUE_SetError(0xE);
         break;
     case 3:
-        sub_005204A0_SetError(0xF);
+        BNMESSQUEUE_SetError(0xF);
         break;
     case 6:
-        sub_005204D0_SetErrorText(0x1B, pReply->szText);
+        BNSEND_SetErrorText(0x1B, pReply->szText);
         break;
     default:
-        sub_005204A0_SetError(0x12);
+        BNMESSQUEUE_SetError(0x12);
         break;
     }
     return 1;
@@ -82,7 +82,8 @@ void __cdecl sub_00521B90_ClearSrpState()
 #include "D2BnCryptTypes.h"
 
 // 0x00522BB0
-static long sub_0051DC70_GetTime(long* pTime)
+// build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40
+static long BNDOWNLOAD_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
@@ -110,7 +111,7 @@ static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 {
-    return sub_0051DC70_GetTime(pTime);
+    return BNDOWNLOAD_GetTime(pTime);
 }
 
 unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
@@ -229,8 +230,8 @@ static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString,
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize)
 {
     unsigned char aKey[20];
-    sub_00522BC0_FillRandomBytes(aKey, sizeof(aKey));
-    unsigned int nLength = sub_00522E10_Decrypt(pBuffer, nSize, aKey);
+    BNDOWNLOAD_FillRandomBytes(aKey, sizeof(aKey));
+    unsigned int nLength = BNDOWNLOAD_DecryptData(pBuffer, nSize, aKey);
     if (!nLength)
     {
         return 0;

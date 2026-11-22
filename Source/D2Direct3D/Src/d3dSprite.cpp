@@ -7,7 +7,7 @@ struct D2VertexBufferDescStrc;
 struct D2Direct3DVtbl006B7110Strc;
 struct D2CelFileStrc;
 
-void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
+void __fastcall D3D_SetAlphaBlendMode(int mode); // 0x006B1F40
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -67,7 +67,7 @@ void* gpSpriteBuffer_00970F34; // 0x00970F34
 void* gpSpriteBuffer_00970F38; // 0x00970F38
 
 // 0x006B5B10
-void __cdecl sub_006B5B10_ReleaseSprites()
+void __cdecl D3D_ReleaseSprites()
 {
     if (gpSpriteObject_00970F3C)
     {
@@ -160,16 +160,16 @@ unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
     {
     case 5:
     case 7:
-        sub_006B1F40_SetBlendMode(1);
+        D3D_SetAlphaBlendMode(1);
         break;
     case 3:
-        sub_006B1F40_SetBlendMode(2);
+        D3D_SetAlphaBlendMode(2);
         break;
     case 4:
-        sub_006B1F40_SetBlendMode(3);
+        D3D_SetAlphaBlendMode(3);
         break;
     default:
-        sub_006B1F40_SetBlendMode(4);
+        D3D_SetAlphaBlendMode(4);
         if (mode == 0)
             alpha = 64;
         else if (mode == 1)
@@ -187,7 +187,7 @@ unsigned char __fastcall EmitSetBlendAndAlpha(int mode)
 }
 
 // 0x006B6700
-static inline int sub_006B6700_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
+static inline int D3D_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
 {
     nX += pRect->nOffsetX;
     if (nX > gnScreenWidth_007C9138 || pRect->nLeft + nX < 0 || (nY += pRect->nOffsetY) < 0 || nY - pRect->nTop >= gnScreenHeight_007C913C)
@@ -210,11 +210,11 @@ static int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, i
 }
 
 // 0x006B7090
-int __fastcall sub_006B7090_DrawCel(D2CelContextStrc* pContext, int nX, int nY, int nArg)
+int __fastcall D3D_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nArg)
 {
     D2SpriteInfoStrc tInfo;
 
-    sub_006B1F40_SetBlendMode(4);
+    D3D_SetAlphaBlendMode(4);
     int nResult = sub_006B5C80_LoadCelInfo(pContext, &tInfo);
     if (nResult)
     {
@@ -234,12 +234,12 @@ int __fastcall sub_006B7090_DrawCel(D2CelContextStrc* pContext, int nX, int nY, 
 int __fastcall sub_006B6700_Shim(D2GlideRectViewStrc* pRect, int nA, int nB)
 {
     int n = nA * 3;
-    n += sub_006B6700_IsOutsideScreen(nA, nB, pRect);
+    n += D3D_IsOutsideScreen(nA, nB, pRect);
     return n;
 }
 
 // 0x006B7100
-void __cdecl sub_006B7100_Nop()
+void __cdecl D3D_DebugFillBackBuffer()
 {
 }
 
@@ -256,7 +256,7 @@ void* gpSurface_00970F2C; // 0x00970F2C
 void* gpSurface_00970F30; // 0x00970F30
 
 // 0x006B7110
-void __cdecl sub_006B7110_InitSprites()
+void __cdecl D3D_InitSprites()
 {
     D2_ASSERT(!gpSpriteBuffer_00970F34, 0x55);
     D2_ASSERT(!gpSpriteBuffer_00970F38, 0x56);

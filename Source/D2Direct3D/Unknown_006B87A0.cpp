@@ -18,13 +18,13 @@ extern D2TLVertexStrc gVertex0_00971630; // 0x00971630
 extern D2TLVertexStrc gVertex1_00971650; // 0x00971650
 extern D2TLVertexStrc gVertex2_00971670; // 0x00971670
 extern D2TLVertexStrc gVertex3_00971690; // 0x00971690
-void __fastcall sub_006BBA00_BindTileTexture(D2GlideTileStrc* pTile); // 0x006BBA00
+void __fastcall D3D_BindTileTexture(D2GlideTileStrc* pTile); // 0x006BBA00
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 
 int __stdcall sub_005FDEA0_CheckTile(D2TileLibraryEntryStrc*,int,int); // 0x005FDEA0
-void __fastcall sub_006B1EA0_SetState(int); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
-void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
+void __fastcall D3D_SetColorCombineMode(int); // 0x006B1EA0
+void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
+void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __stdcall sub_006B8950_Lit(int,D2TileLibraryEntryStrc*,int,int,const unsigned int*,unsigned char); // 0x006B8950
 static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc*,int,int,const unsigned int*,int,unsigned char);
@@ -65,7 +65,7 @@ static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc* pTil
             int nTop = y - 32;
             int nRight = x + 32;
             nDrawn = 1;
-            sub_006BBA00_BindTileTexture(&pTile->pBlocks[n]);
+            D3D_BindTileTexture(&pTile->pBlocks[n]);
             gVertex0_00971630.fX = (float)x;
             gVertex0_00971630.fY = (float)nTop;
             gVertex1_00971650.fX = (float)x;
@@ -91,7 +91,7 @@ static int __stdcall sub_006B8DF0_AlphaWall(D2TileLibraryEntryStrc*,int,int,cons
 static int __stdcall sub_006B8DF0_AlphaWall(D2TileLibraryEntryStrc* t,int x,int y,const unsigned int* l,int panels,unsigned char alpha)
 {
  if(!sub_005FDEA0_CheckTile(t,1,0))return 0;
- sub_006B1EA0_SetState(1);sub_006B1F40_SetBlendMode(alpha==255?1:4);sub_006B2030_SetFilterMode(1);
+ D3D_SetColorCombineMode(1);D3D_SetAlphaBlendMode(alpha==255?1:4);D3D_SetTextureFilterMode(1);
  if(sub_006B9830_GetPerspective())return sub_006B8950_Lit(panels,t,x,y,l,alpha);
  return sub_006B87A0_DrawNoPerspective(t,x,y,l,panels,alpha);
 }

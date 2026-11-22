@@ -48,7 +48,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 
-void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
+void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 
@@ -104,11 +104,11 @@ int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
 
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 
-void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
+void __fastcall D3D_SetAlphaBlendMode(int mode); // 0x006B1F40
 
-void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
+void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
 
-void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
+void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
 
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 
@@ -360,7 +360,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
         sub_006B20E0_DDrawLogError(gszLockFailed_006FC2A4, hResult);
     }
     D2_ASSERT(tDesc.dwFlags & 8, 0x1C0);
-    sub_006B1DC0_Blit8To16(pData, (unsigned short*)tDesc.lpSurface, ptInfo->nTexWidth, ptInfo->nTexHeight, tDesc.lPitch >> 1,
+    D3D_BlitIndexedToHighColor(pData, (unsigned short*)tDesc.lpSurface, ptInfo->nTexWidth, ptInfo->nTexHeight, tDesc.lPitch >> 1,
         ptInfo->nTexHeight);
     hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
     if (hResult)
@@ -393,16 +393,16 @@ unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
     {
     case 5:
     case 7:
-        sub_006B1F40_SetBlendMode(1);
+        D3D_SetAlphaBlendMode(1);
         break;
     case 3:
-        sub_006B1F40_SetBlendMode(2);
+        D3D_SetAlphaBlendMode(2);
         break;
     case 4:
-        sub_006B1F40_SetBlendMode(3);
+        D3D_SetAlphaBlendMode(3);
         break;
     default:
-        sub_006B1F40_SetBlendMode(4);
+        D3D_SetAlphaBlendMode(4);
         if (mode == 0)
             alpha = 64;
         else if (mode == 1)
@@ -496,8 +496,8 @@ void __fastcall sub_006B61A0_EmitDrawQuad(D2SpriteQuad006B61A0Strc* pQuad, int n
 // 0x006B63F0
 void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
 {
-    sub_006B1EA0_SetState(1);
-    sub_006B2030_SetFilterMode(1);
+    D3D_SetColorCombineMode(1);
+    D3D_SetTextureFilterMode(1);
 
     D2QuadRectStrc tRect;
     tRect.nX = pSprite->nOffsetX;
@@ -635,19 +635,19 @@ static unsigned char sub_006B6680_GetAlpha(int nDrawMode)
 	{
 	case 5:
 	case 7:
-		sub_006B1F40_SetBlendMode(1);
+		D3D_SetAlphaBlendMode(1);
 		break;
 
 	case 3:
-		sub_006B1F40_SetBlendMode(2);
+		D3D_SetAlphaBlendMode(2);
 		break;
 
 	case 4:
-		sub_006B1F40_SetBlendMode(3);
+		D3D_SetAlphaBlendMode(3);
 		break;
 
 	default:
-		sub_006B1F40_SetBlendMode(4);
+		D3D_SetAlphaBlendMode(4);
 		if (nDrawMode == 0)
 		{
 			nAlpha = 0x40;
@@ -756,8 +756,8 @@ int __fastcall sub_006B6730_DrawFlatSprite(D2GfxDataStrc* pData, int nX, int nY,
 			return 1;
 		}
 
-		sub_006B1EA0_SetState(1);
-		sub_006B2030_SetFilterMode(1);
+		D3D_SetColorCombineMode(1);
+		D3D_SetTextureFilterMode(1);
 		sub_006B9780_SetColor(pVertices, dwGamma, nAlpha);
 		pVertices[1].dwColor = pVertices[0].dwColor;
 		pVertices[2].dwColor = pVertices[0].dwColor;
@@ -1102,17 +1102,17 @@ void __fastcall sub_006B7000_DrawSpriteShadow(D2CelContextStrc* pContext, int nX
         return;
     }
 
-    sub_006B1EA0_SetState(1);
+    D3D_SetColorCombineMode(1);
     if (sub_006B77A0_GetBlendedShadows())
     {
-        sub_006B1F40_SetBlendMode(4);
+        D3D_SetAlphaBlendMode(4);
         nAlpha = 192;
     }
     else
     {
-        sub_006B1F40_SetBlendMode(1);
+        D3D_SetAlphaBlendMode(1);
     }
-    sub_006B2030_SetFilterMode(1);
+    D3D_SetTextureFilterMode(1);
     sub_006B61A0_DrawShadowQuad(nX, nY, nAlpha, &tInfo);
 }
 

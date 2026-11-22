@@ -14,7 +14,7 @@ extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 int __stdcall sub_0043DBA0_ClearSelection(int nArg1, int nArg2, int nArg3); // 0x0043DBA0
-int __stdcall sub_00440110_OnEditChange(void* pMsg); // 0x00440110
+int __stdcall CHATDLG_OnEditChange(void* pMsg); // 0x00440110
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int, int, int)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(void*)); // 0x004FDB00
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
@@ -35,10 +35,10 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
+void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 extern D2WinControlStrc* gpChatTextBox_0077BD8C; // 0x0077BD8C
 extern char gszLastWhisperer_0077B0D0[]; // 0x0077B0D0
-static int __stdcall sub_0043E6E0_CompareCommand(const char* szText, const char* szCommand);
+static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand); // 0x0043E6E0
 
 struct D2LaunchGameEntryStrc
 {
@@ -54,8 +54,8 @@ struct D2LaunchGameListStrc
     D2LaunchGameEntryStrc tFirst;
 };
 
-const char* __fastcall sub_00442AE0_SkipString(const char* szText); // 0x00442AE0
-int __fastcall sub_00442B20_IsCharOverLimit(const char* pChar); // 0x00442B20
+const char* __fastcall CHATDLG_SkipString(const char* szText); // 0x00442AE0
+int __fastcall CHATDLG_IsCharOverLimit(const char* pChar); // 0x00442B20
 
 D2WinControlStrc* gpControl_0077BCDC; // 0x0077BCDC
 
@@ -71,7 +71,7 @@ D2WinControlStrc* gpEditBox_0077BCF4; // 0x0077BCF4
 
 D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
 
-int sub_00442180_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
+int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
 // 0x00440FC0
 void __cdecl sub_00440FC0_CreateGatewayControls()
@@ -95,7 +95,7 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
     gpEditBox_0077BCF4 = CONTROL_Create(&gtControlInit_0070D990);
     sub_004FDD50_SetMaxLength(gpEditBox_0077BCF4, 0x20);
     sub_004FDAD0_SetKeyCallback(gpEditBox_0077BCF4, sub_0043DBA0_ClearSelection);
-    sub_004FDB00_SetEnterCallback(gpEditBox_0077BCF4, sub_00440110_OnEditChange);
+    sub_004FDB00_SetEnterCallback(gpEditBox_0077BCF4, CHATDLG_OnEditChange);
 
     gpControl_0077BCFC = CONTROL_Create(&gtControlInit_0070D9F0);
 
@@ -129,13 +129,14 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
     CONTROL_SetFocusedEditBox(gpEditBox_0077BCF4);
     D2Win_10082(gpEditBox_0077BCF4);
     D2Win_10053(gpControl_0077BCFC, 0);
-    sub_0043E660_UpdateOkEnabled();
+// build: symbol ?CHARSEL_UpdateOkEnabled@* 0x0043E660
+    CHARSEL_UpdateOkEnabled();
 }
 
 #include "gen/data/Source/D2Multi/Unknown_00440FC0.inc"
 
 // 0x0043E6E0
-static int __stdcall sub_0043E6E0_CompareCommand(const char* szText, const char* szCommand)
+static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand)
 {
     if (strlen(szText) < strlen(szCommand))
         return -1;
@@ -176,9 +177,9 @@ static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char*
 // calling-convention shim (not game code)
 int __fastcall sub_00442180_Shim(char* szText)
 {
-    if (sub_00442180_ReplyCommand(szText, gszCmdR_006D56D4))
+    if (CHATDLG_ReplyCommand(szText, gszCmdR_006D56D4))
         return 1;
-    if (sub_00442180_ReplyCommand(szText, gszCmdReply_006D56CC))
+    if (CHATDLG_ReplyCommand(szText, gszCmdReply_006D56CC))
         return 1;
     return 0;
 }
@@ -225,12 +226,12 @@ int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D
             *(int*)pRecord->nAddress0x37 = *(const int*)p;
             p += 0x14;
             strcpy(pRecord->szName, p);
-            p = sub_00442AE0_SkipString(p);
-            p = sub_00442AE0_SkipString(p);
-            if (!sub_00442B20_IsCharOverLimit(p))
+            p = CHATDLG_SkipString(p);
+            p = CHATDLG_SkipString(p);
+            if (!CHATDLG_IsCharOverLimit(p))
             {
                 strcpy(pRecord->szDesc, p);
-                sub_00442AE0_SkipString(p);
+                CHATDLG_SkipString(p);
                 return nCount;
             }
         }

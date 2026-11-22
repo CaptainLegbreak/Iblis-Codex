@@ -36,7 +36,7 @@ static D2BnLogStrc& sub_00518C30_GetLog()
 }
 
 // 0x00518C70
-int __cdecl sub_00518C70_StartLogging(int nMode, int nValue)
+int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
 {
     int nResult = 0;
     EnterCriticalSection(&gBnLogLock_00881860);
@@ -54,7 +54,7 @@ int __cdecl sub_00518C70_StartLogging(int nMode, int nValue)
     return nResult;
 }
 
-void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
+void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...); // 0x00518D40
 
 // 0x00518EC0
 static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)

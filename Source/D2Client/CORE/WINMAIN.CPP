@@ -321,7 +321,7 @@ void __stdcall sub_00449E30_SetValue(int nValue);                               
 
 void __stdcall sub_00449E50_SetValue(int nValue);                                                           // 0x00449E50
 
-void __stdcall sub_00449E70_SetMcpPacket(const char* pData, int nSize);                                     // 0x00449E70
+void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize);                                     // 0x00449E70
 
 void __cdecl sub_006115F0_Empty();                                                                          // 0x006115F0
 
@@ -589,7 +589,8 @@ static char* __stdcall sub_0044A170_AppendText(char* pDest, const char* szText, 
 int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord)
 {
     D2McpPacket01Strc tPacket;
-    sub_00449BF0_SetValue(0);
+// build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 1;
     tPacket.nValue01 = pRecord->nData[0];
@@ -618,8 +619,9 @@ int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord)
 int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigned short wValue)
 {
     D2McpPacket02Strc tPacket;
-    sub_00449BF0_SetValue(0);
-    sub_00449C20_SetValue(0);
+    CHATDLG_SetMcpResult(0);
+// build: symbol ?CHATDLG_SetCharCreateReceived@* 0x00449C20
+    CHATDLG_SetCharCreateReceived(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 2;
     tPacket.nValue = nValue;
@@ -634,7 +636,7 @@ int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigne
 int __fastcall WINMAIN_SendMcpCharLogon(const char* szText)
 {
     D2McpPacket07Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 7;
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
@@ -647,7 +649,7 @@ int __fastcall WINMAIN_SendMcpCharLogon(const char* szText)
 int __fastcall WINMAIN_SendMcpCreateGame(D2McpCreateGameStrc* pRecord, unsigned short wRequestId)
 {
     D2McpPacket03Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     tPacket.nValue = pRecord->nValue40;
     tPacket.wRequestId = wRequestId;
     tPacket.nByte07 = pRecord->nByte44;
@@ -669,7 +671,7 @@ int __fastcall WINMAIN_SendMcpCreateGame(D2McpCreateGameStrc* pRecord, unsigned 
 int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, unsigned short wRequestId)
 {
     D2McpPacket04Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 4;
     tPacket.f_1 = wRequestId;
@@ -685,7 +687,7 @@ int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, 
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId)
 {
     D2McpPacket05Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 5;
     tPacket.f_1 = wRequestId;
@@ -700,7 +702,7 @@ void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, un
 int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId)
 {
     D2McpPacket06Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 6;
     tPacket.f_1 = wRequestId;
@@ -715,7 +717,7 @@ int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequ
 int __fastcall sub_0044A680_SendPacket08(const char* szText, unsigned short wRequestId)
 {
     D2McpPacket08Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 8;
     tPacket.f_1 = wRequestId;
@@ -730,7 +732,7 @@ int __fastcall sub_0044A680_SendPacket08(const char* szText, unsigned short wReq
 int __fastcall sub_0044A710_SendPacket09(const char* szText, unsigned short wRequestId)
 {
     D2McpPacket09Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 9;
     tPacket.f_1 = wRequestId;
@@ -745,7 +747,7 @@ int __fastcall sub_0044A710_SendPacket09(const char* szText, unsigned short wReq
 void __fastcall WINMAIN_SendMcpCharDelete(const char* szText, unsigned short wRequestId)
 {
     D2McpPacket0AStrc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     gwMcpRequestId_00798F8C = wRequestId;
     tPacket.f_0 = 0x0A;
     tPacket.f_1 = wRequestId;
@@ -757,7 +759,7 @@ void __fastcall WINMAIN_SendMcpCharDelete(const char* szText, unsigned short wRe
 void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szText)
 {
     D2McpPacket18Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     tPacket.f_0 = 0x18;
     SStrCopy(tPacket.szText, szText, sizeof(tPacket.szText));
     sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, SStrLen(tPacket.szText) + 2);
@@ -767,7 +769,7 @@ void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szText)
 int __fastcall sub_0044A870_SendPacket0B(const char* szText1, const char* szText2)
 {
     D2McpPacket0BStrc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 0x0B;
     char* pText = sub_0044A170_AppendText(tPacket.szText, szText1, sizeof(tPacket.szText), &nSize);
@@ -784,18 +786,18 @@ int __fastcall WINMAIN_HandleMcpServerAddress(D2McpPacket10Strc* pPacket, int nS
     const int nValue88 = pPacket->nValue88;
     const int nAddress = pPacket->f_9;
     const int nCode = pPacket->nCode;
-    sub_00449BF0_SetValue(nCode);
+    CHATDLG_SetMcpResult(nCode);
     gdwGlobal_00798FB0 = nValueB0;
     gdwGlobal_00798F88 = nValue88;
     if (!nAddress)
     {
         if (nCode)
         {
-            sub_00449BF0_SetValue(nCode);
+            CHATDLG_SetMcpResult(nCode);
             sub_00449DD0_SetValue(1);
             return 1;
         }
-        sub_00449BF0_SetValue(0x28);
+        CHATDLG_SetMcpResult(0x28);
         sub_00449DD0_SetValue(1);
         return 1;
     }
@@ -818,12 +820,12 @@ int __fastcall WINMAIN_HandleMcpGameList(D2McpPacket05Strc* pPacket, int nSize)
     gMcpInfo_0079910C.nToken = nToken;
     if (nToken == -2)
     {
-        sub_00449BF0_SetValue(0x33);
+        CHATDLG_SetMcpResult(0x33);
         return 1;
     }
     if (nToken == -1)
     {
-        sub_00449BF0_SetValue(0x32);
+        CHATDLG_SetMcpResult(0x32);
         return 1;
     }
     const char* pString = pPacket->szData;
@@ -1094,14 +1096,14 @@ int __fastcall WINMAIN_HandleMcpCreateQueue(const unsigned char* pPacket, unsign
 // 0x0044B170
 int __fastcall WINMAIN_HandleMcpCharList(const unsigned char* pPacket, unsigned int nSize)
 {
-    sub_00449E70_SetMcpPacket((const char*)pPacket, nSize);
+    MCPCONNECT_SetPacket((const char*)pPacket, nSize);
     return 1;
 }
 
 // 0x0044B180
 int __fastcall WINMAIN_HandleMcpCharListExpanded(const unsigned char* pPacket, unsigned int nSize)
 {
-    sub_00449E70_SetMcpPacket((const char*)pPacket, nSize);
+    MCPCONNECT_SetPacket((const char*)pPacket, nSize);
     return 1;
 }
 
@@ -1124,7 +1126,7 @@ int __fastcall WINMAIN_DispatchConnectPacket(const unsigned char* pPacket, unsig
 int __fastcall sub_0044A900_SendPacket0C(const char* szText)
 {
     D2McpPacket0CStrc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 0x0C;
     sub_0044A170_AppendText(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
@@ -1137,7 +1139,7 @@ int __fastcall sub_0044A900_SendPacket0C(const char* szText)
 int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC)
 {
     D2McpPacket16Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     unsigned int nSize = 0;
     tPacket.f_0 = 0x16;
     tPacket.nValue01 = nB;

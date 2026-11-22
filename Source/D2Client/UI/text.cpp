@@ -161,11 +161,11 @@ struct D2TextPointStrc
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 extern int gbStarted_007BF27C; // 0x007BF27C
 
@@ -819,14 +819,14 @@ void __fastcall TEXT_ToggleTextHandlers(int nMode)
         if (gbStarted_007BF27C == 1)
         {
             gbStarted_007BF27C = 0;
-            AUTOMAP_UnregisterHandlerTable((void*)sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+            AUTOMAP_UnregisterHandlerTable((void*)WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
         }
     }
     else if (nMode == 1 && gbStarted_007BF27C == 0)
     {
         gbStarted_007BF27C = 1;
         gnGlobal_007BF22C = GetTickCount();
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
     }
 }
 
@@ -1301,7 +1301,7 @@ void __cdecl TEXT_ResetTextBox()
     if (gbStarted_007BF27C == 1)
     {
         gbStarted_007BF27C = 0;
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
     }
     if (gbTextSound_007BF230)
     {

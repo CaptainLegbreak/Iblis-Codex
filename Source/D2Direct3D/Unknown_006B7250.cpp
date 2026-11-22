@@ -85,9 +85,9 @@ struct D2Device006B77B0Strc
     D2DeviceVtbl006B77B0Strc* lpVtbl;
 };
 extern D2Device006B77B0Strc* gpDevice_00970E78; // 0x00970E78
-void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlendMode(int nBlend); // 0x006B1F40
-void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
+void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3D_SetAlphaBlendMode(int nBlend); // 0x006B1F40
+void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
 
 void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha); // 0x006B7B30
 extern const char gszEmpty_006CC837[]; // 0x006CC837
@@ -322,9 +322,9 @@ void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned c
 
     D2_ASSERT(nY2 > nY1, 0x2B);
 
-    sub_006B1EA0_SetState(2);
-    sub_006B1F40_SetBlendMode(4);
-    sub_006B2030_SetFilterMode(1);
+    D3D_SetColorCombineMode(2);
+    D3D_SetAlphaBlendMode(4);
+    D3D_SetTextureFilterMode(1);
 
     D2TLVertexStrc tVertices[4];
     tVertices[0].fX = (float)nX1;

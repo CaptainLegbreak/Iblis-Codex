@@ -6,9 +6,9 @@ extern void (__stdcall* gpfGlideColorCombine_0087EB2C)(int nFunction, int nFacto
 extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable); // 0x0087EB8C
 extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor); // 0x0087EFA0
 extern D2GlideDebugCellStrc** gppGlideDebugBuffer_00880454; // 0x00880454
-unsigned int __fastcall sub_005093F0_GlidePaletteColor(int nPaletteIndex); // 0x005093F0
-void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
-void __fastcall sub_00509500_GlideSetCombine(int nMode); // 0x00509500
+unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex); // 0x005093F0
+void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern void (__stdcall* gpfGlideDrawLine_0087E978)(const D2GlideSpriteVertexStrc* pStart, const D2GlideSpriteVertexStrc* pEnd); // 0x0087E978
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -104,15 +104,15 @@ void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, 
         return;
     }
 
-    unsigned int dwColor = sub_005093F0_GlidePaletteColor(nColor);
-    sub_005094B0_GlideSetState(2);
+    unsigned int dwColor = GLIDE_GetPaletteColor(nColor);
+    GLIDE_SetColorCombineMode(2);
     if (nAlpha == 0xFF)
     {
-        sub_00509500_GlideSetCombine(1);
+        GLIDE_SetAlphaBlendMode(1);
     }
     else
     {
-        sub_00509500_GlideSetCombine(4);
+        GLIDE_SetAlphaBlendMode(4);
         dwColor = (dwColor & 0xFFFFFF00) | nAlpha;
     }
     gpfGlideMask_0087EB8C(0);

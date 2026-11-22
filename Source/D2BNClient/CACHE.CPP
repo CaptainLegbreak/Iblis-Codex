@@ -17,9 +17,9 @@ extern "C" __declspec(dllimport) int __stdcall CreateDirectoryA(const char* szPa
 
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int nFolder, void* hToken, unsigned long dwFlags, char* szPath); // 0x006CC43C
 
-void __cdecl sub_00519300_FreeCache(); // 0x00519300
+void __cdecl CACHE_FreeCache(); // 0x00519300
 
-int __cdecl sub_005193E0_LoadCache(); // 0x005193E0
+int __cdecl CACHE_LoadCache(); // 0x005193E0
 
 static void* ghCacheFile_0072FB78; // 0x0072FB78
 
@@ -53,11 +53,11 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                         // 0x0041C340
 
-void __cdecl sub_00518D40_Log(const char* szFormat, ...);                                                   // 0x00518D40
+void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...);                                                   // 0x00518D40
 
 void __cdecl sub_00519000_InitCryptTable();
 
-void __cdecl sub_005192A0_DeleteCacheFile();                                                                // 0x005192A0
+void __cdecl CACHE_DeleteCacheFile();                                                                // 0x005192A0
 
 struct D2CacheHeaderStrc
 {
@@ -139,7 +139,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 void* __stdcall sub_00413020_Alloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 
-void __cdecl sub_005198C0_ResetCache(); // 0x005198C0
+void __cdecl CACHE_ResetCache(); // 0x005198C0
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 
@@ -151,7 +151,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2SystemTimeStrc* pSystemTime, void* pFileTime); // 0x006CC26C
 
-static void sub_00519220_GetCacheFilePath(char* szPath);
+static void CACHE_GetCacheFilePath(char* szPath); // 0x00519220
 
 // build: context sub_00518DE0_Crc32
 static unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
@@ -286,7 +286,7 @@ static void sub_005191D0_DeleteHashEntries(const char* szName)
 }
 
 // 0x00519220
-static void sub_00519220_GetCacheFilePath(char* szPath)
+static void CACHE_GetCacheFilePath(char* szPath)
 {
     D2_ASSERT(SHGetFolderPathA(0, 0x23, 0, 0, szPath) == 0, 0x112);
     SStrPack(szPath, "\\Blizzard Entertainment", 0x104);
@@ -297,7 +297,7 @@ static void sub_00519220_GetCacheFilePath(char* szPath)
 }
 
 // 0x005192A0
-void __cdecl sub_005192A0_DeleteCacheFile()
+void __cdecl CACHE_DeleteCacheFile()
 {
     char szPath[260];
 
@@ -308,12 +308,12 @@ void __cdecl sub_005192A0_DeleteCacheFile()
     }
 
     szPath[0] = 0;
-    sub_00519220_GetCacheFilePath(szPath);
+    CACHE_GetCacheFilePath(szPath);
     DeleteFileA(szPath);
 }
 
 // 0x00519300
-void __cdecl sub_00519300_FreeCache()
+void __cdecl CACHE_FreeCache()
 {
     EnterCriticalSection(&gCacheLock_00881894);
     gbCacheLoaded_00881890 = 0;
@@ -346,7 +346,7 @@ void __cdecl sub_00519300_FreeCache()
 }
 
 // 0x005193C0
-int __fastcall sub_005193C0_FreeCachedFile(void* pData, unsigned int nSize)
+int __fastcall CACHE_FreeCachedFile(void* pData, unsigned int nSize)
 {
     if (!pData)
         return 0;
@@ -357,7 +357,7 @@ int __fastcall sub_005193C0_FreeCachedFile(void* pData, unsigned int nSize)
 #pragma function(memset)
 
 // 0x005193E0
-int __cdecl sub_005193E0_LoadCache()
+int __cdecl CACHE_LoadCache()
 {
     char szPath[0x104];
     unsigned long nTableRead;
@@ -368,15 +368,15 @@ int __cdecl sub_005193E0_LoadCache()
     EnterCriticalSection(&gCacheLock_00881894);
     if (gbCacheLoaded_00881890)
     {
-        sub_00519300_FreeCache();
+        CACHE_FreeCache();
     }
 
     szPath[0] = 0;
-    sub_00519220_GetCacheFilePath(szPath);
+    CACHE_GetCacheFilePath(szPath);
     ghCacheFile_0072FB78 = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
     if (ghCacheFile_0072FB78 == (void*)-1)
     {
-        sub_00519300_FreeCache();
+        CACHE_FreeCache();
         LeaveCriticalSection(&gCacheLock_00881894);
         return 0;
     }
@@ -502,7 +502,7 @@ int __cdecl sub_005193E0_LoadCache()
         goto loaded;
 
 error:
-        sub_00518D40_Log("WARNING- cache file is invalid. Replacing with new cache file", nError);
+        BNDOWNLOAD_LogPrintf("WARNING- cache file is invalid. Replacing with new cache file", nError);
     }
 
 create:
@@ -516,11 +516,11 @@ create:
         {
             SMemFree(gpCacheBlockTable_00881884, ".\\CACHE.CPP", 0x1FE, 0);
         }
-        sub_005192A0_DeleteCacheFile();
+        CACHE_DeleteCacheFile();
         ghCacheFile_0072FB78 = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
         if (ghCacheFile_0072FB78 == (void*)-1)
         {
-            sub_00519300_FreeCache();
+            CACHE_FreeCache();
             LeaveCriticalSection(&gCacheLock_00881894);
             return 0;
         }
@@ -552,20 +552,20 @@ loaded:
 #pragma intrinsic(memset)
 
 // 0x005198C0
-void __cdecl sub_005198C0_ResetCache()
+void __cdecl CACHE_ResetCache()
 {
     char szPath[260];
 
     if (gbCacheLoaded_00881890)
     {
-        sub_00519300_FreeCache();
-        sub_005192A0_DeleteCacheFile();
+        CACHE_FreeCache();
+        CACHE_DeleteCacheFile();
     }
 
     szPath[0] = 0;
-    sub_00519220_GetCacheFilePath(szPath);
+    CACHE_GetCacheFilePath(szPath);
     DeleteFileA(szPath);
-    sub_005193E0_LoadCache();
+    CACHE_LoadCache();
 }
 
 // build: context sub_00519920_ReadEntry
@@ -606,7 +606,7 @@ static __forceinline int sub_00519920_ReadEntry(const char* szName,D2FileTimeStr
 }
 
 // 0x00519920
-int __fastcall sub_00519920_LoadCachedFile(const char* szName,D2FileTimeStrc* time,void** data,unsigned int* size) {
+int __fastcall CACHE_LoadCachedFile(const char* szName,D2FileTimeStrc* time,void** data,unsigned int* size) {
  if(time){memset(time,0,sizeof(*time));} if(data)*data=0;if(size)*size=0;
  if(!szName||!*szName||!data||!size||!gbCacheLoaded_00881890)return 0;
  int archiveError=0,fileError=0;
@@ -616,14 +616,14 @@ int __fastcall sub_00519920_LoadCachedFile(const char* szName,D2FileTimeStrc* ti
  unsigned int block=gpCacheHashTable_0088188C[index].dwBlockIndex;
  if(block>=gpCacheHeader_00881880->nBlockTableSize) archiveError=1;
  else if(sub_00519920_ReadEntry(szName,time,data,size,block,&archiveError,&fileError)) goto unlock;
- if(archiveError){sub_00518D40_Log(gszCorruptCache_006DEF00,archiveError);sub_005198C0_ResetCache();}
- else {sub_00518D40_Log(gszCorruptFile_006DEEC0,szName,fileError);sub_005191D0_DeleteHashEntries(szName);}
+ if(archiveError){BNDOWNLOAD_LogPrintf(gszCorruptCache_006DEF00,archiveError);CACHE_ResetCache();}
+ else {BNDOWNLOAD_LogPrintf(gszCorruptFile_006DEEC0,szName,fileError);sub_005191D0_DeleteHashEntries(szName);}
  if(*data){SMemFree(*data,gszCacheFile_006DEE70,0x2DE,0);*data=0;}*size=0;
 unlock: LeaveCriticalSection(&gCacheLock_00881894);return !fileError&&!archiveError;
 }
 
 // 0x00519DB0
-int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2)
+int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2)
 {
     D2CacheRecordStrc tRecord;
     D2CacheRecordStrc tOld;
@@ -843,8 +843,8 @@ int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData
     goto Done;
 
 Fail:
-    sub_00518D40_Log("bncache.dat is corrupt (%d) - rebuilding archive", nError);
-    sub_005198C0_ResetCache();
+    BNDOWNLOAD_LogPrintf("bncache.dat is corrupt (%d) - rebuilding archive", nError);
+    CACHE_ResetCache();
 
 Done:
     LeaveCriticalSection(&gCacheLock_00881894);

@@ -19,10 +19,10 @@ extern int gnChannelCountB_0072F8F8; // 0x0072F8F8
 extern int gnSoundMasterVolume_0072F9B0; // 0x0072F9B0
 extern int gnSoundState_00881764; // 0x00881764
 float __stdcall sub_005165F0_ToDecibels(float fMin, float fMax, float fValue); // 0x005165F0
-int __cdecl sub_00513AE0(); // 0x00513AE0
-int __cdecl sub_00513B60(); // 0x00513B60
-int __cdecl sub_00513B70(); // 0x00513B70
-int __cdecl sub_00513B90(); // 0x00513B90
+int __cdecl D2SOUND_IsExpansion(); // 0x00513AE0
+int __cdecl D2SOUND_IsPositionalSoundEnabled(); // 0x00513B60
+int __cdecl D2SOUND_IsEaxEnabled(); // 0x00513B70
+int __cdecl D2SOUND_GetEaxVersion(); // 0x00513B90
 int __cdecl sub_00513BB0(); // 0x00513BB0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0

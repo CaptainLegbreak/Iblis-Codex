@@ -89,8 +89,8 @@ void __fastcall sub_004DFC20(void* pStream); // 0x004DFC20
 void* __fastcall sub_004E01B0(D2ClientSoundStrc* pSound); // 0x004E01B0
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
-int __cdecl sub_00514CC0(); // 0x00514CC0
-int __cdecl sub_00514CF0(); // 0x00514CF0
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
+int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
 void __fastcall D2SOUND_ListAddHead(void* ppList, void* pData); // 0x00516950
 void __fastcall D2SOUND_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound); // 0x00516980
 int __fastcall sub_005169D0_ListHasKey(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit); // 0x005169D0
@@ -297,13 +297,13 @@ void __fastcall sub_004BA020(unsigned int nTick)
         }
     }
 
-    const int bEnabled = sub_00514CC0() > 0;
+    const int bEnabled = D2SOUND_GetMasterVolumeOption() > 0;
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
         D2SoundsTxtStrc* pTxt = sub_00481860(pSound->nSoundId);
         int bAudible = bEnabled;
-        if (pSound->nSoundId >= sub_004817F0() && pSound->nSoundId <= sub_00481800() && !sub_00514CF0())
+        if (pSound->nSoundId >= sub_004817F0() && pSound->nSoundId <= sub_00481800() && !D2SOUND_GetMusicVolumeOption())
             bAudible = 0;
 
         if (pSound->nType == 2)

@@ -32,7 +32,8 @@ int gdwGlobal_007C8A70; // 0x007C8A70
 // 0x004DFAA0
 static int sub_004DFAA0_InitSoundChannels(int nMode)
 {
-    if (!sub_00513B50())
+// build: symbol ?D2SOUND_GetDirectSound@* 0x00513B50
+    if (!D2SOUND_GetDirectSound())
         return 0;
 
     D2_ASSERT(!gdwGlobal_007C8C78, 204);
@@ -63,7 +64,8 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
 // 0x004E0000
 int __fastcall sub_004E0000_SetSoundMode(int nMode)
 {
-    if (nMode == 1 && !sub_00513B60())
+// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
+    if (nMode == 1 && !D2SOUND_IsPositionalSoundEnabled())
         return 0;
 
     if (nMode == 2 && !sub_00513B70_IsSoundEnvironEnabled())

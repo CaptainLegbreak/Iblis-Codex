@@ -308,7 +308,7 @@ int __cdecl sub_004B8A10()
 }
 
 // 0x005125B0
-void __cdecl sub_005125B0_DDrawFreeDebugFont()
+void __cdecl DDRAW_FreeDebugFont()
 {
     if (gpDDrawDebugFontGlyphs_008815AC)
     {
@@ -318,7 +318,7 @@ void __cdecl sub_005125B0_DDrawFreeDebugFont()
 }
 
 // 0x0051B210
-void __cdecl sub_0051B210_FreeBuffer()
+void __cdecl BNSEND_FreeGamesList()
 {
     if (gpReply_008818D0)
     {
@@ -329,7 +329,7 @@ void __cdecl sub_0051B210_FreeBuffer()
 }
 
 // 0x005239C0
-void __cdecl sub_005239C0_UnlockCDKeys()
+void __cdecl GRID_UnlockCDKeys()
 {
     if (gpCDKeyHandle_00882744)
     {
@@ -345,7 +345,7 @@ void __cdecl sub_005239C0_UnlockCDKeys()
 }
 
 // 0x00512430
-void __cdecl sub_00512430_DDrawCreateDebugFont()
+void __cdecl DDRAW_CreateDebugFont()
 {
     void* hDC = CreateDCA("DISPLAY", 0, 0, 0);
     void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier_006DD52C);

@@ -3137,7 +3137,8 @@ void __cdecl sub_0051D2E0_Nop()
 {
 }
 
-void __fastcall sub_0051D350_CopyElement(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
+// build: symbol ?BNNEWS_CopyNewsItem@* 0x0051D350
+void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
 {
     if (pDst)
         *pDst = *pSrc;

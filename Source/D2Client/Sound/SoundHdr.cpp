@@ -401,7 +401,8 @@ void __fastcall SOUNDHDR_GetSoundPath(int nIndex, char* szPath)
 // 0x00482260
 void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
 {
-    if (!sub_00513B50())
+// build: symbol ?D2SOUND_GetDirectSound@* 0x00513B50
+    if (!D2SOUND_GetDirectSound())
         return;
     SOUNDHDR_LoadSoundTables();
     sub_004E0050_RestartSound(nArg);
@@ -419,7 +420,7 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
 // 0x00482940
 void __cdecl SOUNDHDR_ShutdownSound()
 {
-    if (!sub_00513B50())
+    if (!D2SOUND_GetDirectSound())
         return;
     sub_004DF800();
     sub_004BAAB0();

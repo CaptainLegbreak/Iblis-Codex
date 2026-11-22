@@ -45,7 +45,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 void __cdecl D2SOUND_ReleaseSoundObjects(); // 0x00513AF0
 
-int __cdecl sub_00513B50(); // 0x00513B50
+int __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 
 void __cdecl D2SOUND_DestroyStreamChannel(); // 0x005147B0
 
@@ -207,7 +207,7 @@ int __fastcall D2SOUND_SetPositionalBiasOption(int nValue)
 // 0x00514DB0
 void __cdecl D2SOUND_InitWaveSlots()
 {
-    if (sub_00513B50() && !gbWaveSlotsInit_008817FC)
+    if (D2SOUND_GetDirectSound() && !gbWaveSlotsInit_008817FC)
     {
         InitializeCriticalSection(&gWaveLock_008817C4);
         D2SOUND_SetMasterVolume(0xFF);

@@ -57,7 +57,8 @@ found:
         pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
         if (!pSystem->pRecords)
         {
-            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
+// build: symbol ?MAINMENUS_LogPoolError@* 0x00409020
+            MAINMENUS_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x2B4);
         }
     }

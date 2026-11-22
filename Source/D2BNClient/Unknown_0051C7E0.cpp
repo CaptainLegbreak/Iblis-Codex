@@ -22,7 +22,7 @@ struct D2BnCheckAdReplyStrc
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* pDestination, long nExchange, long nComparand); // 0x006CC3A0
-int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
+int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength); // 0x0051C760
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern long volatile gnConnected_00881BF0; // 0x00881BF0
@@ -43,14 +43,14 @@ extern "C" int __stdcall select(int nCount, D2FdSetStrc* pRead, D2FdSetStrc* pWr
 FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName, int bNonBlocking); // 0x0040D8E0
 int __fastcall FOG_SOCKET_Send(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DCC0
 int __fastcall FOG_SOCKET_SetBlockingMode(FSafeSock* pSafeSock, int bNonBlocking); // 0x0040E1A0
-void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
+void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...); // 0x00518D40
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C7E0
-void __fastcall sub_0051EA40_SetStatus(int nStatus); // 0x0051EA40
-int __fastcall sub_00520520_SetState(int nState); // 0x00520520
+void __fastcall BNDOWNLOAD_SetStatus(int nStatus); // 0x0051EA40
+int __fastcall BNMESSQUEUE_SetState(int nState); // 0x00520520
 int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
-extern "C" int __fastcall sub_00520C20_GetSlotB(unsigned char nSlot); // 0x00520C20
-int __stdcall sub_00521BF0(); // 0x00521BF0
+extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot); // 0x00520C20
+int __stdcall BNSEND_SendAuthInfo(); // 0x00521BF0
 int __cdecl sub_00521DC0_SendAuthCheck();
 extern long volatile gnDnsDone_00881BFC; // 0x00881BFC
 
@@ -93,7 +93,7 @@ unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
         const unsigned long dwTick = GetTickCount();
         if (dwTick - dwLastTick >= 180000)
         {
-            sub_0051C5C0_SendPacket(0, 0, 0);
+            BNSEND_SendPacket(0, 0, 0);
             dwLastTick = dwTick;
         }
         pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
@@ -108,7 +108,8 @@ long volatile gnConnected_00881BF0; // 0x00881BF0
 
 int gbReady_00881BF8; // 0x00881BF8
 
-int __cdecl sub_0051CA30_IsReady()
+// build: symbol ?BNDOWNLOAD_IsReady@* 0x0051CA30
+int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
     sub_005205F0_GetState(&tState);
@@ -124,14 +125,14 @@ int __stdcall sFastestConnect(char* szServerList)
 
     sub_0051A480_DebugLog("sFastestConnect()");
     memset(aServers, 0, sizeof(aServers));
-    sub_0051EA40_SetStatus(0x66);
+    BNDOWNLOAD_SetStatus(0x66);
     if (!szServerList)
         return 1;
 
     gbReady_00881BF8 = 0;
     gbDnsPending_008818E0 = 2;
     Sleep(10);
-    sub_00518D40_Log("searching for the fastest server");
+    BNDOWNLOAD_LogPrintf("searching for the fastest server");
 
     char* szToken = strtok(szServerList, " ,;");
     int nServers = 0;
@@ -239,12 +240,12 @@ int __stdcall sFastestConnect(char* szServerList)
 
     if (!pConnected)
     {
-        sub_00518D40_Log("no servers found");
+        BNDOWNLOAD_LogPrintf("no servers found");
         return 0;
     }
 
     gbReady_00881BF8 = 1;
-    if (!sub_0051CA30_IsReady())
+    if (!BNDOWNLOAD_IsReady())
     {
         sub_0051A480_DebugLog("  Error, not connected.");
         return 0;
@@ -254,11 +255,11 @@ int __stdcall sFastestConnect(char* szServerList)
     D2SockAddrInStrc tAddress;
     FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
     if (pSafeSock && FOG_SOCKET_GetPeerName(pSafeSock, &tAddress, &nLength))
-        sub_00518D40_Log("Connected to server %s", inet_ntoa(tAddress.sin_addr));
+        BNDOWNLOAD_LogPrintf("Connected to server %s", inet_ntoa(tAddress.sin_addr));
 
     gbDnsPending_008818E0 = 3;
     Sleep(10);
-    sub_00518D40_Log("accessing accounts");
+    BNDOWNLOAD_LogPrintf("accessing accounts");
     FOG_SOCKET_SetBlockingMode(pConnected, 0);
     char nByte = 1;
     if (FOG_SOCKET_Send(pConnected, &nByte, 1) <= 0)
@@ -268,8 +269,9 @@ int __stdcall sFastestConnect(char* szServerList)
     }
 
     sub_00520C00_ClearReply(0x50);
-    sub_00521BF0();
-    if (!sub_00520B70_WaitForReply(0x50) && !sub_0051CA30_IsReady())
+    BNSEND_SendAuthInfo();
+// build: symbol ?BNDOWNLOAD_WaitForReply@* 0x00520B70
+    if (!BNDOWNLOAD_WaitForReply(0x50) && !BNDOWNLOAD_IsReady())
     {
         FOG_SOCKET_Destroy(pConnected);
         InterlockedCompareExchange(&gnConnected_00881BF0, 0, (long)pConnected);
@@ -278,26 +280,26 @@ int __stdcall sFastestConnect(char* szServerList)
 
     if (sub_00520AE0())
     {
-        sub_00520520_SetState(0xB);
+        BNMESSQUEUE_SetState(0xB);
         return 1;
     }
 
     gbDnsPending_008818E0 = 4;
     Sleep(10);
-    sub_00518D40_Log("Checking for the latest version");
-    sub_0051EA40_SetStatus(0x66);
+    BNDOWNLOAD_LogPrintf("Checking for the latest version");
+    BNDOWNLOAD_SetStatus(0x66);
     sub_00520C00_ClearReply(0x51);
     if (!sub_00521DC0_SendAuthCheck())
         return 0;
-    if (!sub_00520B70_WaitForReply(0x51))
+    if (!BNDOWNLOAD_WaitForReply(0x51))
         return 0;
 
     D2BnStateStrc tState;
     sub_005205F0_GetState(&tState);
-    if (!tState.nState && sub_00520C20_GetSlotB(0x51))
+    if (!tState.nState && BNDOWNLOAD_GetReplyValue(0x51))
     {
         sub_0051E3D0_PostMessage("bnserver-D2DV.ini", 0x80000004);
-        sub_00518D40_Log("Connected to Battle.net");
+        BNDOWNLOAD_LogPrintf("Connected to Battle.net");
     }
     return 1;
 }

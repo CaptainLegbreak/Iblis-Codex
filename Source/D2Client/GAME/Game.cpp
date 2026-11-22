@@ -301,7 +301,7 @@ void __cdecl sub_00467A00(); // 0x00467A00
 extern unsigned char gnBetaScreenIndex_007A060D; // 0x007A060D
 extern int gdwGlobal_007A0670; // 0x007A0670
 
-void* __cdecl sub_004F59A0(); // 0x004F59A0
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 extern D2ClientCallbackFn gpfnClientCallback_007A0484; // 0x007A0484
 extern D2ClientCallbackFn gpfnClientCallbacks_0070EF0C[3]; // 0x0070EF0C
 extern int gdwGlobal_007A277C; // 0x007A277C
@@ -1620,12 +1620,13 @@ int __fastcall GAME_HandleMcpGameInfo(D2McpPacket06Strc* pPacket, int nSize)
     gMcpInfo_0079910C.nByte0E = pPacket->nByte0D;
     if (nToken == -1)
     {
-        sub_00449BF0_SetValue(0x32);
+// build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
+        CHATDLG_SetMcpResult(0x32);
         return 1;
     }
     if (nToken == -2)
     {
-        sub_00449BF0_SetValue(0x33);
+        CHATDLG_SetMcpResult(0x33);
         return 1;
     }
     const char* pString = pPacket->szData;
@@ -2314,7 +2315,7 @@ void __fastcall sub_0044D990_ApplyConfigNop(D2ConfigStrc* pConfig)
 // 0x00451F20
 void __cdecl GAME_RegisterWindowHandlers()
 {
-    sub_00420320_RegisterHandlers(sub_004F59A0());
+    sub_00420320_RegisterHandlers(WINDOW_GetWindow());
 }
 
 // 0x00601BF0

@@ -46,11 +46,11 @@ extern int gdwGlobal_007BB5EC; // 0x007BB5EC
 
 extern Unicode gwszChatLine_007BB638[]; // 0x007BB638
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 bool __cdecl CHAT_IsImeLanguage(); // 0x0047B010
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 extern "C" int __stdcall ImmSimulateHotKey(int hWnd, unsigned long nHotKey); // 0x006B00E4
 
@@ -157,7 +157,7 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 
-    HIMC hImc = ImmGetContext(sub_004F59A0());
+    HIMC hImc = ImmGetContext(WINDOW_GetWindow());
     if (!hImc)
     {
         return;
@@ -286,7 +286,7 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
 
-    ImmReleaseContext(sub_004F59A0(), hImc);
+    ImmReleaseContext(WINDOW_GetWindow(), hImc);
 }
 
 // 0x0047B010
@@ -312,7 +312,7 @@ bool __cdecl CHAT_IsImeLanguage()
 // 0x0047B090
 void __cdecl CHAT_InitChatIme()
 {
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtChatHandlers_00712F4C, 4);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatHandlers_00712F4C, 4);
     gnLanguageId_007BB5DC = STRTABLE_GetLanguage();
     if (gnLanguageId_007BB5DC != 6 && gnLanguageId_007BB5DC != 9 && gnLanguageId_007BB5DC != 8 && gnLanguageId_007BB5DC != 7 && gnLanguageId_007BB5DC != 12)
         return;
@@ -322,7 +322,7 @@ void __cdecl CHAT_InitChatIme()
         return;
 
     const unsigned short nLangId = GetSystemDefaultLangID();
-    HIMC hImc = ImmGetContext(sub_004F59A0());
+    HIMC hImc = ImmGetContext(WINDOW_GetWindow());
     if (!hImc)
         return;
 
@@ -334,7 +334,7 @@ void __cdecl CHAT_InitChatIme()
         if (nLangId != 0x411)
             break;
         gbChatInputOpen_007BB5E1 = 1;
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtChatInputHandlers_00712FA8, 7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
         if (ImmSetOpenStatus(hImc, 1))
         {
             gbImeOpen_007BB5E0 = 1;
@@ -345,7 +345,7 @@ void __cdecl CHAT_InitChatIme()
             gbImeOpen_007BB5E0 = 0;
             gnImeState_007BB5F0 = 0;
         }
-        ImmReleaseContext(sub_004F59A0(), hImc);
+        ImmReleaseContext(WINDOW_GetWindow(), hImc);
         return;
 
     case 7:
@@ -368,7 +368,7 @@ void __cdecl CHAT_InitChatIme()
             gnImeState_007BB5F0 = 0;
         }
         gbChatInputOpen_007BB5E1 = 1;
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtChatInputHandlers_00712FA8, 7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
         break;
     }
 
@@ -376,34 +376,34 @@ void __cdecl CHAT_InitChatIme()
         gbImeOpen_007BB5E0 = 0;
         gbChatInputOpen_007BB5E1 = 1;
         if (!ImmIsIME(GetKeyboardLayout(0)))
-            ImmSimulateHotKey(sub_004F59A0(), 0x70);
+            ImmSimulateHotKey(WINDOW_GetWindow(), 0x70);
         ImmSetOpenStatus(hImc, 1);
         gnImeState_007BB5F0 = 4;
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtChatInputHandlers_00712FA8, 7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
         break;
 
     case 8:
         gbImeOpen_007BB5E0 = 0;
         gbChatInputOpen_007BB5E1 = 1;
         if (!ImmIsIME(GetKeyboardLayout(0)))
-            ImmSimulateHotKey(sub_004F59A0(), 0x10);
+            ImmSimulateHotKey(WINDOW_GetWindow(), 0x10);
         ImmSetOpenStatus(hImc, 1);
         gnImeState_007BB5F0 = 5;
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtChatInputHandlers_00712FA8, 7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
         break;
     }
-    ImmReleaseContext(sub_004F59A0(), hImc);
+    ImmReleaseContext(WINDOW_GetWindow(), hImc);
 }
 
 
 // 0x0047B2E0
 void __cdecl CHAT_CloseChatInput()
 {
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtChatHandlers_00712F4C, 4);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtChatHandlers_00712F4C, 4);
     if (gbChatInputOpen_007BB5E1)
     {
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtChatInputHandlers_00712FA8, 7);
-        T0046E1B0* hImc = ImmGetContext(sub_004F59A0());
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtChatInputHandlers_00712FA8, 7);
+        T0046E1B0* hImc = ImmGetContext(WINDOW_GetWindow());
         if (hImc)
         {
             ImmSetOpenStatus(hImc, 0);
@@ -414,7 +414,7 @@ void __cdecl CHAT_CloseChatInput()
                 ImmGetConversionStatus(hImc, &nConversion, &nSentence);
                 ImmSetConversionStatus(hImc, 0, nSentence);
             }
-            ImmReleaseContext(sub_004F59A0(), hImc);
+            ImmReleaseContext(WINDOW_GetWindow(), hImc);
         }
         gwChatText_007BB5F8 = 0;
         gwChatText_007BC850 = 0;

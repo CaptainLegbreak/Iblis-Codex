@@ -28,7 +28,7 @@ struct D2UIVarRecordStrc
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl UI_ToggleMiniPanel(); // 0x004567F0
@@ -58,7 +58,7 @@ void __cdecl DIALOG_InitDialogs(); // 0x004B7B40
 void __cdecl sub_004B8720(); // 0x004B8720
 void __cdecl TEXT_LoadTextSliderCel(); // 0x004BE020
 void __cdecl USEITEM_InitUseItemPanel(); // 0x004BF9D0
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F28[]; // 0x006D5F28
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6300[]; // 0x006D6300
 extern D2CelFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
@@ -164,12 +164,12 @@ void __cdecl sub_00456970_InitUI()
         if (!bWasOn)
         {
             if (gaUIVarStates_007A27C0[0])
-                sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5F28, 4);
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 4);
         }
         else
         {
             if (!gaUIVarStates_007A27C0[0])
-                sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F28, 4);
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 4);
         }
         sub_00468730();
         sub_00468740();
@@ -220,12 +220,12 @@ mini_panel:
         if (!bWasOn)
         {
             if (gaUIVarStates_007A27C0[0x22])
-                sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6300, 2);
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 2);
         }
         else
         {
             if (!gaUIVarStates_007A27C0[0x22])
-                sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6300, 2);
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 2);
         }
         sub_00468730();
         sub_00468740();

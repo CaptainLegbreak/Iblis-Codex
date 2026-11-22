@@ -5,7 +5,7 @@ extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);  
 extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack);                         // 0x006CC5FC
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
-void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
+void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 extern unsigned char* gpScreenBuffer_007C9154;                                                              // 0x007C9154
 unsigned char gabRemapTable_008815B0[256];                                                                  // 0x008815B0
 extern unsigned char* gpRemapSource_008816B0;                                                               // 0x008816B0
@@ -61,7 +61,7 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
-                sub_00513330_DDrawCloseSmacker(pRecord);
+                DDRAW_CloseSmacker(pRecord);
             else
                 SmackNextFrame(hSmack);
         }

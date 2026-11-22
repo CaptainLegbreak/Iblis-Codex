@@ -435,11 +435,11 @@ struct D2HotkeyActionStrc
 
 extern "C" int __stdcall sub_00420290_HandleMsg(void* pMessage); // 0x00420290
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 extern D2MsgHandlerEntryStrc gaMsgHandlers_0072472C[]; // 0x0072472C
 
@@ -2020,10 +2020,10 @@ void __cdecl TEXT_RegisterKeyCaptureHandlers()
 {
     gnGlobal_007C02B8 = 1;
     sub_00455AE0_CloseUIVar(0xB);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_00724738, 6);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_0072472C, 1);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_00724780, 1);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_0072478C, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_00724738, 6);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_0072472C, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_00724780, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_0072478C, 1);
 }
 
 // 0x004A5DE0
@@ -2031,10 +2031,10 @@ void __cdecl TEXT_CloseKeyCaptureHandlers()
 {
     if (gnGlobal_007C02B8)
     {
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00724738, 6);
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072478C, 1);
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00724780, 1);
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072472C, 1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724738, 6);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072478C, 1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724780, 1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072472C, 1);
         sub_00469D50();
         sub_0046AA20(1, 0);
         GAME_RegisterMouseHandlers();

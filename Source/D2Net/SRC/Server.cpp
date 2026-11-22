@@ -48,11 +48,11 @@ int __stdcall FOG_10177(QServer* pServer, int dwMilliseconds);                  
 
 void __stdcall FOG_10183_Return(QServer* pServer, int nUnused);                                             // 0x006BF600
 
-int __fastcall sub_0052B0E0(QServer* nUnused, D2PacketBufferStrc* pPacketBuffer, int nBufferSize); // 0x0052B0E0
+int __fastcall SERVER_SendToLocalClientCallback(QServer* nUnused, D2PacketBufferStrc* pPacketBuffer, int nBufferSize); // 0x0052B0E0
 
 int __fastcall SERVER_ValidateClientPacket(int a1, int a2, int a3, int a4);                                 // 0x0052B100
 
-int __fastcall sub_6FC020B0(int a1, int a2, int a3, int a4);                                                // 0x0052B720
+int __fastcall SERVER_OnClientConnectedCallback(int a1, int a2, int a3, int a4);                                                // 0x0052B720
 
 // 0x0052B330
 unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId, void* pPacketArg, unsigned int nPacketSize)
@@ -104,7 +104,7 @@ int __fastcall SERVER_OnClientDisconnectedCallback(int a1, int a2, int a3, int a
 // 0x0052B7A0
 void __stdcall SERVER_Initialize(int a1, int a2)
 {
-    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, sub_6FC020B0, SERVER_OnClientDisconnectedCallback, sub_0052B0E0);
+    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, SERVER_OnClientConnectedCallback, SERVER_OnClientDisconnectedCallback, SERVER_SendToLocalClientCallback);
 }
 
 // 0x0052B570

@@ -27,12 +27,12 @@ extern BufferPool gLargePool; // 0x00970EC8
 extern BufferPool gMediumPool; // 0x00970EE4
 extern BufferPool gSmallPool; // 0x00970F00
 char* __fastcall sub_006B76D0_InitVertices(char*); // 0x006B76D0
-char* __fastcall sub_006B9A50_InitBuffers(char*); // 0x006B9A50
+char* __fastcall D3D_CreateSmackSurfaces(char*); // 0x006B9A50
 char* __fastcall sub_006BAFC0(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
 char* __fastcall sub_006BA9A0(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
 char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
-void __cdecl sub_006B7110_InitSprites(); // 0x006B7110
-void __fastcall sub_006BBB90_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
+void __cdecl D3D_InitSprites(); // 0x006B7110
+void __fastcall D3D_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
 void __stdcall TileSetHardwareFreeCallback(void*); // 0x00604A30
 
 struct D2ComVtblStrc
@@ -52,7 +52,7 @@ struct D2ComObjectStrc
 
 extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
-void __cdecl sub_006BB640_ReleaseSurfaces(); // 0x006BB640
+void __cdecl D3D_ReleaseTileSurfaces(); // 0x006BB640
 void __cdecl sub_006B32B0_ReleaseRenderer(); // 0x006B32B0
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 
@@ -92,7 +92,7 @@ void __cdecl sub_006B3080()
   current=sub_006BA420(&gMediumPool,current,start+remaining*75/100,128,128);
  } else {
   gPrimaryBudget=0;gSecondaryBudget=0;
-  current=sub_006B9A50_InitBuffers(current);
+  current=D3D_CreateSmackSurfaces(current);
   start=current;remaining=memory-(unsigned int)current;
   current=sub_006BA420(&gLargePool,current,current+remaining*70/100,256,256);
   gLargeBudget=gLargePool.count*gBufferCopies*65536;
@@ -101,8 +101,8 @@ void __cdecl sub_006B3080()
  gMediumBudget=gMediumPool.count*gBufferCopies*16384;
  sub_006BA420(&gSmallPool,current,(char*)memory,32,32);
  gSmallBudget=gSmallPool.count*gBufferCopies*1024;
- sub_006B7110_InitSprites();
- TileSetHardwareFreeCallback((void*)sub_006BBB90_InvalidateTileCaches);
+ D3D_InitSprites();
+ TileSetHardwareFreeCallback((void*)D3D_InvalidateTileCaches);
 }
 
 int gbVideoUp_00970E40; // 0x00970E40

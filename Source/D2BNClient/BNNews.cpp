@@ -77,22 +77,22 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2SystemTimeStrc* pSystemTime, D2FileTimeStrc* pFileTime); // 0x006CC26C
 
-int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2); // 0x00519DB0
+int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2); // 0x00519DB0
 
 extern "C" const char gszBNNewsFile_006DF228[]; // 0x006DF228
 
-int __cdecl sub_0051D370_SaveNews(); // 0x0051D370
+int __cdecl BNNEWS_SaveNews(); // 0x0051D370
 
-void __cdecl sub_0051D510_ReportNews(); // 0x0051D510
+void __cdecl BNNEWS_ReportNews(); // 0x0051D510
 
-int __fastcall sub_00519920_LoadCachedFile(const char*, D2FileTimeStrc*, void**, unsigned int*); // 0x00519920
+int __fastcall CACHE_LoadCachedFile(const char*, D2FileTimeStrc*, void**, unsigned int*); // 0x00519920
 
 extern const char* gszNewsFile_0072FF80; // 0x0072FF80
 
 unsigned int gnNewsNewest_00881C44;        // 0x00881C44
 
 // 0x0051D260
-void __fastcall sub_0051D260_SelectVersion(int bAlternate)
+void __fastcall BNNEWS_SelectNewsFile(int bAlternate)
 {
     D2_ASSERT(!gbNewsActive_00881C24, 0x2F);
     gpszNewsName_0072FF80 = "BNNews-D2DV";
@@ -156,7 +156,7 @@ void __cdecl sub_0051D2E0_Nop()
 }
 
 // 0x0051D330
-unsigned int __stdcall sub_0051D330_RoundUp(unsigned int nValue, unsigned int nAlign)
+unsigned int __stdcall BNNEWS_RoundUpToMultiple(unsigned int nValue, unsigned int nAlign)
 {
     unsigned int nRemainder = nValue % nAlign;
     if (nRemainder)
@@ -165,14 +165,14 @@ unsigned int __stdcall sub_0051D330_RoundUp(unsigned int nValue, unsigned int nA
 }
 
 // 0x0051D350
-void __fastcall sub_0051D350_CopyElement(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
+void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
 {
     if (pDst)
         *pDst = *pSrc;
 }
 
 // 0x0051D510
-void __cdecl sub_0051D510_ReportNews()
+void __cdecl BNNEWS_ReportNews()
 {
     if (gpfnNewsRefresh_00881C2C)
         gpfnNewsRefresh_00881C2C();
@@ -199,13 +199,13 @@ static inline bool AddItemSize(const D2Storm408ElemStrc* pItem, int* pnSize)
 }
 
 // 0x0051DA30
-int __cdecl sub_0051DA30_LoadNews()
+int __cdecl BNNEWS_LoadNews()
 {
     D2FileTimeStrc fileTime;
     unsigned int nSize;
     int bResult = 0;
     void* pData = 0;
-    if (sub_00519920_LoadCachedFile(gszNewsFile_0072FF80, &fileTime, &pData, &nSize))
+    if (CACHE_LoadCachedFile(gszNewsFile_0072FF80, &fileTime, &pData, &nSize))
     {
         const char* p = (const char*)pData;
         gnNewsNewest_00881C44 = *(const unsigned int*)p;
@@ -276,7 +276,7 @@ unsigned int D2StormArray408Strc::sub_0051D2F0_CalcChunkSize(unsigned int nCount
 }
 
 // 0x0051D370
-int __cdecl sub_0051D370_SaveNews()
+int __cdecl BNNEWS_SaveNews()
 {
     unsigned int nEnd = gtNewsItems_00881C30.f_4;
     unsigned int nFirst = gnNewsFirstIndex_00881C40;
@@ -313,7 +313,7 @@ int __cdecl sub_0051D370_SaveNews()
         D2FileTimeStrc tFileTime;
         GetSystemTime(&tSystemTime);
         SystemTimeToFileTime(&tSystemTime, &tFileTime);
-        int nResult = sub_00519DB0_WriteCacheFile(gpszNewsName_0072FF80, pBuffer, nSize, &tFileTime, -1, -1);
+        int nResult = CACHE_WriteCachedFile(gpszNewsName_0072FF80, pBuffer, nSize, &tFileTime, -1, -1);
         FOG_Free(pBuffer, gszBNNewsFile_006DF228, 0x17B, 0);
         return nResult;
     }
@@ -417,7 +417,7 @@ void D2StormArray408Strc::sub_0051D730_FreeData()
 }
 
 // 0x0051D750
-int __cdecl sub_0051D750_UnloadBNetNews()
+int __cdecl BNNEWS_UnloadBNetNews()
 {
     gpfnNewsMessage_00881C28 = 0;
     gpfnNewsRefresh_00881C2C = 0;
@@ -469,7 +469,7 @@ void sub_W11_EmitDeleteStormArray408(D2StormArray408Strc* pArray)
 }
 
 // 0x0051DF90
-int __fastcall sub_0051DF90(const char* szKey, void* pArg2, void* pArg3, void* pArg4)
+int __fastcall BNNEWS_TryDecodeCDKey(const char* szKey, void* pArg2, void* pArg3, void* pArg4)
 {
     if (!szKey)
         return 0;

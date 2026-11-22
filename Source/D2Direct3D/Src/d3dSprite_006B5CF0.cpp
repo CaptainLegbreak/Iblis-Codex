@@ -18,9 +18,9 @@ int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 void __fastcall sub_006BA760_Touch(int* pValue, int nValue); // 0x006BA760
-void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
-void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
-void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
+void __fastcall D3D_SetAlphaBlendMode(int mode); // 0x006B1F40
+void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 
@@ -94,8 +94,8 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
 // 0x006B63F0
 void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
 {
-    sub_006B1EA0_SetState(1);
-    sub_006B2030_SetFilterMode(1);
+    D3D_SetColorCombineMode(1);
+    D3D_SetTextureFilterMode(1);
 
     D2QuadRectStrc tRect;
     tRect.nX = pSprite->nOffsetX;
@@ -188,16 +188,16 @@ unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
     {
     case 5:
     case 7:
-        sub_006B1F40_SetBlendMode(1);
+        D3D_SetAlphaBlendMode(1);
         break;
     case 3:
-        sub_006B1F40_SetBlendMode(2);
+        D3D_SetAlphaBlendMode(2);
         break;
     case 4:
-        sub_006B1F40_SetBlendMode(3);
+        D3D_SetAlphaBlendMode(3);
         break;
     default:
-        sub_006B1F40_SetBlendMode(4);
+        D3D_SetAlphaBlendMode(4);
         if (mode == 0)
             alpha = 64;
         else if (mode == 1)

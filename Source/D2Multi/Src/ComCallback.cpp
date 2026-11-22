@@ -75,21 +75,21 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
 
-D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
+D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
-void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
-int __stdcall sub_00435E00_Back(int nArg); // 0x00435E00
+int __stdcall CHARSEL_Back(int nArg); // 0x00435E00
 
-void __fastcall sub_00439780_PickClass(int nClass, int bExpansion); // 0x00439780
+void __fastcall CHARSEL_PickClass(int nClass, int bExpansion); // 0x00439780
 
-void __cdecl sub_0043C4F0(); // 0x0043C4F0
+void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
 int __fastcall sub_0043DAD0_SetMainState(int bSet); // 0x0043DAD0
 
 int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
 
-void __stdcall sub_00446A90_RemoveTableString(Unicode* pText); // 0x00446A90
+void __stdcall CHATDLG_RemoveTableString(Unicode* pText); // 0x00446A90
 
 int __cdecl GAME_GetMcpCharLevel(); // 0x00449E20
 
@@ -147,19 +147,19 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
 
-int __fastcall sub_00440CA0(const char* szName, char* szA, char* szB, char* szC); // 0x00440CA0
+int __fastcall MAINMENUS_RequestProfile(const char* szName, char* szA, char* szB, char* szC); // 0x00440CA0
 
-void __cdecl sub_00443D50_CreateControls(); // 0x00443D50
+void __cdecl CHATDLG_CreateProfileControls(); // 0x00443D50
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
-const char* __fastcall sub_00446820_SkipNamePrefix(const char* szName); // 0x00446820
+const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName); // 0x00446820
 
 unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* pCompositeUnit); // 0x00505330
 
 void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, int nFlags); // 0x00505360
 
-void __cdecl sub_004477A0_Refresh(); // 0x004477A0
+void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
 
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
@@ -240,9 +240,9 @@ int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText)
 
 int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
-void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
+void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 
-void __cdecl sub_00448050_ClearSelectedUser(); // 0x00448050
+void __cdecl COMCALLBACK_ClearSelectedUser(); // 0x00448050
 
 extern D2WinEditBoxStrc* gpChatEditBox_0077BD94; // 0x0077BD94
 
@@ -270,7 +270,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTempPathA(unsigned l
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTempFileNameA(const char* lpPathName, const char* lpPrefixString, unsigned int uUnique, char* lpTempFileName); // 0x006CC340
 
-void __fastcall sub_00447560_SplitName(const char* szName, char* szTitle, char* szOut); // 0x00447560
+void __fastcall COMCALLBACK_SplitName(const char* szName, char* szTitle, char* szOut); // 0x00447560
 
 D2WinControlStrc* gpProgressText_00779978; // 0x00779978
 
@@ -332,29 +332,29 @@ static inline int ProgressBarValue(int nPercent)
 }
 
 // 0x0042F890
-void __cdecl sub_0042F890_ShowProgressScreen()
+void __cdecl COMCALLBACK_ShowProgressScreen()
 {
     char szText[100];
-    sub_0043C4F0();
-    sub_0042F430_CreateControl(0x116);
-    gpProgressBar_0077997C = sub_0042F430_CreateControl(0x117);
+    CHARSEL_CreateBaseScreen();
+    MAINMENUS_CreateControl(0x116);
+    gpProgressBar_0077997C = MAINMENUS_CreateControl(0x117);
     sub_004FD170_SetBarMode(gpProgressBar_0077997C, 3);
-    gpProgressText_00779978 = sub_0042F430_CreateControl(0x113);
+    gpProgressText_00779978 = MAINMENUS_CreateControl(0x113);
     int nPercent = gpFuncTable_0077ABF0->pfnSlot4C();
     if (nPercent > 100)
         nPercent = 100;
-    D2WinControlStrc* pControl = sub_0042F430_CreateControl(0x114);
+    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x114);
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x143A), 0, 0, 0);
-    pControl = sub_0042F430_CreateControl(0x112);
+    pControl = MAINMENUS_CreateControl(0x112);
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x143B), 0, 0, 0);
-    sub_0042F430_CreateControl(0x118);
+    MAINMENUS_CreateControl(0x118);
     sub_004FD110_SetBarValue(gpProgressBar_0077997C, ProgressBarValue(nPercent));
     sprintf(szText, "%d%%", nPercent);
     sub_004FCFF0_SetTextA(gpProgressText_00779978, szText, 0);
 }
 
 // 0x0042F990
-void __cdecl sub_0042F990_UpdateProgress()
+void __cdecl COMCALLBACK_UpdateProgress()
 {
     char szText[100];
     sub_004FB6A0_ClearText(gpProgressText_00779978);
@@ -381,7 +381,7 @@ static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
 }
 
 // 0x00430590
-int __stdcall sub_00430590_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar)
+int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar)
 {
     const char c = *pChar;
     if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || ((c == '-' || c == '_') && bAllowSep && FilterNoSeparator(pControl)))
@@ -390,7 +390,7 @@ int __stdcall sub_00430590_FilterNameChar(D2WinControlStrc* pControl, int bAllow
 }
 
 // 0x00439840
-int __stdcall sub_00439840(int nArg)
+int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
 {
     char szName[0x100];
 
@@ -402,7 +402,7 @@ int __stdcall sub_00439840(int nArg)
     {
         if (gnLaunchMode_007795EC != 1 || !gbFlag_00779DD8)
         {
-            sub_00435E00_Back(nArg);
+            CHARSEL_Back(nArg);
             gnCounter_00779DDC -= 1;
             if (gnCounter_00779DDC <= 0)
             {
@@ -448,7 +448,8 @@ int __stdcall sub_00439840(int nArg)
 
         if ((pEntry->wFlags & 4) && (pEntry->wFlags & 8) && (gnLaunchMode_007795EC == 0 || gnLaunchMode_007795EC == 2))
         {
-            sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x14B8), sub_0042F3F0_DestroyControls);
+// build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
+            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14B8), MAINMENUS_DestroyControls);
             return 1;
         }
 
@@ -457,20 +458,21 @@ int __stdcall sub_00439840(int nArg)
             int nClass = (pEntry->wFlags >> 8) & 0x1F;
             if ((!(pEntry->wFlags & 0x20) && nClass >= 4) || nClass >= 5)
             {
-                sub_00439780_PickClass(nClass, pEntry->wFlags & 0x20);
+                CHARSEL_PickClass(nClass, pEntry->wFlags & 0x20);
                 return 1;
             }
         }
 
         sub_00526F70(szName, pEntry->wszName, 0xFF);
-        sub_00434A00_Join(pEntry, pEntry->wFlags, pEntry->nType, szName);
+// build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
+        MAINMENUS_JoinGame(pEntry, pEntry->wFlags, pEntry->nType, szName);
     }
 
     return 1;
 }
 
 // 0x0043F730
-void __cdecl sub_0043F730()
+void __cdecl COMCALLBACK_UpdateNameListText()
 {
     char szText[0x200];
     Unicode wszText[0x200];
@@ -501,7 +503,7 @@ void __cdecl sub_0043F730()
 }
 
 // 0x00443D10
-static void __stdcall sub_00443D10_SetPendingName(int nA, int nB, const char* szText)
+static void __stdcall COMCALLBACK_SetPendingName(int nA, int nB, const char* szText)
 {
     strcpy(gszName_00798CD4, szText);
     gnPendingValueA_00798CE4 = nA;
@@ -509,7 +511,7 @@ static void __stdcall sub_00443D10_SetPendingName(int nA, int nB, const char* sz
 }
 
 // 0x004453B0
-void __cdecl sub_004453B0_BuildPanel()
+void __cdecl COMCALLBACK_BuildCreateGamePanel()
 {
     Unicode wszNumber[3];
     char szNumber[4];
@@ -549,7 +551,7 @@ void __cdecl sub_004453B0_BuildPanel()
 }
 
 // 0x00445A80
-void __fastcall sub_00445A80_ShowProfileDialog(const char* szText, int nA, int nB)
+void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB)
 {
     const char* szName = gpCharInfo_0077BBD8->szText0x8D;
     char szA[12];
@@ -560,12 +562,13 @@ void __fastcall sub_00445A80_ShowProfileDialog(const char* szText, int nA, int n
     BUTTON_SetIsPressed(gpControlA_0077B070, 0);
     BUTTON_SetIsPressed(gpControlB_0077B078, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
-    if (!sub_00440CA0(szName, szA, szB, szC))
+    if (!MAINMENUS_RequestProfile(szName, szA, szB, szC))
     {
         return;
     }
 
-    sub_0043F8C0_ResetLaunchState();
+// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
+    CHARSEL_ResetLaunchState();
     gnSubmitMode_00798CAC = 2;
     gpControl_00798C78 = CONTROL_Create(&gtControlInit_0070E680);
     gpControl_00798C7C = CONTROL_Create(&gtControlInit_0070E6B0);
@@ -586,7 +589,7 @@ void __fastcall sub_00445A80_ShowProfileDialog(const char* szText, int nA, int n
     {
         gpControl_00798CA4 = CONTROL_Create(&gtControlInit_0070E980);
     }
-    sub_00443D50_CreateControls();
+    CHATDLG_CreateProfileControls();
     sub_004FDDD0_LinkTab(gpSubmitEditC_00798C88, gpSubmitEditA_00798C80);
     sub_004FDDD0_LinkTab(gpSubmitEditA_00798C80, gpSubmitEditB_00798C84);
     sub_004FDDD0_LinkTab(gpSubmitEditB_00798C84, gpSubmitEditC_00798C88);
@@ -599,13 +602,13 @@ void __fastcall sub_00445A80_ShowProfileDialog(const char* szText, int nA, int n
         CONTROL_SetFocusedEditBox(gpSubmitEditC_00798C88);
         D2Win_10082(gpSubmitEditC_00798C88);
     }
-    sub_00443D10_SetPendingName(nA, nB, szText);
+    COMCALLBACK_SetPendingName(nA, nB, szText);
 }
 
 // 0x00445C70
-void __fastcall sub_00445C70_ShowUserInfoDialog(const char* szUser, const char* szText, int nA, int nB)
+void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* szText, int nA, int nB)
 {
-    const char* szName = sub_00446820_SkipNamePrefix(szUser);
+    const char* szName = CHATDLG_SkipNamePrefix(szUser);
     char szA[12];
     char szB[44];
     char szC[204];
@@ -614,12 +617,12 @@ void __fastcall sub_00445C70_ShowUserInfoDialog(const char* szUser, const char* 
     BUTTON_SetIsPressed(gpControlA_0077B070, 0);
     BUTTON_SetIsPressed(gpControlB_0077B078, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
-    if (!sub_00440CA0(szName, szA, szB, szC))
+    if (!MAINMENUS_RequestProfile(szName, szA, szB, szC))
     {
         return;
     }
 
-    sub_0043F8C0_ResetLaunchState();
+    CHARSEL_ResetLaunchState();
     gnSubmitMode_00798CAC = 1;
     gpControl_00798C64 = CONTROL_Create(&gtControlInit_0070E770);
     gpControl_00798C68 = CONTROL_Create(&gtControlInit_0070E7A0);
@@ -642,13 +645,13 @@ void __fastcall sub_00445C70_ShowUserInfoDialog(const char* szUser, const char* 
     {
         gpControl_00798CA4 = CONTROL_Create(&gtControlInit_0070E980);
     }
-    sub_00443D50_CreateControls();
+    CHATDLG_CreateProfileControls();
     sub_0043D990();
-    sub_00443D10_SetPendingName(nA, nB, szText);
+    COMCALLBACK_SetPendingName(nA, nB, szText);
 }
 
 // 0x004468F0
-int __stdcall sub_004468F0_SendChatLine(int nUnused)
+int __stdcall COMCALLBACK_SendChatLine(int nUnused)
 {
     char szText[0x100];
     const Unicode* wszText = D2Win_10077_EDITBOX_GetText(gpChatEditBox_0077BD94);
@@ -662,7 +665,7 @@ int __stdcall sub_004468F0_SendChatLine(int nUnused)
 }
 
 // 0x00448E30
-int __stdcall sub_00448E30_SquelchSelectedUser(int nUnused)
+int __stdcall COMCALLBACK_SquelchSelectedUser(int nUnused)
 {
     char szName[0x100];
     char szText[0x100];
@@ -685,10 +688,10 @@ int __stdcall sub_00448E30_SquelchSelectedUser(int nUnused)
         pName = szName;
     }
     sprintf(szText, "/squelch *%s", pName);
-    sub_00448050_ClearSelectedUser();
+    COMCALLBACK_ClearSelectedUser();
     if (!gpLaunchFuncs_0077B09C->pfn0x68())
     {
-        sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
+        CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return 0;
     }
 
@@ -707,7 +710,7 @@ int __stdcall sub_00448E30_SquelchSelectedUser(int nUnused)
 }
 
 // 0x00448F60
-int __stdcall sub_00448F60_UnsquelchSelectedUser(int nUnused)
+int __stdcall COMCALLBACK_UnsquelchSelectedUser(int nUnused)
 {
     char szName[0x100];
     char szText[0x100];
@@ -730,10 +733,10 @@ int __stdcall sub_00448F60_UnsquelchSelectedUser(int nUnused)
         pName = szName;
     }
     sprintf(szText, "/unsquelch *%s", pName);
-    sub_00448050_ClearSelectedUser();
+    COMCALLBACK_ClearSelectedUser();
     if (!gpLaunchFuncs_0077B09C->pfn0x68())
     {
-        sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
+        CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return 0;
     }
 
@@ -744,7 +747,7 @@ int __stdcall sub_00448F60_UnsquelchSelectedUser(int nUnused)
 }
 
 // 0x00446B70
-static int sub_00446B70_Func(ComAdStrc* pAd)
+static int COMCALLBACK_PlayAd(ComAdStrc* pAd)
 {
     char szTempFile[260];
     char szTempPath[260];
@@ -786,7 +789,7 @@ static int sub_00446B70_Func(ComAdStrc* pAd)
 }
 
 // 0x00446970
-int __stdcall sub_00446970_SendEmoteLine(int nUnused)
+int __stdcall COMCALLBACK_SendEmoteLine(int nUnused)
 {
     char szText[0x12C];
     char szLine[0x12C];
@@ -809,7 +812,7 @@ int __stdcall sub_00446970_SendEmoteLine(int nUnused)
 }
 
 // 0x00446A00
-int __stdcall sub_00446A00(int nUnused)
+int __stdcall COMCALLBACK_SendAwayCommand(int nUnused)
 {
     char szText[AWAY_TEXT_SIZE];
     const unsigned long dwTick = GetTickCount();
@@ -819,7 +822,7 @@ int __stdcall sub_00446A00(int nUnused)
         sprintf(szText, "/away Away from the keyboard.");
         if (!gpLaunchFuncs_0077B09C->pfn0x68())
         {
-            sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
+            CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
             return 0;
         }
         gpLaunchFuncs_0077B09C->pfn0x14(szText);
@@ -829,7 +832,7 @@ int __stdcall sub_00446A00(int nUnused)
 }
 
 // 0x00448050
-void __cdecl sub_00448050_ClearSelectedUser()
+void __cdecl COMCALLBACK_ClearSelectedUser()
 {
     if (gpSelectedChannelUser_00798F48)
     {
@@ -843,12 +846,12 @@ void __cdecl sub_00448050_ClearSelectedUser()
 // build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
     if (!GAME_IsLaunchExpansion())
     {
-        sub_004477A0_Refresh();
+        COMCALLBACK_RefreshChatButtons();
     }
 }
 
 // 0x00447870
-void __fastcall sub_00447870_AppendNumberText(Unicode* pText, int nValue)
+void __fastcall COMCALLBACK_AppendNumberText(Unicode* pText, int nValue)
 {
     Unicode wszNumber[3];
     char szNumber[4];
@@ -876,7 +879,7 @@ void __fastcall sub_00447870_AppendNumberText(Unicode* pText, int nValue)
 }
 
 // 0x00447940
-void __fastcall sub_00447940_PrependNumberText(Unicode* pText, int nValue)
+void __fastcall COMCALLBACK_PrependNumberText(Unicode* pText, int nValue)
 {
     Unicode wszNumber[3];
     char szNumber[4];
@@ -905,45 +908,46 @@ void __fastcall sub_00447940_PrependNumberText(Unicode* pText, int nValue)
 }
 
 // 0x00448150
-int __stdcall sub_00448150_PrintChannelText0(int nUnused, const char* szText)
+int __stdcall COMCALLBACK_PrintNormalText(int nUnused, const char* szText)
 {
     Unicode wszText[0x240];
     for (int i = 0; i < 0x240; i++)
         wszText[i].wChar = 0;
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
+    CHATDLG_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, 0);
     return 1;
 }
 
 // 0x004484E0
-int __stdcall sub_004484E0_PrintChannelText3(int nUnused, const char* szText)
+int __stdcall COMCALLBACK_PrintInfoText(int nUnused, const char* szText)
 {
     Unicode wszText[0x240];
     for (int i = 0; i < 0x240; i++)
         wszText[i].wChar = 0;
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
+    CHATDLG_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, 3);
     return 1;
 }
 
 // 0x00448540
-int __stdcall sub_00448540_PrintChannelText1(int nUnused, const char* szText)
+int __stdcall COMCALLBACK_PrintErrorText(int nUnused, const char* szText)
 {
     Unicode wszText[0x240];
     for (int i = 0; i < 0x240; i++)
         wszText[i].wChar = 0;
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
+    CHATDLG_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, 1);
     return 1;
 }
 
-int __cdecl sub_00447A10_Pump(int n)
+// build: symbol ?COMCALLBACK_PumpMessages@* 0x00447A10
+int __cdecl COMCALLBACK_PumpMessages(int n)
 {
     ComAdStrc ad;
-    return sub_00446B70_Func(&ad);
+    return COMCALLBACK_PlayAd(&ad);
 }
 
 static const char* SkipStarPrefix_Inl(const char* szName)
@@ -961,7 +965,7 @@ static const char* SkipStarPrefix_Inl(const char* szName)
 }
 
 // 0x004485A0
-int __stdcall sub_004485A0_PrintFormattedText(int nUnused, const char* szText)
+int __stdcall COMCALLBACK_OnChannelFull(int nUnused, const char* szText)
 {
     char szBuffer[0x1F4];
     Unicode wszText[0x240];
@@ -969,13 +973,13 @@ int __stdcall sub_004485A0_PrintFormattedText(int nUnused, const char* szText)
     for (int i = 0; i < 0x240; i++)
         wszText[i].wChar = 0;
     sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
+    CHATDLG_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, 1);
     return 1;
 }
 
 // 0x00448610
-int __stdcall sub_00448610_PrintFormattedText(int nUnused, const char* szText)
+int __stdcall COMCALLBACK_OnChannelRestricted(int nUnused, const char* szText)
 {
     char szBuffer[0x1F4];
     Unicode wszText[0x240];
@@ -983,13 +987,13 @@ int __stdcall sub_00448610_PrintFormattedText(int nUnused, const char* szText)
     for (int i = 0; i < 0x240; i++)
         wszText[i].wChar = 0;
     sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
+    CHATDLG_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, 1);
     return 1;
 }
 
 // 0x00448A60
-static void sub_00448A60_PrintWhisperSent(const char* szName, const char* szText)
+static void COMCALLBACK_PrintWhisperSent(const char* szName, const char* szText)
 {
     char szLine[0x1F4];
     Unicode wszLine[0x240];
@@ -997,17 +1001,17 @@ static void sub_00448A60_PrintWhisperSent(const char* szName, const char* szText
     for (int i = 0; i < 0x240; i++)
         wszLine[i].wChar = 0;
     sub_00526E40_Utf8ToUnicode(wszLine, szLine, 0x240);
-    sub_00446A90_RemoveTableString(wszLine);
+    CHATDLG_RemoveTableString(wszLine);
     sub_0043E610_PrintText(wszLine, 2);
 }
 
 // 0x00448AD0
-int __stdcall sub_00448AD0_OnWhisperSent(const char* szTarget, const char* szText)
+int __stdcall COMCALLBACK_OnWhisperSent(const char* szTarget, const char* szText)
 {
     char szName[0x100];
     char szTitle[0x100];
     char szAccount[0x100];
-    sub_00447560_SplitName(szTarget, szTitle, szName);
+    COMCALLBACK_SplitName(szTarget, szTitle, szName);
     if (strlen(szName))
     {
         if (strlen(szTitle))
@@ -1018,11 +1022,11 @@ int __stdcall sub_00448AD0_OnWhisperSent(const char* szTarget, const char* szTex
         {
             strcpy(szAccount, szName);
         }
-        sub_00448A60_PrintWhisperSent(szAccount, szText);
+        COMCALLBACK_PrintWhisperSent(szAccount, szText);
     }
     else
     {
-        sub_00448A60_PrintWhisperSent(SkipStarPrefix_Inl(szTarget), szText);
+        COMCALLBACK_PrintWhisperSent(SkipStarPrefix_Inl(szTarget), szText);
     }
     return 1;
 }

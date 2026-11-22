@@ -31,7 +31,7 @@ struct D2DDrawCelClipStrc
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
 void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
-int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType); // 0x00511D70
+int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType); // 0x00511D70
 
 extern D2PaletteTableStrc* gpDDrawCaps_007C9150; // 0x007C9150
 extern int gnDDrawModeWidth_008812A0; // 0x008812A0
@@ -135,7 +135,7 @@ void __fastcall sub_M366_Emit_00512250(D2CelContextStrc* pContext, int nX, int n
         return;
     if (sub_00511E80_ClipCel(pContext->pCel, nY, nX, &tOut, pClip))
         return;
-    const int nCaps = sub_00511D70_GetCapsValue(nDrawMode, (int*)&pClip);
+    const int nCaps = DDRAW_GetDrawModePalette(nDrawMode, (int*)&pClip);
     CelDrawEx((D2CmpCelContextStrc*)pContext, nX, nY, tOut.nLeft, tOut.nRight, gpScreenBuffer_007C9154,
         gnScreenHeight_007C913C, gnScreenWidth_007C9138, 0, nCaps, tOut.f_8, tOut.nRows, 0);
 }
@@ -152,7 +152,7 @@ int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int 
 
     const int nGamma = (unsigned char)dwGamma;
     unsigned char* pGammaTable = 0;
-    const int nCaps = sub_00511D70_GetCapsValue(nDrawMode, (int*)&dwGamma);
+    const int nCaps = DDRAW_GetDrawModePalette(nDrawMode, (int*)&dwGamma);
     if (nGamma != 0xFF)
         pGammaTable = gpDDrawCaps_007C9150->pShadowLightGammaPalettes[nGamma >> 3];
     if (nDrawMode == 7)

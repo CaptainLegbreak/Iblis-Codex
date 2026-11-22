@@ -63,9 +63,9 @@ extern void (__stdcall* gpfGlideTexDownloadMipMap_0087EAB8)(int nTmu, int nStart
 extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 int __cdecl sub_00406D20(); // 0x00406D20
 int __cdecl FOG_IsExpansion(); // 0x00408F20
-int __cdecl sub_004F9200(); // 0x004F9200
-int __cdecl sub_004FA460(); // 0x004FA460
-int __cdecl sub_004FA4B0(); // 0x004FA4B0
+int __cdecl CONTROL_GetFocusedEditBox(); // 0x004F9200
+int __cdecl D2Win_IsMouseButtonPressed(); // 0x004FA460
+int __cdecl CONTROL_GetActiveControlList(); // 0x004FA4B0
 int __cdecl sub_00525150(); // 0x00525150
 int __fastcall SCROLLBAR_GetCurrentStep(D2WinScrollBarStrc* pScrollBar); // 0x00507FA0
 int __fastcall SCROLLBAR_GetMaxSteps(D2WinScrollBarStrc* pScrollBar); // 0x00507EF0

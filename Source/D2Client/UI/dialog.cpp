@@ -121,13 +121,13 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
 
 void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 extern D2MsgHandlerEntryStrc gaMsgHandlers_007273E4[]; // 0x007273E4
 
@@ -619,8 +619,8 @@ void __cdecl DIALOG_FreeDialogs()
 {
     if (gnGlobal_007C0E58)
     {
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_007273E4, 1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_007273F0, 0xE);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_007273E4, 1);
         gnGlobal_007C0E4C -= 1;
     }
 
@@ -720,8 +720,8 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     pDialog->nY = nArg2;
     gnGlobal_007C0E58 = 1;
     DIALOG_LoadDialogHotkeys();
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273E4, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_007273F0, 0xE);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_007273E4, 1);
     gnGlobal_007C0E4C += 1;
     D2_ASSERT(gnGlobal_007C0E5C == 1, 0x3C8);
     return pDialog;
@@ -793,8 +793,8 @@ D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, i
     pDialog->bKeepKeys = nArg28;
     gnGlobal_007C0E58 = 1;
     DIALOG_LoadDialogHotkeys();
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273E4, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_007273F0, 0xE);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_007273E4, 1);
     gnGlobal_007C0E4C += 1;
     D2_ASSERT(gnGlobal_007C0E5C == 1, 0x408);
     return pDialog;
@@ -807,8 +807,8 @@ void __fastcall DIALOG_DestroyDialog(void* pRes)
     if (gnGlobal_007C0E5C == 0)
     {
         sub_004545C0(1);
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_007273E4, 1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_007273F0, 0xE);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_007273E4, 1);
         CUNIT_SetDialogState(1);
         sub_00467430(0);
         gnGlobal_007C0E58 = 0;

@@ -56,12 +56,12 @@ struct D2McpIncoming0EStrc
 
 extern "C" unsigned int __cdecl strlen(const char* pString);
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
-void __stdcall sub_00449C40_SetValue(int nValue);                                                           // 0x00449C40
-void __stdcall sub_00449C60_SetValue(int nValue);                                                           // 0x00449C60
-void __stdcall sub_00449C80_SetValue(int nValue);                                                           // 0x00449C80
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue);                                                           // 0x00449C40
+void __stdcall CHATDLG_SetCharDeleteReceived(int nValue);                                                           // 0x00449C60
+void __stdcall CHATDLG_SetCharUpgradeReceived(int nValue);                                                           // 0x00449C80
 void __stdcall sub_00449C90_SetValue(int nValue);                                                           // 0x00449C90
 void __stdcall sub_00449CC0_SetValue(int nValue);                                                           // 0x00449CC0
-void __stdcall sub_00449D10_SetTexts(int nResult, const char* szText1, const char* szText2);                // 0x00449D10
+void __stdcall CHATDLG_SetMcpTexts(int nResult, const char* szText1, const char* szText2);                // 0x00449D10
 void __stdcall sub_00449D90_SetValue(int nValue);                                                           // 0x00449D90
 void __stdcall sub_00449DB0_SetValue(int nValue);                                                           // 0x00449DB0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
@@ -78,7 +78,8 @@ D2McpCallbackFn gpfnMcpCallback_007992FC;                                       
 // 0x0044AB80
 int __fastcall sub_0044AB80_McpIncoming1B(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
+// build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
+    CHATDLG_SetMcpResult(pPacket->nValue);
     SetEvent(ghConnectEvent_007992EC);
     return 1;
 }
@@ -86,16 +87,17 @@ int __fastcall sub_0044AB80_McpIncoming1B(D2McpPacketValueStrc* pPacket, int nSi
 // 0x0044ABA0
 int __fastcall sub_0044ABA0_McpIncoming02(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
-    sub_00449C20_SetValue(1);
+    CHATDLG_SetMcpResult(pPacket->nValue);
+// build: symbol ?CHATDLG_SetCharCreateReceived@* 0x00449C20
+    CHATDLG_SetCharCreateReceived(1);
     return 1;
 }
 
 // 0x0044ABC0
 int __fastcall sub_0044ABC0_McpIncoming07(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
-    sub_00449C40_SetValue(1);
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    CHATDLG_SetCharLogonReceived(1);
     return 1;
 }
 
@@ -105,7 +107,7 @@ int __fastcall sub_0044ABE0_McpIncoming03(D2McpIncoming03Strc* pPacket, int nSiz
     const int nValueB0 = pPacket->nValueB0;
     if (pPacket->f_1 == gwMcpRequestId_00798F8C)
     {
-        sub_00449BF0_SetValue(pPacket->nCode);
+        CHATDLG_SetMcpResult(pPacket->nCode);
         gwRequestId_00798F80 = gwMcpRequestId_00798F8C;
         gdwGlobal_00798FB0 = nValueB0;
     }
@@ -128,10 +130,10 @@ int __fastcall sub_0044AC20_McpIncoming04(D2McpIncoming04Strc* pPacket, int nSiz
         {
             if (nCode)
             {
-                sub_00449BF0_SetValue(nCode);
+                CHATDLG_SetMcpResult(nCode);
                 return 1;
             }
-            sub_00449BF0_SetValue(0x28);
+            CHATDLG_SetMcpResult(0x28);
             return 1;
         }
 // build: symbol ?FOG_inet_ntoa@* 0x0040E080
@@ -161,8 +163,8 @@ int __fastcall sub_0044AE30_McpIncoming0A(D2McpIncoming0AStrc* pPacket, int nSiz
 {
     if (pPacket->f_1 == gwMcpRequestId_00798F8C)
     {
-        sub_00449BF0_SetValue(pPacket->nCode);
-        sub_00449C60_SetValue(1);
+        CHATDLG_SetMcpResult(pPacket->nCode);
+        CHATDLG_SetCharDeleteReceived(1);
     }
     return 1;
 }
@@ -170,15 +172,15 @@ int __fastcall sub_0044AE30_McpIncoming0A(D2McpIncoming0AStrc* pPacket, int nSiz
 // 0x0044AE60
 int __fastcall sub_0044AE60_McpIncoming18(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
-    sub_00449C80_SetValue(1);
+    CHATDLG_SetMcpResult(pPacket->nValue);
+    CHATDLG_SetCharUpgradeReceived(1);
     return 1;
 }
 
 // 0x0044AE80
 int __fastcall sub_0044AE80_McpIncoming0B(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
+    CHATDLG_SetMcpResult(pPacket->nValue);
     sub_00449C90_SetValue(1);
     return 1;
 }
@@ -186,7 +188,7 @@ int __fastcall sub_0044AE80_McpIncoming0B(D2McpPacketValueStrc* pPacket, int nSi
 // 0x0044AEA0
 int __fastcall sub_0044AEA0_McpIncoming0C(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
+    CHATDLG_SetMcpResult(pPacket->nValue);
     sub_00449CC0_SetValue(1);
     return 1;
 }
@@ -195,14 +197,14 @@ int __fastcall sub_0044AEA0_McpIncoming0C(D2McpPacketValueStrc* pPacket, int nSi
 int __fastcall sub_0044AEC0_McpIncoming0E(D2McpIncoming0EStrc* pPacket, int nSize)
 {
     const char* szText = pPacket->szText;
-    sub_00449D10_SetTexts(1, szText, szText + strlen(szText) + 1);
+    CHATDLG_SetMcpTexts(1, szText, szText + strlen(szText) + 1);
     return 1;
 }
 
 // 0x0044AEF0
 int __fastcall sub_0044AEF0_McpIncoming0D(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
+    CHATDLG_SetMcpResult(pPacket->nValue);
     sub_00449D90_SetValue(1);
     return 1;
 }
@@ -210,7 +212,7 @@ int __fastcall sub_0044AEF0_McpIncoming0D(D2McpPacketValueStrc* pPacket, int nSi
 // 0x0044AF10
 int __fastcall sub_0044AF10_McpIncoming0F(D2McpPacketValueStrc* pPacket, int nSize)
 {
-    sub_00449BF0_SetValue(pPacket->nValue);
+    CHATDLG_SetMcpResult(pPacket->nValue);
     sub_00449DB0_SetValue(1);
     return 1;
 }

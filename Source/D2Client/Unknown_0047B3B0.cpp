@@ -59,10 +59,10 @@ struct D2MenuItemStrc
 extern "C" const char szLightQuality_006D73A8[];
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-int __cdecl sub_00514CC0();
-int __cdecl sub_00514CF0();
-int __cdecl sub_00514D20();
-int __cdecl sub_00514D50();
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
+int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
+int __cdecl D2SOUND_GetPositionalBiasOption(); // 0x00514D20
+int __cdecl D2SOUND_GetNpcSpeechOption(); // 0x00514D50
 int __fastcall D2SOUND_SetMasterVolumeOption(int nValue); // 0x00514CD0
 int __fastcall D2SOUND_SetMusicVolumeOption(int nValue); // 0x00514D00
 int __fastcall D2SOUND_SetPositionalBiasOption(int nValue); // 0x00514D30
@@ -282,7 +282,7 @@ void __cdecl sub_004BF9C0_Nop()
 }
 
 // 0x0050B7A0
-void __cdecl sub_0050B7A0_Nop()
+void __cdecl GLIDE_DebugFillBackBuffer()
 {
 }
 
@@ -349,7 +349,7 @@ void __fastcall sub_0047CDA0_MasterVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDL
 
 void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514CC0(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMasterVolumeOption(), 0, 100);
 }
 
 void __fastcall sub_0047CDF0_MusicVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
@@ -359,7 +359,7 @@ void __fastcall sub_0047CDF0_MusicVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLE
 
 void __fastcall sub_0047CE10_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514CF0(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMusicVolumeOption(), 0, 100);
 }
 
 void __fastcall sub_0047CE50_SoundModeOption(D2MenuItemStrc* pItem, int nArg)
@@ -374,7 +374,7 @@ void __fastcall sub_0047CE70_PositionalBiasSelect(D2MenuItemStrc* pItem, SMSGHAN
 
 void __fastcall sub_0047CE90_PositionalBiasOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514D20(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetPositionalBiasOption(), 0, 100);
 }
 
 void __fastcall sub_0047CED0_SoundMode2Option(D2MenuItemStrc* pItem, int nArg)
@@ -404,7 +404,7 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
 
 void __fastcall sub_0047CF50_NpcSpeechOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_00514D50();
+    pItem->dwMoveCount = D2SOUND_GetNpcSpeechOption();
     if (sub_004DF880())
     {
         sub_0047CEF0_NpcSpeechSelect(pItem, (SMSGHANDLER_PARAMS*)nArg);
@@ -598,7 +598,8 @@ void __fastcall sub_0047D130_PerspectiveChanged(D2OptionEntryStrc* pEntry, SMSGH
 void __fastcall sub_0047D180_PerspectiveLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
     SRegLoadValue("Diablo II", "Perspective", 0, (unsigned long*)&pEntry->nValue);
-    if (sub_004F5170())
+// build: symbol ?D2GFX_CheckUnitPerspective@* 0x004F5170
+    if (D2GFX_CheckUnitPerspective())
     {
         sub_0047D130_PerspectiveChanged(pEntry, 0);
     }
@@ -849,7 +850,7 @@ void __stdcall sub_0047DA90_OptionKeyRight(SMSGHANDLER_PARAMS* pMsg)
 // 0x0047D120
 int __cdecl sub_0047D120_PerspectiveEnabled()
 {
-    return sub_004F5170();
+    return D2GFX_CheckUnitPerspective();
 }
 
 // 0x0047D1F0

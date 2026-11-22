@@ -327,7 +327,8 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     int nY;
 
     bTownMode = 0;
-    nPrevMode = sub_004F5170();
+// build: symbol ?D2GFX_CheckUnitPerspective@* 0x004F5170
+    nPrevMode = D2GFX_CheckUnitPerspective();
     if (nPrevMode && D2GFX_CheckPerspective() && pUnit == sub_00463DD0_GetPlayerUnit() && !sub_0046D9F0_TestUnit(pUnit))
     {
         sub_004F5190_SetTownMode(0);

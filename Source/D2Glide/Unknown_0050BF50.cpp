@@ -12,13 +12,13 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall BinkNextFrame(D2BinkStrc* pBink);                            // 0x006CC5BC
 extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBink, void* pDest, int nDestPitch, unsigned int nDestHeight, unsigned int nDestX, unsigned int nDestY, unsigned int nFlags); // 0x006CC5C0
 extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink);                               // 0x006CC5C4
-unsigned int __fastcall sub_005093F0_GlidePaletteColor(int nPaletteIndex);                                   // 0x005093F0
-void __fastcall sub_005094B0_GlideSetState(int nState);                                                      // 0x005094B0
-void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                     // 0x00509500
+unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex);                                   // 0x005093F0
+void __fastcall GLIDE_SetColorCombineMode(int nState);                                                      // 0x005094B0
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
 void __cdecl sub_0050BE20_GlideDebugRefresh();                                                               // 0x0050BE20
 void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue);                         // 0x0050DBC0
-void __cdecl sub_00511A80_DDrawReleaseSurfaces();                                                           // 0x00511A80
-int __fastcall sub_005115E0_DDrawRestoreSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
+void __cdecl DDRAW_ReleaseSurfaces();                                                           // 0x00511A80
+int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 extern "C" const char gszDisplay_006DE1E8[];                                                                // 0x006DE1E8
 extern "C" const char gszDdDebugFontSourceFile_006DE1D0[];                                                  // 0x006DE1D0
@@ -66,8 +66,8 @@ void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, i
     if (nYEnd == nY1)
         return;
     D2_ASSERT(nYEnd > nY1, 0x29);
-    sub_005094B0_GlideSetState(2);
-    sub_00509500_GlideSetCombine(4);
+    GLIDE_SetColorCombineMode(2);
+    GLIDE_SetAlphaBlendMode(4);
     gpfGlideMask_0087EB8C(0);
     vertices[0].x = (float)nX1;
     vertices[0].y = (float)nY1;
@@ -89,7 +89,7 @@ void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, i
     vertices[3].oow = 1.0f;
     vertices[3].sow = 0.0f;
     vertices[3].tow = 0.0f;
-    unsigned int dwRGBA = sub_005093F0_GlidePaletteColor((unsigned char)dwColor) & 0xFFFFFF00;
+    unsigned int dwRGBA = GLIDE_GetPaletteColor((unsigned char)dwColor) & 0xFFFFFF00;
     switch (nDrawMode)
     {
     case 0:
@@ -123,8 +123,8 @@ void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXE
     if (nYEnd == nY1)
         return;
     D2_ASSERT(nYEnd > nY1, 0x61);
-    sub_005094B0_GlideSetState(2);
-    sub_00509500_GlideSetCombine(4);
+    GLIDE_SetColorCombineMode(2);
+    GLIDE_SetAlphaBlendMode(4);
     gpfGlideMask_0087EB8C(0);
     vertices[0].x = (float)nX1;
     vertices[0].y = (float)nY1;
@@ -146,7 +146,7 @@ void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXE
     vertices[3].oow = 1.0f;
     vertices[3].sow = 0.0f;
     vertices[3].tow = 0.0f;
-    gpfGlideConstantColor_0087EFA0(sub_005093F0_GlidePaletteColor((unsigned char)dwColor) & 0xFFFFFF00 | nAlpha);
+    gpfGlideConstantColor_0087EFA0(GLIDE_GetPaletteColor((unsigned char)dwColor) & 0xFFFFFF00 | nAlpha);
     gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
     gpfGlideMask_0087EB8C(1);
 }

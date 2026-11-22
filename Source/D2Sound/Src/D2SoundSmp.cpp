@@ -61,7 +61,7 @@ void __cdecl sub_00419F30(); // 0x00419F30
 
 int __stdcall sub_0041A990(void* hStream); // 0x0041A990
 
-D2DirectSoundStrc* __cdecl sub_00513B50(); // 0x00513B50
+D2DirectSoundStrc* __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 
 void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
 
@@ -218,7 +218,7 @@ struct D2EaxEnvironmentStrc
     float f_30;
 };
 
-int __cdecl sub_00513BA0(); // 0x00513BA0
+int __cdecl D2SOUND_IsEaxRoomOff(); // 0x00513BA0
 
 float __stdcall sub_00516670_RoomToVolume(float fRoom); // 0x00516670
 
@@ -439,7 +439,8 @@ static D2SoundChannelEntryStrc* sub_N19_GetChannelEntry(int nIndex)
     if (!gbChannelTableInit_008817A8)
     {
         gbChannelTableInit_008817A8 = 1;
-        gnChannelTableSel_008817A4 = sub_00513AE0();
+// build: symbol ?D2SOUND_IsExpansion@* 0x00513AE0
+        gnChannelTableSel_008817A4 = D2SOUND_IsExpansion();
     }
     D2_ASSERT(gnChannelCountA_0072F874 == gnChannelCountB_0072F8F8, 0x52);
     D2_ASSERT(nIndex < gnChannelCountA_0072F874, 0x53);
@@ -588,7 +589,7 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
     tDesc.dwBufferBytes = nBytes;
     tDesc.lpwfxFormat = &tFormat;
 
-    D2DirectSoundStrc* pDirectSound = sub_00513B50();
+    D2DirectSoundStrc* pDirectSound = D2SOUND_GetDirectSound();
     if (pDirectSound->CreateSoundBuffer(&tDesc, &pSound->pBuffer, 0) < 0)
         return 0;
 
@@ -601,7 +602,8 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
         }
     }
 
-    if ((nFlags & 2) && sub_00513B70())
+// build: symbol ?D2SOUND_IsEaxEnabled@* 0x00513B70
+    if ((nFlags & 2) && D2SOUND_IsEaxEnabled())
     {
         if (pSound->p3DBuffer->QueryInterface(gIidKsPropertySet_006DE410, (void**)&pSound->pPropertySet) < 0)
         {
@@ -611,7 +613,8 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
 
         unsigned long dwSupport = 0;
         long hr;
-        if (sub_00513B90() == 1)
+// build: symbol ?D2SOUND_GetEaxVersion@* 0x00513B90
+        if (D2SOUND_GetEaxVersion() == 1)
             hr = pSound->pPropertySet->QuerySupport(gEaxBuffer10PropertySet_006DE490, 1, &dwSupport);
         else
             hr = pSound->pPropertySet->QuerySupport(gEaxBuffer20PropertySet_006DE470, 1, &dwSupport);
@@ -704,7 +707,8 @@ void __fastcall D2SOUND_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels)
 D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue)
 {
     gbSoundGlobalFocus_00881804 = nValue;
-    if ((nFlags & 2) && !sub_00513B60())
+// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
+    if ((nFlags & 2) && !D2SOUND_IsPositionalSoundEnabled())
         return 0;
     if ((nFlags & 2) && (nFlags & 1))
         return 0;
@@ -941,7 +945,7 @@ void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume)
     int nScaled = nVolume * gnSoundMasterVolume_0072F9B0;
     pSound->nVolume = nVolume;
     nScaled /= 255;
-    if (!(pSound->dwFlags & 4) || sub_00513B90() != 2)
+    if (!(pSound->dwFlags & 4) || D2SOUND_GetEaxVersion() != 2)
         nScaled = (int)((1.0f - pSound->fAttenuation) * nScaled);
     const int nDecibels = (int)sub_005165F0_ToDecibels(0.0f, 255.0f, (float)nScaled);
     pSound->pBuffer->SetVolume(nDecibels);
@@ -959,7 +963,7 @@ void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuat
 {
     D2_ASSERT(pSound, 0x345);
     pSound->fAttenuation = fAttenuation;
-    if (pSound->pPropertySet && sub_00513B90() == 2)
+    if (pSound->pPropertySet && D2SOUND_GetEaxVersion() == 2)
     {
         if ((pSound->dwFlags & 4) || fAttenuation == 0.0f)
         {
@@ -974,11 +978,11 @@ void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuat
 void __fastcall D2SOUND_SetSoundReverbMix(D2SoundStrc* pSound, float fReverbMix)
 {
     D2_ASSERT(pSound, 0x359);
-    if (sub_00513BA0())
+    if (D2SOUND_IsEaxRoomOff())
         fReverbMix = 0.0f;
     if (pSound->pPropertySet)
     {
-        if (sub_00513B90() == 1)
+        if (D2SOUND_GetEaxVersion() == 1)
         {
             if (fReverbMix != 0.0f)
                 fReverbMix = -1.0f;
@@ -1003,7 +1007,7 @@ int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound)
 // 0x00515CE0
 void __fastcall D2SOUND_SetMasterVolume(int nVolume)
 {
-    if (!sub_00513B50())
+    if (!D2SOUND_GetDirectSound())
         return;
     if (nVolume == gnSoundMasterVolume_0072F9B0)
         return;
@@ -1021,13 +1025,13 @@ void __fastcall D2SOUND_SetMasterVolume(int nVolume)
 // 0x00515D60
 int __cdecl D2SOUND_GetMasterVolume()
 {
-    return sub_00513B50() ? gnSoundMasterVolume_0072F9B0 : 0;
+    return D2SOUND_GetDirectSound() ? gnSoundMasterVolume_0072F9B0 : 0;
 }
 
 // 0x00515F50
 void __fastcall D2SOUND_FadeOutMasterVolume(int nTime)
 {
-    if (!sub_00513B50())
+    if (!D2SOUND_GetDirectSound())
         return;
     D2_ASSERT(nTime > 0, 0x387);
     unsigned int nVolume = D2SOUND_GetMasterVolume();
@@ -1081,7 +1085,7 @@ int __fastcall D2SOUND_RestoreLostBuffer(D2SoundStrc* pSound)
 void __fastcall D2SOUND_StartSoundFade(D2SoundFadeStrc* pFade, int nTarget, int nDuration)
 {
     D2_ASSERT(pFade, 0x39E);
-    if (sub_00513B50())
+    if (D2SOUND_GetDirectSound())
     {
         EnterCriticalSection(&gSoundLock_0088174C);
         pFade->f_4C = 1;
@@ -1138,7 +1142,7 @@ void __cdecl sub_00515ED0_Nop()
 extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg)
 {
     gdwGlobal_008817A0 = nArg;
-    SFileDdaInitialize((int)sub_00513B50());
+    SFileDdaInitialize((int)D2SOUND_GetDirectSound());
     gpSoundChannel_00881794 = D2SOUND_CreateSound(1, gdwGlobal_008817A0);
 }
 

@@ -37,15 +37,15 @@ extern const char gszGrid_006E0200[]; // 0x006E0200
 
 extern int gdwGlobal_00730190; // 0x00730190
 
-void __fastcall sub_00522BC0_FillRandomBytes(char* szBuffer, int nSize); // 0x00522BC0
+void __fastcall BNDOWNLOAD_FillRandomBytes(char* szBuffer, int nSize); // 0x00522BC0
 
-unsigned int __fastcall sub_00522E10_Decrypt(unsigned char* pBuffer, unsigned int nSize, const char* pKey); // 0x00522E10
+unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* pBuffer, unsigned int nSize, const char* pKey); // 0x00522E10
 
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 
-static void __cdecl sub_00523350_CopyOutputs(Byte** first, Byte** second);
+static void __cdecl GRID_CopyDecodedKeys(Byte** first, Byte** second); // 0x00523350
 
-static void* sub_00523480_LoadFile(const char* szFileName, unsigned int* pSize);
+static void* GRID_LoadKeyFile(const char* szFileName, unsigned int* pSize); // 0x00523480
 
 // build: base-profile
 extern "C" unsigned int __security_cookie; // 0x00749DE0
@@ -96,8 +96,8 @@ static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString,
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize)
 {
     char aKey[20];
-    sub_00522BC0_FillRandomBytes(aKey, sizeof(aKey));
-    unsigned int nLength = sub_00522E10_Decrypt(pBuffer, nSize, aKey);
+    BNDOWNLOAD_FillRandomBytes(aKey, sizeof(aKey));
+    unsigned int nLength = BNDOWNLOAD_DecryptData(pBuffer, nSize, aKey);
     if (!nLength)
     {
         return 0;
@@ -119,7 +119,7 @@ static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsign
 }
 
 // 0x00523350
-static void __cdecl sub_00523350_CopyOutputs(Byte** first, Byte** second)
+static void __cdecl GRID_CopyDecodedKeys(Byte** first, Byte** second)
 {
     if (first)
     {
@@ -149,11 +149,11 @@ static void __cdecl sub_00523350_CopyOutputs(Byte** first, Byte** second)
 // calling-convention shim (not game code)
 void __cdecl sub_00523350_Shim(Byte** first, Byte** second)
 {
-    sub_00523350_CopyOutputs(first, second);
+    GRID_CopyDecodedKeys(first, second);
 }
 
 // 0x00523420
-static inline void sub_00523420_FreeStringPair(char* szFirst, char* szSecond)
+static inline void GRID_FreeKeyStrings(char* szFirst, char* szSecond)
 {
     if (szFirst)
     {
@@ -168,7 +168,7 @@ static inline void sub_00523420_FreeStringPair(char* szFirst, char* szSecond)
 }
 
 // 0x00523480
-static void* sub_00523480_LoadFile(const char* szFileName, unsigned int* pSize)
+static void* GRID_LoadKeyFile(const char* szFileName, unsigned int* pSize)
 {
     void* pBuffer;
     *pSize = 0x400;
@@ -186,11 +186,11 @@ static void* sub_00523480_LoadFile(const char* szFileName, unsigned int* pSize)
 // calling-convention shim (not game code)
 void* __fastcall sub_00523480_Shim(const char* szFileName, unsigned int* pSize)
 {
-    return sub_00523480_LoadFile(szFileName, pSize);
+    return GRID_LoadKeyFile(szFileName, pSize);
 }
 
 // 0x005234D0
-void __cdecl sub_005234D0_LockCDKeys()
+void __cdecl GRID_LockCDKeys()
 {
     char szPath[260];
     int i;
@@ -202,7 +202,7 @@ void __cdecl sub_005234D0_LockCDKeys()
     }
 
     sprintf(szPath, "%s\\%s.gid", "font", "font");
-    gpCDKeyHandle_00882744 = sub_00523480_LoadFile(szPath, &gnSize_00882740);
+    gpCDKeyHandle_00882744 = GRID_LoadKeyFile(szPath, &gnSize_00882740);
     if (!gpCDKeyHandle_00882744)
     {
         char szKey[] = "vwaxdnirosucflbgt\\.";
@@ -214,11 +214,11 @@ void __cdecl sub_005234D0_LockCDKeys()
         }
         szPath[i] = 0;
 
-        gpCDKeyHandle_00882744 = sub_00523480_LoadFile(szPath, &gnSize_00882740);
+        gpCDKeyHandle_00882744 = GRID_LoadKeyFile(szPath, &gnSize_00882740);
     }
 
     sprintf(szPath, "%s\\%s.clh", "font", "font");
-    gpCDKeyHandle_00882750 = sub_00523480_LoadFile(szPath, &gnSize_00882748);
+    gpCDKeyHandle_00882750 = GRID_LoadKeyFile(szPath, &gnSize_00882748);
     if (!gpCDKeyHandle_00882750)
     {
         char szKey[] = "vwaxdnirosucflbgt\\.";
@@ -230,7 +230,7 @@ void __cdecl sub_005234D0_LockCDKeys()
         }
         szPath[i] = 0;
 
-        gpCDKeyHandle_00882750 = sub_00523480_LoadFile(szPath, &gnSize_00882748);
+        gpCDKeyHandle_00882750 = GRID_LoadKeyFile(szPath, &gnSize_00882748);
     }
 
     if (sub_0051BEC0_IsExpansion())
@@ -244,7 +244,7 @@ void __cdecl sub_005234D0_LockCDKeys()
         }
         szPath[i] = 0;
 
-        gpHandle_0088274C = sub_00523480_LoadFile(szPath, &gnSize_00882754);
+        gpHandle_0088274C = GRID_LoadKeyFile(szPath, &gnSize_00882754);
     }
 
     gdwGlobal_00730190 = 0;
@@ -261,7 +261,7 @@ void __cdecl sub_005234D0_LockCDKeys()
 }
 
 // 0x005239C0
-void __cdecl sub_005239C0_UnlockCDKeys()
+void __cdecl GRID_UnlockCDKeys()
 {
     if (gpCDKeyHandle_00882744)
     {
@@ -277,7 +277,7 @@ void __cdecl sub_005239C0_UnlockCDKeys()
 }
 
 // 0x00523A10
-unsigned int __cdecl sub_00523A10_HashKey()
+unsigned int __cdecl GRID_HashCDKey()
 {
     char* szKey = (char*)SMemAlloc(gnSize_00882740, ".\\grid.cpp", 0x199, 0);
     memcpy(szKey, gpCDKeyHandle_00882744, gnSize_00882740);
@@ -302,7 +302,7 @@ const char* __fastcall sub_00523AB0_GetCDKey(int nSlot)
 }
 
 // 0x00523AC0
-static inline void sub_00523AC0_InitHashCtx(D2BnHashCtxStrc* pCtx)
+static inline void GRID_InitShaContext(D2BnHashCtxStrc* pCtx)
 {
     pCtx->aState[0] = 0x67452301;
     pCtx->aState[1] = 0xEFCDAB89;
@@ -315,8 +315,8 @@ static inline void sub_00523AC0_InitHashCtx(D2BnHashCtxStrc* pCtx)
 
 void __fastcall sub_M103_Emit_00523420(char* szFirst, char* szSecond, D2BnHashCtxStrc* pCtx)
 {
-    sub_00523AC0_InitHashCtx(pCtx);
-    sub_00523420_FreeStringPair(szFirst, szSecond);
+    GRID_InitShaContext(pCtx);
+    GRID_FreeKeyStrings(szFirst, szSecond);
 }
 
 #include "gen/data/Source/D2BNClient/grid.inc"

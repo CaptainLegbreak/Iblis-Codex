@@ -1054,9 +1054,10 @@ void __fastcall LOGMANAGER_DumpThreadStackAndCode(void* hThread)
     memset(&tContext, 0, sizeof(tContext));
     tContext.ContextFlags = 0x10007;
     GetThreadContext(hThread, &tContext);
-    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "Stack bytes:\n");
+// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Stack bytes:\n");
     LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Esp, 0x1000, 0, 1, 0);
-    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "Code bytes:\n");
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "Code bytes:\n");
     LOGMANAGER_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Eip, 0x20, 0, 1, 0);
 }
 

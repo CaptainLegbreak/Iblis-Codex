@@ -11,10 +11,10 @@ void __fastcall sub_0050F1B0_TileCacheRelease(D2GlideTileCacheStrc* pCache, int 
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex);
 void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex);
 
-void __fastcall sub_0050F6D0_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
+void __fastcall GLIDE_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
 
 // 0x0050F320
-int __fastcall sub_0050F320_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)
+int __fastcall GLIDE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)
 {
     const int nCount = (nEnd - nStart) / nBlockSize;
     pCache->nBlockSize = nBlockSize;
@@ -73,7 +73,7 @@ int __fastcall sub_0050F320_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsign
 }
 
 // 0x0050F4D0
-static __declspec(noinline) void sub_0050F4D0_FloorCacheAppendUsed(D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
+static __declspec(noinline) void GLIDE_FloorCacheAppendUsed(D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
 {
     if (!pCache->pHead)
     {
@@ -170,7 +170,7 @@ D2GlideFloorCacheEntryStrc* __fastcall sub_M117_Emit_0050F150(D2GlideTileCacheSt
 }
 
 // 0x0050F5F0
-static int sub_0050F5F0_FloorCacheAlloc(D2GlideFloorCacheStrc* pCache)
+static int GLIDE_FloorCacheAlloc(D2GlideFloorCacheStrc* pCache)
 {
     if (pCache->nUsed == pCache->nCount)
         return 0;
@@ -204,20 +204,20 @@ static int sub_0050F5F0_FloorCacheAlloc(D2GlideFloorCacheStrc* pCache)
 }
 
 // 0x0050F820
-short __fastcall sub_0050F820_FloorCacheAdd(D2GlideFloorCacheStrc* pCache)
+short __fastcall GLIDE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache)
 {
-    int nId = sub_0050F5F0_FloorCacheAlloc(pCache);
+    int nId = GLIDE_FloorCacheAlloc(pCache);
     if (!nId)
     {
-        sub_0050F6D0_FloorCacheEvict(pCache);
-        nId = sub_0050F5F0_FloorCacheAlloc(pCache);
+        GLIDE_FloorCacheEvict(pCache);
+        nId = GLIDE_FloorCacheAlloc(pCache);
         D2_ASSERT(nId, 0x8B);
     }
     return nId;
 }
 
 // 0x0050F670
-void __fastcall sub_0050F670_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex)
+void __fastcall GLIDE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex)
 {
     if (pCache->nUsed <= 1)
     {
@@ -227,11 +227,11 @@ void __fastcall sub_0050F670_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int 
     D2_ASSERT(nIndex, 0xBC);
     D2_ASSERT(nIndex <= pCache->nCount, 0xBD);
     D2_ASSERT(nIndex >= 1, 0xBE);
-    sub_0050F4D0_FloorCacheAppendUsed(pCache, sub_0050F570_FloorCacheUnlink(pCache, nIndex - 1));
+    GLIDE_FloorCacheAppendUsed(pCache, sub_0050F570_FloorCacheUnlink(pCache, nIndex - 1));
 }
 
 // 0x0050FCB0
-void __fastcall sub_0050FCB0_GlideReleaseTileCache(D2TileLibraryEntryStrc* pTile)
+void __fastcall GLIDE_ReleaseTileCache(D2TileLibraryEntryStrc* pTile)
 {
     if (pTile->nCacheIndex > 0)
     {
@@ -248,12 +248,12 @@ void __fastcall sub_0050FCB0_GlideReleaseTileCache(D2TileLibraryEntryStrc* pTile
 }
 
 // 0x0050F7C0
-void __fastcall sub_0050F7C0_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush)
+void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush)
 {
     if (bFlush)
     {
         while (pCache->nUsed)
-            sub_0050F6D0_FloorCacheEvict(pCache);
+            GLIDE_FloorCacheEvict(pCache);
     }
     if (pCache->pEntries)
     {

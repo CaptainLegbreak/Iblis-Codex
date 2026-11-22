@@ -111,7 +111,7 @@ int __cdecl sub_00473770_IsMudLevel(); // 0x00473770
 float __cdecl sub_00473C80_GetPhaseLevel(); // 0x00473C80
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-int __cdecl sub_004F5210(); // 0x004F5210
+int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pFloorCount); // 0x00619660
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
@@ -343,7 +343,7 @@ void __thiscall D2FloorTileViewStrc::sub_004DE730_UpdateView(void* pArgument)
     int nRooms;
     int nTiles;
 
-    nMode = sub_004F5210();
+    nMode = D2GFX_CheckLowQuality();
     bPerspective = D2GFX_CheckPerspective();
     const unsigned int dwTick = sub_0044DB00();
     bTickFlag = 0;

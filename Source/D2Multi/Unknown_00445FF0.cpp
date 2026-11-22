@@ -64,23 +64,23 @@ extern "C" const char gszFormatInt_006D57BC[];                                  
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
 extern int gnDiffSelect_00798CD0;                                                                           // 0x00798CD0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, int (__stdcall* pfnDone)(int));                 // 0x0043FB50
-void __cdecl sub_004453B0_BuildPanel();                                                                     // 0x004453B0
+void __fastcall CHATDLG_ShowWait(const Unicode* pText, int (__stdcall* pfnDone)(int));                 // 0x0043FB50
+void __cdecl COMCALLBACK_BuildCreateGamePanel();                                                                     // 0x004453B0
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __stdcall CONTROL_SetEscapeButton(void* a1); // 0x004FA450
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));// 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));// 0x004FDB00
 extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed); // 0x005009A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC);// 0x004FC9B0
-void __cdecl sub_00445300_LoadLvlRest();                                                                    // 0x00445300
-void __cdecl sub_004431B0();                                                                                // 0x004431B0
+void __cdecl COMCALLBACK_LoadLevelRestriction();                                                                    // 0x00445300
+void __cdecl MAINMENUS_LoadMaxPlayers();                                                                                // 0x004431B0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue);// 0x004150E0
-void __fastcall sub_0043F560_Disable(D2WinControlStrc* pControl);                                           // 0x0043F560
+void __fastcall CHARSEL_DisableControl(D2WinControlStrc* pControl);                                           // 0x0043F560
 int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox);                                                      // 0x004F91C0
-int __stdcall sub_00445550(int nArg); // 0x00445550
+int __stdcall CHATDLG_OnLevelRestrictToggle(int nArg); // 0x00445550
 int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x00443540
 int __stdcall sub_004456A0_OnEnter(int nArg);                                                               // 0x004456A0
-int __stdcall sub_00443600_IsPrintableChar(D2WinControlStrc* pControl, int nArg, const char* pChar);        // 0x00443600
+int __stdcall CHATDLG_IsPrintableChar(D2WinControlStrc* pControl, int nArg, const char* pChar);        // 0x00443600
 int __stdcall sub_004435D0_IsTextChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x004435D0
 int __stdcall sub_004FE770_IsDigitChar(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004FE770
 int __stdcall sub_004456B0_OnEnter(int nArg);                                                               // 0x004456B0
@@ -89,14 +89,15 @@ int __stdcall sub_004456C0_OnEnter(int nArg);                                   
 // 0x00445FF0
 void __cdecl sub_00445FF0_BuildCreateScreen()
 {
-    if (sub_0043DC30_GetStatus() == -1)
+// build: symbol ?CHARSEL_GetConnectStatus@* 0x0043DC30
+    if (CHARSEL_GetConnectStatus() == -1)
     {
-        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
+        CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
         return;
     }
     if (sub_00449E40())
     {
-        sub_004453B0_BuildPanel();
+        COMCALLBACK_BuildCreateGamePanel();
         return;
     }
     gpCharInfo_0077BBD8->nByte210 = 0;
@@ -123,7 +124,7 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     sub_004FDB00_SetEnterCallback(gpCreateName_00798C2C, sub_004456A0_OnEnter);
     gpControl_00798C30 = CONTROL_Create(&gtControlInit_0070DC00);
     sub_004FDD50_SetMaxLength(gpControl_00798C30, 0x10);
-    sub_004FDAD0_SetKeyCallback(gpControl_00798C30, sub_00443600_IsPrintableChar);
+    sub_004FDAD0_SetKeyCallback(gpControl_00798C30, CHATDLG_IsPrintableChar);
     gpControl_00798C34 = CONTROL_Create(&gtControlInit_0070DC30);
     sub_004FDD50_SetMaxLength(gpControl_00798C34, 0x20);
     sub_004FDAD0_SetKeyCallback(gpControl_00798C34, sub_004435D0_IsTextChar);
@@ -168,8 +169,8 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
         sub_004FDDD0_LinkTab(gpControl_00798C34, gpControl_00798C38);
         sub_004FDDD0_LinkTab(gpControl_00798C38, gpControl_00798C3C);
         sub_004FDDD0_LinkTab(gpControl_00798C3C, gpCreateName_00798C2C);
-        sub_00445300_LoadLvlRest();
-        sub_004431B0();
+        COMCALLBACK_LoadLevelRestriction();
+        MAINMENUS_LoadMaxPlayers();
     }
     else
     {
@@ -217,7 +218,7 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     else
     {
         sub_004FC9B0_SetText(gpControl_00798C60, D2LANG_GetStringFromTblIndex(0x2720), 5, 0, 0);
-        sub_0043F560_Disable(gpControl_00798C54);
+        CHARSEL_DisableControl(gpControl_00798C54);
     }
     if ((!bExpansion && nLevel >= 4) || nLevel >= 5)
     {
@@ -233,7 +234,7 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     else
     {
         sub_004FC9B0_SetText(gpControl_00798C5C, D2LANG_GetStringFromTblIndex(0x2721), 5, 0, 0);
-        sub_0043F560_Disable(gpControl_00798C50);
+        CHARSEL_DisableControl(gpControl_00798C50);
     }
     gpControl_00798C58 = CONTROL_Create(&gtControlInit_0070DDE0);
     sub_004FC9B0_SetText(gpControl_00798C58, D2LANG_GetStringFromTblIndex(0x2722), 4, 0, 0);
@@ -245,7 +246,7 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     }
     CONTROL_SetFocusedEditBox((D2WinEditBoxStrc*)gpCreateName_00798C2C);
     if (sub_00449B30_QueryAddress())
-        sub_00445550(0);
+        CHATDLG_OnLevelRestrictToggle(0);
 }
 
 #include "gen/data/Source/D2Multi/Unknown_00445FF0.inc"

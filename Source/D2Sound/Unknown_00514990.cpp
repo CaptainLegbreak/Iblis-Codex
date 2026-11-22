@@ -11,7 +11,7 @@ struct D2SoundStrc;
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" int __cdecl rand();                                                                              // 0x00687461
-int __cdecl sub_00513AE0();                                                                                  // 0x00513AE0
+int __cdecl D2SOUND_IsExpansion();                                                                                  // 0x00513AE0
 void __cdecl D2SOUND_ClearChannelTable();                                                               // 0x00514860
 void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
 int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
@@ -62,7 +62,7 @@ static D2SoundChannelEntryStrc* sub_00514710_GetChannelEntry(int nIndex)
     if (!gbChannelTableInit_008817A8)
     {
         gbChannelTableInit_008817A8 = 1;
-        gnChannelTableSel_008817A4 = sub_00513AE0();
+        gnChannelTableSel_008817A4 = D2SOUND_IsExpansion();
     }
     D2_ASSERT(gnChannelCountA_0072F874 == gnChannelCountB_0072F8F8, 0x52);
     D2_ASSERT(nIndex < gnChannelCountA_0072F874, 0x53);
@@ -118,7 +118,7 @@ int __cdecl sub_00514990_PickRandomChannel()
                 if (!gbChannelTableInit_008817A8)
                 {
                     gbChannelTableInit_008817A8 = 1;
-                    gnChannelTableSel_008817A4 = sub_00513AE0();
+                    gnChannelTableSel_008817A4 = D2SOUND_IsExpansion();
                 }
                 D2_ASSERT(gnChannelCountA_0072F874 == gnChannelCountB_0072F8F8, 0x52);
                 D2_ASSERT(nIndex < gnChannelCountA_0072F874, 0x53);

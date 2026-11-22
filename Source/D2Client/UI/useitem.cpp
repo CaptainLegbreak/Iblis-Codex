@@ -189,7 +189,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 int __cdecl MONSTER_GetUseItemMode(); // 0x004B1670
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
@@ -270,7 +270,7 @@ typedef void(__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __cdecl sub_00487B80(); // 0x00487B80
 
@@ -723,7 +723,7 @@ void __cdecl USEITEM_CloseUseItemPanel()
     gnGlobal_007C5474 = 0;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     USEITEM_ToggleUseMode(pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00727950, 8);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00727950, 8);
     if (gpGlobal_007C5484)
     {
         DIALOG_DestroyDialog(gpGlobal_007C5484);
@@ -773,7 +773,7 @@ void __cdecl USEITEM_OpenPanel()
     UI_CloseUIVars(0, 0);
     gnGlobal_007C5474 = 1;
     gdwTick_007C5488 = GetTickCount();
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_00727950, 8);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMsgHandlers_00727950, 8);
     sub_00487B80();
     if (!sub_00455F20(14, 0, 0))
     {

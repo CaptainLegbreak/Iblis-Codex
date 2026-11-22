@@ -39,11 +39,11 @@ struct D2GameListRecordStrc
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 extern D2GameListRecordStrc gtGameList_0077BDC9[]; // 0x0077BDC9
-int __fastcall sub_00442B20_IsCharOverLimit(const char* szText); // 0x00442B20
+int __fastcall CHATDLG_IsCharOverLimit(const char* szText); // 0x00442B20
 void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
 int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
 void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
-void __cdecl sub_004453B0_BuildPanel(); // 0x004453B0
+void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 extern D2WinControlStrc* gpControl_00798C04; // 0x00798C04
 extern D2WinControlStrc* gpControl_00798C08; // 0x00798C08
@@ -67,7 +67,8 @@ int gnValue_00798CC0; // 0x00798CC0
 // 0x00444020
 int __cdecl sub_00444020_CreateControls()
 {
-    sub_0043F8C0_ResetLaunchState();
+// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
+    CHARSEL_ResetLaunchState();
 // build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
     int bExpansion = GAME_IsLaunchExpansion();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
@@ -308,7 +309,7 @@ void __cdecl sub_00444E70_FillGameList()
                 sub_004FCF80_SetTextA(gpGameList_00798BC0, p);
             p = sub_00444E70_NextString(p);
             p = sub_00444E70_NextString(p);
-            if (sub_00442B20_IsCharOverLimit(p))
+            if (CHATDLG_IsCharOverLimit(p))
             {
                 --gnGameCount_00798CCC;
             }
@@ -321,7 +322,8 @@ void __cdecl sub_00444E70_FillGameList()
         }
     }
 
-    sub_00442C20_HandleList();
+// build: symbol ?CHARSEL_FillGameListControl@* 0x00442C20
+    CHARSEL_FillGameListControl();
 }
 
 // 0x004450A0
@@ -334,15 +336,16 @@ int __stdcall sub_004450A0_JoinNameKey(D2WinControlStrc* pControl, int nArg, con
 // 0x004450C0
 int __stdcall sub_004450C0_JoinNameEnter(int nArg)
 {
-    sub_004437E0_UpdateButtonState();
+// build: symbol ?CHARSEL_UpdateJoinButtonState@* 0x004437E0
+    CHARSEL_UpdateJoinButtonState();
     return 1;
 }
 
 // 0x00445530
 int __stdcall sub_00445530_ResetBuildPanel(int nArg)
 {
-    sub_0043F8C0_ResetLaunchState();
-    sub_004453B0_BuildPanel();
+    CHARSEL_ResetLaunchState();
+    COMCALLBACK_BuildCreateGamePanel();
     return 1;
 }
 

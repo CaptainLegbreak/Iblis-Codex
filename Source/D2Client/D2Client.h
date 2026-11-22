@@ -81,7 +81,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_GetRoomFromAct(D2DrlgActStrc* pAct); // 0x00
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); // 0x006633B0
 D2BitBufferStrc* __cdecl sub_004B32E0_GetQuestHistory(); // 0x004B32E0
 D2CacheStatsStrc* __cdecl D2GFX_GetCacheResults(); // 0x004F5290
-D2ClientServiceStrc* __cdecl sub_00518C10(); // 0x00518C10
+D2ClientServiceStrc* __cdecl BNCLIENT_GetInterfaceTable(); // 0x00518C10
 D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry(); // 0x004B93F0
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
 D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x00619660
@@ -112,11 +112,11 @@ D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInvent
 D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 D2UnitStrc* __stdcall UNITS_AllocUnit(void* pMemPool, int nUnitType); // 0x00620290
 D2UnitStrc* __stdcall sub_00623990_GetWeapon(D2UnitStrc* pUnit, int nArg); // 0x00623990
-D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
-D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
+D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
+D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 T00481720* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
 char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
-char* __fastcall sub_00430B50_GetSlotName(int nIndex); // 0x00430B50
+char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
 char* __stdcall SStrUpper(char* szString); // 0x004141E0
 const char* __fastcall sub_0047A1F0(int nIndex); // 0x0047A1F0
 const char* __fastcall sub_0047A210(D2UnitStrc* pUnit); // 0x0047A210
@@ -469,7 +469,7 @@ int __cdecl sub_00407FF0(); // 0x00407FF0
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0040EB10(); // 0x0040EB10
 int __cdecl sub_00410A80_GetTime(); // 0x00410A80
-int __cdecl sub_00430BC0_HasSaveFiles(); // 0x00430BC0
+int __cdecl MAINMENUS_HasSaveFiles(); // 0x00430BC0
 int __cdecl sub_00454840_Test(); // 0x00454840
 int __cdecl sub_00468730_GetMouseX(); // 0x00468730
 int __cdecl sub_00468740_GetMouseY(); // 0x00468740
@@ -488,15 +488,15 @@ int __cdecl sub_004B41C0(); // 0x004B41C0
 int __cdecl sub_004B41E0(); // 0x004B41E0
 int __cdecl sub_004B4290(); // 0x004B4290
 int __cdecl sub_004B9180(); // 0x004B9180
-int __cdecl sub_004F5170(); // 0x004F5170
+int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
 int __cdecl D2GFX_IsHardwareRenderMode(); // 0x004F51C0
 int __cdecl sub_004F51D0_IsPerspective(); // 0x004F51D0
-int __cdecl sub_004F65E0(); // 0x004F65E0
+int __cdecl SCALE_GetFactor(); // 0x004F65E0
 int __cdecl D2Win_10003(); // 0x004F9050
-int __cdecl sub_00513B50(); // 0x00513B50
-int __cdecl sub_00513B60(); // 0x00513B60
-int __cdecl sub_00514C90(); // 0x00514C90
-int __cdecl sub_00514D80(); // 0x00514D80
+int __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
+int __cdecl D2SOUND_IsPositionalSoundEnabled(); // 0x00513B60
+int __cdecl D2SOUND_GetSoundMixerOption(); // 0x00514C90
+int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
 int __cdecl sub_0052A640_IsConnected(); // 0x0052A640
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
 int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
@@ -506,7 +506,7 @@ int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int n
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 int __fastcall sub_0040A7F0_AsyncDataCheck(T00481720* pAsyncData); // 0x0040A7F0
-int __fastcall sub_00432480(const char* szName, int bFlag); // 0x00432480
+int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag); // 0x00432480
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
 int __fastcall sub_004525F0_GetHoverTextY(D2UnitStrc* pUnit); // 0x004525F0
 int __fastcall sub_004577C0_SetValue(int nValue); // 0x004577C0
@@ -725,18 +725,18 @@ void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...)
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 void __cdecl sub_00409B80(int nArg); // 0x00409B80
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
-void __cdecl sub_0042F480_Reset(); // 0x0042F480
-void __cdecl sub_0042F6E0(); // 0x0042F6E0
-void __cdecl sub_0042FDD0(); // 0x0042FDD0
-void __cdecl sub_004301A0(); // 0x004301A0
+void __cdecl MAINMENUS_Reset(); // 0x0042F480
+void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0
+void __cdecl MAINMENUS_ReturnToCharSelect(); // 0x0042FDD0
+void __cdecl MAINMENUS_CreateMultiplayerScreen(); // 0x004301A0
 void __cdecl sub_004336C0(); // 0x004336C0
 void __cdecl sub_00435580(); // 0x00435580
-void __cdecl sub_00436AD0_UpdateStatus(); // 0x00436AD0
+void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 void __cdecl sub_004370C0(); // 0x004370C0
 void __cdecl sub_0043B080(); // 0x0043B080
-void __cdecl sub_0043B820_Clear(); // 0x0043B820
-void __cdecl sub_0043B9A0(); // 0x0043B9A0
-void __cdecl sub_0043C4F0(); // 0x0043C4F0
+void __cdecl CHARSEL_ClearCancelled(); // 0x0043B820
+void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
+void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 void __cdecl sub_004584C0_ResetA(); // 0x004584C0
 void __cdecl sub_00458680_ResetB(); // 0x00458680
 void __cdecl sub_00458750_Rebuild(); // 0x00458750
@@ -942,8 +942,8 @@ void __stdcall UNITS_UpdateFrame(D2UnitStrc* pUnit); // 0x00621310
 void __stdcall WAYPOINTS_CopyAndValidateWaypointData(D2WaypointDataStrc* pDest, const void* pSource); // 0x00661030
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame); // 0x004F5D90
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
-void __stdcall sub_00449BF0_SetValue(int nValue); // 0x00449BF0
-void __stdcall sub_00449C20_SetValue(int nValue); // 0x00449C20
+void __stdcall CHATDLG_SetMcpResult(int nValue); // 0x00449BF0
+void __stdcall CHATDLG_SetCharCreateReceived(int nValue); // 0x00449C20
 void __stdcall sub_0048B0A0(D2UnitStrc* pUnit); // 0x0048B0A0
 void __stdcall sub_004A4AD0_Press(int nX, int nY); // 0x004A4AD0
 void __stdcall sub_004B2650(int nArg1, int nArg2); // 0x004B2650

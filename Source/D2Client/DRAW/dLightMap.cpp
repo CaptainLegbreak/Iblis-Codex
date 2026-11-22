@@ -79,7 +79,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-int __cdecl sub_004F5210(); // 0x004F5210
+int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 
 int __cdecl sub_004CCF30(); // 0x004CCF30
 
@@ -243,7 +243,7 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                        
 
 void __stdcall DLIGHTMAP_UpdateLightGrid(int nArg);                                                                      // 0x00474610
 
-void __cdecl sub_004756D0_ScanGridCollision();                                                              // 0x004756D0
+void __cdecl CHARSEL_ScanGridCollision();                                                              // 0x004756D0
 
 int __cdecl DLIGHTMAP_GetIndicatorLevel();                                                               // 0x00475780
 
@@ -1473,7 +1473,7 @@ int __cdecl DLIGHTMAP_GetIndicatorLevel()
 {
     int nValue;
     int nLevel = 2;
-    if (sub_004F5210())
+    if (D2GFX_CheckLowQuality())
     {
         if (!sub_004CCF30())
         {
@@ -1526,7 +1526,7 @@ void __cdecl sub_00475800_RunLightPass()
     gnGlobal_007B0A5C = gnGlobal_007B0A54 + 0x30;
     gnGlobal_007B0A60 = gnGlobal_007B0A58 + 0x30;
     DLIGHTMAP_UpdateLightGrid(0);
-    sub_004756D0_ScanGridCollision();
+    CHARSEL_ScanGridCollision();
     const int nLevel = DLIGHTMAP_GetIndicatorLevel();
     gnLightCount_007B5674 = 0;
     D2R01LightStrc* pLight = gpLights_007B5668;

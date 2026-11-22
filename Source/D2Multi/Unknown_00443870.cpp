@@ -12,15 +12,15 @@ int gnPendingValueA_00798CE4;                                                   
 int gnPendingValueB_00798CE8;                                                                               // 0x00798CE8
 int __fastcall D2Win_StopMessageLoop();                                                            // 0x004F9190
 int __cdecl WINMAIN_PollMcpConnection();                                                               // 0x00449B70
-int __cdecl sub_0043EBA0_ResetControls();                                                                   // 0x0043EBA0
-void __cdecl sub_00443220_DestroyControls();                                                                // 0x00443220
+int __cdecl CHATDLG_ResetControls();                                                                   // 0x0043EBA0
+void __cdecl CHATDLG_DestroyCreateControls();                                                                // 0x00443220
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed);                             // 0x005009A0
-void __cdecl sub_00443E10();                                                                                // 0x00443E10
-void __cdecl sub_004408B0_OpenClassSelectA();                                                                                // 0x004408B0
-void __cdecl sub_00440980_OpenClassSelectB();                                                                                // 0x00440980
-void __cdecl sub_00440A50_OpenClassSelectC();                                                                                // 0x00440A50
-void __cdecl sub_00440B30_OpenClassSelectD();                                                                                // 0x00440B30
-void __fastcall sub_0043EC60_SelectEntry(const char* szName, int nValueA, int nValueB);                    // 0x0043EC60
+void __cdecl CHATDLG_DestroyProfileControls();                                                                                // 0x00443E10
+void __cdecl CHATDLG_OpenStandardLadder();                                                                                // 0x004408B0
+void __cdecl CHATDLG_OpenHardcoreLadder();                                                                                // 0x00440980
+void __cdecl CHATDLG_OpenExpansionLadder();                                                                                // 0x00440A50
+void __cdecl CHATDLG_OpenExpansionHardcoreLadder();                                                                                // 0x00440B30
+void __fastcall CHATDLG_SelectEntry(const char* szName, int nValueA, int nValueB);                    // 0x0043EC60
 
 // 0x00443870
 int __stdcall sub_00443870_SetCancel(int nArg)
@@ -42,9 +42,10 @@ int __stdcall sub_00443880_PollMcp(int nArg)
 // 0x004438C0
 int __stdcall sub_004438C0_OnCancel(int nArg)
 {
-    sub_0043EBA0_ResetControls();
-    sub_0043F850();
-    sub_00443220_DestroyControls();
+    CHATDLG_ResetControls();
+// build: symbol ?CHARSEL_CancelGameCreate@* 0x0043F850
+    CHARSEL_CancelGameCreate();
+    CHATDLG_DestroyCreateControls();
     return 1;
 }
 
@@ -84,28 +85,28 @@ int __stdcall sub_00443CC0_SelectHell(int nArg)
 // 0x00443EF0
 int __stdcall sub_00443EF0_OnSelect(int nArg)
 {
-    sub_00443E10();
+    CHATDLG_DestroyProfileControls();
     if (gnPendingValueB_00798CE8)
     {
         if (gnPendingValueA_00798CE4)
-            sub_00440B30_OpenClassSelectD();
+            CHATDLG_OpenExpansionHardcoreLadder();
         else
-            sub_00440A50_OpenClassSelectC();
+            CHATDLG_OpenExpansionLadder();
     }
     else
     {
         if (gnPendingValueA_00798CE4)
-            sub_00440980_OpenClassSelectB();
+            CHATDLG_OpenHardcoreLadder();
         else
-            sub_004408B0_OpenClassSelectA();
+            CHATDLG_OpenStandardLadder();
     }
-    sub_0043EC60_SelectEntry(gszName_00798CD4, gnPendingValueA_00798CE4, gnPendingValueB_00798CE8);
+    CHATDLG_SelectEntry(gszName_00798CD4, gnPendingValueA_00798CE4, gnPendingValueB_00798CE8);
     return 1;
 }
 
 // 0x00443F70
 int __stdcall sub_00443F70_OnRefresh(int nArg)
 {
-    sub_00443E10();
+    CHATDLG_DestroyProfileControls();
     return 1;
 }

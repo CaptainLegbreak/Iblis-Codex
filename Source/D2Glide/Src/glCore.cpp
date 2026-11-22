@@ -75,7 +75,7 @@ extern int gdwGlobal_00881C04; // 0x00881C04
 
 extern int gdwGlobal_00881C50; // 0x00881C50
 
-int __cdecl sub_00509E10_GlideClose(); // 0x00509E10
+int __cdecl GLIDE_Close(); // 0x00509E10
 
 D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
 
@@ -91,17 +91,17 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
 
-int __fastcall sub_00509F70_GlideReopenWindow(void* hWnd, int nResolution); // 0x00509F70
+int __fastcall GLIDE_ChangeRes(void* hWnd, int nResolution); // 0x00509F70
 
-void __fastcall sub_005090B0_GlideSetGamma(int nGamma); // 0x005090B0
+void __fastcall GLIDE_SetGamma(int nGamma); // 0x005090B0
 
-void __cdecl sub_0050DF70_GlideSmackFree(); // 0x0050DF70
+void __cdecl GLIDE_SmackFree(); // 0x0050DF70
 
-void __cdecl sub_0050F8C0_GlideShutdownStep(); // 0x0050F8C0
+void __cdecl GLIDE_FreeBlockBuffers(); // 0x0050F8C0
 
-void __cdecl sub_0050DCA0_FreePerspectiveTable(); // 0x0050DCA0
+void __cdecl GLIDE_FreePerspectiveTable(); // 0x0050DCA0
 
-void __cdecl sub_0050DB40_FreeBlendTable(); // 0x0050DB40
+void __cdecl GLIDE_FreeBlendTable(); // 0x0050DB40
 
 int gnScreenWidth_007C9138;                                                                                 // 0x007C9138
 
@@ -176,23 +176,23 @@ extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
 
 int gbGlideInit_0087EFCC; // 0x0087EFCC
 
-void __cdecl sub_00509FD0_GlideCloseAtExit(); // 0x00509FD0
+void __cdecl GLIDE_CloseAtExit(); // 0x00509FD0
 
 void __cdecl sub_0050C760_GlideInitVertices(); // 0x0050C760
 
 void __cdecl sub_0050D540_GlideInitD(); // 0x0050D540
 
-void __cdecl sub_0050DB20_AllocBlendTable(); // 0x0050DB20
+void __cdecl GLIDE_AllocBlendTable(); // 0x0050DB20
 
-void __cdecl sub_0050DB70_BuildMulTable(); // 0x0050DB70
+void __cdecl GLIDE_BuildBlendTable(); // 0x0050DB70
 
-void __cdecl sub_0050DC80_AllocPerspectiveTable(); // 0x0050DC80
+void __cdecl GLIDE_AllocPerspectiveTable(); // 0x0050DC80
 
-void __cdecl sub_0050DCD0_FillPerspectiveTable(); // 0x0050DCD0
+void __cdecl GLIDE_FillPerspectiveTable(); // 0x0050DCD0
 
-void __cdecl sub_0050DF10_GlideSmackInit(); // 0x0050DF10
+void __cdecl GLIDE_SmackInit(); // 0x0050DF10
 
-void __cdecl sub_0050F870_GlideBlocksInit(); // 0x0050F870
+void __cdecl GLIDE_InitBlockBuffers(); // 0x0050F870
 
 char gData_007C90C8[12]; // 0x007C90C8
 
@@ -206,13 +206,13 @@ struct D2TileLibraryEntryStrc;
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
-void __fastcall sub_005094B0_GlideSetState(int nState);                                                      // 0x005094B0
+void __fastcall GLIDE_SetColorCombineMode(int nState);                                                      // 0x005094B0
 
-void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                     // 0x00509500
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
 
-void __fastcall sub_005095D0_GlideSetDepth(int nMode);                                                       // 0x005095D0
+void __fastcall GLIDE_SetTextureFilterMode(int nMode);                                                       // 0x005095D0
 
-int __fastcall sub_00509E90_GlideOpenWindow(void* hWnd, int nResolution); // 0x00509E90
+int __fastcall GLIDE_CreateSurface(void* hWnd, int nResolution); // 0x00509E90
 
 int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
 
@@ -224,7 +224,7 @@ int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, i
 
 int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00
 
-int __cdecl sub_0050DD30_GlideIsPerspective();                                                               // 0x0050DD30
+int __cdecl GLIDE_IsPerspective();                                                               // 0x0050DD30
 
 void __fastcall sub_0050FDF0_GlidePlaySmacker(const char* szFile, int nResolutionMode, void* pfFrame);      // 0x0050FDF0
 
@@ -264,15 +264,15 @@ extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBin
 
 extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink);                               // 0x006CC5C4
 
-unsigned int __fastcall sub_005093F0_GlidePaletteColor(int nPaletteIndex);                                   // 0x005093F0
+unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex);                                   // 0x005093F0
 
 void __cdecl sub_0050BE20_GlideDebugRefresh();                                                               // 0x0050BE20
 
 void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue);                         // 0x0050DBC0
 
-void __cdecl sub_00511A80_DDrawReleaseSurfaces();                                                           // 0x00511A80
+void __cdecl DDRAW_ReleaseSurfaces();                                                           // 0x00511A80
 
-int __fastcall sub_005115E0_DDrawRestoreSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
+int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
 
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 
@@ -326,21 +326,21 @@ extern unsigned int gnDDrawBinkFlags_008816C8;                                  
 
 extern int gbDDrawBinkDone_008816CC;                                                                        // 0x008816CC
 
-int __fastcall sub_0050B860_GlideDownloadDebugFont(int nStartAddress, int nAlignment); // 0x0050B860
+int __fastcall GLIDE_DownloadDebugFont(int nStartAddress, int nAlignment); // 0x0050B860
 
-int __fastcall sub_0050DFE0_GlideSetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
+int __fastcall GLIDE_SetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
 
 D2GlideTexCacheStrc gaGlideTexCaches_0087F048[4]; // 0x0087F048
 
-int __fastcall sub_0050E890_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050E890
+int __fastcall GLIDE_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050E890
 
 int __fastcall sub_0050ED90_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050ED90
 
-int __fastcall sub_0050F320_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050F320
+int __fastcall GLIDE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050F320
 
-void __cdecl sub_0050B7B0_GlideInitSprites(); // 0x0050B7B0
+void __cdecl GLIDE_InitSprites(); // 0x0050B7B0
 
-void __stdcall sub_0050FCB0_GlideReleaseTileCache(); // 0x0050FCB0
+void __stdcall GLIDE_ReleaseTileCache(); // 0x0050FCB0
 
 void __stdcall TileSetHardwareFreeCallback(void* pfnCallback); // 0x00604A30
 
@@ -378,13 +378,13 @@ void __fastcall sub_0050F7C0(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050F
 
 void __fastcall sub_0050F210(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050F210
 
-void __cdecl sub_0050E030_GlideNoOp(); // 0x0050E030
+void __cdecl GLIDE_SmackFlush(); // 0x0050E030
 
 void __fastcall sub_0050ECB0(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050ECB0
 
-void __cdecl sub_0050A0C0_FreeSpriteBuffers(); // 0x0050A0C0
+void __cdecl GLIDE_FreeSpriteBuffers(); // 0x0050A0C0
 
-void __cdecl sub_0050BB70_GlideFreeDebugFont(); // 0x0050BB70
+void __cdecl GLIDE_FreeDebugFont(); // 0x0050BB70
 
 typedef void (__stdcall* D2GlideFinishFn)();
 
@@ -403,131 +403,131 @@ int __cdecl sub_004F5140()
 }
 
 // 0x004F5150
-int __cdecl sub_004F5150()
+int __cdecl D2GFX_CheckWindowed()
 {
     return gdwGlobal_007C8CB4;
 }
 
 // 0x004F5170
-int __cdecl sub_004F5170()
+int __cdecl D2GFX_CheckUnitPerspective()
 {
     return gdwGlobal_0072DA4C;
 }
 
 // 0x004F5180
-int __cdecl sub_004F5180()
+int __cdecl D2GFX_IsFixedAspectRatio()
 {
     return gdwGlobal_0072DA7C;
 }
 
 // 0x004F51F0
-int __cdecl sub_004F51F0()
+int __cdecl D2GFX_CheckBlendedShadows()
 {
     return gdwGlobal_0072DA5C;
 }
 
 // 0x004F5210
-int __cdecl sub_004F5210()
+int __cdecl D2GFX_CheckLowQuality()
 {
     return gdwGlobal_0072DA50;
 }
 
 // 0x004F59A0
-int __cdecl sub_004F59A0()
+int __cdecl WINDOW_GetWindow()
 {
     return gdwGlobal_007C8CBC;
 }
 
 // 0x004F65E0
-int __cdecl sub_004F65E0()
+int __cdecl SCALE_GetFactor()
 {
     return gdwGlobal_0072DB44;
 }
 
 // 0x004F9200
-int __cdecl sub_004F9200()
+int __cdecl CONTROL_GetFocusedEditBox()
 {
     return gdwGlobal_007D55CC;
 }
 
 // 0x004F97D0
-int __cdecl sub_004F97D0()
+int __cdecl D2Win_IsCtrlKeyDown()
 {
     return gdwGlobal_007D55E4;
 }
 
 // 0x004FA460
-int __cdecl sub_004FA460()
+int __cdecl D2Win_IsMouseButtonPressed()
 {
     return gdwGlobal_007D55E0;
 }
 
 // 0x004FA4B0
-int __cdecl sub_004FA4B0()
+int __cdecl CONTROL_GetActiveControlList()
 {
     return gdwGlobal_007D55D4;
 }
 
 // 0x004FD0F0
-void __fastcall sub_004FD0F0(void* pArg)
+void __fastcall IMAGE_Destroy(void* pArg)
 {
     sub_004F9310(pArg);
 }
 
 // 0x004FD100
-void __fastcall sub_004FD100(void* pArg)
+void __fastcall IMAGE2_Destroy(void* pArg)
 {
     sub_004F9310(pArg);
 }
 
 // 0x004FD820
-void __fastcall sub_004FD820(void* pArg)
+void __fastcall TIMER_Destroy(void* pArg)
 {
     sub_004F9310(pArg);
 }
 
 // 0x00500300
-void __fastcall sub_00500300(void* pArg)
+void __fastcall ANIMIMAGE_Destroy(void* pArg)
 {
     sub_004F9310(pArg);
 }
 
 // 0x00505150
-int __cdecl sub_00505150()
+int __cdecl D2COMP_GetFirstCompositeUnit()
 {
     return gdwGlobal_0087E838;
 }
 
 // 0x00507DB0
-void __fastcall sub_00507DB0(void* pArg)
+void __fastcall PROGRESSBAR_Destroy(void* pArg)
 {
     sub_004F9310(pArg);
 }
 
 // 0x00507EE0
-void __fastcall sub_00507EE0(void* pArg)
+void __fastcall SCROLLBAR_Destroy(void* pArg)
 {
     sub_004F9310(pArg);
 }
 
-void __fastcall sub_0050ECB0_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
+void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
 void __fastcall sub_0050F210_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
-void __fastcall sub_0050F7C0_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
+void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
 extern D2GlideTileCacheStrc gGlideTileCache_0087EB48;                                                       // 0x0087EB48
 extern D2GlideFloorCacheStrc gGlideFloorCache_0087EB68;                                                     // 0x0087EB68
 
 // 0x00508F90
-void __cdecl sub_00508F90_GlideDestroyTexCaches()
+void __cdecl GLIDE_ClearCaches()
 {
-    sub_0050F7C0_FloorCacheDestroy(&gGlideFloorCache_0087EB68, 0);
+    GLIDE_FloorCacheDestroy(&gGlideFloorCache_0087EB68, 0);
     sub_0050F210_TileCacheDestroy(&gGlideTileCache_0087EB48, 0);
-    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[1], 0);
-    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[2], 0);
-    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[3], 0);
+    GLIDE_TexCacheDestroy(&gaGlideTexCaches_0087F048[1], 0);
+    GLIDE_TexCacheDestroy(&gaGlideTexCaches_0087F048[2], 0);
+    GLIDE_TexCacheDestroy(&gaGlideTexCaches_0087F048[3], 0);
 }
 
 // 0x00508FD0
-int __cdecl sub_00508FD0()
+int __cdecl GLIDE_CheckCutScene()
 {
     return gdwGlobal_0087EFD0;
 }
@@ -535,13 +535,13 @@ int __cdecl sub_00508FD0()
 int gdwGlobal_007B57E4; // 0x007B57E4
 
 // 0x005090A0
-void __fastcall sub_005090A0_SetGlobal(int nValue)
+void __fastcall GLIDE_SetGlobalScale(int nValue)
 {
     gdwGlobal_007B57E4 = nValue;
 }
 
 // 0x005090B0
-void __fastcall sub_005090B0_GlideSetGamma(int nGamma)
+void __fastcall GLIDE_SetGamma(int nGamma)
 {
     if (gnGlideGammaTableSize_0087EFD4 > 0)
     {
@@ -570,7 +570,7 @@ void __fastcall sub_005090B0_GlideSetGamma(int nGamma)
 }
 
 // 0x00509190
-int __cdecl sub_00509190()
+int __cdecl GLIDE_GammaCanBeControlled()
 {
     return 1;
 }
@@ -580,7 +580,7 @@ D2PaletteTableStrc gtGfxPaletteView_0087E980; // 0x0087E980
 int gbGlideDrawing_0087EFE4; // 0x0087EFE4
 
 // 0x005091A0
-int __cdecl sub_005091A0_GlideEndScene()
+int __cdecl GLIDE_EndDraw()
 {
     D2_ASSERT(gpRenderCriticalSection_007C9134, 0x47A);
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
@@ -589,7 +589,7 @@ int __cdecl sub_005091A0_GlideEndScene()
 }
 
 // 0x005091E0
-int __cdecl sub_005091E0_GlideSwapBuffers()
+int __cdecl GLIDE_Blit()
 {
     if (gpGfxSettings_007C9148->bVSync)
     {
@@ -602,7 +602,7 @@ int __cdecl sub_005091E0_GlideSwapBuffers()
 }
 
 // 0x00509210
-int __fastcall sub_00509210_GlideGetBackBuffer(unsigned char* pBuffer)
+int __fastcall GLIDE_GetBackBuffer(unsigned char* pBuffer)
 {
     D2GrLfbInfoStrc tInfo;
     tInfo.size = sizeof(tInfo);
@@ -641,14 +641,14 @@ int __fastcall sub_00509210_GlideGetBackBuffer(unsigned char* pBuffer)
 }
 
 // 0x005092F0
-void __fastcall sub_005092F0_GlideGetScreenSize(int* pWidth, int* pHeight)
+void __fastcall GLIDE_GetDimensions(int* pWidth, int* pHeight)
 {
     *pWidth = gnScreenWidth_007C9138;
     *pHeight = gnScreenHeight_007C913C;
 }
 
 // 0x00509300
-void __fastcall sub_00509300_GlideSetPalette(const tagPALETTEENTRY* pPalette)
+void __fastcall GLIDE_SetPalette(const tagPALETTEENTRY* pPalette)
 {
     if (gbGlidePaletteTable_0087EFC8)
     {
@@ -677,26 +677,26 @@ int gnGlideState_0087EFDC; // 0x0087EFDC
 int gnGlideState_0087EFE0; // 0x0087EFE0
 
 // 0x005093F0
-unsigned int __fastcall sub_005093F0_GlidePaletteColor(int nPaletteIndex)
+unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex)
 {
     return gaGlidePalette_0087EBA0[nPaletteIndex] << 8;
 }
 
 // 0x00509400
-void __fastcall sub_00509400_GlideSetPaletteView(D2PaletteTableStrc* pSource)
+void __fastcall GLIDE_SetPaletteTables(D2PaletteTableStrc* pSource)
 {
     gtGfxPaletteView_0087E980 = *pSource;
     gpGfxPaletteView_007C9150 = &gtGfxPaletteView_0087E980;
 }
 
 // 0x00509420
-int __cdecl sub_00509420()
+int __cdecl GLIDE_ActivateWindow()
 {
     return 0;
 }
 
 // 0x00509430
-int __fastcall sub_00509430_GlideSetOption(int nOption, int nValue)
+int __fastcall GLIDE_SetOption(int nOption, int nValue)
 {
     switch (nOption)
     {
@@ -711,7 +711,7 @@ int __fastcall sub_00509430_GlideSetOption(int nOption, int nValue)
 }
 
 // 0x00509460
-void __fastcall sub_00509460_GlideSelectTmuState(int nTmu)
+void __fastcall GLIDE_SetTextureCombineMode(int nTmu)
 {
     if (nTmu == gnGlideTmuState_0072F254)
         return;
@@ -723,7 +723,7 @@ void __fastcall sub_00509460_GlideSelectTmuState(int nTmu)
 }
 
 // 0x005094B0
-void __fastcall sub_005094B0_GlideSetState(int nState)
+void __fastcall GLIDE_SetColorCombineMode(int nState)
 {
     if (gnGlideState_0087EFD8 && nState == gnGlideState_0087EFD8)
         return;
@@ -740,7 +740,7 @@ void __fastcall sub_005094B0_GlideSetState(int nState)
 }
 
 // 0x00509500
-void __fastcall sub_00509500_GlideSetCombine(int nMode)
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode)
 {
     if (gnGlideState_0087EFDC && nMode == gnGlideState_0087EFDC)
         return;
@@ -767,7 +767,7 @@ void __fastcall sub_00509500_GlideSetCombine(int nMode)
 }
 
 // 0x005095D0
-void __fastcall sub_005095D0_GlideSetDepth(int nMode)
+void __fastcall GLIDE_SetTextureFilterMode(int nMode)
 {
     if (gnGlideState_0087EFE0 && nMode == gnGlideState_0087EFE0)
         return;
@@ -788,25 +788,25 @@ void __fastcall sub_005095D0_GlideSetDepth(int nMode)
 }
 
 // 0x00509640
-void* __cdecl sub_00509640()
+void* __cdecl GLIDE_GetCacheResults()
 {
     return gData_007C90C8;
 }
 
 // 0x00509650
-int __cdecl sub_00509650()
+int __cdecl GLIDE_GetFloorTilesFlag()
 {
     return gdwGlobal_0087EFE8;
 }
 
 // 0x00509660
-void __fastcall sub_00509660_SetGlobal(int nValue)
+void __fastcall GLIDE_SetFloorTilesFlag(int nValue)
 {
     gdwGlobal_0087EFE8 = nValue;
 }
 
 // 0x00509670
-int __cdecl sub_00509670_InitTextureMemory()
+int __cdecl GLIDE_InitTextureMemory()
 {
 	const unsigned int nMask = gnTexAlign_0087EFBC - 1;
 	unsigned int nTotal = 0;
@@ -855,7 +855,7 @@ int __cdecl sub_00509670_InitTextureMemory()
 			nAlign32K = (nMask2 | 0x8000) + 1;
 		}
 
-		nAddress += sub_0050B860_GlideDownloadDebugFont(nAddress, gnTexAlign_0087EFBC);
+		nAddress += GLIDE_DownloadDebugFont(nAddress, gnTexAlign_0087EFBC);
 		unsigned int nFree = gdwTmuMaxAddress_0087EAE4[0] - nAddress;
 		unsigned int nEnd;
 		if (gnTmuCount_0087EFB4 > 1)
@@ -866,7 +866,7 @@ int __cdecl sub_00509670_InitTextureMemory()
 				nFloorSize = 0x1CCCCC;
 			}
 			gnFloorCacheSize_007C90C8 = nFloorSize;
-			nEnd = sub_0050F320_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
+			nEnd = GLIDE_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
 			gnTileCacheSize_007C90D4 = gdwTmuMaxAddress_0087EAE4[0] - nEnd;
 			nEnd = sub_0050ED90_TileCacheInit(&gTileCache_0087EB48, nEnd, gdwTmuMaxAddress_0087EAE4[0], nAlign1K);
 		}
@@ -883,7 +883,7 @@ int __cdecl sub_00509670_InitTextureMemory()
 				nTileSize = 0x100000;
 			}
 			gnFloorCacheSize_007C90C8 = nFloorSize;
-			nEnd = sub_0050F320_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
+			nEnd = GLIDE_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
 			gnTileCacheSize_007C90D4 = nTileSize;
 			nEnd = sub_0050ED90_TileCacheInit(&gTileCache_0087EB48, nEnd, nTileSize + nEnd, nAlign1K);
 		}
@@ -896,44 +896,44 @@ int __cdecl sub_00509670_InitTextureMemory()
 
 		const unsigned int nStart = nEnd;
 		const unsigned int nSize = gdwTmuMaxAddress_0087EAE4[nTmu] - nStart;
-		nEnd = sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[1], nStart, nStart + 25 * nSize / 100, nAlign64K);
+		nEnd = GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[1], nStart, nStart + 25 * nSize / 100, nAlign64K);
 		gnTexCacheSize_007C90E0 = gaGlideTexCaches_0087F048[1].nCount * nAlign64K;
-		nEnd = sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[2], nEnd, nStart + 65 * nSize / 100, nAlign16K);
+		nEnd = GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[2], nEnd, nStart + 65 * nSize / 100, nAlign16K);
 		gnTexCacheSize_007C90E4 = gaGlideTexCaches_0087F048[2].nCount * nAlign16K;
-		sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[3], nEnd, gdwTmuMaxAddress_0087EAE4[nTmu], nAlign4K);
+		GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[3], nEnd, gdwTmuMaxAddress_0087EAE4[nTmu], nAlign4K);
 		gnTexCacheSize_007C90E8 = gaGlideTexCaches_0087F048[3].nCount * nAlign4K;
 	}
 	else if (gnScreenWidth_007C9138 == 800 && gnScreenHeight_007C913C == 600)
 	{
-		nAddress += sub_0050DFE0_GlideSetSmackTexAddresses(nAddress, gnTexAlign_0087EFBC);
+		nAddress += GLIDE_SetSmackTexAddresses(nAddress, gnTexAlign_0087EFBC);
 		const unsigned int nFree = gdwTmuMaxAddress_0087EAE4[0] - nAddress;
 		if (gnTmuCount_0087EFB4 > 1)
 		{
-			int nEnd = sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[2], nAddress, nAddress + 50 * nFree / 100, nAlign16K);
+			int nEnd = GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[2], nAddress, nAddress + 50 * nFree / 100, nAlign16K);
 			gnTexCacheSize_007C90E4 = gaGlideTexCaches_0087F048[2].nCount * nAlign16K;
-			sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[3], nEnd, gdwTmuMaxAddress_0087EAE4[0], nAlign4K);
+			GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[3], nEnd, gdwTmuMaxAddress_0087EAE4[0], nAlign4K);
 			gnTexCacheSize_007C90E8 = gaGlideTexCaches_0087F048[3].nCount * nAlign4K;
-			sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[1], gdwTmuMinAddress_0087EAA4[1], gdwTmuMaxAddress_0087EAE4[1], nAlign64K);
+			GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[1], gdwTmuMinAddress_0087EAA4[1], gdwTmuMaxAddress_0087EAE4[1], nAlign64K);
 			gnTexCacheSize_007C90E0 = gaGlideTexCaches_0087F048[1].nCount * nAlign64K;
 		}
 		else
 		{
-			int nEnd = sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[1], nAddress, nAddress + 50 * nFree / 100, nAlign64K);
+			int nEnd = GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[1], nAddress, nAddress + 50 * nFree / 100, nAlign64K);
 			gnTexCacheSize_007C90E0 = gaGlideTexCaches_0087F048[1].nCount * nAlign64K;
-			nEnd = sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[2], nEnd, nAddress + 75 * nFree / 100, nAlign16K);
+			nEnd = GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[2], nEnd, nAddress + 75 * nFree / 100, nAlign16K);
 			gnTexCacheSize_007C90E4 = gaGlideTexCaches_0087F048[2].nCount * nAlign16K;
-			sub_0050E890_TexCacheInit(&gaGlideTexCaches_0087F048[3], nEnd, gdwTmuMaxAddress_0087EAE4[0], nAlign4K);
+			GLIDE_TexCacheInit(&gaGlideTexCaches_0087F048[3], nEnd, gdwTmuMaxAddress_0087EAE4[0], nAlign4K);
 			gnTexCacheSize_007C90E8 = gaGlideTexCaches_0087F048[3].nCount * nAlign4K;
 		}
 	}
 
-	sub_0050B7B0_GlideInitSprites();
-	TileSetHardwareFreeCallback(sub_0050FCB0_GlideReleaseTileCache);
+	GLIDE_InitSprites();
+	TileSetHardwareFreeCallback(GLIDE_ReleaseTileCache);
 	return 1;
 }
 
 // 0x00509A70
-void __cdecl sub_00509A70_GlideClearAndSwap()
+void __cdecl GLIDE_ClearAndSwap()
 {
     gpfGlideBufferClear_0087EB88(0, 0, 0);
     if (gpGfxSettings_007C9148->bVSync)
@@ -955,7 +955,7 @@ D2GlideIdleFn gpfnGlideIdle_0087EFA4; // 0x0087EFA4
 int gnGlideHandle_0087EB94; // 0x0087EB94
 
 // 0x00509AA0
-int __cdecl sub_00509AA0_GlideShutdown()
+int __cdecl GLIDE_CloseSurface()
 {
     if (gbGlideInit_0087EFC8)
     {
@@ -968,12 +968,12 @@ int __cdecl sub_00509AA0_GlideShutdown()
         }
         else
         {
-            sub_0050E030_GlideNoOp();
+            GLIDE_SmackFlush();
         }
         sub_0050ECB0(&gaGlideTexCaches_0087F048[1], 1);
         sub_0050ECB0(&gaGlideTexCaches_0087F048[2], 1);
         sub_0050ECB0(&gaGlideTexCaches_0087F048[3], 1);
-        sub_0050A0C0_FreeSpriteBuffers();
+        GLIDE_FreeSpriteBuffers();
         for (int i = 0; ; ++i)
         {
             int nIdle = i < 100 ? gpfnGlideIdle_0087EFA4(gnGlideHandle_0087EB94) : 1;
@@ -982,14 +982,14 @@ int __cdecl sub_00509AA0_GlideShutdown()
                 break;
             }
         }
-        sub_0050BB70_GlideFreeDebugFont();
+        GLIDE_FreeDebugFont();
         gnGlideState_007C9140 = 0;
     }
     return 1;
 }
 
 // 0x00509B60
-void __fastcall sub_00509B60_GlideOpenSmackCutscene(const char* szFile, int nResolutionMode, void* pfFrame)
+void __fastcall GLIDE_OpenSmackCutscene(const char* szFile, int nResolutionMode, void* pfFrame)
 {
     if (!gbRenderPaused_007C9144)
     {
@@ -1010,7 +1010,7 @@ void __fastcall sub_00509B60_GlideOpenSmackCutscene(const char* szFile, int nRes
 }
 
 // 0x00509BC0
-static int sub_00509BC0_GlideOpen(int nResolution, void* hWnd)
+static int GLIDE_OpenDevice(int nResolution, void* hWnd)
 {
     D2GlideHwQueryStrc tQuery;
     D2_ASSERT(!gbGlidePaletteTable_0087EFC8, 0x143);
@@ -1111,16 +1111,16 @@ static int sub_00509BC0_GlideOpen(int nResolution, void* hWnd)
 }
 
 // 0x00509E10
-int __cdecl sub_00509E10_GlideClose()
+int __cdecl GLIDE_Close()
 {
     if (gbGlideInit_0087EFCC)
     {
-        sub_0050DF70_GlideSmackFree();
+        GLIDE_SmackFree();
         sub_00509AA0_GlideSuspend();
         gpfGlideFn_0087EAB0();
-        sub_0050F8C0_GlideShutdownStep();
-        sub_0050DCA0_FreePerspectiveTable();
-        sub_0050DB40_FreeBlendTable();
+        GLIDE_FreeBlockBuffers();
+        GLIDE_FreePerspectiveTable();
+        GLIDE_FreeBlendTable();
         gbGlideInit_0087EFCC = 0;
     }
 
@@ -1140,14 +1140,14 @@ int __cdecl sub_00509E10_GlideClose()
 }
 
 // 0x00509E90
-int __fastcall sub_00509E90_GlideOpenWindow(void* hWnd, int nResolution)
+int __fastcall GLIDE_CreateSurface(void* hWnd, int nResolution)
 {
     if (gbGlidePaletteTable_0087EFC8)
     {
         return 1;
     }
 
-    if (!sub_00509BC0_GlideOpen(nResolution, hWnd))
+    if (!GLIDE_OpenDevice(nResolution, hWnd))
     {
         return 0;
     }
@@ -1164,7 +1164,7 @@ int __fastcall sub_00509E90_GlideOpenWindow(void* hWnd, int nResolution)
 }
 
 // 0x00509EE0
-void __fastcall sub_00509EE0_GlidePauseSurface(void* hWnd, int nResolutionMode, int nWindowState)
+void __fastcall GLIDE_PauseSurface(void* hWnd, int nResolutionMode, int nWindowState)
 {
     D2_ASSERT(gpRenderCriticalSection_007C9134, 0x3A3);
 
@@ -1176,20 +1176,20 @@ void __fastcall sub_00509EE0_GlidePauseSurface(void* hWnd, int nResolutionMode, 
     }
     else
     {
-        sub_00509E90_GlideOpenWindow(hWnd, nResolutionMode);
+        GLIDE_CreateSurface(hWnd, nResolutionMode);
         gbRenderPaused_007C9144 = 0;
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
 }
 
 // 0x00509F70
-int __fastcall sub_00509F70_GlideReopenWindow(void* hWnd, int nResolution)
+int __fastcall GLIDE_ChangeRes(void* hWnd, int nResolution)
 {
     sub_00509AA0_GlideSuspend();
     gpfGlideFn_0087EAB0();
     gpfGlideFn_0087EB04();
     gpfGlideFn_0087EB3C(0);
-    if (!sub_00509BC0_GlideOpen(nResolution, hWnd))
+    if (!GLIDE_OpenDevice(nResolution, hWnd))
     {
         return 0;
     }
@@ -1206,17 +1206,17 @@ int __fastcall sub_00509F70_GlideReopenWindow(void* hWnd, int nResolution)
 }
 
 // 0x00509FD0
-void __cdecl sub_00509FD0_GlideCloseAtExit()
+void __cdecl GLIDE_CloseAtExit()
 {
-    sub_00509E10_GlideClose();
+    GLIDE_Close();
 }
 
 // 0x00509FE0
-int __cdecl sub_00509FE0_GlideResume()
+int __cdecl GLIDE_PlayCutscene()
 {
-    if (!gbRenderPaused_007C9144 && sub_00509F70_GlideReopenWindow(ghDDrawWindow_007C9140, 0))
+    if (!gbRenderPaused_007C9144 && GLIDE_ChangeRes(ghDDrawWindow_007C9140, 0))
     {
-        sub_005090B0_GlideSetGamma(0x64);
+        GLIDE_SetGamma(0x64);
         return 1;
     }
 
@@ -1224,31 +1224,31 @@ int __cdecl sub_00509FE0_GlideResume()
 }
 
 // 0x0050A010
-int __fastcall sub_0050A010_GlideInit(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc* pTileDrawFunctions)
+int __fastcall GLIDE_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc* pTileDrawFunctions)
 {
     D2_ASSERT(!gbGlideInit_0087EFCC, 0x2A6);
 
     gpGfxSettings_007C9148 = pSettings;
     gpTileDrawFunctions_007C914C = pTileDrawFunctions;
-    sub_0050F870_GlideBlocksInit();
-    sub_0050DC80_AllocPerspectiveTable();
-    sub_0050DB20_AllocBlendTable();
+    GLIDE_InitBlockBuffers();
+    GLIDE_AllocPerspectiveTable();
+    GLIDE_AllocBlendTable();
     gpfGlideFn_0087EB04();
     gbGlideInit_0087EFCC = 1;
     gpfGlideFn_0087EB3C(0);
-    atexit(sub_00509FD0_GlideCloseAtExit);
-    sub_0050DB70_BuildMulTable();
-    sub_0050DCD0_FillPerspectiveTable();
+    atexit(GLIDE_CloseAtExit);
+    GLIDE_BuildBlendTable();
+    GLIDE_FillPerspectiveTable();
     sub_0050C760_GlideInitVertices();
     sub_0050D540_GlideInitD();
-    sub_0050DF10_GlideSmackInit();
+    GLIDE_SmackInit();
     gpRenderCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(sizeof(D2CriticalSectionStrc), ".\\Src\\glCore.cpp", 0x2D5, 0);
     InitializeCriticalSection(gpRenderCriticalSection_007C9134);
     return 1;
 }
 
 // 0x0050A110
-void __fastcall sub_0050A110_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
+void __fastcall GLIDE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
 {
     for (int i = 0; i < 5; ++i)
     {
@@ -1267,7 +1267,7 @@ void __fastcall sub_0050A110_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
 
 
 // 0x0050C3A0
-void __fastcall sub_0050C3A0_GlideUtilDiamond(tagRECT* pRect, int nPaletteIndex)
+void __fastcall GLIDE_UtilDiamond(tagRECT* pRect, int nPaletteIndex)
 {
     const int nX = pRect->left;
     const int nRight = pRect->right;
@@ -1300,7 +1300,7 @@ void __fastcall sub_0050C3A0_GlideUtilDiamond(tagRECT* pRect, int nPaletteIndex)
 }
 
 // 0x0050C490
-void __fastcall sub_0050C490_GlideUtilRect(tagRECT* pRect, int nPaletteIndex)
+void __fastcall GLIDE_UtilRect(tagRECT* pRect, int nPaletteIndex)
 {
     D2_ASSERT(pRect->left <= pRect->right, 0xDF);
     D2_ASSERT(pRect->top <= pRect->bottom, 0xE0);
@@ -1328,7 +1328,7 @@ void __fastcall sub_0050C490_GlideUtilRect(tagRECT* pRect, int nPaletteIndex)
 }
 
 // 0x0050C630
-void __fastcall sub_0050C630_GlideUtilPoint(tagPOINT* pPoint, unsigned char nSize, int nPaletteIndex)
+void __fastcall GLIDE_UtilPoint(tagPOINT* pPoint, unsigned char nSize, int nPaletteIndex)
 {
     if (nSize)
     {
@@ -1341,30 +1341,30 @@ void __fastcall sub_0050C630_GlideUtilPoint(tagPOINT* pPoint, unsigned char nSiz
 
 
 // 0x00510140
-int __cdecl sub_00510140()
+int __cdecl DDRAW_CheckCutScene()
 {
     return gdwGlobal_0088126C;
 }
 
 // 0x00510320
-void __stdcall sub_00510320(int nUnused1)
+void __stdcall DDRAW_SetAmbientColor(int nUnused1)
 {
 }
 
 // 0x00510370
-int __cdecl sub_00510370()
+int __cdecl DDRAW_GetCacheResults()
 {
     return 0;
 }
 
 // 0x00510380
-int __cdecl sub_00510380()
+int __cdecl DDRAW_ActivateWindow()
 {
     return 0;
 }
 
 // 0x00511660
-void __fastcall sub_00511660_DDrawOpenSmackCutscene(const char* szFile, int nResolutionMode, void* pfFrame)
+void __fastcall DDRAW_OpenSmackCutscene(const char* szFile, int nResolutionMode, void* pfFrame)
 {
     if (!gbRenderPaused_007C9144)
     {
@@ -1386,7 +1386,7 @@ void __fastcall sub_00511660_DDrawOpenSmackCutscene(const char* szFile, int nRes
 }
 
 // 0x00511970
-int __fastcall sub_00511970_DDrawGetBackBuffer(unsigned char* pBuffer)
+int __fastcall DDRAW_GetBackBuffer(unsigned char* pBuffer)
 {
     D2DDSurfaceDescStrc tDesc = { sizeof(tDesc) };
     if (!gpDDrawBackSurface_0088127C)
@@ -1434,17 +1434,17 @@ int __fastcall sub_00511970_DDrawGetBackBuffer(unsigned char* pBuffer)
 }
 
 // 0x005123A0
-void __stdcall sub_005123A0(int nUnused1, int nUnused2)
+void __stdcall DDRAW_CelDrawHilight(int nUnused1, int nUnused2)
 {
 }
 
 // 0x005126F0
-void __stdcall sub_005126F0(int nUnused1, int nUnused2)
+void __stdcall DDRAW_DebugDraw(int nUnused1, int nUnused2)
 {
 }
 
 // 0x00512E80
-void __fastcall sub_00512E80_DDrawUtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
+void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
 {
     if (nSize)
     {
@@ -1456,25 +1456,25 @@ void __fastcall sub_00512E80_DDrawUtilPoint(tagPOINT* pPoint, unsigned char nSiz
 }
 
 // 0x00513AE0
-int __cdecl sub_00513AE0()
+int __cdecl D2SOUND_IsExpansion()
 {
     return gdwGlobal_00881790;
 }
 
 // 0x00513B50
-int __cdecl sub_00513B50()
+int __cdecl D2SOUND_GetDirectSound()
 {
     return gdwGlobal_00881768;
 }
 
 // 0x00513B60
-int __cdecl sub_00513B60()
+int __cdecl D2SOUND_IsPositionalSoundEnabled()
 {
     return gdwGlobal_0088176C;
 }
 
 // 0x00513B70
-int __cdecl sub_00513B70()
+int __cdecl D2SOUND_IsEaxEnabled()
 {
     return gdwGlobal_00881770;
 }
@@ -1486,13 +1486,13 @@ int __cdecl sub_00513B80()
 }
 
 // 0x00513B90
-int __cdecl sub_00513B90()
+int __cdecl D2SOUND_GetEaxVersion()
 {
     return gdwGlobal_00881774;
 }
 
 // 0x00513BA0
-int __cdecl sub_00513BA0()
+int __cdecl D2SOUND_IsEaxRoomOff()
 {
     return gdwGlobal_00881778;
 }
@@ -1504,67 +1504,67 @@ int __cdecl sub_00513BB0()
 }
 
 // 0x00514920
-int __cdecl sub_00514920()
+int __cdecl D2SOUND_GetStreamChannelValue()
 {
     return gdwGlobal_00881798;
 }
 
 // 0x00514C90
-int __cdecl sub_00514C90()
+int __cdecl D2SOUND_GetSoundMixerOption()
 {
     return gdwGlobal_008817AC;
 }
 
 // 0x00514CC0
-int __cdecl sub_00514CC0()
+int __cdecl D2SOUND_GetMasterVolumeOption()
 {
     return gdwGlobal_008817B0;
 }
 
 // 0x00514CF0
-int __cdecl sub_00514CF0()
+int __cdecl D2SOUND_GetMusicVolumeOption()
 {
     return gdwGlobal_008817B4;
 }
 
 // 0x00514D20
-int __cdecl sub_00514D20()
+int __cdecl D2SOUND_GetPositionalBiasOption()
 {
     return gdwGlobal_008817B8;
 }
 
 // 0x00514D50
-int __cdecl sub_00514D50()
+int __cdecl D2SOUND_GetNpcSpeechOption()
 {
     return gdwGlobal_008817BC;
 }
 
 // 0x00514D80
-int __cdecl sub_00514D80()
+int __cdecl D2SOUND_GetOptionsMusicOption()
 {
     return gdwGlobal_008817C0;
 }
 
 // 0x00515060
-int __cdecl sub_00515060()
+int __cdecl D2SOUND_AreWaveSlotsInitialized()
 {
     return gdwGlobal_008817FC;
 }
 
 // 0x00518C10
-void* __cdecl sub_00518C10()
+void* __cdecl BNCLIENT_GetInterfaceTable()
 {
     return gData_0072FAA0;
 }
 
 // 0x0051A550
-int __cdecl sub_0051A550()
+int __cdecl BNCLIENT_GetServerToken()
 {
     return gdwGlobal_008818BC;
 }
 
 // 0x0051A570
-int __cdecl sub_0051A570()
+int __cdecl BNCLIENT_GetLogonType()
 {
     return gdwGlobal_008818C0;
 }
@@ -1576,13 +1576,13 @@ int __cdecl sub_0051CA10()
 }
 
 // 0x0051CA70
-int __cdecl sub_0051CA70()
+int __cdecl BNCLIENT_IsSetEmailRequested()
 {
     return gdwGlobal_00881C04;
 }
 
 // 0x0051EA70
-int __cdecl sub_0051EA70()
+int __cdecl BNCLIENT_GetDownloadPercent()
 {
     return gdwGlobal_00881C50;
 }

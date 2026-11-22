@@ -80,7 +80,7 @@ void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, un
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
 int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
-int __cdecl sub_004F5210(); // 0x004F5210
+int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
 void __stdcall D2GFX_FloorTileDraw(D2GridInfoStrc* pInfo, D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nAlpha, int nMode, int nArg); // 0x004F68E0
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
@@ -169,7 +169,7 @@ void __fastcall sub_004DEA70(D2ViewStrc* pView)
     const unsigned int nTick = GetTickCount();
     const int nDetail = DLIGHTMAP_GetRenderMode();
     const int bPerspective = D2GFX_CheckPerspective();
-    const int nCorners = sub_004F5210();
+    const int nCorners = D2GFX_CheckLowQuality();
     const int nOffX = 0x50 - pView->nOffX;
     const int nOffY = -0x50 - pView->nOffY;
     const unsigned int nCount = pView->nSize * pView->nSize;

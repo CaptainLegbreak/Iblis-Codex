@@ -80,7 +80,8 @@ void __fastcall ERRORMANAGER_ShowErrorBox(int nType, const char* szFile, int nLi
     SStrPrintf(szCaption, 0x100, "%s Error", "Diablo II");
     strcpy(szBoxText, szText);
     strcat(szText, "\n");
-    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStringFormat_006FFC58, szText);
+// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat_006FFC58, szText);
     LOGMANAGER_CloseLogFiles();
     MessageBoxA(0, szBoxText, szCaption, 0x30);
 }
@@ -276,7 +277,7 @@ void __cdecl sub_004BF9C0_Nop()
 }
 
 // 0x0050B7A0
-void __cdecl sub_0050B7A0_Nop()
+void __cdecl GLIDE_DebugFillBackBuffer()
 {
 }
 

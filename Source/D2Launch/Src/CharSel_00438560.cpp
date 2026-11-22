@@ -116,7 +116,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" int __cdecl sprintf(char*,const char*,...); // 0x006823FD
 int __cdecl FOG_IsExpansion(); // 0x00408F20
-int __cdecl sub_004390A0_UpdateSelection(); // 0x004390A0
+int __cdecl CHARSEL_UpdateSelection(); // 0x004390A0
 void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
@@ -153,17 +153,17 @@ extern D2WinControlStrc* gpControl_00779D90; // 0x00779D90
 extern D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
 extern D2WinControlStrc* gaRowControls_00779A20[]; // 0x00779A20
 extern "C" const char gszTagFormat[]; // 0x006D4E2C
-void __cdecl sub_004380F0_UpdateCharList(); // 0x004380F0
+void __cdecl CHARSEL_UpdateCharList(); // 0x004380F0
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_004FB740_SetTextOffset(D2WinControlStrc*,int,int); // 0x004FB740
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 const char* __stdcall D2Win_10161(int,int,int,int); // 0x005068A0
 void __cdecl sub_005269D0(int,Unicode*,const Unicode*,...); // 0x005269D0
 extern "C" char* __cdecl strcat(char*,const char*);
-__declspec(noinline) static unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime);
-static unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime); // 0x004380B0
+__declspec(noinline) static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime);
+static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime); // 0x004380B0
 // 0x004380B0
-static unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime) {
+static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime) {
     long nNow;
     const unsigned int nTime=_time32(&nNow);
     if(nExpireTime<=nTime) return 0;
@@ -176,7 +176,7 @@ static inline int GetCharType(D2LaunchCharEntryStrc* entry)
 // 0x00438560
 void __cdecl sub_00438560_Refresh()
 {
-    if(FOG_IsExpansion()) {sub_004380F0_UpdateCharList();return;}
+    if(FOG_IsExpansion()) {CHARSEL_UpdateCharList();return;}
     D2LaunchCharEntryStrc* entry=gpCharList_00779DBC;
     int y=gaSlotY_007799FC[0]-13;
     int index=0;
@@ -241,7 +241,7 @@ void __cdecl sub_00438560_Refresh()
             sub_004FC9B0_SetText(gaRowControls_00779A20[row],description,0,0,0);
             if(entry->wFlags&32) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2B45),2,0,0);
             if(entry->nByte32E) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2AAF),4,0,0);
-            unsigned int days=sub_004380B0_GetDaysLeft(entry->nExpireTime);
+            unsigned int days=CHARSEL_GetDaysLeft(entry->nExpireTime);
             if(gnLaunchMode_007795EC==1 && days<=60) {
                 int color=1;unsigned short str;
                 if(days==0) str=0x2B7E;

@@ -2,11 +2,11 @@
 
 #include "D2BnCryptTypes.h"
 
-int __cdecl sub_0051AF20_SendPacket10(); // 0x0051AF20
+int __cdecl BNSEND_SendLeaveChat(); // 0x0051AF20
 
 // 0x0051C460
-int __cdecl sub_0051C460_LeaveChat()
+int __cdecl BNSEND_LeaveChat()
 {
-    sub_0051AF20_SendPacket10();
+    BNSEND_SendLeaveChat();
     return 1;
 }

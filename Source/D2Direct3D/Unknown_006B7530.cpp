@@ -48,8 +48,8 @@ void __fastcall sub_006B9860_Project(int nX,int nY,int nZ,int* pOutX,int* pOutY)
 void __fastcall sub_006B9730_SetColor(D2TLVertexStrc* pVertex,unsigned char nIndex,unsigned char nAlpha); // 0x006B9730
 void __fastcall sub_006BBA00_SelectTile(D2PerspectiveTileStrc* pTile); // 0x006BBA00
 int __stdcall sub_005FDEA0_CheckSurface(void*, int, int); // 0x005FDEA0
-void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
-void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
+void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
+void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __stdcall sub_006B8950_DrawAlternate(void*, void*, int, int, int, unsigned char); // 0x006B8950
 int __stdcall sub_006B87A0_DrawNormal(void*, void*, int, int, int, unsigned char); // 0x006B87A0
@@ -101,7 +101,7 @@ extern unsigned short gaFlatIndices_0074C3D0[4]; // 0x0074C3D0
 extern unsigned short gaGridIndices_009716B0[65]; // 0x009716B0
 extern unsigned char gaPaletteRows_00971740[256][256]; // 0x00971740
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
-void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
+void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere,int hResult); // 0x006B20E0
 extern int gnOriginX_00981740; // 0x00981740
 extern int gnOriginY_00981744; // 0x00981744
@@ -339,8 +339,8 @@ static int __stdcall sub_006B8DF0_DrawConfigured(void* pSurface, int nA, int nB,
 {
     if (!sub_005FDEA0_CheckSurface(pSurface, 1, 0)) return 0;
     sub_006B1EA0_SetMode(1);
-    sub_006B1F40_SetBlendMode(nAlpha == 255 ? 1 : 4);
-    sub_006B2030_SetFilterMode(1);
+    D3D_SetAlphaBlendMode(nAlpha == 255 ? 1 : 4);
+    D3D_SetTextureFilterMode(1);
     if (sub_006B9830_GetPerspective())
         return sub_006B8950_DrawAlternate(pImage, pSurface, nA, nB, nC, nAlpha);
     return sub_006B87A0_DrawNormal(pImage, pSurface, nA, nB, nC, nAlpha);
@@ -462,13 +462,13 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
 {
     if(!sub_006BB870_BindTileTexture(pTexture)) return;
     {
-    sub_006B1EA0_SetState(1);
+    D3D_SetColorCombineMode(1);
     int nBlend=1;
     const unsigned char nAlpha = nAlphaInput;
     if(nAlpha!=255) nBlend=4;
-    sub_006B1F40_SetBlendMode(nBlend);
-    if(nFilter) sub_006B2030_SetFilterMode(2);
-    else sub_006B2030_SetFilterMode(1);
+    D3D_SetAlphaBlendMode(nBlend);
+    if(nFilter) D3D_SetTextureFilterMode(2);
+    else D3D_SetTextureFilterMode(1); // 0x006B2030
     {
     D2TLVertexStrc* pVertices;
     if(gpRendererSettings_007C9148->bFlat)

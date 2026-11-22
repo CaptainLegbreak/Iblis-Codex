@@ -27,8 +27,8 @@ void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit); // 0x004CB190
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int nMode, int nZero, int nZero2); // 0x004B9A00
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-void* __stdcall sub_004F59A0(); // 0x004F59A0
-void __fastcall sub_00451DB0_RegisterMsgHandlers(void* hWnd, void* pHandlers, int nCount); // 0x00451DB0
+void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, void* pHandlers, int nCount); // 0x00451DB0
 
 extern const char gszTextSourceFile_006DA13C[]; // 0x006DA13C
 extern int gnTextTop_007225FC; // 0x007225FC
@@ -150,7 +150,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
         {
             gnHandlersSet_007BF27C = 1;
             gnStartTick_007BF22C = GetTickCount();
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaHandlers_00722600, 7);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHandlers_00722600, 7);
         }
     }
 }

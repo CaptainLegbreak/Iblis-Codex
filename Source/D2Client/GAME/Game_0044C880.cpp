@@ -123,7 +123,7 @@ struct D2RangeStrc
     int nLength;
 };
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 
@@ -230,9 +230,9 @@ void __fastcall sub_0044C990(void* pArg);                                       
 
 void __cdecl GAME_ReadColorFlag();                                                                  // 0x0044DBE0
 
-int __stdcall sub_004512C0_LoadString(int nId, char* szBuffer, unsigned int nSize);                         // 0x004512C0
+int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize);                         // 0x004512C0
 
-void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
+void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
 
 void __cdecl GAME_LoadLoadingScreen();                                                              // 0x00456550
 
@@ -660,7 +660,7 @@ int __cdecl GAME_PopStateValue()
 // 0x0044B780
 void __cdecl GAME_RaiseGameWindow()
 {
-    void* hWnd = (void*)sub_004F59A0();
+    void* hWnd = (void*)WINDOW_GetWindow();
     if (hWnd)
         SendMessageA(hWnd, 0x1C, 0, 0);
     WINDOW_ShowAll();
@@ -1055,7 +1055,7 @@ int __cdecl GAME_LoadLngModule()
     }
     gxGlobal_007A0708 = LoadAcceleratorsA(ghLngModule_007A070C, (const char*)0x64);
     SErrRegisterMessageSource(0xFFF, ghLngModule_007A070C, 0);
-    sub_005177B2_SetLoadStringFn(sub_004512C0_LoadString);
+    sub_005177B2_SetLoadStringFn(COMCALLBACK_LoadLngString);
     return 1;
 }
 
@@ -1063,7 +1063,7 @@ int __cdecl GAME_LoadLngModule()
 void __cdecl GAME_InstallRecordHandler()
 {
     gdwGlobal_007A2780 = 1;
-    gpfnPrevHandler_007A2764 = sub_005173D3_SetRecordHandler(sub_00451920_RecordHandler);
+    gpfnPrevHandler_007A2764 = sub_005173D3_SetRecordHandler(CHARSEL_RecordHandler);
 }
 
 // 0x00451970
@@ -1075,7 +1075,7 @@ void __cdecl sub_00451970()
 // 0x00451F10
 int __cdecl GAME_PushRegisterState()
 {
-    return SMsgPushRegisterState(sub_004F59A0());
+    return SMsgPushRegisterState(WINDOW_GetWindow());
 }
 
 // 0x00451F50

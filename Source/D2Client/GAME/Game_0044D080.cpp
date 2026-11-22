@@ -487,9 +487,9 @@ extern "C" D2MsgHandlerEntryStrc gtHandlers_0070F348[2]; // 0x0070F348
 
 extern "C" D2MsgHandlerEntryStrc gtHandlers_0070F360[2]; // 0x0070F360
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-extern "C" void __fastcall sub_00451DB0_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
+extern "C" void __fastcall COMCALLBACK_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 
 extern "C" void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -892,17 +892,17 @@ void __fastcall GAME_ApplyConfigName(D2ConfigStrc* pConfig)
 // 0x0044DCE0
 extern "C" void __cdecl GAME_UnregisterMouseHandlers()
 {
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHandlers_0070F2C4, 1);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHandlers_0070F348, 2);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHandlers_0070F360, 2);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHandlers_0070F2C4, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHandlers_0070F348, 2);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHandlers_0070F360, 2);
 }
 
 // 0x0044DD20
 extern "C" void __cdecl GAME_RegisterMouseHandlers()
 {
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHandlers_0070F2C4, 1);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHandlers_0070F348, 2);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHandlers_0070F360, 2);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHandlers_0070F2C4, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHandlers_0070F348, 2);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHandlers_0070F360, 2);
 }
 
 bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()

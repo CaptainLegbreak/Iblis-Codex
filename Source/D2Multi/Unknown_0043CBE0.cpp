@@ -14,7 +14,7 @@ const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
 void* __cdecl sub_0044DA90(); // 0x0044DA90
-void* __cdecl sub_004F59A0(); // 0x004F59A0
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 struct D2WinMsgStrc
 {
@@ -26,12 +26,12 @@ struct D2WinMsgStrc
 
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 
-void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
-void __cdecl sub_004477A0_Refresh(); // 0x004477A0
+void __fastcall CHATDLG_UpdateScroll(int nDelta); // 0x00448BD0
+void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
 int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __cdecl sub_00449C30(); // 0x00449C30
-void __stdcall sub_00449C40_SetValue(int nValue); // 0x00449C40
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 extern D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
 extern D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
 
@@ -532,14 +532,14 @@ int gnFlag_0077BD60; // 0x0077BD60
 // 0x0043DA00
 int __stdcall sub_0043DA00_ScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00448BD0_UpdateScroll(10);
+    CHATDLG_UpdateScroll(10);
     return 1;
 }
 
 // 0x0043DA20
 int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00448BD0_UpdateScroll(-1);
+    CHATDLG_UpdateScroll(-1);
     return 1;
 }
 
@@ -564,7 +564,7 @@ int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
     sub_00449B70_Receive();
     if (sub_00449C30() || !sub_00449B30_QueryAddress() || gnFlag_0077BD60)
     {
-        sub_00449C40_SetValue(0);
+        CHATDLG_SetCharLogonReceived(0);
         D2Win_StopMessageLoop();
     }
     return 1;

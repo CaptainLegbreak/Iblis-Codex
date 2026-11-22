@@ -55,19 +55,19 @@ extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink); /
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-unsigned int __fastcall sub_005093F0_GlidePaletteColor(int nPaletteIndex); // 0x005093F0
+unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex); // 0x005093F0
 
-void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
+void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
 
-void __fastcall sub_00509500_GlideSetCombine(int nMode); // 0x00509500
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
 
 void __cdecl sub_0050BE20_GlideDebugRefresh(); // 0x0050BE20
 
 void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
 
-void __cdecl sub_00511A80_DDrawReleaseSurfaces(); // 0x00511A80
+void __cdecl DDRAW_ReleaseSurfaces(); // 0x00511A80
 
-int __fastcall sub_005115E0_DDrawRestoreSurface(void* hWnd, int nResolutionMode); // 0x005115E0
+int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode); // 0x005115E0
 
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 
@@ -123,7 +123,7 @@ extern D2BinkStrc* gpDDrawBink_008816C0; // 0x008816C0
 
 extern int gbDDrawBinkDone_008816CC; // 0x008816CC
 
-int __fastcall sub_00511B80_DDrawClose(); // 0x00511B80
+int __fastcall DDRAW_Close(); // 0x00511B80
 
 D2CriticalSectionStrc* gpRenderCriticalSection_007C9134; // 0x007C9134
 
@@ -270,13 +270,13 @@ extern "C" long __stdcall DirectDrawCreate(void* pGuid, D2DirectDrawClass** ppDi
 
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)());                                                   // 0x00683824
 
-int __cdecl sub_005114D0_SetDisplayMode();                                                                  // 0x005114D0
+int __cdecl DDRAW_SetDisplayMode();                                                                  // 0x005114D0
 
-void __cdecl sub_00511CD0_DDrawCloseAtExit();                                                               // 0x00511CD0
+void __cdecl DDRAW_CloseAtExit();                                                               // 0x00511CD0
 
-void __cdecl sub_00512430_DDrawCreateDebugFont();                                                           // 0x00512430
+void __cdecl DDRAW_CreateDebugFont();                                                           // 0x00512430
 
-void __cdecl sub_005125B0_DDrawFreeDebugFont();                                                             // 0x005125B0
+void __cdecl DDRAW_FreeDebugFont();                                                             // 0x005125B0
 
 extern "C" const char szDirectDrawCreateFailed_006DE1B4[];                                                  // 0x006DE1B4
 
@@ -286,7 +286,7 @@ int gbDDrawInitialized_00881260;                                                
 
 D2DDrawObjectClass* gpDDrawObject_00881274;                                                                 // 0x00881274
 
-int __fastcall sub_00511870_EndScene();                                                                     // 0x00511870
+int __fastcall DDRAW_Blit();                                                                     // 0x00511870
 
 void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
 
@@ -313,7 +313,7 @@ extern char gszDDrawDeviceName_00881154[256]; // 0x00881154
 T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 // 0x00508FE0
-int __fastcall sub_00508FE0_GlideStartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+int __fastcall GLIDE_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
     if (gbRenderPaused_007C9144)
         return 0;
@@ -330,10 +330,10 @@ int __fastcall sub_00508FE0_GlideStartDraw(int bClear, unsigned char nRed, unsig
     return 1;
 }
 
-void __fastcall sub_00509300_GlideSetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
+void __fastcall GLIDE_SetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
 
 // 0x0050BEF0
-void __fastcall sub_0050BEF0_GlideDebugDraw(const unsigned int* pLight, const unsigned int* pPlayerLight, int nPosX, int nPosY)
+void __fastcall GLIDE_DebugDraw(const unsigned int* pLight, const unsigned int* pPlayerLight, int nPosX, int nPosY)
 {
     gnGlideDebugX_008800D0 = nPosX;
     gnGlideDebugY_008800D4 = nPosY;
@@ -347,7 +347,7 @@ void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, i
 void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x0050C0F0
 
 // 0x0050FD10
-void __cdecl sub_0050FD10_GlideDrawVideoFrame()
+void __cdecl GLIDE_DrawVideoFrame()
 {
     if (!gbSurfaceActive_007C9140)
         return;
@@ -373,7 +373,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
 // 0x00510020
-int __fastcall sub_00510020_DDrawDetect(void* hInstance)
+int __fastcall DDRAW_Detect(void* hInstance)
 {
     T004013C0* pSystemInfo = FOG_GetSystemInfo();
     D2_ASSERT(pSystemInfo, 0x6F);
@@ -406,7 +406,7 @@ int __fastcall sub_00510020_DDrawDetect(void* hInstance)
 }
 
 // 0x00511210
-static int sub_00511210_DDrawOpenSurfaces(int nResolutionMode)
+static int DDRAW_OpenSurfaces(int nResolutionMode)
 {
     D2_ASSERT(!gbDDrawReady_00881264, 0x142);
     if (!nResolutionMode)
@@ -515,7 +515,7 @@ fail:
 }
 
 // 0x005114D0
-int __cdecl sub_005114D0_SetDisplayMode()
+int __cdecl DDRAW_SetDisplayMode()
 {
     D2_ASSERT(!gbDDrawReady_00881264, 0x26A);
 
@@ -564,7 +564,7 @@ fail:
 }
 
 // 0x005115E0
-int __fastcall sub_005115E0_DDrawRestoreSurface(void* hWnd, int nResolutionMode)
+int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode)
 {
     ghDDrawWindow_007C9140 = hWnd;
     long hResult = gpDirectDraw_00881270->SetCooperativeLevel(hWnd, 0x11);
@@ -580,11 +580,11 @@ int __fastcall sub_005115E0_DDrawRestoreSurface(void* hWnd, int nResolutionMode)
         sub_005103B0("CreatePalette failed!", hResult);
         return 0;
     }
-    return sub_00511210_DDrawOpenSurfaces(nResolutionMode);
+    return DDRAW_OpenSurfaces(nResolutionMode);
 }
 
 // 0x00511720
-int __fastcall sub_00511720_DDrawStartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+int __fastcall DDRAW_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
     if (gbRenderPaused_007C9144)
         return 0;
@@ -607,7 +607,7 @@ int __fastcall sub_00511720_DDrawStartDraw(int bClear, unsigned char nRed, unsig
 }
 
 // 0x005117F0
-int __fastcall sub_005117F0_DDrawEndDraw()
+int __fastcall DDRAW_EndDraw()
 {
     long hResult = gpDDrawSurface_00881280->Unlock(0);
     if (hResult)
@@ -624,7 +624,7 @@ int __fastcall sub_005117F0_DDrawEndDraw()
 }
 
 // 0x00511870
-int __fastcall sub_00511870_EndScene()
+int __fastcall DDRAW_Blit()
 {
     if (gnDDrawBackBuffers_00881294)
     {
@@ -675,14 +675,14 @@ int __fastcall sub_00511870_EndScene()
 }
 
 // 0x00511A80
-void __cdecl sub_00511A80_DDrawReleaseSurfaces()
+void __cdecl DDRAW_ReleaseSurfaces()
 {
     if (gbDDrawReady_00881264)
     {
         for (int i = 0; i < 3; ++i)
         {
             sub_00512ED0_ClearScreen(0);
-            sub_00511870_EndScene();
+            DDRAW_Blit();
         }
         if (gpDDrawSurface_00881280)
         {
@@ -706,21 +706,21 @@ void __cdecl sub_00511A80_DDrawReleaseSurfaces()
 }
 
 // 0x00511B10
-int __fastcall sub_00511B10_DDrawPlayCutscene()
+int __fastcall DDRAW_PlayCutscene()
 {
     if (gbRenderPaused_007C9144)
     {
         return 0;
     }
 
-    sub_00511A80_DDrawReleaseSurfaces();
-    return sub_005114D0_SetDisplayMode();
+    DDRAW_ReleaseSurfaces();
+    return DDRAW_SetDisplayMode();
 }
 
 // 0x00511B30
-int __fastcall sub_00511B30_DDrawCloseSurface()
+int __fastcall DDRAW_CloseSurface()
 {
-    sub_00511A80_DDrawReleaseSurfaces();
+    DDRAW_ReleaseSurfaces();
     if (gpDDrawPalette_00881290)
     {
         gpDDrawPalette_00881290->Release();
@@ -731,22 +731,22 @@ int __fastcall sub_00511B30_DDrawCloseSurface()
 }
 
 // 0x00511B60
-int __fastcall sub_00511B60_DDrawChangeRes(void* hWnd, int nResolutionMode)
+int __fastcall DDRAW_ChangeRes(void* hWnd, int nResolutionMode)
 {
     if (!gbRenderPaused_007C9144)
     {
-        sub_00511A80_DDrawReleaseSurfaces();
-        return sub_00511210_DDrawOpenSurfaces(nResolutionMode);
+        DDRAW_ReleaseSurfaces();
+        return DDRAW_OpenSurfaces(nResolutionMode);
     }
     return 1;
 }
 
 // 0x00511B80
-int __fastcall sub_00511B80_DDrawClose()
+int __fastcall DDRAW_Close()
 {
     if (gbDDrawInitialized_00881260)
     {
-        sub_00511A80_DDrawReleaseSurfaces();
+        DDRAW_ReleaseSurfaces();
         if (gpDDrawPalette_00881290)
         {
             gpDDrawPalette_00881290->Release();
@@ -769,21 +769,21 @@ int __fastcall sub_00511B80_DDrawClose()
             FOG_Free(gpRenderCriticalSection_007C9134, ".\\Src\\ddCore.cpp", 293, 0);
             gpRenderCriticalSection_007C9134 = 0;
         }
-        sub_005125B0_DDrawFreeDebugFont();
+        DDRAW_FreeDebugFont();
         gbDDrawInitialized_00881260 = 0;
     }
     return 1;
 }
 
 // 0x00511C20
-void __fastcall sub_00511C20_DDrawPauseSurface(void* hWnd, int nResolutionMode, int nWindowState)
+void __fastcall DDRAW_PauseSurface(void* hWnd, int nResolutionMode, int nWindowState)
 {
     D2_ASSERT(gpRenderCriticalSection_007C9134, 0x2F7);
     EnterCriticalSection(gpRenderCriticalSection_007C9134);
     if (nWindowState)
     {
         gbRenderPaused_007C9144 = 1;
-        sub_00511A80_DDrawReleaseSurfaces();
+        DDRAW_ReleaseSurfaces();
         if (gpDDrawPalette_00881290)
         {
             gpDDrawPalette_00881290->Release();
@@ -794,23 +794,23 @@ void __fastcall sub_00511C20_DDrawPauseSurface(void* hWnd, int nResolutionMode, 
     else
     {
         gbRenderPaused_007C9144 = 0;
-        sub_005115E0_DDrawRestoreSurface(hWnd, nResolutionMode);
+        DDRAW_CreateSurface(hWnd, nResolutionMode);
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
 }
 
 // 0x00511CD0
-void __cdecl sub_00511CD0_DDrawCloseAtExit()
+void __cdecl DDRAW_CloseAtExit()
 {
-    sub_00511B80_DDrawClose();
+    DDRAW_Close();
 }
 
 // 0x00511CE0
-int __fastcall sub_00511CE0_DDrawInit(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc* pHelpers)
+int __fastcall DDRAW_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc* pHelpers)
 {
     gpGfxSettings_007C9148 = pSettings;
     gpTileDrawFunctions_007C914C = pHelpers;
-    sub_00512430_DDrawCreateDebugFont();
+    DDRAW_CreateDebugFont();
     long hResult;
     if (gdwVideoFlags_00881140 & gdwBitMasks[0])
     {
@@ -827,7 +827,7 @@ int __fastcall sub_00511CE0_DDrawInit(D2GfxSettingsStrc* pSettings, D2TileDrawFu
         return 0;
     }
 
-    atexit(sub_00511CD0_DDrawCloseAtExit);
+    atexit(DDRAW_CloseAtExit);
     gbDDrawInitialized_00881260 = 1;
     gpRenderCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(sizeof(D2CriticalSectionStrc), ".\\Src\\ddCore.cpp", 246, 0);
     InitializeCriticalSection(gpRenderCriticalSection_007C9134);
@@ -835,7 +835,7 @@ int __fastcall sub_00511CE0_DDrawInit(D2GfxSettingsStrc* pSettings, D2TileDrawFu
 }
 
 // 0x00511D70
-int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType)
+int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType)
 {
     *pType = gaDDrawCapsTypes_0072F7D0[nIndex];
     switch (nIndex)
@@ -858,13 +858,13 @@ int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType)
 
 
 // 0x00512700
-int __cdecl sub_00512700_DDrawGetBlendedShadows()
+int __cdecl DDRAW_GetBlendedShadows()
 {
     return gpGfxSettings_007C9148->bBlendedShadows;
 }
 
 // 0x005128B0
-void __fastcall sub_005128B0_DDrawDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
+void __fastcall DDRAW_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
 {
     int nDrawMode;
     if (nAlpha >= 0xC0)
@@ -881,14 +881,14 @@ void __fastcall sub_005128B0_DDrawDrawBoxAlpha(int nXStart, int nYStart, int nXE
 }
 
 // 0x00512900
-void __fastcall sub_00512900_DDrawPutPixel(int nX, int nY, unsigned char nColor)
+void __fastcall DDRAW_SetPixel(int nX, int nY, unsigned char nColor)
 {
     if (nX >= 0 && nX < gnScreenWidth_007C9138 && nY >= 0 && nY < gnScreenHeight_007C913C)
         gpScreenBuffer_007C9154[gnScreenWidth_007C9138 * nY + nX] = nColor;
 }
 
 // 0x005132C0
-int __fastcall sub_005132C0_DDrawFloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)
+int __fastcall DDRAW_FloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)
 {
     int nResult = D2CMPTileValidate(pTile, 1, 0);
     if (nResult)
@@ -910,7 +910,7 @@ int __fastcall sub_005132C0_DDrawFloorTileDraw(D2TileLibraryEntryStrc* pTile, D2
 
 
 // 0x005136F0
-void __cdecl sub_005136F0_BlitBinkFrame()
+void __cdecl DDRAW_DrawVideoFrame()
 {
     if (!gbSurfaceActive_007C9140)
         return;

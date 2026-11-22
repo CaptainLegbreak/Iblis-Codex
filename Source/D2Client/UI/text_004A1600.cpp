@@ -40,7 +40,7 @@ extern int gbHandlers_007BF27C; // 0x007BF27C
 
 extern char gHandlerTable_00722600[]; // 0x00722600
 
-int __cdecl sub_00514CC0(); // 0x00514CC0
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
 static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxView* pTextBox);
 
@@ -54,7 +54,7 @@ void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
 
 void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
-void* __stdcall sub_004F59A0(); // 0x004F59A0
+void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, void* pTable, int nCount); // 0x00451E10
 
@@ -429,8 +429,8 @@ int gnThumbRange_007C027C; // 0x007C027C
 // calling-convention shim (not game code)
 static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxView* pTextBox)
 {
-    void* pA = sub_004F59A0();
-    void* pB = sub_004F59A0();
+    void* pA = WINDOW_GetWindow();
+    void* pB = WINDOW_GetWindow();
     sub_00467430_SetSelectionRect(pA);
     sub_00467430_SetSelectionRect(pB);
     sub_00467430_SetSelectionRect(pA);
@@ -448,7 +448,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxView* pTextBox)
         return 0;
     }
 
-    const int bBusy = sub_00514CC0();
+    const int bBusy = D2SOUND_GetMasterVolumeOption();
     if (!gpHint_007BF24B || sub_004B95C0_IsHintPlaying(gpHint_007BF24B) || !bBusy)
     {
         gpHint_007BF24B = 0;
@@ -483,7 +483,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxView* pTextBox)
             if (gbHandlers_007BF27C == 1)
             {
                 gbHandlers_007BF27C = 0;
-                AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gHandlerTable_00722600, 7);
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gHandlerTable_00722600, 7);
             }
 
             return 0;
