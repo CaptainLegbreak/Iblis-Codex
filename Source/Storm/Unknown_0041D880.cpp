@@ -7,7 +7,6 @@ struct CBitInput;
 struct Obj0041D920;
 struct Obj0041D940;
 struct D2StormHuffInputStrc;
-struct CBitOutput;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
 struct HUFFNODE;
@@ -49,16 +48,7 @@ struct D2StormHuffInputStrc
     D2StormHuffInputStrc(void* pInputBuffer);
 };
 
-struct CBitOutput
-{
-    unsigned char* pOutputStart;
-    unsigned int f_4;
-    unsigned char* pOutput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-    CBitOutput(void* pOutputBuffer, unsigned int nOutputSize);
-    void sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits);
-};
+#include "D2StormBitOutput.h"
 
 struct D2StormNodeListStrc
 {

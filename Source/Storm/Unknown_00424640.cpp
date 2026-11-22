@@ -1,18 +1,9 @@
 #include "D2StormTypes.h"
-struct D2StormArrayAStrc;
 struct BigBuffer;
 struct BigStack;
 struct D2StormBigStrc;
 
-struct D2StormArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-
-    void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);
-};
+#include "D2StormArrayA.h"
 
 struct BigBuffer
 {

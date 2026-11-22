@@ -40,10 +40,7 @@ void D2StormFixedArrayAStrc::sub_004215C0_Set(unsigned int nCount, const unsigne
     f_4 = nCount;
 }
 
-struct D2StormArrayAStrc : D2StormFixedArrayAStrc
-{
-    unsigned int f_C;
-};
+#include "D2StormArrayA.h"
 
 struct BigBuffer : D2StormArrayAStrc
 {

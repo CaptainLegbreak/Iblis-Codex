@@ -31,7 +31,7 @@ struct D2StormArrayAStrc
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                  // 0x004215C0
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
     void sub_00421EA0_GrowToFit(unsigned int nIndex, int bZero);
-    void sub_00421F10_SetCount(unsigned int nCount);
+    void SetCount(unsigned int nCount);
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
         unsigned int nRemainder = nValue % nAlign;
@@ -53,8 +53,8 @@ struct D2StormArrayAStrc
             sub_004216E0_ReallocData(nCount);
         }
     }
-    // build: context D2StormArrayAStrc::SetCount
-    void SetCount(unsigned int nCount)
+    // build: context D2StormArrayAStrc::SetCountReserve
+    void SetCountReserve(unsigned int nCount)
     {
         if (nCount > f_4)
             Reserve(nCount - f_4, 1);
@@ -321,7 +321,7 @@ void D2StormArrayAStrc::sub_00421EA0_GrowToFit(unsigned int nIndex, int bZero)
 }
 
 // 0x00421F10
-void D2StormArrayAStrc::sub_00421F10_SetCount(unsigned int nCount)
+void D2StormArrayAStrc::SetCount(unsigned int nCount)
 {
     if (nCount > f_4 && nCount > f_0)
     {
@@ -388,7 +388,7 @@ void D2StormArray2Strc::sub_00450F50_ReserveExact(unsigned int nCount)
 // 0x00422080
 void BigBuffer::sub_00422080_TrimToStart()
 {
-    m_array.SetCount(m_start);
+    m_array.SetCountReserve(m_start);
 }
 
 // 0x00422710

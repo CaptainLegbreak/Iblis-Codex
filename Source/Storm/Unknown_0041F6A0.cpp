@@ -23,7 +23,6 @@ struct D2StormGrowUIntArrayStrc;
 struct D2StormGrowUCharArrayStrc;
 struct D2StormArrayBStrc;
 struct D2StormQueueArrayStrc;
-struct BigBuffer;
 struct D2StormBigStrc;
 
 struct D2StormNodeListStrc
@@ -208,24 +207,7 @@ struct D2StormQueueArrayStrc
     unsigned int f_C;
 };
 
-struct BigBuffer
-{
-    D2StormQueueArrayStrc m_array;
-    unsigned int m_start;
-
-    unsigned int Count() const
-    {
-        return m_array.f_4 - m_start;
-    }
-    int IsUsed(unsigned int nIndex) const
-    {
-        return nIndex + m_start < m_array.f_4;
-    }
-    unsigned int operator[](unsigned int nIndex) const
-    {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
-    }
-};
+#include "D2StormBigBuffer.h"
 
 struct D2StormBigStrc
 {

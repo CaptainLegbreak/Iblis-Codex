@@ -1,8 +1,6 @@
 #include "Storm.h"
 #include "D2StormLink.h"
 
-struct D2StormArrayAStrc;
-struct BigBuffer;
 struct D2StormBigStrc;
 struct BigStack;
 struct D2StormHandleRefStrc;
@@ -13,86 +11,13 @@ struct D2StormListAStrc;
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
-struct D2StormArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+#include "D2StormBigBuffer.h"
 
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    void Reserve(unsigned int nCount, int bRound)
-    {
-        nCount += f_4;
-        if (nCount > f_0)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_004216E0_ReallocData(nCount);
-        }
-    }
-    void SetCount(unsigned int nCount)
-    {
-        if (nCount > f_4)
-            Reserve(nCount - f_4, 1);
-        f_4 = nCount;
-    }
-    void GrowToFit(unsigned int nIndex, int bZero)
-    {
-        if (nIndex < f_4)
-            return;
-        Reserve(nIndex - f_4 + 1, 1);
-        if (bZero)
-            SMemZero(&f_8[f_4], (nIndex - f_4 + 1) * sizeof(unsigned int));
-        f_4 = nIndex + 1;
-    }
-    unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
-    void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
-};
-
-struct BigBuffer
-{
-    D2StormArrayAStrc m_array;
-    unsigned int m_start;
-
-    int IsUsed(unsigned int nIndex) const
-    {
-        return nIndex + m_start < m_array.f_4;
-    }
-    unsigned int operator[](unsigned int nIndex) const
-    {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
-    }
-    __forceinline unsigned int& operator[](unsigned int nIndex)
-    {
-        m_array.GrowToFit(m_start + nIndex, 1);
-        return m_array.f_8[m_start + nIndex];
-    }
-    void SetCount(unsigned int nCount)
-    {
-        m_array.SetCount(m_start + nCount);
-    }
-};
 
 struct D2StormBigStrc
 {
     BigBuffer tPrimary;
     char unk0x14[0x154];
-};
-
-struct BigStack
-{
-    BigBuffer f_0[16];
-    unsigned int nUsed;
 };
 
 static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c);

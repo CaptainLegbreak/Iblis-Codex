@@ -7968,7 +7968,7 @@
     {
      "va": "0x00421F10",
      "length": 73,
-     "name": "sub_00421F10_SetCount"
+     "name": "SetCount"
     },
     {
      "va": "0x00422050",

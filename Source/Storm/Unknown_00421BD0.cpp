@@ -1,34 +1,12 @@
 #include "D2StormSha1.h"
-struct D2StormArrayAStrc;
-struct BigBuffer;
 struct BigStack;
 struct D2StormArrayBStrc;
 struct D2StormBigStrc;
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
-struct D2StormArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-    unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount); // 0x004210A0
-    void sub_004216E0_ReallocData(unsigned int nAlloc); // 0x004216E0
-};
+#include "D2StormBigBuffer.h"
 
-struct BigBuffer
-{
-    D2StormArrayAStrc m_array;
-    unsigned int m_start;
-    void GrowToFit(int nIndex); // 0x00421FE0
-};
-
-struct BigStack
-{
-    BigBuffer pRecords[16];
-    unsigned int nUsed;
-};
 
 struct D2StormArrayBStrc
 {
