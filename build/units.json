@@ -84302,6 +84302,10 @@
      "name": "?FOG_10157@@YGHPAUD2QueueServerStrc@@IPADH@Z"
     },
     {
+     "va": "0x006C0420",
+     "length": 272
+    },
+    {
      "va": "0x006C0530",
      "length": 201
     },
@@ -84333,6 +84337,20 @@
      "va": "0x006C08A0",
      "length": 732
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
    ]
   },
   {
@@ -85915,30 +85933,6 @@
      "va": "0x006BE190",
      "length": 352
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006C0420.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C0420",
-     "length": 272
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
