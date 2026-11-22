@@ -2214,14 +2214,13 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004AD020.cpp": {
+  "Source/D2Client/UNIT/MonUnique.cpp": {
    "bytes": 192,
    "definitions": 2,
    "externs": [
     "extern \"C\" void __cdecl sub_004AC870_SetMonsterHoverName(); // 0x004AC870",
     "extern \"C\" void __cdecl sub_004ACC70_InitMonsterLight(); // 0x004ACC70",
     "extern \"C\" void __cdecl sub_004ACD50_ClearMonsterField18(); // 0x004ACD50",
-    "extern \"C\" void __cdecl sub_004ACD70_AssignSkillB8(); // 0x004ACD70",
     "extern \"C\" void __cdecl sub_004ACDB0_UMod8_Resistant(); // 0x004ACDB0"
    ],
    "fn_types": {},
@@ -56566,7 +56565,7 @@
    "cname": "gData_006DA4C8",
    "declared": true,
    "decorated": "?gaUModList_006DA4C8@@3QBHB",
-   "file": "Source/D2Client/Unknown_004AD020.cpp",
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DA4C8[4]; // 0x006DA4C8",
    "head": "extern \"C\" const int gData_006DA4C8[4] = ",
@@ -56596,7 +56595,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004AD020.cpp",
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "fill": 44,
    "form": "declared",
    "fwd": null,
@@ -56705,7 +56704,7 @@
     [
      104,
      "0x004ACD70",
-     "names.json",
+     "owner",
      "sub_004ACD70_AssignSkillB8",
      0,
      "func"

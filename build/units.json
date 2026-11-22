@@ -15171,6 +15171,10 @@
      "va": "0x004ACD70",
      "length": 62,
      "name": "sub_004ACD70_AssignSkillB8"
+    },
+    {
+     "va": "0x004AD020",
+     "length": 150
     }
    ]
   },
@@ -28661,30 +28665,6 @@
     {
      "va": "0x004ACDB0",
      "length": 623
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004AD020.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004AD020",
-     "length": 150
     }
    ],
    "flags": [
