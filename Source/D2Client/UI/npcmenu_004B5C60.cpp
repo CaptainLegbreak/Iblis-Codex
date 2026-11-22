@@ -67,8 +67,8 @@ public:
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...);          // 0x006CC468
 
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
+unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 D2UnitStrc* __fastcall sub_00463DD0();                                                             // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                               // 0x00625480
 const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId); // 0x00663720
@@ -145,9 +145,9 @@ int __cdecl sub_004B5C60_Handler()
         if (pSlot->nUnitId)
         {
             D2HirelingInitStrc hirelingInit;
-            const int nAct = MONSTERS_GetActFromHirelingTxt(sub_0044DCC0(), 0, pSlot->wId);
-            const int nDifficulty = sub_0044DCD0_GetDifficulty();
-            if (!MONSTERS_HirelingInit(sub_0044DCC0(), sub_00463DD0(), pSlot->nSeed, nAct, nDifficulty,
+            const int nAct = MONSTERS_GetActFromHirelingTxt(GAME_IsExpansion(), 0, pSlot->wId);
+            const int nDifficulty = GAME_GetDifficulty();
+            if (!MONSTERS_HirelingInit(GAME_IsExpansion(), sub_00463DD0(), pSlot->nSeed, nAct, nDifficulty,
                 &hirelingInit))
             {
                 return 0;

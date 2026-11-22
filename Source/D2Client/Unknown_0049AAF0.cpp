@@ -58,23 +58,23 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-int __fastcall sub_0047A5E0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5E0
-int __fastcall sub_0047A640(D2StoredUnitRecordStrc* pEntry); // 0x0047A640
-int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
-int __fastcall sub_0047A610(D2StoredUnitRecordStrc* pEntry); // 0x0047A610
-int __fastcall sub_0047A670(D2StoredUnitRecordStrc* pEntry); // 0x0047A670
-int __cdecl sub_0044B850_IsHardcore(); // 0x0044B850
+int __fastcall ROSTER_IsPlayerHostile(D2StoredUnitRecordStrc* pEntry); // 0x0047A5E0
+int __fastcall ROSTER_PlayerAllowsLoot(D2StoredUnitRecordStrc* pEntry); // 0x0047A640
+int __fastcall ROSTER_IsHostileToPlayer(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
+int __fastcall ROSTER_AllowsPlayerLoot(D2StoredUnitRecordStrc* pEntry); // 0x0047A610
+int __fastcall ROSTER_IsMaleClass(D2StoredUnitRecordStrc* pEntry); // 0x0047A670
+int __cdecl GAME_IsHardcore(); // 0x0044B850
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-int __fastcall sub_00479B90(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
-int __fastcall sub_00479CE0(D2StoredUnitRecordStrc* pEntry); // 0x00479CE0
-int __fastcall sub_00479C20(D2StoredUnitRecordStrc* pEntry); // 0x00479C20
-int __fastcall sub_00479C60(D2StoredUnitRecordStrc* pEntry); // 0x00479C60
-int __fastcall sub_00479CA0(D2StoredUnitRecordStrc* pEntry); // 0x00479CA0
+int __fastcall ROSTER_GetLevel(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
+int __fastcall ROSTER_TestHostileFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479CE0
+int __fastcall ROSTER_TestLootFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479C20
+int __fastcall ROSTER_TestMuteFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479C60
+int __fastcall ROSTER_TestSquelchFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479CA0
 extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_007A285C; // 0x007A285C
 extern D2RosterUnitStrc* gpRosterUnits_007BF014; // 0x007BF014
@@ -91,10 +91,10 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg);
 void __cdecl sub_0044DA70(); // 0x0044DA70
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight); // 0x0049AA50
-void __cdecl sub_00479FC0(); // 0x00479FC0
-void __fastcall sub_00479EB0(D2StoredUnitRecordStrc* pEntry); // 0x00479EB0
-int __fastcall sub_00479D20(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
-D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
+void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
+void __fastcall ROSTER_HandlePartyButton(D2StoredUnitRecordStrc* pEntry); // 0x00479EB0
+int __fastcall ROSTER_GetPartyFlags(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
+D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_007BF030; // 0x007BF030
 extern int gbRosterMode_007BF038; // 0x007BF038
@@ -150,18 +150,18 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
     int nColor2 = 0;
     int nHeight = 0x10;
     char szDefault[0x80];
-    const char* szName = sub_004795C0_GetEntryName(pEntry);
+    const char* szName = ROSTER_GetEntryName(pEntry);
     if (!szName)
     {
         strcpy(szDefault, "ERROR PLAYER NAME");
         szName = szDefault;
     }
     sub_00526320_ToUnicode(wszName, szName, 0x80);
-    const int nA = sub_0047A5E0(pEntry);
-    const int nB = sub_0047A640(pEntry);
-    const int nC = sub_0047A5B0(pEntry);
-    const int nD = sub_0047A610(pEntry);
-    const int bE = sub_0047A670(pEntry);
+    const int nA = ROSTER_IsPlayerHostile(pEntry);
+    const int nB = ROSTER_PlayerAllowsLoot(pEntry);
+    const int nC = ROSTER_IsHostileToPlayer(pEntry);
+    const int nD = ROSTER_AllowsPlayerLoot(pEntry);
+    const int bE = ROSTER_IsMaleClass(pEntry);
     if (nA == nC)
     {
         if (bE)
@@ -174,19 +174,19 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         const unsigned short nFormat = bE ? gawRosterStrings_00722450[nA][nC] : gawRosterStrings_00722458[nA][nC];
         sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(nFormat), wszName);
     }
-    if (sub_0044B850_IsHardcore())
+    if (GAME_IsHardcore())
     {
         nHeight = 0x1E;
         if (nB == nD)
         {
-            if (sub_0047A670(pEntry))
+            if (ROSTER_IsMaleClass(pEntry))
                 sub_005267E0(wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722460[nB][nD]));
             else
                 sub_005267E0(wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722468[nB][nD]));
         }
         else
         {
-            if (sub_0047A670(pEntry))
+            if (ROSTER_IsMaleClass(pEntry))
                 sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722460[nB][nD]), wszName);
             else
                 sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterStrings_00722468[nB][nD]), wszName);
@@ -236,7 +236,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                 {
                     if (pRow->aButtons[k].nType == 1)
                     {
-                        if (sub_00479B90(sub_004795A0_GetNextEntry(0)) >= 9)
+                        if (ROSTER_GetLevel(sub_004795A0_GetNextEntry(0)) >= 9)
                         {
                             if (pRow->nLevel >= 9)
                             {
@@ -249,7 +249,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                     }
                                     return;
                                 }
-                                if (sub_00479CE0(pEntry))
+                                if (ROSTER_TestHostileFlag(pEntry))
                                     sub_0049AF60_DrawButtonHint(0x100C, 0x100D, 0x6E, 0, 0x32, 0x41, 0);
                                 else
                                     sub_0049AF60_DrawButtonHint(0x100A, 0x100B, 0x6E, 0, 0x32, 0x41, 0);
@@ -279,9 +279,9 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                     }
                     else if (pRow->aButtons[k].nType == 2)
                     {
-                        if (sub_0044B850_IsHardcore())
+                        if (GAME_IsHardcore())
                         {
-                            if (sub_00479C20(pEntry))
+                            if (ROSTER_TestLootFlag(pEntry))
                             {
                                 sub_0049AAF0_DrawTextFrame(0x1011, 0x1010, 0xFF, 1);
                                 {
@@ -308,7 +308,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                     }
                     else if (pRow->aButtons[k].nType == 3)
                     {
-                        if (sub_00479C60(pEntry))
+                        if (ROSTER_TestMuteFlag(pEntry))
                         {
                             sub_0049AAF0_DrawTextFrame(0x1013, 0x1012, 0x114, 1);
                             {
@@ -334,7 +334,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                     }
                     else if (pRow->aButtons[k].nType == 4)
                     {
-                        if (sub_00479CA0(pEntry))
+                        if (ROSTER_TestSquelchFlag(pEntry))
                         {
                             sub_0049AAF0_DrawTextFrame(0, 0x1017, 0x128, 0);
                             {
@@ -448,23 +448,23 @@ static int sub_0049B990_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int
     {
     case 1:
         sub_00479FE0(pEntry);
-        nResult = sub_00479CE0(pEntry);
+        nResult = ROSTER_TestHostileFlag(pEntry);
         break;
     case 2:
-        if (!sub_0044B850_IsHardcore())
+        if (!GAME_IsHardcore())
             break;
         sub_00479DA0(pEntry);
-        nResult = sub_00479C20(pEntry);
+        nResult = ROSTER_TestLootFlag(pEntry);
         break;
     case 3:
         sub_00479DE0(pEntry);
-        nResult = sub_00479C60(pEntry);
+        nResult = ROSTER_TestMuteFlag(pEntry);
         break;
     case 4:
     {
         sub_00479E20(pEntry);
-        nResult = sub_00479CA0(pEntry);
-        D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
+        nResult = ROSTER_TestSquelchFlag(pEntry);
+        D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
         if (pNotify)
         {
             char szText[0x200];
@@ -472,7 +472,7 @@ static int sub_0049B990_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int
                 strcpy(szText, "/squelch ");
             else
                 strcpy(szText, "/unsquelch ");
-            strcat(szText, sub_004795C0_GetEntryName(pEntry));
+            strcat(szText, ROSTER_GetEntryName(pEntry));
             pNotify->pfnResign(szText);
         }
         break;
@@ -488,8 +488,8 @@ static void sub_0049BAD0_SetRosterButtonState(D2StoredUnitRecordStrc* pEntry, D2
         return;
 
     const int nId = pRow->nId;
-    sub_00479EB0(pEntry);
-    const int nState = sub_00479D20(pEntry);
+    ROSTER_HandlePartyButton(pEntry);
+    const int nState = ROSTER_GetPartyFlags(pEntry);
     D2RosterUnitStrc* pFound = gpRosterUnits_007BF014;
     while (pFound && pFound->nId != nId)
         pFound = pFound->pNext;
@@ -520,7 +520,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
 
         if (TEXT_IsMouseInRect(0xE3, 0x23, 0x35, 0xB) && sub_00479BC0_GetEntryIndex(pEntry) != 0xFFFF)
         {
-            sub_00479FC0();
+            ROSTER_SendLeaveParty();
             sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
@@ -544,7 +544,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                         nY = sub_00468740();
                         if (nX >= gnGlobal_007A2858 + nSlotX && nX <= gnGlobal_007A2858 + nSlotX + 0x14 && nY >= nSlotY - gnGlobal_007A285C - 0x14 && nY <= nSlotY - gnGlobal_007A285C)
                         {
-                            if (pSlot->nType == 1 && sub_00479B90(sub_004795A0_GetNextEntry(0)) < 9)
+                            if (pSlot->nType == 1 && ROSTER_GetLevel(sub_004795A0_GetNextEntry(0)) < 9)
                             {
                                 pMsg->bReturn = 1;
                                 pMsg->lResult = 0;

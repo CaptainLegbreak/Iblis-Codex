@@ -69,7 +69,7 @@ unsigned int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
-int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId); // 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 
 static inline int GetUnitType(D2UnitStrc* pUnit)
 {
@@ -1094,7 +1094,7 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, i
     {
         nDamage = nDamage * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
         nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
-        if (sub_00463900_GetValidMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
+        if (CUNIT_ValidateMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
         {
             nDamage /= 2;
         }

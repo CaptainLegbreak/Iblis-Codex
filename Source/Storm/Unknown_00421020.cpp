@@ -53,7 +53,8 @@ struct Library
 };
 }
 
-void __fastcall sub_0047F8B0_SwapBytes(unsigned char* pA, unsigned char* pB)
+// build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
+void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
 {
     unsigned char nTemp = *pA;
     *pA = *pB;
@@ -85,12 +86,14 @@ D2WardenModuleHolderBStrc::~D2WardenModuleHolderBStrc()
 {
 }
 
-void* __fastcall sub_0047FBF0_WardenAlloc(unsigned int nSize)
+// build: symbol ?WARDENCLIENT_AllocLoaderMemory@* 0x0047FBF0
+void* __fastcall WARDENCLIENT_AllocLoaderMemory(unsigned int nSize)
 {
     return SMemAlloc(nSize, szWardenClientFile_006D8E18, 0x10D, 0);
 }
 
-void __fastcall sub_0047FC10_WardenFree(void* pMemory)
+// build: symbol ?WARDENCLIENT_FreeLoaderMemory@* 0x0047FC10
+void __fastcall WARDENCLIENT_FreeLoaderMemory(void* pMemory)
 {
     SMemFree(pMemory, szWardenClientFile_006D8E18, 0x117, 0);
 }

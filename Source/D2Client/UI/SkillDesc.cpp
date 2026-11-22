@@ -120,7 +120,7 @@ static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin,
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc*); // 0x00451F60
+int __fastcall GAME_GetUnitClassId(D2UnitStrc*); // 0x00451F60
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc*, int, int); // 0x006439B0
 
@@ -203,7 +203,7 @@ extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 
 extern const char gszSkillDescFile_006DBF24[]; // 0x006DBF24
 
-void __fastcall sub_00452180_StrToUpper(Unicode*); // 0x00452180
+void __fastcall GAME_StrToUpper(Unicode*); // 0x00452180
 
 int __fastcall TEXT_SplitAtNewline(Unicode*, Unicode**); // 0x004A7660
 
@@ -241,13 +241,13 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
-void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 
@@ -1783,7 +1783,7 @@ int __stdcall SKILLDESC_HasClassSkill(D2UnitStrc* pUnit)
     for (; nSkillId < pTables->nSkillsTxtRecordCount; ++nSkillId)
     {
         D2SkillsTxt* pRecord = GetSkillsRecord(pTables, nSkillId);
-        if (pRecord && (unsigned char)pRecord->nCharClass == (unsigned char)sub_00451F60_UnitClassId(pUnit))
+        if (pRecord && (unsigned char)pRecord->nCharClass == (unsigned char)GAME_GetUnitClassId(pUnit))
         {
             D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
             if (pSkill && SKILLS_GetSkillLevel(pUnit, pSkill, 0))
@@ -1871,7 +1871,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     sub_00502EF0(6);
     Unicode wszName[32];
     sub_005267E0(wszName, D2LANG_GetStringFromTblIndex(sub_004E6E30_GetSkillDescAltStr(nSkillId)));
-    sub_00452180_StrToUpper(wszName);
+    GAME_StrToUpper(wszName);
     int nIndex = nSlot;
     DRAW_SKILL_TEXT(nIndex, wszName);
     int bDamage = 0;
@@ -2034,7 +2034,7 @@ static void __stdcall sub_004F1A30_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, i
     }
 
     const int nSpread = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCltCalc[1], nSkillId, nSkillLevel);
-    sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, SEED_RollLimitedRandomNumber(&pUnit->pSeed, nSpread));
+    GFXUTIL_SetMotionVectorA(pMissile, 0, 0, SEED_RollLimitedRandomNumber(&pUnit->pSeed, nSpread));
     MISSILE_SetTargetX(pMissile, CLIENTS_GetUnitX_Spray(pUnit));
     MISSILE_SetTargetY(pMissile, CLIENTS_GetUnitY_Spray(pUnit));
 }
@@ -2051,7 +2051,7 @@ int __fastcall sub_004F1C80_SkillCltDoSpray(D2UnitStrc* pUnit, int nSkillId, int
     const int bInTown = !pRoom || DUNGEON_IsRoomInTown(pRoom);
     if (pSkillsTxt->wPrgSound > 0)
     {
-        void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pUnit, pSkillsTxt->wPrgSound);
+        void* pUnitSfx = MISSILE_FindUnitSfxInRange(pUnit, pSkillsTxt->wPrgSound);
         if (bInTown)
         {
             if (pUnitSfx)

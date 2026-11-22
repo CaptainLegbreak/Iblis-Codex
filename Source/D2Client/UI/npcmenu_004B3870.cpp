@@ -52,7 +52,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2UnitStrc* __cdecl NPCMENU_GetInteractNpc();                                                          // 0x004B1620
 
@@ -64,7 +64,7 @@ int __cdecl sub_00489870();                                                     
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);                               // 0x004521C0
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 
@@ -114,7 +114,7 @@ void* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int (__cdecl* p
 
 void __fastcall DIALOG_DestroyDialog(void* pDialog); // 0x004B8020
 
-void __fastcall sub_004B8370_SetCtrlState(void* pDialog, int nValue); // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(void* pDialog, int nValue); // 0x004B8370
 
 void __fastcall sub_004B85F0_AddTextLine(void* pDialog, const Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int (__cdecl* pfnCallback)(), int nArg8); // 0x004B85F0
 
@@ -210,7 +210,7 @@ static inline D2UnitStrc* GetInteractNpc_Inline()
 {
     if (!gnGlobal_007C0D29)
         return 0;
-    return sub_00463990(gnGlobal_007C0D25, 1);
+    return CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
 }
 
 // build: context GetUnitIdOrNone
@@ -242,7 +242,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
         const unsigned int nClassId = pItem->dwClassId;
         if (!gnGlobal_007C0D29)
             return 0;
-        if (!sub_00463990(gnGlobal_007C0D25, 1))
+        if (!CUNIT_FindClientUnit(gnGlobal_007C0D25, 1))
             return 0;
         D2UnitStrc* pNpc = NPCMENU_GetInteractNpc();
         const unsigned int nNpcClass = !pNpc ? -1 : pNpc->dwClassId;
@@ -277,7 +277,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
                 if (!sub_004B1F80_ItemNeedsRepair(pItem))
                     return 0;
                 D2UnitStrc* pVendor = NPCMENU_GetInteractNpc();
-                *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 3);
+                *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 3);
                 nStringId = 0xD02;
                 break;
             }
@@ -299,7 +299,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
             if (!sub_0062A130(pItem))
                 return 0;
             D2UnitStrc* pVendor = NPCMENU_GetInteractNpc();
-            *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 1);
+            *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 1);
             nStringId = 0xD03;
             break;
         }
@@ -312,7 +312,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
             nType = 2;
         D2UnitStrc* pVendor = GetInteractNpc_Inline();
         const int nVendorId = !pVendor ? -1 : pVendor->dwClassId;
-        *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nVendorId, nType);
+        *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpQuestFlags_007C0D43, nVendorId, nType);
         nStringId = 0xD01;
     }
     if (!nStringId)
@@ -351,7 +351,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
         }
         if (!sub_00489870())
             return 1;
-        gnGlobal_007C0D7F = ITEMS_GetAllRepairCosts(0, pPlayer, nNpcClass, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, 0);
+        gnGlobal_007C0D7F = ITEMS_GetAllRepairCosts(0, pPlayer, nNpcClass, GAME_GetDifficulty(), gpQuestFlags_007C0D43, 0);
         gnGlobal_007C0D31 = 3;
         gbGlobal_007C0DE0 = 1;
         gnGlobal_007C0DE5 = 0;
@@ -381,10 +381,10 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
                     if (!sub_004B1F80_ItemNeedsRepair(pItem))
                         return 0;
                     gnGlobal_007C0D31 = 3;
-                    gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 3);
+                    gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 3);
                     break;
                 }
-                gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
+                gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
                 if (!sub_0062A130(pItem))
                     return 0;
                 gnGlobal_007C0D31 = 2;
@@ -401,7 +401,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
             case 0x200:
             case 0x201:
             case 0x202:
-                gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
+                gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
                 if (!sub_0062A130(pItem))
                     return 0;
                 gnGlobal_007C0D31 = 2;
@@ -428,7 +428,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
             int nType = 0;
             if (gdwGlobal_007C0DB0)
                 nType = 2;
-            gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, nType);
+            gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, nType);
         }
         gbGlobal_007C0DE0 = 1;
         gnGlobal_007C0DE5 = GetUnitIdOrNone(pItem);
@@ -450,7 +450,7 @@ static __forceinline void sub_004B5640_RefreshNpcMenu()
 {
     if (gnGlobal_007C0D29)
     {
-        D2UnitStrc* pNpc = sub_00463990(gnGlobal_007C0D25, 1);
+        D2UnitStrc* pNpc = CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
         if (pNpc)
         {
             switch ((unsigned int)pNpc->dwClassId)
@@ -518,7 +518,7 @@ void __cdecl sub_004B5640_OpenNpcMenu()
                 D2_ASSERT(!gpDialog_007C0D63, 0x1413);
 
                 gpDialog_007C0D63 = sub_004B7EB0_CreateDialog(sub_00468730(), sub_00468740(), NPCMENU_NpcMenuReturn, 0, 0, 1, 1, 0, 0, 0, 1);
-                sub_004B8370_SetCtrlState(gpDialog_007C0D63, 1);
+                ROSTER_SetCtrlState(gpDialog_007C0D63, 1);
                 sub_004B85F0_AddTextLine(gpDialog_007C0D63, D2LANG_GetStringFromTblIndex(nStringId), 0x15, 0, 1, 1, 0, 0);
                 sub_004B85F0_AddTextLine(gpDialog_007C0D63, D2LANG_GetStringFromTblIndex(0xD4B), 0xF, 0, 0, 1, NPCMENU_NpcMenuReturn, 1);
             return;

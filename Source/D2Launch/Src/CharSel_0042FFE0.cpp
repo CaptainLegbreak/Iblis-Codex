@@ -168,7 +168,7 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxCha
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
-int __cdecl sub_00430B40(); // 0x00430B40
+int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 
 void __cdecl sub_00434060();
 
@@ -416,7 +416,7 @@ static int sub_00437A20_FindSlotName(const char* szName)
 {
     int i = 0;
     char* szSlot;
-    while (i < sub_00430B40() && (szSlot = sub_00430B50_GetSlotName(i)) != 0)
+    while (i < GAME_GetSlotNameCount() && (szSlot = sub_00430B50_GetSlotName(i)) != 0)
     {
         if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
             return 1;
@@ -441,7 +441,7 @@ void __cdecl sub_0043B080_InitCharSelectScreen()
     if (gnLaunchMode_007795EC == 1)
     {
         sub_00434060();
-        const int nCount = sub_00430B40();
+        const int nCount = GAME_GetSlotNameCount();
         if (nCount != -1)
         {
             if (nCount == 0)
@@ -518,7 +518,7 @@ void __cdecl sub_0043B080_InitCharSelectScreen()
         }
         if (nFound == 0)
         {
-            const char* szFirst = sub_00430B40() > 0 ? sub_00430B50_GetSlotName(0) : 0;
+            const char* szFirst = GAME_GetSlotNameCount() > 0 ? sub_00430B50_GetSlotName(0) : 0;
             SStrCopy(gData_00779A40, szFirst, 0x7FFFFFFF);
             SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
         }

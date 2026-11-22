@@ -97,7 +97,7 @@ int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
@@ -191,7 +191,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 void __cdecl TEXT_DrawPanelFrame(); // 0x0049FA10
 
@@ -390,11 +390,11 @@ struct D2ClientListEntryStrc
 
 #pragma pack(pop)
 
-int __cdecl sub_0044DA30(); // 0x0044DA30
+int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
-extern "C" void __cdecl sub_0044DCE0_MouseExtTables_451E10(); // 0x0044DCE0
+extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 
-extern "C" void __cdecl sub_0044DD20_MouseExtTables_451DB0(); // 0x0044DD20
+extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
 
 void __cdecl sub_00466FE0(); // 0x00466FE0
 
@@ -412,7 +412,7 @@ int gnGlobal_007C02B8; // 0x007C02B8
 
 int gnGlobal_007C0284; // 0x007C0284
 
-int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
 int __stdcall sub_B05_Sink(int nA, int nB);
 
@@ -420,7 +420,7 @@ int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
 
 void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
 
@@ -453,13 +453,13 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
 int __cdecl sub_00466DC0(); // 0x00466DC0
 
-int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 
@@ -529,7 +529,7 @@ void __cdecl CMDTBL_SaveAndBindHotkeys(); // 0x00469D40
 
 void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 
-void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
+void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); // 0x0047E090
 
 extern int global_00724728; // 0x00724728
 
@@ -846,7 +846,7 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
         gtTextList_007BF1EA.wCount--;
     }
 
-    if (sub_004538D0(0x18) && gpListBox_007BF1B4)
+    if (GAME_GetUIVarState(0x18) && gpListBox_007BF1B4)
     {
         gpListBox_007BF1B4->Refresh();
         sub_0049E340();
@@ -1119,7 +1119,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
     }
 
     sub_004B9A00(6, 0, 0, 0, 0);
-    if (sub_004538D0(0x18) && gpListBox_007BF1B4)
+    if (GAME_GetUIVarState(0x18) && gpListBox_007BF1B4)
     {
         gpListBox_007BF1B4->Refresh();
         sub_0049E340();
@@ -1143,14 +1143,14 @@ void __stdcall TEXT_OpenTextPanel(int bDraw)
     {
         char szPath[0x104] = { 0 };
         sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin2");
-        gpScroin2_007BF270 = sub_004788B0(szPath, 0);
+        gpScroin2_007BF270 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
     if (!gpScroin3_007BF26C)
     {
         char szPath[0x104] = { 0 };
         sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin3");
-        gpScroin3_007BF26C = sub_004788B0(szPath, 0);
+        gpScroin3_007BF26C = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
     if (!bDraw)
@@ -1894,12 +1894,12 @@ static int sub_004A4FA0_GetEntryState(int nIndex, int nFlag)
         return 3;
     }
 
-    if (!sub_00469D90(gpListEntries_00724264[nIndex].nId, 1) && !sub_00469D90(gpListEntries_00724264[nIndex].nId, 0))
+    if (!CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nId, 1) && !CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nId, 0))
     {
         return 1;
     }
 
-    return sub_00469D90(gpListEntries_00724264[nIndex].nId, nFlag) ? 4 : 5;
+    return CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nId, nFlag) ? 4 : 5;
 }
 
 int sub_B05_Emit_004A4FA0(int* pIndex)
@@ -1933,7 +1933,7 @@ void __cdecl TEXT_CancelKeyConfig()
 {
     sub_00469D50();
     sub_00455F20(11, 1, 0);
-    sub_0047E090(0, 1);
+    WARDENCLIENT_ToggleEscMenuUIState(0, 1);
 }
 
 // 0x004A51E0
@@ -1941,7 +1941,7 @@ void __cdecl TEXT_FreeTextSliderCel()
 {
     if (gpCelFile_007C02BC)
     {
-        sub_00478A00(gpCelFile_007C02BC);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007C02BC);
         gpCelFile_007C02BC = 0;
     }
 }
@@ -1956,7 +1956,7 @@ void __fastcall TEXT_ToggleKeyConfigPanel(int nArg)
         {
             CMDTBL_SaveHotkeys();
             sub_0046AA20(0, 0);
-            sub_0044DCE0_MouseExtTables_451E10();
+            GAME_UnregisterMouseHandlers();
             sub_00467A70_RefreshHoverUnit(0);
         }
         gnFirstVisible_007C02AC = 0;
@@ -1965,7 +1965,7 @@ void __fastcall TEXT_ToggleKeyConfigPanel(int nArg)
     else if (gnGlobal_007C02B8 == 0)
     {
         sub_0046AA20(1, 0);
-        sub_0044DD20_MouseExtTables_451DB0();
+        GAME_RegisterMouseHandlers();
         sub_00466FE0();
     }
     sub_004A5060();
@@ -1981,7 +1981,7 @@ void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
 // 0x004A59D0
 int __stdcall TEXT_KeyConfigWheelMsg(D2HotkeyActionStrc* pAction)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pAction->nState18 = 0;
         return (int)pAction;
@@ -2001,12 +2001,12 @@ int __stdcall TEXT_KeyConfigWheelMsg(D2HotkeyActionStrc* pAction)
 // 0x004A5C70
 void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
 {
-    if (sub_0044DA30()) { message->bReturn = 0; return; }
+    if (GAME_IsExitPending()) { message->bReturn = 0; return; }
     if (global_00724728) {
         if (!(message->lParam & REPEAT_MASK)) {
             sub_00469D50();
             sub_00455F20(UI_VARIABLE, 1, 0);
-            sub_0047E090(0, 1);
+            WARDENCLIENT_ToggleEscMenuUIState(0, 1);
             sub_004B9A00(1, 0, 0, 0, 0);
         }
     } else global_00724728 = 1;
@@ -2037,7 +2037,7 @@ void __cdecl TEXT_CloseKeyCaptureHandlers()
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072472C, 1);
         sub_00469D50();
         sub_0046AA20(1, 0);
-        sub_0044DD20_MouseExtTables_451DB0();
+        GAME_RegisterMouseHandlers();
         sub_00466FE0();
         gnGlobal_007C02B8 = 0;
     }
@@ -2076,7 +2076,7 @@ static void TEXT_ReleaseKeyConfigPress(int nX, int nY)
 // 0x004A5F10
 void __stdcall TEXT_KeyConfigButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pMsg->bReturn = 0;
         return;
@@ -2104,12 +2104,12 @@ void __cdecl TEXT_FreeLevelCels()
 {
     if (gpGlobal_007C02DC)
     {
-        sub_00478A00(gpGlobal_007C02DC);
+        ARCHIVE_FreeClientCellFile(gpGlobal_007C02DC);
         gpGlobal_007C02DC = 0;
     }
     if (gpGlobal_007C02E0)
     {
-        sub_00478A00(gpGlobal_007C02E0);
+        ARCHIVE_FreeClientCellFile(gpGlobal_007C02E0);
         gpGlobal_007C02E0 = 0;
     }
 }
@@ -2117,27 +2117,27 @@ void __cdecl TEXT_FreeLevelCels()
 // 0x004A64C0
 void __cdecl TEXT_UpdateLevelUpButtons()
 {
-    if (sub_004538D0(0xB))
+    if (GAME_GetUIVarState(0xB))
         return;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_004538D0(6))
+    if (GAME_GetUIVarState(6))
     {
         if (!STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
             sub_00455F20(6, 1, 0);
     }
     else
     {
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0) && !sub_004538D0(2))
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0) && !GAME_GetUIVarState(2))
             sub_00455F20(6, 0, 0);
     }
-    if (sub_004538D0(7))
+    if (GAME_GetUIVarState(7))
     {
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) <= 0)
             sub_00455F20(7, 1, 0);
     }
     else
     {
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) > 0 && !sub_004538D0(4))
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) > 0 && !GAME_GetUIVarState(4))
             sub_00455F20(7, 0, 0);
     }
 }
@@ -2275,7 +2275,7 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
     int x = message->nXpos;
     int y = message->nYpos;
     const int nResolution = D2GFX_GetResolutionMode();
-    if (nResolution == 2 && sub_004538D0(nResolution + 7))
+    if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
     {
         return;
     }
@@ -2324,7 +2324,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
     int x = message->nXpos;
     int y = message->nYpos;
     const int nResolution = D2GFX_GetResolutionMode();
-    if (nResolution == 2 && sub_004538D0(nResolution + 7))
+    if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
         return;
     int border = sub_0045AE90();
     if (D2GFX_GetResolutionMode() != 2)
@@ -2366,7 +2366,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
-    if (D2GFX_GetResolutionMode() == 2 && sub_004538D0(9))
+    if (D2GFX_GetResolutionMode() == 2 && GAME_GetUIVarState(9))
     {
         return;
     }
@@ -2412,7 +2412,7 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
-    if (D2GFX_GetResolutionMode() == 2 && sub_004538D0(9))
+    if (D2GFX_GetResolutionMode() == 2 && GAME_GetUIVarState(9))
     {
         return;
     }
@@ -2453,13 +2453,13 @@ bool __stdcall TEXT_IsStatButtonHidden(int nArg)
 {
     if (nArg == 3)
         return true;
-    if (sub_004538D0(2))
+    if (GAME_GetUIVarState(2))
         return true;
-    if (sub_004538D0(0x16) && sub_004538D0(1))
+    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(1))
         return true;
-    if (sub_004538D0(0x16) && sub_004538D0(4))
+    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(4))
         return true;
-    return (bool)sub_004538D0(0xC);
+    return (bool)GAME_GetUIVarState(0xC);
 }
 
 // 0x004A6B30
@@ -2516,7 +2516,7 @@ void __cdecl TEXT_DrawStatButton()
         return;
     }
 
-    if (sub_004A65E0_IsInLeftButton() && !sub_004538D0(9))
+    if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnGlobal_0071146C / 2 - 0xB3, gnGlobal_00711470 - 0x32, 0, 1);
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xC2, gnGlobal_00711470 - 8, -1, 5, 0);
 }
@@ -2526,11 +2526,11 @@ bool __stdcall TEXT_IsSkillButtonHidden(int nArg)
 {
     if (nArg == 3)
         return true;
-    if (sub_004538D0(4))
+    if (GAME_GetUIVarState(4))
         return true;
-    if (sub_004538D0(0xC))
+    if (GAME_GetUIVarState(0xC))
         return true;
-    if (sub_004538D0(0x16) && sub_004538D0(1))
+    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(1))
         return true;
     return false;
 }
@@ -2589,7 +2589,7 @@ void __cdecl TEXT_DrawSkillButton()
         return;
     }
 
-    if (sub_004A6690_IsInRightButton() && !sub_004538D0(9))
+    if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnGlobal_0071146C / 2 + 0xB2, gnGlobal_00711470 - 0x32, 0, 1);
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0xA3, gnGlobal_00711470 - 8, -1, 5, 0);
 }
@@ -2647,7 +2647,7 @@ static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
     }
 
     D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
-    int nLevel = UNITS_GetBlockRate(pPlayer, sub_0044DCC0());
+    int nLevel = UNITS_GetBlockRate(pPlayer, GAME_IsExpansion());
     if (nLevel <= 0)
     {
         nLevel = sub_004A70C0_GetWieldedTypeStatMax(pPlayer);
@@ -2728,7 +2728,7 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nPercent = 100;
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 398);
 
     const int nMonsterId = sub_00466DC0();
@@ -2737,9 +2737,9 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 2, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 2, &monStatsInit);
     int nDefense = monStatsInit.nAC;
-    if (pMonStatsTxtRecord->nAlign != 1 && !sub_0044DCC0() && sub_0044DCD0_GetDifficulty())
+    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
     {
         nDefense = nDefense * 10 / 12;
     }

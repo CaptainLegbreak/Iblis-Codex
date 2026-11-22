@@ -104,7 +104,7 @@ struct D2OverlayTxt
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
@@ -135,7 +135,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
+void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -144,35 +144,35 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
-extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
+extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 void __stdcall sub_004F6570_DrawCelColored(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
-int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit); // 0x004DA0D0
+int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
-D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
-void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
+D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
+void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
-void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
-int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
+void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
+int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
+int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-void __stdcall sub_0046E300_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
+void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 extern D2UnitStrc* gpAiTargets_007A7470[]; // 0x007A7470
 
 struct D2UnitOverlayStrc
@@ -184,8 +184,8 @@ struct D2UnitOverlayStrc
 };
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-int __stdcall sub_004DA110_GetMotionAX(D2UnitStrc* pUnit); // 0x004DA110
-int __stdcall sub_004DA130_GetMotionAY(D2UnitStrc* pUnit); // 0x004DA130
+int __stdcall GFXUTIL_GetMotionAX(D2UnitStrc* pUnit); // 0x004DA110
+int __stdcall GFXUTIL_GetMotionAY(D2UnitStrc* pUnit); // 0x004DA130
 void __stdcall sub_004F6540(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
 
 static inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -199,7 +199,7 @@ static inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // 0x0046DEF0
-static void sub_0046DEF0_SyncStateOverlay(D2OverlayStrc* pOverlay, D2GfxDataStrc* pGfx)
+static void GFX_SyncStateOverlay(D2OverlayStrc* pOverlay, D2GfxDataStrc* pGfx)
 {
     for (D2OverlayStrc* pOther = pGfx->pOverlays; pOther; pOther = pOther->pNext)
     {
@@ -325,7 +325,7 @@ void __fastcall sub_M113_Emit_0046EA80(D2UnitStrc* pUnit)
 }
 
 // 0x0046EAC0
-static void __stdcall sub_0046EAC0_ResetGfxIndex(D2UnitStrc* pUnit, int nIndex)
+static void __stdcall GFX_ResetGfxIndex(D2UnitStrc* pUnit, int nIndex)
 {
     D2_ASSERT(nIndex < GFX_INDEX_COUNT, 0x65F);
     for (int i = 0; i < GFX_INDEX_COUNT; ++i)
@@ -345,16 +345,16 @@ static void __stdcall sub_0046EAC0_ResetGfxIndex(D2UnitStrc* pUnit, int nIndex)
 }
 
 // 0x0046F000
-void __fastcall sub_0046F000_ResetGfx(D2UnitStrc* pUnit)
+void __fastcall GFX_ResetGfx(D2UnitStrc* pUnit)
 {
     for (int i = 0; i < GFX_INDEX_COUNT; ++i)
     {
-        sub_0046EAC0_ResetGfxIndex(pUnit, i);
+        GFX_ResetGfxIndex(pUnit, i);
     }
 }
 
 // 0x0046EB70
-static void sub_0046EB70_FreeOverlays(D2GfxDataStrc* pGfxData)
+static void GFX_FreeOverlays(D2GfxDataStrc* pGfxData)
 {
     D2OverlayStrc* pOverlay = pGfxData->pOverlays;
     while (pOverlay)
@@ -362,7 +362,7 @@ static void sub_0046EB70_FreeOverlays(D2GfxDataStrc* pGfxData)
         D2OverlayStrc* pNext = pOverlay->pNext;
         if (pOverlay->pResource)
         {
-            sub_004743D0_ReleaseOverlayResource(pOverlay->pResource);
+            DLIGHTMAP_ReleaseLight(pOverlay->pResource);
         }
         FOG_Free(pOverlay, ".\\ENGINE\\Gfx.cpp", 0x690, 0);
         pOverlay = pNext;
@@ -370,7 +370,7 @@ static void sub_0046EB70_FreeOverlays(D2GfxDataStrc* pGfxData)
 }
 
 // 0x0046EC10
-void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit)
+void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x814);
@@ -381,7 +381,7 @@ void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit)
         FOG_Free(pNode, ".\\ENGINE\\Gfx.cpp", 0x81A, 0);
         pNode = pNext;
     }
-    sub_0046EB70_FreeOverlays(pGfxData);
+    GFX_FreeOverlays(pGfxData);
     FOG_Free(pGfxData, ".\\ENGINE\\Gfx.cpp", 0x820, 0);
 }
 
@@ -410,7 +410,7 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
 }
 
 // 0x0046ED50
-static unsigned char sub_0046ED50(D2UnitStrc* pUnit)
+static unsigned char GFX_GetHealthBarColor(D2UnitStrc* pUnit)
 {
     if (!gbHealthBarColorsInit_007A8924)
     {
@@ -460,7 +460,7 @@ static unsigned char sub_0046ED50(D2UnitStrc* pUnit)
 }
 
 // 0x00471A30
-int __fastcall sub_00471A30(D2UnitStrc* pUnit)
+int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
 {
     int nOffsetX = 0;
     int nOffsetY = 0;
@@ -489,8 +489,8 @@ int __fastcall sub_00471A30(D2UnitStrc* pUnit)
         nOffsetY = pObjectsTxtRecord->nYOffset;
         nOffsetX = pObjectsTxtRecord->nXOffset;
     }
-    int nX = nOffsetX - sub_0045AFC0() + UNITS_GetClientCoordX(pUnit);
-    int nY = nOffsetY - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit);
+    int nX = nOffsetX - PLAYER_GetScreenOffsetX() + UNITS_GetClientCoordX(pUnit);
+    int nY = nOffsetY - PLAYER_GetScreenOffsetY() + UNITS_GetClientCoordY(pUnit);
     if (bPerspective)
     {
         switch (sub_0045AE90())
@@ -507,7 +507,7 @@ int __fastcall sub_00471A30(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    unsigned char nColor = sub_0046ED50(pUnit);
+    unsigned char nColor = GFX_GetHealthBarColor(pUnit);
     unsigned char nDirection = UNITS_GetDirection(pUnit);
     int nFrameNo;
     int nFrameCount;
@@ -524,7 +524,7 @@ int __fastcall sub_00471A30(D2UnitStrc* pUnit)
 }
 
 // 0x00471BD0
-int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
+int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
 {
     int nX;
     int nY;
@@ -546,19 +546,19 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
             }
             nY += 0x10;
             nX += sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-            nY += sub_004DA0D0_GetGfxMotionField38(pUnit);
+            nY += ITEM_GetGfxClientY(pUnit);
         }
         else
         {
-            nX = UNITS_GetClientCoordX(pUnit) - sub_0045AFC0() + sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-            nY = UNITS_GetClientCoordY(pUnit) - sub_0045AFD0_GetMouseYOffset() + sub_004DA0D0_GetGfxMotionField38(pUnit);
+            nX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX() + sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
+            nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY() + ITEM_GetGfxClientY(pUnit);
             nY += sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
         }
         if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
         {
             return 0;
         }
-        unsigned char nColor = sub_0046ED50(pUnit);
+        unsigned char nColor = GFX_GetHealthBarColor(pUnit);
         int nType = pUnit->dwUnitType;
         int nClass = pUnit->dwClassId;
         int nMode = UNITS_GetAnimOrSeqMode(pUnit);
@@ -579,7 +579,7 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
         }
         int nWeaponClassId;
         int nComponent = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassId, nMode, 0);
-        if (!sub_0046E5A0_FindGfxListNode(pUnit, nComponent, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nComponent, -1))
+        if (!GFXUTIL_FindGfxListNode(pUnit, nComponent, -1) && !GFX_LoadUnitGfxNode(pUnit, nComponent, -1))
         {
             return 0;
         }
@@ -591,7 +591,7 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
         D2GfxLayerHeaderStrc* pHeader = sub_004DB040_GetLayerHeader(pGfx);
         int nA;
         int nB;
-        sub_004DB2E0_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nA, &nB, pHeader->nArg, 1);
+        GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nA, &nB, pHeader->nArg, 1);
         unsigned char* pLayers = sub_004DB110_GetLayerOrder(pGfx, nA, nFrameNo);
         D2_ASSERT(pLayers, 0xA56);
         int nVisible = 0;
@@ -600,7 +600,7 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
             for (unsigned int i = 0; i < pHeader->nLayers; ++i)
             {
                 int nLayer = pLayers[i];
-                if (sub_004DB670_UpdateUnitGfx(pUnit, nLayer))
+                if (WARDENCLIENT_UpdateUnitGfx(pUnit, nLayer))
                 {
                     D2CelContextStrc tContext;
                     memset(&tContext, 0, sizeof(tContext));
@@ -615,12 +615,12 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
         }
         return 0;
     }
-    sub_00471A30(pUnit);
+    GFX_GetHealthBarOffset(pUnit);
     return 1;
 }
 
 // 0x0046EE80
-int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
+int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
 {
     const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType != 4)
@@ -646,7 +646,7 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
-    const int bReady = sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, nSize, 0, &nOut, 1, -1)
+    const int bReady = GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, nSize, 0, &nOut, 1, -1)
         && sub_006001F0(&tContext, 0, 1)
         && sub_004DAB40_CheckCel(tContext.pCel, nX, nY + CelGetHeight(tContext.pCel), 0);
     if (!bReady)
@@ -661,12 +661,12 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
         nDrawMode = 1;
     }
     sub_004F6480(&tContext, nX, nY + CelGetHeight(tContext.pCel), -1, nDrawMode, nPalette);
-    sub_0046E300_DrawUnitOverlays(pItem, 0xFF, 0, nX + ((unsigned int)CelGetWidth(tContext.pCel) >> 1), nY + ((unsigned int)CelGetHeight(tContext.pCel) >> 1), 0);
+    GFX_DrawUnitOverlays(pItem, 0xFF, 0, nX + ((unsigned int)CelGetWidth(tContext.pCel) >> 1), nY + ((unsigned int)CelGetHeight(tContext.pCel) >> 1), 0);
     return 1;
 }
 
 // 0x0046F060
-D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit)
+D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (pGfxData)
@@ -675,14 +675,14 @@ D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit)
 }
 
 // 0x0046F950
-void __fastcall sub_0046F950(D2UnitStrc* pUnit)
+void __fastcall GFX_RequeuePlayerMode(D2UnitStrc* pUnit)
 {
-    if (!sub_00464820_IsDeadOrDying(pUnit) && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
-        sub_00461250_QueueMove(7, pUnit, 0, 1);
+    if (!CUNIT_IsDeadOrDying(pUnit) && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+        PLAYER_ApplyUnitCommand(7, pUnit, 0, 1);
 }
 
 // 0x0046C6E0
-void __fastcall sub_0046C6E0_AddToUnitSlots(D2UnitStrc* pUnit)
+void __fastcall GFX_AddAiTargetUnit(D2UnitStrc* pUnit)
 {
     D2UnitStrc** ppSlot = gpAiTargets_007A7470;
     for (int i = 0; i < 8; ++i, ++ppSlot)
@@ -696,7 +696,7 @@ void __fastcall sub_0046C6E0_AddToUnitSlots(D2UnitStrc* pUnit)
 }
 
 // 0x0046C700
-void __fastcall sub_0046C700(D2UnitStrc* pUnit)
+void __fastcall GFX_RemoveAiTargetUnit(D2UnitStrc* pUnit)
 {
     D2UnitStrc** ppSlot = gpAiTargets_007A7470;
     for (int i = 0; i < 8; ++i, ++ppSlot)
@@ -710,7 +710,7 @@ void __fastcall sub_0046C700(D2UnitStrc* pUnit)
 }
 
 // 0x0045C470
-void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit)
+void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -743,7 +743,7 @@ static int sub_0046F090_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit)
     }
 
     const int nClassId = pUnit->dwClassId;
-    return !sub_004638A0_CheckMonStats2Flag(nClassId, 2);
+    return !MONSTERREGION_CheckMonStats2Flag(nClassId, 2);
 }
 
 int __cdecl sub_M449_Emit_0046F090(D2UnitStrc* pUnit)
@@ -752,14 +752,14 @@ int __cdecl sub_M449_Emit_0046F090(D2UnitStrc* pUnit)
 }
 
 // 0x0046F1F0
-int __fastcall sub_0046F1F0_GetGfx34(D2GfxDataStrc* pGfxData)
+int __fastcall GFX_GetGfxBasePalShift(D2GfxDataStrc* pGfxData)
 {
     D2_ASSERT(pGfxData, 0xCF1);
     return pGfxData->nUnk0x34;
 }
 
 // 0x0046F250
-int __fastcall sub_0046F250_GetGfx38(D2GfxDataStrc* pGfxData)
+int __fastcall GFX_GetGfxPalShift(D2GfxDataStrc* pGfxData)
 {
     D2_ASSERT(pGfxData, 0xD0A);
     return pGfxData->nUnk0x38;
@@ -789,7 +789,7 @@ int gdwGlobal_007A8918; // 0x007A8918
 void* gpPoolBlock_007A80FC; // 0x007A80FC
 
 // 0x0046F370
-static void sub_0046F370_FreeHashedEntries(D2HashedFileStrc* pTable)
+static void GFX_FreeHashedEntries(D2HashedFileStrc* pTable)
 {
     for (int i = 0; i < 0x200; ++i)
     {
@@ -810,9 +810,9 @@ static void sub_0046F370_FreeHashedEntries(D2HashedFileStrc* pTable)
 }
 
 // 0x0046F3F0
-void __cdecl sub_0046F3F0_FreeHashedFileA()
+void __cdecl GFX_FreeGlobalHashedFile()
 {
-    sub_0046F370_FreeHashedEntries(&gtHashedFile_007A8100);
+    GFX_FreeHashedEntries(&gtHashedFile_007A8100);
     gdwGlobal_007A8918 -= gtHashedFile_007A8100.nSize;
     if (gtHashedFile_007A8100.pData)
     {
@@ -822,9 +822,9 @@ void __cdecl sub_0046F3F0_FreeHashedFileA()
 }
 
 // 0x0046F440
-void __cdecl sub_0046F440_FreeHashedFileB()
+void __cdecl GFX_FreeActHashedFile()
 {
-    sub_0046F370_FreeHashedEntries(&gtHashedFile_007A78F0);
+    GFX_FreeHashedEntries(&gtHashedFile_007A78F0);
     gdwGlobal_007A8918 -= gtHashedFile_007A78F0.nSize;
     if (gtHashedFile_007A78F0.pData)
     {
@@ -834,10 +834,10 @@ void __cdecl sub_0046F440_FreeHashedFileB()
 }
 
 // 0x00470290
-void __cdecl sub_00470290_FreeHashedFiles()
+void __cdecl GFX_FreeHashedFiles()
 {
-    sub_0046F3F0_FreeHashedFileA();
-    sub_0046F440_FreeHashedFileB();
+    GFX_FreeGlobalHashedFile();
+    GFX_FreeActHashedFile();
     if (gpPoolBlock_007A80FC)
     {
         FOG_FreePool(0, gpPoolBlock_007A80FC, ".\\ENGINE\\Gfx.cpp", 0x7F9, 0);
@@ -846,7 +846,7 @@ void __cdecl sub_00470290_FreeHashedFiles()
 }
 
 // 0x00470390
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8)
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8)
 {
     if (nOverlay < 0 || nOverlay >= sgptDataTables->nOverlayTxtRecordCount)
         return;
@@ -865,7 +865,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
         if (UNIT_HasFlagEx(pUnit, 0x40000))
             return;
 
-        if (pUnit->dwUnitType == UNIT_MONSTER && sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 2))
+        if (pUnit->dwUnitType == UNIT_MONSTER && MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, 2))
             return;
     }
 
@@ -932,7 +932,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
     if (pNew->nType == 8)
     {
         pNew->nState = nArg5;
-        sub_0046DEF0_SyncStateOverlay(pNew, pGfx);
+        GFX_SyncStateOverlay(pNew, pGfx);
     }
 
     if (nArg4)
@@ -956,7 +956,7 @@ inline int UNITS_IsFlag5SetInl(D2UnitStrc* pUnit)
 }
 
 // 0x00471450
-int __fastcall sub_00471450_DrawUnitShadow(D2UnitStrc* pUnit)
+int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
 {
     if (UNITS_IsFlag5SetInl(pUnit) || STATES_CheckState(pUnit, STATE_INVIS))
     {
@@ -990,8 +990,8 @@ int __fastcall sub_00471450_DrawUnitShadow(D2UnitStrc* pUnit)
         nOffsetX = pObjectsTxtRecord->nXOffset;
         nOffsetY = pObjectsTxtRecord->nYOffset;
     }
-    int nX = nOffsetX - sub_0045AFC0() + UNITS_GetClientCoordX(pUnit) + sub_004DA110_GetMotionAX(pUnit);
-    int nY = nOffsetY - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit) + sub_004DA130_GetMotionAY(pUnit);
+    int nX = nOffsetX - PLAYER_GetScreenOffsetX() + UNITS_GetClientCoordX(pUnit) + GFXUTIL_GetMotionAX(pUnit);
+    int nY = nOffsetY - PLAYER_GetScreenOffsetY() + UNITS_GetClientCoordY(pUnit) + GFXUTIL_GetMotionAY(pUnit);
     if (bPerspective)
     {
         switch (sub_0045AE90())

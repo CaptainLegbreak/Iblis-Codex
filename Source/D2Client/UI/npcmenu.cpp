@@ -58,15 +58,15 @@ struct D2ClientItemSlotStrc
     char unk0x0C[0x04];
 };
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __fastcall sub_004C70D0_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
-int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
-D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
+void __fastcall SKILLS_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
+int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 void __stdcall sub_0063BD00(D2InventoryStrc* pInventory); // 0x0063BD00
@@ -127,15 +127,15 @@ extern void* gpRes_007C0D67; // 0x007C0D67
 extern void* gpRes_007C0D73; // 0x007C0D73
 extern void* gpRes_007C0D7B; // 0x007C0D7B
 extern D2ClientStringListStrc gtStringList_007C0D9A; // 0x007C0D9A
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
-void __fastcall sub_004649D0(UNITFN pfnCallback); // 0x004649D0
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 void __cdecl sub_00466FE0(); // 0x00466FE0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 void __cdecl INV_ResetHover(); // 0x00487990
 void __cdecl sub_00487B70(); // 0x00487B70
-D2TextHeaderStrc* __cdecl sub_0049F900(); // 0x0049F900
-int __fastcall sub_004AE130(D2UnitStrc* pUnit); // 0x004AE130
+D2TextHeaderStrc* __cdecl DLIGHTMAP_GetTextHeader(); // 0x0049F900
+int __fastcall MONSTER_GetOwnerGUID(D2UnitStrc* pUnit); // 0x004AE130
 D2UnitStrc* __cdecl NPCMENU_GetInteractNpc(); // 0x004B1620
 void __cdecl TEXT_InitNpcMenu(); // 0x004B23E0
 void __cdecl NPCMENU_FreeNpcMenu(); // 0x004B24A0
@@ -150,7 +150,7 @@ struct D2ClientObjectStrc
 };
 
 extern D2ClientObjectStrc* gpObject_007C0D83; // 0x007C0D83
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
 struct D2NpcRecordStrc
@@ -190,7 +190,7 @@ extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft,
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, long* pLeft, long* pTop, long* pRight, long* pBottom); // 0x00476070
-void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
+void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -198,7 +198,7 @@ const Unicode* __fastcall TEXT_GetTextString(unsigned short nStringId); // 0x004
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int (__cdecl* pfnArg8)(),
     int (__cdecl* pfnArgC)(), int nArg10, int nArg14, int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
-void __fastcall sub_004B8370_SetCtrlState(void* pPanel, int nValue); // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(void* pPanel, int nValue); // 0x004B8370
 void __fastcall sub_004B85F0_AddTextLine(void* pPanel, const Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6,
     int (__cdecl* pfnArg7)(), int nArg8); // 0x004B85F0
 int __cdecl sub_004B1DC0(); // 0x004B1DC0
@@ -235,7 +235,7 @@ struct D2NpcPacketStrc
 
 #pragma pack(pop)
 
-int __cdecl sub_0044DB30(); // 0x0044DB30
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 void __cdecl INV_SelectFirstButton(); // 0x00487CC0
 int __cdecl NPCMENU_IdentifyItemsWait(); // 0x004B2020
 extern D2NpcMenuEntryStrc gNpcMenuEntries_00726C4C[]; // 0x00726C4C
@@ -337,7 +337,7 @@ typedef char sub_I16_AssertUnitSeed[(int)&((D2UnitStrc*)0)->pSeed == 0x20 ? 1 : 
 
 typedef char sub_I16_AssertUnitInventory[(int)&((D2UnitStrc*)0)->pInventory == 0x60 ? 1 : -1];
 
-const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
+const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 int __cdecl sub_004B4670_NpcMenuCancelText(); // 0x004B4670
 int __cdecl sub_004B46D0_NpcMenuCancelTextB(); // 0x004B46D0
@@ -401,11 +401,11 @@ void __fastcall NPCMENU_StateOverlayBurst(D2UnitStrc* pUnit, int nState, int bFl
 
     const int nX = CLIENTS_GetUnitX(pUnit);
     const int nY = CLIENTS_GetUnitY(pUnit);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nX, nY, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nX + 1, nY + 1, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nX + 1, nY - 1, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nX - 1, nY + 1, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nX - 1, nY - 1, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX, nY, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX + 1, nY + 1, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX + 1, nY - 1, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX - 1, nY + 1, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX - 1, nY - 1, 0, 1);
     sub_004B9A00(0x99A, pUnit, 0, 0, 0);
 }
 
@@ -431,20 +431,20 @@ void __fastcall NPCMENU_StateOverlayCross(D2UnitStrc* pUnit, int nState, int bFl
 
     const int nX = CLIENTS_GetUnitX(pUnit);
     const int nY = CLIENTS_GetUnitY(pUnit);
-    sub_004CDB40_SubmitRequest(pUnit, 0x75, nX, nY, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nX, nY, 0, 1);
     const int nYPlus = nY + 1;
     const int nXPlus = nX + 1;
-    sub_004CDB40_SubmitRequest(pUnit, 0x75, nXPlus, nYPlus, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXPlus, nYPlus, 0, 1);
     bFlag = nY - 1;
-    sub_004CDB40_SubmitRequest(pUnit, 0x75, nXPlus, bFlag, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXPlus, bFlag, 0, 1);
     const int nXMinus = nX - 1;
-    sub_004CDB40_SubmitRequest(pUnit, 0x75, nXMinus, nYPlus, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x75, nXMinus, bFlag, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nX, nY, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nXPlus, nYPlus, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nXPlus, bFlag, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nXMinus, nYPlus, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x52, nXMinus, bFlag, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXMinus, nYPlus, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXMinus, bFlag, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX, nY, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXPlus, nYPlus, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXPlus, bFlag, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXMinus, nYPlus, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXMinus, bFlag, 0, 1);
     sub_004B9A00(0x99A, pUnit, 0, 0, 0);
 }
 
@@ -460,7 +460,7 @@ void __fastcall NPCMENU_StateStartEffect(D2UnitStrc* pUnit, int nState, int bFla
     {
         if (!pUnit || !pUnit->dwAnimMode)
         {
-            sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0x5A, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_NOVA, 0));
+            SKILLS_StartUnitEffect(pUnit, pUnit, 0x5A, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_NOVA, 0));
         }
     }
 
@@ -477,12 +477,12 @@ void __fastcall NPCMENU_StateStartEffect(D2UnitStrc* pUnit, int nState, int bFla
 
     if (nState == 0x0A)
     {
-        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x9B, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0));
+        MISSILE_SubmitOwnerRequest(pUnit, 0x9B, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0));
         return;
     }
     if (nState == 0x12)
     {
-        sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0xC2, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_FROSTNOVA, 0));
+        SKILLS_StartUnitEffect(pUnit, pUnit, 0xC2, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_FROSTNOVA, 0));
     }
 }
 
@@ -500,14 +500,14 @@ void __fastcall NPCMENU_StateOverlayAtPath(D2UnitStrc* pUnit, int nState, int bF
     {
         return;
     }
-    sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x2A, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
+    MISSILE_SubmitOwnerRequest(pUnit, 0x2A, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
 }
 
 // 0x004ADBC0
 void __fastcall NPCMENU_StateMonOverlay(D2UnitStrc* pUnit, int nState, int bFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = pUnit ? GetMonStatsTxtRecord(pUnit->dwClassId) : 0;
-    const int nLevel = pMonStatsTxtRecord->nStateOverlayLevel[sub_0044DCD0_GetDifficulty()];
+    const int nLevel = pMonStatsTxtRecord->nStateOverlayLevel[GAME_GetDifficulty()];
 
     int nFrame;
     int nFrameCount;
@@ -523,13 +523,13 @@ void __fastcall NPCMENU_StateMonOverlay(D2UnitStrc* pUnit, int nState, int bFlag
 
     if (nLevel == 1)
     {
-        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x1AB, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        MISSILE_SubmitOwnerRequest(pUnit, 0x1AB, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
     }
     else if (nLevel >= 2)
     {
-        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x1AC, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        MISSILE_SubmitOwnerRequest(pUnit, 0x1AC, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
     }
-    sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x1AA, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
+    MISSILE_SubmitOwnerRequest(pUnit, 0x1AA, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
 }
 
 unsigned char g007C0D89; // 0x007C0D89
@@ -539,7 +539,7 @@ unsigned char gbFound_007C0DDA; // 0x007C0DDA
 // 0x004B1240
 void __fastcall NPCMENU_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket)
 {
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, 1);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 1);
     if (pUnit)
     {
         const unsigned short wClassId = pPacket->f_5;
@@ -562,7 +562,7 @@ D2UnitStrc* __cdecl NPCMENU_GetInteractNpc()
 {
     if (gnGlobal_007C0D29)
     {
-        return sub_00463990(gnGlobal_007C0D25, 1);
+        return CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
     }
     return 0;
 }
@@ -605,7 +605,7 @@ unsigned short __fastcall NPCMENU_GetFreeStringId(unsigned short wStringId)
         }
     }
 
-    D2TextHeaderStrc* pTextHeader = sub_0049F900();
+    D2TextHeaderStrc* pTextHeader = DLIGHTMAP_GetTextHeader();
     int nNode = 0;
     unsigned short wNode = TEXT_GetStringIdOfMenuType0Node(pTextHeader, nNode);
     while (wNode != 0xFFFF)
@@ -686,7 +686,7 @@ int __cdecl sub_F03_Emit_004B2E30(D2NpcRecordStrc* pRecord)
 
 static inline D2UnitStrc* NPC_GetInteractUnit_Inline()
 {
-    return gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0;
+    return gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
 }
 
 // build: context sub_004B1C80_GetNpcDialogPos
@@ -700,7 +700,7 @@ static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords)
         sub_00476070_GetViewRect(gpView_007A0640, &tView.left, &tView.top, &tView.right, &tView.bottom);
 
         D2CoordStrc tOffset;
-        sub_004760C0_GetViewOffset(gpView_007A0640, &tOffset.nX, &tOffset.nY);
+        VIEW_GetViewOffset(gpView_007A0640, &tOffset.nX, &tOffset.nY);
 
         tagRECT tRect;
         SetRect(&tRect, tOffset.nX, tOffset.nY, tOffset.nX + (tView.right - tView.left), tOffset.nY + (tView.bottom - tView.top));
@@ -737,7 +737,7 @@ int __cdecl NPCMENU_ResurrectMercWait()
     gpDialog_007C0D67 = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, sub_004B1DC0, 0, 0, 0, 1, 0, 0, 0, 1);
     gdwGlobal_007C0D53 = GetTickCount() + 60000;
     gnGlobal_007C0D57 = 0;
-    sub_004B8370_SetCtrlState(gpDialog_007C0D67, 0);
+    ROSTER_SetCtrlState(gpDialog_007C0D67, 0);
     sub_004B85F0_AddTextLine(gpDialog_007C0D67, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
     return 1;
 }
@@ -765,7 +765,7 @@ void __cdecl NPCMENU_HireMercWait()
     gpDialog_007C0D67 = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, sub_004B1DC0, 0, 0, 0, 1, 0, 0, 0, 1);
     gdwGlobal_007C0D53 = GetTickCount() + 60000;
     gnGlobal_007C0D57 = 0;
-    sub_004B8370_SetCtrlState(gpDialog_007C0D67, 0);
+    ROSTER_SetCtrlState(gpDialog_007C0D67, 0);
     sub_004B85F0_AddTextLine(gpDialog_007C0D67, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
 }
 
@@ -809,7 +809,7 @@ int __cdecl NPCMENU_IdentifyItemsWait()
     gpDialog_007C0D67 = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, sub_004B1DC0, 0, 0, 0, 1, 0, 0, 0, 1);
     gdwGlobal_007C0D53 = GetTickCount() + 60000;
     gnGlobal_007C0D57 = 0;
-    sub_004B8370_SetCtrlState(gpDialog_007C0D67, 0);
+    ROSTER_SetCtrlState(gpDialog_007C0D67, 0);
     sub_004B85F0_AddTextLine(gpDialog_007C0D67, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
     gnGlobal_007C0C6B = 10;
     gnGlobal_007C0D31 = 4;
@@ -931,12 +931,12 @@ void __cdecl NPCMENU_FreeNpcMenu()
 
     if (gpCelFile_007C0DC8)
     {
-        sub_00478A00(gpCelFile_007C0DC8);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007C0DC8);
         gpCelFile_007C0DC8 = 0;
     }
     if (gpCelFile_007C0DCC)
     {
-        sub_00478A00(gpCelFile_007C0DCC);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007C0DCC);
         gpCelFile_007C0DCC = 0;
     }
     if (gpObject_007C0D83)
@@ -966,7 +966,7 @@ void __stdcall sub_M129_Emit_004B21C0(int a, int b, int c, int d)
 void __fastcall NPCMENU_OnNpcPacketStoreSubId(D2NpcPacketStrc* pPacket)
 {
     D2_ASSERT(pPacket, 0xFC6);
-    if (pPacket->wSubId == 3 && gnGlobal_007C0D29 && sub_00463990(gnGlobal_007C0D25, 1))
+    if (pPacket->wSubId == 3 && gnGlobal_007C0D29 && CUNIT_FindClientUnit(gnGlobal_007C0D25, 1))
     {
         gnGlobal_007C0D39 = 1;
         gwGlobal_007C0D3D = pPacket->wSubId;
@@ -1018,7 +1018,7 @@ void __cdecl NPCMENU_FinishTransaction()
     gbGlobal_007C0DE0 = 0;
     gnGlobal_007C0DE1 = 0;
     gnGlobal_007C0DE5 = 0;
-    if (!sub_0044DB30())
+    if (!GAME_GetConnectionType())
         NPCMENU_CloseWaitDialog();
 }
 
@@ -1071,7 +1071,7 @@ void __fastcall sub_004B2A60(int nUnitId)
 void __fastcall NPCMENU_ResetHoverForItem(int nUnitId)
 {
     D2UnitStrc* pSelected = sub_00467A10();
-    if (pSelected && gnGlobal_007C0D29 && sub_00463990(gnGlobal_007C0D25, 1)
+    if (pSelected && gnGlobal_007C0D29 && CUNIT_FindClientUnit(gnGlobal_007C0D25, 1)
         && pSelected->dwUnitType == UNIT_ITEM && pSelected->dwUnitId == nUnitId)
     {
         sub_00466FE0();
@@ -1107,7 +1107,7 @@ void __cdecl NPCMENU_ShowTradeDialog()
 
     gnGlobal_007C0C6B = 4;
     gpDialog_007C0D5F = sub_004B7EB0_CreateDialog(sub_00468730(), sub_00468740(), NPCMENU_MenuClose, 0, 0, 1, 1, 0, 0, 0, 1);
-    sub_004B8370_SetCtrlState(gpDialog_007C0D5F, 1);
+    ROSTER_SetCtrlState(gpDialog_007C0D5F, 1);
 
     D2UnitStrc* pItem;
     int bService;
@@ -1145,7 +1145,7 @@ void __cdecl NPCMENU_ShowTradeDialog()
 
     if (bShowItem)
     {
-        pItem = sub_00463990(gnGlobal_007C0DE5, 4);
+        pItem = CUNIT_FindClientUnit(gnGlobal_007C0DE5, 4);
         if (!pItem)
         {
             return;
@@ -1244,7 +1244,7 @@ void __fastcall NPCMENU_ReloadHirelingPopup(unsigned short nArg)
 // 0x004B3380
 void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket)
 {
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, pPacket->nUnitType);
     if (!pUnit)
     {
         return;
@@ -1252,7 +1252,7 @@ void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket)
 
     if (pUnit->dwClassId == 0x216)
     {
-        if (sub_004AE130(pUnit) != -1)
+        if (MONSTER_GetOwnerGUID(pUnit) != -1)
         {
             sub_004B9A00(0x11FB, pUnit, 0, 0, 0);
         }
@@ -1263,13 +1263,13 @@ void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket)
         return;
     }
 
-    D2UnitStrc* pNpc = gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0;
+    D2UnitStrc* pNpc = gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
     if (pUnit == pNpc)
     {
         return;
     }
 
-    sub_00470390(pUnit, 0x48, 3, 0, 0, 0, 0, 0);
+    GFX_AddUnitOverlay(pUnit, 0x48, 3, 0, 0, 0, 0, 0);
     if (pUnit->dwClassId != 0x14B || NPCMENU_GetInteractNpc() || !gpQuestFlags_007C0D43)
     {
         return;
@@ -1280,7 +1280,7 @@ void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket)
     }
 
     gbFound_007C0DDA = 0;
-    sub_004649D0(sub_004B3360);
+    CUNIT_ForEachObject(sub_004B3360);
     if (!gbFound_007C0DDA)
     {
         sub_004B9A00(0xF8F, pUnit, 0, 0, 0);
@@ -1290,7 +1290,7 @@ void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket)
 // 0x004B3470
 int __cdecl NPCMENU_IsNpcTalkActive()
 {
-    if (gnGlobal_007C0D29 && sub_00463990(gnGlobal_007C0D25, 1) && gnGlobal_007C0C6B == 1)
+    if (gnGlobal_007C0D29 && CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) && gnGlobal_007C0C6B == 1)
     {
         return 1;
     }
@@ -1346,7 +1346,7 @@ void __fastcall NPCMENU_RemoveInventoryClientUnits(D2UnitStrc* pUnit)
         {
             const int nUnitType = pItemUnit ? pItemUnit->dwUnitType : UNIT_INVALID;
             const int nUnitId = pItemUnit ? pItemUnit->dwUnitId : -1;
-            sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
+            CUNIT_RemoveClientSideUnit(nUnitId, nUnitType);
         }
     }
     INVENTORY_RemoveInventoryItems(pInventory);
@@ -1373,7 +1373,7 @@ extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId)
 void __fastcall NPCMENU_CancelNpcAndFlag(int nUnitId)
 {
     NPCMENU_EndNpcInteraction(nUnitId);
-    D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, 1);
     if (pUnit)
     {
         pUnit->dwFlags |= 2;
@@ -1496,7 +1496,7 @@ void __cdecl NPCMENU_OpenGreetingDialog()
     sub_004B1C80_GetNpcDialogPos(&tCoords);
 
     gpDialog_007C0D7B = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, sub_004B4670_NpcMenuCancelText, sub_004B46D0_NpcMenuCancelTextB, 0, 0, 1, 0, 0, 0, 1);
-    sub_004B8370_SetCtrlState(gpDialog_007C0D7B, 1);
+    ROSTER_SetCtrlState(gpDialog_007C0D7B, 1);
 
     Unicode wszName[80];
     for (int i = 0; i < 80; ++i)
@@ -1504,7 +1504,7 @@ void __cdecl NPCMENU_OpenGreetingDialog()
         wszName[i].wChar = 0;
     }
 
-    sub_005267E0(wszName, sub_00464A60_GetUnitName(NPC_GetInteractUnit_Inline()));
+    sub_005267E0(wszName, CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
     const int nLength = sub_00526800(wszName);
     for (int i = 0; i < nLength; ++i)
     {
@@ -1535,7 +1535,7 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId)
     D2UnitStrc* pUnit = 0;
     if (nUnitType < 6)
     {
-        pUnit = sub_00463990(nUnitId, nUnitType);
+        pUnit = CUNIT_FindClientUnit(nUnitId, nUnitType);
     }
 
     switch (nUnitType)
@@ -1588,11 +1588,11 @@ void __cdecl NPCMENU_OnTransactionResult()
   switch(g007C0D89) {
    case 0:
     sub_004B9A00(g007C0D5B,0,0,0,0); g007C0D5B=0;
-    if(!sub_00463990(g007C0D8E,4)) { g007C0D96=1; return; }
+    if(!CUNIT_FindClientUnit(g007C0D8E,4)) { g007C0D96=1; return; }
     break;
    case 1:
     sub_004B9A00(0xdd,0,0,0,0);
-    if(sub_00463990(g007C0D8E,4)) { g007C0D96=1; return; }
+    if(CUNIT_FindClientUnit(g007C0D8E,4)) { g007C0D96=1; return; }
     break;
    case 5: TEXT_LoadPopupHireling(); break;
   }
@@ -1620,7 +1620,7 @@ void __cdecl NPCMENU_OnTransactionResult()
   if(g007C0D3F==1 && item && !sub_004680A0()) sub_00468070_SetCursorItemState(item);
  }
  gpRes_007C0D63=sub_004B7EB0_CreateDialog(sub_00468730(),sub_00468740(),NPCMENU_NpcMenuReturn,0,0,1,1,0,0,0,1);
- sub_004B8370_SetCtrlState(gpRes_007C0D63,1);
+ ROSTER_SetCtrlState(gpRes_007C0D63,1);
  sub_004B85F0_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(text),0x15,0,1,1,0,0);
  sub_004B85F0_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(0xd4b),0xf,0,0,1,NPCMENU_NpcMenuReturn,1);
  } else { sub_00408A60(&empty,sub_00408090(),0x13ad);exit(-1); }
@@ -1637,10 +1637,10 @@ void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex)
     sub_004B1C80_GetNpcDialogPos(&tCoords);
 
     gpDialog_007C0D6F = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, NPCMENU_CloseSubMenuToMain, sub_004B4010, 0, 0, 1, 0, 0, 0, 1);
-    sub_004B8370_SetCtrlState(gpDialog_007C0D6F, 1);
+    ROSTER_SetCtrlState(gpDialog_007C0D6F, 1);
     sub_004B85F0_AddTextLine(gpDialog_007C0D6F, D2LANG_GetStringFromTblIndex(nStringIndex), 0x15, 0, 4, 1, 0, 0);
 
-    D2TextHeaderStrc* pTextHeader = sub_0049F900();
+    D2TextHeaderStrc* pTextHeader = DLIGHTMAP_GetTextHeader();
     if (!pTextHeader)
     {
         sub_004B85F0_AddTextLine(gpDialog_007C0D6F, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, NPCMENU_CloseSubMenuToMain, 1);
@@ -1698,7 +1698,7 @@ void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex)
     sub_004B1C80_GetNpcDialogPos(&tCoords);
 
     gpDialog_007C0D73 = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, sub_004B5850, sub_004B4070, 0, 0, 1, 0, 0, 0, 1);
-    sub_004B8370_SetCtrlState(gpDialog_007C0D73, 1);
+    ROSTER_SetCtrlState(gpDialog_007C0D73, 1);
     sub_004B85F0_AddTextLine(gpDialog_007C0D73, D2LANG_GetStringFromTblIndex(nStringIndex), 0x15, 0, 4, 1, 0, 0);
     sub_004B85F0_AddTextLine(gpDialog_007C0D73, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, sub_004B4290, 1);
     sub_004B85F0_AddTextLine(gpDialog_007C0D73, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B5850, 1);

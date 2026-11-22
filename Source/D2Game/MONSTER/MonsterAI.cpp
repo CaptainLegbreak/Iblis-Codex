@@ -433,7 +433,8 @@ static int __stdcall MONSTERAI_TryStartNpcInteraction(D2GameStrc* pGame, D2Monst
         return 0;
     }
 
-    if (!sub_00457490_CheckMonStatsFlag(pTarget->dwClassId, 9))
+// build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
+    if (!MONSTERUNIQUE_CheckMonStatsFlag(pTarget->dwClassId, 9))
     {
         return 1;
     }

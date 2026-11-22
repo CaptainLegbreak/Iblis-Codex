@@ -4,14 +4,14 @@
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
-int* __fastcall sub_004AE170(D2UnitStrc* pUnit);                                                 // 0x004AE170
-void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget);    // 0x004AFF60
-int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
-D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
-void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
-void __fastcall sub_004DA6E0_SetMotionFlag20(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
+int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit);                                                 // 0x004AE170
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget);    // 0x004AFF60
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
+D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
+void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
+void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -155,7 +155,7 @@ static void __stdcall sub_0046C770_CommandOnUnit(int nCommand, int nArg, D2UnitS
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
-    sub_004AFF60_MonsterCommand(nCommand, pUnit, &tCommand);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
 }
 
 // 0x0046C7D0
@@ -198,7 +198,7 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
-    sub_004AFF60_MonsterCommand(nCommand, pUnit, &tCommand);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
     return 1;
 }
 
@@ -244,7 +244,7 @@ static void __stdcall sub_0046C960_StepRandom(unsigned char nScale, int nCommand
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
-    sub_004AFF60_MonsterCommand(nCommand, pUnit, &tCommand);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
 }
 
 // 0x0046CA60
@@ -258,7 +258,7 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, int nArg, D2UnitStr
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
-    sub_004AFF60_MonsterCommand(nCommand, pUnit, &tCommand);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
 }
 
 // 0x0046CAB0
@@ -267,7 +267,7 @@ static void sub_0046CAB0_CommandMode8(D2UnitStrc* pUnit)
     D2MonCommandStrc tCommand = {};
     tCommand.nX = CLIENTS_GetUnitXInline(pUnit);
     tCommand.nY = CLIENTS_GetUnitYInline(pUnit);
-    sub_004AFF60_MonsterCommand(8, pUnit, &tCommand);
+    MONSTER_HandleMonsterCommand(8, pUnit, &tCommand);
 }
 
 // 0x0046CB40
@@ -276,7 +276,7 @@ static void sub_0046CB40_CommandMode7(D2UnitStrc* pUnit)
     D2MonCommandStrc tCommand = {};
     tCommand.nX = CLIENTS_GetUnitXInline(pUnit);
     tCommand.nY = CLIENTS_GetUnitYInline(pUnit);
-    sub_004AFF60_MonsterCommand(7, pUnit, &tCommand);
+    MONSTER_HandleMonsterCommand(7, pUnit, &tCommand);
 }
 
 // 0x0046CBD0
@@ -370,7 +370,7 @@ static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
 {
     if (AI_GetUnitMode_Inline(pUnit) == 1)
     {
-        int* pState = sub_004AE170(pUnit);
+        int* pState = MONSTER_GetAiValuePtr(pUnit);
         if (pState)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -482,7 +482,7 @@ static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* p
         sub_0046C570_FindRoomUnit(pUnit, &pFound, &nFoundDistance, sub_0046C660_CheckTarget2);
     }
 
-    int* pState = sub_004AE170(pUnit);
+    int* pState = MONSTER_GetAiValuePtr(pUnit);
     D2SeedStrc* pSeed = &pUnit->pSeed;
     if (!pState)
     {
@@ -613,26 +613,26 @@ static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
         const int nMissileId = ((unsigned int)lSeed & 3) + 0x23A;
         const int nX = CLIENTS_GetUnitXInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
         const int nY = CLIENTS_GetUnitYInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
-        D2UnitStrc* pMissile = sub_004CDB40_SubmitRequest(pUnit, nMissileId, nX, nY, 0, 1);
+        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nMissileId, nX, nY, 0, 1);
         if (pMissile)
         {
             int bFlag;
             if (SEED_RollRandomNumberHL_Inline(&pUnit->pSeed) & 1)
             {
-                sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, -100);
-                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, 6, 1);
-                sub_004DA2A0_SetMotionVectorC(pMissile, 0, 0, 300, 1);
+                GFXUTIL_SetMotionVectorA(pMissile, 0, 0, -100);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 300, 1);
                 bFlag = 1;
             }
             else
             {
-                sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, 300);
-                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, -6, 1);
-                sub_004DA2A0_SetMotionVectorC(pMissile, 0, 0, -100, 1);
+                GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 300);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, -100, 1);
                 bFlag = 0;
             }
 
-            sub_004DA6E0_SetMotionFlag20(pMissile, bFlag);
+            MISSILE_SetMotionFlagMask(pMissile, bFlag);
             sub_004DA350_UpdateMotion(pMissile);
             MISSILE_SetTotalFrames(pMissile, 60);
             MISSILE_SetCurrentFrame(pMissile, 60);
@@ -716,7 +716,7 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
         return;
     }
 
-    if (sub_00457490_CheckMonStatsFlag(pUnit->dwClassId, 22))
+    if (MONSTERUNIQUE_CheckMonStatsFlag(pUnit->dwClassId, 22))
     {
         sub_0046D660_AiFlagged(pTarget, pUnit);
         return;

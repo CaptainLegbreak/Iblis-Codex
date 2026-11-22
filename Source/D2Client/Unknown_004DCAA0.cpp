@@ -30,8 +30,8 @@ int gnGlobal_007C8A04;                                                          
 
 int __cdecl sub_0044DB00();                                                                                 // 0x0044DB00
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
-int __cdecl sub_00481780_GetPlayerLevelId();                                                                // 0x00481780
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
+int __cdecl UNITMODE_GetPlayerLevelId();                                                                // 0x00481780
 int __cdecl sub_004817F0();                                                                                 // 0x004817F0
 int __cdecl sub_00481800();                                                                                 // 0x00481800
 int __cdecl sub_00481810();                                                                                 // 0x00481810
@@ -43,14 +43,14 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 int __cdecl sub_004B9C60_IsSongPlaying();                                                                   // 0x004B9C60
 int __fastcall sub_004B9D50_GetPosition(void* pEntry);                                                      // 0x004B9D50
 void __fastcall sub_004BA890_RefreshHintsById(int nHintId);                                                 // 0x004BA890
-void __cdecl sub_004CC270_CheckLevelSpeech();                                                               // 0x004CC270
+void __cdecl MISSILE_CheckLevelSpeech();                                                               // 0x004CC270
 int __cdecl sub_00514CC0();                                                                                 // 0x00514CC0
 int __cdecl sub_00514CF0();                                                                                 // 0x00514CF0
 
 // 0x004DCAA0
 void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 {
-    int nLevelId = sub_00481780_GetPlayerLevelId();
+    int nLevelId = UNITMODE_GetPlayerLevelId();
     if (!nLevelId)
     {
         return;
@@ -117,7 +117,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         if (gTimedHint_007C89E4.nArgG && sub_0044DB00() >= gTimedHint_007C89E4.nEndTickF)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            if (!sub_00464820_IsDeadOrDying(pPlayer))
+            if (!CUNIT_IsDeadOrDying(pPlayer))
             {
                 sub_004B9A00(gTimedHint_007C89E4.nArgE, pPlayer, 0, 0, 0);
             }
@@ -149,7 +149,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 
     if (gnGlobal_007C89DC != gnGlobal_007C8A04 && dwTick - gnGlobal_007C89D0 >= 0x3E)
     {
-        sub_004CC270_CheckLevelSpeech();
+        MISSILE_CheckLevelSpeech();
         gnGlobal_007C8A04 = gnGlobal_007C89DC;
     }
 

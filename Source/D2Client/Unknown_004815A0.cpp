@@ -16,7 +16,7 @@ int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2U
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit); // 0x00622DC0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nRangeBonus); // 0x00622C40
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-unsigned short __cdecl sub_0044BEC0_GetClickFlags(); // 0x0044BEC0
+unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
 int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 extern "C" const char szUnitModeFile_006D8E84[]; // 0x006D8E84
@@ -35,11 +35,11 @@ static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
+static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer); // 0x00480BA0
 
 // 0x00480BA0
 
-static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer)
+static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pPlayer);
     if (!pSkill)
@@ -64,11 +64,11 @@ static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer)
     return 0;
 }
 
-static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
+static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction); // 0x00480C80
 
 // 0x00480C80
 
-static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction)
+static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction)
 {
     D2SkillStrc* pSkill;
     switch (nAction)
@@ -132,12 +132,12 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 #pragma intrinsic(memset)
 
 // 0x004812E0
-static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     D2UnitTargetStrc tTarget;
-    if (sub_0044BEC0_GetClickFlags() & 8)
+    if (GAME_GetClickFlags() & 8)
     {
-        if (sub_00480BA0_CanUseSkillNow(pPlayer))
+        if (UNITMODE_CanUseSkillNow(pPlayer))
         {
             memset(&tTarget, 0, sizeof(tTarget));
             tTarget.nParam1 = nArg1;
@@ -147,7 +147,7 @@ static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nActi
             sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
         }
     }
-    else if (sub_00480BA0_CanUseSkillNow(pPlayer))
+    else if (UNITMODE_CanUseSkillNow(pPlayer))
     {
         memset(&tTarget, 0, sizeof(tTarget));
         tTarget.nParam1 = nArg1;
@@ -178,9 +178,9 @@ static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* p
         return 0;
     }
 
-    if (sub_00480C80_IsTargetInRange(pPlayer, pUnit, nAction))
+    if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
     {
-        sub_004812E0_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
+        UNITMODE_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
         return 0;
     }
 

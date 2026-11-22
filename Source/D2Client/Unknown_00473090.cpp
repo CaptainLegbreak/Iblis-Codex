@@ -26,7 +26,7 @@ int __cdecl sub_0044DB00(); // 0x0044DB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __fastcall sub_00472C80_StepSplashes(int nUnused);                                                     // 0x00472C80
 void __fastcall sub_00472D10_StepBubbles(int nUnused);                                                      // 0x00472D10
-void __stdcall sub_00473E50_StepPhase(D2SeedStrc* pSeed);                                                   // 0x00473E50
+void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed);                                                   // 0x00473E50
 extern D2DrlgActStrc* gpDrlgAct_007A0634;                                                                   // 0x007A0634
 extern const D2PeriodLightStrc gtPeriodLight_006D6E40[];                                                    // 0x006D6E40
 extern unsigned char gnOutdoorLight_007A89EC[];                                                             // 0x007A89EC
@@ -352,7 +352,7 @@ void __cdecl sub_00473F50_UpdateWeather()
         }
 
         sub_00472C80_StepSplashes((int)pSeed);
-        sub_00473E50_StepPhase(pSeed);
+        GFX_StepWeatherPhase(pSeed);
         sub_004737B0_StepWind(pSeed);
     }
     else

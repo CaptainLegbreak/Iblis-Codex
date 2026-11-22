@@ -28,7 +28,7 @@ int __cdecl sub_004F59A0(); // 0x004F59A0
 
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 extern D2MsgHandlerEntryStrc gaCursorMsgHandlers_00711FEC[]; // 0x00711FEC
 
@@ -60,7 +60,7 @@ extern unsigned short gwGlobal_007A6AE4; // 0x007A6AE4
 
 #define NUM_CURSOR_MSG_HANDLERS 3
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -81,7 +81,7 @@ D2CelFileStrc* gpCellFile_007A6AD8;        // 0x007A6AD8
 int gnFrame_007A6AE0;        // 0x007A6AE0
 
 // 0x004680B0
-int __fastcall sub_004680B0_InitCursor(int nArg)
+int __fastcall CURSOR_InitCursor(int nArg)
 {
     char szPath[0x50];
     gnGlobal_007A6AB4 = nArg;
@@ -89,7 +89,7 @@ int __fastcall sub_004680B0_InitCursor(int nArg)
     for (int i = 0; i < NUM_CURSOR_CELLS; ++i)
     {
         wsprintfA(szPath, "%s\\UI\\CURSOR\\%s", szDataGlobal_006D4118, gaPanelAnim_00712020[i].f_8);
-        gpCursorCells_007A6AC0[i] = sub_004788B0(szPath, 0);
+        gpCursorCells_007A6AC0[i] = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     gnGlobal_007A6B08 = 1;
     gnGlobal_007A6AF0 = 1;
@@ -103,7 +103,7 @@ int __fastcall sub_004680B0_InitCursor(int nArg)
 }
 
 // 0x00468170
-void __cdecl sub_00468170_ShutdownCursor()
+void __cdecl CURSOR_ShutdownCursor()
 {
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaCursorMsgHandlers_00711FEC, NUM_CURSOR_MSG_HANDLERS);
     gnGlobal_007A6B08 = 0;
@@ -111,14 +111,14 @@ void __cdecl sub_00468170_ShutdownCursor()
     {
         if (gpCursorCells_007A6AC0[i])
         {
-            sub_00478A00(gpCursorCells_007A6AC0[i]);
+            ARCHIVE_FreeClientCellFile(gpCursorCells_007A6AC0[i]);
             gpCursorCells_007A6AC0[i] = 0;
         }
     }
 }
 
 // 0x00468460
-void __cdecl sub_00468460_DrawCel()
+void __cdecl CURSOR_DrawCursorCel()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));

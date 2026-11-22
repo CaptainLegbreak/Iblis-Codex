@@ -14,7 +14,7 @@ struct D2GSPacketSrv2A
 };
 #pragma pack(pop)
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
@@ -25,7 +25,7 @@ void __fastcall DIALOG_DestroyDialog(void* pRes);                               
 int __cdecl sub_004B1D70_FindNpcEntry();                                                                    // 0x004B1D70
 void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex);                               // 0x004B5890
 void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex);                                            // 0x004B5AD0
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 void __cdecl NPCMENU_OnTransactionResult();                                                                                // 0x004B53F0
 void __cdecl sub_004B5640_OpenNpcMenu();                                                                                // 0x004B5640
 int __cdecl NPCMENU_TravelToKurastDocks();                                                                                 // 0x004B51A0

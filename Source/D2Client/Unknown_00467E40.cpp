@@ -20,7 +20,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __cdecl sub_004681C0_AdvanceCursorAnim(); // 0x004681C0
 void __cdecl sub_004682C0_StepCursorAnim(); // 0x004682C0
 extern D2MsgHandlerEntryStrc gaCursorMsgHandlers_00711FEC[]; // 0x00711FEC

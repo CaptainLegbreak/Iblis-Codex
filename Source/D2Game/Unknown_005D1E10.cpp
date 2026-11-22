@@ -67,7 +67,7 @@ extern "C" void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(Game*, Unit*, int, 
 extern "C" Unit* __stdcall SUNIT_GetTargetUnit(Game*, Unit*); // 0x00553540
 extern "C" int __fastcall SUNIT_IsDead(Unit*); // 0x005541B0
 extern "C" int __fastcall sub_00463860(Unit*); // 0x00463860
-extern "C" int __fastcall sub_00463900_GetValidMonsterId(int); // 0x00463900
+extern "C" int __fastcall CUNIT_ValidateMonsterId(int); // 0x00463900
 extern "C" int __fastcall SEED_RollLimitedRandomNumber(Seed*, int); // 0x0045C390
 extern "C" int __stdcall STATES_CheckState(Unit*, int); // 0x00639DF0
 
@@ -192,7 +192,7 @@ extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int ski
     {
         const int type = GetUnitType(target);
         int bSkip = 1;
-        if (type == 1 && sub_00463900_GetValidMonsterId(sub_00463860(target)) == 453)
+        if (type == 1 && CUNIT_ValidateMonsterId(sub_00463860(target)) == 453)
         {
             bSkip = SkillChanceSucceeds(owner, record, skill, level);
         }

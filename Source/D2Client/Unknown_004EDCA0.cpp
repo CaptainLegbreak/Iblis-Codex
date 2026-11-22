@@ -39,9 +39,9 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0
 int __fastcall sub_004A9A90_FindSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004A9A90
@@ -66,7 +66,7 @@ static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkill
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
-D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nSkillId, int nSkillLevel); // 0x004CDB40
+D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nSkillId, int nSkillLevel); // 0x004CDB40
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 extern "C" int __stdcall sub_0064A300(Unit0064A300* pUnit); // 0x0064A300
@@ -645,10 +645,10 @@ static void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nMonsterI
         return;
     }
 
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
+    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
     {
         return;
     }
@@ -1047,7 +1047,7 @@ static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* ws
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, sub_0044DCA0_GetGameType(), sub_0044DCD0_GetDifficulty(), pMonStatsTxt->nLevel[sub_0044DCD0_GetDifficulty()], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, GAME_GetLadderFlag(), GAME_GetDifficulty(), pMonStatsTxt->nLevel[GAME_GetDifficulty()], 8, &monStatsInit);
     int nMin = monStatsInit.nA1MinD;
     int nMax = monStatsInit.nA1MaxD;
     int nPercent = 0;
@@ -1407,7 +1407,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 31:
     {
-        D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(sub_0044DCD0_GetDifficulty());
+        D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(GAME_GetDifficulty());
         const int nDivisor = pDifficultyLevelsTxt->dwAiCurseDivisor;
         sub_004EDB30_AddSeconds(wszText, nDivisor > 0 ? nCalcA / nDivisor : nCalcA, nStringA, 0);
         break;
@@ -1757,7 +1757,7 @@ int __fastcall sub_004F0830_CreateTimedMissileLine(D2UnitStrc* pUnit, int nSkill
     int nCount = 0;
     while (nPos < nDistance)
     {
-        D2UnitStrc* pMissile = sub_004CDB40_SubmitRequest(pUnit, nMissileId, nX + nPos * nDeltaX / 100, nY + nPos * nDeltaY / 100, nSkillId, nSkillLevel);
+        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nMissileId, nX + nPos * nDeltaX / 100, nY + nPos * nDeltaY / 100, nSkillId, nSkillLevel);
         if (pMissile)
         {
             D2COMMON_10160_PathUpdateDirection(pMissile->pDynamicPath, UNITS_GetDirection(pUnit));

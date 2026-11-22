@@ -28,7 +28,7 @@ struct D2ChatMessageStrc
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" size_t __cdecl strlen(const char* sz);
-D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
+D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 
 struct T0044CB60
 {
@@ -63,8 +63,8 @@ extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 void __cdecl sub_00477C60_CheckCacheStats(); // 0x00477C60
-void __cdecl sub_00477C00_ToggleCacheStats(); // 0x00477C00
-int __cdecl sub_0044DB30(); // 0x0044DB30
+void __cdecl VIEW_ToggleCacheStats(); // 0x00477C00
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 void __cdecl sub_004BABC0_ToggleHints(); // 0x004BABC0
 bool __fastcall CHAT_IsNarrowText(const Unicode* pText); // 0x0047BD00
 int __stdcall sub_0047BAD0_ParseChatCommand(char** ppText, char* pCode, char* szArgument); // 0x0047BAD0
@@ -76,7 +76,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
 void __fastcall sub_004787B0_SendStrings(const unsigned char* pData); // 0x004787B0
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nChar); // 0x00502550
@@ -107,7 +107,7 @@ struct D2CelContextStrc
 };
 
 void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries); // 0x0047DBB0
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
@@ -205,7 +205,7 @@ static int sub_0047C100(char* szInput, const char* szCommand)
                 sub_0049F490_PrintChatMessage(&tMessage);
                 return 1;
             }
-            D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
+            D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
             if (pNotify)
                 pNotify->pfnResign(szInput);
             return 1;
@@ -291,7 +291,7 @@ static int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* s
             {
                 for (D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0); pEntry; pEntry = sub_004795A0_GetNextEntry(pEntry))
                 {
-                    if (!_stricmp(sub_004795C0_GetEntryName(pEntry), szName))
+                    if (!_stricmp(ROSTER_GetEntryName(pEntry), szName))
                     {
                         D2ChatSendStrc tSend;
                         strncpy(tSend.szText, szMessage, sizeof(tSend.szText) - 1);
@@ -306,7 +306,7 @@ static int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* s
                 }
             }
             sprintf(szInput, "%s %s %s", szCommand, szName, szMessage);
-            D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
+            D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
             if (pNotify)
                 pNotify->pfnResign(szInput);
             return 1;
@@ -339,13 +339,13 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
     }
     if (!_stricmp(pText, "/framerate"))
     {
-        sub_00477C00_ToggleCacheStats();
+        VIEW_ToggleCacheStats();
         sub_00455F20(5, 1, 0);
         return;
     }
     if (!_strnicmp(pText, "/players", 8))
     {
-        if (!sub_0044DB30() || sub_0044DB30() == 1 || sub_0044DB30() == 6 || sub_0044DB30() == 8)
+        if (!GAME_GetConnectionType() || GAME_GetConnectionType() == 1 || GAME_GetConnectionType() == 6 || GAME_GetConnectionType() == 8)
         {
             int nPlayers = atoi(pText + 8);
             if (nPlayers <= 1)
@@ -456,7 +456,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
                 && !sub_0047C100(pText, "/help")
                 && !sub_0047C100(pText, "/?"))
             {
-                D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
+                D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
                 if (pNotify)
                     pNotify->pfnResign(pText);
             }
@@ -575,11 +575,11 @@ void __cdecl sub_0047DD70_LoadOptionMenus()
     gpOptionEntries_007BC940 = gaOptionEntries_00713220;
     char szPath[260] = {0};
     sprintf(szPath, "%s\\UI\\Widgets\\OptBar", szDataGlobal_006D4118);
-    gpOptionCel_007BC950 = sub_004788B0(szPath, 0);
+    gpOptionCel_007BC950 = ARCHIVE_LoadClientCellFile(szPath, 0);
     sprintf(szPath, "%s\\UI\\Widgets\\OptBarC", szDataGlobal_006D4118);
-    gpOptionCel_007BC954 = sub_004788B0(szPath, 0);
+    gpOptionCel_007BC954 = ARCHIVE_LoadClientCellFile(szPath, 0);
     sprintf(szPath, "%s\\UI\\Widgets\\OptSkull", szDataGlobal_006D4118);
-    gpOptionCel_007BC958 = sub_004788B0(szPath, 0);
+    gpOptionCel_007BC958 = ARCHIVE_LoadClientCellFile(szPath, 0);
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = UI_GetPentspinCel();
     const unsigned int nFrames = CelFileGetCelsPerDirection(tContext.pCellFile);

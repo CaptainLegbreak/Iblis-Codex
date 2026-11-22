@@ -45,7 +45,7 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 
@@ -73,7 +73,7 @@ void __stdcall SKILLS_SetParam4(D2SkillStrc* pSkill, int nValue); // 0x00644620
 
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 
-void __fastcall sub_004C7950(D2UnitStrc* pUnit); // 0x004C7950
+void __fastcall SKILLS_AttachMoveSkillEndList(D2UnitStrc* pUnit); // 0x004C7950
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
@@ -107,7 +107,7 @@ extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nCl
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pDynamicPath); // 0x00650590
 
@@ -117,39 +117,39 @@ void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetU
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int nArg); // 0x00649F70
 
-int __stdcall sub_004DA150_GetMotionAZ(D2UnitStrc* pUnit); // 0x004DA150
+int __stdcall GFXUTIL_GetMotionAZ(D2UnitStrc* pUnit); // 0x004DA150
 
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags); // 0x004654C0
+void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags); // 0x004654C0
 
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
 int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit); // 0x00623C20
 
-int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
+int __fastcall UNITSND_GetDirectionRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
 
-int __fastcall sub_004C85B0_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C85B0
+int __fastcall SKILLSBAR_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C85B0
 
-void __fastcall sub_004C8670_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C8670
+void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C8670
 
 int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY); // 0x00645CA0
 
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nRangeBonus); // 0x00622C40
 
-int __fastcall sub_004C7630(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004C7630
+int __fastcall SKILLS_RaiseTargetUnitEvent(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004C7630
 
-static void __stdcall sub_004C8750_LeapBounceFromTarget(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY);
+static void __stdcall SKILLSBAR_LeapBounceFromTarget(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY); // 0x004C8750
 
-static void __stdcall sub_004C8890_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY);
+static void __stdcall SKILLSBAR_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY); // 0x004C8890
 
 inline int UNITS_GetXInline(D2UnitStrc* pUnit)
 {
@@ -203,12 +203,12 @@ static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc*
     return sub_004C52E0_GetTargetPosition((D2UnitStrc*)pSkillsTxt, (int*)&pY, (int*)&pUnit);
 }
 
-void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 
 void __fastcall sub_004BA840(void* pUnitSfx); // 0x004BA840
 
 // 0x004C83C0
-int __fastcall sub_004C83C0_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -226,7 +226,7 @@ int __fastcall sub_004C83C0_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillI
     int nY;
     if (bMonster)
     {
-        D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+        D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
         if (!pTarget)
         {
             if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
@@ -265,7 +265,7 @@ int __fastcall sub_004C83C0_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillI
     SKILLS_SetParam2(pSkill, nY);
     if (bMonster)
     {
-        D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+        D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
         if (pTarget)
         {
             SKILLS_SetParam3(pSkill, !pTarget ? 6 : pTarget->dwUnitType);
@@ -273,12 +273,12 @@ int __fastcall sub_004C83C0_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillI
         }
     }
     SKILLS_SetFlags(pSkill, 0x1080);
-    sub_004C7950(pUnit);
+    SKILLS_AttachMoveSkillEndList(pUnit);
     return 1;
 }
 
 // 0x004C85B0
-int __fastcall sub_004C85B0_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+int __fastcall SKILLSBAR_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
     if (!pDynamicPath)
@@ -347,13 +347,13 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x004C8750
-static void __stdcall sub_004C8750_LeapBounceFromTarget(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY)
+static void __stdcall SKILLSBAR_LeapBounceFromTarget(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     if (!pPath)
         return;
 
-    D2UnitStrc* pTarget = sub_00463990(SKILLS_GetParam4(pSkill), SKILLS_GetParam3(pSkill));
+    D2UnitStrc* pTarget = CUNIT_FindClientUnit(SKILLS_GetParam4(pSkill), SKILLS_GetParam3(pSkill));
     if (!pTarget)
         return;
 
@@ -379,7 +379,7 @@ static void __stdcall sub_004C8750_LeapBounceFromTarget(D2UnitStrc* pUnit, D2Ski
 }
 
 // 0x004C8890
-static void __stdcall sub_004C8890_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY)
+static void __stdcall SKILLSBAR_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY)
 {
     int nUnitType;
     if (!pUnit)
@@ -409,7 +409,7 @@ static void __stdcall sub_004C8890_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY
         PATH_SetType(pPath, 7);
     }
 
-    if (sub_00464820_IsDeadOrDying(pUnit))
+    if (CUNIT_IsDeadOrDying(pUnit))
         PATH_SetUnitDeadCollision(pUnit, 0);
 }
 
@@ -439,11 +439,11 @@ static inline int MONSTERS_GetBaseIdInline(D2UnitStrc* pUnit)
 }
 
 // 0x004C8970
-static int __stdcall sub_004C8970_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bOverlay)
+static int __stdcall SKILLSBAR_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bOverlay)
 {
     const int nX = SKILLS_GetParam1(pSkill);
     const int nY = SKILLS_GetParam2(pSkill);
-    const int nMotion = sub_004DA150_GetMotionAZ(pUnit);
+    const int nMotion = GFXUTIL_GetMotionAZ(pUnit);
     int nUnitType = UNIT_INVALID;
     if (pUnit)
         nUnitType = pUnit->dwUnitType;
@@ -480,16 +480,16 @@ static int __stdcall sub_004C8970_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSk
         return 0;
     }
 
-    sub_004C8890_EndLeapPath(pUnit, nX, nY);
-    sub_004DA1D0_SetMotionVectorA(pUnit, 0, 0, 0);
+    SKILLSBAR_EndLeapPath(pUnit, nX, nY);
+    GFXUTIL_SetMotionVectorA(pUnit, 0, 0, 0);
     if (bOverlay)
-        sub_00470390(pUnit, 0x50, 2, 0, 0, 0, 0, 0);
+        GFX_AddUnitOverlay(pUnit, 0x50, 2, 0, 0, 0, 0, 0);
 
     if (bMonster)
     {
         sub_004B9A00(sub_004CAEB0(pUnit, 1), pUnit, 0, 0, 0);
         if (nBaseId == MONSTER_SANDLEAPER1)
-            sub_004C8750_LeapBounceFromTarget(pUnit, pSkill, nX, nY);
+            SKILLSBAR_LeapBounceFromTarget(pUnit, pSkill, nX, nY);
         return 1;
     }
 
@@ -499,7 +499,7 @@ static int __stdcall sub_004C8970_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSk
 }
 
 // 0x004C8B80
-void __fastcall sub_004C8B80_ResetLeapCollision(D2UnitStrc* pUnit)
+void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit)
 {
     D2DynamicPathStrc* const pPath = pUnit->pDynamicPath;
     const int nFootprint = PATH_GetFootprintCollisionMask(pPath);
@@ -512,16 +512,16 @@ void __fastcall sub_004C8B80_ResetLeapCollision(D2UnitStrc* pUnit)
     const int nX = pSkill ? SKILLS_GetParam1(pSkill) : CLIENTS_GetUnitXInline(pUnit);
     const int nY = pSkill ? SKILLS_GetParam2(pSkill) : CLIENTS_GetUnitYInline(pUnit);
     COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pUnit), nX, nY, PATH_GetUnitCollisionPattern(pUnit), nMask);
-    sub_004654C0_SetUnitPosition(pUnit, nX, nY, 0);
-    sub_004C8890_EndLeapPath(pUnit, nX, nY);
+    CUNIT_SetUnitPosition(pUnit, nX, nY, 0);
+    SKILLSBAR_EndLeapPath(pUnit, nX, nY);
 }
 
-static int __stdcall sub_004C8970_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bOverlay);
+static int __stdcall SKILLSBAR_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bOverlay); // 0x004C8970
 
-void __fastcall sub_004C8B80_ResetLeapCollision(D2UnitStrc* pUnit);
+void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
 
 // 0x004C8C60
-int __fastcall sub_004C8C60_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSBAR_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
     if (!pSkill)
@@ -530,21 +530,21 @@ int __fastcall sub_004C8C60_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int 
     const int nFlags = SKILLS_GetFlags(pSkill);
     if (nFlags & 0x100)
     {
-        if (!sub_004C8970_UpdateLeap(pUnit, pSkill, 1) && !(nFlags & 2))
+        if (!SKILLSBAR_UpdateLeap(pUnit, pSkill, 1) && !(nFlags & 2))
             return 0;
     }
 
     if (nFlags & 2)
     {
-        sub_004C8890_EndLeapPath(pUnit, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
+        SKILLSBAR_EndLeapPath(pUnit, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
         SKILLS_SetFlags(pSkill, 0);
         return 1;
     }
 
     if (nFlags & 0x80)
     {
-        sub_004C85B0_SetRunPath(pUnit, pSkill);
-        sub_004C8670_SetLobVelocity(pUnit, pSkill);
+        SKILLSBAR_SetRunPath(pUnit, pSkill);
+        SKILLS_SetLobVelocity(pUnit, pSkill);
         return 1;
     }
 
@@ -556,7 +556,7 @@ int __fastcall sub_004C8C60_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int 
 }
 
 // 0x004C8D90
-int __fastcall sub_004C8D90_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSBAR_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
     if (!pSkill)
@@ -571,13 +571,13 @@ int __fastcall sub_004C8D90_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, i
             return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     int nX = 0;
     int nY = 0;
     if (!SKILLS_CheckIfCanLeapTo(pUnit, pTarget, &nX, &nY))
     {
         if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
-            return sub_004C7630(pUnit, pTarget);
+            return SKILLS_RaiseTargetUnitEvent(pUnit, pTarget);
 
         if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
             sub_004CB9C0_Request(pUnit, 0x13);
@@ -603,12 +603,12 @@ int __fastcall sub_004C8D90_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, i
         SKILLS_SetParam3(pSkill, 6);
     }
     SKILLS_SetFlags(pSkill, 0x1080);
-    sub_004C7950(pUnit);
+    SKILLS_AttachMoveSkillEndList(pUnit);
     return 1;
 }
 
 // 0x004C8ED0
-int __fastcall sub_004C8ED0_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSBAR_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
     if (!pSkill)
@@ -618,7 +618,7 @@ int __fastcall sub_004C8ED0_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId
     const int nFlags = SKILLS_GetFlags(pSkill);
     if (nFlags & 0x100)
     {
-        if (!sub_004C8970_UpdateLeap(pUnit, pSkill, 1))
+        if (!SKILLSBAR_UpdateLeap(pUnit, pSkill, 1))
         {
             if (!(nFlags & 2))
                 return 0;
@@ -629,7 +629,7 @@ int __fastcall sub_004C8ED0_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId
             const int nTargetId = SKILLS_GetParam4(pSkill);
             D2UnitStrc* pTarget = 0;
             if (nTargetType != UNIT_INVALID)
-                pTarget = sub_00463990(nTargetId, nTargetType);
+                pTarget = CUNIT_FindClientUnit(nTargetId, nTargetType);
             if (!pTarget)
                 pTarget = sub_004C5EB0_FindDestination(pUnit, 0, 0, 3, 0, -1, 0);
 
@@ -637,7 +637,7 @@ int __fastcall sub_004C8ED0_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId
             {
                 UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
                 sub_00465BF0(pUnit, 0);
-                sub_004B9A00(sub_004CA4C0(pUnit, UNITS_GetHitClass(pUnit)), pUnit, 0, 0, 0);
+                sub_004B9A00(UNITSND_GetDirectionRate(pUnit, UNITS_GetHitClass(pUnit)), pUnit, 0, 0, 0);
                 nResult = 1;
             }
             else
@@ -649,15 +649,15 @@ int __fastcall sub_004C8ED0_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId
 
     if (nFlags & 2)
     {
-        sub_004C8890_EndLeapPath(pUnit, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
+        SKILLSBAR_EndLeapPath(pUnit, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
         SKILLS_SetFlags(pSkill, 0);
         return 1;
     }
 
     if (nFlags & 0x80)
     {
-        sub_004C85B0_SetRunPath(pUnit, pSkill);
-        sub_004C8670_SetLobVelocity(pUnit, pSkill);
+        SKILLSBAR_SetRunPath(pUnit, pSkill);
+        SKILLS_SetLobVelocity(pUnit, pSkill);
         return 1;
     }
 
@@ -665,9 +665,9 @@ int __fastcall sub_004C8ED0_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId
     return nResult;
 }
 
-int __fastcall sub_004C8C60_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+int __fastcall SKILLSBAR_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C8C60
 
-int __fastcall sub_004C8ED0_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+int __fastcall SKILLSBAR_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C8ED0
 
 static inline int UNITS_GetUnitType_C9120(D2UnitStrc* pUnit)
 {
@@ -680,7 +680,7 @@ static inline int UNITS_GetUnitType_C9120(D2UnitStrc* pUnit)
 }
 
 // 0x004C9120
-int __fastcall sub_004C9120_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSBAR_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 0 && nUnitType != 1)
@@ -715,10 +715,10 @@ int __fastcall sub_004C9120_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, in
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
     {
-        return sub_004C7630(pUnit, pTarget);
+        return SKILLS_RaiseTargetUnitEvent(pUnit, pTarget);
     }
 
     const int bPlayer = UNITS_GetUnitType_C9120(pUnit) == 0;
@@ -762,12 +762,12 @@ int __fastcall sub_004C9120_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, in
     SKILLS_SetFlags(pSkill, 1);
     SKILLS_SetParam1(pSkill, nX);
     SKILLS_SetParam2(pSkill, nY);
-    sub_004C7950(pUnit);
+    SKILLS_AttachMoveSkillEndList(pUnit);
     return 1;
 }
 
 // 0x004C9320
-int __fastcall sub_004C9320_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSBAR_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
@@ -786,7 +786,7 @@ int __fastcall sub_004C9320_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, i
         PATH_SetFootprintCollisionMask(pDynamicPath, nMask);
         PATH_SetMoveTestCollisionMask(pDynamicPath, bPlayer ? 0x1C09 : 0x3C01);
         SKILLS_SetFlags(pSkill, 0);
-        sub_004BA840(sub_004CA900_FindUnitSfxInRange(pUnit, 0x9E3));
+        sub_004BA840(MISSILE_FindUnitSfxInRange(pUnit, 0x9E3));
     }
     else if (nFlags & 1)
     {

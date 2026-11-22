@@ -91,7 +91,7 @@ int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
 
 void __stdcall sub_00446A90_RemoveTableString(Unicode* pText); // 0x00446A90
 
-int __cdecl sub_00449E20(); // 0x00449E20
+int __cdecl GAME_GetMcpCharLevel(); // 0x00449E20
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
@@ -529,7 +529,7 @@ void __cdecl sub_004453B0_BuildPanel()
     for (int i = 0; i < 0x64; i++)
         wszLevel[i].wChar = 0;
 
-    sprintf(szLevel, "%d ", sub_00449E20());
+    sprintf(szLevel, "%d ", GAME_GetMcpCharLevel());
     sub_00526320_ToUnicode(wszLevel, szLevel, 0x32);
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x2B12));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9A));
@@ -815,7 +815,8 @@ void __cdecl sub_00448050_ClearSelectedUser()
         gnSelectedLine_0070EC1C = -1;
     }
 
-    if (!sub_0043DB10())
+// build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
+    if (!GAME_IsLaunchExpansion())
     {
         sub_004477A0_Refresh();
     }

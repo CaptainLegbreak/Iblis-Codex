@@ -208,7 +208,7 @@ void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2Uni
 
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
 
-int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                                             // 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId);                                             // 0x00463900
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
 
@@ -323,7 +323,7 @@ struct D2UnkNecSkillStrc
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
 
@@ -721,7 +721,7 @@ int __fastcall SKILLS_SrvDo089_Jump(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
             PATH_SetMoveTestCollisionMask(pPath, 0x3C01);
             PATH_SetType(pPath, PATHTYPE_MON_OTHER_2);
 
-            if (sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
+            if (CUNIT_ValidateMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
             {
                 D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam3(pSkill), SKILLS_GetParam4(pSkill));
                 if (pTarget)
@@ -745,7 +745,7 @@ int __fastcall SKILLS_SrvDo089_Jump(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
         else
         {
             int nFrame = 0;
-            if (sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
+            if (CUNIT_ValidateMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
             {
                 nFrame = 8;
             }

@@ -5,9 +5,9 @@
 #include "D2ClientGame.h"
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-int* __fastcall sub_004AE170(D2UnitStrc* pUnit); // 0x004AE170
-void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget); // 0x004AFF60
-void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
+int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit); // 0x004AE170
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget); // 0x004AFF60
+void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -69,7 +69,7 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, 
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
-    sub_004AFF60_MonsterCommand(nCommand, pUnit, &tCommand);
+    MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
 }
 
 static void sub_0046CE40_AiType3(D2UnitStrc* pUnit);
@@ -79,14 +79,14 @@ static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
 {
     if (AI_GetUnitMode_Inline(pUnit) == 1)
     {
-        int* pState = sub_004AE170(pUnit);
+        int* pState = MONSTER_GetAiValuePtr(pUnit);
         if (pState)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pPlayer);
             if (*pState && nDistance > 25)
             {
-                sub_00465F00_RemoveServerSideUnit(UNITS_GetUnitIdInline(pUnit), 1);
+                CUNIT_RemoveServerSideUnit(UNITS_GetUnitIdInline(pUnit), 1);
                 return;
             }
 

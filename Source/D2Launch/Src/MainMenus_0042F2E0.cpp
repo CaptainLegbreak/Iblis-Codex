@@ -616,7 +616,7 @@ int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int 
 
 int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
 
-int __cdecl sub_00449C00(); // 0x00449C00
+int __cdecl GAME_GetConnectError(); // 0x00449C00
 
 int __stdcall sub_00449E10_Forward1(const char* szName); // 0x00449E10
 
@@ -1925,11 +1925,11 @@ int __fastcall sub_00434A00_Join(const char* szGameName, unsigned short wFlags, 
             }
             }
 
-            if (sub_00449C00())
+            if (GAME_GetConnectError())
             {
                 D2MCPClientCloseMCP();
                 int nString;
-                switch (sub_00449C00())
+                switch (GAME_GetConnectError())
                 {
                 case 2:
                     nString = 0x145B;
@@ -1949,7 +1949,7 @@ int __fastcall sub_00434A00_Join(const char* szGameName, unsigned short wFlags, 
             sub_00449E10_Forward1(gpLaunchRecord_007795D4->szGameName);
             sub_0042F6E0();
             sub_004FA590_RunLoop(sub_00432FE0_OnReceiveB);
-            int nState = sub_00449C00();
+            int nState = GAME_GetConnectError();
             if (nState == 0x46 || !sub_00449B30_QueryAddress())
             {
                 sub_0042F3F0_DestroyControls();
@@ -2327,7 +2327,7 @@ void __cdecl sub_00435E10()
         return;
     }
 
-    if (!sub_00449C00() && sub_00449B30_QueryAddress())
+    if (!GAME_GetConnectError() && sub_00449B30_QueryAddress())
     {
         if (sub_00449B30_QueryAddress())
         {
@@ -2345,13 +2345,13 @@ void __cdecl sub_00435E10()
                 return;
             }
 
-            int nError = sub_00449C00();
+            int nError = GAME_GetConnectError();
             if (nError)
             {
                 if (nError != 20)
                 {
                     Unicode wszName[100];
-                    sub_00410610_WriteLogLine("Error from MCP trying to create '%s' (err=%d)", gpLaunchRecord_007795D4->szCharName, sub_00449C00());
+                    sub_00410610_WriteLogLine("Error from MCP trying to create '%s' (err=%d)", gpLaunchRecord_007795D4->szCharName, GAME_GetConnectError());
                     D2MCPClientCloseMCP();
                     Unicode wszText[255];
                     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x145E));
@@ -2388,7 +2388,7 @@ void __cdecl sub_00435E10()
 
     D2MCPClientCloseMCP();
     int nString;
-    switch (sub_00449C00())
+    switch (GAME_GetConnectError())
     {
     case 2:
         nString = 0x145B;

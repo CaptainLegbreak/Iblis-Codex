@@ -245,7 +245,7 @@ static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* 
 }
 
 // @ref 0x004DD7C0
-s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
+s32 __stdcall WALL2_VisitRoom(Room* room,View* view)
 {
     Context* context=(Context*)((u8*)FIELD(void*,view,0)+56);
     Rectangle rectangle;

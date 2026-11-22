@@ -29,7 +29,7 @@ struct D2TimedHintEntryStrc
 };
 
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
-int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
+int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
 extern "C" const char gszEmptyAssertText; // 0x006CC837

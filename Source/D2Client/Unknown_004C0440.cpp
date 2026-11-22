@@ -24,7 +24,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 int __cdecl sub_004BFAF0_ShowConfirmation(); // 0x004BFAF0
 int __cdecl USEITEM_ClosePanel(); // 0x004C02F0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-int __stdcall sub_004890B0_ClickRectMsg(SMSGHANDLER_PARAMS* pMsg); // 0x004890B0
+int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg); // 0x004890B0
 
 #pragma pack(push, 1)
 struct D2PacketRecord7Strc
@@ -71,7 +71,7 @@ void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
             USEITEM_ClosePanel();
         return;
     }
-    if (sub_004890B0_ClickRectMsg(pMsg))
+    if (ROSTERPETS_HandleRectClick(pMsg))
         return;
     sub_004C0450_ClickHotspots(nX, nY);
 }

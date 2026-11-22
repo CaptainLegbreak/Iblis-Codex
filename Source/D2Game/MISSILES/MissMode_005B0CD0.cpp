@@ -66,7 +66,8 @@ int __fastcall AITHINK_HandleMonsterAiPreActions(D2GameStrc* pGame, D2UnitStrc* 
         return 1;
     }
 
-    if (!sub_00457490_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, 1))
+// build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
+    if (!MONSTERUNIQUE_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, 1))
     {
         return 0;
     }

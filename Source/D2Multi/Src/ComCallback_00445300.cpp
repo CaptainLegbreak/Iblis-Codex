@@ -74,15 +74,15 @@ void __stdcall sub_004493E0_RemoveChannelUser(const char* szName); // 0x004493E0
 
 int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
 
-void __cdecl sub_00451400_AddRecordChunk(); // 0x00451400
+void __cdecl RECORD_AddRecordChunk(); // 0x00451400
 
 int __cdecl sub_0044DA90(); // 0x0044DA90
 
 int __cdecl UI_IsReplayActive(); // 0x00451990
 
-void __fastcall sub_004514B0_FilterMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
+void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 
-void __fastcall sub_00451C70_RegisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451C70
+void __fastcall SCMD_RegisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451C70
 
 extern const char gszFormatInt_006D57BC[]; // 0x006D57BC
 
@@ -635,7 +635,7 @@ int __stdcall sub_004512C0_LoadString(int nId, char* szBuffer, unsigned int nSiz
 void __stdcall sub_00451450_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam)
 {
     if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
-        sub_00451400_AddRecordChunk();
+        RECORD_AddRecordChunk();
     D2MsgRecordStrc* pRecord = &gpMsgRecordChunk_0070F7A0->tRecords[gpMsgRecordChunk_0070F7A0->nCount++];
     pRecord->dwTick = sub_0044DA90();
     pRecord->uMessage = uMessage;
@@ -648,7 +648,7 @@ int __stdcall sub_00451B30_WindowProc(void* hWnd, unsigned int uMessage, unsigne
 {
     int bUseResult = 0;
     int lResult = 0;
-    sub_004514B0_FilterMessage(uMessage, wParam, lParam);
+    RECORD_RecordInputMessage(uMessage, wParam, lParam);
     if (!UI_IsReplayActive() || uMessage == 0x10)
     {
         if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
@@ -663,7 +663,7 @@ void __fastcall sub_00451DB0_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntrySt
     D2_ASSERT(hWnd, 0x153);
     for (unsigned int i = 0; i < nCount; i++)
     {
-        sub_00451C70_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
+        SCMD_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
     }
 }
 

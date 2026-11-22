@@ -1617,7 +1617,8 @@ int __fastcall PLRSAVE2_ReadCorpses(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsi
         }
 
         t.pData = pDataStart + 12;
-        D2UnitStrc* pPlayerBody = SUNIT_AllocUnitData(0, sub_00451F60_UnitClassId(pPlayer), 0, 0, pGame, 0, 1, 17, 0);
+// build: symbol ?GAME_GetUnitClassId@* 0x00451F60
+        D2UnitStrc* pPlayerBody = SUNIT_AllocUnitData(0, GAME_GetUnitClassId(pPlayer), 0, 0, pGame, 0, 1, 17, 0);
         if (!pPlayerBody)
         {
             if (pDetailError)

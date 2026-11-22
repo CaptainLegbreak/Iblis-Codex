@@ -29,23 +29,23 @@ extern int gnInTown_007A5260;                                                   
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
-void __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, int* pArgs, int nArg);             // 0x00461250
-void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit);                                       // 0x004647D0
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
-void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags);                // 0x004654C0
+void __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, int* pArgs, int nArg);             // 0x00461250
+void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit);                                       // 0x004647D0
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
+void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags);                // 0x004654C0
 void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom);                                     // 0x0046BF30
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
+void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 void __fastcall sub_00473C90_SetGlobal(int nValue);                                                         // 0x00473C90
-void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
+void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                                       // 0x004743D0
 int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY);                           // 0x004804A0
-void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
-extern "C" int __fastcall sub_004807C0_UpdateUnitPath(D2UnitStrc* unit); // 0x004807C0
-void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
+void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
+extern "C" int __fastcall UNITMODE_UpdateUnitPath(D2UnitStrc* unit); // 0x004807C0
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit);                                                            // 0x004B3E10
-int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
-void __fastcall sub_004C72F0(D2UnitStrc* pUnit);                                                            // 0x004C72F0
-void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit);                                                            // 0x004CAF60
+int __fastcall SKILLS_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
+void __fastcall SKILLS_RunStateActiveFuncs(D2UnitStrc* pUnit);                                                            // 0x004C72F0
+void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit);                                                            // 0x004CAF60
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom);                                                        // 0x0061AA40
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
@@ -80,13 +80,13 @@ unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom,
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath);                                                      // 0x00650590
 
-static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit);
-static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit); // 0x00460830
-static void sub_00460DE0_UpdateRoomPosition(D2UnitStrc* pUnit);                       // 0x00460DE0
-static void sub_00460E70_UpdateRoomState(D2UnitStrc* pUnit);                          // 0x00460E70
-static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit);                        // 0x00460F10
-static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit);
-static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit);    // 0x004611F0
+static void __stdcall PLAYER_SetModeAndSync(int bSync, int nState, D2UnitStrc* pUnit); // 0x00460830
+static void __stdcall PLAYER_SetModeAndSync(int bSync, int nState, D2UnitStrc* pUnit); // 0x00460830
+static void PLAYER_UpdateRoomPosition(D2UnitStrc* pUnit);                       // 0x00460DE0
+static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit);                          // 0x00460E70
+static void PLAYER_PlaceOnFreeCoords(D2UnitStrc* pUnit);                        // 0x00460F10
+static void __stdcall PLAYER_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit); // 0x004611F0
+static void __stdcall PLAYER_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit);    // 0x004611F0
 static void sub_00463260_UpdateStoredUnit(D2UnitStrc* pUnit);                         // 0x00463260
 
 #define UNIT_GETX(pUnit, outX) \
@@ -121,9 +121,9 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* pUnit);                   
         break; \
     }
 
-static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit)
+static void __stdcall PLAYER_SetModeAndSync(int bSync, int nState, D2UnitStrc* pUnit)
 {
-    sub_00480E70_SetUnitMode(pUnit, nState);
+    UNITMODE_SetUnitMode(pUnit, nState);
     if (!bSync)
         return;
 
@@ -135,10 +135,10 @@ static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2Unit
     int nY;
     UNIT_GETY(pUnit, nY);
     if (nX && nY)
-        sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);
+        UNITMODE_SetPosition(pUnit, nX, nY, 0, 0, 0);
 }
 
-static void sub_00460DE0_UpdateRoomPosition(D2UnitStrc* pUnit)
+static void PLAYER_UpdateRoomPosition(D2UnitStrc* pUnit)
 {
     int nX;
     UNIT_GETX(pUnit, nX);
@@ -148,7 +148,7 @@ static void sub_00460DE0_UpdateRoomPosition(D2UnitStrc* pUnit)
     DUNGEON_UpdatePops(pRoom, nX, nY, UNITS_IsCurrentRoomInvalid(pUnit));
 }
 
-static void sub_00460E70_UpdateRoomState(D2UnitStrc* pUnit)
+static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!pRoom)
@@ -197,7 +197,7 @@ static inline int PLAYER_GetUnitYInline(D2UnitStrc* pUnit)
     return 0;
 }
 
-static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit)
+static void PLAYER_PlaceOnFreeCoords(D2UnitStrc* pUnit)
 {
     const int nMode = !pUnit ? 0 : pUnit->dwAnimMode;
     switch (nMode)
@@ -220,10 +220,10 @@ static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit)
         return;
 
     COLLISION_GetFreeCoordinates(pRoom, &tCoords, UNITS_GetUnitSizeX(pUnit), 0xC01, 1);
-    sub_004654C0_SetUnitPosition(pUnit, tCoords.nX, tCoords.nY, 0);
+    CUNIT_SetUnitPosition(pUnit, tCoords.nX, tCoords.nY, 0);
 }
 
-static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit)
+static void __stdcall PLAYER_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -233,7 +233,7 @@ static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit
     if (nFlags & 1)
     {
         SKILLS_SetFlags(pSkill, nFlags | 2);
-        sub_004C68F0_DoUsedSkill(pUnit);
+        SKILLS_DoUsedSkill(pUnit);
         return;
     }
 
@@ -242,7 +242,7 @@ static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit
 
     const int bFlag = pUnit ? (pUnit->dwFlags >> 6) & 1 : 0;
     if (!bFlag)
-        sub_004C68F0_DoUsedSkill(pUnit);
+        SKILLS_DoUsedSkill(pUnit);
 }
 
 inline int UNITS_GetUnitTypeInline(D2UnitStrc* unit)
@@ -265,20 +265,20 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
         return;
     D2DynamicPathStrc* path = unit->pDynamicPath;
     int args[7] = {};
-    D2UnitStrc* target = sub_004648F0_GetPathTargetUnit(unit);
+    D2UnitStrc* target = CUNIT_GetPathTargetUnit(unit);
     if (PATH_GetTargetUnit(path))
     {
         args[0] = UNITS_GetUnitTypeInline(target);
         args[1] = UNITS_GetUnitIdInline(target);
-        sub_00461250_QueueMove(0, unit, args, 0);
+        PLAYER_ApplyUnitCommand(0, unit, args, 0);
         return;
     }
     args[0] = D2COMMON_10175_PathGetFirstPointX(path);
     args[1] = sub_00648A10_GetPathTargetY(path);
     void* related = D2Common_10958(unit, 0);
     if (related)
-        sub_004743D0_ReleaseOverlayResource(related);
-    sub_004611F0_ReleaseUsedSkill(unit == sub_00463DD0_GetPlayerUnit(), unit);
+        DLIGHTMAP_ReleaseLight(related);
+    PLAYER_ReleaseUsedSkill(unit == sub_00463DD0_GetPlayerUnit(), unit);
     UNITS_SetUsedSkill(unit, 0);
     path = unit->pDynamicPath;
     if (unit->dwAnimMode == 19)
@@ -296,9 +296,9 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
         move = 2;
     }
     if (sub_004804A0_SetPathTargetPos(unit, args[0], args[1]))
-        sub_00480E70_SetUnitMode(unit, move);
+        UNITMODE_SetUnitMode(unit, move);
     else
-        sub_00460830_SetStateAndSync(1, idle, unit);
+        PLAYER_SetModeAndSync(1, idle, unit);
 }
 
 static inline int PLAYER_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -339,23 +339,23 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2UnitTargetStrc { int nX, nY, nParam; };
-int __stdcall sub_00461180_RefreshSkillRef(int* pUseState, D2UnitStrc* pUnit, D2SkillRefStrc* pRef); // 0x00461180
-void sub_00461010_ResetPlayerState(D2UnitStrc* pUnit); // 0x00461010
-int __cdecl sub_0044BF00(); // 0x0044BF00
-int __cdecl sub_0044BF10(); // 0x0044BF10
-void __cdecl sub_0044DA40(); // 0x0044DA40
+int __stdcall PLAYER_RefreshSkillRef(int* pUseState, D2UnitStrc* pUnit, D2SkillRefStrc* pRef); // 0x00461180
+void PLAYER_ResetPlayerState(D2UnitStrc* pUnit); // 0x00461010
+int __cdecl GAME_GetLeftClickState(); // 0x0044BF00
+int __cdecl GAME_GetRightClickState(); // 0x0044BF10
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 void __cdecl sub_00466FE0(); // 0x00466FE0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
-void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
+void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 int __fastcall UI_CloseUIVars(int, int); // 0x00456300
 int __fastcall INV_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
-void __fastcall sub_00480930_InteractWithUnit(unsigned short, int); // 0x00480930
-void __fastcall sub_00480D20_SetModeOverlay(D2UnitStrc*, int); // 0x00480D20
-void __fastcall sub_00480EF0_MoveToPosition(D2UnitStrc*, int, int, int); // 0x00480EF0
-int __fastcall sub_004C6EB0_StartSkillOnUnit(D2UnitStrc*, D2SkillRefStrc*); // 0x004C6EB0
-int __fastcall sub_004C6F40_StartSkillAtPos(D2UnitStrc*, D2SkillRefStrc*); // 0x004C6F40
-void __fastcall sub_004CC5B0_UpdateUnitSound(D2UnitStrc*, int, int); // 0x004CC5B0
+void __fastcall UNITMODE_InteractWithUnit(unsigned short, int); // 0x00480930
+void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc*, int); // 0x00480D20
+void __fastcall UNITMODE_MoveToPosition(D2UnitStrc*, int, int, int); // 0x00480EF0
+int __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc*, D2SkillRefStrc*); // 0x004C6EB0
+int __fastcall SKILLS_StartSkillAtPos(D2UnitStrc*, D2SkillRefStrc*); // 0x004C6F40
+void __fastcall UNITSND_UpdateUnitSound(D2UnitStrc*, int, int); // 0x004CC5B0
 int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc*); // 0x0063A400
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc*, D2UnitStrc**); // 0x0063C8F0
 void __stdcall PATH_SetType(D2DynamicPathStrc*, int); // 0x00648CF0
@@ -368,12 +368,12 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3
 static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce)
 {
     void* pResource = D2Common_10958(pUnit, 0);
-    if (pResource) sub_004743D0_ReleaseOverlayResource(pResource);
+    if (pResource) DLIGHTMAP_ReleaseLight(pResource);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (nCommand != 19)
     {
         const int bKeep = pUnit == pPlayer;
-        sub_004611F0_ReleaseUsedSkill(bKeep, pUnit);
+        PLAYER_ReleaseUsedSkill(bKeep, pUnit);
         UNITS_SetUsedSkill(pUnit, 0);
     }
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -398,59 +398,59 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
     switch (nCommand)
     {
     case 22:
-        if (sub_00461180_RefreshSkillRef(0, pUnit, (D2SkillRefStrc*)pTarget) && sub_004C6EB0_StartSkillOnUnit(pUnit, (D2SkillRefStrc*)pTarget)) return 1;
-        sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
+        if (PLAYER_RefreshSkillRef(0, pUnit, (D2SkillRefStrc*)pTarget) && SKILLS_StartSkillOnUnit(pUnit, (D2SkillRefStrc*)pTarget)) return 1;
+        PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 21:
-        if (sub_00461180_RefreshSkillRef(0, pUnit, (D2SkillRefStrc*)pTarget) && sub_004C6F40_StartSkillAtPos(pUnit, (D2SkillRefStrc*)pTarget)) return 1;
-        sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
+        if (PLAYER_RefreshSkillRef(0, pUnit, (D2SkillRefStrc*)pTarget) && SKILLS_StartSkillAtPos(pUnit, (D2SkillRefStrc*)pTarget)) return 1;
+        PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 1:
         if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nX, pTarget->nY))
         {
-            sub_00480E70_SetUnitMode(pUnit, nMoveMode);
+            UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
         }
-        sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
+        PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 0:
         if (INV_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
         {
-            sub_00480E70_SetUnitMode(pUnit, nMoveMode);
+            UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
         }
-        sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
+        PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 23:
         if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nX, pTarget->nY))
         {
-            sub_00480E70_SetUnitMode(pUnit, 3);
+            UNITMODE_SetUnitMode(pUnit, 3);
             return 1;
         }
-        sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
+        PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 24:
         if (INV_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
         {
-            sub_00480E70_SetUnitMode(pUnit, 3);
+            UNITMODE_SetUnitMode(pUnit, 3);
             return 1;
         }
-        sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
+        PLAYER_SetModeAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 6:
         pUnit->dwLastHitClass = pTarget->nParam;
-        sub_00480E70_SetUnitMode(pUnit, 4);
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
+        UNITMODE_SetUnitMode(pUnit, 4);
+        UNITMODE_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
         return 1;
     case 19:
     {
         pUnit->dwLastHitClass = pTarget->nParam;
-        sub_00480D20_SetModeOverlay(pUnit, 19);
+        UNITMODE_SetModeOverlay(pUnit, 19);
         if (STATES_IsUnitShapeShifted(pUnit))
-            sub_004CC5B0_UpdateUnitSound(pUnit, 3, 1);
+            UNITSND_UpdateUnitSound(pUnit, 3, 1);
         else
-            sub_004CC5B0_UpdateUnitSound(pUnit, 19, 1);
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
+            UNITSND_UpdateUnitSound(pUnit, 19, 1);
+        UNITMODE_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
         return 1;
     }
     case 20:
@@ -460,20 +460,20 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         PATH_SetDist(pPath, 5);
         D2COMMON_10170_PathSetTargetPos(pPath, pTarget->nX, pTarget->nY);
         D2Common_10142(pPath, pUnit, 0);
-        sub_00480E70_SetUnitMode(pUnit, 19);
+        UNITMODE_SetUnitMode(pUnit, 19);
         return 1;
     case 18:
     {
         pUnit->dwLastHitClass = pTarget->nParam;
         if (INVENTORY_GetEquippedShield(pUnit->pInventory, 0))
-            sub_00480E70_SetUnitMode(pUnit, 9);
+            UNITMODE_SetUnitMode(pUnit, 9);
         else
         {
             int nWeaponClass;
             COMPOSIT_GetWeaponClassId(pUnit, pUnit->pInventory, &nWeaponClass, -1, 1);
-            if (nWeaponClass == 13) sub_00480E70_SetUnitMode(pUnit, 9);
+            if (nWeaponClass == 13) UNITMODE_SetUnitMode(pUnit, 9);
         }
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
+        UNITMODE_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
         return 1;
     }
     case 8:
@@ -481,37 +481,37 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         pUnit->dwLastHitClass = pTarget->nParam;
         if (sub_00467A10() == pUnit)
         {
-            if (!(sub_0044BF00() & 8) && !(sub_0044BF10() & 8)) sub_00466FE0();
+            if (!(GAME_GetLeftClickState() & 8) && !(GAME_GetRightClickState() & 8)) sub_00466FE0();
             else
             {
-                sub_0044DA40();
+                GAME_ResetMouseState();
                 sub_00467A70_RefreshHoverUnit(0);
             }
         }
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 0, 0, 0);
-        sub_00480E70_SetUnitMode(pUnit, 0);
-        sub_00461010_ResetPlayerState(pUnit);
-        sub_0045C470_ClearPendingAction(pUnit);
+        UNITMODE_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 0, 0, 0);
+        UNITMODE_SetUnitMode(pUnit, 0);
+        PLAYER_ResetPlayerState(pUnit);
+        GFX_ClearPendingAction(pUnit);
         return 1;
     case 9:
-        sub_00480E70_SetUnitMode(pUnit, 17);
-        sub_00461010_ResetPlayerState(pUnit);
+        UNITMODE_SetUnitMode(pUnit, 17);
+        PLAYER_ResetPlayerState(pUnit);
         return 1;
     case 7:
     {
-        int bDead = sub_00464820_IsDeadOrDying(pUnit);
-        sub_004647D0_UpdateAttackableFlag(pUnit);
+        int bDead = CUNIT_IsDeadOrDying(pUnit);
+        CUNIT_UpdateAttackableFlag(pUnit);
         pUnit->dwFlags |= 2;
-        sub_00480E70_SetUnitMode(pUnit, nNeutralMode);
-        if (pTarget) sub_00480EF0_MoveToPosition(pUnit, pTarget->nX, pTarget->nY, bDead);
+        UNITMODE_SetUnitMode(pUnit, nNeutralMode);
+        if (pTarget) UNITMODE_MoveToPosition(pUnit, pTarget->nX, pTarget->nY, bDead);
         return 1;
     }
     case 2:
-        sub_00480930_InteractWithUnit((unsigned short)pTarget->nX, pTarget->nY);
+        UNITMODE_InteractWithUnit((unsigned short)pTarget->nX, pTarget->nY);
         return 1;
     case 25:
-        sub_00480E70_SetUnitMode(pUnit, 13);
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 0, 0, 0);
+        UNITMODE_SetUnitMode(pUnit, 13);
+        UNITMODE_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 0, 0, 0);
         return 1;
     default:
         D2_ASSERT(0, 0x432);
@@ -525,10 +525,10 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
     int bPathDone = 0;
     if (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nType == 1)
     {
-        bPathDone = sub_004807C0_UpdateUnitPath(pUnit);
+        bPathDone = UNITMODE_UpdateUnitPath(pUnit);
         if (pUnit == sub_00463DD0_GetPlayerUnit())
-            sub_00460DE0_UpdateRoomPosition(pUnit);
-        sub_004CAF60_UpdateFootsteps(pUnit);
+            PLAYER_UpdateRoomPosition(pUnit);
+        UNITSND_UpdateFootsteps(pUnit);
     }
 
     if (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nType == 2)
@@ -540,21 +540,21 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
             int bRelease = 1;
             if (nFlags & 1)
             {
-                if (sub_004807C0_UpdateUnitPath(pUnit))
+                if (UNITMODE_UpdateUnitPath(pUnit))
                 {
                     SKILLS_SetFlags(pSkill, nFlags | 2);
-                    sub_004C68F0_DoUsedSkill(pUnit);
+                    SKILLS_DoUsedSkill(pUnit);
                     *(unsigned int*)&bRelease = 0;
                 }
                 if (pUnit == sub_00463DD0_GetPlayerUnit())
-                    sub_00460DE0_UpdateRoomPosition(pUnit);
+                    PLAYER_UpdateRoomPosition(pUnit);
             }
 
             const int nActionFrame = pUnit->nActionFrame;
             if (bRelease && !PLAYER_UnitHasFlag(pUnit, 0x40))
             {
                 if (nActionFrame == 1 || nActionFrame == 2 || nActionFrame == 3)
-                    sub_004C68F0_DoUsedSkill(pUnit);
+                    SKILLS_DoUsedSkill(pUnit);
             }
         }
     }
@@ -586,7 +586,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
     }
 
     if (pUnit->dwAnimMode == 18 && PLAYER_UnitHasFlag(pUnit, 0x4000))
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
 
     int bDone;
     switch (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nDoneMode)
@@ -628,15 +628,15 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
     {
         UNITS_SetCurrentRoomInvalid(pUnit, 0);
         if (pUnit == sub_00463DD0_GetPlayerUnit())
-            sub_00460E70_UpdateRoomState(pUnit);
+            PLAYER_UpdateRoomState(pUnit);
     }
 
     D2COMMON_10193_PATH_AdjustDirection(pPath);
     if (pUnit->dwAnimMode == 3)
         sub_00463260_UpdateStoredUnit(pUnit);
     if (STATES_CheckStateMaskActiveOnUnit(pUnit))
-        sub_004C72F0(pUnit);
-    sub_00460F10_PlaceOnFreeCoords(pUnit);
+        SKILLS_RunStateActiveFuncs(pUnit);
+    PLAYER_PlaceOnFreeCoords(pUnit);
 }
 
 #include "gen/data/Source/D2Client/Unknown_00463390.inc"

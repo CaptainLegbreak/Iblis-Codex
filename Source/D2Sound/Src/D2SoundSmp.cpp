@@ -285,19 +285,22 @@ void __cdecl sub_0043CBF0_Nop()
 {
 }
 
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry)
+// build: symbol @ROSTER_GetEntryName@* 0x004795C0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry)
 {
     D2_ASSERT(pEntry, 372);
     return pEntry->szName;
 }
 
-extern "C" void __fastcall sub_004B8370_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
+// build: symbol @ROSTER_SetCtrlState@* 0x004B8370
+extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
 {
     D2_ASSERT(pCtrl, 1310);
     pCtrl->nState = nState;
 }
 
-extern "C" void* __fastcall sub_004CA990_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
+// build: symbol @ROSTER_GetLinkFirst@* 0x004CA990
+extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
 {
     D2_ASSERT(pOwner, 3171);
     D2LinkStrc_004CA990* pLink = pOwner->pLink;

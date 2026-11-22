@@ -19,12 +19,12 @@ extern int gnGlobal_007BCC4C; // 0x007BCC4C
 extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
 extern "C" const char szCmnItemsH_006D9B90[]; // 0x006D9B90
 extern "C" const char szInvCpp_006D9BC0[]; // 0x006D9BC0
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl sub_00468830(); // 0x00468830
-int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
+int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __fastcall sub_0046EFD0_DrawFramedBox(int,int,unsigned char,unsigned char,unsigned char,int); // 0x0046EFD0
 void __cdecl INV_LoadUiRecords(); // 0x004835B0
 void __stdcall INV_DrawItemSockets(D2UnitStrc*,D2InventoryGridInfoStrc*,int,int); // 0x00483E40
@@ -129,14 +129,14 @@ void __cdecl INV_DrawEquippedItems()
     int nBodyLoc;
     int nOffsetX=0;
     int nOffsetY=0;
-    if(sub_0044DCC0() && gnGlobal_007BCC4C)
+    if(GAME_IsExpansion() && gnGlobal_007BCC4C)
     {
         nOffsetX=4;
         nOffsetY=-4;
     }
     D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
     D2InventoryStrc* pInventory=pPlayer->pInventory;
-    UNITS_GetInventoryRecordId(pPlayer,0,sub_0044DCC0());
+    UNITS_GetInventoryRecordId(pPlayer,0,GAME_IsExpansion());
     INV_LoadUiRecords();
     for(nBodyLoc=0;nBodyLoc<11;++nBodyLoc)
     {
@@ -151,7 +151,7 @@ void __cdecl INV_DrawEquippedItems()
             pOther=INVENTORY_GetItemFromBodyLoc(pInventory,4);
             if(bDualWield && !ITEMS_GetQuiverType(pOther) && !ITEMS_GetQuiverType(pItem))
             {
-                sub_0046EE80_DrawItemCel(pItem,gaCompGrids_007BCC58[4].rect.nLeft+((gaCompGrids_007BCC58[5].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
+                GFX_DrawItemCel(pItem,gaCompGrids_007BCC58[4].rect.nLeft+((gaCompGrids_007BCC58[5].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
                     gaCompGrids_007BCC58[4].rect.nTop+((gaCompGrids_007BCC58[5].nHeight-gGrid_007BCB88.nGridBoxHeight*nHeight)>>1)+nOffsetY);
                 sub_004845A0_DrawOtherHandFrame(&gaCompGrids_007BCC58[4]);
             }
@@ -160,7 +160,7 @@ void __cdecl INV_DrawEquippedItems()
             pOther=INVENTORY_GetItemFromBodyLoc(pInventory,5);
             if(bDualWield && !ITEMS_GetQuiverType(pOther) && !ITEMS_GetQuiverType(pItem))
             {
-                sub_0046EE80_DrawItemCel(pItem,gaCompGrids_007BCC58[5].rect.nLeft+((gaCompGrids_007BCC58[4].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
+                GFX_DrawItemCel(pItem,gaCompGrids_007BCC58[5].rect.nLeft+((gaCompGrids_007BCC58[4].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
                     gaCompGrids_007BCC58[5].rect.nTop+((gaCompGrids_007BCC58[4].nHeight-gGrid_007BCB88.nGridBoxHeight*nHeight)>>1)+nOffsetY);
                 sub_004845A0_DrawOtherHandFrame(&gaCompGrids_007BCC58[5]);
             }
@@ -180,7 +180,7 @@ void __cdecl INV_DrawEquippedItems()
         {
             if(sub_00468830()==8)sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             else sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],1);
-            sub_0046EE80_DrawItemCel(pItem,nX,nY);
+            GFX_DrawItemCel(pItem,nX,nY);
             if(ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
                 INV_DrawItemSockets(pItem,&gGrid_007BCB88,nX,nY);
         }
@@ -201,7 +201,7 @@ void __cdecl INV_DrawEquippedItems()
             {
                 sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             }
-            sub_0046EE80_DrawItemCel(pItem,nX,nY);
+            GFX_DrawItemCel(pItem,nX,nY);
         }
     }
     INV_DrawBodyLocPlacement(pInventory);

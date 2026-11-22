@@ -126,11 +126,11 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -178,19 +178,19 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-void __fastcall sub_00465BF0_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nArg); // 0x00465BF0
+void __fastcall CUNIT_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nArg); // 0x00465BF0
 
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-int __stdcall sub_004DA150_GetMotionAZ(D2UnitStrc* pUnit); // 0x004DA150
+int __stdcall GFXUTIL_GetMotionAZ(D2UnitStrc* pUnit); // 0x004DA150
 
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
 
@@ -1132,10 +1132,10 @@ static void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nPercent,
         return;
     }
 
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
+    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
     {
         return;
     }
@@ -1445,10 +1445,10 @@ int __stdcall SKILLDESC_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkillsT
     }
 
     D2MonStatsInitStrc monStatsInit;
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     memset(&monStatsInit, 0, sizeof(monStatsInit));
     const int nMonsterId = sgptDataTables->nMonStatsTxtRecordCount > 0x124 ? 0x124 : -1;
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 8, &monStatsInit);
     const int nMin = monStatsInit.nA1MinD + nBonusMin;
     const int nMax = monStatsInit.nA1MaxD + nBonusMax;
     Unicode wszNumber[32];
@@ -1518,7 +1518,7 @@ int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszT
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, sub_0044DCA0_GetGameType(), sub_0044DCD0_GetDifficulty(), pMonStatsTxt->nLevel[sub_0044DCD0_GetDifficulty()], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, GAME_GetLadderFlag(), GAME_GetDifficulty(), pMonStatsTxt->nLevel[GAME_GetDifficulty()], 8, &monStatsInit);
     int nMin = monStatsInit.nA1MinD;
     int nMax = monStatsInit.nA1MaxD;
     int nPercent = 0;
@@ -1619,7 +1619,7 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
 
 static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, D2UnitStrc* pUnit)
 {
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, nSkillLevel, nSkillId, pUnit);
         sub_004EC220_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, 0, nSkillId, nSkillLevel);
@@ -2169,11 +2169,11 @@ int __fastcall SKILLDESC_CltDoLobMissile(D2UnitStrc* pUnit, int nSkillId, int nS
                 nAltMissile = -1;
             }
 
-            D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+            D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
             if (pTarget)
             {
                 D2COMMON_10170_PathSetTargetPos(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget));
-                sub_00465BF0_SetPathTargetToTargetUnit(pUnit, 1);
+                CUNIT_SetPathTargetToTargetUnit(pUnit, 1);
             }
 
             int nTargetX;
@@ -2195,7 +2195,7 @@ int __fastcall SKILLDESC_CltDoLobMissile(D2UnitStrc* pUnit, int nSkillId, int nS
                 tMissileParams.nTargetX = nTargetX;
                 tMissileParams.nTargetY = nTargetY;
 
-                const int nHeight = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel) + sub_004DA150_GetMotionAZ(pUnit);
+                const int nHeight = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel) + GFXUTIL_GetMotionAZ(pUnit);
                 const int nFrames = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[1], nSkillId, nSkillLevel) + pMissilesTxtRecord->dwParam[1];
                 int nSpeed = pMissilesTxtRecord->nAnimLen << 8;
                 int nFall = -2 * nHeight;
@@ -2221,9 +2221,9 @@ int __fastcall SKILLDESC_CltDoLobMissile(D2UnitStrc* pUnit, int nSkillId, int nS
                     UNITS_SetAnimationSpeed(pMissile, nSpeed);
                     MISSILE_SetTotalFrames(pMissile, nFrames);
                     MISSILE_SetCurrentFrame(pMissile, nFrames);
-                    sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nHeight);
+                    GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nHeight);
                     sub_004DA350_UpdateMotion(pMissile);
-                    sub_004DA200_SetMotionVectorB(pMissile, 0, 0, nFall, 1);
+                    GFXUTIL_SetMotionVectorB(pMissile, 0, 0, nFall, 1);
                 }
 
                 return 1;
@@ -2236,8 +2236,8 @@ int __fastcall SKILLDESC_CltDoLobMissile(D2UnitStrc* pUnit, int nSkillId, int nS
 
 static inline void sub_004F0050_LaunchMotion(D2UnitStrc* pMissile, int nHeight, int nVelocity)
 {
-    sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nHeight);
-    sub_004DA200_SetMotionVectorB(pMissile, 0, 0, nVelocity, 1);
+    GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nHeight);
+    GFXUTIL_SetMotionVectorB(pMissile, 0, 0, nVelocity, 1);
     sub_004DA350_UpdateMotion(pMissile);
 }
 
@@ -2275,7 +2275,7 @@ int __fastcall SKILLDESC_CltDoLaunchMissileAtTarget(D2UnitStrc* pUnit, int nSkil
     }
 
     const int nFrames = MISSILE_GetTotalFrames(pMissile);
-    const int nHeight = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[1], nSkillId, nSkillLevel) + sub_004DA150_GetMotionAZ(pUnit);
+    const int nHeight = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[1], nSkillId, nSkillLevel) + GFXUTIL_GetMotionAZ(pUnit);
     sub_004F0050_LaunchMotion(pMissile, nHeight, nFrames ? -(nHeight / nFrames) : -(nHeight / 2));
     return 1;
 }

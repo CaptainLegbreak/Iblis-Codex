@@ -143,13 +143,13 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
+D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 void __cdecl sub_0044DA70(); // 0x0044DA70
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
@@ -157,7 +157,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __cdecl sub_00468F00(); // 0x00468F00
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
-void __cdecl sub_00480230(); // 0x00480230
+void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 void __cdecl sub_0048A050(); // 0x0048A050
 void __cdecl sub_0048A730(); // 0x0048A730
 void __cdecl sub_00494FC0(); // 0x00494FC0
@@ -228,11 +228,11 @@ struct D2NpcButtonStrc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-int __cdecl sub_0044DB30(); // 0x0044DB30
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __cdecl sub_00468830(); // 0x00468830
 void __fastcall sub_00478590(char nValue); // 0x00478590
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __fastcall sub_00480930(int nType, int nUnitId); // 0x00480930
 void __cdecl sub_004B90B0(); // 0x004B90B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -418,7 +418,7 @@ extern "C" int gnValue_007C0C3C; // 0x007C0C3C
 extern "C" unsigned char gbFlag_007BC9D4; // 0x007BC9D4
 extern "C" unsigned char gbFlag_007BC9D8; // 0x007BC9D8
 extern "C" int gnScreenHeight_00711470; // 0x00711470
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 extern int gnGlobal_007BCC54; // 0x007BCC54
 void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __stdcall sub_00483E40(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40
@@ -433,7 +433,7 @@ extern U8 gPaletteA;
 extern U8 gPaletteB;
 extern U8 gPaletteC;
 extern U8 gPaletteD;
-void __fastcall sub_004649D0(UnitCallback callback); // 0x004649D0
+void __fastcall CUNIT_ForEachObject(UnitCallback callback); // 0x004649D0
 void __fastcall sub_00489DA0(Unit* unit); // 0x00489DA0
 U32 __stdcall PaletteColor(U32 red, U32 green, U32 blue);
 void __fastcall sub_00478600(U8 command, U16 value, U32 word2, U32 word3); // 0x00478600
@@ -449,8 +449,8 @@ struct D2AuxLevelEntryStrc
 };
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
-D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C360
@@ -506,14 +506,14 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" size_t __cdecl strlen(const char* szString);
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __cdecl sub_00525150(); // 0x00525150
-void __fastcall sub_0045AEA0_SetPanelSlide(int nMode); // 0x0045AEA0
+void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 Unicode* __fastcall sub_00526940_UnicodeStrStr(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
-const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
+const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 int __fastcall sub_004A7660_SplitAtNewLine(Unicode* wszText, Unicode** ppSecond); // 0x004A7660
-unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB); // 0x0046A530
 extern int gnGlobal_007BCA48; // 0x007BCA48
 extern D2CelFileStrc* gpCellFile_007BCC2C; // 0x007BCC2C
@@ -644,7 +644,7 @@ void __cdecl INV_SendLeaveGame()
     }
     if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 7)
     {
-        D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
+        D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
         if (pNotify)
             pNotify->pfnNotify();
     }
@@ -741,7 +741,7 @@ void __fastcall INV_ProcessWardenRequest(int nArg1, int nArg2)
     {
         int nOut = 0;
         gpSlotHolder_007BC990->pObj->Slot2(nArg1, nArg2, &nOut);
-        sub_00480230();
+        WARDENCLIENT_ActivatePendingModule();
     }
 }
 
@@ -1200,7 +1200,7 @@ void __cdecl INV_LoadInvPanelCels()
     gpCelTradeBtn_007BCE80 = sub_004520C0_LoadUiCelFile("Panel\\tradebtn");
     gpCelGoldCoinBtn_007BCC34 = sub_004520C0_LoadUiCelFile("Panel\\goldcoinbtn");
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (FOG_IsExpansion() && sub_0044DCC0())
+    if (FOG_IsExpansion() && GAME_IsExpansion())
     {
         gpCelInvChar6Tab_007BCE84 = sub_004520C0_LoadUiCelFile("Panel\\invchar6Tab");
         gbWeaponSwitch_007BCC4C = 0;
@@ -1219,62 +1219,62 @@ void __cdecl INV_FreeInvPanelCels()
 {
     if (gpHoradricCel_007BCC1C)
     {
-        sub_00478A00(gpHoradricCel_007BCC1C);
+        ARCHIVE_FreeClientCellFile(gpHoradricCel_007BCC1C);
         gpHoradricCel_007BCC1C = 0;
     }
     if (gpCelInvArmor_007BCE68)
     {
-        sub_00478A00(gpCelInvArmor_007BCE68);
+        ARCHIVE_FreeClientCellFile(gpCelInvArmor_007BCE68);
         gpCelInvArmor_007BCE68 = 0;
     }
     if (gpCelInvBelt_007BCE6C)
     {
-        sub_00478A00(gpCelInvBelt_007BCE6C);
+        ARCHIVE_FreeClientCellFile(gpCelInvBelt_007BCE6C);
         gpCelInvBelt_007BCE6C = 0;
     }
     if (gpCelInvBoots_007BCE70)
     {
-        sub_00478A00(gpCelInvBoots_007BCE70);
+        ARCHIVE_FreeClientCellFile(gpCelInvBoots_007BCE70);
         gpCelInvBoots_007BCE70 = 0;
     }
     if (gpCelInvHelmGlove_007BCE74)
     {
-        sub_00478A00(gpCelInvHelmGlove_007BCE74);
+        ARCHIVE_FreeClientCellFile(gpCelInvHelmGlove_007BCE74);
         gpCelInvHelmGlove_007BCE74 = 0;
     }
     if (gpCelInvRingAmulet_007BCE78)
     {
-        sub_00478A00(gpCelInvRingAmulet_007BCE78);
+        ARCHIVE_FreeClientCellFile(gpCelInvRingAmulet_007BCE78);
         gpCelInvRingAmulet_007BCE78 = 0;
     }
     if (gpCelInvWeapons_007BCE7C)
     {
-        sub_00478A00(gpCelInvWeapons_007BCE7C);
+        ARCHIVE_FreeClientCellFile(gpCelInvWeapons_007BCE7C);
         gpCelInvWeapons_007BCE7C = 0;
     }
     if (gpCelTradeBtn_007BCE80)
     {
-        sub_00478A00(gpCelTradeBtn_007BCE80);
+        ARCHIVE_FreeClientCellFile(gpCelTradeBtn_007BCE80);
         gpCelTradeBtn_007BCE80 = 0;
     }
     if (gpCelGoldCoinBtn_007BCC34)
     {
-        sub_00478A00(gpCelGoldCoinBtn_007BCC34);
+        ARCHIVE_FreeClientCellFile(gpCelGoldCoinBtn_007BCC34);
         gpCelGoldCoinBtn_007BCC34 = 0;
     }
-    if (FOG_IsExpansion() && sub_0044DCC0() && gpCelInvChar6Tab_007BCE84)
+    if (FOG_IsExpansion() && GAME_IsExpansion() && gpCelInvChar6Tab_007BCE84)
     {
-        sub_00478A00(gpCelInvChar6Tab_007BCE84);
+        ARCHIVE_FreeClientCellFile(gpCelInvChar6Tab_007BCE84);
         gpCelInvChar6Tab_007BCE84 = 0;
     }
     if (gpCelNpcInv_007BCE88)
     {
-        sub_00478A00(gpCelNpcInv_007BCE88);
+        ARCHIVE_FreeClientCellFile(gpCelNpcInv_007BCE88);
         gpCelNpcInv_007BCE88 = 0;
     }
     if (gpCel_007BCE8C)
     {
-        sub_00478A00(gpCel_007BCE8C);
+        ARCHIVE_FreeClientCellFile(gpCel_007BCE8C);
         gpCel_007BCE8C = 0;
     }
     gpCelInvArmor_007BCE68 = 0;
@@ -1301,7 +1301,7 @@ void __cdecl sub_00486AD0_ToggleFlag()
 // 0x00486AE0
 int __cdecl INV_GetPanelX()
 {
-    if (!sub_0044DCC0())
+    if (!GAME_IsExpansion())
     {
         return gnGlobal_007A2858 + 0x113;
     }
@@ -1311,7 +1311,7 @@ int __cdecl INV_GetPanelX()
 // 0x00486B00
 int __cdecl sub_00486B00_GetPanelY()
 {
-    if (!sub_0044DCC0())
+    if (!GAME_IsExpansion())
     {
         return gnGlobal_00711470 + gnGlobal_007A285C - 0x41;
     }
@@ -1365,7 +1365,7 @@ int __cdecl sub_00486B80_IsNpcStateB()
 // 0x00486D10
 int __cdecl sub_00486D10_CheckTick()
 {
-    if (!sub_0044DB30() || sub_0044DB30() == 1)
+    if (!GAME_GetConnectionType() || GAME_GetConnectionType() == 1)
     {
         return 1;
     }
@@ -1443,7 +1443,7 @@ static int __stdcall sub_00487740_ClickGridItem(D2UnitStrc* pPlayer, D2Inventory
 {
     int nOutX;
     int nOutY;
-    const int nRecord = UNITS_GetInventoryRecordId(pPlayer, nPage, sub_0044DCC0());
+    const int nRecord = UNITS_GetInventoryRecordId(pPlayer, nPage, GAME_IsExpansion());
     unsigned int nGridX;
     unsigned int nGridY;
     if (!nPage)
@@ -1451,7 +1451,7 @@ static int __stdcall sub_00487740_ClickGridItem(D2UnitStrc* pPlayer, D2Inventory
         nGridX = (nX - gGrid_007BCB88.nGridLeft) / gGrid_007BCB88.nGridBoxWidth;
         nGridY = (nY - gGrid_007BCB88.nGridTop) / gGrid_007BCB88.nGridBoxHeight;
     }
-    else if (sub_0044DCC0())
+    else if (GAME_IsExpansion())
     {
         nGridX = (nX - gGrid_007BCA78.nGridLeft) / gGrid_007BCA78.nGridBoxWidth;
         nGridY = (nY - gGrid_007BCA78.nGridTop) / gGrid_007BCA78.nGridBoxHeight;
@@ -1480,7 +1480,7 @@ static int __stdcall sub_00487740_ClickGridItem(D2UnitStrc* pPlayer, D2Inventory
             const int nUnitY = UNITS_GetYPositionInline(pPlayer);
             if (!sub_004C2240(pItem) && sub_00486D10_CheckTick())
             {
-                if (sub_004538D0(0x19) && ITEMS_GetBaseCode(pItem) == 0x20786F62)
+                if (GAME_GetUIVarState(0x19) && ITEMS_GetBaseCode(pItem) == 0x20786F62)
                 {
                     gnGlobal_007BCC50 = 1;
                 }
@@ -1532,7 +1532,7 @@ void __cdecl INV_ResetNpcState()
     gnGlobal_007BCBD8 = 0;
     if (gpCellFile_007BCB04)
     {
-        sub_00478A00(gpCellFile_007BCB04);
+        ARCHIVE_FreeClientCellFile(gpCellFile_007BCB04);
         gpCellFile_007BCB04 = 0;
     }
     gnGlobal_007BCA48 = 0;
@@ -1710,7 +1710,7 @@ void __cdecl INV_SetupPanelButtons()
     if (!sub_004B3230_GetSelectedUnitId(&nUnitId))
         return;
 
-    D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, 1);
     if (!pUnit)
         return;
 
@@ -1815,7 +1815,7 @@ void __fastcall INV_DrawGold(int nType)
     case 0:
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0);
         nTextX = gnGlobal_007A2858 + 0xA5;
-        if (sub_0044DCC0())
+        if (GAME_IsExpansion())
         {
             nTextY = gnGlobal_00711470 + gnGlobal_007A285C - 0x1B8;
             nIconY = gnGlobal_00711470 + gnGlobal_007A285C - 0x1B6;
@@ -1827,7 +1827,7 @@ void __fastcall INV_DrawGold(int nType)
         }
         nIconX = gnGlobal_007A2858 + 0x49;
         nFrame = gbGoldButtonDown_007BCE34 != 0;
-        if (sub_0044DCC0())
+        if (GAME_IsExpansion())
         {
             if (INV_IsMouseInBox(gnGlobal_007A2858 + 0x49, gnGlobal_00711470 + gnGlobal_007A285C - 0x1B6, 0x14, 0x12))
             {
@@ -2006,17 +2006,17 @@ void __cdecl INV_LoadShopPanelCels()
     if (!gpCellFile_007BCC24)
     {
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\buyselltabs", szDataGlobal_006D4118);
-        gpCellFile_007BCC24 = sub_004788B0(szPath, 0);
+        gpCellFile_007BCC24 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCellFile_007BCC28)
     {
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\miniconvert", szDataGlobal_006D4118);
-        gpCellFile_007BCC28 = sub_004788B0(szPath, 0);
+        gpCellFile_007BCC28 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
-    if (!gpCellFile_007BCC38 && FOG_IsExpansion() && sub_0044DCC0())
+    if (!gpCellFile_007BCC38 && FOG_IsExpansion() && GAME_IsExpansion())
     {
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\invchar6tab", szDataGlobal_006D4118);
-        gpCellFile_007BCC38 = sub_004788B0(szPath, 0);
+        gpCellFile_007BCC38 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 }
 
@@ -2025,22 +2025,22 @@ void __cdecl INV_FreeNpcCels()
 {
     if (gpCellFile_007BCB04)
     {
-        sub_00478A00(gpCellFile_007BCB04);
+        ARCHIVE_FreeClientCellFile(gpCellFile_007BCB04);
         gpCellFile_007BCB04 = 0;
     }
     if (gpCellFile_007BCC24)
     {
-        sub_00478A00(gpCellFile_007BCC24);
+        ARCHIVE_FreeClientCellFile(gpCellFile_007BCC24);
         gpCellFile_007BCC24 = 0;
     }
     if (gpCellFile_007BCC28)
     {
-        sub_00478A00(gpCellFile_007BCC28);
+        ARCHIVE_FreeClientCellFile(gpCellFile_007BCC28);
         gpCellFile_007BCC28 = 0;
     }
-    if (sub_0044DCC0() && gpCellFile_007BCC38)
+    if (GAME_IsExpansion() && gpCellFile_007BCC38)
     {
-        sub_00478A00(gpCellFile_007BCC38);
+        ARCHIVE_FreeClientCellFile(gpCellFile_007BCC38);
         gpCellFile_007BCC38 = 0;
     }
 }
@@ -2060,17 +2060,17 @@ void __fastcall INV_SetTradePanelOpen(int bOpen)
     {
         gnGlobal_007BCA48 = 0;
         gdwGlobal_007BCBF0 = 0xB;
-        sub_0045AEA0_SetPanelSlide(3);
+        PLAYER_SetPanelSlide(3);
         if (!gpCellFile_007BCB04)
         {
             SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\trade", szDataGlobal_006D4118);
-            gpCellFile_007BCB04 = sub_004788B0(szPath, 0);
+            gpCellFile_007BCB04 = ARCHIVE_LoadClientCellFile(szPath, 0);
         }
     }
     else
     {
         gdwGlobal_007BCBF0 = 0xA;
-        sub_0045AEA0_SetPanelSlide(0);
+        PLAYER_SetPanelSlide(0);
     }
     gnGlobal_007BCE9C = 0;
     gnGlobal_007BCE18 = 0;
@@ -2269,9 +2269,9 @@ void __cdecl INV_OpenStashPanel()
     if (sub_00455F20(25, 0, 0))
     {
         gSelectionState = 0;
-        sub_004649D0(sub_00489DA0);
+        CUNIT_ForEachObject(sub_00489DA0);
         gUiState = 12;
-        sub_0044DA40();
+        GAME_ResetMouseState();
         gButtonA = 0;
         gButtonB = 0;
         gPressedFrame = 0;
@@ -2287,11 +2287,11 @@ void __cdecl INV_LoadStashPanelCels()
     if (!gpCellFile_007BCC2C)
     {
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\bank", szDataGlobal_006D4118);
-        gpCellFile_007BCC2C = sub_004788B0(szPath, 0);
+        gpCellFile_007BCC2C = ARCHIVE_LoadClientCellFile(szPath, 0);
         if (FOG_IsExpansion())
         {
             SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\TradeStash", szDataGlobal_006D4118);
-            gpCellFile_007BCC3C = sub_004788B0(szPath, 0);
+            gpCellFile_007BCC3C = ARCHIVE_LoadClientCellFile(szPath, 0);
         }
     }
 }
@@ -2307,12 +2307,12 @@ void __cdecl INV_CloseStashPanel()
     }
     if (gArchiveA)
     {
-        sub_00478A00(gArchiveA);
+        ARCHIVE_FreeClientCellFile(gArchiveA);
         gArchiveA = 0;
     }
     if (gArchiveB)
     {
-        sub_00478A00(gArchiveB);
+        ARCHIVE_FreeClientCellFile(gArchiveB);
         gArchiveB = 0;
     }
 }
@@ -2327,12 +2327,12 @@ void __cdecl INV_ResetStashPanel()
     }
     if (gArchiveA)
     {
-        sub_00478A00(gArchiveA);
+        ARCHIVE_FreeClientCellFile(gArchiveA);
         gArchiveA = 0;
     }
     if (gArchiveB)
     {
-        sub_00478A00(gArchiveB);
+        ARCHIVE_FreeClientCellFile(gArchiveB);
         gArchiveB = 0;
     }
 }
@@ -2349,7 +2349,7 @@ void __cdecl INV_CloseCubePanel()
     }
     if (gnGlobal_007BCC50)
     {
-        if (sub_00463990(gnGlobal_00721E54, 2))
+        if (CUNIT_FindClientUnit(gnGlobal_00721E54, 2))
         {
             sub_00480930(2, gnGlobal_00721E54);
         }
@@ -2390,7 +2390,7 @@ void __stdcall INV_CubeCloseMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_HandleMsg(pMsg);
-        if (!sub_004538D0(1))
+        if (!GAME_GetUIVarState(1))
         {
             gnGlobal_00721E3C = -1;
             gnGlobal_00721E40 = -1;
@@ -2415,7 +2415,7 @@ void __cdecl INV_OpenCubePanel()
     {
         gnGlobal_007BCC54 = 0;
         gdwGlobal_007BCBF0 = 0xE;
-        sub_0044DA40();
+        GAME_ResetMouseState();
         gnGlobal_007BCE30 = 0;
         gnGlobal_007BCE40 = 0;
         gnGlobal_007BCE44 = 0;
@@ -2432,7 +2432,7 @@ void __cdecl INV_LoadCubePanelCel()
     if (!gpCellFile_007BCC30)
     {
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\supertransmogrifier", szDataGlobal_006D4118);
-        gpCellFile_007BCC30 = sub_004788B0(szPath, 0);
+        gpCellFile_007BCC30 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 }
 
@@ -2454,7 +2454,7 @@ void __cdecl INV_ShutdownCubePanel()
     }
     if (gUiArchive)
     {
-        sub_00478A00(gUiArchive);
+        ARCHIVE_FreeClientCellFile(gUiArchive);
         gUiArchive = 0;
     }
 }
@@ -2463,7 +2463,7 @@ void __cdecl INV_ShutdownCubePanel()
 void __fastcall INV_QuestCodeUpdate(int nCode)
 {
     char szPath[0x104];
-    D2BitBufferStrc* pQuestInfo = sub_004B32D0();
+    D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
     if (nCode == 0x20747368)
     {
         if (!pQuestInfo)
@@ -2494,7 +2494,7 @@ void __fastcall INV_QuestCodeUpdate(int nCode)
     if (!gpHoradricCel_007BCC1C)
     {
         SStrPrintf(szPath, 0x104, "%s\\ui\\menu\\horadric", szDataGlobal_006D4118);
-        gpHoradricCel_007BCC1C = sub_004788B0(szPath, 0);
+        gpHoradricCel_007BCC1C = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 }
 
@@ -2503,7 +2503,7 @@ void __cdecl INV_FreeHoradricCel()
 {
     if (gpHoradricCel_007BCC1C)
     {
-        sub_00478A00(gpHoradricCel_007BCC1C);
+        ARCHIVE_FreeClientCellFile(gpHoradricCel_007BCC1C);
         gpHoradricCel_007BCC1C = 0;
     }
     gbQuestTimerActive_007BCC10 = 0;
@@ -2579,7 +2579,7 @@ void __cdecl sub_005239C0_ReleaseResources()
 // 0x0048A700
 void __cdecl INV_ToggleWeaponSwitch()
 {
-    if (FOG_IsExpansion() && sub_0044DCC0())
+    if (FOG_IsExpansion() && GAME_IsExpansion())
     {
         gbWeaponSwitch_007BCC4C = !gbWeaponSwitch_007BCC4C;
     }
@@ -2588,7 +2588,7 @@ void __cdecl INV_ToggleWeaponSwitch()
 // 0x0048A730
 void __cdecl INV_ResetEquipSounds()
 {
-    if (!FOG_IsExpansion() || !sub_0044DCC0())
+    if (!FOG_IsExpansion() || !GAME_IsExpansion())
     {
         return;
     }
@@ -2627,7 +2627,7 @@ void __stdcall INV_DrawUnitName(D2UnitStrc* pUnit)
         wszName[i].wChar = 0;
     }
     const int nOldFont = sub_00502EF0(6);
-    Unicode::strncpy(wszName, sub_00464A60_GetUnitName(pUnit), 32);
+    Unicode::strncpy(wszName, CUNIT_GetUnitName(pUnit), 32);
     wszName[31].wChar = 0;
     Unicode* pEnd = &wszName[31];
     while (D2Win_10121_GetTextWidth(wszName) > 0xA0)
@@ -2678,7 +2678,7 @@ void __cdecl INV_DrawPanelLabels()
 static int __stdcall INV_CanMercEquipItem(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pbSlotMatch)
 {
     *pbSlotMatch = 0;
-    if (!sub_0044DCC0())
+    if (!GAME_IsExpansion())
         return 0;
     int bResult = 0;
     if (!ITEMS_CheckItemFlag(pItem, 0x10, 0x302C, ".\\UI\\inv.cpp"))
@@ -2837,7 +2837,7 @@ D2UnitStrc* __cdecl INV_GetMercUnit()
     const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 0);
     if (nPetId != -1)
     {
-        D2UnitStrc* pMerc = sub_00463990(nPetId, 1);
+        D2UnitStrc* pMerc = CUNIT_FindClientUnit(nPetId, 1);
         if (pMerc)
         {
             return pMerc;
@@ -2862,7 +2862,7 @@ void __stdcall INV_MercInvClickMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    D2UnitStrc* pPet = sub_00463990(nPetId, 1);
+    D2UnitStrc* pPet = CUNIT_FindClientUnit(nPetId, 1);
     if (!pPet)
     {
         sub_00455F20(0x24, 2, 0);
@@ -2966,7 +2966,7 @@ void __fastcall INV_CutBracketToken(Unicode* pString, const Unicode* pToken)
 // 0x00492770
 void __stdcall INV_WeaponSwapKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         if (!(pMsg->lParam & 0x40000000) && !UI_GetUIVarUnchecked(5))
             sub_0048A730();
@@ -3067,7 +3067,7 @@ void __cdecl INV_LoadPanelCels()
     gpCellFile_007BEF7C = sub_004520C0_LoadUiCelFile("Panel\\btn");
     const int nLanguage = sub_00525150();
     int bExpansion = 0;
-    if (FOG_IsExpansion() && sub_0044DCC0())
+    if (FOG_IsExpansion() && GAME_IsExpansion())
     {
         bExpansion = 1;
     }
@@ -3081,7 +3081,7 @@ void __cdecl INV_LoadPanelCels()
         {
             sprintf(szPath, "%s\\UI\\InvChar", szDataLocal_006D41A8);
         }
-        gpCellFile_007BEF64 = sub_004788B0(szPath, 0);
+        gpCellFile_007BEF64 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     else
     {
@@ -3120,13 +3120,13 @@ void __cdecl INV_DrawKeyBindingPopup()
         wszKey[i].wChar = 0;
     }
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1053));
-    if (sub_00469AA0(0x23, 1) != 0xFFFF)
+    if (CUNIT_GetHotkeyBinding(0x23, 1) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKeyBuf));
         sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 1));
         sub_00526700(wszText, wszKey);
     }
-    if (sub_00469AA0(0x23, 0) != 0xFFFF)
+    if (CUNIT_GetHotkeyBinding(0x23, 0) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKeyBuf));
         sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 0));
@@ -3141,13 +3141,13 @@ void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
     gdwGlobal_007BF23F = 1;
     if (sub_00467A10())
     {
-        if (gdwGlobal_007BF20A && sub_00463990(gdwGlobal_007BF202, 1) == sub_00467A10())
+        if (gdwGlobal_007BF20A && CUNIT_FindClientUnit(gdwGlobal_007BF202, 1) == sub_00467A10())
             return;
     }
     else if (!sub_00467A10() && gnGlobal_007BF23A)
     {
-        D2UnitStrc* pUnit = sub_00463990(gdwGlobal_007BF23B, 1);
-        if (pUnit && pUnit == sub_00463990(gdwGlobal_007BF202, 1))
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gdwGlobal_007BF23B, 1);
+        if (pUnit && pUnit == CUNIT_FindClientUnit(gdwGlobal_007BF202, 1))
         {
             pMsg->bReturn = 1;
             pMsg->lResult = 0;

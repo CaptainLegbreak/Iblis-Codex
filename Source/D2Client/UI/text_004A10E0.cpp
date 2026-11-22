@@ -8,10 +8,10 @@ struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; i
 #pragma pack(pop)
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __fastcall sub_0044DA40(); // 0x0044DA40
+void __fastcall GAME_ResetMouseState(); // 0x0044DA40
 D2SoundStrc* __fastcall sub_004B9610(int nSound); // 0x004B9610
 void __fastcall sub_004B9EF0_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
-D2UnitStrc* __fastcall sub_00463990(unsigned int nId, int nType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nId, int nType); // 0x00463990
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall sub_00467430_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
@@ -23,7 +23,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004E0650_GetStringSound(unsigned short nString); // 0x004E0650
-void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit); // 0x004CB190
+void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit); // 0x004CB190
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int nMode, int nZero, int nZero2); // 0x004B9A00
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -78,7 +78,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
     gnTextTop_007225FC = 12;
     gnTextLeft_007BF278 = (gnScreenWidth_0071146C - 325) / 2;
     gnGlobal_007BF230 = 0;
-    sub_0044DA40();
+    GAME_ResetMouseState();
     if (gnSound_007BF260)
     {
         D2SoundStrc* pSound = sub_004B9610(gnSound_007BF260);
@@ -105,7 +105,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
     {
         if (gnHasNpc_007BF20A)
         {
-            D2UnitStrc* pPreviousNpc = sub_00463990(gnNpcId_007BF202, 1);
+            D2UnitStrc* pPreviousNpc = CUNIT_FindClientUnit(gnNpcId_007BF202, 1);
             if (pPreviousNpc && pPreviousNpc != pUnit)
             {
                 sub_004786A0_SendDwords2(0x30, 1, gnNpcId_007BF202);
@@ -140,7 +140,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
         int nSound = sub_004E0650_GetStringSound(nMessage);
         if (nSound)
         {
-            sub_004CB190_ReleaseSkillSfx(pUnit);
+            UNITSND_ReleaseSkillSfx(pUnit);
             gnSoundPlaying_007BF24B = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
             gnSound_007BF260 = nSound;
         }

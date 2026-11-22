@@ -112,7 +112,7 @@ void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pP
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
 
 void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
 
@@ -757,7 +757,7 @@ int __fastcall SUNITNPC_IsUniqueCarryOneItem(D2UnitStrc* pItem)
         return 0;
     }
 
-    D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+    D2UniqueItemsTxt* pUniqueItemsTxtRecord = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
     if (!pUniqueItemsTxtRecord)
     {
         return 0;

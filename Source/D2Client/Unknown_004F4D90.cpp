@@ -12,7 +12,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
@@ -44,7 +44,7 @@ int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;

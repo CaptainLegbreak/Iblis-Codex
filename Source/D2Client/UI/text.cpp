@@ -89,7 +89,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -192,9 +192,9 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 
-Unicode* __fastcall sub_00452300_StripStringAndNextChar(Unicode* pText); // 0x00452300
+Unicode* __fastcall SCMD_StripColorCodes(Unicode* pText); // 0x00452300
 
-int __fastcall sub_0047A170_TestNotFlag4(int nUnitId); // 0x0047A170
+int __fastcall ROSTER_IsNotSquelched(int nUnitId); // 0x0047A170
 
 void __fastcall INV_OpenRecipeScroll(const Unicode* wszName, int nUnused, int nArg); // 0x0048BBE0
 
@@ -348,13 +348,13 @@ extern unsigned short gwTextStringId_007BF212; // 0x007BF212
 
 extern int gnHintId_007BF260; // 0x007BF260
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern int gnGlobal_0071146C; // 0x0071146C
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __cdecl TEXT_DrawPanelFrame(); // 0x0049FA10
 
@@ -671,7 +671,7 @@ void __cdecl TEXT_ResetNpcPanel()
     int nNpcId;
     if (NPCMENU_GetInteractNpcId(&nNpcId))
     {
-        D2UnitStrc* pNpc = sub_00463990(nNpcId, 1);
+        D2UnitStrc* pNpc = CUNIT_FindClientUnit(nNpcId, 1);
         int bMatched = 0;
         if (pNpc)
         {
@@ -888,10 +888,10 @@ static bool TEXT_IsLanguageCompatible(int nLangId)
 // build: context TEXT_HandleChatPacket
 void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 {
-    if (pPacket->nUnitType == 0 && !sub_0047A170_TestNotFlag4(pPacket->dwUnitGUID))
+    if (pPacket->nUnitType == 0 && !ROSTER_IsNotSquelched(pPacket->dwUnitGUID))
         return;
 
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitGUID, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitGUID, pPacket->nUnitType);
     char szName[0x11] = { 0 };
     if ((pUnit && pUnit->dwUnitType == UNIT_PLAYER) || pPacket->szName[0])
     {
@@ -925,7 +925,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
         Unicode::win2Unicode(wszB, pPacket->szMessage, 0x100);
         Unicode::win2Unicode(wszC, pPacket->szName, 0x10);
         sub_005269D0(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
-        sub_00452300_StripStringAndNextChar(wszA);
+        SCMD_StripColorCodes(wszA);
         TEXT_PrintChatLine(wszA, 2);
     }
     else if (pPacket->nMessageType == 2)
@@ -1152,17 +1152,17 @@ void __cdecl TEXT_FreeTextPanelCels()
 {
     if (gpCelFile_007BF270)
     {
-        sub_00478A00(gpCelFile_007BF270);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007BF270);
         gpCelFile_007BF270 = 0;
     }
     if (gpCelFile_007BF26C)
     {
-        sub_00478A00(gpCelFile_007BF26C);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007BF26C);
         gpCelFile_007BF26C = 0;
     }
     if (gpCelFile_007BF274)
     {
-        sub_00478A00(gpCelFile_007BF274);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007BF274);
         gpCelFile_007BF274 = 0;
     }
 }
@@ -1179,7 +1179,7 @@ void __stdcall TEXT_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
-        sub_0044DA40();
+        GAME_ResetMouseState();
     }
 }
 

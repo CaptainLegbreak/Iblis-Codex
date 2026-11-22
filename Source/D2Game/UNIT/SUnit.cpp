@@ -466,7 +466,7 @@ enum D2C_M192SUnitAlloc
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
 void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlayerGUID);                     // 0x005348C0
 
@@ -2558,7 +2558,7 @@ D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, 
             break;
 
         case UNIT_MONSTER:
-            if (MONSTERS_IsDead(pUnit) && !sub_004638A0_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_DEADCOL))
+            if (MONSTERS_IsDead(pUnit) && !MONSTERREGION_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_DEADCOL))
             {
                 PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
                 PATH_SetUnitCollisionPattern(pUnit, COLLISION_PATTERN_SMALL_NO_PRESENCE);

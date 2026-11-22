@@ -888,7 +888,8 @@ void __fastcall SKILLS_IterateAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, 
                     D2UnitStrc* pNextTarget = pTarget->ptRoomNext;
                     if (pTarget != pUnit && nAuraRangeSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetUnitXPosition(pTarget), UNITS_GetUnitYPosition(pTarget)) && sub_6FD0FA00(pUnit, pTarget, nAuraFilter))
                     {
-                        if (!bCheckMonAuraFlag || pTarget->dwUnitType != UNIT_MONSTER || !sub_00457490_CheckMonStatsFlag(pTarget->dwClassId, MONSTATSFLAGINDEX_NOAURA))
+// build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
+                        if (!bCheckMonAuraFlag || pTarget->dwUnitType != UNIT_MONSTER || !MONSTERUNIQUE_CheckMonStatsFlag(pTarget->dwClassId, MONSTATSFLAGINDEX_NOAURA))
                         {
                             if (pCallback(&auraCallback, pTarget))
                             {

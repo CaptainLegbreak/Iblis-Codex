@@ -28,7 +28,7 @@ void __fastcall sub_005009D0_SetValue(D2WinControlStrc* pControl, int nMode, Uni
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
-int __fastcall sub_00449920_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue); // 0x00449920
+int __fastcall WINMAIN_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue); // 0x00449920
 extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
 extern int gdwGlobal_00779974; // 0x00779974
 
@@ -224,7 +224,7 @@ int __stdcall sub_0043E900_FindCdKeyInText(const char* szText)
             unsigned int nProduct;
             unsigned int nValue;
             szKey[16] = 0;
-            if (sub_00449920_DecodeCdKey(szKey, &nProduct, &nValue)
+            if (WINMAIN_DecodeCdKey(szKey, &nProduct, &nValue)
                 && (nProduct == 6 || nProduct == 7 || nProduct == 10 || nProduct == 12))
                 return 1;
             nCount = 0;

@@ -412,7 +412,7 @@ static void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpec
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
@@ -726,7 +726,8 @@ static int SKILLS_CanReviveCorpse(D2UnitStrc* pUnit)
         return 0;
     }
 
-    if (!sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 8))
+// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
+    if (!MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, 8))
     {
         return 0;
     }
@@ -754,7 +755,7 @@ static int sub_005C3300_CanReviveTarget(D2UnitStrc* pTarget)
     {
         return 0;
     }
-    if (!sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 8))
+    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 8))
     {
         return 0;
     }
@@ -1026,7 +1027,8 @@ int __fastcall SKILLS_SrvDo030_Curse(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             break;
         }
 
-        D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pSkillsTxtRecord->wAuraStat[i]);
+// build: symbol ?PLAYER_GetItemStatCostTxtRecord@* 0x0045C4F0
+        D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pSkillsTxtRecord->wAuraStat[i]);
         if (!pItemStatCostTxtRecord)
         {
             break;
@@ -1344,7 +1346,7 @@ int __fastcall SKILLS_SrvDo061_Confuse(D2GameStrc* pGame, D2UnitStrc* pUnit, int
             break;
         }
 
-        D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pSkillsTxtRecord->wAuraStat[i]);
+        D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pSkillsTxtRecord->wAuraStat[i]);
         if (!pItemStatCostTxtRecord)
         {
             break;
@@ -1564,7 +1566,7 @@ int __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitSt
                 int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkill->dwAuraStatCalc[i], nSkillId, nSkillLevel);
                 if (nValue) {
                     if (!pList) {
-                        pList = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, sub_0044BE50_GetUnitTypeOrInvalid(pPet), sub_00451F50_GetUnitGUID(pPet));
+                        pList = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, GAME_GetUnitTypeOrInvalid(pPet), sub_00451F50_GetUnitGUID(pPet));
                         if (!pList) return 0;
                         D2COMMON_10475_PostStatToStatList(pPet, pList, 1);
                     }
@@ -2245,7 +2247,7 @@ int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             if (!pOwner)
             {
                 pOwner = pPet;
-                AIGENERAL_SetOwnerData(pGame, pPet, sub_00451F50_GetUnitGUID(pUnit), sub_0044BE50_GetUnitTypeOrInvalid(pUnit), 0, 1);
+                AIGENERAL_SetOwnerData(pGame, pPet, sub_00451F50_GetUnitGUID(pUnit), GAME_GetUnitTypeOrInvalid(pUnit), 0, 1);
             }
             else
             {

@@ -212,11 +212,11 @@ int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-int __cdecl sub_0044BE90(); // 0x0044BE90
+int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
 void __cdecl sub_00497300(); // 0x00497300
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -296,21 +296,21 @@ extern int gdwGlobal_007A5208; // 0x007A5208
 
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
 
-extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
+extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit); // 0x00464810
+void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit); // 0x00464810
 
-D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
+D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-void __fastcall sub_004DCD40_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
+void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
@@ -381,7 +381,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __cdecl sub_00475EB0_FreeCels(); // 0x00475EB0
 
-void __fastcall sub_004DCF30(D2ViewStrc* pView); // 0x004DCF30
+void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView); // 0x004DCF30
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
@@ -481,7 +481,7 @@ int gaStarSpeed_007B9130[256]; // 0x007B9130
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-static void sub_004769D0_UpdateShakeSound(int nIntensity);
+static void VIEW_UpdateShakeSound(int nIntensity); // 0x004769D0
 
 int gnGlobal_007BEF04; // 0x007BEF04
 
@@ -506,7 +506,7 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 
 int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
 
-void __stdcall sub_00476190_ResetStar(int nStar, int bRespawn);
+void __stdcall VIEW_ResetStar(int nStar, int bRespawn); // 0x00476190
 
 struct D2QuestLookupEntryStrc
 {
@@ -542,7 +542,7 @@ unsigned long gdwStarTick_007B57E0; // 0x007B57E0
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                               // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                               // 0x004788B0
 
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -572,7 +572,7 @@ static bool sbBaseSet; // 0x007B956C
 
 static int gnBaseGuard; // 0x007B9574
 
-static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer);
+static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer); // 0x00476460
 
 
 struct Obj004DCF10
@@ -592,7 +592,7 @@ typedef char Obj004DCF10Size[(sizeof(Obj004DCF10) == 0xEABC) ? 1 : -1];
 
 void __fastcall sub_004DDDF0(void* rows, void* data); // 0x004DDDF0
 
-extern "C" void __fastcall sub_004DCF10(Obj004DCF10*); // 0x004DCF10
+extern "C" void __fastcall WALL2_ResetViewCells(Obj004DCF10*); // 0x004DCF10
 
 int gnGlobal_007B9530;        // 0x007B9530
 
@@ -634,7 +634,7 @@ void __cdecl sub_0044A9E0_SendPacket10()
 }
 
 // 0x0044AA10
-void __fastcall sub_0044AA10_SendPacket11(unsigned char nArg1, unsigned short nArg2)
+void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nArg2)
 {
     D2ClientPacket11Strc tPacket;
     sub_00449BF0_SetValue(0);
@@ -645,7 +645,7 @@ void __fastcall sub_0044AA10_SendPacket11(unsigned char nArg1, unsigned short nA
 }
 
 // 0x0044AA50
-void __cdecl sub_0044AA50_SendPacket12()
+void __cdecl VIEW_SendMcpMotdRequest()
 {
     unsigned char nHeader;
     sub_00449BF0_SetValue(0);
@@ -654,7 +654,7 @@ void __cdecl sub_0044AA50_SendPacket12()
 }
 
 // 0x0044AA80
-void __cdecl sub_0044AA80_SendPacket13()
+void __cdecl VIEW_SendMcpCancelGameCreate()
 {
     unsigned char nHeader;
     sub_00449BF0_SetValue(0);
@@ -663,7 +663,7 @@ void __cdecl sub_0044AA80_SendPacket13()
 }
 
 // 0x0044AAB0
-void __cdecl sub_0044AAB0_SendPacket19()
+void __cdecl VIEW_SendMcpCharListRequest()
 {
     D2ClientPacket19Strc tPacket;
     sub_00449BF0_SetValue(0);
@@ -747,7 +747,7 @@ void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode,
 static D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
 // 0x0045B0B0
-void __fastcall sub_0045B0B0_DrawRoomUnitBoxes(D2ActiveRoomStrc* pRoom)
+void __fastcall VIEW_DrawRoomUnitBoxes(D2ActiveRoomStrc* pRoom)
 {
     D2ActiveRoomStrc** ppRoomList;
     unsigned int nNumRooms;
@@ -817,7 +817,7 @@ void D2ClientNodeListStrc::sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, un
 }
 
 // 0x0045FD20
-void __stdcall sub_0045FD20_DrawPanelCel(int nFrame)
+void __stdcall VIEW_DrawPanelCel(int nFrame)
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -828,7 +828,7 @@ void __stdcall sub_0045FD20_DrawPanelCel(int nFrame)
 }
 
 // 0x00460060
-void __stdcall sub_00460060_DrawPanelCels(int nFrame1, int nFrame2)
+void __stdcall VIEW_DrawPanelCels(int nFrame1, int nFrame2)
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -841,7 +841,7 @@ void __stdcall sub_00460060_DrawPanelCels(int nFrame1, int nFrame2)
 }
 
 // 0x00460780
-void __fastcall sub_00460780_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int nArg1, int nArg2)
+void __fastcall VIEW_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int nArg1, int nArg2)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -853,7 +853,7 @@ void __fastcall sub_00460780_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUni
 }
 
 // 0x00466820
-void __fastcall sub_00466820_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
+void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
 {
     for (D2PresetUnitStrc* pPresetUnit = DUNGEON_GetPresetUnitsFromRoom(pRoom); pPresetUnit; pPresetUnit = pPresetUnit->pNext)
     {
@@ -861,7 +861,7 @@ void __fastcall sub_00466820_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
         {
             D2DrlgCoordsStrc tCoords;
             DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-            sub_00466730_SpawnPresetUnit(pPresetUnit->nIndex, pPresetUnit->nXpos + tCoords.nSubtileX, pPresetUnit->nYpos + tCoords.nSubtileY, pPresetUnit->nUnitType, pPresetUnit->nMode);
+            CUNIT_SpawnPresetUnit(pPresetUnit->nIndex, pPresetUnit->nXpos + tCoords.nSubtileX, pPresetUnit->nYpos + tCoords.nSubtileY, pPresetUnit->nUnitType, pPresetUnit->nMode);
         }
     }
 }
@@ -876,7 +876,7 @@ void __fastcall sub_00467410_SetEntryValue(void* pOwner, D2ClientRecordStrc* pRe
 }
 
 // 0x0046AE50
-void __fastcall sub_0046AE50_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce)
+void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce)
 {
     if (gtTimedBox_007A742C.bLocked && !bForce)
     {
@@ -897,7 +897,7 @@ void __fastcall sub_0046AE50_StartTimedBox(int nFadeIn, int nHold, int nFadeOut,
 }
 
 // 0x0046B680
-void __fastcall sub_0046B680_SpawnMissileTrio(D2UnitStrc* pUnit)
+void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit)
 {
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
@@ -920,7 +920,7 @@ void __fastcall sub_0046B680_SpawnMissileTrio(D2UnitStrc* pUnit)
 }
 
 // 0x0046B9A0
-void __fastcall sub_0046B9A0_SpawnMissileTrio2(D2UnitStrc* pUnit)
+void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit)
 {
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
@@ -951,7 +951,7 @@ void __fastcall sub_0046B9A0_SpawnMissileTrio2(D2UnitStrc* pUnit)
 }
 
 // 0x0046BA50
-void __fastcall sub_0046BA50_SpawnMissile(D2UnitStrc* pUnit)
+void __fastcall VIEW_SpawnAndarielDeath(D2UnitStrc* pUnit)
 {
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
@@ -963,9 +963,9 @@ void __fastcall sub_0046BA50_SpawnMissile(D2UnitStrc* pUnit)
 }
 
 // 0x0046BC10
-void __fastcall sub_0046BC10_HintAndMissile(D2UnitStrc* pUnit)
+void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit)
 {
-    sub_004DCD40_ShowTimedHint((void*)0x1253, 0, 0xFA, 0, 0, 0, 0);
+    ITEM_ShowTimedHint((void*)0x1253, 0, 0xFA, 0, 0, 0, 0);
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.nMissile = MISSILE_IZUAL_CONTROL;
@@ -988,7 +988,7 @@ D2PalShiftNodeStrc* gpPalShiftList_007B957C; // 0x007B957C
 int gbCacheStats_007BB3A4; // 0x007BB3A4
 
 // 0x00475EF0
-void __cdecl sub_00475EF0_FreeLerpTables()
+void __cdecl VIEW_FreeLerpTables()
 {
     if (!gppLerpRows_007B953C)
         return;
@@ -1016,20 +1016,20 @@ void __cdecl sub_00475EF0_FreeLerpTables()
 }
 
 // 0x00475FD0
-void __fastcall sub_00475FD0(D2ViewStrc* pView)
+void __fastcall VIEW_FreeView(D2ViewStrc* pView)
 {
-    sub_004DCF30(pView);
+    WALL2_FreeViewCells(pView);
     FOG_Free(pView, ".\\GAME\\View.cpp", 0x141, 0);
 }
 
 // 0x00475FF0
-void __fastcall sub_00475FF0_SetViewDirty(D2ViewStrc* pView)
+void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView)
 {
     pView->dwFlags |= 1;
 }
 
 // 0x00476000
-void __fastcall sub_00476000_SetViewRects(D2ClientViewStrc* pView, int nLeft, int nTop, int nRight, int nBottom)
+void __fastcall VIEW_SetViewRects(D2ClientViewStrc* pView, int nLeft, int nTop, int nRight, int nBottom)
 {
     if (!pView)
         return;
@@ -1047,7 +1047,7 @@ void __fastcall sub_00476000_SetViewRects(D2ClientViewStrc* pView, int nLeft, in
 }
 
 // 0x00476070
-void __fastcall sub_00476070_GetViewValues(D2ClientViewStrc* pView, int* pValue04, int* pValue08, int* pValue0C, int* pValue10)
+void __fastcall VIEW_GetViewRect(D2ClientViewStrc* pView, int* pValue04, int* pValue08, int* pValue0C, int* pValue10)
 {
     *pValue04 = pView->nValue04;
     *pValue08 = pView->nValue08;
@@ -1056,7 +1056,7 @@ void __fastcall sub_00476070_GetViewValues(D2ClientViewStrc* pView, int* pValue0
 }
 
 // 0x004760A0
-void __fastcall sub_004760A0_SetViewPos(D2ClientViewStrc* pView, int nX, int nY)
+void __fastcall VIEW_SetViewPos(D2ClientViewStrc* pView, int nX, int nY)
 {
     if (pView->nPosX != nX || pView->nPosY != nY)
     {
@@ -1077,14 +1077,14 @@ unsigned char gnLifeColorLow_007BEED2; // 0x007BEED2
 unsigned char gbLifeColorsInit_007BEED3; // 0x007BEED3
 
 // 0x004760C0
-void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
+void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
 {
     *pX = pView->nPosX;
     *pY = pView->nPosY;
 }
 
 // 0x004760E0
-void __fastcall sub_004760E0_ViewToGameCoords(D2ClientViewStrc* pView, int nX, int nY, int* pX, int* pY)
+void __fastcall VIEW_ViewToGameCoords(D2ClientViewStrc* pView, int nX, int nY, int* pX, int* pY)
 {
     D2_ASSERT(pView, 0x1CD);
     D2_ASSERT(pX, 0x1CE);
@@ -1093,7 +1093,7 @@ void __fastcall sub_004760E0_ViewToGameCoords(D2ClientViewStrc* pView, int nX, i
 }
 
 // 0x00476140
-void __fastcall sub_00476140(D2ViewStrc* pView, int nArg)
+void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
 {
     D2_ASSERT(pView, 0x1DD);
     if (pView->tRect.right || pView->tRect.bottom)
@@ -1112,7 +1112,7 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
     const unsigned int nFadeOut = gnGlobal_007B8D1C;
     if (nElapsed > nFadeOut + nHold + nFadeIn)
     {
-        sub_004769D0_UpdateShakeSound(0);
+        VIEW_UpdateShakeSound(0);
         gnGlobal_007B9534 = 0;
         gnGlobal_007B9538 = 0;
         gnGlobal_007B8D20 = 0;
@@ -1150,7 +1150,7 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
         *pY += nOffsetY;
         gnGlobal_007B8D20 = nOffsetY;
     }
-    sub_004769D0_UpdateShakeSound(nMagnitude);
+    VIEW_UpdateShakeSound(nMagnitude);
 }
 
 static inline unsigned int STARS_Roll(D2SeedStrc* pSeed)
@@ -1187,7 +1187,7 @@ static inline unsigned int STARS_RollUpTo(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x00476190
-void __stdcall sub_00476190_ResetStar(int nStar, int bRespawn)
+void __stdcall VIEW_ResetStar(int nStar, int bRespawn)
 {
     int* const pX = &gaStarX_007B8D30[nStar];
     D2SeedStrc* pSeed = gpClientSeed_00712C4C;
@@ -1200,7 +1200,7 @@ void __stdcall sub_00476190_ResetStar(int nStar, int bRespawn)
 }
 
 // 0x00476290
-void __cdecl sub_00476290_DrawStarfield()
+void __cdecl VIEW_DrawStarfield()
 {
     if (!gbStarsInit_007B955C)
     {
@@ -1225,7 +1225,7 @@ void __cdecl sub_00476290_DrawStarfield()
         }
 
         for (int i = 0; i < 256; ++i)
-            sub_00476190_ResetStar(i, 0);
+            VIEW_ResetStar(i, 0);
 
         gbStarsInit_007B955C = 1;
     }
@@ -1240,7 +1240,7 @@ void __cdecl sub_00476290_DrawStarfield()
         {
             gaStarX_007B8D30[i] += gaStarSpeed_007B9130[i];
             if (gaStarX_007B8D30[i] < 0)
-                sub_00476190_ResetStar(i, 1);
+                VIEW_ResetStar(i, 1);
         }
         gdwStarTick_007B57E0 = dwTick;
     }
@@ -1249,7 +1249,7 @@ void __cdecl sub_00476290_DrawStarfield()
 int gnGlobal_007B9564; // 0x007B9564
 
 // 0x00476460
-static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer)
+static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
 {
     if (gdwGlobal_007A0620)
     {
@@ -1281,14 +1281,14 @@ static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer)
     {
         char szPath[260];
         strcpy(szPath, "data\\global\\ui\\summit01");
-        gpSummitCel_007B9554 = sub_004788B0(szPath, 0);
+        gpSummitCel_007B9554 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
     if (!gpCloudCel_007B9558)
     {
         char szPath[260];
         strcpy(szPath, "data\\global\\ui\\cloud01");
-        gpCloudCel_007B9558 = sub_004788B0(szPath, 0);
+        gpCloudCel_007B9558 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
     D2GfxDataStrc tGfxData = {};
@@ -1404,15 +1404,15 @@ int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                           
 
 int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
 
-void __cdecl sub_004DED20_UpdateRoomColor();                                                                 // 0x004DED20
+void __cdecl MISSILE_UpdateRoomColor();                                                                 // 0x004DED20
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
 
-void __cdecl sub_00476290_DrawStarfield();                                                                   // 0x00476290
+void __cdecl VIEW_DrawStarfield();                                                                   // 0x00476290
 
-void __fastcall sub_00478A00(void* pCel);                                                                    // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                    // 0x00478A00
 
 void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
 
@@ -1424,11 +1424,11 @@ void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                
 
 void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
 
-void __cdecl sub_00475B20_DebugDrawLights();                                                                 // 0x00475B20
+void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
 
 void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
 
-void __cdecl sub_004DC000_DrawFadeBox();                                                                     // 0x004DC000
+void __cdecl GFXUTIL_DrawFadeBox();                                                                     // 0x004DC000
 
 extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
 
@@ -1466,28 +1466,28 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
         sub_00475800_RunLightPass();
     }
 
-    sub_004DED20_UpdateRoomColor();
+    MISSILE_UpdateRoomColor();
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
     {
-        sub_00476290_DrawStarfield();
+        VIEW_DrawStarfield();
     }
 
     if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ROCKYSUMMIT)
     {
-        sub_00476460_DrawSummitBackdrop(pPlayer);
+        VIEW_DrawSummitBackdrop(pPlayer);
     }
     else
     {
         if (gpSummitCel_007B9554)
         {
-            sub_00478A00(gpSummitCel_007B9554);
+            ARCHIVE_FreeClientCellFile(gpSummitCel_007B9554);
             gpSummitCel_007B9554 = 0;
         }
         if (gpCloudCel_007B9558)
         {
-            sub_00478A00(gpCloudCel_007B9558);
+            ARCHIVE_FreeClientCellFile(gpCloudCel_007B9558);
             gpCloudCel_007B9558 = 0;
         }
     }
@@ -1509,11 +1509,11 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
     }
     if (gnGlobal_007B9564)
     {
-        sub_00475B20_DebugDrawLights();
+        DLIGHTMAP_DebugDrawLights();
     }
     SCALE_SetDefaultFactor();
     sub_00473910_UpdateWeather();
-    sub_004DC000_DrawFadeBox();
+    GFXUTIL_DrawFadeBox();
 }
 
 // 0x004769B0
@@ -1523,7 +1523,7 @@ void __cdecl sub_004769B0_Toggle()
 }
 
 // 0x004769D0
-static void sub_004769D0_UpdateShakeSound(int nIntensity)
+static void VIEW_UpdateShakeSound(int nIntensity)
 {
     int nVolume = nIntensity * 0xFF / 20;
     nVolume = nVolume > 0 ? nVolume : 0;
@@ -1582,7 +1582,7 @@ static void sub_004769D0_UpdateShakeSound(int nIntensity)
 }
 
 // 0x00476AC0
-int __fastcall sub_00476AC0_GetViewShift(int* pX, int* pY)
+int __fastcall VIEW_GetViewShift(int* pX, int* pY)
 {
     if (!gnGlobal_007B9534)
         return 0;
@@ -1593,7 +1593,7 @@ int __fastcall sub_00476AC0_GetViewShift(int* pX, int* pY)
 }
 
 // 0x00476B10
-Obj004DCF10* __cdecl sub_00476B10_CreateView()
+Obj004DCF10* __cdecl VIEW_CreateView()
 {
     SYN_ASSERT(gppLerpRows_007B953C, 0x119);
     SYN_ASSERT(gpLerpTable_007B9540, 0x11A);
@@ -1611,14 +1611,14 @@ Obj004DCF10* __cdecl sub_00476B10_CreateView()
     view->data = data;
     view->table = table;
     sub_004DDDF0(rows, data);
-    sub_004DCF10(view);
+    WALL2_ResetViewCells(view);
     view->flags |= 1;
     gnGlobal_007B9530 = 0;
     return view;
 }
 
 // 0x00477030
-D2PalShiftNodeStrc* __fastcall sub_00477030_FindPalShiftNode(int nId)
+D2PalShiftNodeStrc* __fastcall VIEW_FindPalShiftNode(int nId)
 {
     for (D2PalShiftNodeStrc* pNode = gpPalShiftList_007B957C; pNode; pNode = pNode->pNext)
     {
@@ -1629,13 +1629,13 @@ D2PalShiftNodeStrc* __fastcall sub_00477030_FindPalShiftNode(int nId)
 }
 
 // 0x00477750
-int __cdecl sub_00477750_IsModeAtLeast4()
+int __cdecl VIEW_IsAcceleratedRenderMode()
 {
     return gnModeValue_00712CCC >= 4;
 }
 
 // 0x00477C00
-void __cdecl sub_00477C00_ToggleCacheStats()
+void __cdecl VIEW_ToggleCacheStats()
 {
     gnGlobal_007BB3AC = 0;
     gbCacheStats_007BB3A4 = !gbCacheStats_007BB3A4;
@@ -1659,7 +1659,7 @@ void __cdecl sub_00477C00_ToggleCacheStats()
 }
 
 // 0x00479010
-void __fastcall sub_00479010_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg)
+void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
     {
@@ -1669,7 +1669,7 @@ void __fastcall sub_00479010_UpdatePetLife(int nUnitId, int nLifePercent, unsign
             pPet->nArg10 = nArg;
             if (pPet->nType == PET_TYPE_LIFE)
             {
-                D2UnitStrc* pUnit = sub_00463990(nUnitId, UNIT_MONSTER);
+                D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, UNIT_MONSTER);
                 if (pUnit)
                     STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pUnit) * nLifePercent / 100, 0);
             }
@@ -1679,7 +1679,7 @@ void __fastcall sub_00479010_UpdatePetLife(int nUnitId, int nLifePercent, unsign
 }
 
 // 0x0047E860
-void __stdcall sub_0047E860_DrawCel(int nFrame, int nX, int nY)
+void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1697,7 +1697,7 @@ D2WardenClientM114Strc::D2WardenClientM114Strc() : pServices(gapWardenServices_0
 }
 
 // 0x00480400
-int __fastcall sub_00480400_GetPlayerField150(D2UnitStrc* pUnit)
+int __fastcall VIEW_GetPlayerInteractState(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -1707,13 +1707,13 @@ int __fastcall sub_00480400_GetPlayerField150(D2UnitStrc* pUnit)
 }
 
 // 0x004804D0
-unsigned int __cdecl sub_004804D0_GetPingScaled()
+unsigned int __cdecl VIEW_GetPingScaled()
 {
     return (sub_0044CE60_GetPing() + 0x32) >> 7;
 }
 
 // 0x00480B40
-void __fastcall sub_00480B40_SendPacket(int nHeader, int nUnused, int nArg1, int nArg2, int nUnused2)
+void __fastcall VIEW_SendUnitActionPacket(int nHeader, int nUnused, int nArg1, int nArg2, int nUnused2)
 {
     if (nHeader == 0x13)
     {
@@ -1734,7 +1734,7 @@ void __fastcall sub_00480B40_SendPacket(int nHeader, int nUnused, int nArg1, int
 }
 
 // 0x004879D0
-void __fastcall sub_004879D0(D2UnitStrc* pUnit)
+void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
 {
     if (gdwGlobal_007BCBF4 == pUnit)
     {
@@ -1752,7 +1752,7 @@ void __fastcall sub_004879D0(D2UnitStrc* pUnit)
 }
 
 // 0x00487CA0
-int __cdecl sub_00487CA0_SetNpcState6()
+int __cdecl VIEW_SetNpcMenuMode()
 {
     if (gdwGlobal_007BCBF0 == 6)
         return 0;
@@ -1761,7 +1761,7 @@ int __cdecl sub_00487CA0_SetNpcState6()
 }
 
 // 0x00492BC0
-int __cdecl sub_00492BC0_GetPetTypeCount()
+int __cdecl VIEW_GetPetTypeCount()
 {
     return sgptDataTables->nPetTypeTxtRecordCount;
 }
@@ -1772,7 +1772,7 @@ static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBo
 }
 
 // 0x00492BD0
-int __fastcall sub_00492BD0_IsInPetIcon(SMSGHANDLER_PARAMS* pMsg)
+int __fastcall VIEW_IsInPetIcon(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
@@ -1786,13 +1786,13 @@ void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 }
 
 // 0x00492C10
-int __cdecl sub_00492C10()
+int __cdecl VIEW_IsPetIconVisible()
 {
     return gnGlobal_007BEECC != 2;
 }
 
 // 0x00492F40
-void __fastcall sub_00492F40_SetFade(int nMode)
+void __fastcall VIEW_InitLifeColors(int nMode)
 {
     if (!nMode)
     {
@@ -1807,13 +1807,13 @@ void __fastcall sub_00492F40_SetFade(int nMode)
 }
 
 // 0x00492F90
-void __cdecl sub_00492F90()
+void __cdecl VIEW_ResetLifeColors()
 {
     gbLifeColorsInit_007BEED3 = 0;
 }
 
 // 0x004943B0
-void __cdecl sub_004943B0_DrawFrameCels()
+void __cdecl VIEW_DrawHelpFrameLowRes()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1838,7 +1838,7 @@ void __cdecl sub_004943B0_DrawFrameCels()
 }
 
 // 0x004944F0
-void __cdecl sub_004944F0_DrawFrameCels()
+void __cdecl VIEW_DrawHelpFrameHighRes()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1861,7 +1861,7 @@ void __cdecl sub_004944F0_DrawFrameCels()
 }
 
 // 0x00494680
-void __cdecl sub_00494680_DrawCelsAndLines()
+void __cdecl VIEW_DrawHelpLinesLowRes()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1898,7 +1898,7 @@ void __cdecl sub_00494680_DrawCelsAndLines()
 }
 
 // 0x00494A00
-void __cdecl sub_00494A00_DrawCelsAndLines()
+void __cdecl VIEW_DrawHelpLinesHighRes()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1941,7 +1941,7 @@ void __cdecl sub_00494A00_DrawCelsAndLines()
 }
 
 // 0x00494E40
-void __cdecl sub_00494E40_DrawPanelCel()
+void __cdecl VIEW_DrawHelpPanelCel()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1959,10 +1959,10 @@ void __cdecl sub_00494E40_DrawPanelCel()
 }
 
 // 0x00495180
-void __cdecl sub_00495180_DrawButtons()
+void __cdecl VIEW_DrawHelpButtons()
 {
-    if (sub_004538D0(4) || sub_004538D0(3) || sub_004538D0(1) || sub_004538D0(0xC)
-        || sub_004538D0(0x17) || sub_004538D0(0x19))
+    if (GAME_GetUIVarState(4) || GAME_GetUIVarState(3) || GAME_GetUIVarState(1) || GAME_GetUIVarState(0xC)
+        || GAME_GetUIVarState(0x17) || GAME_GetUIVarState(0x19))
     {
         gnGlobal_007BEF08 = 1;
         return;
@@ -1988,13 +1988,13 @@ void __cdecl sub_00495180_DrawButtons()
 }
 
 // 0x00497250
-void __cdecl sub_00497250_InitTextColorRed()
+void __cdecl VIEW_InitTextColorRed()
 {
     gnTextColorRed_007BEFBA = D2Win_10034_MixRGB(0xFF, 0, 0);
 }
 
 // 0x004972B0
-void __cdecl sub_004972B0_InitBeltColors()
+void __cdecl VIEW_InitBeltColors()
 {
     gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
     gabBeltColors_007BEF6C[1] = D2Win_10034_MixRGB(0, 0x80, 0);
@@ -2010,7 +2010,7 @@ static int ButtonHitTest_00497480(int nX, int nY)
 }
 
 // 0x00497480
-void __cdecl sub_00497480_DrawButton()
+void __cdecl VIEW_DrawRunButton()
 {
     int nX = sub_00468730();
     int nY = sub_00468740();
@@ -2018,7 +2018,7 @@ void __cdecl sub_00497480_DrawButton()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007BEF0C;
     tContext.nDirection = 0;
-    if (sub_0044BE90())
+    if (GAME_GetAlwaysRun())
     {
         if (gnGlobal_007BEFD8 && ButtonHitTest_00497480(nX, nY))
         {
@@ -2049,14 +2049,14 @@ void __cdecl sub_00497480_DrawButton()
 }
 
 // 0x00498D50
-void __fastcall sub_00498D50(int nX, int nArg)
+void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
 {
     if ((unsigned int)nX < 4)
         gabBeltHotkey_007BEFB0[nX] = (unsigned char)nArg;
 }
 
 // 0x00498D60
-void __cdecl sub_00498D60()
+void __cdecl VIEW_ResetBeltHover()
 {
     gnBeltBox_0072235C = -1;
     gnBeltRectX_00722360 = -1;
@@ -2067,7 +2067,7 @@ void __cdecl sub_00498D60()
 }
 
 // 0x004A3070
-int __fastcall sub_004A3070_LookupValue(int nUnused, int nKey)
+int __fastcall VIEW_LookupQuestValue(int nUnused, int nKey)
 {
     for (unsigned int i = 0; i < 0x29; ++i)
     {
@@ -2080,7 +2080,7 @@ int __fastcall sub_004A3070_LookupValue(int nUnused, int nKey)
 }
 
 // 0x004A3200
-D2QuestPanelValuesStrc* __fastcall sub_004A3200_ClearValues(D2QuestPanelValuesStrc* pValues)
+D2QuestPanelValuesStrc* __fastcall VIEW_ClearQuestPanelValues(D2QuestPanelValuesStrc* pValues)
 {
     for (int i = 0; i < 0x96; ++i)
     {
@@ -2090,7 +2090,7 @@ D2QuestPanelValuesStrc* __fastcall sub_004A3200_ClearValues(D2QuestPanelValuesSt
 }
 
 // 0x004B9640
-int __fastcall sub_004B9640_CountHintsForOwner(int nOwnerId)
+int __fastcall VIEW_CountHintsForOwner(int nOwnerId)
 {
     int nCount = 0;
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
@@ -2103,7 +2103,7 @@ int __fastcall sub_004B9640_CountHintsForOwner(int nOwnerId)
 }
 
 // 0x004C76A0
-int __fastcall sub_004C76A0_GetWeaponClassMask(D2UnitStrc* pUnit)
+int __fastcall VIEW_GetWeaponClassMask(D2UnitStrc* pUnit)
 {
     int nWeaponClassId = 0;
     COMPOSIT_GetWeaponClassId(pUnit, pUnit->pInventory, &nWeaponClassId, -1, 1);
@@ -2111,7 +2111,7 @@ int __fastcall sub_004C76A0_GetWeaponClassMask(D2UnitStrc* pUnit)
 }
 
 // 0x004D1640
-D2UnitStrc* __fastcall sub_004D1640_SpawnDirectionalMissile(D2UnitStrc* pUnit, int nFrame)
+D2UnitStrc* __fastcall VIEW_SpawnDirectionalMissile(D2UnitStrc* pUnit, int nFrame)
 {
     D2UnitStrc* pMissile = 0;
     if (pUnit->pDynamicPath)
@@ -2129,25 +2129,25 @@ D2UnitStrc* __fastcall sub_004D1640_SpawnDirectionalMissile(D2UnitStrc* pUnit, i
             pMissile->nSeqCurrentFramePrecise = nFrame << 8;
             if (pMissile->pDynamicPath)
                 D2COMMON_10160_PathUpdateDirection(pMissile->pDynamicPath, nDirection);
-            sub_00464810_SetUnitFlag16(pMissile);
+            CUNIT_MarkUnitDead(pMissile);
         }
     }
     return pMissile;
 }
 
 // 0x004DC580
-void __fastcall sub_004DC580_DrawUnitClickCross(D2UnitStrc* pUnit)
+void __fastcall VIEW_DrawUnitClickCross(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x61);
     int nX = pUnit->nLastClickX;
     int nY = pUnit->nLastClickY;
     DUNGEON_GameSubtileToClientCoords(&nX, &nY);
-    D2GFX_DrawLine(nX - sub_0045AFC0(), nY - sub_0045AFD0_GetMouseYOffset(), nX - sub_0045AFC0() + 0x10, nY - sub_0045AFD0_GetMouseYOffset() + 8, 0xFF, 0xFF);
-    D2GFX_DrawLine(nX - sub_0045AFC0(), nY - sub_0045AFD0_GetMouseYOffset(), nX - sub_0045AFC0() - 0x10, nY - sub_0045AFD0_GetMouseYOffset() + 8, 0xFF, 0xFF);
-    D2GFX_DrawLine(nX - sub_0045AFC0() - 0x10, nY - sub_0045AFD0_GetMouseYOffset() + 8, nX - sub_0045AFC0(), nY - sub_0045AFD0_GetMouseYOffset() + 0x10, 0xFF, 0xFF);
-    D2GFX_DrawLine(nX - sub_0045AFC0() + 0x10, nY - sub_0045AFD0_GetMouseYOffset() + 8, nX - sub_0045AFC0(), nY - sub_0045AFD0_GetMouseYOffset() + 0x10, 0xFF, 0xFF);
-    const int nBoxX = UNITS_GetClientCoordX(pUnit) - sub_0045AFC0();
-    const int nBoxY = UNITS_GetClientCoordY(pUnit) - sub_0045AFD0_GetMouseYOffset();
+    D2GFX_DrawLine(nX - PLAYER_GetScreenOffsetX(), nY - PLAYER_GetScreenOffsetY(), nX - PLAYER_GetScreenOffsetX() + 0x10, nY - PLAYER_GetScreenOffsetY() + 8, 0xFF, 0xFF);
+    D2GFX_DrawLine(nX - PLAYER_GetScreenOffsetX(), nY - PLAYER_GetScreenOffsetY(), nX - PLAYER_GetScreenOffsetX() - 0x10, nY - PLAYER_GetScreenOffsetY() + 8, 0xFF, 0xFF);
+    D2GFX_DrawLine(nX - PLAYER_GetScreenOffsetX() - 0x10, nY - PLAYER_GetScreenOffsetY() + 8, nX - PLAYER_GetScreenOffsetX(), nY - PLAYER_GetScreenOffsetY() + 0x10, 0xFF, 0xFF);
+    D2GFX_DrawLine(nX - PLAYER_GetScreenOffsetX() + 0x10, nY - PLAYER_GetScreenOffsetY() + 8, nX - PLAYER_GetScreenOffsetX(), nY - PLAYER_GetScreenOffsetY() + 0x10, 0xFF, 0xFF);
+    const int nBoxX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
+    const int nBoxY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
     D2GFX_DrawBox(nBoxX, nBoxY, nBoxX + 4, nBoxY + 4, 0xFF, DRAW_MODE_5);
 }
 

@@ -28,7 +28,7 @@ void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 
 void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
 void __cdecl sub_004477A0_Refresh(); // 0x004477A0
-int __cdecl sub_00449AC0(); // 0x00449AC0
+int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __cdecl sub_00449C30(); // 0x00449C30
 void __stdcall sub_00449C40_SetValue(int nValue); // 0x00449C40
@@ -553,7 +553,7 @@ int __stdcall sub_0043DBA0_ClearSelection(int nArg1, int nArg2, int nArg3)
 // 0x0043DBC0
 int __stdcall sub_0043DBC0_OnWaitTick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!WaitForSingleObject((void*)sub_00449AC0(), 0) || gnFlag_0077BD60)
+    if (!WaitForSingleObject((void*)GAME_GetWaitHandle(), 0) || gnFlag_0077BD60)
         D2Win_StopMessageLoop();
     return 1;
 }

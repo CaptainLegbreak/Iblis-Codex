@@ -64,7 +64,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
@@ -84,8 +84,8 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __cdecl sub_004979E0(); // 0x004979E0
 int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
-int __cdecl sub_0044DB30(); // 0x0044DB30
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 extern int gdwGlobal_007BC978; // 0x007BC978
 extern int gdwGlobal_007BC970; // 0x007BC970
 extern int gdwGlobal_007BC968; // 0x007BC968
@@ -398,7 +398,7 @@ void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
     {
         sub_0047D5C0_ActivateOption(pMsg);
     }
-    sub_0044DA40();
+    GAME_ResetMouseState();
     gbOptionPressed_007BC948 = 0;
     gbOptionDragging_007BC94C = 0;
     pMsg->bReturn = 1;
@@ -593,11 +593,11 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
             }
             else if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11)
             {
-                if (!sub_004538D0(9))
+                if (!GAME_GetUIVarState(9))
                 {
                     gaSlotState_007BC8F8[i] = 1;
                 }
-                else if (!sub_0044DB30())
+                else if (!GAME_GetConnectionType())
                 {
                     if (i >= 4)
                     {

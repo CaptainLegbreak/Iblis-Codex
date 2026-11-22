@@ -985,7 +985,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 
 
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x0064C350
 
-int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
@@ -1319,7 +1319,7 @@ int __stdcall D2Common_11281_CollisionPatternFromSize(D2UnitStrc* pUnit, int nSi
 
     int nCollisionPattern = gaCollisionPatternsFromSize[nSize];
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType == UNIT_MONSTER && MONSTERS_CanBeInTown(pUnit) && !sub_00457490_CheckMonStatsFlag(pUnit->dwClassId, MONSTATSFLAGINDEX_INTERACT))
+    if (nType == UNIT_MONSTER && MONSTERS_CanBeInTown(pUnit) && !MONSTERUNIQUE_CheckMonStatsFlag(pUnit->dwClassId, MONSTATSFLAGINDEX_INTERACT))
     {
         switch (nCollisionPattern)
         {

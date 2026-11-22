@@ -151,7 +151,7 @@ void __fastcall PLRTRADE_CloseCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pUn
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat, int nValue); // 0x00530EA0
 
@@ -569,7 +569,7 @@ int __fastcall PLAYER_DropGold(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGU
             for (int i = 0; i < nCount; ++i)
             {
                 D2UnitStrc* pItem = pGoldPiles[i];
-                if (pUnit && sub_0044BE50_GetUnitTypeOrInvalid(pUnit) == 0)
+                if (pUnit && GAME_GetUnitTypeOrInvalid(pUnit) == 0)
                 {
                     UNITS_StoreOwner(pItem, pUnit);
                 }

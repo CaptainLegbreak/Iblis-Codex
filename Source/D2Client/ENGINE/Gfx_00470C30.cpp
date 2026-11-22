@@ -36,8 +36,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                               // 0x006CC260
 
 D2StateOwnerStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit);                                    // 0x00463E10
-void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pNode);                      // 0x0046E040
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pNode);                      // 0x0046E040
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);                                 // 0x00639DB0
 
@@ -187,7 +187,7 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
 
         if (bRemove)
         {
-            sub_0046E040_RemoveOverlay(pUnit, pNode);
+            GFX_RemoveStateOverlay(pUnit, pNode);
             continue;
         }
 
@@ -212,14 +212,14 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
         case 4:
             nOverlay = pNode->nCurrent;
             nNextOverlay = pNode->nNextOverlay;
-            sub_0046E040_RemoveOverlay(pUnit, pNode);
+            GFX_RemoveStateOverlay(pUnit, pNode);
             if (nOverlay != -1)
             {
-                sub_00470390(pUnit, nOverlay, 3, 0, 0, 0, 0, 0);
+                GFX_AddUnitOverlay(pUnit, nOverlay, 3, 0, 0, 0, 0, 0);
             }
             if (nNextOverlay != -1)
             {
-                sub_00470390(pUnit, nNextOverlay, 3, 0, 0, 0, 0, 0);
+                GFX_AddUnitOverlay(pUnit, nNextOverlay, 3, 0, 0, 0, 0, 0);
             }
             break;
 
@@ -227,18 +227,18 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
             nOverlay = pNode->nCurrent;
             nNextOverlay = pNode->nNextOverlay;
             nState = pNode->nNextState;
-            sub_0046E040_RemoveOverlay(pUnit, pNode);
+            GFX_RemoveStateOverlay(pUnit, pNode);
             if (!STATES_CheckState(pUnit, nState))
             {
                 break;
             }
             if (nOverlay != -1)
             {
-                sub_00470390(pUnit, nOverlay, 8, 0, nState, 0, 0, 0);
+                GFX_AddUnitOverlay(pUnit, nOverlay, 8, 0, nState, 0, 0, 0);
             }
             if (nNextOverlay != -1)
             {
-                sub_00470390(pUnit, nNextOverlay, 8, 0, nState, 0, 0, 0);
+                GFX_AddUnitOverlay(pUnit, nNextOverlay, 8, 0, nState, 0, 0, 0);
             }
             break;
 
@@ -255,8 +255,8 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
             break;
 
         case 7:
-            sub_0046E040_RemoveOverlay(pUnit, pNode);
-            sub_00470390(pUnit, 0x8C, 4, 0, 0x8D, 0x8E, 0, 0);
+            GFX_RemoveStateOverlay(pUnit, pNode);
+            GFX_AddUnitOverlay(pUnit, 0x8C, 4, 0, 0x8D, 0x8E, 0, 0);
             break;
         }
     }

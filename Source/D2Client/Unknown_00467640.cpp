@@ -8,7 +8,7 @@ struct D2PanelAnimEntryStrc;
 
 extern int gdwGlobal_007A6A94; // 0x007A6A94
 extern int gdwGlobal_007A6A98; // 0x007A6A98
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 enum D2C_W04CursorConstants
 {
@@ -28,7 +28,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char*
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 extern D2MsgHandlerEntryStrc gaCursorMsgHandlers_00711FEC[]; // 0x00711FEC
 extern D2PanelAnimEntryStrc gaPanelAnim_00712020[]; // 0x00712020
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -54,7 +54,7 @@ D2UnitStrc* __cdecl sub_00467A10()
 {
     if (gdwGlobal_007A6A94)
     {
-        D2UnitStrc* pUnit = sub_00463990(gnSelectedUnitId_007A6A78, gnSelectedUnitType_007A6A8C);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, gnSelectedUnitType_007A6A8C);
         if (pUnit && sub_00466870(pUnit, 0, 0, 0))
         {
             return pUnit;

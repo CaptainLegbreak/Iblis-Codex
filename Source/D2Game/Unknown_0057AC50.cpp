@@ -363,7 +363,8 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
     }
 
     if ((int)(sub_I19_RollSeedInline(&pDefender->pSeed) % 100) < 20 && pDefender && pDefender->dwUnitType == UNIT_MONSTER
-        && !sub_004638A0_CheckMonStats2Flag(pDefender->dwClassId, 0x13))
+// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
+        && !MONSTERREGION_CheckMonStats2Flag(pDefender->dwClassId, 0x13))
     {
         STATES_ToggleState(pDefender, 0x6B, 1);
         return;

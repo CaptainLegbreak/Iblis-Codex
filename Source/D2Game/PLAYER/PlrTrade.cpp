@@ -395,9 +395,9 @@ struct D2InventoryStrc;
 
 struct D2ActiveRoomStrc;
 
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
 
-D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
+D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
 
 int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);             // 0x0055CC90
 
@@ -808,7 +808,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -827,7 +827,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -846,7 +846,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -865,7 +865,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -884,7 +884,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -903,7 +903,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -922,7 +922,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -941,7 +941,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -960,7 +960,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -979,7 +979,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -998,7 +998,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -1017,7 +1017,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                     nStatId = pRecord->nParam;
                     if (nStatId >= 0 && nStatId <= sgptDataTables->nItemStatCostTxtRecordCount)
                     {
-                        pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStatId);
+                        pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nStatId);
                         if (!pItemStatCostTxtRecord)
                         {
                             continue;
@@ -1056,7 +1056,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                 if (pRecord->pOutputItem[0].nType == 255)
                 {
                     pCubeItem[i].pItem = pItem;
-                    pCubeItem[i].nClassId = sub_00451F60_UnitClassId(pItem);
+                    pCubeItem[i].nClassId = GAME_GetUnitClassId(pItem);
 
                     if (pRecord->pOutputItem[0].wItemFlags & 0x80)
                     {
@@ -1437,7 +1437,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
             && (pGame->bExpansion || pCubeMainTxtRecord->wVersion < 100)
             && (pGame->nGameType || pGame->dwGameType || !pCubeMainTxtRecord->nLadder)
             && pCubeMainTxtRecord->nMinDiff <= pGame->nDifficulty
-            && (pCubeMainTxtRecord->nClass == 0xFF || pCubeMainTxtRecord->nClass == sub_00451F60_UnitClassId(pUnit))
+            && (pCubeMainTxtRecord->nClass == 0xFF || pCubeMainTxtRecord->nClass == GAME_GetUnitClassId(pUnit))
             && pCubeMainTxtRecord->nNumInputs == nItemsInCube)
         {
             int bOpConditionsFulfilled = 0;
@@ -1469,7 +1469,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1490,7 +1490,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1511,7 +1511,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1532,7 +1532,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1553,7 +1553,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1574,7 +1574,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1595,7 +1595,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1616,7 +1616,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1637,7 +1637,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1658,7 +1658,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1679,7 +1679,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
@@ -1700,7 +1700,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                 }
                 else
                 {
-                    D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
+                    D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pCubeMainTxtRecord->nParam);
                     if (pItemStatCostTxtRecord)
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;

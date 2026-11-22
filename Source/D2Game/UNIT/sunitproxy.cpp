@@ -1068,7 +1068,8 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2
         return 0;
     }
 
-    if (!sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, MONSTATS2FLAGINDEX_SOFT))
+// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
+    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, MONSTATS2FLAGINDEX_SOFT))
     {
         return 0;
     }

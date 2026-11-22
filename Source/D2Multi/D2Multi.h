@@ -83,20 +83,20 @@ extern int gnSelectedLine_0070EC1C; // 0x0070EC1C
 extern int gnValue_00798CCC; // 0x00798CCC
 extern unsigned short gwRequestId_0070CD60; // 0x0070CD60
 int __cdecl FOG_IsExpansion(); // 0x00408F20
-int __cdecl sub_0043DB10(); // 0x0043DB10
+int __cdecl GAME_IsLaunchExpansion(); // 0x0043DB10
 int __cdecl sub_0043DC30_GetStatus(); // 0x0043DC30
 int __cdecl sub_0043F850(); // 0x0043F850
 int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
 int __cdecl sub_00449BE0(); // 0x00449BE0
-int __cdecl sub_00449C00(); // 0x00449C00
+int __cdecl GAME_GetConnectError(); // 0x00449C00
 int __cdecl sub_00449E40(); // 0x00449E40
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 int __fastcall D2Win_10055(D2WinControlStrc* pTextBox); // 0x004FBAB0
 int __fastcall D2Win_10082(D2WinControlStrc* pEditBox); // 0x004FDD00
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
-int __fastcall sub_0044A4E0_SendConnect(const char* szName, const char* szRealm, unsigned short wRequestId); // 0x0044A4E0
+int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, unsigned short wRequestId); // 0x0044A4E0
 int __fastcall sub_004F9710_TestFlag(D2WinControlStrc* pControl); // 0x004F9710
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 int __fastcall sub_004FB990_GetSelection(D2WinControlStrc* pControl); // 0x004FB990

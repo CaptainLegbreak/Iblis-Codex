@@ -96,10 +96,10 @@ extern int gnGlobal_007C0E7C; // 0x007C0E7C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall INV_SetTradePanelOpen(int bOpen); // 0x00489360
 void __fastcall INV_UpdateTradeAcceptSound(int nArg1, int nArg2); // 0x004897E0
 void __cdecl INV_OpenStashPanel(); // 0x00489E00
@@ -176,8 +176,8 @@ void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle); // 
 void __fastcall D2SOUND_ListFree(D2SoundUnitNodeStrc** ppList); // 0x00516A10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
-void __fastcall sub_0044C860_SetValue(int nValue); // 0x0044C860
-void __cdecl sub_0044D520(); // 0x0044D520
+void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
+void __cdecl GAME_RequestExit(); // 0x0044D520
 
 #pragma pack(push, 1)
 struct D2UiPacketStrc_004B9210
@@ -194,7 +194,7 @@ void __fastcall NPCMENU_ReloadHirelingPopup(unsigned short nArg); // 0x004B3340
 void __fastcall sub_004B25C0_OnUiPacket3(D2UiPacketStrc_004B9210* pPacket); // 0x004B25C0
 void __fastcall sub_0049FF60_OnUiPacket4(D2UiPacketStrc_004B9210* pPacket); // 0x0049FF60
 extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 struct D2CinematicPacketStrc
 {
@@ -519,7 +519,7 @@ void __cdecl sub_004B8730_DrawDialogHover()
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
         if (sub_00463DF0() || (pRoom && !DUNGEON_IsTownLevelId(DUNGEON_GetLevelIdFromRoom(pRoom))))
         {
-            if (sub_004538D0(0x17))
+            if (GAME_GetUIVarState(0x17))
             {
                 sub_00478600_SendShorts(0x4F, 2, 0, 0);
                 sub_00455F20(0x17, 1, 0);
@@ -614,7 +614,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
     case 0:
         if (!gnGlobal_007C0E7C)
         {
-            if (!sub_004538D0(0x17))
+            if (!GAME_GetUIVarState(0x17))
             {
                 if (!sub_00455F20(0x17, 0, 0))
                 {
@@ -641,7 +641,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
 
     case 10:
     {
-        D2UnitStrc* pUnit = sub_00463990(gnGlobal_007C0E60, 0);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnGlobal_007C0E60, 0);
         if (pUnit)
         {
             sub_004CB9C0_Request(pUnit, 0x17);
@@ -659,13 +659,13 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
                 return;
             }
 
-            if (sub_004B85E0() || !sub_004B8AD0_OpenWait() || sub_004538D0(5))
+            if (sub_004B85E0() || !sub_004B8AD0_OpenWait() || GAME_GetUIVarState(5))
             {
                 sub_00478600_SendShorts(0x4F, 2, 0, 0);
                 return;
             }
 
-            if (!sub_004538D0(0x17))
+            if (!GAME_GetUIVarState(0x17))
             {
                 if (!sub_00455F20(0x17, 0, 0))
                 {
@@ -956,8 +956,8 @@ int __cdecl sub_004B9180_PollWait()
             sub_004B8940_CloseWait(0);
             sub_00477EE0();
             sub_0044B880_SetValue(0);
-            sub_0044C860_SetValue(1);
-            sub_0044D520();
+            GAME_SetCinematicExit(1);
+            GAME_RequestExit();
         }
 
         return 1;
@@ -1000,8 +1000,8 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
     case 23:
         sub_00477EE0();
         sub_0044B880_SetValue(0);
-        sub_0044C860_SetValue(1);
-        sub_0044D520();
+        GAME_SetCinematicExit(1);
+        GAME_RequestExit();
         return;
     }
 }
@@ -1021,7 +1021,7 @@ void __cdecl sub_004BE060()
 {
     if (gpCelFile_007C546C)
     {
-        sub_00478A00(gpCelFile_007C546C);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007C546C);
         gpCelFile_007C546C = 0;
     }
 }

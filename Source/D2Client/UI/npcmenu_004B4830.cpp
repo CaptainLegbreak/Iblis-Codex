@@ -35,9 +35,9 @@ struct UnitView;
 
 struct TablesView;
 
-void __fastcall sub_0046F170_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
+void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
 
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -63,11 +63,11 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask); // 0x004AC7E0
 
-D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
+D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pPath); // 0x00648A00
 
@@ -83,7 +83,7 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 struct RecordView
 {
@@ -188,7 +188,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 
@@ -222,7 +222,7 @@ void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1,
 
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 
@@ -311,15 +311,15 @@ extern unsigned int gnHirelingName_00725494; // 0x00725494
 
 extern D2NpcIndexStrc gaNpcIndex_00726C48[]; // 0x00726C48
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc*); // 0x00464A60
+const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc*); // 0x00464A60
 
 void __stdcall UNITS_GetClientCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620900
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc*,long*,long*,long*,long*); // 0x00476070
 
-void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc*,int*,int*); // 0x004760C0
+void __fastcall VIEW_GetViewOffset(D2ViewStrc*,int*,int*); // 0x004760C0
 
 int __cdecl sub_004B45D0_NpcMenuCancel(); // 0x004B45D0
 
@@ -378,9 +378,9 @@ void __fastcall NPCMENU_StateDurielDeath(D2UnitStrc* pUnit, int nState, int bFla
         UNITS_GetShiftedFrameMetrics(pUnit, &nFrame, &nFrameCount);
         if (nFrame == 13)
         {
-            sub_0046F170_RemoveOverlays(pUnit);
-            sub_00470390(pUnit, 0x34, 5, 0, 0, 0, 0, 0);
-            sub_00470390(pUnit, 0x9C, 5, 0, 0, 0, 0, 0);
+            GFX_RemoveOverlays(pUnit);
+            GFX_AddUnitOverlay(pUnit, 0x34, 5, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, 0x9C, 5, 0, 0, 0, 0, 0);
             pUnit->nActionFrame = 0;
         }
     }
@@ -536,7 +536,7 @@ void __fastcall NPCMENU_StateMissileSplit(D2UnitStrc* pUnit, int nState, int bFl
     }
 
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pOwner);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pOwner);
     int nX;
 
     if (!pTarget)
@@ -596,8 +596,8 @@ void __fastcall NPCMENU_StateMissileSplit(D2UnitStrc* pUnit, int nState, int bFl
         }
     }
 
-    sub_004CDBA0_SubmitOwnerRequest(pOwner, nMissileId, nX - nDY, bFlag + nDX, sub_0064A280(pUnit), sub_0064A210(pUnit));
-    sub_004CDBA0_SubmitOwnerRequest(pOwner, nMissileId, nX + nDY, bFlag - nDX, sub_0064A280(pUnit), sub_0064A210(pUnit));
+    MISSILE_SubmitOwnerRequest(pOwner, nMissileId, nX - nDY, bFlag + nDX, sub_0064A280(pUnit), sub_0064A210(pUnit));
+    MISSILE_SubmitOwnerRequest(pOwner, nMissileId, nX + nDY, bFlag - nDX, sub_0064A280(pUnit), sub_0064A210(pUnit));
 
     if (pOwner->dwUnitType == UNIT_MONSTER)
     {
@@ -614,8 +614,8 @@ void __fastcall NPCMENU_StateRequests(D2UnitStrc* pUnit)
 {
     int nX = GetUnitPathX(pUnit);
     int nY = GetUnitPathY(pUnit);
-    sub_004CDB40_SubmitRequest(pUnit, 0x75, nX, nY, 0, 1);
-    sub_004CDB40_SubmitRequest(pUnit, 0x221, nX, nY, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nX, nY, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pUnit, 0x221, nX, nY, 0, 1);
     sub_004B9A00(0x99A, pUnit, 0, 0, 0);
 }
 
@@ -723,7 +723,7 @@ int __cdecl NPCMENU_HireMercHandler()
     if (nCount < 10 && gpTradeObj_007C0D83->GetAt(nCount) < 10)
     {
         if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1
-            && (!sub_0044DCC0() || (!sub_00478EE0_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gwGlobal_00725494 == 0xFFFF)))
+            && (!GAME_IsExpansion() || (!sub_00478EE0_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gwGlobal_00725494 == 0xFFFF)))
         {
             NPCMENU_HireMercWait();
             return 0;
@@ -799,7 +799,7 @@ int __cdecl NPCMENU_CloseSubMenuDialog()
 // 0x004B40D0
 static void __stdcall NPCMENU_ShowNpcMessage(char bFlag, int nIndex)
 {
-    D2UnitStrc* pNpc = gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0;
+    D2UnitStrc* pNpc = gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
     if (!pNpc)
     {
         gnGlobal_007C0C6B = 0;
@@ -820,7 +820,7 @@ static void __stdcall NPCMENU_ShowNpcMessage(char bFlag, int nIndex)
         if (bFlag)
             nIndex = gpNpcEntry_007C0C7D->nIndex;
     }
-    D2UnitStrc* pUnit = gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0;
+    D2UnitStrc* pUnit = gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
     sub_004A10E0(pUnit, gpNpcEntry_007C0C7D->pMessages[nIndex % gpNpcEntry_007C0C7D->nCount].nMessage, 0);
 }
 
@@ -838,7 +838,7 @@ int __cdecl NPCMENU_GreetNpcMessage()
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
     if (gnGlobal_007C0D29)
     {
-        D2UnitStrc* pNpc = sub_00463990(gnGlobal_007C0D25, 1);
+        D2UnitStrc* pNpc = CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
         if (pNpc)
         {
             switch (pNpc->dwClassId)
@@ -901,7 +901,7 @@ int __cdecl NPCMENU_OpenTradeShop()
         gpDialog_007C0D6B = 0;
     }
 
-    D2UnitStrc* pUnit = sub_00463990(gnGlobal_007C0D25, 1);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
     if (!(pUnit ? pUnit->pInventory : 0))
     {
         gnGlobal_007C0C6B = 0;
@@ -991,7 +991,7 @@ int __cdecl NPCMENU_NpcMenuTalk()
         gpDialog_007C0D7B = 0;
     }
 
-    if (!(gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0))
+    if (!(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0))
     {
         gnGlobal_007C0C6B = 0;
         INV_ResetHover();
@@ -1000,7 +1000,7 @@ int __cdecl NPCMENU_NpcMenuTalk()
         return 1;
     }
 
-    sub_004A10E0(gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0, gwGlobal_007C0C77, 0);
+    sub_004A10E0(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0, gwGlobal_007C0C77, 0);
     sub_004B1980_AddUsedString(gwGlobal_007C0C77);
     if (gwGlobal_007C0C79 == 0xFFFF)
     {
@@ -1017,7 +1017,7 @@ int __cdecl NPCMENU_NpcMenuTalk()
 
 static inline D2UnitStrc* NPC_GetInteractUnit_Inline()
 {
-    return gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25,1):0;
+    return gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25,1):0;
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -1029,7 +1029,7 @@ static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords)
         tagRECT tView;
         sub_00476070_GetViewRect(gpView_007A0640,&tView.left,&tView.top,&tView.right,&tView.bottom);
         D2CoordStrc tOffset;
-        sub_004760C0_GetViewOffset(gpView_007A0640,&tOffset.nX,&tOffset.nY);
+        VIEW_GetViewOffset(gpView_007A0640,&tOffset.nX,&tOffset.nY);
         tagRECT tRect;
         SetRect(&tRect,tOffset.nX,tOffset.nY,tOffset.nX+(tView.right-tView.left),tOffset.nY+(tView.bottom-tView.top));
         pCoords->nY += -150-tRect.top;
@@ -1073,7 +1073,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
     gpDialog_007C0D6B=sub_004B7EB0_CreateDialog(tCoords.nX,tCoords.nY,sub_004B45D0_NpcMenuCancel,sub_004B4620_NpcMenuCancelB,0,0,1,0,0,0,1);
     sub_004B8370(gpDialog_007C0D6B,1);
     Unicode wszName[80];
-    sub_005267E0(wszName,sub_00464A60_GetUnitName(NPC_GetInteractUnit_Inline()));
+    sub_005267E0(wszName,CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
     sub_00526800(wszName);
     sub_004B85F0_AddTextLine(gpDialog_007C0D6B,wszName,21,0,4,1,0,0);
     int nIndex=NPC_FindIndex_Inline(NPC_GetInteractUnit_Inline());
@@ -1131,7 +1131,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
             if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,0))continue;
             if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1)!=1)
             {
-                if(sub_0044DCD0_GetDifficulty()!=2 || QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1))continue;
+                if(GAME_GetDifficulty()!=2 || QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1))continue;
             }
             sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
         }

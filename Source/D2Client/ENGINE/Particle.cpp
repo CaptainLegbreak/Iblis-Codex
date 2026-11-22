@@ -36,7 +36,7 @@ unsigned int gaClassTokens_007C89C0[3];                                         
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
-D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
+D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
 
 D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGetMode);                     // 0x0065B500
 
@@ -154,9 +154,9 @@ typedef char AssertUnitData[(OFFSET(B28Unit,monsterData)==0x14)?1:-1];
 typedef char AssertGamePool[(OFFSET(B28Game,pool)==0x1C)?1:-1];
 
 // 0x004DA000
-void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit)
+void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit)
 {
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (!pMotion)
     {
         pMotion = (D2GfxMotionStrc*)FOG_Alloc(sizeof(D2GfxMotionStrc), ".\\ENGINE\\Particle.cpp", 72, 0);
@@ -167,15 +167,15 @@ void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit)
 }
 
 // 0x004DA070
-D2GfxMotionStrc* __fastcall sub_004DA070_GetGfxMotion(D2UnitStrc* pUnit)
+D2GfxMotionStrc* __fastcall PARTICLE_GetGfxMotion(D2UnitStrc* pUnit)
 {
-    return sub_0046F060_GetGfxMotion(pUnit);
+    return GFX_GetGfxMotion(pUnit);
 }
 
 // 0x004DA080
-void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit)
+void __stdcall PARTICLE_FreeGfxMotion(D2UnitStrc* pUnit)
 {
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
     {
         FOG_Free(pMotion, ".\\ENGINE\\Particle.cpp", 100, 0);
@@ -201,7 +201,7 @@ extern "C" void __fastcall sub_004B2370_SubmitItem(U32 value)
 }
 
 // 0x004DA0B0
-extern "C" int __stdcall sub_004DA0B0_GetGfxOffsetX(B28Unit* unit)
+extern "C" int __stdcall PARTICLE_GetGfxOffsetX(B28Unit* unit)
 {
     B28GfxData* gfx = sub_0046F060_GetGfx(unit);
     if (gfx)
@@ -212,7 +212,7 @@ extern "C" int __stdcall sub_004DA0B0_GetGfxOffsetX(B28Unit* unit)
 // 0x004DA700
 int __fastcall sub_004DA700_GetGfxMotionFlag5(D2UnitStrc* pUnit)
 {
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
     {
         return pMotion->bFlag5;
@@ -221,7 +221,7 @@ int __fastcall sub_004DA700_GetGfxMotionFlag5(D2UnitStrc* pUnit)
 }
 
 // 0x004DA790
-void __cdecl sub_004DA790_InitModeTokens()
+void __cdecl PARTICLE_InitModeTokens()
 {
     memset(gaCompTokens_007C8920, 0, sizeof(gaCompTokens_007C8920));
     for (unsigned int i = 0; i < 16; ++i)
@@ -265,7 +265,7 @@ void __cdecl sub_004DA790_InitModeTokens()
 }
 
 // 0x004DAD20
-void __fastcall sub_004DAD20_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
+void __fastcall PARTICLE_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
 {
     const int nOverlay = pToken->nOverlay;
     D2OverlayTxt* pRecord = (nOverlay >= 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount) ? &sgptDataTables->pOverlayTxt[nOverlay] : 0;

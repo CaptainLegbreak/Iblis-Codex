@@ -43,14 +43,14 @@ struct D2QuestUiFlagsStrc
 };
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
-extern "C" void __cdecl sub_0044C820_ConfigureOrDefer(); // 0x0044C820
-void __cdecl sub_0044D520(); // 0x0044D520
+extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
+void __cdecl GAME_RequestExit(); // 0x0044D520
 void __fastcall sub_0044D530(int nValue); // 0x0044D530
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
-void __cdecl sub_0044EC80_SetDifficultyFlags(); // 0x0044EC80
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+void __cdecl GAME_SetDifficultyFlags(); // 0x0044EC80
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-void __fastcall sub_00464990(UNITFN pfnCallback); // 0x00464990
+void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 void __cdecl INV_StopCinematic(); // 0x00483300
@@ -59,7 +59,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x00
 void __fastcall TEXT_SelectQuestPage(int nCondition); // 0x004A2C30
 void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit); // 0x004A2C70
 void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit); // 0x004A2C90
-D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
@@ -91,19 +91,19 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
                 sub_0046F870_LoadMonsterCofs(MONSTER_DURIEL, 1);
                 return;
             case 23:
-                sub_0044D520();
+                GAME_RequestExit();
                 return;
             case 3:
                 TEXT_PrintChatLine(D2LANG_GetStringFromTblIndex(3708), 0);
                 return;
             case 4:
-                sub_00464990(TEXT_ClearCainFlag);
+                CUNIT_ForEachMonster(TEXT_ClearCainFlag);
                 return;
             case 15:
                 TEXT_PrintChatLine(D2LANG_GetStringFromTblIndex(3710), 0);
                 return;
             case 10:
-                sub_0044C820_ConfigureOrDefer();
+                GAME_ConfigureEnvironmentOrDefer();
                 return;
             case 33:
                 sub_004B9A00(237, 0, 0, 0, 0);
@@ -117,12 +117,12 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
             switch (pPacket->nId)
             {
             case 23:
-                if (sub_0044DCC0())
+                if (GAME_IsExpansion())
                 {
                     INV_ChainCinematic();
                     return;
                 }
-                sub_0044EC80_SetDifficultyFlags();
+                GAME_SetDifficultyFlags();
                 INV_StopCinematic();
                 return;
             case 4:
@@ -172,12 +172,12 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
             }
             else if (nId == 33)
             {
-                sub_00464990(TEXT_ClearNihlathakFlag);
+                CUNIT_ForEachMonster(TEXT_ClearNihlathakFlag);
                 return;
             }
             else
             {
-                D2BitBufferStrc* pQuestFlags = sub_004B32D0();
+                D2BitBufferStrc* pQuestFlags = MONSTER_GetQuestFlags();
                 if (pQuestFlags && QUESTRECORD_GetQuestState(pQuestFlags, 1, 0))
                 {
                     return;
@@ -221,7 +221,7 @@ refresh:
         return;
     }
 
-    if (sub_004538D0(15))
+    if (GAME_GetUIVarState(15))
     {
         int nIndex = TEXT_FindQuestIndex(pPacket->nId);
         if (nIndex != -1)
@@ -239,7 +239,8 @@ refresh:
     }
 }
 
-void __fastcall sub_0045E540_Packet5D(const D2PacketRecord6Strc* pPacket)
+// build: symbol ?SCMD_HandleQuestEvent@* 0x0045E540
+void __fastcall SCMD_HandleQuestEvent(const D2PacketRecord6Strc* pPacket)
 {
     D2PacketRecord6Strc tPacket = *pPacket;
     TEXT_HandleQuestEvent(1, &tPacket);

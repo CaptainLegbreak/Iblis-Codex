@@ -139,13 +139,13 @@ extern int gnWaitDone_00779994; // 0x00779994
 extern unsigned short gwToUpperTable_00730578[0x100]; // 0x00730578
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0040EB10(); // 0x0040EB10
-int __cdecl sub_00430B40(); // 0x00430B40
+int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 int __cdecl sub_00432400_GetStatus(); // 0x00432400
 int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
-int __cdecl sub_00449C00(); // 0x00449C00
+int __cdecl GAME_GetConnectError(); // 0x00449C00
 int __cdecl sub_00449E60(); // 0x00449E60
-int __cdecl sub_0044AAB0_SendPacket19(); // 0x0044AAB0
+int __cdecl VIEW_SendMcpCharListRequest(); // 0x0044AAB0
 int __cdecl sub_004FAC90(); // 0x004FAC90
 int __cdecl sub_00514D80(); // 0x00514D80
 int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion); // 0x004FAD10

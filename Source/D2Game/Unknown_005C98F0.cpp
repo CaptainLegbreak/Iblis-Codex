@@ -57,7 +57,7 @@ struct D2SummonArgStrc
 
 extern const int gnHydraOffsetX_006E312C[]; // 0x006E312C
 extern const int gnHydraOffsetY_006E3120[]; // 0x006E3120
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); // 0x00541860
@@ -220,7 +220,7 @@ int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pPet);
             if (pAiControl)
                 AITHINK_SetAiControlParams(pAiControl, nExpireFrame, -666, -666);
-            if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) == 1)
+            if (GAME_GetUnitTypeOrInvalid(pUnit) == 1)
                 SUNIT_SetAlignment(pPet, STATLIST_GetUnitAlignment(pUnit), 1);
         }
     }

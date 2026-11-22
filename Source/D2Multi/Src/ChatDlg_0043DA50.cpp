@@ -68,8 +68,8 @@ int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox); // 0x004F91C0
 void __cdecl sub_004477A0_Refresh(); // 0x004477A0
 void __cdecl sub_0043F4D0(); // 0x0043F4D0
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
-void __fastcall sub_0044B220_SetCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
-void __cdecl sub_0044AA50_SendPacket12(); // 0x0044AA50
+void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
+void __cdecl VIEW_SendMcpMotdRequest(); // 0x0044AA50
 void __cdecl sub_0043F730(); // 0x0043F730
 void __cdecl D2SOUND_InitWaveSlots(); // 0x00514DB0
 void __fastcall D2SOUND_PreloadWave(const char* szFile); // 0x00514E10
@@ -78,7 +78,7 @@ void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 int __cdecl sub_00441A90(); // 0x00441A90
 void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
-void __cdecl sub_0044AA80_SendPacket13(); // 0x0044AA80
+void __cdecl VIEW_SendMcpCancelGameCreate(); // 0x0044AA80
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 void __cdecl sub_00515070(); // 0x00515070
 void __cdecl sub_004495A0_ClearChannel(); // 0x004495A0
@@ -306,8 +306,8 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     pControl8 = CONTROL_Create(&gtControlInit_0070D2D0);
     gpNamesButton_0077BD08 = CONTROL_Create(&gtControlInit_0070D300);
     gpControlMain_0077BC4C = CONTROL_Create(&gtControlInit_0070D330);
-    sub_0044B220_SetCallback(sub_00440D10);
-    sub_0044AA50_SendPacket12();
+    GAME_SetMcpChatCallback(sub_00440D10);
+    VIEW_SendMcpMotdRequest();
     sub_0043F730();
     pControl4 = CONTROL_Create(&gtControlInit_0070D360);
     const unsigned short wFlags = *(unsigned short*)gpCharInfo_0077BBD8->wFlags;
@@ -350,7 +350,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
         sub_004FA590_RunLoop(sub_00441500);
         if (sub_00449E40())
         {
-            sub_0044AA80_SendPacket13();
+            VIEW_SendMcpCancelGameCreate();
             sub_00449E50_SetValue(0);
         }
         if (!gpCharInfo_0077BBD8->szRealm0x361[0])

@@ -9,7 +9,7 @@ int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 // 0x004788B0
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType)
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType)
 {
     char szPath[260];
     strcpy(szPath, szFile);
@@ -33,7 +33,7 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, u
 }
 
 // 0x00478A00
-void __fastcall sub_00478A00(void* pCel)
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel)
 {
     CelFileFreeHardware((D2CelFileStrc*)pCel);
     if (pCel)

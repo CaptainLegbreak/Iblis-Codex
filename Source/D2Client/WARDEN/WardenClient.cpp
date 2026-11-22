@@ -116,23 +116,23 @@ struct D2RequestStrc
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-int __cdecl sub_0047A560(); // 0x0047A560
+int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
 int __cdecl sub_004B8A10(); // 0x004B8A10
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
+extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
@@ -144,17 +144,17 @@ void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x00
 
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
 
-void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
+void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
-void __fastcall sub_004CEFE0_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nArg1, int nArg2, int nArg3); // 0x004CEFE0
+void __fastcall MISSILE_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nArg1, int nArg2, int nArg3); // 0x004CEFE0
 
-int __fastcall sub_004DB0D0_UpdateGfxEntry(void* pEntry, int nArg); // 0x004DB0D0
+int __fastcall GFXUTIL_GetCofLayerValue(void* pEntry, int nArg); // 0x004DB0D0
 
 int __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pItem, int nArg1, int nArg2, int nArg3, int nProp, int nArg5, int nArg6, int nArg7); // 0x004E60A0
 
@@ -186,7 +186,7 @@ T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode); // 
 
 void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
-int __fastcall sub_004C5E70_FindCallback(void* pArg, D2UnitStrc* pUnit); // 0x004C5E70
+int __fastcall SKILLS_ScanFindCallback(void* pArg, D2UnitStrc* pUnit); // 0x004C5E70
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -236,17 +236,17 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-int __fastcall sub_00463E50_GetGfxField34(D2UnitStrc* pUnit); // 0x00463E50
+int __fastcall CUNIT_GetBasePalShiftIndex(D2UnitStrc* pUnit); // 0x00463E50
 
-int __fastcall sub_00463EB0_GetGfxField38(D2UnitStrc* pUnit); // 0x00463EB0
+int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit); // 0x00463EB0
 
 int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
 
 void __cdecl CHAT_RecallChatLine(); // 0x0047B9C0
 
-void __stdcall sub_0047BA80_StepChatIndex(int nDelta); // 0x0047BA80
+void __stdcall GFX_StepChatIndex(int nDelta); // 0x0047BA80
 
 extern const int gdwBitMasks[]; // 0x006CE268
 
@@ -448,15 +448,15 @@ extern WardenModule* gpPendingWarden_007BC994; // 0x007BC994
 
 extern D2ClientServiceStrc* gpService_007BC998; // 0x007BC998
 
-static void __stdcall sub_0047F990_HashModule(const char* szName, unsigned char* pDigest, const unsigned char* pData, unsigned int nSkip, unsigned int nSize);
+static void __stdcall WARDENCLIENT_HashModule(const char* szName, unsigned char* pDigest, const unsigned char* pData, unsigned int nSkip, unsigned int nSize); // 0x0047F990
 
-static int __stdcall sub_0047FEE0_LoadModuleByKey(const unsigned char* pRc4Key, const unsigned char* pModuleKey);
+static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, const unsigned char* pModuleKey); // 0x0047FEE0
 
-static void __stdcall sub_0047F990_HashModule(const char* szName, unsigned char* pDigest, unsigned int nSkip, const unsigned char* pData, unsigned int nSize);
+static void __stdcall WARDENCLIENT_HashModule(const char* szName, unsigned char* pDigest, unsigned int nSkip, const unsigned char* pData, unsigned int nSize); // 0x0047F990
 
-static int __stdcall sub_0047FA20_VerifyModuleSignature(const char* szName, unsigned char* pData, const unsigned char* pModulus, const unsigned char* pExponent, unsigned int nExponentSize, unsigned int nSkip, unsigned int nSize, unsigned int nSignatureSize);
+static int __stdcall WARDENCLIENT_VerifyModuleSignature(const char* szName, unsigned char* pData, const unsigned char* pModulus, const unsigned char* pExponent, unsigned int nExponentSize, unsigned int nSkip, unsigned int nSize, unsigned int nSignatureSize); // 0x0047FA20
 
-void __cdecl sub_00480230(); // 0x00480230
+void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 
 extern WardenModule* gpSlotHolder_007BC990; // 0x007BC990
 
@@ -486,11 +486,11 @@ void* gpWardenBuffer_007BC988; // 0x007BC988
 
 unsigned int gnWardenBufferSize_007BC98C; // 0x007BC98C
 
-static int __stdcall sub_0047FC70_LoadModule(const unsigned char* pData, const unsigned char* pKey, unsigned int nSize);
+static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const unsigned char* pKey, unsigned int nSize); // 0x0047FC70
 
-int __fastcall sub_004803C0_InitWarden(int nValue);
+int __fastcall WARDENCLIENT_InitWarden(int nValue); // 0x004803C0
 
-bool __stdcall sub_00480020_LoadModuleByKey(const unsigned char* pModuleKey, const unsigned char* pRc4Key);
+bool __stdcall WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key); // 0x00480020
 
 
 
@@ -498,7 +498,7 @@ extern D2WardenIfaceStrc gWardenIface_00721C98; // 0x00721C98
 
 
 // 0x00479230
-void __fastcall sub_00479230_UpdateOwnerPetFlags(int nOwnerId)
+void __fastcall WARDENCLIENT_UpdateOwnerPetFlags(int nOwnerId)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
     {
@@ -509,12 +509,12 @@ void __fastcall sub_00479230_UpdateOwnerPetFlags(int nOwnerId)
             case 0x16B:
             case 0x16C:
             {
-                D2UnitStrc* pUnit = sub_00463990(pPet->dwUnitId, UNIT_MONSTER);
+                D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPet->dwUnitId, UNIT_MONSTER);
                 if (pUnit)
                 {
-                    int nFlagB = sub_00463EB0_GetGfxField38(pUnit);
+                    int nFlagB = CUNIT_GetPalShiftIndex(pUnit);
                     int bSet = !sub_004791B0_IsOwnedByPlayer(pUnit);
-                    if (nFlagB == sub_00463E50_GetGfxField34(pUnit))
+                    if (nFlagB == CUNIT_GetBasePalShiftIndex(pUnit))
                     {
                         sub_00463E80_SetUnitFlagB(pUnit, bSet);
                     }
@@ -528,7 +528,7 @@ void __fastcall sub_00479230_UpdateOwnerPetFlags(int nOwnerId)
 }
 
 // 0x0047BCA0
-void __stdcall sub_0047BCA0_ChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall WARDENCLIENT_HandleChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -542,17 +542,17 @@ void __stdcall sub_0047BCA0_ChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
     {
     case 0x26:
         CHAT_RecallChatLine();
-        sub_0047BA80_StepChatIndex(1);
+        GFX_StepChatIndex(1);
         break;
     case 0x28:
-        sub_0047BA80_StepChatIndex(-1);
+        GFX_StepChatIndex(-1);
         CHAT_RecallChatLine();
         break;
     }
 }
 
 // 0x0047E090
-void __fastcall sub_0047E090(int bSaveState, int nMenu)
+void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu)
 {
     if (bSaveState)
     {
@@ -563,9 +563,9 @@ void __fastcall sub_0047E090(int bSaveState, int nMenu)
             {
                 if (gaEscMenuUIState_00713058[i].bSave)
                 {
-                    gaEscMenuUIState_00713058[i].nSaved = sub_004538D0(i);
+                    gaEscMenuUIState_00713058[i].nSaved = GAME_GetUIVarState(i);
                 }
-                if (sub_004538D0(i))
+                if (GAME_GetUIVarState(i))
                 {
                     sub_00455F20(i, 1, 0);
                 }
@@ -622,7 +622,7 @@ void __fastcall sub_0047E090(int bSaveState, int nMenu)
 
 // build: symbol ??_7Library@NWardenClient@@6B@ 0x006D8E38
 // 0x0047F8B0
-void __fastcall sub_0047F8B0_SwapBytes(unsigned char* pA, unsigned char* pB)
+void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
 {
     unsigned char nTemp = *pA;
     *pA = *pB;
@@ -643,7 +643,7 @@ D2WardenModuleHolderAStrc::~D2WardenModuleHolderAStrc()
 }
 
 // 0x0047F990
-static void __stdcall sub_0047F990_HashModule(const char* szName, unsigned char* pDigest, const unsigned char* pData, unsigned int nSkip, unsigned int nSize)
+static void __stdcall WARDENCLIENT_HashModule(const char* szName, unsigned char* pDigest, const unsigned char* pData, unsigned int nSkip, unsigned int nSize)
 {
     D2StormHashCtxStrc tCtx;
     char szBuffer[0x400];
@@ -671,7 +671,7 @@ static inline int WardenReadTag(const unsigned char* pSource)
 }
 
 // 0x0047FA20
-static int __stdcall sub_0047FA20_VerifyModuleSignature(const char* szName, unsigned char* pData, const unsigned char* pModulus, const unsigned char* pExponent, unsigned int nExponentSize, unsigned int nSkip, unsigned int nSize, unsigned int nSignatureSize)
+static int __stdcall WARDENCLIENT_VerifyModuleSignature(const char* szName, unsigned char* pData, const unsigned char* pModulus, const unsigned char* pExponent, unsigned int nExponentSize, unsigned int nSkip, unsigned int nSize, unsigned int nSignatureSize)
 {
     D2_ASSERT(nSkip <= nSize, 0xA3);
     unsigned int nDataSize = nSize - nSignatureSize - 4;
@@ -689,7 +689,7 @@ fail:
     unsigned char* pExpected = (unsigned char*)SMemAlloc(nSignatureSize, ".\\WARDEN\\WardenClient.cpp", 0xAB, 0);
     SMemFill(pExpected, nSignatureSize, 0xBB);
     pExpected[nSignatureSize - 1] = 0x0B;
-    sub_0047F990_HashModule(szName, pExpected, pData, nSkip, nDataSize);
+    WARDENCLIENT_HashModule(szName, pExpected, pData, nSkip, nDataSize);
     unsigned char* pDecrypted = (unsigned char*)SMemAlloc(nSignatureSize, ".\\WARDEN\\WardenClient.cpp", 0xB5, 0);
     SMemCopy(pDecrypted, pSignature + 4, nSignatureSize);
     void* hResult;
@@ -731,13 +731,13 @@ D2WardenModuleHolderBStrc::~D2WardenModuleHolderBStrc()
 }
 
 // 0x0047FBF0
-void* __fastcall sub_0047FBF0_WardenAlloc(unsigned int nSize)
+void* __fastcall WARDENCLIENT_AllocLoaderMemory(unsigned int nSize)
 {
     return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x10D, 0);
 }
 
 // 0x0047FC10
-void __fastcall sub_0047FC10_WardenFree(void* pMemory)
+void __fastcall WARDENCLIENT_FreeLoaderMemory(void* pMemory)
 {
     SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x117, 0);
 }
@@ -752,7 +752,7 @@ NWardenClient::Library::Library()
 // 0x0047FC40
 
 // 0x0047FC70
-static int __stdcall sub_0047FC70_LoadModule(const unsigned char* pData, const unsigned char* pKey, unsigned int nSize)
+static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const unsigned char* pKey, unsigned int nSize)
 {
     char szName[10];
     szName[0] = (char)0x5F;
@@ -784,7 +784,7 @@ static int __stdcall sub_0047FC70_LoadModule(const unsigned char* pData, const u
     D2RC4Strc tRc4;
     tRc4.sub_004E09B0_Init(pKey, 0x10);
     tRc4.ApplyKeystream(pBuffer, nSize);
-    if (!sub_0047FA20_VerifyModuleSignature(szName, pBuffer, gabModulus_006D8D18, gabExponent_006D8D14, 4, 0, nSize, 0x100))
+    if (!WARDENCLIENT_VerifyModuleSignature(szName, pBuffer, gabModulus_006D8D18, gabExponent_006D8D14, 4, 0, nSize, 0x100))
     {
         SMemFree(pBuffer, ".\\WARDEN\\WardenClient.cpp", 0x17C, 0);
         return 0;
@@ -829,11 +829,11 @@ static int __stdcall sub_0047FC70_LoadModule(const unsigned char* pData, const u
 }
 
 // 0x0047FEE0
-static int __stdcall sub_0047FEE0_LoadModuleByKey(const unsigned char* pRc4Key, const unsigned char* pModuleKey)
+static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, const unsigned char* pModuleKey)
 {
     if (!SMemCmp(pModuleKey, gabBuiltinModuleKey_006D8768, 0x10))
     {
-        return sub_0047FC70_LoadModule(gabBuiltinModule_006D74B0, gabBuiltinModuleRc4Key_006D8778, 0x12B2);
+        return WARDENCLIENT_LoadModule(gabBuiltinModule_006D74B0, gabBuiltinModuleRc4Key_006D8778, 0x12B2);
     }
     char szName[0x28];
     for (unsigned int i = 0; i < 0x10; ++i)
@@ -852,19 +852,19 @@ static int __stdcall sub_0047FEE0_LoadModuleByKey(const unsigned char* pRc4Key, 
     {
         return 0;
     }
-    int nResult = sub_0047FC70_LoadModule((const unsigned char*)pModule, pRc4Key, nModuleSize);
+    int nResult = WARDENCLIENT_LoadModule((const unsigned char*)pModule, pRc4Key, nModuleSize);
     gpService_007BC998->pfnFree(pModule, nModuleSize);
     return nResult;
 }
 
 // 0x00480020
-bool __stdcall sub_00480020_LoadModuleByKey(const unsigned char* pModuleKey, const unsigned char* pRc4Key)
+bool __stdcall WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key)
 {
-    return sub_0047FEE0_LoadModuleByKey(pRc4Key, pModuleKey);
+    return WARDENCLIENT_LoadModuleByKey(pRc4Key, pModuleKey);
 }
 
 // 0x00480040
-void __stdcall sub_00480040_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3)
+void __stdcall WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3)
 {
     char szName[40];
     for (unsigned int i = 0; i < 16; ++i)
@@ -879,21 +879,21 @@ void __stdcall sub_00480040_CallServiceWithHashName(const unsigned char* pHash, 
 
 
 // 0x004800C0
-void* __stdcall sub_004800C0_WardenAlloc(int nSize)
+void* __stdcall WARDENCLIENT_ServiceAlloc(int nSize)
 {
     return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x274, 0);
 }
 
 
 // 0x004800E0
-void __stdcall sub_004800E0_WardenFree(void* pMemory)
+void __stdcall WARDENCLIENT_ServiceFree(void* pMemory)
 {
     SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x27B, 0);
 }
 
 
 // 0x00480100
-void __stdcall sub_00480100_SetWardenBuffer(const void* pData, unsigned int nSize)
+void __stdcall WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int nSize)
 {
     if (gpWardenBuffer_007BC988)
     {
@@ -905,7 +905,7 @@ void __stdcall sub_00480100_SetWardenBuffer(const void* pData, unsigned int nSiz
 }
 
 // 0x00480150
-bool __stdcall sub_00480150_TakeWardenBuffer(void* pDst, unsigned int* pSize)
+bool __stdcall WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize)
 {
     void* pBuffer = gpWardenBuffer_007BC988;
     if (!pBuffer)
@@ -929,7 +929,7 @@ void WardenModule_EmitDelete(WardenModule* pModule)
 }
 
 // 0x004801D0
-void __cdecl sub_004801D0_UnloadWarden()
+void __cdecl WARDENCLIENT_UnloadWarden()
 {
     if (gpSlotHolder_007BC990)
     {
@@ -942,7 +942,7 @@ void __cdecl sub_004801D0_UnloadWarden()
 
 
 // 0x00480230
-void __cdecl sub_00480230()
+void __cdecl WARDENCLIENT_ActivatePendingModule()
 {
     while (gpPendingWarden_007BC994)
     {
@@ -961,18 +961,18 @@ void __cdecl sub_00480230()
 }
 
 // 0x00480320
-void __fastcall sub_00480320_CallHolderSlot3(int nArg)
+void __fastcall WARDENCLIENT_TickModule(int nArg)
 {
     if (gpSlotHolder_007BC990)
     {
         gpSlotHolder_007BC990->pObj->Slot3(nArg);
-        sub_00480230();
+        WARDENCLIENT_ActivatePendingModule();
     }
 }
 
 
 // 0x00480340
-void __cdecl sub_00480340_ResetWarden()
+void __cdecl WARDENCLIENT_ResetWarden()
 {
     if (gpPendingWarden_007BC994)
     {
@@ -980,7 +980,7 @@ void __cdecl sub_00480340_ResetWarden()
         delete gpPendingWarden_007BC994;
         gpPendingWarden_007BC994 = 0;
     }
-    sub_004801D0_UnloadWarden();
+    WARDENCLIENT_UnloadWarden();
     gnWardenIfaceValue_00721C94 = -1;
     gpService_007BC998 = 0;
     if (gpWardenBuffer_007BC988)
@@ -990,7 +990,7 @@ void __cdecl sub_00480340_ResetWarden()
 }
 
 // 0x004803C0
-int __fastcall sub_004803C0_InitWarden(int nValue)
+int __fastcall WARDENCLIENT_InitWarden(int nValue)
 {
     sub_00480340();
     gnWardenIfaceValue_00721C94 = nValue;
@@ -999,13 +999,13 @@ int __fastcall sub_004803C0_InitWarden(int nValue)
     {
         return 0;
     }
-    sub_0047FEE0_LoadModuleByKey(gabBuiltinModuleRc4Key_006D8778, gabBuiltinModuleKey_006D8768);
-    sub_00480230();
+    WARDENCLIENT_LoadModuleByKey(gabBuiltinModuleRc4Key_006D8778, gabBuiltinModuleKey_006D8768);
+    WARDENCLIENT_ActivatePendingModule();
     return 1;
 }
 
 // 0x004922A0
-int __stdcall sub_004922A0_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
@@ -1028,9 +1028,9 @@ static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBo
 }
 
 // 0x004936E0
-void __stdcall sub_004936E0_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall WARDENCLIENT_HandlePetIconClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!sub_0044DCC0())
+    if (!GAME_IsExpansion())
     {
         return;
     }
@@ -1053,21 +1053,21 @@ void __stdcall sub_004936E0_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00496B10
-void __cdecl sub_00496B10()
+void __cdecl WARDENCLIENT_DrawHostileIcon()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int bPanel = 0;
     int nYOffset = 0;
-    if (!sub_0047A560())
+    if (!ROSTER_IsAnyoneHostile())
     {
         return;
     }
-    if (sub_004538D0(0x19) || sub_004538D0(0x0C) || sub_004538D0(0x18) || sub_004538D0(1) || sub_004538D0(4))
+    if (GAME_GetUIVarState(0x19) || GAME_GetUIVarState(0x0C) || GAME_GetUIVarState(0x18) || GAME_GetUIVarState(1) || GAME_GetUIVarState(4))
     {
         bPanel = 1;
     }
-    if (sub_004538D0(0x17) && !sub_004B8A10())
+    if (GAME_GetUIVarState(0x17) && !sub_004B8A10())
     {
         return;
     }
@@ -1078,7 +1078,7 @@ void __cdecl sub_00496B10()
     tContext.pCellFile = gpCellFile_007BEF28;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
-    if (sub_004538D0(0x0A))
+    if (GAME_GetUIVarState(0x0A))
     {
         nYOffset = 0x46;
     }
@@ -1086,7 +1086,7 @@ void __cdecl sub_00496B10()
 }
 
 // 0x00496BE0
-void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg)
+void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg)
 {
     if (!pUnit || !pSkill)
     {
@@ -1137,7 +1137,7 @@ void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
 }
 
 // 0x0049C7F0
-void __cdecl sub_0049C7F0_BuildWaypointList()
+void __cdecl WARDENCLIENT_BuildWaypointList()
 {
     gnWaypointCount_007BF08A = 0;
     gnWaypointEnabled_007BF08E = 0;
@@ -1225,7 +1225,7 @@ void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, 
         gnGlobal_007BF278 = gnGlobal_007A2858;
     }
 
-    sub_0044DA40();
+    GAME_ResetMouseState();
 
     if (gnHintId_007BF260)
     {
@@ -1289,7 +1289,7 @@ void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, 
 }
 
 // 0x004C5EB0
-int __fastcall sub_004C5EB0_ScanFind(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, int nArg, int* pOut)
+int __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, int nArg, int* pOut)
 {
     D2AreaScanFindStrc tFind = { 0, -1, 0, nArg, nArg, 0 };
 
@@ -1298,7 +1298,7 @@ int __fastcall sub_004C5EB0_ScanFind(D2UnitStrc* pUnit, int nX, int nY, int nRan
         nFlags = 0x583;
     }
 
-    sub_004C5C40_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA280, sub_004C5E70_FindCallback, &tFind, 0);
+    sub_004C5C40_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA280, SKILLS_ScanFindCallback, &tFind, 0);
 
     int nResult = tFind.nFirst;
     if (!nResult)
@@ -1315,7 +1315,7 @@ int __fastcall sub_004C5EB0_ScanFind(D2UnitStrc* pUnit, int nX, int nY, int nRan
 }
 
 // 0x004DB670
-int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
+int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
 {
     int nX = 0;
     int nY = 0;
@@ -1335,8 +1335,8 @@ int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
     }
     else
     {
-        nX = UNITS_GetClientCoordX(pUnit) - sub_0045AFC0();
-        nY = UNITS_GetClientCoordY(pUnit) - sub_0045AFD0_GetMouseYOffset();
+        nX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
+        nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
     }
 
     if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
@@ -1358,7 +1358,7 @@ int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
 
     int nWeaponClassId[2];
     const int nId = COMPOSIT_GetWeaponClassId(pUnit, pInventory, nWeaponClassId, -1, 1);
-    if (!sub_0046E5A0_FindGfxNode(pUnit, nId, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nId, -1))
+    if (!sub_0046E5A0_FindGfxNode(pUnit, nId, -1) && !GFX_LoadUnitGfxNode(pUnit, nId, -1))
     {
         return 0;
     }
@@ -1369,11 +1369,11 @@ int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
         return 0;
     }
 
-    return sub_004DB0D0_UpdateGfxEntry(pEntry, nArg);
+    return GFXUTIL_GetCofLayerValue(pEntry, nArg);
 }
 
 // 0x004E6560
-void __fastcall sub_004E6560_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nArg1, int nArg2)
+void __fastcall WARDENCLIENT_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nArg1, int nArg2)
 {
     if (!pItem || pItem->dwUnitType != UNIT_ITEM)
     {
@@ -1453,7 +1453,7 @@ static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004F3CE0
-int __fastcall sub_004F3CE0_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nArg4, int nX, int nY, int nMonsterId)
+int __fastcall WARDENCLIENT_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nArg4, int nX, int nY, int nMonsterId)
 {
     D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxt)
@@ -1506,10 +1506,10 @@ int __fastcall sub_004F3CE0_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId,
     {
         if (nMissileB > 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
         {
-            sub_004CEFE0_AddMissileEffect(pMissile, nMissileB, 0, 2, 0);
+            MISSILE_AddMissileEffect(pMissile, nMissileB, 0, 2, 0);
         }
 
-        if (!sub_004648F0_GetPathTargetUnit(pUnit) && pSkillsTxt->wTgtSound > 0)
+        if (!CUNIT_GetPathTargetUnit(pUnit) && pSkillsTxt->wTgtSound > 0)
         {
             sub_004B9A00(pSkillsTxt->wTgtSound, pMissile, 0, 0, 0);
         }

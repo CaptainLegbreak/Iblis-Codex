@@ -10,7 +10,7 @@ struct D2GraphicsInterfaceStrc;
 struct D2MonStatsTxt;
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 extern D2GraphicsInterfaceStrc* gpGraphicsInterface; // 0x007C8CC0
 extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces_0072DA80[]; // 0x0072DA80
 
@@ -42,7 +42,7 @@ int __fastcall sub_004F4EC0_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int
         const int nBaseId = MONSTERS_GetBaseIdInline_J03(pUnit->dwClassId);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_BLOODRAVEN && nSkillId == SKILL_NEST)
         {
-            sub_00470390(pUnit, 0x55, 2, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, 0x55, 2, 0, 0, 0, 0, 0);
             nResult = 0x54;
         }
     }

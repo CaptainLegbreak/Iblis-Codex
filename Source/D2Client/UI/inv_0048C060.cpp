@@ -72,7 +72,7 @@ void __fastcall sub_0042F530_ClearUnicode(void* pChar);                         
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nSize, const char* szFormat, ...);             // 0x00413A40
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
@@ -80,9 +80,9 @@ Unicode* __fastcall sub_00452170(Unicode* pText);                               
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);                               // 0x004521C0
 
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
 
-D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex);                              // 0x00483470
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex);                              // 0x00483470
 
 const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString); // 0x004834A0
 
@@ -176,9 +176,9 @@ struct D2BitBufferStrc;
 
 extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int vKey);
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -202,7 +202,7 @@ void __cdecl sub_004A9DF0_UpdateSkillIcons(); // 0x004A9DF0
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
-D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
 int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 
@@ -301,7 +301,7 @@ static int gnGlobal_007BCE30; // 0x007BCE30
 
 static int gbGlobal_007BCE90; // 0x007BCE90
 
-int __cdecl sub_0044DA30(); // 0x0044DA30
+int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
 int __cdecl sub_00463DF0(); // 0x00463DF0
 
@@ -663,7 +663,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                     sub_005267E0(pOut, INV_SkipBracketTag(WSZ(aName)));
                     break;
                 }
-                D2UniqueItemsTxt* pUniqueItemsTxt = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+                D2UniqueItemsTxt* pUniqueItemsTxt = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (!pUniqueItemsTxt)
                 {
                     sub_005267E0(pOut, INV_SkipBracketTag(WSZ(aName)));
@@ -687,7 +687,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
             }
             case ITEMQUAL_SET:
             {
-                D2SetItemsTxt* pSetItemsTxt = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+                D2SetItemsTxt* pSetItemsTxt = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (pSetItemsTxt)
                 {
                     Unicode aName[0x200];
@@ -785,7 +785,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
         sub_00452170(pOut);
         if (pItemsTxt->nQuest)
         {
-            if (pItemsTxt->nQuestDiffCheck && STATLIST_UnitGetStatValue(pItem, STAT_QUESTITEMDIFFICULTY, 0) < sub_0044DCD0_GetDifficulty())
+            if (pItemsTxt->nQuestDiffCheck && STATLIST_UnitGetStatValue(pItem, STAT_QUESTITEMDIFFICULTY, 0) < GAME_GetDifficulty())
             {
                 INV_PrefixColorCode(pOut, 1);
             }
@@ -1073,7 +1073,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
     }
 
     D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    const int nRecord = UNITS_GetInventoryRecordId(pUnit, nPage, sub_0044DCC0());
+    const int nRecord = UNITS_GetInventoryRecordId(pUnit, nPage, GAME_IsExpansion());
     int nGridX = (nX - pGrid->nGridLeft) / pGrid->nGridBoxWidth;
     int nGridY = (nY - pGrid->nGridTop) / pGrid->nGridBoxHeight;
     int nOutX;
@@ -1135,12 +1135,12 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
                         int nNpcId;
                         if (NPCMENU_GetInteractNpcId(&nNpcId))
                         {
-                            D2UnitStrc* pNpc = sub_00463990(nNpcId, 1);
+                            D2UnitStrc* pNpc = CUNIT_FindClientUnit(nNpcId, 1);
                             if (pNpc)
                             {
                                 if (ITEMS_IsNotQuestItem(pHit))
                                 {
-                                    const int nCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pHit, sub_0044DCD0_GetDifficulty(), sub_004B32D0(), !pNpc ? -1 : pNpc->dwClassId, 1);
+                                    const int nCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pHit, GAME_GetDifficulty(), MONSTER_GetQuestFlags(), !pNpc ? -1 : pNpc->dwClassId, 1);
                                     sub_00478700_SendCommand(0x33, !pNpc ? -1 : pNpc->dwUnitId, !pHit ? -1 : pHit->dwUnitId, !pHit ? -1 : pHit->dwAnimMode, nCost);
                                 }
                                 else
@@ -1230,7 +1230,7 @@ LBL_CUBE:
                     {
                         int nFreeX;
                         int nFreeY;
-                        const int nCubeRecord = UNITS_GetInventoryRecordId(pUnit, 3, sub_0044DCC0());
+                        const int nCubeRecord = UNITS_GetInventoryRecordId(pUnit, 3, GAME_IsExpansion());
                         if (INVENTORY_GetFreePosition(pInventory, pCursorItem, nCubeRecord, &nFreeX, &nFreeY, 3))
                         {
                             sub_004786A0_SendDwords2(0x2A, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pHit ? -1 : pHit->dwUnitId);
@@ -1377,7 +1377,7 @@ static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS*
 // 0x004912A0
 void __stdcall sub_004912A0_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if(sub_0044DA30() || sub_00463DF0()) {
+    if(GAME_IsExitPending() || sub_00463DF0()) {
         pMsg->bReturn=0;
         return;
     }
@@ -1450,7 +1450,7 @@ USE_BODY_ACTION:
                 }
             }
 AFTER_BODY:
-            if(!handled && sub_0044DCC0() && sub_00486860_IsOverWeaponSwapTab(x,y)) {
+            if(!handled && GAME_IsExpansion() && sub_00486860_IsOverWeaponSwapTab(x,y)) {
                 pMsg->bReturn=1;
                 sub_0048A730_SwapWeapons();
                 sub_00420290_BreakHandlerChain(pMsg);
@@ -1485,14 +1485,14 @@ AFTER_BODY:
     case 12:
         {
             int left,right,top,bottom;
-            if(sub_0044DCC0()) {
+            if(GAME_IsExpansion()) {
                 left=gGrid_007BCA78.nGridLeft;right=gGrid_007BCA78.nGridRight;top=gGrid_007BCA78.nGridTop;bottom=gGrid_007BCA78.nGridBottom;
             }
             else {
                 left=gGrid_007BCB40.nGridLeft;right=gGrid_007BCB40.nGridRight;top=gGrid_007BCB40.nGridTop;bottom=gGrid_007BCB40.nGridBottom;
             }
             if(x>=left && x<=right && y>=top && y<=bottom) {
-                if(sub_0044DCC0()) INV_ClickInvGrid(player,inventory,x,y,pMsg->wParam,&gGrid_007BCA78,4);
+                if(GAME_IsExpansion()) INV_ClickInvGrid(player,inventory,x,y,pMsg->wParam,&gGrid_007BCA78,4);
                 else INV_ClickInvGrid(player,inventory,x,y,pMsg->wParam,&gGrid_007BCB40,4);
                 pMsg->lResult=0;
                 pMsg->bReturn=1;

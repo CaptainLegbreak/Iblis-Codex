@@ -5,7 +5,7 @@ extern D2NpcSoundStrc gaNpcSounds_0072AE28[];                                   
 extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
 
 int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
-int __fastcall sub_00482680_PickVariant(int nIndex);                                                        // 0x00482680
+int __fastcall SOUNDHDR_PickVariant(int nIndex);                                                        // 0x00482680
 int __cdecl sub_0044DB00();                                                                                 // 0x0044DB00
 
 // 0x004E0370
@@ -125,7 +125,7 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
             }
         }
 
-        nSound = sub_00482680_PickVariant(nSound);
+        nSound = SOUNDHDR_PickVariant(nSound);
         if (nSound != pSound->nLastSound)
         {
             break;

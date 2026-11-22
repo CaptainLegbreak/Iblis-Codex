@@ -318,7 +318,7 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 
 extern const int gnShapeShiftedModeTable[]; // 0x006EB348
 
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 
 D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit); // 0x00620150
 
@@ -580,7 +580,7 @@ int __fastcall SKILLS_GetSkillParam7Formula(int nSkillId, int nSkillLevel); // 0
 
 int __stdcall D2Common_11033(int nLevel, int nParam1, int nParam2); // 0x00645B20
 
-int __fastcall sub_004C9460_GetSkillParam1(int nSkillId); // 0x004C9460
+int __fastcall SKILLS_GetFirstSkillParam(int nSkillId); // 0x004C9460
 
 int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 
@@ -625,7 +625,8 @@ int __stdcall sub_00436E90_AlwaysOne(int nArg)
     return 1;
 }
 
-void __fastcall sub_004C5390_EnlargeVector(int* pX, int* pY)
+// build: symbol ?SKILLS_ScaleUpDirection@* 0x004C5390
+void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
 {
     int nDistance = *pX * *pX + *pY * *pY;
     if (nDistance < 4)
@@ -2595,7 +2596,7 @@ static int __stdcall SKILLS_IsSelectableCorpse(int bDying, D2UnitStrc* pUnit)
         return 0;
     }
 
-    return sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 7) != 0;
+    return MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, 7) != 0;
 }
 
 // 0x00645510
@@ -2606,7 +2607,7 @@ int __stdcall D2COMMON_11017_CheckUnitIfConsumeable(D2UnitStrc* pUnit, int a2)
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && (pUnit->dwAnimMode == MONMODE_DEAD || a2 && pUnit->dwAnimMode == MONMODE_DEATH) && !STATES_CheckStateMaskUdeadOnUnit(pUnit))
     {
         nClassId = pUnit->dwClassId;
-        bCorpseSelectable = sub_004638A0_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_CORPSESEL);
+        bCorpseSelectable = MONSTERREGION_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_CORPSESEL);
     }
 
     if (!bCorpseSelectable)
@@ -2631,7 +2632,7 @@ static inline int CORPSE_CanUnitCorpseBeSelected(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit))
     {
-        if (sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL))
+        if (MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL))
             return 1;
     }
     return 0;
@@ -2649,7 +2650,7 @@ int __stdcall D2COMMON_11018(D2UnitStrc* pUnit)
 int __stdcall D2COMMON_11019(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
+    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
     if (!bCorpseSelectable)
     {
         return 0;
@@ -2670,7 +2671,7 @@ int __stdcall D2Common_11020(D2UnitStrc* pUnit)
 int __stdcall D2COMMON_11021(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
+    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
     if (!bCorpseSelectable)
     {
         return 0;
@@ -2683,7 +2684,7 @@ int __stdcall D2COMMON_11021(D2UnitStrc* pUnit)
 int __stdcall SKILLS_CanUnitCorpseBeSelected(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
+    const int bCorpseSelectable = (nUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit)) ? MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_CORPSESEL) : 0;
     if (!bCorpseSelectable)
     {
         return 0;
@@ -3477,7 +3478,7 @@ int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int n
         nResult = D2Common_11033(nSkillLevel, pSkillsTxtRecord->dwParam[6], pSkillsTxtRecord->dwParam[7]);
         break;
     case 8:
-        nResult = sub_004C9460_GetSkillParam1(nSkillId);
+        nResult = SKILLS_GetFirstSkillParam(nSkillId);
         break;
     case 9:
         nResult = SKILLDESC_GetSkillParamTwo(nSkillId);

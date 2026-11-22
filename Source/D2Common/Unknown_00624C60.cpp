@@ -24,7 +24,7 @@ extern unsigned int gdwBitMasks[];
 extern "C" const char gszStatListSourceFile[];
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize);
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0);
-D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId);
+D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
 D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId);
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);
@@ -593,7 +593,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pItemStatCostTxtRecord->pOpStatData[i].nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseRecord)
                     {
                         const int nShiftedValue = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseRecord->nValShift;
@@ -616,7 +616,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pItemStatCostTxtRecord->pOpStatData[i].nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseRecord)
                     {
                         const int nShiftedValue = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseRecord->nValShift;
@@ -639,7 +639,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pItemStatCostTxtRecord->pOpStatData[i].nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseRecord)
                     {
                         const int nShiftedValue = STATLIST_UnitGetStatValue(pStatListEx->pUnit, nOpBase, 0) >> pOpBaseRecord->nValShift;
@@ -662,7 +662,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pItemStatCostTxtRecord->pOpStatData[i].nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseRecord)
                     {
                         const int nShiftedValue = STATLIST_UnitGetStatValue(pStatListEx->pUnit, nOpBase, 0) >> pOpBaseRecord->nValShift;

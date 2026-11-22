@@ -130,23 +130,23 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
-const char* __cdecl sub_0044B7C0_GetRecordText1F(); // 0x0044B7C0
+const char* __cdecl GAME_GetGameName(); // 0x0044B7C0
 
-const char* __cdecl sub_0044B820_GetRecordText37(); // 0x0044B820
+const char* __cdecl GAME_GetGamePassword(); // 0x0044B820
 
-const char* __cdecl sub_0044B7F0_GetRecordText245(); // 0x0044B7F0
+const char* __cdecl GAME_GetGameDescription(); // 0x0044B7F0
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
 extern int gnAutomapWidth_007A5220; // 0x007A5220
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 int gdwGlobal_007A5150;                                                                                     // 0x007A5150
 
@@ -176,7 +176,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
@@ -184,7 +184,7 @@ int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); //
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit); // 0x00465400
+short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 
 int __fastcall sub_00478D90_GetPetRelation(int nUnitId); // 0x00478D90
 
@@ -196,15 +196,15 @@ int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
+const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 
 const char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x006221A0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 
@@ -212,19 +212,19 @@ unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEn
 
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
 
-int __fastcall sub_0047A1E0(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
+int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 
 void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY); // 0x0047A1B0
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 char gszAccountFolder_007A0500[32]; // 0x007A0500
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -238,7 +238,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nArg, int nX, int nY, int nArg3, int nArg4); // 0x004CDB40
+int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nArg, int nX, int nY, int nArg3, int nArg4); // 0x004CDB40
 
 static D2AutomapLayerStrc* gpAutomapContext_007A5164; // 0x007A5164
 
@@ -838,8 +838,8 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
         }
 
         {
-            const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0_GetPlayerUnit());
-            if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)sub_00465400_GetPlayerRosterField22(pUnit))
+            const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
+            if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
             {
                 *pColor = gnAutomapColors_007A51B0[3];
                 return 1;
@@ -864,7 +864,7 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
             }
         }
 
-        if (sub_00457490_CheckMonStatsFlag(AUTOMAP_GetUnitClassId(pUnit), 9))
+        if (MONSTERUNIQUE_CheckMonStatsFlag(AUTOMAP_GetUnitClassId(pUnit), 9))
         {
             if (pUnit)
             {
@@ -887,8 +887,8 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
         D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, ".\\UI\\automap.cpp", 0x92D);
         if (!nType && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && sub_004639D0_GetOwnerUnit(pUnit))
         {
-            const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0_GetPlayerUnit());
-            if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)sub_00465400_GetPlayerRosterField22(pUnit))
+            const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
+            if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
             {
                 *pColor = gnAutomapColors_007A51B0[4];
                 return 1;
@@ -964,8 +964,8 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
         wszName[i].wChar = 0;
     for (int i = 0; i < 50; ++i)
         wszLine[i].wChar = 0;
-    const char* szFirst = sub_0044B7C0_GetRecordText1F();
-    const char* szSecond = sub_0044B820_GetRecordText37();
+    const char* szFirst = GAME_GetGameName();
+    const char* szSecond = GAME_GetGamePassword();
     if (!szFirst)
     {
         if (!szSecond)
@@ -980,7 +980,7 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
         D2Win_10117_DrawText(wszLine, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszLine) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
         gnAutomapTextY_007A51BC += 0x10;
     }
-    const char* szThird = sub_0044B7F0_GetRecordText245();
+    const char* szThird = GAME_GetGameDescription();
     if (!szThird)
         return;
     sprintf(szText, gszStringFormat_006FFC58, szThird);
@@ -1031,7 +1031,7 @@ void __cdecl AUTOMAP_DrawLocalIpLine()
 void __cdecl AUTOMAP_DrawDifficultyLine()
 {
     unsigned short nString;
-    switch (sub_0044DCD0_GetDifficulty())
+    switch (GAME_GetDifficulty())
     {
     case 1:
         nString = 0x1423;
@@ -1058,40 +1058,40 @@ void __cdecl AUTOMAP_ReloadAutomapCels()
     for (int i = 0; i < 4; ++i)
     {
         if (gpAutomapCels_007A5168[i])
-            sub_00478A00(gpAutomapCels_007A5168[i]);
+            ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
         gpAutomapCels_007A5168[i] = 0;
     }
     switch (gdwGlobal_007A5150)
     {
     case 1:
         sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMapS", szDataGlobal_006D4118);
-        gpAutomapCels_007A5168[0] = sub_004788B0(szPath, 0);
+        gpAutomapCels_007A5168[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
         gnAutomapCelFrames_007A5178[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act2MapS", szDataGlobal_006D4118);
-        gpAutomapCels_007A5168[1] = sub_004788B0(szPath, 0);
+        gpAutomapCels_007A5168[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
         gnAutomapCelFrames_007A5178[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act4MapS", szDataGlobal_006D4118);
-        gpAutomapCels_007A5168[2] = sub_004788B0(szPath, 0);
+        gpAutomapCels_007A5168[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
         gnAutomapCelFrames_007A5178[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
         sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMapS", szDataGlobal_006D4118);
-        gpAutomapCels_007A5168[3] = sub_004788B0(szPath, 0);
+        gpAutomapCels_007A5168[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
         gnAutomapCelFrames_007A5178[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
         break;
     default:
         sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMap", szDataGlobal_006D4118);
-        gpAutomapCels_007A5168[0] = sub_004788B0(szPath, 0);
+        gpAutomapCels_007A5168[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
         gnAutomapCelFrames_007A5178[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act2Map", szDataGlobal_006D4118);
-        gpAutomapCels_007A5168[1] = sub_004788B0(szPath, 0);
+        gpAutomapCels_007A5168[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
         gnAutomapCelFrames_007A5178[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act4Map", szDataGlobal_006D4118);
-        gpAutomapCels_007A5168[2] = sub_004788B0(szPath, 0);
+        gpAutomapCels_007A5168[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
         gnAutomapCelFrames_007A5178[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
         if (FOG_IsExpansion())
         {
             sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMap", szDataGlobal_006D4118);
-            gpAutomapCels_007A5168[3] = sub_004788B0(szPath, 0);
+            gpAutomapCels_007A5168[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
             gnAutomapCelFrames_007A5178[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
         }
         else
@@ -1168,7 +1168,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
 {
     const int nUnitType = AUTOMAP_GetUnitType(pUnit);
     unsigned char nColor = 0;
-    if (nUnitType == 0 && sub_00464820_IsDeadOrDying(pUnit) && !STATES_CheckState(pUnit, STATE_PLAYERBODY))
+    if (nUnitType == 0 && CUNIT_IsDeadOrDying(pUnit) && !STATES_CheckState(pUnit, STATE_PLAYERBODY))
     {
         return;
     }
@@ -1219,10 +1219,10 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
             break;
         }
 
-        if (sub_00457490_CheckMonStatsFlag(AUTOMAP_GetUnitClassId(pUnit), 9))
+        if (MONSTERUNIQUE_CheckMonStatsFlag(AUTOMAP_GetUnitClassId(pUnit), 9))
         {
             const int nOldFont = sub_00502EF0(6);
-            const Unicode* wszName = sub_00464A60_GetUnitName(pUnit);
+            const Unicode* wszName = CUNIT_GetUnitName(pUnit);
             D2Win_10117_DrawText(wszName, nX - D2Win_10121_GetTextWidth(wszName) / 2, nY - 10, 4, 0);
             sub_00502EF0(nOldFont);
         }
@@ -1247,8 +1247,8 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
             break;
         }
 
-        const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0_GetPlayerUnit());
-        if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)sub_00465400_GetPlayerRosterField22(pUnit))
+        const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
+        if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
         {
             break;
         }
@@ -1279,7 +1279,7 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
     int nX = 0;
     int nY = 0;
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
-    const unsigned char nEntryAct = DRLG_GetActNoFromLevelId(sub_0047A1E0(pEntry));
+    const unsigned char nEntryAct = DRLG_GetActNoFromLevelId(ROSTER_GetLevelId(pEntry));
     if (DRLG_GetActNoFromLevelId(nLevelId) != nEntryAct)
     {
         return;
@@ -1302,7 +1302,7 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
 
     if (gdwGlobal_007113E8)
     {
-        sub_0045A760_DrawAutomapText(2, sub_004795C0_GetEntryName(pEntry), nX, nY);
+        sub_0045A760_DrawAutomapText(2, ROSTER_GetEntryName(pEntry), nX, nY);
     }
 }
 
@@ -1330,7 +1330,7 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
 
     for (D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(pFirst); pEntry; pEntry = sub_004795A0_GetNextEntry(pEntry))
     {
-        if (!sub_00463990(sub_0047A0C0_GetRecordUnitId(pEntry), 0) && sub_00479BC0_GetEntryIndex(pEntry) == nIndex)
+        if (!CUNIT_FindClientUnit(sub_0047A0C0_GetRecordUnitId(pEntry), 0) && sub_00479BC0_GetEntryIndex(pEntry) == nIndex)
         {
             sub_0045AB60_DrawAutomapPartyMember(pEntry);
         }
@@ -1339,7 +1339,8 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
 
 struct D2StoredUnitRecordStrc;
 
-void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY)
+// build: symbol ?ITEM_GetAdjacentPosition@* 0x004C51E0
+void __fastcall ITEM_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 {
     const int nDirection = UNITS_GetDirection(pUnit) >> 3;
     int aOffsetX[8] = { 0, -1, -2, -1, 0, 1, 2, 1 };
@@ -1393,7 +1394,7 @@ void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 {
     int nY;
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (pTarget)
     {
         int nX;
@@ -1448,7 +1449,7 @@ int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* p
 
     if (!*pX || !nY)
     {
-        sub_004C51E0_GetAdjacentPosition(pUnit, pX, pY);
+        ITEM_GetAdjacentPosition(pUnit, pX, pY);
     }
     return 1;
 }
@@ -1473,7 +1474,7 @@ int __fastcall AUTOMAP_RequestAtNearTarget(D2UnitStrc* pUnit, int nArg, int nArg
         return 0;
     }
 
-    return sub_004CDB40_SubmitRequest(pUnit, nArg, nTargetX, nTargetY, nArg3, nArg4);
+    return GFXUTIL_SubmitMissileRequest(pUnit, nArg, nTargetX, nTargetY, nArg3, nArg4);
 }
 
 

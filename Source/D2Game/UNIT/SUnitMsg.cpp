@@ -389,7 +389,7 @@ struct D2UnitPacketListStrc
     };
 };
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
@@ -901,11 +901,11 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
         switch (pMsg->nHeader)
         {
         case 0x99:
-            sub_0053D530(pClient, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p99.nUnitType, pMsg->p99.dwUnitGUID, pMsg->p99.wSkill, pMsg->p99.nParam, pMsg->p99.nSkillLevel, 1);
+            sub_0053D530(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p99.nUnitType, pMsg->p99.dwUnitGUID, pMsg->p99.wSkill, pMsg->p99.nParam, pMsg->p99.nSkillLevel, 1);
             break;
 
         case 0x9A:
-            SCMD_SendUnitActionAtPosition(pClient, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
+            SCMD_SendUnitActionAtPosition(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p9A.wX, pMsg->p9A.wY, pMsg->p9A.wSkill, pMsg->p9A.nParam, pMsg->p9A.nSkillLevel, 1);
             break;
 
         case 0x9E:
@@ -940,7 +940,7 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
             break;
 
         case 0x23:
-            D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p23.nParam, pMsg->p23.wParam, pMsg->p23.dwParam);
+            D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit), pMsg->p23.nParam, pMsg->p23.wParam, pMsg->p23.dwParam);
             break;
 
         default:

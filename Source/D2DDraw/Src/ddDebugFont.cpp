@@ -19,7 +19,7 @@ extern "C" const char* __cdecl sub_00408090();                                  
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn);                              // 0x006CC34C
-void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
+void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                                       // 0x004743D0
 void __cdecl TEXT_ResetTextBox();                                                                   // 0x0049F960
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader);                                          // 0x006612A0
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
@@ -90,7 +90,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall SetBkColor(void* hdc, u
 extern "C" __declspec(dllimport) unsigned long __stdcall SetTextColor(void* hdc, unsigned long color); // 0x006CC0AC
 
 // 0x00464810
-void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit)
+void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -99,7 +99,7 @@ void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit)
 }
 
 // 0x00464820
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit)
 {
     if (pUnit->dwFlags & 0x10000)
     {
@@ -128,17 +128,17 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
 }
 
 // 0x00464930
-void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit)
+void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit)
 {
     if (pUnit->pLight)
     {
-        sub_004743D0_ReleaseOverlayResource(pUnit->pLight);
+        DLIGHTMAP_ReleaseLight(pUnit->pLight);
         pUnit->pLight = 0;
     }
 }
 
 // 0x004693B0
-void __fastcall sub_004693B0(int nSteps)
+void __fastcall CUNIT_DispatchMouseWheel(int nSteps)
 {
     if (nSteps > 0)
     {
@@ -159,7 +159,7 @@ void __fastcall sub_004693B0(int nSteps)
 }
 
 // 0x00469AA0
-unsigned short __fastcall sub_00469AA0(int nA, int nB)
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
@@ -173,7 +173,7 @@ unsigned short __fastcall sub_00469AA0(int nA, int nB)
 }
 
 // 0x00469D70
-void __fastcall sub_00469D70(int nId, int nB)
+void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
@@ -185,13 +185,13 @@ void __fastcall sub_00469D70(int nId, int nB)
 }
 
 // 0x00469D90
-int __fastcall sub_00469D90(int nA, int nB)
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB)
 {
-    return sub_00469AA0(nA, nB) != 0xFFFF;
+    return CUNIT_GetHotkeyBinding(nA, nB) != 0xFFFF;
 }
 
 // 0x0046D750
-void __cdecl sub_0046D750()
+void __cdecl CUNIT_ClearAiTargets()
 {
     for (int i = 0; i < 8; ++i)
     {
@@ -200,7 +200,7 @@ void __cdecl sub_0046D750()
 }
 
 // 0x00483410
-D2SetsTxt* __fastcall sub_00483410_GetSetsTxtRecord(int nSetId)
+D2SetsTxt* __fastcall DATATBLS_GetSetsTxtRecord(int nSetId)
 {
     if (nSetId >= 0 && nSetId < sgptDataTables->nSetsTxtRecordCount)
     {
@@ -211,7 +211,7 @@ D2SetsTxt* __fastcall sub_00483410_GetSetsTxtRecord(int nSetId)
 }
 
 // 0x00483440
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex)
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < sgptDataTables->nSetItemsTxtRecordCount)
     {
@@ -222,7 +222,7 @@ D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex)
 }
 
 // 0x00483470
-D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex)
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < sgptDataTables->nUniqueItemsTxtRecordCount)
     {
@@ -233,7 +233,7 @@ D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex)
 }
 
 // 0x00483960
-void __cdecl sub_00483960()
+void __cdecl CUNIT_InitColorTable()
 {
     gabColors_007BCAD8[0] = sub_004FB180_FindPaletteIndex(0x80, 0, 0);
     gabColors_007BCAD8[1] = sub_004FB180_FindPaletteIndex(0, 0x80, 0);
@@ -266,7 +266,7 @@ void __fastcall sub_004898A0(int nMode)
 }
 
 // 0x004898D0
-void __fastcall sub_004898D0(int nState)
+void __fastcall CUNIT_SetDialogState(int nState)
 {
     gnGlobal_00721E34 = nState;
     if (nState == 0)
@@ -285,7 +285,7 @@ void __fastcall sub_004898D0(int nState)
 }
 
 // 0x004A1730
-void __cdecl sub_004A1730_ClearPanel()
+void __cdecl CUNIT_ClearTextPanel()
 {
     TEXT_ResetTextBox();
     gnGlobal_007BF1FA = 0;

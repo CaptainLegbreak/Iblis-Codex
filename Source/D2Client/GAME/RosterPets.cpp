@@ -39,7 +39,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 
-int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
+int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 
 void __cdecl sub_0044DA70();                                                                                // 0x0044DA70
 
@@ -49,7 +49,7 @@ int __cdecl sub_00468730();                                                     
 
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 
-void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey);                                            // 0x00478AB0
+void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey);                                            // 0x00478AB0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);  // 0x004A7080
 
@@ -130,7 +130,7 @@ static T0045FED0* gpTimer_007C0E54;                                             
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 // 0x0045FED0
-void __stdcall sub_0045FED0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ROSTERPETS_HandlePopupButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     gnGlobal_007A524C = 0;
     if (gnGlobal_007A5248)
@@ -186,7 +186,7 @@ void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0046BD50
-int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
+int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
 {
     if (gnGlobal_007A745C || !INV_GetTableByte(0, 1))
     {
@@ -205,7 +205,7 @@ int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGr
 
 
 // 0x00478A50
-void __cdecl sub_00478A50_FreeRosterPets()
+void __cdecl ROSTERPETS_FreeRosterPets()
 {
     D2RosterPetNodeStrc* pPet = gpRosterPets_007BB5BC;
     while (pPet)
@@ -218,7 +218,7 @@ void __cdecl sub_00478A50_FreeRosterPets()
 }
 
 // 0x00478AB0
-void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey)
+void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey)
 {
     D2RosterPetNodeStrc* pPrev = 0;
     for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
@@ -237,7 +237,7 @@ void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey)
 }
 
 // 0x0047ACA0
-void __stdcall sub_0047ACA0_ResetSelectionMsg2(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
 {
     gbGlobal_007BB5E0 = 1;
     gwGlobal_007BC850 = 0;
@@ -252,11 +252,11 @@ void __stdcall sub_0047ACA0_ResetSelectionMsg2(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00478B10
-void __fastcall sub_00478B10_SetRosterEntry(int nKey, int nArg, int nType, int nValue)
+void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue)
 {
     if (nType == 7)
     {
-        sub_00478AB0_RemoveType7(nKey, nKey);
+        ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
     }
     for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
     {
@@ -282,7 +282,7 @@ void __fastcall sub_00478B10_SetRosterEntry(int nKey, int nArg, int nType, int n
 }
 
 // 0x004890B0
-int __stdcall sub_004890B0_ClickRectMsg(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
@@ -310,7 +310,7 @@ int __stdcall sub_004890B0_ClickRectMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00494620
-void __cdecl sub_00494620_DrawColumn()
+void __cdecl ROSTERPETS_DrawHelpColumn()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -326,7 +326,7 @@ void __cdecl sub_00494620_DrawColumn()
 }
 
 // 0x00494F30
-void __stdcall sub_00494F30_ButtonPressMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ROSTERPETS_HandleHelpButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
@@ -407,9 +407,9 @@ void __fastcall sub_0049A460_DrawPanelLabel(int nType, int nUnused, int nY, int 
 }
 
 // 0x004A5980
-void __stdcall sub_004A5980_PressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ROSTERPETS_HandlePanelButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pMsg->bReturn = 0;
         return;
@@ -423,7 +423,7 @@ void __stdcall sub_004A5980_PressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004B76D0
-void __stdcall sub_004B76D0_TimedCallbackMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
 {
     T0045FED0* pTimer = gpTimer_007C0E54;
     if (pTimer && pTimer->dwTick + 0x50 > GetTickCount())
@@ -468,20 +468,20 @@ struct D2HirelingInfoStrc
     int unk0x08[2];
 };
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
+void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
 
-void __fastcall sub_00478B10_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
+void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
 
-void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
+void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
 
-void __fastcall sub_004B1090_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo); // 0x004B1090
+void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo); // 0x004B1090
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 // 0x00478A90
-D2RosterPetNodeStrc* __fastcall sub_00478A90_FindRosterPet(int nKey)
+D2RosterPetNodeStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
 {
     for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
     {
@@ -494,7 +494,7 @@ D2RosterPetNodeStrc* __fastcall sub_00478A90_FindRosterPet(int nKey)
 }
 
 // 0x00478C90
-void __fastcall sub_00478C90_DropPetEntry(int nKey)
+void __fastcall ROSTERPETS_DropPetEntry(int nKey)
 {
     D2RosterPetNodeStrc* pPrev = 0;
     for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
@@ -522,16 +522,16 @@ void __fastcall sub_00478C90_DropPetEntry(int nKey)
 }
 
 // 0x00478BB0
-void __fastcall sub_00478BB0(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs)
+void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs)
 {
     if (nType == 7)
-        sub_00478AB0_RemoveType7(nKey, nKey);
+        ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
 
     D2RosterPetNodeStrc* pNode;
     for (pNode = gpRosterPets_007BB5BC; pNode && pNode->nKey != nKey; pNode = pNode->pNext)
         ;
 
-    sub_00478B10_SetRosterEntry(nKey, nArg, nType, nValue);
+    ROSTERPETS_SetRosterEntry(nKey, nArg, nType, nValue);
 
     for (pNode = gpRosterPets_007BB5BC; pNode && pNode->nKey != nKey; pNode = pNode->pNext)
         ;
@@ -549,12 +549,12 @@ void __fastcall sub_00478BB0(int nKey, int nArg, int nType, int nValue, D2Packet
         D2HirelingInfoStrc tInfo;
         tInfo.nSeed = pArgs->nArg0C;
         tInfo.f_0 = (unsigned short)pArgs->nArg10;
-        D2UnitStrc* pUnit = sub_00463990(nKey, 1);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(nKey, 1);
         if (pUnit)
         {
-            sub_004B1090_InitHireling(pUnit, &tInfo);
-            sub_004647D0_UpdateAttackableFlag(pUnit);
-            sub_004AE210_SetMonsterLight(pUnit);
+            MONSTER_InitHireling(pUnit, &tInfo);
+            CUNIT_UpdateAttackableFlag(pUnit);
+            MONSTER_SetMonsterLight(pUnit);
             UNITS_ChangeAnimMode(pUnit, 1);
         }
     }

@@ -652,7 +652,8 @@ int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
     return 0;
 }
 
-void __fastcall sub_004C5390_EnlargeVector(int* pX, int* pY)
+// build: symbol ?SKILLS_ScaleUpDirection@* 0x004C5390
+void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
 {
     int nDistance = *pX * *pX + *pY * *pY;
     if (nDistance < 4)

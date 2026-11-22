@@ -9,7 +9,7 @@ struct D2ClientListEntryStrc
 };
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
-int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
+int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 void __cdecl UI_RegisterKeyConfigHandlers();                                                                                // 0x00454980
@@ -57,7 +57,7 @@ static void sub_004A6260_UpdateKeyState(int nCommand)
 // build: context TEXT_WheelCaptureMsg
 void __stdcall TEXT_WheelCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pMsg->bReturn = 0;
         return;

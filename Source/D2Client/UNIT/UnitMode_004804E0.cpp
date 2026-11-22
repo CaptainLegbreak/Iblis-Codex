@@ -3,7 +3,7 @@
 
 #define D2ABS(x) ((x) < 0 ? -(x) : (x))
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
@@ -11,7 +11,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
-int __fastcall sub_004DBF20_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY); // 0x004DBF20
+int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY); // 0x004DBF20
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
 void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
@@ -28,13 +28,13 @@ __forceinline int CLIENT_GetAnimModeInline(D2UnitStrc* pUnit)
 }
 
 // 0x004804E0
-void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY)
+void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY)
 {
     if (!nX || !nY)
     {
         return;
     }
-    if (sub_00464820_IsDeadOrDying(pUnit))
+    if (CUNIT_IsDeadOrDying(pUnit))
     {
         return;
     }
@@ -127,7 +127,7 @@ void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, u
         int nScreenX = nX;
         int nScreenY = nY;
         DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
-        if (nX != nCurX && nY != nCurY && !sub_004DBF20_HitTestUnitCel(pUnit, nPixelX, nPixelY) && !sub_004DBF20_HitTestUnitCel(pUnit, nScreenX, nScreenY))
+        if (nX != nCurX && nY != nCurY && !GFXUTIL_HitTestUnitCel(pUnit, nPixelX, nPixelY) && !GFXUTIL_HitTestUnitCel(pUnit, nScreenX, nScreenY))
         {
             bWarp = 1;
         }

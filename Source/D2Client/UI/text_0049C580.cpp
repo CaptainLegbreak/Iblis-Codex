@@ -26,11 +26,11 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void __cdecl sub_0044DA40(); // 0x0044DA40
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
-void __fastcall sub_004898D0(int nState); // 0x004898D0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
 void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 int __cdecl sub_004F59A0(); // 0x004F59A0
@@ -124,7 +124,7 @@ struct D2TextNodeStrc
 
 #pragma pack(pop)
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -161,12 +161,12 @@ void __cdecl TEXT_LoadWaypointPanelCels()
     if (!gpCelFile_007BF071)
     {
         sprintf(szPath, "%s\\ui\\menu\\waygatebackground", szDataGlobal_006D4118);
-        gpCelFile_007BF071 = sub_004788B0(szPath, 0);
+        gpCelFile_007BF071 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCelFile_007BF075)
     {
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-        if (FOG_IsExpansion() && sub_0044DCC0())
+        if (FOG_IsExpansion() && GAME_IsExpansion())
         {
             sprintf(szPath, "%s\\ui\\menu\\expwaygatetabs", szDataGlobal_006D4118);
         }
@@ -174,12 +174,12 @@ void __cdecl TEXT_LoadWaypointPanelCels()
         {
             sprintf(szPath, "%s\\ui\\menu\\waygatetabs", szDataGlobal_006D4118);
         }
-        gpCelFile_007BF075 = sub_004788B0(szPath, 0);
+        gpCelFile_007BF075 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCelFile_007BF079)
     {
         sprintf(szPath, "%s\\ui\\menu\\waygateicons", szDataGlobal_006D4118);
-        gpCelFile_007BF079 = sub_004788B0(szPath, 0);
+        gpCelFile_007BF079 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 }
 
@@ -195,7 +195,7 @@ void __cdecl TEXT_DrawPanelFrame()
     if (!pCelFile)
     {
         wsprintfA(szPath, "%s\\UI\\MENU\\scroin", szDataGlobal_006D4118);
-        pCelFile = sub_004788B0(szPath, 0);
+        pCelFile = ARCHIVE_LoadClientCellFile(szPath, 0);
         gpCelFile_007BF274 = pCelFile;
     }
 
@@ -226,11 +226,11 @@ void __cdecl sub_004A23D0_LoadPanelCels()
     if (!gpCelFile_007BF2D5)
     {
         sprintf(szPath, "%s\\ui\\menu\\questbackground", szDataGlobal_006D4118);
-        gpCelFile_007BF2D5 = sub_004788B0(szPath, 0);
+        gpCelFile_007BF2D5 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCelFile_007BF2D9)
     {
-        if (FOG_IsExpansion() && sub_0044DCC0())
+        if (FOG_IsExpansion() && GAME_IsExpansion())
         {
             sprintf(szPath, "%s\\ui\\menu\\expquesttabs", szDataGlobal_006D4118);
         }
@@ -238,27 +238,27 @@ void __cdecl sub_004A23D0_LoadPanelCels()
         {
             sprintf(szPath, "%s\\ui\\menu\\questtabs", szDataGlobal_006D4118);
         }
-        gpCelFile_007BF2D9 = sub_004788B0(szPath, 0);
+        gpCelFile_007BF2D9 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCelFile_007BF2D1)
     {
         sprintf(szPath, "%s\\ui\\menu\\questsockets", szDataGlobal_006D4118);
-        gpCelFile_007BF2D1 = sub_004788B0(szPath, 0);
+        gpCelFile_007BF2D1 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCelFile_007BF2DD)
     {
         sprintf(szPath, "%s\\ui\\menu\\questdone", szDataGlobal_006D4118);
-        gpCelFile_007BF2DD = sub_004788B0(szPath, 0);
+        gpCelFile_007BF2DD = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCelFile_007BF351)
     {
         sprintf(szPath, "%s\\ui\\menu\\invps", szDataGlobal_006D4118);
-        gpCelFile_007BF351 = sub_004788B0(szPath, 0);
+        gpCelFile_007BF351 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     if (!gpCelFile_007BF34D)
     {
         sprintf(szPath, "%s\\ui\\menu\\questlast", szDataGlobal_006D4118);
-        gpCelFile_007BF34D = sub_004788B0(szPath, 0);
+        gpCelFile_007BF34D = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 }
 
@@ -268,7 +268,7 @@ void __cdecl TEXT_InitTextSlider()
     char szPath[0x104];
     TEXT_InitKeyConfigEntries();
     sprintf(szPath, "%s\\UI\\Menu\\TextSlid", szDataGlobal_006D4118);
-    gpCelFile_007C02BC = sub_004788B0(szPath, 0);
+    gpCelFile_007C02BC = ARCHIVE_LoadClientCellFile(szPath, 0);
     sub_004A5060();
     gnGlobal_007C02AC = 0;
     gnGlobal_007C02B0 = 0;
@@ -286,9 +286,9 @@ void __cdecl TEXT_InitNpcMenu()
     gpGlobal_007C0D47 = QUESTRECORD_AllocRecord(0);
     gnGlobal_007C0C6B = 0;
     sprintf(szPath, "%s\\ui\\panel\\buysell", szDataGlobal_006D4118);
-    gpCelFile_007C0DC8 = sub_004788B0(szPath, 0);
+    gpCelFile_007C0DC8 = ARCHIVE_LoadClientCellFile(szPath, 0);
     sprintf(szPath, "%s\\ui\\menu\\goldbtn", szDataGlobal_006D4118);
-    gpCelFile_007C0DCC = sub_004788B0(szPath, 0);
+    gpCelFile_007C0DCC = ARCHIVE_LoadClientCellFile(szPath, 0);
     gnGlobal_007C0DED = 0;
     gbGlobal_007C0DE0 = 0;
     gnGlobal_007C0DF1 = 0;
@@ -300,7 +300,7 @@ void __cdecl TEXT_LoadTextSliderCel()
 {
     char szPath[0x104];
     sprintf(szPath, "%s\\ui\\menu\\textslid", szDataGlobal_006D4118);
-    gpCelFile_007C546C = sub_004788B0(szPath, 0);
+    gpCelFile_007C546C = ARCHIVE_LoadClientCellFile(szPath, 0);
 }
 
 #include "gen/data/Source/D2Client/UI/text_0049C580.inc"
@@ -574,7 +574,7 @@ void __cdecl TEXT_DrawOverheadTextList()
     int nOldFont = sub_00502EF0(13);
     D2TextNodeStrc* pNode = gtTextList_007BF1EA.pFirst;
     int nX = 15;
-    if (sub_004538D0(6) || sub_004538D0(0x11))
+    if (GAME_GetUIVarState(6) || GAME_GetUIVarState(0x11))
     {
         nX = 100;
     }

@@ -9,10 +9,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
-void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
-void __fastcall sub_004DA6E0_SetMotionFlag20(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
+void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
+void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom);                                     // 0x0046BF30
@@ -52,10 +52,10 @@ void __fastcall sub_0046BFF0_UnitEventMissile271(D2UnitStrc* pUnit)
     }
 
     sub_004DA000(pUnit);
-    sub_004DA1D0_SetMotionVectorA(pUnit, 0, 0, 0x12C);
-    sub_004DA200_SetMotionVectorB(pUnit, 0, 0, -2, 1);
-    sub_004DA2A0_SetMotionVectorC(pUnit, 0, 0, 5, 0);
-    sub_004DA6E0_SetMotionFlag20(pUnit, 0);
+    GFXUTIL_SetMotionVectorA(pUnit, 0, 0, 0x12C);
+    GFXUTIL_SetMotionVectorB(pUnit, 0, 0, -2, 1);
+    GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 5, 0);
+    MISSILE_SetMotionFlagMask(pUnit, 0);
     MISSILE_SetTargetY(pMissile, 1);
     sub_0046BF30_CheckThroneLevel(sub_004646A0_GetPlayerRoom());
 }

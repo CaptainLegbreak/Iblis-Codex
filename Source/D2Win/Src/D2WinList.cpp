@@ -186,7 +186,7 @@ int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptList
 D2CelFileStrc* sghPentagram; // 0x0087E96C
 
 // 0x004760C0
-void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
+void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
 {
     *pX = pView->nPosX;
     *pY = pView->nPosY;
@@ -200,14 +200,14 @@ void __stdcall LIST_UnloadPentspinCellfile()
 }
 
 // 0x00498D50
-void __fastcall sub_00498D50(int nX, int nArg)
+void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
 {
     if ((unsigned int)nX < 4)
         gabBeltHotkey_007BEFB0[nX] = (unsigned char)nArg;
 }
 
 // 0x00498D60
-void __cdecl sub_00498D60()
+void __cdecl VIEW_ResetBeltHover()
 {
     gnBeltBox_0072235C = -1;
     gnBeltRectX_00722360 = -1;
@@ -218,13 +218,13 @@ void __cdecl sub_00498D60()
 }
 
 // 0x00492C10
-int __cdecl sub_00492C10()
+int __cdecl VIEW_IsPetIconVisible()
 {
     return gnGlobal_007BEECC != 2;
 }
 
 // 0x00492F40
-void __fastcall sub_00492F40_SetFade(int nMode)
+void __fastcall VIEW_InitLifeColors(int nMode)
 {
     if (!nMode)
     {
@@ -239,19 +239,19 @@ void __fastcall sub_00492F40_SetFade(int nMode)
 }
 
 // 0x00492F90
-void __cdecl sub_00492F90()
+void __cdecl VIEW_ResetLifeColors()
 {
     gbLifeColorsInit_007BEED3 = 0;
 }
 
 // 0x00497250
-void __cdecl sub_00497250_InitTextColorRed()
+void __cdecl VIEW_InitTextColorRed()
 {
     gnTextColorRed_007BEFBA = D2Win_10034_MixRGB(0xFF, 0, 0);
 }
 
 // 0x004972B0
-void __cdecl sub_004972B0_InitBeltColors()
+void __cdecl VIEW_InitBeltColors()
 {
     gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
     gabBeltColors_007BEF6C[1] = D2Win_10034_MixRGB(0, 0x80, 0);
@@ -260,7 +260,7 @@ void __cdecl sub_004972B0_InitBeltColors()
 }
 
 // 0x004879D0
-void __fastcall sub_004879D0(D2UnitStrc* pUnit)
+void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
 {
     if (gdwGlobal_007BCBF4 == pUnit)
     {
@@ -278,7 +278,7 @@ void __fastcall sub_004879D0(D2UnitStrc* pUnit)
 }
 
 // 0x00487CA0
-int __cdecl sub_00487CA0_SetNpcState6()
+int __cdecl VIEW_SetNpcMenuMode()
 {
     if (gdwGlobal_007BCBF0 == 6)
         return 0;

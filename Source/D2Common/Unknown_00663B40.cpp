@@ -11,7 +11,7 @@
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern const int gnItemSetStates_006EE424[6];                                                               // 0x006EE424
 
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFlags, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);        // 0x00625D00
@@ -43,7 +43,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
         return 0;
     }
 
-    D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+    D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
     if (!pSetItemsTxtRecord)
     {
         return 0;

@@ -281,7 +281,7 @@ void __fastcall ITEMMODE_SendGroundItemToClient(D2UnitStrc* pItem, D2ClientStrc*
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
@@ -1249,7 +1249,7 @@ void __fastcall ITEMMODE_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFi
         if (ITEMS_CheckItemFlag(pInvItem, IFLAG_TARGETING, 0x1D6, ".\\ITEMS\\ItemMode.cpp"))
         {
             ITEMS_SetItemFlag(pInvItem, IFLAG_TARGETING, 0);
-            if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) == UNIT_PLAYER)
+            if (GAME_GetUnitTypeOrInvalid(pUnit) == UNIT_PLAYER)
             {
                 D2GAME_PACKETS_SendPacket0x3F_6FC3EDC0(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1DA), pInvItem, 0xFF, 1, 0, 0xFFFF);
             }

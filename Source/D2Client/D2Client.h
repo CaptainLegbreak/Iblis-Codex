@@ -1010,7 +1010,8 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
 #define I20_OFFSET(s, m) ((unsigned int)&((s*)0)->m)
 #define KEY_WHEEL_DOWN 0x104
 #define KEY_WHEEL_UP 0x103
-#define NPC_GET_INTERACT_UNIT() (gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0)
+// build: symbol ?CUNIT_FindClientUnit@* 0x00463990
+#define NPC_GET_INTERACT_UNIT() (gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0)
 #define NULL 0
 #define SUMMIT_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))

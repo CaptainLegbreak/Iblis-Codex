@@ -10,7 +10,7 @@ struct D2ClientListEntryStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
-int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
+int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey);               // 0x00469C20
 void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                                                // 0x004A5D70
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
@@ -20,7 +20,7 @@ unsigned long gnGlobal_007C02C8;                                                
 // 0x004A60B0
 void __stdcall sub_004A60B0_KeyDownMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pMsg->bReturn = 0;
         return;
@@ -65,7 +65,7 @@ store_key:
 // 0x004A61A0
 void __stdcall sub_004A61A0_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pMsg->bReturn = 0;
         return;

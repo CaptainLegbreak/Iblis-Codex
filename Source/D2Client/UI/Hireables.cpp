@@ -6,7 +6,7 @@
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
 
-#define D2_FREE_PANEL_CEL(pCel) if (pCel) { sub_00478A00(pCel); pCel = 0; }
+#define D2_FREE_PANEL_CEL(pCel) if (pCel) { ARCHIVE_FreeClientCellFile(pCel); pCel = 0; }
 
 struct D2PetTypeTxt;
 
@@ -16,25 +16,25 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny); // 0x00478F20
 
 int __fastcall sub_00478F70_HasPets(D2UnitStrc* pUnit); // 0x00478F70
 
-int __fastcall sub_0047A2C0_HasPartyMate(D2UnitStrc* pUnit); // 0x0047A2C0
+int __fastcall ROSTER_HasPartyMate(D2UnitStrc* pUnit); // 0x0047A2C0
 
-void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
+void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -86,7 +86,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 void __fastcall sub_00467410_SetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
 
@@ -146,9 +146,9 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 
-short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit); // 0x00465400
+short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 
-const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit);                                     // 0x00464A60
+const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit);                                     // 0x00464A60
 
 int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nPetType);                                 // 0x00478EE0
 
@@ -156,9 +156,9 @@ int __fastcall sub_00479080_GetPetLife(int nUnitId);                            
 
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);              // 0x004795A0
 
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
-int __fastcall sub_00479BA0(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479BA0
+int __fastcall ROSTER_GetClassId(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479BA0
 
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);                      // 0x00479BC0
 
@@ -268,7 +268,7 @@ void __cdecl HIREABLES_FreeHirelingIcons()
     {
         if (gapHirelingIcons_007BEEB0[i])
         {
-            sub_00478A00(gapHirelingIcons_007BEEB0[i]);
+            ARCHIVE_FreeClientCellFile(gapHirelingIcons_007BEEB0[i]);
             gapHirelingIcons_007BEEB0[i] = 0;
         }
     }
@@ -280,7 +280,7 @@ void __cdecl HIREABLES_FreeHirelingIcons()
             void* pCel = gppHirelingCels_007BEEAC[i];
             if (pCel)
             {
-                sub_00478A00(pCel);
+                ARCHIVE_FreeClientCellFile(pCel);
             }
         }
         sub_0040B480(0, gppHirelingCels_007BEEAC, ".\\UI\\Hireables.cpp", 0xB7, 0);
@@ -422,17 +422,17 @@ void __cdecl HIREABLES_UpdateHirelingPanel()
     {
         bHasPet = 1;
     }
-    if ((sub_0047A2C0_HasPartyMate(pPlayer) && gnGlobal_007BEECC != 1) || bHasPet)
+    if ((ROSTER_HasPartyMate(pPlayer) && gnGlobal_007BEECC != 1) || bHasPet)
     {
         const int nPetId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
         D2UnitStrc* pPet;
-        if (nPetId == -1 || ((pPet = sub_00463990(nPetId, 1)) != 0 && sub_00464820_IsDeadOrDying(pPet)))
+        if (nPetId == -1 || ((pPet = CUNIT_FindClientUnit(nPetId, 1)) != 0 && CUNIT_IsDeadOrDying(pPet)))
         {
             gnGlobal_007BEEDC = 0;
             gnGlobal_007BEEE0 = 0;
             gnGlobal_007BEEE8 = 0;
         }
-        if (!sub_004538D0(0x13))
+        if (!GAME_GetUIVarState(0x13))
         {
             sub_00455F20(0x13, 0, 0);
         }
@@ -442,7 +442,7 @@ void __cdecl HIREABLES_UpdateHirelingPanel()
         gnGlobal_007BEEE8 = 0;
         gnGlobal_007BEEE0 = 0;
         gnGlobal_007BEEDC = 0;
-        if (sub_004538D0(0x13))
+        if (GAME_GetUIVarState(0x13))
         {
             sub_00455F20(0x13, 1, 0);
         }
@@ -467,7 +467,7 @@ void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    D2UnitStrc* pPet = sub_00463990(nUnitId, 1);
+    D2UnitStrc* pPet = CUNIT_FindClientUnit(nUnitId, 1);
     if (!pPet)
     {
         pMsg->bReturn = 0;
@@ -492,7 +492,7 @@ D2UnitStrc* __cdecl HIREABLES_GetPlayerCursorItem()
 // 0x004934D0
 int __stdcall HIREABLES_CanEquipHirelingItem(int playSound)
 {
- if(!sub_0044DCC0()) return 0;
+ if(!GAME_IsExpansion()) return 0;
  int result=0;
  D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
  if(!player) return 0;
@@ -507,7 +507,7 @@ int __stdcall HIREABLES_CanEquipHirelingItem(int playSound)
    return 1;
   }
   if(ITEMSIsA(item,3) || ITEMSIsA(item,37)) result=1;
-  D2UnitStrc* pet=sub_00463990(petId,1);
+  D2UnitStrc* pet=CUNIT_FindClientUnit(petId,1);
   if(!pet) return 0;
   switch(sub_00479120_GetHirelingClassId(petId)) {
    case 271: if(ITEMSIsA(item,27)) result=1; break;
@@ -562,7 +562,7 @@ static void __stdcall sub_00493B00_DrawUnitName(D2UnitStrc* pUnit, int nX, int n
     {
         unsigned short wszName[32];
         memset(wszName, 0, sizeof(wszName));
-        sub_00526790((Unicode*)wszName, sub_00464A60_GetUnitName(pUnit), 32);
+        sub_00526790((Unicode*)wszName, CUNIT_GetUnitName(pUnit), 32);
         wszName[31] = 0;
         HIREABLES_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
     }
@@ -590,7 +590,7 @@ void __cdecl HIREABLES_LoadHelpCels()
         }
         else
         {
-            sub_00478A00(gpGlobal_007BEEEC);
+            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
             gpGlobal_007BEEEC = 0;
             gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
         }
@@ -603,7 +603,7 @@ void __cdecl HIREABLES_LoadHelpCels()
         }
         else
         {
-            sub_00478A00(gpGlobal_007BEEEC);
+            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
             gpGlobal_007BEEEC = 0;
             gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
         }
@@ -623,17 +623,17 @@ void __cdecl HIREABLES_FreeHelpCels()
 {
     if (gpGlobal_007BEEEC)
     {
-        sub_00478A00(gpGlobal_007BEEEC);
+        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
         gpGlobal_007BEEEC = 0;
     }
     if (gpGlobal_007BEEF0)
     {
-        sub_00478A00(gpGlobal_007BEEF0);
+        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF0);
         gpGlobal_007BEEF0 = 0;
     }
     if (gpGlobal_007BEEF4)
     {
-        sub_00478A00(gpGlobal_007BEEF4);
+        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF4);
         gpGlobal_007BEEF4 = 0;
     }
 }
@@ -700,7 +700,7 @@ int __cdecl HIREABLES_GetBeltRowCount()
 static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2UnitStrc* pPlayer, int* pnX)
 {
     int bDrawn = 0;
-    const unsigned short nIndex = sub_00465400_GetPlayerRosterField22(pPlayer);
+    const unsigned short nIndex = CUNIT_GetPlayerPartyId(pPlayer);
     const int nPlayerId = pPlayer ? pPlayer->dwUnitId : -1;
     if (nIndex == 0xFFFF || gnGlobal_007BEECC)
         return 0;
@@ -719,7 +719,7 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
             continue;
 
         D2CelFileStrc* pCelFile;
-        switch (sub_00479BA0(pEntry))
+        switch (ROSTER_GetClassId(pEntry))
         {
         case 0:
             pCelFile = gapHirelingIcons_007BEEB0[0];
@@ -750,7 +750,7 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
             continue;
 
         sub_00493A00_DrawLifeBar(0, *pnX, nUnitId);
-        sub_004930A0_DrawRosterName(sub_004795C0_GetEntryName(pEntry), *pnX, *pnY);
+        sub_004930A0_DrawRosterName(ROSTER_GetEntryName(pEntry), *pnX, *pnY);
         if (*pbAlternate)
         {
             *pnY -= *pbAlternate;
@@ -786,7 +786,7 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
         return 0;
 
     sub_00493A00_DrawLifeBar(7, *pnX, nUnitId);
-    sub_00493B00_DrawUnitName(sub_00463990(nUnitId, 1), *pnX, *pnY);
+    sub_00493B00_DrawUnitName(CUNIT_FindClientUnit(nUnitId, 1), *pnX, *pnY);
     if (*pbAlternate)
     {
         *pnY -= *pbAlternate;
@@ -912,9 +912,9 @@ void __cdecl sub_00494020_DrawPetIcons()
     int bAlternate = 0;
     int nX = 0xF;
     const int nMode = sub_0045AE90();
-    if (nMode != 3 && nMode != 2 && !sub_004538D0(9) && !sub_004538D0(0xB) && gnGlobal_007BEECC != 2)
+    if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnGlobal_007BEECC != 2)
     {
-        if (sub_0044DCC0() && !sub_004538D0(0x23) && gnGlobal_007BEECC != 2 && sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0) != -1)
+        if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnGlobal_007BEECC != 2 && sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0) != -1)
             sub_00455F20(0x23, 0, 0);
 
         int bAny = sub_00493B50_DrawRosterIcons(&nY, &bAlternate, pPlayer, &nX);
@@ -942,7 +942,7 @@ void __cdecl sub_00494020_DrawPetIcons()
         if (!bAny)
             sub_00455F20(0x13, 1, 0);
 
-        if (gbGlobal_007BEEE4 && !sub_004538D0(0x24) && sub_00455F20(0x24, 0, 0))
+        if (gbGlobal_007BEEE4 && !GAME_GetUIVarState(0x24) && sub_00455F20(0x24, 0, 0))
         {
             SRegSaveValue("Diablo II", "PopupHireling", 0, 1);
             gbGlobal_007BEEE4 = 0;

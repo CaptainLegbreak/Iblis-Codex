@@ -54,7 +54,7 @@ extern int ganSkillMode_007C0838[]; // 0x007C0838
 extern int ganSkillState_007C0A38[]; // 0x007C0A38
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_0044DA70(); // 0x0044DA70
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0

@@ -32,7 +32,7 @@ D2ItemTypesTxt* __fastcall sub_00555C90_GetItemTypesTxtRecord(int nItemType); //
 D2LvlMazeTxt* __fastcall DATATBLS_GetLvlMazeTxtRecordFromLevelId(int nLevelId); // 0x0061F490
 D2LvlTypesTxt* __stdcall DATATBLS_GetLevelTypesTxtRecord(int nLevelType); // 0x0061EAA0
 D2LvlWarpTxt* __fastcall DATATBLS_GetLvlWarpTxtRecordFromLevelIdAndDirection(int nLevelId, char szDirection); // 0x0061F310
-D2SetsTxt* __fastcall sub_00483410_GetSetsTxtRecord(int nSetId); // 0x00483410
+D2SetsTxt* __fastcall DATATBLS_GetSetsTxtRecord(int nSetId); // 0x00483410
 D2SkillDescTxt* __fastcall sub_004A89D0(int nSkillId); // 0x004A89D0
 D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine); // 0x006BD040

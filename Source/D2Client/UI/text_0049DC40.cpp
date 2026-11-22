@@ -78,7 +78,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
@@ -156,7 +156,7 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
 
@@ -164,7 +164,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 
-unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
+unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -201,9 +201,9 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 
-Unicode* __fastcall sub_00452300_StripStringAndNextChar(Unicode* pText); // 0x00452300
+Unicode* __fastcall SCMD_StripColorCodes(Unicode* pText); // 0x00452300
 
-int __fastcall sub_0047A170_TestNotFlag4(int nUnitId); // 0x0047A170
+int __fastcall ROSTER_IsNotSquelched(int nUnitId); // 0x0047A170
 
 void __fastcall INV_OpenRecipeScroll(const Unicode* wszName, int nUnused, int nArg); // 0x0048BBE0
 
@@ -244,21 +244,21 @@ void __fastcall AUTOMAP_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* 
 
 void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 int __cdecl sub_00463DF0(); // 0x00463DF0
 
-void __fastcall sub_00464950(UNITFN pfnCallback); // 0x00464950
+void __fastcall CUNIT_ForEachPlayer(UNITFN pfnCallback); // 0x00464950
 
-void __fastcall sub_00464990(UNITFN pfnCallback); // 0x00464990
+void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 
-void __fastcall sub_004649D0(UNITFN pfnCallback); // 0x004649D0
+void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 
 void __fastcall sub_00467430(int nArg); // 0x00467430
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 
-void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
+void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
@@ -409,7 +409,7 @@ int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
@@ -473,7 +473,7 @@ void __cdecl TEXT_DrawMessageList()
     nOldFont = sub_00502EF0(0xD);
     pNode = gtTextList_007BF1E4.pFirst;
     nBaseY = 0x14;
-    if (sub_004538D0(0x13))
+    if (GAME_GetUIVarState(0x13))
     {
         nBaseY = 0x5F;
     }
@@ -586,7 +586,7 @@ static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket)
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     char szName[16];
     if (pRecord)
-        strcpy(szName, sub_004795C0_GetEntryName(pRecord));
+        strcpy(szName, ROSTER_GetEntryName(pRecord));
     else
         szName[0] = 0;
     sub_00526F20_ToUnicode(wszName, szName, 16);
@@ -637,7 +637,7 @@ static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket)
     if (pPlayer)
     {
         const int nPlayerId = pPlayer->dwUnitId;
-        if (sub_004DC440(nPlayerId, sub_0047A0C0_GetRecordUnitId(pRecord), 4))
+        if (GFXUTIL_TestRelationFlags(nPlayerId, sub_0047A0C0_GetRecordUnitId(pRecord), 4))
             return 0;
     }
     return 1;
@@ -882,10 +882,10 @@ static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText,
 // 0x0049F490
 void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 {
-    if (pPacket->nUnitType == 0 && !sub_0047A170_TestNotFlag4(pPacket->dwUnitGUID))
+    if (pPacket->nUnitType == 0 && !ROSTER_IsNotSquelched(pPacket->dwUnitGUID))
         return;
 
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitGUID, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitGUID, pPacket->nUnitType);
     char szName[0x11] = { 0 };
     if ((pUnit && pUnit->dwUnitType == UNIT_PLAYER) || pPacket->szName[0])
     {
@@ -919,7 +919,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
         Unicode::win2Unicode(wszB, pPacket->szMessage, 0x100);
         Unicode::win2Unicode(wszC, pPacket->szName, 0x10);
         sub_005269D0(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
-        sub_00452300_StripStringAndNextChar(wszA);
+        SCMD_StripColorCodes(wszA);
         sub_0049E3A0_ShowChatText(wszA, 2);
     }
     else if (pPacket->nMessageType == 2)
@@ -1087,7 +1087,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
     ++gnGameFrame_007BF20E;
     int nResult = 0;
     sub_00476070_GetViewRect(pView, &tViewRect.nLeft, &tViewRect.nTop, &tViewRect.nRight, &tViewRect.nBottom);
-    sub_004760C0_GetViewOffset(pView, &tViewPos.nX, &tViewPos.nY);
+    VIEW_GetViewOffset(pView, &tViewPos.nX, &tViewPos.nY);
     SetRect(&gtHoverOffset_007BF214, tViewPos.nX, tViewPos.nY, tViewPos.nX + tViewRect.nRight - tViewRect.nLeft, tViewPos.nY + tViewRect.nBottom - tViewRect.nTop);
 
     if (gnGlobal_007BF1C0 == 1)
@@ -1103,9 +1103,9 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
         gnHoverRectCount_007BF224 = 0;
     }
 
-    sub_00464950(TEXT_DrawUnitHoverText);
-    sub_00464990(TEXT_DrawObjectHoverText);
-    sub_004649D0(TEXT_DrawObjectHoverText);
+    CUNIT_ForEachPlayer(TEXT_DrawUnitHoverText);
+    CUNIT_ForEachMonster(TEXT_DrawObjectHoverText);
+    CUNIT_ForEachObject(TEXT_DrawObjectHoverText);
 
     if (gnGlobal_007BF1C0 == 1 && gpTextBox_007BF0A4 && (gpTextBox_007BF0A4->nScroll == 1 || !gpTextBox_007BF0A4->nScroll))
     {
@@ -1114,7 +1114,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
         D2UnitStrc* pUnit = 0;
         if (gdwGlobal_007BF20A)
         {
-            pUnit = sub_00463990(gdwGlobal_007BF202, 1);
+            pUnit = CUNIT_FindClientUnit(gdwGlobal_007BF202, 1);
         }
 
         if (sub_00463DF0() || (gdwGlobal_007BF20A && pUnit && pUnit->dwAnimMode == 0x0C))
@@ -1162,7 +1162,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
     }
 
     gnGlobal_007BF1BC = 0;
-    if (!sub_004538D0(0x18))
+    if (!GAME_GetUIVarState(0x18))
     {
         TEXT_DrawMessageList();
         TEXT_DrawOverheadTextList();
@@ -1250,12 +1250,12 @@ static int sub_004A4FA0_GetEntryState(int nIndex, int nFlag)
         return 3;
     }
 
-    if (!sub_00469D90(gpListEntries_00724264[nIndex].nKey, 1) && !sub_00469D90(gpListEntries_00724264[nIndex].nKey, 0))
+    if (!CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nKey, 1) && !CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nKey, 0))
     {
         return 1;
     }
 
-    return sub_00469D90(gpListEntries_00724264[nIndex].nKey, nFlag) ? 4 : 5;
+    return CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nKey, nFlag) ? 4 : 5;
 }
 
 static inline int sub_KEYCFG_VisibleLines()

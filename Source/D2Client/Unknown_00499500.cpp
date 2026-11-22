@@ -15,7 +15,7 @@ extern int gnGlobal_00711470; // 0x00711470
 extern int gnGlobal_007BEFA4; // 0x007BEFA4
 extern int gnGlobal_007BEFD0; // 0x007BEFD0
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
-extern int __cdecl sub_0044DA30(); // 0x0044DA30
+extern int __cdecl GAME_IsExitPending(); // 0x0044DA30
 extern int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
 
 struct D2TextPanelLineStrc
@@ -45,10 +45,10 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
+D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern "C" const char gszBorderFramePath_006DA034[]; // 0x006DA034
@@ -100,7 +100,7 @@ static int __cdecl sub_00497780_Bounds(int nX,int nY)
 // 0x00499500
 void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30() || sub_00463DF0_StateBlocked())
+    if (GAME_IsExitPending() || sub_00463DF0_StateBlocked())
     {
         pMsg->bReturn=0;
         return;

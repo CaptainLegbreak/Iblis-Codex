@@ -128,9 +128,9 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
 
-void __fastcall sub_0044A590_SendRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
+void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 
-void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
+void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
 extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
 
@@ -150,25 +150,25 @@ unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* 
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
-void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 
-void __fastcall sub_0046E1B0_DrawUnitOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
+void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
 
-void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
+void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
 
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
+void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 
-void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 
-void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
+void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -323,7 +323,7 @@ int gnGlobal_007B0A54; // 0x007B0A54
 
 int gnGlobal_007B0A58; // 0x007B0A58
 
-void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket); // 0x00462F60
+void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket); // 0x00462F60
 
 struct D2ListMsgStrc
 {
@@ -496,7 +496,8 @@ void __cdecl sub_004379F0_Forward()
 // 0x00437A00
 static inline char* sub_00437A00_GetSlotNameChecked(int nIndex)
 {
-    if (nIndex < sub_00430B40())
+// build: symbol ?GAME_GetSlotNameCount@* 0x00430B40
+    if (nIndex < GAME_GetSlotNameCount())
         return sub_00430B50_GetSlotName(nIndex);
     return 0;
 }
@@ -783,7 +784,7 @@ static int sub_00437A20_FindSlotName(const char* szName)
 {
     int i = 0;
     char* szSlot;
-    while (i < sub_00430B40() && (szSlot = sub_00430B50_GetSlotName(i)) != 0)
+    while (i < GAME_GetSlotNameCount() && (szSlot = sub_00430B50_GetSlotName(i)) != 0)
     {
         if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
             return 1;
@@ -800,7 +801,7 @@ int __cdecl sub_0043A2B0_InitRealmScreen()
     if (gnLaunchMode_007795EC == 1)
     {
         sub_00434060();
-        const int nCount = sub_00430B40();
+        const int nCount = GAME_GetSlotNameCount();
         if (nCount != -1)
         {
             if (nCount != 0)
@@ -823,7 +824,7 @@ int __cdecl sub_0043A2B0_InitRealmScreen()
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
                     if (!sub_00437A20_FindSlotName(gData_00779A40))
                     {
-                        const char* szFirst = sub_00430B40() > 0 ? sub_00430B50_GetSlotName(0) : 0;
+                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? sub_00430B50_GetSlotName(0) : 0;
                         SStrCopy(gData_00779A40, szFirst, 0x7FFFFFFF);
                         SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
                     }
@@ -965,7 +966,7 @@ void __cdecl sub_00445020_SendLaunchRequest()
         while (++gwRequestId_0070CD60 == 0)
         {
         }
-        sub_0044A590_SendRequest(&tRequest, gwRequestId_0070CD60);
+        WINMAIN_SendMcpGameListRequest(&tRequest, gwRequestId_0070CD60);
         gwSavedRequestId_0077BBDC = gwRequestId_0070CD60;
     }
     else
@@ -977,7 +978,7 @@ void __cdecl sub_00445020_SendLaunchRequest()
 // 0x00451920
 void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3)
 {
-    sub_00451620_WriteRecordFile();
+    RECORD_WriteRecordFile();
     if (gpfnPrevHandler_007A2764)
         gpfnPrevHandler_007A2764(nArg1, nArg2, nArg3);
 }
@@ -1017,7 +1018,7 @@ void __cdecl sub_00453470_DrawProgressiveStates()
         const int nCharges = STATLIST_UnitGetStatValue(pUnit, pStatesTxtRecord->wStat, 0);
         if (nCharges < 1 || nCharges > 3)
             continue;
-        sub_0046E1B0_DrawUnitOverlays(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
+        GFX_DrawProgressiveStateOverlays(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
         nX -= gnOverlayStep_007A3138;
     }
 }

@@ -29,7 +29,7 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 
-D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -42,7 +42,7 @@ D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoo
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
+D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -157,7 +157,7 @@ void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit)
     tMissileParams.nSkillLevel = 1;
     sub_004CD540_CreateMissile(&tMissileParams);
 
-    D2UnitStrc* pMissile = sub_004CDB40_SubmitRequest(pUnit, 0x14C, nX, nY, 0, 1);
+    D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, 0x14C, nX, nY, 0, 1);
     if (pMissile)
     {
         MISSILE_SetTargetY(pMissile, 0);
@@ -219,7 +219,7 @@ static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, i
     }
 
     if (nTry < 10)
-        sub_00466730_SpawnPresetUnit(nMonsterId, nPosX, nPosY, 1, 0);
+        CUNIT_SpawnPresetUnit(nMonsterId, nPosX, nPosY, 1, 0);
 }
 
 // 0x0046C460

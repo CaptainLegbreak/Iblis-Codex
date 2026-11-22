@@ -27,18 +27,18 @@ struct D2UIVarRecordStrc
 };
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl UI_ToggleMiniPanel(); // 0x004567F0
 void __cdecl AUTOMAP_InitAutomap(); // 0x0045A4C0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __cdecl CMDTBL_EnableHotkeyHandlers(); // 0x0046AC70
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 void __cdecl sub_0047DD70_LoadOptionMenus(); // 0x0047DD70
 void __cdecl sub_0047F0C0_LoadMiniPanel(); // 0x0047F0C0
 void __cdecl sub_004868B0(); // 0x004868B0
@@ -129,7 +129,7 @@ void __cdecl sub_00456970_InitUI()
         const int bWasOn = gaUIVarStates_007A27C0[0];
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
         if (FOG_IsExpansion())
-            sub_0044DCC0();
+            GAME_IsExpansion();
         D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
         if (TEXT_IsTextBoxOpen())
             goto mini_panel;
@@ -159,7 +159,7 @@ void __cdecl sub_00456970_InitUI()
             }
         }
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer)))
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
             gaUIVarStates_007A27C0[0] = 1;
         if (!bWasOn)
         {
@@ -180,7 +180,7 @@ mini_panel:
     {
         const int bWasOn = gaUIVarStates_007A27C0[0x22];
         if (FOG_IsExpansion())
-            sub_0044DCC0();
+            GAME_IsExpansion();
         D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
         if (TEXT_IsTextBoxOpen())
             goto load_cels;
@@ -215,7 +215,7 @@ mini_panel:
             }
         }
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer)))
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
             gaUIVarStates_007A27C0[0x22] = 1;
         if (!bWasOn)
         {
@@ -233,11 +233,11 @@ mini_panel:
 
 load_cels:
     wsprintfA(szPath, "%s\\UI\\CURSOR\\Pentspin", szDataGlobal_006D4118);
-    gpPentspinCel_007A2878 = sub_004788B0(szPath, 0);
+    gpPentspinCel_007A2878 = ARCHIVE_LoadClientCellFile(szPath, 0);
     wsprintfA(szPath, "%s\\UI\\CURSOR\\focus16", szDataGlobal_006D4118);
-    gpFocus16Cel_007A2880 = sub_004788B0(szPath, 0);
+    gpFocus16Cel_007A2880 = ARCHIVE_LoadClientCellFile(szPath, 0);
     wsprintfA(szPath, "%s\\UI\\menu\\boxpieces", szDataGlobal_006D4118);
-    gpBoxPiecesCel_007A2798 = sub_004788B0(szPath, 0);
+    gpBoxPiecesCel_007A2798 = ARCHIVE_LoadClientCellFile(szPath, 0);
     USEITEM_InitUseItemPanel();
     DIALOG_InitDialogs();
     INV_LoadShopPanelCels();

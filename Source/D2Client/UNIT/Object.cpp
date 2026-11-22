@@ -102,15 +102,15 @@ void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, 
 
 void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x0046F0C0
 
-char __fastcall sub_004BDEE0(D2UnitStrc* pUnit); // 0x004BDEE0
+char __fastcall OBJECT_RunClientFunction(D2UnitStrc* pUnit); // 0x004BDEE0
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit);                                                  // 0x00464930
+void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit);                                                  // 0x00464930
 
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
+void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
@@ -118,7 +118,7 @@ void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);              
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 
-void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
+void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 
@@ -156,7 +156,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 
 typedef char (__fastcall* D2ObjectClientFn)(D2UnitStrc* pUnit);
 
-void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
+void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
 
@@ -166,7 +166,7 @@ unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit
 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 
-void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
+void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
 
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);                                        // 0x0063AC40
 
@@ -208,17 +208,17 @@ extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-void __fastcall sub_00481030_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
+void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 
 void __cdecl TEXT_LoadDurielCofsOnce(); // 0x004A30A0
 
 void __cdecl TEXT_LoadAncientsCofsOnce(); // 0x004A30C0
 
-D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
 int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
 
-int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh); // 0x004BC5E0
+int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh); // 0x004BC5E0
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
@@ -242,39 +242,39 @@ char __cdecl TEXT_IsQuestUnitPresent(); // 0x004A3120
 
 void __fastcall TEXT_SpawnQuestUnits(int nX, int nY); // 0x004A3150
 
-static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit);
+static void OBJECT_FinishDoorMode(D2UnitStrc* pUnit); // 0x004BCA90
 
-void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit); // 0x004BCB20
+void OBJECT_StepDoorFrame(D2UnitStrc* pUnit); // 0x004BCB20
 
-static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit);
+static void OBJECT_UpdateObjectFrame(D2UnitStrc* pUnit); // 0x004BCBB0
 
-static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUnit, int nMode);
+static void __stdcall OBJECT_SetDoorMode(int bSelectable, D2UnitStrc* pUnit, int nMode); // 0x004BCDE0
 
-void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
+void __stdcall OBJECT_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
 
-static void __stdcall sub_004BC580_UpdateLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue);
+static void __stdcall OBJECT_UpdateObjectLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue); // 0x004BC580
 
-void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nObjectId, unsigned char nMode);
+void __fastcall OBJECT_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nObjectId, unsigned char nMode); // 0x004BC720
 
-static void __stdcall sub_004BD550_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitStrc* pUnit);
+static void __stdcall OBJECT_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x004BD550
 
-static void sub_004BD650_InitShrine(D2UnitStrc* pUnit);
+static void OBJECT_InitShrine(D2UnitStrc* pUnit); // 0x004BD650
 
-void __fastcall sub_004BD6B0_SetShrine(D2UnitStrc* pUnit);
+void __fastcall OBJECT_SetShrine(D2UnitStrc* pUnit); // 0x004BD6B0
 
-void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
+void __fastcall OBJECT_HandleObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BD6D0
 
-void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit);
-
-
-static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
+void __fastcall OBJECT_UpdateObject(D2UnitStrc* pUnit); // 0x004BDFF0
 
 
+static void OBJECT_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BCF60
 
-static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit);
+
+
+static void __stdcall OBJECT_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
 
 // 0x00457450
-int __fastcall sub_00457450_Abs(int nValue)
+int __fastcall OBJECT_GetAbsValue(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;
 }
@@ -291,7 +291,7 @@ extern "C" __declspec(dllexport) void __fastcall sub_00457460(Obj00457460* pObj,
 }
 
 // 0x00457750
-int __fastcall sub_00457750_SaveAutomapCenters(int nValue)
+int __fastcall OBJECT_SaveAutomapCenters(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
     gdwGlobal_007113E0 = nValue;
@@ -299,7 +299,7 @@ int __fastcall sub_00457750_SaveAutomapCenters(int nValue)
 }
 
 // 0x00457780
-int __fastcall sub_00457780_SaveAutomapLeft(int nValue)
+int __fastcall OBJECT_SaveAutomapLeft(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
     gdwGlobal_007A51E4 = nValue;
@@ -309,7 +309,7 @@ int __fastcall sub_00457780_SaveAutomapLeft(int nValue)
 }
 
 // 0x004577C0
-int __fastcall sub_004577C0_SaveAutomapParty(int nValue)
+int __fastcall OBJECT_SaveAutomapParty(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
     gdwGlobal_007113E4 = nValue;
@@ -317,7 +317,7 @@ int __fastcall sub_004577C0_SaveAutomapParty(int nValue)
 }
 
 // 0x004577F0
-int __fastcall sub_004577F0_SaveAutomapPartyNames(int nValue)
+int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Party Names", 0, nValue);
     gdwGlobal_007113E8 = nValue;
@@ -325,14 +325,14 @@ int __fastcall sub_004577F0_SaveAutomapPartyNames(int nValue)
 }
 
 // 0x00457810
-static inline void sub_00457810_SubtractAutomapOffset(int* pX, int* pY)
+static inline void OBJECT_SubtractAutomapOffset(int* pX, int* pY)
 {
     *pX -= gnAutomapOffsetX_007A5198;
     *pY -= gnAutomapOffsetY_007A519C;
 }
 
 // 0x00457830
-static inline void sub_00457830_ScaleAutomapPoint(int* pX, int* pY)
+static inline void OBJECT_ScaleAutomapPoint(int* pX, int* pY)
 {
     *pX /= gnAutomapScale_00711254;
     *pY /= gnAutomapScale_00711254;
@@ -345,14 +345,14 @@ static inline void sub_00457830_ScaleAutomapPoint(int* pX, int* pY)
 void __fastcall sub_M117_Emit_00457810(int* pX, int* pY, int nScale)
 {
     gnAutomapScale_00711254 = nScale;
-    sub_00457810_SubtractAutomapOffset(pX, pY);
-    sub_00457830_ScaleAutomapPoint(pX, pY);
+    OBJECT_SubtractAutomapOffset(pX, pY);
+    OBJECT_ScaleAutomapPoint(pX, pY);
     gnAutomapOffsetX_007A5198 = *pX;
     gnAutomapOffsetY_007A519C = *pY;
 }
 
 // 0x00457AC0
-int __fastcall sub_00457AC0_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
+int __fastcall OBJECT_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
 {
     int nResult = pA->yPixel - pB->yPixel;
     if (!nResult)
@@ -376,13 +376,13 @@ int __fastcall sub_00457AC0_CompareAutomapCells(const D2AutomapCellStrc* pA, con
 }
 
 // 0x004BC580
-static void __stdcall sub_004BC580_UpdateLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue)
+static void __stdcall OBJECT_UpdateObjectLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue)
 {
     D2GfxLightStrc* pLight = pUnit->pLight;
     if (!nDiameter)
     {
         if (pLight)
-            sub_00464930_FreeLight(pUnit);
+            CUNIT_FreeLight(pUnit);
         return;
     }
 
@@ -398,7 +398,7 @@ static void __stdcall sub_004BC580_UpdateLight(D2UnitStrc* pUnit, unsigned short
 }
 
 // 0x004BC5E0
-int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
+int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
 {
     D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
     if (!pTxt->nEnvEffect)
@@ -411,10 +411,10 @@ int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
         {
             pUnit->dwAnimMode = 0;
             if (!bNoRefresh)
-                sub_00470610_Refresh(pUnit, 0);
+                GFX_RefreshUnitGfx(pUnit, 0);
 
             UNITS_SetAnimStartFrame(pUnit);
-            sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+            OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
             if (pTxt->nSelectable[pUnit->dwAnimMode])
                 pUnit->dwFlags |= 2;
             else
@@ -430,12 +430,12 @@ int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
         {
             pUnit->dwAnimMode = 1;
             if (!bNoRefresh)
-                sub_00470610_Refresh(pUnit, 0);
+                GFX_RefreshUnitGfx(pUnit, 0);
 
             UNITS_SetAnimStartFrame(pUnit);
             sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
         }
-        sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+        OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
         return 1;
 
     default:
@@ -445,7 +445,7 @@ int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
 }
 
 // 0x004BC720
-void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nObjectId, unsigned char nMode)
+void __fastcall OBJECT_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nObjectId, unsigned char nMode)
 {
     pUnit->pLight = 0;
     pUnit->dwAnimMode = nMode;
@@ -503,14 +503,14 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
     }
     }
 
-    if (!sub_004BC5E0_UpdateEnvObject(pUnit, 1))
-        sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+    if (!OBJECT_UpdateEnvObject(pUnit, 1))
+        OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
 }
 
 struct D2UnitStrc;
 
 // 0x004BC8D0
-void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit)
+void __fastcall OBJECT_UpdateObjectOverlay(D2UnitStrc* pUnit)
 {
     if (!pUnit->pObjectData->pObjectTxt->nOverlay)
     {
@@ -520,13 +520,13 @@ void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit)
     switch ((unsigned int)pUnit->dwClassId)
     {
     case 0x98:
-        sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
+        GFX_AddUnitOverlay(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
         return;
 
     case 0x95:
         if (pUnit->dwAnimMode == 1)
         {
-            sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
         }
         return;
 
@@ -540,28 +540,28 @@ void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit)
     case 0x1C7:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_00470390(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
         }
         return;
     }
 }
 
 // 0x004BCA50
-void __fastcall sub_004BCA50_ReleaseUnit(D2UnitStrc* pUnit)
+void __fastcall OBJECT_ReleaseObjectUnit(D2UnitStrc* pUnit)
 {
-    sub_0046EC10_FreeGfxData(pUnit);
+    GFX_FreeGfxData(pUnit);
     if (gpGlobal_007A0634)
     {
         UNITS_FreeCollisionPath(pUnit);
         UNITROOM_RemoveUnitFromRoom(pUnit);
-        sub_00464930_FreeLight(pUnit);
+        CUNIT_FreeLight(pUnit);
     }
 
     FOG_Free(pUnit->pPlayerData, ".\\UNIT\\Object.cpp", 0xFE, 0);
 }
 
 // 0x004BCA90
-static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
+static void OBJECT_FinishDoorMode(D2UnitStrc* pUnit)
 {
     const int nMode = pUnit->dwAnimMode;
     if (nMode == 3)
@@ -580,7 +580,7 @@ static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
         D2_ASSERT(0, 0x11F);
     }
 
-    sub_00470610_Refresh(pUnit, 0);
+    GFX_RefreshUnitGfx(pUnit, 0);
     UNITS_SetAnimStartFrame(pUnit);
     if (pUnit->pObjectData->pObjectTxt->nSelectable[pUnit->dwAnimMode])
         pUnit->dwFlags |= 2;
@@ -589,7 +589,7 @@ static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
 }
 
 // 0x004BCB20
-static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
+static void OBJECT_StepDoorFrame(D2UnitStrc* pUnit)
 {
     const int nMode = pUnit->dwAnimMode;
     const int nFrameCnt = pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode];
@@ -597,7 +597,7 @@ static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
     {
         if (pUnit->nSeqCurrentFramePrecise == nFrameCnt - 0x100)
         {
-            sub_004BCA90_FinishDoorMode(pUnit);
+            OBJECT_FinishDoorMode(pUnit);
             return;
         }
         pUnit->nSeqCurrentFramePrecise += pUnit->wAnimSpeed;
@@ -611,7 +611,7 @@ static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
         const int nFrame = pUnit->nSeqCurrentFramePrecise;
         if (nFrame <= 0)
         {
-            sub_004BCA90_FinishDoorMode(pUnit);
+            OBJECT_FinishDoorMode(pUnit);
             return;
         }
         if (pUnit->wAnimSpeed > nFrame)
@@ -625,7 +625,7 @@ static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
 }
 
 // 0x004BCBB0
-static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
+static void OBJECT_UpdateObjectFrame(D2UnitStrc* pUnit)
 {
     D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
     int nMode = pUnit->dwAnimMode;
@@ -638,7 +638,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
     {
         if (pTxt->nIsDoor)
         {
-            sub_004BCB20_StepDoorFrame(pUnit);
+            OBJECT_StepDoorFrame(pUnit);
             return;
         }
 
@@ -649,7 +649,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
                 ++nMode;
                 pUnit->dwAnimMode = nMode;
                 pUnit->nSeqCurrentFramePrecise = pTxt->nStart[nMode] << 8;
-                sub_00470610_Refresh(pUnit, 0);
+                GFX_RefreshUnitGfx(pUnit, 0);
                 UNITS_SetAnimStartFrame(pUnit);
                 return;
             }
@@ -670,7 +670,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
             }
 
             pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;
-            sub_00470610_Refresh(pUnit, 0);
+            GFX_RefreshUnitGfx(pUnit, 0);
             UNITS_SetAnimStartFrame(pUnit);
             if (pTxt->nOverlay)
             {
@@ -681,7 +681,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
             }
 
             sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
-            sub_004BC580_UpdateLight(pUnit, pTxt->nLit[2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+            OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
             if (!pTxt->nHasCollision[pUnit->dwAnimMode] && pTxt->nHasCollision[1])
                 UNITS_FreeCollisionPath(pUnit);
             return;
@@ -704,7 +704,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
 
         pUnit->dwAnimMode = 4;
         pUnit->nSeqCurrentFramePrecise = pTxt->nStart[4] << 8;
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
         UNITS_SetAnimStartFrame(pUnit);
         return;
     }
@@ -721,7 +721,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
 }
 
 // 0x004BCDE0
-static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUnit, int nMode)
+static void __stdcall OBJECT_SetDoorMode(int bSelectable, D2UnitStrc* pUnit, int nMode)
 {
     D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
     D2_ASSERT(nMode < 8, 0x210);
@@ -732,14 +732,14 @@ static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUni
     {
         pUnit->nSeqCurrentFramePrecise = pTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 3);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
         pUnit->dwFlags &= ~2;
         UNITS_BlockCollisionPath(pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
     }
     else if (nMode == 2 && pUnit->dwAnimMode == 0 && nOpenFrames != 0x100)
     {
         UNITS_ChangeAnimMode(pUnit, 1);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
         pUnit->dwFlags &= ~2;
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[2];
     }
@@ -764,7 +764,7 @@ static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUni
             }
 
             UNITS_ChangeAnimMode(pUnit, nMode);
-            sub_00470610_Refresh(pUnit, 0);
+            GFX_RefreshUnitGfx(pUnit, 0);
         }
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[nMode];
     }
@@ -776,23 +776,23 @@ static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUni
 }
 
 // 0x004BCF60
-static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
+static void OBJECT_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
 {
     D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
     if (pTxt->nIsDoor)
     {
-        sub_004BCDE0_SetDoorMode(pTarget->nParam1, pUnit, pTarget->nParam2);
+        OBJECT_SetDoorMode(pTarget->nParam1, pUnit, pTarget->nParam2);
     }
     else
     {
         UNITS_ChangeAnimMode(pUnit, pTarget->nParam2);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
         if (pTxt->nOverlay)
         {
             const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
             if ((nClassId == 0x162 || nClassId == 0x163 || nClassId == 0x18D || nClassId == 0x195
                 || nClassId == 0x197 || nClassId == 0x196 || nClassId == 0x164) && pUnit->dwAnimMode == 0)
-                sub_00470390(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
+                GFX_AddUnitOverlay(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
         }
 
         if (pTxt->nSelectable[pUnit->dwAnimMode])
@@ -806,10 +806,10 @@ static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTar
         if (pTxt->nOrderFlag[pUnit->dwAnimMode] == 1)
             pUnit->dwFlags |= 0x100000;
 
-        sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pTarget->nParam2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+        OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[pTarget->nParam2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
     }
 
-    sub_004CB460_UpdateModeSound(pUnit);
+    UNITSND_UpdateModeSound(pUnit);
     UNITS_SetAnimStartFrame(pUnit);
     if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
         pUnit->dwFlags |= 0x20;
@@ -819,7 +819,7 @@ static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTar
 
 void __fastcall sub_M256_Emit_004BCB20(D2UnitStrc* pUnit)
 {
-    sub_004BCB20_StepDoorFrame(pUnit);
+    OBJECT_StepDoorFrame(pUnit);
 }
 
 static inline unsigned int SEED_RollRandomNumberLoFirst(D2SeedStrc* pSeed)
@@ -831,7 +831,7 @@ static inline unsigned int SEED_RollRandomNumberLoFirst(D2SeedStrc* pSeed)
 }
 
 // 0x004BD090
-void __fastcall sub_004BD090_OperateReverseNameShrine(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, D2ShrinesTxt* pShrinesTxt)
+void __fastcall OBJECT_OperateReverseNameShrine(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, D2ShrinesTxt* pShrinesTxt)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData)
@@ -877,7 +877,7 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x004BD0C0
-void __fastcall sub_004BD0C0_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
+void __fastcall OBJECT_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
 {
     for (int i = 1; i < 5; ++i)
     {
@@ -908,7 +908,7 @@ void __fastcall sub_004BD0C0_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOw
 }
 
 // 0x004BD220
-void __fastcall sub_004BD220_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
+void __fastcall OBJECT_SpawnExplosivePotions(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
 {
     int aOffsetX[6] = { -6, -6, 0, 0, 6, 6 };
     int aOffsetY[6] = { 6, -6, 6, -6, 6, -6 };
@@ -940,7 +940,7 @@ void __fastcall sub_004BD220_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOw
 }
 
 // 0x004BD360
-void __fastcall sub_004BD360_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
+void __fastcall OBJECT_SpawnPoisonPotions(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
 {
     int aOffsetX[6] = { -6, -6, 0, 0, 6, 6 };
     int aOffsetY[6] = { 6, -6, 6, -6, 6, -6 };
@@ -972,7 +972,7 @@ void __fastcall sub_004BD360_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOw
 }
 
 // 0x004BD4A0
-void __fastcall sub_004BD4A0_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxt)
+void __fastcall OBJECT_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxt)
 {
     D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount_0072779C, 0x337);
 
@@ -982,7 +982,7 @@ void __fastcall sub_004BD4A0_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt*
         AUTOMAP_RemoveUnitOverlay(pUnit, 0, pHandler->f_8);
         if (!pUnit || !pUnit->dwAnimMode)
         {
-            sub_00470390(pUnit, pHandler->f_8, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, pHandler->f_8, 3, 0, 0, 0, 0, 0);
         }
     }
 
@@ -991,13 +991,13 @@ void __fastcall sub_004BD4A0_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt*
         AUTOMAP_RemoveUnitOverlay(pUnit, 0, pHandler->f_C);
         if (!pUnit || !pUnit->dwAnimMode)
         {
-            sub_00470390(pUnit, pHandler->f_C, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, pHandler->f_C, 3, 0, 0, 0, 0, 0);
         }
     }
 }
 
 // 0x004BD550
-static void __stdcall sub_004BD550_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
+static void __stdcall OBJECT_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
     D2ShrinesTxt* pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
     D2_ASSERT(pShrinesTxt, 0x34D);
@@ -1009,7 +1009,7 @@ static void __stdcall sub_004BD550_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitSt
 }
 
 // 0x004BD5C0
-static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit)
+static void __stdcall OBJECT_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit)
 {
     D2ShrinesTxt* pShrinesTxt = 0;
     int nIndex;
@@ -1023,18 +1023,18 @@ static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2Un
         nIndex = DATATBLS_GetObjectsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nShrineFunction;
     }
 
-    D2UnitStrc* pPlayer = sub_00463990(pTarget->nParam1, 0);
+    D2UnitStrc* pPlayer = CUNIT_FindClientUnit(pTarget->nParam1, 0);
     if (!pPlayer)
         return;
 
     if (nIndex > 0 && nIndex < gnShrineHandlerCount_0072779C && gShrineHandlers_006DA8C0[nIndex].pfnOperate)
         gShrineHandlers_006DA8C0[nIndex].pfnOperate(pUnit, pPlayer, pShrinesTxt);
 
-    sub_004BD550_PlayShrineSound(pPlayer, pUnit);
+    OBJECT_PlayShrineSound(pPlayer, pUnit);
 }
 
 // 0x004BD650
-static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
+static void OBJECT_InitShrine(D2UnitStrc* pUnit)
 {
     D2ShrinesTxt* pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
     D2_ASSERT(pShrinesTxt, 0x37A);
@@ -1046,25 +1046,25 @@ static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
 }
 
 // 0x004BD6B0
-void __fastcall sub_004BD6B0_SetShrine(D2UnitStrc* pUnit)
+void __fastcall OBJECT_SetShrine(D2UnitStrc* pUnit)
 {
     UNITS_SetShrineTxtRecordInObjectData(pUnit, DATATBLS_GetShrinesTxtRecord(pUnit->pObjectData->InteractType));
-    sub_004BD650_InitShrine(pUnit);
+    OBJECT_InitShrine(pUnit);
 }
 
 // 0x004BD6D0
-void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
+void __fastcall OBJECT_HandleObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
 {
     switch (nCommand)
     {
     case 3:
-        sub_004BCF60_SetObjectMode(pUnit, pTarget);
+        OBJECT_SetObjectMode(pUnit, pTarget);
         if (UNITS_IsShrine(pUnit))
-            sub_004BD650_InitShrine(pUnit);
+            OBJECT_InitShrine(pUnit);
         return;
 
     case 0x15:
-        sub_004BD5C0_OperateShrine(pTarget, pUnit);
+        OBJECT_OperateShrine(pTarget, pUnit);
         return;
 
     default:
@@ -1073,7 +1073,7 @@ void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2Un
 }
 
 // 0x004BD730
-char __fastcall sub_004BD730_AnimCycle(D2UnitStrc* pUnit)
+char __fastcall OBJECT_AnimCycle(D2UnitStrc* pUnit)
 {
     if (!pUnit->dwFlagEx)
     {
@@ -1100,7 +1100,7 @@ char __fastcall sub_004BD730_AnimCycle(D2UnitStrc* pUnit)
 }
 
 // 0x004BD7C0
-char __fastcall sub_004BD7C0_AnimCycleUpdate(D2UnitStrc* pUnit)
+char __fastcall OBJECT_AnimCycleUpdate(D2UnitStrc* pUnit)
 {
     if (!pUnit->dwFlagEx)
     {
@@ -1128,7 +1128,7 @@ char __fastcall sub_004BD7C0_AnimCycleUpdate(D2UnitStrc* pUnit)
 }
 
 // 0x004BD860
-char __fastcall sub_004BD860_TimedSpecial(D2UnitStrc* pUnit)
+char __fastcall OBJECT_TimedSpecial(D2UnitStrc* pUnit)
 {
     const unsigned int dwTick = GetTickCount();
     if (pUnit->dwTickCount < dwTick)
@@ -1136,14 +1136,14 @@ char __fastcall sub_004BD860_TimedSpecial(D2UnitStrc* pUnit)
         pUnit->dwTickCount = OBJECTS_RollRandomNumber(&pUnit->pSeed, 7000, 12000) + dwTick;
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[5];
         UNITS_ChangeAnimMode(pUnit, 3);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     if (pUnit->dwAnimMode == 3 && pUnit->nSeqCurrentFramePrecise >= (int)pUnit->pObjectData->pObjectTxt->dwFrameCnt[3] - 0x100)
     {
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     sub_004CB460(pUnit);
@@ -1151,7 +1151,7 @@ char __fastcall sub_004BD860_TimedSpecial(D2UnitStrc* pUnit)
 }
 
 // 0x004BD900
-char __fastcall sub_004BD900_TimedSpecialRandom(D2UnitStrc* pUnit)
+char __fastcall OBJECT_TimedSpecialRandom(D2UnitStrc* pUnit)
 {
     const unsigned int dwTick = GetTickCount();
     if (pUnit->dwTickCount < dwTick)
@@ -1169,7 +1169,7 @@ char __fastcall sub_004BD900_TimedSpecialRandom(D2UnitStrc* pUnit)
         {
             UNITS_ChangeAnimMode(pUnit, 4);
         }
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     const unsigned int nMode = pUnit->dwAnimMode;
@@ -1177,7 +1177,7 @@ char __fastcall sub_004BD900_TimedSpecialRandom(D2UnitStrc* pUnit)
     {
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     sub_004CB460(pUnit);
@@ -1185,7 +1185,7 @@ char __fastcall sub_004BD900_TimedSpecialRandom(D2UnitStrc* pUnit)
 }
 
 // 0x004BD9C0
-char __fastcall sub_004BD9C0_TimedSpecialExact(D2UnitStrc* pUnit)
+char __fastcall OBJECT_TimedSpecialExact(D2UnitStrc* pUnit)
 {
     const unsigned int dwTick = GetTickCount();
     if (pUnit->dwTickCount < dwTick)
@@ -1193,7 +1193,7 @@ char __fastcall sub_004BD9C0_TimedSpecialExact(D2UnitStrc* pUnit)
         pUnit->dwTickCount = OBJECTS_RollRandomNumber(&pUnit->pSeed, 20000, 30000) + dwTick;
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[5];
         UNITS_ChangeAnimMode(pUnit, 3);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     const unsigned int nMode = pUnit->dwAnimMode;
@@ -1201,7 +1201,7 @@ char __fastcall sub_004BD9C0_TimedSpecialExact(D2UnitStrc* pUnit)
     {
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     sub_004CB460(pUnit);
@@ -1209,7 +1209,7 @@ char __fastcall sub_004BD9C0_TimedSpecialExact(D2UnitStrc* pUnit)
 }
 
 // 0x004BDA60
-char __fastcall sub_004BDA60_TimedOperate(D2UnitStrc* pUnit)
+char __fastcall OBJECT_TimedOperate(D2UnitStrc* pUnit)
 {
     const unsigned int dwTick = GetTickCount();
     const unsigned int nMode = pUnit->dwAnimMode;
@@ -1220,14 +1220,14 @@ char __fastcall sub_004BDA60_TimedOperate(D2UnitStrc* pUnit)
             pUnit->dwTickCount = dwTick + 10000;
             pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[1];
             UNITS_ChangeAnimMode(pUnit, 1);
-            sub_00470610_Refresh(pUnit, 0);
+            GFX_RefreshUnitGfx(pUnit, 0);
         }
     }
     else if (nMode >= 1 && pUnit->dwTickCount < dwTick)
     {
         pUnit->dwTickCount = OBJECTS_RollRandomNumber(&pUnit->pSeed, 4500, 7500) + dwTick;
         UNITS_ChangeAnimMode(pUnit, 0);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     return 1;
@@ -1240,7 +1240,7 @@ char __fastcall sub_004BDAF0_AlwaysOne(D2UnitStrc* pUnit)
 }
 
 // 0x004BDB00
-char __fastcall sub_004BDB00_TimedOperateShort(D2UnitStrc* pUnit)
+char __fastcall OBJECT_TimedOperateShort(D2UnitStrc* pUnit)
 {
     const unsigned int dwTick = GetTickCount();
     const unsigned int nMode = pUnit->dwAnimMode;
@@ -1251,14 +1251,14 @@ char __fastcall sub_004BDB00_TimedOperateShort(D2UnitStrc* pUnit)
             pUnit->dwTickCount = dwTick + 3000;
             pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[1];
             UNITS_ChangeAnimMode(pUnit, 1);
-            sub_00470610_Refresh(pUnit, 0);
+            GFX_RefreshUnitGfx(pUnit, 0);
         }
     }
     else if (nMode >= 1 && pUnit->dwTickCount < dwTick)
     {
         pUnit->dwTickCount = OBJECTS_RollRandomNumber(&pUnit->pSeed, 2500, 7500) + dwTick;
         UNITS_ChangeAnimMode(pUnit, 0);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 
     return 1;
@@ -1271,7 +1271,7 @@ char __fastcall sub_004BDB90_AlwaysOne(D2UnitStrc* pUnit)
 }
 
 // 0x004BDBA0
-char __fastcall sub_004BDBA0_RemoveWhenFar(D2UnitStrc* pUnit)
+char __fastcall OBJECT_RemoveWhenFar(D2UnitStrc* pUnit)
 {
     const unsigned int dwTick = GetTickCount();
     if (pUnit->dwTickCount)
@@ -1293,7 +1293,7 @@ char __fastcall sub_004BDBA0_RemoveWhenFar(D2UnitStrc* pUnit)
 }
 
 // 0x004BDBF0
-char __fastcall sub_004BDBF0_TriggerOnce219(D2UnitStrc* pUnit)
+char __fastcall OBJECT_PreloadMonsterTrioOnce(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
@@ -1304,12 +1304,12 @@ char __fastcall sub_004BDBF0_TriggerOnce219(D2UnitStrc* pUnit)
 }
 
 // 0x004BDC10
-char __fastcall sub_004BDC10_QuestObject(D2UnitStrc* pUnit)
+char __fastcall OBJECT_AutoOperateQuestObject(D2UnitStrc* pUnit)
 {
     if (!pUnit || !pUnit->dwAnimMode)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && QUESTRECORD_GetQuestState(sub_004B32D0(), 0x27, 0) && !QUESTRECORD_GetQuestState(sub_004B32D0(), 0x27, 4)
+        if (pPlayer && QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x27, 0) && !QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x27, 4)
             && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 25)
         {
             if (pPlayer->pDynamicPath)
@@ -1317,9 +1317,9 @@ char __fastcall sub_004BDC10_QuestObject(D2UnitStrc* pUnit)
                 D2Common_10153(pPlayer->pDynamicPath);
             }
 
-            sub_00481030_DoUnitAction(0x13, pPlayer, 2, pUnit->dwUnitId, 0);
+            UNITMODE_DoUnitAction(0x13, pPlayer, 2, pUnit->dwUnitId, 0);
             UNITS_ChangeAnimMode(pUnit, 2);
-            sub_00470610_Refresh(pUnit, 0);
+            GFX_RefreshUnitGfx(pUnit, 0);
         }
     }
 
@@ -1327,7 +1327,7 @@ char __fastcall sub_004BDC10_QuestObject(D2UnitStrc* pUnit)
 }
 
 // 0x004BDCA0
-char __fastcall sub_004BDCA0_TriggerOnceD3(D2UnitStrc* pUnit)
+char __fastcall OBJECT_PreloadSingleMonsterOnce(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
@@ -1338,11 +1338,11 @@ char __fastcall sub_004BDCA0_TriggerOnceD3(D2UnitStrc* pUnit)
 }
 
 // 0x004BDCC0
-char __fastcall sub_004BDCC0_UpdateEnvObject(D2UnitStrc* pUnit)
+char __fastcall OBJECT_TickEnvObject(D2UnitStrc* pUnit)
 {
     if (GetTickCount() > pUnit->dwTickCount)
     {
-        sub_004BC5E0_UpdateEnvObject(pUnit, 0);
+        OBJECT_UpdateEnvObject(pUnit, 0);
         pUnit->dwTickCount = GetTickCount() + 500;
     }
 
@@ -1374,13 +1374,13 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x004BDCF0
-char __fastcall sub_004BDCF0_TimedOverlay(D2UnitStrc* pUnit)
+char __fastcall OBJECT_TimedOverlay(D2UnitStrc* pUnit)
 {
     if (GetTickCount() > pUnit->dwTickCount)
     {
         if (!pUnit->dwAnimMode)
         {
-            sub_00470390(pUnit, 0x48, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, 0x48, 3, 0, 0, 0, 0, 0);
             pUnit->dwTickCount = GetTickCount() + 500;
         }
         else
@@ -1393,7 +1393,7 @@ char __fastcall sub_004BDCF0_TimedOverlay(D2UnitStrc* pUnit)
 }
 
 // 0x004BDD50
-char __fastcall sub_004BDD50_RandomSound(D2UnitStrc* pUnit)
+char __fastcall OBJECT_RandomSound(D2UnitStrc* pUnit)
 {
     if (GetTickCount() > pUnit->dwTickCount)
     {
@@ -1410,20 +1410,20 @@ char __fastcall sub_004BDD50_RandomSound(D2UnitStrc* pUnit)
 }
 
 // 0x004BDE00
-char __fastcall sub_004BDE00_FinishOperate(D2UnitStrc* pUnit)
+char __fastcall OBJECT_FinishOperate(D2UnitStrc* pUnit)
 {
     if (pUnit->dwAnimMode == 1 && pUnit->nSeqCurrentFramePrecise == pUnit->pObjectData->pObjectTxt->nStart[1] << 8)
     {
         pUnit->dwAnimMode = 2;
         pUnit->nSeqCurrentFramePrecise = 0;
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
         UNITS_SetAnimStartFrame(pUnit);
     }
     return 1;
 }
 
 // 0x004BDE40
-char __fastcall sub_004BDE40_ReportPosition(D2UnitStrc* pUnit)
+char __fastcall OBJECT_ReportPosition(D2UnitStrc* pUnit)
 {
     if (TEXT_HasQuestPacketValue() && !TEXT_IsQuestUnitPresent())
     {
@@ -1433,7 +1433,7 @@ char __fastcall sub_004BDE40_ReportPosition(D2UnitStrc* pUnit)
 }
 
 // 0x004BDEE0
-char __fastcall sub_004BDEE0(D2UnitStrc* pUnit)
+char __fastcall OBJECT_RunClientFunction(D2UnitStrc* pUnit)
 {
     D2ObjectsTxt* pTxt = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
     unsigned char nClientFn = pTxt->nClientFn;
@@ -1447,26 +1447,26 @@ char __fastcall sub_004BDEE0(D2UnitStrc* pUnit)
 }
 
 // 0x004BDFE0
-void __fastcall sub_004BDFE0_SetObjectName(D2UnitStrc* pUnit, const char* szName)
+void __fastcall OBJECT_SetObjectOwnerName(D2UnitStrc* pUnit, const char* szName)
 {
     SStrCopy(pUnit->pObjectData->szOwner, szName, 0x10);
 }
 
 // 0x004BDFF0
-void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit)
+void __fastcall OBJECT_UpdateObject(D2UnitStrc* pUnit)
 {
-    sub_004BCBB0_UpdateObjectFrame(pUnit);
-    if (pUnit->pObjectData->pObjectTxt->nClientFn <= 3 || sub_004BDEE0(pUnit))
-        sub_004CB460_UpdateModeSound(pUnit);
+    OBJECT_UpdateObjectFrame(pUnit);
+    if (pUnit->pObjectData->pObjectTxt->nClientFn <= 3 || OBJECT_RunClientFunction(pUnit))
+        UNITSND_UpdateModeSound(pUnit);
 }
 
 // 0x004C1A70
-void __fastcall sub_004C1A70_ReleaseItemUnit(D2UnitStrc* pUnit)
+void __fastcall OBJECT_ReleaseItemUnit(D2UnitStrc* pUnit)
 {
-    sub_0046EC10_FreeGfxData(pUnit);
+    GFX_FreeGfxData(pUnit);
     if (ITEMS_CheckIfSocketable(pUnit))
     {
-        sub_00466CB0_RemoveInventoryUnits(pUnit, 0);
+        CUNIT_RemoveInventoryUnits(pUnit, 0);
         INVENTORY_FreeInventory(pUnit->pInventory);
         pUnit->pInventory = 0;
     }
@@ -1483,7 +1483,7 @@ void __fastcall sub_004C1A70_ReleaseItemUnit(D2UnitStrc* pUnit)
 }
 
 // 0x004C1AD0
-void __fastcall sub_004C1AD0_UpdateAnim(D2UnitStrc* pUnit)
+void __fastcall OBJECT_UpdateItemAnim(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x348);
     switch (pUnit->dwAnimMode)
@@ -1518,7 +1518,7 @@ void __fastcall sub_004C1AD0_UpdateAnim(D2UnitStrc* pUnit)
         D2_ASSERT(0, 0x362);
     }
 
-    sub_00470390(pUnit, 0x46, 6, 8, 0, 0, 8, 0);
+    GFX_AddUnitOverlay(pUnit, 0x46, 6, 8, 0, 0, 8, 0);
 }
 
 #include "gen/data/Source/D2Client/UNIT/Object.inc"

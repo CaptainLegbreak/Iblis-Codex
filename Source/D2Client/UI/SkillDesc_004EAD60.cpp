@@ -62,9 +62,9 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
-int __fastcall sub_0044DCA0_GetGameType(); // 0x0044DCA0
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
+int __fastcall GAME_GetLadderFlag(); // 0x0044DCA0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall SKILLS_EvaluateSkillDescFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646D00
 unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0064B0C0
@@ -840,7 +840,7 @@ static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* ws
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, sub_0044DCA0_GetGameType(), sub_0044DCD0_GetDifficulty(), pMonStatsTxt->nLevel[sub_0044DCD0_GetDifficulty()], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, GAME_GetLadderFlag(), GAME_GetDifficulty(), pMonStatsTxt->nLevel[GAME_GetDifficulty()], 8, &monStatsInit);
     int nMin = monStatsInit.nA1MinD;
     int nMax = monStatsInit.nA1MaxD;
     int nPercent = 0;
@@ -884,10 +884,10 @@ int __stdcall SKILLDESC_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkillsT
     }
 
     D2MonStatsInitStrc monStatsInit;
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     memset(&monStatsInit, 0, sizeof(monStatsInit));
     const int nMonsterId = sgptDataTables->nMonStatsTxtRecordCount <= 0x124 ? -1 : 0x124;
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 8, &monStatsInit);
     const int nMin = monStatsInit.nA1MinD + nBonusMin;
     const int nMax = monStatsInit.nA1MaxD + nBonusMax;
     const int nElemType = pSkillsTxt->nEType;
@@ -948,7 +948,7 @@ int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszT
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, sub_0044DCA0_GetGameType(), sub_0044DCD0_GetDifficulty(), pMonStatsTxt->nLevel[sub_0044DCD0_GetDifficulty()], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, GAME_GetLadderFlag(), GAME_GetDifficulty(), pMonStatsTxt->nLevel[GAME_GetDifficulty()], 8, &monStatsInit);
     int nMin = monStatsInit.nA1MinD;
     int nMax = monStatsInit.nA1MaxD;
     int nPercent = 0;
@@ -1042,7 +1042,7 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
 
 static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, D2UnitStrc* pUnit)
 {
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, nSkillLevel, nSkillId, pUnit);
         sub_004EC220_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, 0, nSkillId, nSkillLevel);

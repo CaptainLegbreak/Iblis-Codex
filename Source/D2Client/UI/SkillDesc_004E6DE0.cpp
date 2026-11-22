@@ -217,7 +217,7 @@ void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMa
 
 int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId); // 0x006461D0
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 static D2SkillsTxt* sub_H14_GetSkillsTxtRecord(int nSkillId)
 {
@@ -1405,7 +1405,7 @@ void __fastcall SKILLDESC_DrawBoostedElemDamage(D2UnitStrc* pUnit, D2SkillStrc* 
         return;
     }
 
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         int nMin = 0;
         int nMax = 0;

@@ -77,11 +77,11 @@ void __cdecl CMDTBL_BindMouseHotkeys(); // 0x004694A0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
-void __cdecl sub_0044C6B0(); // 0x0044C6B0
+void __cdecl GAME_CloseAllPanels(); // 0x0044C6B0
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
-void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0
+void __fastcall GAME_SetStandStillHeld(int nValue); // 0x0044BEA0
 
 void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir); // 0x004698D0
 
@@ -141,7 +141,7 @@ int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, u
 // 0x004690A0
 void __cdecl CMDTBL_HotkeyClearScreen()
 {
-    sub_0044C6B0();
+    GAME_CloseAllPanels();
 }
 
 // 0x004691B0
@@ -153,7 +153,7 @@ void __cdecl CMDTBL_HotkeyClearMessages()
 // 0x00469200
 void __cdecl CMDTBL_HotkeyStandStillRelease()
 {
-    sub_0044BEA0_SetValue(0);
+    GAME_SetStandStillHeld(0);
 }
 
 HOTKEYCOMMANDFN gpfnBoundCommand_007A6F8C; // 0x007A6F8C
@@ -451,7 +451,8 @@ void __cdecl CMDTBL_RestoreHotkeys()
     CMDTBL_BindMouseHotkeys();
 }
 
-static inline unsigned short sub_00469AA0(int nA, int nB)
+// build: symbol ?CUNIT_GetHotkeyBinding@* 0x00469AA0
+static inline unsigned short CUNIT_GetHotkeyBinding(int nA, int nB)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
@@ -467,7 +468,7 @@ static inline unsigned short sub_00469AA0(int nA, int nB)
 // 0x00469DE0
 const Unicode* __fastcall CMDTBL_GetKeyText(int nA, int nB)
 {
-    const unsigned short nKey = sub_00469AA0(nA, nB);
+    const unsigned short nKey = CUNIT_GetHotkeyBinding(nA, nB);
     if (nKey == 0xFFFF)
     {
         return D2LANG_GetStringFromTblIndex(0xEB2);

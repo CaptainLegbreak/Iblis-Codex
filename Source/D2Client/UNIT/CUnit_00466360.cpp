@@ -59,17 +59,17 @@ struct T0044A980
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                  // 0x006CC34C
 
-int __cdecl sub_0044DC60();                                                                                 // 0x0044DC60
+int __cdecl GAME_GetColorFlag();                                                                                 // 0x0044DC60
 
 int __cdecl sub_0044DA90();                                                                                 // 0x0044DA90
 
-int __fastcall sub_00451880_DispatchMsg(D2MsgRecordStrc* pRecord);                                          // 0x00451880
+int __fastcall RECORD_DispatchRecordedMessage(D2MsgRecordStrc* pRecord);                                          // 0x00451880
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
 
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
-int __fastcall sub_00463EB0_GetGfxField38(D2UnitStrc* pUnit);                                               // 0x00463EB0
+int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit);                                               // 0x00463EB0
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 
@@ -121,9 +121,9 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);             
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-int __fastcall sub_004DAE60_UnitSupportsMode(D2UnitStrc* pUnit, int nMode);                                 // 0x004DAE60
+int __fastcall GFXUTIL_UnitSupportsMode(D2UnitStrc* pUnit, int nMode);                                 // 0x004DAE60
 
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
+int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 
@@ -135,9 +135,9 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                         
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 
-int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit);                                          // 0x004DA0D0
+int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
 
-int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit);                                          // 0x004DA0F0
+int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 
@@ -165,35 +165,35 @@ struct D2UnitSpawnStrc
 
 extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
 
-void __fastcall sub_004743D0_ReleaseOverlayResource(D2GfxLightStrc* pLight);                                   // 0x004743D0
+void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight);                                   // 0x004743D0
 
 D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2);                                         // 0x00643A00
 
-void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit);                                               // 0x004DA080
+void __stdcall PARTICLE_FreeGfxMotion(D2UnitStrc* pUnit);                                               // 0x004DA080
 
 void __fastcall sub_004CA9C0_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce);                               // 0x004CA9C0
 
-void __fastcall sub_004AED30_FreeClientUnit(D2UnitStrc* pUnit);                                             // 0x004AED30
+void __fastcall MONSTER_FreeClientUnit(D2UnitStrc* pUnit);                                             // 0x004AED30
 
-void __fastcall sub_004C1A70_ReleaseItemUnit(D2UnitStrc* pUnit);                                            // 0x004C1A70
+void __fastcall OBJECT_ReleaseItemUnit(D2UnitStrc* pUnit);                                            // 0x004C1A70
 
-void __fastcall sub_004BCA50_ReleaseUnit(D2UnitStrc* pUnit);                                                // 0x004BCA50
+void __fastcall OBJECT_ReleaseObjectUnit(D2UnitStrc* pUnit);                                                // 0x004BCA50
 
-void __fastcall sub_004CD170_FreeMissileUnit(D2UnitStrc* pMissile);                                         // 0x004CD170
+void __fastcall MISSILE_FreeMissileUnit(D2UnitStrc* pMissile);                                         // 0x004CD170
 
-void __fastcall sub_004DC0C0_FreeCltUnitEvents(D2UnitStrc* pUnit);                                          // 0x004DC0C0
+void __fastcall CUNITEVENT_FreeCltUnitEvents(D2UnitStrc* pUnit);                                          // 0x004DC0C0
 
-void __fastcall sub_0045F9F0_FreePacketBuffer(void* pArg);                                                  // 0x0045F9F0
+void __fastcall SCMD_FreePacketBuffer(void* pArg);                                                  // 0x0045F9F0
 
 void __cdecl UI_FreePlayerUI();                                                                                // 0x00453DE0
 
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection);                         // 0x006488A0
 
-void __fastcall sub_0044BEA0_SetValue(int nValue);                                                          // 0x0044BEA0
+void __fastcall GAME_SetStandStillHeld(int nValue);                                                          // 0x0044BEA0
 
 void __cdecl UI_LoadPlayerUI();                                                                   // 0x00453D90
 
-void __fastcall sub_004879D0(D2UnitStrc* pUnit);                                                            // 0x004879D0
+void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit);                                                            // 0x004879D0
 
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory);                                  // 0x0063B2C0
 
@@ -201,11 +201,11 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem);                  
 
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem);                                             // 0x0063DFA0
 
-void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp);  // 0x004C0EC0
+void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp);  // 0x004C0EC0
 
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
-D2ActiveRoomStrc* __fastcall sub_00465420_FindRoomBySubtile(int nX, int nY);                                // 0x00465420
+D2ActiveRoomStrc* __fastcall CUNIT_FindRoomBySubtile(int nX, int nY);                                // 0x00465420
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 
@@ -215,7 +215,7 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
-void __fastcall sub_004CD0A0(D2UnitStrc* pMissile, D2ActiveRoomStrc* pRoom, int nTargetX, int nTargetY, int nUnused); // 0x004CD0A0
+void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, D2ActiveRoomStrc* pRoom, int nTargetX, int nTargetY, int nUnused); // 0x004CD0A0
 
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);      // 0x00620AE0
 
@@ -223,13 +223,13 @@ void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
 
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom);                           // 0x0064C350
 
-void __fastcall sub_004DC510_InitGfxData(D2UnitStrc* pUnit);                                                // 0x004DC510
+void __fastcall PLAYERLIST_InitGfxData(D2UnitStrc* pUnit);                                                // 0x004DC510
 
-void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit);                                        // 0x004BC8D0
+void __fastcall OBJECT_UpdateObjectOverlay(D2UnitStrc* pUnit);                                        // 0x004BC8D0
 
-D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6); // 0x00466360
+D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6); // 0x00466360
 
-int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit);
+int CUNIT_AddUnitToTable(D2UnitStrc* pUnit); // 0x00463A50
 
 struct D2InventoryStrc;
 
@@ -255,9 +255,9 @@ struct D2HirelingInfoStrc
     int unk0x0C;
 };
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 
-void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
+void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
 
 int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOffset); // 0x00477620
 
@@ -265,27 +265,27 @@ D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey);                 
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
 
-int __fastcall sub_00479180_GetPetType(int nUnitId);                                                        // 0x00479180
+int __fastcall ROSTER_GetPetType(int nUnitId);                                                        // 0x00479180
 
 int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit);                                             // 0x004791B0
 
-unsigned char* __fastcall sub_004AC740_GetMonsterBytes(D2UnitStrc* pUnit);                                  // 0x004AC740
+unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit);                                  // 0x004AC740
 
 void __fastcall sub_004AC7A0(D2UnitStrc* pUnit, unsigned short wValue);                                     // 0x004AC7A0
 
 short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit);                                          // 0x004AC7C0
 
-void __fastcall sub_004AE0A0_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags);                      // 0x004AE0A0
+void __fastcall MONSTER_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags);                      // 0x004AE0A0
 
-void __fastcall sub_004AE150(D2UnitStrc* pUnit, unsigned int dwValue);                                      // 0x004AE150
+void __fastcall MONSTER_SetOwnerGUID(D2UnitStrc* pUnit, unsigned int dwValue);                                      // 0x004AE150
 
-int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE360
+int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE360
 
 void __fastcall sub_004AE8D0(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nMode); // 0x004AE8D0
 
-void __fastcall sub_004B1090_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo);                    // 0x004B1090
+void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo);                    // 0x004B1090
 
-void __fastcall sub_004CC380_PlayInitSound(D2UnitStrc* pUnit);                                              // 0x004CC380
+void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit);                                              // 0x004CC380
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
@@ -299,27 +299,27 @@ int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit);                    
 
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                         // 0x006556E0
 
-static D2UnitStrc* __stdcall sub_00463940_FindUnitInTable(D2UnitStrc** ppTable, unsigned int nUnitId, int nHash, int nUnitType); // 0x00463940
+static D2UnitStrc* __stdcall CUNIT_FindUnitInTable(D2UnitStrc** ppTable, unsigned int nUnitId, int nHash, int nUnitType); // 0x00463940
 
-static void sub_004656C0_ClassEffects(D2UnitStrc* pUnit, int nClassId); // 0x004656C0
+static void CUNIT_ApplyClassEffects(D2UnitStrc* pUnit, int nClassId); // 0x004656C0
 
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit);                                              // 0x004DA000
+void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit);                                              // 0x004DA000
 
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
 
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
 
-void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
+void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
 
-void __fastcall sub_004DA6E0_SetMotionFlag20(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
+void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 
 
-static D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit); // 0x00465F20
+static D2UnitStrc* CUNIT_InsertUnit(D2UnitStrc* pUnit); // 0x00465F20
 
 // 0x004519C0
-void __cdecl sub_004519C0_ReplayRecords()
+void __cdecl CUNIT_ReplayRecords()
 {
     if (!gdwGlobal_007A2788)
         return;
@@ -338,7 +338,7 @@ void __cdecl sub_004519C0_ReplayRecords()
     D2MsgRecordStrc* pRecord = &pChunk->tRecords[pChunk->nIndex];
     while (pRecord->nTick <= nNow)
     {
-        sub_00451880_DispatchMsg(pRecord);
+        RECORD_DispatchRecordedMessage(pRecord);
         pChunk = gpMsgRecordChunk_0070F7A0;
         pChunk->nIndex++;
         if (!pChunk->pNext && pChunk->nCount == pChunk->nIndex)
@@ -366,7 +366,7 @@ void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor)
 }
 
 // 0x004637F0
-unsigned char* __fastcall sub_004637F0_GetMonsterComponents(D2UnitStrc* pUnit)
+unsigned char* __fastcall CUNIT_GetMonsterComponents(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -399,13 +399,13 @@ int __fastcall sub_00463860(D2UnitStrc* pUnit)
 }
 
 // 0x00463920
-static inline D2UnitStrc** sub_00463920_GetClientHashTable(int nUnitType)
+static inline D2UnitStrc** CUNIT_GetClientHashTable(int nUnitType)
 {
     return &gpUnitHashTable_007A5E70[nUnitType * 0x80];
 }
 
 // 0x00463930
-static inline D2UnitStrc** sub_00463930_GetServerHashTable(int nUnitType)
+static inline D2UnitStrc** CUNIT_GetServerHashTable(int nUnitType)
 {
     return &gpUnitHashTable_007A5270[nUnitType * 0x80];
 }
@@ -438,7 +438,7 @@ static inline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
-static D2UnitStrc* __stdcall sub_00463940_FindUnitInTable(D2UnitStrc** ppTable, unsigned int nUnitId, int nHash, int nUnitType)
+static D2UnitStrc* __stdcall CUNIT_FindUnitInTable(D2UnitStrc** ppTable, unsigned int nUnitId, int nHash, int nUnitType)
 {
     for (D2UnitStrc* pUnit = ppTable[nHash]; pUnit; pUnit = pUnit->pListNext)
     {
@@ -451,14 +451,16 @@ static D2UnitStrc* __stdcall sub_00463940_FindUnitInTable(D2UnitStrc** ppTable, 
     return 0;
 }
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType)
+// build: symbol ?CUNIT_FindClientUnit@* 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 {
-    return sub_00463940_FindUnitInTable(&gpUnitHashTable_007A5E70[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
+    return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5E70[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
 }
 
-D2UnitStrc* __fastcall sub_004639B0_FindServerSideUnit(unsigned int nUnitId, int nUnitType)
+// build: symbol ?CUNIT_FindServerSideUnit@* 0x004639B0
+D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType)
 {
-    return sub_00463940_FindUnitInTable(&gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
+    return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId, nUnitId & 0x7F, nUnitType);
 }
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit)
@@ -471,31 +473,31 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit)
         const int nHash = nOwnerGUID & 0x7F;
         if (nOwnerType == 3)
         {
-            return sub_00463940_FindUnitInTable(&gpUnitHashTable_007A5270[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
+            return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5270[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
         }
-        return sub_00463940_FindUnitInTable(&gpUnitHashTable_007A5E70[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
+        return CUNIT_FindUnitInTable(&gpUnitHashTable_007A5E70[nOwnerType * 0x80], nOwnerGUID, nHash, nOwnerType);
     }
     return 0;
 }
 
 // 0x00463A50
-static int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit)
+static int CUNIT_AddUnitToTable(D2UnitStrc* pUnit)
 {
     if (UNIT_HasFlag(pUnit, 0x200000))
     {
-        if (sub_004639B0_FindServerSideUnit(pUnit->dwUnitId, pUnit->dwUnitType))
+        if (CUNIT_FindServerSideUnit(pUnit->dwUnitId, pUnit->dwUnitType))
         {
             return 0;
         }
-        D2_ASSERT(!sub_004639B0_FindServerSideUnit(pUnit->dwUnitId, pUnit->dwUnitType), 0x9C);
+        D2_ASSERT(!CUNIT_FindServerSideUnit(pUnit->dwUnitId, pUnit->dwUnitType), 0x9C);
     }
     else
     {
-        if (sub_00463990(pUnit->dwUnitId, pUnit->dwUnitType))
+        if (CUNIT_FindClientUnit(pUnit->dwUnitId, pUnit->dwUnitType))
         {
             return 0;
         }
-        D2_ASSERT(!sub_00463990(pUnit->dwUnitId, pUnit->dwUnitType), 0xA5);
+        D2_ASSERT(!CUNIT_FindClientUnit(pUnit->dwUnitId, pUnit->dwUnitType), 0xA5);
     }
 
     sub_004CC160(pUnit, 1);
@@ -545,7 +547,7 @@ static int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit)
 }
 
 // 0x00463C60
-static inline void sub_00463C60_RemoveUnitFromRoom(D2UnitStrc* pUnit)
+static inline void CUNIT_RemoveUnitFromRoom(D2UnitStrc* pUnit)
 {
     if (gpGlobal_007A0634)
     {
@@ -601,7 +603,7 @@ inline int UNITS_InlineGetYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x00463FE0
-static int __stdcall sub_00463FE0_IsInObjectSelectBox(int nY, D2ObjectsTxt* pObjectsTxtRecord, int nX, D2UnitStrc* pUnit)
+static int __stdcall CUNIT_IsInObjectSelectBox(int nY, D2ObjectsTxt* pObjectsTxtRecord, int nX, D2UnitStrc* pUnit)
 {
     int nUnitX = UNITS_InlineGetXPosition(pUnit);
     int nUnitY = UNITS_InlineGetYPosition(pUnit);
@@ -644,7 +646,7 @@ static inline int OBJECTS_IsDeadInline(int nClassId, int nMode)
 }
 
 // 0x00464860
-int __fastcall sub_00464860_IsUnitDead(D2UnitStrc* pUnit)
+int __fastcall CUNIT_IsUnitDead(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -660,7 +662,7 @@ int __fastcall sub_00464860_IsUnitDead(D2UnitStrc* pUnit)
         case UNIT_ITEM:
             return nMode == 3;
         case UNIT_MONSTER:
-            if (!sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 0x14) && nMode == 12)
+            if (!MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, 0x14) && nMode == 12)
             {
                 return 1;
             }
@@ -682,14 +684,16 @@ int __fastcall sub_00464860_IsUnitDead(D2UnitStrc* pUnit)
     return 0;
 }
 
-void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
+void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
-void __fastcall sub_004643F0_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId)
+// build: symbol ?CUNIT_SetTargetByGUID@* 0x004643F0
+void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId)
 {
-    UNITS_SetTargetUnitForDynamicUnit(pUnit, sub_00463990(nUnitId, nUnitType));
+    UNITS_SetTargetUnitForDynamicUnit(pUnit, CUNIT_FindClientUnit(nUnitId, nUnitType));
 }
 
-static int __stdcall sub_00464D20_IsItemInInventory(D2UnitStrc* pOwner, D2UnitStrc* pItem, D2UnitStrc* pUnit)
+// build: symbol ?CUNIT_IsItemInInventory@* 0x00464D20
+static int __stdcall CUNIT_IsItemInInventory(D2UnitStrc* pOwner, D2UnitStrc* pItem, D2UnitStrc* pUnit)
 {
     if (pOwner == pUnit)
     {
@@ -712,7 +716,8 @@ static int __stdcall sub_00464D20_IsItemInInventory(D2UnitStrc* pOwner, D2UnitSt
     return 0;
 }
 
-static int __stdcall sub_00464D90_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitStrc* pItem)
+// build: symbol ?CUNIT_IsItemOwnedByOther@* 0x00464D90
+static int __stdcall CUNIT_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitStrc* pItem)
 {
     D2UnitStrc** ppTable = gpUnitHashTable_007A5E70;
     for (int nTable = 0; nTable < 2; ++nTable)
@@ -721,7 +726,7 @@ static int __stdcall sub_00464D90_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitS
         {
             for (D2UnitStrc* pUnit = ppTable[i]; pUnit; pUnit = pUnit->pListNext)
             {
-                if (sub_00464D20_IsItemInInventory(pOwner, pItem, pUnit))
+                if (CUNIT_IsItemInInventory(pOwner, pItem, pUnit))
                 {
                     return 1;
                 }
@@ -732,21 +737,22 @@ static int __stdcall sub_00464D90_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitS
     return 0;
 }
 
-static void sub_00465870_FreeUnit(D2UnitStrc* pUnit)
+// build: symbol ?CUNIT_FreeUnit@* 0x00465870
+static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
 {
     if (pUnit->pLight)
     {
-        sub_004743D0_ReleaseOverlayResource(pUnit->pLight);
+        DLIGHTMAP_ReleaseLight(pUnit->pLight);
         pUnit->pLight = 0;
     }
 
     D2GfxLightStrc* pRoomLight = D2Common_10958(pUnit, 0);
     if (pRoomLight)
     {
-        sub_004743D0_ReleaseOverlayResource(pRoomLight);
+        DLIGHTMAP_ReleaseLight(pRoomLight);
     }
 
-    sub_004DA080_FreeGfxMotion(pUnit);
+    PARTICLE_FreeGfxMotion(pUnit);
     sub_004CA9C0_ReleaseUnitHints(pUnit, 0);
     sub_004CC160(pUnit, -1);
 
@@ -768,12 +774,12 @@ static void sub_00465870_FreeUnit(D2UnitStrc* pUnit)
             sub_0049F3D0(pUnit->pHoverText);
             pUnit->pHoverText = 0;
         }
-        sub_004AED30_FreeClientUnit(pUnit);
+        MONSTER_FreeClientUnit(pUnit);
         sub_004CA9C0_ReleaseUnitHints(pUnit, 1);
         break;
 
     case UNIT_ITEM:
-        sub_004C1A70_ReleaseItemUnit(pUnit);
+        OBJECT_ReleaseItemUnit(pUnit);
         ITEMS_FreeItemData(0, pUnit);
         UNITS_FreeStaticPath(pUnit);
         break;
@@ -784,13 +790,13 @@ static void sub_00465870_FreeUnit(D2UnitStrc* pUnit)
             sub_0049F3D0(pUnit->pHoverText);
             pUnit->pHoverText = 0;
         }
-        sub_004BCA50_ReleaseUnit(pUnit);
+        OBJECT_ReleaseObjectUnit(pUnit);
         UNITS_FreeStaticPath(pUnit);
         sub_004CA9C0_ReleaseUnitHints(pUnit, 1);
         break;
 
     case UNIT_MISSILE:
-        sub_004CD170_FreeMissileUnit(pUnit);
+        MISSILE_FreeMissileUnit(pUnit);
         break;
 
     case UNIT_TILE:
@@ -802,18 +808,19 @@ static void sub_00465870_FreeUnit(D2UnitStrc* pUnit)
         break;
     }
 
-    sub_004DC0C0_FreeCltUnitEvents(pUnit);
-    sub_0045F9F0_FreePacketBuffer(pUnit);
+    CUNITEVENT_FreeCltUnitEvents(pUnit);
+    SCMD_FreePacketBuffer(pUnit);
 
     if (pUnit == gpPlayerUnit_007A6A70)
     {
-        sub_00463D90_SetPlayerUnit(0);
+        CUNIT_SetPlayerUnit(0);
     }
 
     UNITS_FreeUnit(pUnit);
 }
 
-void __cdecl sub_004659C0_FreeAllUnits()
+// build: symbol ?CUNIT_FreeAllUnits@* 0x004659C0
+void __cdecl CUNIT_FreeAllUnits()
 {
     for (int nType = 0; nType < 6; ++nType)
     {
@@ -823,7 +830,7 @@ void __cdecl sub_004659C0_FreeAllUnits()
             while (pUnit)
             {
                 D2UnitStrc* pNext = pUnit->pListNext;
-                sub_00465870_FreeUnit(pUnit);
+                CUNIT_FreeUnit(pUnit);
                 pUnit = pNext;
                 gpUnitHashTable_007A5E70[gnUnitTypes_006D6ABC[nType] * 0x80 + i] = pUnit;
             }
@@ -838,7 +845,7 @@ void __cdecl sub_004659C0_FreeAllUnits()
             while (pUnit)
             {
                 D2UnitStrc* pNext = pUnit->pListNext;
-                sub_00465870_FreeUnit(pUnit);
+                CUNIT_FreeUnit(pUnit);
                 pUnit = pNext;
                 gpUnitHashTable_007A5270[gnUnitTypes_006D6ABC[nType] * 0x80 + i] = pUnit;
             }
@@ -846,7 +853,8 @@ void __cdecl sub_004659C0_FreeAllUnits()
     }
 }
 
-static void sub_00465E80_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType, D2UnitStrc** ppTable, int nHash)
+// build: symbol ?CUNIT_RemoveUnitFromTable@* 0x00465E80
+static void CUNIT_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType, D2UnitStrc** ppTable, int nHash)
 {
     D2UnitStrc* pPrev = 0;
     for (D2UnitStrc* pUnit = ppTable[nHash]; pUnit; pUnit = pUnit->pListNext)
@@ -864,57 +872,60 @@ static void sub_00465E80_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType
 
             if (pUnit->dwUnitType == UNIT_ITEM)
             {
-                sub_004879D0(pUnit);
+                VIEW_ResetSelectionForUnit(pUnit);
             }
 
-            sub_00465870_FreeUnit(pUnit);
+            CUNIT_FreeUnit(pUnit);
             return;
         }
         pPrev = pUnit;
     }
 }
 
-void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType)
+// build: symbol ?CUNIT_RemoveClientSideUnit@* 0x00465EE0
+void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType)
 {
-    sub_00465E80_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5E70[nUnitType * 0x80], nUnitId & 0x7F);
+    CUNIT_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5E70[nUnitType * 0x80], nUnitId & 0x7F);
 }
 
-void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType)
+// build: symbol ?CUNIT_RemoveServerSideUnit@* 0x00465F00
+void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType)
 {
-    sub_00465E80_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId & 0x7F);
+    CUNIT_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId & 0x7F);
 }
 
-static D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit)
+static D2UnitStrc* CUNIT_InsertUnit(D2UnitStrc* pUnit)
 {
-    if (!sub_00463A50_AddUnitToTable(pUnit))
+    if (!CUNIT_AddUnitToTable(pUnit))
     {
-        D2UnitStrc* pOld = sub_00463990(pUnit->dwUnitId, pUnit->dwUnitType);
+        D2UnitStrc* pOld = CUNIT_FindClientUnit(pUnit->dwUnitId, pUnit->dwUnitType);
         D2_ASSERT(pOld != pUnit, 0x1C6);
         if (pOld)
         {
             if (UNIT_HasFlag(pOld, 0x200000))
             {
-                sub_00465F00_RemoveServerSideUnit(pOld->dwUnitId, pOld->dwUnitType);
+                CUNIT_RemoveServerSideUnit(pOld->dwUnitId, pOld->dwUnitType);
             }
             else
             {
-                sub_00465EE0_RemoveClientSideUnit(pOld->dwUnitId, pOld->dwUnitType);
+                CUNIT_RemoveClientSideUnit(pOld->dwUnitId, pOld->dwUnitType);
             }
 
-            if (sub_00463A50_AddUnitToTable(pUnit))
+            if (CUNIT_AddUnitToTable(pUnit))
             {
                 return pUnit;
             }
         }
 
-        sub_00465870_FreeUnit(pUnit);
+        CUNIT_FreeUnit(pUnit);
         pUnit = 0;
     }
 
     return pUnit;
 }
 
-void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner)
+// build: symbol ?CUNIT_RemoveInventoryUnits@* 0x00466CB0
+void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner)
 {
     D2_ASSERT(pUnit, 0xA80);
 
@@ -928,20 +939,20 @@ void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckO
     while (pEntry)
     {
         D2UnitStrc* pNext = INVENTORY_GetNextItem(pEntry);
-        D2UnitStrc* pItem = sub_00463990(INVENTORY_GetItemGUID(pEntry), 4);
+        D2UnitStrc* pItem = CUNIT_FindClientUnit(INVENTORY_GetItemGUID(pEntry), 4);
         if (pItem)
         {
             int bRemove = 1;
             if (bCheckOwner)
             {
-                bRemove = !sub_00464D90_IsItemOwnedByOther(pUnit, pItem);
+                bRemove = !CUNIT_IsItemOwnedByOther(pUnit, pItem);
             }
 
             if (bRemove)
             {
-                sub_004C0EC0_UpdateItemLink(pItem, pUnit, 0, 0);
+                ITEM_UpdateItemLink(pItem, pUnit, 0, 0);
                 D2_ASSERT(INVENTORY_RemoveItemFromInventory(pInventory, pItem), 0xA92);
-                sub_00465EE0_RemoveClientSideUnit(pItem->dwUnitId, pItem->dwUnitType);
+                CUNIT_RemoveClientSideUnit(pItem->dwUnitId, pItem->dwUnitType);
             }
             else
             {
@@ -952,9 +963,10 @@ void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckO
     }
 }
 
-static D2UnitStrc* __stdcall sub_00465FD0_InitUnit(unsigned int nUnitId, int nClassId, int nY, int nUnitType, int nArg5, int nArg6, D2UnitStrc* pUnit, int nX)
+// build: symbol ?CUNIT_InitUnit@* 0x00465FD0
+static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, int nY, int nUnitType, int nArg5, int nArg6, D2UnitStrc* pUnit, int nX)
 {
-    const int bFlag = sub_0044DCC0();
+    const int bFlag = GAME_IsExpansion();
     if (pUnit)
     {
         if (bFlag)
@@ -976,7 +988,7 @@ static D2UnitStrc* __stdcall sub_00465FD0_InitUnit(unsigned int nUnitId, int nCl
     D2ActiveRoomStrc* pRoom = 0;
     if (nX || nY)
     {
-        pRoom = sub_00465420_FindRoomBySubtile(nX, nY);
+        pRoom = CUNIT_FindRoomBySubtile(nX, nY);
         pUnit->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
         pUnit->pDrlgAct = gpAct_007A0634;
     }
@@ -1019,7 +1031,7 @@ static D2UnitStrc* __stdcall sub_00465FD0_InitUnit(unsigned int nUnitId, int nCl
         break;
 
     case 3:
-        sub_004CD0A0(pUnit, pRoom, nX, nY, nClassId);
+        SKILLS_InitMissileUnit(pUnit, pRoom, nX, nY, nClassId);
         break;
 
     case 5:
@@ -1033,23 +1045,24 @@ static D2UnitStrc* __stdcall sub_00465FD0_InitUnit(unsigned int nUnitId, int nCl
 
     if (nUnitType != 5)
     {
-        sub_004DC510_InitGfxData(pUnit);
+        PLAYERLIST_InitGfxData(pUnit);
         if (nUnitType == 0 || nUnitType == 1)
         {
             UnitUpdateAnimRateAndVel(pUnit, gszCUnitFile_006D6A48, 0x21D);
         }
     }
 
-    pUnit = sub_00465F20_InsertUnit(pUnit);
+    pUnit = CUNIT_InsertUnit(pUnit);
     if (pUnit && nUnitType == 2)
     {
-        sub_004BC8D0_UpdateObjectOverlay(pUnit);
+        OBJECT_UpdateObjectOverlay(pUnit);
     }
 
     return pUnit;
 }
 
-D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName)
+// build: symbol ?CUNIT_CreatePlayerUnit@* 0x00466200
+D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName)
 {
     D2UnitStrc* pUnit = UNITS_AllocUnit(0, 0);
     if (!pUnit)
@@ -1057,7 +1070,7 @@ D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int n
         return 0;
     }
 
-    const int bFlag = sub_0044DCC0();
+    const int bFlag = GAME_IsExpansion();
     if (pUnit)
     {
         if (bFlag)
@@ -1079,7 +1092,7 @@ D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int n
     D2ActiveRoomStrc* pRoom;
     if (nX || nY)
     {
-        pRoom = sub_00465420_FindRoomBySubtile(nX, nY);
+        pRoom = CUNIT_FindRoomBySubtile(nX, nY);
         pUnit->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
         pUnit->pDrlgAct = gpAct_007A0634;
     }
@@ -1100,10 +1113,10 @@ D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int n
     }
 
     sub_00460BF0_InitPlayerUnit(pUnit, pRoom, nX, nY);
-    sub_004DC510_InitGfxData(pUnit);
+    PLAYERLIST_InitGfxData(pUnit);
     UnitUpdateAnimRateAndVel(pUnit, gszCUnitFile_006D6A48, 0x21D);
 
-    pUnit = sub_00465F20_InsertUnit(pUnit);
+    pUnit = CUNIT_InsertUnit(pUnit);
     if (pUnit)
     {
         UNITS_SetNameInPlayerData(pUnit, szName);
@@ -1112,7 +1125,8 @@ D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int n
     return pUnit;
 }
 
-D2UnitStrc* __fastcall sub_004661C0_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5)
+// build: symbol ?CUNIT_AllocClientUnit@* 0x004661C0
+D2UnitStrc* __fastcall CUNIT_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5)
 {
     D2UnitStrc* pUnit = UNITS_AllocUnit(0, nUnitType);
     if (!pUnit)
@@ -1120,10 +1134,11 @@ D2UnitStrc* __fastcall sub_004661C0_AllocClientUnit(unsigned int nUnitId, int nC
         return 0;
     }
 
-    return sub_00465FD0_InitUnit(nUnitId, nClassId, nY, nUnitType, nArg5, 0, pUnit, nX);
+    return CUNIT_InitUnit(nUnitId, nClassId, nY, nUnitType, nArg5, 0, pUnit, nX);
 }
 
-D2UnitStrc* __fastcall sub_00466300_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType)
+// build: symbol ?CUNIT_CreateObjectUnit@* 0x00466300
+D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType)
 {
     D2UnitStrc* pUnit = UNITS_AllocUnit(0, nUnitType);
     if (!pUnit)
@@ -1131,7 +1146,7 @@ D2UnitStrc* __fastcall sub_00466300_CreateObjectUnit(unsigned int nUnitId, int n
         return 0;
     }
 
-    pUnit = sub_00465FD0_InitUnit(nUnitId, nClassId, nY, nUnitType, nArg5, nArg6, pUnit, nX);
+    pUnit = CUNIT_InitUnit(nUnitId, nClassId, nY, nUnitType, nArg5, nArg6, pUnit, nX);
     if (pUnit)
     {
         pUnit->pObjectData->InteractType = nInteractType;
@@ -1144,7 +1159,8 @@ D2UnitStrc* __fastcall sub_00466300_CreateObjectUnit(unsigned int nUnitId, int n
     return pUnit;
 }
 
-D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg)
+// build: symbol ?CUNIT_SpawnPresetUnit@* 0x00466730
+D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg)
 {
     if (++gnPresetUnitId_00711F30 == -1)
     {
@@ -1159,7 +1175,7 @@ D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY
         tSpawn.nX = nX;
         tSpawn.nY = nY;
         tSpawn.nMode = nUnitType;
-        return sub_00466360_AddClientMonster(&tSpawn, 0, 0, 0, 0, nUnitType);
+        return CUNIT_AddClientMonster(&tSpawn, 0, 0, 0, 0, nUnitType);
     }
 
     D2UnitStrc* pUnit = UNITS_AllocUnit(0, nUnitType);
@@ -1169,63 +1185,63 @@ D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY
     }
 
     pUnit->dwFlags |= 0x600000;
-    return sub_00465FD0_InitUnit(gnPresetUnitId_00711F30, nClassId, nY, nUnitType, nArg, 0, pUnit, nX);
+    return CUNIT_InitUnit(gnPresetUnitId_00711F30, nClassId, nY, nUnitType, nArg, 0, pUnit, nX);
 }
 
-static void sub_004656C0_ClassEffects(D2UnitStrc* pUnit, int nClassId)
+static void CUNIT_ApplyClassEffects(D2UnitStrc* pUnit, int nClassId)
 {
     switch (nClassId)
     {
     case 0xF2:
     case 0x2C0:
-        sub_00470390(pUnit, 0x7A, 3, 0, 0, 0, 0, 0);
+        GFX_AddUnitOverlay(pUnit, 0x7A, 3, 0, 0, 0, 0, 0);
         break;
     case 0x14D:
-        sub_00470390(pUnit, 0xBA, 2, 0, 0, 0, 0, 0);
+        GFX_AddUnitOverlay(pUnit, 0xBA, 2, 0, 0, 0, 0, 0);
         break;
     case 0x154:
-        sub_004DA000_ResetGfxMotion(pUnit);
-        sub_004DA1D0_SetMotionVectorA(pUnit, -0x20, -0x20, 0);
+        PARTICLE_ResetGfxMotion(pUnit);
+        GFXUTIL_SetMotionVectorA(pUnit, -0x20, -0x20, 0);
         break;
     case 0x155:
-        sub_004DA000_ResetGfxMotion(pUnit);
-        sub_004DA1D0_SetMotionVectorA(pUnit, -0x20, 0x20, 0);
+        PARTICLE_ResetGfxMotion(pUnit);
+        GFXUTIL_SetMotionVectorA(pUnit, -0x20, 0x20, 0);
         break;
     case 0x156:
-        sub_004DA000_ResetGfxMotion(pUnit);
-        sub_004DA1D0_SetMotionVectorA(pUnit, 0x20, 0x20, 0);
+        PARTICLE_ResetGfxMotion(pUnit);
+        GFXUTIL_SetMotionVectorA(pUnit, 0x20, 0x20, 0);
         break;
     case 0x157:
-        sub_004DA000_ResetGfxMotion(pUnit);
-        sub_004DA1D0_SetMotionVectorA(pUnit, 0x20, -0x20, 0);
+        PARTICLE_ResetGfxMotion(pUnit);
+        GFXUTIL_SetMotionVectorA(pUnit, 0x20, -0x20, 0);
         break;
     case 0x15F:
     case 0x160:
     case 0x161:
     {
         const int nBase = (!pUnit ? -1 : pUnit->dwClassId) - 0xB3;
-        sub_00470390(pUnit, nBase, 4, 0, nBase + 3, 0, 0, 0);
+        GFX_AddUnitOverlay(pUnit, nBase, 4, 0, nBase + 3, 0, 0, 0);
         break;
     }
     case 0x196:
-        sub_004DA000_ResetGfxMotion(pUnit);
-        sub_004DA1D0_SetMotionVectorA(pUnit, 0, 0, -0x37);
-        sub_004DA200_SetMotionVectorB(pUnit, 0, 0, 1, 1);
-        sub_004DA2A0_SetMotionVectorC(pUnit, 0, 0, 0x32, 0);
-        sub_004DA6E0_SetMotionFlag20(pUnit, 1);
+        PARTICLE_ResetGfxMotion(pUnit);
+        GFXUTIL_SetMotionVectorA(pUnit, 0, 0, -0x37);
+        GFXUTIL_SetMotionVectorB(pUnit, 0, 0, 1, 1);
+        GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0x32, 0);
+        MISSILE_SetMotionFlagMask(pUnit, 1);
         break;
     case 0x1A1:
     case 0x1A2:
         if (pUnit)
         {
-            sub_00470390(pUnit, 0x10E, 2, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, 0x10E, 2, 0, 0, 0, 0, 0);
         }
         break;
     case 0x209:
         sub_0046BFF0(pUnit);
         break;
     case 0x21F:
-        sub_00470390(pUnit, 0x113, 3, 0, 0, 0, 0, 0);
+        GFX_AddUnitOverlay(pUnit, 0x113, 3, 0, 0, 0, 0, 0);
         break;
     }
 }
@@ -1289,16 +1305,16 @@ static inline unsigned int sub_F4B0_SeedStep(D2SeedStrc* pSeed)
 }
 
 // 0x00466360
-D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6)
+D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6)
 {
     const unsigned int nUnitId = pSpawn->nUnitId;
     if (nUnitId == sub_00478F20_FindPetIdByOwner(gpPlayerUnit_007A6A70, 7, 1))
     {
-        D2UnitStrc* pPet = sub_00463940_FindUnitInTable(&gpUnitHashTable_007A5E70[UNIT_MONSTER * 0x80], nUnitId, nUnitId & 0x7F, UNIT_MONSTER);
+        D2UnitStrc* pPet = CUNIT_FindUnitInTable(&gpUnitHashTable_007A5E70[UNIT_MONSTER * 0x80], nUnitId, nUnitId & 0x7F, UNIT_MONSTER);
         if (pPet)
         {
-            sub_0046EC10_FreeGfxData(pPet);
-            sub_004DC510_InitGfxData(pPet);
+            GFX_FreeGfxData(pPet);
+            PLAYERLIST_InitGfxData(pPet);
             UNITS_ChangeAnimMode(pPet, pSpawn->nMode);
             return pPet;
         }
@@ -1337,7 +1353,7 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
     pUnit->dwUnitId = pSpawn->nUnitId;
     pUnit->pMemoryPool = 0;
     pUnit->dwTickCount = 0;
-    D2ActiveRoomStrc* pRoom = sub_00465420_FindRoomBySubtile(nX, nY);
+    D2ActiveRoomStrc* pRoom = CUNIT_FindRoomBySubtile(nX, nY);
     SEED_InitSeed(&pUnit->pSeed);
     if (pRoom)
     {
@@ -1345,19 +1361,19 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
     }
 
     SEED_InitLowSeed(&pUnit->pSeed, pUnit->dwInitSeed);
-    sub_004AE0A0_SetClientFlags(pUnit, 0);
+    MONSTER_SetClientFlags(pUnit, 0);
     sub_004AC810_ToggleMonsterFlag(pUnit, (unsigned short)pSpawn->tExtra.nArg10, 1);
     if (sub_004AC7E0_CheckMonTypeFlag(pUnit, 2))
     {
         sub_004AC7A0(pUnit, nArg5);
     }
 
-    sub_004AE150(pUnit, pSpawn->tExtra.nArg14);
+    MONSTER_SetOwnerGUID(pUnit, pSpawn->tExtra.nArg14);
     MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr));
     if (pArg3)
     {
         sub_004AC780_SetMonsterWord(pUnit, nArg4);
-        unsigned char* pBytes = sub_004AC740_GetMonsterBytes(pUnit);
+        unsigned char* pBytes = MONSTER_GetMonUmods(pUnit);
         pBytes[0] = pArg3[0];
         pBytes[1] = pArg3[1];
         pBytes[2] = pArg3[2];
@@ -1380,23 +1396,23 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
 
     sub_004AE8D0(pUnit, pRoom, nX, nY, nClassId, pSpawn->nMode);
     PATH_SetStepNum(pUnit->pDynamicPath, pMonStats2TxtRecord->nSteps);
-    sub_004DC510_InitGfxData(pUnit);
-    sub_004656C0_ClassEffects(pUnit, nClassId);
+    PLAYERLIST_InitGfxData(pUnit);
+    CUNIT_ApplyClassEffects(pUnit, nClassId);
     int nMode = 2;
     if (pMonStatsTxtRecord->nMode4D < 8)
     {
         nMode = pMonStatsTxtRecord->nMode4D + 2;
     }
 
-    if (sub_004AE360_IsUniqueMonster(pUnit) && !sub_004638A0_CheckMonStats2Flag(nClassId, 15))
+    if (MONSTER_IsUniqueMonster(pUnit) && !MONSTERREGION_CheckMonStats2Flag(nClassId, 15))
     {
         nMode = sub_00477620_RollUnitValue(pUnit, nArg4);
     }
 
     D2MonStats2Txt* pModeTxtRecord = sub_F4B0_GetMonStats2TxtFromMonsterId(nClassId);
-    if (pModeTxtRecord && pModeTxtRecord->nModes[sub_0044DCD0_GetDifficulty()])
+    if (pModeTxtRecord && pModeTxtRecord->nModes[GAME_GetDifficulty()])
     {
-        nMode = pModeTxtRecord->nModes[sub_0044DCD0_GetDifficulty()];
+        nMode = pModeTxtRecord->nModes[GAME_GetDifficulty()];
         if (nMode == 0xFF)
         {
             nMode = !sub_004791B0_IsOwnedByPlayer(pUnit);
@@ -1406,9 +1422,9 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
     if (sub_004AC7E0_CheckMonTypeFlag(pUnit, 2))
     {
         D2SuperUniquesTxt* pSuperUniquesTxtRecord = DATATBLS_GetSuperUniquesTxtRecord(sub_004AC7C0_GetSuperUniqueId(pUnit));
-        if (pSuperUniquesTxtRecord->nModes[sub_0044DCD0_GetDifficulty()])
+        if (pSuperUniquesTxtRecord->nModes[GAME_GetDifficulty()])
         {
-            nMode = pSuperUniquesTxtRecord->nModes[sub_0044DCD0_GetDifficulty()];
+            nMode = pSuperUniquesTxtRecord->nModes[GAME_GetDifficulty()];
         }
     }
 
@@ -1419,8 +1435,8 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
 
     sub_0046F1C0(pUnit->pGfxData, nMode);
     sub_0046F220(pUnit->pGfxData, nMode);
-    pUnit = sub_00465F20_InsertUnit(pUnit);
-    if (sub_00479180_GetPetType(pUnit->dwUnitId) == 7)
+    pUnit = CUNIT_InsertUnit(pUnit);
+    if (ROSTER_GetPetType(pUnit->dwUnitId) == 7)
     {
         D2ClientEntryStrc* pEntry = sub_00478E40_FindEntry(pUnit->dwUnitId);
         if (pEntry)
@@ -1428,7 +1444,7 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
             D2HirelingInfoStrc tInfo;
             tInfo.dwValue = pEntry->dwValue;
             tInfo.wValue = pEntry->wValue;
-            sub_004B1090_InitHireling(pMonster, &tInfo);
+            MONSTER_InitHireling(pMonster, &tInfo);
         }
     }
 
@@ -1437,12 +1453,12 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
         INVENTORY_AllocInventory(0, pMonster);
     }
 
-    sub_004CC380_PlayInitSound(pMonster);
+    UNITSND_PlayInitSound(pMonster);
     return pMonster;
 }
 
 // 0x00477530
-unsigned char* __fastcall sub_00477530_GetPalShift(D2UnitStrc* pUnit)
+unsigned char* __fastcall CUNIT_GetPalShift(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == UNIT_MONSTER)
@@ -1450,7 +1466,7 @@ unsigned char* __fastcall sub_00477530_GetPalShift(D2UnitStrc* pUnit)
         D2PalShiftDataStrc* pData = gpPalShiftEntries_007B9578[pUnit->dwClassId].pData;
         if (!pData)
             return 0;
-        int nMode = sub_00463EB0_GetGfxField38(pUnit);
+        int nMode = CUNIT_GetPalShiftIndex(pUnit);
         switch (nMode)
         {
         case 0:
@@ -1478,7 +1494,7 @@ unsigned char* __fastcall sub_00477530_GetPalShift(D2UnitStrc* pUnit)
             }
             break;
         }
-        if (sub_0044DC60())
+        if (GAME_GetColorFlag())
         {
             D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
             if (pMonStats2TxtRecord && pMonStats2TxtRecord->nLocalBlood == 2)
@@ -1491,12 +1507,12 @@ unsigned char* __fastcall sub_00477530_GetPalShift(D2UnitStrc* pUnit)
 
 D2UnitStrc* __fastcall sub_M109_Emit_00463920(int nUnitType, int nHash)
 {
-    return sub_00463920_GetClientHashTable(nUnitType)[nHash] ? sub_00463930_GetServerHashTable(nUnitType)[nHash] : 0;
+    return CUNIT_GetClientHashTable(nUnitType)[nHash] ? CUNIT_GetServerHashTable(nUnitType)[nHash] : 0;
 }
 
 void __fastcall sub_M109_Emit_00463C60(D2UnitStrc* pUnit)
 {
-    sub_00463C60_RemoveUnitFromRoom(pUnit);
+    CUNIT_RemoveUnitFromRoom(pUnit);
 }
 
 int __fastcall sub_Q03_Emit_ObjectSelectBox(D2UnitStrc* pUnit, int nX, int nY)
@@ -1504,21 +1520,22 @@ int __fastcall sub_Q03_Emit_ObjectSelectBox(D2UnitStrc* pUnit, int nX, int nY)
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
     if (pObjectsTxtRecord->nIsDoor)
     {
-        return sub_00463FE0_IsInObjectSelectBox(nY, pObjectsTxtRecord, nX, pUnit);
+        return CUNIT_IsInObjectSelectBox(nY, pObjectsTxtRecord, nX, pUnit);
     }
 
     return 0;
 }
 
-static int __stdcall sub_004640A0_GetUnitSelectRect(unsigned int nFrame, D2RectStrc* pRect, D2UnitStrc* pUnit, int nMode)
+// build: symbol ?CUNIT_GetUnitSelectRect@* 0x004640A0
+static int __stdcall CUNIT_GetUnitSelectRect(unsigned int nFrame, D2RectStrc* pRect, D2UnitStrc* pUnit, int nMode)
 {
-    if (sub_004DAE60_UnitSupportsMode(pUnit, nMode))
+    if (GFXUTIL_UnitSupportsMode(pUnit, nMode))
     {
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
 
         int nOut;
-        if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, nMode, -1) && sub_006001F0(&tContext, 0, 1))
+        if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, nMode, -1) && sub_006001F0(&tContext, 0, 1))
         {
             D2CelStrc* pCell = tContext.pCel;
             if (pCell)
@@ -1549,7 +1566,7 @@ static int __stdcall sub_004640A0_GetUnitSelectRect(unsigned int nFrame, D2RectS
                 }
 
                 const int nGfxOffsetX = sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-                const int nGfxOffsetY = sub_004DA0D0_GetGfxMotionField38(pUnit) + sub_004DA0F0_GetGfxMotionField3C(pUnit);
+                const int nGfxOffsetY = ITEM_GetGfxClientY(pUnit) + ITEM_GetGfxClientZ(pUnit);
                 pRect->nLeft += nGfxOffsetX;
                 pRect->nRight += nGfxOffsetX;
                 pRect->nTop += nGfxOffsetY;
@@ -1571,7 +1588,7 @@ int __fastcall sub_Q03_Emit_UnitSelectRect(D2UnitStrc* pUnit, int nX)
     D2RectStrc tRect;
     for (int nMode = 0; nMode < 16; ++nMode)
     {
-        if (sub_004640A0_GetUnitSelectRect(nFrameNo, &tRect, pUnit, nMode) && nX >= tRect.nLeft && nX <= tRect.nRight)
+        if (CUNIT_GetUnitSelectRect(nFrameNo, &tRect, pUnit, nMode) && nX >= tRect.nLeft && nX <= tRect.nRight)
         {
             return 1;
         }

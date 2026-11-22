@@ -291,7 +291,7 @@ struct D2GameStrc;
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
-int __fastcall sub_00463830_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463830
+int __fastcall PLAYER_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463830
 
 int __fastcall sub_004CC790_RollRange(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004CC790
 
@@ -305,7 +305,7 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithOwnerData(D2GameStrc* pGame, void* 
 
 int __fastcall sub_005B31B0_SpawnMinionsAt(D2GameStrc* pGame, D2UnitStrc* pOwner, int nX, int nY, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags); // 0x005B31B0
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 struct D2RoomCoordListStrc
 {
@@ -576,7 +576,7 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
         return;
     }
 
-    const int nBaseId = sub_00463830_GetBaseIdFromMonsterId(nMonsterId);
+    const int nBaseId = PLAYER_GetBaseIdFromMonsterId(nMonsterId);
     if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != MONSTER_TENTACLEHEAD1)
     {
         if (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS])
@@ -1185,7 +1185,7 @@ int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* 
                 D2UnitStrc* pMinion = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX + pRecord->nXOffset, nY + pRecord->nYOffset, nClassId, nAnimMode, -1, 0);
                 if (pMinion)
                 {
-                    AIGENERAL_SetOwnerData(pGame, pMinion, sub_00451F50_GetUnitGUID(pOwner), sub_0044BE50_GetUnitTypeOrInvalid(pOwner), 0, 0);
+                    AIGENERAL_SetOwnerData(pGame, pMinion, sub_00451F50_GetUnitGUID(pOwner), GAME_GetUnitTypeOrInvalid(pOwner), 0, 0);
                     nResult = 1;
                 }
             }

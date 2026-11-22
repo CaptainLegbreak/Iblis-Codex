@@ -22,7 +22,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection); // 0x006488A0
 
@@ -34,7 +34,7 @@ static inline D2MissilesTxt* CLTMISS_GetMissilesTxtRecord(int nMissileId)
 }
 
 // 0x004CC870
-void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
+void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
 {
     D2UnitStrc* pOwner = (D2UnitStrc*)nInitArg;
     if (!pMissile)
@@ -48,7 +48,7 @@ void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
     if (pMissilesTxtRecord->dwCltParam[1] > 0)
         nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
 
-    sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nOffset);
+    GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nOffset);
     PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
     D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
     pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;

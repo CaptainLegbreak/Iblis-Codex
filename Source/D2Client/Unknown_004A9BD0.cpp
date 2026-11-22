@@ -20,8 +20,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-void __cdecl sub_0044DA40(); // 0x0044DA40
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -60,7 +60,7 @@ struct D2WeatherLayerStateStrc
     void* apCelFiles[4];
 };
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry); // 0x004B1680
 extern unsigned char gbGlobal_007A0522; // 0x007A0522
 extern D2UiCelFileStrc gaPanelCels_00724BF0[7]; // 0x00724BF0
@@ -73,7 +73,7 @@ extern int gnAutomapWidth_007A5220; // 0x007A5220
 extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_007A285C; // 0x007A285C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 
 int gnSelectedHotkey_007C0708; // 0x007C0708
@@ -200,7 +200,7 @@ void __cdecl sub_004AA980()
 {
     if (gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile)
     {
-        sub_00478A00(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile);
+        ARCHIVE_FreeClientCellFile(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile);
         gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile = 0;
     }
 }
@@ -212,7 +212,7 @@ void __cdecl sub_00472BD0()
     {
         if (gtWeatherLayer_007A89B0.apCelFiles[i])
         {
-            sub_00478A00(gtWeatherLayer_007A89B0.apCelFiles[i]);
+            ARCHIVE_FreeClientCellFile(gtWeatherLayer_007A89B0.apCelFiles[i]);
             gtWeatherLayer_007A89B0.apCelFiles[i] = 0;
         }
     }
@@ -221,7 +221,7 @@ void __cdecl sub_00472BD0()
     {
         if (gtWeatherLayer_007A893C.apCelFiles[i])
         {
-            sub_00478A00(gtWeatherLayer_007A893C.apCelFiles[i]);
+            ARCHIVE_FreeClientCellFile(gtWeatherLayer_007A893C.apCelFiles[i]);
             gtWeatherLayer_007A893C.apCelFiles[i] = 0;
         }
     }
@@ -293,7 +293,7 @@ void __cdecl sub_004ABF10_ClearSkillStates()
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
-        for (int i = 0; i < SKILLS_GetPlayerSkillCount(sub_00451F60_UnitClassId(pPlayer)); ++i)
+        for (int i = 0; i < SKILLS_GetPlayerSkillCount(GAME_GetUnitClassId(pPlayer)); ++i)
         {
             if (ganSkillState_007C0A38[i] == 1)
             {

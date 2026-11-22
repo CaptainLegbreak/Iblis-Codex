@@ -149,7 +149,7 @@ struct D2HotspotStrc
 
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern D2HotspotStrc gaHotspots_00727900[]; // 0x00727900
 
@@ -175,9 +175,9 @@ int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __stdcall sub_004922A0_ClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x004922A0
+int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg); // 0x004922A0
 
-void __fastcall sub_004BFBC0_HitTestHotspots(int nX, int nY); // 0x004BFBC0
+void __fastcall ITEM_HitTestHotspots(int nX, int nY); // 0x004BFBC0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -187,7 +187,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-int __cdecl sub_004B1670(); // 0x004B1670
+int __cdecl MONSTER_GetUseItemMode(); // 0x004B1670
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 
@@ -201,9 +201,9 @@ void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect);
 
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 
-void __fastcall sub_0044C860_SetValue(int nValue); // 0x0044C860
+void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
-void __cdecl sub_0044D520(); // 0x0044D520
+void __cdecl GAME_RequestExit(); // 0x0044D520
 
 void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 
@@ -237,7 +237,7 @@ extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
+D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 void __fastcall sub_0046EFD0_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
 
@@ -274,7 +274,7 @@ void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc
 
 void __cdecl sub_00487B80(); // 0x00487B80
 
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
 // 0x004BC290
@@ -551,7 +551,7 @@ void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     int bHandled;
     if (gnGlobal_007C5474 == 1)
     {
-        bHandled = sub_004922A0_ClickMsg(pMsg);
+        bHandled = WARDENCLIENT_HandlePanelAreaClick(pMsg);
     }
     else if (gnGlobal_007C5474 == 2)
     {
@@ -563,7 +563,7 @@ void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     if (bHandled)
         return;
-    sub_004BFBC0_HitTestHotspots(nX, nY);
+    ITEM_HitTestHotspots(nX, nY);
 check_item:
     D2UnitStrc* pItem = GetCursorItem_Inline();
     if (!pItem)
@@ -578,11 +578,11 @@ check_item:
     {
         if (gnGlobal_007C5470 == 1)
         {
-            if (sub_004B1670() == 0x9A && ITEMS_CanBeImbued(pItem))
+            if (MONSTER_GetUseItemMode() == 0x9A && ITEMS_CanBeImbued(pItem))
                 goto use_item;
-            if (sub_004B1670() == 0x1FF && sub_0062C770(pItem))
+            if (MONSTER_GetUseItemMode() == 0x1FF && sub_0062C770(pItem))
                 goto use_item;
-            if (sub_004B1670() == 0x200 && sub_0062C6A0(pItem))
+            if (MONSTER_GetUseItemMode() == 0x200 && sub_0062C6A0(pItem))
                 goto use_item;
         }
         else if (!gnGlobal_007C5470 && pTxt->dwCode == 0x20747368)
@@ -617,7 +617,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
   else context.cellFile=gpCelFile_007C5494;
   context.frame=0;
   sub_004F6480(&context,105,270,-1,5,0);
-  context.cellFile=sub_00454600_GetBuySellButtonCells();
+  context.cellFile=GAME_GetBuySellButtonCells();
   for(int i=0;i<gnGlobal_007278FC;++i){
    const int drawY=gaHotspots_00727900[i].y;
    const int drawX=gaHotspots_00727900[i].x;
@@ -633,8 +633,8 @@ void __cdecl USEITEM_DrawUseItemPanel()
      unsigned short textIndex=spot->textIndex;
      if(textIndex==4017){
       if(gnGlobal_007C5470==0)textIndex=3401;
-      if(sub_004B1670()==511)textIndex=22748;
-      else if(sub_004B1670()==512)textIndex=22749;
+      if(MONSTER_GetUseItemMode()==511)textIndex=22748;
+      else if(MONSTER_GetUseItemMode()==512)textIndex=22749;
      }
      const Unicode* text=D2LANG_GetStringFromTblIndex(textIndex);
      int width=D2Win_10121_GetTextWidth(text);
@@ -645,8 +645,8 @@ void __cdecl USEITEM_DrawUseItemPanel()
   }
   if(gnGlobal_007C5470==1){
    unsigned short textIndex=10076;
-   if(sub_004B1670()==511)textIndex=22750;
-   else if(sub_004B1670()==512)textIndex=22747;
+   if(MONSTER_GetUseItemMode()==511)textIndex=22750;
+   else if(MONSTER_GetUseItemMode()==512)textIndex=22747;
    const Unicode* panelText=D2LANG_GetStringFromTblIndex(textIndex);
    int lineCount;
    T0044CB60* line=sub_00502970_SplitText(panelText,&lineCount,300);
@@ -698,13 +698,13 @@ void __cdecl USEITEM_FreeUseItemPanel()
 
     if (gpCelFile_007C5494)
     {
-        sub_00478A00(gpCelFile_007C5494);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007C5494);
         gpCelFile_007C5494 = 0;
     }
 
     if (gpCelFile_007C5498)
     {
-        sub_00478A00(gpCelFile_007C5498);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007C5498);
         gpCelFile_007C5498 = 0;
     }
 }
@@ -791,7 +791,7 @@ void __cdecl USEITEM_OpenPanel()
         return;
     }
 
-    sub_0044DA40();
+    GAME_ResetMouseState();
     D2RectStrc tRect;
     tRect.nTop = 0x5B;
     tRect.nLeft = 0x6B;
@@ -813,8 +813,8 @@ void __cdecl USEITEM_LeaveGame()
 {
     sub_00477EE0();
     sub_0044B880_SetValue(0);
-    sub_0044C860_SetValue(1);
-    sub_0044D520();
+    GAME_SetCinematicExit(1);
+    GAME_RequestExit();
 }
 
 #include "gen/data/Source/D2Client/UI/useitem.inc"

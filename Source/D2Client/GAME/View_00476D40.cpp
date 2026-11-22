@@ -19,7 +19,7 @@ static int gnGlobal_007B9534;                                                   
 static int gnGlobal_007B9538;                                                                               // 0x007B9538
 
 // 0x004769D0
-static void sub_004769D0_UpdateShakeSound(int nIntensity)
+static void VIEW_UpdateShakeSound(int nIntensity)
 {
     int nVolume = nIntensity * 0xFF / 20;
     nVolume = nVolume > 0 ? nVolume : 0;
@@ -88,7 +88,7 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
     int nMagnitude = 0;
     if (nElapsed > nFadeOut + nHold + nFadeIn)
     {
-        sub_004769D0_UpdateShakeSound(nMagnitude);
+        VIEW_UpdateShakeSound(nMagnitude);
         gnGlobal_007B9534 = 0;
         gnGlobal_007B9538 = 0;
         gnGlobal_007B8D20 = 0;
@@ -120,5 +120,5 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
         *pY += nOffsetY;
         gnGlobal_007B8D20 = nOffsetY;
     }
-    sub_004769D0_UpdateShakeSound(nMagnitude);
+    VIEW_UpdateShakeSound(nMagnitude);
 }

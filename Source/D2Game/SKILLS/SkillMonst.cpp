@@ -228,7 +228,7 @@ typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2Unit
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
@@ -388,23 +388,23 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 
-void __fastcall sub_00474390_SetRecordBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
+void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
 
-void __fastcall sub_00480420_RefreshPathTarget(D2UnitStrc* pUnit);                                          // 0x00480420
+void __fastcall GFX_RefreshPathTarget(D2UnitStrc* pUnit);                                          // 0x00480420
 
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
 
-void __fastcall sub_004C70D0_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
+void __fastcall SKILLS_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
 
-void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile);                                            // 0x004CD390
+void __fastcall MISSILE_CltDoDefault(D2UnitStrc* pMissile);                                            // 0x004CD390
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 
-void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile);                                             // 0x004D30C0
+void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile);                                             // 0x004D30C0
 
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg);                                // 0x004E2ED0
 

@@ -37,19 +37,19 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
-void __fastcall sub_004C9060_DrawRotated(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
+void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
 
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
-void __fastcall sub_0046F000_ResetGfx(D2UnitStrc* pUnit); // 0x0046F000
+void __fastcall GFX_ResetGfx(D2UnitStrc* pUnit); // 0x0046F000
 void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
-void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __stdcall sub_004D97F0_UpdateStateColor(D2UnitStrc* pUnit); // 0x004D97F0
-void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState); // 0x004D9920
+void __stdcall MISSILE_UpdateStateColor(D2UnitStrc* pUnit); // 0x004D97F0
+void __fastcall PLRSKILLS_StartStateOverlays(D2UnitStrc* pUnit, int nState); // 0x004D9920
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit); // 0x00624390
@@ -65,7 +65,7 @@ unsigned int __stdcall DATATBLS_Get1OfNFromOverlayTxt(int nOverlayId); // 0x0066
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId); // 0x00621CC0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-void __fastcall sub_0046AE50_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce); // 0x0046AE50
+void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce); // 0x0046AE50
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -78,9 +78,9 @@ void __stdcall sub_K06_EmitPuttier1(int nValue, int nOther);
 int __stdcall sub_K06_EmitGettier2(int nValue);
 void __stdcall sub_K06_EmitPuttier2(int nValue, int nOther);
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
-void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
-void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
+void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 int __stdcall STATES_CheckStateMaskAuraByStateId(int nState); // 0x0063A210
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
@@ -99,13 +99,13 @@ extern const unsigned char gnBaseDirections_006DBA50[8]; // 0x006DBA50
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 void __fastcall sub_00472C50(int nArg); // 0x00472C50
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
+D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnused, D2UnitStrc* pUnit); // 0x006277F0
@@ -119,7 +119,7 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 
 
-void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, unsigned char nNewMode); // 0x00463C00
+void __fastcall SCMD_HandleMonsterModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, unsigned char nNewMode); // 0x00463C00
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
@@ -140,7 +140,7 @@ static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
 }
 
 // 0x004D8520
-void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg)
+void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -157,7 +157,7 @@ void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg)
     switch (pSkillsTxtRecord->wSrvDoFunc)
     {
     case 0x4C:
-        sub_004C9060_DrawRotated(pUnit, nArg, 1);
+        SKILLS_RotateUnitDirection(pUnit, nArg, 1);
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)
@@ -167,13 +167,13 @@ void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg)
 }
 
 // 0x004D85B0
-void __fastcall sub_004D85B0_SkillSeqDo1Thunk(D2UnitStrc* pUnit, int nArg)
+void __fastcall PLRSKILLS_CallSkillSeqDoForward(D2UnitStrc* pUnit, int nArg)
 {
-    sub_004D8520_SkillSeqDo1(pUnit, nArg);
+    PLRSKILLS_SkillSeqDoForward(pUnit, nArg);
 }
 
 // 0x004D85C0
-void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg)
+void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -190,7 +190,7 @@ void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg)
     switch (pSkillsTxtRecord->wSrvDoFunc)
     {
     case 0x4C:
-        sub_004C9060_DrawRotated(pUnit, nArg, 0);
+        SKILLS_RotateUnitDirection(pUnit, nArg, 0);
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)
@@ -226,7 +226,7 @@ static inline int GetThirdsTier(int nValue, int nTotal)
 }
 
 // 0x004D8660
-static void __stdcall sub_004D8660_OverlayVariants(D2UnitStrc* pUnit, int nOverlay)
+static void __stdcall PLRSKILLS_OverlayVariants(D2UnitStrc* pUnit, int nOverlay)
 {
     if (nOverlay == -1)
         return;
@@ -239,7 +239,7 @@ static void __stdcall sub_004D8660_OverlayVariants(D2UnitStrc* pUnit, int nOverl
 }
 
 // 0x004D86A0
-void __fastcall sub_004D86A0_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
 {
     if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
     {
@@ -266,12 +266,12 @@ void __fastcall sub_004D86A0_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, pStatesTxt->wStat, 0);
     if (nLevel >= 1 && nLevel <= 3)
     {
-        sub_00470390(pUnit, pStatesTxt->wPrgOverlay + nLevel - 1, 3, 0, 0, 0, 0, 0);
+        GFX_AddUnitOverlay(pUnit, pStatesTxt->wPrgOverlay + nLevel - 1, 3, 0, 0, 0, 0, 0);
     }
 }
 
 // 0x004D8760
-void __fastcall sub_004D8760_StatePrgOverlays(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StatePrgOverlays(D2UnitStrc* pUnit, int nState)
 {
     if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
     {
@@ -307,7 +307,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004D87E0
-void __fastcall sub_004D87E0_StateAuraEffect(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateAuraEffect(D2UnitStrc* pUnit, int nState)
 {
     int nLevel;
     D2StatListStrc* pStatList;
@@ -335,11 +335,11 @@ void __fastcall sub_004D87E0_StateAuraEffect(D2UnitStrc* pUnit, int nState)
 
     int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nLevel);
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    sub_0046AE50_StartTimedBox(5, nValue * 3 / 5, nValue * 2 / 5, nLevelId, 0);
+    VIEW_StartTimedBox(5, nValue * 3 / 5, nValue * 2 / 5, nLevelId, 0);
 }
 
 // 0x004D88A0
-void __fastcall sub_004D88A0_StateSkillLevel(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateSkillLevel(D2UnitStrc* pUnit, int nState)
 {
     int nLevel;
     D2StatListStrc* pStatList;
@@ -378,7 +378,7 @@ void __fastcall sub_004D88A0_StateSkillLevel(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D8960
-void __fastcall sub_004D8960_StateStoreOwner(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateStoreOwner(D2UnitStrc* pUnit, int nState)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
     if (pStatList)
@@ -392,13 +392,13 @@ void __fastcall sub_004D8960_StateStoreOwner(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D89A0
-void __fastcall sub_004D89A0_StateClearOwner(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateClearOwner(D2UnitStrc* pUnit, int nState)
 {
     UNITS_StoreOwner(pUnit, 0);
 }
 
 // 0x004D89B0
-void __fastcall sub_004D89B0_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
@@ -417,11 +417,11 @@ void __fastcall sub_004D89B0_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
     sub_004AEDD0(pUnit, nValue);
     if (nMode == 8)
     {
-        sub_00480E70_SetUnitMode(pUnit, 8);
+        UNITMODE_SetUnitMode(pUnit, 8);
     }
     else
     {
-        sub_00480E70_SetUnitMode(pUnit, 1);
+        UNITMODE_SetUnitMode(pUnit, 1);
     }
 
     if (nValue == 0x21F)
@@ -445,7 +445,7 @@ static int __stdcall sub_004D8A30_GetThirdsTier(int nValue, int nTotal)
 }
 
 // 0x004D8A60
-void __fastcall sub_004D8A60_StateOverlays(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateOverlays(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pTxt = GetStatesTxtRecord(nState);
     if (!pTxt)
@@ -458,34 +458,34 @@ void __fastcall sub_004D8A60_StateOverlays(D2UnitStrc* pUnit, int nState)
     const int nOverlay4 = GetOverlay(pTxt->wOverlay[3]);
     if (nCast != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nCast);
-        sub_004D8660_OverlayVariants(pUnit, nCast);
-        sub_004D8660_OverlayVariants(pUnit, nCast);
+        PLRSKILLS_OverlayVariants(pUnit, nCast);
+        PLRSKILLS_OverlayVariants(pUnit, nCast);
+        PLRSKILLS_OverlayVariants(pUnit, nCast);
     }
     if (nOverlay1 != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nOverlay1);
-        sub_004D8660_OverlayVariants(pUnit, nOverlay1);
-        sub_004D8660_OverlayVariants(pUnit, nOverlay1);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay1);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay1);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay1);
     }
     if (nOverlay2 != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nOverlay2);
-        sub_004D8660_OverlayVariants(pUnit, nOverlay2);
-        sub_004D8660_OverlayVariants(pUnit, nOverlay2);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay2);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay2);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay2);
     }
     if (nOverlay3 != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nOverlay3);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay3);
     }
     if (nOverlay4 != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nOverlay4);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay4);
     }
 }
 
 // 0x004D8B90
-void __fastcall sub_004D8B90_StateTier4(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateTieredOverlays(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pTxt = GetStatesTxtRecord(nState);
     if (!pTxt)
@@ -507,26 +507,26 @@ void __fastcall sub_004D8B90_StateTier4(D2UnitStrc* pUnit, int nState)
     STATLIST_SetStat(pStatList, STAT_SHORTPARAM1, nTier, 0);
     if (nTier > nOldTier)
     {
-        sub_004D8A60_StateOverlays(pUnit, nState);
+        PLRSKILLS_StateOverlays(pUnit, nState);
         if (nOverlay3 != -1 && nTier >= 3)
         {
-            sub_00470390(pUnit, nOverlay3, 7, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay3, 7, 0, 0, 0, 0, 0);
         }
         if (nOverlay4 != -1 && nTier >= 2)
         {
-            sub_00470390(pUnit, nOverlay4, 7, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay4, 7, 0, 0, 0, 0, 0);
         }
         if (nCast != -1 && nOverlay1 != -1 && nOverlay2 != -1)
         {
-            sub_00470390(pUnit, nCast, 4, 0, nOverlay1, nOverlay2, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nCast, 4, 0, nOverlay1, nOverlay2, 0, 0);
         }
     }
     else if (nTier < nOldTier)
     {
         for (int i = nTier; i < nOldTier; ++i)
         {
-            sub_004D8660_OverlayVariants(pUnit, nOverlay1);
-            sub_004D8660_OverlayVariants(pUnit, nOverlay2);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay1);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay2);
         }
     }
 }
@@ -552,7 +552,7 @@ static int __stdcall sub_004D8D60_GetThirdsTier(int nValue, int nTotal)
 }
 
 // 0x004D8D90
-void __fastcall sub_004D8D90_StateOverlayPairs(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateOverlayPairs(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pTxt = GetStatesTxtRecord(nState);
     if (!pTxt)
@@ -563,23 +563,23 @@ void __fastcall sub_004D8D90_StateOverlayPairs(D2UnitStrc* pUnit, int nState)
     const int nOverlay3 = GetOverlay(pTxt->wOverlay[2]);
     if (nOverlay1 != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nOverlay1);
-        sub_004D8660_OverlayVariants(pUnit, nOverlay1 + 1);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay1);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay1 + 1);
     }
     if (nOverlay2 != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nOverlay2);
-        sub_004D8660_OverlayVariants(pUnit, nOverlay2 + 1);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay2);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay2 + 1);
     }
     if (nOverlay3 != -1)
     {
-        sub_004D8660_OverlayVariants(pUnit, nOverlay3);
-        sub_004D8660_OverlayVariants(pUnit, nOverlay3 + 1);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay3);
+        PLRSKILLS_OverlayVariants(pUnit, nOverlay3 + 1);
     }
 }
 
 // 0x004D8E60
-void __fastcall sub_004D8E60_StateTier3(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateTieredOverlayPairs(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pTxt = GetStatesTxtRecord(nState);
     if (!pTxt)
@@ -599,39 +599,39 @@ void __fastcall sub_004D8E60_StateTier3(D2UnitStrc* pUnit, int nState)
     STATLIST_SetStat(pStatList, STAT_SHORTPARAM1, nTier, 0);
     if (nTier > nOldTier)
     {
-        sub_004D8D90_StateOverlayPairs(pUnit, nState);
+        PLRSKILLS_StateOverlayPairs(pUnit, nState);
         if (nOverlay3 != -1 && nTier >= 3)
         {
-            sub_00470390(pUnit, nOverlay3, 3, 0, 0, 0, 0, 0);
-            sub_00470390(pUnit, nOverlay3 + 1, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay3, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay3 + 1, 3, 0, 0, 0, 0, 0);
         }
         if (nOverlay2 != -1 && nTier >= 2)
         {
-            sub_00470390(pUnit, nOverlay2, 3, 0, 0, 0, 0, 0);
-            sub_00470390(pUnit, nOverlay2 + 1, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay2, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay2 + 1, 3, 0, 0, 0, 0, 0);
         }
         if (nOverlay1 != -1 && nTier >= 1)
         {
-            sub_00470390(pUnit, nOverlay1, 3, 0, 0, 0, 0, 0);
-            sub_00470390(pUnit, nOverlay1 + 1, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay1, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay1 + 1, 3, 0, 0, 0, 0, 0);
         }
     }
     else
     {
         if (nOverlay3 && nTier <= 2)
         {
-            sub_004D8660_OverlayVariants(pUnit, nOverlay3);
-            sub_004D8660_OverlayVariants(pUnit, nOverlay3 + 1);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay3);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay3 + 1);
         }
         if (nOverlay2 && nTier <= 1)
         {
-            sub_004D8660_OverlayVariants(pUnit, nOverlay2);
-            sub_004D8660_OverlayVariants(pUnit, nOverlay2 + 1);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay2);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay2 + 1);
         }
         if (nOverlay1 && nOverlay1 <= 1)
         {
-            sub_004D8660_OverlayVariants(pUnit, nOverlay1);
-            sub_004D8660_OverlayVariants(pUnit, nOverlay1 + 1);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay1);
+            PLRSKILLS_OverlayVariants(pUnit, nOverlay1 + 1);
         }
     }
 }
@@ -664,7 +664,7 @@ inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
 }
 
 // 0x004D9090
-void __fastcall sub_004D9090_StatePlaySkillSound(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StatePlaySkillSound(D2UnitStrc* pUnit, int nState)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
     if (!pStatList)
@@ -680,7 +680,7 @@ void __fastcall sub_004D9090_StatePlaySkillSound(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D90F0
-void __fastcall sub_004D90F0_StateStopSkillSound(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateStopSkillSound(D2UnitStrc* pUnit, int nState)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
     if (!pStatList)
@@ -691,7 +691,7 @@ void __fastcall sub_004D90F0_StateStopSkillSound(D2UnitStrc* pUnit, int nState)
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
     if (pSkillsTxtRecord && pSkillsTxtRecord->wPrgSound > 0)
     {
-        void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pUnit, pSkillsTxtRecord->wPrgSound);
+        void* pUnitSfx = MISSILE_FindUnitSfxInRange(pUnit, pSkillsTxtRecord->wPrgSound);
         if (pUnitSfx)
         {
             sub_004BA790_ReleaseUnitSfx(pUnitSfx, pUnit, 1);
@@ -700,7 +700,7 @@ void __fastcall sub_004D90F0_StateStopSkillSound(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9260
-void __fastcall sub_004D9260_StateClearCollision(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateClearCollision(D2UnitStrc* pUnit, int nState)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_MONSTER)
@@ -731,7 +731,7 @@ void __fastcall sub_004D9260_StateClearCollision(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9310
-void __fastcall sub_004D9310_SetStateFlagEx(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateSetFlagEx(D2UnitStrc* pUnit, int nState)
 {
     if (pUnit)
     {
@@ -740,7 +740,7 @@ void __fastcall sub_004D9310_SetStateFlagEx(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9320
-void __fastcall sub_004D9320_SetStateFlags(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateSetFlags(D2UnitStrc* pUnit, int nState)
 {
     if (pUnit)
     {
@@ -750,7 +750,7 @@ void __fastcall sub_004D9320_SetStateFlags(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9340
-void __fastcall sub_004D9340_ClearStateFlags(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateClearFlags(D2UnitStrc* pUnit, int nState)
 {
     if (pUnit)
     {
@@ -760,29 +760,29 @@ void __fastcall sub_004D9340_ClearStateFlags(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9360
-void __fastcall sub_004D9360_ResetGfxMotion(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateResetGfxMotion(D2UnitStrc* pUnit, int nState)
 {
-    sub_004DA000_ResetGfxMotion(pUnit);
+    PARTICLE_ResetGfxMotion(pUnit);
     sub_004DA620(pUnit, 1);
 }
 
 // 0x004D9380
-void __fastcall sub_004D9380_ClearMotion(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateClearMotion(D2UnitStrc* pUnit, int nState)
 {
     sub_004DA620(pUnit, 0);
-    sub_004DA1D0_SetMotionVectorA(pUnit, 0, 0, 0);
+    GFXUTIL_SetMotionVectorA(pUnit, 0, 0, 0);
 }
 
 // 0x004D93A0
-void __fastcall sub_004D93A0_StateEndRequests(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateEndRequests(D2UnitStrc* pUnit, int nState)
 {
     NPCMENU_StateRequests(pUnit);
 }
 
 // 0x004D9450
-void __fastcall sub_004D9450_StateSetMode(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateSetMode(D2UnitStrc* pUnit, int nState)
 {
-    sub_00480E70_SetUnitMode(pUnit, 1);
+    UNITMODE_SetUnitMode(pUnit, 1);
     if (pUnit)
     {
         pUnit->dwFlags |= 0x80000000;
@@ -801,7 +801,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004D9480
-void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
     if (!pStatesTxtRecord)
@@ -845,7 +845,7 @@ void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
             }
             else if (!sub_0046E100(pUnit, nStart + i))
             {
-                sub_00470390(pUnit, nStart + i, 3, 0, 0, 0, 0, 0);
+                GFX_AddUnitOverlay(pUnit, nStart + i, 3, 0, 0, 0, 0, 0);
             }
         }
     }
@@ -864,7 +864,7 @@ void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
             }
             else if (!sub_0046E100(pUnit, nStart))
             {
-                sub_00470390(pUnit, nStart, 3, 0, 0, 0, 0, 0);
+                GFX_AddUnitOverlay(pUnit, nStart, 3, 0, 0, 0, 0, 0);
             }
         }
     }
@@ -883,7 +883,7 @@ static D2StatesTxt* STATES_GetStatesTxtRecord_J03(int nState)
 }
 
 // 0x004D9740
-void __fastcall sub_004D9740_StateCreateMissile(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateCreateMissile(D2UnitStrc* pUnit, int nState)
 {
     sub_004AF890(pUnit, 5, 0);
 
@@ -909,13 +909,13 @@ void __fastcall sub_004D9740_StateCreateMissile(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D97E0
-void __fastcall sub_004D97E0_StateResetValue(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StateResetValue(D2UnitStrc* pUnit, int nState)
 {
     sub_0044CE40(0);
 }
 
 // 0x004D9920
-void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StartStateOverlays(D2UnitStrc* pUnit, int nState)
 {
     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
     if (!pStatesTxtRecord || (pStatesTxtRecord->nStateFlags[4] & gdwBitMasks_006CE268[3]))
@@ -957,11 +957,11 @@ void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
     {
         if (bMask)
         {
-            sub_00470390(pUnit, nCastOverlay, 9, 0, nOverlay1, nOverlay2, nState, 0);
+            GFX_AddUnitOverlay(pUnit, nCastOverlay, 9, 0, nOverlay1, nOverlay2, nState, 0);
         }
         else
         {
-            sub_00470390(pUnit, nCastOverlay, 4, 0, nOverlay1, nOverlay2, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nCastOverlay, 4, 0, nOverlay1, nOverlay2, 0, 0);
         }
         return;
     }
@@ -970,11 +970,11 @@ void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
     {
         if (bMask)
         {
-            sub_00470390(pUnit, nOverlay1, 8, 0, nState, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay1, 8, 0, nState, 0, 0, 0);
         }
         else
         {
-            sub_00470390(pUnit, nOverlay1, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay1, 3, 0, 0, 0, 0, 0);
         }
     }
 
@@ -982,40 +982,40 @@ void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
     {
         if (bMask)
         {
-            sub_00470390(pUnit, nOverlay2, 8, 0, nState, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay2, 8, 0, nState, 0, 0, 0);
         }
         else
         {
-            sub_00470390(pUnit, nOverlay2, 3, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pUnit, nOverlay2, 3, 0, 0, 0, 0, 0);
         }
     }
 }
 
 // 0x004D9AD0
-static void sub_004D9AD0_ResetTransform(D2UnitStrc* pUnit)
+static void PLRSKILLS_ResetTransform(D2UnitStrc* pUnit)
 {
-    sub_0046F000_ResetGfx(pUnit);
+    GFX_ResetGfx(pUnit);
     if (pUnit)
     {
         if (pUnit->dwUnitType == UNIT_PLAYER)
         {
             if (pUnit->dwAnimMode == 0x12)
                 return;
-            sub_00480E70_SetUnitMode(pUnit, 1);
+            UNITMODE_SetUnitMode(pUnit, 1);
         }
         else if (pUnit->dwUnitType == UNIT_MONSTER)
         {
-            sub_00480E70_SetUnitMode(pUnit, 1);
+            UNITMODE_SetUnitMode(pUnit, 1);
         }
     }
-    sub_00470610_Refresh(pUnit, 1);
+    GFX_RefreshUnitGfx(pUnit, 1);
     UNITS_SetAnimStartFrame(pUnit);
     pUnit->nSeqCurrentFramePrecise = 0;
     UNITS_SetUsedSkill(pUnit, 0);
 }
 
 // 0x004D9B20
-void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_BeginState(D2UnitStrc* pUnit, int nState)
 {
     if (!pUnit)
         return;
@@ -1049,10 +1049,10 @@ void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState)
     STATES_ToggleState(pUnit, nState, 1);
     if (pTxt->nColorShift)
     {
-        sub_004D97F0_UpdateStateColor(pUnit);
+        MISSILE_UpdateStateColor(pUnit);
     }
-    sub_004D9920_StartStateOverlays(pUnit, nState);
-    if (sub_00464820_IsDeadOrDying(pUnit) && STATES_CheckStateMaskHideOnUnit(pUnit))
+    PLRSKILLS_StartStateOverlays(pUnit, nState);
+    if (CUNIT_IsDeadOrDying(pUnit) && STATES_CheckStateMaskHideOnUnit(pUnit))
     {
         pUnit->dwFlagEx |= 0x40000;
         pUnit->dwFlags &= ~2;
@@ -1060,12 +1060,12 @@ void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState)
     }
     if (pTxt->nStateFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7])
     {
-        sub_004D9AD0_ResetTransform(pUnit);
+        PLRSKILLS_ResetTransform(pUnit);
     }
 }
 
 // 0x004D9C30
-void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_EndState(D2UnitStrc* pUnit, int nState)
 {
     if (!pUnit)
         return;
@@ -1091,7 +1091,7 @@ void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState)
     STATES_ToggleState(pUnit, nState, 0);
     if (pTxt->nColorShift)
     {
-        sub_004D97F0_UpdateStateColor(pUnit);
+        MISSILE_UpdateStateColor(pUnit);
     }
     if ((short)pTxt->wRemoveOverlay >= 0)
     {
@@ -1100,19 +1100,19 @@ void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState)
         {
             nOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay));
         }
-        sub_00470390(pUnit, nOverlay, 4, 0, -1, -1, 0, 0);
+        GFX_AddUnitOverlay(pUnit, nOverlay, 4, 0, -1, -1, 0, 0);
     }
     if (pTxt->wOverlay[0] >= 0)
     {
-        sub_004D8660_OverlayVariants(pUnit, pTxt->wOverlay[0]);
+        PLRSKILLS_OverlayVariants(pUnit, pTxt->wOverlay[0]);
     }
     if (pTxt->wOverlay[1] >= 0)
     {
-        sub_004D8660_OverlayVariants(pUnit, pTxt->wOverlay[1]);
+        PLRSKILLS_OverlayVariants(pUnit, pTxt->wOverlay[1]);
     }
     if (pTxt->nStateFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7])
     {
-        sub_004D9AD0_ResetTransform(pUnit);
+        PLRSKILLS_ResetTransform(pUnit);
     }
     UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\PlrSkills.cpp", 0x59C);
 }
@@ -1128,7 +1128,7 @@ inline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecordInline(int nStatId)
 }
 
 // 0x004D9D70
-D2StatListStrc* __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nState, int nStatId, int nValue, int nLayer)
+D2StatListStrc* __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nState, int nStatId, int nValue, int nLayer)
 {
     if (!pUnit)
     {
@@ -1160,7 +1160,7 @@ D2StatListStrc* __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, D2StatLi
 
     if (nStatId == STAT_UNIT_MODE)
     {
-        sub_00463C00_OnModeChange(pUnit, nOldValue, nValue);
+        SCMD_HandleMonsterModeChange(pUnit, nOldValue, nValue);
     }
 
     D2ItemStatCostTxt* pItemStatCostTxtRecord = DATATBLS_GetItemStatCostTxtRecordInline(nStatId);
@@ -1173,7 +1173,7 @@ D2StatListStrc* __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, D2StatLi
 }
 
 // 0x004E0D40
-int __fastcall sub_004E0D40_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1226,12 +1226,12 @@ int __fastcall sub_004E0D40_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, 
         nY += nOffsetY;
     }
 
-    sub_004CDBA0_SubmitOwnerRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
+    MISSILE_SubmitOwnerRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
     return 1;
 }
 
 // 0x004E0FD0
-int __fastcall sub_004E0FD0_SkillStartMarkTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall PLRSKILLS_SkillStartMarkTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     if (!SKILLS_GetSkillsTxtRecord(nSkillId))
     {
@@ -1260,7 +1260,7 @@ int __fastcall sub_004E0FD0_SkillStartMarkTarget(D2UnitStrc* pUnit, int nSkillId
 }
 
 // 0x004E1B10
-int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall PLRSKILLS_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1297,7 +1297,7 @@ int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nS
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nLoops = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (pTarget)
     {
         D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
@@ -1320,7 +1320,7 @@ int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nS
 }
 
 // 0x004E3C50
-int __fastcall sub_004E3C50_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall PLRSKILLS_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1334,7 +1334,7 @@ int __fastcall sub_004E3C50_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId,
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (pTarget && pUnit)
     {
         D2MissileStrc tMissileParams;
@@ -1349,15 +1349,15 @@ int __fastcall sub_004E3C50_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId,
         D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
         if (pMissile)
         {
-            sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, 0x118);
-            sub_004DA200_SetMotionVectorB(pMissile, 0, 0, -0x28, 1);
+            GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 0x118);
+            GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -0x28, 1);
         }
 
         sub_00472C50(0);
         const short nOverlay = pSkillsTxtRecord->wPrgOverlay;
         if (nOverlay > 0)
         {
-            sub_00470390(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
+            GFX_AddUnitOverlay(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
         }
 
         return 1;
@@ -1367,7 +1367,7 @@ int __fastcall sub_004E3C50_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId,
 }
 
 // 0x004E9040
-void __fastcall sub_004E9040_AttackRating(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nSkillLevel, int* pValue, int* pColor, int nArg5, int nArg6)
+void __fastcall PLRSKILLS_DescAttackRating(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nSkillLevel, int* pValue, int* pColor, int nArg5, int nArg6)
 {
     D2UnitStrc* pWeapon = 0;
     if (pUnit->pInventory)
@@ -1427,7 +1427,7 @@ void __fastcall sub_004E9040_AttackRating(D2UnitStrc* pUnit, void* pArg, D2Skill
 }
 
 // 0x004F1D80
-int __fastcall sub_004F1D80_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall PLRSKILLS_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1483,8 +1483,8 @@ int __fastcall sub_004F1D80_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int 
         D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
         if (pMissile)
         {
-            sub_004DA1D0_SetMotionVectorA(pMissile, nX, 0, nZ);
-            sub_004DA200_SetMotionVectorB(pMissile, -nC, 0, -nB, 1);
+            GFXUTIL_SetMotionVectorA(pMissile, nX, 0, nZ);
+            GFXUTIL_SetMotionVectorB(pMissile, -nC, 0, -nB, 1);
         }
     }
 
@@ -1495,8 +1495,8 @@ int __fastcall sub_004F1D80_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int 
         D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
         if (pMissile)
         {
-            sub_004DA1D0_SetMotionVectorA(pMissile, nX, 0, nZ);
-            sub_004DA200_SetMotionVectorB(pMissile, -nC, 0, -nB, 1);
+            GFXUTIL_SetMotionVectorA(pMissile, nX, 0, nZ);
+            GFXUTIL_SetMotionVectorB(pMissile, -nC, 0, -nB, 1);
         }
     }
 
@@ -1504,7 +1504,7 @@ int __fastcall sub_004F1D80_MotionMissiles(D2UnitStrc* pUnit, int nSkillId, int 
 }
 
 // 0x004F4000
-int __fastcall sub_004F4000_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall PLRSKILLS_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1512,7 +1512,7 @@ int __fastcall sub_004F4000_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, in
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -1524,7 +1524,7 @@ int __fastcall sub_004F4000_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, in
         return 0;
     }
 
-    if (!sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 8))
+    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 8))
     {
         return 0;
     }

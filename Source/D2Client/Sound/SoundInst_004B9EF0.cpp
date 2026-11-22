@@ -45,7 +45,7 @@ D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
 
-int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
+int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 
 // 0x004B9EF0
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount)
@@ -170,7 +170,7 @@ void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
     for (; pNode; pNode = pNode->pNext)
     {
         D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-        if (sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupA && sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupB
+        if (SOUNDHDR_GetGroupStart(pEntry->nHintId) != nGroupA && SOUNDHDR_GetGroupStart(pEntry->nHintId) != nGroupB
             && pEntry->nHintId >= 0x34 && pEntry->nHintId <= 0x47)
         {
             D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
@@ -197,7 +197,7 @@ void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB)
     for (; pNode; pNode = pNode->pNext)
     {
         D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-        if (sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupA && sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupB
+        if (SOUNDHDR_GetGroupStart(pEntry->nHintId) != nGroupA && SOUNDHDR_GetGroupStart(pEntry->nHintId) != nGroupB
             && pEntry->nHintId >= 0x48 && pEntry->nHintId <= 0xC9)
         {
             D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);

@@ -1370,7 +1370,8 @@ static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2U
             while ((pItem = INVENTORY_GetBackPackItemByType(pPlayer->pInventory, nItemType, pItem)) != 0)
             {
                 const int nItemClassId = !pItem ? -1 : pItem->dwClassId;
-                if (sub_00451F60_UnitClassId(pWeapon) == nItemClassId && !ITEMS_CheckItemFlag(pItem, 0x100, 0x531, gszPlrModesSourceFile_006E17E0))
+// build: symbol ?GAME_GetUnitClassId@* 0x00451F60
+                if (GAME_GetUnitClassId(pWeapon) == nItemClassId && !ITEMS_CheckItemFlag(pItem, 0x100, 0x531, gszPlrModesSourceFile_006E17E0))
                 {
                     break;
                 }
