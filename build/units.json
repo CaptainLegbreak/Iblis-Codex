@@ -62917,6 +62917,11 @@
      "name": "AITHINK_Fn093_ArcaneTower"
     },
     {
+     "va": "0x005E1080",
+     "length": 457,
+     "name": "?AITHINK_Fn095_PantherJavelin@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E1250",
      "length": 741,
      "name": "?AITHINK_Fn096_FetishBlowgun@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -63037,6 +63042,11 @@
      "va": "0x005E4CF0",
      "length": 56,
      "name": "AITHINK_Fn067_NecroPet"
+    },
+    {
+     "va": "0x005E4D30",
+     "length": 788,
+     "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PATD2SeedStrc@@@Z"
     },
     {
      "va": "0x005E5050",
@@ -68093,22 +68103,6 @@
     {
      "va": "0x005E0490",
      "length": 1249
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E1080.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E1080",
-     "length": 457,
-     "name": "?AITHINK_Fn095_PantherJavelin@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E4D30",
-     "length": 788,
-     "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PATD2SeedStrc@@@Z"
     }
    ]
   },
