@@ -2246,6 +2246,391 @@ int __fastcall SKILLDESC_GetSummonLevel(int nSkillId, int nSkillLevel)
     return pSkillsTxtRecord->dwParam[4] + (nSkillLevel - 1) * pSkillsTxtRecord->dwParam[5];
 }
 
+// 0x004F47B0
+int __fastcall SKILLDESC_CltDoTargetedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    int nX;
+    int nY;
+    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nTargetX = nX;
+    tMissileParams.dwFlags = 0x20;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.pTarget = pTarget;
+    tMissileParams.nTargetY = nY;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissile;
+    if (!pTarget)
+    {
+        tMissileParams.dwFlags = 0x420;
+    }
+
+    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    if (pMissile)
+    {
+        if (pTarget)
+        {
+            MISSILE_SetTargetX(pMissile, 1);
+        }
+        else
+        {
+            MISSILE_SetTargetX(pMissile, 2);
+        }
+
+        const short nOffsetX = nX - CLIENTS_GetUnitX(pUnit);
+        const short nOffsetY = nY - CLIENTS_GetUnitY(pUnit);
+        MISSILE_SetTargetY(pMissile, (nOffsetY << 16) + nOffsetX);
+    }
+
+    return 1;
+}
+
+// 0x004F48F0
+int __fastcall SKILLDESC_CltDoMirrorMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    const int nTargetX = CLIENTS_GetUnitX(pTarget);
+    const int nTargetY = CLIENTS_GetUnitY(pTarget);
+    const int nMirrorX = 2 * nTargetX - CLIENTS_GetUnitX(pUnit);
+    const int nMirrorY = 2 * nTargetY - CLIENTS_GetUnitY(pUnit);
+    const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nTargetX = nMirrorX;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.nX = nTargetX;
+    tMissileParams.nY = nTargetY;
+    tMissileParams.dwFlags = 0x21;
+    tMissileParams.nTargetY = nMirrorY;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissile;
+    tMissileParams.pInitFunc = SKILLDESC_InitCappedChargedPath;
+    for (int i = 0; i < nCount; i += 1)
+    {
+        tMissileParams.nInitArg = i;
+        sub_004CD540_CreateMissile(&tMissileParams);
+    }
+
+    return 1;
+}
+
+// 0x004F4F40
+int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc* pUnit, int nSkillId)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = 0;
+    if (pUnit)
+    {
+        const int nClassId = pUnit->dwClassId;
+        if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            pMonStatsTxtRecord = &sgptDataTables->pMonStatsTxt[nClassId];
+        }
+    }
+
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2MonSoundsTxt* pMonSoundsTxtRecord = DATATBLS_GetMonSoundsTxtRecordFromSoundId(pMonStatsTxtRecord->wMonSound);
+    if (!pMonSoundsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nSound = 0;
+    for (int i = 0; i < 8; ++i)
+    {
+        if (pMonStatsTxtRecord->nSkill[i] == nSkillId)
+        {
+            switch (i)
+            {
+            case 0:
+                nSound = pMonSoundsTxtRecord->dwSkill[0];
+                break;
+
+            case 1:
+                nSound = pMonSoundsTxtRecord->dwSkill[1];
+                break;
+
+            case 2:
+                nSound = pMonSoundsTxtRecord->dwSkill[2];
+                break;
+
+            case 3:
+                nSound = pMonSoundsTxtRecord->dwSkill[3];
+                break;
+            }
+        }
+    }
+
+    return nSound < 0 ? 0 : nSound;
+}
+
+// 0x004F2340
+int __fastcall SKILLDESC_CltDoMissileRows(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0)
+    {
+        return 0;
+    }
+
+    const int nCount = sub_004F2260_GetSkillCount(pUnit, nSkillId, nSkillLevel);
+    if (nCount <= 0)
+    {
+        return 0;
+    }
+
+    const int nRows = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    SKILLS_ScatterRequestsAroundTarget(pUnit, nMissile, nCount, nRows, nSkillId, nSkillLevel);
+    return 1;
+}
+
+// 0x004F25A0
+int __fastcall SKILLDESC_CltDoRepeatMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    const int nCount = sub_004F2260_GetSkillCount(pUnit, nSkillId, nSkillLevel);
+    if (nCount <= 0)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags &= ~0x40;
+    }
+
+    int nX;
+    int nY;
+    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    const int nParam = SKILLS_GetParam1(pSkill);
+    if (nParam <= 0)
+    {
+        D2MissileStrc tMissileParams;
+        memset(&tMissileParams, 0, sizeof(tMissileParams));
+        tMissileParams.dwFlags = 0x20;
+        tMissileParams.pOwner = pUnit;
+        tMissileParams.pOrigin = pUnit;
+        tMissileParams.nMissile = nMissile;
+        tMissileParams.nSkill = nSkillId;
+        tMissileParams.nSkillLevel = nSkillLevel;
+        tMissileParams.nTargetX = nX;
+        tMissileParams.nTargetY = nY;
+        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+        if (pMissile)
+        {
+            GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 15);
+        }
+
+        SKILLS_SetParam1(pSkill, nCount);
+    }
+    else
+    {
+        SKILLS_SetParam1(pSkill, nParam - 1);
+    }
+
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
+    {
+        UNITS_SetAnimationFrame(pUnit, pSkillsTxtRecord->nSeqInput - 1);
+        pUnit->dwFrameCountPrecise = 0x800;
+    }
+
+    return 1;
+}
+
+// 0x004F2720
+int __fastcall SKILLDESC_CltDoTargetMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!CUNIT_GetPathTargetUnit(pUnit))
+    {
+        return 0;
+    }
+
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0)
+    {
+        return 0;
+    }
+
+    sub_004C5470_CreateMissileToTarget(pUnit, nMissile, nSkillId, nSkillLevel);
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    return 1;
+}
+
+// 0x004F29F0
+int __fastcall SKILLDESC_CltDoMissileScatterAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0)
+    {
+        return 0;
+    }
+
+    int nCount = sub_004F2260_GetSkillCount(pUnit, nSkillId, nSkillLevel);
+    if (nCount <= 0)
+    {
+        nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    }
+
+    int nX;
+    int nY;
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (pTarget)
+    {
+        nX = CLIENTS_GetUnitX(pTarget);
+        nY = CLIENTS_GetUnitY(pTarget);
+    }
+    else if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    SKILLDESC_MissileScatter(pUnit, nX, nMissile, nX, nY, nCount, nSkillId, nSkillLevel);
+    return 1;
+}
+
+// 0x004F2E90
+int __fastcall SKILLDESC_CltDoUnitEffect(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    SKILLS_StartUnitEffect(pUnit, pTarget, nMissile, -1, nSkillId, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(nMissile, nSkillLevel));
+    return 1;
+}
+
+// 0x004F33B0
+int __fastcall SKILLDESC_CltDoPositionMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0)
+    {
+        return 0;
+    }
+
+    int nX;
+    int nY;
+    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    sub_004C5470_CreateMissileToTarget(pUnit, nMissile, nSkillId, nSkillLevel);
+    return 1;
+}
+
+
 // 0x004EFCF0
 int __fastcall SKILLDESC_CltDoTurnedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2469,6 +2854,86 @@ int __fastcall SKILLDESC_CltDoFirstMissileTurned(D2UnitStrc* pUnit, int nSkillId
     return 1;
 }
 
+static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x004F3680
+static int __stdcall SKILLDESC_SpawnMissileTowardTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId)
+{
+    int nTargetX;
+    int nTargetY;
+    if (!sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+        return 0;
+
+    const int nDeltaX = nTargetX - UNITS_GetUnitXPosition(pUnit);
+    const int nDeltaY = nTargetY - UNITS_GetUnitYPosition(pUnit);
+    int nDistance = UNITS_GetDistanceToCoordinates(pUnit, nTargetX, nTargetY);
+    if (nDistance <= 1)
+        nDistance = 1;
+
+    const int nX = UNITS_GetUnitXPosition(pUnit) + 2 * nDeltaX / nDistance;
+    const int nY = UNITS_GetUnitYPosition(pUnit) + 2 * nDeltaY / nDistance;
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.nMissile = nMissileId;
+    missileParams.nSkill = nSkillId;
+    missileParams.nSkillLevel = nSkillLevel;
+    missileParams.dwFlags = 3;
+    missileParams.pOwner = pUnit;
+    missileParams.nX = nX;
+    missileParams.nY = nY;
+    missileParams.nTargetX = 5 * nDeltaX;
+    missileParams.nTargetY = 5 * nDeltaY;
+
+    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&missileParams);
+    if (!pMissile)
+        return 0;
+
+    D2COMMON_10160_PathUpdateDirection(pMissile->pDynamicPath, UNITS_GetDirectionToCoords(pUnit, nTargetX, nTargetY));
+    return 1;
+}
+
+// 0x004F3810
+int __fastcall SKILLDESC_CltStartMissileC(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        D2SkillsTxt* pSkillsTxt = &sgptDataTables->pSkillsTxt[nSkillId];
+        if (pSkillsTxt)
+        {
+            const int nMissileId = pSkillsTxt->wCltMissileC;
+            if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
+                return SKILLDESC_SpawnMissileTowardTarget(pUnit, nSkillId, nSkillLevel, nMissileId);
+        }
+    }
+
+    return 0;
+}
+
 // 0x004F1850
 int __fastcall SKILLDESC_CltDoMissileFanA(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2556,307 +3021,6 @@ int __fastcall SKILLDESC_CltDoMissileFanC(D2UnitStrc* pUnit, int nSkillId, int n
     return MISSILE_CreateMissileVolley(pUnit, nCount, nMissile, nSkillId, nSkillLevel, 0x200, 0, 1);
 }
 
-// 0x004F2340
-int __fastcall SKILLDESC_CltDoMissileRows(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0)
-    {
-        return 0;
-    }
-
-    const int nCount = sub_004F2260_GetSkillCount(pUnit, nSkillId, nSkillLevel);
-    if (nCount <= 0)
-    {
-        return 0;
-    }
-
-    const int nRows = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
-    SKILLS_ScatterRequestsAroundTarget(pUnit, nMissile, nCount, nRows, nSkillId, nSkillLevel);
-    return 1;
-}
-
-
-// 0x004F25A0
-int __fastcall SKILLDESC_CltDoRepeatMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    const int nCount = sub_004F2260_GetSkillCount(pUnit, nSkillId, nSkillLevel);
-    if (nCount <= 0)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags &= ~0x40;
-    }
-
-    int nX;
-    int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    const int nParam = SKILLS_GetParam1(pSkill);
-    if (nParam <= 0)
-    {
-        D2MissileStrc tMissileParams;
-        memset(&tMissileParams, 0, sizeof(tMissileParams));
-        tMissileParams.dwFlags = 0x20;
-        tMissileParams.pOwner = pUnit;
-        tMissileParams.pOrigin = pUnit;
-        tMissileParams.nMissile = nMissile;
-        tMissileParams.nSkill = nSkillId;
-        tMissileParams.nSkillLevel = nSkillLevel;
-        tMissileParams.nTargetX = nX;
-        tMissileParams.nTargetY = nY;
-        D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
-        if (pMissile)
-        {
-            GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 15);
-        }
-
-        SKILLS_SetParam1(pSkill, nCount);
-    }
-    else
-    {
-        SKILLS_SetParam1(pSkill, nParam - 1);
-    }
-
-    if (STATES_CheckState(pUnit, STATE_INFERNO))
-    {
-        UNITS_SetAnimationFrame(pUnit, pSkillsTxtRecord->nSeqInput - 1);
-        pUnit->dwFrameCountPrecise = 0x800;
-    }
-
-    return 1;
-}
-
-// 0x004F2720
-int __fastcall SKILLDESC_CltDoTargetMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!CUNIT_GetPathTargetUnit(pUnit))
-    {
-        return 0;
-    }
-
-    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0)
-    {
-        return 0;
-    }
-
-    sub_004C5470_CreateMissileToTarget(pUnit, nMissile, nSkillId, nSkillLevel);
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    return 1;
-}
-
-// 0x004F29F0
-int __fastcall SKILLDESC_CltDoMissileScatterAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0)
-    {
-        return 0;
-    }
-
-    int nCount = sub_004F2260_GetSkillCount(pUnit, nSkillId, nSkillLevel);
-    if (nCount <= 0)
-    {
-        nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
-    }
-
-    int nX;
-    int nY;
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (pTarget)
-    {
-        nX = CLIENTS_GetUnitX(pTarget);
-        nY = CLIENTS_GetUnitY(pTarget);
-    }
-    else if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    SKILLDESC_MissileScatter(pUnit, nX, nMissile, nX, nY, nCount, nSkillId, nSkillLevel);
-    return 1;
-}
-
-// 0x004F2E90
-int __fastcall SKILLDESC_CltDoUnitEffect(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    SKILLS_StartUnitEffect(pUnit, pTarget, nMissile, -1, nSkillId, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(nMissile, nSkillLevel));
-    return 1;
-}
-
-// 0x004F33B0
-int __fastcall SKILLDESC_CltDoPositionMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0)
-    {
-        return 0;
-    }
-
-    int nX;
-    int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    sub_004C5470_CreateMissileToTarget(pUnit, nMissile, nSkillId, nSkillLevel);
-    return 1;
-}
-
-static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// 0x004F3680
-static int __stdcall SKILLDESC_SpawnMissileTowardTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId)
-{
-    int nTargetX;
-    int nTargetY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
-        return 0;
-
-    const int nDeltaX = nTargetX - UNITS_GetUnitXPosition(pUnit);
-    const int nDeltaY = nTargetY - UNITS_GetUnitYPosition(pUnit);
-    int nDistance = UNITS_GetDistanceToCoordinates(pUnit, nTargetX, nTargetY);
-    if (nDistance <= 1)
-        nDistance = 1;
-
-    const int nX = UNITS_GetUnitXPosition(pUnit) + 2 * nDeltaX / nDistance;
-    const int nY = UNITS_GetUnitYPosition(pUnit) + 2 * nDeltaY / nDistance;
-
-    D2MissileStrc missileParams;
-    memset(&missileParams, 0, sizeof(missileParams));
-    missileParams.nMissile = nMissileId;
-    missileParams.nSkill = nSkillId;
-    missileParams.nSkillLevel = nSkillLevel;
-    missileParams.dwFlags = 3;
-    missileParams.pOwner = pUnit;
-    missileParams.nX = nX;
-    missileParams.nY = nY;
-    missileParams.nTargetX = 5 * nDeltaX;
-    missileParams.nTargetY = 5 * nDeltaY;
-
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&missileParams);
-    if (!pMissile)
-        return 0;
-
-    D2COMMON_10160_PathUpdateDirection(pMissile->pDynamicPath, UNITS_GetDirectionToCoords(pUnit, nTargetX, nTargetY));
-    return 1;
-}
-
-// 0x004F3810
-int __fastcall SKILLDESC_CltStartMissileC(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        D2SkillsTxt* pSkillsTxt = &sgptDataTables->pSkillsTxt[nSkillId];
-        if (pSkillsTxt)
-        {
-            const int nMissileId = pSkillsTxt->wCltMissileC;
-            if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
-                return SKILLDESC_SpawnMissileTowardTarget(pUnit, nSkillId, nSkillLevel, nMissileId);
-        }
-    }
-
-    return 0;
-}
-
 // 0x004F38D0
 int __fastcall SKILLDESC_CltDoParamMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2928,170 +3092,6 @@ int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId)
     }
 
     return pSkillsTxtRecord->dwParam[5];
-}
-
-// 0x004F47B0
-int __fastcall SKILLDESC_CltDoTargetedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    int nX;
-    int nY;
-    if (!sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nTargetX = nX;
-    tMissileParams.dwFlags = 0x20;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.pTarget = pTarget;
-    tMissileParams.nTargetY = nY;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = nMissile;
-    if (!pTarget)
-    {
-        tMissileParams.dwFlags = 0x420;
-    }
-
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
-    if (pMissile)
-    {
-        if (pTarget)
-        {
-            MISSILE_SetTargetX(pMissile, 1);
-        }
-        else
-        {
-            MISSILE_SetTargetX(pMissile, 2);
-        }
-
-        const short nOffsetX = nX - CLIENTS_GetUnitX(pUnit);
-        const short nOffsetY = nY - CLIENTS_GetUnitY(pUnit);
-        MISSILE_SetTargetY(pMissile, (nOffsetY << 16) + nOffsetX);
-    }
-
-    return 1;
-}
-
-// 0x004F48F0
-int __fastcall SKILLDESC_CltDoMirrorMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    const int nTargetX = CLIENTS_GetUnitX(pTarget);
-    const int nTargetY = CLIENTS_GetUnitY(pTarget);
-    const int nMirrorX = 2 * nTargetX - CLIENTS_GetUnitX(pUnit);
-    const int nMirrorY = 2 * nTargetY - CLIENTS_GetUnitY(pUnit);
-    const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nTargetX = nMirrorX;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.nX = nTargetX;
-    tMissileParams.nY = nTargetY;
-    tMissileParams.dwFlags = 0x21;
-    tMissileParams.nTargetY = nMirrorY;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = nMissile;
-    tMissileParams.pInitFunc = SKILLDESC_InitCappedChargedPath;
-    for (int i = 0; i < nCount; i += 1)
-    {
-        tMissileParams.nInitArg = i;
-        sub_004CD540_CreateMissile(&tMissileParams);
-    }
-
-    return 1;
-}
-
-// 0x004F4F40
-int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc* pUnit, int nSkillId)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = 0;
-    if (pUnit)
-    {
-        const int nClassId = pUnit->dwClassId;
-        if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
-        {
-            pMonStatsTxtRecord = &sgptDataTables->pMonStatsTxt[nClassId];
-        }
-    }
-
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2MonSoundsTxt* pMonSoundsTxtRecord = DATATBLS_GetMonSoundsTxtRecordFromSoundId(pMonStatsTxtRecord->wMonSound);
-    if (!pMonSoundsTxtRecord)
-    {
-        return 0;
-    }
-
-    int nSound = 0;
-    for (int i = 0; i < 8; ++i)
-    {
-        if (pMonStatsTxtRecord->nSkill[i] == nSkillId)
-        {
-            switch (i)
-            {
-            case 0:
-                nSound = pMonSoundsTxtRecord->dwSkill[0];
-                break;
-
-            case 1:
-                nSound = pMonSoundsTxtRecord->dwSkill[1];
-                break;
-
-            case 2:
-                nSound = pMonSoundsTxtRecord->dwSkill[2];
-                break;
-
-            case 3:
-                nSound = pMonSoundsTxtRecord->dwSkill[3];
-                break;
-            }
-        }
-    }
-
-    return nSound < 0 ? 0 : nSound;
 }
 
 #include "gen/data/Source/D2Client/UI/SkillDesc_004E1FF0.inc"

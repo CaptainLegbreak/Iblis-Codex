@@ -661,290 +661,6 @@ int __stdcall sub_004468F0_SendChatLine(int nUnused)
     return sub_004428D0_SendChatText(szText, 1);
 }
 
-// 0x00446970
-int __stdcall sub_00446970_SendEmoteLine(int nUnused)
-{
-    char szText[0x12C];
-    char szLine[0x12C];
-    const Unicode* wszText = D2Win_10077_EDITBOX_GetText(gpChatEditBox_0077BD94);
-    if (wszText && sub_00526800(wszText))
-    {
-        sub_00526F70(szText, wszText, sizeof(szText));
-        if (szText[0] != '/')
-        {
-            const unsigned long dwTick = GetTickCount();
-            if (dwTick >= s_dwLastCommandTick_00798F50 + 1000)
-            {
-                s_dwLastCommandTick_00798F50 = dwTick;
-                sprintf(szLine, "/me %s", szText);
-                sub_004428D0_SendChatText(szLine, 0);
-            }
-        }
-    }
-    return 1;
-}
-
-// 0x00446A00
-int __stdcall sub_00446A00(int nUnused)
-{
-    char szText[AWAY_TEXT_SIZE];
-    const unsigned long dwTick = GetTickCount();
-    if (dwTick >= s_dwLastCommandTick_00798F50 + AWAY_COMMAND_DELAY)
-    {
-        s_dwLastCommandTick_00798F50 = dwTick;
-        sprintf(szText, "/away Away from the keyboard.");
-        if (!gpLaunchFuncs_0077B09C->pfn0x68())
-        {
-            sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
-            return 0;
-        }
-        gpLaunchFuncs_0077B09C->pfn0x14(szText);
-        EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
-    }
-    return 1;
-}
-
-// 0x00446B70
-static int sub_00446B70_Func(ComAdStrc* pAd)
-{
-    char szTempFile[260];
-    char szTempPath[260];
-    unsigned long nWritten;
-
-    SMACK_DeleteFile(gpControl_0077B098);
-    if (!GetTempPathA(260, szTempPath))
-    {
-        *(unsigned short*)szTempPath = '.';
-    }
-    if (GetTempFileNameA(szTempPath, "BNetAd", 0, szTempFile) > 0)
-    {
-        DeleteFileA(gszTempFile_00798E30);
-        void* hFile = FOG_CreateFileA(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
-        if (hFile != (void*)-1)
-        {
-            FOG_WriteFile(hFile, pAd->pBuffer, pAd->nSize, &nWritten, 0);
-// build: symbol ?FOG_CloseFile@* 0x004069A0
-            FOG_CloseFile(hFile);
-        }
-        char* pExt = strrchr(pAd->szName, '.');
-        pExt++;
-        int ch = *pExt;
-        int n = tolower(ch);
-        SMACK_Decode(gpControl_0077B098, szTempFile, n);
-        int i = 0;
-        char c;
-        do
-        {
-            c = szTempFile[i];
-            gszTempFile_00798E30[i] = c;
-            i++;
-        } while (c);
-    }
-    gpLaunchContext_0077B0A4 = pAd->pContext;
-    FOG_Free(pAd->szName, ".\\Src\\ComCallback.cpp", 0x386, 0);
-    FOG_Free(pAd->pData, ".\\Src\\ComCallback.cpp", 0x387, 0);
-    return 1;
-}
-
-// 0x00447870
-void __fastcall sub_00447870_AppendNumberText(Unicode* pText, int nValue)
-{
-    Unicode wszNumber[3];
-    char szNumber[4];
-    Unicode wszBuffer[0x200];
-
-    for (int i = 0; i < 0x200; i++)
-        wszBuffer[i].wChar = 0;
-    wszNumber[0].wChar = 0;
-    wszNumber[1].wChar = 0;
-    wszNumber[2].wChar = 0;
-    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
-    sub_00526700(wszBuffer, wszNumber);
-
-    if (!pText[0].wChar)
-    {
-        sub_005267E0(pText, wszBuffer);
-    }
-    else
-    {
-        D2_ASSERT(sub_00526800(pText) < 500, 0xB7D);
-        sub_00526700(pText, wszBuffer);
-    }
-}
-
-// 0x00447940
-void __fastcall sub_00447940_PrependNumberText(Unicode* pText, int nValue)
-{
-    Unicode wszNumber[3];
-    char szNumber[4];
-    Unicode wszBuffer[0x200];
-
-    for (int i = 0; i < 0x200; i++)
-        wszBuffer[i].wChar = 0;
-    wszNumber[0].wChar = 0;
-    wszNumber[1].wChar = 0;
-    wszNumber[2].wChar = 0;
-    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
-    sub_00526700(wszBuffer, wszNumber);
-
-    if (!pText[0].wChar)
-    {
-        sub_005267E0(pText, wszBuffer);
-    }
-    else
-    {
-        D2_ASSERT(sub_00526800(pText) < 500, 0xB9B);
-        sub_00526700(wszBuffer, pText);
-        sub_005267E0(pText, wszBuffer);
-    }
-}
-
-// 0x00448050
-void __cdecl sub_00448050_ClearSelectedUser()
-{
-    if (gpSelectedChannelUser_00798F48)
-    {
-        D2_ASSERT((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, 0x85A);
-        const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
-        D2Win_10156((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, nFlags & gdwInvBitMasks[10]);
-        gpSelectedChannelUser_00798F48 = 0;
-        gnSelectedLine_0070EC1C = -1;
-    }
-
-// build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
-    if (!GAME_IsLaunchExpansion())
-    {
-        sub_004477A0_Refresh();
-    }
-}
-
-// 0x00448150
-int __stdcall sub_00448150_PrintChannelText0(int nUnused, const char* szText)
-{
-    Unicode wszText[0x240];
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 0);
-    return 1;
-}
-
-// 0x004484E0
-int __stdcall sub_004484E0_PrintChannelText3(int nUnused, const char* szText)
-{
-    Unicode wszText[0x240];
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 3);
-    return 1;
-}
-
-// 0x00448540
-int __stdcall sub_00448540_PrintChannelText1(int nUnused, const char* szText)
-{
-    Unicode wszText[0x240];
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
-    return 1;
-}
-
-// 0x004485A0
-int __stdcall sub_004485A0_PrintFormattedText(int nUnused, const char* szText)
-{
-    char szBuffer[0x1F4];
-    Unicode wszText[0x240];
-    sprintf(szBuffer, "The channel \"%s\" is full. If you are having problems using Battle.net commands, please click the Help button.", szText);
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
-    return 1;
-}
-
-// 0x00448610
-int __stdcall sub_00448610_PrintFormattedText(int nUnused, const char* szText)
-{
-    char szBuffer[0x1F4];
-    Unicode wszText[0x240];
-    sprintf(szBuffer, "The channel \"%s\" is restricted. If you are having problems using Battle.net commands, please click the Help button.", szText);
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
-    return 1;
-}
-
-int __cdecl sub_00447A10_Pump(int n)
-{
-    ComAdStrc ad;
-    return sub_00446B70_Func(&ad);
-}
-
-static const char* SkipStarPrefix_Inl(const char* szName)
-{
-    const char* p = SStrChr(szName, '*');
-    if (p)
-    {
-        p++;
-        if (*p)
-        {
-            return p;
-        }
-    }
-    return szName;
-}
-
-// 0x00448A60
-static void sub_00448A60_PrintWhisperSent(const char* szName, const char* szText)
-{
-    char szLine[0x1F4];
-    Unicode wszLine[0x240];
-    sprintf(szLine, "You whisper to %s: %s", szName, szText);
-    for (int i = 0; i < 0x240; i++)
-        wszLine[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszLine, szLine, 0x240);
-    sub_00446A90_RemoveTableString(wszLine);
-    sub_0043E610_PrintText(wszLine, 2);
-}
-
-// 0x00448AD0
-int __stdcall sub_00448AD0_OnWhisperSent(const char* szTarget, const char* szText)
-{
-    char szName[0x100];
-    char szTitle[0x100];
-    char szAccount[0x100];
-    sub_00447560_SplitName(szTarget, szTitle, szName);
-    if (strlen(szName))
-    {
-        if (strlen(szTitle))
-        {
-            sprintf(szAccount, "%s%s", szTitle, szName);
-        }
-        else
-        {
-            strcpy(szAccount, szName);
-        }
-        sub_00448A60_PrintWhisperSent(szAccount, szText);
-    }
-    else
-    {
-        sub_00448A60_PrintWhisperSent(SkipStarPrefix_Inl(szTarget), szText);
-    }
-    return 1;
-}
-
 // 0x00448E30
 int __stdcall sub_00448E30_SquelchSelectedUser(int nUnused)
 {
@@ -1024,6 +740,290 @@ int __stdcall sub_00448F60_UnsquelchSelectedUser(int nUnused)
     gpLaunchFuncs_0077B09C->pfn0x14(szText);
     EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
     sub_00611560_GetSquelchList()->Unsquelch(szName);
+    return 1;
+}
+
+// 0x00446B70
+static int sub_00446B70_Func(ComAdStrc* pAd)
+{
+    char szTempFile[260];
+    char szTempPath[260];
+    unsigned long nWritten;
+
+    SMACK_DeleteFile(gpControl_0077B098);
+    if (!GetTempPathA(260, szTempPath))
+    {
+        *(unsigned short*)szTempPath = '.';
+    }
+    if (GetTempFileNameA(szTempPath, "BNetAd", 0, szTempFile) > 0)
+    {
+        DeleteFileA(gszTempFile_00798E30);
+        void* hFile = FOG_CreateFileA(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
+        if (hFile != (void*)-1)
+        {
+            FOG_WriteFile(hFile, pAd->pBuffer, pAd->nSize, &nWritten, 0);
+// build: symbol ?FOG_CloseFile@* 0x004069A0
+            FOG_CloseFile(hFile);
+        }
+        char* pExt = strrchr(pAd->szName, '.');
+        pExt++;
+        int ch = *pExt;
+        int n = tolower(ch);
+        SMACK_Decode(gpControl_0077B098, szTempFile, n);
+        int i = 0;
+        char c;
+        do
+        {
+            c = szTempFile[i];
+            gszTempFile_00798E30[i] = c;
+            i++;
+        } while (c);
+    }
+    gpLaunchContext_0077B0A4 = pAd->pContext;
+    FOG_Free(pAd->szName, ".\\Src\\ComCallback.cpp", 0x386, 0);
+    FOG_Free(pAd->pData, ".\\Src\\ComCallback.cpp", 0x387, 0);
+    return 1;
+}
+
+// 0x00446970
+int __stdcall sub_00446970_SendEmoteLine(int nUnused)
+{
+    char szText[0x12C];
+    char szLine[0x12C];
+    const Unicode* wszText = D2Win_10077_EDITBOX_GetText(gpChatEditBox_0077BD94);
+    if (wszText && sub_00526800(wszText))
+    {
+        sub_00526F70(szText, wszText, sizeof(szText));
+        if (szText[0] != '/')
+        {
+            const unsigned long dwTick = GetTickCount();
+            if (dwTick >= s_dwLastCommandTick_00798F50 + 1000)
+            {
+                s_dwLastCommandTick_00798F50 = dwTick;
+                sprintf(szLine, "/me %s", szText);
+                sub_004428D0_SendChatText(szLine, 0);
+            }
+        }
+    }
+    return 1;
+}
+
+// 0x00446A00
+int __stdcall sub_00446A00(int nUnused)
+{
+    char szText[AWAY_TEXT_SIZE];
+    const unsigned long dwTick = GetTickCount();
+    if (dwTick >= s_dwLastCommandTick_00798F50 + AWAY_COMMAND_DELAY)
+    {
+        s_dwLastCommandTick_00798F50 = dwTick;
+        sprintf(szText, "/away Away from the keyboard.");
+        if (!gpLaunchFuncs_0077B09C->pfn0x68())
+        {
+            sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
+            return 0;
+        }
+        gpLaunchFuncs_0077B09C->pfn0x14(szText);
+        EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
+    }
+    return 1;
+}
+
+// 0x00448050
+void __cdecl sub_00448050_ClearSelectedUser()
+{
+    if (gpSelectedChannelUser_00798F48)
+    {
+        D2_ASSERT((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, 0x85A);
+        const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
+        D2Win_10156((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, nFlags & gdwInvBitMasks[10]);
+        gpSelectedChannelUser_00798F48 = 0;
+        gnSelectedLine_0070EC1C = -1;
+    }
+
+// build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
+    if (!GAME_IsLaunchExpansion())
+    {
+        sub_004477A0_Refresh();
+    }
+}
+
+// 0x00447870
+void __fastcall sub_00447870_AppendNumberText(Unicode* pText, int nValue)
+{
+    Unicode wszNumber[3];
+    char szNumber[4];
+    Unicode wszBuffer[0x200];
+
+    for (int i = 0; i < 0x200; i++)
+        wszBuffer[i].wChar = 0;
+    wszNumber[0].wChar = 0;
+    wszNumber[1].wChar = 0;
+    wszNumber[2].wChar = 0;
+    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
+    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
+    sub_00526700(wszBuffer, wszNumber);
+
+    if (!pText[0].wChar)
+    {
+        sub_005267E0(pText, wszBuffer);
+    }
+    else
+    {
+        D2_ASSERT(sub_00526800(pText) < 500, 0xB7D);
+        sub_00526700(pText, wszBuffer);
+    }
+}
+
+// 0x00447940
+void __fastcall sub_00447940_PrependNumberText(Unicode* pText, int nValue)
+{
+    Unicode wszNumber[3];
+    char szNumber[4];
+    Unicode wszBuffer[0x200];
+
+    for (int i = 0; i < 0x200; i++)
+        wszBuffer[i].wChar = 0;
+    wszNumber[0].wChar = 0;
+    wszNumber[1].wChar = 0;
+    wszNumber[2].wChar = 0;
+    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
+    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
+    sub_00526700(wszBuffer, wszNumber);
+
+    if (!pText[0].wChar)
+    {
+        sub_005267E0(pText, wszBuffer);
+    }
+    else
+    {
+        D2_ASSERT(sub_00526800(pText) < 500, 0xB9B);
+        sub_00526700(wszBuffer, pText);
+        sub_005267E0(pText, wszBuffer);
+    }
+}
+
+// 0x00448150
+int __stdcall sub_00448150_PrintChannelText0(int nUnused, const char* szText)
+{
+    Unicode wszText[0x240];
+    for (int i = 0; i < 0x240; i++)
+        wszText[i].wChar = 0;
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    sub_00446A90_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 0);
+    return 1;
+}
+
+// 0x004484E0
+int __stdcall sub_004484E0_PrintChannelText3(int nUnused, const char* szText)
+{
+    Unicode wszText[0x240];
+    for (int i = 0; i < 0x240; i++)
+        wszText[i].wChar = 0;
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    sub_00446A90_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 3);
+    return 1;
+}
+
+// 0x00448540
+int __stdcall sub_00448540_PrintChannelText1(int nUnused, const char* szText)
+{
+    Unicode wszText[0x240];
+    for (int i = 0; i < 0x240; i++)
+        wszText[i].wChar = 0;
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    sub_00446A90_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 1);
+    return 1;
+}
+
+int __cdecl sub_00447A10_Pump(int n)
+{
+    ComAdStrc ad;
+    return sub_00446B70_Func(&ad);
+}
+
+static const char* SkipStarPrefix_Inl(const char* szName)
+{
+    const char* p = SStrChr(szName, '*');
+    if (p)
+    {
+        p++;
+        if (*p)
+        {
+            return p;
+        }
+    }
+    return szName;
+}
+
+// 0x004485A0
+int __stdcall sub_004485A0_PrintFormattedText(int nUnused, const char* szText)
+{
+    char szBuffer[0x1F4];
+    Unicode wszText[0x240];
+    sprintf(szBuffer, "The channel \"%s\" is full. If you are having problems using Battle.net commands, please click the Help button.", szText);
+    for (int i = 0; i < 0x240; i++)
+        wszText[i].wChar = 0;
+    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
+    sub_00446A90_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 1);
+    return 1;
+}
+
+// 0x00448610
+int __stdcall sub_00448610_PrintFormattedText(int nUnused, const char* szText)
+{
+    char szBuffer[0x1F4];
+    Unicode wszText[0x240];
+    sprintf(szBuffer, "The channel \"%s\" is restricted. If you are having problems using Battle.net commands, please click the Help button.", szText);
+    for (int i = 0; i < 0x240; i++)
+        wszText[i].wChar = 0;
+    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
+    sub_00446A90_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 1);
+    return 1;
+}
+
+// 0x00448A60
+static void sub_00448A60_PrintWhisperSent(const char* szName, const char* szText)
+{
+    char szLine[0x1F4];
+    Unicode wszLine[0x240];
+    sprintf(szLine, "You whisper to %s: %s", szName, szText);
+    for (int i = 0; i < 0x240; i++)
+        wszLine[i].wChar = 0;
+    sub_00526E40_Utf8ToUnicode(wszLine, szLine, 0x240);
+    sub_00446A90_RemoveTableString(wszLine);
+    sub_0043E610_PrintText(wszLine, 2);
+}
+
+// 0x00448AD0
+int __stdcall sub_00448AD0_OnWhisperSent(const char* szTarget, const char* szText)
+{
+    char szName[0x100];
+    char szTitle[0x100];
+    char szAccount[0x100];
+    sub_00447560_SplitName(szTarget, szTitle, szName);
+    if (strlen(szName))
+    {
+        if (strlen(szTitle))
+        {
+            sprintf(szAccount, "%s%s", szTitle, szName);
+        }
+        else
+        {
+            strcpy(szAccount, szName);
+        }
+        sub_00448A60_PrintWhisperSent(szAccount, szText);
+    }
+    else
+    {
+        sub_00448A60_PrintWhisperSent(SkipStarPrefix_Inl(szTarget), szText);
+    }
     return 1;
 }
 

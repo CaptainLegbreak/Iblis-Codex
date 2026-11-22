@@ -544,6 +544,147 @@ static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short 
     return sub_00524930(sghStringTable, gpStringIndex_008829B8, nIndex);
 }
 
+// 0x005259C0
+int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage, int bExpansion)
+{
+    char szLang[4];
+    char szMapPath[0x104];
+    char szPath[0x104];
+    char szFormat[0x104];
+    char szCodePage[0x20];
+    D2TblNodeStrc* pNodes;
+    Unicode* pText;
+    Unicode** pIndex;
+    int nTotal;
+    int i;
+
+    if (sghStringTable)
+    {
+        ++gnStringTableRefs_008829D8;
+        return 1;
+    }
+
+    if (szLanguage)
+        strcpy(szLang, szLanguage);
+    else
+        STRTABLE_GetLanguageInfoField(szLang, 0);
+
+    if (!_stricmp(szLang, "JPN"))
+        strcpy(szCodePage, "JPN");
+    else if (!_stricmp(szLang, "KOR"))
+        strcpy(szCodePage, "KOR");
+    else if (!_stricmp(szLang, "POL"))
+        strcpy(szCodePage, "LATIN2");
+    else if (!_stricmp(szLang, "RUS"))
+        strcpy(szCodePage, "CYR");
+    else
+        strcpy(szCodePage, "LATIN");
+
+    sprintf(szMapPath, "data\\local\\font\\%s\\default.map", szCodePage);
+    UNISYS_LoadSysMap(ghArchive_008829DC, szMapPath);
+
+    strncpy(szFormat, "data\\local\\lng\\%s\\string.tbl", 0x103);
+    sprintf(szPath, szFormat, szLang);
+    sghStringTable = STRTABLE_LoadTblFile(szPath);
+    if (!sghStringTable)
+        return 0;
+
+    D2TblHeaderStrc* pTbl = sghStringTable;
+    D2TblHeaderStrc* pLoaded = sghStringTable;
+
+    pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x18F, 0);
+    gpStringIndex_008829B8 = pIndex;
+    memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
+    ++gnStringTableRefs_008829D8;
+
+    pNodes = (D2TblNodeStrc*)((char*)sghStringTable + sizeof(D2TblHeaderStrc) + pLoaded->nNumElements * sizeof(unsigned short));
+    nTotal = 0;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
+        nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+    }
+
+    gpStringData_008829C4 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1A9, 0);
+    pText = gpStringData_008829C4;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        gpStringIndex_008829B8[i] = pText;
+        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
+        const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+        sub_00526320_ToUnicode(gpStringIndex_008829B8[i], szText, nCount);
+        pText += nCount;
+    }
+
+    strncpy(szFormat, "data\\local\\lng\\%s\\patchstring.tbl", 0x103);
+    sprintf(szPath, szFormat, szLang);
+    sghPatchStringTable = STRTABLE_LoadTblFile(szPath);
+    D2_ASSERT(sghPatchStringTable, 0x1C3);
+
+    pTbl = sghPatchStringTable;
+
+    pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1C5, 0);
+    gpPatchStringIndex_008829BC = pIndex;
+    memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
+
+    pTbl = sghPatchStringTable;
+    pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
+    nTotal = 0;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
+        nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+    }
+
+    gpPatchStringData_008829C8 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1DC, 0);
+    pText = gpPatchStringData_008829C8;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        gpPatchStringIndex_008829BC[i] = pText;
+        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
+        const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+        sub_00526320_ToUnicode(gpPatchStringIndex_008829BC[i], szText, nCount);
+        pText += nCount;
+    }
+
+    if (bExpansion)
+    {
+        strncpy(szFormat, "data\\local\\lng\\%s\\expansionstring.tbl", 0x103);
+        sprintf(szPath, szFormat, szLang);
+        sghExpansionStringTable = STRTABLE_LoadTblFile(szPath);
+        D2_ASSERT(sghExpansionStringTable, 0x1F6);
+
+        pTbl = sghExpansionStringTable;
+
+        pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1F8, 0);
+        gpExpansionStringIndex_008829C0 = pIndex;
+        memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
+
+        pTbl = sghExpansionStringTable;
+        pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
+        nTotal = 0;
+        for (i = 0; i < pTbl->nHashTableSize; i++)
+        {
+            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
+            nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+        }
+
+        gpExpansionStringData_008829CC = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x20F, 0);
+        pText = gpExpansionStringData_008829CC;
+        for (i = 0; i < pTbl->nHashTableSize; i++)
+        {
+            gpExpansionStringIndex_008829C0[i] = pText;
+            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
+            const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+            sub_00526320_ToUnicode(gpExpansionStringIndex_008829C0[i], szText, nCount);
+            pText += nCount;
+        }
+    }
+
+    STRTABLE_InitUnitSuffixes();
+    return 1;
+}
+
 // 0x00525260
 void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField)
 {
@@ -581,6 +722,34 @@ void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField)
         strcpy((char*)pOut, gaLanguageInfo_007303D8[nIndex].szCode);
         break;
     }
+}
+
+// 0x00527090
+bool D2LangCharSetStrc::sub_00527090_ContainsChar(const Unicode* pChar) const
+{
+    Unicode wszChars[20] = {};
+    int i;
+    for (i = 0; i < 20 && szChars[i] != '\0'; ++i)
+    {
+        wszChars[i].wChar = (unsigned char)szChars[i];
+    }
+    if (szChars[i] != '\0')
+    {
+        wszChars[i - 1].wChar = 0;
+    }
+    else
+    {
+        wszChars[i].wChar = 0;
+    }
+    const int nLength = sub_00526800(wszChars);
+    for (int j = 0; j < nLength; ++j)
+    {
+        if (pChar->wChar == wszChars[j].wChar)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 // 0x00525350
@@ -790,166 +959,6 @@ void __cdecl STRTABLE_InitUnitSuffixes()
     }
 }
 
-// 0x00525920
-static D2TblHeaderStrc* STRTABLE_LoadTblFile(const char* szPath)
-{
-    D2TblHeaderStrc* pHeader = (D2TblHeaderStrc*)sub_00517079(ghArchive_008829DC, szPath, 0, ".\\StrTable\\strtable.cpp", 0xC0);
-
-    unsigned short nCRC;
-    CRC16_CalculateChecksum(&nCRC, (const unsigned char*)pHeader, pHeader->dwIndexStart, pHeader->dwFileSize);
-    D2_ASSERT(nCRC == pHeader->nCRC, 0xCE);
-
-    D2TblNodeStrc* pNode = (D2TblNodeStrc*)((char*)pHeader + sizeof(D2TblHeaderStrc) + pHeader->nNumElements * sizeof(unsigned short));
-    for (int i = 0; i < pHeader->nHashTableSize; ++i)
-    {
-        D2_ASSERT(pNode[i].dwStringOffset < pHeader->dwFileSize, 0xE0);
-        D2_ASSERT(pNode[i].dwKeyOffset < pHeader->dwFileSize, 0xE1);
-    }
-
-    return pHeader;
-}
-
-// 0x005259C0
-int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage, int bExpansion)
-{
-    char szLang[4];
-    char szMapPath[0x104];
-    char szPath[0x104];
-    char szFormat[0x104];
-    char szCodePage[0x20];
-    D2TblNodeStrc* pNodes;
-    Unicode* pText;
-    Unicode** pIndex;
-    int nTotal;
-    int i;
-
-    if (sghStringTable)
-    {
-        ++gnStringTableRefs_008829D8;
-        return 1;
-    }
-
-    if (szLanguage)
-        strcpy(szLang, szLanguage);
-    else
-        STRTABLE_GetLanguageInfoField(szLang, 0);
-
-    if (!_stricmp(szLang, "JPN"))
-        strcpy(szCodePage, "JPN");
-    else if (!_stricmp(szLang, "KOR"))
-        strcpy(szCodePage, "KOR");
-    else if (!_stricmp(szLang, "POL"))
-        strcpy(szCodePage, "LATIN2");
-    else if (!_stricmp(szLang, "RUS"))
-        strcpy(szCodePage, "CYR");
-    else
-        strcpy(szCodePage, "LATIN");
-
-    sprintf(szMapPath, "data\\local\\font\\%s\\default.map", szCodePage);
-    UNISYS_LoadSysMap(ghArchive_008829DC, szMapPath);
-
-    strncpy(szFormat, "data\\local\\lng\\%s\\string.tbl", 0x103);
-    sprintf(szPath, szFormat, szLang);
-    sghStringTable = STRTABLE_LoadTblFile(szPath);
-    if (!sghStringTable)
-        return 0;
-
-    D2TblHeaderStrc* pTbl = sghStringTable;
-    D2TblHeaderStrc* pLoaded = sghStringTable;
-
-    pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x18F, 0);
-    gpStringIndex_008829B8 = pIndex;
-    memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
-    ++gnStringTableRefs_008829D8;
-
-    pNodes = (D2TblNodeStrc*)((char*)sghStringTable + sizeof(D2TblHeaderStrc) + pLoaded->nNumElements * sizeof(unsigned short));
-    nTotal = 0;
-    for (i = 0; i < pTbl->nHashTableSize; i++)
-    {
-        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
-        nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-    }
-
-    gpStringData_008829C4 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1A9, 0);
-    pText = gpStringData_008829C4;
-    for (i = 0; i < pTbl->nHashTableSize; i++)
-    {
-        gpStringIndex_008829B8[i] = pText;
-        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
-        const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-        sub_00526320_ToUnicode(gpStringIndex_008829B8[i], szText, nCount);
-        pText += nCount;
-    }
-
-    strncpy(szFormat, "data\\local\\lng\\%s\\patchstring.tbl", 0x103);
-    sprintf(szPath, szFormat, szLang);
-    sghPatchStringTable = STRTABLE_LoadTblFile(szPath);
-    D2_ASSERT(sghPatchStringTable, 0x1C3);
-
-    pTbl = sghPatchStringTable;
-
-    pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1C5, 0);
-    gpPatchStringIndex_008829BC = pIndex;
-    memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
-
-    pTbl = sghPatchStringTable;
-    pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
-    nTotal = 0;
-    for (i = 0; i < pTbl->nHashTableSize; i++)
-    {
-        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
-        nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-    }
-
-    gpPatchStringData_008829C8 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1DC, 0);
-    pText = gpPatchStringData_008829C8;
-    for (i = 0; i < pTbl->nHashTableSize; i++)
-    {
-        gpPatchStringIndex_008829BC[i] = pText;
-        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
-        const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-        sub_00526320_ToUnicode(gpPatchStringIndex_008829BC[i], szText, nCount);
-        pText += nCount;
-    }
-
-    if (bExpansion)
-    {
-        strncpy(szFormat, "data\\local\\lng\\%s\\expansionstring.tbl", 0x103);
-        sprintf(szPath, szFormat, szLang);
-        sghExpansionStringTable = STRTABLE_LoadTblFile(szPath);
-        D2_ASSERT(sghExpansionStringTable, 0x1F6);
-
-        pTbl = sghExpansionStringTable;
-
-        pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1F8, 0);
-        gpExpansionStringIndex_008829C0 = pIndex;
-        memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
-
-        pTbl = sghExpansionStringTable;
-        pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
-        nTotal = 0;
-        for (i = 0; i < pTbl->nHashTableSize; i++)
-        {
-            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
-            nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-        }
-
-        gpExpansionStringData_008829CC = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x20F, 0);
-        pText = gpExpansionStringData_008829CC;
-        for (i = 0; i < pTbl->nHashTableSize; i++)
-        {
-            gpExpansionStringIndex_008829C0[i] = pText;
-            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
-            const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
-            sub_00526320_ToUnicode(gpExpansionStringIndex_008829C0[i], szText, nCount);
-            pText += nCount;
-        }
-    }
-
-    STRTABLE_InitUnitSuffixes();
-    return 1;
-}
-
 // build: context Unicode::strncat
 Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int count)
 {
@@ -972,32 +981,23 @@ Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int coun
     return dest;
 }
 
-// 0x00527090
-bool D2LangCharSetStrc::sub_00527090_ContainsChar(const Unicode* pChar) const
+// 0x00525920
+static D2TblHeaderStrc* STRTABLE_LoadTblFile(const char* szPath)
 {
-    Unicode wszChars[20] = {};
-    int i;
-    for (i = 0; i < 20 && szChars[i] != '\0'; ++i)
+    D2TblHeaderStrc* pHeader = (D2TblHeaderStrc*)sub_00517079(ghArchive_008829DC, szPath, 0, ".\\StrTable\\strtable.cpp", 0xC0);
+
+    unsigned short nCRC;
+    CRC16_CalculateChecksum(&nCRC, (const unsigned char*)pHeader, pHeader->dwIndexStart, pHeader->dwFileSize);
+    D2_ASSERT(nCRC == pHeader->nCRC, 0xCE);
+
+    D2TblNodeStrc* pNode = (D2TblNodeStrc*)((char*)pHeader + sizeof(D2TblHeaderStrc) + pHeader->nNumElements * sizeof(unsigned short));
+    for (int i = 0; i < pHeader->nHashTableSize; ++i)
     {
-        wszChars[i].wChar = (unsigned char)szChars[i];
+        D2_ASSERT(pNode[i].dwStringOffset < pHeader->dwFileSize, 0xE0);
+        D2_ASSERT(pNode[i].dwKeyOffset < pHeader->dwFileSize, 0xE1);
     }
-    if (szChars[i] != '\0')
-    {
-        wszChars[i - 1].wChar = 0;
-    }
-    else
-    {
-        wszChars[i].wChar = 0;
-    }
-    const int nLength = sub_00526800(wszChars);
-    for (int j = 0; j < nLength; ++j)
-    {
-        if (pChar->wChar == wszChars[j].wChar)
-        {
-            return true;
-        }
-    }
-    return false;
+
+    return pHeader;
 }
 
 // build: context sub_00524C60_Shim

@@ -361,6 +361,151 @@ static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
     return 0;
 }
 
+// 0x00494320
+void __cdecl HIREABLES_LoadHelpCels()
+{
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        if (!gpGlobal_007BEEEC)
+        {
+            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
+        }
+        else
+        {
+            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
+            gpGlobal_007BEEEC = 0;
+            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
+        }
+    }
+    else
+    {
+        if (!gpGlobal_007BEEEC)
+        {
+            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
+        }
+        else
+        {
+            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
+            gpGlobal_007BEEEC = 0;
+            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
+        }
+    }
+    if (!gpGlobal_007BEEF0)
+    {
+        gpGlobal_007BEEF0 = sub_004520C0_LoadUiCelFile("Menu\\helpwhitebullet");
+    }
+    if (!gpGlobal_007BEEF4)
+    {
+        gpGlobal_007BEEF4 = sub_004520C0_LoadUiCelFile("Menu\\helpyellowbullet");
+    }
+}
+
+// 0x00494EE0
+void __cdecl HIREABLES_FreeHelpCels()
+{
+    if (gpGlobal_007BEEEC)
+    {
+        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
+        gpGlobal_007BEEEC = 0;
+    }
+    if (gpGlobal_007BEEF0)
+    {
+        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF0);
+        gpGlobal_007BEEF0 = 0;
+    }
+    if (gpGlobal_007BEEF4)
+    {
+        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF4);
+        gpGlobal_007BEEF4 = 0;
+    }
+}
+
+// 0x00496990
+void __cdecl HIREABLES_FreePanelCels()
+{
+    D2_FREE_PANEL_CEL(gpCellFile_007BEF7C);
+    D2_FREE_PANEL_CEL(gpCel_007BEF64);
+    D2_FREE_PANEL_CEL(gpCel_007BEF78);
+    D2_FREE_PANEL_CEL(gpCel_007BEF24);
+    D2_FREE_PANEL_CEL(gpCel_007BEF60);
+    D2_FREE_PANEL_CEL(gpCel_007BEF14);
+    D2_FREE_PANEL_CEL(gpCel_007BEF10);
+    D2_FREE_PANEL_CEL(gpCel_007BEF74);
+    D2_FREE_PANEL_CEL(gpCel_007BEF18);
+    D2_FREE_PANEL_CEL(gpCel_007BEF1C);
+    D2_FREE_PANEL_CEL(gpCel_007BEF68);
+    D2_FREE_PANEL_CEL(gpCel_007BEF80);
+    D2_FREE_PANEL_CEL(gpCel_007BEF70);
+    D2_FREE_PANEL_CEL(gpCel_007BEF2C);
+    D2_FREE_PANEL_CEL(gpCel_007BEF20);
+    D2_FREE_PANEL_CEL(gpCel_007BEF0C);
+    D2_FREE_PANEL_CEL(gpCel_007BEF28);
+    memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
+}
+
+// 0x004979E0
+int __cdecl sub_004979E0()
+{
+    return gbGlobal_007BEFA0 != 0;
+}
+
+// 0x004979F0
+int __cdecl HIREABLES_GetBeltRowCount()
+{
+    switch (gnUiRecordIndex_00722354)
+    {
+    case 2:
+        return 1;
+    case 1:
+    case 4:
+        return 2;
+    case 0:
+    case 5:
+        return 3;
+    default:
+        return 4;
+    }
+}
+
+static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId)
+{
+    int nLife = nPetType ? sub_00479080_GetPetLife(nUnitId) : sub_0047A150_GetPartyLife(nUnitId);
+    if (!nLife)
+        return;
+
+    nLife = nLife <= 0 ? 0 : nLife;
+    const int nXEnd = nX + 0x2E;
+    if (nLife >= 100)
+        nLife = 100;
+    const int nXFill = nX + nLife * 0x2E / 100;
+    if (!gbLifeColorsInit_007BEED3)
+    {
+        gbLifeColorsInit_007BEED3 = 1;
+        gnLifeColorHigh_007BEED0 = D2Win_10034_MixRGB(0, 0x80, 0);
+        gnLifeColorMid_007BEED1 = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
+        gnLifeColorLow_007BEED2 = D2Win_10034_MixRGB(0xFF, 0, 0);
+    }
+    unsigned char nColor = gnLifeColorHigh_007BEED0;
+    if (nLife < 50)
+        nColor = gnLifeColorMid_007BEED1;
+    if (nLife < 25)
+        nColor = gnLifeColorLow_007BEED2;
+    D2GFX_DrawBox(nX, 0xE, nXFill, 0x13, nColor, 5);
+    D2GFX_DrawBox(nXFill, 0xE, nXEnd, 0x13, 0, 5);
+}
+
+// 0x00497270
+void __cdecl HIREABLES_InitTextColorA()
+{
+    gnTextColorA_007BEFBB = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
+}
+
+// 0x00497290
+void __cdecl HIREABLES_InitTextColorB()
+{
+    gnTextColorB_007BEFE4 = D2Win_10034_MixRGB(0, 0, 0xFF);
+}
+
 // 0x00493240
 D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle)
 {
@@ -528,33 +673,6 @@ int __stdcall HIREABLES_CanEquipHirelingItem(int playSound)
  return 0;
 }
 
-static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId)
-{
-    int nLife = nPetType ? sub_00479080_GetPetLife(nUnitId) : sub_0047A150_GetPartyLife(nUnitId);
-    if (!nLife)
-        return;
-
-    nLife = nLife <= 0 ? 0 : nLife;
-    const int nXEnd = nX + 0x2E;
-    if (nLife >= 100)
-        nLife = 100;
-    const int nXFill = nX + nLife * 0x2E / 100;
-    if (!gbLifeColorsInit_007BEED3)
-    {
-        gbLifeColorsInit_007BEED3 = 1;
-        gnLifeColorHigh_007BEED0 = D2Win_10034_MixRGB(0, 0x80, 0);
-        gnLifeColorMid_007BEED1 = D2Win_10034_MixRGB(0xC0, 0xC0, 0);
-        gnLifeColorLow_007BEED2 = D2Win_10034_MixRGB(0xFF, 0, 0);
-    }
-    unsigned char nColor = gnLifeColorHigh_007BEED0;
-    if (nLife < 50)
-        nColor = gnLifeColorMid_007BEED1;
-    if (nLife < 25)
-        nColor = gnLifeColorLow_007BEED2;
-    D2GFX_DrawBox(nX, 0xE, nXFill, 0x13, nColor, 5);
-    D2GFX_DrawBox(nXFill, 0xE, nXEnd, 0x13, 0, 5);
-}
-
 // 0x00493B00
 static void __stdcall sub_00493B00_DrawUnitName(D2UnitStrc* pUnit, int nX, int nY)
 {
@@ -577,124 +695,6 @@ int __cdecl HIREABLES_GetHelpMenuSetting()
         SRegLoadValue("Diablo II", "Help Menu", 1, &gdwHelpMenu_00722310);
     }
     return gdwHelpMenu_00722310;
-}
-
-// 0x00494320
-void __cdecl HIREABLES_LoadHelpCels()
-{
-    if (D2GFX_GetResolutionMode() == 2)
-    {
-        if (!gpGlobal_007BEEEC)
-        {
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
-        }
-        else
-        {
-            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
-            gpGlobal_007BEEEC = 0;
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\800helpborder");
-        }
-    }
-    else
-    {
-        if (!gpGlobal_007BEEEC)
-        {
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
-        }
-        else
-        {
-            ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
-            gpGlobal_007BEEEC = 0;
-            gpGlobal_007BEEEC = sub_004520C0_LoadUiCelFile("Menu\\helpborder");
-        }
-    }
-    if (!gpGlobal_007BEEF0)
-    {
-        gpGlobal_007BEEF0 = sub_004520C0_LoadUiCelFile("Menu\\helpwhitebullet");
-    }
-    if (!gpGlobal_007BEEF4)
-    {
-        gpGlobal_007BEEF4 = sub_004520C0_LoadUiCelFile("Menu\\helpyellowbullet");
-    }
-}
-
-// 0x00494EE0
-void __cdecl HIREABLES_FreeHelpCels()
-{
-    if (gpGlobal_007BEEEC)
-    {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEEC);
-        gpGlobal_007BEEEC = 0;
-    }
-    if (gpGlobal_007BEEF0)
-    {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF0);
-        gpGlobal_007BEEF0 = 0;
-    }
-    if (gpGlobal_007BEEF4)
-    {
-        ARCHIVE_FreeClientCellFile(gpGlobal_007BEEF4);
-        gpGlobal_007BEEF4 = 0;
-    }
-}
-
-// 0x00496990
-void __cdecl HIREABLES_FreePanelCels()
-{
-    D2_FREE_PANEL_CEL(gpCellFile_007BEF7C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF64);
-    D2_FREE_PANEL_CEL(gpCel_007BEF78);
-    D2_FREE_PANEL_CEL(gpCel_007BEF24);
-    D2_FREE_PANEL_CEL(gpCel_007BEF60);
-    D2_FREE_PANEL_CEL(gpCel_007BEF14);
-    D2_FREE_PANEL_CEL(gpCel_007BEF10);
-    D2_FREE_PANEL_CEL(gpCel_007BEF74);
-    D2_FREE_PANEL_CEL(gpCel_007BEF18);
-    D2_FREE_PANEL_CEL(gpCel_007BEF1C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF68);
-    D2_FREE_PANEL_CEL(gpCel_007BEF80);
-    D2_FREE_PANEL_CEL(gpCel_007BEF70);
-    D2_FREE_PANEL_CEL(gpCel_007BEF2C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF20);
-    D2_FREE_PANEL_CEL(gpCel_007BEF0C);
-    D2_FREE_PANEL_CEL(gpCel_007BEF28);
-    memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
-}
-
-// 0x00497270
-void __cdecl HIREABLES_InitTextColorA()
-{
-    gnTextColorA_007BEFBB = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
-}
-
-// 0x00497290
-void __cdecl HIREABLES_InitTextColorB()
-{
-    gnTextColorB_007BEFE4 = D2Win_10034_MixRGB(0, 0, 0xFF);
-}
-
-// 0x004979E0
-int __cdecl sub_004979E0()
-{
-    return gbGlobal_007BEFA0 != 0;
-}
-
-// 0x004979F0
-int __cdecl HIREABLES_GetBeltRowCount()
-{
-    switch (gnUiRecordIndex_00722354)
-    {
-    case 2:
-        return 1;
-    case 1:
-    case 4:
-        return 2;
-    case 0:
-    case 5:
-        return 3;
-    default:
-        return 4;
-    }
 }
 
 static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2UnitStrc* pPlayer, int* pnX)

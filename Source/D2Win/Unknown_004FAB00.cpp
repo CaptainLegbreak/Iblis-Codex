@@ -79,12 +79,6 @@ int __cdecl ARCHIVE_LoadArchives()
     return sub_00406D20() || gpD2DataMPQ && gpD2SfxMPQ && gpD2SpeechMPQ && (!FOG_IsExpansion() || gpD2ExpMPQ);
 }
 
-// 0x004FAC80
-void* __stdcall D2Win_GetArchive()
-{
-    return 0;
-}
-
 // 0x004FAD70
 void __cdecl ARCHIVE_UnloadExpansionArchives()
 {
@@ -179,6 +173,12 @@ void __cdecl ARCHIVE_FreeArchives()
     ARCHIVE_UnloadExpansionArchives();
 }
 
+// 0x004FB1C0
+void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100])
+{
+    memcpy(pRows, gShadowsLightGammaPalette_0081EA68, sizeof(gShadowsLightGammaPalette_0081EA68));
+}
+
 int dword_6F90E290; // 0x007D5638
 
 unsigned char gStatesPalette_6F9626C0[128][0x100]; // 0x007D6468
@@ -243,16 +243,16 @@ void __fastcall D2Win_10176(int bTimed)
     }
 }
 
-// 0x004FB1C0
-void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100])
-{
-    memcpy(pRows, gShadowsLightGammaPalette_0081EA68, sizeof(gShadowsLightGammaPalette_0081EA68));
-}
-
 // 0x004FB590
 void __fastcall sub_004FB590(int nValue)
 {
     gdwGlobal_00841B70 = nValue;
+}
+
+// 0x004FAC80
+void* __stdcall D2Win_GetArchive()
+{
+    return 0;
 }
 
 #include "gen/data/Source/D2Win/Unknown_004FAB00.inc"

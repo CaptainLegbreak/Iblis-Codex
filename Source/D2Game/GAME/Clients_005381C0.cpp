@@ -43,6 +43,60 @@ D2ActiveRoomStrc* __fastcall CLIENTS_GetRoom(D2ClientStrc* pClient)
     return pClient->hRoom;
 }
 
+// 0x005387F0
+int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (pRoom)
+    {
+        unsigned int nNumClients = pRoom->nNumClients;
+        D2ClientStrc** ppClients = pRoom->ppClients;
+        for (unsigned int i = 0; i < nNumClients; ++i)
+        {
+            if (ppClients[i] == pClient)
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x00538830
+char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient)
+{
+    D2_ASSERT(pClient, 2541);
+
+    return pClient->szName;
+}
+
+// 0x00538E00
+D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient)
+{
+    D2_ASSERT(pClient, 2901);
+
+    return pClient->pSaveHeader;
+}
+
+// 0x00538E30
+int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* ptClient)
+{
+    D2_ASSERT(ptClient, 2911);
+
+    return ptClient->nSaveHeaderSize;
+}
+
+// 0x00538F80
+void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* ptClient)
+{
+    D2_ASSERT(ptClient, 2961);
+
+    ptClient->nSaveHeaderSendDelay = CLIENT_SAVE_STEP;
+    ptClient->nSaveHeaderDataSentBytes = 0;
+    ptClient->dwFlags |= CLIENTFLAGEX_SAVE_LOADED;
+}
+
 // 0x00538260
 void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* ptClient, const int* pDeathInfo)
 {
@@ -153,6 +207,14 @@ void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState)
     pClient->dwClientState = nClientState;
 }
 
+// 0x005387C0
+D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* ptClient)
+{
+    D2_ASSERT(ptClient, 2474);
+
+    return ptClient->pGame;
+}
+
 // 0x00538700
 void __fastcall CLIENTS_SetIronGolemItemGUID(D2ClientStrc* ptClient, int nIronGolemItemGUID)
 {
@@ -175,68 +237,6 @@ int __fastcall CLIENTS_GetCreateTime(D2ClientStrc* ptClient)
     D2_ASSERT(ptClient, 2463);
 
     return ptClient->nCreateTime;
-}
-
-// 0x005387C0
-D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* ptClient)
-{
-    D2_ASSERT(ptClient, 2474);
-
-    return ptClient->pGame;
-}
-
-// 0x005387F0
-int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom)
-    {
-        unsigned int nNumClients = pRoom->nNumClients;
-        D2ClientStrc** ppClients = pRoom->ppClients;
-        for (unsigned int i = 0; i < nNumClients; ++i)
-        {
-            if (ppClients[i] == pClient)
-            {
-                return 1;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x00538830
-char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient)
-{
-    D2_ASSERT(pClient, 2541);
-
-    return pClient->szName;
-}
-
-// 0x00538E00
-D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient)
-{
-    D2_ASSERT(pClient, 2901);
-
-    return pClient->pSaveHeader;
-}
-
-// 0x00538E30
-int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* ptClient)
-{
-    D2_ASSERT(ptClient, 2911);
-
-    return ptClient->nSaveHeaderSize;
-}
-
-// 0x00538F80
-void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* ptClient)
-{
-    D2_ASSERT(ptClient, 2961);
-
-    ptClient->nSaveHeaderSendDelay = CLIENT_SAVE_STEP;
-    ptClient->nSaveHeaderDataSentBytes = 0;
-    ptClient->dwFlags |= CLIENTFLAGEX_SAVE_LOADED;
 }
 
 // 0x00538FC0

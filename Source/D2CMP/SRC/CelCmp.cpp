@@ -1851,247 +1851,6 @@ D2LRUNodeStrc* __fastcall LRUCacheAlloc(D2CmpPoolStrc* pPool, unsigned int nSize
 
 void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
 
-// 0x005FDE10
-void __stdcall D2CMPTileCacheDestroy(int bFree)
-{
-    if (gbCmpPoolInitialized)
-    {
-        if (bFree)
-        {
-            sub_006093E0_PoolFreeAll(&gCmpPool);
-        }
-
-        memset(&gCmpPool, 0, sizeof(gCmpPool));
-        gnCmpPoolArg = 0;
-    }
-
-    D2CMPDestroyTileHeaders();
-}
-
-// 0x005FDF50
-void __stdcall D2CMPTileCacheFreeTile(D2CmpCacheBlockOwnerStrc* pOwner)
-{
-    sub_006092D0_PoolFree(&gCmpPool, pOwner->pBlock);
-    pOwner->nBlockUsed = 0;
-    pOwner->pBlock = 0;
-}
-
-// 0x005FDF80
-int __fastcall D2CMPGetTileHeadersSize(const char* szFilePath)
-{
-    void* hFile;
-    if (!ARCHIVE_OpenFile(0, szFilePath, &hFile, 0))
-    {
-        return 0;
-    }
-
-    D2TileLibraryHeaderStrc tHeader;
-    ARCHIVE_ReadFileToBuffer(0, hFile, &tHeader, sizeof(tHeader));
-    ARCHIVE_CloseFile(0, hFile);
-    return tHeader.nTiles * sizeof(D2TileLibraryEntryStrc) + sizeof(tHeader);
-}
-
-// 0x005FE120
-void __stdcall D2CMPTileCacheInit(void* pMemPool, int nArg)
-{
-    gnCmpPoolArg = nArg;
-    memset(&gCmpPool, 0, sizeof(gCmpPool));
-    sub_00609020_PoolInit(&gCmpPool, pMemPool, nArg, D2CMPTileCacheReleaseTile, 0x1000);
-    gbCmpPoolInitialized = 1;
-}
-
-// 0x005FE1F0
-const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed)
-{
-    if (bAllowCompressed && gbCmpCompressedDataMode)
-    {
-        return gszCmpCompressedExtension;
-    }
-
-    return gszCmpDefaultExtension;
-}
-
-// 0x005FF300
-int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
-{
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
-    {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
-        if (pKey && !(pKey->nFlags & 1) && pKey->nKeyC == nKeyC && pKey->nKeyB == nKeyB && pKey->nKeyA == nKeyA)
-        {
-            D2_ASSERT(pKey->pAsyncData, 0xB7B);
-            if (!sub_0040A7F0_AsyncDataCheck(pKey->pAsyncData))
-            {
-                return 1;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x005FF630
-void __fastcall D2CMPSpriteCacheResize(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nDelta, int nArg)
-{
-    EnterCriticalSection(&pCache->tLock);
-    const unsigned int nNewSize = nDelta + pNode->nSize;
-    pCache->nTotalSize -= pNode->nSize;
-    pNode->dwFlags |= 2;
-    pNode->nSize = nNewSize;
-    pCache->nTotalSize += nNewSize;
-    unsigned int nTotalSize = pCache->nTotalSize;
-    LeaveCriticalSection(&pCache->tLock);
-
-    while (nTotalSize > pCache->nMaxSize)
-    {
-        D2CmpCacheNodeStrc* pEvicted = sub_005FF4A0_EvictCacheNode(pCache, 0, nArg);
-        if (!pEvicted)
-        {
-            break;
-        }
-
-        D2_ASSERT(pEvicted != pNode, 0xA47);
-        EnterCriticalSection(&pCache->tLock);
-        nTotalSize = pCache->nTotalSize;
-        LeaveCriticalSection(&pCache->tLock);
-    }
-
-    EnterCriticalSection(&pCache->tLock);
-    pNode->dwFlags &= ~2;
-    LeaveCriticalSection(&pCache->tLock);
-}
-
-// 0x005FFE30
-void __stdcall D2CMPSpriteCacheDestroy(int bFree)
-{
-    if (bFree && gCmpTileCache.bActive)
-    {
-        D2CMPSpriteCacheFreeAll(&gCmpTileCache);
-    }
-
-    memset(&gCmpTileCache, 0, sizeof(gCmpTileCache));
-
-    if (bFree)
-    {
-        sub_006093E0_PoolFreeAll(&gCmpTilePool);
-    }
-
-    memset(&gCmpTilePool, 0, sizeof(gCmpTilePool));
-    CodecReleaseLock();
-}
-
-// 0x00600960
-D2TileLibraryHeaderStrc* __stdcall D2CMPFindTileProject(D2TileLibraryEntryStrc* pTile)
-{
-    for (D2TileRecordStrc* pRecord = gpTileRecords; pRecord; pRecord = pRecord->pPrev)
-    {
-        D2TileLibraryHeaderStrc* pLibrary = pRecord->pLibrary;
-        for (int i = 0; i < pLibrary->nTiles; ++i)
-        {
-            if (pTile == &pLibrary->pFirst[i])
-            {
-                return pLibrary;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x00600C00
-void __stdcall D2CMPPalShiftSetAct(int nMode)
-{
-    if (nMode >= 1 && nMode <= 5)
-    {
-        gnCmpGfxMode = nMode;
-    }
-}
-
-// 0x00600C20
-unsigned char* __stdcall D2CMPPalShiftGetTransform(int nSet, int nIndex)
-{
-    if (nSet < 9 && nIndex < 21 && nSet != 0 && (nSet <= 2 || nSet > 4))
-    {
-        return gaItemShiftMaps[nSet][nIndex];
-    }
-
-    return 0;
-}
-
-// 0x00600C70
-int __stdcall CelNormalDirToFileDir(int nDirection, unsigned int nDirections)
-{
-    return gaDirectionIndex32[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
-}
-
-// 0x00600EE0
-void __stdcall CelFileHalve(D2CelFileStrc* hFile, int nUnused)
-{
-    D2_ASSERT(hFile, 0x29C);
-}
-
-// 0x00600F10
-int __stdcall CelFileConvert24To8(D2CelFileStrc* pFile, D2CelFileStrc** ppTarget, int nArg1, int nArg2)
-{
-    D2_ASSERT(pFile->dwFlags & 4, 0x2AD);
-    const int nCells = pFile->nDirections * pFile->nCelsPerDirection;
-    D2CelFileStrc* pTarget = (D2CelFileStrc*)FOG_Alloc(0x18 + nCells * sizeof(D2CmpCellStrc*), ".\\SRC\\CelCmp.cpp", 0x2B1, 0);
-    pTarget->dwVersion = 6;
-    pTarget->dwFlags = pFile->dwFlags & ~7;
-    pTarget->nDirections = pFile->nDirections;
-    pTarget->nCelsPerDirection = pFile->nCelsPerDirection;
-    pTarget->nFormat = 0;
-    gpfCelFileConvert[pFile->nFormat](pFile, pTarget, nArg1, nArg2);
-    *ppTarget = pTarget;
-    return 1;
-}
-
-// 0x00600FB0
-void __stdcall CelFileConvertOldToNew(unsigned* cell,unsigned** output,unsigned* outputSize)
-{
- unsigned* cellCopy = cell;
- D2_ASSERT(cellCopy[1]&1,0x2cb);
- D2_ASSERT(cellCopy[0]==5,0x2cc);
- cellCopy[1]|=2;
- for(unsigned i=0;i<cellCopy[4]*(cellCopy[5]);++i) {
-  unsigned* frame=(unsigned*)(cellCopy[13+i]+(unsigned)cellCopy);
-  cellCopy[13+i]=(unsigned)frame;
-  if(frame[7])frame[8]+=(unsigned)cellCopy;else frame[8]=0;
- }
- unsigned count=cellCopy[4]*cellCopy[5];
- unsigned header=24+4*count;
- unsigned size=header;
- for(unsigned i=0;i<count;++i) {
-  unsigned* frame=(unsigned*)cellCopy[13+i];
-  size+=frame[9]+frame[7]+35;
- }
- unsigned* result=(unsigned*)FOG_Alloc(size,gszCelCmp,0x2e3,0);
- result[0]=6;
- result[1]=((unsigned char)cellCopy[1]&4)|1;
- result[2]=0;result[3]=0;
- result[4]=cellCopy[4];result[5]=cellCopy[5];
- unsigned char* cursor=(unsigned char*)result+header;
- for(unsigned i=0;i<count;++i) {
-  result[6+i]=(unsigned)(cursor-(unsigned char*)result);
-  unsigned* out=(unsigned*)cursor;
-  out[0]=((unsigned*)cellCopy[13+i])[1];
-  out[1]=((unsigned*)cellCopy[13+i])[3];
-  out[2]=((unsigned*)cellCopy[13+i])[4];
-  out[3]=((unsigned*)cellCopy[13+i])[5];
-  out[4]=((unsigned*)cellCopy[13+i])[6];
-  out[5]=((unsigned*)cellCopy[13+i])[7];
-  out[7]=((unsigned*)cellCopy[13+i])[9];
-  memcpy(out+8,(unsigned*)cellCopy[13+i]+10,out[7]);
-  cursor+=out[7]+35;
-  if(((unsigned*)cellCopy[13+i])[8]) {
-   memcpy(cursor,(unsigned*)cellCopy[13+i]+8,((unsigned*)cellCopy[13+i])[7]);
-   out[6]=(unsigned)(cursor-(unsigned char*)result);
-   cursor+=((unsigned*)cellCopy[13+i])[7];
-  }else out[6]=0;
- }
- *output=result;*outputSize=size;
-}
-
 // 0x00601340
 void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, int nUnused)
 {
@@ -2225,43 +1984,72 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
     return 1;
 }
 
-int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
+// 0x00600C60
+int __fastcall sub_00600C60_CallFree(void* pMemory)
 {
-    D2CelFileStrc* pCelFile = (D2CelFileStrc*)pContext->pCelFile;
-    if (!pCelFile)
-    {
-        return 0;
-    }
-
-    if (pCelFile->dwVersion != 6)
-    {
-        return 0;
-    }
-
-    if (pContext->nDirection >= 0x40)
-    {
-        return 0;
-    }
-
-    if (pContext->nFrame > pCelFile->nFrames)
-    {
-        return 0;
-    }
-
-    return 1;
+    return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
 }
 
-// 0x00601840
-D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
+// 0x00601E20
+unsigned int D2StormSlotArrayStrc::CelSlotArrayCalcChunkSize(unsigned int nCount)
 {
-    D2_ASSERT(pCelContext, 0x566);
-    D2_ASSERT(CelValidateContext(pCelContext), 0x567);
+    if (nCount < 0x15)
+    {
+        unsigned int nResult = nCount;
+        while (nResult & (nResult - 1))
+            nResult &= nResult - 1;
+        return nResult < 1 ? 1 : nResult;
+    }
+    f_C = 0x15;
+    return 0x15;
+}
 
-    D2CelFileStrc* pCelFile = (D2CelFileStrc*)pCelContext->pCelFile;
-    const unsigned int nDirection = pCelContext->nDirection;
-    const unsigned int nDirections = pCelFile->nDirectionCount;
-    const int nIndex = gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
-    return pCelFile->pCels[nIndex * pCelFile->nFrames + pCelContext->nFrame];
+// 0x00602F10
+void D2StormSlotArrayStrc::CelSlotArrayReallocData(unsigned int nAlloc)
+{
+    D2StormSlotListStrc* pOld = f_8;
+    for (unsigned int i = nAlloc; i < f_4; i++)
+        pOld[i].~D2StormSlotListStrc();
+    f_0 = nAlloc;
+    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0x10);
+    f_8 = (D2StormSlotListStrc*)pNew;
+    if (!pNew)
+    {
+        f_8 = (D2StormSlotListStrc*)SMemAlloc(nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0);
+        if (pOld)
+        {
+            unsigned int nCopy = nAlloc >= f_4 ? f_4 : nAlloc;
+            for (unsigned int i = 0; i < nCopy; i++)
+            {
+                new (&f_8[i]) D2StormSlotListStrc(pOld[i]);
+                pOld[i].~D2StormSlotListStrc();
+            }
+            SMemFree(pOld, gszTypeNameCelSlotList, -2, 0);
+        }
+    }
+}
+
+// 0x00603060
+D2StormSlotArrayStrc::~D2StormSlotArrayStrc() throw()
+{
+    for (unsigned int i = 0; i < f_4; ++i)
+        f_8[i].~D2StormSlotListStrc();
+    if (f_8)
+        SMemFree(f_8, gszTypeNameCelSlotList, -2, 0);
+}
+
+// 0x005FDE50
+void __fastcall D2CMPTileCacheReleaseTile(void* pEntry)
+{
+    D2CmpTileStrc* pTile = ((D2CmpPoolEntryStrc*)pEntry)->pTile;
+    if (gpfnTileFreeCallback_0088CB1C)
+    {
+        D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnTileFreeCallback_0088CB1C), 0xB4);
+        gpfnTileFreeCallback_0088CB1C(pTile);
+    }
+
+    pTile->nCount = 0;
+    pTile->pNext = 0;
 }
 
 // 0x00601980
@@ -2297,6 +2085,134 @@ char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
+// 0x00601B70
+char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
+{
+    return pLink->m_next;
+}
+
+// 0x00601B80
+void D2GameDataTableStrc::CelListTableSyncEnterLock(int* pLockHandle, int bForWriting)
+{
+    EnterCriticalSection(&m_sync.f_0);
+    *pLockHandle = bForWriting ? 1 : -1;
+}
+
+// 0x00601BB0
+void __fastcall sub_00601BB0(PairStrc_00601BB0* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x00601BC0
+D2StormLinkStrc* D2StormLinkStrc::sub_00601BC0_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x00601BF0
+sub_00601BF0::~sub_00601BF0()
+{
+    f_0.Unlink();
+}
+
+int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
+{
+    D2CelFileStrc* pCelFile = (D2CelFileStrc*)pContext->pCelFile;
+    if (!pCelFile)
+    {
+        return 0;
+    }
+
+    if (pCelFile->dwVersion != 6)
+    {
+        return 0;
+    }
+
+    if (pContext->nDirection >= 0x40)
+    {
+        return 0;
+    }
+
+    if (pContext->nFrame > pCelFile->nFrames)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x00601A50
+int __stdcall CelFileFreeHardware(D2CelFileStrc* ptFile)
+{
+    if (!ptFile)
+    {
+        return 0;
+    }
+    D2_ASSERT(ptFile->dwVersion == 6, 0x5F1);
+    D2CelBlockStrc* pBlocks = ptFile->pCels[0]->pBlockPixelData;
+    D2_ASSERT(pBlocks, 0x5F5);
+    for (unsigned int i = 0; i < ptFile->nCelsPerDirection * ptFile->nDirections; i++)
+    {
+        if (ptFile->pCels[i] && ptFile->pCels[i]->pBlockPixelData)
+        {
+            if (gpfnPixelDataFree_008E8CB8)
+            {
+                gpfnPixelDataFree_008E8CB8(ptFile->pCels[i]->pBlockPixelData);
+            }
+            ptFile->pCels[i]->pBlockPixelData = 0;
+        }
+    }
+    FOG_Free(pBlocks, ".\\SRC\\CelCmp.cpp", 0x61D, 0);
+    return 1;
+}
+
+// 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
+{
+    D2_ASSERT(pCelContext, 0x566);
+    D2_ASSERT(CelValidateContext(pCelContext), 0x567);
+
+    D2CelFileStrc* pCelFile = (D2CelFileStrc*)pCelContext->pCelFile;
+    const unsigned int nDirection = pCelContext->nDirection;
+    const unsigned int nDirections = pCelFile->nDirectionCount;
+    const int nIndex = gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
+    return pCelFile->pCels[nIndex * pCelFile->nFrames + pCelContext->nFrame];
+}
+
+// 0x00601C30
+D2StormLinkStrc* D2StormLinkStrc::sub_00601C30_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x00601C60
+char* __fastcall sub_00601C60_LinkNext(D2StormLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x00601C70
+sub_00601C70::~sub_00601C70()
+{
+    f_0.Unlink();
+}
+
+// 0x00601CB0
+int D2GameDataTableStrc::CelListTableIsWriteLock(int nLockHandle)
+{
+    return nLockHandle == 1;
+}
+
 unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
@@ -2325,11 +2241,8 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
-// 0x00601B70
-char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
+// 0x00601CC0
+D2CommonStormSlotListAStrc* D2CommonStormSlotArrayAStrc::sub_00601CC0_At(unsigned int index) {return &m_data[index];}
 
 static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nAlign)
 {
@@ -2342,11 +2255,10 @@ static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nA
 // build: symbol ??0?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x00603BD0
 
 // build: symbol ??_7?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@6B@ 0x006E5DE8
-// 0x00601B80
-void D2GameDataTableStrc::CelListTableSyncEnterLock(int* pLockHandle, int bForWriting)
+// 0x00601CE0
+char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
 {
-    EnterCriticalSection(&m_sync.f_0);
-    *pLockHandle = bForWriting ? 1 : -1;
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
 char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink)
@@ -2429,66 +2341,6 @@ int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
     return 0;
 }
 
-// 0x00601BB0
-void __fastcall sub_00601BB0(PairStrc_00601BB0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
-// 0x00601BC0
-D2StormLinkStrc* D2StormLinkStrc::sub_00601BC0_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x00601BF0
-sub_00601BF0::~sub_00601BF0()
-{
-    f_0.Unlink();
-}
-
-// 0x00601C30
-D2StormLinkStrc* D2StormLinkStrc::sub_00601C30_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x00601C60
-char* __fastcall sub_00601C60_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x00601C70
-sub_00601C70::~sub_00601C70()
-{
-    f_0.Unlink();
-}
-
-// 0x00601CB0
-int D2GameDataTableStrc::CelListTableIsWriteLock(int nLockHandle)
-{
-    return nLockHandle == 1;
-}
-
-// 0x00601CC0
-D2CommonStormSlotListAStrc* D2CommonStormSlotArrayAStrc::sub_00601CC0_At(unsigned int index) {return &m_data[index];}
-
-// 0x00601CE0
-char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
 // 0x00601CF0
 extern "C" void* __fastcall sub_00601CF0(void* value) { return value; }
 
@@ -2525,6 +2377,78 @@ D2StormLinkStrc* D2StormLinkStrc::sub_00601D30_NextLink(int nLinkOffset)
 sub_00601D60::~sub_00601D60()
 {
     f_0.Unlink();
+}
+
+// 0x00601DA0
+char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
+{
+    return pNode + nLinkOffset;
+}
+
+// 0x00601DB0
+void __fastcall sub_00601DB0(PairStrc_00601DB0* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x00601DC0
+bool R00601DC0::sub_00601DC0_IsOpen()
+{
+    return m_pFile != 0;
+}
+
+// 0x00601DF0
+void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x00601E00
+D2Warden47F930Strc::D2Warden47F930Strc()
+{
+    n00 = 0;
+    n04 = 0;
+    n08 = 0;
+}
+
+// 0x00601E10
+void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x00601E60
+unsigned int __stdcall sub_00601E60_RoundUp(unsigned int nValue, unsigned int nAlign)
+{
+    unsigned int nRemainder = nValue % nAlign;
+    if (nRemainder)
+        nValue += nAlign - nRemainder;
+    return nValue;
+}
+
+// 0x00601E80
+void D2TSListStrc::sub_00601E80_InitCopy(const D2TSListStrc& source)
+{
+    nLinkOffset = source.nLinkOffset;
+    tTerminator.pPrevLink = &tTerminator;
+    tTerminator.nNext = ~(unsigned int)&tTerminator;
+}
+
+// 0x00601EA0
+void __stdcall CelFileFree(D2CelFileStrc* pCelFile)
+{
+    D2_ASSERT(pCelFile, 0x41B);
+    if (pCelFile->dwFlags & 3)
+    {
+        if (pCelFile->dwFlags & 2)
+        {
+            CelFileFreeHardware(pCelFile);
+        }
+        FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x422, 0);
+    }
 }
 
 bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
@@ -2624,115 +2548,6 @@ void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
     InitializeTerminator();
 }
 
-// 0x00601DA0
-char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
-{
-    return pNode + nLinkOffset;
-}
-
-// 0x00601DB0
-void __fastcall sub_00601DB0(PairStrc_00601DB0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
-// 0x00601DC0
-bool R00601DC0::sub_00601DC0_IsOpen()
-{
-    return m_pFile != 0;
-}
-
-// 0x00601DF0
-void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-namespace NWardenClient
-{
-struct Library
-{
-    Library();
-    virtual void Slot00() = 0;
-    virtual void Slot01() = 0;
-    virtual void Slot02() = 0;
-    virtual void Slot03() = 0;
-    virtual void Slot04() = 0;
-    virtual void Slot05() = 0;
-    virtual void Slot06() = 0;
-};
-}
-
-// build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
-void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
-{
-    unsigned char nTemp = *pA;
-    *pA = *pB;
-    *pB = nTemp;
-}
-
-// 0x00601E00
-D2Warden47F930Strc::D2Warden47F930Strc()
-{
-    n00 = 0;
-    n04 = 0;
-    n08 = 0;
-}
-
-// 0x00601E10
-void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-// 0x00601E20
-unsigned int D2StormSlotArrayStrc::CelSlotArrayCalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x15)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    f_C = 0x15;
-    return 0x15;
-}
-
-// 0x00601E60
-unsigned int __stdcall sub_00601E60_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
-// 0x00601E80
-void D2TSListStrc::sub_00601E80_InitCopy(const D2TSListStrc& source)
-{
-    nLinkOffset = source.nLinkOffset;
-    tTerminator.pPrevLink = &tTerminator;
-    tTerminator.nNext = ~(unsigned int)&tTerminator;
-}
-
-// 0x00601EA0
-void __stdcall CelFileFree(D2CelFileStrc* pCelFile)
-{
-    D2_ASSERT(pCelFile, 0x41B);
-    if (pCelFile->dwFlags & 3)
-    {
-        if (pCelFile->dwFlags & 2)
-        {
-            CelFileFreeHardware(pCelFile);
-        }
-        FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x422, 0);
-    }
-}
-
 // 0x00601F00
 char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
 {
@@ -2756,6 +2571,29 @@ sub_00601F20::~sub_00601F20()
 sub_00601F60::~sub_00601F60()
 {
     f_0.Unlink();
+}
+
+namespace NWardenClient
+{
+struct Library
+{
+    Library();
+    virtual void Slot00() = 0;
+    virtual void Slot01() = 0;
+    virtual void Slot02() = 0;
+    virtual void Slot03() = 0;
+    virtual void Slot04() = 0;
+    virtual void Slot05() = 0;
+    virtual void Slot06() = 0;
+};
+}
+
+// build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
+void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
+{
+    unsigned char nTemp = *pA;
+    *pA = *pB;
+    *pB = nTemp;
 }
 
 // 0x00601FA0
@@ -3043,57 +2881,12 @@ D2ChatStormListEStrc::D2ChatStormListEStrc()
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
-{
-    return pWhere;
-}
-
-sub_0044F9F0::~sub_0044F9F0()
-{
-}
-
-D2StormListAStrc::~D2StormListAStrc()
-{
-    UnlinkAll();
-}
-
-D2StormChunkListStrc::~D2StormChunkListStrc()
-{
-    UnlinkAll();
-}
-
 // 0x00602930
 D2StormList0044FB30Strc::D2StormList0044FB30Strc()
 {
     m_linkoffset = 0x10;
     m_terminator.m_prevlink = &m_terminator;
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-sub_0044FBE0::~sub_0044FBE0()
-{
-}
-
-sub_0044FC20::~sub_0044FC20()
-{
-}
-
-void __fastcall sub_0044FD60_CopyConstructDeadList(D2StormDeadListStrc* pList, const D2StormDeadListStrc* pSource)
-{
-    new (pList) D2StormDeadListStrc(*pSource);
-}
-
-sub_0044FDD0::~sub_0044FDD0()
-{
-}
-
-D2StormGameGrowArrayStrc::~D2StormGameGrowArrayStrc()
-{
-}
-
-D2StormGameHashChunkStrc::~D2StormGameHashChunkStrc()
-{
-    f_10.Unlink();
 }
 
 // 0x00602950
@@ -3149,39 +2942,23 @@ D2StormEntry00602EC0Strc::~D2StormEntry00602EC0Strc()
 {
 }
 
-// 0x00602F10
-void D2StormSlotArrayStrc::CelSlotArrayReallocData(unsigned int nAlloc)
+inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
-    D2StormSlotListStrc* pOld = f_8;
-    for (unsigned int i = nAlloc; i < f_4; i++)
-        pOld[i].~D2StormSlotListStrc();
-    f_0 = nAlloc;
-    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0x10);
-    f_8 = (D2StormSlotListStrc*)pNew;
-    if (!pNew)
-    {
-        f_8 = (D2StormSlotListStrc*)SMemAlloc(nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0);
-        if (pOld)
-        {
-            unsigned int nCopy = nAlloc >= f_4 ? f_4 : nAlloc;
-            for (unsigned int i = 0; i < nCopy; i++)
-            {
-                new (&f_8[i]) D2StormSlotListStrc(pOld[i]);
-                pOld[i].~D2StormSlotListStrc();
-            }
-            SMemFree(pOld, gszTypeNameCelSlotList, -2, 0);
-        }
-    }
+    return pWhere;
 }
 
-// build: symbol ??1D2StormHashObjectStrc@@QAE@XZ 0x00602430
-// 0x00603060
-D2StormSlotArrayStrc::~D2StormSlotArrayStrc() throw()
+sub_0044F9F0::~sub_0044F9F0()
 {
-    for (unsigned int i = 0; i < f_4; ++i)
-        f_8[i].~D2StormSlotListStrc();
-    if (f_8)
-        SMemFree(f_8, gszTypeNameCelSlotList, -2, 0);
+}
+
+D2StormListAStrc::~D2StormListAStrc()
+{
+    UnlinkAll();
+}
+
+D2StormChunkListStrc::~D2StormChunkListStrc()
+{
+    UnlinkAll();
 }
 
 // 0x006030E0
@@ -3197,6 +2974,32 @@ char* D2StormHashTable006030E0Strc::CelListTableInternalFind(unsigned int nHashV
     return 0;
 }
 
+sub_0044FBE0::~sub_0044FBE0()
+{
+}
+
+sub_0044FC20::~sub_0044FC20()
+{
+}
+
+void __fastcall sub_0044FD60_CopyConstructDeadList(D2StormDeadListStrc* pList, const D2StormDeadListStrc* pSource)
+{
+    new (pList) D2StormDeadListStrc(*pSource);
+}
+
+sub_0044FDD0::~sub_0044FDD0()
+{
+}
+
+D2StormGameGrowArrayStrc::~D2StormGameGrowArrayStrc()
+{
+}
+
+D2StormGameHashChunkStrc::~D2StormGameHashChunkStrc()
+{
+    f_10.Unlink();
+}
+
 // 0x00603140
 D2StormEntryArrayStrc::~D2StormEntryArrayStrc()
 {
@@ -3204,6 +3007,96 @@ D2StormEntryArrayStrc::~D2StormEntryArrayStrc()
         f_8[i].~D2StormEntry38Strc();
     if (f_8)
         SMemFree(f_8, gszTypeNameCelList, -2, 0);
+}
+
+// 0x006031E0
+D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+    f_C = 0;
+    return this;
+}
+
+// 0x00603240
+D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc() throw()
+{
+}
+
+// 0x00603270
+D2StormEntryGrowArrayStrc::~D2StormEntryGrowArrayStrc()
+{
+}
+
+// 0x006032C0
+D2StormHashChunkStrc::~D2StormHashChunkStrc()
+{
+}
+
+// 0x00603500
+void __fastcall sub_00603500_InitTerminator(D2StormListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x00603510
+void D2ChatStormListAStrc::sub_00603510_Reset()
+{
+    m_linkoffset = 0;
+    InitializeTerminator();
+}
+
+// 0x00603530
+D2Storm603530Strc::D2Storm603530Strc()
+{
+    tArray.f_0 = 0;
+    tArray.f_4 = 0;
+    tArray.f_8 = 0;
+    tArray.f_C = 0;
+}
+
+// 0x00603550
+D2ChatStormListFStrc::D2ChatStormListFStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00603570
+D2Storm603570Strc::D2Storm603570Strc()
+{
+}
+
+// build: symbol ??1D2StormHashObjectStrc@@QAE@XZ 0x00602430
+// 0x00603730
+SlotArray* SlotArray::sub_00603730(DeleteFlags flags)
+{
+    Destroy();
+    if(flags.value & DELETE_BIT) {
+        if(this) sub_00412650(this,"delete",-1,0);
+    }
+    return this;
+}
+
+// 0x00603760
+void D2StormSlotArrayStrc::CelSlotArrayClear()
+{
+    this->D2StormSlotArrayStrc::~D2StormSlotArrayStrc();
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+}
+
+// 0x00603780
+void D2GameHashTableStrc::Destroy()
+{
+    CelListTableInternalClear(1);
+    m_fullnessIndicator = 0;
+    m_slotmask = 0;
+    m_slotlistarray.Clear();
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
@@ -3262,46 +3155,6 @@ void D2StormArray408Strc::sub_0051D670_FreeData()
         SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
-// 0x006031E0
-D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
-{
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
-    return this;
-}
-
-// 0x006031F0
-void D2StormSlotArrayStrc::CelSlotArrayReserve(unsigned int nCount, int bRound)
-{
-    nCount += f_4;
-    if (nCount > f_0)
-    {
-        if (bRound)
-        {
-            unsigned int nChunk = f_C ? f_C : CelSlotArrayCalcChunkSize(nCount);
-            nCount = STORM_RoundUp(nCount, nChunk);
-        }
-        CelSlotArrayReallocData(nCount);
-    }
-}
-
-// 0x00603240
-D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc() throw()
-{
-}
-
-// 0x00603270
-D2StormEntryGrowArrayStrc::~D2StormEntryGrowArrayStrc()
-{
-}
-
-// 0x006032C0
-D2StormHashChunkStrc::~D2StormHashChunkStrc()
-{
-}
-
 // 0x00603300
 void D2StormSlotArrayStrc::CelSlotArraySetCount(unsigned int nCount)
 {
@@ -3323,98 +3176,91 @@ void D2StormSlotArrayStrc::CelSlotArraySetCount(unsigned int nCount)
     f_4 = nCount;
 }
 
-// 0x00603500
-void __fastcall sub_00603500_InitTerminator(D2StormListStrc* pList)
+// 0x00603BD0
+D2GameHashTableStrc::TSHashTable()
 {
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-// 0x00603510
-void D2ChatStormListAStrc::sub_00603510_Reset()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
-// 0x00603530
-D2Storm603530Strc::D2Storm603530Strc()
-{
-    tArray.f_0 = 0;
-    tArray.f_4 = 0;
-    tArray.f_8 = 0;
-    tArray.f_C = 0;
-}
-
-// 0x00603550
-D2ChatStormListFStrc::D2ChatStormListFStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00603570
-D2Storm603570Strc::D2Storm603570Strc()
-{
-}
-
-void D2StormArray408Strc::sub_0051D6A0_Clear()
-{
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-}
-
-D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
-{
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
-    return this;
-}
-
-void D2StormArray408Strc::sub_0051D730_FreeData()
-{
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-}
-
-D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
-{
-    ReserveInline(1, 1);
-    return &f_8[f_4++];
-}
-
-// 0x00603730
-SlotArray* SlotArray::sub_00603730(DeleteFlags flags)
-{
-    Destroy();
-    if(flags.value & DELETE_BIT) {
-        if(this) sub_00412650(this,"delete",-1,0);
-    }
-    return this;
-}
-
-// 0x00603760
-void D2StormSlotArrayStrc::CelSlotArrayClear()
-{
-    this->D2StormSlotArrayStrc::~D2StormSlotArrayStrc();
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-}
-
-// 0x00603780
-void D2GameHashTableStrc::Destroy()
-{
-    CelListTableInternalClear(1);
     m_fullnessIndicator = 0;
-    m_slotmask = 0;
-    m_slotlistarray.Clear();
+    m_fulllist.ChangeLinkOffset(0xC);
+    m_slotmask = 3;
+    m_slotlistarray.CelSlotArraySetCount(4);
+    for (unsigned int i = 0; i <= m_slotmask; i++)
+        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+}
+
+// 0x00603C80
+void D2GameHashTableStrc::CelListTableGrowListArray()
+{
+    unsigned int nOldCount = m_slotmask + 1;
+    unsigned int nNewCount = 2 * nOldCount;
+    D2StormSlotListStrc tTempList;
+    tTempList.ChangeLinkOffset(4);
+
+    for (unsigned int i = 0; i < nOldCount; i++)
+    {
+        char* pNode;
+        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+            tTempList.LinkToTail(pNode);
+    }
+
+    m_slotlistarray.CelSlotArraySetCount(nNewCount);
+    for (unsigned int i = 0; i < nNewCount; i++)
+        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+    m_slotmask = nNewCount - 1;
+
+    char* pNode;
+    while ((pNode = tTempList.Head()) != 0)
+        m_slotlistarray.f_8[((D2StormEntry38Strc*)pNode)->f_0 & m_slotmask].LinkToTail(pNode);
+}
+
+// 0x006045B0
+int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
+{
+    D2StormSlotListStrc* const& pListArray = m_slotlistarray.f_8;
+    if (m_slotmask >= 0x3FF)
+    {
+        return 0;
+    }
+
+    if (m_fullnessIndicator > 3)
+    {
+        m_fullnessIndicator -= 3;
+    }
+    else
+    {
+        m_fullnessIndicator = 0;
+    }
+
+    D2StormSlotLinkStrc* const pTerminator = &pListArray[nSlot].m_terminator;
+    char* const pHead = (int)pTerminator->m_next <= 0 ? 0 : pTerminator->m_next;
+    for (char* pEntry = pHead; (int)pEntry > 0; )
+    {
+        ++m_fullnessIndicator;
+        if (m_fullnessIndicator > 13)
+        {
+            m_fullnessIndicator = 0;
+            CelListTableGrowListArray();
+            return 1;
+        }
+
+        pEntry = pListArray[nSlot].Link(pEntry)->m_next;
+    }
+
+    return 0;
+}
+
+// 0x006031F0
+void D2StormSlotArrayStrc::CelSlotArrayReserve(unsigned int nCount, int bRound)
+{
+    nCount += f_4;
+    if (nCount > f_0)
+    {
+        if (bRound)
+        {
+            unsigned int nChunk = f_C ? f_C : CelSlotArrayCalcChunkSize(nCount);
+            nCount = STORM_RoundUp(nCount, nChunk);
+        }
+        CelSlotArrayReallocData(nCount);
+    }
 }
 
 // 0x00603850
@@ -3475,42 +3321,6 @@ unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFile
     return 0;
 }
 
-// 0x00603BD0
-D2GameHashTableStrc::TSHashTable()
-{
-    m_fullnessIndicator = 0;
-    m_fulllist.ChangeLinkOffset(0xC);
-    m_slotmask = 3;
-    m_slotlistarray.CelSlotArraySetCount(4);
-    for (unsigned int i = 0; i <= m_slotmask; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
-}
-
-// 0x00603C80
-void D2GameHashTableStrc::CelListTableGrowListArray()
-{
-    unsigned int nOldCount = m_slotmask + 1;
-    unsigned int nNewCount = 2 * nOldCount;
-    D2StormSlotListStrc tTempList;
-    tTempList.ChangeLinkOffset(4);
-
-    for (unsigned int i = 0; i < nOldCount; i++)
-    {
-        char* pNode;
-        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
-            tTempList.LinkToTail(pNode);
-    }
-
-    m_slotlistarray.CelSlotArraySetCount(nNewCount);
-    for (unsigned int i = 0; i < nNewCount; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
-    m_slotmask = nNewCount - 1;
-
-    char* pNode;
-    while ((pNode = tTempList.Head()) != 0)
-        m_slotlistarray.f_8[((D2StormEntry38Strc*)pNode)->f_0 & m_slotmask].LinkToTail(pNode);
-}
-
 // 0x00603E50
 void D2GameHashTableReuseStrc::CelListTableDeleteReuseLists()
 {
@@ -3536,6 +3346,36 @@ unsigned int D2StormEntryArrayStrc::CelListArrayCalcChunkSize(unsigned int nCoun
     }
     f_C = 8;
     return 8;
+}
+
+void D2StormArray408Strc::sub_0051D6A0_Clear()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+}
+
+D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+    f_C = 0;
+    return this;
+}
+
+void D2StormArray408Strc::sub_0051D730_FreeData()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
+{
+    ReserveInline(1, 1);
+    return &f_8[f_4++];
 }
 
 // 0x00603F20
@@ -3873,6 +3713,177 @@ int __cdecl sub_00642740()
     return 0;
 }
 
+// 0x00600C00
+void __stdcall D2CMPPalShiftSetAct(int nMode)
+{
+    if (nMode >= 1 && nMode <= 5)
+    {
+        gnCmpGfxMode = nMode;
+    }
+}
+
+// 0x00600C20
+unsigned char* __stdcall D2CMPPalShiftGetTransform(int nSet, int nIndex)
+{
+    if (nSet < 9 && nIndex < 21 && nSet != 0 && (nSet <= 2 || nSet > 4))
+    {
+        return gaItemShiftMaps[nSet][nIndex];
+    }
+
+    return 0;
+}
+
+// 0x00600C70
+int __stdcall CelNormalDirToFileDir(int nDirection, unsigned int nDirections)
+{
+    return gaDirectionIndex32[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
+}
+
+// 0x00600EE0
+void __stdcall CelFileHalve(D2CelFileStrc* hFile, int nUnused)
+{
+    D2_ASSERT(hFile, 0x29C);
+}
+
+// 0x00600F10
+int __stdcall CelFileConvert24To8(D2CelFileStrc* pFile, D2CelFileStrc** ppTarget, int nArg1, int nArg2)
+{
+    D2_ASSERT(pFile->dwFlags & 4, 0x2AD);
+    const int nCells = pFile->nDirections * pFile->nCelsPerDirection;
+    D2CelFileStrc* pTarget = (D2CelFileStrc*)FOG_Alloc(0x18 + nCells * sizeof(D2CmpCellStrc*), ".\\SRC\\CelCmp.cpp", 0x2B1, 0);
+    pTarget->dwVersion = 6;
+    pTarget->dwFlags = pFile->dwFlags & ~7;
+    pTarget->nDirections = pFile->nDirections;
+    pTarget->nCelsPerDirection = pFile->nCelsPerDirection;
+    pTarget->nFormat = 0;
+    gpfCelFileConvert[pFile->nFormat](pFile, pTarget, nArg1, nArg2);
+    *ppTarget = pTarget;
+    return 1;
+}
+
+// 0x00600FB0
+void __stdcall CelFileConvertOldToNew(unsigned* cell,unsigned** output,unsigned* outputSize)
+{
+ unsigned* cellCopy = cell;
+ D2_ASSERT(cellCopy[1]&1,0x2cb);
+ D2_ASSERT(cellCopy[0]==5,0x2cc);
+ cellCopy[1]|=2;
+ for(unsigned i=0;i<cellCopy[4]*(cellCopy[5]);++i) {
+  unsigned* frame=(unsigned*)(cellCopy[13+i]+(unsigned)cellCopy);
+  cellCopy[13+i]=(unsigned)frame;
+  if(frame[7])frame[8]+=(unsigned)cellCopy;else frame[8]=0;
+ }
+ unsigned count=cellCopy[4]*cellCopy[5];
+ unsigned header=24+4*count;
+ unsigned size=header;
+ for(unsigned i=0;i<count;++i) {
+  unsigned* frame=(unsigned*)cellCopy[13+i];
+  size+=frame[9]+frame[7]+35;
+ }
+ unsigned* result=(unsigned*)FOG_Alloc(size,gszCelCmp,0x2e3,0);
+ result[0]=6;
+ result[1]=((unsigned char)cellCopy[1]&4)|1;
+ result[2]=0;result[3]=0;
+ result[4]=cellCopy[4];result[5]=cellCopy[5];
+ unsigned char* cursor=(unsigned char*)result+header;
+ for(unsigned i=0;i<count;++i) {
+  result[6+i]=(unsigned)(cursor-(unsigned char*)result);
+  unsigned* out=(unsigned*)cursor;
+  out[0]=((unsigned*)cellCopy[13+i])[1];
+  out[1]=((unsigned*)cellCopy[13+i])[3];
+  out[2]=((unsigned*)cellCopy[13+i])[4];
+  out[3]=((unsigned*)cellCopy[13+i])[5];
+  out[4]=((unsigned*)cellCopy[13+i])[6];
+  out[5]=((unsigned*)cellCopy[13+i])[7];
+  out[7]=((unsigned*)cellCopy[13+i])[9];
+  memcpy(out+8,(unsigned*)cellCopy[13+i]+10,out[7]);
+  cursor+=out[7]+35;
+  if(((unsigned*)cellCopy[13+i])[8]) {
+   memcpy(cursor,(unsigned*)cellCopy[13+i]+8,((unsigned*)cellCopy[13+i])[7]);
+   out[6]=(unsigned)(cursor-(unsigned char*)result);
+   cursor+=((unsigned*)cellCopy[13+i])[7];
+  }else out[6]=0;
+ }
+ *output=result;*outputSize=size;
+}
+
+// 0x005FE1F0
+const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed)
+{
+    if (bAllowCompressed && gbCmpCompressedDataMode)
+    {
+        return gszCmpCompressedExtension;
+    }
+
+    return gszCmpDefaultExtension;
+}
+
+// 0x005FF300
+int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
+{
+    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
+    {
+        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
+        if (pKey && !(pKey->nFlags & 1) && pKey->nKeyC == nKeyC && pKey->nKeyB == nKeyB && pKey->nKeyA == nKeyA)
+        {
+            D2_ASSERT(pKey->pAsyncData, 0xB7B);
+            if (!sub_0040A7F0_AsyncDataCheck(pKey->pAsyncData))
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x005FE280
+void __stdcall D2CMPSetNoCompress(int bAllowCompressed)
+{
+    SRegLoadValue("Diablo II", "CompressedData", 1, (unsigned long*)&gbCmpCompressedDataMode);
+    if (!bAllowCompressed)
+    {
+        gbCmpCompressedDataMode = 0;
+    }
+}
+
+// 0x005FFE30
+void __stdcall D2CMPSpriteCacheDestroy(int bFree)
+{
+    if (bFree && gCmpTileCache.bActive)
+    {
+        D2CMPSpriteCacheFreeAll(&gCmpTileCache);
+    }
+
+    memset(&gCmpTileCache, 0, sizeof(gCmpTileCache));
+
+    if (bFree)
+    {
+        sub_006093E0_PoolFreeAll(&gCmpTilePool);
+    }
+
+    memset(&gCmpTilePool, 0, sizeof(gCmpTilePool));
+    CodecReleaseLock();
+}
+
+// 0x00600960
+D2TileLibraryHeaderStrc* __stdcall D2CMPFindTileProject(D2TileLibraryEntryStrc* pTile)
+{
+    for (D2TileRecordStrc* pRecord = gpTileRecords; pRecord; pRecord = pRecord->pPrev)
+    {
+        D2TileLibraryHeaderStrc* pLibrary = pRecord->pLibrary;
+        for (int i = 0; i < pLibrary->nTiles; ++i)
+        {
+            if (pTile == &pLibrary->pFirst[i])
+            {
+                return pLibrary;
+            }
+        }
+    }
+
+    return 0;
+}
+
 int __fastcall SKILLS_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA < nB ? nA : nB;
@@ -3988,29 +3999,35 @@ NWardenClient::Library::Library()
 {
 }
 
-// 0x00601A50
-int __stdcall CelFileFreeHardware(D2CelFileStrc* ptFile)
+// 0x005FF630
+void __fastcall D2CMPSpriteCacheResize(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nDelta, int nArg)
 {
-    if (!ptFile)
+    EnterCriticalSection(&pCache->tLock);
+    const unsigned int nNewSize = nDelta + pNode->nSize;
+    pCache->nTotalSize -= pNode->nSize;
+    pNode->dwFlags |= 2;
+    pNode->nSize = nNewSize;
+    pCache->nTotalSize += nNewSize;
+    unsigned int nTotalSize = pCache->nTotalSize;
+    LeaveCriticalSection(&pCache->tLock);
+
+    while (nTotalSize > pCache->nMaxSize)
     {
-        return 0;
-    }
-    D2_ASSERT(ptFile->dwVersion == 6, 0x5F1);
-    D2CelBlockStrc* pBlocks = ptFile->pCels[0]->pBlockPixelData;
-    D2_ASSERT(pBlocks, 0x5F5);
-    for (unsigned int i = 0; i < ptFile->nCelsPerDirection * ptFile->nDirections; i++)
-    {
-        if (ptFile->pCels[i] && ptFile->pCels[i]->pBlockPixelData)
+        D2CmpCacheNodeStrc* pEvicted = sub_005FF4A0_EvictCacheNode(pCache, 0, nArg);
+        if (!pEvicted)
         {
-            if (gpfnPixelDataFree_008E8CB8)
-            {
-                gpfnPixelDataFree_008E8CB8(ptFile->pCels[i]->pBlockPixelData);
-            }
-            ptFile->pCels[i]->pBlockPixelData = 0;
+            break;
         }
+
+        D2_ASSERT(pEvicted != pNode, 0xA47);
+        EnterCriticalSection(&pCache->tLock);
+        nTotalSize = pCache->nTotalSize;
+        LeaveCriticalSection(&pCache->tLock);
     }
-    FOG_Free(pBlocks, ".\\SRC\\CelCmp.cpp", 0x61D, 0);
-    return 1;
+
+    EnterCriticalSection(&pCache->tLock);
+    pNode->dwFlags &= ~2;
+    LeaveCriticalSection(&pCache->tLock);
 }
 
 void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback)
@@ -4018,60 +4035,38 @@ void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback
     gpfnPixelDataFree_008E8CB8 = pfnCallback;
 }
 
-// 0x00600C60
-int __fastcall sub_00600C60_CallFree(void* pMemory)
+// 0x005FE120
+void __stdcall D2CMPTileCacheInit(void* pMemPool, int nArg)
 {
-    return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
+    gnCmpPoolArg = nArg;
+    memset(&gCmpPool, 0, sizeof(gCmpPool));
+    sub_00609020_PoolInit(&gCmpPool, pMemPool, nArg, D2CMPTileCacheReleaseTile, 0x1000);
+    gbCmpPoolInitialized = 1;
 }
 
-// 0x006045B0
-int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
+// 0x005FDE10
+void __stdcall D2CMPTileCacheDestroy(int bFree)
 {
-    D2StormSlotListStrc* const& pListArray = m_slotlistarray.f_8;
-    if (m_slotmask >= 0x3FF)
+    if (gbCmpPoolInitialized)
     {
-        return 0;
-    }
-
-    if (m_fullnessIndicator > 3)
-    {
-        m_fullnessIndicator -= 3;
-    }
-    else
-    {
-        m_fullnessIndicator = 0;
-    }
-
-    D2StormSlotLinkStrc* const pTerminator = &pListArray[nSlot].m_terminator;
-    char* const pHead = (int)pTerminator->m_next <= 0 ? 0 : pTerminator->m_next;
-    for (char* pEntry = pHead; (int)pEntry > 0; )
-    {
-        ++m_fullnessIndicator;
-        if (m_fullnessIndicator > 13)
+        if (bFree)
         {
-            m_fullnessIndicator = 0;
-            CelListTableGrowListArray();
-            return 1;
+            sub_006093E0_PoolFreeAll(&gCmpPool);
         }
 
-        pEntry = pListArray[nSlot].Link(pEntry)->m_next;
+        memset(&gCmpPool, 0, sizeof(gCmpPool));
+        gnCmpPoolArg = 0;
     }
 
-    return 0;
+    D2CMPDestroyTileHeaders();
 }
 
-// 0x005FDE50
-void __fastcall D2CMPTileCacheReleaseTile(void* pEntry)
+// 0x005FDF50
+void __stdcall D2CMPTileCacheFreeTile(D2CmpCacheBlockOwnerStrc* pOwner)
 {
-    D2CmpTileStrc* pTile = ((D2CmpPoolEntryStrc*)pEntry)->pTile;
-    if (gpfnTileFreeCallback_0088CB1C)
-    {
-        D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnTileFreeCallback_0088CB1C), 0xB4);
-        gpfnTileFreeCallback_0088CB1C(pTile);
-    }
-
-    pTile->nCount = 0;
-    pTile->pNext = 0;
+    sub_006092D0_PoolFree(&gCmpPool, pOwner->pBlock);
+    pOwner->nBlockUsed = 0;
+    pOwner->pBlock = 0;
 }
 
 // 0x005FDEA0
@@ -4105,6 +4100,21 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
     return 1;
 }
 
+// 0x005FDF80
+int __fastcall D2CMPGetTileHeadersSize(const char* szFilePath)
+{
+    void* hFile;
+    if (!ARCHIVE_OpenFile(0, szFilePath, &hFile, 0))
+    {
+        return 0;
+    }
+
+    D2TileLibraryHeaderStrc tHeader;
+    ARCHIVE_ReadFileToBuffer(0, hFile, &tHeader, sizeof(tHeader));
+    ARCHIVE_CloseFile(0, hFile);
+    return tHeader.nTiles * sizeof(D2TileLibraryEntryStrc) + sizeof(tHeader);
+}
+
 // 0x005FE080
 void __fastcall D2CMPTileCacheFreeProject(D2TileLibraryStrc* pLibrary)
 {
@@ -4117,16 +4127,6 @@ void __fastcall D2CMPTileCacheFreeProject(D2TileLibraryStrc* pLibrary)
             pEntry->pBlocks = 0;
             pEntry->pNode = 0;
         }
-    }
-}
-
-// 0x005FE280
-void __stdcall D2CMPSetNoCompress(int bAllowCompressed)
-{
-    SRegLoadValue("Diablo II", "CompressedData", 1, (unsigned long*)&gbCmpCompressedDataMode);
-    if (!bAllowCompressed)
-    {
-        gbCmpCompressedDataMode = 0;
     }
 }
 

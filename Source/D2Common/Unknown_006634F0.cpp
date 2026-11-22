@@ -166,6 +166,12 @@ const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId)
     return 0;
 }
 
+// 0x00663790
+int __stdcall MONSTERS_GetHirelingExpForNextLevel(int nLevel, int nExpPerLevel)
+{
+    return nExpPerLevel * nLevel * nLevel * (nLevel + 1);
+}
+
 // 0x00663750
 int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nClassId, int nNameId)
 {
@@ -182,12 +188,6 @@ int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nClassId, int 
     }
 
     return 0;
-}
-
-// 0x00663790
-int __stdcall MONSTERS_GetHirelingExpForNextLevel(int nLevel, int nExpPerLevel)
-{
-    return nExpPerLevel * nLevel * nLevel * (nLevel + 1);
 }
 
 // 0x006637B0

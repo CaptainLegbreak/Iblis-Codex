@@ -1316,33 +1316,6 @@ int __cdecl UI_IsDialogOpen()
     return sub_004B85E0() != 0;
 }
 
-// 0x00453AA0
-int __cdecl UI_GetPentspinCel()
-{
-    return gdwGlobal_007A2878;
-}
-
-// 0x00453AB0
-int __cdecl UI_GetFocusCel()
-{
-    return gdwGlobal_007A2880;
-}
-
-// 0x00453AC0
-void __cdecl UI_DisableUIVarDelay()
-{
-    gdwGlobal_0070FA9C = 0;
-    gdwUIVarTick_007A2790 = 0;
-}
-
-// 0x00453AD0
-void __cdecl UI_EnableUIVarDelay()
-{
-    gdwGlobal_0070FA9C = 1;
-}
-
-// build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00453B30
 void __cdecl UI_DrawStoredUnitNumber()
 {
@@ -1371,6 +1344,33 @@ void __cdecl UI_DrawStoredUnitNumber()
     D2Win_10117_DrawText(wszText, 600, 25, 4, 0);
 }
 
+// 0x00453FD0
+int __cdecl UI_GoldSpinnerDefaultCallback()
+{
+    return 0;
+}
+
+// 0x00453AA0
+int __cdecl UI_GetPentspinCel()
+{
+    return gdwGlobal_007A2878;
+}
+
+// 0x00453AB0
+int __cdecl UI_GetFocusCel()
+{
+    return gdwGlobal_007A2880;
+}
+
+// build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x00453AC0
+void __cdecl UI_DisableUIVarDelay()
+{
+    gdwGlobal_0070FA9C = 0;
+    gdwUIVarTick_007A2790 = 0;
+}
+
 static inline int IsGoldPanelMode(int nMode)
 {
     if (nMode <= 0)
@@ -1386,67 +1386,17 @@ static inline int IsGoldPanelMode(int nMode)
     return 1;
 }
 
-// 0x00453EE0
-void __cdecl UI_CloseGoldDialog()
+// 0x00453AD0
+void __cdecl UI_EnableUIVarDelay()
 {
-    if (gbGoldPanelFlag_007A27B4)
-    {
-        sub_0046AA20(1, 1);
-        gbGoldPanelFlag_007A27B4 = 0;
-    }
-
-    if (gpGoldControlB_007A27A8)
-    {
-        gnGoldPanelValue_007A2A68 = gpGoldControlB_007A27A8->GetValue();
-    }
-
-    if (gpGlobal_007A27A0)
-    {
-        DIALOG_DestroyDialog(gpGlobal_007A27A0);
-        gpGlobal_007A27A0 = 0;
-    }
-
-    if (gpGoldControlA_007A27A4)
-    {
-        delete gpGoldControlA_007A27A4;
-        gpGoldControlA_007A27A4 = 0;
-    }
-
-    if (gpGoldControlB_007A27A8)
-    {
-        delete gpGoldControlB_007A27A8;
-        gpGoldControlB_007A27A8 = 0;
-    }
-
-    if (gpGoldControlC_007A27AC)
-    {
-        delete gpGoldControlC_007A27AC;
-        gpGoldControlC_007A27AC = 0;
-    }
-
-    if (gpGoldControlD_007A27B0)
-    {
-        delete gpGoldControlD_007A27B0;
-        gpGoldControlD_007A27B0 = 0;
-    }
-
-    if (gnGoldPanelMode_007A279C != 0)
-    {
-        if (IsGoldPanelMode(gnGoldPanelMode_007A279C))
-        {
-            sub_00489880_OpenPanel();
-        }
-    }
-    else
-    {
-        sub_004A7A80_OpenPanel0();
-    }
+    gdwGlobal_0070FA9C = 1;
 }
 
-// 0x00453FD0
-int __cdecl UI_GoldSpinnerDefaultCallback()
+// 0x00454140
+int __cdecl UI_CancelGoldDialog()
 {
-    return 0;
+    UI_CloseGoldDialog();
+    return 1;
 }
 
 static inline int GetUnitId(D2UnitStrc* pUnit)
@@ -1489,13 +1439,6 @@ int __cdecl UI_ConfirmGoldDialog()
         return 1;
     }
     sub_004B9A00(0xDD, 0, 0, 0, 0);
-    return 1;
-}
-
-// 0x00454140
-int __cdecl UI_CancelGoldDialog()
-{
-    UI_CloseGoldDialog();
     return 1;
 }
 
@@ -1589,18 +1532,21 @@ void __cdecl UI_ToggleListDialog()
     sub_004B69E0_CloseTrade();
 }
 
-// 0x004549C0
-int __cdecl UI_IsGoldPanelOpen()
+// 0x00457510
+void __stdcall sub_00457510(int nUnused1)
 {
-    return gpGlobal_007A27A0 != 0;
 }
 
-// 0x004549D0
-D2Block0xA0Strc* __fastcall UI_ClearTextBlock(D2Block0xA0Strc* pBlock)
+// 0x00457740
+int __cdecl UI_GetAutomapCenters()
 {
-    for (int i = 0; i < 0x50; ++i)
-        pBlock->wData[i] = 0;
-    return pBlock;
+    return gdwGlobal_007113E0;
+}
+
+// 0x00457770
+int __cdecl UI_GetAutomapLeft()
+{
+    return gdwGlobal_007A51E0;
 }
 
 static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
@@ -2085,6 +2031,63 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
     }
 }
 
+// 0x00453EE0
+void __cdecl UI_CloseGoldDialog()
+{
+    if (gbGoldPanelFlag_007A27B4)
+    {
+        sub_0046AA20(1, 1);
+        gbGoldPanelFlag_007A27B4 = 0;
+    }
+
+    if (gpGoldControlB_007A27A8)
+    {
+        gnGoldPanelValue_007A2A68 = gpGoldControlB_007A27A8->GetValue();
+    }
+
+    if (gpGlobal_007A27A0)
+    {
+        DIALOG_DestroyDialog(gpGlobal_007A27A0);
+        gpGlobal_007A27A0 = 0;
+    }
+
+    if (gpGoldControlA_007A27A4)
+    {
+        delete gpGoldControlA_007A27A4;
+        gpGoldControlA_007A27A4 = 0;
+    }
+
+    if (gpGoldControlB_007A27A8)
+    {
+        delete gpGoldControlB_007A27A8;
+        gpGoldControlB_007A27A8 = 0;
+    }
+
+    if (gpGoldControlC_007A27AC)
+    {
+        delete gpGoldControlC_007A27AC;
+        gpGoldControlC_007A27AC = 0;
+    }
+
+    if (gpGoldControlD_007A27B0)
+    {
+        delete gpGoldControlD_007A27B0;
+        gpGoldControlD_007A27B0 = 0;
+    }
+
+    if (gnGoldPanelMode_007A279C != 0)
+    {
+        if (IsGoldPanelMode(gnGoldPanelMode_007A279C))
+        {
+            sub_00489880_OpenPanel();
+        }
+    }
+    else
+    {
+        sub_004A7A80_OpenPanel0();
+    }
+}
+
 // 0x004565E0
 void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
 {
@@ -2402,23 +2405,6 @@ done:
     sub_0046C130_DrawCountdown();
 }
 
-// 0x00457510
-void __stdcall sub_00457510(int nUnused1)
-{
-}
-
-// 0x00457740
-int __cdecl UI_GetAutomapCenters()
-{
-    return gdwGlobal_007113E0;
-}
-
-// 0x00457770
-int __cdecl UI_GetAutomapLeft()
-{
-    return gdwGlobal_007A51E0;
-}
-
 // 0x004577B0
 int __cdecl UI_GetAutomapParty()
 {
@@ -2537,6 +2523,20 @@ void __cdecl UI_FreeCels()
         gpGlobal_007A5240 = 0;
     }
     GAME_LoadLoadingPalette();
+}
+
+// 0x004549C0
+int __cdecl UI_IsGoldPanelOpen()
+{
+    return gpGlobal_007A27A0 != 0;
+}
+
+// 0x004549D0
+D2Block0xA0Strc* __fastcall UI_ClearTextBlock(D2Block0xA0Strc* pBlock)
+{
+    for (int i = 0; i < 0x50; ++i)
+        pBlock->wData[i] = 0;
+    return pBlock;
 }
 
 // 0x00463D80

@@ -238,106 +238,6 @@ static void __stdcall PLRSKILLS_OverlayVariants(D2UnitStrc* pUnit, int nOverlay)
     }
 }
 
-// 0x004D86A0
-void __fastcall PLRSKILLS_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
-{
-    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
-    {
-        return;
-    }
-
-    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
-    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks_006CE268[4]))
-    {
-        return;
-    }
-
-    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
-        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
-    {
-        return;
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pStatesTxt->wPrgOverlay + i);
-    }
-
-    const int nLevel = STATLIST_UnitGetStatValue(pUnit, pStatesTxt->wStat, 0);
-    if (nLevel >= 1 && nLevel <= 3)
-    {
-        GFX_AddUnitOverlay(pUnit, pStatesTxt->wPrgOverlay + nLevel - 1, 3, 0, 0, 0, 0, 0);
-    }
-}
-
-// 0x004D8760
-void __fastcall PLRSKILLS_StatePrgOverlays(D2UnitStrc* pUnit, int nState)
-{
-    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
-    {
-        return;
-    }
-
-    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
-    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks_006CE268[4]))
-    {
-        return;
-    }
-
-    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
-        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
-    {
-        return;
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pStatesTxt->wPrgOverlay + i);
-    }
-}
-
-inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
-
-// 0x004D87E0
-void __fastcall PLRSKILLS_StateAuraEffect(D2UnitStrc* pUnit, int nState)
-{
-    int nLevel;
-    D2StatListStrc* pStatList;
-    int nSkillId;
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return;
-    }
-
-    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-    if (!pStatList)
-    {
-        return;
-    }
-
-    nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
-    nLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return;
-    }
-
-    int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nLevel);
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    VIEW_StartTimedBox(5, nValue * 3 / 5, nValue * 2 / 5, nLevelId, 0);
-}
-
 // 0x004D88A0
 void __fastcall PLRSKILLS_StateSkillLevel(D2UnitStrc* pUnit, int nState)
 {
@@ -389,6 +289,16 @@ void __fastcall PLRSKILLS_StateStoreOwner(D2UnitStrc* pUnit, int nState)
             UNITS_StoreOwnerTypeAndGUID(pUnit, nOwnerType, STATLIST_GetStatValue(pStatList, STAT_SOURCE_UNIT_ID, 0));
         }
     }
+}
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
 }
 
 // 0x004D89A0
@@ -529,6 +439,96 @@ void __fastcall PLRSKILLS_StateTieredOverlays(D2UnitStrc* pUnit, int nState)
             PLRSKILLS_OverlayVariants(pUnit, nOverlay2);
         }
     }
+}
+
+// 0x004D86A0
+void __fastcall PLRSKILLS_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
+{
+    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks_006CE268[4]))
+    {
+        return;
+    }
+
+    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
+        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return;
+    }
+
+    for (int i = 0; i < 3; ++i)
+    {
+        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pStatesTxt->wPrgOverlay + i);
+    }
+
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, pStatesTxt->wStat, 0);
+    if (nLevel >= 1 && nLevel <= 3)
+    {
+        GFX_AddUnitOverlay(pUnit, pStatesTxt->wPrgOverlay + nLevel - 1, 3, 0, 0, 0, 0, 0);
+    }
+}
+
+// 0x004D8760
+void __fastcall PLRSKILLS_StatePrgOverlays(D2UnitStrc* pUnit, int nState)
+{
+    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks_006CE268[4]))
+    {
+        return;
+    }
+
+    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
+        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return;
+    }
+
+    for (int i = 0; i < 3; ++i)
+    {
+        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pStatesTxt->wPrgOverlay + i);
+    }
+}
+
+// 0x004D87E0
+void __fastcall PLRSKILLS_StateAuraEffect(D2UnitStrc* pUnit, int nState)
+{
+    int nLevel;
+    D2StatListStrc* pStatList;
+    int nSkillId;
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    nLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return;
+    }
+
+    int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nLevel);
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    VIEW_StartTimedBox(5, nValue * 3 / 5, nValue * 2 / 5, nLevelId, 0);
 }
 
 void __stdcall sub_K06_Emittier1(int a, int b)

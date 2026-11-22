@@ -772,6 +772,76 @@ void __cdecl GAME_DrawEndGameCharInfo() {
  }
 }
 
+// 0x0045C520
+void __cdecl GAME_SaveCharFile()
+{
+    char szPath[500];
+    char szDir[0x400];
+
+    D2_ASSERT(gszCharName_007A05C4[0], 0x25);
+
+    const unsigned int nSize = gnSaveBufferSize_007A5228;
+    if (nSize < 8)
+    {
+        return;
+    }
+
+    unsigned char* pBuffer = gpSaveBuffer_007A5224;
+    const D2SaveHeaderStrc tHeader = *(D2SaveHeaderStrc*)pBuffer;
+    if (tHeader.dwMagic != 0xAA55AA55)
+    {
+        return;
+    }
+
+    if (tHeader.dwVersion <= 0x5B)
+    {
+        if (nSize < 0x82)
+        {
+            return;
+        }
+        gpCharRecord_007A0438->wValue = *(unsigned short*)(pBuffer + 0x18);
+    }
+    else
+    {
+        if (nSize < 0x14F)
+        {
+            return;
+        }
+        gpCharRecord_007A0438->wValue = *(unsigned short*)(pBuffer + 0x24);
+    }
+
+    FOG_GetSavePath(szDir, 0x400);
+    sprintf(szPath, "%s%s.d2s", szDir, gszCharName_007A05C4);
+    _iobuf* pFile = fopen(szPath, "wb");
+    if (pFile)
+    {
+        fwrite(gpSaveBuffer_007A5224, gnSaveBufferSize_007A5228, 1, pFile);
+        fclose(pFile);
+    }
+}
+
+struct D2ActiveRoomStrc;
+
+struct D2StoredUnitRecordStrc;
+
+static inline int TimerExpired(D2LoadingTimerStrc* pTimer)
+{
+    if(pTimer->dwLength)
+    {
+        unsigned long dwNow=GetTickCount();
+        unsigned long dwLeft;
+        if(dwNow>=pTimer->dwStart+pTimer->dwLength)
+        {
+            pTimer->dwStart=0;
+            pTimer->dwLength=0;
+            dwLeft=0;
+        }
+        else dwLeft=pTimer->dwLength-(dwNow-pTimer->dwStart);
+        return dwLeft==0;
+    }
+    return 1;
+}
+
 // 0x0044E770
 int __stdcall GAME_DrawEndGameScreen(int nUnused)
 {
@@ -899,28 +969,6 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
         s_pEndGameOkCell_007A06FC = 0;
     }
     sub_0044B880_SetValue(0);
-    return 1;
-}
-
-struct D2ActiveRoomStrc;
-
-struct D2StoredUnitRecordStrc;
-
-static inline int TimerExpired(D2LoadingTimerStrc* pTimer)
-{
-    if(pTimer->dwLength)
-    {
-        unsigned long dwNow=GetTickCount();
-        unsigned long dwLeft;
-        if(dwNow>=pTimer->dwStart+pTimer->dwLength)
-        {
-            pTimer->dwStart=0;
-            pTimer->dwLength=0;
-            dwLeft=0;
-        }
-        else dwLeft=pTimer->dwLength-(dwNow-pTimer->dwStart);
-        return dwLeft==0;
-    }
     return 1;
 }
 
@@ -1214,27 +1262,6 @@ void __cdecl GAME_DrawLevelLoadingScreen()
     D2Win_10134_DrawCellFile(gpLoadingCell_007A2794, gnGlobal_0071146C / 2, gnGlobal_00711470 / 2 - 140, 1, 5, 1);
 }
 
-// 0x00456550
-void __cdecl GAME_LoadLoadingScreen()
-{
-    char szPath[0x104];
-    UI_FreeLoadingScreen();
-    GAME_LoadLoadingPalette();
-    if (STRTABLE_GetLanguage())
-    {
-        sprintf(szPath, "%s\\UI\\LoadingScreen", gszDataLocal_006D41A8);
-    }
-    else
-    {
-        sprintf(szPath, "%s\\UI\\Loading\\Loadingscreen", szDataGlobal_006D4118);
-    }
-    gpLoadingScreen_007A2888 = sub_004788B0_LoadCellFile(szPath, 0);
-    gnLoadingFrame_007A2A6C = 0;
-    gdwGlobal_007A2868 = 1;
-    MSG_SetProgress(0, 0);
-    gnValue_007A27B8 = gnValue_007A0624;
-}
-
 // build: context SEED_RollRandomNumberInline
 static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
@@ -1256,58 +1283,31 @@ static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed,
     return SEED_RollRandomNumberInline(pSeed) & (nMax - 1);
 }
 
+// 0x00456550
+void __cdecl GAME_LoadLoadingScreen()
+{
+    char szPath[0x104];
+    UI_FreeLoadingScreen();
+    GAME_LoadLoadingPalette();
+    if (STRTABLE_GetLanguage())
+    {
+        sprintf(szPath, "%s\\UI\\LoadingScreen", gszDataLocal_006D41A8);
+    }
+    else
+    {
+        sprintf(szPath, "%s\\UI\\Loading\\Loadingscreen", szDataGlobal_006D4118);
+    }
+    gpLoadingScreen_007A2888 = sub_004788B0_LoadCellFile(szPath, 0);
+    gnLoadingFrame_007A2A6C = 0;
+    gdwGlobal_007A2868 = 1;
+    MSG_SetProgress(0, 0);
+    gnValue_007A27B8 = gnValue_007A0624;
+}
+
 // 0x0045C3E0
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     return SEED_RollLimitedRandomNumberInline(pSeed, nMax);
-}
-
-// 0x0045C520
-void __cdecl GAME_SaveCharFile()
-{
-    char szPath[500];
-    char szDir[0x400];
-
-    D2_ASSERT(gszCharName_007A05C4[0], 0x25);
-
-    const unsigned int nSize = gnSaveBufferSize_007A5228;
-    if (nSize < 8)
-    {
-        return;
-    }
-
-    unsigned char* pBuffer = gpSaveBuffer_007A5224;
-    const D2SaveHeaderStrc tHeader = *(D2SaveHeaderStrc*)pBuffer;
-    if (tHeader.dwMagic != 0xAA55AA55)
-    {
-        return;
-    }
-
-    if (tHeader.dwVersion <= 0x5B)
-    {
-        if (nSize < 0x82)
-        {
-            return;
-        }
-        gpCharRecord_007A0438->wValue = *(unsigned short*)(pBuffer + 0x18);
-    }
-    else
-    {
-        if (nSize < 0x14F)
-        {
-            return;
-        }
-        gpCharRecord_007A0438->wValue = *(unsigned short*)(pBuffer + 0x24);
-    }
-
-    FOG_GetSavePath(szDir, 0x400);
-    sprintf(szPath, "%s%s.d2s", szDir, gszCharName_007A05C4);
-    _iobuf* pFile = fopen(szPath, "wb");
-    if (pFile)
-    {
-        fwrite(gpSaveBuffer_007A5224, gnSaveBufferSize_007A5228, 1, pFile);
-        fclose(pFile);
-    }
 }
 
 #include "gen/data/Source/D2Client/GAME/Game_0044E5A0.inc"

@@ -128,72 +128,6 @@ long gnTileLockRefCount_008F03E4; // 0x008F03E4
 
 char gTileLock_008F03CC[0x18]; // 0x008F03CC
 
-// 0x0060A9D0
-void __fastcall GfxHashFreeEntry(D2CmpGfxHashStrc* pHash, int nUnused, void* pMemPool, D2CmpGfxHashEntryStrc* pEntry)
-{
-    void* pBlocks = 0;
-    D2CmpGfxHashEntryStrc* pEntryCopy = pEntry;
-    D2CmpGfxHashEntryStrc** ppBucket = &*(pEntryCopy->nIndex + pHash->pBuckets);
-    if (*ppBucket == pEntry)
-    {
-        *ppBucket = pEntry->pNext;
-    }
-
-    D2CmpGfxInfoStrc* pInfo = pEntry->pInfo;
-    D2AsyncLoadStrc* pAsync = pInfo->pAsync;
-    if (pAsync)
-    {
-        if (pInfo->bHardware)
-        {
-            PixelDataFreeCallback pfnFree = CelGetHardwareFreeCallback(pHash);
-            char* pData = (char*)FOG_AsyncDataGetBuffer(pAsync);
-            D2_ASSERT(pData, 0x5F);
-            unsigned int nOffset = 0;
-            pBlocks = ((D2CmpGfxFrameStrc*)pData)->pPixelData;
-            for (unsigned int i = 0; i < pInfo->nCountA * (int)pInfo->nCountB;)
-            {
-                D2CmpGfxFrameStrc* pFrame = (D2CmpGfxFrameStrc*)(nOffset + pData);
-                void* const tPPixelData = pFrame->pPixelData;
-                if (tPPixelData)
-                {
-                    if (pfnFree)
-                    {
-                        pfnFree(tPPixelData);
-                    }
-                    pFrame->pPixelData = 0;
-                }
-                nOffset = nOffset + (pFrame->nSizeB + pFrame->nSizeA + 0x23);
-                ++i;
-            }
-
-            if (pBlocks)
-            {
-                FOG_FreeServerMemory(pMemPool, pBlocks, szGfxHashFile, 0x82, 0);
-            }
-        }
-
-        sub_0040AB00_FreeAsyncData(pAsync);
-        pInfo->pAsync = 0;
-    }
-
-    FOG_FreeServerMemory(pMemPool, pEntry, szGfxHashFile, 0x8E, 0);
-}
-
-// 0x0060AAF0
-void __fastcall GfxHashInit(D2CmpBlockTableBStrc* pTable)
-{
-    memset(pTable, 0, sizeof(D2CmpBlockTableBStrc));
-}
-
-void __stdcall sub_0054FB30_Nop()
-{
-}
-
-// 0x0060AB70
-void __stdcall GfxHashDumpStats()
-{
-}
-
 // 0x0060AB80
 unsigned int __fastcall GfxHashGetDirectionKey(D2CmpGfxKeyStrc* pKey, unsigned int* pDivisor, D2CmpGfxCelStrc* pCel)
 {
@@ -249,11 +183,6 @@ unsigned int __fastcall GfxHashGetDirectionKey(D2CmpGfxKeyStrc* pKey, unsigned i
     return nValue / *pDivisor;
 }
 
-// 0x0060AC50
-void __stdcall sub_0060AC50_Nop()
-{
-}
-
 // 0x0060AC60
 static unsigned int GfxHashGetIndex(D2CmpGfxKeyStrc* pKey, int* pAux, void* pCel, unsigned int* pValue)
 {
@@ -271,6 +200,10 @@ static unsigned int GfxHashGetIndex(D2CmpGfxKeyStrc* pKey, int* pAux, void* pCel
     }
     const unsigned int nShift = nHash >> 8;
     return ((nShift ^ nHash) >> 16 ^ nShift ^ nHash) & 0x1FFF;
+}
+
+void __stdcall sub_0054FB30_Nop()
+{
 }
 
 // 0x0060ACE0
@@ -375,5 +308,72 @@ void __cdecl CodecReleaseLock()
 {
     if (InterlockedDecrement(&gnTileLockRefCount_008F03E4) == 0)
         DeleteCriticalSection(gTileLock_008F03CC);
+}
+
+// 0x0060A9D0
+void __fastcall GfxHashFreeEntry(D2CmpGfxHashStrc* pHash, int nUnused, void* pMemPool, D2CmpGfxHashEntryStrc* pEntry)
+{
+    void* pBlocks = 0;
+    D2CmpGfxHashEntryStrc* pEntryCopy = pEntry;
+    D2CmpGfxHashEntryStrc** ppBucket = &*(pEntryCopy->nIndex + pHash->pBuckets);
+    if (*ppBucket == pEntry)
+    {
+        *ppBucket = pEntry->pNext;
+    }
+
+    D2CmpGfxInfoStrc* pInfo = pEntry->pInfo;
+    D2AsyncLoadStrc* pAsync = pInfo->pAsync;
+    if (pAsync)
+    {
+        if (pInfo->bHardware)
+        {
+            PixelDataFreeCallback pfnFree = CelGetHardwareFreeCallback(pHash);
+            char* pData = (char*)FOG_AsyncDataGetBuffer(pAsync);
+            D2_ASSERT(pData, 0x5F);
+            unsigned int nOffset = 0;
+            pBlocks = ((D2CmpGfxFrameStrc*)pData)->pPixelData;
+            for (unsigned int i = 0; i < pInfo->nCountA * (int)pInfo->nCountB;)
+            {
+                D2CmpGfxFrameStrc* pFrame = (D2CmpGfxFrameStrc*)(nOffset + pData);
+                void* const tPPixelData = pFrame->pPixelData;
+                if (tPPixelData)
+                {
+                    if (pfnFree)
+                    {
+                        pfnFree(tPPixelData);
+                    }
+                    pFrame->pPixelData = 0;
+                }
+                nOffset = nOffset + (pFrame->nSizeB + pFrame->nSizeA + 0x23);
+                ++i;
+            }
+
+            if (pBlocks)
+            {
+                FOG_FreeServerMemory(pMemPool, pBlocks, szGfxHashFile, 0x82, 0);
+            }
+        }
+
+        sub_0040AB00_FreeAsyncData(pAsync);
+        pInfo->pAsync = 0;
+    }
+
+    FOG_FreeServerMemory(pMemPool, pEntry, szGfxHashFile, 0x8E, 0);
+}
+
+// 0x0060AAF0
+void __fastcall GfxHashInit(D2CmpBlockTableBStrc* pTable)
+{
+    memset(pTable, 0, sizeof(D2CmpBlockTableBStrc));
+}
+
+// 0x0060AB70
+void __stdcall GfxHashDumpStats()
+{
+}
+
+// 0x0060AC50
+void __stdcall sub_0060AC50_Nop()
+{
 }
 

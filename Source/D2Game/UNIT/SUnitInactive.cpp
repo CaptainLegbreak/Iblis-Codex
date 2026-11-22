@@ -1146,73 +1146,6 @@ void __fastcall sub_EMIT_00542871(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Inacti
     }
 }
 
-// 0x005429B0
-int __fastcall SUNITINACTIVE_IsDeadMonsterAt(D2GameStrc* ptGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId)
-{
-    D2_ASSERT(ptGame, 0x6DA);
-    D2_ASSERT(pRoom, 0x6DB);
-    D2_ASSERT(nX && nY, 0x6DC);
-
-    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
-    const int nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-    if (!pTargetRoom)
-    {
-        pTargetRoom = DUNGEON_FindRoomBySubtileCoordinates(ptGame->pAct[nAct], nX, nY);
-    }
-
-    if (pTargetRoom)
-    {
-        for (D2UnitStrc* pUnit = pTargetRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-        {
-            if ((!pUnit ? 6 : pUnit->dwUnitType) == 1 && pUnit->dwClassId == nClassId && SUNIT_IsDead(pUnit))
-            {
-                return 1;
-            }
-        }
-    }
-
-    D2InactiveUnitListStrc* pList = SUNITINACTIVE_GetListNodeFromActAndCoordinates(ptGame, nAct, nX, nY, 0);
-    if (pList)
-    {
-        for (D2InactiveMonsterNodeStrc* pNode = pList->pInactiveMonsters; pNode; pNode = pNode->pNext)
-        {
-            if (pNode->nClassId == nClassId && (pNode->nTypeFlags & 4))
-            {
-                return 1;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x00542AC0
-void __fastcall SUNITINACTIVE_DeleteExpiredItemNodes(D2GameStrc* pGame, int nAct)
-{
-    for (D2InactiveUnitListStrc* i = pGame->pInactiveUnitList[nAct]; i; i = i->pNext)
-    {
-        D2InactiveItemNodeStrc* pPrevious = 0;
-        D2InactiveItemNodeStrc* pCurrent = i->pInactiveItems;
-        while (pCurrent)
-        {
-            D2InactiveItemNodeStrc* pNext = pCurrent->pNext;
-            if (pCurrent->nFrame && pGame->dwGameFrame > pCurrent->nFrame)
-            {
-                if (pPrevious)
-                    pPrevious->pNext = pNext;
-                else
-                    i->pInactiveItems = pNext;
-                FOG_FreeServerMemory(pGame->pMemoryPool, pCurrent, ".\\UNIT\\SUnitInactive.cpp", 0x723, 0);
-            }
-            else
-            {
-                pPrevious = pCurrent;
-            }
-            pCurrent = pNext;
-        }
-    }
-}
-
 // 0x00542B40
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom)
 {
@@ -1318,27 +1251,6 @@ objectDone:
             FOG_FreeServerMemory(pGame->pMemoryPool,node,".\\UNIT\\SUnitInactive.cpp",0x1C3,0);
         }
     }
-}
-
-inline unsigned __int64 SEED_RollRandomNumberInl(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return lSeed;
-}
-
-inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordFromMonsterIdInl(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        const int nMonStats2Id = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
-        if (nMonStats2Id >= 0 && nMonStats2Id < sgptDataTables->nMonStats2TxtRecordCount)
-        {
-            return &sgptDataTables->pMonStats2Txt[nMonStats2Id];
-        }
-    }
-    return 0;
 }
 
 // 0x00542E10
@@ -1489,6 +1401,27 @@ void __fastcall SUNITINACTIVE_FreeInactiveUnitLists(D2GameStrc* pGame)
     }
 }
 
+inline unsigned __int64 SEED_RollRandomNumberInl(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordFromMonsterIdInl(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        const int nMonStats2Id = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nMonStats2Id >= 0 && nMonStats2Id < sgptDataTables->nMonStats2TxtRecordCount)
+        {
+            return &sgptDataTables->pMonStats2Txt[nMonStats2Id];
+        }
+    }
+    return 0;
+}
+
 // 0x00543140
 void __fastcall SUNITINACTIVE_DeleteSingleListNode(D2GameStrc* pGame, unsigned short nUnitType, unsigned short nClassId, unsigned char nAct)
 {
@@ -1521,6 +1454,73 @@ void __fastcall SUNITINACTIVE_DeleteSingleListNode(D2GameStrc* pGame, unsigned s
             pInactiveUnitNode = pInactiveUnitNode->pNext;
         }
         pInactiveUnitList = pInactiveUnitList->pNext;
+    }
+}
+
+// 0x005429B0
+int __fastcall SUNITINACTIVE_IsDeadMonsterAt(D2GameStrc* ptGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId)
+{
+    D2_ASSERT(ptGame, 0x6DA);
+    D2_ASSERT(pRoom, 0x6DB);
+    D2_ASSERT(nX && nY, 0x6DC);
+
+    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+    const int nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
+    if (!pTargetRoom)
+    {
+        pTargetRoom = DUNGEON_FindRoomBySubtileCoordinates(ptGame->pAct[nAct], nX, nY);
+    }
+
+    if (pTargetRoom)
+    {
+        for (D2UnitStrc* pUnit = pTargetRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
+        {
+            if ((!pUnit ? 6 : pUnit->dwUnitType) == 1 && pUnit->dwClassId == nClassId && SUNIT_IsDead(pUnit))
+            {
+                return 1;
+            }
+        }
+    }
+
+    D2InactiveUnitListStrc* pList = SUNITINACTIVE_GetListNodeFromActAndCoordinates(ptGame, nAct, nX, nY, 0);
+    if (pList)
+    {
+        for (D2InactiveMonsterNodeStrc* pNode = pList->pInactiveMonsters; pNode; pNode = pNode->pNext)
+        {
+            if (pNode->nClassId == nClassId && (pNode->nTypeFlags & 4))
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x00542AC0
+void __fastcall SUNITINACTIVE_DeleteExpiredItemNodes(D2GameStrc* pGame, int nAct)
+{
+    for (D2InactiveUnitListStrc* i = pGame->pInactiveUnitList[nAct]; i; i = i->pNext)
+    {
+        D2InactiveItemNodeStrc* pPrevious = 0;
+        D2InactiveItemNodeStrc* pCurrent = i->pInactiveItems;
+        while (pCurrent)
+        {
+            D2InactiveItemNodeStrc* pNext = pCurrent->pNext;
+            if (pCurrent->nFrame && pGame->dwGameFrame > pCurrent->nFrame)
+            {
+                if (pPrevious)
+                    pPrevious->pNext = pNext;
+                else
+                    i->pInactiveItems = pNext;
+                FOG_FreeServerMemory(pGame->pMemoryPool, pCurrent, ".\\UNIT\\SUnitInactive.cpp", 0x723, 0);
+            }
+            else
+            {
+                pPrevious = pCurrent;
+            }
+            pCurrent = pNext;
+        }
     }
 }
 

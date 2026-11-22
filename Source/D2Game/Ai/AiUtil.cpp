@@ -492,6 +492,69 @@ int __fastcall AIUTIL_IsActiveUnit(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x005DCF70
+static D2UnitStrc* __stdcall sub_005DCF70_FindTargetInAdjacentActiveRooms(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfCallback)
+{
+    if (!pUnit || pUnit->dwUnitType < 0 || pUnit->dwUnitType > 1)
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pUnit))
+    {
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        if (!DUNGEON_IsRoomInTown(ppRoomList[i]) && ROOM_HAS_CLIENTS(ppRoomList[i]))
+        {
+            for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
+            {
+                D2UnitStrc* pResult = pfCallback(pGame, pUnit, pTarget, pCallbackArg);
+                if (pResult)
+                {
+                    return pResult;
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfFallbackCallback, int nCallbackId)
+{
+    const int nType = gAiTargetSearchTable_006E3300[nCallbackId].nType;
+    AIUTIL_TargetCallback pfCallback = gAiTargetSearchTable_006E3300[nCallbackId].pfCallback ? gAiTargetSearchTable_006E3300[nCallbackId].pfCallback : pfFallbackCallback;
+    if (!pfCallback)
+    {
+        return 0;
+    }
+
+    switch (nType)
+    {
+    case 1:
+        return AIUTIL_FindPlayerTargetInAdjacentRooms(pGame, pUnit, pCallbackArg, pfCallback);
+    case 2:
+        return sub_005DCF70_FindTargetInAdjacentActiveRooms(pGame, pUnit, pCallbackArg, pfCallback);
+    case 3:
+        return AIUTIL_FindTargetAmongMinions(pGame, pCallbackArg, pfCallback, pUnit);
+    default:
+        return AIUTIL_FindTargetInAdjacentRooms(pGame, pCallbackArg, pfCallback, pUnit);
+    }
+}
+
 // 0x005DC870
 int __fastcall AIUTIL_TargetCallback_CountAndFindFriendlyMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2NearestRecord005DC870Strc* pRecord)
 {
@@ -528,6 +591,14 @@ int __fastcall AIUTIL_TargetCallback_CountAndFindFriendlyMonster(D2GameStrc* pGa
         pRecord->pNearest = pTarget;
     }
     return 0;
+}
+
+static inline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
+{
+    int bResult = 0;
+    if (pUnit)
+        bResult = (pUnit->dwFlags >> 2) & 1;
+    return bResult;
 }
 
 // 0x005DC8E0
@@ -581,14 +652,6 @@ static int __stdcall AIUTIL_CanSelectHostileTarget(D2GameStrc* pGame, D2UnitStrc
     }
 
     return sub_00554200(pGame, pUnit, pTarget);
-}
-
-static inline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
-{
-    int bResult = 0;
-    if (pUnit)
-        bResult = (pUnit->dwFlags >> 2) & 1;
-    return bResult;
 }
 
 // 0x005DCA70
@@ -700,61 +763,6 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectEligibleHostileTarget(D2GameS
     return 0;
 }
 
-// 0x005DCC60
-D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2AiCallback7ArgStrc* pArg = (D2AiCallback7ArgStrc*)pCallbackArg;
-
-    if (pTarget == pArg->unk0x08)
-    {
-        return 0;
-    }
-
-    if (!AIUTIL_CanSelectHostileTarget(pGame, pUnit, pTarget))
-    {
-        return 0;
-    }
-
-    const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit);
-    if (nDistance > 48)
-    {
-        return 0;
-    }
-
-    if (AIUTIL_GetThreat(pTarget) > 1 && nDistance < pArg->nDistance && !UNITS_TestCollisionWithUnit(pTarget, pUnit, 4))
-    {
-        pArg->pTarget = pTarget;
-        pArg->nDistance = nDistance;
-    }
-
-    return 0;
-}
-
-// 0x005DCCC0
-D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTargetWithClearApproach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2AiCallback11ArgStrc* pArg = (D2AiCallback11ArgStrc*)pCallbackArg;
-
-    if (pTarget == pArg->unk0x08 || !pTarget || pTarget->dwUnitType < 0 || pTarget->dwUnitType > 1 || SUNIT_IsDead(pTarget) || !UNITS_CanBeAttackedInline(pTarget) || !sub_00554200(pGame, pUnit, pTarget))
-    {
-        return 0;
-    }
-
-    const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit);
-    if (nDistance > 48)
-    {
-        return 0;
-    }
-
-    if (AIUTIL_GetThreat(pTarget) > 1 && nDistance < pArg->nDistance && AIUTIL_HasClearApproachToTarget(pUnit, pTarget))
-    {
-        pArg->pTarget = pTarget;
-        pArg->nDistance = nDistance;
-    }
-
-    return 0;
-}
-
 static inline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -784,6 +792,88 @@ static inline void AITHINK_DieInline(D2GameStrc* pGame, D2UnitStrc* pUnit)
         pUnit->dwFlags |= UNITFLAG_NOTC;
     }
     AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, MONMODE_DEATH, 0, 0);
+}
+
+// 0x005DD140
+D2UnitStrc* __fastcall AIUTIL_TargetCallback_Ubers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2UbersAiCallbackArgStrc* pArg = (D2UbersAiCallbackArgStrc*)pCallbackArg;
+
+    if (pTarget
+        && (!pTarget ? 6 : pTarget->dwUnitType) == 1
+        && !SUNIT_IsDead(pTarget))
+    {
+        const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget);
+        if (nDistance > pArg->nDistance)
+        {
+            return 0;
+        }
+
+        const int nClassId = pTarget->dwClassId;
+        if (nClassId == 704)
+        {
+            pArg->nUberMephisto++;
+            return 0;
+        }
+        if (nClassId == 705)
+        {
+            pArg->nUberDiablo++;
+            return 0;
+        }
+        if (nClassId == 709)
+        {
+            pArg->nUberBaal++;
+            return 0;
+        }
+        if (nClassId == 711)
+        {
+            pArg->nDiabloSpawner++;
+            return 0;
+        }
+        if (nClassId == 712)
+        {
+            pArg->nDiabloMinions++;
+            return 0;
+        }
+        if (nClassId == 732 || nClassId == 731 || nClassId == 733)
+        {
+            pArg->nBaalMinions++;
+            return 0;
+        }
+        pArg->nOtherMonsters++;
+    }
+
+    return 0;
+}
+
+// 0x005DCC60
+D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2AiCallback7ArgStrc* pArg = (D2AiCallback7ArgStrc*)pCallbackArg;
+
+    if (pTarget == pArg->unk0x08)
+    {
+        return 0;
+    }
+
+    if (!AIUTIL_CanSelectHostileTarget(pGame, pUnit, pTarget))
+    {
+        return 0;
+    }
+
+    const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit);
+    if (nDistance > 48)
+    {
+        return 0;
+    }
+
+    if (AIUTIL_GetThreat(pTarget) > 1 && nDistance < pArg->nDistance && !UNITS_TestCollisionWithUnit(pTarget, pUnit, 4))
+    {
+        pArg->pTarget = pTarget;
+        pArg->nDistance = nDistance;
+    }
+
+    return 0;
 }
 
 // 0x005DCDA0
@@ -898,67 +988,6 @@ D2UnitStrc* __stdcall AIUTIL_FindPlayerTargetInAdjacentRooms(D2GameStrc* pGame, 
     return 0;
 }
 
-// 0x005DCF70
-static D2UnitStrc* __stdcall sub_005DCF70_FindTargetInAdjacentActiveRooms(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfCallback)
-{
-    if (!pUnit || pUnit->dwUnitType < 0 || pUnit->dwUnitType > 1)
-    {
-        return 0;
-    }
-
-    if (SUNIT_IsDead(pUnit))
-    {
-        return 0;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return 0;
-    }
-
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-    {
-        if (!DUNGEON_IsRoomInTown(ppRoomList[i]) && ROOM_HAS_CLIENTS(ppRoomList[i]))
-        {
-            for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
-            {
-                D2UnitStrc* pResult = pfCallback(pGame, pUnit, pTarget, pCallbackArg);
-                if (pResult)
-                {
-                    return pResult;
-                }
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x005DD020
-void __fastcall AIUTIL_MinionCallback_FindTarget(D2UnitStrc* pUnit, void* pArg, void* ppUnit)
-{
-    D2PartyCallbackArgStrc* pPartyCallbackArg = (D2PartyCallbackArgStrc*)pArg;
-    D2UnitStrc** ppResult = (D2UnitStrc**)ppUnit;
-    if (*ppResult)
-    {
-        return;
-    }
-
-    D2GameStrc* pGame = pPartyCallbackArg->pGame;
-    D2UnitStrc* pOwner = pPartyCallbackArg->pUnit;
-    AIUTIL_TargetCallback pfCallback = pPartyCallbackArg->pfCallback;
-    void* pCallbackArg = pPartyCallbackArg->unk0x0C;
-    D2UnitStrc* pResult = pfCallback(pGame, pOwner, pUnit, pCallbackArg);
-    if (pResult)
-    {
-        *ppResult = pResult;
-    }
-}
-
 static D2UnitStrc* __stdcall AIUTIL_FindTargetInAdjacentActiveRooms(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfCallback)
 {
     if (!pUnit || pUnit->dwUnitType < 0 || pUnit->dwUnitType > 1)
@@ -1003,6 +1032,27 @@ static D2UnitStrc* __stdcall AIUTIL_FindTargetInAdjacentActiveRooms(D2GameStrc* 
     return 0;
 }
 
+// 0x005DD020
+void __fastcall AIUTIL_MinionCallback_FindTarget(D2UnitStrc* pUnit, void* pArg, void* ppUnit)
+{
+    D2PartyCallbackArgStrc* pPartyCallbackArg = (D2PartyCallbackArgStrc*)pArg;
+    D2UnitStrc** ppResult = (D2UnitStrc**)ppUnit;
+    if (*ppResult)
+    {
+        return;
+    }
+
+    D2GameStrc* pGame = pPartyCallbackArg->pGame;
+    D2UnitStrc* pOwner = pPartyCallbackArg->pUnit;
+    AIUTIL_TargetCallback pfCallback = pPartyCallbackArg->pfCallback;
+    void* pCallbackArg = pPartyCallbackArg->unk0x0C;
+    D2UnitStrc* pResult = pfCallback(pGame, pOwner, pUnit, pCallbackArg);
+    if (pResult)
+    {
+        *ppResult = pResult;
+    }
+}
+
 // 0x005DD050
 static D2UnitStrc* __stdcall AIUTIL_FindTargetAmongMinions(D2GameStrc* pGame, void* pCallbackArg, AIUTIL_TargetCallback pfCallback, D2UnitStrc* pUnit)
 {
@@ -1028,76 +1078,26 @@ static D2UnitStrc* __stdcall AIUTIL_FindTargetAmongMinions(D2GameStrc* pGame, vo
     return pTarget;
 }
 
-// 0x005DD0B0
-D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfFallbackCallback, int nCallbackId)
+// 0x005DCCC0
+D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTargetWithClearApproach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
-    const int nType = gAiTargetSearchTable_006E3300[nCallbackId].nType;
-    AIUTIL_TargetCallback pfCallback = gAiTargetSearchTable_006E3300[nCallbackId].pfCallback ? gAiTargetSearchTable_006E3300[nCallbackId].pfCallback : pfFallbackCallback;
-    if (!pfCallback)
+    D2AiCallback11ArgStrc* pArg = (D2AiCallback11ArgStrc*)pCallbackArg;
+
+    if (pTarget == pArg->unk0x08 || !pTarget || pTarget->dwUnitType < 0 || pTarget->dwUnitType > 1 || SUNIT_IsDead(pTarget) || !UNITS_CanBeAttackedInline(pTarget) || !sub_00554200(pGame, pUnit, pTarget))
     {
         return 0;
     }
 
-    switch (nType)
+    const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit);
+    if (nDistance > 48)
     {
-    case 1:
-        return AIUTIL_FindPlayerTargetInAdjacentRooms(pGame, pUnit, pCallbackArg, pfCallback);
-    case 2:
-        return sub_005DCF70_FindTargetInAdjacentActiveRooms(pGame, pUnit, pCallbackArg, pfCallback);
-    case 3:
-        return AIUTIL_FindTargetAmongMinions(pGame, pCallbackArg, pfCallback, pUnit);
-    default:
-        return AIUTIL_FindTargetInAdjacentRooms(pGame, pCallbackArg, pfCallback, pUnit);
+        return 0;
     }
-}
 
-// 0x005DD140
-D2UnitStrc* __fastcall AIUTIL_TargetCallback_Ubers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2UbersAiCallbackArgStrc* pArg = (D2UbersAiCallbackArgStrc*)pCallbackArg;
-
-    if (pTarget
-        && (!pTarget ? 6 : pTarget->dwUnitType) == 1
-        && !SUNIT_IsDead(pTarget))
+    if (AIUTIL_GetThreat(pTarget) > 1 && nDistance < pArg->nDistance && AIUTIL_HasClearApproachToTarget(pUnit, pTarget))
     {
-        const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget);
-        if (nDistance > pArg->nDistance)
-        {
-            return 0;
-        }
-
-        const int nClassId = pTarget->dwClassId;
-        if (nClassId == 704)
-        {
-            pArg->nUberMephisto++;
-            return 0;
-        }
-        if (nClassId == 705)
-        {
-            pArg->nUberDiablo++;
-            return 0;
-        }
-        if (nClassId == 709)
-        {
-            pArg->nUberBaal++;
-            return 0;
-        }
-        if (nClassId == 711)
-        {
-            pArg->nDiabloSpawner++;
-            return 0;
-        }
-        if (nClassId == 712)
-        {
-            pArg->nDiabloMinions++;
-            return 0;
-        }
-        if (nClassId == 732 || nClassId == 731 || nClassId == 733)
-        {
-            pArg->nBaalMinions++;
-            return 0;
-        }
-        pArg->nOtherMonsters++;
+        pArg->pTarget = pTarget;
+        pArg->nDistance = nDistance;
     }
 
     return 0;
@@ -1117,19 +1117,59 @@ extern "C" __declspec(dllexport) void __fastcall AIUTIL_ToggleAiControlFlag(Obj0
     }
 }
 
-// 0x005DD250
-void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
+// 0x005DDC30
+D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange)
 {
-    D2AiControlStrc* pAiControl;
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER) {
-        D2MonsterDataStrc* m = pUnit->pMonsterData;
-        if (m) { pAiControl = m->pAiControl; }
-        else pAiControl = 0;
-    } else pAiControl = 0;
-    if (bSet)
-        pAiControl->nAiFlags |= 0x20;
-    else
-        pAiControl->nAiFlags &= ~0x20;
+    D2UnitStrc* pTarget;
+    int nDistance;
+
+    if (!AIUTIL_ResolveTargetOverride(0, 1, &pTarget, &nDistance, pGame, pUnit))
+    {
+        D2AiTargetArgsStrc arg;
+        arg.pTarget = 0;
+        arg.nDistance = 0x7FFFFFFF;
+        arg.tEligible.pAlternativeTarget = 0;
+        arg.tEligible.nAlternativeDistance = 0x7FFFFFFF;
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 6);
+
+        if (AIUTIL_ShouldUseAlternativeTarget(&arg.pTarget, &arg.nDistance, arg.tEligible.pAlternativeTarget, arg.tEligible.nAlternativeDistance, pUnit))
+        {
+            pTarget = arg.tEligible.pAlternativeTarget;
+            nDistance = arg.tEligible.nAlternativeDistance;
+        }
+        else
+        {
+            pTarget = arg.pTarget;
+            nDistance = arg.nDistance;
+        }
+    }
+
+    if (!pTarget)
+    {
+        if (pInMeleeRange)
+        {
+            *pInMeleeRange = 0;
+        }
+
+        if (pDistance)
+        {
+            *pDistance = 0x7FFFFFFF;
+        }
+
+        return 0;
+    }
+
+    if (pInMeleeRange)
+    {
+        *pInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
+    }
+
+    if (pDistance)
+    {
+        *pDistance = nDistance;
+    }
+
+    return pTarget;
 }
 
 D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId)
@@ -1168,6 +1208,21 @@ static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
+// 0x005DD250
+void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
+{
+    D2AiControlStrc* pAiControl;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER) {
+        D2MonsterDataStrc* m = pUnit->pMonsterData;
+        if (m) { pAiControl = m->pAiControl; }
+        else pAiControl = 0;
+    } else pAiControl = 0;
+    if (bSet)
+        pAiControl->nAiFlags |= 0x20;
+    else
+        pAiControl->nAiFlags &= ~0x20;
+}
+
 // 0x005DD290
 int __fastcall AIUTIL_HasClearMissilePath(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
@@ -1179,6 +1234,24 @@ int __fastcall AIUTIL_IsGettingHit(D2UnitStrc* pUnit)
 {
     const unsigned int nAiState = MONSTER_GetAiState(pUnit);
     return nAiState == 3 || nAiState == 19;
+}
+
+static inline D2AiControlStrc* GetAiControl(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == 1 && pUnit->pMonsterData)
+        return pUnit->pMonsterData->pAiControl;
+    return 0;
+}
+
+static inline int GetUnitType(D2UnitStrc* pUnit)
+{
+    int nUnitType = 6;
+    if (pUnit)
+    {
+        nUnitType = pUnit->dwUnitType;
+    }
+    return nUnitType;
 }
 
 // 0x005DD2D0
@@ -1205,43 +1278,6 @@ int __fastcall AIUTIL_CheckIfMonsterUsesSkill(D2UnitStrc* pUnit, int nSkillId)
     }
 
     return 0;
-}
-
-static inline D2AiControlStrc* GetAiControl(D2UnitStrc* pUnit)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType == 1 && pUnit->pMonsterData)
-        return pUnit->pMonsterData->pAiControl;
-    return 0;
-}
-
-static inline int GetUnitType(D2UnitStrc* pUnit)
-{
-    int nUnitType = 6;
-    if (pUnit)
-    {
-        nUnitType = pUnit->dwUnitType;
-    }
-    return nUnitType;
-}
-
-// 0x005DD330
-void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != 1)
-        return;
-    D2AiControlStrc* pAi = GetAiControl(pUnit);
-    if (pOwner)
-    {
-        pAi->dwOwnerGUID = pOwner->dwUnitId;
-        pAi->dwOwnerType = GetUnitType(pOwner);
-    }
-    else
-    {
-        pAi->dwOwnerGUID = -1;
-        pAi->dwOwnerType = 1;
-    }
 }
 
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
@@ -1288,6 +1324,25 @@ static inline int CLIENTS_GetUnitYForceInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005DD330
+void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+        return;
+    D2AiControlStrc* pAi = GetAiControl(pUnit);
+    if (pOwner)
+    {
+        pAi->dwOwnerGUID = pOwner->dwUnitId;
+        pAi->dwOwnerType = GetUnitType(pOwner);
+    }
+    else
+    {
+        pAi->dwOwnerGUID = -1;
+        pAi->dwOwnerType = 1;
     }
 }
 
@@ -1350,6 +1405,24 @@ int __fastcall AIUTIL_CanUnitSwitchAi(D2UnitStrc* pUnit, int nAiMode)
     return 1;
 }
 
+static inline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget)
+{
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    switch (pTarget->dwUnitType)
+    {
+    case UNIT_PLAYER:
+    case UNIT_MONSTER:
+        return !SUNIT_IsDead(pTarget);
+    case UNIT_MISSILE:
+        return 1;
+    }
+    return 0;
+}
+
 // 0x005DD510
 static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, int* pTargetDistance, D2UnitStrc* pAlternativeTarget, int nAlternativeDistance, D2UnitStrc* pUnit)
 {
@@ -1404,24 +1477,6 @@ static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, in
 
     *ppTarget = arg.pTarget;
     *pTargetDistance = arg.nDistance;
-    return 0;
-}
-
-static inline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget)
-{
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    switch (pTarget->dwUnitType)
-    {
-    case UNIT_PLAYER:
-    case UNIT_MONSTER:
-        return !SUNIT_IsDead(pTarget);
-    case UNIT_MISSILE:
-        return 1;
-    }
     return 0;
 }
 
@@ -1558,61 +1613,6 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
 
     MONSTERAI_ClearTargetOverride(pUnit);
     return 0;
-}
-
-// 0x005DDC30
-D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange)
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-
-    if (!AIUTIL_ResolveTargetOverride(0, 1, &pTarget, &nDistance, pGame, pUnit))
-    {
-        D2AiTargetArgsStrc arg;
-        arg.pTarget = 0;
-        arg.nDistance = 0x7FFFFFFF;
-        arg.tEligible.pAlternativeTarget = 0;
-        arg.tEligible.nAlternativeDistance = 0x7FFFFFFF;
-        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 6);
-
-        if (AIUTIL_ShouldUseAlternativeTarget(&arg.pTarget, &arg.nDistance, arg.tEligible.pAlternativeTarget, arg.tEligible.nAlternativeDistance, pUnit))
-        {
-            pTarget = arg.tEligible.pAlternativeTarget;
-            nDistance = arg.tEligible.nAlternativeDistance;
-        }
-        else
-        {
-            pTarget = arg.pTarget;
-            nDistance = arg.nDistance;
-        }
-    }
-
-    if (!pTarget)
-    {
-        if (pInMeleeRange)
-        {
-            *pInMeleeRange = 0;
-        }
-
-        if (pDistance)
-        {
-            *pDistance = 0x7FFFFFFF;
-        }
-
-        return 0;
-    }
-
-    if (pInMeleeRange)
-    {
-        *pInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-    }
-
-    if (pDistance)
-    {
-        *pDistance = nDistance;
-    }
-
-    return pTarget;
 }
 
 // 0x005DDD00

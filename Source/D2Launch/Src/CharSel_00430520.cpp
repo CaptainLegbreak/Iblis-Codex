@@ -457,6 +457,28 @@ void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDo
     sub_00433380_ShowMessage(pText, pfnDone, 1);
 }
 
+// 0x00439780
+void __fastcall sub_00439780_PickClass(int nClass, int bExpansion)
+{
+    sub_0042F3F0_DestroyControls();
+    D2WinControlStrc* pControl = sub_0042F3A0_CreateFromTemplate(0xAC);
+    D2Win_10033(pControl, 1);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    pControl = sub_0042F3A0_CreateFromTemplate(0xAB);
+    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2723), 7, 0, 0);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    D2WinControlStrc* pControl2 = sub_0042F3A0_CreateFromTemplate(0xA8);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl2, 1);
+    D2WinControlStrc* pControl3 = sub_0042F3A0_CreateFromTemplate(0xA9);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl3, 1);
+    pControl = sub_0042F3A0_CreateFromTemplate(0xAA);
+    CONTROL_SetEnabled(pControl, 0);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    if ((!bExpansion && nClass >= 8) || nClass >= 10)
+        CONTROL_SetEnabled(pControl, 1);
+    sub_0042F3A0_CreateFromTemplate(0xAD);
+}
+
 // 0x00434700
 int __stdcall sub_00434700(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -470,24 +492,6 @@ int __stdcall sub_00434700(SMSGHANDLER_PARAMS* pMsg)
     }
     sub_0042F480_Reset();
     sub_004336C0();
-    return 1;
-}
-
-// 0x00434960
-int __fastcall sub_00434960_Validate(D2LaunchCharEntryStrc* pEntry, const char* szName)
-{
-    if (!sub_00449B30_QueryAddress())
-    {
-        int nResult = sub_00432480(szName, 0);
-        if (nResult >= 1 && nResult <= 2)
-        {
-            D2MCPClientCloseMCP();
-            return 0;
-        }
-    }
-    sub_0042F6E0();
-    WINMAIN_SendMcpCharDelete(pEntry->szName, 0);
-    sub_004FA590_RunLoop(sub_00433020_PollConnectA);
     return 1;
 }
 
@@ -508,6 +512,24 @@ int __fastcall sub_004349B0_Validate(D2LaunchCharEntryStrc* pEntry, const char* 
     sub_004FA590_RunLoop(sub_00433060_PollConnectB);
 // build: symbol ?GAME_GetConnectError@* 0x00449C00
     return GAME_GetConnectError() == 0;
+}
+
+// 0x00434960
+int __fastcall sub_00434960_Validate(D2LaunchCharEntryStrc* pEntry, const char* szName)
+{
+    if (!sub_00449B30_QueryAddress())
+    {
+        int nResult = sub_00432480(szName, 0);
+        if (nResult >= 1 && nResult <= 2)
+        {
+            D2MCPClientCloseMCP();
+            return 0;
+        }
+    }
+    sub_0042F6E0();
+    WINMAIN_SendMcpCharDelete(pEntry->szName, 0);
+    sub_004FA590_RunLoop(sub_00433020_PollConnectA);
+    return 1;
 }
 
 // 0x00435E00
@@ -653,28 +675,6 @@ int __cdecl sub_004390A0_UpdateSelection()
     return 1;
 }
 
-// 0x00439780
-void __fastcall sub_00439780_PickClass(int nClass, int bExpansion)
-{
-    sub_0042F3F0_DestroyControls();
-    D2WinControlStrc* pControl = sub_0042F3A0_CreateFromTemplate(0xAC);
-    D2Win_10033(pControl, 1);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    pControl = sub_0042F3A0_CreateFromTemplate(0xAB);
-    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2723), 7, 0, 0);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    D2WinControlStrc* pControl2 = sub_0042F3A0_CreateFromTemplate(0xA8);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl2, 1);
-    D2WinControlStrc* pControl3 = sub_0042F3A0_CreateFromTemplate(0xA9);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl3, 1);
-    pControl = sub_0042F3A0_CreateFromTemplate(0xAA);
-    CONTROL_SetEnabled(pControl, 0);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    if ((!bExpansion && nClass >= 8) || nClass >= 10)
-        CONTROL_SetEnabled(pControl, 1);
-    sub_0042F3A0_CreateFromTemplate(0xAD);
-}
-
 void __fastcall sub_A15_Emit_00437F60(const unsigned char* pClass)
 {
     Unicode wszText[0x40];
@@ -713,6 +713,36 @@ int __stdcall sub_00439BE0_CreateExpansionControls(SMSGHANDLER_PARAMS* pMsg)
         sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x58D0), 0, 0, 0);
     }
     return 1;
+}
+
+// 0x0043A650
+void __cdecl sub_0043A650_Refresh()
+{
+    if (gpCharEntry_00779DC0)
+    {
+        if (!gpCharEntry_00779DC0->nState)
+            sub_005041B0_Destroy(gpCharEntry_00779DC0->pCellFile, 1);
+        sub_0040B3C0(gpCharEntry_00779DC0, ".\\Src\\CharSel.cpp", 0x2A1, 0);
+        gpCharEntry_00779DC0 = 0;
+    }
+    sub_004FB6A0_ClearText(gpControl_00779B60);
+    sub_004FB6A0_ClearText(gpControl_007799F0);
+    sub_004FB6A0_ClearText(gpControl_00779C70);
+    CONTROL_SetEnabled(gpControl_007799F4, 0);
+    CONTROL_SetEnabled(gpControl_00779C68, 0);
+    CONTROL_SetEnabled(gpControl_007799F8, 0);
+    CONTROL_SetEnabled(gpControl_00779A1C, 0);
+    CONTROL_SetEnabled(gpControl_00779B64, 0);
+    sub_004F9740_ControlSetState(gpControl_00779D94, 0);
+    if (FOG_IsExpansion())
+    {
+        CONTROL_SetEnabled(gpControl_00779C80, 0);
+        CONTROL_SetEnabled(gpControl_00779D90, 0);
+    }
+    else
+    {
+        sub_004F9740_ControlSetState(gpControl_00779C78, 0);
+    }
 }
 
 // 0x00439CA0
@@ -779,23 +809,6 @@ int __stdcall sub_00439DA0_ScrollDown(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// 0x00439DF0
-int __stdcall sub_00439DF0_OnScroll(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nValue = sub_004FC620_GetValue(gpControl_00779C84);
-    if (gnLastValue_00779DCC == nValue)
-        return 0;
-    gnTopRow_00779DC8 += 2 * (nValue - gnLastValue_00779DCC);
-    if (gnTopRow_00779DC8 < 0)
-        gnTopRow_00779DC8 = 0;
-    if (gnTopRow_00779DC8 >= gdwGlobal_00779DC4)
-        gnTopRow_00779DC8 = gdwGlobal_00779DC4 - 1;
-    gnLastValue_00779DCC = nValue;
-    sub_00438560_Refresh();
-    sub_00439210_Redraw();
-    return 1;
-}
-
 static void sub_00437CB0_SelectNamedSlot(const char* szName)
 {
     if (!gbFlag_00779C6C)
@@ -813,6 +826,37 @@ next:
         D2Win_10188(gpNameControl_007799E8, i, 1);
     ++i;
     goto next;
+}
+
+// 0x0043A950
+int __stdcall sub_0043A950(SMSGHANDLER_PARAMS* pMsg)
+{
+    SStrCopy(gData_00779A40, gszName_00779C88, 0x7FFFFFFF);
+    SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
+    if (gnLaunchMode_007795EC == 1)
+    {
+        sub_0042F3F0_DestroyControls();
+        sub_0043A730_UpdateButtons();
+    }
+    gbFlag_00779C6C = 0;
+    return 1;
+}
+
+// 0x00439DF0
+int __stdcall sub_00439DF0_OnScroll(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nValue = sub_004FC620_GetValue(gpControl_00779C84);
+    if (gnLastValue_00779DCC == nValue)
+        return 0;
+    gnTopRow_00779DC8 += 2 * (nValue - gnLastValue_00779DCC);
+    if (gnTopRow_00779DC8 < 0)
+        gnTopRow_00779DC8 = 0;
+    if (gnTopRow_00779DC8 >= gdwGlobal_00779DC4)
+        gnTopRow_00779DC8 = gdwGlobal_00779DC4 - 1;
+    gnLastValue_00779DCC = nValue;
+    sub_00438560_Refresh();
+    sub_00439210_Redraw();
+    return 1;
 }
 
 // 0x0043A1F0
@@ -909,50 +953,6 @@ void __cdecl sub_0043A5D0_ShowMessage()
         pText = D2LANG_GetStringFromTblIndex(0x141A);
     gnSelectionA_0070CC04 = gdwGlobal_00779DC4;
     sub_0043A460_CreateNotice(pTitle, pText, 1, 0xC);
-}
-
-// 0x0043A650
-void __cdecl sub_0043A650_Refresh()
-{
-    if (gpCharEntry_00779DC0)
-    {
-        if (!gpCharEntry_00779DC0->nState)
-            sub_005041B0_Destroy(gpCharEntry_00779DC0->pCellFile, 1);
-        sub_0040B3C0(gpCharEntry_00779DC0, ".\\Src\\CharSel.cpp", 0x2A1, 0);
-        gpCharEntry_00779DC0 = 0;
-    }
-    sub_004FB6A0_ClearText(gpControl_00779B60);
-    sub_004FB6A0_ClearText(gpControl_007799F0);
-    sub_004FB6A0_ClearText(gpControl_00779C70);
-    CONTROL_SetEnabled(gpControl_007799F4, 0);
-    CONTROL_SetEnabled(gpControl_00779C68, 0);
-    CONTROL_SetEnabled(gpControl_007799F8, 0);
-    CONTROL_SetEnabled(gpControl_00779A1C, 0);
-    CONTROL_SetEnabled(gpControl_00779B64, 0);
-    sub_004F9740_ControlSetState(gpControl_00779D94, 0);
-    if (FOG_IsExpansion())
-    {
-        CONTROL_SetEnabled(gpControl_00779C80, 0);
-        CONTROL_SetEnabled(gpControl_00779D90, 0);
-    }
-    else
-    {
-        sub_004F9740_ControlSetState(gpControl_00779C78, 0);
-    }
-}
-
-// 0x0043A950
-int __stdcall sub_0043A950(SMSGHANDLER_PARAMS* pMsg)
-{
-    SStrCopy(gData_00779A40, gszName_00779C88, 0x7FFFFFFF);
-    SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
-    if (gnLaunchMode_007795EC == 1)
-    {
-        sub_0042F3F0_DestroyControls();
-        sub_0043A730_UpdateButtons();
-    }
-    gbFlag_00779C6C = 0;
-    return 1;
 }
 
 // 0x0043AC00

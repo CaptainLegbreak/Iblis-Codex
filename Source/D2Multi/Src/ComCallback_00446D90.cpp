@@ -875,25 +875,37 @@ void __fastcall Caller_00447FD0(D2MultiChannelUserStrc* pUser, unsigned int nFla
     sub_00447FD0_UpdateUser(pUser, nFlags, szName, pStat);
 }
 
-// 0x004480D0
-int __fastcall sub_004480D0_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat)
+// 0x004495A0
+void __cdecl sub_004495A0_ClearChannel()
 {
+    char szText[0x100];
+    sub_00448050_ClearSelectedUser();
     D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
-    if (gpChannelUsers_00798F34)
+    while (pUser)
     {
-        do
-        {
-            if (!strcmp(pUser->szName, szName))
-            {
-                sub_00447FD0_UpdateUser(pUser, nFlags, szName, pStat);
-                return 1;
-            }
-            pUser = pUser->pNext;
-        }
-        while (pUser);
+        D2MultiChannelUserStrc* pNext = pUser->pNext;
+        sub_005041B0_Destroy(pUser->pComposite, 1);
+        pUser->pComposite = 0;
+        FOG_Free(pUser, ".\\Src\\ComCallback.cpp", 0x822, 0);
+        pUser = pNext;
     }
-
-    return 0;
+    gpChannelUsers_00798F34 = 0;
+    D2ChannelEntryStrc* pEntry = gpChannelEntries_00798F38;
+    while (pEntry)
+    {
+        D2ChannelEntryStrc* pNext = pEntry->pNext;
+        FOG_Free(pEntry, ".\\Src\\ComCallback.cpp", 0x82A, 0);
+        pEntry = pNext;
+    }
+    gpChannelEntries_00798F38 = 0;
+    gnChannelEntries_00798F3C = 0;
+    gnChannelLines_00798F40 = 0;
+    sprintf(szText, "%s (%d)", gData_00798D30, 0);
+    Unicode wszText[0x240];
+    sub_00526F20_ToUnicode(wszText, szText, 0x240);
+    sub_0043E630_ShowChannelText(wszText);
+    gnChannelScroll_00798F44 = 0;
+    sub_00448BD0_UpdateScroll(0);
 }
 
 static const char* SkipStarPrefix_Inl(const char* szName)
@@ -933,79 +945,6 @@ static void __stdcall sub_004481B0_PrintNamedLine(const char* szText, int nPrefi
     char szBuffer[0x100];
     sprintf(szBuffer, "<%s> ", szName);
     sub_00447B00_PrintChannelLine(szText, nPrefix, szBuffer, nColor);
-}
-
-// 0x004481F0
-void __fastcall sub_004481F0_PrintOwnLine(const char* szText)
-{
-    char szName[0x100];
-    char szOut[0x100];
-    char szPlain[0x100];
-    char szTitle[0x100];
-    SStrCopy(szName, gpLaunchFuncs_0077B09C->pfnGetUserName(), 0x7FFFFFFF);
-    int nPrefix = 4;
-    int nColor = 0;
-    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
-    if (gpChannelUsers_00798F34)
-    {
-        do
-        {
-            if (!strcmp(SkipStarPrefix_Inl(pUser->szName), szName))
-            {
-                SStrCopy(szName, pUser->szName, 0x7FFFFFFF);
-                if (pUser->dwFlags & 2)
-                    nPrefix = 0;
-                else if (pUser->dwFlags & 1)
-                    nPrefix = nColor = 3;
-                else if (pUser->dwFlags & 8)
-                    nPrefix = nColor = 3;
-                break;
-            }
-            pUser = pUser->pNext;
-        }
-        while (pUser);
-    }
-    sub_00447560_SplitName(szName, szTitle, szPlain);
-    if (strlen(szPlain))
-    {
-        if (strlen(szTitle))
-            sprintf(szOut, "<%s%s> ", szTitle, szPlain);
-        else
-            sprintf(szOut, "<%s> ", szPlain);
-    }
-    else
-    {
-        sprintf(szOut, "<%s> ", szName);
-    }
-    sub_00447B00_PrintChannelLine(szText, nPrefix, szOut, nColor);
-}
-
-// 0x00449350
-static void sub_00449350_ShowUserJoined(const char* szName, int nLength, int nA)
-{
-    D2MultiChannelUserStrc* pUser = sub_00449050_AddEntry(szName, nLength, nA);
-    if (!gbShowJoinLeave_0077BD54)
-    {
-        return;
-    }
-
-    char szText[500];
-    if (strlen(pUser->szText))
-    {
-        sprintf(szText, "%s has joined the channel.", pUser->szText);
-    }
-    else
-    {
-        sprintf(szText, "%s has joined the channel.", szName);
-    }
-    sub_00447AB0_AddChatLine(szText, 5);
-}
-
-// 0x004493C0
-int __fastcall sub_004493C0_OnUserJoin(int nA, int nB, const char* szText, int nLength)
-{
-    sub_00449350_ShowUserJoined(szText, nLength, nA);
-    return 1;
 }
 
 // 0x004493E0
@@ -1089,37 +1028,98 @@ void __stdcall sub_004493E0_RemoveChannelUser(const char* szName)
     sub_00447BB0_Refresh();
 }
 
-// 0x004495A0
-void __cdecl sub_004495A0_ClearChannel()
+// 0x004480D0
+int __fastcall sub_004480D0_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat)
 {
-    char szText[0x100];
-    sub_00448050_ClearSelectedUser();
     D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
-    while (pUser)
+    if (gpChannelUsers_00798F34)
     {
-        D2MultiChannelUserStrc* pNext = pUser->pNext;
-        sub_005041B0_Destroy(pUser->pComposite, 1);
-        pUser->pComposite = 0;
-        FOG_Free(pUser, ".\\Src\\ComCallback.cpp", 0x822, 0);
-        pUser = pNext;
+        do
+        {
+            if (!strcmp(pUser->szName, szName))
+            {
+                sub_00447FD0_UpdateUser(pUser, nFlags, szName, pStat);
+                return 1;
+            }
+            pUser = pUser->pNext;
+        }
+        while (pUser);
     }
-    gpChannelUsers_00798F34 = 0;
-    D2ChannelEntryStrc* pEntry = gpChannelEntries_00798F38;
-    while (pEntry)
+
+    return 0;
+}
+
+// 0x004481F0
+void __fastcall sub_004481F0_PrintOwnLine(const char* szText)
+{
+    char szName[0x100];
+    char szOut[0x100];
+    char szPlain[0x100];
+    char szTitle[0x100];
+    SStrCopy(szName, gpLaunchFuncs_0077B09C->pfnGetUserName(), 0x7FFFFFFF);
+    int nPrefix = 4;
+    int nColor = 0;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+    if (gpChannelUsers_00798F34)
     {
-        D2ChannelEntryStrc* pNext = pEntry->pNext;
-        FOG_Free(pEntry, ".\\Src\\ComCallback.cpp", 0x82A, 0);
-        pEntry = pNext;
+        do
+        {
+            if (!strcmp(SkipStarPrefix_Inl(pUser->szName), szName))
+            {
+                SStrCopy(szName, pUser->szName, 0x7FFFFFFF);
+                if (pUser->dwFlags & 2)
+                    nPrefix = 0;
+                else if (pUser->dwFlags & 1)
+                    nPrefix = nColor = 3;
+                else if (pUser->dwFlags & 8)
+                    nPrefix = nColor = 3;
+                break;
+            }
+            pUser = pUser->pNext;
+        }
+        while (pUser);
     }
-    gpChannelEntries_00798F38 = 0;
-    gnChannelEntries_00798F3C = 0;
-    gnChannelLines_00798F40 = 0;
-    sprintf(szText, "%s (%d)", gData_00798D30, 0);
-    Unicode wszText[0x240];
-    sub_00526F20_ToUnicode(wszText, szText, 0x240);
-    sub_0043E630_ShowChannelText(wszText);
-    gnChannelScroll_00798F44 = 0;
-    sub_00448BD0_UpdateScroll(0);
+    sub_00447560_SplitName(szName, szTitle, szPlain);
+    if (strlen(szPlain))
+    {
+        if (strlen(szTitle))
+            sprintf(szOut, "<%s%s> ", szTitle, szPlain);
+        else
+            sprintf(szOut, "<%s> ", szPlain);
+    }
+    else
+    {
+        sprintf(szOut, "<%s> ", szName);
+    }
+    sub_00447B00_PrintChannelLine(szText, nPrefix, szOut, nColor);
+}
+
+// 0x00449350
+static void sub_00449350_ShowUserJoined(const char* szName, int nLength, int nA)
+{
+    D2MultiChannelUserStrc* pUser = sub_00449050_AddEntry(szName, nLength, nA);
+    if (!gbShowJoinLeave_0077BD54)
+    {
+        return;
+    }
+
+    char szText[500];
+    if (strlen(pUser->szText))
+    {
+        sprintf(szText, "%s has joined the channel.", pUser->szText);
+    }
+    else
+    {
+        sprintf(szText, "%s has joined the channel.", szName);
+    }
+    sub_00447AB0_AddChatLine(szText, 5);
+}
+
+// 0x004493C0
+int __fastcall sub_004493C0_OnUserJoin(int nA, int nB, const char* szText, int nLength)
+{
+    sub_00449350_ShowUserJoined(szText, nLength, nA);
+    return 1;
 }
 
 // 0x004496B0

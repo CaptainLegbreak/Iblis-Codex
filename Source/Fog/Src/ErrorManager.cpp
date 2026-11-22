@@ -692,141 +692,6 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode)
     }
 }
 
-// 0x00406960
-void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile)
-{
-    return CreateFileA(szFileName, dwDesiredAccess, dwShareMode, pSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
-}
-
-// 0x00406990
-int __fastcall FOG_DeleteFileA(const char* szFileName)
-{
-    return DeleteFileA(szFileName);
-}
-
-// 0x004069A0
-int __fastcall FOG_CloseFile(void* hFile)
-{
-    return CloseHandle(hFile);
-}
-
-// 0x004069B0
-int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped)
-{
-    return ReadFile(hFile, pBuffer, nToRead, pnRead, pOverlapped);
-}
-
-// 0x004069D0
-int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped)
-{
-    return WriteFile(hFile, pBuffer, nToWrite, pnWritten, pOverlapped);
-}
-
-// 0x004069F0
-unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod)
-{
-    return SetFilePointer(hFile, nDistance, pnDistanceHigh, dwMoveMethod);
-}
-
-// 0x00406B20
-int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize)
-{
-    if (szPath && nSize)
-    {
-        const unsigned int nLength = SStrLen(szPath);
-        if (nLength > 0 && szPath[nLength - 1] == '\\')
-        {
-            return 1;
-        }
-        if (nLength + 1 != nSize)
-        {
-            szPath[nLength] = '\\';
-            szPath[nLength + 1] = 0;
-            return 1;
-        }
-    }
-    return 0;
-}
-
-// 0x00406B60
-int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize)
-{
-    const unsigned long nLength = GetModuleFileNameA(0, szPath, nSize);
-    if (nLength && nLength != nSize)
-    {
-        char* pSlash = (char*)SStrChrR(szPath, '\\');
-        if (pSlash)
-        {
-            pSlash[1] = 0;
-        }
-        return 1;
-    }
-    return 0;
-}
-
-static int sub_00406BA0_GetModuleDirectoryAndSave(char* szPath, unsigned int nSize)
-{
-    const unsigned long nLength = GetModuleFileNameA(0, szPath, nSize);
-    if (nLength && nLength != nSize)
-    {
-        char* pSlash = (char*)SStrChrR(szPath, '\\');
-        if (pSlash)
-        {
-            pSlash[1] = 0;
-        }
-        SRegSaveString("Diablo II", "InstallPath", 0, szPath);
-        return 1;
-    }
-    return 0;
-}
-
-// 0x00406BA0
-int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize)
-{
-    if (!SRegLoadString("Diablo II", "InstallPath", 0, szPath, nSize))
-    {
-        szPath[0] = 0;
-    }
-    if (GetFileAttributesA(szPath) == (unsigned long)-1)
-    {
-        szPath[0] = 0;
-    }
-    if ((szPath[0] || sub_00406BA0_GetModuleDirectoryAndSave(szPath, nSize)) && nSize)
-    {
-        const unsigned int nLength = SStrLen(szPath);
-        if (nLength > 0 && szPath[nLength - 1] == '\\')
-        {
-            return 1;
-        }
-        if (nLength + 1 != nSize)
-        {
-            szPath[nLength] = '\\';
-            szPath[nLength + 1] = 0;
-            return 1;
-        }
-    }
-    return 0;
-}
-
-// 0x00407310
-char* __cdecl ERRORMANAGER_Sprintf(char* szDest, const char* szFormat, ...)
-{
-    va_list args;
-    va_start(args, szFormat);
-    vsprintf(szDest, szFormat, args);
-    return szDest;
-}
-
-// 0x00407330
-char* __cdecl ERRORMANAGER_SprintfN(char* szDest, int nSize, const char* szFormat, ...)
-{
-    va_list args;
-    va_start(args, szFormat);
-    _vsnprintf(szDest, nSize, szFormat, args);
-    szDest[nSize - 1] = 0;
-    return szDest;
-}
-
 // 0x00407360
 T004013C0* __cdecl FOG_GetSystemInfo()
 {
@@ -890,27 +755,6 @@ bool __fastcall ERRORMANAGER_GetProcessImageName(unsigned long dwProcessId, char
     return bResult;
 }
 
-void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
-
-// 0x00408000
-const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile)
-{
-    if (gnSourcePrefixLength_0074F0D4 == 0)
-    {
-        const int nLength = SStrLen(".\\Src\\ErrorManager.cpp");
-        gnSourcePrefixLength_0074F0D4 = nLength - SStrLen("Fog\\Src\\ErrorManager.cpp");
-        if (gnSourcePrefixLength_0074F0D4 < 0)
-        {
-            gnSourcePrefixLength_0074F0D4 = 0;
-        }
-    }
-    if (SStrLen(szFile) > (unsigned int)gnSourcePrefixLength_0074F0D4)
-    {
-        return szFile + gnSourcePrefixLength_0074F0D4;
-    }
-    return szFile;
-}
-
 // 0x00408050
 void __cdecl sub_00408050_Empty()
 {
@@ -929,6 +773,22 @@ void __cdecl sub_00408070_Empty()
 // 0x00408080
 void __cdecl sub_00408080_Empty()
 {
+}
+
+static int sub_00406BA0_GetModuleDirectoryAndSave(char* szPath, unsigned int nSize)
+{
+    const unsigned long nLength = GetModuleFileNameA(0, szPath, nSize);
+    if (nLength && nLength != nSize)
+    {
+        char* pSlash = (char*)SStrChrR(szPath, '\\');
+        if (pSlash)
+        {
+            pSlash[1] = 0;
+        }
+        SRegSaveString("Diablo II", "InstallPath", 0, szPath);
+        return 1;
+    }
+    return 0;
 }
 
 // 0x004080B0
@@ -1000,129 +860,6 @@ void __cdecl ERRORMANAGER_DebugPrintLog(const char* szFormat, ...)
     ERRORMANAGER_DebugPrintV(1, szFormat, (va_list)(&szFormat + 1));
 }
 
-namespace crashy
-{
-class Report
-{
-public:
-    Report();                                                               // 0x00401070
-    virtual ~Report();                                                      // 0x004010D0
-    bool OpenReport(const char* szFileName);                         // 0x00401100
-    bool sub_004011F0_Close();                                              // 0x004011F0
-    bool sub_00401220_AddFile(const char* szPath, bool bFlag);              // 0x00401220
-    int sub_00401380(const char* szFormat, ...);                                  // 0x00401380
-    bool WriteInspectorHeader();                               // 0x00407A80
-
-    _iobuf* m_pFile;
-    char m_szText08[0x400];
-    char m_szText408[0x400];
-    int m_nLineCount;
-    char m_aszLines[16][0x400];
-};
-}
-
-int gdwGlobal_0074F0C8; // 0x0074F0C8
-
-// 0x00408660
-bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag)
-{
-    crashy::Report tReport;
-    const long nBusy = InterlockedIncrement(&gnReportBusy_007076BC);
-    if (nBusy != 0)
-    {
-        gdwGlobal_0074F0C8 = 0;
-        InterlockedDecrement(&gnReportBusy_007076BC);
-        return false;
-    }
-
-    gdwGlobal_0074F0C8 = 1;
-    if (!tReport.OpenReport("Crash.txt"))
-    {
-        gdwGlobal_0074F0C8 = 0;
-        InterlockedDecrement(&gnReportBusy_007076BC);
-        return false;
-    }
-
-    tReport.WriteInspectorHeader();
-    tReport.sub_00401380("<Inspector.Summary:>\n%s\n<:Inspector.Summary>\n", szSummary);
-    if (nLine > 0)
-    {
-        tReport.sub_00401380("<Inspector.LineNumber>%u\n", nLine);
-    }
-    tReport.sub_00401380("<Inspector.Assertion:>\n");
-    const unsigned long dwThreadId = GetCurrentThreadId();
-    ERRORMANAGER_DumpThread(dwThreadId, 0, ERRORMANAGER_ReportPrint, &tReport, nBusy, 1, 4);
-    tReport.sub_00401380("<:Inspector.Assertion>\n");
-    tReport.sub_00401380("Registers:\n");
-    sub_004032F0_DumpRegisters(dwThreadId, ERRORMANAGER_ReportPrint, &tReport);
-    tReport.sub_00401380("Threads:\n");
-    ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint, &tReport, dwThreadId);
-
-    const char** ppszEnd = ppszFiles + nFiles;
-    for (const char** ppszFile = ppszFiles; ppszFile != ppszEnd; ++ppszFile)
-    {
-        tReport.sub_00401220_AddFile(*ppszFile, true);
-    }
-    tReport.sub_004011F0_Close();
-
-    D2CrashSubmitInfoStrc tInfo;
-    memset(&tInfo, 0, sizeof(tInfo));
-    tInfo.szName = gtInspectorInfo_0074D868.szUnused04;
-    if (bFlag)
-    {
-        tInfo.dwFlags |= 1;
-    }
-    for (int i = 0; i < tReport.m_nLineCount; i++)
-    {
-        if (i < sizeof(tInfo.apszLines) / sizeof(tInfo.apszLines[0]))
-        {
-            tInfo.apszLines[i] = tReport.m_aszLines[i];
-            tInfo.nLines++;
-        }
-    }
-
-    const bool bResult = sub_00401790_SubmitReport(tReport.m_szText08, &tInfo);
-    gdwGlobal_0074F0C8 = 0;
-    InterlockedDecrement(&gnReportBusy_007076BC);
-    return bResult;
-}
-
-// 0x00408900
-void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...)
-{
-    char szMessage[0x1000];
-    char szText[0x1000];
-    const int nErrorType = nType;
-    if (nErrorType == 10)
-    {
-        szFile = ".\\Src\\ErrorManager.cpp";
-    }
-    if (ERRORMANAGER_ReportNestedError(szFile, nLine, szFormat))
-    {
-        return;
-    }
-    gdwGlobal_0074F0C8 = 1;
-    if (!szFormat)
-    {
-        szFormat = "<no reason given>";
-    }
-    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStringFormat_006FFC58, "---finished error callback---\n");
-    LOGMANAGER_CloseLogFiles();
-    int bFatal = nErrorType == 5 || nErrorType == 6 || nErrorType == 2;
-    if (!sub_004013A0_IsDebuggerAttached())
-    {
-        va_list args;
-        va_start(args, szFormat);
-        SStrPrintf(szMessage, sizeof(szMessage), szFormat, args);
-        SStrPrintf(szText, sizeof(szText), "[%s] (%s) failed at %s(%i)", gaszErrorTypeNames_00706654[nErrorType], szMessage, ERRORMANAGER_StripSourcePath(szFile), nLine);
-        ERRORMANAGER_ShowErrorReport(szText, szMessage, 0, 0, nLine, 0);
-    }
-    if (!bFatal)
-    {
-        gdwGlobal_0074F0C8 = 0;
-    }
-}
-
 // 0x00409770
 void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine)
 {
@@ -1169,7 +906,7 @@ void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBloc
     free(pBlock);
 }
 
-
+void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 
 // 0x0040B1B0
 int __fastcall FOG_CompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, int nInSize)
@@ -1243,6 +980,313 @@ int __fastcall FOG_DecompressPacket(unsigned char* pOut, int nOutSize, const uns
         *pOut++ = c;
         nWindow <<= nLength;
     }
+}
+
+// 0x004068F0
+int __fastcall FOG_FCloseFile(void* pArg)
+{
+    return SFileCloseFile(pArg);
+}
+
+// 0x0040DF60
+const char* __fastcall FOG_GetHostIPAddress()
+{
+    D2WSADataStrc tData;
+    D2SockAddrInStrc tLocal;
+    char szHost[0x100];
+    tLocal.sin_addr.s_addr = 0;
+    WSAStartup(0x101, &tData);
+    if (gethostname(szHost, sizeof(szHost)) != -1)
+    {
+        D2HostentStrc* pHost = gethostbyname(szHost);
+        if (pHost)
+        {
+            tLocal.sin_addr.s_addr = *(unsigned long*)pHost->h_addr_list[0];
+        }
+    }
+    if (!tLocal.sin_addr.s_addr)
+    {
+        const unsigned int nSocket = socket(2, 2, 0);
+        if (nSocket != -1)
+        {
+            D2SockAddrInStrc tRemote;
+            tRemote.sin_family = 2;
+            tRemote.sin_port = htons(7);
+            tRemote.sin_addr.s_addr = inet_addr("24.105.29.30");
+            if (connect(nSocket, &tRemote, sizeof(tRemote)) != -1)
+            {
+                int nLength = sizeof(tLocal);
+                getsockname(nSocket, &tLocal, &nLength);
+            }
+            closesocket(nSocket);
+        }
+    }
+    sprintf(gszResolvedHostIP_0075D040, gszStringFormat_006FFC58, inet_ntoa(tLocal.sin_addr));
+    WSACleanup();
+    return gszResolvedHostIP_0075D040;
+}
+
+// 0x00406960
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile)
+{
+    return CreateFileA(szFileName, dwDesiredAccess, dwShareMode, pSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+}
+
+// 0x00406990
+int __fastcall FOG_DeleteFileA(const char* szFileName)
+{
+    return DeleteFileA(szFileName);
+}
+
+// 0x004069A0
+int __fastcall FOG_CloseFile(void* hFile)
+{
+    return CloseHandle(hFile);
+}
+
+// 0x004069B0
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped)
+{
+    return ReadFile(hFile, pBuffer, nToRead, pnRead, pOverlapped);
+}
+
+// 0x004069D0
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped)
+{
+    return WriteFile(hFile, pBuffer, nToWrite, pnWritten, pOverlapped);
+}
+
+// 0x004069F0
+unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod)
+{
+    return SetFilePointer(hFile, nDistance, pnDistanceHigh, dwMoveMethod);
+}
+
+namespace crashy
+{
+class Report
+{
+public:
+    Report();                                                               // 0x00401070
+    virtual ~Report();                                                      // 0x004010D0
+    bool OpenReport(const char* szFileName);                         // 0x00401100
+    bool sub_004011F0_Close();                                              // 0x004011F0
+    bool sub_00401220_AddFile(const char* szPath, bool bFlag);              // 0x00401220
+    int sub_00401380(const char* szFormat, ...);                                  // 0x00401380
+    bool WriteInspectorHeader();                               // 0x00407A80
+
+    _iobuf* m_pFile;
+    char m_szText08[0x400];
+    char m_szText408[0x400];
+    int m_nLineCount;
+    char m_aszLines[16][0x400];
+};
+}
+
+int gdwGlobal_0074F0C8; // 0x0074F0C8
+
+// 0x00408900
+void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...)
+{
+    char szMessage[0x1000];
+    char szText[0x1000];
+    const int nErrorType = nType;
+    if (nErrorType == 10)
+    {
+        szFile = ".\\Src\\ErrorManager.cpp";
+    }
+    if (ERRORMANAGER_ReportNestedError(szFile, nLine, szFormat))
+    {
+        return;
+    }
+    gdwGlobal_0074F0C8 = 1;
+    if (!szFormat)
+    {
+        szFormat = "<no reason given>";
+    }
+    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStringFormat_006FFC58, "---finished error callback---\n");
+    LOGMANAGER_CloseLogFiles();
+    int bFatal = nErrorType == 5 || nErrorType == 6 || nErrorType == 2;
+    if (!sub_004013A0_IsDebuggerAttached())
+    {
+        va_list args;
+        va_start(args, szFormat);
+        SStrPrintf(szMessage, sizeof(szMessage), szFormat, args);
+        SStrPrintf(szText, sizeof(szText), "[%s] (%s) failed at %s(%i)", gaszErrorTypeNames_00706654[nErrorType], szMessage, ERRORMANAGER_StripSourcePath(szFile), nLine);
+        ERRORMANAGER_ShowErrorReport(szText, szMessage, 0, 0, nLine, 0);
+    }
+    if (!bFatal)
+    {
+        gdwGlobal_0074F0C8 = 0;
+    }
+}
+
+// 0x00408000
+const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile)
+{
+    if (gnSourcePrefixLength_0074F0D4 == 0)
+    {
+        const int nLength = SStrLen(".\\Src\\ErrorManager.cpp");
+        gnSourcePrefixLength_0074F0D4 = nLength - SStrLen("Fog\\Src\\ErrorManager.cpp");
+        if (gnSourcePrefixLength_0074F0D4 < 0)
+        {
+            gnSourcePrefixLength_0074F0D4 = 0;
+        }
+    }
+    if (SStrLen(szFile) > (unsigned int)gnSourcePrefixLength_0074F0D4)
+    {
+        return szFile + gnSourcePrefixLength_0074F0D4;
+    }
+    return szFile;
+}
+
+// 0x00408660
+bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag)
+{
+    crashy::Report tReport;
+    const long nBusy = InterlockedIncrement(&gnReportBusy_007076BC);
+    if (nBusy != 0)
+    {
+        gdwGlobal_0074F0C8 = 0;
+        InterlockedDecrement(&gnReportBusy_007076BC);
+        return false;
+    }
+
+    gdwGlobal_0074F0C8 = 1;
+    if (!tReport.OpenReport("Crash.txt"))
+    {
+        gdwGlobal_0074F0C8 = 0;
+        InterlockedDecrement(&gnReportBusy_007076BC);
+        return false;
+    }
+
+    tReport.WriteInspectorHeader();
+    tReport.sub_00401380("<Inspector.Summary:>\n%s\n<:Inspector.Summary>\n", szSummary);
+    if (nLine > 0)
+    {
+        tReport.sub_00401380("<Inspector.LineNumber>%u\n", nLine);
+    }
+    tReport.sub_00401380("<Inspector.Assertion:>\n");
+    const unsigned long dwThreadId = GetCurrentThreadId();
+    ERRORMANAGER_DumpThread(dwThreadId, 0, ERRORMANAGER_ReportPrint, &tReport, nBusy, 1, 4);
+    tReport.sub_00401380("<:Inspector.Assertion>\n");
+    tReport.sub_00401380("Registers:\n");
+    sub_004032F0_DumpRegisters(dwThreadId, ERRORMANAGER_ReportPrint, &tReport);
+    tReport.sub_00401380("Threads:\n");
+    ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint, &tReport, dwThreadId);
+
+    const char** ppszEnd = ppszFiles + nFiles;
+    for (const char** ppszFile = ppszFiles; ppszFile != ppszEnd; ++ppszFile)
+    {
+        tReport.sub_00401220_AddFile(*ppszFile, true);
+    }
+    tReport.sub_004011F0_Close();
+
+    D2CrashSubmitInfoStrc tInfo;
+    memset(&tInfo, 0, sizeof(tInfo));
+    tInfo.szName = gtInspectorInfo_0074D868.szUnused04;
+    if (bFlag)
+    {
+        tInfo.dwFlags |= 1;
+    }
+    for (int i = 0; i < tReport.m_nLineCount; i++)
+    {
+        if (i < sizeof(tInfo.apszLines) / sizeof(tInfo.apszLines[0]))
+        {
+            tInfo.apszLines[i] = tReport.m_aszLines[i];
+            tInfo.nLines++;
+        }
+    }
+
+    const bool bResult = sub_00401790_SubmitReport(tReport.m_szText08, &tInfo);
+    gdwGlobal_0074F0C8 = 0;
+    InterlockedDecrement(&gnReportBusy_007076BC);
+    return bResult;
+}
+
+// 0x00406B20
+int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize)
+{
+    if (szPath && nSize)
+    {
+        const unsigned int nLength = SStrLen(szPath);
+        if (nLength > 0 && szPath[nLength - 1] == '\\')
+        {
+            return 1;
+        }
+        if (nLength + 1 != nSize)
+        {
+            szPath[nLength] = '\\';
+            szPath[nLength + 1] = 0;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+
+// 0x00406B60
+int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize)
+{
+    const unsigned long nLength = GetModuleFileNameA(0, szPath, nSize);
+    if (nLength && nLength != nSize)
+    {
+        char* pSlash = (char*)SStrChrR(szPath, '\\');
+        if (pSlash)
+        {
+            pSlash[1] = 0;
+        }
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00406BA0
+int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize)
+{
+    if (!SRegLoadString("Diablo II", "InstallPath", 0, szPath, nSize))
+    {
+        szPath[0] = 0;
+    }
+    if (GetFileAttributesA(szPath) == (unsigned long)-1)
+    {
+        szPath[0] = 0;
+    }
+    if ((szPath[0] || sub_00406BA0_GetModuleDirectoryAndSave(szPath, nSize)) && nSize)
+    {
+        const unsigned int nLength = SStrLen(szPath);
+        if (nLength > 0 && szPath[nLength - 1] == '\\')
+        {
+            return 1;
+        }
+        if (nLength + 1 != nSize)
+        {
+            szPath[nLength] = '\\';
+            szPath[nLength + 1] = 0;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// 0x00407310
+char* __cdecl ERRORMANAGER_Sprintf(char* szDest, const char* szFormat, ...)
+{
+    va_list args;
+    va_start(args, szFormat);
+    vsprintf(szDest, szFormat, args);
+    return szDest;
+}
+
+// 0x00407330
+char* __cdecl ERRORMANAGER_SprintfN(char* szDest, int nSize, const char* szFormat, ...)
+{
+    va_list args;
+    va_start(args, szFormat);
+    _vsnprintf(szDest, nSize, szFormat, args);
+    szDest[nSize - 1] = 0;
+    return szDest;
 }
 
 // 0x0040D890
@@ -1373,50 +1417,6 @@ int __cdecl ERRORMANAGER_MeasureCpuMHz()
     __int64 tFrequency;
     QueryPerformanceFrequency(&tFrequency);
     return (int)((nTsc2 - nTsc1) * tFrequency / (tCount2 - tCount1) / 1000000);
-}
-
-// 0x004068F0
-int __fastcall FOG_FCloseFile(void* pArg)
-{
-    return SFileCloseFile(pArg);
-}
-
-// 0x0040DF60
-const char* __fastcall FOG_GetHostIPAddress()
-{
-    D2WSADataStrc tData;
-    D2SockAddrInStrc tLocal;
-    char szHost[0x100];
-    tLocal.sin_addr.s_addr = 0;
-    WSAStartup(0x101, &tData);
-    if (gethostname(szHost, sizeof(szHost)) != -1)
-    {
-        D2HostentStrc* pHost = gethostbyname(szHost);
-        if (pHost)
-        {
-            tLocal.sin_addr.s_addr = *(unsigned long*)pHost->h_addr_list[0];
-        }
-    }
-    if (!tLocal.sin_addr.s_addr)
-    {
-        const unsigned int nSocket = socket(2, 2, 0);
-        if (nSocket != -1)
-        {
-            D2SockAddrInStrc tRemote;
-            tRemote.sin_family = 2;
-            tRemote.sin_port = htons(7);
-            tRemote.sin_addr.s_addr = inet_addr("24.105.29.30");
-            if (connect(nSocket, &tRemote, sizeof(tRemote)) != -1)
-            {
-                int nLength = sizeof(tLocal);
-                getsockname(nSocket, &tLocal, &nLength);
-            }
-            closesocket(nSocket);
-        }
-    }
-    sprintf(gszResolvedHostIP_0075D040, gszStringFormat_006FFC58, inet_ntoa(tLocal.sin_addr));
-    WSACleanup();
-    return gszResolvedHostIP_0075D040;
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"

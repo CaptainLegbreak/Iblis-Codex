@@ -988,6 +988,43 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+// 0x004A3410
+void __cdecl TEXT_ResetQuestPanel()
+{
+    SRegSaveValue("Diablo II", "GAMEOVER", 0, 0);
+    gnGlobal_007BF298 = 0;
+    gpCelFile_007BF2D5 = 0;
+    gpCelFile_007BF2D9 = 0;
+    gpCelFile_007BF2D1 = 0;
+    gpCelFile_007BF2DD = 0;
+    gpCelFile_007BF351 = 0;
+    gpCelFile_007BF34D = 0;
+    memset(gapCelFiles_007BF2E1, 0, sizeof(gapCelFiles_007BF2E1));
+    gnGlobal_007BF2A4 = 0;
+    gnGlobal_007BF2AC = 0;
+    gnGlobal_007C0259 = 0;
+    for (int i = 0; i < 41; ++i)
+    {
+        gabQuestFlagsA_007BF356[i] = 0;
+        gabQuestFlagsB_007BF380[i] = 0;
+    }
+    gbGlobal_007BF2B1 = 0;
+    gbGlobal_007BF2B2 = 0;
+    gbGlobal_007BF2B0 = 0;
+    gbGlobal_007BF2B4 = 0;
+    gbGlobal_007C025D = 0;
+    gbGlobal_007C025E = 0;
+    gbGlobal_007C025F = 0;
+    gbGlobal_007C0260 = 0;
+    gbGlobal_007BF2B3 = 0;
+    gnIndex_007BF2B5 = -1;
+    gnIndex_007BF2BD = -1;
+    gnIndex_007BF2C1 = -1;
+    gnIndex_007BF2C5 = -1;
+    gnIndex_007BF2C9 = -1;
+    gnIndex_007BF2CD = -1;
+}
+
 // 0x004A2550
 void __cdecl TEXT_FreeQuestCels()
 {
@@ -1031,12 +1068,6 @@ void __cdecl TEXT_FreeQuestCels()
     }
 }
 
-// 0x004A2600
-void __cdecl TEXT_FreeQuestPanel()
-{
-    TEXT_FreeQuestCels();
-}
-
 static void sub_004A2390_ResetQuestSelection()
 {
     gbGlobal_007BF2B1 = 0;
@@ -1048,6 +1079,12 @@ static void sub_004A2390_ResetQuestSelection()
     gbGlobal_007C025E = 0;
     gbGlobal_007C025F = 0;
     gbGlobal_007C0260 = 0;
+}
+
+// 0x004A2600
+void __cdecl TEXT_FreeQuestPanel()
+{
+    TEXT_FreeQuestCels();
 }
 
 // 0x004A2610
@@ -1201,27 +1238,6 @@ void __cdecl TEXT_ResetQuestButton()
     sub_004A2550();
 }
 
-// 0x004A2900
-static int TEXT_GetButtonLayout(int nMode)
-{
-    if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
-    {
-        const int nResolution = D2GFX_GetResolutionMode();
-        if (nMode == 2)
-            return nResolution == 2 ? 1 : 3;
-        return nResolution == 2 ? 0 : 2;
-    }
-
-    const int nResolution = D2GFX_GetResolutionMode();
-    if (nMode == 2)
-    {
-        if (nResolution == 2 || GAME_GetUIVarState(2))
-            return 1;
-        return 3;
-    }
-    return nResolution == 2 ? 0 : 2;
-}
-
 // build: symbol ?sub_E10_GetButtonLayoutCopy@@YAHH@Z 0x004A2900
 static int sub_E10_GetButtonLayoutCopy(int nMode)
 {
@@ -1243,17 +1259,25 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
     return nResolution == 2 ? 0 : 2;
 }
 
-// 0x004A2970
-int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
+// 0x004A2900
+static int TEXT_GetButtonLayout(int nMode)
 {
-    const int nMode = sub_0045AE90();
-    const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
-    const int nLeft = gaButtonLayouts_007241C0[nIndex].nTextX + (nMode == 2 ? (gnGlobal_0071146C - 0x280) / 2 : 0);
-    const int nTop = gaButtonLayouts_007241C0[nIndex].nTop + gnGlobal_00711470 - 0x1E0;
-    const int nRight = gaButtonLayouts_007241C0[nIndex].nRight + (nMode == 2 ? (gnGlobal_0071146C - 0x280) / 2 : 0);
-    if (nX > nLeft && nX < nRight && nY > nTop && nY < gaButtonLayouts_007241C0[nIndex].nBottom + gnGlobal_00711470 - 0x1E0)
-        return 1;
-    return 0;
+    if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
+    {
+        const int nResolution = D2GFX_GetResolutionMode();
+        if (nMode == 2)
+            return nResolution == 2 ? 1 : 3;
+        return nResolution == 2 ? 0 : 2;
+    }
+
+    const int nResolution = D2GFX_GetResolutionMode();
+    if (nMode == 2)
+    {
+        if (nResolution == 2 || GAME_GetUIVarState(2))
+            return 1;
+        return 3;
+    }
+    return nResolution == 2 ? 0 : 2;
 }
 
 // 0x004A2A20
@@ -1276,285 +1300,17 @@ void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-// 0x004A2A80
-void __cdecl TEXT_DrawQuestButton()
+// 0x004A2970
+int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
 {
-    if (sub_00463DF0())
-    {
-        sub_00455F20(0x11, 1, 0);
-        if (gnGlobal_007BF298 == 1)
-        {
-            gbGlobal_007BF2B0 = 0;
-            gnGlobal_007BF298 = 0;
-        }
-        return;
-    }
-
     const int nMode = sub_0045AE90();
-    if (nMode == 3)
-        return;
-    if (GAME_GetUIVarState(0x0F))
-        return;
-
-    D2CelContextStrc tCel;
-    memset(&tCel, 0, sizeof(tCel));
-    tCel.nDirection = 0;
-    tCel.pCellFile = gpGlobal_007C02E0;
-    tCel.nFrame = 0;
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
-    const int nCelWidth = CelGetWidth(CelGetHandle(&tCel));
-    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF58));
-    int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts_007241C0[nIndex].nTextX + 1;
-    const int nTextY = gaButtonLayouts_007241C0[nIndex].nTextY + gnGlobal_00711470 - 0x1E0;
-    if (sub_0045AE90() == 2)
-        nTextX += (gnGlobal_0071146C - 0x280) / 2;
-    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
-
-    int nCelX = gaButtonLayouts_007241C0[nIndex].nTextX;
-    const int nCelY = gaButtonLayouts_007241C0[nIndex].nBottom + gnGlobal_00711470 - 0x1E0;
-    if (sub_0045AE90() == 2)
-        nCelX += (gnGlobal_0071146C - 0x280) / 2;
-    sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
-
-    tCel.pCellFile = gpGlobal_007C02DC;
-    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)TEXT_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
-    sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
-}
-
-// 0x004A2C30
-void __fastcall TEXT_SelectQuestPage(int nCondition)
-{
-    int nIndex = -1;
-    for (int i = 0; i < 41; ++i)
-    {
-        if (gaQuestTable_00723F30[i].nCondition == nCondition)
-        {
-            nIndex = i;
-            break;
-        }
-    }
-    if (nIndex != -1)
-        ganPageSelection_007BF280[gaQuestTable_00723F30[nIndex].nPage] = gaQuestTable_00723F30[nIndex].nCelId2;
-}
-
-// 0x004A2C70
-void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwClassId == 0x92)
-        pUnit->dwFlags &= ~2u;
-}
-
-// 0x004A2C90
-void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwClassId == 0x20F)
-        pUnit->dwFlags &= ~2u;
-}
-
-extern "C" int __cdecl sub_00489840_ModeInGroup()
-{
-    int mode = gB27_007BCBF0;
-    if (mode == 1 || mode == 2 || mode == 3)
+    const int nLeft = gaButtonLayouts_007241C0[nIndex].nTextX + (nMode == 2 ? (gnGlobal_0071146C - 0x280) / 2 : 0);
+    const int nTop = gaButtonLayouts_007241C0[nIndex].nTop + gnGlobal_00711470 - 0x1E0;
+    const int nRight = gaButtonLayouts_007241C0[nIndex].nRight + (nMode == 2 ? (gnGlobal_0071146C - 0x280) / 2 : 0);
+    if (nX > nLeft && nX < nRight && nY > nTop && nY < gaButtonLayouts_007241C0[nIndex].nBottom + gnGlobal_00711470 - 0x1E0)
         return 1;
     return 0;
-}
-
-// 0x004A3000
-extern "C" void __cdecl TEXT_ResetQuestButtonState()
-{
-    if (gB27_007BF298 == 1)
-        gB27_007BF298 = 0;
-}
-
-// 0x004A3020
-void __cdecl TEXT_ClearQuestFlags()
-{
-    for (int i = 0; i < 41; ++i)
-    {
-        gabQuestFlagsA_007BF356[i] = 0;
-        gabQuestFlagsB_007BF380[i] = 0;
-    }
-}
-
-extern "C" void __cdecl sub_004B2250_InitializeControls()
-{
-    bool oldAction = (gB27_007272EB == sub_004B1DD0_Action);
-    gB27_00726DF9 = 2;
-    gB27_00726E01 = 0;
-    gB27_00726E0F = 0;
-    gB27_00726E47 = 2;
-    gB27_00726E4F = 0;
-    gB27_00726E5D = 0;
-    gB27_00726E95 = 2;
-    gB27_00726E9D = 0;
-    gB27_00726EAB = 0;
-    gB27_00726CC1 = 3;
-    gB27_00726CCB = 0;
-    gB27_00726CDB = 0;
-    gB27_007272D9 = 2;
-    gB27_007272E1 = 0;
-    gB27_007272EF = 0;
-    if (oldAction)
-        gB27_007272D9 = 3;
-    gB27_00727247 = 0;
-    gB27_00727257 = 0;
-    gB27_00727297 = 0;
-    gB27_007272A9 = 0;
-    gB27_00726F7F = 2;
-    gB27_00726F87 = 0;
-    gB27_00726F95 = 0;
-    gB27_00726F85 = 0;
-    gB27_00726F91 = 0;
-    gB27_0072723D = 3;
-    gB27_0072728B = 4;
-    gB27_00726EC2 = 0xfb4;
-    gB27_00726ECE = sub_004B2020_Action;
-    gB27_00726EBC = 3;
-    gB27_00726EE9 = 0xfb4;
-    gB27_00726EF5 = sub_004B2020_Action;
-    gB27_00726EE3 = 3;
-    gB27_00726F10 = 0xfb4;
-    gB27_00726F1C = sub_004B2020_Action;
-    gB27_00726F0A = 3;
-    gB27_00726F37 = 0xfb4;
-    gB27_00726F43 = sub_004B2020_Action;
-    gB27_00726F31 = 3;
-    gB27_0072721C = 0xfb4;
-    gB27_00727228 = sub_004B2020_Action;
-    gB27_00727216 = 3;
-}
-
-extern "C" void __fastcall sub_00535780_SetPlayers(unsigned int count)
-{
-    if (count <= 8)
-        gB27_00883D70 = count;
-}
-
-// 0x004A30A0
-void __cdecl TEXT_LoadDurielCofsOnce()
-{
-    if (!gbGlobal_007C025D)
-    {
-        gbGlobal_007C025D = 1;
-        sub_0046F870(0xD3, 1);
-    }
-}
-
-// 0x004A30C0
-void __cdecl TEXT_LoadAncientsCofsOnce()
-{
-    if (!gbGlobal_007C025E)
-    {
-        gbGlobal_007C025E = 1;
-        sub_0046F870(0x219, 0);
-        sub_0046F870(0x21A, 0);
-        sub_0046F870(0x21B, 0);
-    }
-}
-
-// 0x004A3100
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value)
-{
-    gB27_007C025F = 1;
-    gB27_007C0265 = value;
-}
-
-// 0x004A3110
-char __cdecl TEXT_HasQuestPacketValue()
-{
-    return gbGlobal_007C025F;
-}
-
-// 0x004A3120
-char __cdecl TEXT_IsQuestUnitPresent()
-{
-    if (gbGlobal_007C0260 && CUNIT_FindServerSideUnit(gnQuestUnitId_007C0261, 1))
-    {
-        return 1;
-    }
-    return 0;
-}
-
-static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
-static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0)
-    {
-        return 0;
-    }
-
-    if ((nMax - 1) & nMax)
-    {
-        return SEED_RollRandomNumber(pSeed) % nMax;
-    }
-
-    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
-}
-
-static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
-{
-    if (!pUnit) return -1;
-    return pUnit->dwUnitId;
-}
-
-// 0x004A3150
-void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
-{
-    if (gbGlobal_007C025F)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        int nCount = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, 3) + 2;
-        for (int i = 0; i < nCount; ++i)
-        {
-            D2UnitStrc* pUnit = CUNIT_SpawnPresetUnit(0x95, nX + i % 2, nY + i % 2, 1, 1);
-            gnQuestUnitId_007C0261 = UNITS_GetUnitId(pUnit);
-            gbGlobal_007C0260 = 1;
-        }
-    }
-}
-
-// 0x004A3410
-void __cdecl TEXT_ResetQuestPanel()
-{
-    SRegSaveValue("Diablo II", "GAMEOVER", 0, 0);
-    gnGlobal_007BF298 = 0;
-    gpCelFile_007BF2D5 = 0;
-    gpCelFile_007BF2D9 = 0;
-    gpCelFile_007BF2D1 = 0;
-    gpCelFile_007BF2DD = 0;
-    gpCelFile_007BF351 = 0;
-    gpCelFile_007BF34D = 0;
-    memset(gapCelFiles_007BF2E1, 0, sizeof(gapCelFiles_007BF2E1));
-    gnGlobal_007BF2A4 = 0;
-    gnGlobal_007BF2AC = 0;
-    gnGlobal_007C0259 = 0;
-    for (int i = 0; i < 41; ++i)
-    {
-        gabQuestFlagsA_007BF356[i] = 0;
-        gabQuestFlagsB_007BF380[i] = 0;
-    }
-    gbGlobal_007BF2B1 = 0;
-    gbGlobal_007BF2B2 = 0;
-    gbGlobal_007BF2B0 = 0;
-    gbGlobal_007BF2B4 = 0;
-    gbGlobal_007C025D = 0;
-    gbGlobal_007C025E = 0;
-    gbGlobal_007C025F = 0;
-    gbGlobal_007C0260 = 0;
-    gbGlobal_007BF2B3 = 0;
-    gnIndex_007BF2B5 = -1;
-    gnIndex_007BF2BD = -1;
-    gnIndex_007BF2C1 = -1;
-    gnIndex_007BF2C5 = -1;
-    gnIndex_007BF2C9 = -1;
-    gnIndex_007BF2CD = -1;
 }
 
 // 0x004A4110
@@ -1611,6 +1367,14 @@ void __stdcall TEXT_PrevEntryMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+extern "C" int __cdecl sub_00489840_ModeInGroup()
+{
+    int mode = gB27_007BCBF0;
+    if (mode == 1 || mode == 2 || mode == 3)
+        return 1;
+    return 0;
+}
+
 // 0x004A5AB0
 void __stdcall TEXT_NextEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -1656,6 +1420,60 @@ void __stdcall TEXT_SelectSecondaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
+}
+
+extern "C" void __cdecl sub_004B2250_InitializeControls()
+{
+    bool oldAction = (gB27_007272EB == sub_004B1DD0_Action);
+    gB27_00726DF9 = 2;
+    gB27_00726E01 = 0;
+    gB27_00726E0F = 0;
+    gB27_00726E47 = 2;
+    gB27_00726E4F = 0;
+    gB27_00726E5D = 0;
+    gB27_00726E95 = 2;
+    gB27_00726E9D = 0;
+    gB27_00726EAB = 0;
+    gB27_00726CC1 = 3;
+    gB27_00726CCB = 0;
+    gB27_00726CDB = 0;
+    gB27_007272D9 = 2;
+    gB27_007272E1 = 0;
+    gB27_007272EF = 0;
+    if (oldAction)
+        gB27_007272D9 = 3;
+    gB27_00727247 = 0;
+    gB27_00727257 = 0;
+    gB27_00727297 = 0;
+    gB27_007272A9 = 0;
+    gB27_00726F7F = 2;
+    gB27_00726F87 = 0;
+    gB27_00726F95 = 0;
+    gB27_00726F85 = 0;
+    gB27_00726F91 = 0;
+    gB27_0072723D = 3;
+    gB27_0072728B = 4;
+    gB27_00726EC2 = 0xfb4;
+    gB27_00726ECE = sub_004B2020_Action;
+    gB27_00726EBC = 3;
+    gB27_00726EE9 = 0xfb4;
+    gB27_00726EF5 = sub_004B2020_Action;
+    gB27_00726EE3 = 3;
+    gB27_00726F10 = 0xfb4;
+    gB27_00726F1C = sub_004B2020_Action;
+    gB27_00726F0A = 3;
+    gB27_00726F37 = 0xfb4;
+    gB27_00726F43 = sub_004B2020_Action;
+    gB27_00726F31 = 3;
+    gB27_0072721C = 0xfb4;
+    gB27_00727228 = sub_004B2020_Action;
+    gB27_00727216 = 3;
+}
+
+extern "C" void __fastcall sub_00535780_SetPlayers(unsigned int count)
+{
+    if (count <= 8)
+        gB27_00883D70 = count;
 }
 
 // 0x004A5B90
@@ -1762,6 +1580,35 @@ void __stdcall TEXT_WheelCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit) return -1;
+    return pUnit->dwUnitId;
+}
+
 // 0x004A6350
 void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -1842,6 +1689,159 @@ void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int 
     if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
     {
         sub_004EF990_SetSkillPopUpText(sub_00463DD0_GetPlayerUnit(), *pId, nA, nB, nState, nX, nY);
+    }
+}
+
+// 0x004A2A80
+void __cdecl TEXT_DrawQuestButton()
+{
+    if (sub_00463DF0())
+    {
+        sub_00455F20(0x11, 1, 0);
+        if (gnGlobal_007BF298 == 1)
+        {
+            gbGlobal_007BF2B0 = 0;
+            gnGlobal_007BF298 = 0;
+        }
+        return;
+    }
+
+    const int nMode = sub_0045AE90();
+    if (nMode == 3)
+        return;
+    if (GAME_GetUIVarState(0x0F))
+        return;
+
+    D2CelContextStrc tCel;
+    memset(&tCel, 0, sizeof(tCel));
+    tCel.nDirection = 0;
+    tCel.pCellFile = gpGlobal_007C02E0;
+    tCel.nFrame = 0;
+    const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
+    const int nCelWidth = CelGetWidth(CelGetHandle(&tCel));
+    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF58));
+    int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts_007241C0[nIndex].nTextX + 1;
+    const int nTextY = gaButtonLayouts_007241C0[nIndex].nTextY + gnGlobal_00711470 - 0x1E0;
+    if (sub_0045AE90() == 2)
+        nTextX += (gnGlobal_0071146C - 0x280) / 2;
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
+
+    int nCelX = gaButtonLayouts_007241C0[nIndex].nTextX;
+    const int nCelY = gaButtonLayouts_007241C0[nIndex].nBottom + gnGlobal_00711470 - 0x1E0;
+    if (sub_0045AE90() == 2)
+        nCelX += (gnGlobal_0071146C - 0x280) / 2;
+    sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
+
+    tCel.pCellFile = gpGlobal_007C02DC;
+    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)TEXT_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
+    sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
+}
+
+// 0x004A2C30
+void __fastcall TEXT_SelectQuestPage(int nCondition)
+{
+    int nIndex = -1;
+    for (int i = 0; i < 41; ++i)
+    {
+        if (gaQuestTable_00723F30[i].nCondition == nCondition)
+        {
+            nIndex = i;
+            break;
+        }
+    }
+    if (nIndex != -1)
+        ganPageSelection_007BF280[gaQuestTable_00723F30[nIndex].nPage] = gaQuestTable_00723F30[nIndex].nCelId2;
+}
+
+// 0x004A2C70
+void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwClassId == 0x92)
+        pUnit->dwFlags &= ~2u;
+}
+
+// 0x004A2C90
+void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwClassId == 0x20F)
+        pUnit->dwFlags &= ~2u;
+}
+
+// 0x004A3000
+extern "C" void __cdecl TEXT_ResetQuestButtonState()
+{
+    if (gB27_007BF298 == 1)
+        gB27_007BF298 = 0;
+}
+
+// 0x004A3020
+void __cdecl TEXT_ClearQuestFlags()
+{
+    for (int i = 0; i < 41; ++i)
+    {
+        gabQuestFlagsA_007BF356[i] = 0;
+        gabQuestFlagsB_007BF380[i] = 0;
+    }
+}
+
+// 0x004A30A0
+void __cdecl TEXT_LoadDurielCofsOnce()
+{
+    if (!gbGlobal_007C025D)
+    {
+        gbGlobal_007C025D = 1;
+        sub_0046F870(0xD3, 1);
+    }
+}
+
+// 0x004A30C0
+void __cdecl TEXT_LoadAncientsCofsOnce()
+{
+    if (!gbGlobal_007C025E)
+    {
+        gbGlobal_007C025E = 1;
+        sub_0046F870(0x219, 0);
+        sub_0046F870(0x21A, 0);
+        sub_0046F870(0x21B, 0);
+    }
+}
+
+// 0x004A3100
+extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value)
+{
+    gB27_007C025F = 1;
+    gB27_007C0265 = value;
+}
+
+// 0x004A3110
+char __cdecl TEXT_HasQuestPacketValue()
+{
+    return gbGlobal_007C025F;
+}
+
+// 0x004A3120
+char __cdecl TEXT_IsQuestUnitPresent()
+{
+    if (gbGlobal_007C0260 && CUNIT_FindServerSideUnit(gnQuestUnitId_007C0261, 1))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004A3150
+void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
+{
+    if (gbGlobal_007C025F)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        int nCount = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, 3) + 2;
+        for (int i = 0; i < nCount; ++i)
+        {
+            D2UnitStrc* pUnit = CUNIT_SpawnPresetUnit(0x95, nX + i % 2, nY + i % 2, 1, 1);
+            gnQuestUnitId_007C0261 = UNITS_GetUnitId(pUnit);
+            gbGlobal_007C0260 = 1;
+        }
     }
 }
 

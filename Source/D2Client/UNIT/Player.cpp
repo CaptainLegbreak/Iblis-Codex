@@ -804,6 +804,58 @@ static void __stdcall PLAYER_SetModeAndSync(int bSync, D2UnitStrc* pUnit, int nS
         UNITMODE_SetPosition(pUnit, nX, nY, 0, 0, 0);
 }
 
+// 0x00460BF0
+void __fastcall PLAYER_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY)
+{
+    GFX_AddAiTargetUnit(pUnit);
+    PATH_AllocDynamicPath(0, pRoom, nX, nY, pUnit, 1);
+    if (!pUnit->pInventory)
+    {
+        pUnit->pInventory = INVENTORY_AllocInventory(0, pUnit);
+    }
+
+    pUnit->pSkills = SKILLS_AllocSkillList(0);
+    SKILLS_InitSkillList(pUnit);
+    STATLIST_AllocStatListEx(pUnit, 0, PLAYER_HandleStatChanged, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_ATTACKRATE, 100, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_VELOCITYPERCENT, 100, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_OTHER_ANIMRATE, 100, 0);
+    gnInTown_007A5260 = DUNGEON_IsRoomInTown(pRoom);
+    UNITS_ChangeAnimMode(pUnit, 5);
+    pUnit->dwFlags &= ~0x20;
+    pUnit->dwFlags |= 0xE;
+    if (pUnit->dwAnimMode == 0x11 || pUnit->dwAnimMode == 0)
+    {
+        PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
+        sub_00649190_SetPathMode(pUnit, 5);
+        PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x8000);
+    }
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!DUNGEON_GetActNoFromRoom(pRoom))
+    {
+        D2GfxLightStrc* pLight = sub_00474160_MakeLightEntry(pUnit, pPlayer && pUnit != pPlayer, 0xD, 0xFF, 0xFF, 0xFF, 0xFF);
+        if (pLight)
+        {
+            pUnit->pLight = pLight;
+            sub_00464CF0(pUnit, DLIGHTMAP_GetLightSize(pLight));
+        }
+    }
+
+    UNITS_AllocPlayerData(pUnit);
+    if (pUnit != pPlayer)
+    {
+        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+        D2SeedStrc* pSeed = &pUnit->pSeed;
+        unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+        pSeed->nLowSeed = (unsigned int)lSeed;
+        pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+        PATH_SetDirection(pPath, (unsigned int)lSeed & 0x3F);
+    }
+
+    PLAYER_RefreshAdjacentPlayers();
+}
+
 // 0x004608C0
 void __cdecl PLAYER_RefreshAdjacentPlayers()
 {
@@ -831,6 +883,11 @@ void __cdecl PLAYER_RefreshAdjacentPlayers()
             }
         }
     }
+}
+
+void __fastcall sub_M115_Emit_00460FF0(D2UnitStrc* pUnit)
+{
+    PLAYER_ReleaseRoomLight(pUnit);
 }
 
 // 0x004609F0
@@ -898,63 +955,6 @@ void __fastcall PLAYER_HandleStatChanged(D2GameStrc* pGame, D2UnitStrc* pOwner, 
         }
         break;
     }
-}
-
-void __fastcall sub_M115_Emit_00460FF0(D2UnitStrc* pUnit)
-{
-    PLAYER_ReleaseRoomLight(pUnit);
-}
-
-// 0x00460BF0
-void __fastcall PLAYER_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY)
-{
-    GFX_AddAiTargetUnit(pUnit);
-    PATH_AllocDynamicPath(0, pRoom, nX, nY, pUnit, 1);
-    if (!pUnit->pInventory)
-    {
-        pUnit->pInventory = INVENTORY_AllocInventory(0, pUnit);
-    }
-
-    pUnit->pSkills = SKILLS_AllocSkillList(0);
-    SKILLS_InitSkillList(pUnit);
-    STATLIST_AllocStatListEx(pUnit, 0, PLAYER_HandleStatChanged, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_ATTACKRATE, 100, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_VELOCITYPERCENT, 100, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_OTHER_ANIMRATE, 100, 0);
-    gnInTown_007A5260 = DUNGEON_IsRoomInTown(pRoom);
-    UNITS_ChangeAnimMode(pUnit, 5);
-    pUnit->dwFlags &= ~0x20;
-    pUnit->dwFlags |= 0xE;
-    if (pUnit->dwAnimMode == 0x11 || pUnit->dwAnimMode == 0)
-    {
-        PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
-        sub_00649190_SetPathMode(pUnit, 5);
-        PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x8000);
-    }
-
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!DUNGEON_GetActNoFromRoom(pRoom))
-    {
-        D2GfxLightStrc* pLight = sub_00474160_MakeLightEntry(pUnit, pPlayer && pUnit != pPlayer, 0xD, 0xFF, 0xFF, 0xFF, 0xFF);
-        if (pLight)
-        {
-            pUnit->pLight = pLight;
-            sub_00464CF0(pUnit, DLIGHTMAP_GetLightSize(pLight));
-        }
-    }
-
-    UNITS_AllocPlayerData(pUnit);
-    if (pUnit != pPlayer)
-    {
-        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-        D2SeedStrc* pSeed = &pUnit->pSeed;
-        unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-        pSeed->nLowSeed = (unsigned int)lSeed;
-        pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-        PATH_SetDirection(pPath, (unsigned int)lSeed & 0x3F);
-    }
-
-    PLAYER_RefreshAdjacentPlayers();
 }
 
 // 0x00460D50
@@ -1650,23 +1650,30 @@ static inline int PLAYER_GetValue2(D2UnitStrc* pUnit)
     return 0;
 }
 
-// 0x00461D60
-int __stdcall PLAYER_IsPendingMode(int nValue1, int nValue2)
+// 0x00462370
+static void PLAYER_ResumeWalk(D2PlayerCmdStrc* pCmd)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    const int nUnitType = !pPlayer ? 6 : pPlayer->dwUnitType;
-    if (!pPlayer || nUnitType != UNIT_PLAYER)
-        return 0;
+    D2UnitStrc* pPlayer = pCmd->pPlayer;
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
+        return;
 
-    D2PlayerDataStrc* pPlayerData = pPlayer->pPlayerData;
-    if (!pPlayerData || pPlayerData->nMode != 19)
-        return 0;
+    if (CUNIT_GetPathTargetUnit(pPlayer))
+        return;
 
-    const int nFirst = PLAYER_GetValue1(pPlayer);
-    const int nSecond = PLAYER_GetValue2(pPlayer);
-    if (nFirst == nValue1 && nSecond == nValue2)
-        return 1;
-    return 0;
+    int nMode;
+    switch (pPlayer->dwAnimMode)
+    {
+    case PLRMODE_WALK:
+    case PLRMODE_TOWNWALK:
+        nMode = 1;
+        break;
+    case PLRMODE_RUN:
+        nMode = 3;
+        break;
+    default:
+        return;
+    }
+    PLAYER_WalkTo(nMode, pPlayer, pCmd->nX, pCmd->nY);
 }
 
 void __stdcall sub_E06_Emit_00461C70(int nArg1, int nArg2, D2PlayerCmdStrc* pCmd)
@@ -1859,6 +1866,44 @@ static inline void E06_ClearPlayerMode(D2UnitStrc* pUnit)
     }
 }
 
+// 0x00461D60
+int __stdcall PLAYER_IsPendingMode(int nValue1, int nValue2)
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    const int nUnitType = !pPlayer ? 6 : pPlayer->dwUnitType;
+    if (!pPlayer || nUnitType != UNIT_PLAYER)
+        return 0;
+
+    D2PlayerDataStrc* pPlayerData = pPlayer->pPlayerData;
+    if (!pPlayerData || pPlayerData->nMode != 19)
+        return 0;
+
+    const int nFirst = PLAYER_GetValue1(pPlayer);
+    const int nSecond = PLAYER_GetValue2(pPlayer);
+    if (nFirst == nValue1 && nSecond == nValue2)
+        return 1;
+    return 0;
+}
+
+int __cdecl sub_E06_Emit_004621D0(D2PlayerCmdStrc* pCmd)
+{
+    if (!PLAYER_PrepareCommand(pCmd))
+    {
+        return 0;
+    }
+    return pCmd->nMode;
+}
+
+static inline D2MonStatsTxt* E06_GetUnitMonStatsTxt(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 0;
+    const int nClassId = pUnit->dwClassId;
+    if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
+        return &sgptDataTables->pMonStatsTxt[nClassId];
+    return 0;
+}
+
 // 0x004621D0
 static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
 {
@@ -1922,51 +1967,6 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
     if (sub_00468830() == 8)
         sub_00478680_SendPacket5(0x4C, -1);
     return 1;
-}
-
-int __cdecl sub_E06_Emit_004621D0(D2PlayerCmdStrc* pCmd)
-{
-    if (!PLAYER_PrepareCommand(pCmd))
-    {
-        return 0;
-    }
-    return pCmd->nMode;
-}
-
-static inline D2MonStatsTxt* E06_GetUnitMonStatsTxt(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 0;
-    const int nClassId = pUnit->dwClassId;
-    if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
-        return &sgptDataTables->pMonStatsTxt[nClassId];
-    return 0;
-}
-
-// 0x00462370
-static void PLAYER_ResumeWalk(D2PlayerCmdStrc* pCmd)
-{
-    D2UnitStrc* pPlayer = pCmd->pPlayer;
-    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
-        return;
-
-    if (CUNIT_GetPathTargetUnit(pPlayer))
-        return;
-
-    int nMode;
-    switch (pPlayer->dwAnimMode)
-    {
-    case PLRMODE_WALK:
-    case PLRMODE_TOWNWALK:
-        nMode = 1;
-        break;
-    case PLRMODE_RUN:
-        nMode = 3;
-        break;
-    default:
-        return;
-    }
-    PLAYER_WalkTo(nMode, pPlayer, pCmd->nX, pCmd->nY);
 }
 
 // build: context sub_00461DC0_Shim

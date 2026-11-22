@@ -812,6 +812,24 @@ static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnitInline(D2UnitS
     return 0;
 }
 
+// 0x0057C3E0
+int __fastcall SUNITDMG_GetMonsterDrain(D2UnitStrc* pUnit, int nUnused, D2GameStrc* pGame)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType != UNIT_MONSTER)
+    {
+        return 100;
+    }
+
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERS_GetMonStatsTxtRecordFromUnitInline(pUnit);
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+
+    return pMonStatsTxtRecord->nDrain[pGame->nDifficulty];
+}
+
 // 0x00573140
 int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlayer)
 {
@@ -846,56 +864,6 @@ int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlaye
     }
 
     return 1;
-}
-
-// 0x00573180
-void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide)
-{
-    if (!pMonster)
-    {
-        return;
-    }
-
-    const int nType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER)
-    {
-        return;
-    }
-
-    if (!pMonster->pMonsterData)
-    {
-        return;
-    }
-
-    D2MonsterInteractStrc* pMonInteract = pMonster->pMonsterData->pMonInteract;
-    if (!pMonInteract)
-    {
-        return;
-    }
-
-    D2InteractInfoStrc* pInteractInfo = pMonInteract->pInteractInfo;
-    while (pInteractInfo)
-    {
-        D2InteractInfoStrc* pNext = pInteractInfo->pNext;
-        SCMD_SendInteractionTarget(UnitGetClient(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, sub_00451F50_GetUnitGUID(pMonster), 0);
-
-        int nInteractType;
-        int nInteractGUID;
-        if (!bClientSide || (SUNIT_GetInteractInfo(pInteractInfo->pUnit, &nInteractType, &nInteractGUID) && nInteractType == UNIT_MONSTER && nInteractGUID == sub_00451F50_GetUnitGUID(pMonster)))
-        {
-            SUNIT_ResetInteractInfo(pInteractInfo->pUnit);
-        }
-
-        if (pCallback)
-        {
-            pCallback(pInteractInfo->pUnit);
-        }
-
-        FOG_FreeServerMemory(pGame->pMemoryPool, pInteractInfo, ".\\MONSTER\\MonsterAI.cpp", 875, 0);
-        pInteractInfo = pNext;
-    }
-
-    pMonInteract->pInteractInfo = 0;
 }
 
 static inline int sub_0044BE50(D2UnitStrc* pUnit)
@@ -988,20 +956,52 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
     MONSTER_SetComponent(pUnit, 1, 0);
 }
 
-// 0x0057C3E0
-int __fastcall SUNITDMG_GetMonsterDrain(D2UnitStrc* pUnit, int nUnused, D2GameStrc* pGame)
+// 0x00573180
+void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType != UNIT_MONSTER)
+    if (!pMonster)
     {
-        return 100;
+        return;
     }
 
-    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERS_GetMonStatsTxtRecordFromUnitInline(pUnit);
-    if (!pMonStatsTxtRecord)
+    const int nType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
+    if (nType != UNIT_MONSTER)
     {
-        return 0;
+        return;
     }
 
-    return pMonStatsTxtRecord->nDrain[pGame->nDifficulty];
+    if (!pMonster->pMonsterData)
+    {
+        return;
+    }
+
+    D2MonsterInteractStrc* pMonInteract = pMonster->pMonsterData->pMonInteract;
+    if (!pMonInteract)
+    {
+        return;
+    }
+
+    D2InteractInfoStrc* pInteractInfo = pMonInteract->pInteractInfo;
+    while (pInteractInfo)
+    {
+        D2InteractInfoStrc* pNext = pInteractInfo->pNext;
+        SCMD_SendInteractionTarget(UnitGetClient(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, sub_00451F50_GetUnitGUID(pMonster), 0);
+
+        int nInteractType;
+        int nInteractGUID;
+        if (!bClientSide || (SUNIT_GetInteractInfo(pInteractInfo->pUnit, &nInteractType, &nInteractGUID) && nInteractType == UNIT_MONSTER && nInteractGUID == sub_00451F50_GetUnitGUID(pMonster)))
+        {
+            SUNIT_ResetInteractInfo(pInteractInfo->pUnit);
+        }
+
+        if (pCallback)
+        {
+            pCallback(pInteractInfo->pUnit);
+        }
+
+        FOG_FreeServerMemory(pGame->pMemoryPool, pInteractInfo, ".\\MONSTER\\MonsterAI.cpp", 875, 0);
+        pInteractInfo = pNext;
+    }
+
+    pMonInteract->pInteractInfo = 0;
 }

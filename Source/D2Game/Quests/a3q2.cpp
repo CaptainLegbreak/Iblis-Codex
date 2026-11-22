@@ -312,6 +312,34 @@ static void __stdcall ACT3Q2_SendKhalimPacket(D2QuestDataStrc* pQuestData, D2Que
     SCMD_SendPacket0x5D(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 568), &packet5D);
 }
 
+// 0x005BDA30
+void __fastcall ACT3Q2_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->bActive = 1;
+    pQuestData->fLastState = 1;
+    pQuestData->pNPCMessages = gpAct3Q2NpcMessages;
+    pQuestData->fState = 0;
+    pQuestData->eFilter = 18;
+    pQuestData->nInitNo = 0;
+    pQuestData->pfStatusFilter = ACT3Q2_StatusFilterCallback;
+    pQuestData->pfActiveFilter = ACT3Q2_ActiveFilterCallback;
+    pQuestData->pfSeqFilter = ACT3Q2_SeqCallback;
+    pQuestData->nSeqId = 15;
+    pQuestData->pCallback[0] = ACT3Q2_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q2_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q2_Callback03_ChangedLevel;
+    pQuestData->pCallback[13] = ACT3Q2_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[10] = sub_005B7FE0_EmptyCallback;
+    pQuestData->pCallback[4] = ACT3Q2_Callback04_ItemPickedUp;
+
+    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 923, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest2Strc));
+    pQuestDataEx->nSewerStairsObjectMode = 0;
+    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
+}
+
 // 0x005B8210
 void __fastcall ACT3Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -513,6 +541,140 @@ int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, in
     return 0;
 }
 
+// 0x005C01D0
+int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker || !pUnit)
+    {
+        return 0;
+    }
+
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (!nValue)
+    {
+        return 0;
+    }
+
+    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pAttacker);
+    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, STAT_HITPOINTS, 0);
+    if (nHitpoints >= nMaxHp)
+    {
+        return 0;
+    }
+
+    nHitpoints += nValue << 8;
+    nHitpoints = nHitpoints > 0 ? nHitpoints : 0;
+    STATLIST_SetUnitStat(pAttacker, STAT_HITPOINTS, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
+    UNITS_SetOverlay(pAttacker, 151, 0);
+    return 1;
+}
+
+// 0x005C31F0
+int __fastcall SKILLS_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (STATLIST_GetUnitAlignment(pTarget) != 0)
+    {
+        return 0;
+    }
+
+    if (!SKILLS_CanSwitchAi(pTarget, 19))
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pTarget))
+    {
+        return 0;
+    }
+
+    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget)))
+    {
+        return 0;
+    }
+
+    return SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) != 0;
+}
+
+// 0x005C3370
+void __fastcall SKILLS_CurseStateCallback_ResetAi(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+{
+    if (pUnit)
+    {
+        SUNITEVENT_Unregister(SUNIT_GetGameFromUnit(pUnit), pUnit, 1, nState);
+
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (nType == 1)
+        {
+            AITHINK_ExecuteAiFn(SUNIT_GetGameFromUnit(pUnit), pUnit, AIGENERAL_GetAiControlFromUnit(pUnit), 0);
+        }
+
+        SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
+    }
+}
+
+// 0x005C3D50
+int __fastcall SKILLS_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+    {
+        return 0;
+    }
+
+    if (STATLIST_GetUnitAlignment(pTarget) != 0)
+    {
+        return 0;
+    }
+
+    if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pTarget))
+    {
+        return 0;
+    }
+
+    return SKILLS_CanSwitchAi(pTarget, 11) != 0;
+}
+
+// 0x005D8510
+int __fastcall SKILLS_Callback_FindTargetForTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+    {
+        return 0;
+    }
+
+    if (!SKILLS_CanSwitchAi(pUnit, 12))
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pUnit))
+    {
+        return 0;
+    }
+
+    int nOwnerGUID;
+    int nOwnerType;
+    AIGENERAL_GetOwnerData(pUnit, &nOwnerGUID, &nOwnerType);
+
+    if (nOwnerGUID != -1 && nOwnerType == 0)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
 // 0x005B8530
 int __fastcall OBJECTS_OperateFunction45_SewerLever(D2ObjOperateFnStrc* pOp, int nOperate)
 {
@@ -607,6 +769,12 @@ int __fastcall ACT3Q2_UnitIterate_DetermineKhalimBrainDropCount(D2GameStrc* pGam
     }
     return 0;
 }
+
+struct D2GameStrc;
+
+struct D2ItemDropStrc;
+
+struct D2UnitStrc;
 
 // 0x005B8810
 int __fastcall ACT3Q2_UnitIterate_DetermineKhalimHeartDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
@@ -862,174 +1030,6 @@ void __fastcall ACT3Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 245, 6);
     }
-}
-
-// 0x005BDA30
-void __fastcall ACT3Q2_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->bActive = 1;
-    pQuestData->fLastState = 1;
-    pQuestData->pNPCMessages = gpAct3Q2NpcMessages;
-    pQuestData->fState = 0;
-    pQuestData->eFilter = 18;
-    pQuestData->nInitNo = 0;
-    pQuestData->pfStatusFilter = ACT3Q2_StatusFilterCallback;
-    pQuestData->pfActiveFilter = ACT3Q2_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT3Q2_SeqCallback;
-    pQuestData->nSeqId = 15;
-    pQuestData->pCallback[0] = ACT3Q2_Callback00_NpcActivate;
-    pQuestData->pCallback[11] = ACT3Q2_Callback11_ScrollMessage;
-    pQuestData->pCallback[3] = ACT3Q2_Callback03_ChangedLevel;
-    pQuestData->pCallback[13] = ACT3Q2_Callback13_PlayerStartedGame;
-    pQuestData->pCallback[10] = sub_005B7FE0_EmptyCallback;
-    pQuestData->pCallback[4] = ACT3Q2_Callback04_ItemPickedUp;
-
-    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 923, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest2Strc));
-    pQuestDataEx->nSewerStairsObjectMode = 0;
-    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
-}
-
-struct D2GameStrc;
-
-struct D2ItemDropStrc;
-
-struct D2UnitStrc;
-
-// 0x005C01D0
-int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
-{
-    if (!pAttacker || !pUnit)
-    {
-        return 0;
-    }
-
-    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
-    if (!nValue)
-    {
-        return 0;
-    }
-
-    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pAttacker);
-    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, STAT_HITPOINTS, 0);
-    if (nHitpoints >= nMaxHp)
-    {
-        return 0;
-    }
-
-    nHitpoints += nValue << 8;
-    nHitpoints = nHitpoints > 0 ? nHitpoints : 0;
-    STATLIST_SetUnitStat(pAttacker, STAT_HITPOINTS, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
-    UNITS_SetOverlay(pAttacker, 151, 0);
-    return 1;
-}
-
-// 0x005C31F0
-int __fastcall SKILLS_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    if (STATLIST_GetUnitAlignment(pTarget) != 0)
-    {
-        return 0;
-    }
-
-    if (!SKILLS_CanSwitchAi(pTarget, 19))
-    {
-        return 0;
-    }
-
-    if (SUNIT_IsDead(pTarget))
-    {
-        return 0;
-    }
-
-    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget)))
-    {
-        return 0;
-    }
-
-    return SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) != 0;
-}
-
-// 0x005C3370
-void __fastcall SKILLS_CurseStateCallback_ResetAi(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
-{
-    if (pUnit)
-    {
-        SUNITEVENT_Unregister(SUNIT_GetGameFromUnit(pUnit), pUnit, 1, nState);
-
-        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-        if (nType == 1)
-        {
-            AITHINK_ExecuteAiFn(SUNIT_GetGameFromUnit(pUnit), pUnit, AIGENERAL_GetAiControlFromUnit(pUnit), 0);
-        }
-
-        SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
-    }
-}
-
-// 0x005C3D50
-int __fastcall SKILLS_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
-    if (nType != 1)
-    {
-        return 0;
-    }
-
-    if (STATLIST_GetUnitAlignment(pTarget) != 0)
-    {
-        return 0;
-    }
-
-    if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
-    {
-        return 0;
-    }
-
-    if (SUNIT_IsDead(pTarget))
-    {
-        return 0;
-    }
-
-    return SKILLS_CanSwitchAi(pTarget, 11) != 0;
-}
-
-// 0x005D8510
-int __fastcall SKILLS_Callback_FindTargetForTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != 1)
-    {
-        return 0;
-    }
-
-    if (!SKILLS_CanSwitchAi(pUnit, 12))
-    {
-        return 0;
-    }
-
-    if (SUNIT_IsDead(pUnit))
-    {
-        return 0;
-    }
-
-    int nOwnerGUID;
-    int nOwnerType;
-    AIGENERAL_GetOwnerData(pUnit, &nOwnerGUID, &nOwnerType);
-
-    if (nOwnerGUID != -1 && nOwnerType == 0)
-    {
-        return 0;
-    }
-
-    return 1;
 }
 
 #include "gen/data/Source/D2Game/Quests/a3q2.inc"

@@ -209,6 +209,48 @@ int __fastcall CUNIT_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
     return 0;
 }
 
+// 0x00465420
+D2ActiveRoomStrc* __fastcall CUNIT_FindRoomBySubtile(int nX, int nY)
+{
+    char szMessage[0x200];
+    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
+    D2ActiveRoomStrc* pRoom = 0;
+    if (!nX && !nY)
+        return 0;
+    if (pPlayer)
+    {
+        pRoom = UNITS_GetRoom(pPlayer);
+        D2ActiveRoomStrc* pFound = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+        if (pFound)
+            return pFound;
+    }
+    D2ActiveRoomStrc* pFound = DUNGEON_FindRoomBySubtileCoordinates(gpGlobal_007A0634, nX, nY);
+    if (pFound)
+        return pFound;
+    SStrPrintf(szMessage, sizeof(szMessage), "Unable to find room for unit...  hControlUnit:%8x  hUnitRoom:%8x  ghAct:%8x  nX:%d  nY:%d", pPlayer, pRoom, gpGlobal_007A0634, nX, nY);
+    D2_ASSERT(0, 0x13C);
+}
+
+// 0x0046C060
+void __cdecl CUNIT_DrawCountdown()
+{
+    unsigned short wszTextBuf[256];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    const int nNow = sub_00410A80_GetTime();
+    if (!gnTimerEnd_007A7464 || gnTimerEnd_007A7464 <= nNow)
+        return;
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTimerUnitId_007129D4, 1);
+    if (pUnit && pUnit->dwAnimMode != 12 && gnTimerEnd_007A7464 - 0x46 > nNow)
+        return;
+    for (int i = 0; i < 256; ++i)
+        wszText[i].wChar = 0;
+    sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd_007A7464 - nNow);
+    const int nOldFont = sub_00502EF0(13);
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
+    D2Win_10117_DrawText(wszText, gnGlobal_0071146C / 2 - nWidth / 2, 0x177, 9, 1);
+    sub_00502EF0(nOldFont);
+}
+
 // 0x00465070
 void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit)
 {
@@ -393,48 +435,6 @@ void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit)
     }
 
     D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-}
-
-// 0x00465420
-D2ActiveRoomStrc* __fastcall CUNIT_FindRoomBySubtile(int nX, int nY)
-{
-    char szMessage[0x200];
-    D2UnitStrc* pPlayer = gpPlayerUnit_007A6A70;
-    D2ActiveRoomStrc* pRoom = 0;
-    if (!nX && !nY)
-        return 0;
-    if (pPlayer)
-    {
-        pRoom = UNITS_GetRoom(pPlayer);
-        D2ActiveRoomStrc* pFound = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
-        if (pFound)
-            return pFound;
-    }
-    D2ActiveRoomStrc* pFound = DUNGEON_FindRoomBySubtileCoordinates(gpGlobal_007A0634, nX, nY);
-    if (pFound)
-        return pFound;
-    SStrPrintf(szMessage, sizeof(szMessage), "Unable to find room for unit...  hControlUnit:%8x  hUnitRoom:%8x  ghAct:%8x  nX:%d  nY:%d", pPlayer, pRoom, gpGlobal_007A0634, nX, nY);
-    D2_ASSERT(0, 0x13C);
-}
-
-// 0x0046C060
-void __cdecl CUNIT_DrawCountdown()
-{
-    unsigned short wszTextBuf[256];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    const int nNow = sub_00410A80_GetTime();
-    if (!gnTimerEnd_007A7464 || gnTimerEnd_007A7464 <= nNow)
-        return;
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTimerUnitId_007129D4, 1);
-    if (pUnit && pUnit->dwAnimMode != 12 && gnTimerEnd_007A7464 - 0x46 > nNow)
-        return;
-    for (int i = 0; i < 256; ++i)
-        wszText[i].wChar = 0;
-    sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd_007A7464 - nNow);
-    const int nOldFont = sub_00502EF0(13);
-    const int nWidth = D2Win_10121_GetTextWidth(wszText);
-    D2Win_10117_DrawText(wszText, gnGlobal_0071146C / 2 - nWidth / 2, 0x177, 9, 1);
-    sub_00502EF0(nOldFont);
 }
 
 #include "gen/data/Source/D2Client/UNIT/CUnit_004645B0.inc"

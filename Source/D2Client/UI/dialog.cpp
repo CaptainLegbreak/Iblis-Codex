@@ -660,27 +660,6 @@ void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int
     pDialog->pWidgets->f_0 = (D2DialogWidget*)pWidget;
 }
 
-// 0x004B7C60
-void __cdecl DIALOG_LoadDialogHotkeys()
-{
-    if (CUNIT_HasHotkeyBinding(0x26, 1))
-    {
-        unsigned short nValue = CUNIT_GetHotkeyBinding(0x26, 1);
-        if (nValue != 0xFFFF && nValue <= 0xDF)
-        {
-            gnGlobal_007273F4 = nValue;
-        }
-    }
-    if (CUNIT_HasHotkeyBinding(0x26, 0))
-    {
-        unsigned short nValue = CUNIT_GetHotkeyBinding(0x26, 0);
-        if (nValue != 0xFFFF && nValue <= 0xDF)
-        {
-            gnGlobal_00727400 = nValue;
-        }
-    }
-}
-
 // 0x004B7CD0
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2, int nArg8, int nArgC, int nType, int nArg14)
 {
@@ -746,6 +725,27 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     gnGlobal_007C0E4C += 1;
     D2_ASSERT(gnGlobal_007C0E5C == 1, 0x3C8);
     return pDialog;
+}
+
+// 0x004B7C60
+void __cdecl DIALOG_LoadDialogHotkeys()
+{
+    if (CUNIT_HasHotkeyBinding(0x26, 1))
+    {
+        unsigned short nValue = CUNIT_GetHotkeyBinding(0x26, 1);
+        if (nValue != 0xFFFF && nValue <= 0xDF)
+        {
+            gnGlobal_007273F4 = nValue;
+        }
+    }
+    if (CUNIT_HasHotkeyBinding(0x26, 0))
+    {
+        unsigned short nValue = CUNIT_GetHotkeyBinding(0x26, 0);
+        if (nValue != 0xFFFF && nValue <= 0xDF)
+        {
+            gnGlobal_00727400 = nValue;
+        }
+    }
 }
 
 // 0x004B7EB0

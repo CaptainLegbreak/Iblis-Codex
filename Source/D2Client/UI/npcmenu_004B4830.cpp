@@ -645,74 +645,6 @@ extern "C" int __fastcall sub_004AE130_GetPayloadValue(UnitView* unit)
     return data->value3c;
 }
 
-// 0x004B2E70
-int __cdecl NPCMENU_MenuBack()
-{
-    if (gnGlobal_007C0D31 == 5)
-    {
-        if (gpRes_007C0D5F)
-        {
-            DIALOG_DestroyDialog(gpRes_007C0D5F);
-            gpRes_007C0D5F = 0;
-        }
-        NPCMENU_HireMercWait();
-        return 1;
-    }
-    if (gnGlobal_007C0C6B == 4)
-    {
-        if (gpRes_007C0D5F)
-        {
-            DIALOG_DestroyDialog(gpRes_007C0D5F);
-            gpRes_007C0D5F = 0;
-        }
-        sub_004B2650(0, 0);
-        return 1;
-    }
-    sub_00466FE0();
-    D2_ASSERT(gnGlobal_007C0C6B != 4, 0x14F9);
-    return 1;
-}
-
-// 0x004B2F00
-int __cdecl NPCMENU_MenuClose()
-{
-    DIALOG_DestroyDialog(gpRes_007C0D5F);
-    gpRes_007C0D5F = 0;
-    if (gnGlobal_007C0D31 == 5)
-    {
-        sub_004B5C60_Handler();
-        return 1;
-    }
-    INV_ResetNpcButtonsFromPending();
-    gnGlobal_007C0C6B = 3;
-    sub_00466FE0();
-    return 1;
-}
-
-// 0x004B3360
-void __fastcall sub_004B3360(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwClassId == 0x13E && pUnit->dwAnimMode == 2)
-        gbFound_007C0DDA = 1;
-}
-
-// 0x004B35B0
-int __cdecl NPCMENU_OpenItemServicePanel()
-{
-    if (gpDialog_007C0D6B)
-    {
-        DIALOG_DestroyDialog(gpDialog_007C0D6B);
-        gpDialog_007C0D6B = 0;
-    }
-    sub_00455F20(8, 1, 0);
-    UI_StartUIVarDelay();
-    INV_ResetHover();
-    gnGlobal_007C0C6B = 7;
-    gnGlobal_007C0D31 = 0;
-    USEITEM_OpenNpcItemPanel(gnGlobal_007C0D25);
-    return 1;
-}
-
 // 0x004B3660
 int __cdecl NPCMENU_HireMercHandler()
 {
@@ -731,6 +663,23 @@ int __cdecl NPCMENU_HireMercHandler()
         NPCMENU_CloseTradeDialog();
     }
     return 0;
+}
+
+// 0x004B35B0
+int __cdecl NPCMENU_OpenItemServicePanel()
+{
+    if (gpDialog_007C0D6B)
+    {
+        DIALOG_DestroyDialog(gpDialog_007C0D6B);
+        gpDialog_007C0D6B = 0;
+    }
+    sub_00455F20(8, 1, 0);
+    UI_StartUIVarDelay();
+    INV_ResetHover();
+    gnGlobal_007C0C6B = 7;
+    gnGlobal_007C0D31 = 0;
+    USEITEM_OpenNpcItemPanel(gnGlobal_007C0D25);
+    return 1;
 }
 
 // 0x004B3700
@@ -766,15 +715,6 @@ void __fastcall sub_004B3C00(int nUnitId)
     if (gnGlobal_007C0D96 && gbGlobal_007C0D89 == 0 && nUnitId == gnGlobal_007C0D8E)
     {
         NPCMENU_FinishTransaction();
-    }
-}
-
-void __fastcall sub_004B1980_AddUsedString(unsigned short wStringId)
-{
-    if (gtStringList_007C0D9A.wCount < 9)
-    {
-        gtStringList_007C0D9A.awStrings[gtStringList_007C0D9A.wCount] = wStringId;
-        gtStringList_007C0D9A.wCount++;
     }
 }
 
@@ -829,6 +769,15 @@ int __cdecl NPCMENU_NextNpcMessage()
 {
     NPCMENU_ShowNpcMessage(1, gpNpcEntry_007C0C7D->nIndex);
     return 1;
+}
+
+void __fastcall sub_004B1980_AddUsedString(unsigned short wStringId)
+{
+    if (gtStringList_007C0D9A.wCount < 9)
+    {
+        gtStringList_007C0D9A.awStrings[gtStringList_007C0D9A.wCount] = wStringId;
+        gtStringList_007C0D9A.wCount++;
+    }
 }
 
 // 0x004B41E0
@@ -982,6 +931,57 @@ int __cdecl sub_004B46D0_NpcMenuCancelTextB()
     return 1;
 }
 
+// 0x004B2F00
+int __cdecl NPCMENU_MenuClose()
+{
+    DIALOG_DestroyDialog(gpRes_007C0D5F);
+    gpRes_007C0D5F = 0;
+    if (gnGlobal_007C0D31 == 5)
+    {
+        sub_004B5C60_Handler();
+        return 1;
+    }
+    INV_ResetNpcButtonsFromPending();
+    gnGlobal_007C0C6B = 3;
+    sub_00466FE0();
+    return 1;
+}
+
+// 0x004B3360
+void __fastcall sub_004B3360(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwClassId == 0x13E && pUnit->dwAnimMode == 2)
+        gbFound_007C0DDA = 1;
+}
+
+// 0x004B2E70
+int __cdecl NPCMENU_MenuBack()
+{
+    if (gnGlobal_007C0D31 == 5)
+    {
+        if (gpRes_007C0D5F)
+        {
+            DIALOG_DestroyDialog(gpRes_007C0D5F);
+            gpRes_007C0D5F = 0;
+        }
+        NPCMENU_HireMercWait();
+        return 1;
+    }
+    if (gnGlobal_007C0C6B == 4)
+    {
+        if (gpRes_007C0D5F)
+        {
+            DIALOG_DestroyDialog(gpRes_007C0D5F);
+            gpRes_007C0D5F = 0;
+        }
+        sub_004B2650(0, 0);
+        return 1;
+    }
+    sub_00466FE0();
+    D2_ASSERT(gnGlobal_007C0C6B != 4, 0x14F9);
+    return 1;
+}
+
 // 0x004B4730
 int __cdecl NPCMENU_NpcMenuTalk()
 {
@@ -1047,98 +1047,6 @@ static __forceinline int NPC_FindIndex_Inline(D2UnitStrc* pNpc)
     for(int i=0;i<gnNpcIndexCount_00725A74;++i)
         if(gaNpcIndex_00726C48[i].nId==nId)return i;
     return 0;
-}
-
-// 0x004B4830
-void __cdecl NPCMENU_BuildNpcMenu()
-{
-    if(gpDialog_007C0D6B){sub_00408A60(&gszEmptyAssertText,sub_00408090(),0xC74);exit(-1);}
-    if(!NPC_GetInteractUnit_Inline())
-    {
-        gnGlobal_007C0C6B=0;
-        INV_ResetHover();
-        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
-        sub_00455F20(8,1,0);
-        return;
-    }
-    if(gnGlobal_007C0D2D==252 || gnGlobal_007C0D2D==198 || gnGlobal_007C0D2D==515 || gnGlobal_007C0D2D==150)
-    {
-        D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
-        sub_004786D0_SendDwords3(0x38,3,gnGlobal_007C0D25,!pPlayer?-1:pPlayer->dwUnitId);
-    }
-    D2CoordStrc tCoords;
-    tCoords.nX=0;
-    tCoords.nY=0;
-    sub_004B1C80_GetNpcDialogPos(&tCoords);
-    gpDialog_007C0D6B=sub_004B7EB0_CreateDialog(tCoords.nX,tCoords.nY,sub_004B45D0_NpcMenuCancel,sub_004B4620_NpcMenuCancelB,0,0,1,0,0,0,1);
-    sub_004B8370(gpDialog_007C0D6B,1);
-    Unicode wszName[80];
-    sub_005267E0(wszName,CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
-    sub_00526800(wszName);
-    sub_004B85F0_AddTextLine(gpDialog_007C0D6B,wszName,21,0,4,1,0,0);
-    int nIndex=NPC_FindIndex_Inline(NPC_GetInteractUnit_Inline());
-    if(nIndex<0 || nIndex>=gnNpcIndexCount_00725A74)return;
-    gnGlobal_007C0C6B=1;
-    for(int i=0;i<gaNpcIndex_00726C48[nIndex].nCount-1;++i)
-    {
-        Unicode wszLine[512];
-        unsigned short nStringId=gaNpcIndex_00726C48[nIndex].awIds[i];
-        int bEnabled=1;
-        if(nStringId==0x1507)
-        {
-            const Unicode* wszHireling=D2LANG_GetStringFromTblIndex(0x2B0D);
-            if((unsigned short)gnHirelingName_00725494!=0x421)wszHireling=D2LANG_GetStringFromTblIndex((unsigned short)gnHirelingName_00725494);
-            sub_005269D0(512,wszLine,D2LANG_GetStringFromTblIndex(0x58A8),wszHireling,gnGlobal_007C0DD0);
-        }
-        else if(nStringId==0xD09)
-        {
-            int nLife=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),STAT_HITPOINTS,0);
-            if(nLife>=STATLIST_GetMaxLifeFromUnit(sub_00463DD0_GetPlayerUnit()))continue;
-            int nCost=UNITS_GetHealingCost(sub_00463DD0_GetPlayerUnit());
-            if(!nCost)nCost=1;
-            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
-            Unicode wszNumber[10] = {0,0,0,0,0,0,0,0,0,0};
-            char szNumber[12];
-            wsprintfA(szNumber,gszFormatD,nCost);
-            sub_00526F20_ToUnicode(wszNumber,szNumber,9);
-            sub_00526700(wszLine,wszNumber);
-            if(!nCost)bEnabled=0;
-        }
-        else if(nStringId==0xFB4)
-        {
-            int bCharge=0;
-            if(!QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,0) && !QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,1))bCharge=1;
-            int nCount=ITEMS_GetNoOfUnidItems(sub_00463DD0_GetPlayerUnit());
-            if(nCount)
-            {
-            gaNpcIndex_00726C48[nIndex].nCount=3;
-            if(bCharge)
-            {
-                sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(0xFB5));
-                Unicode wszNumber[10];
-                char szNumber[12];
-                nCount*=100;
-                wsprintfA(szNumber,gszFormatD,nCount);
-                sub_00526F20_ToUnicode(wszNumber,szNumber,9);
-                sub_00526700(wszLine,wszNumber);
-            }
-            else sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(0xFB4));
-            }
-            else {gaNpcIndex_00726C48[nIndex].nCount=2;continue;}
-        }
-        else if(nStringId==0x2BA0)
-        {
-            if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,0))continue;
-            if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1)!=1)
-            {
-                if(GAME_GetDifficulty()!=2 || QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1))continue;
-            }
-            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
-        }
-        else sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(nStringId));
-        sub_004B85F0_AddTextLine(gpDialog_007C0D6B,wszLine,15,0,0,1,gaNpcIndex_00726C48[nIndex].apfHandlers[i],bEnabled);
-    }
-    sub_004B85F0_AddTextLine(gpDialog_007C0D6B,D2LANG_GetStringFromTblIndex(0x102E),15,0,0,1,sub_004B45D0_NpcMenuCancel,1);
 }
 
 // 0x004B4CF0
@@ -1245,4 +1153,96 @@ int __cdecl NPCMENU_TravelToRogueEncampment()
     sub_00455F20(8, 1, 0);
     sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, 1);
     return 1;
+}
+
+// 0x004B4830
+void __cdecl NPCMENU_BuildNpcMenu()
+{
+    if(gpDialog_007C0D6B){sub_00408A60(&gszEmptyAssertText,sub_00408090(),0xC74);exit(-1);}
+    if(!NPC_GetInteractUnit_Inline())
+    {
+        gnGlobal_007C0C6B=0;
+        INV_ResetHover();
+        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+        sub_00455F20(8,1,0);
+        return;
+    }
+    if(gnGlobal_007C0D2D==252 || gnGlobal_007C0D2D==198 || gnGlobal_007C0D2D==515 || gnGlobal_007C0D2D==150)
+    {
+        D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
+        sub_004786D0_SendDwords3(0x38,3,gnGlobal_007C0D25,!pPlayer?-1:pPlayer->dwUnitId);
+    }
+    D2CoordStrc tCoords;
+    tCoords.nX=0;
+    tCoords.nY=0;
+    sub_004B1C80_GetNpcDialogPos(&tCoords);
+    gpDialog_007C0D6B=sub_004B7EB0_CreateDialog(tCoords.nX,tCoords.nY,sub_004B45D0_NpcMenuCancel,sub_004B4620_NpcMenuCancelB,0,0,1,0,0,0,1);
+    sub_004B8370(gpDialog_007C0D6B,1);
+    Unicode wszName[80];
+    sub_005267E0(wszName,CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
+    sub_00526800(wszName);
+    sub_004B85F0_AddTextLine(gpDialog_007C0D6B,wszName,21,0,4,1,0,0);
+    int nIndex=NPC_FindIndex_Inline(NPC_GetInteractUnit_Inline());
+    if(nIndex<0 || nIndex>=gnNpcIndexCount_00725A74)return;
+    gnGlobal_007C0C6B=1;
+    for(int i=0;i<gaNpcIndex_00726C48[nIndex].nCount-1;++i)
+    {
+        Unicode wszLine[512];
+        unsigned short nStringId=gaNpcIndex_00726C48[nIndex].awIds[i];
+        int bEnabled=1;
+        if(nStringId==0x1507)
+        {
+            const Unicode* wszHireling=D2LANG_GetStringFromTblIndex(0x2B0D);
+            if((unsigned short)gnHirelingName_00725494!=0x421)wszHireling=D2LANG_GetStringFromTblIndex((unsigned short)gnHirelingName_00725494);
+            sub_005269D0(512,wszLine,D2LANG_GetStringFromTblIndex(0x58A8),wszHireling,gnGlobal_007C0DD0);
+        }
+        else if(nStringId==0xD09)
+        {
+            int nLife=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),STAT_HITPOINTS,0);
+            if(nLife>=STATLIST_GetMaxLifeFromUnit(sub_00463DD0_GetPlayerUnit()))continue;
+            int nCost=UNITS_GetHealingCost(sub_00463DD0_GetPlayerUnit());
+            if(!nCost)nCost=1;
+            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
+            Unicode wszNumber[10] = {0,0,0,0,0,0,0,0,0,0};
+            char szNumber[12];
+            wsprintfA(szNumber,gszFormatD,nCost);
+            sub_00526F20_ToUnicode(wszNumber,szNumber,9);
+            sub_00526700(wszLine,wszNumber);
+            if(!nCost)bEnabled=0;
+        }
+        else if(nStringId==0xFB4)
+        {
+            int bCharge=0;
+            if(!QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,0) && !QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,1))bCharge=1;
+            int nCount=ITEMS_GetNoOfUnidItems(sub_00463DD0_GetPlayerUnit());
+            if(nCount)
+            {
+            gaNpcIndex_00726C48[nIndex].nCount=3;
+            if(bCharge)
+            {
+                sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(0xFB5));
+                Unicode wszNumber[10];
+                char szNumber[12];
+                nCount*=100;
+                wsprintfA(szNumber,gszFormatD,nCount);
+                sub_00526F20_ToUnicode(wszNumber,szNumber,9);
+                sub_00526700(wszLine,wszNumber);
+            }
+            else sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(0xFB4));
+            }
+            else {gaNpcIndex_00726C48[nIndex].nCount=2;continue;}
+        }
+        else if(nStringId==0x2BA0)
+        {
+            if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,0))continue;
+            if(QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1)!=1)
+            {
+                if(GAME_GetDifficulty()!=2 || QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,41,1))continue;
+            }
+            sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
+        }
+        else sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(nStringId));
+        sub_004B85F0_AddTextLine(gpDialog_007C0D6B,wszLine,15,0,0,1,gaNpcIndex_00726C48[nIndex].apfHandlers[i],bEnabled);
+    }
+    sub_004B85F0_AddTextLine(gpDialog_007C0D6B,D2LANG_GetStringFromTblIndex(0x102E),15,0,0,1,sub_004B45D0_NpcMenuCancel,1);
 }

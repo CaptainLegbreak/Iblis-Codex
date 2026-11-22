@@ -377,6 +377,19 @@ int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSiz
     return nResult;
 }
 
+// 0x00621780
+void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed)
+{
+    nSpeed = nSpeed > 0 ? nSpeed : 0;
+    pUnit->wAnimSpeed = nSpeed < 0x7FFF ? nSpeed : 0x7FFF;
+}
+
+// 0x006260F0
+void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel)
+{
+    pStatList->dwSLvl = nSkillLevel;
+}
+
 // 0x00611DC0
 void __fastcall DATATBLS_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag)
 {
@@ -391,37 +404,6 @@ void __fastcall DATATBLS_BuildStateListByFlag(short** ppList, short* pnCount, in
             (*ppList)[*pnCount] = i;
             ++*pnCount;
         }
-    }
-}
-
-// 0x00611E60
-void __fastcall DATATBLS_BuildStateListByField(short** ppList, short* pnCount, int nFieldOffset)
-{
-    *ppList = (short*)FOG_AllocPool(0, sizeof(short) * gnStatesTxtRecordCount, ".\\DATATBLS\\DataTbls.cpp", 1634, 0);
-    memset(*ppList, 0, sizeof(short) * gnStatesTxtRecordCount);
-    D2StatesTxt* pStatesTxt = gpStatesTxt;
-    *pnCount = 0;
-    for (int i = 0; i < gnStatesTxtRecordCount; ++i)
-    {
-        if (*(short*)((char*)&pStatesTxt[i] + nFieldOffset) > 0)
-        {
-            (*ppList)[*pnCount] = i;
-            ++*pnCount;
-        }
-    }
-}
-
-// 0x006121F0
-void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsigned int nBufferSize, int nRecordCount)
-{
-    char szFilePath[260];
-    wsprintfA(szFilePath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, szFileName);
-    _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
-    if (pFile)
-    {
-        fwrite(&nRecordCount, sizeof(nRecordCount), 1, pFile);
-        fwrite(pWriteBuffer, nBufferSize, 1, pFile);
-        fclose(pFile);
     }
 }
 
@@ -506,6 +488,27 @@ void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOff
     *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillDescCode_0096BC7C, &gnSkillDescCodeSize_0096BC80, &gnSkillDescCodeSizeEx_0096BC84, pBuffer, nBufferSize);
 }
 
+// 0x00613E90
+void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx)
+{
+    int nSize;
+    char szFilePath[0x104];
+    if (gbCompileTxt && *ppFileHandle)
+    {
+        wsprintfA(szFilePath, "%s\\%s.bin", gszExcelDirectory_006D8ED4, szFile);
+        _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
+        if (pFile)
+        {
+            fwrite(*ppFileHandle, *pSize, 1, pFile);
+            fclose(pFile);
+        }
+        FOG_FreePool(0, *ppFileHandle, ".\\DATATBLS\\DataTbls.cpp", 0x275, 0);
+    }
+    *ppFileHandle = DATATBLS_ReadExcelFile(hArchive, szFile, szBinExtension_006DCC68, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
+    *pSizeEx = nSize;
+    *pSize = nSize;
+}
+
 // 0x00611930
 int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey)
 {
@@ -543,13 +546,13 @@ int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey)
     }
 }
 
+D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
+
 // 0x006119E0
 int __fastcall DATATBLS_GetSkillsCalcParamCount(int nValue)
 {
     return (nValue == 6) + 2;
 }
-
-D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
 
 // 0x00611760
 static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
@@ -584,6 +587,20 @@ static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
         return;
     }
     szCode[3] = szText[3];
+}
+
+D2DifficultyLevelsTxt* gpDifficultylevelsTxt; // 0x0096C8AC
+
+D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
 }
 
 // 0x006119F0
@@ -675,20 +692,6 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
     return nIndex;
 }
 
-D2DifficultyLevelsTxt* gpDifficultylevelsTxt; // 0x0096C8AC
-
-D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
-
-inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
-
 // 0x00611D30
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty)
 {
@@ -730,13 +733,6 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
         }
         return 0;
     }
-}
-
-// 0x00621780
-void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed)
-{
-    nSpeed = nSpeed > 0 ? nSpeed : 0;
-    pUnit->wAnimSpeed = nSpeed < 0x7FFF ? nSpeed : 0x7FFF;
 }
 
 // 0x006219F0
@@ -805,12 +801,6 @@ void __stdcall STATLIST_SetSkillId(D2StatListStrc* pStatList, int nSkillId)
     pStatList->dwSkillNo = nSkillId;
 }
 
-// 0x006260F0
-void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel)
-{
-    pStatList->dwSLvl = nSkillLevel;
-}
-
 // 0x00640E90
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
 {
@@ -829,6 +819,17 @@ int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     }
 
     return 0;
+}
+
+// 0x00611D60
+void __fastcall DATATBLS_BuildStateMask(unsigned int* pMask, int nFlag)
+{
+    D2StatesTxt* pStatesTxt = gpStatesTxt;
+    for (int i = 0; i < gnStatesTxtRecordCount; ++i)
+    {
+        if (pStatesTxt[i].nStateFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7])
+            pMask[i >> 5] |= gdwBitMasks[i & 0x1F];
+    }
 }
 
 D2StatesTxt* gpStatesTxt; // 0x0096BCEC
@@ -858,38 +859,6 @@ static void DATATBLS_UnloadBinInline(void* pBinFile)
         else
             FOG_FreePool(0, pBinFile, ".\\DATATBLS\\DataTbls.cpp", 0x926, 0);
     }
-}
-
-// 0x00611D60
-void __fastcall DATATBLS_BuildStateMask(unsigned int* pMask, int nFlag)
-{
-    D2StatesTxt* pStatesTxt = gpStatesTxt;
-    for (int i = 0; i < gnStatesTxtRecordCount; ++i)
-    {
-        if (pStatesTxt[i].nStateFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7])
-            pMask[i >> 5] |= gdwBitMasks[i & 0x1F];
-    }
-}
-
-// 0x00613E90
-void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx)
-{
-    int nSize;
-    char szFilePath[0x104];
-    if (gbCompileTxt && *ppFileHandle)
-    {
-        wsprintfA(szFilePath, "%s\\%s.bin", gszExcelDirectory_006D8ED4, szFile);
-        _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
-        if (pFile)
-        {
-            fwrite(*ppFileHandle, *pSize, 1, pFile);
-            fclose(pFile);
-        }
-        FOG_FreePool(0, *ppFileHandle, ".\\DATATBLS\\DataTbls.cpp", 0x275, 0);
-    }
-    *ppFileHandle = DATATBLS_ReadExcelFile(hArchive, szFile, szBinExtension_006DCC68, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
-    *pSizeEx = nSize;
-    *pSize = nSize;
 }
 
 // 0x00617C30
@@ -932,6 +901,37 @@ void __fastcall DATATBLS_UnloadSkills_SkillDescTxt()
     DATATBLS_UnloadBinInline(gpSkillDescTxt_0096C7BC);
     FOG_FreeLinker(gpSkillDescLinker_0096C7C0);
     gnSkillDescTxtRecordCount_0096C7C4 = 0;
+}
+
+// 0x00611E60
+void __fastcall DATATBLS_BuildStateListByField(short** ppList, short* pnCount, int nFieldOffset)
+{
+    *ppList = (short*)FOG_AllocPool(0, sizeof(short) * gnStatesTxtRecordCount, ".\\DATATBLS\\DataTbls.cpp", 1634, 0);
+    memset(*ppList, 0, sizeof(short) * gnStatesTxtRecordCount);
+    D2StatesTxt* pStatesTxt = gpStatesTxt;
+    *pnCount = 0;
+    for (int i = 0; i < gnStatesTxtRecordCount; ++i)
+    {
+        if (*(short*)((char*)&pStatesTxt[i] + nFieldOffset) > 0)
+        {
+            (*ppList)[*pnCount] = i;
+            ++*pnCount;
+        }
+    }
+}
+
+// 0x006121F0
+void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsigned int nBufferSize, int nRecordCount)
+{
+    char szFilePath[260];
+    wsprintfA(szFilePath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, szFileName);
+    _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
+    if (pFile)
+    {
+        fwrite(&nRecordCount, sizeof(nRecordCount), 1, pFile);
+        fwrite(pWriteBuffer, nBufferSize, 1, pFile);
+        fclose(pFile);
+    }
 }
 
 // 0x00618C90

@@ -126,6 +126,16 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg)
     return SEvtBreakHandlerChain(pMsg);
 }
 
+// 0x00420320
+int __stdcall sub_00420320_RegisterHandlers(void* pContext)
+{
+    sub_004269C0_RegisterHandler(0x534D5348, pContext);
+    sub_004269C0_RegisterHandler(0x534D5349, pContext);
+    sub_004269C0_RegisterHandler(0x534D534A, pContext);
+    sub_004269C0_RegisterHandler(0x534D5347, pContext);
+    return 1;
+}
+
 // 0x00420360
 int __stdcall SMsgPushRegisterState(int nType)
 {
@@ -225,14 +235,4 @@ int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned in
 int __cdecl sub_00420310()
 {
     return gdwGlobal_007792F4;
-}
-
-// 0x00420320
-int __stdcall sub_00420320_RegisterHandlers(void* pContext)
-{
-    sub_004269C0_RegisterHandler(0x534D5348, pContext);
-    sub_004269C0_RegisterHandler(0x534D5349, pContext);
-    sub_004269C0_RegisterHandler(0x534D534A, pContext);
-    sub_004269C0_RegisterHandler(0x534D5347, pContext);
-    return 1;
 }

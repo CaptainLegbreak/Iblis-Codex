@@ -220,26 +220,46 @@ int __stdcall D2GFX_ReturnFalse(int nArg1, int nArg2, int nArg3)
     return 0;
 }
 
-// 0x004F5160
-int __stdcall D2GFX_GetResolutionMode()
+// 0x004F7E70
+void __cdecl CMNSUBTILE_BuildLineOffsets()
 {
-    return gnResolutionMode;
+    int nValue = -32 * gnScreenPitch_007D544C;
+    for (int i = 0; i < 732; ++i)
+    {
+        gnRowOffsets_007C97A8[i] = nValue;
+        nValue += gnScreenPitch_007D544C;
+    }
 }
 
-// 0x004F51C0
-int __cdecl D2GFX_IsHardwareRenderMode()
+// 0x004F8E40
+void __fastcall CMNSUBTILE_SetPaletteTables(D2PaletteTableStrc* pPaletteTables)
 {
-    return gnDisplayType >= 4;
+    gPaletteTables_007D5458 = *pPaletteTables;
+    gpPaletteTables_007D5578 = &gPaletteTables_007D5458;
+    for (int i = 0; i < 49; ++i)
+    {
+        gLightPalettes_007D2348[i] = *(D2PaletteStrc*)gPaletteTables_007D5458.pShadowLightGammaPalettes[i];
+    }
 }
 
-// 0x004F51D0
-int __stdcall D2GFX_CheckPerspective()
+// 0x004F52B0
+int __fastcall D2GFX_SetOption(int nOption, int nValue)
 {
-    return gGfxSettings.bPerspectiveCapable != 0 ? gGfxSettings.bPerspectiveEnabled : 0;
+    return gpGraphicsInterface->pfSetOption(nOption, nValue);
 }
 
 // build: symbol ?$S1@?1??D2GFX_EndScene@@YGHXZ@4IA 0x007C9370
 // build: symbol ?sdLastFrame@?1??D2GFX_EndScene@@YGHXZ@4NA 0x007C9368
+// 0x004F52C0
+void __cdecl sub_004F52C0_Empty()
+{
+}
+
+// 0x004F52D0
+void __cdecl sub_004F52D0_Empty()
+{
+}
+
 // 0x004F51E0
 void __stdcall D2GFX_SetPerspective(int bPerspective)
 {
@@ -256,6 +276,24 @@ void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows)
 void __stdcall D2GFX_SetLowQuality(int bLowQuality)
 {
     gGfxSettings.bLowQuality = bLowQuality;
+}
+
+// 0x004F5160
+int __stdcall D2GFX_GetResolutionMode()
+{
+    return gnResolutionMode;
+}
+
+// 0x004F51C0
+int __cdecl D2GFX_IsHardwareRenderMode()
+{
+    return gnDisplayType >= 4;
+}
+
+// 0x004F51D0
+int __stdcall D2GFX_CheckPerspective()
+{
+    return gGfxSettings.bPerspectiveCapable != 0 ? gGfxSettings.bPerspectiveEnabled : 0;
 }
 
 // 0x004F5230
@@ -287,34 +325,6 @@ void __cdecl D2GFX_DisableFixedAspectRatio()
     gdwGlobal_0072DA7C = 0;
 }
 
-// 0x004F5290
-D2CacheStatsStrc* __cdecl D2GFX_GetCacheResults()
-{
-    return gpGraphicsInterface->pfGetCacheResults();
-}
-
-// 0x004F52A0
-void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset)
-{
-    gnViewMatrixAdjust_007C8CC4 = nOffset;
-}
-
-// 0x004F52B0
-int __fastcall D2GFX_SetOption(int nOption, int nValue)
-{
-    return gpGraphicsInterface->pfSetOption(nOption, nValue);
-}
-
-// 0x004F52C0
-void __cdecl sub_004F52C0_Empty()
-{
-}
-
-// 0x004F52D0
-void __cdecl sub_004F52D0_Empty()
-{
-}
-
 int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
 {
     if (!gapGraphicsInterfaces_0072DA80[nMode])
@@ -324,6 +334,31 @@ int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
     }
     gpGraphicsInterface = gapGraphicsInterfaces_0072DA80[nMode];
     return 1;
+}
+
+// 0x004F7CC0
+extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache()
+{
+    for (int i = 0; i < 32; ++i)
+    {
+        for (int j = 0; j < 32; ++j)
+        {
+            int nValue = i << 24;
+            const int nStep = ((j - i) << 24) >> 5;
+            for (int k = 0; k < 32; ++k)
+            {
+                nValue = nValue > 0 ? nValue : 0;
+                if (nValue >= 0x1F000000)
+                {
+                    nValue = 0x1F000000;
+                }
+                gLightCube_007CA320[i][j][k] = nValue >> 24;
+                nValue += nStep;
+            }
+
+            D2_ASSERT((nValue >> 24) == j, 0x285);
+        }
+    }
 }
 
 // 0x004F52E0
@@ -422,6 +457,78 @@ void __cdecl WINDOW_ShowSystemCursor()
         while (ShowCursor(1) < 0);
         gbCursorDisplayed = 1;
     }
+}
+
+// 0x004F5290
+D2CacheStatsStrc* __cdecl D2GFX_GetCacheResults()
+{
+    return gpGraphicsInterface->pfGetCacheResults();
+}
+
+// 0x004F52A0
+void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset)
+{
+    gnViewMatrixAdjust_007C8CC4 = nOffset;
+}
+
+// 0x004F6300
+void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode)
+{
+    if (nXEnd >= nXStart && nYEnd >= nYStart)
+    {
+        gpGraphicsInterface->pfDrawBox(nXStart, nYStart, nXEnd, nYEnd, dwColor, eDrawMode);
+    }
+}
+
+// 0x004F6340
+void __stdcall D2GFX_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
+{
+    if (nXEnd >= nXStart && nYEnd >= nYStart)
+    {
+        gpGraphicsInterface->pfDrawBoxAlpha(nXStart, nYStart, nXEnd, nYEnd, dwColor, nAlpha);
+    }
+}
+
+// 0x004F6380
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
+{
+    gpGraphicsInterface->pfDrawLine(nXStart, nYStart, nXEnd, nYEnd, dwColor, nAlpha);
+}
+
+// 0x004F63B0
+void __stdcall D2GFX_ClearScreen(int bPartial)
+{
+    return gpGraphicsInterface->pfClearScreen(bPartial);
+}
+
+// 0x004F63D0
+__declspec(noinline) void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette)
+{
+    if (pPalette)
+    {
+        memcpy(gpPalette_6FA8D278, pPalette, sizeof(gpPalette_6FA8D278));
+        gpGraphicsInterface->pfSetPalette(pPalette);
+    }
+    else
+    {
+        gpGraphicsInterface->pfSetPalette(gpPalette_6FA8D278);
+    }
+}
+
+// 0x004F6410
+void __stdcall D2GFX_SetPaletteTables(D2PaletteTableStrc* pPaletteTables)
+{
+    gpGraphicsInterface->pfSetPaletteTables(pPaletteTables);
+    CMNSUBTILE_SetPaletteTables(pPaletteTables);
+}
+
+// 0x004F6830
+void __stdcall SCALE_SetDefaultFactorPerspectiveFactor()
+{
+    D2_ASSERT(gnDisplayType == DISPLAYTYPE_GLIDE || gnDisplayType == DISPLAYTYPE_OPENGL || gnDisplayType == DISPLAYTYPE_RAVE || gnDisplayType == DISPLAYTYPE_DIRECT3D, 0xA8);
+    D2_ASSERT(gGfxSettings.bPerspectiveEnabled, 0xA9);
+
+    return gpGraphicsInterface->pfPerspectiveClearScale();
 }
 
 // 0x004F5570
@@ -594,6 +701,13 @@ void __stdcall WINDOW_SetPaused(int bPaused)
     gbPaused_6FA8D84C = bPaused;
 }
 
+// 0x004F6070
+int __stdcall WINDOW_GetState()
+{
+    WINDOW_UpdatePauseState();
+    return gbWindowState_6FA8D850;
+}
+
 // 0x004F59B0
 int __stdcall WINDOW_GetDimensions(int* pWidth, int* pHeight)
 {
@@ -736,6 +850,105 @@ void __stdcall WINDOW_PlayCutscene()
     gpGraphicsInterface->pfPlayCutscene();
 }
 
+// 0x004F6080
+void __stdcall WINDOW_EndCutScene(int nResolution)
+{
+    D2_ASSERT(gpGraphicsInterface, 697);
+
+    WINDOW_UpdatePauseState();
+
+    if (gbWindowState_6FA8D850)
+    {
+        gnResolutionMode = nResolution;
+    }
+    else if (!WINDOW_Resize(nResolution, 1))
+    {
+        sub_00410610_WriteLogLine("Failed to resize window after cutscenes... this is fatal!");
+        exit(-1);
+    }
+
+    D2GFX_SetPalette(0);
+}
+
+// 0x004F60F0
+int __stdcall D2GFX_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+{
+    return gpGraphicsInterface->pfStartDraw(bClear, nRed, nGreen, nBlue);
+}
+
+// 0x004F6190
+int __stdcall D2GFX_EndScene()
+{
+    static double sdLastFrame = sub_004F6130_GetElapsedMs();
+
+    const double dNow = sub_004F6130_GetElapsedMs();
+    const double dElapsed = dNow - sdLastFrame;
+    if (dElapsed <= 5.0)
+    {
+        const double dWait = 5.0 - dElapsed + gdFrameRemainder_007C9360;
+        const int nWait = (int)dWait;
+        const double dWaitWhole = nWait;
+        gdFrameRemainder_007C9360 = dWait - dWaitWhole;
+        if (nWait > 0)
+        {
+            if (nWait <= 5)
+            {
+                Sleep(nWait);
+                gdFrameRemainder_007C9360 = gdFrameRemainder_007C9360 - (sub_004F6130_GetElapsedMs() - dNow - dWaitWhole);
+            }
+            else
+            {
+                gdFrameRemainder_007C9360 = 0.0;
+            }
+        }
+        else
+        {
+            gdFrameRemainder_007C9360 = 0.0;
+        }
+    }
+
+    sdLastFrame = sub_004F6130_GetElapsedMs();
+    gpGraphicsInterface->pfEndDraw();
+    gpGraphicsInterface->pfBlit();
+    return 1;
+}
+
+// 0x004F6250
+int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer)
+{
+    return gpGraphicsInterface->pfGetBackBuffer(pBuffer);
+}
+
+// 0x004F6270
+int __stdcall D2GFX_HardwareAcceleratedRenderMode()
+{
+    return gnDisplayType >= DISPLAYTYPE_GLIDE;
+}
+
+// 0x004F6280
+void __stdcall D2GFX_UtilDiamond(tagRECT* pRect, unsigned char nPaletteIndex)
+{
+    return gpGraphicsInterface->pfUtilDiamond(pRect, nPaletteIndex);
+}
+
+// 0x004F62A0
+void __stdcall D2GFX_UtilRect(tagRECT* pRect, unsigned char nPaletteIndex)
+{
+    return gpGraphicsInterface->pfUtilRect(pRect, nPaletteIndex);
+}
+
+// 0x004F62C0
+void __stdcall D2GFX_UtilFilledRect(tagRECT* pRect, unsigned char nPaletteIndex)
+{
+    return gpGraphicsInterface->pfUtilFilledRect(pRect, nPaletteIndex);
+}
+
+// 0x004F62E0
+void __stdcall D2GFX_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
+{
+    return gpGraphicsInterface->pfUtilPoint(pPoint, nSize, nPaletteIndex);
+}
+
 // 0x004F5D90
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame)
 {
@@ -860,219 +1073,6 @@ void __cdecl WINDOW_UpdatePauseState()
     {
         D2GFX_SetPalette(0);
         sub_004F8EA0();
-    }
-}
-
-// 0x004F6070
-int __stdcall WINDOW_GetState()
-{
-    WINDOW_UpdatePauseState();
-    return gbWindowState_6FA8D850;
-}
-
-// 0x004F6080
-void __stdcall WINDOW_EndCutScene(int nResolution)
-{
-    D2_ASSERT(gpGraphicsInterface, 697);
-
-    WINDOW_UpdatePauseState();
-
-    if (gbWindowState_6FA8D850)
-    {
-        gnResolutionMode = nResolution;
-    }
-    else if (!WINDOW_Resize(nResolution, 1))
-    {
-        sub_00410610_WriteLogLine("Failed to resize window after cutscenes... this is fatal!");
-        exit(-1);
-    }
-
-    D2GFX_SetPalette(0);
-}
-
-// 0x004F60F0
-int __stdcall D2GFX_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
-{
-    return gpGraphicsInterface->pfStartDraw(bClear, nRed, nGreen, nBlue);
-}
-
-// 0x004F6190
-int __stdcall D2GFX_EndScene()
-{
-    static double sdLastFrame = sub_004F6130_GetElapsedMs();
-
-    const double dNow = sub_004F6130_GetElapsedMs();
-    const double dElapsed = dNow - sdLastFrame;
-    if (dElapsed <= 5.0)
-    {
-        const double dWait = 5.0 - dElapsed + gdFrameRemainder_007C9360;
-        const int nWait = (int)dWait;
-        const double dWaitWhole = nWait;
-        gdFrameRemainder_007C9360 = dWait - dWaitWhole;
-        if (nWait > 0)
-        {
-            if (nWait <= 5)
-            {
-                Sleep(nWait);
-                gdFrameRemainder_007C9360 = gdFrameRemainder_007C9360 - (sub_004F6130_GetElapsedMs() - dNow - dWaitWhole);
-            }
-            else
-            {
-                gdFrameRemainder_007C9360 = 0.0;
-            }
-        }
-        else
-        {
-            gdFrameRemainder_007C9360 = 0.0;
-        }
-    }
-
-    sdLastFrame = sub_004F6130_GetElapsedMs();
-    gpGraphicsInterface->pfEndDraw();
-    gpGraphicsInterface->pfBlit();
-    return 1;
-}
-
-// 0x004F6250
-int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer)
-{
-    return gpGraphicsInterface->pfGetBackBuffer(pBuffer);
-}
-
-// 0x004F6270
-int __stdcall D2GFX_HardwareAcceleratedRenderMode()
-{
-    return gnDisplayType >= DISPLAYTYPE_GLIDE;
-}
-
-// 0x004F6280
-void __stdcall D2GFX_UtilDiamond(tagRECT* pRect, unsigned char nPaletteIndex)
-{
-    return gpGraphicsInterface->pfUtilDiamond(pRect, nPaletteIndex);
-}
-
-// 0x004F62A0
-void __stdcall D2GFX_UtilRect(tagRECT* pRect, unsigned char nPaletteIndex)
-{
-    return gpGraphicsInterface->pfUtilRect(pRect, nPaletteIndex);
-}
-
-// 0x004F62C0
-void __stdcall D2GFX_UtilFilledRect(tagRECT* pRect, unsigned char nPaletteIndex)
-{
-    return gpGraphicsInterface->pfUtilFilledRect(pRect, nPaletteIndex);
-}
-
-// 0x004F62E0
-void __stdcall D2GFX_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
-{
-    return gpGraphicsInterface->pfUtilPoint(pPoint, nSize, nPaletteIndex);
-}
-
-// 0x004F6300
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode)
-{
-    if (nXEnd >= nXStart && nYEnd >= nYStart)
-    {
-        gpGraphicsInterface->pfDrawBox(nXStart, nYStart, nXEnd, nYEnd, dwColor, eDrawMode);
-    }
-}
-
-// 0x004F6340
-void __stdcall D2GFX_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
-{
-    if (nXEnd >= nXStart && nYEnd >= nYStart)
-    {
-        gpGraphicsInterface->pfDrawBoxAlpha(nXStart, nYStart, nXEnd, nYEnd, dwColor, nAlpha);
-    }
-}
-
-// 0x004F6380
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
-{
-    gpGraphicsInterface->pfDrawLine(nXStart, nYStart, nXEnd, nYEnd, dwColor, nAlpha);
-}
-
-// 0x004F63B0
-void __stdcall D2GFX_ClearScreen(int bPartial)
-{
-    return gpGraphicsInterface->pfClearScreen(bPartial);
-}
-
-// 0x004F63D0
-__declspec(noinline) void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette)
-{
-    if (pPalette)
-    {
-        memcpy(gpPalette_6FA8D278, pPalette, sizeof(gpPalette_6FA8D278));
-        gpGraphicsInterface->pfSetPalette(pPalette);
-    }
-    else
-    {
-        gpGraphicsInterface->pfSetPalette(gpPalette_6FA8D278);
-    }
-}
-
-// 0x004F6410
-void __stdcall D2GFX_SetPaletteTables(D2PaletteTableStrc* pPaletteTables)
-{
-    gpGraphicsInterface->pfSetPaletteTables(pPaletteTables);
-    CMNSUBTILE_SetPaletteTables(pPaletteTables);
-}
-
-// 0x004F6830
-void __stdcall SCALE_SetDefaultFactorPerspectiveFactor()
-{
-    D2_ASSERT(gnDisplayType == DISPLAYTYPE_GLIDE || gnDisplayType == DISPLAYTYPE_OPENGL || gnDisplayType == DISPLAYTYPE_RAVE || gnDisplayType == DISPLAYTYPE_DIRECT3D, 0xA8);
-    D2_ASSERT(gGfxSettings.bPerspectiveEnabled, 0xA9);
-
-    return gpGraphicsInterface->pfPerspectiveClearScale();
-}
-
-// 0x004F7CC0
-extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache()
-{
-    for (int i = 0; i < 32; ++i)
-    {
-        for (int j = 0; j < 32; ++j)
-        {
-            int nValue = i << 24;
-            const int nStep = ((j - i) << 24) >> 5;
-            for (int k = 0; k < 32; ++k)
-            {
-                nValue = nValue > 0 ? nValue : 0;
-                if (nValue >= 0x1F000000)
-                {
-                    nValue = 0x1F000000;
-                }
-                gLightCube_007CA320[i][j][k] = nValue >> 24;
-                nValue += nStep;
-            }
-
-            D2_ASSERT((nValue >> 24) == j, 0x285);
-        }
-    }
-}
-
-// 0x004F7E70
-void __cdecl CMNSUBTILE_BuildLineOffsets()
-{
-    int nValue = -32 * gnScreenPitch_007D544C;
-    for (int i = 0; i < 732; ++i)
-    {
-        gnRowOffsets_007C97A8[i] = nValue;
-        nValue += gnScreenPitch_007D544C;
-    }
-}
-
-// 0x004F8E40
-void __fastcall CMNSUBTILE_SetPaletteTables(D2PaletteTableStrc* pPaletteTables)
-{
-    gPaletteTables_007D5458 = *pPaletteTables;
-    gpPaletteTables_007D5578 = &gPaletteTables_007D5458;
-    for (int i = 0; i < 49; ++i)
-    {
-        gLightPalettes_007D2348[i] = *(D2PaletteStrc*)gPaletteTables_007D5458.pShadowLightGammaPalettes[i];
     }
 }
 

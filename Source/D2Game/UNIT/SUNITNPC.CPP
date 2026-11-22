@@ -1595,35 +1595,6 @@ void __fastcall SUNITNPC_UpdateHirelingPosition(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
-// 0x00577470
-int __fastcall SUNITNPC_RelinkItemStatLists(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    if (!pUnit->pInventory)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pNext;
-    for (D2UnitStrc* pCurrent = INVENTORY_GetFirstItem(pUnit->pInventory); pCurrent; pCurrent = pNext)
-    {
-        pNext = INVENTORY_GetNextItem(pCurrent);
-        D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCurrent);
-        int bStatNotDynamic = 0;
-        if (pItem && pItem->dwUnitType == UNIT_ITEM && STATLIST_GetOwner(pItem, &bStatNotDynamic))
-        {
-            STATLIST_ExpireUnitStatlist(pUnit, pItem);
-            STATLIST_MergeStatLists(pUnit, pItem, bStatNotDynamic);
-        }
-    }
-
-    return 1;
-}
-
 // 0x005774F0
 D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short wName, int nSeed, unsigned short wVersion, int nBaseMonster, int bDead)
 {
@@ -1754,6 +1725,22 @@ D2UnitStrc* __fastcall SUNITNPC_FindStackForStorePurchase(D2GameStrc* pGame, D2U
 
     *a4 = nMaxStack;
     return 0;
+}
+
+// 0x00577F30
+int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nNpcUnitId, int nItemId, int nItemMode, int nTransactionType, int nCost, int bMultibuy)
+{
+    D2_ASSERT(ptGame, 2372);
+
+    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(ptGame, pPlayer);
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(ptGame, UNIT_MONSTER, nNpcUnitId);
+    if (pNpc && pInteractUnit == pNpc)
+    {
+        return SUNITNPC_BuyItem(ptGame, pPlayer, pNpc, nItemId, nItemMode, nTransactionType, nCost, bMultibuy);
+    }
+
+    D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2380), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
+    return 1;
 }
 
 D2UnitStrc* __fastcall sub_00577700_FindStack(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int* a4)
@@ -1957,20 +1944,50 @@ failed:
     return 1;
 }
 
-// 0x00577F30
-int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nNpcUnitId, int nItemId, int nItemMode, int nTransactionType, int nCost, int bMultibuy)
+// 0x00579C00
+void __fastcall D2GAME_NPC_ResurrectMerc_6FCC9350(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId)
 {
-    D2_ASSERT(ptGame, 2372);
-
-    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(ptGame, pPlayer);
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(ptGame, UNIT_MONSTER, nNpcUnitId);
-    if (pNpc && pInteractUnit == pNpc)
+    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pGame, pPlayer);
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, nNpcUnitId);
+    if (!pNpc || pInteractUnit != pNpc)
     {
-        return SUNITNPC_BuyItem(ptGame, pPlayer, pNpc, nItemId, nItemMode, nTransactionType, nCost, bMultibuy);
+        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2397), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
+        return;
     }
 
-    D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2380), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
-    return 1;
+    switch ((unsigned int)pNpc->dwClassId)
+    {
+    case 150:
+    case 198:
+    case 252:
+    case 367:
+    case 515:
+        break;
+    default:
+        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2412), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
+        return;
+    }
+
+    D2UnitStrc* pHireling = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
+    if (!pHireling)
+    {
+        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2419), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
+        return;
+    }
+
+    if (!SUNITNPC_SpendGold(pGame, pPlayer, MONSTERS_GetHirelingResurrectionCost(pHireling)))
+    {
+        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2452), 0x2A, 12, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
+        return;
+    }
+
+    pHireling->dwFlags &= 0xFFFEFFFF;
+    UNITS_ChangeAnimMode(pHireling, 1);
+    STATLIST_SetUnitStat(pHireling, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pHireling), 0);
+    SUNITNPC_ResurrectHireling(pGame, pPlayer, pHireling);
+    D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszNpcSourceFile, 2461), 0xFFFF, 0);
+    const int nHirelingGUID = pHireling->dwUnitId;
+    D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2462), 0x2A, 5, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), nHirelingGUID, 0);
 }
 
 // 0x00577FE0
@@ -2347,73 +2364,6 @@ int __stdcall sub_M452_Emit_00578610(D2UnitStrc* pUnit, unsigned int nGUID)
     return SUNITNPC_IsCursorItem(nGUID, pUnit) + 7;
 }
 
-// 0x00578AE0
-void __fastcall SUNITNPC_FillGambleIfMissing(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer, D2NpcRecordStrc* pNpcRecord)
-{
-    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
-    int bHasGamble = 0;
-    for (D2NpcGambleStrc* pNpcGamble = pNpcRecord->pGamble; pNpcGamble; pNpcGamble = pNpcGamble->pNext)
-    {
-        if (pNpcGamble->dwGUID == nPlayerGUID)
-        {
-            bHasGamble = 1;
-        }
-    }
-
-    if (!bHasGamble)
-    {
-        D2GAME_STORES_FillGamble_6FCCA9F0(pGame, pNpc, pPlayer, pNpcRecord);
-    }
-}
-
-// 0x00578B30
-void __fastcall D2GAME_STORES_CreateVendorCache_6FCCAE20(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble)
-{
-    if (!pNpc)
-    {
-        return;
-    }
-
-    const int nNpcClassId = pNpc->dwClassId;
-    int nUnused;
-    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
-    if (!pNpcRecord)
-    {
-        return;
-    }
-
-    if (bGamble)
-    {
-        if (pNpcRecord->bGambleInit)
-        {
-            SUNITPROXY_GetVendorChain(pGame, pNpcRecord, pPlayer)->bGamble = 1;
-            SUNITNPC_FillGambleIfMissing(pGame, pNpc, pPlayer, pNpcRecord);
-        }
-    }
-    else
-    {
-        D2NpcTradeDataStrc* pTrade = &pNpcRecord->tTrade;
-        if (pTrade && pTrade->bTrader)
-        {
-            SUNITPROXY_GetVendorChain(pGame, pNpcRecord, pPlayer)->bGamble = 0;
-            if (!pTrade->bVendorInit)
-            {
-                D2GAME_NPC_FillStoreInventory_6FCC7100(pGame, pPlayer, pNpc, pTrade);
-                pTrade->bVendorInit = 1;
-            }
-
-            if (!pTrade->bHireInit)
-            {
-                if (nNpcClassId == MONSTER_KASHYA || nNpcClassId == MONSTER_QUAL_KEHK || nNpcClassId == MONSTER_GREIZ || nNpcClassId == MONSTER_ASHEARA)
-                {
-                    SUNITNPC_InitializeHirelingRoster(pGame, nNpcClassId, pNpcRecord);
-                }
-                pTrade->bHireInit = 1;
-            }
-        }
-    }
-}
-
 // 0x00578C20
 int __fastcall D2GAME_NPC_RemoveStates_6FCCAF30(D2UnitStrc* pUnit)
 {
@@ -2612,71 +2562,6 @@ int __fastcall SUNITNPC_RollTraderItems(D2GameStrc* pGame, D2UnitStrc* pNpc, int
     return 0;
 }
 
-int __stdcall sub_J17_Emit_005786A0(D2GameStrc* pGame, int nItemLevel, int nItemId, int nUberChance, int nUltraChance)
-{
-    return SUNITNPC_RollGambleUpgrade(nItemId, nUberChance, nUltraChance, pGame, nItemLevel);
-}
-
-static inline D2NpcTradeDataStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcRecord)
-{
-    if (pNpcRecord)
-    {
-        return &pNpcRecord->tTrade;
-    }
-
-    return 0;
-}
-
-// 0x00579090
-void __fastcall SUNITNPC_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    if (!gnNpcGUID_0088CAC4)
-    {
-        return;
-    }
-
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, gnNpcGUID_0088CAC4);
-    if (!pNpc)
-    {
-        return;
-    }
-
-    int bHasInteractUnit;
-    if (pNpc->dwUnitType == UNIT_MONSTER && pNpc->pMonsterData)
-    {
-        bHasInteractUnit = MONSTERAI_HasInteractUnit(pNpc->pMonsterData->pMonInteract);
-    }
-    else
-    {
-        bHasInteractUnit = MONSTERAI_HasInteractUnit(0);
-    }
-
-    if (bHasInteractUnit == 1)
-    {
-        return;
-    }
-
-    int nIndex;
-    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nIndex);
-    D2InventoryStrc* pInventory = pNpc->pInventory;
-    if (pInventory)
-    {
-        INVENTORY_RemoveInventoryItems(pInventory);
-        D2COMMON_10251_Return(pInventory);
-    }
-
-    D2NpcTradeDataStrc* pTrade = SUNITNPC_GetNpcTrade(pNpcRecord);
-    if (pTrade && pTrade->bTrader)
-    {
-        pTrade->bVendorInit = 0;
-        // volatile only makes these two reloads come from the stack copies of the register parameters, as the original does
-        D2UnitStrc* const pStorePlayer = *(D2UnitStrc* volatile*)&pPlayer;
-        D2GameStrc* const pStoreGame = *(D2GameStrc* volatile*)&pGame;
-        D2GAME_NPC_FillStoreInventory_6FCC7100(pStoreGame, pStorePlayer, pNpc, pTrade);
-        pTrade->bVendorInit = 1;
-    }
-}
-
 // 0x00579180
 void __fastcall D2GAME_NPC_AssignMercenary(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nVendorId)
 {
@@ -2807,6 +2692,21 @@ int __fastcall D2GAME_NPC_IsItemInNpcInventory_6FCCB7D0(D2GameStrc* pGame, D2Uni
     return 1;
 }
 
+int __stdcall sub_J17_Emit_005786A0(D2GameStrc* pGame, int nItemLevel, int nItemId, int nUberChance, int nUltraChance)
+{
+    return SUNITNPC_RollGambleUpgrade(nItemId, nUberChance, nUltraChance, pGame, nItemLevel);
+}
+
+static inline D2NpcTradeDataStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcRecord)
+{
+    if (pNpcRecord)
+    {
+        return &pNpcRecord->tTrade;
+    }
+
+    return 0;
+}
+
 // 0x00579430
 void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNPC, int bRefreshInventory, int bGamble)
 {
@@ -2856,6 +2756,123 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2Un
         {
             SUNITNPC_AddItemsToTrade(pNPC, pGambleInventory);
         }
+    }
+}
+
+// 0x00578B30
+void __fastcall D2GAME_STORES_CreateVendorCache_6FCCAE20(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble)
+{
+    if (!pNpc)
+    {
+        return;
+    }
+
+    const int nNpcClassId = pNpc->dwClassId;
+    int nUnused;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
+    if (!pNpcRecord)
+    {
+        return;
+    }
+
+    if (bGamble)
+    {
+        if (pNpcRecord->bGambleInit)
+        {
+            SUNITPROXY_GetVendorChain(pGame, pNpcRecord, pPlayer)->bGamble = 1;
+            SUNITNPC_FillGambleIfMissing(pGame, pNpc, pPlayer, pNpcRecord);
+        }
+    }
+    else
+    {
+        D2NpcTradeDataStrc* pTrade = &pNpcRecord->tTrade;
+        if (pTrade && pTrade->bTrader)
+        {
+            SUNITPROXY_GetVendorChain(pGame, pNpcRecord, pPlayer)->bGamble = 0;
+            if (!pTrade->bVendorInit)
+            {
+                D2GAME_NPC_FillStoreInventory_6FCC7100(pGame, pPlayer, pNpc, pTrade);
+                pTrade->bVendorInit = 1;
+            }
+
+            if (!pTrade->bHireInit)
+            {
+                if (nNpcClassId == MONSTER_KASHYA || nNpcClassId == MONSTER_QUAL_KEHK || nNpcClassId == MONSTER_GREIZ || nNpcClassId == MONSTER_ASHEARA)
+                {
+                    SUNITNPC_InitializeHirelingRoster(pGame, nNpcClassId, pNpcRecord);
+                }
+                pTrade->bHireInit = 1;
+            }
+        }
+    }
+}
+
+// 0x00578AE0
+void __fastcall SUNITNPC_FillGambleIfMissing(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer, D2NpcRecordStrc* pNpcRecord)
+{
+    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    int bHasGamble = 0;
+    for (D2NpcGambleStrc* pNpcGamble = pNpcRecord->pGamble; pNpcGamble; pNpcGamble = pNpcGamble->pNext)
+    {
+        if (pNpcGamble->dwGUID == nPlayerGUID)
+        {
+            bHasGamble = 1;
+        }
+    }
+
+    if (!bHasGamble)
+    {
+        D2GAME_STORES_FillGamble_6FCCA9F0(pGame, pNpc, pPlayer, pNpcRecord);
+    }
+}
+
+// 0x00579090
+void __fastcall SUNITNPC_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    if (!gnNpcGUID_0088CAC4)
+    {
+        return;
+    }
+
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, gnNpcGUID_0088CAC4);
+    if (!pNpc)
+    {
+        return;
+    }
+
+    int bHasInteractUnit;
+    if (pNpc->dwUnitType == UNIT_MONSTER && pNpc->pMonsterData)
+    {
+        bHasInteractUnit = MONSTERAI_HasInteractUnit(pNpc->pMonsterData->pMonInteract);
+    }
+    else
+    {
+        bHasInteractUnit = MONSTERAI_HasInteractUnit(0);
+    }
+
+    if (bHasInteractUnit == 1)
+    {
+        return;
+    }
+
+    int nIndex;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nIndex);
+    D2InventoryStrc* pInventory = pNpc->pInventory;
+    if (pInventory)
+    {
+        INVENTORY_RemoveInventoryItems(pInventory);
+        D2COMMON_10251_Return(pInventory);
+    }
+
+    D2NpcTradeDataStrc* pTrade = SUNITNPC_GetNpcTrade(pNpcRecord);
+    if (pTrade && pTrade->bTrader)
+    {
+        pTrade->bVendorInit = 0;
+        // volatile only makes these two reloads come from the stack copies of the register parameters, as the original does
+        D2UnitStrc* const pStorePlayer = *(D2UnitStrc* volatile*)&pPlayer;
+        D2GameStrc* const pStoreGame = *(D2GameStrc* volatile*)&pGame;
+        D2GAME_NPC_FillStoreInventory_6FCC7100(pStoreGame, pStorePlayer, pNpc, pTrade);
+        pTrade->bVendorInit = 1;
     }
 }
 
@@ -2997,50 +3014,33 @@ void __fastcall SUNITNPC_ResurrectHireling(D2GameStrc* game,D2UnitStrc* player,D
  MONSTERAI_SendMercStats(game,player,0);
 }
 
-// 0x00579C00
-void __fastcall D2GAME_NPC_ResurrectMerc_6FCC9350(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId)
+// 0x00577470
+int __fastcall SUNITNPC_RelinkItemStatLists(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pGame, pPlayer);
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, nNpcUnitId);
-    if (!pNpc || pInteractUnit != pNpc)
+    if (!pUnit)
     {
-        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2397), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
-        return;
+        return 0;
     }
 
-    switch ((unsigned int)pNpc->dwClassId)
+    if (!pUnit->pInventory)
     {
-    case 150:
-    case 198:
-    case 252:
-    case 367:
-    case 515:
-        break;
-    default:
-        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2412), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
-        return;
+        return 0;
     }
 
-    D2UnitStrc* pHireling = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
-    if (!pHireling)
+    D2UnitStrc* pNext;
+    for (D2UnitStrc* pCurrent = INVENTORY_GetFirstItem(pUnit->pInventory); pCurrent; pCurrent = pNext)
     {
-        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2419), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
-        return;
+        pNext = INVENTORY_GetNextItem(pCurrent);
+        D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCurrent);
+        int bStatNotDynamic = 0;
+        if (pItem && pItem->dwUnitType == UNIT_ITEM && STATLIST_GetOwner(pItem, &bStatNotDynamic))
+        {
+            STATLIST_ExpireUnitStatlist(pUnit, pItem);
+            STATLIST_MergeStatLists(pUnit, pItem, bStatNotDynamic);
+        }
     }
 
-    if (!SUNITNPC_SpendGold(pGame, pPlayer, MONSTERS_GetHirelingResurrectionCost(pHireling)))
-    {
-        D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2452), 0x2A, 12, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
-        return;
-    }
-
-    pHireling->dwFlags &= 0xFFFEFFFF;
-    UNITS_ChangeAnimMode(pHireling, 1);
-    STATLIST_SetUnitStat(pHireling, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pHireling), 0);
-    SUNITNPC_ResurrectHireling(pGame, pPlayer, pHireling);
-    D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszNpcSourceFile, 2461), 0xFFFF, 0);
-    const int nHirelingGUID = pHireling->dwUnitId;
-    D2GAME_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2462), 0x2A, 5, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), nHirelingGUID, 0);
+    return 1;
 }
 
 static inline int MONSTERS_CheckMonStatsFlag(int nMonsterId, int nFlag)

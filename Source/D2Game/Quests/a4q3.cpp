@@ -364,6 +364,94 @@ playSound:
  return 0;
 }
 
+// 0x005B6050
+void __fastcall ACT4Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_FastRemovePlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
+}
+
+// 0x005B64A0
+void __fastcall ACT4Q3_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
+
+    if (ITEMS_GetBaseCode(pQuestArg->pTarget) == 0x20686668)
+    {
+        --pQuestDataEx->nHellforgeHammersInGame;
+    }
+}
+
+inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
+
+// 0x005B6080
+void __fastcall ACT4Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (pQuestArg->nOldLevel != 103)
+    {
+        return;
+    }
+
+    QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
+    if (pQuestData->fState != 2)
+    {
+        return;
+    }
+
+    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) == 1)
+    {
+        return;
+    }
+
+    QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 433);
+    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT4Q3_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005B64C0
+void __fastcall ACT4Q3_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
+
+    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20686668))
+    {
+        ++pQuestDataEx->nHellforgeHammersInGame;
+    }
+}
+
+// 0x005B6610
+void __fastcall ACT4Q3_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pfActiveFilter = ACT4Q3_ActiveFilterCallback;
+    pQuestData->pQuestDataEx = 0;
+    pQuestData->fLastState = 0;
+    pQuestData->fState = 0;
+    pQuestData->pNPCMessages = gpAct4Q3NpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->pfSeqFilter = ACT4Q3_SeqCallback;
+    pQuestData->nSeqId = 23;
+    pQuestData->eFilter = 27;
+    pQuestData->nInitNo = 4;
+    pQuestData->pfStatusFilter = 0;
+    pQuestData->pCallback[10] = ACT4Q3_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[3] = ACT4Q3_Callback03_ChangedLevel;
+    pQuestData->pCallback[0] = ACT4Q3_Callback00_NpcActivate;
+    pQuestData->pCallback[2] = ACT4Q3_Callback02_NpcDeactivate;
+    pQuestData->pCallback[11] = ACT4Q3_Callback11_ScrollMessage;
+    pQuestData->pCallback[13] = ACT4Q3_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[14] = ACT4Q3_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[9] = ACT4Q3_Callback09_PlayerDroppedWithQuestItem;
+    pQuestData->pCallback[8] = ACT4Q3_Callback08_MonsterKilled;
+    pQuestData->pCallback[4] = ACT4Q3_Callback04_ItemPickedUp;
+
+    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act4Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 856, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act4Quest3Strc));
+}
+
 // 0x005B5F40
 bool __fastcall ACT4Q3_SeqCallback(D2QuestDataStrc* pQuestData)
 {
@@ -422,41 +510,6 @@ int __fastcall ACT4Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
     }
 
     return 0;
-}
-
-inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-}
-
-// 0x005B6050
-void __fastcall ACT4Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    QUESTS_FastRemovePlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-}
-
-// 0x005B6080
-void __fastcall ACT4Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    if (pQuestArg->nOldLevel != 103)
-    {
-        return;
-    }
-
-    QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
-    if (pQuestData->fState != 2)
-    {
-        return;
-    }
-
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) == 1)
-    {
-        return;
-    }
-
-    QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 433);
-    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT4Q3_UnitIterate_UpdateQuestStateFlags);
 }
 
 // 0x005B6100
@@ -540,28 +593,6 @@ void __fastcall ACT4Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuest, D2Quest
     SUNIT_IterateUnitsOfType(pQuest->pGame, 0, 0, ACT4Q3_UnitIterate_UpdateQuestStateFlags);
 }
 
-// 0x005B64A0
-void __fastcall ACT4Q3_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
-
-    if (ITEMS_GetBaseCode(pQuestArg->pTarget) == 0x20686668)
-    {
-        --pQuestDataEx->nHellforgeHammersInGame;
-    }
-}
-
-// 0x005B64C0
-void __fastcall ACT4Q3_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
-
-    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20686668))
-    {
-        ++pQuestDataEx->nHellforgeHammersInGame;
-    }
-}
-
 // 0x005B64E0
 void __fastcall ACT4Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -599,37 +630,6 @@ void __fastcall ACT4Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         pQuestData->fLastState = 1;
         pQuestData->fState = 2;
     }
-}
-
-// 0x005B6610
-void __fastcall ACT4Q3_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pfActiveFilter = ACT4Q3_ActiveFilterCallback;
-    pQuestData->pQuestDataEx = 0;
-    pQuestData->fLastState = 0;
-    pQuestData->fState = 0;
-    pQuestData->pNPCMessages = gpAct4Q3NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->pfSeqFilter = ACT4Q3_SeqCallback;
-    pQuestData->nSeqId = 23;
-    pQuestData->eFilter = 27;
-    pQuestData->nInitNo = 4;
-    pQuestData->pfStatusFilter = 0;
-    pQuestData->pCallback[10] = ACT4Q3_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[3] = ACT4Q3_Callback03_ChangedLevel;
-    pQuestData->pCallback[0] = ACT4Q3_Callback00_NpcActivate;
-    pQuestData->pCallback[2] = ACT4Q3_Callback02_NpcDeactivate;
-    pQuestData->pCallback[11] = ACT4Q3_Callback11_ScrollMessage;
-    pQuestData->pCallback[13] = ACT4Q3_Callback13_PlayerStartedGame;
-    pQuestData->pCallback[14] = ACT4Q3_Callback14_PlayerJoinedGame;
-    pQuestData->pCallback[9] = ACT4Q3_Callback09_PlayerDroppedWithQuestItem;
-    pQuestData->pCallback[8] = ACT4Q3_Callback08_MonsterKilled;
-    pQuestData->pCallback[4] = ACT4Q3_Callback04_ItemPickedUp;
-
-    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act4Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 856, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act4Quest3Strc));
 }
 
 // 0x005B6940

@@ -249,6 +249,60 @@ __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonster
     return 0;
 }
 
+// 0x005DE890
+D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
+{
+    D2UnitStrc* pResult = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
+    if (pResult)
+    {
+        return pResult;
+    }
+
+    if (AIUTIL_IsGettingHit(pUnit) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_WALK))
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
+        return 0;
+    }
+
+    const int nCollisionPattern = PATH_GetUnitCollisionPattern(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    if (COLLISION_CheckAnyCollisionWithPattern(UNITS_GetRoom(pUnit), nX, nY, nCollisionPattern, COLLIDE_MISSILE) && sub_0046C140_TestMonModeFlag(pUnit->dwClassId, MONMODE_WALK))
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
+        return 0;
+    }
+
+    int nFrames = *pDistance;
+    if (nFrames >= 35)
+    {
+        nFrames = 25;
+    }
+    else if (nFrames < 25)
+    {
+        nFrames = 10;
+    }
+    else
+    {
+        nFrames -= 10;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, nFrames);
+    return 0;
+}
+
+// 0x005DE0F0
+void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+{
+    if (!nFrames)
+    {
+        nFrames = 1;
+    }
+
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrames + pGame->dwGameFrame, 0, 0);
+}
+
 // 0x005DDE50
 D2UnitStrc* __fastcall AITACTICS_FindTargetInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance)
 {
@@ -259,6 +313,32 @@ D2UnitStrc* __fastcall AITACTICS_FindTargetInRange(D2GameStrc* pGame, D2UnitStrc
     }
 
     return 0;
+}
+
+// 0x005DDF20
+D2UnitStrc* __fastcall AITACTICS_FindNearbyPlayerOrSelf(D2GameStrc* pGame, D2UnitStrc* pUnit, int* bCloseToTarget)
+{
+    if (!UNITS_GetRoom(pUnit))
+    {
+        return 0;
+    }
+
+    UnkAiStrc1 tCallbackArg;
+    tCallbackArg.pTarget = 0;
+    tCallbackArg.nDistance = 0x7FFFFFFF;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &tCallbackArg, AITACTICS_TargetCallback_FindNearbyPlayer, 2);
+
+    if (!tCallbackArg.pTarget)
+    {
+        return pUnit;
+    }
+
+    if (tCallbackArg.nDistance < 4)
+    {
+        *bCloseToTarget = 1;
+    }
+
+    return tCallbackArg.pTarget;
 }
 
 // 0x005DDE80
@@ -299,32 +379,6 @@ D2UnitStrc* __fastcall AITACTICS_TargetCallback_FindNearbyPlayer(D2GameStrc* pGa
     }
 
     return 0;
-}
-
-// 0x005DDF20
-D2UnitStrc* __fastcall AITACTICS_FindNearbyPlayerOrSelf(D2GameStrc* pGame, D2UnitStrc* pUnit, int* bCloseToTarget)
-{
-    if (!UNITS_GetRoom(pUnit))
-    {
-        return 0;
-    }
-
-    UnkAiStrc1 tCallbackArg;
-    tCallbackArg.pTarget = 0;
-    tCallbackArg.nDistance = 0x7FFFFFFF;
-    AIUTIL_FindTargetWithCallback(pGame, pUnit, &tCallbackArg, AITACTICS_TargetCallback_FindNearbyPlayer, 2);
-
-    if (!tCallbackArg.pTarget)
-    {
-        return pUnit;
-    }
-
-    if (tCallbackArg.nDistance < 4)
-    {
-        *bCloseToTarget = 1;
-    }
-
-    return tCallbackArg.pTarget;
 }
 
 // 0x005DDF90
@@ -384,46 +438,36 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrames + pGame->dwGameFrame, 0, 0);
 }
 
-// 0x005DE0F0
-void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+// 0x005DEAD0
+int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY)
 {
-    if (!nFrames)
+    if (nMode >= 16)
     {
-        nFrames = 1;
+        return 0;
     }
 
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrames + pGame->dwGameFrame, 0, 0);
-}
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
+    UNITS_SetUsedSkill(pUnit, SKILLS_GetSkillById(pUnit, nSkillId, -1));
 
-// 0x005DE130
-void __fastcall AITACTICS_ScheduleEarlierAiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
-{
-    if (!nFrames)
+    if (pUnit)
     {
-        nFrames = 1;
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
     }
 
-    const unsigned int dwEventFrame = EVENT_GetEventFrame(pGame, pUnit, EVENTTYPE_AITHINK);
-    if (!dwEventFrame || dwEventFrame == pGame->dwGameFrame || dwEventFrame >= nFrames + pGame->dwGameFrame)
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+
+    modeChange.pTargetUnit = pTarget;
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+
+    if (D2GAME_ModeChange_6FC65220(pGame, &modeChange, 0))
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrames + pGame->dwGameFrame, 0, 0);
+        return 1;
     }
-}
 
-// 0x005DE190
-void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg)
-{
-	D2_ASSERT(nValue >= -126 && nValue <= 126, 272);
-
-	if (nParam == 1)
-	{
-		nParam = 7;
-	}
-
-	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0;
-	MONSTERMODE_SetVelocityParams(pAiParams, nParam, nValue, nArg);
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+    return 0;
 }
 
 inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
@@ -493,10 +537,290 @@ int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, u
     return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nOffsetX + nTargetX, nOffsetY + nTargetY, 1, 0);
 }
 
+// 0x005DE130
+void __fastcall AITACTICS_ScheduleEarlierAiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+{
+    if (!nFrames)
+    {
+        nFrames = 1;
+    }
+
+    const unsigned int dwEventFrame = EVENT_GetEventFrame(pGame, pUnit, EVENTTYPE_AITHINK);
+    if (!dwEventFrame || dwEventFrame == pGame->dwGameFrame || dwEventFrame >= nFrames + pGame->dwGameFrame)
+    {
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrames + pGame->dwGameFrame, 0, 0);
+    }
+}
+
+// 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg)
+{
+	D2_ASSERT(nValue >= -126 && nValue <= 126, 272);
+
+	if (nParam == 1)
+	{
+		nParam = 7;
+	}
+
+	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0;
+	MONSTERMODE_SetVelocityParams(pAiParams, nParam, nValue, nArg);
+}
+
 // 0x005DE320
 void __fastcall AITACTICS_AttachSound(D2UnitStrc* pUnit, int nUpdateType)
 {
     SUNIT_AttachSound(pUnit, nUpdateType, 0);
+}
+
+// 0x005DECA0
+int __fastcall AITACTICS_WalkToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
+
+    if (pTarget)
+    {
+        modeChange.pTargetUnit = pTarget;
+    }
+    else
+    {
+        modeChange.nX = 0;
+        modeChange.nY = 0;
+    }
+
+    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
+// 0x005DED00
+int __fastcall AITACTICS_RunToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags)
+{
+    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_RUN, 0, 0, 1, nFlags);
+}
+
+// 0x005DED20
+int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_RUN, 0, 0, 1, 0);
+}
+
+// 0x005DED90
+int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
+{
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
+// 0x005DEDE0
+int __fastcall AITACTICS_RunToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
+{
+    int nMode = MONMODE_RUN;
+    if (STATES_CheckState(pUnit, STATE_DECREPIFY))
+    {
+        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
+        nMode = MONMODE_WALK;
+    }
+
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
+static inline void AITACTICS_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+{
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+    EVENT_SetEvent(pGame, pUnit, 2, nFrames + pGame->dwGameFrame, 0, 0);
+}
+
+// 0x005DE9D0
+D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdle(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
+{
+    D2UnitStrc* pTarget = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
+    if (pTarget)
+        return pTarget;
+    const int nCollisionPattern = PATH_GetUnitCollisionPattern(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    if (COLLISION_CheckAnyCollisionWithPattern(UNITS_GetRoom(pUnit), nX, nY, nCollisionPattern, 0x40) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
+        return 0;
+    }
+    AITACTICS_IdleInline(pGame, pUnit, 20);
+    return 0;
+}
+
+// 0x005DEE50
+int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
+{
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+    const int nResult = D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    if (!nResult)
+    {
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    }
+
+    return nResult;
+}
+
+inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+inline int AI_RollPercentage(D2UnitStrc* pUnit)
+{
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pAiControl;
+    }
+
+    return 0;
+}
+
+// 0x005DEB60
+int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags)
+{
+    int nNewMode = nMode;
+
+    if (nMode == MONMODE_RUN && STATES_CheckState(pUnit, STATE_DECREPIFY))
+    {
+        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
+        nNewMode = MONMODE_WALK;
+    }
+
+    PATH_SetStepNum(pUnit->pDynamicPath, bStep);
+
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nNewMode, &modeChange);
+
+    if (pTarget)
+    {
+        modeChange.pTargetUnit = pTarget;
+    }
+    else
+    {
+        modeChange.nX = nX;
+        modeChange.nY = nY;
+    }
+
+    int nResult = D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    if (!nResult)
+    {
+        if (nFlags & 4)
+        {
+            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+        }
+
+        if (nFlags & 1)
+        {
+            D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
+            if (pAiControl)
+            {
+                AIUTIL_ToggleAiControlFlag(pAiControl, 0x40, 1);
+            }
+        }
+
+        if (nFlags & 2)
+        {
+            nResult = 1;
+            if (AI_RollPercentage(pUnit) < 70)
+            {
+                AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
+            }
+            else
+            {
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            }
+        }
+    }
+
+    return nResult;
+}
+
+// 0x005DED40
+int __fastcall AITACTICS_WalkToTargetWithPathType13(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags)
+{
+    MONSTERMODE_SetVelocityParams((pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0, 13, 0, 0);
+    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_WALK, 0, 0, 1, nFlags);
+}
+
+// 0x005DEEB0
+int __fastcall AITACTICS_RunToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
+{
+    int nMode = MONMODE_RUN;
+    if (STATES_CheckState(pUnit, STATE_DECREPIFY))
+    {
+        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
+        nMode = MONMODE_WALK;
+    }
+
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+    const int nResult = D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    if (!nResult)
+    {
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    }
+
+    return nResult;
+}
+
+// 0x005DEF30
+int __fastcall AITACTICS_WalkToTargetCoordinatesNoSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
+{
+    PATH_SetStepNum(pUnit->pDynamicPath, 0);
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
+// 0x005DEF80
+int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep)
+{
+    if (!bStep)
+    {
+        bStep = 1;
+    }
+
+    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_WALK, 0, 0, bStep, 0);
+}
+
+// 0x005DEFB0
+int __fastcall AITACTICS_RunToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep)
+{
+    if (!bStep)
+    {
+        bStep = 1;
+    }
+
+    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_RUN, 0, 0, bStep, 0);
 }
 
 // 0x005DE330
@@ -681,330 +1005,6 @@ D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* 
     default:
         return 0;
     }
-}
-
-// 0x005DE890
-D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
-{
-    D2UnitStrc* pResult = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
-    if (pResult)
-    {
-        return pResult;
-    }
-
-    if (AIUTIL_IsGettingHit(pUnit) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_WALK))
-    {
-        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
-        return 0;
-    }
-
-    const int nCollisionPattern = PATH_GetUnitCollisionPattern(pUnit);
-    const int nY = CLIENTS_GetUnitY(pUnit);
-    const int nX = CLIENTS_GetUnitX(pUnit);
-    if (COLLISION_CheckAnyCollisionWithPattern(UNITS_GetRoom(pUnit), nX, nY, nCollisionPattern, COLLIDE_MISSILE) && sub_0046C140_TestMonModeFlag(pUnit->dwClassId, MONMODE_WALK))
-    {
-        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
-        return 0;
-    }
-
-    int nFrames = *pDistance;
-    if (nFrames >= 35)
-    {
-        nFrames = 25;
-    }
-    else if (nFrames < 25)
-    {
-        nFrames = 10;
-    }
-    else
-    {
-        nFrames -= 10;
-    }
-
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, nFrames);
-    return 0;
-}
-
-static inline void AITACTICS_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
-{
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-    EVENT_SetEvent(pGame, pUnit, 2, nFrames + pGame->dwGameFrame, 0, 0);
-}
-
-// 0x005DE9D0
-D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdle(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
-{
-    D2UnitStrc* pTarget = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
-    if (pTarget)
-        return pTarget;
-    const int nCollisionPattern = PATH_GetUnitCollisionPattern(pUnit);
-    const int nY = CLIENTS_GetUnitY(pUnit);
-    const int nX = CLIENTS_GetUnitX(pUnit);
-    if (COLLISION_CheckAnyCollisionWithPattern(UNITS_GetRoom(pUnit), nX, nY, nCollisionPattern, 0x40) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
-    {
-        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
-        return 0;
-    }
-    AITACTICS_IdleInline(pGame, pUnit, 20);
-    return 0;
-}
-
-// 0x005DEAD0
-int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY)
-{
-    if (nMode >= 16)
-    {
-        return 0;
-    }
-
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
-    UNITS_SetUsedSkill(pUnit, SKILLS_GetSkillById(pUnit, nSkillId, -1));
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
-    }
-
-    PATH_SetStepNum(pUnit->pDynamicPath, 1);
-
-    modeChange.pTargetUnit = pTarget;
-    modeChange.nX = nX;
-    modeChange.nY = nY;
-
-    if (D2GAME_ModeChange_6FC65220(pGame, &modeChange, 0))
-    {
-        return 1;
-    }
-
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
-    return 0;
-}
-
-inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return lSeed;
-}
-
-inline int AI_RollPercentage(D2UnitStrc* pUnit)
-{
-    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
-}
-
-inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType == UNIT_MONSTER && pUnit->pMonsterData)
-    {
-        return pUnit->pMonsterData->pAiControl;
-    }
-
-    return 0;
-}
-
-// 0x005DEB60
-int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags)
-{
-    int nNewMode = nMode;
-
-    if (nMode == MONMODE_RUN && STATES_CheckState(pUnit, STATE_DECREPIFY))
-    {
-        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
-        nNewMode = MONMODE_WALK;
-    }
-
-    PATH_SetStepNum(pUnit->pDynamicPath, bStep);
-
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, nNewMode, &modeChange);
-
-    if (pTarget)
-    {
-        modeChange.pTargetUnit = pTarget;
-    }
-    else
-    {
-        modeChange.nX = nX;
-        modeChange.nY = nY;
-    }
-
-    int nResult = D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-    if (!nResult)
-    {
-        if (nFlags & 4)
-        {
-            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-        }
-
-        if (nFlags & 1)
-        {
-            D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
-            if (pAiControl)
-            {
-                AIUTIL_ToggleAiControlFlag(pAiControl, 0x40, 1);
-            }
-        }
-
-        if (nFlags & 2)
-        {
-            nResult = 1;
-            if (AI_RollPercentage(pUnit) < 70)
-            {
-                AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
-            }
-            else
-            {
-                AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
-            }
-        }
-    }
-
-    return nResult;
-}
-
-// 0x005DECA0
-int __fastcall AITACTICS_WalkToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    PATH_SetStepNum(pUnit->pDynamicPath, 1);
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
-
-    if (pTarget)
-    {
-        modeChange.pTargetUnit = pTarget;
-    }
-    else
-    {
-        modeChange.nX = 0;
-        modeChange.nY = 0;
-    }
-
-    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-}
-
-// 0x005DED00
-int __fastcall AITACTICS_RunToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags)
-{
-    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_RUN, 0, 0, 1, nFlags);
-}
-
-// 0x005DED20
-int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_RUN, 0, 0, 1, 0);
-}
-
-// 0x005DED40
-int __fastcall AITACTICS_WalkToTargetWithPathType13(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags)
-{
-    MONSTERMODE_SetVelocityParams((pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0, 13, 0, 0);
-    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_WALK, 0, 0, 1, nFlags);
-}
-
-// 0x005DED90
-int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
-{
-    PATH_SetStepNum(pUnit->pDynamicPath, 1);
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
-    modeChange.nX = nX;
-    modeChange.nY = nY;
-    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-}
-
-// 0x005DEDE0
-int __fastcall AITACTICS_RunToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
-{
-    int nMode = MONMODE_RUN;
-    if (STATES_CheckState(pUnit, STATE_DECREPIFY))
-    {
-        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
-        nMode = MONMODE_WALK;
-    }
-
-    PATH_SetStepNum(pUnit->pDynamicPath, 1);
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
-    modeChange.nX = nX;
-    modeChange.nY = nY;
-    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-}
-
-// 0x005DEE50
-int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
-{
-    PATH_SetStepNum(pUnit->pDynamicPath, 1);
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
-    modeChange.nX = nX;
-    modeChange.nY = nY;
-    const int nResult = D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-    if (!nResult)
-    {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-    }
-
-    return nResult;
-}
-
-// 0x005DEEB0
-int __fastcall AITACTICS_RunToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
-{
-    int nMode = MONMODE_RUN;
-    if (STATES_CheckState(pUnit, STATE_DECREPIFY))
-    {
-        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
-        nMode = MONMODE_WALK;
-    }
-
-    PATH_SetStepNum(pUnit->pDynamicPath, 1);
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
-    modeChange.nX = nX;
-    modeChange.nY = nY;
-    const int nResult = D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-    if (!nResult)
-    {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-    }
-
-    return nResult;
-}
-
-// 0x005DEF30
-int __fastcall AITACTICS_WalkToTargetCoordinatesNoSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
-{
-    PATH_SetStepNum(pUnit->pDynamicPath, 0);
-    D2ModeChangeStrc modeChange;
-    MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
-    modeChange.nX = nX;
-    modeChange.nY = nY;
-    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-}
-
-// 0x005DEF80
-int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep)
-{
-    if (!bStep)
-    {
-        bStep = 1;
-    }
-
-    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_WALK, 0, 0, bStep, 0);
-}
-
-// 0x005DEFB0
-int __fastcall AITACTICS_RunToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep)
-{
-    if (!bStep)
-    {
-        bStep = 1;
-    }
-
-    return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_RUN, 0, 0, bStep, 0);
 }
 
 #include "gen/data/Source/D2Game/Ai/AiTatics.inc"

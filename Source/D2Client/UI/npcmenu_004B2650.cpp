@@ -444,6 +444,22 @@ static inline D2UnitStrc* NPC_GetInteractUnit_Inline()
     return gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
 }
 
+// 0x004B6410
+int __cdecl NPCMENU_InitHireHandler()
+{
+    gnGlobal_00726DF9 = 3;
+    gpfnGlobal_00726E0B = sub_004B5C60_Handler;
+    gwGlobal_00726DFF = 0xD45;
+    return 1;
+}
+
+static inline int UNITS_GetClassIdInl(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return -1;
+    return pUnit->dwClassId;
+}
+
 // 0x004B1C80
 static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords)
 {
@@ -472,13 +488,48 @@ static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords)
     return 0;
 }
 
-static inline int UNITS_GetClassIdInl(D2UnitStrc* pUnit)
+static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
+{
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
+        return 0;
+    if (!sub_0062E660(pItem))
+        return 0;
+    if (ITEMS_HasDurability(pItem))
+    {
+        const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
+        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) < nMaxDurability)
+            return 1;
+    }
+    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) < ITEMS_GetTotalMaxStack(pItem))
+        return 1;
+    int bHasChargedSkills;
+    if (ITEMS_HasUsedCharges(pItem, &bHasChargedSkills) && !bHasChargedSkills)
+        return 1;
+    return 0;
+}
+
+static inline D2UnitStrc* GetInteractNpc_Inline()
+{
+    if (!gnGlobal_007C0D29)
+        return 0;
+    return CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
+}
+
+static int GetUnitIdOrNone(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return -1;
+    return pUnit->dwUnitId;
+}
+
+static int GetClassIdOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return -1;
     return pUnit->dwClassId;
 }
 
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004B2650
 void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
 {
@@ -590,48 +641,8 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
     sub_004B85F0_AddTextLine(gpDialog_007C0D67, D2LANG_GetStringFromTblIndex(0xD19), 0x0F, 0, 0, 1, 0, 0);
 }
 
-static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
-{
-    if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
-        return 0;
-    if (!sub_0062E660(pItem))
-        return 0;
-    if (ITEMS_HasDurability(pItem))
-    {
-        const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) < nMaxDurability)
-            return 1;
-    }
-    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) < ITEMS_GetTotalMaxStack(pItem))
-        return 1;
-    int bHasChargedSkills;
-    if (ITEMS_HasUsedCharges(pItem, &bHasChargedSkills) && !bHasChargedSkills)
-        return 1;
-    return 0;
-}
+int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 
-static inline D2UnitStrc* GetInteractNpc_Inline()
-{
-    if (!gnGlobal_007C0D29)
-        return 0;
-    return CUNIT_FindClientUnit(gnGlobal_007C0D25, 1);
-}
-
-static int GetUnitIdOrNone(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return -1;
-    return pUnit->dwUnitId;
-}
-
-static int GetClassIdOrNone(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return -1;
-    return pUnit->dwClassId;
-}
-
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004B2AD0
 int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pCost, Unicode* pText, int nMaxLength)
 {
@@ -731,29 +742,6 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
     sub_00526F20_ToUnicode(wszCost, szCost, 19);
     sub_00526700(pText, wszCost);
     return 1;
-}
-
-int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
-
-// 0x004B3240
-void __fastcall NPCMENU_StoreMessage(const D2StoredMsgPacketStrc* pPacket)
-{
-    if (!pPacket)
-    {
-        return;
-    }
-
-    for (int i = 0; i < 10; ++i)
-    {
-        if (!gaStoredMsgs_007C0C85[i].bUsed)
-        {
-            D2StoredMsgStrc* pEntry = &gaStoredMsgs_007C0C85[i];
-            pEntry->wValue = pPacket->wValue;
-            pEntry->dwValue = pPacket->dwValue;
-            pEntry->bUsed = 1;
-            return;
-        }
-    }
 }
 
 int __cdecl NPCMENU_ResurrectMercWait()
@@ -909,6 +897,134 @@ void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex)
     sub_004B85F0_AddTextLine(gpDialog_007C0D73, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B5850, 1);
 }
 
+// 0x004B4380
+void __cdecl NPCMENU_UpdateNpcInteract()
+{
+    D2UnitStrc* pNpc;
+    if (sub_00463DF0() || (NPC_GET_INTERACT_UNIT() && (pNpc = NPC_GET_INTERACT_UNIT()) != 0 && pNpc->dwAnimMode == 12) || !NPC_GET_INTERACT_UNIT())
+    {
+        NPCMENU_FreeDialogs();
+        gnGlobal_007C0C6B = 0;
+        INV_ResetHover();
+        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+        sub_00455F20(8, 1, 0);
+    }
+
+    if (gpDialog_007C0D6F)
+    {
+        sub_004B8100(gpDialog_007C0D6F);
+        return;
+    }
+
+    if (gpDialog_007C0D73)
+    {
+        sub_004B8100(gpDialog_007C0D73);
+        return;
+    }
+
+    if (gpDialog_007C0D6B)
+    {
+        GAME_ResetMouseState();
+        sub_004B8100(gpDialog_007C0D6B);
+        return;
+    }
+
+    if (gpDialog_007C0D63)
+    {
+        sub_004B8100(gpDialog_007C0D63);
+        return;
+    }
+
+    if (gpDialog_007C0D67)
+    {
+        D2UnitStrc* pInteract;
+        if (NPCMENU_GetInteractNpc() && (pInteract = NPCMENU_GetInteractNpc()) != 0 && pInteract->dwClassId == 0x202 && !gnGlobal_007C0DBC)
+        {
+            if (!gnGlobal_007C0DC0)
+            {
+                gnGlobal_007C0DC0 = 1;
+                gdwGlobal_007C0DC4 = (ITEMS_RollLimitedRandomNumber(&sub_00463DD0_GetPlayerUnit()->pSeed, 30) + 120) * 1000 + GetTickCount();
+            }
+
+            if (gdwGlobal_007C0DC4 > GetTickCount())
+            {
+                gnGlobal_007C0DBC = 1;
+                sub_004B9A00(0x11D0, 0, 0, 0, 0);
+            }
+        }
+
+        if (GAME_GetConnectionType() && gnGlobal_007C0D57 && gnGlobal_007C0D57 < GetTickCount())
+        {
+            NPCMENU_CloseWaitDialog();
+            return;
+        }
+
+        if (gdwGlobal_007C0D53 < GetTickCount())
+        {
+            INV_SendLeaveGame();
+            sub_0044B880_SetValue(0);
+            GAME_SetCinematicExit(1);
+            GAME_RequestExit();
+        }
+        return;
+    }
+
+    if (gpDialog_007C0D5F)
+    {
+        if (!INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory) && !sub_004680A0())
+        {
+            sub_004B8100(gpDialog_007C0D5F);
+            return;
+        }
+
+        gnGlobal_007C0C6B = 3;
+        INV_EnterNpcMenuState();
+        gnGlobal_007C0DE9 = GetTickCount();
+        gnGlobal_007C0DED += 1;
+        DIALOG_DestroyDialog(gpDialog_007C0D5F);
+        gpDialog_007C0D5F = 0;
+        return;
+    }
+
+    if (gpDialog_007C0D77)
+    {
+        sub_004B8100(gpDialog_007C0D77);
+        return;
+    }
+
+    if (gpDialog_007C0D7B)
+    {
+        sub_004B8100(gpDialog_007C0D7B);
+    }
+}
+
+// 0x004B3E10
+void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit)
+{
+    if (pUnit != sub_00463DD0_GetPlayerUnit())
+        return;
+
+    for (int i = 0; i < gnNpcEntryCount_0072554C; ++i)
+    {
+        if (gaNpcEntries_00726850[i].bSelected == 1)
+        {
+            gaNpcEntries_00726850[i].bSelected = 0;
+            D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0xFAB);
+            sub_004B1680(&gaNpcEntries_00726850[i]);
+        }
+        gaNpcEntries_00726850[i].bRefreshed = 1;
+    }
+
+    if (!(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0))
+        return;
+
+    gnGlobal_007C0C6B = 0;
+    INV_ResetHover();
+    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
+    sub_00455F20(8, 1, 0);
+    gnGlobal_007C0D29 = 0;
+}
+
 // 0x004B34A0
 int __cdecl NPCMENU_IsAnyDialogOpen()
 {
@@ -1015,134 +1131,6 @@ int __cdecl NPCMENU_OpenGambleShop()
     return 1;
 }
 
-// 0x004B3E10
-void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit)
-{
-    if (pUnit != sub_00463DD0_GetPlayerUnit())
-        return;
-
-    for (int i = 0; i < gnNpcEntryCount_0072554C; ++i)
-    {
-        if (gaNpcEntries_00726850[i].bSelected == 1)
-        {
-            gaNpcEntries_00726850[i].bSelected = 0;
-            D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0xFAB);
-            sub_004B1680(&gaNpcEntries_00726850[i]);
-        }
-        gaNpcEntries_00726850[i].bRefreshed = 1;
-    }
-
-    if (!(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0))
-        return;
-
-    gnGlobal_007C0C6B = 0;
-    INV_ResetHover();
-    NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
-    sub_00455F20(8, 1, 0);
-    gnGlobal_007C0D29 = 0;
-}
-
-// 0x004B4380
-void __cdecl NPCMENU_UpdateNpcInteract()
-{
-    D2UnitStrc* pNpc;
-    if (sub_00463DF0() || (NPC_GET_INTERACT_UNIT() && (pNpc = NPC_GET_INTERACT_UNIT()) != 0 && pNpc->dwAnimMode == 12) || !NPC_GET_INTERACT_UNIT())
-    {
-        NPCMENU_FreeDialogs();
-        gnGlobal_007C0C6B = 0;
-        INV_ResetHover();
-        NPCMENU_EndNpcInteraction(gnGlobal_007C0D25);
-        sub_00455F20(8, 1, 0);
-    }
-
-    if (gpDialog_007C0D6F)
-    {
-        sub_004B8100(gpDialog_007C0D6F);
-        return;
-    }
-
-    if (gpDialog_007C0D73)
-    {
-        sub_004B8100(gpDialog_007C0D73);
-        return;
-    }
-
-    if (gpDialog_007C0D6B)
-    {
-        GAME_ResetMouseState();
-        sub_004B8100(gpDialog_007C0D6B);
-        return;
-    }
-
-    if (gpDialog_007C0D63)
-    {
-        sub_004B8100(gpDialog_007C0D63);
-        return;
-    }
-
-    if (gpDialog_007C0D67)
-    {
-        D2UnitStrc* pInteract;
-        if (NPCMENU_GetInteractNpc() && (pInteract = NPCMENU_GetInteractNpc()) != 0 && pInteract->dwClassId == 0x202 && !gnGlobal_007C0DBC)
-        {
-            if (!gnGlobal_007C0DC0)
-            {
-                gnGlobal_007C0DC0 = 1;
-                gdwGlobal_007C0DC4 = (ITEMS_RollLimitedRandomNumber(&sub_00463DD0_GetPlayerUnit()->pSeed, 30) + 120) * 1000 + GetTickCount();
-            }
-
-            if (gdwGlobal_007C0DC4 > GetTickCount())
-            {
-                gnGlobal_007C0DBC = 1;
-                sub_004B9A00(0x11D0, 0, 0, 0, 0);
-            }
-        }
-
-        if (GAME_GetConnectionType() && gnGlobal_007C0D57 && gnGlobal_007C0D57 < GetTickCount())
-        {
-            NPCMENU_CloseWaitDialog();
-            return;
-        }
-
-        if (gdwGlobal_007C0D53 < GetTickCount())
-        {
-            INV_SendLeaveGame();
-            sub_0044B880_SetValue(0);
-            GAME_SetCinematicExit(1);
-            GAME_RequestExit();
-        }
-        return;
-    }
-
-    if (gpDialog_007C0D5F)
-    {
-        if (!INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory) && !sub_004680A0())
-        {
-            sub_004B8100(gpDialog_007C0D5F);
-            return;
-        }
-
-        gnGlobal_007C0C6B = 3;
-        INV_EnterNpcMenuState();
-        gnGlobal_007C0DE9 = GetTickCount();
-        gnGlobal_007C0DED += 1;
-        DIALOG_DestroyDialog(gpDialog_007C0D5F);
-        gpDialog_007C0D5F = 0;
-        return;
-    }
-
-    if (gpDialog_007C0D77)
-    {
-        sub_004B8100(gpDialog_007C0D77);
-        return;
-    }
-
-    if (gpDialog_007C0D7B)
-    {
-        sub_004B8100(gpDialog_007C0D7B);
-    }
-}
-
 // 0x004B5C20
 int __cdecl NPCMENU_CloseHireDialog()
 {
@@ -1158,13 +1146,25 @@ int __cdecl NPCMENU_CloseHireDialog()
     return 1;
 }
 
-// 0x004B6410
-int __cdecl NPCMENU_InitHireHandler()
+// 0x004B3240
+void __fastcall NPCMENU_StoreMessage(const D2StoredMsgPacketStrc* pPacket)
 {
-    gnGlobal_00726DF9 = 3;
-    gpfnGlobal_00726E0B = sub_004B5C60_Handler;
-    gwGlobal_00726DFF = 0xD45;
-    return 1;
+    if (!pPacket)
+    {
+        return;
+    }
+
+    for (int i = 0; i < 10; ++i)
+    {
+        if (!gaStoredMsgs_007C0C85[i].bUsed)
+        {
+            D2StoredMsgStrc* pEntry = &gaStoredMsgs_007C0C85[i];
+            pEntry->wValue = pPacket->wValue;
+            pEntry->dwValue = pPacket->dwValue;
+            pEntry->bUsed = 1;
+            return;
+        }
+    }
 }
 
 static void sub_004B1640_SetNpcInteract(D2UnitStrc* pRecord)
@@ -1430,21 +1430,6 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     gnNpcSoundHandle_007C0DB8 = 0;
 }
 
-// 0x004B6980
-void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
-{
-    gwGlobal_00725494 = wValue;
-    gnGlobal_007C0DD0 = nValue;
-    if (wValue == 0xFFFF)
-    {
-        sub_004B6440_ToggleNpcHandler(0, 0xB);
-        sub_004B6440_ToggleNpcHandler(0, 8);
-        sub_004B6440_ToggleNpcHandler(0, 0x18);
-        sub_004B6440_ToggleNpcHandler(0, 0x15);
-        sub_004B6440_ToggleNpcHandler(0, 0x2B);
-    }
-}
-
 // 0x004B6A30
 int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue)
 {
@@ -1500,6 +1485,21 @@ int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue
     gwGlobal_007C0C77 = 0xFFFF;
     NPCMENU_OpenGreetingDialog();
     return 0;
+}
+
+// 0x004B6980
+void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
+{
+    gwGlobal_00725494 = wValue;
+    gnGlobal_007C0DD0 = nValue;
+    if (wValue == 0xFFFF)
+    {
+        sub_004B6440_ToggleNpcHandler(0, 0xB);
+        sub_004B6440_ToggleNpcHandler(0, 8);
+        sub_004B6440_ToggleNpcHandler(0, 0x18);
+        sub_004B6440_ToggleNpcHandler(0, 0x15);
+        sub_004B6440_ToggleNpcHandler(0, 0x2B);
+    }
 }
 
 void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg)

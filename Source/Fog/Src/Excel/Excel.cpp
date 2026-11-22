@@ -600,238 +600,6 @@ next:
     return nOut;
 }
 
-// 0x006BD040
-D2Block006BD040Strc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
-{
-    D2Block006BD040Strc* pBlock = (D2Block006BD040Strc*)FOG_AllocPool(0, 0x10, szFile, nLine, 0);
-    memset(pBlock, 0, sizeof(D2Block006BD040Strc));
-    return pBlock;
-}
-
-// 0x006BD070
-void __fastcall EXCEL_FreeLinkTree(D2TxtLinkNodeStrc* pNode)
-{
-    if (pNode->pPrevious)
-        EXCEL_FreeLinkTree(pNode->pPrevious);
-    if (pNode->pNext)
-        EXCEL_FreeLinkTree(pNode->pNext);
-    FOG_FreeServerMemory(0, pNode, ".\\Src\\Excel\\Excel.cpp", 0x346, 0);
-}
-
-// 0x006BD0B0
-extern "C" void __stdcall FOG_FreeLinker(LinkerView* linker)
-{
-    if (linker)
-    {
-        LinkNode* root = linker->root;
-        if (root)
-        {
-            if (root->firstChild)
-                sub_006BD070_FreeNodes(root->firstChild);
-            if (root->secondChild)
-                sub_006BD070_FreeNodes(root->secondChild);
-            sub_0040B480_FreePool(0,root,".\\Src\\Excel\\Excel.cpp",0x346,0);
-        }
-        if (linker->entries)
-            sub_0040B480_FreePool(0,linker->entries,".\\Src\\Excel\\Excel.cpp",0x35D,0);
-        sub_0040B480_FreePool(0,linker,".\\Src\\Excel\\Excel.cpp",0x360,0);
-    }
-}
-
-// 0x006BD130
-extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unusedLogError)
-{
-    int upper = link->count;
-    int lower = 0;
-    KeyValue* entries = link->entries;
-    while (lower < upper)
-    {
-        int middle = lower + (upper - lower) / 2;
-        U32 current = entries[middle].key;
-        if (key > current)
-            lower = middle + 1;
-        else if (key < current)
-            upper = middle;
-        else
-            return entries[middle].value;
-    }
-    return -1;
-}
-
-// 0x006BD180
-int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* linker, int index, char* text)
-{
-    D2TxtLinkEntryStrc* entries = linker->entries;
-    if (!entries)
-        return 0;
-    if (index >= 0 && index < linker->count)
-    {
-        for (int i = 0; i < linker->count; ++i)
-        {
-            if (index == entries[i].index)
-            {
-                text[0] = entries[i].code[0] != ' ' ? entries[i].code[0] : 0;
-                text[1] = entries[i].code[1] != ' ' ? entries[i].code[1] : 0;
-                text[2] = entries[i].code[2] != ' ' ? entries[i].code[2] : 0;
-                text[3] = entries[i].code[3] != ' ' ? entries[i].code[3] : 0;
-                text[4] = 0;
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-// 0x006BD330
-D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pNode, int nId)
-{
-    if (!pNode)
-    {
-        return gpTreeSentinel_0074C3D8;
-    }
-    if (pNode->nId20 == nId)
-    {
-        return pNode;
-    }
-    D2TreeNode006BD330Strc* pFound;
-    if (pNode->pLeft24)
-    {
-        pFound = EXCEL_FindLinkNode(pNode->pLeft24, nId);
-        if (pFound != gpTreeSentinel_0074C3D8)
-        {
-            return pFound;
-        }
-    }
-    if (pNode->pRight28)
-    {
-        pFound = EXCEL_FindLinkNode(pNode->pRight28, nId);
-        if (pFound != gpTreeSentinel_0074C3D8)
-        {
-            return pFound;
-        }
-    }
-    return gpTreeSentinel_0074C3D8;
-}
-
-// 0x006BD380
-const char* __stdcall FOG_10255(D2StringTableStrc* pTable, int index, int useFallback)
-{
- if (!pTable || index < 0 || index >= pTable->count) return gszFallback_0074C3D8;
- const char* result = sub_006BD330_GetString(pTable->data, index);
- if ((!result || result == gszFallback_0074C3D8) && useFallback) return gszFallback_0074C3D8;
- return result;
-}
-
-// 0x006BD3C0
-int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError)
-{
-    char szKey[0x20];
-    SStrCopy(szKey, szText, sizeof(szKey));
-    sub_004113C0(szKey, sizeof(szKey));
-
-    D2TxtLinkNodeStrc* pNode = pLink->pFirstNode;
-    if (pLink->count && !pNode)
-    {
-        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x475);
-        exit(-1);
-    }
-
-    while (pNode)
-    {
-        const int nCompare = strcmp(szKey, pNode->szText);
-        if (!nCompare)
-        {
-            return pNode->nLinkIndex;
-        }
-
-        if (nCompare < 0)
-        {
-            pNode = pNode->pPrevious;
-        }
-        else
-        {
-            pNode = pNode->pNext;
-        }
-    }
-
-    return -1;
-}
-
-// build: context sub_006BCE20_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_006BCE20_Shim(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
-{
-    return EXCEL_MapColumns(pOut, pList, pEntries);
-}
-
-// 0x006BD490
-static void __cdecl EXCEL_InsertLinkNode(D2TxtLinkNodeStrc** ppLink, D2TxtLinkNodeStrc* pNode)
-{
-    while (*ppLink)
-    {
-        D2TxtLinkNodeStrc* pCurrent = *ppLink;
-        const int nCompare = strcmp(pNode->szText, pCurrent->szText);
-        if (nCompare < 0)
-        {
-            ppLink = &pCurrent->pPrevious;
-        }
-        else if (nCompare > 0)
-        {
-            ppLink = &pCurrent->pNext;
-        }
-        else
-        {
-            FOG_FreePool(0, pNode, ".\\Src\\Excel\\Excel.cpp", 1191, 0);
-            return;
-        }
-    }
-
-    *ppLink = pNode;
-}
-
-// build: context sub_006BD490_Shim
-// calling-convention shim (not game code)
-void __cdecl sub_006BD490_Shim(D2TxtLinkNodeStrc** ppRoot, D2TxtLinkNodeStrc* pNode)
-{
-    EXCEL_InsertLinkNode(ppRoot, pNode);
-}
-
-// 0x006BD500
-int __stdcall FOG_10216_AddRecordToLinkingTable(D2BinLinker006BD500Strc* pLinker, const char* szCode)
-{
-    D2_ASSERT(pLinker, 0x4B2);
-    D2_ASSERT(!pLinker->pLocked, 0x4B6);
-
-    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), ".\\Src\\Excel\\Excel.cpp", 0x4B9, 0);
-    memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
-    SStrCopy(pNode->szText, szCode, 0x20);
-    sub_004113C0(pNode->szText, 0x20);
-    pNode->nLinkIndex = pLinker->nCount;
-    EXCEL_InsertLinkNode((D2TxtLinkNodeStrc**)&pLinker->tTree, (D2TxtLinkNodeStrc*)pNode);
-    return pLinker->nCount++;
-}
-
-// 0x006BD5A0
-int __fastcall EXCEL_GetOrAddLinkIndex(D2TxtLinkStrc* pLinker, const char* szText)
-{
-    D2_ASSERT(pLinker, 0x4CC);
-    D2_ASSERT(!pLinker->pTbl, 0x4D0);
-
-    const int nRow = FOG_GetLinkIndex(pLinker, szText, 0);
-    if (nRow >= 0)
-    {
-        return nRow;
-    }
-
-    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), ".\\Src\\Excel\\Excel.cpp", 0x4D9, 0);
-    memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
-    SStrCopy(pNode->szText, szText, sizeof(pNode->szText));
-    sub_004113C0(pNode->szText, sizeof(pNode->szText));
-    pNode->nLinkIndex = pLinker->count;
-    EXCEL_InsertLinkNode(&pLinker->pFirstNode, pNode);
-    return pLinker->count++;
-}
-
 // 0x006BD640
 D2BinFileStrc* __stdcall FOG_CreateBinFile(char* pDataBuffer, int nBufferSize)
 {
@@ -1015,26 +783,6 @@ void __cdecl sub_006BE300_Nop(const char* unused1, const char* unused2, int unus
 {
 }
 
-static int gnLockCount_0074C3E0; // 0x0074C3E0
-
-static int gnGlobal_0074C3E4; // 0x0074C3E4
-
-static int gnGlobal_0074C3E8; // 0x0074C3E8
-
-static int gnGlobal_0074C3EC; // 0x0074C3EC
-
-static int gnGlobal_00989C28; // 0x00989C28
-
-// 0x006BE310
-void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
-{
-    gnLockCount_0074C3E0 = pConfig->nClientCapacity;
-    gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
-    gnGlobal_0074C3E8 = pConfig->nValue04;
-    gnGlobal_0074C3EC = pConfig->nValue08;
-    gnGlobal_00989C28 = pConfig->nValue0C;
-}
-
 // 0x006BE350
 void __stdcall FOG_StartServer(D2QueueServerStrc* pServer, unsigned int nValue)
 {
@@ -1056,6 +804,258 @@ int __stdcall FOG_10186(D2Object006BE390Strc* pObject, int nIndex, int nValue)
     if (nValue)
         pObject->anSlots[nIndex] = nValue;
     return nOld;
+}
+
+// 0x006BD130
+extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unusedLogError)
+{
+    int upper = link->count;
+    int lower = 0;
+    KeyValue* entries = link->entries;
+    while (lower < upper)
+    {
+        int middle = lower + (upper - lower) / 2;
+        U32 current = entries[middle].key;
+        if (key > current)
+            lower = middle + 1;
+        else if (key < current)
+            upper = middle;
+        else
+            return entries[middle].value;
+    }
+    return -1;
+}
+
+// 0x006BD180
+int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* linker, int index, char* text)
+{
+    D2TxtLinkEntryStrc* entries = linker->entries;
+    if (!entries)
+        return 0;
+    if (index >= 0 && index < linker->count)
+    {
+        for (int i = 0; i < linker->count; ++i)
+        {
+            if (index == entries[i].index)
+            {
+                text[0] = entries[i].code[0] != ' ' ? entries[i].code[0] : 0;
+                text[1] = entries[i].code[1] != ' ' ? entries[i].code[1] : 0;
+                text[2] = entries[i].code[2] != ' ' ? entries[i].code[2] : 0;
+                text[3] = entries[i].code[3] != ' ' ? entries[i].code[3] : 0;
+                text[4] = 0;
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+// build: context sub_006BCE20_Shim
+// calling-convention shim (not game code)
+int __stdcall sub_006BCE20_Shim(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
+{
+    return EXCEL_MapColumns(pOut, pList, pEntries);
+}
+
+// 0x006BD330
+D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pNode, int nId)
+{
+    if (!pNode)
+    {
+        return gpTreeSentinel_0074C3D8;
+    }
+    if (pNode->nId20 == nId)
+    {
+        return pNode;
+    }
+    D2TreeNode006BD330Strc* pFound;
+    if (pNode->pLeft24)
+    {
+        pFound = EXCEL_FindLinkNode(pNode->pLeft24, nId);
+        if (pFound != gpTreeSentinel_0074C3D8)
+        {
+            return pFound;
+        }
+    }
+    if (pNode->pRight28)
+    {
+        pFound = EXCEL_FindLinkNode(pNode->pRight28, nId);
+        if (pFound != gpTreeSentinel_0074C3D8)
+        {
+            return pFound;
+        }
+    }
+    return gpTreeSentinel_0074C3D8;
+}
+
+// build: context sub_006BD490_Shim
+// calling-convention shim (not game code)
+void __cdecl sub_006BD490_Shim(D2TxtLinkNodeStrc** ppRoot, D2TxtLinkNodeStrc* pNode)
+{
+    EXCEL_InsertLinkNode(ppRoot, pNode);
+}
+
+// 0x006BD500
+int __stdcall FOG_10216_AddRecordToLinkingTable(D2BinLinker006BD500Strc* pLinker, const char* szCode)
+{
+    D2_ASSERT(pLinker, 0x4B2);
+    D2_ASSERT(!pLinker->pLocked, 0x4B6);
+
+    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), ".\\Src\\Excel\\Excel.cpp", 0x4B9, 0);
+    memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
+    SStrCopy(pNode->szText, szCode, 0x20);
+    sub_004113C0(pNode->szText, 0x20);
+    pNode->nLinkIndex = pLinker->nCount;
+    EXCEL_InsertLinkNode((D2TxtLinkNodeStrc**)&pLinker->tTree, (D2TxtLinkNodeStrc*)pNode);
+    return pLinker->nCount++;
+}
+
+// 0x006BD5A0
+int __fastcall EXCEL_GetOrAddLinkIndex(D2TxtLinkStrc* pLinker, const char* szText)
+{
+    D2_ASSERT(pLinker, 0x4CC);
+    D2_ASSERT(!pLinker->pTbl, 0x4D0);
+
+    const int nRow = FOG_GetLinkIndex(pLinker, szText, 0);
+    if (nRow >= 0)
+    {
+        return nRow;
+    }
+
+    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), ".\\Src\\Excel\\Excel.cpp", 0x4D9, 0);
+    memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
+    SStrCopy(pNode->szText, szText, sizeof(pNode->szText));
+    sub_004113C0(pNode->szText, sizeof(pNode->szText));
+    pNode->nLinkIndex = pLinker->count;
+    EXCEL_InsertLinkNode(&pLinker->pFirstNode, pNode);
+    return pLinker->count++;
+}
+
+// 0x006BD380
+const char* __stdcall FOG_10255(D2StringTableStrc* pTable, int index, int useFallback)
+{
+ if (!pTable || index < 0 || index >= pTable->count) return gszFallback_0074C3D8;
+ const char* result = sub_006BD330_GetString(pTable->data, index);
+ if ((!result || result == gszFallback_0074C3D8) && useFallback) return gszFallback_0074C3D8;
+ return result;
+}
+
+// 0x006BD3C0
+int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError)
+{
+    char szKey[0x20];
+    SStrCopy(szKey, szText, sizeof(szKey));
+    sub_004113C0(szKey, sizeof(szKey));
+
+    D2TxtLinkNodeStrc* pNode = pLink->pFirstNode;
+    if (pLink->count && !pNode)
+    {
+        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x475);
+        exit(-1);
+    }
+
+    while (pNode)
+    {
+        const int nCompare = strcmp(szKey, pNode->szText);
+        if (!nCompare)
+        {
+            return pNode->nLinkIndex;
+        }
+
+        if (nCompare < 0)
+        {
+            pNode = pNode->pPrevious;
+        }
+        else
+        {
+            pNode = pNode->pNext;
+        }
+    }
+
+    return -1;
+}
+
+// 0x006BD490
+static void __cdecl EXCEL_InsertLinkNode(D2TxtLinkNodeStrc** ppLink, D2TxtLinkNodeStrc* pNode)
+{
+    while (*ppLink)
+    {
+        D2TxtLinkNodeStrc* pCurrent = *ppLink;
+        const int nCompare = strcmp(pNode->szText, pCurrent->szText);
+        if (nCompare < 0)
+        {
+            ppLink = &pCurrent->pPrevious;
+        }
+        else if (nCompare > 0)
+        {
+            ppLink = &pCurrent->pNext;
+        }
+        else
+        {
+            FOG_FreePool(0, pNode, ".\\Src\\Excel\\Excel.cpp", 1191, 0);
+            return;
+        }
+    }
+
+    *ppLink = pNode;
+}
+
+// 0x006BD040
+D2Block006BD040Strc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
+{
+    D2Block006BD040Strc* pBlock = (D2Block006BD040Strc*)FOG_AllocPool(0, 0x10, szFile, nLine, 0);
+    memset(pBlock, 0, sizeof(D2Block006BD040Strc));
+    return pBlock;
+}
+
+static int gnLockCount_0074C3E0; // 0x0074C3E0
+
+static int gnGlobal_0074C3E4; // 0x0074C3E4
+
+static int gnGlobal_0074C3E8; // 0x0074C3E8
+
+static int gnGlobal_0074C3EC; // 0x0074C3EC
+
+static int gnGlobal_00989C28; // 0x00989C28
+
+// 0x006BE310
+void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
+{
+    gnLockCount_0074C3E0 = pConfig->nClientCapacity;
+    gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
+    gnGlobal_0074C3E8 = pConfig->nValue04;
+    gnGlobal_0074C3EC = pConfig->nValue08;
+    gnGlobal_00989C28 = pConfig->nValue0C;
+}
+
+// 0x006BD070
+void __fastcall EXCEL_FreeLinkTree(D2TxtLinkNodeStrc* pNode)
+{
+    if (pNode->pPrevious)
+        EXCEL_FreeLinkTree(pNode->pPrevious);
+    if (pNode->pNext)
+        EXCEL_FreeLinkTree(pNode->pNext);
+    FOG_FreeServerMemory(0, pNode, ".\\Src\\Excel\\Excel.cpp", 0x346, 0);
+}
+
+// 0x006BD0B0
+extern "C" void __stdcall FOG_FreeLinker(LinkerView* linker)
+{
+    if (linker)
+    {
+        LinkNode* root = linker->root;
+        if (root)
+        {
+            if (root->firstChild)
+                sub_006BD070_FreeNodes(root->firstChild);
+            if (root->secondChild)
+                sub_006BD070_FreeNodes(root->secondChild);
+            sub_0040B480_FreePool(0,root,".\\Src\\Excel\\Excel.cpp",0x346,0);
+        }
+        if (linker->entries)
+            sub_0040B480_FreePool(0,linker->entries,".\\Src\\Excel\\Excel.cpp",0x35D,0);
+        sub_0040B480_FreePool(0,linker,".\\Src\\Excel\\Excel.cpp",0x360,0);
+    }
 }
 
 #include "gen/data/Source/Fog/Src/Excel/Excel.inc"

@@ -760,6 +760,61 @@ inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
     return nSeed;
 }
 
+// 0x0054F490
+D2UnitStrc* __fastcall OBJECTS_SpawnPresetObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
+{
+    if (nClassId <= 573)
+    {
+        return 0;
+    }
+
+    const int nIndex = nClassId - 574;
+    if (nIndex >= sgnPresetStuffCount_00731D4C)
+    {
+        return 0;
+    }
+
+    D2_ASSERT(!IsBadCodePtr((FARPROC)sgPresetStuff_00731D28[nIndex]), 429);
+
+    return sgPresetStuff_00731D28[nIndex](pGame, pRoom, nClassId, nX, nY, nMode);
+}
+
+// build: context SEED_RollRandomNumber
+inline unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->lSeed = lSeed;
+    return lSeed;
+}
+
+// 0x0054F370
+D2UnitStrc* __fastcall OBJECTS_SpawnSpecialChest(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused)
+{
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    D2UnitStrc* pObject = OBJECTS_SpawnPresetChest(pGame, pRoom, nLevelId == LEVEL_TOWERCELLARLEV5 ? OBJECT_COUNTESSCHEST : nClassId, nX, nY, nUnused);
+    if (pObject)
+    {
+        if (nLevelId >= LEVEL_MAGGOTLAIRLEV1 && nLevelId <= LEVEL_MAGGOTLAIRLEV3
+            && (int)((unsigned int)SEED_RollRandomNumber(&OBJRGN_GetObjectControlFromGame(pGame, pRoom)->pSeed) % 100) > 50)
+        {
+            pObject->dwFlags |= 0x80;
+            UNITS_ChangeAnimMode(pObject, 0);
+            return pObject;
+        }
+
+        D2GAME_SetSparkChest_6FCBD7C0(pObject, 1);
+        if (nLevelId == LEVEL_TOWERCELLARLEV5)
+        {
+            pObject->pObjectData->InteractType = 3;
+        }
+
+        pObject->dwFlags |= 0x80;
+        UNITS_ChangeAnimMode(pObject, 0);
+    }
+
+    return pObject;
+}
+
 // 0x0054F180
 D2UnitStrc* __fastcall OBJECTS_SpawnPresetChest(
     D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nUnused)
@@ -810,71 +865,6 @@ D2UnitStrc* __fastcall OBJECTS_SpawnPresetChest(
         nObject = 0x173;
     D2_ASSERT(hRoom, 0x157);
     return SUNIT_AllocUnitData(2, nObject, nX, nY, pGame, hRoom, 1, 0, 0);
-}
-
-// build: context SEED_RollRandomNumber
-inline unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->lSeed = lSeed;
-    return lSeed;
-}
-
-// 0x0054F370
-D2UnitStrc* __fastcall OBJECTS_SpawnSpecialChest(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused)
-{
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    D2UnitStrc* pObject = OBJECTS_SpawnPresetChest(pGame, pRoom, nLevelId == LEVEL_TOWERCELLARLEV5 ? OBJECT_COUNTESSCHEST : nClassId, nX, nY, nUnused);
-    if (pObject)
-    {
-        if (nLevelId >= LEVEL_MAGGOTLAIRLEV1 && nLevelId <= LEVEL_MAGGOTLAIRLEV3
-            && (int)((unsigned int)SEED_RollRandomNumber(&OBJRGN_GetObjectControlFromGame(pGame, pRoom)->pSeed) % 100) > 50)
-        {
-            pObject->dwFlags |= 0x80;
-            UNITS_ChangeAnimMode(pObject, 0);
-            return pObject;
-        }
-
-        D2GAME_SetSparkChest_6FCBD7C0(pObject, 1);
-        if (nLevelId == LEVEL_TOWERCELLARLEV5)
-        {
-            pObject->pObjectData->InteractType = 3;
-        }
-
-        pObject->dwFlags |= 0x80;
-        UNITS_ChangeAnimMode(pObject, 0);
-    }
-
-    return pObject;
-}
-
-// 0x0054F430
-D2UnitStrc* __fastcall OBJECTS_SpawnArcaneSymbol(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nMode)
-{
-    const int nObjectId = ACT2Q6_GetObjectIdForArcaneThing(pGame);
-
-    D2_ASSERT(hRoom, 391);
-
-    return SUNIT_AllocUnitData(UNIT_OBJECT, nObjectId, nX, nY, pGame, hRoom, 1, 0, 0);
-}
-
-// 0x0054F490
-D2UnitStrc* __fastcall OBJECTS_SpawnPresetObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
-{
-    if (nClassId <= 573)
-    {
-        return 0;
-    }
-
-    const int nIndex = nClassId - 574;
-    if (nIndex >= sgnPresetStuffCount_00731D4C)
-    {
-        return 0;
-    }
-
-    D2_ASSERT(!IsBadCodePtr((FARPROC)sgPresetStuff_00731D28[nIndex]), 429);
-
-    return sgPresetStuff_00731D28[nIndex](pGame, pRoom, nClassId, nX, nY, nMode);
 }
 
 // 0x0054F520
@@ -993,6 +983,20 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
     UNITS_SetTimerArg(pUnit, OBJECTS_AllocTimerArg(pGame));
 }
 
+// 0x0054F860
+void __fastcall OBJECTS_InitFunction10_Unused(D2ObjInitFnStrc* pOp)
+{
+    if (DUNGEON_GetLevelIdFromRoom(pOp->pRoom) == LEVEL_ROGUEENCAMPMENT)
+    {
+        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_PERIODICSKILLS, pOp->pGame->dwGameFrame + 60, 0, 0);
+    }
+    else
+    {
+        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
+        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_MODECHANGE, pOp->pGame->dwGameFrame + 25, 0, 0);
+    }
+}
+
 static inline U32 Roll(Seed* seed)
 {
     unsigned __int64 value = (unsigned __int64)seed->hi + (unsigned __int64)seed->lo * NRNG;
@@ -1056,45 +1060,100 @@ static inline int CoordinateY(Unit* object)
     return N0;
 }
 
-// 0x0054F860
-void __fastcall OBJECTS_InitFunction10_Unused(D2ObjInitFnStrc* pOp)
+// 0x00552830
+void __fastcall OBJECTS_SetObjectPopulateDensity(unsigned char nDensity)
 {
-    if (DUNGEON_GetLevelIdFromRoom(pOp->pRoom) == LEVEL_ROGUEENCAMPMENT)
+    gnObjectPopulateDensity_00731BBD = nDensity;
+}
+
+// 0x00552DE0
+static inline void SUNIT_AssignUnitId(D2UnitStrc* pUnit, int nValue)
+{
+    if (pUnit)
     {
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_PERIODICSKILLS, pOp->pGame->dwGameFrame + 60, 0, 0);
-    }
-    else
-    {
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_MODECHANGE, pOp->pGame->dwGameFrame + 25, 0, 0);
+        pUnit->dwFlags |= 2;
+        pUnit->dwUnitId = nValue;
     }
 }
 
-// 0x0054F8C0
-void __fastcall OBJECTS_InitFunction28_GoldPlaceHolder(D2ObjInitFnStrc* pOp)
+// 0x00551690
+D2UnitStrc* __fastcall OBJECTS_PopulateFn6_RogueGuardCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nDensity, int nObjectId, int nProbability)
 {
-    if (pOp->pObject && pOp->pObject->dwAnimMode != OBJMODE_NEUTRAL)
-        return;
-
-    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
-    D2CoordStrc pCoord;
-    pCoord.nX = pOp->nX;
-    pCoord.nY = pOp->nY;
-
-    const int nCounter = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) % 9 + 1;
-    for (int i = 0; i < nCounter; ++i)
+    D2UnitStrc* pObject = OBJECTS_PopulateFn3_CommonObjects(pGame, pRoom, nDensity, nObjectId, nProbability);
+    if (pObject)
     {
-        const int nOffsetX = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
-        const int nOffsetY = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
-        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(pOp->pRoom, pCoord.nX + nOffsetX, pCoord.nY + nOffsetY);
-        if (pRoom == pOp->pRoom)
+        OBJECTS_SpawnFliesOnCorpse(pGame, pObject);
+    }
+
+    return pObject;
+}
+
+// 0x00551FF0
+int __stdcall OBJECTS_SpawnNothing(int nArg)
+{
+    return 1;
+}
+
+// 0x005523C0
+int __fastcall OBJECTS_SpawnArmorStand(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords)
+{
+    OBJECTS_SpawnArmorStandOrWeaponRack(pGame, pRoom, pDrlgCoords, 0);
+    return 1;
+}
+
+// 0x005523E0
+int __fastcall OBJECTS_SpawnWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords)
+{
+    OBJECTS_SpawnArmorStandOrWeaponRack(pGame, pRoom, pDrlgCoords, 1);
+    return 1;
+}
+
+// 0x00552560
+static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLevelsTxtRecord, D2ActiveRoomStrc* pRoom)
+{
+    if (DUNGEON_HasWaypoint(pRoom))
+    {
+        return 0;
+    }
+
+    const int nLevelId = DUNGEON_GetLevelIdFromPopulatedRoom(pRoom);
+    D2ObjectRegionStrc* pObjectRegion = OBJRGN_GetObjectRegionForLevel(pGame, nLevelId);
+    if (!nLevelId)
+    {
+        return 0;
+    }
+
+    if (D2Common_10087(pRoom))
+    {
+        return 0;
+    }
+
+    if (nLevelId >= sgptDataTables->nLevelsTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (DUNGEON_IsRoomInTown(pRoom))
+    {
+        return 0;
+    }
+
+    if (pObjectRegion->nPopulatedRooms == 0x7FFFFFFF)
+    {
+        pObjectRegion->nPopulatedRooms = DUNGEON_GetNumberOfPopulatedRoomsInLevel(pGame->pAct[pObjectRegion->nAct], nLevelId);
+    }
+
+    pObjectRegion->unk0x04 += 1;
+
+    if (pLevelsTxtRecord->dwThemes)
+    {
+        if (OBJECTS_PopulateRoomTheme(pGame, pRoom, pLevelsTxtRecord->dwThemes, pObjectRegion) == 1)
         {
-            pCoord.nX = pOp->nX + nOffsetX;
-            pCoord.nY = pOp->nY + nOffsetY;
-            if (!COLLISION_CheckMaskWithSizeXY(pRoom, pCoord.nX, pCoord.nY, 1, 1, COLLIDE_MASK_PLACEMENT))
-                ITEMS_DropGoldAtCoordinates(pOp->pGame, pOp->pRoom, &pCoord);
+            return 0;
         }
     }
+
+    return 1;
 }
 
 // 0x0054F9D0
@@ -1193,6 +1252,14 @@ void __fastcall OBJECTS_InitFunction27_GooPile(D2ObjInitFnStrc* pOp)
     pOp->pObject->pObjectData->InteractType = nInteractType;
 }
 
+void __stdcall GfxHashDumpStats()
+{
+}
+
+void __stdcall sub_0060AC50_Nop()
+{
+}
+
 // 0x0054FCB0
 void __fastcall OBJECTS_InitFunction03_Chest(D2ObjInitFnStrc* pOp)
 {
@@ -1216,31 +1283,43 @@ void __fastcall OBJECTS_InitFunction03_Chest(D2ObjInitFnStrc* pOp)
     pOp->pObject->pObjectData->InteractType = nInteractType;
 }
 
-// 0x0054FD90
-void __fastcall OBJECTS_InitFunction57_SparklyChest(D2ObjInitFnStrc* pOp)
+// 0x00550220
+static int __stdcall OBJECTS_CanPlaceObjectWithClearance(D2ActiveRoomStrc* pRoom, int nSizeY, D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, int nSizeX)
 {
-    OBJECTS_InitFunction03_Chest(pOp);
-    D2GAME_SetSparkChest_6FCBD7C0(pOp->pObject, 1);
-}
-
-// 0x0054FDB0
-void __fastcall OBJECTS_InitFunction58_Fissure(D2ObjInitFnStrc* pOp)
-{
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pOp->pGame, pOp->pRoom);
-    EVENT_SetEvent(pOp->pGame, pOp->pObject, 8, pOp->pGame->dwGameFrame + (unsigned int)ITEMS_RollRandomNumberForceInline(&pObjectControl->pSeed) % 250 + 25, 0, 0);
-}
-
-// 0x0054FE10
-void __fastcall OBJECTS_InitFunction59_VileDogAfterglow(D2ObjInitFnStrc* pOp)
-{
-    if (pOp->pObject && pOp->pObject->dwAnimMode != OBJMODE_NEUTRAL)
+    if (pDrlgCoords->nSubtileWidth < nSizeX + 2 || pDrlgCoords->nSubtileHeight < nSizeY + 2)
     {
-        return;
+        return 0;
     }
 
-    UNITS_ChangeAnimMode(pOp->pObject, 1);
-    EVENT_SetEvent(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 27, 0, 0);
-    EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (pOp->pObjectTxt->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+    if ((unsigned short)pCoord->nX > pDrlgCoords->nSubtileX + 1
+        && (unsigned short)pCoord->nY > pDrlgCoords->nSubtileY + 1
+        && (unsigned short)pCoord->nX < pDrlgCoords->nSubtileX - nSizeX + pDrlgCoords->nSubtileWidth - 2
+        && (unsigned short)pCoord->nY < pDrlgCoords->nSubtileY - nSizeY + pDrlgCoords->nSubtileHeight - 2
+        && !COLLISION_CheckMaskWithSizeXY(pRoom, pCoord->nX, pCoord->nY, nSizeX + 7, nSizeY + 7, 0xC01)
+        && !COLLISION_CheckMaskWithSizeXY(pRoom, pCoord->nX, pCoord->nY, nSizeX, nSizeY, 0x3F11))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x005502F0
+static int __stdcall OBJECTS_CanPlaceObject(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY)
+{
+    if (pDrlgCoords->nSubtileWidth < 2 || pDrlgCoords->nSubtileHeight < 2)
+    {
+        return 0;
+    }
+
+    if ((unsigned short)pCoord->nX > pDrlgCoords->nSubtileX + 2
+        && (unsigned short)pCoord->nY > pDrlgCoords->nSubtileY + 2
+        && (unsigned short)pCoord->nX < pDrlgCoords->nSubtileWidth + pDrlgCoords->nSubtileX - nSizeX
+        && (unsigned short)pCoord->nY < pDrlgCoords->nSubtileHeight + pDrlgCoords->nSubtileY - nSizeY
+        && !COLLISION_CheckMaskWithSizeXY(pRoom, pCoord->nX, pCoord->nY, nSizeX + 2, nSizeY + 2, 0x3F11))
+    {
+        return 1;
+    }
+    return 0;
 }
 
 // 0x0054FE70
@@ -1338,42 +1417,6 @@ void __fastcall OBJECTS_InitFunction12_PermanentPortal(D2ObjInitFnStrc* pOp)
     }
 }
 
-void __stdcall GfxHashDumpStats()
-{
-}
-
-void __stdcall sub_0060AC50_Nop()
-{
-}
-
-// 0x005500C0
-void __fastcall OBJECTS_InitFunction08_Torch(D2ObjInitFnStrc* pOp)
-{
-    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
-}
-
-// 0x005500D0
-void __fastcall OBJECTS_InitFunction14_Brazier(D2ObjInitFnStrc* pOp)
-{
-    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
-}
-
-// 0x005500E0
-void __fastcall OBJECTS_SetOperatingMode(D2ObjInitFnStrc* pOp)
-{
-    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
-}
-
-// 0x005500F0
-void __fastcall OBJECTS_InitFunction34_HellBrazierFire(D2ObjInitFnStrc* pOp)
-{
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pOp->pGame, pOp->pRoom);
-    if ((unsigned int)ITEMS_RollRandomNumberForceInline(&pObjectControl->pSeed) & 1)
-    {
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
-    }
-}
-
 static inline int sub_E03_GetAnimMode(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwAnimMode : 0;
@@ -1446,79 +1489,22 @@ static inline unsigned int OBJECTS_RollLimitedHi_Inline(D2SeedStrc* pSeed, int n
     return OBJECTS_RollSeedHi_Inline(pSeed) & (nMax - 1);
 }
 
-// 0x00550220
-static int __stdcall OBJECTS_CanPlaceObjectWithClearance(D2ActiveRoomStrc* pRoom, int nSizeY, D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, int nSizeX)
+// 0x005500C0
+void __fastcall OBJECTS_InitFunction08_Torch(D2ObjInitFnStrc* pOp)
 {
-    if (pDrlgCoords->nSubtileWidth < nSizeX + 2 || pDrlgCoords->nSubtileHeight < nSizeY + 2)
-    {
-        return 0;
-    }
-
-    if ((unsigned short)pCoord->nX > pDrlgCoords->nSubtileX + 1
-        && (unsigned short)pCoord->nY > pDrlgCoords->nSubtileY + 1
-        && (unsigned short)pCoord->nX < pDrlgCoords->nSubtileX - nSizeX + pDrlgCoords->nSubtileWidth - 2
-        && (unsigned short)pCoord->nY < pDrlgCoords->nSubtileY - nSizeY + pDrlgCoords->nSubtileHeight - 2
-        && !COLLISION_CheckMaskWithSizeXY(pRoom, pCoord->nX, pCoord->nY, nSizeX + 7, nSizeY + 7, 0xC01)
-        && !COLLISION_CheckMaskWithSizeXY(pRoom, pCoord->nX, pCoord->nY, nSizeX, nSizeY, 0x3F11))
-    {
-        return 1;
-    }
-    return 0;
+    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
 }
 
-// 0x005502F0
-static int __stdcall OBJECTS_CanPlaceObject(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY)
+// 0x005500D0
+void __fastcall OBJECTS_InitFunction14_Brazier(D2ObjInitFnStrc* pOp)
 {
-    if (pDrlgCoords->nSubtileWidth < 2 || pDrlgCoords->nSubtileHeight < 2)
-    {
-        return 0;
-    }
-
-    if ((unsigned short)pCoord->nX > pDrlgCoords->nSubtileX + 2
-        && (unsigned short)pCoord->nY > pDrlgCoords->nSubtileY + 2
-        && (unsigned short)pCoord->nX < pDrlgCoords->nSubtileWidth + pDrlgCoords->nSubtileX - nSizeX
-        && (unsigned short)pCoord->nY < pDrlgCoords->nSubtileHeight + pDrlgCoords->nSubtileY - nSizeY
-        && !COLLISION_CheckMaskWithSizeXY(pRoom, pCoord->nX, pCoord->nY, nSizeX + 2, nSizeY + 2, 0x3F11))
-    {
-        return 1;
-    }
-    return 0;
+    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
 }
 
-// 0x00550380
-D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* hRoom)
+// 0x005500E0
+void __fastcall OBJECTS_SetOperatingMode(D2ObjInitFnStrc* pOp)
 {
-    D2DrlgCoordsStrc drlgCoords;
-    DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
-
-    if (drlgCoords.nSubtileWidth < ROOM_MIN_SUBTILES || drlgCoords.nSubtileHeight < ROOM_MIN_SUBTILES)
-    {
-        return 0;
-    }
-
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
-    int nX;
-    int nY;
-    int i;
-    for (i = 0; i < CREATE_TRIES; ++i)
-    {
-        nX = OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileWidth - nSizeX - 1) + drlgCoords.nSubtileX;
-        nY = OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileHeight - nSizeY - 1) + drlgCoords.nSubtileY;
-        if (nX && nY && (unsigned short)nX >= drlgCoords.nSubtileX + 1 && (unsigned short)nY >= drlgCoords.nSubtileY + 1
-            && (unsigned short)nX < drlgCoords.nSubtileX + drlgCoords.nSubtileWidth - 1 && (unsigned short)nY < drlgCoords.nSubtileY + drlgCoords.nSubtileHeight - 1
-            && !COLLISION_CheckMaskWithSizeXY(hRoom, nX, nY, nSizeX + CREATE_SIZE_GROW, nSizeY + CREATE_SIZE_GROW, COLLIDE_MASK_PLACEMENT))
-        {
-            break;
-        }
-    }
-
-    if (i >= CREATE_TRIES)
-    {
-        return 0;
-    }
-
-    D2_ASSERT(hRoom, LINE_CREATE_ROOM);
-    return SUNIT_AllocUnitData(UNIT_OBJECT, nClassId, nX, nY, pGame, hRoom, 1, 0, 0);
+    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
 }
 
 // build: context SEED_RollLimitedRandomNumberInl
@@ -1582,494 +1568,47 @@ D2UnitStrc* __stdcall OBJECTS_SpawnObjectInRoomWithCheck(D2GameStrc* pGame, int 
     return SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, pRoom, 1, 0, 0);
 }
 
-// 0x005506D0
-void __fastcall OBJECTS_InitFunction46_TrappedSoulPlaceHolder(D2ObjInitFnStrc* op)
+// 0x0054F8C0
+void __fastcall OBJECTS_InitFunction28_GoldPlaceHolder(D2ObjInitFnStrc* pOp)
 {
-    if(op->pObject && op->pObject->dwAnimMode) return;
-    D2DrlgCoordsStrc room;
-    DUNGEON_GetRoomCoordinates(op->pRoom,&room);
-    D2ObjectControlStrc* control=OBJRGN_GetObjectControlFromGame(op->pGame,op->pRoom);
-    int nTries=12;
-    int count=30*((room.nSubtileWidth*room.nSubtileHeight)>>7)>>8;
-    int distance=5;
-    while(count>0) {
-        if(nTries<=0) break;
-        D2CoordStrc xy;
-        xy.nX=room.nSubtileX+OBJECTS_RollLimited_Inline(&control->pSeed,room.nSubtileWidth-4);
-        xy.nY=room.nSubtileY+OBJECTS_RollLimited_Inline(&control->pSeed,room.nSubtileHeight-4);
-        D2CoordStrc coord;coord.nX=xy.nX;coord.nY=xy.nY;
-        if(OBJECTS_CanPlaceObjectWithClearance(op->pRoom,3,&room,&coord,3)==1) {
-            unsigned int random=OBJECTS_RollSeedHi_Inline((D2SeedStrc*)op->pObjectregion);
-            int monsterId=403;
-            if(random&1) monsterId=404;
-            if(D2GAME_SpawnMonster_6FC69F10(op->pGame,op->pRoom,op->nX,op->nY,monsterId,1,-1,0)) {
-                UNITS_ChangeAnimMode(op->pObject,2);--count;
-            }
-            int spawned=1;
-            int placed=1;
-            while(!OBJECTS_RollLimited_Inline(&control->pSeed,spawned>>1) && placed) {
-                int tries=0;
-                placed=0;
-                int maximum=3*(count<4 ? 4 : count);
-                while(!placed) {
-                    if(tries>=maximum) break;
-                    int direction=OBJECTS_RollLimited_Inline(&control->pSeed,8);
-                    xy.nX+=2*(OBJECTS_RollLimited_Inline(&control->pSeed,distance)+distance)*gaDirectionX_00731B7C[direction];
-                    xy.nY+=2*(OBJECTS_RollLimited_Inline(&control->pSeed,distance)+distance)*gaDirectionY_00731B9C[direction];
-                    coord.nX=xy.nX;coord.nY=xy.nY;
-                    placed=OBJECTS_CanPlaceObjectWithClearance(op->pRoom,3,&room,&coord,3);
-                    ++tries;
-                }
-                if(placed) {
-                    unsigned int random=OBJECTS_RollSeedHi_Inline((D2SeedStrc*)op->pObjectregion);
-                    int monsterId=403;
-                    if(random&1) monsterId=404;
-                    ++spawned;
-                    if(D2GAME_SpawnMonster_6FC69F10(op->pGame,op->pRoom,xy.nX,xy.nY,monsterId,1,-1,0)) {
-                        UNITS_ChangeAnimMode(op->pObject,2);--count;
-                    }
-                }
-            }
+    if (pOp->pObject && pOp->pObject->dwAnimMode != OBJMODE_NEUTRAL)
+        return;
+
+    UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
+    D2CoordStrc pCoord;
+    pCoord.nX = pOp->nX;
+    pCoord.nY = pOp->nY;
+
+    const int nCounter = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) % 9 + 1;
+    for (int i = 0; i < nCounter; ++i)
+    {
+        const int nOffsetX = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
+        const int nOffsetY = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
+        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(pOp->pRoom, pCoord.nX + nOffsetX, pCoord.nY + nOffsetY);
+        if (pRoom == pOp->pRoom)
+        {
+            pCoord.nX = pOp->nX + nOffsetX;
+            pCoord.nY = pOp->nY + nOffsetY;
+            if (!COLLISION_CheckMaskWithSizeXY(pRoom, pCoord.nX, pCoord.nY, 1, 1, COLLIDE_MASK_PLACEMENT))
+                ITEMS_DropGoldAtCoordinates(pOp->pGame, pOp->pRoom, &pCoord);
         }
-        --nTries;
     }
 }
 
-// 0x00619730
-void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords)
+// 0x005500F0
+void __fastcall OBJECTS_InitFunction34_HellBrazierFire(D2ObjInitFnStrc* pOp)
 {
-    D2_ASSERT(pCoords, 209);
-
-    if (!pRoom)
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pOp->pGame, pOp->pRoom);
+    if ((unsigned int)ITEMS_RollRandomNumberForceInline(&pObjectControl->pSeed) & 1)
     {
-        memset(pCoords, 0x00, sizeof(D2DrlgCoordsStrc));
-        return;
+        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
     }
-
-    memcpy(pCoords, &pRoom->tCoords, sizeof(D2DrlgCoordsStrc));
 }
 
 static inline int sub_00550A30_IsInsideRoom(D2DrlgCoordsStrc* pCoords, unsigned short nX, unsigned short nY)
 {
     return nX >= pCoords->nSubtileX + 1 && nY >= pCoords->nSubtileY + 1
         && nX < pCoords->nSubtileX + pCoords->nSubtileWidth - 1 && nY < pCoords->nSubtileY + pCoords->nSubtileHeight - 1;
-}
-
-// 0x00550A30
-D2UnitStrc* __stdcall OBJECTS_SpawnObjectInRoomWithCallback(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* pRoom, int nMode, int nArg, D2ObjectSpawnCallback pfnCallback)
-{
-    D2DrlgCoordsStrc tCoords;
-    DUNGEON_GetRoomCoordinates_Local(pRoom, &tCoords);
-
-    int nWidth = tCoords.nSubtileWidth;
-    int nHeight = tCoords.nSubtileHeight;
-    if (nWidth < nSizeX + 2 || nHeight < nSizeY + 2)
-    {
-        return 0;
-    }
-
-    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
-    int nX;
-    int nY;
-    int i;
-    for (i = 0; i < 5; ++i)
-    {
-        nWidth = tCoords.nSubtileWidth;
-        nHeight = tCoords.nSubtileHeight;
-        switch (nMode)
-        {
-        case 1:
-            nX = tCoords.nSubtileX + ITEMS_RollLimitedRandomNumber(pSeed, nWidth / 2) + nWidth / 4;
-            nY = tCoords.nSubtileY + OBJECTS_RollRandomNumber(pSeed, 1, 2);
-            break;
-
-        case 2:
-            nX = tCoords.nSubtileX + OBJECTS_RollRandomNumber(pSeed, 1, 2);
-            nY = tCoords.nSubtileY + ITEMS_RollLimitedRandomNumber(pSeed, nHeight / 2) + nHeight / 4;
-            break;
-
-        default:
-            nX = tCoords.nSubtileX + ITEMS_RollLimitedRandomNumber(pSeed, nWidth - nSizeX - 1);
-            nY = tCoords.nSubtileY + ITEMS_RollLimitedRandomNumber(pSeed, nHeight - nSizeY - 1);
-            break;
-        }
-
-        if (nX && nY && sub_00550A30_IsInsideRoom(&tCoords, nX, nY))
-        {
-            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)pfnCallback), 0x634);
-
-            if (!COLLISION_CheckMaskWithSizeXY(pRoom, nX, nY, nSizeX + 6, nSizeY + 6, 0x3F11))
-            {
-                if (pfnCallback(pGame, nArg, nX, nY))
-                {
-                    break;
-                }
-            }
-        }
-    }
-
-    if (i >= 5)
-    {
-        return 0;
-    }
-
-    D2_ASSERT(pRoom, 0x64D);
-    return SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, pRoom, 1, 0, 0);
-}
-
-static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0) return 0;
-    if ((nMax - 1) & nMax) return OBJECTS_RollSeed_Inline(pSeed) % nMax;
-    return OBJECTS_RollSeed_Inline(pSeed) & (nMax - 1);
-}
-
-// 0x00550C20
-D2UnitStrc* __fastcall OBJECTS_PopulateFn1_CasketJarSarcophagusUrn(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, int nObjectId, unsigned short nProbability)
-{
-    D2CoordStrc position;
-    D2ObjectsTxt* pRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    int nSizeX = pRecord->dwSizeX;
-    int nSizeY = pRecord->dwSizeY;
-    D2DrlgCoordsStrc roomCoords;
-    DUNGEON_GetRoomCoordinates(hRoom, &roomCoords);
-    D2ObjectControlStrc* pControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
-    if (OBJECTS_RollSeedHi_Inline(&pControl->pSeed) % 100 > nProbability) return 0;
-    int nTries = 12;
-    bool bSmall = false;
-    int* pIds;
-    int nRange, nBase;
-    if (nObjectId == OBJECT_CASKET6) {
-        pIds = gnValues_00731D5C; nObjectId = gnCount_00731D8C; nTries = 18; nRange = 5; nBase = 5;
-    } else if (nObjectId == OBJECT_CASKET3 || nObjectId == OBJECT_CASKET5) {
-        pIds = gnValues_00731D50; nObjectId = gnCount_00731D88; nRange = 5; nBase = 5;
-    } else if (nObjectId == OBJECT_URN1) {
-        pIds = gnValues_00731D64; nObjectId = gnCount_00731D90; nRange = 0; nBase = 1; bSmall = true;
-    } else if (nObjectId == OBJECT_MUMMY_COFFIN_LEFT) {
-        pIds = gnValues_00731D78; nObjectId = gnCount_00731D94; nRange = 5; nBase = 5;
-    } else if (nObjectId == OBJECT_BASKET1 || nObjectId == OBJECT_BASKET2) {
-        pIds = gnValues_00731D80; nObjectId = gnCount_00731D98; nRange = 0; nBase = 1; bSmall = true;
-    } else return 0;
-    int nClusters = ((roomCoords.nSubtileWidth * roomCoords.nSubtileHeight >> 7) * nDensity) >> 8;
-    D2UnitStrc* pResult = 0;
-    while (nClusters > 0) {
-        if (nTries <= 0) break;
-        int nClassId = pIds[RollLimited(&pControl->pSeed, nObjectId)];
-        position.nX = roomCoords.nSubtileX + RollLimited(&pControl->pSeed, roomCoords.nSubtileWidth - nSizeX - 1);
-        position.nY = roomCoords.nSubtileY + RollLimited(&pControl->pSeed, roomCoords.nSubtileHeight - nSizeY - 1);
-        D2CoordStrc coord;
-        coord.nX = position.nX; coord.nY = position.nY;
-        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX) == 1) {
-            D2_ASSERT(hRoom, 0x714);
-            SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, hRoom, 1, 0, 0);
-            int nClusterTries = 1;
-            int bSuccess = 1;
-            pResult = 0;
-            while (!RollLimited(&pControl->pSeed, nClusterTries >> 1) && bSuccess) {
-                int i = 0;
-                bSuccess = 0;
-                int nLimit = 3 * (nClusters < 4 ? 4 : nClusters);
-                while (!bSuccess) {
-                    if (i >= nLimit) break;
-                    nClassId = OBJECTS_RollSeedHi_Inline(&pControl->pSeed) & 7;
-                    position.nX += 2 * gnValues_00731B7C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
-                    position.nY += 2 * gnValues_00731B9C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
-                    coord.nX = position.nX; coord.nY = position.nY;
-                    if (bSmall) bSuccess = OBJECTS_CanPlaceObject(&roomCoords, &coord, hRoom, pRecord->dwSizeX, pRecord->dwSizeY);
-                    else bSuccess = OBJECTS_CanPlaceObjectWithClearance(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX);
-                    ++i;
-
-                }
-                if (bSuccess) {
-                    nClassId = pIds[RollLimited(&pControl->pSeed, nObjectId)];
-                    pResult = SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, hRoom, 1, 0, 0);
-                    ++nClusterTries;
-                }
-            }
-            --nClusters;
-        }
-        --nTries;
-    }
-    return pResult;
-}
-
-// 0x00551150
-void __stdcall OBJECTS_SpawnFliesOnCorpse(D2GameStrc* pGame, D2UnitStrc* pObject)
-{
-    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pObject);
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
-    if ((unsigned int)ITEMS_RollRandomNumberInline(&pObjectControl->pSeed) % 100 <= 70)
-        return;
-
-    D2CoordStrc tCoord;
-    UNITS_GetCoords(pObject, &tCoord);
-    D2_ASSERT(hRoom, 1946);
-    SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_FLIES, tCoord.nX, tCoord.nY, pGame, hRoom, 1, 0, 0);
-}
-
-// 0x00551200
-D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability)
-{
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
-    if (OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) % 100 > nProbability)
-    {
-        return 0;
-    }
-
-    const int nIndex = ITEMS_RollLimitedRandomNumber(&pObjectControl->pSeed, gnCoordInitCount_00731E64);
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    const int nSizeX = pObjectsTxtRecord->dwSizeX;
-    const int nSizeY = pObjectsTxtRecord->dwSizeY;
-    D2DrlgCoordsStrc drlgCoords;
-    DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
-
-    int nTries = 8;
-    D2UnitStrc* pObject = 0;
-    D2CoordStrc base;
-    while (1)
-    {
-        base.nX = drlgCoords.nSubtileX + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileWidth - nSizeX - 1);
-        base.nY = drlgCoords.nSubtileY + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileHeight - nSizeY - 1);
-        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, 5, &drlgCoords, &base, 5) == 1)
-        {
-            break;
-        }
-
-        --nTries;
-        if (nTries <= 0)
-        {
-            return 0;
-        }
-    }
-
-    for (int j = 0; j < gaCoordInit_00731EB4[nIndex].nCount; ++j)
-    {
-        D2CoordStrc coord;
-        coord.nX = base.nX + gaCoordInit_00731EB4[nIndex].pCoords[j].nX;
-        coord.nY = base.nY + gaCoordInit_00731EB4[nIndex].pCoords[j].nY;
-        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, nSizeY, &drlgCoords, &coord, nSizeX) == 1)
-        {
-            const unsigned int nClassId = (OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) & 1) + 0x39;
-            D2_ASSERT(nClassId <= 0x3A, 0x7DD);
-            D2_ASSERT(hRoom, 0x7DE);
-            pObject = SUNIT_AllocUnitData(2, nClassId, coord.nX, coord.nY, pGame, hRoom, 1, 0, 0);
-            if (pObject)
-            {
-                OBJECTS_SpawnFliesOnCorpse(pGame, pObject);
-            }
-        }
-    }
-
-    return pObject;
-}
-
-static inline int OBJECTS_RollChance_Inline(D2SeedStrc* pSeed, unsigned short nProbability)
-{
-    if (OBJECTS_RollSeed_Inline(pSeed) % 100 > nProbability)
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// 0x00551470
-D2UnitStrc* __fastcall OBJECTS_PopulateFn3_CommonObjects(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
-{
-    D2_ASSERT(bDensity <= 128, 0x864);
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    int nSizeY;
-    int nSizeX;
-    nSizeX = pObjectsTxtRecord->dwSizeX;
-    nSizeY = pObjectsTxtRecord->dwSizeY;
-    D2DrlgCoordsStrc drlgCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
-    if (!OBJECTS_RollChance_Inline(&pObjectControl->pSeed, nProbability))
-    {
-        return 0;
-    }
-    int nCount = bDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
-    D2UnitStrc* pObject = 0;
-    for (; nCount > 0; --nCount)
-    {
-        pObject = OBJECTS_CreateObject(pGame, nObjectId, nSizeX, nSizeY, pRoom);
-        if (pObject)
-        {
-            if (pObjectsTxtRecord->nSelectable[pObject->dwAnimMode])
-            {
-                pObject->dwFlags |= UNITFLAG_TARGETABLE;
-            }
-            else
-            {
-                pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
-            }
-        }
-    }
-    return pObject;
-}
-
-// 0x00551580
-D2UnitStrc* __fastcall OBJECTS_PopulateFn9_TrappedSoul(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
-{
-    D2_ASSERT(bDensity <= 128, 0x893);
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    int nSizeY;
-    int nSizeX;
-    nSizeX = pObjectsTxtRecord->dwSizeX;
-    nSizeY = pObjectsTxtRecord->dwSizeY;
-    D2DrlgCoordsStrc drlgCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
-    D2SeedStrc* pSeed;
-    if (pRoom)
-    {
-        pSeed = &pRoom->pSeed;
-    }
-    else
-    {
-        pSeed = 0;
-    }
-    if (OBJECTS_RollSeed_Inline(pSeed) % 100 > nProbability)
-    {
-        return 0;
-    }
-    const int nMax = bDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
-    for (int i = nMax; i > 0; --i)
-    {
-        D2UnitStrc* pObject = OBJECTS_CreateObject(pGame, nObjectId, nSizeX, nSizeY, pRoom);
-        if (pObject)
-        {
-            if (pObjectsTxtRecord->nSelectable[pObject->dwAnimMode])
-            {
-                pObject->dwFlags |= UNITFLAG_TARGETABLE;
-            }
-            else
-            {
-                pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
-            }
-            return pObject;
-        }
-    }
-    return 0;
-}
-
-inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
-
-static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-inline D2PlayerListStrc* PLAYERLIST_FindPlayerList(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer1);
-    const int nUnitGUID = !pPlayer2 ? -1 : pPlayer2->dwUnitId;
-    if (pPlayer1 != pPlayer2)
-    {
-        for (D2PlayerListStrc* pPlayerList = pPlayerData->pPlayerList; pPlayerList; pPlayerList = pPlayerList->pNext)
-        {
-            if (pPlayerList->nUnitGUID == nUnitGUID)
-            {
-                return pPlayerList;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x00551690
-D2UnitStrc* __fastcall OBJECTS_PopulateFn6_RogueGuardCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nDensity, int nObjectId, int nProbability)
-{
-    D2UnitStrc* pObject = OBJECTS_PopulateFn3_CommonObjects(pGame, pRoom, nDensity, nObjectId, nProbability);
-    if (pObject)
-    {
-        OBJECTS_SpawnFliesOnCorpse(pGame, pObject);
-    }
-
-    return pObject;
-}
-
-// 0x005516C0
-D2UnitStrc* __fastcall OBJECTS_PopulateFn8_Well(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nWellType, int nObjectId, unsigned short nChance)
-{
-    const int nLevelId = DUNGEON_GetLevelIdFromPopulatedRoom(pRoom);
-    if (OBJRGN_CanNotSpawnMoreWells(pGame, nLevelId))
-    {
-        return 0;
-    }
-
-    D2_ASSERT(nWellType <= 128, 0x8D0);
-
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-    const int nSizeX = pObjectsTxtRecord->dwSizeX;
-    const int nSizeY = pObjectsTxtRecord->dwSizeY;
-
-    D2DrlgCoordsStrc tCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-
-    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
-    if (OBJECTS_RollSeedHi_Inline(pSeed) % 100 > nChance)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pUnit = sub_00550540_SpawnObjectInBox(pGame, nObjectId, 2 * nSizeX + 1, 2 * nSizeY + 1, pRoom, nLevelId, OBJRGN_CanSpawnWell);
-    if (pUnit)
-    {
-        const int nMode = pUnit ? pUnit->dwAnimMode : 0;
-        if (pObjectsTxtRecord->nSelectable[nMode])
-        {
-            pUnit->dwFlags |= 2;
-        }
-        else
-        {
-            pUnit->dwFlags &= ~2;
-        }
-
-        OBJRGN_SetWellCoordinates(pGame, nLevelId, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit));
-    }
-
-    return pUnit;
 }
 
 // 0x00551850
@@ -2139,6 +1678,452 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn4_Barrel(D2GameStrc* pGame, D2ActiveRoo
         --nTries;
     }
     return pObject;
+}
+
+static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0) return 0;
+    if ((nMax - 1) & nMax) return OBJECTS_RollSeed_Inline(pSeed) % nMax;
+    return OBJECTS_RollSeed_Inline(pSeed) & (nMax - 1);
+}
+
+// 0x00551200
+D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability)
+{
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
+    if (OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) % 100 > nProbability)
+    {
+        return 0;
+    }
+
+    const int nIndex = ITEMS_RollLimitedRandomNumber(&pObjectControl->pSeed, gnCoordInitCount_00731E64);
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    const int nSizeX = pObjectsTxtRecord->dwSizeX;
+    const int nSizeY = pObjectsTxtRecord->dwSizeY;
+    D2DrlgCoordsStrc drlgCoords;
+    DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
+
+    int nTries = 8;
+    D2UnitStrc* pObject = 0;
+    D2CoordStrc base;
+    while (1)
+    {
+        base.nX = drlgCoords.nSubtileX + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileWidth - nSizeX - 1);
+        base.nY = drlgCoords.nSubtileY + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileHeight - nSizeY - 1);
+        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, 5, &drlgCoords, &base, 5) == 1)
+        {
+            break;
+        }
+
+        --nTries;
+        if (nTries <= 0)
+        {
+            return 0;
+        }
+    }
+
+    for (int j = 0; j < gaCoordInit_00731EB4[nIndex].nCount; ++j)
+    {
+        D2CoordStrc coord;
+        coord.nX = base.nX + gaCoordInit_00731EB4[nIndex].pCoords[j].nX;
+        coord.nY = base.nY + gaCoordInit_00731EB4[nIndex].pCoords[j].nY;
+        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, nSizeY, &drlgCoords, &coord, nSizeX) == 1)
+        {
+            const unsigned int nClassId = (OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) & 1) + 0x39;
+            D2_ASSERT(nClassId <= 0x3A, 0x7DD);
+            D2_ASSERT(hRoom, 0x7DE);
+            pObject = SUNIT_AllocUnitData(2, nClassId, coord.nX, coord.nY, pGame, hRoom, 1, 0, 0);
+            if (pObject)
+            {
+                OBJECTS_SpawnFliesOnCorpse(pGame, pObject);
+            }
+        }
+    }
+
+    return pObject;
+}
+
+// 0x00551580
+D2UnitStrc* __fastcall OBJECTS_PopulateFn9_TrappedSoul(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
+{
+    D2_ASSERT(bDensity <= 128, 0x893);
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    int nSizeY;
+    int nSizeX;
+    nSizeX = pObjectsTxtRecord->dwSizeX;
+    nSizeY = pObjectsTxtRecord->dwSizeY;
+    D2DrlgCoordsStrc drlgCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
+    D2SeedStrc* pSeed;
+    if (pRoom)
+    {
+        pSeed = &pRoom->pSeed;
+    }
+    else
+    {
+        pSeed = 0;
+    }
+    if (OBJECTS_RollSeed_Inline(pSeed) % 100 > nProbability)
+    {
+        return 0;
+    }
+    const int nMax = bDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
+    for (int i = nMax; i > 0; --i)
+    {
+        D2UnitStrc* pObject = OBJECTS_CreateObject(pGame, nObjectId, nSizeX, nSizeY, pRoom);
+        if (pObject)
+        {
+            if (pObjectsTxtRecord->nSelectable[pObject->dwAnimMode])
+            {
+                pObject->dwFlags |= UNITFLAG_TARGETABLE;
+            }
+            else
+            {
+                pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
+            }
+            return pObject;
+        }
+    }
+    return 0;
+}
+
+// 0x005506D0
+void __fastcall OBJECTS_InitFunction46_TrappedSoulPlaceHolder(D2ObjInitFnStrc* op)
+{
+    if(op->pObject && op->pObject->dwAnimMode) return;
+    D2DrlgCoordsStrc room;
+    DUNGEON_GetRoomCoordinates(op->pRoom,&room);
+    D2ObjectControlStrc* control=OBJRGN_GetObjectControlFromGame(op->pGame,op->pRoom);
+    int nTries=12;
+    int count=30*((room.nSubtileWidth*room.nSubtileHeight)>>7)>>8;
+    int distance=5;
+    while(count>0) {
+        if(nTries<=0) break;
+        D2CoordStrc xy;
+        xy.nX=room.nSubtileX+OBJECTS_RollLimited_Inline(&control->pSeed,room.nSubtileWidth-4);
+        xy.nY=room.nSubtileY+OBJECTS_RollLimited_Inline(&control->pSeed,room.nSubtileHeight-4);
+        D2CoordStrc coord;coord.nX=xy.nX;coord.nY=xy.nY;
+        if(OBJECTS_CanPlaceObjectWithClearance(op->pRoom,3,&room,&coord,3)==1) {
+            unsigned int random=OBJECTS_RollSeedHi_Inline((D2SeedStrc*)op->pObjectregion);
+            int monsterId=403;
+            if(random&1) monsterId=404;
+            if(D2GAME_SpawnMonster_6FC69F10(op->pGame,op->pRoom,op->nX,op->nY,monsterId,1,-1,0)) {
+                UNITS_ChangeAnimMode(op->pObject,2);--count;
+            }
+            int spawned=1;
+            int placed=1;
+            while(!OBJECTS_RollLimited_Inline(&control->pSeed,spawned>>1) && placed) {
+                int tries=0;
+                placed=0;
+                int maximum=3*(count<4 ? 4 : count);
+                while(!placed) {
+                    if(tries>=maximum) break;
+                    int direction=OBJECTS_RollLimited_Inline(&control->pSeed,8);
+                    xy.nX+=2*(OBJECTS_RollLimited_Inline(&control->pSeed,distance)+distance)*gaDirectionX_00731B7C[direction];
+                    xy.nY+=2*(OBJECTS_RollLimited_Inline(&control->pSeed,distance)+distance)*gaDirectionY_00731B9C[direction];
+                    coord.nX=xy.nX;coord.nY=xy.nY;
+                    placed=OBJECTS_CanPlaceObjectWithClearance(op->pRoom,3,&room,&coord,3);
+                    ++tries;
+                }
+                if(placed) {
+                    unsigned int random=OBJECTS_RollSeedHi_Inline((D2SeedStrc*)op->pObjectregion);
+                    int monsterId=403;
+                    if(random&1) monsterId=404;
+                    ++spawned;
+                    if(D2GAME_SpawnMonster_6FC69F10(op->pGame,op->pRoom,xy.nX,xy.nY,monsterId,1,-1,0)) {
+                        UNITS_ChangeAnimMode(op->pObject,2);--count;
+                    }
+                }
+            }
+        }
+        --nTries;
+    }
+}
+
+static inline int OBJECTS_RollChance_Inline(D2SeedStrc* pSeed, unsigned short nProbability)
+{
+    if (OBJECTS_RollSeed_Inline(pSeed) % 100 > nProbability)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x00551470
+D2UnitStrc* __fastcall OBJECTS_PopulateFn3_CommonObjects(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
+{
+    D2_ASSERT(bDensity <= 128, 0x864);
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    int nSizeY;
+    int nSizeX;
+    nSizeX = pObjectsTxtRecord->dwSizeX;
+    nSizeY = pObjectsTxtRecord->dwSizeY;
+    D2DrlgCoordsStrc drlgCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+    if (!OBJECTS_RollChance_Inline(&pObjectControl->pSeed, nProbability))
+    {
+        return 0;
+    }
+    int nCount = bDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
+    D2UnitStrc* pObject = 0;
+    for (; nCount > 0; --nCount)
+    {
+        pObject = OBJECTS_CreateObject(pGame, nObjectId, nSizeX, nSizeY, pRoom);
+        if (pObject)
+        {
+            if (pObjectsTxtRecord->nSelectable[pObject->dwAnimMode])
+            {
+                pObject->dwFlags |= UNITFLAG_TARGETABLE;
+            }
+            else
+            {
+                pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
+            }
+        }
+    }
+    return pObject;
+}
+
+// 0x00550380
+D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* hRoom)
+{
+    D2DrlgCoordsStrc drlgCoords;
+    DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
+
+    if (drlgCoords.nSubtileWidth < ROOM_MIN_SUBTILES || drlgCoords.nSubtileHeight < ROOM_MIN_SUBTILES)
+    {
+        return 0;
+    }
+
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
+    int nX;
+    int nY;
+    int i;
+    for (i = 0; i < CREATE_TRIES; ++i)
+    {
+        nX = OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileWidth - nSizeX - 1) + drlgCoords.nSubtileX;
+        nY = OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileHeight - nSizeY - 1) + drlgCoords.nSubtileY;
+        if (nX && nY && (unsigned short)nX >= drlgCoords.nSubtileX + 1 && (unsigned short)nY >= drlgCoords.nSubtileY + 1
+            && (unsigned short)nX < drlgCoords.nSubtileX + drlgCoords.nSubtileWidth - 1 && (unsigned short)nY < drlgCoords.nSubtileY + drlgCoords.nSubtileHeight - 1
+            && !COLLISION_CheckMaskWithSizeXY(hRoom, nX, nY, nSizeX + CREATE_SIZE_GROW, nSizeY + CREATE_SIZE_GROW, COLLIDE_MASK_PLACEMENT))
+        {
+            break;
+        }
+    }
+
+    if (i >= CREATE_TRIES)
+    {
+        return 0;
+    }
+
+    D2_ASSERT(hRoom, LINE_CREATE_ROOM);
+    return SUNIT_AllocUnitData(UNIT_OBJECT, nClassId, nX, nY, pGame, hRoom, 1, 0, 0);
+}
+
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+inline D2PlayerListStrc* PLAYERLIST_FindPlayerList(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer1);
+    const int nUnitGUID = !pPlayer2 ? -1 : pPlayer2->dwUnitId;
+    if (pPlayer1 != pPlayer2)
+    {
+        for (D2PlayerListStrc* pPlayerList = pPlayerData->pPlayerList; pPlayerList; pPlayerList = pPlayerList->pNext)
+        {
+            if (pPlayerList->nUnitGUID == nUnitGUID)
+            {
+                return pPlayerList;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x005528E0
+void __fastcall OBJECTS_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjGroup)
+{
+    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
+    {
+        return;
+    }
+
+    D2ObjGroupTxt* pObjGroupTxtRecord = DATATBLS_GetObjGroupTxtRecord(nObjGroup);
+    D2SeedStrc* pSeed = &OBJRGN_GetObjectControlFromGame(pGame, pRoom)->pSeed;
+    if (!pObjGroupTxtRecord)
+    {
+        return;
+    }
+
+    const unsigned __int64 nValue = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
+    pSeed->nHighSeed = (unsigned int)(nValue >> 32);
+    pSeed->nLowSeed = (unsigned int)nValue;
+    const int nProbability = (int)((unsigned int)nValue % 100);
+
+    int nAccumulatedProbability = 0;
+    for (int i = 0; i < 8; ++i)
+    {
+        const int nObjectId = pObjGroupTxtRecord->dwId[i];
+        if (!nObjectId)
+        {
+            return;
+        }
+
+        nAccumulatedProbability += pObjGroupTxtRecord->nProbability[i];
+        if (nProbability < nAccumulatedProbability)
+        {
+            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+            D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xCA8);
+            if (!sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
+            {
+                return;
+            }
+            D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xCAB);
+            D2_ASSERT(pObjGroupTxtRecord->nDensity[i] < 0x80, 0xCAC);
+            sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, pObjGroupTxtRecord->nDensity[i], nObjectId, 100);
+            return;
+        }
+    }
+}
+
+// 0x005516C0
+D2UnitStrc* __fastcall OBJECTS_PopulateFn8_Well(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nWellType, int nObjectId, unsigned short nChance)
+{
+    const int nLevelId = DUNGEON_GetLevelIdFromPopulatedRoom(pRoom);
+    if (OBJRGN_CanNotSpawnMoreWells(pGame, nLevelId))
+    {
+        return 0;
+    }
+
+    D2_ASSERT(nWellType <= 128, 0x8D0);
+
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    const int nSizeX = pObjectsTxtRecord->dwSizeX;
+    const int nSizeY = pObjectsTxtRecord->dwSizeY;
+
+    D2DrlgCoordsStrc tCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
+
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
+    if (OBJECTS_RollSeedHi_Inline(pSeed) % 100 > nChance)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pUnit = sub_00550540_SpawnObjectInBox(pGame, nObjectId, 2 * nSizeX + 1, 2 * nSizeY + 1, pRoom, nLevelId, OBJRGN_CanSpawnWell);
+    if (pUnit)
+    {
+        const int nMode = pUnit ? pUnit->dwAnimMode : 0;
+        if (pObjectsTxtRecord->nSelectable[nMode])
+        {
+            pUnit->dwFlags |= 2;
+        }
+        else
+        {
+            pUnit->dwFlags &= ~2;
+        }
+
+        OBJRGN_SetWellCoordinates(pGame, nLevelId, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit));
+    }
+
+    return pUnit;
+}
+
+// 0x00552000
+int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2DrlgCoordsStrc* pDrlgCoords)
+{
+    const unsigned int nXEnd = pDrlgCoords->nSubtileWidth + pDrlgCoords->nSubtileX + 1;
+    const unsigned int nYEnd = pDrlgCoords->nSubtileHeight + pDrlgCoords->nSubtileY + 1;
+    int nCounter = 0;
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(OBJECT_BARREL);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
+    D2CoordStrc coord;
+
+    int nClassId;
+
+    for (unsigned int nX = pDrlgCoords->nSubtileX; nX < nXEnd; nX += 2)
+    {
+        unsigned int nY = pDrlgCoords->nSubtileY;
+        if (nY < nYEnd)
+        {
+            coord.nX = nX;
+            do
+            {
+                const unsigned __int64 nSeed = (unsigned __int64)pObjectControl->pSeed.nLowSeed * 0x6AC690C5 + pObjectControl->pSeed.nHighSeed;
+                pObjectControl->pSeed.nLowSeed = (unsigned int)nSeed;
+                pObjectControl->pSeed.nHighSeed = (unsigned int)(nSeed >> 32);
+                if ((unsigned int)nSeed & 3)
+                {
+                    nClassId = 7;
+                }
+                else
+                {
+                    nClassId = 11;
+                }
+                coord.nY = nY;
+                if (OBJECTS_CanPlaceObject(pDrlgCoords, &coord, hRoom, pObjectsTxtRecord->dwSizeX, pObjectsTxtRecord->dwSizeY) == 1)
+                {
+                    D2_ASSERT(hRoom, 2696);
+                    SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, hRoom, 1, 0, 0);
+                    ++nCounter;
+                    if (nCounter >= 32)
+                    {
+                        return 1;
+                    }
+                }
+                nY += 2;
+            }
+            while (nY < nYEnd);
+        }
+    }
+
+    return 1;
 }
 
 // build: context OBJECTS_RollObjectIndex_Inline
@@ -2236,63 +2221,6 @@ int __stdcall sub_004C6020_AlwaysOne(int nArg)
     return 1;
 }
 
-// 0x00551FF0
-int __stdcall OBJECTS_SpawnNothing(int nArg)
-{
-    return 1;
-}
-
-// 0x00552000
-int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2DrlgCoordsStrc* pDrlgCoords)
-{
-    const unsigned int nXEnd = pDrlgCoords->nSubtileWidth + pDrlgCoords->nSubtileX + 1;
-    const unsigned int nYEnd = pDrlgCoords->nSubtileHeight + pDrlgCoords->nSubtileY + 1;
-    int nCounter = 0;
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(OBJECT_BARREL);
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
-    D2CoordStrc coord;
-
-    int nClassId;
-
-    for (unsigned int nX = pDrlgCoords->nSubtileX; nX < nXEnd; nX += 2)
-    {
-        unsigned int nY = pDrlgCoords->nSubtileY;
-        if (nY < nYEnd)
-        {
-            coord.nX = nX;
-            do
-            {
-                const unsigned __int64 nSeed = (unsigned __int64)pObjectControl->pSeed.nLowSeed * 0x6AC690C5 + pObjectControl->pSeed.nHighSeed;
-                pObjectControl->pSeed.nLowSeed = (unsigned int)nSeed;
-                pObjectControl->pSeed.nHighSeed = (unsigned int)(nSeed >> 32);
-                if ((unsigned int)nSeed & 3)
-                {
-                    nClassId = 7;
-                }
-                else
-                {
-                    nClassId = 11;
-                }
-                coord.nY = nY;
-                if (OBJECTS_CanPlaceObject(pDrlgCoords, &coord, hRoom, pObjectsTxtRecord->dwSizeX, pObjectsTxtRecord->dwSizeY) == 1)
-                {
-                    D2_ASSERT(hRoom, 2696);
-                    SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, hRoom, 1, 0, 0);
-                    ++nCounter;
-                    if (nCounter >= 32)
-                    {
-                        return 1;
-                    }
-                }
-                nY += 2;
-            }
-            while (nY < nYEnd);
-        }
-    }
-
-    return 1;
-}
-
 // 0x00552140
 int __fastcall OBJECTS_SpawnRandomItemGrid(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords)
 {
@@ -2369,18 +2297,163 @@ static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2A
     }
 }
 
-// 0x005523C0
-int __fastcall OBJECTS_SpawnArmorStand(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords)
+// 0x00619730
+void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords)
 {
-    OBJECTS_SpawnArmorStandOrWeaponRack(pGame, pRoom, pDrlgCoords, 0);
-    return 1;
+    D2_ASSERT(pCoords, 209);
+
+    if (!pRoom)
+    {
+        memset(pCoords, 0x00, sizeof(D2DrlgCoordsStrc));
+        return;
+    }
+
+    memcpy(pCoords, &pRoom->tCoords, sizeof(D2DrlgCoordsStrc));
 }
 
-// 0x005523E0
-int __fastcall OBJECTS_SpawnWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords)
+// 0x00550A30
+D2UnitStrc* __stdcall OBJECTS_SpawnObjectInRoomWithCallback(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* pRoom, int nMode, int nArg, D2ObjectSpawnCallback pfnCallback)
 {
-    OBJECTS_SpawnArmorStandOrWeaponRack(pGame, pRoom, pDrlgCoords, 1);
-    return 1;
+    D2DrlgCoordsStrc tCoords;
+    DUNGEON_GetRoomCoordinates_Local(pRoom, &tCoords);
+
+    int nWidth = tCoords.nSubtileWidth;
+    int nHeight = tCoords.nSubtileHeight;
+    if (nWidth < nSizeX + 2 || nHeight < nSizeY + 2)
+    {
+        return 0;
+    }
+
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
+    int nX;
+    int nY;
+    int i;
+    for (i = 0; i < 5; ++i)
+    {
+        nWidth = tCoords.nSubtileWidth;
+        nHeight = tCoords.nSubtileHeight;
+        switch (nMode)
+        {
+        case 1:
+            nX = tCoords.nSubtileX + ITEMS_RollLimitedRandomNumber(pSeed, nWidth / 2) + nWidth / 4;
+            nY = tCoords.nSubtileY + OBJECTS_RollRandomNumber(pSeed, 1, 2);
+            break;
+
+        case 2:
+            nX = tCoords.nSubtileX + OBJECTS_RollRandomNumber(pSeed, 1, 2);
+            nY = tCoords.nSubtileY + ITEMS_RollLimitedRandomNumber(pSeed, nHeight / 2) + nHeight / 4;
+            break;
+
+        default:
+            nX = tCoords.nSubtileX + ITEMS_RollLimitedRandomNumber(pSeed, nWidth - nSizeX - 1);
+            nY = tCoords.nSubtileY + ITEMS_RollLimitedRandomNumber(pSeed, nHeight - nSizeY - 1);
+            break;
+        }
+
+        if (nX && nY && sub_00550A30_IsInsideRoom(&tCoords, nX, nY))
+        {
+            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)pfnCallback), 0x634);
+
+            if (!COLLISION_CheckMaskWithSizeXY(pRoom, nX, nY, nSizeX + 6, nSizeY + 6, 0x3F11))
+            {
+                if (pfnCallback(pGame, nArg, nX, nY))
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    if (i >= 5)
+    {
+        return 0;
+    }
+
+    D2_ASSERT(pRoom, 0x64D);
+    return SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, pRoom, 1, 0, 0);
+}
+
+// 0x00550C20
+D2UnitStrc* __fastcall OBJECTS_PopulateFn1_CasketJarSarcophagusUrn(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, int nObjectId, unsigned short nProbability)
+{
+    D2CoordStrc position;
+    D2ObjectsTxt* pRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    int nSizeX = pRecord->dwSizeX;
+    int nSizeY = pRecord->dwSizeY;
+    D2DrlgCoordsStrc roomCoords;
+    DUNGEON_GetRoomCoordinates(hRoom, &roomCoords);
+    D2ObjectControlStrc* pControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
+    if (OBJECTS_RollSeedHi_Inline(&pControl->pSeed) % 100 > nProbability) return 0;
+    int nTries = 12;
+    bool bSmall = false;
+    int* pIds;
+    int nRange, nBase;
+    if (nObjectId == OBJECT_CASKET6) {
+        pIds = gnValues_00731D5C; nObjectId = gnCount_00731D8C; nTries = 18; nRange = 5; nBase = 5;
+    } else if (nObjectId == OBJECT_CASKET3 || nObjectId == OBJECT_CASKET5) {
+        pIds = gnValues_00731D50; nObjectId = gnCount_00731D88; nRange = 5; nBase = 5;
+    } else if (nObjectId == OBJECT_URN1) {
+        pIds = gnValues_00731D64; nObjectId = gnCount_00731D90; nRange = 0; nBase = 1; bSmall = true;
+    } else if (nObjectId == OBJECT_MUMMY_COFFIN_LEFT) {
+        pIds = gnValues_00731D78; nObjectId = gnCount_00731D94; nRange = 5; nBase = 5;
+    } else if (nObjectId == OBJECT_BASKET1 || nObjectId == OBJECT_BASKET2) {
+        pIds = gnValues_00731D80; nObjectId = gnCount_00731D98; nRange = 0; nBase = 1; bSmall = true;
+    } else return 0;
+    int nClusters = ((roomCoords.nSubtileWidth * roomCoords.nSubtileHeight >> 7) * nDensity) >> 8;
+    D2UnitStrc* pResult = 0;
+    while (nClusters > 0) {
+        if (nTries <= 0) break;
+        int nClassId = pIds[RollLimited(&pControl->pSeed, nObjectId)];
+        position.nX = roomCoords.nSubtileX + RollLimited(&pControl->pSeed, roomCoords.nSubtileWidth - nSizeX - 1);
+        position.nY = roomCoords.nSubtileY + RollLimited(&pControl->pSeed, roomCoords.nSubtileHeight - nSizeY - 1);
+        D2CoordStrc coord;
+        coord.nX = position.nX; coord.nY = position.nY;
+        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX) == 1) {
+            D2_ASSERT(hRoom, 0x714);
+            SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, hRoom, 1, 0, 0);
+            int nClusterTries = 1;
+            int bSuccess = 1;
+            pResult = 0;
+            while (!RollLimited(&pControl->pSeed, nClusterTries >> 1) && bSuccess) {
+                int i = 0;
+                bSuccess = 0;
+                int nLimit = 3 * (nClusters < 4 ? 4 : nClusters);
+                while (!bSuccess) {
+                    if (i >= nLimit) break;
+                    nClassId = OBJECTS_RollSeedHi_Inline(&pControl->pSeed) & 7;
+                    position.nX += 2 * gnValues_00731B7C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
+                    position.nY += 2 * gnValues_00731B9C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
+                    coord.nX = position.nX; coord.nY = position.nY;
+                    if (bSmall) bSuccess = OBJECTS_CanPlaceObject(&roomCoords, &coord, hRoom, pRecord->dwSizeX, pRecord->dwSizeY);
+                    else bSuccess = OBJECTS_CanPlaceObjectWithClearance(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX);
+                    ++i;
+
+                }
+                if (bSuccess) {
+                    nClassId = pIds[RollLimited(&pControl->pSeed, nObjectId)];
+                    pResult = SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, hRoom, 1, 0, 0);
+                    ++nClusterTries;
+                }
+            }
+            --nClusters;
+        }
+        --nTries;
+    }
+    return pResult;
+}
+
+// 0x00551150
+void __stdcall OBJECTS_SpawnFliesOnCorpse(D2GameStrc* pGame, D2UnitStrc* pObject)
+{
+    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pObject);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
+    if ((unsigned int)ITEMS_RollRandomNumberInline(&pObjectControl->pSeed) % 100 <= 70)
+        return;
+
+    D2CoordStrc tCoord;
+    UNITS_GetCoords(pObject, &tCoord);
+    D2_ASSERT(hRoom, 1946);
+    SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_FLIES, tCoord.nX, tCoord.nY, pGame, hRoom, 1, 0, 0);
 }
 
 // calling-convention shim (not game code)
@@ -2410,111 +2483,6 @@ static __forceinline int OBJPOP_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
     }
 
     return OBJPOP_RollSeed_Inline(pSeed) & (nMax - 1);
-}
-
-// 0x00552400
-static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned int nThemes, D2ObjectRegionStrc* pObjectRegion)
-{
-    if (pObjectRegion->nPopulatedRooms >= 10 * pObjectRegion->unk0x0C)
-    {
-        D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
-        const int nRoll = OBJPOP_RollSeed_Inline(&pObjectControl->pSeed) % 100;
-
-        int nProbability = 0;
-        if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms / 2)
-        {
-            nProbability = 5;
-        }
-
-        if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms - pObjectRegion->nPopulatedRooms / 4)
-        {
-            nProbability += 5;
-        }
-
-        if (nRoll >= nProbability + 12)
-        {
-            return 0;
-        }
-
-        D2DrlgCoordsStrc drlgCoords;
-        DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
-
-        unsigned int nThemeBit = 1;
-        int nIndices[7] = {};
-        int nMax = 0;
-        int nTheme = 1;
-        int nCount = 7;
-        do
-        {
-            if (nThemes & nThemeBit)
-            {
-                nIndices[nMax] = nTheme;
-                ++nMax;
-            }
-            nThemeBit += nThemeBit;
-            ++nTheme;
-        }
-        while (--nCount);
-
-        const int nIndex = OBJPOP_RollLimited_Inline(&pObjectControl->pSeed, nMax);
-        const int nThemeId = nIndices[nIndex];
-        if (nIndex < nMax && nThemeId < nMax && gObjectThemeTable_00731E68[nThemeId].bActive && gObjectThemeTable_00731E68[nThemeId].pfPopulate)
-        {
-            return gObjectThemeTable_00731E68[nThemeId].pfPopulate(pGame, pRoom, &drlgCoords);
-        }
-
-        return 0;
-    }
-
-    return 0;
-}
-
-// 0x00552560
-static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLevelsTxtRecord, D2ActiveRoomStrc* pRoom)
-{
-    if (DUNGEON_HasWaypoint(pRoom))
-    {
-        return 0;
-    }
-
-    const int nLevelId = DUNGEON_GetLevelIdFromPopulatedRoom(pRoom);
-    D2ObjectRegionStrc* pObjectRegion = OBJRGN_GetObjectRegionForLevel(pGame, nLevelId);
-    if (!nLevelId)
-    {
-        return 0;
-    }
-
-    if (D2Common_10087(pRoom))
-    {
-        return 0;
-    }
-
-    if (nLevelId >= sgptDataTables->nLevelsTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (DUNGEON_IsRoomInTown(pRoom))
-    {
-        return 0;
-    }
-
-    if (pObjectRegion->nPopulatedRooms == 0x7FFFFFFF)
-    {
-        pObjectRegion->nPopulatedRooms = DUNGEON_GetNumberOfPopulatedRoomsInLevel(pGame->pAct[pObjectRegion->nAct], nLevelId);
-    }
-
-    pObjectRegion->unk0x04 += 1;
-
-    if (pLevelsTxtRecord->dwThemes)
-    {
-        if (OBJECTS_PopulateRoomTheme(pGame, pRoom, pLevelsTxtRecord->dwThemes, pObjectRegion) == 1)
-        {
-            return 0;
-        }
-    }
-
-    return 1;
 }
 
 // 0x00552610
@@ -2577,71 +2545,103 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
     }
 }
 
+// 0x00552400
+static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned int nThemes, D2ObjectRegionStrc* pObjectRegion)
+{
+    if (pObjectRegion->nPopulatedRooms >= 10 * pObjectRegion->unk0x0C)
+    {
+        D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+        const int nRoll = OBJPOP_RollSeed_Inline(&pObjectControl->pSeed) % 100;
+
+        int nProbability = 0;
+        if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms / 2)
+        {
+            nProbability = 5;
+        }
+
+        if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms - pObjectRegion->nPopulatedRooms / 4)
+        {
+            nProbability += 5;
+        }
+
+        if (nRoll >= nProbability + 12)
+        {
+            return 0;
+        }
+
+        D2DrlgCoordsStrc drlgCoords;
+        DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
+
+        unsigned int nThemeBit = 1;
+        int nIndices[7] = {};
+        int nMax = 0;
+        int nTheme = 1;
+        int nCount = 7;
+        do
+        {
+            if (nThemes & nThemeBit)
+            {
+                nIndices[nMax] = nTheme;
+                ++nMax;
+            }
+            nThemeBit += nThemeBit;
+            ++nTheme;
+        }
+        while (--nCount);
+
+        const int nIndex = OBJPOP_RollLimited_Inline(&pObjectControl->pSeed, nMax);
+        const int nThemeId = nIndices[nIndex];
+        if (nIndex < nMax && nThemeId < nMax && gObjectThemeTable_00731E68[nThemeId].bActive && gObjectThemeTable_00731E68[nThemeId].pfPopulate)
+        {
+            return gObjectThemeTable_00731E68[nThemeId].pfPopulate(pGame, pRoom, &drlgCoords);
+        }
+
+        return 0;
+    }
+
+    return 0;
+}
+
+// 0x0054FD90
+void __fastcall OBJECTS_InitFunction57_SparklyChest(D2ObjInitFnStrc* pOp)
+{
+    OBJECTS_InitFunction03_Chest(pOp);
+    D2GAME_SetSparkChest_6FCBD7C0(pOp->pObject, 1);
+}
+
 bool R00601DC0::sub_00601DC0_IsOpen()
 {
     return m_pFile != 0;
 }
 
-// 0x00552830
-void __fastcall OBJECTS_SetObjectPopulateDensity(unsigned char nDensity)
+// 0x0054FDB0
+void __fastcall OBJECTS_InitFunction58_Fissure(D2ObjInitFnStrc* pOp)
 {
-    gnObjectPopulateDensity_00731BBD = nDensity;
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pOp->pGame, pOp->pRoom);
+    EVENT_SetEvent(pOp->pGame, pOp->pObject, 8, pOp->pGame->dwGameFrame + (unsigned int)ITEMS_RollRandomNumberForceInline(&pObjectControl->pSeed) % 250 + 25, 0, 0);
 }
 
-// 0x005528E0
-void __fastcall OBJECTS_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjGroup)
+// 0x0054FE10
+void __fastcall OBJECTS_InitFunction59_VileDogAfterglow(D2ObjInitFnStrc* pOp)
 {
-    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
+    if (pOp->pObject && pOp->pObject->dwAnimMode != OBJMODE_NEUTRAL)
     {
         return;
     }
 
-    D2ObjGroupTxt* pObjGroupTxtRecord = DATATBLS_GetObjGroupTxtRecord(nObjGroup);
-    D2SeedStrc* pSeed = &OBJRGN_GetObjectControlFromGame(pGame, pRoom)->pSeed;
-    if (!pObjGroupTxtRecord)
-    {
-        return;
-    }
-
-    const unsigned __int64 nValue = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
-    pSeed->nHighSeed = (unsigned int)(nValue >> 32);
-    pSeed->nLowSeed = (unsigned int)nValue;
-    const int nProbability = (int)((unsigned int)nValue % 100);
-
-    int nAccumulatedProbability = 0;
-    for (int i = 0; i < 8; ++i)
-    {
-        const int nObjectId = pObjGroupTxtRecord->dwId[i];
-        if (!nObjectId)
-        {
-            return;
-        }
-
-        nAccumulatedProbability += pObjGroupTxtRecord->nProbability[i];
-        if (nProbability < nAccumulatedProbability)
-        {
-            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
-            D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xCA8);
-            if (!sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
-            {
-                return;
-            }
-            D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xCAB);
-            D2_ASSERT(pObjGroupTxtRecord->nDensity[i] < 0x80, 0xCAC);
-            sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, pObjGroupTxtRecord->nDensity[i], nObjectId, 100);
-            return;
-        }
-    }
+    UNITS_ChangeAnimMode(pOp->pObject, 1);
+    EVENT_SetEvent(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 27, 0, 0);
+    EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (pOp->pObjectTxt->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
 }
 
-// 0x00552DE0
-static inline void SUNIT_AssignUnitId(D2UnitStrc* pUnit, int nValue)
+// 0x0054F430
+D2UnitStrc* __fastcall OBJECTS_SpawnArcaneSymbol(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nMode)
 {
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 2;
-        pUnit->dwUnitId = nValue;
-    }
+    const int nObjectId = ACT2Q6_GetObjectIdForArcaneThing(pGame);
+
+    D2_ASSERT(hRoom, 391);
+
+    return SUNIT_AllocUnitData(UNIT_OBJECT, nObjectId, nX, nY, pGame, hRoom, 1, 0, 0);
 }
 
 void __fastcall sub_M127_Emit_00552DE0(D2UnitStrc* pUnit, int nValue)

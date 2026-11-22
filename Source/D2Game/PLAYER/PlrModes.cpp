@@ -805,20 +805,6 @@ static void __stdcall PLRMODE_StartMovement(D2GameStrc* ptGame, D2UnitStrc* pPla
     }
 }
 
-// 0x0057F190
-void __fastcall PLRMODE_StartID_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* pTargetUnit)
-{
-    D2_ASSERT(ptGame, 0x16E);
-
-    const int nCurMode = nMode;
-    D2DynamicPathStrc* pPath = pPlayer->pDynamicPath;
-    if (nCurMode != 19 || pPlayer->dwAnimMode != nCurMode)
-    {
-        sub_00648B90_SetPathTarget(pPath, pTargetUnit);
-        PLRMODE_StartMovement(ptGame, pPlayer, nCurMode);
-    }
-}
-
 // 0x0057F1F0
 void __fastcall PLRMODE_StartXY_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
 {
@@ -826,6 +812,20 @@ void __fastcall PLRMODE_StartXY_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc*
 
     D2COMMON_10170_PathSetTargetPos(pPlayer->pDynamicPath, nX, nY);
     PLRMODE_StartMovement(ptGame, pPlayer, nMode);
+}
+
+// 0x0057F330
+static void PLRMODE_FinalizeDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    STATLIST_SetUnitStat(pPlayer, STAT_HITPOINTS, 0, 0);
+    D2Common_10469(pPlayer);
+    STATES_UpdateStayDeathFlags(pPlayer, 0);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x234);
+    D2GAME_SetClientDead_6FC33830(pClient, 0);
+    PATH_SetUnitDeadCollision(pPlayer, 1);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 0x08, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 0x09, 0);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
 }
 
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
@@ -923,20 +923,6 @@ inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-// 0x0057F330
-static void PLRMODE_FinalizeDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    STATLIST_SetUnitStat(pPlayer, STAT_HITPOINTS, 0, 0);
-    D2Common_10469(pPlayer);
-    STATES_UpdateStayDeathFlags(pPlayer, 0);
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x234);
-    D2GAME_SetClientDead_6FC33830(pClient, 0);
-    PATH_SetUnitDeadCollision(pPlayer, 1);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 0x08, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 0x09, 0);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-}
-
 // 0x0057F410
 static void __stdcall PLRMODE_RemoveEquippedItemForCorpse(D2GameStrc* pGame, int nBodyloc, D2UnitStrc* hItem, D2UnitStrc* pUnit)
 {
@@ -985,6 +971,20 @@ static void PLRMODE_RemoveCursorItemForCorpse(D2GameStrc* pGame, D2UnitStrc* pIt
     ITEMS_SetItemCMDFlag(pItem, 1, 1);
     INVENTORY_AddItemToTradeInventory(pInventory, pItem);
     UNITS_RefreshInventory(pPlayer, 1);
+}
+
+// 0x0057F190
+void __fastcall PLRMODE_StartID_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* pTargetUnit)
+{
+    D2_ASSERT(ptGame, 0x16E);
+
+    const int nCurMode = nMode;
+    D2DynamicPathStrc* pPath = pPlayer->pDynamicPath;
+    if (nCurMode != 19 || pPlayer->dwAnimMode != nCurMode)
+    {
+        sub_00648B90_SetPathTarget(pPath, pTargetUnit);
+        PLRMODE_StartMovement(ptGame, pPlayer, nCurMode);
+    }
 }
 
 // build: context sub_M10_Emit_0057F700
@@ -1457,6 +1457,113 @@ static void PLRMODE_RestoreWeaponSkills(D2UnitStrc* pUnit, D2UnkPlrModeStrc2* pS
     }
 }
 
+// 0x00580C20
+int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventCustomId, int nEventCustomParam)
+{
+    SUNIT_ValidateTargetUnit(pGame, pPlayer);
+
+    if (STATES_CheckState(pPlayer, STATE_BLAZE))
+    {
+        SKILLS_CreateBlazeMissile(pGame, pPlayer);
+    }
+
+    if (pPlayer && pPlayer->dwAnimMode == PLRMODE_RUN && !PLRMODE_DrainRunStamina(pPlayer))
+    {
+        PLRMODE_StartMovement(pGame, pPlayer, 2);
+    }
+
+    int nPathResult = SUNIT_UpdateUnitPath(pGame, pPlayer);
+    const unsigned int nTickCount = GetTickCount();
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    if (nTickCount > pPlayerData->dwPositionHistoryTick + 25)
+    {
+        const unsigned char nHistoryIndex = pPlayerData->nPositionHistoryIndex;
+        unsigned char nPreviousIndex;
+        if (!nHistoryIndex)
+        {
+            nPreviousIndex = 19;
+        }
+        else
+        {
+            if (nPathResult) nPreviousIndex = nHistoryIndex - 1; else nPreviousIndex = nHistoryIndex - 1;
+        }
+
+        const int nPlayerX = sub_F05_PlrGetUnitX(pPlayer);
+        const int nPlayerY = sub_F05_PlrGetUnitY(pPlayer);
+        const int nPrevX = pPlayerData->pPositionHistory[nPreviousIndex].nX;
+        const int nPrevY = pPlayerData->pPositionHistory[nPreviousIndex].nY;
+        if (PATH_ComputeSquaredDistance(nPlayerX, nPlayerY, nPrevX, nPrevY) > 45)
+        {
+            pPlayerData->pPositionHistory[nHistoryIndex].nX = nPlayerX;
+            pPlayerData->pPositionHistory[nHistoryIndex].nY = nPlayerY;
+            pPlayerData->dwPositionHistoryTick = nTickCount;
+
+            ++pPlayerData->nPositionHistoryIndex;
+            if (pPlayerData->nPositionHistoryIndex >= 20)
+            {
+                pPlayerData->nPositionHistoryIndex = 0;
+            }
+        }
+    }
+
+    if (nPathResult == 2)
+    {
+        if (sub_F05_IsInteracting(pPlayer))
+        {
+            int nResult;
+            const int nAction = sub_F05_GetInteractAction(pPlayer);
+            if (nAction >= 0)
+            {
+                D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, nAction);
+                if (pSkill)
+                {
+                    const int nSkillMode = SKILLS_GetSkillModeFromUnit(pPlayer, pSkill);
+                    StartModeID(pGame, pPlayer, pSkill, nSkillMode, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), 0);
+                    nPathResult = 1;
+                }
+                else
+                {
+                    PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
+                }
+                nResult = nPathResult;
+            }
+            else
+            {
+                PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
+                PLRMSG_InteractWithUnit(pPlayer, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), nAction == -2, pGame);
+                nResult = *(volatile int*)&nPathResult; // volatile only gives nPathResult the original's stack slot
+            }
+
+            if (nPathResult) sub_F05_SetInteractFlag(pPlayer, 0); else sub_F05_SetInteractFlag(pPlayer, 0);
+            return nResult;
+        }
+
+        PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
+    }
+
+    return nPathResult;
+}
+
+inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlags & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlagEx & nFlag) != 0;
+    }
+
+    return 0;
+}
+
 // 0x00580310
 void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -1485,23 +1592,22 @@ void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 }
 
-inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline unsigned char UNITS_GetHpPercent_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        return (pUnit->dwFlags & nFlag) != 0;
+        const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >> 8;
+        const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
+        if (nMaxLife > 0 && nHitpoints < nMaxLife)
+            return (nHitpoints << 7) / nMaxLife;
     }
-
-    return 0;
+    return 0x80;
 }
 
-inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord_Inline(int nClassId)
 {
-    if (pUnit)
-    {
-        return (pUnit->dwFlagEx & nFlag) != 0;
-    }
-
+    if (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount)
+        return &sgptDataTables->pCharStatsTxt[nClassId];
     return 0;
 }
 
@@ -1537,25 +1643,6 @@ void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pPla
             pItem = INVENTORY_GetNextItem(pItem);
         }
     }
-}
-
-static inline unsigned char UNITS_GetHpPercent_Inline(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >> 8;
-        const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
-        if (nMaxLife > 0 && nHitpoints < nMaxLife)
-            return (nHitpoints << 7) / nMaxLife;
-    }
-    return 0x80;
-}
-
-static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord_Inline(int nClassId)
-{
-    if (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount)
-        return &sgptDataTables->pCharStatsTxt[nClassId];
-    return 0;
 }
 
 // 0x00580500
@@ -1735,6 +1822,125 @@ void __fastcall D2GAME_EVENTS_StatRegen_6FC80F80(D2GameStrc* pGame, D2UnitStrc* 
     }
 }
 
+// 0x00581020
+void __fastcall PLRMODE_EndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+{
+    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
+    switch (nAnimMode)
+    {
+    case 7:
+    case 8:
+    case 11:
+        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
+        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
+        break;
+
+    default:
+        D2SkillStrc* pUsedSkill = UNITS_GetUsedSkill(pUnit);
+        if (!pUsedSkill)
+        {
+            goto done;
+        }
+
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordInline(SKILLS_GetSkillIdFromSkill(pUsedSkill, ".\\PLAYER\\PlrModes.cpp", 0x779));
+        if (!pSkillsTxtRecord || !(pSkillsTxtRecord->nFlags[0x12 >> 3] & gdwBitMasks[0x12 & 7]))
+        {
+            goto done;
+        }
+
+        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
+        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
+        break;
+    }
+
+done:
+    switch (nAnimMode)
+    {
+    case 0:
+        PLRMODE_StartXY_Dead(pGame, pUnit, 17, 0, 0);
+        return;
+
+    case 19:
+        break;
+
+    default:
+        PLRMODE_StartXY_Neutral(pGame, pUnit, 1, 0, 0);
+        return;
+    }
+
+    D2_ASSERT(pGame, 0x805);
+
+    if (pUnit->pInventory && INVENTORY_GetCursorItem(pUnit->pInventory))
+    {
+        return;
+    }
+
+    switch (pUnit->dwAnimMode)
+    {
+    case 7:
+    case 8:
+    case 10:
+    case 11:
+        PLRMODE_IsEndAnimDue(pGame, pUnit);
+        break;
+
+    case 0:
+    case 4:
+    case 9:
+    case 17:
+        return;
+
+    case 12:
+        if (PLRMODE_IsEndAnimDue(pGame, pUnit))
+        {
+            break;
+        }
+        return;
+
+    case 13:
+        if (pUnit->dwClassId == 0)
+        {
+            return;
+        }
+        break;
+
+    case 15:
+        if (pUnit->dwClassId == 5)
+        {
+            return;
+        }
+        break;
+
+    case 18:
+        if (!PLRMODE_CanEndSequence(pGame, pUnit))
+        {
+            return;
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    if (!PLRMODE_CanInterruptCurrentMode(pGame, pUnit, 4, 1, 0))
+    {
+        return;
+    }
+
+    D2_ASSERT(!IsBadCodePtr((FARPROC)gsPlayerModeChart_006E1740[4].pfnStartXY), 0x812);
+
+    gsPlayerModeChart_006E1740[4].pfnStartXY(pGame, pUnit, 4, -1, 0);
+}
+
+// 0x00581220
+void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam)
+{
+    if ((unsigned int)nEvent <= 14 && gpPlayerEventCallbacks_006E1810[nEvent])
+    {
+        gpPlayerEventCallbacks_006E1810[nEvent](pGame, pUnit, nCustomId, nCustomParam);
+    }
+}
+
 // 0x00580860
 void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient, int a4)
 {
@@ -1889,93 +2095,6 @@ void __fastcall PLRMODE_EventSynchronizePartyAndPets(D2GameStrc* pGame, D2UnitSt
     EVENT_SetEvent(pGame, pUnit, 11, pGame->dwGameFrame + 30, 0, 0);
 }
 
-// 0x00580C20
-int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventCustomId, int nEventCustomParam)
-{
-    SUNIT_ValidateTargetUnit(pGame, pPlayer);
-
-    if (STATES_CheckState(pPlayer, STATE_BLAZE))
-    {
-        SKILLS_CreateBlazeMissile(pGame, pPlayer);
-    }
-
-    if (pPlayer && pPlayer->dwAnimMode == PLRMODE_RUN && !PLRMODE_DrainRunStamina(pPlayer))
-    {
-        PLRMODE_StartMovement(pGame, pPlayer, 2);
-    }
-
-    int nPathResult = SUNIT_UpdateUnitPath(pGame, pPlayer);
-    const unsigned int nTickCount = GetTickCount();
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (nTickCount > pPlayerData->dwPositionHistoryTick + 25)
-    {
-        const unsigned char nHistoryIndex = pPlayerData->nPositionHistoryIndex;
-        unsigned char nPreviousIndex;
-        if (!nHistoryIndex)
-        {
-            nPreviousIndex = 19;
-        }
-        else
-        {
-            if (nPathResult) nPreviousIndex = nHistoryIndex - 1; else nPreviousIndex = nHistoryIndex - 1;
-        }
-
-        const int nPlayerX = sub_F05_PlrGetUnitX(pPlayer);
-        const int nPlayerY = sub_F05_PlrGetUnitY(pPlayer);
-        const int nPrevX = pPlayerData->pPositionHistory[nPreviousIndex].nX;
-        const int nPrevY = pPlayerData->pPositionHistory[nPreviousIndex].nY;
-        if (PATH_ComputeSquaredDistance(nPlayerX, nPlayerY, nPrevX, nPrevY) > 45)
-        {
-            pPlayerData->pPositionHistory[nHistoryIndex].nX = nPlayerX;
-            pPlayerData->pPositionHistory[nHistoryIndex].nY = nPlayerY;
-            pPlayerData->dwPositionHistoryTick = nTickCount;
-
-            ++pPlayerData->nPositionHistoryIndex;
-            if (pPlayerData->nPositionHistoryIndex >= 20)
-            {
-                pPlayerData->nPositionHistoryIndex = 0;
-            }
-        }
-    }
-
-    if (nPathResult == 2)
-    {
-        if (sub_F05_IsInteracting(pPlayer))
-        {
-            int nResult;
-            const int nAction = sub_F05_GetInteractAction(pPlayer);
-            if (nAction >= 0)
-            {
-                D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, nAction);
-                if (pSkill)
-                {
-                    const int nSkillMode = SKILLS_GetSkillModeFromUnit(pPlayer, pSkill);
-                    StartModeID(pGame, pPlayer, pSkill, nSkillMode, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), 0);
-                    nPathResult = 1;
-                }
-                else
-                {
-                    PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
-                }
-                nResult = nPathResult;
-            }
-            else
-            {
-                PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
-                PLRMSG_InteractWithUnit(pPlayer, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), nAction == -2, pGame);
-                nResult = *(volatile int*)&nPathResult; // volatile only gives nPathResult the original's stack slot
-            }
-
-            if (nPathResult) sub_F05_SetInteractFlag(pPlayer, 0); else sub_F05_SetInteractFlag(pPlayer, 0);
-            return nResult;
-        }
-
-        PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
-    }
-
-    return nPathResult;
-}
-
 // 0x00580EC0
 void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, int nMode, D2UnitStrc* pAttacker)
 {
@@ -2031,125 +2150,6 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
     }
 
     PLAYER_CloseInteraction(pGame, pDefender);
-}
-
-// 0x00581020
-void __fastcall PLRMODE_EndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
-{
-    const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
-    switch (nAnimMode)
-    {
-    case 7:
-    case 8:
-    case 11:
-        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
-        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
-        break;
-
-    default:
-        D2SkillStrc* pUsedSkill = UNITS_GetUsedSkill(pUnit);
-        if (!pUsedSkill)
-        {
-            goto done;
-        }
-
-        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordInline(SKILLS_GetSkillIdFromSkill(pUsedSkill, ".\\PLAYER\\PlrModes.cpp", 0x779));
-        if (!pSkillsTxtRecord || !(pSkillsTxtRecord->nFlags[0x12 >> 3] & gdwBitMasks[0x12 & 7]))
-        {
-            goto done;
-        }
-
-        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
-        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
-        break;
-    }
-
-done:
-    switch (nAnimMode)
-    {
-    case 0:
-        PLRMODE_StartXY_Dead(pGame, pUnit, 17, 0, 0);
-        return;
-
-    case 19:
-        break;
-
-    default:
-        PLRMODE_StartXY_Neutral(pGame, pUnit, 1, 0, 0);
-        return;
-    }
-
-    D2_ASSERT(pGame, 0x805);
-
-    if (pUnit->pInventory && INVENTORY_GetCursorItem(pUnit->pInventory))
-    {
-        return;
-    }
-
-    switch (pUnit->dwAnimMode)
-    {
-    case 7:
-    case 8:
-    case 10:
-    case 11:
-        PLRMODE_IsEndAnimDue(pGame, pUnit);
-        break;
-
-    case 0:
-    case 4:
-    case 9:
-    case 17:
-        return;
-
-    case 12:
-        if (PLRMODE_IsEndAnimDue(pGame, pUnit))
-        {
-            break;
-        }
-        return;
-
-    case 13:
-        if (pUnit->dwClassId == 0)
-        {
-            return;
-        }
-        break;
-
-    case 15:
-        if (pUnit->dwClassId == 5)
-        {
-            return;
-        }
-        break;
-
-    case 18:
-        if (!PLRMODE_CanEndSequence(pGame, pUnit))
-        {
-            return;
-        }
-        break;
-
-    default:
-        break;
-    }
-
-    if (!PLRMODE_CanInterruptCurrentMode(pGame, pUnit, 4, 1, 0))
-    {
-        return;
-    }
-
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gsPlayerModeChart_006E1740[4].pfnStartXY), 0x812);
-
-    gsPlayerModeChart_006E1740[4].pfnStartXY(pGame, pUnit, 4, -1, 0);
-}
-
-// 0x00581220
-void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam)
-{
-    if ((unsigned int)nEvent <= 14 && gpPlayerEventCallbacks_006E1810[nEvent])
-    {
-        gpPlayerEventCallbacks_006E1810[nEvent](pGame, pUnit, nCustomId, nCustomParam);
-    }
 }
 
 #define PREFIX
