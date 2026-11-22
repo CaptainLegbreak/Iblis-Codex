@@ -6,6 +6,13 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);  
 double __cdecl sub_00414260_PowInt(double x, int nExp);
 
 
+extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned int nCount);
+extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
+unsigned int gdwSStrScanWord_007788D8; // 0x007788D8
+const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
+
+extern "C" const unsigned __int64 gqwSStrHash64Table_006CEE70[16]; // 0x006CEE70
+
 // 0x00414310
 char* __stdcall SStrDup(const char* szString)
 {
@@ -85,4 +92,638 @@ __int64 __stdcall SStrToInt64(const char* szString)
         nResult = nAccum;
     }
     return nValid ? (bNegative ? -nResult : nResult) : 0;
+}
+
+// 0x00413550
+int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString1);
+    VALIDATE(szString2);
+    if (!nValid)
+    {
+        sub_0041C340_SetLastError(0x57);
+        return (int)(szString1 - szString2);
+    }
+    return nValid ? strncmp(szString1, szString2, nMaxChars) : 0;
+}
+
+// 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString1);
+    VALIDATE(szString2);
+    if (!nValid)
+    {
+        sub_0041C340_SetLastError(0x57);
+        return szString1 - szString2;
+    }
+    return nValid ? _strnicmp(szString1, szString2, nMaxChars) : 0;
+}
+
+// 0x00413750
+unsigned int __stdcall SStrLen(const char* szString)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    unsigned int dwOnes = 0xFFFFFFFF;
+    const char* p = szString;
+    while ((unsigned int)p & 3)
+    {
+        if (!*p)
+        {
+            goto done;
+        }
+        ++p;
+    }
+    for (;;)
+    {
+        const unsigned int w = *(const unsigned int*)p;
+        dwOnes -= w;
+        unsigned int dwTest = (w + 0x7EFEFEFF) ^ dwOnes;
+        p += 4;
+        dwOnes |= w;
+        dwTest &= 0x81010101;
+        if (dwTest)
+        {
+            if (!(char)w)
+            {
+                p -= 4;
+                break;
+            }
+            if (!(char)(w >> 8))
+            {
+                p -= 3;
+                break;
+            }
+            if (!(w & 0xFF0000))
+            {
+                p -= 2;
+                break;
+            }
+            if (!(w & 0xFF000000))
+            {
+                p -= 1;
+                break;
+            }
+            gdwSStrScanWord_007788D8 = dwTest;
+        }
+    }
+done:
+    return nValid ? p - szString : 0;
+}
+
+// 0x004135D0
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit)
+{
+ int valid=-1;
+ valid&=dest?-1:0;
+ valid&=source?-1:0;
+ if(!valid) { sub_0041C340_SetLastError(87); return 0; }
+ if(!limit) return 0;
+ unsigned int end=(unsigned int)dest+limit-1;
+ int offset=(unsigned int)dest-end;
+ while((unsigned int)source&3) {
+  if(!offset) break;
+  char ch=*source++;
+  ((char*)end)[offset]=ch;
+  if(!ch) goto Done;
+  ++offset;
+ }
+ offset+=3;
+ if(offset<0) {
+  end-=3;
+  unsigned int word=*(const unsigned int*)source;
+  source+=4;
+  unsigned int ones=0xFFFFFFFF;
+  ones-=word;
+  unsigned int check=(word+0x7EFEFEFF)^ones;
+  ones|=word;
+  check&=0x81010101;
+  while(!check) {
+   *(unsigned int*)(end+offset)=word;
+   offset+=4;
+   if(offset>=0) goto Tail;
+   word=*(const unsigned int*)source;
+   source+=4;
+   ones-=word;
+   check=(word+0x7EFEFEFF)^ones;
+   ones|=word;
+   check&=0x81010101;
+  }
+  for(;;) {
+   if(!(unsigned char)word) {
+    ((char*)end)[offset]=(char)word;
+    goto Done;
+   }
+   if(!(unsigned char)(word>>8)) {
+    *(unsigned short*)(end+offset)=(unsigned short)word;
+    offset+=1;
+    goto Done;
+   }
+   if(!(word&0xFF0000)) {
+    *(unsigned short*)(end+offset)=(unsigned short)word;
+    ((char*)end)[offset+2]=0;
+    offset+=2;
+    goto Done;
+   }
+   *(unsigned int*)(end+offset)=word;
+   if(!(word&0xFF000000)) { offset+=3; goto Done; }
+   offset+=4;
+   gdwSStrScanWord_007788D8=check;
+   if(offset>=0) break;
+   word=*(const unsigned int*)source;
+   source+=4;
+  }
+Tail:
+  end+=3;
+ }
+ offset-=3;
+ while(offset) {
+  char ch=*source++;
+  ((char*)end)[offset]=ch;
+  if(!ch) goto Done;
+  ++offset;
+ }
+ *(char*)end=0;
+Done:
+ return valid ? offset-(unsigned int)dest+end : 0;
+}
+
+// 0x00413800
+unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit)
+{
+ int valid=(__int64)dest?-1:0;
+ valid&=source?-1:0;
+ if(!valid) { sub_0041C340_SetLastError(87); return 0; }
+ if(!limit) return 0;
+ unsigned int dwOnes = 0xFFFFFFFF;
+ const char* p = dest;
+ unsigned int end=(unsigned int)dest+limit-1;
+ if(limit!=0x7FFFFFFF) *(char*)end=0;
+ while ((unsigned int)p & 3)
+ {
+  if (!*p) goto scanned;
+  ++p;
+ }
+ for (;;)
+ {
+  const unsigned int w = *(const unsigned int*)p;
+  dwOnes -= w;
+  unsigned int dwTest = (w + 0x7EFEFEFF) ^ dwOnes;
+  p += 4;
+  dwOnes |= w;
+  dwTest &= 0x81010101;
+  if (dwTest)
+  {
+   if (!(char)w) { p -= 4; break; }
+   if (!(char)(w >> 8)) { p -= 3; break; }
+   if (!(w & 0xFF0000)) { p -= 2; break; }
+   if (!(w & 0xFF000000)) { p -= 1; break; }
+   gdwSStrScanWord_007788D8 = dwTest;
+  }
+ }
+scanned:
+ int offset=(unsigned int)p-end;
+ while((unsigned int)source&3) {
+  if(!offset) break;
+  char ch=*source++;
+  ((char*)end)[offset]=ch;
+  if(!ch) goto Done;
+  ++offset;
+ }
+ offset+=3;
+ if(offset<0) {
+  end-=3;
+  unsigned int word=*(const unsigned int*)source;
+  source+=4;
+  dwOnes-=word;
+  unsigned int check=(word+0x7EFEFEFF)^dwOnes;
+  dwOnes|=word;
+  check&=0x81010101;
+  while(!check) {
+   *(unsigned int*)(end+offset)=word;
+   offset+=4;
+   if(offset>=0) goto Tail;
+   word=*(const unsigned int*)source;
+   source+=4;
+   dwOnes-=word;
+   check=(word+0x7EFEFEFF)^dwOnes;
+   dwOnes|=word;
+   check&=0x81010101;
+  }
+  for(;;) {
+   if(!(unsigned char)word) {
+    ((char*)end)[offset]=(char)word;
+    goto Done;
+   }
+   if(!(unsigned char)(word>>8)) {
+    *(unsigned short*)(end+offset)=(unsigned short)word;
+    offset+=1;
+    goto Done;
+   }
+   if(!(word&0xFF0000)) {
+    *(unsigned short*)(end+offset)=(unsigned short)word;
+    ((char*)end)[offset+2]=0;
+    offset+=2;
+    goto Done;
+   }
+   *(unsigned int*)(end+offset)=word;
+   if(!(word&0xFF000000)) { offset+=3; goto Done; }
+   offset+=4;
+   gdwSStrScanWord_007788D8=check;
+   if(offset>=0) break;
+   word=*(const unsigned int*)source;
+   source+=4;
+  }
+Tail:
+  end+=3;
+ }
+ offset-=3;
+ while(offset) {
+  char ch=*source++;
+  ((char*)end)[offset]=ch;
+  if(!ch) goto Done;
+  ++offset;
+ }
+ *(char*)end=0;
+Done:
+ return valid ? offset-(unsigned int)dest+end : 0;
+}
+
+typedef unsigned int size_t;
+typedef char* va_list;
+extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args);         // 0x00682F22
+extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args);                          // 0x00682DA1
+
+// build: context sub_00413A00_VPrintf
+static __declspec(noinline) int sub_00413A00_VPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args)
+{
+    if (nSize)
+    {
+        if (nSize != 0x7FFFFFFF)
+        {
+            size_t nResult = _vsnprintf(szDest, nSize, szFormat, args);
+            if (nResult >= nSize)
+            {
+                nResult = nSize - 1;
+                szDest[nResult] = 0;
+            }
+            return nResult;
+        }
+        return vsprintf(szDest, szFormat, args);
+    }
+    return 0;
+}
+
+// 0x00413A40
+extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szDest);
+    VALIDATE(szFormat);
+    VALIDATEEND;
+    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, (va_list)(&szFormat + 1)) : 0;
+}
+
+// 0x00413A80
+extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, va_list args)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szDest);
+    VALIDATE(szFormat);
+    VALIDATEEND;
+    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, args) : 0;
+}
+
+// 0x00413490
+__declspec(noinline) const char* __stdcall SStrChr(const char* szString, char nChar)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    for (; *szString; ++szString)
+    {
+        if (*szString == nChar)
+            return nValid ? szString : 0;
+    }
+    return 0;
+}
+
+// 0x00413510
+const char* __stdcall sub_00413510_SStrChrDir(const char* szString, char nChar, int bReverse)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    if (bReverse)
+        return SStrChrR(szString, nChar);
+    return nValid ? SStrChr(szString, nChar) : 0;
+}
+
+// 0x00413AC0
+int __stdcall SStrToInt(const char* szString)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    const int bNegative = (*szString == '-');
+    if (bNegative)
+    {
+        ++szString;
+    }
+    int nResult = *szString - '0';
+    if ((unsigned int)nResult < 10)
+    {
+        unsigned int nDigit = *++szString - '0';
+        while (nDigit < 10)
+        {
+            ++szString;
+            nResult = nResult * 10 + nDigit;
+            nDigit = *szString - '0';
+        }
+    }
+    else
+    {
+        nResult = 0;
+    }
+    return nValid ? (bNegative ? -nResult : nResult) : 0;
+}
+
+// 0x00413B80
+void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pszString);
+    VALIDATE(*pszString);
+    VALIDATE(szBuffer || !nBufferChars);
+    VALIDATE(szWhitespace);
+    VALIDATEENDVOID;
+
+    const int bQuotesAllowed = SStrChr(szWhitespace, '"') != 0;
+    const char* pCurr = *pszString;
+    int bInQuotes = 0;
+    int bUsedQuotes = 0;
+    while (*pCurr && SStrChr(szWhitespace, *pCurr))
+    {
+        if (bQuotesAllowed && *pCurr == '"')
+        {
+            bUsedQuotes = 1;
+            bInQuotes = 1;
+            ++pCurr;
+            break;
+        }
+        ++pCurr;
+    }
+
+    unsigned int nLength = 0;
+    char nChar;
+    while ((nChar = *pCurr) != 0)
+    {
+        if (bQuotesAllowed && nChar == '"')
+        {
+            if (nLength && !bInQuotes)
+            {
+                break;
+            }
+            bInQuotes = !bInQuotes;
+            ++pCurr;
+            bUsedQuotes = 1;
+            if (!bInQuotes)
+            {
+                break;
+            }
+            continue;
+        }
+        if (!bInQuotes && SStrChr(szWhitespace, nChar))
+        {
+            ++pCurr;
+            break;
+        }
+        if (nLength + 1 < nBufferChars)
+        {
+            szBuffer[nLength++] = nChar;
+        }
+        ++pCurr;
+    }
+
+    if (nLength < nBufferChars)
+    {
+        szBuffer[nLength] = 0;
+    }
+    *pszString = pCurr;
+    if (nValid && pQuoted)
+    {
+        *pQuoted = bUsedQuotes;
+    }
+}
+
+// 0x00413DC0
+unsigned __int64 __stdcall SStrHash64(const char* szString, unsigned int nFlags, unsigned __int64 nSeed)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    unsigned __int64 nResult = nSeed ? nSeed : 0x7FED7FED7FED7FEDui64;
+    unsigned __int64 nAdjust = 0xEEEEEEEEEEEEEEEEui64;
+    unsigned int nChar;
+    if (nFlags & 1)
+    {
+        while ((nChar = (unsigned char)*szString) != 0)
+        {
+            ++szString;
+            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
+            nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
+        }
+    }
+    else
+    {
+        while ((nChar = (unsigned char)*szString) != 0)
+        {
+            ++szString;
+            if (nChar >= 'a' && nChar <= 'z')
+            {
+                nChar -= 0x20;
+            }
+            if (nChar == '/')
+            {
+                nChar = '\\';
+            }
+            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
+            nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
+        }
+    }
+    if (!nResult)
+    {
+        nResult = 1;
+    }
+    return nValid ? nResult : 0;
+}
+
+extern "C" { int gnFlag_007788DC; }                                                                         // 0x007788DC
+extern "C" void __cdecl sub_00414360_CallThenSetFlag();                                                     // 0x00414360
+double gadDigitScale_007788E0[20][10];                                                                      // 0x007788E0
+
+
+template <class T>
+inline T StormPowInt(T x, int nExp)
+{
+    unsigned int nBits;
+    if (nExp >= 0)
+        nBits = (unsigned int)nExp;
+    else
+        nBits = (unsigned int)-nExp;
+    for (T z = T(1); ; x *= x)
+    {
+        if ((nBits & 1) != 0)
+            z *= x;
+        if ((nBits >>= 1) == 0)
+            return nExp < 0 ? T(1) / z : z;
+    }
+}
+
+static inline void sub_004144B0_EnsureInit()
+{
+    if (!gnFlag_007788DC)
+        sub_00414360_CallThenSetFlag();
+}
+
+// 0x004144C0
+double __stdcall SStrToDouble(const char* szString)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    sub_004144B0_EnsureInit();
+    const int bNegative = *szString == '-';
+    if (bNegative)
+    {
+        ++szString;
+    }
+    double dResult = 0.0;
+    unsigned int nAccum = *szString - '0';
+    const char* pStart = szString;
+    if (nAccum < 10)
+    {
+        ++szString;
+        unsigned int nDigit;
+        while ((nDigit = *szString - '0') < 10)
+        {
+            nAccum = nAccum * 10 + nDigit;
+            ++szString;
+            if (nAccum >= 0x19999999)
+            {
+                dResult = StormPowInt(10.0, (int)(szString - pStart)) * dResult + nAccum;
+                nAccum = 0;
+                pStart = szString;
+            }
+        }
+    }
+    else
+    {
+        nAccum = 0;
+    }
+    if (dResult != 0.0)
+    {
+        dResult = sub_00414260_PowInt(10.0, (int)(szString - pStart)) * dResult + nAccum;
+    }
+    else
+    {
+        dResult = nAccum;
+    }
+    if (*szString == '.')
+    {
+        ++szString;
+        unsigned int nDigit;
+        for (int i = 0; (nDigit = *szString - '0') < 10; ++i)
+        {
+            ++szString;
+            if (i >= 20)
+                dResult += StormPowInt(10.0, -1 - i) * nDigit;
+            else
+                dResult += gadDigitScale_007788E0[i][nDigit];
+        }
+    }
+    if (*szString == 'e' || *szString == 'E')
+    {
+        ++szString;
+        if (*szString == '+')
+        {
+            ++szString;
+        }
+        dResult *= StormPowInt(10.0, SStrToInt(szString));
+    }
+    return nValid ? (bNegative ? -dResult : dResult) : 0;
+}
+
+// 0x004146F0
+float __stdcall SStrToFloat(const char* szString)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szString);
+    VALIDATEEND;
+    sub_004144B0_EnsureInit();
+    const int bNegative = *szString == '-';
+    if (bNegative)
+    {
+        ++szString;
+    }
+    double dResult = 0.0;
+    unsigned int nAccum = *szString - '0';
+    const char* pStart = szString;
+    if (nAccum < 10)
+    {
+        ++szString;
+        unsigned int nDigit;
+        while ((nDigit = *szString - '0') < 10)
+        {
+            nAccum = nAccum * 10 + nDigit;
+            ++szString;
+            if (nAccum >= 0x19999999)
+            {
+                dResult = StormPowInt(10.0, (int)(szString - pStart)) * dResult + nAccum;
+                nAccum = 0;
+                pStart = szString;
+            }
+        }
+    }
+    else
+    {
+        nAccum = 0;
+    }
+    if (dResult != 0.0)
+    {
+        dResult = sub_00414260_PowInt(10.0, (int)(szString - pStart)) * dResult + nAccum;
+    }
+    else
+    {
+        dResult = nAccum;
+    }
+    if (*szString == '.')
+    {
+        ++szString;
+        unsigned int nDigit;
+        for (int i = 0; (nDigit = *szString - '0') < 10; ++i)
+        {
+            ++szString;
+            if (i >= 20)
+                dResult += StormPowInt(10.0, -1 - i) * nDigit;
+            else
+                dResult += gadDigitScale_007788E0[i][nDigit];
+        }
+    }
+    if (*szString == 'e' || *szString == 'E')
+    {
+        ++szString;
+        if (*szString == '+')
+        {
+            ++szString;
+        }
+        dResult *= StormPowInt(10.0, SStrToInt(szString));
+    }
+    if (!nValid) return 0;
+    if (bNegative) return (float)-dResult;
+    return (float)dResult;
 }

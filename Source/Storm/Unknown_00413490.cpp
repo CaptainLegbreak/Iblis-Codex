@@ -174,19 +174,6 @@ static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int
     return pHeap;
 }
 
-// 0x00413490
-__declspec(noinline) const char* __stdcall SStrChr(const char* szString, char nChar)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    for (; *szString; ++szString)
-    {
-        if (*szString == nChar)
-            return nValid ? szString : 0;
-    }
-    return 0;
-}
 
 // 0x004134D0
 const char* __stdcall SStrChrR(const char* szString, char nChar)
@@ -203,97 +190,9 @@ const char* __stdcall SStrChrR(const char* szString, char nChar)
     return nValid ? pLast : 0;
 }
 
-// 0x00413510
-const char* __stdcall sub_00413510_SStrChrDir(const char* szString, char nChar, int bReverse)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    if (bReverse)
-        return SStrChrR(szString, nChar);
-    return nValid ? SStrChr(szString, nChar) : 0;
-}
 
-// 0x00413550
-int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString1);
-    VALIDATE(szString2);
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return (int)(szString1 - szString2);
-    }
-    return nValid ? strncmp(szString1, szString2, nMaxChars) : 0;
-}
 
-// 0x00413590
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString1);
-    VALIDATE(szString2);
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return szString1 - szString2;
-    }
-    return nValid ? _strnicmp(szString1, szString2, nMaxChars) : 0;
-}
 
-// 0x00413750
-unsigned int __stdcall SStrLen(const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    unsigned int dwOnes = 0xFFFFFFFF;
-    const char* p = szString;
-    while ((unsigned int)p & 3)
-    {
-        if (!*p)
-        {
-            goto done;
-        }
-        ++p;
-    }
-    for (;;)
-    {
-        const unsigned int w = *(const unsigned int*)p;
-        dwOnes -= w;
-        unsigned int dwTest = (w + 0x7EFEFEFF) ^ dwOnes;
-        p += 4;
-        dwOnes |= w;
-        dwTest &= 0x81010101;
-        if (dwTest)
-        {
-            if (!(char)w)
-            {
-                p -= 4;
-                break;
-            }
-            if (!(char)(w >> 8))
-            {
-                p -= 3;
-                break;
-            }
-            if (!(w & 0xFF0000))
-            {
-                p -= 2;
-                break;
-            }
-            if (!(w & 0xFF000000))
-            {
-                p -= 1;
-                break;
-            }
-            gdwSStrScanWord_007788D8 = dwTest;
-        }
-    }
-done:
-    return nValid ? p - szString : 0;
-}
 
 // 0x00413A00
 static int sub_00413A00_VPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args)
@@ -337,34 +236,6 @@ extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const c
     return sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, args);
 }
 
-// 0x00413AC0
-int __stdcall SStrToInt(const char* szString)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    const int bNegative = (*szString == '-');
-    if (bNegative)
-    {
-        ++szString;
-    }
-    int nResult = *szString - '0';
-    if ((unsigned int)nResult < 10)
-    {
-        unsigned int nDigit = *++szString - '0';
-        while (nDigit < 10)
-        {
-            ++szString;
-            nResult = nResult * 10 + nDigit;
-            nDigit = *szString - '0';
-        }
-    }
-    else
-    {
-        nResult = 0;
-    }
-    return nValid ? (bNegative ? -nResult : nResult) : 0;
-}
 
 // 0x00413B30
 int __stdcall sub_00413B30_ParseUnsignedDecimal(const char* szString)
@@ -390,73 +261,6 @@ int __stdcall sub_00413B30_ParseUnsignedDecimal(const char* szString)
     return nValid ? nResult : 0;
 }
 
-// 0x00413B80
-void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted)
-{
-    VALIDATEBEGIN;
-    VALIDATE(pszString);
-    VALIDATE(*pszString);
-    VALIDATE(szBuffer || !nBufferChars);
-    VALIDATE(szWhitespace);
-    VALIDATEENDVOID;
-
-    const int bQuotesAllowed = SStrChr(szWhitespace, '"') != 0;
-    const char* pCurr = *pszString;
-    int bInQuotes = 0;
-    int bUsedQuotes = 0;
-    while (*pCurr && SStrChr(szWhitespace, *pCurr))
-    {
-        if (bQuotesAllowed && *pCurr == '"')
-        {
-            bUsedQuotes = 1;
-            bInQuotes = 1;
-            ++pCurr;
-            break;
-        }
-        ++pCurr;
-    }
-
-    unsigned int nLength = 0;
-    char nChar;
-    while ((nChar = *pCurr) != 0)
-    {
-        if (bQuotesAllowed && nChar == '"')
-        {
-            if (nLength && !bInQuotes)
-            {
-                break;
-            }
-            bInQuotes = !bInQuotes;
-            ++pCurr;
-            bUsedQuotes = 1;
-            if (!bInQuotes)
-            {
-                break;
-            }
-            continue;
-        }
-        if (!bInQuotes && SStrChr(szWhitespace, nChar))
-        {
-            ++pCurr;
-            break;
-        }
-        if (nLength + 1 < nBufferChars)
-        {
-            szBuffer[nLength++] = nChar;
-        }
-        ++pCurr;
-    }
-
-    if (nLength < nBufferChars)
-    {
-        szBuffer[nLength] = 0;
-    }
-    *pszString = pCurr;
-    if (nValid && pQuoted)
-    {
-        *pQuoted = bUsedQuotes;
-    }
-}
 
 // 0x00413CE0
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed)
@@ -501,45 +305,4 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
 }
 
 
-// 0x00413DC0
-unsigned __int64 __stdcall SStrHash64(const char* szString, unsigned int nFlags, unsigned __int64 nSeed)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szString);
-    VALIDATEEND;
-    unsigned __int64 nResult = nSeed ? nSeed : 0x7FED7FED7FED7FEDui64;
-    unsigned __int64 nAdjust = 0xEEEEEEEEEEEEEEEEui64;
-    unsigned int nChar;
-    if (nFlags & 1)
-    {
-        while ((nChar = (unsigned char)*szString) != 0)
-        {
-            ++szString;
-            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
-            nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
-        }
-    }
-    else
-    {
-        while ((nChar = (unsigned char)*szString) != 0)
-        {
-            ++szString;
-            if (nChar >= 'a' && nChar <= 'z')
-            {
-                nChar -= 0x20;
-            }
-            if (nChar == '/')
-            {
-                nChar = '\\';
-            }
-            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
-            nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
-        }
-    }
-    if (!nResult)
-    {
-        nResult = 1;
-    }
-    return nValid ? nResult : 0;
-}
 
