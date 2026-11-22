@@ -25,9 +25,9 @@ extern "C" unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const u
 
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);   // 0x0061C100
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);   // 0x006253B0
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);   // 0x006253B0
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);   // 0x00625480
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);   // 0x00625480
 
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic);   // 0x00625820
 
@@ -187,7 +187,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 
-int __stdcall ITEMS_GetSockets(D2UnitStrc* hItem); // 0x006299B0
+unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
 
