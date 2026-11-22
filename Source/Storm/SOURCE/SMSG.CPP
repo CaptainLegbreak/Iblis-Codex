@@ -1,3 +1,4 @@
+#include "D2StormTypes.h"
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormLink.h"
@@ -33,7 +34,7 @@ void __stdcall sub_004208E0_AddWndRec(int nValue);
 
 int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam);
 
-int __fastcall sub_004209E0_FindWndRec(HWND__* hWnd);
+char* __fastcall sub_004209E0_FindWndRec(void* hWnd);
 
 int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
 
@@ -80,6 +81,62 @@ int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHan
 int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
 
 static __declspec(noinline) int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+struct D2WinMsgStrc
+{
+    void* hWnd;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+    unsigned int dwTime;
+    int f_14;
+    int nPointY;
+};
+
+typedef int (__stdcall* SMSGIDLEPROC)(int nCount);
+
+extern "C" __declspec(dllimport) int __stdcall DispatchMessageA(const D2WinMsgStrc* pMsg);                  // 0x006CC478
+
+extern "C" __declspec(dllimport) int __stdcall GetMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax); // 0x006CC484
+
+extern "C" __declspec(dllimport) int __stdcall PeekMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax, unsigned int nRemove); // 0x006CC480
+
+extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const D2WinMsgStrc* pMsg);                  // 0x006CC47C
+
+int __stdcall SEvtUnregisterType(unsigned int nType, void* hWnd); // 0x00426810
+
+struct SMSGHANDLER_PARAMS;
+
+struct WNDREC;
+
+struct D2StormNodeListBStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    char* Head()
+    {
+        return m_terminator.Next();
+    }
+    char* sub_00420970_DeleteNode(char* pNode);                                                            // 0x00420970
+};
+
+struct WNDREC
+{
+    D2StormLinkStrc f_0;
+    void* hWnd;
+};
+
+int __stdcall SEvtDispatch(unsigned int nType, void* hWnd, unsigned int nId, SMSGHANDLER_PARAMS* pParams); // 0x00426F90
+extern D2StormNodeListBStrc gWndRecList_00708860; // 0x00708860
+
+void* gdwGlobal_007792F4; // 0x007792F4
+
+struct D2StormNodeListBStrc;
+
+struct D2StormNodeListBStrc;
+
+struct D2StormNodeListBStrc;
 
 // 0x00420A70
 static __declspec(noinline) int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
@@ -273,4 +330,175 @@ int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
     if (pRecord && pRecord->n14C)
         return 1;
     return 0;
+}
+
+// 0x004202A0
+unsigned int __stdcall SMsgDoMessageLoop(SMSGIDLEPROC pfIdle, int bCleanUponQuit)
+{
+    D2WinMsgStrc tMsg;
+    int nCount = 0;
+    for (;;)
+    {
+        if (PeekMessageA(&tMsg, 0, 0, 0, 0) || !pfIdle || !pfIdle(nCount++))
+        {
+            nCount = 0;
+            if (!GetMessageA(&tMsg, 0, 0, 0))
+            {
+                break;
+            }
+            TranslateMessage(&tMsg);
+            DispatchMessageA(&tMsg);
+        }
+    }
+    return tMsg.wParam;
+}
+
+struct D2TSLinkStrc
+{
+    D2TSLinkStrc* pPrevLink;
+    D2TSLinkStrc* pNext;
+
+    D2TSLinkStrc* NextLink(int nLinkOffset)
+    {
+        const int nNext = (int)pNext;
+        if (nNext < 0)
+        {
+            return (D2TSLinkStrc*)~nNext;
+        }
+        if (nLinkOffset < 0)
+        {
+            nLinkOffset = (int)this - (int)pPrevLink->pNext;
+        }
+        return (D2TSLinkStrc*)(nNext + nLinkOffset);
+    }
+
+    void Unlink()
+    {
+        if (pPrevLink)
+        {
+            NextLink(-1)->pPrevLink = pPrevLink;
+            pPrevLink->pNext = pNext;
+            pPrevLink = 0;
+            pNext = 0;
+        }
+    }
+};
+
+struct D2TSListStrc
+{
+    int nLinkOffset;
+    D2TSLinkStrc tTerminator;
+
+    D2TSLinkStrc* Head()
+    {
+        return (int)tTerminator.pNext > 0 ? tTerminator.pNext : 0;
+    }
+
+    void sub_00420750_UnlinkAll();
+    int sub_004206C0_IsEmpty();
+    void sub_00420790_Destroy();
+};
+
+// 0x004206C0
+int D2TSListStrc::sub_004206C0_IsEmpty()
+{
+    return Head() == 0;
+}
+
+// 0x00420790
+void D2TSListStrc::sub_00420790_Destroy()
+{
+    sub_00420750_UnlinkAll();
+    tTerminator.Unlink();
+}
+
+// 0x00420A10
+static __declspec(noinline) void DeleteWindow(void* hWnd)
+{
+    if (hWnd == gdwGlobal_007792F4)
+    {
+        gdwGlobal_007792F4 = 0;
+    }
+    char* pRec = sub_004209E0_FindWndRec(hWnd);
+    if (pRec)
+    {
+        SEvtUnregisterType(0x534D5347, hWnd);
+        SEvtUnregisterType(0x534D5348, hWnd);
+        SEvtUnregisterType(0x534D534A, hWnd);
+        SEvtUnregisterType(0x534D5349, hWnd);
+        gWndRecList_00708860.sub_00420970_DeleteNode(pRec);
+    }
+}
+
+// 0x00420AE0
+int sub_00420AE0_UnregisterAllWindows()
+{
+    while (WNDREC* pRec = (WNDREC*)gWndRecList_00708860.Head())
+    {
+        DeleteWindow(pRec->hWnd);
+    }
+    return 1;
+}
+
+// 0x00420B00
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult)
+{
+    if (pbUseResult)
+    {
+        *pbUseResult = 0;
+    }
+    if (plResult)
+    {
+        *plResult = 0;
+    }
+    SMSGHANDLER_PARAMS tParams;
+    tParams.hWnd = hWnd;
+    tParams.uMessage = uMsg;
+    tParams.wParam = wParam;
+    tParams.lParam = lParam;
+    if (uMsg == 0x111)
+    {
+        tParams.dwCommandSource = wParam >> 0x10;
+    }
+    else
+    {
+        tParams.dwCommandSource = 0;
+    }
+    tParams.bReturn = 0;
+    tParams.lResult = 0;
+    void* hTarget = hWnd;
+    for (;;)
+    {
+        SEvtDispatch(0x534D5347, hTarget, uMsg, &tParams);
+        if (uMsg == 0x111)
+        {
+            SEvtDispatch(0x534D5348, hTarget, (unsigned short)wParam, &tParams);
+        }
+        else if (uMsg == 0x100)
+        {
+            SEvtDispatch(0x534D5349, hTarget, wParam, &tParams);
+        }
+        else if (uMsg == 0x101)
+        {
+            SEvtDispatch(0x534D534A, hTarget, wParam, &tParams);
+        }
+        if (!hTarget || hTarget != gdwGlobal_007792F4)
+        {
+            break;
+        }
+        hTarget = 0;
+    }
+    if (uMsg == 0x82)
+    {
+        DeleteWindow(hWnd);
+    }
+    if (pbUseResult)
+    {
+        *pbUseResult = tParams.bReturn;
+    }
+    if (plResult)
+    {
+        *plResult = tParams.lResult;
+    }
+    return 1;
 }

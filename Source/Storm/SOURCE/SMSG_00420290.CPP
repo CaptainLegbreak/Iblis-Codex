@@ -2,7 +2,8 @@
 #include "D2StormAutoLink.h"
 #include "D2StormTypes.h"
 struct D2StormNodeListStrc;
-struct D2StormWndRecNodeStrc;
+struct WNDREC;
+struct D2StormArrayAStrc;
 struct D2StormArrayCStrc;
 extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x006CC488
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
@@ -47,7 +48,7 @@ struct D2StormNodeListStrc
         }
     }
 };
-struct D2StormWndRecNodeStrc
+struct WNDREC
 {
     D2StormLinkStrc f_0;
     int nValue;
@@ -205,7 +206,7 @@ char* D2StormNodeListBStrc::sub_004206E0_RawNext(char* pNode)
 // 0x004208E0
 void __stdcall sub_004208E0_AddWndRec(int nValue)
 {
-    D2StormWndRecNodeStrc* pNode = new (SMemAlloc(sizeof(D2StormWndRecNodeStrc), gszTypeNameWndRec_00708850, -2, 8)) D2StormWndRecNodeStrc;
+    WNDREC* pNode = new (SMemAlloc(sizeof(WNDREC), gszTypeNameWndRec_00708850, -2, 8)) WNDREC;
     gWndRecList_00708860.LinkNode((char*)pNode, 2, 0);
     pNode->nValue = nValue;
 }

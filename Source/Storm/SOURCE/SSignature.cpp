@@ -6,9 +6,9 @@
 
 struct D2StormNodeListStrc;
 
-struct D2StormHandlerNodeStrc;
+struct HANDLER;
 
-struct D2StormWndRecNodeStrc;
+struct WNDREC;
 
 
 struct D2StormHashBufferStrc;
@@ -102,13 +102,13 @@ struct D2StormNodeListStrc
     }
 };
 
-struct D2StormHandlerNodeStrc
+struct HANDLER
 {
     D2StormLinkStrc f_0;
     int nValue;
 };
 
-struct D2StormWndRecNodeStrc
+struct WNDREC
 {
     D2StormLinkStrc f_0;
     int nValue;

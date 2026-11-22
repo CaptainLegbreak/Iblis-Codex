@@ -10,7 +10,7 @@ struct CHuffman;
 class TOutputStream;
 class THuffmannTree;
 struct D2CriticalSectionStrc;
-struct T0041FA40;
+struct D2SLogStrc;
 struct D2StormListStrc;
 struct D2Field14Strc;
 struct D2UnitStrc;
@@ -95,7 +95,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
-extern T0041FA40* gapSLogBuckets_00779298[4]; // 0x00779298
+extern D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
 extern int gbSLogDebugOutput_007790AC; // 0x007790AC
 
 struct D2StormListStrc

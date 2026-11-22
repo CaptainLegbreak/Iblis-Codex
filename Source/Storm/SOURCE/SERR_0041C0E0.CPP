@@ -7,7 +7,7 @@
 struct D2CriticalSectionStrc;
 struct PairStrc_0041C390;
 struct Link;
-struct D2StormHandlerStrc;
+struct HANDLER;
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -35,17 +35,17 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 extern "C" void __cdecl __debugbreak();
 void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility); // 0x0041C0F0
 
-struct D2StormHandlerStrc
+struct HANDLER
 {
     D2StormLinkStrc f_0;
     int unk0x08;
 
-    D2StormHandlerStrc()
+    HANDLER()
     {
         f_0.m_prevlink = 0;
         f_0.m_next = 0;
     }
-    ~D2StormHandlerStrc();
+    ~HANDLER();
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -65,7 +65,7 @@ inline void* operator new(unsigned int, void* pWhere) throw()
     return pWhere;
 }
 
-inline D2StormHandlerStrc::~D2StormHandlerStrc()
+inline HANDLER::~HANDLER()
 {
     f_0.Unlink();
 }
@@ -186,8 +186,8 @@ char* D2StormFixedListStrc::sub_0041C700_RawNext(char* pNode)
 // 0x0041C840
 char* D2StormFixedListStrc::sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2StormHandlerStrc) + nExtraBytes, gszTypeNameHandler_00708434, -2, nFlags | 8);
-    D2StormHandlerStrc* pRecord = pMemory ? new (pMemory) D2StormHandlerStrc : 0;
+    void* pMemory = SMemAlloc(sizeof(HANDLER) + nExtraBytes, gszTypeNameHandler_00708434, -2, nFlags | 8);
+    HANDLER* pRecord = pMemory ? new (pMemory) HANDLER : 0;
     if (nLinkType)
         sub_0041C580_LinkNode((char*)pRecord, nLinkType, 0);
     return (char*)pRecord;
@@ -197,9 +197,9 @@ char* D2StormFixedListStrc::sub_0041C840_NewNode(unsigned int nLinkType, unsigne
 char* D2StormFixedListStrc::sub_0041CA10_DeleteNode(char* pNode)
 {
     char* pNext = Link(pNode)->Next();
-    ((D2StormHandlerStrc*)pNode)->~D2StormHandlerStrc();
+    ((HANDLER*)pNode)->~HANDLER();
     SMemFree(pNode, gszTypeNameHandler_00708434, -2, 0);
     return pNext;
 }
 
-// build: symbol ??_GD2StormHandlerStrc@@QAEPAXI@Z 0x0041C8A0
+// build: symbol ??_GHANDLER@@QAEPAXI@Z 0x0041C8A0

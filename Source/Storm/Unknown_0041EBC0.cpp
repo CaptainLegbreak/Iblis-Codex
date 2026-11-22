@@ -8,7 +8,7 @@ struct CHuffman;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
 struct D2CriticalSectionStrc;
-struct T0041FA40;
+struct D2SLogStrc;
 
 struct D2StormHuffInputStrc {
  unsigned char* input; unsigned int bits,count;
@@ -177,8 +177,8 @@ extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, si
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
-extern T0041FA40* gapSLogBuckets_00779298[4]; // 0x00779298
-static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog);
+extern D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
+static D2SLogStrc* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog);
 static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex);
 
 // 0x0041EBC0

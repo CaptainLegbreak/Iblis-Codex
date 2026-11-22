@@ -585,9 +585,9 @@ struct D2SCompLinkStrc
     }
 };
 
-struct D2SMemHeapInfoStrc
+struct SMEMHEAPDETAILS
 {
-    unsigned int dwSize;
+    unsigned int size;
     unsigned int hHeap;
     char szName[0x104];
     int nLine;
@@ -706,14 +706,14 @@ typedef void (__stdcall* SEVTHANDLER)(void* pData);
 
 typedef int (__stdcall* SymCleanupFn)(void* hProcess);
 
-struct T0041FA40
+struct D2SLogStrc
 {
     void* hLog;
-    T0041FA40* pNext;
+    D2SLogStrc* pNext;
     void* hFile;
     unsigned long nUsed;
     unsigned long nPended;
-    int nIndent;
+    int indent;
     int f_18;
     char szBuffer[0x10000];
 };

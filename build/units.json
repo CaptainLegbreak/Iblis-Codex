@@ -4265,7 +4265,7 @@
     {
      "va": "0x00420880",
      "length": 81,
-     "name": "?_GD2StormWndRecStrc"
+     "name": "?_GWNDREC"
     },
     {
      "va": "0x00420970",
@@ -4402,7 +4402,7 @@
     {
      "va": "0x0041C8A0",
      "length": 81,
-     "name": "?_GD2StormHandlerStrc"
+     "name": "?_GHANDLER"
     },
     {
      "va": "0x0041CA10",
@@ -5974,6 +5974,10 @@
      "va": "0x0041C9C0",
      "length": 78,
      "name": "?sub_0041C9C0_DeleteAll@D2StormList00708420Strc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041D110",
+     "length": 68
     }
    ]
   },
@@ -6418,6 +6422,11 @@
      "name": "??1D2StormList00708420Strc@@QAE@XZ"
     },
     {
+     "va": "0x0041C900",
+     "length": 184,
+     "name": "SErrRegisterHandler"
+    },
+    {
      "va": "0x0041CA80",
      "length": 107,
      "name": "?SErrDestroy@@YAHXZ"
@@ -6431,6 +6440,16 @@
      "va": "0x0041D010",
      "length": 256,
      "name": "SErrReportNamedResourceLeak"
+    },
+    {
+     "va": "0x0041D160",
+     "length": 128,
+     "name": "sub_0041D160_DisplayAppFatal"
+    },
+    {
+     "va": "0x0041D1E0",
+     "length": 18,
+     "name": "SErrReportResourceLeak"
     }
    ]
   },
@@ -6706,27 +6725,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SERR_0041C900.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041C900",
-     "length": 184,
-     "name": "SErrRegisterHandler"
-    },
-    {
-     "va": "0x0041D160",
-     "length": 128,
-     "name": "sub_0041D160_DisplayAppFatal"
-    },
-    {
-     "va": "0x0041D1E0",
-     "length": 18,
-     "name": "SErrReportResourceLeak"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SMSG_00420290.CPP",
    "rank": 0,
    "functions": [
@@ -6804,16 +6802,6 @@
     {
      "va": "0x0041CAF0",
      "length": 1216
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SERR_0041D110.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041D110",
-     "length": 68
     }
    ]
   },
@@ -7152,27 +7140,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMSG_00420A10.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00420A10",
-     "length": 89,
-     "name": "?DeleteWindow@@YAXPAX@Z"
-    },
-    {
-     "va": "0x00420AE0",
-     "length": 27,
-     "name": "?sub_00420AE0_UnregisterAllWindows@@YAHXZ"
-    },
-    {
-     "va": "0x00420B00",
-     "length": 235,
-     "name": "?SMsgDispatchMessage@@YGHPAXIIHPAH1@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SLOG.CPP",
    "rank": 0,
    "functions": [
@@ -7435,6 +7402,26 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004202A0",
+     "length": 105,
+     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
+    },
+    {
+     "va": "0x004206C0",
+     "length": 25,
+     "name": "?sub_004206C0_IsEmpty@D2TSListStrc@@QAEHXZ"
+    },
+    {
+     "va": "0x00420790",
+     "length": 60,
+     "name": "?sub_00420790_Destroy@D2TSListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00420A10",
+     "length": 89,
+     "name": "?DeleteWindow@@YAXPAX@Z"
+    },
+    {
      "va": "0x00420A70",
      "length": 62,
      "name": "?InternalRegister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
@@ -7443,6 +7430,16 @@
      "va": "0x00420AB0",
      "length": 42,
      "name": "?InternalUnregister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420AE0",
+     "length": 27,
+     "name": "?sub_00420AE0_UnregisterAllWindows@@YAHXZ"
+    },
+    {
+     "va": "0x00420B00",
+     "length": 235,
+     "name": "?SMsgDispatchMessage@@YGHPAXIIHPAH1@Z"
     },
     {
      "va": "0x00420BF0",
@@ -7528,27 +7525,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMSG_004202A0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004202A0",
-     "length": 105,
-     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
-    },
-    {
-     "va": "0x004206C0",
-     "length": 25,
-     "name": "?sub_004206C0_IsEmpty@D2TSListStrc@@QAEHXZ"
-    },
-    {
-     "va": "0x00420790",
-     "length": 60,
-     "name": "?sub_00420790_Destroy@D2TSListStrc@@QAEXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SLOG_00420220.CPP",
    "rank": 0,
    "functions": [
@@ -7566,7 +7542,7 @@
     {
      "va": "0x004209E0",
      "length": 36,
-     "name": "?FindWindow@@YIPAUD2StormIdNodeStrc@@H@Z"
+     "name": "?FindWindow@@YIPAUWNDREC@@H@Z"
     }
    ]
   },
@@ -8807,7 +8783,7 @@
     {
      "va": "0x00426210",
      "length": 95,
-     "name": "?sub_00426210_DeleteHandlerTable@@YAXPAUD2StormHandlerTableStrc@@@Z"
+     "name": "?sub_00426210_DeleteHandlerTable@@YAXPAU_IDHASHTABLE@@@Z"
     },
     {
      "va": "0x00426270",

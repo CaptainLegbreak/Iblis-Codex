@@ -75,8 +75,8 @@ struct D2StormHashBufferStrc;
 class THuffmannTree;
 struct D2StormHuffLinkSlotStrc;
 struct CHuffman;
-struct D2StormHandlerStrc;
-struct D2StormWndRecStrc;
+struct HANDLER;
+struct WNDREC;
 struct D2StormNodeListBStrc;
 
 struct D2MemoryStatusStrc
@@ -401,17 +401,17 @@ extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 extern void* ghStormThread_00779034; // 0x00779034
 extern int gnStormDirectFlags_00779058; // 0x00779058
 
-struct D2StormHandlerStrc
+struct HANDLER
 {
     D2StormLinkStrc f_0;
     int unk0x08;
 
-    D2StormHandlerStrc()
+    HANDLER()
     {
         f_0.m_prevlink = 0;
         f_0.m_next = 0;
     }
-    ~D2StormHandlerStrc();
+    ~HANDLER();
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -419,17 +419,17 @@ struct D2StormHandlerStrc
     }
 };
 
-struct D2StormWndRecStrc
+struct WNDREC
 {
     D2StormLinkStrc f_0;
     int unk0x08;
 
-    D2StormWndRecStrc()
+    WNDREC()
     {
         f_0.m_prevlink = 0;
         f_0.m_next = 0;
     }
-    ~D2StormWndRecStrc();
+    ~WNDREC();
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -2950,13 +2950,13 @@ inline void REQUEST::operator delete(void* pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
 
-inline D2StormHandlerStrc::~D2StormHandlerStrc()
+inline HANDLER::~HANDLER()
 {
     f_0.Unlink();
 }
 
-// build: symbol ??_GD2StormWndRecStrc@@QAEPAXI@Z 0x00420880
-inline D2StormWndRecStrc::~D2StormWndRecStrc()
+// build: symbol ??_GWNDREC@@QAEPAXI@Z 0x00420880
+inline WNDREC::~WNDREC()
 {
     f_0.Unlink();
 }
@@ -3004,8 +3004,8 @@ char* D2StormFixedListStrc::sub_0041A2C0_DeleteNode(char* pNode)
 // 0x00420820
 char* D2StormNodeListBStrc::sub_00420820_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2StormWndRecStrc) + nExtraBytes, gszTypeNameWndRec_00708850, -2, nFlags | 8);
-    D2StormWndRecStrc* pRecord = pMemory ? new (pMemory) D2StormWndRecStrc : 0;
+    void* pMemory = SMemAlloc(sizeof(WNDREC) + nExtraBytes, gszTypeNameWndRec_00708850, -2, nFlags | 8);
+    WNDREC* pRecord = pMemory ? new (pMemory) WNDREC : 0;
     if (nLinkType)
         sub_00420540_LinkNode((char*)pRecord, nLinkType, 0);
     return (char*)pRecord;
@@ -3015,7 +3015,7 @@ char* D2StormNodeListBStrc::sub_00420820_NewNode(unsigned int nLinkType, unsigne
 char* D2StormNodeListBStrc::sub_00420970_DeleteNode(char* pNode)
 {
     char* pNext = Link(pNode)->Next();
-    ((D2StormWndRecStrc*)pNode)->~D2StormWndRecStrc();
+    ((WNDREC*)pNode)->~WNDREC();
     SMemFree(pNode, gszTypeNameWndRec_00708850, -2, 0);
     return pNext;
 }
