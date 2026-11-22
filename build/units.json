@@ -63174,6 +63174,10 @@
      "length": 606
     },
     {
+     "va": "0x005E4AC0",
+     "length": 551
+    },
+    {
      "va": "0x005E4CF0",
      "length": 56,
      "name": "AITHINK_Fn067_NecroPet"
@@ -68367,30 +68371,6 @@
     {
      "va": "0x005E2FF0",
      "length": 1231
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E4AC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E4AC0",
-     "length": 551
     }
    ],
    "flags": [
