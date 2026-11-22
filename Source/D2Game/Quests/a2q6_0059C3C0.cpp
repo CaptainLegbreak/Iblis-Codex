@@ -2,26 +2,9 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 
-struct D2PlayerDataStrc { char unk_00[0x10]; D2BitBufferStrc* pQuestData[3]; };
-struct D2Act2Quest6Strc { char unk_00[0x18]; int nTyraelState; };
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char f_8[4];
-    unsigned char fState;
-    char unk_0D[0xB];
-    D2Act2Quest6Strc* pQuestDataEx;
-};
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    int unk_10;
-    D2TextHeaderStrc* pTextControl;
-};
+#include "D2UnitData.h"
+#include "D2QuestData.h"
+#include "D2GameTypes.h"
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc*, D2TextHeaderStrc*, int, int); // 0x00543790
 int __fastcall QUESTS_GetGlobalState(D2GameStrc*, int, int); // 0x00544760
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc*, int); // 0x005452C0
@@ -36,7 +19,7 @@ void __fastcall sub_0059C3C0_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArg
     const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
     if (nNpcId == 251)
     {
-        if (pQuestData->pQuestDataEx->nTyraelState == 2)
+        if (((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->nTyraelsDoorObjectMode == 2)
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
         return;
     }
