@@ -84911,11 +84911,6 @@
     {
      "va": "0x006B1E30",
      "length": 97
-    },
-    {
-     "va": "0x006B2030",
-     "length": 106,
-     "name": "?sub_006B2030_SetFilterMode@@YIXH@Z"
     }
    ]
   },
@@ -85142,6 +85137,11 @@
     {
      "va": "0x006B1F40",
      "length": 228
+    },
+    {
+     "va": "0x006B2030",
+     "length": 106,
+     "name": "?sub_006B2030_SetFilterMode@@YIXH@Z"
     },
     {
      "va": "0x006B3320",

@@ -430,9 +430,9 @@ void __fastcall sub_006B55E0_InitializeWindow(int, int); // 0x006B55E0
 
 extern int gnState_00970E54; // 0x00970E54
 
+extern int gnFilterMode_00970E5C; // 0x00970E5C
 extern int gnState_00970E58; // 0x00970E58
 
-extern int gnState_00970E5C; // 0x00970E5C
 
 void __fastcall sub_006B7F70_ClearTarget(int); // 0x006B7F70
 
@@ -621,7 +621,7 @@ int __fastcall sub_006B5720_BeginScene(int clear, int unused, int unusedA, int u
     if (clear) sub_006B7F70_ClearTarget(0);
     gnState_00970E54 = 0;
     gnState_00970E58 = 0;
-    gnState_00970E5C = 0;
+    gnFilterMode_00970E5C = 0;
     sub_006B9710_SetColorComponents(255, 255, 255);
     long result = gpDevice_00970E78->lpVtbl->BeginScene(gpDevice_00970E78);
     if (result) sub_006B39B0_ShowD3DError("BeginScene failed!", result);
@@ -963,6 +963,27 @@ void __fastcall sub_006B1F40_SetBlendMode(int nState)
         break;
     }
     gnState_00970E58 = nState;
+}
+
+// 0x006B2030
+void __fastcall sub_006B2030_SetFilterMode(int nMode)
+{
+    if (gnFilterMode_00970E5C && nMode == gnFilterMode_00970E5C)
+    {
+        return;
+    }
+    switch (nMode)
+    {
+    case 1:
+        gpDevice->SetTextureStageState(0, 16, 1);
+        gpDevice->SetTextureStageState(0, 17, 1);
+        break;
+    case 2:
+        gpDevice->SetTextureStageState(0, 16, 2);
+        gpDevice->SetTextureStageState(0, 17, 2);
+        break;
+    }
+    gnFilterMode_00970E5C = nMode;
 }
 
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"

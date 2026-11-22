@@ -48,23 +48,3 @@ void __fastcall sub_006B1E30_Blit8To32(const unsigned char* pSource, unsigned in
 
 int gnFilterMode_00970E5C; // 0x00970E5C
 
-// 0x006B2030
-void __fastcall sub_006B2030_SetFilterMode(int nMode)
-{
-    if (gnFilterMode_00970E5C && nMode == gnFilterMode_00970E5C)
-    {
-        return;
-    }
-    switch (nMode)
-    {
-    case 1:
-        gpDevice_00970E78->lpVtbl->SetTextureStageState(gpDevice_00970E78, 0, 16, 1);
-        gpDevice_00970E78->lpVtbl->SetTextureStageState(gpDevice_00970E78, 0, 17, 1);
-        break;
-    case 2:
-        gpDevice_00970E78->lpVtbl->SetTextureStageState(gpDevice_00970E78, 0, 16, 2);
-        gpDevice_00970E78->lpVtbl->SetTextureStageState(gpDevice_00970E78, 0, 17, 2);
-        break;
-    }
-    gnFilterMode_00970E5C = nMode;
-}
