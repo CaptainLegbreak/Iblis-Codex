@@ -47525,6 +47525,22 @@
      "va": "0x005DEFB0",
      "length": 38,
      "name": "AITACTICS_RunToTargetUnitWithSteps"
+    },
+    {
+     "va": "0x005DEFE0",
+     "length": 342
+    },
+    {
+     "va": "0x005DF140",
+     "length": 347
+    },
+    {
+     "va": "0x005DF400",
+     "length": 304
+    },
+    {
+     "va": "0x005DF530",
+     "length": 326
     }
    ]
   },
@@ -67100,74 +67116,12 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiTatics_005DEFE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DEFE0",
-     "length": 342
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiTatics_005DF140.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DF140",
-     "length": 347
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005DF2A0.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x005DF2A0",
      "length": 340
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiTatics_005DF400.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DF400",
-     "length": 304
-    },
-    {
-     "va": "0x005DF530",
-     "length": 326
     }
    ]
   },
