@@ -75,13 +75,6 @@ extern char gszResolvedHostIP_0075D040[];                                       
 extern D2CriticalSectionStrc gtLogLock_0075E850;                                                            // 0x0075E850
 unsigned long gdwLastLogSweep_0075E874;                                                                     // 0x0075E874
 
-// 0x00408A30
-void __cdecl FOG_DisplayAssert(const char* szMsg, const char* szFile, int nLine)
-{
-    FOG_SOCKET_WSACleanup();
-    sub_00408900_RaiseErrorReport(5, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
-    sub_0040F960_CloseLogFiles();
-}
 
 
 
