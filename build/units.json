@@ -1288,6 +1288,11 @@
      "name": "?sub_0040F960_CloseLogFiles@@YAXXZ"
     },
     {
+     "va": "0x0040F970",
+     "length": 301,
+     "name": "sub_0040F970_SweepOldLogFiles"
+    },
+    {
      "va": "0x0040FAA0",
      "length": 163,
      "name": "??1D2LogMsgNodeStrc@@QAE@XZ"
@@ -2863,11 +2868,6 @@
      "va": "0x0040EBD0",
      "length": 235,
      "name": "sub_0040EBD0_OpenDatedLogFile"
-    },
-    {
-     "va": "0x0040F970",
-     "length": 301,
-     "name": "sub_0040F970_SweepOldLogFiles"
     },
     {
      "va": "0x00410CF0",
