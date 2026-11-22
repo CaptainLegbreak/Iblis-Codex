@@ -909,7 +909,7 @@
   ["0x0041EBC0", 361, "verified"],
   ["0x0041ED30", 50, "verified", "?sub_0041ED30_Unlink@D2SCompUnlinkDStrc@@QAEXXZ"],
   ["0x0041ED70", 32, "verified", "??0D2SCompListStrc@@QAE@XZ"],
-  ["0x0041ED90", 161, "verified", "sub_0041ED90_LinkNode"],
+  ["0x0041ED90", 161, "verified", "LinkNode"],
   ["0x0041EE40", 61, "verified", "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"],
   ["0x0041EE80", 16, "verified", "??0D2StormHuffItemStrc@@QAE@XZ"],
   ["0x0041EE90", 50, "verified", "??1D2StormHuffItemStrc@@QAE@XZ"],

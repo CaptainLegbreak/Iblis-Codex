@@ -386,7 +386,7 @@ struct D2StormNodeListAStrc
     }
     D2StormLinkStrc* sub_0041EB40_Link(char* pNode);
     void sub_0041EB60_UnlinkNode(char* pNode);
-    void sub_0041ED90_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
+    void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
 };
 
 struct D2StormNodeListBStrc
@@ -633,8 +633,8 @@ void D2StormNodeListAStrc::sub_0041EB60_UnlinkNode(char* pNode)
     Link(pNode)->Unlink();
 }
 
-// 0x0041ED90
-void D2StormNodeListAStrc::sub_0041ED90_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
+// build: symbol ?LinkNode@D2StormNodeListAStrc@@QAEXPADI0@Z 0x0041ED90
+void D2StormNodeListAStrc::LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
 {
     D2StormLinkStrc* pLink = Link(pNode);
     pLink->Unlink();

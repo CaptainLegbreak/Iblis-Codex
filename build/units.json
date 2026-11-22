@@ -6487,7 +6487,7 @@
     {
      "va": "0x0041ED90",
      "length": 161,
-     "name": "sub_0041ED90_LinkNode"
+     "name": "LinkNode"
     },
     {
      "va": "0x0041F510",

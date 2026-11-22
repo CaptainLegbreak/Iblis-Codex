@@ -105,7 +105,7 @@ struct D2StormNodeListAStrc
     {
         return m_terminator.Next();
     }
-    void sub_0041ED90_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);                       // 0x0041ED90
+    void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);                       // 0x0041ED90
 };
 
 struct HUFFNODE
@@ -920,7 +920,7 @@ HUFFNODE* CHuffman::sub_0041EED0_NewItem(unsigned int nLinkType)
     HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
         pItem = &f_8[nItemsUsed++];
-    tItemList.sub_0041ED90_LinkNode((char*)pItem, nLinkType, 0);
+    tItemList.LinkNode((char*)pItem, nLinkType, 0);
     pItem->pParent = 0;
     pItem->pChild = 0;
     return pItem;

@@ -894,7 +894,7 @@ address,name,source,alias
 0x0041EBC0,sub_0041EBC0_DecodeOne,placeholder,
 0x0041ED30,sub_0041ED30_Unlink,placeholder,
 0x0041ED70,D2SCompListStrc,placeholder,
-0x0041ED90,sub_0041ED90_LinkNode,placeholder,
+0x0041ED90,LinkNode,blizzard,
 0x0041EE40,sub_0041EE40_UnlinkAll,placeholder,
 0x0041EE80,D2StormHuffItemStrc,placeholder,
 0x0041EE90,~D2StormHuffItemStrc,placeholder,
