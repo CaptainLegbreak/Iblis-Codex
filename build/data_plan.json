@@ -561,8 +561,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/CharSel.cpp": {
-   "bytes": 200,
-   "definitions": 6,
+   "bytes": 208,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/CharSel.inc",
@@ -976,15 +976,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/CharSel_004378D0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Launch/Unknown_0043AE30.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_0043AE30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -20468,7 +20459,7 @@
    "cname": "gData_006D3A08",
    "declared": true,
    "decorated": "_gapszSkyPalette_006D3A08",
-   "file": "Source/D2Launch/Unknown_0043AE30.cpp",
+   "file": "Source/D2Launch/Src/CharSel.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006D3A08[2]; // 0x006D3A08",
    "head": "extern \"C\" const char* const gData_006D3A08[2] = ",

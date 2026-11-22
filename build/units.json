@@ -9610,6 +9610,11 @@
      "name": "sub_0043A610_ShowString"
     },
     {
+     "va": "0x0043AE30",
+     "length": 586,
+     "name": "?sub_0043AE30_InitCharList@@YAXXZ"
+    },
+    {
      "va": "0x00445020",
      "length": 126,
      "name": "sub_00445020_SendLaunchRequest"
@@ -12156,17 +12161,6 @@
      "va": "0x0043C180",
      "length": 872,
      "name": "?sub_0043C180_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043AE30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043AE30",
-     "length": 586,
-     "name": "?sub_0043AE30_InitCharList@@YAXXZ"
     }
    ]
   },

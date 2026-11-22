@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2StormTypes.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
@@ -8,22 +9,39 @@
 #pragma intrinsic(strlen)
 
 struct D2UnitStrc;
+
 struct D2ActiveRoomStrc;
+
 struct D2InventoryStrc;
+
 struct D2DynamicPathStrc;
+
 struct D2StatListStrc;
+
 struct SMSGHANDLER_PARAMS;
+
 struct D2CharSelCacheStrc;
+
 struct D2StatesTxt;
+
 struct D2DataTablesStrc;
+
 struct D2LaunchRequestStrc;
+
 struct D2UnitDropItemsPacketStrc;
+
 struct D2GridCellStrc;
+
 struct D2CelFileStrc;
+
 struct Unicode;
+
 struct D2FuncTable_0077ABF0Strc;
+
 struct D2LaunchCharInfoStrc;
+
 struct D2FuncRecordStrc;
+
 struct D2LaunchCharEntryStrc;
 
 struct Unicode
@@ -35,40 +53,47 @@ struct Unicode
 };
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); // 0x00686900
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 extern "C" int __stdcall sub_0043A460_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
-extern int gdwGlobal_00779DC4; // 0x00779DC4
+
+static int gdwGlobal_00779DC4; // 0x00779DC4
+
 extern int gdwGlobal_0070CC08; // 0x0070CC08
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
+
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
+
 int __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
+
 void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
+
 void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
+
 int __fastcall sub_004F9190(); // 0x004F9190
+
 int __cdecl sub_0042F6D0(); // 0x0042F6D0
+
 extern D2WinControlStrc* gpControl_007795E0; // 0x007795E0
+
 extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
+
 extern void** gppSlots_00779988; // 0x00779988
+
 extern int gdwGlobal_0077998C; // 0x0077998C
 
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
+
 char* __fastcall sub_00430B50_GetSlotName(int nIndex); // 0x00430B50
+
 int __cdecl sub_00430A20_FreeSlots(); // 0x00430A20
-extern D2CharSelCacheStrc* gpCharSelCache_00779DE8; // 0x00779DE8
-extern int gbFlag_00779C6C; // 0x00779C6C
+
+D2CharSelCacheStrc* gpCharSelCache_00779DE8; // 0x00779DE8
+
+static int gbFlag_00779C6C;             // 0x00779C6C
+
 extern char gszBaseName_00779B68[]; // 0x00779B68
 
 struct D2LaunchRequestStrc
@@ -94,72 +119,137 @@ struct D2GridCellStrc
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds); // 0x006CC258
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+
 void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
+
 void __fastcall sub_0044A590_SendRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
+
 void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
+
 extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+
 void __cdecl sub_004584C0(); // 0x004584C0
+
 void __cdecl sub_00458680_ResetAutomapCells(); // 0x00458680
+
 void __cdecl sub_00458750(); // 0x00458750
+
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
 void __fastcall sub_004565E0_DrawLoadingScreen(int nArg); // 0x004565E0
+
 unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
+
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+
 void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+
 void __fastcall sub_0046E1B0_DrawUnitOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
+
 void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
+
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
+
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+
 void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
+
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
+
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
+
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
+
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
+
 void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
+
 D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD90
+
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
+
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
+
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648CE0
+
 void __stdcall sub_00649190_SetPathMode(D2UnitStrc* pUnit, int nMode); // 0x00649190
+
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
+
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
+
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
+
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern unsigned int gdwBitMasks[]; // 0x006CE268
+
 extern unsigned short gwRequestId_0070CD60; // 0x0070CD60
+
 extern int gnGlobal_007111CC; // 0x007111CC
+
 extern int gnGlobal_007111D0; // 0x007111D0
+
 extern int gnGlobal_007111D4; // 0x007111D4
+
 extern int gnGlobal_0071146C; // 0x0071146C
+
 extern int gnGlobal_00711470; // 0x00711470
+
 extern unsigned short gwSavedRequestId_0077BBDC; // 0x0077BBDC
+
 extern void* gpGlobal_007A0634; // 0x007A0634
+
 extern void* gpAutomapContext_007A5164; // 0x007A5164
+
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
+
 extern int gnProgress_007BB3B4; // 0x007BB3B4
+
 void __stdcall sub_00439E60_AddToValue(int nDelta); // 0x00439E60
+
 int __stdcall sub_00439E90_ListKeyDown(SMSGHANDLER_PARAMS* pMsg); // 0x00439E90
-extern int gnTopRow_00779DC8; // 0x00779DC8
+
+static int gnTopRow_00779DC8; // 0x00779DC8
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
+
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
+
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+
 void __cdecl sub_0043B9A0(); // 0x0043B9A0
+
 extern int gnState_00779DAC; // 0x00779DAC
+
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
 struct D2LaunchCharEntryStrc
@@ -172,8 +262,68 @@ struct D2LaunchCharEntryStrc
     char unk0x33C[0x10];
     D2LaunchCharEntryStrc* pNext;
 };
+
 int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag); // 0x005041B0
+
 extern D2LaunchCharEntryStrc* gpCharEntry_00779DC0; // 0x00779DC0
+
+struct D2WinTextBoxStrc;
+
+struct D2WinButtonStrc;
+
+int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2);                          // 0x0042F2E0
+
+int __stdcall sub_00439DF0_OnScroll(SMSGHANDLER_PARAMS* pMsg);                                              // 0x00439DF0
+
+int __cdecl sub_0043A2B0_InitRealmScreen();                                                                 // 0x0043A2B0
+
+void __fastcall sub_0043ADB0_UseName(char* szName);                                                         // 0x0043ADB0
+
+void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
+
+void __fastcall sub_004FB590(int nFont);                                                                    // 0x004FB590
+
+int __fastcall D2Win_10191(D2WinTextBoxStrc* pTextBox, int nMaxSteps);                                      // 0x004FC5E0
+
+int __fastcall D2Win_10194(D2WinTextBoxStrc* pTextBox, D2WinTextBoxStrc* pLinkedTextBox);                   // 0x004FC6A0
+
+int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*)); // 0x004FC6E0
+
+void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId);                                // 0x00500BF0
+
+D2WinControlStrc* gpControl_007799F8;                                                                       // 0x007799F8
+
+extern void* gapRowControls_00779A20[];                                                                     // 0x00779A20
+
+extern char gData_00779A40[];                                                                               // 0x00779A40
+
+void* gapRowControlsX_00779B40[8];                                                                          // 0x00779B40
+
+D2WinControlStrc* gpControl_00779C84;                                                                       // 0x00779C84
+
+static int gnSelected_0070CC00;         // 0x0070CC00
+
+static D2WinControlStrc* gpCharSelectText_00779DD4; // 0x00779DD4
+
+static D2WinControlStrc* gpControl_00779DD0;        // 0x00779DD0
+
+static int gnLastValue_00779DCC;        // 0x00779DCC
+
+int __stdcall sub_0043B8E0_OnTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B8E0
+
+int __stdcall sub_0043B940_OnTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B940
+
+D2RecordHandlerFn gpfnPrevHandler_007A2764; // 0x007A2764
+
+int gbOverlaysEnabled_007A289C; // 0x007A289C
+
+int gnOverlayStep_007A3138; // 0x007A3138
+
+int gnGlobal_007B0A54; // 0x007B0A54
+
+int gnGlobal_007B0A58; // 0x007B0A58
+
+void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket); // 0x00462F60
 
 // 0x0042E5B0
 char* __cdecl sub_0042E5B0_StrStr(char* szString, const char* szSubString)
@@ -317,10 +467,6 @@ int __cdecl sub_00430B00_CompareNames(const void* pEntry1, const void* pEntry2)
     return strcmp(**(const char* const* const*)pEntry1, **(const char* const* const*)pEntry2);
 }
 
-int __stdcall sub_0043B8E0_OnTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B8E0
-
-int __stdcall sub_0043B940_OnTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B940
-
 // 0x004379D0
 int __fastcall sub_004379D0_GetBit20(int nValue)
 {
@@ -370,18 +516,6 @@ int __fastcall sub_M110_Emit_00437A00(int nIndex)
 {
     return sub_00437A00_GetSlotNameChecked(nIndex + 1) != 0;
 }
-
-D2CharSelCacheStrc* gpCharSelCache_00779DE8; // 0x00779DE8
-
-D2RecordHandlerFn gpfnPrevHandler_007A2764; // 0x007A2764
-
-int gbOverlaysEnabled_007A289C; // 0x007A289C
-
-int gnOverlayStep_007A3138; // 0x007A3138
-
-int gnGlobal_007B0A54; // 0x007B0A54
-
-int gnGlobal_007B0A58; // 0x007B0A58
 
 // 0x00437AB0
 void __fastcall sub_00437AB0_CharSelCacheStore(const char* szKey, const void* pData, unsigned int nSize)
@@ -470,12 +604,6 @@ void __stdcall sub_00439E60_AddToValue(int nDelta)
 {
     sub_004FC660_SetValue(gpControl_00779C84, sub_004FC620_GetValue(gpControl_00779C84) + nDelta);
 }
-
-#include "gen/data/Source/D2Launch/Src/CharSel.inc"
-
-int gdwGlobal_00779DC4; // 0x00779DC4
-
-int gnTopRow_00779DC8; // 0x00779DC8
 
 // 0x00439E90
 int __stdcall sub_00439E90_ListKeyDown(SMSGHANDLER_PARAMS* pMsg)
@@ -723,6 +851,61 @@ void __cdecl sub_0043A610_ShowString()
     sub_0043A460_CreateNotice(pTitle, &wEmpty, 2, 0x12);
 }
 
+// 0x0043AE30
+void __cdecl sub_0043AE30_InitCharList()
+{
+    sub_0042F480_Reset();
+    sub_0042F2E0_ReadPaletteFiles(gapszSkyPalette_006D3A08[0], gapszSkyPalette_006D3A08[1]);
+    gdwGlobal_00779DA4 = 1;
+    gdwGlobal_00779DC4 = 0;
+    gnTopRow_00779DC8 = 0;
+    gnSelected_0070CC00 = 0;
+    gbFlag_00779C6C = 0;
+    gpCharSelectText_00779DD4 = 0;
+    gpControl_00779DD0 = 0;
+    gnLastValue_00779DCC = 0;
+    gpLaunchRecord_007795D4->nByte210 = 0;
+    sub_0042F430_CreateControl(0xA1);
+    gpControl_00779C68 = sub_0042F430_CreateControl(0xA2);
+    gpControl_007799F8 = sub_0042F430_CreateControl(0xA3);
+    gpControl_00779D90 = sub_0042F430_CreateControl(0xA4);
+    gpControl_00779C80 = sub_0042F430_CreateControl(0xA5);
+    gpControl_007799F4 = sub_0042F430_CreateControl(0xA6);
+    gpControl_00779B60 = sub_0042F430_CreateControl(0x9C);
+    BUTTON_SetStringId((D2WinButtonStrc*)gpControl_00779D90, 0x5524);
+    BUTTON_SetStringId((D2WinButtonStrc*)gpControl_00779C80, 0x58CA);
+    BUTTON_SetStringId((D2WinButtonStrc*)gpControl_007799F4, 0x5524);
+    gpControl_00779C84 = sub_0042F430_CreateControl(0xA7);
+    D2Win_10194((D2WinTextBoxStrc*)gpControl_00779C84, 0);
+    D2Win_10195((D2WinTextBoxStrc*)gpControl_00779C84, (void(__stdcall*)(SMSGHANDLER_PARAMS*))sub_00439DF0_OnScroll);
+    memset(gapRowControls_00779A20, 0, 8 * sizeof(void*));
+    gnVisibleRows_0070CC0C = 8;
+    for (int i = 0; i < gnVisibleRows_0070CC0C; ++i)
+    {
+        if (sub_00408F20_HasExpansionMpq())
+        {
+            gapRowControlsX_00779B40[i] = sub_0042F430_CreateControl(i + 0x8C);
+            D2Win_10045((D2WinControlStrc*)gapRowControlsX_00779B40[i], gszSpace_006FFC44);
+        }
+        sub_004FB590(1);
+        gapRowControls_00779A20[i] = sub_0042F430_CreateControl(i + 0x84);
+        sub_004FB590(0);
+        ganRowValues_007799FC[i] = i / 2 * 0x5D + 0xB2;
+    }
+    gpControl_00779D94 = sub_0042F430_CreateControl(0x96);
+    if (sub_0043A2B0_InitRealmScreen())
+    {
+        sub_004F96F0_ControlClearState(gpControl_007799F8, 0);
+        sub_0043ADB0_UseName(gData_00779A40);
+        const int nExtra = gdwGlobal_00779DC4 - gnVisibleRows_0070CC0C;
+        if (nExtra > 0)
+            D2Win_10191((D2WinTextBoxStrc*)gpControl_00779C84, nExtra / 2 + (nExtra % 2 != 0));
+        if (sub_00514D80())
+            sub_005148F0_SetChannelValue(1);
+        sub_004F96F0_ControlClearState(gpControl_007799F8, 1);
+    }
+}
+
 // 0x00445020
 void __cdecl sub_00445020_SendLaunchRequest()
 {
@@ -803,8 +986,6 @@ void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
     sub_00458750();
 }
 
-void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket); // 0x00462F60
-
 // 0x004756D0
 void __cdecl sub_004756D0_ScanGridCollision()
 {
@@ -843,3 +1024,5 @@ void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal)
         ++nPosition;
     }
 }
+
+#include "gen/data/Source/D2Launch/Src/CharSel.inc"
