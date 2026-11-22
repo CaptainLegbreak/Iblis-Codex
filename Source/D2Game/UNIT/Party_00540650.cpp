@@ -35,44 +35,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
 
-void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    const int nNewValue = STATLIST_UnitGetStatValue(pUnit, nStat, 0) + nValue;
-    if (nNewValue < 0)
-    {
-        STATLIST_SetUnitStat(pUnit, nStat, 0, 0);
-        return;
-    }
-
-    if (pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        switch (nStat)
-        {
-        case STAT_GOLD:
-            if (nNewValue > UNITS_GetInventoryGoldLimit(pUnit))
-            {
-                STATLIST_SetUnitStat(pUnit, STAT_GOLD, 0, 0);
-                return;
-            }
-            break;
-
-        case STAT_GOLDBANK:
-            if (nNewValue > UNITS_GetStashGoldLimit(pUnit))
-            {
-                STATLIST_SetUnitStat(pUnit, STAT_GOLDBANK, 0, 0);
-                return;
-            }
-            break;
-        }
-    }
-
-    STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
-}
+void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue); // 0x0053FF00
 
 // 0x00540290
 static D2PartyStrc* sub_00540290_FindParty(D2GameStrc* pGame, short nPartyId)
