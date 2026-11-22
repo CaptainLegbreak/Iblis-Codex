@@ -193,7 +193,7 @@ int __fastcall sub_004C2240(D2UnitStrc*); // 0x004C2240
 
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc*,int,int); // 0x00621050
 
-int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
+int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
 void __stdcall ITEMS_GetDimensions(D2UnitStrc*,unsigned char*,unsigned char*,const char*,int); // 0x006286C0
 
