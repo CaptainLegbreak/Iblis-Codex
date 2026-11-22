@@ -51236,6 +51236,10 @@
      "name": "?PLRMSG_SendKnockbackStatus@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
     },
     {
+     "va": "0x00548010",
+     "length": 125
+    },
+    {
      "va": "0x00548090",
      "length": 233,
      "name": "?PLRMSG_SendSkillMode@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@H@Z"
@@ -51940,16 +51944,6 @@
      "va": "0x00547ED0",
      "length": 113,
      "name": "MONSTERREGION_AdjustCountsForInactiveMonster"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrMsg_00548010.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00548010",
-     "length": 125
     }
    ]
   },
