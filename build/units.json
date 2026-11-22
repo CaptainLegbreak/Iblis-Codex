@@ -34723,6 +34723,20 @@
   {
    "file": "Source/D2Client/SKILLS/SkillsMon.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004E1D30",
@@ -34753,6 +34767,10 @@
      "va": "0x004E26C0",
      "length": 253,
      "name": "SKILLSMON_StreamAtTarget"
+    },
+    {
+     "va": "0x004E2D40",
+     "length": 390
     },
     {
      "va": "0x004E3590",
@@ -34838,30 +34856,6 @@
      "va": "0x004F4610",
      "length": 402,
      "name": "SKILLSMON_MissileLine"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/SkillsMon_004E2D40.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x004E2D40",
-     "length": 390
     }
    ]
   },
