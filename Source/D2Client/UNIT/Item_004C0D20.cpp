@@ -86,10 +86,10 @@ struct D2GSPacketSrv9D
     unsigned char nAction;
     unsigned char nPacketSize;
     unsigned char nComponent;
-    unsigned int nItemId;
+    int nItemId;
     unsigned char nUnitType;
-    unsigned int nUnitId;
-    unsigned char pBitstream[0xF4];
+    int nUnitId;
+    unsigned char pBitstream[244];
 };
 
 #pragma pack(pop)
