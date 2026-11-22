@@ -60693,6 +60693,11 @@
      "name": "MISSMODE_SrvHit02_PlagueJavelin_PoisonPotion"
     },
     {
+     "va": "0x005A9E10",
+     "length": 380,
+     "name": "?MISSMODE_SrvHit44_ExplodingJavelin@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005A9F90",
      "length": 26,
      "name": "MISSMODE_SrvHit03_ExplosivePotion_BombOnGround"
@@ -62300,17 +62305,6 @@
      "va": "0x005A29A0",
      "length": 506,
      "name": "?MONSTERUNIQUE_CastLightUniqueMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005A9E10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A9E10",
-     "length": 380,
-     "name": "?MISSMODE_SrvHit44_ExplodingJavelin@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
    ]
   },
