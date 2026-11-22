@@ -16382,6 +16382,16 @@
      "name": "?UI_IsDialogOpen@@YAHXZ"
     },
     {
+     "va": "0x00453910",
+     "length": 384,
+     "name": "?UI_CanSetUIVar@@YAHHH@Z"
+    },
+    {
+     "va": "0x00453A90",
+     "length": 8,
+     "name": "?UI_GetUIVarUnchecked@@YIHH@Z"
+    },
+    {
      "va": "0x00453AA0",
      "length": 6,
      "name": "UI_GetPentspinCel"
@@ -16402,18 +16412,58 @@
      "name": "?UI_EnableUIVarDelay@@YAXXZ"
     },
     {
+     "va": "0x00453AE0",
+     "length": 24,
+     "name": "?UI_StartUIVarDelay@@YAXXZ"
+    },
+    {
+     "va": "0x00453B00",
+     "length": 44,
+     "name": "?UI_SendMouseMove@@YAXXZ"
+    },
+    {
      "va": "0x00453B30",
      "length": 120,
      "name": "?UI_DrawStoredUnitNumber@@YAXXZ"
+    },
+    {
+     "va": "0x00453D90",
+     "length": 65,
+     "name": "?UI_LoadPlayerUI@@YAXXZ"
+    },
+    {
+     "va": "0x00453DE0",
+     "length": 132,
+     "name": "?UI_FreePlayerUI@@YAXXZ"
+    },
+    {
+     "va": "0x00453E70",
+     "length": 70,
+     "name": "?UI_GetLevelName@@YIPBGH@Z"
+    },
+    {
+     "va": "0x00453EC0",
+     "length": 21,
+     "name": "?UI_CancelCursorItemUse@@YAXXZ"
     },
     {
      "va": "0x00453EE0",
      "length": 210
     },
     {
+     "va": "0x00453FC0",
+     "length": 8,
+     "name": "?UI_GoldPanelCloseCallback@@YAHXZ"
+    },
+    {
      "va": "0x00453FD0",
      "length": 3,
      "name": "UI_GoldSpinnerDefaultCallback"
+    },
+    {
+     "va": "0x00453FE0",
+     "length": 155,
+     "name": "?UI_GoldSpinnerChanged@@YAHXZ"
     },
     {
      "va": "0x00454080",
@@ -16424,6 +16474,11 @@
      "va": "0x00454140",
      "length": 11,
      "name": "?UI_CancelGoldDialog@@YAHXZ"
+    },
+    {
+     "va": "0x00454150",
+     "length": 1052,
+     "name": "?UI_OpenGoldPanel@@YIXH@Z"
     },
     {
      "va": "0x00454570",
@@ -16451,14 +16506,34 @@
      "name": "?UI_ReadWholeFile@@YIPAXPBDPAK@Z"
     },
     {
+     "va": "0x00454790",
+     "length": 7,
+     "name": "?UI_SetLoadingAct@@YIXH@Z"
+    },
+    {
      "va": "0x004547A0",
      "length": 6,
      "name": "UI_GetLoadingAct"
     },
     {
+     "va": "0x004547B0",
+     "length": 132,
+     "name": "?UI_FreeLoadingScreen@@YIXXZ"
+    },
+    {
      "va": "0x00454840",
      "length": 6,
      "name": "UI_IsLoadingScreenActive"
+    },
+    {
+     "va": "0x00454850",
+     "length": 33,
+     "name": "?UI_TickElapsed@@YAHXZ"
+    },
+    {
+     "va": "0x00454880",
+     "length": 226,
+     "name": "?UI_GetHoverRect@@YIHPAUD2RectStrc@@@Z"
     },
     {
      "va": "0x00454980",
@@ -16495,6 +16570,16 @@
      "name": "?UI_ClearPanelHandlers@@YIXH@Z"
     },
     {
+     "va": "0x00455F20",
+     "length": 989,
+     "name": "?sub_00455F20@@YIHIIH@Z"
+    },
+    {
+     "va": "0x00456300",
+     "length": 581,
+     "name": "?UI_CloseUIVars@@YIHHH@Z"
+    },
+    {
      "va": "0x004565E0",
      "length": 527,
      "name": "?UI_DrawLoadingScreen@@YIXH@Z"
@@ -16503,6 +16588,11 @@
      "va": "0x004567F0",
      "length": 380,
      "name": "?UI_ToggleMiniPanel@@YAXXZ"
+    },
+    {
+     "va": "0x00456D80",
+     "length": 339,
+     "name": "?UI_ShutdownUI@@YAXXZ"
     },
     {
      "va": "0x00456EE0",
@@ -16615,9 +16705,8 @@
      "name": "UI_GetCursorFrame"
     },
     {
-     "va": "0x004680A0",
-     "length": 6,
-     "name": "sub_004680A0"
+     "va": "0x00468770",
+     "length": 165
     },
     {
      "va": "0x00468830",
@@ -16657,7 +16746,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/EHsc"
    ]
   },
   {
@@ -17763,127 +17853,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/ui_00453910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00453910",
-     "length": 384,
-     "name": "?UI_CanSetUIVar@@YAHHH@Z"
-    },
-    {
-     "va": "0x00453A90",
-     "length": 8,
-     "name": "?UI_GetUIVarUnchecked@@YIHH@Z"
-    },
-    {
-     "va": "0x00453AE0",
-     "length": 24,
-     "name": "?UI_StartUIVarDelay@@YAXXZ"
-    },
-    {
-     "va": "0x00453B00",
-     "length": 44,
-     "name": "?UI_SendMouseMove@@YAXXZ"
-    },
-    {
-     "va": "0x00453D90",
-     "length": 65,
-     "name": "?UI_LoadPlayerUI@@YAXXZ"
-    },
-    {
-     "va": "0x00453DE0",
-     "length": 132,
-     "name": "?UI_FreePlayerUI@@YAXXZ"
-    },
-    {
-     "va": "0x00453E70",
-     "length": 70,
-     "name": "?UI_GetLevelName@@YIPBGH@Z"
-    },
-    {
-     "va": "0x00453EC0",
-     "length": 21,
-     "name": "?UI_CancelCursorItemUse@@YAXXZ"
-    },
-    {
-     "va": "0x00453FC0",
-     "length": 8,
-     "name": "?UI_GoldPanelCloseCallback@@YAHXZ"
-    },
-    {
-     "va": "0x00453FE0",
-     "length": 155,
-     "name": "?UI_GoldSpinnerChanged@@YAHXZ"
-    },
-    {
-     "va": "0x00454790",
-     "length": 7,
-     "name": "?UI_SetLoadingAct@@YIXH@Z"
-    },
-    {
-     "va": "0x004547B0",
-     "length": 132,
-     "name": "?UI_FreeLoadingScreen@@YIXXZ"
-    },
-    {
-     "va": "0x00454850",
-     "length": 33,
-     "name": "?UI_TickElapsed@@YAHXZ"
-    },
-    {
-     "va": "0x00454880",
-     "length": 226,
-     "name": "?UI_GetHoverRect@@YIHPAUD2RectStrc@@@Z"
-    },
-    {
-     "va": "0x00455F20",
-     "length": 989,
-     "name": "?sub_00455F20@@YIHIIH@Z"
-    },
-    {
-     "va": "0x00456300",
-     "length": 581,
-     "name": "?UI_CloseUIVars@@YIHHH@Z"
-    },
-    {
-     "va": "0x00456D80",
-     "length": 339,
-     "name": "?UI_ShutdownUI@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/ui_00454150.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00454150",
-     "length": 1052,
-     "name": "?UI_OpenGoldPanel@@YIXH@Z"
-    },
-    {
-     "va": "0x00468770",
-     "length": 165
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/EHsc"
    ]
   },
   {
@@ -19982,6 +19951,11 @@
     "/GS-"
    ],
    "functions": [
+    {
+     "va": "0x004680A0",
+     "length": 6,
+     "name": "sub_004680A0"
+    },
     {
      "va": "0x004680B0",
      "length": 188,

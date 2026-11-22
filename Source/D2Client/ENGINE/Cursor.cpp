@@ -113,6 +113,8 @@ static int gnGlobal_007A6AB8;                                                   
 
 static D2UnitStrc* gpCursorItem_007A6ABC;                                                                   // 0x007A6ABC
 
+extern int gdwGlobal_007A6ABC; // 0x007A6ABC
+
 // 0x004680B0
 int __fastcall CURSOR_InitCursor(int nArg)
 {
@@ -270,4 +272,10 @@ void __cdecl CURSOR_PaintCursorItem()
             sub_00468310_UpdateCursor();
         }
     }
+}
+
+// 0x004680A0
+int __cdecl sub_004680A0()
+{
+    return gdwGlobal_007A6ABC;
 }

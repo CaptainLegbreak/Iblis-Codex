@@ -1337,8 +1337,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/ui.cpp": {
-   "bytes": 1656,
-   "definitions": 39,
+   "bytes": 1808,
+   "definitions": 40,
    "externs": [
     "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl SCMD_HandleResetMessage(); // 0x00452090",
@@ -1440,15 +1440,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00451E70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/ui_00453910.cpp": {
-   "bytes": 152,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/ui_00453910.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -38114,7 +38105,7 @@
    "cname": "gData_006D6378",
    "declared": true,
    "decorated": "?gaUIVarDefaults_006D6378@@3QBHB",
-   "file": "Source/D2Client/UI/ui_00453910.cpp",
+   "file": "Source/D2Client/UI/ui.cpp",
    "fill": 38,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6378[38]; // 0x006D6378",
