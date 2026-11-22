@@ -336,6 +336,7 @@ struct D2OblivionKnightAiCallbackArgStrc
     int unk0x08;
     int unk0x0C;
     int unk0x10;
+    int unk0x14[5];
 };
 
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
@@ -1612,6 +1613,31 @@ struct D2RegurgitatorAiCallbackArgStrc
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005FA690
 
 #define ROLL() ((int)SEED_RollLimitedRandomNumber(pSeed, 100))
+
+struct D2PlayerCountBonusStrc;
+
+enum D2C_CorruptRogueAIParams
+{
+    CORRUPTROGUE_AI_PARAM_APPROACH = 0,
+    CORRUPTROGUE_AI_PARAM_STALL_DURATION = 1,
+    CORRUPTROGUE_AI_PARAM_ATTACK_CHANCE_PCT = 2,
+    CORRUPTROGUE_AI_PARAM_RUN_VELOCITY = 3,
+    CORRUPTROGUE_AI_PARAM_RUN_CHANCE_PCT = 4,
+};
+
+enum D2C_M408OblivionKnightAi
+{
+    OBLIVIONKNIGHT_AI_PARAM_FLEE_RANGE = 0,
+    OBLIVIONKNIGHT_AI_PARAM_ENGAGE_RANGE = 1,
+    OBLIVIONKNIGHT_AI_PARAM_CURSE_TIMER = 2,
+    OBLIVIONKNIGHT_AI_PARAM_CURSE_CHANCE_PCT = 3,
+    OBLIVIONKNIGHT_AI_PARAM_SHOOT_CHANCE_PCT = 4,
+    OBLIVIONKNIGHT_AI_PARAM_BONESPIRIT_CHANCE_PCT = 5,
+    OBLIVIONKNIGHT_AI_PARAM_APPROACH_CHANCE_PCT = 6,
+    OBLIVIONKNIGHT_AI_PARAM_APPROACH_DISTANCE = 7,
+};
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005FAE40
 
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
@@ -9974,6 +10000,50 @@ void __fastcall sub_005F0A20_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_IDLE_FRAMES));
 }
 
+// 0x005F0B00
+void __fastcall AITHINK_Fn010_CorruptRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2PlayerCountBonusStrc playerCountBonus;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    MONSTER_GetPlayerCountBonus(pGame, &playerCountBonus, UNITS_GetRoom(pUnit), pUnit);
+
+    if (nTargetDistance > 20 - 3 * playerCountBonus.nDifficulty)
+    {
+        sub_005DE190_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
+        AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, 3);
+        return;
+    }
+
+    if (bCombat)
+    {
+        if (AI_RollPercentageInline(pUnit) < AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        }
+        else
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_STALL_DURATION));
+        }
+        return;
+    }
+
+    if (AI_RollPercentageInline(pUnit) < AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_APPROACH))
+    {
+        if (AI_RollPercentageInline(pUnit) < AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_CHANCE_PCT))
+        {
+            sub_005DE190_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
+            AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, 3);
+            return;
+        }
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_STALL_DURATION));
+}
+
 // 0x005F0CD0
 void __fastcall AITHINK_Fn011_Baboon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -14157,6 +14227,109 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, 
     }
 
     return 0;
+}
+
+// 0x005FAF00
+void __fastcall AITHINK_Fn074_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTickTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2OblivionKnightAiCallbackArgStrc arg;
+    int nDistance;
+
+    arg.unk0x00 = 0;
+    arg.unk0x04 = 0;
+    arg.unk0x08 = 2500;
+    arg.unk0x0C = 0x7FFFFFFF;
+    arg.unk0x10 = 0x7FFFFFFF;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_OblivionKnight, 1);
+
+    D2UnitStrc* pAllyTarget = arg.unk0x00;
+
+    if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_FLEE_RANGE))
+    {
+        if (pMonStatsTxt->nSkill[3] > 0)
+        {
+            D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(pMonStatsTxt->nSkill[3]);
+            if (pSkillsTxtRecord && pSkillsTxtRecord->wAuraTargetState > 0 && !STATES_CheckState(pTickTarget, pSkillsTxtRecord->wAuraTargetState))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[3], pMonStatsTxt->nSkill[3], pTickTarget, 0, 0);
+                pAiControl->dwAiParam[0] = pGame->dwGameFrame + AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_CURSE_TIMER);
+                return;
+            }
+        }
+
+        if (pAllyTarget)
+        {
+            if (AITHINK_GetSquaredDistance(pAllyTarget, pTickTarget) > nTargetDistance * nTargetDistance && AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pAllyTarget, 4))
+            {
+                return;
+            }
+        }
+
+        sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
+
+        if (sub_005DEFE0_Escape(pGame, pUnit, pTickTarget, 10, 1))
+        {
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[2] >= 0)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pTickTarget, 0, 0);
+            return;
+        }
+    }
+
+    D2UnitStrc* pTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
+    if (pTarget && nDistance < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_ENGAGE_RANGE))
+    {
+        if (pMonStatsTxt->nSkill[5] > 0 && pGame->dwGameFrame > pAiControl->dwAiParam[0] && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_CURSE_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[5], pMonStatsTxt->nSkill[5], pTickTarget, 0, 0);
+            pAiControl->dwAiParam[0] = pGame->dwGameFrame + AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_CURSE_TIMER);
+            return;
+        }
+
+        if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_SHOOT_CHANCE_PCT))
+        {
+            if (pMonStatsTxt->nSkill[2] >= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_BONESPIRIT_CHANCE_PCT))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pTarget, 0, 0);
+                return;
+            }
+
+            if (pMonStatsTxt->nSkill[0] >= 0)
+            {
+                if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || !pUnit->pMonsterData || pUnit->pMonsterData->nComponent[10] < 4u)
+                {
+                    AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+                    return;
+                }
+            }
+        }
+    }
+
+    if (nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_APPROACH_DISTANCE))
+    {
+        if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_APPROACH_CHANCE_PCT))
+        {
+            D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pTickTarget, 6);
+            return;
+        }
+    }
+
+    if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < 70)
+    {
+        sub_005DF7D0(pGame, pUnit, pTickTarget, 3, 0);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+    }
 }
 
 inline int UNITS_GetUnitGUID_005FB2A0(D2UnitStrc* pUnit)

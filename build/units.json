@@ -63550,6 +63550,11 @@
      "length": 211
     },
     {
+     "va": "0x005F0B00",
+     "length": 449,
+     "name": "?AITHINK_Fn010_CorruptRogue@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F0CD0",
      "length": 1127,
      "name": "?AITHINK_Fn011_Baboon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -63848,6 +63853,11 @@
      "va": "0x005FAE40",
      "length": 183,
      "name": "?AITHINK_TargetCallback_OblivionKnight@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005FAF00",
+     "length": 914,
+     "name": "?AITHINK_Fn074_OblivionKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005FB2A0",
@@ -68258,22 +68268,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005F0B00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F0B00",
-     "length": 449,
-     "name": "?AITHINK_Fn010_CorruptRogue@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005FAF00",
-     "length": 914,
-     "name": "?AITHINK_Fn074_OblivionKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
