@@ -4212,7 +4212,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                     {
                         if (D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(sub_00451F60_UnitClassId(pItem)))
                         {
-                            return sub_00600C20(pItemsTxtRecord->nTransform, pStatesTxtRecord->nItemTrans);
+                            return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pStatesTxtRecord->nItemTrans);
                         }
                     }
                 }
@@ -4234,10 +4234,10 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
                     if (nTransType)
                     {
-                        return sub_00600C20(pItemsTxtRecord->nInvTrans, pMagicAffixTxtRecord->nTransformColor);
+                        return D2CMPPalShiftGetTransform(pItemsTxtRecord->nInvTrans, pMagicAffixTxtRecord->nTransformColor);
                     }
 
-                    return sub_00600C20(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
+                    return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
                 }
                 ++i;
             }
@@ -4254,10 +4254,10 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
                     if (nTransType)
                     {
-                        return sub_00600C20(pItemsTxtRecord->nInvTrans, pMagicAffixTxtRecord->nTransformColor);
+                        return D2CMPPalShiftGetTransform(pItemsTxtRecord->nInvTrans, pMagicAffixTxtRecord->nTransformColor);
                     }
 
-                    return sub_00600C20(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
+                    return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
                 }
                 ++i;
             }
@@ -4293,7 +4293,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 int const nUniqueColor = pUniqueItemsTxtRecord->nChrTransform;
                 *pColor = sub_0062A250(pItemsTxtRecord->nTransform, nUniqueColor);
                 int const nInventoryTransform = pItemsTxtRecord->nInvTrans;
-                return sub_00600C20(nInventoryTransform, pUniqueItemsTxtRecord->nInvTransform);
+                return D2CMPPalShiftGetTransform(nInventoryTransform, pUniqueItemsTxtRecord->nInvTransform);
             }
 
             if (pUniqueItemsTxtRecord->nChrTransform < 0)
@@ -4302,7 +4302,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
             }
 
             *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pUniqueItemsTxtRecord->nChrTransform);
-            return sub_00600C20(pItemsTxtRecord->nTransform, pUniqueItemsTxtRecord->nChrTransform);
+            return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pUniqueItemsTxtRecord->nChrTransform);
         }
         case 5:
         {
@@ -4328,7 +4328,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 int const nTransform = pItemsTxtRecord->nTransform;
                 int const nSetColor = pSetItemsTxtRecord->nChrTransform;
                 *pColor = sub_0062A250(nTransform, nSetColor);
-                return sub_00600C20(pItemsTxtRecord->nInvTrans, pSetItemsTxtRecord->nInvTransform);
+                return D2CMPPalShiftGetTransform(pItemsTxtRecord->nInvTrans, pSetItemsTxtRecord->nInvTransform);
             }
 
             if (pSetItemsTxtRecord->nChrTransform < 0)
@@ -4337,7 +4337,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
             }
 
             *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
-            return sub_00600C20(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
+            return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
         }
         default:
             if (ITEMS_CheckIfSocketableAlt_Inl(pItem) && sub_0062BC20(pItem) > 0 && ITEMS_CheckItemFlag_Inl(pItem, 0x800))
@@ -4357,10 +4357,10 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                         *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pGemsTxtRecord->nTransform);
                         if (nTransType)
                         {
-                            return sub_00600C20(pItemsTxtRecord->nInvTrans, pGemsTxtRecord->nTransform);
+                            return D2CMPPalShiftGetTransform(pItemsTxtRecord->nInvTrans, pGemsTxtRecord->nTransform);
                         }
 
-                        return sub_00600C20(pItemsTxtRecord->nTransform, pGemsTxtRecord->nTransform);
+                        return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pGemsTxtRecord->nTransform);
                     }
                 }
             }
@@ -4375,10 +4375,10 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
             if (nTransType)
             {
-                return sub_00600C20(pItemsTxtRecord->nInvTrans, pMagicAffixTxtRecord->nTransformColor);
+                return D2CMPPalShiftGetTransform(pItemsTxtRecord->nInvTrans, pMagicAffixTxtRecord->nTransformColor);
             }
 
-            return sub_00600C20(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
+            return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
         }
     }
 

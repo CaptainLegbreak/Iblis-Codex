@@ -172,7 +172,7 @@ int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem); // 0x0062C0B0
 int __stdcall sub_00645910_TestLine(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
 int __stdcall sub_0066D960_FindTilePresetEntry(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
 int* __fastcall DATATBLS_GetPortalLevels(int* pnPortalLevels); // 0x0061DDF0
-unsigned char* __stdcall sub_00600C20(int nSet, int nIndex); // 0x00600C20
+unsigned char* __stdcall D2CMPPalShiftGetTransform(int nSet, int nIndex); // 0x00600C20
 unsigned int __stdcall D2CMP_10079_GetTileFlags(D2TileLibraryEntryStrc* pTile); // 0x00604BC0
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750

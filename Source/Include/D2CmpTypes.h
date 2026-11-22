@@ -313,7 +313,7 @@ struct D2CmpBitCursorStrc
     }
 
     unsigned char* sub_0060B180_GetBytePtr();
-    void sub_0060B1A0_AdvanceBits(int nBits);
+    void CodecSkipBits(int nBits);
     void sub_0060B1D0_AlignToByte();
     int sub_0060B1F0_GetBitPos();
 };

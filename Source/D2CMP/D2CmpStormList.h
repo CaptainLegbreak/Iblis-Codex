@@ -143,8 +143,8 @@ struct D2StormSlotListStrc
         Link(pNode)->Unlink();
     }
     void UnlinkAll() throw();                               // 0x00602640
-    char* sub_00602260_RawNext(char* pNode);
-    void sub_006026E0_ChangeLinkOffset(int nLinkOffset);
+    char* CelSlotListRawNext(char* pNode);
+    void CelSlotListChangeLinkOffset(int nLinkOffset);
 };
 
 struct D2StormNodeListStrc
@@ -201,13 +201,13 @@ struct D2StormNodeListStrc
     D2CelEntryStrc* NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 // build: symbol ?UnlinkAll@D2StormNodeListStrc@@QAEXXZ 0x006025E0
     void UnlinkAll();
-    D2StormLinkStrc* sub_00601FA0_Link(D2StormNodeStrc* pNode);
-    void sub_00601FC0_LinkNode(D2StormNodeStrc* pNode, int nLinkType, D2StormNodeStrc* pExistingNode);      // 0x00601FC0
-    char* sub_00602070_Next(D2StormNodeStrc* pNode);
-    void sub_00602190_UnlinkNode(D2StormNodeStrc* pNode);
-    void sub_00602BF0_DeleteAll();                                                                          // 0x00602BF0
-    D2CelEntryStrc* sub_006029B0_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    D2CelEntryStrc* sub_00602C40_DeleteNode(D2CelEntryStrc* pNode);
+    D2StormLinkStrc* CelEntryListLink(D2StormNodeStrc* pNode);
+    void CelEntryListLinkNode(D2StormNodeStrc* pNode, int nLinkType, D2StormNodeStrc* pExistingNode);      // 0x00601FC0
+    char* CelEntryListNext(D2StormNodeStrc* pNode);
+    void CelEntryListUnlinkNode(D2StormNodeStrc* pNode);
+    void CelEntryListDeleteAll();                                                                          // 0x00602BF0
+    D2CelEntryStrc* CelEntryListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+    D2CelEntryStrc* CelEntryListDeleteNode(D2CelEntryStrc* pNode);
 };
 
 struct D2StormListEStrc
@@ -236,15 +236,15 @@ struct D2StormListEStrc
     void sub_006022F0_InitLinkField(int nLinkOffset);
     char* sub_00602310_Next(char* pNode);
     void sub_00602350_InitLinkField(int nLinkOffset);
-    void sub_006024E0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);                            // 0x006024E0
+    void CelReuseListLinkNode(char* pNode, int nLinkType, char* pExistingNode);                            // 0x006024E0
     void sub_00602590_UnlinkNode(char* pNode);
-    void sub_00602D20_DeleteAll();                                                                          // 0x00602D20
-    char* sub_00602E30_DeleteNode(char* pNode);
-    D2StormEntry38Strc* sub_006035A0_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    void sub_00603B60_DeleteAll();                                                                          // 0x00603B60
+    void CelReuseListDeleteAll();                                                                          // 0x00602D20
+    char* CelReuseListDeleteNode(char* pNode);
+    D2StormEntry38Strc* CelReuseListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+    void CelChunkListDeleteAll();                                                                          // 0x00603B60
     void sub_00603F50_CopyLinkOffset(const D2StormListEStrc* pSource);
-    void sub_00603FC0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);                            // 0x00603FC0
-    D2StormHashChunkStrc* sub_00604490_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+    void CelChunkListLinkNode(char* pNode, int nLinkType, char* pExistingNode);                            // 0x00603FC0
+    D2StormHashChunkStrc* CelChunkListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     void sub_0060E370_CopyLinkOffset(const D2StormListEStrc* pSource);
     void sub_0060E390_CopyLinkOffset(const D2StormListEStrc* pSource);
 };
@@ -292,11 +292,11 @@ struct D2StormSlotArrayStrc
         f_4 = 0;
         f_8 = 0;
     }
-    unsigned int sub_00601E20_CalcChunkSize(unsigned int nCount);
-    void sub_00602F10_ReallocData(unsigned int nAlloc);                                                     // 0x00602F10
-    void sub_006031F0_Reserve(unsigned int nCount, int bRound);
-    void sub_00603300_SetCount(unsigned int nCount);                                                        // 0x00603300
-    void sub_00603760_Clear();
+    unsigned int CelSlotArrayCalcChunkSize(unsigned int nCount);
+    void CelSlotArrayReallocData(unsigned int nAlloc);                                                     // 0x00602F10
+    void CelSlotArrayReserve(unsigned int nCount, int bRound);
+    void CelSlotArraySetCount(unsigned int nCount);                                                        // 0x00603300
+    void CelSlotArrayClear();
     void sub_00603850_SetCount(unsigned int nCount);
 };
 
@@ -322,8 +322,8 @@ struct D2StormEntryArrayStrc
         f_C = 0;
     }
     ~D2StormEntryArrayStrc();                                                                               // 0x00603140
-    unsigned int sub_00603EE0_CalcChunkSize(unsigned int nCount);
+    unsigned int CelListArrayCalcChunkSize(unsigned int nCount);
     void sub_006041B0_ReallocData(unsigned int nAlloc);                                                     // 0x006041B0
-    void sub_00604350_Reserve(unsigned int nCount, int bRound);
-    void sub_00604440_Grow(unsigned int nCount);
+    void CelListArrayReserve(unsigned int nCount, int bRound);
+    void CelListArrayGrow(unsigned int nCount);
 };

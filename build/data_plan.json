@@ -4836,7 +4836,7 @@
    "bytes": 5004,
    "definitions": 4,
    "externs": [
-    "extern \"C\" void __cdecl sub_00606B00_RemapRleCell(); // 0x00606B00"
+    "extern \"C\" void __cdecl CelRemapRlePixels(); // 0x00606B00"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/SpriteCache.inc",
@@ -5282,9 +5282,9 @@
    "bytes": 3032,
    "definitions": 9,
    "externs": [
-    "extern \"C\" void __cdecl sub_00606B50_CompressCellFile(); // 0x00606B50",
+    "extern \"C\" void __cdecl CelFileConvertRle24To8(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
-    "extern \"C\" void __cdecl sub_00608EE0_CompressCellList(); // 0x00608EE0"
+    "extern \"C\" void __cdecl CelCompressEncodeRleCels(); // 0x00608EE0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/CelCmp.inc",
@@ -111665,7 +111665,7 @@
      0,
      "0x00606B00",
      "names.json",
-     "sub_00606B00_RemapRleCell",
+     "CelRemapRlePixels",
      0,
      "func"
     ]
@@ -120251,7 +120251,7 @@
      0,
      "0x00606B50",
      "names.json",
-     "sub_00606B50_CompressCellFile",
+     "CelFileConvertRle24To8",
      0,
      "func"
     ]
@@ -120460,7 +120460,7 @@
      0,
      "0x00608EE0",
      "source",
-     "sub_00608EE0_CompressCellList",
+     "CelCompressEncodeRleCels",
      0,
      "func"
     ]

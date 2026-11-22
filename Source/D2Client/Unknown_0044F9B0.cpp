@@ -278,8 +278,8 @@ struct D2StormListEStrc
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
-    void sub_00602D20_DeleteAll();
-    void sub_00603B60_DeleteAll();
+    void CelReuseListDeleteAll();
+    void CelChunkListDeleteAll();
 };
 
 struct D2StormSlotArrayStrc
@@ -290,7 +290,7 @@ struct D2StormSlotArrayStrc
     unsigned int f_C;
 
     ~D2StormSlotArrayStrc();
-    void sub_00603760_Clear();
+    void CelSlotArrayClear();
 };
 
 struct D2StormEntryArrayStrc
@@ -399,7 +399,7 @@ struct D2GameHashTableReuseStrc
     int unk0x34;
     D2StormListEStrc m_chunkList;
 
-    void sub_00603E50_DeleteLists();
+    void CelListTableDeleteReuseLists();
 };
 
 struct D2Storm603ED0Strc
@@ -491,7 +491,7 @@ struct D2StormEntry604080Strc
 
 struct D2GameHashTableStrc
 {
-    void sub_00602800_InternalClear(int bWarn);
+    void CelListTableInternalClear(int bWarn);
     void sub_00604070_Clear();
 };
 
@@ -957,7 +957,7 @@ D2Storm603570Strc::D2Storm603570Strc()
 {
 }
 
-void D2StormSlotArrayStrc::sub_00603760_Clear()
+void D2StormSlotArrayStrc::CelSlotArrayClear()
 {
     this->D2StormSlotArrayStrc::~D2StormSlotArrayStrc();
     f_0 = 0;
@@ -965,10 +965,10 @@ void D2StormSlotArrayStrc::sub_00603760_Clear()
     f_8 = 0;
 }
 
-void D2GameHashTableReuseStrc::sub_00603E50_DeleteLists()
+void D2GameHashTableReuseStrc::CelListTableDeleteReuseLists()
 {
-    m_chunkList.sub_00603B60_DeleteAll();
-    m_reuseList.sub_00602D20_DeleteAll();
+    m_chunkList.CelChunkListDeleteAll();
+    m_reuseList.CelReuseListDeleteAll();
 }
 
 // 0x00450800
@@ -988,7 +988,7 @@ D2Storm603F70Strc::D2Storm603F70Strc(int nUnused)
 
 void D2GameHashTableStrc::sub_00604070_Clear()
 {
-    sub_00602800_InternalClear(0);
+    CelListTableInternalClear(0);
 }
 
 void __fastcall sub_00604080_ConstructEntry(D2StormEntry604080Strc* pEntry)

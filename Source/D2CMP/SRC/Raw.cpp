@@ -23,7 +23,7 @@ struct D2CmpRawStrc
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
-int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections);                   // 0x00600C90
+int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections);                   // 0x00600C90
 
 // 0x0060D190
 void __fastcall sub_0060D190_BuildDC6FromRaw(D2CmpRawStrc* pRaw, D2CmpDC6HeaderStrc* pDC6)
@@ -57,7 +57,7 @@ void __fastcall sub_0060D190_BuildDC6FromRaw(D2CmpRawStrc* pRaw, D2CmpDC6HeaderS
             nDirection = 1;
         }
 
-        int nIndex = sub_00600C90_GetDirectionIndex64(nDirection, nDirections);
+        int nIndex = CelGameDirToFileDir(nDirection, nDirections);
         pDC6->pFrames[nIndex * nPerDir + nFrame % nPerDir] = pFrame;
         ++nFrame;
     }

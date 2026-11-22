@@ -25,7 +25,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern const D2ColorBlockStrc gtColorBlock_007434D8; // 0x007434D8
 double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue); // 0x00604FE0
-void __stdcall sub_00605D20_BuildTintTables(unsigned char* pData); // 0x00605D20
+void __stdcall PaletteBuildTintTables(unsigned char* pData); // 0x00605D20
 void __stdcall sub_00605DE0_BuildDarkenTables(unsigned char* pData); // 0x00605DE0
 void __stdcall sub_00605E60_BuildLightenTables(unsigned char* pData); // 0x00605E60
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize);
@@ -313,7 +313,7 @@ void* __stdcall CreateD2Palette(void* pSource)
     sub_00606890_BuildBrightnessTable(pTables, tHsl);
     sub_00605B70_BuildTablesD(pTables);
     *(D2ColorBlockStrc*)(pTables + 0x6B600) = gtColorBlock_007434D8;
-    sub_00605D20_BuildTintTables(pTables);
+    PaletteBuildTintTables(pTables);
     return pTables;
 }
 

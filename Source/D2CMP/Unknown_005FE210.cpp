@@ -19,7 +19,7 @@ extern Config extensions; // 0x00741EFC
 enum { DISABLED = 0 };
 
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
-int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections); // 0x00600C90
+int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 0x00600C90
 
 struct D2CmpDC6CacheEntryStrc
 {
@@ -57,7 +57,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
     D2CmpDC6FrameStrc* pFrame = (D2CmpDC6FrameStrc*)pData;
     if (pContext->nType == 6 && (pContext->dwFlags & 2))
     {
-        nIndex = sub_00600C90_GetDirectionIndex64(pContext->nDirection, pHeader->nDirections - 1);
+        nIndex = CelGameDirToFileDir(pContext->nDirection, pHeader->nDirections - 1);
     }
     else if (pContext->nType == 2)
     {
@@ -69,7 +69,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
     }
     else
     {
-        nIndex = sub_00600C90_GetDirectionIndex64(pContext->nDirection, pHeader->nDirections - 1);
+        nIndex = CelGameDirToFileDir(pContext->nDirection, pHeader->nDirections - 1);
     }
 
     if (nIndex >= pHeader->nDirections - 1)

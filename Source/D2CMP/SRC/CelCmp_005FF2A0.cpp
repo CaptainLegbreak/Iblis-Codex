@@ -54,12 +54,12 @@ extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
 extern void* gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
-D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
+D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
 
-void __fastcall sub_00608D60_DrawCelShadowLines(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
+void __fastcall CelDrawRleShadow(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
-void __fastcall sub_0060CFA0_AddTileToTable(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
+void __fastcall FindTileAddTile(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
 
 typedef void (__stdcall* PixelDataFreeCallback)(void* pData);
 
@@ -103,7 +103,7 @@ struct D2CelEntryStrc : D2StormNodeStrc
 };
 
 // 0x005FE000
-void __fastcall sub_005FE000_StoreTileFreeCallback(void* pfnCallback)
+void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback)
 {
     gpfnTileFreeCallback_0088CB1C = pfnCallback;
 }
@@ -165,7 +165,7 @@ void __cdecl D2CMPSpriteFreeAsyncLoads()
 
 
 // 0x00600C90
-int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections)
+int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections)
 {
     return gaDirectionIndex64_006E45A0[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
 }
@@ -226,7 +226,7 @@ void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int 
     }
 
     const int nStart = nX - nSkip;
-    sub_00608D60_DrawCelShadowLines(pCel, pBuffer + nY * nPitch + nStart, nStart, nClipLeft, nClipRight, nPitch, nSkip, nLines, nTable, nColor);
+    CelDrawRleShadow(pCel, pBuffer + nY * nPitch + nStart, nStart, nClipLeft, nClipRight, nPitch, nSkip, nLines, nTable, nColor);
 }
 
 // 0x006018F0
@@ -254,7 +254,7 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel)
 }
 
 // 0x00606D10
-const char* __fastcall sub_00606D10_SkipCelLines(const char* pData, int nLines)
+const char* __fastcall CelSkipRleLines(const char* pData, int nLines)
 {
     if (!nLines)
     {
@@ -283,7 +283,7 @@ const char* __fastcall sub_00606D10_SkipCelLines(const char* pData, int nLines)
 
 
 // 0x0060A440
-D2TileLibraryHashStrc* __fastcall sub_0060A440_CreateTileHashBlock(D2CmpTileLibraryStrc* pLibrary)
+D2TileLibraryHashStrc* __fastcall TileProjectBuildFindTable(D2CmpTileLibraryStrc* pLibrary)
 {
     D2TileLibraryHashStrc* pHash = sub_0060CDB0_AllocTileHash();
     D2_ASSERT(pHash, 0x3B9);
@@ -291,7 +291,7 @@ D2TileLibraryHashStrc* __fastcall sub_0060A440_CreateTileHashBlock(D2CmpTileLibr
 
     for (int i = 0; i < pLibrary->nBlocks; ++i)
     {
-        sub_0060CFA0_AddTileToTable(pHash, &pLibrary->pBlocks[i]);
+        FindTileAddTile(pHash, &pLibrary->pBlocks[i]);
     }
 
     return pHash;
@@ -642,7 +642,7 @@ void D2StormListEStrc::UnlinkAll()
 }
 
 // 0x00602BF0
-void D2StormNodeListStrc::sub_00602BF0_DeleteAll()
+void D2StormNodeListStrc::CelEntryListDeleteAll()
 {
     char* pNode;
     while ((pNode = m_terminator.Next()) != 0)
@@ -653,7 +653,7 @@ void D2StormNodeListStrc::sub_00602BF0_DeleteAll()
 }
 
 // 0x00603280
-unsigned int D2GameDataTableStrc::sub_00603280_GenerateHandle()
+unsigned int D2GameDataTableStrc::CelListTableGenerateHandle()
 {
     for (;;)
     {

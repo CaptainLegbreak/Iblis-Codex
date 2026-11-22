@@ -31,7 +31,7 @@ void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary);
 
 struct D2CmpGfxHashStrc
 {
-    void sub_0060A9D0_Remove(void* pMemPool, D2CmpGfxHashEntryStrc* pEntry);                               // 0x0060A9D0
+    void GfxHashFreeEntry(void* pMemPool, D2CmpGfxHashEntryStrc* pEntry);                               // 0x0060A9D0
 };
 
 struct T00604AE0
@@ -146,7 +146,7 @@ void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLib
 }
 
 // 0x0060A390
-void __stdcall sub_0060A390(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
+void __stdcall TileProjectNormalizeHeaders(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
 {
     D2_ASSERT(pLibrary->dwVersion == 7, 0x37F);
     if (pLibrary->dwFlags & 2)
@@ -166,7 +166,7 @@ void __stdcall sub_0060A390(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc
 }
 
 // 0x0060A4C0
-void __stdcall sub_0060A4C0_RelocateBlockSubs(D2CmpTileBlockStrc* pBlock)
+void __stdcall TileNormalizeSubTiles(D2CmpTileBlockStrc* pBlock)
 {
     D2_ASSERT(pBlock, 0x3C9);
     char* pBase = (char*)pBlock->pSubs;
@@ -178,21 +178,21 @@ void __stdcall sub_0060A4C0_RelocateBlockSubs(D2CmpTileBlockStrc* pBlock)
 }
 
 // 0x0060AB10
-void __fastcall sub_0060AB10_GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry)
+void __fastcall GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry)
 {
     D2_ASSERT(pEntry, 0x141);
     if (pEntry->pPrev)
         pEntry->pPrev->pNext = pEntry->pNext;
     if (pEntry->pNext)
         pEntry->pNext->pPrev = pEntry->pPrev;
-    pHash->sub_0060A9D0_Remove(pMemPool, pEntry);
+    pHash->GfxHashFreeEntry(pMemPool, pEntry);
 }
 
 
 
 
 // 0x0060D110
-void __fastcall sub_0060D110_ForEachOtherColor(D2CmpRGBImageStrc* pImage, D2CmpColorCallback pfnColor, unsigned int nKey)
+void __fastcall CelIterateRgbPixels(D2CmpRGBImageStrc* pImage, D2CmpColorCallback pfnColor, unsigned int nKey)
 {
     unsigned int nPacked = (((unsigned char)(nKey >> 16) << 8) + (unsigned char)(nKey >> 8) << 8) + (unsigned char)nKey;
     D2CmpRGBStrc* pPixel = pImage->aPixels;
@@ -206,7 +206,7 @@ void __fastcall sub_0060D110_ForEachOtherColor(D2CmpRGBImageStrc* pImage, D2CmpC
 }
 
 // 0x0060D510
-D2CmpSubTileRecordStrc* __fastcall sub_0060D510_CreateSubTileRecord(const void* pSrc, int bRaw)
+D2CmpSubTileRecordStrc* __fastcall SubTileCreateRecord(const void* pSrc, int bRaw)
 {
     void* pData;
     int nSize;
