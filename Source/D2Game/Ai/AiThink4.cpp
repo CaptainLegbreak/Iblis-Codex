@@ -1239,7 +1239,7 @@ void __fastcall AITHINK_AncientBarb2SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
 
 void __fastcall AITHINK_AncientBarb3SkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EF010
 
-int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
+int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
 
 void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
@@ -9248,7 +9248,7 @@ void __fastcall AITHINK_Fn133_Ancient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
 // 0x0040D530
 int __cdecl sub_0040D530_Call0040C720()
 {
-    return sub_0040C720_ReleaseReferences(1);
+    return EXCEPTIONS_ReleaseSymbols(1);
 }
 
 // 0x004A5010

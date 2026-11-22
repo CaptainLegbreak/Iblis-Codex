@@ -53,12 +53,12 @@ struct D2WinPopUpStrc
 };
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl); // 0x004F9310
-int __fastcall sub_00508710(D2WinControlStrc* pControl); // 0x00508710
+int __fastcall POPUP_UpdateHoveredLine(D2WinControlStrc* pControl); // 0x00508710
 int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
 extern D2WinPopUpStrc* gpPopUp_0087E974; // 0x0087E974
 
 // 0x00508000
-extern "C" int __fastcall sub_00508000_SetScrollBarHandler(D2WinScrollBarStrc* pScrollBar, D2WinMsgHandler pfHandler)
+extern "C" int __fastcall SCROLLBAR_SetScrollCallback(D2WinScrollBarStrc* pScrollBar, D2WinMsgHandler pfHandler)
 {
     D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0x8B);
     pScrollBar->field_5C = pfHandler;
@@ -66,7 +66,7 @@ extern "C" int __fastcall sub_00508000_SetScrollBarHandler(D2WinScrollBarStrc* p
 }
 
 // 0x005080F0
-extern "C" int __fastcall sub_005080F0_GetScrollBarField50(D2WinScrollBarStrc* pScrollBar)
+extern "C" int __fastcall D2Win_10201(D2WinScrollBarStrc* pScrollBar)
 {
     D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0xD2);
     return pScrollBar->nPageStep;

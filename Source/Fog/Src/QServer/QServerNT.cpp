@@ -50,9 +50,9 @@ void __cdecl sub_006BE2F0_Nop(const char* szText, const char* szFormat, ...); //
 
 void __cdecl sub_006BE300_Log(const char* szTag, const char* szFormat, ...); // 0x006BE300
 
-D2QClientStrc* __fastcall sub_006BE540_Find(D2QueueServerStrc* pServer, unsigned int nKey); // 0x006BE540
+D2QClientStrc* __fastcall QSERVER_FindClient(D2QueueServerStrc* pServer, unsigned int nKey); // 0x006BE540
 
-long __fastcall sub_006BE640_AddReference(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006BE640
+long __fastcall QSERVER_AddReference(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006BE640
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64* pCounter);
 
@@ -70,11 +70,11 @@ int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
 void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* szFormat, ...); // 0x00410660
 
-int __fastcall sub_006BE9F0_CheckRecordThreshold(D2QueueServerStrc* pServer, const unsigned long* pAddress); // 0x006BE9F0
+int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc* pServer, const unsigned long* pAddress); // 0x006BE9F0
 
-int __fastcall sub_006C0800_BanByAddress(D2QueueServerStrc* pServer, unsigned long* pAddress, const char* szFile, int nLine); // 0x006C0800
+int __fastcall QSERVER_BanAddress(D2QueueServerStrc* pServer, unsigned long* pAddress, const char* szFile, int nLine); // 0x006C0800
 
-void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* pServer, const char* szFile, unsigned int nAddress, int nLine); // 0x006BFEA0
+void __fastcall QSERVER_HackListAddress(D2QueueServerStrc* pServer, const char* szFile, unsigned int nAddress, int nLine); // 0x006BFEA0
 
 D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 
@@ -107,7 +107,7 @@ struct D2QServerReqStrc
     int nSlot;
 };
 
-void __fastcall sub_00407F90_ThreadHookNop1(unsigned int nId); // 0x00407F90
+void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
 
 void __fastcall sub_006C2D70(D2QueueServerStrc* pServer, int nSlot, int nWait); // 0x006C2D70
 
@@ -130,9 +130,9 @@ struct T006BFAD0
     unsigned int f_A0;
 };
 
-long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
+long __cdecl FOG_GetSyncTime(); // 0x00410A80
 
-long __fastcall sub_006BE640_AddReference(D2QueueServerStrc* pServer, T006BFAD0* pClient);                         // 0x006BE640
+long __fastcall QSERVER_AddReference(D2QueueServerStrc* pServer, T006BFAD0* pClient);                         // 0x006BE640
 
 static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, T006BFAD0* pClient);
 
@@ -156,7 +156,7 @@ void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unus
 
 void __cdecl sub_006BE300_Nop(const char* unused1, const char* unused2, int unused3); // 0x006BE300
 
-D2HashNode006BE540Strc* __fastcall sub_006BE540_Find(D2HashTable006BE540Strc* pTable, unsigned int nKey); // 0x006BE540
+D2HashNode006BE540Strc* __fastcall QSERVER_FindClient(D2HashTable006BE540Strc* pTable, unsigned int nKey); // 0x006BE540
 
 extern "C" const char gszDeletedSocketFmt_006FC8C0[]; // 0x006FC8C0
 
@@ -194,7 +194,7 @@ void __cdecl sub_006BF750_Nop(); // 0x006BF750
 
 struct D2HackListStrc
 {
-    void __thiscall sub_006BE700_ExpireEntries();                                                           // 0x006BE700
+    void __thiscall ExpireEntries();                                                           // 0x006BE700
 };
 
 extern "C" int __cdecl abs(int n);
@@ -221,7 +221,7 @@ extern "C" int __stdcall listen(unsigned int s, int backlog);                   
 
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...);                                                             // 0x00410610
 
-void __fastcall sub_00407F80_ThreadHookNop2(unsigned int nId, void* hThread); // 0x00407F80
+void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread); // 0x00407F80
 
 unsigned long __stdcall sub_006C2860_WorkerThread(void* pArg);                                              // 0x006C2860
 
@@ -251,7 +251,7 @@ static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptCl
         sub_006C0360_Release(pServer, ptClient);
         return 0;
     }
-    sub_006BE640_AddReference(pServer, ptClient);
+    QSERVER_AddReference(pServer, ptClient);
     int bOk = ReadFile(ptClient->hSocket, pBuffer, nRoom, &ptClient->nBytesRead, &ptClient->tRead);
     if (!bOk)
     {
@@ -322,20 +322,21 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
     }
 
     int nReason = 0;
-    if (pServer->sub_006BE980_Refresh(pAddr->sin_addr.s_addr))
+// build: symbol ?RefreshRecord@* 0x006BE980
+    if (pServer->RefreshRecord(pAddr->sin_addr.s_addr))
         nReason = 1;
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[2]);
 
-    if (!nReason && sub_006BE9F0_CheckRecordThreshold(pServer, &pAddr->sin_addr.s_addr))
+    if (!nReason && QSERVER_CheckRecordThreshold(pServer, &pAddr->sin_addr.s_addr))
     {
-        sub_006C0800_BanByAddress(pServer, &pAddr->sin_addr.s_addr, gszQServerNTFile_006FC8A0, 0x4A9);
+        QSERVER_BanAddress(pServer, &pAddr->sin_addr.s_addr, gszQServerNTFile_006FC8A0, 0x4A9);
         nReason = 2;
     }
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[3]);
 
     if (!nReason && !sub_006BFFA0_CheckReconnects(pServer, (unsigned int*)&pAddr->sin_addr.s_addr) && !pServer->sub_006BF660_CheckAddress(pAddr->sin_addr.s_addr))
     {
-        sub_006BFEA0_RecordAddress(pServer, gszQServerNTFile_006FC8A0, pAddr->sin_addr.s_addr, 0x4B2);
+        QSERVER_HackListAddress(pServer, gszQServerNTFile_006FC8A0, pAddr->sin_addr.s_addr, 0x4B2);
         nReason = 3;
     }
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[4]);
@@ -394,7 +395,7 @@ static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, T006BFAD0* ptClient)
         return 1;
     }
 
-    sub_006BE640_AddReference(pServer, ptClient);
+    QSERVER_AddReference(pServer, ptClient);
     T006C23B0* pPacket = ptClient->f_74;
     D2_ASSERT(ptClient->socket != -1, 0x518);
 
@@ -462,7 +463,7 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
         }
         else
         {
-            ((D2HackListStrc*)pServer)->sub_006BE700_ExpireEntries();
+            ((D2HackListStrc*)pServer)->ExpireEntries();
             if (!nSlot)
             {
                 sub_006BF750_Nop();
@@ -477,7 +478,7 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
             int nResult = select(0x40, &tRead, 0, 0, &tTimeout);
             if (nResult == -1)
             {
-                sub_00407F90_ThreadHookNop1(0);
+                ERRORMANAGER_UnregisterThread(0);
                 return 1;
             }
 
@@ -527,7 +528,7 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
     EnterCriticalSection(&pServer->tLock);
     pServer->bStopAccept[nSlot] = 0;
     LeaveCriticalSection(&pServer->tLock);
-    sub_00407F90_ThreadHookNop1(0);
+    ERRORMANAGER_UnregisterThread(0);
     return 1;
 }
 
@@ -536,7 +537,7 @@ int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc * pQServer, T006BFAD0 * 
     int nWsaError;
     D2CriticalSectionStrc* lpCriticalSection = &pQServerClient->f_2C;
       EnterCriticalSection(lpCriticalSection);
-    unsigned int nHighResTime = sub_00410A80_GetTimeSeconds();
+    unsigned int nHighResTime = FOG_GetSyncTime();
     pQServerClient->f_A0 = nHighResTime;
     if (pQServerClient->f_74) {
       sub_006C23B0_QueueMessage((D2QConn006C23B0Strc*)pQServerClient, pBytes, nSize);
@@ -597,7 +598,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
         int bWrite = 0;
         if (bOk || pOverlapped)
         {
-            pClient = sub_006BE540_Find(pServer, nKey);
+            pClient = QSERVER_FindClient(pServer, nKey);
             if (!pClient)
                 continue;
 
@@ -648,7 +649,8 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                     pClient->nReadBytes += nBytes;
                     pClient->nLastTick = sub_00410A80_GetTime();
                     LeaveCriticalSection(&pClient->tLock);
-                    sub_006C08A0_Dispatch(pServer, pClient);
+// build: symbol ?QSERVER_ProcessReceived@* 0x006C08A0
+                    QSERVER_ProcessReceived(pServer, pClient);
                     nResult = 1;
                     if (!pClient->bClosing)
                         sub_006C2280_PostRead(pServer, pClient);
@@ -700,7 +702,7 @@ int __stdcall sub_006C3030_ReleaseSlot(D2QServerReqStrc* pReq)
     EnterCriticalSection(&pServer->tLock);
     pServer->nSlots[nSlot] = 0;
     LeaveCriticalSection(&pServer->tLock);
-    sub_00407F90_ThreadHookNop1(0);
+    ERRORMANAGER_UnregisterThread(0);
     return 1;
 }
 
@@ -754,7 +756,7 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
     pArg->pServer = pServer;
     pArg->nSlot = nSlot;
     pServer->hAcceptThreads[nSlot] = CreateThread(0, 0, sub_006C2860_WorkerThread, pArg, 0, &pServer->aThreadIds[nSlot]);
-    sub_00407F80_ThreadHookNop2(pServer->aThreadIds[nSlot], pServer->hAcceptThreads[nSlot]);
+    ERRORMANAGER_RegisterThread(pServer->aThreadIds[nSlot], pServer->hAcceptThreads[nSlot]);
 
     if (pServer->bSecondWorker)
     {
@@ -763,7 +765,7 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
         pArg2->nSlot = nSlot;
         unsigned long* pThreadId = &pServer->aThreadIds2[nSlot];
         pServer->aThreads2[nSlot] = CreateThread(0, 0, sub_006C3030_WorkerThread2, pArg2, 0, pThreadId);
-        sub_00407F80_ThreadHookNop2(*pThreadId, pServer->aThreads2[nSlot]);
+        ERRORMANAGER_RegisterThread(*pThreadId, pServer->aThreads2[nSlot]);
     }
 
     return s;

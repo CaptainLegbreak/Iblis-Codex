@@ -81675,7 +81675,7 @@
      20,
      "0x004FA4C0",
      "names.json",
-     "sub_004FA4C0_HideCursorMsg",
+     "D2Win_COMMANDS_NcMouseMove",
      0,
      "func"
     ],
@@ -81683,7 +81683,7 @@
      32,
      "0x004FA4F0",
      "names.json",
-     "sub_004FA4F0_MouseLeaveMsg",
+     "D2Win_COMMANDS_MouseLeave",
      0,
      "func"
     ],
@@ -81883,7 +81883,7 @@
      332,
      "0x004FA160",
      "queue_function",
-     "sub_004FA160",
+     "D2Win_COMMANDS_ToggleMusic",
      0,
      "func"
     ],
@@ -81899,7 +81899,7 @@
      356,
      "0x004F9CC0",
      "names.json",
-     "sub_004F9CC0_SysCommandMaximizeMsg",
+     "D2Win_COMMANDS_SysCommand",
      0,
      "func"
     ],
@@ -92081,7 +92081,7 @@
      4,
      "0x0052BE40",
      "names.json",
-     "sub_0052BE40_Stub",
+     "GAME_DefaultLeaveGame",
      0,
      "func"
     ],
@@ -92097,7 +92097,7 @@
      12,
      "0x0052BE60",
      "names.json",
-     "sub_0052BE60_Stub",
+     "GAME_DefaultSaveDatabaseCharacter",
      0,
      "func"
     ],
@@ -92105,7 +92105,7 @@
      16,
      "0x0052BE70",
      "names.json",
-     "sub_0052BE70_Stub",
+     "GAME_DefaultServerLogMessage",
      0,
      "func"
     ],
@@ -92113,7 +92113,7 @@
      20,
      "0x0052BE80",
      "names.json",
-     "sub_0052BE80_Stub",
+     "GAME_DefaultEnterGame",
      0,
      "func"
     ],
@@ -92121,7 +92121,7 @@
      24,
      "0x0052BE90",
      "names.json",
-     "sub_0052BE90_Stub",
+     "GAME_DefaultFindPlayerToken",
      0,
      "func"
     ],
@@ -92153,7 +92153,7 @@
      40,
      "0x0052BED0",
      "names.json",
-     "sub_0052BED0_Stub",
+     "GAME_DefaultUpdateCharacterLadder",
      0,
      "func"
     ],
@@ -92169,7 +92169,7 @@
      48,
      "0x0052BEF0",
      "names.json",
-     "sub_0052BEF0_Stub",
+     "GAME_DefaultGetGameServerInfo",
      0,
      "func"
     ],

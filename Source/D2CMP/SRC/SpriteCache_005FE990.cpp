@@ -647,10 +647,10 @@ HashNode* __fastcall CelDataHashAdd(void*, HashTable*, int, const char*); // 0x0
 void __fastcall LRUCacheTouch(SpriteCache*, void*); // 0x00609380
 void* __fastcall LRUCacheAlloc(SpriteCache*, unsigned int, HashNode*); // 0x00609420
 int __fastcall sub_0060BF20_LoadTileHeader(const char*, SpriteFile*); // 0x0060BF20
-int __fastcall sub_004068E0(const char*, char**); // 0x004068E0
-int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
-int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
-int __fastcall sub_004068F0(void* pArg); // 0x004068F0
+int __fastcall FOG_FOpenFile(const char*, char**); // 0x004068E0
+int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
 static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*, char*, char*);
 
@@ -685,13 +685,13 @@ static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*
         }
         else
         {
-            sub_004068E0(path, &path);
+            FOG_FOpenFile(path, &path);
             if (path)
             {
                 unsigned int header[7];
                 memset(header, 0, sizeof(header));
-                sub_00406900(path, header, 0x18, 0, 0, 0, 0);
-                unsigned int fileSize = sub_00406930(path, 0);
+                FOG_FReadFile(path, header, 0x18, 0, 0, 0, 0);
+                unsigned int fileSize = FOG_FGetFileSize(path, 0);
                 file->directions = header[4];
                 file->frames = header[5];
                 file->compression = header[1];
@@ -700,8 +700,8 @@ static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*
                 unsigned int dwTotalCels = file->frames * file->directions;
                 SPRITE_ASSERT(dwTotalCels < 0x4000, 0x444);
                 unsigned int nBytes = dwTotalCels * 4;
-                sub_00406900(path, gaFileOffsets_0089DBB0, nBytes, 0, 0, 0, 0);
-                sub_004068F0(path);
+                FOG_FReadFile(path, gaFileOffsets_0089DBB0, nBytes, 0, 0, 0, 0);
+                FOG_FCloseFile(path);
                 SPRITE_ASSERT(file->directions < 0x21, 0x449);
                 for (unsigned int i = 0; i < file->directions; ++i)
                 {

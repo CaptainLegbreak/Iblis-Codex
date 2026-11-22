@@ -212,7 +212,8 @@ unsigned int gGuid_0096F3AC[4]; // 0x0096F3AC
 
 // 0x006B4E80
 int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
-    T004013C0* info=sub_00407360_GetSystemInfo();
+// build: symbol ?FOG_GetSystemInfo@* 0x00407360
+    T004013C0* info=FOG_GetSystemInfo();
     if (!info) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),1032); exit(-1); }
     if (info->mode==1) return 0;
     D2VideoKeyStrc key=gVideoKey_006DD634;

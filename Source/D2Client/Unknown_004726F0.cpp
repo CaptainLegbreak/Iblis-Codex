@@ -39,7 +39,8 @@ static void __stdcall sub_00472590_SetSplash(int bForce, int bValue)
         gbPhaseActive_007A8A1C = bValue;
     if (bValue != gbWeatherSplash_007A8A14 || bForce)
     {
-        sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
+// build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
+        DATAARRAYS_Reset(gpWeather_007A8A04);
         D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
     }
     gbWeatherSplash_007A8A14 = bValue;
@@ -109,8 +110,8 @@ extern int gnPhase_007A8A24;                                                    
 
 void __fastcall sub_00472C20_PlayerMoved(int nArg)
 {
-    sub_006BCAC0_ResetDataArray(gpWeather_007A89FC);
-    sub_006BCAC0_ResetDataArray(gpWeather_007A8A00);
+    DATAARRAYS_Reset(gpWeather_007A89FC);
+    DATAARRAYS_Reset(gpWeather_007A8A00);
     if (nArg)
         sub_004726F0(nArg);
 }

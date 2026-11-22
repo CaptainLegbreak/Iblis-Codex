@@ -39,7 +39,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
-void __fastcall sub_00504100_UnlinkCompositeUnit(D2CompositeUnitStrc* pCompositeUnit); // 0x00504100
+void __fastcall D2COMP_UnlinkCompositeUnit(D2CompositeUnitStrc* pCompositeUnit); // 0x00504100
 
 struct D2PaletteRecordStrc
 {
@@ -63,7 +63,7 @@ extern "C" const char szItemTypesTable_006DCD00[]; // 0x006DCD00
 extern void* gpItemTypesTxt_0087D82C; // 0x0087D82C
 extern int gnItemTypesTxtRecordCount_0087D830; // 0x0087D830
 D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine); // 0x006BD040
-void* __stdcall sub_00504430_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount, int nRecordSize); // 0x00504430
+void* __stdcall D2COMP_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount, int nRecordSize); // 0x00504430
 
 
 enum D2ControlTypes
@@ -134,7 +134,7 @@ int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandle
 int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CD0
 void __stdcall WINDOW_DecodeSmacker(const char* szSmacker, unsigned char* pBuffer, int nVersion); // 0x004F5E00
 void __stdcall WINDOW_CloseSmacker(void* pContext); // 0x004F5E80
-int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
 int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00507A10
@@ -152,7 +152,7 @@ int __stdcall SCROLLBAR_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);
 D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 
 // 0x00503410
-static void __stdcall sub_00503410(int bFree, D2CofNodeStrc* pCofNode)
+static void __stdcall D2COMP_ReleaseCofNode(int bFree, D2CofNodeStrc* pCofNode)
 {
     D2_ASSERT(pCofNode, 0x455);
 
@@ -193,7 +193,7 @@ static void __stdcall sub_00503410(int bFree, D2CofNodeStrc* pCofNode)
 unsigned char gabItemPalettes_00842710[9][0x6900]; // 0x00842710
 
 // 0x005038D0
-unsigned char* __fastcall sub_005038D0_GetComponentPalette(int nColor)
+unsigned char* __fastcall D2COMP_GetComponentPalette(int nColor)
 {
     int nRow = nColor >> 5;
     unsigned int nCol = nColor & 0x1F;
@@ -247,7 +247,7 @@ int* __fastcall sub_00504020_ClearTable(int* table)
 }
 
 // 0x00504100
-void __fastcall sub_00504100_UnlinkCompositeUnit(D2CompositeUnitStrc* pCompositeUnit)
+void __fastcall D2COMP_UnlinkCompositeUnit(D2CompositeUnitStrc* pCompositeUnit)
 {
     D2CompositeUnitStrc* pPrev = pCompositeUnit->pPrev;
     D2CompositeUnitStrc* pNext = pCompositeUnit->pNext;
@@ -270,7 +270,7 @@ void __fastcall sub_00504100_UnlinkCompositeUnit(D2CompositeUnitStrc* pComposite
 }
 
 // 0x00504170
-int* __cdecl sub_00504170_AllocZeroDword()
+int* __cdecl D2COMP_AllocGfxInfo()
 {
     int* pValue = (int*)FOG_Alloc(4, ".\\Src\\D2Comp.cpp", 0x866, 0);
     D2_ASSERT(pValue, 0x867);
@@ -284,7 +284,7 @@ void __stdcall sub_005043D0_Stub4(int a1, int a2, int a3, int a4)
 }
 
 // 0x005049D0
-void __stdcall sub_005049D0_FreeCompLinkers()
+void __stdcall D2COMP_FreeLinkers()
 {
     if (gpCompItemsLinker_0087D824)
     {
@@ -318,7 +318,7 @@ void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, 
         {
             D2CofNodeStrc* pCofNode = pCofInfo->pCofNode;
             D2CofInfoStrc* pNext = pCofInfo->pNext;
-            sub_00503410(1, pCofNode);
+            D2COMP_ReleaseCofNode(1, pCofNode);
             FOG_Free(pCofInfo, ".\\Src\\D2Comp.cpp", 0x883, 0);
             pCofInfo = pNext;
         }
@@ -335,11 +335,11 @@ void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, 
     }
 
     if (bUnlink)
-        sub_00504100_UnlinkCompositeUnit(pCompositeUnit);
+        D2COMP_UnlinkCompositeUnit(pCompositeUnit);
 }
 
 // 0x00504920
-void __fastcall sub_00504920_LoadItemTypes(void* hArchive)
+void __fastcall D2COMP_LoadItemTypes(void* hArchive)
 {
     D2BinFieldStrc aItemTypesFields[] =
     {
@@ -350,11 +350,11 @@ void __fastcall sub_00504920_LoadItemTypes(void* hArchive)
     };
 
     gpItemTypesLinker_0087D828 = sub_006BD040(".\\Src\\D2Comp.cpp", 0xA97);
-    gpItemTypesTxt_0087D82C = sub_00504430_CompileTxt(hArchive, szItemTypesTable_006DCD00, aItemTypesFields, &gnItemTypesTxtRecordCount_0087D830, 0xE4);
+    gpItemTypesTxt_0087D82C = D2COMP_CompileTxt(hArchive, szItemTypesTable_006DCD00, aItemTypesFields, &gnItemTypesTxtRecordCount_0087D830, 0xE4);
 }
 
 // 0x00504A20
-int __stdcall sub_6F8A32B0(int a1, int nItemType)
+int __stdcall D2COMP_IsItemTypeDescendant(int a1, int nItemType)
 {
     if (!nItemType)
     {
@@ -581,7 +581,7 @@ int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
     switch (pMsg->wParam)
     {
     case 0x0D:
-        sub_004F91C0(0);
+        CONTROL_SetFocusedEditBox(0);
         if (pList->pSelectedDataEntry->field_204)
             return pList->pSelectedDataEntry->field_204(pMsg);
         break;
@@ -608,7 +608,7 @@ int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
         else
             for (int n = nIndex - pList->field_4C; n > pList->field_58; --n)
                 ++pList->field_4C;
-        sub_004F91C0(0);
+        CONTROL_SetFocusedEditBox(0);
         return 1;
     }
     case 0x28:
@@ -626,7 +626,7 @@ int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
         else
             for (int n = nIndex - pList->field_4C; n > pList->field_58; --n)
                 ++pList->field_4C;
-        sub_004F91C0(0);
+        CONTROL_SetFocusedEditBox(0);
         return 1;
     }
     }

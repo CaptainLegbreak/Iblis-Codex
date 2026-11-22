@@ -5,7 +5,7 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" int __stdcall DirectSoundEnumerateA(void* pfCallback, void* pContext);                           // 0x006B134A
 int __stdcall sub_00513A20_EnumCallback(void* pGuid, const char* szDescription, const char* szModule, void* pContext); // 0x00513A20
 void __cdecl sub_005140D0_InitDirectSound(); // 0x005140D0
-int __fastcall sub_00516CA0_GetFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild); // 0x00516CA0
+int __fastcall D2SOUND_GetVxdFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild); // 0x00516CA0
 
 extern int gnSoundArg_008816DC;                                                                             // 0x008816DC
 int gbSoundReady_00881764;                                                                                  // 0x00881764
@@ -33,7 +33,7 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
     {
         GetWindowsDirectoryA(szPath, sizeof(szPath));
         strcat(szPath, "\\SYSTEM\\EMU10K1.VXD");
-        if (sub_00516CA0_GetFileVersion(szPath, &nMajor, &nMinor, &nBuild) && nMajor == 4)
+        if (D2SOUND_GetVxdFileVersion(szPath, &nMajor, &nMinor, &nBuild) && nMajor == 4)
         {
             if (nMinor == 6)
             {
@@ -56,7 +56,7 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
     {
         GetWindowsDirectoryA(szPath, sizeof(szPath));
         strcat(szPath, "\\SYSTEM\\CRLDS3D.VXD");
-        if (sub_00516CA0_GetFileVersion(szPath, &nMajor, &nMinor, &nBuild)
+        if (D2SOUND_GetVxdFileVersion(szPath, &nMajor, &nMinor, &nBuild)
             && (nMajor < 4 || nMajor == 4 && (nMinor < 12 || nMinor == 12 && nBuild < 0x40B)))
         {
             gbOldSoundDriver_00881784 = 1;

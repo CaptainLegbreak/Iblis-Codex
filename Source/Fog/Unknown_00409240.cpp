@@ -13,7 +13,7 @@ extern "C" unsigned char _BitScanForward(unsigned long* pIndex, unsigned long nM
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 extern "C" void* __cdecl malloc(unsigned int nSize); // 0x00683EFD
-void* __fastcall sub_00409770_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x00409770
+void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x00409770
 extern const unsigned int gdwLowBitMasks_006CD490[]; // 0x006CD490
 extern D2PoolDirectoryStrc gtPoolManager_0074F0E8; // 0x0074F0E8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -229,12 +229,12 @@ void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
     }
     if (pSystem->bFreePoolAlloc)
     {
-        return sub_00409770_PoolAllocLarge(pSystem, nSize, szFile, nLine);
+        return ERRORMANAGER_PoolAllocLarge(pSystem, nSize, szFile, nLine);
     }
     const int nIndex = sub_004091B0_GetPoolIndex(nSize);
     if (nIndex >= pSystem->nPools)
     {
-        return sub_00409770_PoolAllocLarge(pSystem, nSize, szFile, nLine);
+        return ERRORMANAGER_PoolAllocLarge(pSystem, nSize, szFile, nLine);
     }
     D2MemPoolRecStrc* pPool = &pSystem->aPools[nIndex];
     EnterCriticalSection(&pPool->tLock);

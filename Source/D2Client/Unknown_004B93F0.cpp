@@ -24,7 +24,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry);       // 0x00516950
+void __fastcall D2SOUND_ListAddHead(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry);       // 0x00516950
 int __fastcall sub_004B9590(int nKey);                                                                      // 0x004B9590
 int __fastcall sub_004DFA40_IsSoundPlaying(void* pSound);                                                   // 0x004DFA40
 int __fastcall sub_004DF900_GetSoundPosition(void* pSound);                                                 // 0x004DF900
@@ -47,7 +47,7 @@ D2TimedHintEntryStrc* __cdecl sub_004B93F0_AllocHintEntry()
         {
             memset(pEntry, 0, sizeof(D2TimedHintEntryStrc));
             pEntry->bUsed = 1;
-            sub_00516950_LinkEntry(&gpTimedHintList_007C5458, pEntry);
+            D2SOUND_ListAddHead(&gpTimedHintList_007C5458, pEntry);
             gnSoundSerial_007C5460 += 1;
             pEntry->nKey = gnSoundSerial_007C5460;
             return pEntry;

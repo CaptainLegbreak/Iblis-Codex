@@ -33,7 +33,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                 // 0x005042F0
-void __stdcall sub_00506000_InitCompItems();                                                                // 0x00506000
+void __stdcall D2COMP_InitCompItems();                                                                // 0x00506000
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern D2CompItemStrc gaCompItems_0072E1E0[];                                                               // 0x0072E1E0
@@ -53,7 +53,8 @@ extern int gnSelectedCelFileFrame_0087E858;                                     
 #define COF_PAD 0x20
 #define TOKEN_CHAR(c) ((char)(c) == COF_PAD ? 0 : (char)(c))
 
-static void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
+// build: symbol ?D2COMP_CopyTokenPadded@* 0x005031D0
+static void D2COMP_CopyTokenPadded(char* pDst, const char* pSrc)
 {
     if (!pSrc[0])
     {
@@ -82,13 +83,15 @@ static void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
     pDst[3] = COF_PAD;
 }
 
-static D2CofDataStrc* sub_00503220_CheckCofData(D2CofDataStrc* pCofData)
+// build: symbol ?D2COMP_AssertCofData@* 0x00503220
+static D2CofDataStrc* D2COMP_AssertCofData(D2CofDataStrc* pCofData)
 {
     D2_ASSERT(pCofData, 0x3DD);
     return pCofData;
 }
 
-static D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(const char* szPath, unsigned int* pnSize)
+// build: symbol ?D2COMP_LoadCofFile@* 0x00503250
+static D2CofDataStrc* __stdcall D2COMP_LoadCofFile(const char* szPath, unsigned int* pnSize)
 {
     D2CofDataStrc* pCofData = (D2CofDataStrc*)sub_00517079_LoadFile(sub_004FAC80(), szPath, pnSize, gszD2CompSourceFile, 0x3EB);
     D2_ASSERT(pCofData, 0x3EC);
@@ -96,7 +99,8 @@ static D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(const char* szPath, uns
     return pCofData;
 }
 
-static unsigned char* __stdcall sub_005032B0_GetLayerOrder(int nDirection, int nFrame, D2CofDataStrc* pCofData)
+// build: symbol ?D2COMP_GetLayerOrder@* 0x005032B0
+static unsigned char* __stdcall D2COMP_GetLayerOrder(int nDirection, int nFrame, D2CofDataStrc* pCofData)
 {
     D2_ASSERT(pCofData, 0x400);
     const int nFrames = pCofData->nFramesPerDirection;
@@ -105,7 +109,8 @@ static unsigned char* __stdcall sub_005032B0_GetLayerOrder(int nDirection, int n
     return pOrder;
 }
 
-static D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
+// build: symbol ?D2COMP_GetCofNode@* 0x00503340
+static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -134,12 +139,13 @@ static D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, con
         gpCofNodeList_0087E83C->pPrev = pNode;
     }
     gpCofNodeList_0087E83C = pNode;
-    pNode->pCofData = sub_00503250_LoadCofFile(szPath, &pNode->dwCofSize);
+    pNode->pCofData = D2COMP_LoadCofFile(szPath, &pNode->dwCofSize);
     D2_ASSERT(pNode->pCofData, 0x446);
     return pNode;
 }
 
-static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
+// build: symbol ?D2COMP_BuildCofPath@* 0x005034B0
+static void __stdcall D2COMP_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
 {
     D2_ASSERT(nClass < 25, 0x488);
     D2_ASSERT(nMode < gnModeTokens_0072E0B4, 0x489);
@@ -171,9 +177,11 @@ static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned in
     wsprintfA(szPath, gszCofPathFormat_006D6C94, szDir, szUnit, szUnit, szMode, szWeaponClass);
 
     void* hFile;
-    if (sub_004068E0(szPath, &hFile))
+// build: symbol ?FOG_FOpenFile@* 0x004068E0
+    if (FOG_FOpenFile(szPath, &hFile))
     {
-        sub_004068F0(hFile);
+// build: symbol ?FOG_FCloseFile@* 0x004068F0
+        FOG_FCloseFile(hFile);
     }
     else
     {
@@ -181,7 +189,8 @@ static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned in
     }
 }
 
-static D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
+// build: symbol ?D2COMP_FindCofInfo@* 0x005035F0
+static D2CofInfoStrc* D2COMP_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
 {
     D2_ASSERT(pGfxInfo, 0x4B0);
     for (D2CofInfoStrc* pCofInfo = pGfxInfo->pCofInfo; pCofInfo; pCofInfo = pCofInfo->pNext)
@@ -200,12 +209,12 @@ static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo,
 
     D2_ASSERT(pGfxInfo, 0x4CA);
 
-    D2CofInfoStrc* pCofInfo = sub_005035F0_FindCofInfo(pGfxInfo, nMode, dwWeaponClass);
+    D2CofInfoStrc* pCofInfo = D2COMP_FindCofInfo(pGfxInfo, nMode, dwWeaponClass);
     if (!pCofInfo)
     {
         szPath[0] = 0;
         memset(&szPath[1], 0, sizeof(szPath) - 1);
-        sub_005034B0_BuildCofPath(nClass, nMode, dwWeaponClass, szPath);
+        D2COMP_BuildCofPath(nClass, nMode, dwWeaponClass, szPath);
         if (!szPath[0])
         {
             return 0;
@@ -215,7 +224,7 @@ static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo,
         D2_ASSERT(pCofInfo, 0x4D9);
         memset(pCofInfo, 0, sizeof(D2CofInfoStrc));
 
-        D2CofNodeStrc* pCofNode = sub_00503340_GetCofNode(nClass, szPath, nMode, dwWeaponClass);
+        D2CofNodeStrc* pCofNode = D2COMP_GetCofNode(nClass, szPath, nMode, dwWeaponClass);
         D2_ASSERT(pCofNode, 0x4DC);
         pCofInfo->pCofNode = pCofNode;
         pCofInfo->pNext = pGfxInfo->pCofInfo;
@@ -227,7 +236,8 @@ static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo,
     return pCofData;
 }
 
-void __fastcall sub_00503740_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDataStrc* pGfxData)
+// build: symbol ?D2COMP_InitGfxData@* 0x00503740
+void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDataStrc* pGfxData)
 {
     pGfxData->nUnitIndex = pCompositeUnit->nUnitIndex;
     pGfxData->nMode = pCompositeUnit->nMode;
@@ -257,7 +267,7 @@ void __fastcall sub_00503740_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2
             pGfxData->dwModeToken = gdwModeTokens_0072E0B8[pGfxData->nMode];
             D2_ASSERT(pGfxData->dwArmorType, 0x51F);
             unsigned int dwHitClass = 0;
-            sub_005031D0_CopyTokenPadded((char*)&dwHitClass, (const char*)pLayer + 5);
+            D2COMP_CopyTokenPadded((char*)&dwHitClass, (const char*)pLayer + 5);
             pGfxData->dwWClassToken = dwHitClass;
             break;
         }
@@ -277,17 +287,19 @@ void __fastcall sub_00503740_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2
     }
 }
 
-static void __stdcall sub_005038A0_SetupGfxData(D2CompositeUnitStrc* pCompositeUnit, unsigned char nComponent, int nFrame, int nDirection, D2GfxDataStrc* pGfxData, D2CelFileStrc* pCelFile)
+// build: symbol ?D2COMP_SetupGfxData@* 0x005038A0
+static void __stdcall D2COMP_SetupGfxData(D2CompositeUnitStrc* pCompositeUnit, unsigned char nComponent, int nFrame, int nDirection, D2GfxDataStrc* pGfxData, D2CelFileStrc* pCelFile)
 {
     pGfxData->pCelFile = pCelFile;
     pGfxData->nDirection = nDirection;
     pGfxData->nFrame = nFrame;
     pGfxData->nComponent = nComponent;
-    sub_00503740_InitGfxData(pCompositeUnit, pGfxData);
+    D2COMP_InitGfxData(pCompositeUnit, pGfxData);
     pGfxData->dwFlags |= 2;
 }
 
-static unsigned char __stdcall sub_00503920_DirectionSlot(unsigned int nDirections, unsigned char nDirection)
+// build: symbol ?D2COMP_GetDirectionIndex@* 0x00503920
+static unsigned char __stdcall D2COMP_GetDirectionIndex(unsigned int nDirections, unsigned char nDirection)
 {
     D2_ASSERT(nDirection < 64, 0x576);
     const unsigned char nIndex = gaDirectionIndex_006DCA60[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
@@ -295,7 +307,8 @@ static unsigned char __stdcall sub_00503920_DirectionSlot(unsigned int nDirectio
     return nIndex;
 }
 
-static int __stdcall sub_00503970_CountLayerCels(D2CofDataStrc* pCofData, const unsigned char* pLayerOrder, int* pMaxHeight, unsigned char nDirection, int nFrame, D2CompositeUnitStrc* pCompositeUnit)
+// build: symbol ?D2COMP_CountLayerCels@* 0x00503970
+static int __stdcall D2COMP_CountLayerCels(D2CofDataStrc* pCofData, const unsigned char* pLayerOrder, int* pMaxHeight, unsigned char nDirection, int nFrame, D2CompositeUnitStrc* pCompositeUnit)
 {
     D2_ASSERT(pCompositeUnit, 0x587);
     int nCount = 0;
@@ -310,7 +323,7 @@ static int __stdcall sub_00503970_CountLayerCels(D2CofDataStrc* pCofData, const 
         tGfxData.nDirection = nDirection;
         tGfxData.nFrame = nFrame;
         tGfxData.nComponent = nComponent;
-        sub_00503740_InitGfxData(pCompositeUnit, &tGfxData);
+        D2COMP_InitGfxData(pCompositeUnit, &tGfxData);
         tGfxData.dwFlags |= 2;
 
         if (sub_006001F0(&tGfxData, 0, 1) && tGfxData.pCel)
@@ -326,7 +339,8 @@ static int __stdcall sub_00503970_CountLayerCels(D2CofDataStrc* pCofData, const 
     return nCount;
 }
 
-void __fastcall sub_00503A50_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit)
+// build: symbol ?D2COMP_DrawCompositeShadow@* 0x00503A50
+void __fastcall D2COMP_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit)
 {
     D2_ASSERT(pCompositeUnit, 0x5B3);
 
@@ -339,7 +353,7 @@ void __fastcall sub_00503A50_DrawCompositeShadow(D2CompositeUnitStrc* pComposite
     const int nY = pCompositeUnit->nY;
     D2_ASSERT(pCompositeUnit->pGfxInfo, 0x5C3);
 
-    D2CofInfoStrc* pCofInfo = sub_005035F0_FindCofInfo(pCompositeUnit->pGfxInfo, pCompositeUnit->nMode, gdwWClassTokens_0072E15C[pCompositeUnit->nWClassTokenIndex]);
+    D2CofInfoStrc* pCofInfo = D2COMP_FindCofInfo(pCompositeUnit->pGfxInfo, pCompositeUnit->nMode, gdwWClassTokens_0072E15C[pCompositeUnit->nWClassTokenIndex]);
     if (!pCofInfo)
     {
         return;
@@ -347,13 +361,13 @@ void __fastcall sub_00503A50_DrawCompositeShadow(D2CompositeUnitStrc* pComposite
 
     D2CofDataStrc* pCofData = pCofInfo->pCofNode->pCofData;
     D2_ASSERT(pCofData, 0x5CB);
-    D2CofDataStrc* pHeader = sub_00503220_CheckCofData(pCofData);
+    D2CofDataStrc* pHeader = D2COMP_AssertCofData(pCofData);
     const int nFrame = pCompositeUnit->nFrame >> 8;
-    const unsigned char* pLayerOrder = sub_005032B0_GetLayerOrder(pCompositeUnit->nDirection, nFrame, pCofData);
+    const unsigned char* pLayerOrder = D2COMP_GetLayerOrder(pCompositeUnit->nDirection, nFrame, pCofData);
     D2_ASSERT(pLayerOrder, 0x5D0);
 
     int nMaxHeight = 0;
-    if (sub_00503970_CountLayerCels(pHeader, pLayerOrder, &nMaxHeight, pCompositeUnit->nDirection, nFrame, pCompositeUnit) <= 0)
+    if (D2COMP_CountLayerCels(pHeader, pLayerOrder, &nMaxHeight, pCompositeUnit->nDirection, nFrame, pCompositeUnit) <= 0)
     {
         return;
     }
@@ -365,12 +379,13 @@ void __fastcall sub_00503A50_DrawCompositeShadow(D2CompositeUnitStrc* pComposite
 
         D2GfxDataStrc tGfxData;
         memset(&tGfxData, 0, sizeof(tGfxData));
-        sub_005038A0_SetupGfxData(pCompositeUnit, nComponent, nFrame, pCompositeUnit->nDirection, &tGfxData, 0);
+        D2COMP_SetupGfxData(pCompositeUnit, nComponent, nFrame, pCompositeUnit->nDirection, &tGfxData, 0);
         sub_004F6540(&tGfxData, nX, nY);
     }
 }
 
-int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUnit, int nGamma)
+// build: symbol ?D2COMP_DrawCompositeUnit@* 0x00503BA0
+int __fastcall D2COMP_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUnit, int nGamma)
 {
     D2_ASSERT(pCompositeUnit, 0x5F3);
 
@@ -406,7 +421,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
     }
 
     D2_ASSERT(pCompositeUnit->pGfxInfo, 0x622);
-    D2CofInfoStrc* pCofInfo = sub_005035F0_FindCofInfo(pCompositeUnit->pGfxInfo, pCompositeUnit->nMode, gdwWClassTokens_0072E15C[pCompositeUnit->nWClassTokenIndex]);
+    D2CofInfoStrc* pCofInfo = D2COMP_FindCofInfo(pCompositeUnit->pGfxInfo, pCompositeUnit->nMode, gdwWClassTokens_0072E15C[pCompositeUnit->nWClassTokenIndex]);
     if (!pCofInfo)
     {
         return 0;
@@ -414,9 +429,9 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
 
     D2CofDataStrc* pCofData = pCofInfo->pCofNode->pCofData;
     D2_ASSERT(pCofData, 0x62B);
-    D2CofDataStrc* pHeader = sub_00503220_CheckCofData(pCofData);
+    D2CofDataStrc* pHeader = D2COMP_AssertCofData(pCofData);
     const int nFrame = pCompositeUnit->nFrame >> 8;
-    const unsigned char* pLayerOrder = sub_005032B0_GetLayerOrder(pCompositeUnit->nDirection, nFrame, pCofData);
+    const unsigned char* pLayerOrder = D2COMP_GetLayerOrder(pCompositeUnit->nDirection, nFrame, pCofData);
     D2_ASSERT(pLayerOrder, 0x630);
 
     int nDrawMode = 5;
@@ -429,19 +444,20 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
     {
         const int nComponent = pLayerOrder[i];
         memset(&tGfxData, 0, sizeof(tGfxData));
-        const unsigned char nDirection = sub_00503920_DirectionSlot(pCompositeUnit->nDirections, pCompositeUnit->nDirection);
+        const unsigned char nDirection = D2COMP_GetDirectionIndex(pCompositeUnit->nDirections, pCompositeUnit->nDirection);
         tGfxData.pCelFile = 0;
         tGfxData.nDirection = nDirection;
         tGfxData.nFrame = nFrame;
         tGfxData.nComponent = nComponent;
-        sub_00503740_InitGfxData(pCompositeUnit, &tGfxData);
+        D2COMP_InitGfxData(pCompositeUnit, &tGfxData);
         tGfxData.dwFlags |= 2;
 
         const int nColor = pCompositeUnit->nComponentColors[nComponent];
         unsigned char* pPalette = 0;
         if (nColor != 0xFF)
         {
-            pPalette = sub_005038D0_GetComponentPalette(nColor);
+// build: symbol ?D2COMP_GetComponentPalette@* 0x005038D0
+            pPalette = D2COMP_GetComponentPalette(nColor);
         }
         TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY, nGamma, nDrawMode, pPalette);
     }
@@ -482,7 +498,8 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
     return 1;
 }
 
-static int sub_00504040_LoadUnitCof(D2CompositeUnitStrc* pCompositeUnit)
+// build: symbol ?D2COMP_ValidateAndLoadCOFForUnit@* 0x00504040
+static int D2COMP_ValidateAndLoadCOFForUnit(D2CompositeUnitStrc* pCompositeUnit)
 {
     D2_ASSERT(pCompositeUnit, 0x81A);
 
@@ -652,7 +669,8 @@ static int __stdcall sub_00504AF0_GetWeaponClass(unsigned int nUnitIndex, const 
     }
 
 // calling-convention shim (not game code)
-static void sub_00504D60_FixComponent(int nComponent, unsigned char* pComponent)
+// build: symbol ?D2COMP_FixComponent@* 0x00504D60
+static void D2COMP_FixComponent(int nComponent, unsigned char* pComponent)
 {
     if ((nComponent == 1 || nComponent == 2 || nComponent == 3 || nComponent == 4) && *pComponent > 3)
     {
@@ -683,7 +701,8 @@ static void sub_00504D60_FixComponent(int nComponent, unsigned char* pComponent)
     }
 }
 
-void __stdcall sub_00504F80_InitCompositeUnit(D2CompositeUnitStrc* pCompositeUnit, unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors)
+// build: symbol ?D2Win_10145@* 0x00504F80
+void __stdcall D2Win_10145(D2CompositeUnitStrc* pCompositeUnit, unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors)
 {
     D2_ASSERT(pCompositeUnit, 0xCDD);
 
@@ -718,7 +737,7 @@ void __stdcall sub_00504F80_InitCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         pArmorType[16] = 1;
         if (*pComponent > 0 && *pComponent < 0xFF)
         {
-            sub_00504D60_FixComponent(i, pComponent);
+            D2COMP_FixComponent(i, pComponent);
             pArmorType[0] = gaItems_0087D838[*pComponent].dwCode;
             pArmorType[16] = gaItems_0087D838[*pComponent].nItemType;
         }
@@ -742,7 +761,7 @@ void __stdcall sub_00504F80_InitCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         }
     }
 
-    if (sub_00504040_LoadUnitCof(pCompositeUnit))
+    if (D2COMP_ValidateAndLoadCOFForUnit(pCompositeUnit))
     {
         D2Win_10143(pCompositeUnit, nMode);
     }

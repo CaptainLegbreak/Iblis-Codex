@@ -27,7 +27,7 @@ extern D2NetPacketRecStrc* gpSystemPacketList; // 0x00882CDC
 extern D2NetPacketRecStrc* gpGamePacketList; // 0x00882CE4
 extern int gdwGlobal_00882D00; // 0x00882D00
 int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052B820
-int __fastcall sub_0052B690_SendToServer(const unsigned char* pBuffer, unsigned short nSize); // 0x0052B690
+int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize); // 0x0052B690
 extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags); // 0x006B017A
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
@@ -45,7 +45,7 @@ int __stdcall sub_006BE4E0(void* pObject, int nArg1); // 0x006BE4E0
 int __stdcall sub_006BE390(void* pObject, int nArg1, int nArg2); // 0x006BE390
 int __fastcall sub_006BF610(void* pObject, int nArg1, int nArg2); // 0x006BF610
 void __stdcall sub_006BE4A0(void* pObject, int nArg1); // 0x006BE4A0
-int __stdcall sub_006BF4E0(void* pObject, int nArg1); // 0x006BF4E0
+int __stdcall FOG_SetHackListEnabled(void* pObject, int nArg1); // 0x006BF4E0
 int __stdcall sub_006C0170(void* pObject, const unsigned char* pData, int nSize); // 0x006C0170
 int __stdcall sub_006BEAD0(void* pObject, int nMode, int nArg1, int nArg2); // 0x006BEAD0
 int __stdcall sub_006BED90(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BED90
@@ -55,8 +55,8 @@ int __stdcall sub_006C0530(void* pObject, int nArg1, int nArg2, int nArg3); // 0
 int __stdcall sub_006C0600(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
 int __stdcall sub_006BEFB0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
 int __stdcall sub_006C06D0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
-static inline void sub_0052A730_StartConnectThread(const char* szIpAddress);
-void __cdecl sub_0052AAD0_ClearConnected();
+static inline void CLIENT_StartConnectThread(const char* szIpAddress); // 0x0052A730
+void __cdecl CLIENT_ClearConnected(); // 0x0052AAD0
 
 typedef unsigned int size_t;
 
@@ -70,15 +70,15 @@ extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* s
 extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, int nFlags); // 0x006B0174
 extern "C" int __stdcall __WSAFDIsSet(unsigned int nSocket, D2FdSetStrc* pSet); // 0x006B0180
 extern "C" int __stdcall select(int nCount, D2FdSetStrc* pRead, D2FdSetStrc* pWrite, D2FdSetStrc* pExcept, const D2TimevalStrc* pTimeout); // 0x006B0186
-int __fastcall sub_0040B260(unsigned char* pOut, int nOutSize, const unsigned char* pIn, unsigned int nInSize); // 0x0040B260
-int __stdcall sub_0052A8D0(); // 0x0052A8D0
+int __fastcall FOG_DecompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, unsigned int nInSize); // 0x0040B260
+int __stdcall CLIENT_ParseReceiveBuffer(); // 0x0052A8D0
 
 unsigned long gdwThreadId; // 0x00882B30
 
 void* ghClientConnectToHostThreadHandle; // 0x00882CE0
 
 // 0x0052A610
-void __fastcall sub_0052A610_SetConnected(int bConnected)
+void __fastcall CLIENT_SetConnected(int bConnected)
 {
     if (!NET_IsLocalConnection())
     {
@@ -95,7 +95,7 @@ void __stdcall sub_M118_Emit_0052A730(int nArg, const char* szIpAddress)
     {
         return;
     }
-    sub_0052A730_StartConnectThread(szIpAddress);
+    CLIENT_StartConnectThread(szIpAddress);
 }
 
 void* ghReceiveThread_00882CD8; // 0x00882CD8
@@ -144,7 +144,7 @@ unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress)
 }
 
 // 0x0052A730
-static inline void sub_0052A730_StartConnectThread(const char* szIpAddress)
+static inline void CLIENT_StartConnectThread(const char* szIpAddress)
 {
     ghClientConnectToHostThreadHandle = CreateThread(0, 0, CLIENT_ConnectToHost, (void*)szIpAddress, 0, &gdwThreadId);
 }
@@ -214,7 +214,7 @@ int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nB
 }
 
 // 0x0052A8D0
-int __stdcall sub_0052A8D0()
+int __stdcall CLIENT_ParseReceiveBuffer()
 {
     int nUsedBytes = gpPacketBuffer->nUsedBytes;
     D2PacketBufferStrc* pPacketBuffer = gpPacketBuffer;
@@ -305,14 +305,14 @@ int __stdcall sub_0052A8D0()
 }
 
 // 0x0052AAA0
-void __cdecl sub_0052AAA0_OnSocketError()
+void __cdecl CLIENT_HandleSocketError()
 {
     WSAGetLastError();
-    sub_0052AAD0_ClearConnected();
+    CLIENT_ClearConnected();
 }
 
 // 0x0052AAD0
-void __cdecl sub_0052AAD0_ClearConnected()
+void __cdecl CLIENT_ClearConnected()
 {
     if (!NET_IsLocalConnection())
     {
@@ -331,7 +331,7 @@ int gdwGlobal_00882D00; // 0x00882D00
 int gbConnected_00882D04; // 0x00882D04
 
 // 0x0052AB00
-unsigned long __stdcall sub_0052AB00(void* pArg)
+unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pArg)
 {
     int bPacketAE = 0;
     unsigned int nUsed = 0;
@@ -397,13 +397,13 @@ unsigned long __stdcall sub_0052AB00(void* pArg)
 
                             const int nHeader = nSize < 0xF0 ? 1 : 2;
                             const int nBufUsed = gpPacketBuffer->nUsedBytes;
-                            nResult = sub_0040B260(&gpPacketBuffer->data[nBufUsed], int(sizeof(gpPacketBuffer->data) - nBufUsed), &pBuffer[nHeader + nOffset], nSize - nHeader);
+                            nResult = FOG_DecompressPacket(&gpPacketBuffer->data[nBufUsed], int(sizeof(gpPacketBuffer->data) - nBufUsed), &pBuffer[nHeader + nOffset], nSize - nHeader);
                             nUsed -= nSize;
                             nOffset += nSize;
                             if (nResult > 0)
                             {
                                 gpPacketBuffer->nUsedBytes += nResult;
-                                sub_0052A8D0();
+                                CLIENT_ParseReceiveBuffer();
                             }
                         }
 
@@ -417,7 +417,7 @@ unsigned long __stdcall sub_0052AB00(void* pArg)
                     if (nResult > 0)
                     {
                         gpPacketBuffer->nUsedBytes += nResult;
-                        bPacketAE = sub_0052A8D0();
+                        bPacketAE = CLIENT_ParseReceiveBuffer();
                     }
                 }
                 LeaveCriticalSection(&gCriticalSection);
@@ -452,14 +452,14 @@ unsigned long __stdcall sub_0052AB00(void* pArg)
 }
 
 // 0x0052ADC0
-int __fastcall sub_0052ADC0_SendToServerChecked(void* pUnused, unsigned short nSize, const unsigned char* pBuffer)
+int __fastcall CLIENT_SendToLocalServer(void* pUnused, unsigned short nSize, const unsigned char* pBuffer)
 {
     D2_ASSERT(nSize <= 0x204, 0x1C6);
-    return sub_0052B690_SendToServer(pBuffer, nSize);
+    return SERVER_EnqueueLocalClientPacket(pBuffer, nSize);
 }
 
 // 0x0052AE00
-static int sub_0052AE00_SendToSocket(const unsigned char* pBuffer, int nSize)
+static int CLIENT_SendToSocket(const unsigned char* pBuffer, int nSize)
 {
     const int nSent = send(gClientSocket, (const char*)pBuffer, nSize, 0);
     if (nSent != -1)
@@ -478,7 +478,7 @@ static int sub_0052AE00_SendToSocket(const unsigned char* pBuffer, int nSize)
 }
 
 // 0x0052AE50
-int __stdcall sub_0052AE50_SendPacket(int nSize, int nFlags, void* pData)
+int __stdcall CLIENT_Send(int nSize, int nFlags, void* pData)
 {
     const unsigned char* pBuffer = (const unsigned char*)pData;
     if (!gpPacketBuffer)
@@ -490,10 +490,10 @@ int __stdcall sub_0052AE50_SendPacket(int nSize, int nFlags, void* pData)
     {
         const unsigned short nPacketSize = nSize;
         D2_ASSERT(nPacketSize <= MAX_MSG_SIZE, 0x1C6);
-        return sub_0052B690_SendToServer(pBuffer, nPacketSize);
+        return SERVER_EnqueueLocalClientPacket(pBuffer, nPacketSize);
     }
 
-    return sub_0052AE00_SendToSocket(pBuffer, nSize);
+    return CLIENT_SendToSocket(pBuffer, nSize);
 }
 
 #include "gen/data/Source/D2Net/SRC/Client.inc"
@@ -569,37 +569,37 @@ void __fastcall CLIENT_ReadPacketFromBuffer(D2PacketBufferStrc* pBuffer, int nBu
 }
 
 // 0x0052B1F0
-int __stdcall sub_0052B1F0_ObjectCall_6BE4E0(int nArg1)
+int __stdcall SERVER_WaitForSingleObject(int nArg1)
 {
     return sub_006BE4E0(gpServer, nArg1);
 }
 
 // 0x0052B210
-int __stdcall sub_0052B210_ObjectCall_6BE390(int nArg1, int nArg2)
+int __stdcall SERVER_SwapSlotValue(int nArg1, int nArg2)
 {
     return sub_006BE390(gpServer, nArg1, nArg2);
 }
 
 // 0x0052B230
-int __stdcall sub_0052B230_ObjectCall_6BF610(int nArg1, int nArg2)
+int __stdcall SERVER_AddKeyValuePair(int nArg1, int nArg2)
 {
     return sub_006BF610(gpServer, nArg2, nArg1);
 }
 
 // 0x0052B250
-void __stdcall sub_0052B250_ObjectCall_6BE4A0(int nArg1)
+void __stdcall SERVER_SetMaxClientsPerGame(int nArg1)
 {
     sub_006BE4A0(gpServer, nArg1);
 }
 
 // 0x0052B280
-int __stdcall sub_0052B280_ObjectCall_6BF4E0(int nArg1)
+int __stdcall SERVER_SetHackListEnabled(int nArg1)
 {
-    return sub_006BF4E0(gpServer, nArg1);
+    return FOG_SetHackListEnabled(gpServer, nArg1);
 }
 
 // 0x0052B2A0
-void __cdecl sub_0052B2A0_SendCloseAndClear()
+void __cdecl SERVER_Release()
 {
     unsigned char nMessage = 0xB0;
     sub_006C0170(gpServer, &nMessage, 1);
@@ -607,19 +607,19 @@ void __cdecl sub_0052B2A0_SendCloseAndClear()
 }
 
 // 0x0052B2D0
-int __stdcall sub_0052B2D0_ObjectCallMode1(int nArg1, int nArg2)
+int __stdcall SERVER_ReadGamePacket(int nArg1, int nArg2)
 {
     return sub_006BEAD0(gpServer, 1, nArg1, nArg2);
 }
 
 // 0x0052B2F0
-int __stdcall sub_0052B2F0_ObjectCallMode0(int nArg1, int nArg2)
+int __stdcall SERVER_ReadSystemPacket(int nArg1, int nArg2)
 {
     return sub_006BEAD0(gpServer, 0, nArg1, nArg2);
 }
 
 // 0x0052B310
-int __stdcall sub_0052B310_ObjectCallMode2(int nArg1, int nArg2)
+int __stdcall SERVER_ReadAdminPacket(int nArg1, int nArg2)
 {
     return sub_006BEAD0(gpServer, 2, nArg1, nArg2);
 }
@@ -631,37 +631,37 @@ int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
 }
 
 // 0x0052B4B0
-int __stdcall sub_0052B4B0_ObjectCall_6BEE20(int nArg1)
+int __stdcall SERVER_GetIpAddressFromClientId(int nArg1)
 {
     return sub_006BEE20(gpServer, nArg1);
 }
 
 // 0x0052B4D0
-int __stdcall sub_0052B4D0_ObjectCall_6BEF40(int nArg1)
+int __stdcall SERVER_GetSocketFromClientId(int nArg1)
 {
     return sub_006BEF40(gpServer, nArg1);
 }
 
 // 0x0052B4F0
-int __stdcall sub_0052B4F0(int nArg1, int nArg2, int nArg3)
+int __stdcall SERVER_HackListClient(int nArg1, int nArg2, int nArg3)
 {
     return sub_006C0530(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B510
-int __stdcall sub_0052B510_ObjectCall_6C0600(int nArg1, int nArg2, int nArg3)
+int __stdcall SERVER_HackListIP(int nArg1, int nArg2, int nArg3)
 {
     return sub_006C0600(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B530
-int __stdcall sub_0052B530_ObjectCall_6BEFB0(int nArg1, int nArg2, int nArg3)
+int __stdcall SERVER_HackUnlistIP(int nArg1, int nArg2, int nArg3)
 {
     return sub_006BEFB0(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B550
-int __stdcall sub_0052B550_ObjectCall_6C06D0(int nArg1, int nArg2, int nArg3)
+int __stdcall SERVER_DisconnectIP(int nArg1, int nArg2, int nArg3)
 {
     return sub_006C06D0(gpServer, nArg1, nArg2, nArg3);
 }

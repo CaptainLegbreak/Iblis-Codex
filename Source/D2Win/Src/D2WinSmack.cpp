@@ -78,7 +78,7 @@ int __fastcall SMACK_Draw(D2WinControlStrc* pControl)
 }
 
 // 0x00506B70
-D2WinSmackStrc* __fastcall sub_00506B70_SmackCreate(int nX, int nY, int nWidth, int nHeight, D2WinMsgHandler pfHandler)
+D2WinSmackStrc* __fastcall SMACK_Create(int nX, int nY, int nWidth, int nHeight, D2WinMsgHandler pfHandler)
 {
     D2WinSmackStrc* pSmack = (D2WinSmackStrc*)FOG_Alloc(sizeof(D2WinSmackStrc), ".\\Src\\D2WinSmack.cpp", 0x23, 0);
     memset(pSmack, 0, sizeof(D2WinSmackStrc));

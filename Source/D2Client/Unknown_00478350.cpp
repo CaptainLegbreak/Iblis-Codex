@@ -127,7 +127,8 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
     gdwLastSendTick_007BB5B8 = dwTick;
     unsigned char aBuffer[0x200];
     memcpy(aBuffer, pPacket, nSize);
-    if (sub_0052AE50_SendPacket(nSize, 1, aBuffer))
+// build: symbol ?CLIENT_Send@* 0x0052AE50
+    if (CLIENT_Send(nSize, 1, aBuffer))
     {
         gnSentBytes_007A6AF8 += nSize;
         ++gnSentPackets_007A6B00;

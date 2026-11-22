@@ -64,7 +64,7 @@ extern int gdwGlobal_0070CC08; // 0x0070CC08
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
-void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
+void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 
 int __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 
@@ -72,7 +72,7 @@ void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 
 void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
 
-int __fastcall sub_004F9190(); // 0x004F9190
+int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 int __cdecl sub_0042F6D0(); // 0x0042F6D0
 
@@ -279,7 +279,7 @@ int __cdecl sub_0043A2B0_InitRealmScreen();                                     
 
 void __fastcall sub_0043ADB0_UseName(char* szName);                                                         // 0x0043ADB0
 
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
 
 void __fastcall sub_004FB590(int nFont);                                                                    // 0x004FB590
 
@@ -395,9 +395,9 @@ int __stdcall sub_0042FE70_FilterChar(void* pControl, int nUnused, const char* p
 int __stdcall sub_00430120_OnToggle(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->lParam)
-        sub_004F9740(gpControl_007795E0, 1);
+        CONTROL_SetVisible(gpControl_007795E0, 1);
     else
-        sub_004F9740(gpControl_007795E0, 0);
+        CONTROL_SetVisible(gpControl_007795E0, 0);
     return 1;
 }
 
@@ -405,9 +405,9 @@ int __stdcall sub_00430120_OnToggle(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall sub_00430160_OnToggle(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->lParam)
-        sub_004F9740(gpControl_007795E4, 1);
+        CONTROL_SetVisible(gpControl_007795E4, 1);
     else
-        sub_004F9740(gpControl_007795E4, 0);
+        CONTROL_SetVisible(gpControl_007795E4, 0);
     return 1;
 }
 
@@ -729,7 +729,8 @@ int __stdcall sub_00439E90_ListKeyDown(SMSGHANDLER_PARAMS* pMsg)
 // 0x0043A0D0
 int __stdcall sub_0043A0D0_ListKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
         return sub_00439E90_ListKeyDown(pMsg);
 
     if (pMsg->uMessage != 0x102)
@@ -871,7 +872,7 @@ int __stdcall sub_0043A9D0_ListClick(D2ListMsgStrc* pMsg)
         int nRow;
         for (nRow = 0; nRow < gnVisibleRows_0070CC0C; nRow += 1)
         {
-            if (sub_00408F20_HasExpansionMpq() && hWnd == gapRowControlsX_00779B40[nRow])
+            if (FOG_IsExpansion() && hWnd == gapRowControlsX_00779B40[nRow])
                 break;
             if (hWnd == gapRowControls_00779A20[nRow])
                 break;
@@ -925,7 +926,7 @@ void __cdecl sub_0043AE30_InitCharList()
     gnVisibleRows_0070CC0C = 8;
     for (int i = 0; i < gnVisibleRows_0070CC0C; ++i)
     {
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
             gapRowControlsX_00779B40[i] = sub_0042F430_CreateControl(i + 0x8C);
             D2Win_10045((D2WinControlStrc*)gapRowControlsX_00779B40[i], gszSpace_006FFC44);
@@ -938,14 +939,15 @@ void __cdecl sub_0043AE30_InitCharList()
     gpControl_00779D94 = sub_0042F430_CreateControl(0x96);
     if (sub_0043A2B0_InitRealmScreen())
     {
-        sub_004F96F0_ControlClearState(gpControl_007799F8, 0);
+        CONTROL_SetEnabled(gpControl_007799F8, 0);
         sub_0043ADB0_UseName(gData_00779A40);
         const int nExtra = gdwGlobal_00779DC4 - gnVisibleRows_0070CC0C;
         if (nExtra > 0)
             D2Win_10191((D2WinTextBoxStrc*)gpControl_00779C84, nExtra / 2 + (nExtra % 2 != 0));
         if (sub_00514D80())
-            sub_005148F0_SetChannelValue(1);
-        sub_004F96F0_ControlClearState(gpControl_007799F8, 1);
+// build: symbol ?D2SOUND_10034@* 0x005148F0
+            D2SOUND_10034(1);
+        CONTROL_SetEnabled(gpControl_007799F8, 1);
     }
 }
 

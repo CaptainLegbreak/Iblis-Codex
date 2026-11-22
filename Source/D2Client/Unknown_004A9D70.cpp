@@ -70,7 +70,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EEF00
 void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EF410
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
@@ -472,7 +472,7 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
         else if (nBonusLevel < 0)
             nColor = 1;
 
-        sub_00502320((const Unicode*)adwText, nX + 0x30, nY + 0xC, nColor, 0);
+        D2Win_10117_DrawText((const Unicode*)adwText, nX + 0x30, nY + 0xC, nColor, 0);
     }
 }
 
@@ -506,11 +506,11 @@ void __cdecl sub_004AC200_RefreshSkillTree()
     D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
     if ((pUnit && sub_00639DF0_CheckState(pUnit, 0x36)) || gnValue_007C0C3C)
     {
-        sub_00502320((const Unicode*)wszText, gnGlobal_0071146C - gnGlobal_007A2858 - 0x34, gnGlobal_00711470 + gnGlobal_007A285C - 0x190, 1, 0);
+        D2Win_10117_DrawText((const Unicode*)wszText, gnGlobal_0071146C - gnGlobal_007A2858 - 0x34, gnGlobal_00711470 + gnGlobal_007A285C - 0x190, 1, 0);
     }
     else
     {
-        sub_00502320((const Unicode*)wszText, gnGlobal_0071146C - gnGlobal_007A2858 - 0x34, gnGlobal_007A285C + gnGlobal_00711470 - 0x190, 0, 0);
+        D2Win_10117_DrawText((const Unicode*)wszText, gnGlobal_0071146C - gnGlobal_007A2858 - 0x34, gnGlobal_007A285C + gnGlobal_00711470 - 0x190, 0, 0);
     }
 
     int bCanLearn;

@@ -303,9 +303,9 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
 
@@ -860,8 +860,8 @@ void __cdecl PANEL_DrawLifeManaText()
 
         sub_005269D0(100, wszLifeText, D2LANG_GetStringFromTblIndex(0x1045), nLife, nMaxLife);
         sub_00526700(wszLife, wszLifeText);
-        const int nHalfWidth = sub_00501820(wszLife) / 2;
-        sub_00502320(wszLife, 0x41 - nHalfWidth, gnGlobal_00711470 - 0x5F, 0, 0);
+        const int nHalfWidth = D2Win_10121_GetTextWidth(wszLife) / 2;
+        D2Win_10117_DrawText(wszLife, 0x41 - nHalfWidth, gnGlobal_00711470 - 0x5F, 0, 0);
     }
 
     if (gdwShowMpText_007BEFE0 || (nMouseX >= gnGlobal_0071146C - 0x6F && nMouseX <= gnGlobal_0071146C - 0x1F
@@ -870,8 +870,8 @@ void __cdecl PANEL_DrawLifeManaText()
         const int nMana = PANEL_GetSmoothedOrbValue(8) >> 8;
         sub_005269D0(100, wszManaText, D2LANG_GetStringFromTblIndex(0x1046), nMana, STATLIST_GetMaxManaFromUnit(pPlayer) >> 8);
         sub_00526700(wszMana, wszManaText);
-        const int nHalfWidth = sub_00501820(wszMana) / 2;
-        sub_00502320(wszMana, gnGlobal_0071146C - nHalfWidth - 0x50, gnGlobal_00711470 - 0x5F, 0, 0);
+        const int nHalfWidth = D2Win_10121_GetTextWidth(wszMana) / 2;
+        D2Win_10117_DrawText(wszMana, gnGlobal_0071146C - nHalfWidth - 0x50, gnGlobal_00711470 - 0x5F, 0, 0);
     }
 }
 
@@ -1538,7 +1538,7 @@ void __cdecl sub_00499040_DrawBelt()
             {
                 sub_005267E0(wszKey, CMDTBL_GetKeyName(gaBeltKeys_00722404[nSlot], 1));
                 const int nLength = sub_00526800(wszKey);
-                if (sub_00501820(wszKey) > 0x1C)
+                if (D2Win_10121_GetTextWidth(wszKey) > 0x1C)
                 {
                     Unicode* pEnd = &wszKey[nLength];
                     do
@@ -1546,9 +1546,9 @@ void __cdecl sub_00499040_DrawBelt()
                         pEnd->wChar = 0;
                         --pEnd;
                     }
-                    while (sub_00501820(wszKey) > 0x1C);
+                    while (D2Win_10121_GetTextWidth(wszKey) > 0x1C);
                 }
-                sub_00502320(wszKey, tRect.nLeft + 2, tRect.nBottom - 2, 4, 0);
+                D2Win_10117_DrawText(wszKey, tRect.nLeft + 2, tRect.nBottom - 2, 4, 0);
             }
         }
     }

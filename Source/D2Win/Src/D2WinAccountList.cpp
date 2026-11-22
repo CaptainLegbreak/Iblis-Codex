@@ -9,7 +9,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
 
@@ -70,7 +70,7 @@ int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)
             D2GFX_DrawBox(nX, nY - 14, nX + 28, nY, 0x55, 5);
 
             sub_00526F20_ToUnicode(wszText, pData->szText, 256);
-            sub_00502320(wszText, nX + 32, nY, 0, 0);
+            D2Win_10117_DrawText(wszText, nX + 32, nY, 0, 0);
 
             if (pData == pAccountList->pSelectedDataEntry)
             {

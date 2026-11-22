@@ -180,7 +180,7 @@ extern const char gszTable_006E8928[]; // 0x006E8928
 
 void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
 
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 
 void __fastcall DRLGPRESET_LoadDrlgFile(D2DrlgFileStrc**,void*,const char*); // 0x00665F40
 
@@ -596,7 +596,7 @@ void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles)
         memset(sgtDataTables.ppLvlPrestFiles, 0, nSize);
     }
     D2LvlPrestTxt* pRecord = sgtDataTables.pLvlPrestTxt;
-    const int bExpansion = sub_00408F20_HasExpansionMpq();
+    const int bExpansion = FOG_IsExpansion();
     for (int i = 0; i < sgptDataTables->nLvlPrestTxtRecordCount; ++i, ++pRecord)
     {
         if (bExpansion || !pRecord->dwExpansion)
@@ -819,7 +819,7 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
   memset(gppLvlSubDrlgFiles,0,sizeof(D2DrlgFileStrc*)*gnLvlSubTxtRecordCount);
  }
  D2LvlSubTxt* row=gpLvlSubTxt;
- int expansion=sub_00408F20_HasExpansionMpq();
+ int expansion=FOG_IsExpansion();
  for(int i=0;i<gnLvlSubTxtRecordCount;++i,++row) {
   DATATBLS_PrefixPathWithDirectory(gszDirectory_006E867C,row->szFile);
   if((expansion||!row->dwExpansion)&&(loadFiles||extra)) {
@@ -889,7 +889,7 @@ void __fastcall DATATBLS_AllocGlobalTileLibraryHash()
     memset(gppTileLibraryHash_0096CA1C, 0, nSize);
 
     D2TileLibraryHeaderStrc** ppTileLibraryHash = gppTileLibraryHash_0096CA1C;
-    const int bExpansion = sub_00408F20_HasExpansionMpq();
+    const int bExpansion = FOG_IsExpansion();
     for (int i = 0; i < gnLvlTypesTxtRecordCount_0096C9FC; ++i)
     {
         for (int j = 0; j < 32; ++j)

@@ -43,21 +43,21 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile);
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall sub_00406990_DeleteFile(const char* szFileName);
+int __fastcall FOG_DeleteFileA(const char* szFileName); // 0x00406990
 
-int __fastcall sub_004069A0_CloseFile(void* hFile);
+int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
-int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped);
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped);
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
 
-unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod);
+unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
 
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath);
+int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize);
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 extern char gszCharName_007A05C4[]; // 0x007A05C4
 
@@ -124,9 +124,9 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
@@ -319,15 +319,15 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
     char szFileName[0x104] = { 0 };
     char szAccountPath[0x104] = { 0 };
 
-    sub_00407050_GetSavePath(szSavePath, sizeof(szSavePath));
+    FOG_GetSavePath(szSavePath, sizeof(szSavePath));
 
     void* hFile = (void*)-1;
     if (gszAccountFolder_007A0500[0])
     {
         SStrPrintf(szAccountPath, sizeof(szAccountPath), "%s%s\\", szSavePath, gszAccountFolder_007A0500);
-        sub_00406A10_CreateDirectoryTree(szAccountPath);
+        FOG_CreatePathHierarchy(szAccountPath);
         SStrPrintf(szFileName, sizeof(szFileName), "%s%s.map", szAccountPath, gszCharName_007A05C4);
-        hFile = sub_00406960_CreateFile(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
+        hFile = FOG_CreateFileA(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
         if (hFile != (void*)-1)
         {
             SStrCopy(szSavePath, szAccountPath, sizeof(szSavePath));
@@ -337,7 +337,7 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
     if (hFile == (void*)-1)
     {
         sprintf(szFileName, "%s%s.map", szSavePath, gszCharName_007A05C4);
-        hFile = sub_00406960_CreateFile(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
+        hFile = FOG_CreateFileA(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
         if (hFile == (void*)-1)
         {
             return hFile;
@@ -346,7 +346,7 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
 
     D2AutomapFileHeaderStrc tHeader = { 0 };
     unsigned long nBytes = 0;
-    sub_004069B0_ReadFile(hFile, &tHeader, sizeof(tHeader), &nBytes, 0);
+    FOG_ReadFile(hFile, &tHeader, sizeof(tHeader), &nBytes, 0);
 
     int bInvalid = 1;
     if (nBytes == sizeof(tHeader))
@@ -363,7 +363,7 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
         for (int i = 0; i < 4; ++i)
         {
             sprintf(szFileName, "%s%s.ma%d", szSavePath, gszCharName_007A05C4, i);
-            sub_00406990_DeleteFile(szFileName);
+            FOG_DeleteFileA(szFileName);
         }
         nIndex = 0;
     }
@@ -386,16 +386,16 @@ void* __cdecl AUTOMAP_OpenAutomapFile()
         tHeader.nNext = (nIndex + 1) % 4;
         tHeader.nSeeds[nIndex] = gpAutomapRecord_007A0638->nUnk0x00;
         sprintf(szFileName, "%s%s.ma%d", szSavePath, gszCharName_007A05C4, nIndex);
-        sub_00406990_DeleteFile(szFileName);
+        FOG_DeleteFileA(szFileName);
     }
 
-    sub_004069F0_SetFilePointer(hFile, 0, 0, 0);
-    sub_004069D0_WriteFile(hFile, &tHeader, sizeof(tHeader), &nBytes, 0);
+    FOG_SetFilePointer(hFile, 0, 0, 0);
+    FOG_WriteFile(hFile, &tHeader, sizeof(tHeader), &nBytes, 0);
 
 reopen:
-    sub_004069A0_CloseFile(hFile);
+    FOG_CloseFile(hFile);
     sprintf(szFileName, "%s%s.ma%d", szSavePath, gszCharName_007A05C4, nIndex);
-    return sub_00406960_CreateFile(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
+    return FOG_CreateFileA(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
 }
 
 static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
@@ -407,12 +407,12 @@ static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
     }
     unsigned int anOffsets[100] = { 0 };
     unsigned long nCount = 0;
-    sub_004069B0_ReadFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
+    FOG_ReadFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
     if (nCount != sizeof(anOffsets))
     {
         memset(anOffsets, 0, sizeof(anOffsets));
-        sub_004069F0_SetFilePointer(hFile, 0, 0, 0);
-        sub_004069D0_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
+        FOG_SetFilePointer(hFile, 0, 0, 0);
+        FOG_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
     }
     unsigned int nOffset = anOffsets[pSave->nLayerNo];
     unsigned int nEnd = GetFileSize(hFile, 0);
@@ -421,39 +421,39 @@ static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
         unsigned int nPrev;
         do
         {
-            sub_004069F0_SetFilePointer(hFile, nOffset, 0, 0);
+            FOG_SetFilePointer(hFile, nOffset, 0, 0);
             nPrev = nOffset;
-            sub_004069B0_ReadFile(hFile, &nOffset, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &nOffset, 4, &nCount, 0);
         }
         while (nOffset);
-        sub_004069F0_SetFilePointer(hFile, nPrev, 0, 0);
-        sub_004069D0_WriteFile(hFile, &nEnd, 4, &nCount, 0);
+        FOG_SetFilePointer(hFile, nPrev, 0, 0);
+        FOG_WriteFile(hFile, &nEnd, 4, &nCount, 0);
     }
     else
     {
         anOffsets[pSave->nLayerNo] = nEnd;
     }
-    sub_004069F0_SetFilePointer(hFile, 0, 0, 0);
-    sub_004069D0_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
-    sub_004069F0_SetFilePointer(hFile, nEnd, 0, 0);
+    FOG_SetFilePointer(hFile, 0, 0, 0);
+    FOG_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
+    FOG_SetFilePointer(hFile, nEnd, 0, 0);
     nEnd = 0;
-    sub_004069D0_WriteFile(hFile, &nEnd, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nLayerNo, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->fSaved, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nUnk0x08, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->dwFloorSize, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->dwWallsSize, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nObjects, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->dwExtraSize, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &nEnd, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->nLayerNo, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->fSaved, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->nUnk0x08, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->dwFloorSize, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->dwWallsSize, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->nObjects, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->dwExtraSize, 4, &nCount, 0);
     if (pSave->dwFloorSize)
-        sub_004069D0_WriteFile(hFile, pSave->pFloors, pSave->dwFloorSize, &nCount, 0);
+        FOG_WriteFile(hFile, pSave->pFloors, pSave->dwFloorSize, &nCount, 0);
     if (pSave->dwWallsSize)
-        sub_004069D0_WriteFile(hFile, pSave->pWalls, pSave->dwWallsSize, &nCount, 0);
+        FOG_WriteFile(hFile, pSave->pWalls, pSave->dwWallsSize, &nCount, 0);
     if (pSave->nObjects)
-        sub_004069D0_WriteFile(hFile, pSave->pObjects, pSave->nObjects, &nCount, 0);
+        FOG_WriteFile(hFile, pSave->pObjects, pSave->nObjects, &nCount, 0);
     if (pSave->dwExtraSize)
-        sub_004069D0_WriteFile(hFile, pSave->pExtras, pSave->dwExtraSize, &nCount, 0);
-    sub_004069A0_CloseFile(hFile);
+        FOG_WriteFile(hFile, pSave->pExtras, pSave->dwExtraSize, &nCount, 0);
+    FOG_CloseFile(hFile);
 }
 
 void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int* pCount)
@@ -977,7 +977,7 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
         sub_00526320_ToUnicode(wszName, szText, 25);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0x1055));
         sub_00526700(wszLine, wszName);
-        sub_00502320(wszLine, gnAutomapWidth_007A5220 - sub_00501820(wszLine) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+        D2Win_10117_DrawText(wszLine, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszLine) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
         gnAutomapTextY_007A51BC += 0x10;
     }
     const char* szThird = sub_0044B7F0_GetRecordText245();
@@ -987,7 +987,7 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
     sub_00526320_ToUnicode(wszName, szText, 25);
     sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0x1056));
     sub_00526700(wszLine, wszName);
-    sub_00502320(wszLine, gnAutomapWidth_007A5220 - sub_00501820(wszLine) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    D2Win_10117_DrawText(wszLine, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszLine) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
     gnAutomapTextY_007A51BC += 0x10;
 }
 
@@ -998,7 +998,7 @@ void __cdecl AUTOMAP_DrawStringLine()
     for (int i = 0; i < 50; ++i)
         wszText[i].wChar = 0;
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x58CA));
-    sub_00502320(wszText, gnAutomapWidth_007A5220 - sub_00501820(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
     gnAutomapTextY_007A51BC += 0x10;
 }
 
@@ -1011,8 +1011,8 @@ void __cdecl AUTOMAP_DrawVersionLine()
         wszText[i].wChar = 0;
     SStrPrintf(szText, 100, "v %d.%d%c", 1, 14, 100);
     sub_00526320_ToUnicode(wszText, szText, 100);
-    const int nWidth = sub_00501820(wszText);
-    sub_00502320(wszText, gnAutomapWidth_007A5220 - nWidth - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - nWidth - 0x10, gnAutomapTextY_007A51BC, 4, 0);
     gnAutomapTextY_007A51BC += 0x10;
 }
 
@@ -1023,7 +1023,7 @@ void __cdecl AUTOMAP_DrawLocalIpLine()
     for (int i = 0; i < 300; ++i)
         wszText[i].wChar = 0;
     sub_00526320_ToUnicode(wszText, FOG_GetHostIPAddress(), 300);
-    sub_00502320(wszText, gnAutomapWidth_007A5220 - sub_00501820(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
     gnAutomapTextY_007A51BC += 0x10;
 }
 
@@ -1047,7 +1047,7 @@ void __cdecl AUTOMAP_DrawDifficultyLine()
         wszText[i].wChar = 0;
     D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(nString)) + sub_00526800(D2LANG_GetStringFromTblIndex(0x1057)) + 3 < 300, 0xB2A);
     sub_005269D0(300, wszText, D2LANG_GetStringFromTblIndex(0x1057), D2LANG_GetStringFromTblIndex(nString));
-    sub_00502320(wszText, gnAutomapWidth_007A5220 - sub_00501820(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
     gnAutomapTextY_007A51BC += 0x10;
 }
 
@@ -1087,7 +1087,8 @@ void __cdecl AUTOMAP_ReloadAutomapCels()
         sprintf(szPath, "%s\\UI\\AutoMap\\Act4Map", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[2] = sub_004788B0(szPath, 0);
         gnAutomapCelFrames_007A5178[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
-        if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion())
         {
             sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMap", szDataGlobal_006D4118);
             gpAutomapCels_007A5168[3] = sub_004788B0(szPath, 0);
@@ -1143,7 +1144,7 @@ static void __stdcall sub_0045A760_DrawAutomapText(unsigned char nColor, const c
     Unicode wszText[0x17];
     memset(wszText, 0, sizeof(wszText));
     sub_00526320_ToUnicode(wszText, szText, 0x17);
-    sub_00502320(wszText, nX - sub_00501820(wszText) / 2, nY - 10, nColor, 0);
+    D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -1222,7 +1223,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
         {
             const int nOldFont = sub_00502EF0(6);
             const Unicode* wszName = sub_00464A60_GetUnitName(pUnit);
-            sub_00502320(wszName, nX - sub_00501820(wszName) / 2, nY - 10, 4, 0);
+            D2Win_10117_DrawText(wszName, nX - D2Win_10121_GetTextWidth(wszName) / 2, nY - 10, 4, 0);
             sub_00502EF0(nOldFont);
         }
 
@@ -1261,7 +1262,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
         {
             const int nOldFont = sub_00502EF0(6);
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(0xCF3);
-            sub_00502320(wszText, nX - sub_00501820(wszText) / 2, nY - 10, nColor, 0);
+            D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
             sub_00502EF0(nOldFont);
         }
         else

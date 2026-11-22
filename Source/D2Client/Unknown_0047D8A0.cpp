@@ -103,7 +103,8 @@ void __cdecl sub_0047DFD0_FreeOptionMenus()
     sub_0047DF00_FreeOptionCels(&gOptionHeader_00714224, gaOptionEntries_00715CC8);
     sub_0047DF00_FreeOptionCels(&gOptionHeader_00714210, gaOptionEntries_00714238);
     sub_0047DF00_FreeOptionCels(&gOptionHeader_00713044, gaOptionEntries_00713220);
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         sub_0047DF00_FreeOptionCels(&gOptionHeader_0071875C, gaOptionEntries_0071ACA0);
         sub_0047DF00_FreeOptionCels(&gOptionHeader_0071D734, gaOptionEntries_0071F728);

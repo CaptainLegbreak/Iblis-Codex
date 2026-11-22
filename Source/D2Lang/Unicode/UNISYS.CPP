@@ -31,7 +31,7 @@ extern unsigned short* gpCharMapIndex_00882B2C;                                 
 char gszCodePageName_00882AF8[0x28];                                                                        // 0x00882AF8
 
 // 0x00527790
-int __fastcall sub_00527790_LoadCodePageMap(void* hArchive, const char* szPath)
+int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
 {
     char szName[0x28];
     unsigned char* pData = (unsigned char*)sub_00517079_LoadFile(hArchive, szPath, 0, ".\\Unicode\\UNISYS.CPP", 0x61);

@@ -588,7 +588,8 @@ void __fastcall sub_0047E090(int bSaveState, int nMenu)
         gpOptionEntries_007BC940 = gaOptionEntries_00715CC8;
         break;
     case 3:
-        if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion())
         {
             gpOptionHeader_007BC93C = &gOptionHeader_0071875C;
             gpOptionEntries_007BC940 = gaOptionEntries_0071ACA0;
@@ -600,7 +601,7 @@ void __fastcall sub_0047E090(int bSaveState, int nMenu)
         }
         break;
     case 4:
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
             gpOptionHeader_007BC93C = &gOptionHeader_0071D734;
             gpOptionEntries_007BC940 = gaOptionEntries_0071F728;

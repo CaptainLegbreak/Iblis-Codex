@@ -50,7 +50,7 @@ int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 int __cdecl sub_0042FAB0_GetAuxFlag(); // 0x0042FAB0
 void __cdecl sub_004334E0_PlayIntro(); // 0x004334E0
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
-int __fastcall sub_004F9190(); // 0x004F9190
+int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int nMode); // 0x0043C180
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 void __cdecl sub_00435330_ShowLoginScreen(); // 0x00435330
@@ -139,7 +139,8 @@ int __stdcall sub_00434760_ResetAndLeave(int nArg)
 // 0x00434D90
 int __stdcall sub_00434D90_PlayIntroAndLeave(int nArg)
 {
-    if (sub_004F9050())
+// build: symbol ?D2Win_10003@* 0x004F9050
+    if (D2Win_10003())
         sub_00433640_PlayIntroVideo();
     D2Win_10004(1);
     sub_0042FB20();
@@ -214,7 +215,7 @@ void __cdecl sub_00435230_PlayIntroVideos()
     D2Win_10029(0);
     sub_0042F480_Reset();
     sub_004317D0_FlushInput();
-    if (sub_004F9050())
+    if (D2Win_10003())
     {
         if (!sub_0040EB10())
         {
@@ -238,7 +239,8 @@ void __cdecl sub_00435230_PlayIntroVideos()
         }
         else
         {
-            if (sub_00408F20_HasExpansionMpq() && sub_0042FAB0_GetAuxFlag())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+            if (FOG_IsExpansion() && sub_0042FAB0_GetAuxFlag())
                 sub_004334E0_PlayIntro();
         }
     }
@@ -310,7 +312,7 @@ int __stdcall sub_00436360_SubmitCharacter(int nArg)
         *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
         gpLaunchRecord_007795D4->nByte22D = 0;
         gpLaunchRecord_007795D4->nByteD5 = 0;
-        sub_004F9190();
+        D2Win_StopMessageLoop();
         return 1;
     }
     if (gnLaunchMode_007795EC == 0)
@@ -325,7 +327,7 @@ int __stdcall sub_00436360_SubmitCharacter(int nArg)
         if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
             *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
         gnLaunchState_007795E8 = 1;
-        sub_004F9190();
+        D2Win_StopMessageLoop();
         return 1;
     }
     if (gnLaunchMode_007795EC == 2)
@@ -340,7 +342,7 @@ int __stdcall sub_00436360_SubmitCharacter(int nArg)
             *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
         if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
             *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
-        sub_004F9190();
+        D2Win_StopMessageLoop();
         return 1;
     }
     if (gnLaunchMode_007795EC == 1)
@@ -360,7 +362,7 @@ int __stdcall sub_00436590_Back(int nArg)
 int __stdcall sub_00436C70_SendEmptyText(int nArg)
 {
     gpFuncTable_0077ABF0->pfnSlotB8((char*)&gszEmptyAssertText);
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -375,7 +377,7 @@ int __stdcall sub_00436C90_AskConfirm(int nArg)
 int __stdcall sub_00436CD0_SetFlagAndExit(int nArg)
 {
     gdwGlobal_007799D8 = 1;
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 

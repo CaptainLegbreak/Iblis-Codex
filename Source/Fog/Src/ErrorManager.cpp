@@ -75,9 +75,9 @@ bool __cdecl sub_00401B00_LoadDbgHelp(); // 0x00401B00
 
 long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers); // 0x00403E90
 
-void __fastcall sub_0040F5A0_SetLogPrefix(const char* szName); // 0x0040F5A0
+void __fastcall LOGMANAGER_SetLogPrefix(const char* szName); // 0x0040F5A0
 
-void __cdecl sub_0040F8A0_CloseLogFilesNow(); // 0x0040F8A0
+void __cdecl LOGMANAGER_CloseLogFilesNow(); // 0x0040F8A0
 
 extern bool gbMiniDumpEnabled_0098A6B1; // 0x0098A6B1
 
@@ -155,11 +155,11 @@ extern "C" __declspec(dllimport) int __stdcall CreateProcessW(const wchar_t* wsz
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 
-void __cdecl sub_0040F960_CloseLogFiles(); // 0x0040F960
+void __cdecl LOGMANAGER_CloseLogFiles(); // 0x0040F960
 
-const char* __fastcall sub_00408000_StripSourcePath(const char* szFile); // 0x00408000
+const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile); // 0x00408000
 
-int __fastcall sub_004088C0_ReportNestedError(const char* szFile, int nLine, const char* szMessage); // 0x004088C0
+int __fastcall ERRORMANAGER_ReportNestedError(const char* szFile, int nLine, const char* szMessage); // 0x004088C0
 
 bool __cdecl sub_004013A0_IsDebuggerAttached(); // 0x004013A0
 
@@ -187,21 +187,21 @@ struct AsyncDataEventSlot
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
+int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 
-int __fastcall sub_004068F0(void* pArg); // 0x004068F0
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
-int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 
-int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
-int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
+int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 
 void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine); // 0x0040A080
 
-AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot(); // 0x0040A550
+AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot(); // 0x0040A550
 
-void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData); // 0x0040A4C0
+void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData); // 0x0040A4C0
 
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* lpSystemTime); // 0x006CC1D4
 
@@ -231,13 +231,13 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 
-void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7); // 0x00403070
+void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7); // 0x00403070
 
 void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrintFn pfnPrint, void* pContext); // 0x004032F0
 
-void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId); // 0x00403A20
+void __fastcall ERRORMANAGER_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId); // 0x00403A20
 
-void __fastcall sub_00407980_ReportPrint(void* pContext, const char* szText); // 0x00407980
+void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText); // 0x00407980
 
 bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoStrc* pInfo); // 0x00401790
 
@@ -245,7 +245,7 @@ extern long volatile gnReportBusy_007076BC; // 0x007076BC
 
 extern D2InspectorInfoStrc gtInspectorInfo_0074D868; // 0x0074D868
 
-bool __fastcall sub_00408660_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag);
+bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
 
 char gszTextBuffer_0098A280[0x400]; // 0x0098A280
 
@@ -382,7 +382,7 @@ extern "C" int __stdcall getpeername(unsigned int nSocket, void* pAddress, int* 
 
 extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsigned long* pArgument);       // 0x006B015C
 
-void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, int nArg2, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6, int nArg7); // 0x00403070
+void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, int nArg2, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6, int nArg7); // 0x00403070
 
 void __cdecl sub_00409020_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
 
@@ -438,7 +438,7 @@ extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                    
 extern "C" unsigned int __stdcall socket(int nFamily, int nType, int nProtocol);                            // 0x006B016E
 
 // 0x004013C0
-void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nExitCode)
+void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nExitCode)
 {
     TerminateProcess(GetCurrentProcess(), nExitCode);
 }
@@ -446,7 +446,7 @@ void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nExitCode)
 int sgfAsyncDataEnabled; // 0x0075AF94
 
 // 0x004013D0
-int __cdecl sub_004013D0_GetCurrentProcessThreadCount()
+int __cdecl ERRORMANAGER_GetProcessThreadCount()
 {
     const unsigned long dwProcessId = GetCurrentProcessId();
     void* hSnapshot = CreateToolhelp32Snapshot(0x0F, 0);
@@ -466,13 +466,13 @@ int __cdecl sub_004013D0_GetCurrentProcessThreadCount()
 }
 
 // 0x00401690
-unsigned long __cdecl sub_00401690_GetCurrentThreadId()
+unsigned long __cdecl ERRORMANAGER_GetCurrentThreadId()
 {
     return GetCurrentThreadId();
 }
 
 // 0x00401740
-void __fastcall sub_00401740_SetText(const char* szText)
+void __fastcall ERRORMANAGER_SetReportText(const char* szText)
 {
     char* pDest = gszTextBuffer_0098A280;
     const char* pSource = szText;
@@ -508,14 +508,14 @@ char* __cdecl strrchr(char* szString, int nChar)
 }
 
 // 0x00401A40
-void* __stdcall sub_00401A40_LockSymbols(void* pArg)
+void* __stdcall ERRORMANAGER_LockSymbols(void* pArg)
 {
     EnterCriticalSection(&gtSymbolLock_0098A6F0);
     return pArg;
 }
 
 // 0x00402C10
-int __cdecl sub_00402C10_CompareUInt(const void* p1, const void* p2)
+int __cdecl ERRORMANAGER_CompareUInt(const void* p1, const void* p2)
 {
     const unsigned int a = *(const unsigned int*)p1;
     const unsigned int b = *(const unsigned int*)p2;
@@ -531,7 +531,7 @@ int __cdecl sub_00402C10_CompareUInt(const void* p1, const void* p2)
 }
 
 // 0x00403A20
-void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId)
+void __fastcall ERRORMANAGER_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId)
 {
     D2ThreadEntryStrc tEntry = {};
     tEntry.dwSize = sizeof(tEntry);
@@ -547,7 +547,7 @@ void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pCo
         {
             if (tEntry.th32OwnerProcessID == dwProcessId && tEntry.th32ThreadID != dwSkipThreadId)
             {
-                sub_00403070_DumpThread(tEntry.th32ThreadID, 0, pfnPrint, pContext, 1, 1, 0);
+                ERRORMANAGER_DumpThread(tEntry.th32ThreadID, 0, pfnPrint, pContext, 1, 1, 0);
                 pfnPrint(pContext, gszNewline_006FFCB0);
             }
         }
@@ -559,7 +559,7 @@ void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pCo
 bool __fastcall sub_00402820_WriteMiniDump(const char* szPath, const char* szComment, void* pExceptionPointers, unsigned long dwThreadId); // 0x00402820
 
 // 0x00403F60
-void __fastcall sub_00403F60_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused)
+void __fastcall ERRORMANAGER_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused)
 {
     gpfnCrashHandler_00992B10 = pfnHandler;
     gpCrashContext_00992B14 = pContext;
@@ -578,7 +578,7 @@ void __fastcall sub_00403F60_SetCrashHandler(void* pfnHandler, void* pContext, i
 }
 
 // 0x00404210
-bool __fastcall sub_00404210_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine)
+bool __fastcall ERRORMANAGER_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine)
 {
     wchar_t wszCmdLine[0x8000];
     wchar_t wszApp[0x400];
@@ -601,7 +601,7 @@ bool __fastcall sub_00404210_CreateProcessUtf8(const char* szApplicationName, co
 }
 
 // 0x004043C0
-_iobuf* __stdcall sub_004043C0_OpenUtf8FileForWrite(const char* szPath)
+_iobuf* __stdcall ERRORMANAGER_OpenFileForWriteUtf8(const char* szPath)
 {
     wchar_t wszPath[0x104];
     wchar_t wszMode[0x20];
@@ -617,7 +617,7 @@ _iobuf* __stdcall sub_004043C0_OpenUtf8FileForWrite(const char* szPath)
 }
 
 // 0x00404560
-bool __fastcall sub_00404560_UseWidePath(wchar_t* wszPath)
+bool __fastcall ERRORMANAGER_CreateDirectoryWide(wchar_t* wszPath)
 {
     if (CreateDirectoryW(wszPath, 0))
     {
@@ -638,7 +638,7 @@ bool __fastcall sub_00404560_UseWidePath(wchar_t* wszPath)
         return false;
     }
     *pSeparator = 0;
-    if (!sub_00404560_UseWidePath(wszPath))
+    if (!ERRORMANAGER_CreateDirectoryWide(wszPath))
     {
         return false;
     }
@@ -660,7 +660,7 @@ int __stdcall GetCmdIndex(const char* s)
 }
 
 // 0x004055D0
-int __fastcall sub_004055D0_IsCmdSeparator(char c)
+int __fastcall ERRORMANAGER_IsCmdSeparator(char c)
 {
     const char aSeparators[4] = { ' ', '\t', '\n', ':' };
     for (int i = 0; i < 4; i++)
@@ -693,43 +693,43 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode)
 }
 
 // 0x00406960
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile)
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile)
 {
     return CreateFileA(szFileName, dwDesiredAccess, dwShareMode, pSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
 // 0x00406990
-int __fastcall sub_00406990_DeleteFile(const char* szFileName)
+int __fastcall FOG_DeleteFileA(const char* szFileName)
 {
     return DeleteFileA(szFileName);
 }
 
 // 0x004069A0
-int __fastcall sub_004069A0_CloseFile(void* hFile)
+int __fastcall FOG_CloseFile(void* hFile)
 {
     return CloseHandle(hFile);
 }
 
 // 0x004069B0
-int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped)
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped)
 {
     return ReadFile(hFile, pBuffer, nToRead, pnRead, pOverlapped);
 }
 
 // 0x004069D0
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped)
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped)
 {
     return WriteFile(hFile, pBuffer, nToWrite, pnWritten, pOverlapped);
 }
 
 // 0x004069F0
-unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod)
+unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod)
 {
     return SetFilePointer(hFile, nDistance, pnDistanceHigh, dwMoveMethod);
 }
 
 // 0x00406B20
-int __fastcall sub_00406B20_AppendBackslash(char* szPath, unsigned int nSize)
+int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize)
 {
     if (szPath && nSize)
     {
@@ -749,7 +749,7 @@ int __fastcall sub_00406B20_AppendBackslash(char* szPath, unsigned int nSize)
 }
 
 // 0x00406B60
-int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize)
+int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize)
 {
     const unsigned long nLength = GetModuleFileNameA(0, szPath, nSize);
     if (nLength && nLength != nSize)
@@ -809,7 +809,7 @@ int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize)
 }
 
 // 0x00407310
-char* __cdecl sub_00407310_Sprintf(char* szDest, const char* szFormat, ...)
+char* __cdecl ERRORMANAGER_Sprintf(char* szDest, const char* szFormat, ...)
 {
     va_list args;
     va_start(args, szFormat);
@@ -818,7 +818,7 @@ char* __cdecl sub_00407310_Sprintf(char* szDest, const char* szFormat, ...)
 }
 
 // 0x00407330
-char* __cdecl sub_00407330_SprintfN(char* szDest, int nSize, const char* szFormat, ...)
+char* __cdecl ERRORMANAGER_SprintfN(char* szDest, int nSize, const char* szFormat, ...)
 {
     va_list args;
     va_start(args, szFormat);
@@ -828,13 +828,13 @@ char* __cdecl sub_00407330_SprintfN(char* szDest, int nSize, const char* szForma
 }
 
 // 0x00407360
-T004013C0* __cdecl sub_00407360_GetSystemInfo()
+T004013C0* __cdecl FOG_GetSystemInfo()
 {
     return gtSystemInfo_0074D88C.f_0 ? &gtSystemInfo_0074D88C : 0;
 }
 
 // 0x00407440
-void __fastcall sub_00407440_JulianToDate(long nJulian, int* pYear, int* pMonth, int* pDay)
+void __fastcall ERRORMANAGER_JulianDayToDate(long nJulian, int* pYear, int* pMonth, int* pDay)
 {
     long ja;
     if (nJulian >= 588829)
@@ -870,11 +870,11 @@ void __fastcall sub_00407440_JulianToDate(long nJulian, int* pYear, int* pMonth,
 // 0x00407960
 void __fastcall FOG_SetLogPrefix(const char* szLogPrefix)
 {
-    sub_0040F5A0_SetLogPrefix(szLogPrefix);
+    LOGMANAGER_SetLogPrefix(szLogPrefix);
 }
 
 // 0x00407A20
-bool __fastcall sub_00407A20_GetProcessImageName(unsigned long dwProcessId, char* szName, unsigned long nSize)
+bool __fastcall ERRORMANAGER_GetProcessImageName(unsigned long dwProcessId, char* szName, unsigned long nSize)
 {
     bool bResult;
     void* hProcess = OpenProcess(0x410, 0, dwProcessId);
@@ -890,10 +890,10 @@ bool __fastcall sub_00407A20_GetProcessImageName(unsigned long dwProcessId, char
     return bResult;
 }
 
-void __cdecl sub_00407970_ForceCrash(); // 0x00407970
+void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 
 // 0x00408000
-const char* __fastcall sub_00408000_StripSourcePath(const char* szFile)
+const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szFile)
 {
     if (gnSourcePrefixLength_0074F0D4 == 0)
     {
@@ -932,7 +932,7 @@ void __cdecl sub_00408080_Empty()
 }
 
 // 0x004080B0
-static __declspec(noinline) void __stdcall sub_004080B0_DebugPrintV(unsigned int nFlags, const char* szFormat, va_list args)
+static __declspec(noinline) void __stdcall ERRORMANAGER_DebugPrintV(unsigned int nFlags, const char* szFormat, va_list args)
 {
     char szBuffer[0x1000];
     szBuffer[0] = 0;
@@ -960,7 +960,7 @@ static __declspec(noinline) void __stdcall sub_004080B0_DebugPrintV(unsigned int
 }
 
 // 0x004081A0
-void __cdecl sub_004081A0_DebugPrintf(const char* szFormat, ...)
+void __cdecl ERRORMANAGER_DebugPrintf(const char* szFormat, ...)
 {
     char szBuffer[0x1000];
     szBuffer[0] = 0;
@@ -973,7 +973,7 @@ void __cdecl sub_004081A0_DebugPrintf(const char* szFormat, ...)
 }
 
 // 0x00408220
-void __cdecl sub_00408220_DebugPrintfIfCapsLock(const char* szFormat, ...)
+void __cdecl ERRORMANAGER_DebugPrintfIfCapsLock(const char* szFormat, ...)
 {
     if (GetAsyncKeyState(0x14) & 1)
     {
@@ -989,15 +989,15 @@ void __cdecl sub_00408220_DebugPrintfIfCapsLock(const char* szFormat, ...)
 }
 
 // 0x004082A0
-void __cdecl sub_004082A0_DebugPrintf(unsigned int nFlags, const char* szFormat, ...)
+void __cdecl ERRORMANAGER_DebugPrintFlags(unsigned int nFlags, const char* szFormat, ...)
 {
-    sub_004080B0_DebugPrintV(nFlags, szFormat, (va_list)(&szFormat + 1));
+    ERRORMANAGER_DebugPrintV(nFlags, szFormat, (va_list)(&szFormat + 1));
 }
 
 // 0x004082C0
-void __cdecl sub_004082C0_DebugPrintfLog(const char* szFormat, ...)
+void __cdecl ERRORMANAGER_DebugPrintLog(const char* szFormat, ...)
 {
-    sub_004080B0_DebugPrintV(1, szFormat, (va_list)(&szFormat + 1));
+    ERRORMANAGER_DebugPrintV(1, szFormat, (va_list)(&szFormat + 1));
 }
 
 namespace crashy
@@ -1007,11 +1007,11 @@ class Report
 public:
     Report();                                                               // 0x00401070
     virtual ~Report();                                                      // 0x004010D0
-    bool sub_00401100_Open(const char* szFileName);                         // 0x00401100
+    bool OpenReport(const char* szFileName);                         // 0x00401100
     bool sub_004011F0_Close();                                              // 0x004011F0
     bool sub_00401220_AddFile(const char* szPath, bool bFlag);              // 0x00401220
     int sub_00401380(const char* szFormat, ...);                                  // 0x00401380
-    bool sub_00407A80_WriteInspectorHeader();                               // 0x00407A80
+    bool WriteInspectorHeader();                               // 0x00407A80
 
     _iobuf* m_pFile;
     char m_szText08[0x400];
@@ -1024,7 +1024,7 @@ public:
 int gdwGlobal_0074F0C8; // 0x0074F0C8
 
 // 0x00408660
-bool __fastcall sub_00408660_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag)
+bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag)
 {
     crashy::Report tReport;
     const long nBusy = InterlockedIncrement(&gnReportBusy_007076BC);
@@ -1036,14 +1036,14 @@ bool __fastcall sub_00408660_ShowErrorReport(const char* szSummary, const char* 
     }
 
     gdwGlobal_0074F0C8 = 1;
-    if (!tReport.sub_00401100_Open("Crash.txt"))
+    if (!tReport.OpenReport("Crash.txt"))
     {
         gdwGlobal_0074F0C8 = 0;
         InterlockedDecrement(&gnReportBusy_007076BC);
         return false;
     }
 
-    tReport.sub_00407A80_WriteInspectorHeader();
+    tReport.WriteInspectorHeader();
     tReport.sub_00401380("<Inspector.Summary:>\n%s\n<:Inspector.Summary>\n", szSummary);
     if (nLine > 0)
     {
@@ -1051,12 +1051,12 @@ bool __fastcall sub_00408660_ShowErrorReport(const char* szSummary, const char* 
     }
     tReport.sub_00401380("<Inspector.Assertion:>\n");
     const unsigned long dwThreadId = GetCurrentThreadId();
-    sub_00403070_DumpThread(dwThreadId, 0, sub_00407980_ReportPrint, &tReport, nBusy, 1, 4);
+    ERRORMANAGER_DumpThread(dwThreadId, 0, ERRORMANAGER_ReportPrint, &tReport, nBusy, 1, 4);
     tReport.sub_00401380("<:Inspector.Assertion>\n");
     tReport.sub_00401380("Registers:\n");
-    sub_004032F0_DumpRegisters(dwThreadId, sub_00407980_ReportPrint, &tReport);
+    sub_004032F0_DumpRegisters(dwThreadId, ERRORMANAGER_ReportPrint, &tReport);
     tReport.sub_00401380("Threads:\n");
-    sub_00403A20_DumpOtherThreads(sub_00407980_ReportPrint, &tReport, dwThreadId);
+    ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint, &tReport, dwThreadId);
 
     const char** ppszEnd = ppszFiles + nFiles;
     for (const char** ppszFile = ppszFiles; ppszFile != ppszEnd; ++ppszFile)
@@ -1088,7 +1088,7 @@ bool __fastcall sub_00408660_ShowErrorReport(const char* szSummary, const char* 
 }
 
 // 0x00408900
-void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...)
+void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...)
 {
     char szMessage[0x1000];
     char szText[0x1000];
@@ -1097,7 +1097,7 @@ void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nL
     {
         szFile = ".\\Src\\ErrorManager.cpp";
     }
-    if (sub_004088C0_ReportNestedError(szFile, nLine, szFormat))
+    if (ERRORMANAGER_ReportNestedError(szFile, nLine, szFormat))
     {
         return;
     }
@@ -1107,15 +1107,15 @@ void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nL
         szFormat = "<no reason given>";
     }
     sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStringFormat_006FFC58, "---finished error callback---\n");
-    sub_0040F960_CloseLogFiles();
+    LOGMANAGER_CloseLogFiles();
     int bFatal = nErrorType == 5 || nErrorType == 6 || nErrorType == 2;
     if (!sub_004013A0_IsDebuggerAttached())
     {
         va_list args;
         va_start(args, szFormat);
         SStrPrintf(szMessage, sizeof(szMessage), szFormat, args);
-        SStrPrintf(szText, sizeof(szText), "[%s] (%s) failed at %s(%i)", gaszErrorTypeNames_00706654[nErrorType], szMessage, sub_00408000_StripSourcePath(szFile), nLine);
-        sub_00408660_ShowErrorReport(szText, szMessage, 0, 0, nLine, 0);
+        SStrPrintf(szText, sizeof(szText), "[%s] (%s) failed at %s(%i)", gaszErrorTypeNames_00706654[nErrorType], szMessage, ERRORMANAGER_StripSourcePath(szFile), nLine);
+        ERRORMANAGER_ShowErrorReport(szText, szMessage, 0, 0, nLine, 0);
     }
     if (!bFatal)
     {
@@ -1124,7 +1124,7 @@ void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nL
 }
 
 // 0x00409770
-void* __fastcall sub_00409770_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine)
+void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine)
 {
     int* pBlock = (int*)malloc(nSize + 4);
     if (!pBlock)
@@ -1141,7 +1141,7 @@ void* __fastcall sub_00409770_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
 }
 
 // 0x00409810
-void __fastcall sub_00409810_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBlock, const char* szFile, int nLine)
+void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBlock, const char* szFile, int nLine)
 {
     pBlock -= 1;
     const int nBucket = (int)pBlock % 1023;
@@ -1172,7 +1172,7 @@ void __fastcall sub_00409810_PoolFreeLarge(D2PoolSystemStrc* pSystem, int* pBloc
 
 
 // 0x0040B1B0
-int __fastcall sub_0040B1B0(unsigned char* pOut, int nOutSize, const unsigned char* pIn, int nInSize)
+int __fastcall FOG_CompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, int nInSize)
 {
     unsigned char* pStart = pOut;
     unsigned char nAcc = 0;
@@ -1213,7 +1213,7 @@ int __fastcall sub_0040B1B0(unsigned char* pOut, int nOutSize, const unsigned ch
 }
 
 // 0x0040B260
-int __fastcall sub_0040B260(unsigned char* pOut, int nOutSize, const unsigned char* pIn, unsigned int nInSize)
+int __fastcall FOG_DecompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, unsigned int nInSize)
 {
     unsigned char* pStart = pOut;
     unsigned int nWindow = 0;
@@ -1315,7 +1315,7 @@ int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int*
 }
 
 // 0x0040DF20
-int __fastcall sub_0040DF20_SOCKET_GetSockName(FSafeSock* pSafeSock, void* pAddress, int* pnLength)
+int __fastcall FOG_SOCKET_GetSockName(FSafeSock* pSafeSock, void* pAddress, int* pnLength)
 {
     EnterCriticalSection(&pSafeSock->tCriticalSection);
     const int nResult = getsockname(pSafeSock->nSocket, (D2SockAddrInStrc*)pAddress, pnLength);
@@ -1332,21 +1332,21 @@ int __fastcall FOG_SOCKET_SetBlockingMode(FSafeSock* pSafeSock, int bNonBlocking
 }
 
 // 0x0040E1D0
-int __fastcall sub_0040E1D0_SOCKET_SetNonBlocking(FSafeSock* pSafeSock)
+int __fastcall FOG_SOCKET_SetNonBlocking(FSafeSock* pSafeSock)
 {
     unsigned long nArgument = 1;
     return ioctlsocket(pSafeSock->nSocket, 0x8004667E, &nArgument);
 }
 
 // 0x0040E200
-int __fastcall sub_0040E200_SOCKET_SetBlocking(FSafeSock* pSafeSock)
+int __fastcall FOG_SOCKET_SetBlocking(FSafeSock* pSafeSock)
 {
     unsigned long nArgument = 0;
     return ioctlsocket(pSafeSock->nSocket, 0x8004667E, &nArgument);
 }
 
 // 0x0040E870
-int __cdecl sub_0040E870_MeasureCpuMHz()
+int __cdecl ERRORMANAGER_MeasureCpuMHz()
 {
     int nPriority = GetThreadPriority(GetCurrentThread());
     if (nPriority != 0x7FFFFFFF)
@@ -1376,7 +1376,7 @@ int __cdecl sub_0040E870_MeasureCpuMHz()
 }
 
 // 0x004068F0
-int __fastcall sub_004068F0(void* pArg)
+int __fastcall FOG_FCloseFile(void* pArg)
 {
     return SFileCloseFile(pArg);
 }

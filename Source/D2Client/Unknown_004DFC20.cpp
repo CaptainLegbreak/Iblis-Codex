@@ -45,10 +45,10 @@ float __stdcall sub_004E4130_Length2D(float fX, float fY); // 0x004E4130
 int __cdecl sub_00514CC0(); // 0x00514CC0
 int __cdecl sub_00514CF0(); // 0x00514CF0
 int __cdecl sub_00514D20(); // 0x00514D20
-void __fastcall sub_005157B0_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
-void __fastcall sub_00515890_SetSoundPan(D2SoundStrc* pSound, int nPan); // 0x00515890
-void __fastcall sub_00515950_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z); // 0x00515950
-void __fastcall sub_00515A90_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation); // 0x00515A90
+void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
+void __fastcall D2SOUND_SetSoundPan(D2SoundStrc* pSound, int nPan); // 0x00515890
+void __fastcall D2SOUND_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z); // 0x00515950
+void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation); // 0x00515A90
 void __fastcall sub_00516830_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
 extern int gnSfxVolume_00727564; // 0x00727564
 extern int gnEnvVolume_00727568; // 0x00727568
@@ -129,15 +129,15 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
         int nPanVolume;
         int nPan;
         sub_00516830_GetPositionalVolumePan(&nPanVolume, &nPan, fX, fY, fZ);
-        sub_00515890_SetSoundPan(pSlot->pSound, nPan);
+        D2SOUND_SetSoundPan(pSlot->pSound, nPan);
         nFinal = nPanVolume * nFinal / 255;
     }
 
     if (pSlot->nType & 2)
-        sub_00515950_SetSoundPosition(pSlot->pSound, fX, fY, fZ);
+        D2SOUND_SetSoundPosition(pSlot->pSound, fX, fY, fZ);
 
-    sub_00515A90_SetSoundAttenuation(pSlot->pSound, pObject->fAttenuation);
-    sub_005157B0_SetSoundVolume(pSlot->pSound, nFinal);
+    D2SOUND_SetSoundAttenuation(pSlot->pSound, pObject->fAttenuation);
+    D2SOUND_SetSoundVolume(pSlot->pSound, nFinal);
     pSlot->tPos = *pPos;
     pSlot->nVolume = nVolume;
     pSlot->fAttenuation = pObject->fAttenuation;

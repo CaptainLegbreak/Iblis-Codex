@@ -99,9 +99,9 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x004064
 
 int __fastcall GameInit(int argc, const char** argv); // 0x004064C0
 
-int __cdecl sub_00406650_StartServiceDispatcher(); // 0x00406650
+int __cdecl ERRORMANAGER_StartServiceDispatcher(); // 0x00406650
 
-int __cdecl sub_004061C0_DenyProcessAccess(); // 0x004061C0
+int __cdecl ERRORMANAGER_DenyProcessAccess(); // 0x004061C0
 
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
@@ -228,11 +228,11 @@ D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); /
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
 int __fastcall D2Win_10082(D2WinControlStrc* pEditBox); // 0x004FDD00
 
-int __fastcall sub_004F9190(); // 0x004F9190
+int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 
@@ -250,7 +250,7 @@ extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
 
-void __cdecl sub_00515020_FadeOutWaves(); // 0x00515020
+void __cdecl D2SOUND_FadeOutWaves(); // 0x00515020
 
 void __cdecl sub_0043B080();
 
@@ -683,12 +683,12 @@ extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpC
 {
     ghCurrentProcess_0074C718 = hInstance;
     gnCmdShow_0074C71C = nShowCmd;
-    if (!sub_00406650_StartServiceDispatcher())
+    if (!ERRORMANAGER_StartServiceDispatcher())
     {
         const char* argv[2];
         argv[0] = "d2server";
         argv[1] = lpCmdLine;
-        sub_004061C0_DenyProcessAccess();
+        ERRORMANAGER_DenyProcessAccess();
         GameInit(2, argv);
     }
     return 0;
@@ -796,7 +796,8 @@ void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* s
 unsigned __int64 __cdecl sub_004107F0_GetSaveDiskFreeSpace()
 {
     char szPath[0x400];
-    sub_00407050_GetSavePath(szPath, sizeof(szPath));
+// build: symbol ?FOG_GetSavePath@* 0x00407050
+    FOG_GetSavePath(szPath, sizeof(szPath));
     void* hKernel = LoadLibraryA(gszKernel32_006CD6E4);
     if (hKernel)
     {
@@ -861,7 +862,8 @@ void __cdecl sub_0042EF50_FreeFrontEndCells()
     ARCHIVE_FreeCellFile(gpCellFile_00779754);
     ARCHIVE_FreeCellFile(gpCellFile_00779758);
     ARCHIVE_FreeCellFile(gpCellFile_0077975C);
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         ARCHIVE_FreeCellFile(gpCellFile_0077972C);
         ARCHIVE_FreeCellFile(gpCellFile_00779730);
@@ -917,7 +919,7 @@ void __cdecl sub_0042EF50_FreeFrontEndCells()
             ARCHIVE_FreeCellFile(gapCellFiles_00779888[i]);
         ARCHIVE_FreeCellFile(gpCellFile_007798B0);
         ARCHIVE_FreeCellFile(gpCellFile_007798C4);
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
             for (int i = 0; i < 5; ++i)
                 ARCHIVE_FreeCellFile(gapCellFiles_007797E0[i]);
@@ -1135,7 +1137,7 @@ void __cdecl sub_004301A0()
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1469));
     pControl = sub_0042F430_CreateControl(0x1C);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2A52));
-    if (!sub_00408F20_HasExpansionMpq())
+    if (!FOG_IsExpansion())
     {
         pControl = sub_0042F430_CreateControl(0x1F);
         sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1466), 0, 0, 0);
@@ -1161,16 +1163,16 @@ void __cdecl sub_004301A0()
     {
         if (gpLaunchRecord_007795D4->szPassword[0])
         {
-            sub_004F91C0(gpEdit_007795A8);
+            CONTROL_SetFocusedEditBox(gpEdit_007795A8);
         }
         else
         {
-            sub_004F91C0(gpEdit_00779334);
+            CONTROL_SetFocusedEditBox(gpEdit_00779334);
         }
     }
     else
     {
-        sub_004F91C0(gpEdit_0077958C);
+        CONTROL_SetFocusedEditBox(gpEdit_0077958C);
     }
 
     sub_004FDDD0_LinkTab(gpEdit_0077958C, gpEdit_00779334);
@@ -1196,7 +1198,7 @@ void __cdecl sub_00430390_CreateScreenControls()
 int __stdcall sub_00430400_PollSlot4C(int nArg)
 {
     if (gpFuncTable_0077ABF0->pfnSlot4C() == 0x65 || gdwGlobal_0077932C)
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -1271,7 +1273,7 @@ int __stdcall sub_00430750_ToggleFlag40(int nArg)
 // 0x00430770
 int __stdcall sub_00430770_ToggleFlag20(int nArg)
 {
-    if (!sub_00408F20_HasExpansionMpq())
+    if (!FOG_IsExpansion())
         return 0;
     *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF ^= 0x20;
     return 1;
@@ -1303,7 +1305,7 @@ int __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nS
 // 0x004308A0
 int __stdcall sub_004308A0_ExpansionNotice6(D2MenuCallbackArgStrc* pArg)
 {
-    if (!sub_00408F20_HasExpansionMpq())
+    if (!FOG_IsExpansion())
     {
         return 0;
     }
@@ -1314,7 +1316,7 @@ int __stdcall sub_004308A0_ExpansionNotice6(D2MenuCallbackArgStrc* pArg)
 // 0x004308E0
 int __stdcall sub_004308E0_ExpansionNotice5(D2MenuCallbackArgStrc* pArg)
 {
-    if (!sub_00408F20_HasExpansionMpq())
+    if (!FOG_IsExpansion())
     {
         return 0;
     }
@@ -1375,7 +1377,7 @@ int __stdcall sub_00430BB0_AlwaysOne(int nArg)
 // 0x00430C30
 int __stdcall sub_00430C30_OnCancel(int nArg)
 {
-    sub_00515020_FadeOutWaves();
+    D2SOUND_FadeOutWaves();
     sub_0042F480_Reset();
     sub_0043B080_InitCharSelectScreen();
     return 1;
@@ -1410,7 +1412,7 @@ int __stdcall sub_004312C0_CreateCreditsScreen(int nUnused)
     sub_0042F2E0_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     sub_0042F430_CreateControl(0x29);
     sub_0042F430_CreateControl(0x2A);
-    if (!sub_00408F20_HasExpansionMpq())
+    if (!FOG_IsExpansion())
     {
         gpList_0077995C = sub_0042F430_CreateControl(0x2B);
         gpList_00779960 = sub_0042F430_CreateControl(0x2C);
@@ -1472,22 +1474,23 @@ void __stdcall sub_004313D0(int nLevel)
     switch (nLevel)
     {
     default:
-        sub_004F96F0_ControlClearState(pField1, 0);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(pField1, 0);
         sub_005009D0_SetValue(pField1, 10, wszEmpty, 0);
     case 2:
-        sub_004F96F0_ControlClearState(pField2, 0);
+        CONTROL_SetEnabled(pField2, 0);
         sub_005009D0_SetValue(pField2, 10, wszEmpty, 0);
     case 3:
-        sub_004F96F0_ControlClearState(pField3, 0);
+        CONTROL_SetEnabled(pField3, 0);
         sub_005009D0_SetValue(pField3, 10, wszEmpty, 0);
     case 4:
-        sub_004F96F0_ControlClearState(pField4, 0);
+        CONTROL_SetEnabled(pField4, 0);
         sub_005009D0_SetValue(pField4, 10, wszEmpty, 0);
     case 5:
-        sub_004F96F0_ControlClearState(pField5, 0);
+        CONTROL_SetEnabled(pField5, 0);
         sub_005009D0_SetValue(pField5, 10, wszEmpty, 0);
     case 6:
-        sub_004F96F0_ControlClearState(pField6, 0);
+        CONTROL_SetEnabled(pField6, 0);
         sub_005009D0_SetValue(pField6, 10, wszEmpty, 0);
     case 7:
         break;
@@ -1554,7 +1557,7 @@ int __stdcall sub_00431930_RunAndSetFlag(int nArg)
 int __stdcall sub_00431950_LoopCallback(int nArg)
 {
     if (gnFlag_007798D0 || gnFlag_007798D4)
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -1620,7 +1623,7 @@ int __stdcall sub_00431C30_Leave(int nArg)
 {
     gnLaunchState_007795E8 = 0;
     sub_00515F50(0xB4);
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -1644,7 +1647,7 @@ void __fastcall sub_00431C60_HandleModeMessage(unsigned char* pMsg, int nSize)
 // 0x00431D10
 int __stdcall sub_00431D10_ClearLoop(int nArg)
 {
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -1662,7 +1665,7 @@ int __stdcall sub_00431D20_CreateTcpIpScreen(int nArg)
     if (!gszAddress_007795F8[0])
         SRegLoadString("Diablo II", "LastTcpIp", 0, gszAddress_007795F8, 0x100);
     sub_004FFE10_SetTextA(gpAddressEdit_00779958, gszAddress_007795F8);
-    sub_004F91C0(gpAddressEdit_00779958);
+    CONTROL_SetFocusedEditBox(gpAddressEdit_00779958);
     D2Win_10082(gpAddressEdit_00779958);
     sub_004FA450_SetActive(sub_0042F3A0_CreateFromTemplate(0x110));
     sub_0042F3A0_CreateFromTemplate(0x111);
@@ -1686,13 +1689,13 @@ int __stdcall sub_00431E30_PollConnection(int nArg)
     if (!nStatus)
     {
         gbConnected_0077959C = nStatus;
-        sub_004F9190();
+        D2Win_StopMessageLoop();
         return 1;
     }
     if (nStatus == 2)
     {
         gbConnected_0077959C = 1;
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     }
     return 1;
 }
@@ -1748,7 +1751,7 @@ void __cdecl sub_I03_Emit_00431E70(char nMode)
 // 0x00431F50
 int __stdcall sub_00431F50_OnCancel(int nArg)
 {
-    sub_00515020_FadeOutWaves();
+    D2SOUND_FadeOutWaves();
     sub_0042F480_Reset();
     sub_0043B080();
     return 1;
@@ -1757,7 +1760,7 @@ int __stdcall sub_00431F50_OnCancel(int nArg)
 // 0x00432020
 int __stdcall sub_00432020_OnCancel(int nArg)
 {
-    sub_00515020_FadeOutWaves();
+    D2SOUND_FadeOutWaves();
     sub_0042F480_Reset();
     sub_0043B080_InitCharSelectScreen();
     return 1;
@@ -1766,7 +1769,7 @@ int __stdcall sub_00432020_OnCancel(int nArg)
 // 0x00432040
 int __stdcall sub_00432040_OnCancel2(int nArg)
 {
-    sub_00515020_FadeOutWaves();
+    D2SOUND_FadeOutWaves();
     sub_0042F480_Reset();
     sub_0043B080_InitCharSelectScreen();
     return 1;
@@ -1813,7 +1816,7 @@ void __cdecl sub_00432100_CreateLoginScreen()
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B2D));
     pControl = sub_0042F430_CreateControl(0x1E);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B2E));
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
         pControl = sub_0042F430_CreateControl(0x21);
     else
         pControl = sub_0042F430_CreateControl(0x1F);
@@ -1830,9 +1833,9 @@ void __cdecl sub_00432100_CreateLoginScreen()
     gpEdit_007795A8 = sub_0042F430_CreateControl(0x5C);
     sub_004FDD50_SetMaxLength(gpEdit_007795A8, 0xD);
     if (gpLaunchRecord_007795D4->szAccount[0] != 0x0)
-        sub_004F91C0(gpEdit_00779334);
+        CONTROL_SetFocusedEditBox(gpEdit_00779334);
     else
-        sub_004F91C0(gpEdit_0077958C);
+        CONTROL_SetFocusedEditBox(gpEdit_0077958C);
     sub_004FDDD0_LinkTab(gpEdit_0077958C, gpEdit_00779334);
     sub_004FDDD0_LinkTab(gpEdit_00779334, gpEdit_00779340);
     sub_004FDDD0_LinkTab(gpEdit_00779340, gpEdit_007795A8);
@@ -1907,7 +1910,7 @@ int __stdcall sub_00432450_OnWait(int nArg)
     if (gdwGlobal_00779974)
         gnWaitDone_00779994 = 1;
     if (sub_00432400_GetStatus() != 3)
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -2003,7 +2006,7 @@ int __stdcall sub_00432FA0_OnReceiveA(int nArg)
     if (sub_00449C10() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         sub_00449C20_SetValue(0);
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     }
     return 1;
 }
@@ -2015,7 +2018,7 @@ int __stdcall sub_00432FE0_OnReceiveB(int nArg)
     if (sub_00449C30() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         sub_00449C40_SetValue(0);
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     }
     return 1;
 }
@@ -2046,7 +2049,7 @@ int __stdcall sub_00433020_PollConnectA(int nArg)
     if (sub_00449C50() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         sub_00449C60_SetValue(0);
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     }
     return 1;
 }
@@ -2058,7 +2061,7 @@ int __stdcall sub_00433060_PollConnectB(int nArg)
     if (sub_00449C70() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
     {
         sub_00449C80_SetValue(0);
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     }
     return 1;
 }
@@ -2169,7 +2172,7 @@ int __stdcall sub_00435CD0_SelectMode0(int nArg)
     gnLaunchMode_007795EC = 0;
     if (sub_00430BC0_HasSaveFiles() == 1)
     {
-        sub_00515020_FadeOutWaves();
+        D2SOUND_FadeOutWaves();
         sub_0042F480_Reset();
         sub_0043B080_InitCharSelectScreen();
         return 1;
@@ -2216,7 +2219,7 @@ int __stdcall sub_00435D80_SelectMode2(int nArg)
         return 1;
     }
 
-    sub_00515020_FadeOutWaves();
+    D2SOUND_FadeOutWaves();
     sub_0042F480_Reset();
     sub_0043B080_InitCharSelectScreen();
     return 1;
@@ -2327,7 +2330,7 @@ void __cdecl sub_00436F30_CreateEmailScreen()
     gpEdit_007799E0 = sub_0042F430_CreateControl(0x134);
     sub_004FDB00_SetEnterCallback(gpEdit_007799E0, sub_00436F20_OnEditChange);
     sub_004FFE10_SetTextA(gpEdit_007799DC, gpLaunchRecord_007795D4->szAccount);
-    sub_004F91C0(gpEdit_007799DC);
+    CONTROL_SetFocusedEditBox(gpEdit_007799DC);
     sub_004FDDD0_LinkTab(gpEdit_007799DC, gpEdit_007799E0);
     sub_004FDDD0_LinkTab(gpEdit_007799E0, gpEdit_007799DC);
     gpButton_007799E4 = sub_0042F430_CreateControl(0x12C);
@@ -2396,7 +2399,7 @@ void __cdecl sub_004372B0_CreatePasswordScreen()
     sub_004FDB00_SetEnterCallback(gpPasswordEdit_007799C4, sub_004372A0_OnEnter);
     gpPasswordOk_007799A4 = sub_0042F430_CreateControl(0x14B);
     sub_0042F430_CreateControl(0x14C);
-    sub_004F91C0(gpPasswordEdit_007799BC);
+    CONTROL_SetFocusedEditBox(gpPasswordEdit_007799BC);
     sub_004FDDD0_LinkTab(gpPasswordEdit_007799BC, gpPasswordEdit_007799C0);
     sub_004FDDD0_LinkTab(gpPasswordEdit_007799C0, gpPasswordEdit_007799C8);
     sub_004FDDD0_LinkTab(gpPasswordEdit_007799C8, gpPasswordEdit_007799C4);

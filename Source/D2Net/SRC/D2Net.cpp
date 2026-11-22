@@ -30,7 +30,7 @@ extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
 extern int gbD2ServerCallbackFunctionsInitialized_6FD45834; // 0x00883D54
 
 // 0x0052B690
-int __fastcall sub_0052B690_SendToServer(const unsigned char* pBuffer, unsigned short nSize)
+int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize)
 {
     D2_ASSERT(nSize <= MAX_MSG_SIZE, 0x217);
     return FOG_10175(gpServer, pBuffer, nSize, 0) != 0;
@@ -71,7 +71,7 @@ int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2Net
 int gnConnectionMode_00882D10; // 0x00882D10
 
 // 0x0052B800
-int __fastcall sub_0052B800_IsConnectionMode2()
+int __fastcall NET_IsSimulatedLagConnection()
 {
     return gnConnectionMode_00882D10 == 2;
 }
@@ -141,38 +141,38 @@ char* __fastcall sub_0052BE10_GetField0D0(D2Net52BE10Strc* pRecord)
 }
 
 // 0x0052BE40
-void __stdcall sub_0052BE40_Stub(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18)
+void __stdcall GAME_DefaultLeaveGame(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18)
 {
 }
 
 // 0x0052BE60
-void __stdcall sub_0052BE60_Stub(int a1, int a2, int a3, int a4)
+void __stdcall GAME_DefaultSaveDatabaseCharacter(int a1, int a2, int a3, int a4)
 {
 }
 
 // 0x0052BE70
-void __cdecl sub_0052BE70_Stub()
+void __cdecl GAME_DefaultServerLogMessage()
 {
 }
 
 // 0x0052BE80
-void __stdcall sub_0052BE80_Stub(int a1, int a2, int a3)
+void __stdcall GAME_DefaultEnterGame(int a1, int a2, int a3)
 {
 }
 
 // 0x0052BE90
-int __stdcall sub_0052BE90_Stub(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
+int __stdcall GAME_DefaultFindPlayerToken(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {
     return 0;
 }
 
 // 0x0052BED0
-void __stdcall sub_0052BED0_Stub(int a1, int a2, int a3, int a4, int a5)
+void __stdcall GAME_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4, int a5)
 {
 }
 
 // 0x0052BEF0
-void __cdecl sub_0052BEF0_Stub()
+void __cdecl GAME_DefaultGetGameServerInfo()
 {
 }
 
@@ -187,7 +187,7 @@ void __stdcall sub_0052BFB0_Stub(int a1, int a2, int a3, int a4)
 }
 
 // 0x0052BFC0
-const char* __fastcall sub_0052BFC0_GetLoadComplete()
+const char* __fastcall GAME_GetLoadCompleteString()
 {
     if (!gbD2ServerCallbackFunctionsInitialized_6FD45834)
     {

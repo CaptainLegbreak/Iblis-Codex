@@ -432,7 +432,7 @@ enum DrawMode
 
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nGamma, DrawMode eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-void __fastcall sub_00502320(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
+void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 
 extern struct D2CelFileStrc* gpRecipeScrollCel_007BCE8C;                                                  // 0x007BCE8C
 
@@ -2152,7 +2152,7 @@ void __stdcall INV_DrawRecipeScroll()
     TEXTURE_CelDraw(&tContext, gnGlobal_007A2858 + 256, gnGlobal_00711470 + gnGlobal_007A285C - 48, -1, DRAWMODE_NORMAL, 0);
 
     const int nOldSize = sub_00502EF0(4);
-    sub_00502320(gwszRecipeScrollText_007BCEA8, gnGlobal_007A2858 + 80, 130 - gnGlobal_007A285C, gnRecipeScrollColor_007BCEA4, 0);
+    D2Win_10117_DrawText(gwszRecipeScrollText_007BCEA8, gnGlobal_007A2858 + 80, 130 - gnGlobal_007A285C, gnRecipeScrollColor_007BCEA4, 0);
     sub_00502EF0(nOldSize);
 }
 

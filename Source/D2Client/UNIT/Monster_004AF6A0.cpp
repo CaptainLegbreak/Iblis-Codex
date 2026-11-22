@@ -21,7 +21,7 @@ extern "C" { Unicode gwszNameSeparator[1]; }                                    
 
 int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit);                                             // 0x004AE380
 
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
@@ -367,7 +367,7 @@ void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName,
         nCount = 1;
         Unicode::strcat(wszName, D2LANG_GetStringFromTblIndex(nNameId));
         nTextLength = sub_00526800((const unsigned short*)D2LANG_GetStringFromTblIndex(nNameId));
-        nWidth = sub_00501820(D2LANG_GetStringFromTblIndex(nNameId));
+        nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(nNameId));
     }
 
     switch (pUnit->dwClassId)
@@ -393,7 +393,7 @@ void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName,
         {
             Unicode::strcat(wszName, gwszNameSeparator);
             ++nTextLength;
-            nWidth += sub_00501820(gwszNameSeparator);
+            nWidth += D2Win_10121_GetTextWidth(gwszNameSeparator);
         }
 
         if (nTextLength < nLength - 1)
@@ -402,7 +402,7 @@ void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName,
             if (sub_00526800((const unsigned short*)wszMod) + nTextLength < nLength - 1)
             {
                 nTextLength += sub_00526800((const unsigned short*)wszMod);
-                nWidth += sub_00501820(wszMod);
+                nWidth += D2Win_10121_GetTextWidth(wszMod);
                 Unicode::strcat(wszName, wszMod);
                 ++nCount;
             }

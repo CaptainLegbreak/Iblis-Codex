@@ -26,7 +26,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 #define D2_ASSERTM(expr, msg, line) D2_ASSERT(expr, line)
 
-char* __cdecl sub_00407310_Sprintf(char* szDest, const char* szFormat, ...);                                // 0x00407310
+char* __cdecl ERRORMANAGER_Sprintf(char* szDest, const char* szFormat, ...);                                // 0x00407310
 
 extern "C" const char gszDrlgAnimSourceFile[];                                                              // 0x006EEF08
 
@@ -100,7 +100,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
                 }
             }
             char szBuffer[100] = {};
-            D2_ASSERTM(nEntryIndex < nFrames, sub_00407310_Sprintf(szBuffer, "Animating tiles missing Rarity %d Tile - Style %d Seq %d", 0, nStyle, nSeq), 182);
+            D2_ASSERTM(nEntryIndex < nFrames, ERRORMANAGER_Sprintf(szBuffer, "Animating tiles missing Rarity %d Tile - Style %d Seq %d", 0, nStyle, nSeq), 182);
 
             pCurrentTileData.pTile = pTileLibraryEntries[nEntryIndex];
             pDrlgAnimTileGrid->ppMapTileData[0] = &pCurrentTileData;
@@ -119,7 +119,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
                     }
                 }
 
-                D2_ASSERTM(nEntry < nFrames, sub_00407310_Sprintf(szBuffer, "Animating tiles missing Rarity %d Tile - Style %d Seq %d", nRarity, nStyle, nSeq), 203);
+                D2_ASSERTM(nEntry < nFrames, ERRORMANAGER_Sprintf(szBuffer, "Animating tiles missing Rarity %d Tile - Style %d Seq %d", nRarity, nStyle, nSeq), 203);
 
                 D2DrlgTileDataStrc* pNewTileData;
                 if (pCurrentTileData.nTileType != 0)

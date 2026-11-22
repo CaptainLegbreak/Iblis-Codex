@@ -145,8 +145,8 @@ int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue); // 0x00515A30
 void __fastcall sub_00515A60(D2SoundStrc* pSound, int nValue); // 0x00515A60
 void __fastcall sub_00515B40(D2SoundStrc* pSound, float fValue); // 0x00515B40
-int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
-void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound); // 0x00516140
+int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
+void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound); // 0x00516140
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 extern D2NpcSoundStrc gaNpcSounds_0072AE28[]; // 0x0072AE28
@@ -377,8 +377,10 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
     if (pBest->pSound)
     {
         if (pBest->pObject)
-            pBest->pObject->f_41 = sub_005159B0_GetSoundSampleCount(pBest->pSound);
-        sub_00515EE0_StopSound(pBest->pSound);
+// build: symbol ?D2SOUND_GetStreamPosition@* 0x005159B0
+            pBest->pObject->f_41 = D2SOUND_GetStreamPosition(pBest->pSound);
+// build: symbol ?D2SOUND_StopSound@* 0x00515EE0
+        D2SOUND_StopSound(pBest->pSound);
     }
     if (pBest->pObject)
     {
@@ -422,7 +424,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     D2SlotStrc* pSlot = sub_004DFB50_GetFreeSlot(pObject, nType);
     if (!pSlot)
         return 0;
-    sub_00516140_ResetSound(pSlot->pSound);
+    D2SOUND_ResetSound(pSlot->pSound);
     if (!pRecord->bStream)
     {
         sub_00515A30(pSlot->pSound, pRecord->nField0x3E);
@@ -450,7 +452,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     {
         char szPath[0x50];
         sub_00482710(pObject->f_4, szPath);
-        bOk = sub_00515D70_StartStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nField0x3E);
+        bOk = D2SOUND_StartSoundStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nField0x3E);
     }
     if (!bOk)
     {

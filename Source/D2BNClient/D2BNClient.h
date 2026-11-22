@@ -49,7 +49,7 @@ extern const char* gpszNewsName_0072FF80; // 0x0072FF80
 extern int gnCacheValue_00881890; // 0x00881890
 extern unsigned int gdwCacheCrcTable_0072FB80[]; // 0x0072FB80
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0051A570_GetMode(); // 0x0051A570
 int __cdecl sub_00520AE0(); // 0x00520AE0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0

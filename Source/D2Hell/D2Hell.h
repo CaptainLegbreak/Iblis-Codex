@@ -29,7 +29,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
+int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 extern const unsigned char gCharacterClass_0074C5C8[]; // 0x0074C5C8

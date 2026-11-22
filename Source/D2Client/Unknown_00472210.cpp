@@ -12,8 +12,8 @@ struct D2B10EmitWeatherStrc;
 
 extern "C" double __cdecl fabs(double x);
 
-D2WeatherStrc* __fastcall sub_006BCA10_CreateDataArray(const char* szName, int nCount, int nRecordSize); // 0x006BCA10
-void __fastcall sub_006BCA90_ClearAndFree(void* pBlock); // 0x006BCA90
+D2WeatherStrc* __fastcall DATAARRAYS_Create(const char* szName, int nCount, int nRecordSize); // 0x006BCA10
+void __fastcall DATAARRAYS_Destroy(void* pBlock); // 0x006BCA90
 void __fastcall sub_006BCCC0(D2WeatherStrc* pArray); // 0x006BCCC0
 int __stdcall sub_004726F0(int nArg); // 0x004726F0
 extern int gnGlobal_007A896C; // 0x007A896C
@@ -148,12 +148,12 @@ int gnViewDeltaY_007A067C; // 0x007A067C
 // 0x00472320
 void __cdecl sub_00472320()
 {
-    gpWeather_007A8A04 = sub_006BCA10_CreateDataArray("Environment Particles", 0x100, 0x28);
+    gpWeather_007A8A04 = DATAARRAYS_Create("Environment Particles", 0x100, 0x28);
     sub_006BCCC0(gpWeather_007A8A04);
     gnPhaseLevel_007A89E0 = 0;
-    gpWeather_007A89FC = sub_006BCA10_CreateDataArray("Environment Splashes", 0x200, 0x18);
+    gpWeather_007A89FC = DATAARRAYS_Create("Environment Splashes", 0x200, 0x18);
     sub_006BCCC0(gpWeather_007A89FC);
-    gpWeather_007A8A00 = sub_006BCA10_CreateDataArray("Environment Bubbles", 0x80, 0x18);
+    gpWeather_007A8A00 = DATAARRAYS_Create("Environment Bubbles", 0x80, 0x18);
     sub_006BCCC0(gpWeather_007A8A00);
     gnGlobal_007A89DC = 0x2A;
     gnGlobal_007A89D8 = 0x2A;
@@ -167,16 +167,17 @@ void __cdecl sub_00472320()
 // 0x004723C0
 void __cdecl sub_004723C0()
 {
-    sub_006BCA90_ClearAndFree(gpWeather_007A8A04);
-    sub_006BCA90_ClearAndFree(gpWeather_007A89FC);
-    sub_006BCA90_ClearAndFree(gpWeather_007A8A00);
+    DATAARRAYS_Destroy(gpWeather_007A8A04);
+    DATAARRAYS_Destroy(gpWeather_007A89FC);
+    DATAARRAYS_Destroy(gpWeather_007A8A00);
 }
 
 // 0x00472C20
 void __fastcall sub_00472C20_PlayerMoved(int nArg)
 {
-    sub_006BCAC0_ResetDataArray(gpWeather_007A89FC);
-    sub_006BCAC0_ResetDataArray(gpWeather_007A8A00);
+// build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
+    DATAARRAYS_Reset(gpWeather_007A89FC);
+    DATAARRAYS_Reset(gpWeather_007A8A00);
     if (nArg)
         sub_004726F0(nArg);
 }
@@ -270,7 +271,7 @@ static void __stdcall sub_00472590_SetSplash(int bForce, int bValue)
         gbPhaseActive_007A8A1C = bValue;
     if (bValue != gbWeatherSplash_007A8A14 || bForce)
     {
-        sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
+        DATAARRAYS_Reset(gpWeather_007A8A04);
         D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
     }
     gbWeatherSplash_007A8A14 = bValue;
@@ -540,7 +541,7 @@ void __cdecl sub_00473DC0_ToggleWeather()
         gnPhase_007A8A24 = 0;
         D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
         gnGlobal_007A89E0 = 0;
-        sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
+        DATAARRAYS_Reset(gpWeather_007A8A04);
         D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
     }
     else

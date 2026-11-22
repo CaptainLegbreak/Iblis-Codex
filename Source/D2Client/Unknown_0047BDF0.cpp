@@ -54,7 +54,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
 int __cdecl UI_TickElapsed(); // 0x00454850
-void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
+void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bNoCel); // 0x0047E260
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -381,7 +381,8 @@ void __cdecl sub_0047E3D0_DrawOptions()
     for (int i = 0; i < gpOptionHeader_007BC93C->nCount; ++i)
     {
         gpOptionEntries_007BC940[i].nY = 0;
-        if (gpOptionEntries_007BC940[i].bExpansionOnly && !sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (gpOptionEntries_007BC940[i].bExpansionOnly && !FOG_IsExpansion())
         {
             continue;
         }
@@ -407,18 +408,18 @@ void __cdecl sub_0047E3D0_DrawOptions()
         {
         case -1:
         case 0:
-            sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2, nDrawY, 1, nColor, -1);
+            D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2, nDrawY, 1, nColor, -1);
             break;
 
         case 1:
-            sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
-            sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pValueCels[gpOptionEntries_007BC940[i].nValue], gnGlobal_0071146C / 2 + 0xE6, nDrawY, 2, nColor, -1);
+            D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
+            D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pValueCels[gpOptionEntries_007BC940[i].nValue], gnGlobal_0071146C / 2 + 0xE6, nDrawY, 2, nColor, -1);
             break;
 
         case 2:
             if (gpOptionEntries_007BC940[i].pCel)
             {
-                sub_00502680_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
+                D2Win_10134_DrawCellFile(gpOptionEntries_007BC940[i].pCel, gnGlobal_0071146C / 2 - 0xE6, nDrawY, 0, nColor, -1);
             }
             sub_0047E260_DrawOptionSlider(&gpOptionEntries_007BC940[i], nEntryY, nColor, gpOptionEntries_007BC940[i].pCel == 0);
             break;

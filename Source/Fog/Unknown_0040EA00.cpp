@@ -2,7 +2,7 @@
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
-int __stdcall sub_0040E870_MeasureCpuMHz();                                                                   // 0x0040E870
+int __stdcall ERRORMANAGER_MeasureCpuMHz();                                                                   // 0x0040E870
 struct T004013C0
 {
     unsigned long dwOemId;
@@ -203,7 +203,7 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
         sub_0040E300(szName, nVendor, nFamily, nModel, nBrand, nType);
         sub_00410610_WriteLogLine("Vendor:  %s", gaszCpuVendorNames_00708004[nVendor]);
         sub_00410610_WriteLogLine("Version: %s (Type %X, Family %X, Model %X, Stepping %X, Brand %X)", szName, nType, nFamily, nModel, dwSignature & 0xF, nBrand);
-        sub_00410610_WriteLogLine("Speed: Approx. %d MHz", sub_0040E870_MeasureCpuMHz());
+        sub_00410610_WriteLogLine("Speed: Approx. %d MHz", ERRORMANAGER_MeasureCpuMHz());
         break;
     }
     }

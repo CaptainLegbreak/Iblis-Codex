@@ -32,7 +32,8 @@ void __cdecl sub_0042FB20()
     for (int i = 1; i < 0x200; i++)
         wszText[i].wChar = 0;
     const char* szKey;
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         sub_005263E0(szText, D2LANG_GetStringFromTblIndex(0x557A), 0x200);
         szKey = "2001";

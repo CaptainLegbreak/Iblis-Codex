@@ -24,7 +24,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x004109D0
-void __cdecl sub_004109D0_InitTimeBase()
+void __cdecl SYSTEM_InitTimeBase()
 {
     InitializeCriticalSection(&gTimeLock_0075E880);
     __int64 nShared = 0;
@@ -40,7 +40,7 @@ void __cdecl sub_004109D0_InitTimeBase()
 }
 
 // 0x00410A80
-long __cdecl sub_00410A80_GetTimeSeconds()
+long __cdecl FOG_GetSyncTime()
 {
     const unsigned long nTick = GetTickCount();
     D2TimeStampStrc tBase;

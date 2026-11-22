@@ -26,7 +26,7 @@ extern "C" long __cdecl ftell(_iobuf* pFile); // 0x00684935
 extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 extern char gszCharName_007A05C4[]; // 0x007A05C4
 extern "C" const char gszSavePathFormat_006D4230[]; // 0x006D4230
@@ -44,7 +44,7 @@ static unsigned char* sub_00478040(int* pnFileSize)
     char szSavePath[0x400];
     char szFileName[0x1F4];
     D2_ASSERT(gszCharName_007A05C4[0], 0x1EB);
-    sub_00407050_GetSavePath(szSavePath, 0x400);
+    FOG_GetSavePath(szSavePath, 0x400);
     sprintf(szFileName, gszSavePathFormat_006D4230, szSavePath, gszCharName_007A05C4);
     _iobuf* pFile = fopen(szFileName, gszModeRb_006CDC90);
     if (!pFile)
@@ -93,7 +93,8 @@ void __fastcall sub_004781D0(int bAnimate)
         tPacket.f_1 = 0xFF;
         for (int k = 0; k < 0xFF; ++k)
             tPacket.pData[k] = *pRead++;
-        sub_0052AE50_SendPacket(0xFF + 7, 0, &tPacket);
+// build: symbol ?CLIENT_Send@* 0x0052AE50
+        CLIENT_Send(0xFF + 7, 0, &tPacket);
         gnSentBytes_007A6AF8 += 0xFF + 7;
         gnSentPackets_007A6B00 += 1;
         if (bAnimate)
@@ -106,7 +107,7 @@ void __fastcall sub_004781D0(int bAnimate)
     for (int k = 0; k < nRemain; ++k)
         tPacket.pData[k] = *pRead++;
     const int nSize = nRemain + 7;
-    sub_0052AE50_SendPacket(nSize, 0, &tPacket);
+    CLIENT_Send(nSize, 0, &tPacket);
     gnSentBytes_007A6AF8 += nSize;
     gnSentPackets_007A6B00 += 1;
     FOG_Free(pBuffer, ".\\GAME\\Msg.cpp", 0x262, 0);

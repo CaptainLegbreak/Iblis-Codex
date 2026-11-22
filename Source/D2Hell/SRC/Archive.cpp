@@ -2,33 +2,34 @@
 
 struct D2ArchiveHandleStrc;
 
-int __fastcall sub_00516E46_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing); // 0x00516E46
-void __fastcall sub_00516E84_CloseFile(void* pUnused, void* pFile); // 0x00516E84
-unsigned int __fastcall sub_00516EAB_FileSize(void* unused, void* file, unsigned int* high); // 0x00516EAB
+int __fastcall ARCHIVE_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing); // 0x00516E46
+void __fastcall ARCHIVE_CloseFile(void* pUnused, void* pFile); // 0x00516E84
+unsigned int __fastcall ARCHIVE_GetFileSize(void* unused, void* file, unsigned int* high); // 0x00516EAB
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern "C" __declspec(dllimport) char* __stdcall lstrcpyA(char* szDst, const char* szSrc);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);
 
-static void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething);
+static void* __stdcall ARCHIVE_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething); // 0x00517299
 int __stdcall SFileCloseArchive(void* hArchive); // 0x00419A80
 
-int __fastcall sub_004068F0(void* pArg); // 0x004068F0
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 #define D2_ASSERT(expr,line) if(!(expr)) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
-int __fastcall sub_00406930(void*,unsigned int*);  // 0x00406930
+int __fastcall FOG_FGetFileSize(void*,unsigned int*);  // 0x00406930
 int __stdcall sub_00416230_GetFileName(void*,char*,unsigned int);
 #define FAIL_LINE 0x5F
 #define NAME_SIZE 0x104
 #define NULL_LINE 0x59
-int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
-int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
+int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 typedef unsigned long DWORD;
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError(void);
 
 // 0x00516E46
-int __fastcall sub_00516E46_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing)
+int __fastcall ARCHIVE_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing)
 {
-    if (sub_004068E0(szFileName, phFile))
+// build: symbol ?FOG_FOpenFile@* 0x004068E0
+    if (FOG_FOpenFile(szFileName, phFile))
         return 1;
 
     DWORD dwError = GetLastError();
@@ -38,7 +39,7 @@ int __fastcall sub_00516E46_OpenFile(void* pUnused, const char* szFileName, void
 }
 
 // 0x00516E84
-void __fastcall sub_00516E84_CloseFile(void* pUnused, void* hFile)
+void __fastcall ARCHIVE_CloseFile(void* pUnused, void* hFile)
 {
     if (!hFile)
     {
@@ -46,14 +47,14 @@ void __fastcall sub_00516E84_CloseFile(void* pUnused, void* hFile)
         exit(-1);
     }
 
-    sub_004068F0(hFile);
+    FOG_FCloseFile(hFile);
 }
 
 // 0x00516EAB
-unsigned int __fastcall sub_00516EAB_FileSize(void* unused,void* file,unsigned int* high) {
+unsigned int __fastcall ARCHIVE_GetFileSize(void* unused,void* file,unsigned int* high) {
  char name[NAME_SIZE];
  D2_ASSERT(file,NULL_LINE);
- unsigned int size=sub_00406930(file,high);
+ unsigned int size=FOG_FGetFileSize(file,high);
  if(!size) {
   sub_00416230_GetFileName(file,name,NAME_SIZE);
   D2_ASSERT(0,FAIL_LINE);
@@ -62,11 +63,11 @@ unsigned int __fastcall sub_00516EAB_FileSize(void* unused,void* file,unsigned i
 }
 
 // 0x00516F14
-int __fastcall sub_00516F14_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod)
+int __fastcall ARCHIVE_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod)
 {
     char name[0x104];
     D2_ASSERT(file, 0x70);
-    int nResult = sub_00406940_mpqSetFilePointer(file, nOffset, pnOffsetHigh, nMethod);
+    int nResult = FOG_FSetFilePointer(file, nOffset, pnOffsetHigh, nMethod);
     if (nResult != -1)
     {
         return nResult;
@@ -82,7 +83,7 @@ void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuf
     D2_ASSERT(hFile, 0x87);
 
     int dwBytes;
-    if (!sub_00406900(hFile, pBuffer, dwBytesToRead, &dwBytes, 0, 0, 0))
+    if (!FOG_FReadFile(hFile, pBuffer, dwBytesToRead, &dwBytes, 0, 0, 0))
     {
         char szArchivePath[0x104];
         sub_00416230_GetFileName(hFile, szArchivePath, sizeof(szArchivePath));
@@ -93,13 +94,13 @@ void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuf
 }
 
 // 0x00517015
-unsigned int __fastcall sub_00517015_ReadFileToSizedBuffer(void* hArchive, const char* szFilePath, void* pBuffer, unsigned int dwBufferSize)
+unsigned int __fastcall ARCHIVE_ReadFileToSizedBuffer(void* hArchive, const char* szFilePath, void* pBuffer, unsigned int dwBufferSize)
 {
     void* hFile;
-    sub_00516E46_OpenFile(hArchive, szFilePath, &hFile, 0);
-    D2_ASSERT(dwBufferSize >= sub_00516EAB_FileSize(hArchive, hFile, 0), 0xA5);
+    ARCHIVE_OpenFile(hArchive, szFilePath, &hFile, 0);
+    D2_ASSERT(dwBufferSize >= ARCHIVE_GetFileSize(hArchive, hFile, 0), 0xA5);
     ARCHIVE_ReadFileToBuffer(hArchive, hFile, pBuffer, dwBufferSize);
-    sub_00516E84_CloseFile(hArchive, hFile);
+    ARCHIVE_CloseFile(hArchive, hFile);
     return dwBufferSize;
 }
 
@@ -107,13 +108,13 @@ unsigned int __fastcall sub_00517015_ReadFileToSizedBuffer(void* hArchive, const
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine)
 {
     void* hFile;
-    if (!sub_00516E46_OpenFile(hArchive, szFilePath, &hFile, 0))
+    if (!ARCHIVE_OpenFile(hArchive, szFilePath, &hFile, 0))
     {
         return 0;
     }
 
     unsigned int dwFileSizeHigh;
-    unsigned int dwFileSize = sub_00516EAB_FileSize(hArchive, hFile, &dwFileSizeHigh);
+    unsigned int dwFileSize = ARCHIVE_GetFileSize(hArchive, hFile, &dwFileSizeHigh);
     void* pBuffer = FOG_Alloc(dwFileSize + 800, ".\\SRC\\Archive.cpp", 207, 0);
     if (!pBuffer)
     {
@@ -121,7 +122,7 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
     }
 
     ARCHIVE_ReadFileToBuffer(hArchive, hFile, pBuffer, dwFileSize);
-    sub_00516E84_CloseFile(hArchive, hFile);
+    ARCHIVE_CloseFile(hArchive, hFile);
 
     if (pdwBytesWritten)
     {
@@ -160,7 +161,7 @@ static int __stdcall sub_00517128_FindArchive(const char* filename,int priority,
 }
 
 // 0x00517299
-static void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething)
+static void* __stdcall ARCHIVE_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething)
 {
     unsigned int nFlags = 2;
     if (bSomething)
@@ -201,7 +202,7 @@ D2ArchiveHandleStrc* __fastcall ARCHIVE_LoadMPQFile(const char* szName, const ch
     pMpqHandle->hArchive = 0;
     do
     {
-        pMpqHandle->hArchive = sub_00517299_FindAndOpenArchive(pMpqHandle->szPath, szName, nPriority, (int)szModule);
+        pMpqHandle->hArchive = ARCHIVE_FindAndOpenArchive(pMpqHandle->szPath, szName, nPriority, (int)szModule);
         if (!pMpqHandle->hArchive)
         {
             if (!pfShowMessage || !pfShowMessage())
@@ -217,7 +218,7 @@ D2ArchiveHandleStrc* __fastcall ARCHIVE_LoadMPQFile(const char* szName, const ch
 }
 
 // 0x005173AC
-void __fastcall sub_005173AC_Unload(D2ArchiveHandleStrc* pArchive)
+void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pArchive)
 {
     if (pArchive->hArchive)
     {

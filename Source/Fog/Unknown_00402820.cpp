@@ -98,7 +98,7 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 extern "C" __declspec(dllimport) void* __stdcall CreateEventW(void* pAttributes, int bManualReset, int bInitialState, const wchar_t* szName); // 0x006CC2A4
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pThreadId); // 0x006CC250
-unsigned long __stdcall sub_004027C0_DbgHelpThreadProc(void* pParam); // 0x004027C0
+unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam); // 0x004027C0
 void __stdcall sub_M127_EmitSink(D2CrashGuidStrc* pGuid);
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0; // 0x0098A6F0
 
@@ -174,7 +174,7 @@ struct D2CrashSubmitInfoStrc
 extern "C" size_t __cdecl strlen(const char* szString);
 extern char gszTextBuffer_0098A280[0x400]; // 0x0098A280
 bool __stdcall sub_00404330_FileExistsUtf8(const char* szPath); // 0x00404330
-bool __fastcall sub_00404210_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine); // 0x00404210
+bool __fastcall ERRORMANAGER_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine); // 0x00404210
 static size_t __stdcall sub_00404150_StrlCat(const char* szSource, char* szDest, size_t nSize);
 
 struct D2CvRsdsStrc
@@ -260,7 +260,7 @@ void __cdecl sub_00402980_StartDbgHelpWorker()
     InitializeCriticalSection(&gtDbgHelpRequestLock_0098A6C4);
     ghDbgHelpWorkEvent_0098A6C0 = CreateEventW(0, 0, 0, 0);
     ghDbgHelpDoneEvent_0098A6BC = CreateEventW(0, 0, 0, 0);
-    ghDbgHelpThread_00992B08 = CreateThread(0, 0x40000, sub_004027C0_DbgHelpThreadProc, 0, 0x10000, &gdwDbgHelpThreadId_00992B0C);
+    ghDbgHelpThread_00992B08 = CreateThread(0, 0x40000, LOGMANAGER_DbgHelpThreadProc, 0, 0x10000, &gdwDbgHelpThreadId_00992B0C);
     gbMiniDumpEnabled_0098A6B1 = IsDebuggerPresent() != 1;
 }
 
@@ -708,7 +708,7 @@ bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoS
     sub_00404150_StrlCat(" \"", szCommand, 0x1000);
     sub_00404150_StrlCat(szText, szCommand, 0x1000);
     sub_00404150_StrlCat("\"", szCommand, 0x1000);
-    return sub_00404210_CreateProcessUtf8(szPath, szCommand);
+    return ERRORMANAGER_CreateProcessUtf8(szPath, szCommand);
 }
 
 // 0x00404150

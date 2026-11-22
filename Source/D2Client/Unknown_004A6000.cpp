@@ -24,9 +24,9 @@ void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                    
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 
@@ -148,7 +148,7 @@ void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor
 
     static Unicode wszBuf[16]; // 0x007C0810
     const Unicode* wszText = CMDTBL_GetKeyName(nKeyId, 1);
-    int nWidth = sub_00501820(wszText);
+    int nWidth = D2Win_10121_GetTextWidth(wszText);
     if (nWidth > 40)
     {
         Unicode::strncpy(wszBuf, wszText, 16);
@@ -158,7 +158,7 @@ void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor
         {
             --pEnd;
             pEnd->wChar = 0;
-            nWidth = sub_00501820(wszBuf);
+            nWidth = D2Win_10121_GetTextWidth(wszBuf);
         }
         while (nWidth > 40);
     }
@@ -168,5 +168,5 @@ void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor
         nX += 13 - nWidth;
     }
 
-    sub_00502320(wszText, nX, nY, nColor, 0);
+    D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
 }

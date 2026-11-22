@@ -17,15 +17,15 @@ void __stdcall sub_00430BB0_LoopCallback(unsigned long nArg);                   
 void __cdecl sub_00435230_PlayIntroVideos();                                                                // 0x00435230
 void __cdecl sub_00435330_ShowLoginScreen();                                                                // 0x00435330
 int __fastcall sub_0043B7A0_InitFuncTable(D2LaunchRecordStrc* pRecord);                                     // 0x0043B7A0
-int __stdcall sub_004F5BC0_CenterWindow(int nResolution);                                                   // 0x004F5BC0
+int __stdcall WINDOW_CenterWindow(int nResolution);                                                   // 0x004F5BC0
 int __fastcall D2Win_10015();                                                                               // 0x004F8FE0
 int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile);                                                 // 0x004F9160
-void __stdcall sub_004F9180(int (__cdecl* a1)());                                                            // 0x004F9180
-int __stdcall sub_004FA590(void (__stdcall* pCallback)(unsigned long));                                      // 0x004FA590
+void __stdcall D2Win_SetQuitCallback(int (__cdecl* a1)());                                                            // 0x004F9180
+int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long));                                      // 0x004FA590
 void* __stdcall sub_004FAC80(int nArg);                                                                     // 0x004FAC80
-void __cdecl sub_00514DB0_InitWaveSlots();                                                                                // 0x00514DB0
-void __fastcall sub_00514E10_LoadWave(const char* szFile);                                                           // 0x00514E10
-int __cdecl sub_00514FB0_IsAnyWavePlaying();                                                                // 0x00514FB0
+void __cdecl D2SOUND_InitWaveSlots();                                                                                // 0x00514DB0
+void __fastcall D2SOUND_PreloadWave(const char* szFile);                                                           // 0x00514E10
+int __cdecl D2SOUND_IsAnyWavePlaying();                                                                // 0x00514FB0
 void __cdecl sub_00515070();                                                                                // 0x00515070
 
 extern D2CelFileStrc* gpCellFile_0077971C;                                                                  // 0x0077971C
@@ -38,7 +38,8 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
 {
     gpLaunchRecord_007795D4 = pRecord;
     D2Win_10015();
-    D2_ASSERT(sub_005259C0(sub_004FAC80(sub_00408F20_HasExpansionMpq()), 0), 0x125A);
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
     sub_0042E6D0_LoadFrontEndCells();
     CURSOR_SetCellFile(gpCellFile_0077971C);
     gpLaunchRecord_007795D4->nByte361 = 0;
@@ -47,24 +48,24 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     gpLaunchRecord_007795D4->nByte245 = 0;
     if (gnLaunchMode_007795EC != 2)
         gpLaunchRecord_007795D4->nByte37 = 0;
-    sub_00514DB0_InitWaveSlots();
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\button.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\barbarian select.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\barbarian deselect.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\paladin select.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\paladin deselect.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\necromancer select.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\necromancer deselect.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\sorceress select.wav");
-    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\sorceress deselect.wav");
-    if (sub_00408F20_HasExpansionMpq())
+    D2SOUND_InitWaveSlots();
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer deselect.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress select.wav");
+    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress deselect.wav");
+    if (FOG_IsExpansion())
     {
-        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\druid select.wav");
-        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\druid deselect.wav");
-        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
-        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid select.wav");
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid deselect.wav");
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
+        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
     }
     gpFuncTable_0077ABF0 = pRecord->pFuncTable;
     const char nStartMode = gpLaunchRecord_007795D4->nStartMode;
@@ -115,7 +116,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
             gpLaunchRecord_007795D4->bRegistryMode = 0;
             gpLaunchRecord_007795D4->bIntroPlayed = 1;
             sub_004F90A0(1);
-            sub_004F5BC0_CenterWindow(1);
+            WINDOW_CenterWindow(1);
             gnLaunchMode_007795EC = nValue ? 3 : 1;
             sub_00435330_ShowLoginScreen();
         }
@@ -125,7 +126,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
             {
                 gnLaunchMode_007795EC = 0;
                 sub_004F90A0(1);
-                sub_004F5BC0_CenterWindow(1);
+                WINDOW_CenterWindow(1);
                 sub_00435230_PlayIntroVideos();
                 gpLaunchRecord_007795D4->bIntroPlayed = 1;
             }
@@ -137,10 +138,10 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
             }
         }
     }
-    sub_004F9180(sub_004309B0_ClearState);
-    sub_004FA590(sub_00430BB0_LoopCallback);
+    D2Win_SetQuitCallback(sub_004309B0_ClearState);
+    D2Win_RunMessageLoop(sub_00430BB0_LoopCallback);
     sub_00515020();
-    while (sub_00514FB0_IsAnyWavePlaying())
+    while (D2SOUND_IsAnyWavePlaying())
         Sleep(0);
     sub_00515070();
     sub_0042F480_Reset();

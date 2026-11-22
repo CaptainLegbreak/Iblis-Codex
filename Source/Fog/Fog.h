@@ -86,13 +86,13 @@ void __cdecl sub_00409020_LogPoolError(const char* szFormat, ...); // 0x00409020
 void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-void __fastcall sub_00408660_ShowErrorReport(const char* szText, const char* szMessage, int nArg3, int nArg4, int nLine, int nArg6); // 0x00408660
+void __fastcall ERRORMANAGER_ShowErrorReport(const char* szText, const char* szMessage, int nArg3, int nArg4, int nLine, int nArg6); // 0x00408660
 void __fastcall sub_00409810_FreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine); // 0x00409810
 void __fastcall sub_006C0360_Release(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C0360
 void __fastcall sub_006C0360_RemoveClient(D2QueueServerStrc*, T006BFAD0*); // 0x006C0360
 void __fastcall sub_006C0420_CloseRemote(D2QueueServerStrc*, int token, const char* file, int line); // 0x006C0420
 void __fastcall sub_006C0420_Disconnect(D2QueueServerStrc* pServer, unsigned int nId, const char* szFile, int nLine); // 0x006C0420
-void __fastcall sub_006C08A0_Dispatch(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C08A0
+void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C08A0
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0
 
@@ -279,7 +279,7 @@ extern const char* gaszCpuVendorNames_00708004[]; // 0x00708004
 extern void* ghDbgHelp_0098A680; // 0x0098A680
 extern void* ghProcess_0074C6F0; // 0x0074C6F0
 int __cdecl sub_0040E250_GetCpuVendor(); // 0x0040E250
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
+int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
 unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
 extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
@@ -408,7 +408,7 @@ struct D2PsapiModuleInfoStrc
     };
 };
 
-bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext); // 0x00404E60
+bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext); // 0x00404E60
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryW(const wchar_t* szFileName); // 0x006CC294
 extern "C" int __stdcall Module32FirstW(void* hSnapshot, D2ModuleEntry32Strc* pEntry); // 0x006B15AE

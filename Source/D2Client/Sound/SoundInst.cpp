@@ -91,10 +91,10 @@ extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E
 float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY); // 0x004E4160
 int __cdecl sub_00514CC0(); // 0x00514CC0
 int __cdecl sub_00514CF0(); // 0x00514CF0
-void __fastcall sub_00516950_LinkEntry(void* ppList, void* pData); // 0x00516950
-void __fastcall sub_00516980_RemoveNode(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound); // 0x00516980
+void __fastcall D2SOUND_ListAddHead(void* ppList, void* pData); // 0x00516950
+void __fastcall D2SOUND_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound); // 0x00516980
 int __fastcall sub_005169D0_ListHasKey(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit); // 0x005169D0
-void __fastcall sub_00516A10_FreeList(void* ppList); // 0x00516A10
+void __fastcall D2SOUND_ListFree(void* ppList); // 0x00516A10
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
 extern int gnMusicVolume_00727564; // 0x00727564
@@ -111,11 +111,11 @@ static void sub_004B94E0_FreeSound(D2ClientSoundStrc* pSound)
     if (!pSound)
         return;
 
-    sub_00516980_RemoveNode(&gpSoundList_007C5458, pSound);
+    D2SOUND_ListRemove(&gpSoundList_007C5458, pSound);
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
         sub_004CA8D0_NotifyUnitHint(pNode->pUnit, pSound->f_8);
 
-    sub_00516A10_FreeList(&pSound->pUnitList);
+    D2SOUND_ListFree(&pSound->pUnitList);
     if (pSound->nType == 1)
         sub_004DF7B0(pSound->pStream);
 
@@ -320,7 +320,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             }
             else
             {
-                sub_00516950_LinkEntry(&pFreeList, pSound);
+                D2SOUND_ListAddHead(&pFreeList, pSound);
             }
             continue;
         }
@@ -406,12 +406,12 @@ void __fastcall sub_004BA020(unsigned int nTick)
                     if (pTxt->f_42)
                     {
                         pOther->bLocked = 1;
-                        sub_00516950_LinkEntry(&pFreeList, pOther);
+                        D2SOUND_ListAddHead(&pFreeList, pOther);
                     }
                     else
                     {
                         pSound->bLocked = 1;
-                        sub_00516950_LinkEntry(&pFreeList, pSound);
+                        D2SOUND_ListAddHead(&pFreeList, pSound);
                         continue;
                     }
                 }
@@ -457,7 +457,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             }
 
             if (!pSound->pStream && !pTxt->bStream && (!pTxt->bMusic || pTxt->nMusicType != 1))
-                sub_00516950_LinkEntry(&pFreeList, pSound);
+                D2SOUND_ListAddHead(&pFreeList, pSound);
         }
 
         if (pSound->nType == 1)
@@ -480,7 +480,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     for (D2SoundNodeStrc* pFree = pFreeList; pFree; pFree = pFree->pNext)
         sub_004B94E0_FreeSound(pFree->pSound);
 
-    sub_00516A10_FreeList(&pFreeList);
+    D2SOUND_ListFree(&pFreeList);
 
     int bPanel;
     if ((!sub_0044DB30() || sub_0044DB30() == 1) && (UI_GetUIVarUnchecked(9) || UI_GetUIVarUnchecked(11)))

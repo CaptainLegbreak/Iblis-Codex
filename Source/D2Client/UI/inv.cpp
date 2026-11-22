@@ -476,9 +476,9 @@ int __stdcall sub_0064B2A0(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissil
 
 
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 extern D2CelFileStrc* gpGoldButtonCel_007BCC34; // 0x007BCC34
 extern int gbGoldButtonDown_007BCE30; // 0x007BCE30
@@ -631,7 +631,8 @@ int gdwGlobal_007BEEFC; // 0x007BEEFC
 void __cdecl INV_SendLeaveGame()
 {
     unsigned char nHeader = 0x69;
-    sub_0052AE50_SendPacket(1, 0, &nHeader);
+// build: symbol ?CLIENT_Send@* 0x0052AE50
+    CLIENT_Send(1, 0, &nHeader);
     gnSentBytes_007A6AF8 += 1;
     gnSentPackets_007A6B00 += 1;
     if (gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1 && gdwGlobal_007A0610 != 6 && gdwGlobal_007A0610 != 7
@@ -653,7 +654,7 @@ void __cdecl INV_SendLeaveGame()
 void __cdecl sub_00478010()
 {
     unsigned char nHeader = 0x6A;
-    sub_0052AE50_SendPacket(1, 0, &nHeader);
+    CLIENT_Send(1, 0, &nHeader);
     gnSentBytes_007A6AF8 += 1;
     gnSentPackets_007A6B00 += 1;
 }
@@ -1198,7 +1199,8 @@ void __cdecl INV_LoadInvPanelCels()
     gpCelInvWeapons_007BCE7C = sub_004520C0_LoadUiCelFile("Panel\\inv_weapons");
     gpCelTradeBtn_007BCE80 = sub_004520C0_LoadUiCelFile("Panel\\tradebtn");
     gpCelGoldCoinBtn_007BCC34 = sub_004520C0_LoadUiCelFile("Panel\\goldcoinbtn");
-    if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion() && sub_0044DCC0())
     {
         gpCelInvChar6Tab_007BCE84 = sub_004520C0_LoadUiCelFile("Panel\\invchar6Tab");
         gbWeaponSwitch_007BCC4C = 0;
@@ -1260,7 +1262,7 @@ void __cdecl INV_FreeInvPanelCels()
         sub_00478A00(gpCelGoldCoinBtn_007BCC34);
         gpCelGoldCoinBtn_007BCC34 = 0;
     }
-    if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0() && gpCelInvChar6Tab_007BCE84)
+    if (FOG_IsExpansion() && sub_0044DCC0() && gpCelInvChar6Tab_007BCE84)
     {
         sub_00478A00(gpCelInvChar6Tab_007BCE84);
         gpCelInvChar6Tab_007BCE84 = 0;
@@ -1852,7 +1854,7 @@ void __fastcall INV_DrawGold(int nType)
 
     default:
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0);
-        nTextX = sub_00501820(D2LANG_GetStringFromTblIndex(0xCF3)) + gnGlobal_007A2858 + 0x15;
+        nTextX = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xCF3)) + gnGlobal_007A2858 + 0x15;
         nTextY = gnGlobal_00711470 + gnGlobal_007A285C - 0x6A;
         nIconX = 0;
         nIconY = 0;
@@ -1868,9 +1870,9 @@ void __fastcall INV_DrawGold(int nType)
         sub_00526F20(wszGold, szGold, 19);
         if (nType == 2)
         {
-            nTextX = gnGlobal_007A2858 - sub_00501820(wszGold) + 0xC6;
+            nTextX = gnGlobal_007A2858 - D2Win_10121_GetTextWidth(wszGold) + 0xC6;
         }
-        sub_00502320(wszGold, nTextX, nTextY, 0, 0);
+        D2Win_10117_DrawText(wszGold, nTextX, nTextY, 0, 0);
     }
 
     switch (nType)
@@ -1900,7 +1902,7 @@ void __fastcall INV_DrawGold(int nType)
         break;
 
     default:
-        sub_00502320(D2LANG_GetStringFromTblIndex(0xCF3), gnGlobal_007A2858 + 0x15, nTextY, 0, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xCF3), gnGlobal_007A2858 + 0x15, nTextY, 0, 0);
         break;
     }
 
@@ -2011,7 +2013,7 @@ void __cdecl INV_LoadShopPanelCels()
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\miniconvert", szDataGlobal_006D4118);
         gpCellFile_007BCC28 = sub_004788B0(szPath, 0);
     }
-    if (!gpCellFile_007BCC38 && sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+    if (!gpCellFile_007BCC38 && FOG_IsExpansion() && sub_0044DCC0())
     {
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\invchar6tab", szDataGlobal_006D4118);
         gpCellFile_007BCC38 = sub_004788B0(szPath, 0);
@@ -2286,7 +2288,7 @@ void __cdecl INV_LoadStashPanelCels()
     {
         SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\bank", szDataGlobal_006D4118);
         gpCellFile_007BCC2C = sub_004788B0(szPath, 0);
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
             SStrPrintf(szPath, sizeof(szPath), "%s\\ui\\panel\\TradeStash", szDataGlobal_006D4118);
             gpCellFile_007BCC3C = sub_004788B0(szPath, 0);
@@ -2577,7 +2579,7 @@ void __cdecl sub_005239C0_ReleaseResources()
 // 0x0048A700
 void __cdecl INV_ToggleWeaponSwitch()
 {
-    if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+    if (FOG_IsExpansion() && sub_0044DCC0())
     {
         gbWeaponSwitch_007BCC4C = !gbWeaponSwitch_007BCC4C;
     }
@@ -2586,7 +2588,7 @@ void __cdecl INV_ToggleWeaponSwitch()
 // 0x0048A730
 void __cdecl INV_ResetEquipSounds()
 {
-    if (!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0())
+    if (!FOG_IsExpansion() || !sub_0044DCC0())
     {
         return;
     }
@@ -2628,12 +2630,12 @@ void __stdcall INV_DrawUnitName(D2UnitStrc* pUnit)
     Unicode::strncpy(wszName, sub_00464A60_GetUnitName(pUnit), 32);
     wszName[31].wChar = 0;
     Unicode* pEnd = &wszName[31];
-    while (sub_00501820(wszName) > 0xA0)
+    while (D2Win_10121_GetTextWidth(wszName) > 0xA0)
     {
         --pEnd;
         pEnd->wChar = 0;
     }
-    sub_00502320(wszName, gnGlobal_007A2858 + 0xF, 0xD6 - gnGlobal_007A285C, 0, 0);
+    D2Win_10117_DrawText(wszName, gnGlobal_007A2858 + 0xF, 0xD6 - gnGlobal_007A285C, 0, 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -2666,7 +2668,7 @@ void __cdecl INV_DrawPanelLabels()
         }
         else
         {
-            sub_00502320(wszText, nLeft, nY, 0, 0);
+            D2Win_10117_DrawText(wszText, nLeft, nY, 0, 0);
         }
     }
     sub_00502EF0(nOldFont);
@@ -2996,13 +2998,13 @@ void __stdcall INV_DrawIconNumber(int nValue, int nX)
     Unicode::strncpy(wszText, wszConverted, 32);
     wszText[31].wChar = 0;
     Unicode* pEnd = &wszText[sub_00526800(wszText)];
-    while (sub_00501820(wszText) > 0x2E)
+    while (D2Win_10121_GetTextWidth(wszText) > 0x2E)
     {
         --pEnd;
         pEnd->wChar = 0;
     }
     const int nOldFont = sub_00502EF0(6);
-    sub_00502320(wszText, nX + 8, 0x37, 0, 0);
+    D2Win_10117_DrawText(wszText, nX + 8, 0x37, 0, 0);
     sub_00502EF0(nOldFont);
 }
 
@@ -3016,7 +3018,7 @@ int __fastcall INV_GetCenteredX(unsigned short nString, int nX)
         wszText[i].wChar = 0;
     }
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
-    return nX - sub_00501820(wszText) / 2;
+    return nX - D2Win_10121_GetTextWidth(wszText) / 2;
 }
 
 // 0x00496720
@@ -3065,7 +3067,7 @@ void __cdecl INV_LoadPanelCels()
     gpCellFile_007BEF7C = sub_004520C0_LoadUiCelFile("Panel\\btn");
     const int nLanguage = sub_00525150();
     int bExpansion = 0;
-    if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+    if (FOG_IsExpansion() && sub_0044DCC0())
     {
         bExpansion = 1;
     }

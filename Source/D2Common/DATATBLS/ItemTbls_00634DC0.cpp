@@ -177,7 +177,7 @@ extern D2DataTablesStrc sgtDataTables;                                          
 
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference);               // 0x006117B0
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006336A0
-D2TxtLinkStrc* __stdcall sub_006BD040_AllocBlock(const char* szFile, int nLine);                    // 0x006BD040
+D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);                    // 0x006BD040
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szName);       // 0x006BD500
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, void** ppText);                 // 0x00524D30
@@ -262,7 +262,7 @@ void __fastcall DATATBLS_LoadSets_SetItemsTxt(void* hArchive)
         { "end", 0, 0, 0, 0 },
     };
 
-    sgtDataTables.pSetsLinker = sub_006BD040_AllocBlock(gszItemTblsSourceFile, 1010);
+    sgtDataTables.pSetsLinker = FOG_AllocLinker(gszItemTblsSourceFile, 1010);
     sgtDataTables.pSetsTxt = (D2SetsTxt*)DATATBLS_CompileTxt(hArchive, "sets", pSetsTbl, &sgtDataTables.nSetsTxtRecordCount, sizeof(D2SetsTxt));
     ITEM_ASSERT(sgtDataTables.nSetsTxtRecordCount < 32767, 1012);
 
@@ -363,7 +363,7 @@ void __fastcall DATATBLS_LoadSets_SetItemsTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    sgtDataTables.pSetItemsLinker = sub_006BD040_AllocBlock(gszItemTblsSourceFile, 1117);
+    sgtDataTables.pSetItemsLinker = FOG_AllocLinker(gszItemTblsSourceFile, 1117);
     sgtDataTables.pSetItemsTxt = (D2SetItemsTxt*)DATATBLS_CompileTxt(hArchive, gszTxtName_setitems, pSetItemsTbl, &sgtDataTables.nSetItemsTxtRecordCount, sizeof(D2SetItemsTxt));
     ITEM_ASSERT(sgtDataTables.nSetItemsTxtRecordCount < 32767, 1119);
 

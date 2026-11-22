@@ -47,9 +47,9 @@ int __fastcall sub_004C2240(D2UnitStrc* pItem); // 0x004C2240
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
@@ -758,7 +758,7 @@ void __cdecl sub_00499040_DrawBelt()
             {
                 sub_005267E0(wszKey, CMDTBL_GetKeyName(gaBeltKeys_00722404[nSlot], 1));
                 const int nLength = sub_00526800(wszKey);
-                if (sub_00501820(wszKey) > 0x1C)
+                if (D2Win_10121_GetTextWidth(wszKey) > 0x1C)
                 {
                     Unicode* pEnd = &wszKey[nLength];
                     do
@@ -766,9 +766,9 @@ void __cdecl sub_00499040_DrawBelt()
                         pEnd->wChar = 0;
                         --pEnd;
                     }
-                    while (sub_00501820(wszKey) > 0x1C);
+                    while (D2Win_10121_GetTextWidth(wszKey) > 0x1C);
                 }
-                sub_00502320(wszKey, tRect.nLeft + 2, tRect.nBottom - 2, 4, 0);
+                D2Win_10117_DrawText(wszKey, tRect.nLeft + 2, tRect.nBottom - 2, 4, 0);
             }
         }
     }

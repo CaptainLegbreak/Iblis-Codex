@@ -24,7 +24,7 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 extern "C" const char gszNew_006CC82C[]; // 0x006CC82C
-int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
+int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
 struct D2IniEntryStrc
@@ -43,9 +43,9 @@ extern "C" __declspec(dllimport) unsigned int __stdcall GetPrivateProfileIntA(co
 extern "C" __declspec(dllimport) unsigned long __stdcall GetPrivateProfileStringA(const char* szAppName, const char* szKeyName, const char* szDefault, char* szReturned, unsigned long nSize, const char* szFileName); // 0x006CC420
 extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
 extern "C" int __cdecl fputc(int nChar, _iobuf* pFile); // 0x00682058
-void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
-int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize); // 0x00406C40
+void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260
+int __cdecl FOG_IsExpansion(); // 0x00408F20
+int __fastcall ERRORMANAGER_GetBlizzardDataPath(char* szOutPath, int nSize); // 0x00406C40
 bool __fastcall sub_00516DE1_Verify(void* pContext); // 0x00516DE1
 bool __fastcall sub_00516D8B_RunSurvey(const char* szExePath); // 0x00516D8B
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
@@ -109,10 +109,10 @@ struct D2ConfigStrc
     unsigned char bSoundBackground;
     unsigned char pComInterface[4];
 };
-int __stdcall sub_004059D0_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
+int __stdcall ERRORMANAGER_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
 void __stdcall sub_00405A70_WriteSurveyLocale(); // 0x00405A70
 void __fastcall sub_00406870_InitStorm(int nDirectFlags, int nValue); // 0x00406870
-void __cdecl sub_00407970_ForceCrash(); // 0x00407970
+void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
 void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused); // 0x0040A390
 void __cdecl FOG_AsyncDataDestroy(); // 0x0040A440
@@ -125,7 +125,7 @@ int __stdcall D2GFX_Release(); // 0x004F5050
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
-void __cdecl sub_004F5280(); // 0x004F5280
+void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
 int __stdcall D2GFX_ToggleLowQuality(); // 0x004F54F0
 int __cdecl sub_004F59A0(); // 0x004F59A0
 int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
@@ -136,7 +136,7 @@ int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
 int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-void __cdecl sub_00514060_ShutdownSound(); // 0x00514060
+void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
 void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
@@ -183,7 +183,7 @@ void __fastcall DebugDirectory32Context(const D2ImageOptionalHeaderStrc* pHeader
 }
 
 // 0x00401480
-static unsigned char __stdcall sub_00401480_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
+static unsigned char __stdcall ERRORMANAGER_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
 {
     D2MemoryBasicInfoStrc tInfo;
     if (!VirtualQuery(pAddress, &tInfo, sizeof(tInfo)))
@@ -223,7 +223,7 @@ static unsigned char __stdcall sub_00401480_GetStackRange(void** ppBase, unsigne
 }
 
 // 0x00401540
-static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
+static unsigned char __stdcall ERRORMANAGER_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
 {
     D2ThreadContextStrc tContext;
     void* hThread = 0;
@@ -249,7 +249,7 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
     *pStackPointer = tContext.Esp;
     void* pBase;
     unsigned long dwEnd;
-    unsigned char bResult = sub_00401480_GetStackRange(&pBase, &dwEnd, (const void*)tContext.Esp);
+    unsigned char bResult = ERRORMANAGER_GetStackRange(&pBase, &dwEnd, (const void*)tContext.Esp);
     if (bResult)
     {
         *pStackTop = dwEnd;
@@ -304,7 +304,7 @@ int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2
     unsigned long dwStackTop;
     unsigned long dwStackSize;
     unsigned long dwStackPointer;
-    if (!sub_00401540_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer))
+    if (!ERRORMANAGER_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer))
     {
         if (hThread)
         {
@@ -369,7 +369,7 @@ void* __cdecl operator new(size_t nSize)
 // 0x00405430
 static inline void sub_00405430_GetIniPath(char* szPath)
 {
-    sub_00406B60_GetModuleDirectory(szPath, 0x104);
+    ERRORMANAGER_GetModuleDirectory(szPath, 0x104);
     SStrPack(szPath, "D2.ini", 0x104);
 }
 
@@ -382,7 +382,7 @@ void __stdcall sub_M114_Emit_00405430(char* szPath)
 void __stdcall sub_00405450_LoadIniSettings(char* pSettings)
 {
     char szIni[0x104];
-    sub_00406B60_GetModuleDirectory(szIni, 0x104);
+    ERRORMANAGER_GetModuleDirectory(szIni, 0x104);
     SStrPack(szIni, "D2.ini", 0x104);
     for (int i = 0; i < sizeof(gaIniEntries_00705040) / sizeof(gaIniEntries_00705040[0]); i++)
     {
@@ -408,14 +408,15 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
     unsigned int nLanguage;
     char szPath[0x104];
     char szExe[0x400];
-    sub_00525260(&nLanguage, 3);
-    if (sub_00406C40_GetBlizzardDataPath(szPath, 0x104))
+    STRTABLE_GetLanguageInfoField(&nLanguage, 3);
+    if (ERRORMANAGER_GetBlizzardDataPath(szPath, 0x104))
     {
         SStrPack(szPath, "System Survey\\ProductData\\", 0x104);
         char* pEnd = szPath + SStrLen(szPath);
         unsigned int nRemain = szPath + sizeof(szPath) - pEnd;
         SStrCopy(pEnd, "D2DV\\locale", nRemain);
-        sub_00406A10_CreateDirectoryTree(szPath);
+// build: symbol ?FOG_CreatePathHierarchy@* 0x00406A10
+        FOG_CreatePathHierarchy(szPath);
         _iobuf* pFile = fopen(szPath, "w");
         if (pFile)
         {
@@ -425,10 +426,10 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
             fputc(nLanguage & 0xFF, pFile);
             fclose(pFile);
         }
-        if (sub_00408F20_HasExpansionMpq())
+        if (FOG_IsExpansion())
         {
             SStrCopy(pEnd, "D2XP\\locale", nRemain);
-            sub_00406A10_CreateDirectoryTree(szPath);
+            FOG_CreatePathHierarchy(szPath);
             pFile = fopen(szPath, "w");
             if (pFile)
             {
@@ -440,7 +441,7 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
             }
         }
     }
-    sub_00406B60_GetModuleDirectory(szExe, 0x400);
+    ERRORMANAGER_GetModuleDirectory(szExe, 0x400);
     SStrPack(szExe, "SystemSurvey.exe", 0x400);
     if (sub_00516DE1_Verify(szExe))
         sub_00516D8B_RunSurvey(szExe);
@@ -636,7 +637,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 {
     if (pCfg->nUnk0x04 == 1)
     {
-        sub_00407970_ForceCrash();
+        ERRORMANAGER_ForceCrash();
     }
 
     gnMode_0074C704 = nModType;
@@ -656,7 +657,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
             ARCHIVE_FreeArchives();
             return 0;
         }
-        pCfg->bIsExpansion = sub_00408F20_HasExpansionMpq();
+        pCfg->bIsExpansion = FOG_IsExpansion();
         sub_00405A70_WriteSurveyLocale();
     }
 
@@ -732,7 +733,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
     SRegLoadValue("Diablo II", "Fixed Aspect Ratio", 0, &bFixedAspect);
     if (pCfg->bNoFixedAspect || bFixedAspect != 1)
     {
-        sub_004F5280();
+        D2GFX_DisableFixedAspectRatio();
     }
 
     if (!pCfg->bIsExpansion)
@@ -752,7 +753,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
         {
             if (bSoundStarted)
             {
-                sub_00514060_ShutdownSound();
+                D2SOUND_CloseSoundSystem();
                 bSoundStarted = 0;
             }
 
@@ -764,12 +765,12 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
             }
         }
 
-        gnMode_0074C704 = sub_004059D0_RunModeInterface(pCfg);
+        gnMode_0074C704 = ERRORMANAGER_RunModeInterface(pCfg);
     }
 
     if (bSoundStarted)
     {
-        sub_00514060_ShutdownSound();
+        D2SOUND_CloseSoundSystem();
     }
 
     if (bGfxStarted)

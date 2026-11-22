@@ -69,11 +69,11 @@ int __fastcall sub_00502EF0(int nFont);                                         
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
 int __cdecl sub_004B3500();                                                                                 // 0x004B3500
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
 extern int gnGlobal_007BCBEC;                                                                               // 0x007BCBEC
 
@@ -594,7 +594,7 @@ void __cdecl INV_DrawNpcShopPanel()
         if (gaTabs_00722110[i].bEnabled)
         {
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaTabs_00722110[i].nString);
-            const int nWidth = sub_00501820(wszText);
+            const int nWidth = D2Win_10121_GetTextWidth(wszText);
             tContext.pCellFile = gpCellFile_007BCC24;
             if (nColor == 4)
             {
@@ -607,7 +607,7 @@ void __cdecl INV_DrawNpcShopPanel()
             sub_004F6480(&tContext, i * 0x50 + gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 0x1C1, -1, 5, 0);
             if (!sub_004B3500())
             {
-                sub_00502320(wszText, gaTabs_00722110[i].nX - nWidth / 2 + gnGlobal_007A2858,
+                D2Win_10117_DrawText(wszText, gaTabs_00722110[i].nX - nWidth / 2 + gnGlobal_007A2858,
                     gaTabs_00722110[i].nY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, nColor, 0);
             }
         }

@@ -88,11 +88,11 @@ void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, 
 
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
@@ -446,7 +446,7 @@ int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    return nCenterX - sub_00501820(wszText) / 2;
+    return nCenterX - D2Win_10121_GetTextWidth(wszText) / 2;
 }
 
 // 0x0049DC40
@@ -517,7 +517,7 @@ void __cdecl TEXT_DrawMessageList()
                         if (nWidth)
                         {
                             sub_0046EFD0_DrawFramedBox(nX - 5, nY - 0xE, nWidth + 0xA, 0x10, 0, 1);
-                            sub_00502320(pTextLine->pText, nX, nY, *(int*)pNode->nColor, 0);
+                            D2Win_10117_DrawText(pTextLine->pText, nX, nY, *(int*)pNode->nColor, 0);
                             ++nLine;
                             nY += 0xF;
                         }
@@ -534,7 +534,7 @@ void __cdecl TEXT_DrawMessageList()
                 if (nWidth)
                 {
                     sub_0046EFD0_DrawFramedBox(nX - 4, 15 * nLine + nBaseY - 0xE, nWidth + 8, 0x10, 0, 1);
-                    sub_00502320(pNode->pLines[i], nX, 15 * nLine + nBaseY, *(int*)pNode->nColor, 0);
+                    D2Win_10117_DrawText(pNode->pLines[i], nX, 15 * nLine + nBaseY, *(int*)pNode->nColor, 0);
                     ++nLine;
                 }
             }
@@ -1325,9 +1325,9 @@ void __cdecl TEXT_DrawKeyConfigPanel()
     tRect.nTop = KEYCFG_Y + 0x143;
     UI_DrawRectangleBorder(&tRect);
 
-    sub_00502320(D2LANG_GetStringFromTblIndex(0xF51), KEYCFG_X + 0x12, KEYCFG_Y + 0x1E, 4, 0);
-    sub_00502320(D2LANG_GetStringFromTblIndex(0xF52), KEYCFG_X + 0x12 + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, KEYCFG_Y + 0x1E, 4, 0);
-    sub_00502320(D2LANG_GetStringFromTblIndex(0xF53), KEYCFG_X + 0x12 + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), KEYCFG_Y + 0x1E, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF51), KEYCFG_X + 0x12, KEYCFG_Y + 0x1E, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF52), KEYCFG_X + 0x12 + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, KEYCFG_Y + 0x1E, 4, 0);
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF53), KEYCFG_X + 0x12 + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), KEYCFG_Y + 0x1E, 4, 0);
 
     int i = 0;
     while (i < sub_KEYCFG_VisibleLines() && i < gnSliderRows_007C0274)
@@ -1348,21 +1348,21 @@ void __cdecl TEXT_DrawKeyConfigPanel()
         if (nIndex == gnGlobal_007C02B0)
         {
             sub_0046EFD0_DrawFramedBox(KEYCFG_X + 0x12, nY + 1, 3 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), 0x12, 0, 1);
-            sub_00502320(D2LANG_GetStringFromTblIndex(gpListEntries_00724264[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, gnGlobal_007C02B8 ? 3 : 0, 0);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries_00724264[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, gnGlobal_007C02B8 ? 3 : 0, 0);
         }
         else
         {
-            sub_00502320(D2LANG_GetStringFromTblIndex(gpListEntries_00724264[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, 0, 0);
+            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries_00724264[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, 0, 0);
         }
 
         if (bVisible || !gnGlobal_007246D4)
         {
-            sub_00502320(CMDTBL_GetKeyText(gpListEntries_00724264[nIndex].nKey, 1), KEYCFG_X + 0x1E + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 1), 0);
+            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries_00724264[nIndex].nKey, 1), KEYCFG_X + 0x1E + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 1), 0);
         }
 
         if (bVisible || gnGlobal_007246D4)
         {
-            sub_00502320(CMDTBL_GetKeyText(gpListEntries_00724264[nIndex].nKey, 0), KEYCFG_X + 0x1E + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 0), 0);
+            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries_00724264[nIndex].nKey, 0), KEYCFG_X + 0x1E + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), nY + 0x12, sub_004A4FA0_GetEntryState(nIndex, 0), 0);
         }
     }
 
@@ -1396,15 +1396,15 @@ void __cdecl TEXT_DrawKeyConfigPanel()
             nColor = gaButtons_007246D8[m].nColor;
         else
             nColor = 4;
-        sub_00502320(D2LANG_GetStringFromTblIndex(gaButtons_007246D8[m].nString), gaButtons_007246D8[m].nX + 10, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x12, nColor, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gaButtons_007246D8[m].nString), gaButtons_007246D8[m].nX + 10, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x12, nColor, 0);
     }
 
     if (GetTickCount() < gdwMessageTick_007C02C8 + 2000)
     {
         const int nCenterX = gnScreenWidth_0071146C / 2;
         const int nTextY = KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) + 0x1E;
-        const int nTextX = nCenterX - sub_00501820(D2LANG_GetStringFromTblIndex(gnMessage_007C02C4)) / 2;
-        sub_00502320(D2LANG_GetStringFromTblIndex(gnMessage_007C02C4), nTextX, nTextY, 1, 1);
+        const int nTextX = nCenterX - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gnMessage_007C02C4)) / 2;
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gnMessage_007C02C4), nTextX, nTextY, 1, 1);
     }
 
     sub_00502EF0_SetFont(nOldFont);
@@ -1428,7 +1428,7 @@ void ListBoxImplementation::DrawClippedText(const Unicode* wszSource, int nX, in
     sub_005267E0(wszText, wszSource);
     if (D2Win_10123(wszText, sub_00526800(wszText)) < nTextWidth - 0x32)
     {
-        sub_00502320(wszText, nX, nY, nColor, 0);
+        D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
         return;
     }
 
@@ -1436,7 +1436,7 @@ void ListBoxImplementation::DrawClippedText(const Unicode* wszSource, int nX, in
     {
         wszText[sub_00526800(wszText) - 1].wChar = 0;
     }
-    sub_00502320(wszText, nX, nY, nColor, 0);
+    D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
 }
 
 // 0x004E48B0

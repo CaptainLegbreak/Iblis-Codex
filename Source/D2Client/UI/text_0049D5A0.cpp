@@ -36,7 +36,7 @@ void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect);                      
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
 extern int gnGlobal_007225FC;                                                                               // 0x007225FC
@@ -131,7 +131,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
                 int nY = TEXT_CalcTextOffset(nPos);
                 if (gnGlobal_007BF1F6 || gnGlobal_007BF1FA)
                 {
-                    sub_00502320(pLine->wszText, gnGlobal_007BF278 + 0x10, gnGlobal_007225FC + nY, 0, 0);
+                    D2Win_10117_DrawText(pLine->wszText, gnGlobal_007BF278 + 0x10, gnGlobal_007225FC + nY, 0, 0);
                 }
 
                 if (!pFirst)

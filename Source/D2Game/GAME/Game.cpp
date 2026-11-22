@@ -307,7 +307,7 @@ typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-int __stdcall sub_0052B5C0_SetServerHandler(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
+int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 
 int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3); // 0x005300F0
 
@@ -816,7 +816,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttr
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);          // 0x0040B430
 
-int __stdcall sub_0052B4F0(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
+int __stdcall SERVER_HackListClient(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
 
 void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char* szMessage);               // 0x0052F4C0
 
@@ -878,11 +878,11 @@ struct D2GSPacketClt66
 
 extern int gbCheckHeartbeat_00730FFC;                                                                       // 0x00730FFC
 
-int __stdcall sub_0052B2D0_ObjectCallMode1(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
+int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 
-int __stdcall sub_0052B2F0_ObjectCallMode0(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
+int __stdcall SERVER_ReadSystemPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
 
-int __stdcall sub_0052B310_ObjectCallMode2(unsigned char* pBuffer, int nSize);                              // 0x0052B310
+int __stdcall SERVER_ReadAdminPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B310
 
 void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);                                                       // 0x0052CC20
 
@@ -1811,7 +1811,7 @@ int __fastcall GAME_AbortClient(D2GameStrc* pGame, int nClientId, int a3, int a4
         ClientRemoveFromGame(pGame, nClientId, 1);
     }
 
-    return sub_0052B4F0(nClientId, a3, a4);
+    return SERVER_HackListClient(nClientId, a3, a4);
 }
 
 // 0x0052C5B0
@@ -2142,7 +2142,7 @@ void __fastcall GAME_ProcessNetworkMessages()
 
     do
     {
-        nSize = sub_0052B2F0_ObjectCallMode0(buffer, 512);
+        nSize = SERVER_ReadSystemPacket(buffer, 512);
         if (nSize != -1)
         {
             CCMD_ProcessClientSystemMessage(buffer, nSize);
@@ -2151,7 +2151,7 @@ void __fastcall GAME_ProcessNetworkMessages()
 
     do
     {
-        nSize = sub_0052B2D0_ObjectCallMode1(buffer, 512);
+        nSize = SERVER_ReadGamePacket(buffer, 512);
         if (nSize != -1)
         {
             ProcessClientMessage(buffer, nSize);
@@ -2160,7 +2160,7 @@ void __fastcall GAME_ProcessNetworkMessages()
 
     do
     {
-        nSize = sub_0052B310_ObjectCallMode2(buffer, 512);
+        nSize = SERVER_ReadAdminPacket(buffer, 512);
         if (nSize != -1)
         {
             GAME_ProcessAdminMessage(buffer, nSize);
@@ -2641,7 +2641,8 @@ int __fastcall GAME_ReceiveSaveFilePart(int nClientId, D2GSPacketClt6B* pPacket)
     return CLIENTS_AttachSaveFile(nClientId, pPacket->saveData, pPacket->nSize, pPacket->dwTotalSize, 0, 0, 0);
 }
 
-int __fastcall sub_0052B800_IsConnectionMode2()
+// build: symbol ?NET_IsSimulatedLagConnection@* 0x0052B800
+int __fastcall NET_IsSimulatedLagConnection()
 {
     return gnConnectionMode_00882D10 == 2;
 }
@@ -2692,32 +2693,39 @@ char* __fastcall sub_0052BE10_GetField0D0(D2Net52BE10Strc* pRecord)
     return pRecord->aData;
 }
 
-void __stdcall sub_0052BE40_Stub(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18)
+// build: symbol ?GAME_DefaultLeaveGame@* 0x0052BE40
+void __stdcall GAME_DefaultLeaveGame(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18)
 {
 }
 
-void __stdcall sub_0052BE60_Stub(int a1, int a2, int a3, int a4)
+// build: symbol ?GAME_DefaultSaveDatabaseCharacter@* 0x0052BE60
+void __stdcall GAME_DefaultSaveDatabaseCharacter(int a1, int a2, int a3, int a4)
 {
 }
 
-void __cdecl sub_0052BE70_Stub()
+// build: symbol ?GAME_DefaultServerLogMessage@* 0x0052BE70
+void __cdecl GAME_DefaultServerLogMessage()
 {
 }
 
-void __stdcall sub_0052BE80_Stub(int a1, int a2, int a3)
+// build: symbol ?GAME_DefaultEnterGame@* 0x0052BE80
+void __stdcall GAME_DefaultEnterGame(int a1, int a2, int a3)
 {
 }
 
-int __stdcall sub_0052BE90_Stub(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
+// build: symbol ?GAME_DefaultFindPlayerToken@* 0x0052BE90
+int __stdcall GAME_DefaultFindPlayerToken(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {
     return 0;
 }
 
-void __stdcall sub_0052BED0_Stub(int a1, int a2, int a3, int a4, int a5)
+// build: symbol ?GAME_DefaultUpdateCharacterLadder@* 0x0052BED0
+void __stdcall GAME_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4, int a5)
 {
 }
 
-void __cdecl sub_0052BEF0_Stub()
+// build: symbol ?GAME_DefaultGetGameServerInfo@* 0x0052BEF0
+void __cdecl GAME_DefaultGetGameServerInfo()
 {
 }
 
@@ -2729,7 +2737,8 @@ void __stdcall sub_0052BFB0_Stub(int a1, int a2, int a3, int a4)
 {
 }
 
-const char* __fastcall sub_0052BFC0_GetLoadComplete()
+// build: symbol ?GAME_GetLoadCompleteString@* 0x0052BFC0
+const char* __fastcall GAME_GetLoadCompleteString()
 {
     if (!gbD2ServerCallbackFunctionsInitialized_6FD45834)
     {
@@ -4412,7 +4421,7 @@ int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3)
             LeaveCriticalSection(pGame->lpCriticalSection);
         }
     }
-    return sub_0052B4F0(nClientId, a2, a3);
+    return SERVER_HackListClient(nClientId, a2, a3);
 }
 
 // 0x00530190
@@ -4435,7 +4444,7 @@ void __fastcall SrvJoinAct(int nClientId)
             {
                 D2GAME_PACKETS_SendSystemError(nClientId, nErrorCode);
                 ClientRemoveFromGame(pGame, nClientId, 1);
-                sub_0052B4F0(nClientId, (int)".\\GAME\\Game.cpp", 0x672);
+                SERVER_HackListClient(nClientId, (int)".\\GAME\\Game.cpp", 0x672);
                 GAME_LeaveGamesCriticalSection(pGame);
                 return;
             }
@@ -4662,7 +4671,7 @@ int __stdcall GAME_Initialize()
     }
     InitializeCriticalSection(&gCriticalSection_6FD45800);
     CLIENTS_Initialize();
-    sub_0052B5C0_SetServerHandler((D2NET_Unk_Callback)GAME_AbortClientById);
+    SERVER_SetRemoveClientCallback((D2NET_Unk_Callback)GAME_AbortClientById);
     SUNITPROXY_FillGlobalItemCache();
     return 1;
 }
@@ -4883,7 +4892,8 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
 
     GAME_SetReservedGameGUID(hGame, nGameId);
 
-    pGame->nSyncTimer = sub_00410A80_GetTimeSeconds();
+// build: symbol ?FOG_GetSyncTime@* 0x00410A80
+    pGame->nSyncTimer = FOG_GetSyncTime();
     if (pGame->nSyncTimer <= 1)
     {
         pGame->nSyncTimer = 2;
@@ -4979,7 +4989,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
     CLIENTS_SetClientState(pClient, 1);
     CLIENTS_SetActNo(pClient, gnAct_6FD45824);
 
-    pGame->nSyncTimer = sub_00410A80_GetTimeSeconds();
+    pGame->nSyncTimer = FOG_GetSyncTime();
     if (pGame->nSyncTimer <= 1)
     {
         pGame->nSyncTimer = 2;

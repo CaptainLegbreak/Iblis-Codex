@@ -37,9 +37,9 @@ struct D2Obj007C8A28Strc
 extern int gdwGlobal_007C8C78; // 0x007C8C78
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
-int __fastcall sub_00515740_IsSoundPlaying(D2SoundStrc* pSound); // 0x00515740
+int __fastcall D2SOUND_IsSoundBufferPlaying(D2SoundStrc* pSound); // 0x00515740
 int __fastcall sub_00515C30(D2SoundStrc* pSound); // 0x00515C30
-void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound); // 0x005160D0
+void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 struct D2TileLightNodeStrc
 {
@@ -94,10 +94,12 @@ void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)
     {
         if (pSlot->pObject)
         {
-            pSlot->pObject->f_41 = sub_005159B0_GetSoundSampleCount(pSlot->pSound);
+// build: symbol ?D2SOUND_GetStreamPosition@* 0x005159B0
+            pSlot->pObject->f_41 = D2SOUND_GetStreamPosition(pSlot->pSound);
         }
 
-        sub_00515EE0_StopSound(pSlot->pSound);
+// build: symbol ?D2SOUND_StopSound@* 0x00515EE0
+        D2SOUND_StopSound(pSlot->pSound);
     }
 
     if (pSlot->pObject)
@@ -116,13 +118,14 @@ void __cdecl sub_004DF800()
         return;
     }
 
-    sub_00515CE0_SetMasterVolume(0);
+// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
+    D2SOUND_SetMasterVolume(0);
     for (int i = 0; i < 16; ++i)
     {
         sub_004DF7B0_StopSlot(&gaSlots_007C8A78[i]);
     }
 
-    sub_00515CE0_SetMasterVolume(0xFF);
+    D2SOUND_SetMasterVolume(0xFF);
 }
 
 // 0x004DF890
@@ -153,7 +156,7 @@ int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
 {
     if (pSlot && pSlot->pSound)
     {
-        return sub_00515740_IsSoundPlaying(pSlot->pSound);
+        return D2SOUND_IsSoundBufferPlaying(pSlot->pSound);
     }
 
     return 0;
@@ -167,7 +170,7 @@ void __cdecl sub_004DFA60()
         sub_004DF800();
         for (int i = 0; i < 16; ++i)
         {
-            sub_005160D0_DestroySound(gaSlots_007C8A78[i].pSound);
+            D2SOUND_DestroySound(gaSlots_007C8A78[i].pSound);
             gaSlots_007C8A78[i].pSound = 0;
         }
 

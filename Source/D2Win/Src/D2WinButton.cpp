@@ -25,7 +25,7 @@ int __fastcall sub_00502EF0(int nArg);                                          
 
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -33,9 +33,9 @@ void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int 
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-static int sub_00500C20_IsPointInButton(D2WinButtonStrc* pButton, int nX, int nY);
+static int BUTTON_IsPointInside(D2WinButtonStrc* pButton, int nX, int nY); // 0x00500C20
 
-static void __stdcall sub_00500C50_DrawButtonText(int nOffsetY, D2WinButtonStrc* pButton);
+static void __stdcall BUTTON_DrawText(int nOffsetY, D2WinButtonStrc* pButton); // 0x00500C50
 
 int __stdcall CONTROL_AppendToList(D2WinButtonStrc* pControl);                                              // 0x004F9210
 
@@ -54,7 +54,7 @@ void __fastcall D2SOUND_10039(const char* szFile);                              
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
 
 // 0x00500C20
-static __declspec(noinline) int sub_00500C20_IsPointInButton(D2WinButtonStrc* pButton, int nX, int nY)
+static __declspec(noinline) int BUTTON_IsPointInside(D2WinButtonStrc* pButton, int nX, int nY)
 {
     const int nLeft = pButton->controlHeader.nImageX;
     const int nBottom = pButton->controlHeader.nImageY;
@@ -62,11 +62,11 @@ static __declspec(noinline) int sub_00500C20_IsPointInButton(D2WinButtonStrc* pB
 }
 
 // 0x00500C50
-static void __stdcall sub_00500C50_DrawButtonText(int nOffsetY, D2WinButtonStrc* pButton)
+static void __stdcall BUTTON_DrawText(int nOffsetY, D2WinButtonStrc* pButton)
 {
     sub_00502EF0(pButton->eFont);
     const int nTextHeight = D2Win_10125();
-    int nOffsetX = (pButton->controlHeader.nWidth - sub_00501820((const Unicode*)pButton->wszText)) / 2;
+    int nOffsetX = (pButton->controlHeader.nWidth - D2Win_10121_GetTextWidth((const Unicode*)pButton->wszText)) / 2;
     if (nOffsetX < 0)
     {
         nOffsetX = 0;
@@ -82,7 +82,7 @@ static void __stdcall sub_00500C50_DrawButtonText(int nOffsetY, D2WinButtonStrc*
 
     if (pButton->dwButtonFlags & BUTTONFLAG_SUBTITLE)
     {
-        nOffsetX = (pButton->controlHeader.nWidth - sub_00501820((const Unicode*)pButton->wszText)) / 2;
+        nOffsetX = (pButton->controlHeader.nWidth - D2Win_10121_GetTextWidth((const Unicode*)pButton->wszText)) / 2;
         if (nOffsetX < 0)
         {
             nOffsetX = 0;
@@ -90,7 +90,7 @@ static void __stdcall sub_00500C50_DrawButtonText(int nOffsetY, D2WinButtonStrc*
 
         nX = pButton->controlHeader.nImageX + nOffsetX;
         nY = pButton->controlHeader.nImageY - 2 * ((pButton->controlHeader.nHeight - nTextHeight) / 3);
-        int nTextOffsetX = (pButton->controlHeader.nWidth - sub_00501820(D2LANG_GetStringFromTblIndex((unsigned short)pButton->nStringId))) / 2;
+        int nTextOffsetX = (pButton->controlHeader.nWidth - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex((unsigned short)pButton->nStringId))) / 2;
         if (nTextOffsetX < 0)
         {
             nTextOffsetX = 0;
@@ -135,7 +135,7 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
             }
             else
             {
-                pButton->bIsCallbackPending = sub_00500C20_IsPointInButton(pButton, gMousePosition_6F8FE234.x, gMousePosition_6F8FE234.y);
+                pButton->bIsCallbackPending = BUTTON_IsPointInside(pButton, gMousePosition_6F8FE234.x, gMousePosition_6F8FE234.y);
             }
         }
 
@@ -204,7 +204,7 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
         pButton->nTextColor = 0;
         if (pButton->wszText[0])
         {
-            sub_00500C50_DrawButtonText(nOffsetY, pButton);
+            BUTTON_DrawText(nOffsetY, pButton);
         }
     }
 

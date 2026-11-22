@@ -1237,7 +1237,8 @@ static int sub_004B2E30_FindNpcIndex(D2UnitStrc* pRecord)
 
 static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
 {
-    if (!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!FOG_IsExpansion() || !sub_0044DCC0())
     {
         return 0;
     }

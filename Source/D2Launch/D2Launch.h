@@ -41,7 +41,7 @@ extern int ganRowValues_007799FC[]; // 0x007799FC
 extern int gdwGlobal_00779974; // 0x00779974
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl sub_00430BC0_HasSaveFiles(); // 0x00430BC0
-int __cdecl sub_004F9050(); // 0x004F9050
+int __cdecl D2Win_10003(); // 0x004F9050
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
 int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
@@ -63,12 +63,12 @@ void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 
 void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
 void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-void __fastcall sub_005148F0_SetChannelValue(int nValue); // 0x005148F0
+void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
 void __stdcall D2Win_10004(int nResolution); // 0x004F9060
 void __stdcall D2Win_10029(int a1); // 0x004FA410
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame); // 0x004F5D90
 void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
-void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
+void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260
 struct D2StatusStrc
 {
     int nCode;
@@ -137,7 +137,7 @@ extern int gnValue_00798CCC; // 0x00798CCC
 extern int gnVisibleRows_0070CC0C; // 0x0070CC0C
 extern int gnWaitDone_00779994; // 0x00779994
 extern unsigned short gwToUpperTable_00730578[0x100]; // 0x00730578
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0040EB10(); // 0x0040EB10
 int __cdecl sub_00430B40(); // 0x00430B40
 int __cdecl sub_00432400_GetStatus(); // 0x00432400
@@ -184,12 +184,12 @@ void __cdecl sub_00514930(); // 0x00514930
 void __cdecl sub_00515020(); // 0x00515020
 void __cdecl sub_0052A7E0(); // 0x0052A7E0
 void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_00433460_ShowMessage(const Unicode* pText, void (__cdecl* pfnDone)()); // 0x00433460
 void __fastcall AUTOMAP_InitCharSaveHeader(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
 void __fastcall sub_0043C6B0(char* szName); // 0x0043C6B0
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 void __fastcall sub_004F9740_ControlSetState(D2WinControlStrc* pControl, int nFlags); // 0x004F9740
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl); // 0x004FB6A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
@@ -202,7 +202,7 @@ void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (_
 void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength); // 0x004FDD50
 void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext); // 0x004FDDD0
 void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
-void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall sub_00515F50(int nArg); // 0x00515F50
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420

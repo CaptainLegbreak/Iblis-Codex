@@ -345,9 +345,9 @@ void __stdcall SERVER_Initialize(int a1, int a2);                               
 
 void __stdcall CLIENT_Initialize(int nArg, const char* szAddress);                                               // 0x0052A750
 
-void __stdcall sub_0052B250_ObjectCall_6BE4A0(int nArg1);                                                   // 0x0052B250
+void __stdcall SERVER_SetMaxClientsPerGame(int nArg1);                                                   // 0x0052B250
 
-int __stdcall sub_0052B280_ObjectCall_6BF4E0(int nArg1);                                                    // 0x0052B280
+int __stdcall SERVER_SetHackListEnabled(int nArg1);                                                    // 0x0052B280
 
 void __stdcall GAME_InitGameDataTable(D2GameDataTableStrc* pGameDataTbl, void* pGameList);                  // 0x0052C0A0
 
@@ -357,7 +357,7 @@ int __stdcall sub_0044BD20_PumpSystemPackets(int nUnused);                      
 
 void __cdecl CLIENT_Release();                                                                                // 0x0052A7E0
 
-void __cdecl sub_0052B2A0_SendCloseAndClear();                                                              // 0x0052B2A0
+void __cdecl SERVER_Release();                                                              // 0x0052B2A0
 
 int __cdecl sub_0044B480_PopValue();                                                                        // 0x0044B480
 
@@ -663,7 +663,8 @@ int __fastcall sub_0044AF30_McpIncoming10(D2McpPacket10Strc* pPacket, int nSize)
         sub_00449DD0_SetValue(1);
         return 1;
     }
-    SStrCopy(gData_007992CC, sub_0040E080_AddressToString(nAddress), 0x12);
+// build: symbol ?FOG_inet_ntoa@* 0x0040E080
+    SStrCopy(gData_007992CC, FOG_inet_ntoa(nAddress), 0x12);
     sub_00449DD0_SetValue(1);
     return 1;
 }
@@ -927,7 +928,7 @@ int __cdecl sub_0044BC30_Start()
         SERVER_Initialize(1, 1);
         CLIENT_Initialize(1, 0);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
-        sub_0052B280_ObjectCall_6BF4E0(0);
+        SERVER_SetHackListEnabled(0);
         GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
         gnSubsystemActive_007A0458 = 1;
         GAME_Initialize();
@@ -937,7 +938,7 @@ int __cdecl sub_0044BC30_Start()
         SERVER_Initialize(2, 1);
         CLIENT_Initialize(2, 0);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
-        sub_0052B280_ObjectCall_6BF4E0(0);
+        SERVER_SetHackListEnabled(0);
         GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
         gnSubsystemActive_007A0458 = 1;
         GAME_Initialize();
@@ -950,8 +951,8 @@ int __cdecl sub_0044BC30_Start()
     else if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
     {
         SERVER_Initialize(0, 1);
-        sub_0052B250_ObjectCall_6BE4A0(8);
-        sub_0052B280_ObjectCall_6BF4E0(0);
+        SERVER_SetMaxClientsPerGame(8);
+        SERVER_SetHackListEnabled(0);
         CLIENT_Initialize(0, gszAddress_0070EF20);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
         GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
@@ -996,7 +997,7 @@ int __cdecl sub_0044BD90_Stop()
     sub_00451BB0_MessageLoop(sub_0044BD20_PumpSystemPackets);
     CLIENT_Release();
     if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
-        sub_0052B2A0_SendCloseAndClear();
+        SERVER_Release();
     return sub_0044B480_PopValue();
 }
 

@@ -4228,7 +4228,8 @@ void __stdcall sub_004D97F0_UpdateStateColor(D2UnitStrc* pUnit)
             return;
         }
 
-        if (pStatesTxtRecord->nColorShift == 0x68 && pUnit == sub_00463DD0_GetPlayerUnit() && sub_004F51C0_IsHighVideoMode())
+// build: symbol ?D2GFX_IsHardwareRenderMode@* 0x004F51C0
+        if (pStatesTxtRecord->nColorShift == 0x68 && pUnit == sub_00463DD0_GetPlayerUnit() && D2GFX_IsHardwareRenderMode())
         {
             pUnit->nPaletteIndex = 0;
         }

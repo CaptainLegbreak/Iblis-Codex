@@ -1,9 +1,9 @@
 struct _iobuf;
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize);                                   // 0x0040C220
+int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize);                                   // 0x0040C220
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
-int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath);                                        // 0x00406A10
+int __fastcall FOG_CreatePathHierarchy(const char* szPath);                                        // 0x00406A10
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
 
 namespace crashy
@@ -74,10 +74,10 @@ void __cdecl sub_00407300_Empty()
 static inline void sub_00407540_MakeAppSubdir(char* szPath, unsigned int nSize)
 {
     *szPath = 0;
-    if (sub_0040C220_GetAppPath(szPath, nSize))
+    if (EXCEPTIONS_GetAppPath(szPath, nSize))
     {
         SStrPack(szPath, "\\", nSize);
-        sub_00406A10_CreateDirectoryTree(szPath);
+        FOG_CreatePathHierarchy(szPath);
     }
 }
 

@@ -359,7 +359,7 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError); // 0x006BD3C0
 
-static void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew);
+static void EXCEL_InsertLinkNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew); // 0x006BD490
 
 struct D2BinFileStrc
 {
@@ -375,7 +375,7 @@ int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChar
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
-static int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries);
+static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries); // 0x006BCE20
 
 extern "C" const char gszEmptyAssertText;                                                    // 0x006CC837
 
@@ -464,7 +464,7 @@ extern "C" void __stdcall PATH_SetCurrentRoomInvalid(PathFlags* path, int invali
 }
 
 // 0x006BC0B0
-extern "C" int __stdcall sub_006BC0B0_Send(ConnectionView* connection,const char* data,U16 length)
+extern "C" int __stdcall FOG_ConnectionSend(ConnectionView* connection,const char* data,U16 length)
 {
     if (connection && connection->socket && connection->socket->connected != 0)
     {
@@ -479,7 +479,7 @@ extern "C" int __stdcall sub_006BC0B0_Send(ConnectionView* connection,const char
 }
 
 // 0x006BC120
-extern "C" U32 __stdcall sub_006BC120_receive(ReceiveConnection* connection, char* buffer, int capacity)
+extern "C" U32 __stdcall FOG_ConnectionReceive(ReceiveConnection* connection, char* buffer, int capacity)
 {
     if (!connection)
         return 0;
@@ -487,39 +487,39 @@ extern "C" U32 __stdcall sub_006BC120_receive(ReceiveConnection* connection, cha
 }
 
 // 0x006BCDA0
-extern "C" void __stdcall sub_006BCDA0_freeBinFile(BinFile* file)
+extern "C" void __stdcall FOG_FreeBinFile(BinFile* file)
 {
     sub_0040B3C0_Free(file->data,".\\Src\\Excel\\Excel.cpp",154,0);
     sub_0040B480_FreePool(0,file,".\\Src\\Excel\\Excel.cpp",155,0);
 }
 
 // 0x006BCDE0
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_006BCDE0(Obj006BCDE0* pObj) {
+extern "C" __declspec(dllexport) unsigned int __stdcall FOG_GetRecordCountFromBinFile(Obj006BCDE0* pObj) {
     return pObj->dwValue08;
 }
 
 // 0x006BCDF0
-static unsigned int __stdcall sub_006BCDF0_HashName(const char* szName)
+static unsigned int __stdcall EXCEL_HashName(const char* szName)
 {
     return SStrHash(szName, 0, 0);
 }
 
-// build: context sub_006BCDF0_HashName
+// build: context EXCEL_HashName
 unsigned int __stdcall sub_E01_Emit_006BCDF0(const char* szName)
 {
-    return sub_006BCDF0_HashName(szName);
+    return EXCEL_HashName(szName);
 }
 
-int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries);
+int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries); // 0x006BCE20
 
 // 0x006BCE00
-unsigned int __fastcall sub_006BCE00_XorFoldBytes(int nUnused, unsigned int dwValue)
+unsigned int __fastcall EXCEL_XorFoldBytes(int nUnused, unsigned int dwValue)
 {
     return (dwValue ^ (dwValue >> 8) ^ (dwValue >> 16) ^ (dwValue >> 24)) & 0xFF;
 }
 
 // 0x006BCE20
-static int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
+static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
 {
     D2SNameNodeStrc* aBuckets[256];
     D2SNameNodeStrc aNodes[0x118];
@@ -601,7 +601,7 @@ next:
 }
 
 // 0x006BD040
-D2Block006BD040Strc* __stdcall sub_006BD040_AllocBlock(const char* szFile, int nLine)
+D2Block006BD040Strc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
 {
     D2Block006BD040Strc* pBlock = (D2Block006BD040Strc*)FOG_AllocPool(0, 0x10, szFile, nLine, 0);
     memset(pBlock, 0, sizeof(D2Block006BD040Strc));
@@ -609,17 +609,17 @@ D2Block006BD040Strc* __stdcall sub_006BD040_AllocBlock(const char* szFile, int n
 }
 
 // 0x006BD070
-void __fastcall sub_006BD070_FreeTree(D2TxtLinkNodeStrc* pNode)
+void __fastcall EXCEL_FreeLinkTree(D2TxtLinkNodeStrc* pNode)
 {
     if (pNode->pPrevious)
-        sub_006BD070_FreeTree(pNode->pPrevious);
+        EXCEL_FreeLinkTree(pNode->pPrevious);
     if (pNode->pNext)
-        sub_006BD070_FreeTree(pNode->pNext);
+        EXCEL_FreeLinkTree(pNode->pNext);
     FOG_FreeServerMemory(0, pNode, ".\\Src\\Excel\\Excel.cpp", 0x346, 0);
 }
 
 // 0x006BD0B0
-extern "C" void __stdcall sub_006BD0B0_FreeLinker(LinkerView* linker)
+extern "C" void __stdcall FOG_FreeLinker(LinkerView* linker)
 {
     if (linker)
     {
@@ -639,7 +639,7 @@ extern "C" void __stdcall sub_006BD0B0_FreeLinker(LinkerView* linker)
 }
 
 // 0x006BD130
-extern "C" int __stdcall sub_006BD130_findKey(LinkView* link, U32 key, int unusedLogError)
+extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unusedLogError)
 {
     int upper = link->count;
     int lower = 0;
@@ -683,7 +683,7 @@ int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* linker, int index, char*
 }
 
 // 0x006BD330
-D2TreeNode006BD330Strc* __fastcall sub_006BD330_FindNode(D2TreeNode006BD330Strc* pNode, int nId)
+D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pNode, int nId)
 {
     if (!pNode)
     {
@@ -696,7 +696,7 @@ D2TreeNode006BD330Strc* __fastcall sub_006BD330_FindNode(D2TreeNode006BD330Strc*
     D2TreeNode006BD330Strc* pFound;
     if (pNode->pLeft24)
     {
-        pFound = sub_006BD330_FindNode(pNode->pLeft24, nId);
+        pFound = EXCEL_FindLinkNode(pNode->pLeft24, nId);
         if (pFound != gpTreeSentinel_0074C3D8)
         {
             return pFound;
@@ -704,7 +704,7 @@ D2TreeNode006BD330Strc* __fastcall sub_006BD330_FindNode(D2TreeNode006BD330Strc*
     }
     if (pNode->pRight28)
     {
-        pFound = sub_006BD330_FindNode(pNode->pRight28, nId);
+        pFound = EXCEL_FindLinkNode(pNode->pRight28, nId);
         if (pFound != gpTreeSentinel_0074C3D8)
         {
             return pFound;
@@ -714,7 +714,7 @@ D2TreeNode006BD330Strc* __fastcall sub_006BD330_FindNode(D2TreeNode006BD330Strc*
 }
 
 // 0x006BD380
-const char* __stdcall sub_006BD380_GetString(D2StringTableStrc* pTable, int index, int useFallback)
+const char* __stdcall FOG_10255(D2StringTableStrc* pTable, int index, int useFallback)
 {
  if (!pTable || index < 0 || index >= pTable->count) return gszFallback_0074C3D8;
  const char* result = sub_006BD330_GetString(pTable->data, index);
@@ -761,11 +761,11 @@ int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLo
 // calling-convention shim (not game code)
 int __stdcall sub_006BCE20_Shim(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
 {
-    return sub_006BCE20_MapNames(pOut, pList, pEntries);
+    return EXCEL_MapColumns(pOut, pList, pEntries);
 }
 
 // 0x006BD490
-static void __cdecl sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppLink, D2TxtLinkNodeStrc* pNode)
+static void __cdecl EXCEL_InsertLinkNode(D2TxtLinkNodeStrc** ppLink, D2TxtLinkNodeStrc* pNode)
 {
     while (*ppLink)
     {
@@ -793,11 +793,11 @@ static void __cdecl sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppLink, D2TxtLin
 // calling-convention shim (not game code)
 void __cdecl sub_006BD490_Shim(D2TxtLinkNodeStrc** ppRoot, D2TxtLinkNodeStrc* pNode)
 {
-    sub_006BD490_InsertNode(ppRoot, pNode);
+    EXCEL_InsertLinkNode(ppRoot, pNode);
 }
 
 // 0x006BD500
-int __stdcall sub_006BD500_AddCode(D2BinLinker006BD500Strc* pLinker, const char* szCode)
+int __stdcall FOG_10216_AddRecordToLinkingTable(D2BinLinker006BD500Strc* pLinker, const char* szCode)
 {
     D2_ASSERT(pLinker, 0x4B2);
     D2_ASSERT(!pLinker->pLocked, 0x4B6);
@@ -807,12 +807,12 @@ int __stdcall sub_006BD500_AddCode(D2BinLinker006BD500Strc* pLinker, const char*
     SStrCopy(pNode->szText, szCode, 0x20);
     sub_004113C0(pNode->szText, 0x20);
     pNode->nLinkIndex = pLinker->nCount;
-    sub_006BD490_InsertNode((D2TxtLinkNodeStrc**)&pLinker->tTree, (D2TxtLinkNodeStrc*)pNode);
+    EXCEL_InsertLinkNode((D2TxtLinkNodeStrc**)&pLinker->tTree, (D2TxtLinkNodeStrc*)pNode);
     return pLinker->nCount++;
 }
 
 // 0x006BD5A0
-int __fastcall sub_006BD5A0_AddTxtLink(D2TxtLinkStrc* pLinker, const char* szText)
+int __fastcall EXCEL_GetOrAddLinkIndex(D2TxtLinkStrc* pLinker, const char* szText)
 {
     D2_ASSERT(pLinker, 0x4CC);
     D2_ASSERT(!pLinker->pTbl, 0x4D0);
@@ -828,7 +828,7 @@ int __fastcall sub_006BD5A0_AddTxtLink(D2TxtLinkStrc* pLinker, const char* szTex
     SStrCopy(pNode->szText, szText, sizeof(pNode->szText));
     sub_004113C0(pNode->szText, sizeof(pNode->szText));
     pNode->nLinkIndex = pLinker->count;
-    sub_006BD490_InsertNode(&pLinker->pFirstNode, pNode);
+    EXCEL_InsertLinkNode(&pLinker->pFirstNode, pNode);
     return pLinker->count++;
 }
 
@@ -905,7 +905,7 @@ D2BinFileStrc* __stdcall FOG_CreateBinFile(char* pDataBuffer, int nBufferSize)
 }
 
 // 0x006BD780
-void __stdcall sub_006BD780_ParseTable(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,unsigned records,unsigned stride)
+void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,unsigned records,unsigned stride)
 {
  unsigned short columns[280];
  char small[32];
@@ -1026,7 +1026,7 @@ static int gnGlobal_0074C3EC; // 0x0074C3EC
 static int gnGlobal_00989C28; // 0x00989C28
 
 // 0x006BE310
-void __stdcall sub_006BE310_SetServerConfig(D2QServerConfigStrc* pConfig)
+void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
 {
     gnLockCount_0074C3E0 = pConfig->nClientCapacity;
     gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
@@ -1036,7 +1036,7 @@ void __stdcall sub_006BE310_SetServerConfig(D2QServerConfigStrc* pConfig)
 }
 
 // 0x006BE350
-void __stdcall sub_006BE350_StartListening(D2QueueServerStrc* pServer, unsigned int nValue)
+void __stdcall FOG_StartServer(D2QueueServerStrc* pServer, unsigned int nValue)
 {
     if (pServer->pHandle)
     {
@@ -1050,7 +1050,7 @@ void __stdcall sub_006BE350_StartListening(D2QueueServerStrc* pServer, unsigned 
 }
 
 // 0x006BE390
-int __stdcall sub_006BE390_SwapSlot(D2Object006BE390Strc* pObject, int nIndex, int nValue)
+int __stdcall FOG_10186(D2Object006BE390Strc* pObject, int nIndex, int nValue)
 {
     int nOld = pObject->anSlots[nIndex];
     if (nValue)

@@ -311,7 +311,7 @@ struct D2QueueServerStrc
     };
     int nSlots[1];                                          // 0xC3C
 
-    int __thiscall sub_006BE980_Refresh(unsigned int nKey);                                                 // 0x006BE980
+    int __thiscall RefreshRecord(unsigned int nKey);                                                 // 0x006BE980
     int __thiscall sub_006BF660_CheckClient(int nClientId);                                                 // 0x006BF660
     int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress);                                        // 0x006BF660
 };

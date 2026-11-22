@@ -12,7 +12,7 @@ extern "C" int __cdecl fclose(FILE* pFile); // 0x00681FDC
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 #pragma intrinsic(memcpy)
 
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 void __stdcall sub_006BBF40_PutPackedWord(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
 
 extern const char gszDefaultSaveName_0070CCC8[]; // 0x0070CCC8
@@ -28,7 +28,7 @@ int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* p
     }
 
     char szSaveDir[0x400];
-    sub_00407050_GetSavePath(szSaveDir, 0x400);
+    FOG_GetSavePath(szSaveDir, 0x400);
 
     char szPath[500];
     sprintf(szPath, "%s%s.d2s", szSaveDir, szName);

@@ -1602,13 +1602,15 @@ extern "C" void* __fastcall sub_004CA990_GetLinkFirst(D2OwnerStrc_004CA990* pOwn
     return 0;
 }
 
-extern "C" void __fastcall sub_00515A30_SetValue40(D2SoundObjStrc_00515A30* pSound, int nValue)
+// build: symbol @D2SOUND_SetSoundNoLoop@* 0x00515A30
+extern "C" void __fastcall D2SOUND_SetSoundNoLoop(D2SoundObjStrc_00515A30* pSound, int nValue)
 {
     D2_ASSERT(pSound, 815);
     pSound->nValue40 = nValue;
 }
 
-extern "C" void __fastcall sub_00515A60_SetValue44(D2SoundObjStrc_00515A30* pSound, int nValue)
+// build: symbol @D2SOUND_SetSoundLoopStart@* 0x00515A60
+extern "C" void __fastcall D2SOUND_SetSoundLoopStart(D2SoundObjStrc_00515A30* pSound, int nValue)
 {
     D2_ASSERT(pSound, 826);
     pSound->nValue44 = nValue;

@@ -151,7 +151,7 @@ int __fastcall sub_00440CA0(const char* szName, char* szA, char* szB, char* szC)
 
 void __cdecl sub_00443D50_CreateControls(); // 0x00443D50
 
-int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
 const char* __fastcall sub_00446820_SkipNamePrefix(const char* szName); // 0x00446820
 
@@ -236,7 +236,7 @@ char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
 const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox); // 0x004FDD90
 
-int __fastcall sub_004FF5A0(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
+int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
 
 int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
@@ -258,9 +258,9 @@ struct ComAdStrc
     unsigned long nSize;
 };
 
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
 
 extern void* gpLaunchContext_0077B0A4; // 0x0077B0A4
 
@@ -441,7 +441,8 @@ int __stdcall sub_00439840(int nArg)
 
         if (pEntry->wFlags & 0x20)
         {
-            if (!sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+            if (!FOG_IsExpansion())
                 return 0;
         }
 
@@ -591,11 +592,11 @@ void __fastcall sub_00445A80_ShowProfileDialog(const char* szText, int nA, int n
     sub_004FDDD0_LinkTab(gpSubmitEditB_00798C84, gpSubmitEditC_00798C88);
     if (!szA[0] && !szB[0] && !szC[0])
     {
-        sub_004F91C0(gpSubmitEditA_00798C80);
+        CONTROL_SetFocusedEditBox(gpSubmitEditA_00798C80);
     }
     else
     {
-        sub_004F91C0(gpSubmitEditC_00798C88);
+        CONTROL_SetFocusedEditBox(gpSubmitEditC_00798C88);
         D2Win_10082(gpSubmitEditC_00798C88);
     }
     sub_00443D10_SetPendingName(nA, nB, szText);
@@ -698,7 +699,7 @@ int __stdcall sub_00446A00(int nUnused)
             return 0;
         }
         gpLaunchFuncs_0077B09C->pfn0x14(szText);
-        sub_004FF5A0(gpChatEditBox_0077BD94, 0);
+        EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
     }
     return 1;
 }
@@ -718,11 +719,12 @@ static int sub_00446B70_Func(ComAdStrc* pAd)
     if (GetTempFileNameA(szTempPath, "BNetAd", 0, szTempFile) > 0)
     {
         DeleteFileA(gszTempFile_00798E30);
-        void* hFile = sub_00406960_CreateFile(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
+        void* hFile = FOG_CreateFileA(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
         if (hFile != (void*)-1)
         {
-            sub_004069D0_WriteFile(hFile, pAd->pBuffer, pAd->nSize, &nWritten, 0);
-            sub_004069A0_CloseFile(hFile);
+            FOG_WriteFile(hFile, pAd->pBuffer, pAd->nSize, &nWritten, 0);
+// build: symbol ?FOG_CloseFile@* 0x004069A0
+            FOG_CloseFile(hFile);
         }
         char* pExt = strrchr(pAd->szName, '.');
         pExt++;
@@ -974,7 +976,7 @@ int __stdcall sub_00448E30_SquelchSelectedUser(int nUnused)
     }
 
     gpLaunchFuncs_0077B09C->pfn0x14(szText);
-    sub_004FF5A0(gpChatEditBox_0077BD94, 0);
+    EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
     pName = SStrChr(szName, '*');
     if (!pName || !*++pName)
     {
@@ -1019,7 +1021,7 @@ int __stdcall sub_00448F60_UnsquelchSelectedUser(int nUnused)
     }
 
     gpLaunchFuncs_0077B09C->pfn0x14(szText);
-    sub_004FF5A0(gpChatEditBox_0077BD94, 0);
+    EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
     sub_00611560_GetSquelchList()->Unsquelch(szName);
     return 1;
 }

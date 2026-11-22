@@ -8,7 +8,7 @@ bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext); // 0x00404C60
 
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" void __cdecl qsort(void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfCompare)(const void*, const void*)); // 0x00685B50
-int __cdecl sub_00402C10_CompareUInt(const void* p1, const void* p2); // 0x00402C10
+int __cdecl ERRORMANAGER_CompareUInt(const void* p1, const void* p2); // 0x00402C10
 static void sub_00402FE0_InitModuleList(D2CrashModuleListStrc* pList);
 static bool sub_00404DC0_EnumModulesToolhelp(void* pContext);
 static bool sub_00404F20_EnumModules(D2CrashModuleListStrc* pList);
@@ -64,7 +64,8 @@ static bool sub_00404F20_EnumModules(D2CrashModuleListStrc* pList)
         bResult = sub_00404DC0_EnumModulesToolhelp(pList);
         if (!bResult)
         {
-            return sub_00404E60_EnumLoadedModules(pList);
+// build: symbol ?ERRORMANAGER_EnumLoadedModules@* 0x00404E60
+            return ERRORMANAGER_EnumLoadedModules(pList);
         }
     }
     return bResult;
@@ -88,7 +89,7 @@ void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint, void* pContext
     sub_00402FE0_InitModuleList(&tList);
     tList.nCount = 0;
     sub_00404F20_EnumModules(&tList);
-    qsort(tList.aModules, tList.nCount, sizeof(D2CrashModuleStrc), sub_00402C10_CompareUInt);
+    qsort(tList.aModules, tList.nCount, sizeof(D2CrashModuleStrc), ERRORMANAGER_CompareUInt);
     for (unsigned int i = 0; i < tList.nCount; i++)
     {
         sub_00402C60_FormatModule(szLine, &tList.aModules[i]);

@@ -32,10 +32,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
 unsigned short* __fastcall sub_006BCC10_GetEntry(D2DataArrayStrc* pTable, int nHandle); // 0x006BCC10
 
-void __fastcall sub_006BCAC0_ResetDataArray(D2DataArrayStrc* pOwner); // 0x006BCAC0
+void __fastcall DATAARRAYS_Reset(D2DataArrayStrc* pOwner); // 0x006BCAC0
 
 // 0x006BCA10
-D2DataArrayStrc* __fastcall sub_006BCA10_CreateDataArray(const char* name, int count, int stride)
+D2DataArrayStrc* __fastcall DATAARRAYS_Create(const char* name, int count, int stride)
 {
     D2DataArrayStrc* array = (D2DataArrayStrc*)FOG_Alloc(sizeof(D2DataArrayStrc) + count * stride, ".\\Src\\DataArrays.cpp", 0x34, 0);
     if (array) {
@@ -50,14 +50,14 @@ D2DataArrayStrc* __fastcall sub_006BCA10_CreateDataArray(const char* name, int c
 }
 
 // 0x006BCA90
-void __fastcall sub_006BCA90_ClearAndFree(void* pBlock)
+void __fastcall DATAARRAYS_Destroy(void* pBlock)
 {
     memset(pBlock, 0, 0x120);
     FOG_Free(pBlock, ".\\Src\\DataArrays.cpp", 0x4C, 0);
 }
 
 // 0x006BCAC0
-void __fastcall sub_006BCAC0_ResetDataArray(D2DataArrayStrc* array)
+void __fastcall DATAARRAYS_Reset(D2DataArrayStrc* array)
 {
     if (!array->bInitialized) {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x68);
@@ -72,7 +72,7 @@ void __fastcall sub_006BCAC0_ResetDataArray(D2DataArrayStrc* array)
 }
 
 // 0x006BCB40
-unsigned int __fastcall sub_006BCB40_AllocateHandle(D2DataArrayStrc* pPool)
+unsigned int __fastcall DATAARRAYS_AllocateHandle(D2DataArrayStrc* pPool)
 {
     unsigned int nHandle = -1;
     if (!pPool->bInitialized)
@@ -110,7 +110,7 @@ unsigned int __fastcall sub_006BCB40_AllocateHandle(D2DataArrayStrc* pPool)
 }
 
 // 0x006BCC90
-short* __fastcall sub_006BCC90_GetEntryOrHalt(void* pDataArray, int nHandle)
+short* __fastcall DATAARRAYS_GetEntryOrHalt(void* pDataArray, int nHandle)
 {
     short* pEntry = (short*)sub_006BCC10_GetEntry((D2DataArrayStrc*)pDataArray, nHandle);
     if (!pEntry)
@@ -122,14 +122,14 @@ short* __fastcall sub_006BCC90_GetEntryOrHalt(void* pDataArray, int nHandle)
 }
 
 // 0x006BCCC0
-void __fastcall sub_006BCCC0_Reset(D2DataArrayStrc* pOwner)
+void __fastcall DATAARRAYS_Initialize(D2DataArrayStrc* pOwner)
 {
     pOwner->bInitialized = 1;
-    sub_006BCAC0_ResetDataArray(pOwner);
+    DATAARRAYS_Reset(pOwner);
 }
 
 // 0x006BCCD0
-void __fastcall sub_006BCCD0_FreeEntry(D2DataArrayStrc* pTable, int nHandle)
+void __fastcall DATAARRAYS_FreeEntry(D2DataArrayStrc* pTable, int nHandle)
 {
     unsigned short* pEntry = sub_006BCC10_GetEntry(pTable, nHandle);
     D2_ASSERT(pEntry, 0xFD);

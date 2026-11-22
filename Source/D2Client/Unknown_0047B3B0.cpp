@@ -19,9 +19,9 @@ extern const char gszM134CmdB[];
 void __stdcall sub_M134_Use(const char* szText);
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern int gnGlobal_0071146C; // 0x0071146C
 extern Unicode gwChatText_007BB5F8[32]; // 0x007BB5F8
@@ -63,9 +63,9 @@ int __cdecl sub_00514CC0();
 int __cdecl sub_00514CF0();
 int __cdecl sub_00514D20();
 int __cdecl sub_00514D50();
-int __fastcall sub_00514CD0_SetMasterVolume(int nValue);
-int __fastcall sub_00514D00_SetMusicVolume(int nValue);
-int __fastcall sub_00514D30_SetPositionalBias(int nValue);
+int __fastcall D2SOUND_SetMasterVolumeOption(int nValue); // 0x00514CD0
+int __fastcall D2SOUND_SetMusicVolumeOption(int nValue); // 0x00514D00
+int __fastcall D2SOUND_SetPositionalBiasOption(int nValue); // 0x00514D30
 int __fastcall sub_00514D60_SetNpcSpeech(int nValue);
 int __cdecl sub_004DF880();
 int __cdecl sub_004DF980_IsSoundMode1Or2();
@@ -204,7 +204,7 @@ static void sub_0047B450_DrawBlinkingCaret(int nColor, int nY, int nX)
 {
     if (gnBlinkOn_00713004 == 1)
     {
-        sub_00502320(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xD4C), nX + 0x83, nY, nColor, 0);
     }
 
     const unsigned long dwTick = GetTickCount();
@@ -231,16 +231,16 @@ void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
     int nTextY = nY;
     if (sub_00526800(gwChatText_007BB5F8))
     {
-        nWidth = sub_00501820(gwChatText_007BB5F8);
+        nWidth = D2Win_10121_GetTextWidth(gwChatText_007BB5F8);
         if (nWidth + nTextX - 0x83 > gnGlobal_0071146C - 0x109)
         {
             nTextX = 0x83;
             nTextY += 0xF;
         }
-        sub_00502320(gwChatText_007BB5F8, nTextX, nTextY, 4, 0);
+        D2Win_10117_DrawText(gwChatText_007BB5F8, nTextX, nTextY, 4, 0);
     }
 
-    const int nWidth2 = sub_00501820(gwChatText_007BC850);
+    const int nWidth2 = D2Win_10121_GetTextWidth(gwChatText_007BC850);
     if (sub_00526800(gwChatText_007BC850))
     {
         if (nWidth2 + nTextX + nWidth - 0x83 > gnGlobal_0071146C - 0x109)
@@ -248,7 +248,7 @@ void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
             nTextX = 0x83;
             nTextY += 0xF;
         }
-        sub_00502320(gwChatText_007BC850, nTextX + nWidth, nTextY, 4, 0);
+        D2Win_10117_DrawText(gwChatText_007BC850, nTextX + nWidth, nTextY, 4, 0);
     }
 
     sub_0047B450_DrawBlinkingCaret(4, nTextY, nWidth2 + nTextX + nWidth - 0x83);
@@ -344,7 +344,7 @@ static unsigned int sub_0047CD00_SliderToValue(D2MenuItemStrc* pItem, unsigned i
 
 void __fastcall sub_0047CDA0_MasterVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00514CD0_SetMasterVolume(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetMasterVolumeOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
 }
 
 void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
@@ -354,7 +354,7 @@ void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 
 void __fastcall sub_0047CDF0_MusicVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00514D00_SetMusicVolume(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetMusicVolumeOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
 }
 
 void __fastcall sub_0047CE10_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
@@ -369,7 +369,7 @@ void __fastcall sub_0047CE50_SoundModeOption(D2MenuItemStrc* pItem, int nArg)
 
 void __fastcall sub_0047CE70_PositionalBiasSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00514D30_SetPositionalBias(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetPositionalBiasOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
 }
 
 void __fastcall sub_0047CE90_PositionalBiasOption(D2MenuItemStrc* pItem, int nArg)
@@ -1070,7 +1070,8 @@ void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00455F20(9, 0, 0);
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         gpOptionHeader_007BC93C = &gOptionHeader_0071875C;
         gpOptionEntries_007BC940 = gaOptionEntries_0071ACA0;
@@ -1087,7 +1088,7 @@ void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00455F20(9, 0, 0);
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
     {
         gpOptionHeader_007BC93C = &gOptionHeader_0071D734;
         gpOptionEntries_007BC940 = gaOptionEntries_0071F728;

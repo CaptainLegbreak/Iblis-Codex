@@ -4,7 +4,7 @@ extern "C" const char gszPathFormat_006D4124[];                                 
 extern "C" const char szPalDat_006DC7FC[];                                                                  // 0x006DC7FC
 
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName);           // 0x004FB1E0
-void __fastcall sub_005055D0_ApplyPalette();                                                                // 0x005055D0
+void __fastcall D2COMP_InitEmblemColorTables();                                                                // 0x005055D0
 
 // 0x004FB500
 int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename)
@@ -22,7 +22,7 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
         sub_004FB1E0_LoadPaletteFiles(pszPalDatFilename, pszPalPL2Filename);
     }
 
-    sub_005055D0_ApplyPalette();
+    D2COMP_InitEmblemColorTables();
     return 1;
 }
 

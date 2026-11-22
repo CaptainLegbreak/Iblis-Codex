@@ -148,7 +148,7 @@ void __fastcall sub_0044A810_SendPacket18(const char* szName);                  
 
 void __cdecl sub_0044AA80_SendPacket13();                                                                                // 0x0044AA80
 
-int __stdcall sub_004F91C0(void* pEditBox);                                                                  // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 
 int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CelFileStrc* pCellFile);                          // 0x004F91A0
 
@@ -351,7 +351,8 @@ void __cdecl sub_004306C0_UpdateOk()
             bOk = 1;
     }
     if (gpControl_00779594)
-        sub_004F96F0_ControlClearState(gpControl_00779594, bOk);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControl_00779594, bOk);
 }
 
 
@@ -630,22 +631,22 @@ int __cdecl sub_004390A0_UpdateSelection()
     sub_004F9740_ControlSetState(gpControl_00779D94, bShow);
     for (; pEntry && gnSelected_0070CC00 != n; n++)
         pEntry = pEntry->pNext;
-    sub_004F96F0_ControlClearState(gpControl_007799F4, 1);
-    sub_004F96F0_ControlClearState(gpControl_00779C68, 1);
+    CONTROL_SetEnabled(gpControl_007799F4, 1);
+    CONTROL_SetEnabled(gpControl_00779C68, 1);
     if (!pEntry)
     {
-        sub_004F96F0_ControlClearState(gpControl_00779C80, 0);
-        sub_004F96F0_ControlClearState(gpControl_007799F4, 0);
-        sub_004F96F0_ControlClearState(gpControl_00779C68, 0);
+        CONTROL_SetEnabled(gpControl_00779C80, 0);
+        CONTROL_SetEnabled(gpControl_007799F4, 0);
+        CONTROL_SetEnabled(gpControl_00779C68, 0);
         sub_004F9740_ControlSetState(gpControl_00779D94, 0);
         return 1;
     }
-    sub_004F96F0_ControlClearState(gpControl_00779C80, 1);
+    CONTROL_SetEnabled(gpControl_00779C80, 1);
     if (pEntry->nFlags & 0x20)
-        sub_004F96F0_ControlClearState(gpControl_00779C80, 0);
-    sub_004F96F0_ControlClearState(gpControl_00779D90, gdwGlobal_00779DB8 == 0);
+        CONTROL_SetEnabled(gpControl_00779C80, 0);
+    CONTROL_SetEnabled(gpControl_00779D90, gdwGlobal_00779DB8 == 0);
     if (gnLaunchMode_007795EC == 1 && gbFlag_00779DD8)
-        sub_004F96F0_ControlClearState(gpControl_00779D90, 0);
+        CONTROL_SetEnabled(gpControl_00779D90, 0);
     sub_004FB6A0_ClearText(gpControl_00779B60);
     sub_004FCFF0_SetTextA(gpControl_00779B60, pEntry->szName, 0);
     return 1;
@@ -666,10 +667,10 @@ void __fastcall sub_00439780_PickClass(int nClass, int bExpansion)
     D2WinControlStrc* pControl3 = sub_0042F3A0_CreateFromTemplate(0xA9);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl3, 1);
     pControl = sub_0042F3A0_CreateFromTemplate(0xAA);
-    sub_004F96F0_ControlClearState(pControl, 0);
+    CONTROL_SetEnabled(pControl, 0);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     if ((!bExpansion && nClass >= 8) || nClass >= 10)
-        sub_004F96F0_ControlClearState(pControl, 1);
+        CONTROL_SetEnabled(pControl, 1);
     sub_0042F3A0_CreateFromTemplate(0xAD);
 }
 
@@ -693,7 +694,8 @@ unsigned int __fastcall sub_A15_Emit_004380B0(const unsigned int* pExpire)
 // 0x00439BE0
 int __stdcall sub_00439BE0_CreateExpansionControls(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (FOG_IsExpansion())
     {
         sub_0042F3F0_DestroyControls();
         D2WinControlStrc* pControl = sub_0042F3A0_CreateFromTemplate(0xDA);
@@ -715,7 +717,7 @@ int __stdcall sub_00439BE0_CreateExpansionControls(SMSGHANDLER_PARAMS* pMsg)
 // 0x00439CA0
 int __stdcall sub_00439CA0_DestroyIfExpansion(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
         sub_0042F3F0_DestroyControls();
     return 1;
 }
@@ -832,7 +834,7 @@ static void sub_0043A1F0_ShowConnectError(int nError)
     gnState_00779DAC = 0;
     sub_004FB6A0_ClearText(gpControl_00779DD0);
     sub_004FC9B0_SetText(gpControl_00779DD0, D2LANG_GetStringFromTblIndex(nStringId), 4, 0, 0);
-    sub_004F96F0_ControlClearState(gpControl_00779D90, 0);
+    CONTROL_SetEnabled(gpControl_00779D90, 0);
     if (gbFlag_00779C6C)
         D2Win_10188(gpNameControl_007799E8, -1, 4);
 }
@@ -920,16 +922,16 @@ void __cdecl sub_0043A650_Refresh()
     sub_004FB6A0_ClearText(gpControl_00779B60);
     sub_004FB6A0_ClearText(gpControl_007799F0);
     sub_004FB6A0_ClearText(gpControl_00779C70);
-    sub_004F96F0_ControlClearState(gpControl_007799F4, 0);
-    sub_004F96F0_ControlClearState(gpControl_00779C68, 0);
-    sub_004F96F0_ControlClearState(gpControl_007799F8, 0);
-    sub_004F96F0_ControlClearState(gpControl_00779A1C, 0);
-    sub_004F96F0_ControlClearState(gpControl_00779B64, 0);
+    CONTROL_SetEnabled(gpControl_007799F4, 0);
+    CONTROL_SetEnabled(gpControl_00779C68, 0);
+    CONTROL_SetEnabled(gpControl_007799F8, 0);
+    CONTROL_SetEnabled(gpControl_00779A1C, 0);
+    CONTROL_SetEnabled(gpControl_00779B64, 0);
     sub_004F9740_ControlSetState(gpControl_00779D94, 0);
-    if (sub_00408F20_HasExpansionMpq())
+    if (FOG_IsExpansion())
     {
-        sub_004F96F0_ControlClearState(gpControl_00779C80, 0);
-        sub_004F96F0_ControlClearState(gpControl_00779D90, 0);
+        CONTROL_SetEnabled(gpControl_00779C80, 0);
+        CONTROL_SetEnabled(gpControl_00779D90, 0);
     }
     else
     {
@@ -1055,7 +1057,7 @@ void __fastcall sub_0043C6A0(int bSet)
 void __cdecl sub_0043D990_ActivateEdit()
 {
     if (gpChatEdit_0077BD94)
-        sub_004F91C0(gpChatEdit_0077BD94);
+        CONTROL_SetFocusedEditBox(gpChatEdit_0077BD94);
 }
 
 // 0x0043DB20
@@ -1071,7 +1073,7 @@ void __cdecl sub_0043DB20_DestroyControls()
     sub_004F95C0_ControlDestroy(&gpControl_0077BCFC);
     sub_004FA450_SetActive(gpControl_0077B080);
     if (gpChatEdit_0077BD94)
-        sub_004F91C0(gpChatEdit_0077BD94);
+        CONTROL_SetFocusedEditBox(gpChatEdit_0077BD94);
 }
 
 // 0x0043DC30
@@ -1124,7 +1126,7 @@ void __cdecl sub_0043F4D0()
 void __fastcall sub_0043F560_Disable(D2WinControlStrc* pControl)
 {
     CONTROL_SetCellFile(pControl, gpCellFile_0077BC6C);
-    sub_004F96F0_ControlClearState(pControl, 0);
+    CONTROL_SetEnabled(pControl, 0);
 }
 
 // 0x0043F850

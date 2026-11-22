@@ -8,7 +8,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
-int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox);                                                      // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox);                                                      // 0x004F91C0
 int __stdcall sub_004450A0_JoinNameKey(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004450A0
 int __stdcall sub_004450C0_JoinNameEnter(int nArg);                                                         // 0x004450C0
 int __stdcall sub_00443600_IsPrintableChar(D2WinControlStrc* pControl, int nArg, const char* pChar);        // 0x00443600
@@ -76,7 +76,7 @@ void __cdecl sub_00445DF0_CreateJoinScreen()
         gdwLastRefresh_00798CF0 += dwElapsed;
         sub_00445020_SendLaunchRequest();
     }
-    sub_004F91C0(gpJoinName_00798BD4);
+    CONTROL_SetFocusedEditBox(gpJoinName_00798BD4);
     gnGameCount_00798CC8 = 0;
     gnValue_00798CCC = 0;
     sub_004437E0_UpdateButtonState();

@@ -275,9 +275,9 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 const Unicode* __fastcall UI_GetLevelName(int nLevelId); // 0x00453E70
 
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
@@ -629,13 +629,13 @@ int gbRevealAutomap_007A51A0; // 0x007A51A0
 
 void* __cdecl AUTOMAP_OpenAutomapFile(); // 0x00457F40
 
-int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
 
-unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
+unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
 
-int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int* pCount); // 0x00458440
 
@@ -1285,12 +1285,12 @@ static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
     }
     unsigned int anOffsets[100] = { 0 };
     unsigned long nCount = 0;
-    sub_004069B0_ReadFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
+    FOG_ReadFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
     if (nCount != sizeof(anOffsets))
     {
         memset(anOffsets, 0, sizeof(anOffsets));
-        sub_004069F0_SetFilePointer(hFile, 0, 0, 0);
-        sub_004069D0_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
+        FOG_SetFilePointer(hFile, 0, 0, 0);
+        FOG_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
     }
     unsigned int nOffset = anOffsets[pSave->nLayerNo];
     unsigned int nEnd = GetFileSize(hFile, 0);
@@ -1299,39 +1299,39 @@ static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
         unsigned int nPrev;
         do
         {
-            sub_004069F0_SetFilePointer(hFile, nOffset, 0, 0);
+            FOG_SetFilePointer(hFile, nOffset, 0, 0);
             nPrev = nOffset;
-            sub_004069B0_ReadFile(hFile, &nOffset, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &nOffset, 4, &nCount, 0);
         }
         while (nOffset);
-        sub_004069F0_SetFilePointer(hFile, nPrev, 0, 0);
-        sub_004069D0_WriteFile(hFile, &nEnd, 4, &nCount, 0);
+        FOG_SetFilePointer(hFile, nPrev, 0, 0);
+        FOG_WriteFile(hFile, &nEnd, 4, &nCount, 0);
     }
     else
     {
         anOffsets[pSave->nLayerNo] = nEnd;
     }
-    sub_004069F0_SetFilePointer(hFile, 0, 0, 0);
-    sub_004069D0_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
-    sub_004069F0_SetFilePointer(hFile, nEnd, 0, 0);
+    FOG_SetFilePointer(hFile, 0, 0, 0);
+    FOG_WriteFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
+    FOG_SetFilePointer(hFile, nEnd, 0, 0);
     nEnd = 0;
-    sub_004069D0_WriteFile(hFile, &nEnd, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nLayerNo, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->fSaved, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nUnk0x08, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->dwFloorSize, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->dwWallsSize, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nObjects, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->dwExtraSize, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &nEnd, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->nLayerNo, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->fSaved, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->nUnk0x08, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->dwFloorSize, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->dwWallsSize, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->nObjects, 4, &nCount, 0);
+    FOG_WriteFile(hFile, &pSave->dwExtraSize, 4, &nCount, 0);
     if (pSave->dwFloorSize)
-        sub_004069D0_WriteFile(hFile, pSave->pFloors, pSave->dwFloorSize, &nCount, 0);
+        FOG_WriteFile(hFile, pSave->pFloors, pSave->dwFloorSize, &nCount, 0);
     if (pSave->dwWallsSize)
-        sub_004069D0_WriteFile(hFile, pSave->pWalls, pSave->dwWallsSize, &nCount, 0);
+        FOG_WriteFile(hFile, pSave->pWalls, pSave->dwWallsSize, &nCount, 0);
     if (pSave->nObjects)
-        sub_004069D0_WriteFile(hFile, pSave->pObjects, pSave->nObjects, &nCount, 0);
+        FOG_WriteFile(hFile, pSave->pObjects, pSave->nObjects, &nCount, 0);
     if (pSave->dwExtraSize)
-        sub_004069D0_WriteFile(hFile, pSave->pExtras, pSave->dwExtraSize, &nCount, 0);
-    sub_004069A0_CloseFile(hFile);
+        FOG_WriteFile(hFile, pSave->pExtras, pSave->dwExtraSize, &nCount, 0);
+    FOG_CloseFile(hFile);
 }
 
 // 0x00458440
@@ -1451,15 +1451,15 @@ static void __stdcall AUTOMAP_UnlinkAutomapLayer(void* hFile, unsigned int* pOff
     unsigned long nCount = 0;
     if (nPrev)
     {
-        sub_004069F0_SetFilePointer(hFile, nPrev, 0, 0);
+        FOG_SetFilePointer(hFile, nPrev, 0, 0);
         nPrev = 0;
-        sub_004069D0_WriteFile(hFile, &nPrev, 4, &nCount, 0);
+        FOG_WriteFile(hFile, &nPrev, 4, &nCount, 0);
     }
     else
     {
         pOffsets[gpAutomapContext_007A5164->nLayerNo] = 0;
-        sub_004069F0_SetFilePointer(hFile, 0, 0, 0);
-        sub_004069D0_WriteFile(hFile, pOffsets, 0x190, &nCount, 0);
+        FOG_SetFilePointer(hFile, 0, 0, 0);
+        FOG_WriteFile(hFile, pOffsets, 0x190, &nCount, 0);
     }
 }
 
@@ -1477,7 +1477,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
     }
     unsigned int anOffsets[100] = { 0 };
     unsigned long nCount = 0;
-    sub_004069B0_ReadFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
+    FOG_ReadFile(hFile, anOffsets, sizeof(anOffsets), &nCount, 0);
     if (nCount == sizeof(anOffsets))
     {
         unsigned int nRecord = 0;
@@ -1488,15 +1488,15 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
         while (nLink)
         {
             D2AutomapSaveStrc tSave = { 0 };
-            sub_004069F0_SetFilePointer(hFile, nLink, 0, 0);
-            sub_004069B0_ReadFile(hFile, &nLink, 4, &nCount, 0);
-            sub_004069B0_ReadFile(hFile, &tSave.nLayerNo, 4, &nCount, 0);
-            sub_004069B0_ReadFile(hFile, &tSave.fSaved, 4, &nCount, 0);
-            sub_004069B0_ReadFile(hFile, &tSave.nUnk0x08, 4, &nCount, 0);
-            sub_004069B0_ReadFile(hFile, &tSave.dwFloorSize, 4, &nCount, 0);
-            sub_004069B0_ReadFile(hFile, &tSave.dwWallsSize, 4, &nCount, 0);
-            sub_004069B0_ReadFile(hFile, &tSave.nObjects, 4, &nCount, 0);
-            sub_004069B0_ReadFile(hFile, &tSave.dwExtraSize, 4, &nCount, 0);
+            FOG_SetFilePointer(hFile, nLink, 0, 0);
+            FOG_ReadFile(hFile, &nLink, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.nLayerNo, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.fSaved, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.nUnk0x08, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.dwFloorSize, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.dwWallsSize, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.nObjects, 4, &nCount, 0);
+            FOG_ReadFile(hFile, &tSave.dwExtraSize, 4, &nCount, 0);
             if (tSave.nLayerNo != gpAutomapContext_007A5164->nLayerNo)
             {
                 AUTOMAP_UnlinkAutomapLayer(hFile, anOffsets, nRecord);
@@ -1506,7 +1506,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
             {
                 pData = (unsigned short*)FOG_Alloc(tSave.dwFloorSize, ".\\UI\\automap.cpp", 0x575, 0);
                 nWords = tSave.dwFloorSize / 2;
-                sub_004069B0_ReadFile(hFile, pData, tSave.dwFloorSize, &nCount, 0);
+                FOG_ReadFile(hFile, pData, tSave.dwFloorSize, &nCount, 0);
                 D2_ASSERT(nCount == tSave.dwFloorSize, 0x57A);
                 for (i = 0; i < nWords; i += 3)
                 {
@@ -1523,7 +1523,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
             {
                 pData = (unsigned short*)FOG_Alloc(tSave.dwWallsSize, ".\\UI\\automap.cpp", 0x58A, 0);
                 nWords = tSave.dwWallsSize / 2;
-                sub_004069B0_ReadFile(hFile, pData, tSave.dwWallsSize, &nCount, 0);
+                FOG_ReadFile(hFile, pData, tSave.dwWallsSize, &nCount, 0);
                 D2_ASSERT(nCount == tSave.dwWallsSize, 0x58F);
                 for (i = 0; i < nWords; i += 3)
                 {
@@ -1542,7 +1542,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
                 {
                     pData = (unsigned short*)FOG_Alloc(tSave.nObjects, ".\\UI\\automap.cpp", 0x5A2, 0);
                     nWords = tSave.nObjects / 2;
-                    sub_004069B0_ReadFile(hFile, pData, tSave.nObjects, &nCount, 0);
+                    FOG_ReadFile(hFile, pData, tSave.nObjects, &nCount, 0);
                     D2_ASSERT(nCount == tSave.nObjects, 0x5A7);
                     for (i = 0; i < nWords; i += 3)
                     {
@@ -1557,14 +1557,14 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
                 }
                 else
                 {
-                    sub_004069F0_SetFilePointer(hFile, tSave.nObjects, 0, 1);
+                    FOG_SetFilePointer(hFile, tSave.nObjects, 0, 1);
                 }
             }
             if (tSave.dwExtraSize)
             {
                 pData = (unsigned short*)FOG_Alloc(tSave.dwExtraSize, ".\\UI\\automap.cpp", 0x5BD, 0);
                 nWords = tSave.dwExtraSize / 2;
-                sub_004069B0_ReadFile(hFile, pData, tSave.dwExtraSize, &nCount, 0);
+                FOG_ReadFile(hFile, pData, tSave.dwExtraSize, &nCount, 0);
                 D2_ASSERT(nCount == tSave.dwExtraSize, 0x5C2);
                 for (i = 0; i < nWords; i += 3)
                 {
@@ -1580,7 +1580,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
             nRecord = nLink;
         }
     }
-    sub_004069A0_CloseFile(hFile);
+    FOG_CloseFile(hFile);
 }
 
 // 0x00458CF0
@@ -1816,7 +1816,7 @@ void __cdecl AUTOMAP_DrawLevelName()
     if (room)
     {
         const Unicode* text = UI_GetLevelName(DUNGEON_GetLevelIdFromRoom(room));
-        sub_00502320(text, gTextRight - sub_00501820(text) - 16, gTextY, 4, 0);
+        D2Win_10117_DrawText(text, gTextRight - D2Win_10121_GetTextWidth(text) - 16, gTextY, 4, 0);
         gTextY += 16;
     }
 }

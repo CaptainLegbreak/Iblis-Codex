@@ -34,9 +34,9 @@ void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile);                 
 
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 
-D2CharStrc* __fastcall sub_6F8AA100(unsigned short wChar);                                                  // 0x00501650
+D2CharStrc* __fastcall FONT_GetCharInfoByIndex(unsigned short wChar);                                                  // 0x00501650
 
-D2CharStrc* __fastcall sub_6F8AA140(unsigned short wChar);                                                  // 0x00501690
+D2CharStrc* __fastcall FONT_FindCharInfo(unsigned short wChar);                                                  // 0x00501690
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine); // 0x00517079
 
@@ -132,21 +132,21 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 
 typedef unsigned int size_t;
 
-static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText);
+static int FONT_GetMaxLineWidth(const Unicode* pText); // 0x00501840
 
-static int sub_00501910_GetTextLineWidth(const Unicode* pText);
+static int FONT_GetFirstLineWidth(const Unicode* pText); // 0x00501910
 
 static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered);
 
-static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText);
+static int FONT_GetMaxLineWidth(const Unicode* pText); // 0x00501840
 
-static void __stdcall sub_00501C30_DrawFontText(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode);
+static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode); // 0x00501C30
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 extern "C" int __fastcall sub_00526800_2(const unsigned short* pText);
 
-static int sub_005019C0_GetTextHeight(const Unicode* pText);
+static int FONT_GetTextHeight(const Unicode* pText); // 0x005019C0
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -158,7 +158,7 @@ static int shim_2;
 
 void __stdcall shim_1(int nLength, int nY, int nWidth, int nPalette, int bCentered);
 
-static int sub_005019C0_GetTextHeight(const Unicode* pText);
+static int FONT_GetTextHeight(const Unicode* pText); // 0x005019C0
 
 __declspec(noinline) static void __stdcall sub_00501A80_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nPalette, int bCentered);
 
@@ -174,18 +174,18 @@ static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, 
 
 extern "C" const char gszFormatMonsterIndicators_006DCA10[];                                                // 0x006DCA10
 
-static void __stdcall sub_005013A0(int nFont, char* pBuffer, int nLength);
+static void __stdcall FONT_BuildFontPath(int nFont, char* pBuffer, int nLength); // 0x005013A0
 
-static void __stdcall sub_00501490_BuildFontPath(int nFont, char* pBuffer, int nLength);
+static void __stdcall FONT_BuildFontTablePath(int nFont, char* pBuffer, int nLength); // 0x00501490
 
-static void sub_6F8A9E90(int nFont);
+static void FONT_LoadFontTable(int nFont); // 0x00501580
 
 int __fastcall sub_00502EF0(int nFontSize);
 
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);              // 0x0040B430
 
 // 0x005013A0
-static void __stdcall sub_005013A0(int nFont, char* pBuffer, int nLength)
+static void __stdcall FONT_BuildFontPath(int nFont, char* pBuffer, int nLength)
 {
     char szPath[0x104];
     wsprintfA(szPath, "%s\\%s\\", gszDataLocal_006D41A8, "Font");
@@ -200,7 +200,7 @@ static void __stdcall sub_005013A0(int nFont, char* pBuffer, int nLength)
 }
 
 // 0x00501490
-static void __stdcall sub_00501490_BuildFontPath(int nFont, char* pBuffer, int nLength)
+static void __stdcall FONT_BuildFontTablePath(int nFont, char* pBuffer, int nLength)
 {
     char szPath[0x104];
     wsprintfA(szPath, "%s\\%s\\", gszDataLocal_006D41A8, "Font");
@@ -215,10 +215,10 @@ static void __stdcall sub_00501490_BuildFontPath(int nFont, char* pBuffer, int n
 }
 
 // 0x00501580
-static void sub_6F8A9E90(int nFont)
+static void FONT_LoadFontTable(int nFont)
 {
     char szFile[0x50];
-    sub_00501490_BuildFontPath(nFont, szFile, 0x4F);
+    FONT_BuildFontTablePath(nFont, szFile, 0x4F);
 
     if (gFontCache_00841DA8[nFont].pFontInfo[0])
         FOG_Free(gFontCache_00841DA8[nFont].pFontInfo[0], ".\\Src\\D2WinFont.cpp", 0xB3, 0);
@@ -250,7 +250,7 @@ void __stdcall D2Win_10116()
 }
 
 // 0x00501650
-D2CharStrc* __fastcall sub_6F8AA100(unsigned short wChar)
+D2CharStrc* __fastcall FONT_GetCharInfoByIndex(unsigned short wChar)
 {
     if (wChar > 0xFF)
     {
@@ -321,13 +321,13 @@ int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength)
 }
 
 // 0x00501820
-int __fastcall sub_00501820(const Unicode* wszText)
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText)
 {
     return D2Win_10122(wszText, sub_00526800(wszText));
 }
 
 // 0x00501840
-static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText)
+static int FONT_GetMaxLineWidth(const Unicode* pText)
 {
     D2_ASSERT(pText, 525);
     int nWidth = 0;
@@ -366,11 +366,11 @@ static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText)
 
 void __fastcall sub_Emit_00501840(const Unicode* pText, int* pWidth, int nExtra)
 {
-    *pWidth = sub_00501840_GetMultiLineTextWidth(pText) + nExtra;
+    *pWidth = FONT_GetMaxLineWidth(pText) + nExtra;
 }
 
 // 0x00501910
-static int sub_00501910_GetTextLineWidth(const Unicode* pText)
+static int FONT_GetFirstLineWidth(const Unicode* pText)
 {
     D2_ASSERT(pText, 572);
     int nWidth = 0;
@@ -398,11 +398,11 @@ static int sub_00501910_GetTextLineWidth(const Unicode* pText)
 
 void __fastcall sub_M388_Emit_00501910(const Unicode* pText, int* pWidth, int nExtra)
 {
-    *pWidth = sub_00501910_GetTextLineWidth(pText) + nExtra;
+    *pWidth = FONT_GetFirstLineWidth(pText) + nExtra;
 }
 
 // 0x005019C0
-static int sub_005019C0_GetTextHeight(const Unicode* pText)
+static int FONT_GetTextHeight(const Unicode* pText)
 {
     D2_ASSERT(pText, 606);
 
@@ -430,7 +430,7 @@ int __stdcall D2Win_10125()
 }
 
 // 0x00501A60
-static void __stdcall sub_00501A60_DrawRectUp(int nX, int nY, int nWidth, int nHeight, unsigned int dwColor, int nDrawMode)
+static void __stdcall FONT_DrawBox(int nX, int nY, int nWidth, int nHeight, unsigned int dwColor, int nDrawMode)
 {
     D2GFX_DrawBox(nX, nY - nHeight, nWidth + nX, nY, dwColor, nDrawMode);
 }
@@ -443,7 +443,7 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
     const int nStartX = nX;
     if (bCentered)
     {
-        nX += (nWidth - sub_00501910_GetTextLineWidth(wszText)) >> 1;
+        nX += (nWidth - FONT_GetFirstLineWidth(wszText)) >> 1;
     }
 
     D2CelContextStrc tContext;
@@ -508,7 +508,7 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
         {
             if (bCentered)
             {
-                nX = ((nWidth - sub_00501910_GetTextLineWidth(wszTextCur)) >> 1) + nStartX;
+                nX = ((nWidth - FONT_GetFirstLineWidth(wszTextCur)) >> 1) + nStartX;
             }
             else
             {
@@ -528,14 +528,14 @@ void __stdcall sub_00501A80_Shim(const Unicode* wszText, int nX, int nY, int nWi
 }
 
 // 0x00501C30
-static void __stdcall sub_00501C30_DrawFontText(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode)
+static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode)
 {
     const int nLength = sub_00526800(wszText);
     int nCount = 0;
     const int nStartX = nX;
     if (bCentered)
     {
-        nX += (nWidth - sub_00501910_GetTextLineWidth(wszText)) >> 1;
+        nX += (nWidth - FONT_GetFirstLineWidth(wszText)) >> 1;
     }
 
     D2CelContextStrc tContext;
@@ -605,7 +605,7 @@ static void __stdcall sub_00501C30_DrawFontText(const Unicode* wszText, int nX, 
         {
             if (bCentered)
             {
-                nX = ((nWidth - sub_00501910_GetTextLineWidth(wszTextCur)) >> 1) + nStartX;
+                nX = ((nWidth - FONT_GetFirstLineWidth(wszTextCur)) >> 1) + nStartX;
             }
             else
             {
@@ -622,8 +622,8 @@ void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int 
 {
     int nWidth = 0;
     if (bCentered)
-        nWidth = sub_00501840_GetMultiLineTextWidth(wszText) + 8;
-    sub_00501C30_DrawFontText(wszText, nX, nY, nWidth, nColor, bCentered, eDrawMode);
+        nWidth = FONT_GetMaxLineWidth(wszText) + 8;
+    FONT_DrawTextLineWithDrawMode(wszText, nX, nY, nWidth, nColor, bCentered, eDrawMode);
 }
 
 inline int sub_K08_IsColorCodePrefix(unsigned short wChar)
@@ -635,7 +635,7 @@ inline int sub_K08_IsColorCodePrefix(unsigned short wChar)
 }
 
 // 0x00502190
-static void sub_00502190_DrawFontText(const Unicode* pText, int nX, int nY)
+static void D2Win_10126_DrawTextFromCache(const Unicode* pText, int nX, int nY)
 {
     const Unicode* wszText = pText;
     const int nStartX = nX;
@@ -696,18 +696,18 @@ void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int
 }
 
 // 0x00502320
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered)
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered)
 {
     int nWidth = 0;
     if (bCentered)
-        nWidth = sub_00501840_GetMultiLineTextWidth(wszText) + 8;
+        nWidth = FONT_GetMaxLineWidth(wszText) + 8;
     sub_00501A80_DrawTextLine(nY, nWidth, nColor, bCentered, wszText, nX);
 }
 
 // 0x005023A0
-void __fastcall sub_005023A0_DrawFontText(const Unicode* pText, int nX, int nY)
+void __fastcall FONT_DrawTextFromCache(const Unicode* pText, int nX, int nY)
 {
-    sub_00502190_DrawFontText(pText, nX, nY);
+    D2Win_10126_DrawTextFromCache(pText, nX, nY);
 }
 
 // calling-convention shim (not game code)
@@ -720,8 +720,8 @@ static void __stdcall sub_00501A80_DrawString(const Unicode* wszText, int nX, in
 
 static inline void sub_005023B0_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight)
 {
-    *pWidth = sub_00501840_GetMultiLineTextWidth(pText) + 8;
-    *pHeight = sub_005019C0_GetTextHeight(pText);
+    *pWidth = FONT_GetMaxLineWidth(pText) + 8;
+    *pHeight = FONT_GetTextHeight(pText);
 }
 
 // 0x005023B0
@@ -755,7 +755,7 @@ void __fastcall D2Win_10133(const Unicode* wszText, int nX, int nY, int nColor, 
     int nLeft;
     int nTop;
     int nScreenHeight;
-    const int nRectWidth = sub_00501840_GetMultiLineTextWidth(wszText);
+    const int nRectWidth = FONT_GetMaxLineWidth(wszText);
     const int nRectHeight = gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight;
     nLeft = nX;
     nY += 2;
@@ -782,7 +782,7 @@ static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, 
     int nCount = 0;
     const int nStartX = nX;
     if (bCentre)
-        nX += (nWidth - sub_00501910_GetTextLineWidth(pText)) >> 1;
+        nX += (nWidth - FONT_GetFirstLineWidth(pText)) >> 1;
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpFontCache_00841D88->pCellFile;
@@ -832,7 +832,7 @@ static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, 
         else
         {
             if (bCentre)
-                nX = ((nWidth - sub_00501910_GetTextLineWidth(pText)) >> 1) + nStartX;
+                nX = ((nWidth - FONT_GetFirstLineWidth(pText)) >> 1) + nStartX;
             else
                 nX = nStartX;
             nY += gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight * gnFontMetric1_0072E000 / -10;
@@ -843,8 +843,8 @@ static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, 
 // 0x00502520
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight)
 {
-    *pWidth = sub_00501840_GetMultiLineTextWidth(pText);
-    *pHeight = sub_005019C0_GetTextHeight(pText);
+    *pWidth = FONT_GetMaxLineWidth(pText);
+    *pHeight = FONT_GetTextHeight(pText);
 }
 
 // Returns whether the font can draw a character: 0 for the colour-code prefix 0xFF, else the character's bit in its
@@ -877,12 +877,12 @@ unsigned int __fastcall D2Win_10128(unsigned char nCharCode)
 }
 
 // 0x005025C0
-void __fastcall sub_005025C0_DrawFramedText(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int eDrawMode, int nTextColor)
+void __fastcall FONT_DrawTextWithBackground(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int eDrawMode, int nTextColor)
 {
     int nScreenWidth;
     int nLeft;
     int nScreenHeight;
-    const int nTextHeight = sub_005019C0_GetTextHeight(wszText);
+    const int nTextHeight = FONT_GetTextHeight(wszText);
     const int nPad = 4 * gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight / 10;
     nLeft = nX;
     nY += 2;
@@ -900,11 +900,11 @@ void __fastcall sub_005025C0_DrawFramedText(const Unicode* wszText, int nX, int 
 
 extern "C" void __stdcall sub_K08_EmitDrawRect(int nX, int nY, int nWidth, int nHeight, unsigned int dwColor, int nDrawMode)
 {
-    sub_00501A60_DrawRectUp(nX, nY, nWidth, nHeight, dwColor, nDrawMode);
+    FONT_DrawBox(nX, nY, nWidth, nHeight, dwColor, nDrawMode);
 }
 
 // 0x00502680
-void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nAlign, int eDrawMode, int nShift)
+void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nAlign, int eDrawMode, int nShift)
 {
     const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)pCell);
     unsigned int nWidth;
@@ -954,13 +954,13 @@ void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, 
 }
 
 // 0x00502750
-void __fastcall sub_00502750_DrawTooltip(const Unicode* text,int x,int y,int color,int centered,int fill)
+void __fastcall D2Win_10120(const Unicode* text,int x,int y,int color,int centered,int fill)
 {
  if(!sub_00526800(text)) return;
- const int width=sub_00501840_GetMultiLineTextWidth(text)+8;
+ const int width=FONT_GetMaxLineWidth(text)+8;
  int screenWidth,screenHeight;
  int rest;
- int height=sub_005019C0_GetTextHeight(text);
+ int height=FONT_GetTextHeight(text);
  if(centered==1) { rest=width>>1; x-=rest; }
  y+=2;
  WINDOW_GetDimensions(&screenWidth,&screenHeight);
@@ -979,7 +979,7 @@ void __fastcall sub_00502750_DrawTooltip(const Unicode* text,int x,int y,int col
 }
 
 // 0x005028A0
-void __fastcall sub_005028A0_FreeTextLines(T0044CB60* pLines)
+void __fastcall D2Win_10200(T0044CB60* pLines)
 {
     while (pLines)
     {
@@ -992,11 +992,11 @@ void __fastcall sub_005028A0_FreeTextLines(T0044CB60* pLines)
 
 void __fastcall sub_M98_Emit_005019C0(const Unicode* pText, int* pHeight, int nExtra)
 {
-    *pHeight = sub_005019C0_GetTextHeight(pText) + nExtra;
+    *pHeight = FONT_GetTextHeight(pText) + nExtra;
 }
 
 // 0x005028E0
-D2SplittedTextStrc* __stdcall sub_005028E0_AllocSplitTextLine(const Unicode* wszText, int nLength, int bSkipSpace)
+D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, int nLength, int bSkipSpace)
 {
     const Unicode* pText = wszText;
     D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\Src\\D2WinFont.cpp", 0x588, 0);
@@ -1036,7 +1036,7 @@ void __fastcall D2Win_10115_FONT()
     if (nLanguage < 6)
     {
         strcpy(gszFontLanguage_00841D8C, "Latin\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA100;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_GetCharInfoByIndex;
         gnFontMetric2_0072E004 = 16;
     }
     else switch (nLanguage)
@@ -1044,7 +1044,7 @@ void __fastcall D2Win_10115_FONT()
     case 12:
         gbKoreanFonts_00841EC6 = true;
         strcpy(gszFontLanguage_00841D8C, "LATIN\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA100;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_GetCharInfoByIndex;
         break;
 
     case 6:
@@ -1052,13 +1052,13 @@ void __fastcall D2Win_10115_FONT()
         gnFontMetric2_0072E004 = 15;
         gnFontMetric3_0072E008 = 5;
         strcpy(gszFontLanguage_00841D8C, "JPN\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_FindCharInfo;
         break;
 
     case 7:
         gnFontMetric3_0072E008 = 5;
         strcpy(gszFontLanguage_00841D8C, "KOR\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_FindCharInfo;
         break;
 
     case 8:
@@ -1067,32 +1067,32 @@ void __fastcall D2Win_10115_FONT()
         gnFontMetric1_0072E000 = 14;
         gnFontMetric2_0072E004 = 14;
         strcpy(gszFontLanguage_00841D8C, "CHI\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_FindCharInfo;
         break;
 
     case 10:
         gnFontMetric1_0072E000 = 13;
         gnFontMetric2_0072E004 = 13;
         strcpy(gszFontLanguage_00841D8C, "LATIN2\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_FindCharInfo;
         break;
 
     case 11:
         strcpy(gszFontLanguage_00841D8C, "CYR\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_FindCharInfo;
         break;
 
     default:
         strcpy(gszFontLanguage_00841D8C, "Latin\\");
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_FindCharInfo;
         break;
     }
 
     if (!gFontCache_00841DA8[1].pCellFile)
     {
-        sub_005013A0(1, szFile, 0x4F);
+        FONT_BuildFontPath(1, szFile, 0x4F);
         gFontCache_00841DA8[1].pCellFile = ARCHIVE_LoadCellFile(szFile, 0);
-        sub_6F8A9E90(1);
+        FONT_LoadFontTable(1);
     }
 
     if (!ghMonsterIndicators_00841DA4)
@@ -1127,9 +1127,9 @@ int __fastcall sub_00502EF0(int nFontSize)
     if (!gFontCache_00841DA8[nFontSize].pCellFile)
     {
         char szFile[0x50];
-        sub_005013A0(nFontSize, szFile, 0x4F);
+        FONT_BuildFontPath(nFontSize, szFile, 0x4F);
         gFontCache_00841DA8[nFontSize].pCellFile = ARCHIVE_LoadCellFile(szFile, 0);
-        sub_6F8A9E90(nFontSize);
+        FONT_LoadFontTable(nFontSize);
         gFontCache_00841DA8[nFontSize].dwShiftedTickCount = dwShiftedTickCount;
     }
 
@@ -1152,10 +1152,10 @@ int __fastcall sub_00502EF0(int nFontSize)
 
     if (gbKoreanFonts_00841EC6)
     {
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_FindCharInfo;
         if (nFontSize == 13)
             return nOldFont;
-        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA100;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))FONT_GetCharInfoByIndex;
     }
 
     return nOldFont;
@@ -1181,8 +1181,8 @@ void __stdcall D2Win_10124()
     int nRest = 0;
     for (;;)
     {
-        nWidth = sub_00501840_GetMultiLineTextWidth(gwszFramedText_00841EC8) + 8;
-        nHeight = sub_005019C0_GetTextHeight(gwszFramedText_00841EC8);
+        nWidth = FONT_GetMaxLineWidth(gwszFramedText_00841EC8) + 8;
+        nHeight = FONT_GetTextHeight(gwszFramedText_00841EC8);
 
         nX = gnFramedTextX_008426C8;
         if (gnFramedTextAlign_008426D4 == 1)

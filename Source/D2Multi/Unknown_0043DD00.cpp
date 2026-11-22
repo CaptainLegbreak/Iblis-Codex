@@ -12,7 +12,7 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 void __fastcall D2Win_10046(D2WinControlStrc* pControl, const char* szText, int nArg);            // 0x004FCFF0
 D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit);                             // 0x004F93C0
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
+void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
@@ -83,7 +83,7 @@ void __cdecl sub_0043DDD0_CreateCharControls()
     gpControl_0077B080 = CONTROL_Create(&gtControlInit_0070D030);
     gpControl_0077B094 = CONTROL_Create(&gtControlInit_0070D120);
     gpControl_0077B098 = CONTROL_Create(&gtControlInit_0070D150);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B074, 0);
+    CONTROL_SetEnabled(gpChatControl_0077B074, 0);
     for (int j = 0; j <= 1; j++)
         gapControls_0077B050[j] = CONTROL_Create(&gatControlInits_0070D180[j]);
     gpControl_0077BC40 = CONTROL_Create(&gtControlInit_0070D1E0);

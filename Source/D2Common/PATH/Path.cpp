@@ -2718,7 +2718,8 @@ extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* uni
     return 0;
 }
 
-extern "C" int __stdcall sub_006BD130_findKey(LinkView* link, U32 key, int unusedLogError)
+// build: symbol _FOG_GetLinkIndexByCode@* 0x006BD130
+extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unusedLogError)
 {
     int upper = link->count;
     int lower = 0;

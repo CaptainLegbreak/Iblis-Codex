@@ -61,17 +61,17 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
-void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
-int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
-int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
+int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 extern D2UnitStrc* gpPlayerUnit_007A6A70; // 0x007A6A70
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 extern int gnTimerEnd_007A7464; // 0x007A7464
@@ -432,8 +432,8 @@ void __cdecl sub_0046C060_DrawCountdown()
         wszText[i].wChar = 0;
     sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd_007A7464 - nNow);
     const int nOldFont = sub_00502EF0(13);
-    const int nWidth = sub_00501820(wszText);
-    sub_00502320(wszText, gnGlobal_0071146C / 2 - nWidth / 2, 0x177, 9, 1);
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
+    D2Win_10117_DrawText(wszText, gnGlobal_0071146C / 2 - nWidth / 2, 0x177, 9, 1);
     sub_00502EF0(nOldFont);
 }
 

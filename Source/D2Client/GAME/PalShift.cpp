@@ -81,9 +81,9 @@ int __fastcall DATATBLS_GetMonStatsTxtRecordCount();                            
 
 D2PalShiftNodeStrc* __fastcall sub_00477030_FindPalShiftNode(int nId);                                          // 0x00477030
 
-int __fastcall sub_00516E46_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
+int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
 
-void __fastcall sub_00516E84_CloseFile(void* hArchive, void* hFile);                                             // 0x00516E84
+void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile);                                             // 0x00516E84
 
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
 
@@ -229,7 +229,7 @@ void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
     strcat(szFile, szCode);
     strcat(szFile, "\\Cof\\palshift.dat");
 
-    if (!sub_00516E46_OpenFile(0, szFile, &hFile, 1))
+    if (!ARCHIVE_OpenFile(0, szFile, &hFile, 1))
     {
         return;
     }
@@ -237,7 +237,7 @@ void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
     pShift = (D2PalShiftNodeStrc*)FOG_Alloc(sizeof(D2PalShiftNodeStrc), ".\\GAME\\PalShift.cpp", 244, 0);
     memset(pShift, 0, sizeof(D2PalShiftNodeStrc));
     ARCHIVE_ReadFileToBuffer(0, hFile, &pShift->tBase, sizeof(pShift->tBase));
-    sub_00516E84_CloseFile(0, hFile);
+    ARCHIVE_CloseFile(0, hFile);
     sub_00477060_BuildBloodShift(nMonsterId, pShift);
     pShift->nId = nMonsterId;
     pShift->pNext = gpPalShiftList_007B957C;

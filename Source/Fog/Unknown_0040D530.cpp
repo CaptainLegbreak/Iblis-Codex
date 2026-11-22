@@ -1,7 +1,7 @@
 #include "D2GameTypes.h"
 
 
-int __fastcall sub_0040C720_ReleaseReferences(int nArg);                                                                      // 0x0040C720
+int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg);                                                                      // 0x0040C720
 void __fastcall CMDTBL_ResetKeyConfig(int nArg);                                                                     // 0x00469A60
 void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
 extern "C" void __cdecl sub_00517ABB(void* pMemory);                                                        // 0x00517ABB
@@ -11,7 +11,7 @@ extern void* gpCelFile_007C02BC;                                                
 // 0x0040D530
 int __cdecl sub_0040D530_Call0040C720()
 {
-    return sub_0040C720_ReleaseReferences(1);
+    return EXCEPTIONS_ReleaseSymbols(1);
 }
 
 // 0x004A5010

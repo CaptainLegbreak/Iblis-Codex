@@ -400,7 +400,8 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
     char szPath[260];
 
     gnIndex_007BF2B9 = -1;
-    if ((!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0()) && nPage == 4)
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if ((!FOG_IsExpansion() || !sub_0044DCC0()) && nPage == 4)
     {
         return;
     }
@@ -550,9 +551,9 @@ void __cdecl sub_004A23D0_LoadPanelCels();                                      
 int __stdcall sub_004A26B0_OpenPanel(int nArg);                                                             // 0x004A26B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-int __fastcall sub_00501820(const unsigned short* wszText);                                      // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const unsigned short* wszText);                                      // 0x00501820
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
-void __fastcall sub_00502320(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
+void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 T0044CB60* __fastcall sub_00502970_SplitText(unsigned short* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);           // 0x0065C360
@@ -656,7 +657,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
         {
             int bExpansion = 0;
             int aX[5];
-            if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+            if (FOG_IsExpansion() && sub_0044DCC0())
             {
                 bExpansion = 1;
                 aX[0] = 5;
@@ -700,7 +701,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             case 4:
                 if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0x1A, 0))
                     bShow = 0;
-                if (!sub_00408F20_HasExpansionMpq() || !sub_0044DCC0() || !bShow)
+                if (!FOG_IsExpansion() || !sub_0044DCC0() || !bShow)
                     continue;
                 break;
             }
@@ -751,7 +752,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
                         {
                             gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.f_8] = dwTick;
                             gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.f_8] += 1;
-                            if (gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.f_8] == 1 && sub_00408F20_HasExpansionMpq())
+                            if (gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.f_8] == 1 && FOG_IsExpansion())
                                 sub_004B9A00(0xE, 0, 0, 0, 0);
                         }
                     }
@@ -844,7 +845,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             if (gtQuestLog_007BF298.aMsgs[nFound].wTitle != 0xE8C)
             {
                 const unsigned short* pTitle = D2LANG_GetStringFromTblIndex(gtQuestLog_007BF298.aMsgs[nFound].wTitle);
-                sub_00502320(pTitle, gnGlobal_007A2858 - sub_00501820(pTitle) / 2 + 0xA0, gnGlobal_00724218 - gnGlobal_007A285C, 0, 0);
+                D2Win_10117_DrawText(pTitle, gnGlobal_007A2858 - D2Win_10121_GetTextWidth(pTitle) / 2 + 0xA0, gnGlobal_00724218 - gnGlobal_007A285C, 0, 0);
             }
 
             if (!gtQuestLog_007BF298.bB3 && gtQuestLog_007BF298.aMsgs[nFound].wszText[0])
@@ -856,7 +857,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
                     int nLine = 0;
                     do
                     {
-                        sub_00502320(pLine->pText, gnGlobal_007A2858 + gnGlobal_00724214, nLine * 0x14 - gnGlobal_007A285C + gnGlobal_00724210, 0, 0);
+                        D2Win_10117_DrawText(pLine->pText, gnGlobal_007A2858 + gnGlobal_00724214, nLine * 0x14 - gnGlobal_007A285C + gnGlobal_00724210, 0, 0);
                         T0044CB60* pNext = pLine->pNext;
                         FOG_Free(pLine->pText, ".\\UI\\QuestLog.cpp", 0x8D1, 0);
                         FOG_Free(pLine, ".\\UI\\QuestLog.cpp", 0x8D2, 0);

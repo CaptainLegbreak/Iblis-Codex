@@ -28,7 +28,7 @@ extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned lo
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 void __cdecl sub_0050FD10_GlideDrawVideoFrame(); // 0x0050FD10
 void __cdecl sub_005136F0_BlitBinkFrame(); // 0x005136F0
-void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern unsigned int gnGlideBinkY_00880C04; // 0x00880C04
 extern unsigned int gnGlideBinkFlags_00880C14; // 0x00880C14
@@ -237,10 +237,10 @@ LABEL_FAIL:
 
     if (gpGlideBink_00880C0C)
     {
-        sub_00515CE0_SetMasterVolume(0);
+        D2SOUND_SetMasterVolume(0);
         BinkClose(gpGlideBink_00880C0C);
         CloseHandle(hFile);
-        sub_00515CE0_SetMasterVolume(0xFF);
+        D2SOUND_SetMasterVolume(0xFF);
         gpGlideBink_00880C0C = 0;
     }
 }
@@ -361,10 +361,10 @@ LABEL_FAIL:
 
     if (gpDDrawBink_008816C0)
     {
-        sub_00515CE0_SetMasterVolume(0);
+        D2SOUND_SetMasterVolume(0);
         BinkClose(gpDDrawBink_008816C0);
         CloseHandle(hFile);
-        sub_00515CE0_SetMasterVolume(0xFF);
+        D2SOUND_SetMasterVolume(0xFF);
         gpDDrawBink_008816C0 = 0;
     }
     if (gbDDrawBinkQuit_008816D0)

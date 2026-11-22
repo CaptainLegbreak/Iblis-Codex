@@ -64,7 +64,7 @@ typedef char CheckIdentifierSize[sizeof(DDDEVICEIDENTIFIER)==0x428?1:-1];
 typedef char CheckRendererSize[sizeof(D2RendererInfoStrc)==0x3c0?1:-1];
 extern "C" char* __cdecl sub_00687330_Strncpy(char*,const char*,unsigned int); // 0x00687330
 extern "C" void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x00410610
-void __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
+void __cdecl FOG_GetSystemInfo(); // 0x00407360
 extern "C" HRESULT __stdcall sub_006B1350_DirectDrawCreate(GUID*,IDirectDraw**,void*); // 0x006B1350
 void __fastcall sub_006B20E0_DDrawLogError(const char*,HRESULT) throw(); // 0x006B20E0
 void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result); // 0x006B39B0
@@ -150,7 +150,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
  gpDirectDraw4=0;
  gpDirect3D3=0;
  try {
-  sub_00407360_GetSystemInfo();
+  FOG_GetSystemInfo();
   int index=gnDisplayCount;
   if(index>=2) { sub_00410610_WriteLogLine(gsz_006FBEFC,index,2); return 0; }
   D2RendererInfoStrc* display=&gaDisplays[index];

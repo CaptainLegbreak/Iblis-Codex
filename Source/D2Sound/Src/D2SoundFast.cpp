@@ -3,17 +3,17 @@
 
 struct D2SoundStrc;
 
-int __cdecl sub_00515D60_GetMasterVolume();                                                                  // 0x00515D60
+int __cdecl D2SOUND_GetMasterVolume();                                                                  // 0x00515D60
 
-int __fastcall sub_00515C30_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
+int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
 
-void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound);                                                // 0x00516140
+void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound);                                                // 0x00516140
 
-void __fastcall sub_005157B0_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
+void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
 
-int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
+int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
 
-void __fastcall sub_00515EE0_StopSound(D2SoundStrc* pSound);                                                // 0x00515EE0
+void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound);                                                // 0x00515EE0
 
 D2SoundStrc* gpSoundChannel_00881794;                                                                       // 0x00881794
 
@@ -43,23 +43,23 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __cdecl sub_00513AF0_ReleaseSoundObjects(); // 0x00513AF0
+void __cdecl D2SOUND_ReleaseSoundObjects(); // 0x00513AF0
 
 int __cdecl sub_00513B50(); // 0x00513B50
 
-void __cdecl sub_005147B0_DestroySoundChannel(); // 0x005147B0
+void __cdecl D2SOUND_DestroyStreamChannel(); // 0x005147B0
 
-void __cdecl sub_00514860_ClearChannelTable(); // 0x00514860
+void __cdecl D2SOUND_ClearChannelTable(); // 0x00514860
 
-void __cdecl sub_00515120_StopSoundThread(); // 0x00515120
+void __cdecl D2SOUND_StopSoundThread(); // 0x00515120
 
-D2SoundStrc* __fastcall sub_00515530_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
+D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 
-int __fastcall sub_00515710_GetSoundPlaying(D2SoundStrc* pSound); // 0x00515710
+int __fastcall D2SOUND_GetSoundPlayingFlag(D2SoundStrc* pSound); // 0x00515710
 
-void __fastcall sub_00515C60_StartFade(D2SoundStrc* pFade, int nTarget, int nDuration); // 0x00515C60
+void __fastcall D2SOUND_StartSoundFade(D2SoundStrc* pFade, int nTarget, int nDuration); // 0x00515C60
 
-void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 
@@ -96,9 +96,9 @@ extern D2SoundWaveStrc* gpSoundWaveList_00881800; // 0x00881800
 
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 
-int __fastcall sub_005155D0_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize); // 0x005155D0
+int __fastcall D2SOUND_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize); // 0x005155D0
 
-int __fastcall sub_005156A0_PlaySound(D2SoundStrc* pSound); // 0x005156A0
+int __fastcall D2SOUND_PlaySound(D2SoundStrc* pSound); // 0x005156A0
 
 extern D2WaveStrc* gpWaveList_00881800; // 0x00881800
 
@@ -106,7 +106,7 @@ int gnChannelValue_00881798; // 0x00881798
 
 int gbChannelFlag_0088179C; // 0x0088179C
 
-void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound); // 0x005160D0
+void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 // 0x00514040
 void __cdecl sub_00514040_Nothing()
@@ -119,13 +119,13 @@ void __cdecl sub_00514050_Nothing()
 }
 
 // 0x00514060
-void __cdecl sub_00514060_ShutdownSound()
+void __cdecl D2SOUND_CloseSoundSystem()
 {
     gnSoundState_00881764 = 0;
-    sub_00515CE0_SetMasterVolume(0);
-    sub_005147B0_DestroySoundChannel();
-    sub_00515120_StopSoundThread();
-    sub_00513AF0_ReleaseSoundObjects();
+    D2SOUND_SetMasterVolume(0);
+    D2SOUND_DestroyStreamChannel();
+    D2SOUND_StopSoundThread();
+    D2SOUND_ReleaseSoundObjects();
     if (gpSoundObject_00881748)
     {
         gpSoundObject_00881748->Release();
@@ -144,13 +144,13 @@ void __cdecl sub_00514060_ShutdownSound()
 }
 
 // 0x005147D0
-int __fastcall sub_005147D0_PlayStream(const char* szFile, int bLoop)
+int __fastcall D2SOUND_PlayStreamChannel(const char* szFile, int bLoop)
 {
-    if (gpSoundChannel_00881794 && sub_00515D60_GetMasterVolume() && !sub_00515C30_IsSoundStreaming(gpSoundChannel_00881794) && szFile)
+    if (gpSoundChannel_00881794 && D2SOUND_GetMasterVolume() && !D2SOUND_IsSoundStreaming(gpSoundChannel_00881794) && szFile)
     {
-        sub_00516140_ResetSound(gpSoundChannel_00881794);
-        sub_005157B0_SetSoundVolume(gpSoundChannel_00881794, 0x6E);
-        if (sub_00515D70_StartStream(gpSoundChannel_00881794, szFile, 0, bLoop))
+        D2SOUND_ResetSound(gpSoundChannel_00881794);
+        D2SOUND_SetSoundVolume(gpSoundChannel_00881794, 0x6E);
+        if (D2SOUND_StartSoundStream(gpSoundChannel_00881794, szFile, 0, bLoop))
         {
             return 1;
         }
@@ -159,37 +159,37 @@ int __fastcall sub_005147D0_PlayStream(const char* szFile, int bLoop)
 }
 
 // 0x00514840
-int __cdecl sub_00514840_IsChannelStreaming()
+int __cdecl D2SOUND_IsStreamChannelPlaying()
 {
-    if (gpSoundChannel_00881794 && sub_00515C30_IsSoundStreaming(gpSoundChannel_00881794))
+    if (gpSoundChannel_00881794 && D2SOUND_IsSoundStreaming(gpSoundChannel_00881794))
         return 1;
     return 0;
 }
 
 // 0x005148F0
-void __fastcall sub_005148F0_SetChannelValue(int nValue)
+void __fastcall D2SOUND_10034(int nValue)
 {
     if (nValue && !gnChannelValue_00881798)
     {
-        sub_00514860_ClearChannelTable();
+        D2SOUND_ClearChannelTable();
         gbChannelFlag_0088179C = 1;
     }
     gnChannelValue_00881798 = nValue;
 }
 
 // 0x00514960
-void __cdecl sub_00514960_FadeOutChannel()
+void __cdecl D2SOUND_FadeOutStreamChannel()
 {
     if (gpSoundChannel_00881794)
     {
         gnChannelValue_00881798 = 0;
-        if (sub_00515C30_IsSoundStreaming(gpSoundChannel_00881794))
-            sub_00515C60_StartFade(gpSoundChannel_00881794, 0, 200);
+        if (D2SOUND_IsSoundStreaming(gpSoundChannel_00881794))
+            D2SOUND_StartSoundFade(gpSoundChannel_00881794, 0, 200);
     }
 }
 
 // 0x00514CD0
-int __fastcall sub_00514CD0_SetMasterVolume(int nValue)
+int __fastcall D2SOUND_SetMasterVolumeOption(int nValue)
 {
     SRegSaveValue("Diablo II", "Master Volume", 0, nValue);
     gdwGlobal_008817B0 = nValue;
@@ -197,7 +197,7 @@ int __fastcall sub_00514CD0_SetMasterVolume(int nValue)
 }
 
 // 0x00514D30
-int __fastcall sub_00514D30_SetPositionalBias(int nValue)
+int __fastcall D2SOUND_SetPositionalBiasOption(int nValue)
 {
     SRegSaveValue("Diablo II", "Positional Bias", 0, nValue);
     gdwGlobal_008817B8 = nValue;
@@ -205,20 +205,20 @@ int __fastcall sub_00514D30_SetPositionalBias(int nValue)
 }
 
 // 0x00514DB0
-void __cdecl sub_00514DB0_InitWaveSlots()
+void __cdecl D2SOUND_InitWaveSlots()
 {
     if (sub_00513B50() && !gbWaveSlotsInit_008817FC)
     {
         InitializeCriticalSection(&gWaveLock_008817C4);
-        sub_00515CE0_SetMasterVolume(0xFF);
+        D2SOUND_SetMasterVolume(0xFF);
         for (int i = 0; i < 8; ++i)
-            gapWaveSlots_008817DC[i] = sub_00515530_CreateSound(i < 4, 0);
+            gapWaveSlots_008817DC[i] = D2SOUND_CreateSound(i < 4, 0);
         gbWaveSlotsInit_008817FC = 1;
     }
 }
 
 // 0x00514E10
-void __fastcall sub_00514E10_LoadWave(const char* szName)
+void __fastcall D2SOUND_PreloadWave(const char* szName)
 {
     if (!gbWaveSlotsInit_008817FC)
         return;
@@ -266,17 +266,17 @@ void __fastcall D2SOUND_10039(const char* szName)
         int i;
         for (i = 0; i < 8; ++i)
         {
-            if (gapWaveSlots_008817DC[i]->dwFlags == pWave->nType && !sub_00515710_GetSoundPlaying(gapWaveSlots_008817DC[i]))
+            if (gapWaveSlots_008817DC[i]->dwFlags == pWave->nType && !D2SOUND_GetSoundPlayingFlag(gapWaveSlots_008817DC[i]))
                 break;
         }
 
         if (i < 8)
         {
             D2SoundStrc* pSound = gapWaveSlots_008817DC[i];
-            sub_00516140_ResetSound(pSound);
-            sub_005155D0_SetSoundData(pSound, pWave->pData, pWave->nSize);
-            sub_005157B0_SetSoundVolume(pSound, 0xFF);
-            sub_005156A0_PlaySound(pSound);
+            D2SOUND_ResetSound(pSound);
+            D2SOUND_SetSoundData(pSound, pWave->pData, pWave->nSize);
+            D2SOUND_SetSoundVolume(pSound, 0xFF);
+            D2SOUND_PlaySound(pSound);
         }
         }
     }
@@ -285,53 +285,53 @@ void __fastcall D2SOUND_10039(const char* szName)
 }
 
 // 0x00514FB0
-int __cdecl sub_00514FB0_IsAnyWavePlaying()
+int __cdecl D2SOUND_IsAnyWavePlaying()
 {
     if (!gbWaveSlotsInit_008817FC)
         return 0;
     for (int i = 0; i < 8; ++i)
     {
-        if (sub_00515710_GetSoundPlaying(gapWaveSlots_008817DC[i]))
+        if (D2SOUND_GetSoundPlayingFlag(gapWaveSlots_008817DC[i]))
             return 1;
     }
     return 0;
 }
 
 // 0x00514FF0
-void __cdecl sub_00514FF0_StopAllWaves()
+void __cdecl D2SOUND_StopAllWaves()
 {
     if (gbWaveSlotsInit_008817FC)
     {
         for (int i = 0; i < 8; ++i)
         {
-            sub_00515EE0_StopSound(gapWaveSlots_008817DC[i]);
+            D2SOUND_StopSound(gapWaveSlots_008817DC[i]);
         }
     }
 }
 
 // 0x00515020
-void __cdecl sub_00515020_FadeOutWaves()
+void __cdecl D2SOUND_FadeOutWaves()
 {
     if (gbWaveSlotsInit_008817FC)
     {
         for (int i = 0; i < 8; ++i)
         {
-            if (sub_00515710_GetSoundPlaying(gapWaveSlots_008817DC[i]))
-                sub_00515C60_StartFade(gapWaveSlots_008817DC[i], 0, 200);
+            if (D2SOUND_GetSoundPlayingFlag(gapWaveSlots_008817DC[i]))
+                D2SOUND_StartSoundFade(gapWaveSlots_008817DC[i], 0, 200);
         }
     }
 }
 
 // 0x00515070
-void __cdecl sub_00515070_FreeWaveSlots()
+void __cdecl D2SOUND_FreeWaveSlots()
 {
     if (!gbWaveSlotsInit_008817FC)
         return;
     for (int i = 0; i < 8; ++i)
-        sub_00515EE0_StopSound(gapWaveSlots_008817DC[i]);
+        D2SOUND_StopSound(gapWaveSlots_008817DC[i]);
     for (int i = 0; i < 8; ++i)
     {
-        sub_005160D0_DestroySound(gapWaveSlots_008817DC[i]);
+        D2SOUND_DestroySound(gapWaveSlots_008817DC[i]);
         gapWaveSlots_008817DC[i] = 0;
     }
     while (gpWaveList_00881800)

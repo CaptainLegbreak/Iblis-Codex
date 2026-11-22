@@ -12,7 +12,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
@@ -307,7 +307,7 @@ EditBoxImplementation::EditBoxImplementation(int nX, int nY, int nTextWidth, int
     sub_00526F20_ToUnicode(wszDigits, szDigits, 11);
     if (nTextWidth <= 0)
     {
-        this->nTextWidth = sub_00501820(wszDigits) / 10 * (nMaxLength + 2);
+        this->nTextWidth = D2Win_10121_GetTextWidth(wszDigits) / 10 * (nMaxLength + 2);
     }
     else
     {

@@ -73,7 +73,7 @@ void __stdcall sub_00403040_VectorCtor(void* pArray, unsigned int nSize, int nCo
 
 void __fastcall sub_0042F530_UnicodeCtor(void* pThis);                                                      // 0x0042F530
 
-int __cdecl sub_00408F20_HasExpansionMpq();                                                                 // 0x00408F20
+int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 
@@ -347,9 +347,9 @@ void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, un
 
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
 
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
@@ -1206,7 +1206,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(nStr), gnGlobal_0071146C - gnGlobal_007A2858 - 0xDE, gnGlobal_00711470 + (gnGlobal_007A285C - 0x59), 0, 1);
             }
 
-            if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0() && sub_00486860_IsOverWeaponSwapTab(sub_00468730(), sub_00468740()))
+            if (FOG_IsExpansion() && sub_0044DCC0() && sub_00486860_IsOverWeaponSwapTab(sub_00468730(), sub_00468740()))
             {
                 unsigned int wszSwap[0x100];
                 sub_00403040_VectorCtor(wszSwap, 2, 0x200, sub_0042F530_UnicodeCtor);
@@ -1679,12 +1679,12 @@ timer_done:
             if (sub_00489FB0_IsOverButtonC(nMouseX, nMouseY))
             {
                 const Unicode* wszText = D2LANG_GetStringFromTblIndex(0x1030);
-                D2Win_10129_DrawFramedText(wszText, gnGlobal_007A2858 - sub_00501820(wszText) / 2 + 0x121, gnGlobal_00711470 + gnGlobal_007A285C - 0x64, 0, 0);
+                D2Win_10129_DrawFramedText(wszText, gnGlobal_007A2858 - D2Win_10121_GetTextWidth(wszText) / 2 + 0x121, gnGlobal_00711470 + gnGlobal_007A285C - 0x64, 0, 0);
             }
             else if (sub_0048A000_IsOverCubeButton(nMouseX, nMouseY))
             {
                 const Unicode* wszText = D2LANG_GetStringFromTblIndex(0xD0D);
-                D2Win_10129_DrawFramedText(wszText, gnGlobal_007A2858 - sub_00501820(wszText) / 2 + 0x9E, gnGlobal_00711470 + gnGlobal_007A285C - 0xDF, 0, 0);
+                D2Win_10129_DrawFramedText(wszText, gnGlobal_007A2858 - D2Win_10121_GetTextWidth(wszText) / 2 + 0x9E, gnGlobal_00711470 + gnGlobal_007A285C - 0xDF, 0, 0);
             }
         }
         else
@@ -1723,11 +1723,11 @@ timer_done:
         sub_005269D0(100, wszGold, D2LANG_GetStringFromTblIndex(0xFD3), nGoldLimit);
         if (sub_0044DCC0())
         {
-            sub_00502320(wszGold, gnGlobal_007A2858 + 0x4E, gnGlobal_00711470 + gnGlobal_007A285C - 0x19F, 0, 0);
+            D2Win_10117_DrawText(wszGold, gnGlobal_007A2858 + 0x4E, gnGlobal_00711470 + gnGlobal_007A285C - 0x19F, 0, 0);
         }
         else
         {
-            sub_00502320(wszGold, gnGlobal_007A2858 + 0x4E, gnGlobal_00711470 + gnGlobal_007A285C - 0xDB, 0, 0);
+            D2Win_10117_DrawText(wszGold, gnGlobal_007A2858 + 0x4E, gnGlobal_00711470 + gnGlobal_007A285C - 0xDB, 0, 0);
         }
 
         const unsigned char nOldTab = gnSelectedTab_007BCC04;
@@ -1748,7 +1748,7 @@ timer_done:
             && nCursorY >= sub_00486B00_GetPanelY() - 0x23 && nCursorY <= sub_00486B00_GetPanelY() + 5)
         {
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(0x1030);
-            D2Win_10129_DrawFramedText(wszText, INV_GetPanelX() - sub_00501820(wszText) / 2 + 12, sub_00486B00_GetPanelY() - 0x23, 0, 0);
+            D2Win_10129_DrawFramedText(wszText, INV_GetPanelX() - D2Win_10121_GetTextWidth(wszText) / 2 + 12, sub_00486B00_GetPanelY() - 0x23, 0, 0);
         }
         break;
     }
@@ -1766,7 +1766,7 @@ timer_done:
 
     INV_LoadUiRecords();
 
-    if (gnGlobal_007BCC4C && sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
+    if (gnGlobal_007BCC4C && FOG_IsExpansion() && sub_0044DCC0())
     {
         tContext.pCellFile = gpCelInvChar6Tab_007BCE84;
         tContext.nFrame = 0;
@@ -1973,36 +1973,36 @@ timer_done:
         Unicode wszText[0x17];
         sub_005267E0(wszText, sub_004B9060());
         int nLength = sub_00526800(wszText);
-        while (sub_00501820(wszText) > 0x70)
+        while (D2Win_10121_GetTextWidth(wszText) > 0x70)
         {
             wszText[nLength].wChar = 0;
             --nLength;
         }
-        sub_00502320(wszText, gnGlobal_007A2858 + 0x19, 0x1B - gnGlobal_007A285C, 0, 0);
+        D2Win_10117_DrawText(wszText, gnGlobal_007A2858 + 0x19, 0x1B - gnGlobal_007A285C, 0, 0);
 
         sub_005267E0(wszText, wszName);
         nLength = sub_00526800(wszText);
-        while (sub_00501820(wszText) > 0x70)
+        while (D2Win_10121_GetTextWidth(wszText) > 0x70)
         {
             wszText[nLength].wChar = 0;
             --nLength;
         }
-        sub_00502320(wszText, gnGlobal_007A2858 + 0x19, 0xF2 - gnGlobal_007A285C, 0, 0);
+        D2Win_10117_DrawText(wszText, gnGlobal_007A2858 + 0x19, 0xF2 - gnGlobal_007A285C, 0, 0);
 
-        sub_00502320(D2LANG_GetStringFromTblIndex(0x8A7), gnGlobal_007A2858 - sub_00501820(D2LANG_GetStringFromTblIndex(0x8A7)) / 2 + 0xBB, 0x1B - gnGlobal_007A285C, 0, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x8A7), gnGlobal_007A2858 - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0x8A7)) / 2 + 0xBB, 0x1B - gnGlobal_007A285C, 0, 0);
 
         Unicode wszNumber[0x0F];
         int aNumber[4];
         char* szNumber = (char*)aNumber;
         SStrPrintf(szNumber, 0x0F, "%d", sub_004B90F0());
         Unicode::win2Unicode(wszNumber, szNumber, 0x0F);
-        sub_00502320(wszNumber, gnGlobal_007A2858 - sub_00501820(wszNumber) + 0x124, 0x1B - gnGlobal_007A285C, 0, 0);
+        D2Win_10117_DrawText(wszNumber, gnGlobal_007A2858 - D2Win_10121_GetTextWidth(wszNumber) + 0x124, 0x1B - gnGlobal_007A285C, 0, 0);
 
-        sub_00502320(D2LANG_GetStringFromTblIndex(0x8A7), gnGlobal_007A2858 - sub_00501820(D2LANG_GetStringFromTblIndex(0x8A7)) / 2 + 0xBB, 0xF2 - gnGlobal_007A285C, 0, 0);
+        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x8A7), gnGlobal_007A2858 - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0x8A7)) / 2 + 0xBB, 0xF2 - gnGlobal_007A285C, 0, 0);
 
         SStrPrintf(szNumber, 0x0F, "%d", sub_004B9100());
         Unicode::win2Unicode(wszNumber, szNumber, 0x0F);
-        sub_00502320(wszNumber, gnGlobal_007A2858 - sub_00501820(wszNumber) + 0x124, 0xF2 - gnGlobal_007A285C, 0, 0);
+        D2Win_10117_DrawText(wszNumber, gnGlobal_007A2858 - D2Win_10121_GetTextWidth(wszNumber) + 0x124, 0xF2 - gnGlobal_007A285C, 0, 0);
     }
 
     const unsigned char nOldTab = gnSelectedTab_007BCC04;
@@ -2445,11 +2445,11 @@ static void INV_DrawMercStats(D2UnitStrc* pUnit)
 
         if (!gaMercStatLines_007221A8[i].nLeft)
         {
-            sub_00502320(wszText, nRight - sub_00501820(wszText), nY, nColor, 0);
+            D2Win_10117_DrawText(wszText, nRight - D2Win_10121_GetTextWidth(wszText), nY, nColor, 0);
         }
         else if (!gaMercStatLines_007221A8[i].nRight)
         {
-            sub_00502320(wszText, nLeft, nY, nColor, 0);
+            D2Win_10117_DrawText(wszText, nLeft, nY, nColor, 0);
         }
         else
         {

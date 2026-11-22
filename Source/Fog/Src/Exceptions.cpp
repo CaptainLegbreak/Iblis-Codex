@@ -184,9 +184,9 @@ void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szF
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
+int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
 
-D2ModuleInfoStrc* __stdcall sub_0040B690_GetModuleListToolhelp(unsigned long dwPid); // 0x0040B690
+D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListToolhelp(unsigned long dwPid); // 0x0040B690
 
 extern int (__stdcall* gpfnSymCleanup_0075CFDC)(void* hProcess); // 0x0075CFDC
 
@@ -384,13 +384,13 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 extern "C" const char gszEmptyString_006FFC44[]; // 0x006FFC44
 
-const char* __fastcall sub_00408000_StripSourcePath(const char* szPath); // 0x00408000
+const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szPath); // 0x00408000
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 int __cdecl s_DoSymInitialize(); // 0x0040C620
 
-int __fastcall sub_0040C720_ReleaseReferences(int all); // 0x0040C720
+int __fastcall EXCEPTIONS_ReleaseSymbols(int all); // 0x0040C720
 
 int (__stdcall* gpfnSymGetLineFromAddr_0075CFE4)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0075CFE4
 
@@ -415,7 +415,7 @@ struct T0040D1C0
     unsigned long adwData[8];
 };
 
-void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
+void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
 
 void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
@@ -445,7 +445,7 @@ D2CriticalSectionStrc gtImageHlpLock_0075CFBC; // 0x0075CFBC
 
 int gnSymInitCount_0075CFD4; // 0x0075CFD4
 
-static void __stdcall sub_0040C520_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize);
+static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
 
 char gszAddressText_0075D020[32]; // 0x0075D020
 
@@ -509,7 +509,7 @@ void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* s
 
 char* __fastcall sub_004113E0_EscapeString(char* szDst, const char* szSrc, int nSize, char cQuote); // 0x004113E0
 
-D2ModuleInfoStrc* __fastcall sub_0040BCB0_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList); // 0x0040BCB0
+D2ModuleInfoStrc* __fastcall EXCEPTIONS_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList); // 0x0040BCB0
 
 extern const char gszStackEipLine_006CD938[]; // 0x006CD938
 
@@ -521,21 +521,21 @@ extern const char gszStackSymbolLine_006CD890[]; // 0x006CD890
 
 extern const char gszStackPad_006FFC44[]; // 0x006FFC44
 
-static int __stdcall sub_0040B600_GetLineFromAddrRetry(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine);
+static int __stdcall EXCEPTIONS_GetLineFromAddrRetry(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0040B600
 
-static D2ModuleInfoStrc* __stdcall sub_0040BC50_GetModuleList(void* hProcess, unsigned long dwPid);
+static D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleList(void* hProcess, unsigned long dwPid); // 0x0040BC50
 
-static D2ModuleInfoStrc* __stdcall sub_0040C0F0_EnumModuleSymbols(unsigned long dwPid, void* hProcess);
+static D2ModuleInfoStrc* __stdcall EXCEPTIONS_LoadModuleSymbols(unsigned long dwPid, void* hProcess); // 0x0040C0F0
 
-static char* sub_0040C290_ComposeSymbolPath(char* szPath);
+static char* EXCEPTIONS_ComposeSymbolPath(char* szPath); // 0x0040C290
 
-void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...);               // 0x004106B0
+void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...);               // 0x004106B0
 
-void __cdecl sub_0040F960_CloseLogFiles();                                                                  // 0x0040F960
+void __cdecl LOGMANAGER_CloseLogFiles();                                                                  // 0x0040F960
 
-extern "C" void __fastcall sub_0040B660_FreeList(D2ModuleInfoStrc* pList);                                  // 0x0040B660
+extern "C" void __fastcall EXCEPTIONS_FreeModuleList(D2ModuleInfoStrc* pList);                                  // 0x0040B660
 
-void __fastcall sub_0040BCF0_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules); // 0x0040BCF0
+void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules); // 0x0040BCF0
 
 struct D2FpoDataStrc
 {
@@ -561,7 +561,7 @@ char gszSymSearchPath_0075BFB8[4096]; // 0x0075BFB8
 int gbSymQuiet_0075CFB8; // 0x0075CFB8
 
 // 0x0040B600
-static int __stdcall sub_0040B600_GetLineFromAddrRetry(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine)
+static int __stdcall EXCEPTIONS_GetLineFromAddrRetry(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine)
 {
     if (!gpfnSymGetLineFromAddr_0075CFE4)
     {
@@ -590,7 +590,7 @@ int sub_H13_EmitLineRetry(void* hProcess, unsigned long dwAddress, unsigned long
     D2ImageHlpLineStrc tLine;
     unsigned long dwDisp = dwDisplacement;
     tLine.dwSizeOfStruct = 0x14;
-    const int bResult = sub_0040B600_GetLineFromAddrRetry(hProcess, dwAddress, &dwDisp, &tLine);
+    const int bResult = EXCEPTIONS_GetLineFromAddrRetry(hProcess, dwAddress, &dwDisp, &tLine);
     sub_H13_EmitUse(tLine.szFileName, dwDisp, tLine.dwLineNumber, bResult);
     return bResult;
 }
@@ -600,12 +600,12 @@ void sub_H13_EmitLogicalAddress(void* pAddress)
     char szModule[0x104];
     unsigned long nSection;
     unsigned long nOffset;
-    sub_0040C520_GetLogicalAddress(szModule, &nSection, &nOffset, pAddress, sizeof(szModule));
+    EXCEPTIONS_GetLogicalAddress(szModule, &nSection, &nOffset, pAddress, sizeof(szModule));
     sub_H13_EmitUse(szModule, nSection, nOffset, 0);
 }
 
 // 0x0040B660
-extern "C" void __fastcall sub_0040B660_FreeList(D2ModuleInfoStrc* pList)
+extern "C" void __fastcall EXCEPTIONS_FreeModuleList(D2ModuleInfoStrc* pList)
 {
     while (pList)
     {
@@ -616,7 +616,7 @@ extern "C" void __fastcall sub_0040B660_FreeList(D2ModuleInfoStrc* pList)
 }
 
 // 0x0040B690
-D2ModuleInfoStrc* __stdcall sub_0040B690_GetModuleListToolhelp(unsigned long dwPid)
+D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListToolhelp(unsigned long dwPid)
 {
     D2ToolhelpModuleEntryStrc tModuleEntry;
     D2ModuleInfoStrc* pList = 0;
@@ -698,7 +698,7 @@ D2ModuleInfoStrc* __stdcall sub_0040B690_GetModuleListToolhelp(unsigned long dwP
 }
 
 // 0x0040B920
-D2ModuleInfoStrc* __stdcall sub_0040B920_BuildModuleList(void* hProcess)
+D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListPsapi(void* hProcess)
 {
     void* ahModules[0x100];
     char szFileName[0x104];
@@ -785,14 +785,14 @@ D2ModuleInfoStrc* __stdcall sub_0040B920_BuildModuleList(void* hProcess)
 
 failed:
     FreeLibrary(hPsapi);
-    sub_0040B660_FreeList(pList);
+    EXCEPTIONS_FreeModuleList(pList);
     return 0;
 }
 
 // 0x0040BC50
-static D2ModuleInfoStrc* __stdcall sub_0040BC50_GetModuleList(void* hProcess, unsigned long dwPid)
+static D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleList(void* hProcess, unsigned long dwPid)
 {
-    D2ModuleInfoStrc* pList = sub_0040B690_GetModuleListToolhelp(dwPid);
+    D2ModuleInfoStrc* pList = EXCEPTIONS_GetModuleListToolhelp(dwPid);
     if (!pList)
     {
         pList = sub_0040B920_GetModuleListPsapi(hProcess);
@@ -825,7 +825,7 @@ extern "C" unsigned char __fastcall sub_0059D7E0_QuestStateCheck(void* game)
 }
 
 // 0x0040BCB0
-D2ModuleInfoStrc* __fastcall sub_0040BCB0_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList)
+D2ModuleInfoStrc* __fastcall EXCEPTIONS_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList)
 {
     for (D2ModuleInfoStrc* pModule = pList; pModule; pModule = pModule->pNext)
     {
@@ -836,7 +836,7 @@ D2ModuleInfoStrc* __fastcall sub_0040BCB0_FindModuleByAddress(unsigned long dwAd
 }
 
 // 0x0040BCF0
-void __fastcall sub_0040BCF0_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules)
+void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules)
 {
     D2ImageHlpSymbolBufferStrc tSymbol;
     char szEscaped[0x50];
@@ -851,7 +851,7 @@ void __fastcall sub_0040BCF0_DumpAnnotatedStack(void* hProcess, D2ThreadContextS
     {
         unsigned long dwDisplacement;
         unsigned long dwEip = pContext->Eip;
-        D2ModuleInfoStrc* pModule = sub_0040BCB0_FindModuleByAddress(dwEip, pModules);
+        D2ModuleInfoStrc* pModule = EXCEPTIONS_FindModuleByAddress(dwEip, pModules);
         const char* szSymbol = gpfnSymGetSymFromAddr_0075CFF4(hProcess, dwEip, &dwDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
         const char* szModule = pModule ? pModule->szName : "unknown";
         sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStackEipLine_006CD938, dwEip, szModule, szSymbol, dwDisplacement);
@@ -878,7 +878,7 @@ void __fastcall sub_0040BCF0_DumpAnnotatedStack(void* hProcess, D2ThreadContextS
         {
             int nLen = strlen(szLine);
             SStrPrintf(&szLine[nLen], 0x100 - nLen, " %02X%02X%02X%02X", pStack[i], pStack[i + 1], pStack[i + 2], pStack[i + 3]);
-            if (sub_0040BCB0_FindModuleByAddress(*(unsigned long*)&pStack[i], pModules))
+            if (EXCEPTIONS_FindModuleByAddress(*(unsigned long*)&pStack[i], pModules))
             {
                 bFound = 1;
                 i += 4;
@@ -903,7 +903,7 @@ void __fastcall sub_0040BCF0_DumpAnnotatedStack(void* hProcess, D2ThreadContextS
         if (bFound)
         {
             unsigned long dwValue = *(unsigned long*)&pStack[nBytes - 4];
-            D2ModuleInfoStrc* pValueModule = sub_0040BCB0_FindModuleByAddress(dwValue, pModules);
+            D2ModuleInfoStrc* pValueModule = EXCEPTIONS_FindModuleByAddress(dwValue, pModules);
             D2_ASSERT(pValueModule, 0x3A5);
             unsigned long dwValueDisplacement;
             const char* szName = gpfnSymGetSymFromAddr_0075CFF4(hProcess, dwValue, &dwValueDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
@@ -921,12 +921,12 @@ void __fastcall sub_0040BCF0_DumpAnnotatedStack(void* hProcess, D2ThreadContextS
 }
 
 // 0x0040C0F0
-static D2ModuleInfoStrc* __stdcall sub_0040C0F0_EnumModuleSymbols(unsigned long dwPid, void* hProcess)
+static D2ModuleInfoStrc* __stdcall EXCEPTIONS_LoadModuleSymbols(unsigned long dwPid, void* hProcess)
 {
     char szImageName[0x104];
     char szModuleName[0x100];
 
-    D2ModuleInfoStrc* pList = sub_0040BC50_GetModuleList(hProcess, dwPid);
+    D2ModuleInfoStrc* pList = EXCEPTIONS_GetModuleList(hProcess, dwPid);
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Load symbols...");
 
@@ -956,7 +956,7 @@ static D2ModuleInfoStrc* __stdcall sub_0040C0F0_EnumModuleSymbols(unsigned long 
 }
 
 // 0x0040C220
-int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize)
+int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize)
 {
     szPath[0] = 0;
     if (!GetModuleFileNameA(0, szPath, nSize))
@@ -984,13 +984,13 @@ int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize)
 }
 
 // 0x0040C290
-static char* sub_0040C290_ComposeSymbolPath(char* szPath)
+static char* EXCEPTIONS_ComposeSymbolPath(char* szPath)
 {
     char szCurrentDir[0x200];
     char szBuffer[0x200];
 
     *szPath = 0;
-    if (!sub_0040C220_GetAppPath(szBuffer, 0x200))
+    if (!EXCEPTIONS_GetAppPath(szBuffer, 0x200))
     {
         szBuffer[0] = 0;
     }
@@ -1042,7 +1042,7 @@ static char* sub_0040C290_ComposeSymbolPath(char* szPath)
 }
 
 // 0x0040C520
-static void __stdcall sub_0040C520_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize)
+static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize)
 {
     D2MemoryBasicInfoStrc tInfo;
 
@@ -1105,7 +1105,7 @@ int __cdecl s_DoSymInitialize()
         {
             if (!gszSymSearchPath_0075BFB8[0])
             {
-                sub_0040C290_ComposeSymbolPath(gszSymSearchPath_0075BFB8);
+                EXCEPTIONS_ComposeSymbolPath(gszSymSearchPath_0075BFB8);
             }
 
             void* hProcess = GetCurrentProcess();
@@ -1120,7 +1120,7 @@ int __cdecl s_DoSymInitialize()
             {
                 ++gnSymInitCount_0075CFD4;
                 gpfnSymSetOptions_0075D004(gpfnSymGetOptions_0075CFF0() | 0x10);
-                D2ModuleInfoStrc* pModule = sub_0040C0F0_EnumModuleSymbols(GetCurrentProcessId(), hProcess);
+                D2ModuleInfoStrc* pModule = EXCEPTIONS_LoadModuleSymbols(GetCurrentProcessId(), hProcess);
                 if (pModule)
                 {
                     do
@@ -1140,7 +1140,7 @@ int __cdecl s_DoSymInitialize()
 }
 
 // 0x0040C720
-int __fastcall sub_0040C720_ReleaseReferences(int all)
+int __fastcall EXCEPTIONS_ReleaseSymbols(int all)
 {
     int result = 0;
     if (!gbImageHlpLoaded_0075D014)
@@ -1237,7 +1237,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
             {
                 szSymbol = pSymbol->szName;
                 unsigned long dwLineDisplacement = dwDisplacement;
-                if (!sub_0040B600_GetLineFromAddrRetry(hProcess, tFrame.tAddrPC.dwOffset, &dwLineDisplacement, &tLine))
+                if (!EXCEPTIONS_GetLineFromAddrRetry(hProcess, tFrame.tAddrPC.dwOffset, &dwLineDisplacement, &tLine))
                 {
                     tLine.dwLineNumber = 0;
                 }
@@ -1261,7 +1261,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
 
             if (tLine.dwLineNumber)
             {
-                const char* szFile = sub_00408000_StripSourcePath(tLine.szFileName);
+                const char* szFile = ERRORMANAGER_StripSourcePath(tLine.szFileName);
                 int nPad = 40 - SStrLen(tModule.szModuleName) - SStrLen(szSymbol);
                 if (nPad < 1)
                 {
@@ -1276,7 +1276,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
         }
     }
 
-    sub_0040C720_ReleaseReferences(0);
+    EXCEPTIONS_ReleaseSymbols(0);
     sub_00410660_LogWritePrefixed(szPrefix, "QuickStackWalk: %d entries, %I64d+%I64d+%I64d+%I64d cycles, %I64d avg", nEntries, aTotals[0], aTotals[1], aTotals[2], aTotals[3], (aTotals[0] + aTotals[1] + aTotals[2] + aTotals[3]) / nEntries);
     --gnStackWalkDepth_0075D018;
     return 1;
@@ -1303,7 +1303,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
     DuplicateHandle(GetCurrentProcess(), GetCurrentProcess(), GetCurrentProcess(), &hProcess, 0, 0, 2);
 
     char szSearchPath[0x1000];
-    const char* szPath = sub_0040C290_ComposeSymbolPath(szSearchPath);
+    const char* szPath = EXCEPTIONS_ComposeSymbolPath(szSearchPath);
     if (!gpfnSymInitialize_0075CFF8(hProcess, szPath, 0))
     {
         sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "SymInitialize(): gle = %lu", GetLastError());
@@ -1314,10 +1314,10 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
 
     gpfnSymSetOptions_0075D004(gpfnSymGetOptions_0075CFF0() | 0x10);
     const unsigned long dwProcessId = GetCurrentProcessId();
-    D2ModuleInfoStrc* pModules = sub_0040C0F0_EnumModuleSymbols(dwProcessId, hProcess);
-    sub_0040BCF0_DumpAnnotatedStack(hProcess, pContext, pModules);
-    sub_0040B660_FreeList(pModules);
-    sub_0040F960_CloseLogFiles();
+    D2ModuleInfoStrc* pModules = EXCEPTIONS_LoadModuleSymbols(dwProcessId, hProcess);
+    EXCEPTIONS_DumpAnnotatedStack(hProcess, pContext, pModules);
+    EXCEPTIONS_FreeModuleList(pModules);
+    LOGMANAGER_CloseLogFiles();
 
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "Stack Crawl:");
@@ -1363,7 +1363,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
             szSymbol = pSymbol->szName;
             unsigned long dwLineDisplacement = dwSymDisplacement;
             tLine.dwSizeOfStruct = 0x14;
-            if (!sub_0040B600_GetLineFromAddrRetry(hProcess, tFrame.tAddrPC.dwOffset, &dwLineDisplacement, &tLine))
+            if (!EXCEPTIONS_GetLineFromAddrRetry(hProcess, tFrame.tAddrPC.dwOffset, &dwLineDisplacement, &tLine))
             {
                 tLine.dwLineNumber = 0;
             }
@@ -1376,9 +1376,9 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
 
         unsigned long nSection;
         unsigned long dwOffset;
-        sub_0040C520_GetLogicalAddress(szModule, &nSection, &dwOffset, (void*)tFrame.tAddrPC.dwOffset, sizeof(szModule));
+        EXCEPTIONS_GetLogicalAddress(szModule, &nSection, &dwOffset, (void*)tFrame.tAddrPC.dwOffset, sizeof(szModule));
         const char* szModuleName = strrchr(szModule, '\\');
-        sub_004106B0_LogWritePrefixed0(&gszEmptyAssertText, "%08x %08x %-12s ", tFrame.tAddrPC.dwOffset, tFrame.tAddrFrame.dwOffset, szModuleName ? szModuleName + 1 : szModule);
+        LOGMANAGER_LogWritePrefixedNoNewline(&gszEmptyAssertText, "%08x %08x %-12s ", tFrame.tAddrPC.dwOffset, tFrame.tAddrFrame.dwOffset, szModuleName ? szModuleName + 1 : szModule);
 
         tModule.dwSizeOfStruct = 0x23C;
         if (gpfnSymGetModuleInfo_0075CFEC(hProcess, tFrame.tAddrPC.dwOffset, &tModule))
@@ -1441,18 +1441,18 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
     }
 
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "%d frames dumped", nFrames);
-    sub_0040F960_CloseLogFiles();
+    LOGMANAGER_CloseLogFiles();
     gpfnSymCleanup_0075CFDC(hProcess);
     CloseHandle(hProcess);
     return 1;
 }
 
 // 0x0040D1C0
-void __fastcall sub_0040D1C0_AppendCrashDump(unsigned long dwHeader0, unsigned long dwHeader1, unsigned long dwType, int nCount, const void* pData)
+void __fastcall EXCEPTIONS_AppendCrashDump(unsigned long dwHeader0, unsigned long dwHeader1, unsigned long dwType, int nCount, const void* pData)
 {
     char szPath[0x104];
     T0040D1C0 tRecord;
-    sub_0040F000_GetLogDirectory(szPath, 0x104);
+    LOGMANAGER_GetLogDirectory(szPath, 0x104);
     SStrPack(szPath, "Crashdump", 0x104);
     _iobuf* pFile = fopen(szPath, "ab");
     if (pFile)
@@ -1468,12 +1468,12 @@ void __fastcall sub_0040D1C0_AppendCrashDump(unsigned long dwHeader0, unsigned l
 }
 
 // 0x0040D290
-int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize)
+int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
 {
     char szPath[0x104];
     unsigned long adwData[8];
 
-    sub_0040F000_GetLogDirectory(szPath, 0x104);
+    LOGMANAGER_GetLogDirectory(szPath, 0x104);
     SStrPack(szPath, "Crashdump", 0x104);
     if (GetFileAttributesA(szPath) == 0xFFFFFFFF)
     {
@@ -1556,7 +1556,7 @@ int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize)
 
 
 // 0x0040E080
-char* __fastcall sub_0040E080_AddressToString(int nAddress)
+char* __fastcall FOG_inet_ntoa(int nAddress)
 {
     D2InAddrStrc tAddress;
     tAddress.s_addr = nAddress;
@@ -1564,7 +1564,7 @@ char* __fastcall sub_0040E080_AddressToString(int nAddress)
 }
 
 // 0x0040EB90
-unsigned int __fastcall sub_0040EB90_GetLogFiles(char** apszFiles, unsigned int nCount)
+unsigned int __fastcall EXCEPTIONS_GetLogFilePaths(char** apszFiles, unsigned int nCount)
 {
     unsigned int i;
     for (i = 0; i < nCount; i++)
@@ -1579,7 +1579,7 @@ unsigned int __fastcall sub_0040EB90_GetLogFiles(char** apszFiles, unsigned int 
 }
 
 // 0x0040F470
-void __fastcall sub_0040F470_LookupLog(const char* szName)
+void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName)
 {
     for (int i = 0; i < 20; i++)
     {
@@ -1606,7 +1606,7 @@ void D2TSListStrc::sub_0040FD00_UnlinkAll()
 }
 
 // 0x00410540
-void __cdecl sub_00410540_InitLogSystem()
+void __cdecl EXCEPTIONS_InitLogSystem()
 {
     gbLogThreadStop_0075E830 = 0;
     ghLogThread_0075D2E8 = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId_0075E834);

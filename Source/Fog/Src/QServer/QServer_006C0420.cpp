@@ -19,7 +19,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 extern "C" int __stdcall WSAGetLastError();                                                                 // 0x006B0168
 
-D2QSrvConnectionStrc* __fastcall sub_006BE540_Find(D2QSrvServerStrc* pServer, int nKey);                   // 0x006BE540
+D2QSrvConnectionStrc* __fastcall QSERVER_FindClient(D2QSrvServerStrc* pServer, int nKey);                   // 0x006BE540
 int __fastcall sub_0040D880(unsigned int hSocket);                                              // 0x0040D880
 void __fastcall sub_006C0360_RemoveConnection(D2QSrvServerStrc* pServer, D2QSrvConnectionStrc* pConnection); // 0x006C0360
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
@@ -47,7 +47,7 @@ void __fastcall QSrvCloseRemoteConnection(D2QSrvServerStrc* pServer, int nKey, c
 {
     D2QSrvAutoLock tLock(&pServer->tLock);
 
-    D2QSrvConnectionStrc* pConnection = sub_006BE540_Find(pServer, nKey);
+    D2QSrvConnectionStrc* pConnection = QSERVER_FindClient(pServer, nKey);
     if (!pConnection)
         return;
 

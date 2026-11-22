@@ -397,7 +397,7 @@ extern "C" unsigned int __cdecl fwrite(const void* pBuffer, unsigned int nSize, 
 
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient); // 0x00538590
 

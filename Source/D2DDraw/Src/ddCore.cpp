@@ -310,7 +310,7 @@ extern int gbDDrawPlatformFlag_0088125C; // 0x0088125C
 
 extern char gszDDrawDeviceName_00881154[256]; // 0x00881154
 
-T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
+T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 // 0x00508FE0
 int __fastcall sub_00508FE0_GlideStartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
@@ -375,7 +375,7 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 // 0x00510020
 int __fastcall sub_00510020_DDrawDetect(void* hInstance)
 {
-    T004013C0* pSystemInfo = sub_00407360_GetSystemInfo();
+    T004013C0* pSystemInfo = FOG_GetSystemInfo();
     D2_ASSERT(pSystemInfo, 0x6F);
 
     if (pSystemInfo->nPlatform == 1)

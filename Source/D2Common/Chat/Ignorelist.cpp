@@ -1020,7 +1020,7 @@ extern "C" const char gszTypeNameStringEntryList_0074366C[];                    
 
 extern "C" const char gszTypeNameMappingEntryList_007436AC[];                                                         // 0x007436AC
 
-int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize);                                    // 0x00406B60
+int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize);                                    // 0x00406B60
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                             // 0x0041D300
 
@@ -2679,7 +2679,7 @@ D2CommonIgnoreListStrc::IgnoreList()
     m_bEnabled = 1;
 
     char szPath[0x104];
-    sub_00406B60_GetModuleDirectory(szPath, 0x104);
+    ERRORMANAGER_GetModuleDirectory(szPath, 0x104);
     SMemZero(szFileName, 0x104);
     char* pSep = (char*)SStrChrR(szPath, 0x5C);
     if (pSep)

@@ -6,7 +6,7 @@ extern "C" int gnSoundFlag_007C545C;
 extern "C" int gnSoundSerial_007C5460;
 extern "C" int gnSubsystemActive_007A0458;
 void __cdecl sub_004142A0_InitPowTable(); // 0x004142A0
-extern "C" void __cdecl sub_004F7CC0(); // 0x004F7CC0
+extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
 int __stdcall GAME_Shutdown(); // 0x0052C030
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult); // 0x006CC010

@@ -44,15 +44,15 @@ struct D2CharSaveFileStrc
     char unk0x28[0x1FD8];
 };
 
-int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-void* __fastcall sub_00406960_CreateFile(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
+void* __fastcall FOG_CreateFileA(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
 
-int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
+int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
 
-int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
+int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
 
-unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pDistanceHigh, unsigned long dwMethod); // 0x004069F0
+unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pDistanceHigh, unsigned long dwMethod); // 0x004069F0
 
 unsigned int __stdcall FOG_ComputeChecksum(const unsigned char* pData, unsigned int nSize); // 0x00411130
 
@@ -62,7 +62,7 @@ void __stdcall sub_00504D30(D2CelFileStrc* pCellFileA, D2CelFileStrc* pCellFileB
 
 int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag); // 0x005041B0
 
-int __stdcall sub_004F91C0(void* pEditBox); // 0x004F91C0
+int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox); // 0x004F91C0
 
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 
@@ -358,7 +358,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 
-int __fastcall sub_004F9190(); // 0x004F9190
+int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 void __cdecl sub_0043FBD0_Refresh(); // 0x0043FBD0
 
@@ -532,7 +532,7 @@ struct UnicodeChar : Unicode
     UnicodeChar();
 };
 
-extern "C" void __fastcall sub_00500B20_SetButtonField5C(D2WinButtonStrc* pButton, int nValue); // 0x00500B20
+extern "C" void __fastcall BUTTON_SetBaseFrame(D2WinButtonStrc* pButton, int nValue); // 0x00500B20
 
 extern "C" int __cdecl rand();
 
@@ -574,7 +574,7 @@ void __fastcall sub_004FB870_InsertRow(D2WinControlStrc* pControl, int nRow);   
 
 int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int a3);                               // 0x004FBDE0
 
-int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FCD90
+int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FCD90
 
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 
@@ -667,16 +667,17 @@ int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName)
     char szPath[0x1F4];
     unsigned long dwWritten;
 
-    sub_00407050_GetSavePath(szDir, 0x400);
+    FOG_GetSavePath(szDir, 0x400);
     sprintf(szPath, gszSaveFormat_006D4230, szDir, szName);
 
-    void* hFile = sub_00406960_CreateFile(szPath, 0x40000000, 0, 0, 2, 0x8000000, 0);
+    void* hFile = FOG_CreateFileA(szPath, 0x40000000, 0, 0, 2, 0x8000000, 0);
     if (!hFile)
         return 0;
 
     gtCharSaveHeader_0077AC10.dwChecksum = FOG_ComputeChecksum((const unsigned char*)&gtCharSaveHeader_0077AC10, 0x14F);
-    sub_004069D0_WriteFile(hFile, &gtCharSaveHeader_0077AC10, 0x14F, &dwWritten, 0);
-    sub_004069A0_CloseFile(hFile);
+    FOG_WriteFile(hFile, &gtCharSaveHeader_0077AC10, 0x14F, &dwWritten, 0);
+// build: symbol ?FOG_CloseFile@* 0x004069A0
+    FOG_CloseFile(hFile);
     return 1;
 }
 
@@ -690,14 +691,14 @@ int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName)
     unsigned long dwWritten;
     unsigned long dwRead;
 
-    sub_00407050_GetSavePath(szDir, 0x400);
+    FOG_GetSavePath(szDir, 0x400);
     sprintf(szPath, gszSaveFormat_006D4230, szDir, szName);
 
-    void* hFile = sub_00406960_CreateFile(szPath, 0xC0000000, 0, 0, 3, 0x8000000, 0);
+    void* hFile = FOG_CreateFileA(szPath, 0xC0000000, 0, 0, 3, 0x8000000, 0);
     if (!hFile)
         return 0;
 
-    sub_004069B0_ReadFile(hFile, &tSave, 0x2000, &dwRead, 0);
+    FOG_ReadFile(hFile, &tSave, 0x2000, &dwRead, 0);
     if (dwRead < 8)
         return 0;
     if (tSave.dwMagic != 0xAA55AA55)
@@ -709,8 +710,8 @@ int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName)
         if (dwRead < 0x82)
             return 0;
         dwFlags = tSave.dwOldFlags | 0x20;
-        sub_004069F0_SetFilePointer(hFile, 0x18, 0, 0);
-        nResult = sub_004069D0_WriteFile(hFile, &dwFlags, 4, &dwWritten, 0);
+        FOG_SetFilePointer(hFile, 0x18, 0, 0);
+        nResult = FOG_WriteFile(hFile, &dwFlags, 4, &dwWritten, 0);
     }
     else
     {
@@ -719,11 +720,11 @@ int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName)
         tSave.dwFlags |= 0x20;
         tSave.dwChecksum = 0;
         tSave.dwChecksum = FOG_ComputeChecksum((const unsigned char*)&tSave, dwRead);
-        sub_004069F0_SetFilePointer(hFile, 0, 0, 0);
-        nResult = sub_004069D0_WriteFile(hFile, &tSave, dwRead, &dwWritten, 0);
+        FOG_SetFilePointer(hFile, 0, 0, 0);
+        nResult = FOG_WriteFile(hFile, &tSave, dwRead, &dwWritten, 0);
     }
 
-    sub_004069A0_CloseFile(hFile);
+    FOG_CloseFile(hFile);
     return nResult;
 }
 
@@ -1257,14 +1258,15 @@ int __cdecl sub_0043EBA0_ResetControls()
     const unsigned short wFlags = *(unsigned short*)gpCharInfo_0077BBD8->wFlags;
     if (!(wFlags & 8) || !(wFlags & 4))
     {
-        sub_004F96F0_ControlClearState(gpControlA_0077B070, 1);
-        sub_004F96F0_ControlClearState(gpControlB_0077B078, 1);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControlA_0077B070, 1);
+        CONTROL_SetEnabled(gpControlB_0077B078, 1);
     }
     if (gpCharInfo_0077BBD8->szRealm0x361[0])
-        sub_004F96F0_ControlClearState(gpChatControl_0077B074, 1);
+        CONTROL_SetEnabled(gpChatControl_0077B074, 1);
     else
-        sub_004F96F0_ControlClearState(gpChatControl_0077B074, gbChatSetup_0077BBF8 == 0);
-    sub_004F96F0_ControlClearState(gpControlC_0077B07C, gbCheck_0077BD58 == 0);
+        CONTROL_SetEnabled(gpChatControl_0077B074, gbChatSetup_0077BBF8 == 0);
+    CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck_0077BD58 == 0);
     return 1;
 }
 
@@ -1721,7 +1723,7 @@ int __stdcall sub_0043F590_CallTable7C(int nUnused)
     tRecord.nValue1 = 0x28;
     tRecord.f_8 = 0xC8;
     if (gpLaunchFuncs_0077B09C->pfn0x7C(3, 1, &gKey_0077B0A8, &tRecord) || gbFlag_0077ADA4)
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -1748,13 +1750,13 @@ int __stdcall sub_0043F630_OnToggleButton(int nArg)
 {
     if (gbToggle_0077BBEC)
     {
-        sub_00500B20_SetButtonField5C((D2WinButtonStrc*)gpChatControl_0077BC48, 0);
+        BUTTON_SetBaseFrame((D2WinButtonStrc*)gpChatControl_0077BC48, 0);
         gbToggle_0077BBEC = 0;
         PrintTextBox(D2LANG_GetStringFromTblIndex(0x14D7), 0x0B);
     }
     else
     {
-        sub_00500B20_SetButtonField5C((D2WinButtonStrc*)gpChatControl_0077BC48, 2);
+        BUTTON_SetBaseFrame((D2WinButtonStrc*)gpChatControl_0077BC48, 2);
         gbToggle_0077BBEC = 1;
         if (rand() % 1000 == 0)
         {
@@ -1881,12 +1883,12 @@ void __cdecl sub_0043FC20()
     gpChatControl_0077B088 = CONTROL_Create(&gtControlTemplates_00708D10[0x168]);
     gpChatControl_0077B08C = CONTROL_Create(&gtControlTemplates_00708D10[0x169]);
     gpChatControl_0077B090 = CONTROL_Create(&gtControlTemplates_00708D10[0x16A]);
-    sub_004F96F0_ControlClearState(gpChatControl_0077B074, 1);
+    CONTROL_SetEnabled(gpChatControl_0077B074, 1);
 
     gpChatEdit_0077BD94 = CONTROL_Create(&gtControlTemplates_00708D10[0x172]);
     sub_004FDAD0_SetKeyCallback(gpChatEdit_0077BD94, sub_0043F9B0_EditKey);
     sub_004FDB00_SetEnterCallback(gpChatEdit_0077BD94, sub_0043DB90);
-    sub_004F91C0(gpChatEdit_0077BD94);
+    CONTROL_SetFocusedEditBox(gpChatEdit_0077BD94);
     sub_004FDD50_SetMaxLength(gpChatEdit_0077BD94, 0xC8);
     sub_004477A0_Refresh();
 
@@ -1937,7 +1939,7 @@ int __fastcall sub_0043FFA0_SetupCharacter(unsigned short wValue, const char* sz
     strcpy(gpCharInfo_0077BBD8->szText0x37, szText0x37);
     gbDone_0077BDA0 = 1;
     sub_004F9160_SetLoopValue(0);
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -2141,7 +2143,7 @@ void __fastcall sub_004403F0_OnListEvent(int nStart, int nCount, int nNameLength
 
         Unicode wszDate[256];
         sub_005255C0_FormatDate(wszDate, pEntry->nA, pEntry->nB, 0xFF);
-        sub_004FCD90_D2Win_10058(gpList_0077BD00, wszDate, i, 4);
+        D2Win_10058(gpList_0077BD00, wszDate, i, 4);
 
         pEntry = (D2LadderEntryStrc*)((char*)pEntry + nNameLength + 0xC);
     }
@@ -2374,7 +2376,7 @@ int __stdcall sub_00440DB0_OnQuitMessage(int nArg)
 {
     sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
     gbDone_0077BDA0 = 4;
-    sub_004F9190();
+    D2Win_StopMessageLoop();
     return 1;
 }
 
@@ -2399,10 +2401,10 @@ void __stdcall sub_004413E0_Enable(int bEnable)
     const unsigned short wFlags = *(unsigned short*)gpCharInfo_0077BBD8->wFlags;
     if (!(wFlags & 8) || !(wFlags & 4))
     {
-        sub_004F96F0_ControlClearState(gpControlA_0077B070, 1);
-        sub_004F96F0_ControlClearState(gpControlB_0077B078, 1);
+        CONTROL_SetEnabled(gpControlA_0077B070, 1);
+        CONTROL_SetEnabled(gpControlB_0077B078, 1);
     }
-    sub_004F96F0_ControlClearState(gpControlC_0077B07C, gbCheck_0077BD58 == 0);
+    CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck_0077BD58 == 0);
     if (gpControlMain_0077BC4C)
         sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
 }
@@ -2506,7 +2508,7 @@ int __stdcall sub_00441500(int nUnused)
                         gbDone_0077BDA0 = 1;
                         gpLaunchFuncs_0077B09C->pfn0x3C(gpCharInfo_0077BBD8->szText0x1F, gpCharInfo_0077BBD8->szText0x245);
                         sub_004F9160_SetLoopValue(0);
-                        sub_004F9190();
+                        D2Win_StopMessageLoop();
                         return 1;
                     }
                     case 42:
@@ -2701,7 +2703,7 @@ int __stdcall sub_00443840_CallTable8C(int nUnused)
 {
     int nOut;
     if (gpLaunchFuncs_0077B09C->pfn0x8C(&nOut))
-        sub_004F9190();
+        D2Win_StopMessageLoop();
     return 1;
 }
 

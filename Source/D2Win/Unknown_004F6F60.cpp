@@ -39,7 +39,7 @@ extern "C" int gnSoundFlag_007C545C;
 extern "C" int gnSoundSerial_007C5460;
 extern "C" int gnSubsystemActive_007A0458;
 void __cdecl sub_004142A0_InitPowTable(); // 0x004142A0
-extern "C" void __cdecl sub_004F7CC0(); // 0x004F7CC0
+extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
 int __stdcall GAME_Shutdown(); // 0x0052C030
 extern D2PaletteTableStrc gPaletteTables_007D5458; // 0x007D5458
@@ -50,7 +50,7 @@ extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
 int __fastcall D2GFX_SetOption(int nOption, int nValue); // 0x004F52B0
 void __fastcall sub_004F7DA0_SetPanelCoords(int nPitch, int nHeight); // 0x004F7DA0
-void __cdecl sub_004F7E70_InitRowOffsets(); // 0x004F7E70
+void __cdecl CMNSUBTILE_BuildLineOffsets(); // 0x004F7E70
 
 // 0x004F6F60
 void __fastcall sub_004F6F60_DrawRleRows(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows)
@@ -211,7 +211,7 @@ extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
 // 0x004F8DC0
 extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
 {
-    sub_004F7CC0();
+    CMNSUBTILE_BuildGouraudCache();
     gnBufferBase_007D5448 = 0;
 }
 
@@ -250,7 +250,7 @@ void __fastcall sub_004F8DE0(unsigned char* a1, int a2, int a3, int a4)
     {
         gnScreenPitch_007D544C = a2;
         gnYBufferPitch_007D557C = a2;
-        sub_004F7E70_InitRowOffsets();
+        CMNSUBTILE_BuildLineOffsets();
     }
 
     if (gnViewMatrixAdjust_007C8CC4 != gnViewMatrixAdjustDefault_0072DBFC)

@@ -32,18 +32,18 @@ extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitThread(
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void*);
 extern unsigned int __security_cookie; // 0x00749DE0
 void __fastcall sub_006BE700_UpdateServer(D2QueueServerStrc*); // 0x006BE700
-void __fastcall sub_006BE640_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
+void __fastcall QSERVER_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
 void __fastcall sub_006C0360_ReleaseReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006C0360
 D2QClientStrc* __fastcall sub_006BE5B0_FindSocket(D2QueueServerStrc*,int); // 0x006BE5B0
-int __fastcall sub_006BE9F0_CheckRecordThreshold(D2QueueServerStrc*,unsigned int*); // 0x006BE9F0
-int __fastcall sub_006C0800_BanByAddress(D2QueueServerStrc*,unsigned int*,const char*,int); // 0x006C0800
+int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc*,unsigned int*); // 0x006BE9F0
+int __fastcall QSERVER_BanAddress(D2QueueServerStrc*,unsigned int*,const char*,int); // 0x006C0800
 int __fastcall sub_006BFFA0_CheckAddress(D2QueueServerStrc*,unsigned int*); // 0x006BFFA0
-void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc*,const char*,unsigned int,int); // 0x006BFEA0
+void __fastcall QSERVER_HackListAddress(D2QueueServerStrc*,const char*,unsigned int,int); // 0x006BFEA0
 D2QClientStrc* __fastcall sub_006BFB70_AddSocket(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*,int,const char*,int); // 0x006C0420
 void __fastcall sub_006C08A0_ProcessReceived(D2QueueServerStrc*,D2QClientStrc*); // 0x006C08A0
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
-void __fastcall sub_00407F90_ThreadHookNop1(unsigned int nId); // 0x00407F90
+void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
 int __stdcall sub_006B0186_Select(int,D2SocketSetStrc*,void*,D2SocketSetStrc*,D2TimevalStrc*); // 0x006B0186
 int __stdcall sub_006B0180_IsSocketSet(int,D2SocketSetStrc*); // 0x006B0180
 int __stdcall sub_006B0174_Receive(int,char*,int,int); // 0x006B0174
@@ -107,7 +107,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
             EnterCriticalSection(lock);
             if (node->iSocket != -1)
             {
-                sub_006BE640_AddReference(server,node);
+                QSERVER_AddReference(server,node);
                 nodes[count++]=node;
                 if(readSet.count<64) readSet.sockets[readSet.count++]=node->iSocket;
                 if(errorSet.count<64) errorSet.sockets[errorSet.count++]=node->iSocket;
@@ -152,7 +152,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
             EnterCriticalSection(&server->tLock);
             int stop=server->bStop; server->bStop=0;
             LeaveCriticalSection(&server->tLock);
-            if(stop) { OutputDebugStringA(gszStopped_006FCBA8); sub_00407F90_ThreadHookNop1(0); ExitThread(0); }
+            if(stop) { OutputDebugStringA(gszStopped_006FCBA8); ERRORMANAGER_UnregisterThread(0); ExitThread(0); }
             continue;
         }
         if(selected==-1) continue;
@@ -185,14 +185,15 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                         LeaveCriticalSection(&server->tLock);
                         continue;
                     }
-                    if(server->sub_006BE980_Refresh(buffers.address.address)) sub_0040D880(accepted);
-                    else if(sub_006BE9F0_CheckRecordThreshold(server,&buffers.address.address)) {
-                        sub_006C0800_BanByAddress(server,&buffers.address.address,gszSource_006FCB1C,0x138);
+// build: symbol ?RefreshRecord@* 0x006BE980
+                    if(server->RefreshRecord(buffers.address.address)) sub_0040D880(accepted);
+                    else if(QSERVER_CheckRecordThreshold(server,&buffers.address.address)) {
+                        QSERVER_BanAddress(server,&buffers.address.address,gszSource_006FCB1C,0x138);
                         sub_0040D880(accepted);
                     }
                     else if(!sub_006BFFA0_CheckAddress(server,&buffers.address.address)) {
                         sub_00410660_LogWritePrefixed(gszHack_006FC4A8,gszReconnect_006FCB6C);
-                        sub_006BFEA0_RecordAddress(server,gszSource_006FCB1C,buffers.address.address,0x142);
+                        QSERVER_HackListAddress(server,gszSource_006FCB1C,buffers.address.address,0x142);
                         sub_0040D880(accepted);
                     }
                     else {

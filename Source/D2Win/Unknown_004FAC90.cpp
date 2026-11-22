@@ -52,7 +52,8 @@ int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expa
     if (sub_00406D20()) { play=0; expansion=0; }
     ghXVideo_007D562C=0;
     int bOk;
-    if (!(sub_00408F20_HasExpansionMpq() && (!config || config->expansion()))) {
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!(FOG_IsExpansion() && (!config || config->expansion()))) {
         ghChar_007D5610=sub_00517332_LoadMpqFile("d2char.mpq",file,play,1000);
         ghMusic_007D5628=sub_00517332_LoadMpqFile("d2music.mpq",file,play,1000);
         ghXMusic_007D5604=0;

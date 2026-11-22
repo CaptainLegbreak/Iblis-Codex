@@ -97,7 +97,7 @@ extern D2CelFileStrc* gpSliderDisabledCell_007BC950; // 0x007BC950
 extern D2CelFileStrc* gpSliderEnabledCell_007BC954; // 0x007BC954
 extern D2CelFileStrc* gpSliderKnob_007BC958; // 0x007BC958
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nStyle); // 0x0046EFD0
-void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
+void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
 extern int gnSlotFrame_007BC918[]; // 0x007BC918
 extern int gnSlotX_007BC898[]; // 0x007BC898
@@ -300,10 +300,12 @@ void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
     D2_ASSERT(pEntries, 0x4E9);
     char szPath[260] = {0};
     char szLang[4] = {0};
-    sub_00525260(szLang, 0);
+// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
+    STRTABLE_GetLanguageInfoField(szLang, 0);
     for (int i = 0; i < pHeader->nCount; ++i)
     {
-        if (pEntries[i].bExpansionOnly && !sub_00408F20_HasExpansionMpq())
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (pEntries[i].bExpansionOnly && !FOG_IsExpansion())
             continue;
         if (pEntries[i].szCelName[0])
         {
@@ -347,7 +349,7 @@ void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, 
         nFrame = 1;
     }
 
-    sub_00502680_DrawCellFile(*pbEnabled ? gpSliderEnabledCell_007BC954 : gpSliderDisabledCell_007BC950, nCellX, nScreenY, nFrame, nColor, -1);
+    D2Win_10134_DrawCellFile(*pbEnabled ? gpSliderEnabledCell_007BC954 : gpSliderDisabledCell_007BC950, nCellX, nScreenY, nFrame, nColor, -1);
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));

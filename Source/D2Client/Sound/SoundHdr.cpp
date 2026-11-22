@@ -131,9 +131,9 @@ void __cdecl sub_004CA280(); // 0x004CA280
 
 D2SlotStrc* __fastcall SoundChannelFind(int nOwner); // 0x004DF9D0
 
-void __fastcall sub_00516980_RemoveNode(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516980
+void __fastcall D2SOUND_ListRemove(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516980
 
-void __fastcall sub_00516A70_AppendNode(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516A70
+void __fastcall D2SOUND_ListAddTail(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516A70
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -162,9 +162,9 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(void* room);
 
 const U16* __fastcall sub_00453E70(int levelId);
 
-int __fastcall sub_00501820(const U16* text);
+int __fastcall D2Win_10121_GetTextWidth(const U16* text); // 0x00501820
 
-void __fastcall sub_00502320(const U16* text, int x, int y, int color, int mode);
+void __fastcall D2Win_10117_DrawText(const U16* text, int x, int y, int color, int mode); // 0x00502320
 
 D2ClientCacheNodeStrc* gpCacheList_007BC9B8; // 0x007BC9B8
 
@@ -380,7 +380,8 @@ void __fastcall sub_00482260_UpdateSoundSystem(int nArg)
     sub_004B9D00_ResetSoundState();
     sub_004DCA30();
     sub_004CA280();
-    sub_00515CE0_SetMasterVolume(0xFF);
+// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
+    D2SOUND_SetMasterVolume(0xFF);
     gdwGlobal_007BC9BC = 0;
     gnCacheLastTick_007BC9C0 = 0;
     gnCacheLastLoadTick_007BC9C4 = 0;
@@ -429,7 +430,7 @@ void __fastcall sub_004823E0_ReleaseCacheEntry(int nIndex)
         exit(-1);
     }
     gdwCacheUsed_007BC9D0 -= pEntry->nSize;
-    sub_00516980_RemoveNode(&gpCacheList_007BC9B8, nIndex);
+    D2SOUND_ListRemove(&gpCacheList_007BC9B8, nIndex);
     pEntry->dwLastUse = 0;
     if (pEntry->pAsync)
     {
@@ -534,8 +535,8 @@ void __fastcall sub_00482710_GetCachePath(int nIndex, char* szPath)
 void __fastcall sub_00482860_TouchCacheEntry(int nIndex)
 {
     sub_00481860_GetCacheEntry(nIndex)->dwLastUse = gdwGlobal_007BC9BC;
-    sub_00516980_RemoveNode(&gpCacheList_007BC9B8, nIndex);
-    sub_00516A70_AppendNode(&gpCacheList_007BC9B8, nIndex);
+    D2SOUND_ListRemove(&gpCacheList_007BC9B8, nIndex);
+    D2SOUND_ListAddTail(&gpCacheList_007BC9B8, nIndex);
 }
 
 // 0x004828B0
@@ -599,14 +600,17 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
     char szPath[0x50];
     void* hFile;
     sub_00482710(nIndex, szPath);
-    if (!sub_004068E0(szPath, &hFile))
+// build: symbol ?FOG_FOpenFile@* 0x004068E0
+    if (!FOG_FOpenFile(szPath, &hFile))
     {
         pEntry->bFailed = 1;
         return;
     }
 
-    const unsigned int nSize = sub_00406930(hFile, 0);
-    sub_004068F0(hFile);
+// build: symbol ?FOG_FGetFileSize@* 0x00406930
+    const unsigned int nSize = FOG_FGetFileSize(hFile, 0);
+// build: symbol ?FOG_FCloseFile@* 0x004068F0
+    FOG_FCloseFile(hFile);
     if (gdwCacheUsed_007BC9D0 + nSize > gnCacheMax_007BC9CC)
     {
         const unsigned int nFree = gdwCacheUsed_007BC9D0 - gnCacheMax_007BC9CC + nSize;

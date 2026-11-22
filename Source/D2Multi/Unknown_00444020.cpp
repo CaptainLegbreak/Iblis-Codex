@@ -375,9 +375,10 @@ void __cdecl sub_004451C0_UpdateLevelControls()
         sub_004F9740_SetControlState(gpControl_00798C24, 0);
         sub_004F9740_SetControlState(gpControl_00798C1C, 1);
         sub_004F9740_SetControlState(gpControl_00798C20, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C3C, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C1C, 1);
-        sub_004F96F0_ControlClearState(gpControl_00798C20, 1);
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gpControl_00798C3C, 1);
+        CONTROL_SetEnabled(gpControl_00798C1C, 1);
+        CONTROL_SetEnabled(gpControl_00798C20, 1);
         sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 4, 0, 0);
         sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 4, 0, 0);
     }
@@ -387,9 +388,9 @@ void __cdecl sub_004451C0_UpdateLevelControls()
         sub_004F9740_SetControlState(gpControl_00798C24, 1);
         sub_004F9740_SetControlState(gpControl_00798C1C, 0);
         sub_004F9740_SetControlState(gpControl_00798C20, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C3C, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C1C, 0);
-        sub_004F96F0_ControlClearState(gpControl_00798C20, 0);
+        CONTROL_SetEnabled(gpControl_00798C3C, 0);
+        CONTROL_SetEnabled(gpControl_00798C1C, 0);
+        CONTROL_SetEnabled(gpControl_00798C20, 0);
         sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 5, 0, 0);
         sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 5, 0, 0);
     }
