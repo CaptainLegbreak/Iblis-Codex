@@ -3246,123 +3246,12 @@ bool __fastcall OBJRGN_CanSpawnShrine(D2GameStrc* pGame, int nLevelId, int nX, i
     return true;
 }
 
-// 0x00547BB0
-D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId)
-{
-    return ppMonsterRegion[nLevelId];
-}
-
 inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
     pSeed->nLowSeed = (unsigned int)lSeed;
     return lSeed;
-}
-
-// 0x00547D20
-void __fastcall MONSTERREGION_InitializeForGame(D2GameStrc* pGame)
-{
-    D2SeedStrc tSeed;
-    SEED_InitSeed(&tSeed);
-
-    const int nSeed = (unsigned int)ITEMS_RollRandomNumberInline(&pGame->pGameSeed);
-    SEED_InitLowSeed(&tSeed, nSeed);
-    pGame->dwMonSeed = nSeed;
-    MONSTERREGION_InitializeAll(pGame->pMemoryPool, pGame->pMonReg, &tSeed, nSeed, pGame->nDifficulty, pGame->bExpansion);
-}
-
-// 0x00547D90
-void __fastcall sub_6FC68180(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit, int bToggleFlag)
-{
-    if (bToggleFlag)
-    {
-        MONSTER_ToggleSummonerFlag(pUnit, SUMMONER_FLAG, 1);
-    }
-    else
-    {
-        D2MonsterRegionStrc* pMonsterRegion = ppMonsterRegion[DUNGEON_GetLevelIdFromRoom(pRoom)];
-        ++pMonsterRegion->dwMonSpawnCount;
-    }
-}
-
-// 0x00547DD0
-void __fastcall sub_6FC681C0(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit, int nPreviousAlignment, int nNewAlignment)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType == UNIT_MONSTER && !SUNIT_IsDead(pUnit) && !MONSTER_CheckSummonerFlag(pUnit, 2))
-    {
-        D2MonsterRegionStrc* pMonsterRegion = ppMonsterRegion[MONSTER_GetLevelId(pUnit)];
-        if (pMonsterRegion && !pMonsterRegion->nQuest && nPreviousAlignment != nNewAlignment)
-        {
-            if (nPreviousAlignment == UNIT_ALIGNMENT_EVIL && (nNewAlignment == UNIT_ALIGNMENT_NEUTRAL || nNewAlignment == UNIT_ALIGNMENT_GOOD))
-            {
-                --pMonsterRegion->dwMonSpawnCount;
-            }
-
-            if (nNewAlignment == UNIT_ALIGNMENT_EVIL && nPreviousAlignment != UNIT_ALIGNMENT_UNASSIGNED)
-            {
-                ++pMonsterRegion->dwMonSpawnCount;
-            }
-        }
-    }
-}
-
-// 0x00547E50
-void __fastcall sub_6FC68240(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit)
-{
-    if (!MONSTER_CheckSummonerFlag(pUnit, SUMMONER_FLAG))
-    {
-        D2MonsterRegionStrc* pMonsterRegion = ppMonsterRegion[MONSTER_GetLevelId(pUnit)];
-        if (STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_EVIL)
-        {
-            ++pMonsterRegion->dwMonKillCount;
-        }
-    }
-}
-
-// 0x00547E90
-void __fastcall sub_6FC68280(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit)
-{
-    if (!MONSTER_CheckSummonerFlag(pUnit, SUMMONER_FLAG))
-    {
-        D2MonsterRegionStrc* pMonsterRegion = ppMonsterRegion[MONSTER_GetLevelId(pUnit)];
-        if (!STATLIST_GetUnitAlignment(pUnit))
-        {
-            --pMonsterRegion->dwMonKillCount;
-        }
-    }
-}
-
-// 0x00547ED0
-void __fastcall sub_6FC682C0(D2MonsterRegionStrc** ppMonRegion, int nLevelId1, int nLevelId2, int nAlignment, int bDead, int a6, D2UnitStrc* pUnit)
-{
-    D2MonsterRegionStrc* pMonsterRegion1 = ppMonRegion[nLevelId1];
-    D2MonsterRegionStrc* pMonsterRegion2 = ppMonRegion[nLevelId2];
-    if (pUnit)
-    {
-        if (pMonsterRegion2 != pMonsterRegion1)
-        {
-            MONSTER_SetLevelId(pUnit, nLevelId1);
-        }
-
-        if (!a6 && STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_EVIL)
-        {
-            --pMonsterRegion2->dwMonSpawnCount;
-
-            if (MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_OTHER))
-            {
-                --pMonsterRegion2->dwUniqueCount;
-            }
-        }
-    }
-    else
-    {
-        if (!a6 && !bDead && nAlignment == UNIT_ALIGNMENT_EVIL)
-        {
-            --pMonsterRegion1->dwMonSpawnCount;
-        }
-    }
 }
 
 // 0x005484B0
