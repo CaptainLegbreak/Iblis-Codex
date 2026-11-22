@@ -1,17 +1,15 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 
+#include "D2GameStrc.h"
+#include "D2QuestData.h"
+#include "D2UnitData.h"
 struct D2QuestStrc;
 union D2SeedStrc;
 struct D2Act4Quest3Strc;
 
 
-struct D2GameStrc { char unk_00[0x6D]; unsigned char nDifficulty; char unk_6E[2]; int bExpansion; char unk_74[0x34]; int dwGameFrame; };
-
-
-struct D2Act4Quest3Strc { char unk_00[3]; unsigned char bDropActive; unsigned char bChangeMode; char unk_05[3]; int nDropStage; char unk_0C[8]; int nDropCount; };
-
-struct D2QuestDataStrc { int nQuestNo; D2GameStrc* pGame; char f_8[0x10]; D2Act4Quest3Strc* pQuestDataEx; };
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc*); // 0x005438B0
@@ -25,18 +23,7 @@ extern unsigned int gnHellforgeGemsFirst_0073E56C[]; // 0x0073E56C
 extern unsigned int gnHellforgeGemsMiddle_0073E588[]; // 0x0073E588
 extern unsigned int gnHellforgeGemsLast_0073E5A4[]; // 0x0073E5A4
 
-struct D2QuestArgStrc
-{
-    D2UnitStrc* pUnit;
-    int nEvent;
-    int pTarget;
-    D2QuestStrc* pQuest;
-    int unk_10;
-    int nClassId;
-    unsigned short nIndex;
-};
-
-void __fastcall sub_00572360_Update(D2QuestStrc* pQuest, D2UnitStrc* pUnit, int nClassId); // 0x00572360
+void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x00572360
 
 static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 {
@@ -49,15 +36,15 @@ static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 // 0x005B6710
 void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
-    D2Act4Quest3Strc* pQuestDataEx = pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bChangeMode) UNITS_ChangeAnimMode(pUnit, 4);
-    if (pQuestDataEx->bDropActive)
+    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bRewardPending) UNITS_ChangeAnimMode(pUnit, 4);
+    if (pQuestDataEx->unk0x03)
     {
         int nItemLevel = 50;
         int nDropped = 0;
-        for (int i = 0; i < pQuestDataEx->nDropCount; ++i)
+        for (int i = 0; i < pQuestDataEx->nPlayersInAct; ++i)
         {
-            switch (pQuestDataEx->nDropStage)
+            switch (pQuestDataEx->nRewardState)
             {
             case 4: pUnit->dwDropItemCode = gnHellforgeGemsFirst_0073E56C[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
             case 2:
@@ -68,10 +55,10 @@ void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2
             if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0)) ++nDropped;
         }
         if (!nDropped) return;
-        --pQuestDataEx->nDropStage;
-        if (pQuestDataEx->nDropStage <= 0)
+        --pQuestDataEx->nRewardState;
+        if (pQuestDataEx->nRewardState <= 0)
         {
-            pQuestDataEx->bDropActive = 0;
+            pQuestDataEx->unk0x03 = 0;
             if (pQuestData->pGame->bExpansion)
             {
                 unsigned int* pCodes = gnHellforgeRunesNormal_0073E114;
@@ -96,33 +83,33 @@ struct D2UnitStrc;
 // 0x005B6C60
 void __fastcall sub_005B6C60_UpdateQuest(void* pUnused, D2QuestArgStrc* pArgs)
 {
-    const int nClassId = pArgs->nClassId;
-    const unsigned short nIndex = pArgs->nIndex;
-    switch (nClassId)
+    const int nNpcId = pArgs->nOldLevel;
+    const unsigned short nIndex = pArgs->nMessageIndex;
+    switch (nNpcId)
     {
     case 254:
         if (nIndex == 502 || nIndex == 501)
-            sub_00572360_Update(pArgs->pQuest, pArgs->pUnit, nClassId);
+            PLRINTRO_SetQuestIntroFlag(pArgs->pPlayer, pArgs->pGame, nNpcId);
         break;
     case 264:
         if (nIndex == 479 || nIndex == 478)
-            sub_00572360_Update(pArgs->pQuest, pArgs->pUnit, nClassId);
+            PLRINTRO_SetQuestIntroFlag(pArgs->pPlayer, pArgs->pGame, nNpcId);
         break;
     case 252:
         if (nIndex == 491 || nIndex == 490)
-            sub_00572360_Update(pArgs->pQuest, pArgs->pUnit, nClassId);
+            PLRINTRO_SetQuestIntroFlag(pArgs->pPlayer, pArgs->pGame, nNpcId);
         break;
     case 255:
         if (nIndex == 515 || nIndex == 514)
-            sub_00572360_Update(pArgs->pQuest, pArgs->pUnit, nClassId);
+            PLRINTRO_SetQuestIntroFlag(pArgs->pPlayer, pArgs->pGame, nNpcId);
         break;
     case 297:
         if (nIndex == 453)
-            sub_00572360_Update(pArgs->pQuest, pArgs->pUnit, nClassId);
+            PLRINTRO_SetQuestIntroFlag(pArgs->pPlayer, pArgs->pGame, nNpcId);
         break;
     case 245:
         if (nIndex == 458)
-            sub_00572360_Update(pArgs->pQuest, pArgs->pUnit, nClassId);
+            PLRINTRO_SetQuestIntroFlag(pArgs->pPlayer, pArgs->pGame, nNpcId);
         break;
     }
 }
