@@ -2103,12 +2103,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0049C9C0.cpp": {
+  "Source/D2Client/UI/text_0049C9C0.cpp": {
    "bytes": 16,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0049C9C0.inc",
+   "include": "gen/data/Source/D2Client/UI/text_0049C9C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -53410,7 +53410,7 @@
    "cname": "gData_007224E8",
    "declared": true,
    "decorated": "?gaLayouts_007224E8@@3PAUD2WaypointLayoutStrc@@A",
-   "file": "Source/D2Client/Unknown_0049C9C0.cpp",
+   "file": "Source/D2Client/UI/text_0049C9C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007224E8_t gData_007224E8; // 0x007224E8",
    "head": "extern \"C\" struct d2data_007224E8_t gData_007224E8 = ",
