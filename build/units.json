@@ -24507,6 +24507,10 @@
      "name": "@sub_004807C0_UpdateUnitPath@4"
     },
     {
+     "va": "0x00480810",
+     "length": 288
+    },
+    {
      "va": "0x00480930",
      "length": 516
     },
@@ -24592,30 +24596,6 @@
      "length": 657,
      "name": "?sub_004804E0_SetPosition@@YIXPAUD2UnitStrc@@GGHHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00480810.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00480810",
-     "length": 288
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
