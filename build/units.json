@@ -1766,19 +1766,9 @@
      "name": "AUTOMAP_IsDebugDirectorySizeValid"
     },
     {
-     "va": "0x00407DE0",
-     "length": 318,
-     "name": "AUTOMAP_CaptureSystemInfo"
-    },
-    {
      "va": "0x0040E850",
      "length": 24,
      "name": "AUTOMAP_ReadTimeStampCounter"
-    },
-    {
-     "va": "0x0040F350",
-     "length": 123,
-     "name": "AUTOMAP_CloseStaleLogs"
     },
     {
      "va": "0x00412000",
@@ -1855,6 +1845,11 @@
      "name": "?sub_00457E80_AddUnitAutomapCell@@YGXHPAPAUD2AutomapCellStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00457F40",
+     "length": 690,
+     "name": "?AUTOMAP_OpenAutomapFile@@YAPAXXZ"
+    },
+    {
      "va": "0x00458200",
      "length": 566,
      "name": "?sub_00458200_WriteAutomapLayer@@YAXPAUD2AutomapSaveStrc@@@Z"
@@ -1868,6 +1863,10 @@
      "va": "0x00458470",
      "length": 69,
      "name": "?AUTOMAP_StoreCells@@YIXPAUD2AutomapCellStrc@@@Z"
+    },
+    {
+     "va": "0x004584C0",
+     "length": 444
     },
     {
      "va": "0x00458680",
@@ -1895,6 +1894,10 @@
      "name": "?sub_00458D40_InitAutomapLayer@@YAPAUD2AutomapLayerStrc@@H@Z"
     },
     {
+     "va": "0x00458DC0",
+     "length": 378
+    },
+    {
      "va": "0x00458F40",
      "length": 219,
      "name": "?AUTOMAP_RevealRoomTiles@@YGXPAUD2ActiveRoomStrc@@HPAUD2AutomapLayerStrc@@@Z"
@@ -1914,14 +1917,62 @@
      "length": 74
     },
     {
+     "va": "0x004591A0",
+     "length": 659
+    },
+    {
+     "va": "0x00459440",
+     "length": 699
+    },
+    {
+     "va": "0x00459700",
+     "length": 1215,
+     "name": "?AUTOMAP_PaintAutomap@@YAXXZ"
+    },
+    {
+     "va": "0x00459BC0",
+     "length": 712,
+     "name": "?sub_00459BC0_GetAutomapUnitColor@@YAHPAEPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00459E90",
+     "length": 345,
+     "name": "?AUTOMAP_DrawGameInfoLines@@YAXXZ"
+    },
+    {
+     "va": "0x00459FF0",
+     "length": 88,
+     "name": "?AUTOMAP_DrawStringLine@@YAXXZ"
+    },
+    {
      "va": "0x0045A050",
      "length": 69,
      "name": "?AUTOMAP_DrawLevelName@@YAXXZ"
     },
     {
+     "va": "0x0045A0A0",
+     "length": 122,
+     "name": "?AUTOMAP_DrawVersionLine@@YAXXZ"
+    },
+    {
+     "va": "0x0045A120",
+     "length": 103,
+     "name": "?AUTOMAP_DrawLocalIpLine@@YAXXZ"
+    },
+    {
+     "va": "0x0045A190",
+     "length": 231,
+     "name": "?AUTOMAP_DrawDifficultyLine@@YAXXZ"
+    },
+    {
      "va": "0x0045A280",
      "length": 36,
      "name": "?AUTOMAP_FreeAutomapCels@@YAXXZ"
+    },
+    {
+     "va": "0x0045A2B0",
+     "length": 523,
+     "name": "?AUTOMAP_ReloadAutomapCels@@YAXXZ"
     },
     {
      "va": "0x0045A4C0",
@@ -1941,6 +1992,26 @@
     {
      "va": "0x0045A720",
      "length": 56
+    },
+    {
+     "va": "0x0045A760",
+     "length": 131,
+     "name": "?sub_0045A760_DrawAutomapText@@YGXEPBDHH@Z"
+    },
+    {
+     "va": "0x0045A7F0",
+     "length": 101,
+     "name": "?sub_0045A7F0_DrawAutomapCross@@YGXEHH@Z"
+    },
+    {
+     "va": "0x0045A860",
+     "length": 767,
+     "name": "?sub_0045A860_DrawAutomapUnit@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0045AB60",
+     "length": 304,
+     "name": "?sub_0045AB60_DrawAutomapPartyMember@@YAXPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x0045AE50",
@@ -2028,11 +2099,6 @@
      "name": "AUTOMAP_GetItemComponent"
     },
     {
-     "va": "0x00463180",
-     "length": 223,
-     "name": "AUTOMAP_UpdatePathAndMove"
-    },
-    {
      "va": "0x0046EFD0",
      "length": 34,
      "name": "?sub_0046EFD0_DrawFramedBox@@YIXHHHHHH@Z"
@@ -2056,7 +2122,25 @@
      "va": "0x004C5420",
      "length": 79,
      "name": "?AUTOMAP_RequestAtTarget@@YIPAUD2UnitStrc@@PAU1@HHH@Z"
+    },
+    {
+     "va": "0x004C5470",
+     "length": 121
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -2808,6 +2892,11 @@
      "va": "0x00407DD0",
      "length": 3,
      "name": "?sub_00407DD0_AlwaysFalse@@YA_NXZ"
+    },
+    {
+     "va": "0x00407DE0",
+     "length": 318,
+     "name": "AUTOMAP_CaptureSystemInfo"
     },
     {
      "va": "0x00407F70",
@@ -4562,6 +4651,11 @@
     {
      "va": "0x0040F070",
      "length": 723
+    },
+    {
+     "va": "0x0040F350",
+     "length": 123,
+     "name": "AUTOMAP_CloseStaleLogs"
     },
     {
      "va": "0x0040F520",
@@ -18231,131 +18325,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/automap_00457F40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00457F40",
-     "length": 690,
-     "name": "?AUTOMAP_OpenAutomapFile@@YAPAXXZ"
-    },
-    {
-     "va": "0x004584C0",
-     "length": 444
-    },
-    {
-     "va": "0x00458DC0",
-     "length": 378
-    },
-    {
-     "va": "0x00459700",
-     "length": 1215,
-     "name": "?AUTOMAP_PaintAutomap@@YAXXZ"
-    },
-    {
-     "va": "0x00459BC0",
-     "length": 712,
-     "name": "?sub_00459BC0_GetAutomapUnitColor@@YAHPAEPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00459E90",
-     "length": 345,
-     "name": "?AUTOMAP_DrawGameInfoLines@@YAXXZ"
-    },
-    {
-     "va": "0x00459FF0",
-     "length": 88,
-     "name": "?AUTOMAP_DrawStringLine@@YAXXZ"
-    },
-    {
-     "va": "0x0045A0A0",
-     "length": 122,
-     "name": "?AUTOMAP_DrawVersionLine@@YAXXZ"
-    },
-    {
-     "va": "0x0045A120",
-     "length": 103,
-     "name": "?AUTOMAP_DrawLocalIpLine@@YAXXZ"
-    },
-    {
-     "va": "0x0045A190",
-     "length": 231,
-     "name": "?AUTOMAP_DrawDifficultyLine@@YAXXZ"
-    },
-    {
-     "va": "0x0045A2B0",
-     "length": 523,
-     "name": "?AUTOMAP_ReloadAutomapCels@@YAXXZ"
-    },
-    {
-     "va": "0x0045A760",
-     "length": 131,
-     "name": "?sub_0045A760_DrawAutomapText@@YGXEPBDHH@Z"
-    },
-    {
-     "va": "0x0045A7F0",
-     "length": 101,
-     "name": "?sub_0045A7F0_DrawAutomapCross@@YGXEHH@Z"
-    },
-    {
-     "va": "0x0045AB60",
-     "length": 304,
-     "name": "?sub_0045AB60_DrawAutomapPartyMember@@YAXPAUD2StoredUnitRecordStrc@@@Z"
-    },
-    {
-     "va": "0x004C5470",
-     "length": 121
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/automap_004591A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004591A0",
-     "length": 659
-    },
-    {
-     "va": "0x00459440",
-     "length": 699
-    },
-    {
-     "va": "0x0045A860",
-     "length": 767,
-     "name": "?sub_0045A860_DrawAutomapUnit@@YAXPAUD2UnitStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_0045AC90.cpp",
    "rank": 0,
    "functions": [
@@ -18985,6 +18954,11 @@
      "va": "0x00463130",
      "length": 70,
      "name": "?sub_00463130_GetPlayerTableB@@YIHPAEI@Z"
+    },
+    {
+     "va": "0x00463180",
+     "length": 223,
+     "name": "AUTOMAP_UpdatePathAndMove"
     },
     {
      "va": "0x00463260",

@@ -51,8 +51,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/automap.cpp": {
-   "bytes": 2756,
-   "definitions": 11,
+   "bytes": 2928,
+   "definitions": 15,
    "externs": [
     "extern \"C\" char gapWardenServices_006D8E68[]; // 0x006D8E68",
     "extern \"C\" void __cdecl SCMD_HandleTriggerSkillAtPosition(); // 0x0045DEC0",
@@ -1477,24 +1477,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004549F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/automap_00457F40.cpp": {
-   "bytes": 104,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/automap_00457F40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/automap_004591A0.cpp": {
-   "bytes": 68,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/automap_0045A860.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -40393,7 +40375,7 @@
    "cname": "gData_006D6638",
    "declared": true,
    "decorated": "?gaAutomapCross_006D6638@@3QBUD2AutomapPointStrc@@B",
-   "file": "Source/D2Client/UI/automap_00457F40.cpp",
+   "file": "Source/D2Client/UI/automap.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2AutomapPointStrc gData_006D6638[13]; // 0x006D6638",
    "head": "extern \"C\" const D2AutomapPointStrc gData_006D6638[13] = ",
@@ -40444,7 +40426,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap_004591A0.cpp",
+   "file": "Source/D2Client/UI/automap.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_007113E4 = ",
@@ -40469,7 +40451,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap_004591A0.cpp",
+   "file": "Source/D2Client/UI/automap.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_007113E8 = ",
@@ -40494,7 +40476,7 @@
    "cname": "gData_007113EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap_004591A0.cpp",
+   "file": "Source/D2Client/UI/automap.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007113EC_t gData_007113EC; // 0x007113EC",
    "head": "extern \"C\" struct d2data_007113EC_t gData_007113EC = ",
