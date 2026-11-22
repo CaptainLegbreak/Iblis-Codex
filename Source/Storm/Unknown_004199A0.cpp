@@ -1,15 +1,15 @@
 #include "Storm.h"
 
 struct D2StormStreamLinkStrc;
-struct D2StormFileRecStrc;
+struct FILEREC;
 struct D2StormSoundBufferStrc;
-struct D2StormAudioStreamStrc;
+struct AUDIOSTREAM;
 struct D2StormUIntArrayStrc;
 struct D2StormUCharArrayStrc;
 struct D2StormBigBufferStrc;
 struct D2StormBigDataStrc;
 struct D2StormOwnerLinkStrc;
-struct D2StormStreamOwnerStrc;
+struct REQUEST;
 
 extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
@@ -43,13 +43,13 @@ struct D2StormStreamLinkStrc
     }
 };
 
-struct D2StormFileRecStrc
+struct FILEREC
 {
     char unk0x00[0x144];
     int nRefCount;
     char unk0x148[0x10];
 
-    ~D2StormFileRecStrc();                                                                                  // 0x00419070
+    ~FILEREC();                                                                                  // 0x00419070
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -64,17 +64,17 @@ struct D2StormSoundBufferStrc
     virtual unsigned long __stdcall Release() = 0;
 };
 
-struct D2StormAudioStreamStrc
+struct AUDIOSTREAM
 {
     D2StormStreamLinkStrc f_0;
-    D2StormFileRecStrc* pFileRec;
+    FILEREC* pFileRec;
     char unk0x0C[0x30];
     D2StormSoundBufferStrc* pBuffer;
-    int nUnk0x40;
+    int soundbuffersize;
     int bBufferOwned;
     int nUnk0x48;
     int nRefCount;
-    ~D2StormAudioStreamStrc();
+    ~AUDIOSTREAM();
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -156,22 +156,22 @@ struct D2StormOwnerLinkStrc
     }
 };
 
-struct D2StormStreamOwnerStrc
+struct REQUEST
 {
     D2StormOwnerLinkStrc f_0;
     char unk0x08[0x4];
-    D2StormFileRecStrc* pFileRec;
+    FILEREC* pFileRec;
     char unk0x10[0x20];
-    D2StormAudioStreamStrc* pStream;
+    AUDIOSTREAM* stream;
 
-    ~D2StormStreamOwnerStrc();
+    ~REQUEST();
 };
 
 // build: symbol ??1D2StormBigBufferStrc@@QAE@XZ 0x00421810
 // 0x004199A0
-D2StormAudioStreamStrc::~D2StormAudioStreamStrc()
+AUDIOSTREAM::~AUDIOSTREAM()
 {
-    D2StormFileRecStrc* pFile = pFileRec;
+    FILEREC* pFile = pFileRec;
     if (pFile && --pFile->nRefCount == 0)
         delete pFile;
     if (pBuffer && bBufferOwned)
@@ -184,12 +184,12 @@ D2StormBigDataStrc::~D2StormBigDataStrc()
 }
 
 // 0x0041A020
-D2StormStreamOwnerStrc::~D2StormStreamOwnerStrc()
+REQUEST::~REQUEST()
 {
-    D2StormFileRecStrc* pFile = pFileRec;
+    FILEREC* pFile = pFileRec;
     if (pFile && --pFile->nRefCount == 0)
         delete pFile;
-    D2StormAudioStreamStrc* pAudio = pStream;
+    AUDIOSTREAM* pAudio = stream;
     if (pAudio && --pAudio->nRefCount == 0)
         delete pAudio;
 }

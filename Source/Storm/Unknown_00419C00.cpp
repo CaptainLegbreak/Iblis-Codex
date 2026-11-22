@@ -10,19 +10,19 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);              
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 
-struct D2StormArchiveRecStrc
+struct ARCHIVEREC
 {
 
     char pad00[0x124];
-    unsigned int nBlockSize;
+    unsigned int sectorsize;
 };
 
-struct D2StormFileRecStrc
+struct FILEREC
 {
 
     char pad00[0x110];
     int hFile;
-    D2StormArchiveRecStrc* f_114;
+    ARCHIVEREC* archive;
     unsigned int* pBlock;
     int unk0x11C;
     unsigned int nPosition;
@@ -54,38 +54,38 @@ struct D2StormSoundBufferStrc
     virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
 };
 
-struct D2StormStreamStrc;
+struct AUDIOSTREAM;
 
 struct D2StormStreamLinkStrc
 {
     D2StormStreamLinkStrc* m_prevlink;
-    D2StormStreamStrc* m_next;
+    AUDIOSTREAM* m_next;
 
-    D2StormStreamStrc* Next()
+    AUDIOSTREAM* Next()
     {
         return (int)m_next > 0 ? m_next : 0;
     }
 };
 
-struct D2StormStreamStrc
+struct AUDIOSTREAM
 {
     D2StormStreamLinkStrc f_0;
 
-    D2StormFileRecStrc* pFile;
-    unsigned int f_C;
+    FILEREC* pFile;
+    unsigned int nextwrite;
     int unk0x10;
     int bRestart;
-    int nState;
+    int fillstatus;
     unsigned int nCounter;
-    unsigned int nStart;
+    unsigned int waveheadersize;
     unsigned int nSize;
     unsigned int nOffset;
     unsigned int nPlayed;
-    unsigned int f_30;
+    unsigned int writecursor;
     int f_34;
     int f_38;
     D2StormSoundBufferStrc* pBuffer;
-    unsigned int nBufferSize;
+    unsigned int soundbuffersize;
     int unk0x44;
     unsigned char nFill;
     char pad49[3];
@@ -97,34 +97,34 @@ struct D2StormStreamListStrc
     int m_linkoffset;
     D2StormStreamLinkStrc m_terminator;
 
-    D2StormStreamStrc* Head()
+    AUDIOSTREAM* Head()
     {
-        D2StormStreamStrc* pHead = m_terminator.Next();
+        AUDIOSTREAM* pHead = m_terminator.Next();
         return pHead;
     }
 };
 
-struct D2StormRequestStrc
+struct REQUEST
 {
     D2StormRequestLinkStrc f_0;
 
     int nUser;
-    D2StormFileRecStrc* pFile;
-    unsigned int nPosition;
+    FILEREC* pFile;
+    unsigned int location;
     unsigned int nFileOffset;
     unsigned int nDueTime;
     int nArg9;
     void* pDest;
     unsigned int f_24;
     D2StormSoundBufferStrc* pBuffer;
-    unsigned int f_2C;
-    D2StormStreamStrc* pStream;
+    unsigned int soundbufferoffset;
+    AUDIOSTREAM* stream;
     unsigned int nBytes;
     int nArg11;
     unsigned int nRead;
     void* pCallback;
 
-    D2StormRequestStrc()
+    REQUEST()
     {
         f_0.m_prevlink = 0;
         f_0.m_next = 0;
@@ -168,10 +168,10 @@ struct D2StormRequestListStrc
             break;
         }
     }
-    D2StormRequestStrc* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+    REQUEST* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
     {
-        void* pMemory = SMemAlloc(sizeof(D2StormRequestStrc) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
-        D2StormRequestStrc* pRecord = pMemory ? new (pMemory) D2StormRequestStrc : 0;
+        void* pMemory = SMemAlloc(sizeof(REQUEST) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
+        REQUEST* pRecord = pMemory ? new (pMemory) REQUEST : 0;
         if (nLinkType)
             LinkNode((char*)pRecord, nLinkType, 0);
         return pRecord;
@@ -186,23 +186,23 @@ static int gbStreamsPaused_00779044;                                            
 static unsigned int gnStreamChunk_00779038;                                                                 // 0x00779038
 
 // 0x00415950
-static int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
-    *ppRec = (D2StormFileRecStrc*)hFile;
+    *ppRec = (FILEREC*)hFile;
     return 1;
 }
 
 // 0x00415760
-static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
+static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
 {
     unsigned long nPlay = 0;
     unsigned long nWrite = 0;
     if (pStream->pBuffer->GetCurrentPosition(&nPlay, &nWrite) < 0)
         return -1;
-    unsigned int nWritten = pStream->f_30;
-    int nAhead = nWritten % pStream->nBufferSize - nPlay;
+    unsigned int nWritten = pStream->writecursor;
+    int nAhead = nWritten % pStream->soundbuffersize - nPlay;
     if (nAhead <= 0)
-        nAhead += pStream->nBufferSize;
+        nAhead += pStream->soundbuffersize;
     unsigned int nPlayed = nWritten - nAhead;
     if (nPlayed >= pStream->nSize)
         nPlayed = pStream->nSize;
@@ -213,16 +213,16 @@ static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
 int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize); // 0x00418140
 
 // 0x00419790
-static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
+static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, AUDIOSTREAM* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
 {
     VALIDATEBEGIN;
     VALIDATE(pDest || pBuffer);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
-    D2StormRequestStrc* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
+    REQUEST* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;
     pRequest->pFile = pFile;
-    pRequest->nPosition = nPosition;
+    pRequest->location = nPosition;
     if (pFile->hFile == -1)
         nPosition = (nPosition >> 1) + *pFile->pBlock;
     pRequest->nFileOffset = nPosition;
@@ -231,8 +231,8 @@ static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, uns
     pRequest->pDest = pDest;
     pRequest->f_24 = nDestSize;
     pRequest->pBuffer = pBuffer;
-    pRequest->f_2C = nBufferOffset;
-    pRequest->pStream = pStream;
+    pRequest->soundbufferoffset = nBufferOffset;
+    pRequest->stream = pStream;
     pRequest->nBytes = nBytes;
     pRequest->nArg11 = nArg11;
     pRequest->pCallback = pCallback;
@@ -250,14 +250,14 @@ void __cdecl sub_00419C00_PumpStreams()
 {
     if (gbStreamsPaused_00779044)
         return;
-    for (D2StormStreamStrc* pStream = gDdaList_00708384.Head(); (int)pStream > 0; pStream = pStream->f_0.m_next)
+    for (AUDIOSTREAM* pStream = gDdaList_00708384.Head(); (int)pStream > 0; pStream = pStream->f_0.m_next)
     {
-        if (pStream->nState == 3 || (pStream->nState == 2 && pStream->pFile->nPosition >= pStream->nStart + pStream->nSize))
+        if (pStream->fillstatus == 3 || (pStream->fillstatus == 2 && pStream->pFile->nPosition >= pStream->waveheadersize + pStream->nSize))
         {
             if (pStream->bRestart)
             {
-                pStream->pFile->nPosition = pStream->nStart;
-                pStream->f_30 = 0;
+                pStream->pFile->nPosition = pStream->waveheadersize;
+                pStream->writecursor = 0;
                 pStream->nCounter = 0;
             }
             else
@@ -268,71 +268,71 @@ void __cdecl sub_00419C00_PumpStreams()
                 if (pStream->nPlayed >= pStream->nSize)
                 {
                     pStream->pBuffer->Stop();
-                    pStream->nState = 4;
+                    pStream->fillstatus = 4;
                     continue;
                 }
-                if ((nPlay - pStream->f_C) % pStream->nBufferSize >= gnStreamChunk_00779038)
+                if ((nPlay - pStream->nextwrite) % pStream->soundbuffersize >= gnStreamChunk_00779038)
                 {
                     unsigned int nCount;
-                    if (gnStreamChunk_00779038 >= pStream->nBufferSize - pStream->f_C)
-                        nCount = pStream->nBufferSize - pStream->f_C;
+                    if (gnStreamChunk_00779038 >= pStream->soundbuffersize - pStream->nextwrite)
+                        nCount = pStream->soundbuffersize - pStream->nextwrite;
                     else
                         nCount = gnStreamChunk_00779038;
                     void* pLocked = 0;
                     unsigned long nLocked = nCount;
-                    if (pStream->pBuffer->Lock(pStream->f_C, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
+                    if (pStream->pBuffer->Lock(pStream->nextwrite, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
                     {
                         SMemFill(pLocked, nLocked, pStream->nFill);
                         pStream->pBuffer->Unlock(pLocked, nLocked, 0, 0);
-                        pStream->f_30 += nLocked;
+                        pStream->writecursor += nLocked;
                         pStream->nCounter += nLocked;
-                        pStream->f_C += nLocked;
-                        if (pStream->f_C >= pStream->nBufferSize)
-                            pStream->f_C -= pStream->nBufferSize;
+                        pStream->nextwrite += nLocked;
+                        if (pStream->nextwrite >= pStream->soundbuffersize)
+                            pStream->nextwrite -= pStream->soundbuffersize;
                     }
                 }
-                pStream->nState = 3;
+                pStream->fillstatus = 3;
             }
         }
-        if (pStream->nState == 2)
+        if (pStream->fillstatus == 2)
         {
             unsigned int nPlay = sub_00415760_UpdatePlayed(pStream);
             if (nPlay == -1)
                 continue;
-            if ((nPlay - pStream->f_C) % pStream->nBufferSize < gnStreamChunk_00779038)
+            if ((nPlay - pStream->nextwrite) % pStream->soundbuffersize < gnStreamChunk_00779038)
                 continue;
-            unsigned int nCount = pStream->nBufferSize - pStream->f_C;
+            unsigned int nCount = pStream->soundbuffersize - pStream->nextwrite;
             if (gnStreamChunk_00779038 < nCount)
                 nCount = gnStreamChunk_00779038;
-            unsigned int nLeft = pStream->nSize + pStream->nStart - pStream->pFile->nPosition;
+            unsigned int nLeft = pStream->nSize + pStream->waveheadersize - pStream->pFile->nPosition;
             if (nCount >= nLeft)
                 nCount = nLeft;
             if (gbAlignReads_007790A4)
             {
-                unsigned int nOver = (pStream->pFile->f_114->nBlockSize - 1) & (pStream->pFile->nPosition + nCount);
+                unsigned int nOver = (pStream->pFile->archive->sectorsize - 1) & (pStream->pFile->nPosition + nCount);
                 if (nOver && nOver < nCount)
                     nCount -= nOver;
             }
-            IssueRequest(pStream->pFile, pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->f_C, pStream, nCount, 0, 0, 0, 1, 0, 0);
+            IssueRequest(pStream->pFile, pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->nextwrite, pStream, nCount, 0, 0, 0, 1, 0, 0);
             pStream->pFile->nPosition += nCount;
-            pStream->f_C += gnStreamChunk_00779038;
-            if (pStream->f_C >= pStream->nBufferSize)
-                pStream->f_C -= pStream->nBufferSize;
+            pStream->nextwrite += gnStreamChunk_00779038;
+            if (pStream->nextwrite >= pStream->soundbuffersize)
+                pStream->nextwrite -= pStream->soundbuffersize;
         }
-        else if (pStream->nState == 0)
+        else if (pStream->fillstatus == 0)
         {
             unsigned int nDone = 0;
             unsigned int nTotal;
-            if (pStream->nBufferSize < pStream->nSize - pStream->nOffset)
-                nTotal = pStream->nBufferSize;
+            if (pStream->soundbuffersize < pStream->nSize - pStream->nOffset)
+                nTotal = pStream->soundbuffersize;
             else
                 nTotal = pStream->nSize - pStream->nOffset;
-            pStream->pFile->nPosition = pStream->nStart + pStream->nOffset;
+            pStream->pFile->nPosition = pStream->waveheadersize + pStream->nOffset;
             unsigned int nIndex = 0;
             if (gbAlignReads_007790A4)
             {
                 nDone = gnStreamChunk_00779038 < nTotal ? gnStreamChunk_00779038 : nTotal;
-                unsigned int nOver = (pStream->pFile->f_114->nBlockSize - 1) & (pStream->pFile->nPosition + nDone);
+                unsigned int nOver = (pStream->pFile->archive->sectorsize - 1) & (pStream->pFile->nPosition + nDone);
                 if (nOver && nOver < nDone)
                     nDone -= nOver;
                 IssueRequest(pStream->pFile, pStream->pFile->nPosition, 0, 0, pStream->pBuffer, 0, pStream, nDone, 0, 0, 0, 1, 0, 0);
@@ -348,17 +348,17 @@ void __cdecl sub_00419C00_PumpStreams()
                 ++nIndex;
                 pStream->pFile->nPosition += nCount;
             }
-            pStream->nState = 1;
-            pStream->f_C = nDone % pStream->nBufferSize;
+            pStream->fillstatus = 1;
+            pStream->nextwrite = nDone % pStream->soundbuffersize;
         }
     }
 }
 
-// build: context ?Next@D2StormStreamLinkStrc@@QAEPAUD2StormStreamStrc@@XZ
-// build: context ?Head@D2StormStreamListStrc@@QAEPAUD2StormStreamStrc@@XZ
+// build: context ?Next@D2StormStreamLinkStrc@@QAEPAUAUDIOSTREAM@@XZ
+// build: context ?Head@D2StormStreamListStrc@@QAEPAUAUDIOSTREAM@@XZ
 // build: context ?NextLink@D2StormRequestLinkStrc@@QAEPAU1@H@Z
 // build: context ?Unlink@D2StormRequestLinkStrc@@QAEXXZ
-// build: context ??0D2StormRequestStrc@@QAE@XZ
+// build: context ??0REQUEST@@QAE@XZ
 // build: context ??2@YAPAXIPAX@Z
 // build: context ?Link@D2StormRequestListStrc@@QAEPAUD2StormRequestLinkStrc@@PAD@Z
-// build: context ?NewNode@D2StormRequestListStrc@@QAEPAUD2StormRequestStrc@@III@Z
+// build: context ?NewNode@D2StormRequestListStrc@@QAEPAUREQUEST@@III@Z

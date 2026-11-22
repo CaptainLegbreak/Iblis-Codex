@@ -231,15 +231,15 @@ int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefi
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     sub_00415B90_InitCryptTable();
-    D2StormArchiveRecStrc* pParent = (D2StormArchiveRecStrc*)hArchive;
+    ARCHIVEREC* pParent = (ARCHIVEREC*)hArchive;
     if (!pParent)
     {
         sub_0041C340_SetLastError(0x57);
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    void* pMemory = SMemAlloc(sizeof(D2StormArchiveRecStrc), gszTypeNameArchiveRec_00708398, -2, 8);
-    D2StormArchiveRecStrc* pArchive = pMemory ? new (pMemory) D2StormArchiveRecStrc : 0;
+    void* pMemory = SMemAlloc(sizeof(ARCHIVEREC), gszTypeNameArchiveRec_00708398, -2, 8);
+    ARCHIVEREC* pArchive = pMemory ? new (pMemory) ARCHIVEREC : 0;
     SStrCopy(pArchive->szName, pParent->szName, 0x104);
     pArchive->hFile = pParent->hFile;
     pArchive->pParent = pParent;
@@ -248,8 +248,8 @@ int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefi
     SStrCopy(pArchive->szPrefix, szPrefix, 0x7FFFFFFF);
     pArchive->nRefCount = 1;
     ++pParent->nRefCount;
-    D2StormArchiveRecStrc* pExisting;
-    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (D2StormArchiveRecStrc*)pExisting->tLink.Next())
+    ARCHIVEREC* pExisting;
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (ARCHIVEREC*)pExisting->tLink.Next())
     {
         if (pExisting->nPriority <= pArchive->nPriority)
             break;

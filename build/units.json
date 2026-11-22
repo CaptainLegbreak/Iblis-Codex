@@ -3524,12 +3524,12 @@
     {
      "va": "0x00415560",
      "length": 71,
-     "name": "?sub_00415560_ReadFileRec@@YGHPAXIPAIIPAUD2StormFileRecStrc@@@Z"
+     "name": "?sub_00415560_ReadFileRec@@YGHPAXIPAIIPAUFILEREC@@@Z"
     },
     {
      "va": "0x004155B0",
      "length": 23,
-     "name": "?sub_004155B0_GetBlockEntry@@YAPAUD2StormBlockStrc@@PAUD2StormArchiveRecStrc@@H@Z"
+     "name": "?sub_004155B0_GetBlockEntry@@YAPAUD2StormBlockStrc@@PAUARCHIVEREC@@H@Z"
     },
     {
      "va": "0x004156A0",
@@ -3554,7 +3554,7 @@
     {
      "va": "0x00415930",
      "length": 8,
-     "name": "?sub_00415930_GetArchiveRec@@YAHPAXPAPAUD2StormArchiveRecStrc@@@Z"
+     "name": "?sub_00415930_GetArchiveRec@@YAHPAXPAPAUARCHIVEREC@@@Z"
     },
     {
      "va": "0x00415940",
@@ -3564,7 +3564,7 @@
     {
      "va": "0x00415950",
      "length": 8,
-     "name": "?sub_00415950_GetFileRec@@YAHPAXPAPAUD2StormFileRecStrc@@@Z"
+     "name": "?sub_00415950_GetFileRec@@YAHPAXPAPAUFILEREC@@@Z"
     },
     {
      "va": "0x00415A80",
@@ -3871,7 +3871,7 @@
     {
      "va": "0x00416FB0",
      "length": 138,
-     "name": "?sub_00416FB0_LoadBlock@@YAIIPAUD2StormFileRecStrc@@@Z"
+     "name": "?sub_00416FB0_LoadBlock@@YAIIPAUFILEREC@@@Z"
     },
     {
      "va": "0x00417770",
@@ -4046,7 +4046,7 @@
     {
      "va": "0x00418A50",
      "length": 208,
-     "name": "??1D2StormArchiveRecStrc@@QAE@XZ"
+     "name": "??1ARCHIVEREC@@QAE@XZ"
     },
     {
      "va": "0x00418B50",
@@ -4081,12 +4081,12 @@
     {
      "va": "0x00418E60",
      "length": 44,
-     "name": "??0D2StormFileRecStrc@@QAE@XZ"
+     "name": "??0FILEREC@@QAE@XZ"
     },
     {
      "va": "0x00418E90",
      "length": 38,
-     "name": "?RemoveArchiveRef@@YIXPAUD2StormArchiveRecStrc@@@Z"
+     "name": "?RemoveArchiveRef@@YIXPAUARCHIVEREC@@@Z"
     },
     {
      "va": "0x00418EC0",
@@ -4096,7 +4096,7 @@
     {
      "va": "0x00419070",
      "length": 217,
-     "name": "??1D2StormFileRecStrc@@QAE@XZ"
+     "name": "??1FILEREC@@QAE@XZ"
     },
     {
      "va": "0x00419630",
@@ -4106,7 +4106,7 @@
     {
      "va": "0x00419A50",
      "length": 43,
-     "name": "?_GD2StormAudioStreamStrc"
+     "name": "?_GAUDIOSTREAM"
     },
     {
      "va": "0x00419B90",
@@ -4116,7 +4116,7 @@
     {
      "va": "0x0041A0E0",
      "length": 43,
-     "name": "?_GD2StormRequestStrc"
+     "name": "?_GREQUEST"
     },
     {
      "va": "0x0041A2C0",
@@ -4949,7 +4949,7 @@
     {
      "va": "0x00415760",
      "length": 93,
-     "name": "?sub_00415760_UpdatePlayed@@YAIPAUD2StormStreamStrc@@@Z"
+     "name": "?sub_00415760_UpdatePlayed@@YAIPAUAUDIOSTREAM@@@Z"
     },
     {
      "va": "0x004158E0",
@@ -5043,7 +5043,7 @@
     {
      "va": "0x00418B20",
      "length": 43,
-     "name": "?_GD2StormArchiveRecStrc"
+     "name": "?_GARCHIVEREC"
     },
     {
      "va": "0x00418F20",
@@ -5058,7 +5058,7 @@
     {
      "va": "0x00419150",
      "length": 43,
-     "name": "?_GD2StormFileRecStrc"
+     "name": "?_GFILEREC"
     },
     {
      "va": "0x004192F0",
@@ -5077,7 +5077,7 @@
     {
      "va": "0x00419760",
      "length": 36,
-     "name": "?RemoveFileRef@@YAXPAUD2StormFileRecStrc@@@Z"
+     "name": "?RemoveFileRef@@YAXPAUFILEREC@@@Z"
     },
     {
      "va": "0x004198D0",
@@ -5097,7 +5097,7 @@
     {
      "va": "0x00419BD0",
      "length": 33,
-     "name": "?RemoveStreamRef@@YAXPAUD2StormAudioStreamStrc@@@Z"
+     "name": "?RemoveStreamRef@@YAXPAUAUDIOSTREAM@@@Z"
     },
     {
      "va": "0x0041B050",
@@ -6050,12 +6050,12 @@
     {
      "va": "0x004199A0",
      "length": 172,
-     "name": "??1D2StormAudioStreamStrc@@QAE@XZ"
+     "name": "??1AUDIOSTREAM@@QAE@XZ"
     },
     {
      "va": "0x0041A020",
      "length": 186,
-     "name": "??1D2StormStreamOwnerStrc@@QAE@XZ"
+     "name": "??1REQUEST@@QAE@XZ"
     },
     {
      "va": "0x00421D80",
@@ -7984,7 +7984,7 @@
     {
      "va": "0x00426E20",
      "length": 81,
-     "name": "?_GD2StormBreakCmdStrc"
+     "name": "?_GBREAKCMD"
     },
     {
      "va": "0x0044FBB0",

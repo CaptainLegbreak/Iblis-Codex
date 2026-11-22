@@ -34,8 +34,8 @@ int __stdcall SFileCloseArchive(void* hMpq);                                    
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
 int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
-unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileRecStrc* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);
-void __stdcall CheckRequests(D2StormArchiveRecStrc* pLastArchive, unsigned int nLastOffset, D2StormRequestStrc** ppDue, D2StormRequestStrc** ppNear, int* pnDistance); // 0x0041A450
+unsigned int __stdcall sub_00416AD0_ReadBlocks(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);
+void __stdcall CheckRequests(ARCHIVEREC* pLastArchive, unsigned int nLastOffset, REQUEST** ppDue, REQUEST** ppNear, int* pnDistance); // 0x0041A450
 
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
 extern unsigned int* gpCryptTable_00779048;                                                                 // 0x00779048
@@ -47,7 +47,7 @@ extern D2StormArchiveListStrc gArchiveList_00708354;                            
 extern D2StormEventListStrc gEventList_00708378;                                                            // 0x00708378
 extern int gbThreadStop_00778F24;                                                                           // 0x00778F24
 extern void* ghStormEvent_00779054;                                                                         // 0x00779054
-static D2StormRequestStrc* gpCurrentRequest_0077902C;                                                       // 0x0077902C
+static REQUEST* gpCurrentRequest_0077902C;                                                       // 0x0077902C
 extern unsigned int gnStreamChunk_00779038;                                                                 // 0x00779038
 extern unsigned char* gpStreamBuffer_00779050;                                                              // 0x00779050
 
@@ -56,7 +56,7 @@ inline void* operator new(unsigned int, void* pWhere) throw()
     return pWhere;
 }
 
-static inline D2StormArchiveRecStrc* ArchiveHead()
+static inline ARCHIVEREC* ArchiveHead()
 {
     return (int)gpArchiveHead_0070835C > 0 ? gpArchiveHead_0070835C : 0;
 }
@@ -135,7 +135,7 @@ static unsigned int __stdcall sub_00415330_HashString(unsigned int nHashType, co
 static int __stdcall ReadFileChecked(unsigned int* pnFilePos, void* pBuffer, unsigned int nOffset, unsigned int nSize, const char* szName, void* hFile, unsigned long* pnRead); // 0x004154B0
 
 // 0x0041B6B0
-int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive)
+int __fastcall s_OpenArchive(ARCHIVEREC* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive)
 {
     unsigned char* pBuffer = (unsigned char*)SMemAlloc(0x1000, gszSFileCpp_006CF084, 0x10C2, 0);
     unsigned int nBufferStart = 0;
@@ -150,7 +150,7 @@ int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlag
             ReadFile(pArchive->hFile, pBuffer, 0x1000, &nRead, 0);
             if (nRead < sizeof(D2StormMpqHeaderStrc) || pArchive->nArchiveOffset + sizeof(D2StormMpqHeaderStrc) >= pArchive->nArchiveLimit)
             {
-                pArchive->~D2StormArchiveRecStrc();
+                pArchive->~ARCHIVEREC();
                 SMemFree(pArchive, gszDelete_006CC824, -1, 0);
                 sub_0041C340_SetLastError(0x8510006C);
                 SMemFree(pBuffer, gszSFileCpp_006CF084, 0x10DF, 0);
@@ -166,8 +166,8 @@ int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlag
         }
         pArchive->nArchiveOffset += 0x200;
     }
-    pArchive->nBlockSize = 0x200 << pArchive->pHeader->nSectorShift;
-    pArchive->pBlockBuffer = (unsigned char*)SMemAlloc(pArchive->nBlockSize, gszSFileCpp_006CF084, 0x110B, 0);
+    pArchive->sectorsize = 0x200 << pArchive->pHeader->nSectorShift;
+    pArchive->pBlockBuffer = (unsigned char*)SMemAlloc(pArchive->sectorsize, gszSFileCpp_006CF084, 0x110B, 0);
     pArchive->pHashTable = (D2StormHashEntryStrc*)SMemAlloc(pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), gszSFileCpp_006CF084, 0x1114, 0);
     unsigned long nRead;
     ReadFileChecked(&pArchive->nFilePos, pArchive->pHashTable, pArchive->pHeader->nHashOffset + pArchive->nArchiveOffset, pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), pArchive->szName, pArchive->hFile, &nRead);
@@ -184,8 +184,8 @@ int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlag
                 pArchive->pBlockTable[i].nOffset += pArchive->nArchiveOffset;
         }
     }
-    D2StormArchiveRecStrc* pExisting;
-    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (D2StormArchiveRecStrc*)pExisting->tLink.Next())
+    ARCHIVEREC* pExisting;
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (ARCHIVEREC*)pExisting->tLink.Next())
     {
         if (pExisting->nPriority <= pArchive->nPriority)
             break;

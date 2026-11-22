@@ -34,7 +34,7 @@ struct D2DirectSoundStrc {
 };
 struct D2SoundBufferDescStrc { unsigned int size, flags, bufferBytes, reserved; D2WaveFormatStrc* pFormat; };
 struct D2StormDdaNodeStrc {
-    void* prev; void* next; D2StormFileRecStrc* pFile; int unk0C; unsigned int avgBytes;
+    void* prev; void* next; FILEREC* pFile; int unk0C; unsigned int avgBytes;
     int looping, unk18, unk1C; unsigned int dataPosition, dataSize, offset, offset2, offset3;
     int volume, pan; D2StormSoundBuffer* pBuffer; unsigned int bufferSize; int ownsBuffer;
     unsigned char silence; char pad49[3]; int active;
@@ -62,12 +62,12 @@ extern void* gpBuffer_00779050; // 0x00779050
 extern void* ghEvent_00779054; // 0x00779054
 extern D2StormDdaListStrc gDdaList_00708384; // 0x00708384
 extern const char gszSource_006CF084[]; // 0x006CF084
-__declspec(noinline) static int sub_00415950_GetFileRec(void*, D2StormFileRecStrc**);
-static int sub_00415950_GetFileRec(void*, D2StormFileRecStrc**); // 0x00415950
+__declspec(noinline) static int sub_00415950_GetFileRec(void*, FILEREC**);
+static int sub_00415950_GetFileRec(void*, FILEREC**); // 0x00415950
 // 0x00415950
-static int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
-    *ppRec = (D2StormFileRecStrc*)hFile;
+    *ppRec = (FILEREC*)hFile;
     return 1;
 }
 struct D2WaveChunkHeaderStrc { unsigned int dwTag, dwSize; };
@@ -94,11 +94,11 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
     VALIDATE(nBufferSize);
     VALIDATEEND;
     if (!gpSound_00778F20) { sub_0041C340_SetLastError(0x85100071); return 0; }
-    D2StormFileRecStrc* pFile;
+    FILEREC* pFile;
     EnterCriticalSection(&gLock_00779068);
     if (!sub_00415950_GetFileRec(hFile, &pFile)) { LeaveCriticalSection(&gLock_00779068); return 0; }
     if (pFile->bDdaActive) sub_0041A990_DdaClose(hFile);
-    if (!((gnFlags_00779058 | nFlags) & 1) && (pFile->nKind != -1 || !pFile->pArchive)) {
+    if (!((gnFlags_00779058 | nFlags) & 1) && (pFile->nKind != -1 || !pFile->archive)) {
         sub_0041C340_SetLastError(0x8510006f);
         LeaveCriticalSection(&gLock_00779068);
         return 0;
@@ -106,8 +106,8 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
     if (!gnBlock_007790A0) gnBlock_007790A0 = 0x4000;
     gnChunk_00779038 = gnBlock_007790A0;
     if (!gpBuffer_00779050) gpBuffer_00779050 = sub_00413020_Allocate(gnChunk_00779038, gszSource_006CF084, 0xc5d, 0);
-    if (pFile->pArchive) {
-        if (pFile->pArchive->nKind == 0 || pFile->pArchive->nKind == 1) pFile->pArchive->nKind = 2;
+    if (pFile->archive) {
+        if (pFile->archive->nKind == 0 || pFile->archive->nKind == 1) pFile->archive->nKind = 2;
     }
     LeaveCriticalSection(&gLock_00779068);
     unsigned int remainder = (gnChunk_00779038 - 1) & nBufferSize;

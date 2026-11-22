@@ -32,7 +32,7 @@ extern int gbHeapInitialized_007788D0; // 0x007788D0
 
 extern int (__stdcall* gpfnReadErrorCallback_00779030)(const char* szName, unsigned long dwError, int nRetry); // 0x00779030
 
-static D2StormRequestStrc* gpCurrentRequest_0077902C; // 0x0077902C
+static REQUEST* gpCurrentRequest_0077902C; // 0x0077902C
 
 // 0x00411A80
 void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink)

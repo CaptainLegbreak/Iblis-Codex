@@ -6,7 +6,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 void __cdecl sub_00415B90_InitCryptTable();
-int __fastcall sub_00417F10_FindFile(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, char* szFoundPath);
+int __fastcall sub_00417F10_FindFile(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, ARCHIVEREC** ppArchive, char* szFoundPath);
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
 
 // 0x00418390
