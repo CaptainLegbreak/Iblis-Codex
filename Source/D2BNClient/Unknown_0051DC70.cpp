@@ -66,7 +66,7 @@ int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength); // 0x0051DC80
 int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2); // 0x0051DDD0
-int __cdecl sub_00523A00(); // 0x00523A00
+int __cdecl BNCLIENT_GetExeHash(); // 0x00523A00
 const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern unsigned int gdwClientToken_00881C48; // 0x00881C48
@@ -302,7 +302,7 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
     const char* szExeInfo = sub_00523AA0_GetExeInfo();
     const char* szKey0 = sub_00523AB0_GetCDKey(0);
     const char* szKey1 = sub_00523AB0_GetCDKey(1);
-    const unsigned int dwExeHash = sub_00523A00();
+    const unsigned int dwExeHash = BNCLIENT_GetExeHash();
     gdwClientToken_00881C48 += _time32(0);
     gdwClientToken_00881C48 += GetTickCount();
     if (sub_0051BEC0_IsExpansion())

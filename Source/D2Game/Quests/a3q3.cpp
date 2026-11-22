@@ -162,7 +162,7 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
 // 0x005B85E0
-void __fastcall sub_005B85E0_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+void __fastcall ACT3Q2_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bSewerStairsInitialized == 1)
@@ -191,7 +191,7 @@ static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x005B8750
-int __fastcall sub_005B8750_LacksKhalimFlail(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall ACT3Q2_LacksKhalimsWill(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
 }
@@ -511,7 +511,7 @@ void __fastcall ACT3Q3_InitQuestData(D2QuestDataStrc* pQuestData)
 }
 
 // 0x005B9930
-static void sub_005B9930_QUESTS_SpawnQuestMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Act3Quest3Strc* pQuestDataEx)
+static void ACT3Q3_SpawnFetishBoss(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Act3Quest3Strc* pQuestDataEx)
 {
     pQuestDataEx->bBossIsSpawning = 1;
     D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueGroup(pGame, pRoom, 0, 0x197, 1, 0, 0, 1);
@@ -525,7 +525,7 @@ static void sub_005B9930_QUESTS_SpawnQuestMonster(D2GameStrc* pGame, D2ActiveRoo
 }
 
 // 0x005B9960
-unsigned char __fastcall sub_005B9960_IsBossSpawning(D2GameStrc* pGame)
+unsigned char __fastcall ACT3Q3_IsBossSpawning(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 17);
     if (pQuestData)
@@ -553,7 +553,7 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
                 {
                     if (pUnit->dwUnitType == UNIT_PLAYER)
                     {
-                        sub_005B9930_QUESTS_SpawnQuestMonster(pGame, pRoom, pQuestDataEx);
+                        ACT3Q3_SpawnFetishBoss(pGame, pRoom, pQuestDataEx);
                         pQuestData->pCallback[8] = ACT3Q3_Callback08_MonsterKilled;
                         return true;
                     }
@@ -591,7 +591,7 @@ void __fastcall ACT3Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 }
 
 // 0x005B9AE0
-void __fastcall sub_005B9AE0_OBJECTS_InitQuestSpawnPoint(D2ObjInitFnStrc* pOp)
+void __fastcall OBJECTS_InitFunction25_Gidbinn(D2ObjInitFnStrc* pOp)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 17);
     if (pQuestData)
@@ -604,7 +604,7 @@ void __fastcall sub_005B9AE0_OBJECTS_InitQuestSpawnPoint(D2ObjInitFnStrc* pOp)
             pQuestDataEx->nGidbinnY = pOp->nY;
             if (pQuestDataEx->bGidbinnObjectActivated && !pQuestDataEx->bBossHasSpawned)
             {
-                sub_005B9930_QUESTS_SpawnQuestMonster(pOp->pGame, pOp->pRoom, pQuestDataEx);
+                ACT3Q3_SpawnFetishBoss(pOp->pGame, pOp->pRoom, pQuestDataEx);
             }
         }
         else
@@ -624,7 +624,7 @@ inline D2BitBufferStrc* GetPlayerQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlay
 }
 
 // 0x005B9B40
-int __fastcall sub_005B9B40_OperateQuestObject(D2ObjOperateFnStrc* pOp)
+int __fastcall OBJECTS_OperateFunction31_GidbinnDecoy(D2ObjOperateFnStrc* pOp)
 {
     if (pOp->hObject && pOp->hObject->dwAnimMode)
         return 0;
@@ -655,7 +655,7 @@ int __fastcall sub_005B9B40_OperateQuestObject(D2ObjOperateFnStrc* pOp)
 }
 
 // 0x005B9C50
-bool __fastcall sub_005B9C50_GetBossGUID(D2GameStrc* pGame, int* pGUID)
+bool __fastcall ACT3Q3_GetBossGUID(D2GameStrc* pGame, int* pGUID)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 17);
     if (!pQuestData || !pQuestData->bNotIntro)
@@ -672,7 +672,7 @@ bool __fastcall sub_005B9C50_GetBossGUID(D2GameStrc* pGame, int* pGUID)
 }
 
 // 0x005B9C80
-void __fastcall sub_005B9C80_ClearBossSpawned(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+void __fastcall ACT3Q3_ClearBossSpawned(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bBossHasSpawned == 1 && pQuestDataEx->nFetishBossGUID == (!pUnit ? -1 : pUnit->dwUnitId))

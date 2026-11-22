@@ -13,7 +13,7 @@ void __fastcall OBJECTS_RemoveAll(D2GameStrc* pGame); // 0x00552A40
 void __fastcall PLAYER_RemoveAllPlayers(D2GameStrc* pGame); // 0x00534A50
 void __fastcall ITEMS_RemoveAll(D2GameStrc* pGame); // 0x00557F10
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame); // 0x0059F840
-void __fastcall sub_00555770_RemoveAllTiles(D2GameStrc* pGame); // 0x00555770
+void __fastcall SUNIT_RemoveAllTiles(D2GameStrc* pGame); // 0x00555770
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -112,17 +112,17 @@ void __fastcall sub_0053B0E0_WriteVarLength(D2BitBufferStrc* pBuffer, unsigned i
 }
 
 // 0x0053B210
-int __fastcall sub_0057F070_PLRMODE_ModeCheck_Death(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
+int __fastcall PLRMODE_ModeCheck_Death(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
 {
     return 1;
 }
 
-int __fastcall sub_0057F080_PLRMODE_ModeCheck_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
+int __fastcall PLRMODE_ModeCheck_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
 {
     return 1;
 }
 
-int __fastcall sub_0057FE20_PLRMODE_ModeCheck_GetHit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
+int __fastcall PLRMODE_ModeCheck_GetHit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
 {
     return 1;
 }

@@ -134,9 +134,9 @@ void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
 D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAddToGame); // 0x0055A2A0
 
-void __fastcall sub_0055EDC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX); // 0x0055EDC0
+void __fastcall ITEMMODE_CompactBeltColumn(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX); // 0x0055EDC0
 
-void __fastcall sub_00561E70_RemoveFromBelt(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00561E70
+void __fastcall ITEMMODE_RemoveBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00561E70
 
 void __fastcall AIGENERAL_SetAiControlParam(D2UnitStrc* pMonster, int nIndex, int nParamValue); // 0x0058EC00
 
@@ -234,7 +234,7 @@ void __fastcall QUESTSFX_Izual(D2GameStrc*, D2UnitStrc*); // 0x005E0020
 
 void __fastcall QUESTSFX_ShenkTheOverseer(D2GameStrc*, D2UnitStrc*); // 0x005E0040
 
-void __fastcall sub_005E0060_QuestsFxEmpty(D2GameStrc*, D2UnitStrc*); // 0x005E0060
+void __fastcall QUESTSFX_OnQuestCompleteModeChange(D2GameStrc*, D2UnitStrc*); // 0x005E0060
 
 void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc*, D2UnitStrc*); // 0x005E0070
 
@@ -726,8 +726,8 @@ void __fastcall MONSTERUNIQUE_StealBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit
                 ITEMS_SetItemFlag(pDupeItem, IFLAG_INSTORE, 1);
                 D2GAME_DropItem_6FC52260(pGame, pTarget, pDupeItem, pRoom, pReturnCoords.nX, pReturnCoords.nY);
                 const int nX = CLIENTS_GetUnitX(pBeltItem);
-                sub_00561E70_RemoveFromBelt(pGame, pTarget, pBeltItem);
-                sub_0055EDC0(pGame, pTarget, nX);
+                ITEMMODE_RemoveBeltItem(pGame, pTarget, pBeltItem);
+                ITEMMODE_CompactBeltColumn(pGame, pTarget, nX);
             }
             return;
         }
@@ -757,7 +757,7 @@ void __fastcall MONSTERUNIQUE_QuestCompleteModeChange(D2GameStrc* pGame, D2UnitS
     case 540:
     case 541:
     case 542:
-        if ((!pUnit ? 0 : pUnit->dwAnimMode) == 0) sub_005E0060_QuestsFxEmpty(pGame, pUnit);
+        if ((!pUnit ? 0 : pUnit->dwAnimMode) == 0) QUESTSFX_OnQuestCompleteModeChange(pGame, pUnit);
         break;
     case 479:
         if ((!pUnit ? 0 : pUnit->dwAnimMode) == 0) QUESTSFX_ShenkTheOverseer(pGame, pUnit);

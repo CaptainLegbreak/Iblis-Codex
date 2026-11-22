@@ -19,7 +19,7 @@ struct D2MonsterEquipmentStrc
 
 extern const D2MonsterEquipmentStrc gtAncientEquipment[12]; // 0x006E2C90
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
-void __fastcall sub_6FC61190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonsterEquipmentStrc* pItemInfo, int nLevel, unsigned int nFlags); // 0x00573B20
+void __fastcall MONSTERAI_CreateAndEquipItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonsterEquipmentStrc* pItemInfo, int nLevel, unsigned int nFlags); // 0x00573B20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
@@ -50,7 +50,7 @@ static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 			break;
 		}
 
-		sub_6FC61190(pGame, pUnit, &itemInfo, nLevel, 4);
+		MONSTERAI_CreateAndEquipItem(pGame, pUnit, &itemInfo, nLevel, 4);
 		pItemInfo += 3;
 		--nCount;
 	}

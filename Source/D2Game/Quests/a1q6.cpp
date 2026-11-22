@@ -94,7 +94,7 @@ void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pAr
 
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
-void __fastcall sub_00545990(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
+void __fastcall D2Game_10034_Return(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
@@ -142,7 +142,7 @@ D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
 
-int __fastcall sub_0059C6C0_ACT2Q6_UpdateRewardFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused); // 0x0059C6C0
+int __fastcall ACT2Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused); // 0x0059C6C0
 
 int __fastcall ACT1Q4_UnitIterate_SetCustom6Flag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00593E30
 
@@ -222,13 +222,13 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
-void __fastcall sub_00595B80_HandleNpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595B80
+void __fastcall ACT1Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595B80
 
 void __fastcall ACT1Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595C60
 
 void __fastcall ACT1Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595E20
 
-void __fastcall sub_00596010(D2QuestDataStrc* q,D2QuestArgStrc* arg); // 0x00596010
+void __fastcall ACT1Q6_Callback03_ChangedLevel(D2QuestDataStrc* q,D2QuestArgStrc* arg); // 0x00596010
 
 void __fastcall ACT1Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00596320
 
@@ -326,7 +326,7 @@ void __fastcall ACT1Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     }
 
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, UNIT_PLAYER, pQuestArg->pTarget, ACT1Q4_UnitIterate_SetCustom6Flag);
-    sub_00545990(pQuestData, pQuestArg, 64);
+    D2Game_10034_Return(pQuestData, pQuestArg, 64);
     pQuestArg->pTarget->dwDropItemCode = 0x20737076;
     for (int i = 0; i < 8; ++i)
     {
@@ -628,7 +628,7 @@ static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* game,D2UnitStrc*
 }
 
 // 0x00596010
-void __fastcall sub_00596010(D2QuestDataStrc* q,D2QuestArgStrc* arg)
+void __fastcall ACT1Q6_Callback03_ChangedLevel(D2QuestDataStrc* q,D2QuestArgStrc* arg)
 {
  const int oldLevel=arg->nOldLevel;
  const int newLevel=arg->nNewLevel;
@@ -698,7 +698,7 @@ void __fastcall ACT1Q6_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 struct D2ItemDropStrc;
 
 // 0x00596210
-static void __stdcall sub_00596210_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
+static void __stdcall ACT1Q6_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
 {
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q6, QFLAG_PRIMARYGOALDONE);
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q6, QFLAG_REWARDPENDING);
@@ -725,7 +725,7 @@ int __fastcall ACT1Q6_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc
     QUESTS_AddPlayerGUID(&pQuestDataEx->pGUID1, nUnitId);
     QUESTS_AddPlayerGUID(&pQuestDataEx->pGUID2, nUnitId);
     QUESTS_AddPlayerGUID(&pQuestDataEx->pGUID3, nUnitId);
-    sub_00596210_SetPrimaryGoalDone(pGame, pUnit, pQuestFlags);
+    ACT1Q6_SetPrimaryGoalDone(pGame, pUnit, pQuestFlags);
     return 0;
 }
 
@@ -755,7 +755,7 @@ void __fastcall ACT1Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
     QUESTS_AddPlayerGUID(&pQuestDataEx->pGUID1, nUnitId);
     QUESTS_AddPlayerGUID(&pQuestDataEx->pGUID2, nUnitId);
     QUESTS_AddPlayerGUID(&pQuestDataEx->pGUID3, nUnitId);
-    sub_00596210_SetPrimaryGoalDone(pGame, pUnit, pQuestFlags);
+    ACT1Q6_SetPrimaryGoalDone(pGame, pUnit, pQuestFlags);
 }
 
 // 0x005963E0
@@ -885,7 +885,7 @@ void __fastcall ACT1Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
             && !A1Q6_GetQuestStateInline(pQuestData->pGame, pQuestArg->pPlayer, QFLAG_REWARDPENDING))
         {
             D2BitBufferStrc* pQuestFlags = A1Q6_GetQuestFlagsInline(pQuestData->pGame, pQuestArg->pPlayer);
-            sub_00596210_SetPrimaryGoalDone(pQuestData->pGame, pQuestArg->pPlayer, pQuestFlags);
+            ACT1Q6_SetPrimaryGoalDone(pQuestData->pGame, pQuestArg->pPlayer, pQuestFlags);
 
             int nItemLevel;
             for (int i = 0; i < 2; ++i)
@@ -958,7 +958,7 @@ char __fastcall ACT1Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 }
 
 // 0x005968C0
-int __fastcall sub_005968C0_IsAndarielKilled(D2QuestDataStrc* pQuestData)
+int __fastcall ACT1Q6_IsAndarielKilled(D2QuestDataStrc* pQuestData)
 {
     if (pQuestData->bNotIntro)
         return ((D2Act1Quest6Strc*)pQuestData->pQuestDataEx)->bAndarielKilled;
@@ -1009,11 +1009,11 @@ void __fastcall ACT1Q6_InitQuestData(D2QuestDataStrc* pQuestData)
 {
     memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
 
-    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = sub_00596010;
+    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT1Q6_Callback03_ChangedLevel;
     pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT1Q6_Callback08_MonsterKilled;
     pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q6_Callback00_NpcActivate;
     pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q6_Callback11_ScrollMessage;
-    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = sub_00595B80_HandleNpcDeactivate;
+    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q6_Callback02_NpcDeactivate;
     pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q6_Callback13_PlayerStartedGame;
     pQuestData->pfSeqFilter = ACT1Q6_SeqCallback;
 
@@ -1446,7 +1446,7 @@ void __fastcall ACT2Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
                 QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 0);
             }
 
-            sub_0059C6C0_ACT2Q6_UpdateRewardFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
+            ACT2Q6_UnitIterate_UpdateQuestStateFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
             return;
         }
 
@@ -1455,7 +1455,7 @@ void __fastcall ACT2Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             if (!pQuestData->fState)
             {
                 QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 897);
-                sub_0059C6C0_ACT2Q6_UpdateRewardFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
+                ACT2Q6_UnitIterate_UpdateQuestStateFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
             }
 
             if (!pQuestData->fLastState)
@@ -1481,11 +1481,11 @@ void __fastcall ACT2Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
     pQuestData->dwFlags &= 0xFFFFFF00;
     QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 0);
-    sub_0059C6C0_ACT2Q6_UpdateRewardFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
+    ACT2Q6_UnitIterate_UpdateQuestStateFlags(pQuestArg->pGame, pQuestArg->pPlayer, 0);
 }
 
 // 0x0059D720
-int __fastcall sub_0059D720_ACT2Q6_GetArcaneThingObjectId(D2QuestDataStrc* pQuestData)
+int __fastcall ACT2Q6_GetTombArcaneThingObjectId(D2QuestDataStrc* pQuestData)
 {
     const int nTombStaffLevel = DUNGEON_GetHoradricStaffTombLevelId(pQuestData->pGame->pAct[1]);
     if (nTombStaffLevel)

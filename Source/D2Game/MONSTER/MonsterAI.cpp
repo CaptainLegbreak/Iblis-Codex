@@ -96,7 +96,7 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc* pUnit, unsigned short nStatId, int nValue); // 0x005718C0
 
-D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
+D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
@@ -159,7 +159,7 @@ struct List00572DE0 { Node00572DE0* pHead; };
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
-void __fastcall sub_6FC3F340(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
+void __fastcall SCMD_SendInteractionTarget(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
@@ -235,7 +235,7 @@ struct D2HirelingInitStrc
 
 void __fastcall D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(D2ClientStrc* pClient, unsigned short a2, int a3); // 0x0053E0E0
 
-void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignment, int a3); // 0x005543B0
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignment, int a3); // 0x005543B0
 
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
@@ -268,7 +268,7 @@ int __fastcall MONSTERAI_SetTargetOverride(D2UnitStrc* pUnit, int nState, int nV
 // 0x005726C0
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3)
 {
-    D2UnitStrc* pMerc = sub_6FC7E8B0(pGame, pPlayer, PETTYPE_HIREABLE, 0);
+    D2UnitStrc* pMerc = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, PETTYPE_HIREABLE, 0);
     if (!pMerc)
     {
         return;
@@ -300,7 +300,7 @@ void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* ptGame, D2UnitStr
     D2UnitStrc* pHireling = pMerc;
     if (!pHireling)
     {
-        pHireling = sub_6FC7E8B0(ptGame, hPlayer, 7, 0);
+        pHireling = PLAYERPETS_GetFirstPetByType(ptGame, hPlayer, 7, 0);
         if (!pHireling)
         {
             return;
@@ -876,7 +876,7 @@ void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pM
     while (pInteractInfo)
     {
         D2InteractInfoStrc* pNext = pInteractInfo->pNext;
-        sub_6FC3F340(UnitGetClient(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, sub_00451F50_GetUnitGUID(pMonster), 0);
+        SCMD_SendInteractionTarget(UnitGetClient(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, sub_00451F50_GetUnitGUID(pMonster), 0);
 
         int nInteractType;
         int nInteractGUID;
@@ -929,14 +929,14 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 
     pUnit->dwFlags |= 0x4020200;
 
-    sub_005543B0_AssignAlignment(pUnit, 2, 0);
+    SUNIT_SetAlignment(pUnit, 2, 0);
 
     if (!bDead)
     {
         D2GAME_UpdateSummonAI_6FC401F0(pGame, pUnit, 0, pPlayer->dwNodeIndex);
     }
 
-    D2UnitStrc* pPet = sub_6FC7E8B0(pGame, pPlayer, 7, 1);
+    D2UnitStrc* pPet = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
     if (pPet)
     {
         D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszMonsterAISourceFile, 0x52), 0xFFFF, 0);

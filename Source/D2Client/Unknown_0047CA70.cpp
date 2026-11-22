@@ -201,7 +201,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
                 nPlayers = 1;
             if (nPlayers >= 8)
                 nPlayers = 8;
-            sub_00535780_SetPlayerCount(nPlayers);
+            PLAYER_SetVirtualPlayerCount(nPlayers);
             sprintf(pText, "players set to %d", nPlayers);
         }
     }

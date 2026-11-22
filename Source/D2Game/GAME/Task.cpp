@@ -85,7 +85,7 @@ D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                            
 
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame);                                                     // 0x0052D870
 
-void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId);                                             // 0x0053B220
+void __fastcall D2GAME_PACKETS_SendGameLeft(int nClientId);                                             // 0x0053B220
 
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);          // 0x00539DA0
 
@@ -100,13 +100,13 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);    
 
 
 // 0x005641D0
-int __fastcall sub_005641D0_TASK_LinkList_IsEmpty(D2LinkStrc* pList)
+int __fastcall TASK_LinkList_IsEmpty(D2LinkStrc* pList)
 {
     return pList->pNext == pList;
 }
 
 // 0x005641F0
-D2LinkStrc* __fastcall sub_005641F0_TASK_LinkList_GetFirst(D2LinkStrc* pList)
+D2LinkStrc* __fastcall TASK_LinkList_GetFirst(D2LinkStrc* pList)
 {
     D2LinkStrc* pNext = pList->pNext;
     return pNext != pList ? pNext : 0;
@@ -148,7 +148,7 @@ void __fastcall TASK_LinkList_PushFront(D2LinkStrc* pList, D2LinkStrc* pLink)
 }
 
 // 0x00564290
-void __fastcall sub_00564290_TASK_LinkList_PushBack(D2LinkStrc* pList, D2LinkStrc* pLink)
+void __fastcall TASK_LinkList_PushBack(D2LinkStrc* pList, D2LinkStrc* pLink)
 {
     D2_ASSERT(pList, 0x7F);
     D2_ASSERT(pLink, 0x80);
@@ -185,7 +185,7 @@ int __fastcall TASK_GetClockTime()
 }
 
 // 0x00564390
-static inline D2TaskStrc* sub_00564390_TASK_LockQueueSlot(int nTaskNumber)
+static inline D2TaskStrc* TASK_LockTaskSlot(int nTaskNumber)
 {
     const int nIndex = nTaskNumber & 0x1F;
     EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
@@ -198,7 +198,7 @@ static inline D2TaskStrc* sub_00564390_TASK_LockQueueSlot(int nTaskNumber)
 }
 
 // 0x005643C0
-static inline void sub_005643C0_TASK_UnlockQueueSlot(D2TaskStrc* pTask)
+static inline void TASK_UnlockTaskSlot(D2TaskStrc* pTask)
 {
     if (pTask)
     {
@@ -264,18 +264,18 @@ void __stdcall TASK_FreeAllQueueSlots()
 }
 
 // 0x00564940
-void __stdcall sub_00564940_TASK_Return()
+void __stdcall TASK_Return()
 {
 }
 
 // 0x00564950
-void __fastcall sub_00564950_TASK_ClearValue(void* pUnused, int* pValue)
+void __fastcall TASK_ClearValue(void* pUnused, int* pValue)
 {
     *pValue = 0;
 }
 
 // 0x00564960
-int __cdecl sub_00564960()
+int __cdecl TASK_CreateQueue()
 {
     EnterCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);
     if (!gpTaskQueueLink_0088C788.pPrev)
@@ -386,7 +386,7 @@ int __fastcall sub_00564B20(int nTaskNumber, int** ppTaskType)
     int nResult = 100;
     *ppTaskType = 0;
 
-    D2TaskStrc* pTask = sub_00564390_TASK_LockQueueSlot(nTaskNumber);
+    D2TaskStrc* pTask = TASK_LockTaskSlot(nTaskNumber);
     if (!pTask)
     {
         return nResult;
@@ -405,7 +405,7 @@ int __fastcall sub_00564B20(int nTaskNumber, int** ppTaskType)
         }
     }
 
-    sub_005643C0_TASK_UnlockQueueSlot(pTask);
+    TASK_UnlockTaskSlot(pTask);
     return nResult;
 }
 
@@ -413,7 +413,7 @@ int __fastcall sub_00564BE0(int nTaskNumber)
 {
     int nResult = 100;
 
-    D2TaskStrc* pTask = sub_00564390_TASK_LockQueueSlot(nTaskNumber);
+    D2TaskStrc* pTask = TASK_LockTaskSlot(nTaskNumber);
     if (!pTask)
     {
         return nResult;
@@ -426,7 +426,7 @@ int __fastcall sub_00564BE0(int nTaskNumber)
         nResult = ((D2TaskStrc*)((char*)pLink - 0x10))->nType - nTickCount;
     }
 
-    sub_005643C0_TASK_UnlockQueueSlot(pTask);
+    TASK_UnlockTaskSlot(pTask);
     return nResult;
 }
 
@@ -439,7 +439,7 @@ void __fastcall TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
 }
 
 // 0x00564CC0
-void __fastcall sub_00564CC0_TASK_SetType(D2TaskStrc* pTask, int nType)
+void __fastcall TASK_SetType(D2TaskStrc* pTask, int nType)
 {
     if (pTask)
     {
@@ -502,7 +502,7 @@ void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask
         for (D2ClientStrc* pClient = pGame->pClientList; pClient; pClient = pNext)
         {
             pNext = pClient->pNext;
-            sub_0053B220_SendHeaderOnly0xB0(pClient->dwClientId);
+            D2GAME_PACKETS_SendGameLeft(pClient->dwClientId);
             sub_0053B240_SendHeaderOnly0x06(pClient->dwClientId);
             ClientRemoveFromGame(pGame, pClient->dwClientId, 0);
         }

@@ -39,7 +39,7 @@ int D2BigPairStrc::sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord,
     void* hPublicRef = hPublic;
     if (sub_0052A2F0_BigCompareUnsigned(hPublic, 0) != 1)
     {
-        sub_0052A600(hPublic);
+        BNCLIENT_DeleteBigNum(hPublic);
         return 0;
     }
     void* hExp;
@@ -48,17 +48,17 @@ int D2BigPairStrc::sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord,
     void* hKeyRef = hKey;
     void* hSecret = sub_0052A270_BigFromBinary(pRecord->abPrivate, 0x20);
     const int nResult = pState->sub_005280C0_ComputeSessionKey(hSecret, hPublicRef, hExp, hKeyRef);
-    sub_0052A600(hSecret);
-    sub_0052A600(hPublicRef);
-    sub_0052A600(hExp);
+    BNCLIENT_DeleteBigNum(hSecret);
+    BNCLIENT_DeleteBigNum(hPublicRef);
+    BNCLIENT_DeleteBigNum(hExp);
     if (!nResult)
     {
-        sub_0052A600(hKey);
+        BNCLIENT_DeleteBigNum(hKey);
         return 0;
     }
     const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
     sub_0052A120_ShaInterleave(pRecord->abKey, abKey, nSize);
-    sub_0052A600(hKeyRef);
+    BNCLIENT_DeleteBigNum(hKeyRef);
     pState->sub_005282A0_ComputeProof(pRecord->szName, pSalt, pRecord->abPublic, pServerPublic, pRecord->abKey, pRecord->abProof);
     return 1;
 }

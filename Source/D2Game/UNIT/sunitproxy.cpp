@@ -126,7 +126,7 @@ D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit)
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 
-void __fastcall sub_005766D0(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int); // 0x005766D0
+void __fastcall SUNITNPC_RemoveStoreItem(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int); // 0x005766D0
 
 int __fastcall D2GAME_PlaceItem_6FC44410(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 
@@ -134,7 +134,7 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc*); // 0x00628250
 
 void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
 
-void __fastcall sub_005762C0_SetItemTradeFlags(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int,int); // 0x005762C0
+void __fastcall SUNITNPC_SetItemTradeFlags(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int,int); // 0x005762C0
 
 int __fastcall sub_00579030(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00579030
 
@@ -280,7 +280,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 extern "C" const char szSUnitProxyCppFile_006E0A30[]; // 0x006E0A30
 
-static void __stdcall sub_00536510_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory);
+static void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory);
 
 static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord, D2GameStrc* pGame);
 
@@ -506,7 +506,7 @@ static D2NpcRecordStrc* D10_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x00536510
-static void __stdcall sub_00536510_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory)
+static void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory)
 {
     if (!pInventory)
     {
@@ -536,7 +536,7 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
             D2NpcGambleStrc* pNextGamble = pGamble->pNext;
             if (pGamble->pInventory)
             {
-                sub_00536510_RemoveInventoryItems(pGame, pGamble->pInventory);
+                SUNITPROXY_RemoveInventoryItems(pGame, pGamble->pInventory);
                 INVENTORY_FreeInventory(pGamble->pInventory);
                 pGamble->pInventory = 0;
             }
@@ -546,7 +546,7 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
         pNpcRecord->pGamble = 0;
     }
 
-    sub_00536510_RemoveInventoryItems(pGame, pNpcRecord->pInventory);
+    SUNITPROXY_RemoveInventoryItems(pGame, pNpcRecord->pInventory);
     INVENTORY_FreeInventory(pNpcRecord->pInventory);
     pNpcRecord->pInventory = 0;
 
@@ -655,7 +655,7 @@ void __stdcall SUNITPROXY_UpdateVendorInventory(D2GameStrc* pGame, unsigned char
 }
 
 // 0x00536760
-static void __stdcall sub_00536760_AddNpcEvent(D2UnitStrc* pUnit, int nParam, int nAction, D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord)
+static void __stdcall SUNITPROXY_AddNpcEvent(D2UnitStrc* pUnit, int nParam, int nAction, D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord)
 {
     D2NpcEventStrc* pNpcEvent = (D2NpcEventStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 0x263, 0);
     pNpcEvent->pNext = pNpcRecord->pEvent;
@@ -667,7 +667,7 @@ static void __stdcall sub_00536760_AddNpcEvent(D2UnitStrc* pUnit, int nParam, in
 }
 
 // 0x005367B0
-void __fastcall sub_005367B0_QueueTradeEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pUnit, int nParam, int nAction)
+void __fastcall SUNITPROXY_QueueTradeEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pUnit, int nParam, int nAction)
 {
     const unsigned long dwTick = GetTickCount();
     int nIndex;
@@ -677,7 +677,7 @@ void __fastcall sub_005367B0_QueueTradeEvent(D2UnitStrc* pNpc, D2GameStrc* pGame
         D2NpcTradeStrc* pTrade = (D2NpcTradeStrc*)&pNpcRecord->bVendorInit;
         if (pTrade && pTrade->bTrader == 1 && pTrade->bVendorInit == 1 && pNpcRecord->bTrading == 1)
         {
-            sub_00536760_AddNpcEvent(pUnit, nParam, nAction, pGame, pNpcRecord);
+            SUNITPROXY_AddNpcEvent(pUnit, nParam, nAction, pGame, pNpcRecord);
             pTrade->dwTick = dwTick;
         }
     }
@@ -722,7 +722,7 @@ void __fastcall SUNITPROXY_InitializeNpcEventChain(D2GameStrc* pGame, int nUnuse
 }
 
 // 0x005368F0
-void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
+void __fastcall SUNITPROXY_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
 {
  int count=0;
  D2NpcRecordStrc* record;
@@ -737,7 +737,7 @@ void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
   while(iter && count) {
    D2UnitStrc* item=INVENTORY_UnitIsItem(iter);
    iter=INVENTORY_GetNextItem(iter);
-   if(ITEMS_GetItemQuality(item)==ITEMQUAL_MAGIC){sub_005766D0(npc,item,game,0);--count;}
+   if(ITEMS_GetItemQuality(item)==ITEMQUAL_MAGIC){SUNITNPC_RemoveStoreItem(npc,item,game,0);--count;}
   }
  }
  D2NpcEventStrc* event=record->pEvent;
@@ -754,7 +754,7 @@ void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
     }
    }
    if(!placed){prev=event;event=event->pNext;continue;}
-   sub_005762C0_SetItemTradeFlags(npc,event->pUnit,game,0,0);
+   SUNITNPC_SetItemTradeFlags(npc,event->pUnit,game,0,0);
    if(event==record->pEvent){record->pEvent=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3ea,0);event=record->pEvent;prev=0;}
    else{prev->pNext=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3f1,0);event=prev->pNext;}
   }else {
@@ -766,7 +766,7 @@ void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
 }
 
 // 0x00536B40
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_00536B40(Obj00536B40* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall SUNITPROXY_GetSeedFromNpcControl(Obj00536B40* pObj) {
     return pObj->dwValue1D24 + 8;
 }
 
@@ -800,7 +800,7 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
                 if (pGamble->pInventory)
                 {
-                    sub_00536510_RemoveInventoryItems(pGame, pGamble->pInventory);
+                    SUNITPROXY_RemoveInventoryItems(pGame, pGamble->pInventory);
                     INVENTORY_FreeInventory(pGamble->pInventory);
                     pGamble->pInventory = 0;
                 }
@@ -995,7 +995,7 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
 
                 if (pGamble->pInventory)
                 {
-                    sub_00536510_RemoveInventoryItems(pGame, pGamble->pInventory);
+                    SUNITPROXY_RemoveInventoryItems(pGame, pGamble->pInventory);
                     INVENTORY_FreeInventory(pGamble->pInventory);
                     pGamble->pInventory = 0;
                 }
@@ -1027,7 +1027,7 @@ D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit)
 }
 
 // 0x005A4F20
-int __fastcall sub_005A4F20_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount)
+int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount)
 {
     if (pGame->nDifficulty <= 0)
     {

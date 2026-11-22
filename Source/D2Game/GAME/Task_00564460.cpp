@@ -50,7 +50,7 @@ D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                            
 
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame);                                                     // 0x0052D870
 
-void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId);                                             // 0x0053B220
+void __fastcall D2GAME_PACKETS_SendGameLeft(int nClientId);                                             // 0x0053B220
 
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);          // 0x00539DA0
 
@@ -305,7 +305,7 @@ IoTimeout:
             for (D2ClientStrc* pCurrentClient = pGame->pClientList; pCurrentClient; pCurrentClient = pNextClient)
             {
                 pNextClient = pCurrentClient->pNext;
-                sub_0053B220_SendHeaderOnly0xB0(pCurrentClient->dwClientId);
+                D2GAME_PACKETS_SendGameLeft(pCurrentClient->dwClientId);
                 sub_0053B240_SendHeaderOnly0x06(pCurrentClient->dwClientId);
                 ClientRemoveFromGame(pGame, pCurrentClient->dwClientId, 0);
             }

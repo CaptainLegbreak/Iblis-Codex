@@ -20,7 +20,7 @@ D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,QUESTUNITI
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc*,D2UnitStrc*,void*); // 0x005879D0
 int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc*,D2UnitStrc*,void*); // 0x00587F60
-int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc*,D2UnitStrc*); // 0x00587FC0
+int __fastcall ACT5Q2_GetWussieGroupIndex(D2QuestDataStrc*,D2UnitStrc*); // 0x00587FC0
 int __fastcall ACT5Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc*,D2UnitStrc*,void*); // 0x005887A0
 int __fastcall ACT5Q2_UnitIterate_AttachCompletionSound(D2GameStrc*,D2UnitStrc*,void*); // 0x005887F0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,unsigned int*); // 0x00619790
@@ -40,7 +40,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
  D2QuestDataStrc* pQuestData=QUESTS_GetQuestData(pGame,32);
  if(!pQuestData) return;
  D2Act5Quest2Strc* pQuestDataEx= (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
- int nIndex=sub_00587FC0_GetWussieGroupIndex(pQuestData,pTarget);
+ int nIndex=ACT5Q2_GetWussieGroupIndex(pQuestData,pTarget);
  if(nIndex<0 || pQuestDataEx->bPortalAttempted[nIndex]==1) return;
  else
  {

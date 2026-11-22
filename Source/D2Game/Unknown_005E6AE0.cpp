@@ -36,7 +36,7 @@ D2AiCmdStrc* __fastcall AIGENERAL_SetCurrentAiCommand(D2GameStrc* pGame, D2UnitS
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 int __fastcall ACT1Q4_UpdateCainPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005944B0
 int __fastcall ACT5Q3_InitializeDrehyaPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A940
-void __fastcall sub_6FCB53D0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A980
+void __fastcall ACT5Q3_OnDrehyaRescued(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A980
 
 int gnNpcWalkSequenceCounter; // 0x0088CADC
 
@@ -245,7 +245,7 @@ int __fastcall AITHINK_SpawnNpcPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, void
     if (pUnit && pUnit->dwClassId == MONSTER_DREHYAICED)
     {
         pfUpdatePortalCoordinates = ACT5Q3_InitializeDrehyaPortalCoordinates;
-        pfSpawnPortal = sub_6FCB53D0;
+        pfSpawnPortal = ACT5Q3_OnDrehyaRescued;
     }
 
     if (!pfUpdatePortalCoordinates(pGame, pUnit))

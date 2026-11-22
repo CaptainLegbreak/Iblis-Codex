@@ -77,7 +77,7 @@ struct D2ObjInitFnStrc {
 };
 
 int __fastcall QUESTS_GetGlobalState(D2GameStrc*, int, int); // 0x00544760
-D2UnitStrc* __fastcall sub_005B3090_SpawnAtPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags); // 0x005B3090
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags); // 0x005B3090
 void __fastcall sub_005417D0_DirectDated(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
 
 struct D2Act2Quest4Strc
@@ -108,14 +108,14 @@ struct D2Act2Quest4Strc
     D2CoordStrc pGuardCoords;
     int nHaremBlockerGUID;
 };
-bool __fastcall sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive(D2GameStrc* pGame); // 0x0059DFB0
+bool __fastcall ACT2Q6_IsTyraelPortalOpened(D2GameStrc* pGame); // 0x0059DFB0
 unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
 
 typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, SUNIT_ITERATEFN pfIterate); // 0x005537D0
-int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
-bool __fastcall sub_0059D7C0_ACT2Q6_IsStateBelow2Inactive(D2GameStrc* pGame); // 0x0059D7C0
-unsigned char __fastcall sub_0059D7E0_ACT2Q6_IsStateOne(D2GameStrc* pGame); // 0x0059D7E0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+bool __fastcall ACT2Q6_IsJerhynTalkDone(D2GameStrc* pGame); // 0x0059D7C0
+unsigned char __fastcall ACT2Q6_IsAwaitingJerhynTalk(D2GameStrc* pGame); // 0x0059D7E0
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005DED90
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
@@ -131,7 +131,7 @@ static inline void* GetMonsterInteract(D2UnitStrc* unit) {
 
 static
 // 0x0059EF70
-void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2ActiveRoomStrc* room,D2CoordStrc* coords) {
+void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2ActiveRoomStrc* room,D2CoordStrc* coords) {
     D2QuestExStrc* ex=quest->ex;
     if (ex->oldSpawned==1) {
         D2UnitStrc* unit=SUNIT_GetServerUnit(quest->game,1,ex->unitId);
@@ -177,7 +177,7 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
         D2ActiveRoomStrc* pRoom = pOp->pRoom;
         pQuestDataEx->guardX = pOp->nX + 1;
         pQuestDataEx->guardY = pOp->nY;
-        sub_005B3090_SpawnAtPosition((pQuestData ? pQuestData->game : 0), pRoom, pQuestDataEx->guardX, pQuestDataEx->guardY, MONSTER_ACT2GUARD2, 1, 0);
+        MONSTERSPAWN_SpawnAtCoordinates((pQuestData ? pQuestData->game : 0), pRoom, pQuestDataEx->guardX, pQuestDataEx->guardY, MONSTER_ACT2GUARD2, 1, 0);
     }
     sub_005417D0_DirectDated(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 1, 0, 0);
     D2CoordStrc pCoord;
@@ -189,7 +189,7 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
         D2QuestDataStrc* pQuest = QUESTS_GetQuestData((pQuestData ? pQuestData->game : 0), 13);
         if (pQuest && pQuest->notIntro && pQuest->state < 2) return;
     }
-    sub_0059EF70_SpawnQuestNpc(pQuestData, pOp->pRoom, &pCoord);
+    ACT2Q4_InitializeJerhynMonster(pQuestData, pOp->pRoom, &pCoord);
 }
 
 // 0x0059F510
@@ -202,7 +202,7 @@ unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* p
     }
 
     D2QuestDataStrc* pQuestData8 = QUESTS_GetQuestData(pQuestData11->pGame, 8);
-    return !pQuestData8 || !pQuestData8->bNotIntro || pQuestData8->fState == 5 || sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive(pQuestData11->pGame)
+    return !pQuestData8 || !pQuestData8->bNotIntro || pQuestData8->fState == 5 || ACT2Q6_IsTyraelPortalOpened(pQuestData11->pGame)
         || pQuestData11->bNotIntro != 1 || pQuestData11->fState >= 2;
 }
 
@@ -231,7 +231,7 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
         return;
     }
 
-    if (QUESTS_GetGlobalState(pGame, 12, 13) || QUESTS_GetGlobalState(pGame, 14, 13) || sub_0059D7C0_ACT2Q6_IsStateBelow2Inactive(pGame))
+    if (QUESTS_GetGlobalState(pGame, 12, 13) || QUESTS_GetGlobalState(pGame, 14, 13) || ACT2Q6_IsJerhynTalkDone(pGame))
     {
         *a3 = 1;
         *pIdle = 0;
@@ -246,7 +246,7 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
     }
 
     {
-        if (sub_0059D7E0_ACT2Q6_IsStateOne(pGame))
+        if (ACT2Q6_IsAwaitingJerhynTalk(pGame))
         {
             pQuestDataEx->unk0x12 = 1;
         }
@@ -303,7 +303,7 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
                     return;
                 }
 
-                if (!sub_6FCBDFE0(pGame, pUnit, pRoom, pCoord.nX, pCoord.nY, 0, 0))
+                if (!SUNIT_TeleportUnit(pGame, pUnit, pRoom, pCoord.nX, pCoord.nY, 0, 0))
                 {
                     *a3 = 0;
                     *pIdle = 1;

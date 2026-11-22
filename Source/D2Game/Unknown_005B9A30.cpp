@@ -37,7 +37,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                 // 0x00543640
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                            // 0x00624690
 
-static __declspec(noinline) void sub_005B9930_QUESTS_SpawnQuestMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2QuestExStrc* pQuestDataEx) // 0x005B9930
+static __declspec(noinline) void ACT3Q3_SpawnFetishBoss(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2QuestExStrc* pQuestDataEx) // 0x005B9930
 {
     pQuestDataEx->bSpawning = 1;
     D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueGroup(pGame, pRoom, 0, 0x197, 1, 0, 0, 1);
@@ -76,7 +76,7 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
                     {
                         if ((!pUnit ? 6 : pUnit->dwUnitType) == 0)
                         {
-                            sub_005B9930_QUESTS_SpawnQuestMonster(pGame, pRoom, pQuestDataEx);
+                            ACT3Q3_SpawnFetishBoss(pGame, pRoom, pQuestDataEx);
                             pQuestData->pCallback = sub_005B9980_QuestCallback;
                             return true;
                         }
@@ -89,7 +89,7 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
     return true;
 }
 
-void __fastcall sub_005B9AE0_OBJECTS_InitQuestSpawnPoint(D2ObjInitFnStrc* pOp) // 0x005B9AE0
+void __fastcall OBJECTS_InitFunction25_Gidbinn(D2ObjInitFnStrc* pOp) // 0x005B9AE0
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 17);
     if (pQuestData)
@@ -102,7 +102,7 @@ void __fastcall sub_005B9AE0_OBJECTS_InitQuestSpawnPoint(D2ObjInitFnStrc* pOp) /
             pQuestDataEx->nY = pOp->nY;
             if (pQuestDataEx->f_3 && !pQuestDataEx->bMonsterSpawned)
             {
-                sub_005B9930_QUESTS_SpawnQuestMonster(pOp->pGame, pOp->pRoom, pQuestDataEx);
+                ACT3Q3_SpawnFetishBoss(pOp->pGame, pOp->pRoom, pQuestDataEx);
             }
         }
         else

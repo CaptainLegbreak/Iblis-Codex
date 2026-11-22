@@ -45,7 +45,7 @@ void __fastcall D2GAME_MONSTERMODE_FreeParams_6FC63020(D2GameStrc* pGame, D2AiPa
 
 void __fastcall MONSTERAI_FreeMonsterInteract(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract);     // 0x00572BC0
 
-void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit);                                         // 0x00540EE0
+void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit);                                         // 0x00540EE0
 
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 
@@ -129,7 +129,7 @@ void __fastcall MONSTER_Free(D2GameStrc* pGame, D2UnitStrc* pMonster)
         }
     }
 
-    sub_6FC349F0(pGame, pMonster);
+    EVENT_FreeUnitTimers(pGame, pMonster);
 }
 
 union D2SeedStrc;

@@ -855,7 +855,7 @@ void __fastcall sub_005148F0_SetChannelValue(int nValue); // 0x005148F0
 void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall sub_00515EE0_StopSound(D2SoundStrc* pSound); // 0x00515EE0
 void __fastcall sub_005179A4_VirtualFree(void* pMemory); // 0x005179A4
-void __fastcall sub_00535780_SetPlayerCount(int nPlayers); // 0x00535780
+void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers); // 0x00535780
 void __fastcall sub_006BCAC0_ResetDataArray(D2WeatherStrc* pArray); // 0x006BCAC0
 void __fastcall sub_006BCCD0_FreeDataArraySlot(D2WeatherStrc* pArray, int nSlot); // 0x006BCCD0
 void __stdcall CHAT_CopyHoverMsgToBuffer(D2HoverTextStrc* pHoverMsg, char* szMessage); // 0x006611E0

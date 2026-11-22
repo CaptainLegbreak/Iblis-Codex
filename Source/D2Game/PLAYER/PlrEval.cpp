@@ -48,7 +48,7 @@ void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStr
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
-void __fastcall sub_00570850_Forward(void* pUnused, D2UnitStrc* pUnit, int nArg); // 0x00570850
+void __fastcall PLAYERSTATS_OnPlayerLeveledUp(void* pUnused, D2UnitStrc* pUnit, int nArg); // 0x00570850
 
 typedef void (__fastcall* LevelCallback)(unsigned int, int);
 
@@ -66,7 +66,7 @@ int __stdcall sub_00625D60(D2UnitStrc*); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
-void __fastcall sub_0055F500_RefreshItemStatLists(D2GameStrc*,D2UnitStrc*); // 0x0055F500
+void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc*,D2UnitStrc*); // 0x0055F500
 void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
 int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
@@ -87,7 +87,7 @@ void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); 
 int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
 unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
-void __fastcall sub_0053E8D0_SendPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
+void __fastcall SCMD_SendRawPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 
 #define STAT_ENERGY 1
 
@@ -198,8 +198,8 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   STATLIST_AddUnitStat(unit,STAT_SKILLPTS,gained,0);
   sub_00536850_UpdateLevel(game,unit,level);
   SUNIT_AttachSound(unit,2,unit);
-  SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)sub_00570850_Forward,unit);
-  sub_0055F500_RefreshItemStatLists(game,unit);
+  SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)PLAYERSTATS_OnPlayerLeveledUp,unit);
+  D2GAME_UpdatePlayerVitals(game,unit);
   D2GAME_UpdatePlayerItems_6FC4BB90(game,unit,1);
   if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->nGameId,sub_00622150_GetLevelInfo(unit,classId,level));
  }

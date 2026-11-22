@@ -116,7 +116,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 
-D2UnitStrc* __fastcall sub_6FC4F640(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords); // 0x00559300
+D2UnitStrc* __fastcall ITEMS_DropGoldAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords); // 0x00559300
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -214,9 +214,9 @@ int __fastcall QUESTS_LevelWarpCheck(D2GameStrc* pGame, D2UnitStrc* pPlayer, int
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 
-void __fastcall sub_6FC817D0(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
+void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
 
 D2UnitStrc* __stdcall DUNGEON_GetWarpTileFromRoomAndSourceLevelId(D2ActiveRoomStrc* pRoom, int nSourceLevel, D2LvlWarpTxt** ppLvlWarpTxtRecord); // 0x006195A0
 
@@ -246,9 +246,9 @@ struct R00601DC0
 
 void __stdcall sub_M127_EmitSink(D2UnitStrc* pUnit);
 
-void __fastcall sub_0054F580(D2GameStrc* pGame, D2TimerArgStrc* pTimerArg); // 0x0054F580
+void __fastcall OBJECTS_FreeTimerArg(D2GameStrc* pGame, D2TimerArgStrc* pTimerArg); // 0x0054F580
 
-void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
+void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
 
@@ -265,9 +265,9 @@ enum
     OBJECT_COUNTESSCHEST = 0x173,
 };
 
-D2UnitStrc* __fastcall sub_0054F180_SelectAndSpawnObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused); // 0x0054F180
+D2UnitStrc* __fastcall OBJECTS_SpawnPresetChest(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused); // 0x0054F180
 
-static int __stdcall sub_005502F0_CanPlace(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY);
+static int __stdcall OBJECTS_CanPlaceObject(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY);
 
 struct D2ObjGroupTxt
 {
@@ -313,7 +313,7 @@ extern PRESETSPAWNFN sgPresetStuff_00731D28[]; // 0x00731D28
 
 extern int sgnPresetStuffCount_00731D4C; // 0x00731D4C
 
-void __stdcall sub_00551150_SpawnFlies(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x00551150
+void __stdcall OBJECTS_SpawnFliesOnCorpse(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x00551150
 
 struct D2CoordInitStrc
 {
@@ -379,7 +379,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 
 void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 
-D2TimerArgStrc* __fastcall sub_0054F520_AllocTimerArg(D2GameStrc* pGame); // 0x0054F520
+D2TimerArgStrc* __fastcall OBJECTS_AllocTimerArg(D2GameStrc* pGame); // 0x0054F520
 
 void __fastcall UNITS_SetTimerArg(D2UnitStrc* pUnit, D2TimerArgStrc* pTimerArg); // 0x006234C0
 
@@ -453,7 +453,7 @@ int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUni
 
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
 
-int __fastcall sub_00531BB0_WriteItemList(void* pArg1, void* pArg2, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x00531BB0
+int __fastcall PLRSAVE_WriteUnitItems(void* pArg1, void* pArg2, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x00531BB0
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
@@ -461,7 +461,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(D2ClientStrc* pClient,
 
 void __fastcall sub_0053DA90(D2UnitStrc* pUnit, int nArg); // 0x0053DA90
 
-void __fastcall sub_0053DE20_SendPacket0x8CToAllPlayers(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState); // 0x0053DE20
+void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState); // 0x0053DE20
 
 int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
 
@@ -511,7 +511,7 @@ static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2A
 
 typedef char (__fastcall* SPAWNCHECKFN)(D2GameStrc* pGame, int nArg, int nX, int nY);
 
-static int __stdcall sub_00550220_CanPlaceObject(D2ActiveRoomStrc*, int, D2DrlgCoordsStrc*, D2CoordStrc*, int); // 0x00550220
+static int __stdcall OBJECTS_CanPlaceObjectWithClearance(D2ActiveRoomStrc*, int, D2DrlgCoordsStrc*, D2CoordStrc*, int); // 0x00550220
 
 extern int gnValues_00731D50[]; // 0x00731D50
 
@@ -539,7 +539,7 @@ extern int gnCount_00731D98; // 0x00731D98
 
 struct D2ItemDropStrc;
 
-D2UnitStrc* __fastcall sub_00559130_DropRandomItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDrop); // 0x00559130
+D2UnitStrc* __fastcall ITEMS_DropRandomItemNearCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDrop); // 0x00559130
 
 extern int gnArmorStandOrRackIds_00731EA0[];                                                                // 0x00731EA0
 
@@ -575,7 +575,7 @@ extern int gnObjectIds_00731D64[]; // 0x00731D64
 
 D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability);
 
-Unit* __fastcall sub_00552B50_Create(Game* game,Room* room,int unusedGroup,int classId,unsigned short probability);
+Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int unusedGroup,int classId,unsigned short probability);
 
 int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
 
@@ -587,17 +587,17 @@ int __fastcall OBJECTS_SpawnWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoo
 
 static int gnObjectCount_00731D90; // 0x00731D90
 
-static int __stdcall sub_00552400_PopulateTheme(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned int nThemes, D2ObjectRegionStrc* pObjectRegion);
+static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned int nThemes, D2ObjectRegionStrc* pObjectRegion);
 
-static int __stdcall sub_00552560_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLevelsTxtRecord, D2ActiveRoomStrc* pRoom);
+static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLevelsTxtRecord, D2ActiveRoomStrc* pRoom);
 
 void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);
 
-static int __stdcall sub_0054F770_Select(Game* game,U32 level,Room* room,unsigned char category);
+static int __stdcall OBJECTS_GetShrineId(Game* game,U32 level,Room* room,unsigned char category);
 
-void __fastcall sub_0054F9D0_Initialize(InitContext* context);
+void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context);
 
-static void __cdecl sub_00552AC0_Class(Unit* unit);
+static void __cdecl OBJECTS_ApplySubclassClassId(Unit* unit);
 
 struct Data00552D60 { unsigned char bUnknown00[0x50]; unsigned int dwValue50; };
 
@@ -760,7 +760,7 @@ inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
 }
 
 // 0x0054F180
-D2UnitStrc* __fastcall sub_0054F180_SelectAndSpawnObject(
+D2UnitStrc* __fastcall OBJECTS_SpawnPresetChest(
     D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nUnused)
 {
     unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(hRoom));
@@ -820,10 +820,10 @@ inline unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x0054F370
-D2UnitStrc* __fastcall sub_0054F370_SpawnChestObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused)
+D2UnitStrc* __fastcall OBJECTS_SpawnSpecialChest(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    D2UnitStrc* pObject = sub_0054F180_SelectAndSpawnObject(pGame, pRoom, nLevelId == LEVEL_TOWERCELLARLEV5 ? OBJECT_COUNTESSCHEST : nClassId, nX, nY, nUnused);
+    D2UnitStrc* pObject = OBJECTS_SpawnPresetChest(pGame, pRoom, nLevelId == LEVEL_TOWERCELLARLEV5 ? OBJECT_COUNTESSCHEST : nClassId, nX, nY, nUnused);
     if (pObject)
     {
         if (nLevelId >= LEVEL_MAGGOTLAIRLEV1 && nLevelId <= LEVEL_MAGGOTLAIRLEV3
@@ -877,7 +877,7 @@ D2UnitStrc* __fastcall OBJECTS_SpawnPresetObject(D2GameStrc* pGame, D2ActiveRoom
 }
 
 // 0x0054F520
-D2TimerArgStrc* __fastcall sub_0054F520_AllocTimerArg(D2GameStrc* pGame)
+D2TimerArgStrc* __fastcall OBJECTS_AllocTimerArg(D2GameStrc* pGame)
 {
     D2TimerArgStrc* pTimerArg = (D2TimerArgStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2TimerArgStrc), ".\\OBJECTS\\Objects.cpp", 0x1B8, 0);
     memset(pTimerArg, 0, sizeof(D2TimerArgStrc));
@@ -891,7 +891,7 @@ D2TimerArgStrc* __fastcall sub_0054F520_AllocTimerArg(D2GameStrc* pGame)
 }
 
 // 0x0054F580
-void __fastcall sub_0054F580(D2GameStrc* pGame, D2TimerArgStrc* pTimerArg)
+void __fastcall OBJECTS_FreeTimerArg(D2GameStrc* pGame, D2TimerArgStrc* pTimerArg)
 {
     D2TimerArg2Strc* pArg = pTimerArg->unk0x00;
     while (pArg)
@@ -989,7 +989,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
         UNITS_ChangeAnimMode(pUnit, 2);
     }
 
-    UNITS_SetTimerArg(pUnit, sub_0054F520_AllocTimerArg(pGame));
+    UNITS_SetTimerArg(pUnit, OBJECTS_AllocTimerArg(pGame));
 }
 
 static inline U32 Roll(Seed* seed)
@@ -1010,7 +1010,7 @@ static inline U32 Limited(Seed* seed,int maximum)
 }
 
 // 0x0054F770
-static int __stdcall sub_0054F770_Select(Game* game,U32 level,Room* room,unsigned char category)
+static int __stdcall OBJECTS_GetShrineId(Game* game,U32 level,Room* room,unsigned char category)
 {
     if (!category || category > N4)
         category = N2;
@@ -1091,13 +1091,13 @@ void __fastcall OBJECTS_InitFunction28_GoldPlaceHolder(D2ObjInitFnStrc* pOp)
             pCoord.nX = pOp->nX + nOffsetX;
             pCoord.nY = pOp->nY + nOffsetY;
             if (!COLLISION_CheckMaskWithSizeXY(pRoom, pCoord.nX, pCoord.nY, 1, 1, COLLIDE_MASK_PLACEMENT))
-                sub_6FC4F640(pOp->pGame, pOp->pRoom, &pCoord);
+                ITEMS_DropGoldAtCoordinates(pOp->pGame, pOp->pRoom, &pCoord);
         }
     }
 }
 
 // 0x0054F9D0
-void __fastcall sub_0054F9D0_Initialize(InitContext* context)
+void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context)
 {
     int mode = context->record->selection;
     U32 level = sub_0061A1B0_Level(context->room);
@@ -1115,7 +1115,7 @@ void __fastcall sub_0054F9D0_Initialize(InitContext* context)
                 category = N1;
             break;
         }
-        choice = sub_0054F770_Select(context->game,level,context->room,(unsigned char)category);
+        choice = OBJECTS_GetShrineId(context->game,level,context->room,(unsigned char)category);
     }
     else
     {
@@ -1358,7 +1358,7 @@ void __fastcall OBJECTS_InitFunction14_Brazier(D2ObjInitFnStrc* pOp)
 }
 
 // 0x005500E0
-void __fastcall sub_005500E0(D2ObjInitFnStrc* pOp)
+void __fastcall OBJECTS_SetOperatingMode(D2ObjInitFnStrc* pOp)
 {
     UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
 }
@@ -1379,7 +1379,7 @@ static inline int sub_E03_GetAnimMode(D2UnitStrc* pUnit)
 }
 
 // 0x00550140
-void __fastcall sub_00550140_WarpEventCallback(D2WarpEventArgStrc* pArgs)
+void __fastcall OBJECTS_InitFunction11_Portal(D2WarpEventArgStrc* pArgs)
 {
     const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pArgs->pRoom));
     const int eLevelId = DUNGEON_GetTownLevelIdFromActNo(nAct);
@@ -1446,7 +1446,7 @@ static inline unsigned int OBJECTS_RollLimitedHi_Inline(D2SeedStrc* pSeed, int n
 }
 
 // 0x00550220
-static int __stdcall sub_00550220_CanPlaceObject(D2ActiveRoomStrc* pRoom, int nSizeY, D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, int nSizeX)
+static int __stdcall OBJECTS_CanPlaceObjectWithClearance(D2ActiveRoomStrc* pRoom, int nSizeY, D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, int nSizeX)
 {
     if (pDrlgCoords->nSubtileWidth < nSizeX + 2 || pDrlgCoords->nSubtileHeight < nSizeY + 2)
     {
@@ -1466,7 +1466,7 @@ static int __stdcall sub_00550220_CanPlaceObject(D2ActiveRoomStrc* pRoom, int nS
 }
 
 // 0x005502F0
-static int __stdcall sub_005502F0_CanPlace(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY)
+static int __stdcall OBJECTS_CanPlaceObject(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY)
 {
     if (pDrlgCoords->nSubtileWidth < 2 || pDrlgCoords->nSubtileHeight < 2)
     {
@@ -1542,7 +1542,7 @@ int __fastcall sub_0045C3E0_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x00550540
-D2UnitStrc* __stdcall sub_00550540_SpawnObjectInRoom(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* pRoom, int nArg, SPAWNCHECKFN pfnCheck)
+D2UnitStrc* __stdcall OBJECTS_SpawnObjectInRoomWithCheck(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* pRoom, int nArg, SPAWNCHECKFN pfnCheck)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
@@ -1582,7 +1582,7 @@ D2UnitStrc* __stdcall sub_00550540_SpawnObjectInRoom(D2GameStrc* pGame, int nCla
 }
 
 // 0x005506D0
-void __fastcall sub_005506D0_Populate(D2ObjInitFnStrc* op)
+void __fastcall OBJECTS_InitFunction46_TrappedSoulPlaceHolder(D2ObjInitFnStrc* op)
 {
     if(op->pObject && op->pObject->dwAnimMode) return;
     D2DrlgCoordsStrc room;
@@ -1597,7 +1597,7 @@ void __fastcall sub_005506D0_Populate(D2ObjInitFnStrc* op)
         xy.nX=room.nSubtileX+OBJECTS_RollLimited_Inline(&control->pSeed,room.nSubtileWidth-4);
         xy.nY=room.nSubtileY+OBJECTS_RollLimited_Inline(&control->pSeed,room.nSubtileHeight-4);
         D2CoordStrc coord;coord.nX=xy.nX;coord.nY=xy.nY;
-        if(sub_00550220_CanPlaceObject(op->pRoom,3,&room,&coord,3)==1) {
+        if(OBJECTS_CanPlaceObjectWithClearance(op->pRoom,3,&room,&coord,3)==1) {
             unsigned int random=OBJECTS_RollSeedHi_Inline((D2SeedStrc*)op->pObjectregion);
             int monsterId=403;
             if(random&1) monsterId=404;
@@ -1616,7 +1616,7 @@ void __fastcall sub_005506D0_Populate(D2ObjInitFnStrc* op)
                     xy.nX+=2*(OBJECTS_RollLimited_Inline(&control->pSeed,distance)+distance)*gaDirectionX_00731B7C[direction];
                     xy.nY+=2*(OBJECTS_RollLimited_Inline(&control->pSeed,distance)+distance)*gaDirectionY_00731B9C[direction];
                     coord.nX=xy.nX;coord.nY=xy.nY;
-                    placed=sub_00550220_CanPlaceObject(op->pRoom,3,&room,&coord,3);
+                    placed=OBJECTS_CanPlaceObjectWithClearance(op->pRoom,3,&room,&coord,3);
                     ++tries;
                 }
                 if(placed) {
@@ -1655,7 +1655,7 @@ static inline int sub_00550A30_IsInsideRoom(D2DrlgCoordsStrc* pCoords, unsigned 
 }
 
 // 0x00550A30
-D2UnitStrc* __stdcall sub_00550A30_SpawnObjectInRoom(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* pRoom, int nMode, int nArg, D2ObjectSpawnCallback pfnCallback)
+D2UnitStrc* __stdcall OBJECTS_SpawnObjectInRoomWithCallback(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* pRoom, int nMode, int nArg, D2ObjectSpawnCallback pfnCallback)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates_Local(pRoom, &tCoords);
@@ -1724,7 +1724,7 @@ static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x00550C20
-D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, int nObjectId, unsigned short nProbability)
+D2UnitStrc* __fastcall OBJECTS_PopulateFn1_CasketJarSarcophagusUrn(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, int nObjectId, unsigned short nProbability)
 {
     D2CoordStrc position;
     D2ObjectsTxt* pRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
@@ -1758,7 +1758,7 @@ D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2Active
         position.nY = roomCoords.nSubtileY + RollLimited(&pControl->pSeed, roomCoords.nSubtileHeight - nSizeY - 1);
         D2CoordStrc coord;
         coord.nX = position.nX; coord.nY = position.nY;
-        if (sub_00550220_CanPlaceObject(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX) == 1) {
+        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX) == 1) {
             D2_ASSERT(hRoom, 0x714);
             SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, hRoom, 1, 0, 0);
             int nClusterTries = 1;
@@ -1774,8 +1774,8 @@ D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2Active
                     position.nX += 2 * gnValues_00731B7C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
                     position.nY += 2 * gnValues_00731B9C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
                     coord.nX = position.nX; coord.nY = position.nY;
-                    if (bSmall) bSuccess = sub_005502F0_CanPlace(&roomCoords, &coord, hRoom, pRecord->dwSizeX, pRecord->dwSizeY);
-                    else bSuccess = sub_00550220_CanPlaceObject(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX);
+                    if (bSmall) bSuccess = OBJECTS_CanPlaceObject(&roomCoords, &coord, hRoom, pRecord->dwSizeX, pRecord->dwSizeY);
+                    else bSuccess = OBJECTS_CanPlaceObjectWithClearance(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX);
                     ++i;
 
                 }
@@ -1793,7 +1793,7 @@ D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2Active
 }
 
 // 0x00551150
-void __stdcall sub_00551150_SpawnFlies(D2GameStrc* pGame, D2UnitStrc* pObject)
+void __stdcall OBJECTS_SpawnFliesOnCorpse(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
     D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pObject);
     D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
@@ -1829,7 +1829,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2Act
     {
         base.nX = drlgCoords.nSubtileX + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileWidth - nSizeX - 1);
         base.nY = drlgCoords.nSubtileY + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileHeight - nSizeY - 1);
-        if (sub_00550220_CanPlaceObject(hRoom, 5, &drlgCoords, &base, 5) == 1)
+        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, 5, &drlgCoords, &base, 5) == 1)
         {
             break;
         }
@@ -1846,7 +1846,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2Act
         D2CoordStrc coord;
         coord.nX = base.nX + gaCoordInit_00731EB4[nIndex].pCoords[j].nX;
         coord.nY = base.nY + gaCoordInit_00731EB4[nIndex].pCoords[j].nY;
-        if (sub_00550220_CanPlaceObject(hRoom, nSizeY, &drlgCoords, &coord, nSizeX) == 1)
+        if (OBJECTS_CanPlaceObjectWithClearance(hRoom, nSizeY, &drlgCoords, &coord, nSizeX) == 1)
         {
             const unsigned int nClassId = (OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) & 1) + 0x39;
             D2_ASSERT(nClassId <= 0x3A, 0x7DD);
@@ -1854,7 +1854,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2Act
             pObject = SUNIT_AllocUnitData(2, nClassId, coord.nX, coord.nY, pGame, hRoom, 1, 0, 0);
             if (pObject)
             {
-                sub_00551150_SpawnFlies(pGame, pObject);
+                OBJECTS_SpawnFliesOnCorpse(pGame, pObject);
             }
         }
     }
@@ -1998,7 +1998,7 @@ static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
-inline D2PlayerListStrc* sub_0055B110(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
+inline D2PlayerListStrc* PLAYERLIST_FindPlayerList(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer1);
     const int nUnitGUID = !pPlayer2 ? -1 : pPlayer2->dwUnitId;
@@ -2022,14 +2022,14 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn6_RogueGuardCorpse(D2GameStrc* pGame, D
     D2UnitStrc* pObject = OBJECTS_PopulateFn3_CommonObjects(pGame, pRoom, nDensity, nObjectId, nProbability);
     if (pObject)
     {
-        sub_00551150_SpawnFlies(pGame, pObject);
+        OBJECTS_SpawnFliesOnCorpse(pGame, pObject);
     }
 
     return pObject;
 }
 
 // 0x005516C0
-D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nWellType, int nObjectId, unsigned short nChance)
+D2UnitStrc* __fastcall OBJECTS_PopulateFn8_Well(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nWellType, int nObjectId, unsigned short nChance)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromPopulatedRoom(pRoom);
     if (OBJRGN_CanNotSpawnMoreWells(pGame, nLevelId))
@@ -2072,7 +2072,7 @@ D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStr
 }
 
 // 0x00551850
-D2UnitStrc* __fastcall sub_00551850_PopulateBarrels(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
+D2UnitStrc* __fastcall OBJECTS_PopulateFn4_Barrel(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
 {
     D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(OBJECT_BARREL);
     D2_ASSERT(bDensity <= 128, 0x955);
@@ -2098,7 +2098,7 @@ D2UnitStrc* __fastcall sub_00551850_PopulateBarrels(D2GameStrc* pGame, D2ActiveR
         D2CoordStrc coord;
         coord.nX = base.nX;
         coord.nY = base.nY;
-        if (sub_005502F0_CanPlace(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY) == 1)
+        if (OBJECTS_CanPlaceObject(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY) == 1)
         {
             D2_ASSERT(hRoom, 0x98D);
             pObject = SUNIT_AllocUnitData(2, nClassId, base.nX, base.nY, pGame, hRoom, 1, 0, 0);
@@ -2119,7 +2119,7 @@ D2UnitStrc* __fastcall sub_00551850_PopulateBarrels(D2GameStrc* pGame, D2ActiveR
                     base.nY += pObjectsTxt->nYSpacing * gnBarrelYOffsets_00731B9C[nDirection];
                     coord.nX = base.nX;
                     coord.nY = base.nY;
-                    bCanPlace = sub_005502F0_CanPlace(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY);
+                    bCanPlace = OBJECTS_CanPlaceObject(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY);
                     ++i;
                 }
                 if (!bCanPlace) continue;
@@ -2179,7 +2179,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn5_Crate(D2GameStrc* pGame, D2ActiveRoom
         D2CoordStrc coord;
         coord.nX = base.nX;
         coord.nY = base.nY;
-        if (sub_005502F0_CanPlace(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY) == 1)
+        if (OBJECTS_CanPlaceObject(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY) == 1)
         {
             if (nClassId != 46)
                 nClassId = gnObjectIds_00731D64[ITEMS_RollLimitedRandomNumber(pSeed, gnObjectCount_00731D90)];
@@ -2202,7 +2202,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn5_Crate(D2GameStrc* pGame, D2ActiveRoom
                     base.nY += pObjectsTxt->nYSpacing * gnBarrelYOffsets_00731B9C[nDirection];
                     coord.nX = base.nX;
                     coord.nY = base.nY;
-                    bCanPlace = sub_005502F0_CanPlace(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY);
+                    bCanPlace = OBJECTS_CanPlaceObject(&bounds, &coord, hRoom, pObjectsTxt->dwSizeX, pObjectsTxt->dwSizeY);
                     ++i;
                 }
                 if (!bCanPlace) continue;
@@ -2236,7 +2236,7 @@ int __stdcall sub_004C6020_AlwaysOne(int nArg)
 }
 
 // 0x00551FF0
-int __stdcall sub_00551FF0_AlwaysOne(int nArg)
+int __stdcall OBJECTS_SpawnNothing(int nArg)
 {
     return 1;
 }
@@ -2273,7 +2273,7 @@ int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D
                     nClassId = 11;
                 }
                 coord.nY = nY;
-                if (sub_005502F0_CanPlace(pDrlgCoords, &coord, hRoom, pObjectsTxtRecord->dwSizeX, pObjectsTxtRecord->dwSizeY) == 1)
+                if (OBJECTS_CanPlaceObject(pDrlgCoords, &coord, hRoom, pObjectsTxtRecord->dwSizeX, pObjectsTxtRecord->dwSizeY) == 1)
                 {
                     D2_ASSERT(hRoom, 2696);
                     SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, hRoom, 1, 0, 0);
@@ -2306,7 +2306,7 @@ int __fastcall OBJECTS_SpawnRandomItemGrid(D2GameStrc* pGame, D2ActiveRoomStrc* 
             D2CoordStrc coord;
             coord.nX = nX;
             coord.nY = nY;
-            if (sub_005502F0_CanPlace(pDrlgCoords, &coord, pRoom, 1, 1) == 1)
+            if (OBJECTS_CanPlaceObject(pDrlgCoords, &coord, pRoom, 1, 1) == 1)
             {
                 ITEMS_DropRandomItemAtCoordinates(pGame, pRoom, &coord, 0);
                 ++nCounter;
@@ -2344,7 +2344,7 @@ static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2A
         {
             coord.nY = nY;
             coord.nX = nX;
-            if (sub_00550220_CanPlaceObject(hRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
+            if (OBJECTS_CanPlaceObjectWithClearance(hRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
             {
                 D2_ASSERT(hRoom, 2834);
                 SUNIT_AllocUnitData(2, gnArmorStandOrRackIds_00731EA0[nRand + 2 * bWeaponRack], nX, nY, pGame, hRoom, 1, 0, 0);
@@ -2359,7 +2359,7 @@ static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2A
         {
             coord.nX = nX;
             coord.nY = nY;
-            if (sub_00550220_CanPlaceObject(hRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
+            if (OBJECTS_CanPlaceObjectWithClearance(hRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
             {
                 D2_ASSERT(hRoom, 2853);
                 SUNIT_AllocUnitData(2, gnArmorStandOrRackIds_00731EA0[nRand + 2 * bWeaponRack], nX, nY, pGame, hRoom, 1, 0, 0);
@@ -2385,7 +2385,7 @@ int __fastcall OBJECTS_SpawnWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoo
 // calling-convention shim (not game code)
 int __stdcall shim_3(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY)
 {
-    return sub_005502F0_CanPlace(pDrlgCoords, pCoord, pRoom, nSizeX, nSizeY);
+    return OBJECTS_CanPlaceObject(pDrlgCoords, pCoord, pRoom, nSizeX, nSizeY);
 }
 
 static inline unsigned int OBJPOP_RollSeed_Inline(D2SeedStrc* pSeed)
@@ -2412,7 +2412,7 @@ static __forceinline int OBJPOP_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x00552400
-static int __stdcall sub_00552400_PopulateTheme(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned int nThemes, D2ObjectRegionStrc* pObjectRegion)
+static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned int nThemes, D2ObjectRegionStrc* pObjectRegion)
 {
     if (pObjectRegion->nPopulatedRooms >= 10 * pObjectRegion->unk0x0C)
     {
@@ -2469,7 +2469,7 @@ static int __stdcall sub_00552400_PopulateTheme(D2GameStrc* pGame, D2ActiveRoomS
 }
 
 // 0x00552560
-static int __stdcall sub_00552560_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLevelsTxtRecord, D2ActiveRoomStrc* pRoom)
+static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLevelsTxtRecord, D2ActiveRoomStrc* pRoom)
 {
     if (DUNGEON_HasWaypoint(pRoom))
     {
@@ -2507,7 +2507,7 @@ static int __stdcall sub_00552560_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt
 
     if (pLevelsTxtRecord->dwThemes)
     {
-        if (sub_00552400_PopulateTheme(pGame, pRoom, pLevelsTxtRecord->dwThemes, pObjectRegion) == 1)
+        if (OBJECTS_PopulateRoomTheme(pGame, pRoom, pLevelsTxtRecord->dwThemes, pObjectRegion) == 1)
         {
             return 0;
         }
@@ -2522,7 +2522,7 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
     D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom));
     D2_ASSERT(pLevelsTxtRecord, 0xBEC);
 
-    if (!sub_00552560_CanPopulateRoom(pGame, pLevelsTxtRecord, pRoom))
+    if (!OBJECTS_CanPopulateRoom(pGame, pLevelsTxtRecord, pRoom))
     {
         return;
     }
@@ -2582,13 +2582,13 @@ bool R00601DC0::sub_00601DC0_IsOpen()
 }
 
 // 0x00552830
-void __fastcall sub_00552830_SetObjectPopulateDensity(unsigned char nDensity)
+void __fastcall OBJECTS_SetObjectPopulateDensity(unsigned char nDensity)
 {
     gnObjectPopulateDensity_00731BBD = nDensity;
 }
 
 // 0x005528E0
-void __fastcall sub_005528E0_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjGroup)
+void __fastcall OBJECTS_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjGroup)
 {
     if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
     {
@@ -2634,7 +2634,7 @@ void __fastcall sub_005528E0_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoom
 }
 
 // 0x00552DE0
-static inline void sub_00552DE0_SetFlag2AndField(D2UnitStrc* pUnit, int nValue)
+static inline void SUNIT_AssignUnitId(D2UnitStrc* pUnit, int nValue)
 {
     if (pUnit)
     {
@@ -2645,7 +2645,7 @@ static inline void sub_00552DE0_SetFlag2AndField(D2UnitStrc* pUnit, int nValue)
 
 void __fastcall sub_M127_Emit_00552DE0(D2UnitStrc* pUnit, int nValue)
 {
-    sub_00552DE0_SetFlag2AndField(pUnit, nValue);
+    SUNIT_AssignUnitId(pUnit, nValue);
     sub_M127_EmitSink(pUnit);
 }
 
@@ -2657,8 +2657,8 @@ void __fastcall OBJECTS_FreeHoverMessage(D2GameStrc* pGame, D2UnitStrc* pObject)
         CHAT_FreeHoverMsg(pGame->pMemoryPool, pObject->pHoverText);
     }
 
-    sub_0054F580(pGame, UNITS_GetTimerArg(pObject));
-    sub_6FC349F0(pGame, pObject);
+    OBJECTS_FreeTimerArg(pGame, UNITS_GetTimerArg(pObject));
+    EVENT_FreeUnitTimers(pGame, pObject);
 }
 
 // 0x00552A40
@@ -2677,19 +2677,19 @@ void __fastcall OBJECTS_RemoveAll(D2GameStrc* pGame)
 }
 
 // 0x00552AA0
-unsigned char __fastcall sub_00552AA0_GetRegenerateMax(D2ObjectsTxt* pObjectsTxtRecord)
+unsigned char __fastcall OBJECTS_GetRegenerateMax(D2ObjectsTxt* pObjectsTxtRecord)
 {
     return 2 * pObjectsTxtRecord->dwParm[2];
 }
 
 // 0x00552AB0
-unsigned char __fastcall sub_00552AB0()
+unsigned char __fastcall OBJECTS_GetRegenerateSteps()
 {
     return OBJECTS_CONSTANT_00552AB0;
 }
 
 // 0x00552AC0
-static void __cdecl sub_00552AC0_Class(Unit* unit)
+static void __cdecl OBJECTS_ApplySubclassClassId(Unit* unit)
 {
     int id;
     if (!unit)
@@ -2742,7 +2742,7 @@ static inline int UNITS_GetAnimMode(Unit* pUnit)
 }
 
 // 0x00552B50
-Unit* __fastcall sub_00552B50_Create(Game* game,Room* room,int unusedGroup,int classId,unsigned short probability)
+Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int unusedGroup,int classId,unsigned short probability)
 {
     ObjectRecord* record = sub_00640E90_ObjectRecord(classId);
     int sizeX = record->sizeX;
@@ -2776,8 +2776,8 @@ Unit* __fastcall sub_00552B50_Create(Game* game,Room* room,int unusedGroup,int c
             {
                 if (forced)
                 {
-                    sub_00552AC0_Class(object);
-                    sub_0054F770_Select(game,N1,room,N2);
+                    OBJECTS_ApplySubclassClassId(object);
+                    OBJECTS_GetShrineId(game,N1,room,N2);
                     object->data->interact = N2;
                     sub_00621BB0_SetShrine(object,sub_006414B0_ShrineRecord(N2));
                     sub_00547390_Increment(game,region);
@@ -2794,21 +2794,21 @@ Unit* __fastcall sub_00552B50_Create(Game* game,Room* room,int unusedGroup,int c
 }
 
 // 0x00552D60
-extern "C" __declspec(dllexport) void __fastcall sub_00552D60(Unit00552D60* pUnit, unsigned int dwValue) {
+extern "C" __declspec(dllexport) void __fastcall SUNIT_SetMonsterVision(Unit00552D60* pUnit, unsigned int dwValue) {
     if (pUnit && pUnit->nType == 1 && pUnit->pData) {
         pUnit->pData->dwValue50 = dwValue;
     }
 }
 
 // 0x00552D80
-void __fastcall sub_00552D80_SetListNext(D2UnitStrc* pUnit, D2UnitStrc* pNext)
+void __fastcall SUNIT_SetListNext(D2UnitStrc* pUnit, D2UnitStrc* pNext)
 {
     D2_ASSERT(pUnit, 211);
     pUnit->pListNext = pNext;
 }
 
 // 0x005545C0
-D2ActiveRoomStrc* __fastcall sub_005545C0_GetValidNextRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
+D2ActiveRoomStrc* __fastcall SUNIT_GetValidNextRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
     D2ActiveRoomStrc* pNextRoom = PATH_GetNextRoom(pDynamicPath);
@@ -2841,7 +2841,7 @@ void __fastcall sub_00555CD0_AppendPair(int* pCount, D2UnkPairStrc* pPairs, int 
 }
 
 // 0x00555D20
-void __fastcall sub_6FC4BE80(D2UnitStrc* pUnit, D2GameStrc* pGame, int nUnitGUID, D2ActiveRoomStrc* pRoom)
+void __fastcall ITEMMODE_InitializeItemUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int nUnitGUID, D2ActiveRoomStrc* pRoom)
 {
     if (pUnit)
     {
@@ -2862,7 +2862,7 @@ void __fastcall sub_6FC4BE80(D2UnitStrc* pUnit, D2GameStrc* pGame, int nUnitGUID
 }
 
 // 0x00557FF0
-int __fastcall sub_00557FF0_InventoryContainsItem(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2InventoryStrc* pOtherInventory)
+int __fastcall ITEMS_IsInPlayersInventory(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2InventoryStrc* pOtherInventory)
 {
     D2InventoryStrc* hInventory = pUnit->pInventory;
     D2_ASSERT(hInventory, 2740);
@@ -2891,7 +2891,7 @@ int __fastcall sub_00557FF0_InventoryContainsItem(D2UnitStrc* pUnit, D2UnitStrc*
 // 0x0055B260
 void __fastcall PLAYERLIST_ToggleFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags, int bSet)
 {
-    D2PlayerListStrc* pPlayerList = sub_0055B110(pPlayer1, pPlayer2);
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayer1 == pPlayer2 || !pPlayerList)
     {
         return;
@@ -2906,13 +2906,13 @@ void __fastcall PLAYERLIST_ToggleFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D
         pPlayerList->dwFlags &= ~nFlags;
     }
 
-    sub_0053DE20_SendPacket0x8CToAllPlayers(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
+    SCMD_BroadcastPlayerRelationship(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
 }
 
 // 0x0055B300
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags)
 {
-    D2PlayerListStrc* pPlayerList = sub_0055B110(pPlayer1, pPlayer2);
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayer1 == pPlayer2 || !pPlayerList)
     {
         return 0;
@@ -2922,9 +2922,9 @@ int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, 
 }
 
 // 0x0055B3A0
-void __fastcall sub_6FCBA980(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
+void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
 {
-    D2PlayerListStrc* pPlayerList = sub_0055B110(pPlayer1, pPlayer2);
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayer1 == pPlayer2 || !pPlayerList)
     {
         return;
@@ -2934,21 +2934,21 @@ void __fastcall sub_6FCBA980(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
 }
 
 // 0x0055B4C0
-void __fastcall sub_6FCBAAA0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
+void __fastcall PLAYERLIST_BroadcastFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
 {
-    D2PlayerListStrc* pPlayerList = sub_0055B110(pPlayer1, pPlayer2);
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (!pPlayerList)
     {
         return;
     }
 
-    sub_0053DE20_SendPacket0x8CToAllPlayers(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
+    SCMD_BroadcastPlayerRelationship(pGame, !pPlayer1 ? -1 : pPlayer1->dwUnitId, !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->dwFlags);
 }
 
 // 0x0055B720
 void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
 {
-    D2PlayerListStrc* pPlayerList = sub_0055B110(pPlayer1, pPlayer2);
+    D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayerList)
     {
         pPlayerList->field_8 = a3;
@@ -2978,7 +2978,7 @@ int __fastcall sub_0055CA00_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFi
 }
 
 // 0x0055ED30
-void __fastcall sub_6FC49090(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* hItem)
+void __fastcall ITEMMODE_RemoveInventoryItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* hItem)
 {
     if (hItem)
     {
@@ -3029,7 +3029,7 @@ int __cdecl sub_00564F00_CompareDescending(const unsigned int* pValue1, const un
 }
 
 // 0x005665B0
-void __stdcall sub_005665B0_GetLocalDate(D2LocalDateStrc* pDate)
+void __stdcall PLRTRADE_GetLocalDate(D2LocalDateStrc* pDate)
 {
     D2SystemTimeStrc systemTime;
     GetLocalTime(&systemTime);
@@ -3058,7 +3058,7 @@ int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned ch
 }
 
 // 0x00567840
-int __fastcall sub_6FC93740(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall PLRTRADE_IsTradeInventoryEmpty(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nUnitType;
     int nUnitGUID;
@@ -3082,7 +3082,7 @@ int __fastcall sub_6FC93740(D2GameStrc* pGame, D2UnitStrc* pUnit)
 int __fastcall sub_005697B0(void* pArg1, void* pArg2, unsigned char** ppCursor, unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
 {
     unsigned char* pCursor = *ppCursor;
-    const int nWritten = sub_00531BB0_WriteItemList(pArg1, pArg2, pCursor, pEnd - pCursor, nArg5, nArg6, nArg7);
+    const int nWritten = PLRSAVE_WriteUnitItems(pArg1, pArg2, pCursor, pEnd - pCursor, nArg5, nArg6, nArg7);
     if (nWritten < 0)
     {
         return D2S_ERROR_WRITE;
@@ -3113,7 +3113,7 @@ void __fastcall sub_00569EC0_UnpackWord(D2PackedWordStrc* pPacked, int* pId, int
 }
 
 // 0x0056B740
-int __fastcall sub_0056B740_CallWithRecord(void* pArg1, void* pArg2, int (__fastcall* pfnCallback)(D2UnkCallRecordStrc*), int nArg4)
+int __fastcall SKILLS_ApplyAuraToSelf(void* pArg1, void* pArg2, int (__fastcall* pfnCallback)(D2UnkCallRecordStrc*), int nArg4)
 {
     D2UnkCallRecordStrc record;
     record.pArg1 = pArg1;
@@ -3124,7 +3124,7 @@ int __fastcall sub_0056B740_CallWithRecord(void* pArg1, void* pArg2, int (__fast
 }
 
 // 0x0056C840
-void __fastcall sub_6FD11D90(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nLength, int nSkillId)
+void __fastcall SKILLS_SetElementalDurationFromSkill(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nLength, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -3184,7 +3184,7 @@ int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitS
 }
 
 // 0x0056DDE0
-void __fastcall sub_0056DDE0_FillRecordAndCall(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8)
+void __fastcall SKILLS_ApplyAreaEffectAtCoordinates(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8)
 {
     D2Unk0056DCC0Strc record = {};
     record.nUnk0x00 = nArg2;
@@ -3198,7 +3198,7 @@ void __fastcall sub_0056DDE0_FillRecordAndCall(D2GameStrc* pGame, int nArg2, int
 }
 
 // 0x0056E620
-int __fastcall sub_0056E620_GetValidMonsterId(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
 {
     int nMonsterId = sub_0063EA70_GetMonsterId(pUnit, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7);
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -3216,7 +3216,7 @@ int __fastcall sub_0056E620_GetValidMonsterId(D2UnitStrc* pUnit, int nArg2, int 
 }
 
 // 0x00570850
-void __fastcall sub_00570850_Forward(void* pUnused, D2UnitStrc* pUnit, int nArg)
+void __fastcall PLAYERSTATS_OnPlayerLeveledUp(void* pUnused, D2UnitStrc* pUnit, int nArg)
 {
     sub_0053DA90(pUnit, nArg);
 }

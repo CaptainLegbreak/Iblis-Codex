@@ -22,7 +22,7 @@ unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit
 #define ACCOUNT_COPY_MAX 50
 
 // 0x005381C0
-int __fastcall sub_005381C0(D2GameStrc* pGame, int nClientId)
+int __fastcall CLIENTS_IsInGame(D2GameStrc* pGame, int nClientId)
 {
     for (D2ClientStrc* pClient = pGame->pClientList; pClient; pClient = pClient->pNext)
     {
@@ -36,7 +36,7 @@ int __fastcall sub_005381C0(D2GameStrc* pGame, int nClientId)
 }
 
 // 0x00538230
-D2ActiveRoomStrc* __fastcall sub_00538230(D2ClientStrc* pClient)
+D2ActiveRoomStrc* __fastcall CLIENTS_GetRoom(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 1966);
 
@@ -77,7 +77,7 @@ void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct)
 }
 
 // 0x00538320
-void __fastcall sub_6FC33910(D2ClientStrc* ptClient)
+void __fastcall CLIENTS_EnableCharacterUnlock(D2ClientStrc* ptClient)
 {
     D2_ASSERT(ptClient, 2037);
 
@@ -109,7 +109,7 @@ int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient)
 }
 
 // 0x005385C0
-int __fastcall sub_005385C0()
+int __fastcall CLIENTS_GetPlayTime()
 {
     return -1;
 }
@@ -240,7 +240,7 @@ void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* ptClient)
 }
 
 // 0x00538FC0
-int __fastcall sub_00538FC0(D2ClientStrc* ptClient)
+int __fastcall CLIENTS_HasLoadedSave(D2ClientStrc* ptClient)
 {
     D2_ASSERT(ptClient, 2974);
 
@@ -248,7 +248,7 @@ int __fastcall sub_00538FC0(D2ClientStrc* ptClient)
 }
 
 // 0x00539000
-void __fastcall sub_00539000(D2ClientStrc* ptClient)
+void __fastcall CLIENTS_SetGameOwner(D2ClientStrc* ptClient)
 {
     D2_ASSERT(ptClient, 2991);
 
@@ -256,7 +256,7 @@ void __fastcall sub_00539000(D2ClientStrc* ptClient)
 }
 
 // 0x005390D0
-void __fastcall sub_005390D0(D2ClientStrc* pClient, int nHotkey, int* pSkill, int* pHand, int* pItemGUID)
+void __fastcall CLIENTS_GetSkillHotKey(D2ClientStrc* pClient, int nHotkey, int* pSkill, int* pHand, int* pItemGUID)
 {
     if (pClient)
     {
@@ -281,7 +281,7 @@ void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szA
 }
 
 // 0x00539320
-void __fastcall sub_00539320(D2ClientStrc* pClient, D2ClientInfoStrc* pClientInfo)
+void __fastcall CLIENTS_SetClientInfo(D2ClientStrc* pClient, D2ClientInfoStrc* pClientInfo)
 {
     pClient->pClientInfo = pClientInfo;
 }
@@ -295,7 +295,7 @@ void* __fastcall CLIENTS_GetClientPlayerData(D2ClientStrc* hClient)
 }
 
 // 0x00539470
-int __fastcall sub_00539470(D2ClientStrc* pClient)
+int __fastcall CLIENTS_GetLocale(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 3392);
 

@@ -255,7 +255,7 @@ void __fastcall sub_004B2A20(int nUnitId);                                      
 
 void __fastcall sub_004B3C00(int nUnitId);                                                                  // 0x004B3C00
 
-int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem);                               // 0x004C10E0
+int __fastcall ITEMMODE_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem);                               // 0x004C10E0
 
 int __fastcall sub_004C1C50_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);    // 0x004C1C50
 
@@ -1186,7 +1186,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
         if (pItem && INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit)
-            && !STATLIST_GetOwner(pItem, NULL) && sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
+            && !STATLIST_GetOwner(pItem, NULL) && ITEMMODE_CheckEquipRequirements(pUnit, pItem))
         {
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
             sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
@@ -1205,7 +1205,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
         if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x208, ".\\UNIT\\Item.cpp") && !STATLIST_GetOwner(pItem, NULL))
             continue;
 
-        if (sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
+        if (ITEMMODE_CheckEquipRequirements(pUnit, pItem))
             continue;
 
         ITEMS_SetItemFlag(pItem, 0x4000, 1);
@@ -1230,7 +1230,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
             if (!ITEMS_CheckItemFlag(pItem, 0x4000, 0x22A, ".\\UNIT\\Item.cpp") && STATLIST_GetOwner(pItem, NULL))
                 continue;
 
-            if (!sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
+            if (!ITEMMODE_CheckEquipRequirements(pUnit, pItem))
                 continue;
 
             ITEMS_SetItemFlag(pItem, 0x4000, 0);

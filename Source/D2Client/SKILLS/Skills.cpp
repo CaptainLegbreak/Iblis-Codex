@@ -590,7 +590,7 @@ void __fastcall sub_004C51B0_UpdateUnitFromPacket(D2PacketUnitRecordStrc* pPacke
     }
 }
 
-int __stdcall sub_00551FF0_AlwaysOne(int nArg)
+int __stdcall OBJECTS_SpawnNothing(int nArg)
 {
     return 1;
 }

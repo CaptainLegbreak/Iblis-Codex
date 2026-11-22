@@ -52,7 +52,7 @@ struct D2UnitPacketListStrc
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
 // 0x00571620
-void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     if (pUnit && pUnit->pHoverText)
     {
@@ -108,7 +108,7 @@ void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pCli
 }
 
 // 0x00571790
-static __forceinline void sub_00571790_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
+static __forceinline void SUNITMSG_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
 {
     if (!pUnit->pMsgFirst)
     {
@@ -126,5 +126,5 @@ static __forceinline void sub_00571790_AppendUnitMessage(D2UnitStrc* pUnit, D2Un
 
 void __fastcall sub_M120_Emit_00571790(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
 {
-    sub_00571790_AppendUnitMessage(pUnit, pMsg);
+    SUNITMSG_AppendUnitMessage(pUnit, pMsg);
 }

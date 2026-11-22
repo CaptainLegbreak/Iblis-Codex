@@ -559,7 +559,7 @@ void __fastcall ACT3Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 }
 
 // 0x005B7CD0
-bool __fastcall sub_005B7CD0(Quest* quest)
+bool __fastcall ACT3Q1_SeqCallback(Quest* quest)
 {
     if (quest->state != FINAL_STATE && quest->notIntro) return true;
     Quest* next = sub_00543640(quest->game,quest->sequenceId);

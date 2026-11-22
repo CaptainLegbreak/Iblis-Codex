@@ -30,7 +30,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define ROOM_ASSERT_LINE 223
 
 // 0x005BAE20
-int __fastcall sub_005BAE20_UpdateQuestStateAfterMonsterKill(D2GameStrc* pGame,D2UnitStrc* pUnit,void* pData)
+int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateAfterMonsterKill(D2GameStrc* pGame,D2UnitStrc* pUnit,void* pData)
 {
     D2BitBufferStrc* pFlags=PLAYER_GetQuestFlags(pGame,pUnit);
     D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pUnit);

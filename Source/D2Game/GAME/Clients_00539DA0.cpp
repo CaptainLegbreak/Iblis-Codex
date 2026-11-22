@@ -39,7 +39,7 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned in
 void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc*, int); // 0x00537810
 void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc*, char*); // 0x00539BE0
-void __fastcall sub_0052C900_SaveClientAndGamePlayers(D2ClientStrc*,D2GameStrc*); // 0x0052C900
+void __fastcall GAME_TriggerClientSave(D2ClientStrc*,D2GameStrc*); // 0x0052C900
 void __fastcall GAME_SendPacket0x5CToAllConnectedClients(D2GameStrc*,D2ClientStrc*); // 0x0052C500
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc*,int); // 0x00537860
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*,int,int); // 0x006253B0
@@ -99,7 +99,7 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
  D2_ASSERT(ptGame,0x49F);
  D2ClientStrc* pClient=CLIENTS_GetClientFromClientId(ptGame,(int)hClientId);
  if(pClient) CLIENTS_FillCharacterPreviewInfo(pClient,pClient->szPreview);
- if(bTriggerSave==1) sub_0052C900_SaveClientAndGamePlayers(CLIENTS_GetClientFromClientId(ptGame,(int)hClientId),ptGame);
+ if(bTriggerSave==1) GAME_TriggerClientSave(CLIENTS_GetClientFromClientId(ptGame,(int)hClientId),ptGame);
  char szName[16]; szName[0]=0;
  CLIENTS_UnlinkId((int)hClientId,szName);
  pClient=0;

@@ -270,7 +270,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
         {
             int nPlayers = atoi(pText + 8);
             nPlayers = D2_MIN(D2_MAX(nPlayers, 1), 8);
-            sub_00535780_SetPlayerCount(nPlayers);
+            PLAYER_SetVirtualPlayerCount(nPlayers);
             sprintf(pText, "players set to %d", nPlayers);
         }
     }

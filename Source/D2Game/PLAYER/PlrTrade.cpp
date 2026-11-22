@@ -101,13 +101,13 @@ int gbEnableAllCubeRecipes_0088CAC0; // 0x0088CAC0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-int __fastcall sub_00531BB0_WriteItemList(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x00531BB0
+int __fastcall PLRSAVE_WriteUnitItems(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x00531BB0
 
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); // 0x00538670
 
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 
-void __fastcall sub_0053CAD0_SendPacket0x78(D2ClientStrc* pClient, D2GSPacketSrv78* pPacket); // 0x0053CAD0
+void __fastcall D2GAME_PACKETS_SendPacket0x63_WaypointMenu(D2ClientStrc* pClient, D2GSPacketSrv78* pPacket); // 0x0053CAD0
 
 void __fastcall D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(D2ClientStrc* pClient, int nGold, char bOwnGold); // 0x0053CBE0
 
@@ -129,13 +129,13 @@ void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc* pGame, D2UnitStrc* pUnit
 
 void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
 
-int __fastcall sub_0055F590_CheckItem(D2UnitStrc* pItem, const char* szFile, int nLine); // 0x0055F590
+int __fastcall D2GAME_CheckHasFilledSockets(D2UnitStrc* pItem, const char* szFile, int nLine); // 0x0055F590
 
 void __fastcall ITEMMODE_ResetBookScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055F9C0
 
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
 
-int __fastcall sub_6FC4B310(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh); // 0x00563350
+int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh); // 0x00563350
 
 D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* player,D2CubeMainTxt* recipe,D2CubeItemStrc* inputs,int unused); // 0x00565AB0
 
@@ -143,9 +143,9 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
 
 void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00566BF0
 
-void __fastcall sub_6FC91050(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, D2PlayerDataStrc* pPlayerData1, D2PlayerDataStrc* pPlayerData2, int nTradeState); // 0x005679E0
+void __fastcall PLRTRADE_CancelTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, D2PlayerDataStrc* pPlayerData1, D2PlayerDataStrc* pPlayerData2, int nTradeState); // 0x005679E0
 
-int __fastcall sub_00597A20_IsBusy(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00597A20
+int __fastcall INVMODE_IsTradeBusy(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00597A20
 
 int __fastcall ACT4Q2_HasDiabloBeenKilled(D2GameStrc* pGame); // 0x005B5810
 
@@ -239,11 +239,11 @@ void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* pClient, 
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
-void __fastcall sub_6FC4BA50(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0055FCC0
+void __fastcall ITEMMODE_RemoveInventoryItemProperties(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0055FCC0
 
-void __fastcall sub_6FC90BE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg); // 0x00566C80
+void __fastcall PLRTRADE_IterateCallback_SendInventoryReset(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg); // 0x00566C80
 
-void __fastcall sub_6FC90C20(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566CC0
+void __fastcall PLRTRADE_RestoreTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566CC0
 
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
@@ -286,28 +286,28 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __stdcall FOG_GetLinkIndex(void* pLink, unsigned int dwCode, int bLogError); // 0x006BD130
 
-static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned short nButton, D2UnitStrc* pPlayer, int nUnitGUID, int nGold); // 0x00564D50
+static void __stdcall PLRTRADE_HandleStashButton(D2GameStrc* pGame, unsigned short nButton, D2UnitStrc* pPlayer, int nUnitGUID, int nGold); // 0x00564D50
 
-static int sub_00564FD0_CountCubeItems(D2InventoryStrc* pInventory); // 0x00564FD0
+static int PLRTRADE_CountCubeItems(D2InventoryStrc* pInventory); // 0x00564FD0
 
-static int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory); // 0x005658C0
+static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory); // 0x005658C0
 
-static void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton); // 0x00566AE0
+static void PLRTRADE_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton); // 0x00566AE0
 
 static bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566B30
 
-void __fastcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, int nUnused, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData); // 0x00567020
+void __fastcall PLRTRADE_SetTradeAccepted(D2UnitStrc* pPlayer, int nUnused, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData); // 0x00567020
 
-static void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem); // 0x00567070
+static void __stdcall PLRTRADE_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem); // 0x00567070
 
 static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x005670E0
 
-static int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver); // 0x005672D0
+static int __stdcall PLRTRADE_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver); // 0x005672D0
 
 
-static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer); // 0x00567C70
+static void __stdcall PLRTRADE_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer); // 0x00567C70
 
-void __fastcall sub_00568D10_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00568D10
+void __fastcall PLRTRADE_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00568D10
 
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask);                         // 0x00463720
 
@@ -343,7 +343,7 @@ void __fastcall ITEMS_DestroyRunewordStatList(D2GameStrc*,D2UnitStrc*); // 0x005
 
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc*,D2ItemDropStrc*,int); // 0x00558D90
 
-void __fastcall sub_0055F900_EquipItemRefresh(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F900
+void __fastcall D2GAME_RepairBrokenItem(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F900
 
 int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FE80
 
@@ -371,7 +371,7 @@ void __stdcall ITEMS_AddSockets(D2UnitStrc*,int); // 0x0062BCB0
 
 void __stdcall ITEMMODS_AddCraftPropertyList(D2UnitStrc*,D2PropertyStrc*,int); // 0x00660240
 
-static int __stdcall sub_00564F30_RemoveCubeInputs(D2GameStrc* game,D2UnitStrc* unit,D2ClientStrc* client);
+static int __stdcall PLRTRADE_RemoveCubeInputs(D2GameStrc* game,D2UnitStrc* unit,D2ClientStrc* client);
 
 extern "C" const char szPlrTradeCpp[];                                                                      // 0x006E11D8
 
@@ -379,7 +379,7 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit);                           // 0x00557FD0
 
-int __fastcall sub_6FC446B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* a4, int a5, int bSetQuantityFlag, D2InventoryStrc* pInventoryArg, int a8); // 0x00560420
+int __fastcall ITEMMODE_RemoveStoredItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* a4, int a5, int bSetQuantityFlag, D2InventoryStrc* pInventoryArg, int a8); // 0x00560420
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x006488C0
 
@@ -387,7 +387,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);               
 
 int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh);
 
-static void __stdcall sub_00567350_AddItemTrade(D2GameStrc* pGame, int nItemGUID1, int nItemGUID2, D2UnitStrc* pPlayer); // 0x00567350
+static void __stdcall PLRTRADE_AddItemTrade(D2GameStrc* pGame, int nItemGUID1, int nItemGUID2, D2UnitStrc* pPlayer); // 0x00567350
 
 // build: base-profile
 
@@ -399,7 +399,7 @@ int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);                     
 
 D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
 
-int __fastcall sub_6FC425F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);             // 0x0055CC90
+int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);             // 0x0055CC90
 
 void __fastcall ITEMMODE_RebuildBookScrollSkillQuantities(D2GameStrc* pGame, D2UnitStrc* pUnit);                                         // 0x0055FA40
 
@@ -421,38 +421,38 @@ int __fastcall DATATBLS_GetCubemainTxtRecordCount();                            
 
 int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton, unsigned int nGold);
 
-static void __stdcall sub_00567350_AddItemTrade(D2GameStrc*, int, int, D2UnitStrc*); // 0x00567350
+static void __stdcall PLRTRADE_AddItemTrade(D2GameStrc*, int, int, D2UnitStrc*); // 0x00567350
 
-static char __stdcall sub_005673C0_FindItemTrade(int*, int, D2UnitStrc*); // 0x005673C0
+static char __stdcall PLRTRADE_FindItemTrade(int*, int, D2UnitStrc*); // 0x005673C0
 
-static int sub_00564FD0_CountCubeItems(D2InventoryStrc* pInventory); // 0x00564FD0
+static int PLRTRADE_CountCubeItems(D2InventoryStrc* pInventory); // 0x00564FD0
 
-static int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory); // 0x005658C0
+static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory); // 0x005658C0
 
-int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem);
+int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem);
 
 static void __stdcall PLRTRADE_ResetTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, D2PlayerDataStrc* pPlayerData1, D2PlayerDataStrc* pPlayerData2); // 0x00567B00
 
 
-static char __stdcall sub_005673C0_FindItemTrade(int* pItemGUID2, int nItemGUID1, D2UnitStrc* pPlayer); // 0x005673C0
+static char __stdcall PLRTRADE_FindItemTrade(int* pItemGUID2, int nItemGUID1, D2UnitStrc* pPlayer); // 0x005673C0
 
 void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem);
 
-static void sub_005673A0_WalkItemTrade(D2UnitStrc* pPlayer);
+static void PLRTRADE_WalkItemTrade(D2UnitStrc* pPlayer);
 
 void __fastcall PLRTRADE_AddItemToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem);
 
-static void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton); // 0x00566AE0
+static void PLRTRADE_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton); // 0x00566AE0
 
 static bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566B30
 
-static void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem); // 0x00567070
+static void __stdcall PLRTRADE_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem); // 0x00567070
 
-static int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver); // 0x005672D0
+static int __stdcall PLRTRADE_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver); // 0x005672D0
 
-static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer); // 0x00567C70
+static void __stdcall PLRTRADE_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer); // 0x00567C70
 
-static int sub_00566E20_HasItemsInCube(D2UnitStrc* pPlayer);
+static int PLRTRADE_HasItemsInCube(D2UnitStrc* pPlayer);
 
 
 int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton, unsigned int nGold);
@@ -469,7 +469,7 @@ void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit)
 }
 
 // 0x00564CD0
-int __fastcall sub_00564CD0_OperateStash(D2ObjOperateFnStrc* pOp, int nOperate)
+int __fastcall OBJECTS_OperateFunction32_Bank(D2ObjOperateFnStrc* pOp, int nOperate)
 {
     if (pOp->nObjectIdx == OBJECT_STASH)
     {
@@ -490,7 +490,7 @@ int __fastcall sub_00564CD0_OperateStash(D2ObjOperateFnStrc* pOp, int nOperate)
 }
 
 // 0x00564D50
-static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned short nButton, D2UnitStrc* pPlayer, int nUnitGUID, int nGold)
+static void __stdcall PLRTRADE_HandleStashButton(D2GameStrc* pGame, unsigned short nButton, D2UnitStrc* pPlayer, int nUnitGUID, int nGold)
 {
     int nUnitType;
     int nGUID;
@@ -565,7 +565,7 @@ static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned
 }
 
 // 0x00564F30
-static int __stdcall sub_00564F30_RemoveCubeInputs(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
+static int __stdcall PLRTRADE_RemoveCubeInputs(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     if (!pUnit->pInventory)
     {
@@ -593,7 +593,7 @@ static int __stdcall sub_00564F30_RemoveCubeInputs(D2GameStrc* pGame, D2UnitStrc
 }
 
 // 0x00564FD0
-static int sub_00564FD0_CountCubeItems(D2InventoryStrc* pInventory)
+static int PLRTRADE_CountCubeItems(D2InventoryStrc* pInventory)
 {
     int nCount = 0;
     D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
@@ -1149,7 +1149,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
 }
 
 // 0x005658C0
-static int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory)
+static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory)
 {
     if (!pInventory || !pCubeMainTxtRecord)
     {
@@ -1170,11 +1170,11 @@ static int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemS
 
 void __fastcall sub_K11_Emit00564F30(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    sub_00564F30_RemoveCubeInputs(pGame, pUnit, UnitGetClient(pUnit, ".\\PLAYER\\PlrTrade.cpp", 1358));
+    PLRTRADE_RemoveCubeInputs(pGame, pUnit, UnitGetClient(pUnit, ".\\PLAYER\\PlrTrade.cpp", 1358));
 }
 
 // 0x00565930
-short __fastcall sub_00565930(Game* game,int level,int type)
+short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int type)
 {
     short choices[256];
     ItemRecordTable* table=sub_00633590();
@@ -1348,7 +1348,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
     int n=ITEMS_GetTotalMaxStack(current);if(n>=out->nQuantity)n=out->nQuantity;
     STATLIST_SetUnitStat(current,STAT_QUANTITY,n,0);
    }
-   if(ITEMS_CheckItemFlag(current,0x100,0x504,gszPlrTradeCpp)) sub_0055F900_EquipItemRefresh(game,player,current);
+   if(ITEMS_CheckItemFlag(current,0x100,0x504,gszPlrTradeCpp)) D2GAME_RepairBrokenItem(game,player,current);
    else {
     int max=STATLIST_UnitGetStatValue(current,STAT_MAXDURABILITY,0);
     if(STATLIST_GetUnitBaseStat(current,STAT_DURABILITY,0)<max)STATLIST_SetUnitStat(current,STAT_DURABILITY,max,0);
@@ -1372,7 +1372,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
  }
  }
  if(bSuccess) {
-  sub_00564F30_RemoveCubeInputs(game,player,UnitGetClient(player,gszPlrTradeCpp,0x54e));
+  PLRTRADE_RemoveCubeInputs(game,player,UnitGetClient(player,gszPlrTradeCpp,0x54e));
   SUNIT_AttachSound(player,4,player);
   for(int i=0;i<3;++i) {
    D2UnitStrc* item=outputs[i];if(!item)continue;
@@ -1408,7 +1408,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
 
     const int nCubeMainTxtRecordCount = DATATBLS_GetCubemainTxtRecordCount();
 
-    const int nItemsInCube = sub_00564FD0_CountCubeItems(pUnit->pInventory);
+    const int nItemsInCube = PLRTRADE_CountCubeItems(pUnit->pInventory);
     if (nItemsInCube <= 0)
     {
         return;
@@ -1721,7 +1721,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
             if (bOpConditionsFulfilled)
             {
                 D2CubeItemStrc cubeItems[3] = {};
-                if (sub_005658C0_CheckCubeInputs(pGame, cubeItems, pCubeMainTxtRecord, pUnit->pInventory))
+                if (PLRTRADE_CheckCubeInputs(pGame, cubeItems, pCubeMainTxtRecord, pUnit->pInventory))
                 {
                     PLRTRADE_CreateCubeOutputs(pGame, pUnit, pCubeMainTxtRecord, cubeItems, 1);
                     return;
@@ -1732,7 +1732,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
 }
 
 // 0x00566AE0
-static void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton)
+static void PLRTRADE_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton)
 {
     switch (nButton)
     {
@@ -1761,7 +1761,7 @@ static bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     {
     D2PlayerTradeStrc* ptTradeRecord = (D2PlayerTradeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0x806, 0);
     ptTradeRecord->pSaveData = (unsigned char*)FOG_AllocPool(pGame->pMemoryPool, 0x2000, ".\\PLAYER\\PlrTrade.cpp", 0x807, 0);
-    ptTradeRecord->nSaveLength = sub_00531BB0_WriteItemList(pGame, pPlayer, ptTradeRecord->pSaveData, 0x2000, 0, 0, 0);
+    ptTradeRecord->nSaveLength = PLRSAVE_WriteUnitItems(pGame, pPlayer, ptTradeRecord->pSaveData, 0x2000, 0, 0, 0);
     D2_ASSERT(ptTradeRecord->nSaveLength > 0, 0x809);
     ptTradeRecord->pItemTrade = 0;
     ptTradeRecord->nGoldInTrade = 0;
@@ -1798,7 +1798,7 @@ void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x00566C80
-void __fastcall sub_6FC90BE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
+void __fastcall PLRTRADE_IterateCallback_SendInventoryReset(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
 {
     D2UnitStrc* pOtherPlayer = (D2UnitStrc*)pArg;
     if (pPlayer != pOtherPlayer)
@@ -1830,7 +1830,7 @@ void __fastcall PLRTRADE_SendEventPacketToPlayer(D2UnitStrc* pPlayer, unsigned c
 }
 
 // 0x00566E20
-static int sub_00566E20_HasItemsInCube(D2UnitStrc* pPlayer)
+static int PLRTRADE_HasItemsInCube(D2UnitStrc* pPlayer)
 {
     D2UnitStrc* pNext;
     for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pPlayer->pInventory); pItem; pItem = pNext)
@@ -1910,7 +1910,7 @@ void __fastcall PLRTRADE_TryToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2U
     }
 }
 
-static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
+static void __stdcall PLRTRADE_SetTradeAccepted(D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
 {
     D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2422), 6);
     D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 2423), 6);
@@ -1920,7 +1920,7 @@ static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* p
 }
 
 // 0x00567070
-static void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem)
+static void __stdcall PLRTRADE_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem)
 {
     if (ITEMS_GetItemType(pDupeItem) == ITEMTYPE_PLAYER_BODY_PART)
     {
@@ -1951,7 +1951,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
                 D2UnitStrc* pDupeItem = ITEMS_Duplicate(pGame, pCheckedItem, 0, 0);
                 if (pDupeItem)
                 {
-                    sub_00567070_CopyEarData(bHardcore, pCheckedItem, pDupeItem);
+                    PLRTRADE_CopyEarData(bHardcore, pCheckedItem, pDupeItem);
                     UNITS_ChangeAnimMode(pDupeItem, 4);
                     ITEMS_SetInvPage(pDupeItem, 0);
                     const int nDupeId = pDupeItem->dwUnitId;
@@ -1962,7 +1962,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
                         return false;
                     }
 
-                    if (sub_0055F590_CheckItem(pCheckedItem, szPlrTradeCpp, 0x9D5) && !sub_6FC4B310(pGame, pPlayer2, pCheckedItem, pDupeItem, 1))
+                    if (D2GAME_CheckHasFilledSockets(pCheckedItem, szPlrTradeCpp, 0x9D5) && !ITEMMODE_DuplicateSocketFillers(pGame, pPlayer2, pCheckedItem, pDupeItem, 1))
                     {
                         D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer1, szPlrTradeCpp, 0x9D9), 0xA);
                         D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer2, szPlrTradeCpp, 0x9DA), 9);
@@ -2000,7 +2000,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
 }
 
 // 0x005672D0
-static int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver)
+static int __stdcall PLRTRADE_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver)
 {
     D2UnitStrc* pItem = INVENTORY_GetFirstItem(pOwner->pInventory);
     while (pItem)
@@ -2016,14 +2016,14 @@ static int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitS
 }
 
 // 0x00567330
-void __fastcall sub_6FC92EF0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall PLRTRADE_CloseCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     SUNIT_ResetInteractInfo(pUnit);
     sub_6FC4B830(pGame, pUnit);
 }
 
 // 0x00567350
-static void __stdcall sub_00567350_AddItemTrade(D2GameStrc* pGame, int nItemGUID1, int nItemGUID2, D2UnitStrc* pPlayer)
+static void __stdcall PLRTRADE_AddItemTrade(D2GameStrc* pGame, int nItemGUID1, int nItemGUID2, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData)
@@ -2041,7 +2041,7 @@ static void __stdcall sub_00567350_AddItemTrade(D2GameStrc* pGame, int nItemGUID
 }
 
 // 0x005673A0
-static void sub_005673A0_WalkItemTrade(D2UnitStrc* pPlayer)
+static void PLRTRADE_WalkItemTrade(D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData && pPlayerData->hTrade)
@@ -2053,7 +2053,7 @@ static void sub_005673A0_WalkItemTrade(D2UnitStrc* pPlayer)
 }
 
 // 0x005673C0
-static char __stdcall sub_005673C0_FindItemTrade(int* pItemGUID2, int nItemGUID1, D2UnitStrc* pPlayer)
+static char __stdcall PLRTRADE_FindItemTrade(int* pItemGUID2, int nItemGUID1, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData && pPlayerData->hTrade)
@@ -2090,12 +2090,12 @@ void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPla
     }
 
     const int nItemGUID = !pItem ? -1 : pItem->dwUnitId;
-    if (sub_005673C0_FindItemTrade(&nUnitGUID, nItemGUID, pPlayer))
+    if (PLRTRADE_FindItemTrade(&nUnitGUID, nItemGUID, pPlayer))
     {
         int nUnused;
-        if (sub_6FC446B0(pGame, pOtherPlayer, nUnitGUID, &nUnused, 1, 1, 0, 1))
+        if (ITEMMODE_RemoveStoredItem(pGame, pOtherPlayer, nUnitGUID, &nUnused, 1, 1, 0, 1))
         {
-            sub_005673A0_WalkItemTrade(pPlayer);
+            PLRTRADE_WalkItemTrade(pPlayer);
         }
     }
 
@@ -2116,7 +2116,7 @@ void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPla
         D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD00), 0, 1);
         D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD01), 0, 0);
         D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD02), 0, 1);
-        sub_00567020_StartTrade(pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2);
+        PLRTRADE_SetTradeAccepted(pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2);
     }
 }
 
@@ -2147,7 +2147,7 @@ inline int PLRTRADE_GetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x00567620
-int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
     D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
     int nUnitType;
@@ -2188,7 +2188,7 @@ int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
                 {
                     if (pItemsTxtRecord->dwCode == 0x20786F62)
                     {
-                        if (sub_00566E20_HasItemsInCube(pPlayer))
+                        if (PLRTRADE_HasItemsInCube(pPlayer))
                         {
                             nResult = 0;
                             PLRTRADE_SendEventPacketToPlayer(pPlayer, 0xA, 0);
@@ -2250,7 +2250,7 @@ void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pUnit, ".\\PLAYER\\PlrTrade.cpp", 0x84F), 0x92, 0, !pUnit ? -1 : pUnit->dwUnitId);
-    SUNIT_IterateLivingPlayers(pGame, sub_6FC90BE0, pUnit);
+    SUNIT_IterateLivingPlayers(pGame, PLRTRADE_IterateCallback_SendInventoryReset, pUnit);
 
     D2UnitStrc* pNext;
     for (D2UnitStrc* pCurrent = INVENTORY_GetFirstItem(pUnit->pInventory); pCurrent; pCurrent = pNext)
@@ -2276,12 +2276,12 @@ void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit
         ITEMS_SetItemCMDFlag(pCursorItem, 1, 1);
     }
 
-    sub_6FC4BA50(pGame, pUnit);
-    sub_6FC90C20(pGame, pUnit);
+    ITEMMODE_RemoveInventoryItemProperties(pGame, pUnit);
+    PLRTRADE_RestoreTradeSnapshot(pGame, pUnit);
 }
 
 // 0x005679E0
-void __fastcall sub_6FC91050(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, D2PlayerDataStrc* pPlayerData1, D2PlayerDataStrc* pPlayerData2, int nTradeState)
+void __fastcall PLRTRADE_CancelTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, D2PlayerDataStrc* pPlayerData1, D2PlayerDataStrc* pPlayerData2, int nTradeState)
 {
     UNITS_RefreshInventory(pPlayer1, 1);
     UNITS_RefreshInventory(pPlayer2, 1);
@@ -2355,7 +2355,7 @@ static void __stdcall PLRTRADE_ResetTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer
 }
 
 // 0x00567C70
-static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer)
+static void __stdcall PLRTRADE_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer)
 {
     {
         D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
@@ -2417,7 +2417,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
         return;
     }
 
-    if (sub_005672D0_CanPickUpTradeItems(pGame, pPlayer, pInteractPlayer) && sub_005672D0_CanPickUpTradeItems(pGame, pInteractPlayer, pPlayer))
+    if (PLRTRADE_CanPickUpTradeItems(pGame, pPlayer, pInteractPlayer) && PLRTRADE_CanPickUpTradeItems(pGame, pInteractPlayer, pPlayer))
     {
         if (pPlayer)
         {
@@ -2500,7 +2500,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                 return 1;
             }
 
-            sub_00564D50_HandleStashButton(pGame, nButton, pPlayer, nUnitGUID, nGold);
+            PLRTRADE_HandleStashButton(pGame, nButton, pPlayer, nUnitGUID, nGold);
             return 0;
         }
 
@@ -2511,7 +2511,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                 return 3;
             }
 
-            sub_00566AE0_HandleCubeButton(pGame, pPlayer, nButton);
+            PLRTRADE_HandleCubeButton(pGame, pPlayer, nButton);
             return 0;
         }
 
@@ -2532,19 +2532,19 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
             {
                 if (pPlayerData->dwTradeState != 2 && pPlayerData->dwTradeState != 1 || pInteractPlayerData->dwTradeState != 2 && pInteractPlayerData->dwTradeState != 1)
                 {
-                    if (sub_00597A20_IsBusy(pGame, pPlayer) || sub_00597A20_IsBusy(pGame, pInteractPlayer))
+                    if (INVMODE_IsTradeBusy(pGame, pPlayer) || INVMODE_IsTradeBusy(pGame, pInteractPlayer))
                     {
                         return 0;
                     }
 
-                    sub_6FC91050(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
+                    PLRTRADE_CancelTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
                     const unsigned int nTickCount = GetTickCount();
                     pInteractPlayerData->dwAcceptTradeTick = nTickCount;
                     pPlayerData->dwAcceptTradeTick = nTickCount;
                 }
                 else
                 {
-                    sub_6FC91050(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
+                    PLRTRADE_CancelTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
                     const unsigned int nTickCount = GetTickCount();
                     pInteractPlayerData->dwAcceptTradeTick = nTickCount;
                     pPlayerData->dwAcceptTradeTick = nTickCount;
@@ -2553,7 +2553,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
             }
             case 3:
             {
-                if (sub_00597A20_IsBusy(pGame, pPlayer) || sub_00597A20_IsBusy(pGame, pInteractPlayer))
+                if (INVMODE_IsTradeBusy(pGame, pPlayer) || INVMODE_IsTradeBusy(pGame, pInteractPlayer))
                 {
                     const int nTradeState = pPlayerData->dwTradeState;
                     if (nTradeState == 7)
@@ -2566,24 +2566,24 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                     }
                     else
                     {
-                        sub_6FC91050(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 0xC);
+                        PLRTRADE_CancelTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 0xC);
                     }
                     return 0;
                 }
 
                 if (ACT4Q2_HasDiabloBeenKilled(pGame))
                 {
-                    sub_6FC91050(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
+                    PLRTRADE_CancelTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
                     return 0;
                 }
 
                 if (pPlayerData->dwTradeState != 2 || pInteractPlayerData->dwTradeState != 1)
                 {
-                    sub_6FC91050(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 0xC);
+                    PLRTRADE_CancelTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 0xC);
                     return 0;
                 }
 
-                sub_00567020_StartTrade(pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
+                PLRTRADE_SetTradeAccepted(pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
                 if (!PLRTRADE_AllocPlayerTrade(pGame, pPlayer))
                 {
                     D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB65), 0xC);
@@ -2604,21 +2604,21 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                 memcpy(tPacket78.szName, CLIENTS_GetName(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB76)), sizeof(tPacket78.szName));
                 tPacket78.szName[15] = 0;
                 tPacket78.dwPlayerGUID = pInteractPlayer->dwUnitId;
-                sub_0053CAD0_SendPacket0x78(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB79), &tPacket78);
+                D2GAME_PACKETS_SendPacket0x63_WaypointMenu(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB79), &tPacket78);
 
                 memcpy(tPacket78.szName, CLIENTS_GetName(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB7A)), sizeof(tPacket78.szName));
                 tPacket78.szName[15] = 0;
                 tPacket78.dwPlayerGUID = pPlayer->dwUnitId;
-                sub_0053CAD0_SendPacket0x78(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB7D), &tPacket78);
+                D2GAME_PACKETS_SendPacket0x63_WaypointMenu(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB7D), &tPacket78);
                 break;
             }
             case 8:
             {
                 if (nGold > (unsigned int)STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0))
                 {
-                    if (!sub_00597A20_IsBusy(pGame, pPlayer) && !sub_00597A20_IsBusy(pGame, pInteractPlayer))
+                    if (!INVMODE_IsTradeBusy(pGame, pPlayer) && !INVMODE_IsTradeBusy(pGame, pInteractPlayer))
                     {
-                        sub_6FC91050(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
+                        PLRTRADE_CancelTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
                     }
                 }
                 else
@@ -2642,11 +2642,11 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
             }
             case 4:
             {
-                if (!sub_00597A20_IsBusy(pGame, pPlayer) && !sub_00597A20_IsBusy(pGame, pInteractPlayer))
+                if (!INVMODE_IsTradeBusy(pGame, pPlayer) && !INVMODE_IsTradeBusy(pGame, pInteractPlayer))
                 {
                     if (ACT4Q2_HasDiabloBeenKilled(pGame))
                     {
-                        sub_6FC91050(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
+                        PLRTRADE_CancelTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData, 9);
                         return 0;
                     }
 
@@ -2674,7 +2674,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                         return 0;
                     }
 
-                    sub_00567C70_AcceptTrade(pGame, pInteractPlayer, pPlayerData, pInteractPlayerData, pPlayer);
+                    PLRTRADE_AcceptTrade(pGame, pInteractPlayer, pPlayerData, pInteractPlayerData, pPlayer);
                     const unsigned int nTickCount = GetTickCount();
                     pInteractPlayerData->dwAcceptTradeTick = nTickCount;
                     pPlayerData->dwAcceptTradeTick = nTickCount;
@@ -2705,7 +2705,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
         }
         else
         {
-            if (!sub_00597A20_IsBusy(pGame, pPlayer))
+            if (!INVMODE_IsTradeBusy(pGame, pPlayer))
             {
                 D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC06), 0xC);
             }
@@ -2763,7 +2763,7 @@ void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc
 }
 
 // 0x00568760
-void __fastcall sub_00568760_ResetPlayerInteract(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall PLRTRADE_StopInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     PLRTRADE_StopAllPlayerInteractions(pGame, pUnit);
 }
@@ -2797,18 +2797,18 @@ void __fastcall PLRTRADE_AddItemToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         ITEMS_RemoveFromAllPlayers(pGame, pDupeItem);
         D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
         D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
-        sub_6FC91050(pGame, pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2, 9);
+        PLRTRADE_CancelTrade(pGame, pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2, 9);
         return;
     }
 
-    if (sub_0055F590_CheckItem(pItem, ".\\PLAYER\\PlrTrade.cpp", 0xCB9))
+    if (D2GAME_CheckHasFilledSockets(pItem, ".\\PLAYER\\PlrTrade.cpp", 0xCB9))
     {
-        sub_6FC4B310(pGame, pOtherPlayer, pItem, pDupeItem, 1);
+        ITEMMODE_DuplicateSocketFillers(pGame, pOtherPlayer, pItem, pDupeItem, 1);
     }
 
     const int nDupeItemGUID = !pDupeItem ? -1 : pDupeItem->dwUnitId;
     const int nItemGUID = !pItem ? -1 : pItem->dwUnitId;
-    sub_00567350_AddItemTrade(pGame, nItemGUID, nDupeItemGUID, pPlayer);
+    PLRTRADE_AddItemTrade(pGame, nItemGUID, nDupeItemGUID, pPlayer);
 
     D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
     D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
@@ -2818,7 +2818,7 @@ void __fastcall PLRTRADE_AddItemToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCC8), 0, 1);
         D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCC9), 0, 0);
         D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCCA), 0, 1);
-        sub_00567020_StartTrade(pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2);
+        PLRTRADE_SetTradeAccepted(pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2);
     }
 }
 
@@ -2863,13 +2863,13 @@ void __fastcall PlayerTradeUpdate(D2GameStrc* game,D2UnitStrc* player,int unused
                 D2PlayerDataStrc* second=UNITS_GetPlayerData(other);
                 if ((first->dwTradeState==2 || first->dwTradeState==1)
                     && (second->dwTradeState==2 || second->dwTradeState==1)) {
-                    sub_6FC91050(game,player,other,first,second,12);
+                    PLRTRADE_CancelTrade(game,player,other,first,second,12);
                     const unsigned int tick=GetTickCount();
                     second->dwAcceptTradeTick=tick;
                     first->dwAcceptTradeTick=tick;
                     return;
-                } else if (!sub_00597A20_IsBusy(game,player) && !sub_00597A20_IsBusy(game,other)) {
-                    sub_6FC91050(game,player,other,first,second,12);
+                } else if (!INVMODE_IsTradeBusy(game,player) && !INVMODE_IsTradeBusy(game,other)) {
+                    PLRTRADE_CancelTrade(game,player,other,first,second,12);
                     const unsigned int tick=GetTickCount();
                     second->dwAcceptTradeTick=tick;
                     first->dwAcceptTradeTick=tick;
@@ -2916,7 +2916,7 @@ void __fastcall PlayerTradeUpdate(D2GameStrc* game,D2UnitStrc* player,int unused
 }
 
 // 0x00568D10
-void __fastcall sub_00568D10_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+void __fastcall PLRTRADE_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     PLRTRADE_AllocPlayerTrade(pGame, pPlayer);
     UNITS_RefreshInventory(pPlayer, 1);

@@ -71,7 +71,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int a2); // 0x005544B0
+void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* pUnit, int a2); // 0x005544B0
 
 int __fastcall SKILLS_RemoveStatesInGroup(D2UnitStrc* pUnit, int nState, int a3); // 0x0056C740
 
@@ -85,7 +85,7 @@ D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc* pGame, D2UnitSt
 
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);
 
-void __fastcall sub_00571B70_SkillUpdate(D2UnitStrc* pUnit, int nSkillId); // 0x00571B70
+void __fastcall SUNITMSG_QueueSkillStop(D2UnitStrc* pUnit, int nSkillId); // 0x00571B70
 
 void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005C6CC0
 
@@ -131,7 +131,7 @@ void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int
 
 int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill); // 0x00644530
 
-D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
+D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit); // 0x00535BC0
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
@@ -261,9 +261,9 @@ int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit);                   
 
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
 
-void __fastcall sub_6FC80A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
+void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
 
-void __fastcall sub_6FC80E10(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
+void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
 
 int __fastcall sub_005D8C70_AdvanceSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8C70
 
@@ -421,15 +421,15 @@ int __fastcall SKILLS_SrvDo009_Frenzy(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     {
         SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
         SUNITDMG_FreeAttackerDefenderCombatList(pGame, pUnit, pTarget);
-        sub_6FC80A30(pGame, pUnit);
-        sub_6FC80E10(pGame, pUnit);
+        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
+        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
         sub_005D8C70_AdvanceSkill(pGame, pUnit, nSkillId, nSkillLevel);
         return sub_005D8B10_ApplyToTarget(pGame, pUnit, pTarget, nSkillId, nSkillLevel);
     }
     pUnit->dwFlags |= SKILL_FLAG;
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
-    sub_6FC80A30(pGame, pUnit);
-    sub_6FC80E10(pGame, pUnit);
+    PLRMODE_HandleDepletedWeapons(pGame, pUnit);
+    PLRMODE_BreakDepletedWeapons(pGame, pUnit);
     sub_005D8C70_AdvanceSkill(pGame, pUnit, nSkillId, nSkillLevel);
     const int nAuraRange = SKILLS_GetMeleeSearchRange(pUnit);
     const int nTargetGUID = pTarget->dwUnitId;
@@ -472,7 +472,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
     if (!pSkill)
     {
-        sub_00571B70_SkillUpdate(pUnit, nSkillId);
+        SUNITMSG_QueueSkillStop(pUnit, nSkillId);
         return 0;
     }
 
@@ -480,7 +480,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     int nY;
     if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
     {
-        sub_00571B70_SkillUpdate(pUnit, nSkillId);
+        SUNITMSG_QueueSkillStop(pUnit, nSkillId);
         return 0;
     }
 
@@ -493,7 +493,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
         if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
         {
-            sub_00571B70_SkillUpdate(pUnit, nSkillId);
+            SUNITMSG_QueueSkillStop(pUnit, nSkillId);
             return SKILLS_StartBasicAttack(pGame, pUnit, pTarget);
         }
     }
@@ -508,7 +508,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     if (!pPath)
     {
-        sub_00571B70_SkillUpdate(pUnit, nSkillId);
+        SUNITMSG_QueueSkillStop(pUnit, nSkillId);
         return 0;
     }
 
@@ -519,7 +519,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
         if (!D2Common_10142(pPath, pUnit, 0))
         {
-            sub_00571B70_SkillUpdate(pUnit, nSkillId);
+            SUNITMSG_QueueSkillStop(pUnit, nSkillId);
             PATH_SetMoveTestCollisionMask(pPath, nMask);
             return 0;
         }
@@ -531,7 +531,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         const int nPathPoints = PATH_GetPathPoints((Obj006487D0*)pPath, (unsigned int**)&ppPathPoints);
         if (nPathPoints <= 0)
         {
-            sub_00571B70_SkillUpdate(pUnit, nSkillId);
+            SUNITMSG_QueueSkillStop(pUnit, nSkillId);
             PATH_SetMoveTestCollisionMask(pPath, nMask);
             return 0;
         }
@@ -541,7 +541,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     COLLISION_SetMaskWithPattern(UNITS_GetRoom(pUnit), nX, nY, PATH_GetUnitCollisionPattern(pUnit), bPlayer ? 0x80 : 0x100);
-    sub_6FCBDE90(pUnit, 1);
+    SUNIT_SetUninterruptable(pUnit, 1);
     STATES_ToggleState(pUnit, STATE_SKILL_MOVE, 1);
 
     SKILLS_SetFlags(pSkill, 1);
@@ -648,7 +648,7 @@ static int __stdcall SKILLS_GetWhirlwindHitCount(D2GameStrc* pGame, D2SkillStrc*
 
     int nCount = 1;
     int nDuration = 0;
-    D2UnitStrc* pWeapon = sub_6FC7C7B0(pUnit);
+    D2UnitStrc* pWeapon = PLAYER_GetWeaponForSkill(pUnit);
     if (!pWeapon)
     {
         nDuration = 10;
@@ -710,8 +710,8 @@ int __fastcall sub_M97_Emit_005D9320(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ski
 int __fastcall SKILLS_RemoveWhirlwindStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nSkillId, int nX, int nY)
 {
     SKILLS_SetFlags(pSkill, 0);
-    sub_6FCBDE90(pUnit, 0);
-    sub_00571B70_SkillUpdate(pUnit, nSkillId);
+    SUNIT_SetUninterruptable(pUnit, 0);
+    SUNITMSG_QueueSkillStop(pUnit, nSkillId);
 
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     if (!pPath)
@@ -1162,7 +1162,7 @@ int __fastcall SKILLS_SrvSt40_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
 
     D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
     COLLISION_SetMaskWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x80);
-    sub_6FCBDE90(pUnit, 1);
+    SUNIT_SetUninterruptable(pUnit, 1);
     STATES_ToggleState(pUnit, 0x12, 1);
     SKILLS_SetParam1(pSkill, nX);
     SKILLS_SetParam2(pSkill, nY);
@@ -1357,8 +1357,8 @@ static int __stdcall SKILLS_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitS
             EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 1, 0, 0);
         }
 
-        sub_6FCBDE90(pUnit, 0);
-        sub_00571B70_SkillUpdate(pUnit, SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillBar.cpp", 0x737));
+        SUNIT_SetUninterruptable(pUnit, 0);
+        SUNITMSG_QueueSkillStop(pUnit, SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillBar.cpp", 0x737));
         return 1;
     }
 
@@ -1539,7 +1539,7 @@ int __fastcall SKILLS_SrvSt41_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     const int nPattern = PATH_GetUnitCollisionPattern(pUnit);
     COLLISION_SetMaskWithPattern(pRoom, nX, nY, nPattern, 0x80);
 
-    sub_6FCBDE90(pUnit, 1);
+    SUNIT_SetUninterruptable(pUnit, 1);
     SKILLS_SetParam1(pSkill, nX);
     SKILLS_SetParam2(pSkill, nY);
 
@@ -1677,8 +1677,8 @@ int __fastcall SKILLS_SrvSt65_Throw_LeftHandThrow(D2GameStrc* pGame, D2UnitStrc*
 {
     if (!SKILLS_CanUseWeaponAmmo(pUnit))
     {
-        sub_6FC80A30(pGame, pUnit);
-        sub_6FC80E10(pGame, pUnit);
+        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
+        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
         return 0;
     }
 

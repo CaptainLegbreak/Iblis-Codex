@@ -187,7 +187,7 @@ struct D2GameStrc
     int unk0xEC;
     unsigned char unk_F0[0x1000];
     D2ObjectControlStrc* pObjectControl;
-    void sub_00546FF0_SendQuestText(const char* szText);                                                    // 0x00546FF0
+    void OBJRGN_BroadcastServerText(const char* szText);                                                    // 0x00546FF0
 };
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
@@ -216,7 +216,7 @@ struct D2BitBufferStrc
     int nPosBits;
     int bFull;
 
-    void sub_0053E2C0_WriteBool(int bValue);
+    void SCMD_WriteBitBufferBool(int bValue);
 };
 
 struct D2ObjectControlStrc
@@ -275,8 +275,8 @@ int __stdcall sub_0063E510_InventoryGridQuery(D2UnitStrc* pUnit, unsigned char* 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
-void __fastcall sub_005531E0_FixRoomIfInvalid(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005531E0
-void __fastcall sub_0053AAA0_UpdateRoomUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget); // 0x0053AAA0
+void __fastcall SUNIT_UpdateClientIfRoomInvalid(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005531E0
+void __fastcall LEVEL_ClearRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget); // 0x0053AAA0
 void __stdcall DUNGEON_ChangeClientRoom(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNewRoom); // 0x0061A110
 void __stdcall D2Common_10077(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNewRoom); // 0x0061A9F0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -303,7 +303,7 @@ __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 Unit* __stdcall sub_00537860(Client*,int); // 0x00537860
 Room* __fastcall sub_005545C0(Game*,Unit*); // 0x005545C0
 void __stdcall sub_00619790(Room*,Room***,unsigned int*); // 0x00619790
-void __fastcall sub_00571F90(Game*,Unit*,Client*); // 0x00571F90
+void __fastcall SUNITMSG_SendUnitToClient(Game*,Unit*,Client*); // 0x00571F90
 
 struct Obj00538650 { unsigned char bUnknown00[0x0A]; unsigned short wFlags0A; };
 
@@ -511,12 +511,12 @@ struct Obj00539310 { unsigned char bUnknown00[0x68]; unsigned int dwValue68; };
 
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom); // 0x005381F0
-void __fastcall sub_6FC7BFC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nPlayerGUID, D2CoordStrc* pCoord); // 0x005352C0
+void __fastcall PLAYER_PlaceCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nPlayerGUID, D2CoordStrc* pCoord); // 0x005352C0
 void __fastcall D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned short nPosX, unsigned short nPosY, unsigned char a7); // 0x0053BC10
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 void __fastcall D2GAME_PACKETS_SendPacket0x7E_6FC3F770(D2ClientStrc* pClient, int nUnused); // 0x0053DB70
 void __fastcall SUNIT_Add(D2UnitStrc* pUnit, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int bSkipRoomUpdate); // 0x00554850
-void __fastcall sub_005773D0_UpdateMercForOwnerMove(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005773D0
+void __fastcall SUNITNPC_UpdateHirelingPosition(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005773D0
 D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short wName, int nSeed, unsigned short wVersion, int nBaseMonster, int bDead); // 0x005774F0
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7);
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
@@ -560,7 +560,7 @@ struct Obj00539150 { unsigned char bUnknown00[0x464]; char szName464[1]; };
 
 struct Obj00539170 { unsigned char bUnknown00[0x464]; char szName464[1]; };
 
-static void __stdcall sub_00537D10_InsertUnitUpdate(D2UnitStrc* pRoomUnit, int nX, int nY, unsigned int* pMaxDistance, D2ClientStrc* pClient, unsigned int nUpdateSize, D2ClientUnitUpdateSortStrc* pSort);
+static void __stdcall CLIENTS_InsertPlayerUnitUpdate(D2UnitStrc* pRoomUnit, int nX, int nY, unsigned int* pMaxDistance, D2ClientStrc* pClient, unsigned int nUpdateSize, D2ClientUnitUpdateSortStrc* pSort);
 
 static int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit);
 static int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit);
@@ -602,7 +602,7 @@ void __fastcall CLIENTS_Release()
 }
 
 // 0x00537760
-D2ClientStrc* __fastcall sub_00537760_GetClientFromId(int nClientId)
+D2ClientStrc* __fastcall CLIENTS_GetLockedClientFromId(int nClientId)
 {
     EnterCriticalSection(&gClientListLock_008846A8);
     for (D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
@@ -617,7 +617,7 @@ D2ClientStrc* __fastcall sub_00537760_GetClientFromId(int nClientId)
 }
 
 // 0x005377A0
-void __fastcall sub_005377A0_UnlockClientList(int nClientId)
+void __fastcall CLIENTS_UnlockClientList(int nClientId)
 {
     LeaveCriticalSection(&gClientListLock_008846A8);
 }
@@ -689,7 +689,7 @@ void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* ptClient, D2UnitStrc* pU
 }
 
 // 0x005379A0
-void __fastcall sub_005379A0_ResetClient(D2ClientStrc* pClient)
+void __fastcall CLIENTS_SetGameData(D2ClientStrc* pClient)
 {
     pClient->nValue_08C = 0;
     pClient->nValue_088 = 0;
@@ -700,7 +700,7 @@ void __fastcall sub_005379A0_ResetClient(D2ClientStrc* pClient)
 }
 
 // 0x005379D0
-int __fastcall sub_005379D0_QueryGridFirst(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pGrid, unsigned int nSize)
+int __fastcall CLIENTS_GetPlayerGfxComponents(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pGrid, unsigned int nSize)
 {
     unsigned char abOther[16];
     D2_ASSERT(nSize >= 16 && pUnit, 0x3D4);
@@ -709,7 +709,7 @@ int __fastcall sub_005379D0_QueryGridFirst(D2GameStrc* pGame, D2UnitStrc* pUnit,
 }
 
 // 0x00537A40
-int __fastcall sub_00537A40_QueryGridSecond(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pGrid, unsigned int nSize)
+int __fastcall CLIENTS_GetPlayerGfxColors(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pGrid, unsigned int nSize)
 {
     unsigned char abOther[16];
     D2_ASSERT(nSize >= 16 && pUnit, 0x3DF);
@@ -718,7 +718,7 @@ int __fastcall sub_00537A40_QueryGridSecond(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x00537AB0
-static inline void sub_00537AB0_ChangeClientRooms(D2ActiveRoomStrc* pNewRoom, D2ActiveRoomStrc* pOldRoom)
+static inline void CLIENTS_MoveClientBetweenRooms(D2ActiveRoomStrc* pNewRoom, D2ActiveRoomStrc* pOldRoom)
 {
     DUNGEON_ChangeClientRoom(pOldRoom, pNewRoom);
     D2Common_10077(pOldRoom, pNewRoom);
@@ -728,13 +728,13 @@ void __fastcall sub_M124_Emit_00537AB0(D2ClientStrc* pClient, D2ActiveRoomStrc* 
 {
     if (pClient->hRoom != pRoom)
     {
-        sub_00537AB0_ChangeClientRooms(pRoom, pClient->hRoom);
+        CLIENTS_MoveClientBetweenRooms(pRoom, pClient->hRoom);
         pClient->hRoom = pRoom;
     }
 }
 
 // 0x00537B00
-static inline void sub_00537B00_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
+static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 {
     D2ActiveRoomStrc* pRoom = pClient->hRoom;
     if (pRoom && pClient->pPlayer)
@@ -747,7 +747,7 @@ static inline void sub_00537B00_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 }
 
 // 0x00537D10
-static void __stdcall sub_00537D10_InsertUnitUpdate(D2UnitStrc* pRoomUnit, int nX, int nY, unsigned int* pMaxDistance, D2ClientStrc* pClient, unsigned int nUpdateSize, D2ClientUnitUpdateSortStrc* pSort)
+static void __stdcall CLIENTS_InsertPlayerUnitUpdate(D2UnitStrc* pRoomUnit, int nX, int nY, unsigned int* pMaxDistance, D2ClientStrc* pClient, unsigned int nUpdateSize, D2ClientUnitUpdateSortStrc* pSort)
 {
     const int nType = pRoomUnit ? pRoomUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_PLAYER)
@@ -835,7 +835,7 @@ void __fastcall sub_M468_Emit_00537B00(D2ClientStrc* pClient, D2ActiveRoomStrc* 
 {
     pClient->hRoom = pRoom;
     pClient->nEmitterTag = 0x2D7;
-    sub_00537B00_UpdatePlayerPortalFlags(pClient);
+    CLIENTS_UpdatePlayerPortalFlags(pClient);
 }
 
 static int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit)
@@ -905,7 +905,7 @@ void __fastcall CLIENTS_RefreshUnitsUpdateList(D2ClientStrc* ptClient, unsigned 
     {
         for (D2UnitStrc* pRoomUnit = pAdjacentRoomsList[i]->pUnitFirst; pRoomUnit; pRoomUnit = pRoomUnit->ptRoomNext)
         {
-            sub_00537D10_InsertUnitUpdate(pRoomUnit, nPlayerX, nPlayerY, &nCurrentMaxDistance, ptClient, nUpdateSize, tUnitUpdatesSort);
+            CLIENTS_InsertPlayerUnitUpdate(pRoomUnit, nPlayerX, nPlayerY, &nCurrentMaxDistance, ptClient, nUpdateSize, tUnitUpdatesSort);
         }
     }
     CLIENTS_SetUnitsUpdateList(ptClient, tUnitUpdatesSort);
@@ -926,7 +926,7 @@ void __fastcall sub_005383E0(D2ClientStrc* pClient, unsigned char nValue)
 }
 
 // 0x00538410
-void __fastcall sub_00538410(Client* client,Unit* unit)
+void __fastcall CLIENTS_SendUnitIfOutsideAdjacentRooms(Client* client,Unit* unit)
 {
  Game* game=client->game;
  if(unit==sub_00537860(client,0)) return;
@@ -943,7 +943,7 @@ void __fastcall sub_00538410(Client* client,Unit* unit)
   ASSERT(room,2112);
   if(unitRoom==room) break;
  }
- if(i>=count) sub_00571F90(game,unit,client);
+ if(i>=count) SUNITMSG_SendUnitToClient(game,unit,client);
 }
 
 // 0x005385E0
@@ -952,7 +952,7 @@ void __cdecl sub_005385E0()
 }
 
 // 0x00538650
-extern "C" __declspec(dllexport) void __fastcall sub_00538650(Obj00538650* pObj, unsigned short wMask, int bSet) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_ToggleFlag(Obj00538650* pObj, unsigned short wMask, int bSet) {
     if (bSet) {
         pObj->wFlags0A |= wMask;
     } else {
@@ -988,14 +988,14 @@ void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nA
 }
 
 // 0x00538730
-int __fastcall sub_00538730(D2ClientStrc* pClient)
+int __fastcall CLIENTS_GetIronGolemItemGUID(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 0x989);
     return pClient->nIronGolemItemGUID;
 }
 
 // 0x00538860
-void __fastcall sub_00538860(D2ClientStrc* pClient, int bSet)
+void __fastcall CLIENTS_SetArenaFlag(D2ClientStrc* pClient, int bSet)
 {
     D2_ASSERT(pClient, 0x9F7);
     if (bSet)
@@ -1011,14 +1011,14 @@ void __fastcall sub_00538860(D2ClientStrc* pClient, int bSet)
 }
 
 // 0x005388C0
-unsigned int __fastcall sub_6FC33C10(D2ClientStrc* ptClient)
+unsigned int __fastcall CLIENTS_HasArenaFlag(D2ClientStrc* ptClient)
 {
     D2_ASSERT(ptClient, 0xA05);
     return (ptClient->nFlags >> 2) & 1;
 }
 
 // 0x00538900
-unsigned char __fastcall sub_00538900(D2ClientStrc* pClient)
+unsigned char __fastcall CLIENTS_GetCharTemplate(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 0xA11);
     return pClient->nByte0C;
@@ -1072,77 +1072,77 @@ int __fastcall CLIENTS_GetClientIdByName(const char* szName)
 }
 
 // 0x00539070
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_00539070(Obj00539070* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall CLIENTS_GetFirstClient(Obj00539070* pObj) {
     return pObj->dwValue88;
 }
 
 // 0x00539080
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_00539080(Obj00539080* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall CLIENTS_GetNext(Obj00539080* pObj) {
     return pObj->dwValue4A8;
 }
 
 // 0x00539090
-int __fastcall sub_00539090_GetClientState(D2ClientStrc* pClient)
+int __fastcall CLIENTS_GetClientState(D2ClientStrc* pClient)
 {
     return pClient->dwClientState;
 }
 
 // 0x00539110
-extern "C" __declspec(dllexport) unsigned short __fastcall sub_00539110(Obj00539110* pObj) {
+extern "C" __declspec(dllexport) unsigned short __fastcall CLIENTS_GetGuildFlags(Obj00539110* pObj) {
     return pObj->wValue45E;
 }
 
 // 0x00539120
-extern "C" __declspec(dllexport) void __fastcall sub_00539120(Obj00539120* pObj, unsigned short wValue) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_SetGuildFlags(Obj00539120* pObj, unsigned short wValue) {
     pObj->wValue45E = wValue;
 }
 
 // 0x00539130
-extern "C" __declspec(dllexport) void __fastcall sub_00539130(Obj00539130* pObj, unsigned int* pOut) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetGuildTag(Obj00539130* pObj, unsigned int* pOut) {
     *pOut = pObj->dwValue460;
 }
 
 // 0x00539140
-extern "C" __declspec(dllexport) void __fastcall sub_00539140(Obj00539140* pObj, const unsigned int* pIn) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_SetGuildTag(Obj00539140* pObj, const unsigned int* pIn) {
     pObj->dwValue460 = *pIn;
 }
 
 // 0x00539150
-extern "C" __declspec(dllexport) void __fastcall sub_00539150(Obj00539150* pObj, char* pDst) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetGuildName(Obj00539150* pObj, char* pDst) {
     strcpy(pDst, pObj->szName464);
 }
 
 // 0x00539170
-extern "C" __declspec(dllexport) void __fastcall sub_00539170(Obj00539170* pObj, const char* pSrc) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_SetGuildName(Obj00539170* pObj, const char* pSrc) {
     strcpy(pObj->szName464, pSrc);
 }
 
 // 0x00539190
-extern "C" __declspec(dllexport) void __fastcall sub_00539190(Obj00539190* pObj, unsigned char* p0, unsigned char* p1, unsigned char* p2) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetGuildEmblem(Obj00539190* pObj, unsigned char* p0, unsigned char* p1, unsigned char* p2) {
     *p0 = pObj->b480;
     *p1 = pObj->b481;
     *p2 = pObj->b482;
 }
 
 // 0x005391C0
-extern "C" __declspec(dllexport) void __fastcall sub_005391C0(Obj005391C0* pObj, unsigned char b0, unsigned char b1, unsigned char b2) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_SetGuildEmblem(Obj005391C0* pObj, unsigned char b0, unsigned char b1, unsigned char b2) {
     pObj->b480 = b0;
     pObj->b481 = b1;
     pObj->b482 = b2;
 }
 
 // 0x00539210
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_00539210(Obj00539210* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall CLIENTS_GetExperienceLoss(Obj00539210* pObj) {
     return pObj->dwValue508;
 }
 
 // 0x00539220
-extern "C" __declspec(dllexport) unsigned char __fastcall sub_00539220(Obj00539220* pObj) {
+extern "C" __declspec(dllexport) unsigned char __fastcall CLIENTS_GetWeaponSwitch(Obj00539220* pObj) {
     return pObj->nValue45C;
 }
 
 // 0x00539230
-extern "C" __declspec(dllexport) void __fastcall sub_00539230(Obj00539230* pObj, unsigned char nValue) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_SetWeaponSwitch(Obj00539230* pObj, unsigned char nValue) {
     pObj->nValue45C = nValue;
 }
 
@@ -1181,22 +1181,22 @@ void __fastcall CLIENTS_PacketDataList_Reset(D2ClientStrc* pClient, D2PacketData
 }
 
 // 0x005392D0
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_005392D0(Obj005392D0* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall CLIENTS_PacketDataList_GetTail(Obj005392D0* pObj) {
     return pObj->dwValue1BC;
 }
 
 // 0x005392E0
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_005392E0(Obj005392E0* pObj) {
+extern "C" __declspec(dllexport) unsigned int __fastcall CLIENTS_PacketDataList_GetHead(Obj005392E0* pObj) {
     return pObj->dwValue1B8;
 }
 
 // 0x00539300
-extern "C" __declspec(dllexport) void __fastcall sub_00539300(Obj00539300* pObj, unsigned int* pOut) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetCharSaveTransactionToken(Obj00539300* pObj, unsigned int* pOut) {
     *pOut = pObj->dwValue60;
 }
 
 // 0x00539310
-extern "C" __declspec(dllexport) void __fastcall sub_00539310(Obj00539310* pObj, unsigned int* pOut) {
+extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetClientInfo(Obj00539310* pObj, unsigned int* pOut) {
     *pOut = pObj->dwValue68;
 }
 
@@ -1261,14 +1261,14 @@ void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameS
                 D2CoordStrc tCoord;
                 tCoord.nX = nCorpseX;
                 tCoord.nY = nCorpseY;
-                sub_6FC7BFC0(pGame, pSpawnRoom, nCorpseGUID, &tCoord);
+                PLAYER_PlaceCorpse(pGame, pSpawnRoom, nCorpseGUID, &tCoord);
             }
 
             pCorpse = INVENTORY_GetNextCorpse(pCorpse);
         }
     }
 
-    sub_005773D0_UpdateMercForOwnerMove(pGame, pPlayer);
+    SUNITNPC_UpdateHirelingPosition(pGame, pPlayer);
 
     const int nIronGolemItemGUID = pClient->nIronGolemItemGUID;
     if (nIronGolemItemGUID && nIronGolemItemGUID != -1)
@@ -1373,11 +1373,11 @@ inline void W11_InlineFixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClien
 {
     D2_ASSERT(pRoom, 0x62);
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-        sub_005531E0_FixRoomIfInvalid(pUnit, pClient);
+        SUNIT_UpdateClientIfRoomInvalid(pUnit, pClient);
 }
 
 // 0x0053A6F0
-void __fastcall sub_0053A6F0_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+void __fastcall LEVEL_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
 {
     D2_ASSERT(pRoom, 0x75);
     D2ActiveRoomStrc** ppRoomList;
@@ -1388,24 +1388,24 @@ void __fastcall sub_0053A6F0_FixAdjacentRoomUnits(D2ActiveRoomStrc* pRoom, D2Cli
 }
 
 // 0x0053AB10
-void __fastcall sub_0053AB10_UpdateAdjacentRoomUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
+void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
 {
     D2_ASSERT(pRoom, 0x141);
     D2ActiveRoomStrc** ppRoomList;
     unsigned int nNumRooms;
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
     for (unsigned int i = 0; i < nNumRooms; ++i)
-        sub_0053AAA0_UpdateRoomUnits(pGame, ppRoomList[i], pTarget);
+        LEVEL_ClearRoomUnitTargets(pGame, ppRoomList[i], pTarget);
 }
 
 // 0x0053E2C0
-void D2BitBufferStrc::sub_0053E2C0_WriteBool(int bValue)
+void D2BitBufferStrc::SCMD_WriteBitBufferBool(int bValue)
 {
     BITMANIP_Write(this, bValue != 0, 1);
 }
 
 // 0x00547080
-void __fastcall sub_00547080_PrintObjectPlacementStats(D2GameStrc* pGame)
+void __fastcall OBJRGN_PrintObjectPlacementStats(D2GameStrc* pGame)
 {
     char szText[0x80];
     D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
@@ -1414,17 +1414,17 @@ void __fastcall sub_00547080_PrintObjectPlacementStats(D2GameStrc* pGame)
         if (pObjectControl->wGroupCount[i])
         {
             wsprintfA(szText, "Attempted to place group %d %d times\n", i, pObjectControl->wGroupCount[i]);
-            pGame->sub_00546FF0_SendQuestText(szText);
+            pGame->OBJRGN_BroadcastServerText(szText);
         }
     }
     wsprintfA(szText, "%d Rooms where we wanted to place - no group beat the odds\n", pObjectControl->wRoomsNoGroup);
-    pGame->sub_00546FF0_SendQuestText(szText);
+    pGame->OBJRGN_BroadcastServerText(szText);
     wsprintfA(szText, "%d rooms tried to place 1+ group(s); %d rooms w/no objs\n", pObjectControl->wRoomsTried, pObjectControl->wGroupCount[0]);
-    pGame->sub_00546FF0_SendQuestText(szText);
+    pGame->OBJRGN_BroadcastServerText(szText);
 }
 
 // 0x00552840
-void __fastcall sub_00552840_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjectId)
+void __fastcall OBJECTS_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjectId)
 {
     if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
         return;
@@ -1438,7 +1438,7 @@ void __fastcall sub_00552840_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc*
 }
 
 // 0x005536E0
-void __fastcall sub_005536E0_StoreRoomTile(D2W11RoomTileOwnerStrc* pOwner, D2ActiveRoomStrc* pRoom, int nArg1, int nArg2)
+void __fastcall SUNIT_StoreRoomTile(D2W11RoomTileOwnerStrc* pOwner, D2ActiveRoomStrc* pRoom, int nArg1, int nArg2)
 {
     pOwner->pRecord->nArg1 = nArg1;
     pOwner->pRecord->nArg2 = nArg2;
@@ -1449,7 +1449,7 @@ void __fastcall sub_005536E0_StoreRoomTile(D2W11RoomTileOwnerStrc* pOwner, D2Act
 }
 
 // 0x005B7230
-void __fastcall sub_005B7230_ChangeQuestMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
+void __fastcall ACT3Q0_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x0E);
     if (!pQuestData)
@@ -1467,7 +1467,7 @@ void __fastcall sub_005B7230_ChangeQuestMapAI(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005BD040
-void __fastcall sub_005BD040_ChangeQuestMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
+void __fastcall ACT3Q6_ChangeNatalyaMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x14);
     if (!pQuestData)

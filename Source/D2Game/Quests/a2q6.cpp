@@ -61,7 +61,7 @@ void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQues
 
 int __fastcall ACT2Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059C710
 
-int __fastcall sub_0059D720_ACT2Q6_GetArcaneThingObjectId(D2QuestDataStrc* pQuestData); // 0x0059D720
+int __fastcall ACT2Q6_GetTombArcaneThingObjectId(D2QuestDataStrc* pQuestData); // 0x0059D720
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -172,7 +172,7 @@ typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArg
 
 typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile); // 0x005550B0
+void __fastcall SUNIT_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile); // 0x005550B0
 
 typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -247,7 +247,7 @@ int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
 void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
-void __fastcall sub_0053D8D0_SendPacket0x58(D2ClientStrc* pClient, D2GSPacketSrv58* pPacket); // 0x0053D8D0
+void __fastcall D2GAME_SendPacket0x58(D2ClientStrc* pClient, D2GSPacketSrv58* pPacket); // 0x0053D8D0
 
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
 
@@ -257,7 +257,7 @@ void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, con
 
 void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x00545760
 
-void __fastcall sub_00545990(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
+void __fastcall D2Game_10034_Return(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -275,7 +275,7 @@ int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2Unit
 
 D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
 
-bool __fastcall sub_0059CEE0(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x0059CEE0
+bool __fastcall ACT2Q6_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x0059CEE0
 
 void __fastcall ACT2Q6_UnitIterate_SetCustom1Flag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059CF20
 
@@ -289,7 +289,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 extern "C" const char gszA2Q6SourceFile[]; // 0x006E2068
 
-static void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags); // 0x0059C810
+static void __stdcall ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags); // 0x0059C810
 
 void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
 
@@ -307,7 +307,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, 
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
 
-bool __fastcall sub_0059AC80_ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest);                              // 0x0059AC80
+bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest);                              // 0x0059AC80
 
 // 0x005945F0
 void __fastcall ACT1Q4_OnCainInTownActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -332,7 +332,7 @@ int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame)
 }
 
 // 0x005956C0
-void __fastcall sub_005956C0_ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+void __fastcall ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     ACT1Q5_SpawnTowerChestMissiles(pQuestData, (D2Act1Quest5Strc*)pQuestData->pQuestDataEx);
 
@@ -343,7 +343,7 @@ void __fastcall sub_005956C0_ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* 
 }
 
 // 0x0059AC80
-bool __fastcall sub_0059AC80_ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest)
+bool __fastcall ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pQuest->pGame, 10);
     if (pQuestData)
@@ -458,7 +458,7 @@ void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
 }
 
 // 0x0059C3C0
-void __fastcall sub_0059C3C0_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+void __fastcall ACT2Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
@@ -544,7 +544,7 @@ void __fastcall sub_0059C3C0_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArg
 }
 
 // 0x0059C6C0
-int __fastcall sub_0059C6C0_ACT2Q6_UpdateRewardFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
+int __fastcall ACT2Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, 0x0E, 0) != 1)
@@ -566,7 +566,7 @@ void __fastcall ACT2Q6_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
 }
 
 // 0x0059C810
-static void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
+static void __stdcall ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
 {
     QUESTRECORD_SetQuestState(pQuestFlags, 14, 13);
     QUESTRECORD_SetQuestState(pQuestFlags, 14, 3);
@@ -598,7 +598,7 @@ int __fastcall ACT2Q6_UnitIterate_SetLeaveTownFlag(D2GameStrc* pGame, D2UnitStrc
         && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 4)
         && bInLair)
     {
-        sub_0059C810_FinishDurielQuest(pGame, pUnit, pQuestFlags);
+        ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(pGame, pUnit, pQuestFlags);
     }
 
     return 0;
@@ -636,7 +636,7 @@ void __fastcall ACT2Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
         return;
     }
 
-    sub_0059C810_FinishDurielQuest(pGame, pUnit, pQuestFlags);
+    ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(pGame, pUnit, pQuestFlags);
 }
 
 // 0x0059CA50
@@ -781,7 +781,7 @@ void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     if (pQuestData->bNotIntro)
     {
         QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 0x308);
-        QUESTS_CreateTimer(pQuestData, sub_0059CEE0, 8);
+        QUESTS_CreateTimer(pQuestData, ACT2Q6_Timer_StatusCycler, 8);
 
         if (pQuestArg->pPlayer)
         {
@@ -800,7 +800,7 @@ void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
                     PARTY_IteratePartyMembers(pQuestArg->pGame, nPartyId, (PartyCallbackFunction)ACT2Q6_UnitIterate_SetCustom1Flag, 0);
                 }
 
-                sub_00545990(pQuestData, pQuestArg, 0x3D);
+                D2Game_10034_Return(pQuestData, pQuestArg, 0x3D);
             }
         }
     }
@@ -889,7 +889,7 @@ void __fastcall ACT2Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 }
 
 // 0x0059D5B0
-void __fastcall sub_0059D5B0(Quest* quest)
+void __fastcall ACT2Q6_InitQuestData(Quest* quest)
 {
     memset(quest->callbacks,0,sizeof(quest->callbacks));
     quest->callbacks[3]=sub_0059D1C0;
@@ -942,7 +942,7 @@ void __fastcall ACT2Q6_SendTombIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x0059D7C0
-bool __fastcall sub_0059D7C0_ACT2Q6_IsStateBelow2Inactive(D2GameStrc* pGame)
+bool __fastcall ACT2Q6_IsJerhynTalkDone(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 13);
     if (pQuestData && pQuestData->bNotIntro && pQuestData->fState < 2)
@@ -954,7 +954,7 @@ bool __fastcall sub_0059D7C0_ACT2Q6_IsStateBelow2Inactive(D2GameStrc* pGame)
 }
 
 // 0x0059D7E0
-unsigned char __fastcall sub_0059D7E0_ACT2Q6_IsStateOne(D2GameStrc* pGame)
+unsigned char __fastcall ACT2Q6_IsAwaitingJerhynTalk(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q6_DURIEL);
     if (pQuestData && pQuestData->bNotIntro && pQuestData->fState == 1)
@@ -986,14 +986,14 @@ int __fastcall ACT2Q6_GetObjectIdForArcaneThing(D2GameStrc* pGame)
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 13);
     if (pQuestData)
     {
-        return sub_0059D720_ACT2Q6_GetArcaneThingObjectId(pQuestData);
+        return ACT2Q6_GetTombArcaneThingObjectId(pQuestData);
     }
 
     return 0x133;
 }
 
 // 0x0059D850
-unsigned char __fastcall sub_0059D850_ACT2Q6_IsTombOpen(D2QuestArgStrc* pQuestArg)
+unsigned char __fastcall ACT2Q6_IsTombOpen(D2QuestArgStrc* pQuestArg)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pQuestArg->pGame, QUEST_A2Q6_DURIEL);
     if (pQuestData && pQuestData->bNotIntro)
@@ -1010,13 +1010,13 @@ void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp)
     {
         if (i->dwUnitType == UNIT_TILE)
         {
-            sub_005550B0_WarpPlayer(pOp->pGame, pOp->hPlayer, i);
+            SUNIT_WarpPlayer(pOp->pGame, pOp->hPlayer, i);
         }
     }
 }
 
 // 0x0059DA10
-int __fastcall sub_0059DA10_ACT2Q6_OperateTombPortal(D2ObjOperateFnStrc* pOp, int nOperate)
+int __fastcall ACT2Q6_OperateTombPortal(D2ObjOperateFnStrc* pOp, int nOperate)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q6_DURIEL);
     if (!pQuestData || pQuestData->bNotIntro != 1 || ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bDurielLairTombOpen)
@@ -1030,7 +1030,7 @@ int __fastcall sub_0059DA10_ACT2Q6_OperateTombPortal(D2ObjOperateFnStrc* pOp, in
 }
 
 // 0x0059DA50
-void __fastcall sub_0059DA50(D2ObjInitFnStrc* pOp)
+void __fastcall OBJECTS_InitFunction37_Unused(D2ObjInitFnStrc* pOp)
 {
     D2QuestDataStrc* q=QUESTS_GetQuestData(pOp->pGame,13);
     if(q)
@@ -1175,7 +1175,7 @@ int __fastcall OBJECTS_OperateFunction25_StaffOrifice(D2ObjOperateFnStrc* pOp, i
         const int nUnitId = !pOp->hObject ? -1 : pOp->hObject->dwUnitId;
         packet58.nUnitId = nUnitId;
         packet58.unk0x05 = 0;
-        sub_0053D8D0_SendPacket0x58(pClient, &packet58);
+        D2GAME_SendPacket0x58(pClient, &packet58);
         break;
     }
     case 1:
@@ -1215,7 +1215,7 @@ int __fastcall ACT2Q6_IsInRangeOfTyrael(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x0059DFB0
-bool __fastcall sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive(D2GameStrc* pGame)
+bool __fastcall ACT2Q6_IsTyraelPortalOpened(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 13);
     if (pQuestData && pQuestData->bNotIntro && pQuestData->fState < 4)
@@ -1253,7 +1253,7 @@ int __fastcall ACT2Q6_ActivateTomb(D2GameStrc* pGame, D2CoordStrc* pCoord, D2Act
 }
 
 // 0x0059E060
-void __fastcall sub_0059E060_ACT2Q6_SetPortalState(D2QuestDataStrc* pQuest, unsigned char bClear)
+void __fastcall ACT2Q6_SetPortalState(D2QuestDataStrc* pQuest, unsigned char bClear)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pQuest->pGame, QUEST_A2Q6_DURIEL);
     if (!pQuestData || !pQuestData->bNotIntro)
@@ -1285,7 +1285,7 @@ void __fastcall sub_0059E060_ACT2Q6_SetPortalState(D2QuestDataStrc* pQuest, unsi
 }
 
 // 0x0059E2A0
-void __fastcall sub_0059E2A0_ACT2Q7_Callback08_Empty(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+void __fastcall ACT2Q7_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
 }
 

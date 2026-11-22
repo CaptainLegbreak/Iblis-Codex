@@ -45,8 +45,8 @@ int __fastcall sub_0051A660_SendLogonResponse2(const char* szName, const char* s
 int __fastcall sub_0051A740_SendCreateAccount2(const char* szName, const char* szPassword); // 0x0051A740
 int __cdecl sub_0051AF20_SendPacket10(); // 0x0051AF20
 int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
-int __cdecl sub_00520B10(); // 0x00520B10
-int __cdecl sub_00520B20(); // 0x00520B20
+int __cdecl BNCLIENT_GetCreateAccountResult(); // 0x00520B10
+int __cdecl BNCLIENT_GetChangePasswordResult(); // 0x00520B20
 int __fastcall sub_00521F60_SendLogon(const char* szName, const char* szPassword); // 0x00521F60
 int __fastcall sub_00522130_SendCreateAccount(const char* szName, const char* szPassword); // 0x00522130
 
@@ -251,7 +251,7 @@ int __fastcall sub_0051C2D0_CreateAccount(const char* szName, const char* szPass
 // 0x0051C320
 int __fastcall sub_0051C320_GetCreateAccountResult(int* pResult)
 {
-    *pResult = sub_00520B10();
+    *pResult = BNCLIENT_GetCreateAccountResult();
     switch (sub_0051A570_GetMode())
     {
     case 0:
@@ -265,7 +265,7 @@ int __fastcall sub_0051C320_GetCreateAccountResult(int* pResult)
 // 0x0051C3B0
 int __fastcall sub_0051C3B0_GetChangePasswordResult(int* pResult)
 {
-    *pResult = sub_00520B20();
+    *pResult = BNCLIENT_GetChangePasswordResult();
     switch (sub_0051A570_GetMode())
     {
     case 0:

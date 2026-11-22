@@ -26,7 +26,7 @@ void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned shor
 void __stdcall D2Common_10513(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, StatListUnitCallback pfCallback);     // 0x006258D0
 void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventory); // 0x00597890
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
-int __fastcall sub_6FC82360(D2UnitStrc* pUnit, D2UnitStrc* pUnit2, int bSkipHpCheck);                       // 0x00548760
+int __fastcall PLRMSG_SendPlayerStatUpdates(D2UnitStrc* pUnit, D2UnitStrc* pUnit2, int bSkipHpCheck);                       // 0x00548760
 void __fastcall D2GAME_INVMODE_Last_6FC416D0(D2GameStrc* pGame, D2UnitStrc* pUnit);                         // 0x00597B00
 void __fastcall ACT5Q3_ApplyResistanceReward(D2GameStrc* pGame, D2UnitStrc* pUnit);                         // 0x0058A0A0
 
@@ -123,7 +123,7 @@ int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame,
         D2GAME_PACKETS_SendPacket0x23_6FC3DC60(ptClient, !pPlayer ? UNIT_INVALID : pPlayer->dwUnitType, !pPlayer ? 0xFFFFFFFFu : (unsigned int)pPlayer->dwUnitId, 0, (unsigned short)pPlayerData->nRightSkillId, pPlayerData->nRightSkillFlags);
     }
     D2Common_10513(pPlayer, pPlayer, (StatListUnitCallback)D2GAME_UpdateAttribute_6FC822D0);
-    sub_6FC82360(pPlayer, pPlayer, 1);
+    PLRMSG_SendPlayerStatUpdates(pPlayer, pPlayer, 1);
     D2GAME_INVMODE_Last_6FC416D0(ptGame, pPlayer);
     if (ptGame->bExpansion)
     {

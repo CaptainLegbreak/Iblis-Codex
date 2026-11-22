@@ -64,7 +64,7 @@ int __fastcall ACT1Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 }
 
 // 0x00595B80
-void __fastcall sub_00595B80_HandleNpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+void __fastcall ACT1Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
     if (pQuestArg->pTarget && (unsigned short)pQuestArg->pTarget->dwClassId == 265)
     {

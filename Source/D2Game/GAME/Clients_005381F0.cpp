@@ -27,7 +27,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient);         // 0x0053A8E0
 void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient);      // 0x0053A9B0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);               // 0x00552F60
-void __fastcall sub_6FC81650(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4);          // 0x00580860
+void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4);          // 0x00580860
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags);                             // 0x006221E0
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath);                 // 0x00537860
@@ -152,7 +152,7 @@ static void __stdcall sub_00537B50_ChangeClientRoom(D2ActiveRoomStrc* pRoom, D2C
             LEVEL_RemoveClient(pClient->pGame, ppClientAdjacentRooms[i], pClient);
             if (pClient->hRoom == ppClientAdjacentRooms[i])
             {
-                sub_6FC81650(pClient->pGame, sub_M08_GetClientPlayerUnit(pClient), pClient, 0);
+                PLRMODE_SendPlayerUpdates(pClient->pGame, sub_M08_GetClientPlayerUnit(pClient), pClient, 0);
             }
         }
     }
@@ -169,7 +169,7 @@ static inline int sub_M08_GetUnitFlagEx21(D2UnitStrc* pUnit)
     return (pUnit->dwFlagEx >> 21) & 1;
 }
 
-void __fastcall sub_6FC33670(D2GameStrc* pGame, D2ClientStrc* pClient)
+void __fastcall CLIENTS_SynchronizePlayer(D2GameStrc* pGame, D2ClientStrc* pClient)
 {
     if (!pGame || !pClient)
     {
@@ -226,7 +226,7 @@ static void sub_M08_RemoveUnitFromRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
     SUNIT_RemoveUnit(pGame, pUnit);
 }
 
-void __fastcall sub_0053A2F0_ResetClientInAct(D2ClientStrc* pClient, int nAct)
+void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
 {
     D2_ASSERT(pClient, 2386);
     pClient->nClassId = nAct;

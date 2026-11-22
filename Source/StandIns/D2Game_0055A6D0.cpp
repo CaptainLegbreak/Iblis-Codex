@@ -195,7 +195,7 @@ int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode); // 0x00633680
 D2ItemRatioTxt* __stdcall DATATBLS_GetItemRatioTxtRecord(int nItemId, unsigned char nDifficulty, unsigned short nVersion); // 0x00637910
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromIdAndLevel(unsigned short wTCId, int nLvl); // 0x00654E00
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-int __fastcall sub_00558610_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2); // 0x00558610
+int __fastcall ITEMS_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2); // 0x00558610
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 
 // 0x0045C370
@@ -218,7 +218,7 @@ static __forceinline D2ItemTypesTxt* sub_C03_GetItemTypesTxtRecord(int nItemType
 }
 
 // 0x005585D0
-static int sub_005585D0_GetMagicFindBonus(D2UnitStrc* pPlayer)
+static int ITEMS_GetMagicFindBonus(D2UnitStrc* pPlayer)
 {
     if (pPlayer && (unsigned int)pPlayer->dwUnitType <= 1)
     {
@@ -234,7 +234,7 @@ static int sub_005585D0_GetMagicFindBonus(D2UnitStrc* pPlayer)
 }
 
 // 0x00558640
-static int __stdcall sub_00558640_RollItemQuality(int nItemLevel, D2GameStrc* pGame, int nItemId, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods)
+static int __stdcall ITEMS_RollDropQuality(int nItemLevel, D2GameStrc* pGame, int nItemId, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods)
 {
     int bMagicFind = 0;
     int nChance;
@@ -270,7 +270,7 @@ static int __stdcall sub_00558640_RollItemQuality(int nItemLevel, D2GameStrc* pG
     D2_ASSERT(pItemRatioTxtRecord, 0xE8D);
 
     const int nLevel = nItemLevel - pItemsTxtRecord->nLevel;
-    int nMagicFind = sub_005585D0_GetMagicFindBonus(pPlayer);
+    int nMagicFind = ITEMS_GetMagicFindBonus(pPlayer);
     if (nMagicFind)
     {
         if (nMagicFind <= -100)
@@ -286,7 +286,7 @@ static int __stdcall sub_00558640_RollItemQuality(int nItemLevel, D2GameStrc* pG
     nChance = (pItemRatioTxtRecord->dwUnique - nLevel / pItemRatioTxtRecord->dwUniqueDivisor) * 128;
     if (bMagicFind)
     {
-        const int nDiminished = sub_00558610_GetDiminishedMagicFind(nMagicFind, 250, 250);
+        const int nDiminished = ITEMS_GetDiminishedMagicFind(nMagicFind, 250, 250);
         if (nDiminished)
         {
             nChance = nChance * 100 / nDiminished;
@@ -312,7 +312,7 @@ static int __stdcall sub_00558640_RollItemQuality(int nItemLevel, D2GameStrc* pG
     nChance = (pItemRatioTxtRecord->dwSet - nLevel / pItemRatioTxtRecord->dwSetDivisor) * 128;
     if (bMagicFind)
     {
-        const int nDiminished = sub_00558610_GetDiminishedMagicFind(nMagicFind, 500, 500);
+        const int nDiminished = ITEMS_GetDiminishedMagicFind(nMagicFind, 500, 500);
         if (nDiminished)
         {
             nChance = nChance * 100 / nDiminished;
@@ -340,7 +340,7 @@ static int __stdcall sub_00558640_RollItemQuality(int nItemLevel, D2GameStrc* pG
         nChance = (pItemRatioTxtRecord->dwRare - nLevel / pItemRatioTxtRecord->dwRareDivisor) * 128;
         if (bMagicFind)
         {
-            const int nDiminished = sub_00558610_GetDiminishedMagicFind(nMagicFind, 600, 600);
+            const int nDiminished = ITEMS_GetDiminishedMagicFind(nMagicFind, 600, 600);
             if (nDiminished)
             {
                 nChance = nChance * 100 / nDiminished;
@@ -413,7 +413,7 @@ LABEL_SUPERIOR:
 }
 
 // 0x005589A0
-static void sub_005589A0_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+static void ITEMS_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
     if (pPlayer && pItem && ITEMS_GetItemType(pItem) == 4)
     {
@@ -430,7 +430,7 @@ static void sub_005589A0_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 }
 
 // 0x0055A550
-static D2UnitStrc* __stdcall sub_0055A550_CreateDropAtUnit(D2UnitStrc* pUnit, int nItemId, D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags)
+static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2UnitStrc* pUnit, int nItemId, D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags)
 {
     if (nItemId < 0)
     {
@@ -765,7 +765,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
             {
                 if (!nQuality)
                 {
-                    nItemQuality = sub_00558640_RollItemQuality(nLvl, pGame, nItemId, pMonster, pPlayer, (D2QualityModsStrc*)&tcArray[nCounter].tMods);
+                    nItemQuality = ITEMS_RollDropQuality(nLvl, pGame, nItemId, pMonster, pPlayer, (D2QualityModsStrc*)&tcArray[nCounter].tMods);
                 }
                 else
                 {
@@ -802,7 +802,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 nItemId = DATATBLS_GetItemIdFromItemCode(0x2064736C);
             }
 
-            D2UnitStrc* pItem = sub_0055A550_CreateDropAtUnit(pMonster, nItemId, pGame, nItemQuality, nItemIndex, nFlags);
+            D2UnitStrc* pItem = ITEMS_CreateDropAtUnit(pMonster, nItemId, pGame, nItemQuality, nItemIndex, nFlags);
             if (!pItem)
             {
                 continue;
@@ -824,7 +824,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 return;
             }
 
-            sub_005589A0_ApplyGoldFind(pPlayer, pItem);
+            ITEMS_ApplyGoldFind(pPlayer, pItem);
         }
     }
 }

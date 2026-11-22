@@ -52,7 +52,7 @@ void __fastcall D2GAME_SendP0x9D_ItemAction_Unknown0x14_6FC3EEC0(D2ClientStrc* p
 
 void __fastcall D2GAME_SendP0x9D_ItemAction_UpdateStats_6FC3EFA0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053D420
 
-void __fastcall sub_6FC3EFC0(D2ClientStrc* pClient, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int a4, int a5); // 0x0053D440
+void __fastcall SCMD_SendItemFlagUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int a4, int a5); // 0x0053D440
 
 void __fastcall D2GAME_SendP0x9D_ItemAction_Unknown0x16_6FC3F040(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053D4B0
 
@@ -120,21 +120,21 @@ void __fastcall D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0(D2ClientStrc* pClient, un
 
 void __fastcall D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned short nPosX, unsigned short nPosY, unsigned char a7); // 0x0053BC10
 
-void __fastcall sub_6FC3F4D0(D2ClientStrc* pClient, int a2, unsigned char a3, unsigned short a4, unsigned short a5, unsigned short a6, unsigned short a7); // 0x0053D880
+void __fastcall SCMD_SendUniqueMonsterInfo(D2ClientStrc* pClient, int a2, unsigned char a3, unsigned short a4, unsigned short a5, unsigned short a6, unsigned short a7); // 0x0053D880
 
 void __fastcall SUNITPROXY_UpdateGambleInventory(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPlayer, D2ClientStrc* pClient); // 0x00537680
 
-void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
+void __fastcall SUNIT_SynchronizeRoomClients(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 
 void __fastcall D2GAME_STATES_SendStates_6FCC5F00(D2UnitStrc* pUnit, D2ClientStrc* pClient, int bPlayer); // 0x00571580
 
-void __fastcall sub_6FCC5F20(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005715A0
+void __fastcall SUNITMSG_SendOverlay(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005715A0
 
-void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
+void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
 
 void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571740
 
-void __fastcall sub_6FCC6540(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571CD0
+void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571CD0
 
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 
@@ -169,7 +169,7 @@ inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // 0x005973F0
-static int sub_6FC410E0(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pUnused, D2ClientStrc* pClient)
+static int INVMODE_SendItemToClient(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pUnused, D2ClientStrc* pClient)
 {
     D2UnitStrc* pClientPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     D2GameStrc* pGame = CLIENTS_GetGame(pClient);
@@ -304,14 +304,14 @@ static int sub_6FC410E0(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pUnu
         {
             return 0;
         }
-        sub_6FC3EFC0(pClient, pPlayer, pItem, IFLAG_BROKEN, ITEMS_CheckItemFlag(pItem, IFLAG_BROKEN, 193, ".\\INVENTORY\\InvMode.cpp"));
+        SCMD_SendItemFlagUpdate(pClient, pPlayer, pItem, IFLAG_BROKEN, ITEMS_CheckItemFlag(pItem, IFLAG_BROKEN, 193, ".\\INVENTORY\\InvMode.cpp"));
         return 1;
     }
     else if (ITEMS_CheckItemFlag(pItem, IFLAG_REPAIRED, 197, ".\\INVENTORY\\InvMode.cpp"))
     {
         if (pPlayer == pClientPlayer || pItem && pItem->dwAnimMode == IMODE_EQUIP)
         {
-            sub_6FC3EFC0(pClient, pPlayer, pItem, IFLAG_REPAIRED, ITEMS_CheckItemFlag(pItem, IFLAG_REPAIRED, 207, ".\\INVENTORY\\InvMode.cpp"));
+            SCMD_SendItemFlagUpdate(pClient, pPlayer, pItem, IFLAG_REPAIRED, ITEMS_CheckItemFlag(pItem, IFLAG_REPAIRED, 207, ".\\INVENTORY\\InvMode.cpp"));
             return 1;
         }
     }
@@ -361,7 +361,7 @@ void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUn
         D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, INVENTORY_GetItemGUIDFromNode(pNode));
         if (pItem)
         {
-            sub_6FC410E0(pUnit, pItem, 0, pClient);
+            INVMODE_SendItemToClient(pUnit, pItem, 0, pClient);
 
             if (UNIT_HasFlagEx(pItem, UNITFLAGEX_HASINV))
             {
@@ -372,7 +372,7 @@ void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUn
                     D2UnitStrc* pNestedItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, INVENTORY_GetItemGUIDFromNode(i));
                     if (pNestedItem)
                     {
-                        sub_6FC410E0(pUnit, pItem, pNestedItem, pClient);
+                        INVMODE_SendItemToClient(pUnit, pItem, pNestedItem, pClient);
                     }
                 }
             }
@@ -422,7 +422,7 @@ static inline int CheckFlag(D2UnitStrc* unit, int bit)
 }
 
 // 0x00597A20
-int __fastcall sub_00597A20_IsBusy(D2GameStrc* game, D2UnitStrc* unit)
+int __fastcall INVMODE_IsTradeBusy(D2GameStrc* game, D2UnitStrc* unit)
 {
     if (!CheckFlag(unit, 22) && !CheckFlag(unit, 23))
     {
@@ -443,7 +443,7 @@ int __fastcall sub_00597A20_IsBusy(D2GameStrc* game, D2UnitStrc* unit)
 }
 
 // 0x00597AA0
-static void sub_00597AA0_ResetSwitchBodyLoc(D2UnitStrc* pItem)
+static void INVMODE_ResetSwitchBodyLoc(D2UnitStrc* pItem)
 {
     if (ITEMS_CheckItemCMDFlag(pItem, 0x10) || ITEMS_CheckItemCMDFlag(pItem, 0x4000))
     {
@@ -460,7 +460,7 @@ void __fastcall sub_M105_Emit_00597AA0(D2GameStrc* pGame, D2UnitStrc* pItem)
 {
     if (pItem)
     {
-        sub_00597AA0_ResetSwitchBodyLoc(pItem);
+        INVMODE_ResetSwitchBodyLoc(pItem);
         D2GAME_ResetSomeItemFlags_6FC415F0(pGame, pItem);
         ITEMS_RemoveFromAllPlayers(pGame, pItem);
     }
@@ -602,7 +602,7 @@ static void __stdcall sub_00597C70_SendSummonerInfo(D2ClientStrc* pClient, D2Uni
     const unsigned short nUMods = pUMods[0] | (pUMods[1] << 8);
     const unsigned short nUMod2 = pUMods[2];
     const unsigned short nChampion = MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 4);
-    sub_6FC3F4D0(pClient, sub_F05_MsgGetUnitId(pUnit), 1, nNameSeed, nUMods, nUMod2, nChampion);
+    SCMD_SendUniqueMonsterInfo(pClient, sub_F05_MsgGetUnitId(pUnit), 1, nNameSeed, nUMods, nUMod2, nChampion);
 }
 
 void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int bUnitInitialized)
@@ -612,7 +612,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
         if (sub_F05_UnitFlagExBit(pUnit, 16))
         {
             D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, pUnit->dwUnitType, pUnit->dwUnitId, sub_F05_MsgGetUnitX(pUnit), sub_F05_MsgGetUnitY(pUnit), 1);
-            sub_00554670_UpdateClientsOnRoomChange(pGame, pUnit, 0);
+            SUNIT_SynchronizeRoomClients(pGame, pUnit, 0);
         }
 
         if (sub_F05_UnitFlagBit(pUnit, 0))
@@ -623,13 +623,13 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
         pUnit->dwFlags &= ~0x80000;
     }
 
-    sub_6FCC6540(pUnit, pClient);
+    SUNITMSG_SendQueuedMessages(pUnit, pClient);
 
     if (pUnit)
     {
         if (sub_F05_UnitFlagBit(pUnit, 8))
         {
-            sub_00571620(pUnit, pClient);
+            SUNITMSG_SendHoverText(pUnit, pClient);
         }
 
         if (sub_F05_UnitFlagExBit(pUnit, 0))
@@ -663,7 +663,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 
     if (D2COMMON_10530_D2CheckStatlistFlagDMGRed(pUnit))
     {
-        sub_6FCC5F20(pUnit, pClient);
+        SUNITMSG_SendOverlay(pUnit, pClient);
     }
 
     if (pUnit && sub_F05_UnitFlagBit(pUnit, 11))

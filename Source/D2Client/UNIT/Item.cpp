@@ -279,7 +279,7 @@ void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); /
 void __fastcall sub_0046F950(D2UnitStrc* pUnit); // 0x0046F950
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
-int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x004C10E0
+int __fastcall ITEMMODE_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x004C10E0
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
@@ -549,7 +549,7 @@ int __fastcall sub_004C10C0_IsSkillStateUsable(D2UnitStrc* pUnit, D2SkillStrc* p
 }
 
 // 0x004C10E0
-int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem)
+int __fastcall ITEMMODE_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     int bResult = ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0);
     if (bResult && ITEMS_GetQuiverType(pItem))
@@ -773,7 +773,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
         if (pItem && INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit)
-            && !STATLIST_GetOwner(pItem, NULL) && sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
+            && !STATLIST_GetOwner(pItem, NULL) && ITEMMODE_CheckEquipRequirements(pUnit, pItem))
         {
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
             sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
@@ -792,7 +792,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
         if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x208, ".\\UNIT\\Item.cpp") && !STATLIST_GetOwner(pItem, NULL))
             continue;
 
-        if (sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
+        if (ITEMMODE_CheckEquipRequirements(pUnit, pItem))
             continue;
 
         ITEMS_SetItemFlag(pItem, 0x4000, 1);
@@ -817,7 +817,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
             if (!ITEMS_CheckItemFlag(pItem, 0x4000, 0x22A, ".\\UNIT\\Item.cpp") && STATLIST_GetOwner(pItem, NULL))
                 continue;
 
-            if (!sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
+            if (!ITEMMODE_CheckEquipRequirements(pUnit, pItem))
                 continue;
 
             ITEMS_SetItemFlag(pItem, 0x4000, 0);

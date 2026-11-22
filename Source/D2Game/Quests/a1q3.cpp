@@ -379,7 +379,7 @@ void __fastcall ACT1Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 }
 
 // 0x005918D0
-static bool sub_005918D0_ResetMalus(D2QuestDataStrc* pQuestData)
+static bool ACT1Q3_ResetMalus(D2QuestDataStrc* pQuestData)
 {
     if (!pQuestData->bNotIntro)
     {
@@ -498,7 +498,7 @@ void __fastcall ACT1Q3_Callback06_MalusRemoved(D2QuestDataStrc* pQuestData, D2Qu
     --pQuestDataEx->nMalusItemsInGame;
     if (!pQuestDataEx->nMalusItemsInGame && pQuestDataEx->nMalusObjectMode == 2)
     {
-        sub_005918D0_ResetMalus(pQuestData);
+        ACT1Q3_ResetMalus(pQuestData);
     }
 }
 
@@ -514,7 +514,7 @@ void __fastcall ACT1Q3_UnitIterate_CheckForMalus(D2GameStrc* game, D2UnitStrc* u
 }
 
 // 0x00591CD0
-static int sub_00591CD0_HasHoradricMalus(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer)
+static int ACT1Q3_HasHoradricMalus(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer)
 {
     if (ITEMS_FindQuestItem(SUNIT_GetGameFromUnit(pPlayer), pPlayer, ' mdh'))
     {
@@ -543,7 +543,7 @@ bool __fastcall ACT1Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
         return true;
     }
 
-    if (sub_00591CD0_HasHoradricMalus(pQuest, pPlayer))
+    if (ACT1Q3_HasHoradricMalus(pQuest, pPlayer))
     {
         if (!QUESTRECORD_GetQuestState(pFlags, QUESTSTATEFLAG_A1Q3, QFLAG_REWARDGRANTED))
         {

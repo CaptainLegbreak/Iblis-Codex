@@ -23,7 +23,7 @@ extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
 // 0x005E0060
-void __fastcall sub_005E0060_QuestsFxEmpty(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall QUESTSFX_OnQuestCompleteModeChange(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
 }
 

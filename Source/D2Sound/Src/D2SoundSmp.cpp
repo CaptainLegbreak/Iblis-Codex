@@ -1156,7 +1156,7 @@ void __fastcall sub_00516720_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChan
     pFormat->nAvgBytesPerSec = pFormat->nSamplesPerSec * pFormat->nBlockAlign;
 }
 
-extern "C" void __fastcall sub_00537970_SetClientFlag1(D2ClientStrc* pClient)
+extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 518);
     pClient->dwFlags |= 1;

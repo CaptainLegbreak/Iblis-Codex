@@ -44,7 +44,7 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);             
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);           // 0x0065C360
 void __fastcall ACT2Q7_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);      // 0x0059E140
-void __fastcall sub_0059E2A0_ACT2Q7_Callback08_Empty(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059E2A0
+void __fastcall ACT2Q7_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059E2A0
 bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0059E2B0
 bool __fastcall ACT2Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0059E2C0
 bool __fastcall ACT2Q8_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0059E4A0
@@ -240,7 +240,7 @@ void __fastcall ACT2Q7_InitQuestData(D2QuestDataStrc* pQuestData)
     memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pCallback[11] = ACT2Q7_Callback11_ScrollMessage;
     pQuestData->pCallback[0] = ACT2Q7_Callback00_NpcActivate;
-    pQuestData->pCallback[8] = sub_0059E2A0_ACT2Q7_Callback08_Empty;
+    pQuestData->pCallback[8] = ACT2Q7_Callback08_MonsterKilled;
     pQuestData->pNPCMessages = gpAct2Q7NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
