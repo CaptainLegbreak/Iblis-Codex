@@ -1,31 +1,171 @@
-#include "D2GameTypes.h"
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
 #include "D2CmpCache.h"
+#include "D2GameTypes.h"
 #include "D2CmpTiles.h"
 
+struct D2CmpBitCursorStrc;
+
+struct D2CmpByteMapStrc;
+
+struct D2CmpByteRunStrc;
+
+struct D2DccFrameStrc;
+
+struct D2DccDirStrc;
+
+struct D2DccIterStrc;
+
+struct D2BitBufferInitStrc;
+
+struct D2SpritePixelsStrc;
+
+struct D2SpriteCelStrc;
+
+struct D2CmpTileFileHeaderStrc;
+
+struct D2CmpTileHeaderTargetStrc;
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
+struct D2BitBufferInitStrc
+{
+    unsigned char* pBuffer;
+    unsigned char* pCurrent;
+    int nBits;
+    int nPos;
+};
+
+struct D2SpritePixelsStrc { int unknown00,width,height; char unknown0C[0x14]; unsigned char* pixels; int pitch; int topDown; };
+
+struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
+
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+
+void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
+
+#pragma pack(push, 1)
+
+struct D2CmpTileFileHeaderStrc
+{
+    unsigned char nType;
+    unsigned char nByte1;
+    unsigned char nCount;
+    int nDword3;
+    int nDword7;
+    int nUnk0x0B;
+};
+
+#pragma pack(pop)
+
+struct D2CmpTileHeaderTargetStrc
+{
+    unsigned char bFlags;
+    char pad0x01[3];
+    int nByte1;
+    int nDword7;
+    int nZero0C;
+    int f_10;
+    int nCount;
+    int nDword3;
+    unsigned int adwData[33];
+};
+
+int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
+
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
+
+int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+
+int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+
+static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt);
+
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x006829C0
+
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
+
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC218
+
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC214
+
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
+
 int __fastcall sub_0060BDB0_EncodeFrame(D2DccFrameStrc* pFrame, D2Dc6FrameStrc* pHeader, unsigned char* pDst); // 0x0060BDB0
 
 extern D2CriticalSectionStrc gtCodecLock_008F03CC;                                                          // 0x008F03CC
+
 extern unsigned char gabDccPixels_008F03E8[];                                                               // 0x008F03E8
+
 extern unsigned char gabDccRunBuffer_0090D8A8[];                                                            // 0x0090D8A8
+
 extern D2DccCellStrc gtDccCells_0094D8A8[5625];                                                             // 0x0094D8A8
+
 extern D2DccFrameStrc gtDccFrames_00969020[];                                                               // 0x00969020
+
 extern const int gnDccFieldWidths_006E5F70[16];                                                             // 0x006E5F70
+
 extern const unsigned int gdwDccSignBits_006E5FB0[32];                                                      // 0x006E5FB0
+
 extern const unsigned int gdwDccSignExtend_006E60B8[33];                                                    // 0x006E60B8
+
 extern "C" const unsigned int gData_006E6030[33]; // 0x006E6030
+
+extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
+
+void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
+
+// 0x0060BF20
+int __fastcall sub_0060BF20_LoadTileHeader(const char* szFile, D2CmpTileHeaderTargetStrc* pTarget)
+{
+    void* hFile;
+    sub_004068E0(szFile, &hFile);
+    if (!hFile)
+    {
+        return 0;
+    }
+
+    D2CmpTileFileHeaderStrc tHeader;
+    int nRead;
+    int bLoaded = 0;
+    if (sub_00406900(hFile, &tHeader, sizeof(tHeader), &nRead, 0, 0, 0) && nRead == sizeof(tHeader) && tHeader.nType == 't')
+    {
+        pTarget->nByte1 = tHeader.nByte1;
+        pTarget->nDword7 = tHeader.nDword7;
+        pTarget->nZero0C = 0;
+        pTarget->nCount = tHeader.nCount;
+        pTarget->nDword3 = tHeader.nDword3;
+        if (tHeader.nCount > 32)
+        {
+            tHeader.nCount = 32;
+        }
+
+        const int nSize = tHeader.nCount * sizeof(unsigned int);
+        if (sub_00406900(hFile, pTarget->adwData, nSize, &nRead, 0, 0, 0) && nRead == nSize)
+        {
+            bLoaded = 1;
+        }
+    }
+
+    if (!bLoaded)
+    {
+        sub_004068F0(hFile);
+        return 0;
+    }
+
+    pTarget->adwData[tHeader.nCount] = sub_00406930(hFile, 0);
+    sub_004068F0(hFile);
+    pTarget->bFlags |= 2;
+    return 1;
+}
 
 // build: context DccReadBits
 static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
@@ -52,7 +192,6 @@ static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
     return nValue;
 }
 
-// 0x0060B200
 static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState)
 {
     if (!nNumBits)
@@ -91,7 +230,6 @@ static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
     return nValue;
 }
 
-// 0x0060B2B0
 static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 {
     pIt->nX += pIt->nStepX;
@@ -146,7 +284,6 @@ static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
     return 0;
 }
 
-// 0x0060B480
 static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 {
     if (!pDir->nFrames)
@@ -158,7 +295,6 @@ static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* p
     return sub_0060B2B0_DccNextCell(pDir, pIt);
 }
 
-// 0x0060B4B0
 static void sub_0060B4B0_DccCountCells(D2DccDirStrc* pDir)
 {
     const int nCellsX = (pDir->nBoxWidth + 3) / 4;
@@ -224,7 +360,6 @@ static void __stdcall sub_0060B530_DccInitDir(D2DccHeaderStrc* pHeader, D2DccFra
     pDir->nBoxWidth = nMaxX - nMinX;
 }
 
-// 0x0060B780
 static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
 {
     int nBits;
@@ -299,8 +434,6 @@ static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2Cmp
     *ppRun += 4;
 }
 
-extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
-
 // build: context sub_0060B5F0_BuildColorMaps
 static inline void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapStrc* pInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward)
 {
@@ -319,7 +452,6 @@ static inline void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapStrc* pInve
     pInverse->nCount = n;
 }
 
-// 0x0060B640
 static void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pForward, const unsigned int* pBits, D2CmpByteMapStrc* pInverse)
 {
     unsigned char abFlags[0x100];
@@ -335,8 +467,6 @@ static inline int DccTestBit(const unsigned int* pBits, int nBit)
 {
     return pBits[nBit >> 5] & gdwBitMasks_006CE268[nBit & 0x1F];
 }
-
-void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
 
 // build: context sub_0060B9A0_DecodeStage1
 void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed)
@@ -475,7 +605,6 @@ static inline void DccCopyHeader(D2DccHeaderStrc* pHeader, const D2DccFileStrc* 
     pHeader->n08 = pFile->n08;
 }
 
-// 0x0060B140
 static inline void __stdcall sub_0060B140_BitBufferInit(int nSize, unsigned int* pBuffer, D2CmpBitCursorStrc* pBitBuf)
 {
     pBitBuf->pStart = pBuffer;
@@ -483,7 +612,6 @@ static inline void __stdcall sub_0060B140_BitBufferInit(int nSize, unsigned int*
     pBitBuf->nBits = nSize * 8;
     pBitBuf->nBitPos = 0;
 }
-
 
 // 0x0060BFF0
 int __fastcall sub_0060BFF0_LoadSpriteData(unsigned char* pData, void* pMemPool, int nSize, unsigned int dwFile, D2DccOutTableStrc* pTable, int nFirstDir, int nDirs, int* pnOutSize, const char* szFile)

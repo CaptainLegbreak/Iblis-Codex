@@ -70512,13 +70512,17 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/Codec_0060BF20.cpp",
+   "file": "Source/D2CMP/SRC/Codec.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x0060BF20",
      "length": 206,
      "name": "?sub_0060BF20_LoadTileHeader@@YIHPBDPAUD2CmpTileHeaderTargetStrc@@@Z"
+    },
+    {
+     "va": "0x0060BFF0",
+     "length": 3380
     }
    ]
   },
@@ -70641,16 +70645,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Codec.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060BFF0",
-     "length": 3380
-    }
    ]
   },
   {
