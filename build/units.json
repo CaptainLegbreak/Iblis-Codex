@@ -22989,11 +22989,6 @@
      "va": "0x004791B0",
      "length": 113,
      "name": "?sub_004791B0_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004835B0",
-     "length": 941,
-     "name": "?sub_004835B0_LoadUiRecords@@YAXXZ"
     }
    ]
   },
@@ -25065,6 +25060,11 @@
     {
      "va": "0x004834E0",
      "length": 204
+    },
+    {
+     "va": "0x004835B0",
+     "length": 941,
+     "name": "?sub_004835B0_LoadUiRecords@@YAXXZ"
     },
     {
      "va": "0x004839D0",
