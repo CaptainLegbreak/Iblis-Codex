@@ -23,7 +23,7 @@ struct D2CelDataHashStrc
 };
 
 // 0x0060B010
-T00604AE0* __fastcall sub_0060B010_CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, int nValue, const char* szName)
+T00604AE0* __fastcall CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, int nValue, const char* szName)
 {
     T00604AE0* pEntry = (T00604AE0*)FOG_AllocPool(pMemPool, sizeof(T00604AE0), ".\\SRC\\CelDataHash.cpp", 0x88, 0);
     pEntry->nValue = nValue;
@@ -40,7 +40,7 @@ T00604AE0* __fastcall sub_0060B010_CelDataHashAdd(void* pMemPool, D2CelDataHashS
 }
 
 // 0x0060B0B0
-void __fastcall sub_0060B0B0_CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry)
+void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry)
 {
     D2_ASSERT(pEntry, 0xB2);
     if (pEntry->pPrev)

@@ -64,7 +64,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-D2CmpTileStrc* __cdecl sub_00609550_AllocTile(); // 0x00609550
+D2CmpTileStrc* __cdecl TileAlloc(); // 0x00609550
 
 struct T00604AE0
 {
@@ -143,7 +143,7 @@ struct D2CmpCellListStrc
     D2CmpCellNodeStrc* pHead;
 };
 
-int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections); // 0x00600C90
+int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 0x00600C90
 
 #define BLEND_PIXEL(i) pDst[i] = pBlend[(pDst[i] << 8) + pTrans[pSrc[i]]]
 
@@ -151,35 +151,35 @@ typedef unsigned char BYTE;
 
 extern int gnGenericRle_008F03C8; // 0x008F03C8
 
-const unsigned char* __fastcall sub_00606D10_SkipCelLines(const unsigned char*,int); // 0x00606D10
+const unsigned char* __fastcall CelSkipRleLines(const unsigned char*,int); // 0x00606D10
 
-void __fastcall sub_00606D40_RleCopyRows(const unsigned char*,unsigned char*,int,int); // 0x00606D40
+void __fastcall CelDrawRleCopy(const unsigned char*,unsigned char*,int,int); // 0x00606D40
 
-void __fastcall sub_00606DA0_RleCopyRowsClipped(const unsigned char*,unsigned char*,int,int,int,int,int); // 0x00606DA0
+void __fastcall CelDrawRleCopyClipped(const unsigned char*,unsigned char*,int,int,int,int,int); // 0x00606DA0
 
-void __fastcall sub_00606E40_BlitBlendMapped(const unsigned char*,unsigned char*,int,int,const unsigned char*,const unsigned char*); // 0x00606E40
+void __fastcall CelDrawRleLightBlend(const unsigned char*,unsigned char*,int,int,const unsigned char*,const unsigned char*); // 0x00606E40
 
-void __fastcall sub_00607060_BlitClippedBlendMapped(const unsigned char*,unsigned char*,int,int,int,int,int,const unsigned char*,const unsigned char*); // 0x00607060
+void __fastcall CelDrawRleLightBlendClipped(const unsigned char*,unsigned char*,int,int,int,int,int,const unsigned char*,const unsigned char*); // 0x00607060
 
-void __fastcall sub_006072F0_BlitDoubleMapped(const unsigned char*,unsigned char*,int,int,const unsigned char*,const unsigned char*); // 0x006072F0
+void __fastcall CelDrawRleLightShift(const unsigned char*,unsigned char*,int,int,const unsigned char*,const unsigned char*); // 0x006072F0
 
-void __fastcall sub_00607480_BlitDoubleMappedClipped(const unsigned char* source, unsigned char* destination, int rows, int pitch, int x, int left, int right, const unsigned char* outer, const unsigned char* inner); // 0x00607480
+void __fastcall CelDrawRleLightShiftClipped(const unsigned char* source, unsigned char* destination, int rows, int pitch, int x, int left, int right, const unsigned char* outer, const unsigned char* inner); // 0x00607480
 
-void __fastcall sub_00607680_BlitMapped(const unsigned char*,unsigned char*,int,int,const unsigned char*); // 0x00607680
+void __fastcall CelDrawRleLight(const unsigned char*,unsigned char*,int,int,const unsigned char*); // 0x00607680
 
-void __fastcall sub_006077C0_BlitMappedClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable); // 0x006077C0
+void __fastcall CelDrawRleLightClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable); // 0x006077C0
 
-void __fastcall sub_00607970_BlitBlendMapped(const unsigned char*,unsigned char*,int,int,const unsigned char*,const unsigned char*); // 0x00607970
+void __fastcall CelDrawRleShiftBlend(const unsigned char*,unsigned char*,int,int,const unsigned char*,const unsigned char*); // 0x00607970
 
-void __fastcall sub_00607B90_DrawRleTransBlend(const BYTE* pSrc, BYTE* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const BYTE* pTrans, const BYTE* pBlend); // 0x00607B90
+void __fastcall CelDrawRleShiftBlendClipped(const BYTE* pSrc, BYTE* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const BYTE* pTrans, const BYTE* pBlend); // 0x00607B90
 
-void __fastcall sub_00607E20_BlitMapped(const unsigned char*,unsigned char*,int,int,const unsigned char*); // 0x00607E20
+void __fastcall CelDrawRleShift(const unsigned char*,unsigned char*,int,int,const unsigned char*); // 0x00607E20
 
-void __fastcall sub_00607F60_BlitMappedClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable); // 0x00607F60
+void __fastcall CelDrawRleShiftClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable); // 0x00607F60
 
-void __fastcall sub_00608110_BlitBlend(const unsigned char*,unsigned char*,int,int,const unsigned char*); // 0x00608110
+void __fastcall CelDrawRleBlend(const unsigned char*,unsigned char*,int,int,const unsigned char*); // 0x00608110
 
-void __fastcall sub_006082E0_BlitBlendClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pBlend); // 0x006082E0
+void __fastcall CelDrawRleBlendClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pBlend); // 0x006082E0
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -187,7 +187,7 @@ extern "C" const char* __cdecl sub_00408090();                                  
 
 int gdwGlobal_008F03C8; // 0x008F03C8
 
-static void __stdcall sub_00606A10_EncodeRleCell(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize);
+static void __stdcall CelEncodeRle(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize);
 
 // 0x00604AA0
 void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)
@@ -210,7 +210,7 @@ void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)
 }
 
 // 0x00604DD0
-double __stdcall sub_00604DD0_MinDouble(double a, double b)
+double __stdcall PaletteMinComponent(double a, double b)
 {
     return a < b ? a : b;
 }
@@ -273,7 +273,7 @@ void __stdcall UpdateD2TransparencyTable(unsigned char* pData, int nUnused)
 }
 
 // 0x00606A10
-static void __stdcall sub_00606A10_EncodeRleCell(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize)
+static void __stdcall CelEncodeRle(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize)
 {
     unsigned char* pBuffer = (unsigned char*)FOG_Alloc((2 * nWidth + 1) * nHeight, szFastCmpFile, 37, 0);
     int nStride;
@@ -337,7 +337,7 @@ static void __stdcall sub_00606A10_EncodeRleCell(const unsigned char* pSrc, unsi
 }
 
 // 0x00606B00
-void __fastcall sub_00606B00_RemapRleCell(D2GfxCellStrc* pCell, const unsigned char* pRemap)
+void __fastcall CelRemapRlePixels(D2GfxCellStrc* pCell, const unsigned char* pRemap)
 {
     int nRows = pCell->dwHeight;
     unsigned char* pData = pCell->pPixels;
@@ -368,7 +368,7 @@ void __fastcall sub_00606B00_RemapRleCell(D2GfxCellStrc* pCell, const unsigned c
 #pragma function(memcpy)
 
 // 0x00606B50
-void __fastcall sub_00606B50_CompressCellFile(D2CellFileStrc* pSrcFile, D2CellFileStrc* pDstFile, D2CmpMapColorFn pfnMapColor, D2CmpColorStrc tTransparent)
+void __fastcall CelFileConvertRle24To8(D2CellFileStrc* pSrcFile, D2CellFileStrc* pDstFile, D2CmpMapColorFn pfnMapColor, D2CmpColorStrc tTransparent)
 {
     D2_ASSERT(pSrcFile->dwFlags & 4, 206);
     for (unsigned int i = 0; i < pSrcFile->nDirections * pSrcFile->nFrames; ++i)
@@ -395,7 +395,7 @@ void __fastcall sub_00606B50_CompressCellFile(D2CellFileStrc* pSrcFile, D2CellFi
 
         unsigned char* pRle;
         unsigned int nRleSize;
-        sub_00606A10_EncodeRleCell(pIndexed, pSrcFile->pGfxCells[i]->dwWidth, pSrcFile->pGfxCells[i]->dwHeight, pSrcFile->pGfxCells[i]->dwFlags, &pRle, &nRleSize);
+        CelEncodeRle(pIndexed, pSrcFile->pGfxCells[i]->dwWidth, pSrcFile->pGfxCells[i]->dwHeight, pSrcFile->pGfxCells[i]->dwFlags, &pRle, &nRleSize);
         FOG_Free(pIndexed, ".\\SRC\\FastCmp.cpp", 240, 0);
 
         D2GfxCellStrc* pNew = (D2GfxCellStrc*)FOG_Alloc(nRleSize + sizeof(D2GfxCellStrc) - 1, ".\\SRC\\FastCmp.cpp", 242, 0);
@@ -416,7 +416,7 @@ void __fastcall sub_00606B50_CompressCellFile(D2CellFileStrc* pSrcFile, D2CellFi
 #pragma intrinsic(memcpy)
 
 // 0x00606D40
-void __fastcall sub_00606D40_RleCopyRows(const char* pSrc, char* pDst, int nLines, int nPitch)
+void __fastcall CelDrawRleCopy(const char* pSrc, char* pDst, int nLines, int nPitch)
 {
     char* pNextLine = pDst + nPitch;
     while (1)
@@ -447,7 +447,7 @@ void __fastcall sub_00606D40_RleCopyRows(const char* pSrc, char* pDst, int nLine
 }
 
 // 0x00606DA0
-void __fastcall sub_00606DA0_RleCopyRowsClipped(const char* pSrc, char* pDst, int nLines, int nPitch, int nX, int nClipLeft, int nClipRight)
+void __fastcall CelDrawRleCopyClipped(const char* pSrc, char* pDst, int nLines, int nPitch, int nX, int nClipLeft, int nClipRight)
 {
     int nLineX = nX;
     char* pNextLine = pDst + nPitch;
@@ -490,7 +490,7 @@ void __fastcall sub_00606DA0_RleCopyRowsClipped(const char* pSrc, char* pDst, in
 }
 
 // 0x00606E40
-void __fastcall sub_00606E40_BlitBlendMapped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pMap, const unsigned char* pBlend)
+void __fastcall CelDrawRleLightBlend(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pMap, const unsigned char* pBlend)
 {
     unsigned char* pNext = pDst + nPitch;
     for (;;)
@@ -548,11 +548,11 @@ void __fastcall sub_00606E40_BlitBlendMapped(const unsigned char* pSrc, unsigned
 // calling-convention shim (not game code)
 void __stdcall sub_00606A10_Shim(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize)
 {
-    sub_00606A10_EncodeRleCell(pSrc, nWidth, nHeight, dwFlags, ppOut, pnSize);
+    CelEncodeRle(pSrc, nWidth, nHeight, dwFlags, ppOut, pnSize);
 }
 
 // 0x00607060
-void __fastcall sub_00607060_BlitClippedBlendMapped(const unsigned char* source,unsigned char* destination,int rows,int pitch,int x,int left,int right,const unsigned char* map,const unsigned char* blend)
+void __fastcall CelDrawRleLightBlendClipped(const unsigned char* source,unsigned char* destination,int rows,int pitch,int x,int left,int right,const unsigned char* map,const unsigned char* blend)
 {
  int initialX=x;
  unsigned char* next=destination+pitch;
@@ -607,7 +607,7 @@ void __fastcall sub_00607060_BlitClippedBlendMapped(const unsigned char* source,
 }
 
 // 0x006072F0
-void __fastcall sub_006072F0_BlitDoubleMapped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pOuter, const unsigned char* pInner)
+void __fastcall CelDrawRleLightShift(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pOuter, const unsigned char* pInner)
 {
     unsigned char* pNext = pDst + nPitch;
     for (;;)
@@ -663,7 +663,7 @@ void __fastcall sub_006072F0_BlitDoubleMapped(const unsigned char* pSrc, unsigne
 }
 
 // 0x00607480
-void __fastcall sub_00607480_BlitDoubleMappedClipped(const unsigned char* source, unsigned char* destination, int rows, int pitch, int x, int left, int right, const unsigned char* outer, const unsigned char* inner)
+void __fastcall CelDrawRleLightShiftClipped(const unsigned char* source, unsigned char* destination, int rows, int pitch, int x, int left, int right, const unsigned char* outer, const unsigned char* inner)
 {
  int initialX=x;
  unsigned char* next=destination+pitch;
@@ -720,7 +720,7 @@ void __fastcall sub_00607480_BlitDoubleMappedClipped(const unsigned char* source
 }
 
 // 0x00607680
-void __fastcall sub_00607680_BlitMapped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pTable)
+void __fastcall CelDrawRleLight(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pTable)
 {
     unsigned char* pNext = pDst + nPitch;
     for (;;)
@@ -776,7 +776,7 @@ void __fastcall sub_00607680_BlitMapped(const unsigned char* pSrc, unsigned char
 }
 
 // 0x006077C0
-void __fastcall sub_006077C0_BlitMappedClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable)
+void __fastcall CelDrawRleLightClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable)
 {
     const int nStartX = nX;
     unsigned char* pNext = pDst + nPitch;
@@ -858,7 +858,7 @@ void __fastcall sub_006077C0_BlitMappedClipped(const unsigned char* pSrc, unsign
 }
 
 // 0x00607970
-void __fastcall sub_00607970_BlitBlendMapped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pMap, const unsigned char* pBlend)
+void __fastcall CelDrawRleShiftBlend(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pMap, const unsigned char* pBlend)
 {
     unsigned char* pNext = pDst + nPitch;
     for (;;)
@@ -914,7 +914,7 @@ void __fastcall sub_00607970_BlitBlendMapped(const unsigned char* pSrc, unsigned
 }
 
 // 0x00607B90
-void __fastcall sub_00607B90_DrawRleTransBlend(const BYTE* pSrc, BYTE* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const BYTE* pTrans, const BYTE* pBlend)
+void __fastcall CelDrawRleShiftBlendClipped(const BYTE* pSrc, BYTE* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const BYTE* pTrans, const BYTE* pBlend)
 {
     int nStartX = nX;
     BYTE* pLine = pDst + nPitch;
@@ -1006,7 +1006,7 @@ void __fastcall sub_00607B90_DrawRleTransBlend(const BYTE* pSrc, BYTE* pDst, int
 }
 
 // 0x00607E20
-void __fastcall sub_00607E20_BlitMapped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pTable)
+void __fastcall CelDrawRleShift(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pTable)
 {
     unsigned char* pNext = pDst + nPitch;
     for (;;)
@@ -1062,7 +1062,7 @@ void __fastcall sub_00607E20_BlitMapped(const unsigned char* pSrc, unsigned char
 }
 
 // 0x00607F60
-void __fastcall sub_00607F60_BlitMappedClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable)
+void __fastcall CelDrawRleShiftClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pTable)
 {
     const int nStartX = nX;
     unsigned char* pNext = pDst + nPitch;
@@ -1144,7 +1144,7 @@ void __fastcall sub_00607F60_BlitMappedClipped(const unsigned char* pSrc, unsign
 }
 
 // 0x00608110
-void __fastcall sub_00608110_BlitBlend(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pBlend)
+void __fastcall CelDrawRleBlend(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, const unsigned char* pBlend)
 {
     unsigned char* pNext = pDst + nPitch;
     for (;;)
@@ -1200,7 +1200,7 @@ void __fastcall sub_00608110_BlitBlend(const unsigned char* pSrc, unsigned char*
 }
 
 // 0x006082E0
-void __fastcall sub_006082E0_BlitBlendClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pBlend)
+void __fastcall CelDrawRleBlendClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pBlend)
 {
     const int nStartX = nX;
     unsigned char* pNext = pDst + nPitch;
@@ -1297,7 +1297,7 @@ int __cdecl D2CMPToggleCelDrawMode()
 }
 
 // 0x00608540
-void __fastcall sub_00608540_DrawCel(D2CelStrc* pCel, unsigned char* pDest, int nX, int nLeft, int nRight, int nPitch, int nSkipRows, int nRows, const unsigned char* pMapA, const unsigned char* pBlend, const unsigned char* pMapB)
+void __fastcall CelDrawRle(D2CelStrc* pCel, unsigned char* pDest, int nX, int nLeft, int nRight, int nPitch, int nSkipRows, int nRows, const unsigned char* pMapA, const unsigned char* pBlend, const unsigned char* pMapB)
 {
     const int nStartX = nX;
     const int nWidth = pCel->width;
@@ -1312,7 +1312,7 @@ void __fastcall sub_00608540_DrawCel(D2CelStrc* pCel, unsigned char* pDest, int 
         exit(-1);
     }
 
-    const unsigned char* pSrc = sub_00606D10_SkipCelLines(pCel->pixels, nSkipRows);
+    const unsigned char* pSrc = CelSkipRleLines(pCel->pixels, nSkipRows);
     const int nStride = (pCel->flags & 1) ? nPitch : -nPitch;
 
     if (gnGenericRle_008F03C8)
@@ -1444,23 +1444,23 @@ void __fastcall sub_00608540_DrawCel(D2CelStrc* pCel, unsigned char* pDest, int 
         if (pBlend)
         {
             if (bUnclipped)
-                sub_00606E40_BlitBlendMapped(pSrc, pDest, nRows, nStride, pMapA, pBlend);
+                CelDrawRleLightBlend(pSrc, pDest, nRows, nStride, pMapA, pBlend);
             else
-                sub_00607060_BlitClippedBlendMapped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapA, pBlend);
+                CelDrawRleLightBlendClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapA, pBlend);
         }
         else if (pMapB)
         {
             if (bUnclipped)
-                sub_006072F0_BlitDoubleMapped(pSrc, pDest, nRows, nStride, pMapA, pMapB);
+                CelDrawRleLightShift(pSrc, pDest, nRows, nStride, pMapA, pMapB);
             else
-                sub_00607480_BlitDoubleMappedClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapA, pMapB);
+                CelDrawRleLightShiftClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapA, pMapB);
         }
         else
         {
             if (bUnclipped)
-                sub_00607680_BlitMapped(pSrc, pDest, nRows, nStride, pMapA);
+                CelDrawRleLight(pSrc, pDest, nRows, nStride, pMapA);
             else
-                sub_006077C0_BlitMappedClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapA);
+                CelDrawRleLightClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapA);
         }
     }
     else if (pMapB)
@@ -1468,36 +1468,36 @@ void __fastcall sub_00608540_DrawCel(D2CelStrc* pCel, unsigned char* pDest, int 
         if (pBlend)
         {
             if (bUnclipped)
-                sub_00607970_BlitBlendMapped(pSrc, pDest, nRows, nStride, pMapB, pBlend);
+                CelDrawRleShiftBlend(pSrc, pDest, nRows, nStride, pMapB, pBlend);
             else
-                sub_00607B90_DrawRleTransBlend(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapB, pBlend);
+                CelDrawRleShiftBlendClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapB, pBlend);
         }
         else
         {
             if (bUnclipped)
-                sub_00607E20_BlitMapped(pSrc, pDest, nRows, nStride, pMapB);
+                CelDrawRleShift(pSrc, pDest, nRows, nStride, pMapB);
             else
-                sub_00607F60_BlitMappedClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapB);
+                CelDrawRleShiftClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pMapB);
         }
     }
     else if (pBlend)
     {
         if (bUnclipped)
-            sub_00608110_BlitBlend(pSrc, pDest, nRows, nStride, pBlend);
+            CelDrawRleBlend(pSrc, pDest, nRows, nStride, pBlend);
         else
-            sub_006082E0_BlitBlendClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pBlend);
+            CelDrawRleBlendClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight, pBlend);
     }
     else
     {
         if (bUnclipped)
-            sub_00606D40_RleCopyRows(pSrc, pDest, nRows, nStride);
+            CelDrawRleCopy(pSrc, pDest, nRows, nStride);
         else
-            sub_00606DA0_RleCopyRowsClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight);
+            CelDrawRleCopyClipped(pSrc, pDest, nRows, nStride, nX, nLeft, nRight);
     }
 }
 
 // 0x006089F0
-void __fastcall sub_006089F0_BuildRemap(int nPitch)
+void __fastcall CmpBuildLensRemap(int nPitch)
 {
     int aInside[80][80];
 
@@ -1614,7 +1614,7 @@ static inline const char* __fastcall SkipCelRows(const char* current,int rows)
 }
 
 // 0x00608D60
-void __fastcall sub_00608D60_DrawCelShadowLines(const D2CelStrc* cel,unsigned char* dst,int x,int clipLeft,int clipRight,unsigned int pitch,int skip,int rows,const unsigned char* table,int color)
+void __fastcall CelDrawRleShadow(const D2CelStrc* cel,unsigned char* dst,int x,int clipLeft,int clipRight,unsigned int pitch,int skip,int rows,const unsigned char* table,int color)
 {
  int startX=x;
  if(pitch<cel->width) { sub_00408A60(gszEmptyAssert,sub_00408090(),1871);exit(-1); }
@@ -1669,7 +1669,7 @@ void __fastcall sub_00608D60_DrawCelShadowLines(const D2CelStrc* cel,unsigned ch
 }
 
 // 0x00608EE0
-void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pList, D2CellFileStrc* pDstFile)
+void __fastcall CelCompressEncodeRleCels(D2CmpCellListStrc* pList, D2CellFileStrc* pDstFile)
 {
     D2_ASSERT(!(pList->dwFlags & 4), 0x72);
     const unsigned int nFrames = pList->nCells / pList->nDirections;
@@ -1678,7 +1678,7 @@ void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pList, D2CellFi
     {
         unsigned char* pRle;
         unsigned int nRleSize;
-        sub_00606A10_EncodeRleCell(pNode->pPixels, pNode->dwWidth, pNode->dwHeight, pNode->dwFlags, &pRle, &nRleSize);
+        CelEncodeRle(pNode->pPixels, pNode->dwWidth, pNode->dwHeight, pNode->dwFlags, &pRle, &nRleSize);
 
         D2GfxCellStrc* pNew = (D2GfxCellStrc*)FOG_Alloc(nRleSize + sizeof(D2GfxCellStrc) - 1, ".\\SRC\\FastCmp.cpp", 0x82, 0);
         pNew->dwFlags = pNode->dwFlags;
@@ -1694,7 +1694,7 @@ void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pList, D2CellFi
 
         const unsigned int nDirections = pList->nDirections;
         const int nDirection = nDirections > 1 ? ((i / nFrames) << 6) / nDirections : 1;
-        pDstFile->pGfxCells[sub_00600C90_GetDirectionIndex64(nDirection, nDirections) * nFrames + i % nFrames] = pNew;
+        pDstFile->pGfxCells[CelGameDirToFileDir(nDirection, nDirections) * nFrames + i % nFrames] = pNew;
         ++i;
     }
 }
@@ -1703,7 +1703,7 @@ void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pList, D2CellFi
 D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* ptList, short nValue16, short nValue14, int nValue24, int nValue28, int nValue2C, int nValue30, int nValue10, const D2CmpTileInfoStrc* pInfo)
 {
     D2_ASSERT(ptList, 0xA2);
-    D2CmpTileStrc* pTile = sub_00609550_AllocTile();
+    D2CmpTileStrc* pTile = TileAlloc();
     D2_ASSERT(pTile, 0xA6);
     pTile->pNext = ptList->pFirst;
     ptList->nCount++;
@@ -1722,7 +1722,7 @@ D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* ptList, short nValue
 }
 
 // 0x0060AEB0
-void __fastcall sub_0060AEB0_FreeEntry(D2CelDataHashStrc* pHash, T00604AE0* pEntry, void* pMemPool)
+void __fastcall CelDataHashFreeEntry(D2CelDataHashStrc* pHash, T00604AE0* pEntry, void* pMemPool)
 {
     if (pHash->pBuckets[pEntry->nKey] == pEntry)
         pHash->pBuckets[pEntry->nKey] = pEntry->pNext;
@@ -1730,7 +1730,7 @@ void __fastcall sub_0060AEB0_FreeEntry(D2CelDataHashStrc* pHash, T00604AE0* pEnt
 }
 
 // 0x0060AF00
-void __fastcall sub_0060AF00_FreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
+void __fastcall CelDataHashFreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
 {
     for (unsigned int i = 0; i < 0x200; i++)
     {
@@ -1738,7 +1738,7 @@ void __fastcall sub_0060AF00_FreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
         while (pEntry)
         {
             T00604AE0* pNext = pEntry->pNext;
-            sub_0060AEB0_FreeEntry(pHash, pEntry, pMemPool);
+            CelDataHashFreeEntry(pHash, pEntry, pMemPool);
             pEntry = pNext;
         }
         D2_ASSERT(!pHash->nCheck[i], 0x5B);
@@ -1746,7 +1746,7 @@ void __fastcall sub_0060AF00_FreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
 }
 
 // 0x0060B1A0
-void D2CmpBitCursorStrc::sub_0060B1A0_AdvanceBits(int nBits)
+void D2CmpBitCursorStrc::CodecSkipBits(int nBits)
 {
     int nPos = nBitPos + nBits;
     nBitPos = nPos & 0x1F;
@@ -1754,7 +1754,7 @@ void D2CmpBitCursorStrc::sub_0060B1A0_AdvanceBits(int nBits)
 }
 
 // 0x0060CD70
-unsigned char __fastcall sub_0060CD70_WrapIndex(unsigned char a, unsigned char b, unsigned char c)
+unsigned char __fastcall FindTileHash(unsigned char a, unsigned char b, unsigned char c)
 {
     unsigned char nResult = (unsigned char)(2 * a - c + b) % 128;
     D2_ASSERT(nResult < 128, 0x1E);
@@ -1762,7 +1762,7 @@ unsigned char __fastcall sub_0060CD70_WrapIndex(unsigned char a, unsigned char b
 }
 
 // 0x0060D310
-int __fastcall sub_0060D310_ScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
+int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
 {
     D2_ASSERT(pData < pEnd, 0x45);
     int nCount = 0;

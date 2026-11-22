@@ -57,4 +57,4 @@ int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsig
     return nCount;
 }
 
-void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor); // 0x0060D5B0
+void __fastcall SubTileConvert24To8(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor); // 0x0060D5B0

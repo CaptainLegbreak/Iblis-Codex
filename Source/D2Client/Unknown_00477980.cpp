@@ -21,8 +21,8 @@ int __cdecl sub_0046F980(); // 0x0046F980
 int __cdecl sub_0046F990(); // 0x0046F990
 int __cdecl sub_0046F9A0(); // 0x0046F9A0
 int __cdecl D2CMPSpriteCacheGetMaxMemory(); // 0x005FEE40
-int __cdecl sub_005FEE60(); // 0x005FEE60
-int __cdecl sub_005FEE70(); // 0x005FEE70
+int __cdecl D2CMPCelDataCacheGetUsedMemory(); // 0x005FEE60
+int __cdecl D2CMPCelDataCacheGetMaxMemory(); // 0x005FEE70
 int __stdcall sub_0040ABE0(); // 0x0040ABE0
 void __cdecl sub_00481850(); // 0x00481850
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
@@ -74,7 +74,7 @@ void __fastcall sub_00477980()
         D2GFX_OutputString(SCREEN_X,132,"COF Memory->%i of %i",sub_0046F990(),sub_0046F9A0());
         D2GFX_OutputString(SCREEN_X,144,"Sprite Cache Memory->%i of %i",D2CMPSpriteCacheGetUsedMemory(),D2CMPSpriteCacheGetMaxMemory());
         D2GFX_OutputString(SCREEN_X,156,"Async Files->%i",sub_0040ABE0());
-        D2GFX_OutputString(SCREEN_X,168,"CelData Cache Memory->%i of %i",sub_005FEE60(),sub_005FEE70());
+        D2GFX_OutputString(SCREEN_X,168,"CelData Cache Memory->%i of %i",D2CMPCelDataCacheGetUsedMemory(),D2CMPCelDataCacheGetMaxMemory());
         sub_00481850();
         sub_00477760_DrawCacheStats();
     }

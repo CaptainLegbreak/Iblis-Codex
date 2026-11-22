@@ -10,15 +10,15 @@ extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char, unsigned char, unsigned char);
 
-int __fastcall sub_0060D310_ScanRun(unsigned char, const unsigned char*, const unsigned char*, int, int*, int*); // 0x0060D310
+int __fastcall CmpScanRun(unsigned char, const unsigned char*, const unsigned char*, int, int*, int*); // 0x0060D310
 int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char*, const unsigned char*, unsigned char, int, int*, int*); // 0x0060D3A0
 unsigned char* __stdcall sub_0060D6F0_MapPixels(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
-void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
+void __stdcall SubTilePackFloor(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
 
-static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData);
+static int SubTileHasTransparentPixel(const unsigned char* pData);
 
 // 0x0060D7E0
-static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
+static int SubTileHasTransparentPixel(const unsigned char* pData)
 {
     int y = 0;
     int nOffset = 14;
@@ -49,10 +49,10 @@ static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
     return 0;
 }
 
-static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
+static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
 
 // 0x0060D840
-static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc)
+static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc)
 {
     int nSize;
     unsigned char* ptDestBuffer;
@@ -78,7 +78,7 @@ static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst,
     pEnd = pSrc + 32;
     while (nRow < 15)
     {
-        nTransparent = sub_0060D310_ScanRun(0, pSrc, pEnd, 0x7F, &bRunEnd, &bRestEnd);
+        nTransparent = CmpScanRun(0, pSrc, pEnd, 0x7F, &bRunEnd, &bRestEnd);
         pSrc += nTransparent;
         if (bRunEnd || bRestEnd)
         {
@@ -143,10 +143,10 @@ static inline int SUBTILE_IsBlank(const unsigned char* pPixels)
     return 1;
 }
 
-static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
+static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
 
 // 0x0060DA80
-static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc)
+static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc)
 {
     unsigned char* pPixels = sub_0060D6F0_MapPixels(pSrc->ptData, pSrc->tHeader.nLength, tColor, pfnMap);
 
@@ -159,13 +159,13 @@ static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapCol
         return;
     }
 
-    if (sub_0060D7E0_HasTransparentDiamondPixel(pPixels))
+    if (SubTileHasTransparentPixel(pPixels))
     {
-        sub_0060D840_PackTransparent(pDst, pPixels);
+        SubTileCompressFloor(pDst, pPixels);
     }
     else
     {
-        sub_0060D9C0_BuildDiamondBlock(pDst, pPixels);
+        SubTilePackFloor(pDst, pPixels);
     }
 
     FOG_Free(pPixels, szTileCodecFile, 0x1C7, 0);
@@ -188,7 +188,7 @@ void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* ptTile24, D2CmpTileBlo
         pDst->ptData = 0;
         if (pSrc->ptData)
         {
-            sub_0060DA80_MapSubTile(tColor, pfnQuantize, pDst, pSrc);
+            SubTileConvertFloor24To8(tColor, pfnQuantize, pDst, pSrc);
             if (pDst->tHeader.nFlags & 4)
             {
                 ptTile8->nFlags |= 0x10;

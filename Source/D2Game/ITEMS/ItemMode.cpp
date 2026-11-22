@@ -113,7 +113,7 @@ extern unsigned char gaByteTable_00745640[256]; // 0x00745640
 
 void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
 
-void __fastcall sub_005FE000_StoreTileFreeCallback(void* pfnCallback); // 0x005FE000
+void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback); // 0x005FE000
 
 extern void* gpGlobal_00882D08; // 0x00882D08
 
@@ -6721,7 +6721,7 @@ void __stdcall sub_005776E0(D2UnitStrc* pUnit)
 // 0x00604A30
 void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
 {
-    sub_005FE000_StoreTileFreeCallback(pfnCallback);
+    D2CMPTileCacheSetFreeCallback(pfnCallback);
 }
 
 // 0x0063E780

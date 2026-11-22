@@ -53,24 +53,24 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 #define LRU_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-static __inline void __fastcall sub_006090E0(T006090E0* pCache, D2LRUNodeStrc* pNode);
+static __inline void __fastcall LRUCacheAppendUsed(T006090E0* pCache, D2LRUNodeStrc* pNode);
 
-static __inline void __fastcall sub_00609100(T006090E0* pCache, D2LRUNodeStrc* pNode);
+static __inline void __fastcall LRUCacheAppendFree(T006090E0* pCache, D2LRUNodeStrc* pNode);
 
-static D2LRUNodeStrc* __fastcall sub_00609120(T006090E0* pCache);
+static D2LRUNodeStrc* __fastcall LRUCachePopUsed(T006090E0* pCache);
 
 static __inline D2LRUNodeStrc* __fastcall LRUCACHE_UnlinkUsedHead(T006090E0* pCache);
 
-static __inline D2LRUNodeStrc* __fastcall sub_00609150(T006090E0* pCache);
+static __inline D2LRUNodeStrc* __fastcall LRUCachePopFree(T006090E0* pCache);
 
-static D2LRUNodeStrc* __fastcall sub_00609180(T006090E0* pCache, D2LRUNodeStrc* pNode);
+static D2LRUNodeStrc* __fastcall LRUCacheUnlinkUsed(T006090E0* pCache, D2LRUNodeStrc* pNode);
 
-static D2LRUNodeStrc* __fastcall sub_00609250(T006090E0* pCache, unsigned int nSize);
+static D2LRUNodeStrc* __fastcall LRUCacheTakeFreeNode(T006090E0* pCache, unsigned int nSize);
 
-void __fastcall sub_00609020(T006090E0* pCache, void* pMemPool, unsigned int nMaxSize, void (__fastcall* pfnRelease)(D2LRUNodeStrc*), unsigned int nNodes);
+void __fastcall LRUCacheInit(T006090E0* pCache, void* pMemPool, unsigned int nMaxSize, void (__fastcall* pfnRelease)(D2LRUNodeStrc*), unsigned int nNodes);
 
 // 0x00609020
-void __fastcall sub_00609020(D2LRUCacheStrc* pCache, void* pMemPool, unsigned int nCostLimit, void (__fastcall* pfnRelease)(D2LRUNodeStrc*), unsigned int nNodes)
+void __fastcall LRUCacheInit(D2LRUCacheStrc* pCache, void* pMemPool, unsigned int nCostLimit, void (__fastcall* pfnRelease)(D2LRUNodeStrc*), unsigned int nNodes)
 {
     pCache->pMemPool = pMemPool;
     pCache->nCostLimit = nCostLimit;
@@ -108,7 +108,7 @@ void __fastcall sub_00609020(D2LRUCacheStrc* pCache, void* pMemPool, unsigned in
 }
 
 // 0x006090E0
-static __inline void __fastcall sub_006090E0(T006090E0* pCache, D2LRUNodeStrc* pNode)
+static __inline void __fastcall LRUCacheAppendUsed(T006090E0* pCache, D2LRUNodeStrc* pNode)
 {
     if (!pCache->f_1C)
     {
@@ -123,7 +123,7 @@ static __inline void __fastcall sub_006090E0(T006090E0* pCache, D2LRUNodeStrc* p
 }
 
 // 0x00609100
-static __inline void __fastcall sub_00609100(T006090E0* pCache, D2LRUNodeStrc* pNode)
+static __inline void __fastcall LRUCacheAppendFree(T006090E0* pCache, D2LRUNodeStrc* pNode)
 {
     if (!pCache->f_24)
     {
@@ -138,7 +138,7 @@ static __inline void __fastcall sub_00609100(T006090E0* pCache, D2LRUNodeStrc* p
 }
 
 // 0x00609120
-static D2LRUNodeStrc* __fastcall sub_00609120(T006090E0* pCache)
+static D2LRUNodeStrc* __fastcall LRUCachePopUsed(T006090E0* pCache)
 {
     D2LRUNodeStrc* pNode = pCache->f_18;
     if (!pNode)
@@ -185,7 +185,7 @@ static __inline D2LRUNodeStrc* __fastcall LRUCACHE_UnlinkUsedHead(T006090E0* pCa
 }
 
 // 0x00609150
-static __inline D2LRUNodeStrc* __fastcall sub_00609150(T006090E0* pCache)
+static __inline D2LRUNodeStrc* __fastcall LRUCachePopFree(T006090E0* pCache)
 {
     D2LRUNodeStrc* pNode = pCache->f_20;
     if (!pNode)
@@ -209,7 +209,7 @@ static __inline D2LRUNodeStrc* __fastcall sub_00609150(T006090E0* pCache)
 }
 
 // 0x00609180
-static D2LRUNodeStrc* __fastcall sub_00609180(T006090E0* pCache, D2LRUNodeStrc* pNode)
+static D2LRUNodeStrc* __fastcall LRUCacheUnlinkUsed(T006090E0* pCache, D2LRUNodeStrc* pNode)
 {
     if (pCache->f_18)
     {
@@ -217,7 +217,7 @@ static D2LRUNodeStrc* __fastcall sub_00609180(T006090E0* pCache, D2LRUNodeStrc* 
 
         if (pNode == pCache->f_18)
         {
-            return sub_00609120(pCache);
+            return LRUCachePopUsed(pCache);
         }
 
         if (pNode == pCache->f_1C)
@@ -239,7 +239,7 @@ static D2LRUNodeStrc* __fastcall sub_00609180(T006090E0* pCache, D2LRUNodeStrc* 
 }
 
 // 0x00609200
-void __fastcall sub_00609200(T006090E0* pCache, int (__fastcall* pfnCallback)(D2LRUNodeStrc*, void*), void* pUserData)
+void __fastcall LRUCacheIterate(T006090E0* pCache, int (__fastcall* pfnCallback)(D2LRUNodeStrc*, void*), void* pUserData)
 {
     LRU_ASSERT(pCache, 412);
 
@@ -256,7 +256,7 @@ void __fastcall sub_00609200(T006090E0* pCache, int (__fastcall* pfnCallback)(D2
 }
 
 // 0x00609250
-static D2LRUNodeStrc* __fastcall sub_00609250(T006090E0* pCache, unsigned int nSize)
+static D2LRUNodeStrc* __fastcall LRUCacheTakeFreeNode(T006090E0* pCache, unsigned int nSize)
 {
     if (pCache->nCount == pCache->nNodes)
     {
@@ -268,8 +268,8 @@ static D2LRUNodeStrc* __fastcall sub_00609250(T006090E0* pCache, unsigned int nS
         return 0;
     }
 
-    D2LRUNodeStrc* pNode = sub_00609150(pCache);
-    sub_006090E0(pCache, pNode);
+    D2LRUNodeStrc* pNode = LRUCachePopFree(pCache);
+    LRUCacheAppendUsed(pCache, pNode);
     LRU_ASSERT(pNode, 159);
 
     ++pCache->nCount;
@@ -278,7 +278,7 @@ static D2LRUNodeStrc* __fastcall sub_00609250(T006090E0* pCache, unsigned int nS
 }
 
 // 0x006092D0
-void __fastcall sub_006092D0(T006090E0* pCache, D2LRUNodeStrc* pNode)
+void __fastcall LRUCacheRelease(T006090E0* pCache, D2LRUNodeStrc* pNode)
 {
     if (!pCache->nCount)
     {
@@ -291,7 +291,7 @@ void __fastcall sub_006092D0(T006090E0* pCache, D2LRUNodeStrc* pNode)
     }
     else
     {
-        sub_00609180(pCache, pNode);
+        LRUCacheUnlinkUsed(pCache, pNode);
     }
 
     if (pNode)
@@ -310,14 +310,14 @@ void __fastcall sub_006092D0(T006090E0* pCache, D2LRUNodeStrc* pNode)
             pNode->nCost = 0;
         }
 
-        sub_00609100(pCache, pNode);
+        LRUCacheAppendFree(pCache, pNode);
     }
 
     --pCache->nCount;
 }
 
 // 0x00609380
-void __fastcall sub_00609380(T006090E0* pCache, D2LRUNodeStrc* pNode)
+void __fastcall LRUCacheTouch(T006090E0* pCache, D2LRUNodeStrc* pNode)
 {
     if (!pCache->nCount)
     {
@@ -327,16 +327,16 @@ void __fastcall sub_00609380(T006090E0* pCache, D2LRUNodeStrc* pNode)
     ++pCache->nUses;
     LRU_ASSERT(pNode, 233);
 
-    sub_00609180(pCache, pNode);
-    sub_006090E0(pCache, pNode);
+    LRUCacheUnlinkUsed(pCache, pNode);
+    LRUCacheAppendUsed(pCache, pNode);
 }
 
 // 0x006093E0
-void __fastcall sub_006093E0(T006090E0* pCache)
+void __fastcall LRUCacheDestroy(T006090E0* pCache)
 {
     while (pCache->nCount)
     {
-        sub_006092D0(pCache, 0);
+        LRUCacheRelease(pCache, 0);
     }
 
     if (pCache->pNodes)
@@ -347,18 +347,18 @@ void __fastcall sub_006093E0(T006090E0* pCache)
 }
 
 // 0x00609420
-D2LRUNodeStrc* __fastcall sub_00609420(T006090E0* pCache, unsigned int nSize, int nFlags)
+D2LRUNodeStrc* __fastcall LRUCacheAlloc(T006090E0* pCache, unsigned int nSize, int nFlags)
 {
     LRU_ASSERT(nSize < pCache->nMaxSize, 118);
 
     ++pCache->nAdds;
     ++pCache->nUses;
 
-    D2LRUNodeStrc* pNode = sub_00609250(pCache, nSize);
+    D2LRUNodeStrc* pNode = LRUCacheTakeFreeNode(pCache, nSize);
     while (!pNode)
     {
-        sub_006092D0(pCache, 0);
-        pNode = sub_00609250(pCache, nSize);
+        LRUCacheRelease(pCache, 0);
+        pNode = LRUCacheTakeFreeNode(pCache, nSize);
     }
 
     pNode->pData = sub_0040B430(pCache->pMemPool, nSize, gszLRUCacheSourceFile, 132, 0);

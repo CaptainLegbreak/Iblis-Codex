@@ -80,7 +80,7 @@ struct D2CmpGfxCelStrc
     unsigned int nDirections;
 };
 
-int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections); // 0x00600C90
+int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 0x00600C90
 
 struct D2FindTileEntryStrc;
 
@@ -129,7 +129,7 @@ long gnTileLockRefCount_008F03E4; // 0x008F03E4
 char gTileLock_008F03CC[0x18]; // 0x008F03CC
 
 // 0x0060A9D0
-void __fastcall sub_0060A9D0_Remove(D2CmpGfxHashStrc* pHash, int nUnused, void* pMemPool, D2CmpGfxHashEntryStrc* pEntry)
+void __fastcall GfxHashFreeEntry(D2CmpGfxHashStrc* pHash, int nUnused, void* pMemPool, D2CmpGfxHashEntryStrc* pEntry)
 {
     void* pBlocks = 0;
     D2CmpGfxHashEntryStrc* pEntryCopy = pEntry;
@@ -180,7 +180,7 @@ void __fastcall sub_0060A9D0_Remove(D2CmpGfxHashStrc* pHash, int nUnused, void* 
 }
 
 // 0x0060AAF0
-void __fastcall sub_0060AAF0_ClearBlockTableB(D2CmpBlockTableBStrc* pTable)
+void __fastcall GfxHashInit(D2CmpBlockTableBStrc* pTable)
 {
     memset(pTable, 0, sizeof(D2CmpBlockTableBStrc));
 }
@@ -190,12 +190,12 @@ void __stdcall sub_0054FB30_Nop()
 }
 
 // 0x0060AB70
-void __stdcall sub_0060AB70_Nop()
+void __stdcall GfxHashDumpStats()
 {
 }
 
 // 0x0060AB80
-unsigned int __fastcall sub_0060AB80_GetGfxKeyValue(D2CmpGfxKeyStrc* pKey, unsigned int* pDivisor, D2CmpGfxCelStrc* pCel)
+unsigned int __fastcall GfxHashGetDirectionKey(D2CmpGfxKeyStrc* pKey, unsigned int* pDivisor, D2CmpGfxCelStrc* pCel)
 {
     unsigned int nValue = 0;
     *pDivisor = 0;
@@ -209,7 +209,7 @@ unsigned int __fastcall sub_0060AB80_GetGfxKeyValue(D2CmpGfxKeyStrc* pKey, unsig
         }
         if (!(pCel->dwFlags & 1))
         {
-            nValue = sub_00600C90_GetDirectionIndex64(pKey->nDirection, pCel->nDirections);
+            nValue = CelGameDirToFileDir(pKey->nDirection, pCel->nDirections);
         }
         break;
 
@@ -217,7 +217,7 @@ unsigned int __fastcall sub_0060AB80_GetGfxKeyValue(D2CmpGfxKeyStrc* pKey, unsig
         if (!(pCel->dwFlags & 1))
         {
             *pDivisor = pCel->nDirections == 8 ? 4 : 1;
-            nValue = sub_00600C90_GetDirectionIndex64(pKey->nDirection, pCel->nDirections);
+            nValue = CelGameDirToFileDir(pKey->nDirection, pCel->nDirections);
         }
         break;
 
@@ -235,7 +235,7 @@ unsigned int __fastcall sub_0060AB80_GetGfxKeyValue(D2CmpGfxKeyStrc* pKey, unsig
             }
             else if (!(pCel->dwFlags & 1))
             {
-                nValue = sub_00600C90_GetDirectionIndex64(pKey->nDirection, pCel->nDirections);
+                nValue = CelGameDirToFileDir(pKey->nDirection, pCel->nDirections);
             }
         }
         break;
@@ -255,9 +255,9 @@ void __stdcall sub_0060AC50_Nop()
 }
 
 // 0x0060AC60
-static unsigned int sub_0060AC60_GfxHashIndex(D2CmpGfxKeyStrc* pKey, int* pAux, void* pCel, unsigned int* pValue)
+static unsigned int GfxHashGetIndex(D2CmpGfxKeyStrc* pKey, int* pAux, void* pCel, unsigned int* pValue)
 {
-    const unsigned int nValue = sub_0060AB80_GetGfxKeyValue(pKey, (unsigned int*)pAux, (D2CmpGfxCelStrc*)pCel);
+    const unsigned int nValue = GfxHashGetDirectionKey(pKey, (unsigned int*)pAux, (D2CmpGfxCelStrc*)pCel);
     *pValue = nValue;
     unsigned int nHash;
     if ((pKey->nType == 6 && (pKey->dwFlags & 2)) || pKey->nType == 3 || pKey->nType == 4)
@@ -274,9 +274,9 @@ static unsigned int sub_0060AC60_GfxHashIndex(D2CmpGfxKeyStrc* pKey, int* pAux, 
 }
 
 // 0x0060ACE0
-D2CmpGfxHashEntryStrc* __fastcall sub_0060ACE0_GfxHashFind(D2CmpGfxHashStrc* pHash, D2CmpGfxKeyStrc* pKey, unsigned int* pValue, int* pAux, void* pCel)
+D2CmpGfxHashEntryStrc* __fastcall GfxHashFind(D2CmpGfxHashStrc* pHash, D2CmpGfxKeyStrc* pKey, unsigned int* pValue, int* pAux, void* pCel)
 {
-    const unsigned int nIndex = sub_0060AC60_GfxHashIndex(pKey, pAux, pCel, pValue);
+    const unsigned int nIndex = GfxHashGetIndex(pKey, pAux, pCel, pValue);
     const int nKey1 = pKey->nKey1;
     const int nKey2 = pKey->nKey2;
     const int nKey3 = pKey->nKey3;
@@ -311,12 +311,12 @@ D2CmpGfxHashEntryStrc* __fastcall sub_0060ACE0_GfxHashFind(D2CmpGfxHashStrc* pHa
 }
 
 // 0x0060ADC0
-D2CmpGfxHashEntryStrc* __fastcall sub_0060ADC0_GfxHashAdd(void* pMemPool, D2CmpGfxHashStrc* pHash, int nArg, D2CmpGfxKeyStrc* pKey, void* pCel)
+D2CmpGfxHashEntryStrc* __fastcall GfxHashAdd(void* pMemPool, D2CmpGfxHashStrc* pHash, int nArg, D2CmpGfxKeyStrc* pKey, void* pCel)
 {
     D2CmpGfxHashEntryStrc* pEntry = (D2CmpGfxHashEntryStrc*)FOG_AllocPool(pMemPool, sizeof(D2CmpGfxHashEntryStrc), ".\\SRC\\GfxHash.cpp", 0xEF, 0);
     pEntry->nArg = nArg;
     nArg = 0;
-    const unsigned int nIndex = sub_0060AC60_GfxHashIndex(pKey, &nArg, pCel, &pEntry->nValue);
+    const unsigned int nIndex = GfxHashGetIndex(pKey, &nArg, pCel, &pEntry->nValue);
     pEntry->nKey1 = pKey->nKey1;
     pEntry->nKey2 = pKey->nKey2;
     pEntry->nKey3 = pKey->nKey3;
@@ -342,13 +342,13 @@ D2CmpGfxHashEntryStrc* __fastcall sub_0060ADC0_GfxHashAdd(void* pMemPool, D2CmpG
 }
 
 // 0x0060AEE0
-void __fastcall sub_0060AEE0_ClearBlockTableA(D2CmpBlockTableAStrc* pTable)
+void __fastcall CelDataHashInit(D2CmpBlockTableAStrc* pTable)
 {
     memset(pTable, 0, sizeof(D2CmpBlockTableAStrc));
 }
 
 // 0x0060AF90
-T00604AE0* __fastcall sub_0060AF90_CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
+T00604AE0* __fastcall CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
 {
     if (!*szName)
         return 0;
@@ -364,14 +364,14 @@ T00604AE0* __fastcall sub_0060AF90_CelDataHashFind(D2CelDataHashStrc* pHash, con
 }
 
 // 0x0060CD30
-void __cdecl sub_0060CD30_InitTileLock()
+void __cdecl CodecInitLock()
 {
     if (InterlockedIncrement(&gnTileLockRefCount_008F03E4) == 1)
         InitializeCriticalSection(gTileLock_008F03CC);
 }
 
 // 0x0060CD50
-void __cdecl sub_0060CD50_ReleaseTileLock()
+void __cdecl CodecReleaseLock()
 {
     if (InterlockedDecrement(&gnTileLockRefCount_008F03E4) == 0)
         DeleteCriticalSection(gTileLock_008F03CC);

@@ -78,19 +78,19 @@ void D2StormListEStrc::sub_00602590_UnlinkNode(char* pNode)
 }
 
 // 0x006029B0
-D2CelEntryStrc* D2StormNodeListStrc::sub_006029B0_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+D2CelEntryStrc* D2StormNodeListStrc::CelEntryListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
     void* pMemory = SMemAlloc(sizeof(D2CelEntryStrc) + nExtraBytes, gszTypeNameCelEntry, -2, nFlags | 8);
     D2CelEntryStrc* pEntry = pMemory ? new (pMemory) D2CelEntryStrc : 0;
     if (nLinkType)
-        sub_00601FC0_LinkNode(pEntry, nLinkType, 0);
+        CelEntryListLinkNode(pEntry, nLinkType, 0);
     return pEntry;
 }
 
 // build: symbol ??_GD2StormSlotLinkStrc@@QAEPAXI@Z 0x00602A40
 // build: symbol ??_GD2StormSlotListStrc@@QAEPAXI@Z 0x00602B70
 // 0x00602C40
-D2CelEntryStrc* D2StormNodeListStrc::sub_00602C40_DeleteNode(D2CelEntryStrc* pNode)
+D2CelEntryStrc* D2StormNodeListStrc::CelEntryListDeleteNode(D2CelEntryStrc* pNode)
 {
     D2CelEntryStrc* pNext = (D2CelEntryStrc*)Link(pNode)->Next();
     pNode->f_0.Unlink();
@@ -106,7 +106,7 @@ inline void D2StormEntry38Strc::operator delete(void* pMemory)
 }
 
 // 0x00602D20
-void D2StormListEStrc::sub_00602D20_DeleteAll()
+void D2StormListEStrc::CelReuseListDeleteAll()
 {
     char* pNode;
     while ((pNode = m_terminator.Next()) != 0)
@@ -117,7 +117,7 @@ void D2StormListEStrc::sub_00602D20_DeleteAll()
 }
 
 // 0x00602E30
-char* D2StormListEStrc::sub_00602E30_DeleteNode(char* pNode)
+char* D2StormListEStrc::CelReuseListDeleteNode(char* pNode)
 {
     char* pNext = Link(pNode)->Next();
     ((D2StormEntry38Strc*)pNode)->~D2StormEntry38Strc();
@@ -126,16 +126,16 @@ char* D2StormListEStrc::sub_00602E30_DeleteNode(char* pNode)
 }
 
 // 0x00603250
-inline D2StormEntry38Strc* D2GameDataTableStrc::sub_00603250_Ptr(unsigned int hHandle)
+inline D2StormEntry38Strc* D2GameDataTableStrc::CelListTablePtr(unsigned int hHandle)
 {
     return sub_006030E0_InternalFind(hHandle, f_44);
 }
 
 // 0x00603400
-inline D2StormEntry38Strc* D2GameDataTableStrc::sub_00603400_Lock(unsigned int hHandle, int* pLockHandle, int bForWriting)
+inline D2StormEntry38Strc* D2GameDataTableStrc::CelListTableLock(unsigned int hHandle, int* pLockHandle, int bForWriting)
 {
     SyncEnterLock(pLockHandle, bForWriting);
-    D2StormEntry38Strc* pList = sub_00603250_Ptr(hHandle);
+    D2StormEntry38Strc* pList = CelListTablePtr(hHandle);
     if (!pList)
     {
         SyncLeaveLock(*pLockHandle);
@@ -145,12 +145,12 @@ inline D2StormEntry38Strc* D2GameDataTableStrc::sub_00603400_Lock(unsigned int h
 }
 
 // 0x006035A0
-D2StormEntry38Strc* D2StormListEStrc::sub_006035A0_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+D2StormEntry38Strc* D2StormListEStrc::CelReuseListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
     void* pMemory = SMemAlloc(sizeof(D2StormEntry38Strc) + nExtraBytes, gszTypeNameCelList, -2, nFlags | 8);
     D2StormEntry38Strc* pList = pMemory ? new (pMemory) D2StormEntry38Strc : 0;
     if (nLinkType)
-        sub_006024E0_LinkNode((char*)pList, nLinkType, 0);
+        CelReuseListLinkNode((char*)pList, nLinkType, 0);
     return pList;
 }
 
@@ -202,7 +202,7 @@ void __stdcall CelCompressAddImage(unsigned int hCelList, void* pSrc, unsigned i
     D2_ASSERT(dwPixelWidth && dwPixelHeight, 0x229);
     D2_ASSERT(nSrcSize >= dwPixelHeight, 0x22A);
     int hLock;
-    D2StormEntry38Strc* pList = gCelListTable.sub_00603400_Lock(hCelList, &hLock, 0);
+    D2StormEntry38Strc* pList = gCelListTable.CelListTableLock(hCelList, &hLock, 0);
     D2CelEntryStrc* pEntry = sub_F43_NewCelEntry(&pList->tList, 2, 0, 0);
     ++pList->nCount;
     pEntry->nSize = dwPixelWidth * dwPixelHeight;
@@ -218,7 +218,7 @@ void __stdcall CelCompressAddImage(unsigned int hCelList, void* pSrc, unsigned i
 }
 
 // 0x00603B60
-void D2StormListEStrc::sub_00603B60_DeleteAll()
+void D2StormListEStrc::CelChunkListDeleteAll()
 {
     char* pNode;
     while ((pNode = m_terminator.Next()) != 0)
@@ -236,12 +236,12 @@ void D2GameHashTableReuseStrc::InternalDelete(D2StormEntry38Strc* pNode)
 }
 
 // 0x00604490
-D2StormHashChunkStrc* D2StormListEStrc::sub_00604490_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+D2StormHashChunkStrc* D2StormListEStrc::CelChunkListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
     void* pMemory = SMemAlloc(sizeof(D2StormHashChunkStrc) + nExtraBytes, gszTypeNameCelHashChunk, -2, nFlags | 8);
     D2StormHashChunkStrc* pChunk = pMemory ? new (pMemory) D2StormHashChunkStrc : 0;
     if (nLinkType)
-        sub_00603FC0_LinkNode((char*)pChunk, nLinkType, 0);
+        CelChunkListLinkNode((char*)pChunk, nLinkType, 0);
     return pChunk;
 }
 
@@ -262,7 +262,7 @@ inline void D2GameHashTableReuseStrc::operator delete(void* pMemory)
 }
 
 // 0x00604760
-char* D2GameDataTableStrc::sub_00604760_New(unsigned int nHashVal, const int& tKey, int nExtraBytes, int nFlags)
+char* D2GameDataTableStrc::CelListTableNew(unsigned int nHashVal, const int& tKey, int nExtraBytes, int nFlags)
 {
     unsigned int nSlot = nHashVal & m_slotmask;
     if (sub_006045B0(nSlot))
@@ -299,8 +299,8 @@ unsigned int __stdcall CelCompressCreate(int nType, unsigned int nDirections, in
     D2_ASSERT(nType < 2, 0x201);
     unsigned int hHandle;
     int hLock;
-    D2StormEntry38Strc* pList = (D2StormEntry38Strc*)gCelListTable.sub_006048C0_NewLock(&hHandle, &hLock);
-    pList->tList.sub_00602BF0_DeleteAll();
+    D2StormEntry38Strc* pList = (D2StormEntry38Strc*)gCelListTable.CelListTableNewLock(&hHandle, &hLock);
+    pList->tList.CelEntryListDeleteAll();
     pList->nType = nType;
     pList->nDirections = nDirections;
     pList->nCount = 0;
@@ -339,8 +339,8 @@ typedef D2StormEntry38Strc* (D2GameDataTableStrc::*D2CELTABLELOCKFN)(unsigned in
 
 void sub_F43_EmitTableMembers(D2CELTABLEPTRFN* ppfnPtr, D2CELTABLELOCKFN* ppfnLock)
 {
-    *ppfnPtr = &D2GameDataTableStrc::sub_00603250_Ptr;
-    *ppfnLock = &D2GameDataTableStrc::sub_00603400_Lock;
+    *ppfnPtr = &D2GameDataTableStrc::CelListTablePtr;
+    *ppfnLock = &D2GameDataTableStrc::CelListTableLock;
 }
 
 #include "gen/data/Source/D2CMP/SRC/CelCmp_006022A0.inc"

@@ -143,7 +143,7 @@ struct D2StormSlotListStrc
         sub_00602640_UnlinkAll();
     }
     void sub_00602640_UnlinkAll();                                                                          // 0x00602640
-    void sub_00602D20_DeleteAll();                                                                          // 0x00602D20
+    void CelReuseListDeleteAll();                                                                          // 0x00602D20
 };
 
 struct D2StormListFixedArrayStrc
@@ -170,7 +170,7 @@ struct D2GameHashTableStrc
     unsigned int m_fullnessIndicator;
     D2StormListFixedArrayStrc m_slotlistarray;
     unsigned int m_slotmask;
-    void sub_00602800_InternalClear(int bWarn);                                                             // 0x00602800
+    void CelListTableInternalClear(int bWarn);                                                             // 0x00602800
     void sub_00604070_Clear();
     ~D2GameHashTableStrc();                                                                                // 0x00603460
 };
@@ -313,7 +313,7 @@ struct D2StormListEStrc
         sub_00602690_UnlinkAll();
     }
     void sub_00602690_UnlinkAll();                                                                          // 0x00602690
-    void sub_00603B60_DeleteAll();                                                                          // 0x00603B60
+    void CelChunkListDeleteAll();                                                                          // 0x00603B60
 };
 
 extern "C" const int gTSHashTableReuseCelListVtable_006E5DFC[]; // 0x006E5DFC
@@ -335,7 +335,7 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 // 0x00604070
 void D2GameHashTableStrc::sub_00604070_Clear()
 {
-    sub_00602800_InternalClear(0);
+    CelListTableInternalClear(0);
 }
 
 // 0x00604080
@@ -504,8 +504,8 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 void __fastcall sub_00604640_DestroyReuseTable(D2GameHashTableReuseStrc* pTable)
 {
     pTable->f_0 = gTSHashTableReuseCelListVtable_006E5DFC;
-    pTable->m_chunkList.sub_00603B60_DeleteAll();
-    pTable->m_reuseList.sub_00602D20_DeleteAll();
+    pTable->m_chunkList.CelChunkListDeleteAll();
+    pTable->m_reuseList.CelReuseListDeleteAll();
     pTable->m_chunkList.~D2StormListEStrc();
     pTable->m_reuseList.~D2StormSlotListStrc();
     pTable->D2GameHashTableStrc::~D2GameHashTableStrc();

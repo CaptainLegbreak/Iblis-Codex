@@ -94,8 +94,8 @@ public:
     static void operator delete(void* pMemory);
     D2StormEntry38Strc* sub_006030E0_InternalFind(unsigned int nHashVal, const int& tKey);                 // 0x006030E0
     int sub_006045B0(unsigned int nSlot);                                                                   // 0x006045B0
-    void sub_00602800_InternalClear(int bWarn);                                                             // 0x00602800
-    void sub_00603C80_GrowListArray();                                                                      // 0x00603C80
+    void CelListTableInternalClear(int bWarn);                                                             // 0x00602800
+    void CelListTableGrowListArray();                                                                      // 0x00603C80
 };
 
 template <> class TSHashTableReuse<CELLIST, HASHKEY_NONE, 0> : public D2GameHashTableStrc
@@ -113,7 +113,7 @@ public:
     explicit TSHashTableReuse(int nEmit) : D2GameHashTableStrc(nEmit)
     {
     }
-    void sub_00603E50_DeleteLists();                                                                        // 0x00603E50
+    void CelListTableDeleteReuseLists();                                                                        // 0x00603E50
 };
 
 template <> class TSExportTableSimple<CELLIST, HCELLIST__*, 0> : public D2GameHashTableReuseStrc
@@ -163,23 +163,23 @@ public:
         }
         return pList;
     }
-    D2StormEntry38Strc* sub_00603250_Ptr(unsigned int hHandle);                                             // 0x00603250
-    D2StormEntry38Strc* sub_00603400_Lock(unsigned int hHandle, int* pLockHandle, int bForWriting);         // 0x00603400
+    D2StormEntry38Strc* CelListTablePtr(unsigned int hHandle);                                             // 0x00603250
+    D2StormEntry38Strc* CelListTableLock(unsigned int hHandle, int* pLockHandle, int bForWriting);         // 0x00603400
     void sub_0052E590(D2StormEntry38Strc* pNode)
     {
-        sub_006021E0_UnlinkNode(pNode);
+        CelListTableUnlinkNode(pNode);
         InternalDelete(pNode);
     }
-    unsigned int sub_00603280_GenerateHandle();                                                             // 0x00603280
-    char* sub_00604760_New(unsigned int nHashVal, const int& tKey, int nExtraBytes, int nFlags);            // 0x00604760
-    void sub_00601B80_SyncEnterLock(int* pLockHandle, int bForWriting);                                     // 0x00601B80
-    int sub_00601CB0_IsWriteLock(int nLockHandle);                                                          // 0x00601CB0
-    unsigned int sub_00601D00_SlotIndex(unsigned int nHashVal);                                             // 0x00601D00
-    void sub_006021E0_UnlinkNode(D2StormEntry38Strc* pNode);                                                // 0x006021E0
-    void sub_00602400_SyncLeaveLock(int nLockHandle);                                                       // 0x00602400
-    void sub_00602620_Delete(D2StormEntry38Strc* pNode);                                                    // 0x00602620
+    unsigned int CelListTableGenerateHandle();                                                             // 0x00603280
+    char* CelListTableNew(unsigned int nHashVal, const int& tKey, int nExtraBytes, int nFlags);            // 0x00604760
+    void CelListTableSyncEnterLock(int* pLockHandle, int bForWriting);                                     // 0x00601B80
+    int CelListTableIsWriteLock(int nLockHandle);                                                          // 0x00601CB0
+    unsigned int CelListTableSlotIndex(unsigned int nHashVal);                                             // 0x00601D00
+    void CelListTableUnlinkNode(D2StormEntry38Strc* pNode);                                                // 0x006021E0
+    void CelListTableSyncLeaveLock(int nLockHandle);                                                       // 0x00602400
+    void CelListTableDelete(D2StormEntry38Strc* pNode);                                                    // 0x00602620
     void sub_006027E0_Delete(D2StormEntry38Strc* pNode);                                                    // 0x006027E0
-    void sub_00602A10_DeleteUnlock(D2StormEntry38Strc* pNode, int nLockHandle);                             // 0x00602A10
-    char* sub_00604840_NewHandle(unsigned int* pHandle);                                                    // 0x00604840
-    char* sub_006048C0_NewLock(unsigned int* pHandle, int* pLockHandle);                                    // 0x006048C0
+    void CelListTableDeleteUnlock(D2StormEntry38Strc* pNode, int nLockHandle);                             // 0x00602A10
+    char* CelListTableNewHandle(unsigned int* pHandle);                                                    // 0x00604840
+    char* CelListTableNewLock(unsigned int* pHandle, int* pLockHandle);                                    // 0x006048C0
 };

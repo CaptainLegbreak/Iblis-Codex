@@ -58,8 +58,8 @@ extern D2SpriteCacheStrc gCmpTileCache;                                         
 extern D2CmpPoolStrc gCmpTilePool;                                                                          // 0x0088DB20
 D2CmpBlockTableAStrc gCmpBlockTableA;                                                                       // 0x0088CB20
 extern D2CmpBlockTableBStrc gCmpBlockTableB;                                                                // 0x0088DB58
-void __fastcall sub_0060AB10_GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry); // 0x0060AB10
-void __fastcall sub_0060B0B0_CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry); // 0x0060B0B0
+void __fastcall GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry); // 0x0060AB10
+void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry); // 0x0060B0B0
 
 // 0x005FE010
 void __stdcall D2CMPGetTileCacheHits(int* pnArg, int* pnCountB, int* pnCountA, int* pnHitPercent)
@@ -87,7 +87,7 @@ void __fastcall sub_005FE170_SpriteCacheFreeCallback(void* pNode)
         D2_ASSERT(pKey, 0xB5);
         gpfnCmpFreeCallback_0089DB5C(pKey->nKeyA, pKey->nKeyC, pKey->nKeyB);
     }
-    sub_0060AB10_GfxHashRemove(gCmpTileCache.pMemPool, (D2CmpGfxHashStrc*)&gCmpBlockTableB, (D2CmpGfxHashEntryStrc*)pNode);
+    GfxHashRemove(gCmpTileCache.pMemPool, (D2CmpGfxHashStrc*)&gCmpBlockTableB, (D2CmpGfxHashEntryStrc*)pNode);
 }
 
 // 0x005FE1D0
@@ -95,5 +95,5 @@ void __fastcall sub_005FE1D0_FreeTilePoolEntry(void* pEntry)
 {
     D2CelDataViewStrc* pCelData = (D2CelDataViewStrc*)((D2TilePoolEntryStrc*)pEntry)->pCelData;
     pCelData->nRef = 0;
-    sub_0060B0B0_CelDataHashRemove(gCmpTilePool.pMemPool, (D2CelDataHashStrc*)&gCmpBlockTableA, (T00604AE0*)pCelData);
+    CelDataHashRemove(gCmpTilePool.pMemPool, (D2CelDataHashStrc*)&gCmpBlockTableA, (T00604AE0*)pCelData);
 }

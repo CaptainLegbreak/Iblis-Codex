@@ -1337,7 +1337,7 @@ void __fastcall OBJECTS_InitFunction12_PermanentPortal(D2ObjInitFnStrc* pOp)
     }
 }
 
-void __stdcall sub_0060AB70_Nop()
+void __stdcall GfxHashDumpStats()
 {
 }
 

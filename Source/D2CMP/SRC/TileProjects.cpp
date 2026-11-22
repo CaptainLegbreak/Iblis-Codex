@@ -5,7 +5,7 @@ struct D2CmpFindTilesNodeStrc;
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 void __stdcall TileProjectDestroy(D2TileLibraryHeaderStrc* pLibrary, int bKeep);                    // 0x00609E90
-void __fastcall sub_0060CE00_FreeFindTilesTable(D2CmpFindTilesNodeStrc** ppBuckets);                        // 0x0060CE00
+void __fastcall FindTileDestroyTable(D2CmpFindTilesNodeStrc** ppBuckets);                        // 0x0060CE00
 static D2TileRecordStrc* gpTileRecords_008ADBB4;                                                                   // 0x008ADBB4
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -16,10 +16,10 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
-int __fastcall sub_005FDF80_GetTileLibrarySize(const char* szFilePath);                                     // 0x005FDF80
+int __fastcall D2CMPGetTileHeadersSize(const char* szFilePath);                                     // 0x005FDF80
 
-void __stdcall sub_0060A390(D2TileLibraryHeaderStrc* pLibrary, D2TileLibraryHeaderStrc** ppLibrary, const char* szName); // 0x0060A390
-D2TileLibraryHashStrc* __fastcall sub_0060A440_CreateTileHashBlock(D2TileLibraryHeaderStrc* pLibrary);        // 0x0060A440
+void __stdcall TileProjectNormalizeHeaders(D2TileLibraryHeaderStrc* pLibrary, D2TileLibraryHeaderStrc** ppLibrary, const char* szName); // 0x0060A390
+D2TileLibraryHashStrc* __fastcall TileProjectBuildFindTable(D2TileLibraryHeaderStrc* pLibrary);        // 0x0060A440
 
 // 0x006006B0
 void __cdecl D2CMPDestroyTileHeaders()
@@ -30,7 +30,7 @@ void __cdecl D2CMPDestroyTileHeaders()
         D2TileRecordStrc* pNext = pRecord->pPrev;
         TileProjectDestroy(pRecord->pLibrary, 0);
         pRecord->pLibrary = 0;
-        sub_0060CE00_FreeFindTilesTable((D2CmpFindTilesNodeStrc**)pRecord->pHashBlock);
+        FindTileDestroyTable((D2CmpFindTilesNodeStrc**)pRecord->pHashBlock);
         pRecord->pHashBlock = 0;
         FOG_Free(pRecord, ".\\SRC\\TileProjects.cpp", 0x2A, 0);
         pRecord = pNext;
@@ -39,7 +39,7 @@ void __cdecl D2CMPDestroyTileHeaders()
 }
 
 // 0x00600710
-static D2TileRecordStrc* sub_00600710_FindTileRecord(const char* szName)
+static D2TileRecordStrc* D2CMPFindTileRecord(const char* szName)
 {
     for (D2TileRecordStrc* pRecord = gpTileRecords_008ADBB4; pRecord; pRecord = pRecord->pPrev)
     {
@@ -54,7 +54,7 @@ static D2TileRecordStrc* sub_00600710_FindTileRecord(const char* szName)
 // 0x00600760
 D2TileLibraryHashStrc* __stdcall D2CMPGetFindTile(const char* szName)
 {
-    D2TileRecordStrc* pRecord = sub_00600710_FindTileRecord(szName);
+    D2TileRecordStrc* pRecord = D2CMPFindTileRecord(szName);
     if (pRecord)
     {
         return pRecord->pHashBlock;
@@ -67,21 +67,21 @@ D2TileLibraryHeaderStrc* __stdcall D2CMPLoadProjectRecord(D2TileLibraryHashStrc*
 {
     D2TileLibraryHeaderStrc* pLibrary = 0;
     void* hFile = 0;
-    D2TileRecordStrc* pRecord = sub_00600710_FindTileRecord(szName);
+    D2TileRecordStrc* pRecord = D2CMPFindTileRecord(szName);
     if (pRecord)
     {
         *ppHashBlock = pRecord->pHashBlock;
         return pRecord->pLibrary;
     }
-    const int nSize = sub_005FDF80_GetTileLibrarySize(szName);
+    const int nSize = D2CMPGetTileHeadersSize(szName);
     void* ptData = FOG_Alloc(nSize, ".\\SRC\\TileProjects.cpp", 0x6B, 0);
     D2_ASSERT(ptData, 0x6C);
     memset(ptData, 0, nSize);
     ARCHIVE_OpenFile(0, szName, &hFile, 0);
     ARCHIVE_ReadFileToBuffer(0, hFile, ptData, nSize);
     ARCHIVE_CloseFile(0, hFile);
-    sub_0060A390((D2TileLibraryHeaderStrc*)ptData, &pLibrary, szName);
-    D2TileLibraryHashStrc* pHashBlock = sub_0060A440_CreateTileHashBlock(pLibrary);
+    TileProjectNormalizeHeaders((D2TileLibraryHeaderStrc*)ptData, &pLibrary, szName);
+    D2TileLibraryHashStrc* pHashBlock = TileProjectBuildFindTable(pLibrary);
     D2TileRecordStrc* pNew = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\TileProjects.cpp", 0x7B, 0);
     D2_ASSERT(pNew, 0x7C);
     memset(pNew, 0, sizeof(D2TileRecordStrc));

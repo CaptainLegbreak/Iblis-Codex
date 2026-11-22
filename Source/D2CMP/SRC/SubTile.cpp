@@ -16,7 +16,7 @@ struct D2CmpRGBStrc;
 struct D2CmpPaletteStrc;
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-int __fastcall sub_0060D310_ScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D310
+int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D310
 int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -27,17 +27,17 @@ int __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
 
 unsigned char* __stdcall sub_0060D6F0_MapPixels(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
-void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
-static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
-static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData);
-static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
+void __stdcall SubTilePackFloor(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
+static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
+static int SubTileHasTransparentPixel(const unsigned char* pData);
+static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
 
 struct D2RgbKeyStrc { unsigned char bytes[4]; };
 
 typedef char D2RgbKeyMustBeFourBytes[(sizeof(D2RgbKeyStrc) == 4) ? 1 : -1];
 
 typedef unsigned char (__stdcall* D2PaletteFn)(unsigned char, unsigned char, unsigned char);
-static unsigned char* __stdcall sub_0060D6F0_ConvertPixels(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert);
+static unsigned char* __stdcall SubTileConvertPixels24To8(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert);
 
 struct D2CmpPaletteStrc
 {
@@ -58,7 +58,7 @@ struct D2CmpSubTileBlockStrc
 };
 
 // 0x0060D430
-unsigned char* __fastcall sub_0060D430_CompressSubtile(const unsigned char* pData, unsigned int* pSize)
+unsigned char* __fastcall SubTileCompress(const unsigned char* pData, unsigned int* pSize)
 {
     unsigned char* pBuffer;
     unsigned char* pOut;
@@ -79,7 +79,7 @@ unsigned char* __fastcall sub_0060D430_CompressSubtile(const unsigned char* pDat
     pEnd = pData + 32;
     while (nRow < 32)
     {
-        nTransparent = sub_0060D310_ScanRun(0, pData, pEnd, 127, &bRunEnd, &bRestEnd);
+        nTransparent = CmpScanRun(0, pData, pEnd, 127, &bRunEnd, &bRestEnd);
         pData += nTransparent;
         if (bRunEnd || bRestEnd)
         {
@@ -120,7 +120,7 @@ unsigned char* __fastcall sub_0060D430_CompressSubtile(const unsigned char* pDat
 }
 
 // 0x0060D5B0
-void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc bColor, D2CmpMapColorFn pfnMapColor)
+void __fastcall SubTileConvert24To8(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc bColor, D2CmpMapColorFn pfnMapColor)
 {
     D2_ASSERT(pDst, 0x82);
     D2_ASSERT(pSrc, 0x83);
@@ -158,12 +158,12 @@ void __stdcall sub_0060DA80_Shim(D2CmpTileBlockStrc* pDstBlock, const D2CmpTileB
 {
     for (int i = 0; i < pSrcBlock->nSubs; ++i)
     {
-        sub_0060DA80_MapSubTile(tColor, pfnMap, &pDstBlock->pSubs[i], &pSrcBlock->pSubs[i]);
+        SubTileConvertFloor24To8(tColor, pfnMap, &pDstBlock->pSubs[i], &pSrcBlock->pSubs[i]);
     }
 }
 
 // 0x0060D6F0
-static unsigned char* __stdcall sub_0060D6F0_ConvertPixels(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert)
+static unsigned char* __stdcall SubTileConvertPixels24To8(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert)
 {
     const int nCount = nBytes / 3;
     unsigned char* pResult = (unsigned char*)FOG_Alloc(nCount, gszSubTileFile_006E61F8, 0xD8, 0);
@@ -196,11 +196,11 @@ static unsigned char* __stdcall sub_0060D6F0_ConvertPixels(unsigned char* pPixel
 unsigned char* __stdcall sub_0060D6F0_Shim(unsigned char* pPixels, int nBytes, unsigned int nKey, D2PaletteFn pConvert)
 {
     D2RgbKeyStrc tKey = { { (unsigned char)nKey, (unsigned char)(nKey >> 8), (unsigned char)(nKey >> 16), (unsigned char)(nKey >> 24) } };
-    return sub_0060D6F0_ConvertPixels(pPixels, nBytes, tKey, pConvert);
+    return SubTileConvertPixels24To8(pPixels, nBytes, tKey, pConvert);
 }
 
 // 0x0060D7C0
-int __fastcall sub_0060D7C0_IsBlockEmpty(const unsigned char* pData)
+int __fastcall SubTileIsEmpty(const unsigned char* pData)
 {
     for (int i = 0; i < 0x200; ++i, ++pData)
     {
@@ -211,7 +211,7 @@ int __fastcall sub_0060D7C0_IsBlockEmpty(const unsigned char* pData)
 }
 
 // 0x0060D7E0
-static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
+static int SubTileHasTransparentPixel(const unsigned char* pData)
 {
     int y = 0;
     int nOffset = 14;
@@ -245,7 +245,7 @@ static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
 void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* pSrc, D2CmpTileBlockStrc* pDst, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap); // 0x0060DB60
 
 // 0x0060D840
-static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc)
+static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc)
 {
     int nSize;
     unsigned char* ptDestBuffer;
@@ -271,7 +271,7 @@ static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst,
     pEnd = pSrc + 32;
     while (nRow < 15)
     {
-        nTransparent = sub_0060D310_ScanRun(0, pSrc, pEnd, 0x7F, &bRunEnd, &bRestEnd);
+        nTransparent = CmpScanRun(0, pSrc, pEnd, 0x7F, &bRunEnd, &bRestEnd);
         pSrc += nTransparent;
         if (bRunEnd || bRestEnd)
         {
@@ -337,7 +337,7 @@ static inline int SUBTILE_IsBlank(const unsigned char* pPixels)
 }
 
 // 0x0060DA80
-static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc)
+static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc)
 {
     unsigned char* pPixels = sub_0060D6F0_MapPixels(pSrc->ptData, pSrc->tHeader.nLength, tColor, pfnMap);
 
@@ -350,13 +350,13 @@ static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapCol
         return;
     }
 
-    if (sub_0060D7E0_HasTransparentDiamondPixel(pPixels))
+    if (SubTileHasTransparentPixel(pPixels))
     {
-        sub_0060D840_PackTransparent(pDst, pPixels);
+        SubTileCompressFloor(pDst, pPixels);
     }
     else
     {
-        sub_0060D9C0_BuildDiamondBlock(pDst, pPixels);
+        SubTilePackFloor(pDst, pPixels);
     }
 
     FOG_Free(pPixels, szTileCodecFile, 0x1C7, 0);
@@ -365,7 +365,7 @@ static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapCol
 void __fastcall sub_M92_Emit_0060D7E0(D2CmpSubTileRecordStrc* pRecord)
 {
     unsigned char* pData = pRecord->ptData;
-    if (sub_0060D7E0_HasTransparentDiamondPixel(pData))
+    if (SubTileHasTransparentPixel(pData))
     {
         sub_M92_EmitSinkA(pRecord);
     }
@@ -401,18 +401,18 @@ static int sub_0060D7E0_HasTransparent(const unsigned char* pData)
 }
 
 // 0x0060DB20
-void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord)
+void __fastcall SubTileEncodeFloor(D2CmpSubTileRecordStrc* pRecord)
 {
     unsigned char* pData = pRecord->ptData;
     if (sub_0060D7E0_HasTransparent(pData))
-        sub_0060D840_PackTransparent(pRecord, pData);
+        SubTileCompressFloor(pRecord, pData);
     else
-        sub_0060D9C0_BuildDiamondBlock(pRecord, pData);
+        SubTilePackFloor(pRecord, pData);
     FOG_Free(pData, szTileCodecFile, 0x1DE, 0);
 }
 
 // 0x0060DC30
-void __fastcall sub_0060DC30_ForEachPaletteColor(D2CmpPaletteStrc* pPalette, D2CmpColorCallback pfnColor)
+void __fastcall SubTileIteratePixels(D2CmpPaletteStrc* pPalette, D2CmpColorCallback pfnColor)
 {
     D2CmpRGBStrc* pColor = pPalette->pColors;
     for (int i = 0; i < 0x400; i++)
@@ -423,7 +423,7 @@ void __fastcall sub_0060DC30_ForEachPaletteColor(D2CmpPaletteStrc* pPalette, D2C
 }
 
 // 0x0060D9C0
-void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileBlockStrc* pBlock, const unsigned char* pSrc)
+void __stdcall SubTilePackFloor(D2CmpSubTileBlockStrc* pBlock, const unsigned char* pSrc)
 {
     unsigned char* pDst = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
     D2_ASSERT(pDst, 0x186);

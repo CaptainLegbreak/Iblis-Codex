@@ -76,7 +76,7 @@ struct D2StormEntryGrowArray604460Strc
     D2StormEntry604080Strc* f_8;
     unsigned int f_C;
 
-    unsigned int sub_00603EE0_CalcChunkSize(unsigned int nCount);                                           // 0x00603EE0
+    unsigned int CelListArrayCalcChunkSize(unsigned int nCount);                                           // 0x00603EE0
     void sub_006041B0_ReallocData(unsigned int nAlloc);                                                     // 0x006041B0
     D2StormEntry604080Strc* sub_006043B0_New();
     void ReserveInline(unsigned int nCount, int bRound);
@@ -88,8 +88,8 @@ struct D2StormListEStrc
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
-    void sub_00602D20_DeleteAll();                                                                          // 0x00602D20
-    void sub_00603B60_DeleteAll();                                                                          // 0x00603B60
+    void CelReuseListDeleteAll();                                                                          // 0x00602D20
+    void CelChunkListDeleteAll();                                                                          // 0x00603B60
 };
 
 struct D2GameHashTableStrc
@@ -103,7 +103,7 @@ struct D2GameHashTableStrc
     virtual D2StormEntry38Strc* InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
     virtual ~D2GameHashTableStrc();                                                                         // 0x00603460
     virtual void Destroy();
-    void sub_00602800_InternalClear(int bWarn);                                                             // 0x00602800
+    void CelListTableInternalClear(int bWarn);                                                             // 0x00602800
 };
 
 struct D2GameHashTableReuseStrc : D2GameHashTableStrc
@@ -141,7 +141,7 @@ inline void D2StormEntryGrowArray604460Strc::ReserveInline(unsigned int nCount, 
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00603EE0_CalcChunkSize(nCount);
+            unsigned int nChunk = f_C ? f_C : CelListArrayCalcChunkSize(nCount);
             nCount = RoundUpInline(nCount, nChunk);
         }
         sub_006041B0_ReallocData(nCount);
@@ -159,7 +159,7 @@ D2StormEntry604080Strc* D2StormEntryGrowArray604460Strc::sub_006043B0_New()
 // build: symbol ?Destroy@D2GameHashTableReuseStrc@@UAEXXZ 0x006046E0
 void D2GameHashTableReuseStrc::Destroy()
 {
-    sub_00602800_InternalClear(0);
-    m_chunkList.sub_00603B60_DeleteAll();
-    m_reuseList.sub_00602D20_DeleteAll();
+    CelListTableInternalClear(0);
+    m_chunkList.CelChunkListDeleteAll();
+    m_reuseList.CelReuseListDeleteAll();
 }

@@ -346,13 +346,13 @@ extern D2CmpTileCacheStrc gCmpTileCache; // 0x0089DB60
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 
-void __fastcall sub_005FDE50(void* pEntry); // 0x005FDE50
+void __fastcall D2CMPTileCacheReleaseTile(void* pEntry); // 0x005FDE50
 
 void __cdecl D2CMPDestroyTileHeaders(); // 0x006006B0
 
-void __fastcall sub_005FFBE0_FreeTileCache(D2CmpTileCacheStrc* pCache); // 0x005FFBE0
+void __fastcall D2CMPSpriteCacheFreeAll(D2CmpTileCacheStrc* pCache); // 0x005FFBE0
 
-void __cdecl sub_0060CD50_ReleaseTileLock(); // 0x0060CD50
+void __cdecl CodecReleaseLock(); // 0x0060CD50
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -428,11 +428,11 @@ struct D2FindTileEntryStrc
     D2FindTileEntryStrc* pNext;
 };
 
-unsigned char __fastcall sub_0060CD70_WrapIndex(int a, int b, int c); // 0x0060CD70
+unsigned char __fastcall FindTileHash(int a, int b, int c); // 0x0060CD70
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections); // 0x00600C90
+int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 0x00600C90
 
 struct Cell { int unk0; int width; int height; char pad[0x14]; unsigned char data[1]; };
 
@@ -1301,7 +1301,7 @@ struct D2StormHashTable006030E0Strc
     D2StormListArrayStrc m_slotlistarray;
     unsigned int m_slotmask;
 
-    char* sub_006030E0_Ptr(unsigned int nHashVal, int nKey);
+    char* CelListTableInternalFind(unsigned int nHashVal, int nKey);
 };
 
 struct D2StormEntry38Strc;
@@ -1844,9 +1844,9 @@ D2TileFreeCallbackFn gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
 
 int __fastcall sub_00516F14_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00516F14
 
-void __fastcall sub_00609380(D2CmpPoolStrc* pPool, D2LRUNodeStrc* pNode); // 0x00609380
+void __fastcall LRUCacheTouch(D2CmpPoolStrc* pPool, D2LRUNodeStrc* pNode); // 0x00609380
 
-D2LRUNodeStrc* __fastcall sub_00609420(D2CmpPoolStrc* pPool, unsigned int nSize, D2TileLibraryEntryStrc* pOwner); // 0x00609420
+D2LRUNodeStrc* __fastcall LRUCacheAlloc(D2CmpPoolStrc* pPool, unsigned int nSize, D2TileLibraryEntryStrc* pOwner); // 0x00609420
 
 void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
 
@@ -1868,7 +1868,7 @@ void __stdcall D2CMPTileCacheDestroy(int bFree)
 }
 
 // 0x005FDF50
-void __stdcall sub_005FDF50_FreeCacheBlock(D2CmpCacheBlockOwnerStrc* pOwner)
+void __stdcall D2CMPTileCacheFreeTile(D2CmpCacheBlockOwnerStrc* pOwner)
 {
     sub_006092D0_PoolFree(&gCmpPool, pOwner->pBlock);
     pOwner->nBlockUsed = 0;
@@ -1876,7 +1876,7 @@ void __stdcall sub_005FDF50_FreeCacheBlock(D2CmpCacheBlockOwnerStrc* pOwner)
 }
 
 // 0x005FDF80
-int __fastcall sub_005FDF80_GetTileLibrarySize(const char* szFilePath)
+int __fastcall D2CMPGetTileHeadersSize(const char* szFilePath)
 {
     void* hFile;
     if (!ARCHIVE_OpenFile(0, szFilePath, &hFile, 0))
@@ -1895,7 +1895,7 @@ void __stdcall D2CMPTileCacheInit(void* pMemPool, int nArg)
 {
     gnCmpPoolArg = nArg;
     memset(&gCmpPool, 0, sizeof(gCmpPool));
-    sub_00609020_PoolInit(&gCmpPool, pMemPool, nArg, sub_005FDE50, 0x1000);
+    sub_00609020_PoolInit(&gCmpPool, pMemPool, nArg, D2CMPTileCacheReleaseTile, 0x1000);
     gbCmpPoolInitialized = 1;
 }
 
@@ -1930,7 +1930,7 @@ int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
 }
 
 // 0x005FF630
-void __fastcall sub_005FF630_ResizeCacheEntry(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nDelta, int nArg)
+void __fastcall D2CMPSpriteCacheResize(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nDelta, int nArg)
 {
     EnterCriticalSection(&pCache->tLock);
     const unsigned int nNewSize = nDelta + pNode->nSize;
@@ -1965,7 +1965,7 @@ void __stdcall D2CMPSpriteCacheDestroy(int bFree)
 {
     if (bFree && gCmpTileCache.bActive)
     {
-        sub_005FFBE0_FreeTileCache(&gCmpTileCache);
+        D2CMPSpriteCacheFreeAll(&gCmpTileCache);
     }
 
     memset(&gCmpTileCache, 0, sizeof(gCmpTileCache));
@@ -1976,7 +1976,7 @@ void __stdcall D2CMPSpriteCacheDestroy(int bFree)
     }
 
     memset(&gCmpTilePool, 0, sizeof(gCmpTilePool));
-    sub_0060CD50_ReleaseTileLock();
+    CodecReleaseLock();
 }
 
 // 0x00600960
@@ -1998,7 +1998,7 @@ D2TileLibraryHeaderStrc* __stdcall D2CMPFindTileProject(D2TileLibraryEntryStrc* 
 }
 
 // 0x00600C00
-void __stdcall sub_00600C00_SetGfxMode(int nMode)
+void __stdcall D2CMPPalShiftSetAct(int nMode)
 {
     if (nMode >= 1 && nMode <= 5)
     {
@@ -2007,7 +2007,7 @@ void __stdcall sub_00600C00_SetGfxMode(int nMode)
 }
 
 // 0x00600C20
-unsigned char* __stdcall sub_00600C20(int nSet, int nIndex)
+unsigned char* __stdcall D2CMPPalShiftGetTransform(int nSet, int nIndex)
 {
     if (nSet < 9 && nIndex < 21 && nSet != 0 && (nSet <= 2 || nSet > 4))
     {
@@ -2018,7 +2018,7 @@ unsigned char* __stdcall sub_00600C20(int nSet, int nIndex)
 }
 
 // 0x00600C70
-int __stdcall sub_00600C70_GetDirectionIndex32(int nDirection, unsigned int nDirections)
+int __stdcall CelNormalDirToFileDir(int nDirection, unsigned int nDirections)
 {
     return gaDirectionIndex32[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
 }
@@ -2217,14 +2217,14 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x4a1);
         exit(-1);
     }
-    int idx = sub_00600C90_GetDirectionIndex64(nDirection, p->nDirections) * p->stride + nIndex;
+    int idx = CelGameDirToFileDir(nDirection, p->nDirections) * p->stride + nIndex;
     Cell* cell = p->cells[idx];
     int size = cell->height * cell->width;
     memcpy(pDst, cell->data, (unsigned int)size * 3);
     return 1;
 }
 
-int __stdcall sub_00601810_IsGfxFrameValid(D2CmpCelContextStrc* pContext)
+int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
 {
     D2CelFileStrc* pCelFile = (D2CelFileStrc*)pContext->pCelFile;
     if (!pCelFile)
@@ -2254,7 +2254,7 @@ int __stdcall sub_00601810_IsGfxFrameValid(D2CmpCelContextStrc* pContext)
 D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
 {
     D2_ASSERT(pCelContext, 0x566);
-    D2_ASSERT(sub_00601810_IsGfxFrameValid(pCelContext), 0x567);
+    D2_ASSERT(CelValidateContext(pCelContext), 0x567);
 
     D2CelFileStrc* pCelFile = (D2CelFileStrc*)pCelContext->pCelFile;
     const unsigned int nDirection = pCelContext->nDirection;
@@ -2342,7 +2342,7 @@ static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nA
 
 // build: symbol ??_7?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@6B@ 0x006E5DE8
 // 0x00601B80
-void D2GameDataTableStrc::sub_00601B80_SyncEnterLock(int* pLockHandle, int bForWriting)
+void D2GameDataTableStrc::CelListTableSyncEnterLock(int* pLockHandle, int bForWriting)
 {
     EnterCriticalSection(&m_sync.f_0);
     *pLockHandle = bForWriting ? 1 : -1;
@@ -2474,7 +2474,7 @@ sub_00601C70::~sub_00601C70()
 }
 
 // 0x00601CB0
-int D2GameDataTableStrc::sub_00601CB0_IsWriteLock(int nLockHandle)
+int D2GameDataTableStrc::CelListTableIsWriteLock(int nLockHandle)
 {
     return nLockHandle == 1;
 }
@@ -2492,7 +2492,7 @@ char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
 extern "C" void* __fastcall sub_00601CF0(void* value) { return value; }
 
 // 0x00601D00
-unsigned int D2GameDataTableStrc::sub_00601D00_SlotIndex(unsigned int nHashVal)
+unsigned int D2GameDataTableStrc::CelListTableSlotIndex(unsigned int nHashVal)
 {
     return m_slotmask & nHashVal;
 }
@@ -2687,7 +2687,7 @@ void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
 }
 
 // 0x00601E20
-unsigned int D2StormSlotArrayStrc::sub_00601E20_CalcChunkSize(unsigned int nCount)
+unsigned int D2StormSlotArrayStrc::CelSlotArrayCalcChunkSize(unsigned int nCount)
 {
     if (nCount < 0x15)
     {
@@ -2757,13 +2757,13 @@ sub_00601F60::~sub_00601F60()
 }
 
 // 0x00601FA0
-D2StormLinkStrc* D2StormNodeListStrc::sub_00601FA0_Link(D2StormNodeStrc* pNode)
+D2StormLinkStrc* D2StormNodeListStrc::CelEntryListLink(D2StormNodeStrc* pNode)
 {
     return pNode ? &pNode->f_0 : &m_terminator;
 }
 
 // 0x00601FC0
-void D2StormNodeListStrc::sub_00601FC0_LinkNode(D2StormNodeStrc* pNode, int nLinkType, D2StormNodeStrc* pExistingNode)
+void D2StormNodeListStrc::CelEntryListLinkNode(D2StormNodeStrc* pNode, int nLinkType, D2StormNodeStrc* pExistingNode)
 {
     D2StormLinkStrc* pLink = Link(pNode);
     pLink->Unlink();
@@ -2788,7 +2788,7 @@ void D2StormNodeListStrc::sub_00601FC0_LinkNode(D2StormNodeStrc* pNode, int nLin
 }
 
 // 0x00602070
-char* D2StormNodeListStrc::sub_00602070_Next(D2StormNodeStrc* pNode)
+char* D2StormNodeListStrc::CelEntryListNext(D2StormNodeStrc* pNode)
 {
     return Link(pNode)->Next();
 }
@@ -2838,13 +2838,13 @@ sub_00602180::sub_00602180()
 }
 
 // 0x00602190
-void D2StormNodeListStrc::sub_00602190_UnlinkNode(D2StormNodeStrc* pNode)
+void D2StormNodeListStrc::CelEntryListUnlinkNode(D2StormNodeStrc* pNode)
 {
     Link(pNode)->Unlink();
 }
 
 // 0x006021E0
-void D2GameDataTableStrc::sub_006021E0_UnlinkNode(D2StormEntry38Strc* pNode)
+void D2GameDataTableStrc::CelListTableUnlinkNode(D2StormEntry38Strc* pNode)
 {
     if (pNode->m_linktoslot.m_next)
     {
@@ -2854,7 +2854,7 @@ void D2GameDataTableStrc::sub_006021E0_UnlinkNode(D2StormEntry38Strc* pNode)
 }
 
 // 0x00602260
-char* D2StormSlotListStrc::sub_00602260_RawNext(char* pNode)
+char* D2StormSlotListStrc::CelSlotListRawNext(char* pNode)
 {
     return Link(pNode)->m_next;
 }
@@ -2907,7 +2907,7 @@ char* D2StormListBStrc::sub_006023E0_RawNext(D2StormLinkStrc* pLink)
 }
 
 // 0x00602400
-void D2GameDataTableStrc::sub_00602400_SyncLeaveLock(int nLockHandle)
+void D2GameDataTableStrc::CelListTableSyncLeaveLock(int nLockHandle)
 {
     if (nLockHandle)
         LeaveCriticalSection(&m_sync.f_0);
@@ -2927,7 +2927,7 @@ sub_006024A0::~sub_006024A0()
 }
 
 // 0x006024E0
-void D2StormListEStrc::sub_006024E0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
+void D2StormListEStrc::CelReuseListLinkNode(char* pNode, int nLinkType, char* pExistingNode)
 {
     D2StormLinkStrc* pLink = Link(pNode);
     pLink->Unlink();
@@ -2952,14 +2952,14 @@ void D2StormListEStrc::sub_006024E0_LinkNode(char* pNode, int nLinkType, char* p
 }
 
 // 0x00602620
-void D2GameDataTableStrc::sub_00602620_Delete(D2StormEntry38Strc* pNode)
+void D2GameDataTableStrc::CelListTableDelete(D2StormEntry38Strc* pNode)
 {
-    sub_006021E0_UnlinkNode(pNode);
+    CelListTableUnlinkNode(pNode);
     InternalDelete(pNode);
 }
 
 // 0x006026E0
-void D2StormSlotListStrc::sub_006026E0_ChangeLinkOffset(int nLinkOffset)
+void D2StormSlotListStrc::CelSlotListChangeLinkOffset(int nLinkOffset)
 {
     if (nLinkOffset != m_linkoffset)
     {
@@ -2998,12 +2998,12 @@ D2StormNodeList006027A0Strc::~D2StormNodeList006027A0Strc()
 // 0x006027E0
 void D2GameDataTableStrc::sub_006027E0_Delete(D2StormEntry38Strc* pNode)
 {
-    sub_006021E0_UnlinkNode(pNode);
+    CelListTableUnlinkNode(pNode);
     InternalDelete(pNode);
 }
 
 // 0x00602800
-void D2GameHashTableStrc::sub_00602800_InternalClear(int bWarn)
+void D2GameHashTableStrc::CelListTableInternalClear(int bWarn)
 {
     m_fullnessIndicator = 0;
     m_fulllist.UnlinkAll();
@@ -3109,9 +3109,9 @@ D2StormListDStrc::D2StormListDStrc(const D2StormListDStrc& source)
 }
 
 // 0x00602A10
-void D2GameDataTableStrc::sub_00602A10_DeleteUnlock(D2StormEntry38Strc* pNode, int nLockHandle)
+void D2GameDataTableStrc::CelListTableDeleteUnlock(D2StormEntry38Strc* pNode, int nLockHandle)
 {
-    sub_00602620_Delete(pNode);
+    CelListTableDelete(pNode);
     SyncLeaveLock(nLockHandle);
 }
 
@@ -3148,7 +3148,7 @@ D2StormEntry00602EC0Strc::~D2StormEntry00602EC0Strc()
 }
 
 // 0x00602F10
-void D2StormSlotArrayStrc::sub_00602F10_ReallocData(unsigned int nAlloc)
+void D2StormSlotArrayStrc::CelSlotArrayReallocData(unsigned int nAlloc)
 {
     D2StormSlotListStrc* pOld = f_8;
     for (unsigned int i = nAlloc; i < f_4; i++)
@@ -3183,7 +3183,7 @@ D2StormSlotArrayStrc::~D2StormSlotArrayStrc() throw()
 }
 
 // 0x006030E0
-char* D2StormHashTable006030E0Strc::sub_006030E0_Ptr(unsigned int nHashVal, int nKey)
+char* D2StormHashTable006030E0Strc::CelListTableInternalFind(unsigned int nHashVal, int nKey)
 {
     for (char* pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].RawNext(pNode))
     {
@@ -3271,17 +3271,17 @@ D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 }
 
 // 0x006031F0
-void D2StormSlotArrayStrc::sub_006031F0_Reserve(unsigned int nCount, int bRound)
+void D2StormSlotArrayStrc::CelSlotArrayReserve(unsigned int nCount, int bRound)
 {
     nCount += f_4;
     if (nCount > f_0)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00601E20_CalcChunkSize(nCount);
+            unsigned int nChunk = f_C ? f_C : CelSlotArrayCalcChunkSize(nCount);
             nCount = STORM_RoundUp(nCount, nChunk);
         }
-        sub_00602F10_ReallocData(nCount);
+        CelSlotArrayReallocData(nCount);
     }
 }
 
@@ -3301,14 +3301,14 @@ D2StormHashChunkStrc::~D2StormHashChunkStrc()
 }
 
 // 0x00603300
-void D2StormSlotArrayStrc::sub_00603300_SetCount(unsigned int nCount)
+void D2StormSlotArrayStrc::CelSlotArraySetCount(unsigned int nCount)
 {
     if (nCount > f_4)
     {
         if (nCount > f_0)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00601E20_CalcChunkSize(nCount);
-            sub_00602F10_ReallocData(STORM_RoundUp(nCount, nChunk));
+            unsigned int nChunk = f_C ? f_C : CelSlotArrayCalcChunkSize(nCount);
+            CelSlotArrayReallocData(STORM_RoundUp(nCount, nChunk));
         }
         for (unsigned int i = f_4; i < nCount; i++)
             new (&f_8[i]) D2StormSlotListStrc;
@@ -3398,7 +3398,7 @@ SlotArray* SlotArray::sub_00603730(DeleteFlags flags)
 }
 
 // 0x00603760
-void D2StormSlotArrayStrc::sub_00603760_Clear()
+void D2StormSlotArrayStrc::CelSlotArrayClear()
 {
     this->D2StormSlotArrayStrc::~D2StormSlotArrayStrc();
     f_0 = 0;
@@ -3409,7 +3409,7 @@ void D2StormSlotArrayStrc::sub_00603760_Clear()
 // 0x00603780
 void D2GameHashTableStrc::Destroy()
 {
-    sub_00602800_InternalClear(1);
+    CelListTableInternalClear(1);
     m_fullnessIndicator = 0;
     m_slotmask = 0;
     m_slotlistarray.Clear();
@@ -3418,7 +3418,7 @@ void D2GameHashTableStrc::Destroy()
 // 0x00603850
 void D2StormSlotArrayStrc::sub_00603850_SetCount(unsigned int nCount)
 {
-    sub_00603300_SetCount(nCount);
+    CelSlotArraySetCount(nCount);
 }
 
 // 0x006039C0
@@ -3430,7 +3430,7 @@ void __stdcall CelCompressDestroy(unsigned int hCelList)
     {
         FOG_Free(pEntry->pData, ".\\SRC\\CelCmp.cpp", 588, 0);
     }
-    pList->tList.sub_00602BF0_DeleteAll();
+    pList->tList.CelEntryListDeleteAll();
     gCelListTable.sub_0052E590(pList);
     gCelListTable.SyncLeaveLock(hLock);
 }
@@ -3479,13 +3479,13 @@ D2GameHashTableStrc::TSHashTable()
     m_fullnessIndicator = 0;
     m_fulllist.ChangeLinkOffset(0xC);
     m_slotmask = 3;
-    m_slotlistarray.sub_00603300_SetCount(4);
+    m_slotlistarray.CelSlotArraySetCount(4);
     for (unsigned int i = 0; i <= m_slotmask; i++)
         m_slotlistarray.f_8[i].ChangeLinkOffset(4);
 }
 
 // 0x00603C80
-void D2GameHashTableStrc::sub_00603C80_GrowListArray()
+void D2GameHashTableStrc::CelListTableGrowListArray()
 {
     unsigned int nOldCount = m_slotmask + 1;
     unsigned int nNewCount = 2 * nOldCount;
@@ -3499,7 +3499,7 @@ void D2GameHashTableStrc::sub_00603C80_GrowListArray()
             tTempList.LinkToTail(pNode);
     }
 
-    m_slotlistarray.sub_00603300_SetCount(nNewCount);
+    m_slotlistarray.CelSlotArraySetCount(nNewCount);
     for (unsigned int i = 0; i < nNewCount; i++)
         m_slotlistarray.f_8[i].ChangeLinkOffset(4);
     m_slotmask = nNewCount - 1;
@@ -3510,10 +3510,10 @@ void D2GameHashTableStrc::sub_00603C80_GrowListArray()
 }
 
 // 0x00603E50
-void D2GameHashTableReuseStrc::sub_00603E50_DeleteLists()
+void D2GameHashTableReuseStrc::CelListTableDeleteReuseLists()
 {
-    m_chunkList.sub_00603B60_DeleteAll();
-    m_reuseList.sub_00602D20_DeleteAll();
+    m_chunkList.CelChunkListDeleteAll();
+    m_reuseList.CelReuseListDeleteAll();
 }
 
 // 0x00603ED0
@@ -3523,7 +3523,7 @@ unsigned int D2Storm603ED0Strc::sub_00603ED0_GetDifference()
 }
 
 // 0x00603EE0
-unsigned int D2StormEntryArrayStrc::sub_00603EE0_CalcChunkSize(unsigned int nCount)
+unsigned int D2StormEntryArrayStrc::CelListArrayCalcChunkSize(unsigned int nCount)
 {
     if (nCount < 8)
     {
@@ -3570,7 +3570,7 @@ D2StormNodeListStrc::D2StormNodeListStrc(const D2StormNodeListStrc& source)
 }
 
 // 0x00603FC0
-void D2StormListEStrc::sub_00603FC0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
+void D2StormListEStrc::CelChunkListLinkNode(char* pNode, int nLinkType, char* pExistingNode)
 {
     D2StormLinkStrc* pLink = Link(pNode);
     pLink->Unlink();
@@ -3602,14 +3602,14 @@ D2StormEntry38Strc::D2StormEntry38Strc(const D2StormEntry38Strc& source)
 }
 
 // 0x00604350
-void D2StormEntryArrayStrc::sub_00604350_Reserve(unsigned int nCount, int bRound)
+void D2StormEntryArrayStrc::CelListArrayReserve(unsigned int nCount, int bRound)
 {
     nCount += f_4;
     if (nCount > f_0)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00603EE0_CalcChunkSize(nCount);
+            unsigned int nChunk = f_C ? f_C : CelListArrayCalcChunkSize(nCount);
             nCount = STORM_RoundUp(nCount, nChunk);
         }
         sub_006041B0_ReallocData(nCount);
@@ -3617,7 +3617,7 @@ void D2StormEntryArrayStrc::sub_00604350_Reserve(unsigned int nCount, int bRound
 }
 
 // 0x00604440
-void D2StormEntryArrayStrc::sub_00604440_Grow(unsigned int nCount)
+void D2StormEntryArrayStrc::CelListArrayGrow(unsigned int nCount)
 {
     unsigned int nNewCount = f_4 + nCount;
     if (nNewCount > f_0)
@@ -3625,22 +3625,22 @@ void D2StormEntryArrayStrc::sub_00604440_Grow(unsigned int nCount)
 }
 
 // 0x00604840
-char* D2GameDataTableStrc::sub_00604840_NewHandle(unsigned int* pHandle)
+char* D2GameDataTableStrc::CelListTableNewHandle(unsigned int* pHandle)
 {
-    unsigned int nHandle = sub_00603280_GenerateHandle();
+    unsigned int nHandle = CelListTableGenerateHandle();
     *pHandle = nHandle;
-    return sub_00604760_New(nHandle, f_44, 0, 0);
+    return CelListTableNew(nHandle, f_44, 0, 0);
 }
 
 // 0x006048C0
-char* D2GameDataTableStrc::sub_006048C0_NewLock(unsigned int* pHandle, int* pLockHandle)
+char* D2GameDataTableStrc::CelListTableNewLock(unsigned int* pHandle, int* pLockHandle)
 {
     SyncEnterLock(pLockHandle, 1);
-    return sub_00604840_NewHandle(pHandle);
+    return CelListTableNewHandle(pHandle);
 }
 
 // 0x0060D040
-int __fastcall sub_0060D040(D2FindTileEntryStrc** ppTable, void** ppResults, unsigned int nMax, int nKey1, int nKey2, int nKey3)
+int __fastcall FindTileGetTiles(D2FindTileEntryStrc** ppTable, void** ppResults, unsigned int nMax, int nKey1, int nKey2, int nKey3)
 {
     int bFound = 0;
     int nCount = 0;
@@ -3651,7 +3651,7 @@ int __fastcall sub_0060D040(D2FindTileEntryStrc** ppTable, void** ppResults, uns
         return 0;
     }
 
-    D2FindTileEntryStrc* pEntry = ppTable[sub_0060CD70_WrapIndex(nKey3, nKey2, nKey1)];
+    D2FindTileEntryStrc* pEntry = ppTable[FindTileHash(nKey3, nKey2, nKey1)];
     while (pEntry && !bFound)
     {
         if (pEntry->nKey3 == nKey3 && pEntry->nKey2 == nKey2 && pEntry->nKey1 == nKey1)
@@ -4046,7 +4046,7 @@ int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
         if (m_fullnessIndicator > 13)
         {
             m_fullnessIndicator = 0;
-            sub_00603C80_GrowListArray();
+            CelListTableGrowListArray();
             return 1;
         }
 
@@ -4057,7 +4057,7 @@ int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
 }
 
 // 0x005FDE50
-void __fastcall sub_005FDE50(void* pEntry)
+void __fastcall D2CMPTileCacheReleaseTile(void* pEntry)
 {
     D2CmpTileStrc* pTile = ((D2CmpPoolEntryStrc*)pEntry)->pTile;
     if (gpfnTileFreeCallback_0088CB1C)
@@ -4075,7 +4075,7 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
 {
     if (pEntry->pNode)
     {
-        sub_00609380(&gCmpPool, pEntry->pNode);
+        LRUCacheTouch(&gCmpPool, pEntry->pNode);
         return 1;
     }
 
@@ -4084,7 +4084,7 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
         return 0;
     }
 
-    pEntry->pNode = sub_00609420(&gCmpPool, pEntry->nSize, pEntry);
+    pEntry->pNode = LRUCacheAlloc(&gCmpPool, pEntry->nSize, pEntry);
     pEntry->pBlocks = (D2GlideTileStrc*)pEntry->pNode->pData;
     memset(pEntry->pBlocks, 0, pEntry->nSize);
 
@@ -4102,7 +4102,7 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
 }
 
 // 0x005FE080
-void __fastcall sub_005FE080_FreeTileLibraryBlocks(D2TileLibraryStrc* pLibrary)
+void __fastcall D2CMPTileCacheFreeProject(D2TileLibraryStrc* pLibrary)
 {
     for (int i = 0; i < pLibrary->nTiles; ++i)
     {

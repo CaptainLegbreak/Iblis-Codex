@@ -26,5 +26,5 @@ inline D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc() throw()
 // 0x00603460
 D2GameHashTableStrc::~TSHashTable()
 {
-    sub_00602800_InternalClear(1);
+    CelListTableInternalClear(1);
 }
