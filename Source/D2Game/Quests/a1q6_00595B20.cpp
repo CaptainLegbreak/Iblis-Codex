@@ -2,42 +2,19 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 
+#include "D2UnitData.h"
+#include "D2GameTypes.h"
+#include "D2QuestData.h"
 struct D2PlayerDataStrc;
 struct D2Act1Quest6Strc;
 
 
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
-
-
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    void* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    unsigned char unk_0D[0x7];
-    unsigned int dwFlags;
-    D2Act1Quest6Strc* pQuestDataEx;
-    char unk_1C[0x8C];
-    void* pfNpcDeactivate;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
-
-struct D2QuestArgStrc { D2GameStrc* pGame; int nEvent; D2UnitStrc* pTarget; };
-
-struct D2Act1Quest6Strc { char unk_000[0x195]; unsigned char bCainActivated; };
 
 int __fastcall ACT1Q6_UnitIterate_StatusCyclerEx(D2GameStrc*, D2UnitStrc*, void*); // 0x00595B20
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc*, int, D2UnitStrc*, int (__fastcall*)(D2GameStrc*, D2UnitStrc*, void*), bool); // 0x00544300
@@ -91,13 +68,13 @@ void __fastcall sub_00595B80_HandleNpcDeactivate(D2QuestDataStrc* pQuestData, D2
 {
     if (pQuestArg->pTarget && (unsigned short)pQuestArg->pTarget->dwClassId == 265)
     {
-        D2Act1Quest6Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+        D2Act1Quest6Strc* pQuestDataEx = (D2Act1Quest6Strc*)pQuestData->pQuestDataEx;
         if (pQuestDataEx->bCainActivated == 1)
         {
             *(unsigned char*)&pQuestData->dwFlags = 0;
             QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q6_UnitIterate_StatusCyclerEx, true);
             pQuestDataEx->bCainActivated = 0;
-            pQuestData->pfNpcDeactivate = 0;
+            pQuestData->pCallback[2] = 0;
         }
     }
 }
