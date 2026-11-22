@@ -5,6 +5,7 @@
 #include "D2GameTypes.h"
 #include "D2DrlgMaps.h"
 #include "D2ClientUi.h"
+#include "D2ClientSound.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLS_GetSkillsTxtRecord_E1120(nSkillId) \
@@ -20,7 +21,6 @@ struct D2UnitLightNodeStrc;
 struct D2TileLightEntryStrc;
 struct D2TileLightCtxStrc;
 struct D2SlotObjectStrc;
-struct D2SoundRecordStrc;
 struct D2SlotStrc;
 struct D2NpcSoundStrc;
 struct WardenSectionStrc;
@@ -105,41 +105,16 @@ struct D2SlotObjectStrc
     unsigned int f_41;
 };
 
-struct D2SoundRecordStrc
-{
-    char unk0x00[0x3E];
-    unsigned char nField0x3E;
-    char unk0x3F[0x0C];
-    unsigned char nField0x4B;
-    char unk0x4C;
-    unsigned char nField0x4D;
-    char unk0x4E;
-    unsigned char bStream;
-    unsigned char nField0x50;
-    char unk0x51[0x03];
-    int nField0x54;
-    char unk0x58[0x0C];
-    int nField0x64;
-    int nField0x68;
-    int nField0x6C;
-    int nField0x70;
-    char f_74[0x0C];
-    unsigned char nField0x80;
-    unsigned char nField0x81;
-    char unk0x82[0x04];
-    int nState;
-};
-
 #pragma pack(pop)
 
 extern D2SlotStrc gaSlots[16]; // 0x007C8A78
 int __fastcall sub_004B9DA0_CompareItems(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
-D2SoundRecordStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall SOUNDHDR_PickVariant(int nId); // 0x00482680
 void __fastcall SOUNDHDR_LoadCacheEntry(int nId, int bFlag, int nArg); // 0x00482970
 D2SlotStrc* __fastcall SoundChannelFind(int nId); // 0x004DF9D0
 void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
-int __fastcall sub_005155D0(D2SoundStrc* pSound, int nA, int nB); // 0x005155D0
+int __fastcall D2SOUND_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize); // 0x005155D0
 int __fastcall sub_005156A0(D2SoundStrc* pSound); // 0x005156A0
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue); // 0x00515A30
@@ -395,25 +370,25 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
 // 0x004E01B0
 D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
 {
-    D2SoundRecordStrc* pFirst = sub_00481860(pObject->f_4);
+    D2SoundsTxt* pFirst = SOUNDHDR_GetSoundRecord(pObject->f_4);
     if (!(pObject->nFlags & 1))
         pObject->f_4 = SOUNDHDR_PickVariant(pObject->f_4);
     D2SlotStrc* pOld = SoundChannelFind(pObject->f_4);
     if (pOld && !pOld->pObject->nField0x3D && pObject->nKey - pOld->pObject->nKey < 2 && pOld->pObject->nPriority >= pObject->nPriority)
         return 0;
-    D2SoundRecordStrc* pRecord = sub_00481860(pObject->f_4);
-    pFirst->nField0x68 = pFirst->nField0x64;
-    pFirst->nField0x64 = pObject->f_4;
+    D2SoundsTxt* pRecord = SOUNDHDR_GetSoundRecord(pObject->f_4);
+    pFirst->anRecent[1] = pFirst->anRecent[0];
+    pFirst->anRecent[0] = pObject->f_4;
     if (!pRecord->bStream && pRecord->nState != 2)
     {
-        SOUNDHDR_LoadCacheEntry(pObject->f_4, pRecord->nField0x4D == 0, 0);
+        SOUNDHDR_LoadCacheEntry(pObject->f_4, pRecord->bAsyncOnly == 0, 0);
         if (pRecord->nState != 2)
             return 0;
     }
-    if (pRecord->nField0x81)
+    if (pRecord->bFailed)
         return 0;
     int nType = 0;
-    if (pRecord->nField0x50)
+    if (pRecord->bStereo)
         nType = 1;
     if (!(nType & 1))
     {
@@ -428,16 +403,16 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     D2SOUND_ResetSound(pSlot->pSound);
     if (!pRecord->bStream)
     {
-        sub_00515A30(pSlot->pSound, pRecord->nField0x3E);
-        if (pRecord->nField0x80 == 1)
-            sub_00515A60(pSlot->pSound, pRecord->nField0x54 * 2);
-        if (!sub_005155D0(pSlot->pSound, pRecord->nField0x6C, pRecord->nField0x70))
+        sub_00515A30(pSlot->pSound, pRecord->nLoop);
+        if (pRecord->nBlocks == 1)
+            sub_00515A60(pSlot->pSound, pRecord->nBlock[0] * 2);
+        if (!D2SOUND_SetSoundData(pSlot->pSound, pRecord->pData, pRecord->nSize))
             return 0;
     }
     pSlot->pObject = pObject;
     if (nType & 4)
     {
-        float fValue = pRecord->nField0x4B ? 1.0f : 0.0f;
+        float fValue = pRecord->bReverb ? 1.0f : 0.0f;
         sub_00515B40(pSlot->pSound, fValue);
     }
     pSlot->fAttenuation = 0.0f;
@@ -453,7 +428,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     {
         char szPath[0x50];
         sub_00482710(pObject->f_4, szPath);
-        bOk = D2SOUND_StartSoundStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nField0x3E);
+        bOk = D2SOUND_StartSoundStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nLoop);
     }
     if (!bOk)
     {

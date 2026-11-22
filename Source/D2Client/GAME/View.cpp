@@ -14,6 +14,7 @@
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
+#include "D2ClientSound.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -62,8 +63,6 @@ struct D2RosterPetStrc;
 struct D2TimedHintEntryStrc;
 
 struct D2TimedHintNodeStrc;
-
-struct D2HintCursorStrc;
 
 struct D2PalShiftNodeStrc;
 
@@ -305,7 +304,7 @@ void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit); // 0x00464810
 
 D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 
-D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
@@ -664,9 +663,6 @@ int gbDebugDrawLights; // 0x007B9564
 void __fastcall sub_00476BC0(D2ViewStrc* pView);
 
 static int gnPopupX; // 0x007BEED4
-
-
-
 
 void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY);
 
@@ -1963,7 +1959,7 @@ int __fastcall VIEW_CountHintsForOwner(int nOwnerId)
     for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
     {
         D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-        if (sub_00481860(pEntry->nHintId)->nOwnerId == nOwnerId && pEntry->nState == 1)
+        if (SOUNDHDR_GetSoundRecord(pEntry->nHintId)->nGroupStart == nOwnerId && pEntry->nState == 1)
             nCount += 1;
     }
     return nCount;

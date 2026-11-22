@@ -1,10 +1,10 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
+#include "D2ClientSound.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct Unicode;
-struct D2HintCursorStrc;
 struct D2HintKeyListStrc;
 struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
@@ -62,7 +62,7 @@ struct D2TimedHintEntryStrc
 };
 
 int __cdecl sub_00481820(); // 0x00481820
-D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 

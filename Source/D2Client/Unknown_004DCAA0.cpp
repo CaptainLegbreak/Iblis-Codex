@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
+#include "D2ClientSound.h"
 
 struct T00481920
 {
@@ -35,7 +36,7 @@ int __cdecl UNITMODE_GetPlayerLevelId();                                        
 int __cdecl sub_004817F0();                                                                                 // 0x004817F0
 int __cdecl sub_00481800();                                                                                 // 0x00481800
 int __cdecl sub_00481810();                                                                                 // 0x00481810
-D2HintCursorStrc* __fastcall sub_00481860(int nId);                                                         // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId);                                                         // 0x00481860
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId);                        // 0x00481920
 int __fastcall sub_004B9590(void* pEntry);                                                                  // 0x004B9590
 void* __fastcall sub_004B9610(int nId);                                                                     // 0x004B9610
@@ -158,7 +159,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         return;
     }
 
-    D2HintCursorStrc* pCursor = sub_00481860(gnCurrentSongId);
+    D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(gnCurrentSongId);
     void* pEntry = sub_004B9610(gnCurrentSongId);
     if (!pEntry || !sub_004B9590(pEntry))
     {
@@ -167,19 +168,19 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 
     int nPosition = sub_004B9D50_GetPosition(pEntry);
     int nValue = 0;
-    if (nPosition >= 0 && nPosition < pCursor->aValues[1])
+    if (nPosition >= 0 && nPosition < pSoundTxt->nBlock[0])
     {
-        nValue = pCursor->aValues[1];
+        nValue = pSoundTxt->nBlock[0];
     }
 
-    if (nPosition >= pCursor->aValues[1] && nPosition < pCursor->aValues[2])
+    if (nPosition >= pSoundTxt->nBlock[0] && nPosition < pSoundTxt->nBlock[1])
     {
-        nValue = pCursor->aValues[2];
+        nValue = pSoundTxt->nBlock[1];
     }
 
-    if (nPosition >= pCursor->aValues[2] && nPosition < pCursor->aValues[3])
+    if (nPosition >= pSoundTxt->nBlock[1] && nPosition < pSoundTxt->nBlock[2])
     {
-        nValue = pCursor->aValues[3];
+        nValue = pSoundTxt->nBlock[2];
     }
 
     const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());

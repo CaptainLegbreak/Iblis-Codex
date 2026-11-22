@@ -14,6 +14,7 @@
 #include "D2GameObjs.h"
 #include "D2ClientGfx.h"
 #include "D2ItemsWorld.h"
+#include "D2ClientSound.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -44,8 +45,6 @@ struct D2UnitEventArgsStrc;
 struct D2HotspotStrc;
 
 struct D2PanelGfxStrc;
-
-struct D2HintCursorStrc;
 
 struct D2TimedHintStrc;
 
@@ -325,7 +324,7 @@ int __cdecl sub_00481810(); // 0x00481810
 
 int __cdecl sub_00481820(); // 0x00481820
 
-D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
 int __fastcall sub_004B9590(void* pEntry); // 0x004B9590
 
@@ -4162,11 +4161,11 @@ void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsig
 {
     if (gnCurrentSongId)
     {
-        D2HintCursorStrc* pCursor = sub_00481860(gnCurrentSongId);
+        D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(gnCurrentSongId);
         void* pEntry = sub_004B9610(gnCurrentSongId);
         if (pEntry && sub_004B9590(pEntry))
         {
-            const int nValue = nIndex > 0 ? pCursor->aValues[nIndex] : 0;
+            const int nValue = nIndex > 0 ? pSoundTxt->nBlock[nIndex - 1] : 0;
             const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
             *(int*)(sub_00481810() + nOffset) = nValue;
             gdwSongPositionTick = sub_00481820();

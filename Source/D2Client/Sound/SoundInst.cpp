@@ -6,6 +6,7 @@
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
 #include "D2Path.h"
+#include "D2ClientSound.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -64,29 +65,6 @@ struct D2ClientSoundStrc
     unsigned int dwFadeEnd;
 };
 
-struct D2SoundsTxtStrc
-{
-    char unk0x00[0x3E];
-    unsigned char bStream;
-    unsigned char nFadeIn;
-    unsigned char nFadeOut;
-    unsigned char bCompound;
-    unsigned char f_42;
-    unsigned short nDuration;
-    short nTimeout;
-    int nKind;
-    char unk0x4B[2];
-    unsigned char bMusic;
-    unsigned char f_4E;
-    char unk0x4F[2];
-    unsigned char bPositional;
-    unsigned char bDuck;
-    char unk0x53[0x0D];
-    int nGroup;
-    char unk0x64[0x22];
-    int nMusicType;
-};
-
 #pragma pack(pop)
 
 struct T00481920
@@ -103,7 +81,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 unsigned int __cdecl sub_00481820(); // 0x00481820
 
-D2SoundsTxtStrc* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
@@ -292,7 +270,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
         }
     }
 
-    D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
     if (nGroup == 0xFF)
     {
         if (pTxt->nFadeIn > nCount)
@@ -408,13 +386,13 @@ static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundI
 
 static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 {
-    D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
     if (pTxt)
     {
-        if (pTxt->nKind == 4)
+        if (pTxt->nFalloff == 4)
             return 0.0f;
 
-        if (pTxt->nGroup == 0xCA)
+        if (pTxt->nGroupStart == 0xCA)
         {
             T00481920* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
             if (pEnviron && pEnviron->bFlag)
@@ -533,7 +511,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
-        D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
+        D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
         int bAudible = bEnabled;
         if (pSound->nSoundId >= sub_004817F0() && pSound->nSoundId <= sub_00481800() && !D2SOUND_GetMusicVolumeOption())
             bAudible = 0;
@@ -541,7 +519,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
         if (pSound->nType == 2)
         {
             D2_ASSERT(!pSound->pStream, 0x349);
-            if (pTxt->bStream && !pTxt->nDuration && !pSound->bLocked)
+            if (pTxt->nLoop && !pTxt->nDuration && !pSound->bLocked)
             {
                 if (pSound->f_45)
                 {
@@ -557,7 +535,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             continue;
         }
 
-        if (gbPositionalSound_007A061C && pTxt->bPositional && pSound->pUnitList)
+        if (gbPositionalSound_007A061C && pTxt->bTracking && pSound->pUnitList)
         {
             D2SoundVecStrc tPos;
             D2SoundVecStrc tBest;
@@ -627,15 +605,15 @@ void __fastcall sub_004BA020(unsigned int nTick)
 
                 const int bHasPos = pSound->vPos.fX != 0.0f || pSound->vPos.fY != 0.0f || pSound->vPos.fZ != 0.0f;
 
-                if (pTxt->bCompound || pTxt->f_42)
-                    pOther = sub_004B9690_FindOldestEntry(pTxt->nGroup, pUnit, pSound);
+                if (pTxt->bDeferInst || pTxt->bStopInst)
+                    pOther = sub_004B9690_FindOldestEntry(pTxt->nGroupStart, pUnit, pSound);
 
                 if (pUnit && pSound->nSoundId >= 0xB76 && pSound->nSoundId <= 0x1230)
                     pOther = sub_004B9700_FindUnitSound(pSound, pUnit);
 
-                if (!(pTxt->bCompound && !pSound->pUnitList && bHasPos) && pOther)
+                if (!(pTxt->bDeferInst && !pSound->pUnitList && bHasPos) && pOther)
                 {
-                    if (pTxt->f_42)
+                    if (pTxt->bStopInst)
                     {
                         pOther->bLocked = 1;
                         D2SOUND_ListAddHead(&pFreeList, pOther);
@@ -688,7 +666,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
                 pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
             }
 
-            if (!pSound->pStream && !pTxt->bStream && (!pTxt->bMusic || pTxt->nMusicType != 1))
+            if (!pSound->pStream && !pTxt->nLoop && (!pTxt->bAsyncOnly || pTxt->nState != 1))
                 D2SOUND_ListAddHead(&pFreeList, pSound);
         }
 
@@ -698,7 +676,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             if ((!pTxt->nDuration || nTick - pSound->f_34 <= pTxt->nDuration) && bAudible && !(pSound->fDistance > fRangeSq))
             {
                 sub_004DFC20(pSound->pStream);
-                if (pTxt->nMusicType == 2)
+                if (pTxt->nState == 2)
                     SOUNDHDR_TouchCacheEntry(pSound->nSoundId);
             }
             else
@@ -724,7 +702,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
-        if (SOUNDHDR_GetSoundRecord(pSound->nSoundId)->bDuck && !sub_004B9BC0_IsOnAndNotHeld(pSound))
+        if (SOUNDHDR_GetSoundRecord(pSound->nSoundId)->bSolo && !sub_004B9BC0_IsOnAndNotHeld(pSound))
         {
             bDuck = 1;
             break;
@@ -769,7 +747,7 @@ void __fastcall sub_004BA840(int nHandle)
             D2ClientSoundStrc* pEntry = pNode->pSound;
             if (pEntry->f_8 == nHandle)
             {
-                D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
+                D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
                 pEntry->bLocked = 1;
                 unsigned char nCount = pTxt->nFadeOut;
                 if (nCount && pEntry->nType == 1)
@@ -791,7 +769,7 @@ void __fastcall sub_004BA890_RefreshHintsById(int nHintId)
         D2ClientSoundStrc* pEntry = pNode->pSound;
         if (pEntry->nSoundId == nHintId)
         {
-            D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
+            D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
             pEntry->bLocked = 1;
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
@@ -816,7 +794,7 @@ void __cdecl sub_004BA8F0()
         D2ClientSoundStrc* pEntry = pNode->pSound;
         if (pEntry->nSoundId >= sub_004817F0() && pEntry->nSoundId <= sub_00481800())
         {
-            D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
+            D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
             pEntry->bLocked = 1;
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
@@ -842,7 +820,7 @@ void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
         if (SOUNDHDR_GetGroupStart(pEntry->nSoundId) != nGroupA && SOUNDHDR_GetGroupStart(pEntry->nSoundId) != nGroupB
             && pEntry->nSoundId >= 0x34 && pEntry->nSoundId <= 0x47)
         {
-            D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
+            D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
             pEntry->bLocked = 1;
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
@@ -868,7 +846,7 @@ void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB)
         if (SOUNDHDR_GetGroupStart(pEntry->nSoundId) != nGroupA && SOUNDHDR_GetGroupStart(pEntry->nSoundId) != nGroupB
             && pEntry->nSoundId >= 0x48 && pEntry->nSoundId <= 0xC9)
         {
-            D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
+            D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
             pEntry->bLocked = 1;
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
@@ -887,7 +865,7 @@ void __cdecl sub_004BAA50_RefreshHintRange()
         D2ClientSoundStrc* pEntry = pNode->pSound;
         if (pEntry->nSoundId >= 0xB76 && pEntry->nSoundId <= 0x1230)
         {
-            D2SoundsTxtStrc* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
+            D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
             pEntry->bLocked = 1;
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)

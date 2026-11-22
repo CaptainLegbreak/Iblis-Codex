@@ -1,7 +1,7 @@
 #include "D2ClientUi.h"
+#include "D2ClientSound.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2HintCursorStrc;
 struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
 struct D2HintKeyListStrc;
@@ -28,7 +28,7 @@ struct D2TimedHintEntryStrc
     unsigned char unk_59[0x3];
 };
 
-D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
@@ -88,19 +88,19 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
         }
     }
 
-    D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
+    D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(pEntry->nHintId);
     if (nGroup == 0xFF)
     {
-        if (pCursor->nRefreshCountAll > nCount)
+        if (pSoundTxt->nFadeIn > nCount)
         {
-            nCount = pCursor->nRefreshCountAll;
+            nCount = pSoundTxt->nFadeIn;
         }
     }
     else if (!nGroup)
     {
-        if (pCursor->nRefreshCount > nCount)
+        if (pSoundTxt->nFadeOut > nCount)
         {
-            nCount = pCursor->nRefreshCount;
+            nCount = pSoundTxt->nFadeOut;
         }
     }
 
@@ -143,9 +143,9 @@ void __cdecl sub_004BAAB0_RefreshGroupTimers()
     for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
     {
         D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-        D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
+        D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(pEntry->nHintId);
         *(int*)pEntry->f_3D = 1;
-        unsigned char nCount = pCursor->nRefreshCount;
+        unsigned char nCount = pSoundTxt->nFadeOut;
         if (nCount && pEntry->nState == 1)
         {
             CLIENT_ArmHintInline(pEntry->nKey, 0, 0, nCount);

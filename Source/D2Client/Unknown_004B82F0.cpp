@@ -5,6 +5,7 @@
 #include "D2Unicode.h"
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
+#include "D2ClientSound.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -30,7 +31,6 @@ class SpinnerWrapper;
 struct D2HintRecordStrc;
 struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
-struct D2HintCursorStrc;
 struct D2ValueNodeStrc;
 struct D2ValueLinkStrc;
 struct D2Packed004B9BC0Strc;
@@ -204,7 +204,6 @@ struct D2CinematicPacketStrc
 
 void __fastcall INV_PlayCinematic(int nIndex); // 0x00482EF0
 
-
 struct D2UnkFieldsStrc
 {
     char unk0x00[0x1C];
@@ -295,7 +294,7 @@ struct D2TimedHintEntryStrc
     unsigned int dwTick;
 };
 
-D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall sub_005169D0_ListHasKey(void* pKeyList, int nKey); // 0x005169D0
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
@@ -1177,7 +1176,7 @@ D2TimedHintEntryStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, int nKe
         for (; pNode; pNode = pNode->pNext)
         {
             D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-            if (sub_00481860(pEntry->nHintId)->nOwnerId == nGroup && pEntry != pExclude && pEntry->nState == 1
+            if (SOUNDHDR_GetSoundRecord(pEntry->nHintId)->nGroupStart == nGroup && pEntry != pExclude && pEntry->nState == 1
                 && (!nKey || sub_005169D0_ListHasKey(pEntry->pKeyList, nKey)) && (!pOldest || pEntry->dwTick < pOldest->dwTick))
             {
                 pOldest = pEntry;
