@@ -1,6 +1,8 @@
 #include "Fog.h"
 #include "D2StormLink.h"
 
+extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LogMessageStrc;
 struct D2LogDumpStrc;
@@ -258,4 +260,28 @@ void __fastcall sub_0040F580_InitTerminator(D2StormListStrc* pList)
 {
     pList->m_terminator.m_prevlink = &pList->m_terminator;
     pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x0040F350
+void __cdecl AUTOMAP_CloseStaleLogs()
+{
+    char szPath[0x104];
+    int bLog = 0;
+    szPath[0] = 0;
+    unsigned long nNow = GetTickCount();
+    for (int i = 0; i < 20; ++i)
+    {
+        if (gapLogFiles_0075E790[i])
+        {
+            if (nNow - gadwLogOpenTick_0075E7E0[i] > 15000 || nNow - gadwLogWriteTick_0075D2F0[i] > 5000)
+            {
+                if (bLog)
+                {
+                    OutputDebugStringA(szPath);
+                }
+                fclose(gapLogFiles_0075E790[i]);
+                gapLogFiles_0075E790[i] = 0;
+            }
+        }
+    }
 }

@@ -14549,7 +14549,7 @@ address,name,source,alias
 0x006BE4A0,FOG_SetMaxClientsPerGame,d2moo,
 0x006BE4E0,FOG_WaitForSingleObject,d2moo,
 0x006BE510,sub_006BE510_Enter,placeholder,
-0x006BE530,sub_006BE530_Leave,placeholder,
+0x006BE530,~D2QSrvAutoLock,inferred,
 0x006BE540,QSERVER_FindClient,inferred,
 0x006BE5B0,QSERVER_FindNodeInAnyBucket,inferred,
 0x006BE640,QSERVER_AddReference,inferred,

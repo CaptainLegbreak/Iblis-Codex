@@ -16,18 +16,14 @@
 #include "D2LevelIds.h"
 #include "D2DrlgTiles.h"
 #include "D2DrlgMaps.h"
+#include "D2StateIds.h"
+#include "D2UnitData.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2WardenIfaceStrc;
-
-struct D2OsVersionInfoStrc;
-
-struct D2MemoryStatusStrc;
-
-struct T004013C0;
 
 struct D2CriticalSectionStrc;
 
@@ -99,42 +95,6 @@ struct D2MonStats2Txt;
 
 typedef unsigned char BOOLEAN;
 
-struct D2OsVersionInfoStrc
-{
-    unsigned long dwOSVersionInfoSize;
-    unsigned long dwMajorVersion;
-    unsigned long dwMinorVersion;
-    unsigned long dwBuildNumber;
-    unsigned long dwPlatformId;
-    char szCSDVersion[128];
-};
-
-struct D2MemoryStatusStrc
-{
-    unsigned long dwLength;
-    unsigned long dwMemoryLoad;
-    unsigned long dwTotalPhys;
-    unsigned long dwAvailPhys;
-    unsigned long dwTotalPageFile;
-    unsigned long dwAvailPageFile;
-    unsigned long dwTotalVirtual;
-    unsigned long dwAvailVirtual;
-};
-
-struct T004013C0
-{
-    unsigned long dwOemId;
-    unsigned long dwPageSize;
-    void* lpMinimumApplicationAddress;
-    void* lpMaximumApplicationAddress;
-    unsigned long dwActiveProcessorMask;
-    unsigned long dwNumberOfProcessors;
-    unsigned long dwProcessorType;
-    unsigned long dwAllocationGranularity;
-    unsigned short wProcessorLevel;
-    unsigned short wProcessorRevision;
-};
-
 struct D2FogBlockStrc
 {
     D2FogBlockStrc* pNext;
@@ -179,12 +139,6 @@ struct D2AutomapLayerStrc
     D2AutomapLayerStrc* pNext;
 };
 
-extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
-
-extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
-
-extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
@@ -204,10 +158,6 @@ void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink); // 0x00411A8
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 void __stdcall sub_006BBF40_PutPackedWord(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
-
-extern unsigned long gdwTotalPhys_0074D898; // 0x0074D898
-
-extern T004013C0 gtSystemInfo_0074D8A0; // 0x0074D8A0
 
 extern _iobuf* gapLogFiles_0075E790[20]; // 0x0075E790
 
@@ -407,9 +357,9 @@ extern D2WardenIfaceStrc gWardenIface_00721C98; // 0x00721C98
 
 int gdwAutoMapFade_007A51A8; // 0x007A51A8
 
-extern int gdwGlobal_007A51E0; // 0x007A51E0
+int gdwGlobal_007A51E0;                                                                                     // 0x007A51E0
 
-extern int gdwGlobal_007A51E4; // 0x007A51E4
+int gdwGlobal_007A51E4;                                                                                     // 0x007A51E4
 
 extern int gdwGlobal_007A51E8; // 0x007A51E8
 
@@ -425,9 +375,6 @@ void __fastcall sub_00457640(int force); // 0x00457640
 
 enum D2C_F06UiConstants
 {
-    PLAYER_MODE_WALK = 2,
-    PLAYER_MODE_RUN = 3,
-    PLAYER_MODE_6 = 6,
     BODYLOC_RARM = 4,
     BODYLOC_LARM = 5,
 };
@@ -482,7 +429,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
 
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 
@@ -536,8 +483,6 @@ D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); 
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-void __stdcall sub_00650C60_UpdatePath(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
-
 extern Unicode gwszHoverName_007A2F38[]; // 0x007A2F38
 
 extern int gdwGlobal_007A5210; // 0x007A5210
@@ -555,12 +500,6 @@ extern int gnGlobal_007A285C; // 0x007A285C
 extern int gnGlobal_007A5258; // 0x007A5258
 
 extern int gnGlobal_007A525C; // 0x007A525C
-
-int gnOsKind_0074D890; // 0x0074D890
-
-float gfOsVersion_0074D894; // 0x0074D894
-
-int gbSystemInfoDone_0074D88C; // 0x0074D88C
 
 int gabFreeBlockDirty_007784C8[0x100]; // 0x007784C8
 
@@ -588,13 +527,13 @@ void __stdcall D2CMPTileCacheDestroy(int bFree); // 0x005FDE10
 
 void __stdcall D2CMPSpriteCacheDestroy(int bFree); // 0x005FFE30
 
-extern int gdwGlobal_007A5150; // 0x007A5150
+int gdwGlobal_007A5150;                                                                                     // 0x007A5150
 
 static D2AutomapLayerStrc* gpAutomapContext_007A5164; // 0x007A5164
 
 int gnRevealSkip_007A51A4; // 0x007A51A4
 
-extern int gnMiniMapY_007A51D8; // 0x007A51D8
+int gnMiniMapY_007A51D8;                                                                                    // 0x007A51D8
 
 struct D2AutomapRoomStrc
 {
@@ -643,9 +582,9 @@ void __fastcall AUTOMAP_StoreCells(D2AutomapCellStrc* pCells); // 0x00458470
 
 extern D2AutomapRecordStrc* gpAutomapRecord_007A0638; // 0x007A0638
 
-void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
+static void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
 
-extern int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
+int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
 
 void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
 
@@ -697,7 +636,6 @@ static D2AutomapCellBlockStrc* gpAutomapCellBlocks_007A5158; // 0x007A5158
 
 static int gnAutomapCellCount_007A515C; // 0x007A515C
 
-
 D2AutomapCellBlockStrc* gpCellBlocks_007A5158; // 0x007A5158
 
 int gnCellCount_007A515C; // 0x007A515C
@@ -708,54 +646,234 @@ WardenModule* gpSlotHolder_007BC990; // 0x007BC990
 
 WardenModule* gpPendingWarden_007BC994; // 0x007BC994
 
+struct D2AutomapFileHeaderStrc;
+
+struct D2AutomapPointStrc;
+
+struct D2AutomapFileHeaderStrc
+{
+    int nVersion;
+    int nNext;
+    unsigned int nSeeds[4];
+};
+
+typedef char D2AutomapFileHeaderSizeCheck[sizeof(D2AutomapFileHeaderStrc) == 0x18 ? 1 : -1];
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
+
+void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+
+int __fastcall FOG_DeleteFileA(const char* szFileName); // 0x00406990
+
+int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
+
+int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
+
+extern char gszCharName_007A05C4[]; // 0x007A05C4
+
+extern "C" const char szAutomapFile_006D66F0[]; // 0x006D66F0
+
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
+
+int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+
+const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
+
+const char* __cdecl GAME_GetGameName(); // 0x0044B7C0
+
+const char* __cdecl GAME_GetGamePassword(); // 0x0044B820
+
+const char* __cdecl GAME_GetGameDescription(); // 0x0044B7F0
+
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
+
+extern int gnAutomapWidth_007A5220; // 0x007A5220
+
+extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
+
+extern "C" size_t __cdecl strlen(const char* szString);
+
+extern const D2AutomapPointStrc gaAutomapCross_006D6638[13]; // 0x006D6638
+
+extern int gnAutomapScale_00711254; // 0x00711254
+
+int gnAutomapOffsetX_007A5198;                                                                              // 0x007A5198
+
+int gnAutomapOffsetY_007A519C;                                                                              // 0x007A519C
+
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
+
+void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
+
+int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
+
+D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+
+short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
+
+int __fastcall sub_00478D90_GetPetRelation(int nUnitId); // 0x00478D90
+
+int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
+
+int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
+
+int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+
+int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+
+const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
+
+const char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x006221A0
+
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+
+D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+
+unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+
+int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
+
+int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
+
+void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY); // 0x0047A1B0
+
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+
+char gszAccountFolder_007A0500[32]; // 0x007A0500
+
+int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
+
+int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
+int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nArg, int nX, int nY, int nArg3, int nArg4); // 0x004CDB40
+
+int gnAutomapTextY_007A51BC; // 0x007A51BC
+
+void __cdecl sub_0045B960_FilePrintf(void* hFile, const char* szFormat, ...); // 0x0045B960
+
+struct D2AutomapDrawStrc
+{
+    D2CelFileStrc* pCelFile;
+    int nLeft;
+    int nRight;
+    int nTop;
+    int nBottom;
+    int nXOffset;
+    int nYOffset;
+};
+
+int __cdecl UI_GetAutomapOffsetX();                                                                                 // 0x0045AFA0
+
+int __cdecl UI_GetAutomapOffsetY();                                                                                 // 0x0045AFB0
+
+void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo);                  // 0x00459440
+
+extern int gnAutomapHeight_007A521C;                                                                        // 0x007A521C
+
+int gnAutomapViewX_007A5190;                                                                                // 0x007A5190
+
+int gnAutomapViewY_007A5194;                                                                                // 0x007A5194
+
+extern int gnAutomapBaseX_007A5188;                                                                         // 0x007A5188
+
+extern int gnAutomapBaseY_007A518C;                                                                         // 0x007A518C
+
+D2CelFileStrc* gpAutomapCel_007A5168;                                                                       // 0x007A5168
+
+D2CelFileStrc* gpAutomapCel_007A516C;                                                                       // 0x007A516C
+
+D2CelFileStrc* gpAutomapCel_007A5170;                                                                       // 0x007A5170
+
+D2CelFileStrc* gpAutomapCel_007A5174;                                                                       // 0x007A5174
+
+static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pColor);
+
+static void __stdcall sub_0045A760_DrawAutomapText(unsigned char nColor, const char* szText, int nX, int nY);
+
+static void __stdcall sub_0045A7F0_DrawAutomapCross(unsigned char nColor, int nX, int nY);
+
+static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry);
+
+static inline int AUTOMAP_GetUnitType(D2UnitStrc* pUnit);
+
+static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag);
+
+#define AUTOMAP_SIZE_MINI 1
+
+#define TOWNCEL_LUTGHOLEIN_MINI 0
+
+#define TOWNCEL_LUTGHOLEIN_ALT_MINI 0x14
+
+#define TOWNCEL_LUTGHOLEIN_FULL 0
+
+#define TOWNCEL_LUTGHOLEIN_ALT_FULL 0x14
+
+#define TOWNCEL_PANDFORT_MINI 0
+
+#define TOWNCEL_PANDFORT_FULL 0
+
+#define TOWNCEL_HARROGATH_MINI 0
+
+#define TOWNCEL_HARROGATH_FULL 0
+
+void __cdecl AUTOMAP_SaveAutomapLayer();                                                                         // 0x004584C0
+
+void __cdecl AUTOMAP_ResetAutomapCells();                                                                         // 0x00458680
+
+void __cdecl AUTOMAP_LoadAutomapLayer();                                                                        // 0x00458750
+
+D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
+
+void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);                                              // 0x00643310
+
+extern const int gaTownSkipCels_006D6608[];                                                                 // 0x006D6608
+
+struct D2CropRectStrc
+{
+    int nLeft;
+    int nRight;
+    int nTop;
+    int nBottom;
+};
+
+static int __cdecl AUTOMAP_GetAutomapFade();                                                                          // 0x004576C0
+
+void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
+
+D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
+
+static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave);
+
+void __cdecl AUTOMAP_SaveAutomapLayer();
+
+static void __stdcall sub_00457E80_AddUnitAutomapCell(int nCellNo, D2AutomapCellStrc** ppRoot, D2UnitStrc* pUnit);
+
+void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY);
+
+static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit);
+
 // 0x00404850
 BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue)
 {
     return nValue >= 0x1C;
-}
-
-// 0x00407DE0
-void __cdecl AUTOMAP_CaptureSystemInfo()
-{
-    D2OsVersionInfoStrc tVersion;
-    D2MemoryStatusStrc tMemory;
-    tVersion.dwOSVersionInfoSize = sizeof(tVersion);
-    if (GetVersionExA(&tVersion))
-    {
-        float fMinor = (float)tVersion.dwMinorVersion;
-        while (fMinor > 1.0)
-        {
-            fMinor = fMinor / 10.0;
-        }
-        gfOsVersion_0074D894 = (float)((float)tVersion.dwMajorVersion + fMinor / 100.0);
-        switch (tVersion.dwPlatformId)
-        {
-        case 2:
-            gnOsKind_0074D890 = 1;
-            if (tVersion.dwMajorVersion >= 5)
-            {
-                if (tVersion.dwMinorVersion >= 2)
-                {
-                    gnOsKind_0074D890 = 4;
-                }
-                else
-                {
-                    gnOsKind_0074D890 = tVersion.dwMinorVersion < 1 ? 2 : 3;
-                }
-            }
-            break;
-        case 3:
-            gnOsKind_0074D890 = 0;
-            break;
-        default:
-            gnOsKind_0074D890 = 0;
-            break;
-        }
-    }
-    GlobalMemoryStatus(&tMemory);
-    gdwTotalPhys_0074D898 = tMemory.dwTotalPhys;
-    GetSystemInfo(&gtSystemInfo_0074D8A0);
-    gbSystemInfoDone_0074D88C = 1;
 }
 
 // 0x0040E850
@@ -769,30 +887,6 @@ unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter()
         mov dword ptr nTicks[4], edx
     }
     return nTicks;
-}
-
-// 0x0040F350
-void __cdecl AUTOMAP_CloseStaleLogs()
-{
-    char szPath[0x104];
-    int bLog = 0;
-    szPath[0] = 0;
-    unsigned long nNow = GetTickCount();
-    for (int i = 0; i < 20; ++i)
-    {
-        if (gapLogFiles_0075E790[i])
-        {
-            if (nNow - gadwLogOpenTick_0075E7E0[i] > 15000 || nNow - gadwLogWriteTick_0075D2F0[i] > 5000)
-            {
-                if (bLog)
-                {
-                    OutputDebugStringA(szPath);
-                }
-                fclose(gapLogFiles_0075E790[i]);
-                gapLogFiles_0075E790[i] = 0;
-            }
-        }
-    }
 }
 
 // 0x00412000
@@ -1202,77 +1296,90 @@ static void __stdcall sub_00457E80_AddUnitAutomapCell(int nCellNo, D2AutomapCell
     AUTOMAP_InsertAutomapCell(pCell, ppRoot);
 }
 
-void __stdcall AUTOMAP_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
+// 0x00457F40
+void* __cdecl AUTOMAP_OpenAutomapFile()
 {
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
+    char szSavePath[0x104] = { 0 };
+    char szFileName[0x104] = { 0 };
+    char szAccountPath[0x104] = { 0 };
+
+    FOG_GetSavePath(szSavePath, sizeof(szSavePath));
+
+    void* hFile = (void*)-1;
+    if (gszAccountFolder_007A0500[0])
     {
-        const int nFlag = pUnit ? (pUnit->dwFlags >> 28) & 1 : 0;
-        const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-        if (!gbRevealAutomap_007A51A0)
+        SStrPrintf(szAccountPath, sizeof(szAccountPath), "%s%s\\", szSavePath, gszAccountFolder_007A0500);
+        FOG_CreatePathHierarchy(szAccountPath);
+        SStrPrintf(szFileName, sizeof(szFileName), "%s%s.map", szAccountPath, gszCharName_007A05C4);
+        hFile = FOG_CreateFileA(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
+        if (hFile != (void*)-1)
         {
-            if (!nFlag)
-                continue;
-
-            if (pUnit ? (pUnit->dwFlags >> 29) & 1 : 0)
-                continue;
-        }
-
-        if (pUnit)
-            pUnit->dwFlags |= 0x20000000;
-
-        switch (nUnitType)
-        {
-        case UNIT_MONSTER:
-            if (pUnit)
-            {
-                const int nClassId = pUnit->dwClassId;
-                if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
-                {
-                    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nClassId].wMonStatsEx;
-                    if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
-                    {
-                        D2MonStats2Txt* pMonStats2Txt = &sgptDataTables->pMonStats2Txt[nMonStatsEx];
-                        if (pMonStats2Txt && pMonStats2Txt->dwAutomapCel)
-                            sub_00457E80_AddUnitAutomapCell(pMonStats2Txt->dwAutomapCel, ppRoot, pUnit);
-                    }
-                }
-            }
-            break;
-
-        case UNIT_OBJECT:
-        {
-            const int nClassId = pUnit ? pUnit->dwClassId : -1;
-            D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(nClassId);
-            if (!pObjectsTxt->dwAutomap)
-                break;
-
-            switch (nClassId)
-            {
-            case 0x10B:
-            {
-                const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-                if (nAct == 2 || nAct == 3)
-                    sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
-                break;
-            }
-            case 0x16E:
-                if (pUnit && pUnit->dwAnimMode == 2)
-                    sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
-                break;
-
-            case 0x192:
-                if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
-                    sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
-                break;
-
-            default:
-                sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
-                break;
-            }
-            break;
-        }
+            SStrCopy(szSavePath, szAccountPath, sizeof(szSavePath));
         }
     }
+
+    if (hFile == (void*)-1)
+    {
+        sprintf(szFileName, "%s%s.map", szSavePath, gszCharName_007A05C4);
+        hFile = FOG_CreateFileA(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
+        if (hFile == (void*)-1)
+        {
+            return hFile;
+        }
+    }
+
+    D2AutomapFileHeaderStrc tHeader = { 0 };
+    unsigned long nBytes = 0;
+    FOG_ReadFile(hFile, &tHeader, sizeof(tHeader), &nBytes, 0);
+
+    int bInvalid = 1;
+    if (nBytes == sizeof(tHeader))
+    {
+        bInvalid = tHeader.nVersion != 12;
+    }
+
+    int nIndex;
+    if (bInvalid)
+    {
+        tHeader.nVersion = 12;
+        tHeader.nNext = 1;
+        tHeader.nSeeds[0] = gpAutomapRecord_007A0638->nUnk0x00;
+        for (int i = 0; i < 4; ++i)
+        {
+            sprintf(szFileName, "%s%s.ma%d", szSavePath, gszCharName_007A05C4, i);
+            FOG_DeleteFileA(szFileName);
+        }
+        nIndex = 0;
+    }
+    else
+    {
+        for (nIndex = 0; nIndex < 4; ++nIndex)
+        {
+            if (tHeader.nSeeds[nIndex] == gpAutomapRecord_007A0638->nUnk0x00)
+            {
+                break;
+            }
+        }
+
+        if (nIndex != 4)
+        {
+            goto reopen;
+        }
+
+        nIndex = tHeader.nNext;
+        tHeader.nNext = (nIndex + 1) % 4;
+        tHeader.nSeeds[nIndex] = gpAutomapRecord_007A0638->nUnk0x00;
+        sprintf(szFileName, "%s%s.ma%d", szSavePath, gszCharName_007A05C4, nIndex);
+        FOG_DeleteFileA(szFileName);
+    }
+
+    FOG_SetFilePointer(hFile, 0, 0, 0);
+    FOG_WriteFile(hFile, &tHeader, sizeof(tHeader), &nBytes, 0);
+
+reopen:
+    FOG_CloseFile(hFile);
+    sprintf(szFileName, "%s%s.ma%d", szSavePath, gszCharName_007A05C4, nIndex);
+    return FOG_CreateFileA(szFileName, 0xC0000000, 0, 0, 4, 0x80, 0);
 }
 
 // 0x00458200
@@ -1371,6 +1478,62 @@ void __fastcall AUTOMAP_StoreCells(D2AutomapCellStrc* pCells)
     AUTOMAP_StoreCells(pCells->pNext);
 }
 
+// 0x004584C0
+void __cdecl AUTOMAP_SaveAutomapLayer()
+{
+    D2AutomapLayerStrc* pLayer = gpAutomapContext_007A5164;
+    if (!pLayer)
+    {
+        return;
+    }
+    D2AutomapSaveStrc tSave;
+    memset(&tSave.fSaved, 0, sizeof(tSave) - sizeof(tSave.nLayerNo));
+    tSave.nLayerNo = pLayer->nLayerNo;
+    tSave.fSaved = pLayer->fSaved;
+    tSave.nUnk0x08 = gpAutomapRecord_007A0638->nValue;
+    sub_00458440_CountCells(pLayer->pFloors, &tSave.dwFloorSize);
+    sub_00458440_CountCells(pLayer->pWalls, &tSave.dwWallsSize);
+    sub_00458440_CountCells(pLayer->pObjects, &tSave.nObjects);
+    sub_00458440_CountCells(pLayer->pExtras, &tSave.dwExtraSize);
+    if (!tSave.dwFloorSize && !tSave.dwWallsSize && !tSave.nObjects && !tSave.dwExtraSize)
+    {
+        return;
+    }
+    if (tSave.dwFloorSize)
+    {
+        tSave.pFloors = FOG_Alloc(tSave.dwFloorSize, szAutomapFile_006D66F0, 0x4EA, 0);
+        gpAutomapSaveBuffer_007A5154 = tSave.pFloors;
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pFloors);
+    }
+    if (tSave.dwWallsSize)
+    {
+        tSave.pWalls = FOG_Alloc(tSave.dwWallsSize, szAutomapFile_006D66F0, 0x4F1, 0);
+        gpAutomapSaveBuffer_007A5154 = tSave.pWalls;
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pWalls);
+    }
+    if (tSave.nObjects)
+    {
+        tSave.pObjects = FOG_Alloc(tSave.nObjects, szAutomapFile_006D66F0, 0x4F8, 0);
+        gpAutomapSaveBuffer_007A5154 = tSave.pObjects;
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pObjects);
+    }
+    if (tSave.dwExtraSize)
+    {
+        tSave.pExtras = FOG_Alloc(tSave.dwExtraSize, szAutomapFile_006D66F0, 0x4FF, 0);
+        gpAutomapSaveBuffer_007A5154 = tSave.pExtras;
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pExtras);
+    }
+    sub_00458200_WriteAutomapLayer(&tSave);
+    if (tSave.pFloors)
+        FOG_Free(tSave.pFloors, szAutomapFile_006D66F0, 0x509, 0);
+    if (tSave.pWalls)
+        FOG_Free(tSave.pWalls, szAutomapFile_006D66F0, 0x50A, 0);
+    if (tSave.pObjects)
+        FOG_Free(tSave.pObjects, szAutomapFile_006D66F0, 0x50B, 0);
+    if (tSave.pExtras)
+        FOG_Free(tSave.pExtras, szAutomapFile_006D66F0, 0x50C, 0);
+}
+
 // 0x00458680
 void __cdecl AUTOMAP_ResetAutomapCells()
 {
@@ -1390,59 +1553,6 @@ void __cdecl AUTOMAP_ResetAutomapCells()
         gpAutomapContext_007A5164->pObjects = 0;
         gpAutomapContext_007A5164->pExtras = 0;
     }
-}
-
-void __cdecl AUTOMAP_SaveAutomapLayer()
-{
-    D2AutomapLayerStrc* pLayer = gpAutomapContext_007A5164;
-    if (!pLayer)
-    {
-        return;
-    }
-    D2AutomapSaveStrc tSave = { pLayer->nLayerNo };
-    tSave.fSaved = pLayer->fSaved;
-    tSave.nUnk0x08 = gpAutomapRecord_007A0638->nValue;
-    sub_00458440_CountCells(pLayer->pFloors, &tSave.dwFloorSize);
-    sub_00458440_CountCells(pLayer->pWalls, &tSave.dwWallsSize);
-    sub_00458440_CountCells(pLayer->pObjects, &tSave.nObjects);
-    sub_00458440_CountCells(pLayer->pExtras, &tSave.dwExtraSize);
-    if (!tSave.dwFloorSize && !tSave.dwWallsSize && !tSave.nObjects && !tSave.dwExtraSize)
-    {
-        return;
-    }
-    if (tSave.dwFloorSize)
-    {
-        tSave.pFloors = FOG_Alloc(tSave.dwFloorSize, ".\\UI\\automap.cpp", 0x4EA, 0);
-        gpAutomapSaveBuffer_007A5154 = tSave.pFloors;
-        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pFloors);
-    }
-    if (tSave.dwWallsSize)
-    {
-        tSave.pWalls = FOG_Alloc(tSave.dwWallsSize, ".\\UI\\automap.cpp", 0x4F1, 0);
-        gpAutomapSaveBuffer_007A5154 = tSave.pWalls;
-        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pWalls);
-    }
-    if (tSave.nObjects)
-    {
-        tSave.pObjects = FOG_Alloc(tSave.nObjects, ".\\UI\\automap.cpp", 0x4F8, 0);
-        gpAutomapSaveBuffer_007A5154 = tSave.pObjects;
-        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pObjects);
-    }
-    if (tSave.dwExtraSize)
-    {
-        tSave.pExtras = FOG_Alloc(tSave.dwExtraSize, ".\\UI\\automap.cpp", 0x4FF, 0);
-        gpAutomapSaveBuffer_007A5154 = tSave.pExtras;
-        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pExtras);
-    }
-    sub_00458200_WriteAutomapLayer(&tSave);
-    if (tSave.pFloors)
-        FOG_Free(tSave.pFloors, ".\\UI\\automap.cpp", 0x509, 0);
-    if (tSave.pWalls)
-        FOG_Free(tSave.pWalls, ".\\UI\\automap.cpp", 0x50A, 0);
-    if (tSave.pObjects)
-        FOG_Free(tSave.pObjects, ".\\UI\\automap.cpp", 0x50B, 0);
-    if (tSave.pExtras)
-        FOG_Free(tSave.pExtras, ".\\UI\\automap.cpp", 0x50C, 0);
 }
 
 // 0x004586E0
@@ -1626,6 +1736,123 @@ static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo)
     return pLayer;
 }
 
+static inline int AUTOMAP_CheckFlagEx(D2UnitStrc* pUnit, int nBit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+    return (pUnit->dwFlags >> nBit) & 1;
+}
+
+static inline D2MonStats2Txt* AUTOMAP_GetMonStats2TxtRecord(int nMonStatsEx)
+{
+    if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
+    {
+        return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+    }
+    return 0;
+}
+
+// 0x00458DC0
+void __stdcall AUTOMAP_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
+{
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
+    {
+        const int nFlag = AUTOMAP_CheckFlagEx(pUnit, 28);
+        const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (!gbRevealAutomap_007A51A0)
+        {
+            if (!nFlag)
+                continue;
+
+            if (AUTOMAP_CheckFlagEx(pUnit, 29))
+                continue;
+        }
+
+        if (pUnit)
+            pUnit->dwFlags |= 0x20000000;
+
+        switch (nUnitType)
+        {
+        case UNIT_MONSTER:
+            if (pUnit)
+            {
+                const int nClassId = pUnit->dwClassId;
+                if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
+                {
+                    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nClassId].wMonStatsEx;
+                    D2MonStats2Txt* pMonStats2Txt = AUTOMAP_GetMonStats2TxtRecord(nMonStatsEx);
+                    if (pMonStats2Txt && pMonStats2Txt->dwAutomapCel)
+                        sub_00457E80_AddUnitAutomapCell(pMonStats2Txt->dwAutomapCel, ppRoot, pUnit);
+                }
+            }
+            break;
+
+        case UNIT_OBJECT:
+        {
+            const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
+            D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(nClassId);
+            const unsigned int nAutomap = pObjectsTxt->dwAutomap;
+            if (!nAutomap)
+                break;
+
+            switch (nClassId)
+            {
+            default:
+                sub_00457E80_AddUnitAutomapCell(nAutomap, ppRoot, pUnit);
+                break;
+
+            case 0x192:
+                if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
+                    sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
+                break;
+
+            case 0x16E:
+                if ((!pUnit ? 0 : pUnit->dwAnimMode) == 2)
+                    sub_00457E80_AddUnitAutomapCell(nAutomap, ppRoot, pUnit);
+                break;
+
+            case 0x10B:
+            {
+                const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
+                if (nAct == 2 || nAct == 3)
+                    sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
+                break;
+            }
+            }
+            break;
+        }
+        }
+    }
+}
+
+// 0x00458F40
+void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
+{
+    unsigned int nCount = 0;
+    D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
+    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        D2DrlgTileDataStrc* pTileData = &pTiles[i];
+        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
+        {
+            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
+        }
+    }
+    pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        D2DrlgTileDataStrc* pTileData = &pTiles[i];
+        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
+        {
+            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
+        }
+    }
+    AUTOMAP_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
+}
+
 // 0x00459020
 void __cdecl AUTOMAP_UpdateAutomapReveal()
 {
@@ -1671,127 +1898,6 @@ void __cdecl AUTOMAP_UpdateAutomapReveal()
     }
 }
 
-// 0x00458F40
-void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
-{
-    unsigned int nCount = 0;
-    D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
-    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        D2DrlgTileDataStrc* pTileData = &pTiles[i];
-        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
-        {
-            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
-        }
-    }
-    pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        D2DrlgTileDataStrc* pTileData = &pTiles[i];
-        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
-        {
-            AUTOMAP_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
-        }
-    }
-    AUTOMAP_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
-}
-
-void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY)
-{
-    const int nPrevLayerNo = gpAutomapContext_007A5164 ? gpAutomapContext_007A5164->nLayerNo : -1;
-    D2AutomapLayerStrc* pLayer = sub_00458D40_InitAutomapLayer(DATATBLS_GetLevelDefRecord(nLevelId)->dwLayer);
-    int nStepX;
-    int nStepY;
-    int nRows;
-    const int* pSkip;
-    int nColumns;
-    int nOffsetX;
-    int nOffsetY;
-    int nCel;
-    switch (nLevelId)
-    {
-    case LEVEL_LUTGHOLEIN:
-        pLayer->fSaved = 1;
-        pSkip = gaTownSkipCels_006D6608;
-        nColumns = 5;
-        nRows = 4;
-        nOffsetX = 0x35;
-        nOffsetY = -0x51;
-        nStepX = 0xA0;
-        nStepY = 0x64;
-        nCel = nPickedFile != 1 ? 0x14 : 0;
-        break;
-
-    case LEVEL_THEPANDEMONIUMFORTRESS:
-        pLayer->fSaved = 2;
-        pSkip = 0;
-        nColumns = 2;
-        nRows = 2;
-        nOffsetX = -3;
-        nOffsetY = -0x32;
-        nStepX = 0x88;
-        nStepY = 0x5A;
-        nCel = 0;
-        break;
-
-    case LEVEL_HARROGATH:
-        pLayer->fSaved = 3;
-        pSkip = 0;
-        nColumns = 3;
-        nRows = 2;
-        nOffsetX = -0x14;
-        nOffsetY = -0x9B;
-        nStepX = 0xB4;
-        nStepY = 0xAA;
-        nCel = 0;
-        break;
-
-    default:
-        D2_ASSERT(0, 0x751);
-    }
-
-    sub_00643310_MapToAutomapPos(&nX, &nY);
-    nX /= 10;
-    nY /= 10;
-    const int nHalfWidth = nStepX * nColumns / 2 + nOffsetX;
-    int nPosY = nY - nStepY * nRows / 2 - nOffsetY;
-    for (int nRow = 0; nRow < nRows; ++nRow)
-    {
-        int nPosX = nX - nHalfWidth;
-        for (int nColumn = 0; nColumn < nColumns; ++nColumn)
-        {
-            if (pSkip)
-            {
-                for (const int* p = pSkip; *p != -1; ++p)
-                {
-                    if (*p == nCel)
-                        goto next;
-                }
-            }
-
-            D2_ASSERT(nPosX >= -0x8000 && nPosX <= 0x7FFF, 0x777);
-            D2_ASSERT(nPosY >= -0x8000 && nPosY <= 0x7FFF, 0x778);
-            D2_ASSERT(nCel >= -0x8000 && nCel <= 0x7FFF, 0x779);
-            {
-                D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
-                pCell->fSaved = 0;
-                pCell->nCellNo = nCel;
-                pCell->xPixel = nPosX;
-                pCell->yPixel = nPosY;
-                AUTOMAP_InsertAutomapCell(pCell, &pLayer->pExtras);
-            }
-next:
-            ++nCel;
-            nPosX += nStepX;
-        }
-        nPosY += nStepY;
-    }
-
-    if (nPrevLayerNo != -1)
-        sub_00458D40_InitAutomapLayer(nPrevLayerNo);
-}
-
 // 0x00459140
 void __cdecl AUTOMAP_SkipAutomapReveal()
 {
@@ -1809,6 +1915,647 @@ void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom)
         sub_00458D40_InitAutomapLayer(nPrevLayerNo);
 }
 
+// 0x004591A0
+void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY)
+{
+    const int nPrevLayerNo = gpAutomapContext_007A5164 ? gpAutomapContext_007A5164->nLayerNo : -1;
+    D2AutomapLayerStrc* pLayer = sub_00458D40_InitAutomapLayer(DATATBLS_GetLevelDefRecord(nLevelId)->dwLayer);
+    int nStepX;
+    int nStepY;
+    int nRows;
+    const int* pSkip;
+    int nColumns;
+    int nOffsetX;
+    int nOffsetY;
+    int nCelNo;
+    switch (nLevelId)
+    {
+    case LEVEL_LUTGHOLEIN:
+        pLayer->fSaved = 1;
+        switch (gdwGlobal_007A5150)
+        {
+        case AUTOMAP_SIZE_MINI:
+            nCelNo = nPickedFile != 1 ? TOWNCEL_LUTGHOLEIN_ALT_MINI : TOWNCEL_LUTGHOLEIN_MINI;
+            break;
+        default:
+            nCelNo = nPickedFile != 1 ? TOWNCEL_LUTGHOLEIN_ALT_FULL : TOWNCEL_LUTGHOLEIN_FULL;
+            break;
+        }
+        pSkip = gaTownSkipCels_006D6608;
+        nColumns = 5;
+        nRows = 4;
+        nOffsetX = 0x35;
+        nOffsetY = -0x51;
+        nStepX = 0xA0;
+        nStepY = 0x64;
+        nPickedFile = nCelNo;
+        break;
+
+    case LEVEL_THEPANDEMONIUMFORTRESS:
+        pLayer->fSaved = 2;
+        pSkip = 0;
+        nColumns = 2;
+        nRows = 2;
+        nOffsetX = -3;
+        nOffsetY = -0x32;
+        nStepX = 0x88;
+        nStepY = 0x5A;
+        switch (gdwGlobal_007A5150)
+        {
+        case AUTOMAP_SIZE_MINI:
+            nCelNo = TOWNCEL_PANDFORT_MINI;
+            break;
+        default:
+            nCelNo = TOWNCEL_PANDFORT_FULL;
+            break;
+        }
+        nPickedFile = nCelNo;
+        break;
+
+    case LEVEL_HARROGATH:
+        pLayer->fSaved = 3;
+        pSkip = 0;
+        nColumns = 3;
+        nRows = 2;
+        nOffsetX = -0x14;
+        nOffsetY = -0x9B;
+        nStepX = 0xB4;
+        nStepY = 0xAA;
+        switch (gdwGlobal_007A5150)
+        {
+        case AUTOMAP_SIZE_MINI:
+            nCelNo = TOWNCEL_HARROGATH_MINI;
+            break;
+        default:
+            nCelNo = TOWNCEL_HARROGATH_FULL;
+            break;
+        }
+        nPickedFile = nCelNo;
+        break;
+
+    default:
+        D2_ASSERT(0, 0x751);
+    }
+
+    DUNGEON_GameTileToClientCoords(&nX, &nY);
+    nX /= 10;
+    nY /= 10;
+    const int nHalfWidth = nStepX * nColumns / 2 + nOffsetX;
+    int nPosY = nY - nStepY * nRows / 2 - nOffsetY;
+    for (int nRow = 0; nRow < nRows; ++nRow)
+    {
+        int nPosX = nX - nHalfWidth;
+        for (int nColumn = 0; nColumn < nColumns; ++nColumn)
+        {
+            {
+                const int* p = pSkip;
+                int nSkipCel;
+                int bMore;
+                if (p)
+                {
+                    nSkipCel = *p;
+                    bMore = 1;
+                }
+                else
+                {
+                    bMore = 0;
+                }
+                while (bMore)
+                {
+                    if (nSkipCel == -1)
+                        bMore = 0;
+                    else if (nSkipCel == nPickedFile)
+                        goto next;
+                    else
+                    {
+                        ++p;
+                        nSkipCel = *p;
+                    }
+                }
+            }
+
+            D2_ASSERT(nPosX >= -0x8000 && nPosX <= 0x7FFF, 0x777);
+            D2_ASSERT(nPosY >= -0x8000 && nPosY <= 0x7FFF, 0x778);
+            D2_ASSERT(nPickedFile >= -0x8000 && nPickedFile <= 0x7FFF, 0x779);
+            {
+                D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
+                pCell->fSaved = 0;
+                pCell->nCellNo = nPickedFile;
+                pCell->xPixel = nPosX;
+                pCell->yPixel = nPosY;
+                AUTOMAP_InsertAutomapCell(pCell, &pLayer->pExtras);
+            }
+next:
+            ++nPickedFile;
+            nPosX += nStepX;
+        }
+        nPosY += nStepY;
+    }
+
+    if (nPrevLayerNo != -1)
+        sub_00458D40_InitAutomapLayer(nPrevLayerNo);
+}
+
+// build: symbol ?OBJECT_GetAbsValue@* 0x00457450
+int __fastcall OBJECT_GetAbsValue(int nValue)
+{
+    return nValue < 0 ? -nValue : nValue;
+}
+
+// 0x00459440
+void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
+{
+    if (!pCell)
+    {
+        return;
+    }
+
+    int nShift = 0;
+    switch (sub_0045AE90())
+    {
+    case 1:
+        nShift = -(gnGlobal_0071146C / 4);
+        break;
+    case 2:
+        nShift = gnGlobal_0071146C / 4;
+        break;
+    }
+
+    int nX = pCell->xPixel * 10 / gnAutomapScale_00711254;
+    int nY = pCell->yPixel * 10 / gnAutomapScale_00711254;
+    nX -= gnAutomapOffsetX_007A5198;
+    nY -= gnAutomapOffsetY_007A519C;
+
+    if (nY >= pInfo->nTop)
+    {
+        AUTOMAP_DrawAutomapCells(pCell->pPrev, pInfo);
+    }
+
+    if (nY >= pInfo->nTop && nY <= pInfo->nBottom && nX >= pInfo->nLeft && nX <= pInfo->nRight)
+    {
+        int nDrawMode = 5;
+        D2GfxDataStrc tData;
+        memset(&tData, 0, sizeof(tData));
+        tData.nFrame = pCell->nCellNo;
+        tData.pCellFile = pInfo->pCelFile;
+        tData.nDirection = 0;
+
+        switch (AUTOMAP_GetAutomapFade())
+        {
+        case 1:
+            if (pInfo->pCelFile == gpAutomapCel_007A5168 && !gdwGlobal_007A5150)
+            {
+                const int nPosX = pInfo->nXOffset + nX;
+                const int nPosY = pInfo->nYOffset + nY;
+                const int nHalfHeight = gnAutomapHeight_007A521C / 2;
+                const int nCenterY = nHalfHeight - 10;
+                const int nHalfWidth = gnAutomapWidth_007A5220 / 2;
+                if (nPosX >= nHalfWidth + nShift - 0x8C && nPosX <= nHalfWidth + nShift + 0x8C && nPosY >= nHalfHeight - 0x96 && nPosY <= nHalfHeight + 0x82)
+                {
+                    const int nDistX = OBJECT_GetAbsValue(nHalfWidth - nPosX + nShift);
+                    const int nDistY = OBJECT_GetAbsValue(nCenterY - nPosY);
+                    const int nDist = (nDistX > nDistY ? nDistY + 2 * nDistX : nDistX + 2 * nDistY) / 2;
+                    if (nDist < 0x96)
+                    {
+                        nDrawMode = AUTOMAP_GetAutomapFade() == 2 ? 1 : 2;
+                        if (nDist < 0x64)
+                        {
+                            nDrawMode = 1;
+                            if (nDist < 0x32)
+                            {
+                                nDrawMode = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        case 2:
+            nDrawMode = 1;
+            break;
+        case 3:
+            switch (sub_00463DD0_GetPlayerUnit()->nAct)
+            {
+            case 0:
+            case 2:
+                switch (gdwGlobal_007A5150)
+                {
+                case 1:
+                    nDrawMode = 1;
+                    break;
+                default:
+                    nDrawMode = 2;
+                    break;
+                }
+                break;
+            }
+            break;
+        }
+
+        D2CropRectStrc tRect;
+        switch (gdwGlobal_007A5150)
+        {
+        case 1:
+            if (gdwGlobal_007A51E0)
+            {
+                tRect.nLeft = 0;
+                tRect.nTop = (VIEW_IsPetIconVisible() ? 0x60 : 0) - 0x15;
+            }
+            else
+            {
+                tRect.nLeft = gnGlobal_0071146C - 0x119;
+                tRect.nTop = 0x39;
+            }
+            tRect.nRight = tRect.nLeft + 0x117;
+            tRect.nBottom = tRect.nTop + 0xE1;
+            break;
+        default:
+            tRect.nLeft = 0;
+            tRect.nRight = gnGlobal_0071146C - 1;
+            tRect.nTop = 0;
+            tRect.nBottom = gnGlobal_00711470 - 1;
+            break;
+        }
+        TEXTURE_CelDrawClipped(&tData, nX, nY, &tRect, nDrawMode);
+    }
+
+    if (nY <= pInfo->nBottom)
+    {
+        AUTOMAP_DrawAutomapCells(pCell->pNext, pInfo);
+    }
+}
+
+// 0x00459700
+void __cdecl AUTOMAP_PaintAutomap()
+{
+    if (!gpAutomapContext_007A5164)
+        return;
+    int nShift = 0;
+    switch (sub_0045AE90())
+    {
+    case 1:
+        if (gdwGlobal_007A5150 != 1)
+            nShift = -(gnGlobal_0071146C / 4);
+        if (!gdwGlobal_007A51E0)
+        {
+            gdwGlobal_007A51E4 = 0;
+            gdwGlobal_007A51E0 = 1;
+        }
+        break;
+    case 2:
+        if (gdwGlobal_007A5150 != 1)
+            nShift = gnGlobal_0071146C / 4;
+        if (gdwGlobal_007A51E0)
+        {
+            gdwGlobal_007A51E4 = gdwGlobal_007A51E0;
+            gdwGlobal_007A51E0 = 0;
+        }
+        break;
+    default:
+        if (gdwGlobal_007A51E0 != gdwGlobal_007A51E4)
+            gdwGlobal_007A51E0 = gdwGlobal_007A51E4;
+        if (gdwGlobal_007A51E0 != gdwGlobal_007A51E8)
+            gdwGlobal_007A51E0 = gdwGlobal_007A51E8;
+        break;
+    }
+
+    const int nX = UI_GetAutomapOffsetX() / gnAutomapScale_00711254 - gnAutomapWidth_007A5220 / 2 - nShift;
+    const int nY = UI_GetAutomapOffsetY() / gnAutomapScale_00711254 - gnAutomapHeight_007A521C / 2;
+    gnAutomapViewX_007A5190 = nX;
+    gnAutomapViewY_007A5194 = nY;
+    gnAutomapOffsetX_007A5198 = gnAutomapBaseX_007A5188 + nX + 0x28;
+    gnAutomapOffsetY_007A519C = gnAutomapBaseY_007A518C + nY + 0xF;
+
+    D2AutomapDrawStrc tInfo;
+    switch (gdwGlobal_007A5150)
+    {
+    case 1:
+        tInfo.pCelFile = gpAutomapCel_007A5168;
+        tInfo.nLeft = gnMiniMapX_007A51DC - 8;
+        tInfo.nTop = gnMiniMapY_007A51D8 - 0x10;
+        tInfo.nRight = gnMiniMapX_007A51DC + gnAutomapWidth_007A5220 / 3 + 8;
+        tInfo.nBottom = gnMiniMapY_007A51D8 + gnAutomapHeight_007A521C / 3 + 0x10;
+        tInfo.nXOffset = 4;
+        tInfo.nYOffset = 8;
+        gnAutomapScale_00711254 = 0x14;
+        break;
+    default:
+        tInfo.pCelFile = gpAutomapCel_007A5168;
+        tInfo.nLeft = -0x10;
+        tInfo.nTop = -0x20;
+        tInfo.nRight = gnAutomapWidth_007A5220 + 0x10;
+        tInfo.nBottom = gnAutomapHeight_007A521C + 0x20;
+        tInfo.nXOffset = 8;
+        tInfo.nYOffset = 0x10;
+        gnAutomapScale_00711254 = 0xA;
+        break;
+    }
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pFloors, &tInfo);
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pWalls, &tInfo);
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pObjects, &tInfo);
+
+    switch (gdwGlobal_007A5150)
+    {
+    case 1:
+        switch (gpAutomapContext_007A5164->fSaved)
+        {
+        case 1:
+            tInfo.pCelFile = gpAutomapCel_007A516C;
+            tInfo.nLeft = gnMiniMapX_007A51DC - 0xA0;
+            tInfo.nTop = gnMiniMapY_007A51D8 - 0x64;
+            tInfo.nRight = gnMiniMapX_007A51DC + gnAutomapWidth_007A5220 / 3 + 0xA0;
+            tInfo.nBottom = gnMiniMapY_007A51D8 + gnAutomapHeight_007A521C / 3 + 0x64;
+            tInfo.nXOffset = 0x50;
+            tInfo.nYOffset = 0x32;
+            break;
+        case 2:
+            tInfo.pCelFile = gpAutomapCel_007A5170;
+            tInfo.nLeft = gnMiniMapX_007A51DC - 0x88;
+            tInfo.nTop = gnMiniMapY_007A51D8 - 0x5A;
+            tInfo.nRight = gnMiniMapX_007A51DC + gnAutomapWidth_007A5220 / 3 + 0x88;
+            tInfo.nBottom = gnMiniMapY_007A51D8 + gnAutomapHeight_007A521C / 3 + 0x5A;
+            tInfo.nXOffset = 0x44;
+            tInfo.nYOffset = 0x2D;
+            break;
+        case 3:
+            tInfo.pCelFile = gpAutomapCel_007A5174;
+            tInfo.nLeft = gnMiniMapX_007A51DC - 0xB4;
+            tInfo.nTop = gnMiniMapY_007A51D8 - 0xAA;
+            tInfo.nRight = gnMiniMapX_007A51DC + gnAutomapWidth_007A5220 / 3 + 0xB4;
+            tInfo.nBottom = gnMiniMapY_007A51D8 + gnAutomapHeight_007A521C / 3 + 0xAA;
+            tInfo.nXOffset = 0x5A;
+            tInfo.nYOffset = 0x55;
+            break;
+        default:
+            tInfo.pCelFile = gpAutomapCel_007A5168;
+            tInfo.nLeft = gnMiniMapX_007A51DC - 8;
+            tInfo.nTop = gnMiniMapY_007A51D8 - 0x10;
+            tInfo.nRight = gnMiniMapX_007A51DC + gnAutomapWidth_007A5220 / 3 + 8;
+            tInfo.nBottom = gnMiniMapY_007A51D8 + gnAutomapHeight_007A521C / 3 + 0x10;
+            tInfo.nXOffset = 4;
+            tInfo.nYOffset = 8;
+            break;
+        }
+        gnAutomapScale_00711254 = 0x14;
+        break;
+    default:
+        switch (gpAutomapContext_007A5164->fSaved)
+        {
+        case 1:
+            tInfo.pCelFile = gpAutomapCel_007A516C;
+            tInfo.nLeft = -0xA0;
+            tInfo.nTop = -0x64;
+            tInfo.nRight = gnAutomapWidth_007A5220 + 0xA0;
+            tInfo.nBottom = gnAutomapHeight_007A521C + 0x64;
+            tInfo.nXOffset = 0x50;
+            tInfo.nYOffset = 0x32;
+            break;
+        case 2:
+            tInfo.pCelFile = gpAutomapCel_007A5170;
+            tInfo.nLeft = -0x88;
+            tInfo.nTop = -0x5A;
+            tInfo.nRight = gnAutomapWidth_007A5220 + 0x88;
+            tInfo.nBottom = gnAutomapHeight_007A521C + 0x5A;
+            tInfo.nXOffset = 0x44;
+            tInfo.nYOffset = 0x2D;
+            break;
+        case 3:
+            tInfo.pCelFile = gpAutomapCel_007A5174;
+            tInfo.nLeft = -0xB4;
+            tInfo.nTop = -0xAA;
+            tInfo.nRight = gnAutomapWidth_007A5220 + 0xB4;
+            tInfo.nBottom = gnAutomapHeight_007A521C + 0xAA;
+            tInfo.nXOffset = 0x5A;
+            tInfo.nYOffset = 0x55;
+            break;
+        default:
+            tInfo.pCelFile = gpAutomapCel_007A5168;
+            tInfo.nLeft = -0x10;
+            tInfo.nTop = -0x20;
+            tInfo.nRight = gnAutomapWidth_007A5220 + 0x10;
+            tInfo.nBottom = gnAutomapHeight_007A521C + 0x20;
+            tInfo.nXOffset = 8;
+            tInfo.nYOffset = 0x10;
+            break;
+        }
+        gnAutomapScale_00711254 = 0xA;
+        break;
+    }
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pExtras, &tInfo);
+}
+
+static inline int AUTOMAP_GetUnitClassId(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwClassId;
+}
+
+static inline int AUTOMAP_GetUnitClassIdR(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwClassId;
+}
+
+static inline int AUTOMAP_GetUnitAnimModeR(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+    return pUnit->dwAnimMode;
+}
+
+// 0x00459BC0
+static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pColor)
+{
+    switch (AUTOMAP_GetUnitType(pUnit))
+    {
+    case 0:
+        if (pUnit && pUnit->dwAnimMode == 0x11)
+        {
+            D2InventoryStrc* pInventory = pUnit->pInventory;
+            if (!pInventory || INVENTORY_GetOwnerId(pInventory) != pUnit->dwUnitId)
+            {
+                return 0;
+            }
+
+            *pColor = gnAutomapColors_007A51B0[2];
+            return 1;
+        }
+
+        if (pUnit == sub_00463DD0_GetPlayerUnit())
+        {
+            *pColor = gnAutomapColors_007A51B0[0];
+            return 1;
+        }
+
+        {
+            const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
+            if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
+            {
+                *pColor = gnAutomapColors_007A51B0[3];
+                return 1;
+            }
+        }
+
+        *pColor = gnAutomapColors_007A51B0[1];
+        return 1;
+
+    case 1:
+    {
+        if (pUnit)
+        {
+            if (pUnit->dwAnimMode == 0xC)
+            {
+                return 0;
+            }
+
+            if (AUTOMAP_UnitHasFlag(pUnit, 0x200000))
+            {
+                return 0;
+            }
+        }
+
+        if (MONSTERUNIQUE_CheckMonStatsFlag(AUTOMAP_GetUnitClassId(pUnit), 9))
+        {
+            if (pUnit)
+            {
+                const int nClassId = pUnit->dwClassId;
+                if (nClassId == 0x219 || nClassId == 0x21A || nClassId == 0x21B)
+                {
+                    return 0;
+                }
+            }
+
+            *pColor = gnAutomapColors_007A51B0[6];
+            return 1;
+        }
+
+        int nClass;
+        int nMode;
+        int nType = AUTOMAP_GetUnitType(pUnit);
+        nClass = AUTOMAP_GetUnitClassIdR(pUnit);
+        nMode = AUTOMAP_GetUnitAnimModeR(pUnit);
+        D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, ".\\UI\\automap.cpp", 0x92D);
+        if (!nType && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && sub_004639D0_GetOwnerUnit(pUnit))
+        {
+            const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
+            if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
+            {
+                *pColor = gnAutomapColors_007A51B0[4];
+                return 1;
+            }
+
+            *pColor = gnAutomapColors_007A51B0[1];
+            return 1;
+        }
+
+        switch (sub_00478D90_GetPetRelation(!pUnit ? -1 : pUnit->dwUnitId))
+        {
+        case 0:
+        case 3:
+            return 0;
+
+        case 1:
+            if (sub_00451F30_TestUnitFlag(pUnit, 0x200))
+            {
+                *pColor = gnAutomapColors_007A51B0[4];
+                return 1;
+            }
+            *pColor = gnAutomapColors_007A51B0[4];
+            return 1;
+
+        case 2:
+            if (!gdwGlobal_007113E4)
+            {
+                return 0;
+            }
+            *pColor = gnAutomapColors_007A51B0[5];
+            return 1;
+        }
+
+        return 1;
+    }
+
+    case 2:
+        switch (AUTOMAP_GetUnitClassId(pUnit))
+        {
+        case 0x3B:
+            *pColor = gnAutomapColors_007A51B0[8];
+            return 1;
+
+        case 0x3C:
+        {
+            const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
+            if (nLevelId == LEVEL_HELL1 || nLevelId == LEVEL_HELL2 || nLevelId == LEVEL_HELL3 || nLevelId == LEVEL_ID_ACT5_BARRICADE_1
+                || nLevelId == LEVEL_ARREATPLATEAU || nLevelId == LEVEL_TUNDRAWASTELANDS)
+            {
+                return 0;
+            }
+        }
+            *pColor = gnAutomapColors_007A51B0[8];
+            return 1;
+
+        case 0x10B:
+            *pColor = 0;
+            return 1;
+        }
+        break;
+    }
+
+    return 0;
+}
+
+// 0x00459E90
+void __cdecl AUTOMAP_DrawGameInfoLines()
+{
+    Unicode wszName[25];
+    char szText[28];
+    Unicode wszLine[50];
+    for (int i = 0; i < 25; ++i)
+        wszName[i].wChar = 0;
+    for (int i = 0; i < 50; ++i)
+        wszLine[i].wChar = 0;
+    const char* szFirst = GAME_GetGameName();
+    const char* szSecond = GAME_GetGamePassword();
+    if (!szFirst)
+    {
+        if (!szSecond)
+            return;
+    }
+    else
+    {
+        sprintf(szText, gszStringFormat_006FFC58, szFirst);
+        sub_00526320_ToUnicode(wszName, szText, 25);
+        sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0x1055));
+        sub_00526700(wszLine, wszName);
+        D2Win_10117_DrawText(wszLine, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszLine) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+        gnAutomapTextY_007A51BC += 0x10;
+    }
+    const char* szThird = GAME_GetGameDescription();
+    if (!szThird)
+        return;
+    sprintf(szText, gszStringFormat_006FFC58, szThird);
+    sub_00526320_ToUnicode(wszName, szText, 25);
+    sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(0x1056));
+    sub_00526700(wszLine, wszName);
+    D2Win_10117_DrawText(wszLine, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszLine) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    gnAutomapTextY_007A51BC += 0x10;
+}
+
+// 0x00459FF0
+void __cdecl AUTOMAP_DrawStringLine()
+{
+    Unicode wszText[50];
+    for (int i = 0; i < 50; ++i)
+        wszText[i].wChar = 0;
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x58CA));
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    gnAutomapTextY_007A51BC += 0x10;
+}
+
 // 0x0045A050
 void __cdecl AUTOMAP_DrawLevelName()
 {
@@ -1821,6 +2568,55 @@ void __cdecl AUTOMAP_DrawLevelName()
     }
 }
 
+// 0x0045A0A0
+void __cdecl AUTOMAP_DrawVersionLine()
+{
+    Unicode wszText[100];
+    char szText[100];
+    for (int i = 0; i < 100; ++i)
+        wszText[i].wChar = 0;
+    SStrPrintf(szText, 100, "v %d.%d%c", 1, 14, 100);
+    sub_00526320_ToUnicode(wszText, szText, 100);
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - nWidth - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    gnAutomapTextY_007A51BC += 0x10;
+}
+
+// 0x0045A120
+void __cdecl AUTOMAP_DrawLocalIpLine()
+{
+    Unicode wszText[300];
+    for (int i = 0; i < 300; ++i)
+        wszText[i].wChar = 0;
+    sub_00526320_ToUnicode(wszText, FOG_GetHostIPAddress(), 300);
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    gnAutomapTextY_007A51BC += 0x10;
+}
+
+// 0x0045A190
+void __cdecl AUTOMAP_DrawDifficultyLine()
+{
+    unsigned short nString;
+    switch (GAME_GetDifficulty())
+    {
+    case 1:
+        nString = 0x1423;
+        break;
+    case 2:
+        nString = 0x1422;
+        break;
+    default:
+        return;
+    }
+    Unicode wszText[300];
+    for (int i = 0; i < 300; ++i)
+        wszText[i].wChar = 0;
+    D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(nString)) + sub_00526800(D2LANG_GetStringFromTblIndex(0x1057)) + 3 < 300, 0xB2A);
+    sub_005269D0(300, wszText, D2LANG_GetStringFromTblIndex(0x1057), D2LANG_GetStringFromTblIndex(nString));
+    D2Win_10117_DrawText(wszText, gnAutomapWidth_007A5220 - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
+    gnAutomapTextY_007A51BC += 0x10;
+}
+
 // 0x0045A280
 void __cdecl AUTOMAP_FreeAutomapCels()
 {
@@ -1831,6 +2627,58 @@ void __cdecl AUTOMAP_FreeAutomapCels()
             ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
         }
         gpAutomapCels_007A5168[i] = 0;
+    }
+}
+
+// 0x0045A2B0
+void __cdecl AUTOMAP_ReloadAutomapCels()
+{
+    char szPath[260] = {0};
+    for (int i = 0; i < 4; ++i)
+    {
+        if (gpAutomapCels_007A5168[i])
+            ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
+        gpAutomapCels_007A5168[i] = 0;
+    }
+    switch (gdwGlobal_007A5150)
+    {
+    case 1:
+        sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMapS", szDataGlobal_006D4118);
+        gpAutomapCels_007A5168[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gnAutomapCelFrames_007A5178[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
+        sprintf(szPath, "%s\\UI\\AutoMap\\Act2MapS", szDataGlobal_006D4118);
+        gpAutomapCels_007A5168[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gnAutomapCelFrames_007A5178[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
+        sprintf(szPath, "%s\\UI\\AutoMap\\Act4MapS", szDataGlobal_006D4118);
+        gpAutomapCels_007A5168[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gnAutomapCelFrames_007A5178[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
+        sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMapS", szDataGlobal_006D4118);
+        gpAutomapCels_007A5168[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gnAutomapCelFrames_007A5178[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
+        break;
+    default:
+        sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMap", szDataGlobal_006D4118);
+        gpAutomapCels_007A5168[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gnAutomapCelFrames_007A5178[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
+        sprintf(szPath, "%s\\UI\\AutoMap\\Act2Map", szDataGlobal_006D4118);
+        gpAutomapCels_007A5168[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gnAutomapCelFrames_007A5178[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
+        sprintf(szPath, "%s\\UI\\AutoMap\\Act4Map", szDataGlobal_006D4118);
+        gpAutomapCels_007A5168[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gnAutomapCelFrames_007A5178[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion())
+        {
+            sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMap", szDataGlobal_006D4118);
+            gpAutomapCels_007A5168[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
+            gnAutomapCelFrames_007A5178[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
+        }
+        else
+        {
+            gpAutomapCels_007A5168[3] = 0;
+            gnAutomapCelFrames_007A5178[3] = 0;
+        }
+        break;
     }
 }
 
@@ -1922,6 +2770,220 @@ void __fastcall AUTOMAP_SetAutomapMode(int mode)
         }
         AUTOMAP_ReloadAutomapCels();
         sub_00457640(1);
+    }
+}
+
+static inline int AUTOMAP_GetUnitType(D2UnitStrc* pUnit)
+{
+    int nType = 6;
+    if (pUnit)
+    {
+        nType = pUnit->dwUnitType;
+    }
+    return nType;
+}
+
+static inline int AUTOMAP_GetUnitAnimMode(D2UnitStrc* pUnit)
+{
+    return pUnit ? pUnit->dwAnimMode : 0;
+}
+
+static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlags & nFlag) != 0;
+    }
+    return 0;
+}
+
+// 0x0045A760
+static void __stdcall sub_0045A760_DrawAutomapText(unsigned char nColor, const char* szText, int nX, int nY)
+{
+    if (!strlen(szText))
+    {
+        return;
+    }
+
+    if (nColor >= 0xD)
+    {
+        nColor = 0;
+    }
+
+    const int nOldFont = sub_00502EF0(6);
+    Unicode wszText[0x17];
+    memset(wszText, 0, sizeof(wszText));
+    sub_00526320_ToUnicode(wszText, szText, 0x17);
+    D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
+    sub_00502EF0(nOldFont);
+}
+
+// 0x0045A7F0
+static void __stdcall sub_0045A7F0_DrawAutomapCross(unsigned char nColor, int nX, int nY)
+{
+    if (gdwGlobal_007A5150 == 1)
+    {
+        nX -= 1;
+        nY += 5;
+    }
+
+    for (unsigned int i = 0; i < 12; ++i)
+    {
+        D2GFX_DrawLine(nX + gaAutomapCross_006D6638[i].nX * 2, nY + gaAutomapCross_006D6638[i].nY * 2,
+            nX + gaAutomapCross_006D6638[i + 1].nX * 2, nY + gaAutomapCross_006D6638[i + 1].nY * 2, nColor, 0xFF);
+    }
+}
+
+// 0x0045A860
+static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
+{
+    int nUnitType;
+    if (!pUnit)
+    {
+        nUnitType = 6;
+    }
+    else
+    {
+        nUnitType = pUnit->dwUnitType;
+    }
+    unsigned char nColor = 0;
+    if (nUnitType == 0 && CUNIT_IsDeadOrDying(pUnit) && !STATES_CheckState(pUnit, STATE_PLAYERBODY))
+    {
+        return;
+    }
+
+    if (!sub_00459BC0_GetAutomapUnitColor(pUnit, &nColor))
+    {
+        return;
+    }
+
+    const int nClientX = UNITS_GetClientCoordX(pUnit);
+    const int nClientY = UNITS_GetClientCoordY(pUnit);
+    const int nX = nClientX / gnAutomapScale_00711254 - gnAutomapOffsetX_007A5198 + 8;
+    const int nY = nClientY / gnAutomapScale_00711254 - gnAutomapOffsetY_007A519C - 8;
+    if (nX < gnGlobal_007A51C8 || nX > gnGlobal_007A51D0 || nY < gnGlobal_007A51CC || nY > gnGlobal_007A51D4)
+    {
+        return;
+    }
+
+    switch (nUnitType)
+    {
+    case 0:
+        if (gdwGlobal_007113E4 || nColor != gnAutomapColors_007A51B0[3])
+        {
+            sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
+        }
+
+        if (gdwGlobal_007113E8 && gdwGlobal_007113E4 && pUnit != sub_00463DD0_GetPlayerUnit())
+        {
+            if (nColor == gnAutomapColors_007A51B0[3])
+            {
+                if (gdwGlobal_007113E4)
+                {
+                    sub_0045A760_DrawAutomapText(2, UNITS_GetPlayerData(pUnit)->szName, nX, nY);
+                }
+            }
+            else
+            {
+                sub_0045A760_DrawAutomapText(1, UNITS_GetPlayerData(pUnit)->szName, nX, nY);
+            }
+        }
+        break;
+
+    case 1:
+    {
+        sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
+        if (!gdwGlobal_007113E8)
+        {
+            break;
+        }
+
+        if (MONSTERUNIQUE_CheckMonStatsFlag(AUTOMAP_GetUnitClassId(pUnit), 9))
+        {
+            const int nOldFont = sub_00502EF0(6);
+            const Unicode* wszName = CUNIT_GetUnitName(pUnit);
+            D2Win_10117_DrawText(wszName, nX - D2Win_10121_GetTextWidth(wszName) / 2, nY - 10, 4, 0);
+            sub_00502EF0(nOldFont);
+        }
+
+        if (!gdwGlobal_007113E8 || !gdwGlobal_007113E4)
+        {
+            break;
+        }
+
+        {
+            int nType = AUTOMAP_GetUnitType(pUnit);
+            int nClass = AUTOMAP_GetUnitClassIdR(pUnit);
+            int nMode = AUTOMAP_GetUnitAnimModeR(pUnit);
+            D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, ".\\UI\\automap.cpp", 0xA15);
+            if (nType || !STATES_CheckStateMaskOnUnit(pUnit, 0x25))
+            {
+                break;
+            }
+
+            D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
+            if (!pOwner || pOwner->dwUnitType != UNIT_PLAYER)
+            {
+                break;
+            }
+
+            const unsigned short nPlayerRoster = CUNIT_GetPlayerPartyId(sub_00463DD0_GetPlayerUnit());
+            if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)CUNIT_GetPlayerPartyId(pUnit))
+            {
+                break;
+            }
+
+            sub_0045A760_DrawAutomapText(1, UNITS_GetPlayerData(pOwner)->szName, nX, nY);
+        }
+        break;
+    }
+
+    case 2:
+        if (gdwGlobal_007113E8 && pUnit && pUnit->dwClassId == 0x10B)
+        {
+            const int nOldFont = sub_00502EF0(6);
+            const Unicode* wszText = D2LANG_GetStringFromTblIndex(0xCF3);
+            D2Win_10117_DrawText(wszText, nX - D2Win_10121_GetTextWidth(wszText) / 2, nY - 10, nColor, 0);
+            sub_00502EF0(nOldFont);
+        }
+        else
+        {
+            sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
+        }
+        break;
+    }
+}
+
+// 0x0045AB60
+static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
+{
+    int nX = 0;
+    int nY = 0;
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
+    const unsigned char nEntryAct = DRLG_GetActNoFromLevelId(ROSTER_GetLevelId(pEntry));
+    if (DRLG_GetActNoFromLevelId(nLevelId) != nEntryAct)
+    {
+        return;
+    }
+
+    sub_0047A1B0_GetEntryPosition(pEntry, &nX, &nY);
+    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
+    nX = nX / gnAutomapScale_00711254 - gnAutomapOffsetX_007A5198 + 8;
+    nY = nY / gnAutomapScale_00711254 - gnAutomapOffsetY_007A519C - 8;
+    if (nX < gnGlobal_007A51C8 || nX > gnGlobal_007A51D0 || nY < gnGlobal_007A51CC || nY > gnGlobal_007A51D4)
+    {
+        return;
+    }
+
+    for (unsigned int i = 0; i < 12; ++i)
+    {
+        D2GFX_DrawLine(nX + gaAutomapCross_006D6638[i].nX * 2, nY + gaAutomapCross_006D6638[i].nY * 2,
+            nX + gaAutomapCross_006D6638[i + 1].nX * 2, nY + gaAutomapCross_006D6638[i + 1].nY * 2, gnAutomapColors_007A51B0[3], 0xFF);
+    }
+
+    if (gdwGlobal_007113E8)
+    {
+        sub_0045A760_DrawAutomapText(2, ROSTER_GetEntryName(pEntry), nX, nY);
     }
 }
 
@@ -2325,44 +3387,6 @@ unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* 
     return ITEMS_GetComponent(pItem);
 }
 
-// 0x00463180
-void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3)
-{
-    int nMode = pUnit->dwAnimMode;
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    D2UnitStrc* pTargetUnit = 0;
-    int bMove = 0;
-    int nX = 0;
-    int nY = 0;
-    if (nMode >= PLAYER_MODE_WALK && (nMode <= PLAYER_MODE_RUN || nMode == PLAYER_MODE_6))
-    {
-        bMove = 1;
-        pTargetUnit = CUNIT_GetPathTargetUnit(pUnit);
-        if (!pTargetUnit)
-        {
-            sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);
-        }
-    }
-    sub_00650C60_UpdatePath(pPath, pUnit, nArg1, nArg2, nArg3);
-    if (bMove)
-    {
-        D2UnitTargetStrc tTarget;
-        memset(&tTarget, 0, sizeof(tTarget));
-        if (pTargetUnit)
-        {
-            tTarget.nParam1 = pTargetUnit->dwUnitType;
-            tTarget.nParam2 = pTargetUnit->dwUnitId;
-            PLAYER_ApplyUnitCommand(nMode == PLAYER_MODE_RUN ? 0x18 : 0, pUnit, &tTarget, 0);
-        }
-        else
-        {
-            tTarget.nParam1 = nX;
-            tTarget.nParam2 = nY;
-            PLAYER_ApplyUnitCommand(nMode == PLAYER_MODE_RUN ? 0x17 : 1, pUnit, &tTarget, 0);
-        }
-    }
-}
-
 // 0x0046EFD0
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6)
 {
@@ -2463,6 +3487,179 @@ D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, 
         return 0;
     }
     return MISSILE_SubmitOwnerRequest(pUnit, nRequest, nX, nY, nArg3, nArg4);
+}
+
+// build: context sub_0045AC90_DrawAutomapUnits
+void __cdecl sub_0045AC90_DrawAutomapUnits()
+{
+    D2StoredUnitRecordStrc* pFirst = sub_004795A0_GetNextEntry(0);
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2ActiveRoomStrc** ppRooms = 0;
+    int nRooms = 0;
+    DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pPlayer), &ppRooms, (unsigned int*)&nRooms);
+    const int nCount = nRooms;
+    for (int i = 0; i < nCount; ++i)
+    {
+        for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
+        {
+            sub_0045A860_DrawAutomapUnit(pUnit);
+        }
+    }
+
+    const unsigned short nIndex = sub_00479BC0_GetEntryIndex(pFirst);
+    if (nIndex == 0xFFFF || !gdwGlobal_007113E4)
+    {
+        return;
+    }
+
+    for (D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(pFirst); pEntry; pEntry = sub_004795A0_GetNextEntry(pEntry))
+    {
+        if (!CUNIT_FindClientUnit(sub_0047A0C0_GetRecordUnitId(pEntry), 0) && sub_00479BC0_GetEntryIndex(pEntry) == nIndex)
+        {
+            sub_0045AB60_DrawAutomapPartyMember(pEntry);
+        }
+    }
+}
+
+struct D2StoredUnitRecordStrc;
+
+// build: symbol ?ITEM_GetAdjacentPosition@* 0x004C51E0
+void __fastcall ITEM_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY)
+{
+    const int nDirection = UNITS_GetDirection(pUnit) >> 3;
+    int aOffsetX[8] = { 0, -1, -2, -1, 0, 1, 2, 1 };
+    int aOffsetY[8] = { 2, 1, 0, -1, -2, -1, 0, 1 };
+
+    int nX;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nX = PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nX = 0;
+        }
+        break;
+    }
+    *pX = aOffsetX[nDirection] + nX;
+
+    int nY;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nY = PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nY = 0;
+        }
+        break;
+    }
+    *pY = aOffsetY[nDirection] + nY;
+}
+
+// build: context sub_004C52E0_GetTargetPosition
+int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
+{
+    int nY;
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (pTarget)
+    {
+        int nX;
+        switch (pTarget->dwUnitType)
+        {
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
+            nX = pTarget->pStaticPath->tGameCoords.nX;
+            break;
+
+        default:
+            if (pTarget->pDynamicPath)
+            {
+                nX = PATH_GetXPosition(pTarget->pDynamicPath);
+            }
+            else
+            {
+                nX = 0;
+            }
+            break;
+        }
+        *pX = nX;
+
+        switch (pTarget->dwUnitType)
+        {
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
+            nY = pTarget->pStaticPath->tGameCoords.nY;
+            break;
+
+        default:
+            if (pTarget->pDynamicPath)
+            {
+                nY = PATH_GetYPosition(pTarget->pDynamicPath);
+            }
+            else
+            {
+                nY = 0;
+            }
+            break;
+        }
+    }
+    else
+    {
+        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+        *pX = D2COMMON_10175_PathGetFirstPointX(pPath);
+        nY = D2COMMON_10176_PathGetFirstPointY(pPath);
+    }
+    *pY = nY;
+
+    if (!*pX || !nY)
+    {
+        ITEM_GetAdjacentPosition(pUnit, pX, pY);
+    }
+    return 1;
+}
+
+// 0x004C5470
+int __fastcall AUTOMAP_RequestAtNearTarget(D2UnitStrc* pUnit, int nArg, int nArg3, int nArg4)
+{
+    int nTargetY;
+    int nTargetX;
+    if (!sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
+    {
+        return 0;
+    }
+
+    if (!nTargetX || !nTargetY)
+    {
+        return 0;
+    }
+
+    if (PATH_ComputeSquaredDistance(CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nTargetX, nTargetY) > 10000)
+    {
+        return 0;
+    }
+
+    return GFXUTIL_SubmitMissileRequest(pUnit, nArg, nTargetX, nTargetY, nArg3, nArg4);
 }
 
 #include "gen/data/Source/D2Client/UI/automap.inc"

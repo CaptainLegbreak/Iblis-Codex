@@ -21,6 +21,8 @@
 
 #define STAT_MODIFIERLIST_LEVEL 351
 
+#define STAT_SKILL_FRENZY 169
+
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
@@ -293,6 +295,115 @@ static int __stdcall SKILLS_ApplyLeapAttackDamage(D2GameStrc* pGame, int nSkillI
 
 int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
+#include "D2Constants.h"
+
+enum D2C_U04BashConstants
+{
+    DAMAGERESULTFLAG_SUCCESSFULHIT = 1,
+    STATLIST_FILTER_4 = 4,
+};
+
+D2DamageStrc* __fastcall SUNITDMG_GetDamageFromUnits(D2UnitStrc* pUnit, D2UnitStrc* pTarget);               // 0x0057D690
+
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x005D7EA0
+int __fastcall SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget)))
+    {
+        return 0;
+    }
+
+    sub_6FD15470(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel));
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
+    if (damage.wResultFlags & DAMAGERESULTFLAG_SUCCESSFULHIT)
+    {
+        damage.wResultFlags |= pSkillsTxtRecord->wResultFlags;
+        damage.dwHitFlags |= pSkillsTxtRecord->dwHitFlags;
+        if (pSkillsTxtRecord->dwHitClass)
+        {
+            damage.dwHitClass = pSkillsTxtRecord->dwHitClass;
+        }
+
+        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+        if (pSkillsTxtRecord->nEType > 0)
+        {
+            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
+            if (damage.dwConvPct > 0)
+            {
+                damage.nConvType = pSkillsTxtRecord->nEType;
+            }
+        }
+
+        D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
+    }
+
+    unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
+    if (!pSkillsTxtRecord->nSrcDam)
+    {
+        nSrcDam = 0x80;
+    }
+
+    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
+
+    D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);
+    if (pDamage)
+    {
+        pDamage->dwPhysDamage += SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel) << 8;
+    }
+
+    if (pSkillsTxtRecord->nAuraState < 0 || pSkillsTxtRecord->nAuraState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return 1;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState);
+    if (!pStatList)
+    {
+        const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
+        const int nUnitType = !pUnit ? UNIT_INVALID : pUnit->dwUnitType;
+
+        pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, STATLIST_FILTER_4, 0, nUnitType, nUnitGUID);
+        if (!pStatList)
+        {
+            return 1;
+        }
+
+        STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
+        D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+        STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)SKILLS_RemoveStateAndRefreshPassives);
+    }
+
+    STATES_ToggleState(pUnit, pSkillsTxtRecord->nAuraState, 1);
+    SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
+
+    return 1;
+}
+
 // 0x005D80C0
 int __fastcall SKILLS_SrvSt33_FindPotion_GrimWard(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -412,6 +523,64 @@ int __fastcall SKILLS_RollFrenzyDamage(Game* game,Unit* unit,Unit* target,int id
     return 1;
 }
 
+int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
+
+// 0x005D8C70
+int __fastcall SKILLS_ApplyFrenzyStats(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    if (!SKILLS_GetParam1(pSkill))
+    {
+        return 0;
+    }
+
+    if (pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        const int nExpireFrame = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel) + pGame->dwGameFrame;
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState);
+        if (!pStatList)
+        {
+            pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
+            if (!pStatList)
+            {
+                return 0;
+            }
+
+            STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
+            STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)SKILLS_RemoveStateAndRefreshPassives);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_SKILL_FRENZY, 0, 0);
+            D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+            STATES_ToggleState(pUnit, pSkillsTxtRecord->nAuraState, 1);
+        }
+
+        STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
+        sub_005417D0_DirectDated(pGame, pUnit, 12, nExpireFrame, 0, 0);
+        STATES_ToggleGfxStateFlag(pUnit, pSkillsTxtRecord->nAuraState, 1);
+        int nValue = STATLIST_GetStatValue(pStatList, STAT_SKILL_FRENZY, 0) + 1;
+        if (nValue > nSkillLevel)
+        {
+            nValue = nSkillLevel;
+        }
+
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_SKILL_FRENZY, nValue, 0);
+        SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nValue);
+    }
+
+    return 1;
+}
+
+
 // 0x005D8E00
 int __fastcall SKILLS_SrvDo009_Frenzy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -450,15 +619,6 @@ void __fastcall SKILLS_CurseStateCallback_Whirlwind(D2UnitStrc* pUnit, int nStat
     }
 }
 
-inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
 
 // 0x005D8F50
 int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

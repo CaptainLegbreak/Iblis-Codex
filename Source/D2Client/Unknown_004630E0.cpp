@@ -2,6 +2,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2Constants.h"
+#include "D2ClientTypes.h"
 #include "D2Structs.h"
 struct D2DynamicPathStrc;
 struct D2UnitStrc;
@@ -10,6 +12,16 @@ struct D2RoomStrc;
 struct D2StaticPathStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+enum D2PlayerModes
+{
+    PLAYER_MODE_WALK = 2,
+    PLAYER_MODE_RUN = 3,
+    PLAYER_MODE_6 = 6,
+};
+
+int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
+int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
+void __stdcall sub_00650C60_UpdatePath(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
 
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -169,4 +181,42 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
 void __stdcall sub_00463260_Shim(D2UnitStrc* unit)
 {
     sub_00463260_UpdateStoredUnit(unit);
+}
+
+// 0x00463180
+void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3)
+{
+    int nMode = pUnit->dwAnimMode;
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    D2UnitStrc* pTargetUnit = 0;
+    int bMove = 0;
+    int nX = 0;
+    int nY = 0;
+    if (nMode >= PLAYER_MODE_WALK && (nMode <= PLAYER_MODE_RUN || nMode == PLAYER_MODE_6))
+    {
+        bMove = 1;
+        pTargetUnit = CUNIT_GetPathTargetUnit(pUnit);
+        if (!pTargetUnit)
+        {
+            sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);
+        }
+    }
+    sub_00650C60_UpdatePath(pPath, pUnit, nArg1, nArg2, nArg3);
+    if (bMove)
+    {
+        D2UnitTargetStrc tTarget;
+        memset(&tTarget, 0, sizeof(tTarget));
+        if (pTargetUnit)
+        {
+            tTarget.nParam1 = pTargetUnit->dwUnitType;
+            tTarget.nParam2 = pTargetUnit->dwUnitId;
+            PLAYER_ApplyUnitCommand(nMode == PLAYER_MODE_RUN ? 0x18 : 0, pUnit, &tTarget, 0);
+        }
+        else
+        {
+            tTarget.nParam1 = nX;
+            tTarget.nParam2 = nY;
+            PLAYER_ApplyUnitCommand(nMode == PLAYER_MODE_RUN ? 0x17 : 1, pUnit, &tTarget, 0);
+        }
+    }
 }

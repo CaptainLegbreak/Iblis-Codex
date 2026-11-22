@@ -27,6 +27,51 @@ public:
 };
 }
 
+struct D2OsVersionInfoStrc
+{
+    unsigned long dwOSVersionInfoSize;
+    unsigned long dwMajorVersion;
+    unsigned long dwMinorVersion;
+    unsigned long dwBuildNumber;
+    unsigned long dwPlatformId;
+    char szCSDVersion[128];
+};
+
+struct D2MemoryStatusStrc
+{
+    unsigned long dwLength;
+    unsigned long dwMemoryLoad;
+    unsigned long dwTotalPhys;
+    unsigned long dwAvailPhys;
+    unsigned long dwTotalPageFile;
+    unsigned long dwAvailPageFile;
+    unsigned long dwTotalVirtual;
+    unsigned long dwAvailVirtual;
+};
+
+struct T004013C0
+{
+    unsigned long dwOemId;
+    unsigned long dwPageSize;
+    void* lpMinimumApplicationAddress;
+    void* lpMaximumApplicationAddress;
+    unsigned long dwActiveProcessorMask;
+    unsigned long dwNumberOfProcessors;
+    unsigned long dwProcessorType;
+    unsigned long dwAllocationGranularity;
+    unsigned short wProcessorLevel;
+    unsigned short wProcessorRevision;
+};
+
+extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
+extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
+extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
+extern unsigned long gdwTotalPhys_0074D898; // 0x0074D898
+extern T004013C0 gtSystemInfo_0074D8A0; // 0x0074D8A0
+int gnOsKind_0074D890; // 0x0074D890
+float gfOsVersion_0074D894; // 0x0074D894
+int gbSystemInfoDone_0074D88C; // 0x0074D88C
+
 // 0x00407270
 char* crashy::Report::sub_00407270_GetText08()
 {
@@ -107,4 +152,48 @@ void __cdecl sub_00407FA0_Empty()
 // 0x00407FB0
 void __cdecl sub_00407FB0_Empty()
 {
+}
+
+// 0x00407DE0
+void __cdecl AUTOMAP_CaptureSystemInfo()
+{
+    D2OsVersionInfoStrc tVersion;
+    D2MemoryStatusStrc tMemory;
+    tVersion.dwOSVersionInfoSize = sizeof(tVersion);
+    if (GetVersionExA(&tVersion))
+    {
+        float fMinor = (float)tVersion.dwMinorVersion;
+        while (fMinor > 1.0)
+        {
+            fMinor = fMinor / 10.0;
+        }
+        gfOsVersion_0074D894 = (float)((float)tVersion.dwMajorVersion + fMinor / 100.0);
+        switch (tVersion.dwPlatformId)
+        {
+        case 2:
+            gnOsKind_0074D890 = 1;
+            if (tVersion.dwMajorVersion >= 5)
+            {
+                if (tVersion.dwMinorVersion >= 2)
+                {
+                    gnOsKind_0074D890 = 4;
+                }
+                else
+                {
+                    gnOsKind_0074D890 = tVersion.dwMinorVersion < 1 ? 2 : 3;
+                }
+            }
+            break;
+        case 3:
+            gnOsKind_0074D890 = 0;
+            break;
+        default:
+            gnOsKind_0074D890 = 0;
+            break;
+        }
+    }
+    GlobalMemoryStatus(&tMemory);
+    gdwTotalPhys_0074D898 = tMemory.dwTotalPhys;
+    GetSystemInfo(&gtSystemInfo_0074D8A0);
+    gbSystemInfoDone_0074D88C = 1;
 }
