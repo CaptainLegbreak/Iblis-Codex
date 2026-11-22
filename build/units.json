@@ -55908,6 +55908,16 @@
      "name": "?OBJMODE_ExpireHoverText@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00581680",
+     "length": 118,
+     "name": "?sub_00581680_DamagePlayersInRange@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00581700",
+     "length": 146,
+     "name": "?OBJMODE_UpdateTrapProximity@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005817A0",
      "length": 272,
      "name": "?OBJMODE_DispatchTrap@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -56323,22 +56333,6 @@
      "va": "0x00586B30",
      "length": 23,
      "name": "?OBJMODE_GetSuperUniqueId@@YIHI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00581680.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00581680",
-     "length": 118,
-     "name": "?sub_00581680_DamagePlayersInRange@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00581700",
-     "length": 146,
-     "name": "?OBJMODE_UpdateTrapProximity@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
