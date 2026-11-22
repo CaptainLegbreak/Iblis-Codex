@@ -181,11 +181,6 @@ unsigned int gnGlobal_007C8C94; // 0x007C8C94
 
 unsigned int gnGlobal_007C8C98; // 0x007C8C98
 
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();
-};
-
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);
 
 extern "C" const char szFmtD_006D57BC[];                                                                    // 0x006D57BC
@@ -1818,7 +1813,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nWeaponMin == nWeaponMax)
     {
@@ -1838,7 +1833,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin == nMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin);

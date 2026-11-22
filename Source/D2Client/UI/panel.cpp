@@ -339,7 +339,6 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
 
-
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
 
 const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                          // 0x0046A530
@@ -381,6 +380,16 @@ void* gpCelFile_007BF024; // 0x007BF024
 void* gpCelFile_007BF028; // 0x007BF028
 
 void __cdecl sub_0049A580_DrawPlayerName(); // 0x0049A580
+
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
+
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
+
+void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
+
+void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
+
+void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
 
 static int ORB_AbsValue(int nValue)
 {
@@ -1283,6 +1292,70 @@ void __cdecl sub_00498E90_SetRecordMode()
     gbUiRecordMode_007BEF98 = 1;
 }
 
+// 0x00498EA0
+void __cdecl sub_00498EA0_DrawExperienceBar()
+{
+    unsigned short awText[100];
+    Unicode* wszText = (Unicode*)awText;
+
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
+    const unsigned int nLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
+    const unsigned int nExperience = STATLIST_UnitGetStatValue(pPlayer, STAT_EXPERIENCE, 0);
+    const unsigned int nNextExperience = DATATBLS_GetLevelThreshold(nClass, STATLIST_GetUnitBaseStat(pPlayer, STAT_LEVEL, 0));
+    const unsigned int nLastExperience = DATATBLS_GetLevelThreshold(nClass, nLevel - 1);
+    unsigned int nRange = nNextExperience - nLastExperience;
+    unsigned int nProgress;
+    if (nExperience > nLastExperience)
+    {
+        nProgress = nExperience - nLastExperience;
+    }
+    else
+    {
+        nProgress = 0;
+    }
+
+    const int nMouseX = sub_00468730();
+    const int nMouseY = sub_00468740();
+    for (int i = 0; i < 100; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+
+    if (nMouseX >= gnGlobal_0071146C / 2 - 0x92 && nMouseX <= gnGlobal_0071146C / 2 - 0x17 && nMouseY >= gnGlobal_00711470 - 0x2B && nMouseY <= gnGlobal_00711470 - 0x22)
+    {
+        sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1043), nExperience, nNextExperience);
+        D2Win_10129_DrawFramedText(wszText, gnGlobal_0071146C / 2 - 0x92, gnGlobal_00711470 - 0x33, 0, 1);
+    }
+
+    if (nRange)
+    {
+        unsigned int nWidth;
+        if (nProgress >= 0x226B902)
+        {
+            nWidth = (nProgress >> 7) * 0x77 / (nRange >> 7);
+        }
+        else
+        {
+            nWidth = nProgress * 0x77 / nRange;
+        }
+
+        if (nWidth > 0x77)
+        {
+            nWidth = 0;
+        }
+
+        if (nLevel < DATATBLS_GetMaxLevel(nClass) && nWidth > 0)
+        {
+            const int nX = gnGlobal_0071146C / 2 - 0x90;
+            int nY = gnGlobal_00711470 - 0x26;
+            D2GFX_DrawLine(nX, nY, nX + nWidth, nY, 0xFF, 0xFF);
+            nY += 1;
+            D2GFX_DrawLine(nX, nY, nX + nWidth, nY, 0xFF, 0xFF);
+        }
+    }
+}
+
 void __cdecl sub_004972B0_InitBeltColors()
 {
     gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
@@ -1654,13 +1727,6 @@ void __cdecl sub_0049C3D0_DrawPartyPanel()
     if (nX >= gnGlobal_007A2858 + 0x116 && nX <= gnGlobal_007A2858 + 0x136 && nY >= 0x185 - gnGlobal_007A285C && nY <= 0x1A5 - gnGlobal_007A285C)
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x102F), gnGlobal_007A2858 + 0x125, 0x182 - gnGlobal_007A285C, 0, 1);
 }
-
-
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
-
-void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
-
-void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
 
 // 0x004BE340
 int __fastcall sub_004BE340_CountLinesInView(D2TextPanelStrc* pPanel)

@@ -236,8 +236,6 @@ struct D2SliderButtonStrc;
 
 struct D2Record42Strc;
 
-struct UnicodeChar;
-
 struct D2QuestTextLineStrc;
 
 struct D2QuestTextBufferStrc;
@@ -307,15 +305,10 @@ extern D2SliderButtonStrc gaSliderButtons_007246D8[3]; // 0x007246D8
 
 int gaPressed_007C0288[7]; // 0x007C0288
 
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();
-};
-
 struct D2QuestTextLineStrc
 {
     unsigned short wLead[9];
-    UnicodeChar wszText[300];
+    Unicode wszText[300];
 };
 
 struct D2QuestTextBufferStrc

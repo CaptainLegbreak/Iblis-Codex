@@ -18,16 +18,9 @@ struct D2SkillDescTxt;
 
 struct Unicode;
 
-struct UnicodeChar;
-
 struct D2ElemDamageStatsStrc;
 
 struct D2MonStatsTxt;
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -807,7 +800,7 @@ void __fastcall sub_004EAAA0_DrawCallbackElemDamage(D2UnitStrc* pUnit, D2SkillSt
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nMin == nMax)
     {
@@ -827,7 +820,7 @@ void __fastcall sub_004EAAA0_DrawCallbackElemDamage(D2UnitStrc* pUnit, D2SkillSt
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nElemMin == nElemMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nElemMin);

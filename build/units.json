@@ -26286,6 +26286,11 @@
      "name": "?sub_00498E90_SetRecordMode@@YAXXZ"
     },
     {
+     "va": "0x00498EA0",
+     "length": 411,
+     "name": "?sub_00498EA0_DrawExperienceBar@@YAXXZ"
+    },
+    {
      "va": "0x00499040",
      "length": 1036
     },
@@ -26385,31 +26390,6 @@
      "va": "0x00499450",
      "length": 170,
      "name": "?sub_00499450_DrawControlPanel@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/panel_00498EA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00498EA0",
-     "length": 411,
-     "name": "?sub_00498EA0_DrawExperienceBar@@YAXXZ"
     }
    ],
    "flags": [
@@ -32616,6 +32596,31 @@
      "name": "?sub_004CC950_GetSubMissileCount@@YAHPAUD2MissilesTxt@@H@Z"
     },
     {
+     "va": "0x004CCA00",
+     "length": 329,
+     "name": "?sub_004CCA00_SteerMissile@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CCB50",
+     "length": 137,
+     "name": "?sub_004CCB50_SeekTarget@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CCBE0",
+     "length": 179,
+     "name": "?sub_004CCBE0_UpdateGuidedMissile@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CCD20",
+     "length": 279,
+     "name": "?sub_004CCD20_CltHitSpiral@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CCE40",
+     "length": 189,
+     "name": "sub_004CCE40_HitSpiralGrid"
+    },
+    {
      "va": "0x004CD1C0",
      "length": 117,
      "name": "?sub_004CD1C0_FlickerLight@@YAXPAUD2UnitStrc@@@Z"
@@ -32641,6 +32646,21 @@
      "name": "?sub_004CD390_CltDoDefault@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004CDBA0",
+     "length": 133,
+     "name": "sub_004CDBA0_SubmitOwnerRequest"
+    },
+    {
+     "va": "0x004CDC30",
+     "length": 221,
+     "name": "sub_004CDC30"
+    },
+    {
+     "va": "0x004CDD10",
+     "length": 153,
+     "name": "sub_004CDD10_SubmitTargetRequest"
+    },
+    {
      "va": "0x004CE050",
      "length": 226,
      "name": "?sub_004CE050_SpawnFollowUp@@YIXPAUD2UnitStrc@@HHH@Z"
@@ -32655,8 +32675,33 @@
      "name": "?sub_004CEFE0_AddMissileEffect@@YIXPAUD2UnitStrc@@HHHH@Z"
     },
     {
+     "va": "0x004CF150",
+     "length": 253,
+     "name": "sub_004CF150_HitRing"
+    },
+    {
      "va": "0x004CF3C0",
      "length": 310
+    },
+    {
+     "va": "0x004D0060",
+     "length": 358,
+     "name": "?sub_004D0060_HitScanArea@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004D06F0",
+     "length": 238,
+     "name": "sub_004D06F0_HitSubMissiles"
+    },
+    {
+     "va": "0x004D0A80",
+     "length": 267,
+     "name": "sub_004D0A80_HitBurst"
+    },
+    {
+     "va": "0x004D0EB0",
+     "length": 309,
+     "name": "sub_004D0EB0_HitLob"
     },
     {
      "va": "0x004D1040",
@@ -32677,6 +32722,11 @@
      "va": "0x004D1240",
      "length": 181,
      "name": "sub_004D1240_CltHitSubMissiles2Motion"
+    },
+    {
+     "va": "0x004D1300",
+     "length": 410,
+     "name": "?sub_004D1300_SpawnScattered@@YGXHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D14A0",
@@ -32858,6 +32908,15 @@
      "name": "sub_004D62B0_CltDoOwnerTarget"
     },
     {
+     "va": "0x004D65E0",
+     "length": 123
+    },
+    {
+     "va": "0x004D6680",
+     "length": 86,
+     "name": "?sub_004D6680_CltDoObjectRing@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D6C00",
      "length": 317,
      "name": "sub_004D6C00_CltDoRateTable"
@@ -32945,6 +33004,11 @@
      "va": "0x004E6680",
      "length": 152,
      "name": "?sub_004E6680_AddSetStatePropText@@YIXPAUD2UnitStrc@@0HH@Z"
+    },
+    {
+     "va": "0x004F16F0",
+     "length": 337,
+     "name": "sub_004F16F0_CreateMissileVolley"
     }
    ]
   },
@@ -33438,96 +33502,6 @@
      "va": "0x004CD380",
      "length": 12,
      "name": "?sub_004CD380_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004CCE40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004CCA00",
-     "length": 329,
-     "name": "?sub_004CCA00_SteerMissile@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CCB50",
-     "length": 137,
-     "name": "?sub_004CCB50_SeekTarget@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CCBE0",
-     "length": 179,
-     "name": "?sub_004CCBE0_UpdateGuidedMissile@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CCD20",
-     "length": 279,
-     "name": "?sub_004CCD20_CltHitSpiral@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CCE40",
-     "length": 189,
-     "name": "sub_004CCE40_HitSpiralGrid"
-    },
-    {
-     "va": "0x004CDBA0",
-     "length": 133,
-     "name": "sub_004CDBA0_SubmitOwnerRequest"
-    },
-    {
-     "va": "0x004CDC30",
-     "length": 221,
-     "name": "sub_004CDC30"
-    },
-    {
-     "va": "0x004CDD10",
-     "length": 153,
-     "name": "sub_004CDD10_SubmitTargetRequest"
-    },
-    {
-     "va": "0x004CF150",
-     "length": 253,
-     "name": "sub_004CF150_HitRing"
-    },
-    {
-     "va": "0x004D0060",
-     "length": 358,
-     "name": "?sub_004D0060_HitScanArea@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004D06F0",
-     "length": 238,
-     "name": "sub_004D06F0_HitSubMissiles"
-    },
-    {
-     "va": "0x004D0A80",
-     "length": 267,
-     "name": "sub_004D0A80_HitBurst"
-    },
-    {
-     "va": "0x004D0EB0",
-     "length": 309,
-     "name": "sub_004D0EB0_HitLob"
-    },
-    {
-     "va": "0x004D1300",
-     "length": 410,
-     "name": "?sub_004D1300_SpawnScattered@@YGXHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D65E0",
-     "length": 123
-    },
-    {
-     "va": "0x004D6680",
-     "length": 86,
-     "name": "?sub_004D6680_CltDoObjectRing@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004F16F0",
-     "length": 337,
-     "name": "sub_004F16F0_CreateMissileVolley"
     }
    ]
   },
@@ -36353,6 +36327,26 @@
      "va": "0x004ED530",
      "length": 53,
      "name": "?sub_004ED530_HasOnlyBonusLevels@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004ED570",
+     "length": 1189
+    },
+    {
+     "va": "0x004F1A30",
+     "length": 586
+    },
+    {
+     "va": "0x004F21B0",
+     "length": 171
+    },
+    {
+     "va": "0x004F28A0",
+     "length": 321
+    },
+    {
+     "va": "0x004F2BE0",
+     "length": 494
     }
    ],
    "flags": [
@@ -36525,46 +36519,6 @@
     {
      "va": "0x004EC280",
      "length": 90
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004ED570",
-     "length": 1189
-    },
-    {
-     "va": "0x004F1A30",
-     "length": 586
-    },
-    {
-     "va": "0x004F21B0",
-     "length": 171
-    },
-    {
-     "va": "0x004F28A0",
-     "length": 321
-    },
-    {
-     "va": "0x004F2BE0",
-     "length": 494
     }
    ],
    "flags": [

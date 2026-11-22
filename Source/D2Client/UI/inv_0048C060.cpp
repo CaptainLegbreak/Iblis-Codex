@@ -12,12 +12,6 @@
 #include "D2Client.h"
 
 #include "D2ItemsWorld.h"
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();
-    UnicodeChar(unsigned short ch) : Unicode(ch) {}
-};
-
 struct D2InventoryStrc;
 
 struct D2LowQualityItemsTxt
@@ -453,7 +447,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
         nItemType = ITEMS_GetItemType(pItem);
         if (ITEMS_CheckItemFlag(pItem, 0x4000000, 0x735, ".\\UI\\inv.cpp"))
         {
-            UnicodeChar aName[0x200];
+            Unicode aName[0x200];
             sub_005267E0(WSZ(aName), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
             sub_005267E0(WSZ(aPrefix), sub_004834A0_SkipBracketTag(WSZ(aName)));
             sub_00526700(WSZ(aPrefix), pNewLine);
@@ -491,11 +485,11 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                     if (ITEMSIsA(pItem, 7))
                     {
                         char szLevel[18] = { 0 };
-                        UnicodeChar aEarName[0x100];
-                        UnicodeChar aLevelText[3];
+                        Unicode aEarName[0x100];
+                        Unicode aLevelText[3];
                         SStrPrintf(szLevel, 3, "%d", ITEMS_GetEarLevel(pItem));
                         sub_00526F20(WSZ(aLevelText), szLevel, 3);
-                        UnicodeChar aUnused[0x100];
+                        Unicode aUnused[0x100];
                         char aName[20];
                         strcpy(SZ(aName), ITEMS_GetEarName(pItem));
                         sub_00526F20(WSZ(aEarName), SZ(aName), 0x100);
@@ -515,8 +509,8 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                         sub_00526700(pOut, pNewLine);
                         sub_00526700(pOut, sub_00484A70_GetClassNameText(ITEMS_GetFileIndex(pItem)));
                         sub_00526700(pOut, pNewLine);
-                        UnicodeChar aText[100] = { 0 };
-                        UnicodeChar aFormat[0x200];
+                        Unicode aText[100] = { 0 };
+                        Unicode aFormat[0x200];
                         sub_005267E0(WSZ(aFormat), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
                         sub_005272B0_FormatText(WSZ(aText), WSZ(aEarName), WSZ(aFormat), 100, STRTABLE_GetLanguage());
                         sub_00526700(pOut, WSZ(aText));
@@ -535,7 +529,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                         }
                         else
                         {
-                            UnicodeChar aName[0x200];
+                            Unicode aName[0x200];
                             sub_005267E0(WSZ(aName), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
                             sub_005267E0(pOut, sub_004834A0_SkipBracketTag(WSZ(aName)));
                         }
@@ -616,7 +610,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                     }
                     else
                     {
-                        UnicodeChar aTemp[0x200];
+                        Unicode aTemp[0x200];
                         char aBuffer[0x200];
                         strcpy(SZ(aBuffer), "(");
                         strcat(SZ(aBuffer), pRareSuffix->szName);
@@ -642,13 +636,13 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                 D2_ASSERT(nLen < nMaxLen, 0x822);
                 D2_ASSERT(nLen < nMaxLen, 0x822);
 
-                UnicodeChar aName[0x200];
+                Unicode aName[0x200];
                 sub_005267E0(WSZ(aName), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
                 sub_005267E0(WSZ(aLine), sub_004834A0_SkipBracketTag(WSZ(aName)));
                 sub_00526700(WSZ(aLine), pNewLine);
-                UnicodeChar aFormat[200] = { 0 };
+                Unicode aFormat[200] = { 0 };
                 sub_0048BE80_FormatArgs(WSZ(aFormat), D2LANG_GetStringFromTblIndex(0x6B6), WSZ(aPrefix), WSZ(aSuffix), 0);
-                UnicodeChar aEar[0x200];
+                Unicode aEar[0x200];
                 if (sub_00484D30_FormatEarNameTo(pItem, WSZ(aEar), WSZ(aFormat)))
                 {
                     sub_00526700(WSZ(aLine), WSZ(aEar));
@@ -662,7 +656,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
             }
             case ITEMQUAL_UNIQUE:
             {
-                UnicodeChar aName[0x200];
+                Unicode aName[0x200];
                 sub_005267E0(WSZ(aName), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
                 if (ITEMS_GetFileIndex(pItem) < 0)
                 {
@@ -680,7 +674,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                     sub_005267E0(pOut, sub_004834A0_SkipBracketTag(WSZ(aName)));
                     sub_00526700(pOut, pNewLine);
                 }
-                UnicodeChar aEar[0x200];
+                Unicode aEar[0x200];
                 if (sub_00484D30_FormatEarNameTo(pItem, WSZ(aEar), sub_004834A0_SkipBracketTag((Unicode*)D2LANG_GetStringFromTblIndex(pUniqueItemsTxt->wTblIndex))))
                 {
                     sub_00526700(pOut, WSZ(aEar));
@@ -696,14 +690,14 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                 D2SetItemsTxt* pSetItemsTxt = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (pSetItemsTxt)
                 {
-                    UnicodeChar aName[0x200];
+                    Unicode aName[0x200];
                     sub_005267E0(WSZ(aName), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
                     sub_005267E0(pOut, sub_004834A0_SkipBracketTag(WSZ(aName)));
                     sub_00526700(pOut, pNewLine);
                     if (pSetItemsTxt->wTblIndex)
                     {
-                        UnicodeChar aEar[0x200];
-                        UnicodeChar aSetName[0x200];
+                        Unicode aEar[0x200];
+                        Unicode aSetName[0x200];
                         sub_005267E0(WSZ(aSetName), D2LANG_GetStringFromTblIndex(pSetItemsTxt->wTblIndex));
                         if (sub_00484D30_FormatEarNameTo(pItem, WSZ(aEar), WSZ(aSetName)))
                         {
@@ -711,7 +705,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                         }
                         else
                         {
-                            UnicodeChar aText[100] = { 0 };
+                            Unicode aText[100] = { 0 };
                             sub_0048BE80_FormatArgs(WSZ(aText), D2LANG_GetStringFromTblIndex(0x2769), WSZ(aSetName), 0);
                             sub_00526700(pOut, WSZ(aText));
                         }
@@ -754,7 +748,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                     }
                     else
                     {
-                        UnicodeChar aTemp[0x200];
+                        Unicode aTemp[0x200];
                         char aBuffer[0x200];
                         strcpy(SZ(aBuffer), "(");
                         strcat(SZ(aBuffer), pSuffix->szName);
@@ -782,7 +776,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
         }
         else
         {
-            UnicodeChar aName[0x200];
+            Unicode aName[0x200];
             sub_005267E0(WSZ(aName), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
             sub_005267E0(pOut, sub_004834A0_SkipBracketTag(WSZ(aName)));
         }

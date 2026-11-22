@@ -28,8 +28,6 @@ struct D2CombinedStatStrc;
 struct D2CombinedStatsStrc;
 struct D2CombinedStatIdStrc;
 struct D2FileIndexTextStrc;
-struct UnicodeChar;
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -108,11 +106,6 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 extern tagPALETTEENTRY gRGBAPalette_0081E668[]; // 0x0081E668
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
@@ -1704,7 +1697,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nWeaponMin == nWeaponMax)
     {
@@ -1724,7 +1717,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin == nMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin);

@@ -14,14 +14,7 @@ struct D2SkillDescTxt;
 
 struct Unicode;
 
-struct UnicodeChar;
-
 struct D2MonStatsTxt;
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

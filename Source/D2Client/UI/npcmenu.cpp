@@ -39,7 +39,6 @@ struct D2CoordStrc;
 struct D2NpcEntryStrc;
 class D2NpcTradeObjStrc;
 struct Unit;
-struct UnicodeChar;
 union D2SeedStrc;
 
 struct D2MonStatsTxt
@@ -322,11 +321,6 @@ extern int g007C0D96; // 0x007C0D96
 extern int g007C0DE1; // 0x007C0DE1
 extern int g007C0DE5; // 0x007C0DE5
 static int sub_004B2E30_FindNpcIndex(D2NpcRecordStrc* pRecord);
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
@@ -1155,7 +1149,7 @@ void __cdecl sub_004B2F50_ShowTradeDialog()
             return;
         }
 
-        UnicodeChar wszName[0xC0];
+        Unicode wszName[0xC0];
         sub_0048C060_BuildItemName(pItem, wszName, 0xBF);
         const int nLength = sub_00526800(wszName);
         int i = 0;
@@ -1184,7 +1178,7 @@ void __cdecl sub_004B2F50_ShowTradeDialog()
         sub_004B2AD0_GetTradeCostText(pItem, bService, &nCost, gwszCost_007C0DF5, 0x28);
 
         {
-            UnicodeChar wszCost[10];
+            Unicode wszCost[10];
             char szCost[12];
             wsprintfA(szCost, gszFormatD_006D57BC, nCost);
             sub_00526F20_ToUnicode(wszCost, szCost, 9);
