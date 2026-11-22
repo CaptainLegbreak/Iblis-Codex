@@ -596,6 +596,11 @@
      "name": "D2ServerServiceHandlerProc"
     },
     {
+     "va": "0x004068F0",
+     "length": 7,
+     "name": "sub_004068F0"
+    },
+    {
      "va": "0x00406960",
      "length": 35,
      "name": "sub_00406960_CreateFile"
@@ -824,11 +829,6 @@
      "va": "0x00405EF0",
      "length": 6,
      "name": "sub_00405EF0"
-    },
-    {
-     "va": "0x004068F0",
-     "length": 7,
-     "name": "sub_004068F0"
     },
     {
      "va": "0x00406D20",

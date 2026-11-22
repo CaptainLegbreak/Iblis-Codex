@@ -3,6 +3,7 @@
 #include "D2FogTypes.h"
 #include "D2Win32Types.h"
 #include "D2NetTypes.h"
+int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1358,6 +1359,12 @@ int __cdecl sub_0040E870_MeasureCpuMHz()
     __int64 tFrequency;
     QueryPerformanceFrequency(&tFrequency);
     return (int)((nTsc2 - nTsc1) * tFrequency / (tCount2 - tCount1) / 1000000);
+}
+
+// 0x004068F0
+int __fastcall sub_004068F0(void* pArg)
+{
+    return SFileCloseFile(pArg);
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"
