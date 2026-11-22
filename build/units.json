@@ -30001,11 +30001,6 @@
      "name": "?sub_004B9590@@YIHH@Z"
     },
     {
-     "va": "0x004B9610",
-     "length": 37,
-     "name": "?sub_004B9610@@YIPAXH@Z"
-    },
-    {
      "va": "0x004B9690",
      "length": 97,
      "name": "sub_004B9690_FindOldestEntry"
@@ -30029,16 +30024,6 @@
      "va": "0x004B9BE0",
      "length": 52,
      "name": "?sub_004B9BE0_HasActiveHint@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9C20",
-     "length": 56,
-     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x004B9C60",
-     "length": 56,
-     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
     },
     {
      "va": "0x004B9CD0",
@@ -30246,6 +30231,11 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x004B9610",
+     "length": 37,
+     "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
      "va": "0x004B9B20",
      "length": 37,
      "name": "?sub_004B9B20@@YIHH@Z"
@@ -30254,6 +30244,16 @@
      "va": "0x004B9B50",
      "length": 37,
      "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
+    },
+    {
+     "va": "0x004B9C20",
+     "length": 56,
+     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x004B9C60",
+     "length": 56,
+     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
     },
     {
      "va": "0x004B9CA0",
