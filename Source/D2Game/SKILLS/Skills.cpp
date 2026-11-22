@@ -5,6 +5,8 @@
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -21,24 +23,19 @@
 #include "D2GameObjs.h"
 #include "D2GameRecords.h"
 #include "D2Skills.h"
-#include "D2PlayerModes.h"
-#include "D2MonModes.h"
+#include "D2Primitives.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 
-#define STAT_TOHIT 19
 
-#define STAT_DAMAGEPERCENT 25
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
-#define STAT_MANA 8
 
 #define STATE_BLOODMANA 114
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-#define STAT_ATTACKRATE 68
 
 #define SKILLSFLAGINDEX_AURA 5
 
@@ -458,10 +455,6 @@ void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStr
 
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused); // 0x00621E40
 
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState);                                      // 0x006252D0
-
-void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, void (__fastcall* pfRemove)(D2UnitStrc*, int, D2StatListStrc*)); // 0x00625CE0
-
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 
 void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned short nSkillId, unsigned char nSkillLevel, unsigned char bRemove); // 0x0053C4A0
@@ -486,9 +479,7 @@ struct D2SkillStrc;
 
 struct D2StatListStrc;
 
-#define UNIT_PLAYER 0
 
-#define UNIT_ITEM 4
 
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill);                                            // 0x00643AD0
 
@@ -498,13 +489,10 @@ static int __stdcall SKILLS_ConsumeItemSkillCharge(D2GameStrc*, D2SkillStrc*, in
 
 int __fastcall SKILLS_ConsumeSkillMana(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel);
 
-#define UNIT_INVALID 6
 
 #define SKILLSRVDO_SHAPESHIFT 116
 
-#define STAT_MODIFIERLIST_SKILL 350
 
-#define STAT_MODIFIERLIST_LEVEL 351
 
 #define SKILLSFLAGINDEX_IMMEDIATE 15
 
@@ -550,15 +538,10 @@ static void __stdcall SKILLS_StartAssignedAura(D2GameStrc* pGame, D2UnitStrc* pU
 
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);
 
-#define STAT_FIRERESIST 39
 
-#define STAT_LIGHTRESIST 41
 
-#define STAT_COLDRESIST 43
 
-#define STAT_POISONRESIST 45
 
-#define STAT_MAGICRESIST 37
 
 enum D2C_ElemTypes
 {
@@ -601,7 +584,6 @@ D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);
 
 static int __stdcall SKILLS_CheckUsedSkillTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId);
 
-#define STAT_ITEM_MAGICARROW 157
 
 #define SKILLSRVDOFN_COUNT 191
 
@@ -712,7 +694,6 @@ void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2Mod
 
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
 
-#define STAT_PROGRESSIVE_TOHIT 325
 
 unsigned int __stdcall sub_006417F0(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
@@ -751,6 +732,95 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 #define SKILLSFLAGINDEX2_USEMANAONDO (32 + 5)
 
 #define SKILLS_CHECK_FLAG(pRecord, nIndex) ((pRecord)->nFlags[(nIndex) >> 3] & gdwBitMasks[(nIndex) & 7])
+
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+
+int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
+
+int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
+
+#define MONTYPEFLAG_UNIQUE 8
+
+#define EVENTTYPE_REMOVESTATE 0x0C
+
+#define UNITFLAG_DOUPDATE 1
+
+#define D2_MIN(a,b) ((a)<(b)?(a):(b))
+
+#define D2_MAX(a,b) ((a)>(b)?(a):(b))
+
+struct D2ServerCallbacks;
+
+struct D2GSPacketSrvAA;
+
+int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
+
+int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
+
+typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
+
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
+
+void __fastcall PLAYERSTATS_OnPlayerLeveledUp(void* pUnused, D2UnitStrc* pUnit, int nArg); // 0x00570850
+
+typedef void (__fastcall* LevelCallback)(unsigned int, int);
+
+struct D2ServerCallbacks
+{
+    char unk_00[44];
+    LevelCallback levelUp;
+};
+
+extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
+
+unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int dwExperience); // 0x00611860
+
+unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
+
+int __stdcall sub_00625D60(D2UnitStrc*); // 0x00625D60
+
+void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
+
+void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc*,D2UnitStrc*); // 0x0055F500
+
+int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
+
+static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
+
+static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
+
+#pragma pack(push, 1)
+
+struct D2GSPacketSrvAA
+{
+    unsigned char nHeader;
+    unsigned char nUnitType;
+    int nUnitId;
+    unsigned char nSize;
+    unsigned char pStream[244];
+};
+
+#pragma pack(pop)
+
+extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
+
+extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
+
+void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
+
+int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
+
+void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
+
+int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
+
+unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
+
+int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
+
+void __fastcall SCMD_SendRawPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
@@ -792,14 +862,6 @@ static inline int SKILLS_IsInRangeY(int nY, int nDistance, const D2DrlgCoordsStr
 {
     return nY + nDistance >= drlgCoords.nSubtileY || nY - nDistance <= drlgCoords.nSubtileY + drlgCoords.nSubtileHeight;
 }
-
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
-
-int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
-
-int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
 // 0x0056B6C0
 void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit)
@@ -4170,6 +4232,48 @@ void __fastcall SKILLS_ResetSkillsAndRefundPoints(D2GameStrc* pGame, D2UnitStrc*
     STATLIST_AddUnitStat(pUnit, STAT_SKILLPTS, nSkillPoints, 0);
     D2GAME_UpdatePlayerVitals_6FC4B240(pGame, pUnit);
     D2GAME_UpdatePlayerItems_6FC4BB90(pGame, pUnit, 1);
+}
+
+// 0x00570420
+void __fastcall SKILLS_StunMonster(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay)
+{
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
+    {
+        return;
+    }
+
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == UNIT_MONSTER && !MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_UNIQUE) && !MONSTERS_IsBoss(0, pUnit))
+    {
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nDelay);
+        int nFrame = pGame->dwGameFrame;
+        if (!pStatList)
+        {
+            const int nUnitGUID = pUnit->dwUnitId;
+            const int nUnitType = pUnit->dwUnitType;
+            nFrame += 100;
+            pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nFrame, nUnitType, nUnitGUID);
+            if (pStatList)
+            {
+                EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nFrame, 0, 0);
+                STATLIST_SetState(pStatList, STATE_STUNNED);
+                STATLIST_SetStatRemoveCallback(pStatList, SKILLS_RemoveStateAndRefreshPassives);
+                D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+                STATES_ToggleState(pUnit, STATE_STUNNED, 1);
+            }
+        }
+        else
+        {
+            nFrame += nDelay;
+            D2COMMON_10476(pStatList, nFrame);
+            EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nFrame, 0, 0);
+        }
+
+        D2ModeChangeStrc modeChange;
+        MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_NEUTRAL, &modeChange);
+        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+        pUnit->dwFlags &= ~UNITFLAG_DOUPDATE;
+    }
 }
 
 // 0x00570530
