@@ -608,6 +608,24 @@ unsigned long gdwSelectTime_0077BD5C; // 0x0077BD5C
 
 void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
 
+static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
+{
+    strcpy(szCopy, szText);
+    char szDelim[2] = " ";
+    char* pToken = strtok(szCopy, szDelim);
+    int nCount = 0;
+    while (pToken)
+    {
+        if (++nCount == 2)
+        {
+            *ppArg = szText + (pToken - szCopy);
+            return 1;
+        }
+        pToken = strtok(0, szDelim);
+    }
+    return 0;
+}
+
 // 0x0043C6B0
 int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName)
 {
@@ -1231,40 +1249,30 @@ static void __stdcall sub_0043F870_GetArgument(int nSize, char* szDest, const ch
         *szDest = 0;
 }
 
-static int sub_00442180_ReplyCommand(const char* szCommand, const char* szText)
+// 0x00442180
+static int sub_00442180_ReplyCommand(const char* szText, const char* szCommand)
 {
     const size_t nLength = strlen(szCommand);
-    if (!sub_0043E6E0_CompareCommand(szText, szCommand) && (szText[nLength] == ' ' || !szText[nLength]))
+    if (!sub_0043E6E0_CompareCommand(szText, szCommand))
     {
-        char szMessage[0x100];
-        if (!strlen(gszLastWhisperer_0077B0D0))
+        if (szText[nLength] == ' ' || !szText[nLength])
         {
-            unsigned short wszMessage[0x100];
-            for (int i = 0; i < 0x100; ++i)
-                wszMessage[i] = 0;
-            sprintf(szMessage, gszNobodyToReply_006D561C);
-            sub_00526320_ToUnicode((Unicode*)wszMessage, szMessage, 0x100);
-            if (gpChatTextBox_0077BD8C)
-                sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, (Unicode*)wszMessage, 1, 0, 1);
-        }
-        else
-        {
-            char szPrefix[0x100];
-            char szCopy[0x100];
-            sprintf(szPrefix, gszCommandSpace_006D5618, szCommand);
-            strcpy(szCopy, szText);
-            char szDelim[2] = " ";
-            int nCount = 0;
-            char* pToken = strtok(szCopy, szDelim);
-            while (pToken)
+            char szMessage[260];
+            if (!strlen(gszLastWhisperer_0077B0D0))
             {
-                ++nCount;
-                if (nCount == 2)
-                    break;
-                pToken = strtok(0, szDelim);
+                Unicode wszMessage[0x100] = {};
+                sprintf(szMessage, gszNobodyToReply_006D561C);
+                sub_00526320_ToUnicode(wszMessage, szMessage, 0x100);
+                if (gpChatTextBox_0077BD8C)
+                    sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
+                return 1;
             }
 
-            if (!pToken)
+            char szPrefix[0x100];
+            sprintf(szPrefix, gszCommandSpace_006D5618, szCommand);
+            char szCopy[0x100];
+            const char* pMessage;
+            if (!CONSOLE_FindSecondTokenInline(szText, szCopy, &pMessage))
             {
                 Unicode wszMessage[0x100];
                 sprintf(szMessage, gszCorrectUsage_006D55F8, szCommand);
@@ -1273,17 +1281,16 @@ static int sub_00442180_ReplyCommand(const char* szCommand, const char* szText)
                     sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
                 return 1;
             }
-
-            const char* pMessage = szText + (pToken - szCopy);
             if (!gpLaunchFuncs_0077B09C->pfn0x68())
             {
                 sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
                 return 1;
             }
+
             sprintf(szMessage, gszReplyFormat_006D55EC, gszLastWhisperer_0077B0D0, pMessage);
             gpLaunchFuncs_0077B09C->pfn0x14(szMessage);
+            return 1;
         }
-        return 1;
     }
     return 0;
 }
