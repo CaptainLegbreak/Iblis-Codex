@@ -676,7 +676,7 @@ extern const char gszAiThink4File[]; // 0x006E3500
 
 void __fastcall ACT5Q4_OnNihlathakActivated(D2GameStrc*, D2UnitStrc*); // 0x0058BC40
 
-void __fastcall AITACTICS_UseSkillInRange(D2UnitStrc*, int, int, unsigned char); // 0x005DF850
+void __fastcall AITACTICS_UseSkillInRange(D2UnitStrc* pUnit, int nRange, int nSkillId, int nMode); // 0x005DF850
 
 D2UnitStrc* __fastcall sub_6FD15210(D2UnitStrc*, D2UnitStrc*, int, int); // 0x0056E390
 
