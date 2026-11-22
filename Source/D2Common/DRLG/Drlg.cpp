@@ -216,7 +216,6 @@ extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[]; // 0x00
 
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
 
-
 struct D2DrlgLevelStrc;
 
 typedef char D2DrlgLevelStrc_size_check[(sizeof(D2DrlgLevelStrc) == 0x230) ? 1 : -1];
@@ -1271,13 +1270,6 @@ int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int 
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     return !(DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY) & 0x1B81);
-}
-
-// 0x00675320
-void __fastcall DRLGOUTDOORS_AllocOutdoorInfo(D2DrlgLevelStrc* pLevel)
-{
-    pLevel->pOutdoors = (D2DrlgOutdoorInfoStrc*)sub_0040B430(pLevel->pDrlg->pMempool, 0x268, ".\\DRLG\\Outdoors.cpp", 0x34C, 0);
-    memset(pLevel->pOutdoors, 0, 0x268);
 }
 
 // 0x00675770

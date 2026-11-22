@@ -45313,11 +45313,6 @@
      "name": "sub_005384E0_RemoveUnitIfNotAdjacent"
     },
     {
-     "va": "0x00538E60",
-     "length": 165,
-     "name": "CLIENTS_CopySaveDataToClient"
-    },
-    {
      "va": "0x0053ABE0",
      "length": 130,
      "name": "LEVEL_SynchronizeDayNightCycleWithClient"
@@ -45351,11 +45346,6 @@
      "va": "0x00543E10",
      "length": 251,
      "name": "QUESTS_QuestUpdater"
-    },
-    {
-     "va": "0x00546E90",
-     "length": 250,
-     "name": "OBJRGN_FreeObjectControl"
     },
     {
      "va": "0x00547210",
@@ -45396,6 +45386,28 @@
      "va": "0x0054C690",
      "length": 57,
      "name": "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/OBJECTS/objrgn_00546E90.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00546E90",
+     "length": 250,
+     "name": "OBJRGN_FreeObjectControl"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/GAME/Clients_00538E60.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00538E60",
+     "length": 165,
+     "name": "CLIENTS_CopySaveDataToClient"
     }
    ]
   },
@@ -48074,11 +48086,6 @@
      "name": "sub_005665B0_GetLocalDate"
     },
     {
-     "va": "0x00567020",
-     "length": 75,
-     "name": "sub_00567020_StartTrade"
-    },
-    {
      "va": "0x005675E0",
      "length": 57,
      "name": "PLRTRADE_CopyTradeSaveDataToBuffer"
@@ -48132,6 +48139,17 @@
      "va": "0x00570850",
      "length": 17,
      "name": "sub_00570850_Forward"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/PLAYER/PlrTrade_00567020.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00567020",
+     "length": 75,
+     "name": "sub_00567020_StartTrade"
     }
    ]
   },
@@ -48637,11 +48655,6 @@
      "name": "sub_6FC33F90"
     },
     {
-     "va": "0x00538CE0",
-     "length": 287,
-     "name": "CLIENTS_AttachSaveFile"
-    },
-    {
      "va": "0x0053A420",
      "length": 212,
      "name": "sub_0053A420_RebuildPlayerWithClass"
@@ -48730,6 +48743,17 @@
      "va": "0x005EB7F0",
      "length": 192,
      "name": "sub_005EB7F0_IsStateGroupActive"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/GAME/Clients_00538CE0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00538CE0",
+     "length": 287,
+     "name": "CLIENTS_AttachSaveFile"
     }
    ]
   },
@@ -48991,11 +49015,6 @@
      "name": "?SUNITPROXY_FreeNpcGamble@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
-     "va": "0x00537AC0",
-     "length": 51,
-     "name": "?CLIENTS_FreeClientsFromGame@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
      "va": "0x00545300",
      "length": 10,
      "name": "?QUESTS_ResetPlayerGUIDCount@@YIXPAUD2QuestGUIDStrc@@@Z"
@@ -49014,6 +49033,17 @@
      "va": "0x005FA690",
      "length": 123,
      "name": "?AITHINK_TargetCallback_Regurgitator@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/GAME/Clients_00537AC0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00537AC0",
+     "length": 51,
+     "name": "?CLIENTS_FreeClientsFromGame@@YIXPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -49426,7 +49456,13 @@
      "va": "0x005A7F80",
      "length": 114,
      "name": "MONSTERMODE_EventHandler"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/UNIT/SUnitEvent_005C0C30.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005C0C30",
      "length": 200,
@@ -51669,11 +51705,6 @@
      "name": "?QUESTS_HellPortalActChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
     },
     {
-     "va": "0x00547170",
-     "length": 158,
-     "name": "OBJRGN_AllocObjectRoomCoords"
-    },
-    {
      "va": "0x005473A0",
      "length": 89,
      "name": "OBJRGN_CanSpawnWell"
@@ -51711,6 +51742,17 @@
      "va": "0x005492F0",
      "length": 95,
      "name": "sub_005492F0_CheckBeltItem"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/OBJECTS/objrgn_00547170.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00547170",
+     "length": 158,
+     "name": "OBJRGN_AllocObjectRoomCoords"
     }
    ]
   },
@@ -61420,11 +61462,6 @@
      "name": "?MONSTERUNIQUE_SetTrapDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005A5D50",
-     "length": 98,
-     "name": "sub_6FC7B3F0"
-    },
-    {
      "va": "0x005A6000",
      "length": 125,
      "name": "PARTYSCREEN_CommandHandler"
@@ -62465,6 +62502,11 @@
      "va": "0x005A5D20",
      "length": 43,
      "name": "?PARTYSCREEN_PlayerLeftParty@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HPAH@Z"
+    },
+    {
+     "va": "0x005A5D50",
+     "length": 98,
+     "name": "sub_6FC7B3F0"
     }
    ]
   },
@@ -65704,16 +65746,6 @@
      "length": 167
     },
     {
-     "va": "0x005C0AD0",
-     "length": 123,
-     "name": "SUNITEVENT_Register"
-    },
-    {
-     "va": "0x005C0B50",
-     "length": 136,
-     "name": "SUNITEVENT_Unregister"
-    },
-    {
      "va": "0x005C0BE0",
      "length": 66,
      "name": "SUNITEVENT_GetEvent"
@@ -65889,6 +65921,22 @@
      "va": "0x005FDCA0",
      "length": 189,
      "name": "?SKILLITEM_CastSkillOnTarget@@YIHPAUD2UnitStrc@@HH0H@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/UNIT/SUnitEvent_005C0AD0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005C0AD0",
+     "length": 123,
+     "name": "SUNITEVENT_Register"
+    },
+    {
+     "va": "0x005C0B50",
+     "length": 136,
+     "name": "SUNITEVENT_Unregister"
     }
    ]
   },
@@ -66325,11 +66373,6 @@
      "length": 525
     },
     {
-     "va": "0x005CB940",
-     "length": 679,
-     "name": "?SKILLS_SrvDo089_Jump@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005CBF90",
      "length": 191,
      "name": "?SKILLS_SrvDo092_QuickStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -66481,6 +66524,17 @@
     {
      "va": "0x005E52D0",
      "length": 1078
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/SKILLS/SkillMonst_005CB940.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005CB940",
+     "length": 679,
+     "name": "?SKILLS_SrvDo089_Jump@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -71997,21 +72051,6 @@
      "name": "?sub_00611560_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
     },
     {
-     "va": "0x00611620",
-     "length": 29,
-     "name": "sub_00611620_ClearAndCallHook"
-    },
-    {
-     "va": "0x00611660",
-     "length": 70,
-     "name": "sub_00611660_AddSample"
-    },
-    {
-     "va": "0x006116B0",
-     "length": 122,
-     "name": "sub_006116B0_WriteProfileCounters"
-    },
-    {
      "va": "0x006117D0",
      "length": 33,
      "name": "DATATBLS_GetCodeFromCompCodeTxt"
@@ -72030,11 +72069,6 @@
      "va": "0x006125A0",
      "length": 20,
      "name": "DATATBLS_ToggleCompileTxtFlag"
-    },
-    {
-     "va": "0x006125C0",
-     "length": 63,
-     "name": "DATATBLS_UnloadBin"
     },
     {
      "va": "0x00613E60",
@@ -72060,11 +72094,6 @@
      "va": "0x0061A1D0",
      "length": 29,
      "name": "DUNGEON_GetWarpDestinationLevel"
-    },
-    {
-     "va": "0x0061A270",
-     "length": 74,
-     "name": "DUNGEON_AllocDrlgDelete"
     }
    ]
   },
@@ -72078,9 +72107,25 @@
      "name": "?sub_006115F0_Empty@@YAXXZ"
     },
     {
+     "va": "0x00611760",
+     "length": 75,
+     "name": "?sub_00611760_MakeCalcCode@@YAXPBDPAD@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Logging/ProfCore.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x00611600",
      "length": 5,
      "name": "?sub_00611600_CloseLogTail@@YAXXZ"
+    },
+    {
+     "va": "0x00611620",
+     "length": 29,
+     "name": "sub_00611620_ClearAndCallHook"
     },
     {
      "va": "0x00611650",
@@ -72088,14 +72133,19 @@
      "name": "?sub_00611650_CallHook0096BC24@@YAHXZ"
     },
     {
+     "va": "0x00611660",
+     "length": 70,
+     "name": "sub_00611660_AddSample"
+    },
+    {
+     "va": "0x006116B0",
+     "length": 122,
+     "name": "sub_006116B0_WriteProfileCounters"
+    },
+    {
      "va": "0x00611730",
      "length": 35,
      "name": "?sub_00611730_DumpAndResetProfile@@YAXXZ"
-    },
-    {
-     "va": "0x00611760",
-     "length": 75,
-     "name": "?sub_00611760_MakeCalcCode@@YAXPBDPAD@Z"
     }
    ]
   },
@@ -72209,6 +72259,11 @@
      "name": "?DATATBLS_CompileTxt@@YGPAXPAXPBDPAUD2BinFieldStrc@@PAHH@Z"
     },
     {
+     "va": "0x006125C0",
+     "length": 63,
+     "name": "DATATBLS_UnloadBin"
+    },
+    {
      "va": "0x00612750",
      "length": 1870,
      "name": "?DATATBLS_LoadSomeTxts@@YAXPAX@Z"
@@ -72314,19 +72369,9 @@
      "name": "STATLIST_SetSkillLevel"
     },
     {
-     "va": "0x00639CC0",
-     "length": 158,
-     "name": "DATATBLS_AddOrChangeRunesTxtRecord"
-    },
-    {
      "va": "0x00640E90",
      "length": 72,
      "name": "DATATBLS_GetObjectsTxtRecord"
-    },
-    {
-     "va": "0x0064FA00",
-     "length": 146,
-     "name": "D2Common_10885_COMPOSIT_unk"
     },
     {
      "va": "0x0065FD20",
@@ -72582,6 +72627,11 @@
      "va": "0x0061A250",
      "length": 26,
      "name": "DUNGEON_GetPickedLevelPrestFilePathFromRoom"
+    },
+    {
+     "va": "0x0061A270",
+     "length": 74,
+     "name": "DUNGEON_AllocDrlgDelete"
     },
     {
      "va": "0x0061A2C0",
@@ -76257,6 +76307,11 @@
      "va": "0x00639CB0",
      "length": 6,
      "name": "DATATBLS_GetRuneDataTables"
+    },
+    {
+     "va": "0x00639CC0",
+     "length": 158,
+     "name": "DATATBLS_AddOrChangeRunesTxtRecord"
     }
    ]
   },
@@ -77650,11 +77705,6 @@
      "name": "?DRLGOUTDOORS_TestGridCellSpawnValid@@YIHPAUD2DrlgLevelStrc@@HH@Z"
     },
     {
-     "va": "0x00675320",
-     "length": 58,
-     "name": "?DRLGOUTDOORS_AllocOutdoorInfo@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
      "va": "0x00675770",
      "length": 103,
      "name": "?DRLGOUTPLACE_SetOutGridLinkFlags@@YIXPAUD2DrlgLevelStrc@@@Z"
@@ -78521,11 +78571,6 @@
      "name": "?sub_00648390_AlwaysZero@@YGHHH@Z"
     },
     {
-     "va": "0x00648460",
-     "length": 30,
-     "name": "PATH_FreeDynamicPath"
-    },
-    {
      "va": "0x006484E0",
      "length": 160,
      "name": "PATH_GetCollisionPatternFromMonStats2Txt"
@@ -78765,6 +78810,11 @@
      "va": "0x00648450",
      "length": 1,
      "name": "?sub_00648450_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x00648460",
+     "length": 30,
+     "name": "PATH_FreeDynamicPath"
     },
     {
      "va": "0x00648480",
@@ -79919,6 +79969,11 @@
     {
      "va": "0x0064F5B0",
      "length": 1099
+    },
+    {
+     "va": "0x0064FA00",
+     "length": 146,
+     "name": "D2Common_10885_COMPOSIT_unk"
     }
    ]
   },
@@ -83192,6 +83247,11 @@
      "va": "0x00675290",
      "length": 8,
      "name": "?sub_00675290_GetOutdoorValue@@YIHPAUD2DrlgLevelStrc@@H@Z"
+    },
+    {
+     "va": "0x00675320",
+     "length": 58,
+     "name": "?DRLGOUTDOORS_AllocOutdoorInfo@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00675360",

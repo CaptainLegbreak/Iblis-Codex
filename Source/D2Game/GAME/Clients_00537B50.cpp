@@ -43,8 +43,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-
 void __stdcall DUNGEON_ChangeClientRoom(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNewRoom); // 0x0061A110
 void __stdcall D2Common_10077(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNewRoom); // 0x0061A9F0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
@@ -85,7 +83,6 @@ int __fastcall ARENA_GetTemplateType(D2GameStrc* pGame); // 0x0053FEA0
 int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLevel); // 0x006657C0
 extern D2CriticalSectionStrc gClientListLock_008846A8; // 0x008846A8
 extern D2CriticalSectionStrc gSrvClientListByNameLock_008846C0; // 0x008846C0
-
 
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 
@@ -627,52 +624,6 @@ void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     {
         pfMonEvent(pGame, pUnit, nSkillId, nSkillLevel);
     }
-}
-
-// 0x005C0C30
-int __fastcall SUNITEVENT_Trigger(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    int nResult = 0;
-    D2UnitEventStrc* pUnitEvent = pUnit->pSrvUnitEventsList;
-    while (pUnitEvent)
-    {
-        D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nUnitEvent == nUnitEvent)
-        {
-            pUnitEvent->nFlags |= UNITEVENTFLAG_IN_CALLBACK;
-            nResult = pUnitEvent->pCallback(pGame, nUnitEvent, pUnit, pEventSourceUnit, pDamage, pUnitEvent->nGUID1, pUnitEvent->nGUID2);
-            pUnitEvent->nFlags &= ~UNITEVENTFLAG_IN_CALLBACK;
-
-            pNext = pUnitEvent->pNext;
-            if ((pUnitEvent->nFlags & UNITEVENTFLAG_SHOULD_BE_FREED) || !pUnitEvent->nEventGroup)
-            {
-                if (pUnitEvent->pPrevious)
-                {
-                    pUnitEvent->pPrevious->pNext = pNext;
-                }
-                else
-                {
-                    pUnit->pSrvUnitEventsList = pNext;
-                }
-
-                if (pUnitEvent->pNext)
-                {
-                    pUnitEvent->pNext->pPrevious = pUnitEvent->pPrevious;
-                }
-
-                FOG_FreeServerMemory(pGame->pMemoryPool, pUnitEvent, ".\\UNIT\\SUnitEvent.cpp", 235, 0);
-            }
-        }
-
-        pUnitEvent = pNext;
-    }
-
-    return nResult;
 }
 
 #include "gen/data/Source/D2Game/GAME/Clients_00537B50.inc"

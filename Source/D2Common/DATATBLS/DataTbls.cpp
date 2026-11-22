@@ -700,6 +700,18 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
     return &gpDifficultylevelsTxt[nDifficulty];
 }
 
+// 0x006125C0
+void __stdcall DATATBLS_UnloadBin(void* pBinFile)
+{
+    if (pBinFile)
+    {
+        if (DATATBLS_LoadFromBin)
+            FOG_FreePool(0, (char*)pBinFile - 4, ".\\DATATBLS\\DataTbls.cpp", 0x924, 0);
+        else
+            FOG_FreePool(0, pBinFile, ".\\DATATBLS\\DataTbls.cpp", 0x926, 0);
+    }
+}
+
 // 0x00620BB0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
 {
@@ -799,69 +811,12 @@ void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel
     pStatList->dwSLvl = nSkillLevel;
 }
 
-// 0x00639CC0
-void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRecord)
-{
-    D2RunesTxt* pRunesTxt = 0;
-    D2RunesTxt* pTmp = 0;
-    int nSize = 0;
-
-    if (sgtRuneWordsTblDesc.nRunesTxtRecordCount <= nRecordId)
-    {
-        pRunesTxt = sgtRuneWordsTblDesc.pRunesTxt;
-        nSize = sizeof(D2RunesTxt) * (nRecordId + 1);
-
-        if (DATATBLS_LoadFromBin)
-        {
-            pRunesTxt = (D2RunesTxt*)((char*)sgtRuneWordsTblDesc.pRunesTxt - 4);
-            nSize += 4;
-        }
-
-        pTmp = (D2RunesTxt*)FOG_ReallocPool(0, pRunesTxt, nSize, ".\\DATATBLS\\ItemTbls.cpp", 2395, 0);
-
-        if (DATATBLS_LoadFromBin)
-        {
-            *(int*)pTmp = nRecordId + 1;
-            pTmp = (D2RunesTxt*)((char*)pTmp + 4);
-        }
-        sgtRuneWordsTblDesc.pRunesTxt = pTmp;
-
-        memset(&pTmp[sgtRuneWordsTblDesc.nRunesTxtRecordCount], 0, sizeof(D2RunesTxt) * (nRecordId - sgtRuneWordsTblDesc.nRunesTxtRecordCount));
-        sgtRuneWordsTblDesc.nRunesTxtRecordCount = nRecordId + 1;
-    }
-
-    sgtRuneWordsTblDesc.pRunesTxt[nRecordId] = *pRecord;
-}
-
 // 0x00640E90
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
 {
     D2_ASSERT(nObjectId < gnObjectsTxtRecordCount, 221);
     D2_ASSERT(nObjectId >= 0, 222);
     return &gpObjectsTxt[nObjectId];
-}
-
-// 0x0064FA00
-void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode)
-{
-    int nClass;
-    int nType;
-    int nMode;
-
-    D2_ASSERT(hUnit, 262);
-
-    nType = hUnit->dwUnitType;
-    nClass = hUnit->dwClassId;
-    nMode = UNITS_GetAnimOrSeqMode(hUnit);
-
-    D2COMMON_11013_ConvertMode(hUnit, &nType, &nClass, &nMode, ".\\COMPOSIT\\Composit.cpp", 268);
-
-    if (nAnimMode == -1)
-    {
-        nAnimMode = nMode;
-    }
-
-    D2Common_10884_COMPOSIT_unk(hUnit, nClass, nAnimMode, nType, pInventory, szPath, pWeaponClassCode, bAddPathPrefix, a5);
 }
 
 // 0x0065FD20

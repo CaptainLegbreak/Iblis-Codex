@@ -34,33 +34,6 @@ void __cdecl sub_006115F0_Empty()
 
 PROFHOOK0096BC24FN gpfnHook_0096BC24; // 0x0096BC24
 
-// 0x00611600
-void __cdecl sub_00611600_CloseLogTail()
-{
-    sub_00624B20_CloseLog();
-}
-
-// 0x00611650
-int __cdecl sub_00611650_CallHook0096BC24()
-{
-    if (gpfnHook_0096BC24)
-    {
-        return gpfnHook_0096BC24();
-    }
-    return 0;
-}
-
-// 0x00611730
-void __cdecl sub_00611730_DumpAndResetProfile()
-{
-    sub_006116B0_WriteProfileCounters();
-    for (int i = 0; i < 23; i++)
-    {
-        gaProfEntries[i].nTotal = 0;
-        gaProfEntries[i].nCount = 0;
-    }
-}
-
 #include "gen/data/Source/D2Common/Unknown_006115F0.inc"
 
 // 0x00611760

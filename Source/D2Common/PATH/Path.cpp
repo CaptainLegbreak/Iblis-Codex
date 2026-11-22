@@ -1109,6 +1109,7 @@ inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 // 0x00648120
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 {
@@ -1269,6 +1270,12 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
     return 0;
+}
+
+// 0x00648460
+void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath)
+{
+    sub_0040B480(pMemPool, pDynamicPath, ".\\PATH\\Path.cpp", 985, 0);
 }
 
 // 0x00648480

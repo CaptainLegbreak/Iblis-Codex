@@ -26,13 +26,6 @@
 
 #define QUEST_A3Q1_LAMESENTOME 15
 
-
-
-
-
-
-
-
 #define STRCOLOR_DARK_GOLD 4
 
 #define OBJRGN_WELL_DISTANCE 100
@@ -3133,61 +3126,6 @@ void __fastcall QUESTS_HellPortalActChange(D2GameStrc* pGame, D2UnitStrc* pPlaye
     {
         ACT3Q6_SetObjectModes(pGame, pObject);
     }
-}
-
-// 0x00547170
-void __fastcall OBJRGN_AllocObjectRoomCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
-{
-    D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
-    D2ObjectRoomCoordStrc* pObjectRoomCoord = (D2ObjectRoomCoordStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ObjectRoomCoordStrc), ".\\OBJECTS\\objrgn.cpp", 375, 0);
-
-    int nX;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nX = pUnit->pStaticPath->tGameCoords.nX;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nX = PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nX = 0;
-        }
-        break;
-    }
-    pObjectRoomCoord->nX = nX;
-
-    int nY;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nY = pUnit->pStaticPath->tGameCoords.nY;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nY = PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nY = 0;
-        }
-        break;
-    }
-    pObjectRoomCoord->nY = nY;
-
-    pObjectRoomCoord->pRoom = pRoom;
-    pObjectRoomCoord->pNext = pObjectControl->pObjectRoomCoord;
-    pObjectControl->pObjectRoomCoord = pObjectRoomCoord;
 }
 
 // 0x005473A0

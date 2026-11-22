@@ -87,7 +87,6 @@ struct D2ExperienceTxt;
 
 struct D2ExperienceDataTbl;
 
-
 struct Link;
 
 struct Key;
@@ -680,7 +679,6 @@ struct D2DrlgDeleteStrc
     D2DrlgDeleteStrc* pNext;
 };
 
-
 typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 
 extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
@@ -962,8 +960,6 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
 
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset);
 
-
-
 struct D2CommonStormSlotListDStrc;
 
 struct D2CommonStormSlotListEStrc;
@@ -971,8 +967,6 @@ struct D2CommonStormSlotListEStrc;
 struct D2CommonStormZeroAStrc;
 
 struct D2CommonStormZeroBStrc;
-
-
 
 struct D2CommonStormSlotListDStrc : D2CommonStormSlotListAStrc
 {
@@ -2774,35 +2768,6 @@ D2CommonIgnoreListStrc* sub_00611560_GetOrCreateIgnoreList()
     return gpIgnoreList_0096BC20;
 }
 
-// 0x00611620
-void __fastcall sub_00611620_ClearAndCallHook(int nA, char* pBuffer, int nC)
-{
-    PROFHOOKFN pfnHook = gpfnProfHook;
-    *pBuffer = 0;
-    if (pfnHook)
-        pfnHook(nA, pBuffer, nC);
-}
-
-// 0x00611660
-void __fastcall sub_00611660_AddSample(int nIndex, __int64 nStart)
-{
-    __int64 nNow;
-    QueryPerformanceCounter(&nNow);
-    gaProfEntries[nIndex].nTotal += nNow - nStart;
-    gaProfEntries[nIndex].nCount++;
-}
-
-// 0x006116B0
-void __cdecl sub_006116B0_WriteProfileCounters()
-{
-    __int64 nFrequency;
-    QueryPerformanceFrequency(&nFrequency);
-    LOG_11100(1, 2, 1, 0x80000, ".\\Logging\\ProfCore.cpp", 0x4E, "PROFILING DUMP FREQUENCY %d:\n", nFrequency);
-    for (int i = 0; i < 23; i++)
-        LOG_11100(1, 2, 1, 0x80000, ".\\Logging\\ProfCore.cpp", 0x54, "FUNCTION: %30s, TIME %12d, COUNT %5d", gaProfEntries[i].szName,
-            (int)gaProfEntries[i].nTotal, gaProfEntries[i].nCount);
-}
-
 // 0x006117D0
 unsigned int __stdcall DATATBLS_GetCodeFromCompCodeTxt(int nCompCode)
 {
@@ -2831,18 +2796,6 @@ int __stdcall DATATBLS_GetMaxLevel(int nClass)
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bSilent)
 {
     gbCompileTxt = !bSilent;
-}
-
-// 0x006125C0
-void __stdcall DATATBLS_UnloadBin(void* pBinFile)
-{
-    if (pBinFile)
-    {
-        if (DATATBLS_LoadFromBin)
-            FOG_FreePool(0, (char*)pBinFile - 4, ".\\DATATBLS\\DataTbls.cpp", 0x924, 0);
-        else
-            FOG_FreePool(0, pBinFile, ".\\DATATBLS\\DataTbls.cpp", 0x926, 0);
-    }
 }
 
 // 0x00613E60
@@ -2897,21 +2850,6 @@ int __stdcall DUNGEON_GetWarpDestinationLevel(D2ActiveRoomStrc* pRoom, int nSour
     if (!pRoom)
         return 0;
     return DRLGROOM_GetWarpDestinationLevel(pRoom->pDrlgRoom, nSourceLevel);
-}
-
-// 0x0061A270
-void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID)
-{
-    if (pRoom)
-    {
-        D2DrlgDeleteStrc* pDrlgDelete = (D2DrlgDeleteStrc*)FOG_AllocPool(pRoom->pAct->pMemPool, sizeof(D2DrlgDeleteStrc),
-            ".\\DUNGEON\\Dungeon.cpp", 0x384, 0);
-        pDrlgDelete->nUnitType = nUnitType;
-        pDrlgDelete->nUnitGUID = nUnitGUID;
-        pDrlgDelete->pNext = pRoom->pDrlgDelete;
-        pRoom->pDrlgDelete = pDrlgDelete;
-        pRoom->pAct->bHasPendingRoomDeletions = 1;
-    }
 }
 
 void sub_F45_EmitHashTables(void* pTableA, void* pTableB)

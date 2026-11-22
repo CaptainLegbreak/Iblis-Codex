@@ -223,4 +223,27 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
  COMPOSIT_FormatPathInto(path,clsCode,modeCode,weapon,gObjects_006E3628,full,wo,co,mo);
 }
 
+// 0x0064FA00
+void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode)
+{
+    int nClass;
+    int nType;
+    int nMode;
+
+    D2_ASSERT(hUnit, 262);
+
+    nType = hUnit->dwUnitType;
+    nClass = hUnit->dwClassId;
+    nMode = UNITS_GetAnimOrSeqMode(hUnit);
+
+    D2COMMON_11013_ConvertMode(hUnit, &nType, &nClass, &nMode, ".\\COMPOSIT\\Composit.cpp", 268);
+
+    if (nAnimMode == -1)
+    {
+        nAnimMode = nMode;
+    }
+
+    D2Common_10884_COMPOSIT_unk(hUnit, nClass, nAnimMode, nType, pInventory, szPath, pWeaponClassCode, bAddPathPrefix, a5);
+}
+
 #include "gen/data/Source/D2Common/COMPOSIT/Composit.inc"

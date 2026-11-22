@@ -645,7 +645,6 @@ void __stdcall INVENTORY_SetOwnerId(D2InventoryStrc* pInventory, int nOwnerId); 
 
 static int __stdcall sub_00533850_ReadCorpse(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char* pData, unsigned int nVersion, int nSize, int* pReadSize);
 
-
 // 0x00531520
 static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent)
 {
@@ -3773,61 +3772,6 @@ int __fastcall sub_6FC33F90(const char* szName, char* szGameName)
 
     LeaveCriticalSection(&gSrvClientListByNameLock_6FD443B8);
     return result;
-}
-
-// 0x00538CE0
-int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int a6, int a7)
-{
-    int nResult = 0;
-
-    if (!gbClientListInitialized_008846D8)
-    {
-        return 0;
-    }
-
-    EnterCriticalSection(&gClientListLock_008846A8);
-
-    D2ClientStrc* ptClient = gpClientList_008842A8[nClientId & 0xFF];
-    while (ptClient)
-    {
-        if (ptClient->dwClientId == nClientId)
-        {
-            break;
-        }
-
-        ptClient = ptClient->pServerNext;
-    }
-
-    if (ptClient)
-    {
-        void* pDestination = 0;
-        if (!ptClient->nSaveHeaderSize)
-        {
-            ptClient->pSaveHeader = (D2SaveHeaderStrc*)sub_0040B430(ptClient->pGame->pMemoryPool, nTotalSize, ".\\GAME\\Clients.cpp", 2858, 0);
-            pDestination = ptClient->pSaveHeader;
-        }
-        else
-        {
-            pDestination = (char*)ptClient->pSaveHeader + ptClient->nSaveHeaderSize;
-        }
-
-        D2_ASSERT(ptClient->nSaveHeaderSize + nSize <= nTotalSize, 2863);
-
-        memcpy(pDestination, pSaveData, nSize);
-
-        ptClient->nSaveHeaderSize += nSize;
-        ptClient->bUnlockCharacter = bUnlockCharacter;
-
-        if (ptClient->nSaveHeaderSize == nTotalSize)
-        {
-            ptClient->dwFlags |= CLIENTFLAGEX_HAS_SAVE_CHECKSUM;
-            ptClient->nSaveChecksum = D2GAME_SAVE_CalculateChecksum_6FC8A140(ptClient->pSaveHeader, ptClient->nSaveHeaderSize);
-            nResult = 1;
-        }
-    }
-
-    LeaveCriticalSection(&gClientListLock_008846A8);
-    return nResult;
 }
 
 // 0x0053A420

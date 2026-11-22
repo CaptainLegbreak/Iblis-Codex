@@ -568,7 +568,6 @@ void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* 
 
 D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553010
 
-
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 void __fastcall sub_6FCC60D0(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6); // 0x005717C0
@@ -1411,27 +1410,6 @@ inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
     }
 
     return 0;
-}
-
-// build: context SUNITEVENT_FreeEvent
-static void __fastcall SUNITEVENT_FreeEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitEventStrc* pUnitEvent)
-{
-    D2UnitEventStrc* pNext = pUnitEvent->pNext;
-    if (pUnitEvent->pPrevious)
-    {
-        pUnitEvent->pPrevious->pNext = pNext;
-    }
-    else
-    {
-        pUnit->pSrvUnitEventsList = pNext;
-    }
-
-    if (pUnitEvent->pNext)
-    {
-        pUnitEvent->pNext->pPrevious = pUnitEvent->pPrevious;
-    }
-
-    FOG_FreePool(pGame->pMemoryPool, pUnitEvent, ".\\UNIT\\SUnitEvent.cpp", 149, 0);
 }
 
 // 0x005BF5D0
@@ -2442,62 +2420,6 @@ int __fastcall sub_005C09E0_SkillItemEventFunc_Reanimate(D2GameStrc* pGame, int 
     return 0;
 }
 
-// 0x005C0AD0
-D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int a8)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2UnitEventStrc* pUnitEvent = (D2UnitEventStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2UnitEventStrc), ".\\UNIT\\SUnitEvent.cpp", 87, 0);
-    memset(pUnitEvent, 0x00, sizeof(D2UnitEventStrc));
-
-    pUnitEvent->nUnitEvent = nUnitEvent;
-    pUnitEvent->nGUID1 = nGUID1;
-    pUnitEvent->nGUID2 = nGUID2;
-    pUnitEvent->pCallback = pCallback;
-    pUnitEvent->pNext = pUnit->pSrvUnitEventsList;
-    pUnitEvent->nEventGroup = nQueueNo;
-    pUnitEvent->unk0x08 = a8;
-
-    if (pUnit->pSrvUnitEventsList)
-    {
-        pUnit->pSrvUnitEventsList->pPrevious = pUnitEvent;
-    }
-
-    pUnit->pSrvUnitEventsList = pUnitEvent;
-    return pUnitEvent;
-}
-
-// 0x005C0B50
-void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    D2UnitEventStrc* pUnitEvent = pUnit->pSrvUnitEventsList;
-    while (pUnitEvent)
-    {
-        D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == a4)
-        {
-            if (pUnitEvent->nFlags & UNITEVENTFLAG_IN_CALLBACK)
-            {
-                pUnitEvent->nFlags |= UNITEVENTFLAG_SHOULD_BE_FREED;
-            }
-            else
-            {
-                SUNITEVENT_FreeEvent(pGame, pUnit, pUnitEvent);
-            }
-        }
-
-        pUnitEvent = pNext;
-    }
-}
-
 // 0x005C0BE0
 D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4, int nGUID1)
 {
@@ -3173,7 +3095,6 @@ D2MonEquipTxt* __fastcall sub_005D30A0_GetMonEquipTxtRecord(int nMonsterId)
 }
 
 int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D30F0
-
 
 // 0x005DC5C0
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY)

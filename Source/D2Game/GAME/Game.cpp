@@ -5400,25 +5400,6 @@ void __fastcall sub_005384E0_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2Un
     }
 }
 
-// 0x00538E60
-void __fastcall CLIENTS_CopySaveDataToClient(D2ClientStrc* ptClient, const void* pData, unsigned int nSize)
-{
-    D2_ASSERT(ptClient, 2921);
-
-    if (ptClient->nSaveHeaderSize != nSize || ptClient->pSaveHeader)
-    {
-        if (ptClient->pSaveHeader)
-        {
-            FOG_FreeServerMemory(ptClient->pGame->pMemoryPool, ptClient->pSaveHeader, ".\\GAME\\Clients.cpp", 2926, 0);
-        }
-
-        ptClient->pSaveHeader = (D2SaveHeaderStrc*)sub_0040B430(ptClient->pGame->pMemoryPool, nSize, ".\\GAME\\Clients.cpp", 2928, 0);
-        ptClient->nSaveHeaderSize = nSize;
-    }
-
-    memcpy(ptClient->pSaveHeader, pData, nSize);
-}
-
 // 0x0053ABE0
 void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient)
 {
@@ -5546,31 +5527,6 @@ void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame)
         pTimer = pNext;
     }
     pQuestControl->bExecuting = 0;
-}
-
-// 0x00546E90
-void __fastcall OBJRGN_FreeObjectControl(D2GameStrc* ptGame)
-{
-    D2_ASSERT(ptGame, 0xB6);
-    D2ObjectControlStrc* pObjectControl = ptGame->pObjectControl;
-    if (!pObjectControl)
-        return;
-    D2ObjectRoomCoordStrc* pObjectRoomCoord = pObjectControl->pObjectRoomCoord;
-    while (pObjectRoomCoord)
-    {
-        D2ObjectRoomCoordStrc* pNext = pObjectRoomCoord->pNext;
-        FOG_FreeServerMemory(ptGame->pMemoryPool, pObjectRoomCoord, ".\\OBJECTS\\objrgn.cpp", 0xC1, 0);
-        pObjectRoomCoord = pNext;
-    }
-    pObjectControl->pObjectRoomCoord = 0;
-    for (int i = 1; i < sgptDataTables->nLevelsTxtRecordCount; ++i)
-        FOG_FreeServerMemory(ptGame->pMemoryPool, pObjectControl->pObjectRegion[i], ".\\OBJECTS\\objrgn.cpp", 0xE2, 0);
-    for (int i = 0; i < 8; ++i)
-    {
-        if (pObjectControl->pShrineSubTypeIds[i])
-            FOG_FreeServerMemory(ptGame->pMemoryPool, pObjectControl->pShrineSubTypeIds[i], ".\\OBJECTS\\objrgn.cpp", 0xE8, 0);
-    }
-    FOG_FreeServerMemory(ptGame->pMemoryPool, ptGame->pObjectControl, ".\\OBJECTS\\objrgn.cpp", 0xEC, 0);
 }
 
 // 0x00547210

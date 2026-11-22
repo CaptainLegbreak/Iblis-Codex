@@ -1093,21 +1093,6 @@ void __fastcall MONSTERUNIQUE_SetTrapDamage(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 }
 
-// 0x005A5D50
-void __fastcall sub_6FC7B3F0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, void* pArg)
-{
-    D2UnitStrc* pPlayer2 = (D2UnitStrc*)pArg;
-    if (pPlayer2 == pPlayer1 || STATLIST_GetUnitBaseStat(pPlayer1, STAT_LEVEL, 0) < 9)
-    {
-        return;
-    }
-
-    FRIENDLY_OpenHostility(pGame, pPlayer2, pPlayer1);
-    FRIENDLY_OpenHostility(pGame, pPlayer1, pPlayer2);
-
-    UnitGetClient(pPlayer1, ".\\PLAYER\\PartyScreen.cpp", 391)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer2 ? -1 : pPlayer2->dwUnitId, PARTYSCREENTYPE_HOSTILE);
-}
-
 // 0x005A6000
 int __fastcall PARTYSCREEN_CommandHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCallbackId, int nOtherPlayerGUID, int nParam)
 {
