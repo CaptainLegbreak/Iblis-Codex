@@ -62,12 +62,6 @@ void __stdcall FreeNetContext(QSocket* socket)
     sub_006BC370_FreeNet(socket);
 }
 
-// 0x006BC560
-int __stdcall sub_006BC560_Connect(sub_006BC560_Strc* pThis)
-{
-    pThis->nResult = FOG_SOCKET_Connect(pThis->pSocket, pThis->nPort, sub_006BC3A0, pThis, pThis->pAddress);
-    return 1;
-}
 
 // 0x006BC5A0
 void __stdcall sub_006BC5A0_StartThread(D2ThreadRecord006BC5A0Strc* pRecord)
