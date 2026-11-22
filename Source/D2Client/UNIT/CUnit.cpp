@@ -1,5 +1,13 @@
 #include "D2StateIds.h"
 #include "D2Client.h"
+#include "D2Path.h"
+#include "D2Structs.h"
+#include "D2Txt.h"
+#include "D2LevelTxt.h"
+#include "D2Drlg.h"
+#include "D2ClientMenus.h"
+#include "D2GameObjs.h"
+#include "D2ItemsWorld.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Unicode.h"
@@ -16,7 +24,7 @@ struct D2UnitTargetStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gpUnitTable_007A5670 (gpUnitHashTable_007A5270 + 2 * UNIT_HASH_BUCKETS)
 #define gpUnitTable_007A6270 (gpUnitHashTable_007A5E70 + 2 * UNIT_HASH_BUCKETS)
-#define SKILLSFLAGINDEX_PERIODIC 6
+#define SKILLSFLAGINDEX_PERIODIC 38
 
 struct D2PacketListStrc;
 struct D2PlayerDataStrc;
@@ -42,84 +50,6 @@ struct D2ItemsTxt;
 struct D2PresetUnitStrc;
 struct D2ModeArgStrc;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    unsigned char unk_18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x8];
-    int dwSeqFrame;
-    unsigned char unk_3C[0x18];
-    D2GfxDataStrc* pGfxData;
-    int nCounter0x58;
-    unsigned char unk_5C[0x4];
-    D2InventoryStrc* pInventory;
-    void* pLight;
-    int dwStartLight;
-    char unk0x6C[0xC4 - 0x6C];
-    unsigned int dwFlags;
-    char unk0xC8[0xD8 - 0xC8];
-    D2PacketListStrc* pPacketList;
-    char unk0xDC[0xE4 - 0xDC];
-    D2UnitStrc* pListNext;
-    D2UnitStrc* ptRoomNext;
-};
-
-struct D2MonStatsTxt
-{
-    char unk0x00[0x06];
-    unsigned short wNameStr;
-    unsigned char unk_08[0x10];
-    short wMonStatsEx;
-    char unk0x1A[0x1A8 - 0x1A];
-};
-
-struct D2MonStats2Txt
-{
-    int dwId;
-    unsigned char nFlags[4];
-    char unk0x08[0x134 - 0x08];
-};
-
-struct D2ObjectsTxt
-{
-    char unk0x00[0x40];
-    Unicode wszName[64];
-    char f_C0[0x7A];
-    unsigned char nIsDoor;
-    unsigned char unk_13B[0x2C];
-    unsigned char nSubClass;
-    unsigned char unk_168[0x9];
-    unsigned char nLockable;
-    char unk0x172[0x46];
-    unsigned char nOpenWarp;
-    unsigned char unk_1B9[0x1];
-};
-
-struct D2LevelsTxt
-{
-    char unk0x00[0x02];
-    unsigned char nAct;
-    unsigned char unk_03[0x1BB];
-    unsigned short wszLevelWarp[40];
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -142,12 +72,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
-
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int nArg); // 0x004BC5E0
@@ -157,22 +81,6 @@ unsigned short __fastcall sub_00479C00_LookupPartyNumber(D2UnitStrc* pUnit); // 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x08];
-    unsigned char nFlags[8];
-    unsigned char nAnim;
-    unsigned char unk_11[0x4];
-    unsigned char nSelectProc;
-    unsigned char nSeqInput;
-    unsigned char unk_17[0x225];
-};
-
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 void __cdecl sub_00466FE0(); // 0x00466FE0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -203,18 +111,9 @@ int __fastcall sub_M210_EmitUse(D2UnitStrc* pUnit);
 
 struct D2SetsTxt { char unk0x000[0x128]; };
 
-struct D2SetItemsTxt { char unk0x000[0x1B8]; };
 
-struct D2UniqueItemsTxt { char unk0x000[0x14C]; };
 
 #pragma pack(push, 2)
-struct D2HotkeyStrc
-{
-    int nCommand;
-    unsigned short nKey;
-    int nMode;
-};
-
 #pragma pack(pop)
 enum
 {
@@ -250,18 +149,6 @@ extern void* gpReply_008818D0; // 0x008818D0
 extern "C" void* gpCDKeyHandle_00882744; // 0x00882744
 extern "C" void* gpCDKeyHandle_00882750; // 0x00882750
 
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    unsigned char InteractType;
-};
-
-struct D2ItemsTxt
-{
-    char unk0x00[0xF4];
-    unsigned short wNameStr;
-};
-
 const Unicode* __fastcall sub_00463810_GetMonsterName(D2UnitStrc* pUnit); // 0x00463810
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
@@ -274,30 +161,6 @@ void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, 
 void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
 void __fastcall sub_004DA6E0_SetMotionFlag20(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
-
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    D2MapAIStrc* pMapAI;
-    int nUnitType;
-    int nYpos;
-    unsigned int bSpawned;
-};
-
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
@@ -941,7 +804,7 @@ const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit)
         {
             return D2LANG_GetStringFromTblIndex(0xCBE);
         }
-        return pObjectData->pObjectTxt->wszName;
+        return (const Unicode*)pObjectData->pObjectTxt->wszName;
     }
     case UNIT_MONSTER:
     {
@@ -967,11 +830,11 @@ const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit)
 int __fastcall sub_00464C40_DecrementCounter58(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xA19);
-    if (!pUnit->nCounter0x58)
+    if (!*(int*)&pUnit->pGfxDataCopy)
     {
         return 0;
     }
-    --pUnit->nCounter0x58;
+    --*(int*)&pUnit->pGfxDataCopy;
     return !STATES_CheckState(pUnit, STATE_ATTACHED);
 }
 
@@ -979,7 +842,7 @@ int __fastcall sub_00464C40_DecrementCounter58(D2UnitStrc* pUnit)
 void __fastcall sub_00464C90_SetCounter58(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xA34);
-    pUnit->nCounter0x58 = 3;
+    *(int*)&pUnit->pGfxDataCopy = 3;
 }
 
 // 0x00464CC0
@@ -1102,10 +965,10 @@ void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, 
             {
                 D2LevelsTxt* pOldLevel = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pOldRoom));
                 D2LevelsTxt* pNewLevel = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom));
-                if (pOldLevel->nAct != pNewLevel->nAct)
+                if (pOldLevel->nPal != pNewLevel->nPal)
                 {
-                    sub_004FB480_SetActA(pNewLevel->nAct);
-                    sub_00600C00_SetActB(pNewLevel->nAct);
+                    sub_004FB480_SetActA(pNewLevel->nPal);
+                    sub_00600C00_SetActB(pNewLevel->nPal);
                 }
             }
         }
