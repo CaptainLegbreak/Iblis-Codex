@@ -6,11 +6,32 @@ void __fastcall sub_00478A00(void* pCel);                                       
 
 #pragma pack(push, 2)
 
+struct SMSGHANDLER_PARAMS;
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
+
 class UIWidget
 {
 public:
     virtual ~UIWidget();
-    virtual void Slot01();
+    virtual void Slot01() = 0;
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int Slot11() = 0;
+
+    void operator delete(void* pMemory)
+    {
+        if (pMemory)
+        {
+            SMemFree(pMemory, "delete", -1, 0);
+        }
+    }
 
     int unk0x04;
 };

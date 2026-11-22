@@ -3,6 +3,8 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
+
 class UIWidget
 {
 public:
@@ -18,6 +20,14 @@ public:
     virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int Slot11() = 0;
+
+    void operator delete(void* pMemory)
+    {
+        if (pMemory)
+        {
+            SMemFree(pMemory, "delete", -1, 0);
+        }
+    }
 
     int unk0x04;
 };
