@@ -282,7 +282,7 @@ int __cdecl sub_00451980(); // 0x00451980
 
 int __fastcall sub_00451BB0_MessageLoop(D2IdleHandler); // 0x00451BB0
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int,D2MsgHandlerEntryStrc*,unsigned int); // 0x00451DB0
+extern "C" void __fastcall sub_00451DB0_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 
 void __fastcall sub_00451E10_UnregisterMsgHandlers(int,D2MsgHandlerEntryStrc*,int); // 0x00451E10
 
