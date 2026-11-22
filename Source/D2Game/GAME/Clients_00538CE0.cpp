@@ -286,7 +286,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
@@ -467,7 +467,7 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-D2UnitStrc* __stdcall sub_0063BF90_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
+D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
 
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 
@@ -592,7 +592,7 @@ int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x004
 
 extern "C" int __stdcall sub_00410E90(D2BitBufferStrc* pBuffer); // 0x00410E90
 
-extern "C" unsigned int __stdcall sub_006287A0(unsigned int dwA, unsigned int dwB); // 0x006287A0
+extern "C" unsigned int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwA, unsigned int dwB); // 0x006287A0
 
 int __stdcall DATATBLS_MapOldItemIndexToCurrent(int nItemId); // 0x006335A0
 

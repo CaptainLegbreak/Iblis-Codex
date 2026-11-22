@@ -5,7 +5,7 @@ extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" char* __cdecl strchr(const char* szString, int nChar);
-void __fastcall sub_00654D50();
+void __fastcall DATATBLS_FreeTreasureClassEx();
 
 // 0x00668510
 static void sub_00668510_MakeCode(const char* szText, char* szCode)
@@ -50,7 +50,7 @@ unsigned int __stdcall sub_M91_Emit_00668510(const char* szText)
 }
 
 // 0x00668560
-static char* sub_006543C0_StripQuotes(char* szText)
+static char* DATATBLS_StripQuotes(char* szText)
 {
     if (*szText == '"')
         ++szText;
@@ -62,7 +62,7 @@ static char* sub_006543C0_StripQuotes(char* szText)
     return szText;
 }
 
-static char* sub_006543F0_NextStrToken(char** ppString, char chSeparator)
+static char* DATATBLS_GetNextStringToken(char** ppString, char chSeparator)
 {
     char* szToken = *ppString;
     *ppString = strchr(szToken, chSeparator);
@@ -76,17 +76,17 @@ static char* sub_006543F0_NextStrToken(char** ppString, char chSeparator)
 
 char* __stdcall sub_M116_Emit_006543C0(char* szText, char** ppOut)
 {
-    ppOut[0] = sub_006543C0_StripQuotes(sub_006543F0_NextStrToken(&szText, ','));
-    ppOut[1] = sub_006543F0_NextStrToken(&szText, ',');
+    ppOut[0] = DATATBLS_StripQuotes(DATATBLS_GetNextStringToken(&szText, ','));
+    ppOut[1] = DATATBLS_GetNextStringToken(&szText, ',');
     return szText;
 }
 
-void __fastcall sub_00654EF0_UnloadTCEx()
+void __fastcall DATATBLS_UnloadTreasureClassExTxt()
 {
-    sub_00654D50();
+    DATATBLS_FreeTreasureClassEx();
 }
 
-void __cdecl sub_00654F00_AssertFail()
+void __cdecl DATATBLS_ShouldNeverCallInExpansion()
 {
     D2_ASSERT(0, 0x6AE);
 }

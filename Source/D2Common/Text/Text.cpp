@@ -56,7 +56,7 @@ D2TextHeaderStrc* __stdcall TEXT_AllocTextHeader(void* pMemPool)
 }
 
 // 0x00661270
-static void sub_00661270(D2TextHeaderStrc* pTextHeader)
+static void TEXT_FreeTextNodes(D2TextHeaderStrc* pTextHeader)
 {
     D2TextNodeStrc* pNode = pTextHeader->pNode;
     while (pNode)
@@ -72,7 +72,7 @@ static void sub_00661270(D2TextHeaderStrc* pTextHeader)
 // 0x006612A0
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader)
 {
-    sub_00661270(pTextHeader);
+    TEXT_FreeTextNodes(pTextHeader);
     sub_0040B480(pTextHeader->pMemPool, pTextHeader, ".\\Text\\Text.cpp", 76, 0);
 }
 
@@ -156,7 +156,7 @@ short __stdcall TEXT_GetStringIdOfMenuType2Node(D2TextHeaderStrc* pTextHeader, i
 }
 
 // 0x00661400
-short __stdcall sub_00661400(D2TextHeaderStrc* pTextHeader, int nNodeId)
+short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pTextHeader, int nNodeId)
 {
     int nCounter = 0;
     D2TextNodeStrc* pNode = pTextHeader->pNode;
@@ -179,7 +179,7 @@ short __stdcall sub_00661400(D2TextHeaderStrc* pTextHeader, int nNodeId)
 }
 
 // 0x00661440
-short __stdcall sub_00661440(D2TextHeaderStrc* pTextHeader, int nNodeId)
+short __stdcall TEXT_GetStringIdOfMenuType1Node(D2TextHeaderStrc* pTextHeader, int nNodeId)
 {
     int nCounter = 0;
     D2TextNodeStrc* pNode = pTextHeader->pNode;
@@ -227,7 +227,7 @@ void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHead,
     TEXT_ASSERT(pTextHead, 267);
     TEXT_ASSERT(pMsgList, 268);
 
-    sub_00661270(pTextHead);
+    TEXT_FreeTextNodes(pTextHead);
 
     TEXT_ASSERT(pMsgList->bCount < 8, 274);
 
@@ -238,7 +238,7 @@ void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHead,
 }
 
 // 0x006615D0
-static int __fastcall sub_006615D0(const D2TextNodeStrc* pLeft, const D2TextNodeStrc* pRight)
+static int __fastcall TEXT_CompareTextNodesByStringId(const D2TextNodeStrc* pLeft, const D2TextNodeStrc* pRight)
 {
     if ((unsigned short)pLeft->nStringId > (unsigned short)pRight->nStringId)
     {
@@ -249,7 +249,7 @@ static int __fastcall sub_006615D0(const D2TextNodeStrc* pLeft, const D2TextNode
 }
 
 // 0x006615F0
-static void __stdcall sub_006615F0(unsigned short nCount, D2TextNodeStrc* pList, int (__fastcall* pfnCompare)(const D2TextNodeStrc*, const D2TextNodeStrc*))
+static void __stdcall TEXT_InsertionSortTextNodes(unsigned short nCount, D2TextNodeStrc* pList, int (__fastcall* pfnCompare)(const D2TextNodeStrc*, const D2TextNodeStrc*))
 {
     if (nCount <= 1)
     {
@@ -319,7 +319,7 @@ void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHead)
         ++pCopy;
     }
 
-    sub_006615F0(pTextHead->nCount, pNodeList, sub_006615D0);
+    TEXT_InsertionSortTextNodes(pTextHead->nCount, pNodeList, TEXT_CompareTextNodesByStringId);
 
     pNode = pTextHead->pNode;
     for (int i = 0; i < pTextHead->nCount; ++i)

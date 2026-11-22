@@ -299,7 +299,7 @@ void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pOwn
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
-int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath); // 0x006505C0
+int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
 
 typedef void (__fastcall* MISSILESRVDMGFN)(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage);
 
@@ -1557,7 +1557,7 @@ void __fastcall sub_005A9530_CreateMissilesInRadius(D2GameStrc* pGame, D2UnitStr
 // 0x005A9720
 void __fastcall MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles(D2GameStrc* pGame, D2UnitStrc* pOrigin, int nMissileId, int nRange, int nLoops)
 {
-    if (!sub_006505C0_TestPathFlag8(pOrigin->pDynamicPath))
+    if (!PATH_HasEnteredNewSubtile(pOrigin->pDynamicPath))
     {
         return;
     }
@@ -5029,7 +5029,7 @@ int __fastcall MISSMODE_SrvDo06_MoltenBoulder_FireWallMaker(D2GameStrc* pGame, D
         return 2;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         const int nX = CLIENTS_GetUnitX(pMissile);
         const int nY = CLIENTS_GetUnitY(pMissile);
@@ -5158,7 +5158,7 @@ int __fastcall MISSMODE_SrvDo09_BatLightningBolt(D2GameStrc* pGame, D2UnitStrc* 
 
     const int nX = UNITS_InlineGetXPosition(pMissile);
     const int nY = UNITS_InlineGetYPosition(pMissile);
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         memset(&missileParams, 0, sizeof(missileParams));
         missileParams.dwFlags = 1;
@@ -5270,7 +5270,7 @@ int __fastcall MISSMODE_SrvDo12_DiabWallMaker(D2GameStrc* pGame, D2UnitStrc* pMi
         return 2;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         const int nX = CLIENTS_GetUnitX(pMissile);
         const int nY = CLIENTS_GetUnitY(pMissile);
@@ -5526,7 +5526,7 @@ int __fastcall MISSMODE_SrvDo21_Distraction(D2GameStrc* pGame, D2UnitStrc* pMiss
         return 2;
     }
 
-    if (pMissilesTxtRecord->wSubMissile[0] && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (pMissilesTxtRecord->wSubMissile[0] && PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2GAME_CreateMissile_6FD115E0(pGame, SUNIT_GetOwner(pGame, pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), pMissilesTxtRecord->wSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile));
     }
@@ -5555,7 +5555,7 @@ int __fastcall MISSMODE_SrvDo22_LightningTrailingJavelin(D2GameStrc* pGame, D2Un
         MISSILE_SetTargetY(pMissile, nParam1);
     }
 
-    if (sub_006505C0_TestPathFlag8(pPath))
+    if (PATH_HasEnteredNewSubtile(pPath))
     {
         D2MissileStrc missileParams = {};
         missileParams.dwFlags = 11;
@@ -5586,7 +5586,7 @@ int __fastcall MISSMODE_SrvDo23_24_SuccFireBall_FirestormMaker(D2GameStrc* pGame
         return 2;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2MissileStrc missileParams = {};
         missileParams.dwFlags = 1;
@@ -5931,7 +5931,7 @@ int __fastcall sub_005B01F0_SrvDo_MirrorSubMissile(D2GameStrc* pGame, D2UnitStrc
         return 2;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         const int nTargetX = sub_0064A730_GetMissileTargetStatus(pMissile);
         const int nTargetY = sub_0064A780_targetValue(pMissile);
@@ -5965,7 +5965,7 @@ int __fastcall MISSMODE_SrvDo32_TigerFury(D2GameStrc* pGame, D2UnitStrc* pMissil
         return 2;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2MissileStrc missileParams = {};
         missileParams.dwFlags = 1;

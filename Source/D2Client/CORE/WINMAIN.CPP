@@ -329,7 +329,7 @@ void __cdecl sub_0052BDA0_Empty();                                              
 
 void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
 
-void __cdecl sub_00611600_CloseLogTail();                                                                                // 0x00611600
+void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
 int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
@@ -765,7 +765,7 @@ D2ClientInterfaceStrc* __fastcall sub_0044B400_Init(void* hInstance)
 void __cdecl sub_0044B420_Shutdown()
 {
     sub_0052BDB0_Empty();
-    sub_00611600_CloseLogTail();
+    PROFCORE_CloseLog();
 }
 
 // 0x0044B430

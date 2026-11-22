@@ -37,7 +37,7 @@ D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom,
 
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetRoofTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pRoofCount);
 
-void __stdcall sub_0064C580_ClearTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0064C580
+void __stdcall COLLISION_ClearTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0064C580
 
 #define MASK_NO_PATH 0x1000
 
@@ -57,8 +57,8 @@ void __fastcall COLLISION_SetCollisionMaskForBoundingBoxRecursively(D2ActiveRoom
 
 static void __stdcall sub_0064DDB0(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);
 
-// build: symbol ?sub_6FD411F0@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z 0x0064C4C0
-static void __stdcall sub_6FD411F0(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
+// build: symbol ?COLLISION_AddTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z 0x0064C4C0
+static void __stdcall COLLISION_AddTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
     {
@@ -124,7 +124,7 @@ static void __stdcall sub_0064C700_SetCollisionMaskRect(D2RoomCollisionGridStrc*
 }
 
 // 0x0064C790
-static void __stdcall sub_6FD413E0(D2RoomCollisionGridStrc* pCollisionGrid, D2RoomCollisionGridStrc* pAdjacentCollisionGrid, D2DrlgTileDataStrc* pTiles, int nTiles, int bRemoveOldFlags)
+static void __stdcall COLLISION_ApplyAdjacentRoomTileCollision(D2RoomCollisionGridStrc* pCollisionGrid, D2RoomCollisionGridStrc* pAdjacentCollisionGrid, D2DrlgTileDataStrc* pTiles, int nTiles, int bRemoveOldFlags)
 {
     for (int i = 0; i < nTiles; ++i)
     {
@@ -138,7 +138,7 @@ static void __stdcall sub_6FD413E0(D2RoomCollisionGridStrc* pCollisionGrid, D2Ro
             if (bRemoveOldFlags)
                 sub_0064C640_SetTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTiles[i].pTile);
             else
-                sub_6FD411F0(pCollisionGrid, nRelX, nRelY, pTiles[i].pTile);
+                COLLISION_AddTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTiles[i].pTile);
 
             int nFlags = 0;
             if (pTiles[i].dwFlags & 2)
@@ -153,7 +153,7 @@ static void __stdcall sub_6FD413E0(D2RoomCollisionGridStrc* pCollisionGrid, D2Ro
     }
 }
 
-void __fastcall sub_0064C860(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileData, D2TileLibraryEntryStrc* pTileLibraryEntry)
+void __fastcall COLLISION_ReplaceTileCollision(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileData, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (!pRoom)
         return;
@@ -171,9 +171,9 @@ void __fastcall sub_0064C860(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileD
         return;
     const int nRelX = nX - pCollisionGrid->pRoomCoords.nSubtileX;
     const int nRelY = nY - pCollisionGrid->pRoomCoords.nSubtileY;
-    sub_0064C580_ClearTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTileData->pTile);
+    COLLISION_ClearTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTileData->pTile);
     if (pTileLibraryEntry)
-        sub_6FD411F0(pCollisionGrid, nRelX, nRelY, pTileLibraryEntry);
+        COLLISION_AddTileCollisionFlags(pCollisionGrid, nRelX, nRelY, pTileLibraryEntry);
 }
 
 void __fastcall COLLISION_AllocRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc* pRoom)
@@ -197,11 +197,11 @@ void __fastcall COLLISION_AllocRoomCollisionGrid(void* pMemPool, D2ActiveRoomStr
     {
         D2RoomCollisionGridStrc* pAdjacentCollisionGrid = DUNGEON_GetCollisionGridFromRoom(ppRoomList[i]);
         D2DrlgTileDataStrc* pTileData = sub_00619660_GetFloorTiles(ppRoomList[i], &nTiles);
-        sub_6FD413E0(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
+        COLLISION_ApplyAdjacentRoomTileCollision(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
         pTileData = sub_006196A0_GetWallTiles(ppRoomList[i], &nTiles);
-        sub_6FD413E0(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
+        COLLISION_ApplyAdjacentRoomTileCollision(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
         pTileData = DUNGEON_GetRoofTilesFromRoom(ppRoomList[i], &nTiles);
-        sub_6FD413E0(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
+        COLLISION_ApplyAdjacentRoomTileCollision(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
     }
 }
 

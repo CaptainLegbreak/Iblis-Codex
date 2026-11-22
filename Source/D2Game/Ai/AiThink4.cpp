@@ -221,7 +221,7 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 
 int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
 
-int __stdcall sub_006459F0(int nSkillId, int nSkillLevel); // 0x006459F0
+int __stdcall SKILLS_GetShiftedManaCosts(int nSkillId, int nSkillLevel); // 0x006459F0
 
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
@@ -714,7 +714,7 @@ int __fastcall ACT5Q2_CheckWussieCounters(D2GameStrc*,D2UnitStrc*); // 0x0058883
 
 void __fastcall ACT5Q2_UpdateWussieCounters(D2GameStrc*,int,D2UnitStrc*); // 0x00588880
 
-void __stdcall sub_00648730(D2DynamicPathStrc*); // 0x00648730
+void __stdcall PATH_ClearPathingFlagAndPoints(D2DynamicPathStrc*); // 0x00648730
 
 D2UnitStrc* __fastcall sub_6FCCFD70(D2GameStrc*,D2UnitStrc*,int*); // 0x005DDF20
 
@@ -782,9 +782,9 @@ extern "C" const D2CoordStrc gDesertTurretOffsets_006E33A0[8]; // 0x006E33A0
 
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
 
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
-extern "C" void __stdcall sub_00648AD0(Obj00648AD0* pObj, unsigned short wA, unsigned short wB); // 0x00648AD0
+extern "C" void __stdcall PATH_SetTargetPos(Obj00648AD0* pObj, unsigned short wA, unsigned short wB); // 0x00648AD0
 
 void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058ED10
 
@@ -1395,7 +1395,7 @@ int __fastcall sub_005F3960_IsMonster76Alive(D2UnitStrc* pUnit); // 0x005F3960
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
-void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
+void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
@@ -1458,7 +1458,7 @@ void __fastcall sub_6FCE34B0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*); // 0
 
 D2RoomCoordListStrc* __stdcall D2Common_10096(D2ActiveRoomStrc*, int, int); // 0x0061AD30
 
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char, unsigned int*, unsigned int*); // 0x0063E7E0
+void __stdcall INVENTORY_GetDirectionDelta(unsigned char, unsigned int*, unsigned int*); // 0x0063E7E0
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc*); // 0x0064C040
 
@@ -2020,7 +2020,7 @@ void __fastcall AITHINK_Fn094_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit,
     const int nUnitY = GetYInl_Desert(pUnit);
     const int nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nTargetX, nTargetY);
     const int nIndex1 = pAiControl->dwAiParam[2] % 8;
-    const int nIndex2 = sub_0063E7A0_GetByteTableEntry(nDirection) % 8;
+    const int nIndex2 = INVENTORY_GetEightWayDirection(nDirection) % 8;
     pAiControl->dwAiParam[2] = gnDesertTurretIndices_006E33E0[nIndex1 + 8 * nIndex2];
 
     const int nSpread = AITHINK_GetParam_Desert(pGame, pMonStatsTxt, 4);
@@ -2033,7 +2033,7 @@ void __fastcall AITHINK_Fn094_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit,
         && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, nX, nY);
-        sub_00648AD0((Obj00648AD0*)pUnit->pDynamicPath, nX, nY);
+        PATH_SetTargetPos((Obj00648AD0*)pUnit->pDynamicPath, nX, nY);
 
         ++pAiControl->dwAiParam[1];
 
@@ -3553,12 +3553,12 @@ int __fastcall sub_005E3930_MovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
     case 0:
     {
         unsigned char nDirection = UNITS_GetDirectionToCoords(pPlayer,nOwnerX,nOwnerY);
-        nDirection = sub_0063E7A0_GetByteTableEntry(nDirection);
+        nDirection = INVENTORY_GetEightWayDirection(nDirection);
         D2CoordListStrc* pCoords = sub_0061B130_GetCoordList(UNITS_GetRoom(pPlayer),CLIENTS_GetUnitX(pPlayer),CLIENTS_GetUnitY(pPlayer));
         for (int i=0;i<8;++i)
         {
             int nDeltaX, nDeltaY;
-            sub_0063E7E0_GetDirectionDelta(gnPetDirections_006E34F0[nDirection],(unsigned int*)&nDeltaX,(unsigned int*)&nDeltaY);
+            INVENTORY_GetDirectionDelta(gnPetDirections_006E34F0[nDirection],(unsigned int*)&nDeltaX,(unsigned int*)&nDeltaY);
             const int nX=nOwnerX+8*nDeltaX;
             const int nY=nOwnerY+8*nDeltaY;
             if (sub_0061B130_GetCoordList(UNITS_GetRoom(pPlayer),nX,nY)==pCoords)
@@ -3744,12 +3744,12 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
     case 0:
         {
             unsigned char nDirection = UNITS_GetDirectionToCoords(pOwner, nLastX, nLastY);
-            nDirection = sub_0063E7A0_GetByteTableEntry(nDirection);
+            nDirection = INVENTORY_GetEightWayDirection(nDirection);
             int nCollision = D2Common_10095(UNITS_GetRoom(pOwner), CLIENTS_GetUnitX(pOwner), CLIENTS_GetUnitY(pOwner));
             for (int i = 0; i < 8; ++i) {
                 unsigned int nOffsetX;
                 unsigned int nOffsetY;
-                sub_0063E7E0_GetDirectionDelta(gnPetDirections[nDirection], &nOffsetX, &nOffsetY);
+                INVENTORY_GetDirectionDelta(gnPetDirections[nDirection], &nOffsetX, &nOffsetY);
                 nTargetX = nLastX + 8 * nOffsetX;
                 nTargetY = nLastY + 8 * nOffsetY;
                 if (D2Common_10095(UNITS_GetRoom(pOwner), nTargetX, nTargetY) == nCollision) {
@@ -4835,7 +4835,7 @@ bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
         {
             if (pUnit->pDynamicPath)
             {
-                sub_00648730(pUnit->pDynamicPath);
+                PATH_ClearPathingFlagAndPoints(pUnit->pDynamicPath);
             }
 
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 8);
@@ -4878,7 +4878,7 @@ bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
         return true;
     }
 
-    sub_00648730(pUnit->pDynamicPath);
+    PATH_ClearPathingFlagAndPoints(pUnit->pDynamicPath);
     if (!pAiControl->dwAiParam[1])
     {
         pAiControl->dwAiParam[1] = 60;
@@ -7176,7 +7176,7 @@ int __fastcall sub_005EAD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pT
                 return 1;
             }
 
-            const int nValue = sub_006459F0(nSkillId, nSkillLevel);
+            const int nValue = SKILLS_GetShiftedManaCosts(nSkillId, nSkillLevel);
             D2SeedStrc* pSeed = &pUnit->pSeed;
             if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) > 100 - nValue * 160 / 100)
             {
@@ -8822,7 +8822,7 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
         if (pPortal && (ACT5Q2_CheckWussieCounters(pGame,pUnit) || (unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit,CLIENTS_GetUnitX(pPortal),CLIENTS_GetUnitY(pPortal)) < 4))
         {
             ACT5Q2_UpdateWussieCounters(pGame,0,pUnit);
-            sub_00648730(pUnit->pDynamicPath);
+            PATH_ClearPathingFlagAndPoints(pUnit->pDynamicPath);
             sub_00540E60(pGame,pUnit,2,0);
             const int nUnitId = pUnit->dwUnitId;
             const int nUnitType = pUnit->dwUnitType;
@@ -9071,7 +9071,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             PATH_SetType(pPath, PATHTYPE_TOWARD);
             D2Common_10142(pPath, pUnit, 0);
 
-            if (!sub_00648780_pointCount(pPath))
+            if (!PATH_GetNumberOfPathPoints(pPath))
             {
                 pTarget = pTemp;
                 nMax = nTemp;
@@ -11418,7 +11418,7 @@ void __fastcall sub_005F39B0_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
             if (pStatList)
             {
                 STATLIST_SetStatIfListIsValid(pStatList, STAT_ITEM_MAGICBONUS, 50 * (pGame->nDifficulty + 1), 0);
-                sub_006260B0(pStatList, nExpireFrame);
+                STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
                 sub_005417D0_DirectDated(pGame, pTarget, 12, nExpireFrame, 0, 0);
                 D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);
             }
@@ -14147,7 +14147,7 @@ void __fastcall AITHINK_Fn066_SandMaggotQueen(D2GameStrc* pGame, D2UnitStrc* pUn
 int __fastcall sub_005F9E30_VileMotherSpawnDirection(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2MonStatsTxt* pMonStatsTxt)
 {
     unsigned char nIndex = UNITS_GetDirectionToCoords(pUnit, CLIENTS_GetUnitXInline_005E17E0(pTarget), CLIENTS_GetUnitYInline_005E17E0(pTarget));
-    nIndex = sub_0063E7A0_GetByteTableEntry(nIndex);
+    nIndex = INVENTORY_GetEightWayDirection(nIndex);
     const unsigned char nIndices[8] = { 6, 4, 2, 2, 2, 0, 6, 6 };
 
     for (int i = 0; i < 8; ++i)
@@ -14156,7 +14156,7 @@ int __fastcall sub_005F9E30_VileMotherSpawnDirection(D2GameStrc* pGame, D2UnitSt
 
         int nX;
         int nY;
-        sub_0063E7E0_GetDirectionDelta(nIndices[nIndex], (unsigned int*)&nX, (unsigned int*)&nY);
+        INVENTORY_GetDirectionDelta(nIndices[nIndex], (unsigned int*)&nX, (unsigned int*)&nY);
 
         const int nFinalX = 3 * nX + CLIENTS_GetUnitXInline_005E17E0(pUnit);
         const int nFinalY = 3 * nY + CLIENTS_GetUnitYInline_005E17E0(pUnit);

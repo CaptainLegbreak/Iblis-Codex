@@ -2992,7 +2992,7 @@ int __cdecl sub_0052E080()
 }
 
 // 0x0052E090
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
+int __stdcall SKILLS_Return0(int nUnused)
 {
     return 0;
 }
@@ -3058,7 +3058,7 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
 }
 
 // 0x0052E100
-char* __fastcall sub_00416800_LinkRawNext(D2StormLinkStrc* pLink)
+char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
 {
     return pLink->m_next;
 }

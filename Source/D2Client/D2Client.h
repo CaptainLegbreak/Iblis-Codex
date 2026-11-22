@@ -83,7 +83,7 @@ D2BitBufferStrc* __cdecl sub_004B32E0_GetQuestHistory(); // 0x004B32E0
 D2CacheStatsStrc* __cdecl sub_004F5290_GetCacheStats(); // 0x004F5290
 D2ClientServiceStrc* __cdecl sub_00518C10(); // 0x00518C10
 D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry(); // 0x004B93F0
-D2CommonIgnoreListStrc* sub_00611560_GetOrCreateIgnoreList(); // 0x00611560
+D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
 D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x00619660
 D2HoverTextStrc* __stdcall CHAT_AllocHoverMsg(void* pMemoryPool, const char* szText, int nGameFrame); // 0x00661110
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
@@ -662,7 +662,7 @@ int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirection
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 int __stdcall sub_0061A1D0_GetTileLevelId(D2ActiveRoomStrc* pRoom, int nClassId); // 0x0061A1D0
-int __stdcall sub_0061AB30(D2ActiveRoomStrc* pRoom); // 0x0061AB30
+int __stdcall DUNGEON_GetActNoFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AB30
 int __stdcall sub_0061B130_GetCollision(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061B130
 int __stdcall sub_00621050(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
 int __stdcall sub_006217C0(D2UnitStrc* pUnit); // 0x006217C0
@@ -670,7 +670,7 @@ int __stdcall sub_00622270_GetHoverOffset(D2UnitStrc* pUnit); // 0x00622270
 int __stdcall sub_0062A130(D2UnitStrc* pItem); // 0x0062A130
 int __stdcall sub_0062BA80_CheckItem(D2UnitStrc* pItem); // 0x0062BA80
 int __stdcall sub_0062C100(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned char* pShift, int nArg); // 0x0062C100
-int __stdcall sub_0062C590(D2UnitStrc* pItem); // 0x0062C590
+int __stdcall ITEMS_CanBeImbued(D2UnitStrc* pItem); // 0x0062C590
 int __stdcall sub_0062C6A0(D2UnitStrc* pItem); // 0x0062C6A0
 int __stdcall sub_0062C770(D2UnitStrc* pItem); // 0x0062C770
 int __stdcall sub_0062E660(D2UnitStrc* pItem); // 0x0062E660
@@ -683,7 +683,7 @@ int __stdcall sub_0063C830_CanPlaceInBelt(D2InventoryStrc* pInventory, D2UnitStr
 int __stdcall sub_0063E8D0(D2UnitStrc* pUnit, int nMode); // 0x0063E8D0
 int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 int __stdcall sub_00645080_GetSkillCharClass(int nSkillId, int* pCharClass); // 0x00645080
-int __stdcall sub_00645680_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x00645680
+int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 int __stdcall sub_00645950_CheckTargetPos(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950
 int __stdcall sub_00648E30_GetPathValue(D2DynamicPathStrc* pPath); // 0x00648E30
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A380
@@ -691,7 +691,7 @@ int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 int __stdcall sub_0064B2A0_GetMissileElementLength(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B2A0
 int __stdcall sub_0064F420_HasBodyLocFallback(int nBodyLoc); // 0x0064F420
 int __stdcall sub_0064F500_GetFallbackIndex(int nBodyLoc, unsigned char* pComponents); // 0x0064F500
-int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath); // 0x006505C0
+int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 int __stdcall sub_006BC8A0_SendBuffer(void* pConnection, const unsigned char* pBuffer, int nSize); // 0x006BC8A0
 int* __fastcall sub_004AE110_GetAiTimer(D2UnitStrc* pUnit); // 0x004AE110
@@ -706,7 +706,7 @@ unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit); // 0x00620100
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 unsigned char __stdcall sub_006283F0_GetInvGfxIndex(D2UnitStrc* pItem); // 0x006283F0
 unsigned char __stdcall sub_0062E8D0_HasAltInvGfx(D2UnitStrc* pItem); // 0x0062E8D0
-unsigned char __stdcall sub_0063EBD0_GetLightRadius(D2UnitStrc* pUnit); // 0x0063EBD0
+unsigned char __stdcall MONSTERS_GetMaximalLightRadius(D2UnitStrc* pUnit); // 0x0063EBD0
 unsigned char __stdcall sub_00648EA0_GetPathByte(D2DynamicPathStrc* pPath); // 0x00648EA0
 unsigned char* __fastcall sub_004DB110_GetLayerOrder(void* pGfx, int nA, int nFrame); // 0x004DB110
 unsigned int __cdecl sub_0044CE60_GetPing(); // 0x0044CE60
@@ -720,7 +720,7 @@ unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* pUnit, char* szName
 unsigned int __stdcall sub_00664930_GetMonComponentToken(int nClass, unsigned int nIndex, unsigned int nComponent); // 0x00664930
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
-unsigned short __stdcall sub_00661400(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
+unsigned short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...); // 0x004F6890
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 void __cdecl sub_00409B80(int nArg); // 0x00409B80
@@ -967,13 +967,13 @@ void __stdcall sub_00621C00_SetTargetPos(D2UnitStrc* pUnit, int nX, int nY); // 
 void __stdcall sub_00624390(D2UnitStrc* pUnit); // 0x00624390
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 void __stdcall sub_0063C550_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY); // 0x0063E7E0
+void __stdcall INVENTORY_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY); // 0x0063E7E0
 void __stdcall sub_0063EE10_GetMonsterDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY); // 0x0063EE10
 void __stdcall sub_00643310_MapToAutomapPos(int* pX, int* pY); // 0x00643310
 void __stdcall sub_00643340(int nX, int nY, int* pX, int* pY); // 0x00643340
 void __stdcall sub_00647AA0_SetSkillBonusLevel(D2UnitStrc* pUnit, int nSkillId, int nBonus); // 0x00647AA0
 void __stdcall sub_00648DC0(D2DynamicPathStrc* pPath); // 0x00648DC0
-void __stdcall sub_00648E70_SetDistance(D2DynamicPathStrc* pPath, int nDistance); // 0x00648E70
+void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pPath, int nDistance); // 0x00648E70
 void __stdcall sub_00649190_SetPathMode(D2UnitStrc* pUnit, int nMode); // 0x00649190
 void __stdcall sub_00649FF0(D2UnitStrc* pUnit, int nArg); // 0x00649FF0
 void __stdcall sub_0064A690_SetMissileAnimSpeed(D2UnitStrc* pMissile, int nSpeed); // 0x0064A690
@@ -1160,7 +1160,7 @@ struct D2ChatStormBaseArrayAStrc
     void* f_8;
 
     D2ChatStormBaseArrayAStrc();
-    unsigned int sub_0060E230_Count();
+    unsigned int IGNORELIST_GetStringSlotArrayCount();
 };
 
 struct D2ChatStormBaseArrayBStrc
@@ -1170,7 +1170,7 @@ struct D2ChatStormBaseArrayBStrc
     void* f_8;
 
     D2ChatStormBaseArrayBStrc();
-    unsigned int sub_0060E250_Count();
+    unsigned int IGNORELIST_GetMappingSlotArrayCount();
 };
 
 struct D2ChatStormCtorLinkStrc
@@ -1212,7 +1212,7 @@ struct D2ChatStormLinkStrc
             m_next = 0;
         }
     }
-    bool sub_0060E0C0_IsLinked();
+    bool IGNORELIST_IsLinkLinked();
     char* sub_0060E1A0_Next();
     char* sub_0060E240_Next();
     void sub_0060E3B0_Unlink();
@@ -1231,9 +1231,9 @@ struct D2ChatStormListAStrc
         m_terminator.m_prevlink = &m_terminator;
         m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
     }
-    void sub_0060E260_InitializeTerminator();
-    char* sub_0060E440_Head();
-    void sub_0060E5F0_Reset();
+    void IGNORELIST_InitStringListTerminator();
+    char* IGNORELIST_GetStringListHead();
+    void IGNORELIST_ResetStringList();
 };
 
 struct D2ChatStormHashTableStrc
@@ -1241,7 +1241,7 @@ struct D2ChatStormHashTableStrc
     void* m_pVTable;
     D2ChatStormListAStrc m_fulllist;
 
-    char* sub_0060E6D0_Head();
+    char* IGNORELIST_GetStringTableHead();
 };
 
 struct D2ChatStormLinkAStrc
@@ -1270,9 +1270,9 @@ struct D2ChatStormListBStrc
         m_terminator.m_prevlink = &m_terminator;
         m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
     }
-    void sub_0060E270_InitializeTerminator();
-    char* sub_0060E5D0_Head();
-    void sub_0060E610_Reset();
+    void IGNORELIST_InitMappingListTerminator();
+    char* IGNORELIST_GetMappingListHead();
+    void IGNORELIST_ResetMappingList();
 };
 
 struct D2ChatStormListCStrc
@@ -1306,7 +1306,7 @@ struct D2ChatStormNodeStrc
     D2ChatStormLinkStrc f_C;
     char* f_14;
 
-    char* sub_0060E0B0_GetKey();
+    char* IGNORELIST_GetStringEntryKey();
 };
 
 struct D2ChatTextStrc
@@ -1406,17 +1406,17 @@ struct D2CombinedStatsStrc
 
 struct D2CommonChatIgnoreListStrc
 {
-    virtual int sub_00610EB0_Add(const char* szName) = 0;
-    virtual int sub_0060FB20_Remove(const char* szName) = 0;
-    virtual int sub_00610380_IsListed(const char* szName) = 0;
+    virtual int IGNORELIST_AddName(const char* szName) = 0;
+    virtual int IGNORELIST_RemoveName(const char* szName) = 0;
+    virtual int IGNORELIST_IsListed(const char* szName) = 0;
     virtual void sub_00610F90_VirtSlot3() = 0;
-    virtual int sub_0060FBE0_RemoveAlias(const char* szName) = 0;
+    virtual int IGNORELIST_RemoveAlias(const char* szName) = 0;
     virtual int sub_0060FC40_IsTextFiltered(const char* szText) = 0;
     virtual void sub_00611320_VirtSlot6() = 0;
-    virtual void sub_0060F870_Translate(const char* szName, char* szOut, int nSize) = 0;
-    virtual int sub_0060DDF0_IsEnabled() = 0;
-    virtual void sub_0060DE00_SetEnabled(int bEnabled) = 0;
-    virtual void sub_0060F500_VirtSlot10() = 0;
+    virtual void IGNORELIST_TranslateAlias(const char* szName, char* szOut, int nSize) = 0;
+    virtual int IGNORELIST_IsEnabled() = 0;
+    virtual void IGNORELIST_SetEnabled(int bEnabled) = 0;
+    virtual void IGNORELIST_ClearAccountAliases() = 0;
 };
 
 struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
@@ -1442,8 +1442,8 @@ struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
 
 struct D2CommonStormHashTableAStrc
 {
-    void sub_0060EB70_InternalClear(int bWarn);
-    void sub_0060ED60_Clear();
+    void IGNORELIST_InternalClearStringTable(int bWarn);
+    void IGNORELIST_ClearStringTable();
 };
 
 struct D2CommonStormSlotLinkStrc
@@ -1501,7 +1501,7 @@ struct D2CommonStringEntryNodeStrc
     char* f_14;
 
     ~D2CommonStringEntryNodeStrc();
-    void sub_0060EE30_Destroy();
+    void IGNORELIST_DestroyStringEntryNode();
 };
 
 struct D2CompArgStrc

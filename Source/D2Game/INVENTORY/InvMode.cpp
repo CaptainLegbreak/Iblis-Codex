@@ -86,9 +86,9 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 D2InventoryNodeStrc* __stdcall INVENTORY_GetTradeInventory(D2InventoryStrc* pInventory); // 0x0063CBB0
 
-D2InventoryNodeStrc* __stdcall sub_0063CD20(D2InventoryNodeStrc* pNode); // 0x0063CD20
+D2InventoryNodeStrc* __stdcall INVENTORY_GetNextNode(D2InventoryNodeStrc* pNode); // 0x0063CD20
 
-int __stdcall sub_0063CD40(D2InventoryNodeStrc* pNode); // 0x0063CD40
+int __stdcall INVENTORY_GetItemGUIDFromNode(D2InventoryNodeStrc* pNode); // 0x0063CD40
 
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 
@@ -358,7 +358,7 @@ void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUn
 
     do
     {
-        D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, sub_0063CD40(pNode));
+        D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, INVENTORY_GetItemGUIDFromNode(pNode));
         if (pItem)
         {
             sub_6FC410E0(pUnit, pItem, 0, pClient);
@@ -367,9 +367,9 @@ void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUn
             {
                 D2_ASSERT(pItem->pInventory, 264);
 
-                for (D2InventoryNodeStrc* i = INVENTORY_GetTradeInventory(pItem->pInventory); i; i = sub_0063CD20(i))
+                for (D2InventoryNodeStrc* i = INVENTORY_GetTradeInventory(pItem->pInventory); i; i = INVENTORY_GetNextNode(i))
                 {
-                    D2UnitStrc* pNestedItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, sub_0063CD40(i));
+                    D2UnitStrc* pNestedItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, INVENTORY_GetItemGUIDFromNode(i));
                     if (pNestedItem)
                     {
                         sub_6FC410E0(pUnit, pItem, pNestedItem, pClient);
@@ -378,7 +378,7 @@ void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUn
             }
         }
 
-        pNode = sub_0063CD20(pNode);
+        pNode = INVENTORY_GetNextNode(pNode);
     }
     while (pNode);
 
@@ -429,8 +429,8 @@ int __fastcall sub_00597A20_IsBusy(D2GameStrc* game, D2UnitStrc* unit)
         D2InventoryNodeStrc* node = INVENTORY_GetTradeInventory(unit->pInventory);
         while (node)
         {
-            D2UnitStrc* item = SUNIT_GetServerUnit(game, 4, sub_0063CD40(node));
-            D2InventoryNodeStrc* next = sub_0063CD20(node);
+            D2UnitStrc* item = SUNIT_GetServerUnit(game, 4, INVENTORY_GetItemGUIDFromNode(node));
+            D2InventoryNodeStrc* next = INVENTORY_GetNextNode(node);
             if (item)
             {
                 return 1;
@@ -477,9 +477,9 @@ void __fastcall D2GAME_INVMODE_Last_6FC416D0(D2GameStrc* pGame, D2UnitStrc* pUni
 
     UNITS_RefreshInventory(pUnit, 0);
 
-    for (D2InventoryNodeStrc* pInventoryNode = INVENTORY_GetTradeInventory(pInventory); pInventoryNode; pInventoryNode = sub_0063CD20(pInventoryNode))
+    for (D2InventoryNodeStrc* pInventoryNode = INVENTORY_GetTradeInventory(pInventory); pInventoryNode; pInventoryNode = INVENTORY_GetNextNode(pInventoryNode))
     {
-        D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, sub_0063CD40(pInventoryNode));
+        D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, INVENTORY_GetItemGUIDFromNode(pInventoryNode));
         if (pItem)
         {
             if (ITEMS_CheckItemCMDFlag(pItem, 0x10) || ITEMS_CheckItemCMDFlag(pItem, 0x4000))
@@ -501,9 +501,9 @@ void __fastcall D2GAME_INVMODE_Last_6FC416D0(D2GameStrc* pGame, D2UnitStrc* pUni
                 D2InventoryStrc* pItemInventory = pItem->pInventory;
                 D2_ASSERT(pItemInventory, 420);
 
-                for (D2InventoryNodeStrc* i = INVENTORY_GetTradeInventory(pItemInventory); i; i = sub_0063CD20(i))
+                for (D2InventoryNodeStrc* i = INVENTORY_GetTradeInventory(pItemInventory); i; i = INVENTORY_GetNextNode(i))
                 {
-                    D2UnitStrc* pNestedItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, sub_0063CD40(i));
+                    D2UnitStrc* pNestedItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, INVENTORY_GetItemGUIDFromNode(i));
                     if (pNestedItem)
                     {
                         D2GAME_ResetSomeItemFlags_6FC415F0(pGame, pNestedItem);

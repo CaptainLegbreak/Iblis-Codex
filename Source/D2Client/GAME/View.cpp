@@ -326,7 +326,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 void __stdcall DUNGEON_ClientSubileDrawPositionToGameCoords(int nX, int nY, int* pX, int* pY); // 0x00643400
 
@@ -2140,7 +2140,7 @@ void __fastcall sub_004DC580_DrawUnitClickCross(D2UnitStrc* pUnit)
     D2_ASSERT(pUnit, 0x61);
     int nX = pUnit->nLastClickX;
     int nY = pUnit->nLastClickY;
-    sub_00643260(&nX, &nY);
+    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
     D2GFX_DrawLine(nX - sub_0045AFC0(), nY - sub_0045AFD0_GetMouseYOffset(), nX - sub_0045AFC0() + 0x10, nY - sub_0045AFD0_GetMouseYOffset() + 8, 0xFF, 0xFF);
     D2GFX_DrawLine(nX - sub_0045AFC0(), nY - sub_0045AFD0_GetMouseYOffset(), nX - sub_0045AFC0() - 0x10, nY - sub_0045AFD0_GetMouseYOffset() + 8, 0xFF, 0xFF);
     D2GFX_DrawLine(nX - sub_0045AFC0() - 0x10, nY - sub_0045AFD0_GetMouseYOffset() + 8, nX - sub_0045AFC0(), nY - sub_0045AFD0_GetMouseYOffset() + 0x10, 0xFF, 0xFF);

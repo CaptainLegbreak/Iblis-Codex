@@ -359,7 +359,7 @@ void __fastcall sub_004CC5B0_UpdateUnitSound(D2UnitStrc*, int, int); // 0x004CC5
 int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc*); // 0x0063A400
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc*, D2UnitStrc**); // 0x0063C8F0
 void __stdcall PATH_SetType(D2DynamicPathStrc*, int); // 0x00648CF0
-void __stdcall sub_00648E40_SetByte90(D2DynamicPathStrc*, unsigned char); // 0x00648E40
+void __stdcall PATH_SetDist(D2DynamicPathStrc*, unsigned char); // 0x00648E40
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int, int); // 0x0064F380
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3); // 0x00649970
@@ -457,7 +457,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         pUnit->dwLastHitClass = pTarget->nParam;
         PATH_RecacheRoomIfNeeded(pPath);
         PATH_SetType(pPath, 11);
-        sub_00648E40_SetByte90(pPath, 5);
+        PATH_SetDist(pPath, 5);
         D2COMMON_10170_PathSetTargetPos(pPath, pTarget->nX, pTarget->nY);
         D2Common_10142(pPath, pUnit, 0);
         sub_00480E70_SetUnitMode(pUnit, 19);

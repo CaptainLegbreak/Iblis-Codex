@@ -104,7 +104,7 @@ void __fastcall DATATBLS_UnloadBeltsTxt()
 }
 
 // 0x00660C70
-static D2BeltsTxt* sub_00660C70(int nIndex)
+static D2BeltsTxt* DATATBLS_GetBeltsTxtRecordFromIndex(int nIndex)
 {
     BELTS_ASSERT(sgptBeltInitStats, 121);
     D2BeltsTxt* pBeltsTxtRecord = &sgptBeltInitStats[nIndex];
@@ -122,7 +122,7 @@ void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int bHigherRes, D2BeltsTxt
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2InvRectStrc* pInvRect, int nBoxId)
 {
     // volatile: the original computes the record index before the table check
-    D2BeltsTxt* pBeltsTxtRecord = sub_00660C70(nIndex + 7 * static_cast<const volatile int&>(bHigherRes));
+    D2BeltsTxt* pBeltsTxtRecord = DATATBLS_GetBeltsTxtRecordFromIndex(nIndex + 7 * static_cast<const volatile int&>(bHigherRes));
     const D2InvRectStrc* pBoxStats = &pBeltsTxtRecord->beltBoxes[nBoxId];
     BELTS_ASSERT(pBoxStats, 143);
 

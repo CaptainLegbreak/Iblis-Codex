@@ -137,7 +137,7 @@ void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2);
 D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue);
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);
 int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
@@ -278,7 +278,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(int* pUseState, D2SkillStrc** pp
     if (pUseState)
         *pUseState = nUseState;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(*ppSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(*ppSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -520,7 +520,7 @@ static void __stdcall sub_00461C70_UseSkillOnTarget(int nArg1, int nArg2, D2Play
         D2SkillStrc* pSkill = pCmd->pSkill;
         if (pSkill)
         {
-            D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+            D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
             if (pSkillsTxt && pSkillsTxt->wSrvDoFunc == 0x13)
             {
                 sub_00461B40_ApproachForAura(pCmd, nArg1, nArg2);
@@ -730,7 +730,7 @@ static int sub_004621D0_PrepareCommand(D2PlayerCmdStrc* pCmd)
     const int nResult = D2Common_11016(pCmd->pPlayer, pCmd->pSkill);
     if (pCmd->pSkill && (pCmd->dwFlags & 2) && nResult != 1)
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pCmd->pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pCmd->pSkill);
         if (!pSkillsTxt)
             return 0;
 
@@ -894,7 +894,7 @@ static void sub_004625B0_ExecuteCommand(D2PlayerCmdStrc* pCmd)
     D2SkillsTxt* pSkillsTxt = 0;
     if (*ppSkill)
     {
-        pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(*ppSkill);
+        pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(*ppSkill);
         if (!pSkillsTxt)
             goto no_target;
     }
@@ -960,7 +960,7 @@ with_target:
             D2SkillStrc* pSkill = *ppSkill;
             if (pSkill)
             {
-                D2SkillsTxt* pTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+                D2SkillsTxt* pTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
                 if (pTxt && (pTxt->nFlags[3] & gdwBitMasks[3]))
                 {
                     if (!sub_004610C0_CheckSkillUse(0, ppSkill, pCmd->pPlayer))

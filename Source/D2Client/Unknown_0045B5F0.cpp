@@ -35,7 +35,7 @@ struct D2RoomCoordListStrc
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pWallCount); // 0x006196A0
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 D2RoomCoordListStrc* __stdcall DUNGEON_GetRoomCoordList(D2ActiveRoomStrc* pRoom); // 0x0061AD50
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
 int __stdcall TileGetFlags(D2TileLibraryEntryStrc* pTile); // 0x00604BC0
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
@@ -144,7 +144,7 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
 
         int nX = (pTile->nPosX + tCoords.nTileXPos) * 5 + 3;
         int nY = (pTile->nPosY + tCoords.nTileYPos) * 5 + 3;
-        sub_00643260(&nX, &nY);
+        DUNGEON_GameSubtileToClientCoords(&nX, &nY);
 
         if (pTile->nTileType == 15 || (pTile->dwFlags & 0x1C000) != 0x4000)
         {

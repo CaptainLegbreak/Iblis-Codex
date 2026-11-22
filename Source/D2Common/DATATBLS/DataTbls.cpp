@@ -68,8 +68,8 @@ extern int gnSkillDescCodeSize_0096BC80; // 0x0096BC80
 extern int gnSkillDescCodeSizeEx_0096BC84; // 0x0096BC84
 int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize); // 0x006118B0
 int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey); // 0x00611930
-int __fastcall sub_006119E0_SkillsCalcParamCount(int nValue); // 0x006119E0
-int __fastcall sub_006119F0_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber); // 0x006119F0
+int __fastcall DATATBLS_GetSkillsCalcParamCount(int nValue); // 0x006119E0
+int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber); // 0x006119F0
 int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOutBuffer, int nOutBufferSize, int (__fastcall* pfnKeywordToNumber)(char*), int (__fastcall* pfnGetParameterCount)(int), int (__fastcall* pfnLinkParse)(char*, int*, int, int)); // 0x006C1AE0
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
@@ -177,7 +177,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gnDifficultylevelsTxtRecordCount; // 0x0096C8B0
 extern D2ObjectsTxt* gpObjectsTxt; // 0x0096D470
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
-int __stdcall sub_00625350(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
+int __stdcall STATLIST_GetBaseStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
 int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
 int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem); // 0x0062A8D0
@@ -187,7 +187,7 @@ D2ActiveRoomStrc* __stdcall PATH_GetRoom(D2DynamicPathStrc* pDynamicPath); // 0x
 void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory, char* szPath, int* pWeaponClassCode, int a8, int a9); // 0x0064F5B0
 void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem); // 0x0065E4D0
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-void* __fastcall sub_00612280_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, int* pSize, const char* szFile, int nLine); // 0x00612280
+void* __fastcall DATATBLS_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, int* pSize, const char* szFile, int nLine); // 0x00612280
 extern "C" const char szBinExtension_006DCC68[]; // 0x006DCC68
 extern int gbCompileTxt; // 0x0096C8B4
 extern D2TxtLinkStrc* gpStatesLinker_0096BCF0; // 0x0096BCF0
@@ -296,12 +296,12 @@ void __fastcall DATATBLS_LoadMonModeTxt(void* hArchive); // 0x0065AEF0
 void __fastcall DATATBLS_LoadObjType_ModeTxt(void* hArchive); // 0x0065B1B0
 void __fastcall DATATBLS_LoadCompositTxt(void* hArchive); // 0x0065B2E0
 void __fastcall DATATBLS_LoadArmTypeTxt(void* hArchive); // 0x0065B350
-void __stdcall sub_00613D30(void* hArchive); // 0x00613D30
+void __stdcall DATATBLS_LoadExperienceTxt(void* hArchive); // 0x00613D30
 void* __fastcall DATATBLS_LoadAnimDataD2(void* hArchive); // 0x0066A770
 void __fastcall DATATBLS_LoadSomeMonsterTxts(void* hArchive); // 0x0065A400
 void __fastcall DATATBLS_LoadLevelsTxt(void* hArchive); // 0x0061C540
 void __fastcall DATATBLS_LoadLevelDefsBin(void* hArchive); // 0x0061DE00
-void __fastcall sub_0061E520(void* hArchive); // 0x0061E520
+void __fastcall DATATBLS_LoadLevelTypesTxt(void* hArchive); // 0x0061E520
 void __fastcall DATATBLS_AllocGlobalTileLibraryHash(void* hArchive); // 0x0061FAE0
 void __fastcall DATATBLS_LoadLvlWarpTxt(void* hArchive); // 0x0061F130
 void __fastcall DATATBLS_LoadLvlMazeTxt(void* hArchive); // 0x0061F380
@@ -318,7 +318,7 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive); // 0x00669130
 void __stdcall DATATBLS_LoadDifficultyLevelsTxt(void* hArchive); // 0x00617D90
 void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles); // 0x0061EBB0
 void __fastcall DATATBLS_LoadLvlSubTxt(void* hArchive, int a2, int a3); // 0x0061F500
-void __fastcall sub_00659C30(); // 0x00659C30
+void __fastcall DATATBLS_UnloadSoundsTxt(); // 0x00659C30
 extern D2TxtLinkStrc* gpCompCodeLinker_0096BCB0; // 0x0096BCB0
 extern D2TxtLinkStrc* gpPlayerClassLinker_0096BC34; // 0x0096BC34
 extern D2TxtLinkStrc* gpElemTypesLinker_0096BC4C; // 0x0096BC4C
@@ -330,7 +330,7 @@ extern D2TxtLinkStrc* gpEventsLinker_0096BCA8; // 0x0096BCA8
 extern "C" const char gszTxtField_int[]; // 0x006E67EC
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 extern D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
-void __fastcall sub_00612600(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength); // 0x00612600
+void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength); // 0x00612600
 
 enum
 {
@@ -345,9 +345,9 @@ enum
 };
 
 extern "C" const char gszTxtField_exp[]; // 0x006E7B3C
-void __fastcall sub_00611D60_BuildStateMask(unsigned int* pMask, int nFlag); // 0x00611D60
-void __fastcall sub_00611DC0_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag); // 0x00611DC0
-void __fastcall sub_00611E60_BuildStateListByField(short** ppList, short* pnCount, int nFieldOffset); // 0x00611E60
+void __fastcall DATATBLS_BuildStateMask(unsigned int* pMask, int nFlag); // 0x00611D60
+void __fastcall DATATBLS_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag); // 0x00611DC0
+void __fastcall DATATBLS_BuildStateListByField(short** ppList, short* pnCount, int nFieldOffset); // 0x00611E60
 
 int gnStatesTxtRecordCount; // 0x0096BCF4
 
@@ -378,7 +378,7 @@ int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSiz
 }
 
 // 0x00611DC0
-void __fastcall sub_00611DC0_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag)
+void __fastcall DATATBLS_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag)
 {
     *ppList = (short*)FOG_AllocPool(0, sizeof(short) * gnStatesTxtRecordCount, ".\\DATATBLS\\DataTbls.cpp", 1611, 0);
     memset(*ppList, 0, sizeof(short) * gnStatesTxtRecordCount);
@@ -395,7 +395,7 @@ void __fastcall sub_00611DC0_BuildStateListByFlag(short** ppList, short* pnCount
 }
 
 // 0x00611E60
-void __fastcall sub_00611E60_BuildStateListByField(short** ppList, short* pnCount, int nFieldOffset)
+void __fastcall DATATBLS_BuildStateListByField(short** ppList, short* pnCount, int nFieldOffset)
 {
     *ppList = (short*)FOG_AllocPool(0, sizeof(short) * gnStatesTxtRecordCount, ".\\DATATBLS\\DataTbls.cpp", 1634, 0);
     memset(*ppList, 0, sizeof(short) * gnStatesTxtRecordCount);
@@ -470,7 +470,7 @@ void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset,
         return;
     }
 
-    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, sub_006119E0_SkillsCalcParamCount, sub_006119F0_SkillsCalcParamCallback);
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, DATATBLS_GetSkillsCalcParamCount, DATATBLS_SkillsCalcParamCallback);
     if (nBufferSize <= 0)
     {
         *(int*)((char*)pRecord + nOffset) = -1;
@@ -496,7 +496,7 @@ void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOff
         return;
     }
 
-    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, sub_006119E0_SkillsCalcParamCount, sub_006119F0_SkillsCalcParamCallback);
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, DATATBLS_GetSkillsCalcParamCount, DATATBLS_SkillsCalcParamCallback);
     if (nBufferSize <= 0)
     {
         *(int*)((char*)pRecord + nOffset) = -1;
@@ -544,7 +544,7 @@ int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey)
 }
 
 // 0x006119E0
-int __fastcall sub_006119E0_SkillsCalcParamCount(int nValue)
+int __fastcall DATATBLS_GetSkillsCalcParamCount(int nValue)
 {
     return (nValue == 6) + 2;
 }
@@ -587,7 +587,7 @@ static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
 }
 
 // 0x006119F0
-int __fastcall sub_006119F0_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber)
+int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber)
 {
     char szCode[4];
     if (nType == 1)
@@ -758,7 +758,7 @@ D2SkillStrc* __stdcall UNITS_GetSkillFromSkillId(D2UnitStrc* hUnit, int nSkillId
 }
 
 // 0x006254F0
-int __stdcall sub_006254F0_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+int __stdcall STATLIST_GetTotalStatValueStub(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
 }
@@ -770,14 +770,14 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 }
 
 // 0x00625520
-int __stdcall sub_00625520_GetStatBonus(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+int __stdcall STATLIST_GetStatBonus(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     if (!pStatList)
     {
         return 0;
     }
 
-    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer) - sub_00625350(pStatList, nStatId, nLayer);
+    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer) - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
 }
 
 // 0x00625560
@@ -790,7 +790,7 @@ int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned
 
     D2StatListStrc* pStatList = pUnit->pStatListEx;
     int nValue = STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
-    return nValue - sub_00625350(pStatList, nStatId, nLayer);
+    return nValue - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
 }
 
 // 0x00625A50
@@ -861,7 +861,7 @@ static void DATATBLS_UnloadBinInline(void* pBinFile)
 }
 
 // 0x00611D60
-void __fastcall sub_00611D60_BuildStateMask(unsigned int* pMask, int nFlag)
+void __fastcall DATATBLS_BuildStateMask(unsigned int* pMask, int nFlag)
 {
     D2StatesTxt* pStatesTxt = gpStatesTxt;
     for (int i = 0; i < gnStatesTxtRecordCount; ++i)
@@ -887,7 +887,7 @@ void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, vo
         }
         FOG_FreePool(0, *ppFileHandle, ".\\DATATBLS\\DataTbls.cpp", 0x275, 0);
     }
-    *ppFileHandle = sub_00612280_ReadExcelFile(hArchive, szFile, szBinExtension_006DCC68, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
+    *ppFileHandle = DATATBLS_ReadExcelFile(hArchive, szFile, szBinExtension_006DCC68, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
     *pSizeEx = nSize;
     *pSize = nSize;
 }
@@ -968,7 +968,7 @@ void __fastcall DATATBLS_UnloadStatesTxt()
 }
 
 // 0x00611EE0
-static void sub_00611EE0_PlayerName(char* buffer, int length, int id)
+static void DATATBLS_GetPlayerClassDebugName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
     if (id >= 0 && id < gVar_00744304->playerCount)
@@ -986,7 +986,7 @@ static void sub_00611EE0_PlayerName(char* buffer, int length, int id)
 }
 
 // 0x00611F40
-static void sub_00611F40_MonsterName(char* buffer, int length, int id)
+static void DATATBLS_GetMonsterDebugName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
     if (id >= 0 && id < gVar_00744304->monsterCount)
@@ -1004,7 +1004,7 @@ static void sub_00611F40_MonsterName(char* buffer, int length, int id)
 }
 
 // 0x00611FA0
-static void sub_00611FA0_CopyObjectLabel(char* buffer, int length, int id)
+static void DATATBLS_GetObjectDebugName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
     ObjectRecord* record = sub_00640E90_Object(id);
@@ -1019,7 +1019,7 @@ static void sub_00611FA0_CopyObjectLabel(char* buffer, int length, int id)
 }
 
 // 0x00611FE0
-static void sub_00611FE0_ItemName(char* buffer, int length, int id)
+static void DATATBLS_GetItemDebugName(char* buffer, int length, int id)
 {
     ItemRecord* record = sub_006335F0_Item(id);
     if (record && record->nameIndex != 0x1506)
@@ -1036,7 +1036,7 @@ static void sub_00611FE0_ItemName(char* buffer, int length, int id)
 }
 
 // 0x00612030
-static __declspec(noinline) void sub_00612030_MissileName(char* buffer, int length, int id)
+static __declspec(noinline) void DATATBLS_GetMissileDebugName(char* buffer, int length, int id)
 {
     if (length > 0)
     {
@@ -1046,7 +1046,7 @@ static __declspec(noinline) void sub_00612030_MissileName(char* buffer, int leng
 }
 
 // 0x00612050
-char* __stdcall sub_00612050_UnitName(UnitHeader* unit, char* buffer, int length)
+char* __stdcall DATATBLS_GetUnitDebugName(UnitHeader* unit, char* buffer, int length)
 {
     buffer[0] = 0;
     if (!unit)
@@ -1056,25 +1056,25 @@ char* __stdcall sub_00612050_UnitName(UnitHeader* unit, char* buffer, int length
     }
     switch (unit->type)
     {
-    case 0: sub_00611EE0_PlayerName(buffer, length, unit->classId); break;
-    case 1: sub_00611F40_MonsterName(buffer, length, unit->classId); break;
-    case 2: sub_00611FA0_CopyObjectLabel(buffer, length, unit->classId); break;
-    case 3: sub_00612030_MissileName(buffer, length, unit->classId); break;
-    case 4: sub_00611FE0_ItemName(buffer, length, unit->classId); break;
+    case 0: DATATBLS_GetPlayerClassDebugName(buffer, length, unit->classId); break;
+    case 1: DATATBLS_GetMonsterDebugName(buffer, length, unit->classId); break;
+    case 2: DATATBLS_GetObjectDebugName(buffer, length, unit->classId); break;
+    case 3: DATATBLS_GetMissileDebugName(buffer, length, unit->classId); break;
+    case 4: DATATBLS_GetItemDebugName(buffer, length, unit->classId); break;
     default: sub_006883F8_Copy(buffer, "Invalid Unit"); break;
     }
     return buffer;
 }
 
 // 0x00612120
-char* __stdcall sub_00612120_TypedName(unsigned int type, short id, char* buffer, int length)
+char* __stdcall DATATBLS_GetUnitTypeAndClassDebugName(unsigned int type, short id, char* buffer, int length)
 {
     buffer[0] = 0;
     switch (type)
     {
-    case 0: sub_00611EE0_PlayerName(buffer, length, id); break;
-    case 1: sub_00611F40_MonsterName(buffer, length, id); break;
-    case 2: sub_00611FA0_CopyObjectLabel(buffer, length, id); break;
+    case 0: DATATBLS_GetPlayerClassDebugName(buffer, length, id); break;
+    case 1: DATATBLS_GetMonsterDebugName(buffer, length, id); break;
+    case 2: DATATBLS_GetObjectDebugName(buffer, length, id); break;
     case 3:
         if (length > 0)
         {
@@ -1082,7 +1082,7 @@ char* __stdcall sub_00612120_TypedName(unsigned int type, short id, char* buffer
             buffer[length - 1] = 0;
         }
         break;
-    case 4: sub_00611FE0_ItemName(buffer, length, id); break;
+    case 4: DATATBLS_GetItemDebugName(buffer, length, id); break;
     default: sub_006883F8_Copy(buffer, "Invalid Unit Type"); break;
     }
     return buffer;
@@ -1101,11 +1101,11 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
     {
         if (!_stricmp(szName, "leveldefs"))
         {
-            pData = sub_00612280_ReadExcelFile(hArchive, "levels", ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2233);
+            pData = DATATBLS_ReadExcelFile(hArchive, "levels", ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2233);
         }
         else
         {
-            pData = sub_00612280_ReadExcelFile(hArchive, szName, ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2240);
+            pData = DATATBLS_ReadExcelFile(hArchive, szName, ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2240);
         }
         D2_ASSERT(pData, 2242);
 
@@ -1124,14 +1124,14 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
 
     if (DATATBLS_LoadFromBin)
     {
-        pData = sub_00612280_ReadExcelFile(hArchive, szName, ".bin", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2270);
+        pData = DATATBLS_ReadExcelFile(hArchive, szName, ".bin", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2270);
     }
     else
     {
         if (!_stricmp(szName, "leveldefs"))
-            pData = sub_00612280_ReadExcelFile(hArchive, "levels", ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2274);
+            pData = DATATBLS_ReadExcelFile(hArchive, "levels", ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2274);
         else
-            pData = sub_00612280_ReadExcelFile(hArchive, szName, ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2276);
+            pData = DATATBLS_ReadExcelFile(hArchive, szName, ".txt", &nDataSize, ".\\DATATBLS\\DataTbls.cpp", 2276);
     }
     D2_ASSERT(pData, 2279);
 
@@ -1329,12 +1329,12 @@ void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3)
     DATATBLS_LoadObjType_ModeTxt(hArchive);
     DATATBLS_LoadCompositTxt(hArchive);
     DATATBLS_LoadArmTypeTxt(hArchive);
-    sub_00613D30(hArchive);
+    DATATBLS_LoadExperienceTxt(hArchive);
     gD2DataTables.pAnimData = DATATBLS_LoadAnimDataD2(hArchive);
     DATATBLS_LoadSomeMonsterTxts(hArchive);
     DATATBLS_LoadLevelsTxt(hArchive);
     DATATBLS_LoadLevelDefsBin(hArchive);
-    sub_0061E520(hArchive);
+    DATATBLS_LoadLevelTypesTxt(hArchive);
     if (a2)
     {
         DATATBLS_AllocGlobalTileLibraryHash(hArchive);
@@ -1354,7 +1354,7 @@ void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3)
     sub_0066A270(hArchive);
     DATATBLS_LoadCubeMainTxt(hArchive);
     DATATBLS_LoadDifficultyLevelsTxt(hArchive);
-    sub_00659C30();
+    DATATBLS_UnloadSoundsTxt();
 }
 
 void* gpCompCodeTxt_0096BCAC; // 0x0096BCAC
@@ -1402,7 +1402,7 @@ D2TxtLinkStrc* gpSkillCodeLinker_0096BCA0; // 0x0096BCA0
 void* gpEventsTxt_0096BCA4; // 0x0096BCA4
 
 // 0x00612EA0
-void __stdcall sub_00612EA0_UnloadCompCodeAndCompileBins()
+void __stdcall DATATBLS_UnloadCompCodeAndCompileBins()
 {
     DATATBLS_UnloadBinInline(gpCompCodeTxt_0096BCAC);
     FOG_FreeLinker(gpCompCodeLinker_0096BCB0);
@@ -1527,11 +1527,11 @@ void __stdcall DATATBLS_LoadCharStatsTxt(void* hArchive)
     };
 
     gpCharstatsTxt = DATATBLS_CompileTxt(hArchive, "charstats", pTbl, &gnCharstatsTxtRecordCount, 196);
-    sub_00612600(gpCharstatsTxt, gnCharstatsTxtRecordCount, 196, 32, 0, 16);
+    DATATBLS_InitUnicodeClassNamesInCharStatsTxt(gpCharstatsTxt, gnCharstatsTxtRecordCount, 196, 32, 0, 16);
 }
 
 // 0x00617C20
-void __fastcall sub_00617C20_LoadSkills(void* hArchive) {
+void __fastcall DATATBLS_LoadSkills(void* hArchive) {
  DATATBLS_LoadSkills_SkillDescTxt(hArchive);
 }
 
@@ -1625,14 +1625,14 @@ void __fastcall DATATBLS_LoadStatesTxt(void* hArchive)
     for (int i = 0; i < 40; ++i)
     {
         gD2DataTables.fStateMasks[i] = &gD2DataTables.pStateMasks[i * (nMaskSize / sizeof(unsigned int))];
-        sub_00611D60_BuildStateMask(gD2DataTables.fStateMasks[i], i);
+        DATATBLS_BuildStateMask(gD2DataTables.fStateMasks[i], i);
     }
 
-    sub_00611DC0_BuildStateListByFlag(&gD2DataTables.pProgressiveStates, &gD2DataTables.nProgressiveStates, 4);
-    sub_00611DC0_BuildStateListByFlag(&gD2DataTables.pCurseStates, &gD2DataTables.nCurseStates, 11);
-    sub_00611DC0_BuildStateListByFlag(&gD2DataTables.pTransformStates, &gD2DataTables.nTransformStates, 16);
-    sub_00611DC0_BuildStateListByFlag(&gD2DataTables.pActionStates, &gD2DataTables.nActionStates, 5);
-    sub_00611E60_BuildStateListByField(&gD2DataTables.pColourStates, &gD2DataTables.nColourStates, 42);
+    DATATBLS_BuildStateListByFlag(&gD2DataTables.pProgressiveStates, &gD2DataTables.nProgressiveStates, 4);
+    DATATBLS_BuildStateListByFlag(&gD2DataTables.pCurseStates, &gD2DataTables.nCurseStates, 11);
+    DATATBLS_BuildStateListByFlag(&gD2DataTables.pTransformStates, &gD2DataTables.nTransformStates, 16);
+    DATATBLS_BuildStateListByFlag(&gD2DataTables.pActionStates, &gD2DataTables.nActionStates, 5);
+    DATATBLS_BuildStateListByField(&gD2DataTables.pColourStates, &gD2DataTables.nColourStates, 42);
 }
 
 D2TxtLinkStrc* gTxtLink_0096C81C; // 0x0096C81C
@@ -1678,7 +1678,7 @@ void __fastcall DATATBLS_LoadPetTypeTxt(void* hArchive)
 }
 
 // 0x00619100
-void __fastcall sub_00619100_UnloadPetTypeTxt()
+void __fastcall DATATBLS_UnloadPetTypeTxt()
 {
     DATATBLS_UnloadBinInline(gpPettypeTxt);
     FOG_FreeLinker(gpPettypeLinker);

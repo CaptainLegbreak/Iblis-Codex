@@ -24,8 +24,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __stdcall PATH_GetType(D2DynamicPathStrc*); // 0x00648E30
-int __stdcall sub_00648A40(D2DynamicPathStrc*); // 0x00648A40
-int __stdcall sub_00648A60(D2DynamicPathStrc*); // 0x00648A60
+int __stdcall PATH_GetLastPointX(D2DynamicPathStrc*); // 0x00648A40
+int __stdcall PATH_GetLastPointY(D2DynamicPathStrc*); // 0x00648A60
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc*); // 0x006487F0
@@ -110,12 +110,12 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
    int nPathType=PATH_GetType(hPath);
    switch(nPathType) { case 5:case 6: {
     nSendMode=pInfo->nCoordMode;nHeader=0x67;
-    nX=sub_00648A40(hPath);nY=sub_00648A60(hPath);
+    nX=PATH_GetLastPointX(hPath);nY=PATH_GetLastPointY(hPath);
    } }
   } }
  } else {
   nHeader=0x67;nSendMode=pInfo->nCoordMode;
-  if(pInfo->bTargetCoords) {nX=sub_00648A40(hPath);nY=sub_00648A60(hPath);}
+  if(pInfo->bTargetCoords) {nX=PATH_GetLastPointX(hPath);nY=PATH_GetLastPointY(hPath);}
   else {nX=PATH_GetXPosition(hPath);nY=PATH_GetYPosition(hPath);}
  }
  switch(nMode) {

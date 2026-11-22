@@ -189,7 +189,7 @@ extern const int gnTileTypeMappingTable_006EEF20[]; // 0x006EEF20
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta); // 0x00642F70
+void __fastcall DRLG_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta); // 0x00642F70
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
 
@@ -201,7 +201,7 @@ int __fastcall DRLGOUTDOORS_GetOutLinkVisFlag(D2DrlgLevelStrc* pLevel, D2DrlgVer
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
-void __fastcall sub_0067C760(D2DrlgGridStrc* pDrlgGrid, D2DrlgVertexStrc* pDrlgVertex, int nFlag, int nOperation, int bAlterNextVertex); // 0x0067C760
+void __fastcall DRLGGRID_AlterFlagsAlongVertexEdge(D2DrlgGridStrc* pDrlgGrid, D2DrlgVertexStrc* pDrlgVertex, int nFlag, int nOperation, int bAlterNextVertex); // 0x0067C760
 
 struct D2UnkDrlgRoomTileStrc
 {
@@ -252,7 +252,7 @@ void* __fastcall DUNGEON_GetMemPoolFromAct(D2DrlgActStrc* pAct); // 0x00619550
 
 void __fastcall DRLGACTIVATE_InitializeRoomExStatusLists(D2DrlgStrc* pDrlg); // 0x0061B7E0
 
-void __fastcall sub_00641F60_LoadTownTiles(D2DrlgStrc* pDrlg); // 0x00641F60
+void __fastcall DRLG_LoadTownTiles(D2DrlgStrc* pDrlg); // 0x00641F60
 
 void __fastcall DRLGOUTPLACE_CreateLevelConnections(D2DrlgStrc* pDrlg, unsigned char nAct); // 0x00678AD0
 
@@ -262,7 +262,7 @@ int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppProjects, int nOri
 
 void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry); // 0x0066DDE0
 
-int __fastcall sub_006427A0_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY);                   // 0x006427A0
+int __fastcall DRLG_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY);                   // 0x006427A0
 
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
 
@@ -338,7 +338,7 @@ int __stdcall UNITS_IsInRange(D2UnitStrc* pUnit, D2CoordStrc* pCoord, int nDista
 }
 
 // 0x00641F60
-void __fastcall sub_00641F60_LoadTownTiles(D2DrlgStrc* pDrlg)
+void __fastcall DRLG_LoadTownTiles(D2DrlgStrc* pDrlg)
 {
     char szPath[MAX_PATH] = { 0 };
     switch (pDrlg->nAct)
@@ -363,7 +363,7 @@ void __fastcall sub_00641F60_LoadTownTiles(D2DrlgStrc* pDrlg)
 }
 
 // 0x00642010
-static void __stdcall sub_00642010_ClearLevel(void* pool, int keep, Level* level)
+static void __stdcall DRLG_FreeLevel(void* pool, int keep, Level* level)
 {
     if (keep)
     {
@@ -429,7 +429,7 @@ static void __stdcall sub_00642010_ClearLevel(void* pool, int keep, Level* level
 }
 
 // 0x00642190
-void __fastcall sub_00642190_FreeDungeon(Dungeon* dungeon)
+void __fastcall DRLG_FreeDrlg(Dungeon* dungeon)
 {
     Level* level = dungeon->levels;
     if (level)
@@ -438,7 +438,7 @@ void __fastcall sub_00642190_FreeDungeon(Dungeon* dungeon)
         {
             Level* current = level;
             level = level->next;
-            sub_00642010_ClearLevel(dungeon->pool, 0, current);
+            DRLG_FreeLevel(dungeon->pool, 0, current);
             sub_0040B480_Free(dungeon->pool, current, ".\\DRLG\\Drlg.cpp", 221, 0);
         } while (level);
         dungeon->levels = 0;
@@ -559,7 +559,7 @@ int* __fastcall DRLG_GetRoomCenterX_RoomWarpXFromRoom(D2DrlgRoomStrc* pDrlgRoom)
 }
 
 // 0x00642390
-static void sub_00642390_MarkPresetRooms(D2DrlgLevelStrc* pLevel)
+static void DRLG_RestoreSavedRoomFlags(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->nRooms && pLevel->pPresetMaps)
     {
@@ -630,7 +630,7 @@ void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel)
         break;
     }
 
-    sub_00642390_MarkPresetRooms(pLevel);
+    DRLG_RestoreSavedRoomFlags(pLevel);
     DRLG_ComputeLevelWarpInfo(pLevel);
 }
 
@@ -752,13 +752,13 @@ int __stdcall DRLG_GetLevelTypeFromLevelId(int nLevelId)
 }
 
 // 0x00642770
-int __fastcall sub_00642770_GetDrlgTypeFromLevelId(int nLevelId)
+int __fastcall DRLG_GetDrlgTypeFromLevelId(int nLevelId)
 {
     return DATATBLS_GetLevelDefRecord(nLevelId)->dwDrlgType;
 }
 
 // 0x00642780
-static inline D2DrlgLevelStrc* sub_00642780_WalkLevels(D2DrlgStrc* pDrlg)
+static inline D2DrlgLevelStrc* DRLG_WalkLevelList(D2DrlgStrc* pDrlg)
 {
     D2DrlgLevelStrc* pLevel = pDrlg->pLevel;
     while (pLevel)
@@ -769,7 +769,7 @@ static inline D2DrlgLevelStrc* sub_00642780_WalkLevels(D2DrlgStrc* pDrlg)
 }
 
 // 0x006427A0
-int __fastcall sub_006427A0_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY)
+int __fastcall DRLG_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY)
 {
     for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
     {
@@ -863,15 +863,15 @@ D2DrlgWarpStrc* __fastcall DRLG_SetWarpId(D2DrlgWarpStrc* pDrlgWarp, int nVis, i
     return pDrlgWarp;
 }
 
-D2DrlgLevelStrc* __stdcall sub_M121_Emit_00642780(D2DrlgStrc* pDrlg) { return sub_00642780_WalkLevels(pDrlg); }
+D2DrlgLevelStrc* __stdcall sub_M121_Emit_00642780(D2DrlgStrc* pDrlg) { return DRLG_WalkLevelList(pDrlg); }
 
 // 0x006429D0
-void __cdecl sub_006429D0_Nop()
+void __cdecl DRLG_Nop()
 {
 }
 
 // 0x006429E0
-unsigned char __stdcall sub_006429E0_GetActFromLevelType(int nLevelType)
+unsigned char __stdcall DRLG_GetActFromLevelType(int nLevelType)
 {
     return DATATBLS_GetLevelTypesTxtRecord(nLevelType)->nAct;
 }
@@ -1014,7 +1014,7 @@ D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgS
 
     if (!pLevel)
     {
-        pLevel = DRLG_InlineGetLevel(pDrlg, sub_006427A0_GetLevelIdFromCoordinates(pDrlg, nX, nY));
+        pLevel = DRLG_InlineGetLevel(pDrlg, DRLG_GetLevelIdFromCoordinates(pDrlg, nX, nY));
     }
 
     if (!pLevel->ptRoomFirst)
@@ -1025,7 +1025,7 @@ D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgS
     return DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
 }
 
-int __stdcall sub_0066D960_FindTilePresetEntry(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
+int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
 
 // 0x00642D10
 void __fastcall DRLG_SetLevelPositionAndSize(D2DrlgStrc* pDrlg,D2DrlgLevelStrc* pLevel)
@@ -1090,7 +1090,7 @@ D2DrlgStrc* __fastcall DRLG_AllocDrlg(D2DrlgActStrc* pAct, unsigned char nActNo,
         pDrlg->bJungleInterlink = SEED_RollRandomNumber(&pDrlg->pSeed) & 1;
     }
 
-    sub_00641F60_LoadTownTiles(pDrlg);
+    DRLG_LoadTownTiles(pDrlg);
     DRLGACTIVATE_InitializeRoomExStatusLists(pDrlg);
     DRLGOUTPLACE_CreateLevelConnections(pDrlg, nActNo);
 
@@ -1103,7 +1103,7 @@ D2DrlgStrc* __fastcall DRLG_AllocDrlg(D2DrlgActStrc* pAct, unsigned char nActNo,
 }
 
 // 0x00642F70
-void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta)
+void __fastcall DRLG_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta)
 {
     pLevel->bActive += nDelta;
     pLevel->bActive = pLevel->bActive <= 0 ? 0 : pLevel->bActive;
@@ -1124,7 +1124,7 @@ void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelt
 }
 
 // 0x00643020
-void __fastcall sub_6FD745C0(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2)
+void __fastcall DRLG_UpdateLevelActivityOnRoomChange(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2)
 {
     D2DrlgLevelStrc* pLevel1 = pDrlgRoom1 ? pDrlgRoom1->ptDrlgLevel : 0;
     D2DrlgLevelStrc* pLevel2 = pDrlgRoom2 ? pDrlgRoom2->ptDrlgLevel : 0;
@@ -1133,18 +1133,18 @@ void __fastcall sub_6FD745C0(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRo
     {
         if (pLevel1)
         {
-            sub_00642F70_AddLevelActivity(pLevel1, -1);
+            DRLG_AddLevelActivity(pLevel1, -1);
         }
 
         if (pLevel2)
         {
-            sub_00642F70_AddLevelActivity(pLevel2, 1);
+            DRLG_AddLevelActivity(pLevel2, 1);
         }
     }
 }
 
 // 0x00643060
-int __stdcall sub_00643060_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
+int __stdcall DRLG_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
 
@@ -1204,7 +1204,7 @@ int __stdcall sub_00643060_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x00643200
-void __fastcall sub_00643200_UpdateInactive(Dungeon* dungeon)
+void __fastcall DRLG_UpdateAndFreeInactiveRooms(Dungeon* dungeon)
 {
     Level* level = dungeon->levels;
     void* pool = dungeon->pool;
@@ -1215,7 +1215,7 @@ void __fastcall sub_00643200_UpdateInactive(Dungeon* dungeon)
             if (level->inactiveTicks)
                 --level->inactiveTicks;
             else if (sub_00643060_CanFree(level))
-                sub_00642010_ClearLevel(pool, 1, level);
+                DRLG_FreeLevel(pool, 1, level);
             else
                 level->inactiveTicks = 10;
         }
@@ -1224,7 +1224,7 @@ void __fastcall sub_00643200_UpdateInactive(Dungeon* dungeon)
 }
 
 // 0x00643260
-void __stdcall sub_00643260(int* pX, int* pY)
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY)
 {
     int nX = *pX;
     int nY = *pY;
@@ -1284,8 +1284,8 @@ void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel)
         {
             int nVisFlag = DRLGOUTDOORS_GetOutLinkVisFlag(pLevel, pVertex);
             int nPacked = 2 * (pVertex->nDirection != 0) + 1;
-            sub_0067C760(&pOutdoors->pGrid[1], pVertex, nVisFlag, 0, 1);
-            sub_0067C760(&pOutdoors->pGrid[2], pVertex, nPacked, 0, 1);
+            DRLGGRID_AlterFlagsAlongVertexEdge(&pOutdoors->pGrid[1], pVertex, nVisFlag, 0, 1);
+            DRLGGRID_AlterFlagsAlongVertexEdge(&pOutdoors->pGrid[2], pVertex, nPacked, 0, 1);
         }
         pVertex = pNext;
         pNext = pVertex->pNext;
@@ -1294,7 +1294,7 @@ void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067B1C0
-D2DrlgTableEntryStrc* __fastcall sub_0067B1C0_AllocTableEntry(D2DrlgEntryTableStrc* pTable)
+D2DrlgTableEntryStrc* __fastcall PATH_AStar_AllocNewNode(D2DrlgEntryTableStrc* pTable)
 {
     if (pTable->nEntries == 200)
     {

@@ -68,7 +68,7 @@ int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSk
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -90,9 +90,9 @@ short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
-int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
+int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit); // 0x0063A380
 
-int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
+int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit); // 0x0063A3A0
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
@@ -244,7 +244,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     if (!pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -331,9 +331,9 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
         *pColor = 3;
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
         *pColor = 1;
 
     if (nBonus <= -90)
@@ -562,19 +562,19 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
 
     if (pSkill)
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7]))
         {
             sub_004E7120_AddProgressiveDamage(pUnit, pMinDamage, pMaxDamage, pColor);
         }
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
     {
         *pColor = 3;
     }
 
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
     {
         *pColor = 1;
     }
@@ -2217,7 +2217,7 @@ int __fastcall sub_004EFDF0_LobMissile(D2UnitStrc* pUnit, int nSkillId, int nSki
                 D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
                 if (pMissile)
                 {
-                    sub_00648E70_SetDistance(pMissile->pDynamicPath, nFrames);
+                    PATH_SetNewDistance(pMissile->pDynamicPath, nFrames);
                     UNITS_SetAnimationSpeed(pMissile, nSpeed);
                     MISSILE_SetTotalFrames(pMissile, nFrames);
                     MISSILE_SetCurrentFrame(pMissile, nFrames);

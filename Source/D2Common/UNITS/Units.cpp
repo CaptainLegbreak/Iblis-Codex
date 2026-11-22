@@ -164,7 +164,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
-extern "C" void __stdcall sub_006252D0(D2StatListStrc* pStatList, unsigned int dwState); // 0x006252D0
+extern "C" void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, unsigned int dwState); // 0x006252D0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
@@ -194,7 +194,7 @@ int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY
 
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
@@ -242,7 +242,7 @@ int __fastcall UNITS_GetCollisionMask(D2UnitStrc* pUnit); // 0x006209D0
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-D2UnitStrc* __stdcall sub_0063BF90_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
+D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
 
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 
@@ -256,7 +256,7 @@ unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006
 
 unsigned char __stdcall ITEMS_GetComponent(D2UnitStrc* pItem); // 0x00628660
 
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
+int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 
 enum
 {
@@ -310,7 +310,7 @@ unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex,
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
-int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* pUnit); // 0x00622870
+int __stdcall UNITS_GetMeleeRange(D2UnitStrc* pUnit); // 0x00622870
 
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
 
@@ -396,7 +396,7 @@ unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pItem); // 0x00629FE
 
 void __stdcall STATLIST_DeactivateTemporaryStates(D2UnitStrc* pUnit); // 0x006272E0
 
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
+int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit); // 0x00624390
 
 static int __stdcall UNITS_CanAnimModeUseVelocityModifier(int nUnitType, int nAnimMode, D2UnitStrc* pUnit, int nClassId);
 
@@ -498,7 +498,7 @@ enum
     MONSTATSFLAGINDEX_NOSHLDBLOCK = 26,
 };
 
-int __fastcall sub_006225F0_MonsterCanBlock(D2UnitStrc* pUnit); // 0x006225F0
+int __fastcall UNITS_CanMonsterBlock(D2UnitStrc* pUnit); // 0x006225F0
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -528,7 +528,7 @@ static void UNITS_CharacterStartRunningOrKnockback(D2UnitStrc* pUnit, int nClass
 
 static int UNITS_GetBaseAnimSpeed(int nUnitType, int nClassId, int nAnimMode);
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 static __declspec(noinline) int __stdcall sub_00622920_TestCollision(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask);
 
@@ -538,11 +538,11 @@ void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);
 
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker);
 
-int __stdcall sub_006229F0_IsRayFreeFromUnit(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask);
+int __stdcall UNITS_TestCollisionByCoordinates(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask);
 
-int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask);
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask);
 
-static int __stdcall sub_00621210(D2UnitStrc* pUnit, int nPrevFrame);
+static int __stdcall UNITS_UpdateSequenceFrame(D2UnitStrc* pUnit, int nPrevFrame);
 
 void __stdcall UNITS_SetAnimActionFrame(D2UnitStrc* pUnit, int nFrame);
 
@@ -654,7 +654,7 @@ D2UnitStrc* __stdcall UNITS_AllocUnit(void* pMemPool, int nUnitType)
 }
 
 // 0x00620300
-void __stdcall sub_00620300_FreeUnit(Unit* unit)
+void __stdcall UNITS_FreeUnit(Unit* unit)
 {
     if (unit) {
         sub_00626D10_FreeStatList(unit);
@@ -670,7 +670,7 @@ void __stdcall sub_00620300_FreeUnit(Unit* unit)
 }
 
 // 0x00620360
-void __fastcall sub_00620360(D2UnitStrc* pUnit, int nX, int nY, int nUnk0x14, int nUnk0x18)
+void __fastcall UNITS_SetTileUnitCoords(D2UnitStrc* pUnit, int nX, int nY, int nUnk0x14, int nUnk0x18)
 {
     D2_ASSERT(pUnit, 1711);
     D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1713);
@@ -1048,7 +1048,7 @@ void __stdcall UNITS_GetClientCoords(D2UnitStrc* ptUnit, D2CoordStrc* pClientCoo
 }
 
 // 0x00620980
-void __fastcall sub_00620980(D2UnitStrc* pUnit, int nClientX, int nClientY)
+void __fastcall UNITS_SetTileUnitTargetCoords(D2UnitStrc* pUnit, int nClientX, int nClientY)
 {
     D2_ASSERT(pUnit, 2047);
     D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 2049);
@@ -1131,7 +1131,7 @@ void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* ptUnit, D2ActiveRoomStrc* 
     pPath->pRoom = pRoom;
     int nConvX = tCoord.nX;
     int nConvY = tCoord.nY;
-    sub_00643260(&nConvX, &nConvY);
+    DUNGEON_GameSubtileToClientCoords(&nConvX, &nConvY);
     pPath->nTargetX = nConvX;
     pPath->nTargetY = nConvY;
 }
@@ -1200,7 +1200,7 @@ void __stdcall UNITS_SetTargetUnitForPlayerOrMonster(D2UnitStrc* ptUnit, D2UnitS
 }
 
 // 0x00620D80
-void __stdcall sub_00620D80_SetMonsterAnimSpeed(D2UnitStrc* pUnit)
+void __stdcall UNITS_SetMonsterAnimSpeed(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1255,7 +1255,7 @@ static void UNITS_CharacterStartRunningOrKnockback(D2UnitStrc* pUnit, int nClass
     const int nWalkSpeed = pCharStatsTxtRecord->nWalkSpeed;
     if (nWalkSpeed)
     {
-        sub_006270B0(pStatList, 0x43, 100 * pCharStatsTxtRecord->nRunSpeed / nWalkSpeed - 100, 0);
+        STATLIST_SetStatValue(pStatList, 0x43, 100 * pCharStatsTxtRecord->nRunSpeed / nWalkSpeed - 100, 0);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     }
 }
@@ -1445,7 +1445,7 @@ struct D2StatListStrc;
 struct D2UnitStrc;
 
 // 0x00621210
-static int __stdcall sub_00621210(D2UnitStrc* pUnit, int nPrevFrame)
+static int __stdcall UNITS_UpdateSequenceFrame(D2UnitStrc* pUnit, int nPrevFrame)
 {
     const int nOldMode = pUnit->dwSeqMode;
     int nFrame;
@@ -1470,7 +1470,7 @@ void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit)
             pUnit->dwSeqFrame = 0;
             pUnit->dwSeqSpeed = 0x100;
             pUnit->dwFrameCountPrecise = DATATBLS_GetSeqFrameCount(pUnit) << 8;
-            sub_00621210(pUnit, 0);
+            UNITS_UpdateSequenceFrame(pUnit, 0);
             pUnit->dwFlags |= 0x4000;
         }
     }
@@ -1629,7 +1629,7 @@ static int UNITS_GetBaseAnimSpeed(int nUnitType, int nClassId, int nAnimMode)
 }
 
 // 0x00621420
-static const D2ValueRecordStrc* __stdcall sub_00621420_GetRecordForValue(int nIndex, int nValue)
+static const D2ValueRecordStrc* __stdcall UNITS_GetMonModeAnimModulator(int nIndex, int nValue)
 {
     if (nValue < 0x19A)
         return &gTable_006E8B90[nIndex];
@@ -1639,7 +1639,7 @@ static const D2ValueRecordStrc* __stdcall sub_00621420_GetRecordForValue(int nIn
 // calling-convention shim (not game code)
 int __stdcall sub_K14_EmitGetRecordForValue(int nIndex, int nValue)
 {
-    return sub_00621420_GetRecordForValue(nIndex, nValue)->nValues[0] + sub_00621420_GetRecordForValue(nIndex + 1, nValue)->nValues[1];
+    return UNITS_GetMonModeAnimModulator(nIndex, nValue)->nValues[0] + UNITS_GetMonModeAnimModulator(nIndex + 1, nValue)->nValues[1];
 }
 
 // 0x00621450
@@ -1660,7 +1660,7 @@ static inline int UNITS_IsAnimModeKnockBack(int nUnitType, int nAnimMode)
 }
 
 // 0x00621480
-static inline int sub_00621480(int nAnimMode)
+static inline int UNITS_IsWalkOrRunMode(int nAnimMode)
 {
     switch (nAnimMode)
     {
@@ -1831,11 +1831,11 @@ int __stdcall sub_M110_Emit_00621450(int nUnitType, int nAnimMode)
         return 7;
     if (UNITS_IsAnimModeGetHit(nUnitType, nAnimMode))
         return 9;
-    return sub_00621480(nAnimMode);
+    return UNITS_IsWalkOrRunMode(nAnimMode);
 }
 
 // 0x006216B0
-static inline int sub_006216B0_IsModeValue(int nMode, int nValue)
+static inline int UNITS_IsAnimModeBlock(int nMode, int nValue)
 {
     switch (nMode)
     {
@@ -1941,7 +1941,7 @@ void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* ptUnit, int* pFrameNo, i
 
 int __fastcall sub_M119_Emit_006216B0(int nMode, int nValue, int nOther)
 {
-    return sub_006216B0_IsModeValue(nMode, nOther) + nValue;
+    return UNITS_IsAnimModeBlock(nMode, nOther) + nValue;
 }
 
 // 0x00621870
@@ -1990,7 +1990,7 @@ void __stdcall UNITS_SetAnimActionFrame(D2UnitStrc* pUnit, int nFrame)
 }
 
 // 0x00621920
-int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
+int __stdcall UNITS_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
 {
     if (!ptUnit)
     {
@@ -2159,7 +2159,7 @@ static void __stdcall UNITS_StoreOwnerInfo(D2UnitStrc* pUnit, int nOwnerType, in
                 if (!pStatList)
                     return;
 
-                sub_006252D0(pStatList, 0x62);
+                STATLIST_SetState(pStatList, 0x62);
                 D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
             }
 
@@ -2507,7 +2507,7 @@ int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
 }
 
 // 0x00622520
-static int sub_00622520_GetToHitFactor(D2UnitStrc* pUnit)
+static int UNITS_GetCharStatsToHitFactor(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_PLAYER)
@@ -2527,7 +2527,7 @@ static int sub_00622520_GetToHitFactor(D2UnitStrc* pUnit)
 // calling-convention shim (not game code)
 int __stdcall sub_00622520_Shim(D2UnitStrc* pUnit)
 {
-    return sub_00622520_GetToHitFactor(pUnit);
+    return UNITS_GetCharStatsToHitFactor(pUnit);
 }
 
 // build: context UNITS_GetCharStatsTxtRecord
@@ -2597,7 +2597,7 @@ inline unsigned char MONSTERS_GetComponentInline(D2UnitStrc* pUnit, int nCompone
 }
 
 // 0x006225F0
-int __fastcall sub_006225F0_MonsterCanBlock(D2UnitStrc* pUnit)
+int __fastcall UNITS_CanMonsterBlock(D2UnitStrc* pUnit)
 {
     switch (MONSTERS_ValidateMonsterIdInline(UNITS_GetClassIdInline(pUnit)))
     {
@@ -2700,7 +2700,7 @@ int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int bExpansion)
         break;
 
     case UNIT_MONSTER:
-        if (MONSTERS_HasNoShieldBlockFlagInline(UNITS_GetClassIdInline(pUnit)) || sub_006225F0_MonsterCanBlock(pUnit))
+        if (MONSTERS_HasNoShieldBlockFlagInline(UNITS_GetClassIdInline(pUnit)) || UNITS_CanMonsterBlock(pUnit))
         {
             nBlockChance = STATLIST_UnitGetStatValue(pUnit, STAT_TOBLOCK, 0);
         }
@@ -2736,7 +2736,7 @@ D2UnitStrc* __stdcall UNITS_GetEquippedWeaponFromMonster(D2UnitStrc* pMonster)
 }
 
 // 0x00622870
-int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* hUnit)
+int __stdcall UNITS_GetMeleeRange(D2UnitStrc* hUnit)
 {
     if (!hUnit) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x11be); exit(-1); }
     int range;
@@ -2769,7 +2769,7 @@ fail:
 }
 
 // 0x00622920
-static int __fastcall sub_00622920_RayTraceBetweenBoxes(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask)
+static int __fastcall UNITS_TestCollision(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask)
 {
     D2CoordStrc tBegin;
     D2CoordStrc tEnd;
@@ -2871,7 +2871,7 @@ static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 }
 
 // 0x006229F0
-int __stdcall sub_006229F0_IsRayFreeFromUnit(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask)
+int __stdcall UNITS_TestCollisionByCoordinates(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask)
 {
     if (!pUnit)
     {
@@ -2887,7 +2887,7 @@ int __stdcall sub_006229F0_IsRayFreeFromUnit(D2UnitStrc* pUnit, int nX, int nY, 
     const int nUnitX = UNITS_GetXPositionForceInl(pUnit);
     const int nUnitY = UNITS_GetYPositionForceInl(pUnit);
     const int nUnitSize = UNITS_GetUnitSizeX(pUnit);
-    return sub_00622920_RayTraceBetweenBoxes(nUnitX, nUnitY, nUnitSize, nX, nY, 2, pRoom, nCollisionMask);
+    return UNITS_TestCollision(nUnitX, nUnitY, nUnitSize, nX, nY, 2, pRoom, nCollisionMask);
 }
 
 static int __stdcall sub_00622920_TestCollision(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask)
@@ -2918,7 +2918,7 @@ int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
 }
 
 // 0x00622B50
-int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask)
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask)
 {
     if (!pUnit1 || !pUnit2)
     {
@@ -2947,7 +2947,7 @@ int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc*
         bRemoved2 = PATH_RemoveCollisionFootprintForUnit(pUnit2, 0);
     }
 
-    const int nResult = sub_00622920_RayTraceBetweenBoxes(nX1, nY1, UNITS_GetUnitSizeX(pUnit1), nX2, nY2, UNITS_GetUnitSizeX(pUnit2), pRoom, nCollisionMask);
+    const int nResult = UNITS_TestCollision(nX1, nY1, UNITS_GetUnitSizeX(pUnit1), nX2, nY2, UNITS_GetUnitSizeX(pUnit2), pRoom, nCollisionMask);
     if (bRemoved1)
     {
         PATH_AddCollisionFootprintForUnit(pUnit1);
@@ -2975,7 +2975,7 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int n
             case MONSTER_TENTACLEHEAD1:
             {
                 const int nDistance = D2Common_10399(pUnit1, pUnit2);
-                if (sub_00622870_GetMeleeRange(pUnit1) + 8 > nDistance)
+                if (UNITS_GetMeleeRange(pUnit1) + 8 > nDistance)
                 {
                     return 1;
                 }
@@ -2984,7 +2984,7 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int n
             }
         }
 
-        const int nRange = sub_00622870_GetMeleeRange(pUnit1) + nRangeBonus + 1;
+        const int nRange = UNITS_GetMeleeRange(pUnit1) + nRangeBonus + 1;
         const int nDistance = D2Common_10399(pUnit1, pUnit2);
         if (nDistance > 0 && nRange < nDistance)
         {
@@ -3348,7 +3348,7 @@ int __stdcall UNITS_GetWeaponGUID(D2UnitStrc* ptUnit)
 }
 
 // 0x00623460
-extern "C" __declspec(dllexport) int __stdcall sub_00623460(int nUnused) {
+extern "C" __declspec(dllexport) int __stdcall UNITS_GetStashGoldLimit(int nUnused) {
     return 2500000;
 }
 
@@ -3494,7 +3494,7 @@ int __stdcall UNITS_IsCorpseUseable(D2UnitStrc* pUnit)
 }
 
 // 0x00623660
-int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject)
+int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject)
 {
     int nX1 = 0;
     int nY1 = 0;
@@ -3599,7 +3599,7 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
         {
             return pItem;
         }
-        D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (!pSkillsTxtRecord)
         {
             return pItem;
@@ -3776,7 +3776,7 @@ void __stdcall UNITS_MergeDualWieldWeaponStatLists(D2UnitStrc* pUnit, int a2)
     }
     else if (pWeapon == pPrimaryWeapon)
     {
-        D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pUnit->pInventory);
+        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pUnit->pInventory);
         if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
         {
             STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 1);
@@ -3863,7 +3863,7 @@ void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit)
         if (pUnit->dwSeqFrame >= pUnit->dwSeqFrameCount)
             pUnit->dwSeqFrame -= pUnit->dwSeqFrameCount;
         pUnit->dwFrameCountPrecise -= pUnit->dwSeqSpeed;
-        if (sub_00621210(pUnit, nOldFrame))
+        if (UNITS_UpdateSequenceFrame(pUnit, nOldFrame))
             pUnit->dwFlags |= 0x4000;
     }
     else
@@ -4131,7 +4131,7 @@ static inline int UNITS_ApplyRatio_Inline(int nValue, int nMultiplier, int nDivi
 }
 
 // 0x00624390
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
+int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit)
 {
     D2_ASSERT(ptUnit, 0x951);
 
@@ -4256,7 +4256,7 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode)
         pUnit->dwAnimMode = nMode;
         pUnit->dwFlags |= UNITFLAG_DOUPDATE;
         STATLIST_DeactivateTemporaryStates(pUnit);
-        sub_00624390_AnimInit(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
         return 1;
     }
     if (!(pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_NEUTRAL))

@@ -148,7 +148,7 @@ int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 
 unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem); // 0x0062E8D0
 
-void __stdcall sub_0065E8E0_InitItemFileIndex(D2UnitStrc* pItem); // 0x0065E8E0
+void __stdcall ITEMMODS_SetRandomElixirFileIndex(D2UnitStrc* pItem); // 0x0065E8E0
 
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 
@@ -217,7 +217,7 @@ unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 
-unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BCB0
 
@@ -499,7 +499,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc*, D2UnitStrc*, in
 
 void __fastcall D2GAME_ResetSomeItemFlags_6FC415F0(D2GameStrc*, D2UnitStrc*); // 0x005979B0
 
-int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
+int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 
 int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc*, unsigned char*, int, int, int, int); // 0x006313E0
 
@@ -1118,12 +1118,12 @@ static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2UnitStrc* pItem
         return;
     }
 
-    if (!sub_0062BC20(pItem))
+    if (!ITEMS_GetMaxSockets(pItem))
     {
         return;
     }
 
-    int nMaxSockets = sub_0062BC20(pItem);
+    int nMaxSockets = ITEMS_GetMaxSockets(pItem);
     switch (pGame->nDifficulty)
     {
     case 0:
@@ -1871,7 +1871,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
 
             if (ITEMS_GetItemType(*ppItem) == ITEMTYPE_ELIXIR)
             {
-                sub_0065E8E0_InitItemFileIndex(*ppItem);
+                ITEMMODS_SetRandomElixirFileIndex(*ppItem);
             }
         }
     }
@@ -3009,9 +3009,9 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
 
         if (!ITEMS_GetItemFormat(pItem) && !ITEMSIsA(pItem, 3) && sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x800) && !sub_006287A0_TestFlags(ITEMS_GetItemFlags(pItem), 0x800))
         {
-            if (sub_0062BC20(pItem))
+            if (ITEMS_GetMaxSockets(pItem))
             {
-                ITEMS_AddSockets(pItem, ITEMS_GetItemStartSeed(pItem) % sub_0062BC20(pItem) + 1);
+                ITEMS_AddSockets(pItem, ITEMS_GetItemStartSeed(pItem) % ITEMS_GetMaxSockets(pItem) + 1);
             }
             else
             {
@@ -3668,7 +3668,7 @@ D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2U
     unsigned int nRead;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pItem);
     unsigned int nSize = ITEMS_SerializeItemToBitstream(pItem, aBuffer, 1024, 1, 1, 0);
-    sub_0062E410(aBuffer, nSize, 1, &itemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(aBuffer, nSize, 1, &itemSave);
     D2UnitStrc* pNewItem = ITEMS_CreateItemFromBitstream(pGame, pRoom, aBuffer, nSize, 1, &itemSave, &nRead, 96);
     if (!pNewItem)
         return 0;
@@ -3681,7 +3681,7 @@ D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2U
         const int nSocketCount = itemSave.nItemFileIndex;
         for (int i = 0; i < nSocketCount; ++i)
         {
-            sub_0062E410(pBitstream, nSize, 1, &itemSave);
+            ITEMS_GetCompactItemDataFromBitstreamDefault(pBitstream, nSize, 1, &itemSave);
 
             D2UnitStrc* __restrict pFiller = ITEMS_CreateItemFromBitstream(pGame, 0, pBitstream, nSize, 1, &itemSave, &nRead, 96);
             if (!pFiller)

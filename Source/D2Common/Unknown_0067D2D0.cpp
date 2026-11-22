@@ -175,19 +175,19 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
     DRLGGRID_AlterEdgeGridFlags(&pOutdoor->tGrid28, 4, 0);
 }
 
-D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50);
+D2DrlgRoomStrc* __fastcall DRLGOUTPLACE_CreateOutdoorRoomEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50);
 
-void sub_0067D5D0(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor);
+void DRLGOUTROOM_FreeOutdoorRoomGrids(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor);
 
-void __fastcall sub_0067D610(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
 
-void __fastcall sub_0067D680(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pRoom);
 
-void __fastcall sub_0067D6D0(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_AllocDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
 
 void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom);
 
-unsigned int __fastcall sub_0067D7A0(D2DrlgRoomStrc* pRoom);
+unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom);
 
 void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType);
 

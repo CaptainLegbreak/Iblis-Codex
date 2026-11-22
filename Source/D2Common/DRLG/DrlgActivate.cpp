@@ -199,19 +199,19 @@ static void DRLGACTIVATE_ForceRoomExStatusImpl(D2DrlgRoomStrc* pDrlgRoom, unsign
 }
 
 // 0x0061B290
-static void sub_0061B290_ForceStatusClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 0);
 }
 
 // 0x0061B2A0
-static void sub_0061B2A0_ForceStatusClientInSight(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_ClientInSight(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 1);
 }
 
 // 0x0061B2B0
-static void sub_0061B2B0_ForceStatusUntile(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_Untile(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 3);
 }
@@ -219,7 +219,7 @@ static void sub_0061B2B0_ForceStatusUntile(D2DrlgRoomStrc* pDrlgRoom)
 // 0x0061B2C0
 void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B290_ForceStatusClientInRoom(pDrlgRoom);
+    DRLGACTIVATE_ForceRoomExStatus_ClientInRoom(pDrlgRoom);
 }
 
 // 0x0061B2D0
@@ -232,7 +232,7 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInSight(D2DrlgRoomStrc* pDrlg
         pDrlg->nRoomsInitTimeout = DRLG_IsOnClient(pDrlg) == 0 ? 7 : 5;
     }
     if (pDrlgRoom->fRoomStatus > 1)
-        sub_0061B2A0_ForceStatusClientInSight(pDrlgRoom);
+        DRLGACTIVATE_ForceRoomExStatus_ClientInSight(pDrlgRoom);
 }
 
 // 0x0061B320
@@ -243,13 +243,13 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_Untile(D2DrlgRoomStrc* pDrlgRoom)
     if (pDrlgRoom->nType == 2 && !(pDrlgRoom->dwFlags & 0x2000000))
         DRLGPRESET_SpawnHardcodedPresetUnits(pDrlgRoom);
     if (pDrlgRoom->fRoomStatus > 3)
-        sub_0061B2B0_ForceStatusUntile(pDrlgRoom);
+        DRLGACTIVATE_ForceRoomExStatus_Untile(pDrlgRoom);
 }
 
 void __stdcall sub_M121_Emit_0061B170(D2DrlgStrc* pDrlg) { DRLGACTIVATE_InitRoomsInitTimeout(pDrlg); }
 
 // 0x0061B360
-static inline void sub_0061B360_SetStatusIfUnreferenced(D2DrlgRoomStrc* pDrlgRoom, int nStatus)
+static inline void DRLGACTIVATE_SetStatusIfUnreferenced(D2DrlgRoomStrc* pDrlgRoom, int nStatus)
 {
     if (pDrlgRoom->fRoomStatus >= nStatus)
     {
@@ -292,7 +292,7 @@ static void DRLGACTIVATE_RoomSetAndPropagateStatus(D2DrlgRoomStrc* pDrlgRoom, un
 }
 
 // 0x0061B4F0
-static void sub_0061B4F0(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_RoomExIdentifyRealStatus(D2DrlgRoomStrc* pDrlgRoom)
 {
     if (pDrlgRoom->fRoomStatus < 4 && pDrlgRoom->wRoomsInList[pDrlgRoom->fRoomStatus])
         return;
@@ -308,21 +308,21 @@ static void sub_0061B4F0(D2DrlgRoomStrc* pDrlgRoom)
 }
 
 // 0x0061B530
-void __fastcall sub_0061B530_UnsetStatusClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B4F0(pDrlgRoom);
+    DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
 }
 
 // 0x0061B540
-void __fastcall sub_0061B540_UnsetStatusClientInSight(D2DrlgRoomStrc* pDrlgRoom)
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientInSight(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B4F0(pDrlgRoom);
+    DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
 }
 
 // 0x0061B550
-void __fastcall sub_0061B550_UnsetStatusClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B4F0(pDrlgRoom);
+    DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
 }
 
 // 0x0061B560
@@ -330,16 +330,16 @@ void __fastcall DRLGACTIVATE_RoomExStatusUnset_Untile(D2DrlgRoomStrc* pDrlgRoom)
 {
     if (pDrlgRoom->fRoomStatus != 4)
     {
-        sub_0061B4F0(pDrlgRoom);
+        DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
         if (pDrlgRoom->fRoomStatus == 4 && DRLG_IsOnClient(pDrlgRoom->ptDrlgLevel->pDrlg))
             DRLGROOMTILE_FreeRoom(pDrlgRoom, 0);
     }
 }
 
-void __stdcall sub_M121_Emit_0061B360(D2DrlgRoomStrc* pDrlgRoom, int nStatus) { sub_0061B360_SetStatusIfUnreferenced(pDrlgRoom, nStatus); }
+void __stdcall sub_M121_Emit_0061B360(D2DrlgRoomStrc* pDrlgRoom, int nStatus) { DRLGACTIVATE_SetStatusIfUnreferenced(pDrlgRoom, nStatus); }
 
 // 0x0061B5A0
-static inline void sub_0061B5A0_CallUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
+static inline void DRLGACTIVATE_CallRoomExUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
 {
     gRoomExUnsetStatus[nStatus](pDrlgRoom);
 }
@@ -362,10 +362,10 @@ void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoo
     }
 }
 
-void __stdcall sub_M121_Emit_0061B5A0(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus) { sub_0061B5A0_CallUnsetStatus(pDrlgRoom, nStatus); }
+void __stdcall sub_M121_Emit_0061B5A0(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus) { DRLGACTIVATE_CallRoomExUnsetStatus(pDrlgRoom, nStatus); }
 
 // 0x0061B610
-static inline void sub_0061B610_RoomUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
+static inline void DRLGACTIVATE_RoomUnsetAndPropagateStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
 {
     if (pDrlgRoom->wRoomsInList[nStatus])
     {
@@ -466,7 +466,7 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_StreamRoomAtCoords(D2DrlgStrc* pDrlg, 
 }
 
 // 0x0061B7E0
-void __fastcall sub_0061B7E0_InitEntries(D2Owner0061B7E0Strc* pOwner)
+void __fastcall DRLGACTIVATE_InitializeRoomExStatusLists(D2Owner0061B7E0Strc* pOwner)
 {
     unsigned int i;
     D2Entry0061B7E0Strc* pEntry;
@@ -478,7 +478,7 @@ void __fastcall sub_0061B7E0_InitEntries(D2Owner0061B7E0Strc* pOwner)
     }
 }
 
-void __stdcall sub_M121_Emit_0061B610(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus) { sub_0061B610_RoomUnsetStatus(pDrlgRoom, nStatus); }
+void __stdcall sub_M121_Emit_0061B610(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus) { DRLGACTIVATE_RoomUnsetAndPropagateStatus(pDrlgRoom, nStatus); }
 
 // 0x0061B810
 static inline D2DrlgRoomStrc* DRLGACTIVATE_RoomExStatusList_GetFirst(D2DrlgStrc* pDrlg, unsigned char nStatus)
@@ -504,7 +504,7 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_GetARoomInClientSight(D2DrlgStrc* pDrl
 D2DrlgRoomStrc* __stdcall sub_M121_Emit_0061B810(D2DrlgStrc* pDrlg, unsigned char nStatus) { return DRLGACTIVATE_RoomExStatusList_GetFirst(pDrlg, nStatus); }
 
 // 0x0061B8B0
-static inline void sub_0061B8B0_UpdateRoomStats(D2DrlgStrc* pDrlg)
+static inline void DRLGACTIVATE_UpdateRoomsAllocationStats(D2DrlgStrc* pDrlg)
 {
     if (DRLG_IsOnClient(pDrlg))
     {
@@ -571,10 +571,10 @@ void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg)
     }
 }
 
-void __stdcall sub_M121_Emit_0061B8B0(D2DrlgStrc* pDrlg) { sub_0061B8B0_UpdateRoomStats(pDrlg); }
+void __stdcall sub_M121_Emit_0061B8B0(D2DrlgStrc* pDrlg) { DRLGACTIVATE_UpdateRoomsAllocationStats(pDrlg); }
 
 // 0x0061BA10
-static inline int sub_0061BA10_CanUntileLevel(int nLevelId)
+static inline int DRLGACTIVATE_CanUntileLevel(int nLevelId)
 {
     if (DRLG_IsTownLevel(nLevelId))
     {
@@ -622,7 +622,7 @@ unsigned char __fastcall DRLGACTIVATE_GetRoomStatusFlags(D2DrlgRoomStrc* pDrlgRo
 }
 
 // 0x0061BAF0
-static void sub_0061BAF0_ForceStatusClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_ClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 2);
     if (pDrlgRoom->wRoomsInList[1])
@@ -635,11 +635,11 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientOutOfSight(D2DrlgRoomStrc* pD
     if ((pDrlgRoom->dwFlags & 0x1000000) && (pDrlgRoom->nType != 2 || (pDrlgRoom->dwFlags & 0x2000000)))
     {
         if (pDrlgRoom->fRoomStatus > 2)
-            sub_0061BAF0_ForceStatusClientOutOfSight(pDrlgRoom);
+            DRLGACTIVATE_ForceRoomExStatus_ClientOutOfSight(pDrlgRoom);
     }
 }
 
-int __stdcall sub_M121_Emit_0061BA10(int nLevelId) { return sub_0061BA10_CanUntileLevel(nLevelId); }
+int __stdcall sub_M121_Emit_0061BA10(int nLevelId) { return DRLGACTIVATE_CanUntileLevel(nLevelId); }
 
 // 0x0061BB50
 static inline void sub_0061BB50_SetFieldFromTable(D2DrlgTableRefStrc* pRecord)
@@ -650,7 +650,7 @@ static inline void sub_0061BB50_SetFieldFromTable(D2DrlgTableRefStrc* pRecord)
 void __stdcall sub_M121_Emit_0061BB50(D2DrlgTableRefStrc* pRecord) { sub_0061BB50_SetFieldFromTable(pRecord); }
 
 // 0x0061BB60
-static void __stdcall sub_0061BB60_SetColorForId(D2ColorRecordStrc* pRecord, int nId)
+static void __stdcall DRLGACTIVATE_ApplyArreatSummitLightColor(D2ColorRecordStrc* pRecord, int nId)
 {
     if (nId == 0x78)
     {
@@ -663,7 +663,7 @@ static void __stdcall sub_0061BB60_SetColorForId(D2ColorRecordStrc* pRecord, int
 // calling-convention shim (not game code)
 void __stdcall sub_K14_EmitSetColorForId(D2ColorRecordStrc* pRecord, int nId)
 {
-    sub_0061BB60_SetColorForId(pRecord, nId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pRecord, nId);
 }
 
 #include "gen/data/Source/D2Common/DRLG/DrlgActivate.inc"

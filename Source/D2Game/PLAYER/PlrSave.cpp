@@ -286,7 +286,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
@@ -467,7 +467,7 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-D2UnitStrc* __stdcall sub_0063BF90_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
+D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
 
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 
@@ -592,7 +592,7 @@ int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x004
 
 extern "C" int __stdcall sub_00410E90(D2BitBufferStrc* pBuffer); // 0x00410E90
 
-extern "C" unsigned int __stdcall sub_006287A0(unsigned int dwA, unsigned int dwB); // 0x006287A0
+extern "C" unsigned int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwA, unsigned int dwB); // 0x006287A0
 
 int __stdcall DATATBLS_MapOldItemIndexToCurrent(int nItemId); // 0x006335A0
 
@@ -837,7 +837,7 @@ void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUn
 
 D2DrlgDeleteStrc* __stdcall DUNGEON_GetDrlgDeleteFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A330
 
-void* __stdcall sub_00619DA0_ActLookup(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
+void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
 
 void __stdcall UNITS_AllocPlayerData(D2UnitStrc* pUnit); // 0x00621F90
 
@@ -2096,9 +2096,9 @@ int __fastcall PLRSAVE_ReadLegacyItemData(D2SavedItemStrc* pSavedItem, unsigned 
 
     pSavedItem->nItemFlags = sub_00411020_ReadBits(&tBitBuffer, 32);
 
-    if (sub_006287A0(pSavedItem->nItemFlags, 0x100000))
+    if (ITEMS_CheckIfFlagIsSet(pSavedItem->nItemFlags, 0x100000))
     {
-        if (sub_006287A0(pSavedItem->nItemFlags, 0x200000))
+        if (ITEMS_CheckIfFlagIsSet(pSavedItem->nItemFlags, 0x200000))
         {
             pSavedItem->nItemFormat = (unsigned char)sub_00411020_ReadBits(&tBitBuffer, 10);
             pSavedItem->nBodyLoc = sub_00411020_ReadBits(&tBitBuffer, 5);
@@ -2108,7 +2108,7 @@ int __fastcall PLRSAVE_ReadLegacyItemData(D2SavedItemStrc* pSavedItem, unsigned 
             pSavedItem->nY = (unsigned char)sub_00411020_ReadBits(&tBitBuffer, 3);
             pSavedItem->nInvPage = sub_00411020_ReadBits(&tBitBuffer, 8);
 
-            if (sub_006287A0(pSavedItem->nItemFlags, 0x10000))
+            if (ITEMS_CheckIfFlagIsSet(pSavedItem->nItemFlags, 0x10000))
             {
                 pSavedItem->nItemCode = 0x20726165;
                 pSavedItem->nItemIndex = sub_00411020_ReadBits(&tBitBuffer, 3);
@@ -2150,7 +2150,7 @@ int __fastcall PLRSAVE_ReadLegacyItemData(D2SavedItemStrc* pSavedItem, unsigned 
 
     pSavedItem->nItemFormat = 0;
 
-    if (sub_006287A0(pSavedItem->nItemFlags, 0x10000))
+    if (ITEMS_CheckIfFlagIsSet(pSavedItem->nItemFlags, 0x10000))
     {
         pSavedItem->nBodyLoc = sub_00411020_ReadBits(&tBitBuffer, 5);
         pSavedItem->nItemLevel = 1;
@@ -3026,7 +3026,7 @@ void* __stdcall sub_00534730_ActLookupInFirstGame(unsigned char bAct, int a2, in
     D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
     D2_ASSERT(bAct < 5, 141);
 
-    void* pResult = sub_00619DA0_ActLookup(pGame->pAct[bAct], a2, a3);
+    void* pResult = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[bAct], a2, a3);
     sub_0052DF40_UnlockFirstGame();
     return pResult;
 }
@@ -3297,7 +3297,7 @@ D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit)
         D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
         if (pSkill)
         {
-            D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+            D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
             if (pSkillsTxtRecord)
             {
                 D2UnitStrc* pWeapon = 0;
@@ -3367,7 +3367,7 @@ void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pAttacker, int bTemp
             STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
         }
 
-        D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pAttacker->pInventory);
+        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
         if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
         {
             STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
@@ -3390,7 +3390,7 @@ void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pAttacker, int bTemp
         }
         else if (pWeapon == pLeftHandWeapon)
         {
-            D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pAttacker->pInventory);
+            D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
             if (STATLIST_GetOwner(pLeftHandWeapon, 0))
             {
                 STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
@@ -3430,7 +3430,7 @@ void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWea
         STATLIST_MergeStatLists(pTarget, pLeftHandWeapon, 1);
     }
 
-    D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pTarget->pInventory);
+    D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pTarget->pInventory);
     if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon)
     {
         if (STATLIST_GetOwner(pSecondaryWeapon, 0))

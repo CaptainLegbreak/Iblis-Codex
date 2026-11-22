@@ -308,7 +308,7 @@ EditBoxImplementation::EditBoxImplementation()
 }
 
 // 0x004BB5F0
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
+int __stdcall SKILLS_Return0(int nUnused)
 {
     return 0;
 }

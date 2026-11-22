@@ -166,7 +166,7 @@ int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); //
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
@@ -278,7 +278,7 @@ const wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 
 wchar_t* __fastcall sub_00526700(wchar_t* pDest, const wchar_t* pSource); // 0x00526700
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
@@ -350,9 +350,9 @@ short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem);                      
 
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem);                                         // 0x006298A0
 
-int __stdcall sub_0063A380(D2UnitStrc* pUnit);                                        // 0x0063A380
+int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit);                                        // 0x0063A380
 
-int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                         // 0x0063A3A0
+int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit);                                         // 0x0063A3A0
 
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
@@ -1522,7 +1522,7 @@ static int __stdcall sub_004E9160_GetAttackRateValues(D2UnitStrc* pUnit, D2UnitS
     if (!pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -1661,7 +1661,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     if (!pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -1748,9 +1748,9 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
         *pColor = 3;
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
         *pColor = 1;
 
     if (nBonus <= -90)
@@ -2362,10 +2362,10 @@ int __fastcall sub_004F01F0_DirectionMissile(D2UnitStrc* pUnit, int nSkillId, in
     const int nSpeed = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel);
     int nStartX = -(nRange * nDirX);
     int nStartY = -(nRange * nDirY);
-    sub_00643260(&nStartX, &nStartY);
+    DUNGEON_GameSubtileToClientCoords(&nStartX, &nStartY);
     int nStepX = nDirX;
     int nStepY = nDirY;
-    sub_00643260(&nStepX, &nStepY);
+    DUNGEON_GameSubtileToClientCoords(&nStepX, &nStepY);
     sub_004DA1D0_SetMotionVectorA(pMissile, nStartX, nStartY, nSpeed * nRange);
     sub_004DA200_SetMotionVectorB(pMissile, nStepX, nStepY, -nSpeed, 1);
     sub_004DA350_UpdateMotion(pMissile);
@@ -2907,7 +2907,7 @@ int __fastcall sub_004F39A0_SetTargetParams(D2UnitStrc* pUnit, int nSkillId, int
         return 0;
     }
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit() && !sub_00645680_CanUnitCorpseBeSelected(pTarget))
+    if (pUnit == sub_00463DD0_GetPlayerUnit() && !D2COMMON_11021(pTarget))
     {
         return 0;
     }

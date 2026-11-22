@@ -117,7 +117,7 @@ struct D2PropertiesTxt
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 
 // 0x0065C5A0
-const D2PropertiesTxt* __fastcall sub_0065C5A0_GetPropertiesTxtRecord(int nProperty)
+const D2PropertiesTxt* __fastcall QUESTRECORD_GetPropertiesTxtRecord(int nProperty)
 {
     if (nProperty >= 0 && nProperty < sgptDataTables->nPropertiesTxtRecordCount)
     {

@@ -75,7 +75,7 @@ struct D2CmdArgStrc
 
 extern D2CmdArgStrc gaCmdArguments[58]; // 0x00705040
 void __stdcall sub_00405450_LoadIniSettings(char* pSettings); // 0x00405450
-void __cdecl sub_006114E0_CreateIgnoreList(); // 0x006114E0
+void __cdecl IGNORELIST_CreateIgnoreList(); // 0x006114E0
 int __fastcall sub_00405710_ParseCmdArgument(char* szCommandNameTestBuf, const char* pszCommand, char* szCommandValueBuf); // 0x00405710
 
 typedef int BOOL;
@@ -139,7 +139,7 @@ int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (
 void __cdecl sub_00514060_ShutdownSound(); // 0x00514060
 void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
-void __cdecl sub_0060DDB0(); // 0x0060DDB0
+void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetVersion(); // 0x006CC138
 extern "C" __declspec(dllimport) void* __stdcall OpenSCManagerA(const char* szMachineName, const char* szDatabaseName, unsigned long dwDesiredAccess); // 0x006CC028
 extern "C" __declspec(dllimport) void* __stdcall OpenServiceA(void* hSCManager, const char* szServiceName, unsigned long dwDesiredAccess); // 0x006CC04C
@@ -591,7 +591,7 @@ void __fastcall ParseCmdLine(D2ConfigStrc* pCfg, const char* argv)
 {
     memset(pCfg, 0, 0x3CD);
     sub_00405450_LoadIniSettings((char*)pCfg);
-    sub_006114E0_CreateIgnoreList();
+    IGNORELIST_CreateIgnoreList();
     sub_004058A0_ParseCmdArgs(pCfg, argv);
 }
 
@@ -606,7 +606,7 @@ void __cdecl sub_00405A60_Nop()
 }
 
 // 0x0063A800
-void __cdecl sub_0063A800_Nop()
+void __cdecl ITEMS_Nop()
 {
 }
 
@@ -799,7 +799,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
         pComInterface->pfnRelease();
     }
 
-    sub_0060DDB0();
+    IGNORELIST_FreeIgnoreList();
     FOG_DestroyMemoryPoolSystem(0);
     return 0;
 }

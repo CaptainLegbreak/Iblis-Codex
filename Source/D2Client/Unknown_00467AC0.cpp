@@ -72,12 +72,12 @@ int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg);        
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);                           // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                           // 0x00644140
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY);                     // 0x004C51E0
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
-void __stdcall sub_00643260(int* pX, int* pY);                                                   // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);                                                   // 0x00643260
 
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
@@ -525,7 +525,7 @@ static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pn
 
 D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg)
 {
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pUnit)
     {
@@ -629,7 +629,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
 
     int nPlayerX = CLIENTS_GetUnitX(pPlayer);
     int nPlayerY = CLIENTS_GetUnitY(pPlayer);
-    sub_00643260(&nPlayerX, &nPlayerY);
+    DUNGEON_GameSubtileToClientCoords(&nPlayerX, &nPlayerY);
 
     D2UnitStrc* pBest = 0;
     D2ActiveRoomStrc** ppRoomList;

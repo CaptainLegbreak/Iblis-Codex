@@ -21,19 +21,19 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData); // 0x0067CE20
+void __stdcall DRLGVER_SplitVerticesAtOrths(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData); // 0x0067CE20
 
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);
 
-static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit);
+static void __stdcall DRLGVER_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit);
 
-static void __fastcall sub_0067D030(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst);
+static void __fastcall DRLGVER_MakeVerticesRelative(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst);
 
 void __fastcall sub_0067D050(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth);
 
-void __fastcall sub_0067D250(D2DrlgVertexStrc** ppVertex);
+void __fastcall DRLGVER_ReverseVertexList(D2DrlgVertexStrc** ppVertex);
 
-void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY);
+void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY);
 
 // build: symbol ?DRLGVER_AllocVertex@@YIPAUD2DrlgVertexStrc@@PAXE@Z 0x0067CDD0
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection)
@@ -45,7 +45,7 @@ D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char n
 }
 
 // 0x0067CE00
-static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit)
+static void __stdcall DRLGVER_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit)
 {
     pVertex->dwFlags |= 1;
     if (bInit)
@@ -55,7 +55,7 @@ static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bIn
 }
 
 // 0x0067CE20
-void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData)
+void __stdcall DRLGVER_SplitVerticesAtOrths(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData)
 {
     int nSign = 0;
     D2DrlgVertexStrc* pNextVertex = pCurrentVertex->pNext;
@@ -162,7 +162,7 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2
             pVertex = pNewVertex;
         }
 
-        sub_0067CE00_MarkVertex(pVertex, pCurrentRoomData->bPreset);
+        DRLGVER_MarkVertex(pVertex, pCurrentRoomData->bPreset);
 
         if (nSecond * nSign < nEnd * nSign)
         {
@@ -187,7 +187,7 @@ next:
 }
 
 // 0x0067D030
-static void __fastcall sub_0067D030(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst)
+static void __fastcall DRLGVER_MakeVerticesRelative(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst)
 {
     D2DrlgVertexStrc* pVertex = pFirst;
     do
@@ -231,8 +231,8 @@ void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVert
     pVertex3->nPosY = pCoords->nPosY + pCoords->nHeight;
     pVertex3->pNext = *ppVertex;
 
-    sub_0067CE20(pMemPool, *ppVertex, pCoords, nDirection, pOrth);
-    sub_0067D030(pCoords, *ppVertex);
+    DRLGVER_SplitVerticesAtOrths(pMemPool, *ppVertex, pCoords, nDirection, pOrth);
+    DRLGVER_MakeVerticesRelative(pCoords, *ppVertex);
 
     ++pCoords->nWidth;
     ++pCoords->nHeight;
@@ -272,7 +272,7 @@ void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex
 }
 
 // 0x0067D250
-void __fastcall sub_0067D250(D2DrlgVertexStrc** ppVertex)
+void __fastcall DRLGVER_ReverseVertexList(D2DrlgVertexStrc** ppVertex)
 {
     D2DrlgVertexStrc* pPrevious = 0;
     D2DrlgVertexStrc* pVertex = *ppVertex;
@@ -288,7 +288,7 @@ void __fastcall sub_0067D250(D2DrlgVertexStrc** ppVertex)
 }
 
 // 0x0067D280
-void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY)
+void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY)
 {
     *pDirectionX = pVertex->pNext->nPosX - pVertex->nPosX;
     *pDirectionY = pVertex->pNext->nPosY - pVertex->nPosY;

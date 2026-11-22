@@ -20,7 +20,7 @@ struct D2DrlgOrthStrc;
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
-void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D2DrlgCoordStrc* pCoords, int nFlag, int eOperation, int nSize); // 0x0067C8E0
+void __fastcall DRLGGRID_AlterFlagsAlongVertexLine(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D2DrlgCoordStrc* pCoords, int nFlag, int eOperation, int nSize); // 0x0067C8E0
 void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight); // 0x0067CB80
 extern const unsigned char gRoadPatternCodes[256]; // 0x006F2700
 
@@ -103,7 +103,7 @@ static void sub_00680A70(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom)
         {
             if (pVertex->pNext)
             {
-                sub_0067C8E0(&pOutdoor->tGrid3C, pVertex, &tCoords, 1, 0, 2);
+                DRLGGRID_AlterFlagsAlongVertexLine(&pOutdoor->tGrid3C, pVertex, &tCoords, 1, 0, 2);
             }
         }
     }

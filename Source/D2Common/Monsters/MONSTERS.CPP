@@ -334,7 +334,7 @@ int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pMonster, int bFromMonster, i
 }
 
 // 0x0063EBD0
-unsigned char __stdcall sub_0063EBD0_GetLightRadius(D2UnitStrc* pMonster)
+unsigned char __stdcall MONSTERS_GetMaximalLightRadius(D2UnitStrc* pMonster)
 {
     if (pMonster && (!pMonster ? 6 : pMonster->dwUnitType) == 1)
     {
@@ -436,7 +436,7 @@ int __stdcall MONSTERS_IsPrimeEvil(D2UnitStrc* pMonster)
 }
 
 // 0x0063EE10
-void __stdcall sub_0063EE10(Unit* unit,int* x,int* y)
+void __stdcall MONSTERS_GetChainDirectionDelta(Unit* unit,int* x,int* y)
 {
     const int type=unit?unit->type:6;
     CHECK(type==1,0x2bc);
@@ -480,7 +480,7 @@ int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pHireling)
 }
 
 // 0x0063EEF0
-void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc* unit, int mode, unsigned char difficulty)
+void __stdcall MONSTERS_ApplyClassicScaling(D2UnitStrc* unit, int mode, unsigned char difficulty)
 {
     if (mode || !difficulty)
         return;

@@ -42,7 +42,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 
-D2UnitStrc* __stdcall sub_0063BEF0_GetLeftWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 
@@ -130,7 +130,7 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 int __stdcall sub_006287A0_TestFlags(unsigned int dwFlags, unsigned int dwMask); // 0x006287A0
 
-int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
+int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 
 int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bCheckForHeader, int* pSocketedItemCount, unsigned int dwVersion, int* pFail); // 0x0062E430
 
@@ -263,7 +263,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc*
 
     if (GetUnitType(pUnit) == 0)
     {
-        D2UnitStrc* pLeftHand = sub_0063BEF0_GetLeftWeapon(GetInventory(pUnit));
+        D2UnitStrc* pLeftHand = INVENTORY_GetLeftHandWeapon(GetInventory(pUnit));
         if (UNITS_CanDualWield(pUnit))
         {
             int bType = 1;
@@ -589,7 +589,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(unsigned short nX, uns
     int nSize = pPacket->nPacketSize - 13;
     if (!pItemSave)
     {
-        sub_0062E410(pPacket->pBitstream, nSize, 0, &tItemSave);
+        ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, nSize, 0, &tItemSave);
         pItemSave = &tItemSave;
     }
 
@@ -629,7 +629,7 @@ static __declspec(noinline) void __stdcall sub_004C2540_PlaceItem(D2UnitStrc* pI
 void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 13, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 13, 0, &tItemSave);
 
     D2UnitStrc* pOwner = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pOwner)
@@ -669,7 +669,7 @@ void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket)
 
     if (pOwner->dwUnitType == UNIT_PLAYER)
     {
-        sub_0063BEF0_GetLeftWeapon(pOwner->pInventory);
+        INVENTORY_GetLeftHandWeapon(pOwner->pInventory);
     }
 
     if (!ITEMS_CheckItemFlag(pItem, 0x100, 150, ".\\UNIT\\Item.cpp"))

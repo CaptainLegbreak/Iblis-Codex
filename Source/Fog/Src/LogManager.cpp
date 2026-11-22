@@ -205,7 +205,7 @@ struct D2ChatStormLinkStrc
             m_next = 0;
         }
     }
-    bool sub_0060E0C0_IsLinked();
+    bool IGNORELIST_IsLinkLinked();
     char* sub_0060E1A0_Next();
     char* sub_0060E240_Next();
     void sub_0060E3B0_Unlink();
@@ -237,7 +237,7 @@ struct D2ChatStormNodeStrc
     D2ChatStormLinkStrc f_C;
     char* f_14;
 
-    char* sub_0060E0B0_GetKey();
+    char* IGNORELIST_GetStringEntryKey();
 };
 
 struct D2ChatStormBaseArrayAStrc
@@ -247,7 +247,7 @@ struct D2ChatStormBaseArrayAStrc
     void* f_8;
 
     D2ChatStormBaseArrayAStrc();
-    unsigned int sub_0060E230_Count();
+    unsigned int IGNORELIST_GetStringSlotArrayCount();
 };
 
 struct D2ChatStormBaseArrayBStrc
@@ -257,7 +257,7 @@ struct D2ChatStormBaseArrayBStrc
     void* f_8;
 
     D2ChatStormBaseArrayBStrc();
-    unsigned int sub_0060E250_Count();
+    unsigned int IGNORELIST_GetMappingSlotArrayCount();
 };
 
 struct D2ChatStormListAStrc
@@ -270,9 +270,9 @@ struct D2ChatStormListAStrc
         m_terminator.m_prevlink = &m_terminator;
         m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
     }
-    void sub_0060E260_InitializeTerminator();
-    char* sub_0060E440_Head();
-    void sub_0060E5F0_Reset();
+    void IGNORELIST_InitStringListTerminator();
+    char* IGNORELIST_GetStringListHead();
+    void IGNORELIST_ResetStringList();
 };
 
 struct D2ChatStormListBStrc
@@ -285,9 +285,9 @@ struct D2ChatStormListBStrc
         m_terminator.m_prevlink = &m_terminator;
         m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
     }
-    void sub_0060E270_InitializeTerminator();
-    char* sub_0060E5D0_Head();
-    void sub_0060E610_Reset();
+    void IGNORELIST_InitMappingListTerminator();
+    char* IGNORELIST_GetMappingListHead();
+    void IGNORELIST_ResetMappingList();
 };
 
 struct D2ChatStormHashTableStrc
@@ -295,7 +295,7 @@ struct D2ChatStormHashTableStrc
     void* m_pVTable;
     D2ChatStormListAStrc m_fulllist;
 
-    char* sub_0060E6D0_Head();
+    char* IGNORELIST_GetStringTableHead();
 };
 
 struct D2ChatStormCtorLinkStrc
@@ -406,13 +406,13 @@ struct D2CommonStringEntryNodeStrc
     char* f_14;
 
     ~D2CommonStringEntryNodeStrc();
-    void sub_0060EE30_Destroy();
+    void IGNORELIST_DestroyStringEntryNode();
 };
 
 struct D2CommonStormHashTableAStrc
 {
-    void sub_0060EB70_InternalClear(int bWarn);
-    void sub_0060ED60_Clear();
+    void IGNORELIST_InternalClearStringTable(int bWarn);
+    void IGNORELIST_ClearStringTable();
 };
 
 struct sub_0040F7D0
@@ -1125,7 +1125,7 @@ void __fastcall sub_0040F720_WriteMessage(D2LogMessageStrc* pMessage)
     }
 }
 
-bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
+bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
 {
     return m_next != 0;
 }
@@ -1172,7 +1172,7 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
     m_next = 0;
 }
 
-char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
+char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 {
     return f_14;
 }
@@ -1184,7 +1184,7 @@ D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
     f_8 = 0;
 }
 
-unsigned int D2ChatStormBaseArrayAStrc::sub_0060E230_Count()
+unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
     return f_4;
 }
@@ -1196,33 +1196,33 @@ D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
     f_8 = 0;
 }
 
-unsigned int D2ChatStormBaseArrayBStrc::sub_0060E250_Count()
+unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
     return f_4;
 }
 
-void D2ChatStormListAStrc::sub_0060E260_InitializeTerminator()
+void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
 {
     InitializeTerminator();
 }
 
 // 0x0040F7C0
-char* D2ChatStormListAStrc::sub_0060E440_Head()
+char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
 {
     return m_terminator.MaskNext();
 }
 
-void D2ChatStormListBStrc::sub_0060E270_InitializeTerminator()
+void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
 {
     InitializeTerminator();
 }
 
-char* D2ChatStormListBStrc::sub_0060E5D0_Head()
+char* D2ChatStormListBStrc::IGNORELIST_GetMappingListHead()
 {
     return m_terminator.MaskNext();
 }
 
-void D2ChatStormListBStrc::sub_0060E610_Reset()
+void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
 {
     m_linkoffset = 0;
     InitializeTerminator();
@@ -1238,7 +1238,7 @@ char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
     return pNode + nLinkOffset;
 }
 
-char* D2ChatStormHashTableStrc::sub_0060E6D0_Head()
+char* D2ChatStormHashTableStrc::IGNORELIST_GetStringTableHead()
 {
     return m_fulllist.m_terminator.MaskNext();
 }
@@ -1280,14 +1280,14 @@ D2CommonMappingEntryNodeStrc::~D2CommonMappingEntryNodeStrc()
         SMemFree(pMapped, gszIgnoreListSourceFile_006E6290, 0x11, 0);
 }
 
-void D2CommonStringEntryNodeStrc::sub_0060EE30_Destroy()
+void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
 {
     this->~D2CommonStringEntryNodeStrc();
 }
 
-void D2CommonStormHashTableAStrc::sub_0060ED60_Clear()
+void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 {
-    sub_0060EB70_InternalClear(0);
+    IGNORELIST_InternalClearStringTable(0);
 }
 
 // 0x0040F7D0
@@ -1304,7 +1304,7 @@ sub_0040F810::sub_0040F810()
 }
 
 // 0x0040F860
-void D2ChatStormListAStrc::sub_0060E5F0_Reset()
+void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 {
     m_linkoffset = 0;
     InitializeTerminator();

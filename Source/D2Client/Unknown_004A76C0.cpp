@@ -201,7 +201,7 @@ void __cdecl sub_004AB630_DrawTabHint(); // 0x004AB630
 void __cdecl sub_004AC200_RefreshSkillTree(); // 0x004AC200
 void __cdecl sub_004AC4D0_DrawSkillTree(); // 0x004AC4D0
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
 void __stdcall sub_K05_EmitUse(int nValue);
 
@@ -1082,7 +1082,7 @@ int __fastcall sub_004A9A90_FindSkill(D2UnitStrc* pUnit, int nSkillId)
     }
     for (D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit); pSkill; pSkill = SKILLS_GetNextSkill(pSkill))
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && SKILLS_GetQuantity(pSkill) > 0 && pSkillsTxt->nSkillId == nSkillId)
         {
             break;
@@ -1100,7 +1100,7 @@ int __fastcall sub_004A9AE0_FindSkill(D2UnitStrc* pUnit, int nSkillId)
     }
     for (D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit); pSkill; pSkill = SKILLS_GetNextSkill(pSkill))
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && SKILLS_GetQuantity(pSkill) > 0 && pSkillsTxt->nSkillId == nSkillId)
         {
             break;
@@ -1118,7 +1118,7 @@ int __fastcall sub_004A9B30_FindSkill(D2UnitStrc* pUnit, int nSkillId)
     }
     for (D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit); pSkill; pSkill = SKILLS_GetNextSkill(pSkill))
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && SKILLS_GetQuantity(pSkill) > 0 && pSkillsTxt->nSkillId == nSkillId)
         {
             break;
@@ -1136,7 +1136,7 @@ int __fastcall sub_004A9B80_FindSkill(D2UnitStrc* pUnit, int nSkillId)
     }
     for (D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit); pSkill; pSkill = SKILLS_GetNextSkill(pSkill))
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && SKILLS_GetQuantity(pSkill) > 0 && pSkillsTxt->nSkillId == nSkillId)
         {
             break;
@@ -1153,7 +1153,7 @@ void __cdecl sub_004A9DF0_UpdateSkillIcons()
 
     do
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (BITARRAY_CHECK(pSkillsTxt->nFlags, 36))
         {
             sub_004A9D70_ClearSkillHotkeys(pSkillsTxt, SKILLS_GetQuantity(pSkill));

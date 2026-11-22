@@ -263,7 +263,7 @@ D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoo
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
+int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
 
 int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nObjectType, int nObjectGUID, int* pResult); // 0x00584420
 
@@ -940,7 +940,7 @@ static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitSt
         STATES_ToggleState(pDefender, 2, 1);
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-        sub_006270B0(pNewStatList, 0x4A, -nPoisonDamage, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x4A, -nPoisonDamage, 0);
         STATLIST_SetState(pNewStatList, STATE_POISON);
         STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
@@ -992,7 +992,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
         STATES_ToggleState(pDefender, 0x73, 1);
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-        sub_006270B0(pNewStatList, 0x4A, -nBurnDamage, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x4A, -nBurnDamage, 0);
         STATLIST_SetState(pNewStatList, STATE_BURNING);
         STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
@@ -1088,9 +1088,9 @@ static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, int nColdLe
         STATLIST_SetState(pNewStatList, STATE_COLD);
         STATLIST_SetStatRemoveCallback(pNewStatList, SUNITDMG_RemoveShatterState);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
-        sub_006270B0(pNewStatList, 0x43, nColdEffect, 0);
-        sub_006270B0(pNewStatList, 0x44, nColdEffect, 0);
-        sub_006270B0(pNewStatList, 0x45, nColdEffect, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x43, nColdEffect, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x44, nColdEffect, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x45, nColdEffect, 0);
         UnitUpdateAnimRateAndVel(pDefender, ".\\UNIT\\SUnitDmg.cpp", 0x1DC);
     }
     else if (STATLIST_GetExpireFrame(pStatList) < nExpireFrame)
@@ -4283,7 +4283,7 @@ int __fastcall sub_6FC78B20(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short
             return 1;
         }
 
-        if (!sub_00623660_IsInObjectInteractRange(pUnit, pObject))
+        if (!UNITS_IsObjectInInteractRange(pUnit, pObject))
         {
             return 1;
         }

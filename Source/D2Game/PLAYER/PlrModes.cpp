@@ -107,7 +107,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
@@ -491,7 +491,7 @@ static int sub_0057ED90_CanEndSequence(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (pSkill)
     {
-        D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxtRecord && pSkillsTxtRecord->nSeqInput > 0)
         {
             return 1;

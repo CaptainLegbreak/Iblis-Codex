@@ -353,7 +353,7 @@ void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPla
 
 extern "C" unsigned int __stdcall sub_006280A0(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-extern "C" char __stdcall sub_00628250(D2UnitStrc* pUnit); // 0x00628250
+extern "C" char __stdcall ITEMS_GetInventoryPage(D2UnitStrc* pUnit); // 0x00628250
 
 void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nItemCell); // 0x00628320
 
@@ -456,7 +456,7 @@ D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); 
 
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00647960
 
@@ -1620,7 +1620,7 @@ static int __stdcall sub_0055C560_IsThrowSkillUsable(D2UnitStrc* pUnit, D2SkillS
         return 0;
     }
 
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], ITEMTYPE_THROWN_WEAPON) || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
@@ -3460,7 +3460,7 @@ int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc* ptGame, D2UnitStrc* hUnit)
     for (D2UnitStrc* i = INVENTORY_GetFirstItem(pInventory); i; i = INVENTORY_GetNextItem(i))
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(i);
-        if (ITEMSIsA(pItem, 0x29) && !sub_00628250(pItem))
+        if (ITEMSIsA(pItem, 0x29) && !ITEMS_GetInventoryPage(pItem))
         {
             if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) - 1 > 0)
             {
@@ -4343,7 +4343,7 @@ int __fastcall sub_6FC446B0(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID
         return 0;
     }
 
-    if (pUnit->dwUnitType == UNIT_PLAYER && !PLAYER_IsBusy(pUnit) && sub_00628250(hItem))
+    if (pUnit->dwUnitType == UNIT_PLAYER && !PLAYER_IsBusy(pUnit) && ITEMS_GetInventoryPage(hItem))
     {
         *pItemStatus = 1;
         return 0;
@@ -4373,7 +4373,7 @@ int __fastcall sub_6FC446B0(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID
 
     sub_0055C6E0_OnItemToCursor(pUnit, hItem);
 
-    const unsigned char nInvPage = sub_00628250(hItem);
+    const unsigned char nInvPage = ITEMS_GetInventoryPage(hItem);
     const int nInventoryRecordId = UNITS_GetInventoryRecordId(pUnit, nInvPage, ptGame->bExpansion);
 
     int bTrade = 0;
@@ -5068,7 +5068,7 @@ int __fastcall sub_6FC46D40(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorIt
         return 0;
     }
 
-    const char nInvPage = sub_00628250(hGridItem);
+    const char nInvPage = ITEMS_GetInventoryPage(hGridItem);
     if (nInvPage == 3)
     {
         if (!byte_0088C700)

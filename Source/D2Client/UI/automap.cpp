@@ -387,7 +387,7 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
@@ -474,7 +474,7 @@ D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
 
 int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -1973,7 +1973,7 @@ void __stdcall sub_0045B1E0_DrawUnitTileRect(D2UnitStrc* pUnit)
     }
     int nX = UNITS_GetXPositionInline(pUnit);
     int nY = UNITS_GetYPositionInline(pUnit);
-    sub_00643260(&nX, &nY);
+    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
     int nLeft = pTileRect->nX - gdwGlobal_007A520C + nX;
     int nTop = pTileRect->nY - gdwGlobal_007A5208 + nY;
     int nRight = pTileRect->nWidth + nLeft;
@@ -1993,7 +1993,7 @@ void __stdcall sub_0045B1E0_DrawUnitTileRect(D2UnitStrc* pUnit)
     nY = UNITS_GetYPositionInline(pUnit);
     nX += pTileRect->nOffsetX;
     nY += pTileRect->nOffsetY;
-    sub_00643260(&nX, &nY);
+    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
     nX += 1;
     tRect.left = nX - gdwGlobal_007A520C - 0x10;
     tRect.right = nX - gdwGlobal_007A520C + 0x10;
@@ -2062,7 +2062,7 @@ void __stdcall sub_0045B4F0_DrawRoomCollision(D2ActiveRoomStrc* pRoom)
             int nCollision = sub_0061B130_GetCollision(pRoom, nX, nY);
             int nScreenX = nX;
             int nScreenY = nY;
-            sub_00643260(&nScreenX, &nScreenY);
+            DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
             tagRECT tRect;
             tRect.left = nScreenX - gdwGlobal_007A520C - 0x10;
             tRect.right = nScreenX - gdwGlobal_007A520C + 0x10;
@@ -2254,7 +2254,7 @@ void __fastcall sub_00460930_SetUnitLightRadius(D2UnitStrc* pUnit, int nDelta)
         {
             return;
         }
-        nRadius = sub_0063EBD0_GetLightRadius(pUnit);
+        nRadius = MONSTERS_GetMaximalLightRadius(pUnit);
         if (nRadius < pMonStats2TxtRecord->nLightRadius)
         {
             nRadius = pMonStats2TxtRecord->nLightRadius;
@@ -2296,7 +2296,7 @@ int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarg
     {
         return 0;
     }
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxtRecord)
     {
         return 0;

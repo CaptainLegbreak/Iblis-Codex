@@ -1739,13 +1739,13 @@ extern const D2ElemDamageStatsStrc gaElemDamageStats_006DBEF4[4];               
 
 extern const unsigned int gdwBitMasks_006CE268[];                                                           // 0x006CE268
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 
 int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor); // 0x004E7120
 
-int __stdcall sub_0063A380(D2UnitStrc* pUnit);                                        // 0x0063A380
+int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit);                                        // 0x0063A380
 
-int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                         // 0x0063A3A0
+int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit);                                         // 0x0063A3A0
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -1857,19 +1857,19 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
 
     if (pSkill)
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7]))
         {
             sub_004E7120_AddProgressiveDamage(pUnit, pMinDamage, pMaxDamage, pColor);
         }
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
     {
         *pColor = 3;
     }
 
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
     {
         *pColor = 1;
     }

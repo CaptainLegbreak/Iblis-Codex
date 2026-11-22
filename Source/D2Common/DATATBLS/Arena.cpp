@@ -88,7 +88,7 @@ void __fastcall DATATBLS_UnloadArenaTxt()
 }
 
 // 0x00664B10
-static void __stdcall sub_00664B10(D2CharTemplateTxt* pTemplateRecord, int nRecordCount)
+static void __stdcall DATATBLS_InitCharTemplateStartIds(D2CharTemplateTxt* pTemplateRecord, int nRecordCount)
 {
     memset(gnCharTemplateStartIds, 0, sizeof(gnCharTemplateStartIds));
 
@@ -193,7 +193,7 @@ void __fastcall DATATBLS_LoadCharTemplateTxt(void* hArchive)
     };
 
     gpCharTemplateTxtTable = (D2CharTemplateTxt*)DATATBLS_CompileTxt(hArchive, "chartemplate", pTbl, &gnCharTemplateTxtTableRecordCount, sizeof(D2CharTemplateTxt));
-    sub_00664B10(gpCharTemplateTxtTable, gnCharTemplateTxtTableRecordCount);
+    DATATBLS_InitCharTemplateStartIds(gpCharTemplateTxtTable, gnCharTemplateTxtTableRecordCount);
 }
 
 // 0x00665740

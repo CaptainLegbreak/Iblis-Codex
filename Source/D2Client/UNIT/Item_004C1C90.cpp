@@ -45,7 +45,7 @@ void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* p
 
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
 
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
+int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit); // 0x00624390
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
@@ -71,7 +71,7 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                            
 
 unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pItem);                                         // 0x00629FE0
 
-int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
+int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 
 int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bCheckForHeader, int* pSocketedItemCount, unsigned int dwVersion, int* pFail); // 0x0062E430
 
@@ -334,7 +334,7 @@ static D2UnitStrc* __stdcall sub_004C0F20_CreateWorldItem(unsigned short nX, uns
     const int nSize = pPacket->nSize - 8;
     if (!pItemSave)
     {
-        sub_0062E410(pPacket->pData, nSize, 0, &tItemSave);
+        ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pData, nSize, 0, &tItemSave);
         pItemSave = &tItemSave;
     }
 
@@ -363,7 +363,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(unsigned short nX, uns
     const int nSize = pPacket->nSize - 0x0D;
     if (!pItemSave)
     {
-        sub_0062E410(pPacket->pData, nSize, 0, &tItemSave);
+        ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pData, nSize, 0, &tItemSave);
         pItemSave = &tItemSave;
     }
 
@@ -558,7 +558,7 @@ void __fastcall sub_004C1910_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pR
         UNITS_BlockCollisionPath(pItem, pRoom, nX, nY);
         UNITROOM_AddUnitToRoom(pItem, pRoom);
         pItem->dwFlags &= ~2;
-        sub_00624390_AnimInit(pItem);
+        UNITS_SetAnimStartFrame(pItem);
         sub_004C18B0_PlayDropSound(pItem);
         break;
 
@@ -567,7 +567,7 @@ void __fastcall sub_004C1910_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pR
         UNITS_BlockCollisionPath(pItem, pRoom, nX, nY);
         UNITROOM_AddUnitToRoom(pItem, pRoom);
         pItem->dwFlags |= 2;
-        sub_00624390_AnimInit(pItem);
+        UNITS_SetAnimStartFrame(pItem);
         break;
 
     case 4:
@@ -761,7 +761,7 @@ static D2UnitStrc* __stdcall sub_004C0F20_CreateItem9C(unsigned short nX, unsign
     const int nSize = pPacket->nPacketSize - 0x08;
     if (!pItemSave)
     {
-        sub_0062E410(pPacket->pBitstream, nSize, 0, &tItemSave);
+        ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, nSize, 0, &tItemSave);
         pItemSave = &tItemSave;
     }
 
@@ -793,7 +793,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateItem9D(unsigned short nX, unsign
     const int nSize = pPacket->nPacketSize - 0x0D;
     if (!pItemSave)
     {
-        sub_0062E410(pPacket->pBitstream, nSize, 0, &tItemSave);
+        ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, nSize, 0, &tItemSave);
         pItemSave = &tItemSave;
     }
 
@@ -821,7 +821,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateItem9D(unsigned short nX, unsign
 void __fastcall sub_004C20B0_ItemToCursor9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0xB0C);
@@ -843,7 +843,7 @@ void __fastcall sub_004C20B0_ItemToCursor9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C2340_ItemToCursor9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
@@ -880,7 +880,7 @@ static void __stdcall sub_004C2540_PlaceItem(D2UnitStrc* pItem, unsigned short n
 void __fastcall sub_004C25B0_ItemDropToGround9C(D2ItemPacket9CStrc* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pData, pPacket->nSize - 8, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pData, pPacket->nSize - 8, 0, &tItemSave);
 
     D2UnitStrc* pItem = sub_004C0F20_CreateWorldItem(tItemSave.nX, tItemSave.nY, 0, pPacket, &tItemSave);
     D2_ASSERT(pItem, 0x384);
@@ -897,7 +897,7 @@ void __fastcall sub_004C25B0_ItemDropToGround9C(D2ItemPacket9CStrc* pPacket)
 void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     if (tItemSave.bMode == 4)
@@ -917,7 +917,7 @@ void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C26F0_ItemDropped9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
@@ -951,7 +951,7 @@ void __fastcall sub_004C26F0_ItemDropped9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C2810(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
     if (pItem)
@@ -1051,7 +1051,7 @@ static void __stdcall sub_004C2970_PlaceItemAt(unsigned short nY, unsigned char 
 void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
@@ -1290,7 +1290,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
 void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
@@ -1480,7 +1480,7 @@ static inline void ITEM_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUni
 void __fastcall sub_004C3380_RemoveBodyItem9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int bToCursor = 0;
@@ -1704,7 +1704,7 @@ static void __stdcall sub_004C3980_SwapBodyItem9D(D2ItemSaveStrc* pItemSave, D2G
 void __fastcall sub_004C3B00(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
     sub_004C3980_SwapBodyItem9D(&tItemSave, pPacket);
 }
 
@@ -1771,7 +1771,7 @@ static void __stdcall sub_004C3760_ItemFromBody9D(D2GSPacketSrv9D* pPacket, D2It
 void __fastcall sub_004C3920_BodyPacket9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
     if (sub_006287A0_TestFlags(tItemSave.dwFlags, 0x40))
     {
         sub_004C35F0_ItemToBody9D(pPacket, &tItemSave);
@@ -1787,7 +1787,7 @@ void __fastcall sub_004C3920_BodyPacket9D(D2GSPacketSrv9D* pPacket)
 void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
@@ -1850,7 +1850,7 @@ void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C2C80_ItemFromStorage9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
@@ -1941,7 +1941,7 @@ void __fastcall sub_004C3C00_ItemToMerc9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
     int nUnitId;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     if (tItemSave.nStorePage == 0xFF)
     {
@@ -2137,7 +2137,7 @@ static void __stdcall sub_004C3F60_BeltItemToCursor(D2GSPacketSrv9C* pPacket, D2
 void __fastcall sub_004C40D0_BeltPacket2_9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
     if (!pItem)
@@ -2160,7 +2160,7 @@ void __fastcall sub_004C40D0_BeltPacket2_9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x8EF);
@@ -2208,7 +2208,7 @@ void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x92C);
@@ -2328,7 +2328,7 @@ void __stdcall sub_004C44D0_ItemFromBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStr
 void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
     if (!pItem)
@@ -2351,7 +2351,7 @@ void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
@@ -2443,7 +2443,7 @@ void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket)
 void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
@@ -2492,7 +2492,7 @@ void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket)
 void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
@@ -2568,7 +2568,7 @@ void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket)
 D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);

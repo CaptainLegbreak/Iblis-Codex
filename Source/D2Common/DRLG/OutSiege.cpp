@@ -89,7 +89,7 @@ int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 
-void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
+void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
 
 D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 
@@ -113,9 +113,9 @@ int __fastcall DRLGOUTDOOR_006755C0(int nDirX, int nDirY, int nSize);
 
 int __fastcall DRLGOUTDOOR_00675600(int nDirX, int nDirY, int nNextDirX, int nNextDirY, int nSize);
 
-void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel); // 0x0067DCF0
+void __stdcall DRLGOUTSIEGE_PlaceCliffBorder(D2DrlgLevelStrc* pLevel); // 0x0067DCF0
 
-void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel); // 0x0067DEF0
+void __stdcall DRLGOUTSIEGE_PlaceRavineBorder(D2DrlgLevelStrc* pLevel); // 0x0067DEF0
 
 int __fastcall DRLGOUTDOORS_GetPresetIndexFromGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674120
 
@@ -131,21 +131,21 @@ int __fastcall sub_006741E0(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
 void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel);
 
-int __stdcall sub_0067DB00(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, D2DrlgLevelStrc* pLevel, int nPresetId);
+int __stdcall DRLGOUTSIEGE_SpawnPresetAtLvlLinkCell(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, D2DrlgLevelStrc* pLevel, int nPresetId);
 
-void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel);
+void __stdcall DRLGOUTSIEGE_PlaceBarricadeEntrancesAndExits(D2DrlgLevelStrc* pLevel);
 
-void sub_0067DCA0(D2DrlgLevelStrc* pLevel);
+void DRLGOUTSIEGE_MarkBottomRightLvlLinkCells(D2DrlgLevelStrc* pLevel);
 
-int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel);
+int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel);
 
-int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nType, int nIndex);
+int __fastcall DRLGOUTSIEGE_GetSecondaryBorderPresetId(D2DrlgLevelStrc* pLevel, int nType, int nIndex);
 
-int __fastcall sub_0067E080(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nUnused, unsigned int dwCellFlags);
+int __fastcall DRLGOUTSIEGE_TestSecondaryBorderCell(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nUnused, unsigned int dwCellFlags);
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-static int sub_0067E210_PlaceShiftedPreset(D2DrlgLevelStrc* pLevel, int nX, int nY);
+static int DRLGOUTSIEGE_PlacePrisonAtCell(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
 struct D2DrlgOutSiegeInitStrc
 {
@@ -160,21 +160,21 @@ extern const D2DrlgOutSiegeInitStrc gaOutSiegeCaves[3]; // 0x006F1F9C
 
 void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x00675770
 
-void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel); // 0x0067E160
+void __stdcall DRLGOUTSIEGE_PlaceSpecialPresets(D2DrlgLevelStrc* pLevel); // 0x0067E160
 
 static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel); // 0x0067DA70
 
 int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
-void __stdcall sub_0067E560(D2DrlgLevelStrc* pLevel);
+void __stdcall DRLGOUTSIEGE_PlaceSiegeToTownPresets(D2DrlgLevelStrc* pLevel);
 
-void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel);
+void __fastcall DRLGOUTSIEGE_InitAct5OutdoorLevel(D2DrlgLevelStrc* pLevel);
 
-static void sub_0067E0E0(D2DrlgLevelStrc* pLevel);
+static void DRLGOUTSIEGE_AddAct5SecondaryBorder(D2DrlgLevelStrc* pLevel);
 
-static void sub_0067E240(D2DrlgLevelStrc* pLevel);
+static void DRLGOUTSIEGE_PlacePrisons(D2DrlgLevelStrc* pLevel);
 
-static void sub_0067E4B0(D2DrlgLevelStrc* pLevel);
+static void DRLGOUTSIEGE_ConnectBarricadeAndSiege(D2DrlgLevelStrc* pLevel);
 
 extern const D2CoordStrc gAct5WallSteps_006F1FD8[12]; // 0x006F1FD8
 
@@ -216,10 +216,10 @@ static void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel)
     }
 }
 
-// build: symbol ?sub_0067E600@@YIXPAUD2DrlgLevelStrc@@@Z 0x0067E600
-// build: symbol ?sub_0067E160@@YGXPAUD2DrlgLevelStrc@@@Z 0x0067E160
+// build: symbol ?DRLGOUTSIEGE_InitAct5OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z 0x0067E600
+// build: symbol ?DRLGOUTSIEGE_PlaceSpecialPresets@@YGXPAUD2DrlgLevelStrc@@@Z 0x0067E160
 // 0x0067DB00
-static int __stdcall sub_0067DB00(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, D2DrlgLevelStrc* pLevel, int nPresetId)
+static int __stdcall DRLGOUTSIEGE_SpawnPresetAtLvlLinkCell(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, D2DrlgLevelStrc* pLevel, int nPresetId)
 {
     if (DRLGGRID_GetGridEntry(&pInfo->pGrid[2], nX, nY) & 0x400)
     {
@@ -230,13 +230,13 @@ static int __stdcall sub_0067DB00(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, 
 }
 
 // 0x0067DB50
-void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
+void __stdcall DRLGOUTSIEGE_PlaceBarricadeEntrancesAndExits(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
 
     for (int nX = 0; nX < pInfo->nGridWidth; ++nX)
     {
-        if (sub_0067DB00(pInfo, nX, 0, pLevel, 0x38D))
+        if (DRLGOUTSIEGE_SpawnPresetAtLvlLinkCell(pInfo, nX, 0, pLevel, 0x38D))
         {
             break;
         }
@@ -245,7 +245,7 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
     int nBottom = pInfo->nGridHeight - 2;
     for (int nX = 0; nX < pInfo->nGridWidth; ++nX)
     {
-        if (sub_0067DB00(pInfo, nX, nBottom, pLevel, 0x38C))
+        if (DRLGOUTSIEGE_SpawnPresetAtLvlLinkCell(pInfo, nX, nBottom, pLevel, 0x38C))
         {
             break;
         }
@@ -253,7 +253,7 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
 
     for (int nY = 0; nY < pInfo->nGridHeight; ++nY)
     {
-        if (sub_0067DB00(pInfo, 0, nY, pLevel, 0x38E))
+        if (DRLGOUTSIEGE_SpawnPresetAtLvlLinkCell(pInfo, 0, nY, pLevel, 0x38E))
         {
             break;
         }
@@ -262,7 +262,7 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
     int nRight = pInfo->nGridWidth - 2;
     for (int nY = 0; nY < pInfo->nGridHeight; ++nY)
     {
-        if (sub_0067DB00(pInfo, nRight, nY, pLevel, 0x38B))
+        if (DRLGOUTSIEGE_SpawnPresetAtLvlLinkCell(pInfo, nRight, nY, pLevel, 0x38B))
         {
             break;
         }
@@ -270,7 +270,7 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067DCA0
-static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTSIEGE_MarkBottomRightLvlLinkCells(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
 
@@ -282,7 +282,7 @@ static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067DCE0
-int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel)
+int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel)
 {
     return (pLevel->eLevelId == LEVEL_TUNDRAWASTELANDS) + 4;
 }
@@ -291,20 +291,20 @@ int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel)
 // calling-convention shim (not game code)
 void __stdcall EmitMarkLevel111Exit(D2DrlgLevelStrc* pLevel)
 {
-    sub_0067DCA0(pLevel);
+    DRLGOUTSIEGE_MarkBottomRightLvlLinkCells(pLevel);
 }
 
-int __fastcall sub_006755C0_LookupTable(int nA, int nB, int nC);                                             // 0x006755C0
+int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC);                                             // 0x006755C0
 
 int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE);                             // 0x00675600
 
 // 0x0067DCF0
-void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
+void __stdcall DRLGOUTSIEGE_PlaceCliffBorder(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     D2DrlgVertexStrc* pVertex = pInfo->pVertex;
     D2DrlgVertexStrc* pNext = pVertex->pNext;
-    int nSize = sub_0067DCE0(pLevel);
+    int nSize = DRLGOUTSIEGE_GetBorderLookupId(pLevel);
 
     do
     {
@@ -312,8 +312,8 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
         int nDirY;
         int nNextDirX;
         int nNextDirY;
-        sub_0067D280(pVertex, &nDirX, &nDirY);
-        sub_0067D280(pNext, &nNextDirX, &nNextDirY);
+        DRLGVER_GetCoordDiff(pVertex, &nDirX, &nDirY);
+        DRLGVER_GetCoordDiff(pNext, &nNextDirX, &nNextDirY);
 
         int nAbsDirX = nDirX < 0 ? -nDirX : nDirX;
         int nAbsDirY = nDirY >= 0 ? nDirY : -nDirY;
@@ -322,7 +322,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
         int nY = pVertex->nPosY & ~1;
         int nNextX = pNext->nPosX & ~1;
         int nNextY = pNext->nPosY & ~1;
-        int nPresetId = sub_006755C0_LookupTable(nDirX, nDirY, nSize);
+        int nPresetId = DRLGOUTDOORS_GetBorderLevelPrestId(nDirX, nDirY, nSize);
 
         if (!(pVertex->dwFlags & 2))
         {
@@ -359,12 +359,12 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
 
     if (pLevel->eLevelId == LEVEL_ID_ACT5_BARRICADE_1)
     {
-        sub_0067DCA0(pLevel);
+        DRLGOUTSIEGE_MarkBottomRightLvlLinkCells(pLevel);
     }
 }
 
 // 0x0067DEF0
-void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
+void __stdcall DRLGOUTSIEGE_PlaceRavineBorder(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     int nRight = pInfo->nGridWidth - 2;
@@ -409,7 +409,7 @@ static const D2Act5TypeRangeStrc gAct5TypeRanges[10] = // 0x006F2038
 };
 
 // 0x0067E000
-int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nType, int nIndex)
+int __fastcall DRLGOUTSIEGE_GetSecondaryBorderPresetId(D2DrlgLevelStrc* pLevel, int nType, int nIndex)
 {
     if (nType != 48 && nType != 49)
     {
@@ -436,9 +436,9 @@ int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nType, int nIndex)
 }
 
 // 0x0067E080
-int __fastcall sub_0067E080(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nUnused, unsigned int dwCellFlags)
+int __fastcall DRLGOUTSIEGE_TestSecondaryBorderCell(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nUnused, unsigned int dwCellFlags)
 {
-    int nResult = sub_0067E000(pLevel, (dwCellFlags >> 20) & 0x3F, (dwCellFlags >> 8) & 0xFF);
+    int nResult = DRLGOUTSIEGE_GetSecondaryBorderPresetId(pLevel, (dwCellFlags >> 20) & 0x3F, (dwCellFlags >> 8) & 0xFF);
     if (nResult == -5)
     {
         return 1;
@@ -453,7 +453,7 @@ int __fastcall sub_0067E080(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPreset
 }
 
 // 0x0067E0E0
-static void sub_0067E0E0(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTSIEGE_AddAct5SecondaryBorder(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == LEVEL_BLOODYFOOTHILLS)
     {
@@ -467,11 +467,11 @@ static void sub_0067E0E0(D2DrlgLevelStrc* pLevel)
     tCtx.pUnk54 = &pInfo->unk0x54;
     tCtx.pGrid04 = &pInfo->pGrid[0];
     tCtx.pGrid2C = &pInfo->pGrid[2];
-    tCtx.pfnTest = sub_0067E080;
+    tCtx.pfnTest = DRLGOUTSIEGE_TestSecondaryBorderCell;
     tCtx.pfn2C = sub_00674160;
     tCtx.pfn30 = sub_006741A0;
     tCtx.pfnPlace = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
-    tCtx.pfnGetPreset = sub_0067E000;
+    tCtx.pfnGetPreset = DRLGOUTSIEGE_GetSecondaryBorderPresetId;
     tCtx.n14 = -1;
     tCtx.n18 = 12;
     sub_00670750(&tCtx);
@@ -497,7 +497,7 @@ static const D2Act5LevelPresetStrc gAct5LevelPresets[15] = // 0x006F2100
 };
 
 // 0x0067E160
-void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
+void __stdcall DRLGOUTSIEGE_PlaceSpecialPresets(D2DrlgLevelStrc* pLevel)
 {
     int bTall = pLevel->nWidth < pLevel->nHeight;
     for (int i = 0; i < 15; ++i)
@@ -531,7 +531,7 @@ void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067E210
-static inline int sub_0067E210_PlaceShiftedPreset(D2DrlgLevelStrc* pLevel, int nX, int nY)
+static inline int DRLGOUTSIEGE_PlacePrisonAtCell(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
     const int nPreset = DRLGOUTDOORS_GetPresetIndexFromGridCell(pLevel, nX, nY);
     if (nPreset >= 0x393 && nPreset <= 0x39A)
@@ -544,7 +544,7 @@ static inline int sub_0067E210_PlaceShiftedPreset(D2DrlgLevelStrc* pLevel, int n
 
 int __fastcall sub_M119_Emit_0067E210(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
-    return sub_0067E210_PlaceShiftedPreset(pLevel, nY, nX);
+    return DRLGOUTSIEGE_PlacePrisonAtCell(pLevel, nY, nX);
 }
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
@@ -565,7 +565,7 @@ static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed
 }
 
 // 0x0067E240
-static void sub_0067E240(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTSIEGE_PlacePrisons(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId != LEVEL_ID_ACT5_BARRICADE_1)
         return;
@@ -583,7 +583,7 @@ static void sub_0067E240(D2DrlgLevelStrc* pLevel)
     {
         const int nX = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nGridWidth / 2);
         const int nY = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nGridHeight / 2);
-        if (sub_0067E210_PlaceShiftedPreset(pLevel, nX, nY))
+        if (DRLGOUTSIEGE_PlacePrisonAtCell(pLevel, nX, nY))
             ++nPlaced;
     }
 
@@ -595,7 +595,7 @@ static void sub_0067E240(D2DrlgLevelStrc* pLevel)
         {
             const int nX = (x + 2 * nOffsetX) % pInfo->nGridWidth;
             const int nY = (y + 2 * nOffsetY) % pInfo->nGridHeight;
-            if (sub_0067E210_PlaceShiftedPreset(pLevel, nX, nY))
+            if (DRLGOUTSIEGE_PlacePrisonAtCell(pLevel, nX, nY))
                 ++nPlaced;
         }
     }
@@ -609,8 +609,8 @@ static void sub_0067E240(D2DrlgLevelStrc* pLevel)
 
 void __fastcall sub_Emit_0067E240(D2DrlgLevelStrc* pLevel)
 {
-    sub_0067E240(pLevel);
-    sub_0067E240(pLevel);
+    DRLGOUTSIEGE_PlacePrisons(pLevel);
+    DRLGOUTSIEGE_PlacePrisons(pLevel);
 }
 
 static int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int nY)
@@ -626,7 +626,7 @@ static int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int
 }
 
 // 0x0067E4B0
-static void sub_0067E4B0(D2DrlgLevelStrc* ptLevelData)
+static void DRLGOUTSIEGE_ConnectBarricadeAndSiege(D2DrlgLevelStrc* ptLevelData)
 {
     if (!ptLevelData)
     {
@@ -661,7 +661,7 @@ static void sub_0067E4B0(D2DrlgLevelStrc* ptLevelData)
 }
 
 // 0x0067E560
-void __stdcall sub_0067E560(D2DrlgLevelStrc* pLevel)
+void __stdcall DRLGOUTSIEGE_PlaceSiegeToTownPresets(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     if (!pInfo)
@@ -722,26 +722,26 @@ static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067E600
-void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel)
+void __fastcall DRLGOUTSIEGE_InitAct5OutdoorLevel(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == LEVEL_BLOODYFOOTHILLS)
     {
-        sub_0067E560(pLevel);
+        DRLGOUTSIEGE_PlaceSiegeToTownPresets(pLevel);
         return;
     }
 
     DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
-    sub_0067DCF0(pLevel);
-    sub_0067DEF0(pLevel);
-    sub_0067DB50(pLevel);
+    DRLGOUTSIEGE_PlaceCliffBorder(pLevel);
+    DRLGOUTSIEGE_PlaceRavineBorder(pLevel);
+    DRLGOUTSIEGE_PlaceBarricadeEntrancesAndExits(pLevel);
     DRLGOUTSIEGE_PlaceCaves(pLevel);
 
     if (pLevel->eLevelId == LEVEL_ID_ACT5_BARRICADE_1)
     {
-        sub_0067E4B0(pLevel);
+        DRLGOUTSIEGE_ConnectBarricadeAndSiege(pLevel);
     }
 
-    sub_0067E0E0(pLevel);
-    sub_0067E240(pLevel);
-    sub_0067E160(pLevel);
+    DRLGOUTSIEGE_AddAct5SecondaryBorder(pLevel);
+    DRLGOUTSIEGE_PlacePrisons(pLevel);
+    DRLGOUTSIEGE_PlaceSpecialPresets(pLevel);
 }

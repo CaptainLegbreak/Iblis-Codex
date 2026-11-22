@@ -35,7 +35,7 @@ void __stdcall ITEMS_GetDimensions(D2UnitStrc*,unsigned char*,unsigned char*,con
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
 int __stdcall ITEMS_GetSockets(D2UnitStrc* hItem); // 0x006299B0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc*); // 0x0062A4E0
-unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc*); // 0x0062BEB0
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc*); // 0x0062E6F0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc*); // 0x0062E740
@@ -84,7 +84,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     {
         return 0;
     }
-    if (sub_0062BC20(pItem) <= 0)
+    if (ITEMS_GetMaxSockets(pItem) <= 0)
     {
         return 0;
     }
@@ -181,7 +181,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             if(sub_00468830()==8)sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             else sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],1);
             sub_0046EE80_DrawItemCel(pItem,nX,nY);
-            if(ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
+            if(ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
                 sub_00483E40_DrawItemSockets(pItem,&gGrid_007BCB88,nX,nY);
         }
         else

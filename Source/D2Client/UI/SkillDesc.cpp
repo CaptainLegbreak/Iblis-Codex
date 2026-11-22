@@ -156,7 +156,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 
@@ -166,9 +166,9 @@ int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInvent
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);         // 0x00625500
 
-int __stdcall sub_0063A380(D2UnitStrc* pUnit);                                        // 0x0063A380
+int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit);                                        // 0x0063A380
 
-int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                         // 0x0063A3A0
+int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit);                                         // 0x0063A3A0
 
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
@@ -265,7 +265,7 @@ extern const int gnDirectionOffsetY_006DC1E8[]; // 0x006DC1E8
 
 extern const int gnDirectionOffsetX_006DC208[]; // 0x006DC208
 
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
 void __stdcall PATH_SetNumberOfPathPoints(D2DynamicPathStrc* pPath, int nPoints); // 0x00648790
 
@@ -1314,7 +1314,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     if (!pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -1401,9 +1401,9 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
         *pColor = 3;
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
         *pColor = 1;
 
     if (nBonus <= -90)
@@ -1521,19 +1521,19 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
 
     if (pSkill)
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7]))
         {
             sub_004E7120_AddProgressiveDamage(pUnit, pMinDamage, pMaxDamage, pColor);
         }
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
     {
         *pColor = 3;
     }
 
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
     {
         *pColor = 1;
     }
@@ -1862,7 +1862,7 @@ static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int
 void __fastcall sub_004ED570_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nSlot)
 {
     int nValue1, nValue2, nColor1, nColor2;
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt) return;
     int nLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
     int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile_006DBF24, 0x1588);
@@ -2246,7 +2246,7 @@ void __fastcall sub_004F2BE0_MissileInit_CurvingPath(D2UnitStrc* pMissile, int n
     D2SeedStrc* const pSeed = &pMissile->pSeed;
     SEED_InitLowSeed(pSeed, nInitSeed);
     PATH_SetType(pPath, 10);
-    sub_00648E70_SetDistance(pPath, nFrames);
+    PATH_SetNewDistance(pPath, nFrames);
 
     D2PathPointStrc* pPathPoints;
     PATH_GetPathPoints(pPath, &pPathPoints);
@@ -2265,7 +2265,7 @@ void __fastcall sub_004F2BE0_MissileInit_CurvingPath(D2UnitStrc* pMissile, int n
     for (int i = 0; i < nFrames; ++i)
     {
         nDirection += nSign * nStep;
-        const unsigned char nIndex = sub_0063E7A0_GetByteTableEntry(nDirection & 63);
+        const unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection & 63);
         nX += gnDirectionOffsetX_006DC208[nIndex];
         nY += gnDirectionOffsetY_006DC1E8[nIndex];
         pPathPoints[i].X = nX;

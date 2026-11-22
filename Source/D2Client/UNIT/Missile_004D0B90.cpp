@@ -47,7 +47,7 @@ void __fastcall sub_004DA5B0_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFr
 extern "C" int __stdcall sub_0064A210(Unit0064A210* pUnit); // 0x0064A210
 extern "C" int __stdcall sub_0064A280(Unit0064A280* pUnit); // 0x0064A280
 extern "C" int __stdcall sub_0064A300(Unit0064A300* pUnit); // 0x0064A300
-extern "C" void __stdcall sub_00648690(Obj00648690* pObj, int nValue, int nUnused3, int nUnused4); // 0x00648690
+extern "C" void __stdcall PATH_SetVelocity(Obj00648690* pObj, int nValue, int nUnused3, int nUnused4); // 0x00648690
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 
 void __fastcall sub_004742D0_ResetLightSize(void* pLight, int nSize); // 0x004742D0
@@ -412,7 +412,7 @@ int __fastcall sub_004D2760_CltDoEightWaySpawn(D2UnitStrc* pMissile)
             nFrames -= SEED_RollLimitedRandomNumber(&pMissile->pSeed, nFrames / 2);
             MISSILE_SetTotalFrames(pNew, nFrames);
             D2DynamicPathStrc* pPath = pNew->pDynamicPath;
-            sub_00648690((Obj00648690*)pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), (int)gszMissileSourceFile_006DAEF4, 0x1A6B);
+            PATH_SetVelocity((Obj00648690*)pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), (int)gszMissileSourceFile_006DAEF4, 0x1A6B);
             sub_004DA5B0_SetBallistic(pNew, 0x1E, nFrames);
         }
     }
@@ -644,7 +644,7 @@ void __fastcall sub_004D49F0_CltDoWeave(D2UnitStrc* pMissile)
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
     if (pOwner)
     {
-        if (pMissilesTxtRecord->wCltSubMissile[0] >= 0 && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+        if (pMissilesTxtRecord->wCltSubMissile[0] >= 0 && PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
         {
             D2MissileStrc tParams;
             memset(&tParams, 0, sizeof(tParams));
@@ -707,7 +707,7 @@ void __fastcall sub_004D5090_CltDoTurn(D2UnitStrc* pMissile)
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
     if (pOwner)
     {
-        if (pMissilesTxtRecord->wCltSubMissile[0] > 0 && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+        if (pMissilesTxtRecord->wCltSubMissile[0] > 0 && PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
         {
             D2MissileStrc tParams;
             memset(&tParams, 0, sizeof(tParams));

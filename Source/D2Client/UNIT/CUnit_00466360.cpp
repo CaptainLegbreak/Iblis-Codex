@@ -111,7 +111,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 
-void __stdcall sub_00643260(int* pX, int* pY);                                                   // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);                                                   // 0x00643260
 
 #define UNIT_OBJECT 2
 
@@ -605,7 +605,7 @@ static int __stdcall sub_00463FE0_IsInObjectSelectBox(int nY, D2ObjectsTxt* pObj
 {
     int nUnitX = UNITS_InlineGetXPosition(pUnit);
     int nUnitY = UNITS_InlineGetYPosition(pUnit);
-    sub_00643260(&nUnitX, &nUnitY);
+    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
 
     const int nLeft = pObjectsTxtRecord->dwLeft + nUnitX;
     const int nTop = pObjectsTxtRecord->dwTop + nUnitY;

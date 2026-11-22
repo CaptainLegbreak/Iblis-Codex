@@ -94,13 +94,13 @@ int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);  
 
 int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY);
 
-static int sub_0065A6B0_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize);
+static int UNITFINDS_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize);
 
 static int sub_0065A710_IsAreaInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize);
 
 D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, int nY, int nSize, int (__fastcall* pfnUnitTest)(D2UnitStrc*, D2UnitStrc*));
 
-static void sub_0065A900_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData);
+static void UNITFINDS_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData);
 
 int __stdcall UNITFINDS_TestUnit(D2UnitStrc* pUnit, D2UnitFindArgStrc* pUnitFindArg);                       // 0x0065AA40
 
@@ -154,7 +154,7 @@ static inline int UNITS_GetClassIdOrInvalid_Inline(D2UnitStrc* pUnit)
 }
 
 // 0x0065A620
-D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* hRoom, int nUnitType, int nClassId)
+D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* hRoom, int nUnitType, int nClassId)
 {
     D2_ASSERT(hRoom, 0x31);
     D2ActiveRoomStrc** ppRoomList;
@@ -176,7 +176,7 @@ D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* hRo
 }
 
 // 0x0065A6B0
-static int sub_0065A6B0_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize)
+static int UNITFINDS_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize)
 {
     D2DrlgCoordsStrc pCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &pCoords);
@@ -191,7 +191,7 @@ static int sub_0065A6B0_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int 
 }
 
 // 0x0065A710
-static int __stdcall sub_0065A710_IsInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nRange)
+static int __stdcall UNITFINDS_IsInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nRange)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
@@ -297,7 +297,7 @@ D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, 
 }
 
 // 0x0065A900
-static void sub_0065A900_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData)
+static void UNITFINDS_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData)
 {
     D2_ASSERT(pUnitFindData, 192);
 
@@ -309,9 +309,9 @@ static void sub_0065A900_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData)
 
 void __stdcall sub_M404_Emit_0065AC70(D2UnitFindDataStrc* pUnitFindData)
 {
-    if (sub_0065A6B0_IsAreaNearRoomEdge(pUnitFindData->pRoom, pUnitFindData->nX, pUnitFindData->nY, pUnitFindData->nSize))
+    if (UNITFINDS_IsAreaNearRoomEdge(pUnitFindData->pRoom, pUnitFindData->nX, pUnitFindData->nY, pUnitFindData->nSize))
     {
-        sub_0065A900_GrowUnitsArray(pUnitFindData);
+        UNITFINDS_GrowUnitsArray(pUnitFindData);
     }
 }
 
@@ -409,7 +409,7 @@ int __stdcall sub_0065A710_Shim(UnitFindArgStrc* pArg, D2ActiveRoomStrc** ppRoom
     int nCount = 0;
     for (int i = 0; i < nRooms; ++i)
     {
-        if (sub_0065A710_IsInRoomRange(ppRooms[i], pArg->nX, pArg->nY, pArg->nRange))
+        if (UNITFINDS_IsInRoomRange(ppRooms[i], pArg->nX, pArg->nY, pArg->nRange))
             ++nCount;
     }
     return nCount;
@@ -428,7 +428,7 @@ int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc
 
     D2ActiveRoomStrc** ppRoomList;
     unsigned int nNumRooms;
-    if (!sub_0065A6B0_IsAreaNearRoomEdge(pUnitFindData->pRoom, pUnitFindData->nX, pUnitFindData->nY, pUnitFindData->nSize))
+    if (!UNITFINDS_IsAreaNearRoomEdge(pUnitFindData->pRoom, pUnitFindData->nX, pUnitFindData->nY, pUnitFindData->nSize))
     {
         ppRoomList = &pUnitFindData->pRoom;
         nNumRooms = 1;
@@ -467,7 +467,7 @@ int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc
                 pUnitFindData->pUnitsArray[nCount] = pUnit;
                 ++nCount;
                 if (nCount == pUnitFindData->nMaxArrayEntries)
-                    sub_0065A900_GrowUnitsArray(pUnitFindData);
+                    UNITFINDS_GrowUnitsArray(pUnitFindData);
             }
             pUnit = pNext;
         }

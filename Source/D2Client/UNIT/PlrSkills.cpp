@@ -52,7 +52,7 @@ void __stdcall sub_004D97F0_UpdateStateColor(D2UnitStrc* pUnit); // 0x004D97F0
 void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState); // 0x004D9920
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
+int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit); // 0x00624390
 int __stdcall STATLIST_GetState(D2StatListStrc* pStatList); // 0x006252F0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
@@ -111,7 +111,7 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnused, D2UnitStrc* pUnit); // 0x006277F0
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int* pMode, int* pX, int* pY); // 0x0063EA70
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
@@ -1009,7 +1009,7 @@ static void sub_004D9AD0_ResetTransform(D2UnitStrc* pUnit)
         }
     }
     sub_00470610_Refresh(pUnit, 1);
-    sub_00624390_AnimInit(pUnit);
+    UNITS_SetAnimStartFrame(pUnit);
     pUnit->nSeqCurrentFramePrecise = 0;
     UNITS_SetUsedSkill(pUnit, 0);
 }
@@ -1201,13 +1201,13 @@ int __fastcall sub_004E0D40_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, 
     }
 
     unsigned char nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nX, nY);
-    unsigned char nIndex = sub_0063E7A0_GetByteTableEntry(nDirection) & 7;
+    unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection) & 7;
     nX = CLIENTS_GetUnitX(pUnit);
     nY = CLIENTS_GetUnitY(pUnit);
 
     int nOffsetX;
     int nOffsetY;
-    sub_0063E7E0_GetDirectionDelta(gnBaseDirections_006DBA50[nIndex], &nOffsetX, &nOffsetY);
+    INVENTORY_GetDirectionDelta(gnBaseDirections_006DBA50[nIndex], &nOffsetX, &nOffsetY);
     nX += nOffsetX;
     nY += nOffsetY;
 
@@ -1221,7 +1221,7 @@ int __fastcall sub_004E0D40_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, 
     unsigned char nDir = gnFrameDirections_006DBA08[nIndex][nFrame];
     if (nDir != 99)
     {
-        sub_0063E7E0_GetDirectionDelta(nDir, &nOffsetX, &nOffsetY);
+        INVENTORY_GetDirectionDelta(nDir, &nOffsetX, &nOffsetY);
         nX += nOffsetX;
         nY += nOffsetY;
     }

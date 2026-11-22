@@ -136,13 +136,13 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
-int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit); // 0x00622DC0
 
-int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
+int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
@@ -150,7 +150,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, in
 
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 void __cdecl sub_K04_EmitUse(D2UnitStrc* pUnit);
 
@@ -166,7 +166,7 @@ void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, u
 
 int __fastcall sub_00480C10_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
 
-extern "C" void __stdcall sub_00648750(D2DynamicPathStrc* pDynamicPath, int bSet); // 0x00648750
+extern "C" void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pDynamicPath, int bSet); // 0x00648750
 
 struct D2SkillStrc;
 
@@ -527,7 +527,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
 
     if (pSkill)
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && pSkillsTxt->wSrvDoFunc == 0x13)
         {
             int nRange;
@@ -538,7 +538,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
 
     if (pUnit && pUnit->dwUnitType == UNIT_OBJECT)
     {
-        if (sub_00623660_IsInObjectInteractRange(pPlayer, pUnit) && !sub_00622B50_IsRayFreeBetweenUnits(pPlayer, pUnit, 0x804))
+        if (UNITS_IsObjectInInteractRange(pPlayer, pUnit) && !UNITS_TestCollisionBetweenInteractingUnits(pPlayer, pUnit, 0x804))
         {
             return 0;
         }
@@ -893,7 +893,7 @@ void __fastcall sub_00480EF0_MoveToPosition(D2UnitStrc* pUnit, int nX, int nY, i
     }
     else
     {
-        sub_00648750(pUnit->pDynamicPath, 0);
+        PATH_SetPathingFlag(pUnit->pDynamicPath, 0);
     }
 }
 

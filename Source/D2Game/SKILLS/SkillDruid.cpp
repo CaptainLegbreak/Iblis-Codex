@@ -87,13 +87,13 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAtt
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
-extern "C" void __stdcall sub_006252D0(D2StatListStrc* pStatList, unsigned int dwValue); // 0x006252D0
+extern "C" void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, unsigned int dwValue); // 0x006252D0
 
-extern "C" void __stdcall sub_00625CE0(D2StatListStrc* pStatList, unsigned int dwValue); // 0x00625CE0
+extern "C" void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, unsigned int dwValue); // 0x00625CE0
 
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 
-extern "C" void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nValue); // 0x006260B0
+extern "C" void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nValue); // 0x006260B0
 
 void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639E30
 
@@ -427,9 +427,9 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                   
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex);                               // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex);                               // 0x0063E7A0
 
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY);                  // 0x0063E7E0
+void __stdcall INVENTORY_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY);                  // 0x0063E7E0
 
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue);                                           // 0x006445A0
 
@@ -445,7 +445,7 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
 
-int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath);                                         // 0x006505C0
+int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath);                                         // 0x006505C0
 
 int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int* pChainId); // 0x006510C0
 
@@ -883,7 +883,7 @@ void __fastcall sub_6FCFE0E0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2Ski
             const int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraStatCalc[i], nSkillId, nSkillLevel);
             if (nValue)
             {
-                sub_006270B0(pStatList, nStatId, nValue, 0);
+                STATLIST_SetStatValue(pStatList, nStatId, nValue, 0);
                 if (nStatId == STAT_ATTACKRATE)
                 {
                     STATLIST_SetStat(pStatList, STAT_OTHER_ANIMRATE, nValue, 0);
@@ -927,7 +927,7 @@ void __fastcall sub_6FCFE200(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2Ski
             const int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPassiveCalc[i], nSkillId, nSkillLevel);
             if (nValue)
             {
-                sub_006270B0(pStatList, nStatId, nValue, 0);
+                STATLIST_SetStatValue(pStatList, nStatId, nValue, 0);
                 if (nStatId == STAT_ATTACKRATE)
                 {
                     STATLIST_SetStat(pStatList, STAT_OTHER_ANIMRATE, nValue, 0);
@@ -1294,13 +1294,13 @@ int __fastcall SKILLS_SrvDo120_FeralRage_Maul(D2GameStrc* pGame, D2UnitStrc* pUn
             return 1;
         }
 
-        sub_006252D0(pStatList, pSkillsTxtRecord->nAuraState);
-        sub_00625CE0(pStatList, (unsigned int)sub_6FD10E50);
+        STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
+        STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATES_ToggleState(pUnit, pSkillsTxtRecord->nAuraState, 1);
     }
 
-    sub_006260B0(pStatList, nExpireFrame);
+    STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
     sub_005417D0_DirectDated(pGame, pUnit, 0xC, nExpireFrame, 0, 0);
     STATES_ToggleGfxStateFlag(pUnit, pSkillsTxtRecord->nAuraState, 1);
 
@@ -1382,11 +1382,11 @@ int __stdcall sub_005C7B10_ApplyAuraTargetState(D2GameStrc* pGame, D2UnitStrc* p
         return 0;
     }
 
-    sub_006252D0(pStatList, pSkillsTxtRecord->wAuraTargetState);
-    sub_00625CE0(pStatList, (unsigned int)sub_6FD10E50);
+    STATLIST_SetState(pStatList, pSkillsTxtRecord->wAuraTargetState);
+    STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)sub_6FD10E50);
     D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);
     STATES_ToggleState(pTarget, pSkillsTxtRecord->wAuraTargetState, 1);
-    sub_006260B0(pStatList, nExpireFrame);
+    STATLIST_SetListExpireFrame(pStatList, nExpireFrame);
     sub_005417D0_DirectDated(pGame, pTarget, 0xC, nExpireFrame, 0, 0);
     sub_6FCFE0E0(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
     return 1;
@@ -2698,11 +2698,11 @@ int __fastcall SKILLS_SrvDo087_MaggotLay(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 
     const unsigned char nDirection = UNITS_GetDirectionToCoords(pUnit, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget));
-    const int nIndex = sub_0063E7A0_GetByteTableEntry(nDirection) % 8;
+    const int nIndex = INVENTORY_GetEightWayDirection(nDirection) % 8;
 
     int nOffsetX;
     int nOffsetY;
-    sub_0063E7E0_GetDirectionDelta(gnMaggotLayDirections_006E3138[(unsigned char)nIndex], &nOffsetX, &nOffsetY);
+    INVENTORY_GetDirectionDelta(gnMaggotLayDirections_006E3138[(unsigned char)nIndex], &nOffsetX, &nOffsetY);
 
     const int nX = CLIENTS_GetUnitX(pUnit) + nOffsetX;
     const int nY = CLIENTS_GetUnitY(pUnit) + nOffsetY;
@@ -2751,14 +2751,14 @@ int __fastcall SKILLS_SrvDo088_AndrialSpray(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     unsigned char nDirection = UNITS_GetDirectionToCoords(pUnit, nX, nY);
-    const unsigned char nIndex = sub_0063E7A0_GetByteTableEntry(nDirection) & 7;
+    const unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection) & 7;
 
     nX = CLIENTS_GetUnitX(pUnit);
     nY = CLIENTS_GetUnitY(pUnit);
 
     int nOffsetX;
     int nOffsetY;
-    sub_0063E7E0_GetDirectionDelta(gnAndrialSprayDirections_006E3188[nIndex], &nOffsetX, &nOffsetY);
+    INVENTORY_GetDirectionDelta(gnAndrialSprayDirections_006E3188[nIndex], &nOffsetX, &nOffsetY);
     nX += nOffsetX;
     nY += nOffsetY;
 
@@ -2772,7 +2772,7 @@ int __fastcall SKILLS_SrvDo088_AndrialSpray(D2GameStrc* pGame, D2UnitStrc* pUnit
     const unsigned char nSprayDirection = gnAndrialSprayOffsets_006E3140[9 * nIndex + nFrame];
     if (nSprayDirection != 99)
     {
-        sub_0063E7E0_GetDirectionDelta(nSprayDirection, &nOffsetX, &nOffsetY);
+        INVENTORY_GetDirectionDelta(nSprayDirection, &nOffsetX, &nOffsetY);
         nX += nOffsetX;
         nY += nOffsetY;
     }

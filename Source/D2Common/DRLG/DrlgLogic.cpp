@@ -108,11 +108,11 @@ int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 
 
 void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight); // 0x0067CB80
 
-void __fastcall sub_0067CBF0(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags); // 0x0067CBF0
+void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags); // 0x0067CBF0
 
 void __fastcall DRLGGRID_ResetGrid(D2DrlgGridStrc* pGrid); // 0x0067CDC0
 
-static void __stdcall sub_0066C870(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pDrlgGrid);
+static void __stdcall DRLGLOGIC_MarkBlockingTilesInGrid(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pDrlgGrid);
 
 void __stdcall DRLGLOGIC_SetCoordListForTiles(D2DrlgRoomStrc* pDrlgRoom); // 0x0066C9C0
 
@@ -128,7 +128,7 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 
 void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid); // 0x0067CD90
 
-D2RoomCoordListStrc* __fastcall sub_0066CEB0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
+D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordListAtSubtile(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
 enum D2C_U04DrlgLogicConstants
 {
@@ -139,23 +139,23 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 void __fastcall DRLGLOGIC_SetTileGridFlags(D2UnkDrlgLogicStrc* a1, int nX, int nY, int a4);
 
-static void sub_0066C580(D2UnkDrlgLogicStrc* a1);
+static void DRLGLOGIC_FloodFillUnassignedTiles(D2UnkDrlgLogicStrc* a1);
 
-D2DrlgLogicalRoomInfoStrc* __fastcall sub_0066C660(void* pMemPool, int nUnused, D2DrlgRoomStrc* pDrlgRoom);
+D2DrlgLogicalRoomInfoStrc* __fastcall DRLGLOGIC_AllocLogicalRoomInfo(void* pMemPool, int nUnused, D2DrlgRoomStrc* pDrlgRoom);
 
-static void sub_0066C6A0(void* pMemPool, D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo, int nLists);
+static void DRLGLOGIC_AllocCoordListArray(void* pMemPool, D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo, int nLists);
 
-void __fastcall sub_0066C770(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2, int bNode);
+void __fastcall DRLGLOGIC_ReplaceCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2, int bNode);
 
-static void __stdcall sub_0066C7F0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pWallGrid);
+static void __stdcall DRLGLOGIC_MarkWallTilesInGrid(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pWallGrid);
 
 void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom);
 
 int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
-static void __stdcall sub_0066CF60(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nX, int nY);
+static void __stdcall DRLGLOGIC_MergeCoordListsAtPoint(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nX, int nY);
 
-static void sub_0066D040(D2DrlgRoomStrc* pDrlgRoom);
+static void DRLGLOGIC_MergeCoordListsWithNearRooms(D2DrlgRoomStrc* pDrlgRoom);
 
 void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pTileTypeGrid, D2DrlgGridStrc* pFloorGrid, D2DrlgGridStrc* pWallGrid);
 
@@ -230,7 +230,7 @@ void __fastcall DRLGLOGIC_SetTileGridFlags(D2UnkDrlgLogicStrc* a1, int nX, int n
 }
 
 // 0x0066C580
-static void sub_0066C580(D2UnkDrlgLogicStrc* a1)
+static void DRLGLOGIC_FloodFillUnassignedTiles(D2UnkDrlgLogicStrc* a1)
 {
     const int nWidth = a1->pDrlgRoom->pDrlgCoord.nWidth;
     const int nHeight = a1->pDrlgRoom->pDrlgCoord.nHeight;
@@ -258,7 +258,7 @@ static void sub_0066C580(D2UnkDrlgLogicStrc* a1)
 }
 
 // 0x0066C620
-int __fastcall sub_0066C620(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY)
+int __fastcall DRLGLOGIC_SetTileCoordList(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY)
 {
     int nCoordList = 0;
     D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = pDrlgRoom->pLogicalRoomInfo;
@@ -279,7 +279,7 @@ int __fastcall sub_0066C620(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTile
 }
 
 // 0x0066C660
-D2DrlgLogicalRoomInfoStrc* __fastcall sub_0066C660(void* pMemPool, int nUnused, D2DrlgRoomStrc* pDrlgRoom)
+D2DrlgLogicalRoomInfoStrc* __fastcall DRLGLOGIC_AllocLogicalRoomInfo(void* pMemPool, int nUnused, D2DrlgRoomStrc* pDrlgRoom)
 {
     D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = (D2DrlgLogicalRoomInfoStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgLogicalRoomInfoStrc), ".\\DRLG\\DrlgLogic.cpp", 223, 0);
     memset(pLogicalRoomInfo, 0, sizeof(D2DrlgLogicalRoomInfoStrc));
@@ -288,7 +288,7 @@ D2DrlgLogicalRoomInfoStrc* __fastcall sub_0066C660(void* pMemPool, int nUnused, 
 }
 
 // 0x0066C6A0
-static void sub_0066C6A0(void* pMemPool, D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo, int nLists)
+static void DRLGLOGIC_AllocCoordListArray(void* pMemPool, D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo, int nLists)
 {
     pLogicalRoomInfo->nLists = nLists;
     pLogicalRoomInfo->pCoordList = (D2RoomCoordListStrc*)FOG_AllocPool(pMemPool, sizeof(D2RoomCoordListStrc) * nLists, ".\\DRLG\\DrlgLogic.cpp", 233, 0);
@@ -323,7 +323,7 @@ void __fastcall DRLGLOGIC_FreeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom)
 }
 
 // 0x0066C770
-void __fastcall sub_0066C770(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2, int bNode)
+void __fastcall DRLGLOGIC_ReplaceCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2, int bNode)
 {
     if (!pDrlgRoom->pLogicalRoomInfo || (pDrlgRoom->pLogicalRoomInfo->dwFlags & 1))
     {
@@ -352,7 +352,7 @@ void __fastcall sub_0066C770(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2
                 D2DrlgRoomStrc* pDrlgRoomNear = pDrlgRoom->ppRoomsNear[i];
                 if (pDrlgRoomNear != pDrlgRoom && pDrlgRoomNear->ptDrlgLevel->eLevelId == pDrlgRoom->ptDrlgLevel->eLevelId)
                 {
-                    sub_0066C770(pDrlgRoomNear, nIndex1, nIndex2, bNode);
+                    DRLGLOGIC_ReplaceCoordListIndex(pDrlgRoomNear, nIndex1, nIndex2, bNode);
                 }
             }
         }
@@ -360,7 +360,7 @@ void __fastcall sub_0066C770(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2
 }
 
 // 0x0066C7F0
-static void __stdcall sub_0066C7F0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pWallGrid)
+static void __stdcall DRLGLOGIC_MarkWallTilesInGrid(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pWallGrid)
 {
     D2DrlgRoomTilesStrc* pDrlgRoomTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
     for (unsigned int i = 0; i < pDrlgRoomTiles->nWalls; ++i)
@@ -389,7 +389,7 @@ int __fastcall DRLG_CheckLayer1ButNotWallObject(D2DrlgTileDataStrc* pTileData)
 }
 
 // 0x0066C870
-static void __stdcall sub_0066C870(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pDrlgGrid)
+static void __stdcall DRLGLOGIC_MarkBlockingTilesInGrid(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pDrlgGrid)
 {
     D2DrlgRoomTilesStrc* pDrlgRoomTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
     for (unsigned int i = 0; i < pDrlgRoomTiles->nWalls; ++i)
@@ -551,11 +551,11 @@ void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom)
 {
     D2DrlgLevelStrc* pLevel = pDrlgRoom->ptDrlgLevel;
     void* pMemPool = pLevel->pDrlg->pMempool;
-    D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = sub_0066C660(pMemPool, 0, pDrlgRoom);
+    D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = DRLGLOGIC_AllocLogicalRoomInfo(pMemPool, 0, pDrlgRoom);
 
     pLogicalRoomInfo->dwFlags |= 1;
     pLevel->nCoordLists = 1;
-    sub_0066C6A0(pMemPool, pLogicalRoomInfo, 1);
+    DRLGLOGIC_AllocCoordListArray(pMemPool, pLogicalRoomInfo, 1);
 
     pLogicalRoomInfo->pCoordList->nIndex = pLevel->nCoordLists;
     pLogicalRoomInfo->pCoordList->pBox[0].nPosY = pDrlgRoom->pDrlgCoord.nPosY;
@@ -569,7 +569,7 @@ void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom)
 }
 
 // 0x0066CDA0
-static D2RoomCoordListStrc* sub_0066CDA0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+static D2RoomCoordListStrc* DRLGLOGIC_GetRoomCoordListAtTile(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
 {
     if (!pDrlgRoom->pLogicalRoomInfo)
     {
@@ -588,9 +588,9 @@ static D2RoomCoordListStrc* sub_0066CDA0(D2DrlgRoomStrc* pDrlgRoom, int nX, int 
 }
 
 // 0x0066CDE0
-static int sub_0066CDE0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+static int DRLGLOGIC_GetCoordListIndexAtTile(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
 {
-    D2RoomCoordListStrc* pRoomCoordList = sub_0066CDA0(pDrlgRoom, nX, nY);
+    D2RoomCoordListStrc* pRoomCoordList = DRLGLOGIC_GetRoomCoordListAtTile(pDrlgRoom, nX, nY);
     if (pRoomCoordList)
     {
         return pRoomCoordList->nIndex;
@@ -602,13 +602,13 @@ static int sub_0066CDE0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
 // 0x0066CE30
 int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
 {
-    return sub_0066CDE0(pDrlgRoom, nX / 5, nY / 5);
+    return DRLGLOGIC_GetCoordListIndexAtTile(pDrlgRoom, nX / 5, nY / 5);
 }
 
 // 0x0066CEB0
-D2RoomCoordListStrc* __fastcall sub_0066CEB0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordListAtSubtile(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
 {
-    return sub_0066CDA0(pDrlgRoom, nX / 5, nY / 5);
+    return DRLGLOGIC_GetRoomCoordListAtTile(pDrlgRoom, nX / 5, nY / 5);
 }
 
 // 0x0066CF30
@@ -624,25 +624,25 @@ D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordList(D2DrlgRoomStrc* pDrlg
 }
 
 // 0x0066CF60
-static void __stdcall sub_0066CF60(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nX, int nY)
+static void __stdcall DRLGLOGIC_MergeCoordListsAtPoint(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nX, int nY)
 {
     if (DRLGROOM_AreXYInsideCoordinatesOrOnBorder(&pDrlgRoom2->pDrlgCoord, nX, nY))
     {
-        D2RoomCoordListStrc* pRoomCoordList2 = sub_0066CDA0(pDrlgRoom2, nX, nY);
-        D2RoomCoordListStrc* pRoomCoordList1 = sub_0066CDA0(pDrlgRoom1, nX, nY);
+        D2RoomCoordListStrc* pRoomCoordList2 = DRLGLOGIC_GetRoomCoordListAtTile(pDrlgRoom2, nX, nY);
+        D2RoomCoordListStrc* pRoomCoordList1 = DRLGLOGIC_GetRoomCoordListAtTile(pDrlgRoom1, nX, nY);
 
         if (pRoomCoordList2->nIndex && pRoomCoordList1->nIndex)
         {
             if (pDrlgRoom2->ptDrlgLevel->eLevelId == pDrlgRoom1->ptDrlgLevel->eLevelId && pRoomCoordList2->nIndex != pRoomCoordList1->nIndex && pRoomCoordList2->bNode == pRoomCoordList1->bNode)
             {
-                sub_0066C770(pDrlgRoom1, pRoomCoordList1->nIndex, pRoomCoordList2->nIndex, pRoomCoordList2->bNode);
+                DRLGLOGIC_ReplaceCoordListIndex(pDrlgRoom1, pRoomCoordList1->nIndex, pRoomCoordList2->nIndex, pRoomCoordList2->bNode);
             }
         }
     }
 }
 
 // 0x0066D040
-static void sub_0066D040(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGLOGIC_MergeCoordListsWithNearRooms(D2DrlgRoomStrc* pDrlgRoom)
 {
     for (int i = 0; i < pDrlgRoom->nRoomsNear; ++i)
     {
@@ -653,14 +653,14 @@ static void sub_0066D040(D2DrlgRoomStrc* pDrlgRoom)
             {
                 for (int j = pDrlgRoom->pDrlgCoord.nPosX; j <= pDrlgRoom->pDrlgCoord.nPosX + pDrlgRoom->pDrlgCoord.nWidth; ++j)
                 {
-                    sub_0066CF60(pDrlgRoom, pCurrentRoomEx, j, pDrlgRoom->pDrlgCoord.nPosY);
-                    sub_0066CF60(pDrlgRoom, pCurrentRoomEx, j, pDrlgRoom->pDrlgCoord.nHeight + pDrlgRoom->pDrlgCoord.nPosY);
+                    DRLGLOGIC_MergeCoordListsAtPoint(pDrlgRoom, pCurrentRoomEx, j, pDrlgRoom->pDrlgCoord.nPosY);
+                    DRLGLOGIC_MergeCoordListsAtPoint(pDrlgRoom, pCurrentRoomEx, j, pDrlgRoom->pDrlgCoord.nHeight + pDrlgRoom->pDrlgCoord.nPosY);
                 }
 
                 for (int j = pDrlgRoom->pDrlgCoord.nPosY; j <= pDrlgRoom->pDrlgCoord.nPosY + pDrlgRoom->pDrlgCoord.nHeight; ++j)
                 {
-                    sub_0066CF60(pDrlgRoom, pCurrentRoomEx, pDrlgRoom->pDrlgCoord.nPosX, j);
-                    sub_0066CF60(pDrlgRoom, pCurrentRoomEx, pDrlgRoom->pDrlgCoord.nPosX + pDrlgRoom->pDrlgCoord.nWidth, j);
+                    DRLGLOGIC_MergeCoordListsAtPoint(pDrlgRoom, pCurrentRoomEx, pDrlgRoom->pDrlgCoord.nPosX, j);
+                    DRLGLOGIC_MergeCoordListsAtPoint(pDrlgRoom, pCurrentRoomEx, pDrlgRoom->pDrlgCoord.nPosX + pDrlgRoom->pDrlgCoord.nWidth, j);
                 }
             }
         }
@@ -675,9 +675,9 @@ void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2D
 
     D2DrlgLevelStrc* pLevel = pDrlgRoom->ptDrlgLevel;
     void* pMemPool = pLevel->pDrlg->pMempool;
-    D2DrlgLogicalRoomInfoStrc* pDrlgCoordList = sub_0066C660(pMemPool, 0, pDrlgRoom);
+    D2DrlgLogicalRoomInfoStrc* pDrlgCoordList = DRLGLOGIC_AllocLogicalRoomInfo(pMemPool, 0, pDrlgRoom);
 
-    sub_0066C7F0(pDrlgRoom, pWallGrid);
+    DRLGLOGIC_MarkWallTilesInGrid(pDrlgRoom, pWallGrid);
 
     pDrlgCoordList->dwFlags |= 2;
 
@@ -691,9 +691,9 @@ void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2D
     const int nLists = pLevel->nCoordLists;
 
     D2DrlgGridStrc pDrlgGrid;
-    sub_0067CBF0(&pDrlgGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, nCellPositions, nCellFlags);
+    DRLGGRID_FillGrid(&pDrlgGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, nCellPositions, nCellFlags);
 
-    sub_0066C870(pDrlgRoom, &pDrlgGrid);
+    DRLGLOGIC_MarkBlockingTilesInGrid(pDrlgRoom, &pDrlgGrid);
 
     D2UnkDrlgLogicStrc tDRLGLogicUnkStrc = {};
     tDRLGLogicUnkStrc.field_4 = &pDrlgCoordList->pIndexX;
@@ -704,16 +704,16 @@ void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2D
     tDRLGLogicUnkStrc.field_14 = &pDrlgGrid;
     tDRLGLogicUnkStrc.field_18 = nLists;
 
-    sub_0066C580(&tDRLGLogicUnkStrc);
+    DRLGLOGIC_FloodFillUnassignedTiles(&tDRLGLogicUnkStrc);
 
     DRLGGRID_ResetGrid(&pDrlgGrid);
 
-    sub_0066C6A0(pMemPool, pDrlgCoordList, tDRLGLogicUnkStrc.field_18 - nLists + 1);
+    DRLGLOGIC_AllocCoordListArray(pMemPool, pDrlgCoordList, tDRLGLogicUnkStrc.field_18 - nLists + 1);
     pLevel->nCoordLists += pDrlgCoordList->nLists;
 
     DRLGLOGIC_AssignCoordListsForGrids(pDrlgRoom, pDrlgCoordList);
     DRLGLOGIC_SetCoordListForTiles(pDrlgRoom);
-    sub_0066D040(pDrlgRoom);
+    DRLGLOGIC_MergeCoordListsWithNearRooms(pDrlgRoom);
 }
 
 #include "gen/data/Source/D2Common/DRLG/DrlgLogic.inc"

@@ -203,7 +203,7 @@ unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc*); // 0x006299B0
 
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc*); // 0x0062A4E0
 
-unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
 
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc*); // 0x0062BEB0
 
@@ -381,9 +381,9 @@ void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int n
 
 int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625E60
 
-int __stdcall sub_00625EF0_MinDamage(D2UnitStrc* pItem, int a2); // 0x00625EF0
+int __stdcall STATLIST_GetMinDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625EF0
 
-int __stdcall sub_00626020_ArmorValue(D2UnitStrc* pUnit); // 0x00626020
+int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit); // 0x00626020
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
@@ -899,7 +899,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     {
         return 0;
     }
-    if (sub_0062BC20(pItem) <= 0)
+    if (ITEMS_GetMaxSockets(pItem) <= 0)
     {
         return 0;
     }
@@ -1031,7 +1031,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             if(sub_00468830()==8)sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             else sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],1);
             sub_0046EE80_DrawItemCel(pItem,nX,nY);
-            if(ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
+            if(ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
                 sub_00483E40_DrawItemSockets(pItem,&gGrid_007BCB88,nX,nY);
         }
         else
@@ -1826,7 +1826,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
         sub_004521C0_PrefixLevelText(wszSpeed, 0);
         sub_00526700(wszStats, wszSpeed);
 
-        if (sub_00625EF0_MinDamage(gpHoverItem_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gpHoverItem_007BCBF4, 0) >= 0)
+        if (STATLIST_GetMinDamageFromUnit(gpHoverItem_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gpHoverItem_007BCBF4, 0) >= 0)
         {
             sub_00485410_AppendDamage(gpHoverItem_007BCBF4, wszDamage);
             sub_004521C0_PrefixLevelText(wszDamage, 0);
@@ -1852,7 +1852,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
         sub_00526700(wszStats, wszBlock);
     }
 
-    if (ITEMSIsA(gpHoverItem_007BCBF4, 0x32) && sub_00626020_ArmorValue(gpHoverItem_007BCBF4) > 0)
+    if (ITEMSIsA(gpHoverItem_007BCBF4, 0x32) && STATLIST_GetDefenseFromUnit(gpHoverItem_007BCBF4) > 0)
     {
         sub_00485EE0_AppendDefense(pPlayer, gpHoverItem_007BCBF4, wszDefense);
         sub_004521C0_PrefixLevelText(wszDefense, 0);

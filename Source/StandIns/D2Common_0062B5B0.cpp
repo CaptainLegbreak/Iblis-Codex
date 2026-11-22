@@ -136,7 +136,7 @@ unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo)
 }
 
 // 0x00628830
-static int __fastcall sub_00628830_ApplyClassMinimum(D2MagicAffixTxt* pAffix, D2UnitStrc* pPlayer, int nRequiredLevel)
+static int __fastcall ITEMS_ApplyAffixLevelRequirement(D2MagicAffixTxt* pAffix, D2UnitStrc* pPlayer, int nRequiredLevel)
 {
     if (pAffix)
     {
@@ -165,9 +165,9 @@ int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         D2MagicAffixTxt* pPrefixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, 0));
         D2MagicAffixTxt* pSuffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, 0));
         D2MagicAffixTxt* pAutoAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(pItem));
-        nRequiredLevel = sub_00628830_ApplyClassMinimum(pPrefixTxtRecord, pPlayer, nRequiredLevel);
-        nRequiredLevel = sub_00628830_ApplyClassMinimum(pSuffixTxtRecord, pPlayer, nRequiredLevel);
-        nRequiredLevel = sub_00628830_ApplyClassMinimum(pAutoAffixTxtRecord, pPlayer, nRequiredLevel);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pPrefixTxtRecord, pPlayer, nRequiredLevel);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pSuffixTxtRecord, pPlayer, nRequiredLevel);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pAutoAffixTxtRecord, pPlayer, nRequiredLevel);
         break;
     }
     case ITEMQUAL_RARE:
@@ -176,12 +176,12 @@ int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         {
             D2MagicAffixTxt* pPrefixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, i));
             D2MagicAffixTxt* pSuffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, i));
-            nRequiredLevel = sub_00628830_ApplyClassMinimum(pPrefixTxtRecord, pPlayer, nRequiredLevel);
-            nRequiredLevel = sub_00628830_ApplyClassMinimum(pSuffixTxtRecord, pPlayer, nRequiredLevel);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pPrefixTxtRecord, pPlayer, nRequiredLevel);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pSuffixTxtRecord, pPlayer, nRequiredLevel);
         }
 
         D2MagicAffixTxt* pAutoAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(pItem));
-        nRequiredLevel = sub_00628830_ApplyClassMinimum(pAutoAffixTxtRecord, pPlayer, nRequiredLevel);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pAutoAffixTxtRecord, pPlayer, nRequiredLevel);
         break;
     }
     case ITEMQUAL_CRAFT:
@@ -191,8 +191,8 @@ int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         {
             D2MagicAffixTxt* pPrefixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, i));
             D2MagicAffixTxt* pSuffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, i));
-            nRequiredLevel = sub_00628830_ApplyClassMinimum(pPrefixTxtRecord, pPlayer, nRequiredLevel);
-            nRequiredLevel = sub_00628830_ApplyClassMinimum(pSuffixTxtRecord, pPlayer, nRequiredLevel);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pPrefixTxtRecord, pPlayer, nRequiredLevel);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pSuffixTxtRecord, pPlayer, nRequiredLevel);
             if (pPrefixTxtRecord)
             {
                 nCraftBonus += 3;

@@ -168,7 +168,7 @@ struct D2AiTargetSearchArgsStrc
     int nAlternativeDistance;
 };
 
-int __stdcall sub_006259B0_GetStateStat(D2UnitStrc* pUnit); // 0x006259B0
+int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 
@@ -603,7 +603,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHostileTarget(D2GameStrc* pGa
 
     if (pTarget->dwUnitType < 0 || pTarget->dwUnitType > 1 || SUNIT_IsDead(pTarget) || !UNITS_CanBeAttackedInline(pTarget) || !sub_00554200(pGame, pUnit, pTarget))
     {
-        if (pTarget->dwUnitType == UNIT_MONSTER && (!pUnit || pUnit->dwUnitType != UNIT_PLAYER) && !sub_006259B0_GetStateStat(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
+        if (pTarget->dwUnitType == UNIT_MONSTER && (!pUnit || pUnit->dwUnitType != UNIT_PLAYER) && !STATLIST_GetUnitAlignment(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
         {
             D2AiControlStrc* pAiControl = (D2AiControlStrc*)sub_00541860(pTarget);
             if ((pAiControl->nAiFlags & 8) && pArg->unk0x10 == D2Common_10095(UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))

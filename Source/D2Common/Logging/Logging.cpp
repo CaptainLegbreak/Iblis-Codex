@@ -15,19 +15,19 @@ int gbLogEnabled_0096CA4C;                                                      
 int gnLogValue_0096CA50;                                                                                    // 0x0096CA50
 
 // 0x00624700
-void __fastcall sub_00624700_SetLogValue(int nValue)
+void __fastcall LOG_SetLogValue(int nValue)
 {
     gnLogValue_0096CA50 = nValue;
 }
 
 // 0x00624720
-static _iobuf* sub_00624720_OpenLogFile(const char* szFileName)
+static _iobuf* LOG_OpenLogFile(const char* szFileName)
 {
     return fopen(szFileName, "wt");
 }
 
 // 0x00624730
-static void sub_00624730_CloseLogFile(_iobuf* pFile)
+static void LOG_CloseLogFile(_iobuf* pFile)
 {
     fclose(pFile);
 }
@@ -68,7 +68,7 @@ static void __stdcall StoreLogging(_iobuf* pFile, int nThreadId, int nLogLevel, 
 }
 
 // 0x006248B0
-void __cdecl sub_006248B0_StoreLoggingToFile(_iobuf* pFile, int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...)
+void __cdecl LOG_WriteLogEntry(_iobuf* pFile, int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...)
 {
     va_list va;
     va_start(va, szFormat);
@@ -89,7 +89,7 @@ void __cdecl LOG_11100(int nThreadId, int nLogLevel, int nComponent, int nSubsys
 }
 
 // 0x00624930
-void __cdecl sub_00624930_WriteLogLine(int nGame, int nFrame, int nClient, int nType, int nSize, const char* szFormat, ...)
+void __cdecl LOG_WriteGameLogLine(int nGame, int nFrame, int nClient, int nType, int nSize, const char* szFormat, ...)
 {
     if (!gpLogFile_0096CA48)
     {
@@ -131,11 +131,11 @@ void __cdecl sub_00624930_WriteLogLine(int nGame, int nFrame, int nClient, int n
 }
 
 // 0x00624AC0
-int __fastcall sub_00624AC0_OpenLog(const char* szFileName)
+int __fastcall LOG_OpenLog(const char* szFileName)
 {
     if (!gpLogFile_0096CA48)
     {
-        gpLogFile_0096CA48 = sub_00624720_OpenLogFile(szFileName);
+        gpLogFile_0096CA48 = LOG_OpenLogFile(szFileName);
         if (!gpLogFile_0096CA48)
             return 0;
         InitializeCriticalSection(&gLogLock_0096CA30);
@@ -145,24 +145,24 @@ int __fastcall sub_00624AC0_OpenLog(const char* szFileName)
 }
 
 // 0x00624B20
-void __cdecl sub_00624B20_CloseLog()
+void __cdecl LOG_CloseLog()
 {
     if (gpLogFile_0096CA48)
     {
-        sub_00624730_CloseLogFile(gpLogFile_0096CA48);
+        LOG_CloseLogFile(gpLogFile_0096CA48);
         DeleteCriticalSection(&gLogLock_0096CA30);
         gpLogFile_0096CA48 = 0;
     }
 }
 
 // 0x00624B50
-void __fastcall sub_00624B50(int bEnable)
+void __fastcall LOG_SetLoggingEnabled(int bEnable)
 {
     gbLogEnabled_0096CA4C = bEnable;
     if (bEnable)
     {
-        sub_00624AC0_OpenLog("d2log.txt");
+        LOG_OpenLog("d2log.txt");
         return;
     }
-    sub_00624B20_CloseLog();
+    LOG_CloseLog();
 }

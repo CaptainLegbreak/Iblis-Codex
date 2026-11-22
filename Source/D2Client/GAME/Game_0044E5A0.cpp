@@ -91,7 +91,7 @@ void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 
 void __cdecl sub_00451290_FreeLngModule(); // 0x00451290
 
-void __cdecl sub_006116B0_WriteProfileCounters(); // 0x006116B0
+void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 
 extern "C" int __cdecl sub_0044BB80_ShutdownIfActive(); // 0x0044BB80
 
@@ -542,7 +542,7 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
     DATATBLS_UnloadAllBins();
     sub_00524E40();
     sub_00451290_FreeLngModule();
-    sub_006116B0_WriteProfileCounters();
+    PROFCORE_WriteProfileCounters();
     sub_0044BB80_ShutdownIfActive();
     int nResult;
     if (gdwGlobal_0070EE8C)
@@ -602,7 +602,7 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
 }
 
 // 0x0044BDD0
-char* __fastcall sub_00416800_LinkRawNext(D2StormLinkStrc* pLink)
+char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
 {
     return pLink->m_next;
 }

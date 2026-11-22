@@ -578,7 +578,7 @@ check_item:
     {
         if (gnGlobal_007C5470 == 1)
         {
-            if (sub_004B1670() == 0x9A && sub_0062C590(pItem))
+            if (sub_004B1670() == 0x9A && ITEMS_CanBeImbued(pItem))
                 goto use_item;
             if (sub_004B1670() == 0x1FF && sub_0062C770(pItem))
                 goto use_item;

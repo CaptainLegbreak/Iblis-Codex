@@ -115,9 +115,9 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nFlags); // 0x00644660
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-extern "C" void __stdcall sub_00648690(Obj00648690* pObj, int nValue, int nUnused3, int nUnused4); // 0x00648690
+extern "C" void __stdcall PATH_SetVelocity(Obj00648690* pObj, int nValue, int nUnused3, int nUnused4); // 0x00648690
 
-extern "C" unsigned int __stdcall sub_006487D0(Obj006487D0* pObj, unsigned int** ppOut); // 0x006487D0
+extern "C" unsigned int __stdcall PATH_GetPathPoints(Obj006487D0* pObj, unsigned int** ppOut); // 0x006487D0
 
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pPath, int nMask); // 0x00648CE0
 
@@ -173,11 +173,11 @@ void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
-extern "C" void __stdcall sub_006252D0(D2StatListStrc* pStatList, unsigned int dwValue); // 0x006252D0
+extern "C" void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, unsigned int dwValue); // 0x006252D0
 
-extern "C" void __stdcall sub_00625CE0(D2StatListStrc* pStatList, unsigned int dwValue); // 0x00625CE0
+extern "C" void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, unsigned int dwValue); // 0x00625CE0
 
-extern "C" void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nValue); // 0x006260B0
+extern "C" void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nValue); // 0x006260B0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
@@ -524,11 +524,11 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             return 0;
         }
 
-        sub_00648690((Obj00648690*)pPath, SKILLS_GetBaseWalkVelocity(pUnit), (int)".\\SKILLS\\SkillBar.cpp", 985);
+        PATH_SetVelocity((Obj00648690*)pPath, SKILLS_GetBaseWalkVelocity(pUnit), (int)".\\SKILLS\\SkillBar.cpp", 985);
         PATH_SetMoveTestCollisionMask(pPath, 0x401);
 
         D2PathPointStrc* ppPathPoints;
-        const int nPathPoints = sub_006487D0((Obj006487D0*)pPath, (unsigned int**)&ppPathPoints);
+        const int nPathPoints = PATH_GetPathPoints((Obj006487D0*)pPath, (unsigned int**)&ppPathPoints);
         if (nPathPoints <= 0)
         {
             sub_00571B70_SkillUpdate(pUnit, nSkillId);
@@ -925,13 +925,13 @@ int __fastcall SKILLS_SrvSt39_Berserk(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             return 1;
         }
 
-        sub_006252D0(pStatList, pSkillsTxtRecord->nAuraState);
-        sub_00625CE0(pStatList, (unsigned int)sub_6FD10E50);
+        STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
+        STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATES_ToggleState(pUnit, pSkillsTxtRecord->nAuraState, 1);
     }
 
-    sub_006260B0(pStatList, nFrame);
+    STATLIST_SetListExpireFrame(pStatList, nFrame);
     sub_005417D0_DirectDated(pGame, pUnit, 0xC, nFrame, 0, 0);
     sub_6FCFE0E0(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
     return 1;

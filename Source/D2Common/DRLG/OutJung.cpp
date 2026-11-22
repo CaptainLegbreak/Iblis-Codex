@@ -201,7 +201,7 @@ void __fastcall DRLGOUTJUNG_BuildUpperKurast(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067F190
-void __fastcall sub_0067F190(D2DrlgLevelStrc* pLevel)
+void __fastcall DRLGOUTPLACE_BuildKurast(D2DrlgLevelStrc* pLevel)
 {
     switch (pLevel->eLevelId)
     {
@@ -265,7 +265,7 @@ void __fastcall sub_0067F190(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067F3B0
-void __fastcall sub_0067F3B0(D2DrlgLevelStrc* pLevel)
+void __fastcall DRLGOUTJUNG_PlaceTravincalPresets(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == LEVEL_TRAVINCAL)
     {
@@ -279,12 +279,12 @@ void __fastcall sub_0067F3B0(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067F450
-void __fastcall sub_0067F450(D2DrlgLevelStrc* pLevel)
+void __fastcall DRLGOUTPLACE_InitAct3OutdoorLevel(D2DrlgLevelStrc* pLevel)
 {
     DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     DRLGOUTJUNG_BuildJungle(pLevel);
-    sub_0067F190(pLevel);
-    sub_0067F3B0(pLevel);
+    DRLGOUTPLACE_BuildKurast(pLevel);
+    DRLGOUTJUNG_PlaceTravincalPresets(pLevel);
 }
 
 static inline unsigned int OUTJUNG_SeedStepInline(D2SeedStrc* pSeed)

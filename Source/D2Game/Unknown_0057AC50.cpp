@@ -246,7 +246,7 @@ static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitSt
         STATES_ToggleState(pDefender, 2, 1);
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-        sub_006270B0(pNewStatList, 0x4A, -nPoisonDamage, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x4A, -nPoisonDamage, 0);
         STATLIST_SetState(pNewStatList, 2);
         STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
@@ -283,7 +283,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
         STATES_ToggleState(pDefender, 0x73, 1);
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-        sub_006270B0(pNewStatList, 0x4A, -nBurnDamage, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x4A, -nBurnDamage, 0);
         STATLIST_SetState(pNewStatList, 0x73);
         STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
@@ -351,9 +351,9 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
         STATLIST_SetState(pNewStatList, 11);
         STATLIST_SetStatRemoveCallback(pNewStatList, SUNITDMG_RemoveShatterState);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
-        sub_006270B0(pNewStatList, 0x43, nColdEffect, 0);
-        sub_006270B0(pNewStatList, 0x44, nColdEffect, 0);
-        sub_006270B0(pNewStatList, 0x45, nColdEffect, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x43, nColdEffect, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x44, nColdEffect, 0);
+        STATLIST_SetStatValue(pNewStatList, 0x45, nColdEffect, 0);
         UnitUpdateAnimRateAndVel(pDefender, ".\\UNIT\\SUnitDmg.cpp", 0x1DC);
     }
     else if (STATLIST_GetExpireFrame(pStatList) < nExpireFrame)

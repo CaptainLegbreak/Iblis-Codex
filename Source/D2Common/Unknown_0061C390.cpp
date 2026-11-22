@@ -134,7 +134,7 @@ int __stdcall sub_0061C390(Act* act)
     return sub_0061AA60(act)->timeFields[TIME_RATE_FIELD];
 }
 
-static void __stdcall sub_0061BB60_SetColorForId(D2DrlgEnvironmentStrc* pRecord, int nId)
+static void __stdcall DRLGACTIVATE_ApplyArreatSummitLightColor(D2DrlgEnvironmentStrc* pRecord, int nId)
 {
     if (nId == 0x78)
     {
@@ -264,7 +264,7 @@ static void __stdcall ENVIRONMENT_UpdateLightColor(int nAct, D2DrlgEnvironmentSt
     pEnvironment->nBlue = pCurrEnvironmentCycle->nBlue + nBlue;
 }
 
-static void sub_0061BDF0_SetCycleState(D2DrlgEnvironmentStrc* pEnvironment)
+static void ENVIRONMENT_SetCycleState(D2DrlgEnvironmentStrc* pEnvironment)
 {
     const D2EnvironmentCycleStrc* pEnvironmentCycle = !pEnvironment->bEclipse ? &gNormalEnvironmentCycle[pEnvironment->nCycleIndex] : &gEclipseEnvironmentCycle[pEnvironment->nCycleIndex];
     pEnvironment->nPeriodOfDay = pEnvironmentCycle->nPeriodOfDay;
@@ -359,7 +359,7 @@ int __stdcall ENVIRONMENT_UpdatePeriodOfDay(D2DrlgActStrc* pAct, D2ActiveRoomStr
     ENVIRONMENT_UpdateTicks(pEnvironment, nActNo);
     ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
     ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
-    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
     return nPreviousPeriodOfDay != pEnvironment->nPeriodOfDay;
 }
 
@@ -419,7 +419,7 @@ void __stdcall ENVIRONMENT_NextEnvCycle(D2DrlgActStrc* pAct, D2ActiveRoomStrc* p
     const int nActNo = DRLG_GetActNoFromLevelId(nLevelId);
     ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
     ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
-    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
 }
 
 void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom, int nIndex, int nTicks, int bEclipse)
@@ -448,12 +448,12 @@ void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRo
     pEnvironment->bEclipse = bEclipse;
     if (bEclipse)
     {
-        sub_0061BDF0_SetCycleState(pEnvironment);
+        ENVIRONMENT_SetCycleState(pEnvironment);
         ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nAct);
         ENVIRONMENT_UpdateLightColor(nAct, pEnvironment);
     }
 
-    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
 }
 
 void __stdcall ENVIRONMENT_TaintedSunBegin(D2DrlgActStrc* pAct)

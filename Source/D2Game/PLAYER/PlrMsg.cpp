@@ -344,7 +344,7 @@ int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill); // 0x00644530
 
@@ -555,7 +555,7 @@ static int __stdcall sub_0054D130_TakeMercItemToCursor(D2GameStrc* pGame, D2Unit
 
 struct D2BuyItemPacketStrc;
 
-int __stdcall sub_00626090(D2StatListStrc* pStatList); // 0x00626090
+int __stdcall STATLIST_GetListExpireFrame(D2StatListStrc* pStatList); // 0x00626090
 
 static unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit);
 
@@ -573,9 +573,9 @@ void __fastcall sub_005845D0_UpdateDoorCollisionMode(D2GameStrc* pGame, D2UnitSt
 
 void __fastcall OBJMODE_TravelViaWaypoint(D2GameStrc* pGame, D2UnitStrc* pUnit, int nWaypointGUID, int nLevelId); // 0x00584F60
 
-int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 
-int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
+int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
 
 int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x00641530
 
@@ -755,23 +755,23 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
-extern "C" void __stdcall sub_006252D0(D2StatListStrc* pStatList, unsigned int dwValue); // 0x006252D0
+extern "C" void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, unsigned int dwValue); // 0x006252D0
 
-extern "C" void __stdcall sub_00625CE0(D2StatListStrc* pStatList, unsigned int dwValue); // 0x00625CE0
+extern "C" void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, unsigned int dwValue); // 0x00625CE0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
 int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
-extern "C" unsigned int __stdcall sub_00648A40(D2DynamicPathStrc* pPath); // 0x00648A40
+extern "C" unsigned int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath); // 0x00648A40
 
-extern "C" unsigned int __stdcall sub_00648A60(D2DynamicPathStrc* pPath); // 0x00648A60
+extern "C" unsigned int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A60
 
-extern "C" void __stdcall sub_00648AD0(D2DynamicPathStrc* pPath, unsigned short wX, unsigned short wY); // 0x00648AD0
+extern "C" void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pPath, unsigned short wX, unsigned short wY); // 0x00648AD0
 
 extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 
-extern "C" unsigned int __stdcall sub_00648CD0(D2DynamicPathStrc* pPath); // 0x00648CD0
+extern "C" unsigned int __stdcall PATH_GetMoveTestCollisionMask(D2DynamicPathStrc* pPath); // 0x00648CD0
 
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648CE0
 
@@ -779,7 +779,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 
 
 int __stdcall PATH_GetType(D2DynamicPathStrc* pDynamicPath); // 0x00648E30
 
-extern "C" void __stdcall sub_00648E70_SetDistance(D2DynamicPathStrc* pPath, unsigned char nDistance); // 0x00648E70
+extern "C" void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pPath, unsigned char nDistance); // 0x00648E70
 
 unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pDynamicPath); // 0x00648EA0
 
@@ -1066,7 +1066,7 @@ static unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit)
 	}
 
 	D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
-	const int nFrames = sub_00626090(pStatList) - pGame->dwGameFrame;
+	const int nFrames = STATLIST_GetListExpireFrame(pStatList) - pGame->dwGameFrame;
 	const unsigned char nPercent = (unsigned char)((((PoisonStat_GetPerFrame(pStatList) * nFrames + nHitpoints) >> 8) * 100) / nMaxLife);
 	const int nClamped = nPercent > 100 ? 100 : nPercent;
 	return (unsigned char)nClamped;
@@ -1373,7 +1373,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
             return 1;
         }
 
-        if (sub_00623660_IsInObjectInteractRange(pPlayer, pUnit) && !sub_00622B50_IsRayFreeBetweenUnits(pPlayer, pUnit, 0x804))
+        if (UNITS_IsObjectInInteractRange(pPlayer, pUnit) && !UNITS_TestCollisionBetweenInteractingUnits(pPlayer, pUnit, 0x804))
         {
             D2Common_10153(pPlayer->pDynamicPath);
             if (!sub_6FC78B20(pGame, pPlayer, 2, nUnitGUID))
@@ -1432,7 +1432,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
             return 1;
         }
 
-        if (nDistance <= 4 && !sub_00622B50_IsRayFreeBetweenUnits(pPlayer, pUnit, 0x804))
+        if (nDistance <= 4 && !UNITS_TestCollisionBetweenInteractingUnits(pPlayer, pUnit, 0x804))
         {
             int bFailed;
             if (a4)
@@ -2138,7 +2138,7 @@ static int __stdcall sub_6FC83340(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillS
     }
 
     int nSkillUseState = SKILLS_GetUseState(pUnit, pUsedSkill);
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pUsedSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pUsedSkill);
     if (!pSkillsTxtRecord)
     {
         return 2;
@@ -2179,7 +2179,7 @@ static int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
 
     int nUseState = SKILLS_GetUseState(pUnit, pSkill);
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxtRecord)
     {
         return 2;
@@ -4425,7 +4425,7 @@ static int __stdcall sub_0054CB10_TestPathToCoords(D2GameStrc* pGame, D2UnitStrc
     }
 
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    const int nMask = sub_00648CD0(pPath);
+    const int nMask = PATH_GetMoveTestCollisionMask(pPath);
     const int nPathType = PATH_GetType(pPath);
     const unsigned char nNewDistance = PATH_GetMaxDistance(pPath);
     D2UnitStrc* pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
@@ -4434,13 +4434,13 @@ static int __stdcall sub_0054CB10_TestPathToCoords(D2GameStrc* pGame, D2UnitStrc
 
     PATH_SetMoveTestCollisionMask(pPath, 0x409);
     PATH_SetType(pPath, 15);
-    sub_00648E70_SetDistance(pPath, 77);
-    sub_00648AD0(pPath, nX, nY);
+    PATH_SetNewDistance(pPath, 77);
+    PATH_SetTargetPos(pPath, nX, nY);
 
     int bResult = D2Common_10142(pPath, pUnit, 0);
     if (bResult)
     {
-        if (nX == sub_00648A40(pPath) && nY == sub_00648A60(pPath))
+        if (nX == PATH_GetLastPointX(pPath) && nY == PATH_GetLastPointY(pPath))
         {
             bResult = 1;
         }
@@ -4452,7 +4452,7 @@ static int __stdcall sub_0054CB10_TestPathToCoords(D2GameStrc* pGame, D2UnitStrc
 
     PATH_SetMoveTestCollisionMask(pPath, nMask);
     PATH_SetType(pPath, nPathType);
-    sub_00648E70_SetDistance(pPath, nNewDistance);
+    PATH_SetNewDistance(pPath, nNewDistance);
 
     if (pTargetUnit)
     {
@@ -4460,7 +4460,7 @@ static int __stdcall sub_0054CB10_TestPathToCoords(D2GameStrc* pGame, D2UnitStrc
     }
     else
     {
-        sub_00648AD0(pPath, nFirstX, nFirstY);
+        PATH_SetTargetPos(pPath, nFirstX, nFirstY);
     }
 
     return bResult;
@@ -4505,8 +4505,8 @@ static int __stdcall sub_0054CC40_WarpToCoords(D2GameStrc* pGame, D2UnitStrc* pU
     STATES_ToggleState(pUnit, STATE_SYNC_WARPED, 1);
 
     D2StatListStrc* pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nEndFrame, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
-    sub_006252D0(pStatList, STATE_SYNC_WARPED);
-    sub_00625CE0(pStatList, (unsigned int)sub_0054CC30_StatRemoveCallback_ToggleStateOff);
+    STATLIST_SetState(pStatList, STATE_SYNC_WARPED);
+    STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)sub_0054CC30_StatRemoveCallback_ToggleStateOff);
     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     sub_005417D0_DirectDated(pGame, pUnit, 12, nEndFrame, 0, 0);
     return 1;

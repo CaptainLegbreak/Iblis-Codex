@@ -14,8 +14,8 @@ struct D2ProfileCounterStrc
 typedef int (__cdecl* PROFHOOK0096BC24FN)();
 
 extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
-void __cdecl sub_006116B0_WriteProfileCounters(); // 0x006116B0
-void __cdecl sub_00624B20_CloseLog(); // 0x00624B20
+void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
+void __cdecl LOG_CloseLog(); // 0x00624B20
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
 extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
@@ -30,13 +30,13 @@ void __cdecl LOG_11100(int nA, int nB, int nC, int nFlags, const char* szFile, i
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64* pnCount); // 0x006CC25C
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64* pnFrequency); // 0x006CC254
 // 0x00611600
-void __cdecl sub_00611600_CloseLogTail()
+void __cdecl PROFCORE_CloseLog()
 {
-    sub_00624B20_CloseLog();
+    LOG_CloseLog();
 }
 
 // 0x00611620
-void __fastcall sub_00611620_ClearAndCallHook(int nA, char* pBuffer, int nC)
+void __fastcall PROFCORE_CallProfHook(int nA, char* pBuffer, int nC)
 {
     PROFHOOKFN pfnHook = gpfnProfHook;
     *pBuffer = 0;
@@ -45,7 +45,7 @@ void __fastcall sub_00611620_ClearAndCallHook(int nA, char* pBuffer, int nC)
 }
 
 // 0x00611650
-int __cdecl sub_00611650_CallHook0096BC24()
+int __cdecl PROFCORE_CallSecondaryHook()
 {
     if (gpfnHook_0096BC24)
     {
@@ -55,7 +55,7 @@ int __cdecl sub_00611650_CallHook0096BC24()
 }
 
 // 0x00611660
-void __fastcall sub_00611660_AddSample(int nIndex, __int64 nStart)
+void __fastcall PROFCORE_AddSample(int nIndex, __int64 nStart)
 {
     __int64 nNow;
     QueryPerformanceCounter(&nNow);
@@ -64,7 +64,7 @@ void __fastcall sub_00611660_AddSample(int nIndex, __int64 nStart)
 }
 
 // 0x006116B0
-void __cdecl sub_006116B0_WriteProfileCounters()
+void __cdecl PROFCORE_WriteProfileCounters()
 {
     __int64 nFrequency;
     QueryPerformanceFrequency(&nFrequency);
@@ -75,9 +75,9 @@ void __cdecl sub_006116B0_WriteProfileCounters()
 }
 
 // 0x00611730
-void __cdecl sub_00611730_DumpAndResetProfile()
+void __cdecl PROFCORE_DumpAndResetProfile()
 {
-    sub_006116B0_WriteProfileCounters();
+    PROFCORE_WriteProfileCounters();
     for (int i = 0; i < 23; i++)
     {
         gaProfEntries[i].nTotal = 0;

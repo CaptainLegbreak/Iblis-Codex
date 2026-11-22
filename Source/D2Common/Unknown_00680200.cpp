@@ -107,14 +107,14 @@ static void DRLGOUTDESR_PlaceBorders(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067F6F0
-static void sub_0067F6F0_PlaceRockyWasteVariants(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTDESR_PlaceRockyWasteVariants(D2DrlgLevelStrc* pLevel)
 {
     const int nLevelPrestIds[] = { 0x18B, 0x19B, 0x191, 0x192, 0x18F, 0x18E, 0x193 };
     DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds, 7, 0, pLevel);
 }
 
 // 0x0067F740
-static void sub_0067F740_PlaceDryHillsVariants(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTDESR_PlaceDryHillsVariants(D2DrlgLevelStrc* pLevel)
 {
     const int nLevelPrestIds1[] = { 0x18B, 0x19B, 0x190, 0x18E };
     const int nLevelPrestIds2[] = { 0x194, 0x195, 0x196, 0x197 };
@@ -123,7 +123,7 @@ static void sub_0067F740_PlaceDryHillsVariants(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067F7A0
-static void sub_0067F7A0_PlaceFarOasisVariants(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTDESR_PlaceFarOasisVariants(D2DrlgLevelStrc* pLevel)
 {
     const int nLevelPrestIds[] = { 0x18C, 0x18D };
     DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds, 2, 0, pLevel);

@@ -335,7 +335,7 @@ EditBoxWrapper::EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int 
 }
 
 // 0x004BC1D0
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
+int __stdcall SKILLS_Return0(int nUnused)
 {
     return 0;
 }

@@ -34,7 +34,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
 void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678D70
-int __stdcall sub_00679380_PathTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00679380
+int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00679380
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
@@ -44,7 +44,7 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo); // 0x00679C80
 int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo); // 0x0067B850
 
 void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
-void __fastcall sub_0067A390_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067A390
+void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067A390
 
 typedef int BOOL;
 
@@ -80,7 +80,7 @@ extern const int gaIdaStar_PointCacheHashMaskY[]; // 0x006F1B98
 int __stdcall PATH_AStar_Heuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067ADC0
 D2PathFoWallNodeStrc* __stdcall PATH_AStar_GetNodeFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint); // 0x0067AE00
 D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint); // 0x0067AE50
-D2PathFoWallNodeStrc* __fastcall sub_0067B1C0_AllocTableEntry(D2PathFoWallContextStrc* pContext); // 0x0067B1C0
+D2PathFoWallNodeStrc* __fastcall PATH_AStar_AllocNewNode(D2PathFoWallContextStrc* pContext); // 0x0067B1C0
 
 struct D2PathMovStrc
 {
@@ -439,7 +439,7 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
         return pPath->dwPathPoints;
     }
 
-    if (sub_00679380_PathTableHeuristic(nNextPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14)
+    if (PATH_GetTableHeuristic(nNextPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14)
     {
         pPath->PathPoints[pPath->dwPathPoints] = nNextPoint;
         pPath->dwPathPoints += 1;
@@ -630,7 +630,7 @@ int __fastcall PATH_Straight_Compute(D2PathInfoStrc* pPathInfo)
     if (nPathPoints)
     {
         D2PathPointStrc tPathLastPoint = pDynamicPath->PathPoints[nPathPoints - 1];
-        if (sub_00679380_PathTableHeuristic(tPathLastPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14
+        if (PATH_GetTableHeuristic(tPathLastPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14
             && (tPathLastPoint.X != pPathInfo->tStartCoord.X || tPathLastPoint.Y != pPathInfo->tStartCoord.Y))
         {
             return nPathPoints;
@@ -756,7 +756,7 @@ static int __stdcall sub_0067A420_TraceSegment(D2DynamicPathStrc* pDynamicPath, 
         return 0;
 
     D2CoordStrc tDirectionVector;
-    sub_0067A390_GetScaledDirectionVector(pDynamicPath->dwVelocity, &tDirectionVector, tStartCoord, tTargetCoord);
+    PATH_GetScaledDirectionVector(pDynamicPath->dwVelocity, &tDirectionVector, tStartCoord, tTargetCoord);
     D2_ASSERT(D2_ABS(tDirectionVector.nX) > 0 || D2_ABS(tDirectionVector.nY) > 0, 834);
     sub_6FDAB810(&tDirectionVector.nX, &tDirectionVector.nY);
     return sub_00679530_TraceLineFP16(pDynamicPath, &tDirectionVector, tStartCoord, &tTargetCoord);
@@ -984,7 +984,7 @@ static BOOL __stdcall PATH_AStar_EvaluateNeighbor(D2PathFoWallContextStrc* pCont
         return TRUE;
     }
 
-    pNewNode = sub_0067B1C0_AllocTableEntry(pContext);
+    pNewNode = PATH_AStar_AllocNewNode(pContext);
     if (!pNewNode)
     {
         return FALSE;

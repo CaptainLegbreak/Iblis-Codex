@@ -34,7 +34,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
+D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
 
 
@@ -132,7 +132,7 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 // 0x0046B710
 void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pObject = sub_0065A620_FindUnitInAdjacentRooms(UNITS_GetRoom(pUnit), 2, 0x173);
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pUnit), 2, 0x173);
     int nX;
     int nY;
     if (pObject)

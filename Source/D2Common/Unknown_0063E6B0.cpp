@@ -32,7 +32,7 @@ extern const unsigned int* gpSkeletonComponentCodes_007489A8[16];               
 extern const unsigned int* gpArcherComponentCodes_00748A18[16];                                             // 0x00748A18
 
 void __stdcall UNITS_GetFrameMetrics(D2UnitStrc* pUnit, int* pFrame, int* pFrameCount);                    // 0x00621870
-int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* pUnit, int nFrame);                                       // 0x00621920
+int __stdcall UNITS_GetEventFrameInfo(D2UnitStrc* pUnit, int nFrame);                                       // 0x00621920
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
 unsigned int __stdcall DATATBLS_GetCodeFromCompCodeTxt(int nCompCode);                                      // 0x006117D0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -87,7 +87,7 @@ int __stdcall D2Common_11050(D2UnitStrc* pUnit, int a2)
         int nCounter = nStart;
         while (nCounter <= nFrame)
         {
-            if (sub_00621920_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MISSILE_ATTACK || sub_00621920_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MELEE_ATTACK)
+            if (UNITS_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MISSILE_ATTACK || UNITS_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MELEE_ATTACK)
             {
                 break;
             }

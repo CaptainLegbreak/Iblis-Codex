@@ -376,7 +376,7 @@ static int __stdcall sub_005A7B30_TryStartNeutral(D2GameStrc* pGame, int nMode, 
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
-int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 
 void __fastcall sub_0057C1E0_Total(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057C1E0
 
@@ -477,7 +477,7 @@ void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);                           
 
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
 
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
+int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);                       // 0x00648B90
 
@@ -1052,7 +1052,7 @@ static void sub_005A6380_SetVelocityPercent(D2UnitStrc* pUnit, D2MonVelocityPara
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     }
 
-    sub_006270B0(pStatList, STAT_VELOCITYPERCENT, nVelocityPercent, 0);
+    STATLIST_SetStatValue(pStatList, STAT_VELOCITYPERCENT, nVelocityPercent, 0);
     UnitUpdateAnimRateAndVel(pUnit, ".\\MONSTER\\MonsterMode.cpp", 269);
 }
 
@@ -1619,7 +1619,7 @@ static void sub_005A6DF0_DamageNearbyPlayers(D2GameStrc* pGame, D2UnitStrc* pUni
     {
         if ((!pTarget ? 6 : pTarget->dwUnitType) == 0 && pTarget->dwAnimMode != 17
             && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2
-            && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
+            && !UNITS_TestCollisionBetweenInteractingUnits(pTarget, pUnit, 0x3C01))
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
@@ -1665,7 +1665,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
     while (pTarget)
     {
-        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
+        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !UNITS_TestCollisionBetweenInteractingUnits(pTarget, pUnit, 0x3C01))
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));

@@ -216,7 +216,7 @@ int __fastcall sub_0047A1E0(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 
 void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY); // 0x0047A1B0
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
@@ -1285,7 +1285,7 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
     }
 
     sub_0047A1B0_GetEntryPosition(pEntry, &nX, &nY);
-    sub_00643260(&nX, &nY);
+    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
     nX = nX / gnAutomapScale_00711254 - gnAutomapOffsetX_007A5198 + 8;
     nY = nY / gnAutomapScale_00711254 - gnAutomapOffsetY_007A519C - 8;
     if (nX < gnGlobal_007A51C8 || nX > gnGlobal_007A51D0 || nY < gnGlobal_007A51CC || nY > gnGlobal_007A51D4)

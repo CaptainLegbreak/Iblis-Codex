@@ -51,7 +51,7 @@ int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSk
 
 int __stdcall SKILLS_EvaluateSkillDescFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646D00
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
@@ -87,9 +87,9 @@ short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
 
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 
-int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
+int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit); // 0x0063A380
 
-int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
+int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit); // 0x0063A3A0
 
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
@@ -804,7 +804,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     if (!pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -891,9 +891,9 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
         *pColor = 3;
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
         *pColor = 1;
 
     if (nBonus <= -90)
@@ -951,7 +951,7 @@ static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2Uni
     if (!pUnit || !pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -1326,11 +1326,11 @@ void __fastcall sub_004EB460_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSk
     nBonus += STATLIST_UnitGetStatValue(pUnit, 0x19, 0);
     const int nMinPercent = STATLIST_UnitGetStatValue(pUnit, 0x12, 0);
     const int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, 0x11, 0);
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
     {
         nColor = 3;
     }
-    const int nDrawColor = sub_0063A3A0(pUnit) ? 1 : nColor;
+    const int nDrawColor = STATES_CheckStateMaskDamRedOnUnit(pUnit) ? 1 : nColor;
     if (nBonus <= -90)
     {
         nBonus = -90;

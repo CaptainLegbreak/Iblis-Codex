@@ -98,12 +98,12 @@ typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*, int, int); // 0x00463740
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char); // 0x0063E7A0
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char, int*, int*); // 0x0063E7E0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char); // 0x0063E7A0
+void __stdcall INVENTORY_GetDirectionDelta(unsigned char, int*, int*); // 0x0063E7E0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
-unsigned char __stdcall sub_00648810(D2DynamicPathStrc*); // 0x00648810
-int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc*); // 0x006505C0
+unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc*); // 0x00648810
+int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc*); // 0x006505C0
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

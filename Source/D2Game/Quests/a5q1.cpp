@@ -863,7 +863,7 @@ void __cdecl sub_00405A60_Nop()
 {
 }
 
-void __cdecl sub_0063A800_Nop()
+void __cdecl ITEMS_Nop()
 {
 }
 

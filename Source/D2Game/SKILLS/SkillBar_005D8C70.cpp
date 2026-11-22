@@ -8,14 +8,14 @@ int __stdcall sub_006444A0(Skill*);  // 0x006444A0
 int __stdcall sub_00646CA0(Unit*,unsigned,int,int);  // 0x00646CA0
 List* __stdcall sub_006256B0(Unit*,int);  // 0x006256B0
 List* __stdcall sub_006251F0(void*,unsigned,unsigned,int,int);  // 0x006251F0
-void __stdcall sub_006252D0(List*,int);  // 0x006252D0
+void __stdcall STATLIST_SetState(List*,int);  // 0x006252D0
 typedef void (__fastcall *RemoveCallback)(Unit*,int,List*);
-void __stdcall sub_00625CE0(List*,RemoveCallback);  // 0x00625CE0
+void __stdcall STATLIST_SetStatRemoveCallback(List*,RemoveCallback);  // 0x00625CE0
 void __fastcall sub_0056E900(Unit*,int,List*);  // 0x0056E900
 void __stdcall sub_00627150(List*,int,int,int);  // 0x00627150
 void __stdcall sub_00626E10(Unit*,List*,int);  // 0x00626E10
 void __stdcall sub_00639DB0(Unit*,int,int);  // 0x00639DB0
-void __stdcall sub_006260B0(List*,int);  // 0x006260B0
+void __stdcall STATLIST_SetListExpireFrame(List*,int);  // 0x006260B0
 void __fastcall sub_005417D0(Game*,Unit*,int,int,int,int);  // 0x005417D0
 void __stdcall sub_00639E30(Unit*,int,int);  // 0x00639E30
 int __stdcall sub_00625D00(List*,int,unsigned short);  // 0x00625D00
@@ -40,13 +40,13 @@ int __fastcall sub_005D8C70(Game* game,Unit* unit,int skillId,int level)
         if(!list) {
             list=sub_006251F0(game->pool,2,expire,!unit ? 6 : unit->type,!unit ? -1 : unit->id);
             if(!list) return 0;
-            sub_006252D0(list,record->state);
-            sub_00625CE0(list,sub_0056E900);
+            STATLIST_SetState(list,record->state);
+            STATLIST_SetStatRemoveCallback(list,sub_0056E900);
             sub_00627150(list,CHARGE_STAT,0,0);
             sub_00626E10(unit,list,1);
             sub_00639DB0(unit,record->state,1);
         }
-        sub_006260B0(list,expire);
+        STATLIST_SetListExpireFrame(list,expire);
         sub_005417D0(game,unit,12,expire,0,0);
         sub_00639E30(unit,record->state,1);
         int value=sub_00625D00(list,CHARGE_STAT,0)+1;

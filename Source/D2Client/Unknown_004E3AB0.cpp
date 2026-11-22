@@ -44,7 +44,7 @@ typedef char B07RealDescriptionSize[(sizeof(D2SkillDescTxt) == 0x120) ? 1 : -1];
 // 0x004E3AB0
 void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
 {
-    if (!pUnit->pDynamicPath || !sub_006505C0_TestPathFlag8(pUnit->pDynamicPath))
+    if (!pUnit->pDynamicPath || !PATH_HasEnteredNewSubtile(pUnit->pDynamicPath))
     {
         return;
     }
