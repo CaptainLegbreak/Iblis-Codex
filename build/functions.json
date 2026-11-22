@@ -1085,7 +1085,7 @@
   ["0x00421D80", 129, "verified", "??1D2StormBigDataStrc@@QAE@XZ"],
   ["0x00421E10", 135, "verified", "??0D2StormBigStrc@@QAE@XZ"],
   ["0x00421EA0", 110, "verified", "sub_00421EA0_GrowToFit"],
-  ["0x00421F10", 73, "verified", "sub_00421F10_SetCount"],
+  ["0x00421F10", 73, "verified", "SetCount"],
   ["0x00421F60", 119, "verified", "sub_00421F60_Add"],
   ["0x00421FE0", 104, "verified", "?GrowToFit@D2StormBigBufferStrc@@QAEXH@Z"],
   ["0x00422050", 33, "verified", "sub_00422050_At"],
