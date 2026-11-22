@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2Txt.h"
 #include "D2ClientUi.h"
 #include "D2ClientTypes.h"
 #include "D2Records.h"
@@ -32,14 +33,6 @@ struct D2NpcButtonStrc;
 
 
 
-
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-    char unk0x84[0xA6];
-    unsigned char nQuest;
-};
 
 
 struct D2DataTablesStrc

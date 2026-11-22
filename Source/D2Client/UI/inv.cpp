@@ -1,4 +1,5 @@
 #include <D2UnitData.h>
+#include "D2Txt.h"
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
 #include "D2StormTypes.h"
@@ -206,11 +207,6 @@ extern unsigned char gaTable_007C0EA4[]; // 0x007C0EA4
 extern int gdwTableInit_007C0ECC; // 0x007C0ECC
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x144];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
@@ -262,12 +258,6 @@ extern "C" int gnFlag_007BCE28; // 0x007BCE28
 extern int gnGlobal_007BCE30; // 0x007BCE30
 extern void* gpCel_007BCE8C; // 0x007BCE8C
 extern int gnGlobal_007BCE9C; // 0x007BCE9C
-
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-};
 
 extern D2InventoryGridInfoStrc gGrid_007BCA78; // 0x007BCA78
 extern D2InventoryGridInfoStrc gGrid_007BCB40; // 0x007BCB40
