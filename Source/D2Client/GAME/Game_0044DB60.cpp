@@ -166,9 +166,18 @@ struct D2ComInterfaceStrc { char unknown00[0xC4]; void (__stdcall* Close)(); };
 
 struct D2ClientInfoStrc
 {
-    char unknown00[0x1EF];
-    union { unsigned short wFlags; struct {unsigned char lowFlags,progress;}; };
-    char unknown1F1[0x33]; unsigned char nSoundArg;
+    char unk0x00[0x1EF];
+    union
+    {
+        unsigned short wFlags;
+        struct
+        {
+            unsigned char lowFlags;
+            unsigned char progress;
+        };
+    };
+    char unk0x1F1[0x33];
+    unsigned char nSoundArg;
 };
 
 #pragma pack(pop)
@@ -351,11 +360,36 @@ struct D2SaveHeaderStrc
 
 #pragma pack(push, 1)
 
+struct D2ClientNotifyStrc;
+#pragma pack(push, 1)
 struct D2ClientCharRecordStrc
 {
-    char unk0x000[0x1EF];
-    unsigned short wValue;
+    char unk0x00[0x19];
+    char aState[4];
+    char unk0x1D[2];
+    union
+    {
+        char szName[0x1D0];
+        struct
+        {
+            char szText0x1F[0x18];
+            char szText0x37[0x1B8];
+        };
+    };
+    union
+    {
+        unsigned char aFlags[2];
+        unsigned short wValue;
+    };
+    char unk0x1F1[0x1F];
+    unsigned char nKind;
+    char unk0x211[0x14];
+    D2ClientNotifyStrc* pNotify;
+    char unk0x229[0x1C];
+    char szText245[0x18];
+    char szText25D[0x10];
 };
+#pragma pack(pop)
 
 #pragma pack(pop)
 

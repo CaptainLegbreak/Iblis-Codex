@@ -19,14 +19,30 @@ struct D2RangeStrc;
 
 struct D2ClientCharRecordStrc
 {
-    char unk0x000[0x1F];
-    char szText0x1F[0x18];
-    char szText0x37[0x1B8];
-    unsigned char aFlags[2];
-    char unk0x1F1[0x34];
+    char unk0x00[0x19];
+    char aState[4];
+    char unk0x1D[2];
+    union
+    {
+        char szName[0x1D0];
+        struct
+        {
+            char szText0x1F[0x18];
+            char szText0x37[0x1B8];
+        };
+    };
+    union
+    {
+        unsigned char aFlags[2];
+        unsigned short wValue;
+    };
+    char unk0x1F1[0x1F];
+    unsigned char nKind;
+    char unk0x211[0x14];
     D2ClientNotifyStrc* pNotify;
     char unk0x229[0x1C];
-    char szText0x245[0x18];
+    char szText245[0x18];
+    char szText25D[0x10];
 };
 
 #pragma pack(pop)
@@ -140,7 +156,17 @@ struct D2PoolSystemStrc;
 struct D2ClientInfoStrc
 {
     char unk0x00[0x1EF];
-    unsigned short wFlags;
+    union
+    {
+        unsigned short wFlags;
+        struct
+        {
+            unsigned char lowFlags;
+            unsigned char progress;
+        };
+    };
+    char unk0x1F1[0x33];
+    unsigned char nSoundArg;
 };
 
 #pragma pack(pop)
@@ -652,8 +678,8 @@ const char* __cdecl sub_0044B7C0_GetRecordText1F()
 // 0x0044B7F0
 const char* __cdecl sub_0044B7F0_GetRecordText245()
 {
-    if (gpCharRecord_007A0438 && strlen(gpCharRecord_007A0438->szText0x245) >= 1)
-        return gpCharRecord_007A0438->szText0x245;
+    if (gpCharRecord_007A0438 && strlen(gpCharRecord_007A0438->szText245) >= 1)
+        return gpCharRecord_007A0438->szText245;
     return 0;
 }
 

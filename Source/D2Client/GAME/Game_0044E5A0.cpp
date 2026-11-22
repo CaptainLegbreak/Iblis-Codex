@@ -33,13 +33,36 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
+struct D2ClientNotifyStrc;
+#pragma pack(push, 1)
 struct D2ClientCharRecordStrc
 {
     char unk0x00[0x19];
     char aState[4];
     char unk0x1D[2];
-    char szName[0x1D0];
+    union
+    {
+        char szName[0x1D0];
+        struct
+        {
+            char szText0x1F[0x18];
+            char szText0x37[0x1B8];
+        };
+    };
+    union
+    {
+        unsigned char aFlags[2];
+        unsigned short wValue;
+    };
+    char unk0x1F1[0x1F];
+    unsigned char nKind;
+    char unk0x211[0x14];
+    D2ClientNotifyStrc* pNotify;
+    char unk0x229[0x1C];
+    char szText245[0x18];
+    char szText25D[0x10];
 };
+#pragma pack(pop)
 
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc); // 0x00409FF0
 
