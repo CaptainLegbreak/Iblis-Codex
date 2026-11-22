@@ -14218,6 +14218,11 @@
      "name": "?VIEW_GetViewShift@@YIHPAH0@Z"
     },
     {
+     "va": "0x00476AF0",
+     "length": 18,
+     "name": "?UI_ClearGlobals@@YAXXZ"
+    },
+    {
      "va": "0x00476B10",
      "length": 176,
      "name": "?VIEW_CreateView@@YAPAUObj004DCF10@@XZ"
@@ -16582,11 +16587,6 @@
      "va": "0x0046F9A0",
      "length": 6,
      "name": "UI_GetCofMemoryLimit"
-    },
-    {
-     "va": "0x00476AF0",
-     "length": 18,
-     "name": "?UI_ClearGlobals@@YAXXZ"
     }
    ],
    "flags": [

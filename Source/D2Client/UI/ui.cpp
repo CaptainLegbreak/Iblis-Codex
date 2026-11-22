@@ -2603,14 +2603,6 @@ int __cdecl UI_GetCofMemoryLimit()
     return gdwGlobal_007A891C;
 }
 
-// 0x00476AF0
-void __cdecl UI_ClearGlobals()
-{
-    gnGlobal_007B9534 = 0;
-    gnGlobal_007B9538 = 0;
-    gnGlobal_007B8D20 = 0;
-}
-
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
 {
     const int nOld = sub_00502EF0(1);

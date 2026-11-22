@@ -1508,6 +1508,15 @@ int __fastcall VIEW_GetViewShift(int* pX, int* pY)
     return 1;
 }
 
+
+// 0x00476AF0
+void __cdecl UI_ClearGlobals()
+{
+    gnGlobal_007B9534 = 0;
+    gnGlobal_007B9538 = 0;
+    gnGlobal_007B8D20 = 0;
+}
+
 // 0x00476B10
 Obj004DCF10* __cdecl VIEW_CreateView()
 {
