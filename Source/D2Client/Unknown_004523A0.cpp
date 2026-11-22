@@ -1,8 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-};
-
+#include "D2Unicode.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -22,13 +18,15 @@ Unicode* __fastcall sub_004523A0_FormatRangeText(Unicode* pText, int nFirst, int
     if (pText->wChar)
     {
         D2_ASSERT(sub_00526800(pText) < 500, 0x39A);
-        Unicode wszBuffer[0x200];
+        unsigned short wszBufferBuf[0x200];
+        Unicode* wszBuffer = (Unicode*)wszBufferBuf;
         wszBuffer[0].wChar = 0;
         for (int i = 1; i < 0x200; i++)
         {
             wszBuffer[i].wChar = 0;
         }
-        Unicode wszDigit[4];
+        unsigned short wszDigitBuf[4];
+        Unicode* wszDigit = (Unicode*)wszDigitBuf;
         wszDigit[0].wChar = 0;
         wszDigit[1].wChar = 0;
         wszDigit[2].wChar = 0;

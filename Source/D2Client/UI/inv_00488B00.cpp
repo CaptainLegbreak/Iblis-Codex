@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2Txt.h"
 #include "D2ClientUi.h"
 #include "D2ClientTypes.h"
 #include "D2Records.h"
@@ -32,14 +33,6 @@ struct D2NpcButtonStrc;
 
 
 
-
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-    char unk0x84[0xA6];
-    unsigned char nQuest;
-};
 
 
 struct D2DataTablesStrc
@@ -130,7 +123,7 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
-int __stdcall ITEMS_GetSockets(D2UnitStrc* hItem); // 0x006299B0
+unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20

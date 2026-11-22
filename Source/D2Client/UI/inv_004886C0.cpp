@@ -6,14 +6,17 @@
 #include "D2Txt.h"
 #include "D2StormTypes.h"
 
+#pragma pack(push, 2)
 struct D2PanelButtonStrc
 {
     int bActive;
-    int unk0x04[1];
+    int nValue;
     unsigned short nString;
-    unsigned short unk0x0A;
-    int unk0x0C[2];
+    int nCel;
+    unsigned short nFrame;
+    int nType;
 };
+#pragma pack(pop)
 
 static int gnGlobal_007BCA4C; // 0x007BCA4C
 
@@ -43,11 +46,11 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 
 D2UnitStrc* __cdecl sub_004B1620_GetInteractNpc();                                                          // 0x004B1620
 
-int __cdecl sub_004B32D0();                                                                        // 0x004B32D0
+D2BitBufferStrc* __cdecl sub_004B32D0();                                                                        // 0x004B32D0
 
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
 
-int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, int pQuestFlags, void* pfCallback); // 0x0062FE60
+int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
@@ -147,7 +150,7 @@ void __stdcall sub_004912A0_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg);
 
 int __cdecl sub_004979E0();
 
-int __cdecl D2GFX_GetResolutionMode();
+int __stdcall D2GFX_GetResolutionMode();
 
 extern int gnGlobal_0071146C; // 0x0071146C
 

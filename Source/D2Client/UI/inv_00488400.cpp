@@ -8,16 +8,17 @@ struct D2InventoryStrc;
 
 
 
+#pragma pack(push, 2)
 struct D2PanelButtonStrc
 {
     int bActive;
-    int nFrame;
+    int nValue;
     unsigned short nString;
-    unsigned short unk0x0A;
-    unsigned short unk0x0C;
-    unsigned short nFrameAdd;
-    int unk0x10;
+    int nCel;
+    unsigned short nFrame;
+    int nType;
 };
+#pragma pack(pop)
 
 #pragma pack(push, 1)
 struct D2PanelTabStrc
@@ -30,7 +31,7 @@ struct D2PanelTabStrc
 };
 #pragma pack(pop)
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                     // 0x00681EF0
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                     // 0x00681EF0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
@@ -88,10 +89,10 @@ void __cdecl sub_00488400_DrawPanel()
 {
     if (gnGlobal_007BCBEC == 1)
     {
-        gaPanelButtons_007BC9E0[0].nFrame = 0;
-        gaPanelButtons_007BC9E0[1].nFrame = 0;
-        gaPanelButtons_007BC9E0[2].nFrame = 0;
-        gaPanelButtons_007BC9E0[3].nFrame = 0;
+        gaPanelButtons_007BC9E0[0].nValue = 0;
+        gaPanelButtons_007BC9E0[1].nValue = 0;
+        gaPanelButtons_007BC9E0[2].nValue = 0;
+        gaPanelButtons_007BC9E0[3].nValue = 0;
         gdwGlobal_007BCBF0 = 1;
         D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
         sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
@@ -124,7 +125,7 @@ void __cdecl sub_00488400_DrawPanel()
     tContext.pCellFile = sub_00454600_GetBuySellButtonCells();
     for (int i = 0; i < gnButtonCount_00722160; ++i)
     {
-        tContext.nFrame = gaPanelButtons_007BC9E0[i].nFrame + gaPanelButtons_007BC9E0[i].nFrameAdd;
+        tContext.nFrame = gaPanelButtons_007BC9E0[i].nValue + gaPanelButtons_007BC9E0[i].nFrame;
         sub_004F6480(&tContext, ganButtonX_00722168[gnButtonRow_0072215C][i] + gnGlobal_007A2858 - 1,
             gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, -1, 5, 0);
     }

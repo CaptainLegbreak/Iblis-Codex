@@ -86,7 +86,7 @@ int __fastcall sub_004DF9D0_CheckCacheEntry(int nId);                           
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem);                                                // 0x00628250
 
@@ -278,7 +278,7 @@ struct D2PanelButtonStrc;
 
 extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 
-int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*, unsigned int, int, const char*); // 0x006280A0
+int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
 void __stdcall ITEMS_GetDimensions(D2UnitStrc*, unsigned char*, unsigned char*, const char*, int); // 0x006286C0
 

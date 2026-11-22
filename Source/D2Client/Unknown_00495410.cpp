@@ -1,8 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-};
-
+#include "D2Unicode.h"
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
@@ -24,7 +20,8 @@ extern int gbHelpUiOpened_007BEF00;                                             
 
 static int __fastcall GetCenteredX_Inl(unsigned short nString, int nX)
 {
-    Unicode wszText[100];
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
     for (int i = 0; i < 100; ++i)
     {
         wszText[i].wChar = 0;
@@ -38,11 +35,16 @@ static int __fastcall GetCenteredX_Inl(unsigned short nString, int nX)
 // 0x00495410
 void __cdecl sub_00495410_DrawHelpText()
 {
-    Unicode wszLine1[100];
-    Unicode wszLine2[100];
-    Unicode wszLine3[100];
-    Unicode wszLine4[100];
-    Unicode wszLine5[100];
+    unsigned short wszLine1Buf[100];
+    Unicode* wszLine1 = (Unicode*)wszLine1Buf;
+    unsigned short wszLine2Buf[100];
+    Unicode* wszLine2 = (Unicode*)wszLine2Buf;
+    unsigned short wszLine3Buf[100];
+    Unicode* wszLine3 = (Unicode*)wszLine3Buf;
+    unsigned short wszLine4Buf[100];
+    Unicode* wszLine4 = (Unicode*)wszLine4Buf;
+    unsigned short wszLine5Buf[100];
+    Unicode* wszLine5 = (Unicode*)wszLine5Buf;
 
     sub_00502320(D2LANG_GetStringFromTblIndex(0x1066), GetCenteredX_Inl(0x1066, 0x17C), 0x11, 0, 0);
 
@@ -54,28 +56,28 @@ void __cdecl sub_00495410_DrawHelpText()
     {
         wszLine1[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine1) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), sub_00469DE0_GetKeyText(0x22, 1));
+    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), sub_00469DE0_GetKeyText(0x22, 1));
     sub_00502320(wszLine1, 0x75, 0x4E, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine2[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine2) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), sub_00469DE0_GetKeyText(0x25, 1));
+    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), sub_00469DE0_GetKeyText(0x25, 1));
     sub_00502320(wszLine2, 0x75, 0x62, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine3[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine3) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), sub_00469DE0_GetKeyText(0x24, 1));
+    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), sub_00469DE0_GetKeyText(0x24, 1));
     sub_00502320(wszLine3, 0x75, 0x76, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine4[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine4) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), sub_00469DE0_GetKeyText(0x7, 1));
+    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), sub_00469DE0_GetKeyText(0x7, 1));
     sub_00502320(wszLine4, 0x75, 0x8A, 0, 0);
 
     sub_00502320(D2LANG_GetStringFromTblIndex(0x106B), 0x75, 0x9E, 0, 0);
@@ -88,7 +90,7 @@ void __cdecl sub_00495410_DrawHelpText()
     {
         wszLine5[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine5) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), sub_00469DE0_GetKeyText(0x6, 1));
+    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), sub_00469DE0_GetKeyText(0x6, 1));
     sub_00502320(wszLine5, 0x75, 0xDA, 0, 0);
 
     sub_00502320(D2LANG_GetStringFromTblIndex(0x106F), GetCenteredX_Inl(0x106F, 0x3B), 0x1E1, 0, 0);

@@ -1,10 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                      // 0x00526F20
-};
-
+#include "D2Unicode.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -20,7 +14,8 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 Unicode* __fastcall sub_00452270_AppendDigitText(Unicode* pText, int nValue)
 {
     char szNumber[4];
-    Unicode wszNumber[3];
+    unsigned short wszNumberBuf[3];
+    Unicode* wszNumber = (Unicode*)wszNumberBuf;
     D2_ASSERT(sub_00526800(pText) < 500, 0x36C);
     sub_00526700(pText, D2LANG_GetStringFromTblIndex(0xF9A));
     wszNumber[0].wChar = 0;

@@ -1,4 +1,7 @@
 #include <D2UnitData.h>
+#include "D2ClientUi.h"
+#include "D2Txt.h"
+#include "D2Unicode.h"
 #include "D2DataTbls.h"
 #include "D2StormTypes.h"
 #include "D2ClientTypes.h"
@@ -50,18 +53,6 @@ extern int gnGlobal_007A5254; // 0x007A5254
 
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 
-
-struct Unicode
-{
-    unsigned short wChar;
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
-};
-
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x90];
-    void (__cdecl* pfnNotify)();
-};
 
 struct D2ClientNodeStrc
 {
@@ -155,10 +146,10 @@ void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
 void __cdecl sub_0044DA70(); // 0x0044DA70
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
-int __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
@@ -174,7 +165,7 @@ void __fastcall sub_0049EB10_PostRecord(D2ClientRecordStrc* pRecord); // 0x0049E
 void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
 void __cdecl sub_004B8CB0(); // 0x004B8CB0
 void __fastcall sub_004DC2B0(void* pResource); // 0x004DC2B0
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
@@ -211,11 +202,6 @@ extern unsigned char gaTable_007C0EA4[]; // 0x007C0EA4
 extern int gdwTableInit_007C0ECC; // 0x007C0ECC
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x144];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
@@ -228,12 +214,17 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 void __stdcall sub_Z12_EmitUse(int nMin, int nMax, int bModified);
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
+#pragma pack(push, 2)
 struct D2NpcButtonStrc
 {
     int nId;
     int bActive;
-    char unk0x08[0x0C];
+    unsigned short nTextId;
+    int nMode;
+    unsigned short nKey;
+    int nArg;
 };
+#pragma pack(pop)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
@@ -253,9 +244,9 @@ extern int gnGlobal_007BCA4C; // 0x007BCA4C
 extern int gnGlobal_007BCAF0; // 0x007BCAF0
 extern int gnGlobal_007BCBD8; // 0x007BCBD8
 extern int gdwGlobal_007BCBE8; // 0x007BCBE8
-extern int gdwGlobal_007BCBF8; // 0x007BCBF8
+extern D2UnitStrc* gdwGlobal_007BCBF8; // 0x007BCBF8
 extern unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
-extern int gnQuestTimerValue_007BCC14; // 0x007BCC14
+extern unsigned int gnQuestTimerValue_007BCC14; // 0x007BCC14
 extern unsigned long gdwQuestTimerTicks_007BCC18; // 0x007BCC18
 extern D2CelFileStrc* gpCellFile_007BCC24; // 0x007BCC24
 extern D2CelFileStrc* gpCellFile_007BCC28; // 0x007BCC28
@@ -268,12 +259,6 @@ extern int gnGlobal_007BCE30; // 0x007BCE30
 extern void* gpCel_007BCE8C; // 0x007BCE8C
 extern int gnGlobal_007BCE9C; // 0x007BCE9C
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-};
-
 extern D2InventoryGridInfoStrc gGrid_007BCA78; // 0x007BCA78
 extern D2InventoryGridInfoStrc gGrid_007BCB40; // 0x007BCB40
 extern D2InventoryGridInfoStrc gGrid_007BCB88; // 0x007BCB88
@@ -285,7 +270,7 @@ void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ItemsTxt* pTxt); 
 int __fastcall sub_004C1E20(D2UnitStrc* pItem); // 0x004C1E20
 int __fastcall sub_004C2240(D2UnitStrc* pItem); // 0x004C2240
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, unsigned char nInvPage, int bLoD); // 0x00621050
-int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
+unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 int __stdcall sub_00628C20(D2UnitStrc* pItem); // 0x00628C20
 int __stdcall sub_00628C70(D2UnitStrc* pItem); // 0x00628C70
 int __stdcall sub_0062A0A0(D2UnitStrc* pItem); // 0x0062A0A0
@@ -293,7 +278,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall sub_0063BD10(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, unsigned char nPage); // 0x0063BD10
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-int __fastcall sub_004B3870(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B3870
+int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 void __cdecl sub_K04_EmitUse(int nValue);
 
 #pragma pack(push, 2)
@@ -457,7 +442,10 @@ static void sub_0048B540_DrawEquippedItems(D2UnitStrc* pUnit);
 struct D2AuxLevelEntryStrc
 {
     int nType;
-    int unk0x04[2];
+    const char* szFile;
+    char bLocalized;
+    char bFormat;
+    char unk0x0A[2];
 };
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
@@ -475,7 +463,7 @@ extern D2CelFileStrc* gpHoradricCel_007BCC1C; // 0x007BCC1C
 static void __stdcall sub_00485240_GetItemDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit, int nStatMin, int nStatMax, int* pnMin, int* pnMax, int* pbModified);
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __fastcall sub_004521C0_SetTextColor(Unicode* pText, int nColor); // 0x004521C0
-int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625560
+int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625560
 int __stdcall ITEMS_GetMissileType(D2UnitStrc* pItem); // 0x006288A0
 int __stdcall ITEMS_Is1Or2Handed(D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x0062A1E0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
@@ -514,14 +502,14 @@ struct D2PanelLabelStrc
 
 #pragma pack(pop)
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" size_t __cdecl strlen(const char* szString);
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __cdecl sub_00525150(); // 0x00525150
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode); // 0x0045AEA0
 Unicode* __fastcall sub_00526940_UnicodeStrStr(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 int __fastcall sub_004A7660_SplitAtNewLine(Unicode* wszText, Unicode** ppSecond); // 0x004A7660
@@ -556,7 +544,7 @@ int __cdecl sub_0044BFF0_IsSet()
 
 void __cdecl sub_004972B0_InitializePalette(); // 0x004972B0
 
-int gnQuestTimerValue_007BCC14; // 0x007BCC14
+unsigned int gnQuestTimerValue_007BCC14; // 0x007BCC14
 
 unsigned long gdwQuestTimerTicks_007BCC18; // 0x007BCC18
 
@@ -565,14 +553,16 @@ Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit)
 {
     if (pText->wChar)
     {
-        Unicode wszBuffer[0x400];
+        unsigned short wszBufferBuf[0x400];
+        Unicode* wszBuffer = (Unicode*)wszBufferBuf;
         wszBuffer[0].wChar = 0;
         for (int i = 1; i < 0x400; i++)
         {
             wszBuffer[i].wChar = 0;
         }
         sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
-        Unicode wszDigit[3];
+        unsigned short wszDigitBuf[3];
+        Unicode* wszDigit = (Unicode*)wszDigitBuf;
         wszDigit[0].wChar = 0;
         wszDigit[1].wChar = 0;
         wszDigit[2].wChar = 0;
@@ -637,7 +627,7 @@ D2ClientServiceStrc* gpService_007BC998; // 0x007BC998
 
 int gdwGlobal_007BCBE8; // 0x007BCBE8
 
-int gdwGlobal_007BCBF8; // 0x007BCBF8
+D2UnitStrc* gdwGlobal_007BCBF8; // 0x007BCBF8
 
 int gdwGlobal_007BEEFC; // 0x007BEEFC
 
@@ -943,13 +933,14 @@ static void __stdcall sub_00485240_GetItemDamageRange(D2UnitStrc* pItem, D2UnitS
 // 0x00485410
 void __stdcall sub_00485410_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuffer)
 {
-    Unicode wszValue[256];
+    unsigned short wszValueBuf[256];
+    Unicode* wszValue = (Unicode*)wszValueBuf;
     char szValue[256];
     int bModified;
     int nMax;
     int nMin;
 
-    for (int i = 0; i < sizeof(wszValue) / sizeof(wszValue[0]); ++i)
+    for (int i = 0; i < sizeof(wszValueBuf) / sizeof(wszValue[0]); ++i)
         wszValue[i].wChar = 0;
     const Unicode* wszSpace = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* wszNewLine = D2LANG_GetStringFromTblIndex(0xF9E);
@@ -959,8 +950,9 @@ void __stdcall sub_00485410_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuf
     {
         int nElemMin;
         nMin = ITEMS_GetMissileType(pItem);
-        Unicode wszText[256];
-        for (int i = 0; i < sizeof(wszText) / sizeof(wszText[0]); ++i)
+        unsigned short wszTextBuf[256];
+        Unicode* wszText = (Unicode*)wszTextBuf;
+        for (int i = 0; i < sizeof(wszTextBuf) / sizeof(wszText[0]); ++i)
             wszText[i].wChar = 0;
         int nColor = 0;
         nElemMin = MISSILE_GetMinElemDamage(0, pPlayer, nMin, 1);
@@ -1021,11 +1013,13 @@ void __stdcall sub_00485410_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuf
     bModified = 0;
     if (ITEMS_Is1Or2Handed(pPlayer, pItem))
     {
-        Unicode wszTwoHand[128];
-        Unicode wszOneHand[128];
+        unsigned short wszTwoHandBuf[128];
+        Unicode* wszTwoHand = (Unicode*)wszTwoHandBuf;
+        unsigned short wszOneHandBuf[128];
+        Unicode* wszOneHand = (Unicode*)wszOneHandBuf;
 
         sub_00485240_GetItemDamageRange(pItem, pPlayer, 0x17, 0x18, &nMin, &nMax, &bModified);
-        for (int i = 0; i < sizeof(wszTwoHand) / sizeof(wszTwoHand[0]); ++i)
+        for (int i = 0; i < sizeof(wszTwoHandBuf) / sizeof(wszTwoHand[0]); ++i)
             wszTwoHand[i].wChar = 0;
         sub_005267E0(wszTwoHand, D2LANG_GetStringFromTblIndex(0xD8A));
         sub_00526700(wszTwoHand, wszSpace);
@@ -1043,7 +1037,7 @@ void __stdcall sub_00485410_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuf
         sub_00526700(wszTwoHand, wszNewLine);
 
         sub_00485240_GetItemDamageRange(pItem, pPlayer, 0x15, 0x16, &nMin, &nMax, &bModified);
-        for (int i = 0; i < sizeof(wszOneHand) / sizeof(wszOneHand[0]); ++i)
+        for (int i = 0; i < sizeof(wszOneHandBuf) / sizeof(wszOneHand[0]); ++i)
             wszOneHand[i].wChar = 0;
         sub_005267E0(wszOneHand, D2LANG_GetStringFromTblIndex(0xD89));
         sub_00526700(wszOneHand, wszSpace);
@@ -1104,8 +1098,9 @@ void __stdcall sub_00485410_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuf
 
     if (ITEMS_CheckIfThrowable(pItem))
     {
-        Unicode wszText[256];
-        for (int i = 0; i < sizeof(wszText) / sizeof(wszText[0]); ++i)
+        unsigned short wszTextBuf[256];
+        Unicode* wszText = (Unicode*)wszTextBuf;
+        for (int i = 0; i < sizeof(wszTextBuf) / sizeof(wszText[0]); ++i)
             wszText[i].wChar = 0;
         sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0xD8B));
         sub_004521C0_SetTextColor(wszText, 0);
@@ -1570,7 +1565,7 @@ static void __stdcall sub_00487BA0_Forward(int nArg1, int nArg2, int nArg3, int 
 {
     if (!nArg2)
         return;
-    if (!sub_004B3870(nArg1, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
+    if (!sub_004B3870_HandleTradeClick((D2UnitStrc*)nArg1, (D2UnitStrc*)nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
         return;
     if (!nArg7)
         gdwGlobal_007BCBF0 = 5;
@@ -2627,7 +2622,8 @@ int __stdcall sub_0048A790_IsCursorInRect(int nLeft, int nTop, int nRight, int n
 // 0x0048A7D0
 void __stdcall sub_0048A7D0_DrawUnitName(D2UnitStrc* pUnit)
 {
-    Unicode wszName[32];
+    unsigned short wszNameBuf[32];
+    Unicode* wszName = (Unicode*)wszNameBuf;
     for (int i = 0; i < 32; ++i)
     {
         wszName[i].wChar = 0;
@@ -2651,7 +2647,8 @@ void __cdecl sub_0048A890_DrawPanelLabels()
     const int nOldFont = sub_00502EF0(6);
     for (int i = 0; i < sizeof(gaPanelLabels_006D9AE8) / sizeof(gaPanelLabels_006D9AE8[0]); ++i)
     {
-        Unicode wszText[100];
+        unsigned short wszTextBuf[100];
+        Unicode* wszText = (Unicode*)wszTextBuf;
         for (int j = 0; j < 100; ++j)
         {
             wszText[j].wChar = 0;
@@ -2952,7 +2949,8 @@ void __fastcall sub_0048BBE0_SetNameText(const Unicode* wszName, int nUnused, in
 void __fastcall sub_0048BE00_CutBracketToken(Unicode* pString, const Unicode* pToken)
 {
     Unicode wszOpen[2] = { '[', 0 };
-    Unicode wszText[100];
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
     for (int i = 0; i < 100; ++i)
     {
         wszText[i].wChar = 0;
@@ -2983,19 +2981,21 @@ void __stdcall sub_00492770_KeyIfReadyMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x00493100
 void __stdcall sub_00493100_DrawNumber(int nValue, int nX)
 {
-    Unicode wszConverted[32];
+    unsigned short wszConvertedBuf[32];
+    Unicode* wszConverted = (Unicode*)wszConvertedBuf;
     for (int i = 0; i < 32; ++i)
     {
         wszConverted[i].wChar = 0;
     }
-    Unicode wszText[32];
+    unsigned short wszTextBuf[32];
+    Unicode* wszText = (Unicode*)wszTextBuf;
     for (int i = 0; i < 32; ++i)
     {
         wszText[i].wChar = 0;
     }
     char szNumber[0x20];
     sprintf(szNumber, szIntFormat_006D57BC, nValue);
-    memset(wszText, 0, sizeof(wszText));
+    memset(wszText, 0, sizeof(wszTextBuf));
     sub_00526320_ToUnicode(wszConverted, szNumber, 32);
     Unicode::strncpy(wszText, wszConverted, 32);
     wszText[31].wChar = 0;
@@ -3013,7 +3013,8 @@ void __stdcall sub_00493100_DrawNumber(int nValue, int nX)
 // 0x004953C0
 int __fastcall sub_004953C0_GetCenteredX(unsigned short nString, int nX)
 {
-    Unicode wszText[100];
+    unsigned short wszTextBuf[100];
+    Unicode* wszText = (Unicode*)wszTextBuf;
     for (int i = 0; i < 100; ++i)
     {
         wszText[i].wChar = 0;
@@ -3108,12 +3109,14 @@ void __cdecl sub_004967F0_LoadPanelCels()
 // 0x00497300
 void __cdecl sub_00497300_DrawKeyBindingPopup()
 {
-    Unicode wszText[200];
+    unsigned short wszTextBuf[200];
+    Unicode* wszText = (Unicode*)wszTextBuf;
     for (int i = 0; i < 200; ++i)
     {
         wszText[i].wChar = 0;
     }
-    Unicode wszKey[30];
+    unsigned short wszKeyBuf[30];
+    Unicode* wszKey = (Unicode*)wszKeyBuf;
     for (int i = 0; i < 30; ++i)
     {
         wszKey[i].wChar = 0;
@@ -3121,13 +3124,13 @@ void __cdecl sub_00497300_DrawKeyBindingPopup()
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1053));
     if (sub_00469AA0(0x23, 1) != 0xFFFF)
     {
-        memset(wszKey, 0, sizeof(wszKey));
+        memset(wszKey, 0, sizeof(wszKeyBuf));
         sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), sub_0046A530_GetKeyName(0x23, 1));
         sub_00526700(wszText, wszKey);
     }
     if (sub_00469AA0(0x23, 0) != 0xFFFF)
     {
-        memset(wszKey, 0, sizeof(wszKey));
+        memset(wszKey, 0, sizeof(wszKeyBuf));
         sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), sub_0046A530_GetKeyName(0x23, 0));
         sub_00526700(wszText, wszKey);
     }

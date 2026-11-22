@@ -99,7 +99,7 @@ const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);              
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
-void __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText);                                // 0x00485410
+int __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText);                                // 0x00485410
 
 void __stdcall sub_00485EE0_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText);            // 0x00485EE0
 
@@ -167,7 +167,7 @@ int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                       
 
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);                                                       // 0x00629930
 
-int __stdcall ITEMS_GetSockets(D2UnitStrc* hItem); // 0x006299B0
+unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 
@@ -295,14 +295,9 @@ static void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Uni
 
 struct D2CelFileStrc;
 
-struct UnicodeChar : Unicode
-{
-    void sub_0042F530_ClearUnicode();                                                                      // 0x0042F530
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-void __stdcall sub_00403040_ConstructArray(void* pArray, unsigned int nSize, int nCount, void (UnicodeChar::*pfnConstruct)()); // 0x00403040
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 
 int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
 
@@ -412,7 +407,7 @@ extern int gnGlobal_00722108;                                                   
 
 extern int gnGlobal_0072210C;                                                                               // 0x0072210C
 
-static void* gpCellFile_007BCB04;                                                                           // 0x007BCB04
+static D2CelFileStrc* gpCellFile_007BCB04;                                                                           // 0x007BCB04
 
 static unsigned char gnSelectedTab_007BCC04;                                                                // 0x007BCC04
 
@@ -426,15 +421,15 @@ static unsigned int gnQuestTimerValue_007BCC14;                                 
 
 static unsigned long gdwQuestTimerTicks_007BCC18;                                                           // 0x007BCC18
 
-static void* gpHoradricCel_007BCC1C;                                                                        // 0x007BCC1C
+static D2CelFileStrc* gpHoradricCel_007BCC1C;                                                                        // 0x007BCC1C
 
-static void* gpCellFile_007BCC28;                                                                           // 0x007BCC28
+static D2CelFileStrc* gpCellFile_007BCC28;                                                                           // 0x007BCC28
 
-static void* gpCellFile_007BCC2C;                                                                           // 0x007BCC2C
+static D2CelFileStrc* gpCellFile_007BCC2C;                                                                           // 0x007BCC2C
 
-static void* gpCellFile_007BCC30;                                                                           // 0x007BCC30
+static D2CelFileStrc* gpCellFile_007BCC30;                                                                           // 0x007BCC30
 
-static void* gpCellFile_007BCC3C;                                                                           // 0x007BCC3C
+static D2CelFileStrc* gpCellFile_007BCC3C;                                                                           // 0x007BCC3C
 
 static int gnGlobal_007BCC4C;                                                                               // 0x007BCC4C
 
@@ -1724,9 +1719,7 @@ timer_done:
         }
 
         const int nGoldLimit = sub_00623460(sub_00463DD0_GetPlayerUnit());
-        int aGoldText[50];
-        Unicode* wszGold = (Unicode*)aGoldText;
-        sub_00403040_ConstructArray(wszGold, sizeof(Unicode), 100, &UnicodeChar::sub_0042F530_ClearUnicode);
+        Unicode wszGold[100];
         sub_005269D0(100, wszGold, D2LANG_GetStringFromTblIndex(0xFD3), nGoldLimit);
         if (sub_0044DCC0())
         {
@@ -1966,9 +1959,7 @@ timer_done:
         gnSelectedTab_007BCC04 = nOldTab;
         sub_00502EF0(1);
 
-        int aNameText[12];
-        Unicode* wszName = (Unicode*)aNameText;
-        sub_00403040_ConstructArray(wszName, sizeof(Unicode), 0x17, &UnicodeChar::sub_0042F530_ClearUnicode);
+        Unicode wszName[0x17];
         D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
         if (pUnit)
         {
@@ -1979,9 +1970,7 @@ timer_done:
             }
         }
 
-        int aLineText[12];
-        Unicode* wszText = (Unicode*)aLineText;
-        sub_00403040_ConstructArray(wszText, sizeof(Unicode), 0x17, &UnicodeChar::sub_0042F530_ClearUnicode);
+        Unicode wszText[0x17];
         sub_005267E0(wszText, sub_004B9060());
         int nLength = sub_00526800(wszText);
         while (sub_00501820(wszText) > 0x70)
@@ -2002,9 +1991,7 @@ timer_done:
 
         sub_00502320(D2LANG_GetStringFromTblIndex(0x8A7), gnGlobal_007A2858 - sub_00501820(D2LANG_GetStringFromTblIndex(0x8A7)) / 2 + 0xBB, 0x1B - gnGlobal_007A285C, 0, 0);
 
-        int aNumberText[8];
-        Unicode* wszNumber = (Unicode*)aNumberText;
-        sub_00403040_ConstructArray(wszNumber, sizeof(Unicode), 0x0F, &UnicodeChar::sub_0042F530_ClearUnicode);
+        Unicode wszNumber[0x0F];
         int aNumber[4];
         char* szNumber = (char*)aNumber;
         SStrPrintf(szNumber, 0x0F, "%d", sub_004B90F0());
