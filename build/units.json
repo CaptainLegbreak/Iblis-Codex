@@ -19193,6 +19193,10 @@
      "name": "?sub_00463CC0_FreeUnitTable@@YGXPAPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00463D90",
+     "length": 60
+    },
+    {
      "va": "0x00463DE0",
      "length": 6,
      "name": "?sub_00463DE0_GetPlayerUnit@@YAPAUD2UnitStrc@@XZ"
@@ -19221,6 +19225,10 @@
      "va": "0x00463EB0",
      "length": 43,
      "name": "?sub_00463EB0_GetGfxField38@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004640A0",
+     "length": 363
     },
     {
      "va": "0x00464210",
@@ -19607,34 +19615,6 @@
      "length": 49,
      "name": "?sub_00463BC0_PlaceUnitInRoom@@YGXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/CUnit_00463D90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00463D90",
-     "length": 60
-    },
-    {
-     "va": "0x004640A0",
-     "length": 363
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
