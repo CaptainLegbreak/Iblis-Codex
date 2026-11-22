@@ -1598,6 +1598,17 @@ void __fastcall sub_005DEC80_Walk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitSt
 
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 
+struct D2RegurgitatorAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+    int unk0x08[8];
+};
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005FA690
+
+#define ROLL() ((int)SEED_RollLimitedRandomNumber(pSeed, 100))
+
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -13884,6 +13895,154 @@ void __fastcall AITHINK_Fn068_VileMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+}
+
+// 0x005FA710
+void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStats = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2UnitStrc* pCorpse;
+    D2AiControlStrc* pAi = pAiTickParam->pAiControl;
+    if (pAi->dwAiParam[0] == 5)
+    {
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 16, 1);
+        pAi->dwAiParam[0] = 0;
+        return;
+    }
+    if (pAi->dwAiParam[0] == 2)
+    {
+        pCorpse = SUNIT_GetServerUnit(pGame, 1, pAi->dwAiParam[1]);
+        if (pCorpse && pCorpse->dwAnimMode == 12)
+        {
+            if (AITHINK_GetSquaredDistance(pUnit, pCorpse) > 4)
+            {
+                if (pAi->dwAiParam[2] < 6)
+                {
+                    AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
+                    ++pAi->dwAiParam[2];
+                }
+                else
+                {
+                    pAi->dwAiParam[0] = 0;
+                    pAi->dwAiParam[1] = 0;
+                    pAi->dwAiParam[2] = 0;
+                    AITACTICS_WalkCloseToUnit(pGame, pUnit, 8);
+                    return;
+                }
+            }
+            pAi->dwAiParam[0] = 3;
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 8);
+            return;
+        }
+        pAi->dwAiParam[0] = 0;
+        pAi->dwAiParam[1] = 0;
+        pAi->dwAiParam[2] = 0;
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 8);
+        return;
+    }
+    if (pAi->dwAiParam[0] == 3)
+    {
+        pCorpse = SUNIT_GetServerUnit(pGame, 1, pAi->dwAiParam[1]);
+        if (pMonStats->nSkill[0] >= 0 && pCorpse && pCorpse->dwAnimMode == 12)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStats->nSkillMode[0], pMonStats->nSkill[0], pCorpse, 0, 0);
+            pAi->dwAiParam[0] = 4;
+            return;
+        }
+        pAi->dwAiParam[0] = 0;
+        pAi->dwAiParam[1] = 0;
+        pAi->dwAiParam[2] = 0;
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 8);
+        return;
+    }
+    if (pAi->dwAiParam[0] == 4)
+    {
+        if (!bCombat)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 5, pTarget);
+            pAi->dwAiParam[0] = 5;
+            return;
+        }
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 1);
+        return;
+    }
+    D2RegurgitatorAiCallbackArgStrc args;
+    args.pTarget = 0;
+    const int nDistance = AI_PARAM(pGame, pMonStats, 5);
+    args.nDistance = nDistance * nDistance;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &args, AITHINK_TargetCallback_Regurgitator, 1);
+    pCorpse = args.pTarget;
+    if (pAi->dwAiParam[0] == 1)
+    {
+        if (pCorpse)
+        {
+            pAi->dwAiParam[1] = !pCorpse ? -1 : pCorpse->dwUnitId;
+            if (AITHINK_GetSquaredDistance(pUnit, pCorpse) > 2)
+            {
+                AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
+                pAi->dwAiParam[0] = 2;
+                pAi->dwAiParam[2] = 0;
+                return;
+            }
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 8);
+            pAi->dwAiParam[0] = 3;
+            pAi->dwAiParam[2] = 0;
+            return;
+        }
+        if (ROLL() < 20)
+        {
+            pAi->dwAiParam[0] = 0;
+            pAi->dwAiParam[1] = 0;
+            pAi->dwAiParam[2] = 0;
+            return;
+        }
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 8);
+        return;
+    }
+    if (pCorpse)
+    {
+        if (AITHINK_GetSquaredDistance(pUnit, pCorpse) < 9 && ROLL() < AI_PARAM(pGame, pMonStats, 1))
+        {
+            AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
+            pAi->dwAiParam[0] = 2;
+            pAi->dwAiParam[1] = !pCorpse ? -1 : pCorpse->dwUnitId;
+            pAi->dwAiParam[2] = 0;
+            return;
+        }
+        if (ROLL() < AI_PARAM(pGame, pMonStats, 4))
+        {
+            AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
+            pAi->dwAiParam[0] = 2;
+            pAi->dwAiParam[1] = !pCorpse ? -1 : pCorpse->dwUnitId;
+            pAi->dwAiParam[2] = 0;
+            return;
+        }
+    }
+    int nRoll = ROLL();
+    int nDifficulty = pGame->nDifficulty;
+    if (bCombat)
+    {
+        if (nRoll < pMonStats->wAiParam[0][nDifficulty]) AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+        else AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+        return;
+    }
+    if (nRoll < pMonStats->wAiParam[2][nDifficulty])
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+        return;
+    }
+    if (pCorpse && ROLL() < AI_PARAM(pGame, pMonStats, 3))
+    {
+        AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
+        pAi->dwAiParam[0] = 2;
+        pAi->dwAiParam[1] = !pCorpse ? -1 : pCorpse->dwUnitId;
+        pAi->dwAiParam[2] = 0;
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 8);
 }
 
 // 0x005FAB80

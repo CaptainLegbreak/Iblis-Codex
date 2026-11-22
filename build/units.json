@@ -63836,6 +63836,10 @@
      "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005FA710",
+     "length": 893
+    },
+    {
      "va": "0x005FAB80",
      "length": 693,
      "name": "?AITHINK_Fn073_AbyssKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68380,30 +68384,6 @@
      "length": 781,
      "name": "?AITHINK_Fn070_FingerMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005FA710.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FA710",
-     "length": 893
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
