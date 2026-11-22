@@ -22,7 +22,7 @@ extern int gnMissileSrvHitFnCount;                                              
 extern MISSILESRVHITFN gpfMissileSrvHitFn[];                                                                // 0x0073C840
 extern int gnMissileSrvDmgFnCount_0073C95C;                                                                 // 0x0073C95C
 extern MISSILESRVDMGFN gpfMissileSrvDmgFn_0073C960[];                                                       // 0x0073C960
-void __fastcall sub_004C21E0_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);          // 0x005ADAF0
+void __fastcall SKILLDESC_ToggleStateOffCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);          // 0x005ADAF0
 void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage);// 0x005AD730
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x00552FD0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
@@ -127,7 +127,7 @@ static void __fastcall MISSMODE_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc
 
     EVENT_SetEvent(pGame, pUnit, 0xC, nDelay, 0, 0);
     STATLIST_SetState(pStatList, STATE_JUSTHIT);
-    STATLIST_SetStatRemoveCallback(pStatList, sub_004C21E0_StatRemoveCallback_ToggleStateOff);
+    STATLIST_SetStatRemoveCallback(pStatList, SKILLDESC_ToggleStateOffCallback);
     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     STATES_ToggleState(pUnit, 0x56, 1);
 }

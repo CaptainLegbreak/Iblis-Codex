@@ -49,7 +49,7 @@ int __cdecl sub_004DF880(); // 0x004DF880
 int __cdecl sub_004DF980_IsSoundMode1Or2(); // 0x004DF980
 int __cdecl sub_004DF9B0_IsSoundMode2(); // 0x004DF9B0
 void __fastcall sub_004E0690_SetSoundTableFlag(int nValue); // 0x004E0690
-void __fastcall sub_0049D570_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
+void __fastcall TEXT_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 void __fastcall sub_004CCF20_SetValue(int nValue); // 0x004CCF20
 void __fastcall sub_004776C0(void* pArg); // 0x004776C0
@@ -67,8 +67,8 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 void __cdecl sub_0044DA40(); // 0x0044DA40
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-D2CelFileStrc* __cdecl sub_00453AA0(); // 0x00453AA0
-int __cdecl sub_00454850_TickElapsed(); // 0x00454850
+D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
+int __cdecl UI_TickElapsed(); // 0x00454850
 void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bNoCel); // 0x0047E260
@@ -83,7 +83,7 @@ extern int gnOptionLastY_007BC984; // 0x007BC984
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __cdecl sub_004979E0(); // 0x004979E0
-int __cdecl sub_004979F0(); // 0x004979F0
+int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0044DB30(); // 0x0044DB30
 extern int gdwGlobal_007BC978; // 0x007BC978
@@ -161,15 +161,15 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
     {
     case 0:
         sub_004E0690_SetSoundTableFlag(1);
-        sub_0049D570_SaveTextDisplaySetting(0);
+        TEXT_SaveTextDisplaySetting(0);
         break;
     case 1:
         sub_004E0690_SetSoundTableFlag(0);
-        sub_0049D570_SaveTextDisplaySetting(1);
+        TEXT_SaveTextDisplaySetting(1);
         break;
     case 2:
         sub_004E0690_SetSoundTableFlag(1);
-        sub_0049D570_SaveTextDisplaySetting(1);
+        TEXT_SaveTextDisplaySetting(1);
         break;
     }
 }
@@ -487,7 +487,7 @@ void __cdecl sub_0047E3D0_DrawOptions()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00453AA0();
+    tContext.pCellFile = UI_GetPentspinCel();
     if (gnOptionArrowFrame_007BC944)
     {
         tContext.nFrame = 8 - gnOptionArrowFrame_007BC944;
@@ -501,7 +501,7 @@ void __cdecl sub_0047E3D0_DrawOptions()
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 - gnOptionMaxWidth_007BC95C - 0xF9, nArrowY, -1, 5, 0);
     tContext.nFrame = gnOptionArrowFrame_007BC944;
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0xF9, nArrowY, -1, 5, 0);
-    if (sub_00454850_TickElapsed())
+    if (UI_TickElapsed())
     {
         gnOptionArrowFrame_007BC944 = (gnOptionArrowFrame_007BC944 + 1) % 8;
     }
@@ -565,7 +565,7 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
     int nY = pMsg->nYpos;
     int nX = pMsg->nXpos;
     int nOffset = 0;
-    if (sub_004979E0() && sub_004979F0() > 1)
+    if (sub_004979E0() && HIREABLES_GetBeltRowCount() > 1)
     {
         nOffset = -0x76;
     }

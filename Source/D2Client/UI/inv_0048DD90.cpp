@@ -79,7 +79,7 @@ int __cdecl sub_0044DCC0();                                                     
 
 Unicode* __fastcall sub_00452170(Unicode* pText);                                                           // 0x00452170
 
-Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit);                               // 0x004521C0
+Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);                               // 0x004521C0
 
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 
@@ -95,29 +95,29 @@ int __cdecl sub_00468830();                                                     
 
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
 
-const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                         // 0x0046A530
+const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                         // 0x0046A530
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
 int __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText);                                // 0x00485410
 
-void __stdcall sub_00485EE0_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText);            // 0x00485EE0
+void __stdcall INV_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText);            // 0x00485EE0
 
-void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x0048C060
+void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x0048C060
 
-void __cdecl sub_0048CFF0_DrawStackTooltip();                                                               // 0x0048CFF0
+void __cdecl INV_DrawBookTooltip();                                                               // 0x0048CFF0
 
-void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit);                                         // 0x0048D1D0
+void __fastcall INV_DrawSetItemTooltip(D2UnitStrc* pUnit);                                         // 0x0048D1D0
 
-void __cdecl sub_0048DB80_DrawBaseItemTooltip();                                                            // 0x0048DB80
+void __cdecl INV_DrawTransmogrifyTooltip();                                                            // 0x0048DB80
 
 int __cdecl sub_004979E0();                                                                                 // 0x004979E0
 
-int __cdecl sub_004B34A0();                                                                                 // 0x004B34A0
+int __cdecl NPCMENU_IsAnyDialogOpen();                                                                                 // 0x004B34A0
 
 int __cdecl sub_004B3500();                                                                                 // 0x004B3500
 
-int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength);        // 0x004B2AD0
+int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength);        // 0x004B2AD0
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 
@@ -263,35 +263,35 @@ D2UnitStrc* gdwGlobal_007BCBF4;                                                 
 
 D2InvCompGridStrc gaCompGrids_007BCC58[11];                                                                 // 0x007BCC58
 
-static void __stdcall sub_00484B10_AppendEtherealSocketed(D2UnitStrc* pItem, Unicode* pText);              // 0x00484B10
+static void __stdcall INV_AppendEtherealSocketed(D2UnitStrc* pItem, Unicode* pText);              // 0x00484B10
 
-static void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem, Unicode* pText); // 0x00484DB0
+static void __stdcall INV_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem, Unicode* pText); // 0x00484DB0
 
-static void __stdcall sub_00484E90_AppendDurability(D2UnitStrc* pItem, Unicode* pText);                    // 0x00484E90
+static void __stdcall INV_AppendDurability(D2UnitStrc* pItem, Unicode* pText);                    // 0x00484E90
 
-static void __stdcall sub_00484FF0_AppendNumberLine(int nValue, Unicode* pText);                           // 0x00484FF0
+static void __stdcall INV_AppendLabeledNumber(int nValue, Unicode* pText);                           // 0x00484FF0
 
-static void __stdcall sub_004850A0_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText);        // 0x004850A0
+static void __stdcall INV_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText);        // 0x004850A0
 
-static void __stdcall sub_00485170_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText);        // 0x00485170
+static void __stdcall INV_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText);        // 0x00485170
 
-static void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem); // 0x00485BE0
+static void __stdcall INV_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem); // 0x00485BE0
 
-static void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, Unicode* pText); // 0x00485D40
+static void __stdcall INV_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, Unicode* pText); // 0x00485D40
 
 static void __stdcall sub_00486100_AppendStackQuantity(D2UnitStrc* pItem, Unicode* pText);                 // 0x00486100
 
-static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem);                   // 0x004861D0
+static void __stdcall INV_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem);                   // 0x004861D0
 
-static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* pRecord, Unicode* pBuffer); // 0x00486370
+static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* pRecord, Unicode* pBuffer); // 0x00486370
 
-static void sub_004865D0_AppendBookCharges(Unicode* pText);                                                 // 0x004865D0
+static void INV_AppendBookCharges(Unicode* pText);                                                 // 0x004865D0
 
-static void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem);            // 0x00486670
+static void __stdcall INV_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem);            // 0x00486670
 
 static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY);                                                // 0x00486860
 
-static void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Unicode* pText);              // 0x0048CEA0
+static void __stdcall INV_AppendShopPriceText(const Unicode* pSource, Unicode* pText);              // 0x0048CEA0
 
 struct D2CelFileStrc;
 
@@ -315,27 +315,27 @@ void __fastcall sub_00478A00(void* pCel);                                       
 
 char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
 
-void __cdecl sub_004835B0_LoadUiRecords();                                                                  // 0x004835B0
+void __cdecl INV_LoadUiRecords();                                                                  // 0x004835B0
 
-void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pPlayer);                                             // 0x00483FF0
+void __stdcall INV_DrawUnitInventory(D2UnitStrc* pPlayer);                                             // 0x00483FF0
 
-void __cdecl sub_004845A0_DrawEquippedItems();                                                                                // 0x004845A0
+void __cdecl INV_DrawEquippedItems();                                                                                // 0x004845A0
 
-int __cdecl sub_00486AE0_GetPanelX(); // 0x00486AE0
+int __cdecl INV_GetPanelX(); // 0x00486AE0
 
 int __stdcall sub_00486B00_GetPanelY();                                                                     // 0x00486B00
 
-void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab);                                          // 0x00487A10
+void __stdcall INV_SelectItemPageTab(unsigned char nTab);                                          // 0x00487A10
 
 void __fastcall sub_00488100(int nArg);                                                                     // 0x00488100
 
-void __cdecl sub_00488400_DrawPanel();                                                                                // 0x00488400
+void __cdecl INV_DrawNpcShopPanel();                                                                                // 0x00488400
 
-void __cdecl sub_004886C0_DrawButtonHoverText();                                                            // 0x004886C0
+void __cdecl INV_DrawButtonHoverText();                                                            // 0x004886C0
 
 void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int bOther);                                   // 0x0048DD90
 
-int __fastcall sub_004B3230_GetTickPair(int* pLow);                                                         // 0x004B3230
+int __fastcall NPCMENU_GetInteractNpcId(int* pLow);                                                         // 0x004B3230
 
 const Unicode* __cdecl sub_004B9060();                                                                      // 0x004B9060
 
@@ -523,7 +523,7 @@ struct D2InventoryGridInfoStrc;
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
 int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
 
@@ -533,13 +533,13 @@ extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-static int sub_00483B10_IsInRect(int nX, int nY); // 0x00483B10
+static int INV_IsInTradeGrid(int nX, int nY); // 0x00483B10
 
 static int sub_00486DA0_IsOverGoldButton(int nX, int nY); // 0x00486DA0
 
-static int sub_00489430_IsOverButtonA(int nX, int nY); // 0x00489430
+static int INV_IsOverTradeButtonLeft(int nX, int nY); // 0x00489430
 
-static int sub_00489480_IsOverButtonB(int nX, int nY); // 0x00489480
+static int INV_IsOverTradeButtonRight(int nX, int nY); // 0x00489480
 
 extern int gnPanelX_007A2858; // 0x007A2858
 
@@ -587,11 +587,11 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 int __fastcall sub_00479080_GetPetLife(int nUnitId); // 0x00479080
 
-void __stdcall sub_0048A7D0_DrawUnitName(D2UnitStrc* pUnit); // 0x0048A7D0
+void __stdcall INV_DrawUnitName(D2UnitStrc* pUnit); // 0x0048A7D0
 
-void __cdecl sub_0048A890_DrawPanelLabels(); // 0x0048A890
+void __cdecl INV_DrawPanelLabels(); // 0x0048A890
 
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
 void __stdcall sub_00525FB0_FormatInt(Unicode* pOut, int nValue, int nSize); // 0x00525FB0
 
@@ -611,7 +611,7 @@ int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem,
 
 extern D2MercStatLineStrc gaMercStatLines_007221A8[12]; // 0x007221A8
 
-static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit); // 0x0048A990
+static void INV_DrawMercStats(D2UnitStrc* pUnit); // 0x0048A990
 
 struct D2BodyLocRectStrc
 {
@@ -626,9 +626,9 @@ struct D2BodyLocRectStrc
 
 int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
-void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40
+void __stdcall INV_DrawItemSockets(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40
 
-void __fastcall sub_0048B3F0_DrawMercEquipHighlights(D2UnitStrc* pUnit); // 0x0048B3F0
+void __fastcall INV_DrawMercEquipHighlights(D2UnitStrc* pUnit); // 0x0048B3F0
 
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 
@@ -645,7 +645,7 @@ extern int gbBuySellPressed_007BCEA0; // 0x007BCEA0
 
 D2InventoryGridInfoStrc gInventoryGrid_007BCBC0; // 0x007BCBC0
 
-static void __stdcall sub_00484B10_AppendEtherealSocketed(D2UnitStrc* pItem, Unicode* pText)
+static void __stdcall INV_AppendEtherealSocketed(D2UnitStrc* pItem, Unicode* pText)
 {
     int bEthereal = 0;
     unsigned int wszLabel[8];
@@ -683,7 +683,7 @@ static void __stdcall sub_00484B10_AppendEtherealSocketed(D2UnitStrc* pItem, Uni
     }
 }
 
-static void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem, Unicode* pText)
+static void __stdcall INV_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -701,7 +701,7 @@ static void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitS
     }
 }
 
-static void __stdcall sub_00484E90_AppendDurability(D2UnitStrc* pItem, Unicode* pText)
+static void __stdcall INV_AppendDurability(D2UnitStrc* pItem, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -726,14 +726,14 @@ static void __stdcall sub_00484E90_AppendDurability(D2UnitStrc* pItem, Unicode* 
         sub_00526F20(W(&wszNumber), (char*)szNumber, 9);
         if (bBonus)
         {
-            sub_004521C0_PrefixLevelText(W(&wszNumber), 3);
+            INV_PrefixColorCode(W(&wszNumber), 3);
         }
         sub_00526700(pText, W(&wszNumber));
         sub_00526700(pText, pColorEnd);
     }
 }
 
-static void __stdcall sub_00484FF0_AppendNumberLine(int nValue, Unicode* pText)
+static void __stdcall INV_AppendLabeledNumber(int nValue, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -747,7 +747,7 @@ static void __stdcall sub_00484FF0_AppendNumberLine(int nValue, Unicode* pText)
     sub_00526700(pText, pColorEnd);
 }
 
-static void __stdcall sub_004850A0_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
+static void __stdcall INV_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -767,7 +767,7 @@ static void __stdcall sub_004850A0_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonu
     sub_00526700(pText, pColorEnd);
 }
 
-static void __stdcall sub_00485170_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
+static void __stdcall INV_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -787,7 +787,7 @@ static void __stdcall sub_00485170_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonu
     sub_00526700(pText, pColorEnd);
 }
 
-static void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, Unicode* pText)
+static void __stdcall INV_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -847,7 +847,7 @@ static void __stdcall sub_00486100_AppendStackQuantity(D2UnitStrc* pItem, Unicod
     }
 }
 
-static void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
+static void __stdcall INV_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
     int nBlock = STATLIST_UnitGetStatValue(pItem, STAT_TOBLOCK, 0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -878,15 +878,15 @@ static void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt*
     sub_00526F20(W(wszBlock), (char*)szBlock, 32);
     if (nBlock > pItemsTxt->nBlock)
     {
-        sub_004521C0_PrefixLevelText(W(wszBlock), 3);
+        INV_PrefixColorCode(W(wszBlock), 3);
     }
     sub_005267E0(W(wszText), D2LANG_GetStringFromTblIndex(0x2B0A));
-    sub_004521C0_PrefixLevelText(W(wszText), 0);
+    INV_PrefixColorCode(W(wszText), 0);
     sub_005267E0(pText, W(wszText));
     sub_00526700(pText, W(wszBlock));
 }
 
-static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
+static void __stdcall INV_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
 {
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
@@ -934,14 +934,14 @@ static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc*
     sub_005267E0(W(wszText), D2LANG_GetStringFromTblIndex(gaSpeedNames_00721E88[nSpeed].f_0));
     if (bBonus)
     {
-        sub_004521C0_PrefixLevelText(W(wszText), 3);
+        INV_PrefixColorCode(W(wszText), 3);
     }
     sub_00526700(pText, W(wszText));
     sub_00526700(pText, pColorEnd);
 }
 
-// build: context sub_00486370_AppendItemFormulaText
-static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* pRecord, Unicode* pBuffer)
+// build: context INV_AppendItemFormulaText
+static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* pRecord, Unicode* pBuffer)
 {
     if (!pItem || !pRecord || !pRecord->nDescType)
     {
@@ -1014,7 +1014,7 @@ static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2It
     }
 }
 
-static void sub_004865D0_AppendBookCharges(Unicode* pText)
+static void INV_AppendBookCharges(Unicode* pText)
 {
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     D2_ASSERT(ITEMSIsA(gdwGlobal_007BCBF4, 0x35), 0xC43);
@@ -1023,8 +1023,8 @@ static void sub_004865D0_AppendBookCharges(Unicode* pText)
     sub_00526700(pText, pColorEnd);
 }
 
-// build: context sub_00486670_AppendSocketedGemLetters
-static void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
+// build: context INV_AppendSocketedGemLetters
+static void __stdcall INV_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
 {
     D2InventoryStrc* pInventory = pItem->pInventory;
     if (!pInventory)
@@ -1070,7 +1070,7 @@ static void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2Un
     }
 }
 
-static int __stdcall sub_00486820_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nHeight)
+static int __stdcall INV_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nHeight)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
@@ -1092,8 +1092,8 @@ static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
     return 0;
 }
 
-// build: context sub_0048CEA0_AppendItemSetName
-static void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Unicode* pText)
+// build: context INV_AppendShopPriceText
+static void __stdcall INV_AppendShopPriceText(const Unicode* pSource, Unicode* pText)
 {
     unsigned int wszName[0x20];
     memset(wszName, 0, sizeof(wszName));
@@ -1104,11 +1104,11 @@ static void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Uni
         unsigned int wszLabel[0x40];
         sub_005267E0(W(wszLabel), D2LANG_GetStringFromTblIndex(0x58DA));
         sub_00526700(pText, pColorEnd);
-        sub_00526700(pText, sub_004521C0_PrefixLevelText(W(wszLabel), 1));
+        sub_00526700(pText, INV_PrefixColorCode(W(wszLabel), 1));
     }
 
     int nSetIndex;
-    if (sub_004B2AD0_GetTradeCostText(gdwGlobal_007BCBF4, gnGlobal_00721E38, &nSetIndex, W(wszName), 0x40))
+    if (NPCMENU_GetTradeCostText(gdwGlobal_007BCBF4, gnGlobal_00721E38, &nSetIndex, W(wszName), 0x40))
     {
         if (W(wszName)[0].wChar)
         {
@@ -1123,7 +1123,7 @@ static void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Uni
         unsigned int wszLabel[0x20];
         sub_005267E0(W(wszLabel), D2LANG_GetStringFromTblIndex(0xD05));
         sub_00526700(pText, pColorEnd);
-        sub_00526700(pText, sub_004521C0_PrefixLevelText(W(wszLabel), 1));
+        sub_00526700(pText, INV_PrefixColorCode(W(wszLabel), 1));
     }
 }
 
@@ -1173,7 +1173,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
     {
         if (sub_004538D0(0x24))
         {
-            if (sub_00486820_IsMouseInBox(gnGlobal_007A2858 + 0x110, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x20, 0x20))
+            if (INV_IsMouseInBox(gnGlobal_007A2858 + 0x110, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x20, 0x20))
             {
                 D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_007A2858 + 0x11F, gnGlobal_007A285C + gnGlobal_00711470 - 0x62, 0, 1);
             }
@@ -1181,12 +1181,12 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
 
         if (sub_004538D0(1) || sub_004538D0(0x17) || sub_004538D0(0x19) || sub_004538D0(0xC) || sub_004538D0(0xE) || sub_004538D0(0x1A))
         {
-            if (sub_00486820_IsMouseInBox(gnGlobal_0071146C - gnGlobal_007A2858 - 0x12E, gnGlobal_00711470 + gnGlobal_007A285C - 0x40, 0x20, 0x20))
+            if (INV_IsMouseInBox(gnGlobal_0071146C - gnGlobal_007A2858 - 0x12E, gnGlobal_00711470 + gnGlobal_007A285C - 0x40, 0x20, 0x20))
             {
                 D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x11F, gnGlobal_00711470 + (gnGlobal_007A285C - 0x63), 0, 1);
             }
 
-            if (sub_00486820_IsMouseInBox(gnGlobal_0071146C - gnGlobal_007A2858 - 0xED, gnGlobal_007A285C + gnGlobal_00711470 - 0x45, 0x14, 0x12) && !sub_004B34A0())
+            if (INV_IsMouseInBox(gnGlobal_0071146C - gnGlobal_007A2858 - 0xED, gnGlobal_007A285C + gnGlobal_00711470 - 0x45, 0x14, 0x12) && !NPCMENU_IsAnyDialogOpen())
             {
                 int nStr = 0x101D;
                 switch (gdwGlobal_007BCBF0)
@@ -1214,12 +1214,12 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 if (sub_00469AA0(0x2C, 1) != 0xFFFF)
                 {
                     sub_00526700(W(wszSwap), D2LANG_GetStringFromTblIndex(0xF9D));
-                    sub_00526700(W(wszSwap), sub_0046A530_GetKeyName(0x2C, 1));
+                    sub_00526700(W(wszSwap), CMDTBL_GetKeyName(0x2C, 1));
                 }
                 else if (sub_00469AA0(0x2C, 0) != 0xFFFF)
                 {
                     sub_00526700(W(wszSwap), D2LANG_GetStringFromTblIndex(0xF9D));
-                    sub_00526700(W(wszSwap), sub_0046A530_GetKeyName(0x2C, 0));
+                    sub_00526700(W(wszSwap), CMDTBL_GetKeyName(0x2C, 0));
                 }
                 int nOffset = 0x170;
                 if (sub_00468730() > gnGlobal_007A2858 + 0x1F4)
@@ -1245,7 +1245,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             int nHeight;
             if (gdwGlobal_007BCBE4 && !gnGlobal_00721E38 && sub_004B3500() && (unsigned int)(gdwGlobal_007BCBF0 - 1) <= 8)
             {
-                sub_0048C060_BuildItemName(gdwGlobal_007BCBF4, W(wszName), 0x80);
+                INV_BuildItemName(gdwGlobal_007BCBF4, W(wszName), 0x80);
                 sub_005267E0(W(wszUnidentified), D2LANG_GetStringFromTblIndex(0xD7F));
                 sub_00526700(W(wszUnidentified), pColorEnd);
                 sub_00526700(W(wszText), W(wszUnidentified));
@@ -1292,8 +1292,8 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     break;
                 }
                 sub_00526700(W(wszText), W(wszName));
-                sub_004521C0_PrefixLevelText(W(wszText), 0);
-                sub_0048CEA0_AppendItemSetName(W(wszText), W(wszTooltip));
+                INV_PrefixColorCode(W(wszText), 0);
+                INV_AppendShopPriceText(W(wszText), W(wszTooltip));
                 D2Win_10131_GetTextDimensions(W(wszTooltip), &nWidth, &nHeight);
                 if (gnGlobal_00721E40 - nHeight > 0)
                 {
@@ -1309,17 +1309,17 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             const int nQuality = ITEMS_GetItemQuality(gdwGlobal_007BCBF4);
             if (sub_00468830() == 8 || ITEMS_GetTransmogrify(gdwGlobal_007BCBF4))
             {
-                sub_0048DB80_DrawBaseItemTooltip();
+                INV_DrawTransmogrifyTooltip();
                 return;
             }
             if (nQuality == 5 && ITEMS_CheckItemFlag(gdwGlobal_007BCBF4, 0x10, 0xF9F, ".\\UI\\inv.cpp"))
             {
-                sub_0048D1D0_DrawSetItemTooltip(pUnit);
+                INV_DrawSetItemTooltip(pUnit);
                 return;
             }
             if (ITEMS_GetItemType(gdwGlobal_007BCBF4) == 0x12)
             {
-                sub_0048CFF0_DrawStackTooltip();
+                INV_DrawBookTooltip();
                 return;
             }
 
@@ -1339,11 +1339,11 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
 
             if (ITEMS_GetQuiverType(gdwGlobal_007BCBF4))
             {
-                sub_00484DB0_AppendQuantity(pItemsTxt, gdwGlobal_007BCBF4, W(wszText));
+                INV_AppendQuantity(pItemsTxt, gdwGlobal_007BCBF4, W(wszText));
             }
             else
             {
-                sub_00484E90_AppendDurability(gdwGlobal_007BCBF4, W(wszDurability));
+                INV_AppendDurability(gdwGlobal_007BCBF4, W(wszDurability));
             }
 
             int bStr;
@@ -1358,16 +1358,16 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     {
                         bRedLevel = 1;
                     }
-                    sub_00484FF0_AppendNumberLine(nLevelReq, W(wszLevelReq));
+                    INV_AppendLabeledNumber(nLevelReq, W(wszLevelReq));
                 }
             }
             if (ITEMSIsA(gdwGlobal_007BCBF4, 0x35))
             {
-                sub_004865D0_AppendBookCharges(W(wszBookCharges));
+                INV_AppendBookCharges(W(wszBookCharges));
             }
             if (ITEMS_CheckIfSocketable(gdwGlobal_007BCBF4))
             {
-                sub_00486670_AppendSocketedGemLetters(W(wszGems), gdwGlobal_007BCBF4);
+                INV_AppendSocketedGemLetters(W(wszGems), gdwGlobal_007BCBF4);
             }
             if (ITEMSIsA(gdwGlobal_007BCBF4, 0xD))
             {
@@ -1378,7 +1378,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
 
             if (ITEMSIsA(gdwGlobal_007BCBF4, 0x2D) || ITEMSIsA(gdwGlobal_007BCBF4, 0x32))
             {
-                sub_00484B10_AppendEtherealSocketed(gdwGlobal_007BCBF4, W(wszEthSock));
+                INV_AppendEtherealSocketed(gdwGlobal_007BCBF4, W(wszEthSock));
                 int nStrBonus = 0;
                 int nDexBonus = 0;
                 const int nPercent = STATLIST_UnitGetItemStatOrSkillStatValue(gdwGlobal_007BCBF4, STAT_ITEM_REQ_PERCENT, 0);
@@ -1398,7 +1398,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     {
                         bRedDex = 1;
                     }
-                    sub_00485170_AppendReqDex(pItemsTxt, nDexBonus, W(wszReqDex));
+                    INV_AppendReqDex(pItemsTxt, nDexBonus, W(wszReqDex));
                 }
                 if (pItemsTxt->wReqStr > 0)
                 {
@@ -1406,7 +1406,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     {
                         bRedStr = 1;
                     }
-                    sub_004850A0_AppendReqStr(pItemsTxt, nStrBonus, W(wszReqStr));
+                    INV_AppendReqStr(pItemsTxt, nStrBonus, W(wszReqStr));
                 }
                 if (ITEMSIsA(gdwGlobal_007BCBF4, 0x2D))
                 {
@@ -1414,23 +1414,23 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     {
                         sub_00485410_AppendDamage(gdwGlobal_007BCBF4, W(wszDamage));
                     }
-                    sub_004861D0_AppendAttackSpeed(W(wszAttackSpeed), gdwGlobal_007BCBF4);
+                    INV_AppendAttackSpeed(W(wszAttackSpeed), gdwGlobal_007BCBF4);
                 }
                 if (ITEMSIsA(gdwGlobal_007BCBF4, 0x33))
                 {
                     if (pPlayer && pPlayer->dwClassId == 3 && (!ITEMS_IsClassValid(gdwGlobal_007BCBF4) || ITEMS_GetClassOfClassSpecificItem(gdwGlobal_007BCBF4) == 3))
                     {
-                        sub_00485D40_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
+                        INV_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
                     }
-                    sub_00485BE0_AppendBlockChance(W(wszBlock), pItemsTxt, gdwGlobal_007BCBF4);
+                    INV_AppendBlockChance(W(wszBlock), pItemsTxt, gdwGlobal_007BCBF4);
                 }
                 else if (ITEMSIsA(gdwGlobal_007BCBF4, 0xF) && pPlayer && pPlayer->dwClassId == 6)
                 {
-                    sub_00485D40_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
+                    INV_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
                 }
                 if (ITEMSIsA(gdwGlobal_007BCBF4, 0x32) && STATLIST_GetDefenseFromUnit(gdwGlobal_007BCBF4) > 0)
                 {
-                    sub_00485EE0_AppendDefense(pPlayer, gdwGlobal_007BCBF4, W(wszDefense));
+                    INV_AppendDefense(pPlayer, gdwGlobal_007BCBF4, W(wszDefense));
                 }
             }
 
@@ -1484,9 +1484,9 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 sub_005267E0(W(wszUnidentified), D2LANG_GetStringFromTblIndex(0xD7F));
                 sub_00526700(W(wszUnidentified), pColorEnd);
             }
-            sub_00486370_AppendItemFormulaText(gdwGlobal_007BCBF4, pItemsTxt, W(wszFormula));
-            sub_0048C060_BuildItemName(gdwGlobal_007BCBF4, W(wszName), 0x100);
-            sub_005267E0(W(wszText), sub_004521C0_PrefixLevelText(W(wszEthSock), 3));
+            INV_AppendItemFormulaText(gdwGlobal_007BCBF4, pItemsTxt, W(wszFormula));
+            INV_BuildItemName(gdwGlobal_007BCBF4, W(wszName), 0x100);
+            sub_005267E0(W(wszText), INV_PrefixColorCode(W(wszEthSock), 3));
 
             const unsigned int dwCode = pItemsTxt->dwCode;
             if (dwCode == 0x20686563 || dwCode == 0x20746562 || dwCode == 0x20736574 || dwCode == 0x20646566
@@ -1497,31 +1497,31 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 nColor = 8;
             }
 
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszProps), 3));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszUnidentified), 1));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszAttackSpeed), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszLevelReq), bRedLevel));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszReqStr), bRedStr));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszReqDex), bRedDex));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszClassReq), bRedClass));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszDurability), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszBookCharges), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszMisc), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszFormula), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszDamage), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszThrowDamage), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszBlock), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszDefense), 0));
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszGems), 4));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszProps), 3));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszUnidentified), 1));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszAttackSpeed), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszLevelReq), bRedLevel));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszReqStr), bRedStr));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszReqDex), bRedDex));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszClassReq), bRedClass));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszDurability), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszBookCharges), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszMisc), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszFormula), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszDamage), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszThrowDamage), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszBlock), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszDefense), 0));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszGems), 4));
             if (ITEMS_CheckItemFlag(gdwGlobal_007BCBF4, 0x100, 0x10A7, ".\\UI\\inv.cpp"))
             {
                 nColor = 1;
             }
-            sub_00526700(W(wszText), sub_004521C0_PrefixLevelText(W(wszName), nColor));
+            sub_00526700(W(wszText), INV_PrefixColorCode(W(wszName), nColor));
 
             if (gdwGlobal_007BCBF0 && (unsigned int)(gdwGlobal_007BCBF0 - 1) <= 8)
             {
-                sub_0048CEA0_AppendItemSetName(W(wszText), W(wszTooltip));
+                INV_AppendShopPriceText(W(wszText), W(wszTooltip));
             }
             else
             {
@@ -1548,7 +1548,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     }
                 }
                 nPopupArg = 4;
-                sub_004521C0_PrefixLevelText(W(wszTooltip), nPopupArg);
+                INV_PrefixColorCode(W(wszTooltip), nPopupArg);
             }
             sub_00452170(W(wszTooltip));
             if (sub_00526800(W(wszTooltip)) >= 0x3FF)
@@ -1605,12 +1605,12 @@ void __cdecl sub_0048EDF0_DrawInventoryPanel()
             gdwGlobal_007BCC08 = 0;
         }
         int nTick;
-        if (gnGlobal_007BCC0C == 1 && !gdwGlobal_007BCC08 && sub_004B3230_GetTickPair(&nTick))
+        if (gnGlobal_007BCC0C == 1 && !gdwGlobal_007BCC08 && NPCMENU_GetInteractNpcId(&nTick))
         {
-            sub_00487A10_SelectItemPageTab(gnSelectedTab_007BCC04);
+            INV_SelectItemPageTab(gnSelectedTab_007BCC04);
             gnGlobal_007BCC0C = 0;
         }
-        sub_00488400_DrawPanel();
+        INV_DrawNpcShopPanel();
         sub_00488100(2);
     }
 
@@ -1640,7 +1640,7 @@ void __cdecl sub_0048EDF0_DrawInventoryPanel()
             if (!gbQuestTimerActive_007BCC10 || gnQuestTimerValue_007BCC14 >= 14)
             {
                 gnSelectedTab_007BCC04 = 3;
-                sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+                INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
                 gnSelectedTab_007BCC04 = nOldTab;
             }
 
@@ -1732,7 +1732,7 @@ timer_done:
 
         const unsigned char nOldTab = gnSelectedTab_007BCC04;
         gnSelectedTab_007BCC04 = 4;
-        sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+        INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
         gnSelectedTab_007BCC04 = nOldTab;
 
         tContext.pCellFile = sub_00454600_GetBuySellButtonCells();
@@ -1744,11 +1744,11 @@ timer_done:
         const int nCursorX = sub_00468730();
         const int nCursorY = sub_00468740();
         const int nLeft = !sub_0044DCC0() ? gnGlobal_007A2858 + 0x113 : gnGlobal_007A2858 + 0x110;
-        if (nCursorX >= nLeft && nCursorX <= sub_00486AE0_GetPanelX() + 0x28
+        if (nCursorX >= nLeft && nCursorX <= INV_GetPanelX() + 0x28
             && nCursorY >= sub_00486B00_GetPanelY() - 0x23 && nCursorY <= sub_00486B00_GetPanelY() + 5)
         {
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(0x1030);
-            D2Win_10129_DrawFramedText(wszText, sub_00486AE0_GetPanelX() - sub_00501820(wszText) / 2 + 12, sub_00486B00_GetPanelY() - 0x23, 0, 0);
+            D2Win_10129_DrawFramedText(wszText, INV_GetPanelX() - sub_00501820(wszText) / 2 + 12, sub_00486B00_GetPanelY() - 0x23, 0, 0);
         }
         break;
     }
@@ -1764,7 +1764,7 @@ timer_done:
     tContext.nFrame = 7;
     TEXTURE_CelDraw(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 0x40, gnGlobal_00711470 + gnGlobal_007A285C - 0x30, -1, 5, 0);
 
-    sub_004835B0_LoadUiRecords();
+    INV_LoadUiRecords();
 
     if (gnGlobal_007BCC4C && sub_00408F20_HasExpansionMpq() && sub_0044DCC0())
     {
@@ -1953,9 +1953,9 @@ timer_done:
 
         const unsigned char nOldTab = gnSelectedTab_007BCC04;
         gnSelectedTab_007BCC04 = 1;
-        sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+        INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
         gnSelectedTab_007BCC04 = 2;
-        sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+        INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
         gnSelectedTab_007BCC04 = nOldTab;
         sub_00502EF0(1);
 
@@ -2007,13 +2007,13 @@ timer_done:
 
     const unsigned char nOldTab = gnSelectedTab_007BCC04;
     gnSelectedTab_007BCC04 = 0;
-    sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+    INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
     gnSelectedTab_007BCC04 = nOldTab;
 
-    sub_004845A0_DrawEquippedItems();
+    INV_DrawEquippedItems();
     if (gdwGlobal_007BCBF0 >= 1 && gdwGlobal_007BCBF0 <= 9)
     {
-        sub_004886C0_DrawButtonHoverText();
+        INV_DrawButtonHoverText();
     }
     sub_00488100(1);
 
@@ -2026,7 +2026,7 @@ timer_done:
     if (gdwGlobal_007BCBF0 >= 1 && gdwGlobal_007BCBF0 <= 9 && nMouseX < gnGlobal_0071146C / 2)
     {
         int nUnitId;
-        if (sub_004B3230_GetTickPair(&nUnitId))
+        if (NPCMENU_GetInteractNpcId(&nUnitId))
         {
             D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
             if (pUnit)
@@ -2039,7 +2039,7 @@ timer_done:
     sub_0048DD90_DrawItemTooltip(pPanelUnit, bOther);
 }
 
-static __declspec(noinline) int sub_00483B10_IsInRect(int nX, int nY)
+static __declspec(noinline) int INV_IsInTradeGrid(int nX, int nY)
 {
     if (nX > gnGlobal_007BCA34 && nX < gnGlobal_007BCA38 && nY >= gnGlobal_007BCA3C && nY <= gnGlobal_007BCA40)
     {
@@ -2062,7 +2062,7 @@ static int sub_00486DA0_IsOverGoldButton(int nX, int nY)
     return 0;
 }
 
-static int sub_00489430_IsOverButtonA(int nX, int nY)
+static int INV_IsOverTradeButtonLeft(int nX, int nY)
 {
     if (nX > gnPanelX_007A2858 + 0xDF && nX < gnPanelX_007A2858 + 0xFF
         && nY > gnGlobal_00711470 + gnPanelY_007A285C - 0x60 && nY < gnGlobal_00711470 + gnPanelY_007A285C - 0x40)
@@ -2072,7 +2072,7 @@ static int sub_00489430_IsOverButtonA(int nX, int nY)
     return 0;
 }
 
-static int sub_00489480_IsOverButtonB(int nX, int nY)
+static int INV_IsOverTradeButtonRight(int nX, int nY)
 {
     if (nX > gnPanelX_007A2858 + 0x113 && nX < gnPanelX_007A2858 + 0x133
         && nY > gnGlobal_00711470 + gnPanelY_007A285C - 0x60 && nY < gnGlobal_00711470 + gnPanelY_007A285C - 0x40)
@@ -2091,7 +2091,7 @@ void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
     const int nY = pMsg->nYpos;
     gnGlobal_007BCA4C = nX;
     gnGlobal_007BCBD8 = nY;
-    if (!sub_00498DC0_MouseMoveMsg(pMsg) && sub_00486E10_IsInNpcPanelRect(nX, nY))
+    if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && sub_00486E10_IsInNpcPanelRect(nX, nY))
     {
         gnGlobal_007BCE90 = 1;
         pMsg->bReturn = 1;
@@ -2100,11 +2100,11 @@ void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
-    if (sub_00498DC0_MouseMoveMsg(pMsg) == 1)
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
         return;
     if ((nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4
         && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
-        || sub_00483B10_IsInRect(nX, nY))
+        || INV_IsInTradeGrid(nX, nY))
     {
         sub_004912A0_HandlePanelClick(pMsg);
         return;
@@ -2121,7 +2121,7 @@ void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
-    if (sub_00489430_IsOverButtonA(nX, nY))
+    if (INV_IsOverTradeButtonLeft(nX, nY))
     {
         gnGlobal_007BCE20 = 1;
         if (gnGlobal_007BCE18 == 1)
@@ -2140,7 +2140,7 @@ void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
-    if (sub_00489480_IsOverButtonB(nX, nY))
+    if (INV_IsOverTradeButtonRight(nX, nY))
     {
         gnGlobal_007BCE24 = 1;
         gnGlobal_007BCE1C = 1;
@@ -2160,7 +2160,7 @@ void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007BCE1C = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
     }
-    else if (sub_00498DC0_MouseMoveMsg(pMsg) == 1)
+    else if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
     {
         gnGlobal_007BCE18 = 0;
         gnGlobal_007BCE9C = 0;
@@ -2175,7 +2175,7 @@ void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BCE20 = 0;
 }
 
-static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
+static void INV_DrawMercStats(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2453,7 +2453,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
         }
         else
         {
-            sub_004A7080(nLeft, nY, nRight, wszText, nColor);
+            TEXT_DrawCenteredText(nLeft, nY, nRight, wszText, nColor);
         }
     }
     sub_00502EF0(nOldFont);
@@ -2483,7 +2483,7 @@ static void sub_0048B540_DrawEquippedItems(D2UnitStrc* pUnit)
             if (gdwGlobal_007BCBF4 == pItem && ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem) > 0
                 && ITEMS_CheckItemFlag(pItem, 0x800, 0x30C8, ".\\UI\\inv.cpp"))
             {
-                sub_00483E40_DrawItemSockets(pItem, &gInventoryGrid_007BCBC0, nX, nY);
+                INV_DrawItemSockets(pItem, &gInventoryGrid_007BCBC0, nX, nY);
             }
         }
     }
@@ -2511,7 +2511,7 @@ void __cdecl sub_004929F0_DrawMercPanel()
         return;
     }
 
-    sub_004835B0_LoadUiRecords();
+    INV_LoadUiRecords();
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -2530,12 +2530,12 @@ void __cdecl sub_004929F0_DrawMercPanel()
     tContext.nFrame = (gbBuySellPressed_007BCEA0 != 0) + 10;
     TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x110, gnScreenHeight_00711470 + gnPanelY_007A285C - 0x3F, -1, 5, 0);
 
-    sub_0048A7D0_DrawUnitName(pMerc);
-    sub_0048A890_DrawPanelLabels();
-    sub_0048A990_DrawMercStats(pMerc);
+    INV_DrawUnitName(pMerc);
+    INV_DrawPanelLabels();
+    INV_DrawMercStats(pMerc);
     sub_0048B0A0(pMerc);
     sub_0048B540_DrawEquippedItems(pMerc);
-    sub_0048B3F0_DrawMercEquipHighlights(pMerc);
+    INV_DrawMercEquipHighlights(pMerc);
     sub_0048DD90_DrawItemTooltip(pMerc, 0);
 }
 

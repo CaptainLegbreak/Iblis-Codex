@@ -19,7 +19,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __cdecl sub_0044DB00(); // 0x0044DB00
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00463DF0(); // 0x00463DF0
-void __fastcall sub_004A0200_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x004A0200
+void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x004A0200
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nFlags, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey); // 0x004B9CA0
 int __fastcall sub_004B9E90_HasUnitSound(D2UnitStrc* pUnit); // 0x004B9E90
@@ -146,7 +146,7 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
             break;
         }
 
-        sub_004A0200_SetSpeechHoverText(pUnit, sub_004B9CA0_GetHintIdByKey(sub_004B9A00(nHintSound, pUnit, nFlags, 0, 0)));
+        TEXT_SetSpeechHoverText(pUnit, sub_004B9CA0_GetHintIdByKey(sub_004B9A00(nHintSound, pUnit, nFlags, 0, 0)));
         return;
     }
 
@@ -251,5 +251,5 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
         gnLastRequestSound_007C88C8 = nSoundId;
     }
 
-    sub_004A0200_SetSpeechHoverText(pUnit, sub_004B9CA0_GetHintIdByKey(sub_004B9A00(nSoundId, pSoundUnit, 0, 0, 0)));
+    TEXT_SetSpeechHoverText(pUnit, sub_004B9CA0_GetHintIdByKey(sub_004B9A00(nSoundId, pSoundUnit, 0, 0, 0)));
 }

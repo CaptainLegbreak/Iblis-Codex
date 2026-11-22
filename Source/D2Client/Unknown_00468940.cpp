@@ -12,13 +12,13 @@ int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0044DB30(); // 0x0044DB30
 int __cdecl sub_0044DA30(); // 0x0044DA30
 int __cdecl sub_00463DF0(); // 0x00463DF0
-void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
+void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 void __fastcall sub_00457640(int bForce); // 0x00457640
-int __cdecl sub_004576C0(); // 0x004576C0
-int __fastcall sub_004576F0(int nFade); // 0x004576F0
-int __cdecl sub_004577B0(); // 0x004577B0
-int __cdecl sub_004577E0(); // 0x004577E0
-int __cdecl sub_00457770(); // 0x00457770
+int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
+int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
+int __cdecl UI_GetAutomapParty(); // 0x004577B0
+int __cdecl UI_GetAutomapPartyNames(); // 0x004577E0
+int __cdecl UI_GetAutomapLeft(); // 0x00457770
 int __fastcall sub_00457780_SaveAutomapLeft(int nValue); // 0x00457780
 void __fastcall sub_004A8CE0_SetValue(int nValue); // 0x004A8CE0
 void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
@@ -42,13 +42,13 @@ void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
 void __fastcall sub_00478590(char nValue); // 0x00478590
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-int __cdecl sub_004B34A0(); // 0x004B34A0
-int __cdecl sub_004A0000(); // 0x004A0000
+int __cdecl NPCMENU_IsAnyDialogOpen(); // 0x004B34A0
+int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 void __fastcall sub_0047E200_CloseMenus(int nArg); // 0x0047E200
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
 void __fastcall sub_004AA740_CycleHotkey(int nDelta); // 0x004AA740
-void __cdecl sub_0048A730_ResetEquipSounds(); // 0x0048A730
+void __cdecl INV_ResetEquipSounds(); // 0x0048A730
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 void __cdecl sub_00466FE0(); // 0x00466FE0
 
@@ -81,7 +81,7 @@ void __cdecl sub_00468980_SetUIVar24()
 void __cdecl sub_00468990_OpenMode1()
 {
     if (!sub_0044DA30() && !sub_00463DF0())
-        sub_004A3FE0(1);
+        TEXT_ToggleQuestLog(1);
 }
 
 // 0x004689B0
@@ -108,25 +108,25 @@ void __cdecl sub_00468A60_Force()
 // 0x00468A70
 void __cdecl sub_00468A70_CycleSetting()
 {
-    sub_004576F0((sub_004576C0() + 1) % 4);
+    AUTOMAP_SetAutomapFade((AUTOMAP_GetAutomapFade() + 1) % 4);
 }
 
 // 0x00468A90
 void __cdecl sub_00468A90_ToggleSetting()
 {
-    sub_004577C0_SetValue(!sub_004577B0());
+    sub_004577C0_SetValue(!UI_GetAutomapParty());
 }
 
 // 0x00468AB0
 void __cdecl sub_00468AB0_ToggleSetting()
 {
-    sub_004577F0_SetValue(!sub_004577E0());
+    sub_004577F0_SetValue(!UI_GetAutomapPartyNames());
 }
 
 // 0x00468AD0
 void __cdecl sub_00468AD0_ToggleSetting()
 {
-    sub_00457780_SaveAutomapLeft(!sub_00457770());
+    sub_00457780_SaveAutomapLeft(!UI_GetAutomapLeft());
 }
 
 // 0x00468AF0
@@ -498,16 +498,16 @@ void __cdecl sub_00469090_HotkeyUiVarOff()
 // 0x004690B0
 void __cdecl sub_004690B0_HotkeyEscape()
 {
-    if (sub_004B34A0())
+    if (NPCMENU_IsAnyDialogOpen())
         return;
-    if (sub_004A0000())
+    if (TEXT_IsTextBoxOpen())
         return;
     if (sub_004538D0(9))
     {
         sub_0047E200_CloseMenus(1);
         return;
     }
-    if (sub_00456300_CloseUIVars(0, 1))
+    if (UI_CloseUIVars(0, 1))
         return;
     sub_0047E090(1, 0);
 }
@@ -541,7 +541,7 @@ void __cdecl sub_00469140_HotkeyResetSounds()
         return;
     if (sub_004538D0(0x19))
         return;
-    sub_0048A730_ResetEquipSounds();
+    INV_ResetEquipSounds();
 }
 
 // 0x00469170

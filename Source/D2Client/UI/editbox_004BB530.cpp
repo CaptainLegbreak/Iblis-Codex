@@ -278,7 +278,7 @@ static inline int sub_004BC0A0_IsInSecond(D2ButtonPairStrc* pButtons, D2MouseMes
 }
 
 // 0x004BC0A0
-int __fastcall sub_004BC0A0_HandlePress(D2ButtonPairStrc* pButtons, int nUnused, D2MouseMessageStrc* pMessage)
+int __fastcall EDITBOX_HandleSpinnerPress(D2ButtonPairStrc* pButtons, int nUnused, D2MouseMessageStrc* pMessage)
 {
     pButtons->f_30 = 1;
     if (sub_004BC0A0_IsInFirst(pButtons, pMessage))

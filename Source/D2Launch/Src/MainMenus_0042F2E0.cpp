@@ -2435,7 +2435,7 @@ void __cdecl sub_004365B0_CreateCharacter()
     if (gnLaunchMode_007795EC == 0)
     {
         sub_0042F480_Reset();
-        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
         sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
         gpLaunchRecord_007795D4->nByte35E = 1;
         *(int*)gpLaunchRecord_007795D4->aState19 = 0;
@@ -2451,7 +2451,7 @@ void __cdecl sub_004365B0_CreateCharacter()
     {
         sub_0042F480_Reset();
         sub_0043C6A0(0);
-        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
         sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
         gpLaunchRecord_007795D4->nByte35E = 3;
         gnLaunchState_007795E8 = 1;
@@ -2467,7 +2467,7 @@ void __cdecl sub_004365B0_CreateCharacter()
         sub_0042F480_Reset();
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
-        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        AUTOMAP_InitCharSaveHeader((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
         sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
         gpLaunchRecord_007795D4->nByte3C1 = 1;
         SMemCopy(gpLaunchRecord_007795D4->aData3A1, gabDefault_006D4D88, 0x10);

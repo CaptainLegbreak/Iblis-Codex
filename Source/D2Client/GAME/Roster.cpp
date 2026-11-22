@@ -61,7 +61,7 @@ void __fastcall sub_00478780_SendPartyCommand(int nCommand, int nUnitId); // 0x0
 
 void __cdecl sub_00479AB0(); // 0x00479AB0
 
-void __cdecl sub_0049A640(); // 0x0049A640
+void __cdecl PARTY_RebuildRosterUnits(); // 0x0049A640
 
 unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
@@ -170,7 +170,7 @@ void __cdecl sub_00479940_BuildRosterGroups();                                  
 
 D2StoredUnitRecordStrc* __cdecl sub_00479F60_LeaveParty();                                                  // 0x00479F60
 
-int __cdecl sub_0047A980_IsNumberDisplayEnabled();                                                          // 0x0047A980
+int __cdecl CHAT_IsNumberDisplayEnabled();                                                          // 0x0047A980
 
 D2RosterInfoStrc** __cdecl sub_004DC270_AllocRosterInfoList();                                              // 0x004DC270
 
@@ -719,7 +719,7 @@ void __cdecl sub_004799C0()
 {
     for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
     {
-        if (sub_0047A980_IsNumberDisplayEnabled())
+        if (CHAT_IsNumberDisplayEnabled())
             pGroup->pFirst = sub_004796D0_SortRosterByKills(pGroup->pFirst);
         else
             pGroup->pFirst = sub_004795F0_SortRosterByName(pGroup->pFirst);
@@ -794,7 +794,7 @@ void __fastcall sub_00479B10_SetKillCount(int nUnitId, unsigned short nValue)
     else
         pRec->dwKillCount = nValue;
     sub_00479AB0();
-    sub_0049A640();
+    PARTY_RebuildRosterUnits();
 }
 
 // 0x00479B50
@@ -1022,7 +1022,7 @@ void __fastcall sub_00479EB0(D2StoredUnitRecordStrc* pEntry)
     }
     sub_00478780_SendPartyCommand(nCommand, pEntry->dwUnitId);
     sub_00479AB0();
-    sub_0049A640();
+    PARTY_RebuildRosterUnits();
 }
 
 // 0x00479F60
@@ -1034,7 +1034,7 @@ D2StoredUnitRecordStrc* __cdecl sub_00479F60_LeaveParty()
     pRec->wPartyId = 0xFFFF;
     pRec->dwPartyFlags = 1;
     sub_00479AB0();
-    sub_0049A640();
+    PARTY_RebuildRosterUnits();
     return pRec;
 }
 
@@ -1093,7 +1093,7 @@ void __fastcall sub_0047A0D0_SetLifeAndLevel(int nUnitId, int nLife, unsigned sh
         pRec->dwPartyLife = nLife;
         pRec->dwLevelId = wLevelId;
         sub_00479AB0();
-        sub_0049A640();
+        PARTY_RebuildRosterUnits();
     }
 }
 
@@ -1249,7 +1249,7 @@ void __fastcall sub_0047A330_SetPartyId(int nUnitId, unsigned short wPartyId)
     {
         pRec->wPartyId = wPartyId;
         sub_00479AB0();
-        sub_0049A640();
+        PARTY_RebuildRosterUnits();
     }
 }
 
@@ -1260,7 +1260,7 @@ void __fastcall sub_0047A350_SetPartyFlags(int nUnitId, unsigned char nFlags)
     if (pRec)
     {
         pRec->dwPartyFlags = nFlags;
-        sub_0049A640();
+        PARTY_RebuildRosterUnits();
     }
 }
 
@@ -1271,7 +1271,7 @@ void __fastcall sub_0047A370_SetPvpFlags(int nUnitId1, int nUnitId2, unsigned sh
         return;
     sub_004DC320_AddRosterInfo(nUnitId1, nUnitId2);
     sub_004DC4C0_SetPvpFlagsLow(nUnitId1, nUnitId2, wFlags);
-    sub_0049A640();
+    PARTY_RebuildRosterUnits();
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (nUnitId2 == (!pPlayer ? -1 : pPlayer->dwUnitId))
         sub_00479230_UpdateOwnerPetFlags(nUnitId1);
@@ -1442,7 +1442,7 @@ void __fastcall sub_0047A6F0_AddRosterUnit(int nUnitId, int nClassId, const char
     {
         sub_004793C0_FillRosterUnit(nUnitId, nClassId, wLevel, wPartyId, nPartyFlags, wGuildFlags, szGuildName, szGuildTag, szName, pRec);
         sub_00479AB0();
-        sub_0049A640();
+        PARTY_RebuildRosterUnits();
         return;
     }
     while (pIter)
@@ -1476,7 +1476,7 @@ void __fastcall sub_0047A6F0_AddRosterUnit(int nUnitId, int nClassId, const char
     pRec->pNext = gpStoredUnits_007BB5C0;
     gpStoredUnits_007BB5C0 = pRec;
     sub_00479AB0();
-    sub_0049A640();
+    PARTY_RebuildRosterUnits();
 }
 
 // 0x0047A850
@@ -1495,7 +1495,7 @@ void __fastcall sub_0047A850_UpdateRosterUnit(int nUnitId, unsigned short wParty
     pRec->dwPartyFlags = nPartyFlags;
     sub_00478FA0_UpdatePetFlags();
     sub_00479AB0();
-    sub_0049A640();
+    PARTY_RebuildRosterUnits();
 }
 
 // 0x0047A8B0
@@ -1532,7 +1532,7 @@ void __fastcall sub_0047A8B0_RemoveRosterUnit(int nUnitId)
         pPrev = pRec;
     }
     sub_00479AB0();
-    sub_0049A640();
+    PARTY_RebuildRosterUnits();
 }
 
 // 0x0047A9B0

@@ -37,9 +37,9 @@ int __cdecl sub_0044DAA0(); // 0x0044DAA0
 int __cdecl sub_0044DAC0(); // 0x0044DAC0
 void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
-void __cdecl sub_00453EC0();                                                                                // 0x00453EC0
+void __cdecl UI_CancelCursorItemUse();                                                                                // 0x00453EC0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
-void __fastcall sub_0045AFF0_ScreenToMap(int* pX, int* pY);                                                             // 0x0045AFF0
+void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY);                                                             // 0x0045AFF0
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit);                                        // 0x0045C470
 int __stdcall sub_00461D60_CheckPlayerState(int nArg1, int nArg2);                                             // 0x00461D60
 int __fastcall sub_00464600(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                            // 0x00464600
@@ -58,7 +58,7 @@ int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag);       
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 void __fastcall sub_00460780_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);             // 0x00460780
-int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
+int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 int __fastcall sub_00462930_FilterMessage(D2PlayerCmdStrc* pCmd);                                           // 0x00462930
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
@@ -83,7 +83,7 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int b
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 void __fastcall sub_00481030_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);                // 0x00481030
-void __fastcall sub_004B3E10_RefreshNpcEntries(D2UnitStrc* pUnit);                                                            // 0x004B3E10
+void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit);                                                            // 0x004B3E10
 void __cdecl sub_004C1E30();                                                                                // 0x004C1E30
 int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId);                          // 0x004CB9C0
@@ -206,7 +206,7 @@ static void sub_00460E70_UpdateRoomState(D2UnitStrc* pUnit)
     sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
     if (gnInTown_007A5260 != bInTown && !bInTown)
-        sub_004B3E10_RefreshNpcEntries(pUnit);
+        NPCMENU_RefreshNpcEntries(pUnit);
     gnInTown_007A5260 = bInTown;
     sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
@@ -513,7 +513,7 @@ static int sub_00461B40_ApproachForAura(D2PlayerCmdStrc* pCmd, int nArg1, int nA
         return 1;
     }
 
-    if (sub_00461AC0_IsInAuraRange(pCmd->pSkill, pCmd->pTarget, &nRange, &nDistance))
+    if (AUTOMAP_IsInAuraRange(pCmd->pSkill, pCmd->pTarget, &nRange, &nDistance))
     {
         sub_00461700_SendCommand(1, pCmd);
         return 1;
@@ -817,7 +817,7 @@ static int sub_004621D0_PrepareCommand(D2PlayerCmdStrc* pCmd)
     pCmd->pTarget = sub_00467880_GetSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
     if (sub_00468830() == 6)
     {
-        sub_00453EC0();
+        UI_CancelCursorItemUse();
         return 1;
     }
     if (sub_00468830() == 8)
@@ -1088,7 +1088,7 @@ static int sub_004629A0_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
     }
 
     if (sub_00468830() == 6)
-        sub_00453EC0();
+        UI_CancelCursorItemUse();
     else if (sub_00468830() == 8)
         sub_00478680_SendPacket5(0x4C, -1);
 
@@ -1231,7 +1231,7 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
         return 0;
 
     gdwGlobal_007A5264 = 1;
-    sub_0045AFF0_ScreenToMap(&nX, &nY);
+    AUTOMAP_ScreenToMap(&nX, &nY);
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;
     tCmd.pPlayer = sub_00463DD0_GetPlayerUnit();

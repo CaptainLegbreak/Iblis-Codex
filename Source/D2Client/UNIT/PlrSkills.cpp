@@ -42,7 +42,7 @@ void __fastcall sub_004C9060_DrawRotated(D2UnitStrc* pUnit, int nArg, int bForwa
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 void __fastcall sub_0046F000_ResetGfx(D2UnitStrc* pUnit); // 0x0046F000
-void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
+void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
@@ -85,7 +85,7 @@ int __stdcall STATES_CheckStateMaskAuraByStateId(int nState); // 0x0063A210
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
-void __fastcall sub_004ADCE0_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
+void __fastcall NPCMENU_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
 void __fastcall sub_0044CE40(int nValue); // 0x0044CE40
 
 
@@ -234,7 +234,7 @@ static void __stdcall sub_004D8660_OverlayVariants(D2UnitStrc* pUnit, int nOverl
     const int nCount = DATATBLS_Get1OfNFromOverlayTxt(nOverlay);
     for (int i = 0; i < nCount; ++i)
     {
-        sub_0046F0C0(pUnit, 0, nOverlay + i);
+        AUTOMAP_RemoveUnitOverlay(pUnit, 0, nOverlay + i);
     }
 }
 
@@ -260,7 +260,7 @@ void __fastcall sub_004D86A0_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
 
     for (int i = 0; i < 3; ++i)
     {
-        sub_0046F0C0(pUnit, 0, pStatesTxt->wPrgOverlay + i);
+        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pStatesTxt->wPrgOverlay + i);
     }
 
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, pStatesTxt->wStat, 0);
@@ -292,7 +292,7 @@ void __fastcall sub_004D8760_StatePrgOverlays(D2UnitStrc* pUnit, int nState)
 
     for (int i = 0; i < 3; ++i)
     {
-        sub_0046F0C0(pUnit, 0, pStatesTxt->wPrgOverlay + i);
+        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pStatesTxt->wPrgOverlay + i);
     }
 }
 
@@ -776,7 +776,7 @@ void __fastcall sub_004D9380_ClearMotion(D2UnitStrc* pUnit, int nState)
 // 0x004D93A0
 void __fastcall sub_004D93A0_StateEndRequests(D2UnitStrc* pUnit, int nState)
 {
-    sub_004ADCE0_StateRequests(pUnit);
+    NPCMENU_StateRequests(pUnit);
 }
 
 // 0x004D9450
@@ -841,7 +841,7 @@ void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
         {
             if (i != nIndex)
             {
-                sub_0046F0C0(pUnit, 0, nStart + i);
+                AUTOMAP_RemoveUnitOverlay(pUnit, 0, nStart + i);
             }
             else if (!sub_0046E100(pUnit, nStart + i))
             {
@@ -860,7 +860,7 @@ void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
         {
             if (i != nIndex)
             {
-                sub_0046F0C0(pUnit, 0, nStart);
+                AUTOMAP_RemoveUnitOverlay(pUnit, 0, nStart);
             }
             else if (!sub_0046E100(pUnit, nStart))
             {

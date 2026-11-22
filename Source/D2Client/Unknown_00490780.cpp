@@ -27,7 +27,7 @@ extern int gdwGlobal_007BCBF0;  // 0x007BCBF0
 int gnGlobal_007BCBEC;         // 0x007BCBEC
 extern int gnGlobal_007BCA4C;  // 0x007BCA4C
 extern int gnGlobal_007BCBD8;  // 0x007BCBD8
-static void __stdcall sub_00487BA0_Forward(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
+static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
 {
     if (!nArg2)
         return;
@@ -114,13 +114,13 @@ int __fastcall sub_00490780(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
         }
         else if (gdwGlobal_007BCBF0 < MV(0x13))
         {
-            sub_00487BA0_Forward((int)pPlayer, (int)pSelected, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
+            INV_ForwardTradeClick((int)pPlayer, (int)pSelected, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
         }
         break;
     case 4:
         if (gdwGlobal_007BCBF0 == MV(4))
         {
-            sub_00487BA0_Forward((int)pPlayer, (int)pOther, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
+            INV_ForwardTradeClick((int)pPlayer, (int)pOther, 1, gnGlobal_007BCA4C, gnGlobal_007BCBD8, 0, 0);
         }
         else if (!sub_004C2240(pOther) && sub_00486D10_CheckTick())
         {

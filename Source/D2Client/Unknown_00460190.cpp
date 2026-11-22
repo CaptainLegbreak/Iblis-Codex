@@ -1,9 +1,9 @@
 #include "D2Client.h"
 
-void __stdcall sub_0045FBC0_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
-void __cdecl sub_0045FFC0_DrawCenteredStrings();                                                            // 0x0045FFC0
+void __stdcall UI_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
+void __cdecl UI_DrawCenteredStrings();                                                            // 0x0045FFC0
 void __stdcall sub_00460060_DrawPanelCels(int nFrame1, int nFrame2);                                        // 0x00460060
-void __cdecl sub_004600F0_DrawCenteredStringPair();                                                         // 0x004600F0
+void __cdecl UI_DrawCenteredStringPair();                                                         // 0x004600F0
 void __cdecl sub_004684C0(); // 0x004684C0
 
 extern int gnGlobal_007A524C;                                                                               // 0x007A524C
@@ -18,10 +18,10 @@ void __cdecl sub_00460190_DrawFrame()
         return;
     D2GFX_ClearScreen(0);
     sub_004FB0D0();
-    sub_0045FBC0_DrawCelPair(0);
-    sub_0045FFC0_DrawCenteredStrings();
+    UI_DrawCelPair(0);
+    UI_DrawCenteredStrings();
     sub_00460060_DrawPanelCels(gnGlobal_007A524C, gnGlobal_007A5250);
-    sub_004600F0_DrawCenteredStringPair();
+    UI_DrawCenteredStringPair();
     sub_004684C0();
     D2GFX_EndScene();
 }

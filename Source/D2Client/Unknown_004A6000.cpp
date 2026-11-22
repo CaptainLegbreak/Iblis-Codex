@@ -16,11 +16,11 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);         
 int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
-void __cdecl sub_00454980();                                                                                // 0x00454980
+void __cdecl UI_RegisterKeyConfigHandlers();                                                                                // 0x00454980
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
-int __fastcall sub_00469C20_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
-const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                          // 0x0046A530
-void __stdcall sub_004A5D70_RegisterMsgHandlers(int bReset);                                                // 0x004A5D70
+int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
+const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                          // 0x0046A530
+void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                                                // 0x004A5D70
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -58,7 +58,7 @@ void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072478C, 1);
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00724780, 1);
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072472C, 1);
-    sub_00454980();
+    UI_RegisterKeyConfigHandlers();
     gnGlobal_007C02B8 = 0;
     gnGlobal_007C0280 = 1;
     sub_004A4AD0_Press(nX, nY);
@@ -80,9 +80,9 @@ void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     if (nSteps)
     {
         int nKey = 0;
-        if (sub_00469C20_QueryKey(*(int*)gpListEntries_00724264[gnGlobal_007C02B0].nId, gnGlobal_007246D4, (nSteps < 0) + 0x103, &nKey))
+        if (CMDTBL_QueryKey(*(int*)gpListEntries_00724264[gnGlobal_007C02B0].nId, gnGlobal_007246D4, (nSteps < 0) + 0x103, &nKey))
         {
-            sub_004A5D70_RegisterMsgHandlers(1);
+            TEXT_UnregisterKeyConfigHandlers(1);
         }
         else if ((unsigned short)nKey)
         {
@@ -147,7 +147,7 @@ void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor
     }
 
     static Unicode wszBuf[16]; // 0x007C0810
-    const Unicode* wszText = sub_0046A530_GetKeyName(nKeyId, 1);
+    const Unicode* wszText = CMDTBL_GetKeyName(nKeyId, 1);
     int nWidth = sub_00501820(wszText);
     if (nWidth > 40)
     {

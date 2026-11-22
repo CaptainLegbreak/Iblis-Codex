@@ -21,8 +21,8 @@ typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg);                                // 0x004E2ED0
-int __fastcall sub_004F0F10_IsTargetObject(D2UnitStrc* pUnit, void* pArg);                                  // 0x004F0F10
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg);                                // 0x004E2ED0
+int __fastcall SKILLDESC_IsVineBeastMissile(D2UnitStrc* pUnit, void* pArg);                                  // 0x004F0F10
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
@@ -92,7 +92,7 @@ static int __stdcall sub_004F04F0_CreateMissileFan(int nMissile, int nSkillId, i
     tMissileParams.dwFlags = 3;
     tMissileParams.pOwner = pUnit;
     tMissileParams.nMissile = nMissile;
-    tMissileParams.pInitFunc = sub_004E2ED0_InitCappedChargedPath;
+    tMissileParams.pInitFunc = SKILLDESC_InitCappedChargedPath;
     if (!sub_004C52E0_GetTargetPosition(pUnit, &tMissileParams.nX, &tMissileParams.nY))
     {
         return 0;
@@ -178,7 +178,7 @@ int __fastcall sub_004F0F30_CltSkillMonMissile(D2UnitStrc* pUnit, int nSkillId, 
     case 1:
         if (bFire)
         {
-            D2UnitStrc* pTarget = D2Common_10407(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), sub_004F0F10_IsTargetObject, 0, 1);
+            D2UnitStrc* pTarget = D2Common_10407(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), SKILLDESC_IsVineBeastMissile, 0, 1);
             if (pTarget)
             {
                 sub_004D2D70_CltMissileHit(pTarget, 0, 0);

@@ -28,7 +28,7 @@ int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nArg3, int nArg4, int nLine, int nArg5); // 0x004EDEA0
+int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nArg3, int nArg4, int nLine, int nArg5); // 0x004EDEA0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -464,7 +464,7 @@ void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, 
     bFound = 0;
     for (int i = 0; i < 10; ++i)
     {
-        if (sub_004EDEA0_AddSkillLine(pUnit, wszText, pSkillsTxt, nSkillId, nArg3, nArg4, i, nArg5))
+        if (SKILLDESC_AddSkillLine(pUnit, wszText, pSkillsTxt, nSkillId, nArg3, nArg4, i, nArg5))
         {
             bFound = 1;
         }

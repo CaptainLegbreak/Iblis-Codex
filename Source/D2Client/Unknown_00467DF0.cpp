@@ -20,10 +20,10 @@ int __cdecl sub_0044DCC0(); // 0x0044DCC0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
 void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
-void __cdecl sub_00498C50_BeltHotkey0(); // 0x00498C50
-void __cdecl sub_00498C90_BeltHotkey1(); // 0x00498C90
-void __cdecl sub_00498CD0_BeltHotkey2(); // 0x00498CD0
-void __cdecl sub_00498D10_BeltHotkey3(); // 0x00498D10
+void __cdecl PANEL_BeltHotkeyFirst(); // 0x00498C50
+void __cdecl PANEL_BeltHotkeySecond(); // 0x00498C90
+void __cdecl PANEL_BeltHotkeyThird(); // 0x00498CD0
+void __cdecl PANEL_BeltHotkeyFourth(); // 0x00498D10
 extern int gdwGlobal_007A6ABC; // 0x007A6ABC
 extern int gdwGlobal_007A6AF0; // 0x007A6AF0
 
@@ -102,25 +102,25 @@ void __fastcall sub_M115_Emit_00468B20(int nHotkey)
 // 0x00468F40
 void __cdecl sub_00468F40_BeltHotkey0()
 {
-    sub_00498C50_BeltHotkey0();
+    PANEL_BeltHotkeyFirst();
 }
 
 // 0x00468F50
 void __cdecl sub_00468F50_BeltHotkey1()
 {
-    sub_00498C90_BeltHotkey1();
+    PANEL_BeltHotkeySecond();
 }
 
 // 0x00468F60
 void __cdecl sub_00468F60_BeltHotkey2()
 {
-    sub_00498CD0_BeltHotkey2();
+    PANEL_BeltHotkeyThird();
 }
 
 // 0x00468F70
 void __cdecl sub_00468F70_BeltHotkey3()
 {
-    sub_00498D10_BeltHotkey3();
+    PANEL_BeltHotkeyFourth();
 }
 
 int gdwGlobal_007A6ABC; // 0x007A6ABC

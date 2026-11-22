@@ -7,7 +7,7 @@ int __cdecl sub_0044DB30(); // 0x0044DB30
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
-const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB); // 0x0046A530
+const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB); // 0x0046A530
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -68,13 +68,13 @@ void __cdecl sub_00495030_DrawKeyHelp()
     if (sub_00469AA0(6, 1) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKey));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), sub_0046A530_GetKeyName(6, 1));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 1));
         sub_00526700(wszText, wszKey);
     }
     if (sub_00469AA0(6, 0) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKey));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), sub_0046A530_GetKeyName(6, 0));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 0));
         sub_00526700(wszText, wszKey);
     }
     const int nWidth = sub_00501820(wszText);

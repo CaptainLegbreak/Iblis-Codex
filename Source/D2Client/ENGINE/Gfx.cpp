@@ -107,7 +107,7 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
-void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
+void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius); // 0x00474290
 int __fastcall sub_004DBE20(D2UnitStrc* pUnit, D2OverlayStrc* pOverlay); // 0x004DBE20
@@ -872,7 +872,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
         return;
 
     if (nOverlay < 0x8C || nOverlay > 0x8E && nOverlay != 0x9E)
-        sub_0046F0C0(pUnit, pTxt->nByte48, nOverlay);
+        AUTOMAP_RemoveUnitOverlay(pUnit, pTxt->nByte48, nOverlay);
 
     D2OverlayStrc* pNew = (D2OverlayStrc*)FOG_Alloc(sizeof(D2OverlayStrc), ".\\ENGINE\\Gfx.cpp", 0xC48, 0);
     D2_ASSERT(pNew, 0xC49);

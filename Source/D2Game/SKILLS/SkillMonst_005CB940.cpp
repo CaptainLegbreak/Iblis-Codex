@@ -481,7 +481,7 @@ int __fastcall SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(D2GameStrc* p
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                    // 0x006442A0
 
-int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel);                           // 0x004E6CA0
+int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel);                           // 0x004E6CA0
 
 int __stdcall STATES_CheckStateMaskRemHitOnUnit(D2UnitStrc* pUnit);                                         // 0x0063A360
 
@@ -521,7 +521,7 @@ int __fastcall SKILLS_AuraCallback_StaticField(D2AuraCallbackStrc* pAuraCallback
 
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
-int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 

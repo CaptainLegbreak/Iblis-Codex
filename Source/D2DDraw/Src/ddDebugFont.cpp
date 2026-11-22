@@ -20,7 +20,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn);                              // 0x006CC34C
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
-void __cdecl sub_0049F960_ResetTextBox();                                                                   // 0x0049F960
+void __cdecl TEXT_ResetTextBox();                                                                   // 0x0049F960
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader);                                          // 0x006612A0
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
@@ -287,7 +287,7 @@ void __fastcall sub_004898D0(int nState)
 // 0x004A1730
 void __cdecl sub_004A1730_ClearPanel()
 {
-    sub_0049F960_ResetTextBox();
+    TEXT_ResetTextBox();
     gnGlobal_007BF1FA = 0;
     if (gpTextHeader_007BF250)
     {

@@ -55,14 +55,14 @@ void __cdecl sub_00477C60_CheckCacheStats();                                    
 void __cdecl sub_00477C00_ToggleCacheStats();                                                               // 0x00477C00
 int __cdecl sub_0044DB30();                                                                                 // 0x0044DB30
 void __cdecl sub_004BABC0_ToggleHints();                                                                    // 0x004BABC0
-bool __fastcall sub_0047BD00_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
+bool __fastcall CHAT_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
 int __stdcall sub_0047BAD0_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
-void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
+void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);                                       // 0x004787B0
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
 extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
@@ -218,7 +218,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
         tSend.nCode = 1;
         tSend.nType = 0x15;
         tSend.nLang = gnLanguageId_007BB5DC;
-        if (!gbChatInputOpen_007BB5E1 || sub_0047BD00_IsNarrowText(pLine))
+        if (!gbChatInputOpen_007BB5E1 || CHAT_IsNarrowText(pLine))
         {
             if (sub_0047BAD0_ParseChatCommand(&pCommand, &tSend.nCode, tSend.szArgument) && !tSend.nCode)
                 tSend.nType = 0x14;
@@ -235,7 +235,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA1));
             else
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA2));
-            sub_0049E3A0_PrintChatLine(wszText, 3);
+            TEXT_PrintChatLine(wszText, 3);
         }
         else if (!sub_0047B3B0_CompareCommand("/ignore ", pText) || !sub_0047B3B0_CompareCommand(gszCmdSquelch_006D5698, pText))
         {
@@ -254,7 +254,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
                     sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA4), wszName);
                 sub_00526700(wszLine, wszText);
             }
-            sub_0049E3A0_PrintChatLine(wszLine, 3);
+            TEXT_PrintChatLine(wszLine, 3);
         }
         else if (!sub_0047B3B0_CompareCommand("/unignore ", pText) || !sub_0047B3B0_CompareCommand(gszCmdUnsquelch_006D5680, pText))
         {
@@ -270,7 +270,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
             else
                 sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA6), wszName);
             sub_00526700(wszLine, wszText);
-            sub_0049E3A0_PrintChatLine(wszLine, 3);
+            TEXT_PrintChatLine(wszLine, 3);
         }
         else if (!sub_0047B3B0_CompareCommand("/filtermsg ", pText))
         {
@@ -282,7 +282,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA7));
             else
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA8));
-            sub_0049E3A0_PrintChatLine(wszText, 3);
+            TEXT_PrintChatLine(wszText, 3);
         }
         else if (!sub_0047B3B0_CompareCommand("/unfiltermsg ", pText))
         {
@@ -294,9 +294,9 @@ static void __stdcall sub_0047C420_HandleChatCommand(char* szText, int nSkip, co
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA9));
             else
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BAA));
-            sub_0049E3A0_PrintChatLine(wszText, 3);
+            TEXT_PrintChatLine(wszText, 3);
         }
-        else if (tSend.nCode == 3 && (!gbChatInputOpen_007BB5E1 || sub_0047BD00_IsNarrowText(pLine)))
+        else if (tSend.nCode == 3 && (!gbChatInputOpen_007BB5E1 || CHAT_IsNarrowText(pLine)))
         {
             if (!sub_0047C1F0_HandleWhisperCommand(1, pText, "/msg")
                 && !sub_0047C1F0_HandleWhisperCommand(1, pText, "/m")

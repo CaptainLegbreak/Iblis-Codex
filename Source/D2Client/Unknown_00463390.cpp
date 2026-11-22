@@ -42,7 +42,7 @@ int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY);
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 extern "C" int __fastcall sub_004807C0_UpdateUnitPath(D2UnitStrc* unit); // 0x004807C0
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
-void __fastcall sub_004B3E10_RefreshNpcEntries(D2UnitStrc* pUnit);                                                            // 0x004B3E10
+void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit);                                                            // 0x004B3E10
 int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 void __fastcall sub_004C72F0(D2UnitStrc* pUnit);                                                            // 0x004C72F0
 void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit);                                                            // 0x004CAF60
@@ -161,7 +161,7 @@ static void sub_00460E70_UpdateRoomState(D2UnitStrc* pUnit)
     sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
     if (gnInTown_007A5260 != bInTown && !bInTown)
-        sub_004B3E10_RefreshNpcEntries(pUnit);
+        NPCMENU_RefreshNpcEntries(pUnit);
     gnInTown_007A5260 = bInTown;
     sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
@@ -348,8 +348,8 @@ void __cdecl sub_00466FE0(); // 0x00466FE0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
-int __fastcall sub_00456300_CloseUIVars(int, int); // 0x00456300
-int __fastcall sub_00480780_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
+int __fastcall UI_CloseUIVars(int, int); // 0x00456300
+int __fastcall INV_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
 void __fastcall sub_00480930_InteractWithUnit(unsigned short, int); // 0x00480930
 void __fastcall sub_00480D20_SetModeOverlay(D2UnitStrc*, int); // 0x00480D20
 void __fastcall sub_00480EF0_MoveToPosition(D2UnitStrc*, int, int, int); // 0x00480EF0
@@ -414,7 +414,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 0:
-        if (sub_00480780_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
+        if (INV_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
         {
             sub_00480E70_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -430,7 +430,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         sub_00460830_SetStateAndSync(1, nNeutralMode, pUnit);
         return 0;
     case 24:
-        if (sub_00480780_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
+        if (INV_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
         {
             sub_00480E70_SetUnitMode(pUnit, 3);
             return 1;
@@ -477,7 +477,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         return 1;
     }
     case 8:
-        if (sub_00463DD0_GetPlayerUnit() == pUnit) sub_00456300_CloseUIVars(1, 0);
+        if (sub_00463DD0_GetPlayerUnit() == pUnit) UI_CloseUIVars(1, 0);
         pUnit->dwLastHitClass = pTarget->nParam;
         if (sub_00467A10() == pUnit)
         {

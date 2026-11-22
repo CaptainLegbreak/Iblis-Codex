@@ -496,7 +496,7 @@ int __cdecl sub_0044DA90(); // 0x0044DA90
 
 void __fastcall sub_0044CE40(int); // 0x0044CE40
 
-D2UnitStrc* __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
+D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 
@@ -2014,7 +2014,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
             }
             else
             {
-                sub_004C5420_RequestAtTarget(pUnit, pSkillsTxtRecord->wAuraFunc, nSkillId, nSkillLevel);
+                AUTOMAP_RequestAtTarget(pUnit, pSkillsTxtRecord->wAuraFunc, nSkillId, nSkillLevel);
             }
 
             pUnit->dwFlags |= 0x40;

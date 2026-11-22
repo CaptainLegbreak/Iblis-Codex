@@ -75,7 +75,7 @@ static void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUn
     D2GAME_RollElementalDamage_6FD14DD0(pUnit, pDamage, nSkillId, nSkillLevel);
     if (pSkillsTxtRecord->nEType == 4 && nValue == 3)
     {
-        const int nDivisor = sub_004E6C70(nSkillId);
+        const int nDivisor = SKILLDESC_GetSkillParamFive(nSkillId);
         if (nDivisor)
         {
             pDamage->dwFrzLen += pDamage->dwColdLen / nDivisor;

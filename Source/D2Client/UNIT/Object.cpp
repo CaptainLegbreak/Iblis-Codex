@@ -100,7 +100,7 @@ void __fastcall sub_00457460(D2UnitStrc* pUnit, int nArg, int nValue);          
 
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
 
-void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x0046F0C0
+void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x0046F0C0
 
 char __fastcall sub_004BDEE0(D2UnitStrc* pUnit); // 0x004BDEE0
 
@@ -210,9 +210,9 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall sub_00481030_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 
-void __cdecl sub_004A30A0_TriggerOnceD3(); // 0x004A30A0
+void __cdecl TEXT_LoadDurielCofsOnce(); // 0x004A30A0
 
-void __cdecl sub_004A30C0_TriggerOnce219(); // 0x004A30C0
+void __cdecl TEXT_LoadAncientsCofsOnce(); // 0x004A30C0
 
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 
@@ -236,11 +236,11 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-char __cdecl sub_004A3110_GetFlag025F(); // 0x004A3110
+char __cdecl TEXT_HasQuestPacketValue(); // 0x004A3110
 
-char __cdecl sub_004A3120_IsQuestUnitPresent(); // 0x004A3120
+char __cdecl TEXT_IsQuestUnitPresent(); // 0x004A3120
 
-void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY); // 0x004A3150
+void __fastcall TEXT_SpawnQuestUnits(int nX, int nY); // 0x004A3150
 
 static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit);
 
@@ -677,7 +677,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
                 const int nClassId = pUnit->dwClassId;
                 if (nClassId == 0x162 || nClassId == 0x163 || nClassId == 0x18D || nClassId == 0x195
                     || nClassId == 0x197 || nClassId == 0x196 || nClassId == 0x164)
-                    sub_0046F0C0(pUnit, 0, 0x47);
+                    AUTOMAP_RemoveUnitOverlay(pUnit, 0, 0x47);
             }
 
             sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
@@ -979,7 +979,7 @@ void __fastcall sub_004BD4A0_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt*
     D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->bCode];
     if (pHandler->f_8 != -1)
     {
-        sub_0046F0C0(pUnit, 0, pHandler->f_8);
+        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pHandler->f_8);
         if (!pUnit || !pUnit->dwAnimMode)
         {
             sub_00470390(pUnit, pHandler->f_8, 3, 0, 0, 0, 0, 0);
@@ -988,7 +988,7 @@ void __fastcall sub_004BD4A0_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt*
 
     if (pHandler->f_C != -1)
     {
-        sub_0046F0C0(pUnit, 0, pHandler->f_C);
+        AUTOMAP_RemoveUnitOverlay(pUnit, 0, pHandler->f_C);
         if (!pUnit || !pUnit->dwAnimMode)
         {
             sub_00470390(pUnit, pHandler->f_C, 3, 0, 0, 0, 0, 0);
@@ -1297,7 +1297,7 @@ char __fastcall sub_004BDBF0_TriggerOnce219(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
-        sub_004A30C0_TriggerOnce219();
+        TEXT_LoadAncientsCofsOnce();
     }
 
     return 1;
@@ -1331,7 +1331,7 @@ char __fastcall sub_004BDCA0_TriggerOnceD3(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
-        sub_004A30A0_TriggerOnceD3();
+        TEXT_LoadDurielCofsOnce();
     }
 
     return 1;
@@ -1385,7 +1385,7 @@ char __fastcall sub_004BDCF0_TimedOverlay(D2UnitStrc* pUnit)
         }
         else
         {
-            sub_0046F0C0(pUnit, 0, 0x48);
+            AUTOMAP_RemoveUnitOverlay(pUnit, 0, 0x48);
             pUnit->dwTickCount = GetTickCount() + 500;
         }
     }
@@ -1425,9 +1425,9 @@ char __fastcall sub_004BDE00_FinishOperate(D2UnitStrc* pUnit)
 // 0x004BDE40
 char __fastcall sub_004BDE40_ReportPosition(D2UnitStrc* pUnit)
 {
-    if (sub_004A3110_GetFlag025F() && !sub_004A3120_IsQuestUnitPresent())
+    if (TEXT_HasQuestPacketValue() && !TEXT_IsQuestUnitPresent())
     {
-        sub_004A3150_SpawnQuestUnits(CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
+        TEXT_SpawnQuestUnits(CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
     }
     return 1;
 }

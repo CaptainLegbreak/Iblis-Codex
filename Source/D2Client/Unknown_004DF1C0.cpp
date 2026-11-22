@@ -213,7 +213,7 @@ struct D2RC4Strc
     unsigned char j;
 
     void sub_004E09B0_Init(const unsigned char* pKey, unsigned int nKeySize);
-    void sub_0047F8C0_Crypt(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
+    void ApplyKeystream(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
 };
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);

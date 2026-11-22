@@ -31,7 +31,7 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
-const Unicode* __fastcall sub_00469DE0_GetKeyText(int nKey, int nArg2); // 0x00469DE0
+const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
@@ -234,13 +234,13 @@ static void __stdcall sub_0047F490_ShowSlotTooltip(int nX, int nY, int nKind)
         if (sub_00469AA0(nHotKey, 1) != 0xFFFF)
         {
             memset(wszKey, 0, sizeof(wszKey));
-            sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), sub_00469DE0_GetKeyText(nHotKey, 1));
+            sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 1));
             sub_00526700(wszText, wszKey);
         }
         if (sub_00469AA0(nHotKey, 0) != 0xFFFF)
         {
             memset(wszKey, 0, sizeof(wszKey));
-            sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), sub_00469DE0_GetKeyText(nHotKey, 0));
+            sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 0));
             sub_00526700(wszText, wszKey);
         }
     }

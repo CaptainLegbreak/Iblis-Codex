@@ -5,12 +5,12 @@ struct D2CelFileStrc;
 
 
 void __cdecl sub_00477DD0();                                                                                // 0x00477DD0
-void __stdcall sub_0045FBC0_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
+void __stdcall UI_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
 void __cdecl sub_0045FC60_DrawLoadingTexts();                                                               // 0x0045FC60
 void __stdcall sub_0045FD20_DrawPanelCel(int nFrame);                                                       // 0x0045FD20
-void __cdecl sub_0045FD80_DrawCenteredString();                                                             // 0x0045FD80
+void __cdecl UI_DrawCenteredString();                                                             // 0x0045FD80
 void __cdecl sub_004684C0(); // 0x004684C0
-void __cdecl sub_00482C20_Tick();                                                                           // 0x00482C20
+void __cdecl INV_TickSound();                                                                           // 0x00482C20
 void __fastcall sub_00460190_DrawFrame(int nUnused);                                                        // 0x00460190
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0
 void __fastcall sub_0044C930_SetClientState(int nState);                                                    // 0x0044C930
@@ -18,7 +18,7 @@ int __cdecl sub_004F59A0();                                                     
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 int __fastcall sub_00451BB0_MessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
-void __cdecl sub_00460430_FreeCels();                                                                       // 0x00460430
+void __cdecl UI_FreeCels();                                                                       // 0x00460430
 
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00711D40[];                                                      // 0x00711D40
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00711D70[];                                                      // 0x00711D70
@@ -44,14 +44,14 @@ int __stdcall sub_00460490_DrawPopup(int nArg)
     {
         D2GFX_ClearScreen(0);
         sub_004FB0D0();
-        sub_0045FBC0_DrawCelPair(1);
+        UI_DrawCelPair(1);
         sub_0045FC60_DrawLoadingTexts();
         sub_0045FD20_DrawPanelCel(gnGlobal_007A524C);
-        sub_0045FD80_DrawCenteredString();
+        UI_DrawCenteredString();
         sub_004684C0();
         D2GFX_EndScene();
     }
-    sub_00482C20_Tick();
+    INV_TickSound();
     return gnGlobal_007A5254 != 0;
 }
 
@@ -69,7 +69,7 @@ int __cdecl sub_00460500_RunPopup()
     sub_00451BB0_MessageLoop(sub_00460490_DrawPopup);
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00711D40, 4);
     sub_0044C930_SetClientState(0);
-    sub_00460430_FreeCels();
+    UI_FreeCels();
     return 1;
 }
 
@@ -87,7 +87,7 @@ int __cdecl sub_004605A0_RunPopup()
     sub_00451BB0_MessageLoop(sub_00460490_DrawPopup);
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00711D40, 4);
     sub_0044C930_SetClientState(0);
-    sub_00460430_FreeCels();
+    UI_FreeCels();
     return 1;
 }
 
@@ -96,7 +96,7 @@ int __stdcall sub_00460640_PaintConfirmFrame(int nArg)
 {
     sub_00477DD0();
     sub_00460190_DrawFrame(1);
-    sub_00482C20_Tick();
+    INV_TickSound();
     if (!gnGlobal_007A5258 && !gnGlobal_007A525C)
         return 0;
     return 1;
@@ -120,7 +120,7 @@ int __cdecl sub_00460680_RunOkCancel()
         nResult = 0;
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00711D70, 4);
     sub_0044C930_SetClientState(0);
-    sub_00460430_FreeCels();
+    UI_FreeCels();
     return nResult;
 }
 

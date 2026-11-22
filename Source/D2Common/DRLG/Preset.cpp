@@ -50,7 +50,7 @@ D2MonPresetTxt* __stdcall DATATBLS_GetMonPresetTxtActSection(int nAct, int* pnRe
 
 int __fastcall DATATBLS_GetSuperUniquesTxtRecordCount(); // 0x00655710
 
-__declspec(noinline) int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId); // 0x004E6C50
+__declspec(noinline) int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId); // 0x004E6C50
 
 int __fastcall DRLGPRESET_MapTileType(int nId);                                                             // 0x0066D7F0
 
@@ -600,13 +600,13 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
                     {
                         if (nIndex < sgptDataTables->nMonStatsTxtRecordCount)
                         {
-                            if (nIndex == sub_004E6C50_ValidateMonsterId(MONSTER_NATALYA))
+                            if (nIndex == SKILLDESC_ValidateMonsterId(MONSTER_NATALYA))
                             {
                                 nIndex = 382;
                                 nType = 2;
                                 nMode = 0;
                             }
-                            else if (nIndex == sub_004E6C50_ValidateMonsterId(MONSTER_COMPELLINGORB))
+                            else if (nIndex == SKILLDESC_ValidateMonsterId(MONSTER_COMPELLINGORB))
                             {
                                 nIndex = 404;
                                 nType = 2;
@@ -766,9 +766,9 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
     }
 }
 
-// build: context sub_004E6C50_ValidateMonsterId
+// build: context SKILLDESC_ValidateMonsterId
 // calling-convention shim (not game code)
-int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId)
+int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId)
 {
 
     return nMonsterId / sgptDataTables->nMonStatsTxtRecordCount;

@@ -166,11 +166,11 @@ int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord);   
 
 int __fastcall sub_0047A150_GetPartyLife(int nUnitId);                                                     // 0x0047A150
 
-D2CelFileStrc* __fastcall sub_00493240_PetIconForType(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle); // 0x00493240
+D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle); // 0x00493240
 
-void __stdcall sub_00493100_DrawNumber(int nValue, int nX);                                                // 0x00493100
+void __stdcall INV_DrawIconNumber(int nValue, int nX);                                                // 0x00493100
 
-const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                         // 0x0046A530
+const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                         // 0x0046A530
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -225,7 +225,7 @@ extern D2HirelingIconRecordStrc* gpHirelingRecords_007BEEAC; // 0x007BEEAC
 extern "C" size_t __cdecl strlen(const char* szString);
 
 // 0x00492C20
-void __cdecl sub_00492C20_LoadHirelingIcons()
+void __cdecl HIREABLES_LoadHirelingIcons()
 {
     char aszClassIcons[5][32] = {
         "Hireables\\AmazonIcon",
@@ -261,7 +261,7 @@ void __cdecl sub_00492C20_LoadHirelingIcons()
 }
 
 // 0x00492EC0
-void __cdecl sub_00492EC0_FreeHirelingIcons()
+void __cdecl HIREABLES_FreeHirelingIcons()
 {
     for (int i = 0; i < 7; ++i)
     {
@@ -289,7 +289,7 @@ void __cdecl sub_00492EC0_FreeHirelingIcons()
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00492FA0
-static void __stdcall sub_00492FA0_DrawFittedText(int nX, int nY, int nColor, Unicode* pText)
+static void __stdcall HIREABLES_DrawFittedText(int nX, int nY, int nColor, Unicode* pText)
 {
     const int nOldFont = sub_00502EF0(6);
     Unicode* pEnd = &pText[31];
@@ -313,7 +313,7 @@ static void __stdcall sub_00493020_DrawPetTypeName(int nX, int nY, int nPetType)
     {
         Unicode wszName[32];
         sub_005267E0(wszName, D2LANG_GetStringFromTblIndex(pPetTypeTxt->wStringId));
-        sub_00492FA0_DrawFittedText(nX, nY, 0, wszName);
+        HIREABLES_DrawFittedText(nX, nY, 0, wszName);
     }
 }
 
@@ -326,13 +326,13 @@ static void __stdcall sub_004930A0_DrawRosterName(const char* szName, int nX, in
         wszName[i] = 0;
     }
     sub_00526320_ToUnicode((Unicode*)wszName, szName, 32);
-    sub_00492FA0_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
+    HIREABLES_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
 }
 
 struct D2UnitStrc;
 
 // 0x00493220
-static inline void sub_00493220_ToggleAmount(int* pTotal, int* pAmount)
+static inline void HIREABLES_ToggleAmount(int* pTotal, int* pAmount)
 {
     if (*pAmount)
     {
@@ -348,7 +348,7 @@ static inline void sub_00493220_ToggleAmount(int* pTotal, int* pAmount)
 
 void __fastcall sub_M110_Emit_00493220(int* pTotal, int* pAmount)
 {
-    sub_00493220_ToggleAmount(pTotal + 1, pAmount);
+    HIREABLES_ToggleAmount(pTotal + 1, pAmount);
 }
 
 static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
@@ -361,7 +361,7 @@ static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
 }
 
 // 0x00493240
-D2CelFileStrc* __fastcall sub_00493240_PetIconForType(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle)
+D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle)
 {
     int aPath[0x40];
 
@@ -406,7 +406,7 @@ D2CelFileStrc* __fastcall sub_00493240_PetIconForType(D2UnitStrc* pOwner, int nP
 }
 
 // 0x00493340
-void __cdecl sub_00493340_UpdateHirelingPanel()
+void __cdecl HIREABLES_UpdateHirelingPanel()
 {
     if (gnGlobal_007BEECC == 2)
     {
@@ -449,7 +449,7 @@ void __cdecl sub_00493340_UpdateHirelingPanel()
 }
 
 // 0x00493430
-void __stdcall sub_00493430_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gnGlobal_007BEECC == 2)
     {
@@ -480,7 +480,7 @@ void __stdcall sub_00493430_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004934B0
-D2UnitStrc* __cdecl sub_004934B0_GetPlayerCursorItem()
+D2UnitStrc* __cdecl HIREABLES_GetPlayerCursorItem()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
@@ -489,7 +489,7 @@ D2UnitStrc* __cdecl sub_004934B0_GetPlayerCursorItem()
 }
 
 // 0x004934D0
-int __stdcall sub_004934D0_CheckBoxAction(int playSound)
+int __stdcall HIREABLES_CanEquipHirelingItem(int playSound)
 {
  if(!sub_0044DCC0()) return 0;
  int result=0;
@@ -563,12 +563,12 @@ static void __stdcall sub_00493B00_DrawUnitName(D2UnitStrc* pUnit, int nX, int n
         memset(wszName, 0, sizeof(wszName));
         sub_00526790((Unicode*)wszName, sub_00464A60_GetUnitName(pUnit), 32);
         wszName[31] = 0;
-        sub_00492FA0_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
+        HIREABLES_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
     }
 }
 
 // 0x004942D0
-int __cdecl sub_004942D0_GetHelpMenuSetting()
+int __cdecl HIREABLES_GetHelpMenuSetting()
 {
     if (gdwHelpMenu_00722310 == 0xFFFFFFFF)
     {
@@ -579,7 +579,7 @@ int __cdecl sub_004942D0_GetHelpMenuSetting()
 }
 
 // 0x00494320
-void __cdecl sub_00494320_LoadHelpCels()
+void __cdecl HIREABLES_LoadHelpCels()
 {
     if (D2GFX_GetResolutionMode() == 2)
     {
@@ -618,7 +618,7 @@ void __cdecl sub_00494320_LoadHelpCels()
 }
 
 // 0x00494EE0
-void __cdecl sub_00494EE0_FreeHelpCels()
+void __cdecl HIREABLES_FreeHelpCels()
 {
     if (gpGlobal_007BEEEC)
     {
@@ -638,7 +638,7 @@ void __cdecl sub_00494EE0_FreeHelpCels()
 }
 
 // 0x00496990
-void __cdecl sub_00496990_FreePanelCels()
+void __cdecl HIREABLES_FreePanelCels()
 {
     D2_FREE_PANEL_CEL(gpCellFile_007BEF7C);
     D2_FREE_PANEL_CEL(gpCel_007BEF64);
@@ -661,13 +661,13 @@ void __cdecl sub_00496990_FreePanelCels()
 }
 
 // 0x00497270
-void __cdecl sub_00497270_InitTextColorA()
+void __cdecl HIREABLES_InitTextColorA()
 {
     gnTextColorA_007BEFBB = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
 }
 
 // 0x00497290
-void __cdecl sub_00497290_InitTextColorB()
+void __cdecl HIREABLES_InitTextColorB()
 {
     gnTextColorB_007BEFE4 = D2Win_10034_MixRGB(0, 0, 0xFF);
 }
@@ -679,7 +679,7 @@ int __cdecl sub_004979E0()
 }
 
 // 0x004979F0
-int __cdecl sub_004979F0()
+int __cdecl HIREABLES_GetBeltRowCount()
 {
     switch (gnUiRecordIndex_00722354)
     {
@@ -780,7 +780,7 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, 7, &nUnitId, 0);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, 7, &nUnitId, 0);
     if (!tContext.pCellFile)
         return 0;
 
@@ -823,7 +823,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, nPetType, &nUnitId, 0);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
     if (!tContext.pCellFile)
         return 0;
 
@@ -854,14 +854,14 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
     int bSingle = 0;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, nPetType, &nUnitId, &bSingle);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, &bSingle);
     if (!tContext.pCellFile)
         return 0;
 
     if (nCount == 1 && bSingle)
         sub_00493A00_DrawLifeBar(nPetType, *pnX, sub_00478F20_FindPetIdByOwner(pPlayer, nPetType, 0));
 
-    sub_00493100_DrawNumber(nCount, *pnX);
+    INV_DrawIconNumber(nCount, *pnX);
     sub_00493020_DrawPetTypeName(*pnX, *pnY, nPetType);
     if (*pbAlternate)
     {
@@ -883,7 +883,7 @@ static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, in
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = sub_00493240_PetIconForType(pPlayer, nPetType, &nUnitId, 0);
+    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
     if (!tContext.pCellFile)
         return 0;
 
@@ -954,7 +954,7 @@ void __cdecl sub_00494020_DrawPetIcons()
             const Unicode* wszSuffix = D2LANG_GetStringFromTblIndex(0x58A2);
             const Unicode* wszFormat = D2LANG_GetStringFromTblIndex(0x58A3);
             const Unicode* wszMiddle = D2LANG_GetStringFromTblIndex(0xF9E);
-            sub_005269D0(0x100, wszText, wszFormat, sub_0046A530_GetKeyName(0x36, 1));
+            sub_005269D0(0x100, wszText, wszFormat, CMDTBL_GetKeyName(0x36, 1));
             sub_00526700(wszText, wszMiddle);
             sub_00526700(wszText, wszSuffix);
             D2Win_10129_DrawFramedText(wszText, gnPopupX_007BEED4, gnPopupY_007BEED8 + 0x24, 0, 0);

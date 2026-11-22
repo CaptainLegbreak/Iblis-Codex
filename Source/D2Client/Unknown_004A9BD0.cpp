@@ -45,7 +45,7 @@ D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2SkillIconStateStrc gtSkillIconState_007C0300; // 0x007C0300
-void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
+void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
 
 #pragma pack(push, 1)
 struct D2UiCelFileStrc
@@ -67,7 +67,7 @@ extern D2UiCelFileStrc gaPanelCels_00724BF0[7]; // 0x00724BF0
 extern D2WeatherLayerStateStrc gtWeatherLayer_007A89B0; // 0x007A89B0
 extern D2WeatherLayerStateStrc gtWeatherLayer_007A893C; // 0x007A893C
 extern D2NpcEntryStrc gaNpcEntries_00726850[]; // 0x00726850
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern int gnAutomapWidth_007A5220; // 0x007A5220
 extern int gnGlobal_007A2858; // 0x007A2858
@@ -189,7 +189,7 @@ void __cdecl sub_004AA680_BuildRightRows()
     if (gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
+        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
     }
 }
 
@@ -259,7 +259,7 @@ int __cdecl sub_004B1D70_FindNpcEntry()
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(int nY, const Unicode* wszText)
 {
     const int nRight = gnAutomapWidth_007A5220 - gnGlobal_007A2858;
-    sub_004A7080(nRight - 0x5A, gnGlobal_00711470 + gnGlobal_007A285C + nY - 0x1E0, nRight, wszText, 0);
+    TEXT_DrawCenteredText(nRight - 0x5A, gnGlobal_00711470 + gnGlobal_007A285C + nY - 0x1E0, nRight, wszText, 0);
 }
 
 void __fastcall sub_M26_Emit_004AB090(char nMode)

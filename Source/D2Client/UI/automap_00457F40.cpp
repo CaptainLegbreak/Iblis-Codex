@@ -76,9 +76,9 @@ struct D2AutomapLayerStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-void* __cdecl sub_00457F40_OpenAutomapFile(); // 0x00457F40
+void* __cdecl AUTOMAP_OpenAutomapFile(); // 0x00457F40
 
-void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells); // 0x00458470
+void __fastcall AUTOMAP_StoreCells(D2AutomapCellStrc* pCells); // 0x00458470
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
@@ -94,9 +94,9 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
+D2AutomapCellStrc* __cdecl AUTOMAP_AllocAutomapCell(); // 0x00457C30
 
-int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
+int __fastcall AUTOMAP_InsertAutomapCell(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
@@ -263,11 +263,11 @@ struct D2AutomapDrawStrc
 
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 
-int __cdecl sub_0045AFA0();                                                                                 // 0x0045AFA0
+int __cdecl UI_GetAutomapOffsetX();                                                                                 // 0x0045AFA0
 
-int __cdecl sub_0045AFB0();                                                                                 // 0x0045AFB0
+int __cdecl UI_GetAutomapOffsetY();                                                                                 // 0x0045AFB0
 
-void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo);                  // 0x00459440
+void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo);                  // 0x00459440
 
 int gdwGlobal_007A51E0;                                                                                     // 0x007A51E0
 
@@ -313,7 +313,7 @@ static inline int AUTOMAP_GetUnitType(D2UnitStrc* pUnit);
 static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag);
 
 // 0x00457F40
-void* __cdecl sub_00457F40_OpenAutomapFile()
+void* __cdecl AUTOMAP_OpenAutomapFile()
 {
     char szSavePath[0x104] = { 0 };
     char szFileName[0x104] = { 0 };
@@ -400,7 +400,7 @@ reopen:
 
 static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
 {
-    void* hFile = sub_00457F40_OpenAutomapFile();
+    void* hFile = AUTOMAP_OpenAutomapFile();
     if (hFile == (void*)-1)
     {
         return;
@@ -471,7 +471,7 @@ void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int*
 }
 
 // 0x004584C0
-void __cdecl sub_004584C0()
+void __cdecl AUTOMAP_SaveAutomapLayer()
 {
     D2AutomapLayerStrc* pLayer = gpAutomapContext_007A5164;
     if (!pLayer)
@@ -495,25 +495,25 @@ void __cdecl sub_004584C0()
     {
         tSave.pFloors = FOG_Alloc(tSave.dwFloorSize, szAutomapFile_006D66F0, 0x4EA, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pFloors;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pFloors);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pFloors);
     }
     if (tSave.dwWallsSize)
     {
         tSave.pWalls = FOG_Alloc(tSave.dwWallsSize, szAutomapFile_006D66F0, 0x4F1, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pWalls;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pWalls);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pWalls);
     }
     if (tSave.nObjects)
     {
         tSave.pObjects = FOG_Alloc(tSave.nObjects, szAutomapFile_006D66F0, 0x4F8, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pObjects;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pObjects);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pObjects);
     }
     if (tSave.dwExtraSize)
     {
         tSave.pExtras = FOG_Alloc(tSave.dwExtraSize, szAutomapFile_006D66F0, 0x4FF, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pExtras;
-        sub_00458470_StoreCells(gpAutomapContext_007A5164->pExtras);
+        AUTOMAP_StoreCells(gpAutomapContext_007A5164->pExtras);
     }
     sub_00458200_WriteAutomapLayer(&tSave);
     if (tSave.pFloors)
@@ -528,7 +528,7 @@ void __cdecl sub_004584C0()
 
 static void __stdcall sub_00457E80_AddUnitAutomapCell(int nCellNo, D2AutomapCellStrc** ppRoot, D2UnitStrc* pUnit)
 {
-    D2AutomapCellStrc* pCell = sub_00457C30();
+    D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
     const int nX = UNITS_GetClientCoordX(pUnit) / 10 + 1;
     const int nY = UNITS_GetClientCoordY(pUnit) / 10 - 3;
     D2_ASSERT(nX >= -0x8000 && nX <= 0x7FFF, 0x3C5);
@@ -537,7 +537,7 @@ static void __stdcall sub_00457E80_AddUnitAutomapCell(int nCellNo, D2AutomapCell
     pCell->nCellNo = nCellNo;
     pCell->xPixel = nX;
     pCell->yPixel = nY;
-    sub_00457B00(pCell, ppRoot);
+    AUTOMAP_InsertAutomapCell(pCell, ppRoot);
 }
 
 static inline int AUTOMAP_CheckFlagEx(D2UnitStrc* pUnit, int nBit)
@@ -559,7 +559,7 @@ static inline D2MonStats2Txt* AUTOMAP_GetMonStats2TxtRecord(int nMonStatsEx)
 }
 
 // 0x00458DC0
-void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
+void __stdcall AUTOMAP_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
 {
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
@@ -632,7 +632,7 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
 }
 
 // 0x00459700
-void __cdecl sub_00459700_PaintAutomap()
+void __cdecl AUTOMAP_PaintAutomap()
 {
     if (!gpAutomapContext_007A5164)
         return;
@@ -665,8 +665,8 @@ void __cdecl sub_00459700_PaintAutomap()
         break;
     }
 
-    const int nX = sub_0045AFA0() / gnAutomapScale_00711254 - gnAutomapWidth_007A5220 / 2 - nShift;
-    const int nY = sub_0045AFB0() / gnAutomapScale_00711254 - gnAutomapHeight_007A521C / 2;
+    const int nX = UI_GetAutomapOffsetX() / gnAutomapScale_00711254 - gnAutomapWidth_007A5220 / 2 - nShift;
+    const int nY = UI_GetAutomapOffsetY() / gnAutomapScale_00711254 - gnAutomapHeight_007A521C / 2;
     gnAutomapViewX_007A5190 = nX;
     gnAutomapViewY_007A5194 = nY;
     gnAutomapOffsetX_007A5198 = gnAutomapBaseX_007A5188 + nX + 0x28;
@@ -696,9 +696,9 @@ void __cdecl sub_00459700_PaintAutomap()
         gnAutomapScale_00711254 = 0xA;
         break;
     }
-    sub_00459440(gpAutomapContext_007A5164->pFloors, &tInfo);
-    sub_00459440(gpAutomapContext_007A5164->pWalls, &tInfo);
-    sub_00459440(gpAutomapContext_007A5164->pObjects, &tInfo);
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pFloors, &tInfo);
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pWalls, &tInfo);
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pObjects, &tInfo);
 
     switch (gdwGlobal_007A5150)
     {
@@ -787,7 +787,7 @@ void __cdecl sub_00459700_PaintAutomap()
         gnAutomapScale_00711254 = 0xA;
         break;
     }
-    sub_00459440(gpAutomapContext_007A5164->pExtras, &tInfo);
+    AUTOMAP_DrawAutomapCells(gpAutomapContext_007A5164->pExtras, &tInfo);
 }
 
 static inline int AUTOMAP_GetUnitClassId(D2UnitStrc* pUnit)
@@ -955,7 +955,7 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
 }
 
 // 0x00459E90
-void __cdecl sub_00459E90_DrawGameInfoLines()
+void __cdecl AUTOMAP_DrawGameInfoLines()
 {
     Unicode wszName[25];
     char szText[28];
@@ -992,7 +992,7 @@ void __cdecl sub_00459E90_DrawGameInfoLines()
 }
 
 // 0x00459FF0
-void __cdecl sub_00459FF0_DrawStringLine()
+void __cdecl AUTOMAP_DrawStringLine()
 {
     Unicode wszText[50];
     for (int i = 0; i < 50; ++i)
@@ -1003,7 +1003,7 @@ void __cdecl sub_00459FF0_DrawStringLine()
 }
 
 // 0x0045A0A0
-void __cdecl sub_0045A0A0_DrawVersionLine()
+void __cdecl AUTOMAP_DrawVersionLine()
 {
     Unicode wszText[100];
     char szText[100];
@@ -1017,7 +1017,7 @@ void __cdecl sub_0045A0A0_DrawVersionLine()
 }
 
 // 0x0045A120
-void __cdecl sub_0045A120_DrawLocalIpLine()
+void __cdecl AUTOMAP_DrawLocalIpLine()
 {
     Unicode wszText[300];
     for (int i = 0; i < 300; ++i)
@@ -1028,7 +1028,7 @@ void __cdecl sub_0045A120_DrawLocalIpLine()
 }
 
 // 0x0045A190
-void __cdecl sub_0045A190_DrawDifficultyLine()
+void __cdecl AUTOMAP_DrawDifficultyLine()
 {
     unsigned short nString;
     switch (sub_0044DCD0_GetDifficulty())
@@ -1052,7 +1052,7 @@ void __cdecl sub_0045A190_DrawDifficultyLine()
 }
 
 // 0x0045A2B0
-void __cdecl sub_0045A2B0_ReloadAutomapCels()
+void __cdecl AUTOMAP_ReloadAutomapCels()
 {
     char szPath[260] = {0};
     for (int i = 0; i < 4; ++i)
@@ -1453,7 +1453,7 @@ int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* p
 }
 
 // 0x004C5470
-int __fastcall sub_004C5470_RequestAtTarget(D2UnitStrc* pUnit, int nArg, int nArg3, int nArg4)
+int __fastcall AUTOMAP_RequestAtNearTarget(D2UnitStrc* pUnit, int nArg, int nArg3, int nArg4)
 {
     int nTargetY;
     int nTargetX;

@@ -98,7 +98,7 @@ int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nInde
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
-void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
+void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode);
 extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
 extern D2TextListStrc gtTextList_007BF1EA; // 0x007BF1EA
@@ -127,7 +127,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
     pBox->nHeight = pBox->nLines * 0x0F + 6;
 }
 
-void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
+void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
 {
     if (pTextBox)
     {
@@ -136,7 +136,7 @@ void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
     }
 }
 
-static int sub_0049D9A0_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
+static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
 {
     if (!pTextBox->nScroll)
         pTextBox->nScroll = 1;
@@ -278,17 +278,17 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     tRect.nRight = pTextBox->nWidth + pPos->nX;
     if (gnHoverRectCount_007BF224 < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount_007BF224, &tRect))
     {
-        sub_0049D410_FreeTextBox(pTextBox);
+        TEXT_FreeTextBox(pTextBox);
         return;
     }
 
     ++gnHoverRectCount_007BF224;
-    sub_0049D9A0_DrawTextBoxAt(pTextBox, &tRect);
-    sub_0049D410_FreeTextBox(pTextBox);
+    TEXT_DrawTextBoxAt(pTextBox, &tRect);
+    TEXT_FreeTextBox(pTextBox);
     sub_00502EF0(nOldFont);
 }
 
-void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit)
+void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return;
@@ -360,7 +360,7 @@ static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
 }
 
 // 0x0049E5C0
-void __fastcall sub_0049E5C0_PrintPartyText(const Unicode* wszText, char nColor)
+void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
 {
     const int nOldFont = sub_00502EF0(0xD);
     D2TextNodeStrc* pNode = (D2TextNodeStrc*)FOG_Alloc(sizeof(D2TextNodeStrc), ".\\UI\\text.cpp", 0xDAD, 0);
@@ -424,7 +424,7 @@ void __fastcall sub_0049E5C0_PrintPartyText(const Unicode* wszText, char nColor)
         gtTextList_007BF1EA.pFirst = pNode;
     }
     gtTextList_007BF1EA.wCount++;
-    sub_0049DBC0_AddToHistory(pNode);
+    TEXT_AddToHistory(pNode);
 
     if (gtTextList_007BF1EA.wCount > 2)
     {

@@ -4,7 +4,7 @@
 
 D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int bIncludeDead); // 0x00574EC0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-int __fastcall sub_004F4110_GetSkillParam5(int nSkillId); // 0x004F4110
+int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, unsigned short nLayer); // 0x00627260
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, unsigned short nLayer); // 0x00625480
@@ -35,7 +35,7 @@ int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc* pGame, D2UnitStr
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pBloodGolem->dwClassId);
         if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill[0] >= 0)
         {
-            const int nParam = sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill[0]);
+            const int nParam = SKILLDESC_GetSkillParamSix(pMonStatsTxtRecord->nSkill[0]);
             const int nResult = nLife - SKILLS_AddLifeAndGetGain(pBloodGolem, nParam * nLife / 100);
 
             return nResult;

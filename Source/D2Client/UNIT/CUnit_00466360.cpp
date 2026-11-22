@@ -185,13 +185,13 @@ void __fastcall sub_004DC0C0_FreeCltUnitEvents(D2UnitStrc* pUnit);              
 
 void __fastcall sub_0045F9F0_FreePacketBuffer(void* pArg);                                                  // 0x0045F9F0
 
-void __cdecl sub_00453DE0();                                                                                // 0x00453DE0
+void __cdecl UI_FreePlayerUI();                                                                                // 0x00453DE0
 
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection);                         // 0x006488A0
 
 void __fastcall sub_0044BEA0_SetValue(int nValue);                                                          // 0x0044BEA0
 
-void __cdecl sub_00453D90_RunSequenceA();                                                                   // 0x00453D90
+void __cdecl UI_LoadPlayerUI();                                                                   // 0x00453D90
 
 void __fastcall sub_004879D0(D2UnitStrc* pUnit);                                                            // 0x004879D0
 

@@ -44,7 +44,7 @@ void __fastcall sub_0046BB90_PlayerRequestAtUnit16B(D2UnitStrc* pUnit);         
 
 void __fastcall sub_0046BC10_HintAndMissile(D2UnitStrc* pUnit);                                             // 0x0046BC10
 
-int __fastcall sub_0046BC70_SetTimerUnitId(D2UnitStrc* pUnit);                                              // 0x0046BC70
+int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit);                                              // 0x0046BC70
 
 void __fastcall sub_0046BC90_RequestAtMonster220(D2UnitStrc* pUnit);                                        // 0x0046BC90
 
@@ -142,7 +142,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
     case 0xF3:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046BC70_SetTimerUnitId(pUnit);
+            UI_SetTimerUnitId(pUnit);
         }
         break;
 

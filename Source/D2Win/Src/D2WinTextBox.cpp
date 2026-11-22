@@ -145,9 +145,9 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
 
-void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
+void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 
-void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
+void __fastcall SKILLDESC_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
 
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
 
@@ -242,22 +242,22 @@ void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* p
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B42));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 2, pBuffer, nSize, (int)wszTemp);
+        SKILLDESC_BuildItemPropText(pItem, (int)pGemsTxt, 2, pBuffer, nSize, (int)wszTemp);
         sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B41));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        SKILLDESC_BuildItemPropText(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
         sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B44));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        SKILLDESC_BuildItemPropText(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
         sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B43));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 0, pBuffer, nSize, (int)wszTemp);
+        SKILLDESC_BuildItemPropText(pItem, (int)pGemsTxt, 0, pBuffer, nSize, (int)wszTemp);
     }
     else if (ITEMSIsA(pItem, 0x4A))
     {
@@ -267,22 +267,22 @@ void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* p
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B42));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 2, pBuffer, nSize, (int)wszTemp);
+        TEXT_BuildItemPropTextB(pItem, (int)pGemsTxt, 2, pBuffer, nSize, (int)wszTemp);
         sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B41));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        TEXT_BuildItemPropTextB(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
         sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B44));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        TEXT_BuildItemPropTextB(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
         sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
         wszTemp[0].wChar = 0;
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B43));
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 0, pBuffer, nSize, (int)wszTemp);
+        TEXT_BuildItemPropTextB(pItem, (int)pGemsTxt, 0, pBuffer, nSize, (int)wszTemp);
     }
     else
     {

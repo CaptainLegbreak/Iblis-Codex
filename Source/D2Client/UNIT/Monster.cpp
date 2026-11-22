@@ -67,13 +67,13 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
-int __cdecl sub_00466DD0(); // 0x00466DD0
+int __cdecl UI_GetHoverClassId(); // 0x00466DD0
 int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
+int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
@@ -194,7 +194,7 @@ struct D2ClientStringListStrc
     unsigned short wCount;
 };
 
-void __fastcall sub_004B8020(void* pRes); // 0x004B8020
+void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 extern D2ClientStringListStrc gtStringList_007C0D9A; // 0x007C0D9A
 extern D2UnitStrc* gpUnit_007C0DD4; // 0x007C0DD4
@@ -251,7 +251,7 @@ int __cdecl sub_004A74A0_GetPercentB()
     const int nDifficulty = sub_0044DCD0_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 470);
 
-    const int nMonsterId = sub_00466DD0();
+    const int nMonsterId = UI_GetHoverClassId();
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
     if (!pMonStatsTxtRecord)
     {
@@ -502,7 +502,7 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
         nLight = pMonStats2TxtRecord->nLightRadius;
     }
 
-    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_DENOFEVIL && sub_004B92E0_GetTableByte(0, 1) && !sub_00451F30_TestUnitFlag(pUnit, 0x200000)
+    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_DENOFEVIL && INV_GetTableByte(0, 1) && !sub_00451F30_TestUnitFlag(pUnit, 0x200000)
         && pMonStatsTxtRecord->nAlign != 1 && pMonStatsTxtRecord->nAlign != 2)
     {
         nLight = 3;
@@ -1760,7 +1760,7 @@ void __cdecl sub_004B1D50_CloseRes()
 {
     if (gpRes_007C0D6B)
     {
-        sub_004B8020(gpRes_007C0D6B);
+        DIALOG_DestroyDialog(gpRes_007C0D6B);
         gpRes_007C0D6B = 0;
     }
 }

@@ -77,7 +77,7 @@ int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
 void __fastcall sub_004822B0_AddVariantRefs(int nIndex, int nDelta); // 0x004822B0
 int __cdecl sub_0044DB00(); // 0x0044DB00
 int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
-extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength); // 0x004E4180
 int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode); // 0x004CA810
 int __fastcall sub_004CADB0_GetUnitFloorMaterial(D2UnitStrc* pUnit); // 0x004CADB0
@@ -94,7 +94,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
-void __fastcall sub_004A0200_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x004A0200
+void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x004A0200
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg); // 0x004DCE10
@@ -131,7 +131,7 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
-void __cdecl sub_00476AF0_ClearGlobals(); // 0x00476AF0
+void __cdecl UI_ClearGlobals(); // 0x00476AF0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -656,7 +656,7 @@ void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit)
     sub_004B9A00(nNeutral, pUnit, 0, 0, 0);
     gnNeutralTick_007C88B8 = nTick;
     sub_004CABC0_WriteAsyncSoundTick(pUnit, nTick);
-    gnNeutralDelay_007C88C0 = sub_004E4100_RandomInRange(0x1E, 0x5A);
+    gnNeutralDelay_007C88C0 = SKILLDESC_RandomInRange(0x1E, 0x5A);
 }
 
 void __fastcall sub_004CB6A0_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay)
@@ -832,7 +832,7 @@ void __fastcall sub_004CC380_PlayInitSound(D2UnitStrc* pUnit)
         sub_004B9A00(nInit, pUnit, 0, 0, 0);
         gnNeutralTick_007C88B8 = nTick;
         sub_004CABC0_WriteAsyncSoundTick(pUnit, nTick);
-        gnNeutralDelay_007C88C0 = sub_004E4100_RandomInRange(0x1E, 0x5A);
+        gnNeutralDelay_007C88C0 = SKILLDESC_RandomInRange(0x1E, 0x5A);
         return;
     }
 
@@ -1361,7 +1361,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
             sub_004B9A00(0x1211, pUnit, 0, 0, 0);
             nSpeech = 0x1211;
         }
-        sub_004A0200_SetSpeechHoverText(pUnit, nSpeech);
+        TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 85:
         if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
@@ -1374,7 +1374,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
             sub_004B9A00(0x1208, pUnit, 0, 0, 0);
             nSpeech = 0x1208;
         }
-        sub_004A0200_SetSpeechHoverText(pUnit, nSpeech);
+        TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 86:
         if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
@@ -1387,7 +1387,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
             sub_004B9A00(0x120B, pUnit, 0, 0, 0);
             nSpeech = 0x120B;
         }
-        sub_004A0200_SetSpeechHoverText(pUnit, nSpeech);
+        TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 87:
         if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
@@ -1400,7 +1400,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
             sub_004B9A00(0x120E, pUnit, 0, 0, 0);
             nSpeech = 0x120E;
         }
-        sub_004A0200_SetSpeechHoverText(pUnit, nSpeech);
+        TEXT_SetSpeechHoverText(pUnit, nSpeech);
         break;
     case 15:
         if (sub_004CA2C0_GetUnitSndClassId(pUnit) == 0x10F)
@@ -1580,7 +1580,7 @@ int __fastcall sub_004CCF00_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc*
 {
     if (!pUnit)
     {
-        sub_00476AF0_ClearGlobals();
+        UI_ClearGlobals();
         return 1;
     }
     return 0;

@@ -56,7 +56,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 void __cdecl sub_00411A20_InitPageSize(); // 0x00411A20
 void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink); // 0x00411A80
-void __cdecl sub_00412000_ReleaseFreeBlocks(); // 0x00412000
+void __cdecl AUTOMAP_ReleaseFreeBlocks(); // 0x00412000
 extern "C" const char gszMemNeverReleased_006CECCC[]; // 0x006CECCC
 extern "C" const char szSMemFree_006CED2C[]; // 0x006CED2C
 extern "C" const char szSMemGetHeapByCaller_006CED38[]; // 0x006CED38
@@ -1145,7 +1145,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
     if (nLockIndex != -1)
         LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
     if (gpFreeBlockSweep_007788C8 && gpFreeBlockSweep_007788C8 != pHeap)
-        sub_00412000_ReleaseFreeBlocks();
+        AUTOMAP_ReleaseFreeBlocks();
     return pResult;
 }
 
@@ -1176,7 +1176,7 @@ void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned
     if (nLockIndex != -1)
         LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
     if (gpFreeBlockSweep_007788C8 && gpFreeBlockSweep_007788C8 != pHeap)
-        sub_00412000_ReleaseFreeBlocks();
+        AUTOMAP_ReleaseFreeBlocks();
     return pResult;
 }
 

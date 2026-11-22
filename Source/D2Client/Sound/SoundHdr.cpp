@@ -23,7 +23,7 @@ int __fastcall sub_004DF630_QueryAddress(D2SoundsTxtStrc* pEntry); // 0x004DF630
 
 void __fastcall sub_00482860_TouchCacheEntry(int nIndex); // 0x00482860
 
-int __stdcall sub_004824A0_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
+int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
@@ -610,7 +610,7 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
     if (gdwCacheUsed_007BC9D0 + nSize > gnCacheMax_007BC9CC)
     {
         const unsigned int nFree = gdwCacheUsed_007BC9D0 - gnCacheMax_007BC9CC + nSize;
-        if (!sub_004824A0_FreeCacheEntries(nFree, bDirect, nArg))
+        if (!INV_FreeCacheEntries(nFree, bDirect, nArg))
         {
             gnCacheLastLoadTick_007BC9C4 = nSaved;
             return;

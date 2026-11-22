@@ -13,7 +13,7 @@ struct D2HotkeyCommandStrc
 
 extern D2HotkeyCommandStrc gtHotkeyCommands_00712698[];                                                     // 0x00712698
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS];                                                        // 0x007A6F90
-int __fastcall sub_00469AE0_IsValidKey(unsigned short nKey);                                                // 0x00469AE0
+int __fastcall CMDTBL_IsValidKey(unsigned short nKey);                                                // 0x00469AE0
 
 // 0x00469420
 static int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
@@ -35,7 +35,7 @@ static int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned sho
     return 1;
 }
 
-int __fastcall sub_00469C20_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey)
+int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey)
 {
     const unsigned short nKey = (unsigned short)nCommand;
     if (pKey)
@@ -46,7 +46,7 @@ int __fastcall sub_00469C20_QueryKey(int nId, int nMode, int nCommand, unsigned 
     {
         return 0;
     }
-    if (sub_00469AE0_IsValidKey(nKey))
+    if (CMDTBL_IsValidKey(nKey))
     {
         if (!sub_00469420_CheckWheelKey(nId, nKey, pKey))
         {

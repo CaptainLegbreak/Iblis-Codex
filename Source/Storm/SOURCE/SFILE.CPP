@@ -652,7 +652,7 @@ char* __stdcall SStrLower(char* szString)
     return _strlwr(szString);
 }
 
-double __fastcall sub_00414220_PowInt(double x, int nExp); // 0x00414220
+double __fastcall AUTOMAP_PowInt(double x, int nExp); // 0x00414220
 
 // 0x00414260
 double __cdecl sub_00414260_PowInt(double x, int nExp)

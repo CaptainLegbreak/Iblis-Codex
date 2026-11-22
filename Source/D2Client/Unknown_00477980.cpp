@@ -17,9 +17,9 @@ void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...)
 void __cdecl sub_00477760_DrawCacheStats(); // 0x00477760
 int __stdcall sub_0044CE60(); // 0x0044CE60
 int __cdecl sub_0044DAF0(); // 0x0044DAF0
-int __cdecl sub_0046F980(); // 0x0046F980
-int __cdecl sub_0046F990(); // 0x0046F990
-int __cdecl sub_0046F9A0(); // 0x0046F9A0
+int __cdecl UI_GetGfxMemory(); // 0x0046F980
+int __cdecl UI_GetCofMemoryUsed(); // 0x0046F990
+int __cdecl UI_GetCofMemoryLimit(); // 0x0046F9A0
 int __cdecl D2CMPSpriteCacheGetMaxMemory(); // 0x005FEE40
 int __cdecl D2CMPCelDataCacheGetUsedMemory(); // 0x005FEE60
 int __cdecl D2CMPCelDataCacheGetMaxMemory(); // 0x005FEE70
@@ -70,8 +70,8 @@ void __fastcall sub_00477980()
     }
     D2GFX_OutputString(500,2,"Video: %s",text);
     if(!g_007BB3AC){
-        D2GFX_OutputString(SCREEN_X,120,"GFX Memory->%i",sub_0046F980());
-        D2GFX_OutputString(SCREEN_X,132,"COF Memory->%i of %i",sub_0046F990(),sub_0046F9A0());
+        D2GFX_OutputString(SCREEN_X,120,"GFX Memory->%i",UI_GetGfxMemory());
+        D2GFX_OutputString(SCREEN_X,132,"COF Memory->%i of %i",UI_GetCofMemoryUsed(),UI_GetCofMemoryLimit());
         D2GFX_OutputString(SCREEN_X,144,"Sprite Cache Memory->%i of %i",D2CMPSpriteCacheGetUsedMemory(),D2CMPSpriteCacheGetMaxMemory());
         D2GFX_OutputString(SCREEN_X,156,"Async Files->%i",sub_0040ABE0());
         D2GFX_OutputString(SCREEN_X,168,"CelData Cache Memory->%i of %i",D2CMPCelDataCacheGetUsedMemory(),D2CMPCelDataCacheGetMaxMemory());

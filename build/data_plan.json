@@ -816,26 +816,26 @@
     "extern \"C\" void __cdecl sub_004E1B10_FireAtTarget(); // 0x004E1B10",
     "extern \"C\" void __cdecl sub_004E1D30_FireVolley(); // 0x004E1D30",
     "extern \"C\" void __cdecl sub_004E1E50_ChargeFrames(); // 0x004E1E50",
-    "extern \"C\" void __cdecl sub_004E1FF0_SkillCltDoMissileWall(); // 0x004E1FF0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileWall(); // 0x004E1FF0",
     "extern \"C\" void __cdecl sub_004E21D0_MissileRing(); // 0x004E21D0",
     "extern \"C\" void __cdecl sub_004E2410_RepeatOnTarget(); // 0x004E2410",
     "extern \"C\" void __cdecl sub_004E2530_SpreadTwoMissiles(); // 0x004E2530",
-    "extern \"C\" void __cdecl sub_004E2630_SkillDoFrameSteps(); // 0x004E2630",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoFrameSteps(); // 0x004E2630",
     "extern \"C\" void __cdecl sub_004E26C0_StreamAtTarget(); // 0x004E26C0",
-    "extern \"C\" void __cdecl sub_004E2A40_ComponentMissile(); // 0x004E2A40",
-    "extern \"C\" void __cdecl sub_004E2B30_ComponentMissile(); // 0x004E2B30",
-    "extern \"C\" void __cdecl sub_004E2C20_WeaponOrSkillMissile(); // 0x004E2C20",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoComponentMissileA(); // 0x004E2A40",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoComponentMissileB(); // 0x004E2B30",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoWeaponOrSkillMissile(); // 0x004E2C20",
     "extern \"C\" void __cdecl sub_004E2F40_VolleyAtTarget(); // 0x004E2F40",
     "extern \"C\" void __cdecl sub_004E3330_CltDoTest(); // 0x004E3330",
     "extern \"C\" void __cdecl sub_004E34E0_StartMissileEffect(); // 0x004E34E0",
     "extern \"C\" void __cdecl sub_004E3590_FlankTarget(); // 0x004E3590",
-    "extern \"C\" void __cdecl sub_004E37C0_MissileAtTargetOffset(); // 0x004E37C0",
-    "extern \"C\" void __cdecl sub_004E3910_MissileIfCollision(); // 0x004E3910",
-    "extern \"C\" void __cdecl sub_004E3A30_FirstMissile(); // 0x004E3A30",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileAtTargetOffset(); // 0x004E37C0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileIfCollision(); // 0x004E3910",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoFirstMissile(); // 0x004E3A30",
     "extern \"C\" void __cdecl sub_004E3C50_MissileAtTargetUnit(); // 0x004E3C50",
-    "extern \"C\" void __cdecl sub_004E3EB0_ScatterMissile(); // 0x004E3EB0",
-    "extern \"C\" void __cdecl sub_004EFCF0_TurnedMissile(); // 0x004EFCF0",
-    "extern \"C\" void __cdecl sub_004EFDF0_LobMissile(); // 0x004EFDF0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoScatterMissile(); // 0x004E3EB0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoTurnedMissile(); // 0x004EFCF0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoLobMissile(); // 0x004EFDF0",
     "extern \"C\" void __cdecl sub_004F0050(); // 0x004F0050",
     "extern \"C\" void __cdecl sub_004F03C0_CltMissileRequest(); // 0x004F03C0",
     "extern \"C\" void __cdecl sub_004F0430_CreateTargetMissile(); // 0x004F0430",
@@ -847,37 +847,37 @@
     "extern \"C\" void __cdecl sub_004F0EF0_UpdateRiderPath(); // 0x004F0EF0",
     "extern \"C\" void __cdecl sub_004F0F30(); // 0x004F0F30",
     "extern \"C\" void __cdecl sub_004F1120_MissileFromTarget(); // 0x004F1120",
-    "extern \"C\" void __cdecl sub_004F11D0_MissileLine(); // 0x004F11D0",
-    "extern \"C\" void __cdecl sub_004F1370_FirstMissileTurned(); // 0x004F1370",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileLine(); // 0x004F11D0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoFirstMissileTurned(); // 0x004F1370",
     "extern \"C\" void __cdecl sub_004F1430_MissilesOnUnitsInRadius(); // 0x004F1430",
-    "extern \"C\" void __cdecl sub_004F1850_MissileFanA(); // 0x004F1850",
-    "extern \"C\" void __cdecl sub_004F18F0_MissileFanB(); // 0x004F18F0",
-    "extern \"C\" void __cdecl sub_004F1990_MissileFanC(); // 0x004F1990",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileFanA(); // 0x004F1850",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileFanB(); // 0x004F18F0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileFanC(); // 0x004F1990",
     "extern \"C\" void __cdecl sub_004F1C80_SkillCltDoSpray(); // 0x004F1C80",
     "extern \"C\" void __cdecl sub_004F1D80_MotionMissiles(); // 0x004F1D80",
     "extern \"C\" void __cdecl sub_004F1F20_FireTwinCltMissiles(); // 0x004F1F20",
     "extern \"C\" void __cdecl sub_004F2060_CheckTargetSetFlag(); // 0x004F2060",
     "extern \"C\" void __cdecl sub_004F2160_DecrementParam(); // 0x004F2160",
-    "extern \"C\" void __cdecl sub_004F2340_MissileRows(); // 0x004F2340",
-    "extern \"C\" void __cdecl sub_004F25A0_RepeatMissile(); // 0x004F25A0",
-    "extern \"C\" void __cdecl sub_004F2720_TargetMissile(); // 0x004F2720",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileRows(); // 0x004F2340",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoRepeatMissile(); // 0x004F25A0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoTargetMissile(); // 0x004F2720",
     "extern \"C\" void __cdecl sub_004F2790_StreamFromTarget(); // 0x004F2790",
-    "extern \"C\" void __cdecl sub_004F29F0_MissileScatterAtTarget(); // 0x004F29F0",
-    "extern \"C\" void __cdecl sub_004F2E90_UnitEffect(); // 0x004F2E90",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMissileScatterAtTarget(); // 0x004F29F0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoUnitEffect(); // 0x004F2E90",
     "extern \"C\" void __cdecl sub_004F2F20_CltSkillMissileRing(); // 0x004F2F20",
     "extern \"C\" void __cdecl sub_004F2FE0_CltSkillMissileRing2(); // 0x004F2FE0",
-    "extern \"C\" void __cdecl sub_004F30A0_TargetPrgOverlay(); // 0x004F30A0",
-    "extern \"C\" void __cdecl sub_004F31A0_PrgOverlay(); // 0x004F31A0",
-    "extern \"C\" void __cdecl sub_004F33B0_PositionMissile(); // 0x004F33B0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoTargetPrgOverlay(); // 0x004F30A0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoPrgOverlay(); // 0x004F31A0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoPositionMissile(); // 0x004F33B0",
     "extern \"C\" void __cdecl sub_004F3430_CltSkillMissileBurst(); // 0x004F3430",
     "extern \"C\" void __cdecl sub_004F3530_LightAtTarget(); // 0x004F3530",
-    "extern \"C\" void __cdecl sub_004F38D0_ParamMissile(); // 0x004F38D0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoParamMissile(); // 0x004F38D0",
     "extern \"C\" void __cdecl sub_004F3C80_UseSkillParamsA(); // 0x004F3C80",
     "extern \"C\" void __cdecl sub_004F3E50_UseSkillParamsB(); // 0x004F3E50",
     "extern \"C\" void __cdecl sub_004F4590_DoSkillSound(); // 0x004F4590",
     "extern \"C\" void __cdecl sub_004F4610_MissileLine(); // 0x004F4610",
-    "extern \"C\" void __cdecl sub_004F47B0_TargetedMissile(); // 0x004F47B0",
-    "extern \"C\" void __cdecl sub_004F48F0_MirrorMissiles(); // 0x004F48F0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoTargetedMissile(); // 0x004F47B0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoMirrorMissiles(); // 0x004F48F0",
     "extern \"C\" void __cdecl sub_004F4A30_CltDoChargedMissile(); // 0x004F4A30",
     "extern \"C\" void __cdecl sub_004F4C20_CltDoRepeatAttack(); // 0x004F4C20",
     "extern \"C\" void __cdecl sub_004F4D90_MissileAtTarget(); // 0x004F4D90",
@@ -899,11 +899,11 @@
     "extern \"C\" void __cdecl sub_004E2320(); // 0x004E2320",
     "extern \"C\" void __cdecl sub_004E24D0_CltDoMissileA(); // 0x004E24D0",
     "extern \"C\" void __cdecl sub_004E27C0_SkillStartSpawnRing(); // 0x004E27C0",
-    "extern \"C\" void __cdecl sub_004E3060_CltDoPrgState(); // 0x004E3060",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoPrgState(); // 0x004E3060",
     "extern \"C\" void __cdecl sub_004E3350_CheckTargetInRange(); // 0x004E3350",
     "extern \"C\" void __cdecl sub_004E39A0_CheckTargetRoom(); // 0x004E39A0",
-    "extern \"C\" void __cdecl sub_004F0160_SoundMissile(); // 0x004F0160",
-    "extern \"C\" void __cdecl sub_004F01F0_DirectionMissile(); // 0x004F01F0",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoSoundMissile(); // 0x004F0160",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoDirectionMissile(); // 0x004F01F0",
     "extern \"C\" void __cdecl sub_004F0350_RequestMissile(); // 0x004F0350",
     "extern \"C\" void __cdecl sub_004F0650_CreateClientMissiles(); // 0x004F0650",
     "extern \"C\" void __cdecl sub_004F0AB0_StartTimedState(); // 0x004F0AB0",
@@ -917,9 +917,9 @@
     "extern \"C\" void __cdecl sub_004F26D0_ApplyCltCalc(); // 0x004F26D0",
     "extern \"C\" void __cdecl sub_004F2870_TargetIsPlayerOrMonster(); // 0x004F2870",
     "extern \"C\" void __cdecl sub_004F34D0_CltDoMissileC(); // 0x004F34D0",
-    "extern \"C\" void __cdecl sub_004F3810_SkillCltStartMissileC(); // 0x004F3810",
+    "extern \"C\" void __cdecl SKILLDESC_CltStartMissileC(); // 0x004F3810",
     "extern \"C\" void __cdecl sub_004F3870_SetTargetPosParams(); // 0x004F3870",
-    "extern \"C\" void __cdecl sub_004F39A0_SetTargetParams(); // 0x004F39A0",
+    "extern \"C\" void __cdecl SKILLDESC_CltStartSetTargetParams(); // 0x004F39A0",
     "extern \"C\" void __cdecl sub_004F3EB0_CheckTargetRoom(); // 0x004F3EB0",
     "extern \"C\" void __cdecl sub_004F3F50_CheckNecromancerSkill(); // 0x004F3F50",
     "extern \"C\" void __cdecl sub_004F4000_MissileByOverlay(); // 0x004F4000",
@@ -1349,7 +1349,7 @@
    "bytes": 1656,
    "definitions": 39,
    "externs": [
-    "extern \"C\" void __cdecl sub_004A2A20(); // 0x004A2A20",
+    "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl sub_00452090_ResetMsg(); // 0x00452090",
     "extern \"C\" void __cdecl sub_0047D7F0_OptionMouseDown(); // 0x0047D7F0",
     "extern \"C\" void __cdecl sub_0047D840_OptionMouseUp(); // 0x0047D840",
@@ -1358,58 +1358,58 @@
     "extern \"C\" void __cdecl sub_0047D9A0_OptionKeyLeft(); // 0x0047D9A0",
     "extern \"C\" void __cdecl sub_0047DA90_OptionKeyRight(); // 0x0047DA90",
     "extern \"C\" void __cdecl sub_0047DB80_OptionActivate(); // 0x0047DB80",
-    "extern \"C\" void __cdecl sub_00486EF0_NpcPanelMouseMove(); // 0x00486EF0",
-    "extern \"C\" void __cdecl sub_004873A0_HandleClick(); // 0x004873A0",
-    "extern \"C\" void __cdecl sub_00488910_ResetCursorMsg(); // 0x00488910",
-    "extern \"C\" void __cdecl sub_004889D0_TradeMouseMove(); // 0x004889D0",
+    "extern \"C\" void __cdecl INV_NpcPanelMouseMove(); // 0x00486EF0",
+    "extern \"C\" void __cdecl INV_UpdateInventoryHover(); // 0x004873A0",
+    "extern \"C\" void __cdecl INV_ResetShopCursorMsg(); // 0x00488910",
+    "extern \"C\" void __cdecl INV_NpcShopMouseMoveMsg(); // 0x004889D0",
     "extern \"C\" void __cdecl sub_00488B00(); // 0x00488B00",
-    "extern \"C\" void __cdecl sub_00488DF0_HandledMsg(); // 0x00488DF0",
-    "extern \"C\" void __cdecl sub_00488E70_KeyMsg(); // 0x00488E70",
-    "extern \"C\" void __cdecl sub_004894D0_MouseMoveMsg(); // 0x004894D0",
-    "extern \"C\" void __cdecl sub_00489580_StashMouseMove(); // 0x00489580",
-    "extern \"C\" void __cdecl sub_004897A0_HandledIfState11Ex(); // 0x004897A0",
-    "extern \"C\" void __cdecl sub_00489A30_CubeMouseMove(); // 0x00489A30",
-    "extern \"C\" void __cdecl sub_00489AC0_CubeClick(); // 0x00489AC0",
-    "extern \"C\" void __cdecl sub_00489CE0_HandledIfState12(); // 0x00489CE0",
-    "extern \"C\" void __cdecl sub_00489D70_KeyNoRepeatMsg(); // 0x00489D70",
-    "extern \"C\" void __cdecl sub_0048A0F0_MouseMoveMsg(); // 0x0048A0F0",
-    "extern \"C\" void __cdecl sub_0048A190_CubeMouseMove(); // 0x0048A190",
-    "extern \"C\" void __cdecl sub_0048A3E0_HandledIfState14Ex(); // 0x0048A3E0",
-    "extern \"C\" void __cdecl sub_0048B680_MercPanelClickMsg(); // 0x0048B680",
-    "extern \"C\" void __cdecl sub_0048B7C0_HandleMercInvClick(); // 0x0048B7C0",
-    "extern \"C\" void __cdecl sub_0048BA50_MercPanelHoverMsg(); // 0x0048BA50",
-    "extern \"C\" void __cdecl sub_0048BD80_ClickMsg(); // 0x0048BD80",
+    "extern \"C\" void __cdecl INV_ConsumeMsg(); // 0x00488DF0",
+    "extern \"C\" void __cdecl INV_OpenChatKeyMsg(); // 0x00488E70",
+    "extern \"C\" void __cdecl INV_TradeMouseMoveMsg(); // 0x004894D0",
+    "extern \"C\" void __cdecl INV_TradePanelMsg(); // 0x00489580",
+    "extern \"C\" void __cdecl INV_TradeCancelMsg(); // 0x004897A0",
+    "extern \"C\" void __cdecl INV_StashMouseMoveMsg(); // 0x00489A30",
+    "extern \"C\" void __cdecl INV_StashClickMsg(); // 0x00489AC0",
+    "extern \"C\" void __cdecl INV_StashCloseMsg(); // 0x00489CE0",
+    "extern \"C\" void __cdecl INV_KeyNoRepeatMsg(); // 0x00489D70",
+    "extern \"C\" void __cdecl INV_CubeMouseMoveMsg(); // 0x0048A0F0",
+    "extern \"C\" void __cdecl INV_CubeClickMsg(); // 0x0048A190",
+    "extern \"C\" void __cdecl INV_CubeCloseMsg(); // 0x0048A3E0",
+    "extern \"C\" void __cdecl INV_MercPanelClickMsg(); // 0x0048B680",
+    "extern \"C\" void __cdecl INV_MercInvClickMsg(); // 0x0048B7C0",
+    "extern \"C\" void __cdecl INV_MercPanelHoverMsg(); // 0x0048BA50",
+    "extern \"C\" void __cdecl INV_CloseRecipeScrollClickMsg(); // 0x0048BD80",
     "extern \"C\" void __cdecl sub_0048BDF0(); // 0x0048BDF0",
     "extern \"C\" void __cdecl sub_004912A0_HandlePanelClick(); // 0x004912A0",
-    "extern \"C\" void __cdecl sub_004917C0_OnGridClickMsg(); // 0x004917C0",
-    "extern \"C\" void __cdecl sub_00491AD0_OnInventoryClickMsg(); // 0x00491AD0",
+    "extern \"C\" void __cdecl INV_GridClickMsg(); // 0x004917C0",
+    "extern \"C\" void __cdecl INV_InventoryClickMsg(); // 0x00491AD0",
     "extern \"C\" void __cdecl sub_00491D20(); // 0x00491D20",
     "extern \"C\" void __cdecl sub_00492310(); // 0x00492310",
-    "extern \"C\" void __cdecl sub_00492510_CubeButtonDown(); // 0x00492510",
-    "extern \"C\" void __cdecl sub_00492770_KeyIfReadyMsg(); // 0x00492770",
-    "extern \"C\" void __cdecl sub_004927C0_CubeButtonUp(); // 0x004927C0",
-    "extern \"C\" void __cdecl sub_00493430_PetIconClickMsg(); // 0x00493430",
+    "extern \"C\" void __cdecl INV_StashButtonDownMsg(); // 0x00492510",
+    "extern \"C\" void __cdecl INV_WeaponSwapKeyMsg(); // 0x00492770",
+    "extern \"C\" void __cdecl INV_CubeButtonUpMsg(); // 0x004927C0",
+    "extern \"C\" void __cdecl HIREABLES_PetIconClickMsg(); // 0x00493430",
     "extern \"C\" void __cdecl sub_004936E0_ClickMsg(); // 0x004936E0",
     "extern \"C\" void __cdecl sub_00493760_HirelingIconHoverMsg(); // 0x00493760",
     "extern \"C\" void __cdecl sub_004938E0_HirelingIconClickMsg(); // 0x004938E0",
-    "extern \"C\" void __cdecl sub_00498C00_CloseOnSpace(); // 0x00498C00",
+    "extern \"C\" void __cdecl PANEL_CloseUIVarsMsg(); // 0x00498C00",
     "extern \"C\" void __cdecl sub_0049BB60_OnRosterMouseDown(); // 0x0049BB60",
     "extern \"C\" void __cdecl sub_0049BDD0(); // 0x0049BDD0",
-    "extern \"C\" void __cdecl sub_0049CEC0_KeyMsgHandler(); // 0x0049CEC0",
+    "extern \"C\" void __cdecl TEXT_WaypointKeyMsg(); // 0x0049CEC0",
     "extern \"C\" void __cdecl sub_0049D010_WaypointMouseUp(); // 0x0049D010",
     "extern \"C\" void __cdecl sub_0049D160_WaypointMouseDown(); // 0x0049D160",
-    "extern \"C\" void __cdecl sub_0049FEA0_PanelClickMsg(); // 0x0049FEA0",
-    "extern \"C\" void __cdecl sub_004A2840_OpenPanelMsgHandler(); // 0x004A2840",
+    "extern \"C\" void __cdecl TEXT_PanelClickMsg(); // 0x0049FEA0",
+    "extern \"C\" void __cdecl TEXT_CloseQuestPanelMsg(); // 0x004A2840",
     "extern \"C\" void __cdecl sub_004A3E40(); // 0x004A3E40",
-    "extern \"C\" void __cdecl sub_004A4110_ButtonUpMsgHandler(); // 0x004A4110",
-    "extern \"C\" void __cdecl sub_004A42A0_OnLeftButtonUp(); // 0x004A42A0",
+    "extern \"C\" void __cdecl TEXT_QuestButtonUpMsg(); // 0x004A4110",
+    "extern \"C\" void __cdecl TEXT_QuestLButtonUpMsg(); // 0x004A42A0",
     "extern \"C\" void __cdecl sub_004A66E0(); // 0x004A66E0",
     "extern \"C\" void __cdecl sub_004A6790(); // 0x004A6790",
-    "extern \"C\" void __cdecl sub_004A6840_LeftButtonUpMsg(); // 0x004A6840",
-    "extern \"C\" void __cdecl sub_004A6920_RightButtonUpMsg(); // 0x004A6920",
+    "extern \"C\" void __cdecl TEXT_StatButtonUpMsg(); // 0x004A6840",
+    "extern \"C\" void __cdecl TEXT_SkillButtonUpMsg(); // 0x004A6920",
     "extern \"C\" void __cdecl sub_004A7720_OnLButtonDown(); // 0x004A7720",
     "extern \"C\" void __cdecl sub_004A78C0_OnLButtonUp(); // 0x004A78C0",
-    "extern \"C\" void __cdecl sub_004A9BD0_SkillSelectClickHandler(); // 0x004A9BD0",
+    "extern \"C\" void __cdecl SPELLSEL_SkillSelectClickMsg(); // 0x004A9BD0",
     "extern \"C\" void __cdecl sub_004AB7E0_SkillTreeLButtonDown(); // 0x004AB7E0",
     "extern \"C\" void __cdecl sub_004ABC30(); // 0x004ABC30",
     "extern \"C\" void __cdecl sub_004574D0_AutomapBaseYAddStep(); // 0x004574D0",
@@ -1417,20 +1417,20 @@
     "extern \"C\" void __cdecl sub_004574F0_AutomapBaseXSubStep(); // 0x004574F0",
     "extern \"C\" void __cdecl sub_00457500_AutomapBaseXAddStep(); // 0x00457500",
     "extern \"C\" void __cdecl sub_004A5980_PressMsgHandler(); // 0x004A5980",
-    "extern \"C\" void __cdecl sub_004A59D0_HandleHotkeyAction(); // 0x004A59D0",
-    "extern \"C\" void __cdecl sub_004A5A40_PrevEntryMsgHandler(); // 0x004A5A40",
-    "extern \"C\" void __cdecl sub_004A5AB0_NextEntryMsgHandler(); // 0x004A5AB0",
-    "extern \"C\" void __cdecl sub_004A5B30_SetFlagMsgHandler(); // 0x004A5B30",
-    "extern \"C\" void __cdecl sub_004A5B90_ClearFlagMsgHandler(); // 0x004A5B90",
-    "extern \"C\" void __cdecl sub_004A5BF0_SelectEntryMsgHandler(); // 0x004A5BF0",
-    "extern \"C\" void __cdecl sub_004A5F10_ButtonUpMsgHandler(); // 0x004A5F10",
-    "extern \"C\" void __cdecl sub_004A5F70_ApplyEntryMsgHandler(); // 0x004A5F70",
-    "extern \"C\" void __cdecl sub_004A5C70(); // 0x004A5C70",
+    "extern \"C\" void __cdecl TEXT_KeyConfigWheelMsg(); // 0x004A59D0",
+    "extern \"C\" void __cdecl TEXT_PrevEntryMsg(); // 0x004A5A40",
+    "extern \"C\" void __cdecl TEXT_NextEntryMsg(); // 0x004A5AB0",
+    "extern \"C\" void __cdecl TEXT_SelectSecondaryColumnMsg(); // 0x004A5B30",
+    "extern \"C\" void __cdecl TEXT_SelectPrimaryColumnMsg(); // 0x004A5B90",
+    "extern \"C\" void __cdecl TEXT_ClearEntryKeyMsg(); // 0x004A5BF0",
+    "extern \"C\" void __cdecl TEXT_KeyConfigButtonUpMsg(); // 0x004A5F10",
+    "extern \"C\" void __cdecl TEXT_ApplyEntryMsg(); // 0x004A5F70",
+    "extern \"C\" void __cdecl TEXT_CancelKeyConfigMsg(); // 0x004A5C70",
     "extern \"C\" void __cdecl sub_0047ED90_SlotsClickMsg(); // 0x0047ED90",
     "extern \"C\" void __cdecl sub_0047EF30_SlotsClick(); // 0x0047EF30",
     "extern \"C\" void __cdecl sub_00494F30_ButtonPressMsg(); // 0x00494F30",
     "extern \"C\" void __cdecl sub_00494FB0(); // 0x00494FB0",
-    "extern \"C\" void __cdecl sub_00496720_ButtonReleaseMsg(); // 0x00496720",
+    "extern \"C\" void __cdecl INV_HelpCloseButtonMsg(); // 0x00496720",
     "extern \"C\" void __cdecl sub_004967A0_KeyCloseHelp(); // 0x004967A0"
    ],
    "fn_types": {},
@@ -1471,9 +1471,9 @@
     "extern \"C\" void __cdecl sub_004952B0_ButtonDownMsg(); // 0x004952B0",
     "extern \"C\" void __cdecl sub_00495320_ButtonUpMsg(); // 0x00495320",
     "extern \"C\" void __cdecl sub_00499500_Click(); // 0x00499500",
-    "extern \"C\" void __cdecl sub_004996A0_BeltMouseRelease(); // 0x004996A0",
+    "extern \"C\" void __cdecl PANEL_BeltMouseReleaseMsg(); // 0x004996A0",
     "extern \"C\" void __cdecl sub_00499BB0_BeltMouseMove(); // 0x00499BB0",
-    "extern \"C\" void __cdecl sub_00499D10_BeltClick(); // 0x00499D10"
+    "extern \"C\" void __cdecl PANEL_BeltClickMsg(); // 0x00499D10"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004549F0.inc",
@@ -1511,12 +1511,12 @@
    "bytes": 156,
    "definitions": 2,
    "externs": [
-    "extern \"C\" void __cdecl sub_0045FE30_ButtonDownMsg(); // 0x0045FE30",
+    "extern \"C\" void __cdecl AUTOMAP_PopupButtonDownMsg(); // 0x0045FE30",
     "extern \"C\" void __cdecl sub_0045FED0_MsgHandler(); // 0x0045FED0",
     "extern \"C\" void __cdecl sub_0045FF70_MsgHandler(); // 0x0045FF70",
     "extern \"C\" void __cdecl sub_0045FFB0_MsgHandler(); // 0x0045FFB0",
-    "extern \"C\" void __cdecl sub_004601F0_TwoButtonDownMsg(); // 0x004601F0",
-    "extern \"C\" void __cdecl sub_004602E0_TwoButtonUpMsg(); // 0x004602E0",
+    "extern \"C\" void __cdecl AUTOMAP_PopupTwoButtonDownMsg(); // 0x004601F0",
+    "extern \"C\" void __cdecl AUTOMAP_PopupTwoButtonUpMsg(); // 0x004602E0",
     "extern \"C\" void __cdecl sub_004603E0_MsgHandler(); // 0x004603E0"
    ],
    "fn_types": {},
@@ -1848,9 +1848,9 @@
    "externs": [
     "extern \"C\" void __cdecl sub_0047AA60_OnImeComposition(); // 0x0047AA60",
     "extern \"C\" void __cdecl sub_0047ACA0_ResetSelectionMsg2(); // 0x0047ACA0",
-    "extern \"C\" void __cdecl sub_0047AD10_ResetSelectionMsg(); // 0x0047AD10",
-    "extern \"C\" void __cdecl sub_0047B070_SetHandled(); // 0x0047B070",
-    "extern \"C\" void __cdecl sub_0047BC70_LowClickMsg(); // 0x0047BC70",
+    "extern \"C\" void __cdecl INV_ResetImeCompositionMsg(); // 0x0047AD10",
+    "extern \"C\" void __cdecl INV_SetMsgHandled(); // 0x0047B070",
+    "extern \"C\" void __cdecl INV_CloseChatOnPanelClickMsg(); // 0x0047BC70",
     "extern \"C\" void __cdecl sub_0047BCA0_ChatKeyDown(); // 0x0047BCA0",
     "extern \"C\" void __cdecl sub_0047CA70_OnChatChar(); // 0x0047CA70"
    ],
@@ -2020,10 +2020,10 @@
    "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
-    "extern \"C\" void __cdecl sub_0049DA10_EatMsgHandler(); // 0x0049DA10",
-    "extern \"C\" void __cdecl sub_004A1770_KeyUpMsgHandler(); // 0x004A1770",
-    "extern \"C\" void __cdecl sub_004A1870_HotkeyMsgHandler(); // 0x004A1870",
-    "extern \"C\" void __cdecl sub_004A18C0_KeyDownMsgHandler(); // 0x004A18C0"
+    "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
+    "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
+    "extern \"C\" void __cdecl TEXT_HotkeyMsg(); // 0x004A1870",
+    "extern \"C\" void __cdecl TEXT_KeyDownMsg(); // 0x004A18C0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/text.inc",
@@ -2128,8 +2128,8 @@
     "extern \"C\" void __cdecl sub_004A6000_RegisterPressMsgHandler(); // 0x004A6000",
     "extern \"C\" void __cdecl sub_004A60B0_KeyDownMsgHandler(); // 0x004A60B0",
     "extern \"C\" void __cdecl sub_004A61A0_KeyUpMsgHandler(); // 0x004A61A0",
-    "extern \"C\" void __cdecl sub_004A6310_ToggleMsgHandler(); // 0x004A6310",
-    "extern \"C\" void __cdecl sub_004A6350_CommandMsgHandler(); // 0x004A6350",
+    "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
+    "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
     "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0"
    ],
    "fn_types": {},
@@ -2159,9 +2159,9 @@
    "bytes": 86,
    "definitions": 3,
    "externs": [
-    "extern \"C\" void __cdecl sub_004A5010_Call00469A60(); // 0x004A5010",
-    "extern \"C\" void __cdecl sub_004A5020_AcceptKeyConfig(); // 0x004A5020",
-    "extern \"C\" void __cdecl sub_004A5040_CancelKeyConfig(); // 0x004A5040",
+    "extern \"C\" void __cdecl TEXT_ResetKeyConfigDefaults(); // 0x004A5010",
+    "extern \"C\" void __cdecl TEXT_AcceptKeyConfig(); // 0x004A5020",
+    "extern \"C\" void __cdecl TEXT_CancelKeyConfig(); // 0x004A5040",
     "extern \"C\" char gaEntries_00724268[]; // 0x00724268"
    ],
    "fn_types": {},
@@ -2232,10 +2232,10 @@
    "bytes": 1751,
    "definitions": 67,
    "externs": [
-    "extern \"C\" void __cdecl sub_004B3D40_NpcMenuTradeB(); // 0x004B3D40",
-    "extern \"C\" void __cdecl sub_004B42B0_NpcMenuTrade(); // 0x004B42B0",
+    "extern \"C\" void __cdecl NPCMENU_OpenGambleShop(); // 0x004B3D40",
+    "extern \"C\" void __cdecl NPCMENU_OpenTradeShop(); // 0x004B42B0",
     "extern \"C\" void __cdecl sub_004B5260_NpcMenuAction28b(); // 0x004B5260",
-    "extern \"C\" void __cdecl sub_004B52C0_NpcMenuAction01(); // 0x004B52C0",
+    "extern \"C\" void __cdecl NPCMENU_TravelToRogueEncampment(); // 0x004B52C0",
     "extern \"C\" void __cdecl sub_004B5C60_Handler(); // 0x004B5C60",
     "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70"
    ],
@@ -2248,18 +2248,18 @@
    "bytes": 860,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl sub_004AD0C0_StateOverlayBurst(); // 0x004AD0C0",
-    "extern \"C\" void __cdecl sub_004AD1A0_StateOverlayCross(); // 0x004AD1A0",
+    "extern \"C\" void __cdecl NPCMENU_StateOverlayBurst(); // 0x004AD0C0",
+    "extern \"C\" void __cdecl NPCMENU_StateOverlayCross(); // 0x004AD1A0",
     "extern \"C\" void __cdecl sub_004AD2F0_UnitClassEvent(); // 0x004AD2F0",
-    "extern \"C\" void __cdecl sub_004AD510_StateEffect(); // 0x004AD510",
-    "extern \"C\" void __cdecl sub_004AD5F0_StateOverlayOrSpawn(); // 0x004AD5F0",
-    "extern \"C\" void __cdecl sub_004AD890_StateBurstOnFrame(); // 0x004AD890",
-    "extern \"C\" void __cdecl sub_004AD8E0_StateBurst(); // 0x004AD8E0",
-    "extern \"C\" void __cdecl sub_004AD920_StateBurstNeutral(); // 0x004AD920",
-    "extern \"C\" void __cdecl sub_004AD970_StateMissileSplit(); // 0x004AD970",
-    "extern \"C\" void __cdecl sub_004ADB20_StateOverlayAtPath(); // 0x004ADB20",
-    "extern \"C\" void __cdecl sub_004ADBC0_StateMonOverlay(); // 0x004ADBC0",
-    "extern \"C\" void __cdecl sub_004ADD80_StateRequestsCallback(); // 0x004ADD80"
+    "extern \"C\" void __cdecl NPCMENU_StateStartEffect(); // 0x004AD510",
+    "extern \"C\" void __cdecl NPCMENU_StateDurielDeath(); // 0x004AD5F0",
+    "extern \"C\" void __cdecl NPCMENU_StateBurstOnFrame(); // 0x004AD890",
+    "extern \"C\" void __cdecl NPCMENU_StateBurst(); // 0x004AD8E0",
+    "extern \"C\" void __cdecl NPCMENU_StateBurstNeutral(); // 0x004AD920",
+    "extern \"C\" void __cdecl NPCMENU_StateMissileSplit(); // 0x004AD970",
+    "extern \"C\" void __cdecl NPCMENU_StateOverlayAtPath(); // 0x004ADB20",
+    "extern \"C\" void __cdecl NPCMENU_StateMonOverlay(); // 0x004ADBC0",
+    "extern \"C\" void __cdecl NPCMENU_StateRequestsCallback(); // 0x004ADD80"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004ADD90.inc",
@@ -2288,7 +2288,7 @@
    "bytes": 12,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl sub_004B42B0_NpcMenuTrade(); // 0x004B42B0"
+    "extern \"C\" void __cdecl NPCMENU_OpenTradeShop(); // 0x004B42B0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004B6390.inc",
@@ -2299,13 +2299,13 @@
    "bytes": 186,
    "definitions": 3,
    "externs": [
-    "extern \"C\" void __cdecl sub_004B3700_InitHandler(); // 0x004B3700",
-    "extern \"C\" void __cdecl sub_004B3730_InitHandler(); // 0x004B3730",
-    "extern \"C\" void __cdecl sub_004B3760_InitHandler(); // 0x004B3760",
-    "extern \"C\" void __cdecl sub_004B65F0_Initialize(); // 0x004B65F0",
-    "extern \"C\" void __cdecl sub_004B6620_InitHandler(); // 0x004B6620",
+    "extern \"C\" void __cdecl NPCMENU_InitImbueHandler(); // 0x004B3700",
+    "extern \"C\" void __cdecl NPCMENU_InitSocketHandler(); // 0x004B3730",
+    "extern \"C\" void __cdecl NPCMENU_InitPersonalizeHandler(); // 0x004B3760",
+    "extern \"C\" void __cdecl NPCMENU_InitTravelLutGholeinHandler(); // 0x004B65F0",
+    "extern \"C\" void __cdecl NPCMENU_InitTravelKurastDocksHandler(); // 0x004B6620",
     "extern \"C\" void __cdecl sub_004B6650_InitHandler(); // 0x004B6650",
-    "extern \"C\" void __cdecl sub_004B6680_InitHandler(); // 0x004B6680",
+    "extern \"C\" void __cdecl NPCMENU_InitTravelHarrogathHandler(); // 0x004B6680",
     "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
    ],
    "fn_types": {},
@@ -2356,7 +2356,7 @@
    "bytes": 354,
    "definitions": 9,
    "externs": [
-    "extern \"C\" void __cdecl sub_004E3D70_OwnerMissileEvent(); // 0x004E3D70"
+    "extern \"C\" void __cdecl SKILLDESC_OwnerMissileEvent(); // 0x004E3D70"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Item.inc",
@@ -2737,19 +2737,19 @@
    "bytes": 540,
    "definitions": 11,
    "externs": [
-    "extern \"C\" void __cdecl sub_004E9D20_DrawWeaponAndSkillDamage(); // 0x004E9D20",
-    "extern \"C\" void __cdecl sub_004EA010_DrawSkillWeaponLine(); // 0x004EA010",
-    "extern \"C\" void __cdecl sub_004EA450_DrawMinDamagePlusStat(); // 0x004EA450",
-    "extern \"C\" void __cdecl sub_004EA990_DrawSkillDamage(); // 0x004EA990",
-    "extern \"C\" void __cdecl sub_004EAAA0_DrawCallbackElemDamage(); // 0x004EAAA0",
-    "extern \"C\" void __cdecl sub_004EAD60_DrawWeaponPhysElemDamage(); // 0x004EAD60",
+    "extern \"C\" void __cdecl SKILLDESC_DrawWeaponAndSkillDamage(); // 0x004E9D20",
+    "extern \"C\" void __cdecl SKILLDESC_DrawSkillWeaponLine(); // 0x004EA010",
+    "extern \"C\" void __cdecl SKILLDESC_DrawKickBaseDamage(); // 0x004EA450",
+    "extern \"C\" void __cdecl SKILLDESC_DrawSkillDamage(); // 0x004EA990",
+    "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
+    "extern \"C\" void __cdecl SKILLDESC_DrawWeaponPhysElemDamage(); // 0x004EAD60",
     "extern \"C\" void __cdecl sub_004EAE70_DrawPhysWeaponElemDamage(); // 0x004EAE70",
     "extern \"C\" void __cdecl sub_004EB290_DrawElemDamage(); // 0x004EB290",
-    "extern \"C\" void __cdecl sub_004EB390_DrawElementalDamageLine(); // 0x004EB390",
-    "extern \"C\" void __cdecl sub_004EB460_DrawThrowDamage(); // 0x004EB460",
-    "extern \"C\" void __cdecl sub_004EB830_DrawWeaponDamage(); // 0x004EB830",
-    "extern \"C\" void __cdecl sub_004EB940_DrawWeaponDamageWithParam(); // 0x004EB940",
-    "extern \"C\" void __cdecl sub_004EBB50_DrawKickDamage(); // 0x004EBB50",
+    "extern \"C\" void __cdecl SKILLDESC_DrawElementalDamageLine(); // 0x004EB390",
+    "extern \"C\" void __cdecl SKILLDESC_DrawThrowDamage(); // 0x004EB460",
+    "extern \"C\" void __cdecl SKILLDESC_DrawBoostedElemDamage(); // 0x004EB830",
+    "extern \"C\" void __cdecl SKILLDESC_DrawWeaponDamageWithParam(); // 0x004EB940",
+    "extern \"C\" void __cdecl SKILLDESC_DrawKickDamagePercent(); // 0x004EBB50",
     "extern \"C\" void __cdecl sub_004EC040_DescIfRecord(); // 0x004EC040"
    ],
    "fn_types": {},
@@ -2763,9 +2763,9 @@
    "externs": [
     "extern \"C\" void __cdecl sub_004E9000_SkillDescAttackRatingMain(); // 0x004E9000",
     "extern \"C\" void __cdecl sub_004E9040_AttackRating(); // 0x004E9040",
-    "extern \"C\" void __cdecl sub_004E9510_SkillDescAttackRating(); // 0x004E9510",
-    "extern \"C\" void __cdecl sub_004E9590_SkillDescAttackRate(); // 0x004E9590",
-    "extern \"C\" void __cdecl sub_004E95C0_SkillDescAttackRatingOffhand(); // 0x004E95C0"
+    "extern \"C\" void __cdecl SKILLDESC_DescAttackRating(); // 0x004E9510",
+    "extern \"C\" void __cdecl SKILLDESC_DescAttackRate(); // 0x004E9590",
+    "extern \"C\" void __cdecl SKILLDESC_DescAttackRatingOffhand(); // 0x004E95C0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004EDA80.inc",
@@ -33435,7 +33435,7 @@
      20,
      "0x00486EF0",
      "names.json",
-     "sub_00486EF0_NpcPanelMouseMove",
+     "INV_NpcPanelMouseMove",
      0,
      "func"
     ],
@@ -33443,7 +33443,7 @@
      32,
      "0x004917C0",
      "names.json",
-     "sub_004917C0_OnGridClickMsg",
+     "INV_GridClickMsg",
      0,
      "func"
     ],
@@ -33451,7 +33451,7 @@
      44,
      "0x004873A0",
      "names.json",
-     "sub_004873A0_HandleClick",
+     "INV_UpdateInventoryHover",
      0,
      "func"
     ]
@@ -33724,7 +33724,7 @@
      8,
      "0x004A9BD0",
      "names.json",
-     "sub_004A9BD0_SkillSelectClickHandler",
+     "SPELLSEL_SkillSelectClickMsg",
      0,
      "func"
     ]
@@ -33880,7 +33880,7 @@
      20,
      "0x004A6840",
      "names.json",
-     "sub_004A6840_LeftButtonUpMsg",
+     "TEXT_StatButtonUpMsg",
      0,
      "func"
     ]
@@ -33950,7 +33950,7 @@
      8,
      "0x00493430",
      "names.json",
-     "sub_00493430_PetIconClickMsg",
+     "HIREABLES_PetIconClickMsg",
      0,
      "func"
     ]
@@ -34028,7 +34028,7 @@
      20,
      "0x004A6920",
      "names.json",
-     "sub_004A6920_RightButtonUpMsg",
+     "TEXT_SkillButtonUpMsg",
      0,
      "func"
     ]
@@ -34216,7 +34216,7 @@
      8,
      "0x004A2A20",
      "names.json",
-     "sub_004A2A20",
+     "TEXT_QuestButtonDownMsg",
      0,
      "func"
     ],
@@ -34224,7 +34224,7 @@
      20,
      "0x004A4110",
      "names.json",
-     "sub_004A4110_ButtonUpMsgHandler",
+     "TEXT_QuestButtonUpMsg",
      0,
      "func"
     ],
@@ -34232,7 +34232,7 @@
      32,
      "0x004A2A20",
      "names.json",
-     "sub_004A2A20",
+     "TEXT_QuestButtonDownMsg",
      0,
      "func"
     ],
@@ -34240,7 +34240,7 @@
      44,
      "0x004A4110",
      "names.json",
-     "sub_004A4110_ButtonUpMsgHandler",
+     "TEXT_QuestButtonUpMsg",
      0,
      "func"
     ]
@@ -34435,7 +34435,7 @@
      8,
      "0x0049FEA0",
      "names.json",
-     "sub_0049FEA0_PanelClickMsg",
+     "TEXT_PanelClickMsg",
      0,
      "func"
     ],
@@ -34443,7 +34443,7 @@
      20,
      "0x0049FEA0",
      "names.json",
-     "sub_0049FEA0_PanelClickMsg",
+     "TEXT_PanelClickMsg",
      0,
      "func"
     ]
@@ -34545,7 +34545,7 @@
      56,
      "0x0049CEC0",
      "names.json",
-     "sub_0049CEC0_KeyMsgHandler",
+     "TEXT_WaypointKeyMsg",
      0,
      "func"
     ]
@@ -35279,7 +35279,7 @@
      8,
      "0x0048B680",
      "names.json",
-     "sub_0048B680_MercPanelClickMsg",
+     "INV_MercPanelClickMsg",
      0,
      "func"
     ],
@@ -35287,7 +35287,7 @@
      20,
      "0x0048B7C0",
      "names.json",
-     "sub_0048B7C0_HandleMercInvClick",
+     "INV_MercInvClickMsg",
      0,
      "func"
     ],
@@ -35295,7 +35295,7 @@
      32,
      "0x0048BA50",
      "names.json",
-     "sub_0048BA50_MercPanelHoverMsg",
+     "INV_MercPanelHoverMsg",
      0,
      "func"
     ]
@@ -35365,7 +35365,7 @@
      8,
      "0x0048BD80",
      "names.json",
-     "sub_0048BD80_ClickMsg",
+     "INV_CloseRecipeScrollClickMsg",
      0,
      "func"
     ],
@@ -35443,7 +35443,7 @@
      8,
      "0x00491AD0",
      "source",
-     "sub_00491AD0_OnInventoryClickMsg",
+     "INV_InventoryClickMsg",
      0,
      "func"
     ],
@@ -35467,7 +35467,7 @@
      44,
      "0x004889D0",
      "names.json",
-     "sub_004889D0_TradeMouseMove",
+     "INV_NpcShopMouseMoveMsg",
      0,
      "func"
     ],
@@ -35475,7 +35475,7 @@
      56,
      "0x00488910",
      "names.json",
-     "sub_00488910_ResetCursorMsg",
+     "INV_ResetShopCursorMsg",
      0,
      "func"
     ],
@@ -35483,7 +35483,7 @@
      68,
      "0x00488910",
      "names.json",
-     "sub_00488910_ResetCursorMsg",
+     "INV_ResetShopCursorMsg",
      0,
      "func"
     ],
@@ -35491,7 +35491,7 @@
      80,
      "0x00488E70",
      "names.json",
-     "sub_00488E70_KeyMsg",
+     "INV_OpenChatKeyMsg",
      0,
      "func"
     ],
@@ -35499,7 +35499,7 @@
      92,
      "0x00492770",
      "names.json",
-     "sub_00492770_KeyIfReadyMsg",
+     "INV_WeaponSwapKeyMsg",
      0,
      "func"
     ]
@@ -35577,7 +35577,7 @@
      20,
      "0x004A42A0",
      "names.json",
-     "sub_004A42A0_OnLeftButtonUp",
+     "TEXT_QuestLButtonUpMsg",
      0,
      "func"
     ],
@@ -35593,7 +35593,7 @@
      44,
      "0x004A42A0",
      "names.json",
-     "sub_004A42A0_OnLeftButtonUp",
+     "TEXT_QuestLButtonUpMsg",
      0,
      "func"
     ],
@@ -35601,7 +35601,7 @@
      56,
      "0x004A2840",
      "names.json",
-     "sub_004A2840_OpenPanelMsgHandler",
+     "TEXT_CloseQuestPanelMsg",
      0,
      "func"
     ],
@@ -35609,7 +35609,7 @@
      68,
      "0x004A2840",
      "names.json",
-     "sub_004A2840_OpenPanelMsgHandler",
+     "TEXT_CloseQuestPanelMsg",
      0,
      "func"
     ],
@@ -35617,7 +35617,7 @@
      80,
      "0x004A2840",
      "names.json",
-     "sub_004A2840_OpenPanelMsgHandler",
+     "TEXT_CloseQuestPanelMsg",
      0,
      "func"
     ]
@@ -35687,7 +35687,7 @@
      8,
      "0x00488DF0",
      "names.json",
-     "sub_00488DF0_HandledMsg",
+     "INV_ConsumeMsg",
      0,
      "func"
     ],
@@ -35695,7 +35695,7 @@
      20,
      "0x00488DF0",
      "names.json",
-     "sub_00488DF0_HandledMsg",
+     "INV_ConsumeMsg",
      0,
      "func"
     ],
@@ -35711,7 +35711,7 @@
      44,
      "0x00489580",
      "names.json",
-     "sub_00489580_StashMouseMove",
+     "INV_TradePanelMsg",
      0,
      "func"
     ],
@@ -35719,7 +35719,7 @@
      56,
      "0x004894D0",
      "names.json",
-     "sub_004894D0_MouseMoveMsg",
+     "INV_TradeMouseMoveMsg",
      0,
      "func"
     ],
@@ -35727,7 +35727,7 @@
      68,
      "0x004897A0",
      "names.json",
-     "sub_004897A0_HandledIfState11Ex",
+     "INV_TradeCancelMsg",
      0,
      "func"
     ],
@@ -35735,7 +35735,7 @@
      80,
      "0x004897A0",
      "names.json",
-     "sub_004897A0_HandledIfState11Ex",
+     "INV_TradeCancelMsg",
      0,
      "func"
     ],
@@ -35743,7 +35743,7 @@
      92,
      "0x00489D70",
      "names.json",
-     "sub_00489D70_KeyNoRepeatMsg",
+     "INV_KeyNoRepeatMsg",
      0,
      "func"
     ],
@@ -35751,7 +35751,7 @@
      104,
      "0x00488E70",
      "names.json",
-     "sub_00488E70_KeyMsg",
+     "INV_OpenChatKeyMsg",
      0,
      "func"
     ],
@@ -35759,7 +35759,7 @@
      116,
      "0x004897A0",
      "names.json",
-     "sub_004897A0_HandledIfState11Ex",
+     "INV_TradeCancelMsg",
      0,
      "func"
     ],
@@ -35767,7 +35767,7 @@
      128,
      "0x00489D70",
      "names.json",
-     "sub_00489D70_KeyNoRepeatMsg",
+     "INV_KeyNoRepeatMsg",
      0,
      "func"
     ],
@@ -35783,7 +35783,7 @@
      152,
      "0x00492770",
      "names.json",
-     "sub_00492770_KeyIfReadyMsg",
+     "INV_WeaponSwapKeyMsg",
      0,
      "func"
     ]
@@ -35853,7 +35853,7 @@
      8,
      "0x00491AD0",
      "source",
-     "sub_00491AD0_OnInventoryClickMsg",
+     "INV_InventoryClickMsg",
      0,
      "func"
     ],
@@ -35861,7 +35861,7 @@
      20,
      "0x00492510",
      "names.json",
-     "sub_00492510_CubeButtonDown",
+     "INV_StashButtonDownMsg",
      0,
      "func"
     ],
@@ -35869,7 +35869,7 @@
      32,
      "0x00489AC0",
      "names.json",
-     "sub_00489AC0_CubeClick",
+     "INV_StashClickMsg",
      0,
      "func"
     ],
@@ -35877,7 +35877,7 @@
      44,
      "0x00489A30",
      "names.json",
-     "sub_00489A30_CubeMouseMove",
+     "INV_StashMouseMoveMsg",
      0,
      "func"
     ],
@@ -35885,7 +35885,7 @@
      56,
      "0x00489CE0",
      "names.json",
-     "sub_00489CE0_HandledIfState12",
+     "INV_StashCloseMsg",
      0,
      "func"
     ],
@@ -35893,7 +35893,7 @@
      68,
      "0x00489CE0",
      "names.json",
-     "sub_00489CE0_HandledIfState12",
+     "INV_StashCloseMsg",
      0,
      "func"
     ],
@@ -35901,7 +35901,7 @@
      80,
      "0x00488E70",
      "names.json",
-     "sub_00488E70_KeyMsg",
+     "INV_OpenChatKeyMsg",
      0,
      "func"
     ],
@@ -35909,7 +35909,7 @@
      92,
      "0x00492770",
      "names.json",
-     "sub_00492770_KeyIfReadyMsg",
+     "INV_WeaponSwapKeyMsg",
      0,
      "func"
     ]
@@ -35979,7 +35979,7 @@
      8,
      "0x00491AD0",
      "source",
-     "sub_00491AD0_OnInventoryClickMsg",
+     "INV_InventoryClickMsg",
      0,
      "func"
     ],
@@ -35987,7 +35987,7 @@
      20,
      "0x004927C0",
      "names.json",
-     "sub_004927C0_CubeButtonUp",
+     "INV_CubeButtonUpMsg",
      0,
      "func"
     ],
@@ -35995,7 +35995,7 @@
      32,
      "0x0048A190",
      "names.json",
-     "sub_0048A190_CubeMouseMove",
+     "INV_CubeClickMsg",
      0,
      "func"
     ],
@@ -36003,7 +36003,7 @@
      44,
      "0x0048A0F0",
      "names.json",
-     "sub_0048A0F0_MouseMoveMsg",
+     "INV_CubeMouseMoveMsg",
      0,
      "func"
     ],
@@ -36011,7 +36011,7 @@
      56,
      "0x0048A3E0",
      "names.json",
-     "sub_0048A3E0_HandledIfState14Ex",
+     "INV_CubeCloseMsg",
      0,
      "func"
     ],
@@ -36019,7 +36019,7 @@
      68,
      "0x0048A3E0",
      "names.json",
-     "sub_0048A3E0_HandledIfState14Ex",
+     "INV_CubeCloseMsg",
      0,
      "func"
     ],
@@ -36027,7 +36027,7 @@
      80,
      "0x00488E70",
      "names.json",
-     "sub_00488E70_KeyMsg",
+     "INV_OpenChatKeyMsg",
      0,
      "func"
     ]
@@ -36097,7 +36097,7 @@
      8,
      "0x00498C00",
      "names.json",
-     "sub_00498C00_CloseOnSpace",
+     "PANEL_CloseUIVarsMsg",
      0,
      "func"
     ],
@@ -36105,7 +36105,7 @@
      20,
      "0x00498C00",
      "names.json",
-     "sub_00498C00_CloseOnSpace",
+     "PANEL_CloseUIVarsMsg",
      0,
      "func"
     ]
@@ -38307,7 +38307,7 @@
      8,
      "0x004A59D0",
      "names.json",
-     "sub_004A59D0_HandleHotkeyAction",
+     "TEXT_KeyConfigWheelMsg",
      0,
      "func"
     ]
@@ -38487,7 +38487,7 @@
      20,
      "0x004A5F10",
      "names.json",
-     "sub_004A5F10_ButtonUpMsgHandler",
+     "TEXT_KeyConfigButtonUpMsg",
      0,
      "func"
     ],
@@ -38503,7 +38503,7 @@
      44,
      "0x004A5F10",
      "names.json",
-     "sub_004A5F10_ButtonUpMsgHandler",
+     "TEXT_KeyConfigButtonUpMsg",
      0,
      "func"
     ],
@@ -38511,7 +38511,7 @@
      56,
      "0x004A5AB0",
      "names.json",
-     "sub_004A5AB0_NextEntryMsgHandler",
+     "TEXT_NextEntryMsg",
      0,
      "func"
     ],
@@ -38519,7 +38519,7 @@
      68,
      "0x004A5A40",
      "names.json",
-     "sub_004A5A40_PrevEntryMsgHandler",
+     "TEXT_PrevEntryMsg",
      0,
      "func"
     ],
@@ -38527,7 +38527,7 @@
      80,
      "0x004A5B30",
      "names.json",
-     "sub_004A5B30_SetFlagMsgHandler",
+     "TEXT_SelectSecondaryColumnMsg",
      0,
      "func"
     ],
@@ -38535,7 +38535,7 @@
      92,
      "0x004A5B90",
      "names.json",
-     "sub_004A5B90_ClearFlagMsgHandler",
+     "TEXT_SelectPrimaryColumnMsg",
      0,
      "func"
     ],
@@ -38543,7 +38543,7 @@
      104,
      "0x004A5F70",
      "names.json",
-     "sub_004A5F70_ApplyEntryMsgHandler",
+     "TEXT_ApplyEntryMsg",
      0,
      "func"
     ],
@@ -38551,7 +38551,7 @@
      116,
      "0x004A5BF0",
      "names.json",
-     "sub_004A5BF0_SelectEntryMsgHandler",
+     "TEXT_ClearEntryKeyMsg",
      0,
      "func"
     ],
@@ -38559,7 +38559,7 @@
      128,
      "0x004A5BF0",
      "names.json",
-     "sub_004A5BF0_SelectEntryMsgHandler",
+     "TEXT_ClearEntryKeyMsg",
      0,
      "func"
     ],
@@ -38567,7 +38567,7 @@
      140,
      "0x004A5C70",
      "names.json",
-     "sub_004A5C70",
+     "TEXT_CancelKeyConfigMsg",
      0,
      "func"
     ],
@@ -38575,7 +38575,7 @@
      152,
      "0x004A5C70",
      "names.json",
-     "sub_004A5C70",
+     "TEXT_CancelKeyConfigMsg",
      0,
      "func"
     ]
@@ -39288,7 +39288,7 @@
      20,
      "0x00496720",
      "names.json",
-     "sub_00496720_ButtonReleaseMsg",
+     "INV_HelpCloseButtonMsg",
      0,
      "func"
     ],
@@ -39346,7 +39346,7 @@
      20,
      "0x004996A0",
      "source",
-     "sub_004996A0_BeltMouseRelease",
+     "PANEL_BeltMouseReleaseMsg",
      0,
      "func"
     ],
@@ -39362,7 +39362,7 @@
      44,
      "0x00499D10",
      "names.json",
-     "sub_00499D10_BeltClick",
+     "PANEL_BeltClickMsg",
      0,
      "func"
     ]
@@ -41061,7 +41061,7 @@
      8,
      "0x0045FE30",
      "names.json",
-     "sub_0045FE30_ButtonDownMsg",
+     "AUTOMAP_PopupButtonDownMsg",
      0,
      "func"
     ],
@@ -41155,7 +41155,7 @@
      8,
      "0x004601F0",
      "names.json",
-     "sub_004601F0_TwoButtonDownMsg",
+     "AUTOMAP_PopupTwoButtonDownMsg",
      0,
      "func"
     ],
@@ -41163,7 +41163,7 @@
      20,
      "0x004602E0",
      "names.json",
-     "sub_004602E0_TwoButtonUpMsg",
+     "AUTOMAP_PopupTwoButtonUpMsg",
      0,
      "func"
     ],
@@ -42449,7 +42449,7 @@
      32,
      "0x0046A940",
      "owner",
-     "sub_0046A940_DispatchHotkey",
+     "CMDTBL_DispatchHotkey",
      0,
      "func"
     ],
@@ -42457,7 +42457,7 @@
      44,
      "0x0046A940",
      "owner",
-     "sub_0046A940_DispatchHotkey",
+     "CMDTBL_DispatchHotkey",
      0,
      "func"
     ]
@@ -42527,7 +42527,7 @@
      8,
      "0x0046A940",
      "owner",
-     "sub_0046A940_DispatchHotkey",
+     "CMDTBL_DispatchHotkey",
      0,
      "func"
     ],
@@ -42535,7 +42535,7 @@
      20,
      "0x0046A940",
      "owner",
-     "sub_0046A940_DispatchHotkey",
+     "CMDTBL_DispatchHotkey",
      0,
      "func"
     ]
@@ -43040,7 +43040,7 @@
      432,
      "0x00469200",
      "owner",
-     "sub_00469200_HotkeyClearValue",
+     "CMDTBL_HotkeyStandStillRelease",
      0,
      "func"
     ],
@@ -43064,7 +43064,7 @@
      452,
      "0x004690A0",
      "owner",
-     "sub_004690A0_HotkeyCmd4",
+     "CMDTBL_HotkeyClearScreen",
      0,
      "func"
     ],
@@ -43088,7 +43088,7 @@
      488,
      "0x004691B0",
      "owner",
-     "sub_004691B0_HotkeyClearListFlags",
+     "CMDTBL_HotkeyClearMessages",
      0,
      "func"
     ],
@@ -45653,7 +45653,7 @@
      44,
      "0x0047BC70",
      "names.json",
-     "sub_0047BC70_LowClickMsg",
+     "INV_CloseChatOnPanelClickMsg",
      0,
      "func"
     ]
@@ -45679,7 +45679,7 @@
      8,
      "0x0047AE00",
      "owner",
-     "sub_0047AE00",
+     "CHAT_ImeNotifyMsg",
      0,
      "func"
     ],
@@ -45703,7 +45703,7 @@
      44,
      "0x0047AD10",
      "names.json",
-     "sub_0047AD10_ResetSelectionMsg",
+     "INV_ResetImeCompositionMsg",
      0,
      "func"
     ],
@@ -45711,7 +45711,7 @@
      56,
      "0x0047B070",
      "names.json",
-     "sub_0047B070_SetHandled",
+     "INV_SetMsgHandled",
      0,
      "func"
     ],
@@ -45719,7 +45719,7 @@
      68,
      "0x0047B070",
      "names.json",
-     "sub_0047B070_SetHandled",
+     "INV_SetMsgHandled",
      0,
      "func"
     ],
@@ -45727,7 +45727,7 @@
      80,
      "0x0047B070",
      "names.json",
-     "sub_0047B070_SetHandled",
+     "INV_SetMsgHandled",
      0,
      "func"
     ]
@@ -51039,7 +51039,7 @@
      8,
      "0x0049DA10",
      "names.json",
-     "sub_0049DA10_EatMsgHandler",
+     "TEXT_EatMsg",
      0,
      "func"
     ],
@@ -51063,7 +51063,7 @@
      44,
      "0x004A1770",
      "names.json",
-     "sub_004A1770_KeyUpMsgHandler",
+     "TEXT_KeyUpMsg",
      0,
      "func"
     ],
@@ -51071,7 +51071,7 @@
      56,
      "0x004A1770",
      "names.json",
-     "sub_004A1770_KeyUpMsgHandler",
+     "TEXT_KeyUpMsg",
      0,
      "func"
     ],
@@ -51079,7 +51079,7 @@
      68,
      "0x004A1870",
      "names.json",
-     "sub_004A1870_HotkeyMsgHandler",
+     "TEXT_HotkeyMsg",
      0,
      "func"
     ],
@@ -51087,7 +51087,7 @@
      80,
      "0x004A18C0",
      "names.json",
-     "sub_004A18C0_KeyDownMsgHandler",
+     "TEXT_KeyDownMsg",
      0,
      "func"
     ]
@@ -55057,7 +55057,7 @@
      8,
      "0x004A6310",
      "names.json",
-     "sub_004A6310_ToggleMsgHandler",
+     "TEXT_WheelCaptureMsg",
      0,
      "func"
     ]
@@ -55237,7 +55237,7 @@
      8,
      "0x004A6350",
      "names.json",
-     "sub_004A6350_CommandMsgHandler",
+     "TEXT_ButtonCaptureMsg",
      0,
      "func"
     ]
@@ -55593,7 +55593,7 @@
      2,
      "0x004A5040",
      "names.json",
-     "sub_004A5040_CancelKeyConfig",
+     "TEXT_CancelKeyConfig",
      0,
      "func"
     ],
@@ -55601,7 +55601,7 @@
      28,
      "0x004A5010",
      "names.json",
-     "sub_004A5010_Call00469A60",
+     "TEXT_ResetKeyConfigDefaults",
      0,
      "func"
     ],
@@ -55609,7 +55609,7 @@
      54,
      "0x004A5020",
      "names.json",
-     "sub_004A5020_AcceptKeyConfig",
+     "TEXT_AcceptKeyConfig",
      0,
      "func"
     ]
@@ -57056,7 +57056,7 @@
      6,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ]
@@ -57090,7 +57090,7 @@
      27,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -57106,7 +57106,7 @@
      66,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -57114,7 +57114,7 @@
      70,
      "0x004B3D40",
      "names.json",
-     "sub_004B3D40_NpcMenuTradeB",
+     "NPCMENU_OpenGambleShop",
      0,
      "func"
     ],
@@ -57138,7 +57138,7 @@
      144,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -57146,7 +57146,7 @@
      148,
      "0x004B3D40",
      "names.json",
-     "sub_004B3D40_NpcMenuTradeB",
+     "NPCMENU_OpenGambleShop",
      0,
      "func"
     ],
@@ -57186,7 +57186,7 @@
      261,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ]
@@ -57288,7 +57288,7 @@
      31,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ]
@@ -57390,7 +57390,7 @@
      31,
      "0x004B52C0",
      "names.json",
-     "sub_004B52C0_NpcMenuAction01",
+     "NPCMENU_TravelToRogueEncampment",
      0,
      "func"
     ]
@@ -57600,7 +57600,7 @@
      0,
      "0x004B2020",
      "owner",
-     "sub_004B2020_OpenTimedDialog34",
+     "NPCMENU_IdentifyItemsWait",
      0,
      "func"
     ]
@@ -57744,7 +57744,7 @@
      0,
      "0x004B2020",
      "owner",
-     "sub_004B2020_OpenTimedDialog34",
+     "NPCMENU_IdentifyItemsWait",
      0,
      "func"
     ]
@@ -57888,7 +57888,7 @@
      0,
      "0x004B2020",
      "owner",
-     "sub_004B2020_OpenTimedDialog34",
+     "NPCMENU_IdentifyItemsWait",
      0,
      "func"
     ]
@@ -58032,7 +58032,7 @@
      0,
      "0x004B2020",
      "owner",
-     "sub_004B2020_OpenTimedDialog34",
+     "NPCMENU_IdentifyItemsWait",
      0,
      "func"
     ]
@@ -58154,7 +58154,7 @@
      27,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -58162,7 +58162,7 @@
      66,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -58170,7 +58170,7 @@
      70,
      "0x004B3D40",
      "names.json",
-     "sub_004B3D40_NpcMenuTradeB",
+     "NPCMENU_OpenGambleShop",
      0,
      "func"
     ],
@@ -58194,7 +58194,7 @@
      113,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -58210,7 +58210,7 @@
      148,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -58226,7 +58226,7 @@
      187,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -58234,7 +58234,7 @@
      191,
      "0x004B3D40",
      "names.json",
-     "sub_004B3D40_NpcMenuTradeB",
+     "NPCMENU_OpenGambleShop",
      0,
      "func"
     ],
@@ -58250,7 +58250,7 @@
      226,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -58463,7 +58463,7 @@
      0,
      "0x004B2020",
      "owner",
-     "sub_004B2020_OpenTimedDialog34",
+     "NPCMENU_IdentifyItemsWait",
      0,
      "func"
     ]
@@ -58558,7 +58558,7 @@
      6,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ]
@@ -58592,7 +58592,7 @@
      27,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ]
@@ -58668,7 +58668,7 @@
      4,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ],
@@ -58676,7 +58676,7 @@
      8,
      "0x004B3D40",
      "names.json",
-     "sub_004B3D40_NpcMenuTradeB",
+     "NPCMENU_OpenGambleShop",
      0,
      "func"
     ]
@@ -58710,7 +58710,7 @@
      23,
      "0x004B3D40",
      "names.json",
-     "sub_004B3D40_NpcMenuTradeB",
+     "NPCMENU_OpenGambleShop",
      0,
      "func"
     ]
@@ -58882,7 +58882,7 @@
      188,
      "0x004AD1A0",
      "names.json",
-     "sub_004AD1A0_StateOverlayCross",
+     "NPCMENU_StateOverlayCross",
      0,
      "func"
     ],
@@ -58890,7 +58890,7 @@
      208,
      "0x004AD510",
      "names.json",
-     "sub_004AD510_StateEffect",
+     "NPCMENU_StateStartEffect",
      0,
      "func"
     ],
@@ -58898,7 +58898,7 @@
      228,
      "0x004AD5F0",
      "names.json",
-     "sub_004AD5F0_StateOverlayOrSpawn",
+     "NPCMENU_StateDurielDeath",
      0,
      "func"
     ],
@@ -58906,7 +58906,7 @@
      348,
      "0x004AD890",
      "names.json",
-     "sub_004AD890_StateBurstOnFrame",
+     "NPCMENU_StateBurstOnFrame",
      0,
      "func"
     ],
@@ -58914,7 +58914,7 @@
      352,
      "0x004AD8E0",
      "names.json",
-     "sub_004AD8E0_StateBurst",
+     "NPCMENU_StateBurst",
      0,
      "func"
     ],
@@ -58922,7 +58922,7 @@
      368,
      "0x004AD510",
      "names.json",
-     "sub_004AD510_StateEffect",
+     "NPCMENU_StateStartEffect",
      0,
      "func"
     ],
@@ -58930,7 +58930,7 @@
      408,
      "0x004AD920",
      "names.json",
-     "sub_004AD920_StateBurstNeutral",
+     "NPCMENU_StateBurstNeutral",
      0,
      "func"
     ],
@@ -58946,7 +58946,7 @@
      460,
      "0x004AD890",
      "names.json",
-     "sub_004AD890_StateBurstOnFrame",
+     "NPCMENU_StateBurstOnFrame",
      0,
      "func"
     ],
@@ -58954,7 +58954,7 @@
      596,
      "0x004AD970",
      "names.json",
-     "sub_004AD970_StateMissileSplit",
+     "NPCMENU_StateMissileSplit",
      0,
      "func"
     ],
@@ -58962,7 +58962,7 @@
      628,
      "0x004AD0C0",
      "names.json",
-     "sub_004AD0C0_StateOverlayBurst",
+     "NPCMENU_StateOverlayBurst",
      0,
      "func"
     ],
@@ -58970,7 +58970,7 @@
      648,
      "0x004ADB20",
      "names.json",
-     "sub_004ADB20_StateOverlayAtPath",
+     "NPCMENU_StateOverlayAtPath",
      0,
      "func"
     ],
@@ -58978,7 +58978,7 @@
      668,
      "0x004ADBC0",
      "names.json",
-     "sub_004ADBC0_StateMonOverlay",
+     "NPCMENU_StateMonOverlay",
      0,
      "func"
     ],
@@ -58986,7 +58986,7 @@
      808,
      "0x004ADD80",
      "names.json",
-     "sub_004ADD80_StateRequestsCallback",
+     "NPCMENU_StateRequestsCallback",
      0,
      "func"
     ],
@@ -58994,7 +58994,7 @@
      848,
      "0x004AD510",
      "names.json",
-     "sub_004AD510_StateEffect",
+     "NPCMENU_StateStartEffect",
      0,
      "func"
     ]
@@ -60644,7 +60644,7 @@
      8,
      "0x004B42B0",
      "names.json",
-     "sub_004B42B0_NpcMenuTrade",
+     "NPCMENU_OpenTradeShop",
      0,
      "func"
     ]
@@ -60762,7 +60762,7 @@
      16,
      "0x004B65F0",
      "names.json",
-     "sub_004B65F0_Initialize",
+     "NPCMENU_InitTravelLutGholeinHandler",
      0,
      "func"
     ],
@@ -60770,7 +60770,7 @@
      36,
      "0x004B6620",
      "names.json",
-     "sub_004B6620_InitHandler",
+     "NPCMENU_InitTravelKurastDocksHandler",
      0,
      "func"
     ],
@@ -60778,7 +60778,7 @@
      56,
      "0x004B6410",
      "owner",
-     "sub_004B6410_InitHandler",
+     "NPCMENU_InitHireHandler",
      0,
      "func"
     ],
@@ -60786,7 +60786,7 @@
      76,
      "0x004B3700",
      "names.json",
-     "sub_004B3700_InitHandler",
+     "NPCMENU_InitImbueHandler",
      0,
      "func"
     ],
@@ -60802,7 +60802,7 @@
      116,
      "0x004B3730",
      "names.json",
-     "sub_004B3730_InitHandler",
+     "NPCMENU_InitSocketHandler",
      0,
      "func"
     ],
@@ -60810,7 +60810,7 @@
      136,
      "0x004B3760",
      "names.json",
-     "sub_004B3760_InitHandler",
+     "NPCMENU_InitPersonalizeHandler",
      0,
      "func"
     ],
@@ -60826,7 +60826,7 @@
      176,
      "0x004B6680",
      "names.json",
-     "sub_004B6680_InitHandler",
+     "NPCMENU_InitTravelHarrogathHandler",
      0,
      "func"
     ]
@@ -60981,7 +60981,7 @@
      8,
      "0x004B7610",
      "owner",
-     "sub_004B7610_Wheel",
+     "DIALOG_WheelMsg",
      0,
      "func"
     ]
@@ -61051,7 +61051,7 @@
      0,
      "0x004B75D0",
      "owner",
-     "sub_004B75D0_OnDialogKey",
+     "DIALOG_KeyMsg",
      0,
      "func"
     ]
@@ -61102,7 +61102,7 @@
      0,
      "0x004B75D0",
      "owner",
-     "sub_004B75D0_OnDialogKey",
+     "DIALOG_KeyMsg",
      0,
      "func"
     ],
@@ -61110,7 +61110,7 @@
      12,
      "0x004B72E0",
      "owner",
-     "sub_004B72E0_OnLButtonUp",
+     "DIALOG_LButtonUpMsg",
      0,
      "func"
     ],
@@ -61118,7 +61118,7 @@
      24,
      "0x004B73E0",
      "owner",
-     "sub_004B73E0_OnLButtonDown",
+     "DIALOG_LButtonDownMsg",
      0,
      "func"
     ],
@@ -61126,7 +61126,7 @@
      36,
      "0x004B72E0",
      "owner",
-     "sub_004B72E0_OnLButtonUp",
+     "DIALOG_LButtonUpMsg",
      0,
      "func"
     ],
@@ -61134,7 +61134,7 @@
      48,
      "0x004B73E0",
      "owner",
-     "sub_004B73E0_OnLButtonDown",
+     "DIALOG_LButtonDownMsg",
      0,
      "func"
     ],
@@ -61142,7 +61142,7 @@
      60,
      "0x004B7870",
      "owner",
-     "sub_004B7870_Previous2",
+     "DIALOG_SelectPreviousAltMsg",
      0,
      "func"
     ],
@@ -61150,7 +61150,7 @@
      72,
      "0x004B78F0",
      "owner",
-     "sub_004B78F0_Next2",
+     "DIALOG_SelectNextAltMsg",
      0,
      "func"
     ],
@@ -61158,7 +61158,7 @@
      84,
      "0x004B7770",
      "owner",
-     "sub_004B7770_Previous1",
+     "DIALOG_SelectPreviousMsg",
      0,
      "func"
     ],
@@ -61166,7 +61166,7 @@
      96,
      "0x004B77F0",
      "owner",
-     "sub_004B77F0_Next1",
+     "DIALOG_SelectNextMsg",
      0,
      "func"
     ],
@@ -61174,7 +61174,7 @@
      108,
      "0x004B79D0",
      "owner",
-     "sub_004B79D0_DialogEnterMsg",
+     "DIALOG_EnterMsg",
      0,
      "func"
     ],
@@ -61190,7 +61190,7 @@
      132,
      "0x004B7A90",
      "owner",
-     "sub_004B7A90_DialogKeyDownMsg",
+     "DIALOG_KeyDownMsg",
      0,
      "func"
     ],
@@ -61198,7 +61198,7 @@
      144,
      "0x004B7270",
      "owner",
-     "sub_004B7270_DialogMouseMotion",
+     "DIALOG_MouseMoveMsg",
      0,
      "func"
     ]
@@ -62033,7 +62033,7 @@
      4,
      "0x004E3D70",
      "names.json",
-     "sub_004E3D70_OwnerMissileEvent",
+     "SKILLDESC_OwnerMissileEvent",
      0,
      "func"
     ]
@@ -62858,7 +62858,7 @@
      20,
      "0x004BFC50",
      "owner",
-     "sub_004BFC50_OnClick",
+     "USEITEM_ClickMsg",
      0,
      "func"
     ],
@@ -62866,7 +62866,7 @@
      32,
      "0x004BFC50",
      "owner",
-     "sub_004BFC50_OnClick",
+     "USEITEM_ClickMsg",
      0,
      "func"
     ],
@@ -62882,7 +62882,7 @@
      56,
      "0x004BFA30",
      "owner",
-     "sub_004BFA30_MouseMoveMsg",
+     "USEITEM_MouseMoveMsg",
      0,
      "func"
     ],
@@ -62890,7 +62890,7 @@
      68,
      "0x004C0150",
      "owner",
-     "sub_004C0150_OnPanelClose",
+     "USEITEM_OnPanelCloseMsg",
      0,
      "func"
     ],
@@ -62898,7 +62898,7 @@
      80,
      "0x004C0150",
      "owner",
-     "sub_004C0150_OnPanelClose",
+     "USEITEM_OnPanelCloseMsg",
      0,
      "func"
     ],
@@ -62906,7 +62906,7 @@
      92,
      "0x004BFDB0",
      "owner",
-     "sub_004BFDB0_BreakMsg",
+     "USEITEM_EatMsg",
      0,
      "func"
     ],
@@ -63463,7 +63463,7 @@
      20,
      "0x004F2340",
      "names.json",
-     "sub_004F2340_MissileRows",
+     "SKILLDESC_CltDoMissileRows",
      0,
      "func"
     ],
@@ -63471,7 +63471,7 @@
      24,
      "0x004F25A0",
      "names.json",
-     "sub_004F25A0_RepeatMissile",
+     "SKILLDESC_CltDoRepeatMissile",
      0,
      "func"
     ],
@@ -63479,7 +63479,7 @@
      28,
      "0x004F2720",
      "names.json",
-     "sub_004F2720_TargetMissile",
+     "SKILLDESC_CltDoTargetMissile",
      0,
      "func"
     ],
@@ -63495,7 +63495,7 @@
      36,
      "0x004F29F0",
      "names.json",
-     "sub_004F29F0_MissileScatterAtTarget",
+     "SKILLDESC_CltDoMissileScatterAtTarget",
      0,
      "func"
     ],
@@ -63503,7 +63503,7 @@
      40,
      "0x004F2E90",
      "names.json",
-     "sub_004F2E90_UnitEffect",
+     "SKILLDESC_CltDoUnitEffect",
      0,
      "func"
     ],
@@ -63519,7 +63519,7 @@
      48,
      "0x004F30A0",
      "names.json",
-     "sub_004F30A0_TargetPrgOverlay",
+     "SKILLDESC_CltDoTargetPrgOverlay",
      0,
      "func"
     ],
@@ -63527,7 +63527,7 @@
      52,
      "0x004F31A0",
      "names.json",
-     "sub_004F31A0_PrgOverlay",
+     "SKILLDESC_CltDoPrgOverlay",
      0,
      "func"
     ],
@@ -63535,7 +63535,7 @@
      56,
      "0x004F33B0",
      "names.json",
-     "sub_004F33B0_PositionMissile",
+     "SKILLDESC_CltDoPositionMissile",
      0,
      "func"
     ],
@@ -63567,7 +63567,7 @@
      72,
      "0x004F47B0",
      "names.json",
-     "sub_004F47B0_TargetedMissile",
+     "SKILLDESC_CltDoTargetedMissile",
      0,
      "func"
     ],
@@ -63575,7 +63575,7 @@
      76,
      "0x004F48F0",
      "names.json",
-     "sub_004F48F0_MirrorMissiles",
+     "SKILLDESC_CltDoMirrorMissiles",
      0,
      "func"
     ],
@@ -63647,7 +63647,7 @@
      112,
      "0x004E3910",
      "names.json",
-     "sub_004E3910_MissileIfCollision",
+     "SKILLDESC_CltDoMissileIfCollision",
      0,
      "func"
     ],
@@ -63655,7 +63655,7 @@
      116,
      "0x004E3A30",
      "names.json",
-     "sub_004E3A30_FirstMissile",
+     "SKILLDESC_CltDoFirstMissile",
      0,
      "func"
     ],
@@ -63671,7 +63671,7 @@
      124,
      "0x004F38D0",
      "names.json",
-     "sub_004F38D0_ParamMissile",
+     "SKILLDESC_CltDoParamMissile",
      0,
      "func"
     ],
@@ -63903,7 +63903,7 @@
      240,
      "0x004E1FF0",
      "names.json",
-     "sub_004E1FF0_SkillCltDoMissileWall",
+     "SKILLDESC_CltDoMissileWall",
      0,
      "func"
     ],
@@ -63935,7 +63935,7 @@
      256,
      "0x004E2630",
      "names.json",
-     "sub_004E2630_SkillDoFrameSteps",
+     "SKILLDESC_CltDoFrameSteps",
      0,
      "func"
     ],
@@ -63951,7 +63951,7 @@
      264,
      "0x004E2C20",
      "names.json",
-     "sub_004E2C20_WeaponOrSkillMissile",
+     "SKILLDESC_CltDoWeaponOrSkillMissile",
      0,
      "func"
     ],
@@ -63959,7 +63959,7 @@
      268,
      "0x004F1850",
      "names.json",
-     "sub_004F1850_MissileFanA",
+     "SKILLDESC_CltDoMissileFanA",
      0,
      "func"
     ],
@@ -63967,7 +63967,7 @@
      272,
      "0x004F18F0",
      "names.json",
-     "sub_004F18F0_MissileFanB",
+     "SKILLDESC_CltDoMissileFanB",
      0,
      "func"
     ],
@@ -63975,7 +63975,7 @@
      276,
      "0x004F1990",
      "names.json",
-     "sub_004F1990_MissileFanC",
+     "SKILLDESC_CltDoMissileFanC",
      0,
      "func"
     ],
@@ -63983,7 +63983,7 @@
      280,
      "0x004EFCF0",
      "names.json",
-     "sub_004EFCF0_TurnedMissile",
+     "SKILLDESC_CltDoTurnedMissile",
      0,
      "func"
     ],
@@ -63991,7 +63991,7 @@
      284,
      "0x004EFDF0",
      "source",
-     "sub_004EFDF0_LobMissile",
+     "SKILLDESC_CltDoLobMissile",
      0,
      "func"
     ],
@@ -64063,7 +64063,7 @@
      320,
      "0x004F11D0",
      "names.json",
-     "sub_004F11D0_MissileLine",
+     "SKILLDESC_CltDoMissileLine",
      0,
      "func"
     ],
@@ -64071,7 +64071,7 @@
      324,
      "0x004F1370",
      "names.json",
-     "sub_004F1370_FirstMissileTurned",
+     "SKILLDESC_CltDoFirstMissileTurned",
      0,
      "func"
     ],
@@ -64119,7 +64119,7 @@
      348,
      "0x004E3EB0",
      "names.json",
-     "sub_004E3EB0_ScatterMissile",
+     "SKILLDESC_CltDoScatterMissile",
      0,
      "func"
     ],
@@ -64175,7 +64175,7 @@
      376,
      "0x004E2A40",
      "names.json",
-     "sub_004E2A40_ComponentMissile",
+     "SKILLDESC_CltDoComponentMissileA",
      0,
      "func"
     ],
@@ -64183,7 +64183,7 @@
      380,
      "0x004E2B30",
      "names.json",
-     "sub_004E2B30_ComponentMissile",
+     "SKILLDESC_CltDoComponentMissileB",
      0,
      "func"
     ],
@@ -64191,7 +64191,7 @@
      384,
      "0x004E37C0",
      "names.json",
-     "sub_004E37C0_MissileAtTargetOffset",
+     "SKILLDESC_CltDoMissileAtTargetOffset",
      0,
      "func"
     ]
@@ -64368,7 +64368,7 @@
      60,
      "0x004E3060",
      "names.json",
-     "sub_004E3060_CltDoPrgState",
+     "SKILLDESC_CltDoPrgState",
      0,
      "func"
     ],
@@ -64400,7 +64400,7 @@
      76,
      "0x004F3810",
      "names.json",
-     "sub_004F3810_SkillCltStartMissileC",
+     "SKILLDESC_CltStartMissileC",
      0,
      "func"
     ],
@@ -64416,7 +64416,7 @@
      84,
      "0x004F39A0",
      "names.json",
-     "sub_004F39A0_SetTargetParams",
+     "SKILLDESC_CltStartSetTargetParams",
      0,
      "func"
     ],
@@ -64616,7 +64616,7 @@
      184,
      "0x004F0160",
      "names.json",
-     "sub_004F0160_SoundMissile",
+     "SKILLDESC_CltDoSoundMissile",
      0,
      "func"
     ],
@@ -64624,7 +64624,7 @@
      188,
      "0x004F01F0",
      "names.json",
-     "sub_004F01F0_DirectionMissile",
+     "SKILLDESC_CltDoDirectionMissile",
      0,
      "func"
     ],
@@ -77668,7 +77668,7 @@
      4,
      "0x004EA170",
      "owner",
-     "sub_004EA170_DrawDualWieldLine",
+     "SKILLDESC_DrawDualWieldLine",
      0,
      "func"
     ],
@@ -77676,7 +77676,7 @@
      8,
      "0x004EA450",
      "source",
-     "sub_004EA450_DrawMinDamagePlusStat",
+     "SKILLDESC_DrawKickBaseDamage",
      0,
      "func"
     ],
@@ -77684,7 +77684,7 @@
      12,
      "0x004EA990",
      "source",
-     "sub_004EA990_DrawSkillDamage",
+     "SKILLDESC_DrawSkillDamage",
      0,
      "func"
     ],
@@ -77692,7 +77692,7 @@
      16,
      "0x004EAA30",
      "owner",
-     "sub_004EAA30_DrawOtherHandDamage",
+     "SKILLDESC_DrawOtherHandDamage",
      0,
      "func"
     ],
@@ -77700,7 +77700,7 @@
      20,
      "0x004EAD60",
      "names.json",
-     "sub_004EAD60_DrawWeaponPhysElemDamage",
+     "SKILLDESC_DrawWeaponPhysElemDamage",
      0,
      "func"
     ],
@@ -77708,7 +77708,7 @@
      24,
      "0x004E9D20",
      "names.json",
-     "sub_004E9D20_DrawWeaponAndSkillDamage",
+     "SKILLDESC_DrawWeaponAndSkillDamage",
      0,
      "func"
     ],
@@ -77716,7 +77716,7 @@
      28,
      "0x004EA010",
      "source",
-     "sub_004EA010_DrawSkillWeaponLine",
+     "SKILLDESC_DrawSkillWeaponLine",
      0,
      "func"
     ],
@@ -77732,7 +77732,7 @@
      36,
      "0x004EB390",
      "source",
-     "sub_004EB390_DrawElementalDamageLine",
+     "SKILLDESC_DrawElementalDamageLine",
      0,
      "func"
     ],
@@ -77740,7 +77740,7 @@
      40,
      "0x004EB460",
      "source",
-     "sub_004EB460_DrawThrowDamage",
+     "SKILLDESC_DrawThrowDamage",
      0,
      "func"
     ],
@@ -77748,7 +77748,7 @@
      44,
      "0x004EB640",
      "owner",
-     "sub_004EB640_DrawMasteryWeaponDamage",
+     "SKILLDESC_DrawMasteryWeaponDamage",
      0,
      "func"
     ],
@@ -77756,7 +77756,7 @@
      48,
      "0x004EB830",
      "source",
-     "sub_004EB830_DrawWeaponDamage",
+     "SKILLDESC_DrawBoostedElemDamage",
      0,
      "func"
     ],
@@ -77764,7 +77764,7 @@
      52,
      "0x004EB240",
      "owner",
-     "sub_004EB240_DrawSkillWeaponDamage",
+     "SKILLDESC_DrawSkillWeaponDamage",
      0,
      "func"
     ],
@@ -77772,7 +77772,7 @@
      56,
      "0x004EB940",
      "names.json",
-     "sub_004EB940_DrawWeaponDamageWithParam",
+     "SKILLDESC_DrawWeaponDamageWithParam",
      0,
      "func"
     ],
@@ -77780,7 +77780,7 @@
      60,
      "0x004EBA30",
      "owner",
-     "sub_004EBA30_DrawKickDamage",
+     "SKILLDESC_DrawKickDamage",
      0,
      "func"
     ],
@@ -77788,7 +77788,7 @@
      64,
      "0x004EBB50",
      "source",
-     "sub_004EBB50_DrawKickDamage",
+     "SKILLDESC_DrawKickDamagePercent",
      0,
      "func"
     ],
@@ -77796,7 +77796,7 @@
      68,
      "0x004EBD50",
      "owner",
-     "sub_004EBD50_DrawDescWeaponAndElemDamage",
+     "SKILLDESC_DrawDescWeaponAndElemDamage",
      0,
      "func"
     ],
@@ -77812,7 +77812,7 @@
      76,
      "0x004EA310",
      "owner",
-     "sub_004EA310_DrawWeaponDamageLine",
+     "SKILLDESC_DrawWeaponDamageLine",
      0,
      "func"
     ],
@@ -77820,7 +77820,7 @@
      80,
      "0x004EA240",
      "owner",
-     "sub_004EA240_DrawDualWieldLineNoElem",
+     "SKILLDESC_DrawDualWieldLineNoElem",
      0,
      "func"
     ],
@@ -77828,7 +77828,7 @@
      84,
      "0x004EA790",
      "owner",
-     "sub_004EA790_DrawWeaponStatDamage",
+     "SKILLDESC_DrawWeaponStatDamage",
      0,
      "func"
     ],
@@ -77836,7 +77836,7 @@
      88,
      "0x004EAAA0",
      "source",
-     "sub_004EAAA0_DrawCallbackElemDamage",
+     "SKILLDESC_DrawThrowAndElemDamage",
      0,
      "func"
     ],
@@ -77844,7 +77844,7 @@
      92,
      "0x004EAF90",
      "owner",
-     "sub_004EAF90_DrawWeaponAndElemDamage",
+     "SKILLDESC_DrawWeaponAndElemDamage",
      0,
      "func"
     ],
@@ -77934,7 +77934,7 @@
      8,
      "0x004E9510",
      "names.json",
-     "sub_004E9510_SkillDescAttackRating",
+     "SKILLDESC_DescAttackRating",
      0,
      "func"
     ],
@@ -77942,7 +77942,7 @@
      12,
      "0x004E9590",
      "names.json",
-     "sub_004E9590_SkillDescAttackRate",
+     "SKILLDESC_DescAttackRate",
      0,
      "func"
     ],
@@ -77950,7 +77950,7 @@
      16,
      "0x004E95C0",
      "names.json",
-     "sub_004E95C0_SkillDescAttackRatingOffhand",
+     "SKILLDESC_DescAttackRatingOffhand",
      0,
      "func"
     ],

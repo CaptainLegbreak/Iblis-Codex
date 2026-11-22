@@ -163,7 +163,7 @@ int __fastcall sub_00481890_GetCacheFirst(int nId);                             
 void __fastcall sub_004822B0_AddVariantRefs(int nIndex, int nDelta);                                        // 0x004822B0
 int __cdecl sub_0044DB00(); // 0x0044DB00
 int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
-extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength);                     // 0x004E4180
 int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode);                                     // 0x004CA810
 int __fastcall sub_004CADB0_GetUnitFloorMaterial(D2UnitStrc* pUnit);                                        // 0x004CADB0
@@ -180,7 +180,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);         // 0x00625D00
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
-void __fastcall sub_004A0200_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId);                          // 0x004A0200
+void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId);                          // 0x004A0200
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId);                          // 0x004CB9C0
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType);                                     // 0x004E0590
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg);                                         // 0x004DCE10

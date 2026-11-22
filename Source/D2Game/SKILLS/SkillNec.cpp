@@ -274,7 +274,7 @@ D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStr
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
-int __fastcall sub_004F4110_GetSkillParam5(int nSkillId); // 0x004F4110
+int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 
 struct D2MonStatsInitStrc
 {
@@ -2612,7 +2612,7 @@ int __fastcall sub_005C6870_FeedBloodGolem(D2GameStrc* pGame, D2UnitStrc* pUnit,
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nClassId);
         if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill[0] >= 0)
         {
-            nValue -= SKILLS_AddLifeAndGetGain(pGolem, sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill[0]) * nValue / 100);
+            nValue -= SKILLS_AddLifeAndGetGain(pGolem, SKILLDESC_GetSkillParamSix(pMonStatsTxtRecord->nSkill[0]) * nValue / 100);
         }
     }
     else
@@ -2689,7 +2689,7 @@ int __fastcall D2GAME_EventFunc23_6FD0F1F0(D2GameStrc* pGame, int nEvent, D2Unit
         return 0;
     }
 
-    const int nParam = sub_004EFC50_GetSkillParam3(nSkillId);
+    const int nParam = SKILLDESC_GetSkillParamThree(nSkillId);
     if (pOwner && nParam > 0)
     {
         nBaseDamage -= SKILLS_AddLifeAndGetGain(pOwner, DATATBLS_ApplyRatio(nBaseDamage, nParam, 100));
@@ -2755,7 +2755,7 @@ int __fastcall SKILLS_EventFunc26_ShareDamageWithOwner(D2GameStrc* pGame, int nE
 
     if (pMonStatsTxtRecord->nSkill[0] >= 0)
     {
-        const int nDamage = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, sub_004E6C70(pMonStatsTxtRecord->nSkill[0]), 100);
+        const int nDamage = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, SKILLDESC_GetSkillParamFive(pMonStatsTxtRecord->nSkill[0]), 100);
         nLife -= nDamage;
         if (nLife < 0x100)
         {
@@ -2839,7 +2839,7 @@ int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc* pGame, D2UnitStr
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pBloodGolem->dwClassId);
         if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill[0] >= 0)
         {
-            const int nParam = sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill[0]);
+            const int nParam = SKILLDESC_GetSkillParamSix(pMonStatsTxtRecord->nSkill[0]);
             const int nResult = nLife - SKILLS_AddLifeAndGetGain(pBloodGolem, nParam * nLife / 100);
 
             return nResult;

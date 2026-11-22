@@ -31,8 +31,8 @@ int __cdecl sub_0044DCC0(); // 0x0044DCC0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 void __fastcall sub_004898D0(int nState); // 0x004898D0
-void __cdecl sub_004A43E0(); // 0x004A43E0
-void __cdecl sub_004B7C60(); // 0x004B7C60
+void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
+void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -155,7 +155,7 @@ static int gnGlobal_007C0E58; // 0x007C0E58
 static int gnGlobal_007C0E5C; // 0x007C0E5C
 
 // 0x0049C580
-void __cdecl sub_0049C580_LoadPanelCels()
+void __cdecl TEXT_LoadWaypointPanelCels()
 {
     char szPath[0x104];
     if (!gpCelFile_007BF071)
@@ -183,7 +183,7 @@ void __cdecl sub_0049C580_LoadPanelCels()
 }
 
 // 0x0049FA10
-void __cdecl sub_0049FA10_DrawPanelFrame()
+void __cdecl TEXT_DrawPanelFrame()
 {
     char szPath[0x104];
     D2CelContextStrc tContext;
@@ -262,10 +262,10 @@ void __cdecl sub_004A23D0_LoadPanelCels()
 }
 
 // 0x004A5190
-void __cdecl sub_004A5190_InitTextSlider()
+void __cdecl TEXT_InitTextSlider()
 {
     char szPath[0x104];
-    sub_004A43E0();
+    TEXT_InitKeyConfigEntries();
     sprintf(szPath, "%s\\UI\\Menu\\TextSlid", szDataGlobal_006D4118);
     gpCelFile_007C02BC = sub_004788B0(szPath, 0);
     sub_004A5060();
@@ -274,7 +274,7 @@ void __cdecl sub_004A5190_InitTextSlider()
 }
 
 // 0x004B23E0
-void __cdecl sub_004B23E0_InitPartyPanel()
+void __cdecl TEXT_InitNpcMenu()
 {
     char szPath[0x104];
     gnGlobal_007C0DC0 = 0;
@@ -295,7 +295,7 @@ void __cdecl sub_004B23E0_InitPartyPanel()
 }
 
 // 0x004BE020
-void __cdecl sub_004BE020_LoadTextSliderCel()
+void __cdecl TEXT_LoadTextSliderCel()
 {
     char szPath[0x104];
     sprintf(szPath, "%s\\ui\\menu\\textslid", szDataGlobal_006D4118);
@@ -335,7 +335,7 @@ static void sub_0049D3C0_MeasureTextBox(T00479230* pBox)
 }
 
 // 0x0049D410
-void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
+void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
 {
     if (pTextBox)
     {
@@ -345,7 +345,7 @@ void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox)
 }
 
 // 0x0049D9A0
-static int sub_0049D9A0_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
+static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
 {
     if (!pTextBox->nScroll)
         pTextBox->nScroll = 1;
@@ -452,7 +452,7 @@ static bool sub_0049E280_ConvertHoverText(Unicode* wszText, const char* szText, 
     return true;
 }
 
-void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit)
+void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return;
@@ -513,7 +513,7 @@ void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit)
 }
 
 // 0x004A0D20
-void __fastcall sub_004A0D20_DrawObjectHoverText(D2UnitStrc* pUnit)
+void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return;
@@ -563,7 +563,7 @@ void __fastcall sub_004A0D20_DrawObjectHoverText(D2UnitStrc* pUnit)
 }
 
 // 0x0049DEE0
-void __cdecl sub_0049DEE0_DrawOverheadTextList()
+void __cdecl TEXT_DrawOverheadTextList()
 {
     if (!gtTextList_007BF1EA.wCount)
     {
@@ -661,7 +661,7 @@ static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText,
 }
 
 // 0x004A0200
-void __fastcall sub_004A0200_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
+void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
 {
     char szText[12];
 
@@ -731,12 +731,12 @@ static void __stdcall sub_004A0A00_ShowHoverText(const Unicode* wszText, D2UnitS
     tRect.nRight = pTextBox->nWidth + pPos->nX;
     if (gnHoverRectCount_007BF224 < 0x10 && !sub_0049E070_PlaceHoverRect(gnHoverRectCount_007BF224, &tRect))
     {
-        sub_0049D410_FreeTextBox(pTextBox);
+        TEXT_FreeTextBox(pTextBox);
         return;
     }
 
     ++gnHoverRectCount_007BF224;
-    sub_0049D9A0_DrawTextBoxAt(pTextBox, &tRect);
-    sub_0049D410_FreeTextBox(pTextBox);
+    TEXT_DrawTextBoxAt(pTextBox, &tRect);
+    TEXT_FreeTextBox(pTextBox);
     sub_00502EF0(nOldFont);
 }

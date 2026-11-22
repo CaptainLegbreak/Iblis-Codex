@@ -109,12 +109,12 @@ struct ListBoxImplementation
     char unk0x180766[0xC];
     char nState[4];
 
-    int sub_004BE720_HitTestTopRow(SMSGHANDLER_PARAMS* pMsg);
-    int sub_004BE770_HitTestBottomRow(SMSGHANDLER_PARAMS* pMsg);
-    int sub_004BE7C0_HitTestRows(SMSGHANDLER_PARAMS* pMsg);
+    int HitTestScrollUp(SMSGHANDLER_PARAMS* pMsg);
+    int HitTestScrollDown(SMSGHANDLER_PARAMS* pMsg);
+    int HitTestScrollTrack(SMSGHANDLER_PARAMS* pMsg);
     int sub_004BE860_WheelMsg(SMSGHANDLER_PARAMS* pMsg);
     int sub_004BEBC0_KeyMsg(SMSGHANDLER_PARAMS* pMsg);
-    int sub_004BEC40_GetEntryData(int nIndex);
+    int GetListEntryData(int nIndex);
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -131,9 +131,9 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
 
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
-int __stdcall sub_00489060_ClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00489060
+int __stdcall INV_InvRectClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00489060
 
 #pragma pack(push, 2)
 
@@ -191,9 +191,9 @@ int __cdecl sub_004B1670(); // 0x004B1670
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 
-void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
+void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
-void __fastcall sub_004B8020(void* pRes); // 0x004B8020
+void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -205,7 +205,7 @@ void __fastcall sub_0044C860_SetValue(int nValue); // 0x0044C860
 
 void __cdecl sub_0044D520(); // 0x0044D520
 
-void __cdecl sub_004C0380_OpenPanel(); // 0x004C0380
+void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 
 void __fastcall sub_00478700_SendCommand(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
@@ -217,7 +217,7 @@ void __fastcall sub_00467430(void* pRect);                                      
 
 struct D2CelFileStrc;
 
-static void sub_004BFA70_ToggleUseMode(D2UnitStrc* pItem);
+static void USEITEM_ToggleUseMode(D2UnitStrc* pItem);
 
 struct Unicode { unsigned short value; };
 
@@ -259,16 +259,16 @@ void* gpCelFile_007C5494; // 0x007C5494
 
 void* gpCelFile_007C5498; // 0x007C5498
 
-void __stdcall sub_004BFC50_OnClick(SMSGHANDLER_PARAMS* pMsg);
+void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg);
 
 struct D2RectStrc;
 
 
-void __cdecl sub_004C0090_CloseUseItemPanel(); // 0x004C0090
+void __cdecl USEITEM_CloseUseItemPanel(); // 0x004C0090
 
 typedef void(__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
@@ -326,7 +326,7 @@ int SpinnerWrapper::sub_004BC310_ForwardSlot28(int nArg)
 }
 
 // 0x004BE720
-int ListBoxImplementation::sub_004BE720_HitTestTopRow(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::HitTestScrollUp(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;
@@ -338,7 +338,7 @@ int ListBoxImplementation::sub_004BE720_HitTestTopRow(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004BE770
-int ListBoxImplementation::sub_004BE770_HitTestBottomRow(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::HitTestScrollDown(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;
@@ -354,7 +354,7 @@ int ListBoxImplementation::sub_004BE770_HitTestBottomRow(SMSGHANDLER_PARAMS* pMs
 }
 
 // 0x004BE7C0
-int ListBoxImplementation::sub_004BE7C0_HitTestRows(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::HitTestScrollTrack(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;
@@ -406,7 +406,7 @@ int ListBoxImplementation::sub_004BEBC0_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004BEC40
-int ListBoxImplementation::sub_004BEC40_GetEntryData(int nIndex)
+int ListBoxImplementation::GetListEntryData(int nIndex)
 {
     if (nIndex >= 0 && nIndex < nEntryCount && nIndex < 0x80)
     {
@@ -479,7 +479,7 @@ int ListBoxWrapper::sub_004BEE20_ForwardSlot08(int nArg)
 }
 
 // 0x004BF9D0
-void __cdecl sub_004BF9D0()
+void __cdecl USEITEM_InitUseItemPanel()
 {
     gnGlobal_007C5474 = 0;
     gnGlobal_007C547C = 0;
@@ -495,18 +495,18 @@ void __cdecl sub_004BF9D0()
 }
 
 // 0x004BFA30
-void __stdcall sub_004BFA30_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall USEITEM_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     D2Win_10129_DrawFramedText(0, -1, -1, 0, 0);
-    sub_00498DC0_MouseMoveMsg(pMsg);
+    AUTOMAP_IsCursorOverMiniPanelButton(pMsg);
     if (gnGlobal_007C5474 == 1)
     {
-        sub_00489060_ClickMsg(pMsg);
+        INV_InvRectClickMsg(pMsg);
     }
 }
 
 // 0x004BFA70
-static void sub_004BFA70_ToggleUseMode(D2UnitStrc* pItem)
+static void USEITEM_ToggleUseMode(D2UnitStrc* pItem)
 {
     if (gnGlobal_007C5474 == 1)
     {
@@ -538,7 +538,7 @@ static D2UnitStrc* GetCursorItem_Inline()
 }
 
 // 0x004BFC50
-void __stdcall sub_004BFC50_OnClick(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nY = pMsg->nYpos;
     const int nX = pMsg->nXpos;
@@ -593,11 +593,11 @@ check_item:
     sub_004B9A00(3, 0, 0, 0, 0);
     return;
 use_item:
-    sub_004BFA70_ToggleUseMode(pItem);
+    USEITEM_ToggleUseMode(pItem);
 }
 
 // 0x004BFDB0
-void __stdcall sub_004BFDB0_BreakMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall USEITEM_EatMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -605,7 +605,7 @@ void __stdcall sub_004BFDB0_BreakMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004BFDD0
-void __cdecl sub_004BFDD0_DrawUseItemPanel()
+void __cdecl USEITEM_DrawUseItemPanel()
 {
  int oldFont=sub_00502EF0(1);
  int mode=gnGlobal_007C5470;
@@ -673,15 +673,15 @@ void __cdecl sub_004C0080_Return()
 }
 
 // 0x004C0090
-void __cdecl sub_004C0090_CloseUseItemPanel()
+void __cdecl USEITEM_CloseUseItemPanel()
 {
     gnGlobal_007C5474 = 0;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    sub_004BFA70_ToggleUseMode(pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0);
+    USEITEM_ToggleUseMode(pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0);
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00727950, 8);
     if (gpGlobal_007C5484)
     {
-        sub_004B8020(gpGlobal_007C5484);
+        DIALOG_DestroyDialog(gpGlobal_007C5484);
         gpGlobal_007C5484 = 0;
     }
     sub_00455F20(0xE, 1, 0);
@@ -689,7 +689,7 @@ void __cdecl sub_004C0090_CloseUseItemPanel()
 }
 
 // 0x004C0100
-void __cdecl sub_004C0100()
+void __cdecl USEITEM_FreeUseItemPanel()
 {
     if (gnGlobal_007C5474)
     {
@@ -710,7 +710,7 @@ void __cdecl sub_004C0100()
 }
 
 // 0x004C0150
-void __stdcall sub_004C0150_OnPanelClose(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -744,7 +744,7 @@ void __stdcall sub_004C0150_OnPanelClose(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004C02F0
-int __cdecl sub_004C02F0_ClosePanel()
+int __cdecl USEITEM_ClosePanel()
 {
     int mode = gnGlobal_007C5474;
     if (mode == 3) return 0;
@@ -759,18 +759,18 @@ int __cdecl sub_004C02F0_ClosePanel()
         int id = !player ? -1 : player->dwUnitId;
         int value = gnGlobal_007C547C;
         sub_00478700_SendCommand(0x44, id, value, 0, 2);
-        sub_004C0090_CloseUseItemPanel();
+        USEITEM_CloseUseItemPanel();
     } else {
         sub_004B3FE0();
-        sub_004C0090_CloseUseItemPanel();
+        USEITEM_CloseUseItemPanel();
     }
     return 1;
 }
 
 // 0x004C0380
-void __cdecl sub_004C0380_OpenPanel()
+void __cdecl USEITEM_OpenPanel()
 {
-    sub_00456300_CloseUIVars(0, 0);
+    UI_CloseUIVars(0, 0);
     gnGlobal_007C5474 = 1;
     gdwTick_007C5488 = GetTickCount();
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_00727950, 8);
@@ -801,15 +801,15 @@ void __cdecl sub_004C0380_OpenPanel()
 }
 
 // 0x004C0620
-void __fastcall sub_004C0620_OpenPanelMode1(int nValue)
+void __fastcall USEITEM_OpenNpcItemPanel(int nValue)
 {
     gnGlobal_007C5470 = 1;
     gnGlobal_007C5478 = nValue;
-    sub_004C0380_OpenPanel();
+    USEITEM_OpenPanel();
 }
 
 // 0x004C0D00
-void __cdecl sub_004C0D00_Reset()
+void __cdecl USEITEM_LeaveGame()
 {
     sub_00477EE0();
     sub_0044B880_SetValue(0);

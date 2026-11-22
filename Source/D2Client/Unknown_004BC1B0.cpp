@@ -56,12 +56,12 @@ class ListBoxImplementation : public UIWidget
 public:
     ListBoxImplementation();
 
-    int sub_004BE770_HitTestBottomRow(SMSGHANDLER_PARAMS* pMsg);                                            // 0x004BE770
-    int sub_004BE7C0_HitTestRows(SMSGHANDLER_PARAMS* pMsg);                                                 // 0x004BE7C0
+    int HitTestScrollDown(SMSGHANDLER_PARAMS* pMsg);                                            // 0x004BE770
+    int HitTestScrollTrack(SMSGHANDLER_PARAMS* pMsg);                                                 // 0x004BE7C0
     int sub_004BE810_HitTestRect(SMSGHANDLER_PARAMS* pMsg);
     int sub_004BEA50_HitTestEntry(SMSGHANDLER_PARAMS* pMsg);                                                // 0x004BEA50
     int sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);
-    int sub_004BEC40_GetEntryData(int nIndex);                                                              // 0x004BEC40
+    int GetListEntryData(int nIndex);                                                              // 0x004BEC40
     int sub_004BF430_MouseDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
     int HitTestTopRowInline(SMSGHANDLER_PARAMS* pMsg)
@@ -163,7 +163,7 @@ int ListBoxImplementation::sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x004BEDF0
 int ListBoxWrapper::sub_004BEDF0_ForwardGetEntryData(int nIndex)
 {
-    return pImpl->sub_004BEC40_GetEntryData(nIndex);
+    return pImpl->GetListEntryData(nIndex);
 }
 
 // 0x004BF430
@@ -182,14 +182,14 @@ int ListBoxImplementation::sub_004BF430_MouseDownMsg(SMSGHANDLER_PARAMS* pMsg)
         return 1;
     }
 
-    if (sub_004BE770_HitTestBottomRow(pMsg) == 1)
+    if (HitTestScrollDown(pMsg) == 1)
     {
         bBottomPressed = 1;
         *(int*)nRepeatTicks = 0;
         return 1;
     }
 
-    if (sub_004BE7C0_HitTestRows(pMsg) == 1)
+    if (HitTestScrollTrack(pMsg) == 1)
     {
         nPressY = pMsg->nYpos;
         bRowsPressed = 1;

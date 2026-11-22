@@ -19,7 +19,7 @@ extern int ganSkillState_007C0A38[];                                            
 
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode); // 0x004ABF60
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);               // 0x006439B0
@@ -69,7 +69,7 @@ void __cdecl sub_004AC4D0_DrawSkillTree()
         wsprintfA(szText, "%d", gnGlobal_007C0C44);
         sub_00526320_ToUnicode(wszText, szText, 9);
         const int nX = gnGlobal_0071146C - gnGlobal_007A2858;
-        sub_004A7080(nX - 0x41, gnGlobal_00711470 + gnGlobal_007A285C - 0x190, nX - 0x19, wszText, 0);
+        TEXT_DrawCenteredText(nX - 0x41, gnGlobal_00711470 + gnGlobal_007A285C - 0x190, nX - 0x19, wszText, 0);
     }
 
     for (int i = 0; i < SKILLS_GetPlayerSkillCount(sub_00451F60_UnitClassId(pPlayer)); ++i)

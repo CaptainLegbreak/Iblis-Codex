@@ -54,7 +54,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
-void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
+void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
 
 typedef void(__fastcall* MENUSELECT)(D2MenuItemStrc*, SMSGHANDLER_PARAMS*);
 
@@ -228,7 +228,7 @@ int __cdecl sub_0047BDF0_HandleBnetChatMessage()
             else
                 sub_005269D0(0x153, wszOut, D2LANG_GetStringFromTblIndex(0x14D4), wszLine, wszText);
             wszOut[0x153].wChar = 0;
-            sub_0049E3A0_PrintChatLine(wszOut, 2);
+            TEXT_PrintChatLine(wszOut, 2);
             break;
         }
         case 1:
@@ -258,7 +258,7 @@ int __cdecl sub_0047BDF0_HandleBnetChatMessage()
             }
             sub_00526700(wszLine, wszText);
             wszLine[0x153].wChar = 0;
-            sub_0049E3A0_PrintChatLine(wszLine, 3);
+            TEXT_PrintChatLine(wszLine, 3);
             break;
         }
         }

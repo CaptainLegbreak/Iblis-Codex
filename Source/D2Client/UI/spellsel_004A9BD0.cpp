@@ -28,7 +28,7 @@ extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 extern int gbGlobal_007C07FC; // 0x007C07FC
 
 // 0x004A9BD0
-void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 954);
 

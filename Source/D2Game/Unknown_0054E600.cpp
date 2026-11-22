@@ -376,7 +376,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
             return 0;
         }
 
-        nMonsterId = sub_0054E2A0_GetFallenVariantForLevel(nLevelId, D2Common_11063(pRoom, sub_004E6C50_ValidateMonsterId(nMonsterId)));
+        nMonsterId = sub_0054E2A0_GetFallenVariantForLevel(nLevelId, D2Common_11063(pRoom, SKILLDESC_ValidateMonsterId(nMonsterId)));
 
         int nFlags = 0;
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
@@ -418,7 +418,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
             break;
         }
 
-        nMonsterId = D2Common_11063(pRoom, sub_004E6C50_ValidateMonsterId(nMonsterId));
+        nMonsterId = D2Common_11063(pRoom, SKILLDESC_ValidateMonsterId(nMonsterId));
         sub_0054E090_SpawnGroupAtPoint(pGame, pRoom, nMonsterId, nX, nY);
         break;
     }

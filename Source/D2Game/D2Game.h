@@ -295,10 +295,10 @@ int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
 int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 int __fastcall sub_00463860_GetMonsterId(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId); // 0x004E6C50
-int __fastcall sub_004E6C70(int nSkillId); // 0x004E6C70
-int __fastcall sub_004EFC50_GetSkillParam3(int nSkillId); // 0x004EFC50
-int __fastcall sub_004EFC80_FourthSkillParam(int nSkillId); // 0x004EFC80
+int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId); // 0x004E6C50
+int __fastcall SKILLDESC_GetSkillParamFive(int nSkillId); // 0x004E6C70
+int __fastcall SKILLDESC_GetSkillParamThree(int nSkillId); // 0x004EFC50
+int __fastcall SKILLDESC_GetSkillParamFour(int nSkillId); // 0x004EFC80
 int __fastcall sub_00560200_PlaceItem(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 int __fastcall sub_0056A470_ReadPlrIntroSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion); // 0x0056A470
 int __fastcall sub_005A0070(D2UnitStrc* pUnit, int nMonType); // 0x005A0070

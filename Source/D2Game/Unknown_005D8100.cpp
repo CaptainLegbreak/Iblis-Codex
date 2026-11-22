@@ -53,12 +53,12 @@ static int __stdcall sub_005D8100_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStr
     int nType = 0;
     const int nChance = SEED_RollRandomNumber(&pUnit->pSeed) % 100;
 
-    const int nParam3 = sub_004EFC50_GetSkillParam3(nSkillId);
+    const int nParam3 = SKILLDESC_GetSkillParamThree(nSkillId);
     if (nChance < nParam3)
     {
         nType = 1;
     }
-    else if (nChance < nParam3 + sub_004EFC80_FourthSkillParam(nSkillId))
+    else if (nChance < nParam3 + SKILLDESC_GetSkillParamFour(nSkillId))
     {
         nType = 2;
     }

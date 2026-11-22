@@ -33,8 +33,8 @@ void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long d
 int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 int __fastcall sub_004069A0_CloseFile(void* hFile);                                                         // 0x004069A0
-void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir);                                                 // 0x004698D0
-void __cdecl sub_004694A0_BindMouseHotkeys();                                                               // 0x004694A0
+void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir);                                                 // 0x004698D0
+void __cdecl CMDTBL_BindMouseHotkeys();                                                               // 0x004694A0
 
 extern char gszAccountFolder_007A0500[];                                                                    // 0x007A0500
 extern char gszCharName_007A05C4[];                                                                         // 0x007A05C4
@@ -149,17 +149,17 @@ void __cdecl sub_0046AAE0_LoadKeyConfig()
             gtHotkeys_007A6F90[i].nKey = HOTKEY_UNBOUND;
         }
         memcpy(gtHotkeys_007A6F90, tFile.aKeys, sizeof(gtHotkeys_007A6F90));
-        sub_004694A0_BindMouseHotkeys();
+        CMDTBL_BindMouseHotkeys();
         return;
     }
 
 LOAD_DEFAULT:
-    sub_004698D0_LoadKeyConfig(1);
+    CMDTBL_LoadKeyConfig(1);
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
         gtHotkeys_007A6F90[i].nKey = HOTKEY_UNBOUND;
     }
     memcpy(gtHotkeys_007A6F90, gaKeyTable_00712220, sizeof(gtHotkeys_007A6F90));
-    sub_004694A0_BindMouseHotkeys();
+    CMDTBL_BindMouseHotkeys();
     sub_00469780_SaveKeyConfig();
 }

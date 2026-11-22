@@ -481,7 +481,7 @@ int __fastcall SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(D2GameStrc* p
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                    // 0x006442A0
 
-int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel);                           // 0x004E6CA0
+int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel);                           // 0x004E6CA0
 
 int __stdcall STATES_CheckStateMaskRemHitOnUnit(D2UnitStrc* pUnit);                                         // 0x0063A360
 
@@ -521,7 +521,7 @@ int __fastcall SKILLS_AuraCallback_StaticField(D2AuraCallbackStrc* pAuraCallback
 
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
-int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
@@ -1679,7 +1679,7 @@ int __fastcall SKILLS_SrvDo124_Armageddon_Hurricane(D2GameStrc* pGame, D2UnitStr
     STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_SKILL, nSkillId, 0);
     STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_LEVEL, nSkillLevel, 0);
 
-    const int nFrame = sub_004EFC80_FourthSkillParam(nSkillId) + pGame->dwGameFrame;
+    const int nFrame = SKILLDESC_GetSkillParamFour(nSkillId) + pGame->dwGameFrame;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nSkillId);
     sub_005417D0_DirectDated(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nFrame, nSkillId, nSkillLevel);
     SKILLS_SetParam1(pSkill, nParam);
@@ -1727,7 +1727,7 @@ int __fastcall SKILLS_SrvDo145_PeriodicAreaDamage(D2GameStrc* pGame, D2UnitStrc*
         return 0;
     }
 
-    const int nFrame = sub_004EFC80_FourthSkillParam(nSkillId) + pGame->dwGameFrame;
+    const int nFrame = SKILLDESC_GetSkillParamFour(nSkillId) + pGame->dwGameFrame;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nSkillId);
     sub_005417D0_DirectDated(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nFrame, nSkillId, nSkillLevel);
 
@@ -1790,7 +1790,7 @@ int __fastcall SKILLS_SrvDo146_PeriodicRandomMissile(D2GameStrc* pGame, D2UnitSt
     if (!pSkill || !pSeed) return DeleteEvent(pGame, pUnit, nSkillId);
     int nRange = SKILLS_EvaluateSkillFormula(pUnit, pRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
     if (nRange <= 0) return DeleteEvent(pGame, pUnit, nSkillId);
-    int nFrame = sub_004EFC80_FourthSkillParam(nSkillId) + pGame->dwGameFrame;
+    int nFrame = SKILLDESC_GetSkillParamFour(nSkillId) + pGame->dwGameFrame;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 5, nSkillId);
     sub_005417D0_DirectDated(pGame, pUnit, 5, nFrame, nSkillId, nSkillLevel);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
@@ -2271,7 +2271,7 @@ int __fastcall SKILLS_SrvDo021_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit,
             if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
                 return 0;
             int bKnockback = 0;
-            if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < sub_004EFC20_GetSkillParam2(nSkillId))
+            if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < SKILLDESC_GetSkillParamTwo(nSkillId))
                 bKnockback = 1;
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
@@ -2417,7 +2417,7 @@ int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
         if (pOwner)
             pUnit = pOwner;
     }
-    const int nExpireFrame = pGame->dwGameFrame + sub_004E6CA0_GetSkillParamByLevel(nSkillId, nSkillLevel);
+    const int nExpireFrame = pGame->dwGameFrame + SKILLDESC_GetSkillParamByLevel(nSkillId, nSkillLevel);
     D2SummonArgStrc summonArg;
     memset(&summonArg, 0, sizeof(summonArg));
     summonArg.dwFlags |= 1;

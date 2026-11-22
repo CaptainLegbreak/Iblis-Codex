@@ -5,7 +5,7 @@ extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szS
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue);
+BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue);
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage);
 static bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv);
 static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule);
@@ -66,7 +66,7 @@ static inline bool GetDebugDirectoryEntry(const D2ImageDataDirStrc* pDir, unsign
     const D2ImageDataDirStrc tDir = *pDir;
     *pSize = tDir.Size;
     *pRva = tDir.VirtualAddress;
-    return (!tDir.VirtualAddress && !tDir.Size) || (tDir.VirtualAddress && sub_00404850_IsAtLeast1C(*pSize));
+    return (!tDir.VirtualAddress && !tDir.Size) || (tDir.VirtualAddress && AUTOMAP_IsDebugDirectorySizeValid(*pSize));
 }
 
 static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pRva, unsigned long* pSize);
@@ -88,7 +88,7 @@ static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHea
     return pHeader->NumberOfRvaAndSizes > 6 && GetDebugDirectoryEntry(&pHeader->DataDirectory[6], pRva, pSize);
 }
 
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue)
+BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue)
 {
     return nValue >= 0x1C;
 }
@@ -167,7 +167,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
     if (sub_004047D0_GetDebugDirectory(&pNt->OptionalHeader, &nRva, &nSize) && nRva && nSize)
     {
         const D2ImageDebugDirStrc* pDirs = (const D2ImageDebugDirStrc*)((const char*)pImage + nRva);
-        if (!IsBadReadPtr(pDirs, nSize) && sub_00404850_IsAtLeast1C(nSize))
+        if (!IsBadReadPtr(pDirs, nSize) && AUTOMAP_IsDebugDirectorySizeValid(nSize))
         {
             sub_00404900_FindCodeView(pImage, pDirs, pModule, nSize);
         }

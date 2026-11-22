@@ -236,11 +236,11 @@ void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3);     
 
 void __cdecl sub_00456550_LoadLoadingScreen();                                                              // 0x00456550
 
-void __cdecl sub_00456D80_ShutdownUI();                                                                                // 0x00456D80
+void __cdecl UI_ShutdownUI();                                                                                // 0x00456D80
 
 void __fastcall sub_00457300_InitGfxCaches(void* pMemPool, int bCelPool);                                   // 0x00457300
 
-void __fastcall sub_00457420_FreeCaches(int nArg);                                                                     // 0x00457420
+void __fastcall AUTOMAP_FreeCaches(int nArg);                                                                     // 0x00457420
 
 void __cdecl sub_00463C70();                                                                                // 0x00463C70
 
@@ -292,7 +292,7 @@ void __cdecl sub_0047F1D0_LoadResolution();                                     
 
 void __cdecl sub_00483960();                                                                                // 0x00483960
 
-void __cdecl sub_00499E30_SetBlackColour();                                                                                // 0x00499E30
+void __cdecl PANEL_SetBlackColour();                                                                                // 0x00499E30
 
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 
@@ -440,7 +440,7 @@ D2DrlgStrc* __stdcall DUNGEON_GetDrlgFromAct(D2DrlgActStrc* pAct); // 0x0061AA90
 
 void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg); // 0x0061B920
 
-void __cdecl sub_00459020_UpdateAutomapReveal(); // 0x00459020
+void __cdecl AUTOMAP_UpdateAutomapReveal(); // 0x00459020
 
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
@@ -960,7 +960,7 @@ void __cdecl sub_0044C790_Update()
     if (ENVIRONMENT_UpdatePeriodOfDay(gpAct_007A0634, sub_004646A0_GetPlayerRoom()))
         sub_004646C0_UpdateObjectsForPeriod();
     DRLGACTIVATE_Update(DUNGEON_GetDrlgFromAct(gpAct_007A0634));
-    sub_00459020_UpdateAutomapReveal();
+    AUTOMAP_UpdateAutomapReveal();
     if (++gnTickCounter_007A0498 % 13 == 0)
         DUNGEON_UpdateAndFreeInactiveRooms(gpAct_007A0634);
 }
@@ -1004,10 +1004,10 @@ void __cdecl sub_0044C890_ReleaseGameState()
     gpAct_007A0634 = 0;
     D2CMPSpriteFreeAsyncLoads();
     D2CMPTileFreeAsyncLoads();
-    sub_00457420_FreeCaches(0);
+    AUTOMAP_FreeCaches(0);
     sub_00475FD0(gpView_007A0640);
     gpView_007A0640 = 0;
-    sub_00456D80_ShutdownUI();
+    UI_ShutdownUI();
     sub_00473CF0_Nop();
     sub_004758D0_FreeAllLights();
     sub_004723C0();
@@ -1352,7 +1352,7 @@ void __cdecl sub_00452130_InitColors()
 {
     sub_00483960();
     sub_00499E10();
-    sub_00499E30_SetBlackColour();
+    PANEL_SetBlackColour();
     sub_004AB2F0();
     sub_00497250();
     sub_00497270();

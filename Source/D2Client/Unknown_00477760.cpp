@@ -58,7 +58,7 @@ struct D2ClientCharRecordStrc
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-int __cdecl sub_0047AA30_HasClassOverride(); // 0x0047AA30
+int __cdecl CHAT_HasClassOverride(); // 0x0047AA30
 extern unsigned char gbGlobal_007A0522; // 0x007A0522
 extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
 extern char gszCharName_007A05C4[]; // 0x007A05C4
@@ -134,7 +134,7 @@ void __fastcall sub_00477CA0_SendPacket67(const char* szName)
         tPacket.nGameType = 0;
         break;
     }
-    if (sub_0047AA30_HasClassOverride())
+    if (CHAT_HasClassOverride())
         tPacket.nClass = sub_0047AA20_GetClassOverride();
     else
         tPacket.nClass = gbGlobal_007A0522;

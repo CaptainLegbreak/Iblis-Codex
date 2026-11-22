@@ -134,19 +134,19 @@ void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
 
 extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
 
-void __cdecl sub_004584C0(); // 0x004584C0
+void __cdecl AUTOMAP_SaveAutomapLayer(); // 0x004584C0
 
-void __cdecl sub_00458680_ResetAutomapCells(); // 0x00458680
+void __cdecl AUTOMAP_ResetAutomapCells(); // 0x00458680
 
-void __cdecl sub_00458750(); // 0x00458750
+void __cdecl AUTOMAP_LoadAutomapLayer(); // 0x00458750
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-void __fastcall sub_004565E0_DrawLoadingScreen(int nArg); // 0x004565E0
+void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
 
-unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
+unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
@@ -1023,10 +1023,10 @@ void __cdecl sub_00453470_DrawProgressiveStates()
 // 0x00458CD0
 void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
 {
-    sub_004584C0();
-    sub_00458680_ResetAutomapCells();
+    AUTOMAP_SaveAutomapLayer();
+    AUTOMAP_ResetAutomapCells();
     gpAutomapContext_007A5164 = pContext;
-    sub_00458750();
+    AUTOMAP_LoadAutomapLayer();
 }
 
 // 0x004756D0
@@ -1062,7 +1062,7 @@ void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal)
             gnProgress_007BB3B4 = 0;
         else
             gnProgress_007BB3B4 = (nPosition * 0x100) / nDivisor;
-        sub_004565E0_DrawLoadingScreen(0);
+        UI_DrawLoadingScreen(0);
         Sleep(250);
         ++nPosition;
     }

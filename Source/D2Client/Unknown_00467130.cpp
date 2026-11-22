@@ -39,10 +39,10 @@ extern int gnSelectionTop_007A6A80;                                             
 extern int gnSelectionBottom_007A6A88;                                                                      // 0x007A6A88
 extern int gdwGlobal_007A6AA0;                                                                              // 0x007A6AA0
 
-int __cdecl sub_004A0000();                                                                                 // 0x004A0000
-D2UnitStrc* __cdecl sub_0049E8B0_GetTextUnit();                                                             // 0x0049E8B0
-void __fastcall sub_0049DA30(D2UnitStrc* pUnit);                                                            // 0x0049DA30
-void __cdecl sub_0049DA50_ClearFlag();                                                                      // 0x0049DA50
+int __cdecl TEXT_IsTextBoxOpen();                                                                                 // 0x004A0000
+D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
+void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit);                                                            // 0x0049DA30
+void __cdecl TEXT_ClearHoverUnit();                                                                      // 0x0049DA50
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType);                    // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __fastcall sub_00475FF0_SetViewDirty(D2ViewStrc* pView);                                               // 0x00475FF0
@@ -124,13 +124,13 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         return;
     }
 
-    if (sub_004A0000() && sub_0049E8B0_GetTextUnit() == pUnit)
+    if (TEXT_IsTextBoxOpen() && TEXT_GetTextUnit() == pUnit)
     {
-        sub_0049DA30(pUnit);
+        TEXT_SetHoverUnit(pUnit);
         return;
     }
 
-    sub_0049DA50_ClearFlag();
+    TEXT_ClearHoverUnit();
 
     int bSame = 0;
     if (pUnit)
@@ -262,13 +262,13 @@ static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
             goto Done;
         }
 
-        if (sub_004A0000() && !sub_0049E8B0_GetTextUnit())
+        if (TEXT_IsTextBoxOpen() && !TEXT_GetTextUnit())
         {
-            sub_0049DA30(0);
+            TEXT_SetHoverUnit(0);
             return 1;
         }
 
-        sub_0049DA50_ClearFlag();
+        TEXT_ClearHoverUnit();
         if (gdwGlobal_007A6A94 && gnSelectedUnitType_007A6A8C == 5)
         {
             D2UnitStrc* pOld = sub_00463990(gnSelectedUnitId_007A6A78, 5);
