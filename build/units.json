@@ -60828,6 +60828,10 @@
      "name": "MISSILES_Initialize"
     },
     {
+     "va": "0x005A0760",
+     "length": 451
+    },
+    {
      "va": "0x005A11F0",
      "length": 55,
      "name": "MONSTERUNIQUE_UMod37_Fanatic"
@@ -61223,16 +61227,6 @@
      "va": "0x005A03E0",
      "length": 278,
      "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A0760.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A0760",
-     "length": 451
     }
    ]
   },
