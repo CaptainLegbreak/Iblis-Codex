@@ -31877,6 +31877,10 @@
     {
      "va": "0x004C0810",
      "length": 1232
+    },
+    {
+     "va": "0x006CADB0",
+     "length": 48
     }
    ],
    "flags": [
@@ -88061,30 +88065,6 @@
      "length": 15,
      "name": "?sub_006CAE50_InitializeMonsterCode@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/showitems_006CADB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CADB0",
-     "length": 48
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
