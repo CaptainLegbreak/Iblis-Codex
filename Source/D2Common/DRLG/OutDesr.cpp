@@ -204,14 +204,16 @@ static void DRLGOUTDESR_PlaceFillsInCanyon(D2DrlgLevelStrc* pLevel)
 
 static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel); // 0x0067F5C0
 
-// build: context DRLGOUTDESR_PlaceCliffs
+// 0x0067F5C0
 static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
 {
     const unsigned int nRand = SEED_RollRandomNumber_Inline(&pLevel->pSeed) & 7;
 
-    for (int i = 0; i < 5; ++i)
+    const int* pY = &gaDesertCliffs_006F2390[nRand][0].nY;
+    for (int i = 0; i < 5; ++i, pY += 4)
     {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, gaDesertCliffs_006F2390[nRand][i].nX, gaDesertCliffs_006F2390[nRand][i].nY, gaDesertCliffs_006F2390[nRand][i].nLvlPrestId, gaDesertCliffs_006F2390[nRand][i].nRand, 0);
+        const D2DrlgOutDesertInitStrc* pEntry = (const D2DrlgOutDesertInitStrc*)(pY - 3);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pEntry->nX, pEntry->nY, pEntry->nLvlPrestId, pEntry->nRand, 0);
     }
 }
 

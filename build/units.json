@@ -42195,36 +42195,13 @@
    ]
   },
   {
-   "file": "Source/D2Hell/SRC/Archive_00516E46.cpp",
-   "rank": 1,
+   "file": "Source/D2Hell/SRC/Archive.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x00516E46",
      "length": 62
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/O1",
-    "/Ob1",
-    "/Oy-",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Hell/SRC/Archive.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00516E84",
      "length": 39
@@ -79098,6 +79075,18 @@
      "name": "MISSILE_FreeMissileData"
     },
     {
+     "va": "0x0064A2B0",
+     "length": 65
+    },
+    {
+     "va": "0x0064A330",
+     "length": 65
+    },
+    {
+     "va": "0x0064A470",
+     "length": 110
+    },
+    {
      "va": "0x0064AF20",
      "length": 198,
      "name": "MISSILE_GetMinDamage"
@@ -79313,38 +79302,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Missile_0064A2B0.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x0064A2B0",
-     "length": 65
-    },
-    {
-     "va": "0x0064A330",
-     "length": 65
-    },
-    {
-     "va": "0x0064A470",
-     "length": 110
-    }
    ]
   },
   {
@@ -84238,6 +84195,11 @@
      "name": "?DRLGOUTDESR_PlacePresetVariants@@YGXPBHHHPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x0067F5C0",
+     "length": 98,
+     "name": "?DRLGOUTDESR_PlaceCliffs@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x0067F630",
      "length": 52,
      "name": "?DRLGOUTDESR_PlaceBorders@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -84301,17 +84263,6 @@
      "va": "0x006803D0",
      "length": 269,
      "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutDesr_0067F5C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0067F5C0",
-     "length": 98,
-     "name": "?DRLGOUTDESR_PlaceCliffs@@YAXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },
