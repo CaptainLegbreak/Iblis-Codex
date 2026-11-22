@@ -50,7 +50,7 @@ static __forceinline int AITHINK_GetClassIdInline(D2UnitStrc* pUnit)
 }
 
 // 0x005E6AE0
-bool __fastcall sub_6FCE69A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+bool __fastcall AITHINK_ExecuteNpcAiCommands(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2AiCmdStrc* pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 4, 0);
     if (pAiCmd && pAiCmd->nCmdParam[3] > 0)
@@ -215,7 +215,7 @@ bool __fastcall sub_6FCE69A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
 }
 
 // 0x005E7350
-int __fastcall sub_005E7350_StopUnlessInteracting(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall AITHINK_StopIfNotInteracting(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2MonsterInteractStrc* pMonInteract = (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pMonInteract : 0;
     if (!MONSTERAI_HasInteractUnit(pMonInteract))

@@ -452,7 +452,7 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045
 
 void __fastcall sub_004C71F0(int nCount, D2MissileStrc* pMissileParams); // 0x004C71F0
 
-void __fastcall sub_004CCCC0_SubmissileInitFunc(D2UnitStrc* pMissile, int nUnused); // 0x004CCCC0
+void __fastcall MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc(D2UnitStrc* pMissile, int nUnused); // 0x004CCCC0
 
 extern const int gaRingOffsetY_006DAF88[8];                                                                 // 0x006DAF88
 
@@ -1071,7 +1071,7 @@ int __fastcall sub_004CCD20_CltHitSpiral(D2UnitStrc* pMissile, D2UnitStrc* pHitU
     tParams.nMissile = pMissilesTxtRecord->wHitSubMissile[0];
     tParams.nSkill = MISSILE_GetSkill(pMissile);
     tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-    tParams.pInitFunc = sub_004CCCC0_SubmissileInitFunc;
+    tParams.pInitFunc = MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc;
     int nCount = (MISSILE_GetLevel(pMissile) - 1) * pMissilesTxtRecord->dwCltHitPar[1] + pMissilesTxtRecord->dwCltHitPar[0];
     if (nCount <= 0)
     {

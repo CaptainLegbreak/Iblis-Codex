@@ -123,7 +123,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x005D1C30
-static int __stdcall sub_005D1C30_CreateMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
+static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
 {
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 3;
@@ -174,7 +174,7 @@ int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    sub_005D1C30_CreateMissileVolley(pGame, pUnit, nCount, nMissile, nSkillId, nSkillLevel);
+    SKILLS_CreateMissileVolley(pGame, pUnit, nCount, nMissile, nSkillId, nSkillLevel);
     return 1;
 }
 
@@ -210,7 +210,7 @@ static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skil
 }
 
 // 0x005D1D70
-static void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int level, int skill)
+static void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, int level, int skill)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)
@@ -306,11 +306,11 @@ extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int ski
         }
         if (bSkip)
         {
-            sub_005D1D70_ApplyAura(owner, target, level, skill);
+            SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
         }
         else if (sub_00639DF0_HasState(target, record->state))
         {
-            sub_005D1D70_ApplyAura(owner, target, level, skill);
+            SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
         }
         else
         {

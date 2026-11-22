@@ -174,7 +174,7 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x00573C00
-void __fastcall sub_00573C00_ResetMonsterModesInLevel(D2GameStrc* pGame, int nClassId1, int nClassId2, int nLevelId)
+void __fastcall MONSTER_ResetMonsterModesInLevel(D2GameStrc* pGame, int nClassId1, int nClassId2, int nLevelId)
 {
     D2DrlgActStrc* pAct = pGame->pAct[DRLG_GetActNoFromLevelId(nLevelId)];
     if (!pAct)

@@ -321,7 +321,7 @@ void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0055349
 
 int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
 
-void __fastcall sub_6FD13410(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
+void __fastcall SKILLS_ExecuteUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
 
 void __fastcall OBJMODE_SendObjectModeAndShrineUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00581A20
 
@@ -2102,7 +2102,7 @@ int __fastcall sub_6FC80EE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId
         }
     }
 
-    sub_6FD13410(pGame, pPlayer);
+    SKILLS_ExecuteUsedSkill(pGame, pPlayer);
     return (SUNIT_IsDead(pPlayer) != 0) + 1;
 }
 

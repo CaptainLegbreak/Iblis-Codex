@@ -1971,7 +1971,7 @@ void __fastcall sub_004A5200(int nArg)
     sub_004A5060();
 }
 
-int __fastcall sub_005EF1E0_BaalThroneGetAiParamFlag(D2AiTickParamStrc* pAiTickParam, int nFlag)
+int __fastcall AITHINK_BaalThroneCheckAiParamFlag(D2AiTickParamStrc* pAiTickParam, int nFlag)
 {
     return pAiTickParam->pAiControl->dwAiParam[1] & nFlag;
 }

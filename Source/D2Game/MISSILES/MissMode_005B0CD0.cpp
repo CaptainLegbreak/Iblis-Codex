@@ -39,9 +39,9 @@ typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2U
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
-int __fastcall sub_005B1140_BossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B1140
-int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B11F0
-int __fastcall sub_005DC640_HasFreeSpotNearTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
+int __fastcall AITHINK_TryBossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B1140
+int __fastcall AITHINK_TryTeleportAway(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B11F0
+int __fastcall AIUTIL_HasClearApproachToTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -49,19 +49,19 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 
 // 0x005B13E0
-int __fastcall sub_005B13E0_AiMeleeWalkTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+int __fastcall AITHINK_HandleMonsterAiPreActions(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     if (!pAiTickParam->pTarget)
     {
         return 0;
     }
 
-    if (sub_005B1140_BossTauntOnSight(pGame, pUnit, pAiTickParam))
+    if (AITHINK_TryBossTauntOnSight(pGame, pUnit, pAiTickParam))
     {
         return 1;
     }
 
-    if (sub_005B11F0(pGame, pUnit, pAiTickParam))
+    if (AITHINK_TryTeleportAway(pGame, pUnit, pAiTickParam))
     {
         return 1;
     }
@@ -89,7 +89,7 @@ int __fastcall sub_005B13E0_AiMeleeWalkTarget(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
-    if (sub_005DC640_HasFreeSpotNearTarget(pUnit, pTarget))
+    if (AIUTIL_HasClearApproachToTarget(pUnit, pTarget))
     {
         return 0;
     }

@@ -284,7 +284,7 @@ void __fastcall sub_00577010_VendorRefresh(D2GameStrc* pGame, int nVendorId, D2N
 
 void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
-D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
 
 void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pUnit, unsigned short nId, D2MercDataStrc* pMercData, int bDead); // 0x00573270
 
@@ -497,11 +497,11 @@ void __fastcall ITEMMODE_IdentifyItemAndApplyCharmProperties(D2GameStrc* pGame, 
 
 void __fastcall ITEMMODE_DropCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nItemGUID); // 0x00563C00
 
-void __fastcall sub_00570360(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00570360
+void __fastcall SKILLS_ResetSkillsAndRefundPoints(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00570360
 
 void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00570C80
 
-void __fastcall sub_00572EA0_AdvanceInteraction(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00572EA0
+void __fastcall MONSTERAI_SetInteractTrading(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00572EA0
 
 void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bSingle); // 0x00576770
 
@@ -2745,13 +2745,13 @@ void __fastcall sub_00579180_ResurrectMerc(D2GameStrc* pGame, D2UnitStrc* pPlaye
             pMercData[nIdx].bHired = 1;
             D2GAME_SendPacket0x50_6FC3F440(UnitGetClient(pPlayer, gszNpcSourceFile, 0xFC7), &packet50);
 
-            D2UnitStrc* pUnit = sub_6FC68D70(pGame, pPlayer, nClass, 1, 4, 0);
+            D2UnitStrc* pUnit = MONSTERSPAWN_SpawnAtUnit(pGame, pPlayer, nClass, 1, 4, 0);
             if (!pUnit)
             {
-                pUnit = sub_6FC68D70(pGame, pPlayer, nClass, 1, 6, 0);
+                pUnit = MONSTERSPAWN_SpawnAtUnit(pGame, pPlayer, nClass, 1, 6, 0);
                 if (!pUnit)
                 {
-                    pUnit = sub_6FC68D70(pGame, pPlayer, nClass, 1, 0x0C, 0);
+                    pUnit = MONSTERSPAWN_SpawnAtUnit(pGame, pPlayer, nClass, 1, 0x0C, 0);
                     if (!pUnit)
                     {
                         return;
@@ -3112,7 +3112,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         case 0x1FF:
         case 0x200:
         case 0x201:
-            sub_00572EA0_AdvanceInteraction(pMonster, pPlayer);
+            MONSTERAI_SetInteractTrading(pMonster, pPlayer);
             D2GAME_STORES_CreateVendorCache_6FCC74F0(pGame, pPlayer, pMonster, bRefreshInventory, 0);
             break;
         }
@@ -3129,7 +3129,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         case 0x195:
         case 0x200:
         case 0x202:
-            sub_00572EA0_AdvanceInteraction(pMonster, pPlayer);
+            MONSTERAI_SetInteractTrading(pMonster, pPlayer);
             D2GAME_STORES_CreateVendorCache_6FCC74F0(pGame, pPlayer, pMonster, bRefreshInventory, 1);
             break;
         }
@@ -3254,7 +3254,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
         if (QUESTRECORD_GetQuestState(sub_00543520(pGame, pPlayer), 0x29, 1))
         {
-            sub_00570360(pGame, pPlayer);
+            SKILLS_ResetSkillsAndRefundPoints(pGame, pPlayer);
             sub_00570C80_PLAYERSTATS_ResetToBaseStats(pGame, pPlayer);
             SUNIT_AttachSound(pPlayer, 2, pPlayer);
             sub_0058FD50_ACT1Q1_SetRespecRewardGranted(pGame, pPlayer);

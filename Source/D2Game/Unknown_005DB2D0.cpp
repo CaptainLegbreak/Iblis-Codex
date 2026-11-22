@@ -32,7 +32,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
 int __stdcall sub_00646CA0(D2UnitStrc*,unsigned,int,int); // 0x00646CA0
-D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc*,D2UnitStrc*,int,int,int,unsigned,int,int*); // 0x0056BD10
+D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc*,D2UnitStrc*,int,int,int,unsigned,int,int*); // 0x0056BD10
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc*,int); // 0x005D3CF0
 extern "C" void* __cdecl memset(void*,int,unsigned);
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0

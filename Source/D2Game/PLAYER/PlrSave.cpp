@@ -821,7 +821,7 @@ int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
 
 void __fastcall sub_00568760_ResetPlayerInteract(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00568760
 
-int __fastcall sub_6FC61F20(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00573140
+int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00573140
 
 void __fastcall PLAYERPETS_AllocPetList(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575AF0
 
@@ -3242,7 +3242,7 @@ int __fastcall sub_6FC7C3A0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
             return sub_00567620(pGame, pPlayer, a3);
 
         case UNIT_MONSTER:
-            return sub_6FC61F20(pInteractUnit, pPlayer);
+            return MONSTERAI_IsInteractionReady(pInteractUnit, pPlayer);
         }
     }
     else

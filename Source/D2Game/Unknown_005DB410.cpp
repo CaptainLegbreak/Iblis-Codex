@@ -27,13 +27,13 @@ void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc*, int); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc*, int); // 0x006445E0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
-D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc*, D2UnitStrc*, int, int, int, unsigned int, int, int*); // 0x0056BD10
+D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc*, D2UnitStrc*, int, int, int, unsigned int, int, int*); // 0x0056BD10
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc*, D2UnitStrc*); // 0x00620C10
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc*, int); // 0x005DB6A0
 int __fastcall sub_004F4110_GetSkillParam5(int); // 0x004F4110
-void __fastcall sub_0056E210(D2UnitStrc*, int); // 0x0056E210
+void __fastcall SKILLS_RewindUnitAnimation(D2UnitStrc*, int); // 0x0056E210
 
 typedef char DamageSizeCheck[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
 int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
@@ -191,7 +191,7 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam2(pSkill), nTargetId);
     if (!pTarget)
     {
-        pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nRange, 3, nTargetId, 0);
+        pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nRange, 3, nTargetId, 0);
         if (!pTarget) return 1;
     }
     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
@@ -220,12 +220,12 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     --nCount;
     SKILLS_SetParam1(pSkill, nCount);
     if (nCount <= 0) return 0;
-    D2UnitStrc* pNextTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
+    D2UnitStrc* pNextTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
     if (pNextTarget)
     {
         SKILLS_SetParam2(pSkill, GetTargetType(pNextTarget));
         SKILLS_SetParam3(pSkill, GetTargetId(pNextTarget));
-        sub_0056E210(pUnit, sub_004F4110_GetSkillParam5(nSkillId));
+        SKILLS_RewindUnitAnimation(pUnit, sub_004F4110_GetSkillParam5(nSkillId));
     }
     return 1;
 }

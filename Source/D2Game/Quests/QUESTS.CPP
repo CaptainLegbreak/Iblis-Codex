@@ -422,7 +422,7 @@ void __fastcall sub_005956C0_ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* 
 
 void __fastcall ACT2Q4_InitializeHaremBlockerObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059B710
 
-D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
 
 void __fastcall sub_005B5750_SpawnQuestMonster(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
 
@@ -1738,7 +1738,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 break;
 
             case LEVEL_SPIDERFOREST:
-                sub_6FC68D70(pGame, pUnit, MONSTER_VILECHILD1, 1, -1, 0);
+                MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, MONSTER_VILECHILD1, 1, -1, 0);
                 break;
             }
         }

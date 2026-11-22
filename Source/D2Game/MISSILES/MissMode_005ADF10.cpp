@@ -58,9 +58,9 @@ static inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static int sub_005ADA40_CheckMissileMode(int, D2UnitStrc*); // 0x005ADA40
+static int MISSMODE_IsUnitTypeValidForMissileMode(int, D2UnitStrc*); // 0x005ADA40
 // 0x005ADA40
-static int sub_005ADA40_CheckMissileMode(int nMissileMode, D2UnitStrc* pUnit)
+static int MISSMODE_IsUnitTypeValidForMissileMode(int nMissileMode, D2UnitStrc* pUnit)
 {
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     switch (nMissileMode)
@@ -111,9 +111,9 @@ static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pUnit)
     return nResult;
 }
 
-static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc*, D2UnitStrc*); // 0x005ADB00
+static void __fastcall MISSMODE_SetJustHitState(D2UnitStrc*, D2UnitStrc*); // 0x005ADB00
 // 0x005ADB00
-static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+static void __fastcall MISSMODE_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
     D2MissilesTxt* pTxt = pMissile ? SKILLS_GetMissilesTxtRecord(pMissile->dwClassId) : 0;
     if (!pTxt->nNextHit || !pUnit)
@@ -132,9 +132,9 @@ static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2Unit
     STATES_ToggleState(pUnit, 0x56, 1);
 }
 
-static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2DamageStrc*); // 0x005ADCD0
+static void __fastcall MISSMODE_ApplyDamageFlagsAndTargetAc(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2DamageStrc*); // 0x005ADCD0
 // 0x005ADCD0
-static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+static void __fastcall MISSMODE_ApplyDamageFlagsAndTargetAc(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     MISSMODE_SetDamageFlags(pGame, pMissile, pUnit, pDamage);
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pUnit))
@@ -175,7 +175,7 @@ int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile
         }
 
         MISSILE_SetOwner(pMissile, pUnit);
-        if (!sub_005ADA40_CheckMissileMode(!pMissile ? 0 : pMissile->dwMissileMode, pUnit))
+        if (!MISSMODE_IsUnitTypeValidForMissileMode(!pMissile ? 0 : pMissile->dwMissileMode, pUnit))
         {
             return 1;
         }
@@ -209,7 +209,7 @@ int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile
 
             if (!SUNITDMG_IsHitSuccessful(pOwner, pUnit, nToHit, 1))
             {
-                sub_005ADB00_SetJustHitState(pMissile, pUnit);
+                MISSMODE_SetJustHitState(pMissile, pUnit);
                 SUNITEVENT_Trigger(pGame, 0, pUnit, pMissile, 0);
                 if (pTxt->nAlwaysExplode)
                 {
@@ -233,7 +233,7 @@ int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile
 
     if (nPierceFlags & 2)
     {
-        sub_005ADB00_SetJustHitState(pMissile, pUnit);
+        MISSMODE_SetJustHitState(pMissile, pUnit);
         SUNITEVENT_Trigger(pGame, 0, pUnit, pMissile, 0);
         const short nHitFunc = pTxt->wSrvHitFunc;
         if (nHitFunc > 0 && nHitFunc < gnMissileSrvHitFnCount)
@@ -255,7 +255,7 @@ int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile
         {
             gpfMissileSrvDmgFn_0073C960[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
         }
-        sub_005ADCD0_ApplyDamageFlags(pGame, pMissile, pUnit, &tDamage);
+        MISSMODE_ApplyDamageFlagsAndTargetAc(pGame, pMissile, pUnit, &tDamage);
     }
 
 finish_collision:

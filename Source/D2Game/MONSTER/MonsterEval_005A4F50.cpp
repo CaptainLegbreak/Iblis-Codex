@@ -11,7 +11,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 int __fastcall sub_00451F60_GetClassId(Unit*); // 0x00451F60
 unsigned int __fastcall SEED_RollLimitedRandomNumber(Seed*, int); // 0x0045C390
 Game* __fastcall SUNIT_GetGameFromUnit(Unit*); // 0x00554010
-void __fastcall sub_6FD14D20(Unit*, int, SkillInfo*); // 0x0056E050
+void __fastcall SKILLS_FillMinionSkillDamage(Unit*, int, SkillInfo*); // 0x0056E050
 int __fastcall sub_005A4F20_GetDifficultyScaledBonus(Game*, int); // 0x005A4F20
 int __stdcall STATLIST_UnitGetStatValue(Unit*, int, unsigned short); // 0x00625480
 StatList* __stdcall STATLIST_GetStatListFromUnitAndFlag(Unit*, int); // 0x00625760
@@ -36,7 +36,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
     MonStats* record = GetMonStats(unit);
     if (!record) return;
     SkillInfo skill = {};
-    sub_6FD14D20(unit, mode, &skill);
+    SKILLS_FillMinionSkillDamage(unit, mode, &skill);
     StatList* list = STATLIST_GetStatListFromUnitAndFlag(unit, 1);
     if (!list) return;
     sub_00627340_ClearStatList(list);

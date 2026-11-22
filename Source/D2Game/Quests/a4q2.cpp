@@ -233,7 +233,7 @@ void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* p
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 
-void __stdcall sub_005B4FF0_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
+void __stdcall ACT4Q2_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
 
 // 0x005B4390
 void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
@@ -1138,7 +1138,7 @@ int __fastcall OBJECTS_OperateFunction73_LastLastPortal(D2ObjOperateFnStrc* pOp,
 
     D2GAME_PlayerChangeAct_6FC867C0(pOp->pGame, pOp->hPlayer, 109, 5);
     QUESTS_UpdatePlayerFlags(pOp->pGame, pOp->hPlayer);
-    sub_005B4FF0_ActivateHarrogathWaypoint(pOp->pGame, pOp->hPlayer);
+    ACT4Q2_ActivateHarrogathWaypoint(pOp->pGame, pOp->hPlayer);
     return 0;
 }
 

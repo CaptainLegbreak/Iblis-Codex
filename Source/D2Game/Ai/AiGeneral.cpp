@@ -317,7 +317,7 @@ void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pU
 }
 
 // 0x0058ED80
-static void sub_0058ED80_FreeAllAiCommands(D2GameStrc* pGame, D2AiControlStrc* pAiControl)
+static void AIGENERAL_FreeAiControlCommands(D2GameStrc* pGame, D2AiControlStrc* pAiControl)
 {
     while (pAiControl->pLastCmd)
     {
@@ -409,7 +409,7 @@ extern "C" __declspec(dllexport) unsigned int __fastcall sub_0058EE80(Unit0058EE
 }
 
 // 0x0058EEA0
-void __fastcall sub_0058EEA0_StepCurrentAiCommand(D2UnitStrc* pUnit, int nSteps, D2AiCmdStrc* pAiCmd)
+void __fastcall AIGENERAL_StepCurrentAiCommand(D2UnitStrc* pUnit, int nSteps, D2AiCmdStrc* pAiCmd)
 {
     D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
     if (!pAiControl)
@@ -794,7 +794,7 @@ inline void AIGENERAL_SetOwnerData_Inl(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 // 0x0058F530
-static void __stdcall sub_0058F530_LinkMinions(D2UnitStrc* pUnit, D2AiControlStrc* pAiControl)
+static void __stdcall AIGENERAL_TransferMinionsToNewLeader(D2UnitStrc* pUnit, D2AiControlStrc* pAiControl)
 {
     D2MinionListStrc* pList = pAiControl->pMinionList;
     if (!pList)
@@ -829,7 +829,7 @@ static void __stdcall sub_0058F530_LinkMinions(D2UnitStrc* pUnit, D2AiControlStr
 }
 
 // 0x0058F660
-static void sub_0058F660_ReleaseMinions(D2AiControlStrc* pAiControl)
+static void AIGENERAL_ReleaseMinions(D2AiControlStrc* pAiControl)
 {
     D2MinionListStrc* pMinionList = pAiControl->pMinionList;
     D2GameStrc* pGame = pAiControl->pGame;
@@ -851,11 +851,11 @@ void __fastcall AIGENERAL_UpdateMinionList(D2UnitStrc* pUnit)
 
     if (AIUTIL_CheckAiControlFlag(pAiControl, 2))
     {
-        sub_0058F530_LinkMinions(pUnit, pAiControl);
+        AIGENERAL_TransferMinionsToNewLeader(pUnit, pAiControl);
     }
     else
     {
-        sub_0058F660_ReleaseMinions(pAiControl);
+        AIGENERAL_ReleaseMinions(pAiControl);
     }
 }
 
@@ -926,6 +926,6 @@ void __fastcall AIGENERAL_FreeAiControl(D2GameStrc* pGame, D2AiControlStrc* pAiC
         FOG_FreeServerMemory(pGame->pMemoryPool, i, ".\\Ai\\AiGeneral.cpp", 582, 0);
     }
 
-    sub_0058ED80_FreeAllAiCommands(pGame, pAiControl);
+    AIGENERAL_FreeAiControlCommands(pGame, pAiControl);
     FOG_FreeServerMemory(pGame->pMemoryPool, pAiControl, ".\\Ai\\AiGeneral.cpp", 413, 0);
 }

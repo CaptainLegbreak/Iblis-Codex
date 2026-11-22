@@ -436,7 +436,7 @@ void __fastcall sub_005956C0_ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* 
 
 void __fastcall ACT2Q4_InitializeHaremBlockerObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059B710
 
-D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
 
 void __fastcall sub_005B5750_SpawnQuestMonster(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
 
@@ -752,7 +752,7 @@ void __fastcall MONSTERREGION_InitializeForGame(D2GameStrc* pGame)
 }
 
 // 0x00547D90
-void __fastcall sub_6FC68180(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit, int bToggleFlag)
+void __fastcall MONSTERREGION_RegisterSpawnedMonster(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit, int bToggleFlag)
 {
     if (bToggleFlag)
     {
@@ -766,7 +766,7 @@ void __fastcall sub_6FC68180(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoom
 }
 
 // 0x00547DD0
-void __fastcall sub_6FC681C0(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit, int nPreviousAlignment, int nNewAlignment)
+void __fastcall MONSTERREGION_UpdateSpawnCountForAlignmentChange(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit, int nPreviousAlignment, int nNewAlignment)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_MONSTER && !SUNIT_IsDead(pUnit) && !MONSTER_CheckSummonerFlag(pUnit, 2))
@@ -788,7 +788,7 @@ void __fastcall sub_6FC681C0(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* 
 }
 
 // 0x00547E50
-void __fastcall sub_6FC68240(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit)
+void __fastcall MONSTERREGION_RecordMonsterKill(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit)
 {
     if (!MONSTER_CheckSummonerFlag(pUnit, SUMMONER_FLAG))
     {
@@ -801,7 +801,7 @@ void __fastcall sub_6FC68240(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* 
 }
 
 // 0x00547E90
-void __fastcall sub_6FC68280(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit)
+void __fastcall MONSTERREGION_UndoMonsterKill(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* pUnit)
 {
     if (!MONSTER_CheckSummonerFlag(pUnit, SUMMONER_FLAG))
     {
@@ -814,7 +814,7 @@ void __fastcall sub_6FC68280(D2MonsterRegionStrc** ppMonsterRegion, D2UnitStrc* 
 }
 
 // 0x00547ED0
-void __fastcall sub_6FC682C0(D2MonsterRegionStrc** ppMonRegion, int nLevelId1, int nLevelId2, int nAlignment, int bDead, int a6, D2UnitStrc* pUnit)
+void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc** ppMonRegion, int nLevelId1, int nLevelId2, int nAlignment, int bDead, int a6, D2UnitStrc* pUnit)
 {
     D2MonsterRegionStrc* pMonsterRegion1 = ppMonRegion[nLevelId1];
     D2MonsterRegionStrc* pMonsterRegion2 = ppMonRegion[nLevelId2];

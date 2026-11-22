@@ -140,7 +140,7 @@ D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); // 0x00572DC0
 
-void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
+void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
 
 int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005879D0
 
@@ -1141,7 +1141,7 @@ int __fastcall ACT5Q3_RemoveDrehyaIced(D2GameStrc* pGame, D2UnitStrc* pUnit, voi
 
     if (MONSTERAI_HasInteractUnit(pMonInteract))
     {
-        sub_00573180(pGame, pUnit, ACT5Q3_SendPacket0x5DToClient, 0);
+        MONSTERAI_CloseNpcInteractions(pGame, pUnit, ACT5Q3_SendPacket0x5DToClient, 0);
         return 1;
     }
 

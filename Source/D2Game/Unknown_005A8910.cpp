@@ -323,7 +323,7 @@ int __fastcall MISSMODE_SrvHit07_HolyBolt_FistOfTheHeavenBolt(D2GameStrc* pGame,
 }
 
 // 0x005A8F20
-void __fastcall sub_005A8F20_SetElementalDamage(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnused, D2DamageStrc* pDamage, int nValue)
+void __fastcall MISSMODE_SetElementalLength(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnused, D2DamageStrc* pDamage, int nValue)
 {
     if (pMissile)
     {
@@ -351,7 +351,7 @@ void __fastcall sub_005A8F20_SetElementalDamage(D2GameStrc* pGame, D2UnitStrc* p
 static __forceinline int GetClassId(Unit* unit) { return unit->classId; }
 
 // 0x005A8FB0
-void __fastcall sub_005A8FB0(Game* game,Unit* missile,Unit* owner,Damage* damage,int value)
+void __fastcall MISSMODE_SetDamageValue(Game* game,Unit* missile,Unit* owner,Damage* damage,int value)
 {
     if (!missile) return;
     switch (MISSILE_GetElemTypeFromMissileId(GetClassId(missile))) {
@@ -371,7 +371,7 @@ void __fastcall sub_005A8FB0(Game* game,Unit* missile,Unit* owner,Damage* damage
 }
 
 // 0x005A90E0
-int __fastcall sub_005A90E0_GetDamageValue(D2GameStrc* game, D2UnitStrc* missile, D2UnitStrc* unit, D2DamageStrc* damage, int unused)
+int __fastcall MISSMODE_GetStoredDamageValue(D2GameStrc* game, D2UnitStrc* missile, D2UnitStrc* unit, D2DamageStrc* damage, int unused)
 {
  if (!missile) return 0;
  switch (MISSILE_GetElemTypeFromMissileId(!missile ? -1 : missile->dwClassId)) {
@@ -392,7 +392,7 @@ int __fastcall sub_005A90E0_GetDamageValue(D2GameStrc* game, D2UnitStrc* missile
 }
 
 // 0x005A94C0
-static int __stdcall sub_005A94C0_CheckDistanceAndLineOfSight(int nMaxDistanceSq, int nX, int nY, D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY)
+static int __stdcall MISSMODE_CheckDistanceAndLineOfSight(int nMaxDistanceSq, int nX, int nY, D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY)
 {
     if (!pRoom)
     {
@@ -415,5 +415,5 @@ static int __stdcall sub_005A94C0_CheckDistanceAndLineOfSight(int nMaxDistanceSq
 
 int __stdcall sub_K13_Emit_005A94C0(D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY, int nMaxDistanceSq, int nX, int nY)
 {
-    return sub_005A94C0_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
+    return MISSMODE_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
 }

@@ -99,7 +99,7 @@ D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, 
 
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); // 0x00572DC0
 
-void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
+void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
 
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
 
@@ -454,7 +454,7 @@ static void sub_00589340_RemoveNihlathakInTown(D2QuestDataStrc* pQuestData, D2Un
     D2MonsterInteractStrc* pMonInteract = pNihlathak && pNihlathak->dwUnitType == UNIT_MONSTER && pNihlathak->pMonsterData ? pNihlathak->pMonsterData->pMonInteract : 0;
     if (MONSTERAI_HasInteractUnit(pMonInteract))
     {
-        sub_00573180(pQuestData->pGame, pNihlathak, 0, 0);
+        MONSTERAI_CloseNpcInteractions(pQuestData->pGame, pNihlathak, 0, 0);
     }
 
     D2Common_10153(pNihlathak->pDynamicPath);
@@ -482,7 +482,7 @@ static void sub_005893E0_RemoveTownNpcs(D2QuestDataStrc* pQuestData)
             D2MonsterInteractStrc* pMonInteract = pDrehya->dwUnitType == UNIT_MONSTER && pDrehya->pMonsterData ? pDrehya->pMonsterData->pMonInteract : 0;
             if (MONSTERAI_HasInteractUnit(pMonInteract))
             {
-                sub_00573180(pQuestData->pGame, pDrehya, 0, 0);
+                MONSTERAI_CloseNpcInteractions(pQuestData->pGame, pDrehya, 0, 0);
             }
 
             D2ModeChangeStrc modeChange;

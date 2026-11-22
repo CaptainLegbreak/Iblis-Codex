@@ -316,7 +316,7 @@ int __fastcall sub_6FCD0E80(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pT
 int __fastcall sub_6FD00370(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillLevel); // 0x005C8980
 int __fastcall sub_6FD01910(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005D2140
 int __fastcall sub_6FD0B2B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C3420
-int __fastcall sub_6FD0B3D0(D2UnitStrc* pUnit, int nStatId, int nResist); // 0x005C3540
+int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nStatId, int nResist); // 0x005C3540
 int __fastcall sub_6FD0FA00(D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nAuraFilter); // 0x0056B3E0
 int __fastcall sub_6FD12950(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5); // 0x0056F640
 int __fastcall sub_6FD15460(D2UnitStrc* pUnit); // 0x0056E510
@@ -496,8 +496,8 @@ void __fastcall sub_0057EB10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEntry); 
 void __fastcall sub_00599A20_ACT2Q2_Callback08_Empty(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00599A20
 void __fastcall sub_005A9930_CreateAtMissile(D2GameStrc*, D2UnitStrc*, int); // 0x005A9930
 void __fastcall sub_005B1A90(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A90
-void __fastcall sub_005C1260(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C1260
-void __fastcall sub_005C2FF0_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005C2FF0
+void __fastcall ITEMS_AssignStaffModsForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C1260
+void __fastcall SKILLS_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005C2FF0
 void __fastcall sub_6FC32220(D2ClientStrc* pClient); // 0x00537970
 void __fastcall sub_6FC35570(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int a4, int a5); // 0x00541650
 void __fastcall sub_6FC385A0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x0052D0F0

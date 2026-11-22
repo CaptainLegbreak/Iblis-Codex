@@ -432,7 +432,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc
 
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 
-int __fastcall sub_6FD136E0(D2UnitStrc* pUnit, int nSkillId); // 0x00570080
+int __fastcall SKILLS_TryIncreaseSkillLevel(D2UnitStrc* pUnit, int nSkillId); // 0x00570080
 
 void __fastcall sub_0055F4F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
 
@@ -563,9 +563,9 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
 
 int __stdcall sub_0055E9A0(int nUnused1, int nUnused2); // 0x0055E9A0
 
-void __fastcall sub_6FC61AB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract); // 0x00572E60
+void __fastcall MONSTERAI_ActivateNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract); // 0x00572E60
 
-void __fastcall sub_6FC61B70(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract); // 0x00572F20
+void __fastcall MONSTERAI_EndNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract); // 0x00572F20
 
 int __fastcall sub_6FC78B20(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short nObjectType, int nObjectGUID); // 0x00584540
 
@@ -657,7 +657,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStr
 
 int __fastcall sub_6FC93740(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00567840
 
-void __fastcall sub_6FD11AE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0056C6A0
+void __fastcall SKILLS_HandleTransmogrify(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0056C6A0
 
 void __fastcall D2GAME_RefreshPassiveSkills_6FD14CC0(D2UnitStrc* pUnit); // 0x0056DFA0
 
@@ -3585,7 +3585,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2F_InitEntityChat_6FC868C0(D2GameStrc*
     const int nResult = sub_00549410_GetInteractNpc(1, pGame, pUnit, &pNpc, *(int*)((char*)pPacket + 5));
     if (!nResult)
     {
-        sub_6FC61AB0(pGame, pUnit, pNpc, PLRMSG_GetMonInteract(pNpc));
+        MONSTERAI_ActivateNpcInteraction(pGame, pUnit, pNpc, PLRMSG_GetMonInteract(pNpc));
         return 0;
     }
 
@@ -3607,7 +3607,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x30_TerminateEntityChat_6FC869F0(D2Game
         return nResult;
     }
 
-    sub_6FC61B70(pGame, pUnit, pNpc, PLRMSG_GetMonInteract(pNpc));
+    MONSTERAI_EndNpcInteraction(pGame, pUnit, pNpc, PLRMSG_GetMonInteract(pNpc));
     return 0;
 }
 
@@ -3779,7 +3779,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x3B_AddSkillPoint_6FC86EF0(D2GameStrc* 
         D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0x1159), pUnit, 0, 1, 0);
         return 2;
     }
-    if (!sub_6FD136E0(pUnit, nSkillId))
+    if (!SKILLS_TryIncreaseSkillLevel(pUnit, nSkillId))
     {
         return 2;
     }
@@ -4243,7 +4243,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x4C_Transmogrify_6FC88170(D2GameStrc* p
         return 1;
     }
 
-    sub_6FD11AE0(pGame, pUnit, pItem);
+    SKILLS_HandleTransmogrify(pGame, pUnit, pItem);
     return 0;
 }
 

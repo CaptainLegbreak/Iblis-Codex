@@ -408,7 +408,7 @@ static inline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass, unsig
     return 0;
 }
 
-static inline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
+static inline void SUNITDMG_ApplyDamageTargetAc(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
     const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, STAT_ITEM_DAMAGETARGETAC, 0);
     if (nValue)
@@ -442,7 +442,7 @@ D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned in
 
 void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
-    sub_0057B7A0_AddDefenseFromStat(pAttacker, pDefender);
+    SUNITDMG_ApplyDamageTargetAc(pAttacker, pDefender);
 }
 
 // 0x00506DA0

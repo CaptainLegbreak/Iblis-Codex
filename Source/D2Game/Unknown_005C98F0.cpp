@@ -105,7 +105,7 @@ static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
 }
 
 // 0x005C98F0
-int __fastcall sub_005C98F0_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SrvDo021_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord || !pUnit || pUnit->dwUnitType != UNIT_PLAYER || PLAYER_IsBusy(pUnit))
@@ -168,7 +168,7 @@ int __fastcall sub_005C98F0_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 }
 
 // 0x005CA910
-int __fastcall sub_005CA910(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -269,7 +269,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x005CB170
-int __fastcall sub_005CB170(Game* game,D2UnitStrc* unit,int skillId,int level)
+int __fastcall SKILLS_SrvSt44_MaggotUp(Game* game,D2UnitStrc* unit,int skillId,int level)
 {
     if(!sub_00554EA0(game,unit,UNITS_GetRoom(unit),UNITS_GetUnitXPosition(unit),UNITS_GetUnitYPosition(unit),0,0)) return 0;
     unit->dwFlags |= UNIT_FLAGS;

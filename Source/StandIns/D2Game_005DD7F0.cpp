@@ -65,7 +65,7 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
 int __fastcall MONSTERAI_GetTargetOverrideType(D2UnitStrc* pUnit); // 0x005730E0
 int __fastcall MONSTERAI_GetTargetOverrideGUID(D2UnitStrc* pUnit); // 0x00573100
-void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit); // 0x00573120
+void __fastcall MONSTERAI_ClearTargetOverride(D2UnitStrc* pUnit); // 0x00573120
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource); // 0x005DC380
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
@@ -178,13 +178,13 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         pTarget = SUNIT_GetServerUnit(pGame, 0, MONSTERAI_GetTargetOverrideGUID(pUnit));
         if (!pTarget)
         {
-            sub_00573120_ClearMonsterPair(pUnit);
+            MONSTERAI_ClearTargetOverride(pUnit);
             return 0;
         }
         nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit);
         if (bUseEligibilityCheck && UNITS_TestCollisionWithUnit(pTarget, pUnit, 4))
         {
-            sub_00573120_ClearMonsterPair(pUnit);
+            MONSTERAI_ClearTargetOverride(pUnit);
             return 0;
         }
         break;
@@ -193,13 +193,13 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         pTarget = SUNIT_GetServerUnit(pGame, 1, MONSTERAI_GetTargetOverrideGUID(pUnit));
         if (!pTarget)
         {
-            sub_00573120_ClearMonsterPair(pUnit);
+            MONSTERAI_ClearTargetOverride(pUnit);
             return 0;
         }
         nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit);
         if (bUseEligibilityCheck && UNITS_TestCollisionWithUnit(pTarget, pUnit, 4))
         {
-            sub_00573120_ClearMonsterPair(pUnit);
+            MONSTERAI_ClearTargetOverride(pUnit);
             return 0;
         }
         break;
@@ -208,13 +208,13 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         pTarget = SUNIT_GetServerUnit(pGame, 3, MONSTERAI_GetTargetOverrideGUID(pUnit));
         if (!pTarget)
         {
-            sub_00573120_ClearMonsterPair(pUnit);
+            MONSTERAI_ClearTargetOverride(pUnit);
             return 0;
         }
         nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pTarget, pUnit);
         if (bUseEligibilityCheck && UNITS_TestCollisionWithUnit(pTarget, pUnit, 4))
         {
-            sub_00573120_ClearMonsterPair(pUnit);
+            MONSTERAI_ClearTargetOverride(pUnit);
             return 0;
         }
         break;
@@ -274,7 +274,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
     }
 
     default:
-        sub_00573120_ClearMonsterPair(pUnit);
+        MONSTERAI_ClearTargetOverride(pUnit);
         return 0;
     }
 
@@ -285,7 +285,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         return 1;
     }
 
-    sub_00573120_ClearMonsterPair(pUnit);
+    MONSTERAI_ClearTargetOverride(pUnit);
     return 0;
 }
 

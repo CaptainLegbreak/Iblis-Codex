@@ -31,7 +31,7 @@ void __cdecl sub_004A51E0_FreeCelFile()
 }
 
 // 0x005EF1E0
-int __fastcall sub_005EF1E0_BaalThroneGetAiParamFlag(D2AiTickParamStrc* pAiTickParam, int nFlag)
+int __fastcall AITHINK_BaalThroneCheckAiParamFlag(D2AiTickParamStrc* pAiTickParam, int nFlag)
 {
     return pAiTickParam->pAiControl->dwAiParam[1] & nFlag;
 }

@@ -35,14 +35,14 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
-void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);                     // 0x0056E900
+void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);                     // 0x0056E900
 void __fastcall SUNITDMG_RemoveShatterState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);      // 0x0057AD80
 int __fastcall SUNITDMG_GetColdEffect(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x0057AF30
 void __fastcall SUNITDMG_RemoveFreezeState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);       // 0x0057B170
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag);                                // 0x005A0180
 void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);      // 0x005A4390
 int __fastcall SUNITEVENT_Trigger(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage); // 0x005C0C30
-void __fastcall sub_6FCF8DD0(D2UnitStrc* pUnit);                                                            // 0x005D6410
+void __fastcall SKILLS_RemoveStatesOnHit(D2UnitStrc* pUnit);                                                            // 0x005D6410
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                   // 0x00611D30
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -211,7 +211,7 @@ static __declspec(noinline) void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pA
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nStunEndFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nStunEndFrame, 0, 0);
         STATLIST_SetState(pNewStatList, 21);
-        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
+        STATLIST_SetStatRemoveCallback(pNewStatList, SKILLS_RemoveStateAndRefreshPassives);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
         STATES_ToggleState(pDefender, 21, 1);
     }
@@ -248,7 +248,7 @@ static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitSt
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
         STATLIST_SetStatValue(pNewStatList, 0x4A, -nPoisonDamage, 0);
         STATLIST_SetState(pNewStatList, 2);
-        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
+        STATLIST_SetStatRemoveCallback(pNewStatList, SKILLS_RemoveStateAndRefreshPassives);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
     }
     else if (-STATLIST_GetStatValue(pStatList, 0x4A, 0) <= nPoisonDamage)
@@ -285,7 +285,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
         STATLIST_SetStatValue(pNewStatList, 0x4A, -nBurnDamage, 0);
         STATLIST_SetState(pNewStatList, 0x73);
-        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
+        STATLIST_SetStatRemoveCallback(pNewStatList, SKILLS_RemoveStateAndRefreshPassives);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
     }
     else if (-STATLIST_GetStatValue(pStatList, 0x4A, 0) <= nBurnDamage)

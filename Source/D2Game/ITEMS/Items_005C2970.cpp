@@ -76,7 +76,7 @@ static int __stdcall sub_005C2970_RollSuperiorItemRecord(D2UnitStrc* pItem, D2It
         {
             ITEMS_SetFileIndex(pItem, nFileIndex);
             ITEMMODS_AssignProperty(1, 0, pItem, pQualityItemsTxtRecord, 0, 0);
-            sub_005C1260(pItem, pItemDrop);
+            ITEMS_AssignStaffModsForFormat(pItem, pItemDrop);
             return 1;
         }
 

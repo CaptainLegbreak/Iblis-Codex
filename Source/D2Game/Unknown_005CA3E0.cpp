@@ -9,7 +9,7 @@ struct D2MonsterDataStrc;
 struct D2SkillsTxt;
 struct D2StaticPathStrc;
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
-int __fastcall sub_6FD15340(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId);                          // 0x0056E450
+int __fastcall SKILLS_IsMissileTargetPositionClear(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId);                          // 0x0056E450
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -31,7 +31,7 @@ int __fastcall sub_005CA3E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     if (pUnit)
         pUnit->dwFlags |= UNIT_FLAG;
-    if (!sub_6FD15340(pGame, pUnit, nMissileId))
+    if (!SKILLS_IsMissileTargetPositionClear(pGame, pUnit, nMissileId))
         return 0;
     return D2GAME_CreateMissile_6FD115E0(pGame, pUnit, nSkillId, nSkillLevel, nMissileId, 0, 0) != 0;
 }

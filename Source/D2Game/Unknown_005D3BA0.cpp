@@ -14,12 +14,12 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
-void __fastcall sub_0056C8E0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nElementalType, int nDamage, int nElementalLength, int* pStatId, int* pElementalType); // 0x0056C8E0
+void __fastcall SKILLS_AddElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nElementalType, int nDamage, int nElementalLength, int* pStatId, int* pElementalType); // 0x0056C8E0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
-void __stdcall sub_005D3790_ProgressiveLeech(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3790
-void __stdcall sub_005D3880_ProgressiveElemental(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3880
+void __stdcall SKILLS_ApplyProgressiveLeech(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3790
+void __stdcall SKILLS_ApplyProgressiveElementalDamage(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3880
 
 // build: context SKILLS_GetSkillsTxtRecord
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
@@ -37,10 +37,10 @@ inline int SKILLS_GetProgressiveState(int nIndex)
     return sgptDataTables->pProgressiveStates[nIndex];
 }
 
-static void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage);
+static void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage);
 
 // 0x005D3970
-static void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
+static void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
 {
     const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
@@ -100,7 +100,7 @@ static void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList,
         }
 
         pDamage->dwPhysDamage = nBaseDamage - nDamage;
-        sub_0056C8E0(pUnit, pDamage, pSkillsTxtRecord->nEType, nDamage, 0, 0, 0);
+        SKILLS_AddElementalDamage(pUnit, pDamage, pSkillsTxtRecord->nEType, nDamage, 0, 0, 0);
     }
 }
 
@@ -130,15 +130,15 @@ void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit
                         switch (pSkillsTxtRecord->nPrgDamage)
                         {
                         case 2:
-                            sub_005D3790_ProgressiveLeech(pUnit, pStatList, pDamage);
+                            SKILLS_ApplyProgressiveLeech(pUnit, pStatList, pDamage);
                             break;
 
                         case 3:
-                            sub_005D3880_ProgressiveElemental(pUnit, pStatList, pDamage);
+                            SKILLS_ApplyProgressiveElementalDamage(pUnit, pStatList, pDamage);
                             break;
 
                         case 4:
-                            sub_6FCF5BC0(pUnit, pStatList, pDamage);
+                            SKILLS_ApplyProgressiveElementalConversion(pUnit, pStatList, pDamage);
                             break;
                         }
                     }

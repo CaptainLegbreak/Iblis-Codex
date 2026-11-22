@@ -34,7 +34,7 @@ inline int SKILLS_GetProgressiveState(int nIndex)
 }
 
 // 0x005D3680
-static void __stdcall sub_005D3680_ApplyProgressiveDamage(D2StatListStrc* pStatList, D2DamageStrc* pDamage, D2UnitStrc* pUnit)
+static void __stdcall SKILLS_ApplyProgressiveDamageBonus(D2StatListStrc* pStatList, D2DamageStrc* pDamage, D2UnitStrc* pUnit)
 {
     const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
@@ -103,7 +103,7 @@ void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
                         switch (pSkillsTxtRecord->nPrgDamage)
                         {
                         case 1:
-                            sub_005D3680_ApplyProgressiveDamage(pStatList, pDamage, pUnit);
+                            SKILLS_ApplyProgressiveDamageBonus(pStatList, pDamage, pUnit);
                             break;
                         }
                     }

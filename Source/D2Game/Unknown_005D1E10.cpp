@@ -50,7 +50,7 @@ struct ModeRequest
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern "C" DataTables* sgptDataTables; // 0x00744304
 extern "C" int __stdcall SKILLS_EvaluateSkillFormula(Unit*, U32, int, int); // 0x00646CA0
-extern "C" void __fastcall sub_6FCFE0E0(Unit*, T005C40D0*, SkillRecord*, int, int); // 0x005C6CC0
+extern "C" void __fastcall SKILLS_ApplyAuraStatsToStatList(Unit*, T005C40D0*, SkillRecord*, int, int); // 0x005C6CC0
 extern "C" int __fastcall sub_0056E620_GetValidMonsterId(Unit*, int, int, int, int*, int, int); // 0x0056E620
 extern "C" int __stdcall DATATBLS_GetMonsterChainInfo(int, int*, int*); // 0x006510C0
 extern "C" int __fastcall SKILLS_GetMonsterClassFromChain(int, int); // 0x0054DA60
@@ -102,7 +102,7 @@ static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skil
 }
 
 // 0x005D1D70
-static void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int level, int skill)
+static void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, int level, int skill)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)
@@ -118,7 +118,7 @@ static void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int leve
     request.state = record->state;
     T005C40D0* list = sub_0056E970_Apply(&request);
     if (list)
-        sub_6FCFE0E0(owner, list, record, skill, level);
+        SKILLS_ApplyAuraStatsToStatList(owner, list, record, skill, level);
 }
 
 // 0x005D1E10
@@ -198,12 +198,12 @@ extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int ski
         }
         if (bSkip)
         {
-            sub_005D1D70_ApplyAura(owner, target, level, skill);
+            SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
             return 1;
         }
         if (STATES_CheckState(target, record->state))
         {
-            sub_005D1D70_ApplyAura(owner, target, level, skill);
+            SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
             return 1;
         }
         sub_005D1E10_Transform(owner, level, skill, game, target);

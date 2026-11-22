@@ -21,7 +21,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                        // 0x0045C3E0
-D2UnitStrc* __fastcall sub_6FC69F70(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnitInCoordList(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
 D2RoomCoordListStrc* __stdcall D2Common_10096(D2ActiveRoomStrc* pRoom, int nX, int nY);                    // 0x0061AD30
 int __stdcall sub_0054DDC0_FindPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int a3, int nClassId, D2UnkMonCreateStrc2* pCreate, int* pX, int* pY); // 0x0054DDC0
 int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pOwner, int nClassId, int nAnimMode, D2UnkMonCreateStrc2* a8, short nFlags); // 0x005B3270
@@ -82,7 +82,7 @@ static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGam
         SUNIT_AllocUnitData(2, 0x232, CLIENTS_GetUnitX(pMonster), CLIENTS_GetUnitY(pMonster), pGame, pRoom, 1, 0, 0);
 
     for (int nCount = nMin + ITEMS_RollLimitedRandomNumber(&pMonster->pSeed, nMax - nMin + 1); nCount > 0; --nCount)
-        sub_6FC69F70(pGame, pCoordList, pMonster, nMonsterId, 1, 3, 0);
+        MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pCoordList, pMonster, nMonsterId, 1, 3, 0);
 
     return pMonster;
 }
@@ -110,7 +110,7 @@ static void __stdcall sub_0054E1E0_SpawnChampionMinions(D2RoomCoordListStrc* pCo
     const int nMinions = SEED_RollRandomNumber(&pMonster->pSeed) % 3 + 1;
     for (int i = 0; i < nMinions; ++i)
     {
-        D2UnitStrc* pMinion = sub_6FC69F70(pGame, pCoordList, pMonster, nMonsterId, 1, 4, 0);
+        D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pCoordList, pMonster, nMonsterId, 1, 4, 0);
         if (pMinion)
             MONSTERUNIQUE_PromoteToChampion(pGame, pMinion, 0x10);
     }

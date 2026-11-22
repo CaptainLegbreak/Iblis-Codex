@@ -14,7 +14,7 @@ enum D2C_M80SkeletonBowAi
     SKELETONBOW_AI_PARAM_TARGET_DISTANCE = 4,
 };
 
-int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit);                                                             // 0x005DD2B0
+int __fastcall AIUTIL_IsGettingHit(D2UnitStrc* pUnit);                                                             // 0x005DD2B0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
@@ -37,7 +37,7 @@ void __fastcall AITHINK_Fn037_SkeletonBow(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     D2UnitStrc* pTickTarget = pAiTickParam->pTarget;
     D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
 
-    if (sub_6FCF2E70(pUnit))
+    if (AIUTIL_IsGettingHit(pUnit))
     {
         D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
         if (pTarget)

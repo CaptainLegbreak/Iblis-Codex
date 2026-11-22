@@ -17,7 +17,7 @@ extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nCl
 int __fastcall sub_004C9460_GetSkillParam1(int nSkillId); // 0x004C9460
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
 void __fastcall SUNIT_SetCombatMode(D2GameStrc*, D2UnitStrc*, int); // 0x00553570
-int __fastcall sub_6FD150A0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x0056E230
+int __fastcall SKILLS_StartBasicAttack(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x0056E230
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc*, int, D2ModeChangeStrc*); // 0x005A7E60
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, D2SkillStrc*); // 0x00620210

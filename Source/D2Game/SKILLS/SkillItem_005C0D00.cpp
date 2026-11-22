@@ -62,7 +62,7 @@ int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pI
 int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2D40
 
 // 0x005C0D00
-static int __stdcall sub_005C0D00_ITEMS_AddPotentialMagicAffix(int nAffixId, D2MagicAffixTxt* pRecord, D2MagicAffixIndexAndPtrStrc* pAffixes, int nCount)
+static int __stdcall ITEMS_AddPotentialMagicAffix(int nAffixId, D2MagicAffixTxt* pRecord, D2MagicAffixIndexAndPtrStrc* pAffixes, int nCount)
 {
     if (nCount < 0x1FF)
     {
@@ -120,14 +120,14 @@ int __stdcall sub_M11_Emit_005C0D00(D2UnitStrc* pItem, D2MagicAffixTxt* pFirst, 
             continue;
         }
 
-        nCount = sub_005C0D00_ITEMS_AddPotentialMagicAffix(i + nBase, pRecord, tAffixes, nCount);
+        nCount = ITEMS_AddPotentialMagicAffix(i + nBase, pRecord, tAffixes, nCount);
     }
 
     return nCount ? tAffixes[nCount - 1].nAffixId : 0;
 }
 
 // 0x005C0D20
-static D2SkillPairStrc* __stdcall sub_005C0D20_GetArrayEntry(int nCount, D2SkillPairStrc* pArray, int nIndex)
+static D2SkillPairStrc* __stdcall ITEMS_GetSkillPairEntry(int nCount, D2SkillPairStrc* pArray, int nIndex)
 {
     if (nIndex >= nCount)
     {
@@ -138,7 +138,7 @@ static D2SkillPairStrc* __stdcall sub_005C0D20_GetArrayEntry(int nCount, D2Skill
 
 D2SkillPairStrc* __stdcall sub_K13_Emit_005C0D20(D2SkillPairStrc* pArray, int nIndex, int nCount)
 {
-    return sub_005C0D20_GetArrayEntry(nCount, pArray, nIndex);
+    return ITEMS_GetSkillPairEntry(nCount, pArray, nIndex);
 }
 
 // 0x005C0D40
@@ -166,7 +166,7 @@ static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 }
 
 // 0x005C0D70
-void __stdcall sub_005C0D70(D2UnitStrc* pItem, int nItemLevel, int nClassFirstSkillId)
+void __stdcall ITEMS_AssignLegacyStaffMods(D2UnitStrc* pItem, int nItemLevel, int nClassFirstSkillId)
 {
     int nSkills[3] = { -1, -1, -1 };
     int nRoll = RollSeed(ITEMS_GetItemSeed(pItem)) % 100;
@@ -354,7 +354,7 @@ static unsigned short __stdcall sub_005C1AB0_RollRareAffixNew(D2UnitStrc* pItem,
 }
 
 // 0x005C1BC0
-unsigned short __fastcall sub_005C1BC0_RollTemperedAffix(D2UnitStrc* pItem, int bPrefix)
+unsigned short __fastcall ITEMS_RollTemperedItemAffix(D2UnitStrc* pItem, int bPrefix)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
@@ -445,7 +445,7 @@ static __forceinline void ITEMS_ApplyRareAffixesInline(D2UnitStrc* pItem)
 }
 
 // 0x005C21D0
-int __fastcall sub_005C21D0_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+int __fastcall ITEMS_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     const unsigned short nRarePrefix = D2GAME_RollRareAffixInline(pItem, 1);
     const unsigned short nRareSuffix = D2GAME_RollRareAffixInline(pItem, 0);
@@ -541,7 +541,7 @@ int __fastcall sub_005C21D0_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* p
     }
 
     ITEMS_ApplyRareAffixesInline(pItem);
-    sub_005C1260(pItem, pItemDrop);
+    ITEMS_AssignStaffModsForFormat(pItem, pItemDrop);
     return 1;
 }
 
@@ -621,7 +621,7 @@ static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D
 }
 
 // 0x005C2940
-int __fastcall sub_005C2940_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+int __fastcall ITEMS_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
@@ -632,7 +632,7 @@ int __fastcall sub_005C2940_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItem
 }
 
 // 0x005C2FB0
-int __fastcall sub_6FC55270(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+int __fastcall ITEMS_ApplyLowQualityForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {

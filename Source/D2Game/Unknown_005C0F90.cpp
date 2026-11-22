@@ -162,7 +162,7 @@ LBL_SET:
     return 1;
 }
 
-int __fastcall sub_005C2940_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+int __fastcall ITEMS_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {

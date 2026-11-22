@@ -213,7 +213,7 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern "C" const char gszMonsterAISourceFile[]; // 0x006E1560
 
-static int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit);
+static int __stdcall MONSTERAI_TryStartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit);
 
 struct D2HirelingInitStrc
 {
@@ -261,9 +261,9 @@ int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nVersion, unsi
 
 int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
 
-static int sub_00573040_AiSwitchAllowed(D2UnitStrc* pUnit);
+static int MONSTERAI_CanSwitchAi(D2UnitStrc* pUnit);
 
-int __fastcall sub_00573090_ApplyAiMode(D2UnitStrc* pUnit, int nState, int nValue);
+int __fastcall MONSTERAI_SetTargetOverride(D2UnitStrc* pUnit, int nState, int nValue);
 
 // 0x005726C0
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3)
@@ -419,7 +419,7 @@ void __fastcall MONSTERAI_FreeMonsterInteract(D2GameStrc* pGame, D2MonsterIntera
 }
 
 // 0x00572C10
-static int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit)
+static int __stdcall MONSTERAI_TryStartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 {
     D2InteractInfoStrc* pInteractInfo = pMonInteract->pInteractInfo;
 
@@ -498,7 +498,7 @@ static int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2Monst
 }
 
 // 0x00572DA0
-extern "C" __declspec(dllexport) int __fastcall sub_00572DA0(List00572DA0* pList) {
+extern "C" __declspec(dllexport) int __fastcall MONSTERAI_GetInteractUnitCount(List00572DA0* pList) {
     int nCount = 0;
     for (Node00572DA0* pNode = pList->pHead; pNode; pNode = pNode->pNext) {
         if (pNode->dwValue00) {
@@ -509,7 +509,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_00572DA0(List00572DA0* pList
 }
 
 // 0x00572DC0
-extern "C" __declspec(dllexport) int __fastcall sub_00572DC0(List00572DC0* pList) {
+extern "C" __declspec(dllexport) int __fastcall MONSTERAI_HasInteractUnit(List00572DC0* pList) {
     for (Node00572DC0* pNode = pList->pHead; pNode; pNode = pNode->pNext) {
         if (pNode->dwValue00) {
             return 1;
@@ -519,7 +519,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_00572DC0(List00572DC0* pList
 }
 
 // 0x00572DE0
-extern "C" __declspec(dllexport) int __fastcall sub_00572DE0(List00572DE0* pList, int nId) {
+extern "C" __declspec(dllexport) int __fastcall MONSTERAI_IsInteractingWith(List00572DE0* pList, int nId) {
     for (Node00572DE0* pNode = pList->pHead; pNode; pNode = pNode->pNext) {
         if (pNode->nId == nId) {
             return 1;
@@ -558,7 +558,7 @@ void __fastcall MONSTERAI_RemoveInteractInfoFor(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // 0x00572E60
-void __fastcall sub_6FC61AB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract)
+void __fastcall MONSTERAI_ActivateNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract)
 {
     for (D2InteractInfoStrc* pInteractInfo = pMonInteract->pInteractInfo; pInteractInfo; pInteractInfo = pInteractInfo->pNext)
     {
@@ -587,7 +587,7 @@ inline D2MonsterInteractStrc* GetInteractions(D2UnitStrc* pUnit)
 }
 
 // 0x00572EA0
-void __fastcall sub_00572EA0_AdvanceInteraction(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+void __fastcall MONSTERAI_SetInteractTrading(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     D2MonsterInteractStrc* pList = GetInteractions(pUnit);
     D2InteractInfoStrc* pEntry = pList->pInteractInfo;
@@ -604,7 +604,7 @@ void __fastcall sub_00572EA0_AdvanceInteraction(D2UnitStrc* pUnit, D2UnitStrc* p
 }
 
 // 0x00572EE0
-int __fastcall sub_00572EE0_IsInteractionReady(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+int __fastcall MONSTERAI_IsTrading(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     D2MonsterInteractStrc* pList = GetInteractions(pUnit);
     D2InteractInfoStrc* pEntry = pList->pInteractInfo;
@@ -618,7 +618,7 @@ int __fastcall sub_00572EE0_IsInteractionReady(D2UnitStrc* pUnit, D2UnitStrc* pT
 }
 
 // 0x00572F20
-void __fastcall sub_6FC61B70(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract)
+void __fastcall MONSTERAI_EndNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract)
 {
     QUESTS_NPCDeactivate(pGame, pPlayer, pNpc);
 
@@ -683,7 +683,7 @@ void __fastcall sub_6FC61B70(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc*
 // 0x00573020
 void __fastcall MONSTERAI_StartNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2MonsterInteractStrc* pMonInteract, char nQuestFlags)
 {
-    sub_00572C10_StartNpcInteraction(pGame, pMonInteract, nQuestFlags, pTarget, pUnit);
+    MONSTERAI_TryStartNpcInteraction(pGame, pMonInteract, nQuestFlags, pTarget, pUnit);
 }
 
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
@@ -714,7 +714,7 @@ static inline D2MonsterDataStrc* MONSTERS_GetMonsterData(D2UnitStrc* pUnit)
 }
 
 // 0x00573040
-static int sub_00573040_AiSwitchAllowed(D2UnitStrc* pUnit)
+static int MONSTERAI_CanSwitchAi(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == UNIT_MONSTER)
@@ -728,10 +728,10 @@ static int sub_00573040_AiSwitchAllowed(D2UnitStrc* pUnit)
 }
 
 // 0x00573090
-int __fastcall sub_00573090_ApplyAiMode(D2UnitStrc* pUnit, int nState, int nValue)
+int __fastcall MONSTERAI_SetTargetOverride(D2UnitStrc* pUnit, int nState, int nValue)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType == UNIT_MONSTER && nState < 5 && sub_00573040_AiSwitchAllowed(pUnit))
+    if (nType == UNIT_MONSTER && nState < 5 && MONSTERAI_CanSwitchAi(pUnit))
     {
         D2MonsterDataStrc* pMonsterData = MONSTERS_GetMonsterData(pUnit);
         if (pMonsterData)
@@ -787,7 +787,7 @@ int __fastcall MONSTERAI_GetTargetOverrideGUID(D2UnitStrc* pUnit)
 }
 
 // 0x00573120
-void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit)
+void __fastcall MONSTERAI_ClearTargetOverride(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_MONSTER)
@@ -812,7 +812,7 @@ static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnitInline(D2UnitS
 }
 
 // 0x00573140
-int __fastcall sub_6FC61F20(D2UnitStrc* pNpc, D2UnitStrc* pPlayer)
+int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlayer)
 {
     if (!pNpc)
     {
@@ -848,7 +848,7 @@ int __fastcall sub_6FC61F20(D2UnitStrc* pNpc, D2UnitStrc* pPlayer)
 }
 
 // 0x00573180
-void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide)
+void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide)
 {
     if (!pMonster)
     {
@@ -988,7 +988,7 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 }
 
 // 0x0057C3E0
-int __fastcall sub_0057C3E0_GetMonsterDrain(D2UnitStrc* pUnit, int nUnused, D2GameStrc* pGame)
+int __fastcall SUNITDMG_GetMonsterDrain(D2UnitStrc* pUnit, int nUnused, D2GameStrc* pGame)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != UNIT_MONSTER)

@@ -96,7 +96,7 @@ struct ModeRequest
 extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, U32, int, int); // 0x00646CA0
 
 // 0x005D1080
-static __forceinline int sub_005D1080_GetThornsPercent(D2UnitStrc* pDefender, D2UnitStrc* pAttacker)
+static __forceinline int SKILLS_GetThornsPercent(D2UnitStrc* pDefender, D2UnitStrc* pAttacker)
 {
     const int nThornsPercent = STATLIST_UnitGetStatValue(pDefender, 0x83, 0);
     if (nThornsPercent <= 0)
@@ -110,16 +110,16 @@ static __forceinline int sub_005D1080_GetThornsPercent(D2UnitStrc* pDefender, D2
     return (nThornsPercent + 4) / 8;
 }
 
-int __stdcall sub_M121_Emit_005D1080(D2UnitStrc* pDefender, D2UnitStrc* pAttacker) { return sub_005D1080_GetThornsPercent(pDefender, pAttacker); }
+int __stdcall sub_M121_Emit_005D1080(D2UnitStrc* pDefender, D2UnitStrc* pAttacker) { return SKILLS_GetThornsPercent(pDefender, pAttacker); }
 
 // 0x005D1320
-static __forceinline void sub_005D1320_ResetUnitEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static __forceinline void SKILLS_ResetEventsAndScheduleAiThink(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 0, 0);
     EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 13, 0, 0);
 }
 
-void __stdcall sub_M121_Emit_005D1320(D2GameStrc* pGame, D2UnitStrc* pUnit) { sub_005D1320_ResetUnitEvents(pGame, pUnit); }
+void __stdcall sub_M121_Emit_005D1320(D2GameStrc* pGame, D2UnitStrc* pUnit) { SKILLS_ResetEventsAndScheduleAiThink(pGame, pUnit); }
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -207,7 +207,7 @@ int __fastcall SKILLS_SrvDo126_ImpInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 }
 
 // 0x005D1BF0
-int __fastcall sub_005D1BF0_ResurrectMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill, int nLevel)
+int __fastcall SKILLS_SrvSt61_SelfResurrect(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill, int nLevel)
 {
     const unsigned int nType = pUnit ? pUnit->dwUnitType : 6;
     if (nType != 1)
@@ -219,7 +219,7 @@ int __fastcall sub_005D1BF0_ResurrectMonster(D2GameStrc* pGame, D2UnitStrc* pUni
 }
 
 // 0x005D1C30
-static int __stdcall sub_005D1C30_CreateMissileVolley(D2GameStrc* pGame, int nCount, D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel)
+static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, int nCount, D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel)
 {
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 3;
@@ -274,7 +274,7 @@ static __forceinline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, i
 }
 
 // 0x005D1D70
-static __declspec(noinline) void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int level, int skill)
+static __declspec(noinline) void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, int level, int skill)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)
@@ -353,7 +353,7 @@ extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int ski
             || SkillChanceSucceeds(owner, record, skill, level)
             || sub_00639DF0_HasState(target, record->state))
         {
-            sub_005D1D70_ApplyAura(owner, target, level, skill);
+            SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
             return 1;
         }
         sub_005D1E10_Transform(owner, level, game, target, skill);

@@ -27,7 +27,7 @@ inline Skills* GetSkills(int skillId)
     return 0;
 }
 // 0x005D8C70
-int __fastcall sub_005D8C70(Game* game,Unit* unit,int skillId,int level)
+int __fastcall SKILLS_ApplyFrenzyStats(Game* game,Unit* unit,int skillId,int level)
 {
     Skills* record=GetSkills(skillId);
     if(!record) return 0;
