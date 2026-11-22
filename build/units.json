@@ -57790,16 +57790,6 @@
      "name": "ACT2Q1_Callback00_NpcActivate"
     },
     {
-     "va": "0x00599020",
-     "length": 272,
-     "name": "ACT2Q1_Callback08_MonsterKilled"
-    },
-    {
-     "va": "0x00599420",
-     "length": 196,
-     "name": "ACT2Q1_OnRadamentActivated"
-    },
-    {
      "va": "0x005997F0",
      "length": 280,
      "name": "ACT2Q2_Callback11_ScrollMessage"
@@ -58718,6 +58708,11 @@
      "name": "?ACT2Q1_UnitIterate_DetermineSkillBookDropCount@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x00599020",
+     "length": 272,
+     "name": "ACT2Q1_Callback08_MonsterKilled"
+    },
+    {
      "va": "0x00599130",
      "length": 124,
      "name": "?ACT2Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -58736,6 +58731,11 @@
      "va": "0x00599340",
      "length": 210,
      "name": "?ACT2Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00599420",
+     "length": 196,
+     "name": "ACT2Q1_OnRadamentActivated"
     }
    ]
   },
