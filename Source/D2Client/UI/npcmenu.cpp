@@ -378,6 +378,8 @@ static D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
+// build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
+
 // 0x004AD0C0
 void __fastcall sub_004AD0C0_StateOverlayBurst(D2UnitStrc* pUnit, int nState, int bFlag)
 {
