@@ -63907,6 +63907,11 @@
      "name": "AITHINK_Fn066_SandMaggotQueen"
     },
     {
+     "va": "0x005FA010",
+     "length": 611,
+     "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005FAE40",
      "length": 183,
      "name": "?AITHINK_TargetCallback_OblivionKnight@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -68632,17 +68637,6 @@
     {
      "va": "0x005F9490",
      "length": 547
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005FA010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FA010",
-     "length": 611,
-     "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
