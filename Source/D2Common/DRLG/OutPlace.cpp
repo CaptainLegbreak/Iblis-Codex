@@ -750,6 +750,148 @@ static inline unsigned int SEED_RollRandomNumber_Links(D2SeedStrc* pSeed)
 void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg); // 0x006772C0
 
 static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg); // 0x006775C0
+// 0x006772C0
+static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg)
+{
+    D2DrlgLevelLinkDataStrc pLevelLinkData = {};
+    D2LevelDefBin* pLevelDefBinRecord = 0;
+    D2DrlgPresetInfoStrc* pPresetInfo = 0;
+    D2DrlgLevelStrc* pLevel = 0;
+    D2DrlgLinkStrc* pLink;
+    int nLevelId = 0;
+    int nCounter = 0;
+    int nVisEx = 0;
+    int nVis = 0;
+
+    for (int i = 0; i < 15; ++i)
+    {
+        pLevelLinkData.nRand[2][i] = -1;
+        pLevelLinkData.nRand[3][i] = -1;
+        pLevelLinkData.nRand[0][i] = -1;
+        pLevelLinkData.nRand[1][i] = -1;
+    }
+
+    pLevelLinkData.pLink = pDrlgLink;
+    pLevelLinkData.pSeed = pDrlg->pSeed;
+
+    for (int i = 0; pDrlgLink[i].nLevel; ++i)
+    {
+        pLevelDefBinRecord = DATATBLS_GetLevelDefRecord(pDrlgLink[i].nLevel);
+
+        pLevelLinkData.pLevelCoord[i].nWidth = pLevelDefBinRecord->dwSizeX[pDrlg->nDifficulty];
+        pLevelLinkData.pLevelCoord[i].nHeight = pLevelDefBinRecord->dwSizeY[pDrlg->nDifficulty];
+    }
+
+    nCounter = 0;
+    pLink = pDrlgLink;
+    while (pLink->nLevel)
+    {
+        pLevelLinkData.nIteration = nCounter;
+        pLevelLinkData.nCurrentLevel = pLink->nLevel;
+
+        if (!((DRLGLINKFN)pLink->pfLinker)(&pLevelLinkData))
+        {
+            pLevelLinkData.nRand[2][nCounter] = -1;
+            pLevelLinkData.nRand[3][nCounter] = -1;
+            pLevelLinkData.nRand[0][nCounter] = -1;
+            pLevelLinkData.nRand[1][nCounter] = -1;
+
+            --nCounter;
+        }
+        else if (!pfLink || pfLink(&pLevelLinkData, nCounter))
+        {
+            ++nCounter;
+        }
+
+        pLink = &pDrlgLink[nCounter];
+    }
+
+    nCounter = 0;
+    pLink = pDrlgLink;
+    while (pLink->nLevel)
+    {
+        nLevelId = pLink->nLevel;
+
+        if (pLink->nLevelLink == -1)
+        {
+            nVis = 0;
+        }
+        else
+        {
+            nVis = pDrlgLink[pLink->nLevelLink].nLevel;
+        }
+
+        if (pLink->nLevelLinkEx == -1)
+        {
+            nVisEx = 0;
+        }
+        else
+        {
+            nVisEx = pDrlgLink[pLink->nLevelLinkEx].nLevel;
+        }
+
+        pLevel = DRLG_GetLevel(pDrlg, nLevelId);
+
+        pLevel->pLevelCoords = pLevelLinkData.pLevelCoord[nCounter];
+
+        if (pLevel->nDrlgType == DRLGTYPE_PRESET)
+        {
+            pPresetInfo = pLevel->pPreset;
+            switch (pLevel->eLevelId)
+            {
+            case 1:
+                pPresetInfo->nDirection = pLevelLinkData.nRand[0][nCounter];
+                break;
+            case 0x28:
+                pPresetInfo->nDirection = pLevelLinkData.nRand[0][nCounter + 1];
+                break;
+            }
+        }
+
+        if (pLevel->eLevelId == LEVEL_BLACKMARSH)
+        {
+            D2DrlgLevelStrc* pOuterLevel = DRLG_GetLevel(pDrlg, LEVEL_OUTERCLOISTER);
+            pPresetInfo = pOuterLevel->pPreset;
+            switch (pLevelLinkData.nRand[0][nCounter])
+            {
+            case 1:
+                pPresetInfo->nDirection = ((unsigned char)SEED_RollRandomNumber(&pDrlg->pSeed) & 1) ? 1 : 2;
+                break;
+            case 3:
+                pPresetInfo->nDirection = ~(unsigned char)SEED_RollRandomNumber(&pDrlg->pSeed) & 1;
+                break;
+            }
+        }
+
+        if (pfFlag)
+        {
+            pfFlag(pLevel, nCounter, pLevelLinkData.nRand[0]);
+        }
+
+        if (pDrlg->nAct != 4)
+        {
+            if (nVis)
+            {
+                D2DrlgWarpStrc* pDrlgWarp1 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nLevelId);
+                D2DrlgWarpStrc* pDrlgWarp2 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nVis);
+                DRLG_SetWarpId(pDrlgWarp1, nVis, -1, -1);
+                DRLG_SetWarpId(pDrlgWarp2, nLevelId, -1, -1);
+            }
+
+            if (nVisEx)
+            {
+                D2DrlgWarpStrc* pDrlgWarp1 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nLevelId);
+                D2DrlgWarpStrc* pDrlgWarp2 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nVisEx);
+                DRLG_SetWarpId(pDrlgWarp1, nVisEx, -1, -1);
+                DRLG_SetWarpId(pDrlgWarp2, nLevelId, -1, -1);
+            }
+        }
+
+        ++nCounter;
+        pLink = &pDrlgLink[nCounter];
+    }
+}
+
 // 0x006775C0
 static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg)
 {
@@ -763,7 +905,7 @@ static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2D
             if (i != j)
             {
                 D2DrlgLevelStrc* pOtherLevel = DRLG_GetLevel(pDrlg, j);
-                if (DRLG_CheckOverlappingWithOrthogonalMargin((D2DrlgCoordStrc*)&pLevel->nPosX, (D2DrlgCoordStrc*)&pOtherLevel->nPosX, -1))
+                if (DRLG_CheckOverlappingWithOrthogonalMargin(&pLevel->pLevelCoords, &pOtherLevel->pLevelCoords, -1))
                 {
                     DRLG_SetWarpId(pDrlgWarp, j, -1, -1);
                 }

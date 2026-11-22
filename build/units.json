@@ -72944,11 +72944,6 @@
      "name": "?sub_0061C390@@YGHPAUAct@@@Z"
     },
     {
-     "va": "0x0061C3B0",
-     "length": 156,
-     "name": "?ENVIRONMENT_SetNextTimeRate@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
-    },
-    {
      "va": "0x0061C530",
      "length": 12,
      "name": "?sub_0061C530_GetLvlPrestTxtRecordCount@@YAHXZ"
@@ -73257,6 +73252,11 @@
      "va": "0x0061C360",
      "length": 48,
      "name": "ENVIRONMENT_GetStatistics"
+    },
+    {
+     "va": "0x0061C3B0",
+     "length": 156,
+     "name": "?ENVIRONMENT_SetNextTimeRate@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0061C450",
@@ -79057,6 +79057,11 @@
      "va": "0x006505C0",
      "length": 24,
      "name": "?sub_006505C0_TestPathFlag8@@YGHPAUD2DynamicPathStrc@@@Z"
+    },
+    {
+     "va": "0x0066A280",
+     "length": 1,
+     "name": "?D2COMMON_10916_Return@@YIXXZ"
     }
    ]
   },
@@ -81651,11 +81656,6 @@
      "va": "0x0066A270",
      "length": 1,
      "name": "?sub_0066A270@@YIXPAX@Z"
-    },
-    {
-     "va": "0x0066A280",
-     "length": 1,
-     "name": "?D2COMMON_10916_Return@@YIXXZ"
     }
    ]
   },
@@ -83301,38 +83301,9 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_006772C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006772C0",
-     "length": 762
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Common/Unknown_006775C0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006775C0",
-     "length": 117,
-     "name": "?sub_006775C0_SetOverlapWarps@@YGXHHPAUD2DrlgStrc@@@Z"
-    },
     {
      "va": "0x00677680",
      "length": 193,
@@ -83364,6 +83335,15 @@
    "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x006772C0",
+     "length": 762
+    },
+    {
+     "va": "0x006775C0",
+     "length": 117,
+     "name": "?sub_006775C0_SetOverlapWarps@@YGXHHPAUD2DrlgStrc@@@Z"
+    },
     {
      "va": "0x006789B0",
      "length": 102
@@ -83979,6 +83959,11 @@
      "name": "sub_0067D6D0"
     },
     {
+     "va": "0x0067D710",
+     "length": 144,
+     "name": "sub_0067D710"
+    },
+    {
      "va": "0x0067D7A0",
      "length": 12,
      "name": "sub_0067D7A0"
@@ -83989,11 +83974,6 @@
    "file": "Source/D2Common/Unknown_0067D710.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0067D710",
-     "length": 144,
-     "name": "sub_0067D710"
-    },
     {
      "va": "0x0067D7E0",
      "length": 79

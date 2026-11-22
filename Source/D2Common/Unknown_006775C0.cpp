@@ -194,7 +194,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
     }
 }
 
-// 0x006775C0
+// build: context sub_006775C0_SetOverlapWarps
 static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg)
 {
     for (int i = nStartId; i <= nEndId; ++i)

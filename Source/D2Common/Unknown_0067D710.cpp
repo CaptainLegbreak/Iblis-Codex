@@ -23,13 +23,6 @@ struct D2DrlgLevelLinkDataStrc;
 struct D2DrlgOutdoorInfoStrc;
 struct D2DrlgOutSiegeInitStrc;
 
-
-
-
-
-
-
-
 struct D2LevelDefRecordStrc
 {
     char unk0x00[0x38];
@@ -107,10 +100,7 @@ void __stdcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int nType, i
 
 // build: context DRLGOUTROOM_LinkLevelsByOffsetCoords
 
-
-
 extern const D2CoordStrc gOutdoorOrthOffsets_006F1F7C[4]; // 0x006F1F7C
-
 
 struct D2DrlgOutSiegeInitStrc
 {
@@ -126,28 +116,6 @@ D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nLevelPrestId); // 0x
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nDirection, int a6); // 0x006743C0
 void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x00675770
 void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel); // 0x0067E160
-
-// 0x0067D710
-void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom)
-{
-    DRLGROOMTILE_AllocTileGrid(pRoom);
-
-    D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
-    DRLGROOMTILE_CountWallWarpTiles(pRoom, &pOutdoor->tGrid14, &pOutdoor->pTileTypeGrid, 0, 0);
-    sub_0066ECE0(pRoom, &pOutdoor->tGrid14, 0, 0, 0);
-    sub_0066ECE0(pRoom, &pOutdoor->tGrid28, 0, 0, 0);
-    DRLGROOMTILE_AllocTileData(pRoom);
-    DRLGROOMTILE_LoadInitRoomTiles(pRoom, &pOutdoor->tGrid14, &pOutdoor->pTileTypeGrid, 0, 0, 0);
-    DRLGROOMTILE_LoadInitRoomTiles(pRoom, &pOutdoor->tGrid28, 0, 0, 0, 0);
-
-    D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
-    D2DrlgRoomTilesStrc* pTiles = &pTileGrid->pTiles;
-    pTiles->nWalls = pTileGrid->nWalls;
-    pTiles->nFloors = pTileGrid->nFloors;
-    pTiles->nRoofs = pTileGrid->nShadows;
-
-    DRLGLOGIC_AllocCoordLists(pRoom);
-}
 
 static const D2CoordStrc gOutdoorOrthOffsets[2][2] =
 {
