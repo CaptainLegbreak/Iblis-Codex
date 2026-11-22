@@ -33,8 +33,8 @@ struct D2UnitStrc;
 
 struct D2AutomapLayerStrc
 {
-    int nLayerNo;
-    int fSaved;
+    unsigned int nLayerNo;
+    unsigned int fSaved;
     D2AutomapCellStrc* pFloors;
     D2AutomapCellStrc* pWalls;
     D2AutomapCellStrc* pObjects;

@@ -25,10 +25,9 @@ struct D2CriticalSectionStrc;
 struct D2FogBlockStrc;
 struct D2CharSaveIdStrc;
 struct D2CharSaveHeaderStrc;
-struct D2AutomapNodeStrc;
+struct D2AutomapLayerStrc;
 struct D2AutomapCellStrc;
 struct D2AutomapCellBlockStrc;
-struct D2AutomapContextStrc;
 struct PlayerNode;
 struct PlayerListHead;
 struct D2UnitTargetStrc;
@@ -128,11 +127,15 @@ struct D2CharSaveHeaderStrc
     char unk0xA8[0xA7];
 };
 
-struct D2AutomapNodeStrc
+struct D2AutomapLayerStrc
 {
-    int nValue;
-    int nData[5];
-    D2AutomapNodeStrc* pNext;
+    unsigned int nLayerNo;
+    unsigned int fSaved;
+    D2AutomapCellStrc* pFloors;
+    D2AutomapCellStrc* pWalls;
+    D2AutomapCellStrc* pObjects;
+    D2AutomapCellStrc* pExtras;
+    D2AutomapLayerStrc* pNext;
 };
 
 extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
@@ -157,23 +160,13 @@ extern D2FogBlockStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
 extern D2CharSaveHeaderStrc gtCharSaveHeader_0077AC10; // 0x0077AC10
 extern D2CharSaveIdStrc gtCharSaveId_0070CCC8; // 0x0070CCC8
-extern D2AutomapNodeStrc* gpAutomapNodes_007A5160; // 0x007A5160
+extern D2AutomapLayerStrc* gpAutomapNodes_007A5160; // 0x007A5160
 
 
 struct D2AutomapCellBlockStrc
 {
     D2AutomapCellStrc cells[512];
     D2AutomapCellBlockStrc* pNext;
-};
-
-struct D2AutomapContextStrc
-{
-    int unk0x00;
-    int nLayerKind;
-    D2AutomapCellStrc* pFloors;
-    D2AutomapCellStrc* pWalls;
-    D2AutomapCellStrc* pObjects;
-    D2AutomapCellStrc* pExtras;
 };
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
@@ -649,7 +642,7 @@ static D2AutomapCellBlockStrc* gpAutomapCellBlocks_007A5158; // 0x007A5158
 
 static int gnAutomapCellCount_007A515C; // 0x007A515C
 
-static D2AutomapContextStrc* gpAutomapContext_007A5164; // 0x007A5164
+static D2AutomapLayerStrc* gpAutomapContext_007A5164; // 0x007A5164
 
 // 0x00457B00
 int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot)
@@ -731,7 +724,7 @@ int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot
     return nResult;
 }
 
-void __fastcall sub_J02_EmitSetAutomapContext(D2AutomapContextStrc* pContext, D2AutomapCellBlockStrc* pBlock)
+void __fastcall sub_J02_EmitSetAutomapContext(D2AutomapLayerStrc* pContext, D2AutomapCellBlockStrc* pBlock)
 {
     gpAutomapContext_007A5164 = pContext;
     gpAutomapCellBlocks_007A5158 = pBlock;
@@ -812,10 +805,10 @@ void __cdecl sub_00458680_ResetAutomapCells()
 // 0x00458CF0
 void __stdcall sub_00458CF0_PushNode(int nValue)
 {
-    D2AutomapNodeStrc* pNode = (D2AutomapNodeStrc*)FOG_Alloc(sizeof(D2AutomapNodeStrc), ".\\UI\\automap.cpp", 0x5ED, 0);
-    D2AutomapNodeStrc* pHead = gpAutomapNodes_007A5160;
-    memset(pNode->nData, 0, sizeof(pNode->nData));
-    pNode->nValue = nValue;
+    D2AutomapLayerStrc* pNode = (D2AutomapLayerStrc*)FOG_Alloc(sizeof(D2AutomapLayerStrc), ".\\UI\\automap.cpp", 0x5ED, 0);
+    D2AutomapLayerStrc* pHead = gpAutomapNodes_007A5160;
+    memset(&pNode->fSaved, 0, sizeof(pNode->fSaved) + 4 * sizeof(D2AutomapCellStrc*));
+    pNode->nLayerNo = nValue;
     pNode->pNext = pHead;
     gpAutomapNodes_007A5160 = pNode;
 }

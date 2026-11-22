@@ -50,6 +50,7 @@ struct D2AutomapLayerStrc
     D2AutomapCellStrc* pWalls;
     D2AutomapCellStrc* pObjects;
     D2AutomapCellStrc* pExtras;
+    D2AutomapLayerStrc* pNext;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

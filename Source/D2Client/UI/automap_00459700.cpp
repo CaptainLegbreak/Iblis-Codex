@@ -7,14 +7,15 @@
 
 struct D2AutomapCellStrc;
 
-struct D2AutomapContextStrc
+struct D2AutomapLayerStrc
 {
-    int unk0x00;
-    int nLayerKind;
+    unsigned int nLayerNo;
+    unsigned int fSaved;
     D2AutomapCellStrc* pFloors;
     D2AutomapCellStrc* pWalls;
     D2AutomapCellStrc* pObjects;
     D2AutomapCellStrc* pExtras;
+    D2AutomapLayerStrc* pNext;
 };
 
 struct D2AutomapDrawStrc
@@ -36,7 +37,7 @@ int __cdecl sub_0045AFB0();                                                     
 
 void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo);                  // 0x00459440
 
-extern D2AutomapContextStrc* gpAutomapContext_007A5164;                                                     // 0x007A5164
+extern D2AutomapLayerStrc* gpAutomapContext_007A5164;                                                     // 0x007A5164
 
 int gdwGlobal_007A51E0;                                                                                     // 0x007A51E0
 
@@ -236,7 +237,7 @@ void __cdecl sub_00459700_PaintAutomap()
     switch (gdwGlobal_007A5150)
     {
     case 1:
-        switch (gpAutomapContext_007A5164->nLayerKind)
+        switch (gpAutomapContext_007A5164->fSaved)
         {
         case 1:
             tInfo.pCelFile = gpAutomapCel_007A516C;
@@ -278,7 +279,7 @@ void __cdecl sub_00459700_PaintAutomap()
         gnAutomapScale_00711254 = 0x14;
         break;
     default:
-        switch (gpAutomapContext_007A5164->nLayerKind)
+        switch (gpAutomapContext_007A5164->fSaved)
         {
         case 1:
             tInfo.pCelFile = gpAutomapCel_007A516C;
