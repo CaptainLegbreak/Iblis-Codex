@@ -4643,8 +4643,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a4q1.cpp": {
-   "bytes": 1660,
-   "definitions": 4,
+   "bytes": 1568,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a4q1.inc",
@@ -6121,6 +6121,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/GAME/Game_0052C170.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Unknown_005B24E0.cpp": {
+   "bytes": 92,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Unknown_005B24E0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -113043,7 +113052,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2UnkMonCreateStrc2 gtBonePrisonSpawnInfo = ",
@@ -113208,7 +113217,7 @@
    "cname": "gData_006E2D50",
    "declared": true,
    "decorated": "?g_006E2D50_offsets@@3PAUD2CoordStrc@@A",
-   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2CoordStrc gData_006E2D50[4]; // 0x006E2D50",
    "head": "extern \"C\" const D2CoordStrc gData_006E2D50[4] = ",

@@ -62838,7 +62838,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -62858,6 +62858,10 @@
     {
      "va": "0x005B2A00",
      "length": 1300
+    },
+    {
+     "va": "0x005B2F20",
+     "length": 74
     },
     {
      "va": "0x005B3040",
@@ -62895,7 +62899,13 @@
     {
      "va": "0x005B3570",
      "length": 291
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005B36A0",
      "length": 48,
@@ -63093,16 +63103,6 @@
     {
      "va": "0x005B2570",
      "length": 399
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q1_005B2F20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B2F20",
-     "length": 74
     }
    ]
   },
