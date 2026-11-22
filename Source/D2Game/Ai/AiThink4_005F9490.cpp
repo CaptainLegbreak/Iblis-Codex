@@ -42,15 +42,15 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context AI_RollPercentage
-static int AI_RollPercentage(D2UnitStrc* pUnit)
+// build: context AI_RollPercentage_005F9490
+static int AI_RollPercentage_005F9490(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
     pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed % 100;
 }
-#define AI_PARAM(n) pMonStatsTxt->wAiParam[n][pGame->nDifficulty]
+#define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 // build: context ABS_VALUE
 static inline int ABS_VALUE(int n) { return n < 0 ? -n : n; }
 // 0x005F9490
@@ -84,13 +84,13 @@ void __fastcall sub_005F9490_ThinkAxisCaster(D2GameStrc* pGame, D2UnitStrc* pUni
     const unsigned char nDirection = UNITS_GetDirectionToCoords(pUnit, nX, nY);
     sub_006488A0_SetDirection(pUnit->pDynamicPath, gnDirectionAxis_006E353C[gnDirectionMap_006E3540[nDirection]]);
     if ((ABS_VALUE(nTargetX - nUnitX) < 6 || ABS_VALUE(nTargetY - nUnitY) < 6)
-        && pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < AI_PARAM(0) && AI_RollPercentage(pUnit) < AI_PARAM(1))
+        && pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 0) && AI_RollPercentage_005F9490(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 1))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
-        pAiControl->dwAiParam[0] = AI_PARAM(2);
+        pAiControl->dwAiParam[0] = AI_PARAM(pGame, pMonStatsTxt, 2);
         return;
     }
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(3));
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 3));
 }
 
 #include "gen/data/Source/D2Game/Ai/AiThink4_005F9490.inc"
