@@ -62,24 +62,4 @@ void __stdcall FreeNetContext(QSocket* socket)
     sub_006BC370_FreeNet(socket);
 }
 
-// 0x006BC560
-int __stdcall sub_006BC560_Connect(sub_006BC560_Strc* pThis)
-{
-    pThis->nResult = FOG_SOCKET_Connect(pThis->pSocket, pThis->nPort, sub_006BC3A0, pThis, pThis->pAddress);
-    return 1;
-}
 
-// 0x006BC5A0
-void __stdcall sub_006BC5A0_StartThread(D2ThreadRecord006BC5A0Strc* pRecord)
-{
-    if (pRecord && !pRecord->hThread)
-    {
-        pRecord->n124 = 0;
-        pRecord->hEvent = CreateEventA(0, 0, 0, 0);
-        pRecord->hThread = CreateThread(0, 0, sub_006BC560_ThreadProc, pRecord, 0, &pRecord->nThreadId);
-        while (WaitForSingleObject(pRecord->hThread, 0))
-        {
-            Sleep(10);
-        }
-    }
-}

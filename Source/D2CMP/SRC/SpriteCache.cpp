@@ -179,6 +179,24 @@ void __fastcall GfxHashInit(D2CmpBlockTableBStrc* pTable); // 0x0060AAF0
 
 void __fastcall sub_005FE1D0_FreeTilePoolEntry(void* pEntry); // 0x005FE1D0
 
+struct D2CelDataHashStrc;
+struct T00604AE0;
+
+struct D2TilePoolEntryStrc
+{
+    char unk0x00[0x08];
+    T00604AE0* pCelData;
+};
+
+struct D2CelDataViewStrc
+{
+    char unk0x00[0x24];
+    int nRef;
+};
+
+void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry); // 0x0060B0B0
+
+
 void __fastcall D2CMPSpriteCacheFreeAll(D2SpriteCacheStrc* pCache); // 0x005FFBE0
 
 void __fastcall D2CMPSpriteCacheCreate(D2SpriteCacheStrc* pCache, void* pMemPool, unsigned int nMaxSize, int nArg); // 0x005FEE90
@@ -476,6 +494,14 @@ static __forceinline int SpriteCache_FlatPath(char* szOut, const char* szDir, co
         wsprintfA(szOut, "%s\\%s.dc6", szDir, szName);
     }
     return 1;
+}
+
+// 0x005FE1D0
+void __fastcall sub_005FE1D0_FreeTilePoolEntry(void* pEntry)
+{
+    D2CelDataViewStrc* pCelData = (D2CelDataViewStrc*)((D2TilePoolEntryStrc*)pEntry)->pCelData;
+    pCelData->nRef = 0;
+    CelDataHashRemove(gCmpTilePool.pMemPool, (D2CelDataHashStrc*)&gCmpBlockTableA, (T00604AE0*)pCelData);
 }
 
 // 0x005FE610

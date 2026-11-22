@@ -438,6 +438,14 @@ void __fastcall sub_006B7F70_ClearTarget(int); // 0x006B7F70
 
 void __fastcall sub_006B9710_SetColorComponents(int, int, int); // 0x006B9710
 
+extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
+
+void __cdecl sub_006B32B0_ReleaseRenderer(); // 0x006B32B0
+
+void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
+
+void __cdecl sub_006BB640_ReleaseSurfaces(); // 0x006BB640
+
 // 0x006B4FD0
 static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
 {
@@ -754,6 +762,155 @@ int __fastcall sub_006B59A0_D3DInit(int nArg1, int nArg2)
     gpCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(0x18, gszD3DCoreFile_006FC120, 0x6EA, 0);
     InitializeCriticalSection(gpCriticalSection_007C9134);
     return 1;
+}
+
+extern int gbVideoUp_00970E40; // 0x00970E40
+extern int gnVideoState_00970E44; // 0x00970E44
+extern D2ComObjectStrc* gpInterface_00970E68; // 0x00970E68
+extern D2ComObjectStrc* gpInterface_00970E6C; // 0x00970E6C
+extern D2ComObjectStrc* gpInterface_00970E70; // 0x00970E70
+extern D2ComObjectStrc* gpGammaControl_00970E74; // 0x00970E74
+extern D2ComObjectStrc* gpInterface_00970E7C; // 0x00970E7C
+extern char gabGammaRamp_0096FCB8[1536]; // 0x0096FCB8
+
+typedef long (__stdcall* D2DDSetGammaRampFn)(D2ComObjectStrc* pThis, unsigned long dwFlags, void* pRamp);
+
+// 0x006B3320
+void __cdecl sub_006B3320_ReleaseResources()
+{
+    if (!gbVideoUp_00970E40)
+    {
+        return;
+    }
+
+    sub_006B9150_ReleaseResource();
+    sub_006BB640_ReleaseSurfaces();
+    sub_006B32B0_ReleaseRenderer();
+
+    if (gpInterface_00970E7C)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E7C->lpVtbl[2])(gpInterface_00970E7C);
+        gpInterface_00970E7C = 0;
+    }
+
+    if (gpInterface_00970E78)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E78->lpVtbl[2])(gpInterface_00970E78);
+        gpInterface_00970E78 = 0;
+    }
+
+    if (gpGammaControl_00970E74)
+    {
+        const long hResult = ((D2DDSetGammaRampFn)gpGammaControl_00970E74->lpVtbl[4])(gpGammaControl_00970E74, 0, gabGammaRamp_0096FCB8);
+        if (hResult && hResult != (long)0x887601C2)
+        {
+            sub_006B20E0_DDrawLogError("Failed to restore original gamma ramp", hResult);
+        }
+        ((D2ComReleaseFn)gpGammaControl_00970E74->lpVtbl[2])(gpGammaControl_00970E74);
+        gpGammaControl_00970E74 = 0;
+    }
+
+    if (gpInterface_00970E70)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E70->lpVtbl[2])(gpInterface_00970E70);
+        gpInterface_00970E70 = 0;
+    }
+
+    if (gpInterface_00970E6C)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E6C->lpVtbl[2])(gpInterface_00970E6C);
+        gpInterface_00970E6C = 0;
+    }
+
+    if (gpInterface_00970E68)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E68->lpVtbl[2])(gpInterface_00970E68);
+        gpInterface_00970E68 = 0;
+    }
+
+    gbVideoUp_00970E40 = 0;
+    gnVideoState_00970E44 = 0;
+}
+
+extern unsigned int gnCapabilities_0096F3A8;                                                                // 0x0096F3A8
+extern const unsigned int gdwBitMask7_006CE284;                                                             // 0x006CE284
+extern const unsigned int gdwBitMask8_006CE288;                                                             // 0x006CE288
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
+
+// 0x006B3420
+int __cdecl sub_006B3420_InitializeCutsceneMode()
+{
+    D2_ASSERT(!gbVideoUp_00970E40, 0x7CB);
+
+    gnScreenWidth_007C9138 = 640;
+    gnScreenHeight_007C913C = 480;
+
+    unsigned int nBpp = 16;
+    if (gdwBitMask7_006CE284 & gnCapabilities_0096F3A8)
+    {
+        nBpp = 32;
+    }
+    else if (gdwBitMask8_006CE288 & gnCapabilities_0096F3A8)
+    {
+        nBpp = 24;
+    }
+
+    const char* szError;
+    long hResult = gpDraw->SetDisplayMode(640, 480, nBpp, 0, 0);
+    if (hResult)
+    {
+        szError = "SetDisplayMode failed!";
+        goto fail;
+    }
+
+    {
+        SurfaceDesc tDesc = { sizeof(tDesc) };
+        tDesc.flags = 1;
+        tDesc.caps = 0x4200;
+        hResult = gpDraw->CreateSurface(&tDesc, &gpPrimary, 0);
+    }
+    if (hResult)
+    {
+        szError = "Failed to create primary surface for cutscenes";
+fail:
+        sub_006B20E0_DDrawLogError(szError, hResult);
+        sub_00410610_WriteLogLine("Opening Direct3D window for cutscenes failed!");
+        return 0;
+    }
+
+    gbVideoUp_00970E40 = 1;
+    gnVideoState_00970E44 = 1;
+    return 1;
+}
+
+struct D2GammaRampStrc
+{
+    int red[128];
+    int green[128];
+    int blue[128];
+};
+
+extern const unsigned int gnGammaMask_006CE278;                                                             // 0x006CE278
+extern int gnGammaScale_0074C020;                                                                           // 0x0074C020
+void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
+extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
+
+// 0x006B3570
+void __fastcall sub_006B3570_SetGamma(int nGamma)
+{
+    D2GammaRampStrc ramp;
+    if (gnCapabilities_0096F3A8 & gnGammaMask_006CE278)
+    {
+        sub_006BE190_BuildGammaTable(nGamma, (unsigned short*)ramp.red, gnGammaScale_0074C020, 2, 256, 65535);
+        memcpy(ramp.green, ramp.red, sizeof(ramp.red));
+        memcpy(ramp.blue, ramp.red, sizeof(ramp.red));
+        if (gpGammaControl_00970E74)
+        {
+            int nResult = ((D2DDSetGammaRampFn)gpGammaControl_00970E74->lpVtbl[4])(gpGammaControl_00970E74, 0, &ramp);
+            if (nResult)
+                sub_006B20E0_DDrawLogError("Failed to set gamma ramp", nResult);
+        }
+    }
 }
 
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"

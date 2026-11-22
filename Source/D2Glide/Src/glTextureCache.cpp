@@ -272,13 +272,15 @@ void __fastcall sub_0050EC40_TexCacheEvict(D2GlideTexCacheStrc* pCache)
     --pCache->nUsed;
 }
 
-// build: context sub_0050ED10_ListRefill
-void __fastcall sub_0050ED10_ListRefill(D2GlideTexCacheStrc* pList)
+// 0x0050ED10
+int __fastcall sub_0050ED10_ListRefill(D2GlideTexCacheStrc* pList)
 {
-    while (!sub_0050EB60_ListTakeFree(pList))
+    int nId;
+    while (!(nId = sub_0050EB60_ListTakeFree(pList)))
     {
         sub_0050EC40_TexCacheEvict(pList);
     }
+    return nId;
 }
 
 D2GlideFloorCacheStrc gGlideFloorCache_0087EB68; // 0x0087EB68

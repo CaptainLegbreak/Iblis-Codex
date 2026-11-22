@@ -75,89 +75,10 @@ extern char gszResolvedHostIP_0075D040[];                                       
 extern D2CriticalSectionStrc gtLogLock_0075E850;                                                            // 0x0075E850
 unsigned long gdwLastLogSweep_0075E874;                                                                     // 0x0075E874
 
-// 0x00408A30
-void __cdecl FOG_DisplayAssert(const char* szMsg, const char* szFile, int nLine)
-{
-    FOG_SOCKET_WSACleanup();
-    sub_00408900_RaiseErrorReport(5, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
-    sub_0040F960_CloseLogFiles();
-}
 
-// 0x00408A90
-void __cdecl FOG_DisplayWarning(const char* szMsg, const char* szFile, int nLine)
-{
-    FOG_SOCKET_WSACleanup();
-    sub_00408900_RaiseErrorReport(7, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
-    sub_0040F960_CloseLogFiles();
-}
 
-// 0x00408AC0
-void __cdecl sub_00408AC0_DisplayDeadlock(unsigned long dwThreadId, int nTicks)
-{
-    FOG_SOCKET_WSACleanup();
-    sub_00408900_RaiseErrorReport(10, (const char*)dwThreadId, 2175, "Deadlocked in thread %X for %d ticks", dwThreadId, nTicks);
-    sub_0040F960_CloseLogFiles();
-}
 
-// 0x00408AF0
-void __cdecl FOG_DisplayError(int nCategory, const char* szMsg, const char* szFile, int nLine)
-{
-    FOG_SOCKET_WSACleanup();
-    sub_00408900_RaiseErrorReport(nCategory, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
-    sub_0040F960_CloseLogFiles();
-}
 
-// 0x00409C80
-void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
-{
-    if (!gtPoolManager_0074F0E8.bInit)
-    {
-        return;
-    }
-    if (!pSystem)
-    {
-        pSystem = &gtPoolManager_0074F0E8.aSystems[0];
-    }
-    if (!pSystem->nPools)
-    {
-        return;
-    }
-    for (int i = 0; i < pSystem->nPools; i++)
-    {
-        D2MemPoolRecStrc* pPool = &pSystem->aPools[i];
-        D2MemPoolBlockStrc* pBlock = pPool->pFirstBlock;
-        while (pBlock)
-        {
-            D2MemPoolBlockStrc* pNext = pBlock->pNext;
-            VirtualFree(pBlock->pMemory, 0, 0x8000);
-            free(pBlock);
-            pBlock = pNext;
-        }
-        DeleteCriticalSection(&pPool->tLock);
-    }
-    free(pSystem->pRecords);
-    for (int j = 0; j < 1023; j++)
-    {
-        int* pEntry = pSystem->apLargeBlocks[j];
-        while (pEntry)
-        {
-            int* pNext = (int*)*pEntry;
-            free(pEntry);
-            pEntry = pNext;
-        }
-    }
-    DeleteCriticalSection(&pSystem->tLock);
-    memset(pSystem, 0, sizeof(D2PoolSystemStrc));
-    EnterCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    gtPoolManager_0074F0E8.anFreeIndex[gtPoolManager_0074F0E8.nFreeCount] = ((unsigned int)pSystem - (unsigned int)&gtPoolManager_0074F0E8.aSystems[0]) / sizeof(D2PoolSystemStrc);
-    gtPoolManager_0074F0E8.nFreeCount++;
-    LeaveCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    if (pSystem == &gtPoolManager_0074F0E8.aSystems[0])
-    {
-        gtPoolManager_0074F0E8.bInit = 0;
-        DeleteCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    }
-}
 
 // 0x0040DC60
 int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength)

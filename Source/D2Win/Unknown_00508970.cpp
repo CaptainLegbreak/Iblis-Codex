@@ -160,12 +160,3 @@ int __cdecl sub_00508F60_GlideCheckBoards()
     return gnGlideNumBoards_0087EFC4 > 0;
 }
 
-// 0x00508F90
-void __cdecl sub_00508F90_GlideDestroyTexCaches()
-{
-    sub_0050F7C0_FloorCacheDestroy(&gGlideFloorCache_0087EB68, 0);
-    sub_0050F210_TileCacheDestroy(&gGlideTileCache_0087EB48, 0);
-    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[1], 0);
-    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[2], 0);
-    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[3], 0);
-}

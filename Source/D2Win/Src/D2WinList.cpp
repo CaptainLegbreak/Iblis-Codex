@@ -108,6 +108,8 @@ int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);               
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
+void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
+
 // 0x00507000
 int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* ptListData)
 {
@@ -442,6 +444,16 @@ void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D
         ptListData->pSelectedDataEntry = pNewData;
         ptListData->field_54 = ptListData->field_50 - 1;
     }
+}
+
+// 0x005077F0
+void __fastcall D2Win_10138(D2WinListStrc* pList, const char* szText, D2WinMsgHandler a3, char a4, int a5, int a6, int a7)
+{
+    Unicode wszText[256];
+    for (int i = 0; i < 256; i++)
+        wszText[i].wChar = 0;
+    sub_00526F20_ToUnicode(wszText, szText, 256);
+    D2Win_10137(pList, wszText, a3, a4, a5, a6, a7);
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinList.inc"

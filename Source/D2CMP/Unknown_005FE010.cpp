@@ -90,10 +90,3 @@ void __fastcall sub_005FE170_SpriteCacheFreeCallback(void* pNode)
     GfxHashRemove(gCmpTileCache.pMemPool, (D2CmpGfxHashStrc*)&gCmpBlockTableB, (D2CmpGfxHashEntryStrc*)pNode);
 }
 
-// 0x005FE1D0
-void __fastcall sub_005FE1D0_FreeTilePoolEntry(void* pEntry)
-{
-    D2CelDataViewStrc* pCelData = (D2CelDataViewStrc*)((D2TilePoolEntryStrc*)pEntry)->pCelData;
-    pCelData->nRef = 0;
-    CelDataHashRemove(gCmpTilePool.pMemPool, (D2CelDataHashStrc*)&gCmpBlockTableA, (T00604AE0*)pCelData);
-}

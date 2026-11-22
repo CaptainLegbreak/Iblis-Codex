@@ -510,6 +510,22 @@ void __fastcall sub_00507EE0(void* pArg)
     sub_004F9310(pArg);
 }
 
+void __fastcall sub_0050ECB0_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
+void __fastcall sub_0050F210_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
+void __fastcall sub_0050F7C0_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush);                  // 0x0050F7C0
+extern D2GlideTileCacheStrc gGlideTileCache_0087EB48;                                                       // 0x0087EB48
+extern D2GlideFloorCacheStrc gGlideFloorCache_0087EB68;                                                     // 0x0087EB68
+
+// 0x00508F90
+void __cdecl sub_00508F90_GlideDestroyTexCaches()
+{
+    sub_0050F7C0_FloorCacheDestroy(&gGlideFloorCache_0087EB68, 0);
+    sub_0050F210_TileCacheDestroy(&gGlideTileCache_0087EB48, 0);
+    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[1], 0);
+    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[2], 0);
+    sub_0050ECB0_TexCacheDestroy(&gaGlideTexCaches_0087F048[3], 0);
+}
+
 // 0x00508FD0
 int __cdecl sub_00508FD0()
 {
