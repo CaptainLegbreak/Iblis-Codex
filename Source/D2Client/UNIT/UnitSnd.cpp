@@ -90,7 +90,7 @@ void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
 int __fastcall sub_004B9BE0_HasActiveHint(void* pEntry); // 0x004B9BE0
 
-int __fastcall sub_004B9CA0_GetHintIdByKey(void* pKey); // 0x004B9CA0
+int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey); // 0x004B9CA0
 
 int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit); // 0x004B9E10
 
@@ -727,7 +727,7 @@ void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit)
     {
         void* pEntry = pNode->pUnitSfx;
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
-        const int nGroup = SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey(pEntry));
+        const int nGroup = SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey((int)pEntry));
         if (nGroup == pMonSoundsTxtRecord->dwSkill[0] || nGroup == pMonSoundsTxtRecord->dwSkill[1]
             || nGroup == pMonSoundsTxtRecord->dwSkill[2] || nGroup == pMonSoundsTxtRecord->dwSkill[3])
             sub_004BA790_ReleaseUnitSfx(pEntry, pUnit, 1);
@@ -746,7 +746,7 @@ void __stdcall UNITSND_ReleaseNeutralSfx(D2UnitStrc* pUnit, int bArm)
         void* pEntry = pNode->pUnitSfx;
         D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
         const int nNeutral = !pMonSoundsTxtRecord ? 0 : pMonSoundsTxtRecord->dwNeutral;
-        if (SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey(pEntry)) == nNeutral)
+        if (SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey((int)pEntry)) == nNeutral)
         {
             if (bArm && !sub_004B9BE0_HasActiveHint(pEntry))
                 sub_004B9EF0_ArmHint(pEntry, 0, 0, 6);
@@ -773,7 +773,7 @@ void __stdcall UNITSND_ReleaseMonsterSfx(D2UnitStrc* pUnit)
     {
         void* pEntry = pNode->pUnitSfx;
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
-        const int nGroup = SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey(pEntry));
+        const int nGroup = SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey((int)pEntry));
         if (nGroup == pMonSoundsTxtRecord->dwAttack1 || nGroup == pMonSoundsTxtRecord->dwWeapon1
             || nGroup == pMonSoundsTxtRecord->dwHitSound || nGroup == pMonSoundsTxtRecord->dwNeutral
             || nGroup == pMonSoundsTxtRecord->dwSkill[0] || nGroup == pMonSoundsTxtRecord->dwSkill[1]
