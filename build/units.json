@@ -29926,118 +29926,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Sound/SoundInst.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BA020",
-     "length": 1852
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9EF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9EF0",
-     "length": 304,
-     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
-    },
-    {
-     "va": "0x004BA890",
-     "length": 92,
-     "name": "sub_004BA890_RefreshHintsById"
-    },
-    {
-     "va": "0x004BA950",
-     "length": 123,
-     "name": "sub_004BA950_RefreshHintsInRangeA"
-    },
-    {
-     "va": "0x004BA9D0",
-     "length": 126,
-     "name": "sub_004BA9D0_RefreshHintsInRangeB"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9B20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9610",
-     "length": 37,
-     "name": "?sub_004B9610@@YIPAXH@Z"
-    },
-    {
-     "va": "0x004B9B20",
-     "length": 37,
-     "name": "?sub_004B9B20@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9B50",
-     "length": 37,
-     "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
-    },
-    {
-     "va": "0x004B9C20",
-     "length": 56,
-     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x004B9C60",
-     "length": 56,
-     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x004B9CA0",
-     "length": 37,
-     "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9D50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9D50",
-     "length": 76,
-     "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
-    },
-    {
-     "va": "0x004BA840",
-     "length": 78,
-     "name": "?sub_004BA840@@YIXH@Z"
-    },
-    {
-     "va": "0x004BA8F0",
-     "length": 94,
-     "name": "?sub_004BA8F0@@YAXXZ"
-    },
-    {
-     "va": "0x004BAA50",
-     "length": 86,
-     "name": "?sub_004BAA50_RefreshHintRange@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004BA760.cpp",
    "rank": 0,
    "functions": [
@@ -30071,6 +29959,92 @@
      "va": "0x004BAAB0",
      "length": 267,
      "name": "?sub_004BAAB0_RefreshGroupTimers@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Sound/SoundInst.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9610",
+     "length": 37,
+     "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
+     "va": "0x004B9B20",
+     "length": 37,
+     "name": "?sub_004B9B20@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9C20",
+     "length": 56,
+     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x004B9C60",
+     "length": 56,
+     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x004B9CA0",
+     "length": 37,
+     "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9D50",
+     "length": 76,
+     "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9EF0",
+     "length": 304,
+     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
+    },
+    {
+     "va": "0x004BA020",
+     "length": 1852
+    },
+    {
+     "va": "0x004BA840",
+     "length": 78,
+     "name": "?sub_004BA840@@YIXH@Z"
+    },
+    {
+     "va": "0x004BA890",
+     "length": 92,
+     "name": "sub_004BA890_RefreshHintsById"
+    },
+    {
+     "va": "0x004BA8F0",
+     "length": 94,
+     "name": "?sub_004BA8F0@@YAXXZ"
+    },
+    {
+     "va": "0x004BA950",
+     "length": 123,
+     "name": "sub_004BA950_RefreshHintsInRangeA"
+    },
+    {
+     "va": "0x004BA9D0",
+     "length": 126,
+     "name": "sub_004BA9D0_RefreshHintsInRangeB"
+    },
+    {
+     "va": "0x004BAA50",
+     "length": 86,
+     "name": "?sub_004BAA50_RefreshHintRange@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Sound/SoundInst_004B9B50.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9B50",
+     "length": 37,
+     "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
     }
    ]
   },
