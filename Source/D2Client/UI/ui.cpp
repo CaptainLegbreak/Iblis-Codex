@@ -746,7 +746,6 @@ unsigned short gwDialogAmountHigh_007A2A6A; // 0x007A2A6A
 
 int gnDialogMode_007A279C; // 0x007A279C
 
-
 int __cdecl sub_0044B850_IsHardcore();                                                                      // 0x0044B850
 
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
@@ -773,6 +772,16 @@ static int __stdcall sub_00452C70_GetRosterText(D2UnitStrc* pUnit, Unicode* pDst
 
 static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit);
 
+int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
+
+int __fastcall sub_00479080_GetPetLife(int nUnitId); // 0x00479080
+
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
 // 0x00451910
 int __cdecl sub_00451910()
 {
@@ -795,6 +804,45 @@ int __cdecl sub_00451980()
 int __cdecl sub_00451990()
 {
     return gdwGlobal_007A2788;
+}
+
+// 0x004525F0
+int __fastcall sub_004525F0_GetMonsterLifeFraction(D2UnitStrc* pUnit)
+{
+    if (pUnit && (!pUnit ? 6 : pUnit->dwUnitType) == 1 && !sub_00464820_IsDeadOrDying(pUnit))
+    {
+        int bPaired;
+        if ((!pUnit ? 0 : (pUnit->dwFlags >> 2) & 1) && sub_00465C60_CheckUnitPair(sub_00463DD0_GetPlayerUnit(), pUnit))
+        {
+            bPaired = 1;
+        }
+        else
+        {
+            bPaired = 0;
+        }
+
+        const int nLife = sub_00479080_GetPetLife(pUnit->dwUnitId);
+        int nResult;
+        if (!bPaired && nLife > 0)
+        {
+            nResult = D2_MIN(D2_MAX((nLife << 7) / 100, 2), 0x80);
+        }
+        else
+        {
+            const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit);
+            if (!nMaxLife)
+            {
+                nResult = 0x80;
+            }
+            else
+            {
+                const int nCurrentLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
+                nResult = D2_MIN(D2_MAX((nCurrentLife << 7) / nMaxLife, 2), 0x80);
+            }
+        }
+        return nResult;
+    }
+    return 0;
 }
 
 // 0x004526C0

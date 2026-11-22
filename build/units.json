@@ -16269,6 +16269,10 @@
      "name": "sub_00451990"
     },
     {
+     "va": "0x004525F0",
+     "length": 195
+    },
+    {
      "va": "0x004526C0",
      "length": 264,
      "name": "?sub_004526C0_BuildImmunityText@@YAXPAUD2UnitStrc@@@Z"
@@ -17718,16 +17722,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004525F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004525F0",
-     "length": 195
-    }
    ]
   },
   {
