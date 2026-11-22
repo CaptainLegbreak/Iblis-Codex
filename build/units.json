@@ -36903,6 +36903,11 @@
      "name": "sub_00507EE0"
     },
     {
+     "va": "0x00508F90",
+     "length": 60,
+     "name": "?sub_00508F90_GlideDestroyTexCaches@@YAXXZ"
+    },
+    {
      "va": "0x00508FD0",
      "length": 6,
      "name": "sub_00508FD0"
@@ -40098,11 +40103,6 @@
      "va": "0x00508F60",
      "length": 37,
      "name": "?sub_00508F60_GlideCheckBoards@@YAHXZ"
-    },
-    {
-     "va": "0x00508F90",
-     "length": 60,
-     "name": "?sub_00508F90_GlideDestroyTexCaches@@YAXXZ"
     }
    ]
   },
