@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
 #include "D2GameTypes.h"
 
 
@@ -7,79 +8,15 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
 
-struct D2StormStreamLinkStrc
-{
-    D2StormStreamLinkStrc* m_prevlink;
-    char* m_next;
 
-    ~D2StormStreamLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormStreamLinkStrc* NextLink(int nLinkOffset)
-    {
-        char* pNext = m_next;
-        if ((int)pNext < 0)
-            return (D2StormStreamLinkStrc*)~(unsigned int)pNext;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormStreamLinkStrc*)(pNext + nLinkOffset);
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct AUDIOSTREAM;
-
-struct AUDIOSTREAM
-{
-    D2StormStreamLinkStrc tLink;
-    void* pFileRec;
-    char unk0x0C[0x30];
-    void* pBuffer;
-    int soundbuffersize;
-    int bBufferOwned;
-    int nUnk0x48;
-    int nRefCount;
-
-    ~AUDIOSTREAM();                                                                              // 0x004199A0
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, gszDelete_006CC824, -1, 0);
-    }
-};
 
 struct REQUEST;
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    void* m_prevlink;
-    char* m_next;
-    char* Head()
-    {
-        return (int)m_next > 0 ? m_next : 0;
-    }
-};
 
 struct D2StormDdaListStrc
 {
     int m_linkoffset;
-    D2StormStreamLinkStrc m_terminator;
-    D2StormStreamLinkStrc* Link(AUDIOSTREAM* pNode)
+    D2StormLinkStrc m_terminator;
+    D2StormLinkStrc* Link(AUDIOSTREAM* pNode)
     {
         return pNode ? &pNode->tLink : &m_terminator;
     }
@@ -88,6 +25,12 @@ struct D2StormDdaListStrc
         Link(pNode)->Unlink();
     }
 };
+
+inline void AUDIOSTREAM::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, gszDelete_006CC824, -1, 0);
+}
 
 #define WAIT_TIMEOUT 0x102
 
