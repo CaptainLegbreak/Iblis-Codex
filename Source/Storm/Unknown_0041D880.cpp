@@ -3,11 +3,11 @@
 
 struct Obj0041D880;
 struct BigNum;
-struct D2StormBitReaderStrc;
+struct CBitInput;
 struct Obj0041D920;
 struct Obj0041D940;
 struct D2StormHuffInputStrc;
-struct D2StormHuffOutputStrc;
+struct CBitOutput;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
 struct HUFFNODE;
@@ -27,7 +27,7 @@ struct BigNum
     ~BigNum();
 };
 
-struct D2StormBitReaderStrc
+struct CBitInput
 {
     unsigned int* pData;
     unsigned int dwBits;
@@ -49,14 +49,14 @@ struct D2StormHuffInputStrc
     D2StormHuffInputStrc(void* pInputBuffer);
 };
 
-struct D2StormHuffOutputStrc
+struct CBitOutput
 {
     unsigned char* pOutputStart;
     unsigned int f_4;
     unsigned char* pOutput;
     unsigned int nBitBuffer;
     unsigned int nBitCount;
-    D2StormHuffOutputStrc(void* pOutputBuffer, unsigned int nOutputSize);
+    CBitOutput(void* pOutputBuffer, unsigned int nOutputSize);
     void sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits);
 };
 
@@ -114,7 +114,7 @@ struct CHuffman
     unsigned int nItemsUsed;
     HUFFNODE* pItemsByValue[0x102];
 
-    void sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue);
+    void sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue);
     void sub_0041F350_IncWeights(HUFFNODE* pItem);
 };
 
@@ -139,7 +139,7 @@ BigNum::~BigNum()
 }
 
 // 0x0041D8A0
-int D2StormBitReaderStrc::sub_0041D8A0_ReadBit()
+int CBitInput::sub_0041D8A0_ReadBit()
 {
     int nBit = dwBits & 1;
     dwBits >>= 1;
@@ -167,7 +167,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_0041D940(Obj0041D940* pObj) 
 }
 
 // 0x0041D950
-void D2StormHuffOutputStrc::sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits)
+void CBitOutput::sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits)
 {
     nBitBuffer |= nValue << nBitCount;
     nBitCount += nBits;
@@ -184,7 +184,7 @@ void D2StormHuffOutputStrc::sub_0041D950_PutBits(unsigned int nValue, unsigned i
 }
 
 // 0x0041D9E0
-void CHuffman::sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue)
+void CHuffman::sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue)
 {
     HUFFNODE* pItem = pItemsByValue[nValue];
     unsigned int nCode = 0;

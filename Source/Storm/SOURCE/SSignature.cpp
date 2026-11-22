@@ -349,7 +349,7 @@ struct D2StormMemSinkStrc
     unsigned int nSize;
 };
 
-struct D2StormBitReaderStrc
+struct CBitInput
 {
     unsigned char* pInput;
     unsigned int nBitBuffer;
@@ -566,7 +566,7 @@ void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSiz
 }
 
 // 0x0041D8D0
-unsigned int D2StormBitReaderStrc::sub_0041D8D0_Peek(unsigned int nBits, unsigned int nMask)
+unsigned int CBitInput::sub_0041D8D0_Peek(unsigned int nBits, unsigned int nMask)
 {
     if (nBitCount <= nBits)
     {
@@ -578,7 +578,7 @@ unsigned int D2StormBitReaderStrc::sub_0041D8D0_Peek(unsigned int nBits, unsigne
 }
 
 // 0x0041D900
-void D2StormBitReaderStrc::sub_0041D900_Skip(unsigned int nBits)
+void CBitInput::sub_0041D900_Skip(unsigned int nBits)
 {
     nBitBuffer >>= nBits;
     nBitCount -= nBits;
@@ -614,7 +614,7 @@ D2StormLinkStrc* D2StormLinkStrc::sub_0041E900_NextLink(int nLinkOffset)
 }
 
 // 0x0041E9E0
-unsigned int D2StormBitReaderStrc::sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask)
+unsigned int CBitInput::sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask)
 {
     unsigned int nValue = Peek(nBits, nMask);
     Skip(nBits);

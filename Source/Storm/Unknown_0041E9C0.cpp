@@ -15,7 +15,7 @@ class CHuffmanEncoder;
 class CHuffmanDecoder;
 struct D2StormHuffInputStrc;
 struct CHuffman;
-struct D2StormHuffOutputStrc;
+struct CBitOutput;
 struct D2CriticalSectionStrc;
 struct T0041FA40;
 struct D2StormListStrc;
@@ -157,11 +157,11 @@ struct CHuffman
     void AddSymbol(unsigned int nValue);                                                    // 0x0041F510
     void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
     unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
-    void sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue);                       // 0x0041D9E0
-    unsigned int Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
+    void sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue);                       // 0x0041D9E0
+    unsigned int Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
 };
 
-struct D2StormHuffOutputStrc
+struct CBitOutput
 {
     unsigned char* pOutputStart;
     unsigned int f_4;
@@ -551,7 +551,7 @@ unsigned int CHuffman::Decompress(void* pOutput, unsigned int nOutputSize, D2Sto
     }
 }
 
-void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
+void CBitOutput::sub_0041D9A0_Flush()
 {
     while (nBitCount)
     {
@@ -566,7 +566,7 @@ void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
 }
 
 // 0x0041F850
-unsigned int CHuffman::Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
+unsigned int CHuffman::Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
 {
     BuildTree(nCmpType);
     bIsCmp0 = nCmpType == 0;

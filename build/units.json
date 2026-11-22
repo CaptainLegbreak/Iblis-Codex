@@ -4141,7 +4141,7 @@
     {
      "va": "0x0041D9A0",
      "length": 57,
-     "name": "?sub_0041D9A0_Flush@D2StormHuffOutputStrc@@QAEXXZ"
+     "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
     },
     {
      "va": "0x0041E8F0",
@@ -6745,7 +6745,7 @@
     {
      "va": "0x0041D8A0",
      "length": 41,
-     "name": "?sub_0041D8A0_ReadBit@D2StormBitReaderStrc@@QAEHXZ"
+     "name": "?sub_0041D8A0_ReadBit@CBitInput@@QAEHXZ"
     },
     {
      "va": "0x0041D920",
@@ -6765,7 +6765,7 @@
     {
      "va": "0x0041D9E0",
      "length": 75,
-     "name": "?sub_0041D9E0_EncodeOne@CHuffman@@QAEXPAUD2StormHuffOutputStrc@@I@Z"
+     "name": "?sub_0041D9E0_EncodeOne@CHuffman@@QAEXPAUCBitOutput@@I@Z"
     },
     {
      "va": "0x0041DA30",
@@ -6928,7 +6928,7 @@
     {
      "va": "0x0041F850",
      "length": 197,
-     "name": "?Compress@CHuffman@@QAEIPAUD2StormHuffOutputStrc@@PAXHE@Z"
+     "name": "?Compress@CHuffman@@QAEIPAUCBitOutput@@PAXHE@Z"
     },
     {
      "va": "0x0041F920",

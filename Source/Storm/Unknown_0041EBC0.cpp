@@ -7,7 +7,7 @@ struct D2StormHuffCacheStrc;
 struct CHuffman;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
-struct D2StormHuffOutputStrc;
+struct CBitOutput;
 struct D2CriticalSectionStrc;
 struct T0041FA40;
 
@@ -162,7 +162,7 @@ struct CHuffman
     }
 };
 
-struct D2StormHuffOutputStrc
+struct CBitOutput
 {
     unsigned char* pOutputStart;
     unsigned int f_4;
