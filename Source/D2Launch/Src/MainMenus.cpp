@@ -560,6 +560,24 @@ void __cdecl sub_004336C0_ShowMainMenu();                                       
 
 void __cdecl sub_00435580_CreateCharCreateScreen();                                                                                // 0x00435580
 
+extern int gnControlCountA_00779948; // 0x00779948
+
+D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
+
+extern D2WinControlStrc* gapControlsA_00779450[0x40]; // 0x00779450
+
+int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
+
+extern int gbPaletteBusy_00779970; // 0x00779970
+
+extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
+
+void __cdecl sub_00438EA0_FreeCharList(); // 0x00438EA0
+
+void __cdecl sub_00437B90_FreeCache(); // 0x00437B90
+
+extern int gbFeCharPalette_007795F0; // 0x007795F0
+
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
 {
@@ -721,6 +739,58 @@ unsigned __int64 __cdecl sub_004107F0_GetSaveDiskFreeSpace()
     return nFreeClusters * nBytesPerSector * nSectorsPerCluster;
 }
 
+int gnValue_0077994C; // 0x0077994C
+int gnValue_00779950; // 0x00779950
+int gbGatewayFlag_00779954; // 0x00779954
+
+// 0x0042F3A0
+D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId)
+{
+    D2_ASSERT(gnControlCountA_00779948 < 0x40, 0x610);
+    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nTemplateId]);
+    gapControlsA_00779450[gnControlCountA_00779948++] = pControl;
+    return pControl;
+}
+
+// 0x0042F3F0
+void __cdecl sub_0042F3F0_DestroyControls()
+{
+    for (int i = 0; i < gnControlCountA_00779948; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
+    gnControlCountA_00779948 = 0;
+}
+
+// 0x0042F430
+D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId)
+{
+    D2_ASSERT(gnControlCountB_00779944 < 0x40, 0x627);
+    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nId]);
+    gapControlsB_00779350[gnControlCountB_00779944++] = pControl;
+    return pControl;
+}
+
+// 0x0042F480
+void __cdecl sub_0042F480_Reset()
+{
+    for (int i = 0; i < gnControlCountB_00779944; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsB_00779350[i]);
+    gnValue_0077994C = 0;
+    gnValue_00779950 = 0;
+    gnControlCountB_00779944 = 0;
+    for (int i = 0; i < gnControlCountA_00779948; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
+    gnControlCountA_00779948 = 0;
+    BACKGROUND_SetCellFile(0);
+    if (gbPaletteBusy_00779970)
+    {
+        sub_0042F2E0_ReadPaletteFiles(gszPalFeCharDat_006D39E8, "palette\\fechar\\pal.pl2");
+        gbPaletteBusy_00779970 = 0;
+    }
+    sub_00438EA0_FreeCharList();
+    sub_00437B90_FreeCache();
+    D2Win_10029(1);
+}
+
 // 0x0042F540
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2)
 {
@@ -779,6 +849,36 @@ void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode
 void __cdecl sub_0042F6C0_SetDone()
 {
     gdwGlobal_00779974 = 1;
+}
+
+// 0x0042F6E0
+void __cdecl sub_0042F6E0()
+{
+    sub_0042F3F0_DestroyControls();
+    gbGatewayFlag_00779954 = 1;
+    gdwGlobal_00779974 = 0;
+    D2WinControlStrc* pControlA;
+    D2WinControlStrc* pControlB;
+    D2WinControlStrc* pControlC;
+    if (gbFeCharPalette_007795F0)
+    {
+        pControlA = sub_0042F3A0_CreateFromTemplate(0xF7);
+        D2Win_10033(pControlA, 0);
+        pControlB = sub_0042F3A0_CreateFromTemplate(0xFA);
+        pControlC = sub_0042F3A0_CreateFromTemplate(0xF9);
+    }
+    else
+    {
+        pControlA = sub_0042F3A0_CreateFromTemplate(0xDE);
+        D2Win_10033(pControlA, 0);
+        pControlB = sub_0042F3A0_CreateFromTemplate(0xDF);
+        pControlC = sub_0042F3A0_CreateFromTemplate(0xE0);
+    }
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControlA, 1);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControlB, 1);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControlC, 1);
+    sub_004FD060_SetText(pControlC, D2LANG_GetStringFromTblIndex(0x147B));
+    gpfnGatewayDone_007795BC = sub_0042F6C0_SetDone;
 }
 
 // 0x0042F790

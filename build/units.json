@@ -2258,6 +2258,26 @@
      "name": "sub_004107F0_GetSaveDiskFreeSpace"
     },
     {
+     "va": "0x0042F3A0",
+     "length": 80,
+     "name": "?sub_0042F3A0_CreateFromTemplate@@YIPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x0042F3F0",
+     "length": 58,
+     "name": "?sub_0042F3F0_DestroyControls@@YAXXZ"
+    },
+    {
+     "va": "0x0042F430",
+     "length": 80,
+     "name": "?sub_0042F430_CreateControl@@YIPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x0042F480",
+     "length": 162,
+     "name": "?sub_0042F480_Reset@@YAXXZ"
+    },
+    {
      "va": "0x0042F540",
      "length": 380,
      "name": "sub_0042F540_ShowMessageBox"
@@ -2266,6 +2286,11 @@
      "va": "0x0042F6C0",
      "length": 11,
      "name": "?sub_0042F6C0_SetDone@@YAXXZ"
+    },
+    {
+     "va": "0x0042F6E0",
+     "length": 175,
+     "name": "?sub_0042F6E0@@YAXXZ"
     },
     {
      "va": "0x0042F790",
@@ -9916,34 +9941,9 @@
      "name": "?sub_0042F370_RestorePalette@@YAXXZ"
     },
     {
-     "va": "0x0042F3A0",
-     "length": 80,
-     "name": "?sub_0042F3A0_CreateFromTemplate@@YIPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x0042F3F0",
-     "length": 58,
-     "name": "?sub_0042F3F0_DestroyControls@@YAXXZ"
-    },
-    {
-     "va": "0x0042F430",
-     "length": 80,
-     "name": "?sub_0042F430_CreateControl@@YIPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x0042F480",
-     "length": 162,
-     "name": "?sub_0042F480_Reset@@YAXXZ"
-    },
-    {
      "va": "0x0042F530",
      "length": 6,
      "name": "?sub_0042F530_ClearUnicode@@YIXPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x0042F6E0",
-     "length": 175,
-     "name": "?sub_0042F6E0@@YAXXZ"
     },
     {
      "va": "0x0042F800",
