@@ -1,16 +1,8 @@
 #include "Storm.h"
+#include "D2StormSha1.h"
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
-struct D2StormHashCtxStrc
-{
-    unsigned int nBitCountLo;
-    unsigned int nBitCountHi;
-    unsigned int nState[5];
-    unsigned char pBlock[64];
-
-    void Initialize();                                                                               // 0x00425D90
-};
 
 struct D2StormHashBufferStrc
 {
@@ -20,7 +12,7 @@ struct D2StormHashBufferStrc
     unsigned int nWindow;
     char* pBuffer;
     int unk0x14;
-    D2StormHashCtxStrc tHash;
+    Sha1 tHash;
     int f_74;
 
     static void* operator new(unsigned int nSize)

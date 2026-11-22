@@ -1,4 +1,5 @@
 #include "D2StormAutoLink.h"
+#include "D2StormSha1.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
@@ -17,7 +18,6 @@ struct D2StormGameArrayStrc;
 struct D2StormHashObjectChunkStrc;
 struct D2StormListArrayStrc;
 struct D2StormBigBufferStrc;
-struct T0041D340;
 struct D2StormTSListStrc;
 
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
@@ -293,15 +293,6 @@ struct D2StormBigBufferStrc
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned char* pBlock); // 0x00425850
 
-struct T0041D340
-{
-    unsigned __int64 nBitCount;
-    unsigned int aState[5];
-    unsigned char f_1C[64];
-    unsigned char unk_5C[0x4];
-    void Append(const unsigned char* pData, unsigned int nLen);
-    void sub_00425F00_Final(unsigned char* pDigest);
-};
 
 extern "C" const unsigned char gaSha1Padding_00708890[]; // 0x00708890
 
@@ -702,7 +693,7 @@ void __fastcall sub_004257F0_Sha1Round3(unsigned int a, unsigned int* b, unsigne
 }
 
 // 0x00425DD0
-void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
+void Sha1::Append(const unsigned char* pData, unsigned int nLen)
 {
     unsigned int nUsed = (unsigned int)nBitCount >> 3 & 0x3F;
     nBitCount += (unsigned __int64)nLen * 8;
@@ -713,8 +704,8 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         if (nLen >= 64)
         {
             for (; nUsed < 64; nUsed++)
-                f_1C[nUsed] = pData[nUsed];
-            sub_00425850_Sha1Transform(aState, f_1C);
+                aBlock[nUsed] = pData[nUsed];
+            sub_00425850_Sha1Transform(aState, aBlock);
             nLen -= 64;
             pData += 64;
             nUsed = 0;
@@ -727,7 +718,7 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         pData += 64;
     }
     for (; nUsed < nLen; nUsed++)
-        f_1C[nUsed] = pData[nUsed];
+        aBlock[nUsed] = pData[nUsed];
 }
 
 // 0x00425E80
@@ -765,7 +756,7 @@ static inline void sub_PutBE64(unsigned char* p, unsigned __int64 v)
 }
 
 // 0x00425F00
-void T0041D340::sub_00425F00_Final(unsigned char* pDigest)
+void Sha1::sub_00425F00_Final(unsigned char* pDigest)
 {
     unsigned char aCount[8];
     sub_PutBE64(aCount, nBitCount);

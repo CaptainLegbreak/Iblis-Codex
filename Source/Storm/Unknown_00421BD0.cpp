@@ -1,9 +1,9 @@
+#include "D2StormSha1.h"
 struct D2StormArrayAStrc;
 struct D2StormQueueStrc;
 struct BigStack;
 struct D2StormArrayBStrc;
 struct D2StormBigStrc;
-struct T0041D340;
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
@@ -84,14 +84,6 @@ void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueSt
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 
-struct T0041D340
-{
-    unsigned __int64 nBitCount;
-    unsigned int aState[5];
-    unsigned char f_1C[64];
-
-    void Append(const unsigned char* pData, unsigned int nLen);
-};
 
 
 // 0x00421160
@@ -375,7 +367,7 @@ void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned 
 }
 
 // 0x00425DD0
-void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
+void Sha1::Append(const unsigned char* pData, unsigned int nLen)
 {
     unsigned int nUsed = (unsigned int)nBitCount >> 3 & 0x3F;
     nBitCount += (unsigned __int64)nLen * 8;
@@ -386,8 +378,8 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         if (nLen >= 64)
         {
             for (; nUsed < 64; nUsed++)
-                f_1C[nUsed] = pData[nUsed];
-            sub_00425850_Sha1Transform(aState, f_1C);
+                aBlock[nUsed] = pData[nUsed];
+            sub_00425850_Sha1Transform(aState, aBlock);
             nLen -= 64;
             pData += 64;
             nUsed = 0;
@@ -400,7 +392,7 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         pData += 64;
     }
     for (; nUsed < nLen; nUsed++)
-        f_1C[nUsed] = pData[nUsed];
+        aBlock[nUsed] = pData[nUsed];
 }
 
 // 0x00425E80

@@ -4181,7 +4181,7 @@
     {
      "va": "0x00425D90",
      "length": 49,
-     "name": "?Initialize@D2StormHashCtxStrc@@QAEXXZ"
+     "name": "?Initialize@Sha1@@QAEXXZ"
     },
     {
      "va": "0x00426920",

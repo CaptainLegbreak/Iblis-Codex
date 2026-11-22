@@ -1,6 +1,7 @@
 #include "Storm.h"
 #include "D2StormAutoLink.h"
 #include "D2StormTypes.h"
+#include "D2StormSha1.h"
 
 
 struct D2StormNodeListStrc;
@@ -9,7 +10,6 @@ struct D2StormHandlerNodeStrc;
 
 struct D2StormWndRecNodeStrc;
 
-struct D2StormHashCtxStrc;
 
 struct D2StormHashBufferStrc;
 
@@ -37,7 +37,6 @@ struct BigStack;
 
 struct D2StormBigStrc;
 
-struct T0041D340;
 
 extern "C" void* __cdecl _alloca(unsigned int nSize);
 
@@ -122,17 +121,6 @@ extern D2StormNodeListStrc gHandlerList_00708420; // 0x00708420
 
 extern D2StormNodeListStrc gWndRecList_00708860; // 0x00708860
 
-struct D2StormHashCtxStrc
-{
-    unsigned int nBitCountLo;
-    unsigned int nBitCountHi;
-    unsigned int nState[5];
-    unsigned char pBlock[64];
-
-    void Initialize();                                                                               // 0x00425D90
-    void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
-    void Append(const void* pData, unsigned int nSize);                                        // 0x00425DD0
-};
 
 struct D2StormHashBufferStrc
 {
@@ -142,8 +130,7 @@ struct D2StormHashBufferStrc
     unsigned int nWindow;
     char* pBuffer;
     int unk0x14;
-    D2StormHashCtxStrc tHash;
-    int f_74;
+    Sha1 tHash;
 
     static void* operator new(unsigned int nSize)
     {
@@ -343,16 +330,6 @@ int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2
 
 int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, BigStack* pStack); // 0x00424B00
 
-struct T0041D340
-{
-    unsigned __int64 nBitCount;
-    unsigned int aState[5];
-    unsigned char f_1C[64];
-
-    void Initialize();                                                                               // 0x00425D90
-    void Append(const unsigned char* pData, unsigned int nLen);                                // 0x00425DD0
-    void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
-};
 
 inline void* operator new(unsigned int, void* pPlace) throw();
 
@@ -476,7 +453,7 @@ static __declspec(noinline) int __stdcall sub_0041D340_FindSignatureTag(const ch
 // 0x0041D370
 static __declspec(noinline) void __stdcall sub_0041D370_HashData(unsigned int nLen, const unsigned char* pData, unsigned char* pDigest)
 {
-    T0041D340 tHash;
+    Sha1 tHash;
     tHash.Initialize();
     tHash.Append(pData, nLen);
     tHash.sub_00425F00_Final(pDigest);
@@ -501,9 +478,9 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
     if (nExtra >= 0)
     {
         if (pBuffer->nUsed > 0)
-            pBuffer->tHash.Append(pBuffer->pBuffer, pBuffer->nUsed);
+            pBuffer->tHash.Append((const unsigned char*)pBuffer->pBuffer, pBuffer->nUsed);
         if (nExtra > 0)
-            pBuffer->tHash.Append(pData, nExtra);
+            pBuffer->tHash.Append((const unsigned char*)pData, nExtra);
         SMemCopy(pBuffer->pBuffer, pData + nExtra, pBuffer->nWindow);
         pBuffer->nUsed = pBuffer->nWindow;
     }
@@ -512,7 +489,7 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
         int nOver = pBuffer->nUsed - pBuffer->nWindow + nSize;
         if (nOver > 0)
         {
-            pBuffer->tHash.Append(pBuffer->pBuffer, nOver);
+            pBuffer->tHash.Append((const unsigned char*)pBuffer->pBuffer, nOver);
             pBuffer->nUsed -= nOver;
             SMemMove(pBuffer->pBuffer, pBuffer->pBuffer + nOver, pBuffer->nUsed);
         }

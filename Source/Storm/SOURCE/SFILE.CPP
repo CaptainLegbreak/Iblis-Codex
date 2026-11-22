@@ -3,6 +3,7 @@
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
 #include "D2StormLink.h"
+#include "D2StormSha1.h"
 
 #define STORM_LOOKUP2_MIX(a, b, c) \
 { \
@@ -75,7 +76,6 @@ struct D2StormHuffOutputStrc;
 class THuffmannTree;
 struct D2StormHuffLinkSlotStrc;
 struct CHuffman;
-struct D2StormHashCtxStrc;
 struct D2StormHandlerStrc;
 struct D2StormWndRecStrc;
 struct D2StormNodeListBStrc;
@@ -406,15 +406,6 @@ struct CHuffman : THuffmannTree
     CHuffman();
 };
 
-struct D2StormHashCtxStrc
-{
-    unsigned int nBitCountLo;
-    unsigned int nBitCountHi;
-    unsigned int nState[5];
-    unsigned char pBlock[64];
-
-    void Initialize();
-};
 
 extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 extern void* ghStormThread_00779034; // 0x00779034
@@ -2943,15 +2934,14 @@ CHuffman::CHuffman()
 }
 
 // 0x00425D90
-void D2StormHashCtxStrc::Initialize()
+void Sha1::Initialize()
 {
-    nBitCountLo = 0;
-    nBitCountHi = 0;
-    nState[0] = 0x67452301;
-    nState[1] = 0xEFCDAB89;
-    nState[2] = 0x98BADCFE;
-    nState[3] = 0x10325476;
-    nState[4] = 0xC3D2E1F0;
+    nBitCount = 0;
+    aState[0] = 0x67452301;
+    aState[1] = 0xEFCDAB89;
+    aState[2] = 0x98BADCFE;
+    aState[3] = 0x10325476;
+    aState[4] = 0xC3D2E1F0;
 }
 
 // build: symbol ??_GAUDIOSTREAM@@QAEPAXI@Z 0x00419A50
