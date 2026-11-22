@@ -38436,11 +38436,6 @@
      "name": "LIST_Draw"
     },
     {
-     "va": "0x00507DC0",
-     "length": 136,
-     "name": "PROGRESSBAR_Draw"
-    },
-    {
      "va": "0x005087A0",
      "length": 274,
      "name": "POPUP_Draw"
@@ -39355,31 +39350,6 @@
      "va": "0x00507420",
      "length": 438,
      "name": "LIST_HandleVirtualKeyInput"
-    },
-    {
-     "va": "0x00507CA0",
-     "length": 197,
-     "name": "ACCOUNTLIST_Create"
-    },
-    {
-     "va": "0x00507D70",
-     "length": 54,
-     "name": "PROGRESSBAR_SetProgress"
-    },
-    {
-     "va": "0x00507E50",
-     "length": 141,
-     "name": "PROGRESSBAR_Create"
-    },
-    {
-     "va": "0x00508310",
-     "length": 85,
-     "name": "SCROLLBAR_HandleMouseUp"
-    },
-    {
-     "va": "0x005084F0",
-     "length": 171,
-     "name": "SCROLLBAR_Create"
     }
    ],
    "flags": [
@@ -39515,6 +39485,11 @@
      "va": "0x00507B30",
      "length": 367,
      "name": "?ACCOUNTLIST_Draw@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x00507CA0",
+     "length": 197,
+     "name": "ACCOUNTLIST_Create"
     }
    ],
    "flags": [
@@ -39566,8 +39541,18 @@
      "length": 481
     },
     {
+     "va": "0x00508310",
+     "length": 85,
+     "name": "SCROLLBAR_HandleMouseUp"
+    },
+    {
      "va": "0x00508370",
      "length": 380
+    },
+    {
+     "va": "0x005084F0",
+     "length": 171,
+     "name": "SCROLLBAR_Create"
     }
    ],
    "flags": [
@@ -87635,6 +87620,41 @@
      "va": "0x006CB550",
      "length": 81,
      "name": "?sub_006CB550_DestroyList@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Src/D2WinProgressBar.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x00507D70",
+     "length": 54,
+     "name": "PROGRESSBAR_SetProgress"
+    },
+    {
+     "va": "0x00507DC0",
+     "length": 136,
+     "name": "PROGRESSBAR_Draw"
+    },
+    {
+     "va": "0x00507E50",
+     "length": 141,
+     "name": "PROGRESSBAR_Create"
     }
    ]
   }

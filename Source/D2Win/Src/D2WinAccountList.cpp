@@ -15,6 +15,16 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268
 
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
+int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00507A10
+
+struct D2WinAccountListFontStrc
+{
+    int eFont;
+    int field_04;
+};
+
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
@@ -146,4 +156,41 @@ void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* ptListData, const ch
     strncpy(pData->szText, szText, sizeof(pData->szText));
     pData->pNext = ptListData->pDataList;
     ptListData->pDataList = pData;
+}
+
+// 0x00507CA0
+D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, D2WinAccountListFontStrc* pFont)
+{
+    D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)FOG_Alloc(sizeof(D2WinAccountListStrc), ".\\Src\\D2WinAccountList.cpp", 0x24, 0);
+    memset(pAccountList, 0, sizeof(D2WinAccountListStrc));
+    pAccountList->controlHeader.eType = D2WIN_ACCOUNTLIST;
+    pAccountList->controlHeader.dwFlags |= gdwBitMasks[0];
+    pAccountList->controlHeader.dwFlags |= gdwBitMasks[2];
+    pAccountList->unk0x4C = a5;
+    pAccountList->controlHeader.nImageX = nX;
+    pAccountList->controlHeader.nImageY = nY;
+    pAccountList->controlHeader.nWidth = nWidth;
+    pAccountList->controlHeader.nHeight = nHeight;
+    pAccountList->controlHeader.pfDraw = ACCOUNTLIST_Draw;
+    pAccountList->controlHeader.pfHandleMouseDown = ACCOUNTLIST_HandleMouseDown;
+    pAccountList->controlHeader.pfHandleMouseUp = 0;
+    pAccountList->controlHeader.pfHandleCharInput = 0;
+    pAccountList->controlHeader.pfHandleVirtualKeyInput = 0;
+    pAccountList->controlHeader.field_34 = 0;
+    pAccountList->pDataList = 0;
+    pAccountList->pSelectedDataEntry = 0;
+    pAccountList->nFirstDrawnEntry = 0;
+    pAccountList->controlHeader.pNext = 0;
+    if (pFont)
+    {
+        pAccountList->eFont = pFont->eFont;
+        pAccountList->unk0x54 = pFont->field_04;
+    }
+    else
+    {
+        pAccountList->eFont = 1;
+        pAccountList->unk0x54 = 0;
+    }
+    CONTROL_AppendToList(&pAccountList->controlHeader);
+    return pAccountList;
 }

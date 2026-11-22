@@ -42,8 +42,6 @@ struct D2WinAccountListDataStrc;
 
 struct D2WinAccountListStrc;
 
-struct D2WinProgressBarStrc;
-
 struct D2WinPopUpLineStrc;
 
 struct D2WinPopUpStrc;
@@ -124,12 +122,6 @@ struct D2WinListDataStrc
     char field_21B;
     int field_21C;
     D2WinListDataStrc* pNext;
-};
-
-struct D2WinProgressBarStrc
-{
-    D2WinControlStrc controlHeader;
-    float fProgress;
 };
 
 struct D2WinPopUpLineStrc
@@ -537,31 +529,6 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
     }
 
     sub_00502EF0(1);
-
-    return 1;
-}
-
-
-// 0x00507DC0
-int __fastcall PROGRESSBAR_Draw(D2WinControlStrc* pControl)
-{
-    D2WinProgressBarStrc* pProgressBar = (D2WinProgressBarStrc*)pControl;
-
-    D2_ASSERT(pProgressBar->controlHeader.eType == D2WIN_PROGRESSBAR, 0x4F);
-
-    if (!(pProgressBar->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pProgressBar->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
-    {
-        return 0;
-    }
-
-    const unsigned char nColor = D2Win_10034_MixRGB(0xFF, 0, 0);
-    D2GFX_DrawBox(
-        pProgressBar->controlHeader.nImageX,
-        pProgressBar->controlHeader.nImageY,
-        pProgressBar->controlHeader.nImageX + (int)(pProgressBar->controlHeader.nWidth * pProgressBar->fProgress),
-        pProgressBar->controlHeader.nImageY + pProgressBar->controlHeader.nHeight,
-        nColor,
-        5);
 
     return 1;
 }
