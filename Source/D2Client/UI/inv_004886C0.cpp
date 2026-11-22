@@ -6,14 +6,17 @@
 #include "D2Txt.h"
 #include "D2StormTypes.h"
 
+#pragma pack(push, 2)
 struct D2PanelButtonStrc
 {
     int bActive;
-    int unk0x04[1];
+    int nValue;
     unsigned short nString;
-    unsigned short unk0x0A;
-    int unk0x0C[2];
+    int nCel;
+    unsigned short nFrame;
+    int nType;
 };
+#pragma pack(pop)
 
 static int gnGlobal_007BCA4C; // 0x007BCA4C
 

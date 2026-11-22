@@ -214,12 +214,17 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 void __stdcall sub_Z12_EmitUse(int nMin, int nMax, int bModified);
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
+#pragma pack(push, 2)
 struct D2NpcButtonStrc
 {
     int nId;
     int bActive;
-    char unk0x08[0x0C];
+    unsigned short nTextId;
+    int nMode;
+    unsigned short nKey;
+    int nArg;
 };
+#pragma pack(pop)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
@@ -437,7 +442,10 @@ static void sub_0048B540_DrawEquippedItems(D2UnitStrc* pUnit);
 struct D2AuxLevelEntryStrc
 {
     int nType;
-    int unk0x04[2];
+    const char* szFile;
+    char bLocalized;
+    char bFormat;
+    char unk0x0A[2];
 };
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
