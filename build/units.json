@@ -19845,11 +19845,6 @@
     {
      "va": "0x00467A10",
      "length": 81
-    },
-    {
-     "va": "0x004680B0",
-     "length": 188,
-     "name": "?sub_004680B0_InitCursor@@YIHH@Z"
     }
    ],
    "flags": [
@@ -20076,6 +20071,31 @@
      "va": "0x004685C0",
      "length": 366,
      "name": "sub_004685C0_PaintCursorItem"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/ENGINE/Cursor_004680B0.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004680B0",
+     "length": 188,
+     "name": "?sub_004680B0_InitCursor@@YIHH@Z"
     }
    ]
   },
