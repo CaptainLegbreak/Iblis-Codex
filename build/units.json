@@ -40590,6 +40590,16 @@
      "va": "0x0050DCA0",
      "length": 35,
      "name": "?sub_0050DCA0_FreePerspectiveTable@@YAXXZ"
+    },
+    {
+     "va": "0x0050DCD0",
+     "length": 93,
+     "name": "?sub_0050DCD0_FillPerspectiveTable@@YAXXZ"
+    },
+    {
+     "va": "0x0050DD60",
+     "length": 176,
+     "name": "sub_0050DD60_ProjectToScreen"
     }
    ]
   },
@@ -40608,19 +40618,9 @@
      "name": "sub_0050DBC0_GlideSetAmbientColor"
     },
     {
-     "va": "0x0050DCD0",
-     "length": 93,
-     "name": "?sub_0050DCD0_FillPerspectiveTable@@YAXXZ"
-    },
-    {
      "va": "0x0050DD50",
      "length": 13,
      "name": "?sub_0050DD50_SetProjectOrigin@@YIXHH@Z"
-    },
-    {
-     "va": "0x0050DD60",
-     "length": 176,
-     "name": "sub_0050DD60_ProjectToScreen"
     },
     {
      "va": "0x0050DF00",
