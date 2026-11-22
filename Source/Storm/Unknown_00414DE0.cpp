@@ -1,7 +1,4 @@
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEKEEP(x) nValid = (x) ? nValid : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
+#include "SValidate.h"
 
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult); // 0x006CC010
 extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, const char* szValueName, unsigned long* lpReserved, unsigned long* lpType, unsigned char* lpData, unsigned long* lpcbData); // 0x006CC00C
@@ -60,14 +57,9 @@ int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsig
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(szKeyName != 0);
     VALIDATE(*szKeyName);
-    __assume(*szKeyName != 0);
     VALIDATE(szValueName);
-    __assume(szValueName != 0);
     VALIDATE(*szValueName);
-    __assume(*szValueName != 0);
     VALIDATEEND;
 
     unsigned long dwType;
@@ -82,18 +74,11 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(szKeyName != 0);
     VALIDATE(*szKeyName);
-    __assume(*szKeyName != 0);
     VALIDATE(szValueName);
-    __assume(szValueName != 0);
     VALIDATE(*szValueName);
-    __assume(*szValueName != 0);
     VALIDATE(szBuffer);
-    __assume(szBuffer != 0);
     VALIDATE(nBufferSize);
-    __assume(nBufferSize != 0);
     VALIDATEEND;
 
     unsigned long nType;

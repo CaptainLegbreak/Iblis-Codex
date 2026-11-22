@@ -1,5 +1,4 @@
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
+#include "SValidate.h"
 
 #define OVERLAP(a, b, n) ((a) + (n) > (b) && (b) + (n) > (a))
 
@@ -87,14 +86,9 @@ int __stdcall SCompCompress(unsigned char* pDest, unsigned int* pdwDestSize, uns
 {
     VALIDATEBEGIN;
     VALIDATE(pDest);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(pDest != 0);
     VALIDATE(pdwDestSize);
-    __assume(pdwDestSize != 0);
     VALIDATE(*pdwDestSize >= dwSrcSize);
-    __assume(*pdwDestSize >= dwSrcSize);
     VALIDATE(pSrc);
-    __assume(pSrc != 0);
     if (!nValid)
     {
         sub_0041C340_SetLastError(0x57);

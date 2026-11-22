@@ -1,7 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2CriticalSectionStrc;
 struct D2SMemHeapInfoStrc;
@@ -1315,7 +1314,8 @@ int __stdcall sub_00413B30_ParseUnsignedDecimal(const char* szString)
 // 0x00413B80
 void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted)
 {
-    int nValid = ((__int64)pszString) ? -1 : 0;
+    VALIDATEBEGIN;
+    VALIDATE(pszString);
     VALIDATE(*pszString);
     VALIDATE(szBuffer || !nBufferChars);
     VALIDATE(szWhitespace);

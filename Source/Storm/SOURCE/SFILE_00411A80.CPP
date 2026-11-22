@@ -4,7 +4,6 @@
 #include "D2StormTypes.h"
 #include "D2StormLink.h"
 
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2CriticalSectionStrc;
 
@@ -1630,13 +1629,10 @@ done:
 // 0x00415D50
 unsigned int __stdcall sub_00415D50_ChecksumFile(const char* szFileName)
 {
-    int nValid = (__int64)szFileName ? -1 : 0;
+    VALIDATEBEGIN;
+    VALIDATE(szFileName);
     VALIDATE(*szFileName);
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return nValid;
-    }
+    VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     void* hFile = CreateFileA(szFileName, 0x80000000, 1, 0, 3, 0x8000000, 0);
     if (hFile == (void*)-1)
@@ -2008,10 +2004,7 @@ int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned in
     else
         *phMpq = 0;
     VALIDATE(szMpqName);
-    // stands for the original keeping the null test of szMpqName when *szMpqName is validated next (a plain pair drops it)
-    __assume((szMpqName) != 0);
     VALIDATE(*szMpqName);
-    __assume((*szMpqName) != 0);
     VALIDATEEND;
 
     EnterCriticalSection(&gBasePathLock_00779068);
@@ -2100,10 +2093,7 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
     else
         *phFile = 0;
     VALIDATE(szFileName);
-    // stands for the original keeping the null test of szFileName when *szFileName is validated next (a plain pair drops it)
-    __assume((szFileName) != 0);
     VALIDATE(*szFileName);
-    __assume((*szFileName) != 0);
     VALIDATEEND;
 
     EnterCriticalSection(&gBasePathLock_00779068);

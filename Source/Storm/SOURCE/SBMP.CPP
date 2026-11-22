@@ -2,13 +2,9 @@
 
 #define STORM_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-#define VALIDATEBEGIN int nValid = -1
 
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
-#define VALIDATEENDVOID if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
 
 struct D2TargaHeaderStrc;
 
@@ -805,18 +801,11 @@ static void __stdcall FlipImage(unsigned char* pDst, int nRows, const unsigned c
 {
     VALIDATEBEGIN;
     VALIDATE(pDst);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(pDst != 0);
     VALIDATE(pSrc);
-    __assume(pSrc != 0);
     VALIDATE(nDstSize);
-    __assume(nDstSize != 0);
     VALIDATE(nRowWidth);
-    __assume(nRowWidth != 0);
     VALIDATE(nStride);
-    __assume(nStride != 0);
     VALIDATE(nRows);
-    __assume(nRows != 0);
     VALIDATEENDVOID;
 
     {
@@ -1724,18 +1713,11 @@ int __stdcall SBmpSaveImageEx(char* szFile, unsigned char* pPalette, unsigned ch
 {
     VALIDATEBEGIN;
     VALIDATE(szFile);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(szFile != 0);
     VALIDATE(*szFile);
-    __assume(*szFile != 0);
     VALIDATE(nBits != 8 || pPalette);
-    __assume(nBits != 8 || pPalette != 0);
     VALIDATE(pPixels);
-    __assume(pPixels != 0);
     VALIDATE(nWidth > 0);
-    __assume(nWidth > 0);
     VALIDATE(nHeight > 0);
-    __assume(nHeight > 0);
     VALIDATEEND;
 
     const char* pExtension = sub_006C5EE0_FindExtension(szFile);
@@ -1805,12 +1787,8 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
 
     VALIDATEBEGIN;
     VALIDATE(szFileName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume((szFileName) != 0);
     VALIDATE(*szFileName);
-    __assume((*szFileName) != 0);
     VALIDATE(ppBuffer);
-    __assume((ppBuffer) != 0);
     VALIDATEEND;
 
     void* hFile;

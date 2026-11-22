@@ -1,5 +1,6 @@
 #include "D2StormTypes.h"
 #include "D2StormAutoLink.h"
+#include "SValidate.h"
 // build: base-profile
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
@@ -467,9 +468,6 @@ int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionCon
     return **ppszCmdLine == 0;
 }
 
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 extern const char gszEmpty_006CC837[]; // 0x006CC837
 extern const char gszCmdDefType_0074C47C[]; // 0x0074C47C

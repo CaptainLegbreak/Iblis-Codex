@@ -1,6 +1,4 @@
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
+#include "SValidate.h"
 
 #define OVERLAP(a, b, n) ((a) + (n) > (b) && (b) + (n) > (a))
 
@@ -94,14 +92,9 @@ int __stdcall SCompDecompress(void* pDest, unsigned int* pdwDestSize, unsigned c
     unsigned int dwDestSize = *pdwDestSize;
     VALIDATEBEGIN;
     VALIDATE(pDest);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(pDest != 0);
     VALIDATE(dwDestSize >= dwSrcSize);
-    __assume(dwDestSize >= dwSrcSize);
     VALIDATE(pSrc);
-    __assume(pSrc != 0);
     VALIDATE(dwSrcSize >= sizeof(unsigned char));
-    __assume(dwSrcSize >= sizeof(unsigned char));
     VALIDATEEND;
 
     if (dwSrcSize == dwDestSize)

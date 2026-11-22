@@ -16,7 +16,6 @@
     b -= c; b -= a; b ^= (a << 10); \
     c -= a; c -= b; c ^= (b >> 15); \
 }
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2FileStrc;
 struct D2StormFileSubStrc;

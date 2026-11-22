@@ -5,7 +5,6 @@ double __cdecl sub_00414260_PowInt(double x, int nExp);                         
 int __stdcall SStrToInt(const char* szString);                                                              // 0x00413AC0
 extern "C" void __cdecl sub_00414360_CallThenSetFlag();                                                     // 0x00414360
 extern double gadDigitScale_007788E0[20][10];                                                               // 0x007788E0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 template <class T>
 inline T StormPowInt(T x, int nExp)

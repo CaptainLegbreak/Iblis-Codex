@@ -1,5 +1,6 @@
 #include "D2SysTypes.h"
 #include "D2SFileTypes.h"
+#include "SValidate.h"
 #pragma pack(push, 1)
 struct D2WaveFormatStrc { unsigned short format, channels; unsigned int samplesPerSec, avgBytesPerSec; unsigned short blockAlign, bitsPerSample, extraSize; };
 struct D2WaveHeaderStrc { unsigned int tag, size, type, dataOffset, flags; };
@@ -89,9 +90,9 @@ static int sub_0041B210_FindWaveChunk(void* hFile, unsigned int dwTag, unsigned 
 // 0x0041B280
 int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2StormSoundBuffer* pBuffer)
 {
-    int nValid = -1;
-    nValid &= nBufferSize ? -1 : 0;
-    if (!nValid) { sub_0041C340_SetLastError(0x57); return nValid; }
+    VALIDATEBEGIN;
+    VALIDATE(nBufferSize);
+    VALIDATEEND;
     if (!gpSound_00778F20) { sub_0041C340_SetLastError(0x85100071); return 0; }
     D2StormFileRecStrc* pFile;
     EnterCriticalSection(&gLock_00779068);

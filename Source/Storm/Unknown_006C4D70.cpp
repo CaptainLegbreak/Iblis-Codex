@@ -1,6 +1,5 @@
 #include "Storm.h"
 #include "D2StormTypes.h"
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2ListNode006C4D70Strc;
 struct D2List006C4D70Strc;
@@ -157,13 +156,9 @@ static inline D2CmdNodeStrc* CMD_LinkOrNull(D2CmdNodeStrc* pNode)
 // 0x006C4FB0
 int __stdcall SCmdProcess(char* szCommandLine, int bSkipFirst, void* pfnExtra, D2ErrorCallback pfnError)
 {
-    int nValid = -1;
-    nValid &= szCommandLine ? -1 : 0;
-    if (!nValid)
-    {
-        SErrSetLastError(0x57);
-        return 0;
-    }
+    VALIDATEBEGIN;
+    VALIDATE(szCommandLine);
+    VALIDATEEND;
 
     if (bSkipFirst)
     {

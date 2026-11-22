@@ -1,3 +1,4 @@
+#include "SValidate.h"
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                          // 0x0041C340
 double __cdecl sub_00414260_PowInt(double x, int nExp);                                                     // 0x00414260
 int __stdcall SStrToInt(const char* szString);                                                              // 0x00413AC0
@@ -5,9 +6,6 @@ extern "C" { int gnFlag_007788DC; }                                             
 extern "C" void __cdecl sub_00414360_CallThenSetFlag();                                                     // 0x00414360
 double gadDigitScale_007788E0[20][10];                                                                      // 0x007788E0
 
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 template <class T>
 inline T StormPowInt(T x, int nExp)

@@ -1,3 +1,4 @@
+#include "SValidate.h"
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult);
 extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, const char* szValueName, unsigned long* lpReserved, unsigned long* lpType, unsigned char* lpData, unsigned long* lpcbData);
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey);
@@ -9,9 +10,6 @@ unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 extern "C" const char gszFmtUnsigned_006CEF68[];
 
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 static int __stdcall sub_00414B00_SRegLoadEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData)
 {
@@ -57,13 +55,9 @@ int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsig
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
-    __assume((*szKeyName) != 0);
     VALIDATE(szValueName);
-    __assume((szValueName) != 0);
     VALIDATE(*szValueName);
-    __assume((*szValueName) != 0);
     VALIDATEEND;
 
     unsigned long nType;
@@ -79,17 +73,11 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
-    __assume((*szKeyName) != 0);
     VALIDATE(szValueName);
-    __assume((szValueName) != 0);
     VALIDATE(*szValueName);
-    __assume((*szValueName) != 0);
     VALIDATE(szBuffer);
-    __assume((szBuffer) != 0);
     VALIDATE(nBufferSize);
-    __assume((nBufferSize) != 0);
     VALIDATEEND;
 
     unsigned long nType;
@@ -122,16 +110,10 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
-    __assume((*szKeyName) != 0);
     VALIDATE(szValueName);
-    __assume((szValueName) != 0);
     VALIDATE(*szValueName);
-    __assume((*szValueName) != 0);
     VALIDATE(pValue);
-    __assume((pValue) != 0);
     VALIDATEEND;
 
     unsigned long nType;
