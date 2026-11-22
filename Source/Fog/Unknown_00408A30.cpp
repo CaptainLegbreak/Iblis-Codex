@@ -79,57 +79,6 @@ unsigned long gdwLastLogSweep_0075E874;                                         
 
 
 
-// 0x00409C80
-void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
-{
-    if (!gtPoolManager_0074F0E8.bInit)
-    {
-        return;
-    }
-    if (!pSystem)
-    {
-        pSystem = &gtPoolManager_0074F0E8.aSystems[0];
-    }
-    if (!pSystem->nPools)
-    {
-        return;
-    }
-    for (int i = 0; i < pSystem->nPools; i++)
-    {
-        D2MemPoolRecStrc* pPool = &pSystem->aPools[i];
-        D2MemPoolBlockStrc* pBlock = pPool->pFirstBlock;
-        while (pBlock)
-        {
-            D2MemPoolBlockStrc* pNext = pBlock->pNext;
-            VirtualFree(pBlock->pMemory, 0, 0x8000);
-            free(pBlock);
-            pBlock = pNext;
-        }
-        DeleteCriticalSection(&pPool->tLock);
-    }
-    free(pSystem->pRecords);
-    for (int j = 0; j < 1023; j++)
-    {
-        int* pEntry = pSystem->apLargeBlocks[j];
-        while (pEntry)
-        {
-            int* pNext = (int*)*pEntry;
-            free(pEntry);
-            pEntry = pNext;
-        }
-    }
-    DeleteCriticalSection(&pSystem->tLock);
-    memset(pSystem, 0, sizeof(D2PoolSystemStrc));
-    EnterCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    gtPoolManager_0074F0E8.anFreeIndex[gtPoolManager_0074F0E8.nFreeCount] = ((unsigned int)pSystem - (unsigned int)&gtPoolManager_0074F0E8.aSystems[0]) / sizeof(D2PoolSystemStrc);
-    gtPoolManager_0074F0E8.nFreeCount++;
-    LeaveCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    if (pSystem == &gtPoolManager_0074F0E8.aSystems[0])
-    {
-        gtPoolManager_0074F0E8.bInit = 0;
-        DeleteCriticalSection(&gtPoolManager_0074F0E8.tLock);
-    }
-}
 
 // 0x0040DC60
 int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength)

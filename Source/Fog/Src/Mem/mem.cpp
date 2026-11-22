@@ -17,6 +17,10 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
+
+extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
+
 // 0x00409000
 int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
 {
@@ -129,4 +133,58 @@ int __cdecl sub_00409DD0_InitPoolSystem(D2PoolSystemStrc** ppPoolSystem, const c
     memset(pSystem->apLargeBlocks, 0, sizeof(pSystem->apLargeBlocks));
     LeaveCriticalSection(pLock);
     return 0;
+}
+
+extern "C" void __cdecl free(void* pMemory); // 0x00683FC0
+
+// 0x00409C80
+void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
+{
+    if (!gtPoolManager_0074F0E8.bInit)
+    {
+        return;
+    }
+    if (!pSystem)
+    {
+        pSystem = &gtPoolManager_0074F0E8.aSystems[0];
+    }
+    if (!pSystem->nPools)
+    {
+        return;
+    }
+    for (int i = 0; i < pSystem->nPools; i++)
+    {
+        D2MemPoolRecStrc* pPool = &pSystem->aPools[i];
+        D2MemPoolBlockStrc* pBlock = pPool->pFirstBlock;
+        while (pBlock)
+        {
+            D2MemPoolBlockStrc* pNext = pBlock->pNext;
+            VirtualFree(pBlock->pMemory, 0, 0x8000);
+            free(pBlock);
+            pBlock = pNext;
+        }
+        DeleteCriticalSection(&pPool->tLock);
+    }
+    free(pSystem->pRecords);
+    for (int j = 0; j < 1023; j++)
+    {
+        int* pEntry = pSystem->apLargeBlocks[j];
+        while (pEntry)
+        {
+            int* pNext = (int*)*pEntry;
+            free(pEntry);
+            pEntry = pNext;
+        }
+    }
+    DeleteCriticalSection(&pSystem->tLock);
+    memset(pSystem, 0, sizeof(D2PoolSystemStrc));
+    EnterCriticalSection(&gtPoolManager_0074F0E8.tLock);
+    gtPoolManager_0074F0E8.anFreeIndex[gtPoolManager_0074F0E8.nFreeCount] = ((unsigned int)pSystem - (unsigned int)&gtPoolManager_0074F0E8.aSystems[0]) / sizeof(D2PoolSystemStrc);
+    gtPoolManager_0074F0E8.nFreeCount++;
+    LeaveCriticalSection(&gtPoolManager_0074F0E8.tLock);
+    if (pSystem == &gtPoolManager_0074F0E8.aSystems[0])
+    {
+        gtPoolManager_0074F0E8.bInit = 0;
+        DeleteCriticalSection(&gtPoolManager_0074F0E8.tLock);
+    }
 }
