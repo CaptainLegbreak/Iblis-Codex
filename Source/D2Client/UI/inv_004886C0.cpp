@@ -147,7 +147,7 @@ void __stdcall sub_004912A0_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg);
 
 int __cdecl sub_004979E0();
 
-int __cdecl D2GFX_GetResolutionMode();
+int __stdcall D2GFX_GetResolutionMode();
 
 extern int gnGlobal_0071146C; // 0x0071146C
 
