@@ -73901,6 +73901,10 @@
      "name": "STATLIST_DeactivateTemporaryStates"
     },
     {
+     "va": "0x00627340",
+     "length": 195
+    },
+    {
      "va": "0x00627410",
      "length": 65,
      "name": "STATLIST_RemoveAllStatsFromOverlay"
@@ -74026,16 +74030,6 @@
      "va": "0x006275B0",
      "length": 264,
      "name": "?sub_006275B0@@YGXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00627340.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00627340",
-     "length": 195
     }
    ]
   },
