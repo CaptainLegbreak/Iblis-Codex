@@ -603,6 +603,8 @@ public:
     TSExportTableSync();
 };
 
+int __stdcall GAME_Shutdown(); // 0x0052C030
+
 // 0x0044B190
 int __fastcall sub_0044B190_DispatchPacket(const unsigned char* pPacket, unsigned int nSize)
 {
@@ -751,6 +753,16 @@ int __stdcall sub_0044BB70_StartGame()
 {
     gnSubsystemActive_007A0458 = 1;
     return GAME_Initialize();
+}
+
+
+// 0x0044BB80
+extern "C" int __cdecl sub_0044BB80_ShutdownIfActive()
+{
+    if (gnSubsystemActive_007A0458 == 0)
+        return 0;
+    gnSubsystemActive_007A0458 = 0;
+    return GAME_Shutdown();
 }
 
 // 0x0044BC10

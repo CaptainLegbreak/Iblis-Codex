@@ -14561,11 +14561,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0044BB80",
-     "length": 27,
-     "name": "_sub_0044BB80_ShutdownIfActive"
-    },
-    {
      "va": "0x004B9D00",
      "length": 25,
      "name": "_sub_004B9D00_ResetSoundState"
@@ -15294,6 +15289,11 @@
      "va": "0x0044BB70",
      "length": 15,
      "name": "?sub_0044BB70_StartGame@@YGHXZ"
+    },
+    {
+     "va": "0x0044BB80",
+     "length": 27,
+     "name": "_sub_0044BB80_ShutdownIfActive"
     },
     {
      "va": "0x0044BC10",
