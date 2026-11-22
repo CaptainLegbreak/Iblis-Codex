@@ -60155,6 +60155,11 @@
      "length": 485
     },
     {
+     "va": "0x005B13E0",
+     "length": 252,
+     "name": "?AITHINK_HandleMonsterAiPreActions@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005B14E0",
      "length": 236,
      "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -61766,17 +61771,6 @@
      "va": "0x00604A40",
      "length": 94,
      "name": "TileLibraryAddProject"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005B0CD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B13E0",
-     "length": 252,
-     "name": "?AITHINK_HandleMonsterAiPreActions@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
