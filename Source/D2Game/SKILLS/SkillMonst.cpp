@@ -16,6 +16,7 @@
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2SkillIds.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
@@ -1949,6 +1950,101 @@ int __fastcall SKILLS_SrvDo104_DiabPrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 0;
 }
 
+struct MissileRecord;
+
+struct MonsterData;
+
+struct Skills;
+
+struct D2UnkNecSkillStrc;
+
+Unit* __stdcall sub_00553540(Game*, Unit*); // 0x00553540
+
+void __fastcall sub_0057C9F0(Game*, Unit*, Unit*); // 0x0057C9F0
+
+int __fastcall sub_005CDD30(Unit*); // 0x005CDD30
+
+int __fastcall sub_0056F640(Game*, Unit*, int, int, int); // 0x0056F640
+
+int __fastcall sub_005CDDD0(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
+
+int __stdcall sub_006444A0(Skill*); // 0x006444A0
+
+int __fastcall SKILLS_ApplyFrenzyStats(Game*, Unit*, int, int); // 0x005D8C70
+
+enum { UNIT_FLAG = 0x40 };
+
+struct MonsterData { char pad0[0xE]; unsigned char variant; };
+
+struct Skills { char pad0[4]; unsigned char flags[4]; char pad8[0x40]; short missile; char pad4A[0x1F2]; };
+
+struct Tables { char pad0[0xB6C]; int missileCount; char padB70[0x28]; Skills* skills; void* linker; int skillCount; };
+
+extern unsigned bitMasks[]; // 0x006CE268
+
+Unit* __fastcall sub_0056EE90(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
+
+Unit* __fastcall sub_0056ECB0(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
+
+typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
+
+typedef char D2UnkNecSkillStrcSizeCheck[sizeof(D2UnkNecSkillStrc) == 0x68 ? 1 : -1];
+
+extern const int gaMonCurseIds_006E3228[5]; // 0x006E3228
+
+int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
+
+int __fastcall sub_6FD0B450(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
+
+unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc*); // 0x00648810
+
+static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005CD910
+int __fastcall SKILLS_SrvSt55_Mosquito(D2GameStrc* pGame,D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
+{
+    D2SkillsTxt* pRecord=SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pRecord) return 0;
+    D2SkillStrc* pSkill=UNITS_GetUsedSkill(pUnit);
+    if (!pSkill) return 0;
+    D2UnitStrc* pTarget=SUNIT_GetTargetUnit(pGame,pUnit);
+    if (!pTarget) return 0;
+    D2SeedStrc seed;
+    SEED_InitSeed(&seed);
+    SEED_InitLowSeed(&seed,(!pUnit ? -1 : pUnit->dwUnitId)+(!pTarget ? -1 : pTarget->dwUnitId));
+    const int minimum=SKILLS_EvaluateSkillFormula(pUnit,pRecord->dwCalc[0],nSkillId,nSkillLevel);
+    const int maximum=SKILLS_EvaluateSkillFormula(pUnit,pRecord->dwCalc[1],nSkillId,nSkillLevel);
+    int value=ITEMS_RollLimitedRandomNumber(&seed,maximum-minimum)+minimum;
+    if (value<1) value=1;
+    SKILLS_SetParam1(pSkill,value);
+    SKILLS_SetParam2(pSkill,pTarget->dwUnitId);
+    const int type=(pTarget ? pTarget->dwUnitType : UNIT_INVALID);
+    SKILLS_SetParam3(pSkill,type);
+    return 1;
+}
+
 // 0x005CDDD0
 int __fastcall SKILLS_RollMonFrenzyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, int nSkillId, int nSkillLevel)
 {
@@ -2044,6 +2140,44 @@ int __fastcall SKILLS_SrvDo110_Hireable_RogueMissile(D2GameStrc* pGame, D2UnitSt
 
     SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
     return 1;
+}
+
+// 0x005CE4F0
+D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pMissile = 0;
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    if (pPath && PATH_HasEnteredNewSubtile(pPath))
+    {
+        int nXOffset;
+        int nYOffset;
+        {
+            unsigned char spiderLayDirections[8] = { 10, 8, 22, 20, 18, 16, 14, 12 };
+            const unsigned char nLayDirection = spiderLayDirections[INVENTORY_GetEightWayDirection(PATH_GetNewDirection(pPath))];
+            INVENTORY_GetDirectionDelta(nLayDirection, &nXOffset, &nYOffset);
+        }
+        const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_SPIDERLAY), 1);
+        const int nUnitX = UNITS_GetXPositionInline(pUnit);
+        const int nUnitY = UNITS_GetYPositionInline(pUnit);
+        const int nX = nUnitX + nXOffset;
+        const int nY = nUnitY + nYOffset;
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+        sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+        D2MissileStrc missileParams;
+        memset(&missileParams, 0, sizeof(missileParams));
+        missileParams.dwFlags = 0x21;
+        missileParams.pOwner = pUnit;
+        missileParams.nX = nX;
+        missileParams.nY = nY;
+        missileParams.nTargetX = nX + 2 * nXOffset;
+        missileParams.nTargetY = nY + 2 * nYOffset;
+        missileParams.nVelocity = 3;
+        missileParams.nSkill = 173;
+        missileParams.nSkillLevel = nSkillLevel;
+        missileParams.nMissile = MISSILE_SPIDERGOOLAY;
+        pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    }
+    return pMissile;
 }
 
 // 0x005CE670

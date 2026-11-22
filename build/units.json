@@ -66231,6 +66231,11 @@
      "name": "SKILLS_SrvDo104_DiabPrison"
     },
     {
+     "va": "0x005CD910",
+     "length": 235,
+     "name": "?SKILLS_SrvSt55_Mosquito@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005CDDD0",
      "length": 304,
      "name": "SKILLS_RollMonFrenzyDamage"
@@ -66241,6 +66246,10 @@
      "name": "?SKILLS_SrvDo110_Hireable_RogueMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CE4F0",
+     "length": 383
+    },
+    {
      "va": "0x005CE670",
      "length": 277,
      "name": "SKILLS_SrvDo111_FetishAura"
@@ -66249,21 +66258,6 @@
      "va": "0x005CEC50",
      "length": 52,
      "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CD910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CD910",
-     "length": 235,
-     "name": "?SKILLS_SrvSt55_Mosquito@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CE4F0",
-     "length": 383
     }
    ]
   },
