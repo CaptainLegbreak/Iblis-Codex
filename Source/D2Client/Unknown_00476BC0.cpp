@@ -1,5 +1,6 @@
 #include "D2LevelIds.h"
 #include "D2Client.h"
+#include "D2Win32Types.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 
@@ -166,11 +167,15 @@ static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
 
 struct D2ViewStrc
 {
-    char unk0x00[0x0C];
-    int nField0x0C;
-    int nField0x10;
-    char unk0x14[0x24];
     unsigned int dwFlags;
+    tagRECT tRect;
+    unsigned char unk_14[0x10];
+    int nPosX;
+    int nPosY;
+    void* pLerpData;
+    void* pLerpTable;
+    void* pLerpRows;
+    unsigned int dwDrawFlags;
 };
 struct D2TileLightCtxStrc;
 struct D2CellGridViewStrc
@@ -204,7 +209,7 @@ extern const unsigned int gdwBitMasks[32];                                      
 // 0x00476BC0
 void __fastcall sub_00476BC0(D2ViewStrc* pView)
 {
-    if (!pView->nField0x0C && !pView->nField0x10)
+    if (!pView->tRect.right && !pView->tRect.bottom)
     {
         return;
     }
@@ -262,18 +267,18 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
         }
     }
 
-    if (pView->dwFlags & gdwBitMasks[0])
+    if (pView->dwDrawFlags & gdwBitMasks[0])
     {
         sub_004DF480_UpdateAllTileLights((D2TileLightCtxStrc*)pView);
     }
     sub_004DED10(pView);
     sub_00473C00_DrawWeatherLayers();
-    if (pView->dwFlags & gdwBitMasks[3])
+    if (pView->dwDrawFlags & gdwBitMasks[3])
     {
         ((D2CellGridViewStrc*)pView)->sub_004DF510_DrawCellNodes();
     }
     sub_004DF1C0(pView);
-    if (pView->dwFlags & gdwBitMasks[1])
+    if (pView->dwDrawFlags & gdwBitMasks[1])
     {
         sub_004DEA70(pView);
     }
