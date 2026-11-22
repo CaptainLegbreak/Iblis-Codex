@@ -1067,6 +1067,7 @@ static inline int sub_00451F50(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
+// 0x00530F40
 static D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem)
 {
     D2ItemDropStrc itemDrop;

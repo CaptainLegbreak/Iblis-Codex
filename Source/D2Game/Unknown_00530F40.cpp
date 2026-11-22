@@ -9,7 +9,6 @@ struct D2InventoryStrc;
 union D2SeedStrc;
 struct D2ActiveRoomStrc;
 
-
 #pragma pack(push, 1)
 struct D2SavedItemStrc
 {

@@ -47267,20 +47267,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00530F40.cpp",
+   "file": "Source/D2Game/PLAYER/PlrSave.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00530F40",
      "length": 255,
      "name": "?PLRSAVE_CreateItemFromSavedData@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2SavedItemStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00531040",
      "length": 452
