@@ -52,7 +52,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 
-void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szDetail); // 0x0041D010
+void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
 
 void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 

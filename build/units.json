@@ -6336,7 +6336,7 @@
     {
      "va": "0x0041D010",
      "length": 256,
-     "name": "sub_0041D010_ReportHandleLeak"
+     "name": "SErrReportNamedResourceLeak"
     }
    ]
   },
@@ -6628,7 +6628,7 @@
     {
      "va": "0x0041D1E0",
      "length": 18,
-     "name": "sub_0041D1E0_ReportHandleLeak"
+     "name": "SErrReportResourceLeak"
     }
    ]
   },

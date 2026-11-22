@@ -14,7 +14,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 
-void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szDetail); // 0x0041D010
+void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
 
 void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 
@@ -179,9 +179,9 @@ void __stdcall SErrRegisterHandler(int nValue)
 }
 
 // 0x0041D1E0
-void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName)
+void __stdcall SErrReportResourceLeak(const char* szName)
 {
-    sub_0041D010_ReportHandleLeak(szName, 0);
+    SErrReportNamedResourceLeak(szName, 0);
 }
 
 // 0x0041D160

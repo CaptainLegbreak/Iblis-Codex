@@ -70,7 +70,7 @@ int __cdecl SErrDisplayErrorFmt(int code, const char* file, int line, int recove
 }
 
 // 0x0041D010
-void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szDetail)
+void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail)
 {
     if (!gbDebugMemoryLoaded_00779204)
     {

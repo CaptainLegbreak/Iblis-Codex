@@ -25,7 +25,7 @@ void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink); // 0x00411A8
 
 D2FogBlockStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2FogBlockStrc** ppLink); // 0x00411F00
 
-void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName); // 0x0041D1E0
+void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
 
 extern D2FogBlockStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
 
@@ -59,7 +59,7 @@ int __cdecl sub_00412240_DestroyHeaps()
                 else
                 {
                     if (pBlock->bReportLeak && pBlock->dwSize >= 0x80000000)
-                        sub_0041D1E0_ReportHandleLeak("HSHEAP");
+                        SErrReportResourceLeak("HSHEAP");
                     sub_00411A80_ReleaseBlock(ppLink);
                 }
             }

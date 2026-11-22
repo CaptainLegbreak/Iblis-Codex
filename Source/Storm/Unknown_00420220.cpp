@@ -21,7 +21,7 @@ extern "C" __declspec(dllimport) int __stdcall PeekMessageA(D2WinMsgStrc* pMsg, 
 extern "C" __declspec(dllimport) int __stdcall GetMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax); // 0x006CC484
 void __stdcall SLogClose(void* hLog);                                                                       // 0x0041FD00
 void __cdecl SLogFlushAll();                                                                                // 0x0041FFF0
-void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName);                                           // 0x0041D1E0
+void __stdcall SErrReportResourceLeak(const char* szName);                                           // 0x0041D1E0
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4];                                                       // 0x00779238
 extern T0041FA40* gapSLogBuckets_00779298[4];                                                              // 0x00779298
 

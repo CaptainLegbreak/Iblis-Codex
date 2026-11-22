@@ -46,8 +46,8 @@ enum { ALLOC_FLAG = 8 };
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds);
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
-void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName);
-void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szDetail);
+void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
+void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
 void __cdecl sub_00419F30();
 
 extern D2StormListStrc gRequestList_00708360; // 0x00708360
@@ -310,17 +310,17 @@ int __cdecl SFileDestroy()
         delete (REQUEST*)gRequestList_00708360.Head();
     while (AUDIOSTREAM* pStream = (AUDIOSTREAM*)gDdaList_00708384.Head())
     {
-        sub_0041D1E0_ReportHandleLeak("AUDIOSTREAM");
+        SErrReportResourceLeak("AUDIOSTREAM");
         delete pStream;
     }
     while (FILEREC* pFile = (FILEREC*)gFileList_0070836C.Head())
     {
-        sub_0041D010_ReportHandleLeak("HSFILE", pFile->szName);
+        SErrReportNamedResourceLeak("HSFILE", pFile->szName);
         delete pFile;
     }
     while (ARCHIVEREC* pArchive = (ARCHIVEREC*)gArchiveList_00708354.Head())
     {
-        sub_0041D010_ReportHandleLeak("HSARCHIVE", pArchive->szName);
+        SErrReportNamedResourceLeak("HSARCHIVE", pArchive->szName);
         delete pArchive;
     }
     if (gpCryptTable_00779048)
