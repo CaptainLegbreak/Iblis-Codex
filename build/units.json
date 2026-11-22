@@ -67878,6 +67878,11 @@
      "name": "sub_00602280_Link"
     },
     {
+     "va": "0x006022A0",
+     "length": 72,
+     "name": "sub_006022A0_sub_006C4290"
+    },
+    {
      "va": "0x006022F0",
      "length": 22,
      "name": "sub_006022F0_InitLinkField"
@@ -67918,6 +67923,11 @@
      "name": "??0sub_00602420@@QAE@XZ"
     },
     {
+     "va": "0x00602430",
+     "length": 106,
+     "name": "?1D2StormHashObjectStrc"
+    },
+    {
      "va": "0x006024A0",
      "length": 50,
      "name": "??1sub_006024A0@@QAE@XZ"
@@ -67926,6 +67936,11 @@
      "va": "0x006024E0",
      "length": 171,
      "name": "CelReuseListLinkNode"
+    },
+    {
+     "va": "0x00602590",
+     "length": 72,
+     "name": "sub_00602590_sub_006C4290"
     },
     {
      "va": "0x00602620",
@@ -67998,9 +68013,19 @@
      "name": "?0D2StormListDStrc"
     },
     {
+     "va": "0x006029B0",
+     "length": 82,
+     "name": "CelEntryListNewNode"
+    },
+    {
      "va": "0x00602A10",
      "length": 47,
      "name": "CelListTableDeleteUnlock"
+    },
+    {
+     "va": "0x00602A40",
+     "length": 81,
+     "name": "?_GD2StormSlotLinkStrc"
     },
     {
      "va": "0x00602AA0",
@@ -68018,14 +68043,39 @@
      "name": "??1D2StormEntry00602B20Strc@@QAE@XZ"
     },
     {
+     "va": "0x00602B70",
+     "length": 96,
+     "name": "?_GD2StormSlotListStrc"
+    },
+    {
      "va": "0x00602BD0",
      "length": 32,
      "name": "?sub_00602BD0@@YIXPAUD2StormSlotListStrc@@PBU1@@Z"
     },
     {
+     "va": "0x00602C40",
+     "length": 106,
+     "name": "CelEntryListDeleteNode"
+    },
+    {
+     "va": "0x00602CB0",
+     "length": 107,
+     "name": "?_GD2StormEntry38Strc"
+    },
+    {
+     "va": "0x00602D20",
+     "length": 194,
+     "name": "CelReuseListDeleteAll"
+    },
+    {
      "va": "0x00602DF0",
      "length": 60,
      "name": "??1D2StormSlotList00602DF0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00602E30",
+     "length": 129,
+     "name": "CelReuseListDeleteNode"
     },
     {
      "va": "0x00602EC0",
@@ -68068,6 +68118,11 @@
      "name": "??1D2StormSlotGrowArrayStrc@@QAE@XZ"
     },
     {
+     "va": "0x00603250",
+     "length": 20,
+     "name": "CelListTablePtr"
+    },
+    {
      "va": "0x00603270",
      "length": 5,
      "name": "??1D2StormEntryGrowArrayStrc@@QAE@XZ"
@@ -68081,6 +68136,11 @@
      "va": "0x00603300",
      "length": 247,
      "name": "CelSlotArraySetCount"
+    },
+    {
+     "va": "0x00603400",
+     "length": 82,
+     "name": "CelListTableLock"
     },
     {
      "va": "0x00603500",
@@ -68108,6 +68168,21 @@
      "name": "??0D2Storm603570Strc@@QAE@XZ"
     },
     {
+     "va": "0x006035A0",
+     "length": 98,
+     "name": "CelReuseListNewNode"
+    },
+    {
+     "va": "0x00603610",
+     "length": 183,
+     "name": "InternalNew"
+    },
+    {
+     "va": "0x006036D0",
+     "length": 96,
+     "name": "InternalDelete"
+    },
+    {
      "va": "0x00603730",
      "length": 43,
      "name": "?sub_00603730@SlotArray@@QAEPAU1@UDeleteFlags@@@Z"
@@ -68123,9 +68198,24 @@
      "name": "?Destroy@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXXZ"
     },
     {
+     "va": "0x006037B0",
+     "length": 43,
+     "name": "?_GD2GameHashTableStrc"
+    },
+    {
+     "va": "0x006037E0",
+     "length": 98,
+     "name": "?_GD2StormHashChunkStrc"
+    },
+    {
      "va": "0x00603850",
      "length": 9,
      "name": "?sub_00603850_SetCount@D2StormSlotArrayStrc@@QAEXI@Z"
+    },
+    {
+     "va": "0x00603860",
+     "length": 349,
+     "name": "CelCompressAddImage"
     },
     {
      "va": "0x006039C0",
@@ -68136,6 +68226,11 @@
      "va": "0x00603A70",
      "length": 232,
      "name": "?CELCMP_CreateCelFileFromCache@@YGIIPAPAUD2CelFileStrc@@@Z"
+    },
+    {
+     "va": "0x00603B60",
+     "length": 107,
+     "name": "CelChunkListDeleteAll"
     },
     {
      "va": "0x00603BD0",
@@ -68193,6 +68288,11 @@
      "name": "?0D2StormEntry38Strc"
     },
     {
+     "va": "0x00604150",
+     "length": 96,
+     "name": "InternalDelete"
+    },
+    {
      "va": "0x00604350",
      "length": 70,
      "name": "CelListArrayReserve"
@@ -68203,8 +68303,28 @@
      "name": "CelListArrayGrow"
     },
     {
+     "va": "0x00604490",
+     "length": 87,
+     "name": "CelChunkListNewNode"
+    },
+    {
+     "va": "0x006044F0",
+     "length": 183,
+     "name": "InternalNew"
+    },
+    {
      "va": "0x006045B0",
      "length": 144
+    },
+    {
+     "va": "0x00604700",
+     "length": 43,
+     "name": "?_GD2GameHashTableReuseStrc"
+    },
+    {
+     "va": "0x00604760",
+     "length": 148,
+     "name": "CelListTableNew"
     },
     {
      "va": "0x00604840",
@@ -68212,9 +68332,24 @@
      "name": "CelListTableNewHandle"
     },
     {
+     "va": "0x00604870",
+     "length": 43,
+     "name": "?_GD2GameExportTableSimpleStrc"
+    },
+    {
      "va": "0x006048C0",
      "length": 58,
      "name": "CelListTableNewLock"
+    },
+    {
+     "va": "0x00604900",
+     "length": 55,
+     "name": "?_GD2GameDataTableStrc"
+    },
+    {
+     "va": "0x00604940",
+     "length": 229,
+     "name": "CelCompressCreate"
     },
     {
      "va": "0x0060D040",
@@ -68775,147 +68910,6 @@
     {
      "va": "0x0060A910",
      "length": 184
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006022A0",
-     "length": 72,
-     "name": "sub_006022A0_sub_006C4290"
-    },
-    {
-     "va": "0x00602430",
-     "length": 106,
-     "name": "?1D2StormHashObjectStrc"
-    },
-    {
-     "va": "0x00602590",
-     "length": 72,
-     "name": "sub_00602590_sub_006C4290"
-    },
-    {
-     "va": "0x006029B0",
-     "length": 82,
-     "name": "CelEntryListNewNode"
-    },
-    {
-     "va": "0x00602A40",
-     "length": 81,
-     "name": "?_GD2StormSlotLinkStrc"
-    },
-    {
-     "va": "0x00602B70",
-     "length": 96,
-     "name": "?_GD2StormSlotListStrc"
-    },
-    {
-     "va": "0x00602C40",
-     "length": 106,
-     "name": "CelEntryListDeleteNode"
-    },
-    {
-     "va": "0x00602CB0",
-     "length": 107,
-     "name": "?_GD2StormEntry38Strc"
-    },
-    {
-     "va": "0x00602D20",
-     "length": 194,
-     "name": "CelReuseListDeleteAll"
-    },
-    {
-     "va": "0x00602E30",
-     "length": 129,
-     "name": "CelReuseListDeleteNode"
-    },
-    {
-     "va": "0x00603250",
-     "length": 20,
-     "name": "CelListTablePtr"
-    },
-    {
-     "va": "0x00603400",
-     "length": 82,
-     "name": "CelListTableLock"
-    },
-    {
-     "va": "0x006035A0",
-     "length": 98,
-     "name": "CelReuseListNewNode"
-    },
-    {
-     "va": "0x00603610",
-     "length": 183,
-     "name": "InternalNew"
-    },
-    {
-     "va": "0x006036D0",
-     "length": 96,
-     "name": "InternalDelete"
-    },
-    {
-     "va": "0x006037B0",
-     "length": 43,
-     "name": "?_GD2GameHashTableStrc"
-    },
-    {
-     "va": "0x006037E0",
-     "length": 98,
-     "name": "?_GD2StormHashChunkStrc"
-    },
-    {
-     "va": "0x00603860",
-     "length": 349,
-     "name": "CelCompressAddImage"
-    },
-    {
-     "va": "0x00603B60",
-     "length": 107,
-     "name": "CelChunkListDeleteAll"
-    },
-    {
-     "va": "0x00604150",
-     "length": 96,
-     "name": "InternalDelete"
-    },
-    {
-     "va": "0x00604490",
-     "length": 87,
-     "name": "CelChunkListNewNode"
-    },
-    {
-     "va": "0x006044F0",
-     "length": 183,
-     "name": "InternalNew"
-    },
-    {
-     "va": "0x00604700",
-     "length": 43,
-     "name": "?_GD2GameHashTableReuseStrc"
-    },
-    {
-     "va": "0x00604760",
-     "length": 148,
-     "name": "CelListTableNew"
-    },
-    {
-     "va": "0x00604870",
-     "length": 43,
-     "name": "?_GD2GameExportTableSimpleStrc"
-    },
-    {
-     "va": "0x00604900",
-     "length": 55,
-     "name": "?_GD2GameDataTableStrc"
-    },
-    {
-     "va": "0x00604940",
-     "length": 229,
-     "name": "CelCompressCreate"
     }
    ]
   },

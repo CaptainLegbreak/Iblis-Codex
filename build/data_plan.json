@@ -5094,12 +5094,13 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 3032,
-   "definitions": 9,
+   "bytes": 3132,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl CelFileConvertRle24To8(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
-    "extern \"C\" void __cdecl CelCompressEncodeRleCels(); // 0x00608EE0"
+    "extern \"C\" void __cdecl CelCompressEncodeRleCels(); // 0x00608EE0",
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/CelCmp.inc",
@@ -5121,17 +5122,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/Tilecmp_00600CB0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2CMP/SRC/CelCmp_006022A0.cpp": {
-   "bytes": 100,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2CMP/SRC/CelCmp_006022A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -120422,7 +120412,7 @@
    "cname": "gData_00741F14",
    "declared": true,
    "decorated": "_gszTypeNameCelEntry",
-   "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 24,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00741F14_t gData_00741F14; // 0x00741F14",
@@ -120451,7 +120441,7 @@
    "cname": "gData_00741F2C",
    "declared": true,
    "decorated": "_gszTypeNameCelList",
-   "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 24,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00741F2C_t gData_00741F2C; // 0x00741F2C",
@@ -120480,7 +120470,7 @@
    "cname": "gData_00741FB4",
    "declared": true,
    "decorated": "_gszTypeNameCelHashChunk",
-   "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 52,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_00741FB4[52]; // 0x00741FB4",
