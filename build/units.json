@@ -65104,6 +65104,11 @@
      "name": "?ACT3Q4_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005B9ED0",
+     "length": 453,
+     "name": "?sub_005B9ED0@@YIXPAUQuest@@PAUArgs@@@Z"
+    },
+    {
      "va": "0x005BA0A0",
      "length": 12,
      "name": "?ACT3Q4_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -65112,6 +65117,15 @@
      "va": "0x005BA0B0",
      "length": 184,
      "name": "?ACT3Q4_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005BA170",
+     "length": 288
+    },
+    {
+     "va": "0x005BA290",
+     "length": 86,
+     "name": "?sub_005BA290_UpdateQuest20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005BA2F0",
@@ -65166,26 +65180,6 @@
      "va": "0x005BADC0",
      "length": 96,
      "name": "?ACT3Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q4_005B9ED0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B9ED0",
-     "length": 453,
-     "name": "?sub_005B9ED0@@YIXPAUQuest@@PAUArgs@@@Z"
-    },
-    {
-     "va": "0x005BA170",
-     "length": 288
-    },
-    {
-     "va": "0x005BA290",
-     "length": 86,
-     "name": "?sub_005BA290_UpdateQuest20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     }
    ]
   },
