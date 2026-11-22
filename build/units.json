@@ -32803,11 +32803,6 @@
      "va": "0x004C96D0",
      "length": 228,
      "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004C9990",
-     "length": 422,
-     "name": "?sub_004C9990_DrawMotionTrail@@YIXPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -32839,6 +32834,11 @@
    "file": "Source/D2Client/SKILLS/SkillsPal.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004C9990",
+     "length": 422,
+     "name": "?sub_004C9990_DrawMotionTrail@@YIXPAUD2UnitStrc@@HH@Z"
+    },
     {
      "va": "0x004C9B40",
      "length": 521
