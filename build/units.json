@@ -58282,6 +58282,21 @@
      "name": "OBJECTS_InitFunction47_CountessChest"
     },
     {
+     "va": "0x00595B20",
+     "length": 96,
+     "name": "?ACT1Q6_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00595B80",
+     "length": 72,
+     "name": "?ACT1Q6_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595BD0",
+     "length": 134,
+     "name": "?ACT1Q6_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x00595C60",
      "length": 434,
      "name": "ACT1Q6_Callback11_ScrollMessage"
@@ -59081,27 +59096,6 @@
      "va": "0x005947E0",
      "length": 76,
      "name": "?sub_005947E0_IsUnitGUIDInList@@YGHPAUD2Act1Quest5Strc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q6_00595B20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00595B20",
-     "length": 96,
-     "name": "?ACT1Q6_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00595B80",
-     "length": 72,
-     "name": "?ACT1Q6_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595BD0",
-     "length": 134,
-     "name": "?ACT1Q6_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
