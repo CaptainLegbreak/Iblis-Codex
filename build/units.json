@@ -1787,6 +1787,31 @@
      "name": "sub_00452580_GetHoverMonsterName"
     },
     {
+     "va": "0x00457420",
+     "length": 21,
+     "name": "?sub_00457420_FreeCaches@@YIXH@Z"
+    },
+    {
+     "va": "0x00457440",
+     "length": 1,
+     "name": "?sub_00457440_Nop@@YIXH@Z"
+    },
+    {
+     "va": "0x00457520",
+     "length": 285,
+     "name": "?sub_00457520_UpdateAutomapLayout@@YAXXZ"
+    },
+    {
+     "va": "0x004576C0",
+     "length": 40,
+     "name": "?sub_004576C0@@YAHXZ"
+    },
+    {
+     "va": "0x004576F0",
+     "length": 75,
+     "name": "?sub_004576F0@@YIHH@Z"
+    },
+    {
      "va": "0x00457B00",
      "length": 291,
      "name": "?sub_00457B00@@YIHPAUD2AutomapCellStrc@@PAPAU1@@Z"
@@ -1796,9 +1821,34 @@
      "length": 177
     },
     {
+     "va": "0x00457CF0",
+     "length": 329,
+     "name": "?sub_00457CF0_RevealAutomapTile@@YGXPAUD2DrlgTileDataStrc@@PAUD2AutomapRoomStrc@@PAPAUD2AutomapCellStrc@@@Z"
+    },
+    {
      "va": "0x00457E40",
      "length": 51,
      "name": "sub_00457E40_AddAutomapCell"
+    },
+    {
+     "va": "0x00457E80",
+     "length": 184,
+     "name": "?sub_00457E80_AddUnitAutomapCell@@YGXHPAPAUD2AutomapCellStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00458200",
+     "length": 566,
+     "name": "?sub_00458200_WriteAutomapLayer@@YAXPAUD2AutomapSaveStrc@@@Z"
+    },
+    {
+     "va": "0x00458440",
+     "length": 44,
+     "name": "?sub_00458440_CountCells@@YIXPAUD2AutomapCellStrc@@PAI@Z"
+    },
+    {
+     "va": "0x00458470",
+     "length": 69,
+     "name": "?sub_00458470_StoreCells@@YIXPAUD2AutomapCellStrc@@@Z"
     },
     {
      "va": "0x00458680",
@@ -1806,9 +1856,43 @@
      "name": "?sub_00458680_ResetAutomapCells@@YAXXZ"
     },
     {
+     "va": "0x004586E0",
+     "length": 110,
+     "name": "?sub_004586E0_UnlinkAutomapLayer@@YGXPAXPAII@Z"
+    },
+    {
+     "va": "0x00458750",
+     "length": 1395,
+     "name": "?AUTOMAP_LoadLayerFromFile@@YAXXZ"
+    },
+    {
      "va": "0x00458CF0",
      "length": 65,
      "name": "sub_00458CF0_PushNode"
+    },
+    {
+     "va": "0x00458D40",
+     "length": 117,
+     "name": "?sub_00458D40_InitAutomapLayer@@YAPAUD2AutomapLayerStrc@@H@Z"
+    },
+    {
+     "va": "0x00458F40",
+     "length": 219,
+     "name": "?sub_00458F40_RevealRoomTiles@@YGXPAUD2ActiveRoomStrc@@HPAUD2AutomapLayerStrc@@@Z"
+    },
+    {
+     "va": "0x00459020",
+     "length": 278,
+     "name": "?sub_00459020_UpdateAutomapReveal@@YAXXZ"
+    },
+    {
+     "va": "0x00459140",
+     "length": 11,
+     "name": "?sub_00459140_Refresh@@YAXXZ"
+    },
+    {
+     "va": "0x00459150",
+     "length": 74
     },
     {
      "va": "0x0045A050",
@@ -1824,6 +1908,16 @@
      "va": "0x0045A4C0",
      "length": 248,
      "name": "?sub_0045A4C0_InitAutomap@@YAXXZ"
+    },
+    {
+     "va": "0x0045A5C0",
+     "length": 93,
+     "name": "?sub_0045A5C0_FreeAutomap@@YAXXZ"
+    },
+    {
+     "va": "0x0045A620",
+     "length": 225,
+     "name": "?sub_0045A620_InitAutomapColors@@YAXXZ"
     },
     {
      "va": "0x0045A720",
@@ -17911,106 +18005,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/automap_00457420.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00457420",
-     "length": 21,
-     "name": "?sub_00457420_FreeCaches@@YIXH@Z"
-    },
-    {
-     "va": "0x00457440",
-     "length": 1,
-     "name": "?sub_00457440_Nop@@YIXH@Z"
-    },
-    {
-     "va": "0x00457520",
-     "length": 285,
-     "name": "?sub_00457520_UpdateAutomapLayout@@YAXXZ"
-    },
-    {
-     "va": "0x004576C0",
-     "length": 40,
-     "name": "?sub_004576C0@@YAHXZ"
-    },
-    {
-     "va": "0x004576F0",
-     "length": 75,
-     "name": "?sub_004576F0@@YIHH@Z"
-    },
-    {
-     "va": "0x00457CF0",
-     "length": 329,
-     "name": "?sub_00457CF0_RevealAutomapTile@@YGXPAUD2DrlgTileDataStrc@@PAUD2AutomapRoomStrc@@PAPAUD2AutomapCellStrc@@@Z"
-    },
-    {
-     "va": "0x00457E80",
-     "length": 184,
-     "name": "?sub_00457E80_AddUnitAutomapCell@@YGXHPAPAUD2AutomapCellStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00458200",
-     "length": 566,
-     "name": "?sub_00458200_WriteAutomapLayer@@YAXPAUD2AutomapSaveStrc@@@Z"
-    },
-    {
-     "va": "0x00458440",
-     "length": 44,
-     "name": "?sub_00458440_CountCells@@YIXPAUD2AutomapCellStrc@@PAI@Z"
-    },
-    {
-     "va": "0x00458470",
-     "length": 69,
-     "name": "?sub_00458470_StoreCells@@YIXPAUD2AutomapCellStrc@@@Z"
-    },
-    {
-     "va": "0x004586E0",
-     "length": 110,
-     "name": "?sub_004586E0_UnlinkAutomapLayer@@YGXPAXPAII@Z"
-    },
-    {
-     "va": "0x00458750",
-     "length": 1395,
-     "name": "?AUTOMAP_LoadLayerFromFile@@YAXXZ"
-    },
-    {
-     "va": "0x00458D40",
-     "length": 117,
-     "name": "?sub_00458D40_InitAutomapLayer@@YAPAUD2AutomapLayerStrc@@H@Z"
-    },
-    {
-     "va": "0x00458F40",
-     "length": 219,
-     "name": "?sub_00458F40_RevealRoomTiles@@YGXPAUD2ActiveRoomStrc@@HPAUD2AutomapLayerStrc@@@Z"
-    },
-    {
-     "va": "0x00459020",
-     "length": 278,
-     "name": "?sub_00459020_UpdateAutomapReveal@@YAXXZ"
-    },
-    {
-     "va": "0x00459140",
-     "length": 11,
-     "name": "?sub_00459140_Refresh@@YAXXZ"
-    },
-    {
-     "va": "0x00459150",
-     "length": 74
-    },
-    {
-     "va": "0x0045A5C0",
-     "length": 93,
-     "name": "?sub_0045A5C0_FreeAutomap@@YAXXZ"
-    },
-    {
-     "va": "0x0045A620",
-     "length": 225,
-     "name": "?sub_0045A620_InitAutomapColors@@YAXXZ"
-    }
    ]
   },
   {

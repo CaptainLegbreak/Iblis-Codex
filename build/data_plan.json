@@ -51,8 +51,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/automap.cpp": {
-   "bytes": 2708,
-   "definitions": 10,
+   "bytes": 2756,
+   "definitions": 11,
    "externs": [
     "extern \"C\" char gapWardenServices_006D8E68[]; // 0x006D8E68",
     "extern \"C\" void __cdecl sub_0045DEC0(); // 0x0045DEC0",
@@ -1544,15 +1544,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004549F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/automap_00457420.cpp": {
-   "bytes": 48,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/automap_00457420.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -40542,7 +40533,7 @@
    "cname": "gData_006D6608",
    "declared": true,
    "decorated": "?gaTownSkipCels_006D6608@@3QBHB",
-   "file": "Source/D2Client/UI/automap_00457420.cpp",
+   "file": "Source/D2Client/UI/automap.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6608[12]; // 0x006D6608",
