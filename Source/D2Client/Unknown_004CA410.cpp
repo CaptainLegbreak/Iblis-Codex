@@ -1552,27 +1552,6 @@ static inline D2MissilesTxt* CLTMISS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-// 0x004CC870
-void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
-{
-    D2UnitStrc* pOwner = (D2UnitStrc*)nInitArg;
-    if (!pMissile)
-        return;
-
-    D2MissilesTxt* pMissilesTxtRecord = CLTMISS_GetMissilesTxtRecord(pMissile->dwClassId);
-    if (!pMissilesTxtRecord || !pOwner)
-        return;
-
-    int nOffset = 0;
-    if (pMissilesTxtRecord->dwCltParam[1] > 0)
-        nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
-
-    sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nOffset);
-    PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
-    D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
-    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
-}
-
 // 0x004CC9A0
 int __fastcall sub_004CC9A0_CltHitProgOverlay(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
