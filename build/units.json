@@ -35080,6 +35080,30 @@
    ]
   },
   {
+   "file": "Source/D2Client/SKILLS/SkillsMon_004E2D40.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004E2D40",
+     "length": 390
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
    "rank": 0,
    "functions": [
@@ -35411,10 +35435,6 @@
     {
      "va": "0x004E2320",
      "length": 235
-    },
-    {
-     "va": "0x004E2D40",
-     "length": 390
     },
     {
      "va": "0x004E49C0",
