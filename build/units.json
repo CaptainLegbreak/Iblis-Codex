@@ -63040,20 +63040,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiThink_005B0CD0.cpp",
+   "file": "Source/D2Game/Ai/AiThink.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x005B0CD0",
      "length": 35,
      "name": "?AITHINK_Fn001_100_Idle_Buffy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005B0E00",
      "length": 328
