@@ -271,7 +271,6 @@ void __cdecl sub_0043B810_SetFlag(); // 0x0043B810
 
 void __cdecl sub_00436AD0_UpdateStatus(); // 0x00436AD0
 
-int __cdecl sub_004F5D60(); // 0x004F5D60
 
 int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 
@@ -301,7 +300,6 @@ extern unsigned long gdwStatusStart_007799B8; // 0x007799B8
 
 extern D2WinControlStrc* gpButton_007799E4; // 0x007799E4
 
-extern int gdwGlobal_007D55B8; // 0x007D55B8
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
@@ -2164,12 +2162,6 @@ void __cdecl sub_00437550_CreateStatusScreen()
     gnStatusDots_007799B4 = 0x0;
     sub_0042E6A0(sub_0043B810_SetFlag);
     sub_00436AD0_UpdateStatus();
-}
-
-int __cdecl sub_004F9050()
-{
-    gdwGlobal_007D55B8 = 0x0;
-    return sub_004F5D60();
 }
 
 // 0x0043B4C0
