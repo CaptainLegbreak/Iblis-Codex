@@ -108,61 +108,11 @@ void __fastcall sub_006B1D80_CopyRows(char* pSrc, char* pDst, int nBytes, int nR
 
 int gnState_00970E54; // 0x00970E54
 
-// 0x006B1EA0
-void __fastcall sub_006B1EA0_SetState(int nState)
-{
-    if (gnState_00970E54 && nState == gnState_00970E54)
-        return;
-    switch (nState)
-    {
-    case 1:
-        gpDevice_00970E78->pVTable->SetTextureState(gpDevice_00970E78, 0, 1, 4);
-        gpDevice_00970E78->pVTable->SetTextureState(gpDevice_00970E78, 0, 4, 4);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 15, 1);
-        break;
-    case 2:
-        gpDevice_00970E78->pVTable->SetTextureState(gpDevice_00970E78, 0, 1, 3);
-        gpDevice_00970E78->pVTable->SetTextureState(gpDevice_00970E78, 0, 4, 3);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 15, 0);
-        break;
-    }
-    gnState_00970E54 = nState;
-}
 
 int gnState_00970E58; // 0x00970E58
 
 D2GraphicsDeviceStrc* gpDevice_00970E78; // 0x00970E78
 
-// 0x006B1F40
-void __fastcall sub_006B1F40_SetBlendMode(int nState)
-{
-    if (gnState_00970E58 && nState == gnState_00970E58)
-        return;
-    switch (nState)
-    {
-    case 1:
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 27, 0);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 19, 2);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 20, 1);
-        break;
-    case 2:
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 27, 1);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 19, 2);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 20, 2);
-        break;
-    case 3:
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 27, 1);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 19, 1);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 20, 3);
-        break;
-    case 4:
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 27, 1);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 19, 5);
-        gpDevice_00970E78->pVTable->SetRenderState(gpDevice_00970E78, 20, 6);
-        break;
-    }
-    gnState_00970E58 = nState;
-}
 
 // 0x006B20C0
 int __fastcall sub_006B20C0_SetOption(int nId, int nValue)

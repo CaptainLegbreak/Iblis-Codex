@@ -12,6 +12,8 @@ struct D2GlideSettingsStrc
 extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 extern D2GlideSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
 
+extern unsigned char* gpMulTable_00880B5C; // 0x00880B5C
+
 // 0x0050DB20
 void __cdecl sub_0050DB20_AllocBlendTable()
 {
@@ -69,3 +71,14 @@ int __cdecl sub_0050DD30_GlideIsPerspective()
     return 0;
 }
 
+// 0x0050DB70
+void __cdecl sub_0050DB70_BuildMulTable()
+{
+    for (int y = 0; y < 256; ++y)
+    {
+        for (int x = 0; x < 256; ++x)
+        {
+            gpMulTable_00880B5C[y * 256 + x] = (unsigned char)(x * y / 255);
+        }
+    }
+}

@@ -24,11 +24,6 @@ int __cdecl sub_00405EF0()
     return 1;
 }
 
-// 0x004068F0
-int __fastcall sub_004068F0(void* pArg)
-{
-    return SFileCloseFile(pArg);
-}
 
 // 0x00406D20
 int __cdecl sub_00406D20()

@@ -2,6 +2,22 @@
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
 #include "D2StormLink.h"
+struct D2FindDataStrc
+{
+    unsigned long dwFileAttributes;
+    D2FileTimeStrc ftCreationTime;
+    D2FileTimeStrc ftLastAccessTime;
+    D2FileTimeStrc ftLastWriteTime;
+    unsigned long nFileSizeHigh;
+    unsigned long nFileSizeLow;
+    unsigned long dwReserved0;
+    unsigned long dwReserved1;
+    char cFileName[260];
+    char cAlternateFileName[14];
+};
+extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData); // 0x006CC1CC
+extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);  // 0x006CC1C8
+unsigned long gdwLastLogSweep_0075E874;                                                                     // 0x0075E874
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1940,4 +1956,38 @@ void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* sz
     va_list args;
     va_start(args, szFormat);
     sub_00410340_LogV(szPrefix, 1, 0, szFormat, args);
+}
+
+// 0x0040F970
+void __cdecl sub_0040F970_SweepOldLogFiles()
+{
+    if (gdwLastLogSweep_0075E874 && GetTickCount() - gdwLastLogSweep_0075E874 < 86400000)
+    {
+        return;
+    }
+    gdwLastLogSweep_0075E874 = GetTickCount();
+    LeaveCriticalSection(&gtLogLock_0075E850);
+    sub_0040F8A0_CloseLogFilesNow();
+    EnterCriticalSection(&gtLogLock_0075E850);
+    D2SystemTimeStrc tNow;
+    GetLocalTime(&tNow);
+    D2FileTimeStrc ftNow;
+    SystemTimeToFileTime(&tNow, &ftNow);
+    char szDirectory[0x104];
+    sub_0040F000_GetLogDirectory(szDirectory, sizeof(szDirectory));
+    char szPattern[0x104];
+    SStrPrintf(szPattern, sizeof(szPattern), "%sd2*.txt", szDirectory);
+    D2FindDataStrc tFind;
+    void* hFind = FindFirstFileA(szPattern, &tFind);
+    if (hFind != (void*)-1)
+    {
+        do
+        {
+            char szFile[0x104];
+            SStrPrintf(szFile, sizeof(szFile), "%s%s", szDirectory, tFind.cFileName);
+            sub_0040F3D0_SweepLogFile(&ftNow, szFile);
+        }
+        while (FindNextFileA(hFind, &tFind));
+        FindClose(hFind);
+    }
 }

@@ -18,20 +18,6 @@ struct FSafeSock
     char szName[64];
 };
 
-struct D2FindDataStrc
-{
-    unsigned long dwFileAttributes;
-    D2FileTimeStrc ftCreationTime;
-    D2FileTimeStrc ftLastAccessTime;
-    D2FileTimeStrc ftLastWriteTime;
-    unsigned long nFileSizeHigh;
-    unsigned long nFileSizeLow;
-    unsigned long dwReserved0;
-    unsigned long dwReserved1;
-    char cFileName[260];
-    char cAlternateFileName[14];
-};
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -48,8 +34,6 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* pSystemTime);                // 0x006CC1D4
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
-extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData); // 0x006CC1CC
-extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);  // 0x006CC1C8
 extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile);                                  // 0x006CC1C4
 extern "C" int __stdcall closesocket(unsigned int nSocket);                                                 // 0x006B012C
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData);                // 0x006B0132
@@ -73,7 +57,6 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                                   // 0x0074F0E8
 extern char gszResolvedHostIP_0075D040[];                                                                   // 0x0075D040
 extern D2CriticalSectionStrc gtLogLock_0075E850;                                                            // 0x0075E850
-unsigned long gdwLastLogSweep_0075E874;                                                                     // 0x0075E874
 
 
 
@@ -135,43 +118,6 @@ int __fastcall FOG_SOCKET_Send(FSafeSock* pSafeSock, char* pBuffer, int nBufferL
     return nResult;
 }
 
-// 0x0040DF60
-const char* __fastcall FOG_GetHostIPAddress()
-{
-    D2WSADataStrc tData;
-    D2SockAddrInStrc tLocal;
-    char szHost[0x100];
-    tLocal.sin_addr.s_addr = 0;
-    WSAStartup(0x101, &tData);
-    if (gethostname(szHost, sizeof(szHost)) != -1)
-    {
-        D2HostentStrc* pHost = gethostbyname(szHost);
-        if (pHost)
-        {
-            tLocal.sin_addr.s_addr = *(unsigned long*)pHost->h_addr_list[0];
-        }
-    }
-    if (!tLocal.sin_addr.s_addr)
-    {
-        const unsigned int nSocket = socket(2, 2, 0);
-        if (nSocket != -1)
-        {
-            D2SockAddrInStrc tRemote;
-            tRemote.sin_family = 2;
-            tRemote.sin_port = htons(7);
-            tRemote.sin_addr.s_addr = inet_addr("24.105.29.30");
-            if (connect(nSocket, &tRemote, sizeof(tRemote)) != -1)
-            {
-                int nLength = sizeof(tLocal);
-                getsockname(nSocket, &tLocal, &nLength);
-            }
-            closesocket(nSocket);
-        }
-    }
-    sprintf(gszResolvedHostIP_0075D040, gszStringFormat_006FFC58, inet_ntoa(tLocal.sin_addr));
-    WSACleanup();
-    return gszResolvedHostIP_0075D040;
-}
 
 // 0x0040EBD0
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
@@ -199,39 +145,6 @@ _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTim
     return fopen(szPath, szMode);
 }
 
-// 0x0040F970
-void __cdecl sub_0040F970_SweepOldLogFiles()
-{
-    if (gdwLastLogSweep_0075E874 && GetTickCount() - gdwLastLogSweep_0075E874 < 86400000)
-    {
-        return;
-    }
-    gdwLastLogSweep_0075E874 = GetTickCount();
-    LeaveCriticalSection(&gtLogLock_0075E850);
-    sub_0040F8A0_CloseLogFilesNow();
-    EnterCriticalSection(&gtLogLock_0075E850);
-    D2SystemTimeStrc tNow;
-    GetLocalTime(&tNow);
-    D2FileTimeStrc ftNow;
-    SystemTimeToFileTime(&tNow, &ftNow);
-    char szDirectory[0x104];
-    sub_0040F000_GetLogDirectory(szDirectory, sizeof(szDirectory));
-    char szPattern[0x104];
-    SStrPrintf(szPattern, sizeof(szPattern), "%sd2*.txt", szDirectory);
-    D2FindDataStrc tFind;
-    void* hFind = FindFirstFileA(szPattern, &tFind);
-    if (hFind != (void*)-1)
-    {
-        do
-        {
-            char szFile[0x104];
-            SStrPrintf(szFile, sizeof(szFile), "%s%s", szDirectory, tFind.cFileName);
-            sub_0040F3D0_SweepLogFile(&ftNow, szFile);
-        }
-        while (FindNextFileA(hFind, &tFind));
-        FindClose(hFind);
-    }
-}
 
 // 0x00410CF0
 void __stdcall sub_00410CF0_NotBits(const unsigned char* pIn, unsigned char* pOut, int nBits)

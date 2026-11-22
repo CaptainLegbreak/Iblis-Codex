@@ -16,17 +16,6 @@ int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int 
 extern int gnProjectOriginX_00880B60; // 0x00880B60
 extern int gnProjectOriginY_00880B68; // 0x00880B68
 
-// 0x0050DB70
-void __cdecl sub_0050DB70_BuildMulTable()
-{
-    for (int y = 0; y < 256; ++y)
-    {
-        for (int x = 0; x < 256; ++x)
-        {
-            gpMulTable_00880B5C[y * 256 + x] = (unsigned char)(x * y / 255);
-        }
-    }
-}
 
 // 0x0050DBC0
 void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue)

@@ -3,6 +3,7 @@
 #include "D2FogTypes.h"
 #include "D2Win32Types.h"
 #include "D2NetTypes.h"
+int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -421,6 +422,20 @@ struct D2DbgHelpRequestStrc
     const char* szComment;
     bool bResult;
 };
+
+extern "C" int __stdcall WSACleanup();                                                                      // 0x006B0138
+
+extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName);                                      // 0x006B0192
+
+extern "C" int __stdcall gethostname(char* szName, int nNameLength);                                        // 0x006B0198
+
+extern char gszResolvedHostIP_0075D040[];                                                                   // 0x0075D040
+
+extern "C" unsigned short __stdcall htons(unsigned short nValue);                                           // 0x006B0156
+
+extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                                                // 0x006B013E
+
+extern "C" unsigned int __stdcall socket(int nFamily, int nType, int nProtocol);                            // 0x006B016E
 
 // 0x004013C0
 void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nExitCode)
@@ -1358,6 +1373,50 @@ int __cdecl sub_0040E870_MeasureCpuMHz()
     __int64 tFrequency;
     QueryPerformanceFrequency(&tFrequency);
     return (int)((nTsc2 - nTsc1) * tFrequency / (tCount2 - tCount1) / 1000000);
+}
+
+// 0x004068F0
+int __fastcall sub_004068F0(void* pArg)
+{
+    return SFileCloseFile(pArg);
+}
+
+// 0x0040DF60
+const char* __fastcall FOG_GetHostIPAddress()
+{
+    D2WSADataStrc tData;
+    D2SockAddrInStrc tLocal;
+    char szHost[0x100];
+    tLocal.sin_addr.s_addr = 0;
+    WSAStartup(0x101, &tData);
+    if (gethostname(szHost, sizeof(szHost)) != -1)
+    {
+        D2HostentStrc* pHost = gethostbyname(szHost);
+        if (pHost)
+        {
+            tLocal.sin_addr.s_addr = *(unsigned long*)pHost->h_addr_list[0];
+        }
+    }
+    if (!tLocal.sin_addr.s_addr)
+    {
+        const unsigned int nSocket = socket(2, 2, 0);
+        if (nSocket != -1)
+        {
+            D2SockAddrInStrc tRemote;
+            tRemote.sin_family = 2;
+            tRemote.sin_port = htons(7);
+            tRemote.sin_addr.s_addr = inet_addr("24.105.29.30");
+            if (connect(nSocket, &tRemote, sizeof(tRemote)) != -1)
+            {
+                int nLength = sizeof(tLocal);
+                getsockname(nSocket, &tLocal, &nLength);
+            }
+            closesocket(nSocket);
+        }
+    }
+    sprintf(gszResolvedHostIP_0075D040, gszStringFormat_006FFC58, inet_ntoa(tLocal.sin_addr));
+    WSACleanup();
+    return gszResolvedHostIP_0075D040;
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"
