@@ -5789,6 +5789,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00414930",
+     "length": 87
+    },
+    {
      "va": "0x00414990",
      "length": 358
     },
@@ -5835,27 +5839,6 @@
      "length": 83,
      "name": "?SRegSaveValue@@YGHPBD0IK@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004144B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004144B0",
-     "length": 15,
-     "name": "_sub_004144B0_EnsureInit"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SREG_00414930.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00414930",
-     "length": 87
-    }
    ],
    "flags": [
     "/nologo",
@@ -5869,7 +5852,18 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/Ob1"
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_004144B0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004144B0",
+     "length": 15,
+     "name": "_sub_004144B0_EnsureInit"
+    }
    ]
   },
   {
