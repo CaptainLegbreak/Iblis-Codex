@@ -63564,6 +63564,10 @@
      "name": "AITHINK_TargetCallback_Vulture"
     },
     {
+     "va": "0x005F3170",
+     "length": 1467
+    },
+    {
      "va": "0x005F3730",
      "length": 547,
      "name": "?AITHINK_Fn024_Mosquito@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68393,16 +68397,6 @@
     {
      "va": "0x005F2460",
      "length": 209
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005F3170.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F3170",
-     "length": 1467
     }
    ]
   },
