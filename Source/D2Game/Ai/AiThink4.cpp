@@ -1639,6 +1639,8 @@ enum D2C_M408OblivionKnightAi
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005FAE40
 
+D2UnitStrc* __fastcall AITHINK_TargetCallback_Mephisto(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F7700
+
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -12926,6 +12928,29 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Mephisto(D2GameStrc* pGame, D2Unit
     return 0;
 }
 
+// 0x005F77C0
+D2UnitStrc* __fastcall AITHINK_FindTargetForMephisto(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pFallbackTarget)
+{
+    D2MephistoAiCallbackArgStrc arg = {};
+    arg.unk0x04 = 0x7FFFFFFF;
+    arg.unk0x10 = 0x7FFFFFFF;
+    arg.unk0x18 = 0x7FFFFFFF;
+
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_Mephisto, 1);
+
+    if (arg.unk0x0C && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 1))
+    {
+        return arg.unk0x0C;
+    }
+
+    if (arg.unk0x14 && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 2))
+    {
+        return arg.unk0x0C;
+    }
+
+    return pFallbackTarget;
+}
+
 static inline int CLIENTS_GetUnitX_005F0A20(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -14117,6 +14142,31 @@ void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pU
         return;
     }
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 8);
+}
+
+// 0x005FAA90
+void __fastcall AITHINK_Fn072_DoomKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (pAiTickParam->bCombat)
+    {
+        if (AI_ROLL_PERCENT(&pUnit->pSeed) < AI_PARAM(pGame, pMonStatsTxt, 0))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 1));
+        return;
+    }
+
+    if (AI_ROLL_PERCENT(&pUnit->pSeed) < AI_PARAM(pGame, pMonStatsTxt, 2))
+    {
+        sub_6FCD0410(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 3));
 }
 
 // 0x005FAB80

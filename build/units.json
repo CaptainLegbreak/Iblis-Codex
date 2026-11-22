@@ -63759,6 +63759,11 @@
      "name": "AITHINK_TargetCallback_Mephisto"
     },
     {
+     "va": "0x005F77C0",
+     "length": 230,
+     "name": "?AITHINK_FindTargetForMephisto@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2MonStatsTxt@@1@Z"
+    },
+    {
      "va": "0x005F8010",
      "length": 417,
      "name": "?AITHINK_GetTargetForUberMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
@@ -63843,6 +63848,11 @@
     {
      "va": "0x005FA710",
      "length": 893
+    },
+    {
+     "va": "0x005FAA90",
+     "length": 231,
+     "name": "?AITHINK_Fn072_DoomKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005FAB80",
@@ -68315,22 +68325,6 @@
      "va": "0x005FB650",
      "length": 98,
      "name": "?sub_005FB650_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005F77C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F77C0",
-     "length": 230,
-     "name": "?AITHINK_FindTargetForMephisto@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2MonStatsTxt@@1@Z"
-    },
-    {
-     "va": "0x005FAA90",
-     "length": 231,
-     "name": "?AITHINK_Fn072_DoomKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
