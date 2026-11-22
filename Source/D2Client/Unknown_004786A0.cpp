@@ -70,16 +70,6 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
     }
 }
 
-// 0x004786A0
-void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5)
-{
-    D2PacketDwords9Strc tPacket;
-    tPacket.nHeader = nHeader;
-    tPacket.d1 = d1;
-    tPacket.d5 = d5;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 9);
-}
-
 // 0x004787B0
 void __fastcall sub_004787B0_SendStrings(const unsigned char* pData)
 {

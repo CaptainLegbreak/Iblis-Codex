@@ -22817,6 +22817,31 @@
    ]
   },
   {
+   "file": "Source/D2Client/GAME/Msg_004786A0.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004786A0",
+     "length": 40,
+     "name": "?sub_004786A0_SendDwords2@@YIXEII@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/Unknown_00478350.cpp",
    "rank": 0,
    "functions": [
@@ -22900,11 +22925,6 @@
    "file": "Source/D2Client/Unknown_004786A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004786A0",
-     "length": 40,
-     "name": "?sub_004786A0_SendDwords2@@YIXEII@Z"
-    },
     {
      "va": "0x004787B0",
      "length": 126,
