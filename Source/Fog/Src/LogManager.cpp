@@ -937,6 +937,8 @@ extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 
+void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
+
 // 0x004027C0
 unsigned long __stdcall sub_004027C0_DbgHelpThreadProc(void* pParam)
 {
@@ -1925,4 +1927,17 @@ void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitl
     ++gnLogQueued_0075D140;
     gnLogQueuedBytes_0075D144 += pMessage->nSize;
     LeaveCriticalSection(&gtLogQueueLock_0075E838);
+}
+
+// 0x004106B0
+void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...)
+{
+    D2_ASSERT(szFormat, 335);
+    if (!szPrefix)
+    {
+        szPrefix = &gszEmptyAssertText;
+    }
+    va_list args;
+    va_start(args, szFormat);
+    sub_00410340_LogV(szPrefix, 1, 0, szFormat, args);
 }

@@ -1297,6 +1297,11 @@
      "length": 375
     },
     {
+     "va": "0x004106B0",
+     "length": 72,
+     "name": "sub_004106B0_LogWritePrefixed0"
+    },
+    {
      "va": "0x00410C40",
      "length": 173,
      "name": "sub_00410C40_OrBits"
@@ -4629,11 +4634,6 @@
      "va": "0x00410660",
      "length": 72,
      "name": "sub_00410660_LogWritePrefixed"
-    },
-    {
-     "va": "0x004106B0",
-     "length": 72,
-     "name": "sub_004106B0_LogWritePrefixed0"
     },
     {
      "va": "0x00410790",

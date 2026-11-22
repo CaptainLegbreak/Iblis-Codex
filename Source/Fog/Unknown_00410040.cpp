@@ -167,18 +167,6 @@ void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szF
     sub_00410340_LogV(szPrefix, 1, 1, szFormat, args);
 }
 
-// 0x004106B0
-void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...)
-{
-    D2_ASSERT(szFormat, 335);
-    if (!szPrefix)
-    {
-        szPrefix = &gszEmptyAssertText;
-    }
-    va_list args;
-    va_start(args, szFormat);
-    sub_00410340_LogV(szPrefix, 1, 0, szFormat, args);
-}
 
 // 0x00410B10
 void __stdcall sub_00410B10(unsigned char* pBits, int nBit)
