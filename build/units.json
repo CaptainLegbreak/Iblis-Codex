@@ -18427,6 +18427,10 @@
      "va": "0x0045AB60",
      "length": 304,
      "name": "?sub_0045AB60_DrawAutomapPartyMember@@YAXPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
+     "va": "0x004C5470",
+     "length": 121
     }
    ],
    "flags": [
@@ -32501,30 +32505,6 @@
      "length": 1338,
      "name": "?sub_004C4C70@@YIPAUD2UnitStrc@@PAUD2GSPacketSrv9D@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/automap_004C5470.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C5470",
-     "length": 121
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
