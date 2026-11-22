@@ -913,4 +913,56 @@ void __fastcall sub_006B3570_SetGamma(int nGamma)
     }
 }
 
+// 0x006B1EA0
+void __fastcall sub_006B1EA0_SetState(int nState)
+{
+    if (gnState_00970E54 && nState == gnState_00970E54)
+        return;
+    switch (nState)
+    {
+    case 1:
+        gpDevice->SetTextureStageState(0, 1, 4);
+        gpDevice->SetTextureStageState(0, 4, 4);
+        gpDevice->SetRenderState(15, 1);
+        break;
+    case 2:
+        gpDevice->SetTextureStageState(0, 1, 3);
+        gpDevice->SetTextureStageState(0, 4, 3);
+        gpDevice->SetRenderState(15, 0);
+        break;
+    }
+    gnState_00970E54 = nState;
+}
+
+// 0x006B1F40
+void __fastcall sub_006B1F40_SetBlendMode(int nState)
+{
+    if (gnState_00970E58 && nState == gnState_00970E58)
+        return;
+    switch (nState)
+    {
+    case 1:
+        gpDevice->SetRenderState(27, 0);
+        gpDevice->SetRenderState(19, 2);
+        gpDevice->SetRenderState(20, 1);
+        break;
+    case 2:
+        gpDevice->SetRenderState(27, 1);
+        gpDevice->SetRenderState(19, 2);
+        gpDevice->SetRenderState(20, 2);
+        break;
+    case 3:
+        gpDevice->SetRenderState(27, 1);
+        gpDevice->SetRenderState(19, 1);
+        gpDevice->SetRenderState(20, 3);
+        break;
+    case 4:
+        gpDevice->SetRenderState(27, 1);
+        gpDevice->SetRenderState(19, 5);
+        gpDevice->SetRenderState(20, 6);
+        break;
+    }
+    gnState_00970E58 = nState;
+}
+
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"
