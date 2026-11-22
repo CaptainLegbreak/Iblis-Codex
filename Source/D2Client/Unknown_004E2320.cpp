@@ -221,57 +221,6 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// 0x004E2D40
-D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
-{
-    int nX;
-    int nY;
-    D2UnitStrc* pMissile = 0;
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (pPath && sub_006505C0_TestPathFlag8(pPath))
-    {
-        const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_SPIDERLAY), 1);
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        nX = UNITS_GetUnitXPosition(pUnit);
-        nY = UNITS_GetUnitYPosition(pUnit);
-
-        unsigned char aDirections[8];
-        aDirections[0] = 10;
-        aDirections[1] = 8;
-        aDirections[2] = 22;
-        aDirections[3] = 20;
-        aDirections[4] = 18;
-        aDirections[5] = 16;
-        aDirections[6] = 14;
-        aDirections[7] = 12;
-        const unsigned char nDirection = aDirections[sub_0063E7A0_GetByteTableEntry(PATH_GetDirection(pPath))];
-
-        int nDeltaX;
-        int nDeltaY;
-        sub_0063E7E0_GetDirectionDelta(nDirection, &nDeltaX, &nDeltaY);
-        const int nSpawnX = nX + nDeltaX;
-        const int nSpawnY = nY + nDeltaY;
-        if (!DUNGEON_IsRoomInTown(sub_00463740_FindRoomAtPoint(pRoom, nSpawnX, nSpawnY)))
-        {
-            D2MissileStrc tParams;
-            memset(&tParams, 0, sizeof(tParams));
-            tParams.dwFlags = 0x25;
-            tParams.pOwner = pUnit;
-            tParams.nX = nSpawnX;
-            tParams.nY = nSpawnY;
-            tParams.nTargetX = nSpawnX + 2 * nDeltaX;
-            tParams.nTargetY = nSpawnY + 2 * nDeltaY;
-            tParams.nVelocity = 3;
-            tParams.nSkillLevel = nSkillLevel;
-            tParams.nMissile = MISSILE_SPIDERGOOLAY;
-            pMissile = sub_004CD540_CreateMissile(&tParams);
-            sub_004B9A00(0x726, pUnit, 0, 0, 0);
-        }
-    }
-
-    return pMissile;
-}
-
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004E49C0

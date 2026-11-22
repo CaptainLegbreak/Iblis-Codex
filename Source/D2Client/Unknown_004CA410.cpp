@@ -1008,16 +1008,7 @@ static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
-
-// 0x004CA4C0
-int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
-{
-    D2_ASSERT(pUnit, 0xB5C);
-    nDirection &= 0xF;
-    if (nDirection <= 0xD)
-        return gaDirRate_00727ED8[nDirection].nValue;
-    D2_ASSERT(0, 0xB60);
-}
+int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
 
 // 0x004CA500
 unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection)
@@ -1058,13 +1049,6 @@ int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode)
         break;
     }
     return nSound;
-}
-
-// 0x004CA8A0
-void __fastcall sub_004CA8A0_AddUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
-{
-    D2_ASSERT(pUnit, 0xC2C);
-    sub_00516950_LinkEntry((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 // 0x004CA8D0
@@ -1550,27 +1534,6 @@ static inline D2MissilesTxt* CLTMISS_GetMissilesTxtRecord(int nMissileId)
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
         return &sgptDataTables->pMissilesTxt[nMissileId];
     return 0;
-}
-
-// 0x004CC870
-void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
-{
-    D2UnitStrc* pOwner = (D2UnitStrc*)nInitArg;
-    if (!pMissile)
-        return;
-
-    D2MissilesTxt* pMissilesTxtRecord = CLTMISS_GetMissilesTxtRecord(pMissile->dwClassId);
-    if (!pMissilesTxtRecord || !pOwner)
-        return;
-
-    int nOffset = 0;
-    if (pMissilesTxtRecord->dwCltParam[1] > 0)
-        nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
-
-    sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nOffset);
-    PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
-    D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
-    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
 }
 
 // 0x004CC9A0

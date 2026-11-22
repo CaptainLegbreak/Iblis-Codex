@@ -1,25 +1,38 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2ClientTypes.h"
+
 struct D2StoredUnitRecordStrc;
 
 struct Unicode;
+
 struct D2RosterUnitStrc;
+
 struct D2SevenIntStrc;
+
 struct D2RosterSlotStrc;
+
 struct D2CelContextStrc;
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 extern int gnGlobal_007A2858; // 0x007A2858
+
 extern int gnGlobal_007A285C; // 0x007A285C
+
 extern void* gpCelFile_007BF01C; // 0x007BF01C
 
 struct D2RosterSlotStrc
@@ -35,6 +48,7 @@ struct D2RosterSlotStrc
 };
 
 #pragma pack(push, 1)
+
 struct D2RosterUnitStrc
 {
     union
@@ -74,36 +88,105 @@ struct D2SevenIntStrc
 };
 
 void __cdecl sub_K04_EmitUse(D2SevenIntStrc* pRecord);
+
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+
 int __fastcall sub_00479B90(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
+
 int __fastcall sub_00479BA0(D2StoredUnitRecordStrc* pEntry); // 0x00479BA0
+
 int __fastcall sub_00479C20(D2StoredUnitRecordStrc* pEntry); // 0x00479C20
+
 int __fastcall sub_00479C60(D2StoredUnitRecordStrc* pEntry); // 0x00479C60
+
 int __fastcall sub_00479CA0(D2StoredUnitRecordStrc* pEntry); // 0x00479CA0
+
 int __fastcall sub_00479CE0(D2StoredUnitRecordStrc* pEntry); // 0x00479CE0
+
 int __fastcall sub_00479D20(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
+
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
+
 int __fastcall sub_0047A1E0(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
+
 void __cdecl sub_0049A020_FreeRosterUnits(); // 0x0049A020
-extern D2RosterUnitStrc* gpRosterUnits_007BF014; // 0x007BF014
+
+D2RosterUnitStrc* gpRosterUnits_007BF014; // 0x007BF014
+
 const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId); // 0x00453E70
+
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
+
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
+
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
 int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
+
 void __stdcall sub_0049A690_DrawRosterButtons(D2RosterUnitStrc* pRow); // 0x0049A690
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
 
 extern "C" size_t __cdecl strlen(const char* szString);
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
+
+#pragma pack(push, 1)
+
+struct D2PanelIconStrc
+{
+    int nX;
+    int nY;
+    D2CelFileStrc* pCelFile;
+    unsigned int nFrame;
+    int nType;
+    int nState;
+    int unk0x18[2];
+};
+
+struct D2PanelIconRecordStrc
+{
+    int unk0x00;
+    D2PanelIconStrc pIcons[5];
+    unsigned char unk0xA4[0x19];
+    int nLevel;
+    int unk0xC1;
+    int nUnitId;
+};
+
+#pragma pack(pop)
+
+static unsigned char gnBoxColor_007BF034;                                                                   // 0x007BF034
+
+int __cdecl sub_0044B850_IsHardcore();                                                                      // 0x0044B850
+
+int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
+
+void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, unsigned char nColor, unsigned char nArg6); // 0x0046EFD0
+
+unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags);              // 0x004DC440
+
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+
+int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
+
+void* gpCelFile_007BF020; // 0x007BF020
 
 // 0x00499FC0
 static void __stdcall sub_00499FC0_DrawPanelCel(void* pCellFile, int nX, int nFrame, int nY)
@@ -115,8 +198,6 @@ static void __stdcall sub_00499FC0_DrawPanelCel(void* pCellFile, int nX, int nFr
     tContext.nDirection = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858 + nX, nY - gnGlobal_007A285C, -1, 5, 0);
 }
-
-D2RosterUnitStrc* gpRosterUnits_007BF014; // 0x007BF014
 
 // 0x0049A020
 void __cdecl sub_0049A020_FreeRosterUnits()
@@ -149,8 +230,6 @@ void __cdecl sub_K04_EmitFillRecord(int n0, int n1, int n2, int n3, int n4, int 
     sub_0049A060_FillRecord(&tRecord, n0, n1, n2, n3, n4, n5, n6);
     sub_K04_EmitUse(&tRecord);
 }
-
-void* gpCelFile_007BF020; // 0x007BF020
 
 static void sub_L04_InitSlot(D2RosterSlotStrc* pSlot, int bFlag, int nX, int nY, void* pCellFile, int nFrame, int nType, int nState)
 {
@@ -285,7 +364,6 @@ void __cdecl sub_0049A510_DrawPartyButtons()
     sub_00502EF0(1);
 }
 
-
 // 0x0049A580
 void __cdecl sub_0049A580_DrawPlayerName()
 {
@@ -321,6 +399,89 @@ void __cdecl sub_0049A640()
         sub_0049A1D0_AddRosterUnit(nY, pEntry);
         nY += 0x26;
         pEntry = sub_004795A0_GetNextEntry(pEntry);
+    }
+}
+
+// 0x0049A690
+void __stdcall sub_0049A690_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+
+    D2GfxDataStrc tGfx;
+    memset(&tGfx, 0, sizeof(tGfx));
+    tGfx.nDirection = 0;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        if (pRecord->pIcons[i].nType || pRecord->pIcons[i].nState != 1)
+        {
+            tGfx.pCellFile = pRecord->pIcons[i].pCelFile;
+            const unsigned int nFrame = pRecord->pIcons[i].nFrame;
+            tGfx.nFrame = nFrame;
+
+            switch (pRecord->pIcons[i].nType)
+            {
+            case 1:
+                if (nFrame < 4 || nFrame > 7)
+                {
+                    tGfx.nFrame = 4;
+                }
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                break;
+
+            case 2:
+                if (nFrame < 12 || nFrame > 15)
+                {
+                    tGfx.nFrame = 12;
+                }
+
+                if (sub_0044B850_IsHardcore())
+                {
+                    TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                }
+                break;
+
+            case 3:
+                if (nFrame > 3)
+                {
+                    tGfx.nFrame = 0;
+                }
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                break;
+
+            case 4:
+                if (nFrame < 8 || nFrame > 11)
+                {
+                    tGfx.nFrame = 8;
+                }
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                break;
+
+            default:
+                TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C, -1, 5, 0);
+                break;
+            }
+        }
+
+        if (pRecord->pIcons[i].nType == 1)
+        {
+            int bShowBox = 0;
+            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+            if (!pRoom || !DUNGEON_IsRoomInTown(pRoom))
+            {
+                bShowBox = 1;
+            }
+
+            if (pRecord->nLevel < 9 && !sub_004DC440(sub_00451F50_GetUnitGUID(pPlayer), pRecord->nUnitId, 8))
+            {
+                bShowBox = 1;
+            }
+
+            if (sub_00479B90(sub_004795A0_GetNextEntry(0)) < 9 || bShowBox)
+            {
+                sub_0046EFD0_DrawFramedBox(pRecord->pIcons[i].nX + gnGlobal_007A2858, pRecord->pIcons[i].nY - gnGlobal_007A285C - 19, 20, 20, gnBoxColor_007BF034 = D2Win_10034_MixRGB(255, 0, 0), 1);
+            }
+        }
     }
 }
 
@@ -371,7 +532,6 @@ static void __stdcall sub_0049A460_DrawPanelLabel(int nY, int bAlt, unsigned sho
     sub_004A7080(nLeft, nY - gnGlobal_007A285C - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
 }
 
-// 0x0049A830
 static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2RosterUnitStrc* pEntry, int nColor)
 {
     Unicode wszName[0xFF];
@@ -396,7 +556,6 @@ static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2RosterUnitStrc* pEnt
     sub_00502320(wszName, gnGlobal_007A2858 + 0x7E, nY - gnGlobal_007A285C + 0xC, nColor, 0);
 }
 
-// 0x0049C170
 static void __stdcall sub_0049C170_DrawRosterLevel(int nY, int nLevel, int nColor)
 {
     Unicode wszText[100];

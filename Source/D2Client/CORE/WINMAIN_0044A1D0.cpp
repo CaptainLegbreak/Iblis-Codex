@@ -3,19 +3,31 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2McpPacket02Strc;
+
 struct D2McpPacket07Strc;
+
 struct D2McpPacket04Strc;
+
 struct D2McpPacket08Strc;
+
 struct D2McpPacket09Strc;
+
 struct D2McpPacket0BStrc;
+
 struct D2McpPacket0CStrc;
+
 struct D2McpPacket16Strc;
+
 struct D2McpPacket01Strc;
+
 struct D2LaunchThreadRecordStrc;
+
 struct D2McpPacket03Strc;
+
 struct D2McpCreateGameStrc;
 
 #pragma pack(push, 1)
+
 struct D2McpPacket02Strc
 {
     unsigned char f_0;
@@ -96,15 +108,23 @@ struct D2McpPacket01Strc
 #pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" unsigned int __cdecl strlen(const char* pString);
+
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
+
 extern void* gpConnection_00798FB4; // 0x00798FB4
+
 extern unsigned short gwMcpRequestId_00798F8C; // 0x00798F8C
 
 #pragma pack(push, 1)
+
 struct D2McpPacket03Strc
 {
     unsigned char f_0;
@@ -117,6 +137,7 @@ struct D2McpPacket03Strc
 };
 
 #pragma pack(pop)
+
 struct D2McpCreateGameStrc
 {
     char szName[0x10];
@@ -130,7 +151,14 @@ struct D2McpCreateGameStrc
 
 extern int gnGlobal_00798FB0; // 0x00798FB0
 
-// 0x0044A170
+int gdwGlobal_007A277C;                                                                                     // 0x007A277C
+
+extern int gdwGlobal_007A2784;                                                                              // 0x007A2784
+
+int gnRecordInitSeed_007A2778;                                                                              // 0x007A2778
+
+void __cdecl sub_00451710_LoadRecord();                                                                 // 0x00451710
+
 static char* __stdcall sub_0044A170_AppendText(char* pDest, const char* szText, unsigned int nMax, unsigned int* pnSize)
 {
     const unsigned int nLength = strlen(szText);
@@ -298,4 +326,17 @@ int __fastcall sub_0044A400_SendCreateGame(D2McpCreateGameStrc* pRecord, unsigne
     D2_ASSERT(nTotal < 0xFFFF, 0xC1);
     gnGlobal_00798FB0 = 0;
     return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
+}
+
+// 0x004518E0
+void __cdecl sub_004518E0_StartPlayback()
+{
+    if (gdwGlobal_007A277C)
+        gdwGlobal_007A277C = 0;
+    else
+    {
+        gdwGlobal_007A2784 = 1;
+        sub_00451710_LoadRecord();
+        GAME_SetInitSeed(gnRecordInitSeed_007A2778);
+    }
 }

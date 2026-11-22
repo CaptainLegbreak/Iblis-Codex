@@ -19,12 +19,3 @@ extern "C" void __cdecl sub_004B9D00_ResetSoundState()
     gnSoundSerial_007C5460 = 0;
     sub_004E4280();
 }
-
-// 0x0044BB80
-extern "C" int __cdecl sub_0044BB80_ShutdownIfActive()
-{
-    if (gnSubsystemActive_007A0458 == 0)
-        return 0;
-    gnSubsystemActive_007A0458 = 0;
-    return GAME_Shutdown();
-}

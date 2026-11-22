@@ -61,33 +61,12 @@ void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
         sub_004B9A00(0xDD, 0, 0, 0, 0);
 }
 
-// 0x004B6620
-int __cdecl sub_004B6620_InitHandler()
-{
-    gnGlobal_00726E95 = 3;
-    gpfnGlobal_00726EA7 = sub_004B51A0_NpcMenuAction4B;
-    gwGlobal_00726E9B = 0xD38;
-    return 1;
-}
-
 // 0x004B6650
 int __cdecl sub_004B6650_InitHandler()
 {
     gnGlobal_007272D9 = 3;
     gpfnGlobal_007272EB = sub_004B5C60_Handler;
     gwGlobal_007272DF = 0xD45;
-    return 1;
-}
-
-// 0x004B6680
-int __cdecl sub_004B6680_InitHandler()
-{
-    if (sub_0044DCC0())
-    {
-        gnGlobal_00726F7F = 3;
-        gpfnGlobal_00726F91 = sub_004B5200_NpcMenuAction6D;
-        gwGlobal_00726F85 = 0x58D2;
-    }
     return 1;
 }
 

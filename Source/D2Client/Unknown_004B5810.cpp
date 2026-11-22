@@ -79,25 +79,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
-// 0x004B5810
-int __cdecl sub_004B5810()
-{
-    if (gbGlobal_007C0C69)
-    {
-        return 0;
-    }
-
-    if (gpDialog_007C0D6F)
-    {
-        sub_004B8020(gpDialog_007C0D6F);
-        sub_004B9A00(1, 0, 0, 0, 0);
-        gpDialog_007C0D6F = 0;
-        sub_004B4830_Rebuild();
-    }
-
-    return 1;
-}
-
 // 0x004B5850
 int __cdecl sub_004B5850()
 {
@@ -133,15 +114,6 @@ int __cdecl sub_004B5C00_OpenConfirm()
     gnGlobal_007C0C6B = 1;
     sub_004B1D70_FindNpcEntry();
     sub_004B5AD0_OpenConfirmDialog(0x2BA0);
-    return 1;
-}
-
-// 0x004B65F0
-int __cdecl sub_004B65F0_Initialize()
-{
-    gnGlobal_00726E47 = 3;
-    gpfnCallback_00726E59 = sub_004B5140;
-    gwGlobal_00726E4D = 0xD36;
     return 1;
 }
 

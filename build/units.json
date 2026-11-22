@@ -14007,7 +14007,7 @@
   },
   {
    "file": "Source/D2Client/CORE/WINMAIN_0044A1D0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x0044A1D0",
@@ -14016,6 +14016,11 @@
     {
      "va": "0x0044A400",
      "length": 224
+    },
+    {
+     "va": "0x004518E0",
+     "length": 47,
+     "name": "?sub_004518E0_StartPlayback@@YAXXZ"
     }
    ],
    "flags": [
@@ -14555,11 +14560,6 @@
    "file": "Source/D2Client/Unknown_004B9D00.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0044BB80",
-     "length": 27,
-     "name": "_sub_0044BB80_ShutdownIfActive"
-    },
     {
      "va": "0x004B9D00",
      "length": 25,
@@ -15166,6 +15166,38 @@
      "va": "0x004ACD70",
      "length": 62,
      "name": "sub_004ACD70_AssignSkillB8"
+    },
+    {
+     "va": "0x004AD020",
+     "length": 150
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UNIT/MonUnique_004ACC70.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004ACC70",
+     "length": 219
+    },
+    {
+     "va": "0x004AD2F0",
+     "length": 539
     }
    ]
   },
@@ -15257,6 +15289,11 @@
      "va": "0x0044BB70",
      "length": 15,
      "name": "?sub_0044BB70_StartGame@@YGHXZ"
+    },
+    {
+     "va": "0x0044BB80",
+     "length": 27,
+     "name": "_sub_0044BB80_ShutdownIfActive"
     },
     {
      "va": "0x0044BC10",
@@ -16240,17 +16277,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004518E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004518E0",
-     "length": 47,
-     "name": "?sub_004518E0_StartPlayback@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/ui.cpp",
    "rank": 0,
    "functions": [
@@ -16273,6 +16299,10 @@
      "va": "0x00451990",
      "length": 6,
      "name": "sub_00451990"
+    },
+    {
+     "va": "0x004525F0",
+     "length": 195
     },
     {
      "va": "0x004526C0",
@@ -17727,16 +17757,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004525F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004525F0",
-     "length": 195
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/ui_00453910.cpp",
    "rank": 0,
    "functions": [
@@ -18923,6 +18943,17 @@
    ]
   },
   {
+   "file": "Source/D2Client/GAME/RosterPets_00478E40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00478E40",
+     "length": 35,
+     "name": "?sub_00478E40_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/Unknown_00460190.cpp",
    "rank": 0,
    "functions": [
@@ -18991,11 +19022,6 @@
      "va": "0x00463810",
      "length": 23,
      "name": "?sub_00463810_GetMonsterName@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463C70",
-     "length": 29,
-     "name": "?sub_00463C70@@YAXXZ"
     },
     {
      "va": "0x00463E10",
@@ -19111,6 +19137,11 @@
      "va": "0x00463B80",
      "length": 53,
      "name": "?sub_00463B80_QueueIdleMove@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463C70",
+     "length": 29,
+     "name": "?sub_00463C70@@YAXXZ"
     },
     {
      "va": "0x00463C90",
@@ -19853,11 +19884,6 @@
     {
      "va": "0x00467A10",
      "length": 81
-    },
-    {
-     "va": "0x004680B0",
-     "length": 188,
-     "name": "?sub_004680B0_InitCursor@@YIHH@Z"
     }
    ],
    "flags": [
@@ -20029,11 +20055,6 @@
      "name": "?sub_00467E90_GetCursorAnimLength@@YAHH@Z"
     },
     {
-     "va": "0x00468170",
-     "length": 65,
-     "name": "?sub_00468170_ShutdownCursor@@YAXXZ"
-    },
-    {
      "va": "0x004682C0",
      "length": 71,
      "name": "?sub_004682C0_StepCursorAnim@@YAXXZ"
@@ -20088,14 +20109,8 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00468460.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00468460",
-     "length": 90
-    }
-   ],
+   "file": "Source/D2Client/ENGINE/Cursor_004680B0.cpp",
+   "rank": 0,
    "flags": [
     "/nologo",
     "/c",
@@ -20109,6 +20124,22 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004680B0",
+     "length": 188,
+     "name": "?sub_004680B0_InitCursor@@YIHH@Z"
+    },
+    {
+     "va": "0x00468170",
+     "length": 65,
+     "name": "?sub_00468170_ShutdownCursor@@YAXXZ"
+    },
+    {
+     "va": "0x00468460",
+     "length": 90
+    }
    ]
   },
   {
@@ -22002,11 +22033,6 @@
      "name": "?sub_00472BD0@@YAXXZ"
     },
     {
-     "va": "0x004A9BD0",
-     "length": 409,
-     "name": "sub_004A9BD0_SkillSelectClickHandler"
-    },
-    {
      "va": "0x004A9FC0",
      "length": 108,
      "name": "?sub_004A9FC0_IsHotkeyUsable@@YAHH@Z"
@@ -22547,7 +22573,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00476D40.cpp",
+   "file": "Source/D2Client/GAME/View_00476D40.cpp",
    "rank": 1,
    "functions": [
     {
@@ -22805,6 +22831,36 @@
    ]
   },
   {
+   "file": "Source/D2Client/GAME/Msg_004786A0.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x00478590",
+     "length": 27,
+     "name": "?sub_00478590@@YIXD@Z"
+    },
+    {
+     "va": "0x004786A0",
+     "length": 40,
+     "name": "?sub_004786A0_SendDwords2@@YIXEII@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/Unknown_00478350.cpp",
    "rank": 0,
    "functions": [
@@ -22812,11 +22868,6 @@
      "va": "0x00478350",
      "length": 566,
      "name": "?sub_00478350_SendToServer@@YGXPBEH@Z"
-    },
-    {
-     "va": "0x00478590",
-     "length": 27,
-     "name": "?sub_00478590@@YIXD@Z"
     },
     {
      "va": "0x004785B0",
@@ -22889,11 +22940,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004786A0",
-     "length": 40,
-     "name": "?sub_004786A0_SendDwords2@@YIXEII@Z"
-    },
-    {
      "va": "0x004787B0",
      "length": 126,
      "name": "?sub_004787B0_SendStrings@@YIXPBE@Z"
@@ -22963,11 +23009,6 @@
      "name": "?sub_00478D90_GetPetRelation@@YIHH@Z"
     },
     {
-     "va": "0x00478E40",
-     "length": 35,
-     "name": "?sub_00478E40_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
-    },
-    {
      "va": "0x00478E70",
      "length": 101,
      "name": "?sub_00478E70_IsPetFriendly@@YIHPAUD2UnitStrc@@0@Z"
@@ -23001,11 +23042,6 @@
      "va": "0x004791B0",
      "length": 113,
      "name": "?sub_004791B0_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004835B0",
-     "length": 941,
-     "name": "?sub_004835B0_LoadUiRecords@@YAXXZ"
     }
    ]
   },
@@ -24519,6 +24555,15 @@
      "name": "?sub_00480490_RecacheUnitPath@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004807C0",
+     "length": 67,
+     "name": "@sub_004807C0_UpdateUnitPath@4"
+    },
+    {
+     "va": "0x00480810",
+     "length": 288
+    },
+    {
      "va": "0x00480930",
      "length": 516
     },
@@ -24591,14 +24636,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004804A0.cpp",
+   "file": "Source/D2Client/UNIT/UnitMode_004804E0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004804A0",
-     "length": 47,
-     "name": "?sub_004804A0_SetPathTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
-    },
     {
      "va": "0x004804E0",
      "length": 657,
@@ -24607,38 +24647,14 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004807C0.cpp",
+   "file": "Source/D2Client/Unknown_004804A0.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x004807C0",
-     "length": 67,
-     "name": "@sub_004807C0_UpdateUnitPath@4"
+     "va": "0x004804A0",
+     "length": 47,
+     "name": "?sub_004804A0_SetPathTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00480810.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00480810",
-     "length": 288
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -25077,6 +25093,11 @@
     {
      "va": "0x004834E0",
      "length": 204
+    },
+    {
+     "va": "0x004835B0",
+     "length": 941,
+     "name": "?sub_004835B0_LoadUiRecords@@YAXXZ"
     },
     {
      "va": "0x004839D0",
@@ -25684,7 +25705,18 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00491D20.cpp",
+   "file": "Source/D2Client/UI/text_004BE080.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004BE080",
+     "length": 7,
+     "name": "??1UIWidget@@UAE@XZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/inv_00491D20.cpp",
    "rank": 1,
    "functions": [
     {
@@ -26335,6 +26367,10 @@
      "va": "0x00499450",
      "length": 170,
      "name": "?sub_00499450_DrawControlPanel@@YAXXZ"
+    },
+    {
+     "va": "0x004996A0",
+     "length": 1289
     }
    ],
    "flags": [
@@ -26393,31 +26429,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004996A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004996A0",
-     "length": 1289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00499BB0.cpp",
+   "file": "Source/D2Client/UI/panel_00499BB0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -26511,33 +26523,13 @@
      "name": "?sub_0049A640@@YAXXZ"
     },
     {
+     "va": "0x0049A690",
+     "length": 404
+    },
+    {
      "va": "0x0049C270",
      "length": 337,
      "name": "?sub_0049C270_DrawPartyRows@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049A690.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0049A690",
-     "length": 404
     }
    ],
    "flags": [
@@ -27257,7 +27249,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0049C9C0.cpp",
+   "file": "Source/D2Client/UI/text_0049C9C0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -28486,6 +28478,17 @@
    ]
   },
   {
+   "file": "Source/D2Client/UI/spellsel_004A9BD0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004A9BD0",
+     "length": 409,
+     "name": "sub_004A9BD0_SkillSelectClickHandler"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/Unknown_004A9D70.cpp",
    "rank": 0,
    "functions": [
@@ -28729,40 +28732,12 @@
    "rank": 1,
    "functions": [
     {
-     "va": "0x004ACC70",
-     "length": 219
-    },
-    {
      "va": "0x004ACD50",
      "length": 26
     },
     {
      "va": "0x004ACDB0",
      "length": 623
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004AD020.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004AD020",
-     "length": 150
     }
    ],
    "flags": [
@@ -29113,27 +29088,35 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004AD2F0.cpp",
-   "rank": 1,
+   "file": "Source/D2Client/UI/npcmenu_004B5810.cpp",
+   "rank": 0,
    "functions": [
     {
-     "va": "0x004AD2F0",
-     "length": 539
+     "va": "0x004B5810",
+     "length": 64,
+     "name": "?sub_004B5810@@YAHXZ"
+    },
+    {
+     "va": "0x004B65F0",
+     "length": 35,
+     "name": "?sub_004B65F0_Initialize@@YAHXZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/npcmenu_004B6620.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004B6620",
+     "length": 35,
+     "name": "?sub_004B6620_InitHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6680",
+     "length": 44,
+     "name": "?sub_004B6680_InitHandler@@YAHXZ"
+    }
    ]
   },
   {
@@ -29575,11 +29558,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004B5810",
-     "length": 64,
-     "name": "?sub_004B5810@@YAHXZ"
-    },
-    {
      "va": "0x004B5850",
      "length": 64,
      "name": "?sub_004B5850@@YAHXZ"
@@ -29595,11 +29573,6 @@
      "name": "?sub_004B5C00_OpenConfirm@@YAHXZ"
     },
     {
-     "va": "0x004B65F0",
-     "length": 35,
-     "name": "?sub_004B65F0_Initialize@@YAHXZ"
-    },
-    {
      "va": "0x004B69E0",
      "length": 68,
      "name": "?sub_004B69E0_CloseTrade@@YAXXZ"
@@ -29612,7 +29585,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B5C60.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B5C60.cpp",
    "rank": 1,
    "functions": [
     {
@@ -29646,19 +29619,9 @@
      "name": "?sub_004B6390_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
     },
     {
-     "va": "0x004B6620",
-     "length": 35,
-     "name": "?sub_004B6620_InitHandler@@YAHXZ"
-    },
-    {
      "va": "0x004B6650",
      "length": 35,
      "name": "?sub_004B6650_InitHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B6680",
-     "length": 44,
-     "name": "?sub_004B6680_InitHandler@@YAHXZ"
     },
     {
      "va": "0x004B6C70",
@@ -29678,33 +29641,13 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B6440.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x004B6440",
      "length": 432
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004B66B0",
      "length": 713
@@ -29750,12 +29693,16 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B7180.cpp",
+   "file": "Source/D2Client/Unknown_004B8100.cpp",
    "rank": 1,
    "functions": [
     {
-     "va": "0x004B7180",
-     "length": 125
+     "va": "0x004B8100",
+     "length": 488
+    },
+    {
+     "va": "0x004B9A00",
+     "length": 277
     }
    ],
    "flags": [
@@ -29795,6 +29742,10 @@
      "va": "0x004B7150",
      "length": 40,
      "name": "?sub_004B7150_HoverFirstTypedItem@@YAXPAUD2ClientDialogStrc@@@Z"
+    },
+    {
+     "va": "0x004B7180",
+     "length": 125
     },
     {
      "va": "0x004B7200",
@@ -29900,34 +29851,6 @@
      "length": 222,
      "name": "?sub_004B8020@@YIXPAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B8100.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B8100",
-     "length": 488
-    },
-    {
-     "va": "0x004B9A00",
-     "length": 277
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -30089,24 +30012,9 @@
      "name": "?sub_004B9590@@YIHH@Z"
     },
     {
-     "va": "0x004B9610",
-     "length": 37,
-     "name": "?sub_004B9610@@YIPAXH@Z"
-    },
-    {
      "va": "0x004B9690",
      "length": 97,
      "name": "sub_004B9690_FindOldestEntry"
-    },
-    {
-     "va": "0x004B9B20",
-     "length": 37,
-     "name": "?sub_004B9B20@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9B50",
-     "length": 37,
-     "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
     },
     {
      "va": "0x004B9B80",
@@ -30127,21 +30035,6 @@
      "va": "0x004B9BE0",
      "length": 52,
      "name": "?sub_004B9BE0_HasActiveHint@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9C20",
-     "length": 56,
-     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x004B9C60",
-     "length": 56,
-     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x004B9CA0",
-     "length": 37,
-     "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
     },
     {
      "va": "0x004B9CD0",
@@ -30249,11 +30142,6 @@
      "va": "0x004B9070",
      "length": 49,
      "name": "?sub_004B9070_SendPosition@@YAXXZ"
-    },
-    {
-     "va": "0x004B9EF0",
-     "length": 304,
-     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
     }
    ]
   },
@@ -30270,26 +30158,6 @@
      "va": "0x004B95C0",
      "length": 68,
      "name": "?sub_004B95C0_IsHintPlaying@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9D50",
-     "length": 76,
-     "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
-    },
-    {
-     "va": "0x004BA840",
-     "length": 78,
-     "name": "?sub_004BA840@@YIXH@Z"
-    },
-    {
-     "va": "0x004BA8F0",
-     "length": 94,
-     "name": "?sub_004BA8F0@@YAXXZ"
-    },
-    {
-     "va": "0x004BAA50",
-     "length": 86,
-     "name": "?sub_004BAA50_RefreshHintRange@@YAXXZ"
     }
    ]
   },
@@ -30354,6 +30222,94 @@
    ]
   },
   {
+   "file": "Source/D2Client/Sound/SoundInst_004B9EF0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9EF0",
+     "length": 304,
+     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
+    },
+    {
+     "va": "0x004BA890",
+     "length": 92,
+     "name": "sub_004BA890_RefreshHintsById"
+    },
+    {
+     "va": "0x004BA950",
+     "length": 123,
+     "name": "sub_004BA950_RefreshHintsInRangeA"
+    },
+    {
+     "va": "0x004BA9D0",
+     "length": 126,
+     "name": "sub_004BA9D0_RefreshHintsInRangeB"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Sound/SoundInst_004B9B20.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9610",
+     "length": 37,
+     "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
+     "va": "0x004B9B20",
+     "length": 37,
+     "name": "?sub_004B9B20@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9B50",
+     "length": 37,
+     "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
+    },
+    {
+     "va": "0x004B9C20",
+     "length": 56,
+     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x004B9C60",
+     "length": 56,
+     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x004B9CA0",
+     "length": 37,
+     "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Sound/SoundInst_004B9D50.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9D50",
+     "length": 76,
+     "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
+    },
+    {
+     "va": "0x004BA840",
+     "length": 78,
+     "name": "?sub_004BA840@@YIXH@Z"
+    },
+    {
+     "va": "0x004BA8F0",
+     "length": 94,
+     "name": "?sub_004BA8F0@@YAXXZ"
+    },
+    {
+     "va": "0x004BAA50",
+     "length": 86,
+     "name": "?sub_004BAA50_RefreshHintRange@@YAXXZ"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/Unknown_004BA760.cpp",
    "rank": 0,
    "functions": [
@@ -30383,21 +30339,6 @@
    "file": "Source/D2Client/Unknown_004BA890.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004BA890",
-     "length": 92,
-     "name": "sub_004BA890_RefreshHintsById"
-    },
-    {
-     "va": "0x004BA950",
-     "length": 123,
-     "name": "sub_004BA950_RefreshHintsInRangeA"
-    },
-    {
-     "va": "0x004BA9D0",
-     "length": 126,
-     "name": "sub_004BA9D0_RefreshHintsInRangeB"
-    },
     {
      "va": "0x004BAAB0",
      "length": 267,
@@ -31248,6 +31189,16 @@
      "name": "?sub_004C0150_OnPanelClose@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004C02F0",
+     "length": 133,
+     "name": "?sub_004C02F0_ClosePanel@@YAHXZ"
+    },
+    {
+     "va": "0x004C0380",
+     "length": 189,
+     "name": "sub_004C0380_OpenPanel"
+    },
+    {
      "va": "0x004C0620",
      "length": 21,
      "name": "?sub_004C0620_OpenPanelMode1@@YIXH@Z"
@@ -31387,6 +31338,14 @@
     {
      "va": "0x004BCBB0",
      "length": 550
+    },
+    {
+     "va": "0x004BCDE0",
+     "length": 383
+    },
+    {
+     "va": "0x004BCF60",
+     "length": 304
     },
     {
      "va": "0x004BD090",
@@ -31553,54 +31512,6 @@
      "length": 176,
      "name": "?sub_004C1AD0_UpdateAnim@@YIXPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BCDE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BCDE0",
-     "length": 383
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BCF60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BCF60",
-     "length": 304
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -31834,11 +31745,6 @@
      "name": "@sub_004BDFD0@4"
     },
     {
-     "va": "0x004BE080",
-     "length": 7,
-     "name": "??1UIWidget@@UAE@XZ"
-    },
-    {
      "va": "0x004BE0A0",
      "length": 8,
      "name": "?sub_004BE0A0_GetLineCount@ListBoxImplementation@@UAEHXZ"
@@ -32009,22 +31915,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004C02F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C02F0",
-     "length": 133,
-     "name": "?sub_004C02F0_ClosePanel@@YAHXZ"
-    },
-    {
-     "va": "0x004C0380",
-     "length": 189,
-     "name": "sub_004C0380_OpenPanel"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004C0440.cpp",
    "rank": 0,
    "functions": [
@@ -32051,33 +31941,23 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004C0640.cpp",
+   "file": "Source/D2Client/Unknown_004C0CE0.cpp",
    "rank": 1,
    "functions": [
     {
-     "va": "0x004C0640",
-     "length": 455
+     "va": "0x004C0CE0",
+     "length": 19
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
    "file": "Source/D2Client/UI/showitems.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004C0640",
+     "length": 455
+    },
     {
      "va": "0x004C0810",
      "length": 1232
@@ -32096,16 +31976,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004C0CE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C0CE0",
-     "length": 19
-    }
    ]
   },
   {
@@ -32462,6 +32332,11 @@
     {
      "va": "0x004C9120",
      "length": 504
+    },
+    {
+     "va": "0x004C9320",
+     "length": 255,
+     "name": "?sub_004C9320_SkillCltDoCollide@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -32469,11 +32344,6 @@
    "file": "Source/D2Client/Unknown_004C9320.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004C9320",
-     "length": 255,
-     "name": "?sub_004C9320_SkillCltDoCollide@@YIHPAUD2UnitStrc@@HH@Z"
-    },
     {
      "va": "0x004C9490",
      "length": 322,
@@ -32974,6 +32844,17 @@
    ]
   },
   {
+   "file": "Source/D2Client/UNIT/Missile_004CC870.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004CC870",
+     "length": 151,
+     "name": "?sub_004CC870_InitFromOwner@@YIXPAUD2UnitStrc@@H@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/Unknown_004C96D0.cpp",
    "rank": 0,
    "functions": [
@@ -32981,11 +32862,6 @@
      "va": "0x004C96D0",
      "length": 228,
      "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004C9990",
-     "length": 422,
-     "name": "?sub_004C9990_DrawMotionTrail@@YIXPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -33017,6 +32893,11 @@
    "file": "Source/D2Client/SKILLS/SkillsPal.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004C9990",
+     "length": 422,
+     "name": "?sub_004C9990_DrawMotionTrail@@YIXPAUD2UnitStrc@@HH@Z"
+    },
     {
      "va": "0x004C9B40",
      "length": 521
@@ -33109,6 +32990,16 @@
      "name": "?sub_004CA3E0_GetPlayerSoundRecord@@YAPAUD2UnitSndPlayerStrc@@I@Z"
     },
     {
+     "va": "0x004CA4C0",
+     "length": 58,
+     "name": "?sub_004CA4C0@@YIHPAUD2UnitStrc@@I@Z"
+    },
+    {
+     "va": "0x004CA8A0",
+     "length": 43,
+     "name": "?sub_004CA8A0_AddUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
+    },
+    {
      "va": "0x004CAB30",
      "length": 39,
      "name": "?sub_004CAB30_ReadSoundTick@@YAIPAUD2UnitStrc@@@Z"
@@ -33132,6 +33023,14 @@
      "va": "0x004CAC30",
      "length": 51,
      "name": "?sub_004CAC30_WriteStepSoundTick@@YGXPAUD2UnitStrc@@I@Z"
+    },
+    {
+     "va": "0x004CADB0",
+     "length": 248
+    },
+    {
+     "va": "0x004CAF60",
+     "length": 522
     },
     {
      "va": "0x004CB190",
@@ -33213,11 +33112,6 @@
      "name": "?sub_004CA410_GetMonSoundsRecord@@YAPAUD2MonSoundsTxt@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004CA4C0",
-     "length": 58,
-     "name": "?sub_004CA4C0@@YIHPAUD2UnitStrc@@I@Z"
-    },
-    {
      "va": "0x004CA500",
      "length": 83,
      "name": "?sub_004CA500_GetAnimRate@@YIIPAUD2UnitStrc@@I@Z"
@@ -33226,11 +33120,6 @@
      "va": "0x004CA810",
      "length": 95,
      "name": "?sub_004CA810_GetModeSound@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CA8A0",
-     "length": 43,
-     "name": "?sub_004CA8A0_AddUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
     },
     {
      "va": "0x004CA8D0",
@@ -33318,11 +33207,6 @@
      "name": "?sub_004CC800_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
     },
     {
-     "va": "0x004CC870",
-     "length": 151,
-     "name": "?sub_004CC870_InitFromOwner@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
      "va": "0x004CC910",
      "length": 52,
      "name": "?sub_004CC910_GetSpawnDelay@@YAHPAUD2UnitStrc@@@Z"
@@ -33379,35 +33263,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004CADB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CADB0",
-     "length": 248
-    },
-    {
-     "va": "0x004CAF60",
-     "length": 522
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004CB9C0.cpp",
+   "file": "Source/D2Client/UNIT/UnitSnd_004CB9C0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -34202,6 +34058,11 @@
      "name": "sub_004DA080_FreeGfxMotion"
     },
     {
+     "va": "0x004DA0B0",
+     "length": 28,
+     "name": "_sub_004DA0B0_GetGfxOffsetX@4"
+    },
+    {
      "va": "0x004DA700",
      "length": 22,
      "name": "?sub_004DA700_GetGfxMotionFlag5@@YIHPAUD2UnitStrc@@@Z"
@@ -34215,17 +34076,6 @@
      "va": "0x004DAD20",
      "length": 44,
      "name": "?sub_004DAD20_SetOverlayCelName@@YIXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DA0B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DA0B0",
-     "length": 28,
-     "name": "_sub_004DA0B0_GetGfxOffsetX@4"
     }
    ]
   },
@@ -34442,6 +34292,10 @@
      "va": "0x004DCF30",
      "length": 53,
      "name": "?sub_004DCF30@@YIXPAUD2ViewStrc@@@Z"
+    },
+    {
+     "va": "0x004DD7C0",
+     "length": 944
     }
    ]
   },
@@ -34487,10 +34341,6 @@
     {
      "va": "0x004DDFD0",
      "length": 160
-    },
-    {
-     "va": "0x004DE070",
-     "length": 279
     },
     {
      "va": "0x004DE260",
@@ -34569,30 +34419,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DD7C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DD7C0",
-     "length": 944
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004DDB70.cpp",
    "rank": 0,
    "functions": [
@@ -34647,6 +34473,10 @@
    "file": "Source/D2Client/DRAW/dFloor.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004DE070",
+     "length": 279
+    },
     {
      "va": "0x004DEA70",
      "length": 668
@@ -35164,6 +34994,30 @@
    ]
   },
   {
+   "file": "Source/D2Client/SKILLS/SkillsMon_004E2D40.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004E2D40",
+     "length": 390
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
    "rank": 0,
    "functions": [
@@ -35495,10 +35349,6 @@
     {
      "va": "0x004E2320",
      "length": 235
-    },
-    {
-     "va": "0x004E2D40",
-     "length": 390
     },
     {
      "va": "0x004E49C0",
@@ -88348,7 +88198,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006CADB0.cpp",
+   "file": "Source/D2Client/UI/showitems_006CADB0.cpp",
    "rank": 1,
    "functions": [
     {

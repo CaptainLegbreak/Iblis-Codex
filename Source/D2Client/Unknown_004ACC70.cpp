@@ -31,44 +31,6 @@ static inline unsigned __int64 SEED_RollLocalSeed(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// 0x004ACC70
-void __fastcall sub_004ACC70_InitMonsterLight(D2UnitStrc* pUnit, int nUnused, int bInit)
-{
-    if (!bInit)
-    {
-        return;
-    }
-
-    sub_00464930_FreeLight(pUnit);
-
-    D2GfxLightStrc* pLight;
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & MONTYPEFLAG_CHAMPION))
-    {
-        const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
-        D2SeedStrc seed;
-        seed.nHighSeed = (unsigned int)(lSeed >> 32);
-        seed.nLowSeed = (unsigned int)lSeed;
-        const int nBlue = (int)lSeed;
-        const int nGreen = (int)SEED_RollLocalSeed(&seed);
-        const int nRed = (int)SEED_RollLocalSeed(&seed);
-        pUnit->pSeed = seed;
-        pLight = sub_00474160_MakeLightEntry(pUnit, 0, 7, 0xFF, nRed, nGreen, nBlue);
-    }
-    else
-    {
-        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
-        if (!pMonStats2TxtRecord)
-        {
-            return;
-        }
-
-        pLight = sub_00474160_MakeLightEntry(pUnit, 0, 7, 0xFF, pMonStats2TxtRecord->nLight_R, pMonStats2TxtRecord->nLight_G, pMonStats2TxtRecord->nLight_B);
-    }
-
-    pUnit->pLight = pLight;
-    sub_00464CF0(pUnit, sub_00474350_GetLightSize(pLight));
-}
-
 static inline int GetUnitType(D2UnitStrc* unit)
 {
     return !unit ? 6 : unit->dwUnitType;

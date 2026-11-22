@@ -5,13 +5,16 @@
 #include "D2ClientGfx.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-
 
 struct D2GfxNodeStrc
 {
@@ -20,20 +23,135 @@ struct D2GfxNodeStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
+
 unsigned int gaPlrModeTokens_007C88D0[20];                                                                  // 0x007C88D0
+
 unsigned int gaCompTokens_007C8920[16];                                                                     // 0x007C8920
+
 unsigned int gaObjModeTokens_007C8960[8];                                                                   // 0x007C8960
+
 unsigned int gaMonModeTokens_007C8980[16];                                                                  // 0x007C8980
+
 unsigned int gaClassTokens_007C89C0[3];                                                                     // 0x007C89C0
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
 D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
+
 D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGetMode);                     // 0x0065B500
+
 D2TokRecord* __stdcall DATATBLS_GetCompositTxtRecord(int nComposit);                                        // 0x0065B5E0
+
 D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                                               // 0x0065B620
 
-
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+typedef unsigned char U8;
+
+typedef unsigned int U32;
+
+#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
+
+struct B28Unit;
+
+struct B28Waypoint;
+
+extern "C" int __stdcall sub_004FB180_Palette(U8 red, U8 green, U8 blue);
+
+extern "C" B28Waypoint* __stdcall sub_00660F30_AllocWaypoint(void* pool);
+
+extern "C" void __fastcall sub_004786D0_SendPacket(U8 command, U32 arg1, U32 arg2, U32 arg3);
+
+extern "C" void __fastcall sub_004FAAE0_FreeArchive(void* archive);
+
+extern "C" void* __fastcall sub_0040B380_Alloc(int size, const char* file, int line, int flags);
+
+extern "C" void* __fastcall sub_0040B430_AllocPool(void* pool, int size, const char* file, int line, int flags);
+
+extern "C" const char szB28SoundSource[];
+
+extern "C" const char szB28AiSource[];
+
+extern "C" U8 gB28Palette;
+
+extern "C" B28Waypoint* gB28Waypoint;
+
+extern "C" U8 gB28WaypointFlag;
+
+extern "C" U32 gB28SubmitItem;
+
+extern "C" U32 gB28SubmitFlag;
+
+extern "C" void* gB28Archive;
+
+struct B28GfxData
+{
+    U8 pad0[0x34];
+    int offsetX;
+};
+
+extern "C" B28GfxData* __fastcall sub_0046F060_GetGfx(B28Unit* unit);
+
+struct B28SoundNode
+{
+    U32 value;
+    B28SoundNode* next;
+};
+
+struct B28AiCmd
+{
+    B28AiCmd* pNextCmd;
+    B28AiCmd* pPrevCmd;
+    int param0;
+    int param1;
+    int param2;
+    int param3;
+    int f_18;
+};
+
+struct B28AiControl
+{
+    U8 pad0[0x20];
+    B28AiCmd* pCurrentCmd;
+    B28AiCmd* pLastCmd;
+};
+
+struct B28MonsterData
+{
+    U8 pad0[0x28];
+    B28AiControl* pAiControl;
+};
+
+struct B28Unit
+{
+    U32 type;
+    U8 pad4[0x10];
+    B28MonsterData* monsterData;
+};
+
+struct B28Game
+{
+    U8 pad0[0x1C];
+    void* pool;
+};
+
+typedef char AssertGfx[(OFFSET(B28GfxData,offsetX)==0x34)?1:-1];
+
+typedef char AssertSoundNext[(OFFSET(B28SoundNode,next)==4)?1:-1];
+
+typedef char AssertSoundSize[(sizeof(B28SoundNode)==8)?1:-1];
+
+typedef char AssertAiSize[(sizeof(B28AiCmd)==0x1C)?1:-1];
+
+typedef char AssertAiPrev[(OFFSET(B28AiCmd,pPrevCmd)==4)?1:-1];
+
+typedef char AssertAiLast[(OFFSET(B28AiControl,pLastCmd)==0x24)?1:-1];
+
+typedef char AssertMonsterAi[(OFFSET(B28MonsterData,pAiControl)==0x28)?1:-1];
+
+typedef char AssertUnitData[(OFFSET(B28Unit,monsterData)==0x14)?1:-1];
+
+typedef char AssertGamePool[(OFFSET(B28Game,pool)==0x1C)?1:-1];
 
 // 0x004DA000
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit)
@@ -54,7 +172,6 @@ D2GfxMotionStrc* __fastcall sub_004DA070_GetGfxMotion(D2UnitStrc* pUnit)
     return sub_0046F060_GetGfxMotion(pUnit);
 }
 
-
 // 0x004DA080
 void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit)
 {
@@ -64,6 +181,32 @@ void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit)
         FOG_Free(pMotion, ".\\ENGINE\\Particle.cpp", 100, 0);
         sub_0046F070_SetGfxMotion(pUnit, 0);
     }
+}
+
+extern "C" void __cdecl sub_00497250_SetPalette()
+{
+    gB28Palette = (U8)sub_004FB180_Palette(255, 0, 0);
+}
+
+extern "C" void __cdecl sub_0049C6A0_InitWaypoint()
+{
+    gB28Waypoint = sub_00660F30_AllocWaypoint(0);
+    gB28WaypointFlag = 0;
+}
+
+extern "C" void __fastcall sub_004B2370_SubmitItem(U32 value)
+{
+    gB28SubmitFlag = 0;
+    sub_004786D0_SendPacket(0x38, 0, gB28SubmitItem, value);
+}
+
+// 0x004DA0B0
+extern "C" int __stdcall sub_004DA0B0_GetGfxOffsetX(B28Unit* unit)
+{
+    B28GfxData* gfx = sub_0046F060_GetGfx(unit);
+    if (gfx)
+        return gfx->offsetX;
+    return 0;
 }
 
 // 0x004DA700
@@ -128,4 +271,10 @@ void __fastcall sub_004DAD20_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextSt
     D2OverlayTxt* pRecord = (nOverlay >= 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount) ? &sgptDataTables->pOverlayTxt[nOverlay] : 0;
     if (pRecord)
         pToken->szName = pRecord->szFilename;
+}
+
+extern "C" void __cdecl sub_00507140_ClearArchive()
+{
+    sub_004FAAE0_FreeArchive(gB28Archive);
+    gB28Archive = 0;
 }

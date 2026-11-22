@@ -2040,13 +2040,14 @@
    "state": "included"
   },
   "Source/D2Client/UI/panel_004978D0.cpp": {
-   "bytes": 168,
-   "definitions": 9,
+   "bytes": 172,
+   "definitions": 10,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/panel_004978D0.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "static_definitions": 1
   },
   "Source/D2Client/UI/panel.cpp": {
    "bytes": 80,
@@ -2065,16 +2066,6 @@
    "include": "gen/data/Source/D2Client/Unknown_00499500.inc",
    "lang": "cpp",
    "state": "included"
-  },
-  "Source/D2Client/Unknown_004996A0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": null,
-   "lang": "cpp",
-   "state": "included",
-   "static_definitions": 1
   },
   "Source/D2Client/UI/text_0049A950.cpp": {
    "bytes": 116,
@@ -2112,12 +2103,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0049C9C0.cpp": {
+  "Source/D2Client/UI/text_0049C9C0.cpp": {
    "bytes": 16,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0049C9C0.inc",
+   "include": "gen/data/Source/D2Client/UI/text_0049C9C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2223,14 +2214,13 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004AD020.cpp": {
+  "Source/D2Client/UNIT/MonUnique.cpp": {
    "bytes": 192,
    "definitions": 2,
    "externs": [
     "extern \"C\" void __cdecl sub_004AC870_SetMonsterHoverName(); // 0x004AC870",
     "extern \"C\" void __cdecl sub_004ACC70_InitMonsterLight(); // 0x004ACC70",
     "extern \"C\" void __cdecl sub_004ACD50_ClearMonsterField18(); // 0x004ACD50",
-    "extern \"C\" void __cdecl sub_004ACD70_AssignSkillB8(); // 0x004ACD70",
     "extern \"C\" void __cdecl sub_004ACDB0_UMod8_Resistant(); // 0x004ACDB0"
    ],
    "fn_types": {},
@@ -2305,7 +2295,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004B66B0.cpp": {
+  "Source/D2Client/UI/npcmenu_004B6440.cpp": {
    "bytes": 186,
    "definitions": 3,
    "externs": [
@@ -51982,12 +51972,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Client/Unknown_004996A0.cpp",
+   "file": "Source/D2Client/UI/panel_004978D0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnGlobal_00722358 = ",
-   "include": "gen/data/Source/D2Client/Unknown_004996A0/gnGlobal_00722358.inc",
+   "include": "gen/data/Source/D2Client/UI/panel_004978D0/gnGlobal_00722358.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -53420,7 +53410,7 @@
    "cname": "gData_007224E8",
    "declared": true,
    "decorated": "?gaLayouts_007224E8@@3PAUD2WaypointLayoutStrc@@A",
-   "file": "Source/D2Client/Unknown_0049C9C0.cpp",
+   "file": "Source/D2Client/UI/text_0049C9C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007224E8_t gData_007224E8; // 0x007224E8",
    "head": "extern \"C\" struct d2data_007224E8_t gData_007224E8 = ",
@@ -56575,7 +56565,7 @@
    "cname": "gData_006DA4C8",
    "declared": true,
    "decorated": "?gaUModList_006DA4C8@@3QBHB",
-   "file": "Source/D2Client/Unknown_004AD020.cpp",
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DA4C8[4]; // 0x006DA4C8",
    "head": "extern \"C\" const int gData_006DA4C8[4] = ",
@@ -56605,7 +56595,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004AD020.cpp",
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "fill": 44,
    "form": "declared",
    "fwd": null,
@@ -56714,7 +56704,7 @@
     [
      104,
      "0x004ACD70",
-     "names.json",
+     "owner",
      "sub_004ACD70_AssignSkillB8",
      0,
      "func"
@@ -60671,12 +60661,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnHandlerCount_007253DC = ",
-   "include": "gen/data/Source/D2Client/Unknown_004B66B0/gnHandlerCount_007253DC.inc",
+   "include": "gen/data/Source/D2Client/UI/npcmenu_004B6440/gnHandlerCount_007253DC.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -60699,7 +60689,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
    "fill": 9,
    "form": "declared",
    "fwd": null,
@@ -60854,7 +60844,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern unsigned short gwGlobal_00725494 = ",

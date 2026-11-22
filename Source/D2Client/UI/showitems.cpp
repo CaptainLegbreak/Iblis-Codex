@@ -5,49 +5,87 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 
-struct D2ItemLabelStrc { int nLeft,nTop,nRight,nBottom; D2UnitStrc* pItem; Unicode wszText[128]; int nFillColor,nDrawMode,nTextColor; };
-extern int gnItemLabelCount_007C54A0; // 0x007C54A0
-extern D2ItemLabelStrc gaItemLabels_007C54A8[32]; // 0x007C54A8
-extern "C" const char gszShowItems_006DAB64[]; // 0x006DAB64
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,unsigned int*); // 0x00619790
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
-int __stdcall SCALE_CheckPerspectivePosition(int,int); // 0x004F66E0
-void __stdcall SCALE_AdjustPerspectivePosition(int,int,int,int*,int*); // 0x004F6760
-int __cdecl sub_0045AE90(); // 0x0045AE90
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
-extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
-void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
-void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
+struct D2UiBlockRectStrc
+{
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
+    char unk0x10[0x110];
+};
+
+extern int gnGlobal_00711470;                                                                               // 0x00711470
+
+extern int gnBlockRectCount_007C54A0;                                                                       // 0x007C54A0
+
+extern D2UiBlockRectStrc gaBlockRects_007C54A8[32];                                                         // 0x007C54A8
+
+struct D2ItemLabelStrc { int nLeft,nTop,nRight,nBottom; D2UnitStrc* pItem; Unicode wszText[128]; int nFillColor,nDrawMode,nTextColor; };
+
+extern int gnItemLabelCount_007C54A0; // 0x007C54A0
+
+extern D2ItemLabelStrc gaItemLabels_007C54A8[32]; // 0x007C54A8
+
+extern "C" const char gszShowItems_006DAB64[]; // 0x006DAB64
+
+int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
+
+D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,unsigned int*); // 0x00619790
+
+int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
+
+int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
+
+int __stdcall SCALE_CheckPerspectivePosition(int,int); // 0x004F66E0
+
+void __stdcall SCALE_AdjustPerspectivePosition(int,int,int,int*,int*); // 0x004F6760
+
+int __cdecl sub_0045AE90(); // 0x0045AE90
+
+int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
+
+int __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
+
+extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
+
+extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+
+void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
+
+void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
+
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc*); // 0x00467A70
+
 void __fastcall D2Win_10129_DrawFramedText(const Unicode*,int,int,int,int); // 0x00502280
+
 void __cdecl sub_00466FE0(); // 0x00466FE0
+
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
+
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
+
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
+
 unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
+
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
+
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
-static inline int GetUnitType(D2UnitStrc* pUnit)
-{
-    if(pUnit)return pUnit->dwUnitType;
-    return 6;
-}
-static inline unsigned int UnitIsSelectable(D2UnitStrc* pUnit)
-{
-    if(!pUnit)return 0;
-    return (pUnit->dwFlagEx>>7)&1;
-}
+
 // build: context sub_004C0640_ClampToScreen
 static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)
 {
@@ -79,6 +117,61 @@ static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight
 }
 
 // 0x004C0640
+int __fastcall sub_004C0640_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)
+{
+    int nMaxY = gnGlobal_00711470 - 48;
+
+    sub_004C0640_ClampToScreen(pLeft, pTop, pRight, pBottom, nMaxX, nMinX, nMaxY);
+
+    if (gnBlockRectCount_007C54A0 >= 32)
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x47);
+        exit(-1);
+    }
+
+    for (int i = 0; i < gnBlockRectCount_007C54A0; ++i)
+    {
+        const int bX = (*pLeft <= gaBlockRects_007C54A8[i].nRight && *pRight >= gaBlockRects_007C54A8[i].nLeft) ? 1 : 0;
+        const int bY = (*pTop <= gaBlockRects_007C54A8[i].nBottom && *pBottom >= gaBlockRects_007C54A8[i].nTop) ? 1 : 0;
+        if (bX && bY)
+        {
+            int nDelta;
+            if (nMode > 6)
+            {
+                if ((*pRight - *pLeft) / 2 && *pLeft >= nMaxX)
+                    nDelta = gaBlockRects_007C54A8[i].nLeft - *pRight - 1;
+                else
+                    nDelta = gaBlockRects_007C54A8[i].nRight - *pLeft + 1;
+                *pLeft += nDelta;
+                *pRight += nDelta;
+                return 0;
+            }
+
+            if ((*pBottom - *pTop) / 2 && *pTop <= nMaxY)
+                nDelta = gaBlockRects_007C54A8[i].nTop - *pBottom - 3;
+            else
+                nDelta = gaBlockRects_007C54A8[i].nBottom - *pTop + 5;
+            *pTop += nDelta;
+            *pBottom += nDelta;
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+static inline int GetUnitType(D2UnitStrc* pUnit)
+{
+    if(pUnit)return pUnit->dwUnitType;
+    return 6;
+}
+
+static inline unsigned int UnitIsSelectable(D2UnitStrc* pUnit)
+{
+    if(!pUnit)return 0;
+    return (pUnit->dwFlagEx>>7)&1;
+}
+
 int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)
 {
     int nMaxY = gnScreenHeight_00711470 - 48;

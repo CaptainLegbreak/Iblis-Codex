@@ -7,6 +7,10 @@
 #include "D2LevelTxt.h"
 #include "D2ClientGame.h"
 #include "D2TxtItems.h"
+#include "D2Constants.h"
+#include "D2Path.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -196,15 +200,43 @@ static int sub_004CB3E0_GetObjectModeSound(D2UnitStrc* pUnit, int nMode);
 
 void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit);
 
-void __fastcall sub_004CB6A0_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay);
-
-void __fastcall sub_004CC5B0_UpdateUnitSound(D2UnitStrc* pUnit, int nMode, int bModeGiven);
-
 static void sub_004CB950_PlayFleeSound(D2UnitStrc* pUnit);
 
-void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
 
 void __fastcall sub_004CC380_PlayInitSound(D2UnitStrc* pUnit);
+
+struct D2StaticPathStrc;
+
+struct D2DrlgCoordsStrc;
+
+struct D2TileLibraryEntryStrc;
+
+struct T00481920;
+
+struct T00481920
+{
+    int unk0x00[7];
+    int nMaterial1;
+};
+
+void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
+
+T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
+
+void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int bParam, int* pSound1, int* pSound2); // 0x004CA560
+
+void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit);
+
+extern struct D2TimedHintEntryStrc;
+extern struct D2TimedHintNodeStrc;
+
+void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
 
 // 0x004CA2C0
 static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
@@ -305,15 +337,6 @@ static D2MonSoundsTxt* sub_004CA410_GetMonSoundsRecord(D2UnitStrc* pUnit)
     return DATATBLS_GetMonSoundsTxtRecordFromMonsterId(nClass);
 }
 
-int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
-{
-    D2_ASSERT(pUnit, 0xB5C);
-    nDirection &= 0xF;
-    if (nDirection <= 0xD)
-        return gaDirRate_00727ED8[nDirection].nValue;
-    D2_ASSERT(0, 0xB60);
-}
-
 void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int bParam, int* pSound1, int* pSound2)
 {
     D2_ASSERT(pUnit, 0xB82);
@@ -393,6 +416,25 @@ void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int 
     }
 }
 
+
+// 0x004CA4C0
+int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
+{
+    D2_ASSERT(pUnit, 0xB5C);
+    nDirection &= 0xF;
+    if (nDirection <= 0xD)
+        return gaDirRate_00727ED8[nDirection].nValue;
+    D2_ASSERT(0, 0xB60);
+}
+
+
+// 0x004CA8A0
+void __fastcall sub_004CA8A0_AddUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
+{
+    D2_ASSERT(pUnit, 0xC2C);
+    sub_00516950_LinkEntry((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
+}
+
 // 0x004CAB30
 static __declspec(noinline) unsigned int sub_004CAB30_ReadSoundTick(D2UnitStrc* pUnit)
 {
@@ -428,7 +470,108 @@ static void __stdcall sub_004CAC30_WriteStepSoundTick(D2UnitStrc* pUnit, unsigne
     pUnit->dwSfxStepTicks = nTicks;
 }
 
-// build: context sub_004CAEB0_GetFootstepSound
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+static D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int nX, int nY)
+{
+    D2DrlgCoordsStrc tCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
+    const int nTileX = (nX - tCoords.nSubtileX) / 5;
+    const int nTileY = (nY - tCoords.nSubtileY) / 5;
+    unsigned int nCount;
+    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pRoom, &nCount);
+    for (unsigned int i = 0; i < nCount; ++i)
+    {
+        D2DrlgTileDataStrc* pTile = &pTiles[i];
+        if (pTile->nPosX == nTileX && pTile->nPosY == nTileY)
+            return pTile;
+    }
+    return 0;
+}
+
+static __declspec(noinline) int sub_004CAD60_GetTileMaterial(D2DrlgTileDataStrc* pTileData)
+{
+    D2TileLibraryEntryStrc* pTile = pTileData->pTile;
+    if (pTile)
+    {
+        const unsigned short nFlags = pTile->nFlags;
+        if (nFlags & 0x20)
+            return 1;
+        if (nFlags & 8)
+            return 2;
+        if (nFlags & 0x10)
+            return 3;
+        if (nFlags & 0x40)
+            return 4;
+        if (nFlags & 0x80)
+            return 6;
+        if (nFlags & 0x400)
+            return 5;
+    }
+    return 0;
+}
+
+// 0x004CADB0
+int __fastcall sub_004CADB0_GetUnitFloorMaterial(D2UnitStrc* pUnit)
+{
+    int nRooms;
+    T00481920* pSoundEnvironTxtRecord = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+    int nDefault = 1;
+    if (pSoundEnvironTxtRecord && pSoundEnvironTxtRecord->nMaterial1 > 0 && pSoundEnvironTxtRecord->nMaterial1 < 7)
+        nDefault = pSoundEnvironTxtRecord->nMaterial1;
+
+    const int nX = CLIENTS_GetUnitXInline(pUnit);
+    const int nY = CLIENTS_GetUnitYInline(pUnit);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+        return 0;
+
+    D2DrlgTileDataStrc* pTileData = sub_004CACE0_FindFloorTileAt(pRoom, nX, nY);
+    if (!pTileData)
+    {
+        D2ActiveRoomStrc** ppRooms;
+        DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRooms, &nRooms);
+        for (int i = 0; i < nRooms; ++i)
+        {
+            pTileData = sub_004CACE0_FindFloorTileAt(ppRooms[i], nX, nY);
+            if (pTileData)
+                break;
+        }
+
+    }
+
+    if (pTileData)
+    {
+        const int nMaterial = sub_004CAD60_GetTileMaterial(pTileData);
+        if (nMaterial)
+            return nMaterial;
+    }
+    return nDefault;
+}
+
+
 int __fastcall sub_004CAEB0_GetFootstepSound(D2UnitStrc* pUnit, int bLayer)
 {
     int nSound = 0;
@@ -470,38 +613,44 @@ int __fastcall sub_004CAEB0_GetFootstepSound(D2UnitStrc* pUnit, int bLayer)
     return nSound;
 }
 
-// build: context sub_004CAF60_UpdateFootsteps
+static __forceinline int UNITSND_IsMonsterWalkMode(D2UnitStrc* pUnit, int nMode)
+{
+    int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
+    if (nClass < 0 || nClass >= sgptDataTables->nMonStatsTxtRecordCount)
+        nClass = -1;
+
+    int bWalk = 0;
+    if (nMode == 2 || nMode == 0xF)
+        bWalk = 1;
+
+    if (nClass == 0xF && nMode == 1)
+        bWalk = 1;
+    else if (nClass == 0x6E)
+        bWalk = nMode == 8;
+
+    return bWalk;
+}
+
+// 0x004CAF60
 void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit)
 {
-    const int nType = sub_004CA320_GetUnitSndType(pUnit);
-    const int nMode = sub_004CA380_GetUnitSndMode(pUnit);
-    if (nType == 1)
+    int nMode;
+    int nType;
+    nType = sub_004CA320_GetUnitSndType(pUnit);
+    nMode = sub_004CA380_GetUnitSndMode(pUnit);
+    if (nType == 1 && !UNITSND_IsMonsterWalkMode(pUnit, nMode))
     {
-        int nClass = sub_004CA2C0_GetUnitSndClassId(pUnit);
-        if (nClass < 0 || nClass >= sgptDataTables->nMonStatsTxtRecordCount)
-            nClass = -1;
-
-        int bWalk = 0;
-        if (nMode == 2 || nMode == 0xF)
-            bWalk = 1;
-
-        if (nClass == 0xF && nMode == 1)
-            bWalk = 1;
-        else if (nClass == 0x6E)
-            bWalk = nMode == 8;
-
-        if (!bWalk)
-            return;
+        return;
     }
 
-    unsigned int nFrameCount = pUnit->dwFrameCountPrecise;
     const int nFrame = pUnit->nSeqCurrentFramePrecise;
+    unsigned int nFrameCount = pUnit->dwFrameCountPrecise;
     const int nSpeed = pUnit->wAnimSpeed;
     if (!nSpeed)
         return;
 
-    unsigned int nOffset = 0;
     unsigned int nSteps = 2;
+    unsigned int nOffset = 0;
     unsigned int nLayerSound = 0;
     unsigned int nChance = 100;
     if (nType == 1)
@@ -559,6 +708,8 @@ void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit)
 
     sub_004CAC30_WriteStepSoundTick(pUnit, nTick);
 }
+
+// build: context sub_004CAEB0_GetFootstepSound
 
 // 0x004CB190
 void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit)
@@ -1285,5 +1436,6 @@ void __fastcall sub_004CC5B0_UpdateUnitSound(D2UnitStrc* pUnit, int nMode, int b
 attack:
     sub_004CB6A0_PlayAttackSound(pUnit, nAttackMode, 1);
 }
+
 
 #include "gen/data/Source/D2Client/UNIT/UnitSnd.inc"

@@ -85,28 +85,6 @@ static int gnGlobal_007A6AE8; // 0x007A6AE8
 
 static int gnGlobal_007A6AF0; // 0x007A6AF0
 
-// 0x004680B0
-int __fastcall sub_004680B0_InitCursor(int nArg)
-{
-    char szPath[0x50];
-    gnGlobal_007A6AB4 = nArg;
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaCursorMsgHandlers_00711FEC, 3);
-    for (int i = 0; i < NUM_CURSOR_CELLS; ++i)
-    {
-        wsprintfA(szPath, "%s\\UI\\CURSOR\\%s", szDataGlobal_006D4118, gaPanelAnim_00712020[i].f_8);
-        gpCursorCells_007A6AC0[i] = sub_004788B0(szPath, 0);
-    }
-    gnGlobal_007A6B08 = 1;
-    gnGlobal_007A6AF0 = 1;
-    gnGlobal_007A6ADC = 5;
-    gnGlobal_007A6AE0 = 0;
-    gwGlobal_007A6AE4 = 0;
-    gnGlobal_007A6AE8 = GetTickCount();
-    gnGlobal_007A6AB0 = gnGlobal_0071146C / 2;
-    gnGlobal_007A6AAC = gnGlobal_00711470 / 2;
-    return 1;
-}
-
 int __cdecl sub_W04_EmitReadStatics()
 {
     return gnGlobal_007A6AAC + gnGlobal_007A6AB0 + gnGlobal_007A6AB4 + gnGlobal_007A6ADC + gnGlobal_007A6AE0 + gwGlobal_007A6AE4 + gnGlobal_007A6AE8 + gnGlobal_007A6AF0 + (gpCursorCells_007A6AC0[0] ? 1 : 0);

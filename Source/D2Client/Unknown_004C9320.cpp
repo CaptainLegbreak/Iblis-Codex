@@ -39,36 +39,6 @@ D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x0
 D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-// 0x004C9320
-int __fastcall sub_004C9320_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill || !pDynamicPath)
-        return 0;
-
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    const int bPlayer = nUnitType == 0;
-    const int nMask = bPlayer ? 0x80 : 0x100;
-    const int nX = SKILLS_GetParam1(pSkill);
-    const int nY = SKILLS_GetParam2(pSkill);
-    const int nFlags = SKILLS_GetFlags(pSkill);
-    if ((nFlags & 3) == 3)
-    {
-        COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pUnit), nX, nY, PATH_GetUnitCollisionPattern(pUnit), nMask);
-        PATH_SetFootprintCollisionMask(pDynamicPath, nMask);
-        PATH_SetMoveTestCollisionMask(pDynamicPath, bPlayer ? 0x1C09 : 0x3C01);
-        SKILLS_SetFlags(pSkill, 0);
-        sub_004BA840(sub_004CA900_FindUnitSfxInRange(pUnit, 0x9E3));
-    }
-    else if (nFlags & 1)
-    {
-        UNITS_SetAnimationFrame(pUnit, 3);
-        pUnit->dwFrameCountPrecise = 0x500;
-    }
-    return 1;
-}
-
 // 0x004E6E30
 static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
 {

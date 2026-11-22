@@ -186,7 +186,6 @@ struct D2QtyWarnStrc
     unsigned int nLevel2;
 };
 
-
 extern unsigned char gabSlots_007BEFB4[]; // 0x007BEFB4
 
 extern int gaBodyLocs_00722374[]; // 0x00722374
@@ -273,7 +272,31 @@ void* gpCel_007BEF74; // 0x007BEF74
 
 void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
 
-static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
+void __fastcall sub_004C21F0_SetState36(D2UnitStrc*); // 0x004C21F0
+
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+
+void __fastcall sub_004A8CE0_SetValue(int); // 0x004A8CE0
+
+int __cdecl sub_0044BE90(); // 0x0044BE90
+
+void __fastcall sub_0044BE80(int); // 0x0044BE80
+
+#include "gen/data/Source/D2Client/UI/panel_004978D0/gnGlobal_00722358.inc"
+
+extern int gnGlobal_007BEF84; // 0x007BEF84
+
+extern int gnGlobal_007BEF88; // 0x007BEF88
+
+static int gnGlobal_007BEFA4;        // 0x007BEFA4
+
+static int gnGlobal_007BEFD0;        // 0x007BEFD0
+
+static int gnGlobal_007BEFD4;        // 0x007BEFD4
+
+static int gnGlobal_007BEFD8;        // 0x007BEFD8
+
+void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg); // 0x00499D10
 
 // build: symbol ?sub_004972B0_InitBeltColors@@YAXXZ 0x004972B0
 void __cdecl sub_004972B0_InitBeltColors()
@@ -987,8 +1010,6 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* __restrict pMsg)
     pMsg->lResult = 0;
 }
 
-void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg); // 0x00499D10
-
 // 0x00498A90
 static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift)
 {
@@ -1099,5 +1120,96 @@ void __cdecl sub_00499450_DrawControlPanel()
     sub_00498340_UpdateTooltip();
 }
 
+
+static __forceinline void CancelCursorMode()
+{
+    if(sub_00468830()==6) sub_00453EC0();
+    else if(sub_00468830()==8) sub_00478680_SendPacket5(0x4C,-1);
+}
+
+// 0x004996A0
+void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
+{
+    if(sub_0044DA30() || sub_00463DF0()) {
+        pMsg->bReturn=0;
+        return;
+    }
+    D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
+    const int x=pMsg->nXpos;
+    const int y=pMsg->nYpos;
+    gnGlobal_007BEF88=0;
+    gnGlobal_007BEF84=0;
+    if(gnGlobal_007BEFA4) {
+        if(gbUiRecordMode_007BEF98) {
+            if(sub_00498DC0_MouseMoveMsg(pMsg)) {
+                CancelCursorMode();
+                sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
+                pMsg->bReturn=1;
+                pMsg->lResult=0;
+                sub_00420290_BreakHandlerChain(pMsg);
+            }
+            else if(x>=gnGlobal_0071146C/2-8 && x<=gnGlobal_0071146C/2+5 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-13) {
+                if(sub_004538D0(21)) sub_00455F20(21,1,0);
+                else sub_00455F20(21,2,0);
+            }
+            else if(x>=117 && x<=165 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
+                sub_00455F20(3,2,0);
+                sub_004A8CE0_SetValue(1);
+            }
+            else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
+                sub_00455F20(3,2,0);
+                sub_004A8CE0_SetValue(0);
+            }
+            else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
+                sub_0044BE80(!sub_0044BE90());
+            }
+            gnGlobal_007BEFA4=0;
+        }
+        else if(y>gnGlobal_00711470-48) {
+            if(x>=gnGlobal_0071146C/2+23 && x<=gnGlobal_0071146C/2+145 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-10) {
+                CancelCursorMode();
+                sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
+            }
+            else if(x>=117 && x<=165 && y<=gnGlobal_00711470) {
+                CancelCursorMode();
+                if(sub_004538D0(3)) sub_00455F20(3,1,0);
+                else sub_00455F20(3,0,0);
+                sub_004A8CE0_SetValue(1);
+            }
+            else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y<=gnGlobal_00711470) {
+                CancelCursorMode();
+                if(sub_004538D0(3)) sub_00455F20(3,1,0);
+                else sub_00455F20(3,0,0);
+                sub_004A8CE0_SetValue(0);
+            }
+            else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
+                sub_0044BE80(!sub_0044BE90());
+            }
+            else if(x>=gnGlobal_0071146C/2-8 && x<=gnGlobal_0071146C/2+5 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-13) {
+                if(sub_004538D0(21)) sub_00455F20(21,1,0);
+                else sub_00455F20(21,2,0);
+                if(gnGlobal_007BEFD0) gnGlobal_007BEFD4=!gnGlobal_007BEFD4;
+            }
+            gnGlobal_007BEFA4=0;
+            gnGlobal_00722358=0;
+            pMsg->bReturn=1;
+            pMsg->lResult=0;
+            sub_00420290_BreakHandlerChain(pMsg);
+        }
+        else {
+            pMsg->bReturn=0;
+        }
+    }
+    else {
+        if((x>=117 && x<=165 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) ||
+           (x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470)) {
+            if(sub_004538D0(3)) sub_00455F20(3,1,0);
+        }
+        gnGlobal_007BEFA4=0;
+        pMsg->bReturn=0;
+    }
+    gnGlobal_007BEFD0=0;
+    gnGlobal_007BEFD8=0;
+}
 
 #include "gen/data/Source/D2Client/UI/panel_004978D0.inc"

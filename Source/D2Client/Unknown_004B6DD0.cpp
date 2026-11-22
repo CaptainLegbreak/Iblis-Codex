@@ -90,7 +90,7 @@ short __stdcall sub_00661440(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x0
 
 extern unsigned short gwGlobal_00725494;                                                                    // 0x00725494
 extern D2NpcQuestHandlerStrc gaNpcHandlers_007253E0[];                                                      // 0x007253E0
-#include "gen/data/Source/D2Client/Unknown_004B66B0/gnHandlerCount_007253DC.inc"
+#include "gen/data/Source/D2Client/UI/npcmenu_004B6440/gnHandlerCount_007253DC.inc"
 struct D2UnitStrc;
 extern int gnNpcEntryCount_0072554C;                                                                        // 0x0072554C
 extern int gnNpcIndexCount_00725A74;                                                                        // 0x00725A74

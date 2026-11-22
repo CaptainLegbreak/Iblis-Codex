@@ -484,46 +484,6 @@ void __fastcall sub_004DDFD0_Shim(D2GridCellStrc* pCells, int nMode, int nX, int
     sub_004DDFD0_BuildSmallFlatGrid(tX, nY, bCorners, pCells, nMode);
 }
 
-// 0x004DE070
-void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int bFlat, int nMode, int bCorners)
-{
-    const unsigned char nB0 = sub_0061C0E0(gpGlobal_007A0634);
-    D2GridCellStrc* pCell = pCells;
-    switch (nMode)
-    {
-    case 1:
-        nX += -(gnGlobal_0071146C / 4);
-        break;
-    case 2:
-        nX += gnGlobal_0071146C / 4;
-        break;
-    }
-
-    unsigned char nB1, nB2, nB3;
-    sub_0061C0B0(gpGlobal_007A0634, &nB1, &nB2, &nB3);
-
-    for (int j = 0; j < 6; ++j)
-    {
-        for (int i = 0; i < 6; ++i, ++pCell)
-        {
-            if (!bCorners || (i == 0 && j == 0) || (i == 5 && j == 0) || (i == 5 && j == 5) || (i == 0 && j == 5))
-            {
-                pCell->nX = ((i - j) << 4) + nX;
-                pCell->nY = nY + ((i + j) << 3);
-                if (bFlat)
-                {
-                    pCell->nB0 = nB0;
-                    pCell->nB1 = nB1;
-                    pCell->nB3 = nB3;
-                    pCell->nB2 = nB2;
-                }
-                else
-                    sub_00475AA0_ReadGridCell((nSubX + i) << 3, 8 * (nSubY + j), &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
-            }
-        }
-    }
-}
-
 // 0x004DE260
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners)
 {

@@ -172,4 +172,4 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
     }
 }
 
-#include "gen/data/Source/D2Client/Unknown_0049C9C0.inc"
+#include "gen/data/Source/D2Client/UI/text_0049C9C0.inc"
