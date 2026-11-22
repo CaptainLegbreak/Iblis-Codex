@@ -29,13 +29,6 @@ extern int gnGamesGUIDs_6FD447F8[1024]; // 0x00882D38
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
 extern int gbD2ServerCallbackFunctionsInitialized_6FD45834; // 0x00883D54
 
-// 0x0052B690
-int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize)
-{
-    D2_ASSERT(nSize <= MAX_MSG_SIZE, 0x217);
-    return FOG_10175(gpServer, pBuffer, nSize, 0) != 0;
-}
-
 // 0x0052B7E0
 int __fastcall NET_IsLocalConnection()
 {
@@ -50,30 +43,6 @@ int __fastcall NET_IsLocalConnection()
 void __fastcall NET_SetConnectionMode(int nConnectionMode)
 {
     gnConnectionMode_00882D10 = nConnectionMode;
-}
-
-// 0x0052B8B0
-int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList)
-{
-    EnterCriticalSection(pCriticalSection);
-
-    while (*ppPacketList)
-    {
-        D2NetPacketRecStrc* pPacket = *ppPacketList;
-        *ppPacketList = pPacket->pNext;
-        FOG_Free(pPacket, ".\\SRC\\D2Net.cpp", 0x5D, 0);
-    }
-
-    LeaveCriticalSection(pCriticalSection);
-    return 1;
-}
-
-int gnConnectionMode_00882D10; // 0x00882D10
-
-// 0x0052B800
-int __fastcall NET_IsSimulatedLagConnection()
-{
-    return gnConnectionMode_00882D10 == 2;
 }
 
 // 0x0052B820
@@ -104,6 +73,8 @@ int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSe
 void __cdecl sub_0052B8F0_Nop()
 {
 }
+
+int gnConnectionMode_00882D10; // 0x00882D10
 
 // 0x0052B900
 void __cdecl sub_0052B900_Nop()
@@ -208,4 +179,33 @@ int __fastcall GAME_GetGamesCount()
         }
     }
     return nResult;
+}
+
+// 0x0052B8B0
+int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList)
+{
+    EnterCriticalSection(pCriticalSection);
+
+    while (*ppPacketList)
+    {
+        D2NetPacketRecStrc* pPacket = *ppPacketList;
+        *ppPacketList = pPacket->pNext;
+        FOG_Free(pPacket, ".\\SRC\\D2Net.cpp", 0x5D, 0);
+    }
+
+    LeaveCriticalSection(pCriticalSection);
+    return 1;
+}
+
+// 0x0052B800
+int __fastcall NET_IsSimulatedLagConnection()
+{
+    return gnConnectionMode_00882D10 == 2;
+}
+
+// 0x0052B690
+int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, unsigned short nSize)
+{
+    D2_ASSERT(nSize <= MAX_MSG_SIZE, 0x217);
+    return FOG_10175(gpServer, pBuffer, nSize, 0) != 0;
 }

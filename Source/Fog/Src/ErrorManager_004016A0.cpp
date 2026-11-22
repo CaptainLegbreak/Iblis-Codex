@@ -1314,6 +1314,376 @@ int __cdecl D2CMPToggleCelDrawMode()
     return gdwGlobal_008F03C8 = (gdwGlobal_008F03C8 == 0);
 }
 
+// 0x004076B0
+void __cdecl ERRORMANAGER_LogSystemInfo()
+{
+    D2SystemTimeStrc tTime;
+    unsigned long nSize;
+    char szPath[0x1000];
+    char szOs[0x1000];
+    char szComputer[0x40];
+
+    sub_00410610_WriteLogLine("------------------------------------------------------");
+    GetLocalTime(&tTime);
+    sub_00410610_WriteLogLine("%04d-%02d-%02d %02d:%02d:%02d", tTime.wYear, tTime.wMonth, tTime.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond);
+
+    switch (gnOsKind_0074D890)
+    {
+    case 1:
+        memcpy(szOs, "Windows NT", sizeof("Windows NT"));
+        break;
+    case 2:
+        memcpy(szOs, "Windows 2000", sizeof("Windows 2000"));
+        break;
+    case 3:
+        memcpy(szOs, "Windows XP", sizeof("Windows XP"));
+        break;
+    case 4:
+        memcpy(szOs, "Windows .Net", sizeof("Windows .Net"));
+        break;
+    case 9:
+        memcpy(szOs, "MacOS", sizeof("MacOS"));
+        break;
+    case 10:
+        memcpy(szOs, "MacOS X", sizeof("MacOS X"));
+        break;
+    default:
+        memcpy(szOs, "unknown", sizeof("unknown"));
+        break;
+    }
+
+    sub_00410610_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion_0074D894);
+    sub_0040EA00_WriteProcessorReport();
+    sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys_0074D898 / 1048576.0);
+
+    if (EXCEPTIONS_GetAppPath(szPath, sizeof(szPath)))
+    {
+        sub_00410610_WriteLogLine("Application Path: %s", szPath);
+    }
+
+    sub_00410610_WriteLogLine("Local IP: %s", FOG_GetHostIPAddress());
+
+    nSize = sizeof(szComputer);
+    if (!GetComputerNameA(szComputer, &nSize))
+    {
+        szComputer[0] = 0;
+    }
+
+    sub_00410610_WriteLogLine("Computer name: %s", szComputer);
+    sub_00410610_WriteLogLine("------------------------------------------------------");
+    sub_00410610_WriteLogLine(&gszEmptyAssertText);
+}
+
+// 0x00407970
+void __cdecl ERRORMANAGER_ForceCrash()
+{
+    int* pNull = 0;
+    *pNull = 0;
+}
+
+// 0x00407980
+void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText)
+{
+    ((crashy::Report*)pContext)->sub_00401380(gszStringFormat_006FFC58, szText);
+}
+
+// 0x00407990
+unsigned long __fastcall ERRORMANAGER_FindParentProcessId(unsigned long dwProcessId)
+{
+    unsigned long dwParent = 0;
+    void* hSnapshot = CreateToolhelp32Snapshot(2, 0);
+    D2ProcessEntryStrc tEntry;
+    tEntry.dwSize = sizeof(tEntry);
+    if (Process32First(hSnapshot, &tEntry))
+    {
+        do
+        {
+            if (tEntry.th32ProcessID == dwProcessId)
+            {
+                break;
+            }
+        }
+        while (Process32Next(hSnapshot, &tEntry));
+    }
+    if (tEntry.th32ProcessID == dwProcessId)
+    {
+        dwParent = tEntry.th32ParentProcessID;
+    }
+    CloseHandle(hSnapshot);
+    return dwParent;
+}
+
+// 0x00407F20
+void __cdecl ERRORMANAGER_ExitHandler()
+{
+    if (gbErrorMgrInit_0074F0D0)
+    {
+        FOG_AsyncDataDestroy();
+        FOG_DestroyMemoryPoolSystem(0);
+        sub_0040B500_UnloadImageHlp();
+        LOGMANAGER_CloseLogFilesNow();
+        sub_004107A0_DeleteTimeLock();
+        sub_0040FFD0_ShutdownLogSystem();
+        gbErrorMgrInit_0074F0D0 = 0;
+        DeleteCriticalSection(&gtLock_0074C830);
+        DeleteCriticalSection(&gtLock_0074D848);
+    }
+}
+
+static int __fastcall FOG_AppendBackslash(char* szPath, int nSize)
+{
+    if (!szPath || !nSize)
+        return 0;
+    unsigned int nLen = SStrLen(szPath);
+    if (nLen <= 0 || szPath[nLen - 1] != '\\')
+    {
+        if (nLen + 1 == nSize)
+            return 0;
+        szPath[nLen] = '\\';
+        szPath[nLen + 1] = 0;
+    }
+    return 1;
+}
+
+// 0x00407F80
+void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread)
+{
+}
+
+static bool AppendPathSeparator_Inl(char* szPath, size_t nSize)
+{
+    if (!nSize)
+    {
+        return false;
+    }
+    const size_t nLength = SStrLen(szPath);
+    if (nLength > 0 && szPath[nLength - 1] == '\\')
+    {
+        return true;
+    }
+    if (nLength + 1 == nSize)
+    {
+        return false;
+    }
+    szPath[nLength] = '\\';
+    szPath[nLength + 1] = 0;
+    return true;
+}
+
+// 0x00407F90
+void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId)
+{
+}
+
+// 0x00407FC0
+static void __stdcall ERRORMANAGER_LogPrefixedText(const char* szPrefix, const char* szText, int bFlag)
+{
+    if (bFlag)
+    {
+        LOGMANAGER_LogWritePrefixedNoNewline(szPrefix, gszPercentS_006FFC58, szText);
+    }
+    else
+    {
+        sub_00410740_LogWritePrefixed00(szPrefix, gszPercentS_006FFC58, szText);
+    }
+}
+
+// 0x004082E0
+int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput)
+{
+    D2ThreadContextStrc* pThread = pInput->pException->pContext;
+    const long nBusy = InterlockedIncrement(&gnReportBusy_007076B8);
+    if (nBusy == 0)
+    {
+        gdwGlobal_0074F0C8 = 1;
+        crashy::Report report;
+        if (!report.OpenReport(gszCrashFile_006CD1C0))
+        {
+            gdwGlobal_0074F0C8 = 0;
+        }
+        else
+        {
+            report.WriteInspectorHeader();
+            report.sub_00401380(gszCrashSummary_006CD1A8,pInput->szSummary);
+            if (pInput->szDetail[0]) report.sub_00401380(gszCrashDetail_006CD1A0,pInput->szDetail);
+            report.sub_00401380(gszCrashNewline_006CD188);
+            report.sub_00401380(gszAssertionBegin_006CD170);
+            int nSkip = 0;
+            if (!pThread && !pInput->pFrames)
+            {
+                nSkip = pInput->nSkip;
+                if (pInput->dwThreadId == ERRORMANAGER_GetCurrentThreadId()) nSkip += 2;
+            }
+            if (pInput->pFrames)
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,1);
+            else
+                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,1,nSkip);
+            report.sub_00401380(gszAssertionEnd_006CD158);
+            report.sub_00401380(gszRegisters_006CD14C);
+            sub_004032F0_DumpRegisters(pInput->dwThreadId,ERRORMANAGER_ReportPrint,&report);
+            report.sub_00401380(gszThreads_006CD140);
+            ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint,&report,pInput->dwThreadId);
+            report.sub_00401380(gszModules_006CD124);
+            sub_00402EE0_DumpModules(ERRORMANAGER_ReportPrint,&report);
+            report.sub_00401380(gszMore1_006CD108);
+            report.sub_00401380(gszMore2_006CD0F0);
+            report.sub_00401380(gszMore3_006CD0D4);
+            if (pInput->pFrames)
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,0);
+            else
+                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,0,nSkip);
+            report.sub_00401380(gszMore4_006CD0C4);
+            SStrCopy(gszProcessPath_0074E8C8,report.m_szText408,0x800);
+            SStrPack(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
+            if (sub_00402820_WriteMiniDump(gszProcessPath_0074E8C8,&gszEmptyAssertText,pInput->pException,0))
+                report.sub_00401220_AddFile(gszProcessPath_0074E8C8,false);
+            report.sub_00401380(gszMore5_006CD09C);
+            report.sub_004011F0_Close();
+            D2CrashSubmitInfoStrc info;
+            memset(&info,0,sizeof(info));
+            info.szName=gtInspectorInfo_0074D868.szUnused04;
+            for (int i=0;i<report.m_nLineCount;++i)
+            {
+                if (i < sizeof(info.apszLines)/sizeof(info.apszLines[0]))
+                {
+                    info.apszLines[i]=report.m_aszLines[i];
+                    ++info.nLines;
+                }
+            }
+            sub_00401790_SubmitReport(report.m_szText08,&info);
+            gdwGlobal_0074F0C8=0;
+        }
+        InterlockedDecrement(&gnReportBusy_007076B8);
+        ERRORMANAGER_TerminateCurrentProcess(-1);
+    }
+    return 2;
+}
+
+inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
+{
+    unsigned int nRemainder = nValue % nAlign;
+    if (nRemainder)
+        nValue += nAlign - nRemainder;
+    return nValue;
+}
+
+inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
+{
+    nCount += f_4;
+    if (nCount > f_0)
+    {
+        if (bRound)
+        {
+            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            nCount = RoundUpInline(nCount, nChunk);
+        }
+        sub_0051D5D0_ReallocData(nCount);
+    }
+}
+
+D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+    return this;
+}
+
+void __cdecl sub_0051D2D0_Nop()
+{
+}
+
+void __cdecl sub_0051D2E0_Nop()
+{
+}
+
+void __fastcall sub_0051D350_CopyElement(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
+{
+    if (pDst)
+        *pDst = *pSrc;
+}
+
+void D2StormArray408Strc::sub_0051D570_FreeData()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+void D2StormArray408Strc::sub_0051D670_FreeData()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+// 0x00407A80
+bool crashy::Report::WriteInspectorHeader()
+{
+    if (!sub_00401210_IsOpen())
+    {
+        return false;
+    }
+
+    sub_00401380("<Application>%s\n", gtInspectorInfo_0074D868.szApplication);
+    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo_0074D868.f_0);
+    sub_00401380("<Inspector.Module>%s\n", gtInspectorInfo_0074D868.szModule);
+    sub_00401380("<Inspector.Milestone>%s\n", gtInspectorInfo_0074D868.szMilestone);
+    sub_00401380("<Inspector.BuildNumber>%s\n", gtInspectorInfo_0074D868.szBuildNumber);
+    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo_0074D868.f_18);
+    sub_00401380("<Inspector.IssueType>%s\n", "Exception");
+    sub_00401380("<Inspector.Priority>%s\n", "1 - Critical");
+    sub_00401380("<Inspector.PrimaryAssignment>%s\n", gtInspectorInfo_0074D868.szPrimaryAssignment);
+    sub_00401380("<Inspector.Assignments>%s\n", gtInspectorInfo_0074D868.szAssignments);
+
+    int bIsAdmin = 0;
+    D2SidAuthorityStrc tNtAuthority = { { 0, 0, 0, 0, 0, 5 } };
+    void* pSid;
+    if (AllocateAndInitializeSid(&tNtAuthority, 2, 0x20, 0x220, 0, 0, 0, 0, 0, 0, &pSid))
+    {
+        bIsAdmin = CheckTokenMembership(0, pSid, &bIsAdmin);
+        sub_00401380("<Process.UserIsAdmin> %s\n", bIsAdmin ? "TRUE" : "FALSE");
+        FreeSid(pSid);
+    }
+    sub_00401380("<Process.Elevated> %s\n", gszUnknownUpper_006CCED8);
+
+    unsigned long dwProcessId = GetCurrentProcessId();
+    bool bFound = ERRORMANAGER_GetProcessImageName(dwProcessId, gszProcessPath_0074E8C8, 0x800);
+    sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
+    const char* szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    const char* szName = szSlash ? szSlash + 1 : 0;
+    sub_00401380("<Process.Name> %s\n", (szName && bFound) ? szName : "Unknown");
+
+    unsigned long dwParentId = ERRORMANAGER_FindParentProcessId(dwProcessId);
+    bFound = ERRORMANAGER_GetProcessImageName(dwParentId, gszProcessPath_0074E8C8, 0x800);
+    sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
+    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    szName = szSlash ? szSlash + 1 : 0;
+    sub_00401380("<Process.ParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
+
+    unsigned long dwGrandParentId = ERRORMANAGER_FindParentProcessId(dwParentId);
+    bFound = ERRORMANAGER_GetProcessImageName(dwGrandParentId, gszProcessPath_0074E8C8, 0x800);
+    sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
+    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
+    szName = szSlash ? szSlash + 1 : 0;
+    sub_00401380("<Process.GrandParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
+
+    sub_00401380("<Locale.Game> %s\n", gaszLanguageNames_00706618[sub_00525150()]);
+    sub_00401380("<Locale.System> %s\n", gaszLanguageNames_00706618[STRTABLE_GetSystemLanguage()]);
+    sub_00401380("<Game.Type> %s\n", "Client");
+    sub_00401380("<Game.Build> %s\n", "79b7ae8fe1e97d05d57ebdc4b65bf012d38c797e");
+
+    char* apszFiles[0x15];
+    memset(apszFiles, 0, sizeof(apszFiles));
+    EXCEPTIONS_GetLogFilePaths(apszFiles, 0x15);
+    for (unsigned int i = 0; i < 0x15; ++i)
+    {
+        if (apszFiles[i] && *apszFiles[i])
+        {
+            sub_00401220_AddFile(apszFiles[i], true);
+        }
+    }
+    return true;
+}
+
 // 0x004068E0
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile)
 {
@@ -1324,6 +1694,36 @@ int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile)
 int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6)
 {
     return SFileReadFileEx2(hFile, pBuffer, nToRead, pnRead, pOverlapped, nArg6, nArg7);
+}
+
+void D2StormArray408Strc::sub_0051D6A0_Clear()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+}
+
+D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+    f_C = 0;
+    return this;
+}
+
+void D2StormArray408Strc::sub_0051D730_FreeData()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
+{
+    ReserveInline(1, 1);
+    return &f_8[f_4++];
 }
 
 // 0x00406930
@@ -1372,21 +1772,6 @@ int __fastcall FOG_CreatePathHierarchy(const char* szPath)
     return bResult;
 }
 
-static int __fastcall FOG_AppendBackslash(char* szPath, int nSize)
-{
-    if (!szPath || !nSize)
-        return 0;
-    unsigned int nLen = SStrLen(szPath);
-    if (nLen <= 0 || szPath[nLen - 1] != '\\')
-    {
-        if (nLen + 1 == nSize)
-            return 0;
-        szPath[nLen] = '\\';
-        szPath[nLen + 1] = 0;
-    }
-    return 1;
-}
-
 // 0x00406C40
 int __fastcall ERRORMANAGER_GetBlizzardDataPath(char* szOutPath, int nSize)
 {
@@ -1400,26 +1785,6 @@ int __fastcall ERRORMANAGER_GetBlizzardDataPath(char* szOutPath, int nSize)
         return 0;
     SStrCopy(szOutPath, szPath, nSize);
     return SStrLen(szOutPath) == SStrLen(szPath);
-}
-
-static bool AppendPathSeparator_Inl(char* szPath, size_t nSize)
-{
-    if (!nSize)
-    {
-        return false;
-    }
-    const size_t nLength = SStrLen(szPath);
-    if (nLength > 0 && szPath[nLength - 1] == '\\')
-    {
-        return true;
-    }
-    if (nLength + 1 == nSize)
-    {
-        return false;
-    }
-    szPath[nLength] = '\\';
-    szPath[nLength + 1] = 0;
-    return true;
 }
 
 // 0x00406D30
@@ -1548,62 +1913,6 @@ int __fastcall FOG_GetSavePath(char* szPath, int nSize)
     return FOG_CreatePathHierarchy(szPath);
 }
 
-inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
-inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
-{
-    nCount += f_4;
-    if (nCount > f_0)
-    {
-        if (bRound)
-        {
-            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
-            nCount = RoundUpInline(nCount, nChunk);
-        }
-        sub_0051D5D0_ReallocData(nCount);
-    }
-}
-
-D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
-{
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    return this;
-}
-
-void __cdecl sub_0051D2D0_Nop()
-{
-}
-
-void __cdecl sub_0051D2E0_Nop()
-{
-}
-
-void __fastcall sub_0051D350_CopyElement(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
-{
-    if (pDst)
-        *pDst = *pSrc;
-}
-
-void D2StormArray408Strc::sub_0051D570_FreeData()
-{
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-}
-
-void D2StormArray408Strc::sub_0051D670_FreeData()
-{
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-}
-
 // 0x00407260
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 {
@@ -1669,315 +1978,6 @@ void __fastcall ERRORMANAGER_DeleteOldDatedLogs(const char* szPrefix)
         DeleteFileA(szFile);
         nJulianDay--;
     }
-}
-
-void D2StormArray408Strc::sub_0051D6A0_Clear()
-{
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-}
-
-D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
-{
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
-    return this;
-}
-
-void D2StormArray408Strc::sub_0051D730_FreeData()
-{
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-}
-
-D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
-{
-    ReserveInline(1, 1);
-    return &f_8[f_4++];
-}
-
-// 0x004076B0
-void __cdecl ERRORMANAGER_LogSystemInfo()
-{
-    D2SystemTimeStrc tTime;
-    unsigned long nSize;
-    char szPath[0x1000];
-    char szOs[0x1000];
-    char szComputer[0x40];
-
-    sub_00410610_WriteLogLine("------------------------------------------------------");
-    GetLocalTime(&tTime);
-    sub_00410610_WriteLogLine("%04d-%02d-%02d %02d:%02d:%02d", tTime.wYear, tTime.wMonth, tTime.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond);
-
-    switch (gnOsKind_0074D890)
-    {
-    case 1:
-        memcpy(szOs, "Windows NT", sizeof("Windows NT"));
-        break;
-    case 2:
-        memcpy(szOs, "Windows 2000", sizeof("Windows 2000"));
-        break;
-    case 3:
-        memcpy(szOs, "Windows XP", sizeof("Windows XP"));
-        break;
-    case 4:
-        memcpy(szOs, "Windows .Net", sizeof("Windows .Net"));
-        break;
-    case 9:
-        memcpy(szOs, "MacOS", sizeof("MacOS"));
-        break;
-    case 10:
-        memcpy(szOs, "MacOS X", sizeof("MacOS X"));
-        break;
-    default:
-        memcpy(szOs, "unknown", sizeof("unknown"));
-        break;
-    }
-
-    sub_00410610_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion_0074D894);
-    sub_0040EA00_WriteProcessorReport();
-    sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys_0074D898 / 1048576.0);
-
-    if (EXCEPTIONS_GetAppPath(szPath, sizeof(szPath)))
-    {
-        sub_00410610_WriteLogLine("Application Path: %s", szPath);
-    }
-
-    sub_00410610_WriteLogLine("Local IP: %s", FOG_GetHostIPAddress());
-
-    nSize = sizeof(szComputer);
-    if (!GetComputerNameA(szComputer, &nSize))
-    {
-        szComputer[0] = 0;
-    }
-
-    sub_00410610_WriteLogLine("Computer name: %s", szComputer);
-    sub_00410610_WriteLogLine("------------------------------------------------------");
-    sub_00410610_WriteLogLine(&gszEmptyAssertText);
-}
-
-// 0x00407970
-void __cdecl ERRORMANAGER_ForceCrash()
-{
-    int* pNull = 0;
-    *pNull = 0;
-}
-
-// 0x00407980
-void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText)
-{
-    ((crashy::Report*)pContext)->sub_00401380(gszStringFormat_006FFC58, szText);
-}
-
-// 0x00407990
-unsigned long __fastcall ERRORMANAGER_FindParentProcessId(unsigned long dwProcessId)
-{
-    unsigned long dwParent = 0;
-    void* hSnapshot = CreateToolhelp32Snapshot(2, 0);
-    D2ProcessEntryStrc tEntry;
-    tEntry.dwSize = sizeof(tEntry);
-    if (Process32First(hSnapshot, &tEntry))
-    {
-        do
-        {
-            if (tEntry.th32ProcessID == dwProcessId)
-            {
-                break;
-            }
-        }
-        while (Process32Next(hSnapshot, &tEntry));
-    }
-    if (tEntry.th32ProcessID == dwProcessId)
-    {
-        dwParent = tEntry.th32ParentProcessID;
-    }
-    CloseHandle(hSnapshot);
-    return dwParent;
-}
-
-// 0x00407A80
-bool crashy::Report::WriteInspectorHeader()
-{
-    if (!sub_00401210_IsOpen())
-    {
-        return false;
-    }
-
-    sub_00401380("<Application>%s\n", gtInspectorInfo_0074D868.szApplication);
-    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo_0074D868.f_0);
-    sub_00401380("<Inspector.Module>%s\n", gtInspectorInfo_0074D868.szModule);
-    sub_00401380("<Inspector.Milestone>%s\n", gtInspectorInfo_0074D868.szMilestone);
-    sub_00401380("<Inspector.BuildNumber>%s\n", gtInspectorInfo_0074D868.szBuildNumber);
-    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo_0074D868.f_18);
-    sub_00401380("<Inspector.IssueType>%s\n", "Exception");
-    sub_00401380("<Inspector.Priority>%s\n", "1 - Critical");
-    sub_00401380("<Inspector.PrimaryAssignment>%s\n", gtInspectorInfo_0074D868.szPrimaryAssignment);
-    sub_00401380("<Inspector.Assignments>%s\n", gtInspectorInfo_0074D868.szAssignments);
-
-    int bIsAdmin = 0;
-    D2SidAuthorityStrc tNtAuthority = { { 0, 0, 0, 0, 0, 5 } };
-    void* pSid;
-    if (AllocateAndInitializeSid(&tNtAuthority, 2, 0x20, 0x220, 0, 0, 0, 0, 0, 0, &pSid))
-    {
-        bIsAdmin = CheckTokenMembership(0, pSid, &bIsAdmin);
-        sub_00401380("<Process.UserIsAdmin> %s\n", bIsAdmin ? "TRUE" : "FALSE");
-        FreeSid(pSid);
-    }
-    sub_00401380("<Process.Elevated> %s\n", gszUnknownUpper_006CCED8);
-
-    unsigned long dwProcessId = GetCurrentProcessId();
-    bool bFound = ERRORMANAGER_GetProcessImageName(dwProcessId, gszProcessPath_0074E8C8, 0x800);
-    sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
-    const char* szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
-    const char* szName = szSlash ? szSlash + 1 : 0;
-    sub_00401380("<Process.Name> %s\n", (szName && bFound) ? szName : "Unknown");
-
-    unsigned long dwParentId = ERRORMANAGER_FindParentProcessId(dwProcessId);
-    bFound = ERRORMANAGER_GetProcessImageName(dwParentId, gszProcessPath_0074E8C8, 0x800);
-    sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
-    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
-    szName = szSlash ? szSlash + 1 : 0;
-    sub_00401380("<Process.ParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
-
-    unsigned long dwGrandParentId = ERRORMANAGER_FindParentProcessId(dwParentId);
-    bFound = ERRORMANAGER_GetProcessImageName(dwGrandParentId, gszProcessPath_0074E8C8, 0x800);
-    sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath_0074E8C8 : "Unknown");
-    szSlash = strrchr(gszProcessPath_0074E8C8, '\\');
-    szName = szSlash ? szSlash + 1 : 0;
-    sub_00401380("<Process.GrandParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
-
-    sub_00401380("<Locale.Game> %s\n", gaszLanguageNames_00706618[sub_00525150()]);
-    sub_00401380("<Locale.System> %s\n", gaszLanguageNames_00706618[STRTABLE_GetSystemLanguage()]);
-    sub_00401380("<Game.Type> %s\n", "Client");
-    sub_00401380("<Game.Build> %s\n", "79b7ae8fe1e97d05d57ebdc4b65bf012d38c797e");
-
-    char* apszFiles[0x15];
-    memset(apszFiles, 0, sizeof(apszFiles));
-    EXCEPTIONS_GetLogFilePaths(apszFiles, 0x15);
-    for (unsigned int i = 0; i < 0x15; ++i)
-    {
-        if (apszFiles[i] && *apszFiles[i])
-        {
-            sub_00401220_AddFile(apszFiles[i], true);
-        }
-    }
-    return true;
-}
-
-// 0x00407F20
-void __cdecl ERRORMANAGER_ExitHandler()
-{
-    if (gbErrorMgrInit_0074F0D0)
-    {
-        FOG_AsyncDataDestroy();
-        FOG_DestroyMemoryPoolSystem(0);
-        sub_0040B500_UnloadImageHlp();
-        LOGMANAGER_CloseLogFilesNow();
-        sub_004107A0_DeleteTimeLock();
-        sub_0040FFD0_ShutdownLogSystem();
-        gbErrorMgrInit_0074F0D0 = 0;
-        DeleteCriticalSection(&gtLock_0074C830);
-        DeleteCriticalSection(&gtLock_0074D848);
-    }
-}
-
-// 0x00407F80
-void __fastcall ERRORMANAGER_RegisterThread(unsigned int nId, void* hThread)
-{
-}
-
-// 0x00407F90
-void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId)
-{
-}
-
-// 0x00407FC0
-static void __stdcall ERRORMANAGER_LogPrefixedText(const char* szPrefix, const char* szText, int bFlag)
-{
-    if (bFlag)
-    {
-        LOGMANAGER_LogWritePrefixedNoNewline(szPrefix, gszPercentS_006FFC58, szText);
-    }
-    else
-    {
-        sub_00410740_LogWritePrefixed00(szPrefix, gszPercentS_006FFC58, szText);
-    }
-}
-
-// 0x004082E0
-int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput)
-{
-    D2ThreadContextStrc* pThread = pInput->pException->pContext;
-    const long nBusy = InterlockedIncrement(&gnReportBusy_007076B8);
-    if (nBusy == 0)
-    {
-        gdwGlobal_0074F0C8 = 1;
-        crashy::Report report;
-        if (!report.OpenReport(gszCrashFile_006CD1C0))
-        {
-            gdwGlobal_0074F0C8 = 0;
-        }
-        else
-        {
-            report.WriteInspectorHeader();
-            report.sub_00401380(gszCrashSummary_006CD1A8,pInput->szSummary);
-            if (pInput->szDetail[0]) report.sub_00401380(gszCrashDetail_006CD1A0,pInput->szDetail);
-            report.sub_00401380(gszCrashNewline_006CD188);
-            report.sub_00401380(gszAssertionBegin_006CD170);
-            int nSkip = 0;
-            if (!pThread && !pInput->pFrames)
-            {
-                nSkip = pInput->nSkip;
-                if (pInput->dwThreadId == ERRORMANAGER_GetCurrentThreadId()) nSkip += 2;
-            }
-            if (pInput->pFrames)
-                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,1);
-            else
-                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,1,nSkip);
-            report.sub_00401380(gszAssertionEnd_006CD158);
-            report.sub_00401380(gszRegisters_006CD14C);
-            sub_004032F0_DumpRegisters(pInput->dwThreadId,ERRORMANAGER_ReportPrint,&report);
-            report.sub_00401380(gszThreads_006CD140);
-            ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint,&report,pInput->dwThreadId);
-            report.sub_00401380(gszModules_006CD124);
-            sub_00402EE0_DumpModules(ERRORMANAGER_ReportPrint,&report);
-            report.sub_00401380(gszMore1_006CD108);
-            report.sub_00401380(gszMore2_006CD0F0);
-            report.sub_00401380(gszMore3_006CD0D4);
-            if (pInput->pFrames)
-                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,0);
-            else
-                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,0,nSkip);
-            report.sub_00401380(gszMore4_006CD0C4);
-            SStrCopy(gszProcessPath_0074E8C8,report.m_szText408,0x800);
-            SStrPack(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
-            if (sub_00402820_WriteMiniDump(gszProcessPath_0074E8C8,&gszEmptyAssertText,pInput->pException,0))
-                report.sub_00401220_AddFile(gszProcessPath_0074E8C8,false);
-            report.sub_00401380(gszMore5_006CD09C);
-            report.sub_004011F0_Close();
-            D2CrashSubmitInfoStrc info;
-            memset(&info,0,sizeof(info));
-            info.szName=gtInspectorInfo_0074D868.szUnused04;
-            for (int i=0;i<report.m_nLineCount;++i)
-            {
-                if (i < sizeof(info.apszLines)/sizeof(info.apszLines[0]))
-                {
-                    info.apszLines[i]=report.m_aszLines[i];
-                    ++info.nLines;
-                }
-            }
-            sub_00401790_SubmitReport(report.m_szText08,&info);
-            gdwGlobal_0074F0C8=0;
-        }
-        InterlockedDecrement(&gnReportBusy_007076B8);
-        ERRORMANAGER_TerminateCurrentProcess(-1);
-    }
-    return 2;
 }
 
 void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, int bFlag)

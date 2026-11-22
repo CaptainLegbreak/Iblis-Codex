@@ -316,21 +316,6 @@ void __fastcall LRUCacheRelease(T006090E0* pCache, D2LRUNodeStrc* pNode)
     --pCache->nCount;
 }
 
-// 0x00609380
-void __fastcall LRUCacheTouch(T006090E0* pCache, D2LRUNodeStrc* pNode)
-{
-    if (!pCache->nCount)
-    {
-        return;
-    }
-
-    ++pCache->nUses;
-    LRU_ASSERT(pNode, 233);
-
-    LRUCacheUnlinkUsed(pCache, pNode);
-    LRUCacheAppendUsed(pCache, pNode);
-}
-
 // 0x006093E0
 void __fastcall LRUCacheDestroy(T006090E0* pCache)
 {
@@ -366,4 +351,19 @@ D2LRUNodeStrc* __fastcall LRUCacheAlloc(T006090E0* pCache, unsigned int nSize, i
     pNode->nSize = nSize;
     pNode->nCost = nFlags;
     return pNode;
+}
+
+// 0x00609380
+void __fastcall LRUCacheTouch(T006090E0* pCache, D2LRUNodeStrc* pNode)
+{
+    if (!pCache->nCount)
+    {
+        return;
+    }
+
+    ++pCache->nUses;
+    LRU_ASSERT(pNode, 233);
+
+    LRUCacheUnlinkUsed(pCache, pNode);
+    LRUCacheAppendUsed(pCache, pNode);
 }

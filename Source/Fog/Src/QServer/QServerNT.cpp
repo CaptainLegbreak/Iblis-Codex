@@ -532,46 +532,69 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
     return 1;
 }
 
-// 0x006C2C70
-int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize) {
-    int nWsaError;
-    D2CriticalSectionStrc* lpCriticalSection = &pQServerClient->f_2C;
-      EnterCriticalSection(lpCriticalSection);
-    unsigned int nHighResTime = FOG_GetSyncTime();
-    pQServerClient->f_A0 = nHighResTime;
-    if (pQServerClient->f_74) {
-      sub_006C23B0_QueueMessage((D2QConn006C23B0Strc*)pQServerClient, pBytes, nSize);
-    } else {
-      unsigned int nBytesSent;
-      if (pQServerClient->socket == -1) {
-        nWsaError = pQServerClient->f_0;
-          LeaveCriticalSection(lpCriticalSection);
-        sub_006C0420_CloseRemote(pQServer, nWsaError, gszQServerNT_006FC8A0, 0x220);
-        sub_006C0360_RemoveClient(pQServer, pQServerClient);
+// 0x006C3120
+unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort)
+{
+    void* hPort = CreateIoCompletionPort((unsigned int)-1, 0, 0, 0);
+    D2_ASSERT(hPort, 0x4E);
+
+    unsigned int s = socket(2, 1, 0);
+    if (s == (unsigned int)-1)
+    {
+        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on socket() - err=%d", WSAGetLastError());
         return 0;
-      }
-
-              nBytesSent = send(pQServerClient->socket, pBytes, nSize, 0);
-      if (nBytesSent == -1) {
-        nWsaError = WSAGetLastError();
-        if (nWsaError != 0x2733) {
-          nWsaError = pQServerClient->f_0;
-            LeaveCriticalSection(lpCriticalSection);
-          sub_006C0420_CloseRemote(pQServer, nWsaError, gszQServerNT_006FC8A0, 0x234);
-          return 0;
-        }
-
-        nBytesSent = 0;
-      }
-      if (nBytesSent < (unsigned int)nSize) {
-        const unsigned int nRemaining = nSize - nBytesSent;
-        sub_006C23B0_QueueMessage((D2QConn006C23B0Strc*)pQServerClient, nBytesSent + pBytes, nRemaining);
-        sQSNTWriteFromQueue(pQServer, pQServerClient);
-      }
     }
 
-      LeaveCriticalSection(lpCriticalSection);
-    return 1;
+    int bNoDelay = 1;
+    setsockopt(s, 6, 1, (const char*)&bNoDelay, 4);
+    int bKeepAlive = 1;
+    setsockopt(s, 0xFFFF, 8, (const char*)&bKeepAlive, 4);
+    int bReuseAddr = 1;
+    setsockopt(s, 0xFFFF, 4, (const char*)&bReuseAddr, 4);
+    unsigned long nNonBlocking = 1;
+    ioctlsocket(s, 0x8004667E, &nNonBlocking);
+
+    D2SockAddrInStrc tAddr;
+    memset(&tAddr, 0, sizeof(tAddr));
+    tAddr.sin_family = 2;
+    tAddr.sin_port = htons(nPort);
+    if (bind(s, &tAddr, sizeof(tAddr)) == -1)
+    {
+        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on bind() - err=%d", WSAGetLastError());
+        sub_0040D880(s);
+        return 0;
+    }
+
+    if (listen(s, 0xFA) == -1)
+    {
+        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on listen() - err=%d", WSAGetLastError());
+        sub_0040D880(s);
+        return 0;
+    }
+
+    const int nSlot = pServer->nListeners++;
+    pServer->hPorts[nSlot] = hPort;
+    pServer->aPorts[nSlot] = nPort;
+    pServer->hListenSockets[nSlot] = s;
+    pServer->aActive[nSlot] = 1;
+
+    D2QWorkerArgStrc* pArg = (D2QWorkerArgStrc*)FOG_Alloc(sizeof(D2QWorkerArgStrc), ".\\Src\\QServer\\QServerNT.cpp", 0xA2, 0);
+    pArg->pServer = pServer;
+    pArg->nSlot = nSlot;
+    pServer->hAcceptThreads[nSlot] = CreateThread(0, 0, sub_006C2860_WorkerThread, pArg, 0, &pServer->aThreadIds[nSlot]);
+    ERRORMANAGER_RegisterThread(pServer->aThreadIds[nSlot], pServer->hAcceptThreads[nSlot]);
+
+    if (pServer->bSecondWorker)
+    {
+        D2QWorkerArgStrc* pArg2 = (D2QWorkerArgStrc*)FOG_Alloc(sizeof(D2QWorkerArgStrc), ".\\Src\\QServer\\QServerNT.cpp", 0xB5, 0);
+        pArg2->pServer = pServer;
+        pArg2->nSlot = nSlot;
+        unsigned long* pThreadId = &pServer->aThreadIds2[nSlot];
+        pServer->aThreads2[nSlot] = CreateThread(0, 0, sub_006C3030_WorkerThread2, pArg2, 0, pThreadId);
+        ERRORMANAGER_RegisterThread(*pThreadId, pServer->aThreads2[nSlot]);
+    }
+
+    return s;
 }
 
 // calling-convention shim (not game code)
@@ -684,6 +707,22 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
     return nResult;
 }
 
+// 0x006C30D0
+int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeout)
+{
+    if (!pServer->bInitialized)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            if (pServer->aListenSockets[i] != -1)
+            {
+                sub_006C2D70(pServer, i, nTimeout);
+            }
+        }
+    }
+    return 1;
+}
+
 // 0x006C3030
 int __stdcall sub_006C3030_ReleaseSlot(D2QServerReqStrc* pReq)
 {
@@ -706,84 +745,45 @@ int __stdcall sub_006C3030_ReleaseSlot(D2QServerReqStrc* pReq)
     return 1;
 }
 
-// 0x006C3120
-unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort)
-{
-    void* hPort = CreateIoCompletionPort((unsigned int)-1, 0, 0, 0);
-    D2_ASSERT(hPort, 0x4E);
-
-    unsigned int s = socket(2, 1, 0);
-    if (s == (unsigned int)-1)
-    {
-        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on socket() - err=%d", WSAGetLastError());
+// 0x006C2C70
+int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize) {
+    int nWsaError;
+    D2CriticalSectionStrc* lpCriticalSection = &pQServerClient->f_2C;
+      EnterCriticalSection(lpCriticalSection);
+    unsigned int nHighResTime = FOG_GetSyncTime();
+    pQServerClient->f_A0 = nHighResTime;
+    if (pQServerClient->f_74) {
+      sub_006C23B0_QueueMessage((D2QConn006C23B0Strc*)pQServerClient, pBytes, nSize);
+    } else {
+      unsigned int nBytesSent;
+      if (pQServerClient->socket == -1) {
+        nWsaError = pQServerClient->f_0;
+          LeaveCriticalSection(lpCriticalSection);
+        sub_006C0420_CloseRemote(pQServer, nWsaError, gszQServerNT_006FC8A0, 0x220);
+        sub_006C0360_RemoveClient(pQServer, pQServerClient);
         return 0;
-    }
+      }
 
-    int bNoDelay = 1;
-    setsockopt(s, 6, 1, (const char*)&bNoDelay, 4);
-    int bKeepAlive = 1;
-    setsockopt(s, 0xFFFF, 8, (const char*)&bKeepAlive, 4);
-    int bReuseAddr = 1;
-    setsockopt(s, 0xFFFF, 4, (const char*)&bReuseAddr, 4);
-    unsigned long nNonBlocking = 1;
-    ioctlsocket(s, 0x8004667E, &nNonBlocking);
-
-    D2SockAddrInStrc tAddr;
-    memset(&tAddr, 0, sizeof(tAddr));
-    tAddr.sin_family = 2;
-    tAddr.sin_port = htons(nPort);
-    if (bind(s, &tAddr, sizeof(tAddr)) == -1)
-    {
-        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on bind() - err=%d", WSAGetLastError());
-        sub_0040D880(s);
-        return 0;
-    }
-
-    if (listen(s, 0xFA) == -1)
-    {
-        sub_00410610_WriteLogLine("[SERVER]  QSNTInit failed on listen() - err=%d", WSAGetLastError());
-        sub_0040D880(s);
-        return 0;
-    }
-
-    const int nSlot = pServer->nListeners++;
-    pServer->hPorts[nSlot] = hPort;
-    pServer->aPorts[nSlot] = nPort;
-    pServer->hListenSockets[nSlot] = s;
-    pServer->aActive[nSlot] = 1;
-
-    D2QWorkerArgStrc* pArg = (D2QWorkerArgStrc*)FOG_Alloc(sizeof(D2QWorkerArgStrc), ".\\Src\\QServer\\QServerNT.cpp", 0xA2, 0);
-    pArg->pServer = pServer;
-    pArg->nSlot = nSlot;
-    pServer->hAcceptThreads[nSlot] = CreateThread(0, 0, sub_006C2860_WorkerThread, pArg, 0, &pServer->aThreadIds[nSlot]);
-    ERRORMANAGER_RegisterThread(pServer->aThreadIds[nSlot], pServer->hAcceptThreads[nSlot]);
-
-    if (pServer->bSecondWorker)
-    {
-        D2QWorkerArgStrc* pArg2 = (D2QWorkerArgStrc*)FOG_Alloc(sizeof(D2QWorkerArgStrc), ".\\Src\\QServer\\QServerNT.cpp", 0xB5, 0);
-        pArg2->pServer = pServer;
-        pArg2->nSlot = nSlot;
-        unsigned long* pThreadId = &pServer->aThreadIds2[nSlot];
-        pServer->aThreads2[nSlot] = CreateThread(0, 0, sub_006C3030_WorkerThread2, pArg2, 0, pThreadId);
-        ERRORMANAGER_RegisterThread(*pThreadId, pServer->aThreads2[nSlot]);
-    }
-
-    return s;
-}
-
-// 0x006C30D0
-int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeout)
-{
-    if (!pServer->bInitialized)
-    {
-        for (int i = 0; i < 4; ++i)
-        {
-            if (pServer->aListenSockets[i] != -1)
-            {
-                sub_006C2D70(pServer, i, nTimeout);
-            }
+              nBytesSent = send(pQServerClient->socket, pBytes, nSize, 0);
+      if (nBytesSent == -1) {
+        nWsaError = WSAGetLastError();
+        if (nWsaError != 0x2733) {
+          nWsaError = pQServerClient->f_0;
+            LeaveCriticalSection(lpCriticalSection);
+          sub_006C0420_CloseRemote(pQServer, nWsaError, gszQServerNT_006FC8A0, 0x234);
+          return 0;
         }
+
+        nBytesSent = 0;
+      }
+      if (nBytesSent < (unsigned int)nSize) {
+        const unsigned int nRemaining = nSize - nBytesSent;
+        sub_006C23B0_QueueMessage((D2QConn006C23B0Strc*)pQServerClient, nBytesSent + pBytes, nRemaining);
+        sQSNTWriteFromQueue(pQServer, pQServerClient);
+      }
     }
+
+      LeaveCriticalSection(lpCriticalSection);
     return 1;
 }
 

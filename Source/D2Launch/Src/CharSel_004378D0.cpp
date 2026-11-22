@@ -1254,252 +1254,6 @@ BUILD_MODEL:
     return 1;
 }
 
-// 0x00439AF0
-void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode)
-{
-    char szName[0x100];
-
-    if (gnSelected_0070CC00 == -1)
-        return;
-
-    D2LaunchCharEntryStrc* pEntry = gpCharList_00779DBC;
-    for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
-    {
-        if (gnSelected_0070CC00 == i)
-            break;
-    }
-
-    if (!pEntry)
-        return;
-
-    gpCharSelect_007795D4->nMode = nMode;
-    sub_0042F3F0_DestroyControls();
-    sub_00526F70(szName, pEntry->wszName, 0xFF);
-    sub_00434A00_Join(pEntry, pEntry->wFlags, pEntry->nType, szName);
-}
-
-// 0x0043A800
-void __cdecl sub_0043A800()
-{
-    if (gnLaunchMode_007795EC == 1)
-    {
-        if (FOG_IsExpansion())
-        {
-            sub_00437BF0_CreateControls();
-        }
-        else
-        {
-            gpControl_007799EC = sub_0042F3A0_CreateFromTemplate(0x73);
-            D2Win_10033(gpControl_007799EC, 1);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_007799EC, 1);
-            gpControl_00779C7C = sub_0042F3A0_CreateFromTemplate(0x74);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C7C, 1);
-            gpControl_00779D9C = sub_0042F3A0_CreateFromTemplate(0x75);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D9C, 1);
-            gpNameControl_007799E8 = sub_0042F3A0_CreateFromTemplate(0x76);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpNameControl_007799E8, 1);
-            gpControl_00779D88 = sub_0042F3A0_CreateFromTemplate(0x77);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D88, 1);
-            gpControl_00779C74 = sub_0042F3A0_CreateFromTemplate(0x78);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C74, 1);
-        }
-
-        sub_004FC9B0_SetText(gpControl_00779C7C, D2LANG_GetStringFromTblIndex(0x2B31), 0, 0, 0);
-        D2Win_10062((D2WinTextBoxStrc*)gpControl_00779D9C, -6, 0);
-        for (int i = 0; ; ++i)
-        {
-            char* szName = i < GAME_GetSlotNameCount() ? sub_00430B50_GetSlotName(i) : 0;
-            if (!szName) { break; }
-            D2Win_10045(gpNameControl_007799E8, szName);
-            if (!SStrCmpI(gData_00779A40, szName, 0x7FFFFFFF))
-            {
-                D2Win_10050_TEXTBOX_SetLine((D2WinTextBoxStrc*)gpNameControl_007799E8, i);
-            }
-        }
-        sub_0043A650_Refresh();
-    }
-    gbFlag_00779C6C = 1;
-}
-
-// 0x0043AAB0
-void __stdcall sub_0043AAB0(const char* szName, unsigned char* pPacket, int bFlag)
-{
-    const unsigned char nType = pPacket[0];
-    const char* pCursor = (const char*)pPacket + 9;
-    unsigned int nCount = *(unsigned short*)(pPacket + 7);
-
-    if (!FOG_IsExpansion())
-    {
-        const Unicode* wszTitle = D2LANG_GetStringFromTblIndex(0x1419);
-        unsigned short nText = 0x141B;
-        if (gnGlobal_007795EC != 1)
-            nText = 0x141A;
-        const Unicode* wszText = D2LANG_GetStringFromTblIndex(nText);
-        gnGlobal_0070CC04 = gnGlobal_00779DC4;
-        sub_0043A460_CreateNotice(wszTitle, wszText, 1, 0xC);
-    }
-
-    unsigned int nEntries = *(unsigned short*)(pPacket + 3);
-    if (nCount < nEntries)
-        nEntries = nCount;
-
-    for (unsigned int i = 0; i < nEntries; ++i)
-    {
-        int nExpire = 0;
-        if (nType == 0x19)
-        {
-            nExpire = *(const int*)pCursor;
-            pCursor += 4;
-        }
-
-        const char* szCharName = pCursor;
-        pCursor += strlen(pCursor) + 1;
-        const char* szStats = pCursor;
-        pCursor += strlen(pCursor) + 1;
-        D2FileTimeStrc tTime = {};
-        if (!sub_00438AD0_AddCharEntry(szCharName, szStats, nExpire, tTime.dwLowDateTime, tTime.dwHighDateTime, szName))
-        {
-            --nCount;
-            sub_00437B90_FreeCache();
-            bFlag = 0;
-        }
-    }
-
-    if (bFlag)
-    {
-        sub_00437AB0_CharSelCacheStore(szName, pPacket, (const unsigned char*)pCursor - pPacket);
-    }
-
-    if (nCount >= *(unsigned short*)(pPacket + 1))
-    {
-        gnGlobal_00779DD8 = 1;
-    }
-
-    if (*(unsigned short*)(pPacket + 3) > *(unsigned short*)(pPacket + 7))
-    {
-        const Unicode* wszTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
-        Unicode wszEmpty;
-        wszEmpty.wChar = 0;
-        gnGlobal_0070CC08 = gnGlobal_00779DC4;
-        sub_0043A460_CreateNotice(wszTitle, &wszEmpty, 2, 0x12);
-    }
-
-    sub_00439210_Redraw();
-}
-
-// 0x0043B520
-int __stdcall sub_0043B520_OnCharSelect(int nArg)
-{
-    char szName[0x100];
-
-    if (FOG_IsExpansion())
-    {
-        D2LaunchCharEntryStrc* pEntry = gpCharList_00779DBC;
-        for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
-        {
-            if (gnSelected_0070CC00 == i)
-                break;
-        }
-
-        if (pEntry)
-        {
-            if (pEntry->wFlags & 0x20)
-                return 1;
-
-            int bOk;
-            const Unicode* pwszName = pEntry->wszName;
-            if (pwszName && pwszName->wChar)
-            {
-                sub_00526F70(szName, pwszName, 0xFF);
-                bOk = sub_004349B0_Validate(pEntry, szName);
-                if (!bOk)
-                {
-                    if (GAME_GetConnectError() != 0x7B)
-                    {
-                        sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080_InitCharSelectScreen);
-                    }
-                    else
-                    {
-                        Unicode wszText[0x100];
-                        Unicode wszArg[0x100];
-                        sub_00526F20_ToUnicode(wszArg, pEntry->szName, 0x100);
-                        sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
-                        sub_00433450_ShowText(wszText, sub_0043B080_InitCharSelectScreen);
-                    }
-                    gbBusy_00779DA0 = 0;
-                    return 1;
-                }
-            }
-            else
-            {
-                bOk = sub_0043CAA0_UpdateSaveFlags(pEntry->szName);
-            }
-
-            if (bOk)
-            {
-                pEntry->wFlags |= 0x20;
-                sub_00438560_Refresh();
-                sub_0042F3F0_DestroyControls();
-            }
-            else
-            {
-                sub_00435180_ShowMessage2(D2LANG_GetStringFromTblIndex(0x5570), sub_0043B080_InitCharSelectScreen, 1);
-            }
-        }
-
-        CONTROL_SetEnabled(gpControl_00779C80, 0);
-    }
-    return 1;
-}
-
-// 0x0043B6B0
-int __stdcall sub_0043B6B0_JoinSelected(int nArg)
-{
-    char szName[0x100];
-
-    D2LaunchCharEntryStrc* pEntry = gpCharList_00779DBC;
-    for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
-    {
-        if (gnSelected_0070CC00 == i)
-            break;
-    }
-
-    if (pEntry)
-    {
-        gbBusy_00779DA0 = 1;
-
-        const Unicode* pwszName = pEntry->wszName;
-        if (pwszName && pwszName->wChar)
-        {
-            sub_00526F70(szName, pwszName, 0xFF);
-            if (sub_00434960_Validate(pEntry, szName))
-            {
-                ++gnCounter_00779DDC;
-                gbFlag_00779DD8 = 0;
-                sub_0043C750_JoinEntry(pEntry, szName);
-            }
-            else
-            {
-                sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080_InitCharSelectScreen);
-                gbBusy_00779DA0 = 0;
-                return 1;
-            }
-        }
-        else
-        {
-            sub_0043C750_JoinEntry(pEntry, &gszEmptyAssertText);
-        }
-
-        sub_0043B080_InitCharSelectScreen();
-        gbBusy_00779DA0 = 0;
-        return 1;
-    }
-
-    return 0;
-}
-
-// build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0043B9F0
 int __fastcall sub_0043B9F0_HandleStatus(D2StatusStrc* pStatus)
 {
@@ -1816,6 +1570,8 @@ int __stdcall sub_004429A0_ChatLine(const Unicode* pText)
     return sub_004428D0_SendChatText(szText, 0);
 }
 
+// build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00442C20
 void __cdecl sub_00442C20_HandleList()
 {
@@ -2054,6 +1810,250 @@ int __stdcall sub_00446890_SendChatLine(int nArg)
         return sub_004428D0_SendChatText(szText, 0);
     }
     return 1;
+}
+
+// 0x0043A800
+void __cdecl sub_0043A800()
+{
+    if (gnLaunchMode_007795EC == 1)
+    {
+        if (FOG_IsExpansion())
+        {
+            sub_00437BF0_CreateControls();
+        }
+        else
+        {
+            gpControl_007799EC = sub_0042F3A0_CreateFromTemplate(0x73);
+            D2Win_10033(gpControl_007799EC, 1);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_007799EC, 1);
+            gpControl_00779C7C = sub_0042F3A0_CreateFromTemplate(0x74);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C7C, 1);
+            gpControl_00779D9C = sub_0042F3A0_CreateFromTemplate(0x75);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D9C, 1);
+            gpNameControl_007799E8 = sub_0042F3A0_CreateFromTemplate(0x76);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpNameControl_007799E8, 1);
+            gpControl_00779D88 = sub_0042F3A0_CreateFromTemplate(0x77);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D88, 1);
+            gpControl_00779C74 = sub_0042F3A0_CreateFromTemplate(0x78);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C74, 1);
+        }
+
+        sub_004FC9B0_SetText(gpControl_00779C7C, D2LANG_GetStringFromTblIndex(0x2B31), 0, 0, 0);
+        D2Win_10062((D2WinTextBoxStrc*)gpControl_00779D9C, -6, 0);
+        for (int i = 0; ; ++i)
+        {
+            char* szName = i < GAME_GetSlotNameCount() ? sub_00430B50_GetSlotName(i) : 0;
+            if (!szName) { break; }
+            D2Win_10045(gpNameControl_007799E8, szName);
+            if (!SStrCmpI(gData_00779A40, szName, 0x7FFFFFFF))
+            {
+                D2Win_10050_TEXTBOX_SetLine((D2WinTextBoxStrc*)gpNameControl_007799E8, i);
+            }
+        }
+        sub_0043A650_Refresh();
+    }
+    gbFlag_00779C6C = 1;
+}
+
+// 0x0043AAB0
+void __stdcall sub_0043AAB0(const char* szName, unsigned char* pPacket, int bFlag)
+{
+    const unsigned char nType = pPacket[0];
+    const char* pCursor = (const char*)pPacket + 9;
+    unsigned int nCount = *(unsigned short*)(pPacket + 7);
+
+    if (!FOG_IsExpansion())
+    {
+        const Unicode* wszTitle = D2LANG_GetStringFromTblIndex(0x1419);
+        unsigned short nText = 0x141B;
+        if (gnGlobal_007795EC != 1)
+            nText = 0x141A;
+        const Unicode* wszText = D2LANG_GetStringFromTblIndex(nText);
+        gnGlobal_0070CC04 = gnGlobal_00779DC4;
+        sub_0043A460_CreateNotice(wszTitle, wszText, 1, 0xC);
+    }
+
+    unsigned int nEntries = *(unsigned short*)(pPacket + 3);
+    if (nCount < nEntries)
+        nEntries = nCount;
+
+    for (unsigned int i = 0; i < nEntries; ++i)
+    {
+        int nExpire = 0;
+        if (nType == 0x19)
+        {
+            nExpire = *(const int*)pCursor;
+            pCursor += 4;
+        }
+
+        const char* szCharName = pCursor;
+        pCursor += strlen(pCursor) + 1;
+        const char* szStats = pCursor;
+        pCursor += strlen(pCursor) + 1;
+        D2FileTimeStrc tTime = {};
+        if (!sub_00438AD0_AddCharEntry(szCharName, szStats, nExpire, tTime.dwLowDateTime, tTime.dwHighDateTime, szName))
+        {
+            --nCount;
+            sub_00437B90_FreeCache();
+            bFlag = 0;
+        }
+    }
+
+    if (bFlag)
+    {
+        sub_00437AB0_CharSelCacheStore(szName, pPacket, (const unsigned char*)pCursor - pPacket);
+    }
+
+    if (nCount >= *(unsigned short*)(pPacket + 1))
+    {
+        gnGlobal_00779DD8 = 1;
+    }
+
+    if (*(unsigned short*)(pPacket + 3) > *(unsigned short*)(pPacket + 7))
+    {
+        const Unicode* wszTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
+        Unicode wszEmpty;
+        wszEmpty.wChar = 0;
+        gnGlobal_0070CC08 = gnGlobal_00779DC4;
+        sub_0043A460_CreateNotice(wszTitle, &wszEmpty, 2, 0x12);
+    }
+
+    sub_00439210_Redraw();
+}
+
+// 0x00439AF0
+void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode)
+{
+    char szName[0x100];
+
+    if (gnSelected_0070CC00 == -1)
+        return;
+
+    D2LaunchCharEntryStrc* pEntry = gpCharList_00779DBC;
+    for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
+    {
+        if (gnSelected_0070CC00 == i)
+            break;
+    }
+
+    if (!pEntry)
+        return;
+
+    gpCharSelect_007795D4->nMode = nMode;
+    sub_0042F3F0_DestroyControls();
+    sub_00526F70(szName, pEntry->wszName, 0xFF);
+    sub_00434A00_Join(pEntry, pEntry->wFlags, pEntry->nType, szName);
+}
+
+// 0x0043B520
+int __stdcall sub_0043B520_OnCharSelect(int nArg)
+{
+    char szName[0x100];
+
+    if (FOG_IsExpansion())
+    {
+        D2LaunchCharEntryStrc* pEntry = gpCharList_00779DBC;
+        for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
+        {
+            if (gnSelected_0070CC00 == i)
+                break;
+        }
+
+        if (pEntry)
+        {
+            if (pEntry->wFlags & 0x20)
+                return 1;
+
+            int bOk;
+            const Unicode* pwszName = pEntry->wszName;
+            if (pwszName && pwszName->wChar)
+            {
+                sub_00526F70(szName, pwszName, 0xFF);
+                bOk = sub_004349B0_Validate(pEntry, szName);
+                if (!bOk)
+                {
+                    if (GAME_GetConnectError() != 0x7B)
+                    {
+                        sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080_InitCharSelectScreen);
+                    }
+                    else
+                    {
+                        Unicode wszText[0x100];
+                        Unicode wszArg[0x100];
+                        sub_00526F20_ToUnicode(wszArg, pEntry->szName, 0x100);
+                        sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
+                        sub_00433450_ShowText(wszText, sub_0043B080_InitCharSelectScreen);
+                    }
+                    gbBusy_00779DA0 = 0;
+                    return 1;
+                }
+            }
+            else
+            {
+                bOk = sub_0043CAA0_UpdateSaveFlags(pEntry->szName);
+            }
+
+            if (bOk)
+            {
+                pEntry->wFlags |= 0x20;
+                sub_00438560_Refresh();
+                sub_0042F3F0_DestroyControls();
+            }
+            else
+            {
+                sub_00435180_ShowMessage2(D2LANG_GetStringFromTblIndex(0x5570), sub_0043B080_InitCharSelectScreen, 1);
+            }
+        }
+
+        CONTROL_SetEnabled(gpControl_00779C80, 0);
+    }
+    return 1;
+}
+
+// 0x0043B6B0
+int __stdcall sub_0043B6B0_JoinSelected(int nArg)
+{
+    char szName[0x100];
+
+    D2LaunchCharEntryStrc* pEntry = gpCharList_00779DBC;
+    for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
+    {
+        if (gnSelected_0070CC00 == i)
+            break;
+    }
+
+    if (pEntry)
+    {
+        gbBusy_00779DA0 = 1;
+
+        const Unicode* pwszName = pEntry->wszName;
+        if (pwszName && pwszName->wChar)
+        {
+            sub_00526F70(szName, pwszName, 0xFF);
+            if (sub_00434960_Validate(pEntry, szName))
+            {
+                ++gnCounter_00779DDC;
+                gbFlag_00779DD8 = 0;
+                sub_0043C750_JoinEntry(pEntry, szName);
+            }
+            else
+            {
+                sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080_InitCharSelectScreen);
+                gbBusy_00779DA0 = 0;
+                return 1;
+            }
+        }
+        else
+        {
+            sub_0043C750_JoinEntry(pEntry, &gszEmptyAssertText);
+        }
+
+        sub_0043B080_InitCharSelectScreen();
+        gbBusy_00779DA0 = 0;
+        return 1;
+    }
+
+    return 0;
 }
 
 int __cdecl sub_0043A2B0_InitRealmScreen()

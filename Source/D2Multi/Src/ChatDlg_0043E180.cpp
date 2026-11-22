@@ -219,6 +219,33 @@ int __stdcall sub_0043F970_ReleaseAndRecreate(int nArg)
     return 1;
 }
 
+// 0x0043FB50
+int __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone)
+{
+    sub_0043F8C0_ResetLaunchState();
+    if (gpControlMain_0077BC4C)
+        sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 0);
+    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
+    BUTTON_SetIsPressed(gpControlA_0077B070, 0);
+    BUTTON_SetIsPressed(gpControlB_0077B078, 0);
+    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    gpWaitText_0077BD9C = CONTROL_Create(&gtWaitInit_0070D3C0);
+    D2Win_10044(gpWaitText_0077BD9C, pText);
+    gpfnLaunchCallback_0077BDA4 = pfnDone;
+    return 1;
+}
+
+// 0x0043FBD0
+void __cdecl sub_0043FBD0_Refresh()
+{
+    sub_0043F8C0_ResetLaunchState();
+    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
+    BUTTON_SetIsPressed(gpControlA_0077B070, 0);
+    BUTTON_SetIsPressed(gpControlB_0077B078, 0);
+    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    gnLaunchMode_0077BBE4 = 0;
+}
+
 // 0x00442150
 int __fastcall sub_00442150_StartChat(D2LaunchCharInfoStrc* pInfo)
 {
@@ -257,33 +284,6 @@ int __stdcall sub_004428B0_SendChat(int nArg)
     sub_00442810_SendChatBuffer();
     sub_0043EA20_Wait();
     return 1;
-}
-
-// 0x0043FB50
-int __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone)
-{
-    sub_0043F8C0_ResetLaunchState();
-    if (gpControlMain_0077BC4C)
-        sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 0);
-    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
-    BUTTON_SetIsPressed(gpControlA_0077B070, 0);
-    BUTTON_SetIsPressed(gpControlB_0077B078, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
-    gpWaitText_0077BD9C = CONTROL_Create(&gtWaitInit_0070D3C0);
-    D2Win_10044(gpWaitText_0077BD9C, pText);
-    gpfnLaunchCallback_0077BDA4 = pfnDone;
-    return 1;
-}
-
-// 0x0043FBD0
-void __cdecl sub_0043FBD0_Refresh()
-{
-    sub_0043F8C0_ResetLaunchState();
-    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
-    BUTTON_SetIsPressed(gpControlA_0077B070, 0);
-    BUTTON_SetIsPressed(gpControlB_0077B078, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
-    gnLaunchMode_0077BBE4 = 0;
 }
 
 #include "gen/data/Source/D2Multi/Src/ChatDlg_0043E180.inc"

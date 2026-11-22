@@ -1094,6 +1094,307 @@ static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCo
     UNITMODE_SetUnitMode(pUnit, nMode);
 }
 
+// 0x004B11F0
+int __fastcall MONSTER_IsConvertible(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 0;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+        return 0;
+    if (!UNITS_CanSwitchAI(pUnit->dwClassId))
+        return 0;
+    if (pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        if (sub_004AC7E0(pUnit, 8))
+            return 0;
+        if (pUnit->dwUnitType == UNIT_MONSTER && sub_004AC7E0(pUnit, 2))
+            return 0;
+    }
+    return 1;
+}
+
+// 0x004B13A0
+void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+    {
+        return;
+    }
+
+    if (STATES_CheckState(pUnit, STATE_FREEZE) && !CUNIT_IsDeadOrDying(pUnit))
+    {
+        return;
+    }
+
+    const int nMode = pUnit->dwAnimMode;
+    if (nMode >= 0x10)
+    {
+        return;
+    }
+
+    D2MonAnimRecStrc* pRecord = sub_004AF400_GetMonsterAnimRecord(pUnit);
+    if (!pRecord)
+    {
+        return;
+    }
+
+    sub_004AF4C0_UpdateMonsterFrame(pUnit);
+
+    int bResult = 0;
+    switch (pRecord->nType)
+    {
+    case 1:
+        bResult = sub_004807C0(pUnit);
+        break;
+    }
+
+    if (nMode == 1 && !sub_004AE080(pUnit, nMode))
+    {
+        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+        if (pPath && PATH_GetTargetUnit(pPath))
+        {
+            int nUnitType;
+            int nUnitGUID;
+            PATH_GetTargetTypeAndGUID(pPath, &nUnitType, &nUnitGUID);
+            D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitGUID, nUnitType);
+            PATH_SetTargetUnit(pPath, pTarget);
+            if (pTarget)
+            {
+                D2Common_10213(pUnit);
+            }
+        }
+        else
+        {
+            D2Common_10213(pUnit);
+        }
+    }
+
+    const int nClassId = pUnit->dwClassId;
+    D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(nClassId);
+    if (!pMonStatsTxt)
+    {
+        return;
+    }
+
+    if ((pMonStatsTxt->nMonStatsFlags[9 >> 3] & gdwBitMasks[9 & 7]) && !MONSTERREGION_CheckMonStats2Flag(nClassId, 0xD)
+        && pUnit->dwAnimMode == 1 && !sub_00451F30_TestUnitFlag(pUnit, 0x200)
+        && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (pPlayer && (unsigned int)sub_00641530(pUnit, pPlayer) < 7)
+        {
+            D2SeedStrc* pSeed = &pUnit->pSeed;
+            if (pSeed && (int)SEED_RollLimitedRandomNumber(pSeed, 0x64) < 0xA)
+            {
+                D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+                if (pPath)
+                {
+                    D2Common_10216(pPath, CLIENTS_GetUnitX(pPlayer), CLIENTS_GetUnitY(pPlayer), 0);
+                }
+            }
+        }
+    }
+
+    const int nRet = sub_004B1280(pUnit, pRecord);
+    int bAttack = 0;
+    switch (pRecord->nAction)
+    {
+    case 1:
+        bAttack = bResult;
+        break;
+
+    case 2:
+    case 3:
+        bAttack = nRet;
+        break;
+
+    case 4:
+        if (bResult && sub_006217C0(pUnit))
+        {
+            bAttack = 1;
+        }
+        break;
+    }
+
+    sub_004AF2E0_MonsterSkillEvent(pUnit);
+    MONSTER_RunUModFrameCallbacks(pUnit);
+    if (pUnit->pDynamicPath)
+    {
+        D2COMMON_10193_PATH_AdjustDirection(pUnit->pDynamicPath);
+    }
+
+    if (bAttack)
+    {
+        MONSTER_HandleAttackEvent(pUnit);
+    }
+
+    if (!pUnit->dwAnimMode && pUnit->dwClassId == 0x210 && sub_00451F30_TestUnitFlag(pUnit, 1))
+    {
+        pUnit->dwFlags &= ~1;
+        CUNIT_SpawnPresetUnit(0x1DE, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 2, 0);
+    }
+
+    if (sub_0063A340(pUnit))
+    {
+        SKILLS_RunStateActiveFuncs(pUnit);
+    }
+
+    UNITSND_UpdateModeSound(pUnit);
+    sub_004CAF60(pUnit);
+}
+
+static D2MonStatsTxt* MONSTATS_GetRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+
+    return 0;
+}
+
+static D2MonStatsTxt* MONSTATS_GetUnitRecord(D2UnitStrc* pUnit, int nType)
+{
+    if (pUnit && nType == UNIT_MONSTER)
+    {
+        return MONSTATS_GetRecord(pUnit->dwClassId);
+    }
+
+    return 0;
+}
+
+// 0x004B1280
+int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMode)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    const int nType = pUnit->dwUnitType;
+
+    if (nType == UNIT_MONSTER)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetUnitRecord(pUnit, nType);
+        if (!pMonStatsTxtRecord)
+        {
+            return 0;
+        }
+
+        switch (pMonStatsTxtRecord->nSplEndDeath)
+        {
+        case 1:
+            if (!pUnit->dwAnimMode && UNITS_IsAtEndOfFrameCycle(pUnit))
+            {
+                D2UnitTargetStrc tTarget = {};
+                MONSTER_HandleMonsterCommand(9, pUnit, &tTarget);
+            }
+            break;
+        }
+    }
+
+    int nResult = 0;
+    switch (pMode->nMode)
+    {
+    case 0:
+        UNITS_StopSequence(pUnit);
+        break;
+
+    case 1:
+        nResult = UNITS_IsAtEndOfFrameCycle(pUnit);
+        if (!nResult)
+        {
+            UNITS_StopSequence(pUnit);
+        }
+        break;
+
+    case 2:
+        if (!UNITS_IsAtEndOfFrameCycle(pUnit))
+        {
+            UNITS_StopSequence(pUnit);
+            break;
+        }
+
+        pUnit->nSeqCurrentFramePrecise = pUnit->dwFrameCountPrecise - 0x100;
+        pUnit->wAnimSpeed = 0;
+        if (!pUnit->dwAnimMode)
+        {
+            pUnit->dwFlags |= 0x20;
+        }
+        break;
+
+    case 3:
+        pUnit->nSeqCurrentFramePrecise = 0x100;
+        pUnit->wAnimSpeed = 0;
+        break;
+    }
+
+    return nResult;
+}
+
+static inline unsigned int sub_I20_SeedStep(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline D2SkillsTxt* sub_I20_GetSkillsTxt(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+static inline int sub_I20_HasUnitFlagBit(D2UnitStrc* pUnit)
+{
+    int bResult = 0;
+    if (pUnit)
+    {
+        bResult = (pUnit->dwFlags >> 0x15) & 1;
+    }
+    return bResult;
+}
+
+static inline int sub_I20_UnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+static inline int sub_I20_UnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
 // 0x004AFF60
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pCommand)
 {
@@ -1719,307 +2020,6 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         if (pPath)
             PATH_ClearPathingFlagAndPoints(pPath);
     }
-}
-
-// 0x004B11F0
-int __fastcall MONSTER_IsConvertible(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 0;
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != 1)
-        return 0;
-    if (!UNITS_CanSwitchAI(pUnit->dwClassId))
-        return 0;
-    if (pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        if (sub_004AC7E0(pUnit, 8))
-            return 0;
-        if (pUnit->dwUnitType == UNIT_MONSTER && sub_004AC7E0(pUnit, 2))
-            return 0;
-    }
-    return 1;
-}
-
-static D2MonStatsTxt* MONSTATS_GetRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-
-    return 0;
-}
-
-static D2MonStatsTxt* MONSTATS_GetUnitRecord(D2UnitStrc* pUnit, int nType)
-{
-    if (pUnit && nType == UNIT_MONSTER)
-    {
-        return MONSTATS_GetRecord(pUnit->dwClassId);
-    }
-
-    return 0;
-}
-
-// 0x004B1280
-int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMode)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    const int nType = pUnit->dwUnitType;
-
-    if (nType == UNIT_MONSTER)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetUnitRecord(pUnit, nType);
-        if (!pMonStatsTxtRecord)
-        {
-            return 0;
-        }
-
-        switch (pMonStatsTxtRecord->nSplEndDeath)
-        {
-        case 1:
-            if (!pUnit->dwAnimMode && UNITS_IsAtEndOfFrameCycle(pUnit))
-            {
-                D2UnitTargetStrc tTarget = {};
-                MONSTER_HandleMonsterCommand(9, pUnit, &tTarget);
-            }
-            break;
-        }
-    }
-
-    int nResult = 0;
-    switch (pMode->nMode)
-    {
-    case 0:
-        UNITS_StopSequence(pUnit);
-        break;
-
-    case 1:
-        nResult = UNITS_IsAtEndOfFrameCycle(pUnit);
-        if (!nResult)
-        {
-            UNITS_StopSequence(pUnit);
-        }
-        break;
-
-    case 2:
-        if (!UNITS_IsAtEndOfFrameCycle(pUnit))
-        {
-            UNITS_StopSequence(pUnit);
-            break;
-        }
-
-        pUnit->nSeqCurrentFramePrecise = pUnit->dwFrameCountPrecise - 0x100;
-        pUnit->wAnimSpeed = 0;
-        if (!pUnit->dwAnimMode)
-        {
-            pUnit->dwFlags |= 0x20;
-        }
-        break;
-
-    case 3:
-        pUnit->nSeqCurrentFramePrecise = 0x100;
-        pUnit->wAnimSpeed = 0;
-        break;
-    }
-
-    return nResult;
-}
-
-static inline unsigned int sub_I20_SeedStep(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
-static inline D2SkillsTxt* sub_I20_GetSkillsTxt(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    return 0;
-}
-
-static inline int sub_I20_HasUnitFlagBit(D2UnitStrc* pUnit)
-{
-    int bResult = 0;
-    if (pUnit)
-    {
-        bResult = (pUnit->dwFlags >> 0x15) & 1;
-    }
-    return bResult;
-}
-
-static inline int sub_I20_UnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-static inline int sub_I20_UnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-// 0x004B13A0
-void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != 1)
-    {
-        return;
-    }
-
-    if (STATES_CheckState(pUnit, STATE_FREEZE) && !CUNIT_IsDeadOrDying(pUnit))
-    {
-        return;
-    }
-
-    const int nMode = pUnit->dwAnimMode;
-    if (nMode >= 0x10)
-    {
-        return;
-    }
-
-    D2MonAnimRecStrc* pRecord = sub_004AF400_GetMonsterAnimRecord(pUnit);
-    if (!pRecord)
-    {
-        return;
-    }
-
-    sub_004AF4C0_UpdateMonsterFrame(pUnit);
-
-    int bResult = 0;
-    switch (pRecord->nType)
-    {
-    case 1:
-        bResult = sub_004807C0(pUnit);
-        break;
-    }
-
-    if (nMode == 1 && !sub_004AE080(pUnit, nMode))
-    {
-        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-        if (pPath && PATH_GetTargetUnit(pPath))
-        {
-            int nUnitType;
-            int nUnitGUID;
-            PATH_GetTargetTypeAndGUID(pPath, &nUnitType, &nUnitGUID);
-            D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitGUID, nUnitType);
-            PATH_SetTargetUnit(pPath, pTarget);
-            if (pTarget)
-            {
-                D2Common_10213(pUnit);
-            }
-        }
-        else
-        {
-            D2Common_10213(pUnit);
-        }
-    }
-
-    const int nClassId = pUnit->dwClassId;
-    D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(nClassId);
-    if (!pMonStatsTxt)
-    {
-        return;
-    }
-
-    if ((pMonStatsTxt->nMonStatsFlags[9 >> 3] & gdwBitMasks[9 & 7]) && !MONSTERREGION_CheckMonStats2Flag(nClassId, 0xD)
-        && pUnit->dwAnimMode == 1 && !sub_00451F30_TestUnitFlag(pUnit, 0x200)
-        && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && (unsigned int)sub_00641530(pUnit, pPlayer) < 7)
-        {
-            D2SeedStrc* pSeed = &pUnit->pSeed;
-            if (pSeed && (int)SEED_RollLimitedRandomNumber(pSeed, 0x64) < 0xA)
-            {
-                D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-                if (pPath)
-                {
-                    D2Common_10216(pPath, CLIENTS_GetUnitX(pPlayer), CLIENTS_GetUnitY(pPlayer), 0);
-                }
-            }
-        }
-    }
-
-    const int nRet = sub_004B1280(pUnit, pRecord);
-    int bAttack = 0;
-    switch (pRecord->nAction)
-    {
-    case 1:
-        bAttack = bResult;
-        break;
-
-    case 2:
-    case 3:
-        bAttack = nRet;
-        break;
-
-    case 4:
-        if (bResult && sub_006217C0(pUnit))
-        {
-            bAttack = 1;
-        }
-        break;
-    }
-
-    sub_004AF2E0_MonsterSkillEvent(pUnit);
-    MONSTER_RunUModFrameCallbacks(pUnit);
-    if (pUnit->pDynamicPath)
-    {
-        D2COMMON_10193_PATH_AdjustDirection(pUnit->pDynamicPath);
-    }
-
-    if (bAttack)
-    {
-        MONSTER_HandleAttackEvent(pUnit);
-    }
-
-    if (!pUnit->dwAnimMode && pUnit->dwClassId == 0x210 && sub_00451F30_TestUnitFlag(pUnit, 1))
-    {
-        pUnit->dwFlags &= ~1;
-        CUNIT_SpawnPresetUnit(0x1DE, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 2, 0);
-    }
-
-    if (sub_0063A340(pUnit))
-    {
-        SKILLS_RunStateActiveFuncs(pUnit);
-    }
-
-    UNITSND_UpdateModeSound(pUnit);
-    sub_004CAF60(pUnit);
 }
 
 // 0x004B15F0

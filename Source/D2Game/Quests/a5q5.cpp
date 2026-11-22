@@ -356,6 +356,182 @@ static void __stdcall ACT5Q5_DeactivateAncientMonsters(D2GameStrc* pGame, D2Ques
     }
 }
 
+// 0x0058C750
+void __fastcall ACT5Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_FastRemovePlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
+}
+
+// 0x0058CDA0
+void __fastcall ACT5Q5_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_COMPLETEDBEFORE))
+    {
+        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bQuestCompletedBefore = 1;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_LEAVETOWN) == 1)
+    {
+        pQuestData->fLastState = 1;
+        pQuestData->fState = 3;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_STARTED) == 1)
+    {
+        pQuestData->fLastState = 1;
+        pQuestData->fState = 2;
+    }
+}
+
+static inline bool IsAncientStatue(int nNpcId)
+{
+    if (nNpcId < 537 + NPC_SHIFT)
+        return false;
+    if (nNpcId > 539 + NPC_SHIFT)
+        return false;
+    return true;
+}
+
+// 0x0058CD30
+bool __fastcall ACT5Q5_SeqCallback(D2QuestDataStrc* pQuestData)
+{
+    if (pQuestData->fState != 5 && pQuestData->bNotIntro)
+    {
+        if (!pQuestData->fState)
+        {
+            pQuestData->fState = 1;
+        }
+        return true;
+    }
+
+    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
+    if (pQuest)
+    {
+        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 981);
+        return pQuest->pfSeqFilter(pQuest);
+    }
+
+    return false;
+}
+
+inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x0058CE30
+void __fastcall ACT5Q5_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT5Q5_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT5Q5_Callback03_ChangedLevel;
+    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT5Q5_Callback08_MonsterKilled;
+    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT5Q5_Callback00_NpcActivate;
+    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT5Q5_Callback02_NpcDeactivate;
+    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT5Q5_Callback11_ScrollMessage;
+    pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT5Q5_Callback13_PlayerStartedGame;
+    pQuestData->pNPCMessages = gpAct5Q5NpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->fState = 0;
+
+    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 1053, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    pQuestData->eFilter = QUESTSTATEFLAG_A5Q5;
+    pQuestData->pfStatusFilter = 0;
+    pQuestData->nInitNo = 4;
+    pQuestData->pfActiveFilter = ACT5Q5_ActiveFilterCallback;
+    pQuestData->pfSeqFilter = ACT5Q5_SeqCallback;
+    pQuestData->nSeqId = 36;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act5Quest5Strc));
+}
+
+// 0x0058CBA0
+void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
+    const int nNewLevel = pQuestArg->nNewLevel;
+    if (pQuestArg->nOldLevel == LEVEL_HARROGATH)
+    {
+        QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
+        if (!pQuestData->bNotIntro)
+        {
+            return;
+        }
+
+        if (pQuestData->fState == 2)
+        {
+            D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+            D2GameStrc* pGame = pQuestArg->pGame;
+            D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) == 1)
+            {
+                return;
+            }
+
+            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 899);
+            if (pQuestData->fLastState != 1)
+            {
+                pQuestData->nStatusFlags = 0;
+                QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
+            }
+
+            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
+        }
+    }
+
+    if (nNewLevel == LEVEL_ROCKYSUMMIT)
+    {
+        unsigned char bUpdate = 0;
+        if (pQuestData->fLastState < 2 && pQuestData->fState > 2)
+        {
+            pQuestData->nStatusFlags = 0;
+            QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
+            bUpdate = 1;
+        }
+
+        if (pQuestData->fState < 3)
+        {
+            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 919);
+            bUpdate = 1;
+        }
+
+        if (bUpdate)
+        {
+            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
+        }
+
+        if (!pQuestDataEx->bAncientsDefeated && pQuestDataEx->bSummitDoorInitialized)
+        {
+            D2UnitStrc* pSummitDoor = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSummitDoorGUID);
+            if (pSummitDoor && pQuestDataEx->nSummitDoorObjectMode == OBJMODE_NEUTRAL)
+            {
+                pQuestDataEx->nSummitDoorObjectMode = OBJMODE_OPENED;
+                UNITS_ChangeAnimMode(pSummitDoor, OBJMODE_OPERATING);
+            }
+        }
+    }
+}
+
 // 0x0058C210
 int __fastcall ACT5Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -418,15 +594,6 @@ void __fastcall ACT5Q5_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStr
  }
 }
 
-static inline bool IsAncientStatue(int nNpcId)
-{
-    if (nNpcId < 537 + NPC_SHIFT)
-        return false;
-    if (nNpcId > 539 + NPC_SHIFT)
-        return false;
-    return true;
-}
-
 // 0x0058C440
 void __fastcall ACT5Q5_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -481,30 +648,6 @@ void __fastcall ACT5Q5_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     unsigned int nIndex = gnA5Q5NpcActivateIndices[pQuestData->fState];
     if (nIndex != -1 && nIndex < MESSAGE_LIMIT)
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
-}
-
-inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
 static
@@ -590,12 +733,6 @@ void __fastcall ACT5Q5_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q5, QFLAG_REWARDGRANTED);
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q5, QFLAG_PRIMARYGOALDONE);
     ACT5Q5_RewardPlayer(pGame, pUnit);
-}
-
-// 0x0058C750
-void __fastcall ACT5Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    QUESTS_FastRemovePlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
 }
 
 // 0x0058C780
@@ -754,143 +891,6 @@ void __fastcall ACT5Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 13, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
     }
-}
-
-// 0x0058CBA0
-void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
-    const int nNewLevel = pQuestArg->nNewLevel;
-    if (pQuestArg->nOldLevel == LEVEL_HARROGATH)
-    {
-        QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
-        if (!pQuestData->bNotIntro)
-        {
-            return;
-        }
-
-        if (pQuestData->fState == 2)
-        {
-            D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-            D2GameStrc* pGame = pQuestArg->pGame;
-            D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) == 1)
-            {
-                return;
-            }
-
-            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 899);
-            if (pQuestData->fLastState != 1)
-            {
-                pQuestData->nStatusFlags = 0;
-                QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
-            }
-
-            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
-        }
-    }
-
-    if (nNewLevel == LEVEL_ROCKYSUMMIT)
-    {
-        unsigned char bUpdate = 0;
-        if (pQuestData->fLastState < 2 && pQuestData->fState > 2)
-        {
-            pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
-            bUpdate = 1;
-        }
-
-        if (pQuestData->fState < 3)
-        {
-            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 919);
-            bUpdate = 1;
-        }
-
-        if (bUpdate)
-        {
-            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
-        }
-
-        if (!pQuestDataEx->bAncientsDefeated && pQuestDataEx->bSummitDoorInitialized)
-        {
-            D2UnitStrc* pSummitDoor = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSummitDoorGUID);
-            if (pSummitDoor && pQuestDataEx->nSummitDoorObjectMode == OBJMODE_NEUTRAL)
-            {
-                pQuestDataEx->nSummitDoorObjectMode = OBJMODE_OPENED;
-                UNITS_ChangeAnimMode(pSummitDoor, OBJMODE_OPERATING);
-            }
-        }
-    }
-}
-
-// 0x0058CD30
-bool __fastcall ACT5Q5_SeqCallback(D2QuestDataStrc* pQuestData)
-{
-    if (pQuestData->fState != 5 && pQuestData->bNotIntro)
-    {
-        if (!pQuestData->fState)
-        {
-            pQuestData->fState = 1;
-        }
-        return true;
-    }
-
-    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
-    if (pQuest)
-    {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 981);
-        return pQuest->pfSeqFilter(pQuest);
-    }
-
-    return false;
-}
-
-// 0x0058CDA0
-void __fastcall ACT5Q5_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_COMPLETEDBEFORE))
-    {
-        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bQuestCompletedBefore = 1;
-    }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_LEAVETOWN) == 1)
-    {
-        pQuestData->fLastState = 1;
-        pQuestData->fState = 3;
-    }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_STARTED) == 1)
-    {
-        pQuestData->fLastState = 1;
-        pQuestData->fState = 2;
-    }
-}
-
-// 0x0058CE30
-void __fastcall ACT5Q5_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT5Q5_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT5Q5_Callback03_ChangedLevel;
-    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT5Q5_Callback08_MonsterKilled;
-    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT5Q5_Callback00_NpcActivate;
-    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT5Q5_Callback02_NpcDeactivate;
-    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT5Q5_Callback11_ScrollMessage;
-    pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT5Q5_Callback13_PlayerStartedGame;
-    pQuestData->pNPCMessages = gpAct5Q5NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-
-    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 1053, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->eFilter = QUESTSTATEFLAG_A5Q5;
-    pQuestData->pfStatusFilter = 0;
-    pQuestData->nInitNo = 4;
-    pQuestData->pfActiveFilter = ACT5Q5_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT5Q5_SeqCallback;
-    pQuestData->nSeqId = 36;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act5Quest5Strc));
 }
 
 void __fastcall ACT5Q5_SpawnAncientMonsters(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)

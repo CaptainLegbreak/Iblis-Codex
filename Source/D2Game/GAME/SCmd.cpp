@@ -3392,28 +3392,42 @@ void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2Unit
     }
 }
 
-// 0x0053CEF0
-void __fastcall D2GAME_SendPacket0x9D_6FC3E6F0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble)
+// 0x0053EC00
+void __fastcall D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned int dwFlag)
 {
-    D2GSPacketSrv9D packet;
-    packet.nHeader = 0x9D;
-    packet.nAction = nAction;
-    packet.nComponent = UNITS_GetItemComponentId(pUnit, pItem);
-    packet.nItemId = SCMD_GetUnitGUID(pItem);
-    int nUnitType = 6;
-    if (pUnit)
-        nUnitType = pUnit->dwUnitType;
-    packet.nUnitType = nUnitType;
-    packet.nUnitId = SCMD_GetUnitGUID(pUnit);
-    const unsigned int nOldItemFlags = ITEMS_GetItemFlags(pItem);
-    ITEMS_SetItemFlag(pItem, dwFlag, 1);
-    const unsigned int nLength = ITEMS_SerializeItemToBitstream(pItem, packet.pBitstream, sizeof(packet.pBitstream), 0, 0, bGamble) + 13;
-    D2_ASSERT(nLength <= 0xFC, 0x7B4);
-    ITEMS_SetItemFlag(pItem, 0xFFFFFFFF, 0);
-    ITEMS_SetItemFlag(pItem, nOldItemFlags, 1);
-    packet.nPacketSize = nLength;
-    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet, packet.nPacketSize);
-    SCMD_SendSocketedItems(pClient, pItem, dwFlag);
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ADDTOGROUND, dwFlag, 0);
+}
+
+// 0x0053EC20
+void __fastcall D2GAME_SendP0x9C_ItemAction_GroundToCursor_6FC3E870(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
+{
+    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2002) == hClient, 2002);
+
+    UNITS_SetXForStaticUnit(pItem, 0);
+    UNITS_SetYForStaticUnit(pItem, 0);
+    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_GROUNDTOCURSOR, a4, 0);
+}
+
+// 0x0053EC90
+void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* hClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
+{
+    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2013) == hClient, 2013);
+    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
+}
+
+// 0x0053ECF0
+void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
+{
+    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
+}
+
+// 0x0053ED50
+void __fastcall D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
+{
+    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2031) == hClient, 2031);
+
+    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_PUTINCONTAINER, a4, 0);
 }
 
 // 0x0053D010
@@ -3431,30 +3445,6 @@ void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc* hClient, D2UnitSt
 void __fastcall D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
 {
     D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_EQUIP, dwFlags, 0);
-}
-
-// 0x0053D0B0
-void __fastcall D2GAME_SendP0x9D_ItemAction_IndirectlySwapBodyItem_6FC3EA70(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
-{
-    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_INDIRECTLYSWAPBODYITEM, dwFlags, 0);
-}
-
-// 0x0053D0D0
-void __fastcall D2GAME_SendP0x9D_ItemAction_Unequip_6FC3EA90(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
-{
-    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_UNEQUIP, dwFlags, 0);
-}
-
-// 0x0053D0F0
-void __fastcall D2GAME_SendP0x9D_ItemAction_SwapBodyItem_6FC3EAB0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
-{
-    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_SWAPBODYITEM, dwFlags, 0);
-}
-
-// 0x0053D110
-void __fastcall D2GAME_SendP0x9D_ItemAction_WeaponSwitch_6FC3EAD0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
-{
-    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_WEAPONSWITCH, dwFlags, 0);
 }
 
 static D2LifeSyncStrc* GetMonsterLifeSync(D2UnitStrc* pUnit)
@@ -3496,6 +3486,173 @@ void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit)
         tPacket90.dwPosY = CLIENTS_GetUnitY(pUnit);
         D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &tPacket90, sizeof(tPacket90));
     }
+}
+
+// 0x0053E8F0
+void __fastcall SCMD_SendPlayerSpawnAndPartyRoster(D2ClientStrc* pClient, int nUnitGUID, unsigned char nClassId, const char* szName, short nX, short nY)
+{
+    D2GSPacketSrv59 packet59 = {};
+
+    packet59.nHeader = 0x59;
+    packet59.dwGUID = nUnitGUID;
+    packet59.nClass = nClassId;
+    memset(packet59.szName, 0, sizeof(packet59.szName));
+    SStrCopy(packet59.szName, szName, 0x7FFFFFFF);
+    packet59.nPosX = nX;
+    packet59.nPosY = nY;
+    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet59, sizeof(packet59));
+
+    D2UnitStrc* pLocalPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(CLIENTS_GetGame(pClient), UNIT_PLAYER, nUnitGUID);
+    if (pOtherPlayer)
+    {
+        SCMD_Send0x75_PartyRosterUpdate(pLocalPlayer, pOtherPlayer);
+    }
+}
+
+// 0x0053EAE0
+void __fastcall D2GAME_SendPacket0x9C_6FC3E570(D2ClientStrc* pClient, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble)
+{
+    D2UnitStrc* hUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
+
+    D2_ASSERT(hUnit, 1915);
+
+    D2GSPacketSrv9C packet9C;
+
+    packet9C.nHeader = 0x9C;
+    packet9C.nAction = nAction;
+    packet9C.nItemId = SCMD_GetUnitGUID(pItem);
+    packet9C.nComponent = UNITS_GetItemComponentId(hUnit, pItem);
+
+    const unsigned int nOldItemFlags = ITEMS_GetItemFlags(pItem);
+    ITEMS_SetItemFlag(pItem, dwFlag, 1);
+
+    memset(packet9C.pBitstream, 0, sizeof(packet9C.pBitstream));
+
+    const unsigned int nLength = ITEMS_SerializeItemToBitstream(pItem, packet9C.pBitstream, sizeof(packet9C.pBitstream), 0, 0, bGamble) + 8;
+
+    D2_ASSERT(nLength <= 0xFC, 1932);
+
+    packet9C.nPacketSize = nLength;
+    ITEMS_SetItemFlag(pItem, 0xFFFFFFFF, 0);
+    ITEMS_SetItemFlag(pItem, nOldItemFlags, 1);
+
+    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet9C, packet9C.nPacketSize);
+
+    SCMD_SendSocketedItems(pClient, pItem, dwFlag);
+}
+
+// 0x0053EA50
+int __fastcall SCMD_SendSocketedItems(D2ClientStrc* pClient, D2UnitStrc* pItem, int nFlags)
+{
+    if (ITEMS_CheckIfSocketable(pItem) && !sub_006287A0_TestFlags(nFlags, IFLAG_QUANTITY) && pItem->pInventory)
+    {
+        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
+        {
+            D2UnitStrc* pSocketed = INVENTORY_UnitIsItem(i);
+            ITEMS_SetOrRemoveFlag(&nFlags, IFLAG_DELETED, 1);
+            D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pItem, pSocketed, ITEMACTION_ITEMINSOCKET, nFlags, 0);
+        }
+        return 1;
+    }
+    return 0;
+}
+
+// 0x0053CEF0
+void __fastcall D2GAME_SendPacket0x9D_6FC3E6F0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble)
+{
+    D2GSPacketSrv9D packet;
+    packet.nHeader = 0x9D;
+    packet.nAction = nAction;
+    packet.nComponent = UNITS_GetItemComponentId(pUnit, pItem);
+    packet.nItemId = SCMD_GetUnitGUID(pItem);
+    int nUnitType = 6;
+    if (pUnit)
+        nUnitType = pUnit->dwUnitType;
+    packet.nUnitType = nUnitType;
+    packet.nUnitId = SCMD_GetUnitGUID(pUnit);
+    const unsigned int nOldItemFlags = ITEMS_GetItemFlags(pItem);
+    ITEMS_SetItemFlag(pItem, dwFlag, 1);
+    const unsigned int nLength = ITEMS_SerializeItemToBitstream(pItem, packet.pBitstream, sizeof(packet.pBitstream), 0, 0, bGamble) + 13;
+    D2_ASSERT(nLength <= 0xFC, 0x7B4);
+    ITEMS_SetItemFlag(pItem, 0xFFFFFFFF, 0);
+    ITEMS_SetItemFlag(pItem, nOldItemFlags, 1);
+    packet.nPacketSize = nLength;
+    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet, packet.nPacketSize);
+    SCMD_SendSocketedItems(pClient, pItem, dwFlag);
+}
+
+static inline int SCMD_GetUnitTypeOr6(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 6;
+    return pUnit->dwUnitType;
+}
+
+// 0x0053D0B0
+void __fastcall D2GAME_SendP0x9D_ItemAction_IndirectlySwapBodyItem_6FC3EA70(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
+{
+    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_INDIRECTLYSWAPBODYITEM, dwFlags, 0);
+}
+
+// 0x0053D0D0
+void __fastcall D2GAME_SendP0x9D_ItemAction_Unequip_6FC3EA90(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
+{
+    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_UNEQUIP, dwFlags, 0);
+}
+
+// 0x0053D0F0
+void __fastcall D2GAME_SendP0x9D_ItemAction_SwapBodyItem_6FC3EAB0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
+{
+    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_SWAPBODYITEM, dwFlags, 0);
+}
+
+// 0x0053D110
+void __fastcall D2GAME_SendP0x9D_ItemAction_WeaponSwitch_6FC3EAD0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
+{
+    D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_WEAPONSWITCH, dwFlags, 0);
+}
+
+// 0x0053EDB0
+void __fastcall D2GAME_SendP0x9C_ItemAction_AddQuantity_6FC3EAF0(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
+{
+    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2121) == hClient, 2121);
+
+    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_ADDQUANTITY, a4, 0);
+}
+
+// 0x0053EE10
+void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInContainer_6FC3EB40(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
+{
+    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2131) == hClient, 2131);
+
+    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_SWAPINCONTAINER, a4, 0);
+}
+
+// 0x0053EE70
+void __fastcall D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
+{
+    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2140) == hClient, 2140);
+
+    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_PUTINBELT, a4, 0);
+}
+
+// 0x0053EED0
+void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlag)
+{
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_REMOVEFROMBELT, dwFlag, 0);
+}
+
+// 0x0053EEF0
+void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInBelt_6FC3EC00(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a3)
+{
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_SWAPINBELT, a3, 0);
+}
+
+// 0x0053EF10
+void __fastcall D2GAME_SendP0x9C_ItemAction_ToCursor_6FC3EEA0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+{
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_TOCURSOR, 0, 0);
 }
 
 // 0x0053D130
@@ -3567,13 +3724,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x40(D2ClientStrc* client,D2UnitStrc* u
 void __fastcall D2GAME_SendP0x9D_ItemAction_AutoUnequip_6FC3EE20(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags)
 {
     D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pUnit, pItem, ITEMACTION_AUTOUNEQUIP, dwFlags, 0);
-}
-
-static inline int SCMD_GetUnitTypeOr6(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 6;
-    return pUnit->dwUnitType;
 }
 
 // 0x0053D2E0
@@ -3742,6 +3892,121 @@ void __fastcall sub_0053D530(D2ClientStrc* pClient, unsigned char a2, int a3, un
     SCMD_SendUnitActionAtPosition(pClient, a2, a3, D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath), a6, a7, a8, a9);
 }
 
+// 0x0053EF30
+void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop_6FC3F260(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char a3)
+{
+    switch (a3)
+    {
+    case 56:
+    {
+        int bIdentified = 0;
+        if (ITEMS_IsMagSetRarUniCrfOrTmp(pItem) && !ITEMS_CheckItemFlag(pItem, IFLAG_IDENTIFIED, 2498, ".\\GAME\\SCmd.cpp"))
+        {
+            bIdentified = 1;
+        }
+        D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ADDTOSHOP, 0, bIdentified);
+        break;
+    }
+    case 57:
+    {
+        const unsigned char nPage = ITEMS_GetInvPage(pItem);
+        ITEMS_SetInvPage(pItem, ITEMS_GetItemCell(pItem));
+        D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_REMOVEFROMSHOP, 0, 0);
+        ITEMS_SetInvPage(pItem, nPage);
+        break;
+    }
+    }
+}
+
+// 0x0053FDF0
+int __cdecl ARENA_Return0()
+{
+    return 0;
+}
+
+// 0x0054B920
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x2E_Ignored(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0054C360
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x42_Ignored(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0054C370
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x43_Ignored(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0054D740
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x66_Ignored(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0055D930
+void __stdcall sub_0055D930(int nUnused1)
+{
+}
+
+// 0x0055E9A0
+int __stdcall sub_0055E9A0(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0055F4F0
+void __stdcall sub_0055F4F0(int nUnused1)
+{
+}
+
+// 0x00568DB0
+int __cdecl sub_00568DB0()
+{
+    return 0;
+}
+
+// 0x00570680
+int __cdecl sub_00570680()
+{
+    return 5;
+}
+
+// 0x00570690
+void __stdcall sub_00570690(int nUnused1)
+{
+}
+
+// 0x005991B0
+void __stdcall ACT2Q1_OnRadamentCreated(int nUnused1)
+{
+}
+
+// 0x0059B6C0
+void __stdcall ACT2Q4_OnJerhynSpawned(int nUnused1, int nUnused2)
+{
+}
+
+// 0x0059B6D0
+void __stdcall ACT2Q4_OnPalaceGuardSpawned(int nUnused1, int nUnused2)
+{
+}
+
+// 0x0059C3B0
+void __stdcall ACT2Q5_OnSummonerCreated(int nUnused1)
+{
+}
+
+// 0x005A6220
+int __fastcall sub_005A6220(FieldStrc_005A6220* pObject)
+{
+    return pObject->unk0x10;
+}
+
 // 0x0053D670
 void __fastcall D2GAME_SendPacket0x28_6FC3F2F0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6)
 {
@@ -3892,6 +4157,127 @@ void __fastcall sub_0053D960_SendPacket0x78(D2ClientStrc* pClient, D2GSPacketSrv
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet78, sizeof(packet78));
 }
 
+// build: symbol ?ERRORMANAGER_GetBitWidth@* 0x00409000
+int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
+{
+    if (!nValue)
+    {
+        return 0;
+    }
+    __asm
+    {
+        bsr eax, nValue
+        inc eax
+        mov nValue, eax
+    }
+    return nValue;
+}
+
+// build: context Log2Ceil
+static inline int Log2Ceil(int nValue)
+{
+    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
+}
+
+// build: context sub_0044BE50
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    int nType = 6;
+    if (pUnit)
+    {
+        nType = pUnit->dwUnitType;
+    }
+    return nType;
+}
+
+// build: context sub_00623C60
+static inline int sub_00623C60(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwClassId;
+}
+
+// build: context sub_00451F50
+static inline int sub_00451F50(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwUnitId;
+}
+
+// build: context UNITS_IsMerc
+static inline int UNITS_IsMerc(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return (pUnit->dwFlags >> 9) & 1;
+}
+
+// build: context UNITS_HasStoredOwnerInfo
+static inline int UNITS_HasStoredOwnerInfo(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return (pUnit->dwFlagEx >> 10) & 1;
+}
+
+// build: context CLIENTS_GetUnitX
+static inline int CLIENTS_GetUnitXByType(D2UnitStrc* pUnit)
+{
+    switch (sub_0044BE50(pUnit))
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+// build: context CLIENTS_GetUnitY
+static inline int CLIENTS_GetUnitYByType(D2UnitStrc* pUnit)
+{
+    switch (sub_0044BE50(pUnit))
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// build: context MONSTER_GetComponents
+static inline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->nComponent;
+    }
+    return 0;
+}
+
+// build: context SKILLS_GetItemStatCostTxtRecord
+static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
+{
+    if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return &sgptDataTables->pItemStatCostTxt[nStatId];
+    }
+    return 0;
+}
+
 // 0x0053D9C0
 void __fastcall D2GAME_PACKETS_SendPacket0x65_6FC3F5E0(D2ClientStrc* pClient, unsigned int dwPlayerId, unsigned short nCount)
 {
@@ -3926,6 +4312,56 @@ void __fastcall D2GAME_PACKETS_SendPacket0x74_6FC3F640(D2ClientStrc* pClient, D2
     const int nCorpseGUID = !pCorpse ? -1 : pCorpse->dwUnitId;
     packet74.nCorpseGUID = nCorpseGUID;
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet74, sizeof(packet74));
+}
+
+static __forceinline void __fastcall SCMD_SendGoldStat(D2ClientStrc* pClient, unsigned short nStatId, unsigned int nValue)
+{
+    const unsigned char nPacketStatId = (unsigned char)nStatId;
+    if (nValue < 0xFF)
+    {
+        D2GSPacketSrv1D packet1D;
+        packet1D.nHeader = 0x1D;
+        packet1D.nStat = nPacketStatId;
+        packet1D.nValue = nValue;
+
+        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet1D, sizeof(packet1D));
+    }
+    else if (nValue < 0xFFFF)
+    {
+        D2GSPacketSrv1E packet1E;
+        packet1E.nHeader = 0x1E;
+        packet1E.nStat = nPacketStatId;
+        packet1E.nValue = nValue;
+
+        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet1E, sizeof(packet1E));
+    }
+    else
+    {
+        D2GSPacketSrv1F packet1F;
+        packet1F.nHeader = 0x1F;
+        packet1F.nStat = nPacketStatId;
+        packet1F.nValue = nValue;
+
+        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet1F, sizeof(packet1F));
+    }
+}
+
+// 0x0053E9B0
+void __fastcall D2GAME_PACKETS_SendPacket0x19_6FC3D3D0(D2ClientStrc* pClient, int nValue, int a3)
+{
+    const int nDiff = nValue - a3;
+    if (nDiff <= 0 || nDiff >= 0xFF)
+    {
+        SCMD_SendGoldStat(pClient, STAT_GOLD, nValue);
+    }
+    else
+    {
+        D2GSPacketSrv19 packet19;
+        packet19.nHeader = 0x19;
+        packet19.nGold = nDiff;
+
+        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet19, sizeof(packet19));
+    }
 }
 
 // 0x0053DA90
@@ -4244,127 +4680,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0xA9_StateOff_6FC3FC50(D2ClientStrc* pC
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packetA9, sizeof(packetA9));
 }
 
-// build: symbol ?ERRORMANAGER_GetBitWidth@* 0x00409000
-int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
-{
-    if (!nValue)
-    {
-        return 0;
-    }
-    __asm
-    {
-        bsr eax, nValue
-        inc eax
-        mov nValue, eax
-    }
-    return nValue;
-}
-
-// build: context Log2Ceil
-static inline int Log2Ceil(int nValue)
-{
-    return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
-}
-
-// build: context sub_0044BE50
-static inline int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    int nType = 6;
-    if (pUnit)
-    {
-        nType = pUnit->dwUnitType;
-    }
-    return nType;
-}
-
-// build: context sub_00623C60
-static inline int sub_00623C60(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return -1;
-    }
-    return pUnit->dwClassId;
-}
-
-// build: context sub_00451F50
-static inline int sub_00451F50(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return -1;
-    }
-    return pUnit->dwUnitId;
-}
-
-// build: context UNITS_IsMerc
-static inline int UNITS_IsMerc(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    return (pUnit->dwFlags >> 9) & 1;
-}
-
-// build: context UNITS_HasStoredOwnerInfo
-static inline int UNITS_HasStoredOwnerInfo(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    return (pUnit->dwFlagEx >> 10) & 1;
-}
-
-// build: context CLIENTS_GetUnitX
-static inline int CLIENTS_GetUnitXByType(D2UnitStrc* pUnit)
-{
-    switch (sub_0044BE50(pUnit))
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-// build: context CLIENTS_GetUnitY
-static inline int CLIENTS_GetUnitYByType(D2UnitStrc* pUnit)
-{
-    switch (sub_0044BE50(pUnit))
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// build: context MONSTER_GetComponents
-static inline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
-    {
-        return pUnit->pMonsterData->nComponent;
-    }
-    return 0;
-}
-
-// build: context SKILLS_GetItemStatCostTxtRecord
-static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
-{
-    if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
-    {
-        return &sgptDataTables->pItemStatCostTxt[nStatId];
-    }
-    return 0;
-}
-
 // 0x0053E2E0
 void __fastcall SCMD_SendMonsterAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
 {
@@ -4551,328 +4866,13 @@ int __fastcall D2GAME_PACKETS_SendPacket0xAE(D2ClientStrc* pClient, const void* 
     D2_ASSERT(nSize <= 0x1FD, 0xE38);
 }
 
-// 0x0053E8D0
-void __fastcall SCMD_SendRawPacket(D2ClientStrc* pClient, const void* pPacket, int nPacketSize)
-{
-    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, pPacket, nPacketSize);
-}
-
-// 0x0053E8F0
-void __fastcall SCMD_SendPlayerSpawnAndPartyRoster(D2ClientStrc* pClient, int nUnitGUID, unsigned char nClassId, const char* szName, short nX, short nY)
-{
-    D2GSPacketSrv59 packet59 = {};
-
-    packet59.nHeader = 0x59;
-    packet59.dwGUID = nUnitGUID;
-    packet59.nClass = nClassId;
-    memset(packet59.szName, 0, sizeof(packet59.szName));
-    SStrCopy(packet59.szName, szName, 0x7FFFFFFF);
-    packet59.nPosX = nX;
-    packet59.nPosY = nY;
-    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet59, sizeof(packet59));
-
-    D2UnitStrc* pLocalPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(CLIENTS_GetGame(pClient), UNIT_PLAYER, nUnitGUID);
-    if (pOtherPlayer)
-    {
-        SCMD_Send0x75_PartyRosterUpdate(pLocalPlayer, pOtherPlayer);
-    }
-}
-
-static __forceinline void __fastcall SCMD_SendGoldStat(D2ClientStrc* pClient, unsigned short nStatId, unsigned int nValue)
-{
-    const unsigned char nPacketStatId = (unsigned char)nStatId;
-    if (nValue < 0xFF)
-    {
-        D2GSPacketSrv1D packet1D;
-        packet1D.nHeader = 0x1D;
-        packet1D.nStat = nPacketStatId;
-        packet1D.nValue = nValue;
-
-        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet1D, sizeof(packet1D));
-    }
-    else if (nValue < 0xFFFF)
-    {
-        D2GSPacketSrv1E packet1E;
-        packet1E.nHeader = 0x1E;
-        packet1E.nStat = nPacketStatId;
-        packet1E.nValue = nValue;
-
-        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet1E, sizeof(packet1E));
-    }
-    else
-    {
-        D2GSPacketSrv1F packet1F;
-        packet1F.nHeader = 0x1F;
-        packet1F.nStat = nPacketStatId;
-        packet1F.nValue = nValue;
-
-        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet1F, sizeof(packet1F));
-    }
-}
-
-// 0x0053E9B0
-void __fastcall D2GAME_PACKETS_SendPacket0x19_6FC3D3D0(D2ClientStrc* pClient, int nValue, int a3)
-{
-    const int nDiff = nValue - a3;
-    if (nDiff <= 0 || nDiff >= 0xFF)
-    {
-        SCMD_SendGoldStat(pClient, STAT_GOLD, nValue);
-    }
-    else
-    {
-        D2GSPacketSrv19 packet19;
-        packet19.nHeader = 0x19;
-        packet19.nGold = nDiff;
-
-        D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet19, sizeof(packet19));
-    }
-}
-
-// 0x0053EA50
-int __fastcall SCMD_SendSocketedItems(D2ClientStrc* pClient, D2UnitStrc* pItem, int nFlags)
-{
-    if (ITEMS_CheckIfSocketable(pItem) && !sub_006287A0_TestFlags(nFlags, IFLAG_QUANTITY) && pItem->pInventory)
-    {
-        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
-        {
-            D2UnitStrc* pSocketed = INVENTORY_UnitIsItem(i);
-            ITEMS_SetOrRemoveFlag(&nFlags, IFLAG_DELETED, 1);
-            D2GAME_SendPacket0x9D_6FC3E6F0(pClient, pItem, pSocketed, ITEMACTION_ITEMINSOCKET, nFlags, 0);
-        }
-        return 1;
-    }
-    return 0;
-}
-
-// 0x0053EAE0
-void __fastcall D2GAME_SendPacket0x9C_6FC3E570(D2ClientStrc* pClient, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble)
-{
-    D2UnitStrc* hUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
-
-    D2_ASSERT(hUnit, 1915);
-
-    D2GSPacketSrv9C packet9C;
-
-    packet9C.nHeader = 0x9C;
-    packet9C.nAction = nAction;
-    packet9C.nItemId = SCMD_GetUnitGUID(pItem);
-    packet9C.nComponent = UNITS_GetItemComponentId(hUnit, pItem);
-
-    const unsigned int nOldItemFlags = ITEMS_GetItemFlags(pItem);
-    ITEMS_SetItemFlag(pItem, dwFlag, 1);
-
-    memset(packet9C.pBitstream, 0, sizeof(packet9C.pBitstream));
-
-    const unsigned int nLength = ITEMS_SerializeItemToBitstream(pItem, packet9C.pBitstream, sizeof(packet9C.pBitstream), 0, 0, bGamble) + 8;
-
-    D2_ASSERT(nLength <= 0xFC, 1932);
-
-    packet9C.nPacketSize = nLength;
-    ITEMS_SetItemFlag(pItem, 0xFFFFFFFF, 0);
-    ITEMS_SetItemFlag(pItem, nOldItemFlags, 1);
-
-    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet9C, packet9C.nPacketSize);
-
-    SCMD_SendSocketedItems(pClient, pItem, dwFlag);
-}
-
-// 0x0053EC00
-void __fastcall D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned int dwFlag)
-{
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ADDTOGROUND, dwFlag, 0);
-}
-
-// 0x0053EC20
-void __fastcall D2GAME_SendP0x9C_ItemAction_GroundToCursor_6FC3E870(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
-{
-    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2002) == hClient, 2002);
-
-    UNITS_SetXForStaticUnit(pItem, 0);
-    UNITS_SetYForStaticUnit(pItem, 0);
-    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_GROUNDTOCURSOR, a4, 0);
-}
-
-// 0x0053EC90
-void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* hClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
-{
-    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2013) == hClient, 2013);
-    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
-}
-
-// 0x0053ECF0
-void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
-{
-    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
-}
-
-// 0x0053ED50
-void __fastcall D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
-{
-    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2031) == hClient, 2031);
-
-    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_PUTINCONTAINER, a4, 0);
-}
-
-// 0x0053EDB0
-void __fastcall D2GAME_SendP0x9C_ItemAction_AddQuantity_6FC3EAF0(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
-{
-    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2121) == hClient, 2121);
-
-    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_ADDQUANTITY, a4, 0);
-}
-
-// 0x0053EE10
-void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInContainer_6FC3EB40(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
-{
-    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2131) == hClient, 2131);
-
-    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_SWAPINCONTAINER, a4, 0);
-}
-
-// 0x0053EE70
-void __fastcall D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(D2ClientStrc* hClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4)
-{
-    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2140) == hClient, 2140);
-
-    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_PUTINBELT, a4, 0);
-}
-
-// 0x0053EED0
-void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlag)
-{
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_REMOVEFROMBELT, dwFlag, 0);
-}
-
-// 0x0053EEF0
-void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInBelt_6FC3EC00(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a3)
-{
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_SWAPINBELT, a3, 0);
-}
-
-// 0x0053EF10
-void __fastcall D2GAME_SendP0x9C_ItemAction_ToCursor_6FC3EEA0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
-{
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_TOCURSOR, 0, 0);
-}
-
-// 0x0053EF30
-void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop_6FC3F260(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char a3)
-{
-    switch (a3)
-    {
-    case 56:
-    {
-        int bIdentified = 0;
-        if (ITEMS_IsMagSetRarUniCrfOrTmp(pItem) && !ITEMS_CheckItemFlag(pItem, IFLAG_IDENTIFIED, 2498, ".\\GAME\\SCmd.cpp"))
-        {
-            bIdentified = 1;
-        }
-        D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ADDTOSHOP, 0, bIdentified);
-        break;
-    }
-    case 57:
-    {
-        const unsigned char nPage = ITEMS_GetInvPage(pItem);
-        ITEMS_SetInvPage(pItem, ITEMS_GetItemCell(pItem));
-        D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_REMOVEFROMSHOP, 0, 0);
-        ITEMS_SetInvPage(pItem, nPage);
-        break;
-    }
-    }
-}
-
-// 0x0053FDF0
-int __cdecl ARENA_Return0()
-{
-    return 0;
-}
-
-// 0x0054B920
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x2E_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0054C360
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x42_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0054C370
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x43_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0054D740
-int __stdcall D2GAME_PACKETCALLBACK_Rcv0x66_Ignored(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0055D930
-void __stdcall sub_0055D930(int nUnused1)
-{
-}
-
-// 0x0055E9A0
-int __stdcall sub_0055E9A0(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0055F4F0
-void __stdcall sub_0055F4F0(int nUnused1)
-{
-}
-
-// 0x00568DB0
-int __cdecl sub_00568DB0()
-{
-    return 0;
-}
-
-// 0x00570680
-int __cdecl sub_00570680()
-{
-    return 5;
-}
-
-// 0x00570690
-void __stdcall sub_00570690(int nUnused1)
-{
-}
-
-// 0x005991B0
-void __stdcall ACT2Q1_OnRadamentCreated(int nUnused1)
-{
-}
-
-// 0x0059B6C0
-void __stdcall ACT2Q4_OnJerhynSpawned(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0059B6D0
-void __stdcall ACT2Q4_OnPalaceGuardSpawned(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0059C3B0
-void __stdcall ACT2Q5_OnSummonerCreated(int nUnused1)
-{
-}
-
 int __cdecl sub_005A0110()
 {
     return 0;
 }
 
-// 0x005A6220
-int __fastcall sub_005A6220(FieldStrc_005A6220* pObject)
+// 0x0053E8D0
+void __fastcall SCMD_SendRawPacket(D2ClientStrc* pClient, const void* pPacket, int nPacketSize)
 {
-    return pObject->unk0x10;
+    D2GAME_PACKETS_SendPacket_6FC3C710(pClient, pPacket, nPacketSize);
 }

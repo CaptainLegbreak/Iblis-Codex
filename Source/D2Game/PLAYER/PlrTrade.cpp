@@ -1797,16 +1797,6 @@ void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
-// 0x00566C80
-void __fastcall PLRTRADE_IterateCallback_SendInventoryReset(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
-{
-    D2UnitStrc* pOtherPlayer = (D2UnitStrc*)pArg;
-    if (pPlayer != pOtherPlayer)
-    {
-        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2107), PACKETSIZE06_HEADER, 0, !pOtherPlayer ? -1 : pOtherPlayer->dwUnitId);
-    }
-}
-
 // 0x00566D90
 void __fastcall PLRTRADE_SendEventPacketToPlayer(D2UnitStrc* pPlayer, unsigned char nType, char* szSource)
 {
@@ -1910,15 +1900,6 @@ void __fastcall PLRTRADE_TryToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2U
     }
 }
 
-static void __stdcall PLRTRADE_SetTradeAccepted(D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
-{
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2422), 6);
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 2423), 6);
-
-    pPlayerData->dwTradeState = 3;
-    pInteractPlayerData->dwTradeState = 3;
-}
-
 // 0x00567070
 static void __stdcall PLRTRADE_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem)
 {
@@ -1932,6 +1913,15 @@ static void __stdcall PLRTRADE_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2U
     {
         ITEMS_SetEarName(pDupeItem, ITEMS_GetEarName(pItem));
     }
+}
+
+static void __stdcall PLRTRADE_SetTradeAccepted(D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
+{
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2422), 6);
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 2423), 6);
+
+    pPlayerData->dwTradeState = 3;
+    pInteractPlayerData->dwTradeState = 3;
 }
 
 // 0x005670E0
@@ -2013,271 +2003,6 @@ static int __stdcall PLRTRADE_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc*
         }
     }
     return 1;
-}
-
-// 0x00567330
-void __fastcall PLRTRADE_CloseCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    SUNIT_ResetInteractInfo(pUnit);
-    sub_6FC4B830(pGame, pUnit);
-}
-
-// 0x00567350
-static void __stdcall PLRTRADE_AddItemTrade(D2GameStrc* pGame, int nItemGUID1, int nItemGUID2, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (pPlayerData)
-    {
-        D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
-        if (pTrade)
-        {
-            D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ItemTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0xC5B, 0);
-            pItemTrade->nItemGUID1 = nItemGUID1;
-            pItemTrade->nItemGUID2 = nItemGUID2;
-            pItemTrade->pNext = (D2ItemTradeStrc*)pTrade->pItemTrade;
-            pTrade->pItemTrade = pItemTrade;
-        }
-    }
-}
-
-// 0x005673A0
-static void PLRTRADE_WalkItemTrade(D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (pPlayerData && pPlayerData->hTrade)
-    {
-        for (D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)pPlayerData->hTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
-        {
-        }
-    }
-}
-
-// 0x005673C0
-static char __stdcall PLRTRADE_FindItemTrade(int* pItemGUID2, int nItemGUID1, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (pPlayerData && pPlayerData->hTrade)
-    {
-        for (D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)pPlayerData->hTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
-        {
-            if (pItemTrade->nItemGUID1 == nItemGUID1)
-            {
-                *pItemGUID2 = pItemTrade->nItemGUID2;
-                return 1;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x00567400
-void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
-{
-    int nUnitGUID;
-    int nUnitType;
-    if (SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID) && nUnitType)
-    {
-        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCDC), 0xC);
-        return;
-    }
-
-    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, 0, nUnitGUID);
-    if (!pOtherPlayer)
-    {
-        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCE4), 0xC);
-        return;
-    }
-
-    const int nItemGUID = !pItem ? -1 : pItem->dwUnitId;
-    if (PLRTRADE_FindItemTrade(&nUnitGUID, nItemGUID, pPlayer))
-    {
-        int nUnused;
-        if (ITEMMODE_RemoveStoredItem(pGame, pOtherPlayer, nUnitGUID, &nUnused, 1, 1, 0, 1))
-        {
-            PLRTRADE_WalkItemTrade(pPlayer);
-        }
-    }
-
-    D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
-    D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
-    D2PlayerTradeStrc* pTrade1 = pPlayerData1->hTrade;
-    D2PlayerTradeStrc* pTrade2 = pPlayerData2->hTrade;
-    const unsigned int nTickCount = GetTickCount() + 10000;
-    pTrade1->nNextUpdateTick = nTickCount;
-    pTrade2->nNextUpdateTick = nTickCount;
-
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCF9), 0xE);
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCFA), 0xE);
-
-    if (pPlayerData1->dwTradeState == 4 || pPlayerData2->dwTradeState == 4)
-    {
-        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCFF), 0, 0);
-        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD00), 0, 1);
-        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD01), 0, 0);
-        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD02), 0, 1);
-        PLRTRADE_SetTradeAccepted(pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2);
-    }
-}
-
-inline int PLRTRADE_GetUnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-inline int PLRTRADE_GetUnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-// 0x00567620
-int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
-{
-    D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
-    int nUnitType;
-    int nUnitGUID;
-    if (SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID))
-    {
-        if (nUnitType != 0)
-        {
-            return 1;
-        }
-        D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, 0, nUnitGUID);
-        if (pOtherPlayer)
-        {
-            D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
-            if (!pPlayerData2->hTrade)
-            {
-                return 0;
-            }
-            if (ACT4Q2_HasDiabloBeenKilled(pGame))
-            {
-                return 0;
-            }
-            if (sub_00463720_TestUnitFlagEx(pPlayer, 0x800000) || sub_00463720_TestUnitFlagEx(pOtherPlayer, 0x800000))
-            {
-                return 0;
-            }
-            D2_ASSERT(pPlayerData1->hTrade, 0xD3C);
-            int nResult = 1;
-            if (pPlayerData1->dwTradeState == 4)
-            {
-                nResult = 0;
-            }
-            if (pItem && pItem->dwUnitType == UNIT_ITEM)
-            {
-                int nClassId = pItem->dwClassId;
-                D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
-                if (pItemsTxtRecord->nQuest)
-                {
-                    if (pItemsTxtRecord->dwCode == 0x20786F62)
-                    {
-                        if (PLRTRADE_HasItemsInCube(pPlayer))
-                        {
-                            nResult = 0;
-                            PLRTRADE_SendEventPacketToPlayer(pPlayer, 0xA, 0);
-                        }
-                    }
-                    if (ITEMS_FindQuestItem(pGame, pOtherPlayer, pItemsTxtRecord->dwCode))
-                    {
-                        nResult = 0;
-                    }
-                }
-                else
-                {
-                    if (ITEMS_CheckItemFlag(pItem, 0x1000, 0xD58, ".\\PLAYER\\PlrTrade.cpp"))
-                    {
-                        nResult = 0;
-                    }
-                    else
-                    {
-                        ITEMS_GetItemQuality(pItem);
-                    }
-                }
-            }
-            if (pPlayer)
-            {
-                pPlayer->dwFlagEx |= 0x400000;
-            }
-            pPlayerData1->dwTradeState = 7;
-            pPlayerData2->dwTradeState = 7;
-            EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
-            EVENT_SetEvent(pGame, pOtherPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6E), 6);
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6F), 6);
-            return nResult;
-        }
-    }
-    return pPlayerData1->dwTradeState <= 4;
-}
-
-// 0x005678A0
-int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
-{
-    int nUnitType;
-    int nUnitGUID;
-
-    if (SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID) && nUnitType == UNIT_PLAYER && SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nUnitGUID))
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x005678F0
-void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
-{
-    if (!UNITS_GetPlayerData(pUnit)->hTrade)
-    {
-        return;
-    }
-
-    D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pUnit, ".\\PLAYER\\PlrTrade.cpp", 0x84F), 0x92, 0, !pUnit ? -1 : pUnit->dwUnitId);
-    SUNIT_IterateLivingPlayers(pGame, PLRTRADE_IterateCallback_SendInventoryReset, pUnit);
-
-    D2UnitStrc* pNext;
-    for (D2UnitStrc* pCurrent = INVENTORY_GetFirstItem(pUnit->pInventory); pCurrent; pCurrent = pNext)
-    {
-        D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCurrent);
-        pNext = INVENTORY_GetNextItem(pCurrent);
-        if (pItem && pItem->dwUnitType == UNIT_ITEM)
-        {
-            if (pItem->dwAnimMode == IMODE_STORED)
-            {
-                ITEMMODE_ResetBookScrollSkillQuantity(pUnit, pItem);
-            }
-
-            INVENTORY_AddItemToTradeInventory(pUnit->pInventory, pItem);
-            ITEMS_SetItemCMDFlag(pItem, 1, 1);
-        }
-    }
-
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pUnit->pInventory);
-    if (pCursorItem && pCursorItem->dwUnitType == UNIT_ITEM)
-    {
-        INVENTORY_AddItemToTradeInventory(pUnit->pInventory, pCursorItem);
-        ITEMS_SetItemCMDFlag(pCursorItem, 1, 1);
-    }
-
-    ITEMMODE_RemoveInventoryItemProperties(pGame, pUnit);
-    PLRTRADE_RestoreTradeSnapshot(pGame, pUnit);
 }
 
 // 0x005679E0
@@ -2479,6 +2204,139 @@ static void __stdcall PLRTRADE_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInter
     }
 
     PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
+}
+
+// 0x00568640
+void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    int nUnitType;
+    int nUnitGUID;
+    if (!SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID) || nUnitType != 0)
+    {
+        return;
+    }
+
+    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, 0, nUnitGUID);
+    if (!pOtherPlayer)
+    {
+        return;
+    }
+
+    SUNIT_ResetInteractInfo(pPlayer);
+
+    if (!SUNIT_GetInteractInfo(pOtherPlayer, &nUnitType, &nUnitGUID) || nUnitType != 0)
+    {
+        return;
+    }
+
+    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    if (nUnitGUID != nPlayerGUID)
+    {
+        return;
+    }
+
+    UNITS_GetPlayerData(pPlayer)->dwTradeState = 9;
+    EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
+
+    sub_6FC90AE0(pGame, pPlayer, 0);
+    sub_6FC90AE0(pGame, pOtherPlayer, 1);
+
+    PLRTRADE_Free(pGame, pPlayer);
+    PLRTRADE_Free(pGame, pOtherPlayer);
+
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC2F), 0xC);
+    SUNIT_ResetInteractInfo(pOtherPlayer);
+
+    UNITS_GetPlayerData(pOtherPlayer)->dwTradeState = 9;
+    EVENT_SetEvent(pGame, pOtherPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
+}
+
+// 0x00568760
+void __fastcall PLRTRADE_StopInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    PLRTRADE_StopAllPlayerInteractions(pGame, pUnit);
+}
+
+// 0x00567330
+void __fastcall PLRTRADE_CloseCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    SUNIT_ResetInteractInfo(pUnit);
+    sub_6FC4B830(pGame, pUnit);
+}
+
+inline int PLRTRADE_GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+inline int PLRTRADE_GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005678F0
+void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
+{
+    if (!UNITS_GetPlayerData(pUnit)->hTrade)
+    {
+        return;
+    }
+
+    D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pUnit, ".\\PLAYER\\PlrTrade.cpp", 0x84F), 0x92, 0, !pUnit ? -1 : pUnit->dwUnitId);
+    SUNIT_IterateLivingPlayers(pGame, PLRTRADE_IterateCallback_SendInventoryReset, pUnit);
+
+    D2UnitStrc* pNext;
+    for (D2UnitStrc* pCurrent = INVENTORY_GetFirstItem(pUnit->pInventory); pCurrent; pCurrent = pNext)
+    {
+        D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCurrent);
+        pNext = INVENTORY_GetNextItem(pCurrent);
+        if (pItem && pItem->dwUnitType == UNIT_ITEM)
+        {
+            if (pItem->dwAnimMode == IMODE_STORED)
+            {
+                ITEMMODE_ResetBookScrollSkillQuantity(pUnit, pItem);
+            }
+
+            INVENTORY_AddItemToTradeInventory(pUnit->pInventory, pItem);
+            ITEMS_SetItemCMDFlag(pItem, 1, 1);
+        }
+    }
+
+    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pUnit->pInventory);
+    if (pCursorItem && pCursorItem->dwUnitType == UNIT_ITEM)
+    {
+        INVENTORY_AddItemToTradeInventory(pUnit->pInventory, pCursorItem);
+        ITEMS_SetItemCMDFlag(pCursorItem, 1, 1);
+    }
+
+    ITEMMODE_RemoveInventoryItemProperties(pGame, pUnit);
+    PLRTRADE_RestoreTradeSnapshot(pGame, pUnit);
+}
+
+// 0x00566C80
+void __fastcall PLRTRADE_IterateCallback_SendInventoryReset(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
+{
+    D2UnitStrc* pOtherPlayer = (D2UnitStrc*)pArg;
+    if (pPlayer != pOtherPlayer)
+    {
+        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2107), PACKETSIZE06_HEADER, 0, !pOtherPlayer ? -1 : pOtherPlayer->dwUnitId);
+    }
 }
 
 // 0x00568060
@@ -2717,55 +2575,53 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
     return 0;
 }
 
-// 0x00568640
-void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+// 0x00567350
+static void __stdcall PLRTRADE_AddItemTrade(D2GameStrc* pGame, int nItemGUID1, int nItemGUID2, D2UnitStrc* pPlayer)
 {
-    int nUnitType;
-    int nUnitGUID;
-    if (!SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID) || nUnitType != 0)
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    if (pPlayerData)
     {
-        return;
+        D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
+        if (pTrade)
+        {
+            D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ItemTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0xC5B, 0);
+            pItemTrade->nItemGUID1 = nItemGUID1;
+            pItemTrade->nItemGUID2 = nItemGUID2;
+            pItemTrade->pNext = (D2ItemTradeStrc*)pTrade->pItemTrade;
+            pTrade->pItemTrade = pItemTrade;
+        }
     }
-
-    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, 0, nUnitGUID);
-    if (!pOtherPlayer)
-    {
-        return;
-    }
-
-    SUNIT_ResetInteractInfo(pPlayer);
-
-    if (!SUNIT_GetInteractInfo(pOtherPlayer, &nUnitType, &nUnitGUID) || nUnitType != 0)
-    {
-        return;
-    }
-
-    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
-    if (nUnitGUID != nPlayerGUID)
-    {
-        return;
-    }
-
-    UNITS_GetPlayerData(pPlayer)->dwTradeState = 9;
-    EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
-
-    sub_6FC90AE0(pGame, pPlayer, 0);
-    sub_6FC90AE0(pGame, pOtherPlayer, 1);
-
-    PLRTRADE_Free(pGame, pPlayer);
-    PLRTRADE_Free(pGame, pOtherPlayer);
-
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC2F), 0xC);
-    SUNIT_ResetInteractInfo(pOtherPlayer);
-
-    UNITS_GetPlayerData(pOtherPlayer)->dwTradeState = 9;
-    EVENT_SetEvent(pGame, pOtherPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
 }
 
-// 0x00568760
-void __fastcall PLRTRADE_StopInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
+// 0x005673A0
+static void PLRTRADE_WalkItemTrade(D2UnitStrc* pPlayer)
 {
-    PLRTRADE_StopAllPlayerInteractions(pGame, pUnit);
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    if (pPlayerData && pPlayerData->hTrade)
+    {
+        for (D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)pPlayerData->hTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
+        {
+        }
+    }
+}
+
+// 0x005673C0
+static char __stdcall PLRTRADE_FindItemTrade(int* pItemGUID2, int nItemGUID1, D2UnitStrc* pPlayer)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    if (pPlayerData && pPlayerData->hTrade)
+    {
+        for (D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)pPlayerData->hTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
+        {
+            if (pItemTrade->nItemGUID1 == nItemGUID1)
+            {
+                *pItemGUID2 = pItemTrade->nItemGUID2;
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 
 // 0x00568770
@@ -2942,6 +2798,150 @@ int __fastcall sub_00568D80_FindTerminator(const char* szText, int nSize)
     }
 
     return szText - pStart;
+}
+
+// 0x00567400
+void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+{
+    int nUnitGUID;
+    int nUnitType;
+    if (SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID) && nUnitType)
+    {
+        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCDC), 0xC);
+        return;
+    }
+
+    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, 0, nUnitGUID);
+    if (!pOtherPlayer)
+    {
+        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCE4), 0xC);
+        return;
+    }
+
+    const int nItemGUID = !pItem ? -1 : pItem->dwUnitId;
+    if (PLRTRADE_FindItemTrade(&nUnitGUID, nItemGUID, pPlayer))
+    {
+        int nUnused;
+        if (ITEMMODE_RemoveStoredItem(pGame, pOtherPlayer, nUnitGUID, &nUnused, 1, 1, 0, 1))
+        {
+            PLRTRADE_WalkItemTrade(pPlayer);
+        }
+    }
+
+    D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
+    D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
+    D2PlayerTradeStrc* pTrade1 = pPlayerData1->hTrade;
+    D2PlayerTradeStrc* pTrade2 = pPlayerData2->hTrade;
+    const unsigned int nTickCount = GetTickCount() + 10000;
+    pTrade1->nNextUpdateTick = nTickCount;
+    pTrade2->nNextUpdateTick = nTickCount;
+
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCF9), 0xE);
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCFA), 0xE);
+
+    if (pPlayerData1->dwTradeState == 4 || pPlayerData2->dwTradeState == 4)
+    {
+        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xCFF), 0, 0);
+        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD00), 0, 1);
+        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD01), 0, 0);
+        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD02), 0, 1);
+        PLRTRADE_SetTradeAccepted(pPlayer, pOtherPlayer, pPlayerData1, pPlayerData2);
+    }
+}
+
+// 0x00567620
+int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+{
+    D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
+    int nUnitType;
+    int nUnitGUID;
+    if (SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID))
+    {
+        if (nUnitType != 0)
+        {
+            return 1;
+        }
+        D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, 0, nUnitGUID);
+        if (pOtherPlayer)
+        {
+            D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
+            if (!pPlayerData2->hTrade)
+            {
+                return 0;
+            }
+            if (ACT4Q2_HasDiabloBeenKilled(pGame))
+            {
+                return 0;
+            }
+            if (sub_00463720_TestUnitFlagEx(pPlayer, 0x800000) || sub_00463720_TestUnitFlagEx(pOtherPlayer, 0x800000))
+            {
+                return 0;
+            }
+            D2_ASSERT(pPlayerData1->hTrade, 0xD3C);
+            int nResult = 1;
+            if (pPlayerData1->dwTradeState == 4)
+            {
+                nResult = 0;
+            }
+            if (pItem && pItem->dwUnitType == UNIT_ITEM)
+            {
+                int nClassId = pItem->dwClassId;
+                D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
+                if (pItemsTxtRecord->nQuest)
+                {
+                    if (pItemsTxtRecord->dwCode == 0x20786F62)
+                    {
+                        if (PLRTRADE_HasItemsInCube(pPlayer))
+                        {
+                            nResult = 0;
+                            PLRTRADE_SendEventPacketToPlayer(pPlayer, 0xA, 0);
+                        }
+                    }
+                    if (ITEMS_FindQuestItem(pGame, pOtherPlayer, pItemsTxtRecord->dwCode))
+                    {
+                        nResult = 0;
+                    }
+                }
+                else
+                {
+                    if (ITEMS_CheckItemFlag(pItem, 0x1000, 0xD58, ".\\PLAYER\\PlrTrade.cpp"))
+                    {
+                        nResult = 0;
+                    }
+                    else
+                    {
+                        ITEMS_GetItemQuality(pItem);
+                    }
+                }
+            }
+            if (pPlayer)
+            {
+                pPlayer->dwFlagEx |= 0x400000;
+            }
+            pPlayerData1->dwTradeState = 7;
+            pPlayerData2->dwTradeState = 7;
+            EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
+            EVENT_SetEvent(pGame, pOtherPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6E), 6);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6F), 6);
+            return nResult;
+        }
+    }
+    return pPlayerData1->dwTradeState <= 4;
+}
+
+// 0x005678A0
+int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
+{
+    int nUnitType;
+    int nUnitGUID;
+
+    if (SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID) && nUnitType == UNIT_PLAYER && SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nUnitGUID))
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 #include "gen/data/Source/D2Game/PLAYER/PlrTrade.inc"

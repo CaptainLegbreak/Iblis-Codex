@@ -1751,6 +1751,25 @@ int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsi
  return 1;
 }
 
+// 0x006C0360
+void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient)
+{
+    if (InterlockedDecrement(&pClient->nRefCount) == 0)
+    {
+        if (pServer->pfnOnRemove)
+            pServer->pfnOnRemove(pServer, pClient->nId, ".\\Src\\QServer\\QServer.cpp", 891);
+        sRemoveClient(pServer, pClient->nId);
+        sub_006BE650_DestroyClient(pClient);
+    }
+}
+
+// calling-convention shim (not game code)
+void __fastcall sub_006BF320_Shim(sub_006BF320_Server* pServer)
+{
+    QSERVER_FreePending(pServer);
+    FOG_Free(pServer, ".\\Src\\QServer\\QServer.cpp", 0, 0);
+}
+
 // 0x006BFB70
 D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int socket,unsigned int address)
 {
@@ -1784,13 +1803,6 @@ D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int s
  LeaveCriticalSection(&server->tLock);
  sub_006BE300_Log(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
  return client;
-}
-
-// calling-convention shim (not game code)
-void __fastcall sub_006BF320_Shim(sub_006BF320_Server* pServer)
-{
-    QSERVER_FreePending(pServer);
-    FOG_Free(pServer, ".\\Src\\QServer\\QServer.cpp", 0, 0);
 }
 
 // 0x006BFCD0
@@ -2004,25 +2016,6 @@ static int __stdcall QSERVER_AccountTraffic(D2QueueServerStrc* pTable, unsigned 
     return 1;
 }
 
-// 0x006C0140
-static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize)
-{
-    if (!pServer)
-    {
-        return 0;
-    }
-    D2QClientStrc* pConnection = QSERVER_FindClient(pServer, nKey);
-    if (!pConnection || pConnection->bClosing)
-    {
-        return 0;
-    }
-    if (pServer->bAltSend)
-    {
-        return sub_006C2C70(pServer, pConnection, pData, nSize);
-    }
-    return sub_006C3410_Send(pServer, pConnection, pData, nSize);
-}
-
 // build: context sub_006BF320_FreeChain
 static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer)
 {
@@ -2132,16 +2125,23 @@ unsigned int __stdcall sub_E4F1_Emit_006C00A0(D2QueueServerStrc* pTable, D2QClie
     return pClient->nAddress;
 }
 
-// 0x006C0360
-void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient)
+// 0x006C0140
+static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize)
 {
-    if (InterlockedDecrement(&pClient->nRefCount) == 0)
+    if (!pServer)
     {
-        if (pServer->pfnOnRemove)
-            pServer->pfnOnRemove(pServer, pClient->nId, ".\\Src\\QServer\\QServer.cpp", 891);
-        sRemoveClient(pServer, pClient->nId);
-        sub_006BE650_DestroyClient(pClient);
+        return 0;
     }
+    D2QClientStrc* pConnection = QSERVER_FindClient(pServer, nKey);
+    if (!pConnection || pConnection->bClosing)
+    {
+        return 0;
+    }
+    if (pServer->bAltSend)
+    {
+        return sub_006C2C70(pServer, pConnection, pData, nSize);
+    }
+    return sub_006C3410_Send(pServer, pConnection, pData, nSize);
 }
 
 // build: context sub_CallSite_SendToKey
@@ -2149,6 +2149,83 @@ void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc*
 int __stdcall sub_CallSite_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize)
 {
     return QSERVER_SendToClientId(pServer, nKey, pData, nSize);
+}
+
+// 0x006C0800
+int __fastcall QSERVER_BanAddress(D2QueueServerStrc* pServer, unsigned int* pAddress, const char* szFile, int nLine)
+{
+    unsigned int nAddress = *pAddress;
+    unsigned int nBucket = pServer->nMask & nAddress;
+    EnterCriticalSection(&pServer->tAddressLock);
+    D2QClientStrc* pNode = pServer->ppAddressBuckets[nBucket];
+    while (pNode && pNode->nAddress != nAddress)
+        pNode = pNode->pNextByAddress;
+    LeaveCriticalSection(&pServer->tAddressLock);
+    if (pNode && !pServer->sub_006BF660_CheckAddress(pNode->nAddress))
+    {
+        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
+        QSERVER_BanClient(pNode->iId, gszServerFile_006FC460, 0x584);
+    }
+    return 1;
+}
+
+// 0x006C08A0
+void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* server, D2QClientStrc* client)
+{
+    int start = 0, consumed = 0, queue = 0, charge = 0;
+    while (server->pfnProcess) {
+        EnterCriticalSection(&client->tLock);
+        int count = client->iReadBytes;
+        LeaveCriticalSection(&client->tLock);
+        int result = server->pfnProcess(client->pBuffer, count, &consumed, &start, &queue, &charge, client->iId, client->nContext, client->nAddress);
+        switch (result) {
+        case 2:
+            if (server->bEnabled && !QSERVER_AccountTraffic(server, charge, client)) {
+                sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
+                QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x649);
+                return;
+            }
+            break;
+        case 3: return;
+        case 4:
+            sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
+            QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x635);
+            return;
+        }
+        if (result != 5) {
+            D2MessageStrc* message;
+            if (server->pFreeMessages) {
+                EnterCriticalSection(&server->tLock);
+                message = server->pFreeMessages;
+                if (message) server->pFreeMessages = message->pNext;
+                else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x664, 0);
+                LeaveCriticalSection(&server->tLock);
+            } else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x66D, 0);
+            int size = consumed - start;
+            if (size > 0) {
+                EnterCriticalSection(&client->tLock);
+                memcpy(message->aData, client->pBuffer + start, size);
+                LeaveCriticalSection(&client->tLock);
+            } else *(unsigned char*)message = 0;
+            message->nSize = size;
+            message->nTick = GetTickCount();
+            message->pNext = 0;
+            message->nClient = client->iId;
+            D2_ASSERT(queue < server->nQueueCount, 0x6A1);
+            EnterCriticalSection(&server->tLock);
+            D2MessageStrc* tail = server->ppMsgTails[queue];
+            if (!tail) server->ppMsgHeads[queue] = message;
+            else tail->pNext = message;
+            server->ppMsgTails[queue] = message;
+            LeaveCriticalSection(&server->tLock);
+        }
+        EnterCriticalSection(&client->tLock);
+        client->iReadBytes -= consumed;
+        D2_ASSERT(client->iReadBytes + consumed <= 0x5B4, 0x6AD);
+        memmove(client->pBuffer, client->pBuffer + consumed, client->iReadBytes);
+        LeaveCriticalSection(&client->tLock);
+        start = 0; consumed = 0; queue = 0; charge = 0;
+    }
 }
 
 // 0x006C03A0
@@ -2234,83 +2311,6 @@ void __stdcall QSERVER_DisconnectIP(D2ConnectionTableStrc* pTable, unsigned int 
     else
         sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
     sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
-}
-
-// 0x006C0800
-int __fastcall QSERVER_BanAddress(D2QueueServerStrc* pServer, unsigned int* pAddress, const char* szFile, int nLine)
-{
-    unsigned int nAddress = *pAddress;
-    unsigned int nBucket = pServer->nMask & nAddress;
-    EnterCriticalSection(&pServer->tAddressLock);
-    D2QClientStrc* pNode = pServer->ppAddressBuckets[nBucket];
-    while (pNode && pNode->nAddress != nAddress)
-        pNode = pNode->pNextByAddress;
-    LeaveCriticalSection(&pServer->tAddressLock);
-    if (pNode && !pServer->sub_006BF660_CheckAddress(pNode->nAddress))
-    {
-        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
-        QSERVER_BanClient(pNode->iId, gszServerFile_006FC460, 0x584);
-    }
-    return 1;
-}
-
-// 0x006C08A0
-void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* server, D2QClientStrc* client)
-{
-    int start = 0, consumed = 0, queue = 0, charge = 0;
-    while (server->pfnProcess) {
-        EnterCriticalSection(&client->tLock);
-        int count = client->iReadBytes;
-        LeaveCriticalSection(&client->tLock);
-        int result = server->pfnProcess(client->pBuffer, count, &consumed, &start, &queue, &charge, client->iId, client->nContext, client->nAddress);
-        switch (result) {
-        case 2:
-            if (server->bEnabled && !QSERVER_AccountTraffic(server, charge, client)) {
-                sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
-                QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x649);
-                return;
-            }
-            break;
-        case 3: return;
-        case 4:
-            sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
-            QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x635);
-            return;
-        }
-        if (result != 5) {
-            D2MessageStrc* message;
-            if (server->pFreeMessages) {
-                EnterCriticalSection(&server->tLock);
-                message = server->pFreeMessages;
-                if (message) server->pFreeMessages = message->pNext;
-                else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x664, 0);
-                LeaveCriticalSection(&server->tLock);
-            } else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x66D, 0);
-            int size = consumed - start;
-            if (size > 0) {
-                EnterCriticalSection(&client->tLock);
-                memcpy(message->aData, client->pBuffer + start, size);
-                LeaveCriticalSection(&client->tLock);
-            } else *(unsigned char*)message = 0;
-            message->nSize = size;
-            message->nTick = GetTickCount();
-            message->pNext = 0;
-            message->nClient = client->iId;
-            D2_ASSERT(queue < server->nQueueCount, 0x6A1);
-            EnterCriticalSection(&server->tLock);
-            D2MessageStrc* tail = server->ppMsgTails[queue];
-            if (!tail) server->ppMsgHeads[queue] = message;
-            else tail->pNext = message;
-            server->ppMsgTails[queue] = message;
-            LeaveCriticalSection(&server->tLock);
-        }
-        EnterCriticalSection(&client->tLock);
-        client->iReadBytes -= consumed;
-        D2_ASSERT(client->iReadBytes + consumed <= 0x5B4, 0x6AD);
-        memmove(client->pBuffer, client->pBuffer + consumed, client->iReadBytes);
-        LeaveCriticalSection(&client->tLock);
-        start = 0; consumed = 0; queue = 0; charge = 0;
-    }
 }
 
 // calling-convention shim (not game code)

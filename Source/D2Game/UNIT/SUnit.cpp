@@ -694,34 +694,18 @@ D2UnitStrc* __fastcall sub_K11_Emit00552F30(D2GameStrc* pGame, D2UnitStrc* pUnit
     return sub_K11_EmitUse(SUNIT_GetUnitList(pGame, pUnit->dwUnitType, pUnit->dwUnitId));
 }
 
-// 0x00552F60
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* ptGame, int nUnitType, int nUnitGUID)
+// 0x00555770
+void __fastcall SUNIT_RemoveAllTiles(D2GameStrc* pGame)
 {
-    D2_ASSERT(ptGame, 722);
-
-    D2UnitStrc** ppUnitList;
-    if (nUnitType == UNIT_TILE)
+    D2_ASSERT(pGame, 0x12D);
+    D2UnitStrc* pTile = pGame->pTileList;
+    while (pTile)
     {
-        ppUnitList = &ptGame->pTileList;
+        D2UnitStrc* pCurrent = pTile;
+        pTile = pTile->pListNext;
+        SUNIT_RemoveUnit(pGame, pCurrent);
     }
-    else if (nUnitType >= 0 && nUnitType <= 4)
-    {
-        ppUnitList = (D2UnitStrc**)((char*)ptGame + s_anUnitListOffset_006E10E0[nUnitType]) + (nUnitGUID & UNIT_LIST_MASK);
-    }
-    else
-    {
-        ppUnitList = 0;
-    }
-
-    for (D2UnitStrc* pUnit = *ppUnitList; pUnit; pUnit = pUnit->pListNext)
-    {
-        if (pUnit->dwUnitId == nUnitGUID)
-        {
-            return pUnit;
-        }
-    }
-
-    return 0;
+    pGame->pTileList = 0;
 }
 
 inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -770,39 +754,16 @@ static inline D2UnitStrc** SUNIT_GetUnitList_Inline(D2GameStrc* pGame, int nUnit
     return 0;
 }
 
-// 0x00553060
-void __fastcall SUNIT_AddToUnitList(D2UnitStrc* pUnit, D2GameStrc* pGame)
+// 0x00553160
+static int SUNIT_RoomHasClients(D2UnitStrc* pUnit)
 {
-    D2UnitStrc** ppUnitList;
-    if (pUnit->dwUnitType == UNIT_TILE)
-        ppUnitList = (D2UnitStrc**)((char*)pGame + 0x1B20);
-    else
-        ppUnitList = SUNIT_GetUnitList_Inline(pGame, pUnit->dwUnitType, pUnit->dwUnitId);
-
-    D2UnitStrc* i = *ppUnitList;
-    D2UnitStrc* pPrevious = 0;
-    while (i)
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
     {
-        if (i->dwUnitId <= pUnit->dwUnitId)
-        {
-            if (i->dwUnitId == pUnit->dwUnitId)
-            {
-                char szMessage[256];
-                D2_MAYBE_UNUSED(szMessage);
-                sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x355);
-                exit(-1);
-            }
-            break;
-        }
-        pPrevious = i;
-        i = i->pListNext;
+        return 0;
     }
 
-    pUnit->pListNext = i;
-    if (pPrevious)
-        pPrevious->pListNext = pUnit;
-    else
-        *ppUnitList = pUnit;
+    return pRoom->nNumClients != 0;
 }
 
 // 0x005530F0
@@ -842,16 +803,39 @@ static void SUNIT_RemoveFromUnitList(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
-// 0x00553160
-static int SUNIT_RoomHasClients(D2UnitStrc* pUnit)
+// 0x00553060
+void __fastcall SUNIT_AddToUnitList(D2UnitStrc* pUnit, D2GameStrc* pGame)
 {
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
+    D2UnitStrc** ppUnitList;
+    if (pUnit->dwUnitType == UNIT_TILE)
+        ppUnitList = (D2UnitStrc**)((char*)pGame + 0x1B20);
+    else
+        ppUnitList = SUNIT_GetUnitList_Inline(pGame, pUnit->dwUnitType, pUnit->dwUnitId);
+
+    D2UnitStrc* i = *ppUnitList;
+    D2UnitStrc* pPrevious = 0;
+    while (i)
     {
-        return 0;
+        if (i->dwUnitId <= pUnit->dwUnitId)
+        {
+            if (i->dwUnitId == pUnit->dwUnitId)
+            {
+                char szMessage[256];
+                D2_MAYBE_UNUSED(szMessage);
+                sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x355);
+                exit(-1);
+            }
+            break;
+        }
+        pPrevious = i;
+        i = i->pListNext;
     }
 
-    return pRoom->nNumClients != 0;
+    pUnit->pListNext = i;
+    if (pPrevious)
+        pPrevious->pListNext = pUnit;
+    else
+        *ppUnitList = pUnit;
 }
 
 // 0x00553180
@@ -863,15 +847,38 @@ void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* hUnit, D2ClientStrc* pC
     UNITS_GetPlayerData(hUnit)->pClient = pClient;
 }
 
-// 0x005531C0
-D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine)
+// 0x005533D0
+void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* ptUnit)
 {
-    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
+    D2_ASSERT(ptUnit, 0x561);
+
+    ptUnit->nActionFrame = 0;
+
+    int bPlayerSequence = 0;
+    if (ptUnit->dwUnitType == UNIT_PLAYER && ptUnit->dwAnimMode == PLRMODE_SEQUENCE)
     {
-        return 0;
+        bPlayerSequence = 1;
     }
 
-    return UNITS_GetPlayerData(pPlayer)->pClient;
+    if ((ptUnit->dwUnitType == UNIT_MONSTER && ptUnit->dwAnimMode == MONMODE_SEQUENCE || bPlayerSequence) && DATATBLS_GetMonSeqTxtRecordFromUnit(ptUnit))
+    {
+        UNITS_InitializeSequence(ptUnit);
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNIT\\SUnit.cpp", 0x570);
+        return;
+    }
+
+    ptUnit->pAnimSeq = 0;
+    ptUnit->nSeqCurrentFramePrecise = 0;
+    if (ptUnit->pDynamicPath)
+    {
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNIT\\SUnit.cpp", 0x578);
+    }
+    else
+    {
+        UNITS_SetAnimData(ptUnit, ptUnit->dwUnitType, ptUnit->dwClassId, ptUnit->dwAnimMode);
+    }
+
+    ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
 }
 
 // build: context UNIT_HasFlag
@@ -1006,38 +1013,55 @@ static unsigned int ITEMS_HasUniqueBeenDroppedAlready_Inlined(D2GameStrc* pGame,
     return pGame->dwUniqueFlags[nUniqueItemId >> 5] & gdwBitMasks[nUniqueItemId & 0x1F];
 }
 
-// 0x005533D0
-void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* ptUnit)
+// 0x005557D0
+D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId, int nX, int nY, int nMode, int nUnitFlags)
 {
-    D2_ASSERT(ptUnit, 0x561);
+    D2UnitStrc* pUnit = 0;
 
-    ptUnit->nActionFrame = 0;
-
-    int bPlayerSequence = 0;
-    if (ptUnit->dwUnitType == UNIT_PLAYER && ptUnit->dwAnimMode == PLRMODE_SEQUENCE)
+    switch (nUnitType)
     {
-        bPlayerSequence = 1;
+    case 2:
+        if (nClassId > 573)
+        {
+            pUnit = OBJECTS_SpawnPresetObject(pGame, pRoom, nClassId, nX, nY, nMode);
+            break;
+        }
+        if (nClassId == 573)
+        {
+            return 0;
+        }
+
+    default:
+        pUnit = SUNIT_AllocUnitData(nUnitType, nClassId, nX, nY, pGame, pRoom, 1, nMode, 0);
+        if (nUnitType == 4 && pUnit)
+        {
+            D2ItemDropStrc itemDrop;
+            memset(&itemDrop, 0, sizeof(itemDrop));
+            itemDrop.nQuality = 2;
+            itemDrop.nItemLvl = DUNGEON_GetLevelIdFromRoom(pRoom);
+            if (!D2GAME_InitItemStats_6FC4E520(pGame, &pUnit, &itemDrop, 1))
+            {
+                SUNIT_RemoveUnit(pGame, pUnit);
+                return 0;
+            }
+        }
+        if (pUnit)
+        {
+            pUnit->dwFlags |= 0x3000000;
+        }
+        return pUnit;
+
+    case 1:
+        pUnit = D2GAME_SpawnPresetMonster_6FC66560(pGame, pRoom, nClassId, nX, nY, nMode);
+        break;
     }
 
-    if ((ptUnit->dwUnitType == UNIT_MONSTER && ptUnit->dwAnimMode == MONMODE_SEQUENCE || bPlayerSequence) && DATATBLS_GetMonSeqTxtRecordFromUnit(ptUnit))
+    if (pUnit)
     {
-        UNITS_InitializeSequence(ptUnit);
-        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNIT\\SUnit.cpp", 0x570);
-        return;
+        pUnit->dwFlags |= 0x3000000;
     }
 
-    ptUnit->pAnimSeq = 0;
-    ptUnit->nSeqCurrentFramePrecise = 0;
-    if (ptUnit->pDynamicPath)
-    {
-        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNIT\\SUnit.cpp", 0x578);
-    }
-    else
-    {
-        UNITS_SetAnimData(ptUnit, ptUnit->dwUnitType, ptUnit->dwClassId, ptUnit->dwAnimMode);
-    }
-
-    ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
+    return pUnit;
 }
 
 // 0x00553490
@@ -1089,11 +1113,19 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
     return 0;
 }
 
-// 0x00553570
-void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode)
+// 0x00554CA0
+int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* ptGame, D2UnitStrc* pMissile)
 {
-    SUNITDMG_FreeAttackerCombatList(pGame, pUnit);
-    UNITS_ChangeAnimMode(pUnit, nMode);
+    D2_ASSERT(ptGame, 1838);
+
+    SUNIT_ValidateTargetUnit(ptGame, pMissile);
+    const int v4 = D2Common_10226(pMissile, 1024) ? 1 : 2;
+    if (UNITS_IsCurrentRoomInvalid(pMissile))
+    {
+        SUNIT_SynchronizeRoomClients(ptGame, pMissile, 0);
+    }
+
+    return v4;
 }
 
 inline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
@@ -1120,6 +1152,13 @@ inline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }
+}
+
+// 0x00553570
+void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode)
+{
+    SUNITDMG_FreeAttackerCombatList(pGame, pUnit);
+    UNITS_ChangeAnimMode(pUnit, nMode);
 }
 
 // 0x00553590
@@ -1559,6 +1598,39 @@ void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* ptInfo)
     ptInfo->nOwnerGUID = pUnit->dwOwnerGUID;
 }
 
+// 0x00554D00
+D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    int nUnitType = pUnit->dwInteractType;
+    int nUnitGUID = pUnit->dwInteractGUID;
+    if (pUnit->nInteract)
+    {
+        return SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
+    }
+
+    return 0;
+}
+
+// 0x00555CC0
+int __cdecl SUNIT_GetItemsTxtCount()
+{
+    D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
+    if (!pItemDataTbl)
+        return 0;
+    return pItemDataTbl->nItemsTxtRecordCount;
+}
+
+// 0x005564D0
+int __fastcall ITEMS_IsUniqueAlreadyDropped(D2GameStrc* pGame, D2UnitStrc* pItem)
+{
+    if (ITEMS_GetItemQuality(pItem) != ITEMQUAL_UNIQUE)
+    {
+        return 0;
+    }
+
+    return ITEMS_HasUniqueBeenDroppedAlready_Inlined(pGame, ITEMS_GetFileIndex(pItem));
+}
+
 // 0x00554010
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* hUnit)
 {
@@ -1583,12 +1655,53 @@ unsigned int __fastcall SUNIT_GetTrackedSummonGUID(D2UnitStrc* hUnit)
     return hUnit->pPlayerData->nNecropetFlag;
 }
 
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId < 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return 0;
+    }
+
+    return &sgptDataTables->pSkillsTxt[nSkillId];
+}
+
+static inline int SUNIT_GetUnitGUIDInline(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return pUnit->dwUnitId;
+    }
+
+    return -1;
+}
+
 // 0x005540A0
 void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc* pUnit, unsigned char nSparkChest)
 {
     D2_ASSERT(pUnit, 2631);
 
     pUnit->bSparkChest = nSparkChest;
+}
+
+// build: context sub_0044BE50
+inline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+}
+
+__forceinline D2UnitStrc* __fastcall SUNIT_GetOwner_Inline(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    if (!UNIT_HasFlagEx(pUnit, UNITFLAGEX_STOREOWNERINFO))
+    {
+        return 0;
+    }
+
+    return SUNIT_GetServerUnit(pGame, pUnit->dwOwnerType, pUnit->dwOwnerGUID);
 }
 
 // 0x005540D0
@@ -1611,26 +1724,6 @@ extern "C" __declspec(dllexport) void __stdcall SUNIT_ResetInteractInfo(Obj00554
     pObj->nValue64 = -1;
     pObj->nValue68 = 6;
     pObj->nValue6C = 0;
-}
-
-static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId < 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return 0;
-    }
-
-    return &sgptDataTables->pSkillsTxt[nSkillId];
-}
-
-static inline int SUNIT_GetUnitGUIDInline(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        return pUnit->dwUnitId;
-    }
-
-    return -1;
 }
 
 // 0x005541B0
@@ -1670,27 +1763,6 @@ int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit)
     }
 
     return 1;
-}
-
-// build: context sub_0044BE50
-inline int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-}
-
-__forceinline D2UnitStrc* __fastcall SUNIT_GetOwner_Inline(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    if (!UNIT_HasFlagEx(pUnit, UNITFLAGEX_STOREOWNERINFO))
-    {
-        return 0;
-    }
-
-    return SUNIT_GetServerUnit(pGame, pUnit->dwOwnerType, pUnit->dwOwnerGUID);
 }
 
 // 0x00554200
@@ -1804,85 +1876,69 @@ static void __stdcall SUNIT_UpdateAlignmentRegion(D2UnitStrc* pUnit, int nAlignm
     }
 }
 
-// 0x005543B0
-void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int bUpdate)
-{
-    const int eAlignNew = nAlignNew;
-    int nAlignment = UNIT_ALIGNMENT_UNASSIGNED;
-    if (!pUnit)
-    {
-        return;
-    }
-    D2_ASSERT(eAlignNew < UNIT_NUM_ALIGNMENT, 2994);
-    const int nClassId = pUnit->dwClassId;
-    if (nClassId != MONSTER_HYDRA1 && nClassId != MONSTER_HYDRA2 && nClassId != MONSTER_HYDRA3 && eAlignNew == UNIT_ALIGNMENT_EVIL && sub_00451F30_TestUnitFlag(pUnit, 0x80000000))
-    {
-        return;
-    }
-    D2StatListStrc* hList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_ALIGNMENT);
-    if (!hList)
-    {
-        hList = STATLIST_AllocStatList(pUnit->pMemoryPool, 0, 0, pUnit->dwUnitType, pUnit->dwUnitId);
-        D2_ASSERT(hList, 3012);
-        STATLIST_SetState(hList, STATE_ALIGNMENT);
-        D2COMMON_10475_PostStatToStatList(pUnit, hList, 1);
-        STATES_ToggleState(pUnit, STATE_ALIGNMENT, 1);
-    }
-    else
-    {
-        nAlignment = STATLIST_GetStatValue(hList, STAT_ALIGNMENT, 0);
-    }
-    STATLIST_SetStat(hList, STAT_ALIGNMENT, eAlignNew, 0);
-    STATES_ToggleGfxStateFlag(pUnit, STATE_ALIGNMENT, 1);
-    SUNIT_UpdateAlignmentRegion(pUnit, nAlignment, eAlignNew, bUpdate);
-}
-
-// 0x00554570
-int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventType, int a4, int a5)
-{
-    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
-    {
-        return 0;
-    }
-
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (!pPlayerData)
-    {
-        return 0;
-    }
-
-    pPlayerData->nSkillCooldown148 = 0;
-    pPlayerData->nSkillCooldown14C = 0;
-    EVENT_DeleteTimersByCallback(pGame, pPlayer, EVENTTYPE_REMOVESKILLCOOLDOWN, SUNIT_EventClearTeleportCoordinates);
-    return 1;
-}
-
-// 0x00554630
-short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer)
-{
-    if (pPlayer && pPlayer->pGame && pPlayer->dwUnitType == UNIT_PLAYER)
-    {
-        return PARTY_GetPartyIdForUnitOwner(pPlayer->pGame, pPlayer);
-    }
-
-    return -1;
-}
-
-// 0x00554650
-extern "C" __declspec(dllexport) int __fastcall SUNITDMG_SetHitClass(Obj00554650* pObj, unsigned int dwBits) {
-    unsigned int dwFlags = pObj->dwFlags60;
-    if (dwFlags & 0xF0) {
-        return 0;
-    }
-    pObj->dwFlags60 = dwFlags | dwBits;
-    return 1;
-}
-
 static inline D2MonsterDataStrc* sub_00554670_GetMonsterData(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         return pUnit->pMonsterData;
+    }
+
+    return 0;
+}
+
+// 0x00555500
+static void SUNIT_ClearPlayerInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nInteractGUID = pUnit->dwInteractGUID;
+    const int nInteractType = pUnit->dwInteractType;
+    if (pUnit->nInteract)
+    {
+        D2UnitStrc* pInteractUnit = SUNIT_GetServerUnit(pGame, nInteractType, nInteractGUID);
+        if (pInteractUnit)
+        {
+            switch (pInteractUnit->dwUnitType)
+            {
+            case UNIT_MONSTER:
+                MONSTERAI_RemoveInteractInfoFor(pGame, pUnit, !pInteractUnit->pMonsterData ? 0 : pInteractUnit->pMonsterData->pMonInteract);
+                SUNITPROXY_FreeVendorChain(pGame, pUnit, pInteractUnit);
+                break;
+            case UNIT_OBJECT:
+                OBJMODE_ResetObjectInteraction(pGame, pInteractUnit);
+                break;
+            }
+
+            pUnit->dwInteractGUID = -1;
+            pUnit->dwInteractType = UNIT_INVALID;
+            pUnit->nInteract = 0;
+        }
+    }
+}
+
+// 0x00552F60
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* ptGame, int nUnitType, int nUnitGUID)
+{
+    D2_ASSERT(ptGame, 722);
+
+    D2UnitStrc** ppUnitList;
+    if (nUnitType == UNIT_TILE)
+    {
+        ppUnitList = &ptGame->pTileList;
+    }
+    else if (nUnitType >= 0 && nUnitType <= 4)
+    {
+        ppUnitList = (D2UnitStrc**)((char*)ptGame + s_anUnitListOffset_006E10E0[nUnitType]) + (nUnitGUID & UNIT_LIST_MASK);
+    }
+    else
+    {
+        ppUnitList = 0;
+    }
+
+    for (D2UnitStrc* pUnit = *ppUnitList; pUnit; pUnit = pUnit->pListNext)
+    {
+        if (pUnit->dwUnitId == nUnitGUID)
+        {
+            return pUnit;
+        }
     }
 
     return 0;
@@ -1986,89 +2042,6 @@ void __fastcall SUNIT_SynchronizeRoomClients(D2GameStrc* pGame, D2UnitStrc* pUni
     PATH_SetCurrentRoomInvalid(pUnit->pDynamicPath, 0);
 }
 
-// 0x00554850
-void __fastcall SUNIT_Add(D2UnitStrc* pUnit, int nX, int nY, D2GameStrc* ptGame, D2ActiveRoomStrc* hRoom, int bSkipRoomUpdate)
-{
-    D2_ASSERT(ptGame, 0x3FF);
-    D2_ASSERT(pUnit, 0x403);
-
-    pUnit->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(hRoom));
-    pUnit->pDrlgAct = ptGame->pAct[pUnit->nAct];
-
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_PLAYER:
-        PATH_AllocDynamicPath(ptGame->pMemoryPool, hRoom, nX, nY, pUnit, 0);
-        PLAYER_InitializePosition(ptGame, pUnit, nX, nY);
-        break;
-
-    case UNIT_MONSTER:
-        PATH_AllocDynamicPath(ptGame->pMemoryPool, hRoom, nX, nY, pUnit, 0);
-        MONSTER_SetVelocityAndPosition(ptGame, pUnit, nX, nY, bSkipRoomUpdate);
-        if (SUNIT_RoomHasClients(pUnit))
-        {
-            MONSTER_UpdateAiCallbackEvent(ptGame, pUnit);
-        }
-        else
-        {
-            sub_00553220(ptGame, pUnit);
-        }
-        break;
-
-    case UNIT_OBJECT:
-    {
-        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
-        UNITS_InitializeStaticPath(pUnit, hRoom, nX, nY);
-        if (pObjectsTxtRecord->nHasCollision[pUnit->dwAnimMode])
-        {
-            UNITS_BlockCollisionPath(pUnit, hRoom, nX, nY);
-        }
-
-        D2_ASSERT(hRoom, 0x420);
-        UNITROOM_AddUnitToRoom(pUnit, hRoom);
-        break;
-    }
-    case UNIT_ITEM:
-        if (pUnit->dwAnimMode == IMODE_ONGROUND)
-        {
-            UNITS_InitializeStaticPath(pUnit, hRoom, nX, nY);
-            UNITS_BlockCollisionPath(pUnit, hRoom, nX, nY);
-            if (hRoom)
-            {
-                UNITROOM_AddUnitToRoomEx(pUnit, hRoom, 0);
-            }
-        }
-        break;
-
-    case UNIT_MISSILE:
-        PATH_AllocDynamicPath(ptGame->pMemoryPool, hRoom, nX, nY, pUnit, 0);
-        break;
-
-    case UNIT_TILE:
-        UNITS_InitializeStaticPath(pUnit, hRoom, nX, nY);
-        UNITS_BlockCollisionPath(pUnit, hRoom, nX, nY);
-        D2_ASSERT(hRoom, 0x442);
-        UNITROOM_AddUnitToRoom(pUnit, hRoom);
-        break;
-
-    default:
-        D2_ASSERT(0, 0x447);
-        break;
-    }
-
-    SUNIT_AddToUnitList(pUnit, ptGame);
-
-    if (UNITS_GetRoom(pUnit))
-    {
-        UNITROOM_RefreshUnit(pUnit);
-    }
-
-    if (!bSkipRoomUpdate)
-    {
-        UNITS_SetCurrentRoomInvalid(pUnit, 1);
-    }
-}
-
 // 0x00554A30
 void __fastcall SUNIT_Restore(D2GameStrc* ptGame, D2UnitStrc* hUnit, D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
@@ -2163,84 +2136,96 @@ void __fastcall SUNIT_Restore(D2GameStrc* ptGame, D2UnitStrc* hUnit, D2ActiveRoo
     UNITS_SetCurrentRoomInvalid(hUnit, 1);
 }
 
-// 0x00554CA0
-int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* ptGame, D2UnitStrc* pMissile)
+// 0x00555910
+void __fastcall SUNIT_SpawnPresetUnit(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2PresetUnitStrc* pPresetUnit)
 {
-    D2_ASSERT(ptGame, 1838);
+    D2DrlgCoordsStrc pCoord;
 
-    SUNIT_ValidateTargetUnit(ptGame, pMissile);
-    const int v4 = D2Common_10226(pMissile, 1024) ? 1 : 2;
-    if (UNITS_IsCurrentRoomInvalid(pMissile))
+    DUNGEON_GetRoomCoordinates(pRoom, &pCoord);
+
+    const int nX = pPresetUnit->nXpos + pCoord.nSubtileX;
+    const int nY = pPresetUnit->nYpos + pCoord.nSubtileY;
+    D2UnitStrc* pUnit = SUNIT_CreatePresetUnit(pGame, pRoom, pPresetUnit->nUnitType, pPresetUnit->nIndex, nX, nY, pPresetUnit->nMode, 0);
+    if (!pUnit)
     {
-        SUNIT_SynchronizeRoomClients(ptGame, pMissile, 0);
+        return;
     }
 
-    return v4;
-}
-
-// 0x00554D00
-D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    int nUnitType = pUnit->dwInteractType;
-    int nUnitGUID = pUnit->dwInteractGUID;
-    if (pUnit->nInteract)
+    if (pPresetUnit->nUnitType == UNIT_MONSTER)
     {
-        return SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-    }
-
-    return 0;
-}
-
-// 0x00554D20
-int __fastcall SUNIT_CanAllyBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pPet, int nSkillId)
-{
-    if (!pOwner || !pPet)
-    {
-        return 0;
-    }
-
-    const int nOwnerUnitType = pOwner ? pOwner->dwUnitType : UNIT_INVALID;
-    if (nOwnerUnitType != UNIT_PLAYER)
-    {
-        return 0;
-    }
-
-    const int nPetType = pPet->dwUnitType;
-    int nUnitType = nPetType;
-    if (nPetType != UNIT_PLAYER && nPetType != UNIT_MONSTER)
-    {
-        return 0;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord || !(pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_TARGETALLY >> 3] & gdwBitMasks[SKILLSFLAGINDEX_TARGETALLY & 7]))
-    {
-        return 0;
-    }
-
-    int nUnitGUID = pPet->dwUnitId;
-    if (nPetType == UNIT_MONSTER)
-    {
-        AIGENERAL_GetOwnerData(pPet, &nUnitGUID, &nUnitType);
-        if (nUnitGUID == -1 || nUnitType != UNIT_PLAYER)
+        D2MapAIStrc** ppPresetMapAI = &pPresetUnit->pMapAI;
+        D2MapAIStrc* pMapAI = AIGENERAL_GetMapAiFromUnit(pUnit);
+        if (*ppPresetMapAI)
         {
-            return 0;
+            DRLGPRESET_ChangeMapAI(ppPresetMapAI, pMapAI);
+        }
+    }
+    else if (pPresetUnit->nUnitType == UNIT_OBJECT)
+    {
+        QUESTS_MapPresetSpawn(pGame, pUnit, pPresetUnit->pMapAI);
+    }
+}
+
+// 0x005559A0
+void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
+{
+    if (!pGame)
+        return;
+
+    D2PresetUnitStrc* pPresetUnit = DUNGEON_GetPresetUnitsFromRoom(pRoom);
+    int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+
+    for (D2PresetUnitStrc* i = pPresetUnit; i; i = i->pNext)
+    {
+        if (i->nUnitType != UNIT_MONSTER && !(i->bSpawned & 1))
+        {
+            if (nLevelId == LEVEL_PANDEMONIUMFINALE)
+            {
+                if (i->nUnitType != UNIT_OBJECT || (i->nIndex != OBJECT_WIRTSBODY && i->nIndex != OBJECT_GOLD_PLACEHOLDER && i->nIndex != OBJECT_CAINGIBBET))
+                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
+
+                if (i->nIndex == OBJECT_GOLD_PLACEHOLDER)
+                    DUNGEON_GetLevelIdFromRoom(pRoom);
+            }
+            else if (nLevelId == LEVEL_PANDEMONIUMRUN1)
+            {
+                if (i->nUnitType != UNIT_OBJECT || i->nIndex != OBJECT_SPARKLY_CHEST)
+                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
+            }
+            else if (nLevelId == LEVEL_PANDEMONIUMRUN2)
+            {
+                if (i->nUnitType != UNIT_OBJECT)
+                {
+                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
+                }
+                else if (i->nIndex != OBJECT_VALLEY_WAYPOINT)
+                {
+                    pGame->dwUberSandsCounter++;
+                    if (pGame->dwUberSandsCounter != (pGame->dwInitSeed % 3) + 3)
+                        SUNIT_SpawnPresetUnit(pGame, pRoom, i);
+                }
+            }
+            else if (nLevelId == LEVEL_PANDEMONIUMRUN3)
+            {
+                if (i->nUnitType != UNIT_OBJECT || i->nIndex != OBJECT_SPARKLY_CHEST)
+                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
+            }
+            else
+            {
+                SUNIT_SpawnPresetUnit(pGame, pRoom, i);
+            }
         }
     }
 
-    const unsigned short nPartyId = SUNIT_GetPartyId(pOwner);
-    if (nPartyId == 0xFFFF)
-    {
-        return 0;
-    }
+    D2PresetUnitStrc* pMonster = pPresetUnit;
+    if (nLevelId == LEVEL_PANDEMONIUMFINALE)
+        return;
 
-    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-    if (!pOtherPlayer)
+    for (; pMonster; pMonster = pMonster->pNext)
     {
-        return 0;
+        if (pMonster->nUnitType == UNIT_MONSTER && !(pMonster->bSpawned & 1))
+            SUNIT_SpawnPresetUnit(pGame, pRoom, pMonster);
     }
-
-    return nPartyId == (unsigned short)SUNIT_GetPartyId(pOtherPlayer);
 }
 
 static inline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
@@ -2252,130 +2237,109 @@ static inline unsigned short SUNIT_GetPartyId_Inline(D2UnitStrc* pPlayer)
     return 0xFFFF;
 }
 
-// 0x00554DE0
-int __fastcall SUNIT_AreUnitsAligned(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
+// 0x00555600
+void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (pUnit1 && pUnit1->dwUnitType == UNIT_MONSTER)
+    D2_ASSERT(pGame, 0x59);
+    D2_ASSERT(pUnit, 0x5C);
+    D2_ASSERT(pUnit->dwUnitType < NUM_UNIT_TYPES, 0x61);
+
+    SUNIT_DetachUnit(pUnit, pGame, 0);
+
+    if (pUnit->pQuestEventList)
     {
-        D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit1);
-        if (pOwner)
+        QUESTS_FreeChainRecord(pGame, pUnit->pQuestEventList);
+        pUnit->pQuestEventList = 0;
+    }
+
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        D2GAME_FreeUnitNode_6FC40310(pGame, pUnit);
+        PLAYER_RemoveTownPortal(pGame, pUnit);
+        PARTY_LeaveParty(pGame, pUnit);
+        PLAYER_Destroy(pGame, pUnit);
+
+        if (pUnit->pDynamicPath)
         {
-            pUnit1 = pOwner;
+            PATH_FreeDynamicPath(pGame->pMemoryPool, pUnit->pDynamicPath);
+            pUnit->pDynamicPath = 0;
         }
-    }
-    if (pUnit2 && (!pUnit2 ? 6 : pUnit2->dwUnitType) == 1)
-    {
-        D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit2);
-        if (pOwner)
+        break;
+
+    case UNIT_MONSTER:
+        sub_005B1A90(pGame, pUnit);
+
+        if (pUnit->pDynamicPath)
         {
-            pUnit2 = pOwner;
+            PATH_FreeDynamicPath(pGame->pMemoryPool, pUnit->pDynamicPath);
+            pUnit->pDynamicPath = 0;
         }
+
+        MONSTER_Free(pGame, pUnit);
+        break;
+
+    case UNIT_OBJECT:
+        OBJECTS_FreeHoverMessage(pGame, pUnit);
+        UNITS_FreeStaticPath(pUnit);
+        FOG_FreePool(pGame->pMemoryPool, pUnit->pPlayerData, ".\\UNIT\\SUnit.cpp", 0xA4, 0);
+        break;
+
+    case UNIT_MISSILE:
+        if (pUnit->pDynamicPath)
+        {
+            PATH_FreeDynamicPath(pGame->pMemoryPool, pUnit->pDynamicPath);
+            pUnit->pDynamicPath = 0;
+        }
+
+        MISSILES_Free(pGame, pUnit);
+        break;
+
+    case UNIT_ITEM:
+        ITEMS_FreeSocketInventoryAndTimers(pGame, pUnit);
+        ITEMS_FreeItemData(pGame->pMemoryPool, pUnit);
+        UNITS_FreeStaticPath(pUnit);
+        break;
+
+    case UNIT_TILE:
+        UNITS_FreeStaticPath(pUnit);
+        break;
     }
-    if (pUnit1 == pUnit2)
-    {
-        return 1;
-    }
-    if (UNIT_TypeOrInvalid(pUnit1) == 0 && UNIT_TypeOrInvalid(pUnit2) == 0)
-    {
-        const unsigned int nPartyId1 = SUNIT_GetPartyId_Inline(pUnit1);
-        const unsigned int nPartyId2 = SUNIT_GetPartyId_Inline(pUnit2);
-        return nPartyId1 == nPartyId2 && nPartyId2 != 0xFFFF;
-    }
-    return STATLIST_AreUnitsAligned(pUnit1, pUnit2);
+
+    SUNITEVENT_FreeEventList(pGame, pUnit);
+    D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(pUnit);
+    UNITS_FreeUnit(pUnit);
 }
 
-// 0x00554EA0
-int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7)
+// 0x00555580
+void __fastcall SUNIT_DetachUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int bKeepInRoom)
 {
-    D2_ASSERT(hUnit, 0xC21);
-    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(hUnit);
-    D2DynamicPathStrc* hPath = hUnit->pDynamicPath;
-    D2_ASSERT(hPath, 0xC25);
+    D2_ASSERT(pUnit, 940);
+    D2_ASSERT(pUnit->dwUnitType < 6, 941);
 
-    D2ActiveRoomStrc* pRoom = pInputRoom;
-    D2CoordStrc tCoords;
-    tCoords.nX = nX;
-    tCoords.nY = nY;
-    if (!pRoom)
+    switch (pUnit->dwUnitType)
     {
-        pRoom = sub_00463740_FindRoomAtPoint(0, tCoords.nX, tCoords.nY);
-        if (!pRoom)
-        {
-            pRoom = sub_00463740_FindRoomAtPoint(pUnitRoom, tCoords.nX, tCoords.nY);
-        }
+    case UNIT_PLAYER:
+        SUNIT_ClearPlayerInteraction(pGame, pUnit);
+        D2Common_10228(pUnit);
+        break;
+    case UNIT_MONSTER:
+        D2Common_10228(pUnit);
+        break;
+    case UNIT_OBJECT:
+        D2Common_10228(pUnit);
+        break;
+    case UNIT_MISSILE:
+        D2Common_10228(pUnit);
+        break;
     }
 
-    if (!pRoom)
+    if (!bKeepInRoom)
     {
-        return 0;
+        UNITROOM_RemoveUnitFromRoom(pUnit);
     }
 
-    if (!a6)
-    {
-        pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoords, UNITS_GetUnitSizeX(hUnit), 0x1C09, 0);
-    }
-
-    if (!pRoom)
-    {
-        return 0;
-    }
-
-    if (!sub_00650BE0_PlaceUnit(hPath, hUnit, pRoom, tCoords.nX, tCoords.nY))
-    {
-        return 0;
-    }
-
-    if (hUnit->dwUnitType == UNIT_PLAYER)
-    {
-        D2ClientStrc* pClient = UnitGetClient(hUnit, ".\\UNIT\\SUnit.cpp", 0xC3C);
-        D2DrlgCoordsStrc tDrlgCoords;
-        DUNGEON_GetRoomCoordinates(pRoom, &tDrlgCoords);
-        D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), (unsigned short)tDrlgCoords.nTileXPos, (unsigned short)tDrlgCoords.nTileYPos);
-
-        UNITROOM_RefreshUnit(hUnit);
-        if (a7)
-        {
-            hUnit->dwFlagEx |= 0x800;
-        }
-        else
-        {
-            hUnit->dwFlagEx |= 0x10000;
-        }
-
-        SUNIT_SynchronizeRoomClients(pGame, hUnit, 0);
-
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(hUnit);
-        const unsigned char nIndex = pPlayerData->nPositionHistoryIndex;
-        pPlayerData->nSkillCooldown148 = tCoords.nX;
-        pPlayerData->nSkillCooldown14C = tCoords.nY;
-        pPlayerData->dwPositionHistoryTick = GetTickCount();
-        pPlayerData->pPositionHistory[nIndex].nX = tCoords.nX;
-        pPlayerData->pPositionHistory[nIndex].nY = tCoords.nY;
-        pPlayerData->nPositionHistoryIndex += 1;
-        if (pPlayerData->nPositionHistoryIndex >= 20)
-        {
-            pPlayerData->nPositionHistoryIndex = 0;
-        }
-
-        EVENT_SetEventWithCallback(pGame, hUnit, 14, pGame->dwGameFrame + 50, SUNIT_EventClearTeleportCoordinates, 0, 0);
-        sub_6FC7E310(pGame, hUnit, tCoords.nX, tCoords.nY);
-    }
-    else
-    {
-        UNITROOM_RefreshUnit(hUnit);
-        if (a7)
-        {
-            hUnit->dwFlagEx |= 0x800;
-        }
-        else
-        {
-            hUnit->dwFlagEx |= 0x10000;
-        }
-
-        SUNIT_SynchronizeRoomClients(pGame, hUnit, 0);
-    }
-
-    return 1;
+    SUNIT_RemoveFromUnitList(pGame, pUnit);
 }
 
 static inline int GetClassId(D2UnitStrc* pUnit)
@@ -2572,294 +2536,320 @@ D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, 
     return pUnit;
 }
 
-// 0x00555500
-static void SUNIT_ClearPlayerInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
+// 0x00554850
+void __fastcall SUNIT_Add(D2UnitStrc* pUnit, int nX, int nY, D2GameStrc* ptGame, D2ActiveRoomStrc* hRoom, int bSkipRoomUpdate)
 {
-    const int nInteractGUID = pUnit->dwInteractGUID;
-    const int nInteractType = pUnit->dwInteractType;
-    if (pUnit->nInteract)
-    {
-        D2UnitStrc* pInteractUnit = SUNIT_GetServerUnit(pGame, nInteractType, nInteractGUID);
-        if (pInteractUnit)
-        {
-            switch (pInteractUnit->dwUnitType)
-            {
-            case UNIT_MONSTER:
-                MONSTERAI_RemoveInteractInfoFor(pGame, pUnit, !pInteractUnit->pMonsterData ? 0 : pInteractUnit->pMonsterData->pMonInteract);
-                SUNITPROXY_FreeVendorChain(pGame, pUnit, pInteractUnit);
-                break;
-            case UNIT_OBJECT:
-                OBJMODE_ResetObjectInteraction(pGame, pInteractUnit);
-                break;
-            }
+    D2_ASSERT(ptGame, 0x3FF);
+    D2_ASSERT(pUnit, 0x403);
 
-            pUnit->dwInteractGUID = -1;
-            pUnit->dwInteractType = UNIT_INVALID;
-            pUnit->nInteract = 0;
-        }
-    }
-}
-
-// 0x00555580
-void __fastcall SUNIT_DetachUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int bKeepInRoom)
-{
-    D2_ASSERT(pUnit, 940);
-    D2_ASSERT(pUnit->dwUnitType < 6, 941);
+    pUnit->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(hRoom));
+    pUnit->pDrlgAct = ptGame->pAct[pUnit->nAct];
 
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        SUNIT_ClearPlayerInteraction(pGame, pUnit);
-        D2Common_10228(pUnit);
-        break;
-    case UNIT_MONSTER:
-        D2Common_10228(pUnit);
-        break;
-    case UNIT_OBJECT:
-        D2Common_10228(pUnit);
-        break;
-    case UNIT_MISSILE:
-        D2Common_10228(pUnit);
-        break;
-    }
-
-    if (!bKeepInRoom)
-    {
-        UNITROOM_RemoveUnitFromRoom(pUnit);
-    }
-
-    SUNIT_RemoveFromUnitList(pGame, pUnit);
-}
-
-// 0x00555600
-void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2_ASSERT(pGame, 0x59);
-    D2_ASSERT(pUnit, 0x5C);
-    D2_ASSERT(pUnit->dwUnitType < NUM_UNIT_TYPES, 0x61);
-
-    SUNIT_DetachUnit(pUnit, pGame, 0);
-
-    if (pUnit->pQuestEventList)
-    {
-        QUESTS_FreeChainRecord(pGame, pUnit->pQuestEventList);
-        pUnit->pQuestEventList = 0;
-    }
-
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_PLAYER:
-        D2GAME_FreeUnitNode_6FC40310(pGame, pUnit);
-        PLAYER_RemoveTownPortal(pGame, pUnit);
-        PARTY_LeaveParty(pGame, pUnit);
-        PLAYER_Destroy(pGame, pUnit);
-
-        if (pUnit->pDynamicPath)
-        {
-            PATH_FreeDynamicPath(pGame->pMemoryPool, pUnit->pDynamicPath);
-            pUnit->pDynamicPath = 0;
-        }
+        PATH_AllocDynamicPath(ptGame->pMemoryPool, hRoom, nX, nY, pUnit, 0);
+        PLAYER_InitializePosition(ptGame, pUnit, nX, nY);
         break;
 
     case UNIT_MONSTER:
-        sub_005B1A90(pGame, pUnit);
-
-        if (pUnit->pDynamicPath)
+        PATH_AllocDynamicPath(ptGame->pMemoryPool, hRoom, nX, nY, pUnit, 0);
+        MONSTER_SetVelocityAndPosition(ptGame, pUnit, nX, nY, bSkipRoomUpdate);
+        if (SUNIT_RoomHasClients(pUnit))
         {
-            PATH_FreeDynamicPath(pGame->pMemoryPool, pUnit->pDynamicPath);
-            pUnit->pDynamicPath = 0;
+            MONSTER_UpdateAiCallbackEvent(ptGame, pUnit);
         }
-
-        MONSTER_Free(pGame, pUnit);
+        else
+        {
+            sub_00553220(ptGame, pUnit);
+        }
         break;
 
     case UNIT_OBJECT:
-        OBJECTS_FreeHoverMessage(pGame, pUnit);
-        UNITS_FreeStaticPath(pUnit);
-        FOG_FreePool(pGame->pMemoryPool, pUnit->pPlayerData, ".\\UNIT\\SUnit.cpp", 0xA4, 0);
-        break;
-
-    case UNIT_MISSILE:
-        if (pUnit->pDynamicPath)
+    {
+        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
+        UNITS_InitializeStaticPath(pUnit, hRoom, nX, nY);
+        if (pObjectsTxtRecord->nHasCollision[pUnit->dwAnimMode])
         {
-            PATH_FreeDynamicPath(pGame->pMemoryPool, pUnit->pDynamicPath);
-            pUnit->pDynamicPath = 0;
+            UNITS_BlockCollisionPath(pUnit, hRoom, nX, nY);
         }
 
-        MISSILES_Free(pGame, pUnit);
+        D2_ASSERT(hRoom, 0x420);
+        UNITROOM_AddUnitToRoom(pUnit, hRoom);
         break;
-
+    }
     case UNIT_ITEM:
-        ITEMS_FreeSocketInventoryAndTimers(pGame, pUnit);
-        ITEMS_FreeItemData(pGame->pMemoryPool, pUnit);
-        UNITS_FreeStaticPath(pUnit);
+        if (pUnit->dwAnimMode == IMODE_ONGROUND)
+        {
+            UNITS_InitializeStaticPath(pUnit, hRoom, nX, nY);
+            UNITS_BlockCollisionPath(pUnit, hRoom, nX, nY);
+            if (hRoom)
+            {
+                UNITROOM_AddUnitToRoomEx(pUnit, hRoom, 0);
+            }
+        }
+        break;
+
+    case UNIT_MISSILE:
+        PATH_AllocDynamicPath(ptGame->pMemoryPool, hRoom, nX, nY, pUnit, 0);
         break;
 
     case UNIT_TILE:
-        UNITS_FreeStaticPath(pUnit);
+        UNITS_InitializeStaticPath(pUnit, hRoom, nX, nY);
+        UNITS_BlockCollisionPath(pUnit, hRoom, nX, nY);
+        D2_ASSERT(hRoom, 0x442);
+        UNITROOM_AddUnitToRoom(pUnit, hRoom);
+        break;
+
+    default:
+        D2_ASSERT(0, 0x447);
         break;
     }
 
-    SUNITEVENT_FreeEventList(pGame, pUnit);
-    D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(pUnit);
-    UNITS_FreeUnit(pUnit);
-}
+    SUNIT_AddToUnitList(pUnit, ptGame);
 
-// 0x00555770
-void __fastcall SUNIT_RemoveAllTiles(D2GameStrc* pGame)
-{
-    D2_ASSERT(pGame, 0x12D);
-    D2UnitStrc* pTile = pGame->pTileList;
-    while (pTile)
+    if (UNITS_GetRoom(pUnit))
     {
-        D2UnitStrc* pCurrent = pTile;
-        pTile = pTile->pListNext;
-        SUNIT_RemoveUnit(pGame, pCurrent);
+        UNITROOM_RefreshUnit(pUnit);
     }
-    pGame->pTileList = 0;
+
+    if (!bSkipRoomUpdate)
+    {
+        UNITS_SetCurrentRoomInvalid(pUnit, 1);
+    }
 }
 
-// 0x005557D0
-D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId, int nX, int nY, int nMode, int nUnitFlags)
+// 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine)
 {
-    D2UnitStrc* pUnit = 0;
-
-    switch (nUnitType)
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
     {
-    case 2:
-        if (nClassId > 573)
-        {
-            pUnit = OBJECTS_SpawnPresetObject(pGame, pRoom, nClassId, nX, nY, nMode);
-            break;
-        }
-        if (nClassId == 573)
+        return 0;
+    }
+
+    return UNITS_GetPlayerData(pPlayer)->pClient;
+}
+
+// 0x00554630
+short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer)
+{
+    if (pPlayer && pPlayer->pGame && pPlayer->dwUnitType == UNIT_PLAYER)
+    {
+        return PARTY_GetPartyIdForUnitOwner(pPlayer->pGame, pPlayer);
+    }
+
+    return -1;
+}
+
+// 0x00554D20
+int __fastcall SUNIT_CanAllyBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pPet, int nSkillId)
+{
+    if (!pOwner || !pPet)
+    {
+        return 0;
+    }
+
+    const int nOwnerUnitType = pOwner ? pOwner->dwUnitType : UNIT_INVALID;
+    if (nOwnerUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    const int nPetType = pPet->dwUnitType;
+    int nUnitType = nPetType;
+    if (nPetType != UNIT_PLAYER && nPetType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord || !(pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_TARGETALLY >> 3] & gdwBitMasks[SKILLSFLAGINDEX_TARGETALLY & 7]))
+    {
+        return 0;
+    }
+
+    int nUnitGUID = pPet->dwUnitId;
+    if (nPetType == UNIT_MONSTER)
+    {
+        AIGENERAL_GetOwnerData(pPet, &nUnitGUID, &nUnitType);
+        if (nUnitGUID == -1 || nUnitType != UNIT_PLAYER)
         {
             return 0;
         }
-
-    default:
-        pUnit = SUNIT_AllocUnitData(nUnitType, nClassId, nX, nY, pGame, pRoom, 1, nMode, 0);
-        if (nUnitType == 4 && pUnit)
-        {
-            D2ItemDropStrc itemDrop;
-            memset(&itemDrop, 0, sizeof(itemDrop));
-            itemDrop.nQuality = 2;
-            itemDrop.nItemLvl = DUNGEON_GetLevelIdFromRoom(pRoom);
-            if (!D2GAME_InitItemStats_6FC4E520(pGame, &pUnit, &itemDrop, 1))
-            {
-                SUNIT_RemoveUnit(pGame, pUnit);
-                return 0;
-            }
-        }
-        if (pUnit)
-        {
-            pUnit->dwFlags |= 0x3000000;
-        }
-        return pUnit;
-
-    case 1:
-        pUnit = D2GAME_SpawnPresetMonster_6FC66560(pGame, pRoom, nClassId, nX, nY, nMode);
-        break;
     }
 
-    if (pUnit)
+    const unsigned short nPartyId = SUNIT_GetPartyId(pOwner);
+    if (nPartyId == 0xFFFF)
     {
-        pUnit->dwFlags |= 0x3000000;
+        return 0;
     }
 
-    return pUnit;
+    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
+    if (!pOtherPlayer)
+    {
+        return 0;
+    }
+
+    return nPartyId == (unsigned short)SUNIT_GetPartyId(pOtherPlayer);
 }
 
-// 0x00555910
-void __fastcall SUNIT_SpawnPresetUnit(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2PresetUnitStrc* pPresetUnit)
+// 0x00554DE0
+int __fastcall SUNIT_AreUnitsAligned(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 {
-    D2DrlgCoordsStrc pCoord;
+    if (pUnit1 && pUnit1->dwUnitType == UNIT_MONSTER)
+    {
+        D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit1);
+        if (pOwner)
+        {
+            pUnit1 = pOwner;
+        }
+    }
+    if (pUnit2 && (!pUnit2 ? 6 : pUnit2->dwUnitType) == 1)
+    {
+        D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit2);
+        if (pOwner)
+        {
+            pUnit2 = pOwner;
+        }
+    }
+    if (pUnit1 == pUnit2)
+    {
+        return 1;
+    }
+    if (UNIT_TypeOrInvalid(pUnit1) == 0 && UNIT_TypeOrInvalid(pUnit2) == 0)
+    {
+        const unsigned int nPartyId1 = SUNIT_GetPartyId_Inline(pUnit1);
+        const unsigned int nPartyId2 = SUNIT_GetPartyId_Inline(pUnit2);
+        return nPartyId1 == nPartyId2 && nPartyId2 != 0xFFFF;
+    }
+    return STATLIST_AreUnitsAligned(pUnit1, pUnit2);
+}
 
-    DUNGEON_GetRoomCoordinates(pRoom, &pCoord);
+// 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7)
+{
+    D2_ASSERT(hUnit, 0xC21);
+    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(hUnit);
+    D2DynamicPathStrc* hPath = hUnit->pDynamicPath;
+    D2_ASSERT(hPath, 0xC25);
 
-    const int nX = pPresetUnit->nXpos + pCoord.nSubtileX;
-    const int nY = pPresetUnit->nYpos + pCoord.nSubtileY;
-    D2UnitStrc* pUnit = SUNIT_CreatePresetUnit(pGame, pRoom, pPresetUnit->nUnitType, pPresetUnit->nIndex, nX, nY, pPresetUnit->nMode, 0);
+    D2ActiveRoomStrc* pRoom = pInputRoom;
+    D2CoordStrc tCoords;
+    tCoords.nX = nX;
+    tCoords.nY = nY;
+    if (!pRoom)
+    {
+        pRoom = sub_00463740_FindRoomAtPoint(0, tCoords.nX, tCoords.nY);
+        if (!pRoom)
+        {
+            pRoom = sub_00463740_FindRoomAtPoint(pUnitRoom, tCoords.nX, tCoords.nY);
+        }
+    }
+
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    if (!a6)
+    {
+        pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoords, UNITS_GetUnitSizeX(hUnit), 0x1C09, 0);
+    }
+
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    if (!sub_00650BE0_PlaceUnit(hPath, hUnit, pRoom, tCoords.nX, tCoords.nY))
+    {
+        return 0;
+    }
+
+    if (hUnit->dwUnitType == UNIT_PLAYER)
+    {
+        D2ClientStrc* pClient = UnitGetClient(hUnit, ".\\UNIT\\SUnit.cpp", 0xC3C);
+        D2DrlgCoordsStrc tDrlgCoords;
+        DUNGEON_GetRoomCoordinates(pRoom, &tDrlgCoords);
+        D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), (unsigned short)tDrlgCoords.nTileXPos, (unsigned short)tDrlgCoords.nTileYPos);
+
+        UNITROOM_RefreshUnit(hUnit);
+        if (a7)
+        {
+            hUnit->dwFlagEx |= 0x800;
+        }
+        else
+        {
+            hUnit->dwFlagEx |= 0x10000;
+        }
+
+        SUNIT_SynchronizeRoomClients(pGame, hUnit, 0);
+
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(hUnit);
+        const unsigned char nIndex = pPlayerData->nPositionHistoryIndex;
+        pPlayerData->nSkillCooldown148 = tCoords.nX;
+        pPlayerData->nSkillCooldown14C = tCoords.nY;
+        pPlayerData->dwPositionHistoryTick = GetTickCount();
+        pPlayerData->pPositionHistory[nIndex].nX = tCoords.nX;
+        pPlayerData->pPositionHistory[nIndex].nY = tCoords.nY;
+        pPlayerData->nPositionHistoryIndex += 1;
+        if (pPlayerData->nPositionHistoryIndex >= 20)
+        {
+            pPlayerData->nPositionHistoryIndex = 0;
+        }
+
+        EVENT_SetEventWithCallback(pGame, hUnit, 14, pGame->dwGameFrame + 50, SUNIT_EventClearTeleportCoordinates, 0, 0);
+        sub_6FC7E310(pGame, hUnit, tCoords.nX, tCoords.nY);
+    }
+    else
+    {
+        UNITROOM_RefreshUnit(hUnit);
+        if (a7)
+        {
+            hUnit->dwFlagEx |= 0x800;
+        }
+        else
+        {
+            hUnit->dwFlagEx |= 0x10000;
+        }
+
+        SUNIT_SynchronizeRoomClients(pGame, hUnit, 0);
+    }
+
+    return 1;
+}
+
+// 0x005543B0
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int bUpdate)
+{
+    const int eAlignNew = nAlignNew;
+    int nAlignment = UNIT_ALIGNMENT_UNASSIGNED;
     if (!pUnit)
     {
         return;
     }
-
-    if (pPresetUnit->nUnitType == UNIT_MONSTER)
+    D2_ASSERT(eAlignNew < UNIT_NUM_ALIGNMENT, 2994);
+    const int nClassId = pUnit->dwClassId;
+    if (nClassId != MONSTER_HYDRA1 && nClassId != MONSTER_HYDRA2 && nClassId != MONSTER_HYDRA3 && eAlignNew == UNIT_ALIGNMENT_EVIL && sub_00451F30_TestUnitFlag(pUnit, 0x80000000))
     {
-        D2MapAIStrc** ppPresetMapAI = &pPresetUnit->pMapAI;
-        D2MapAIStrc* pMapAI = AIGENERAL_GetMapAiFromUnit(pUnit);
-        if (*ppPresetMapAI)
-        {
-            DRLGPRESET_ChangeMapAI(ppPresetMapAI, pMapAI);
-        }
-    }
-    else if (pPresetUnit->nUnitType == UNIT_OBJECT)
-    {
-        QUESTS_MapPresetSpawn(pGame, pUnit, pPresetUnit->pMapAI);
-    }
-}
-
-// 0x005559A0
-void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
-{
-    if (!pGame)
         return;
-
-    D2PresetUnitStrc* pPresetUnit = DUNGEON_GetPresetUnitsFromRoom(pRoom);
-    int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-
-    for (D2PresetUnitStrc* i = pPresetUnit; i; i = i->pNext)
-    {
-        if (i->nUnitType != UNIT_MONSTER && !(i->bSpawned & 1))
-        {
-            if (nLevelId == LEVEL_PANDEMONIUMFINALE)
-            {
-                if (i->nUnitType != UNIT_OBJECT || (i->nIndex != OBJECT_WIRTSBODY && i->nIndex != OBJECT_GOLD_PLACEHOLDER && i->nIndex != OBJECT_CAINGIBBET))
-                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
-
-                if (i->nIndex == OBJECT_GOLD_PLACEHOLDER)
-                    DUNGEON_GetLevelIdFromRoom(pRoom);
-            }
-            else if (nLevelId == LEVEL_PANDEMONIUMRUN1)
-            {
-                if (i->nUnitType != UNIT_OBJECT || i->nIndex != OBJECT_SPARKLY_CHEST)
-                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
-            }
-            else if (nLevelId == LEVEL_PANDEMONIUMRUN2)
-            {
-                if (i->nUnitType != UNIT_OBJECT)
-                {
-                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
-                }
-                else if (i->nIndex != OBJECT_VALLEY_WAYPOINT)
-                {
-                    pGame->dwUberSandsCounter++;
-                    if (pGame->dwUberSandsCounter != (pGame->dwInitSeed % 3) + 3)
-                        SUNIT_SpawnPresetUnit(pGame, pRoom, i);
-                }
-            }
-            else if (nLevelId == LEVEL_PANDEMONIUMRUN3)
-            {
-                if (i->nUnitType != UNIT_OBJECT || i->nIndex != OBJECT_SPARKLY_CHEST)
-                    SUNIT_SpawnPresetUnit(pGame, pRoom, i);
-            }
-            else
-            {
-                SUNIT_SpawnPresetUnit(pGame, pRoom, i);
-            }
-        }
     }
-
-    D2PresetUnitStrc* pMonster = pPresetUnit;
-    if (nLevelId == LEVEL_PANDEMONIUMFINALE)
-        return;
-
-    for (; pMonster; pMonster = pMonster->pNext)
+    D2StatListStrc* hList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_ALIGNMENT);
+    if (!hList)
     {
-        if (pMonster->nUnitType == UNIT_MONSTER && !(pMonster->bSpawned & 1))
-            SUNIT_SpawnPresetUnit(pGame, pRoom, pMonster);
+        hList = STATLIST_AllocStatList(pUnit->pMemoryPool, 0, 0, pUnit->dwUnitType, pUnit->dwUnitId);
+        D2_ASSERT(hList, 3012);
+        STATLIST_SetState(hList, STATE_ALIGNMENT);
+        D2COMMON_10475_PostStatToStatList(pUnit, hList, 1);
+        STATES_ToggleState(pUnit, STATE_ALIGNMENT, 1);
     }
+    else
+    {
+        nAlignment = STATLIST_GetStatValue(hList, STAT_ALIGNMENT, 0);
+    }
+    STATLIST_SetStat(hList, STAT_ALIGNMENT, eAlignNew, 0);
+    STATES_ToggleGfxStateFlag(pUnit, STATE_ALIGNMENT, 1);
+    SUNIT_UpdateAlignmentRegion(pUnit, nAlignment, eAlignNew, bUpdate);
 }
 
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
@@ -2950,24 +2940,34 @@ void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc*
     }
 }
 
-// 0x00555CC0
-int __cdecl SUNIT_GetItemsTxtCount()
+// 0x00554570
+int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventType, int a4, int a5)
 {
-    D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
-    if (!pItemDataTbl)
-        return 0;
-    return pItemDataTbl->nItemsTxtRecordCount;
-}
-
-// 0x005564D0
-int __fastcall ITEMS_IsUniqueAlreadyDropped(D2GameStrc* pGame, D2UnitStrc* pItem)
-{
-    if (ITEMS_GetItemQuality(pItem) != ITEMQUAL_UNIQUE)
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
     {
         return 0;
     }
 
-    return ITEMS_HasUniqueBeenDroppedAlready_Inlined(pGame, ITEMS_GetFileIndex(pItem));
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    if (!pPlayerData)
+    {
+        return 0;
+    }
+
+    pPlayerData->nSkillCooldown148 = 0;
+    pPlayerData->nSkillCooldown14C = 0;
+    EVENT_DeleteTimersByCallback(pGame, pPlayer, EVENTTYPE_REMOVESKILLCOOLDOWN, SUNIT_EventClearTeleportCoordinates);
+    return 1;
+}
+
+// 0x00554650
+extern "C" __declspec(dllexport) int __fastcall SUNITDMG_SetHitClass(Obj00554650* pObj, unsigned int dwBits) {
+    unsigned int dwFlags = pObj->dwFlags60;
+    if (dwFlags & 0xF0) {
+        return 0;
+    }
+    pObj->dwFlags60 = dwFlags | dwBits;
+    return 1;
 }
 
 #include "gen/data/Source/D2Game/UNIT/SUnit.inc"

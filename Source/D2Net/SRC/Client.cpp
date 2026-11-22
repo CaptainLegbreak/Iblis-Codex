@@ -149,187 +149,6 @@ static inline void CLIENT_StartConnectThread(const char* szIpAddress)
     ghClientConnectToHostThreadHandle = CreateThread(0, 0, CLIENT_ConnectToHost, (void*)szIpAddress, 0, &gdwThreadId);
 }
 
-// 0x0052A750
-void __stdcall CLIENT_Initialize(int nArg, const char* szIpAddress)
-{
-    gpGamePacketList = 0;
-    gpSystemPacketList = 0;
-    InitializeCriticalSection(&gCriticalSection);
-    gpPacketBuffer = (D2PacketBufferStrc*)FOG_Alloc(0x7BC, ".\\SRC\\Client.cpp", 200, 0);
-    memset(gpPacketBuffer, 0, 0x7BC);
-    sub_0052B810(nArg);
-    if (NET_IsLocalConnection())
-    {
-        sub_0052B780();
-        return;
-    }
-    ghClientConnectToHostThreadHandle = CreateThread(0, 0, CLIENT_ConnectToHost, (void*)szIpAddress, 0, &gdwThreadId);
-}
-
-// 0x0052A7E0
-void __cdecl CLIENT_Release()
-{
-    EnterCriticalSection(&gCriticalSection);
-
-    if (gpPacketBuffer)
-    {
-        FOG_Free(gpPacketBuffer, ".\\SRC\\Client.cpp", 0xDA, 0);
-    }
-
-    gpPacketBuffer = 0;
-    gdwGlobal_00882D00 = 1;
-
-    LeaveCriticalSection(&gCriticalSection);
-
-    WaitForSingleObject(ghReceiveThread_00882CD8, 6000);
-
-    NET_FreePacketList(&gCriticalSection, &gpSystemPacketList);
-    NET_FreePacketList(&gCriticalSection, &gpGamePacketList);
-
-    DeleteCriticalSection(&gCriticalSection);
-
-    if (NET_IsLocalConnection())
-    {
-        return;
-    }
-
-    const int nResult = sub_0040D880(gClientSocket);
-    gClientSocket = -1;
-    if (nResult == -1)
-    {
-        WSAGetLastError();
-    }
-}
-
-// 0x0052A890
-int __stdcall CLIENT_DequeueGamePacket(unsigned char* pBuffer, unsigned int nBufferSize)
-{
-    return NET_DequeueFirstPacketFromList(&gCriticalSection, &gpGamePacketList, pBuffer, nBufferSize);
-}
-
-// 0x0052A8B0
-int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize)
-{
-    return NET_DequeueFirstPacketFromList(&gCriticalSection, &gpSystemPacketList, pBuffer, nBufferSize);
-}
-
-// 0x0052A8D0
-int __stdcall CLIENT_ParseReceiveBuffer()
-{
-    int nUsedBytes = gpPacketBuffer->nUsedBytes;
-    D2PacketBufferStrc* pPacketBuffer = gpPacketBuffer;
-    int bResult = 0;
-
-    if (nUsedBytes >= 1u)
-    {
-    do
-    {
-        int nSize;
-        if (!SERVER_GetServerPacketSize(pPacketBuffer, nUsedBytes, &nSize))
-        {
-            break;
-        }
-
-        D2_ASSERT((unsigned int)nSize <= MAX_MSG_SIZE, 0x129);
-
-        if (nSize > nUsedBytes)
-        {
-            break;
-        }
-
-        D2NetPacketRecStrc* pPacket = (D2NetPacketRecStrc*)FOG_Alloc(sizeof(D2NetPacketRecStrc), ".\\SRC\\Client.cpp", 0x12C, 0);
-        pPacket->nPacketSize = nSize;
-        pPacket->dwTickCount = 0;
-        pPacket->pNext = 0;
-
-        memcpy(pPacket->data, pPacketBuffer->data, nSize);
-
-        if (pPacketBuffer->data[0] == 0xAF && pPacketBuffer->data[1])
-        {
-            bResult = 1;
-
-            if (pPacketBuffer->data[1] == 0x81)
-            {
-                unsigned char abProcessed[0x100];
-
-                const unsigned char* pSource = &pPacketBuffer->data[1];
-                unsigned char* pDest = &abProcessed[1];
-                int nCount = 0x80;
-                do
-                {
-                    const unsigned char nElement = *pSource;
-                    pDest[-1] = (nElement & 0xF) + 1;
-                    pDest[0] = (nElement >> 4) + 1;
-                    ++pSource;
-                    pDest += 2;
-                } while (--nCount);
-
-                FOG_10219(abProcessed);
-            }
-        }
-        else if (pPacketBuffer->data[0] == 0x8F)
-        {
-            *(unsigned long*)&pPacket->data[13] = GetTickCount();
-        }
-
-        D2NetPacketRecStrc** ppLast;
-        if (pPacketBuffer->data[0] < 0xAF)
-        {
-            ppLast = &gpGamePacketList;
-        }
-        else
-        {
-            ppLast = &gpSystemPacketList;
-        }
-
-        while (*ppLast)
-        {
-            ppLast = &(*ppLast)->pNext;
-        }
-        *ppLast = pPacket;
-
-        pPacketBuffer = (D2PacketBufferStrc*)((char*)pPacketBuffer + nSize);
-        nUsedBytes -= nSize;
-    } while (nUsedBytes >= 1u);
-    }
-
-    D2PacketBufferStrc* pEnd = gpPacketBuffer;
-    pEnd->nUsedBytes = nUsedBytes;
-
-    if (nUsedBytes && pPacketBuffer != pEnd)
-    {
-        memmove(pEnd, pPacketBuffer, nUsedBytes);
-    }
-
-    return bResult;
-}
-
-// 0x0052AAA0
-void __cdecl CLIENT_HandleSocketError()
-{
-    WSAGetLastError();
-    CLIENT_ClearConnected();
-}
-
-// 0x0052AAD0
-void __cdecl CLIENT_ClearConnected()
-{
-    if (!NET_IsLocalConnection())
-    {
-        EnterCriticalSection(&gCriticalSection);
-        gbConnected_00882D04 = 0;
-        LeaveCriticalSection(&gCriticalSection);
-    }
-}
-
-D2PacketBufferStrc* gpPacketBuffer; // 0x00882B34
-
-D2CriticalSectionStrc gCriticalSection; // 0x00882CE8
-
-int gdwGlobal_00882D00; // 0x00882D00
-
-int gbConnected_00882D04; // 0x00882D04
-
 // 0x0052AB00
 unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pArg)
 {
@@ -475,6 +294,187 @@ static int CLIENT_SendToSocket(const unsigned char* pBuffer, int nSize)
         LeaveCriticalSection(&gCriticalSection);
     }
     return 0;
+}
+
+// 0x0052A750
+void __stdcall CLIENT_Initialize(int nArg, const char* szIpAddress)
+{
+    gpGamePacketList = 0;
+    gpSystemPacketList = 0;
+    InitializeCriticalSection(&gCriticalSection);
+    gpPacketBuffer = (D2PacketBufferStrc*)FOG_Alloc(0x7BC, ".\\SRC\\Client.cpp", 200, 0);
+    memset(gpPacketBuffer, 0, 0x7BC);
+    sub_0052B810(nArg);
+    if (NET_IsLocalConnection())
+    {
+        sub_0052B780();
+        return;
+    }
+    ghClientConnectToHostThreadHandle = CreateThread(0, 0, CLIENT_ConnectToHost, (void*)szIpAddress, 0, &gdwThreadId);
+}
+
+// 0x0052A7E0
+void __cdecl CLIENT_Release()
+{
+    EnterCriticalSection(&gCriticalSection);
+
+    if (gpPacketBuffer)
+    {
+        FOG_Free(gpPacketBuffer, ".\\SRC\\Client.cpp", 0xDA, 0);
+    }
+
+    gpPacketBuffer = 0;
+    gdwGlobal_00882D00 = 1;
+
+    LeaveCriticalSection(&gCriticalSection);
+
+    WaitForSingleObject(ghReceiveThread_00882CD8, 6000);
+
+    NET_FreePacketList(&gCriticalSection, &gpSystemPacketList);
+    NET_FreePacketList(&gCriticalSection, &gpGamePacketList);
+
+    DeleteCriticalSection(&gCriticalSection);
+
+    if (NET_IsLocalConnection())
+    {
+        return;
+    }
+
+    const int nResult = sub_0040D880(gClientSocket);
+    gClientSocket = -1;
+    if (nResult == -1)
+    {
+        WSAGetLastError();
+    }
+}
+
+// 0x0052A890
+int __stdcall CLIENT_DequeueGamePacket(unsigned char* pBuffer, unsigned int nBufferSize)
+{
+    return NET_DequeueFirstPacketFromList(&gCriticalSection, &gpGamePacketList, pBuffer, nBufferSize);
+}
+
+// 0x0052A8B0
+int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize)
+{
+    return NET_DequeueFirstPacketFromList(&gCriticalSection, &gpSystemPacketList, pBuffer, nBufferSize);
+}
+
+D2PacketBufferStrc* gpPacketBuffer; // 0x00882B34
+
+D2CriticalSectionStrc gCriticalSection; // 0x00882CE8
+
+int gdwGlobal_00882D00; // 0x00882D00
+
+int gbConnected_00882D04; // 0x00882D04
+
+// 0x0052A8D0
+int __stdcall CLIENT_ParseReceiveBuffer()
+{
+    int nUsedBytes = gpPacketBuffer->nUsedBytes;
+    D2PacketBufferStrc* pPacketBuffer = gpPacketBuffer;
+    int bResult = 0;
+
+    if (nUsedBytes >= 1u)
+    {
+    do
+    {
+        int nSize;
+        if (!SERVER_GetServerPacketSize(pPacketBuffer, nUsedBytes, &nSize))
+        {
+            break;
+        }
+
+        D2_ASSERT((unsigned int)nSize <= MAX_MSG_SIZE, 0x129);
+
+        if (nSize > nUsedBytes)
+        {
+            break;
+        }
+
+        D2NetPacketRecStrc* pPacket = (D2NetPacketRecStrc*)FOG_Alloc(sizeof(D2NetPacketRecStrc), ".\\SRC\\Client.cpp", 0x12C, 0);
+        pPacket->nPacketSize = nSize;
+        pPacket->dwTickCount = 0;
+        pPacket->pNext = 0;
+
+        memcpy(pPacket->data, pPacketBuffer->data, nSize);
+
+        if (pPacketBuffer->data[0] == 0xAF && pPacketBuffer->data[1])
+        {
+            bResult = 1;
+
+            if (pPacketBuffer->data[1] == 0x81)
+            {
+                unsigned char abProcessed[0x100];
+
+                const unsigned char* pSource = &pPacketBuffer->data[1];
+                unsigned char* pDest = &abProcessed[1];
+                int nCount = 0x80;
+                do
+                {
+                    const unsigned char nElement = *pSource;
+                    pDest[-1] = (nElement & 0xF) + 1;
+                    pDest[0] = (nElement >> 4) + 1;
+                    ++pSource;
+                    pDest += 2;
+                } while (--nCount);
+
+                FOG_10219(abProcessed);
+            }
+        }
+        else if (pPacketBuffer->data[0] == 0x8F)
+        {
+            *(unsigned long*)&pPacket->data[13] = GetTickCount();
+        }
+
+        D2NetPacketRecStrc** ppLast;
+        if (pPacketBuffer->data[0] < 0xAF)
+        {
+            ppLast = &gpGamePacketList;
+        }
+        else
+        {
+            ppLast = &gpSystemPacketList;
+        }
+
+        while (*ppLast)
+        {
+            ppLast = &(*ppLast)->pNext;
+        }
+        *ppLast = pPacket;
+
+        pPacketBuffer = (D2PacketBufferStrc*)((char*)pPacketBuffer + nSize);
+        nUsedBytes -= nSize;
+    } while (nUsedBytes >= 1u);
+    }
+
+    D2PacketBufferStrc* pEnd = gpPacketBuffer;
+    pEnd->nUsedBytes = nUsedBytes;
+
+    if (nUsedBytes && pPacketBuffer != pEnd)
+    {
+        memmove(pEnd, pPacketBuffer, nUsedBytes);
+    }
+
+    return bResult;
+}
+
+// 0x0052AAA0
+void __cdecl CLIENT_HandleSocketError()
+{
+    WSAGetLastError();
+    CLIENT_ClearConnected();
+}
+
+// 0x0052AAD0
+void __cdecl CLIENT_ClearConnected()
+{
+    if (!NET_IsLocalConnection())
+    {
+        EnterCriticalSection(&gCriticalSection);
+        gbConnected_00882D04 = 0;
+        LeaveCriticalSection(&gCriticalSection);
+    }
 }
 
 // 0x0052AE50

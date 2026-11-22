@@ -14,6 +14,35 @@ void __fastcall sub_00409AB0_PoolFree(void* pPool, void** ppMemory, const char* 
 void* __fastcall sub_0040A1F0_PoolRealloc(void* pPool, void* pMemory, int nSize, const char* szFile, int nLine); // 0x0040A1F0
 void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
 
+// 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0)
+{
+    void* pMemory = sub_0040A080_PoolAlloc(gbUsePools_00708000 ? pMemPool : 0, nSize, szFile, nLine);
+    if (!pMemory)
+    {
+        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
+    }
+    return pMemory;
+}
+
+// 0x0040B480
+int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0)
+{
+    sub_00409AB0_PoolFree(gbUsePools_00708000 ? pMemPool : 0, &pFree, szFile, nLine);
+    return 1;
+}
+
+// 0x0040B4B0
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0)
+{
+    void* pNew = sub_0040A1F0_PoolRealloc(gbUsePools_00708000 ? pMemPool : 0, pMemory, nSize, szFile, nLine);
+    if (!pNew)
+    {
+        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
+    }
+    return pNew;
+}
+
 // 0x00409FF0
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc)
 {
@@ -82,35 +111,6 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0)
 void* __fastcall FOG_Realloc(void* pMemory, int nSize, const char* szFile, int nLine, int n0)
 {
     void* pNew = sub_0040A1F0_PoolRealloc(0, pMemory, nSize, szFile, nLine);
-    if (!pNew)
-    {
-        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
-    }
-    return pNew;
-}
-
-// 0x0040B430
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0)
-{
-    void* pMemory = sub_0040A080_PoolAlloc(gbUsePools_00708000 ? pMemPool : 0, nSize, szFile, nLine);
-    if (!pMemory)
-    {
-        ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
-    }
-    return pMemory;
-}
-
-// 0x0040B480
-int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0)
-{
-    sub_00409AB0_PoolFree(gbUsePools_00708000 ? pMemPool : 0, &pFree, szFile, nLine);
-    return 1;
-}
-
-// 0x0040B4B0
-void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0)
-{
-    void* pNew = sub_0040A1F0_PoolRealloc(gbUsePools_00708000 ? pMemPool : 0, pMemory, nSize, szFile, nLine);
     if (!pNew)
     {
         ERRORMANAGER_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);

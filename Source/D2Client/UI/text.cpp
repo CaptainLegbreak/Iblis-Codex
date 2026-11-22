@@ -1026,6 +1026,43 @@ void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
     }
 }
 
+// 0x004A0680
+void __cdecl TEXT_FreeTextResources()
+{
+    if (gdwGlobal_007BF250)
+    {
+        sub_006612A0(gdwGlobal_007BF250);
+        gdwGlobal_007BF250 = 0;
+    }
+    if (gpTextBox_007BF0A4)
+    {
+        TEXT_FreeTextBox(gpTextBox_007BF0A4);
+        gpTextBox_007BF0A4 = 0;
+    }
+    if (gpTextBox_007BF1A8)
+    {
+        TEXT_FreeTextBox(gpTextBox_007BF1A8);
+        FOG_Free(gpTextBox_007BF1A8, ".\\UI\\text.cpp", 0x6E4, 0);
+        gpTextBox_007BF1A8 = 0;
+    }
+    if (gpListDialog_007BF1B0)
+    {
+        DIALOG_DestroyDialog(gpListDialog_007BF1B0);
+        gpListDialog_007BF1B0 = 0;
+    }
+    if (gpListBox_007BF1B4)
+    {
+        delete gpListBox_007BF1B4;
+        gpListBox_007BF1B4 = 0;
+    }
+    TEXT_FreeTextPanelCels();
+    sub_00467430(0);
+    TEXT_FreeTextList(gtTextList_007BF1E4);
+    TEXT_FreeTextList(gtTextList_007BF1EA);
+    TEXT_FreeTextList(gtTextList_007BF1F0);
+    gnHintSound_007BF24B = 0;
+}
+
 // 0x0049E300
 void __cdecl TEXT_FreeMainTextBox()
 {
@@ -1063,18 +1100,6 @@ void __cdecl TEXT_ClearHint()
         gnHintId_007BF260 = 0;
     }
     gnHintSound_007BF24B = 0;
-}
-
-// 0x0049F3D0
-void __fastcall TEXT_FreeHoverText(D2HoverTextStrc* pHoverText)
-{
-    T00479230* pTextBox = CHAT_GetUsedFromHoverMsg(pHoverText);
-    if (pTextBox)
-    {
-        TEXT_FreeTextBox(pTextBox);
-        CHAT_SetUsedInHoverMsg(pHoverText, 0);
-    }
-    CHAT_FreeHoverMsg(0, pHoverText);
 }
 
 // build: context sub_0049E280_ConvertHoverText
@@ -1118,6 +1143,144 @@ static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText,
     pUnit->pHoverText = pHoverText;
 }
 
+// 0x004A05E0
+T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
+{
+    T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
+    if (nMode == 3)
+    {
+        pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
+        sub_0049D3C0_MeasureTextBox(pTextBox);
+        return pTextBox;
+    }
+
+    const int nOldFont = sub_00502EF0(8);
+    pTextBox->pFirst = TEXT_BuildTextLines(wszText, &pTextBox->nLines, &pTextBox->f_14);
+    pTextBox->nWidth = 0x145;
+    pTextBox->nHeight = 0x70;
+    pTextBox->nField1A = 0;
+    pTextBox->nField1E = 0;
+    pTextBox->nField22 = 0;
+    pTextBox->nField26 = 0;
+    pTextBox->nField2A = 0;
+    sub_00502EF0(nOldFont);
+    sub_0049D3C0_MeasureTextBox(pTextBox);
+    return pTextBox;
+}
+
+// 0x004A1510
+void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId)
+{
+    if (gpTextBox_007BF1A8)
+    {
+        TEXT_FreeTextBox(gpTextBox_007BF1A8);
+        gpTextBox_007BF1A8 = 0;
+    }
+
+    const Unicode* wszText = D2LANG_GetStringFromTblIndex(nStringId);
+    const int nOldFont = sub_00502EF0(0x0D);
+    gpTextBox_007BF1A8 = TEXT_CreateTextBox(wszText, 3);
+    sub_00502EF0(nOldFont);
+    if (gpTextBox_007BF1A8)
+    {
+        gpTextBox_007BF1A8->nScroll = 1;
+        gdwTextEndTick_007BF1AC = GetTickCount() + (sub_00526800(wszText) + 0x19) * 0xC8;
+        gnGlobal_007BF1C8 = 1;
+        gnGlobal_007BF1C4 = 1;
+        gnTextBoxY_007BF1D4 = 0x64 - (gpTextBox_007BF1A8->nHeight >> 2);
+        gnTextBoxX_007BF1D0 = 0x140 - (gpTextBox_007BF1A8->nWidth >> 1);
+    }
+}
+
+// 0x004BF650
+ListBoxImplementation::ListBoxImplementation(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14,
+    int nArg18, int nCallback, bool bLargeFont)
+{
+    f_180708 = nX;
+    f_18070C = nY;
+    nRectWidth = nWidth;
+    nRectHeight = nHeight;
+    nCallbackRow = -1;
+    nSelectedIndex = -1;
+    this->nArg14 = nArg14;
+    this->nArg18 = nArg18;
+    f_18071C = 0;
+    bRowsPressed = 0;
+    bTopPressed = 0;
+    bBottomPressed = 0;
+    nState = 0;
+    f_180730 = 0;
+    nEntryCount = 0;
+    for (int n = 0; n < 0x80; n++)
+    {
+        aLines[n].wszText0[0].wChar = 0;
+        aLines[n].f_800[0].wChar = 0;
+        aLines[n].f_1000[0].wChar = 0;
+        aLines[n].f_1800[0].wChar = 0;
+        aLines[n].f_2000[0].wChar = 0;
+        aLines[n].wszText5[0].wChar = 0;
+        aLines[n].nFlags = 0;
+        aLines[n].nData = 0;
+        aLines[n].unk0x300A = 1;
+        aLines[n].unk0x3002 = 0;
+    }
+    pfnCallback = nCallback;
+    this->nArg10 = nArg10;
+    this->nX = f_180708 + nRectWidth - 0x12;
+    this->nY = f_18070C + 0x10;
+    nScrollStep = 0xE;
+    if (nRectHeight < 0x20)
+    {
+        f_180762 = 1;
+    }
+    else
+    {
+        f_180762 = (nRectHeight - 0x10) / 12 - 1;
+    }
+    f_18074E = 1;
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        nLineHeight = bLargeFont ? 0x1C : 0x12;
+    }
+    else
+    {
+        nLineHeight = 0x12;
+    }
+}
+
+// 0x0049F3D0
+void __fastcall TEXT_FreeHoverText(D2HoverTextStrc* pHoverText)
+{
+    T00479230* pTextBox = CHAT_GetUsedFromHoverMsg(pHoverText);
+    if (pTextBox)
+    {
+        TEXT_FreeTextBox(pTextBox);
+        CHAT_SetUsedInHoverMsg(pHoverText, 0);
+    }
+    CHAT_FreeHoverMsg(0, pHoverText);
+}
+
+extern "C" { unsigned int gValue_007BF098; } // 0x007BF098
+
+extern "C" { unsigned int gValue_007BF09C; } // 0x007BF09C
+
+extern "C" { unsigned int gValue_007BF0A0; } // 0x007BF0A0
+
+extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
+
+// 0x004A28A0
+extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
+{
+    switch (packet->kind)
+    {
+    case 1:
+        gValue_007BF2A4 = packet->a;
+        gValue_007BF2A8 = packet->b;
+        gValue_007BF2AC = packet->c;
+        break;
+    }
+}
+
 // 0x0049F960
 void __cdecl TEXT_ResetTextBox()
 {
@@ -1147,6 +1310,19 @@ void __cdecl TEXT_ResetTextBox()
     }
 }
 
+extern "C" void __fastcall sub_00524280_InitializeDigest(unsigned int index)
+{
+    HashState* state = &gStates_00882760[index];
+    state->a = 0x67452301u;
+    state->b = 0xEFCDAB89u;
+    state->c = 0x98BADCFEu;
+    state->d = 0x10325476u;
+    state->e = 0xC3D2E1F0u;
+    state->lowCount = 0;
+    state->highCount = 0;
+}
+
+// build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
 // 0x0049FE10
 void __cdecl TEXT_FreeTextPanelCels()
 {
@@ -1210,14 +1386,6 @@ void __cdecl TEXT_DispatchTextData()
     TEXT_DrawPanelFrame();
 }
 
-extern "C" { unsigned int gValue_007BF098; } // 0x007BF098
-
-extern "C" { unsigned int gValue_007BF09C; } // 0x007BF09C
-
-extern "C" { unsigned int gValue_007BF0A0; } // 0x007BF0A0
-
-extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
-
 // 0x0049FF60
 extern "C" void __fastcall TEXT_AcceptWordPacket(const PacketWords* packet)
 {
@@ -1237,19 +1405,9 @@ int __cdecl TEXT_CloseMessageLogCallback()
     return 1;
 }
 
-extern "C" void __fastcall sub_00524280_InitializeDigest(unsigned int index)
-{
-    HashState* state = &gStates_00882760[index];
-    state->a = 0x67452301u;
-    state->b = 0xEFCDAB89u;
-    state->c = 0x98BADCFEu;
-    state->d = 0x10325476u;
-    state->e = 0xC3D2E1F0u;
-    state->lowCount = 0;
-    state->highCount = 0;
-}
-
-// build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
+// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
+// build: symbol ??_7ListBoxImplementation@@6B@ 0x006DAAEC
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004A0050
 void TEXT_OpenMessageLogDialog()
 {
@@ -1270,164 +1428,6 @@ void TEXT_OpenMessageLogDialog()
         DIALOG_AddWidget(gpListDialog_007BF1B0, gpListBox_007BF1B4, 0x19, 0x1E);
         sub_0049E340();
         sub_004B82F0_Select(gpListDialog_007BF1B0, -1);
-    }
-}
-
-// 0x004A05E0
-T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
-{
-    T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
-    if (nMode == 3)
-    {
-        pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
-        sub_0049D3C0_MeasureTextBox(pTextBox);
-        return pTextBox;
-    }
-
-    const int nOldFont = sub_00502EF0(8);
-    pTextBox->pFirst = TEXT_BuildTextLines(wszText, &pTextBox->nLines, &pTextBox->f_14);
-    pTextBox->nWidth = 0x145;
-    pTextBox->nHeight = 0x70;
-    pTextBox->nField1A = 0;
-    pTextBox->nField1E = 0;
-    pTextBox->nField22 = 0;
-    pTextBox->nField26 = 0;
-    pTextBox->nField2A = 0;
-    sub_00502EF0(nOldFont);
-    sub_0049D3C0_MeasureTextBox(pTextBox);
-    return pTextBox;
-}
-
-// 0x004A0680
-void __cdecl TEXT_FreeTextResources()
-{
-    if (gdwGlobal_007BF250)
-    {
-        sub_006612A0(gdwGlobal_007BF250);
-        gdwGlobal_007BF250 = 0;
-    }
-    if (gpTextBox_007BF0A4)
-    {
-        TEXT_FreeTextBox(gpTextBox_007BF0A4);
-        gpTextBox_007BF0A4 = 0;
-    }
-    if (gpTextBox_007BF1A8)
-    {
-        TEXT_FreeTextBox(gpTextBox_007BF1A8);
-        FOG_Free(gpTextBox_007BF1A8, ".\\UI\\text.cpp", 0x6E4, 0);
-        gpTextBox_007BF1A8 = 0;
-    }
-    if (gpListDialog_007BF1B0)
-    {
-        DIALOG_DestroyDialog(gpListDialog_007BF1B0);
-        gpListDialog_007BF1B0 = 0;
-    }
-    if (gpListBox_007BF1B4)
-    {
-        delete gpListBox_007BF1B4;
-        gpListBox_007BF1B4 = 0;
-    }
-    TEXT_FreeTextPanelCels();
-    sub_00467430(0);
-    TEXT_FreeTextList(gtTextList_007BF1E4);
-    TEXT_FreeTextList(gtTextList_007BF1EA);
-    TEXT_FreeTextList(gtTextList_007BF1F0);
-    gnHintSound_007BF24B = 0;
-}
-
-// 0x004A1510
-void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId)
-{
-    if (gpTextBox_007BF1A8)
-    {
-        TEXT_FreeTextBox(gpTextBox_007BF1A8);
-        gpTextBox_007BF1A8 = 0;
-    }
-
-    const Unicode* wszText = D2LANG_GetStringFromTblIndex(nStringId);
-    const int nOldFont = sub_00502EF0(0x0D);
-    gpTextBox_007BF1A8 = TEXT_CreateTextBox(wszText, 3);
-    sub_00502EF0(nOldFont);
-    if (gpTextBox_007BF1A8)
-    {
-        gpTextBox_007BF1A8->nScroll = 1;
-        gdwTextEndTick_007BF1AC = GetTickCount() + (sub_00526800(wszText) + 0x19) * 0xC8;
-        gnGlobal_007BF1C8 = 1;
-        gnGlobal_007BF1C4 = 1;
-        gnTextBoxY_007BF1D4 = 0x64 - (gpTextBox_007BF1A8->nHeight >> 2);
-        gnTextBoxX_007BF1D0 = 0x140 - (gpTextBox_007BF1A8->nWidth >> 1);
-    }
-}
-
-// 0x004A28A0
-extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
-{
-    switch (packet->kind)
-    {
-    case 1:
-        gValue_007BF2A4 = packet->a;
-        gValue_007BF2A8 = packet->b;
-        gValue_007BF2AC = packet->c;
-        break;
-    }
-}
-
-// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
-// build: symbol ??_7ListBoxImplementation@@6B@ 0x006DAAEC
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x004BF650
-ListBoxImplementation::ListBoxImplementation(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14,
-    int nArg18, int nCallback, bool bLargeFont)
-{
-    f_180708 = nX;
-    f_18070C = nY;
-    nRectWidth = nWidth;
-    nRectHeight = nHeight;
-    nCallbackRow = -1;
-    nSelectedIndex = -1;
-    this->nArg14 = nArg14;
-    this->nArg18 = nArg18;
-    f_18071C = 0;
-    bRowsPressed = 0;
-    bTopPressed = 0;
-    bBottomPressed = 0;
-    nState = 0;
-    f_180730 = 0;
-    nEntryCount = 0;
-    for (int n = 0; n < 0x80; n++)
-    {
-        aLines[n].wszText0[0].wChar = 0;
-        aLines[n].f_800[0].wChar = 0;
-        aLines[n].f_1000[0].wChar = 0;
-        aLines[n].f_1800[0].wChar = 0;
-        aLines[n].f_2000[0].wChar = 0;
-        aLines[n].wszText5[0].wChar = 0;
-        aLines[n].nFlags = 0;
-        aLines[n].nData = 0;
-        aLines[n].unk0x300A = 1;
-        aLines[n].unk0x3002 = 0;
-    }
-    pfnCallback = nCallback;
-    this->nArg10 = nArg10;
-    this->nX = f_180708 + nRectWidth - 0x12;
-    this->nY = f_18070C + 0x10;
-    nScrollStep = 0xE;
-    if (nRectHeight < 0x20)
-    {
-        f_180762 = 1;
-    }
-    else
-    {
-        f_180762 = (nRectHeight - 0x10) / 12 - 1;
-    }
-    f_18074E = 1;
-    if (D2GFX_GetResolutionMode() == 2)
-    {
-        nLineHeight = bLargeFont ? 0x1C : 0x12;
-    }
-    else
-    {
-        nLineHeight = 0x12;
     }
 }
 

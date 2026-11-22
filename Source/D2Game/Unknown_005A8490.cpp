@@ -95,6 +95,20 @@ static int MONSTERMODE_GetBaseIdInline_Q05(int nClassId)
     return nClassId;
 }
 
+// 0x005A8630
+int __fastcall sub_6FC64E20(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    SUNIT_UpdateUnitPath(pGame, pUnit);
+    UNITS_StopSequence(pUnit);
+    if (UNITS_IsAtEndOfFrameCycle(pUnit))
+    {
+        sub_6FC64CD0(pGame, pUnit);
+        return 2;
+    }
+
+    return 1;
+}
+
 // 0x005A8520
 void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -141,20 +155,6 @@ void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
         nFrame = pGame->dwGameFrame + 15;
     }
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrame, 0, 0);
-}
-
-// 0x005A8630
-int __fastcall sub_6FC64E20(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    SUNIT_UpdateUnitPath(pGame, pUnit);
-    UNITS_StopSequence(pUnit);
-    if (UNITS_IsAtEndOfFrameCycle(pUnit))
-    {
-        sub_6FC64CD0(pGame, pUnit);
-        return 2;
-    }
-
-    return 1;
 }
 
 inline int UNITS_IsValidTargetInline(D2UnitStrc* pUnit)

@@ -974,6 +974,66 @@ D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId)
     return 0;
 }
 
+// 0x004AA900
+int __cdecl sub_004AA900_IsStateOrValue()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (pPlayer && STATES_CheckState(pPlayer, STATE_UNINTERRUPTABLE))
+    {
+        return 1;
+    }
+    return gnValue_007C0C3C;
+}
+
+// 0x004AA920
+void __cdecl sub_004AA920_LoadPanelCel()
+{
+    char* szPath = gaPanelCels_00724BF0[gbGlobal_007A0522].szPath;
+    D2_ASSERT(szPath, 136);
+    gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile = sub_004520C0_LoadUiCelFile(szPath);
+}
+
+// 0x004AB2F0
+void __cdecl sub_004AB2F0_SetBlackColor()
+{
+    gbColor_007C0C50 = D2Win_10034_MixRGB(0, 0, 0);
+}
+
+// 0x004AC690
+void __cdecl sub_004AC690_DrawSkillPanel()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    sub_00502EF0(1);
+    gnGlobal_007C0C4C = 1;
+    sub_004AAAE0_DrawPagedPanel(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile, gnGlobal_00724BEC);
+    sub_004AACE0_DrawSkillTreeTexts();
+    if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) > 0)
+    {
+        gnGlobal_007C0C40 = 1;
+        gnGlobal_007C0C44 = 1;
+        sub_004AC200_RefreshSkillTree();
+    }
+    else
+    {
+        gnGlobal_007C0C40 = 0;
+        gnGlobal_007C0C44 = 0;
+        sub_004AC4D0_DrawSkillTree();
+    }
+    sub_004AB530_DrawTabCel();
+    sub_004AB630_DrawTabHint();
+    sub_004AB310_DrawTabHoverText(gnGlobal_00724BEC);
+}
+
+// 0x004A8CF0
+static int __stdcall sub_004A8CF0_IsMouseInRect(int nX, int nWidth, int nY, int nHeight)
+{
+    const int nMouseX = sub_00468730();
+    const int nMouseY = sub_00468740();
+    if (nMouseX >= nX && nMouseX <= nX + nWidth && nMouseY >= nY - nHeight && nMouseY <= nY)
+        return 1;
+    return 0;
+}
+
 // 0x004A8A30
 void __cdecl sub_004A8A30_InitSkillIcons()
 {
@@ -1190,66 +1250,6 @@ void __cdecl sub_004AA7E0_ResetSkillIcons()
     {
         SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 1, 0);
     }
-}
-
-// 0x004AA900
-int __cdecl sub_004AA900_IsStateOrValue()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer && STATES_CheckState(pPlayer, STATE_UNINTERRUPTABLE))
-    {
-        return 1;
-    }
-    return gnValue_007C0C3C;
-}
-
-// 0x004AA920
-void __cdecl sub_004AA920_LoadPanelCel()
-{
-    char* szPath = gaPanelCels_00724BF0[gbGlobal_007A0522].szPath;
-    D2_ASSERT(szPath, 136);
-    gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile = sub_004520C0_LoadUiCelFile(szPath);
-}
-
-// 0x004AB2F0
-void __cdecl sub_004AB2F0_SetBlackColor()
-{
-    gbColor_007C0C50 = D2Win_10034_MixRGB(0, 0, 0);
-}
-
-// 0x004AC690
-void __cdecl sub_004AC690_DrawSkillPanel()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    sub_00502EF0(1);
-    gnGlobal_007C0C4C = 1;
-    sub_004AAAE0_DrawPagedPanel(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile, gnGlobal_00724BEC);
-    sub_004AACE0_DrawSkillTreeTexts();
-    if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) > 0)
-    {
-        gnGlobal_007C0C40 = 1;
-        gnGlobal_007C0C44 = 1;
-        sub_004AC200_RefreshSkillTree();
-    }
-    else
-    {
-        gnGlobal_007C0C40 = 0;
-        gnGlobal_007C0C44 = 0;
-        sub_004AC4D0_DrawSkillTree();
-    }
-    sub_004AB530_DrawTabCel();
-    sub_004AB630_DrawTabHint();
-    sub_004AB310_DrawTabHoverText(gnGlobal_00724BEC);
-}
-
-// 0x004A8CF0
-static int __stdcall sub_004A8CF0_IsMouseInRect(int nX, int nWidth, int nY, int nHeight)
-{
-    const int nMouseX = sub_00468730();
-    const int nMouseY = sub_00468740();
-    if (nMouseX >= nX && nMouseX <= nX + nWidth && nMouseY >= nY - nHeight && nMouseY <= nY)
-        return 1;
-    return 0;
 }
 
 void __fastcall sub_K05_EmitMouseInRect(int nX, int nY)

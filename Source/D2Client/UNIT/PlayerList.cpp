@@ -54,6 +54,40 @@ D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList()
     return ppRosterInfo;
 }
 
+// 0x004DC2B0
+void __fastcall PLAYERLIST_FreeRosterInfoList(D2RosterInfoStrc** ppRosterInfo)
+{
+    if (ppRosterInfo)
+    {
+        D2RosterInfoStrc* pRosterInfo = *ppRosterInfo;
+        while (pRosterInfo)
+        {
+            D2RosterInfoStrc* pNext = pRosterInfo->pNext;
+            FOG_Free(pRosterInfo, ".\\UNIT\\PlayerList.cpp", 0x3C, 0);
+            pRosterInfo = pNext;
+        }
+        FOG_Free(ppRosterInfo, ".\\UNIT\\PlayerList.cpp", 0x40, 0);
+    }
+}
+
+// 0x004DC2F0
+static inline D2RosterInfoStrc* PLAYERLIST_FindRosterInfo(int nUnitId1, int nUnitId2)
+{
+    D2RosterInfoStrc** ppRosterInfo = ROSTER_GetRosterInfoList(nUnitId1);
+    if (!ppRosterInfo || nUnitId1 == nUnitId2)
+    {
+        return 0;
+    }
+    for (D2RosterInfoStrc* pRosterInfo = *ppRosterInfo; pRosterInfo; pRosterInfo = pRosterInfo->pNext)
+    {
+        if (pRosterInfo->dwUnitId == nUnitId2)
+        {
+            return pRosterInfo;
+        }
+    }
+    return 0;
+}
+
 // 0x004DC320
 void __fastcall PLAYERLIST_AddRosterInfo(int nUnitId1, int nUnitId2)
 {
@@ -122,40 +156,6 @@ D2RosterInfoStrc* __fastcall PLAYERLIST_GetNextRosterInfo(D2RosterInfoStrc* pRos
         return 0;
     }
     return pRosterInfo->pNext;
-}
-
-// 0x004DC2B0
-void __fastcall PLAYERLIST_FreeRosterInfoList(D2RosterInfoStrc** ppRosterInfo)
-{
-    if (ppRosterInfo)
-    {
-        D2RosterInfoStrc* pRosterInfo = *ppRosterInfo;
-        while (pRosterInfo)
-        {
-            D2RosterInfoStrc* pNext = pRosterInfo->pNext;
-            FOG_Free(pRosterInfo, ".\\UNIT\\PlayerList.cpp", 0x3C, 0);
-            pRosterInfo = pNext;
-        }
-        FOG_Free(ppRosterInfo, ".\\UNIT\\PlayerList.cpp", 0x40, 0);
-    }
-}
-
-// 0x004DC2F0
-static inline D2RosterInfoStrc* PLAYERLIST_FindRosterInfo(int nUnitId1, int nUnitId2)
-{
-    D2RosterInfoStrc** ppRosterInfo = ROSTER_GetRosterInfoList(nUnitId1);
-    if (!ppRosterInfo || nUnitId1 == nUnitId2)
-    {
-        return 0;
-    }
-    for (D2RosterInfoStrc* pRosterInfo = *ppRosterInfo; pRosterInfo; pRosterInfo = pRosterInfo->pNext)
-    {
-        if (pRosterInfo->dwUnitId == nUnitId2)
-        {
-            return pRosterInfo;
-        }
-    }
-    return 0;
 }
 
 D2RosterInfoStrc* __stdcall sub_M121_Emit_004DC2F0(int nUnitId1, int nUnitId2) { return PLAYERLIST_FindRosterInfo(nUnitId1, nUnitId2); }

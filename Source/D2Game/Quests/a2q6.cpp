@@ -457,6 +457,37 @@ void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
     }
 }
 
+// 0x0059D5B0
+void __fastcall ACT2Q6_InitQuestData(Quest* quest)
+{
+    memset(quest->callbacks,0,sizeof(quest->callbacks));
+    quest->callbacks[3]=sub_0059D1C0;
+    quest->callbacks[0]=sub_0059C3C0;
+    quest->callbacks[11]=sub_0059CB20;
+    quest->callbacks[10]=sub_0059C6B0;
+    quest->callbacks[2]=sub_0059C760;
+    quest->callbacks[13]=sub_0059D4F0;
+    quest->callbacks[14]=sub_0059D4D0;
+    quest->callbacks[8]=sub_0059D050;
+    quest->messages=npc_messages;
+    quest->active=1;
+    quest->state=0;
+    Extra* extra=(Extra*)sub_0040B430(quest->game->pool,0x68,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp",ALLOC_LINE,0);
+    quest->extra=extra;
+    quest->filter=QUEST_FILTER;
+    quest->statusFilter=sub_0059CA50;
+    quest->init=4;
+    quest->activeFilter=sub_0059D300;
+    quest->sequenceFilter=sub_0059D450;
+    memset(extra,0,0x68);
+    extra->f1=0;
+    extra->f2=0;
+    extra->f3=0;
+    extra->value18=0;
+    extra->value1c=0;
+    extra->value34=0;
+}
+
 // 0x0059C3C0
 void __fastcall ACT2Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -543,65 +574,100 @@ void __fastcall ACT2Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
 }
 
-// 0x0059C6C0
-int __fastcall ACT2Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
+// 0x0059D050
+void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x0E, 0) != 1)
+    QUESTS_DebugOutput(pQuestData->pGame, "killed duriel for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 0x305);
+    if (pQuestData->bNotIntro)
     {
-        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x0D);
-        if (pQuestData && pQuestData->fState >= 2)
+        QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 0x308);
+        QUESTS_CreateTimer(pQuestData, ACT2Q6_Timer_StatusCycler, 8);
+
+        if (pQuestArg->pPlayer)
         {
-            QUESTRECORD_SetQuestState(pQuestFlags, 0x0E, 2);
+            D2GameStrc* pGame = pQuestArg->pGame;
+            D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, 14, 0)
+                && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 3)
+                && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 4)
+                && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 5))
+            {
+                QUESTRECORD_SetQuestState(pQuestFlags, 14, 5);
+
+                const unsigned short nPartyId = SUNIT_GetPartyId(pQuestArg->pPlayer);
+                if (nPartyId != 0xFFFF)
+                {
+                    PARTY_IteratePartyMembers(pQuestArg->pGame, nPartyId, (PartyCallbackFunction)ACT2Q6_UnitIterate_SetCustom1Flag, 0);
+                }
+
+                D2Game_10034_Return(pQuestData, pQuestArg, 0x3D);
+            }
         }
     }
 
-    return 0;
-}
+    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
+    pQuestData->pCallback[2] = 0;
+    pQuestData->pCallback[8] = 0;
+    pQuestDataEx->bDurielKilled = 1;
+    pQuestDataEx->pDurielRoom = UNITS_GetRoom(pQuestArg->pTarget);
+    QUESTS_TriggerFX(pQuestData->pGame, 8);
+    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q6_UnitIterate_SetCustom1FlagForPartyMembers);
 
-// 0x0059C750
-void __fastcall ACT2Q6_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
-{
-    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT2Q6_UnitIterate_AttachCompletionSound);
-}
-
-// 0x0059C810
-static void __stdcall ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
-{
-    QUESTRECORD_SetQuestState(pQuestFlags, 14, 13);
-    QUESTRECORD_SetQuestState(pQuestFlags, 14, 3);
-    CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 386), 2, pGame->nDifficulty);
-}
-
-// 0x0059C860
-int __fastcall ACT2Q6_UnitIterate_SetLeaveTownFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    struct { D2ActiveRoomStrc* pRoom; D2QuestDataStrc* pQuestInfo; } tLocals;
-    tLocals.pRoom = UNITS_GetRoom(pUnit);
-    if (!tLocals.pRoom)
+    if (pQuestDataEx->bTyraelsDoorInitialized)
     {
-        return 0;
+        D2UnitStrc* pTyraelsDoor = SUNIT_GetServerUnit(pQuestData->pGame, 2, pQuestDataEx->nTyraelsDoorGUID);
+        if (pTyraelsDoor)
+        {
+            UNITS_ChangeAnimMode(pTyraelsDoor, 1);
+            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pTyraelsDoor ? -1 : pTyraelsDoor->dwClassId);
+            EVENT_SetEvent(pQuestData->pGame, pTyraelsDoor, 1, pQuestData->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
+        }
     }
 
-    tLocals.pQuestInfo = QUESTS_GetQuestData(pGame, 13);
-    D2_ASSERT(tLocals.pQuestInfo, 401);
+    pQuestDataEx->nTyraelsDoorObjectMode = 2;
+}
 
-    bool bInLair = false;
-    if (DUNGEON_GetLevelIdFromRoom(tLocals.pRoom) == LEVEL_DURIELSLAIR)
+// 0x0059D4D0
+void __fastcall ACT2Q6_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    QUESTRECORD_ClearQuestState(pQuestFlags, 0xA, 0x9);
+}
+
+// 0x0059D4F0
+void __fastcall ACT2Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+
+    QUESTRECORD_ClearQuestState(pQuestFlags, 0xA, 0x9);
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 0xA, 0))
     {
-        bInLair = true;
+        ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bDurielLairPortalNeedsToOpen = 1;
+        ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bObjectsNeedUpdate = 1;
     }
 
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 14, 13)
-        && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 3)
-        && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 4)
-        && bInLair)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0xF))
     {
-        ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(pGame, pUnit, pQuestFlags);
+        ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bRewardedOrCompletedBefore = 1;
     }
-
-    return 0;
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, 0xE, 2) == 1)
+    {
+        pQuestData->fLastState = 1;
+        pQuestData->fState = 2;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, 0xE, 3) == 1)
+    {
+        pQuestData->fLastState = 5;
+        pQuestData->fState = 5;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, 0xE, 4) == 1)
+    {
+        pQuestData->fLastState = 6;
+        pQuestData->fState = 5;
+    }
 }
 
 static D2BitBufferStrc* GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -774,59 +840,6 @@ void __fastcall ACT2Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-// 0x0059D050
-void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    QUESTS_DebugOutput(pQuestData->pGame, "killed duriel for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 0x305);
-    if (pQuestData->bNotIntro)
-    {
-        QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 0x308);
-        QUESTS_CreateTimer(pQuestData, ACT2Q6_Timer_StatusCycler, 8);
-
-        if (pQuestArg->pPlayer)
-        {
-            D2GameStrc* pGame = pQuestArg->pGame;
-            D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-            if (!QUESTRECORD_GetQuestState(pQuestFlags, 14, 0)
-                && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 3)
-                && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 4)
-                && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 5))
-            {
-                QUESTRECORD_SetQuestState(pQuestFlags, 14, 5);
-
-                const unsigned short nPartyId = SUNIT_GetPartyId(pQuestArg->pPlayer);
-                if (nPartyId != 0xFFFF)
-                {
-                    PARTY_IteratePartyMembers(pQuestArg->pGame, nPartyId, (PartyCallbackFunction)ACT2Q6_UnitIterate_SetCustom1Flag, 0);
-                }
-
-                D2Game_10034_Return(pQuestData, pQuestArg, 0x3D);
-            }
-        }
-    }
-
-    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
-    pQuestData->pCallback[2] = 0;
-    pQuestData->pCallback[8] = 0;
-    pQuestDataEx->bDurielKilled = 1;
-    pQuestDataEx->pDurielRoom = UNITS_GetRoom(pQuestArg->pTarget);
-    QUESTS_TriggerFX(pQuestData->pGame, 8);
-    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q6_UnitIterate_SetCustom1FlagForPartyMembers);
-
-    if (pQuestDataEx->bTyraelsDoorInitialized)
-    {
-        D2UnitStrc* pTyraelsDoor = SUNIT_GetServerUnit(pQuestData->pGame, 2, pQuestDataEx->nTyraelsDoorGUID);
-        if (pTyraelsDoor)
-        {
-            UNITS_ChangeAnimMode(pTyraelsDoor, 1);
-            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pTyraelsDoor ? -1 : pTyraelsDoor->dwClassId);
-            EVENT_SetEvent(pQuestData->pGame, pTyraelsDoor, 1, pQuestData->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
-        }
-    }
-
-    pQuestDataEx->nTyraelsDoorObjectMode = 2;
-}
-
 // 0x0059D450
 bool __fastcall ACT2Q6_SeqCallback(D2QuestDataStrc* pQuestData)
 {
@@ -843,80 +856,6 @@ bool __fastcall ACT2Q6_SeqCallback(D2QuestDataStrc* pQuestData)
     }
 
     return true;
-}
-
-// 0x0059D4D0
-void __fastcall ACT2Q6_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-    QUESTRECORD_ClearQuestState(pQuestFlags, 0xA, 0x9);
-}
-
-// 0x0059D4F0
-void __fastcall ACT2Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-
-    QUESTRECORD_ClearQuestState(pQuestFlags, 0xA, 0x9);
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 0xA, 0))
-    {
-        ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bDurielLairPortalNeedsToOpen = 1;
-        ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bObjectsNeedUpdate = 1;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0xF))
-    {
-        ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bRewardedOrCompletedBefore = 1;
-    }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, 0xE, 2) == 1)
-    {
-        pQuestData->fLastState = 1;
-        pQuestData->fState = 2;
-    }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, 0xE, 3) == 1)
-    {
-        pQuestData->fLastState = 5;
-        pQuestData->fState = 5;
-    }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, 0xE, 4) == 1)
-    {
-        pQuestData->fLastState = 6;
-        pQuestData->fState = 5;
-    }
-}
-
-// 0x0059D5B0
-void __fastcall ACT2Q6_InitQuestData(Quest* quest)
-{
-    memset(quest->callbacks,0,sizeof(quest->callbacks));
-    quest->callbacks[3]=sub_0059D1C0;
-    quest->callbacks[0]=sub_0059C3C0;
-    quest->callbacks[11]=sub_0059CB20;
-    quest->callbacks[10]=sub_0059C6B0;
-    quest->callbacks[2]=sub_0059C760;
-    quest->callbacks[13]=sub_0059D4F0;
-    quest->callbacks[14]=sub_0059D4D0;
-    quest->callbacks[8]=sub_0059D050;
-    quest->messages=npc_messages;
-    quest->active=1;
-    quest->state=0;
-    Extra* extra=(Extra*)sub_0040B430(quest->game->pool,0x68,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp",ALLOC_LINE,0);
-    quest->extra=extra;
-    quest->filter=QUEST_FILTER;
-    quest->statusFilter=sub_0059CA50;
-    quest->init=4;
-    quest->activeFilter=sub_0059D300;
-    quest->sequenceFilter=sub_0059D450;
-    memset(extra,0,0x68);
-    extra->f1=0;
-    extra->f2=0;
-    extra->f3=0;
-    extra->value18=0;
-    extra->value1c=0;
-    extra->value34=0;
 }
 
 // 0x0059D6A0
@@ -1287,6 +1226,67 @@ void __fastcall ACT2Q6_SetPortalState(D2QuestDataStrc* pQuest, unsigned char bCl
 // 0x0059E2A0
 void __fastcall ACT2Q7_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
+}
+
+// 0x0059C6C0
+int __fastcall ACT2Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 0x0E, 0) != 1)
+    {
+        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x0D);
+        if (pQuestData && pQuestData->fState >= 2)
+        {
+            QUESTRECORD_SetQuestState(pQuestFlags, 0x0E, 2);
+        }
+    }
+
+    return 0;
+}
+
+// 0x0059C750
+void __fastcall ACT2Q6_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
+{
+    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT2Q6_UnitIterate_AttachCompletionSound);
+}
+
+// 0x0059C810
+static void __stdcall ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
+{
+    QUESTRECORD_SetQuestState(pQuestFlags, 14, 13);
+    QUESTRECORD_SetQuestState(pQuestFlags, 14, 3);
+    CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 386), 2, pGame->nDifficulty);
+}
+
+// 0x0059C860
+int __fastcall ACT2Q6_UnitIterate_SetLeaveTownFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    struct { D2ActiveRoomStrc* pRoom; D2QuestDataStrc* pQuestInfo; } tLocals;
+    tLocals.pRoom = UNITS_GetRoom(pUnit);
+    if (!tLocals.pRoom)
+    {
+        return 0;
+    }
+
+    tLocals.pQuestInfo = QUESTS_GetQuestData(pGame, 13);
+    D2_ASSERT(tLocals.pQuestInfo, 401);
+
+    bool bInLair = false;
+    if (DUNGEON_GetLevelIdFromRoom(tLocals.pRoom) == LEVEL_DURIELSLAIR)
+    {
+        bInLair = true;
+    }
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 14, 13)
+        && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 3)
+        && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 4)
+        && bInLair)
+    {
+        ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(pGame, pUnit, pQuestFlags);
+    }
+
+    return 0;
 }
 
 #include "gen/data/Source/D2Game/Quests/a2q6.inc"

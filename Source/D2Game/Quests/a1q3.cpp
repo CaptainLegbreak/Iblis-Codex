@@ -583,6 +583,46 @@ bool __fastcall ACT1Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     return true;
 }
 
+// 0x00591F70
+void __fastcall ACT1Q3_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT1Q3_Callback03_ChangedLevel;
+    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT1Q3_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM] = ACT1Q3_Callback09_PlayerDroppedWithQuestItem;
+    pQuestData->pCallback[QUESTEVENT_PLAYERJOINEDGAME] = ACT1Q3_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[QUESTEVENT_ITEMPICKEDUP] = ACT1Q3_Callback04_ItemPickedUp;
+    pQuestData->pCallback[QUESTEVENT_MALUSREMOVED] = ACT1Q3_Callback06_MalusRemoved;
+    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q3_Callback00_NpcActivate;
+    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q3_Callback11_ScrollMessage;
+    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q3_Callback02_NpcDeactivate;
+    pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q3_Callback13_PlayerStartedGame;
+    pQuestData->pfSeqFilter = ACT1Q3_SeqCallback;
+    pQuestData->pNPCMessages = gpAct1Q3NpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->eFilter = QUESTSTATEFLAG_A1Q3;
+
+    D2Act1Quest3Strc* pQuestDataEx = (D2Act1Quest3Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", LINE_INIT_ALLOC, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    pQuestData->fState = 0;
+    pQuestData->pfStatusFilter = ACT1Q3_StatusFilterCallback;
+    pQuestData->nInitNo = A1Q3_INITNO;
+    pQuestData->pfActiveFilter = ACT1Q3_ActiveFilterCallback;
+    pQuestData->nSeqId = A1Q3_SEQID;
+
+    memset(pQuestDataEx, 0x00, sizeof(D2Act1Quest3Strc));
+    pQuestDataEx->unk0x00 = 0;
+    pQuestDataEx->nMalusGUID = 0;
+    pQuestDataEx->unk0x10 = 0;
+    pQuestDataEx->unk0x12 = 0;
+    pQuestDataEx->bMalusInitialized = 0;
+    pQuestDataEx->unk0x08 = 0;
+    pQuestDataEx->bCharsiIntroActivated = 0;
+    pQuestDataEx->bCharsiEndActivated = 0;
+    pQuestDataEx->nMalusObjectMode = 0;
+    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
+}
+
 // 0x00591E40
 bool __fastcall ACT1Q3_SeqCallback(D2QuestDataStrc* pQuestData)
 {
@@ -635,46 +675,6 @@ void __fastcall ACT1Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         pQuestData->fState = QSTATE_3;
         pQuestData->fLastState = 1;
     }
-}
-
-// 0x00591F70
-void __fastcall ACT1Q3_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT1Q3_Callback03_ChangedLevel;
-    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT1Q3_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM] = ACT1Q3_Callback09_PlayerDroppedWithQuestItem;
-    pQuestData->pCallback[QUESTEVENT_PLAYERJOINEDGAME] = ACT1Q3_Callback14_PlayerJoinedGame;
-    pQuestData->pCallback[QUESTEVENT_ITEMPICKEDUP] = ACT1Q3_Callback04_ItemPickedUp;
-    pQuestData->pCallback[QUESTEVENT_MALUSREMOVED] = ACT1Q3_Callback06_MalusRemoved;
-    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q3_Callback00_NpcActivate;
-    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q3_Callback11_ScrollMessage;
-    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q3_Callback02_NpcDeactivate;
-    pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q3_Callback13_PlayerStartedGame;
-    pQuestData->pfSeqFilter = ACT1Q3_SeqCallback;
-    pQuestData->pNPCMessages = gpAct1Q3NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->eFilter = QUESTSTATEFLAG_A1Q3;
-
-    D2Act1Quest3Strc* pQuestDataEx = (D2Act1Quest3Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", LINE_INIT_ALLOC, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->fState = 0;
-    pQuestData->pfStatusFilter = ACT1Q3_StatusFilterCallback;
-    pQuestData->nInitNo = A1Q3_INITNO;
-    pQuestData->pfActiveFilter = ACT1Q3_ActiveFilterCallback;
-    pQuestData->nSeqId = A1Q3_SEQID;
-
-    memset(pQuestDataEx, 0x00, sizeof(D2Act1Quest3Strc));
-    pQuestDataEx->unk0x00 = 0;
-    pQuestDataEx->nMalusGUID = 0;
-    pQuestDataEx->unk0x10 = 0;
-    pQuestDataEx->unk0x12 = 0;
-    pQuestDataEx->bMalusInitialized = 0;
-    pQuestDataEx->unk0x08 = 0;
-    pQuestDataEx->bCharsiIntroActivated = 0;
-    pQuestDataEx->bCharsiEndActivated = 0;
-    pQuestDataEx->nMalusObjectMode = 0;
-    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
 }
 
 #include "gen/data/Source/D2Game/Quests/a1q3.inc"

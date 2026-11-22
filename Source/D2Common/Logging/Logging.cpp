@@ -75,6 +75,20 @@ void __cdecl LOG_WriteLogEntry(_iobuf* pFile, int nThreadId, int nLogLevel, int 
     StoreLogging(pFile, nThreadId, nLogLevel, nComponent, nSubsystem, szContext, nSequence, szFormat, va);
 }
 
+// 0x00624AC0
+int __fastcall LOG_OpenLog(const char* szFileName)
+{
+    if (!gpLogFile_0096CA48)
+    {
+        gpLogFile_0096CA48 = LOG_OpenLogFile(szFileName);
+        if (!gpLogFile_0096CA48)
+            return 0;
+        InitializeCriticalSection(&gLogLock_0096CA30);
+        LOG_11100(1, 8, 2, 0x80000, ".\\Logging\\Logging.cpp", 249, "Log Started");
+    }
+    return 1;
+}
+
 // 0x006248E0
 void __cdecl LOG_11100(int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...)
 {
@@ -128,20 +142,6 @@ void __cdecl LOG_WriteGameLogLine(int nGame, int nFrame, int nClient, int nType,
     fwrite(szBuffer, strlen(szBuffer), 1, gpLogFile_0096CA48);
     fflush(gpLogFile_0096CA48);
     LeaveCriticalSection(&gLogLock_0096CA30);
-}
-
-// 0x00624AC0
-int __fastcall LOG_OpenLog(const char* szFileName)
-{
-    if (!gpLogFile_0096CA48)
-    {
-        gpLogFile_0096CA48 = LOG_OpenLogFile(szFileName);
-        if (!gpLogFile_0096CA48)
-            return 0;
-        InitializeCriticalSection(&gLogLock_0096CA30);
-        LOG_11100(1, 8, 2, 0x80000, ".\\Logging\\Logging.cpp", 249, "Log Started");
-    }
-    return 1;
 }
 
 // 0x00624B20

@@ -428,6 +428,113 @@ int __fastcall sub_M119_Emit_004792C0(D2RosterUnitStrc* pRosterUnit, unsigned in
 }
 
 
+// 0x0047A9B0
+void __fastcall ROSTER_SetPrimaryClientFlag(int bClear)
+{
+    if (bClear)
+    {
+        gdwGlobal_00712EFC &= ~1;
+    }
+    else
+    {
+        gdwGlobal_00712EFC |= 1;
+    }
+}
+
+// 0x0047A9E0
+int __cdecl sub_0047A9E0_GetClientFlag40()
+{
+    return gdwGlobal_00712EFC & 0x40;
+}
+
+// 0x0047A9F0
+int __cdecl sub_0047A9F0_GetClientFlag80()
+{
+    return gdwGlobal_00712EFC & 0x80;
+}
+
+// 0x0047AA00
+int __cdecl sub_0047AA00_GetClientFlag200()
+{
+    return gdwGlobal_00712EFC & 0x200;
+}
+
+// 0x0047AA10
+void __fastcall ROSTER_SetCTemp(int nValue)
+{
+    gdwGlobal_00712F00 = nValue;
+}
+
+// 0x0047AA40
+int Unicode::isWhitespace() const
+{
+    if (this->wChar < 0x100)
+    {
+        return ::isspace(this->wChar);
+    }
+    return 0;
+}
+
+// 0x004B8370
+extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
+{
+    D2_ASSERT(pCtrl, 1310);
+    pCtrl->nState = nState;
+}
+
+static inline D2RosterGroupStrc* ROSTER_FindGroup(unsigned short wId)
+{
+    for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
+    {
+        if (pGroup->wPartyId == wId)
+        {
+            return pGroup;
+        }
+    }
+    return 0;
+}
+
+// 0x0047A850
+void __fastcall ROSTER_UpdateRosterUnit(int nUnitId, unsigned short wPartyId, unsigned short wLevel, int nUnused, int nPartyFlags)
+{
+    D2StoredUnitRecordStrc* pRec = ROSTER_FindRosterUnit(nUnitId);
+    if (!pRec)
+        return;
+    for (D2RosterCorpseStrc* pCorpse = pRec->pCorpse; pCorpse; pCorpse = pCorpse->pNext)
+    {
+        if (pCorpse->dwCorpseId == nUnitId)
+            return;
+    }
+    pRec->wPartyId = wPartyId;
+    pRec->wLevel = wLevel;
+    pRec->dwPartyFlags = nPartyFlags;
+    GFX_UpdatePetFlags();
+    ROSTER_RebuildRosterOrder();
+    PARTY_RebuildRosterUnits();
+}
+
+// calling-convention shim (not game code)
+void __fastcall sub_00479770_Shim(unsigned short* pIds, int nCount)
+{
+    for (int i = 0; i < nCount; ++i)
+    {
+        ROSTER_GetOrAddGroup(pIds[i])->unk0x02 = 1;
+    }
+}
+
+// 0x004CA990
+extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
+{
+    D2_ASSERT(pOwner, 3171);
+    D2LinkStrc_004CA990* pLink = pOwner->pLink;
+    if (pLink)
+    {
+        return pLink->pFirst;
+    }
+
+    return 0;
+}
+
 // 0x004794B0
 void __cdecl ROSTER_FreeRosterLists()
 {
@@ -542,18 +649,6 @@ D2RosterGroupStrc* __fastcall ROSTER_FindPartyGroup(unsigned short wId)
     return 0;
 }
 
-static inline D2RosterGroupStrc* ROSTER_FindGroup(unsigned short wId)
-{
-    for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
-    {
-        if (pGroup->wPartyId == wId)
-        {
-            return pGroup;
-        }
-    }
-    return 0;
-}
-
 // 0x00479770
 static D2RosterGroupStrc* ROSTER_GetOrAddGroup(unsigned short wId)
 {
@@ -568,15 +663,6 @@ static D2RosterGroupStrc* ROSTER_GetOrAddGroup(unsigned short wId)
     pGroup->pNext = gpRosterGroups_007BB5C8;
     gpRosterGroups_007BB5C8 = pGroup;
     return pGroup;
-}
-
-// calling-convention shim (not game code)
-void __fastcall sub_00479770_Shim(unsigned short* pIds, int nCount)
-{
-    for (int i = 0; i < nCount; ++i)
-    {
-        ROSTER_GetOrAddGroup(pIds[i])->unk0x02 = 1;
-    }
 }
 
 // 0x004797C0
@@ -1025,6 +1111,101 @@ void __fastcall ROSTER_HandlePartyButton(D2StoredUnitRecordStrc* pEntry)
     PARTY_RebuildRosterUnits();
 }
 
+inline int ROSTER_TestPvpFlag4Inl(D2StoredUnitRecordStrc* pEntry)
+{
+    if (pEntry)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        return GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4);
+    }
+    return 0;
+}
+
+// 0x0047A6F0
+void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szName, unsigned short wLevel, unsigned short wPartyId, int nUnused, int nPartyFlags, unsigned short wGuildFlags, const char* szGuildTag, const char* szGuildName)
+{
+    D2StoredUnitRecordStrc* pPrev = 0;
+    D2StoredUnitRecordStrc* pIter = gpStoredUnits2_007BB5C4;
+    D2_ASSERT(nUnitId != -1, 0xB3);
+    D2StoredUnitRecordStrc* pRec = ROSTER_FindRosterUnitByIdOrName(nUnitId, szName);
+    if (pRec)
+    {
+        ROSTER_FillRosterUnit(nUnitId, nClassId, wLevel, wPartyId, nPartyFlags, wGuildFlags, szGuildName, szGuildTag, szName, pRec);
+        ROSTER_RebuildRosterOrder();
+        PARTY_RebuildRosterUnits();
+        return;
+    }
+    while (pIter)
+    {
+        if (pIter->dwUnitId == nUnitId)
+        {
+            pRec = pIter;
+            pIter = 0;
+        }
+        else
+        {
+            pPrev = pIter;
+            pIter = pIter->pNext;
+        }
+    }
+    if (pRec)
+    {
+        if (pPrev)
+            pPrev->pNext = pRec->pNext;
+        else
+            gpStoredUnits2_007BB5C4 = pRec->pNext;
+        pRec->pNext = 0;
+    }
+    else
+    {
+        pRec = (D2StoredUnitRecordStrc*)FOG_Alloc(sizeof(D2StoredUnitRecordStrc), szRosterCpp_006D7268, 0xD8, 0);
+        memset(pRec, 0, sizeof(D2StoredUnitRecordStrc));
+    }
+    pRec->pRosterInfo = PLAYERLIST_AllocRosterInfoList();
+    ROSTER_FillRosterUnit(nUnitId, nClassId, wLevel, wPartyId, nPartyFlags, wGuildFlags, szGuildName, szGuildTag, szName, pRec);
+    pRec->pNext = gpStoredUnits_007BB5C0;
+    gpStoredUnits_007BB5C0 = pRec;
+    ROSTER_RebuildRosterOrder();
+    PARTY_RebuildRosterUnits();
+}
+
+// 0x0047A8B0
+void __fastcall ROSTER_RemoveRosterUnit(int nUnitId)
+{
+    D2StoredUnitRecordStrc* pPrev = 0;
+    D2StoredUnitRecordStrc* pRec = gpStoredUnits_007BB5C0;
+    D2_ASSERT(nUnitId != -1, 0x121);
+    for (; pRec; pRec = pRec->pNext)
+    {
+        if (pRec->dwUnitId == nUnitId)
+        {
+            if (pPrev)
+            {
+                pPrev->pNext = pRec->pNext;
+            }
+            else
+            {
+                gpStoredUnits_007BB5C0 = pRec->pNext;
+            }
+            PLAYERLIST_FreeRosterInfoList(pRec->pRosterInfo);
+            pRec->pRosterInfo = 0;
+            D2RosterCorpseStrc* pCorpse = pRec->pCorpse;
+            while (pCorpse)
+            {
+                D2RosterCorpseStrc* pNext = pCorpse->pNext;
+                FOG_Free(pCorpse, ".\\GAME\\Roster.cpp", 0x110, 0);
+                pCorpse = pNext;
+            }
+            pRec->pCorpse = 0;
+            FOG_Free(pRec, ".\\GAME\\Roster.cpp", 0x131, 0);
+            break;
+        }
+        pPrev = pRec;
+    }
+    ROSTER_RebuildRosterOrder();
+    PARTY_RebuildRosterUnits();
+}
+
 // 0x00479F60
 D2StoredUnitRecordStrc* __cdecl ROSTER_LeaveParty()
 {
@@ -1124,16 +1305,6 @@ int __fastcall sub_0047A150_GetPartyLife(int nUnitId)
     D2StoredUnitRecordStrc* pRec = ROSTER_FindRosterUnit(nUnitId);
     if (pRec)
         return pRec->dwPartyLife;
-    return 0;
-}
-
-inline int ROSTER_TestPvpFlag4Inl(D2StoredUnitRecordStrc* pEntry)
-{
-    if (pEntry)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        return GFXUTIL_TestRelationFlags(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4);
-    }
     return 0;
 }
 
@@ -1428,177 +1599,6 @@ int __fastcall ROSTER_GetOtherPartyLife(int nUnitId)
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (nUnitId != (!pPlayer ? -1 : pPlayer->dwUnitId) && pRec)
         return pRec->dwPartyLife;
-    return 0;
-}
-
-// 0x0047A6F0
-void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szName, unsigned short wLevel, unsigned short wPartyId, int nUnused, int nPartyFlags, unsigned short wGuildFlags, const char* szGuildTag, const char* szGuildName)
-{
-    D2StoredUnitRecordStrc* pPrev = 0;
-    D2StoredUnitRecordStrc* pIter = gpStoredUnits2_007BB5C4;
-    D2_ASSERT(nUnitId != -1, 0xB3);
-    D2StoredUnitRecordStrc* pRec = ROSTER_FindRosterUnitByIdOrName(nUnitId, szName);
-    if (pRec)
-    {
-        ROSTER_FillRosterUnit(nUnitId, nClassId, wLevel, wPartyId, nPartyFlags, wGuildFlags, szGuildName, szGuildTag, szName, pRec);
-        ROSTER_RebuildRosterOrder();
-        PARTY_RebuildRosterUnits();
-        return;
-    }
-    while (pIter)
-    {
-        if (pIter->dwUnitId == nUnitId)
-        {
-            pRec = pIter;
-            pIter = 0;
-        }
-        else
-        {
-            pPrev = pIter;
-            pIter = pIter->pNext;
-        }
-    }
-    if (pRec)
-    {
-        if (pPrev)
-            pPrev->pNext = pRec->pNext;
-        else
-            gpStoredUnits2_007BB5C4 = pRec->pNext;
-        pRec->pNext = 0;
-    }
-    else
-    {
-        pRec = (D2StoredUnitRecordStrc*)FOG_Alloc(sizeof(D2StoredUnitRecordStrc), szRosterCpp_006D7268, 0xD8, 0);
-        memset(pRec, 0, sizeof(D2StoredUnitRecordStrc));
-    }
-    pRec->pRosterInfo = PLAYERLIST_AllocRosterInfoList();
-    ROSTER_FillRosterUnit(nUnitId, nClassId, wLevel, wPartyId, nPartyFlags, wGuildFlags, szGuildName, szGuildTag, szName, pRec);
-    pRec->pNext = gpStoredUnits_007BB5C0;
-    gpStoredUnits_007BB5C0 = pRec;
-    ROSTER_RebuildRosterOrder();
-    PARTY_RebuildRosterUnits();
-}
-
-// 0x0047A850
-void __fastcall ROSTER_UpdateRosterUnit(int nUnitId, unsigned short wPartyId, unsigned short wLevel, int nUnused, int nPartyFlags)
-{
-    D2StoredUnitRecordStrc* pRec = ROSTER_FindRosterUnit(nUnitId);
-    if (!pRec)
-        return;
-    for (D2RosterCorpseStrc* pCorpse = pRec->pCorpse; pCorpse; pCorpse = pCorpse->pNext)
-    {
-        if (pCorpse->dwCorpseId == nUnitId)
-            return;
-    }
-    pRec->wPartyId = wPartyId;
-    pRec->wLevel = wLevel;
-    pRec->dwPartyFlags = nPartyFlags;
-    GFX_UpdatePetFlags();
-    ROSTER_RebuildRosterOrder();
-    PARTY_RebuildRosterUnits();
-}
-
-// 0x0047A8B0
-void __fastcall ROSTER_RemoveRosterUnit(int nUnitId)
-{
-    D2StoredUnitRecordStrc* pPrev = 0;
-    D2StoredUnitRecordStrc* pRec = gpStoredUnits_007BB5C0;
-    D2_ASSERT(nUnitId != -1, 0x121);
-    for (; pRec; pRec = pRec->pNext)
-    {
-        if (pRec->dwUnitId == nUnitId)
-        {
-            if (pPrev)
-            {
-                pPrev->pNext = pRec->pNext;
-            }
-            else
-            {
-                gpStoredUnits_007BB5C0 = pRec->pNext;
-            }
-            PLAYERLIST_FreeRosterInfoList(pRec->pRosterInfo);
-            pRec->pRosterInfo = 0;
-            D2RosterCorpseStrc* pCorpse = pRec->pCorpse;
-            while (pCorpse)
-            {
-                D2RosterCorpseStrc* pNext = pCorpse->pNext;
-                FOG_Free(pCorpse, ".\\GAME\\Roster.cpp", 0x110, 0);
-                pCorpse = pNext;
-            }
-            pRec->pCorpse = 0;
-            FOG_Free(pRec, ".\\GAME\\Roster.cpp", 0x131, 0);
-            break;
-        }
-        pPrev = pRec;
-    }
-    ROSTER_RebuildRosterOrder();
-    PARTY_RebuildRosterUnits();
-}
-
-// 0x0047A9B0
-void __fastcall ROSTER_SetPrimaryClientFlag(int bClear)
-{
-    if (bClear)
-    {
-        gdwGlobal_00712EFC &= ~1;
-    }
-    else
-    {
-        gdwGlobal_00712EFC |= 1;
-    }
-}
-
-// 0x0047A9E0
-int __cdecl sub_0047A9E0_GetClientFlag40()
-{
-    return gdwGlobal_00712EFC & 0x40;
-}
-
-// 0x0047A9F0
-int __cdecl sub_0047A9F0_GetClientFlag80()
-{
-    return gdwGlobal_00712EFC & 0x80;
-}
-
-// 0x0047AA00
-int __cdecl sub_0047AA00_GetClientFlag200()
-{
-    return gdwGlobal_00712EFC & 0x200;
-}
-
-// 0x0047AA10
-void __fastcall ROSTER_SetCTemp(int nValue)
-{
-    gdwGlobal_00712F00 = nValue;
-}
-
-// 0x0047AA40
-int Unicode::isWhitespace() const
-{
-    if (this->wChar < 0x100)
-    {
-        return ::isspace(this->wChar);
-    }
-    return 0;
-}
-
-// 0x004B8370
-extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
-{
-    D2_ASSERT(pCtrl, 1310);
-    pCtrl->nState = nState;
-}
-
-// 0x004CA990
-extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
-{
-    D2_ASSERT(pOwner, 3171);
-    D2LinkStrc_004CA990* pLink = pOwner->pLink;
-    if (pLink)
-    {
-        return pLink->pFirst;
-    }
-
     return 0;
 }
 

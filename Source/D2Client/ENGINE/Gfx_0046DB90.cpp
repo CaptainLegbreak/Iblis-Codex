@@ -249,22 +249,6 @@ static void __fastcall GFX_GetBaseName(char* szDest, const char* szPath)
     }
 }
 
-// 0x0046DC40
-D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
-{
-    char szName[0x104] = { 0 };
-    GFX_GetBaseName(szName, szPath);
-    _strlwr(szName);
-    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
-    {
-        if (*(unsigned int*)&szName[0] == pEntry->dwName[0] && *(unsigned int*)&szName[4] == pEntry->dwName[1])
-        {
-            return pEntry;
-        }
-    }
-    return 0;
-}
-
 // 0x0046DDF0
 static void __stdcall GFX_LoadHashedFile(D2HashedFileStrc* pTable, const char* szFile)
 {
@@ -303,6 +287,36 @@ static void __stdcall GFX_LoadHashedFile(D2HashedFileStrc* pTable, const char* s
     pTable->unk0x00 = 1;
 }
 
+// 0x0046E8D0
+static int GFX_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex)
+{
+    int nUnitType;
+    int nMode;
+    int nClassId;
+
+    int nTypeValue = 6;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+    }
+
+    nUnitType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClassId = nClassValue;
+    nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x464);
+    if (sub_0046C140_CheckMonStats2ModeFlag(nClassId, nIndex))
+    {
+        if (MISSILE_GetGfxEntryByte(pUnit, nIndex))
+        {
+            return 0;
+        }
+        return GFX_LoadGfxNodeSetByte(pUnit, nIndex);
+    }
+    D2_ASSERT(0, 0x486);
+    return 0;
+}
+
 static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
 {
     char szName[0x104] = { 0 };
@@ -327,6 +341,93 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
         pTable->pEntries[nBucket] = pEntry;
         gdwGlobal_007A8918 += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
         return pEntry;
+    }
+    return 0;
+}
+
+// 0x0046F650
+static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int nMode, int bLoadNow, D2MonCofInfoStrc* pInfo)
+{
+    char szPath[0x104] = { 0 };
+    unsigned int dwCode;
+    GFX_BuildMonsterCofPath(nMode, szPath, &dwCode, pInfo->nMonsterId);
+
+    D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtHashedFile_007A78F0, szPath);
+    if (!pEntry)
+    {
+        pEntry = sub_0046DCC0_LoadHashedEntry(&gtHashedFile_007A78F0, szPath);
+        D2_ASSERT(pEntry, 0xEC3);
+    }
+
+    unsigned char* pData = pEntry->pData;
+    D2_ASSERT(pData, 0xEC9);
+    D2GfxLayerHeaderStrc* pHeader = sub_004DB040_GetLayerHeader(pData);
+    D2_ASSERT(pHeader, 0xECB);
+    unsigned char* pOrder = sub_004DB110_GetLayerOrder(pData, 0, 0);
+    D2_ASSERT(pOrder, 0xED0);
+
+    for (int i = 0; i < pHeader->nLayers; ++i)
+    {
+        const int nLayer = pOrder[i];
+        D2_ASSERT(nLayer < 0x10, 0xED7);
+        if (pInfo->nCount)
+        {
+            for (unsigned int j = 0; j < pInfo->nCount; ++j)
+            {
+                D2CelContextStrc tContext;
+                memset(&tContext, 0, sizeof(tContext));
+                if (GFXUTIL_InitMonsterCelContext(&tContext, 0, 0, nLayer, nMode, dwCode, pEntry, pInfo, pMonStatsTxtRecord, j))
+                {
+                    if (bLoadNow)
+                    {
+                        if (!sub_006001F0(&tContext, 1, 1))
+                        {
+                            tContext.nArg34 = 0;
+                            sub_006004E0_LoadSprite(&tContext);
+                        }
+                    }
+                    else
+                    {
+                        sub_006001F0(&tContext, 0, 0);
+                    }
+                }
+            }
+        }
+        else
+        {
+            D2CelContextStrc tContext;
+            memset(&tContext, 0, sizeof(tContext));
+            if (GFXUTIL_InitMonsterCelContext(&tContext, 0, 0, nLayer, nMode, dwCode, pEntry, pInfo, pMonStatsTxtRecord, 0))
+            {
+                if (bLoadNow)
+                {
+                    if (!sub_006001F0(&tContext, 1, 1))
+                    {
+                        tContext.nArg34 = 0;
+                        sub_006004E0_LoadSprite(&tContext);
+                    }
+                }
+                else
+                {
+                    sub_006001F0(&tContext, 0, 0);
+                }
+            }
+        }
+    }
+}
+
+// 0x0046DC40
+D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
+{
+    char szName[0x104] = { 0 };
+    GFX_GetBaseName(szName, szPath);
+    _strlwr(szName);
+    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
+    {
+        if (*(unsigned int*)&szName[0] == pEntry->dwName[0] && *(unsigned int*)&szName[4] == pEntry->dwName[1])
+        {
+            return pEntry;
+        }
     }
     return 0;
 }
@@ -450,36 +551,6 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
     return GFX_GetNodeValue(pUnit, nIndex);
 }
 
-// 0x0046E8D0
-static int GFX_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex)
-{
-    int nUnitType;
-    int nMode;
-    int nClassId;
-
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x464);
-    if (sub_0046C140_CheckMonStats2ModeFlag(nClassId, nIndex))
-    {
-        if (MISSILE_GetGfxEntryByte(pUnit, nIndex))
-        {
-            return 0;
-        }
-        return GFX_LoadGfxNodeSetByte(pUnit, nIndex);
-    }
-    D2_ASSERT(0, 0x486);
-    return 0;
-}
-
 // 0x0046E980
 static int GFX_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex)
 {
@@ -593,77 +664,6 @@ static void __stdcall GFX_BuildMonsterCofPath(int nMode, char* szPath, unsigned 
     szToken[2] = (unsigned char)(dwToken >> 16) == 0x20 ? 0 : (unsigned char)(dwToken >> 16);
     szToken[3] = 0;
     wsprintfA(szPath, gszCofPathFormat_006D6C94, gszMonstersDir_006D6CAC, szMonster, szMonster, szToken, szWeapon);
-}
-
-// 0x0046F650
-static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int nMode, int bLoadNow, D2MonCofInfoStrc* pInfo)
-{
-    char szPath[0x104] = { 0 };
-    unsigned int dwCode;
-    GFX_BuildMonsterCofPath(nMode, szPath, &dwCode, pInfo->nMonsterId);
-
-    D2HashedFileEntryStrc* pEntry = GFX_FindHashedEntry(&gtHashedFile_007A78F0, szPath);
-    if (!pEntry)
-    {
-        pEntry = sub_0046DCC0_LoadHashedEntry(&gtHashedFile_007A78F0, szPath);
-        D2_ASSERT(pEntry, 0xEC3);
-    }
-
-    unsigned char* pData = pEntry->pData;
-    D2_ASSERT(pData, 0xEC9);
-    D2GfxLayerHeaderStrc* pHeader = sub_004DB040_GetLayerHeader(pData);
-    D2_ASSERT(pHeader, 0xECB);
-    unsigned char* pOrder = sub_004DB110_GetLayerOrder(pData, 0, 0);
-    D2_ASSERT(pOrder, 0xED0);
-
-    for (int i = 0; i < pHeader->nLayers; ++i)
-    {
-        const int nLayer = pOrder[i];
-        D2_ASSERT(nLayer < 0x10, 0xED7);
-        if (pInfo->nCount)
-        {
-            for (unsigned int j = 0; j < pInfo->nCount; ++j)
-            {
-                D2CelContextStrc tContext;
-                memset(&tContext, 0, sizeof(tContext));
-                if (GFXUTIL_InitMonsterCelContext(&tContext, 0, 0, nLayer, nMode, dwCode, pEntry, pInfo, pMonStatsTxtRecord, j))
-                {
-                    if (bLoadNow)
-                    {
-                        if (!sub_006001F0(&tContext, 1, 1))
-                        {
-                            tContext.nArg34 = 0;
-                            sub_006004E0_LoadSprite(&tContext);
-                        }
-                    }
-                    else
-                    {
-                        sub_006001F0(&tContext, 0, 0);
-                    }
-                }
-            }
-        }
-        else
-        {
-            D2CelContextStrc tContext;
-            memset(&tContext, 0, sizeof(tContext));
-            if (GFXUTIL_InitMonsterCelContext(&tContext, 0, 0, nLayer, nMode, dwCode, pEntry, pInfo, pMonStatsTxtRecord, 0))
-            {
-                if (bLoadNow)
-                {
-                    if (!sub_006001F0(&tContext, 1, 1))
-                    {
-                        tContext.nArg34 = 0;
-                        sub_006004E0_LoadSprite(&tContext);
-                    }
-                }
-                else
-                {
-                    sub_006001F0(&tContext, 0, 0);
-                }
-            }
-        }
-    }
 }
 
 // build: context CLIENT_GetMonStats2TxtRecord

@@ -471,6 +471,147 @@ void __fastcall sub_0047D230_GammaOption(D2MenuItemStrc* pItem, int nArg)
     }
 }
 
+// 0x0047DF00
+void __fastcall sub_0047DF00_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries)
+{
+    D2_ASSERT(pHeader, 0x558);
+    D2_ASSERT(pEntries, 0x559);
+    for (int i = 0; i < pHeader->nCount; ++i)
+    {
+        D2OptionEntryStrc* pEntry = &pEntries[i];
+        if (pEntry->pCel)
+        {
+            ARCHIVE_FreeClientCellFile(pEntry->pCel);
+            pEntry->pCel = 0;
+        }
+        if (pEntry->nKind == 1)
+        {
+            D2_ASSERT(pEntry->nValues > 0 && pEntry->nValues <= 4, 0x565);
+            for (unsigned int j = 0; j < pEntry->nValues; ++j)
+            {
+                if (pEntry->pValueCels[j])
+                {
+                    ARCHIVE_FreeClientCellFile(pEntry->pValueCels[j]);
+                    pEntry->pValueCels[j] = 0;
+                }
+            }
+        }
+    }
+}
+
+// 0x0047E720
+void __cdecl sub_0047E720_LoadAlwaysRun()
+{
+    unsigned long dwValue = 0;
+    SRegLoadValue("Diablo II", "Always Run", 0, &dwValue);
+    GAME_SetAlwaysRun(dwValue);
+}
+
+// 0x0047F1D0
+void __cdecl sub_0047F1D0_LoadResolution()
+{
+    unsigned long dwValue;
+    if (!SRegLoadValue("Diablo II", "Resolution", 0, &dwValue))
+    {
+        dwValue = 1;
+    }
+    int nResolution = 2;
+    if (!dwValue)
+    {
+        nResolution = 0;
+    }
+    GAME_SetResolution(nResolution);
+}
+
+// 0x0047D500
+static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
+{
+    return !pEntry->pfnEnabled || pEntry->pfnEnabled();
+}
+
+// 0x0047E200
+void __fastcall sub_0047E200_CloseMenus(int bRestore)
+{
+    if (GAME_GetUIVarState(9))
+    {
+        sub_00455F20(9, 1, 0);
+    }
+    if (bRestore)
+    {
+        for (unsigned int i = 0; i < 38; ++i)
+        {
+            if (gaEscMenuUIState_00713058[i].nSaved)
+            {
+                sub_00455F20(i, 0, 0);
+            }
+        }
+    }
+}
+
+// 0x0047EC20
+int __fastcall sub_0047EC20_IsPanelFreeForArg(int bArg)
+{
+    if (bArg && !GAME_GetUIVarState(0x17))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x0047E770
+static void sub_0047E770_DrawModeCel(int nMode)
+{
+    if (!nMode)
+        return;
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpCellFile_007BC960;
+    switch (nMode)
+    {
+    case 1:
+        sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xCD, gnGlobal_00711470 - 0x2F, -1, 5, 0);
+        break;
+    case 2:
+    {
+        const int nX = gdwGlobal_007BC978 ? gnGlobal_0071146C / 2 - 0x4A : gnGlobal_0071146C / 2 - 0x54;
+        sub_004F6480(&tContext, nX - 3, gnGlobal_00711470 - 0x2F, -1, 5, 0);
+        break;
+    }
+    case 3:
+    {
+        const int nX = gdwGlobal_007BC978 ? gnGlobal_0071146C / 2 + 0x38 : gnGlobal_0071146C / 2 + 0x23;
+        sub_004F6480(&tContext, nX - 2, gnGlobal_00711470 - 0x2F, -1, 5, 0);
+        break;
+    }
+    }
+}
+
+// 0x0047D130
+void __fastcall sub_0047D130_PerspectiveChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+{
+    SRegSaveValue("Diablo II", "Perspective", 0, pEntry->nValue);
+    D2GFX_SetPerspective(pEntry->nValue);
+    sub_00476000_SetViewRect(gpView_007A0640, 0, 0, gnAutomapWidth_007A5220, gnAutomapHeight_007A521C);
+}
+
+// 0x0047D180
+void __fastcall sub_0047D180_PerspectiveLoad(D2OptionEntryStrc* pEntry, int nArg)
+{
+    SRegLoadValue("Diablo II", "Perspective", 0, (unsigned long*)&pEntry->nValue);
+    if (sub_004F5170())
+    {
+        sub_0047D130_PerspectiveChanged(pEntry, 0);
+    }
+    else
+    {
+        pEntry->nValue = 0;
+    }
+}
+
+static int gnOptionSelected_007BC938; // 0x007BC938
+
+static D2OptionEntryStrc* gpOptionEntries_007BC940; // 0x007BC940
+
 // 0x0047D2B0
 void __fastcall sub_0047D2B0_ContrastSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
@@ -530,10 +671,6 @@ void __fastcall sub_0047CEC0_EAXSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS
     sub_004E0140_ToggleSoundMode12();
 }
 
-static int gnOptionSelected_007BC938; // 0x007BC938
-
-static D2OptionEntryStrc* gpOptionEntries_007BC940; // 0x007BC940
-
 // 0x0047D040
 void __fastcall sub_0047D040_BlendShadowsChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
@@ -573,28 +710,6 @@ void __fastcall sub_0047D0E0_ResolutionLoad(D2OptionEntryStrc* pEntry, int nArg)
         nResolution = 0;
     }
     GAME_SetResolution(nResolution);
-}
-
-// 0x0047D130
-void __fastcall sub_0047D130_PerspectiveChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
-{
-    SRegSaveValue("Diablo II", "Perspective", 0, pEntry->nValue);
-    D2GFX_SetPerspective(pEntry->nValue);
-    sub_00476000_SetViewRect(gpView_007A0640, 0, 0, gnAutomapWidth_007A5220, gnAutomapHeight_007A521C);
-}
-
-// 0x0047D180
-void __fastcall sub_0047D180_PerspectiveLoad(D2OptionEntryStrc* pEntry, int nArg)
-{
-    SRegLoadValue("Diablo II", "Perspective", 0, (unsigned long*)&pEntry->nValue);
-    if (sub_004F5170())
-    {
-        sub_0047D130_PerspectiveChanged(pEntry, 0);
-    }
-    else
-    {
-        pEntry->nValue = 0;
-    }
 }
 
 // 0x0047D370
@@ -773,121 +888,6 @@ void __fastcall sub_0047D430_LoadAutoMapFade(D2OptionEntryStrc* pEntry, int nArg
         AUTOMAP_SetAutomapFade(dwValue);
     }
     pEntry->nValue = AUTOMAP_GetAutomapFade();
-}
-
-// 0x0047DF00
-void __fastcall sub_0047DF00_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries)
-{
-    D2_ASSERT(pHeader, 0x558);
-    D2_ASSERT(pEntries, 0x559);
-    for (int i = 0; i < pHeader->nCount; ++i)
-    {
-        D2OptionEntryStrc* pEntry = &pEntries[i];
-        if (pEntry->pCel)
-        {
-            ARCHIVE_FreeClientCellFile(pEntry->pCel);
-            pEntry->pCel = 0;
-        }
-        if (pEntry->nKind == 1)
-        {
-            D2_ASSERT(pEntry->nValues > 0 && pEntry->nValues <= 4, 0x565);
-            for (unsigned int j = 0; j < pEntry->nValues; ++j)
-            {
-                if (pEntry->pValueCels[j])
-                {
-                    ARCHIVE_FreeClientCellFile(pEntry->pValueCels[j]);
-                    pEntry->pValueCels[j] = 0;
-                }
-            }
-        }
-    }
-}
-
-// 0x0047E720
-void __cdecl sub_0047E720_LoadAlwaysRun()
-{
-    unsigned long dwValue = 0;
-    SRegLoadValue("Diablo II", "Always Run", 0, &dwValue);
-    GAME_SetAlwaysRun(dwValue);
-}
-
-// 0x0047F1D0
-void __cdecl sub_0047F1D0_LoadResolution()
-{
-    unsigned long dwValue;
-    if (!SRegLoadValue("Diablo II", "Resolution", 0, &dwValue))
-    {
-        dwValue = 1;
-    }
-    int nResolution = 2;
-    if (!dwValue)
-    {
-        nResolution = 0;
-    }
-    GAME_SetResolution(nResolution);
-}
-
-// 0x0047D500
-static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
-{
-    return !pEntry->pfnEnabled || pEntry->pfnEnabled();
-}
-
-// 0x0047E200
-void __fastcall sub_0047E200_CloseMenus(int bRestore)
-{
-    if (GAME_GetUIVarState(9))
-    {
-        sub_00455F20(9, 1, 0);
-    }
-    if (bRestore)
-    {
-        for (unsigned int i = 0; i < 38; ++i)
-        {
-            if (gaEscMenuUIState_00713058[i].nSaved)
-            {
-                sub_00455F20(i, 0, 0);
-            }
-        }
-    }
-}
-
-// 0x0047EC20
-int __fastcall sub_0047EC20_IsPanelFreeForArg(int bArg)
-{
-    if (bArg && !GAME_GetUIVarState(0x17))
-    {
-        return 1;
-    }
-    return 0;
-}
-
-// 0x0047E770
-static void sub_0047E770_DrawModeCel(int nMode)
-{
-    if (!nMode)
-        return;
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpCellFile_007BC960;
-    switch (nMode)
-    {
-    case 1:
-        sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xCD, gnGlobal_00711470 - 0x2F, -1, 5, 0);
-        break;
-    case 2:
-    {
-        const int nX = gdwGlobal_007BC978 ? gnGlobal_0071146C / 2 - 0x4A : gnGlobal_0071146C / 2 - 0x54;
-        sub_004F6480(&tContext, nX - 3, gnGlobal_00711470 - 0x2F, -1, 5, 0);
-        break;
-    }
-    case 3:
-    {
-        const int nX = gdwGlobal_007BC978 ? gnGlobal_0071146C / 2 + 0x38 : gnGlobal_0071146C / 2 + 0x23;
-        sub_004F6480(&tContext, nX - 2, gnGlobal_00711470 - 0x2F, -1, 5, 0);
-        break;
-    }
-    }
 }
 
 void __cdecl sub_K04_EmitDrawModeCel(int nMode)

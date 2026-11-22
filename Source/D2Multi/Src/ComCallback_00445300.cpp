@@ -346,6 +346,157 @@ static inline const char* sub_SkipStarPrefix(const char* szName)
     return szName;
 }
 
+// 0x00449320
+static inline void* sub_00449320_AddEntry(const char* szText, int nLength, int nA)
+{
+    return sub_00449050_AddEntry(szText, nLength, nA);
+}
+
+// 0x00449690
+int __fastcall sub_00449690_OnMessage(int nA, int nB, const char* szText, int nLength)
+{
+    sub_004493E0_RemoveChannelUser(szText);
+    return 1;
+}
+
+// 0x004477A0
+void __cdecl sub_004477A0_Refresh()
+{
+    const Unicode* pText = sub_004FDD90_GetEditText(gpChatEdit_0077BD94);
+    int bHasText = 0;
+    if (pText && sub_00526800(pText))
+        bHasText = 1;
+
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+    CONTROL_SetEnabled(gpChatControl_0077B06C, bHasText);
+    CONTROL_SetEnabled(gpChatControl_0077B058, bHasText);
+    CONTROL_SetEnabled(gpChatControl_0077B05C, gpSelectedChannelUser_00798F48 && bHasText);
+
+    unsigned int nFlags = 0;
+    if (gpSelectedChannelUser_00798F48 && gpSelectedChannelUser_00798F48->pComposite)
+    {
+        const unsigned int nComposite = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
+        nFlags = gdwBitMasks[9] & nComposite;
+    }
+
+    CONTROL_SetEnabled(gpChatControl_0077B064, gpSelectedChannelUser_00798F48 && !nFlags);
+    CONTROL_SetEnabled(gpChatControl_0077B068, gpSelectedChannelUser_00798F48 && nFlags);
+}
+
+// build: context sub_00446D30_Shim
+// calling-convention shim (not game code)
+int __fastcall sub_00446D30_Shim(D2MultiChannelUserStrc* pLeft, D2MultiChannelUserStrc* pRight)
+{
+    return sub_00446D30_GetUserRank(pRight) - sub_00446D30_GetUserRank(pLeft);
+}
+
+// 0x00448C70
+int __stdcall sub_00448C70_ButtonCallback(D2ChatMessageStrc* pMsg)
+{
+    int nButton;
+    nButton = 0;
+    for (;;)
+    {
+        if (!(nButton < 11))
+            break;
+        if (pMsg->pControl == gapChatButtons_0077AD78[nButton])
+            goto found;
+        ++nButton;
+    }
+    return 0;
+found:
+    const int nLine = gnChannelUserOffset_00798F44 + nButton;
+    if (pMsg->nMessage == 0x205)
+    {
+        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+        for (int n = 0; pUser; ++n, pUser = pUser->pNext)
+        {
+            if (n == nLine)
+            {
+                sub_00443E10();
+                const char* szName = pUser->szName;
+                const char* szCompare = SStrChr(szName, '*');
+                if (szCompare && szCompare[1])
+                    ++szCompare;
+                else
+                    szCompare = szName;
+                if (!strcmp(szCompare, gpCharInfo_0077BBD8->szText0x8D))
+                {
+                    sub_00445A80_ShowProfileDialog(pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
+                    return 1;
+                }
+                sub_00445C70_ShowUserInfoDialog(szName, pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
+                return 1;
+            }
+        }
+        return 1;
+    }
+    const unsigned int nTick = GetTickCount();
+    if (nLine == gnSelectedLine_0070EC1C)
+    {
+        sub_00448050_ClearSelectedUser();
+        return 1;
+    }
+    if (nLine < gnChannelUserCount_00798F40)
+    {
+        sub_00448050_ClearSelectedUser();
+        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+        for (int n = 0; pUser; ++n, pUser = pUser->pNext)
+        {
+            if (n == nLine)
+            {
+                D2_ASSERT(pUser->pComposite,0x135);
+                const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)pUser->pComposite);
+                D2Win_10156((D2CompositeUnitStrc*)pUser->pComposite, gdwBitMasks[10] | nFlags);
+                gpSelectedChannelUser_00798F48 = pUser;
+                gnSelectedLine_0070EC1C = nLine;
+                gdwSelectionTick_00798F4C = nTick;
+                sub_004477A0_Refresh();
+            }
+        }
+    }
+    return 1;
+}
+
+// 0x004497C0
+int __fastcall sub_004497C0_MapKeyChar(unsigned char cChar)
+{
+    return (char)gnCdKeyMap_006D59F0[cChar];
+}
+
+// 0x004497D0
+int __fastcall sub_004497D0_HexToNibble(char cChar)
+{
+    char cLower = (char)tolower(cChar);
+    if (cLower >= 'a')
+        return cLower - 0x57;
+    return cLower - 0x30;
+}
+
+// 0x00449840
+unsigned int __fastcall sub_00449840_NibbleToHex(unsigned int nValue)
+{
+    unsigned int nResult = nValue & 0xF;
+    if (nResult >= 10)
+        nResult += 0x37;
+    else
+        nResult += 0x30;
+    return nResult;
+}
+
+// 0x00449860
+int __fastcall sub_00449860_IsValidKeyText(const char* szKey)
+{
+    while (*szKey)
+    {
+        if (gnCdKeyMap_006D59F0[(unsigned char)*szKey++] > 0x17)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 // 0x00447400
 void __fastcall sub_00447400_SetNamedValue(const char* szName, const char* szValue)
 {
@@ -438,162 +589,11 @@ void __fastcall sub_00447560_SplitName(const char* szName, char* szTitle, char* 
     SStrCopy(szOut, szName, 0x7FFFFFFF);
 }
 
-// 0x004477A0
-void __cdecl sub_004477A0_Refresh()
-{
-    const Unicode* pText = sub_004FDD90_GetEditText(gpChatEdit_0077BD94);
-    int bHasText = 0;
-    if (pText && sub_00526800(pText))
-        bHasText = 1;
-
-// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
-    CONTROL_SetEnabled(gpChatControl_0077B06C, bHasText);
-    CONTROL_SetEnabled(gpChatControl_0077B058, bHasText);
-    CONTROL_SetEnabled(gpChatControl_0077B05C, gpSelectedChannelUser_00798F48 && bHasText);
-
-    unsigned int nFlags = 0;
-    if (gpSelectedChannelUser_00798F48 && gpSelectedChannelUser_00798F48->pComposite)
-    {
-        const unsigned int nComposite = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
-        nFlags = gdwBitMasks[9] & nComposite;
-    }
-
-    CONTROL_SetEnabled(gpChatControl_0077B064, gpSelectedChannelUser_00798F48 && !nFlags);
-    CONTROL_SetEnabled(gpChatControl_0077B068, gpSelectedChannelUser_00798F48 && nFlags);
-}
-
-// build: context sub_00446D30_Shim
-// calling-convention shim (not game code)
-int __fastcall sub_00446D30_Shim(D2MultiChannelUserStrc* pLeft, D2MultiChannelUserStrc* pRight)
-{
-    return sub_00446D30_GetUserRank(pRight) - sub_00446D30_GetUserRank(pLeft);
-}
-
 // 0x00447A90
 int __stdcall sub_00447A90_OnActivate(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00444020();
     sub_0043D990_ActivateEdit();
-    return 1;
-}
-
-// 0x00448C70
-int __stdcall sub_00448C70_ButtonCallback(D2ChatMessageStrc* pMsg)
-{
-    int nButton;
-    nButton = 0;
-    for (;;)
-    {
-        if (!(nButton < 11))
-            break;
-        if (pMsg->pControl == gapChatButtons_0077AD78[nButton])
-            goto found;
-        ++nButton;
-    }
-    return 0;
-found:
-    const int nLine = gnChannelUserOffset_00798F44 + nButton;
-    if (pMsg->nMessage == 0x205)
-    {
-        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
-        for (int n = 0; pUser; ++n, pUser = pUser->pNext)
-        {
-            if (n == nLine)
-            {
-                sub_00443E10();
-                const char* szName = pUser->szName;
-                const char* szCompare = SStrChr(szName, '*');
-                if (szCompare && szCompare[1])
-                    ++szCompare;
-                else
-                    szCompare = szName;
-                if (!strcmp(szCompare, gpCharInfo_0077BBD8->szText0x8D))
-                {
-                    sub_00445A80_ShowProfileDialog(pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
-                    return 1;
-                }
-                sub_00445C70_ShowUserInfoDialog(szName, pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
-                return 1;
-            }
-        }
-        return 1;
-    }
-    const unsigned int nTick = GetTickCount();
-    if (nLine == gnSelectedLine_0070EC1C)
-    {
-        sub_00448050_ClearSelectedUser();
-        return 1;
-    }
-    if (nLine < gnChannelUserCount_00798F40)
-    {
-        sub_00448050_ClearSelectedUser();
-        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
-        for (int n = 0; pUser; ++n, pUser = pUser->pNext)
-        {
-            if (n == nLine)
-            {
-                D2_ASSERT(pUser->pComposite,0x135);
-                const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)pUser->pComposite);
-                D2Win_10156((D2CompositeUnitStrc*)pUser->pComposite, gdwBitMasks[10] | nFlags);
-                gpSelectedChannelUser_00798F48 = pUser;
-                gnSelectedLine_0070EC1C = nLine;
-                gdwSelectionTick_00798F4C = nTick;
-                sub_004477A0_Refresh();
-            }
-        }
-    }
-    return 1;
-}
-
-// 0x00449320
-static inline void* sub_00449320_AddEntry(const char* szText, int nLength, int nA)
-{
-    return sub_00449050_AddEntry(szText, nLength, nA);
-}
-
-// 0x00449690
-int __fastcall sub_00449690_OnMessage(int nA, int nB, const char* szText, int nLength)
-{
-    sub_004493E0_RemoveChannelUser(szText);
-    return 1;
-}
-
-// 0x004497C0
-int __fastcall sub_004497C0_MapKeyChar(unsigned char cChar)
-{
-    return (char)gnCdKeyMap_006D59F0[cChar];
-}
-
-// 0x004497D0
-int __fastcall sub_004497D0_HexToNibble(char cChar)
-{
-    char cLower = (char)tolower(cChar);
-    if (cLower >= 'a')
-        return cLower - 0x57;
-    return cLower - 0x30;
-}
-
-// 0x00449840
-unsigned int __fastcall sub_00449840_NibbleToHex(unsigned int nValue)
-{
-    unsigned int nResult = nValue & 0xF;
-    if (nResult >= 10)
-        nResult += 0x37;
-    else
-        nResult += 0x30;
-    return nResult;
-}
-
-// 0x00449860
-int __fastcall sub_00449860_IsValidKeyText(const char* szKey)
-{
-    while (*szKey)
-    {
-        if (gnCdKeyMap_006D59F0[(unsigned char)*szKey++] > 0x17)
-        {
-            return 0;
-        }
-    }
     return 1;
 }
 

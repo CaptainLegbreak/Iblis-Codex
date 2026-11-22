@@ -2469,51 +2469,6 @@ static int __stdcall PLRSAVE_ReadCorpse(D2UnitStrc* pUnit, D2GameStrc* pGame, un
     }
 }
 
-// 0x005339A0
-int __fastcall PLRSAVE_ReadCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nRemainingSize, int* pSize)
-{
-    *pSize = 0;
-
-    if (dwVersion < 71 || dwVersion > 96)
-    {
-        return 1;
-    }
-
-    if (*(unsigned short*)pSection != 'MJ')
-    {
-        return SYSERROR_UNK_14;
-    }
-
-    pSection += 2;
-    const unsigned short nCount = *(unsigned short*)pSection;
-    pSection += 2;
-    nRemainingSize -= 4;
-    int nSize = 4;
-
-    for (unsigned int i = 0; i < nCount; ++i)
-    {
-        int nSectionSize;
-        const int nErrorCode = PLRSAVE_ReadCorpse(pPlayer, pGame, pSection, dwVersion, nRemainingSize, &nSectionSize);
-        if (nErrorCode)
-        {
-            return nErrorCode;
-        }
-
-        nSize += nSectionSize;
-        pSection += nSectionSize;
-        nRemainingSize -= nSectionSize;
-    }
-
-    *pSize = nSize;
-    return 0;
-}
-
-// 0x00533A60
-int __fastcall sub_00533A60_CalcValue(int nA, int nB)
-{
-    return (nA + 1) * nA * nB * 3;
-}
-
 // 0x00533A70
 int __fastcall PLRSAVE_GetLegacyHirelingExpFactor(unsigned short nHirelingId, int nLevel)
 {
@@ -3055,36 +3010,6 @@ void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlaye
     SUNIT_SetAlignment(pPlayer, 2, 1);
 }
 
-static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
-{
-    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pCharStatsTxt[nClass];
-    }
-
-    return 0;
-}
-
-// 0x00534F10
-void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, void* pUnused)
-{
-    if (!pPlayer)
-    {
-        return;
-    }
-
-    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pPlayer->dwClassId);
-    if (!pCharStatsTxtRecord)
-    {
-        return;
-    }
-
-    for (int i = 0; i < 10; ++i)
-    {
-        PLAYER_CreateStartItem(pGame, pPlayer, pCharStatsTxtRecord, i, &pCharStatsTxtRecord->pItems[i]);
-    }
-}
-
 // 0x00534F80
 void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -3130,6 +3055,36 @@ int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit)
     }
 
     return UNITS_GetPlayerData(pUnit)->bBusy;
+}
+
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
+{
+    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pCharStatsTxt[nClass];
+    }
+
+    return 0;
+}
+
+// 0x00534F10
+void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, void* pUnused)
+{
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pPlayer->dwClassId);
+    if (!pCharStatsTxtRecord)
+    {
+        return;
+    }
+
+    for (int i = 0; i < 10; ++i)
+    {
+        PLAYER_CreateStartItem(pGame, pPlayer, pCharStatsTxtRecord, i, &pCharStatsTxtRecord->pItems[i]);
+    }
 }
 
 // 0x005350B0
@@ -3440,12 +3395,6 @@ void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWea
     }
 }
 
-static D2NpcRecordStrc* D10_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc)
-{
-    int nIndex;
-    return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nIndex);
-}
-
 // 0x00536510
 static void __stdcall SUNITPROXY_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory)
 {
@@ -3505,9 +3454,11 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
     pNpcRecord->pEvent = 0;
 }
 
-void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame); // 0x00536640
-
-void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc); // 0x00536B50
+static D2NpcRecordStrc* D10_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc)
+{
+    int nIndex;
+    return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nIndex);
+}
 
 // 0x00536D10
 void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc)
@@ -3563,55 +3514,9 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
     }
 }
 
-// build: context SUNITPROXY_GetVendorState
-static inline D2NpcVendorStateStrc* SUNITPROXY_GetVendorState(D2NpcRecordStrc* pNpcRecord)
-{
-    return (D2NpcVendorStateStrc*)&pNpcRecord->bVendorInit;
-}
+void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame); // 0x00536640
 
-// 0x00537230
-void __stdcall SUNITPROXY_UpdateVendorInventory(D2GameStrc* pGame, unsigned char nAct, int bNoMorePlayersInLevel)
-{
-    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
-    D2NpcRecordStrc* pRecords = pNpcControl->pFirstRecord;
-    int i = 0;
-    const unsigned int nTickCount = GetTickCount();
-    for (; i < pNpcControl->nArraySize; ++i)
-    {
-        D2NpcRecordStrc* pNpcRecord = &pRecords[i];
-        D2NpcVendorStateStrc* pVendor = SUNITPROXY_GetVendorState(pNpcRecord);
-        if (pVendor && pVendor->nAct == nAct && pVendor->bTrader == 1 && pNpcRecord->bTrading == 1 && pVendor->bVendorInit == 1)
-        {
-            if (bNoMorePlayersInLevel)
-            {
-                D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pNpcRecord->dwNPCGUID);
-                if (pNpc && (!pNpc ? -1 : pNpc->dwClassId) == pNpcRecord->nNPC)
-                {
-                    if (!MONSTERAI_GetInteractUnitCount(sub_00535E80_GetMonInteract(pNpc)))
-                    {
-                        SUNITPROXY_AllocNpcInventory(pGame, pNpcRecord, pNpc);
-                    }
-                    else
-                    {
-                        pVendor->bRefreshInventory = 1;
-                    }
-                }
-                else
-                {
-                    SUNITPROXY_AllocNpcInventory(pGame, pNpcRecord, 0);
-                }
-            }
-            else
-            {
-                if (nTickCount > pVendor->dwTicks + 240000)
-                {
-                    pVendor->bRefreshInventory = 1;
-                    pVendor->dwTicks = nTickCount;
-                }
-            }
-        }
-    }
-}
+void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc); // 0x00536B50
 
 // 0x00537340
 void __fastcall SUNITPROXY_UpdateNpcsOnActChange(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCurrentLevelId, int nDestLevelId)
@@ -3720,6 +3625,56 @@ void __fastcall SUNITPROXY_OnClientRemovedFromGame(D2GameStrc* pGame, D2UnitStrc
     SUNIT_IterateLivingPlayers(pGame, SUNITPROXY_CountPlayersInLevel, &unitProxyArg);
     --unitProxyArg.nCounter;
     SUNITPROXY_UpdateVendorInventory(pGame, nAct, unitProxyArg.nCounter == 0);
+}
+
+// build: context SUNITPROXY_GetVendorState
+static inline D2NpcVendorStateStrc* SUNITPROXY_GetVendorState(D2NpcRecordStrc* pNpcRecord)
+{
+    return (D2NpcVendorStateStrc*)&pNpcRecord->bVendorInit;
+}
+
+// 0x00537230
+void __stdcall SUNITPROXY_UpdateVendorInventory(D2GameStrc* pGame, unsigned char nAct, int bNoMorePlayersInLevel)
+{
+    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
+    D2NpcRecordStrc* pRecords = pNpcControl->pFirstRecord;
+    int i = 0;
+    const unsigned int nTickCount = GetTickCount();
+    for (; i < pNpcControl->nArraySize; ++i)
+    {
+        D2NpcRecordStrc* pNpcRecord = &pRecords[i];
+        D2NpcVendorStateStrc* pVendor = SUNITPROXY_GetVendorState(pNpcRecord);
+        if (pVendor && pVendor->nAct == nAct && pVendor->bTrader == 1 && pNpcRecord->bTrading == 1 && pVendor->bVendorInit == 1)
+        {
+            if (bNoMorePlayersInLevel)
+            {
+                D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pNpcRecord->dwNPCGUID);
+                if (pNpc && (!pNpc ? -1 : pNpc->dwClassId) == pNpcRecord->nNPC)
+                {
+                    if (!MONSTERAI_GetInteractUnitCount(sub_00535E80_GetMonInteract(pNpc)))
+                    {
+                        SUNITPROXY_AllocNpcInventory(pGame, pNpcRecord, pNpc);
+                    }
+                    else
+                    {
+                        pVendor->bRefreshInventory = 1;
+                    }
+                }
+                else
+                {
+                    SUNITPROXY_AllocNpcInventory(pGame, pNpcRecord, 0);
+                }
+            }
+            else
+            {
+                if (nTickCount > pVendor->dwTicks + 240000)
+                {
+                    pVendor->bRefreshInventory = 1;
+                    pVendor->dwTicks = nTickCount;
+                }
+            }
+        }
+    }
 }
 
 // 0x00537680
@@ -4286,6 +4241,51 @@ int __stdcall SKILLS_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     return bPoisonedOrCursed;
+}
+
+// 0x005339A0
+int __fastcall PLRSAVE_ReadCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nRemainingSize, int* pSize)
+{
+    *pSize = 0;
+
+    if (dwVersion < 71 || dwVersion > 96)
+    {
+        return 1;
+    }
+
+    if (*(unsigned short*)pSection != 'MJ')
+    {
+        return SYSERROR_UNK_14;
+    }
+
+    pSection += 2;
+    const unsigned short nCount = *(unsigned short*)pSection;
+    pSection += 2;
+    nRemainingSize -= 4;
+    int nSize = 4;
+
+    for (unsigned int i = 0; i < nCount; ++i)
+    {
+        int nSectionSize;
+        const int nErrorCode = PLRSAVE_ReadCorpse(pPlayer, pGame, pSection, dwVersion, nRemainingSize, &nSectionSize);
+        if (nErrorCode)
+        {
+            return nErrorCode;
+        }
+
+        nSize += nSectionSize;
+        pSection += nSectionSize;
+        nRemainingSize -= nSectionSize;
+    }
+
+    *pSize = nSize;
+    return 0;
+}
+
+// 0x00533A60
+int __fastcall sub_00533A60_CalcValue(int nA, int nB)
+{
+    return (nA + 1) * nA * nB * 3;
 }
 
 static inline D2StatesTxt* STATES_GetStatesTxtRecordInline(int nStateId)

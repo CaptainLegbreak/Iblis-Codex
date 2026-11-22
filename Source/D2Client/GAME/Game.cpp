@@ -2311,197 +2311,191 @@ void __fastcall sub_0044D990_ApplyConfigNop(D2ConfigStrc* pConfig)
 {
 }
 
-// 0x0044D9A0
-void __fastcall GAME_ApplyConfigNoCompress(D2ConfigStrc* pConfig)
+// 0x00451F20
+void __cdecl GAME_RegisterWindowHandlers()
 {
-    if (pConfig->bNoCompress)
-        D2CMPSetNoCompress(pConfig->bNoCompress);
+    sub_00420320_RegisterHandlers(sub_004F59A0());
 }
 
-// 0x0044D9C0
-void __fastcall GAME_ApplyConfigTxt(D2ConfigStrc* pConfig)
+// 0x00601BF0
+sub_00601BF0::~sub_00601BF0()
 {
-    DATATBLS_ToggleCompileTxtFlag(!pConfig->bTxt);
+    f_0.Unlink();
 }
 
-// 0x0044D9E0
-void __fastcall sub_0044D9E0_ApplyConfigNop(D2ConfigStrc* pConfig)
+// 0x00601C70
+sub_00601C70::~sub_00601C70()
 {
+    f_0.Unlink();
 }
 
-// 0x0044DA30
-int __cdecl GAME_IsExitPending()
+// 0x00601D60
+sub_00601D60::~sub_00601D60()
 {
-    return gdwGlobal_007A0620;
+    f_0.Unlink();
 }
 
-// 0x0044DA90
-int __cdecl sub_0044DA90()
+// 0x00601F10
+sub_00601F10::sub_00601F10()
 {
-    return gdwGlobal_007A0498;
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
-// 0x0044DAA0
-int __cdecl GAME_GetCurrentTime()
+// 0x00601F20
+sub_00601F20::~sub_00601F20()
 {
-    return gdwGlobal_007A048C;
+    f_0.Unlink();
 }
 
-// 0x0044DAB0
-int __cdecl sub_0044DAB0()
+// 0x00601F60
+sub_00601F60::~sub_00601F60()
 {
-    return gdwGlobal_007A0494;
+    f_0.Unlink();
 }
 
-// 0x0044DAC0
-int __cdecl GAME_GetInteractDeadline()
+// 0x006020D0
+sub_006020D0::~sub_006020D0()
 {
-    return gdwGlobal_007A04C8;
+    f_0.Unlink();
 }
 
-// 0x0044DAE0
-int __cdecl GAME_GetFramesPerSecond()
+// 0x00602130
+sub_00602130::sub_00602130()
 {
-    return gdwGlobal_007A04A8;
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
-// 0x0044DAF0
-int __cdecl GAME_GetSkippedFrames()
+// 0x00602140
+sub_00602140::~sub_00602140()
 {
-    return gdwGlobal_007A04B0;
+    f_0.Unlink();
 }
 
-// 0x0044DB00
-int __cdecl sub_0044DB00()
+// 0x00602180
+sub_00602180::sub_00602180()
 {
-    return gdwGlobal_007A0498;
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
-// 0x0044DB10
-int __cdecl GAME_GetPathFrame()
+// 0x00602420
+sub_00602420::sub_00602420()
 {
-    return gdwGlobal_007A04C4;
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
-// 0x0044DB20
-int __cdecl sub_0044DB20()
+// 0x006024A0
+sub_006024A0::~sub_006024A0()
 {
-    return gdwGlobal_007A0488;
+    f_0.Unlink();
 }
 
-// 0x0044DB30
-int __cdecl GAME_GetConnectionType()
+// 0x00602750
+sub_00602750::sub_00602750()
 {
-    return gdwGlobal_007A0610;
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
-// 0x0044DBE0
-void __cdecl GAME_ReadColorFlag()
+// 0x00602760
+sub_00602760::~sub_00602760()
 {
-    if (gdwGlobal_007A05FC == 0)
-    {
-        void* hFile;
-        if (ARCHIVE_OpenFile(0, "Data\\Local\\Color.txt", &hFile, 1))
-        {
-            char nFlag;
-            ARCHIVE_ReadFileToBuffer(0, hFile, &nFlag, 1);
-            ARCHIVE_CloseFile(0, hFile);
-            if (nFlag == '1')
-                gdwGlobal_007A05FC = 1;
-        }
-    }
+    f_0.Unlink();
 }
 
-// 0x0044DC40
-void __cdecl GAME_ToggleColorFlag()
+// 0x0044ECC0
+sub_0044ECC0::~sub_0044ECC0()
 {
-    gdwGlobal_007A05FC = !gdwGlobal_007A05FC;
+    f_0.Unlink();
 }
 
-// 0x0044DC60
-int __cdecl GAME_GetColorFlag()
+// 0x0044ED20
+D2StormLinkStrc* D2StormListAStrc::sub_0044ED20_Link(char* pNode)
 {
-    return gdwGlobal_007A05FC;
+    return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
 }
 
-// 0x0044DCC0
-int __cdecl GAME_IsExpansion()
+// 0x0044ED40
+sub_0044ED40::sub_0044ED40()
 {
-    return gdwGlobal_007A04F4;
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
 int gdwGlobal_007A0674; // 0x007A0674
 
-// 0x0044DD60
-void __cdecl GAME_ExitForCinematic()
-{
-    sub_0044B880_SetValue(0);
-    gdwGlobal_007A0674 = 1;
-    sub_00477EE0();
-    gdwGlobal_007A0620 = 1;
-}
-
-// 0x0044DD90
-D2StormLinkStrc* D2StormLinkStrc::sub_0044DD90_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x0044DDC0
-char* __fastcall sub_0044DDC0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x0044DDD0
-sub_0044DDD0::~sub_0044DDD0()
+// 0x0044ED50
+sub_0044ED50::~sub_0044ED50()
 {
     f_0.Unlink();
 }
 
-// 0x0044DE10
-D2StormListAStrc* D2StormListArrayStrc::sub_0044DE10_At(unsigned int nIndex)
+// 0x0044ED90
+sub_0044ED90::sub_0044ED90()
 {
-    return &f_8[nIndex];
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
-// 0x0044DE30
-char* __fastcall sub_0044DE30_LinkNext(D2StormLinkStrc* pLink)
+// 0x0044EDA0
+D2StormLinkStrc* D2StormListBStrc::sub_0044EDA0_Link(char* pNode)
 {
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+    return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
 }
 
-// 0x0044DE40
-int __cdecl sub_0044DE40()
+// 0x0044EDC0
+void D2StormListAStrc::sub_0044EDC0_UnlinkNode(char* pNode)
 {
-    return 4;
+    Link(pNode)->Unlink();
 }
 
-// 0x0044DE50
-void __fastcall sub_0044DE50(PairStrc_0044DE50* pPair)
+// 0x0044EE10
+void D2StormListAStrc::sub_0044EE10_InitLinkField(int nLinkOffset)
 {
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
+    m_linkoffset = nLinkOffset;
+    InitializeTerminator();
 }
 
-// 0x0044DE60
-D2StormLinkStrc* D2StormLinkStrc::sub_0044DE60_NextLink(int nLinkOffset)
+// 0x0044EE30
+void D2StormListBStrc::sub_0044EE30_InitLinkField(int nLinkOffset)
 {
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+    m_linkoffset = nLinkOffset;
+    InitializeTerminator();
 }
 
-// 0x0044DE90
-sub_0044DE90::~sub_0044DE90()
+// 0x0044EE50
+void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 {
-    f_0.Unlink();
+    m_linkoffset = 0;
+    InitializeTerminator();
+}
+
+// 0x0044EE90
+D2StormListAStrc::D2StormListAStrc(const D2StormListAStrc& source)
+{
+    m_linkoffset = source.m_linkoffset;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x0044F890
+void D2StormListBStrc::sub_0044F890_UnlinkNode(char* pNode)
+{
+    Link(pNode)->Unlink();
+}
+
+// 0x0044F980
+void D2StormListAStrc::sub_0044F980_ChangeLinkOffset(int nLinkOffset)
+{
+    if (nLinkOffset != m_linkoffset)
+    {
+        UnlinkAll();
+        m_linkoffset = nLinkOffset;
+        InitializeTerminator();
+    }
 }
 
 bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
@@ -2601,24 +2595,36 @@ void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
     InitializeTerminator();
 }
 
-// 0x0044DED0
-char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
+// 0x0044ED00
+char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
 {
-    return pNode + nLinkOffset;
+    return m_terminator.MaskNext();
 }
 
-// 0x0044DEE0
-void __fastcall sub_0044DEE0(PairStrc_0044DEE0* pPair)
+// 0x0044FA00
+void D2StormHashTableStrc::sub_0044FA00_InternalClear(int bWarn)
 {
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
+    m_fullnessIndicator = 0;
+    m_fulllist.UnlinkAll();
+    for (unsigned int i = 0; i < m_slotlistarray.f_4; i++)
+    {
+        char* pNode;
+        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+        {
+            if (bWarn)
+                m_slotlistarray.f_8[i].Link(pNode)->Unlink();
+            else
+                InternalDelete(pNode);
+        }
+    }
 }
 
-// 0x0044DF00
-void __fastcall sub_0044DF00_InitTerminator(D2StormListStrc* pList)
+// 0x0044FB80
+D2StormListBStrc::D2StormListBStrc(const D2StormListBStrc& source)
 {
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+    m_linkoffset = source.m_linkoffset;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
 namespace NWardenClient
@@ -2644,79 +2650,49 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
     *pB = nTemp;
 }
 
-// 0x0044DF10
-D2Warden47F930Strc::D2Warden47F930Strc()
+// 0x004519A0
+void __cdecl sub_004519A0_ToggleFlags()
 {
-    n00 = 0;
-    n04 = 0;
-    n08 = 0;
+    if (gdwGlobal_007A2784)
+        gdwGlobal_007A2784 = 0;
+    else
+        gdwGlobal_007A277C = 1;
 }
 
-// 0x0044DF20
-void __fastcall sub_0044DF20_InitTerminator(D2StormListStrc* pList)
+// 0x0044DA30
+int __cdecl GAME_IsExitPending()
 {
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+    return gdwGlobal_007A0620;
 }
 
-// 0x0044DF30
-unsigned int D2StormListArrayStrc::sub_0044DF30_CalcChunkSize(unsigned int nCount)
+// 0x0044DA90
+int __cdecl sub_0044DA90()
 {
-    if (nCount < 0x15)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    f_C = 0x15;
-    return 0x15;
+    return gdwGlobal_007A0498;
 }
 
-// 0x0044DF70
-unsigned int __stdcall GAME_RoundUpToMultiple(unsigned int nValue, unsigned int nAlign)
+// 0x0044DAA0
+int __cdecl GAME_GetCurrentTime()
 {
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
+    return gdwGlobal_007A048C;
 }
 
-// 0x0044DF90
-void D2StormListAStrc::sub_0044DF90_CopyLinkOffset(const D2StormListAStrc* pSource)
+// 0x0044DAB0
+int __cdecl sub_0044DAB0()
 {
-    m_linkoffset = pSource->m_linkoffset;
-    InitializeTerminator();
+    return gdwGlobal_007A0494;
 }
 
-// 0x0044DFB0
-unsigned int D2TickTimerStrc::sub_0044DFB0_GetRemaining()
+// 0x0044DAC0
+int __cdecl GAME_GetInteractDeadline()
 {
-    unsigned int dwNow = GetTickCount();
-    if (dwNow >= dwStart + dwDuration)
-    {
-        dwStart = 0;
-        dwDuration = 0;
-        return 0;
-    }
-    return dwStart + dwDuration - dwNow;
+    return gdwGlobal_007A04C8;
 }
 
-// 0x0044E0B0
-void __stdcall GAME_HandleCloseMessage(SMSGHANDLER_PARAMS* pMsg)
+// 0x0044DAE0
+int __cdecl GAME_GetFramesPerSecond()
 {
-    gdwGlobal_007A065C = 0;
-    if (gdwGlobal_007A0620)
-    {
-        UI_FreePlayerUI();
-        sub_00467A00();
-        pMsg->bReturn = 0;
-        return;
-    }
-    sub_00477EE0();
-    gdwGlobal_007A0674 = 1;
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
+    return gdwGlobal_007A04A8;
 }
 
 D2WardenModuleHolderAStrc::~D2WardenModuleHolderAStrc()
@@ -2873,228 +2849,252 @@ void __cdecl GAME_SetDifficultyFlags()
     gpClientInfo_007A0438->wFlags = ((gnDifficulty_007A060C + 1) << 10) | (gpClientInfo_007A0438->wFlags & 0xE0FF);
 }
 
-// 0x0044ECC0
-sub_0044ECC0::~sub_0044ECC0()
+// 0x0044DAF0
+int __cdecl GAME_GetSkippedFrames()
 {
-    f_0.Unlink();
+    return gdwGlobal_007A04B0;
 }
 
-// 0x0044ED00
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
+// 0x0044DB00
+int __cdecl sub_0044DB00()
 {
-    return m_terminator.MaskNext();
+    return gdwGlobal_007A0498;
 }
 
-// 0x0044ED20
-D2StormLinkStrc* D2StormListAStrc::sub_0044ED20_Link(char* pNode)
+// 0x0044DB10
+int __cdecl GAME_GetPathFrame()
 {
-    return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
+    return gdwGlobal_007A04C4;
 }
 
-// 0x0044ED40
-sub_0044ED40::sub_0044ED40()
+// 0x0044DB20
+int __cdecl sub_0044DB20()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    return gdwGlobal_007A0488;
 }
 
-// 0x0044ED50
-sub_0044ED50::~sub_0044ED50()
+// 0x0044DB30
+int __cdecl GAME_GetConnectionType()
 {
-    f_0.Unlink();
+    return gdwGlobal_007A0610;
 }
 
-// 0x0044ED90
-sub_0044ED90::sub_0044ED90()
+// 0x0044DBE0
+void __cdecl GAME_ReadColorFlag()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0044EDA0
-D2StormLinkStrc* D2StormListBStrc::sub_0044EDA0_Link(char* pNode)
-{
-    return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-}
-
-// 0x0044EDC0
-void D2StormListAStrc::sub_0044EDC0_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x0044EE10
-void D2StormListAStrc::sub_0044EE10_InitLinkField(int nLinkOffset)
-{
-    m_linkoffset = nLinkOffset;
-    InitializeTerminator();
-}
-
-// 0x0044EE30
-void D2StormListBStrc::sub_0044EE30_InitLinkField(int nLinkOffset)
-{
-    m_linkoffset = nLinkOffset;
-    InitializeTerminator();
-}
-
-// 0x0044EE50
-void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
-// 0x0044EE90
-D2StormListAStrc::D2StormListAStrc(const D2StormListAStrc& source)
-{
-    m_linkoffset = source.m_linkoffset;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x0044F890
-void D2StormListBStrc::sub_0044F890_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x0044F980
-void D2StormListAStrc::sub_0044F980_ChangeLinkOffset(int nLinkOffset)
-{
-    if (nLinkOffset != m_linkoffset)
+    if (gdwGlobal_007A05FC == 0)
     {
-        UnlinkAll();
-        m_linkoffset = nLinkOffset;
-        InitializeTerminator();
-    }
-}
-
-// 0x0044FA00
-void D2StormHashTableStrc::sub_0044FA00_InternalClear(int bWarn)
-{
-    m_fullnessIndicator = 0;
-    m_fulllist.UnlinkAll();
-    for (unsigned int i = 0; i < m_slotlistarray.f_4; i++)
-    {
-        char* pNode;
-        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+        void* hFile;
+        if (ARCHIVE_OpenFile(0, "Data\\Local\\Color.txt", &hFile, 1))
         {
-            if (bWarn)
-                m_slotlistarray.f_8[i].Link(pNode)->Unlink();
-            else
-                InternalDelete(pNode);
+            char nFlag;
+            ARCHIVE_ReadFileToBuffer(0, hFile, &nFlag, 1);
+            ARCHIVE_CloseFile(0, hFile);
+            if (nFlag == '1')
+                gdwGlobal_007A05FC = 1;
         }
     }
 }
 
-// 0x0044FB80
-D2StormListBStrc::D2StormListBStrc(const D2StormListBStrc& source)
+// 0x0044DC40
+void __cdecl GAME_ToggleColorFlag()
 {
-    m_linkoffset = source.m_linkoffset;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    gdwGlobal_007A05FC = !gdwGlobal_007A05FC;
 }
 
-// 0x004519A0
-void __cdecl sub_004519A0_ToggleFlags()
+// 0x0044DC60
+int __cdecl GAME_GetColorFlag()
 {
-    if (gdwGlobal_007A2784)
-        gdwGlobal_007A2784 = 0;
-    else
-        gdwGlobal_007A277C = 1;
+    return gdwGlobal_007A05FC;
 }
 
-// 0x00451F20
-void __cdecl GAME_RegisterWindowHandlers()
+// 0x0044DCC0
+int __cdecl GAME_IsExpansion()
 {
-    sub_00420320_RegisterHandlers(sub_004F59A0());
+    return gdwGlobal_007A04F4;
 }
 
-// 0x00601BF0
-sub_00601BF0::~sub_00601BF0()
+// 0x0044DD60
+void __cdecl GAME_ExitForCinematic()
+{
+    sub_0044B880_SetValue(0);
+    gdwGlobal_007A0674 = 1;
+    sub_00477EE0();
+    gdwGlobal_007A0620 = 1;
+}
+
+// 0x0044DD90
+D2StormLinkStrc* D2StormLinkStrc::sub_0044DD90_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x0044DDC0
+char* __fastcall sub_0044DDC0_LinkNext(D2StormLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x0044DDD0
+sub_0044DDD0::~sub_0044DDD0()
 {
     f_0.Unlink();
 }
 
-// 0x00601C70
-sub_00601C70::~sub_00601C70()
+// 0x0044DE10
+D2StormListAStrc* D2StormListArrayStrc::sub_0044DE10_At(unsigned int nIndex)
+{
+    return &f_8[nIndex];
+}
+
+// 0x0044DE30
+char* __fastcall sub_0044DE30_LinkNext(D2StormLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x0044DE40
+int __cdecl sub_0044DE40()
+{
+    return 4;
+}
+
+// 0x0044DE50
+void __fastcall sub_0044DE50(PairStrc_0044DE50* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x0044DE60
+D2StormLinkStrc* D2StormLinkStrc::sub_0044DE60_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x0044DE90
+sub_0044DE90::~sub_0044DE90()
 {
     f_0.Unlink();
 }
 
-// 0x00601D60
-sub_00601D60::~sub_00601D60()
+// 0x0044DED0
+char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
 {
-    f_0.Unlink();
+    return pNode + nLinkOffset;
 }
 
-// 0x00601F10
-sub_00601F10::sub_00601F10()
+// 0x0044DEE0
+void __fastcall sub_0044DEE0(PairStrc_0044DEE0* pPair)
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
 }
 
-// 0x00601F20
-sub_00601F20::~sub_00601F20()
+// 0x0044DF00
+void __fastcall sub_0044DF00_InitTerminator(D2StormListStrc* pList)
 {
-    f_0.Unlink();
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
-// 0x00601F60
-sub_00601F60::~sub_00601F60()
+// 0x0044DF10
+D2Warden47F930Strc::D2Warden47F930Strc()
 {
-    f_0.Unlink();
+    n00 = 0;
+    n04 = 0;
+    n08 = 0;
 }
 
-// 0x006020D0
-sub_006020D0::~sub_006020D0()
+// 0x0044DF20
+void __fastcall sub_0044DF20_InitTerminator(D2StormListStrc* pList)
 {
-    f_0.Unlink();
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
-// 0x00602130
-sub_00602130::sub_00602130()
+// 0x0044DF30
+unsigned int D2StormListArrayStrc::sub_0044DF30_CalcChunkSize(unsigned int nCount)
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    if (nCount < 0x15)
+    {
+        unsigned int nResult = nCount;
+        while (nResult & (nResult - 1))
+            nResult &= nResult - 1;
+        return nResult < 1 ? 1 : nResult;
+    }
+    f_C = 0x15;
+    return 0x15;
 }
 
-// 0x00602140
-sub_00602140::~sub_00602140()
+// 0x0044DF70
+unsigned int __stdcall GAME_RoundUpToMultiple(unsigned int nValue, unsigned int nAlign)
 {
-    f_0.Unlink();
+    unsigned int nRemainder = nValue % nAlign;
+    if (nRemainder)
+        nValue += nAlign - nRemainder;
+    return nValue;
 }
 
-// 0x00602180
-sub_00602180::sub_00602180()
+// 0x0044DF90
+void D2StormListAStrc::sub_0044DF90_CopyLinkOffset(const D2StormListAStrc* pSource)
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_linkoffset = pSource->m_linkoffset;
+    InitializeTerminator();
 }
 
-// 0x00602420
-sub_00602420::sub_00602420()
+// 0x0044DFB0
+unsigned int D2TickTimerStrc::sub_0044DFB0_GetRemaining()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    unsigned int dwNow = GetTickCount();
+    if (dwNow >= dwStart + dwDuration)
+    {
+        dwStart = 0;
+        dwDuration = 0;
+        return 0;
+    }
+    return dwStart + dwDuration - dwNow;
 }
 
-// 0x006024A0
-sub_006024A0::~sub_006024A0()
+// 0x0044D9A0
+void __fastcall GAME_ApplyConfigNoCompress(D2ConfigStrc* pConfig)
 {
-    f_0.Unlink();
+    if (pConfig->bNoCompress)
+        D2CMPSetNoCompress(pConfig->bNoCompress);
 }
 
-// 0x00602750
-sub_00602750::sub_00602750()
+// 0x0044D9C0
+void __fastcall GAME_ApplyConfigTxt(D2ConfigStrc* pConfig)
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    DATATBLS_ToggleCompileTxtFlag(!pConfig->bTxt);
 }
 
-// 0x00602760
-sub_00602760::~sub_00602760()
+// 0x0044D9E0
+void __fastcall sub_0044D9E0_ApplyConfigNop(D2ConfigStrc* pConfig)
 {
-    f_0.Unlink();
+}
+
+// 0x0044E0B0
+void __stdcall GAME_HandleCloseMessage(SMSGHANDLER_PARAMS* pMsg)
+{
+    gdwGlobal_007A065C = 0;
+    if (gdwGlobal_007A0620)
+    {
+        UI_FreePlayerUI();
+        sub_00467A00();
+        pMsg->bReturn = 0;
+        return;
+    }
+    sub_00477EE0();
+    gdwGlobal_007A0674 = 1;
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
 }

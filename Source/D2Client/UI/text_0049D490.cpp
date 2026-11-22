@@ -1127,90 +1127,65 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
     sub_00502EF0(nOldFont);
 }
 
-// 0x0049FBA0
-void __stdcall TEXT_OpenTextPanel(int bDraw)
+// 0x004A0B30
+void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
 {
-    if (!sub_00463DD0_GetPlayerUnit())
+    if (!pUnit)
+        return;
+
+    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
+    if (!pHoverText)
+        return;
+
+    D2CoordStrc tPos;
+    UNITS_GetClientCoords(pUnit, &tPos);
+    tPos.nY += -0x1E - gtHoverOffset_007BF214.nY;
+    tPos.nX -= gtHoverOffset_007BF214.nX;
+    switch (sub_0045AE90())
     {
+    case 1:
+        tPos.nX -= gnGlobal_0071146C / 4;
+        break;
+    case 2:
+        tPos.nX += gnGlobal_0071146C / 4;
+        break;
+    case 3:
         return;
     }
 
-    D2CelContextStrc tPiece;
-    memset(&tPiece, 0, sizeof(tPiece));
-    TEXT_DrawPanelFrame();
-
-    if (!gpScroin2_007BF270)
-    {
-        char szPath[0x104] = { 0 };
-        sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin2");
-        gpScroin2_007BF270 = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-
-    if (!gpScroin3_007BF26C)
-    {
-        char szPath[0x104] = { 0 };
-        sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin3");
-        gpScroin3_007BF26C = ARCHIVE_LoadClientCellFile(szPath, 0);
-    }
-
-    if (!bDraw)
-    {
+    if (tPos.nY <= 0 || tPos.nY >= gnGlobal_00711470)
         return;
-    }
+    if (tPos.nX <= -0x64 || tPos.nX >= gnGlobal_0071146C + 0x64)
+        return;
 
-    const int nOldMode = sub_00502EF0(5);
-    tPiece.pCellFile = gpScroin2_007BF270;
-    if (!gdwScrollTick_007BF243)
+    char szText[0x104];
+    CHAT_CopyHoverMsgToBuffer(pHoverText, szText);
+    if (szText[0] == -1 && szText[1] == -1)
     {
-        gdwScrollTick_007BF243 = GetTickCount();
-        gnScrollCounter_007BF247 = 0;
-    }
-    else if (gdwScrollTick_007BF243 + 50 < GetTickCount())
-    {
-        gdwScrollTick_007BF243 = GetTickCount();
-        ++gnScrollCounter_007BF247;
-    }
-
-    for (int i = 0; i < 5; ++i)
-    {
-        if (gnScrollCounter_007BF247 > gaScrollThresholds_00722F08[i])
+        const int nStringId = atoi(&szText[2]);
+        if ((nStringId >= 0x42D && nStringId <= 0x50F) || (nStringId >= 0x5587 && nStringId <= 0x5615)
+            || nStringId == 0x2AA4 || nStringId == 0x5586)
         {
-            const int nTicks = gnScrollCounter_007BF247 - gaScrollThresholds_00722F08[i];
-            tPiece.nFrame = i;
-            int nDrawMode = 5;
-            if (nTicks == 1)
+            const Unicode* wszString = D2LANG_GetStringFromTblIndex(nStringId);
+            if (wszString)
             {
-                sub_004B9A00(0xA6F, 0, 0, 0, 0);
-            }
-            if (nTicks < 5)
-            {
-                nDrawMode = 0;
-            }
-            else if (nTicks < 10)
-            {
-                nDrawMode = 1;
-            }
-            else if (nTicks < 15)
-            {
-                nDrawMode = 2;
-            }
-
-            const unsigned short nSlot = gawScrollSlots_007BF098[i];
-            if (nSlot < 6)
-            {
-                D2_ASSERT(nSlot < 5, 0x1673);
-                TEXTURE_CelDraw(&tPiece, gaScrollPiecePos_00722EB8[nSlot].nX + gnGlobal_007A2858, gaScrollPiecePos_00722EB8[nSlot].nY - gnGlobal_007A285C, -1, nDrawMode, 0);
-
-                D2CelContextStrc tFade;
-                memset(&tFade, 0, sizeof(tFade));
-                tFade.pCellFile = gpScroin3_007BF26C;
-                tFade.nFrame = nTicks >= 21 ? 0 : nTicks;
-                TEXTURE_CelDraw(&tFade, gaScrollFadePos_00722EE0[nSlot].nX + gnGlobal_007A2858, gaScrollFadePos_00722EE0[nSlot].nY - gnGlobal_007A285C, -1, 3, 0);
+                Unicode wszBuffer[0xC8];
+                memset(wszBuffer, 0, sizeof(wszBuffer));
+                int nLength = sub_00526800(wszString);
+                if (nLength >= 0xC8)
+                    nLength = 0xC7;
+                sub_00526790(wszBuffer, wszString, nLength);
+                sub_004A0A00_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
+                return;
             }
         }
     }
 
-    sub_00502EF0(nOldMode);
+    Unicode wszHover[0x100];
+    if (!sub_0049E280_ConvertHoverText(CHAT_GetLangIdFromHoverMsg(pHoverText), wszHover, szText))
+        return;
+    wszHover[0xFF].wChar = 0;
+    sub_004A0A00_ShowHoverText(wszHover, pUnit, pHoverText, &tPos);
 }
 
 // build: context TEXT_ReadLine
@@ -1300,67 +1275,6 @@ T0044CB60* __stdcall TEXT_BuildTextLines(const unsigned short* wszText, int* pLi
 
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x004A0B30
-void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return;
-
-    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
-    if (!pHoverText)
-        return;
-
-    D2CoordStrc tPos;
-    UNITS_GetClientCoords(pUnit, &tPos);
-    tPos.nY += -0x1E - gtHoverOffset_007BF214.nY;
-    tPos.nX -= gtHoverOffset_007BF214.nX;
-    switch (sub_0045AE90())
-    {
-    case 1:
-        tPos.nX -= gnGlobal_0071146C / 4;
-        break;
-    case 2:
-        tPos.nX += gnGlobal_0071146C / 4;
-        break;
-    case 3:
-        return;
-    }
-
-    if (tPos.nY <= 0 || tPos.nY >= gnGlobal_00711470)
-        return;
-    if (tPos.nX <= -0x64 || tPos.nX >= gnGlobal_0071146C + 0x64)
-        return;
-
-    char szText[0x104];
-    CHAT_CopyHoverMsgToBuffer(pHoverText, szText);
-    if (szText[0] == -1 && szText[1] == -1)
-    {
-        const int nStringId = atoi(&szText[2]);
-        if ((nStringId >= 0x42D && nStringId <= 0x50F) || (nStringId >= 0x5587 && nStringId <= 0x5615)
-            || nStringId == 0x2AA4 || nStringId == 0x5586)
-        {
-            const Unicode* wszString = D2LANG_GetStringFromTblIndex(nStringId);
-            if (wszString)
-            {
-                Unicode wszBuffer[0xC8];
-                memset(wszBuffer, 0, sizeof(wszBuffer));
-                int nLength = sub_00526800(wszString);
-                if (nLength >= 0xC8)
-                    nLength = 0xC7;
-                sub_00526790(wszBuffer, wszString, nLength);
-                sub_004A0A00_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
-                return;
-            }
-        }
-    }
-
-    Unicode wszHover[0x100];
-    if (!sub_0049E280_ConvertHoverText(CHAT_GetLangIdFromHoverMsg(pHoverText), wszHover, szText))
-        return;
-    wszHover[0xFF].wChar = 0;
-    sub_004A0A00_ShowHoverText(wszHover, pUnit, pHoverText, &tPos);
-}
-
 // 0x004A3FE0
 void __fastcall TEXT_ToggleQuestLog(int nMode)
 {
@@ -1417,6 +1331,11 @@ void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
     }
 }
 
+// 0x004A4260
+D2QuestTextBufferStrc::D2QuestTextBufferStrc()
+{
+}
+
 int __stdcall sub_M119_Emit_004A4A00(int nX, int nY)
 {
     if (TEXT_IsOnKeyConfigButton(nX, nY))
@@ -1428,9 +1347,17 @@ int __stdcall sub_M119_Emit_004A4A00(int nX, int nY)
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x004A4260
-D2QuestTextBufferStrc::D2QuestTextBufferStrc()
+// 0x004A47C0
+static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
 {
+    unsigned int i;
+    for (i = 0; i < 3; ++i)
+    {
+        if (nX >= gaSliderButtons_007246D8[i].nLeft && nX <= gaSliderButtons_007246D8[i].nRight
+            && nY >= gaSliderButtons_007246D8[i].nTop && nY <= gaSliderButtons_007246D8[i].nBottom)
+            break;
+    }
+    return i;
 }
 
 static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
@@ -1762,19 +1689,6 @@ static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
     return nY < nHalf + (gnGlobal_0071146C - nHalf * 2 - 49) / 3 * 2 + 18;
 }
 
-// 0x004A47C0
-static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
-{
-    unsigned int i;
-    for (i = 0; i < 3; ++i)
-    {
-        if (nX >= gaSliderButtons_007246D8[i].nLeft && nX <= gaSliderButtons_007246D8[i].nRight
-            && nY >= gaSliderButtons_007246D8[i].nTop && nY <= gaSliderButtons_007246D8[i].nBottom)
-            break;
-    }
-    return i;
-}
-
 // 0x004A47F0
 static int TEXT_IsInKeyConfigList(int nX, int nY)
 {
@@ -1900,6 +1814,92 @@ static int sub_004A4FA0_GetEntryState(int nIndex, int nFlag)
     }
 
     return CUNIT_HasHotkeyBinding(gpListEntries_00724264[nIndex].nId, nFlag) ? 4 : 5;
+}
+
+// 0x0049FBA0
+void __stdcall TEXT_OpenTextPanel(int bDraw)
+{
+    if (!sub_00463DD0_GetPlayerUnit())
+    {
+        return;
+    }
+
+    D2CelContextStrc tPiece;
+    memset(&tPiece, 0, sizeof(tPiece));
+    TEXT_DrawPanelFrame();
+
+    if (!gpScroin2_007BF270)
+    {
+        char szPath[0x104] = { 0 };
+        sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin2");
+        gpScroin2_007BF270 = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+
+    if (!gpScroin3_007BF26C)
+    {
+        char szPath[0x104] = { 0 };
+        sprintf(szPath, "%s\\%s", "DATA\\GLOBAL", "UI\\menu\\scroin3");
+        gpScroin3_007BF26C = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+
+    if (!bDraw)
+    {
+        return;
+    }
+
+    const int nOldMode = sub_00502EF0(5);
+    tPiece.pCellFile = gpScroin2_007BF270;
+    if (!gdwScrollTick_007BF243)
+    {
+        gdwScrollTick_007BF243 = GetTickCount();
+        gnScrollCounter_007BF247 = 0;
+    }
+    else if (gdwScrollTick_007BF243 + 50 < GetTickCount())
+    {
+        gdwScrollTick_007BF243 = GetTickCount();
+        ++gnScrollCounter_007BF247;
+    }
+
+    for (int i = 0; i < 5; ++i)
+    {
+        if (gnScrollCounter_007BF247 > gaScrollThresholds_00722F08[i])
+        {
+            const int nTicks = gnScrollCounter_007BF247 - gaScrollThresholds_00722F08[i];
+            tPiece.nFrame = i;
+            int nDrawMode = 5;
+            if (nTicks == 1)
+            {
+                sub_004B9A00(0xA6F, 0, 0, 0, 0);
+            }
+            if (nTicks < 5)
+            {
+                nDrawMode = 0;
+            }
+            else if (nTicks < 10)
+            {
+                nDrawMode = 1;
+            }
+            else if (nTicks < 15)
+            {
+                nDrawMode = 2;
+            }
+
+            const unsigned short nSlot = gawScrollSlots_007BF098[i];
+            if (nSlot < 6)
+            {
+                D2_ASSERT(nSlot < 5, 0x1673);
+                TEXTURE_CelDraw(&tPiece, gaScrollPiecePos_00722EB8[nSlot].nX + gnGlobal_007A2858, gaScrollPiecePos_00722EB8[nSlot].nY - gnGlobal_007A285C, -1, nDrawMode, 0);
+
+                D2CelContextStrc tFade;
+                memset(&tFade, 0, sizeof(tFade));
+                tFade.pCellFile = gpScroin3_007BF26C;
+                tFade.nFrame = nTicks >= 21 ? 0 : nTicks;
+                TEXTURE_CelDraw(&tFade, gaScrollFadePos_00722EE0[nSlot].nX + gnGlobal_007A2858, gaScrollFadePos_00722EE0[nSlot].nY - gnGlobal_007A285C, -1, 3, 0);
+            }
+        }
+    }
+
+    sub_00502EF0(nOldMode);
 }
 
 int sub_B05_Emit_004A4FA0(int* pIndex)

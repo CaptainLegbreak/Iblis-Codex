@@ -322,26 +322,15 @@ static void sub_M08_RemoveUnitFromRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
     SUNIT_RemoveUnit(pGame, pUnit);
 }
 
-// 0x0053A2F0
-void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
+// 0x005390A0
+void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID)
 {
-    D2_ASSERT(pClient, 2386);
-    pClient->nClassId = nAct;
-    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    pClient->nClassId = nAct;
-    const int nX = M08_UNITS_GetXPositionInline(pPlayer);
-    const int nY = M08_UNITS_GetYPositionInline(pPlayer);
-    D2GameStrc* pGame = pClient->pGame;
-    sub_M08_RemoveUnitFromRoom(pGame, pPlayer);
-    ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
-    sub_005394A0(pClient, pClient->pPlayer, pGame, pRoom, nX, nY);
-    pClient->dwFlags &= ~CLIENTFLAGEX_PLAYER_UNIT_ALIVE;
-    if (pRoom != pClient->hRoom)
+    if (pClient)
     {
-        sub_00537B50_ChangeClientRoom(pRoom, pClient);
+        pClient->HotkeySkills[nHotkeyId].nSkill = nSkillId;
+        pClient->HotkeySkills[nHotkeyId].nHand = nHand;
+        pClient->HotkeySkills[nHotkeyId].nItemGUID = nItemGUID;
     }
-    pClient->hRoom = pRoom;
 }
 
 int gbClientListInitialized_008846D8; // 0x008846D8
@@ -349,39 +338,6 @@ int gbClientListInitialized_008846D8; // 0x008846D8
 D2ClientStrc* gpClientList_008842A8[256]; // 0x008842A8
 
 D2ClientStrc* gpClientListByName_00883EA8[256]; // 0x00883EA8
-
-// 0x00538B70
-int __fastcall CLIENTS_GetNameById(int nClientId, char* szName)
-{
-    if (!gbClientListInitialized_008846D8)
-    {
-        return 1;
-    }
-
-    int nResult = 1;
-    EnterCriticalSection(&gClientListLock_008846A8);
-
-    for (D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
-    {
-        if (!nResult)
-        {
-            break;
-        }
-
-        if (pClient->dwClientId == nClientId)
-        {
-            if (szName)
-            {
-                SStrCopy(szName, pClient->szName, sizeof(pClient->szName));
-            }
-
-            nResult = 0;
-        }
-    }
-
-    LeaveCriticalSection(&gClientListLock_008846A8);
-    return nResult;
-}
 
 // 0x00539A30
 D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int a8, int a9)
@@ -450,17 +406,6 @@ D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsig
     ++pGame->nClients;
 
     return pClient;
-}
-
-// 0x005390A0
-void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID)
-{
-    if (pClient)
-    {
-        pClient->HotkeySkills[nHotkeyId].nSkill = nSkillId;
-        pClient->HotkeySkills[nHotkeyId].nHand = nHand;
-        pClient->HotkeySkills[nHotkeyId].nItemGUID = nItemGUID;
-    }
 }
 
 // 0x00540890
@@ -624,6 +569,61 @@ void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     {
         pfMonEvent(pGame, pUnit, nSkillId, nSkillLevel);
     }
+}
+
+// 0x0053A2F0
+void __fastcall CLIENTS_ResetClientInAct(D2ClientStrc* pClient, int nAct)
+{
+    D2_ASSERT(pClient, 2386);
+    pClient->nClassId = nAct;
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    pClient->nClassId = nAct;
+    const int nX = M08_UNITS_GetXPositionInline(pPlayer);
+    const int nY = M08_UNITS_GetYPositionInline(pPlayer);
+    D2GameStrc* pGame = pClient->pGame;
+    sub_M08_RemoveUnitFromRoom(pGame, pPlayer);
+    ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
+    sub_005394A0(pClient, pClient->pPlayer, pGame, pRoom, nX, nY);
+    pClient->dwFlags &= ~CLIENTFLAGEX_PLAYER_UNIT_ALIVE;
+    if (pRoom != pClient->hRoom)
+    {
+        sub_00537B50_ChangeClientRoom(pRoom, pClient);
+    }
+    pClient->hRoom = pRoom;
+}
+
+// 0x00538B70
+int __fastcall CLIENTS_GetNameById(int nClientId, char* szName)
+{
+    if (!gbClientListInitialized_008846D8)
+    {
+        return 1;
+    }
+
+    int nResult = 1;
+    EnterCriticalSection(&gClientListLock_008846A8);
+
+    for (D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 0xFF]; pClient; pClient = pClient->pServerNext)
+    {
+        if (!nResult)
+        {
+            break;
+        }
+
+        if (pClient->dwClientId == nClientId)
+        {
+            if (szName)
+            {
+                SStrCopy(szName, pClient->szName, sizeof(pClient->szName));
+            }
+
+            nResult = 0;
+        }
+    }
+
+    LeaveCriticalSection(&gClientListLock_008846A8);
+    return nResult;
 }
 
 #include "gen/data/Source/D2Game/GAME/Clients_00537B50.inc"

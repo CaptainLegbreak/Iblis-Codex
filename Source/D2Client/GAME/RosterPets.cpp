@@ -262,25 +262,6 @@ D2RosterPetStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
     return 0;
 }
 
-// 0x00478AB0
-void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey)
-{
-    D2RosterPetStrc* pPrev = 0;
-    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nType == 7 && pNode->dwUnitId == nKey)
-        {
-            if (pPrev)
-                pPrev->pNext = pNode->pNext;
-            else
-                gpRosterPets_007BB5BC = pNode->pNext;
-            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0x59, 0);
-            return;
-        }
-        pPrev = pNode;
-    }
-}
-
 // 0x00478B10
 void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue)
 {
@@ -309,6 +290,25 @@ void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nVa
     pNew->nLifePercent = 0x64;
     pNew->pNext = pHead;
     gpRosterPets_007BB5BC = pNew;
+}
+
+// 0x00478AB0
+void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey)
+{
+    D2RosterPetStrc* pPrev = 0;
+    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nType == 7 && pNode->dwUnitId == nKey)
+        {
+            if (pPrev)
+                pPrev->pNext = pNode->pNext;
+            else
+                gpRosterPets_007BB5BC = pNode->pNext;
+            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0x59, 0);
+            return;
+        }
+        pPrev = pNode;
+    }
 }
 
 // 0x00478BB0

@@ -968,52 +968,28 @@ void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 }
 
-// 0x0055AFA0
-void __fastcall ITEMS_DropTreasureClassById(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, int nTCId, int nQuality, int nItemLevel, int a7, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems)
+// 0x0055BFE0
+void __fastcall ITEMMODE_ClearUnitTargetingFlags(D2UnitStrc* pUnit)
 {
-    int nLevel = 0;
-    if (pGame->bExpansion && pGame->nDifficulty > 0 && pMonster && pMonster->dwUnitType == UNIT_MONSTER)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pMonster->dwClassId);
-        if (pMonStatsTxtRecord && !(pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_NORATIO >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NORATIO & 7]) && !(pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_BOSS >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_BOSS & 7]))
-        {
-            nLevel = STATLIST_UnitGetStatValue(pMonster, STAT_LEVEL, 0);
-        }
-    }
+    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1E5);
+}
 
-    D2TCExShortStrc* pTCRecord = DATATBLS_GetTreasureClassExRecordFromIdAndLevel(nTCId, nLevel);
-    if (pTCRecord)
+// 0x0055C270
+void __fastcall ITEMMODE_AddItemScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem)
+{
+    D2_ASSERT(pUnit, 0x24D);
+    D2_ASSERT(pItem, 0x24E);
+
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
-        D2GAME_DropTC_6FC51360(pGame, pMonster, pPlayer, pTCRecord, nQuality, nItemLevel, a7, ppItems, pnItemsDropped, nMaxItems);
+        ITEMMODE_UpdateBookScrollSkillQuantity(1, pUnit, pItem);
     }
 }
 
-// 0x0055B030
-void __fastcall ITEMS_DropGoldPile(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nValue)
+// 0x0055C460
+void __fastcall ITEMMODE_UpdateItemStatlist(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAllowBrokenItemStats)
 {
-    D2UnitStrc* pGoldPiles[32];
-    int nCount;
-    ITEMS_DropGoldPiles(pGame, pUnit, nValue, pGoldPiles, &nCount, 32);
-}
-
-// 0x0055B060
-void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nValue)
-{
-    const unsigned int nGoldLimit = UNITS_GetInventoryGoldLimit(pUnit);
-    const unsigned int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
-    if (nGold == nGoldLimit)
-    {
-        ITEMS_DropGoldPile(pGame, pUnit, nValue);
-    }
-    else if (nGold + nValue > nGoldLimit)
-    {
-        PLRTRADE_AddGold(pUnit, 14, nGoldLimit - nGold);
-        ITEMS_DropGoldPile(pGame, pUnit, nValue + nGold - nGoldLimit);
-    }
-    else
-    {
-        PLRTRADE_AddGold(pUnit, 14, nValue);
-    }
+    sITEMSAddStatsList(pGame, pItem, pUnit, bAllowBrokenItemStats);
 }
 
 inline D2ItemStatCostTxt* GetStatCost(int nStat) {
@@ -1257,12 +1233,6 @@ void __fastcall ITEMMODE_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFi
     }
 }
 
-// 0x0055BFE0
-void __fastcall ITEMMODE_ClearUnitTargetingFlags(D2UnitStrc* pUnit)
-{
-    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1E5);
-}
-
 // 0x0055BFF0
 static int ITEMMODE_GetBookSkillId(D2UnitStrc* pItem)
 {
@@ -1396,16 +1366,45 @@ static int __stdcall ITEMMODE_UpdateBookScrollSkillQuantity(int bAddQuantity, D2
     return 0;
 }
 
-// 0x0055C270
-void __fastcall ITEMMODE_AddItemScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem)
+// 0x0055C470
+static void ITEMMODE_GetWeapons(D2UnitStrc* pUnit, D2UnitStrc** ppMainWeapon, D2UnitStrc** ppRightHandWeapon)
 {
-    D2_ASSERT(pUnit, 0x24D);
-    D2_ASSERT(pItem, 0x24E);
+    *ppRightHandWeapon = 0;
+    *ppMainWeapon = 0;
 
-    if (pUnit->dwUnitType == UNIT_PLAYER)
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (pInventory)
     {
-        ITEMMODE_UpdateBookScrollSkillQuantity(1, pUnit, pItem);
+        *ppMainWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
+        D2UnitStrc* pRightHandWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
+        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
+        if (*ppMainWeapon == pRightHandWeapon)
+        {
+            *ppRightHandWeapon = pLeftHandWeapon;
+        }
+        else
+        {
+            *ppRightHandWeapon = pRightHandWeapon;
+        }
+
+        if (*ppRightHandWeapon && !ITEMSIsA(*ppRightHandWeapon, 0x2D))
+        {
+            *ppRightHandWeapon = 0;
+        }
     }
+}
+
+// 0x0055C4D0
+static __declspec(noinline) int ITEMMODE_IsSkillUsable(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+{
+    switch (SKILLS_GetUseState(pUnit, pSkill))
+    {
+    case 2:
+    case 7:
+        return 0;
+    }
+
+    return 1;
 }
 
 static int sub_0044BE50(D2UnitStrc* pUnit)
@@ -1528,53 +1527,6 @@ skip_merge:
     {
         UnitUpdateAnimRateAndVel(pUnit, szItemModeCpp, 0x2CF);
     }
-}
-
-// 0x0055C460
-void __fastcall ITEMMODE_UpdateItemStatlist(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAllowBrokenItemStats)
-{
-    sITEMSAddStatsList(pGame, pItem, pUnit, bAllowBrokenItemStats);
-}
-
-// 0x0055C470
-static void ITEMMODE_GetWeapons(D2UnitStrc* pUnit, D2UnitStrc** ppMainWeapon, D2UnitStrc** ppRightHandWeapon)
-{
-    *ppRightHandWeapon = 0;
-    *ppMainWeapon = 0;
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (pInventory)
-    {
-        *ppMainWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
-        D2UnitStrc* pRightHandWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-        if (*ppMainWeapon == pRightHandWeapon)
-        {
-            *ppRightHandWeapon = pLeftHandWeapon;
-        }
-        else
-        {
-            *ppRightHandWeapon = pRightHandWeapon;
-        }
-
-        if (*ppRightHandWeapon && !ITEMSIsA(*ppRightHandWeapon, 0x2D))
-        {
-            *ppRightHandWeapon = 0;
-        }
-    }
-}
-
-// 0x0055C4D0
-static __declspec(noinline) int ITEMMODE_IsSkillUsable(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
-{
-    switch (SKILLS_GetUseState(pUnit, pSkill))
-    {
-    case 2:
-    case 7:
-        return 0;
-    }
-
-    return 1;
 }
 
 // 0x0055C4F0
@@ -1792,6 +1744,146 @@ static void __stdcall ITEMMODE_DropBackToGround(int nSoundId, D2UnitStrc* pItem,
 
     UNITS_ChangeAnimMode(pItem, 3);
     SUNIT_AttachSound(pUnit, nSoundId, pUnit);
+}
+
+// 0x0055D370
+int __stdcall ITEMMODE_TryMergeBookQuantity(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+{
+    D2_ASSERT(ptGame, 0x622);
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* pBook = INVENTORY_FindFillableBook(pInventory, pItem, 0);
+    if (!pBook)
+    {
+        return 0;
+    }
+
+    const int nSrcValue = STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0);
+    D2_ASSERT(nSrcValue >= 0, 0x62E);
+
+    const int nDstValue = STATLIST_UnitGetStatValue(pBook, STAT_QUANTITY, 0);
+    D2_ASSERT(nDstValue >= 0, 0x630);
+
+    const int nDstMaxValue = ITEMS_GetTotalMaxStack(pBook);
+    D2_ASSERT(nDstMaxValue >= 0, 0x632);
+
+    const int nQuantity = nDstValue + nSrcValue;
+    if (nQuantity > nDstMaxValue)
+    {
+        STATLIST_SetUnitStat(pBook, STAT_QUANTITY, nDstMaxValue, 0);
+        D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x638), pBook, 1, 0x46, nDstMaxValue, 0);
+
+        const int nRest = nDstValue - nDstMaxValue + nSrcValue;
+        D2_ASSERT(nRest >= 0, 0x63A);
+
+        STATLIST_SetUnitStat(pItem, STAT_QUANTITY, nRest, 0);
+        D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x63D), pItem, 1, 0x46, nRest, 0);
+        ITEMMODE_AddBookScrollSkillQuantity(nDstMaxValue - nDstValue, pUnit, pBook);
+        return 1;
+    }
+
+    D2_ASSERT(nQuantity >= 0, 0x645);
+
+    STATLIST_SetUnitStat(pBook, STAT_QUANTITY, nQuantity, 0);
+    D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x648), pBook, 1, 0x46, nQuantity, 0);
+    ITEMMODE_AddBookScrollSkillQuantity(nSrcValue, pUnit, pBook);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pItem);
+    if (pRoom)
+    {
+        DUNGEON_AllocDrlgDelete(pRoom, !pItem ? 6 : pItem->dwUnitType, !pItem ? -1 : pItem->dwUnitId);
+        UNITS_FreeCollisionPath(pItem);
+        UNITROOM_RemoveUnitFromRoom(pItem);
+    }
+
+    if (pItem)
+    {
+        pItem->dwFlags &= ~2;
+    }
+
+    ITEMS_RemoveFromAllPlayers(ptGame, pItem);
+    INVENTORY_SetCursorItem(pInventory, 0);
+    return 1;
+}
+
+// 0x0055D560
+static void ITEMMODE_BuildEquipmentTraits(D2UnitStrc* pUnit, D2UnitStrc* hItem, D2ItemModeArgStrc* pItemModeArg)
+{
+    D2_ASSERT(hItem, 0x675);
+    D2_ASSERT(pUnit, 0x676);
+    memset(pItemModeArg, 0, sizeof(D2ItemModeArgStrc));
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType == 0 && pUnit->dwClassId == 4)
+    {
+        pItemModeArg->bCanUse2Weapons = 1;
+    }
+    const int nUnitType2 = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType2 == 0 && pUnit->dwClassId == 6 && ITEMSIsA(hItem, 0x43))
+    {
+        pItemModeArg->bCanUse2Weapons = 1;
+    }
+    if (ITEMSIsA(hItem, 0x1B))
+    {
+        pItemModeArg->bIsBow = 1;
+    }
+    if (ITEMSIsA(hItem, 0x23))
+    {
+        pItemModeArg->bIsCrossBow = 1;
+    }
+    if (ITEMSIsA(hItem, 5))
+    {
+        pItemModeArg->bIsBowQuiver = 1;
+    }
+    if (ITEMSIsA(hItem, 6))
+    {
+        pItemModeArg->bIsCrossBowQuiver = 1;
+    }
+    if (ITEMSIsA(hItem, 0x33))
+    {
+        pItemModeArg->bIsShield = 1;
+    }
+    if (ITEMS_CheckWeaponIfTwoHanded(hItem))
+    {
+        pItemModeArg->bIsTwoHanded = 1;
+    }
+    if (ITEMSIsA(hItem, 0x2D))
+    {
+        pItemModeArg->bIsWeapon = 1;
+    }
+    if (ITEMS_CheckIfThrowable(hItem) || STATLIST_UnitGetItemStatOrSkillStatValue(hItem, STAT_ITEM_THROWABLE, 0))
+    {
+        pItemModeArg->bIsThrowable = 1;
+    }
+    if (ITEMSIsA(hItem, 0x0A))
+    {
+        pItemModeArg->bIsRing = 1;
+    }
+}
+
+// 0x0055D670
+static int ITEMMODE_AreEquipmentTraitsCompatible(D2ItemModeArgStrc* pArg1, D2ItemModeArgStrc* pArg2)
+{
+    if (pArg1->bIsBow && pArg2->bIsBowQuiver || pArg1->bIsBowQuiver && pArg2->bIsBow)
+    {
+        return 1;
+    }
+    if (pArg1->bIsCrossBow && pArg2->bIsCrossBowQuiver || pArg1->bIsCrossBowQuiver && pArg2->bIsCrossBow)
+    {
+        return 1;
+    }
+    if (pArg1->bIsWeapon && !pArg1->bIsTwoHanded && pArg2->bIsShield || pArg2->bIsWeapon && !pArg2->bIsTwoHanded && pArg1->bIsShield)
+    {
+        return 1;
+    }
+    if (pArg1->bIsWeapon && !pArg1->bIsTwoHanded && pArg2->bIsWeapon && !pArg2->bIsTwoHanded && pArg1->bCanUse2Weapons && pArg2->bCanUse2Weapons)
+    {
+        return 1;
+    }
+    if (pArg1->bIsRing && pArg2->bIsRing)
+    {
+        return 1;
+    }
+    return 0;
 }
 
 int __fastcall sub_0055CA00_MatchFieldPair(D2ItemsTxt* pRecord1, D2ItemsTxt* pRecord2, int nValue1, int nValue2)
@@ -2224,146 +2316,6 @@ MergeStack:
     }
 }
 
-// 0x0055D370
-int __stdcall ITEMMODE_TryMergeBookQuantity(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    D2_ASSERT(ptGame, 0x622);
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pBook = INVENTORY_FindFillableBook(pInventory, pItem, 0);
-    if (!pBook)
-    {
-        return 0;
-    }
-
-    const int nSrcValue = STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0);
-    D2_ASSERT(nSrcValue >= 0, 0x62E);
-
-    const int nDstValue = STATLIST_UnitGetStatValue(pBook, STAT_QUANTITY, 0);
-    D2_ASSERT(nDstValue >= 0, 0x630);
-
-    const int nDstMaxValue = ITEMS_GetTotalMaxStack(pBook);
-    D2_ASSERT(nDstMaxValue >= 0, 0x632);
-
-    const int nQuantity = nDstValue + nSrcValue;
-    if (nQuantity > nDstMaxValue)
-    {
-        STATLIST_SetUnitStat(pBook, STAT_QUANTITY, nDstMaxValue, 0);
-        D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x638), pBook, 1, 0x46, nDstMaxValue, 0);
-
-        const int nRest = nDstValue - nDstMaxValue + nSrcValue;
-        D2_ASSERT(nRest >= 0, 0x63A);
-
-        STATLIST_SetUnitStat(pItem, STAT_QUANTITY, nRest, 0);
-        D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x63D), pItem, 1, 0x46, nRest, 0);
-        ITEMMODE_AddBookScrollSkillQuantity(nDstMaxValue - nDstValue, pUnit, pBook);
-        return 1;
-    }
-
-    D2_ASSERT(nQuantity >= 0, 0x645);
-
-    STATLIST_SetUnitStat(pBook, STAT_QUANTITY, nQuantity, 0);
-    D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x648), pBook, 1, 0x46, nQuantity, 0);
-    ITEMMODE_AddBookScrollSkillQuantity(nSrcValue, pUnit, pBook);
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pItem);
-    if (pRoom)
-    {
-        DUNGEON_AllocDrlgDelete(pRoom, !pItem ? 6 : pItem->dwUnitType, !pItem ? -1 : pItem->dwUnitId);
-        UNITS_FreeCollisionPath(pItem);
-        UNITROOM_RemoveUnitFromRoom(pItem);
-    }
-
-    if (pItem)
-    {
-        pItem->dwFlags &= ~2;
-    }
-
-    ITEMS_RemoveFromAllPlayers(ptGame, pItem);
-    INVENTORY_SetCursorItem(pInventory, 0);
-    return 1;
-}
-
-// 0x0055D560
-static void ITEMMODE_BuildEquipmentTraits(D2UnitStrc* pUnit, D2UnitStrc* hItem, D2ItemModeArgStrc* pItemModeArg)
-{
-    D2_ASSERT(hItem, 0x675);
-    D2_ASSERT(pUnit, 0x676);
-    memset(pItemModeArg, 0, sizeof(D2ItemModeArgStrc));
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType == 0 && pUnit->dwClassId == 4)
-    {
-        pItemModeArg->bCanUse2Weapons = 1;
-    }
-    const int nUnitType2 = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType2 == 0 && pUnit->dwClassId == 6 && ITEMSIsA(hItem, 0x43))
-    {
-        pItemModeArg->bCanUse2Weapons = 1;
-    }
-    if (ITEMSIsA(hItem, 0x1B))
-    {
-        pItemModeArg->bIsBow = 1;
-    }
-    if (ITEMSIsA(hItem, 0x23))
-    {
-        pItemModeArg->bIsCrossBow = 1;
-    }
-    if (ITEMSIsA(hItem, 5))
-    {
-        pItemModeArg->bIsBowQuiver = 1;
-    }
-    if (ITEMSIsA(hItem, 6))
-    {
-        pItemModeArg->bIsCrossBowQuiver = 1;
-    }
-    if (ITEMSIsA(hItem, 0x33))
-    {
-        pItemModeArg->bIsShield = 1;
-    }
-    if (ITEMS_CheckWeaponIfTwoHanded(hItem))
-    {
-        pItemModeArg->bIsTwoHanded = 1;
-    }
-    if (ITEMSIsA(hItem, 0x2D))
-    {
-        pItemModeArg->bIsWeapon = 1;
-    }
-    if (ITEMS_CheckIfThrowable(hItem) || STATLIST_UnitGetItemStatOrSkillStatValue(hItem, STAT_ITEM_THROWABLE, 0))
-    {
-        pItemModeArg->bIsThrowable = 1;
-    }
-    if (ITEMSIsA(hItem, 0x0A))
-    {
-        pItemModeArg->bIsRing = 1;
-    }
-}
-
-// 0x0055D670
-static int ITEMMODE_AreEquipmentTraitsCompatible(D2ItemModeArgStrc* pArg1, D2ItemModeArgStrc* pArg2)
-{
-    if (pArg1->bIsBow && pArg2->bIsBowQuiver || pArg1->bIsBowQuiver && pArg2->bIsBow)
-    {
-        return 1;
-    }
-    if (pArg1->bIsCrossBow && pArg2->bIsCrossBowQuiver || pArg1->bIsCrossBowQuiver && pArg2->bIsCrossBow)
-    {
-        return 1;
-    }
-    if (pArg1->bIsWeapon && !pArg1->bIsTwoHanded && pArg2->bIsShield || pArg2->bIsWeapon && !pArg2->bIsTwoHanded && pArg1->bIsShield)
-    {
-        return 1;
-    }
-    if (pArg1->bIsWeapon && !pArg1->bIsTwoHanded && pArg2->bIsWeapon && !pArg2->bIsTwoHanded && pArg1->bCanUse2Weapons && pArg2->bCanUse2Weapons)
-    {
-        return 1;
-    }
-    if (pArg1->bIsRing && pArg2->bIsRing)
-    {
-        return 1;
-    }
-    return 0;
-}
-
 // 0x0055D710
 int __fastcall ITEMMODE_FindFreeBodyLocation(D2UnitStrc* pUnit, D2UnitStrc* hItem, int* pBodyLoc, int bSkipRequirementCheck)
 {
@@ -2556,10 +2508,532 @@ static void ITEMMODE_RestoreSelectedSkills(D2UnitStrc* pUnit, D2EquipmentRefresh
     }
 }
 
+// 0x0055B060
+void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nValue)
+{
+    const unsigned int nGoldLimit = UNITS_GetInventoryGoldLimit(pUnit);
+    const unsigned int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
+    if (nGold == nGoldLimit)
+    {
+        ITEMS_DropGoldPile(pGame, pUnit, nValue);
+    }
+    else if (nGold + nValue > nGoldLimit)
+    {
+        PLRTRADE_AddGold(pUnit, 14, nGoldLimit - nGold);
+        ITEMS_DropGoldPile(pGame, pUnit, nValue + nGold - nGoldLimit);
+    }
+    else
+    {
+        PLRTRADE_AddGold(pUnit, 14, nValue);
+    }
+}
+
+// 0x0055AFA0
+void __fastcall ITEMS_DropTreasureClassById(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, int nTCId, int nQuality, int nItemLevel, int a7, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems)
+{
+    int nLevel = 0;
+    if (pGame->bExpansion && pGame->nDifficulty > 0 && pMonster && pMonster->dwUnitType == UNIT_MONSTER)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pMonster->dwClassId);
+        if (pMonStatsTxtRecord && !(pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_NORATIO >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NORATIO & 7]) && !(pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_BOSS >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_BOSS & 7]))
+        {
+            nLevel = STATLIST_UnitGetStatValue(pMonster, STAT_LEVEL, 0);
+        }
+    }
+
+    D2TCExShortStrc* pTCRecord = DATATBLS_GetTreasureClassExRecordFromIdAndLevel(nTCId, nLevel);
+    if (pTCRecord)
+    {
+        D2GAME_DropTC_6FC51360(pGame, pMonster, pPlayer, pTCRecord, nQuality, nItemLevel, a7, ppItems, pnItemsDropped, nMaxItems);
+    }
+}
+
+// 0x0055B030
+void __fastcall ITEMS_DropGoldPile(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nValue)
+{
+    D2UnitStrc* pGoldPiles[32];
+    int nCount;
+    ITEMS_DropGoldPiles(pGame, pUnit, nValue, pGoldPiles, &nCount, 32);
+}
+
 void __fastcall sub_K11_Emit0055D940(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     ITEMMODE_DetachItemAndUpdate(pGame, pUnit, pItem);
     ITEMMODE_DetachItemAndUpdate(pGame, pItem, pUnit);
+}
+
+// 0x0055FDE0
+void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
+{
+    sub_0055DBC0_RecalcEquippedItemStates(pGame, pUnit, 0);
+    if (a3)
+    {
+        UNITS_RefreshInventory(pUnit, 1);
+    }
+}
+
+// 0x00562590
+void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
+{
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    if (ITEMS_CheckItemFlag(pItem, IFLAG_IDENTIFIED, 0x1380, ".\\ITEMS\\ItemMode.cpp") || !pInventory)
+    {
+        return;
+    }
+
+    D2_ASSERT(!ITEMS_CheckItemCMDFlag(pItem, 0x100000), 0x1383);
+
+    ITEMMODE_IdentifyItemAndApplyCharmProperties(pGame, pItem, pPlayer);
+    ITEMS_SetItemFlag(pItem, IFLAG_NEWITEM, 1);
+
+    if (ITEMS_CheckItemFlag(pItem, IFLAG_NOEQUIP, 0x1389, ".\\ITEMS\\ItemMode.cpp"))
+    {
+        ITEMS_SetItemFlag(pItem, IFLAG_NOEQUIP, 0);
+    }
+
+    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+    UNITS_RefreshInventory(pPlayer, 1);
+    SUNIT_AttachSound(pPlayer, 6, pPlayer);
+}
+
+static inline int sub_0055DBC0_GetUnitType(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+// build: context sub_0055DBC0_UnitFlag9
+static inline int sub_0055DBC0_UnitFlag9(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return (pUnit->dwFlags >> 9) & 1;
+}
+
+// 0x0055FE00
+void __fastcall ITEMMODE_IdentifyItemAndApplyCharmProperties(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer)
+{
+    ITEMS_SetItemFlag(pItem, IFLAG_IDENTIFIED, 1);
+
+    if (pItem && pItem->dwAnimMode != IMODE_STORED)
+    {
+        return;
+    }
+
+    if (!ITEMS_IsCharmUsable(pItem, pPlayer))
+    {
+        return;
+    }
+
+    sITEMSAddStatsList(pGame, pItem, pPlayer, 0);
+    sub_0055DBC0_RecalcEquippedItemStates(pGame, pPlayer, 0);
+    UNITS_RefreshInventory(pPlayer, 1);
+}
+
+// 0x0055FE60
+void __stdcall D2GAME_ITEMS_UpdateStatList(D2UnitStrc* pItem)
+{
+    sub_0055C2C0(pItem, 0);
+}
+
+// 0x00560020
+static int ITEMMODE_PickupStackable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+{
+    D2_ASSERT(pGame, 0x65F);
+
+    if (ITEMSIsA(pItem, 0x16))
+    {
+        return ITEMMODE_AddScrollToFillableBook(pGame, pUnit, pItem);
+    }
+
+    if (ITEMSIsA(pItem, 0x12))
+    {
+        return ITEMMODE_TryMergeBookQuantity(pGame, pUnit, pItem);
+    }
+
+    if (ITEMS_CheckIfStackable(pItem) && ITEMS_GetAutoStack(pItem))
+    {
+        return ITEMMODE_AutoStackPickup(pGame, pUnit, pItem);
+    }
+
+    return 0;
+}
+
+// 0x0055F590
+int __fastcall D2GAME_CheckHasFilledSockets(D2UnitStrc* pItem, const char* szFile, int nLine)
+{
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && ITEMS_CheckIfSocketable(pItem) && pItem->pInventory && INVENTORY_GetItemCount(pItem->pInventory) > 0)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+// 0x0055F5D0
+static int __stdcall ITEMMODE_HasSameAffixes(D2UnitStrc* pBook, D2UnitStrc* pItem)
+{
+    for (int i = 0; i < 3; i += 1)
+    {
+        if (ITEMS_GetPrefixId(pBook, i) != ITEMS_GetPrefixId(pItem, i))
+        {
+            return 0;
+        }
+
+        if (ITEMS_GetSuffixId(pBook, i) != ITEMS_GetSuffixId(pItem, i))
+        {
+            return 0;
+        }
+    }
+
+    return ITEMS_GetAutoAffix(pBook) == ITEMS_GetAutoAffix(pItem);
+}
+
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwUnitId;
+}
+
+static inline int sub_0044BE50_Inline(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+// 0x0055FFA0
+static int ITEMMODE_AddScrollToFillableBook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pScroll)
+{
+    D2_ASSERT(pGame, 0x610);
+
+    D2UnitStrc* pBook = INVENTORY_FindFillableBook(pUnit->pInventory, pScroll, 0);
+    if (pBook)
+    {
+        int nItemStatus;
+        const int nBookGUID = pBook->dwUnitId;
+        return ITEMMODE_AddScrollToBook(pGame, pUnit, !pScroll ? -1 : pScroll->dwUnitId, nBookGUID, &nItemStatus);
+    }
+
+    return 0;
+}
+
+void __fastcall sub_BF69_Emit_0055E0D0(D2UnitStrc* pUnit, int nSkillId)
+{
+    if (pUnit && nSkillId)
+    {
+        ITEMMODE_DecrementBookScrollSkillQuantity(pUnit, nSkillId);
+        ITEMMODE_DecrementBookScrollSkillQuantity(pUnit, nSkillId + 1);
+    }
+}
+
+// build: context sub_0055E0D0_DecrementBook
+static void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc* player, int skillId)
+{
+    D2SkillStrc* skill = SKILLS_GetSkillById(player, skillId, -1);
+    D2_ASSERT(skill, 0xFC4);
+    int quantity = SKILLS_GetQuantity(skill) - 1;
+    if (quantity <= 0) {
+        if (UNITS_GetRightSkill(player) == skill) D2GAME_AssignSkill_6FD13800(player, 0, SKILL_ATTACK, -1);
+        quantity = 0;
+    }
+    SKILLS_SetQuantity(skill, quantity);
+    int id = !player ? -1 : player->dwUnitId;
+    int type = !player ? 6 : player->dwUnitType;
+    D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(player, ".\\ITEMS\\ItemMode.cpp", 0xFC2), type, id, skillId, quantity);
+}
+
+static inline D2InventoryStrc* UNITS_GetInventory(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 0 : pUnit->pInventory;
+}
+
+static inline int sub_00623C60(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwClassId;
+}
+
+// 0x005600A0
+static int __stdcall ITEMMODE_PlaceItemAtFreeInventoryPosition(D2GameStrc* ptGame, int bRemove, int nPage, const char* szFile, int nLine, D2UnitStrc* pUnit, D2UnitStrc* hItem)
+{
+    D2_ASSERT(ptGame, 0x746);
+
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 0x749);
+
+    if (INVENTORY_PlaceItemAtFreePosition(hInventory, hItem, UNITS_GetInventoryRecordId(pUnit, nPage, ptGame->bExpansion), 0, 0, szFile, nLine))
+    {
+        if (bRemove)
+        {
+            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(hItem);
+            if (pRoom)
+            {
+                const int nUnitGUID = !hItem ? -1 : hItem->dwUnitId;
+                const int nUnitType = !hItem ? 6 : hItem->dwUnitType;
+                DUNGEON_AllocDrlgDelete(pRoom, nUnitType, nUnitGUID);
+                UNITS_FreeCollisionPath(hItem);
+                UNITROOM_RemoveUnitFromRoom(hItem);
+            }
+        }
+
+        if (INVENTORY_PlaceItemInSocket(hInventory, hItem, 1))
+        {
+            INVENTORY_SetCursorItem(hInventory, 0);
+            ITEMMODE_AddItemScrollSkillQuantity(pUnit, hItem);
+
+            if (ITEMS_IsCharmUsable(hItem, pUnit))
+            {
+                sITEMSAddStatsList(ptGame, hItem, pUnit, 0);
+            }
+
+            if (hItem)
+            {
+                hItem->dwFlags &= ~2u;
+            }
+
+            UNITS_ChangeAnimMode(hItem, 0);
+            ITEMS_SetItemCMDFlag(hItem, 0x80, 1);
+            INVENTORY_AddItemToTradeInventory(hInventory, hItem);
+            UNITS_RefreshInventory(pUnit, 1);
+
+            if (hItem)
+            {
+                hItem->dwFlags &= ~0x02000000u;
+            }
+
+            ITEMS_SetInvPage(hItem, nPage);
+            QUESTS_ItemPickedUp(ptGame, pUnit, hItem);
+
+            if (ITEMS_IsCharmUsable(hItem, pUnit))
+            {
+                sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+                UNITS_RefreshInventory(pUnit, 1);
+            }
+
+            return 1;
+        }
+
+        D2_ASSERT(0, 0x76F);
+    }
+
+    return 0;
+}
+
+static inline int sub_E03_ItemGetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static inline int sub_E03_ItemGetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x00560200
+int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int bAutoPosition, int bNotify, D2InventoryStrc* pInventory)
+{
+    if (!pGame || !pPlayer) return 0;
+    ITEMMODE_ClearTargetingFlags(pPlayer, szItemModeCpp, 0x87B);
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nUnitId);
+    if (!pItem) return 0;
+    if (pItem->dwUnitType != UNIT_ITEM) return 0;
+    if (pItem->dwAnimMode != IMODE_ONCURSOR) return 0;
+    const unsigned char nPage = ITEMS_GetInvPage(pItem);
+    if (!pInventory)
+    {
+        pInventory = pPlayer->pInventory;
+        if (!pInventory) return 0;
+    }
+    int bTrade = 0;
+    int bClearCursor = 1;
+    const int nInventoryRecordId = UNITS_GetInventoryRecordId(pPlayer, nPage, pGame->bExpansion);
+    if (pPlayer->dwUnitType == UNIT_PLAYER)
+    {
+        switch (nPage)
+        {
+        case 1: bClearCursor = 0; break;
+        case 2: bTrade = 1; break;
+        }
+    }
+    if (bAutoPosition)
+    {
+        if (!INVENTORY_PlaceItemAtFreePosition(pInventory, pItem, nInventoryRecordId, 0, nPage, szFile, nLine)) goto failed;
+    }
+    else
+    {
+        if (nX < 0) nX = 0;
+        if (nY < 0) nY = 0;
+        if (!INVENTORY_PlaceItemAtInventoryPage(pInventory, pItem, nX, nY, nInventoryRecordId, 0, nPage)) goto failed;
+    }
+    if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
+    {
+    failed:
+        return 0;
+    }
+    if (ITEMS_GetInvPage(pItem) != 4) ITEMMODE_AddItemScrollSkillQuantity(pPlayer, pItem);
+    pItem->dwFlags &= ~2u;
+    if (ITEMS_IsCharmUsable(pItem, pPlayer)) sITEMSAddStatsList(pGame, pItem, pPlayer, 0);
+    if (bClearCursor) INVENTORY_SetCursorItem(pInventory, 0);
+    UNITS_ChangeAnimMode(pItem, 0);
+    if (bNotify)
+    {
+        ITEMS_SetItemCMDFlag(pItem, 2, 1);
+        if (D2GAME_CheckHasFilledSockets(pItem, szItemModeCpp, 0x8EA)) ITEMS_SetItemFlag(pItem, 1, 1);
+        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x8EE, szItemModeCpp)) ITEMS_SetItemFlag(pItem, 0x4000, 0);
+        UNITS_RefreshInventory(pPlayer, 1);
+        INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+    }
+    if (bTrade == 1) PLRTRADE_AddItemToTrade(pGame, pPlayer, pItem);
+    if (ITEMS_IsCharmUsable(pItem, pPlayer))
+    {
+        sub_0055DBC0_RecalcEquippedItemStates(pGame, pPlayer, 0);
+        UNITS_RefreshInventory(pPlayer, 1);
+    }
+    return 1;
+}
+
+// 0x00560420
+int __fastcall ITEMMODE_RemoveStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus, int nUpdateMode, int bSetQuantityFlag, D2InventoryStrc* pInventoryArg, int bAllowOccupiedCursor)
+{
+    D2_ASSERT(ptGame, 0x906);
+    D2_ASSERT(pUnit, 0x907);
+
+    *pItemStatus = 0;
+
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    if (pInventoryArg)
+    {
+        hInventory = pInventoryArg;
+    }
+
+    D2_ASSERT(hInventory, 0x910);
+
+    if (INVENTORY_GetCursorItem(hInventory) && !bAllowOccupiedCursor)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* hItem = SUNIT_GetServerUnit(ptGame, UNIT_ITEM, nItemGUID);
+    if (!hItem)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (hItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pUnit->dwUnitType == UNIT_PLAYER && !PLAYER_IsBusy(pUnit) && ITEMS_GetInventoryPage(hItem))
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (hItem->dwAnimMode != IMODE_STORED)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x936);
+
+    hItem->dwFlags &= ~UNITFLAG_TARGETABLE;
+
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(hInventory, hItem);
+    D2_ASSERT(hRemove, 0x947);
+    D2_ASSERT(hItem == hRemove, 0x948);
+
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hItem, pUnit, 0, 1);
+
+    if (ITEMS_IsCharmUsable(hItem, pUnit))
+    {
+        sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+        UNITS_RefreshInventory(pUnit, 1);
+    }
+
+    ITEMMODE_RemoveItemScrollSkillQuantity(pUnit, hItem);
+
+    const unsigned char nInvPage = ITEMS_GetInventoryPage(hItem);
+    const int nInventoryRecordId = UNITS_GetInventoryRecordId(pUnit, nInvPage, ptGame->bExpansion);
+
+    int bTrade = 0;
+    int bEquip = 1;
+
+    if (pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        switch (nInvPage)
+        {
+        case INVPAGE_EQUIP:
+            bEquip = 0;
+            break;
+        case INVPAGE_TRADE:
+            bTrade = 1;
+            break;
+        }
+    }
+    else
+    {
+        bEquip = 0;
+    }
+
+    INVENTORY_Return(".\\ITEMS\\ItemMode.cpp", 0x965, hInventory, CLIENTS_GetUnitX(hItem), CLIENTS_GetUnitY(hItem), nInventoryRecordId, 0, nInvPage);
+
+    ITEMS_SetItemCell(hItem, nInvPage);
+    ITEMS_SetInvPage(hItem, INVPAGE_NULL);
+
+    if (bEquip)
+    {
+        INVENTORY_SetCursorItem(hInventory, hItem);
+    }
+
+    UNITS_ChangeAnimMode(hItem, IMODE_ONCURSOR);
+
+    if (nUpdateMode == 1)
+    {
+        if (bSetQuantityFlag)
+        {
+            ITEMS_SetItemFlag(hItem, IFLAG_QUANTITY, 1);
+        }
+
+        if (bTrade == 1)
+        {
+            PLRTRADE_RemoveItemFromTrade(ptGame, pUnit, hItem);
+        }
+
+        ITEMS_SetItemCMDFlag(hItem, 4, 1);
+
+        if (D2GAME_CheckHasFilledSockets(hItem, ".\\ITEMS\\ItemMode.cpp", 0x975))
+        {
+            ITEMS_SetItemFlag(hItem, IFLAG_NEWITEM, 1);
+        }
+
+        if (sub_006280A0(hItem, IFLAG_NOEQUIP, 0x978, ".\\ITEMS\\ItemMode.cpp"))
+        {
+            ITEMS_SetItemFlag(hItem, IFLAG_NOEQUIP, 0);
+        }
+
+        INVENTORY_AddItemToTradeInventory(hInventory, hItem);
+        UNITS_RefreshInventory(pUnit, 1);
+    }
+
+    return 1;
 }
 
 // 0x0055DB00
@@ -2601,136 +3075,133 @@ D2ClientStrc* __fastcall ITEMMODE_GetClientFromUnitOrOwner(D2UnitStrc* pUnit)
     return 0;
 }
 
-static inline int sub_0055DBC0_GetUnitType(D2UnitStrc* pUnit)
-{
-    return !pUnit ? 6 : pUnit->dwUnitType;
-}
-
-// build: context sub_0055DBC0_UnitFlag9
-static inline int sub_0055DBC0_UnitFlag9(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    return (pUnit->dwFlags >> 9) & 1;
-}
-
-// 0x0055DBC0
-void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitStrc* pUnit,int bRefresh)
-{
-    if (!pUnit)
-        return;
-
-    if (sub_0055DBC0_GetUnitType(pUnit) && !sub_0055DBC0_UnitFlag9(pUnit))
-        return;
-
-    D2EquipmentRefreshStateStrc refreshState;
-    ITEMMODE_SaveEquipmentRefreshState(pUnit,&refreshState);
-    D2InventoryStrc* pInventory=pUnit->pInventory;
-    if(!pInventory) return;
-    for(D2UnitStrc* pLink=INVENTORY_GetFirstItem(pInventory);pLink;pLink=INVENTORY_GetNextItem(pLink))
-    {
-        D2UnitStrc* pItem=INVENTORY_UnitIsItem(pLink);
-        if(pItem && INVENTORY_GetItemNodePage(pLink)==1 && ITEMS_IsCharmUsable(pItem,pUnit) && !STATLIST_GetOwner(pItem,0) && ITEMMODE_CheckEquipRequirements(pUnit,pItem))
-        {
-            ITEMS_SetItemFlag(pItem,0x4000,0);
-            ITEMMODE_UpdateEquippedItemStats(pGame,pItem,pUnit);
-        }
-    }
-    for (int i = 1; i < 11; ++i)
-    {
-        D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, i);
-        if (!pItem)
-            continue;
-
-        if (ITEMS_CheckItemFlag(pItem, 0x100, 0xa85, szItemModeCpp) && !STATLIST_GetOwner(pItem, 0))
-            continue;
-
-        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xa8a, szItemModeCpp) && !STATLIST_GetOwner(pItem, 0))
-            continue;
-
-        if (ITEMMODE_CheckEquipRequirements(pUnit, pItem))
-            continue;
-
-        ITEMS_SetItemFlag(pItem, 0x4000, 1);
-        INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
-        const int nMode = UNITS_GetAnimOrSeqMode(pItem);
-        if (nMode == 1)
-            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, pItem, pUnit, nMode, nMode);
-    }
-    int bContinue;
-    do
-    {
-        bContinue=0;
-        for (int i = 1; i < 11; ++i)
-        {
-            D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, i);
-            if (!pItem)
-                continue;
-
-            if (ITEMS_CheckItemFlag(pItem, 0x100, 0xaa4, szItemModeCpp))
-                continue;
-
-            if (!ITEMS_CheckItemFlag(pItem, 0x4000, 0xaa8, szItemModeCpp) && STATLIST_GetOwner(pItem, 0))
-                continue;
-
-            if (!ITEMMODE_CheckEquipRequirements(pUnit, pItem))
-                continue;
-
-            {
-                ITEMS_SetItemFlag(pItem,0x4000,0);
-                D2InventoryStrc* pCurrentInventory=pUnit->pInventory;
-                if(pCurrentInventory)
-                {
-                    unsigned char nBodyLoc=ITEMS_GetBodyLocation(pItem);
-                    if(nBodyLoc!=0xb && nBodyLoc!=0xc)
-                    {
-                        INVENTORY_UpdateWeaponGUIDOnInsert(pCurrentInventory,pItem);
-                        if (UNITS_GetAnimOrSeqMode(pItem)==1)
-                        {
-                            sITEMSAddStatsList(pGame,pItem,pUnit,1);
-                        }
-                        else if (!UNITS_GetAnimOrSeqMode(pItem) && ITEMS_IsCharmUsable(pItem,pUnit))
-                        {
-                            sITEMSAddStatsList(pGame,pItem,pUnit,1);
-                        }
-                    }
-                }
-                bContinue=1;
-            }
-        }
-    }while(bContinue);
-    for(int i=1;i<11;++i)
-    {
-        D2UnitStrc* pItem=INVENTORY_GetItemFromBodyLoc(pInventory,i);
-        if(pItem && ITEMS_GetItemQuality(pItem)==ITEMQUAL_SET && !ITEMS_CheckItemFlag(pItem,0x100,0xac2,szItemModeCpp) && !ITEMS_CheckItemFlag(pItem,0x4000,0xac3,szItemModeCpp))
-        {
-            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(*(D2GameStrc* *)&pGame,pItem,pUnit,1,1);
-            sITEMSAddStatsList(pGame,pItem,pUnit,1);
-        }
-    }
-    ITEMMODE_RestoreSelectedSkills(pUnit,&refreshState);
-    UNITS_RefreshInventory(pUnit,1);
-    if(bRefresh)
-    {
-        D2ClientStrc* pClient;
-        if(pUnit->dwUnitType==UNIT_PLAYER) pClient=UnitGetClient(pUnit,szItemModeCpp,0xa44);
-        else
-        {
-            D2UnitStrc* pOwner=AIGENERAL_GetMinionOwner(pUnit);
-            if(!pOwner || pOwner->dwUnitType!=UNIT_PLAYER) return;
-            pClient=UnitGetClient(pOwner,szItemModeCpp,0xa49);
-        }
-        if(pClient) D2GAME_SendPacket0x48_6FC3EF40(pClient,pUnit,0);
-    }
-}
-
 // 0x0055DF00
 void __fastcall D2GAME_ITEMS_UpdateInventoryItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused, int nArg)
 {
     sub_0055DBC0_RecalcEquippedItemStates(pGame, pUnit, nArg);
+}
+
+// 0x005606B0
+int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus)
+{
+    int bIsSwitchWeapon = 0;
+    if (nBodyLoc == 0xB || nBodyLoc == 0xC)
+    {
+        bIsSwitchWeapon = 1;
+    }
+
+    D2_ASSERT(ptGame, 0xAEE);
+    D2_ASSERT(hUnit, 0xAEF);
+
+    if (pItemStatus)
+    {
+        *pItemStatus = 0;
+    }
+
+    ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0xAF7);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!pItem)
+    {
+        if (pItemStatus)
+        {
+            *pItemStatus = 1;
+        }
+
+        return 0;
+    }
+
+    if (pItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pItem->dwAnimMode != IMODE_ONCURSOR)
+    {
+        if (pItemStatus)
+        {
+            *pItemStatus = 1;
+        }
+
+        return 0;
+    }
+
+    if (D2Common_10299(hUnit, nBodyLoc, pItem, bSkipRequirementCheck) != 1)
+    {
+        if (pItemStatus)
+        {
+            *pItemStatus = 0;
+        }
+
+        return 0;
+    }
+
+    if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, hUnit, 0, 0, 0, 0))
+    {
+        if (pItemStatus)
+        {
+            *pItemStatus = 1;
+        }
+
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = hUnit->pInventory;
+    if (!bIsSwitchWeapon)
+    {
+        D2UnitStrc* pMainWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
+        if (pMainWeapon)
+        {
+            UNITS_SetWeaponGUID(hUnit, pMainWeapon);
+        }
+    }
+
+    if (sub_0063BDB0(pInventory, pItem, nBodyLoc))
+    {
+        int nPage = 3;
+        if (bIsSwitchWeapon)
+        {
+            nPage = 4;
+        }
+
+        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, nPage))
+        {
+            ITEMS_SetBodyLocation(pItem, nBodyLoc);
+
+            if (!bIsSwitchWeapon)
+            {
+                sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+                sITEMSAddStatsList(ptGame, pItem, hUnit, 0);
+            }
+
+            INVENTORY_SetCursorItem(pInventory, 0);
+            pItem->dwFlags &= ~2;
+            UNITS_ChangeAnimMode(pItem, 1);
+            ITEMS_SetInvPage(pItem, 0xFF);
+            ITEMS_SetItemCMDFlag(pItem, 8, 1);
+            ITEMS_SetItemFlag(pItem, 1, 1);
+            if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xB4E, ".\\ITEMS\\ItemMode.cpp"))
+            {
+                ITEMS_SetItemFlag(pItem, 0x4000, 0);
+            }
+
+            INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+            UNITS_RefreshInventory(hUnit, 1);
+            ITEMMODE_RefreshSkillsForEquippedWeapons(hUnit);
+            sub_0055DBC0_RecalcEquippedItemStates(ptGame, hUnit, 0);
+        }
+        else
+        {
+            if (pItemStatus)
+            {
+                *pItemStatus = 1;
+            }
+
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
 // 0x0055DF10
@@ -2792,16 +3263,6 @@ static int ITEMMODE_GetBookOrScrollSkillId(D2UnitStrc* pItem)
     return nSkillId;
 }
 
-static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
-{
-    return !pUnit ? -1 : pUnit->dwUnitId;
-}
-
-static inline int sub_0044BE50_Inline(D2UnitStrc* pUnit)
-{
-    return !pUnit ? 6 : pUnit->dwUnitType;
-}
-
 // 0x0055E0D0
 static void __stdcall ITEMMODE_DecrementBookScrollSkillQuantity(D2UnitStrc* pUnit, int nSkillId)
 {
@@ -2830,39 +3291,14 @@ static void __stdcall ITEMMODE_DecrementBookScrollSkillQuantity(D2UnitStrc* pUni
     }
 }
 
-void __fastcall sub_BF69_Emit_0055E0D0(D2UnitStrc* pUnit, int nSkillId)
+// 0x00561E70
+void __fastcall ITEMMODE_RemoveBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
-    if (pUnit && nSkillId)
-    {
-        ITEMMODE_DecrementBookScrollSkillQuantity(pUnit, nSkillId);
-        ITEMMODE_DecrementBookScrollSkillQuantity(pUnit, nSkillId + 1);
-    }
-}
-
-// build: context sub_0055E0D0_DecrementBook
-static void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc* player, int skillId)
-{
-    D2SkillStrc* skill = SKILLS_GetSkillById(player, skillId, -1);
-    D2_ASSERT(skill, 0xFC4);
-    int quantity = SKILLS_GetQuantity(skill) - 1;
-    if (quantity <= 0) {
-        if (UNITS_GetRightSkill(player) == skill) D2GAME_AssignSkill_6FD13800(player, 0, SKILL_ATTACK, -1);
-        quantity = 0;
-    }
-    SKILLS_SetQuantity(skill, quantity);
-    int id = !player ? -1 : player->dwUnitId;
-    int type = !player ? 6 : player->dwUnitType;
-    D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(player, ".\\ITEMS\\ItemMode.cpp", 0xFC2), type, id, skillId, quantity);
-}
-
-static inline D2InventoryStrc* UNITS_GetInventory(D2UnitStrc* pUnit)
-{
-    return !pUnit ? 0 : pUnit->pInventory;
-}
-
-static inline int sub_00623C60(D2UnitStrc* pUnit)
-{
-    return !pUnit ? -1 : pUnit->dwClassId;
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 3988);
+    int nFlags = 0;
+    ITEMS_SetOrRemoveFlag(&nFlags, ITEMACTION_FLAG_BELT, 1);
+    D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(pClient, pUnit, pItem, nFlags);
+    ITEMMODE_RemoveInventoryItemFromAllPlayers(pGame, pUnit, pItem);
 }
 
 // 0x0055E170
@@ -2960,32 +3396,6 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* ptGame, D2UnitStr
     return 0;
 }
 
-static inline int sub_E03_ItemGetUnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-static inline int sub_E03_ItemGetUnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
 // 0x0055E590
 static void __stdcall ITEMMODE_MergeStacks(D2GameStrc* pGame, D2UnitStrc* pItem1, D2UnitStrc* pUnit, D2UnitStrc* pItem2)
 {
@@ -3064,6 +3474,13 @@ static void __stdcall ITEMMODE_MergeStacks(D2GameStrc* pGame, D2UnitStrc* pItem1
     {
         ITEMS_SetItemFlag(pItem2, 8, 1);
     }
+}
+
+// build: context GetUnitType
+static inline int GetUnitType(D2UnitStrc* pUnit)
+{
+    if (pUnit) return pUnit->dwUnitType;
+    return 6;
 }
 
 // 0x0055E7C0
@@ -3150,6 +3567,65 @@ static void __stdcall ITEMMODE_InitItemDropFromItem(int nId, D2GameStrc* pGame, 
     const unsigned int nItemSeed = ITEMS_GetItemStartSeed(pItem);
     pItemDrop->nItemIndex = 2;
     pItemDrop->dwItemSeed = nItemSeed;
+}
+
+int __fastcall ITEMMODE_CheckAndResolveBodySlotPair(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc** ppPrimary, D2UnitStrc** ppOther, int* pBodyLoc)
+{
+    if (!pUnit || !pItem || GetUnitType(pItem) != 4) return 0;
+    D2UnitStrc* pPrimary = *ppPrimary;
+    if (pPrimary)
+    {
+        if (*ppOther) return 0;
+    }
+    else if (!*ppOther) return 1;
+    int nOpposite = ITEMMODE_GetOppositeBodyLoc(*pBodyLoc);
+    if (pPrimary)
+    {
+        *ppPrimary = *ppOther;
+        *ppOther = pPrimary;
+        *pBodyLoc = nOpposite;
+    }
+    switch (*pBodyLoc)
+    {
+    case 4: case 5: case 11: case 12:
+        if (ITEMS_GetAmmoType(pItem) > 0)
+        {
+            if (!*ppOther) return 1;
+            return ITEMSIsA(*ppOther, ITEMS_GetAmmoType(pItem)) != 0;
+        }
+        if (ITEMS_GetQuiverType(pItem))
+        {
+            if (!*ppOther) return 1;
+            if (ITEMS_GetAmmoType(*ppOther) <= 0) return 0;
+            return ITEMSIsA(pItem, ITEMS_GetAmmoType(*ppOther)) != 0;
+        }
+        if (ITEMS_GetAmmoType(*ppOther) > 0) return ITEMSIsA(pItem, ITEMS_GetAmmoType(*ppOther)) != 0;
+        if (ITEMS_GetQuiverType(*ppOther) > 0) return ITEMSIsA(pItem, ITEMS_GetQuiverType(*ppOther)) != 0;
+        if (ITEMS_CheckWeaponIfTwoHanded(pItem) && !ITEMS_Is1Or2Handed(pUnit, pItem)) return 0;
+        if (ITEMS_CheckWeaponIfTwoHanded(*ppOther) && !ITEMS_Is1Or2Handed(pUnit, *ppOther)) return 0;
+        {
+            int bItemWeapon = ITEMSIsA(pItem, 45);
+            int bOtherWeapon = ITEMSIsA(*ppOther, 45);
+            if (bItemWeapon)
+            {
+                if (bOtherWeapon)
+                {
+                    if (GetUnitType(pUnit) == 1) return 1;
+                    switch (pUnit->dwClassId)
+                    {
+                    case 4: return 1;
+                    case 6:
+                        if (ITEMSIsA(pItem, 67) && ITEMSIsA(*ppOther, 67)) return 1;
+                        return 0;
+                    default: return 0;
+                    }
+                }
+            }
+            else if (!bOtherWeapon) return 0;
+            return *ppPrimary == 0;
+        }
+    default: return *ppPrimary == 0;
+    }
 }
 
 // 0x0055E9B0
@@ -3309,35 +3785,6 @@ int __fastcall ITEMMODE_SwapCursorAndBeltItem(D2GameStrc* ptGame, D2UnitStrc* pU
     D2_ASSERT(0, 0x12D8);
 }
 
-// 0x0055EDC0
-void __fastcall ITEMMODE_CompactBeltColumn(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX)
-{
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    nX &= 3;
-    int nDestinationRow = 0;
-    nX = nX > 0 ? nX : 0;
-    nX = nX < 3 ? nX : 3;
-    for (int nRow = 0; nRow < 4; ++nRow)
-    {
-        D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nX + 4 * nRow);
-        if (pItem)
-        {
-            if (nDestinationRow != nRow)
-            {
-                INVENTORY_PlaceItemInBeltSlot(pInventory, pItem, nX + 4 * nDestinationRow);
-                ITEMS_SetItemFlag(pItem, 0x400, 1);
-                ITEMS_SetItemFlag(pItem, 1, 1);
-                if (ITEMS_CheckItemFlag(pItem, 0x4000, 4883, ".\\ITEMS\\ItemMode.cpp"))
-                    ITEMS_SetItemFlag(pItem, 0x4000, 0);
-                UNITS_RefreshInventory(pUnit, 1);
-                INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-                sub_0063C550_Return(pInventory, nX + 4 * nRow);
-            }
-            ++nDestinationRow;
-        }
-    }
-}
-
 // 0x0055EEA0
 int __fastcall D2GAME_RemoveItemIfOnCursor_6FC49760(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
@@ -3448,6 +3895,69 @@ void __fastcall ITEMMODE_UpdateItemStatListExpiration(D2GameStrc* pGame, D2UnitS
     STATLIST_UpdateStatListsExpiration(pUnit, pGame->dwGameFrame);
 }
 
+// 0x00562C40
+static int __stdcall ITEMMODE_ReplenishItemStat(D2GameStrc* pGame, D2UnitStrc* pItem, int nLengthStatId, int nValueStatId, int nMaxValue)
+{
+    const int nLength = STATLIST_UnitGetStatValue(pItem, nLengthStatId, 0);
+    if (!nLength)
+    {
+        return 0;
+    }
+
+    const int nValue = STATLIST_UnitGetStatValue(pItem, nValueStatId, 0) + 1;
+    if (nValue > nMaxValue)
+    {
+        return 1;
+    }
+
+    STATLIST_SetUnitStat(pItem, nValueStatId, nValue, 0);
+
+    const int nOwnerGUID = ITEMS_GetOwnerId(pItem);
+    if (nOwnerGUID != -1)
+    {
+        D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nOwnerGUID);
+        if (pOwner)
+        {
+            D2ClientStrc* pClient = UnitGetClient(pOwner, ".\\ITEMS\\ItemMode.cpp", 5504);
+            if (pClient)
+            {
+                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(pClient, pItem, 1, nValueStatId, nValue, 0);
+                if (nValue >= 1)
+                {
+                    if (ITEMS_CheckItemFlag(pItem, IFLAG_BROKEN, 5510, ".\\ITEMS\\ItemMode.cpp"))
+                    {
+                        D2GAME_RepairBrokenItem_6FC4B630(pGame, pOwner, pItem);
+                    }
+                }
+            }
+        }
+    }
+
+    int nDuration = 2500 / nLength + 1;
+    if (nDuration < 125)
+    {
+        nDuration = 125;
+    }
+
+    EVENT_SetEvent(pGame, pItem, EVENTTYPE_STATREGEN, pGame->dwGameFrame + nDuration, 0, 0);
+
+    return 1;
+}
+
+// 0x00562D30
+void __fastcall ITEMMODE_ReplenishItem(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!ITEMS_CheckItemFlag(pUnit, IFLAG_BROKEN, 5542, ".\\ITEMS\\ItemMode.cpp") && ITEMS_HasDurability(pUnit) && ITEMMODE_ReplenishItemStat(pGame, pUnit, STAT_ITEM_REPLENISH_DURABILITY, STAT_DURABILITY, STATLIST_GetMaxDurabilityFromUnit(pUnit)))
+    {
+        return;
+    }
+
+    if (ITEMS_CheckIfStackable(pUnit))
+    {
+        ITEMMODE_ReplenishItemStat(pGame, pUnit, STAT_ITEM_REPLENISH_QUANTITY, STAT_QUANTITY, ITEMS_GetTotalMaxStack(pUnit));
+    }
+}
+
 // 0x0055F140
 int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc* ptGame, D2UnitStrc* hUnit)
 {
@@ -3501,6 +4011,29 @@ int __fastcall ITEMMODE_GetOppositeBodyLoc(int nBodyLoc)
     return 0;
 }
 
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
 // 0x0055F2A0
 D2UnitStrc* __fastcall ITEMMODE_GetItemFromOppositeBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pDefault, int nBodyLoc)
 {
@@ -3512,11 +4045,163 @@ D2UnitStrc* __fastcall ITEMMODE_GetItemFromOppositeBodyLoc(D2InventoryStrc* pInv
     return INVENTORY_GetItemFromBodyLoc(pInventory, nOpposite);
 }
 
-// build: context GetUnitType
-static inline int GetUnitType(D2UnitStrc* pUnit)
+// 0x00564CA0
+extern "C" __declspec(dllexport) int __cdecl sub_00564CA0() {
+    return 1;
+}
+
+// 0x00568DC0
+unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nGUID)
 {
-    if (pUnit) return pUnit->dwUnitType;
-    return 6;
+    if (nGUID == -1)
+    {
+        return 0;
+    }
+
+    if (!pPlayer->pInventory)
+    {
+        return 0;
+    }
+
+    int nIdx = 1;
+    D2UnitStrc* pNode = INVENTORY_GetFirstItem(pPlayer->pInventory);
+    while (pNode)
+    {
+        D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pNode);
+        pNode = INVENTORY_GetNextItem(pNode);
+        if ((!pCheckedItem ? -1 : pCheckedItem->dwUnitId) == nGUID)
+        {
+            D2_ASSERT(nIdx < 0x7FFF, 0x185);
+            return nIdx;
+        }
+
+        ++nIdx;
+    }
+
+    return 0;
+}
+
+// 0x00568E60
+void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SaveHeaderStrc* pSaveHeader)
+{
+    D2UnitStrc* pHireling = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
+    if (!pHireling)
+    {
+        return;
+    }
+
+    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pPlayer, pHireling->dwUnitId);
+    const int nLevel = STATLIST_UnitGetStatValue(pHireling, STAT_LEVEL, 0);
+
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pPetInfo->nHirelingId, nLevel);
+    if (!pHirelingTxtRecord)
+    {
+        return;
+    }
+
+    *(unsigned int*)pSaveHeader->f_B3 = pPetInfo->nSeed;
+    *(unsigned short*)pSaveHeader->wMercName = *(unsigned short*)&pPetInfo->nName;
+    *(unsigned short*)pSaveHeader->wMercHirelingId = pPetInfo->nHirelingId;
+    *(unsigned int*)pSaveHeader->nMercExperience = STATLIST_UnitGetStatValue(pHireling, STAT_EXPERIENCE, 0);
+    *(unsigned int*)pSaveHeader->MercSaveData = 0;
+    *(unsigned short*)pSaveHeader->wMercName -= pHirelingTxtRecord->wNameFirst;
+
+    if (SUNIT_IsDead(pHireling))
+    {
+        *(unsigned int*)pSaveHeader->MercSaveData |= 0x10000;
+    }
+}
+
+// 0x00569A00
+int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int a6)
+{
+    unsigned char* pData = *ppSection;
+    int bHasIronGolem = 0;
+    if (!pGame->bExpansion)
+    {
+        return 0;
+    }
+
+    *(unsigned short*)pData = 'fk';
+    pData += 2;
+
+    D2UnitStrc* pIronGolem = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 3, 1);
+    D2UnitStrc* pGolemItem = 0;
+    D2UnitStrc* pFirst;
+    if (pIronGolem && pIronGolem->dwClassId == 0x123 && SKILLS_GetSkillById(pPlayer, SKILL_IRONGOLEM, -1) && pIronGolem->pInventory
+        && (pFirst = INVENTORY_GetFirstItem(pIronGolem->pInventory)) != 0 && (pGolemItem = INVENTORY_UnitIsItem(pFirst)) != 0)
+    {
+        bHasIronGolem = 1;
+    }
+
+    unsigned char* pFlag = pData;
+    *pData = bHasIronGolem;
+    ++pData;
+    if (bHasIronGolem)
+    {
+        const int nLength = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pPlayer, pGolemItem, pData, pEnd - pData, 0, a5, a6);
+        if (nLength <= 0)
+        {
+            *pFlag = 0;
+        }
+
+        pData += nLength;
+    }
+
+    *ppSection = pData;
+    return 0;
+}
+
+// 0x00569F20
+void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
+{
+    CLIENTS_SetPlayerInClient(pClient, pPlayer);
+    SUNIT_InitClientInPlayerData(pPlayer, pClient);
+    UNITS_SetNameInPlayerData(pPlayer, CLIENTS_GetName(pClient));
+    SUNIT_InitSeed(pPlayer, &pGame->pGameSeed);
+    UNITS_ChangeAnimMode(pPlayer, 1);
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    pPlayerData->hTrade = 0;
+    pPlayerData->dwTradeState = 0;
+    pPlayerData->dwAcceptTradeTick = 0;
+    *(int*)pPlayerData->unk0x54 = 0;
+}
+
+// 0x005738D0
+void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_STATREGEN, 0);
+}
+
+int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+{
+    return ITEMMODE_PickupStackable(pGame, pUnit, pItem);
+}
+
+// 0x005776E0
+void __stdcall sub_005776E0(D2UnitStrc* pUnit)
+{
+    sub_0055A2A0(pUnit, 1);
+}
+
+// 0x00604A30
+void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
+{
+    D2CMPTileCacheSetFreeCallback(pfnCallback);
+}
+
+// 0x0063E780
+unsigned char __stdcall D2Common_11052(unsigned char nIndex)
+{
+    return gaByteTable_007455C0[nIndex];
+}
+
+// 0x0063E7C0
+unsigned char __stdcall D2Common_11054(unsigned char nIndex)
+{
+    return gaByteTable_00745640[nIndex];
 }
 
 // 0x0055F2D0
@@ -3579,6 +4264,2039 @@ int __fastcall ITEMMODE_ResolveBodySlotPair(D2UnitStrc* pUnit, D2UnitStrc* pItem
     }
 }
 
+static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId, int line)
+{
+        if (!game) return 0;
+        {
+            sub_0055BF50_Check(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
+            Unit* placed = sub_00552F60_Find(game, 4, itemId);
+            if (!placed || placed->type != 4 || placed->mode != 4) return 0;
+            {
+                U8 targetPage = sub_00628250_Page(placed);
+                void* targetInventory = player->inventory;
+                if (!targetInventory) return 0;
+                int special = 0;
+                int clearCursor = 1;
+                int targetGrid = sub_00621050_Grid(player, targetPage, game->expansion);
+                if (player->type == 0) {
+                    switch (targetPage) {
+                    case 1: clearCursor = 0; break;
+                    case 2: special = 1; break;
+                    }
+                }
+                if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", line)) return 0;
+                if (!sub_0063B210_Add(targetInventory, placed, 1)) return 0;
+                if (sub_00628250_Page(placed) != 4) sub_0055C270_Update(player, placed);
+                placed->flags &= -3;
+                if (sub_0062FF70_Check(placed, player)) sub_0055C2C0_Apply(game, placed, player, 0);
+                if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
+                sub_00624690_Mode(placed, 0);
+                sub_00628170_CommandFlag(placed, 2, 1);
+                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) sub_006280D0_SetFlag(placed, 1, 1);
+                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
+                sub_00621000_SetFlag(player, 1);
+                sub_0063CC70_Refresh(targetInventory, placed);
+                if (special == 1) sub_00568770_Special(game, player, placed);
+                if (sub_0062FF70_Check(placed, player)) {
+                    sub_0055DBC0_Refresh(game, player, 0);
+                    sub_00621000_SetFlag(player, 1);
+                }
+                return 1;
+            }
+        }
+}
+
+// 0x00563840
+static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box, Unit* player)
+{
+    int classId;
+    if (!box) classId = -1;
+    else classId = box->classId;
+    ItemRecord* record = sub_006335F0_Record(classId);
+    D2_ASSERT(record, 0x7FF);
+    if (record->code != 0x20786F62) return;
+    void* inventory = player->inventory;
+    Unit* node = sub_0063B2C0_First(inventory);
+    while (node) {
+        Unit* item = sub_0063DFD0_Item(node);
+        Unit* next = sub_0063DFA0_Next(node);
+        if (sub_00628250_Page(item) == 3) {
+            U32 flags = 0;
+            sub_006287B0_Flags(&flags, 32, 1);
+            sub_00628320_SavePage(box, 3);
+            sub_0053D010_Notify(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0x80D), player, item, flags);
+            Unit* removed = sub_0063AD90_Remove(inventory, item);
+            D2_ASSERT(removed, 0x80F);
+            D2_ASSERT(item == removed, 0x810);
+            U8 page = sub_00628250_Page(item);
+            int grid = sub_00621050_Grid(player, page, game->expansion);
+            int y;
+            switch (item->type) {
+            case 2: case 4: case 5: y = item->path->y; break;
+            default: y = item->path ? sub_00648900_Y(item->path) : 0; break;
+            }
+            int x;
+            switch (item->type) {
+            case 2: case 4: case 5: x = item->path->x; break;
+            default: x = item->path ? sub_006488C0_X(item->path) : 0; break;
+            }
+            sub_0063BCF0_Trace(".\\ITEMS\\ItemMode.cpp", 0x813, inventory, x, y, grid, 0, page);
+            sub_00624690_Mode(removed, 4);
+            sub_00628280_SetPage(item, 0);
+            int itemId = item->id;
+            sub_0055BF50_Check(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
+            Unit* placed = sub_00552F60_Find(game, 4, itemId);
+            if (!placed || placed->type != 4 || placed->mode != 4) goto dropFailure;
+            {
+                U8 targetPage = sub_00628250_Page(placed);
+                void* targetInventory = player->inventory;
+                if (!targetInventory) goto dropFailure;
+                int special = 0;
+                int clearCursor = 1;
+                int targetGrid = sub_00621050_Grid(player, targetPage, game->expansion);
+                if (player->type == 0) {
+                    switch (targetPage) {
+                    case 1: clearCursor = 0; break;
+                    case 2: special = 1; break;
+                    }
+                }
+                if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", 0x817)) goto dropFailure;
+                if (!sub_0063B210_Add(targetInventory, placed, 1)) goto dropFailure;
+                if (sub_00628250_Page(placed) != 4) sub_0055C270_Update(player, placed);
+                placed->flags &= -3;
+                if (sub_0062FF70_Check(placed, player)) sub_0055C2C0_Apply(game, placed, player, 0);
+                if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
+                sub_00624690_Mode(placed, 0);
+                sub_00628170_CommandFlag(placed, 2, 1);
+                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) sub_006280D0_SetFlag(placed, 1, 1);
+                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
+                sub_00621000_SetFlag(player, 1);
+                sub_0063CC70_Refresh(targetInventory, placed);
+                if (special == 1) sub_00568770_Special(game, player, placed);
+                if (sub_0062FF70_Check(placed, player)) {
+                    sub_0055DBC0_Refresh(game, player, 0);
+                    sub_00621000_SetFlag(player, 1);
+                }
+                goto nextItem;
+            }
+        dropFailure:
+            sub_00628280_SetPage(item, 255);
+            Point playerPosition;
+            Point dropPosition;
+            sub_00620870_Position(player, &playerPosition);
+            void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
+            if (!room) continue;
+            sub_00558AA0_Drop(game, player, item, room, dropPosition.x, dropPosition.y);
+        }
+    nextItem:
+        node = next;
+    }
+}
+
+// 0x00563C00
+extern "C" void __fastcall ITEMMODE_DropCursorItem(Game* ptGame, Unit* hUnit, int itemId)
+{
+    D2_ASSERT(ptGame, 0x833);
+    D2_ASSERT(hUnit, 0x834);
+    sub_0055BF50_Check(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x837);
+    Unit* item = sub_00552F60_Find(ptGame, 4, itemId);
+    if (!item || item->type != 4 || item->mode != 4) return;
+    Point playerPosition;
+    Point dropPosition;
+    sub_00620870_Position(hUnit, &playerPosition);
+    void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(hUnit), &playerPosition, &dropPosition, 1, 1);
+    if (!room) return;
+    sub_00558AA0_Drop(ptGame, hUnit, item, room, dropPosition.x, dropPosition.y);
+    sub_0063C180_Cursor(hUnit->inventory, 0);
+    if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)item, ".\\ITEMS\\ItemMode.cpp", 0x85B)) sub_006280D0_SetFlag(item, 1, 1);
+    if (sub_006280A0_TestFlag(item, 0x4000, 0x85E, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(item, 0x4000, 0);
+    ITEMMODE_MoveCubeContentsToInventory(ptGame, item, hUnit);
+}
+
+// 0x00560CD0
+int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, unsigned char nBodyLoc, int bSetQuantityFlag, int* pItemStatus)
+{
+    D2_ASSERT(ptGame, 0xC44);
+    D2_ASSERT(pUnit, 0xC45);
+
+    *pItemStatus = 0;
+
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 0xC4A);
+
+    if (INVENTORY_GetCursorItem(hInventory))
+    {
+        return 0;
+    }
+
+    D2UnitStrc* hItem = INVENTORY_GetItemFromBodyLoc(hInventory, nBodyLoc);
+    if (!hItem)
+    {
+        *pItemStatus = 0;
+        return 0;
+    }
+
+    const int nItemType = hItem ? hItem->dwUnitType : UNIT_INVALID;
+    if (nItemType != ITEMTYPE_GOLD)
+    {
+        return 0;
+    }
+
+    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xC64);
+
+    const int nResult = D2Common_10299(pUnit, nBodyLoc, 0, 0);
+    if (nResult != 3 && nResult != 4)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    INVENTORY_GetSecondWieldingWeapon(pUnit, hInventory, &hItem, nBodyLoc);
+    if (!hItem)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    sub_0062A360(pUnit, hItem);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(hInventory, hItem);
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(hInventory, hItem);
+
+    D2_ASSERT(hRemove, 0xC76);
+    D2_ASSERT(hItem == hRemove, 0xC77);
+
+    sub_0063BE30(hInventory, nBodyLoc);
+
+    if (ITEMS_GetItemType(hRemove) == ITEMTYPE_BELT)
+    {
+        sub_6FC45930(ptGame, pUnit, 0);
+    }
+
+    if (bSetQuantityFlag)
+    {
+        ITEMS_SetItemFlag(hItem, 0x20, 1);
+    }
+    else
+    {
+        INVENTORY_SetCursorItem(hInventory, hItem);
+    }
+
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hItem, pUnit, 0, 1);
+
+    if (hItem)
+    {
+        hItem->dwFlags &= ~2;
+    }
+
+    UNITS_ChangeAnimMode(hItem, 4);
+    ITEMS_SetItemCMDFlag(hItem, 0x10, 1);
+
+    if (D2GAME_CheckHasFilledSockets(hItem, ".\\ITEMS\\ItemMode.cpp", 0xC8B))
+    {
+        ITEMS_SetItemFlag(hItem, 1, 1);
+    }
+
+    if (ITEMS_CheckItemFlag(hItem, 0x4000, 0xC8E, ".\\ITEMS\\ItemMode.cpp"))
+    {
+        ITEMS_SetItemFlag(hItem, 0x4000, 0);
+    }
+
+    INVENTORY_AddItemToTradeInventory(hInventory, hItem);
+    UNITS_RefreshInventory(pUnit, 1);
+    ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
+    sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+    return 1;
+}
+
+static inline int UNIT_GetMode(D2UnitStrc* pUnit) { return !pUnit ? 0 : pUnit->dwAnimMode; }
+
+// 0x00562660
+int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int a9)
+{
+    D2_ASSERT(pGame, 0x13A9);
+    *bPlaced = 0;
+    if (pUnit) ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x13B0);
+    D2UnitStrc* pFiller = SUNIT_GetServerUnit(pGame, 4, nSocketFillerGUID);
+    if (!pFiller)
+    {
+        *bPlaced = 1;
+        return 0;
+    }
+    if (pFiller->dwUnitType != UNIT_ITEM) return 0;
+    if (pFiller->dwAnimMode != IMODE_ONCURSOR)
+    {
+        *bPlaced = 1;
+        return 0;
+    }
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nItemGUID);
+    if (!pItem)
+    {
+        *bPlaced = 1;
+        return 0;
+    }
+    if (pItem->dwUnitType != UNIT_ITEM) return 0;
+    if (!ITEMS_CheckItemFlag(pItem, 0x10, 0x13DB, ".\\ITEMS\\ItemMode.cpp")) return 0;
+    if (bCheckMode && pItem->dwAnimMode != IMODE_STORED && pItem->dwAnimMode != IMODE_EQUIP) return 0;
+    if (pFiller->dwUnitType != UNIT_ITEM || pItem->dwUnitType != UNIT_ITEM || !ITEMS_IsSocketFiller(pFiller)
+        || !ITEMS_CheckItemFlag(pFiller, 0x10, 0x13EA, ".\\ITEMS\\ItemMode.cpp")
+        || !ITEMS_CheckItemFlag(pItem, 0x800, 0x13EB, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CheckIfSocketable(pItem)) return 0;
+    D2InventoryStrc* pInventory = pItem->pInventory;
+    if (!pInventory)
+    {
+        pInventory = INVENTORY_AllocInventory(0, pItem);
+        if (!pInventory) return 0;
+    }
+    const unsigned int nSockets = ITEMS_GetSockets(pItem);
+    if (INVENTORY_GetItemCount(pInventory) >= nSockets) return 0;
+    if (INVENTORY_PlaceItemInSocket(pInventory, pFiller, 1))
+    {
+    pFiller->dwFlags &= ~2u;
+    if (bResetCursorItem && pUnit) INVENTORY_SetCursorItem(pUnit->pInventory, 0);
+    sITEMSAddStatsList(pGame, pFiller, pItem, 0);
+    D2Common_10525(pFiller, pItem);
+    UNITS_ChangeAnimMode(pFiller, 6);
+    const D2RunesTxt* pRunesTxt = ITEMS_GetRunesTxtRecordFromItem(pItem);
+    if (pRunesTxt && ((pRunesTxt->nServer && pGame->dwGameType) || !pRunesTxt->nServer))
+    {
+        ITEMMODS_UpdateRuneword(pItem, pFiller, 0);
+        ITEMS_ScheduleDurabilityReplenishment(pGame, pItem);
+        ITEMS_ScheduleQuantityReplenishment(pGame, pItem);
+        if (a9) D2GAME_RechargeItem_6FC4BD50(pGame, pUnit, pItem);
+        bRefresh = 1;
+    }
+    if (bRefresh)
+    {
+        ITEMS_SetItemFlag(pItem, 1, 1);
+        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x143A, ".\\ITEMS\\ItemMode.cpp")) ITEMS_SetItemFlag(pItem, 0x4000, 0);
+        if (pUnit)
+        {
+            UNITS_RefreshInventory(pUnit, 1);
+            INVENTORY_AddItemToTradeInventory(pUnit->pInventory, pItem);
+        }
+    }
+    return 1;
+    }
+    else
+    {
+        D2_ASSERT(0, 0x1444);
+    }
+}
+
+static inline int SkillUsable(D2UnitStrc* player, D2SkillStrc* skill)
+{
+    if (!skill) return 0;
+    switch (SKILLS_GetUseState(player, skill)) { case 2: case 7: return 0; }
+    return 1;
+}
+
+// 0x0055FE80
+int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+{
+    if (!pGame || !pItem || pItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    D2ClientStrc* pClient = 0;
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        pClient = UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 6809);
+    }
+
+    D2StatStrc stats[64];
+    const int nStats = STATLIST_CopyStats(pItem, STAT_ITEM_CHARGED_SKILL, stats, 64);
+    int bRecharged = 0;
+    for (int i = 0; i < nStats; ++i)
+    {
+        const int nLayer = stats[i].nLayer;
+        const int nSkillId = nLayer >> sgptDataTables->nStuff;
+        const int nSkillLevel = nLayer & sgptDataTables->nShiftedStuff;
+        const int nValue = stats[i].nValue >> 8;
+        if ((stats[i].nValue & 0xFF) < nValue)
+        {
+            ITEMMODS_UpdateItemWithSkillCharges(pItem, nSkillId, nSkillLevel, nValue);
+
+            bRecharged = 1;
+            if (pClient)
+            {
+                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(pClient, pItem, 1, STAT_ITEM_CHARGED_SKILL,
+                    (nValue & 0xFF) + (nValue << 8),
+                    (nSkillLevel & (unsigned short)sgptDataTables->nShiftedStuff) + (nSkillId << sgptDataTables->nStuff));
+            }
+        }
+    }
+
+    return bRecharged;
+}
+
+// 0x00563D20
+int __fastcall ITEMMODE_ReplaceOppositeHandItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus)
+{
+    D2_ASSERT(ptGame, 0xB7B);
+    D2_ASSERT(pUnit, 0xB7C);
+
+    *pItemStatus = 0;
+    ITEMMODE_ClearTargetingFlags(pUnit, szItemModeCpp, 0xB81);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!pItem)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (pItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pItem->dwAnimMode != IMODE_ONCURSOR)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    unsigned char nOtherBodyLoc;
+    if (nBodyLoc != 5 && nBodyLoc != 4)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (nBodyLoc == 5)
+    {
+        nOtherBodyLoc = 4;
+    }
+    else
+    {
+        nOtherBodyLoc = 5;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* hOpposite = INVENTORY_GetItemFromBodyLoc(pInventory, nOtherBodyLoc);
+    if (!hOpposite)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &hOpposite, nOtherBodyLoc);
+    if (!hOpposite)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (D2Common_10299(pUnit, nBodyLoc, pItem, bSkipRequirementCheck) != 2)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hOpposite, pUnit, 0, 1);
+
+    if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
+    {
+        sITEMSAddStatsList(ptGame, hOpposite, pUnit, 0);
+        SUNIT_AttachSound(pUnit, 0x14, 0);
+        return 0;
+    }
+
+    D2UnitStrc* pMainWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
+    if (pMainWeapon)
+    {
+        UNITS_SetWeaponGUID(pUnit, pMainWeapon);
+    }
+
+    sub_0062A360(pUnit, hOpposite);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, hOpposite);
+
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hOpposite);
+    D2_ASSERT(hRemove, 0xBC8);
+    D2_ASSERT(hOpposite == hRemove, 0xBC9);
+
+    D2COMMON_10254_Return0(pInventory, nOtherBodyLoc);
+
+    if (ITEMS_GetItemType(hRemove) == ITEMTYPE_BELT)
+    {
+        ITEMMODE_MoveExcessBeltItems(ptGame, pUnit, 0);
+    }
+
+    INVENTORY_SetCursorItem(pInventory, hOpposite);
+
+    if (hOpposite)
+    {
+        hOpposite->dwFlags &= ~2;
+    }
+
+    UNITS_ChangeAnimMode(hOpposite, 4);
+
+    if (INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc))
+    {
+        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
+        {
+            ITEMS_SetBodyLocation(pItem, nBodyLoc);
+            sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+            sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
+            pItem->dwFlags &= ~2;
+            UNITS_ChangeAnimMode(pItem, 1);
+            ITEMS_SetInvPage(pItem, 255);
+            ITEMS_SetItemCMDFlag(pItem, 0x10000, 1);
+            ITEMS_SetItemFlag(pItem, 1, 1);
+
+            if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xBE6, szItemModeCpp))
+            {
+                ITEMS_SetItemFlag(pItem, 0x4000, 0);
+            }
+
+            INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+            ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
+            sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+        }
+        else
+        {
+            *pItemStatus = 1;
+            return 0;
+        }
+    }
+
+    UNITS_RefreshInventory(pUnit, 1);
+    return 1;
+}
+
+int __fastcall sub_K06_Emit_005600A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bRemove)
+{
+    if (!ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, bRemove, 0, ".\\ITEMS\\ItemMode.cpp", 0x7EF, pUnit, pItem))
+    {
+        UNITS_RefreshInventory(pUnit, 0);
+        return 0;
+    }
+    UNITS_ChangeAnimMode(pItem, 0);
+    return 1;
+}
+
+// 0x00563560
+int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus)
+{
+    D2_ASSERT(ptGame, 0x77A);
+    D2_ASSERT(pUnit, 0x77B);
+
+    *pItemStatus = 0;
+
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 0x780);
+
+    if (INVENTORY_GetCursorItem(hInventory))
+    {
+        return 0;
+    }
+
+    if (PLAYER_IsBusy(pUnit))
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!pItem)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (pItem->dwUnitType == UNIT_ITEM)
+    {
+        if (pItem->dwAnimMode != IMODE_ONGROUND)
+        {
+            *pItemStatus = 1;
+            return 0;
+        }
+
+        ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x7A2);
+
+        if (!ITEMMODE_CanPickUpItem(ptGame, pUnit, pItem))
+        {
+            ITEMMODE_DropBackToGround(0x13, pItem, pUnit);
+            return 0;
+        }
+
+        SUNIT_AttachSound(pUnit, 1, pUnit);
+
+        if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
+        {
+            D2GAME_PickupGold(ptGame, pItem, pUnit);
+            return 1;
+        }
+
+        if (!ITEMMODE_PickupStackable(ptGame, pUnit, pItem))
+        {
+
+            if (ITEMMODE_FindFreeBodyLocation(pUnit, pItem, &nItemGUID, 0))
+            {
+                if (D2Common_10299(pUnit, nItemGUID, pItem, 0) != 1)
+                {
+                    *pItemStatus = 1;
+                    return 0;
+                }
+
+                D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pItem);
+                if (pRoom)
+                {
+                    DUNGEON_AllocDrlgDelete(pRoom, !pItem ? 6 : pItem->dwUnitType, !pItem ? -1 : pItem->dwUnitId);
+                    UNITS_FreeCollisionPath(pItem);
+                    UNITROOM_RemoveUnitFromRoom(pItem);
+                }
+
+                if (ITEMMODE_EquipItemAtResolvedBodyLocation(ptGame, pUnit, pItem, 0))
+                {
+                    QUESTS_ItemPickedUp(ptGame, pUnit, pItem);
+                    return 1;
+                }
+            }
+            else if (ITEMS_CheckIfBeltable(pItem) && ITEMS_CheckIfAutoBeltable(hInventory, pItem) && INVENTORY_PlaceItemInFreeBeltSlot(hInventory, pItem))
+            {
+                if (UNITS_GetRoom(pItem))
+                {
+                    DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pItem), !pItem ? 6 : pItem->dwUnitType, !pItem ? -1 : pItem->dwUnitId);
+                    UNITS_FreeCollisionPath(pItem);
+                    UNITROOM_RemoveUnitFromRoom(pItem);
+                }
+
+                if (INVENTORY_PlaceItemInSocket(hInventory, pItem, 2))
+                {
+                    INVENTORY_SetCursorItem(hInventory, 0);
+                    ITEMMODE_AddItemScrollSkillQuantity(pUnit, pItem);
+
+                    if (ITEMS_IsCharmUsable(pItem, pUnit))
+                    {
+                        sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
+                    }
+
+                    pItem->dwFlags &= ~2u;
+                    UNITS_ChangeAnimMode(pItem, 2);
+                    ITEMS_SetInvPage(pItem, 0xFF);
+                    ITEMS_SetItemCMDFlag(pItem, 0x2000, 1);
+                    pItem->dwFlags &= ~0x02000000u;
+                    INVENTORY_AddItemToTradeInventory(hInventory, pItem);
+                    UNITS_RefreshInventory(pUnit, 1);
+
+                    if (ITEMS_IsCharmUsable(pItem, pUnit))
+                    {
+                        sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+                        UNITS_RefreshInventory(pUnit, 1);
+                    }
+
+                    return 1;
+                }
+
+                D2_ASSERT(0, 0x7ED);
+            }
+            else
+            {
+                if (ITEMMODE_PlaceItemAtFreeInventoryPosition(ptGame, 1, 0, ".\\ITEMS\\ItemMode.cpp", 0x7EF, pUnit, pItem))
+                {
+                    return 1;
+                }
+
+                ITEMMODE_DropBackToGround(0x17, pItem, pUnit);
+            }
+        }
+    }
+
+    return 0;
+}
+
+static void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc* pUnit, int nSkillId)
+{
+    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
+    if (pSkill)
+    {
+        int nQuantity = SKILLS_GetQuantity(pSkill) - 1;
+        if (nQuantity <= 0)
+        {
+            if (UNITS_GetRightSkill(pUnit) == pSkill)
+                D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_ATTACK, -1);
+            nQuantity = 0;
+        }
+        SKILLS_SetQuantity(pSkill, nQuantity);
+        const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
+        const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
+        D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(pUnit, szItemModeCpp, 0xFC2), nUnitType, nUnitGUID, nSkillId, nQuantity);
+    }
+    else
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFC4);
+        exit(-1);
+    }
+}
+
+// 0x0055DBC0
+void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitStrc* pUnit,int bRefresh)
+{
+    if (!pUnit)
+        return;
+
+    if (sub_0055DBC0_GetUnitType(pUnit) && !sub_0055DBC0_UnitFlag9(pUnit))
+        return;
+
+    D2EquipmentRefreshStateStrc refreshState;
+    ITEMMODE_SaveEquipmentRefreshState(pUnit,&refreshState);
+    D2InventoryStrc* pInventory=pUnit->pInventory;
+    if(!pInventory) return;
+    for(D2UnitStrc* pLink=INVENTORY_GetFirstItem(pInventory);pLink;pLink=INVENTORY_GetNextItem(pLink))
+    {
+        D2UnitStrc* pItem=INVENTORY_UnitIsItem(pLink);
+        if(pItem && INVENTORY_GetItemNodePage(pLink)==1 && ITEMS_IsCharmUsable(pItem,pUnit) && !STATLIST_GetOwner(pItem,0) && ITEMMODE_CheckEquipRequirements(pUnit,pItem))
+        {
+            ITEMS_SetItemFlag(pItem,0x4000,0);
+            ITEMMODE_UpdateEquippedItemStats(pGame,pItem,pUnit);
+        }
+    }
+    for (int i = 1; i < 11; ++i)
+    {
+        D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, i);
+        if (!pItem)
+            continue;
+
+        if (ITEMS_CheckItemFlag(pItem, 0x100, 0xa85, szItemModeCpp) && !STATLIST_GetOwner(pItem, 0))
+            continue;
+
+        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xa8a, szItemModeCpp) && !STATLIST_GetOwner(pItem, 0))
+            continue;
+
+        if (ITEMMODE_CheckEquipRequirements(pUnit, pItem))
+            continue;
+
+        ITEMS_SetItemFlag(pItem, 0x4000, 1);
+        INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
+        const int nMode = UNITS_GetAnimOrSeqMode(pItem);
+        if (nMode == 1)
+            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, pItem, pUnit, nMode, nMode);
+    }
+    int bContinue;
+    do
+    {
+        bContinue=0;
+        for (int i = 1; i < 11; ++i)
+        {
+            D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, i);
+            if (!pItem)
+                continue;
+
+            if (ITEMS_CheckItemFlag(pItem, 0x100, 0xaa4, szItemModeCpp))
+                continue;
+
+            if (!ITEMS_CheckItemFlag(pItem, 0x4000, 0xaa8, szItemModeCpp) && STATLIST_GetOwner(pItem, 0))
+                continue;
+
+            if (!ITEMMODE_CheckEquipRequirements(pUnit, pItem))
+                continue;
+
+            {
+                ITEMS_SetItemFlag(pItem,0x4000,0);
+                D2InventoryStrc* pCurrentInventory=pUnit->pInventory;
+                if(pCurrentInventory)
+                {
+                    unsigned char nBodyLoc=ITEMS_GetBodyLocation(pItem);
+                    if(nBodyLoc!=0xb && nBodyLoc!=0xc)
+                    {
+                        INVENTORY_UpdateWeaponGUIDOnInsert(pCurrentInventory,pItem);
+                        if (UNITS_GetAnimOrSeqMode(pItem)==1)
+                        {
+                            sITEMSAddStatsList(pGame,pItem,pUnit,1);
+                        }
+                        else if (!UNITS_GetAnimOrSeqMode(pItem) && ITEMS_IsCharmUsable(pItem,pUnit))
+                        {
+                            sITEMSAddStatsList(pGame,pItem,pUnit,1);
+                        }
+                    }
+                }
+                bContinue=1;
+            }
+        }
+    }while(bContinue);
+    for(int i=1;i<11;++i)
+    {
+        D2UnitStrc* pItem=INVENTORY_GetItemFromBodyLoc(pInventory,i);
+        if(pItem && ITEMS_GetItemQuality(pItem)==ITEMQUAL_SET && !ITEMS_CheckItemFlag(pItem,0x100,0xac2,szItemModeCpp) && !ITEMS_CheckItemFlag(pItem,0x4000,0xac3,szItemModeCpp))
+        {
+            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(*(D2GameStrc* *)&pGame,pItem,pUnit,1,1);
+            sITEMSAddStatsList(pGame,pItem,pUnit,1);
+        }
+    }
+    ITEMMODE_RestoreSelectedSkills(pUnit,&refreshState);
+    UNITS_RefreshInventory(pUnit,1);
+    if(bRefresh)
+    {
+        D2ClientStrc* pClient;
+        if(pUnit->dwUnitType==UNIT_PLAYER) pClient=UnitGetClient(pUnit,szItemModeCpp,0xa44);
+        else
+        {
+            D2UnitStrc* pOwner=AIGENERAL_GetMinionOwner(pUnit);
+            if(!pOwner || pOwner->dwUnitType!=UNIT_PLAYER) return;
+            pClient=UnitGetClient(pOwner,szItemModeCpp,0xa49);
+        }
+        if(pClient) D2GAME_SendPacket0x48_6FC3EF40(pClient,pUnit,0);
+    }
+}
+
+// 0x005608C0
+void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* belt)
+{
+    void* hInventory = player->inventory;
+    D2_ASSERT(hInventory, 0xC0C);
+    BeltRecord record;
+    if (belt) sub_00660CB0_Record(UNITS_GetBeltType(belt), 0, &record);
+    else sub_00660CB0_Record(2, 0, &record);
+    for (int index = 0; index < 16; ++index) {
+        Unit* hItem = sub_0063C7F0_Belt(hInventory, index);
+        if (index < record.nBoxes || !hItem) continue;
+        U32 flags = 0;
+        sub_006287B0_Flags(&flags, 32, 1);
+        sub_0053EED0_RemoveBelt(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, hItem, flags);
+        Unit* removed = sub_0063AD90_Remove(hInventory, hItem);
+        D2_ASSERT(removed, 0xC22);
+        D2_ASSERT(hItem == removed, 0xC23);
+        int x;
+        switch (hItem->type) {
+        case 2: case 4: case 5: x = hItem->path->x; break;
+        default: x = hItem->path ? sub_006488C0_X(hItem->path) : 0; break;
+        }
+        sub_0063C550_Return((D2InventoryStrc*)hInventory, x);
+        sub_00624690_Mode(removed, 4);
+        ITEMMODE_RemoveItemScrollSkillQuantity((D2UnitStrc*)player, (D2UnitStrc*)hItem);
+        sub_00628280_SetPage(hItem, 0);
+        if (PlaceIntoInventory(game, player, hItem->id, 0xC29)) continue;
+        {
+            Point playerPosition;
+            Point dropPosition;
+            sub_00620870_Position(player, &playerPosition);
+            void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
+            if (room) {
+                sub_0055C730_UpdateProperties(game, hItem, player, 0, 1);
+                sub_00558AA0_Drop(game, player, hItem, room, dropPosition.x, dropPosition.y);
+            }
+        }
+    }
+}
+
+// 0x00560F00
+int __fastcall ITEMMODE_SwapCursorAndBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pFailed)
+{
+ D2_ASSERT(ptGame, 0xca7);
+ D2_ASSERT(pUnit, 0xca8);
+ if (nBodyLoc >= 11) return 0;
+ *pFailed = 0;
+ ITEMMODE_ClearTargetingFlags(pUnit, szItemModeCpp, 0xcb0);
+ D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+ if (!pItem) { *pFailed = 0; return 0; }
+ if (pItem->dwUnitType != UNIT_ITEM) return 0;
+ if (pItem->dwAnimMode != IMODE_ONCURSOR) { *pFailed = 0; return 0; }
+ const int nLoc = nBodyLoc;
+ if (D2Common_10299(pUnit, nLoc, pItem, bSkipRequirementCheck) != 5) { *pFailed = 0; return 0; }
+ D2InventoryStrc* pInventory = pUnit->pInventory;
+ D2UnitStrc* pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
+ if (pWeapon) UNITS_SetWeaponGUID(pUnit, pWeapon);
+ D2UnitStrc* hBodyItem = INVENTORY_GetItemFromBodyLoc(pInventory, nLoc);
+ INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &hBodyItem, nLoc);
+ if (!hBodyItem) goto fail;
+ if (hBodyItem->dwAnimMode != IMODE_EQUIP)
+ {
+fail:
+  *pFailed = 1;
+  return 0;
+ }
+ D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hBodyItem, pUnit, 0, 1);
+ if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
+ {
+  sITEMSAddStatsList(ptGame, hBodyItem, pUnit, 0);
+  SUNIT_AttachSound(pUnit, 20, 0);
+  return 0;
+ }
+ if (ITEMS_GetItemType(pItem) == ITEMTYPE_BELT) ITEMMODE_MoveExcessBeltItems(ptGame, pUnit, pItem);
+ sub_0062A360(pUnit, hBodyItem);
+ INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, hBodyItem);
+ D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, hBodyItem);
+ D2_ASSERT(pRemoved, 0xcee);
+ D2_ASSERT(hBodyItem == pRemoved, 0xcef);
+ sub_0063BE30(pInventory, nLoc);
+ INVENTORY_SetCursorItem(pInventory, hBodyItem);
+ if (hBodyItem) hBodyItem->dwFlags &= ~2;
+ UNITS_ChangeAnimMode(hBodyItem, 4);
+ ITEMS_SetItemFlag(hBodyItem, 0x80, 1);
+ ITEMS_SetItemCMDFlag(hBodyItem, 0x20, 1);
+ ITEMS_SetItemFlag(hBodyItem, 1, 1);
+ if (ITEMS_CheckItemFlag(hBodyItem, 0x4000, 0xcf7, szItemModeCpp)) ITEMS_SetItemFlag(hBodyItem, 0x4000, 0);
+ INVENTORY_AddItemToTradeInventory(pInventory, hBodyItem);
+ if (INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nLoc))
+ {
+  if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
+  {
+    ITEMS_SetBodyLocation(pItem, nBodyLoc);
+    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+    sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
+    pItem->dwFlags &= ~2;
+    UNITS_ChangeAnimMode(pItem, 1);
+    ITEMS_SetInvPage(pItem, 255);
+    ITEMS_SetItemFlag(pItem, 0x40, 1);
+    ITEMS_SetItemFlag(pItem, 1, 1);
+    ITEMS_SetItemCMDFlag(pItem, 0x20, 1);
+    ITEMS_SetItemFlag(pItem, 1, 1);
+    if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xd12, szItemModeCpp)) ITEMS_SetItemFlag(pItem, 0x4000, 0);
+    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+    ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
+    sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+    return 1;
+  }
+  *pFailed = 1;
+  return 0;
+ }
+ *pFailed = 1;
+ return 0;
+}
+
+// 0x00561220
+int __fastcall ITEMMODE_ReplaceHandItemsWithCursorItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int* pFailure)
+{
+    D2_ASSERT(ptGame, 0xD38);
+    D2_ASSERT(pUnit, 0xD39);
+    *pFailure = 0;
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!pItem || pItem->dwUnitType != UNIT_ITEM || pItem->dwAnimMode != IMODE_ONCURSOR)
+        return 0;
+    if (D2Common_10299(pUnit, nBodyLoc, pItem, 0) != 7)
+        return 0;
+    if (!ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
+        return 0;
+    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xD60);
+    int nRecord = UNITS_GetInventoryRecordId(pUnit, 0, ptGame->bExpansion);
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* pOther;
+    int nOtherBodyLoc;
+    if (nBodyLoc == 5)
+    {
+        pOther = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
+        nOtherBodyLoc = 4;
+    }
+    else
+    {
+        pOther = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
+        nOtherBodyLoc = 5;
+    }
+    if (!INVENTORY_IsItemBodyLocFree(pInventory, pItem, nOtherBodyLoc, nRecord))
+    {
+        *pFailure = 1;
+        return 0;
+    }
+    D2_ASSERT(pOther, 0xD73);
+    if (UNIT_GetMode(pOther) != 1)
+    {
+        *pFailure = 1;
+        return 0;
+    }
+    sub_0062A360(pUnit, pOther);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pOther);
+    D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pOther);
+    D2_ASSERT(pRemoved, 0xD7D);
+    D2_ASSERT(pOther == pRemoved, 0xD7E);
+    sub_0063BE30(pInventory, nOtherBodyLoc);
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, pRemoved, pUnit, 0, 1);
+    if (sub_0063B950_PlaceItem(pInventory, pRemoved, nRecord, 0, 0, ".\\ITEMS\\ItemMode.cpp", 0xD86))
+    {
+        if (INVENTORY_PlaceItemInSocket(pInventory, pRemoved, 1))
+        {
+        ITEMS_SetInvPage(pRemoved, 0);
+        pRemoved->dwFlags &= ~2;
+        INVENTORY_SetCursorItem(pInventory, 0);
+        UNITS_ChangeAnimMode(pRemoved, 0);
+        if (D2GAME_CheckHasFilledSockets(pRemoved, ".\\ITEMS\\ItemMode.cpp", 0xD8D))
+            ITEMS_SetItemFlag(pRemoved, 1, 1);
+        if (ITEMS_CheckItemFlag(pRemoved, 0x4000, 0xD90, ".\\ITEMS\\ItemMode.cpp"))
+            ITEMS_SetItemFlag(pRemoved, 0x4000, 0);
+        ITEMS_SetItemCMDFlag(pRemoved, 0x4000, 1);
+        ITEMS_SetItemFlag(pRemoved, 1, 1);
+        INVENTORY_AddItemToTradeInventory(pInventory, pRemoved);
+        }
+        else
+        {
+            *pFailure = 1;
+            return 0;
+        }
+    }
+    D2UnitStrc* pEquipped = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
+    D2_ASSERT(pEquipped, 0xD9F);
+    if (pEquipped->dwAnimMode != 1)
+    {
+        *pFailure = 1;
+        return 0;
+    }
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, pEquipped, pUnit, 0, 1);
+    if (!ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
+    {
+        sITEMSAddStatsList(ptGame, pEquipped, pUnit, 0);
+        INVENTORY_SetCursorItem(pInventory, pItem);
+        ITEMMODE_MarkItemOnCursor(ptGame, pUnit, pItem);
+        SUNIT_AttachSound(pUnit, 20, 0);
+        UNITS_RefreshInventory(pUnit, 1);
+        return 0;
+    }
+    sub_0062A360(pUnit, pEquipped);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pEquipped);
+    D2UnitStrc* pRemovedEquipped = INVENTORY_RemoveItemFromInventory(pInventory, pEquipped);
+    D2_ASSERT(pRemovedEquipped, 0xDB6);
+    D2_ASSERT(pEquipped == pRemovedEquipped, 0xDB7);
+    sub_0063BE30(pInventory, nBodyLoc);
+    INVENTORY_SetCursorItem(pInventory, pEquipped);
+    pEquipped->dwFlags &= ~2;
+    UNITS_ChangeAnimMode(pEquipped, 4);
+    ITEMS_SetItemCMDFlag(pEquipped, 0x10, 1);
+    ITEMS_SetItemFlag(pEquipped, 1, 1);
+    if (ITEMS_CheckItemFlag(pEquipped, 0x4000, 0xDBE, ".\\ITEMS\\ItemMode.cpp"))
+        ITEMS_SetItemFlag(pEquipped, 0x4000, 0);
+    INVENTORY_AddItemToTradeInventory(pInventory, pEquipped);
+    if (sub_0063BDB0(pInventory, pItem, nBodyLoc))
+    {
+        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
+        {
+        ITEMS_SetBodyLocation(pItem, nBodyLoc);
+        sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+        sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
+        pItem->dwFlags &= ~2;
+        UNITS_ChangeAnimMode(pItem, 1);
+        ITEMS_SetInvPage(pItem, 0xFF);
+        ITEMS_SetItemFlag(pItem, 8, 1);
+        ITEMS_SetItemCMDFlag(pItem, 8, 1);
+        ITEMS_SetItemFlag(pItem, 1, 1);
+        if (D2GAME_CheckHasFilledSockets(pItem, ".\\ITEMS\\ItemMode.cpp", 0xDD5))
+            ITEMS_SetItemFlag(pItem, 1, 1);
+        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xDD8, ".\\ITEMS\\ItemMode.cpp"))
+            ITEMS_SetItemFlag(pItem, 0x4000, 0);
+        INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+        ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
+        sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+        return 1;
+        }
+        *pFailure = 1;
+        return 0;
+    }
+    *pFailure = 1;
+    return 0;
+}
+
+// 0x005616A0
+int __fastcall ITEMMODE_SwapWeaponSets(D2GameStrc* ptGame, D2UnitStrc* hUnit, int* status)
+{
+    int i;
+    SwapEntry entries[4] = { {4,0,11,4}, {5,0,12,4}, {11,0,4,3}, {12,0,5,3} };
+    D2_ASSERT(ptGame, 0xE1E);
+    D2_ASSERT(hUnit, 0xE1F);
+    *status = 0;
+    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0xE24);
+    D2InventoryStrc* inventory = hUnit->pInventory;
+    int leftId, leftOwner, rightId, rightOwner;
+    UNITS_GetSwitchLeftSkillDataResetLeftSkill(hUnit, &leftId, &leftOwner);
+    UNITS_GetSwitchRightSkillDataResetRightSkill(hUnit, &rightId, &rightOwner);
+    UNITS_InitSwitchRightSkill(hUnit);
+    UNITS_InitSwitchLeftSkill(hUnit);
+    i=0;
+    if (i<4)
+    {
+        do
+        {
+            entries[i].item = INVENTORY_GetItemFromBodyLoc(inventory, entries[i].from);
+            if (entries[i].item) {
+                INVENTORY_GetSecondWieldingWeapon(hUnit, inventory, &entries[i].item, entries[i].from);
+                if (!entries[i].item || entries[i].item->dwAnimMode != IMODE_EQUIP) { *status=1; return 0; }
+            }
+            ++i;
+        } while (i<4);
+    }
+    if (entries[0].item) D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, entries[0].item, hUnit, 0, 1);
+    if (entries[1].item) D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, entries[1].item, hUnit, 0, 1);
+    SwapEntry* entry = entries;
+    for (i=0; i<4; ++i, ++entry) {
+        D2UnitStrc* item = entry->item;
+        if (!item) continue;
+        if (i<2) INVENTORY_UpdateWeaponGUIDOnRemoval(inventory, item);
+        D2UnitStrc* removed = INVENTORY_RemoveItemFromInventory(inventory, entry->item);
+        if (!removed || removed != entry->item) { *status=1; return 0; }
+        sub_0063BE30_Return(inventory, entry->from);
+        ITEMS_SetInvPage(removed, 255);
+        ITEMS_SetItemCMDFlag(removed, 0x200000, 1);
+        ITEMS_SetItemFlag(removed, 1, 1);
+        if (ITEMS_CheckItemFlag(removed, 0x4000, 0xE5B, szItemModeCpp)) ITEMS_SetItemFlag(removed, 0x4000, 0);
+        INVENTORY_AddItemToTradeInventory(inventory, removed);
+    }
+    for (i=0; i<4; ++i) {
+        D2UnitStrc* item = entries[i].item;
+        if (item) {
+            if (!INVENTORY_PlaceItemInBodyLoc(inventory, item, entries[i].to)) { *status=1; return 0; }
+            if (!INVENTORY_PlaceItemInSocket(inventory, item, entries[i].mode)) { *status=1; return 0; }
+            ITEMS_SetBodyLocation(item, entries[i].to);
+            if (entries[i].to == 4 || entries[i].to == 5) {
+                sub_0063D1D0_InventoryItemCall(inventory, item);
+                sITEMSAddStatsList(ptGame, item, hUnit, 0);
+                ITEMS_SetItemFlag(item, 64, 1);
+            } else {
+                ITEMS_SetItemFlag(item, 128, 1);
+            }
+            item->dwFlags &= ~2;
+            UNITS_ChangeAnimMode(item, 1);
+            ITEMS_SetItemFlag(item, 1, 1);
+            ITEMS_SetItemCMDFlag(item, 0x200000, 1);
+            ITEMS_SetItemFlag(item, 1, 1);
+            if (i<2) ITEMMODE_RefreshSkillsForEquippedWeapons(hUnit);
+        }
+    }
+    sub_0055DBC0_RecalcEquippedItemStates(ptGame, hUnit, 0);
+    D2SkillStrc* leftSkill = SKILLS_GetSkillById(hUnit, leftId, leftOwner);
+    D2SkillStrc* rightSkill = SKILLS_GetSkillById(hUnit, rightId, rightOwner);
+    D2ClientStrc* hClient = UnitGetClient(hUnit, szItemModeCpp, 0xE93);
+    D2_ASSERT(hClient, 0xE94);
+    sub_00539230_SetWeaponSwitch(hClient, !CLIENTS_GetWeaponSwitch(hClient));
+    D2GAME_PACKETS_SendPacket0x97_6FC3FB60(UnitGetClient(hUnit, szItemModeCpp, 0xE98));
+    if (SkillUsable(hUnit, leftSkill)) {
+        D2GAME_AssignSkill_6FD13800(hUnit, 1, leftId, leftOwner);
+        SUNITMSG_QueueSkillSelection(hUnit, 1, leftId, leftOwner);
+    } else {
+        D2SkillStrc* skill = UNITS_GetLeftSkill(hUnit);
+        int id, owner;
+        if (skill) { id=SKILLS_GetSkillIdFromSkill(skill, szItemModeCpp, 0xEA2); owner=SKILLS_GetOwnerGUIDFromSkill(skill); }
+        else { id=0; owner=-1; }
+        SUNITMSG_QueueSkillSelection(hUnit, 1, id, owner);
+    }
+    if (SkillUsable(hUnit, rightSkill)) {
+        D2GAME_AssignSkill_6FD13800(hUnit, 0, rightId, rightOwner);
+        SUNITMSG_QueueSkillSelection(hUnit, 0, rightId, rightOwner);
+    } else {
+        D2SkillStrc* skill = UNITS_GetRightSkill(hUnit);
+        int id, owner;
+        if (skill) { id=SKILLS_GetSkillIdFromSkill(skill, szItemModeCpp, 0xEB0); owner=SKILLS_GetOwnerGUIDFromSkill(skill); }
+        else { id=0; owner=-1; }
+        SUNITMSG_QueueSkillSelection(hUnit, 0, id, owner);
+    }
+    return 1;
+}
+
+// 0x00561B00
+int __fastcall ITEMMODE_SwapCursorAndStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorItemGUID, int nGridItemGUID, int nX, int nY, int* pItemStatus)
+{
+    D2_ASSERT(ptGame, 0xEC0);
+    D2_ASSERT(pUnit, 0xEC1);
+
+    *pItemStatus = 0;
+
+    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xEC6);
+
+    D2UnitStrc* pCursorItem = SUNIT_GetServerUnit(ptGame, 4, nCursorItemGUID);
+    if (!pCursorItem || pCursorItem->dwUnitType != UNIT_ITEM || pCursorItem->dwAnimMode != IMODE_ONCURSOR)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* hGridItem = SUNIT_GetServerUnit(ptGame, 4, nGridItemGUID);
+    if (!hGridItem || hGridItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    const char nInvPage = ITEMS_GetInventoryPage(hGridItem);
+    if (nInvPage == 3)
+    {
+        if (!byte_0088C700)
+        {
+            if (!DATATBLS_GetItemRecordFromItemCode(0x20786F62, &dword_0088C6FC))
+            {
+                return 0;
+            }
+
+            byte_0088C700 = 1;
+        }
+
+        const int nClassId = (pCursorItem ? pCursorItem->dwClassId : -1);
+        if (nClassId == dword_0088C6FC)
+        {
+            return 0;
+        }
+    }
+    else if (nInvPage == 2)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (hGridItem->dwAnimMode != IMODE_STORED)
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hGridItem);
+    D2_ASSERT(hRemove, 0xF12);
+    D2_ASSERT(hGridItem == hRemove, 0xF13);
+
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hGridItem, pUnit, 0, 1);
+    INVENTORY_Return(".\\ITEMS\\ItemMode.cpp", 0xF15, pInventory, CLIENTS_GetUnitX(hGridItem), CLIENTS_GetUnitY(hGridItem), UNITS_GetInventoryRecordId(pUnit, nInvPage, ptGame->bExpansion), 0, nInvPage);
+
+    ITEMS_SetInvPage(hGridItem, 0xFF);
+    INVENTORY_SetCursorItem(pInventory, hGridItem);
+    ITEMMODE_RemoveItemScrollSkillQuantity(pUnit, hGridItem);
+    ITEMS_SetCellOverlap(hGridItem, nInvPage);
+    hGridItem->dwFlags &= ~2u;
+    UNITS_ChangeAnimMode(hGridItem, 4);
+    ITEMS_SetItemCMDFlag(hGridItem, 0x40000, 1);
+
+    if (D2GAME_CheckHasFilledSockets(hGridItem, ".\\ITEMS\\ItemMode.cpp", 0xF1F))
+    {
+        ITEMS_SetItemFlag(hGridItem, 1, 1);
+    }
+
+    if (sub_006280A0(hGridItem, 0x4000, 0xF22, ".\\ITEMS\\ItemMode.cpp"))
+    {
+        ITEMS_SetItemFlag(hGridItem, 0x4000, 0);
+    }
+
+    INVENTORY_AddItemToTradeInventory(pInventory, hGridItem);
+
+    if (INVENTORY_PlaceItemAtInventoryPage(pInventory, pCursorItem, nX, nY, UNITS_GetInventoryRecordId(pUnit, nInvPage, ptGame->bExpansion), 0, nInvPage))
+    {
+        ITEMS_SetCellOverlap(pCursorItem, 0);
+        ITEMS_SetInvPage(pCursorItem, nInvPage);
+        UNITS_SetXForStaticUnit(pCursorItem, nX);
+        UNITS_SetYForStaticUnit(pCursorItem, nY);
+
+        if (INVENTORY_PlaceItemInSocket(pInventory, pCursorItem, 1))
+        {
+            pCursorItem->dwFlags &= ~2u;
+            ITEMMODE_AddItemScrollSkillQuantity(pUnit, pCursorItem);
+
+            if (ITEMS_IsCharmUsable(pCursorItem, pUnit))
+            {
+                sITEMSAddStatsList(ptGame, pCursorItem, pUnit, 0);
+            }
+
+            UNITS_ChangeAnimMode(pCursorItem, 0);
+
+            if (D2GAME_CheckHasFilledSockets(pCursorItem, ".\\ITEMS\\ItemMode.cpp", 0xF48))
+            {
+                ITEMS_SetItemFlag(pCursorItem, 1, 1);
+            }
+
+            if (sub_006280A0(pCursorItem, 0x4000, 0xF4B, ".\\ITEMS\\ItemMode.cpp"))
+            {
+                ITEMS_SetItemFlag(pCursorItem, 0x4000, 0);
+            }
+
+            ITEMS_SetItemCMDFlag(pCursorItem, 0x40000, 1);
+            INVENTORY_AddItemToTradeInventory(pInventory, pCursorItem);
+
+            if (nInvPage == 2)
+            {
+                PLRTRADE_AddItemToTrade(ptGame, pUnit, pCursorItem);
+            }
+
+            UNITS_RefreshInventory(pUnit, 1);
+
+            if (ITEMS_IsCharmUsable(hGridItem, pUnit))
+            {
+                sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+                UNITS_RefreshInventory(pUnit, 1);
+            }
+
+            return 1;
+        }
+
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    *pItemStatus = 1;
+    return 0;
+}
+
+// 0x00561ED0
+int __fastcall ITEMMODE_UseItemOnItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nTargetGUID, int nUseItemGUID, int* pItemStatus)
+{
+    D2_ASSERT(ptGame, 0xFCF);
+    D2_ASSERT(hUnit, 0xFD0);
+    D2UnitStrc* pTargetItem = SUNIT_GetServerUnit(ptGame, 4, nTargetGUID);
+    D2UnitStrc* pUseItem = SUNIT_GetServerUnit(ptGame, 4, nUseItemGUID);
+    *pItemStatus = 0;
+    if (!pUseItem)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+    if (!pTargetItem || pTargetItem == pUseItem)
+    {
+        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0xFDD);
+        return 0;
+    }
+    if ((!pUseItem ? 0 : pUseItem->dwAnimMode) == 2 && !ITEMSIsA(pUseItem, 0x16))
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(ptGame, hUnit, 1))
+    {
+        *pItemStatus = 0;
+        return 0;
+    }
+    if ((!pTargetItem ? 6 : pTargetItem->dwUnitType) != 4 || pUseItem->dwUnitType != UNIT_ITEM)
+        return 0;
+    if ((!pTargetItem ? 6 : pTargetItem->dwUnitType) != (!pUseItem ? 6 : pUseItem->dwUnitType))
+    {
+        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1004);
+        return 0;
+    }
+    D2InventoryStrc* pInventory = hUnit->pInventory;
+    if (INVENTORY_GetCursorItem(pInventory))
+        return 0;
+    const int nTargetAnimMode = pTargetItem->dwAnimMode;
+    const int nUseItemAnimMode = pUseItem->dwAnimMode;
+    if (nTargetAnimMode != 0 && nTargetAnimMode != 1)
+    {
+        if (nUseItemAnimMode == 2)
+        {
+            ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1010);
+            ITEMMODE_RemoveBeltItem(ptGame, hUnit, pUseItem);
+        }
+        else if (nUseItemAnimMode == 0)
+        {
+            if (ITEMS_GetItemType(pUseItem) == ITEMTYPE_BOOK)
+            {
+                int nQuantity = STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0) - 1;
+                if (nQuantity < 0)
+                    nQuantity = 0;
+                STATLIST_SetUnitStat(pUseItem, STAT_QUANTITY, nQuantity, 0);
+                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(hUnit, szItemModeCpp, 0x1019), pUseItem, 1, 0x46, nQuantity, 0);
+            }
+        }
+        else
+        {
+            *pItemStatus = 1;
+        }
+        return 0;
+    }
+    if (ITEMS_GetItemType(pUseItem) == ITEMTYPE_BOOK && STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0) <= 0)
+    {
+        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1023);
+        const int nUnitGUID = !pUseItem ? -1 : pUseItem->dwUnitId;
+        const int nUnitType = !pUseItem ? 6 : pUseItem->dwUnitType;
+        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(hUnit, szItemModeCpp, 0x1024), 0x7C, nUnitType, nUnitGUID);
+        return 0;
+    }
+    if (!SKILLITEM_pSpell_Handler(ptGame, hUnit, pUseItem, pTargetItem, 0, 0))
+        goto Success;
+    if (nUseItemAnimMode == 2)
+    {
+        const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
+        if (nSkillId != -1)
+        {
+            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
+            ITEMMODE_RemoveBeltItem(ptGame, hUnit, pUseItem);
+            ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1034);
+            goto Success;
+        }
+        const int nUnitGUID = !pUseItem ? -1 : pUseItem->dwUnitId;
+        const int nUnitType = !pUseItem ? 6 : pUseItem->dwUnitType;
+        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(hUnit, szItemModeCpp, 0x1032), 0x7C, nUnitType, nUnitGUID);
+        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1034);
+        goto Success;
+    }
+    if (nUseItemAnimMode)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+    if (ITEMS_GetItemType(pUseItem) == ITEMTYPE_BOOK)
+    {
+        const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
+        if (nSkillId != -1 && STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0) > 0)
+        {
+            STATLIST_AddUnitStat(pUseItem, STAT_QUANTITY, -1, 0);
+            D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(hUnit, szItemModeCpp, 0x103C), pUseItem, 1, 0x46, STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0), 0);
+            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
+            const int nUnitGUID = !pUseItem ? -1 : pUseItem->dwUnitId;
+            const int nUnitType = !pUseItem ? 6 : pUseItem->dwUnitType;
+            D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(hUnit, szItemModeCpp, 0x104A), 0x7C, nUnitType, nUnitGUID);
+            ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x104C);
+            return 1;
+        }
+    }
+    else
+    {
+        const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
+        if (nSkillId != -1)
+            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
+    }
+    ITEMMODE_RemoveItemAndNotify(ptGame, hUnit, pUseItem);
+    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x104C);
+Success:
+    return 1;
+}
+
+// 0x00562250
+int __fastcall ITEMMODE_RemoveBeltItemToCursor(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int* a4)
+{
+    D2_ASSERT(ptGame, 0x1249);
+    D2_ASSERT(hUnit, 0x124A);
+
+    *a4 = 0;
+
+    D2InventoryStrc* hInventory = hUnit->pInventory;
+    D2_ASSERT(hInventory, 0x124F);
+
+    if (INVENTORY_GetCursorItem(hInventory))
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!pItem)
+    {
+        *a4 = 1;
+        return 0;
+    }
+
+    if (pItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pItem->dwAnimMode != IMODE_INBELT)
+    {
+        *a4 = 1;
+        return 0;
+    }
+
+    ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x126D);
+
+    const int nX = CLIENTS_GetUnitX(pItem);
+    INVENTORY_RemoveItemFromInventory(hInventory, pItem);
+    sub_0063C550_Return(hInventory, nX);
+    INVENTORY_SetCursorItem(hInventory, pItem);
+    ITEMMODE_RemoveItemScrollSkillQuantity(hUnit, pItem);
+
+    pItem->dwFlags &= ~2;
+
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, pItem, hUnit, 0, 1);
+    UNITS_ChangeAnimMode(pItem, 4);
+    ITEMS_SetItemCMDFlag(pItem, 0x800, 1);
+    UNITS_RefreshInventory(hUnit, 1);
+    INVENTORY_AddItemToTradeInventory(hInventory, pItem);
+    ITEMMODE_CompactBeltColumn(ptGame, hUnit, nX);
+    return 1;
+}
+
+// 0x0055EDC0
+void __fastcall ITEMMODE_CompactBeltColumn(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX)
+{
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    nX &= 3;
+    int nDestinationRow = 0;
+    nX = nX > 0 ? nX : 0;
+    nX = nX < 3 ? nX : 3;
+    for (int nRow = 0; nRow < 4; ++nRow)
+    {
+        D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nX + 4 * nRow);
+        if (pItem)
+        {
+            if (nDestinationRow != nRow)
+            {
+                INVENTORY_PlaceItemInBeltSlot(pInventory, pItem, nX + 4 * nDestinationRow);
+                ITEMS_SetItemFlag(pItem, 0x400, 1);
+                ITEMS_SetItemFlag(pItem, 1, 1);
+                if (ITEMS_CheckItemFlag(pItem, 0x4000, 4883, ".\\ITEMS\\ItemMode.cpp"))
+                    ITEMS_SetItemFlag(pItem, 0x4000, 0);
+                UNITS_RefreshInventory(pUnit, 1);
+                INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+                sub_0063C550_Return(pInventory, nX + 4 * nRow);
+            }
+            ++nDestinationRow;
+        }
+    }
+}
+
+// 0x00562390
+int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nX, int nY, int* pItemStatus, int bUseOnMerc)
+{
+    D2_ASSERT(ptGame, 0x1325);
+    D2_ASSERT(hUnit, 0x1326);
+
+    *pItemStatus = 0;
+    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x132B);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!pItem)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if ((!pItem ? 6 : pItem->dwUnitType) != 4 || INVENTORY_GetCursorItem(UNITS_GetInventory(hUnit)))
+    {
+        return 0;
+    }
+
+    if (pItem->dwAnimMode != IMODE_INBELT || !ITEMS_CheckIfUseable(pItem))
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(ptGame, hUnit, 1))
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = hUnit;
+    if (bUseOnMerc && hUnit->dwUnitType == UNIT_PLAYER && ptGame->bExpansion)
+    {
+        if (!ITEMSIsA(pItem, 0x4C) && !ITEMSIsA(pItem, 0x51) && !ITEMSIsA(pItem, 0x50))
+        {
+            return 0;
+        }
+
+        D2UnitStrc* pPet = PLAYERPETS_GetFirstPetByType(ptGame, hUnit, 7, 0);
+        if (pPet)
+        {
+            pTarget = pPet;
+        }
+    }
+
+    if (!SKILLITEM_pSpell_Handler(ptGame, pTarget, pItem, pItem, nX, nY))
+    {
+        return 0;
+    }
+
+    const int nBeltX = CLIENTS_GetUnitX(pItem);
+    const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pItem);
+    if (nSkillId != -1)
+    {
+        D2SkillStrc* pSkill = SKILLS_GetSkillById(hUnit, nSkillId, -1);
+        if (pSkill)
+        {
+            int nQuantity = SKILLS_GetQuantity(pSkill) - 1;
+            if (nQuantity <= 0)
+            {
+                if (UNITS_GetRightSkill(hUnit) == pSkill)
+                {
+                    D2GAME_AssignSkill_6FD13800(hUnit, 0, SKILL_ATTACK, -1);
+                }
+                nQuantity = 0;
+            }
+
+            SKILLS_SetQuantity(pSkill, nQuantity);
+            const int nUnitGUID = hUnit->dwUnitId;
+            const int nUnitType = hUnit->dwUnitType;
+            D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(hUnit, szItemModeCpp, 0x136D), nUnitType, nUnitGUID, nSkillId, nQuantity);
+        }
+    }
+
+    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1370);
+    ITEMMODE_RemoveBeltItem(ptGame, hUnit, pItem);
+    ITEMMODE_CompactBeltColumn(ptGame, hUnit, nBeltX);
+    return 1;
+}
+
+// build: context ITEMMODE_GetOtherBodyLocItem
+static inline D2UnitStrc* ITEMMODE_GetOtherBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc, D2UnitStrc* pItem)
+{
+    const int nOppositeBodyLoc = ITEMMODE_GetOppositeBodyLoc(nBodyLoc);
+    if (!nOppositeBodyLoc)
+    {
+        return pItem;
+    }
+
+    return INVENTORY_GetItemFromBodyLoc(pInventory, nOppositeBodyLoc);
+}
+
+// 0x005628C0
+int __fastcall ITEMMODE_PlaceItemInCube(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nCubeGUID, int* pItemStatus)
+{
+    D2_ASSERT(ptGame, 5287);
+    D2_ASSERT(hUnit, 5288);
+
+    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 5291);
+
+    *pItemStatus = 0;
+    D2UnitStrc* pCube = SUNIT_GetServerUnit(ptGame, 4, nCubeGUID);
+    if (!pCube)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+    if ((!pCube ? 0 : pCube->dwAnimMode) || ITEMS_GetBaseCode(pCube) != 0x20786F62)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(ptGame, hUnit, 1) && ITEMS_GetInvPage(pCube))
+    {
+        SUNIT_AttachSound(hUnit, 19, hUnit);
+        return 0;
+    }
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!pItem)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if (pItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pItem->dwAnimMode != IMODE_ONGROUND && pItem->dwAnimMode != IMODE_ONCURSOR)
+    {
+        *pItemStatus = 1;
+        return 0;
+    }
+
+    if ((!pCube ? 6 : pCube->dwUnitType) == 4)
+    {
+        if (!pCube ? 0 : pCube->dwAnimMode)
+        {
+            *pItemStatus = 1;
+            return 0;
+        }
+
+        ITEMS_SetInvPage(pItem, 3);
+        D2GAME_PlaceItem_6FC44410(szItemModeCpp, 5356, ptGame, hUnit, !pItem ? -1 : pItem->dwUnitId, 0, 0, 1, 1, 0);
+        return 1;
+    }
+
+    return 0;
+}
+
+static inline int sub_M70_ItemGetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int sub_M70_ItemGetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x00562A30
+int __fastcall ITEMMODE_EquipStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc)
+{
+    D2_ASSERT(ptGame, 0x14F6);
+    D2_ASSERT(pUnit, 0x14F7);
+
+    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x14FA);
+
+    D2UnitStrc* hGridItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!hGridItem)
+    {
+        return 0;
+    }
+
+    if (hGridItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (hGridItem->dwAnimMode != IMODE_STORED)
+    {
+        return 0;
+    }
+
+    if (!ITEMS_CheckRequirements(hGridItem, pUnit, 0, 0, 0, 0))
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hGridItem);
+    D2_ASSERT(hRemove, 0x1512);
+    D2_ASSERT(hGridItem == hRemove, 0x1513);
+
+    const int nInventoryRecordId = UNITS_GetInventoryRecordId(pUnit, 0, ptGame->bExpansion);
+    INVENTORY_Return(".\\ITEMS\\ItemMode.cpp", 0x1515, pInventory, CLIENTS_GetUnitX(hGridItem), CLIENTS_GetUnitY(hGridItem), nInventoryRecordId, 0, 0);
+    ITEMS_SetInvPage(hGridItem, 0xFF);
+
+    if (sub_0063BDB0(pInventory, hGridItem, nBodyLoc))
+    {
+        if (INVENTORY_PlaceItemInSocket(pInventory, hGridItem, 3))
+        {
+            ITEMS_SetBodyLocation(hGridItem, nBodyLoc);
+            sub_0063D1D0_InventoryItemCall(pInventory, hGridItem);
+            INVENTORY_SetCursorItem(pInventory, 0);
+            D2_ASSERT(!ITEMSIsA(hGridItem, 0x0D), 0x151D);
+
+            sITEMSAddStatsList(ptGame, hGridItem, pUnit, 0);
+            hGridItem->dwFlags &= ~2u;
+            UNITS_ChangeAnimMode(hGridItem, 1);
+            ITEMS_SetInvPage(hGridItem, 0xFF);
+            ITEMS_SetItemCMDFlag(hGridItem, 0x8000, 1);
+
+            if (D2GAME_CheckHasFilledSockets(hGridItem, ".\\ITEMS\\ItemMode.cpp", 0x1527))
+            {
+                ITEMS_SetItemFlag(hGridItem, 1, 1);
+            }
+
+            if (ITEMS_CheckItemFlag(hGridItem, 0x4000, 0x152A, ".\\ITEMS\\ItemMode.cpp"))
+            {
+                ITEMS_SetItemFlag(hGridItem, 0x4000, 0);
+            }
+
+            INVENTORY_AddItemToTradeInventory(pInventory, hGridItem);
+            ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
+            UNITS_RefreshInventory(pUnit, 1);
+            sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
+            return 1;
+        }
+
+        sub_0063BE30(pInventory, nBodyLoc);
+        D2_ASSERT(0, 0x1534);
+    }
+
+    D2_ASSERT(0, 0x1537);
+    return 0;
+}
+
+static inline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit)
+{
+    if (pUnit) return pUnit->dwUnitType;
+    return 6;
+}
+
+// 0x00562E00
+int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSkipRequirementCheck)
+{
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    int nBodyLoc;
+    if (ITEMMODE_FindFreeBodyLocation(pUnit, pItem, &nBodyLoc, bSkipRequirementCheck))
+    {
+        if (INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc))
+        {
+            if (nBodyLoc != 0xB && nBodyLoc != 0xC)
+            {
+                if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
+                {
+                    ITEMS_SetBodyLocation(pItem, nBodyLoc);
+                    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
+                    INVENTORY_SetCursorItem(pInventory, 0);
+                    sITEMSAddStatsList(pGame, pItem, pUnit, 0);
+                    if (pItem)
+                    {
+                        pItem->dwFlags &= ~2;
+                    }
+                    UNITS_ChangeAnimMode(pItem, 1);
+                    ITEMS_SetItemCMDFlag(pItem, 0x200, 1);
+                    if (pItem)
+                    {
+                        pItem->dwFlags &= ~0x2000000;
+                    }
+                    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+                    UNITS_RefreshInventory(pUnit, 1);
+                    ITEMS_SetInvPage(pItem, 0xFF);
+                    ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
+                    return 1;
+                }
+                sub_0063BE30(pInventory, nBodyLoc);
+                D2_ASSERT(0, 0x1671);
+            }
+            D2_ASSERT(0, 0x1656);
+        }
+        D2_ASSERT(0, 0x1674);
+    }
+    return 0;
+}
+
+// 0x00563FE0
+int __fastcall D2GAME_Transmogrify_6FC4A660(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+{
+    D2_ASSERT(ptGame, 0x1619);
+    D2_ASSERT(pUnit, 0x161A);
+    D2_ASSERT(pItem, 0x161B);
+    D2_ASSERT(pItem->dwUnitType == UNIT_ITEM, 0x161C);
+
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem->dwClassId);
+    D2_ASSERT(pItemsTxtRecord, 0x1622);
+
+    if (pItemsTxtRecord->nTransmogrify)
+    {
+        int nItemId;
+        D2_ASSERT(DATATBLS_GetItemRecordFromItemCode(pItemsTxtRecord->dwTransmogrifyType, &nItemId), 0x1627);
+
+        if (pItem->dwAnimMode == IMODE_STORED)
+        {
+            D2ItemDropStrc itemDrop;
+            ITEMMODE_InitItemDropFromItem(nItemId, ptGame, pItem, &itemDrop);
+            ITEMMODE_RemoveItemAndNotify(ptGame, pUnit, pItem);
+
+            D2UnitStrc* pNewItem = sub_00558D90_SpawnItem(ptGame, &itemDrop, 0);
+            D2_ASSERT(pNewItem, 0x162D);
+
+            if (pItemsTxtRecord->nTmogMin > 0 && pItemsTxtRecord->nTmogMax > 0)
+            {
+                const int nQuantity = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pItemsTxtRecord->nTmogMax - pItemsTxtRecord->nTmogMin) + pItemsTxtRecord->nTmogMin;
+                STATLIST_SetUnitStat(pNewItem, STAT_QUANTITY, nQuantity, 0);
+            }
+            else
+            {
+                STATLIST_SetUnitStat(pNewItem, STAT_QUANTITY, 0, 0);
+            }
+
+            ITEMS_SetInvPage(pNewItem, 0);
+
+            const int nNewItemGUID = pNewItem->dwUnitId;
+            if (D2GAME_PlaceItem_6FC44410(".\\ITEMS\\ItemMode.cpp", 0x163B, ptGame, pUnit, nNewItemGUID, itemDrop.nX, itemDrop.nY, 0, 1, 0))
+            {
+                return 1;
+            }
+
+            const int nRetryGUID = pNewItem->dwUnitId;
+            if (D2GAME_PlaceItem_6FC44410(".\\ITEMS\\ItemMode.cpp", 0x163D, ptGame, pUnit, nRetryGUID, 0, 0, 1, 1, 0))
+            {
+                return 1;
+            }
+
+            const int nDropGUID = (pNewItem ? pNewItem->dwUnitId : -1);
+            sub_6FC44030(ptGame, pUnit, nDropGUID);
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00566CC0
+void __fastcall PLRTRADE_RestoreTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x880);
+
+    for (int i = 1; i < 13; ++i)
+    {
+        sub_0063BE30_Return(pPlayer->pInventory, i);
+    }
+
+    D2PlayerTradeStrc* ptTradeRecord = pPlayerData->hTrade;
+    D2_ASSERT(ptTradeRecord, 0x888);
+
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 9, 0);
+
+    int nUnused;
+    PLRSAVE_ReadItemSection(pGame, pPlayer, ptTradeRecord->pSaveData, 0x60, 0x2000, 0, &nUnused);
+
+    const int nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
+    const int nMode = pPlayer->dwAnimMode;
+    if (nGold > 0 && nMode != 0 && nMode != 17)
+    {
+        PLRTRADE_AddGold(pPlayer, 14, -nGold);
+        PLRTRADE_AddGold(pPlayer, 14, ptTradeRecord->nGoldInTradeOtherPlayer);
+    }
+}
+
+// 0x00562F30
+int __fastcall ITEMMODE_RecoverCorpseItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pCorpse)
+{
+    if (!pPlayer || !pCorpse)
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pPlayerInventory = pPlayer->pInventory;
+    D2InventoryStrc* pCorpseInventory = pCorpse->pInventory;
+    if (!pPlayerInventory || !pCorpseInventory)
+    {
+        return 0;
+    }
+
+    int bItemRemoved = 0;
+    int nCounter = 0;
+    do
+    {
+        bItemRemoved = 0;
+        nCounter = 0;
+        for (int i = 1; i < 13; ++i)
+        {
+            int nBodyLoc = i;
+            D2UnitStrc* pCorpseItem = INVENTORY_GetItemFromBodyLoc(pCorpseInventory, i);
+            if (pCorpseItem)
+            {
+                ++nCounter;
+
+                if (ITEMS_CheckRequirements(pCorpseItem, pPlayer, 0, 0, 0, 0))
+                {
+                    D2UnitStrc* pPlayerItem = INVENTORY_GetItemFromBodyLoc(pPlayerInventory, i);
+                    D2UnitStrc* pOtherPlayerItem = ITEMMODE_GetOtherBodyLocItem(pPlayerInventory, i, pPlayerItem);
+
+                    int bMoved = 0;
+                    if (!ITEMMODE_CheckAndResolveBodySlotPair(pPlayer, pCorpseItem, &pPlayerItem, &pOtherPlayerItem, &nBodyLoc))
+                    {
+                        if (ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, 0, 0, szItemModeCpp, 0x176B, pPlayer, pCorpseItem))
+                        {
+                            ITEMS_ScheduleDurabilityReplenishment(pGame, pCorpseItem);
+                            ITEMS_ScheduleQuantityReplenishment(pGame, pCorpseItem);
+                            bMoved = 1;
+                        }
+                    }
+                    else
+                    {
+                        const int eLoc = nBodyLoc;
+                        D2_ASSERT(!INVENTORY_GetItemFromBodyLoc(pPlayerInventory, eLoc), 0x1775);
+
+                        if (INVENTORY_PlaceItemInBodyLoc(pPlayerInventory, pCorpseItem, eLoc))
+                        {
+                            int nSocketType = 3;
+                            if (eLoc == 11 || eLoc == 12)
+                            {
+                                nSocketType = 4;
+                            }
+
+                            if (INVENTORY_PlaceItemInSocket(pPlayerInventory, pCorpseItem, nSocketType))
+                            {
+                                INVENTORY_SetCursorItem(pPlayerInventory, 0);
+                                ITEMS_SetBodyLocation(pCorpseItem, eLoc);
+                                pCorpseItem->dwFlags &= ~2u;
+                                UNITS_ChangeAnimMode(pCorpseItem, 1);
+                                ITEMS_SetItemCMDFlag(pCorpseItem, 8, 1);
+                                INVENTORY_AddItemToTradeInventory(pPlayerInventory, pCorpseItem);
+                                UNITS_RefreshInventory(pPlayer, 1);
+                                pCorpseItem->dwFlags &= ~0x02000000u;
+                                ITEMS_SetInvPage(pCorpseItem, 0xFF);
+
+                                if (nSocketType == 3)
+                                {
+                                    sub_0063D1D0_InventoryItemCall(pPlayerInventory, pCorpseItem);
+                                    sITEMSAddStatsList(pGame, pCorpseItem, pPlayer, 0);
+                                    ITEMMODE_AddItemScrollSkillQuantity(pPlayer, pCorpseItem);
+                                    ITEMMODE_RefreshSkillsForEquippedWeapons(pPlayer);
+                                }
+
+                                QUESTS_ItemPickedUp(pGame, pPlayer, pCorpseItem);
+                                ITEMS_ScheduleDurabilityReplenishment(pGame, pCorpseItem);
+                                ITEMS_ScheduleQuantityReplenishment(pGame, pCorpseItem);
+                                bMoved = 1;
+                            }
+                            else
+                            {
+                                sub_0063BE30_Return(pPlayerInventory, eLoc);
+                            }
+                        }
+                    }
+
+                    if (bMoved)
+                    {
+                        ITEMS_SetItemFlag(pCorpseItem, 1, 1);
+                        INVENTORY_RemoveItemFromInventory(pCorpseInventory, pCorpseItem);
+                        sub_0063BE30_Return(pCorpseInventory, i);
+                        bItemRemoved = 1;
+                        --nCounter;
+                    }
+                }
+            }
+        }
+    }
+    while (nCounter && bItemRemoved);
+
+    int bAllowInventoryFallback = 0;
+    int nMoved;
+    int nResult;
+    while (1)
+    {
+        nMoved = 0;
+        nResult = 1;
+        D2UnitStrc* pCorpseItem = INVENTORY_GetFirstItem(pCorpseInventory);
+        if (!pCorpseItem)
+        {
+            break;
+        }
+
+        do
+        {
+            D2UnitStrc* pNextItem = INVENTORY_GetNextItem(pCorpseItem);
+            D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCorpseItem);
+            if (!ITEMMODE_CanPickUpItem(pGame, pPlayer, pItem))
+            {
+                nResult = 0;
+            }
+            else
+            {
+                if (!ITEMMODE_EquipItemAtResolvedBodyLocation(pGame, pPlayer, pItem, 0))
+                {
+                    if (ITEMS_CheckIfBeltable(pItem) && INVENTORY_PlaceItemInFreeBeltSlot(pPlayerInventory, pItem))
+                    {
+                        if (!INVENTORY_PlaceItemInSocket(pPlayerInventory, pItem, 2))
+                            goto NextLooseItem;
+                        INVENTORY_SetCursorItem(pPlayerInventory, 0);
+
+                        D2_ASSERT(pItem, 0x24E);
+                        if (pPlayer->dwUnitType == UNIT_PLAYER)
+                        {
+                            ITEMMODE_UpdateBookScrollSkillQuantity(1, pPlayer, pItem);
+                        }
+
+                        pItem->dwFlags &= ~2u;
+                        if (ITEMS_IsCharmUsable(pItem, pPlayer))
+                        {
+                            sITEMSAddStatsList(pGame, pItem, pPlayer, 0);
+                        }
+
+                        UNITS_ChangeAnimMode(pItem, 2);
+                        pItem->dwFlags &= ~0x02000000u;
+                        ITEMS_SetItemCMDFlag(pItem, 0x2000u, 1);
+                        ITEMS_SetInvPage(pItem, 0xFF);
+                        INVENTORY_AddItemToTradeInventory(pPlayerInventory, pItem);
+                        UNITS_RefreshInventory(pPlayer, 1);
+                    }
+                    else if (!bAllowInventoryFallback)
+                    {
+                        goto NextLooseItem;
+                    }
+                    else if (!ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, 0, 0, szItemModeCpp, 0x17F1, pPlayer, pItem))
+                    {
+                        nResult = 0;
+                        goto NextLooseItem;
+                    }
+                }
+                ++nMoved;
+                ITEMS_SetItemFlag(pItem, 1, 1);
+            }
+NextLooseItem:
+
+            pCorpseItem = pNextItem;
+        }
+        while (pCorpseItem);
+
+        if (!nMoved)
+        {
+            if (bAllowInventoryFallback)
+            {
+                break;
+            }
+
+            bAllowInventoryFallback = 1;
+        }
+    }
+    sub_0055DBC0_RecalcEquippedItemStates(pGame, pPlayer, 0);
+    return nResult;
+}
+
 // 0x0055F500
 void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -3614,93 +6332,33 @@ void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc* pGame, D2UnitStrc* pUnit)
     ITEMMODE_RestoreSelectedSkills(pUnit, &refreshState);
 }
 
-int __fastcall ITEMMODE_CheckAndResolveBodySlotPair(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc** ppPrimary, D2UnitStrc** ppOther, int* pBodyLoc)
+// 0x00563350
+int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int a5)
 {
-    if (!pUnit || !pItem || GetUnitType(pItem) != 4) return 0;
-    D2UnitStrc* pPrimary = *ppPrimary;
-    if (pPrimary)
+    if (ITEMS_CheckIfSocketable(pItem))
     {
-        if (*ppOther) return 0;
-    }
-    else if (!*ppOther) return 1;
-    int nOpposite = ITEMMODE_GetOppositeBodyLoc(*pBodyLoc);
-    if (pPrimary)
-    {
-        *ppPrimary = *ppOther;
-        *ppOther = pPrimary;
-        *pBodyLoc = nOpposite;
-    }
-    switch (*pBodyLoc)
-    {
-    case 4: case 5: case 11: case 12:
-        if (ITEMS_GetAmmoType(pItem) > 0)
+        if (!pItem->pInventory)
         {
-            if (!*ppOther) return 1;
-            return ITEMSIsA(*ppOther, ITEMS_GetAmmoType(pItem)) != 0;
+            return 0;
         }
-        if (ITEMS_GetQuiverType(pItem))
+
+        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
         {
-            if (!*ppOther) return 1;
-            if (ITEMS_GetAmmoType(*ppOther) <= 0) return 0;
-            return ITEMSIsA(pItem, ITEMS_GetAmmoType(*ppOther)) != 0;
-        }
-        if (ITEMS_GetAmmoType(*ppOther) > 0) return ITEMSIsA(pItem, ITEMS_GetAmmoType(*ppOther)) != 0;
-        if (ITEMS_GetQuiverType(*ppOther) > 0) return ITEMSIsA(pItem, ITEMS_GetQuiverType(*ppOther)) != 0;
-        if (ITEMS_CheckWeaponIfTwoHanded(pItem) && !ITEMS_Is1Or2Handed(pUnit, pItem)) return 0;
-        if (ITEMS_CheckWeaponIfTwoHanded(*ppOther) && !ITEMS_Is1Or2Handed(pUnit, *ppOther)) return 0;
-        {
-            int bItemWeapon = ITEMSIsA(pItem, 45);
-            int bOtherWeapon = ITEMSIsA(*ppOther, 45);
-            if (bItemWeapon)
+            D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(i);
+            D2UnitStrc* pDupedItem = ITEMS_Duplicate(pGame, pCheckedItem, 0, 1);
+            UNITS_ChangeAnimMode(pDupedItem, IMODE_ONCURSOR);
+            UNITS_SetXForStaticUnit(pDupedItem, sub_M70_ItemGetUnitX(pCheckedItem));
+            UNITS_SetYForStaticUnit(pDupedItem, sub_M70_ItemGetUnitY(pCheckedItem));
+
+            int bPlaced;
+            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pUnit, !pDupedItem ? -1 : pDupedItem->dwUnitId, sub_00451F50_GetUnitGUID(pSocketable), &bPlaced, a5, 0, 1, 0))
             {
-                if (bOtherWeapon)
-                {
-                    if (GetUnitType(pUnit) == 1) return 1;
-                    switch (pUnit->dwClassId)
-                    {
-                    case 4: return 1;
-                    case 6:
-                        if (ITEMSIsA(pItem, 67) && ITEMSIsA(*ppOther, 67)) return 1;
-                        return 0;
-                    default: return 0;
-                    }
-                }
+                return 0;
             }
-            else if (!bOtherWeapon) return 0;
-            return *ppPrimary == 0;
-        }
-    default: return *ppPrimary == 0;
-    }
-}
-
-// 0x0055F590
-int __fastcall D2GAME_CheckHasFilledSockets(D2UnitStrc* pItem, const char* szFile, int nLine)
-{
-    if (pItem && pItem->dwUnitType == UNIT_ITEM && ITEMS_CheckIfSocketable(pItem) && pItem->pInventory && INVENTORY_GetItemCount(pItem->pInventory) > 0)
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x0055F5D0
-static int __stdcall ITEMMODE_HasSameAffixes(D2UnitStrc* pBook, D2UnitStrc* pItem)
-{
-    for (int i = 0; i < 3; i += 1)
-    {
-        if (ITEMS_GetPrefixId(pBook, i) != ITEMS_GetPrefixId(pItem, i))
-        {
-            return 0;
-        }
-
-        if (ITEMS_GetSuffixId(pBook, i) != ITEMS_GetSuffixId(pItem, i))
-        {
-            return 0;
         }
     }
 
-    return ITEMS_GetAutoAffix(pBook) == ITEMS_GetAutoAffix(pItem);
+    return 1;
 }
 
 // 0x0055F640
@@ -3952,29 +6610,6 @@ int __fastcall ITEMMODE_MarkItemOnCursor(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     return 1;
 }
 
-static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
-static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0)
-    {
-        return 0;
-    }
-
-    if ((nMax - 1) & nMax)
-    {
-        return SEED_RollRandomNumber(pSeed) % nMax;
-    }
-
-    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
-}
-
 // 0x0055FB80
 unsigned int __fastcall ITEMMODE_PickRandomItemCode(D2GameStrc* pGame, D2ItemCodeListStrc* pList, D2UnitStrc* pUnit, int bGood)
 {
@@ -4061,2029 +6696,6 @@ void __fastcall ITEMMODE_RemoveInventoryItemProperties(D2GameStrc* pGame, D2Unit
     INVENTORY_RemoveAllItems(pInventory);
 }
 
-// 0x0055FDE0
-void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
-{
-    sub_0055DBC0_RecalcEquippedItemStates(pGame, pUnit, 0);
-    if (a3)
-    {
-        UNITS_RefreshInventory(pUnit, 1);
-    }
-}
-
-// 0x0055FE00
-void __fastcall ITEMMODE_IdentifyItemAndApplyCharmProperties(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer)
-{
-    ITEMS_SetItemFlag(pItem, IFLAG_IDENTIFIED, 1);
-
-    if (pItem && pItem->dwAnimMode != IMODE_STORED)
-    {
-        return;
-    }
-
-    if (!ITEMS_IsCharmUsable(pItem, pPlayer))
-    {
-        return;
-    }
-
-    sITEMSAddStatsList(pGame, pItem, pPlayer, 0);
-    sub_0055DBC0_RecalcEquippedItemStates(pGame, pPlayer, 0);
-    UNITS_RefreshInventory(pPlayer, 1);
-}
-
-// 0x0055FE60
-void __stdcall D2GAME_ITEMS_UpdateStatList(D2UnitStrc* pItem)
-{
-    sub_0055C2C0(pItem, 0);
-}
-
-// 0x0055FE80
-int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    if (!pGame || !pItem || pItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    D2ClientStrc* pClient = 0;
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        pClient = UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 6809);
-    }
-
-    D2StatStrc stats[64];
-    const int nStats = STATLIST_CopyStats(pItem, STAT_ITEM_CHARGED_SKILL, stats, 64);
-    int bRecharged = 0;
-    for (int i = 0; i < nStats; ++i)
-    {
-        const int nLayer = stats[i].nLayer;
-        const int nSkillId = nLayer >> sgptDataTables->nStuff;
-        const int nSkillLevel = nLayer & sgptDataTables->nShiftedStuff;
-        const int nValue = stats[i].nValue >> 8;
-        if ((stats[i].nValue & 0xFF) < nValue)
-        {
-            ITEMMODS_UpdateItemWithSkillCharges(pItem, nSkillId, nSkillLevel, nValue);
-
-            bRecharged = 1;
-            if (pClient)
-            {
-                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(pClient, pItem, 1, STAT_ITEM_CHARGED_SKILL,
-                    (nValue & 0xFF) + (nValue << 8),
-                    (nSkillLevel & (unsigned short)sgptDataTables->nShiftedStuff) + (nSkillId << sgptDataTables->nStuff));
-            }
-        }
-    }
-
-    return bRecharged;
-}
-
-// 0x0055FFA0
-static int ITEMMODE_AddScrollToFillableBook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pScroll)
-{
-    D2_ASSERT(pGame, 0x610);
-
-    D2UnitStrc* pBook = INVENTORY_FindFillableBook(pUnit->pInventory, pScroll, 0);
-    if (pBook)
-    {
-        int nItemStatus;
-        const int nBookGUID = pBook->dwUnitId;
-        return ITEMMODE_AddScrollToBook(pGame, pUnit, !pScroll ? -1 : pScroll->dwUnitId, nBookGUID, &nItemStatus);
-    }
-
-    return 0;
-}
-
-int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    return ITEMMODE_PickupStackable(pGame, pUnit, pItem);
-}
-
-// 0x00560020
-static int ITEMMODE_PickupStackable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    D2_ASSERT(pGame, 0x65F);
-
-    if (ITEMSIsA(pItem, 0x16))
-    {
-        return ITEMMODE_AddScrollToFillableBook(pGame, pUnit, pItem);
-    }
-
-    if (ITEMSIsA(pItem, 0x12))
-    {
-        return ITEMMODE_TryMergeBookQuantity(pGame, pUnit, pItem);
-    }
-
-    if (ITEMS_CheckIfStackable(pItem) && ITEMS_GetAutoStack(pItem))
-    {
-        return ITEMMODE_AutoStackPickup(pGame, pUnit, pItem);
-    }
-
-    return 0;
-}
-
-// 0x005600A0
-static int __stdcall ITEMMODE_PlaceItemAtFreeInventoryPosition(D2GameStrc* ptGame, int bRemove, int nPage, const char* szFile, int nLine, D2UnitStrc* pUnit, D2UnitStrc* hItem)
-{
-    D2_ASSERT(ptGame, 0x746);
-
-    D2InventoryStrc* hInventory = pUnit->pInventory;
-    D2_ASSERT(hInventory, 0x749);
-
-    if (INVENTORY_PlaceItemAtFreePosition(hInventory, hItem, UNITS_GetInventoryRecordId(pUnit, nPage, ptGame->bExpansion), 0, 0, szFile, nLine))
-    {
-        if (bRemove)
-        {
-            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(hItem);
-            if (pRoom)
-            {
-                const int nUnitGUID = !hItem ? -1 : hItem->dwUnitId;
-                const int nUnitType = !hItem ? 6 : hItem->dwUnitType;
-                DUNGEON_AllocDrlgDelete(pRoom, nUnitType, nUnitGUID);
-                UNITS_FreeCollisionPath(hItem);
-                UNITROOM_RemoveUnitFromRoom(hItem);
-            }
-        }
-
-        if (INVENTORY_PlaceItemInSocket(hInventory, hItem, 1))
-        {
-            INVENTORY_SetCursorItem(hInventory, 0);
-            ITEMMODE_AddItemScrollSkillQuantity(pUnit, hItem);
-
-            if (ITEMS_IsCharmUsable(hItem, pUnit))
-            {
-                sITEMSAddStatsList(ptGame, hItem, pUnit, 0);
-            }
-
-            if (hItem)
-            {
-                hItem->dwFlags &= ~2u;
-            }
-
-            UNITS_ChangeAnimMode(hItem, 0);
-            ITEMS_SetItemCMDFlag(hItem, 0x80, 1);
-            INVENTORY_AddItemToTradeInventory(hInventory, hItem);
-            UNITS_RefreshInventory(pUnit, 1);
-
-            if (hItem)
-            {
-                hItem->dwFlags &= ~0x02000000u;
-            }
-
-            ITEMS_SetInvPage(hItem, nPage);
-            QUESTS_ItemPickedUp(ptGame, pUnit, hItem);
-
-            if (ITEMS_IsCharmUsable(hItem, pUnit))
-            {
-                sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-                UNITS_RefreshInventory(pUnit, 1);
-            }
-
-            return 1;
-        }
-
-        D2_ASSERT(0, 0x76F);
-    }
-
-    return 0;
-}
-
-// 0x00560200
-int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int bAutoPosition, int bNotify, D2InventoryStrc* pInventory)
-{
-    if (!pGame || !pPlayer) return 0;
-    ITEMMODE_ClearTargetingFlags(pPlayer, szItemModeCpp, 0x87B);
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nUnitId);
-    if (!pItem) return 0;
-    if (pItem->dwUnitType != UNIT_ITEM) return 0;
-    if (pItem->dwAnimMode != IMODE_ONCURSOR) return 0;
-    const unsigned char nPage = ITEMS_GetInvPage(pItem);
-    if (!pInventory)
-    {
-        pInventory = pPlayer->pInventory;
-        if (!pInventory) return 0;
-    }
-    int bTrade = 0;
-    int bClearCursor = 1;
-    const int nInventoryRecordId = UNITS_GetInventoryRecordId(pPlayer, nPage, pGame->bExpansion);
-    if (pPlayer->dwUnitType == UNIT_PLAYER)
-    {
-        switch (nPage)
-        {
-        case 1: bClearCursor = 0; break;
-        case 2: bTrade = 1; break;
-        }
-    }
-    if (bAutoPosition)
-    {
-        if (!INVENTORY_PlaceItemAtFreePosition(pInventory, pItem, nInventoryRecordId, 0, nPage, szFile, nLine)) goto failed;
-    }
-    else
-    {
-        if (nX < 0) nX = 0;
-        if (nY < 0) nY = 0;
-        if (!INVENTORY_PlaceItemAtInventoryPage(pInventory, pItem, nX, nY, nInventoryRecordId, 0, nPage)) goto failed;
-    }
-    if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
-    {
-    failed:
-        return 0;
-    }
-    if (ITEMS_GetInvPage(pItem) != 4) ITEMMODE_AddItemScrollSkillQuantity(pPlayer, pItem);
-    pItem->dwFlags &= ~2u;
-    if (ITEMS_IsCharmUsable(pItem, pPlayer)) sITEMSAddStatsList(pGame, pItem, pPlayer, 0);
-    if (bClearCursor) INVENTORY_SetCursorItem(pInventory, 0);
-    UNITS_ChangeAnimMode(pItem, 0);
-    if (bNotify)
-    {
-        ITEMS_SetItemCMDFlag(pItem, 2, 1);
-        if (D2GAME_CheckHasFilledSockets(pItem, szItemModeCpp, 0x8EA)) ITEMS_SetItemFlag(pItem, 1, 1);
-        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x8EE, szItemModeCpp)) ITEMS_SetItemFlag(pItem, 0x4000, 0);
-        UNITS_RefreshInventory(pPlayer, 1);
-        INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-    }
-    if (bTrade == 1) PLRTRADE_AddItemToTrade(pGame, pPlayer, pItem);
-    if (ITEMS_IsCharmUsable(pItem, pPlayer))
-    {
-        sub_0055DBC0_RecalcEquippedItemStates(pGame, pPlayer, 0);
-        UNITS_RefreshInventory(pPlayer, 1);
-    }
-    return 1;
-}
-
-// 0x00560420
-int __fastcall ITEMMODE_RemoveStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus, int nUpdateMode, int bSetQuantityFlag, D2InventoryStrc* pInventoryArg, int bAllowOccupiedCursor)
-{
-    D2_ASSERT(ptGame, 0x906);
-    D2_ASSERT(pUnit, 0x907);
-
-    *pItemStatus = 0;
-
-    D2InventoryStrc* hInventory = pUnit->pInventory;
-    if (pInventoryArg)
-    {
-        hInventory = pInventoryArg;
-    }
-
-    D2_ASSERT(hInventory, 0x910);
-
-    if (INVENTORY_GetCursorItem(hInventory) && !bAllowOccupiedCursor)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* hItem = SUNIT_GetServerUnit(ptGame, UNIT_ITEM, nItemGUID);
-    if (!hItem)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (hItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    if (pUnit->dwUnitType == UNIT_PLAYER && !PLAYER_IsBusy(pUnit) && ITEMS_GetInventoryPage(hItem))
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (hItem->dwAnimMode != IMODE_STORED)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x936);
-
-    hItem->dwFlags &= ~UNITFLAG_TARGETABLE;
-
-    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(hInventory, hItem);
-    D2_ASSERT(hRemove, 0x947);
-    D2_ASSERT(hItem == hRemove, 0x948);
-
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hItem, pUnit, 0, 1);
-
-    if (ITEMS_IsCharmUsable(hItem, pUnit))
-    {
-        sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-        UNITS_RefreshInventory(pUnit, 1);
-    }
-
-    ITEMMODE_RemoveItemScrollSkillQuantity(pUnit, hItem);
-
-    const unsigned char nInvPage = ITEMS_GetInventoryPage(hItem);
-    const int nInventoryRecordId = UNITS_GetInventoryRecordId(pUnit, nInvPage, ptGame->bExpansion);
-
-    int bTrade = 0;
-    int bEquip = 1;
-
-    if (pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        switch (nInvPage)
-        {
-        case INVPAGE_EQUIP:
-            bEquip = 0;
-            break;
-        case INVPAGE_TRADE:
-            bTrade = 1;
-            break;
-        }
-    }
-    else
-    {
-        bEquip = 0;
-    }
-
-    INVENTORY_Return(".\\ITEMS\\ItemMode.cpp", 0x965, hInventory, CLIENTS_GetUnitX(hItem), CLIENTS_GetUnitY(hItem), nInventoryRecordId, 0, nInvPage);
-
-    ITEMS_SetItemCell(hItem, nInvPage);
-    ITEMS_SetInvPage(hItem, INVPAGE_NULL);
-
-    if (bEquip)
-    {
-        INVENTORY_SetCursorItem(hInventory, hItem);
-    }
-
-    UNITS_ChangeAnimMode(hItem, IMODE_ONCURSOR);
-
-    if (nUpdateMode == 1)
-    {
-        if (bSetQuantityFlag)
-        {
-            ITEMS_SetItemFlag(hItem, IFLAG_QUANTITY, 1);
-        }
-
-        if (bTrade == 1)
-        {
-            PLRTRADE_RemoveItemFromTrade(ptGame, pUnit, hItem);
-        }
-
-        ITEMS_SetItemCMDFlag(hItem, 4, 1);
-
-        if (D2GAME_CheckHasFilledSockets(hItem, ".\\ITEMS\\ItemMode.cpp", 0x975))
-        {
-            ITEMS_SetItemFlag(hItem, IFLAG_NEWITEM, 1);
-        }
-
-        if (sub_006280A0(hItem, IFLAG_NOEQUIP, 0x978, ".\\ITEMS\\ItemMode.cpp"))
-        {
-            ITEMS_SetItemFlag(hItem, IFLAG_NOEQUIP, 0);
-        }
-
-        INVENTORY_AddItemToTradeInventory(hInventory, hItem);
-        UNITS_RefreshInventory(pUnit, 1);
-    }
-
-    return 1;
-}
-
-// 0x005606B0
-int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus)
-{
-    int bIsSwitchWeapon = 0;
-    if (nBodyLoc == 0xB || nBodyLoc == 0xC)
-    {
-        bIsSwitchWeapon = 1;
-    }
-
-    D2_ASSERT(ptGame, 0xAEE);
-    D2_ASSERT(hUnit, 0xAEF);
-
-    if (pItemStatus)
-    {
-        *pItemStatus = 0;
-    }
-
-    ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0xAF7);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem)
-    {
-        if (pItemStatus)
-        {
-            *pItemStatus = 1;
-        }
-
-        return 0;
-    }
-
-    if (pItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    if (pItem->dwAnimMode != IMODE_ONCURSOR)
-    {
-        if (pItemStatus)
-        {
-            *pItemStatus = 1;
-        }
-
-        return 0;
-    }
-
-    if (D2Common_10299(hUnit, nBodyLoc, pItem, bSkipRequirementCheck) != 1)
-    {
-        if (pItemStatus)
-        {
-            *pItemStatus = 0;
-        }
-
-        return 0;
-    }
-
-    if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, hUnit, 0, 0, 0, 0))
-    {
-        if (pItemStatus)
-        {
-            *pItemStatus = 1;
-        }
-
-        return 0;
-    }
-
-    D2InventoryStrc* pInventory = hUnit->pInventory;
-    if (!bIsSwitchWeapon)
-    {
-        D2UnitStrc* pMainWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
-        if (pMainWeapon)
-        {
-            UNITS_SetWeaponGUID(hUnit, pMainWeapon);
-        }
-    }
-
-    if (sub_0063BDB0(pInventory, pItem, nBodyLoc))
-    {
-        int nPage = 3;
-        if (bIsSwitchWeapon)
-        {
-            nPage = 4;
-        }
-
-        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, nPage))
-        {
-            ITEMS_SetBodyLocation(pItem, nBodyLoc);
-
-            if (!bIsSwitchWeapon)
-            {
-                sub_0063D1D0_InventoryItemCall(pInventory, pItem);
-                sITEMSAddStatsList(ptGame, pItem, hUnit, 0);
-            }
-
-            INVENTORY_SetCursorItem(pInventory, 0);
-            pItem->dwFlags &= ~2;
-            UNITS_ChangeAnimMode(pItem, 1);
-            ITEMS_SetInvPage(pItem, 0xFF);
-            ITEMS_SetItemCMDFlag(pItem, 8, 1);
-            ITEMS_SetItemFlag(pItem, 1, 1);
-            if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xB4E, ".\\ITEMS\\ItemMode.cpp"))
-            {
-                ITEMS_SetItemFlag(pItem, 0x4000, 0);
-            }
-
-            INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-            UNITS_RefreshInventory(hUnit, 1);
-            ITEMMODE_RefreshSkillsForEquippedWeapons(hUnit);
-            sub_0055DBC0_RecalcEquippedItemStates(ptGame, hUnit, 0);
-        }
-        else
-        {
-            if (pItemStatus)
-            {
-                *pItemStatus = 1;
-            }
-
-            return 0;
-        }
-    }
-
-    return 1;
-}
-
-static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId, int line)
-{
-        if (!game) return 0;
-        {
-            sub_0055BF50_Check(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
-            Unit* placed = sub_00552F60_Find(game, 4, itemId);
-            if (!placed || placed->type != 4 || placed->mode != 4) return 0;
-            {
-                U8 targetPage = sub_00628250_Page(placed);
-                void* targetInventory = player->inventory;
-                if (!targetInventory) return 0;
-                int special = 0;
-                int clearCursor = 1;
-                int targetGrid = sub_00621050_Grid(player, targetPage, game->expansion);
-                if (player->type == 0) {
-                    switch (targetPage) {
-                    case 1: clearCursor = 0; break;
-                    case 2: special = 1; break;
-                    }
-                }
-                if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", line)) return 0;
-                if (!sub_0063B210_Add(targetInventory, placed, 1)) return 0;
-                if (sub_00628250_Page(placed) != 4) sub_0055C270_Update(player, placed);
-                placed->flags &= -3;
-                if (sub_0062FF70_Check(placed, player)) sub_0055C2C0_Apply(game, placed, player, 0);
-                if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
-                sub_00624690_Mode(placed, 0);
-                sub_00628170_CommandFlag(placed, 2, 1);
-                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) sub_006280D0_SetFlag(placed, 1, 1);
-                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
-                sub_00621000_SetFlag(player, 1);
-                sub_0063CC70_Refresh(targetInventory, placed);
-                if (special == 1) sub_00568770_Special(game, player, placed);
-                if (sub_0062FF70_Check(placed, player)) {
-                    sub_0055DBC0_Refresh(game, player, 0);
-                    sub_00621000_SetFlag(player, 1);
-                }
-                return 1;
-            }
-        }
-}
-
-// 0x005608C0
-void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* belt)
-{
-    void* hInventory = player->inventory;
-    D2_ASSERT(hInventory, 0xC0C);
-    BeltRecord record;
-    if (belt) sub_00660CB0_Record(UNITS_GetBeltType(belt), 0, &record);
-    else sub_00660CB0_Record(2, 0, &record);
-    for (int index = 0; index < 16; ++index) {
-        Unit* hItem = sub_0063C7F0_Belt(hInventory, index);
-        if (index < record.nBoxes || !hItem) continue;
-        U32 flags = 0;
-        sub_006287B0_Flags(&flags, 32, 1);
-        sub_0053EED0_RemoveBelt(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, hItem, flags);
-        Unit* removed = sub_0063AD90_Remove(hInventory, hItem);
-        D2_ASSERT(removed, 0xC22);
-        D2_ASSERT(hItem == removed, 0xC23);
-        int x;
-        switch (hItem->type) {
-        case 2: case 4: case 5: x = hItem->path->x; break;
-        default: x = hItem->path ? sub_006488C0_X(hItem->path) : 0; break;
-        }
-        sub_0063C550_Return((D2InventoryStrc*)hInventory, x);
-        sub_00624690_Mode(removed, 4);
-        ITEMMODE_RemoveItemScrollSkillQuantity((D2UnitStrc*)player, (D2UnitStrc*)hItem);
-        sub_00628280_SetPage(hItem, 0);
-        if (PlaceIntoInventory(game, player, hItem->id, 0xC29)) continue;
-        {
-            Point playerPosition;
-            Point dropPosition;
-            sub_00620870_Position(player, &playerPosition);
-            void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
-            if (room) {
-                sub_0055C730_UpdateProperties(game, hItem, player, 0, 1);
-                sub_00558AA0_Drop(game, player, hItem, room, dropPosition.x, dropPosition.y);
-            }
-        }
-    }
-}
-
-// 0x00560CD0
-int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, unsigned char nBodyLoc, int bSetQuantityFlag, int* pItemStatus)
-{
-    D2_ASSERT(ptGame, 0xC44);
-    D2_ASSERT(pUnit, 0xC45);
-
-    *pItemStatus = 0;
-
-    D2InventoryStrc* hInventory = pUnit->pInventory;
-    D2_ASSERT(hInventory, 0xC4A);
-
-    if (INVENTORY_GetCursorItem(hInventory))
-    {
-        return 0;
-    }
-
-    D2UnitStrc* hItem = INVENTORY_GetItemFromBodyLoc(hInventory, nBodyLoc);
-    if (!hItem)
-    {
-        *pItemStatus = 0;
-        return 0;
-    }
-
-    const int nItemType = hItem ? hItem->dwUnitType : UNIT_INVALID;
-    if (nItemType != ITEMTYPE_GOLD)
-    {
-        return 0;
-    }
-
-    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xC64);
-
-    const int nResult = D2Common_10299(pUnit, nBodyLoc, 0, 0);
-    if (nResult != 3 && nResult != 4)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    INVENTORY_GetSecondWieldingWeapon(pUnit, hInventory, &hItem, nBodyLoc);
-    if (!hItem)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    sub_0062A360(pUnit, hItem);
-    INVENTORY_UpdateWeaponGUIDOnRemoval(hInventory, hItem);
-    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(hInventory, hItem);
-
-    D2_ASSERT(hRemove, 0xC76);
-    D2_ASSERT(hItem == hRemove, 0xC77);
-
-    sub_0063BE30(hInventory, nBodyLoc);
-
-    if (ITEMS_GetItemType(hRemove) == ITEMTYPE_BELT)
-    {
-        sub_6FC45930(ptGame, pUnit, 0);
-    }
-
-    if (bSetQuantityFlag)
-    {
-        ITEMS_SetItemFlag(hItem, 0x20, 1);
-    }
-    else
-    {
-        INVENTORY_SetCursorItem(hInventory, hItem);
-    }
-
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hItem, pUnit, 0, 1);
-
-    if (hItem)
-    {
-        hItem->dwFlags &= ~2;
-    }
-
-    UNITS_ChangeAnimMode(hItem, 4);
-    ITEMS_SetItemCMDFlag(hItem, 0x10, 1);
-
-    if (D2GAME_CheckHasFilledSockets(hItem, ".\\ITEMS\\ItemMode.cpp", 0xC8B))
-    {
-        ITEMS_SetItemFlag(hItem, 1, 1);
-    }
-
-    if (ITEMS_CheckItemFlag(hItem, 0x4000, 0xC8E, ".\\ITEMS\\ItemMode.cpp"))
-    {
-        ITEMS_SetItemFlag(hItem, 0x4000, 0);
-    }
-
-    INVENTORY_AddItemToTradeInventory(hInventory, hItem);
-    UNITS_RefreshInventory(pUnit, 1);
-    ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
-    sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-    return 1;
-}
-
-// 0x00560F00
-int __fastcall ITEMMODE_SwapCursorAndBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pFailed)
-{
- D2_ASSERT(ptGame, 0xca7);
- D2_ASSERT(pUnit, 0xca8);
- if (nBodyLoc >= 11) return 0;
- *pFailed = 0;
- ITEMMODE_ClearTargetingFlags(pUnit, szItemModeCpp, 0xcb0);
- D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
- if (!pItem) { *pFailed = 0; return 0; }
- if (pItem->dwUnitType != UNIT_ITEM) return 0;
- if (pItem->dwAnimMode != IMODE_ONCURSOR) { *pFailed = 0; return 0; }
- const int nLoc = nBodyLoc;
- if (D2Common_10299(pUnit, nLoc, pItem, bSkipRequirementCheck) != 5) { *pFailed = 0; return 0; }
- D2InventoryStrc* pInventory = pUnit->pInventory;
- D2UnitStrc* pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
- if (pWeapon) UNITS_SetWeaponGUID(pUnit, pWeapon);
- D2UnitStrc* hBodyItem = INVENTORY_GetItemFromBodyLoc(pInventory, nLoc);
- INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &hBodyItem, nLoc);
- if (!hBodyItem) goto fail;
- if (hBodyItem->dwAnimMode != IMODE_EQUIP)
- {
-fail:
-  *pFailed = 1;
-  return 0;
- }
- D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hBodyItem, pUnit, 0, 1);
- if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
- {
-  sITEMSAddStatsList(ptGame, hBodyItem, pUnit, 0);
-  SUNIT_AttachSound(pUnit, 20, 0);
-  return 0;
- }
- if (ITEMS_GetItemType(pItem) == ITEMTYPE_BELT) ITEMMODE_MoveExcessBeltItems(ptGame, pUnit, pItem);
- sub_0062A360(pUnit, hBodyItem);
- INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, hBodyItem);
- D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, hBodyItem);
- D2_ASSERT(pRemoved, 0xcee);
- D2_ASSERT(hBodyItem == pRemoved, 0xcef);
- sub_0063BE30(pInventory, nLoc);
- INVENTORY_SetCursorItem(pInventory, hBodyItem);
- if (hBodyItem) hBodyItem->dwFlags &= ~2;
- UNITS_ChangeAnimMode(hBodyItem, 4);
- ITEMS_SetItemFlag(hBodyItem, 0x80, 1);
- ITEMS_SetItemCMDFlag(hBodyItem, 0x20, 1);
- ITEMS_SetItemFlag(hBodyItem, 1, 1);
- if (ITEMS_CheckItemFlag(hBodyItem, 0x4000, 0xcf7, szItemModeCpp)) ITEMS_SetItemFlag(hBodyItem, 0x4000, 0);
- INVENTORY_AddItemToTradeInventory(pInventory, hBodyItem);
- if (INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nLoc))
- {
-  if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
-  {
-    ITEMS_SetBodyLocation(pItem, nBodyLoc);
-    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
-    sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
-    pItem->dwFlags &= ~2;
-    UNITS_ChangeAnimMode(pItem, 1);
-    ITEMS_SetInvPage(pItem, 255);
-    ITEMS_SetItemFlag(pItem, 0x40, 1);
-    ITEMS_SetItemFlag(pItem, 1, 1);
-    ITEMS_SetItemCMDFlag(pItem, 0x20, 1);
-    ITEMS_SetItemFlag(pItem, 1, 1);
-    if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xd12, szItemModeCpp)) ITEMS_SetItemFlag(pItem, 0x4000, 0);
-    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-    ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
-    sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-    return 1;
-  }
-  *pFailed = 1;
-  return 0;
- }
- *pFailed = 1;
- return 0;
-}
-
-static inline int UNIT_GetMode(D2UnitStrc* pUnit) { return !pUnit ? 0 : pUnit->dwAnimMode; }
-
-// 0x00561220
-int __fastcall ITEMMODE_ReplaceHandItemsWithCursorItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int* pFailure)
-{
-    D2_ASSERT(ptGame, 0xD38);
-    D2_ASSERT(pUnit, 0xD39);
-    *pFailure = 0;
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem || pItem->dwUnitType != UNIT_ITEM || pItem->dwAnimMode != IMODE_ONCURSOR)
-        return 0;
-    if (D2Common_10299(pUnit, nBodyLoc, pItem, 0) != 7)
-        return 0;
-    if (!ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
-        return 0;
-    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xD60);
-    int nRecord = UNITS_GetInventoryRecordId(pUnit, 0, ptGame->bExpansion);
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pOther;
-    int nOtherBodyLoc;
-    if (nBodyLoc == 5)
-    {
-        pOther = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-        nOtherBodyLoc = 4;
-    }
-    else
-    {
-        pOther = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-        nOtherBodyLoc = 5;
-    }
-    if (!INVENTORY_IsItemBodyLocFree(pInventory, pItem, nOtherBodyLoc, nRecord))
-    {
-        *pFailure = 1;
-        return 0;
-    }
-    D2_ASSERT(pOther, 0xD73);
-    if (UNIT_GetMode(pOther) != 1)
-    {
-        *pFailure = 1;
-        return 0;
-    }
-    sub_0062A360(pUnit, pOther);
-    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pOther);
-    D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pOther);
-    D2_ASSERT(pRemoved, 0xD7D);
-    D2_ASSERT(pOther == pRemoved, 0xD7E);
-    sub_0063BE30(pInventory, nOtherBodyLoc);
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, pRemoved, pUnit, 0, 1);
-    if (sub_0063B950_PlaceItem(pInventory, pRemoved, nRecord, 0, 0, ".\\ITEMS\\ItemMode.cpp", 0xD86))
-    {
-        if (INVENTORY_PlaceItemInSocket(pInventory, pRemoved, 1))
-        {
-        ITEMS_SetInvPage(pRemoved, 0);
-        pRemoved->dwFlags &= ~2;
-        INVENTORY_SetCursorItem(pInventory, 0);
-        UNITS_ChangeAnimMode(pRemoved, 0);
-        if (D2GAME_CheckHasFilledSockets(pRemoved, ".\\ITEMS\\ItemMode.cpp", 0xD8D))
-            ITEMS_SetItemFlag(pRemoved, 1, 1);
-        if (ITEMS_CheckItemFlag(pRemoved, 0x4000, 0xD90, ".\\ITEMS\\ItemMode.cpp"))
-            ITEMS_SetItemFlag(pRemoved, 0x4000, 0);
-        ITEMS_SetItemCMDFlag(pRemoved, 0x4000, 1);
-        ITEMS_SetItemFlag(pRemoved, 1, 1);
-        INVENTORY_AddItemToTradeInventory(pInventory, pRemoved);
-        }
-        else
-        {
-            *pFailure = 1;
-            return 0;
-        }
-    }
-    D2UnitStrc* pEquipped = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
-    D2_ASSERT(pEquipped, 0xD9F);
-    if (pEquipped->dwAnimMode != 1)
-    {
-        *pFailure = 1;
-        return 0;
-    }
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, pEquipped, pUnit, 0, 1);
-    if (!ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
-    {
-        sITEMSAddStatsList(ptGame, pEquipped, pUnit, 0);
-        INVENTORY_SetCursorItem(pInventory, pItem);
-        ITEMMODE_MarkItemOnCursor(ptGame, pUnit, pItem);
-        SUNIT_AttachSound(pUnit, 20, 0);
-        UNITS_RefreshInventory(pUnit, 1);
-        return 0;
-    }
-    sub_0062A360(pUnit, pEquipped);
-    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pEquipped);
-    D2UnitStrc* pRemovedEquipped = INVENTORY_RemoveItemFromInventory(pInventory, pEquipped);
-    D2_ASSERT(pRemovedEquipped, 0xDB6);
-    D2_ASSERT(pEquipped == pRemovedEquipped, 0xDB7);
-    sub_0063BE30(pInventory, nBodyLoc);
-    INVENTORY_SetCursorItem(pInventory, pEquipped);
-    pEquipped->dwFlags &= ~2;
-    UNITS_ChangeAnimMode(pEquipped, 4);
-    ITEMS_SetItemCMDFlag(pEquipped, 0x10, 1);
-    ITEMS_SetItemFlag(pEquipped, 1, 1);
-    if (ITEMS_CheckItemFlag(pEquipped, 0x4000, 0xDBE, ".\\ITEMS\\ItemMode.cpp"))
-        ITEMS_SetItemFlag(pEquipped, 0x4000, 0);
-    INVENTORY_AddItemToTradeInventory(pInventory, pEquipped);
-    if (sub_0063BDB0(pInventory, pItem, nBodyLoc))
-    {
-        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
-        {
-        ITEMS_SetBodyLocation(pItem, nBodyLoc);
-        sub_0063D1D0_InventoryItemCall(pInventory, pItem);
-        sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
-        pItem->dwFlags &= ~2;
-        UNITS_ChangeAnimMode(pItem, 1);
-        ITEMS_SetInvPage(pItem, 0xFF);
-        ITEMS_SetItemFlag(pItem, 8, 1);
-        ITEMS_SetItemCMDFlag(pItem, 8, 1);
-        ITEMS_SetItemFlag(pItem, 1, 1);
-        if (D2GAME_CheckHasFilledSockets(pItem, ".\\ITEMS\\ItemMode.cpp", 0xDD5))
-            ITEMS_SetItemFlag(pItem, 1, 1);
-        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xDD8, ".\\ITEMS\\ItemMode.cpp"))
-            ITEMS_SetItemFlag(pItem, 0x4000, 0);
-        INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-        ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
-        sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-        return 1;
-        }
-        *pFailure = 1;
-        return 0;
-    }
-    *pFailure = 1;
-    return 0;
-}
-
-static inline int SkillUsable(D2UnitStrc* player, D2SkillStrc* skill)
-{
-    if (!skill) return 0;
-    switch (SKILLS_GetUseState(player, skill)) { case 2: case 7: return 0; }
-    return 1;
-}
-
-// 0x005616A0
-int __fastcall ITEMMODE_SwapWeaponSets(D2GameStrc* ptGame, D2UnitStrc* hUnit, int* status)
-{
-    int i;
-    SwapEntry entries[4] = { {4,0,11,4}, {5,0,12,4}, {11,0,4,3}, {12,0,5,3} };
-    D2_ASSERT(ptGame, 0xE1E);
-    D2_ASSERT(hUnit, 0xE1F);
-    *status = 0;
-    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0xE24);
-    D2InventoryStrc* inventory = hUnit->pInventory;
-    int leftId, leftOwner, rightId, rightOwner;
-    UNITS_GetSwitchLeftSkillDataResetLeftSkill(hUnit, &leftId, &leftOwner);
-    UNITS_GetSwitchRightSkillDataResetRightSkill(hUnit, &rightId, &rightOwner);
-    UNITS_InitSwitchRightSkill(hUnit);
-    UNITS_InitSwitchLeftSkill(hUnit);
-    i=0;
-    if (i<4)
-    {
-        do
-        {
-            entries[i].item = INVENTORY_GetItemFromBodyLoc(inventory, entries[i].from);
-            if (entries[i].item) {
-                INVENTORY_GetSecondWieldingWeapon(hUnit, inventory, &entries[i].item, entries[i].from);
-                if (!entries[i].item || entries[i].item->dwAnimMode != IMODE_EQUIP) { *status=1; return 0; }
-            }
-            ++i;
-        } while (i<4);
-    }
-    if (entries[0].item) D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, entries[0].item, hUnit, 0, 1);
-    if (entries[1].item) D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, entries[1].item, hUnit, 0, 1);
-    SwapEntry* entry = entries;
-    for (i=0; i<4; ++i, ++entry) {
-        D2UnitStrc* item = entry->item;
-        if (!item) continue;
-        if (i<2) INVENTORY_UpdateWeaponGUIDOnRemoval(inventory, item);
-        D2UnitStrc* removed = INVENTORY_RemoveItemFromInventory(inventory, entry->item);
-        if (!removed || removed != entry->item) { *status=1; return 0; }
-        sub_0063BE30_Return(inventory, entry->from);
-        ITEMS_SetInvPage(removed, 255);
-        ITEMS_SetItemCMDFlag(removed, 0x200000, 1);
-        ITEMS_SetItemFlag(removed, 1, 1);
-        if (ITEMS_CheckItemFlag(removed, 0x4000, 0xE5B, szItemModeCpp)) ITEMS_SetItemFlag(removed, 0x4000, 0);
-        INVENTORY_AddItemToTradeInventory(inventory, removed);
-    }
-    for (i=0; i<4; ++i) {
-        D2UnitStrc* item = entries[i].item;
-        if (item) {
-            if (!INVENTORY_PlaceItemInBodyLoc(inventory, item, entries[i].to)) { *status=1; return 0; }
-            if (!INVENTORY_PlaceItemInSocket(inventory, item, entries[i].mode)) { *status=1; return 0; }
-            ITEMS_SetBodyLocation(item, entries[i].to);
-            if (entries[i].to == 4 || entries[i].to == 5) {
-                sub_0063D1D0_InventoryItemCall(inventory, item);
-                sITEMSAddStatsList(ptGame, item, hUnit, 0);
-                ITEMS_SetItemFlag(item, 64, 1);
-            } else {
-                ITEMS_SetItemFlag(item, 128, 1);
-            }
-            item->dwFlags &= ~2;
-            UNITS_ChangeAnimMode(item, 1);
-            ITEMS_SetItemFlag(item, 1, 1);
-            ITEMS_SetItemCMDFlag(item, 0x200000, 1);
-            ITEMS_SetItemFlag(item, 1, 1);
-            if (i<2) ITEMMODE_RefreshSkillsForEquippedWeapons(hUnit);
-        }
-    }
-    sub_0055DBC0_RecalcEquippedItemStates(ptGame, hUnit, 0);
-    D2SkillStrc* leftSkill = SKILLS_GetSkillById(hUnit, leftId, leftOwner);
-    D2SkillStrc* rightSkill = SKILLS_GetSkillById(hUnit, rightId, rightOwner);
-    D2ClientStrc* hClient = UnitGetClient(hUnit, szItemModeCpp, 0xE93);
-    D2_ASSERT(hClient, 0xE94);
-    sub_00539230_SetWeaponSwitch(hClient, !CLIENTS_GetWeaponSwitch(hClient));
-    D2GAME_PACKETS_SendPacket0x97_6FC3FB60(UnitGetClient(hUnit, szItemModeCpp, 0xE98));
-    if (SkillUsable(hUnit, leftSkill)) {
-        D2GAME_AssignSkill_6FD13800(hUnit, 1, leftId, leftOwner);
-        SUNITMSG_QueueSkillSelection(hUnit, 1, leftId, leftOwner);
-    } else {
-        D2SkillStrc* skill = UNITS_GetLeftSkill(hUnit);
-        int id, owner;
-        if (skill) { id=SKILLS_GetSkillIdFromSkill(skill, szItemModeCpp, 0xEA2); owner=SKILLS_GetOwnerGUIDFromSkill(skill); }
-        else { id=0; owner=-1; }
-        SUNITMSG_QueueSkillSelection(hUnit, 1, id, owner);
-    }
-    if (SkillUsable(hUnit, rightSkill)) {
-        D2GAME_AssignSkill_6FD13800(hUnit, 0, rightId, rightOwner);
-        SUNITMSG_QueueSkillSelection(hUnit, 0, rightId, rightOwner);
-    } else {
-        D2SkillStrc* skill = UNITS_GetRightSkill(hUnit);
-        int id, owner;
-        if (skill) { id=SKILLS_GetSkillIdFromSkill(skill, szItemModeCpp, 0xEB0); owner=SKILLS_GetOwnerGUIDFromSkill(skill); }
-        else { id=0; owner=-1; }
-        SUNITMSG_QueueSkillSelection(hUnit, 0, id, owner);
-    }
-    return 1;
-}
-
-// 0x00561B00
-int __fastcall ITEMMODE_SwapCursorAndStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorItemGUID, int nGridItemGUID, int nX, int nY, int* pItemStatus)
-{
-    D2_ASSERT(ptGame, 0xEC0);
-    D2_ASSERT(pUnit, 0xEC1);
-
-    *pItemStatus = 0;
-
-    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xEC6);
-
-    D2UnitStrc* pCursorItem = SUNIT_GetServerUnit(ptGame, 4, nCursorItemGUID);
-    if (!pCursorItem || pCursorItem->dwUnitType != UNIT_ITEM || pCursorItem->dwAnimMode != IMODE_ONCURSOR)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* hGridItem = SUNIT_GetServerUnit(ptGame, 4, nGridItemGUID);
-    if (!hGridItem || hGridItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    const char nInvPage = ITEMS_GetInventoryPage(hGridItem);
-    if (nInvPage == 3)
-    {
-        if (!byte_0088C700)
-        {
-            if (!DATATBLS_GetItemRecordFromItemCode(0x20786F62, &dword_0088C6FC))
-            {
-                return 0;
-            }
-
-            byte_0088C700 = 1;
-        }
-
-        const int nClassId = (pCursorItem ? pCursorItem->dwClassId : -1);
-        if (nClassId == dword_0088C6FC)
-        {
-            return 0;
-        }
-    }
-    else if (nInvPage == 2)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (hGridItem->dwAnimMode != IMODE_STORED)
-    {
-        return 0;
-    }
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hGridItem);
-    D2_ASSERT(hRemove, 0xF12);
-    D2_ASSERT(hGridItem == hRemove, 0xF13);
-
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hGridItem, pUnit, 0, 1);
-    INVENTORY_Return(".\\ITEMS\\ItemMode.cpp", 0xF15, pInventory, CLIENTS_GetUnitX(hGridItem), CLIENTS_GetUnitY(hGridItem), UNITS_GetInventoryRecordId(pUnit, nInvPage, ptGame->bExpansion), 0, nInvPage);
-
-    ITEMS_SetInvPage(hGridItem, 0xFF);
-    INVENTORY_SetCursorItem(pInventory, hGridItem);
-    ITEMMODE_RemoveItemScrollSkillQuantity(pUnit, hGridItem);
-    ITEMS_SetCellOverlap(hGridItem, nInvPage);
-    hGridItem->dwFlags &= ~2u;
-    UNITS_ChangeAnimMode(hGridItem, 4);
-    ITEMS_SetItemCMDFlag(hGridItem, 0x40000, 1);
-
-    if (D2GAME_CheckHasFilledSockets(hGridItem, ".\\ITEMS\\ItemMode.cpp", 0xF1F))
-    {
-        ITEMS_SetItemFlag(hGridItem, 1, 1);
-    }
-
-    if (sub_006280A0(hGridItem, 0x4000, 0xF22, ".\\ITEMS\\ItemMode.cpp"))
-    {
-        ITEMS_SetItemFlag(hGridItem, 0x4000, 0);
-    }
-
-    INVENTORY_AddItemToTradeInventory(pInventory, hGridItem);
-
-    if (INVENTORY_PlaceItemAtInventoryPage(pInventory, pCursorItem, nX, nY, UNITS_GetInventoryRecordId(pUnit, nInvPage, ptGame->bExpansion), 0, nInvPage))
-    {
-        ITEMS_SetCellOverlap(pCursorItem, 0);
-        ITEMS_SetInvPage(pCursorItem, nInvPage);
-        UNITS_SetXForStaticUnit(pCursorItem, nX);
-        UNITS_SetYForStaticUnit(pCursorItem, nY);
-
-        if (INVENTORY_PlaceItemInSocket(pInventory, pCursorItem, 1))
-        {
-            pCursorItem->dwFlags &= ~2u;
-            ITEMMODE_AddItemScrollSkillQuantity(pUnit, pCursorItem);
-
-            if (ITEMS_IsCharmUsable(pCursorItem, pUnit))
-            {
-                sITEMSAddStatsList(ptGame, pCursorItem, pUnit, 0);
-            }
-
-            UNITS_ChangeAnimMode(pCursorItem, 0);
-
-            if (D2GAME_CheckHasFilledSockets(pCursorItem, ".\\ITEMS\\ItemMode.cpp", 0xF48))
-            {
-                ITEMS_SetItemFlag(pCursorItem, 1, 1);
-            }
-
-            if (sub_006280A0(pCursorItem, 0x4000, 0xF4B, ".\\ITEMS\\ItemMode.cpp"))
-            {
-                ITEMS_SetItemFlag(pCursorItem, 0x4000, 0);
-            }
-
-            ITEMS_SetItemCMDFlag(pCursorItem, 0x40000, 1);
-            INVENTORY_AddItemToTradeInventory(pInventory, pCursorItem);
-
-            if (nInvPage == 2)
-            {
-                PLRTRADE_AddItemToTrade(ptGame, pUnit, pCursorItem);
-            }
-
-            UNITS_RefreshInventory(pUnit, 1);
-
-            if (ITEMS_IsCharmUsable(hGridItem, pUnit))
-            {
-                sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-                UNITS_RefreshInventory(pUnit, 1);
-            }
-
-            return 1;
-        }
-
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    *pItemStatus = 1;
-    return 0;
-}
-
-int __fastcall sub_K06_Emit_005600A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bRemove)
-{
-    if (!ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, bRemove, 0, ".\\ITEMS\\ItemMode.cpp", 0x7EF, pUnit, pItem))
-    {
-        UNITS_RefreshInventory(pUnit, 0);
-        return 0;
-    }
-    UNITS_ChangeAnimMode(pItem, 0);
-    return 1;
-}
-
-// 0x00561E70
-void __fastcall ITEMMODE_RemoveBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 3988);
-    int nFlags = 0;
-    ITEMS_SetOrRemoveFlag(&nFlags, ITEMACTION_FLAG_BELT, 1);
-    D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(pClient, pUnit, pItem, nFlags);
-    ITEMMODE_RemoveInventoryItemFromAllPlayers(pGame, pUnit, pItem);
-}
-
-static void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc* pUnit, int nSkillId)
-{
-    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
-    if (pSkill)
-    {
-        int nQuantity = SKILLS_GetQuantity(pSkill) - 1;
-        if (nQuantity <= 0)
-        {
-            if (UNITS_GetRightSkill(pUnit) == pSkill)
-                D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_ATTACK, -1);
-            nQuantity = 0;
-        }
-        SKILLS_SetQuantity(pSkill, nQuantity);
-        const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-        const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
-        D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(pUnit, szItemModeCpp, 0xFC2), nUnitType, nUnitGUID, nSkillId, nQuantity);
-    }
-    else
-    {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFC4);
-        exit(-1);
-    }
-}
-
-// 0x00561ED0
-int __fastcall ITEMMODE_UseItemOnItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nTargetGUID, int nUseItemGUID, int* pItemStatus)
-{
-    D2_ASSERT(ptGame, 0xFCF);
-    D2_ASSERT(hUnit, 0xFD0);
-    D2UnitStrc* pTargetItem = SUNIT_GetServerUnit(ptGame, 4, nTargetGUID);
-    D2UnitStrc* pUseItem = SUNIT_GetServerUnit(ptGame, 4, nUseItemGUID);
-    *pItemStatus = 0;
-    if (!pUseItem)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-    if (!pTargetItem || pTargetItem == pUseItem)
-    {
-        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0xFDD);
-        return 0;
-    }
-    if ((!pUseItem ? 0 : pUseItem->dwAnimMode) == 2 && !ITEMSIsA(pUseItem, 0x16))
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(ptGame, hUnit, 1))
-    {
-        *pItemStatus = 0;
-        return 0;
-    }
-    if ((!pTargetItem ? 6 : pTargetItem->dwUnitType) != 4 || pUseItem->dwUnitType != UNIT_ITEM)
-        return 0;
-    if ((!pTargetItem ? 6 : pTargetItem->dwUnitType) != (!pUseItem ? 6 : pUseItem->dwUnitType))
-    {
-        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1004);
-        return 0;
-    }
-    D2InventoryStrc* pInventory = hUnit->pInventory;
-    if (INVENTORY_GetCursorItem(pInventory))
-        return 0;
-    const int nTargetAnimMode = pTargetItem->dwAnimMode;
-    const int nUseItemAnimMode = pUseItem->dwAnimMode;
-    if (nTargetAnimMode != 0 && nTargetAnimMode != 1)
-    {
-        if (nUseItemAnimMode == 2)
-        {
-            ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1010);
-            ITEMMODE_RemoveBeltItem(ptGame, hUnit, pUseItem);
-        }
-        else if (nUseItemAnimMode == 0)
-        {
-            if (ITEMS_GetItemType(pUseItem) == ITEMTYPE_BOOK)
-            {
-                int nQuantity = STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0) - 1;
-                if (nQuantity < 0)
-                    nQuantity = 0;
-                STATLIST_SetUnitStat(pUseItem, STAT_QUANTITY, nQuantity, 0);
-                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(hUnit, szItemModeCpp, 0x1019), pUseItem, 1, 0x46, nQuantity, 0);
-            }
-        }
-        else
-        {
-            *pItemStatus = 1;
-        }
-        return 0;
-    }
-    if (ITEMS_GetItemType(pUseItem) == ITEMTYPE_BOOK && STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0) <= 0)
-    {
-        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1023);
-        const int nUnitGUID = !pUseItem ? -1 : pUseItem->dwUnitId;
-        const int nUnitType = !pUseItem ? 6 : pUseItem->dwUnitType;
-        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(hUnit, szItemModeCpp, 0x1024), 0x7C, nUnitType, nUnitGUID);
-        return 0;
-    }
-    if (!SKILLITEM_pSpell_Handler(ptGame, hUnit, pUseItem, pTargetItem, 0, 0))
-        goto Success;
-    if (nUseItemAnimMode == 2)
-    {
-        const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
-        if (nSkillId != -1)
-        {
-            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
-            ITEMMODE_RemoveBeltItem(ptGame, hUnit, pUseItem);
-            ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1034);
-            goto Success;
-        }
-        const int nUnitGUID = !pUseItem ? -1 : pUseItem->dwUnitId;
-        const int nUnitType = !pUseItem ? 6 : pUseItem->dwUnitType;
-        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(hUnit, szItemModeCpp, 0x1032), 0x7C, nUnitType, nUnitGUID);
-        ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1034);
-        goto Success;
-    }
-    if (nUseItemAnimMode)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-    if (ITEMS_GetItemType(pUseItem) == ITEMTYPE_BOOK)
-    {
-        const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
-        if (nSkillId != -1 && STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0) > 0)
-        {
-            STATLIST_AddUnitStat(pUseItem, STAT_QUANTITY, -1, 0);
-            D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(hUnit, szItemModeCpp, 0x103C), pUseItem, 1, 0x46, STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0), 0);
-            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
-            const int nUnitGUID = !pUseItem ? -1 : pUseItem->dwUnitId;
-            const int nUnitType = !pUseItem ? 6 : pUseItem->dwUnitType;
-            D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(hUnit, szItemModeCpp, 0x104A), 0x7C, nUnitType, nUnitGUID);
-            ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x104C);
-            return 1;
-        }
-    }
-    else
-    {
-        const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
-        if (nSkillId != -1)
-            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
-    }
-    ITEMMODE_RemoveItemAndNotify(ptGame, hUnit, pUseItem);
-    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x104C);
-Success:
-    return 1;
-}
-
-// 0x00562250
-int __fastcall ITEMMODE_RemoveBeltItemToCursor(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int* a4)
-{
-    D2_ASSERT(ptGame, 0x1249);
-    D2_ASSERT(hUnit, 0x124A);
-
-    *a4 = 0;
-
-    D2InventoryStrc* hInventory = hUnit->pInventory;
-    D2_ASSERT(hInventory, 0x124F);
-
-    if (INVENTORY_GetCursorItem(hInventory))
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem)
-    {
-        *a4 = 1;
-        return 0;
-    }
-
-    if (pItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    if (pItem->dwAnimMode != IMODE_INBELT)
-    {
-        *a4 = 1;
-        return 0;
-    }
-
-    ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x126D);
-
-    const int nX = CLIENTS_GetUnitX(pItem);
-    INVENTORY_RemoveItemFromInventory(hInventory, pItem);
-    sub_0063C550_Return(hInventory, nX);
-    INVENTORY_SetCursorItem(hInventory, pItem);
-    ITEMMODE_RemoveItemScrollSkillQuantity(hUnit, pItem);
-
-    pItem->dwFlags &= ~2;
-
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, pItem, hUnit, 0, 1);
-    UNITS_ChangeAnimMode(pItem, 4);
-    ITEMS_SetItemCMDFlag(pItem, 0x800, 1);
-    UNITS_RefreshInventory(hUnit, 1);
-    INVENTORY_AddItemToTradeInventory(hInventory, pItem);
-    ITEMMODE_CompactBeltColumn(ptGame, hUnit, nX);
-    return 1;
-}
-
-// 0x00562390
-int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nX, int nY, int* pItemStatus, int bUseOnMerc)
-{
-    D2_ASSERT(ptGame, 0x1325);
-    D2_ASSERT(hUnit, 0x1326);
-
-    *pItemStatus = 0;
-    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x132B);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if ((!pItem ? 6 : pItem->dwUnitType) != 4 || INVENTORY_GetCursorItem(UNITS_GetInventory(hUnit)))
-    {
-        return 0;
-    }
-
-    if (pItem->dwAnimMode != IMODE_INBELT || !ITEMS_CheckIfUseable(pItem))
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(ptGame, hUnit, 1))
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = hUnit;
-    if (bUseOnMerc && hUnit->dwUnitType == UNIT_PLAYER && ptGame->bExpansion)
-    {
-        if (!ITEMSIsA(pItem, 0x4C) && !ITEMSIsA(pItem, 0x51) && !ITEMSIsA(pItem, 0x50))
-        {
-            return 0;
-        }
-
-        D2UnitStrc* pPet = PLAYERPETS_GetFirstPetByType(ptGame, hUnit, 7, 0);
-        if (pPet)
-        {
-            pTarget = pPet;
-        }
-    }
-
-    if (!SKILLITEM_pSpell_Handler(ptGame, pTarget, pItem, pItem, nX, nY))
-    {
-        return 0;
-    }
-
-    const int nBeltX = CLIENTS_GetUnitX(pItem);
-    const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pItem);
-    if (nSkillId != -1)
-    {
-        D2SkillStrc* pSkill = SKILLS_GetSkillById(hUnit, nSkillId, -1);
-        if (pSkill)
-        {
-            int nQuantity = SKILLS_GetQuantity(pSkill) - 1;
-            if (nQuantity <= 0)
-            {
-                if (UNITS_GetRightSkill(hUnit) == pSkill)
-                {
-                    D2GAME_AssignSkill_6FD13800(hUnit, 0, SKILL_ATTACK, -1);
-                }
-                nQuantity = 0;
-            }
-
-            SKILLS_SetQuantity(pSkill, nQuantity);
-            const int nUnitGUID = hUnit->dwUnitId;
-            const int nUnitType = hUnit->dwUnitType;
-            D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(hUnit, szItemModeCpp, 0x136D), nUnitType, nUnitGUID, nSkillId, nQuantity);
-        }
-    }
-
-    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1370);
-    ITEMMODE_RemoveBeltItem(ptGame, hUnit, pItem);
-    ITEMMODE_CompactBeltColumn(ptGame, hUnit, nBeltX);
-    return 1;
-}
-
-// 0x00562590
-void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
-{
-    D2InventoryStrc* pInventory = pPlayer->pInventory;
-    if (ITEMS_CheckItemFlag(pItem, IFLAG_IDENTIFIED, 0x1380, ".\\ITEMS\\ItemMode.cpp") || !pInventory)
-    {
-        return;
-    }
-
-    D2_ASSERT(!ITEMS_CheckItemCMDFlag(pItem, 0x100000), 0x1383);
-
-    ITEMMODE_IdentifyItemAndApplyCharmProperties(pGame, pItem, pPlayer);
-    ITEMS_SetItemFlag(pItem, IFLAG_NEWITEM, 1);
-
-    if (ITEMS_CheckItemFlag(pItem, IFLAG_NOEQUIP, 0x1389, ".\\ITEMS\\ItemMode.cpp"))
-    {
-        ITEMS_SetItemFlag(pItem, IFLAG_NOEQUIP, 0);
-    }
-
-    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-    UNITS_RefreshInventory(pPlayer, 1);
-    SUNIT_AttachSound(pPlayer, 6, pPlayer);
-}
-
-// 0x00562660
-int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int a9)
-{
-    D2_ASSERT(pGame, 0x13A9);
-    *bPlaced = 0;
-    if (pUnit) ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x13B0);
-    D2UnitStrc* pFiller = SUNIT_GetServerUnit(pGame, 4, nSocketFillerGUID);
-    if (!pFiller)
-    {
-        *bPlaced = 1;
-        return 0;
-    }
-    if (pFiller->dwUnitType != UNIT_ITEM) return 0;
-    if (pFiller->dwAnimMode != IMODE_ONCURSOR)
-    {
-        *bPlaced = 1;
-        return 0;
-    }
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nItemGUID);
-    if (!pItem)
-    {
-        *bPlaced = 1;
-        return 0;
-    }
-    if (pItem->dwUnitType != UNIT_ITEM) return 0;
-    if (!ITEMS_CheckItemFlag(pItem, 0x10, 0x13DB, ".\\ITEMS\\ItemMode.cpp")) return 0;
-    if (bCheckMode && pItem->dwAnimMode != IMODE_STORED && pItem->dwAnimMode != IMODE_EQUIP) return 0;
-    if (pFiller->dwUnitType != UNIT_ITEM || pItem->dwUnitType != UNIT_ITEM || !ITEMS_IsSocketFiller(pFiller)
-        || !ITEMS_CheckItemFlag(pFiller, 0x10, 0x13EA, ".\\ITEMS\\ItemMode.cpp")
-        || !ITEMS_CheckItemFlag(pItem, 0x800, 0x13EB, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CheckIfSocketable(pItem)) return 0;
-    D2InventoryStrc* pInventory = pItem->pInventory;
-    if (!pInventory)
-    {
-        pInventory = INVENTORY_AllocInventory(0, pItem);
-        if (!pInventory) return 0;
-    }
-    const unsigned int nSockets = ITEMS_GetSockets(pItem);
-    if (INVENTORY_GetItemCount(pInventory) >= nSockets) return 0;
-    if (INVENTORY_PlaceItemInSocket(pInventory, pFiller, 1))
-    {
-    pFiller->dwFlags &= ~2u;
-    if (bResetCursorItem && pUnit) INVENTORY_SetCursorItem(pUnit->pInventory, 0);
-    sITEMSAddStatsList(pGame, pFiller, pItem, 0);
-    D2Common_10525(pFiller, pItem);
-    UNITS_ChangeAnimMode(pFiller, 6);
-    const D2RunesTxt* pRunesTxt = ITEMS_GetRunesTxtRecordFromItem(pItem);
-    if (pRunesTxt && ((pRunesTxt->nServer && pGame->dwGameType) || !pRunesTxt->nServer))
-    {
-        ITEMMODS_UpdateRuneword(pItem, pFiller, 0);
-        ITEMS_ScheduleDurabilityReplenishment(pGame, pItem);
-        ITEMS_ScheduleQuantityReplenishment(pGame, pItem);
-        if (a9) D2GAME_RechargeItem_6FC4BD50(pGame, pUnit, pItem);
-        bRefresh = 1;
-    }
-    if (bRefresh)
-    {
-        ITEMS_SetItemFlag(pItem, 1, 1);
-        if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x143A, ".\\ITEMS\\ItemMode.cpp")) ITEMS_SetItemFlag(pItem, 0x4000, 0);
-        if (pUnit)
-        {
-            UNITS_RefreshInventory(pUnit, 1);
-            INVENTORY_AddItemToTradeInventory(pUnit->pInventory, pItem);
-        }
-    }
-    return 1;
-    }
-    else
-    {
-        D2_ASSERT(0, 0x1444);
-    }
-}
-
-// 0x005628C0
-int __fastcall ITEMMODE_PlaceItemInCube(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nCubeGUID, int* pItemStatus)
-{
-    D2_ASSERT(ptGame, 5287);
-    D2_ASSERT(hUnit, 5288);
-
-    ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 5291);
-
-    *pItemStatus = 0;
-    D2UnitStrc* pCube = SUNIT_GetServerUnit(ptGame, 4, nCubeGUID);
-    if (!pCube)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-    if ((!pCube ? 0 : pCube->dwAnimMode) || ITEMS_GetBaseCode(pCube) != 0x20786F62)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(ptGame, hUnit, 1) && ITEMS_GetInvPage(pCube))
-    {
-        SUNIT_AttachSound(hUnit, 19, hUnit);
-        return 0;
-    }
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (pItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    if (pItem->dwAnimMode != IMODE_ONGROUND && pItem->dwAnimMode != IMODE_ONCURSOR)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if ((!pCube ? 6 : pCube->dwUnitType) == 4)
-    {
-        if (!pCube ? 0 : pCube->dwAnimMode)
-        {
-            *pItemStatus = 1;
-            return 0;
-        }
-
-        ITEMS_SetInvPage(pItem, 3);
-        D2GAME_PlaceItem_6FC44410(szItemModeCpp, 5356, ptGame, hUnit, !pItem ? -1 : pItem->dwUnitId, 0, 0, 1, 1, 0);
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x00562A30
-int __fastcall ITEMMODE_EquipStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc)
-{
-    D2_ASSERT(ptGame, 0x14F6);
-    D2_ASSERT(pUnit, 0x14F7);
-
-    ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x14FA);
-
-    D2UnitStrc* hGridItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!hGridItem)
-    {
-        return 0;
-    }
-
-    if (hGridItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    if (hGridItem->dwAnimMode != IMODE_STORED)
-    {
-        return 0;
-    }
-
-    if (!ITEMS_CheckRequirements(hGridItem, pUnit, 0, 0, 0, 0))
-    {
-        return 0;
-    }
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hGridItem);
-    D2_ASSERT(hRemove, 0x1512);
-    D2_ASSERT(hGridItem == hRemove, 0x1513);
-
-    const int nInventoryRecordId = UNITS_GetInventoryRecordId(pUnit, 0, ptGame->bExpansion);
-    INVENTORY_Return(".\\ITEMS\\ItemMode.cpp", 0x1515, pInventory, CLIENTS_GetUnitX(hGridItem), CLIENTS_GetUnitY(hGridItem), nInventoryRecordId, 0, 0);
-    ITEMS_SetInvPage(hGridItem, 0xFF);
-
-    if (sub_0063BDB0(pInventory, hGridItem, nBodyLoc))
-    {
-        if (INVENTORY_PlaceItemInSocket(pInventory, hGridItem, 3))
-        {
-            ITEMS_SetBodyLocation(hGridItem, nBodyLoc);
-            sub_0063D1D0_InventoryItemCall(pInventory, hGridItem);
-            INVENTORY_SetCursorItem(pInventory, 0);
-            D2_ASSERT(!ITEMSIsA(hGridItem, 0x0D), 0x151D);
-
-            sITEMSAddStatsList(ptGame, hGridItem, pUnit, 0);
-            hGridItem->dwFlags &= ~2u;
-            UNITS_ChangeAnimMode(hGridItem, 1);
-            ITEMS_SetInvPage(hGridItem, 0xFF);
-            ITEMS_SetItemCMDFlag(hGridItem, 0x8000, 1);
-
-            if (D2GAME_CheckHasFilledSockets(hGridItem, ".\\ITEMS\\ItemMode.cpp", 0x1527))
-            {
-                ITEMS_SetItemFlag(hGridItem, 1, 1);
-            }
-
-            if (ITEMS_CheckItemFlag(hGridItem, 0x4000, 0x152A, ".\\ITEMS\\ItemMode.cpp"))
-            {
-                ITEMS_SetItemFlag(hGridItem, 0x4000, 0);
-            }
-
-            INVENTORY_AddItemToTradeInventory(pInventory, hGridItem);
-            ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
-            UNITS_RefreshInventory(pUnit, 1);
-            sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-            return 1;
-        }
-
-        sub_0063BE30(pInventory, nBodyLoc);
-        D2_ASSERT(0, 0x1534);
-    }
-
-    D2_ASSERT(0, 0x1537);
-    return 0;
-}
-
-// 0x00562C40
-static int __stdcall ITEMMODE_ReplenishItemStat(D2GameStrc* pGame, D2UnitStrc* pItem, int nLengthStatId, int nValueStatId, int nMaxValue)
-{
-    const int nLength = STATLIST_UnitGetStatValue(pItem, nLengthStatId, 0);
-    if (!nLength)
-    {
-        return 0;
-    }
-
-    const int nValue = STATLIST_UnitGetStatValue(pItem, nValueStatId, 0) + 1;
-    if (nValue > nMaxValue)
-    {
-        return 1;
-    }
-
-    STATLIST_SetUnitStat(pItem, nValueStatId, nValue, 0);
-
-    const int nOwnerGUID = ITEMS_GetOwnerId(pItem);
-    if (nOwnerGUID != -1)
-    {
-        D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nOwnerGUID);
-        if (pOwner)
-        {
-            D2ClientStrc* pClient = UnitGetClient(pOwner, ".\\ITEMS\\ItemMode.cpp", 5504);
-            if (pClient)
-            {
-                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(pClient, pItem, 1, nValueStatId, nValue, 0);
-                if (nValue >= 1)
-                {
-                    if (ITEMS_CheckItemFlag(pItem, IFLAG_BROKEN, 5510, ".\\ITEMS\\ItemMode.cpp"))
-                    {
-                        D2GAME_RepairBrokenItem_6FC4B630(pGame, pOwner, pItem);
-                    }
-                }
-            }
-        }
-    }
-
-    int nDuration = 2500 / nLength + 1;
-    if (nDuration < 125)
-    {
-        nDuration = 125;
-    }
-
-    EVENT_SetEvent(pGame, pItem, EVENTTYPE_STATREGEN, pGame->dwGameFrame + nDuration, 0, 0);
-
-    return 1;
-}
-
-// 0x00562D30
-void __fastcall ITEMMODE_ReplenishItem(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (!ITEMS_CheckItemFlag(pUnit, IFLAG_BROKEN, 5542, ".\\ITEMS\\ItemMode.cpp") && ITEMS_HasDurability(pUnit) && ITEMMODE_ReplenishItemStat(pGame, pUnit, STAT_ITEM_REPLENISH_DURABILITY, STAT_DURABILITY, STATLIST_GetMaxDurabilityFromUnit(pUnit)))
-    {
-        return;
-    }
-
-    if (ITEMS_CheckIfStackable(pUnit))
-    {
-        ITEMMODE_ReplenishItemStat(pGame, pUnit, STAT_ITEM_REPLENISH_QUANTITY, STAT_QUANTITY, ITEMS_GetTotalMaxStack(pUnit));
-    }
-}
-
-// 0x00562E00
-int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSkipRequirementCheck)
-{
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    int nBodyLoc;
-    if (ITEMMODE_FindFreeBodyLocation(pUnit, pItem, &nBodyLoc, bSkipRequirementCheck))
-    {
-        if (INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc))
-        {
-            if (nBodyLoc != 0xB && nBodyLoc != 0xC)
-            {
-                if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
-                {
-                    ITEMS_SetBodyLocation(pItem, nBodyLoc);
-                    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
-                    INVENTORY_SetCursorItem(pInventory, 0);
-                    sITEMSAddStatsList(pGame, pItem, pUnit, 0);
-                    if (pItem)
-                    {
-                        pItem->dwFlags &= ~2;
-                    }
-                    UNITS_ChangeAnimMode(pItem, 1);
-                    ITEMS_SetItemCMDFlag(pItem, 0x200, 1);
-                    if (pItem)
-                    {
-                        pItem->dwFlags &= ~0x2000000;
-                    }
-                    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-                    UNITS_RefreshInventory(pUnit, 1);
-                    ITEMS_SetInvPage(pItem, 0xFF);
-                    ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
-                    return 1;
-                }
-                sub_0063BE30(pInventory, nBodyLoc);
-                D2_ASSERT(0, 0x1671);
-            }
-            D2_ASSERT(0, 0x1656);
-        }
-        D2_ASSERT(0, 0x1674);
-    }
-    return 0;
-}
-
-// build: context ITEMMODE_GetOtherBodyLocItem
-static inline D2UnitStrc* ITEMMODE_GetOtherBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc, D2UnitStrc* pItem)
-{
-    const int nOppositeBodyLoc = ITEMMODE_GetOppositeBodyLoc(nBodyLoc);
-    if (!nOppositeBodyLoc)
-    {
-        return pItem;
-    }
-
-    return INVENTORY_GetItemFromBodyLoc(pInventory, nOppositeBodyLoc);
-}
-
-// 0x00562F30
-int __fastcall ITEMMODE_RecoverCorpseItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pCorpse)
-{
-    if (!pPlayer || !pCorpse)
-    {
-        return 0;
-    }
-
-    D2InventoryStrc* pPlayerInventory = pPlayer->pInventory;
-    D2InventoryStrc* pCorpseInventory = pCorpse->pInventory;
-    if (!pPlayerInventory || !pCorpseInventory)
-    {
-        return 0;
-    }
-
-    int bItemRemoved = 0;
-    int nCounter = 0;
-    do
-    {
-        bItemRemoved = 0;
-        nCounter = 0;
-        for (int i = 1; i < 13; ++i)
-        {
-            int nBodyLoc = i;
-            D2UnitStrc* pCorpseItem = INVENTORY_GetItemFromBodyLoc(pCorpseInventory, i);
-            if (pCorpseItem)
-            {
-                ++nCounter;
-
-                if (ITEMS_CheckRequirements(pCorpseItem, pPlayer, 0, 0, 0, 0))
-                {
-                    D2UnitStrc* pPlayerItem = INVENTORY_GetItemFromBodyLoc(pPlayerInventory, i);
-                    D2UnitStrc* pOtherPlayerItem = ITEMMODE_GetOtherBodyLocItem(pPlayerInventory, i, pPlayerItem);
-
-                    int bMoved = 0;
-                    if (!ITEMMODE_CheckAndResolveBodySlotPair(pPlayer, pCorpseItem, &pPlayerItem, &pOtherPlayerItem, &nBodyLoc))
-                    {
-                        if (ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, 0, 0, szItemModeCpp, 0x176B, pPlayer, pCorpseItem))
-                        {
-                            ITEMS_ScheduleDurabilityReplenishment(pGame, pCorpseItem);
-                            ITEMS_ScheduleQuantityReplenishment(pGame, pCorpseItem);
-                            bMoved = 1;
-                        }
-                    }
-                    else
-                    {
-                        const int eLoc = nBodyLoc;
-                        D2_ASSERT(!INVENTORY_GetItemFromBodyLoc(pPlayerInventory, eLoc), 0x1775);
-
-                        if (INVENTORY_PlaceItemInBodyLoc(pPlayerInventory, pCorpseItem, eLoc))
-                        {
-                            int nSocketType = 3;
-                            if (eLoc == 11 || eLoc == 12)
-                            {
-                                nSocketType = 4;
-                            }
-
-                            if (INVENTORY_PlaceItemInSocket(pPlayerInventory, pCorpseItem, nSocketType))
-                            {
-                                INVENTORY_SetCursorItem(pPlayerInventory, 0);
-                                ITEMS_SetBodyLocation(pCorpseItem, eLoc);
-                                pCorpseItem->dwFlags &= ~2u;
-                                UNITS_ChangeAnimMode(pCorpseItem, 1);
-                                ITEMS_SetItemCMDFlag(pCorpseItem, 8, 1);
-                                INVENTORY_AddItemToTradeInventory(pPlayerInventory, pCorpseItem);
-                                UNITS_RefreshInventory(pPlayer, 1);
-                                pCorpseItem->dwFlags &= ~0x02000000u;
-                                ITEMS_SetInvPage(pCorpseItem, 0xFF);
-
-                                if (nSocketType == 3)
-                                {
-                                    sub_0063D1D0_InventoryItemCall(pPlayerInventory, pCorpseItem);
-                                    sITEMSAddStatsList(pGame, pCorpseItem, pPlayer, 0);
-                                    ITEMMODE_AddItemScrollSkillQuantity(pPlayer, pCorpseItem);
-                                    ITEMMODE_RefreshSkillsForEquippedWeapons(pPlayer);
-                                }
-
-                                QUESTS_ItemPickedUp(pGame, pPlayer, pCorpseItem);
-                                ITEMS_ScheduleDurabilityReplenishment(pGame, pCorpseItem);
-                                ITEMS_ScheduleQuantityReplenishment(pGame, pCorpseItem);
-                                bMoved = 1;
-                            }
-                            else
-                            {
-                                sub_0063BE30_Return(pPlayerInventory, eLoc);
-                            }
-                        }
-                    }
-
-                    if (bMoved)
-                    {
-                        ITEMS_SetItemFlag(pCorpseItem, 1, 1);
-                        INVENTORY_RemoveItemFromInventory(pCorpseInventory, pCorpseItem);
-                        sub_0063BE30_Return(pCorpseInventory, i);
-                        bItemRemoved = 1;
-                        --nCounter;
-                    }
-                }
-            }
-        }
-    }
-    while (nCounter && bItemRemoved);
-
-    int bAllowInventoryFallback = 0;
-    int nMoved;
-    int nResult;
-    while (1)
-    {
-        nMoved = 0;
-        nResult = 1;
-        D2UnitStrc* pCorpseItem = INVENTORY_GetFirstItem(pCorpseInventory);
-        if (!pCorpseItem)
-        {
-            break;
-        }
-
-        do
-        {
-            D2UnitStrc* pNextItem = INVENTORY_GetNextItem(pCorpseItem);
-            D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCorpseItem);
-            if (!ITEMMODE_CanPickUpItem(pGame, pPlayer, pItem))
-            {
-                nResult = 0;
-            }
-            else
-            {
-                if (!ITEMMODE_EquipItemAtResolvedBodyLocation(pGame, pPlayer, pItem, 0))
-                {
-                    if (ITEMS_CheckIfBeltable(pItem) && INVENTORY_PlaceItemInFreeBeltSlot(pPlayerInventory, pItem))
-                    {
-                        if (!INVENTORY_PlaceItemInSocket(pPlayerInventory, pItem, 2))
-                            goto NextLooseItem;
-                        INVENTORY_SetCursorItem(pPlayerInventory, 0);
-
-                        D2_ASSERT(pItem, 0x24E);
-                        if (pPlayer->dwUnitType == UNIT_PLAYER)
-                        {
-                            ITEMMODE_UpdateBookScrollSkillQuantity(1, pPlayer, pItem);
-                        }
-
-                        pItem->dwFlags &= ~2u;
-                        if (ITEMS_IsCharmUsable(pItem, pPlayer))
-                        {
-                            sITEMSAddStatsList(pGame, pItem, pPlayer, 0);
-                        }
-
-                        UNITS_ChangeAnimMode(pItem, 2);
-                        pItem->dwFlags &= ~0x02000000u;
-                        ITEMS_SetItemCMDFlag(pItem, 0x2000u, 1);
-                        ITEMS_SetInvPage(pItem, 0xFF);
-                        INVENTORY_AddItemToTradeInventory(pPlayerInventory, pItem);
-                        UNITS_RefreshInventory(pPlayer, 1);
-                    }
-                    else if (!bAllowInventoryFallback)
-                    {
-                        goto NextLooseItem;
-                    }
-                    else if (!ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, 0, 0, szItemModeCpp, 0x17F1, pPlayer, pItem))
-                    {
-                        nResult = 0;
-                        goto NextLooseItem;
-                    }
-                }
-                ++nMoved;
-                ITEMS_SetItemFlag(pItem, 1, 1);
-            }
-NextLooseItem:
-
-            pCorpseItem = pNextItem;
-        }
-        while (pCorpseItem);
-
-        if (!nMoved)
-        {
-            if (bAllowInventoryFallback)
-            {
-                break;
-            }
-
-            bAllowInventoryFallback = 1;
-        }
-    }
-    sub_0055DBC0_RecalcEquippedItemStates(pGame, pPlayer, 0);
-    return nResult;
-}
-
-static inline int sub_M70_ItemGetUnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int sub_M70_ItemGetUnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// 0x00563350
-int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int a5)
-{
-    if (ITEMS_CheckIfSocketable(pItem))
-    {
-        if (!pItem->pInventory)
-        {
-            return 0;
-        }
-
-        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
-        {
-            D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(i);
-            D2UnitStrc* pDupedItem = ITEMS_Duplicate(pGame, pCheckedItem, 0, 1);
-            UNITS_ChangeAnimMode(pDupedItem, IMODE_ONCURSOR);
-            UNITS_SetXForStaticUnit(pDupedItem, sub_M70_ItemGetUnitX(pCheckedItem));
-            UNITS_SetYForStaticUnit(pDupedItem, sub_M70_ItemGetUnitY(pCheckedItem));
-
-            int bPlaced;
-            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pUnit, !pDupedItem ? -1 : pDupedItem->dwUnitId, sub_00451F50_GetUnitGUID(pSocketable), &bPlaced, a5, 0, 1, 0))
-            {
-                return 0;
-            }
-        }
-    }
-
-    return 1;
-}
-
-static inline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit)
-{
-    if (pUnit) return pUnit->dwUnitType;
-    return 6;
-}
-
 // 0x00563470
 void __fastcall ITEMMODE_DetachItemFromOwner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
@@ -6122,618 +6734,6 @@ void __fastcall ITEMMODE_DetachItemFromOwner(D2GameStrc* pGame, D2UnitStrc* pUni
         D2GAME_RemoveItemIfOnCursor_6FC49760(pGame, pUnit, pValidItem);
         break;
     }
-}
-
-// 0x00563560
-int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus)
-{
-    D2_ASSERT(ptGame, 0x77A);
-    D2_ASSERT(pUnit, 0x77B);
-
-    *pItemStatus = 0;
-
-    D2InventoryStrc* hInventory = pUnit->pInventory;
-    D2_ASSERT(hInventory, 0x780);
-
-    if (INVENTORY_GetCursorItem(hInventory))
-    {
-        return 0;
-    }
-
-    if (PLAYER_IsBusy(pUnit))
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (pItem->dwUnitType == UNIT_ITEM)
-    {
-        if (pItem->dwAnimMode != IMODE_ONGROUND)
-        {
-            *pItemStatus = 1;
-            return 0;
-        }
-
-        ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x7A2);
-
-        if (!ITEMMODE_CanPickUpItem(ptGame, pUnit, pItem))
-        {
-            ITEMMODE_DropBackToGround(0x13, pItem, pUnit);
-            return 0;
-        }
-
-        SUNIT_AttachSound(pUnit, 1, pUnit);
-
-        if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
-        {
-            D2GAME_PickupGold(ptGame, pItem, pUnit);
-            return 1;
-        }
-
-        if (!ITEMMODE_PickupStackable(ptGame, pUnit, pItem))
-        {
-
-            if (ITEMMODE_FindFreeBodyLocation(pUnit, pItem, &nItemGUID, 0))
-            {
-                if (D2Common_10299(pUnit, nItemGUID, pItem, 0) != 1)
-                {
-                    *pItemStatus = 1;
-                    return 0;
-                }
-
-                D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pItem);
-                if (pRoom)
-                {
-                    DUNGEON_AllocDrlgDelete(pRoom, !pItem ? 6 : pItem->dwUnitType, !pItem ? -1 : pItem->dwUnitId);
-                    UNITS_FreeCollisionPath(pItem);
-                    UNITROOM_RemoveUnitFromRoom(pItem);
-                }
-
-                if (ITEMMODE_EquipItemAtResolvedBodyLocation(ptGame, pUnit, pItem, 0))
-                {
-                    QUESTS_ItemPickedUp(ptGame, pUnit, pItem);
-                    return 1;
-                }
-            }
-            else if (ITEMS_CheckIfBeltable(pItem) && ITEMS_CheckIfAutoBeltable(hInventory, pItem) && INVENTORY_PlaceItemInFreeBeltSlot(hInventory, pItem))
-            {
-                if (UNITS_GetRoom(pItem))
-                {
-                    DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pItem), !pItem ? 6 : pItem->dwUnitType, !pItem ? -1 : pItem->dwUnitId);
-                    UNITS_FreeCollisionPath(pItem);
-                    UNITROOM_RemoveUnitFromRoom(pItem);
-                }
-
-                if (INVENTORY_PlaceItemInSocket(hInventory, pItem, 2))
-                {
-                    INVENTORY_SetCursorItem(hInventory, 0);
-                    ITEMMODE_AddItemScrollSkillQuantity(pUnit, pItem);
-
-                    if (ITEMS_IsCharmUsable(pItem, pUnit))
-                    {
-                        sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
-                    }
-
-                    pItem->dwFlags &= ~2u;
-                    UNITS_ChangeAnimMode(pItem, 2);
-                    ITEMS_SetInvPage(pItem, 0xFF);
-                    ITEMS_SetItemCMDFlag(pItem, 0x2000, 1);
-                    pItem->dwFlags &= ~0x02000000u;
-                    INVENTORY_AddItemToTradeInventory(hInventory, pItem);
-                    UNITS_RefreshInventory(pUnit, 1);
-
-                    if (ITEMS_IsCharmUsable(pItem, pUnit))
-                    {
-                        sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-                        UNITS_RefreshInventory(pUnit, 1);
-                    }
-
-                    return 1;
-                }
-
-                D2_ASSERT(0, 0x7ED);
-            }
-            else
-            {
-                if (ITEMMODE_PlaceItemAtFreeInventoryPosition(ptGame, 1, 0, ".\\ITEMS\\ItemMode.cpp", 0x7EF, pUnit, pItem))
-                {
-                    return 1;
-                }
-
-                ITEMMODE_DropBackToGround(0x17, pItem, pUnit);
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x00563840
-static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box, Unit* player)
-{
-    int classId;
-    if (!box) classId = -1;
-    else classId = box->classId;
-    ItemRecord* record = sub_006335F0_Record(classId);
-    D2_ASSERT(record, 0x7FF);
-    if (record->code != 0x20786F62) return;
-    void* inventory = player->inventory;
-    Unit* node = sub_0063B2C0_First(inventory);
-    while (node) {
-        Unit* item = sub_0063DFD0_Item(node);
-        Unit* next = sub_0063DFA0_Next(node);
-        if (sub_00628250_Page(item) == 3) {
-            U32 flags = 0;
-            sub_006287B0_Flags(&flags, 32, 1);
-            sub_00628320_SavePage(box, 3);
-            sub_0053D010_Notify(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0x80D), player, item, flags);
-            Unit* removed = sub_0063AD90_Remove(inventory, item);
-            D2_ASSERT(removed, 0x80F);
-            D2_ASSERT(item == removed, 0x810);
-            U8 page = sub_00628250_Page(item);
-            int grid = sub_00621050_Grid(player, page, game->expansion);
-            int y;
-            switch (item->type) {
-            case 2: case 4: case 5: y = item->path->y; break;
-            default: y = item->path ? sub_00648900_Y(item->path) : 0; break;
-            }
-            int x;
-            switch (item->type) {
-            case 2: case 4: case 5: x = item->path->x; break;
-            default: x = item->path ? sub_006488C0_X(item->path) : 0; break;
-            }
-            sub_0063BCF0_Trace(".\\ITEMS\\ItemMode.cpp", 0x813, inventory, x, y, grid, 0, page);
-            sub_00624690_Mode(removed, 4);
-            sub_00628280_SetPage(item, 0);
-            int itemId = item->id;
-            sub_0055BF50_Check(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
-            Unit* placed = sub_00552F60_Find(game, 4, itemId);
-            if (!placed || placed->type != 4 || placed->mode != 4) goto dropFailure;
-            {
-                U8 targetPage = sub_00628250_Page(placed);
-                void* targetInventory = player->inventory;
-                if (!targetInventory) goto dropFailure;
-                int special = 0;
-                int clearCursor = 1;
-                int targetGrid = sub_00621050_Grid(player, targetPage, game->expansion);
-                if (player->type == 0) {
-                    switch (targetPage) {
-                    case 1: clearCursor = 0; break;
-                    case 2: special = 1; break;
-                    }
-                }
-                if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", 0x817)) goto dropFailure;
-                if (!sub_0063B210_Add(targetInventory, placed, 1)) goto dropFailure;
-                if (sub_00628250_Page(placed) != 4) sub_0055C270_Update(player, placed);
-                placed->flags &= -3;
-                if (sub_0062FF70_Check(placed, player)) sub_0055C2C0_Apply(game, placed, player, 0);
-                if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
-                sub_00624690_Mode(placed, 0);
-                sub_00628170_CommandFlag(placed, 2, 1);
-                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) sub_006280D0_SetFlag(placed, 1, 1);
-                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
-                sub_00621000_SetFlag(player, 1);
-                sub_0063CC70_Refresh(targetInventory, placed);
-                if (special == 1) sub_00568770_Special(game, player, placed);
-                if (sub_0062FF70_Check(placed, player)) {
-                    sub_0055DBC0_Refresh(game, player, 0);
-                    sub_00621000_SetFlag(player, 1);
-                }
-                goto nextItem;
-            }
-        dropFailure:
-            sub_00628280_SetPage(item, 255);
-            Point playerPosition;
-            Point dropPosition;
-            sub_00620870_Position(player, &playerPosition);
-            void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
-            if (!room) continue;
-            sub_00558AA0_Drop(game, player, item, room, dropPosition.x, dropPosition.y);
-        }
-    nextItem:
-        node = next;
-    }
-}
-
-// 0x00563C00
-extern "C" void __fastcall ITEMMODE_DropCursorItem(Game* ptGame, Unit* hUnit, int itemId)
-{
-    D2_ASSERT(ptGame, 0x833);
-    D2_ASSERT(hUnit, 0x834);
-    sub_0055BF50_Check(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x837);
-    Unit* item = sub_00552F60_Find(ptGame, 4, itemId);
-    if (!item || item->type != 4 || item->mode != 4) return;
-    Point playerPosition;
-    Point dropPosition;
-    sub_00620870_Position(hUnit, &playerPosition);
-    void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(hUnit), &playerPosition, &dropPosition, 1, 1);
-    if (!room) return;
-    sub_00558AA0_Drop(ptGame, hUnit, item, room, dropPosition.x, dropPosition.y);
-    sub_0063C180_Cursor(hUnit->inventory, 0);
-    if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)item, ".\\ITEMS\\ItemMode.cpp", 0x85B)) sub_006280D0_SetFlag(item, 1, 1);
-    if (sub_006280A0_TestFlag(item, 0x4000, 0x85E, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(item, 0x4000, 0);
-    ITEMMODE_MoveCubeContentsToInventory(ptGame, item, hUnit);
-}
-
-// 0x00563D20
-int __fastcall ITEMMODE_ReplaceOppositeHandItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus)
-{
-    D2_ASSERT(ptGame, 0xB7B);
-    D2_ASSERT(pUnit, 0xB7C);
-
-    *pItemStatus = 0;
-    ITEMMODE_ClearTargetingFlags(pUnit, szItemModeCpp, 0xB81);
-
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (pItem->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    if (pItem->dwAnimMode != IMODE_ONCURSOR)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    unsigned char nOtherBodyLoc;
-    if (nBodyLoc != 5 && nBodyLoc != 4)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (nBodyLoc == 5)
-    {
-        nOtherBodyLoc = 4;
-    }
-    else
-    {
-        nOtherBodyLoc = 5;
-    }
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* hOpposite = INVENTORY_GetItemFromBodyLoc(pInventory, nOtherBodyLoc);
-    if (!hOpposite)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &hOpposite, nOtherBodyLoc);
-    if (!hOpposite)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    if (D2Common_10299(pUnit, nBodyLoc, pItem, bSkipRequirementCheck) != 2)
-    {
-        *pItemStatus = 1;
-        return 0;
-    }
-
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hOpposite, pUnit, 0, 1);
-
-    if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0))
-    {
-        sITEMSAddStatsList(ptGame, hOpposite, pUnit, 0);
-        SUNIT_AttachSound(pUnit, 0x14, 0);
-        return 0;
-    }
-
-    D2UnitStrc* pMainWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
-    if (pMainWeapon)
-    {
-        UNITS_SetWeaponGUID(pUnit, pMainWeapon);
-    }
-
-    sub_0062A360(pUnit, hOpposite);
-    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, hOpposite);
-
-    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hOpposite);
-    D2_ASSERT(hRemove, 0xBC8);
-    D2_ASSERT(hOpposite == hRemove, 0xBC9);
-
-    D2COMMON_10254_Return0(pInventory, nOtherBodyLoc);
-
-    if (ITEMS_GetItemType(hRemove) == ITEMTYPE_BELT)
-    {
-        ITEMMODE_MoveExcessBeltItems(ptGame, pUnit, 0);
-    }
-
-    INVENTORY_SetCursorItem(pInventory, hOpposite);
-
-    if (hOpposite)
-    {
-        hOpposite->dwFlags &= ~2;
-    }
-
-    UNITS_ChangeAnimMode(hOpposite, 4);
-
-    if (INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc))
-    {
-        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
-        {
-            ITEMS_SetBodyLocation(pItem, nBodyLoc);
-            sub_0063D1D0_InventoryItemCall(pInventory, pItem);
-            sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
-            pItem->dwFlags &= ~2;
-            UNITS_ChangeAnimMode(pItem, 1);
-            ITEMS_SetInvPage(pItem, 255);
-            ITEMS_SetItemCMDFlag(pItem, 0x10000, 1);
-            ITEMS_SetItemFlag(pItem, 1, 1);
-
-            if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xBE6, szItemModeCpp))
-            {
-                ITEMS_SetItemFlag(pItem, 0x4000, 0);
-            }
-
-            INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-            ITEMMODE_RefreshSkillsForEquippedWeapons(pUnit);
-            sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
-        }
-        else
-        {
-            *pItemStatus = 1;
-            return 0;
-        }
-    }
-
-    UNITS_RefreshInventory(pUnit, 1);
-    return 1;
-}
-
-// 0x00563FE0
-int __fastcall D2GAME_Transmogrify_6FC4A660(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    D2_ASSERT(ptGame, 0x1619);
-    D2_ASSERT(pUnit, 0x161A);
-    D2_ASSERT(pItem, 0x161B);
-    D2_ASSERT(pItem->dwUnitType == UNIT_ITEM, 0x161C);
-
-    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem->dwClassId);
-    D2_ASSERT(pItemsTxtRecord, 0x1622);
-
-    if (pItemsTxtRecord->nTransmogrify)
-    {
-        int nItemId;
-        D2_ASSERT(DATATBLS_GetItemRecordFromItemCode(pItemsTxtRecord->dwTransmogrifyType, &nItemId), 0x1627);
-
-        if (pItem->dwAnimMode == IMODE_STORED)
-        {
-            D2ItemDropStrc itemDrop;
-            ITEMMODE_InitItemDropFromItem(nItemId, ptGame, pItem, &itemDrop);
-            ITEMMODE_RemoveItemAndNotify(ptGame, pUnit, pItem);
-
-            D2UnitStrc* pNewItem = sub_00558D90_SpawnItem(ptGame, &itemDrop, 0);
-            D2_ASSERT(pNewItem, 0x162D);
-
-            if (pItemsTxtRecord->nTmogMin > 0 && pItemsTxtRecord->nTmogMax > 0)
-            {
-                const int nQuantity = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pItemsTxtRecord->nTmogMax - pItemsTxtRecord->nTmogMin) + pItemsTxtRecord->nTmogMin;
-                STATLIST_SetUnitStat(pNewItem, STAT_QUANTITY, nQuantity, 0);
-            }
-            else
-            {
-                STATLIST_SetUnitStat(pNewItem, STAT_QUANTITY, 0, 0);
-            }
-
-            ITEMS_SetInvPage(pNewItem, 0);
-
-            const int nNewItemGUID = pNewItem->dwUnitId;
-            if (D2GAME_PlaceItem_6FC44410(".\\ITEMS\\ItemMode.cpp", 0x163B, ptGame, pUnit, nNewItemGUID, itemDrop.nX, itemDrop.nY, 0, 1, 0))
-            {
-                return 1;
-            }
-
-            const int nRetryGUID = pNewItem->dwUnitId;
-            if (D2GAME_PlaceItem_6FC44410(".\\ITEMS\\ItemMode.cpp", 0x163D, ptGame, pUnit, nRetryGUID, 0, 0, 1, 1, 0))
-            {
-                return 1;
-            }
-
-            const int nDropGUID = (pNewItem ? pNewItem->dwUnitId : -1);
-            sub_6FC44030(ptGame, pUnit, nDropGUID);
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-// 0x00564CA0
-extern "C" __declspec(dllexport) int __cdecl sub_00564CA0() {
-    return 1;
-}
-
-// 0x00566CC0
-void __fastcall PLRTRADE_RestoreTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x880);
-
-    for (int i = 1; i < 13; ++i)
-    {
-        sub_0063BE30_Return(pPlayer->pInventory, i);
-    }
-
-    D2PlayerTradeStrc* ptTradeRecord = pPlayerData->hTrade;
-    D2_ASSERT(ptTradeRecord, 0x888);
-
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 9, 0);
-
-    int nUnused;
-    PLRSAVE_ReadItemSection(pGame, pPlayer, ptTradeRecord->pSaveData, 0x60, 0x2000, 0, &nUnused);
-
-    const int nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
-    const int nMode = pPlayer->dwAnimMode;
-    if (nGold > 0 && nMode != 0 && nMode != 17)
-    {
-        PLRTRADE_AddGold(pPlayer, 14, -nGold);
-        PLRTRADE_AddGold(pPlayer, 14, ptTradeRecord->nGoldInTradeOtherPlayer);
-    }
-}
-
-// 0x00568DC0
-unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nGUID)
-{
-    if (nGUID == -1)
-    {
-        return 0;
-    }
-
-    if (!pPlayer->pInventory)
-    {
-        return 0;
-    }
-
-    int nIdx = 1;
-    D2UnitStrc* pNode = INVENTORY_GetFirstItem(pPlayer->pInventory);
-    while (pNode)
-    {
-        D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pNode);
-        pNode = INVENTORY_GetNextItem(pNode);
-        if ((!pCheckedItem ? -1 : pCheckedItem->dwUnitId) == nGUID)
-        {
-            D2_ASSERT(nIdx < 0x7FFF, 0x185);
-            return nIdx;
-        }
-
-        ++nIdx;
-    }
-
-    return 0;
-}
-
-// 0x00568E60
-void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SaveHeaderStrc* pSaveHeader)
-{
-    D2UnitStrc* pHireling = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
-    if (!pHireling)
-    {
-        return;
-    }
-
-    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pPlayer, pHireling->dwUnitId);
-    const int nLevel = STATLIST_UnitGetStatValue(pHireling, STAT_LEVEL, 0);
-
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pPetInfo->nHirelingId, nLevel);
-    if (!pHirelingTxtRecord)
-    {
-        return;
-    }
-
-    *(unsigned int*)pSaveHeader->f_B3 = pPetInfo->nSeed;
-    *(unsigned short*)pSaveHeader->wMercName = *(unsigned short*)&pPetInfo->nName;
-    *(unsigned short*)pSaveHeader->wMercHirelingId = pPetInfo->nHirelingId;
-    *(unsigned int*)pSaveHeader->nMercExperience = STATLIST_UnitGetStatValue(pHireling, STAT_EXPERIENCE, 0);
-    *(unsigned int*)pSaveHeader->MercSaveData = 0;
-    *(unsigned short*)pSaveHeader->wMercName -= pHirelingTxtRecord->wNameFirst;
-
-    if (SUNIT_IsDead(pHireling))
-    {
-        *(unsigned int*)pSaveHeader->MercSaveData |= 0x10000;
-    }
-}
-
-// 0x00569A00
-int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int a6)
-{
-    unsigned char* pData = *ppSection;
-    int bHasIronGolem = 0;
-    if (!pGame->bExpansion)
-    {
-        return 0;
-    }
-
-    *(unsigned short*)pData = 'fk';
-    pData += 2;
-
-    D2UnitStrc* pIronGolem = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 3, 1);
-    D2UnitStrc* pGolemItem = 0;
-    D2UnitStrc* pFirst;
-    if (pIronGolem && pIronGolem->dwClassId == 0x123 && SKILLS_GetSkillById(pPlayer, SKILL_IRONGOLEM, -1) && pIronGolem->pInventory
-        && (pFirst = INVENTORY_GetFirstItem(pIronGolem->pInventory)) != 0 && (pGolemItem = INVENTORY_UnitIsItem(pFirst)) != 0)
-    {
-        bHasIronGolem = 1;
-    }
-
-    unsigned char* pFlag = pData;
-    *pData = bHasIronGolem;
-    ++pData;
-    if (bHasIronGolem)
-    {
-        const int nLength = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pPlayer, pGolemItem, pData, pEnd - pData, 0, a5, a6);
-        if (nLength <= 0)
-        {
-            *pFlag = 0;
-        }
-
-        pData += nLength;
-    }
-
-    *ppSection = pData;
-    return 0;
-}
-
-// 0x00569F20
-void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
-{
-    CLIENTS_SetPlayerInClient(pClient, pPlayer);
-    SUNIT_InitClientInPlayerData(pPlayer, pClient);
-    UNITS_SetNameInPlayerData(pPlayer, CLIENTS_GetName(pClient));
-    SUNIT_InitSeed(pPlayer, &pGame->pGameSeed);
-    UNITS_ChangeAnimMode(pPlayer, 1);
-
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    pPlayerData->hTrade = 0;
-    pPlayerData->dwTradeState = 0;
-    pPlayerData->dwAcceptTradeTick = 0;
-    *(int*)pPlayerData->unk0x54 = 0;
-}
-
-// 0x005738D0
-void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_STATREGEN, 0);
-}
-
-// 0x005776E0
-void __stdcall sub_005776E0(D2UnitStrc* pUnit)
-{
-    sub_0055A2A0(pUnit, 1);
-}
-
-// 0x00604A30
-void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
-{
-    D2CMPTileCacheSetFreeCallback(pfnCallback);
-}
-
-// 0x0063E780
-unsigned char __stdcall D2Common_11052(unsigned char nIndex)
-{
-    return gaByteTable_007455C0[nIndex];
-}
-
-// 0x0063E7C0
-unsigned char __stdcall D2Common_11054(unsigned char nIndex)
-{
-    return gaByteTable_00745640[nIndex];
 }
 
 #include "gen/data/Source/D2Game/ITEMS/ItemMode.inc"

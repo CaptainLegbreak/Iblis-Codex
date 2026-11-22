@@ -30,25 +30,6 @@ int __cdecl sub_00481800();                                                     
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458;                                                       // 0x007C5458
 extern "C" { int gnSoundSerial_007C5460; }                                                                  // 0x007C5460
 
-// 0x004B9D50
-int __fastcall sub_004B9D50_GetPosition(int nKey)
-{
-    if (nKey)
-    {
-        for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
-        {
-            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-            if (pEntry->nKey == nKey)
-            {
-                D2_ASSERT(pEntry->f_2C, 0x45A);
-                return sub_004DF900_GetSoundPosition(pEntry->f_2C);
-            }
-        }
-    }
-
-    return 0;
-}
-
 // 0x004BA840
 void __fastcall sub_004BA840(int nHandle)
 {
@@ -115,5 +96,24 @@ void __cdecl sub_004BAA50_RefreshHintRange()
             }
         }
     }
+}
+
+// 0x004B9D50
+int __fastcall sub_004B9D50_GetPosition(int nKey)
+{
+    if (nKey)
+    {
+        for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
+        {
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
+            if (pEntry->nKey == nKey)
+            {
+                D2_ASSERT(pEntry->f_2C, 0x45A);
+                return sub_004DF900_GetSoundPosition(pEntry->f_2C);
+            }
+        }
+    }
+
+    return 0;
 }
 
