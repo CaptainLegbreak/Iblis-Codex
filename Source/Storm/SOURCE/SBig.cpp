@@ -12,7 +12,7 @@ inline void operator delete(void*, void*) throw()
 {
 }
 
-struct D2StormRecord14Strc
+struct BigBuffer
 {
     unsigned int f_0;
     unsigned int f_4;
@@ -20,12 +20,12 @@ struct D2StormRecord14Strc
     unsigned int f_C;
     unsigned int m_offset;
 
-// build: symbol ??0D2StormRecord14Strc@@QAE@XZ 0x00421B50
-    D2StormRecord14Strc() : f_0(0), f_4(0), f_8(0), f_C(0), m_offset(0)
+// build: symbol ??0BigBuffer@@QAE@XZ 0x00421B50
+    BigBuffer() : f_0(0), f_4(0), f_8(0), f_C(0), m_offset(0)
     {
     }
     // 0x00421810
-    ~D2StormRecord14Strc()
+    ~BigBuffer()
     {
         if (f_8)
             SMemFree(f_8, gszTypeNameUInt_00708874, -2, 0);
@@ -34,7 +34,7 @@ struct D2StormRecord14Strc
 
 struct BigStack
 {
-    D2StormRecord14Strc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 
     BigStack() : nUsed(0)
@@ -56,7 +56,7 @@ struct D2StormByteArrayStrc
 
 struct D2StormBigStrc
 {
-    D2StormRecord14Strc tPrimary;
+    BigBuffer tPrimary;
     BigStack tStack;
     D2StormByteArrayStrc tOutput;
 

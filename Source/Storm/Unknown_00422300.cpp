@@ -1,5 +1,5 @@
 struct D2StormArrayAStrc;
-struct D2StormQueueStrc;
+struct BigBuffer;
 struct D2StormBigStrc;
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
@@ -52,7 +52,7 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -78,7 +78,7 @@ struct D2StormQueueStrc
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tPrimary;
+    BigBuffer tPrimary;
     char unk0x14[0x154];
 };
 
@@ -91,7 +91,7 @@ inline unsigned int ExtractLowPart(unsigned __int64& nValue)
 }
 
 // 0x00422300
-static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -110,7 +110,7 @@ void __stdcall SBigAdd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 }
 
 // 0x00422440
-static void __stdcall sub_00422440_And(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00422440_And(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)
@@ -127,7 +127,7 @@ void __stdcall SBigAnd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 }
 
 // 0x004229D0
-static void __stdcall sub_004229D0_Or(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_004229D0_Or(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)
@@ -144,7 +144,7 @@ void __stdcall SBigOr(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStr
 }
 
 // 0x00423250
-static void __stdcall sub_00423250_Xor(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00423250_Xor(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)

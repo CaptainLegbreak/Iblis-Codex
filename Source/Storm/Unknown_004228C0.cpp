@@ -2,7 +2,7 @@
 #include "D2StormLink.h"
 
 struct D2StormArrayAStrc;
-struct D2StormQueueStrc;
+struct BigBuffer;
 struct D2StormBigStrc;
 struct BigStack;
 struct D2StormHandleRefStrc;
@@ -59,7 +59,7 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -85,17 +85,17 @@ struct D2StormQueueStrc
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tPrimary;
+    BigBuffer tPrimary;
     char unk0x14[0x154];
 };
 
 struct BigStack
 {
-    D2StormQueueStrc f_0[16];
+    BigBuffer f_0[16];
     unsigned int nUsed;
 };
 
-static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c);
+static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c);
 int __stdcall sub_00425330(void* hHandle, int nArg1, int nArg2, int nArg3); // 0x00425330
 void __stdcall SBigToBinaryBuffer(void* hHandle, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
 int __stdcall sub_00423850(void* hHandle, int nArg1, int nArg2); // 0x00423850
@@ -140,7 +140,7 @@ struct D2StormListAStrc
 };
 
 // 0x004228C0
-static void __stdcall sub_004228C0_Not(D2StormQueueStrc& a, const D2StormQueueStrc& b)
+static void __stdcall sub_004228C0_Not(BigBuffer& a, const BigBuffer& b)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i); i++)
@@ -163,7 +163,7 @@ inline unsigned int ExtractLowPart(unsigned __int64& nValue)
     return nLow;
 }
 
-static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -186,7 +186,7 @@ void __stdcall SBigAdd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
     sub_00422300_Add(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
 
-static void __stdcall sub_00422440_And(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00422440_And(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)
@@ -202,7 +202,7 @@ void __stdcall SBigAnd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
     sub_00422440_And(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
 
-static void __stdcall sub_004229D0_Or(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_004229D0_Or(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)
@@ -218,7 +218,7 @@ void __stdcall SBigOr(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStr
     sub_004229D0_Or(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
 
-static void __stdcall sub_00423250_Xor(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00423250_Xor(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)

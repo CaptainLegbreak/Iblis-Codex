@@ -29,9 +29,7 @@ struct D2StormArrayBStrc;
 
 struct D2StormArrayCStrc;
 
-struct D2StormQueueStrc;
-
-struct D2StormRecord14Strc;
+struct BigBuffer;
 
 struct BigStack;
 
@@ -283,7 +281,7 @@ struct D2StormArrayCStrc
     unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -297,17 +295,12 @@ struct D2StormQueueStrc
     int sub_00420DB0_InRange(unsigned int nIndex);
 };
 
-struct D2StormRecord14Strc
-{
-    int nData[5];
-};
-
 struct BigStack
 {
-    D2StormRecord14Strc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 
-    D2StormRecord14Strc* sub_00420DD0_Push(int* pCounter);
+    BigBuffer* sub_00420DD0_Push(int* pCounter);
     void sub_00420E00_Drop(unsigned int nCount);
 };
 
@@ -703,13 +696,13 @@ void __fastcall HuffmanDecompress(void* pOutput, unsigned int* pOutputSize, void
 }
 
 // 0x00420DB0
-int D2StormQueueStrc::sub_00420DB0_InRange(unsigned int nIndex)
+int BigBuffer::sub_00420DB0_InRange(unsigned int nIndex)
 {
     return m_start + nIndex < m_array.f_4;
 }
 
 // 0x00420DD0
-D2StormRecord14Strc* BigStack::sub_00420DD0_Push(int* pCounter)
+BigBuffer* BigStack::sub_00420DD0_Push(int* pCounter)
 {
     if (pCounter)
         ++*pCounter;
@@ -804,13 +797,13 @@ unsigned int __stdcall sub_00421280_RoundUp(unsigned int nValue, unsigned int nA
 }
 
 // 0x004212D0
-int D2StormQueueStrc::sub_004212D0_Get(unsigned int nIndex)
+int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
 {
     return InRange(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
 }
 
 // 0x004213B0
-unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue)
+unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue)
 {
     unsigned int nCount = pQueue->m_array.f_4;
     unsigned int nStart = pQueue->m_start;
@@ -862,13 +855,13 @@ unsigned int D2StormArrayCStrc::sub_00421F60_Add(unsigned int nCount, const char
 }
 
 // 0x004220D0
-void D2StormQueueStrc::sub_004220D0_SetCount(unsigned int nCount)
+void BigBuffer::sub_004220D0_SetCount(unsigned int nCount)
 {
     m_array.SetCount(m_start + nCount);
 }
 
 // 0x004237D0
-void __stdcall SBigCopy(D2StormQueueStrc* pDest, D2StormQueueStrc* pSource)
+void __stdcall SBigCopy(BigBuffer* pDest, BigBuffer* pSource)
 {
     if (pDest != pSource)
         pDest->m_array.sub_004215C0_Set(pSource->m_array.f_4, pSource->m_array.f_8);

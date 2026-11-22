@@ -23,7 +23,7 @@ struct D2StormGrowUIntArrayStrc;
 struct D2StormGrowUCharArrayStrc;
 struct D2StormArrayBStrc;
 struct D2StormQueueArrayStrc;
-struct D2StormQueueStrc;
+struct BigBuffer;
 struct D2StormBigStrc;
 
 struct D2StormNodeListStrc
@@ -208,7 +208,7 @@ struct D2StormQueueArrayStrc
     unsigned int f_C;
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormQueueArrayStrc m_array;
     unsigned int m_start;
@@ -229,7 +229,7 @@ struct D2StormQueueStrc
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tPrimary;
+    BigBuffer tPrimary;
 };
 
 // 0x0041F6A0
@@ -356,7 +356,7 @@ void __cdecl sub_004212B0_Empty()
 {
 }
 
-static __declspec(noinline) int sub_00421440_IsEven(const D2StormQueueStrc& a)
+static __declspec(noinline) int sub_00421440_IsEven(const BigBuffer& a)
 {
     return !a.Count() || !(a[0] & 1);
 }
