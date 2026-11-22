@@ -41,7 +41,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
  if(!pQuestData) return;
  D2Act5Quest2Strc* pQuestDataEx= (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
  int nIndex=sub_00587FC0_GetWussieGroupIndex(pQuestData,pTarget);
- if(nIndex<0 || pQuestDataEx->unk0x10E[nIndex]==1) return;
+ if(nIndex<0 || pQuestDataEx->bPortalAttempted[nIndex]==1) return;
  else
  {
      D2CoordStrc tCoords;
@@ -71,7 +71,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
       }
      }
      if(!bFound) return;
-     pQuestDataEx->unk0x10E[nIndex]=1;
+     pQuestDataEx->bPortalAttempted[nIndex]=1;
      pRoom=sub_00463740_FindRoomAtPoint(pTargetRoom,tCoords.nX,tCoords.nY);
      D2UnitStrc* pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX,tCoords.nY,pQuestData->pGame,pRoom,1,1,0);
      if(!pPortal)
@@ -99,7 +99,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
      {
       if(pQuestDataEx->nFreedWussies>11)
       {
-       pQuestData->dwFlags &= 0xFFFFFF00;
+       pQuestData->nStatusFlags = 0;
        QUESTS_UnitIterate(pQuestData,3,0,ACT5Q2_UnitIterate_StatusCyclerEx,true);
        if(!QUESTRECORD_GetQuestState(pQuestFlags,36,0) && !QUESTRECORD_GetQuestState(pQuestFlags,36,1))
        {
@@ -121,7 +121,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
       QUESTRECORD_SetQuestState(pQuestFlags,36,4);
       if(pQuestDataEx->nKilledWussies<5)
       {
-       pQuestData->dwFlags = (pQuestData->dwFlags & 0xFFFFFF00) | 32;
+       pQuestData->nStatusFlags = 32;
        QUESTS_UnitIterate(pQuestData,2,0,ACT5Q2_UnitIterate_StatusCyclerEx,true);
       }
       pQuestDataEx->bQualKehkActivated=0;

@@ -131,7 +131,15 @@ struct D2QuestDataStrc
     char nInitNo; // 0x0D
     unsigned short unk0x0E; // 0x0E
     int nSeqId; // 0x10
-    unsigned int dwFlags; // 0x14
+    union
+    {
+        unsigned int dwFlags; // 0x14
+        struct
+        {
+            unsigned int nStatusFlags : 8; // 0x14
+            unsigned int nFlagsHigh : 24; // 0x15
+        };
+    };
     void* pQuestDataEx; // 0x18
     D2QuestGUIDStrc tPlayerGUIDs; // 0x1C
     QUESTCALLBACK pCallback[15]; // 0xA0

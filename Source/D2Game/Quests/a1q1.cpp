@@ -242,7 +242,7 @@ void __fastcall ACT1Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuest, D2Quest
                 QUESTS_StateDebug(pQuest, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q1.cpp", 0x109);
                 D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pfSeqFilter), 0x10A);
                 pQuest->pfSeqFilter(pQuest);
-                pQuest->dwFlags &= 0xFFFFFF00;
+                pQuest->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuest, 0xD, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 0);
             }
 
@@ -390,7 +390,7 @@ bool __fastcall ACT1Q1_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
     D2Act1Quest1Strc* pQuestDataEx = (D2Act1Quest1Strc*)pQuestData->pQuestDataEx;
     if (pQuestData->fState == 4)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 5, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -430,13 +430,13 @@ void __fastcall ACT1Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         {
             if (pQuestData->fLastState == 4 && pQuestDataEx->nMonstersLeft > 5)
             {
-                pQuestData->dwFlags = (pQuestData->dwFlags & 0xFFFFFF00) | 0x20;
+                pQuestData->nStatusFlags = 0x20;
                 QUESTS_UnitIterate(pQuestData, 4, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
             }
         }
         else
         {
-            pQuestData->dwFlags = (pQuestData->dwFlags & 0xFFFFFF00) | 0x20;
+            pQuestData->nStatusFlags = 0x20;
             QUESTS_UnitIterate(pQuestData, 4, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
             pQuestData->pCallback[2] = 0;
         }
@@ -486,7 +486,7 @@ void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         pQuestDataEx->bEnteredDen = 1;
         if (pQuestData->fLastState < 2)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 2, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
             pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
         }
@@ -521,7 +521,7 @@ void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             return;
         }
 
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
         pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
     }

@@ -620,7 +620,7 @@ struct D2Act5Quest2Strc
     int nPortalUpdateInvocations[3]; // 0xFC
     unsigned char bGroupDone[3]; // 0x108
     unsigned char bChangeToSpecialObjectMode[3]; // 0x10B
-    unsigned char unk0x10E[3]; // 0x10E
+    unsigned char bPortalAttempted[3]; // 0x10E
     unsigned char unk0x111; // 0x111
     unsigned short unk0x112; // 0x112
     int nGroupKills[3]; // 0x114

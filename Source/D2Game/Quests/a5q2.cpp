@@ -251,7 +251,7 @@ void __fastcall ACT5Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                         }
                         pQuestData->pfSeqFilter(pQuestData);
 
-                        pQuestData->dwFlags &= 0xFFFFFF00;
+                        pQuestData->nStatusFlags = 0;
                         QUESTS_UnitIterate(pQuestData, 13, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 0);
                     }
                     pQuestData->pCallback[2] = nullptr;
@@ -560,7 +560,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     if (pQuestDataEx->nKilledWussies >= 5 && pQuestData->fLastState != 12)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 12, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bQualKehkActivated = 0;
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, pQuestArg->pPlayer, ACT5Q2_UnitIterate_SetCompletionFlag);
@@ -583,7 +583,7 @@ bool __fastcall ACT1Q1_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
     D2Act1Quest1Strc* pQuestDataEx = (D2Act1Quest1Strc*)pQuestData->pQuestDataEx;
     if (pQuestData->fState == 4)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 5, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -639,7 +639,7 @@ void __fastcall ACT5Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
         if (!pQuestData->fLastState)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 1, nullptr, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
             pQuestData->pCallback[2] = nullptr;
         }
@@ -674,7 +674,7 @@ void __fastcall ACT5Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             return;
         }
 
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, nullptr, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
         pQuestData->pCallback[2] = nullptr;
     }
@@ -813,7 +813,7 @@ void __fastcall OBJECTS_InitFunction62_CagedWussie(D2ObjInitFnStrc* pOp)
 
     if (!pQuestData->fLastState && pQuestDataEx->nKilledWussies < 5)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -833,7 +833,7 @@ void __fastcall OBJECTS_InitFunction62_CagedWussie(D2ObjInitFnStrc* pOp)
             pQuestDataEx->pWussieCoords[nCounter].nY = pOp->nY;
             pQuestDataEx->nSpawnedWussies += ACT5Q2_SpawnCagedWussies(pQuestData, pOp, nCounter);
             pQuestDataEx->bWussiesSpawned[nCounter] = 1;
-            pQuestDataEx->unk0x10E[nCounter] = 0;
+            pQuestDataEx->bPortalAttempted[nCounter] = 0;
             return;
         }
     }

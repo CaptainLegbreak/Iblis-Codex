@@ -223,7 +223,7 @@ void __fastcall sub_005B5A20_InitHellforge(D2ObjInitFnStrc* pOp)
         UNITS_ChangeAnimMode(pOp->pObject, pEx->nHellforgeMode);
         if (pQuest->fLastState != STATE_A && pQuest->fLastState != STATE_B && pQuest->fLastState != STATE_C)
         {
-            pQuest->dwFlags &= 0xFFFFFF00;
+            pQuest->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuest, ITERATE_STATE, 0, ACT4Q3_UnitIterate_StatusCyclerEx, true);
         }
     }
@@ -498,7 +498,7 @@ void __fastcall ACT4Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         {
             if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 13) && pQuestData->fState != 5)
             {
-                pQuestData->dwFlags &= 0xFFFFFF00;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 13, 0, ACT4Q3_UnitIterate_StatusCyclerEx, false);
                 QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 530);
                 D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 531);
@@ -534,7 +534,7 @@ void __fastcall sub_005B6440_ACT4Q3_Callback(D2QuestDataStrc* pQuest, D2QuestArg
     {
         QUESTS_UnitIterate(pQuest, 1, 0, ACT4Q3_UnitIterate_StatusCyclerEx, 1);
     }
-    pQuest->dwFlags &= 0xFFFFFF00;
+    pQuest->nStatusFlags = 0;
     pQuestDataEx->bCainActivated = 0;
     pQuest->pCallback[2] = 0;
     SUNIT_IterateUnitsOfType(pQuest->pGame, 0, 0, ACT4Q3_UnitIterate_UpdateQuestStateFlags);
@@ -841,7 +841,7 @@ void __fastcall ACT3Q4_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
     }
 
     pQuestDataEx->bPlayerDroppedWithItem = 0;
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
 
     int nState = 1;
     if (bGoldAcquired)

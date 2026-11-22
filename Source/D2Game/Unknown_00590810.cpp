@@ -88,7 +88,7 @@ void __fastcall ACT1Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         return;
     }
 
-    (*(unsigned char*)&pQuestData->dwFlags) = 0;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bKashyaActivated = 0;
     pQuestData->pCallback[2] = 0;
@@ -98,7 +98,7 @@ void __fastcall ACT1Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 // 0x00590BF0
 bool __fastcall ACT1Q2_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
-    (*(unsigned char*)&pQuestData->dwFlags) = 0;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 3, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 1);
     return true;
 }

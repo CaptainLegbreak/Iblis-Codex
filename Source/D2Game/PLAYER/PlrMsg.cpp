@@ -552,7 +552,6 @@ void __fastcall sub_0055F500_RefreshItemStatLists(D2GameStrc* pGame, D2UnitStrc*
 
 static int __stdcall sub_0054D130_TakeMercItemToCursor(D2GameStrc* pGame, D2UnitStrc* pMerc, D2UnitStrc* pPlayer, int nBodyLoc);
 
-struct D2NetPacketRecStrc;
 
 struct D2BuyItemPacketStrc;
 
@@ -582,9 +581,8 @@ int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x0064153
 
 static void __stdcall sub_00548A50_ChangeModeAndSetInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID);
 
-struct D2NetPacketRecStrc { int unk_00; int unk_04; char szName[16]; };
 
-void __fastcall j_D2GAME_SendPacket0x5A_6FC3DEC0(D2ClientStrc*, D2NetPacketRecStrc*); // 0x0054AA30
+void __fastcall j_D2GAME_SendPacket0x5A_6FC3DEC0(D2ClientStrc*, void*); // 0x0054AA30
 
 int __fastcall sub_00561220_SwapDualWieldedItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int* pFailure); // 0x00561220
 
@@ -2774,9 +2772,9 @@ void __fastcall j_D2GAME_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, void* pP
 }
 
 // 0x0054AA40
-void __fastcall sub_0054AA40_BroadcastNamedPacket(D2GameStrc* pGame, D2NetPacketRecStrc* pPacket)
+void __fastcall sub_0054AA40_BroadcastNamedPacket(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket)
 {
-    const char* szName = pPacket->szName;
+    const char* szName = pPacket->szText;
     int i;
     for (i = 0; i < 16; ++i)
     {
