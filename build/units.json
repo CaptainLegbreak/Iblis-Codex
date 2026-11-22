@@ -6422,7 +6422,7 @@
     {
      "va": "0x0041D3B0",
      "length": 95,
-     "name": "sub_0041D3B0_NewHashBuffer"
+     "name": "SSignatureVerifyStream_Begin"
     },
     {
      "va": "0x0041D420",
@@ -6437,12 +6437,12 @@
     {
      "va": "0x0041D6D0",
      "length": 247,
-     "name": "sub_0041D6D0_VerifyHashBuffer"
+     "name": "SSignatureVerifyStream_Finish"
     },
     {
      "va": "0x0041D810",
      "length": 99,
-     "name": "sub_0041D810_Crc32"
+     "name": "CrcBuffer"
     },
     {
      "va": "0x0041D8D0",

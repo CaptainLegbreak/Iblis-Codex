@@ -26,7 +26,7 @@ static void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned ch
 }
 
 // 0x0041DA60
-static int __stdcall sub_0041DA60_CompressADPCM(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut)
+static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut)
 {
     unsigned char* pOutStart = pOut;
     if ((unsigned int)nOutSize < 2)
@@ -148,7 +148,7 @@ void __fastcall ImaAdpcmMonoCompress(unsigned char* pvOutBuffer, int* pcbOutBuff
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
-    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
+    *pcbOutBuffer = ImaAdpcmCompress(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
 }
 
 // 0x0041E3C0
@@ -156,11 +156,11 @@ void __fastcall ImaAdpcmStereoCompress(unsigned char* pvOutBuffer, int* pcbOutBu
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
-    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
+    *pcbOutBuffer = ImaAdpcmCompress(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
 }
 
 // 0x0041DCE0
-static int __stdcall sub_0041DCE0_DecompressADPCM(short* pOut, unsigned int nOutSize, unsigned char* pIn, int nInLength, unsigned int nChannels)
+static int __stdcall ImaAdpcmDecompress(short* pOut, unsigned int nOutSize, unsigned char* pIn, int nInLength, unsigned int nChannels)
 {
     int aPredicted[2];
     int aStep[2];
@@ -290,11 +290,11 @@ static int __stdcall sub_0041DCE0_DecompressADPCM(short* pOut, unsigned int nOut
 // 0x0041E3A0
 void __fastcall ImaAdpcmMonoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
 {
-    *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, *pOutSize, pIn, nInLength, 1);
+    *pOutSize = ImaAdpcmDecompress(pOut, *pOutSize, pIn, nInLength, 1);
 }
 
 // 0x0041E400
 void __fastcall ImaAdpcmStereoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
 {
-    *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, *pOutSize, pIn, nInLength, 2);
+    *pOutSize = ImaAdpcmDecompress(pOut, *pOutSize, pIn, nInLength, 2);
 }

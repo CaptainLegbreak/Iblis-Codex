@@ -453,7 +453,7 @@ static __declspec(noinline) void __stdcall sub_0041D370_HashData(unsigned int nL
 }
 
 // 0x0041D3B0
-void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize)
+void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize)
 {
     *ppBuffer = new D2StormHashBufferStrc;
     (*ppBuffer)->nSignSize = nSignSize;
@@ -520,7 +520,7 @@ int __fastcall SSignatureGenerate(char* pData, unsigned int* pnSize, const void*
 }
 
 // 0x0041D6D0
-int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus)
+int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus)
 {
     int bResult = 0;
     if (pBuffer->nUsed == pBuffer->nWindow && *(int*)pBuffer->pBuffer == 0x5349474E)
@@ -543,7 +543,7 @@ int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, con
 }
 
 // 0x0041D810
-void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags)
+void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags)
 {
     unsigned int nCrc = 0;
     if (pCrc)

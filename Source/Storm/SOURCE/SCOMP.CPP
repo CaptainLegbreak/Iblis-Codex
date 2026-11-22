@@ -147,11 +147,11 @@ D2FogBlockStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2FogBlockStrc** ppLin
 
 void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
 
-void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize); // 0x0041D3B0
+void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize); // 0x0041D3B0
 
 void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize); // 0x0041D420
 
-int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
+int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
 
 unsigned int __cdecl PkwareBufferRead(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource); // 0x0041DEC0
 
@@ -447,7 +447,7 @@ static __declspec(noinline) void sub_0041DA30_GetCompressionLevel(unsigned int n
     }
 }
 
-static int __stdcall sub_0041DA60_CompressADPCM(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut)
+static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut) // 0x0041DA60
 {
     unsigned char* pOutStart = pOut;
     if ((unsigned int)nOutSize < 2)
@@ -584,10 +584,10 @@ void __fastcall ImaAdpcmMonoCompress(unsigned char* pvOutBuffer, int* pcbOutBuff
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
-    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
+    *pcbOutBuffer = ImaAdpcmCompress(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
 }
 
-static int __stdcall sub_0041DCE0_DecompressADPCM(short* pOut, int nInLength, unsigned int nOutSize, unsigned char* pIn, unsigned int nChannels)
+static int __stdcall ImaAdpcmDecompress(short* pOut, int nInLength, unsigned int nOutSize, unsigned char* pIn, unsigned int nChannels) // 0x0041DCE0
 {
     int aPredicted[2];
     int aStep[2];
@@ -715,7 +715,7 @@ static int __stdcall sub_0041DCE0_DecompressADPCM(short* pOut, int nInLength, un
 // 0x0041E3A0
 void __fastcall ImaAdpcmMonoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
 {
-    *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 1);
+    *pOutSize = ImaAdpcmDecompress(pOut, nInLength, *pOutSize, pIn, 1);
 }
 
 // 0x0041E3C0
@@ -723,13 +723,13 @@ void __fastcall ImaAdpcmStereoCompress(unsigned char* pvOutBuffer, int* pcbOutBu
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
-    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
+    *pcbOutBuffer = ImaAdpcmCompress(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
 }
 
 // 0x0041E400
 void __fastcall ImaAdpcmStereoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
 {
-    *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 2);
+    *pOutSize = ImaAdpcmDecompress(pOut, nInLength, *pOutSize, pIn, 2);
 }
 
 // 0x0041E420

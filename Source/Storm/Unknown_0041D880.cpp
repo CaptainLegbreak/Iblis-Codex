@@ -250,7 +250,7 @@ static void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned ch
     }
 }
 
-static int __stdcall sub_0041DA60_CompressADPCM(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut)
+static int __stdcall ImaAdpcmCompress(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut) // 0x0041DA60
 {
     unsigned char* pOutStart = pOut;
     if ((unsigned int)nOutSize < 2)
@@ -389,12 +389,12 @@ void __fastcall ImaAdpcmMonoCompress(unsigned char* pvOutBuffer, int* pcbOutBuff
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
-    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
+    *pcbOutBuffer = ImaAdpcmCompress(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
 }
 
 void __fastcall ImaAdpcmStereoCompress(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
-    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
+    *pcbOutBuffer = ImaAdpcmCompress(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
 }

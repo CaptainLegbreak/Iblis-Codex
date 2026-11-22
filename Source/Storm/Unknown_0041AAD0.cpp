@@ -23,7 +23,7 @@ int __stdcall SMemFree(void*,const char*,int,unsigned int); // 0x00412650
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __stdcall sub_0041C340_SetLastError(unsigned long); // 0x0041C340
 int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nLine,const char* szDescription,int bRecoverable,unsigned int nExitCode); // 0x0041CAF0
-void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
+void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
 unsigned int __stdcall InternalReadAligned(FILEREC*,unsigned int,unsigned char*,unsigned int); // 0x00416AD0
 void __cdecl sub_0041A880_StartThread(); // 0x0041A880
 extern const char gszDelete_006CC824[]; // 0x006CC824
@@ -130,7 +130,7 @@ static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsi
     nSize = nSize < nFileSize - nPosition ? nSize : nFileSize - nPosition;
     if (pFile->bCrc && !nPosition)
     {
-        sub_0041D810_Crc32(0, 0, &pFile->nCrc, 1);
+        CrcBuffer(0, 0, &pFile->nCrc, 1);
         pFile->nCrcPos = 0;
         pFile->nCrcState = 2;
     }
@@ -144,7 +144,7 @@ static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsi
         SMemCopy(pBuffer, pFile->archive->pBlockBuffer + ((pFile->archive->sectorsize - 1) & nPosition), nCopy);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nCopy, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nCopy, &pFile->nCrc, 2);
             pFile->nCrcPos += nCopy;
         }
         pBuffer += nCopy;
@@ -168,7 +168,7 @@ static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsi
         nMiddle = InternalReadAligned(pFile, nPosition, pBuffer, nAligned);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nMiddle, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nMiddle, &pFile->nCrc, 2);
             pFile->nCrcPos += nMiddle;
         }
         pBuffer += nAligned;
@@ -188,7 +188,7 @@ static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsi
             nTail = nSize;
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nTail, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nTail, &pFile->nCrc, 2);
             pFile->nCrcPos += nTail;
         }
     }
@@ -300,7 +300,7 @@ int __stdcall SFileReadFileEx2(void* hFile,unsigned char* buffer,unsigned int si
         total = InternalReadUnaligned(dest, count, file, pos);
         if (file->bCrc && file->nCrcState == 2 && file->nCrcPos == file->pBlock->nFileSize)
         {
-            sub_0041D810_Crc32(0, 0, &file->nCrc, 4);
+            CrcBuffer(0, 0, &file->nCrc, 4);
             file->nCrcState = 4;
         }
         if (overlap && overlap->event)
