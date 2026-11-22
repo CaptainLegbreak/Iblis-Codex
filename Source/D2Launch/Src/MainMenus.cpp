@@ -222,7 +222,6 @@ int gnLastClickTick_007799A0; // 0x007799A0
 
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 
-void __cdecl sub_0042FFE0_CreateScreen(); // 0x0042FFE0
 
 int __cdecl CLIENT_GetConnectionStatus(); // 0x0052B050
 

@@ -291,7 +291,6 @@ struct D2MenuListStrc;
 
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00433380
 
-void __cdecl sub_0042FFE0_CreateScreen(); // 0x0042FFE0
 
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 
