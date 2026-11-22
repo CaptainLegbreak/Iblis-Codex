@@ -105,23 +105,6 @@ struct D2VideoKeyStrc { unsigned int words[5]; unsigned short tail; };
 
 extern const D2VideoKeyStrc gVideoKey_006DD634; // 0x006DD634
 
-// 0x006B3570
-void __fastcall sub_006B3570_SetGamma(int nGamma)
-{
-    D2GammaRampStrc ramp;
-    if (gnCapabilities_0096F3A8 & gnGammaMask_006CE278)
-    {
-        sub_006BE190_BuildGammaTable(nGamma, (unsigned short*)ramp.red, gnGammaScale_0074C020, 2, 256, 65535);
-        memcpy(ramp.green, ramp.red, sizeof(ramp.red));
-        memcpy(ramp.blue, ramp.red, sizeof(ramp.red));
-        if (gpGammaControl_00970E74)
-        {
-            int nResult = gpGammaControl_00970E74->pVTable->SetGammaRamp(gpGammaControl_00970E74, 0, &ramp);
-            if (nResult)
-                sub_006B20E0_DDrawLogError("Failed to set gamma ramp", nResult);
-        }
-    }
-}
 
 // 0x006B3610
 int __fastcall sub_006B3610_ReadScreenRGB(unsigned char* pDst)

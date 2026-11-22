@@ -832,4 +832,35 @@ void __cdecl sub_006B3320_ReleaseResources()
     gnVideoState_00970E44 = 0;
 }
 
+struct D2GammaRampStrc
+{
+    int red[128];
+    int green[128];
+    int blue[128];
+};
+
+extern const unsigned int gnGammaMask_006CE278;                                                             // 0x006CE278
+extern unsigned int gnCapabilities_0096F3A8;                                                                // 0x0096F3A8
+extern int gnGammaScale_0074C020;                                                                           // 0x0074C020
+void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
+extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
+
+// 0x006B3570
+void __fastcall sub_006B3570_SetGamma(int nGamma)
+{
+    D2GammaRampStrc ramp;
+    if (gnCapabilities_0096F3A8 & gnGammaMask_006CE278)
+    {
+        sub_006BE190_BuildGammaTable(nGamma, (unsigned short*)ramp.red, gnGammaScale_0074C020, 2, 256, 65535);
+        memcpy(ramp.green, ramp.red, sizeof(ramp.red));
+        memcpy(ramp.blue, ramp.red, sizeof(ramp.red));
+        if (gpGammaControl_00970E74)
+        {
+            int nResult = ((D2DDSetGammaRampFn)gpGammaControl_00970E74->lpVtbl[4])(gpGammaControl_00970E74, 0, &ramp);
+            if (nResult)
+                sub_006B20E0_DDrawLogError("Failed to set gamma ramp", nResult);
+        }
+    }
+}
+
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"
