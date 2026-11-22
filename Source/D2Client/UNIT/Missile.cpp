@@ -12,6 +12,10 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2Drlg.h"
+#include "D2Constants.h"
+#include "D2DrlgMaps.h"
+#include "D2ClientUi.h"
+#include "D2TxtItems.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -918,6 +922,34 @@ static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     return (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount) ? &sgptDataTables->pMissilesTxt[nMissileId] : 0;
+}
+
+static inline D2MissilesTxt* CLTMISS_GetMissilesTxtRecord(int nMissileId)
+{
+    if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
+        return &sgptDataTables->pMissilesTxt[nMissileId];
+    return 0;
+}
+
+// 0x004CC870
+void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
+{
+    D2UnitStrc* pOwner = (D2UnitStrc*)nInitArg;
+    if (!pMissile)
+        return;
+
+    D2MissilesTxt* pMissilesTxtRecord = CLTMISS_GetMissilesTxtRecord(pMissile->dwClassId);
+    if (!pMissilesTxtRecord || !pOwner)
+        return;
+
+    int nOffset = 0;
+    if (pMissilesTxtRecord->dwCltParam[1] > 0)
+        nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
+
+    GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nOffset);
+    PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
+    D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
+    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
 }
 
 // 0x004CC950
