@@ -2,6 +2,8 @@
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
+#include "D2ObjModes.h"
+#include "D2ItemModes.h"
 #include "D2Game.h"
 #include "D2GameObjs.h"
 #include "D2ItemsWorld.h"
@@ -15,8 +17,6 @@
 #include "D2GameServer.h"
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
-#include "D2ObjModes.h"
-#include "D2ItemModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -26,19 +26,12 @@
 
 #define QUEST_A3Q1_LAMESENTOME 15
 
-#define UNIT_PLAYER 0
 
-#define UNIT_MONSTER 1
 
-#define UNIT_OBJECT 2
 
-#define UNIT_MISSILE 3
 
-#define UNIT_ITEM 4
 
-#define UNIT_TILE 5
 
-#define UNIT_INVALID 6
 
 #define STRCOLOR_DARK_GOLD 4
 
@@ -452,9 +445,18 @@ int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId
 
 void __fastcall sub_0053E060_SendPacket0x91(D2ClientStrc* pClient, D2GSPacketSrv91* pPacket); // 0x0053E060
 
-struct Obj00545290 { unsigned int dwValues[32]; unsigned short wCount80; };
+struct Obj00545290
+{
+    unsigned int dwValues[32];
+    unsigned short wCount80;
+};
 
-struct Obj005452C0 { unsigned char bUnknown00[0x1C]; unsigned int dwValues1C[32]; unsigned short wCount9C; };
+struct Obj005452C0
+{
+    unsigned char bUnknown00[0x1C];
+    unsigned int dwValues1C[32];
+    unsigned short wCount9C;
+};
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -724,6 +726,8 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 void __fastcall MONSTER_ToggleSummonerFlag(D2UnitStrc* pUnit, int nFlag, int bSet); // 0x00573570
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
+
+void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc* pSeed, D2MonRegDataStrc* pMonRegData, int nCount); // 0x005BDB20
 
 // 0x00543540
 D2PlrIntroStrc* __fastcall sub_00543540_GetPlayerIntro(D2GameStrc* pGame, D2UnitStrc* pPlayer)
@@ -3244,6 +3248,96 @@ bool __fastcall OBJRGN_CanSpawnShrine(D2GameStrc* pGame, int nLevelId, int nX, i
     }
 
     return true;
+}
+
+static inline int MONSTERREGION_SanitizeMonsterId(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return nMonsterId;
+    }
+
+    return -1;
+}
+
+static __forceinline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
+        {
+            return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+        }
+    }
+
+    return 0;
+}
+
+static inline D2MonsterRegionStrc* MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId)
+{
+    return ppMonsterRegion[nLevelId];
+}
+
+static inline int sub_00623C60(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
+}
+
+// 0x00547BC0
+D2MonRegDataStrc* __fastcall MONSTERREGION_GetMonsterComponentData(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
+{
+    const short nClassId = sub_00623C60(pUnit);
+
+    switch (MONSTERREGION_SanitizeMonsterId(nClassId))
+    {
+    case 195:
+    case 196:
+    case 294:
+    case 296:
+        return 0;
+    default:
+        break;
+    }
+
+    D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(ppMonsterRegion, DUNGEON_GetLevelIdFromRoom(pRoom));
+    if (!pMonsterRegion)
+    {
+        return 0;
+    }
+
+    D2MonRegDataStrc* pMonsterRegionData = pMonsterRegion->pMonData;
+    int nCounter = 0;
+    while (nCounter < pMonsterRegion->nSpawnCount)
+    {
+        if ((unsigned short)pMonsterRegionData->nMonHcIdx == (unsigned short)nClassId)
+        {
+            return pMonsterRegionData;
+        }
+
+        ++pMonsterRegionData;
+        ++nCounter;
+    }
+
+    if (nCounter >= 13)
+    {
+        return 0;
+    }
+
+    D2MonStats2Txt* pMonStats2TxtRecord = MONSTERREGION_GetMonStats2TxtRecord(nClassId);
+    if (pMonStats2TxtRecord && pMonStats2TxtRecord->unk0xEC > 2u)
+    {
+        pMonsterRegionData->nMonHcIdx = nClassId;
+        ++pMonsterRegion->nSpawnCount;
+        MONSTERCHOOSE_GenerateComponentVariants(&pUnit->pSeed, pMonsterRegionData, 3);
+    }
+
+    return pMonsterRegionData;
 }
 
 inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)

@@ -51684,6 +51684,10 @@
      "name": "OBJRGN_CanSpawnShrine"
     },
     {
+     "va": "0x00547BC0",
+     "length": 350
+    },
+    {
      "va": "0x005484B0",
      "length": 100,
      "name": "sub_6FC82270"
@@ -51850,16 +51854,6 @@
      "va": "0x00547B50",
      "length": 81,
      "name": "?MONSTERREGION_FreeAll@@YIXPAXPAPAUD2MonsterRegionStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/QUESTS_00547BC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00547BC0",
-     "length": 350
     }
    ]
   },
