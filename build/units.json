@@ -26029,9 +26029,32 @@
      "name": "PANEL_DrawMiniPanelButton"
     },
     {
+     "va": "0x004978D0",
+     "length": 73,
+     "name": "?PANEL_DrawBeltBoxFrame@@YGXHH@Z"
+    },
+    {
+     "va": "0x00497920",
+     "length": 190,
+     "name": "?PANEL_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x00497A40",
+     "length": 524
+    },
+    {
      "va": "0x00497CF0",
      "length": 268,
      "name": "?sub_00497CF0_DrawDurabilityIcon@@YGXHHHH@Z"
+    },
+    {
+     "va": "0x00497E00",
+     "length": 476
+    },
+    {
+     "va": "0x00497FE0",
+     "length": 306,
+     "name": "?PANEL_DrawDurabilityIcons@@YAXXZ"
     },
     {
      "va": "0x00498120",
@@ -26047,6 +26070,11 @@
      "va": "0x00498340",
      "length": 138,
      "name": "_PANEL_UpdateMiniPanelTooltip"
+    },
+    {
+     "va": "0x004983D0",
+     "length": 606,
+     "name": "?PANEL_DrawControlPanelFrame@@YAXH@Z"
     },
     {
      "va": "0x00498630",
@@ -26066,6 +26094,15 @@
     {
      "va": "0x00498870",
      "length": 189
+    },
+    {
+     "va": "0x00498930",
+     "length": 235
+    },
+    {
+     "va": "0x00498A90",
+     "length": 365,
+     "name": "?sub_00498A90_UseBeltSlot@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
      "va": "0x00498C00",
@@ -26122,6 +26159,19 @@
      "length": 1036
     },
     {
+     "va": "0x00499450",
+     "length": 170,
+     "name": "?PANEL_DrawControlPanel@@YAXXZ"
+    },
+    {
+     "va": "0x004996A0",
+     "length": 1289
+    },
+    {
+     "va": "0x00499BB0",
+     "length": 340
+    },
+    {
      "va": "0x00499D10",
      "length": 208,
      "name": "?PANEL_BeltClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -26155,72 +26205,6 @@
      "va": "0x004BE340",
      "length": 206,
      "name": "PANEL_CountLinesInView"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/panel_004978D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004978D0",
-     "length": 73,
-     "name": "?PANEL_DrawBeltBoxFrame@@YGXHH@Z"
-    },
-    {
-     "va": "0x00497920",
-     "length": 190,
-     "name": "?PANEL_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
-    },
-    {
-     "va": "0x00497A40",
-     "length": 524
-    },
-    {
-     "va": "0x00497E00",
-     "length": 476
-    },
-    {
-     "va": "0x00497FE0",
-     "length": 306,
-     "name": "?PANEL_DrawDurabilityIcons@@YAXXZ"
-    },
-    {
-     "va": "0x004983D0",
-     "length": 606,
-     "name": "?PANEL_DrawControlPanelFrame@@YAXH@Z"
-    },
-    {
-     "va": "0x00498930",
-     "length": 235
-    },
-    {
-     "va": "0x00498A90",
-     "length": 365,
-     "name": "?sub_00498A90_UseBeltSlot@@YGXHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
-    },
-    {
-     "va": "0x00499450",
-     "length": 170,
-     "name": "?PANEL_DrawControlPanel@@YAXXZ"
-    },
-    {
-     "va": "0x004996A0",
-     "length": 1289
     }
    ],
    "flags": [
@@ -26276,30 +26260,6 @@
      "length": 188,
      "name": "sub_004AB530_DrawTabCel"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/panel_00499BB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00499BB0",
-     "length": 340
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -42907,6 +42867,11 @@
      "name": "?sub_00520020_SetAdList@@YIHPBDH@Z"
     },
     {
+     "va": "0x00520660",
+     "length": 18,
+     "name": "?sub_00520660_HandleReply0F@@YIHPBXI@Z"
+    },
+    {
      "va": "0x005206B0",
      "length": 792
     },
@@ -42921,6 +42886,21 @@
      "name": "_sub_00520AD0_SetFlag882528"
     },
     {
+     "va": "0x00520B30",
+     "length": 56,
+     "name": "?sub_00520B30_ResetReplies@@YAHXZ"
+    },
+    {
+     "va": "0x00520B70",
+     "length": 124,
+     "name": "sub_00520B70_WaitForReply"
+    },
+    {
+     "va": "0x00520BF0",
+     "length": 11,
+     "name": "?sub_00520BF0_IsReplyReceived@@YIHE@Z"
+    },
+    {
      "va": "0x00520C00",
      "length": 22,
      "name": "@sub_00520C00_ClearSlotPair@4"
@@ -42931,12 +42911,72 @@
      "name": "@sub_00520C20_GetSlotB@4"
     },
     {
+     "va": "0x00520C50",
+     "length": 13,
+     "name": "?sub_00520C50_HandleReply2A@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520C60",
+     "length": 18,
+     "name": "?sub_00520C60_HandleReply3D@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520C80",
+     "length": 38,
+     "name": "?sub_00520C80_HandleReply31@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520D50",
+     "length": 13,
+     "name": "?sub_00520D50_HandleReply28@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520D60",
+     "length": 16,
+     "name": "?sub_00520D60_HandleReply1C@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520DA0",
+     "length": 18,
+     "name": "?sub_00520DA0_HandleReply29@@YIHPBHI@Z"
+    },
+    {
      "va": "0x00520E50",
      "length": 262
     },
     {
+     "va": "0x00520FC0",
+     "length": 18,
+     "name": "?sub_00520FC0_HandleReply25@@YIHPBXI@Z"
+    },
+    {
      "va": "0x00520FE0",
      "length": 180
+    },
+    {
+     "va": "0x005210A0",
+     "length": 27,
+     "name": "?sub_005210A0_SaveServerList@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210C0",
+     "length": 11,
+     "name": "?sub_005210C0_SetReply@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210D0",
+     "length": 11,
+     "name": "?sub_005210D0_SetReply@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210F0",
+     "length": 29,
+     "name": "?sub_005210F0_ShowText@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521110",
+     "length": 58,
+     "name": "?sub_00521110_Report@@YIHPBXI@Z"
     },
     {
      "va": "0x00521150",
@@ -42944,13 +42984,203 @@
      "name": "sub_00521150"
     },
     {
-     "va": "0x005226D0",
-     "length": 678
+     "va": "0x005211D0",
+     "length": 11,
+     "name": "?sub_005211D0_SetReply@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005211E0",
+     "length": 11,
+     "name": "?sub_005211E0_QueryAdUrl@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005211F0",
+     "length": 11,
+     "name": "?sub_005211F0_LogonRealmEx@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521200",
+     "length": 11,
+     "name": "?sub_00521200_ReadUserData@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521210",
+     "length": 5,
+     "name": "?sub_00521210_NewsInfo@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005212D0",
+     "length": 735
+    },
+    {
+     "va": "0x005215B0",
+     "length": 256,
+     "name": "?sub_005215B0_AuthAccountCreate@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005216B0",
+     "length": 173
+    },
+    {
+     "va": "0x00521760",
+     "length": 146,
+     "name": "?sub_00521760_AuthAccountLogonProof@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521800",
+     "length": 145,
+     "name": "?sub_00521800_AuthAccountChange@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005218A0",
+     "length": 162,
+     "name": "?sub_005218A0_AuthAccountChangeProof@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521950",
+     "length": 84,
+     "name": "?sub_00521950_AuthAccountUpgrade@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005219B0",
+     "length": 241,
+     "name": "?sub_005219B0_AuthAccountUpgradeProof@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521AB0",
+     "length": 16,
+     "name": "?sub_00521AB0_SetEmail@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521AC0",
+     "length": 29,
+     "name": "?sub_00521AC0_OptionalWork@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521AE0",
+     "length": 29,
+     "name": "?sub_00521AE0_RequiredWork@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521B40",
+     "length": 10,
+     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
+    },
+    {
+     "va": "0x00521BA0",
+     "length": 71
+    },
+    {
+     "va": "0x00522050",
+     "length": 96,
+     "name": "?sub_00522050_SendAccountLogon@@YAHXZ"
+    },
+    {
+     "va": "0x005223A0",
+     "length": 72,
+     "name": "?sub_005223A0_SendAccountUpgrade@@YIHH@Z"
+    },
+    {
+     "va": "0x00522500",
+     "length": 38,
+     "name": "?sub_00522500_GetNibble@@YIIPBII@Z"
+    },
+    {
+     "va": "0x00522530",
+     "length": 58,
+     "name": "sub_00522530_SetNibble"
+    },
+    {
+     "va": "0x00522570",
+     "length": 34,
+     "name": "?sub_00522570_GetBit@@YIIPBII@Z"
+    },
+    {
+     "va": "0x005225A0",
+     "length": 54,
+     "name": "sub_005225A0_SetBit"
+    },
+    {
+     "va": "0x005225E0",
+     "length": 98,
+     "name": "sub_005225E0"
+    },
+    {
+     "va": "0x00522650",
+     "length": 113,
+     "name": "sub_00522650"
+    },
+    {
+     "va": "0x00522980",
+     "length": 349,
+     "name": "sub_00522980"
+    },
+    {
+     "va": "0x00522BC0",
+     "length": 86,
+     "name": "?sub_00522BC0_FillRandomBytes@@YIXPADH@Z"
+    },
+    {
+     "va": "0x00522C20",
+     "length": 10,
+     "name": "?sub_00522C20_ClearCryptState@@YAXXZ"
+    },
+    {
+     "va": "0x00522C30",
+     "length": 478
+    },
+    {
+     "va": "0x00522E10",
+     "length": 520
+    },
+    {
+     "va": "0x00523280",
+     "length": 43
     },
     {
      "va": "0x006CB430",
      "length": 12,
      "name": "?__FtLog_00881878"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2BNClient/BnDownload_005226D0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005226D0",
+     "length": 678
+    }
+   ]
+  },
+  {
+   "file": "Source/D2BNClient/BnDownload_00520CB0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00520CB0",
+     "length": 155,
+     "name": "?sub_00520CB0_HandleClientId@@YIHPBUD2BnClientIdReplyStrc@@I@Z"
+    },
+    {
+     "va": "0x00520D70",
+     "length": 45,
+     "name": "?sub_00520D70_HandleLogonAck@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520F60",
+     "length": 91,
+     "name": "?sub_00520F60_HandleStartVersioning@@YIHPBUD2BnStartVersioningStrc@@I@Z"
+    },
+    {
+     "va": "0x00521220",
+     "length": 166,
+     "name": "?sub_00521220_HandleAuthInfo@@YIHPBEI@Z"
+    },
+    {
+     "va": "0x00522AE0",
+     "length": 202
     }
    ]
   },
@@ -43337,9 +43567,28 @@
      "name": "?sub_0051BEA0_GetConnected@@YAJXZ"
     },
     {
+     "va": "0x0051BEB0",
+     "length": 14
+    },
+    {
      "va": "0x0051BED0",
      "length": 15,
      "name": "?sub_0051BED0_SetDnsPending@@YIXH@Z"
+    },
+    {
+     "va": "0x0051BEE0",
+     "length": 500,
+     "name": "?GetDnsResults@@YGKPAX@Z"
+    },
+    {
+     "va": "0x0051C170",
+     "length": 15,
+     "name": "?sub_0051C170_PostBnServerIniMessage@@YAHXZ"
+    },
+    {
+     "va": "0x0051C180",
+     "length": 16,
+     "name": "?sub_0051C180_GetBnGatewayAccess@@YAPAVBNGatewayAccess@@XZ"
     },
     {
      "va": "0x0051C190",
@@ -43347,9 +43596,68 @@
      "name": "?GetBnetIp@@YIXPADH@Z"
     },
     {
+     "va": "0x0051C210",
+     "length": 43,
+     "name": "?sub_0051C210_GetConnectionState@@YIXPAH@Z"
+    },
+    {
+     "va": "0x0051C240",
+     "length": 68,
+     "name": "?sub_0051C240_Logon@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x0051C290",
+     "length": 51,
+     "name": "?sub_0051C290_GetLogonInfo@@YAHXZ"
+    },
+    {
+     "va": "0x0051C2D0",
+     "length": 68,
+     "name": "?sub_0051C2D0_CreateAccount@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x0051C320",
+     "length": 43,
+     "name": "?sub_0051C320_GetCreateAccountResult@@YIHPAH@Z"
+    },
+    {
      "va": "0x0051C350",
      "length": 89,
      "name": "sub_0051C350_ChangePassword"
+    },
+    {
+     "va": "0x0051C3B0",
+     "length": 43,
+     "name": "?sub_0051C3B0_GetChangePasswordResult@@YIHPAH@Z"
+    },
+    {
+     "va": "0x0051C5C0",
+     "length": 225,
+     "name": "sub_0051C5C0_SendPacket"
+    },
+    {
+     "va": "0x0051C6B0",
+     "length": 12,
+     "name": "?sub_0051C6B0_QueueTextLine@@YIHPBD@Z"
+    },
+    {
+     "va": "0x0051C6C0",
+     "length": 152
+    },
+    {
+     "va": "0x0051CA20",
+     "length": 3,
+     "name": "?sub_0051CA20_GetGatewayLetter@@YADXZ"
+    },
+    {
+     "va": "0x0051CA80",
+     "length": 7,
+     "name": "?sub_0051CA80_SetFlag@@YIXH@Z"
+    },
+    {
+     "va": "0x0051D0A0",
+     "length": 286,
+     "name": "?BattleConnectFastest@@YAKPAX@Z"
     },
     {
      "va": "0x0051D1C0",
@@ -43375,6 +43683,21 @@
      "va": "0x0051F2D0",
      "length": 56,
      "name": "sub_0051F2D0_PatchUnk"
+    },
+    {
+     "va": "0x005204D0",
+     "length": 67,
+     "name": "?sub_005204D0_SetErrorText@@YIHHPBD@Z"
+    },
+    {
+     "va": "0x00520630",
+     "length": 22,
+     "name": "?sub_00520630_SetText@@YIHPBD@Z"
+    },
+    {
+     "va": "0x00521B00",
+     "length": 56,
+     "name": "sub_00521B00"
     },
     {
      "va": "0x00521BF0",
@@ -43412,6 +43735,16 @@
      "name": "?sub_005223F0_SendUpgradeProof@@YIHI@Z"
     },
     {
+     "va": "0x005224C0",
+     "length": 17,
+     "name": "?sub_005224C0_CheckServerProof@@YIHPBE@Z"
+    },
+    {
+     "va": "0x005224F0",
+     "length": 13,
+     "name": "?sub_005224F0_ClearPassword@@YAXXZ"
+    },
+    {
      "va": "0x00528890",
      "length": 210,
      "name": "sub_00528890_CompareServerProof"
@@ -43434,116 +43767,13 @@
    ]
   },
   {
-   "file": "Source/D2BNClient/BnSend_0051BEB0.cpp",
+   "file": "Source/D2BNClient/BnSend_0051C460.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0051BEB0",
-     "length": 14
-    },
-    {
-     "va": "0x0051BEE0",
-     "length": 500,
-     "name": "?GetDnsResults@@YGKPAX@Z"
-    },
-    {
-     "va": "0x0051C170",
-     "length": 15,
-     "name": "?sub_0051C170_PostBnServerIniMessage@@YAHXZ"
-    },
-    {
-     "va": "0x0051C180",
-     "length": 16,
-     "name": "?sub_0051C180_GetBnGatewayAccess@@YAPAVBNGatewayAccess@@XZ"
-    },
-    {
-     "va": "0x0051C210",
-     "length": 43,
-     "name": "?sub_0051C210_GetConnectionState@@YIXPAH@Z"
-    },
-    {
-     "va": "0x0051C240",
-     "length": 68,
-     "name": "?sub_0051C240_Logon@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x0051C290",
-     "length": 51,
-     "name": "?sub_0051C290_GetLogonInfo@@YAHXZ"
-    },
-    {
-     "va": "0x0051C2D0",
-     "length": 68,
-     "name": "?sub_0051C2D0_CreateAccount@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x0051C320",
-     "length": 43,
-     "name": "?sub_0051C320_GetCreateAccountResult@@YIHPAH@Z"
-    },
-    {
-     "va": "0x0051C3B0",
-     "length": 43,
-     "name": "?sub_0051C3B0_GetChangePasswordResult@@YIHPAH@Z"
-    },
     {
      "va": "0x0051C460",
      "length": 11,
      "name": "?sub_0051C460_LeaveChat@@YAHXZ"
-    },
-    {
-     "va": "0x0051C5C0",
-     "length": 225,
-     "name": "sub_0051C5C0_SendPacket"
-    },
-    {
-     "va": "0x0051C6B0",
-     "length": 12,
-     "name": "?sub_0051C6B0_QueueTextLine@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0051C6C0",
-     "length": 152
-    },
-    {
-     "va": "0x0051CA20",
-     "length": 3,
-     "name": "?sub_0051CA20_GetGatewayLetter@@YADXZ"
-    },
-    {
-     "va": "0x0051CA80",
-     "length": 7,
-     "name": "?sub_0051CA80_SetFlag@@YIXH@Z"
-    },
-    {
-     "va": "0x0051D0A0",
-     "length": 286,
-     "name": "?BattleConnectFastest@@YAKPAX@Z"
-    },
-    {
-     "va": "0x005204D0",
-     "length": 67,
-     "name": "?sub_005204D0_SetErrorText@@YIHHPBD@Z"
-    },
-    {
-     "va": "0x00520630",
-     "length": 22,
-     "name": "?sub_00520630_SetText@@YIHPBD@Z"
-    },
-    {
-     "va": "0x00521B00",
-     "length": 56,
-     "name": "sub_00521B00"
-    },
-    {
-     "va": "0x005224C0",
-     "length": 17,
-     "name": "?sub_005224C0_CheckServerProof@@YIHPBE@Z"
-    },
-    {
-     "va": "0x005224F0",
-     "length": 13,
-     "name": "?sub_005224F0_ClearPassword@@YAXXZ"
     }
    ]
   },
@@ -44889,270 +45119,6 @@
      "va": "0x00538E60",
      "length": 165,
      "name": "CLIENTS_CopySaveDataToClient"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00520660",
-     "length": 18,
-     "name": "?sub_00520660_HandleReply0F@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00520B30",
-     "length": 56,
-     "name": "?sub_00520B30_ResetReplies@@YAHXZ"
-    },
-    {
-     "va": "0x00520B70",
-     "length": 124,
-     "name": "sub_00520B70_WaitForReply"
-    },
-    {
-     "va": "0x00520BF0",
-     "length": 11,
-     "name": "?sub_00520BF0_IsReplyReceived@@YIHE@Z"
-    },
-    {
-     "va": "0x00520C50",
-     "length": 13,
-     "name": "?sub_00520C50_HandleReply2A@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520C60",
-     "length": 18,
-     "name": "?sub_00520C60_HandleReply3D@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520C80",
-     "length": 38,
-     "name": "?sub_00520C80_HandleReply31@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520CB0",
-     "length": 155,
-     "name": "?sub_00520CB0_HandleClientId@@YIHPBUD2BnClientIdReplyStrc@@I@Z"
-    },
-    {
-     "va": "0x00520D50",
-     "length": 13,
-     "name": "?sub_00520D50_HandleReply28@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520D60",
-     "length": 16,
-     "name": "?sub_00520D60_HandleReply1C@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520D70",
-     "length": 45,
-     "name": "?sub_00520D70_HandleLogonAck@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520DA0",
-     "length": 18,
-     "name": "?sub_00520DA0_HandleReply29@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520F60",
-     "length": 91,
-     "name": "?sub_00520F60_HandleStartVersioning@@YIHPBUD2BnStartVersioningStrc@@I@Z"
-    },
-    {
-     "va": "0x00520FC0",
-     "length": 18,
-     "name": "?sub_00520FC0_HandleReply25@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210A0",
-     "length": 27,
-     "name": "?sub_005210A0_SaveServerList@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210C0",
-     "length": 11,
-     "name": "?sub_005210C0_SetReply@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210D0",
-     "length": 11,
-     "name": "?sub_005210D0_SetReply@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210F0",
-     "length": 29,
-     "name": "?sub_005210F0_ShowText@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521110",
-     "length": 58,
-     "name": "?sub_00521110_Report@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005211D0",
-     "length": 11,
-     "name": "?sub_005211D0_SetReply@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005211E0",
-     "length": 11,
-     "name": "?sub_005211E0_QueryAdUrl@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005211F0",
-     "length": 11,
-     "name": "?sub_005211F0_LogonRealmEx@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521200",
-     "length": 11,
-     "name": "?sub_00521200_ReadUserData@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521210",
-     "length": 5,
-     "name": "?sub_00521210_NewsInfo@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521220",
-     "length": 166,
-     "name": "?sub_00521220_HandleAuthInfo@@YIHPBEI@Z"
-    },
-    {
-     "va": "0x005212D0",
-     "length": 735
-    },
-    {
-     "va": "0x005215B0",
-     "length": 256,
-     "name": "?sub_005215B0_AuthAccountCreate@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005216B0",
-     "length": 173
-    },
-    {
-     "va": "0x00521760",
-     "length": 146,
-     "name": "?sub_00521760_AuthAccountLogonProof@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521800",
-     "length": 145,
-     "name": "?sub_00521800_AuthAccountChange@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005218A0",
-     "length": 162,
-     "name": "?sub_005218A0_AuthAccountChangeProof@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521950",
-     "length": 84,
-     "name": "?sub_00521950_AuthAccountUpgrade@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005219B0",
-     "length": 241,
-     "name": "?sub_005219B0_AuthAccountUpgradeProof@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521AB0",
-     "length": 16,
-     "name": "?sub_00521AB0_SetEmail@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521AC0",
-     "length": 29,
-     "name": "?sub_00521AC0_OptionalWork@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521AE0",
-     "length": 29,
-     "name": "?sub_00521AE0_RequiredWork@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521B40",
-     "length": 10,
-     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x00521BA0",
-     "length": 71
-    },
-    {
-     "va": "0x00522050",
-     "length": 96,
-     "name": "?sub_00522050_SendAccountLogon@@YAHXZ"
-    },
-    {
-     "va": "0x005223A0",
-     "length": 72,
-     "name": "?sub_005223A0_SendAccountUpgrade@@YIHH@Z"
-    },
-    {
-     "va": "0x00522500",
-     "length": 38,
-     "name": "?sub_00522500_GetNibble@@YIIPBII@Z"
-    },
-    {
-     "va": "0x00522530",
-     "length": 58,
-     "name": "sub_00522530_SetNibble"
-    },
-    {
-     "va": "0x00522570",
-     "length": 34,
-     "name": "?sub_00522570_GetBit@@YIIPBII@Z"
-    },
-    {
-     "va": "0x005225A0",
-     "length": 54,
-     "name": "sub_005225A0_SetBit"
-    },
-    {
-     "va": "0x005225E0",
-     "length": 98,
-     "name": "sub_005225E0"
-    },
-    {
-     "va": "0x00522650",
-     "length": 113,
-     "name": "sub_00522650"
-    },
-    {
-     "va": "0x00522980",
-     "length": 349,
-     "name": "sub_00522980"
-    },
-    {
-     "va": "0x00522AE0",
-     "length": 202
-    },
-    {
-     "va": "0x00522BC0",
-     "length": 86,
-     "name": "?sub_00522BC0_FillRandomBytes@@YIXPADH@Z"
-    },
-    {
-     "va": "0x00522C20",
-     "length": 10,
-     "name": "?sub_00522C20_ClearCryptState@@YAXXZ"
-    },
-    {
-     "va": "0x00522C30",
-     "length": 478
-    },
-    {
-     "va": "0x00522E10",
-     "length": 520
-    },
-    {
-     "va": "0x00523280",
-     "length": 43
     }
    ]
   },
@@ -67345,6 +67311,11 @@
      "name": "?AIUTIL_CanSelectHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
+     "va": "0x005DCA20",
+     "length": 70,
+     "name": "?AIUTIL_IsHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005DCA70",
      "length": 338,
      "name": "?AIUTIL_TargetCallback_SelectHostileTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -67500,17 +67471,6 @@
      "va": "0x005FD7B0",
      "length": 150,
      "name": "?MONSTERSPAWN_GetResurrectMode@@YIHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiUtil_005DCA20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DCA20",
-     "length": 70,
-     "name": "?AIUTIL_IsHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
    ]
   },
