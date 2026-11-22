@@ -1,34 +1,67 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
+
 D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
+
 D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
+
 static unsigned long gnSLogTimeLength_007792A8; // 0x007792A8
+
 static char gszSLogTime_007792B0[0x40]; // 0x007792B0
+
 static unsigned long gdwSLogLastTick_007792F0; // 0x007792F0
+
 int gbSLogDebugOutput_007790AC; // 0x007790AC
+
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
+
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
+
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
 extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, size_t nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
+
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
+
 extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
+
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args); // 0x00682DA1
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
+
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
+
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
+
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
 
+void __stdcall SLogClose(void* hLog);                                                                       // 0x0041FD00
+
+void __cdecl SLogFlushAll();                                                                                // 0x0041FFF0
+
+void __stdcall SErrReportResourceLeak(const char* szName);                                           // 0x0041D1E0
+
+static unsigned long gnSLogLastHandle_00779230; // 0x00779230
+
 // 0x0041FA40
-static __declspec(noinline) void sub_0041FA40_FlushLog(D2SLogStrc* pLog)
+static void sub_0041FA40_FlushLog(D2SLogStrc* pLog)
 {
     unsigned long dwWritten;
     if (pLog->nUsed)
@@ -81,7 +114,7 @@ static D2SLogStrc* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* h
 }
 
 // 0x0041FB40
-static __declspec(noinline) void sub_0041FB40_AppendIndent(D2SLogStrc* pLog)
+static void sub_0041FB40_AppendIndent(D2SLogStrc* pLog)
 {
     int nIndent = pLog->indent;
     if (nIndent > 0)
@@ -95,7 +128,7 @@ static __declspec(noinline) void sub_0041FB40_AppendIndent(D2SLogStrc* pLog)
 }
 
 // 0x0041FB80
-static __declspec(noinline) void sub_0041FB80_AppendNewline(D2SLogStrc* pLog)
+static void sub_0041FB80_AppendNewline(D2SLogStrc* pLog)
 {
     SMemCopy(pLog->szBuffer + pLog->nUsed, gszSLogNewline_006CFF08, 3);
     pLog->nUsed += 2;
@@ -146,7 +179,7 @@ static void sub_0041FC80_UnlinkLog(D2SLogStrc* pLog, unsigned long nIndex)
 }
 
 // 0x0041FCE0
-static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex)
+static void sub_0041FCE0_UnlockLog(unsigned long nIndex)
 {
     LeaveCriticalSection(&gaSLogLocks_00779238[nIndex]);
 }
@@ -163,8 +196,6 @@ void __stdcall SLogClose(void* hLog)
         sub_0041FC80_UnlinkLog(pLog, nIndex);
     }
 }
-
-static unsigned long gnSLogLastHandle_00779230; // 0x00779230
 
 // 0x0041FD40
 int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** phLog)
@@ -271,6 +302,19 @@ void __cdecl SLogFlushAll()
     }
 }
 
+// 0x00420040
+void __cdecl SLogInitialize()
+{
+    D2CriticalSectionStrc* pLock = gaSLogLocks_00779238;
+    int n = 4;
+    do
+    {
+        InitializeCriticalSection(pLock);
+        ++pLock;
+    }
+    while (--n);
+}
+
 // 0x00420070
 void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
 {
@@ -347,16 +391,28 @@ void __cdecl SLogWrite(void* hLog, const char* szFormat, ...)
     sub_0041FCE0_UnlockLog(nIndex);
 }
 
-// 0x00420040
-void __cdecl SLogInitialize()
+// 0x00420220
+void __cdecl SLogDestroy()
 {
+    SLogFlushAll();
     D2CriticalSectionStrc* pLock = gaSLogLocks_00779238;
-    int n = 4;
-    do
+    D2SLogStrc** ppBucket = gapSLogBuckets_00779298;
+    for (int n = 4; n; --n)
     {
-        InitializeCriticalSection(pLock);
+        EnterCriticalSection(pLock);
+        while (*ppBucket)
+        {
+            SLogClose((*ppBucket)->hLog);
+            SErrReportResourceLeak("HSLOG");
+        }
+        LeaveCriticalSection(pLock);
+        ++ppBucket;
         ++pLock;
     }
-    while (--n);
+    pLock = gaSLogLocks_00779238;
+    for (int n = 4; n; --n)
+    {
+        DeleteCriticalSection(pLock);
+        ++pLock;
+    }
 }
-
