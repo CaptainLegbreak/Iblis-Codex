@@ -222,7 +222,6 @@ int gnLastClickTick_007799A0; // 0x007799A0
 
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 
-
 int __cdecl CLIENT_GetConnectionStatus(); // 0x0052B050
 
 D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
@@ -251,11 +250,11 @@ extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
 
-void __cdecl sub_00515020_FadeOutWaves();
+void __cdecl sub_00515020_FadeOutWaves(); // 0x00515020
 
 void __cdecl sub_0043B080();
 
-void __cdecl sub_00432100_CreateLoginScreen();
+void __cdecl sub_00432100_CreateLoginScreen(); // 0x00432100
 
 void __cdecl sub_0043C4F0(); // 0x0043C4F0
 
@@ -270,7 +269,6 @@ void __fastcall sub_0042E6A0(void (__cdecl* pfnCallback)()); // 0x0042E6A0
 void __cdecl sub_0043B810_SetFlag(); // 0x0043B810
 
 void __cdecl sub_00436AD0_UpdateStatus(); // 0x00436AD0
-
 
 int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 
@@ -299,7 +297,6 @@ extern int gnStatusDots_007799B4; // 0x007799B4
 extern unsigned long gdwStatusStart_007799B8; // 0x007799B8
 
 extern D2WinControlStrc* gpButton_007799E4; // 0x007799E4
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
@@ -349,7 +346,6 @@ int __stdcall sub_00432450_OnWait(int nArg); // 0x00432450
 void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0x0044A130
 
 int gnCmdShow_0074C71C; // 0x0074C71C
-
 
 struct D2LaunchControlTemplateStrc;
 
@@ -725,8 +721,6 @@ unsigned __int64 __cdecl sub_004107F0_GetSaveDiskFreeSpace()
     return nFreeClusters * nBytesPerSector * nSectorsPerCluster;
 }
 
-
-
 // 0x0042F540
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2)
 {
@@ -801,6 +795,14 @@ int __stdcall sub_0042F790_ShowCantConnect(SMSGHANDLER_PARAMS* pMsg)
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     sub_004FCF80_SetTextA(pControl, "Can't connect to Battle.Net. Try again later.");
     return 1;
+}
+
+// 0x0042FDD0
+void __cdecl sub_0042FDD0()
+{
+    sub_00515020();
+    sub_0042F480_Reset();
+    sub_0043B080_InitCharSelectScreen();
 }
 
 // 0x0042FE60

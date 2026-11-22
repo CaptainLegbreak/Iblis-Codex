@@ -2273,6 +2273,11 @@
      "name": "?sub_0042F790_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0042FDD0",
+     "length": 15,
+     "name": "?sub_0042FDD0@@YAXXZ"
+    },
+    {
      "va": "0x0042FE60",
      "length": 8,
      "name": "?sub_0042FE60_FilterChar@@YGHPAXHPBD@Z"
@@ -10960,17 +10965,6 @@
      "va": "0x0042FCE0",
      "length": 44,
      "name": "?sub_0042FCE0_ArchiveFilePresent@@YAHPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0042FDD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042FDD0",
-     "length": 15,
-     "name": "?sub_0042FDD0@@YAXXZ"
     }
    ]
   },
