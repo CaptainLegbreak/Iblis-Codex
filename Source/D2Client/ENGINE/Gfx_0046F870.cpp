@@ -155,127 +155,15 @@ static unsigned int sub_0046DB90_HashName(const char* szName)
     return nBucket & 0x1FF;
 }
 
-// 0x0046DBF0
-static void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest)
-{
-    const int nPathLength = strlen(szPath);
-    if (szPath[nPathLength - 4] == 0x2E)
-    {
-        const char* pExt = szPath + nPathLength - 4;
-        int nLength = 0;
-        while (*pExt != 0x5C)
-        {
-            --pExt;
-            ++nLength;
-        }
-        --nLength;
-        strncpy(szDest, pExt + 1, nLength);
-        szDest[nLength] = 0;
-    }
-}
+void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest); // 0x0046DBF0
 
-// 0x0046DC40
-D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
-{
-    char szName[0x104] = { 0 };
-    sub_0046DBF0_GetBaseName(szPath, szName);
-    _strlwr(szName);
-    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
-    {
-        if (*(unsigned int*)&szName[0] == pEntry->dwName[0] && *(unsigned int*)&szName[4] == pEntry->dwName[1])
-        {
-            return pEntry;
-        }
-    }
-    return 0;
-}
+D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
 
-// 0x0046DCC0
-static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
-{
-    char szName[0x104] = { 0 };
-    char* pName = szName;
-    sub_0046DBF0_GetBaseName(szPath, pName);
-    _strlwr(pName);
-    if (!sub_0046DC40_FindHashedEntry(pTable, pName))
-    {
-        D2HashedFileEntryStrc* pEntry = (D2HashedFileEntryStrc*)FOG_Alloc(sizeof(D2HashedFileEntryStrc), ".\\ENGINE\\Gfx.cpp", 0xDC, 0);
-        memset(pEntry, 0, sizeof(D2HashedFileEntryStrc));
-        pEntry->nFlags |= 1;
-        strcpy(pEntry->szName, szName);
-        pEntry->pData = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szPath, (unsigned int*)&pEntry->nSize, ".\\ENGINE\\Gfx.cpp", 0xE0);
-        if (!pEntry->pData)
-        {
-            return 0;
-        }
+D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DCC0
 
-        D2_ASSERT(pEntry->pData[2] <= 0x40, 0xEC);
-        const unsigned int nBucket = sub_0046DB90_HashName(szName);
-        pEntry->pNext = pTable->pEntries[nBucket];
-        pTable->pEntries[nBucket] = pEntry;
-        gdwGlobal_007A8918 += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
-        return pEntry;
-    }
-    return 0;
-}
+int sub_0046E610_RemoveGfxNode(D2UnitStrc* pUnit, D2HashedFileEntryStrc* pEntry); // 0x0046E610
 
-// 0x0046E610
-static int sub_0046E610_RemoveGfxNode(D2UnitStrc* pUnit, D2HashedFileEntryStrc* pEntry)
-{
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    D2_ASSERT(pGfxData, 0x3C8);
-
-    D2GfxListNodeStrc* pPrev = 0;
-    for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->pFileEntry == pEntry)
-        {
-            D2GfxListNodeStrc* pNext = pNode->pNext;
-            FOG_Free(pNode, gszGfxFile_006D6C1C, 0x3D0, 0);
-            if (!pPrev)
-            {
-                pGfxData->pList = pNext;
-            }
-            else
-            {
-                pPrev->pNext = pNext;
-            }
-            return 1;
-        }
-        pPrev = pNode;
-    }
-    return 0;
-}
-
-// 0x0046E690
-static int __stdcall sub_0046E690_FindGfxNode(int nId, D2GfxListNodeStrc** ppNode, int* pValue, D2UnitStrc* pUnit, int nMode)
-{
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    D2_ASSERT(pGfxData, 0x3F0);
-
-    if (nMode == -1)
-    {
-        nMode = sub_0046DA60_GetUnitMode(pUnit);
-    }
-
-    for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nMode == nMode)
-        {
-            if (pNode->nId == nId)
-            {
-                *ppNode = pNode;
-                return 0;
-            }
-
-            *ppNode = 0;
-            *pValue = sub_0046E570_GetNodeValue(pUnit, nMode);
-            D2_ASSERT(sub_0046E610_RemoveGfxNode(pUnit, pNode->pFileEntry), 0x406);
-            return 1;
-        }
-    }
-    return 1;
-}
+int __stdcall sub_0046E690_FindGfxNode(int nId, D2GfxListNodeStrc** ppNode, int* pValue, D2UnitStrc* pUnit, int nMode); // 0x0046E690
 
 // build: context sub_0046E740_LoadGfxNode
 static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
@@ -338,70 +226,9 @@ static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStr
     return sub_0046E570_GetNodeValue(pUnit, nIndex);
 }
 
-// 0x0046E8D0
-static int sub_0046E8D0_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex)
-{
-    int nUnitType;
-    int nMode;
-    int nClassId;
+int sub_0046E8D0_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex); // 0x0046E8D0
 
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile_006D6C1C, 0x464);
-    if (sub_0046C140_TestMonModeFlag(nClassId, nIndex))
-    {
-        if (sub_004DB1A0(pUnit, nIndex))
-        {
-            return 0;
-        }
-        return sub_0046EA50_LoadGfxNodeSetByte(pUnit, nIndex);
-    }
-    D2_ASSERT(0, 0x486);
-    return 0;
-}
-
-// 0x0046E980
-static int sub_0046E980_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex)
-{
-    int nValue;
-    int nUnitType;
-    int nMode;
-    int nClassId;
-
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile_006D6C1C, 0x4BE);
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
-    D2_ASSERT(pObjectsTxtRecord, 0x4C2);
-    if (pObjectsTxtRecord->nModeEnabled[nIndex] == 1)
-    {
-        if (sub_004DB1A0(pUnit, nIndex))
-        {
-            return 0;
-        }
-        D2_ASSERT(sub_0046E740_LoadGfxNode(&nValue, nIndex, pUnit), 0x4D4);
-        sub_004DB1C0_SetGfxEntryByte(pUnit, nIndex, 1);
-        return 1;
-    }
-    D2_ASSERT(0, 0x4DC);
-    return 0;
-}
+int sub_0046E980_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex); // 0x0046E980
 
 // 0x0046EA50
 static int sub_0046EA50_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex)
@@ -415,65 +242,7 @@ static int sub_0046EA50_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex)
     return 1;
 }
 
-// 0x0046F490
-static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId)
-{
-    if (!((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0))
-    {
-        return;
-    }
-
-    D2MonStats2Txt* pMonStats2TxtRecord = DATATBLS_GetMonStats2TxtRecordInl(((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0)->nMonStatsEx);
-    if (!pMonStats2TxtRecord)
-    {
-        return;
-    }
-
-    unsigned int dwMonCode = ((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0)->dwCode;
-    D2MonModeTxt* pModeTxtRecord = sub_0065B500_GetModeTxtRecord(nMode, 1);
-    D2_ASSERT(pModeTxtRecord, 0xE86);
-
-    unsigned int dwToken = pModeTxtRecord->dwToken;
-    if (nMode && nMode != 0xC)
-    {
-        *pCode = pMonStats2TxtRecord->dwBaseW;
-    }
-    else if (pMonStats2TxtRecord->nFlags[2] & gdwBitMasks[0])
-    {
-        *pCode = pMonStats2TxtRecord->dwBaseW;
-    }
-    else
-    {
-        *pCode = 0x20687468;
-    }
-
-    for (unsigned int i = 0; i < gnCofModeCodeCount_00712B0C; ++i)
-    {
-        if (nMode == gaCofModeCodes_00712B04[i].nMode)
-        {
-            dwToken = gaCofModeCodes_00712B04[i].dwCode;
-        }
-    }
-
-    char szToken[4];
-    char szWeapon[4];
-    char szMonster[4];
-    const unsigned char* pCodeBytes = (const unsigned char*)pCode;
-    const unsigned char* pMonBytes = (const unsigned char*)&dwMonCode;
-    szWeapon[0] = pCodeBytes[0] == 0x20 ? 0 : pCodeBytes[0];
-    szWeapon[1] = pCodeBytes[1] == 0x20 ? 0 : pCodeBytes[1];
-    szWeapon[2] = pCodeBytes[2] == 0x20 ? 0 : pCodeBytes[2];
-    szWeapon[3] = 0;
-    szMonster[0] = pMonBytes[0] == 0x20 ? 0 : pMonBytes[0];
-    szMonster[1] = pMonBytes[1] == 0x20 ? 0 : pMonBytes[1];
-    szMonster[2] = pMonBytes[2] == 0x20 ? 0 : pMonBytes[2];
-    szMonster[3] = 0;
-    szToken[0] = (unsigned char)dwToken == 0x20 ? 0 : (unsigned char)dwToken;
-    szToken[1] = (unsigned char)(dwToken >> 8) == 0x20 ? 0 : (unsigned char)(dwToken >> 8);
-    szToken[2] = (unsigned char)(dwToken >> 16) == 0x20 ? 0 : (unsigned char)(dwToken >> 16);
-    szToken[3] = 0;
-    wsprintfA(szPath, gszCofPathFormat_006D6C94, gszMonstersDir_006D6CAC, szMonster, szMonster, szToken, szWeapon);
-}
+void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId); // 0x0046F490
 
 // 0x0046F650
 static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int nMode, int bLoadNow, D2MonCofInfoStrc* pInfo)
@@ -576,87 +345,9 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
 
 void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex); // 0x0046F9E0
 
-// 0x0046FA80
-void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nIndex)
-{
-    int nClassId;
-    int nUnitType;
-    int nMode;
+void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nIndex); // 0x0046FA80
 
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile_006D6C1C, 0x502);
-    if (nIndex == -1)
-    {
-        nIndex = nMode;
-    }
-
-    if (nUnitType == 1)
-    {
-        sub_0046F9E0_LoadMonsterModeGfx(pUnit, nIndex);
-        return sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClassId, nIndex);
-    }
-
-    if (nUnitType == UNIT_PLAYER)
-    {
-        sub_0046EA50_LoadGfxNodeSetByte(pUnit, nIndex);
-        return sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClassId, -1);
-    }
-
-    if (nUnitType == 2)
-    {
-        sub_0046E980_LoadObjectGfx(pUnit, nIndex);
-        return sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClassId, -1);
-    }
-
-    return 0;
-}
-
-// 0x00470610
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg)
-{
-    int nClassId;
-    int nUnitType;
-    int nMode;
-
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile_006D6C1C, 0xD17);
-    switch (nUnitType)
-    {
-    case UNIT_PLAYER:
-        sub_0046EA50_LoadGfxNodeSetByte(pUnit, nMode);
-        return;
-
-    case UNIT_MONSTER:
-        sub_0046F9E0_LoadMonsterModeGfx(pUnit, nMode);
-        return;
-
-    case UNIT_OBJECT:
-        sub_0046E980_LoadObjectGfx(pUnit, nMode);
-        return;
-
-    default:
-        D2_ASSERT(0, 0xD26);
-        return;
-    }
-}
+void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 
 static inline int IsShapeShifted(D2UnitStrc* unit) { if(!unit) return 0; return (unit->dwFlagEx>>3)&1; }
 

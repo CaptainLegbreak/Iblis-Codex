@@ -1904,23 +1904,11 @@ int __cdecl sub_004DF880()
     return gdwGlobal_007C8C78;
 }
 
-// 0x004E03B0
-void* __cdecl sub_004E03B0()
-{
-    return gData_0072AE40;
-}
+void* __cdecl sub_004E03B0(); // 0x004E03B0
 
-// 0x004E03E0
-void* __cdecl sub_004E03E0()
-{
-    return gData_0072AF18;
-}
+void* __cdecl sub_004E03E0(); // 0x004E03E0
 
-// 0x004E0410
-void* __cdecl sub_004E0410()
-{
-    return gData_0072B008;
-}
+void* __cdecl sub_004E0410(); // 0x004E0410
 
 // 0x004E0680
 int __cdecl sub_004E0680()
