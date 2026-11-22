@@ -282,7 +282,7 @@ struct D2NihlathakOverseerAiCallbackArgStrc
 struct D2MinionSpawnerAiCallbackArgStrc
 {
     int nMinions;
-    int unk0x04[10];
+    int unk0x04[9];
 };
 
 struct D2ShadowMasterAiCallbackArgStrc

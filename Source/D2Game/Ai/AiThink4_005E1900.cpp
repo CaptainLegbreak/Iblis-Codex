@@ -8,7 +8,8 @@
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {
     int nMaxDistance;
-    int unk0x04[9];
+    int unk0x04;
+    int unk0x08[8];
 };
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
