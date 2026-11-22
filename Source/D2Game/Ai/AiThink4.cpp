@@ -556,7 +556,11 @@ struct D2DynamicPathStrc;
 
 struct D2PlayerCountBonusStrc
 {
-    int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;
+    int nHp;
+    int nExperience;
+    int nMonsterSkillBonus;
+    int nDifficulty;
+    int nPlayerCount;
 };
 
 extern const char gszAiThink4Source[]; // 0x006E3500
