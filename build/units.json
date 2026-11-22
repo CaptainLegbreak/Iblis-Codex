@@ -62937,6 +62937,11 @@
      "name": "?AITHINK_TargetCallback_SiegeBeast@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005E17E0",
+     "length": 118,
+     "name": "sub_005E17E0_SiegeBeastSetTower"
+    },
+    {
      "va": "0x005E1860",
      "length": 147,
      "name": "AITHINK_Fn113_SiegeTower"
@@ -62984,6 +62989,11 @@
      "va": "0x005E2B70",
      "length": 95,
      "name": "?AITHINK_TargetCallback_MinionSpawner@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005E2BD0",
+     "length": 256,
+     "name": "AITHINK_Fn121_MinionSpawner"
     },
     {
      "va": "0x005E2CD0",
@@ -63223,6 +63233,11 @@
      "va": "0x005E80E0",
      "length": 89,
      "name": "?D2GAME_AI_SpecialState11_6FCE7E20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E8140",
+     "length": 497,
+     "name": "D2GAME_AI_SpecialState11_6FCE7E80"
     },
     {
      "va": "0x005E8340",
@@ -63479,6 +63494,11 @@
      "va": "0x005EFA50",
      "length": 57,
      "name": "AITHINK_TargetCallback_PutridDefiler"
+    },
+    {
+     "va": "0x005EFA90",
+     "length": 227,
+     "name": "AITHINK_Fn137_PutridDefiler"
     },
     {
      "va": "0x005EFB80",
@@ -63798,6 +63818,11 @@
      "name": "AITHINK_Fn066_SandMaggotQueen"
     },
     {
+     "va": "0x005F9E30",
+     "length": 474,
+     "name": "sub_005F9E30_VileMotherSpawnDirection"
+    },
+    {
      "va": "0x005FA010",
      "length": 611,
      "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -63820,6 +63845,16 @@
     {
      "va": "0x005FB410",
      "length": 401
+    },
+    {
+     "va": "0x005FB6C0",
+     "length": 284,
+     "name": "AITHINK_Fn078_TrapRightArrow"
+    },
+    {
+     "va": "0x005FB7E0",
+     "length": 284,
+     "name": "AITHINK_Fn079_TrapLeftArrow"
     },
     {
      "va": "0x005FB900",
@@ -68116,44 +68151,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005E17E0",
-     "length": 118,
-     "name": "sub_005E17E0_SiegeBeastSetTower"
-    },
-    {
-     "va": "0x005E2BD0",
-     "length": 256,
-     "name": "AITHINK_Fn121_MinionSpawner"
-    },
-    {
-     "va": "0x005E8140",
-     "length": 497,
-     "name": "D2GAME_AI_SpecialState11_6FCE7E80"
-    },
-    {
      "va": "0x005EC6C0",
      "length": 501,
      "name": "AITHINK_Fn110_Vines"
-    },
-    {
-     "va": "0x005EFA90",
-     "length": 227,
-     "name": "AITHINK_Fn137_PutridDefiler"
-    },
-    {
-     "va": "0x005F9E30",
-     "length": 474,
-     "name": "sub_005F9E30_VileMotherSpawnDirection"
-    },
-    {
-     "va": "0x005FB6C0",
-     "length": 284,
-     "name": "AITHINK_Fn078_TrapRightArrow"
-    },
-    {
-     "va": "0x005FB7E0",
-     "length": 284,
-     "name": "AITHINK_Fn079_TrapLeftArrow"
     }
    ]
   },
