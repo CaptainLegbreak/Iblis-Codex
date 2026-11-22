@@ -662,4 +662,31 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
     DATATBLS_GetBinFileHandle(hArchive, gszMissCodeName, &sgtDataTables.pMissCode, &sgtDataTables.nMissCodeSize, &sgtDataTables.nMissCodeSizeEx);
 }
 
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);             // 0x0040B480
+void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0
+void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker);                                                      // 0x006BD0B0
+
+// 0x00663210
+void __fastcall DATATBLS_UnloadMissilesTxt()
+{
+    if (sgtDataTables.pMissCode)
+    {
+        sub_0040B480(0, sgtDataTables.pMissCode, ".\\DATATBLS\\MissileTbls.cpp", 414, 0);
+        sgtDataTables.pMissCode = 0;
+    }
+    sgtDataTables.nMissCodeSize = 0;
+    sgtDataTables.nMissCodeSizeEx = 0;
+
+    if (sgtDataTables.pMissilesTxt)
+    {
+        DATATBLS_UnloadBin(sgtDataTables.pMissilesTxt);
+    }
+
+    if (sgtDataTables.pMissilesLinker)
+    {
+        FOG_FreeLinker(sgtDataTables.pMissilesLinker);
+    }
+    sgtDataTables.nMissilesTxtRecordCount = 0;
+}
+
 #include "gen/data/Source/D2Common/DATATBLS/MissileTbls.inc"
