@@ -30,7 +30,7 @@ struct D2PanelTabStrc
 };
 #pragma pack(pop)
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                     // 0x00681EF0
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                     // 0x00681EF0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
