@@ -25599,6 +25599,20 @@
   {
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x0048DD90",
