@@ -146,7 +146,7 @@ void __cdecl sub_00466FE0(); // 0x00466FE0
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 void __cdecl sub_004DBFE0_StopSkill(); // 0x004DBFE0
 
@@ -166,7 +166,7 @@ void __cdecl sub_00459140_Refresh(); // 0x00459140
 
 void __fastcall sub_00472C20_PlayerMoved(int nArg); // 0x00472C20
 
-int __stdcall sub_00645630_IsSelectableSoftCorpse(D2UnitStrc* pUnit); // 0x00645630
+int __stdcall D2Common_11020(D2UnitStrc* pUnit); // 0x00645630
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -314,7 +314,7 @@ void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0
 
 void __cdecl sub_00453D90_RunSequenceA(); // 0x00453D90
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
@@ -806,7 +806,7 @@ static int __stdcall sub_00463FE0_IsInObjectSelectBox(int nY, D2ObjectsTxt* pObj
 {
     int nUnitX = UNITS_InlineGetXPosition(pUnit);
     int nUnitY = UNITS_InlineGetYPosition(pUnit);
-    sub_00643260(&nUnitX, &nUnitY);
+    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
 
     const int nLeft = pObjectsTxtRecord->dwLeft + nUnitX;
     const int nTop = pObjectsTxtRecord->dwTop + nUnitY;
@@ -872,7 +872,7 @@ static int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode
 // 0x00464210
 int __fastcall sub_00464210_SkillSelectProc1(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
 {
-    return sub_00645680_CanUnitCorpseBeSelected(pTarget);
+    return D2COMMON_11021(pTarget);
 }
 
 void __fastcall sub_M109_Emit_00464E20(D2UnitStrc* pUnit, int nOverlay)
@@ -914,7 +914,7 @@ int __fastcall sub_00464280_SkillSelectProc4(D2UnitStrc* pPlayer, D2UnitStrc* pT
 // 0x00464290
 int __fastcall sub_00464290_SkillSelectProc6(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
 {
-    return sub_00645630_IsSelectableSoftCorpse(pTarget);
+    return D2Common_11020(pTarget);
 }
 
 // 0x004642A0
@@ -1100,7 +1100,7 @@ static int __stdcall sub_004645B0_CanInterruptSequence(D2UnitStrc* pUnit, D2Mode
         return 1;
     }
 
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxtRecord)
     {
         return 0;
@@ -1660,7 +1660,7 @@ void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, 
         {
             D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
             D2SkillsTxt* pSkillsTxtRecord;
-            if (pSkill && (pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill)) != 0 && (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PERIODIC >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PERIODIC & 7]))
+            if (pSkill && (pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill)) != 0 && (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PERIODIC >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PERIODIC & 7]))
             {
                 bFlag = 0;
             }

@@ -178,7 +178,7 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 
-unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem); // 0x0062BEB0
 
@@ -190,7 +190,7 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 
 int __stdcall sub_0063B9D0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nRecord, int* pOutX, int* pOutY, unsigned char nPage); // 0x0063B9D0
 
-int __stdcall sub_0063BB20_CheckInventoryOverlap(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nRecord, D2UnitStrc** ppOther, unsigned char nPage, int nArg8); // 0x0063BB20
+int __stdcall INVENTORY_CanItemsBeExchanged(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nRecord, D2UnitStrc** ppOther, unsigned char nPage, int nArg8); // 0x0063BB20
 
 unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 
@@ -601,7 +601,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     {
         return 0;
     }
-    if (sub_0062BC20(pItem) <= 0)
+    if (ITEMS_GetMaxSockets(pItem) <= 0)
     {
         return 0;
     }
@@ -1322,7 +1322,7 @@ static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInvento
         sub_004839D0_DrawGridCells(pGrid, gnGlobal_00721E4C, 1, nWidth, nHeight, gnGlobal_00721E50);
         return;
     }
-    if (!sub_0063BB20_CheckInventoryOverlap(pInventory, pCursorItem, gnGlobal_00721E4C, gnGlobal_00721E50, nRecord, &pOther, nPage, 1)
+    if (!INVENTORY_CanItemsBeExchanged(pInventory, pCursorItem, gnGlobal_00721E4C, gnGlobal_00721E50, nRecord, &pOther, nPage, 1)
         && (!pOther || DATATBLS_GetItemsTxtRecord(pOther->dwClassId)->dwCode != 0x20786F62))
     {
         sub_004839D0_DrawGridCells(pGrid, gnGlobal_00721E4C, 0, nWidth, nHeight, gnGlobal_00721E50);
@@ -1437,7 +1437,7 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
                 sub_004839D0_DrawGridCells(pGrid, nX, 1, nWidth, nHeight, nY);
             }
             sub_0046EE80_DrawItemCel(pItem, pGrid->nGridBoxWidth * nX + pGrid->nGridLeft, pGrid->nGridBoxHeight * nY + pGrid->nGridTop);
-            if (ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem) > 0 && ITEMS_CheckItemFlag(pItem, 0x800, 0x51C, szInvCpp_006D9BC0))
+            if (ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem) > 0 && ITEMS_CheckItemFlag(pItem, 0x800, 0x51C, szInvCpp_006D9BC0))
             {
                 sub_00483E40_DrawItemSockets(pItem, pGrid, pGrid->nGridBoxWidth * nX + pGrid->nGridLeft, pGrid->nGridBoxHeight * nY + pGrid->nGridTop);
             }

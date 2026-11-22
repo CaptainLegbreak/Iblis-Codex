@@ -20,7 +20,7 @@ void __fastcall sub_004B9A00(int nId, D2UnitStrc* pUnit, int nArg3, int nArg4, i
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x00648810
@@ -60,7 +60,7 @@ D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
     int nY;
     D2UnitStrc* pMissile = 0;
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (pPath && sub_006505C0_TestPathFlag8(pPath))
+    if (pPath && PATH_HasEnteredNewSubtile(pPath))
     {
         const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_SPIDERLAY), 1);
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
@@ -76,11 +76,11 @@ D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
         aDirections[5] = 16;
         aDirections[6] = 14;
         aDirections[7] = 12;
-        const unsigned char nDirection = aDirections[sub_0063E7A0_GetByteTableEntry(PATH_GetDirection(pPath))];
+        const unsigned char nDirection = aDirections[INVENTORY_GetEightWayDirection(PATH_GetDirection(pPath))];
 
         int nDeltaX;
         int nDeltaY;
-        sub_0063E7E0_GetDirectionDelta(nDirection, &nDeltaX, &nDeltaY);
+        INVENTORY_GetDirectionDelta(nDirection, &nDeltaX, &nDeltaY);
         const int nSpawnX = nX + nDeltaX;
         const int nSpawnY = nY + nDeltaY;
         if (!DUNGEON_IsRoomInTown(sub_00463740_FindRoomAtPoint(pRoom, nSpawnX, nSpawnY)))

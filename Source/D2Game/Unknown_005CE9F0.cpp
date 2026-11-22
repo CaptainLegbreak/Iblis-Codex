@@ -22,7 +22,7 @@ int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageSt
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nRangeBonus);               // 0x00622C40
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
-D2SkillStrc* __stdcall sub_006260E0(D2StatListStrc* pStatList);                                        // 0x006260E0
+D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList);                                        // 0x006260E0
 int __stdcall STATLIST_GetSkillLevel(D2StatListStrc* pStatList);                                            // 0x00626100
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
@@ -87,7 +87,7 @@ int __fastcall SKILLS_SrvDo150_Smite(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_HOLYSHIELD);
             if (pStatList)
             {
-                const int nHolyShieldId = (int)sub_006260E0(pStatList);
+                const int nHolyShieldId = (int)STATLIST_GetSkillId(pStatList);
                 const int nHolyShieldLevel = STATLIST_GetSkillLevel(pStatList);
                 nMinDamage += SKILLS_GetMinPhysDamage(pUnit, nHolyShieldId, nHolyShieldLevel, 1);
                 nMaxDamage += SKILLS_GetMaxPhysDamage(pUnit, nHolyShieldId, nHolyShieldLevel, 1);

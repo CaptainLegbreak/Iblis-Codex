@@ -114,7 +114,7 @@ int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax)
 }
 
 // 0x004BC1A0
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
+int __stdcall SKILLS_Return0(int nUnused)
 {
     return 0;
 }

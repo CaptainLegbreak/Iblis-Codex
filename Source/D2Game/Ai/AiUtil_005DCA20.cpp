@@ -22,7 +22,7 @@ int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource);      // 0x005DC380
 int __fastcall sub_005DC920_GetThreat(D2UnitStrc* pUnit);                                                   // 0x005DC920
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask);
-int __stdcall sub_006259B0_GetStateStat(D2UnitStrc* pUnit);                                                 // 0x006259B0
+int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit);                                                 // 0x006259B0
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
 extern "C" unsigned int __fastcall sub_00541860(D2UnitStrc* pUnit);                                       // 0x00541860
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -57,7 +57,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHostileTarget(D2GameStrc* pGa
 
     if (!sub_005DCA20_IsHostile(pGame, pUnit, pTarget))
     {
-        if (pTarget->dwUnitType == UNIT_MONSTER && (!pUnit || pUnit->dwUnitType != UNIT_PLAYER) && !sub_006259B0_GetStateStat(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
+        if (pTarget->dwUnitType == UNIT_MONSTER && (!pUnit || pUnit->dwUnitType != UNIT_PLAYER) && !STATLIST_GetUnitAlignment(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
         {
             D2AiControlStrc* pAiControl = (D2AiControlStrc*)sub_00541860(pTarget);
             if ((pAiControl->nAiFlags & 8) && pArg->unk0x10 == D2Common_10095(UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))

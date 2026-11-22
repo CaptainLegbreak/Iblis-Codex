@@ -285,7 +285,7 @@ extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId)
 }
 
 // 0x00628440
-extern "C" int __stdcall sub_00628440_GetShootsFromItemType(int nItemType)
+extern "C" int __stdcall ITEMS_GetAmmoTypeFromItemType(int nItemType)
 {
     D2ItemTypesTxt* pItemTypesTxtRecord = DATATBLS_GetItemTypesTxtRecord(nItemType);
     if (!pItemTypesTxtRecord)

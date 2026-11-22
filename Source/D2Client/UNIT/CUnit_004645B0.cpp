@@ -23,7 +23,7 @@ struct D2MonStats2SelectStrc;
 
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 // 0x004645B0
 static int __stdcall sub_004645B0_CheckSkillFrame(int nUnused, D2UnitStrc* pUnit);
 
@@ -43,7 +43,7 @@ D2UnitStrc* __stdcall sub_00534650_GetServerUnitFromFirstGame(int nUnitType, int
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_unused, D2ActiveRoomStrc* pRooms, unsigned short nX, unsigned short nY); // 0x00650C20
 int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pPath); // 0x00648770
-void __stdcall sub_00648750(D2DynamicPathStrc* pPath, int nArg); // 0x00648750
+void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pPath, int nArg); // 0x00648750
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
@@ -60,7 +60,7 @@ struct D2KeyConfigFileStrc
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
 void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
@@ -84,7 +84,7 @@ unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nF
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
 
@@ -126,7 +126,7 @@ static int __stdcall sub_004645B0_CheckSkillFrame(int nUnused, D2UnitStrc* pUnit
         return 1;
     }
 
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxtRecord)
     {
         return 0;
@@ -278,7 +278,7 @@ void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit)
 
     pDst->ePrevType = pSrc->ePrevType;
     pDst->dwUnitSize = pSrc->dwUnitSize;
-    sub_00648750(pDst, D2COMMON_10209_PathCheckPathingFlag(pSrc));
+    PATH_SetPathingFlag(pDst, D2COMMON_10209_PathCheckPathingFlag(pSrc));
 
     const unsigned int nMode = pUnit->dwAnimMode;
     const unsigned int nServerMode = pServerUnit->dwAnimMode;
@@ -410,7 +410,7 @@ D2ActiveRoomStrc* __fastcall sub_00465420_FindRoomBySubtile(int nX, int nY)
         if (pFound)
             return pFound;
     }
-    D2ActiveRoomStrc* pFound = sub_00619DA0_ActLookup(gpGlobal_007A0634, nX, nY);
+    D2ActiveRoomStrc* pFound = DUNGEON_FindRoomBySubtileCoordinates(gpGlobal_007A0634, nX, nY);
     if (pFound)
         return pFound;
     SStrPrintf(szMessage, sizeof(szMessage), "Unable to find room for unit...  hControlUnit:%8x  hUnitRoom:%8x  ghAct:%8x  nX:%d  nY:%d", pPlayer, pRoom, gpGlobal_007A0634, nX, nY);
@@ -627,7 +627,7 @@ static int __stdcall sub_00463FE0_IsInObjectSelectBox(int nY, D2ObjectsTxt* pObj
 {
     int nUnitX = UNITS_InlineGetXPosition(pUnit);
     int nUnitY = UNITS_InlineGetYPosition(pUnit);
-    sub_00643260(&nUnitX, &nUnitY);
+    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
 
     const int nLeft = pObjectsTxtRecord->dwLeft + nUnitX;
     const int nTop = pObjectsTxtRecord->dwTop + nUnitY;

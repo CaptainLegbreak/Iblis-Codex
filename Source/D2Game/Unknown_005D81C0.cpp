@@ -12,7 +12,7 @@ struct D2UnitStrc;
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
-int __stdcall sub_00645590_IsSelectableSoftCorpse(D2UnitStrc* pUnit); // 0x00645590
+int __stdcall D2COMMON_11018(D2UnitStrc* pUnit); // 0x00645590
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
@@ -40,7 +40,7 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
 
 static inline int SKILLS_IsUnlootedCorpse(D2UnitStrc* pTarget)
 {
-    return pTarget && sub_00645590_IsSelectableSoftCorpse(pTarget) && !STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT);
+    return pTarget && D2COMMON_11018(pTarget) && !STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT);
 }
 
 // 0x005D81C0

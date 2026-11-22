@@ -249,14 +249,14 @@ int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 int __fastcall sub_00516760(int nSocket, int* pParam, D2AddressInfoStrc* pInfo); // 0x00516760
 int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006001F0
-D2TileStrc* __stdcall sub_00619720(void* pAct); // 0x00619720
+D2TileStrc* __stdcall DUNGEON_GetTileDataFromAct(void* pAct); // 0x00619720
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 void __stdcall sub_006275B0(D2UnitStrc* pUnit); // 0x006275B0
 void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x006277F0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit, D2SkillStrc* skill); // 0x004D9FC0
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
@@ -399,7 +399,7 @@ int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, unsigned char nInvPage, int bLoD); // 0x00621050
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
-int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
+int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 void __stdcall sub_004C35F0_ItemToBody9D(D2GSPacketSrv9D* pPacket, D2ItemSaveStrc* pItemSave); // 0x004C35F0
 void __fastcall sub_004B2640(D2UnitStrc* pUnit); // 0x004B2640
 void __fastcall sub_004B2A80_ResetHoverForItem(int nUnitId); // 0x004B2A80
@@ -1179,7 +1179,7 @@ static D2UnitStrc* __stdcall sub_004C0F20_CreateItem9C(unsigned short nX, unsign
     const int nSize = pPacket->nPacketSize - 0x08;
     if (!pItemSave)
     {
-        sub_0062E410(pPacket->pBitstream, nSize, 0, &tItemSave);
+        ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, nSize, 0, &tItemSave);
         pItemSave = &tItemSave;
     }
 
@@ -1211,7 +1211,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateItem9D(unsigned short nX, unsign
     const int nSize = pPacket->nPacketSize - 0x0D;
     if (!pItemSave)
     {
-        sub_0062E410(pPacket->pBitstream, nSize, 0, &tItemSave);
+        ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, nSize, 0, &tItemSave);
         pItemSave = &tItemSave;
     }
 
@@ -1238,7 +1238,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateItem9D(unsigned short nX, unsign
 void __fastcall sub_004C20B0_ItemToCursor9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0xB0C);
@@ -1259,7 +1259,7 @@ void __fastcall sub_004C20B0_ItemToCursor9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C2340_ItemToCursor9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
@@ -1295,7 +1295,7 @@ static void __stdcall sub_004C2540_PlaceItem(D2UnitStrc* pItem, unsigned short n
 void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     if (tItemSave.bMode == 4)
@@ -1314,7 +1314,7 @@ void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C26F0_ItemDropped9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
@@ -1390,7 +1390,7 @@ static void __stdcall sub_004C2970_PlaceItemAt(unsigned short nY, unsigned char 
 void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
@@ -1517,7 +1517,7 @@ static void __stdcall sub_004C3760_ItemFromBody9D(D2GSPacketSrv9D* pPacket, D2It
 void __fastcall sub_004C3920_BodyPacket9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
     if (sub_006287A0_TestFlags(tItemSave.dwFlags, 0x40))
     {
         sub_004C35F0_ItemToBody9D(pPacket, &tItemSave);
@@ -1567,7 +1567,7 @@ void __fastcall sub_004C3C00_ItemToMerc9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
     int nUnitId;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     if (tItemSave.nStorePage == 0xFF)
     {
@@ -1673,7 +1673,7 @@ void __fastcall sub_004C3C00_ItemToMerc9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x8EF);
@@ -1720,7 +1720,7 @@ void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x92C);
@@ -1767,7 +1767,7 @@ void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket)
 void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket)
 {
     D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
@@ -2284,12 +2284,12 @@ void __thiscall D2FloorTileViewStrc::sub_004DE630_DrawTileAt(int nX, int nY)
 {
     int nScreenX = nX;
     int nScreenY = nY + 5;
-    sub_00643260(&nScreenX, &nScreenY);
+    DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
     nScreenY += 0x28;
     D2_ASSERT(gpGlobal_007A0634, 0xDF);
     nScreenX += nOffsetX;
     nScreenY += nOffsetY;
-    D2TileStrc* pTile = sub_00619720(gpGlobal_007A0634);
+    D2TileStrc* pTile = DUNGEON_GetTileDataFromAct(gpGlobal_007A0634);
     if (pTile)
     {
         sub_004DE410_DrawFloorTile(pTile, 1, nScreenX, nScreenY, nX, nY);

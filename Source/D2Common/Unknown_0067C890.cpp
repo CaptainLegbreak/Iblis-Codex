@@ -10,14 +10,14 @@ static int __fastcall DRLGGRID_IsPointInsideGridArea(D2DrlgGridStrc* pDrlgGrid, 
     return nX >= 0 && nX < pDrlgGrid->nWidth && nY >= 0 && nY < pDrlgGrid->nHeight ? 1 : 0;
 }
 
-static int* __stdcall sub_0067C4D0(D2DrlgGridStrc* pGrid, int nX, int nY)
+static int* __stdcall DRLGGRID_GetCellFlagsPointer(D2DrlgGridStrc* pGrid, int nX, int nY)
 {
     return &pGrid->pCellsFlags[pGrid->pCellsRowOffsets[nY] + nX];
 }
 
 static void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation)
 {
-    gpfnDrlgGridFlagOperations[eOperation](sub_0067C4D0(pGrid, nX, nY), nFlag);
+    gpfnDrlgGridFlagOperations[eOperation](DRLGGRID_GetCellFlagsPointer(pGrid, nX, nY), nFlag);
 }
 
 // 0x0067C890

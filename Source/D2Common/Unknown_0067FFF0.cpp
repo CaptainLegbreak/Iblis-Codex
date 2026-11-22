@@ -116,7 +116,7 @@ static inline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
 }
 
 // 0x00680040
-static inline BOOL sub_00680040_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
+static inline BOOL DRLGOUTWILD_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
 {
     D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
 
@@ -163,7 +163,7 @@ static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
                     bBreak = 1;
                 }
 
-                if (sub_00680040_IsVertexBlocking(pVertex))
+                if (DRLGOUTWILD_IsVertexBlocking(pVertex))
                 {
                     break;
                 }

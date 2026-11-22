@@ -34,7 +34,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
 void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678D70
-int __stdcall sub_00679380_PathTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00679380
+int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00679380
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
@@ -75,7 +75,7 @@ extern const int gaIdaStar_PointCacheHashMaskY[]; // 0x006F1B98
 int __stdcall PATH_AStar_Heuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067ADC0
 D2PathFoWallNodeStrc* __stdcall PATH_AStar_GetNodeFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint); // 0x0067AE00
 D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint); // 0x0067AE50
-D2PathFoWallNodeStrc* __fastcall sub_0067B1C0_AllocTableEntry(D2PathFoWallContextStrc* pContext); // 0x0067B1C0
+D2PathFoWallNodeStrc* __fastcall PATH_AStar_AllocNewNode(D2PathFoWallContextStrc* pContext); // 0x0067B1C0
 
 struct D2PathMovStrc
 {
@@ -380,7 +380,7 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
         return pPath->dwPathPoints;
     }
 
-    if (sub_00679380_PathTableHeuristic(nNextPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14)
+    if (PATH_GetTableHeuristic(nNextPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14)
     {
         pPath->PathPoints[pPath->dwPathPoints] = nNextPoint;
         pPath->dwPathPoints += 1;
@@ -731,7 +731,7 @@ static BOOL __stdcall PATH_AStar_EvaluateNeighbor(D2PathFoWallContextStrc* pCont
         return TRUE;
     }
 
-    pNewNode = sub_0067B1C0_AllocTableEntry(pContext);
+    pNewNode = PATH_AStar_AllocNewNode(pContext);
     if (!pNewNode)
     {
         return FALSE;
@@ -962,7 +962,7 @@ int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo)
 }
 
 // 0x0067BBC0
-int __stdcall sub_0067BBC0_DeltaTableLookup(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     return gaPathDeltaTable_006F1E28[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
 }
@@ -1029,7 +1029,7 @@ int __fastcall PATH_FindSubpathWithoutObstacles(D2PathInfoStrc* pInfo, D2PathPoi
     pOtherPath = &tCache2;
     pCurPath = &tCache1;
 
-    const int nAdjacentCellIndex = sub_0067BBC0_DeltaTableLookup(tSubPathStart, pPathPoints[*pSubPathStartIdx]);
+    const int nAdjacentCellIndex = PATH_GetAdjacentPointDirection(tSubPathStart, pPathPoints[*pSubPathStartIdx]);
     tCache1.nDirectionIndex = nAdjacentCellIndex + 1;
     tCache2.nDirectionIndex = nAdjacentCellIndex + 7;
 

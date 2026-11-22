@@ -155,7 +155,7 @@ int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x0064153
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
-void __stdcall sub_00648750(D2DynamicPathStrc* pPath, int nArg); // 0x00648750
+void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pPath, int nArg); // 0x00648750
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
@@ -496,7 +496,7 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
         return;
     }
 
-    unsigned char nLight = sub_0063EBD0_GetLightRadius(pUnit);
+    unsigned char nLight = MONSTERS_GetMaximalLightRadius(pUnit);
     if (nLight < pMonStats2TxtRecord->nLightRadius)
     {
         nLight = pMonStats2TxtRecord->nLightRadius;
@@ -786,7 +786,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         if (pPath)
         {
             sub_00650590(pPath);
-            sub_00648750(pPath, 0);
+            PATH_SetPathingFlag(pPath, 0);
             sub_00648DC0(pPath);
             sub_00480E70_SetUnitMode(pUnit, 3);
         }

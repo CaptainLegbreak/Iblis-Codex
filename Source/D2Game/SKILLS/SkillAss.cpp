@@ -475,7 +475,7 @@ extern const int gnDirectionOffsetX_006E32AC[]; // 0x006E32AC
 
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
 
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
 void __stdcall PATH_SetNumberOfPathPoints(D2DynamicPathStrc* pPath, int nPoints); // 0x00648790
 
@@ -485,7 +485,7 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
-void __stdcall sub_00648E70_SetDistance(D2DynamicPathStrc* pPath, int nDistance); // 0x00648E70
+void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pPath, int nDistance); // 0x00648E70
 
 D2UnitStrc* __fastcall sub_0059FA30_CreateMissile(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 
@@ -589,7 +589,7 @@ int __fastcall SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(D2GameStrc* p
 
 D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nUnitSize); // 0x005D2F80
 
-int __stdcall sub_006260E0(D2StatListStrc* pStatList); // 0x006260E0
+int __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList); // 0x006260E0
 
 void __stdcall sub_005D3970_ProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3970
 
@@ -1020,7 +1020,7 @@ static inline void sub_005D2B40_RemoveState114(D2UnitStrc* pUnit)
 int __fastcall D2GAME_SKILLS_BloodMana_6FD025E0(D2UnitStrc* pUnit, int nManaCost)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
-    const int nSkillId = sub_006260E0(pStatList);
+    const int nSkillId = STATLIST_GetSkillId(pStatList);
     if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >= nManaCost)
     {
         STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, -nManaCost, 0);
@@ -1911,7 +1911,7 @@ void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSe
     D2SeedStrc* const pSeed = &pMissile->pSeed;
     SEED_InitLowSeed(pSeed, nInitSeed);
     PATH_SetType(pPath, 10);
-    sub_00648E70_SetDistance(pPath, nFrames);
+    PATH_SetNewDistance(pPath, nFrames);
 
     D2PathPointStrc* pPathPoints;
     PATH_GetPathPoints(pPath, &pPathPoints);
@@ -1929,7 +1929,7 @@ void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSe
     for (int i = 0; i < nFrames; ++i)
     {
         nDirection += nSign * nStep;
-        const unsigned char nIndex = sub_0063E7A0_GetByteTableEntry(nDirection & 63);
+        const unsigned char nIndex = INVENTORY_GetEightWayDirection(nDirection & 63);
         nX += gnDirectionOffsetX_006E32AC[nIndex];
         nY += gnDirectionOffsetY_006E328C[nIndex];
         pPathPoints[i].X = nX;

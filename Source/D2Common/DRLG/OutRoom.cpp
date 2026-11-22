@@ -189,7 +189,7 @@ void __fastcall DRLGROOMTILE_AllocTileGrid(D2DrlgRoomStrc* pRoom); // 0x0066EEA0
 void __fastcall DRLGROOMTILE_CountWallWarpTiles(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pGrid2, int a4, int a5); // 0x0066EDB0
 void __fastcall DRLGROOMTILE_LoadInitRoomTiles(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pGrid2, int a4, int a5, int a6); // 0x0066EC10
 // 0x0067D540
-D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50)
+D2DrlgRoomStrc* __fastcall DRLGOUTPLACE_CreateOutdoorRoomEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50)
 {
     D2DrlgRoomStrc* pRoom = DRLGROOM_AllocRoomEx(pLevel, 1);
     pRoom->pDrlgCoord.nPosX = nX;
@@ -213,7 +213,7 @@ D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY,
 }
 
 // 0x0067D5D0
-static void sub_0067D5D0(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor)
+static void DRLGOUTROOM_FreeOutdoorRoomGrids(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor)
 {
     DRLGGRID_FreeGrid(pMemPool, &pOutdoor->pTileTypeGrid);
     DRLGGRID_FreeGrid(pMemPool, &pOutdoor->tGrid14);
@@ -223,30 +223,30 @@ static void sub_0067D5D0(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor)
 }
 
 // 0x0067D610
-void __fastcall sub_0067D610(D2DrlgRoomStrc* pRoom)
+void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom)
 {
     void* pMemPool = pRoom->ptDrlgLevel->pDrlg->pMempool;
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     if (pOutdoor)
     {
-        sub_0067D5D0(pMemPool, pOutdoor);
+        DRLGOUTROOM_FreeOutdoorRoomGrids(pMemPool, pOutdoor);
         sub_0040B480(pMemPool, pOutdoor, ".\\DRLG\\OutRoom.cpp", 173, 0);
         pRoom->pOutdoor = 0;
     }
 }
 
 // 0x0067D680
-void __fastcall sub_0067D680(D2DrlgRoomStrc* pRoom)
+void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pRoom)
 {
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     if (pOutdoor)
     {
-        sub_0067D5D0(pRoom->ptDrlgLevel->pDrlg->pMempool, pOutdoor);
+        DRLGOUTROOM_FreeOutdoorRoomGrids(pRoom->ptDrlgLevel->pDrlg->pMempool, pOutdoor);
     }
 }
 
 // 0x0067D6D0
-void __fastcall sub_0067D6D0(D2DrlgRoomStrc* pRoom)
+void __fastcall DRLGOUTROOM_AllocDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom)
 {
     D2DrlgOutdoorRoomStrc* pOutdoor = (D2DrlgOutdoorRoomStrc*)sub_0040B430(pRoom->ptDrlgLevel->pDrlg->pMempool, sizeof(D2DrlgOutdoorRoomStrc), ".\\DRLG\\OutRoom.cpp", 197, 0);
     memset(pOutdoor, 0, sizeof(D2DrlgOutdoorRoomStrc));
@@ -278,7 +278,7 @@ void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom)
 }
 
 // 0x0067D7A0
-unsigned int __fastcall sub_0067D7A0(D2DrlgRoomStrc* pRoom)
+unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom)
 {
     return pRoom->pOutdoor->dwFlags & 0x80;
 }
@@ -320,15 +320,15 @@ int __fastcall sub_006706A0(D2DrlgRoomStrc* pRoom, int a2, int a3);
 
 void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom);
 
-D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50);
+D2DrlgRoomStrc* __fastcall DRLGOUTPLACE_CreateOutdoorRoomEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50);
 
-void __fastcall sub_0067D680(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pRoom);
 
-void __fastcall sub_0067D6D0(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_AllocDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
 
 void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom);
 
-unsigned int __fastcall sub_0067D7A0(D2DrlgRoomStrc* pRoom);
+unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom);
 
 void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType);
 

@@ -132,7 +132,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
     return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
 }
 
-void __stdcall sub_00625A70_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
+void __stdcall STATLIST_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
 {
     if (pUnit)
     {

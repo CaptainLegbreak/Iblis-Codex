@@ -193,7 +193,7 @@ void __cdecl sub_00405A60_Nop()
 }
 
 // 0x0063A800
-void __cdecl sub_0063A800_Nop()
+void __cdecl ITEMS_Nop()
 {
 }
 

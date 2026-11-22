@@ -222,7 +222,7 @@ void __fastcall sub_004CE850_SpawnPeriodicMissile(D2UnitStrc* pOwner, D2UnitStrc
 
 void __fastcall sub_004CECC0(D2UnitStrc* pOwner, D2UnitStrc* pMissile, int nMissile, int nFrame); // 0x004CECC0
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
 
@@ -283,7 +283,7 @@ void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
+int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit); // 0x00624390
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
@@ -1423,7 +1423,7 @@ D2UnitStrc* __fastcall sub_004CDD10_SubmitTargetRequest(D2UnitStrc* pUnit, int n
 // 0x004CE050
 void __fastcall sub_004CE050_SpawnFollowUp(D2UnitStrc* pMissile, int nMissile, int nRange, int bFlag)
 {
-    if (!sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (!PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
         return;
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
@@ -2306,8 +2306,8 @@ static void __stdcall sub_004D1FA0_SpawnBehindOwner(int nMissileId, D2UnitStrc* 
     int nScreenY = nDirY * -25;
     int nOffsetX = nDirX;
     int nOffsetY = nDirY;
-    sub_00643260(&nScreenX, &nScreenY);
-    sub_00643260(&nOffsetX, &nOffsetY);
+    DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
+    DUNGEON_GameSubtileToClientCoords(&nOffsetX, &nOffsetY);
     sub_004DA1D0_SetMotionVectorA(pNew, nScreenX, nScreenY, 0x190);
     sub_004DA200_SetMotionVectorB(pNew, nOffsetX, nOffsetY, -0x10, 1);
     sub_004DA350_UpdateMotion(pNew);
@@ -2514,7 +2514,7 @@ void __fastcall sub_004D33E0_CltDoOnScreen(D2UnitStrc* pMissile)
 // 0x004D3460
 void __fastcall sub_004D3460_CltDoFollowUp(D2UnitStrc* pMissile)
 {
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         const int nMissileId = pMissile->dwClassId;
         D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(nMissileId);
@@ -2580,7 +2580,7 @@ void __fastcall sub_004D3540_CltDoSubLoop(D2UnitStrc* pMissile)
 void __fastcall sub_004D3630_CltDoCommon2(D2UnitStrc* pMissile)
 {
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile->dwClassId);
         if (!pMissilesTxtRecord || pMissilesTxtRecord->wCltSubMissile[0] < 0)
@@ -2714,7 +2714,7 @@ void __fastcall sub_004D38D0_CltDoTimedSubMissile(D2UnitStrc* pMissile)
         return;
     }
 
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nCanDestroy && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nCanDestroy && PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));
@@ -3018,7 +3018,7 @@ void __fastcall sub_004D43A0_CltDoRandomSubMissile(D2UnitStrc* pMissile)
         return;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2MissileStrc tParams;
         memset(&tParams, 0, sizeof(tParams));
@@ -3082,7 +3082,7 @@ void __fastcall sub_004D44B0_CltDoBurst(D2UnitStrc* pMissile)
 void __fastcall sub_004D4590_CltDoCopySubMissile(D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
-    if (pMissilesTxtRecord && pMissilesTxtRecord->wCltSubMissile[0] >= 0 && sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nCanDestroy && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (pMissilesTxtRecord && pMissilesTxtRecord->wCltSubMissile[0] >= 0 && sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nCanDestroy && PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         int nX = CLIENTS_GetUnitX(pMissile);
         int nY = CLIENTS_GetUnitY(pMissile);
@@ -3423,7 +3423,7 @@ void __fastcall sub_004D5880_CltDoPathSubMissile(D2UnitStrc* pMissile)
         return;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));
@@ -3618,7 +3618,7 @@ void __fastcall sub_004D5F80_CltDoMirrorPair(D2UnitStrc* pMissile)
         return;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         int nTargetX = MISSILE_GetTargetX(pMissile);
         int nTargetY = MISSILE_GetTargetY(pMissile);
@@ -3652,7 +3652,7 @@ void __fastcall sub_004D6080_CltDoOwnerSubMissile(D2UnitStrc* pMissile)
         return;
     }
 
-    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));
@@ -4322,7 +4322,7 @@ int __fastcall sub_004E0A40_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int
         return 0;
     }
 
-    sub_00624390_AnimInit(pUnit);
+    UNITS_SetAnimStartFrame(pUnit);
     if (pUnit)
     {
         pUnit->dwFlags |= 0xE;

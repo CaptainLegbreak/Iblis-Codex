@@ -137,9 +137,9 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 
 void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short nBufferSize, int bResetStates); // 0x0065C4D0
 
-short __stdcall sub_00661400(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
+short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
 
-short __stdcall sub_00661440(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661440
+short __stdcall TEXT_GetStringIdOfMenuType1Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661440
 
 extern unsigned short gwGlobal_00725494;                                                                    // 0x00725494
 
@@ -449,7 +449,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     D2TextHeaderStrc* pTextHeader = sub_0049F900();
     D2_ASSERT(pTextHeader, 0x1060);
 
-    const unsigned short wString = sub_00661400(pTextHeader, 0);
+    const unsigned short wString = TEXT_GetStringIdOfMenuType0Node(pTextHeader, 0);
     const int nClassId = pUnit->dwClassId;
     if (sub_00457490_CheckMonStatsFlag(nClassId, 9) && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B
         && nClassId != 0x20F)
@@ -482,7 +482,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     }
     else
     {
-        const unsigned short wString2 = sub_00661440(pTextHeader, 0);
+        const unsigned short wString2 = TEXT_GetStringIdOfMenuType1Node(pTextHeader, 0);
         if (pUnit->dwClassId != 0x20F)
         {
             sub_004644E0_PlayerFaceUnit(pUnit);

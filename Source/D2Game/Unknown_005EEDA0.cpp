@@ -168,7 +168,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             PATH_SetType(pPath, PATHTYPE_TOWARD);
             D2Common_10142(pPath, pUnit, 0);
 
-            if (!sub_00648780_pointCount(pPath))
+            if (!PATH_GetNumberOfPathPoints(pPath))
             {
                 pTarget = pTemp;
                 nMax = nTemp;

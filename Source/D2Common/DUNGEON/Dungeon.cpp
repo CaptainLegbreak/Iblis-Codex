@@ -111,7 +111,7 @@ D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromUnit(D2DrlgRoomStrc* pD
 
 void __fastcall DRLGROOM_GetRGB_IntensityFromRoomEx(D2DrlgRoomStrc* pDrlgRoom, unsigned char* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0066BFD0
 
-D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY); // 0x0066B2B0
+D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY); // 0x0066B2B0
 
 D2PresetUnitStrc* __fastcall DRLGROOM_GetPresetUnits(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BFA0
 
@@ -137,7 +137,7 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_GetARoomInSightButWithoutClient(D2Drlg
 
 int __fastcall DRLGACTIVATE_TestRoomCanUnTile(D2DrlgRoomStrc* pDrlgRoom); // 0x0061BA30
 
-void __fastcall sub_6FD745C0(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2); // 0x00643020
+void __fastcall DRLG_UpdateLevelActivityOnRoomChange(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2); // 0x00643020
 
 void __fastcall DRLG_UpdateAndFreeInactiveRooms(D2DrlgStrc* pDrlg); // 0x00643200
 
@@ -147,7 +147,7 @@ int __fastcall DRLG_IsTownLevel(int nLevelId); // 0x006426A0
 
 int __fastcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x00642740
 
-unsigned int __fastcall sub_0066BA90(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BA90
+unsigned int __fastcall DRLGROOM_CheckMazeRoomOutdoorFlag(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BA90
 
 int __fastcall DRLG_GetNumberOfPopulatedRoomsInLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BE0
 
@@ -159,7 +159,7 @@ void __fastcall DRLGWARP_UpdateWarpRoomDeselect(D2DrlgRoomStrc* pDrlgRoom, int n
 
 void __fastcall DRLGPRESET_UpdatePops(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY, int bOtherRoom); // 0x006671E0
 
-D2RoomCoordListStrc* __fastcall sub_0066CEB0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY); // 0x0066CEB0
+D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordListAtSubtile(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY); // 0x0066CEB0
 
 D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordList(D2DrlgRoomStrc* pDrlgRoom); // 0x0066CF30
 
@@ -173,7 +173,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 struct Obj00619720 { unsigned int dwUnknown00[6]; unsigned int dwMember18; };
 
-int __fastcall sub_0066BCF0(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BCF0
+int __fastcall DRLGROOM_GetNumberOfNearRooms(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BCF0
 
 int __fastcall DRLGROOM_ReorderNearRoomList(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc** ppRoomList); // 0x0066BD00
 
@@ -313,7 +313,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 
 D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel, int* pDestinationLevel, D2LvlWarpTxt** ppLvlWarpTxtRecord); // 0x0066AB00
 
-void __fastcall sub_0066B4C0(D2DrlgRoomStrc* pDrlgRoom, int bClient, unsigned int nFlags); // 0x0066B4C0
+void __fastcall DRLGROOM_UnlinkActiveRoom(D2DrlgRoomStrc* pDrlgRoom, int bClient, unsigned int nFlags); // 0x0066B4C0
 
 void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
 
@@ -498,7 +498,7 @@ D2DrlgTileDataStrc* __stdcall DUNGEON_GetRoofTilesFromRoom(D2ActiveRoomStrc* pRo
 }
 
 // 0x00619720
-extern "C" __declspec(dllexport) unsigned int* __stdcall sub_00619720(Obj00619720* pObj) {
+extern "C" __declspec(dllexport) unsigned int* __stdcall DUNGEON_GetTileDataFromAct(Obj00619720* pObj) {
     return &pObj->dwMember18;
 }
 
@@ -526,7 +526,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* ptRoom, D2
 }
 
 // 0x006197D0
-void* __fastcall sub_006197D0_AllocCleared80(void* pMemPool)
+void* __fastcall DUNGEON_AllocZeroedBlock(void* pMemPool)
 {
     void* pBlock = FOG_AllocPool(pMemPool, 0x80, ".\\DUNGEON\\Dungeon.cpp", 0xF5, 0);
     memset(pBlock, 0, 0x80);
@@ -534,9 +534,9 @@ void* __fastcall sub_006197D0_AllocCleared80(void* pMemPool)
 }
 
 // 0x00619800
-static void __stdcall sub_00619800(void* pMemory, D2ActiveRoomStrc* pRoom)
+static void __stdcall DUNGEON_InitAdjacentRoomList(void* pMemory, D2ActiveRoomStrc* pRoom)
 {
-    const int nNear = sub_0066BCF0(pRoom->pDrlgRoom);
+    const int nNear = DRLGROOM_GetNumberOfNearRooms(pRoom->pDrlgRoom);
     pRoom->ppRoomList = (D2ActiveRoomStrc**)FOG_AllocPool(pMemory, sizeof(D2ActiveRoomStrc*) * nNear, ".\\DUNGEON\\Dungeon.cpp", 256, 0);
     pRoom->nNumRooms = DRLGROOM_ReorderNearRoomList(pRoom->pDrlgRoom, pRoom->ppRoomList);
     for (unsigned int i = 0; i < pRoom->nNumRooms; ++i)
@@ -550,7 +550,7 @@ static void __stdcall sub_00619800(void* pMemory, D2ActiveRoomStrc* pRoom)
 
 D2ActiveRoomStrc* __fastcall sub_Z16_EmitUpdateRoomsNear(sub_Z16_EmitRoomHolder* pOther, D2ActiveRoomStrc* pRoom)
 {
-    sub_00619800(pOther->pMemory, pRoom);
+    DUNGEON_InitAdjacentRoomList(pOther->pMemory, pRoom);
     return pRoom;
 }
 
@@ -574,7 +574,7 @@ D2ActiveRoomStrc* __fastcall DUNGEON_AllocRoom(D2DrlgActStrc* ptAct, D2DrlgRoomS
     pRoom->pAct = ptAct;
 
     DRLGROOM_SetRoom(pDrlgRoom, pRoom);
-    sub_00619800(ptAct->pMemPool, pRoom);
+    DUNGEON_InitAdjacentRoomList(ptAct->pMemPool, pRoom);
     COLLISION_AllocRoomCollisionGrid(ptAct->pMemPool, pRoom);
 
     if (ptAct->pfnActCallBack)
@@ -682,7 +682,7 @@ void __stdcall DUNGEON_GetRGB_IntensityFromRoom(D2ActiveRoomStrc* pRoom, unsigne
 }
 
 // 0x00619DA0
-D2ActRoom00619DA0Strc* __stdcall sub_00619DA0_ActLookup(D2Act00619DA0Strc* pAct, int nX, int nY)
+D2ActRoom00619DA0Strc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2Act00619DA0Strc* pAct, int nX, int nY)
 {
     if (!pAct)
     {
@@ -713,7 +713,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocation(D2DrlgActStrc* ptAct, i
 {
     D2_ASSERT(ptAct, 545);
 
-    return sub_0066B2B0_GetLevelEntryRoom(ptAct->pDrlg, nLevelId, nTileIndex, pX, pY);
+    return DRLGWARP_GetLevelEntryRoom(ptAct->pDrlg, nLevelId, nTileIndex, pX, pY);
 }
 
 // 0x00619EA0
@@ -725,7 +725,7 @@ D2UnitStrc* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* ptRoom)
 }
 
 // 0x00619EE0
-extern "C" __declspec(dllexport) void __stdcall sub_00619EE0(Obj00619EE0* pObj) {
+extern "C" __declspec(dllexport) void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(Obj00619EE0* pObj) {
     if (pObj) {
         pObj->nCount28++;
     }
@@ -961,7 +961,7 @@ int __stdcall D2Common_10073(D2ActiveRoomStrc* pRoom)
 {
     D2_ASSERT(pRoom, 1007);
 
-    if (pRoom->nNumRooms == sub_0066BCF0(pRoom->pDrlgRoom))
+    if (pRoom->nNumRooms == DRLGROOM_GetNumberOfNearRooms(pRoom->pDrlgRoom))
     {
         for (unsigned int i = 0; i < pRoom->nNumRooms; ++i)
         {
@@ -1001,7 +1001,7 @@ void __stdcall D2Common_10075(D2ActiveRoomStrc* pRoom, int bSet)
 }
 
 // 0x0061A550
-static int sub_0061A550_CheckClientsOfRoom(D2ActiveRoomStrc* pRoom)
+static int DUNGEON_ValidateRoomClients(D2ActiveRoomStrc* pRoom)
 {
     for (unsigned int i = 0; i < pRoom->nNumClients; ++i)
     {
@@ -1013,7 +1013,7 @@ static int sub_0061A550_CheckClientsOfRoom(D2ActiveRoomStrc* pRoom)
 // 0x0061A5A0
 static void DUNGEON_UpdateClientListOfRoom(D2ActiveRoomStrc* pRoom)
 {
-    D2_ASSERT(sub_0061A550_CheckClientsOfRoom(pRoom), 0x45B);
+    D2_ASSERT(DUNGEON_ValidateRoomClients(pRoom), 0x45B);
 
     for (int nClients = pRoom->nNumClients - 1; nClients > 0; --nClients)
     {
@@ -1032,7 +1032,7 @@ static void DUNGEON_UpdateClientListOfRoom(D2ActiveRoomStrc* pRoom)
             return;
     }
 
-    sub_0061A550_CheckClientsOfRoom(pRoom);
+    DUNGEON_ValidateRoomClients(pRoom);
 }
 
 // 0x0061A660
@@ -1040,7 +1040,7 @@ void __stdcall DUNGEON_AddClientToRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* pC
 {
     D2_ASSERT(pRoom, 0x473);
     D2_ASSERT(pClient, 0x474);
-    D2_ASSERT(sub_0061A550_CheckClientsOfRoom(pRoom), 0x475);
+    D2_ASSERT(DUNGEON_ValidateRoomClients(pRoom), 0x475);
     D2_ASSERT(pRoom->nNumClients <= pRoom->nMaxClients, 0x477);
 
     if (pRoom->nNumClients == pRoom->nMaxClients)
@@ -1059,7 +1059,7 @@ void __stdcall DUNGEON_RemoveClientFromRoom(D2ActiveRoomStrc* pRoom, D2ClientStr
 {
     D2_ASSERT(pRoom, 0x487);
     D2_ASSERT(pClient, 0x488);
-    D2_ASSERT(sub_0061A550_CheckClientsOfRoom(pRoom), 0x489);
+    D2_ASSERT(DUNGEON_ValidateRoomClients(pRoom), 0x489);
 
     unsigned int i = 0;
     for (i = 0; i < pRoom->nNumClients; ++i)
@@ -1092,7 +1092,7 @@ int __stdcall D2Common_10081_GetTileCountFromRoom(D2ActiveRoomStrc* pRoom)
 }
 
 // 0x0061A7E0
-int __fastcall sub_0061A7E0_HasEntryMissingFrom(D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2)
+int __fastcall DUNGEON_HasClientNotInRoom(D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2)
 {
     for (int i = 0; i < (int)pRoom2->nNumClients; ++i)
     {
@@ -1140,7 +1140,7 @@ void __fastcall DUNGEON_FreeRoom(void* pMemPool, D2ActiveRoomStrc* pRoom)
 }
 
 // 0x0061A8E0
-void __fastcall sub_0061A8E0_ClearRoomField08(D2ActiveRoomStrc* pRoom)
+void __fastcall DUNGEON_ClearRoomTiles(D2ActiveRoomStrc* pRoom)
 {
     D2_ASSERT(pRoom, 0x4EC);
     pRoom->pRoomTiles = 0;
@@ -1179,7 +1179,7 @@ void __stdcall DUNGEON_RemoveRoomFromAct(D2DrlgActStrc* pAct, D2ActiveRoomStrc* 
             }
         }
     }
-    sub_0066B4C0(pRoom->pDrlgRoom, pAct->bClient, pRoom->dwFlags);
+    DRLGROOM_UnlinkActiveRoom(pRoom->pDrlgRoom, pAct->bClient, pRoom->dwFlags);
     DUNGEON_FreeRoom(pAct->pMemPool, pRoom);
 }
 
@@ -1188,7 +1188,7 @@ void __stdcall D2Common_10077(D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2
 {
     D2DrlgRoomStrc* pDrlgRoom1 = pRoom1 ? pRoom1->pDrlgRoom : 0;
     D2DrlgRoomStrc* pDrlgRoom2 = pRoom2 ? pRoom2->pDrlgRoom : 0;
-    sub_6FD745C0(pDrlgRoom1, pDrlgRoom2);
+    DRLG_UpdateLevelActivityOnRoomChange(pDrlgRoom1, pDrlgRoom2);
 }
 
 // 0x0061AA20
@@ -1258,7 +1258,7 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom)
 }
 
 // 0x0061AB30
-int __stdcall sub_0061AB30(D2ActiveRoomStrc* pRoom)
+int __stdcall DUNGEON_GetActNoFromRoom(D2ActiveRoomStrc* pRoom)
 {
     return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
 }
@@ -1281,7 +1281,7 @@ int __stdcall D2Common_10087(D2ActiveRoomStrc* ptRoom)
 {
     D2_ASSERT(ptRoom, 1445);
 
-    return sub_0066BA90(ptRoom->pDrlgRoom);
+    return DRLGROOM_CheckMazeRoomOutdoorFlag(ptRoom->pDrlgRoom);
 }
 
 // 0x0061ABF0
@@ -1323,7 +1323,7 @@ void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* ptRoom, int nX, int nY, int 
 }
 
 // 0x0061AD10
-void __stdcall sub_0061AD10(Room* room,Coord** tiles,int* count)
+void __stdcall DUNGEON_GetTombStoneTileCoords(Room* room,Coord** tiles,int* count)
 {
     sub_00666A80(room->roomEx[ROOM_SLOT],tiles,count);
 }
@@ -1331,7 +1331,7 @@ void __stdcall sub_0061AD10(Room* room,Coord** tiles,int* count)
 // 0x0061AD30
 D2RoomCoordListStrc* __stdcall D2Common_10096(D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
-    return sub_0066CEB0(pRoom->pDrlgRoom, nX, nY);
+    return DRLGLOGIC_GetRoomCoordListAtSubtile(pRoom->pDrlgRoom, nX, nY);
 }
 
 // 0x0061AD50
@@ -1457,7 +1457,7 @@ void __stdcall DUNGEON_SetActCallbackFunc(D2DrlgActStrc* pAct, ACTCALLBACKFN pAc
 }
 
 // 0x0061AFA0
-extern "C" __declspec(dllexport) void __stdcall sub_0061AFA0(Obj0061AFA0* pObj, unsigned int dwValue) {
+extern "C" __declspec(dllexport) void __stdcall DUNGEON_SaveKilledUnitGUID(Obj0061AFA0* pObj, unsigned int dwValue) {
     if (pObj) {
         pObj->dwRing38[pObj->bIndex14] = dwValue;
         pObj->bIndex14 = (pObj->bIndex14 + 1) & 3;
@@ -1495,7 +1495,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* ptAct,
     D2_ASSERT(ptAct, 556);
     int nX = 0;
     int nY = 0;
-    D2ActiveRoomStrc* pRoom = sub_0066B2B0_GetLevelEntryRoom(ptAct->pDrlg, nLevelId, nTileIndex, &nX, &nY);
+    D2ActiveRoomStrc* pRoom = DRLGWARP_GetLevelEntryRoom(ptAct->pDrlg, nLevelId, nTileIndex, &nX, &nY);
     if (pRoom)
     {
         DUNGEON_GameTileToSubtileCoords(&nX, &nY);
@@ -1536,7 +1536,7 @@ static inline void sub_F45_VisitChild(D2CommonLevelNodeStrc* pChild, int nLevel)
 }
 
 // 0x0061B390
-void __fastcall sub_0061B390_WalkLevels(void* pContext, D2CommonLevelNodeStrc* pNode, unsigned char nLevel)
+void __fastcall DRLGACTIVATE_RoomExPropagateSetStatus(void* pContext, D2CommonLevelNodeStrc* pNode, unsigned char nLevel)
 {
     if (!pNode->nChildren)
         sub_0066C370_OnChildlessNode(pContext, pNode);
@@ -1545,7 +1545,7 @@ void __fastcall sub_0061B390_WalkLevels(void* pContext, D2CommonLevelNodeStrc* p
         for (int i = 0; i < pNode->nChildren; ++i)
         {
             D2CommonLevelNodeStrc* pChild = pNode->ppChildren[i];
-            sub_0061B390_WalkLevels(pContext, pChild, nLevel + 1);
+            DRLGACTIVATE_RoomExPropagateSetStatus(pContext, pChild, nLevel + 1);
             sub_F45_VisitChild(pChild, nLevel);
         }
     }
@@ -1557,7 +1557,7 @@ void __fastcall sub_0061B390_WalkLevels(void* pContext, D2CommonLevelNodeStrc* p
 }
 
 // 0x00627B70
-int __fastcall sub_6FD98220(int nMin, int nMax, int nUnused, void* pUserData)
+int __fastcall DUNGEON_ItemCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
 {
     D2ItemCalcStrc* pItemCalc = (D2ItemCalcStrc*)pUserData;
     if (!pItemCalc)
@@ -1573,7 +1573,7 @@ int __fastcall sub_6FD98220(int nMin, int nMax, int nUnused, void* pUserData)
 }
 
 // 0x00643700
-int __fastcall sub_00643700_SkillCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
+int __fastcall DUNGEON_SkillCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
 {
     D2SkillCalcStrc* pSkillCalc = (D2SkillCalcStrc*)pUserData;
     if (!pSkillCalc)

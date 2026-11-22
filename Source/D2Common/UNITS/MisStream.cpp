@@ -33,7 +33,7 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3); // 0x00649970
-int __stdcall sub_006487D0(D2DynamicPathStrc* pPath, D2PathPointStrc** ppPathPoints); // 0x006487D0
+int __stdcall PATH_GetPathPoints(D2DynamicPathStrc* pPath, D2PathPointStrc** ppPathPoints); // 0x006487D0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, MISSTREAM_TEST pfTest, void* pArg, int nPattern); // 0x00641CB0
@@ -90,7 +90,7 @@ void __stdcall MISSTREAM_ExecuteHit(D2UnitStrc* pUnit, int nCollisionMask, int n
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     PATH_SetType(pPath, 16);
     D2Common_10142(pPath, pUnit, 0);
-    int nPathPoints = sub_006487D0(pPath, &pPathPoints);
+    int nPathPoints = PATH_GetPathPoints(pPath, &pPathPoints);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
 
     for (int i = 0; i < nPathPoints; ++i)
@@ -116,7 +116,7 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
     PATH_SetType(pPath, 16);
     D2Common_10142(pPath, pMissile, 0);
-    int nPathPoints = sub_006487D0(pPath, &pPathPoints);
+    int nPathPoints = PATH_GetPathPoints(pPath, &pPathPoints);
     if (nPathPoints != 0 && nPathPoints != 1) {
         D2MissileStreamStrc* ptStream = MISSILE_GetStream(pMissile);
         if (!ptStream) { sub_00408A60(gszAssertExpression_006CC837, sub_00408090(), 138); exit(-1); }

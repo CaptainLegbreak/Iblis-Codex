@@ -80,7 +80,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
-int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
+int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 
 D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, unsigned int* pSize, unsigned int dwVersion); // 0x00558CB0
 
@@ -193,7 +193,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
-D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 static int sub_00541970_IsItemNodeAlive(D2InactiveItemNodeStrc* pNode, D2GameStrc* pGame);
 
@@ -406,7 +406,7 @@ static D2UnitStrc* __stdcall sub_00541990_RestoreInactiveItem(D2GameStrc* pGame,
     unsigned int nSize;
     unsigned char* pBitstream = pItemNode->pBitstream;
     unsigned int nAvailableSize = pItemNode->nBitstreamSize;
-    sub_0062E410(pBitstream, nAvailableSize, 1, &tItemSave);
+    ITEMS_GetCompactItemDataFromBitstreamDefault(pBitstream, nAvailableSize, 1, &tItemSave);
     D2UnitStrc* pItem = ITEMS_CreateItemFromBitstream(pGame, pRoom, pBitstream, nAvailableSize, 1, &tItemSave, &nSize, 0x60);
     if (!pItem)
     {
@@ -437,7 +437,7 @@ static D2UnitStrc* __stdcall sub_00541990_RestoreInactiveItem(D2GameStrc* pGame,
         const int nSockets = tItemSave.nItemFileIndex;
         for (int i = 0; i < nSockets; ++i)
         {
-            sub_0062E410(pBitstream, nAvailableSize, 1, &tItemSave);
+            ITEMS_GetCompactItemDataFromBitstreamDefault(pBitstream, nAvailableSize, 1, &tItemSave);
             D2UnitStrc* pSocketable = ITEMS_CreateItemFromBitstream(pGame, 0, pBitstream, nAvailableSize, 1, &tItemSave, &nSize, 0x60);
             D2_ASSERT(pSocketable, 0x10C);
             pBitstream += nSize;
@@ -1157,7 +1157,7 @@ int __fastcall sub_005429B0_IsDeadMonsterAt(D2GameStrc* ptGame, D2ActiveRoomStrc
     const int nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
     if (!pTargetRoom)
     {
-        pTargetRoom = sub_00619DA0_ActLookup(ptGame->pAct[nAct], nX, nY);
+        pTargetRoom = DUNGEON_FindRoomBySubtileCoordinates(ptGame->pAct[nAct], nX, nY);
     }
 
     if (pTargetRoom)

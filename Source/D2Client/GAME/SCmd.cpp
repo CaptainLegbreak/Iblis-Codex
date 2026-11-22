@@ -827,7 +827,7 @@ int __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nStat
 
 void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
 
-D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
+D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
 struct D2GSPacketSrv10
 {
@@ -1879,7 +1879,7 @@ void __fastcall sub_004B3380(D2PacketRecord6Strc* pPacket); // 0x004B3380
 
 void __cdecl sub_0044DA70(); // 0x0044DA70
 
-void __stdcall sub_00619EE0(D2ActiveRoomStrc* pRoom); // 0x00619EE0
+void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 
 void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 
@@ -1887,7 +1887,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
 
@@ -2866,7 +2866,7 @@ void __fastcall sub_0045D160(const unsigned char* pPacket)
         }
         if (pUnit == sub_00463DD0_GetPlayerUnit())
         {
-            D2_ASSERT(!sub_0061AB30(UNITS_GetRoom(pUnit)), 0x81E);
+            D2_ASSERT(!DUNGEON_GetActNoFromRoom(UNITS_GetRoom(pUnit)), 0x81E);
             sub_0044DB40(3000);
         }
     }
@@ -4660,7 +4660,7 @@ void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldM
         {
             if (nNew == MODE_2)
             {
-                sub_00619EE0(pRoom);
+                DUNGEON_IncreaseAlliedCountOfRoom(pRoom);
             }
             else if (nOld == MODE_2)
             {
@@ -4709,7 +4709,7 @@ int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
 
     int nUnitX = UNITS_GetXPositionInline(pUnit);
     int nUnitY = UNITS_GetYPositionInline(pUnit);
-    sub_00643260(&nUnitX, &nUnitY);
+    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
 
     const int nLeft = pRect->nX + nUnitX;
     const int nTop = pRect->nY + nUnitY;
@@ -4802,7 +4802,7 @@ void __cdecl sub_0046B4A0_RequestNearMonster()
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     if (!pRoom)
         return;
-    D2UnitStrc* pMonster = sub_0065A620_FindUnitInAdjacentRooms(pRoom, UNIT_MONSTER, 0x20E);
+    D2UnitStrc* pMonster = UNITFINDS_FindUnitInNeighboredRooms(pRoom, UNIT_MONSTER, 0x20E);
     if (!pMonster)
         return;
 

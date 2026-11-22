@@ -49,7 +49,7 @@ int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int 
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int bBorder); // 0x006743C0
 
-int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
+int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
 extern "C" const int gdwAct12ShrineFlags_006F061C[4]; // 0x006F061C
 
@@ -87,9 +87,9 @@ int __fastcall DRLGPRESET_SetPickedFileInDrlgMap(D2DrlgMapStrc* pDrlgMap, int nP
 
 D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom); // 0x00667ED0
 
-D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50); // 0x0067D540
+D2DrlgRoomStrc* __fastcall DRLGOUTPLACE_CreateOutdoorRoomEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50); // 0x0067D540
 
-static void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
+static void DRLGOUTDOORS_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
@@ -97,15 +97,15 @@ void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGr
 
 void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pDrlgOrth); // 0x0067D050
 
-void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel); // 0x0067E600
+void __fastcall DRLGOUTSIEGE_InitAct5OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x0067E600
 
 void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel); // 0x0067E890
 
-void __fastcall sub_0067F450(D2DrlgLevelStrc* pLevel); // 0x0067F450
+void __fastcall DRLGOUTPLACE_InitAct3OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x0067F450
 
 void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x006807F0
 
-static void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex);
+static void DRLGOUTDOORS_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex);
 
 void __fastcall DRLGROOM_FreeRoomData(void* pMemPool, D2DrlgOrthStrc* pDrlgOrth);                           // 0x0066B530
 
@@ -114,7 +114,7 @@ void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pDrlgGrid);   
 void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                        // 0x0067D1E0
 
 // 0x00674320
-static int __cdecl sub_00674320_PickFile(D2DrlgLevelStrc* pLevel, int nPresetId)
+static int __cdecl DRLGOUTDOORS_PickNextPresetFile(D2DrlgLevelStrc* pLevel, int nPresetId)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgBuildStrc* pFile = pLevel->pBuild;
@@ -146,7 +146,7 @@ void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, 
     const int nWidth = DRLGPRESET_GetSizeX(nPresetId) / 8;
     const int nHeight = DRLGPRESET_GetSizeY(nPresetId) / 8;
     if (nPickedFile == -1)
-        nPickedFile = sub_00674320_PickFile(pLevel, nPresetId);
+        nPickedFile = DRLGOUTDOORS_PickNextPresetFile(pLevel, nPresetId);
     for (int y = nY; y < nY + nHeight; ++y)
     {
         for (int x = nX; x < nX + nWidth; ++x)
@@ -290,7 +290,7 @@ static inline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int 
 }
 
 // 0x00674920
-int __fastcall sub_00674920_PlaceRandomPreset(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand)
+int __fastcall DRLGOUTDOORS_SpawnRandomOutdoorDS1(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand)
 {
     sub_0061F0B0(nLvlPrestId);
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
@@ -481,7 +481,7 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Shrines(D2DrlgLevelStrc* pLevel, int nShr
 }
 
 // 0x00675080
-static void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
+static void DRLGOUTDOORS_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
 {
     D2DrlgVertexStrc* pVertex = *ppVertex;
     do
@@ -515,7 +515,7 @@ static void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc*
 }
 
 // 0x006750F0
-static void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTDOORS_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     int nLevelFlags = 0;
@@ -573,7 +573,7 @@ static void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
             else if (!(dwCellFlags & 0x100))
             {
                 const int nOutdoorEntry = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[3], nX, nY);
-                sub_0067D540(pLevel, nPosX, nPosY, 8, 8, nRoomFlags, dwCellFlags, nOutdoorEntry, nLevelFlags);
+                DRLGOUTPLACE_CreateOutdoorRoomEx(pLevel, nPosX, nPosY, 8, 8, nRoomFlags, dwCellFlags, nOutdoorEntry, nLevelFlags);
             }
 
             nPosX += 8;
@@ -585,18 +585,18 @@ static void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
 
 void __fastcall sub_M16_EmitScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
 {
-    sub_00675080_ScaleAndMergeVertices(pMemPool, ppVertex);
+    DRLGOUTDOORS_ScaleAndMergeVertices(pMemPool, ppVertex);
 }
 
 // 0x00675290
-int __fastcall sub_00675290_GetOutdoorValue(D2DrlgLevelStrc* pLevel, int nIndex)
+int __fastcall DRLGOUTDOORS_GetRoadEntry(D2DrlgLevelStrc* pLevel, int nIndex)
 {
     return (int)pLevel->pOutdoors->pRoads[nIndex];
 }
 
 void __fastcall sub_006750F0_EmitSpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
 {
-    sub_006750F0_SpawnPresetsAndRooms(pLevel);
+    DRLGOUTDOORS_SpawnPresetsAndRooms(pLevel);
 }
 
 static inline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
@@ -652,7 +652,7 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
     unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->eLevelId);
 
     DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pRoomData);
-    sub_00675080_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
+    DRLGOUTDOORS_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
 
     if (pLevel->eLevelId == LEVEL_PANDEMONIUMRUN2)
     {
@@ -668,17 +668,17 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
         DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
         break;
     case 2:
-        sub_0067F450(pLevel);
+        DRLGOUTPLACE_InitAct3OutdoorLevel(pLevel);
         break;
     case 3:
         sub_0067E890(pLevel);
         break;
     case 4:
-        sub_0067E600(pLevel);
+        DRLGOUTSIEGE_InitAct5OutdoorLevel(pLevel);
         break;
     }
 
-    sub_006750F0_SpawnPresetsAndRooms(pLevel);
+    DRLGOUTDOORS_SpawnPresetsAndRooms(pLevel);
 }
 
 // 0x006754C0
@@ -725,7 +725,7 @@ void __fastcall DRLGOUTDOORS_FreeOutdoorInfo(D2DrlgLevelStrc* pLevel, int bKeepR
 }
 
 // 0x006757E0
-int __fastcall sub_006757E0_GetLevelStyle(D2DrlgLevelStrc* pLevel, bool bFlag)
+int __fastcall DRLGOUTDOORS_GetBorderLookupId(D2DrlgLevelStrc* pLevel, bool bFlag)
 {
     switch (pLevel->nLevelType)
     {
@@ -736,7 +736,7 @@ int __fastcall sub_006757E0_GetLevelStyle(D2DrlgLevelStrc* pLevel, bool bFlag)
     case 27:
         return 3;
     case 31:
-        return sub_0067DCE0(pLevel);
+        return DRLGOUTSIEGE_GetBorderLookupId(pLevel);
     }
     return -1;
 }

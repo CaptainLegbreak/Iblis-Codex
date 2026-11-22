@@ -151,9 +151,9 @@ int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit);             
 
 int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int a2);                                     // 0x00625E60
 
-int __stdcall sub_00625EF0_MinDamage(D2UnitStrc* pItem, int a2);                                     // 0x00625EF0
+int __stdcall STATLIST_GetMinDamageFromUnit(D2UnitStrc* pItem, int a2);                                     // 0x00625EF0
 
-int __stdcall sub_00626020_ArmorValue(D2UnitStrc* pUnit);                                               // 0x00626020
+int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit);                                               // 0x00626020
 
 int __stdcall ITEMMODS_EvaluateItemFormula(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int nCalc);       // 0x00627C20
 
@@ -353,7 +353,7 @@ void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor,
 
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 
-int __stdcall sub_00623460(D2UnitStrc* pUnit);                                                            // 0x00623460
+int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc* pUnit);                                                            // 0x00623460
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);              // 0x0063BDE0
 
@@ -632,7 +632,7 @@ void __fastcall sub_0048B3F0_DrawMercEquipHighlights(D2UnitStrc* pUnit); // 0x00
 
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 
-unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 extern D2BodyLocRectStrc gaBodyLocRects_007BCD38[11]; // 0x007BCD38
 
@@ -1410,7 +1410,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 }
                 if (ITEMSIsA(gdwGlobal_007BCBF4, 0x2D))
                 {
-                    if (sub_00625EF0_MinDamage(gdwGlobal_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0)
+                    if (STATLIST_GetMinDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0)
                     {
                         sub_00485410_AppendDamage(gdwGlobal_007BCBF4, W(wszDamage));
                     }
@@ -1428,7 +1428,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 {
                     sub_00485D40_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
                 }
-                if (ITEMSIsA(gdwGlobal_007BCBF4, 0x32) && sub_00626020_ArmorValue(gdwGlobal_007BCBF4) > 0)
+                if (ITEMSIsA(gdwGlobal_007BCBF4, 0x32) && STATLIST_GetDefenseFromUnit(gdwGlobal_007BCBF4) > 0)
                 {
                     sub_00485EE0_AppendDefense(pPlayer, gdwGlobal_007BCBF4, W(wszDefense));
                 }
@@ -1718,7 +1718,7 @@ timer_done:
             TEXTURE_CelDraw(&tContext, gnGlobal_007A2858 + 0x100, gnGlobal_00711470 + gnGlobal_007A285C - 0x30, -1, 5, 0);
         }
 
-        const int nGoldLimit = sub_00623460(sub_00463DD0_GetPlayerUnit());
+        const int nGoldLimit = UNITS_GetStashGoldLimit(sub_00463DD0_GetPlayerUnit());
         Unicode wszGold[100];
         sub_005269D0(100, wszGold, D2LANG_GetStringFromTblIndex(0xFD3), nGoldLimit);
         if (sub_0044DCC0())
@@ -2480,7 +2480,7 @@ static void sub_0048B540_DrawEquippedItems(D2UnitStrc* pUnit)
             const int nY = gaBodyLocRects_007BCD38[i].nTop
                 + (gaBodyLocRects_007BCD38[i].nHeight - nHeight * gInventoryGrid_007BCBC0.nGridBoxWidth) / 2;
             sub_0046EE80_DrawItemCel(pItem, nX, nY);
-            if (gdwGlobal_007BCBF4 == pItem && ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem) > 0
+            if (gdwGlobal_007BCBF4 == pItem && ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem) > 0
                 && ITEMS_CheckItemFlag(pItem, 0x800, 0x30C8, ".\\UI\\inv.cpp"))
             {
                 sub_00483E40_DrawItemSockets(pItem, &gInventoryGrid_007BCBC0, nX, nY);

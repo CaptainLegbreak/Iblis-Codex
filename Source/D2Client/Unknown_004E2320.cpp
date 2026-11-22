@@ -46,7 +46,7 @@ void __fastcall sub_004B9A00(int nId, D2UnitStrc* pUnit, int nArg3, int nArg4, i
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x00648810
@@ -120,13 +120,13 @@ void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth,
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
 short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
-int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
-int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
+int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit); // 0x0063A380
+int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit); // 0x0063A3A0
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId); // 0x00626070
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
@@ -1412,7 +1412,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     if (!pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -1499,9 +1499,9 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
     }
 
-    if (sub_0063A380(pUnit))
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
         *pColor = 3;
-    if (sub_0063A3A0(pUnit))
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
         *pColor = 1;
 
     if (nBonus <= -90)
@@ -1692,7 +1692,7 @@ static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2Uni
     if (!pUnit || !pSkill)
         return 0;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt)
         return 0;
 

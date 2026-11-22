@@ -32,7 +32,7 @@ struct D2QuestDataStrc
     QUESTCB pCallback;
 };
 D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
-D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(void* pAct, int a2, int a3);                              // 0x00619DA0
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(void* pAct, int a2, int a3);                              // 0x00619DA0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                 // 0x00543640
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                            // 0x00624690
@@ -64,7 +64,7 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
     {
         if (pGame->pAct[2])
         {
-            D2ActiveRoomStrc* pRoom = sub_00619DA0_ActLookup(pGame->pAct[2], pQuestDataEx->nX, pQuestDataEx->nY);
+            D2ActiveRoomStrc* pRoom = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[2], pQuestDataEx->nX, pQuestDataEx->nY);
             if (pRoom)
             {
                 D2ActiveRoomStrc** ppRoomList;

@@ -455,7 +455,7 @@ extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
         room->flags |= 0x400000U;
 }
 
-extern "C" void __stdcall sub_00648B40_roomInvalid(PathFlags* path, int invalid)
+extern "C" void __stdcall PATH_SetCurrentRoomInvalid(PathFlags* path, int invalid)
 {
     if (invalid != 0)
         path->flags |= 2U;

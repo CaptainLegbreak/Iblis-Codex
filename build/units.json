@@ -1250,7 +1250,7 @@
     {
      "va": "0x0040F7C0",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0040F7D0",
@@ -1270,7 +1270,7 @@
     {
      "va": "0x0040F860",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x0040F8A0",
@@ -3855,7 +3855,7 @@
     {
      "va": "0x00416800",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00416810",
@@ -4025,7 +4025,7 @@
     {
      "va": "0x004177C0",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x004178A0",
@@ -4040,7 +4040,7 @@
     {
      "va": "0x004179F0",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x00417A10",
@@ -5133,12 +5133,12 @@
     {
      "va": "0x004177D0",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00417A30",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x00417F10",
@@ -5978,7 +5978,7 @@
     {
      "va": "0x0041C380",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x0041C410",
@@ -5993,12 +5993,12 @@
     {
      "va": "0x0041C4E0",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0041C540",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x0041C650",
@@ -6081,7 +6081,7 @@
     {
      "va": "0x004177E0",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00417B40",
@@ -6091,7 +6091,7 @@
     {
      "va": "0x00417C30",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x004186B0",
@@ -6117,7 +6117,7 @@
     {
      "va": "0x004177F0",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00417D40",
@@ -6138,7 +6138,7 @@
     {
      "va": "0x00417800",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00418D80",
@@ -7080,7 +7080,7 @@
     {
      "va": "0x004203D0",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00420420",
@@ -7100,12 +7100,12 @@
     {
      "va": "0x00420490",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00420500",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x00420610",
@@ -7534,7 +7534,7 @@
     {
      "va": "0x00420D90",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     }
    ]
   },
@@ -8887,12 +8887,12 @@
     {
      "va": "0x00426A60",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00426AC0",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x00426C60",
@@ -9023,7 +9023,7 @@
     {
      "va": "0x00426910",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x004269A0",
@@ -10714,7 +10714,7 @@
     {
      "va": "0x0044ED00",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0044ED20",
@@ -10759,7 +10759,7 @@
     {
      "va": "0x0044EE50",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x0044EE90",
@@ -13564,7 +13564,7 @@
     {
      "va": "0x00446880",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -15690,12 +15690,12 @@
     {
      "va": "0x0044ED10",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0044EE70",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x0044EEC0",
@@ -15831,7 +15831,7 @@
     {
      "va": "0x0044BDD0",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x0044BE30",
@@ -30388,7 +30388,7 @@
     {
      "va": "0x004BB5F0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BBA50",
@@ -30424,7 +30424,7 @@
     {
      "va": "0x004BAD70",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30435,7 +30435,7 @@
     {
      "va": "0x004BAD80",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30446,7 +30446,7 @@
     {
      "va": "0x004BAD90",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30457,7 +30457,7 @@
     {
      "va": "0x004BADA0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30468,7 +30468,7 @@
     {
      "va": "0x004BADB0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30479,7 +30479,7 @@
     {
      "va": "0x004BADC0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30510,7 +30510,7 @@
     {
      "va": "0x004BC1C0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BC1F0",
@@ -30561,7 +30561,7 @@
     {
      "va": "0x004BC1D0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BC480",
@@ -30632,7 +30632,7 @@
     {
      "va": "0x004BB950",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BB980",
@@ -30773,7 +30773,7 @@
     {
      "va": "0x004BB970",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BB9B0",
@@ -30874,7 +30874,7 @@
     {
      "va": "0x004BB960",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BBE70",
@@ -30923,7 +30923,7 @@
     {
      "va": "0x004BC190",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -30939,7 +30939,7 @@
     {
      "va": "0x004BC1A0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BC330",
@@ -30960,7 +30960,7 @@
     {
      "va": "0x004BC1B0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BC250",
@@ -31011,7 +31011,7 @@
     {
      "va": "0x004BC1E0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -31767,7 +31767,7 @@
     {
      "va": "0x004BEA30",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x004BEDC0",
@@ -31818,7 +31818,7 @@
     {
      "va": "0x004BEA40",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     }
    ]
   },
@@ -44533,7 +44533,7 @@
     {
      "va": "0x0052E090",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x0052E0A0",
@@ -44553,7 +44553,7 @@
     {
      "va": "0x0052E100",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x0052E110",
@@ -68388,7 +68388,7 @@
     {
      "va": "0x00601B70",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00601B80",
@@ -68523,7 +68523,7 @@
     {
      "va": "0x00601F00",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00601F10",
@@ -68628,7 +68628,7 @@
     {
      "va": "0x00602370",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x006023B0",
@@ -69275,7 +69275,7 @@
     {
      "va": "0x00601DD0",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00601DE0",
@@ -69285,12 +69285,12 @@
     {
      "va": "0x006020B0",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x00602390",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x006025E0",
@@ -70809,7 +70809,7 @@
     {
      "va": "0x0060DCF0",
      "length": 3,
-     "name": "?sub_0060DCF0_GetString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetHashKeyString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0060DD00",
@@ -70834,7 +70834,7 @@
     {
      "va": "0x0060DDB0",
      "length": 30,
-     "name": "?sub_0060DDB0@@YAXXZ"
+     "name": "?IGNORELIST_FreeIgnoreList@@YAXXZ"
     },
     {
      "va": "0x0060DDD0",
@@ -70844,17 +70844,17 @@
     {
      "va": "0x0060DDE0",
      "length": 11,
-     "name": "?sub_0060DDE0_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
+     "name": "?IGNORELIST_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
     },
     {
      "va": "0x0060DDF0",
      "length": 7,
-     "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
+     "name": "?IGNORELIST_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
     },
     {
      "va": "0x0060DE00",
      "length": 34,
-     "name": "sub_0060DE00_SetEnabled"
+     "name": "IGNORELIST_SetEnabled"
     },
     {
      "va": "0x0060DE30",
@@ -70867,22 +70867,22 @@
     {
      "va": "0x0060DF10",
      "length": 218,
-     "name": "?sub_0060DF10_OnAdded@D2CommonIgnoreListStrc@@QAEHPBD@Z"
+     "name": "?IGNORELIST_AppendLineToFile@D2CommonIgnoreListStrc@@QAEHPBD@Z"
     },
     {
      "va": "0x0060DFF0",
      "length": 184,
-     "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
+     "name": "?IGNORELIST_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
     },
     {
      "va": "0x0060E0B0",
      "length": 4,
-     "name": "?sub_0060E0B0_GetKey@D2ChatStormNodeStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringEntryKey@D2ChatStormNodeStrc@@QAEPADXZ"
     },
     {
      "va": "0x0060E0C0",
      "length": 9,
-     "name": "?sub_0060E0C0_IsLinked@D2ChatStormLinkStrc@@QAE_NXZ"
+     "name": "?IGNORELIST_IsLinkLinked@D2ChatStormLinkStrc@@QAE_NXZ"
     },
     {
      "va": "0x0060E130",
@@ -70907,7 +70907,7 @@
     {
      "va": "0x0060E230",
      "length": 4,
-     "name": "?sub_0060E230_Count@D2ChatStormBaseArrayAStrc@@QAEIXZ"
+     "name": "?IGNORELIST_GetStringSlotArrayCount@D2ChatStormBaseArrayAStrc@@QAEIXZ"
     },
     {
      "va": "0x0060E240",
@@ -70917,17 +70917,17 @@
     {
      "va": "0x0060E250",
      "length": 4,
-     "name": "?sub_0060E250_Count@D2ChatStormBaseArrayBStrc@@QAEIXZ"
+     "name": "?IGNORELIST_GetMappingSlotArrayCount@D2ChatStormBaseArrayBStrc@@QAEIXZ"
     },
     {
      "va": "0x0060E260",
      "length": 11,
-     "name": "?sub_0060E260_InitializeTerminator@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_InitStringListTerminator@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x0060E270",
      "length": 11,
-     "name": "?sub_0060E270_InitializeTerminator@D2ChatStormListBStrc@@QAEXXZ"
+     "name": "?IGNORELIST_InitMappingListTerminator@D2ChatStormListBStrc@@QAEXXZ"
     },
     {
      "va": "0x0060E280",
@@ -70957,27 +70957,27 @@
     {
      "va": "0x0060E440",
      "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0060E450",
      "length": 25,
-     "name": "sub_0060E450_Link"
+     "name": "IGNORELIST_GetStringListLink"
     },
     {
      "va": "0x0060E470",
      "length": 22,
-     "name": "sub_0060E470_InitLinkField"
+     "name": "IGNORELIST_InitStringListLinkOffset"
     },
     {
      "va": "0x0060E490",
      "length": 171,
-     "name": "sub_0060E490_LinkNode"
+     "name": "IGNORELIST_LinkStringListNode"
     },
     {
      "va": "0x0060E540",
      "length": 28,
-     "name": "sub_0060E540_RawNext"
+     "name": "IGNORELIST_GetStringListRawNext"
     },
     {
      "va": "0x0060E560",
@@ -70987,12 +70987,12 @@
     {
      "va": "0x0060E5B0",
      "length": 22,
-     "name": "sub_0060E5B0_InitLinkField"
+     "name": "IGNORELIST_InitMappingListLinkOffset"
     },
     {
      "va": "0x0060E5D0",
      "length": 16,
-     "name": "?sub_0060E5D0_Head@D2ChatStormListBStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetMappingListHead@D2ChatStormListBStrc@@QAEPADXZ"
     },
     {
      "va": "0x0060E5E0",
@@ -71002,22 +71002,22 @@
     {
      "va": "0x0060E5F0",
      "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x0060E610",
      "length": 17,
-     "name": "?sub_0060E610_Reset@D2ChatStormListBStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ResetMappingList@D2ChatStormListBStrc@@QAEXXZ"
     },
     {
      "va": "0x0060E630",
      "length": 25,
-     "name": "sub_0060E630_Link"
+     "name": "IGNORELIST_GetMappingListLink"
     },
     {
      "va": "0x0060E650",
      "length": 55,
-     "name": "sub_0060E650_Next"
+     "name": "IGNORELIST_GetStringListNext"
     },
     {
      "va": "0x0060E690",
@@ -71027,12 +71027,12 @@
     {
      "va": "0x0060E6D0",
      "length": 16,
-     "name": "?sub_0060E6D0_Head@D2ChatStormHashTableStrc@@QAEPADXZ"
+     "name": "?IGNORELIST_GetStringTableHead@D2ChatStormHashTableStrc@@QAEPADXZ"
     },
     {
      "va": "0x0060E6E0",
      "length": 121,
-     "name": "sub_0060E6E0_UnlinkNode"
+     "name": "IGNORELIST_UnlinkStringTableNode"
     },
     {
      "va": "0x0060E760",
@@ -71042,12 +71042,12 @@
     {
      "va": "0x0060E7A0",
      "length": 31,
-     "name": "sub_0060E7A0_Delete"
+     "name": "IGNORELIST_DeleteStringTableNode"
     },
     {
      "va": "0x0060E7C0",
      "length": 55,
-     "name": "sub_0060E7C0_Next"
+     "name": "IGNORELIST_GetMappingListNext"
     },
     {
      "va": "0x0060E800",
@@ -71067,12 +71067,12 @@
     {
      "va": "0x0060E890",
      "length": 171,
-     "name": "sub_0060E890_LinkNode"
+     "name": "IGNORELIST_LinkMappingListNode"
     },
     {
      "va": "0x0060E940",
      "length": 28,
-     "name": "sub_0060E940_RawNext"
+     "name": "IGNORELIST_GetMappingListRawNext"
     },
     {
      "va": "0x0060E960",
@@ -71097,7 +71097,7 @@
     {
      "va": "0x0060EAA0",
      "length": 56,
-     "name": "sub_0060EAA0_Next"
+     "name": "IGNORELIST_GetStringTableNext"
     },
     {
      "va": "0x0060EAE0",
@@ -71107,12 +71107,12 @@
     {
      "va": "0x0060EB70",
      "length": 142,
-     "name": "?sub_0060EB70_InternalClear@D2CommonStormHashTableAStrc@@QAEXH@Z"
+     "name": "?IGNORELIST_InternalClearStringTable@D2CommonStormHashTableAStrc@@QAEXH@Z"
     },
     {
      "va": "0x0060EC00",
      "length": 56,
-     "name": "sub_0060EC00_Next"
+     "name": "IGNORELIST_GetMappingTableNext"
     },
     {
      "va": "0x0060EC40",
@@ -71122,7 +71122,7 @@
     {
      "va": "0x0060EC80",
      "length": 37,
-     "name": "sub_0060EC80_ChangeLinkOffset"
+     "name": "IGNORELIST_ChangeStringListLinkOffset"
     },
     {
      "va": "0x0060ECB0",
@@ -71142,12 +71142,12 @@
     {
      "va": "0x0060ED60",
      "length": 8,
-     "name": "?sub_0060ED60_Clear@D2CommonStormHashTableAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ClearStringTable@D2CommonStormHashTableAStrc@@QAEXXZ"
     },
     {
      "va": "0x0060ED70",
      "length": 64,
-     "name": "sub_0060ED70_DeleteNext"
+     "name": "IGNORELIST_DeleteStringTableNodeAndGetNext"
     },
     {
      "va": "0x0060EDB0",
@@ -71161,7 +71161,7 @@
     {
      "va": "0x0060EE30",
      "length": 5,
-     "name": "?sub_0060EE30_Destroy@D2CommonStringEntryNodeStrc@@QAEXXZ"
+     "name": "?IGNORELIST_DestroyStringEntryNode@D2CommonStringEntryNodeStrc@@QAEXXZ"
     },
     {
      "va": "0x0060EE40",
@@ -71171,7 +71171,7 @@
     {
      "va": "0x0060EE60",
      "length": 142,
-     "name": "?sub_0060EE60_InternalClear@D2CommonStormHashTableBStrc@@QAEXH@Z"
+     "name": "?IGNORELIST_InternalClearMappingTable@D2CommonStormHashTableBStrc@@QAEXH@Z"
     },
     {
      "va": "0x0060EEF0",
@@ -71181,12 +71181,12 @@
     {
      "va": "0x0060EF30",
      "length": 37,
-     "name": "sub_0060EF30_ChangeLinkOffset"
+     "name": "IGNORELIST_ChangeMappingListLinkOffset"
     },
     {
      "va": "0x0060EF60",
      "length": 90,
-     "name": "sub_0060EF60_DeleteNode"
+     "name": "IGNORELIST_DeleteMappingListNode"
     },
     {
      "va": "0x0060EFC0",
@@ -71215,7 +71215,7 @@
     {
      "va": "0x0060F150",
      "length": 8,
-     "name": "?sub_0060F150_Clear@D2CommonStormHashTableBStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ClearMappingTable@D2CommonStormHashTableBStrc@@QAEXXZ"
     },
     {
      "va": "0x0060F160",
@@ -71230,7 +71230,7 @@
     {
      "va": "0x0060F1D0",
      "length": 119,
-     "name": "?sub_0060F1D0_Ptr@D2StormHashTable0060F1D0Strc@@QAEPADIABUD2StormNameKeyStrc@@@Z"
+     "name": "?IGNORELIST_InternalFindMappingTableNode@D2StormHashTable0060F1D0Strc@@QAEPADIABUD2StormNameKeyStrc@@@Z"
     },
     {
      "va": "0x0060F250",
@@ -71240,7 +71240,7 @@
     {
      "va": "0x0060F270",
      "length": 68,
-     "name": "sub_0060F270_DeleteNode"
+     "name": "IGNORELIST_DeleteStringListNode"
     },
     {
      "va": "0x0060F2C0",
@@ -71260,7 +71260,7 @@
     {
      "va": "0x0060F390",
      "length": 325,
-     "name": "sub_0060F390_ReallocData"
+     "name": "IGNORELIST_ReallocStringSlotArray"
     },
     {
      "va": "0x0060F4E0",
@@ -71270,7 +71270,7 @@
     {
      "va": "0x0060F500",
      "length": 11,
-     "name": "?sub_0060F500_VirtSlot10@D2CommonIgnoreListStrc@@UAEXXZ"
+     "name": "?IGNORELIST_ClearAccountAliases@D2CommonIgnoreListStrc@@UAEXXZ"
     },
     {
      "va": "0x0060F510",
@@ -71279,7 +71279,7 @@
     {
      "va": "0x0060F590",
      "length": 119,
-     "name": "?sub_0060F590_InternalFind@D2CommonStormHashTableAStrc@@QAEPAUD2CommonStringEntryNodeStrc@@IABUD2StormHashKeyStrIStrc@@@Z"
+     "name": "?IGNORELIST_InternalFindStringTableNode@D2CommonStormHashTableAStrc@@QAEPAUD2CommonStringEntryNodeStrc@@IABUD2StormHashKeyStrIStrc@@@Z"
     },
     {
      "va": "0x0060F610",
@@ -71294,17 +71294,17 @@
     {
      "va": "0x0060F6D0",
      "length": 70,
-     "name": "sub_0060F6D0_Reserve"
+     "name": "IGNORELIST_ReserveStringSlotArray"
     },
     {
      "va": "0x0060F720",
      "length": 325,
-     "name": "sub_0060F720_ReallocData"
+     "name": "IGNORELIST_ReallocMappingSlotArray"
     },
     {
      "va": "0x0060F870",
      "length": 51,
-     "name": "?sub_0060F870_Translate@D2CommonIgnoreListStrc@@UAEHPBDPADH@Z"
+     "name": "?IGNORELIST_TranslateAlias@D2CommonIgnoreListStrc@@UAEHPBDPADH@Z"
     },
     {
      "va": "0x0060F8B0",
@@ -71327,32 +71327,32 @@
     {
      "va": "0x0060F9D0",
      "length": 247,
-     "name": "sub_0060F9D0_SetCount"
+     "name": "IGNORELIST_SetStringSlotArrayCount"
     },
     {
      "va": "0x0060FAD0",
      "length": 70,
-     "name": "sub_0060FAD0_Reserve"
+     "name": "IGNORELIST_ReserveMappingSlotArray"
     },
     {
      "va": "0x0060FB20",
      "length": 191,
-     "name": "sub_0060FB20_Remove"
+     "name": "IGNORELIST_RemoveName"
     },
     {
      "va": "0x0060FBE0",
      "length": 90,
-     "name": "sub_0060FBE0_RemoveAlias"
+     "name": "IGNORELIST_RemoveAlias"
     },
     {
      "va": "0x0060FC40",
      "length": 266,
-     "name": "?sub_0060FC40_VirtSlot5@D2CommonIgnoreListStrc@@UAEHPBD@Z"
+     "name": "?IGNORELIST_IsTextFiltered@D2CommonIgnoreListStrc@@UAEHPBD@Z"
     },
     {
      "va": "0x0060FD50",
      "length": 59,
-     "name": "sub_0060FD50_Contains"
+     "name": "IGNORELIST_ContainsName"
     },
     {
      "va": "0x0060FD90",
@@ -71381,17 +71381,17 @@
     {
      "va": "0x0060FE90",
      "length": 85,
-     "name": "sub_0060FE90_NewNode"
+     "name": "IGNORELIST_NewStringListNode"
     },
     {
      "va": "0x0060FEF0",
      "length": 170,
-     "name": "sub_0060FEF0_InternalNew"
+     "name": "IGNORELIST_AllocStringTableNodeInList"
     },
     {
      "va": "0x0060FFA0",
      "length": 34,
-     "name": "sub_0060FFA0_InternalDelete"
+     "name": "IGNORELIST_InternalDeleteStringTableNode"
     },
     {
      "va": "0x0060FFD0",
@@ -71401,12 +71401,12 @@
     {
      "va": "0x00610000",
      "length": 20,
-     "name": "?sub_00610000_Clear@D2CommonStormSlotArrayAStrc@@QAEXXZ"
+     "name": "?IGNORELIST_ClearStringSlotArray@D2CommonStormSlotArrayAStrc@@QAEXXZ"
     },
     {
      "va": "0x00610020",
      "length": 40,
-     "name": "?sub_00610020_VirtSlot3@D2CommonStormHashTableAStrc@@UAEXXZ"
+     "name": "?IGNORELIST_DestroyStringTable@D2CommonStormHashTableAStrc@@UAEXXZ"
     },
     {
      "va": "0x00610050",
@@ -71421,7 +71421,7 @@
     {
      "va": "0x00610090",
      "length": 9,
-     "name": "?sub_00610090_SetCountForward@D2CommonStormSlotArrayAStrc@@QAEXI@Z"
+     "name": "?IGNORELIST_ForwardSetStringSlotArrayCount@D2CommonStormSlotArrayAStrc@@QAEXI@Z"
     },
     {
      "va": "0x006100A0",
@@ -71431,17 +71431,17 @@
     {
      "va": "0x006100B0",
      "length": 247,
-     "name": "sub_006100B0_SetCount"
+     "name": "IGNORELIST_SetMappingSlotArrayCount"
     },
     {
      "va": "0x006101B0",
      "length": 451,
-     "name": "sub_006101B0_GrowListArray"
+     "name": "IGNORELIST_GrowStringTableSlots"
     },
     {
      "va": "0x00610380",
      "length": 287,
-     "name": "sub_00610380_IsListed"
+     "name": "IGNORELIST_IsListed"
     },
     {
      "va": "0x006104A0",
@@ -71465,17 +71465,17 @@
     {
      "va": "0x00610630",
      "length": 88,
-     "name": "?sub_00610630@List@@QAEPAUNode@@HII@Z"
+     "name": "?IGNORELIST_NewMappingListNode@List@@QAEPAUNode@@HII@Z"
     },
     {
      "va": "0x00610690",
      "length": 56,
-     "name": "sub_00610690_InternalDelete"
+     "name": "IGNORELIST_InternalDeleteMappingTableNode"
     },
     {
      "va": "0x006106D0",
      "length": 173,
-     "name": "sub_006106D0_InternalNew"
+     "name": "IGNORELIST_AllocMappingTableNodeInList"
     },
     {
      "va": "0x00610780",
@@ -71490,7 +71490,7 @@
     {
      "va": "0x006107D0",
      "length": 40,
-     "name": "?sub_006107D0_VirtSlot3@D2CommonStormHashTableBStrc@@UAEXXZ"
+     "name": "?IGNORELIST_DestroyMappingTable@D2CommonStormHashTableBStrc@@UAEXXZ"
     },
     {
      "va": "0x00610800",
@@ -71500,7 +71500,7 @@
     {
      "va": "0x00610830",
      "length": 9,
-     "name": "?sub_00610830_SetCountForward@D2CommonStormSlotArrayBStrc@@QAEXI@Z"
+     "name": "?IGNORELIST_ForwardSetMappingSlotArrayCount@D2CommonStormSlotArrayBStrc@@QAEXI@Z"
     },
     {
      "va": "0x00610840",
@@ -71509,7 +71509,7 @@
     {
      "va": "0x006108D0",
      "length": 451,
-     "name": "?sub_006108D0_GrowListArray@D2CommonStormHashTableBStrc@@QAEXXZ"
+     "name": "?IGNORELIST_GrowMappingTableSlots@D2CommonStormHashTableBStrc@@QAEXXZ"
     },
     {
      "va": "0x00610AA0",
@@ -71524,7 +71524,7 @@
     {
      "va": "0x00610BE0",
      "length": 191,
-     "name": "sub_00610BE0_InternalNewNode"
+     "name": "IGNORELIST_InternalNewStringTableNode"
     },
     {
      "va": "0x00610CA0",
@@ -71538,32 +71538,32 @@
     {
      "va": "0x00610D60",
      "length": 136,
-     "name": "?sub_00610D60_New@D2CommonStormHashTableAStrc@@QAEPAUD2CommonStringEntryNodeStrc@@PBDII@Z"
+     "name": "?IGNORELIST_NewStringTableNode@D2CommonStormHashTableAStrc@@QAEPAUD2CommonStringEntryNodeStrc@@PBDII@Z"
     },
     {
      "va": "0x00610DF0",
      "length": 191,
-     "name": "sub_00610DF0_InternalNewNode"
+     "name": "IGNORELIST_InternalNewMappingTableNode"
     },
     {
      "va": "0x00610EB0",
      "length": 210,
-     "name": "sub_00610EB0_Add"
+     "name": "IGNORELIST_AddName"
     },
     {
      "va": "0x00610F90",
      "length": 186,
-     "name": "?sub_00610F90_AddAlias@D2CommonIgnoreListStrc@@UAEHPBD@Z"
+     "name": "?IGNORELIST_AddAlias@D2CommonIgnoreListStrc@@UAEHPBD@Z"
     },
     {
      "va": "0x00611050",
      "length": 280,
-     "name": "?sub_00611050_Load@D2CommonIgnoreListStrc@@QAEXXZ"
+     "name": "?IGNORELIST_LoadFromFile@D2CommonIgnoreListStrc@@QAEXXZ"
     },
     {
      "va": "0x00611170",
      "length": 136,
-     "name": "?sub_00611170_New@D2CommonStormHashTableBStrc@@QAEPAUD2CommonMappingEntryNodeStrc@@PBDII@Z"
+     "name": "?IGNORELIST_NewMappingTableNode@D2CommonStormHashTableBStrc@@QAEPAUD2CommonMappingEntryNodeStrc@@PBDII@Z"
     },
     {
      "va": "0x00611200",
@@ -71573,17 +71573,17 @@
     {
      "va": "0x00611320",
      "length": 435,
-     "name": "?sub_00611320_StoreAccountAlias@D2CommonIgnoreListStrc@@UAEHPADH@Z"
+     "name": "?IGNORELIST_StoreAccountAlias@D2CommonIgnoreListStrc@@UAEHPADH@Z"
     },
     {
      "va": "0x006114E0",
      "length": 122,
-     "name": "?sub_006114E0_CreateIgnoreList@@YAXXZ"
+     "name": "?IGNORELIST_CreateIgnoreList@@YAXXZ"
     },
     {
      "va": "0x00611560",
      "length": 130,
-     "name": "?sub_00611560_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
+     "name": "?IGNORELIST_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
     },
     {
      "va": "0x006117D0",
@@ -71655,32 +71655,32 @@
     {
      "va": "0x00611600",
      "length": 5,
-     "name": "?sub_00611600_CloseLogTail@@YAXXZ"
+     "name": "?PROFCORE_CloseLog@@YAXXZ"
     },
     {
      "va": "0x00611620",
      "length": 29,
-     "name": "sub_00611620_ClearAndCallHook"
+     "name": "PROFCORE_CallProfHook"
     },
     {
      "va": "0x00611650",
      "length": 14,
-     "name": "?sub_00611650_CallHook0096BC24@@YAHXZ"
+     "name": "?PROFCORE_CallSecondaryHook@@YAHXZ"
     },
     {
      "va": "0x00611660",
      "length": 70,
-     "name": "sub_00611660_AddSample"
+     "name": "PROFCORE_AddSample"
     },
     {
      "va": "0x006116B0",
      "length": 122,
-     "name": "sub_006116B0_WriteProfileCounters"
+     "name": "PROFCORE_WriteProfileCounters"
     },
     {
      "va": "0x00611730",
      "length": 35,
-     "name": "?sub_00611730_DumpAndResetProfile@@YAXXZ"
+     "name": "?PROFCORE_DumpAndResetProfile@@YAXXZ"
     }
    ]
   },
@@ -71711,12 +71711,12 @@
     {
      "va": "0x006119E0",
      "length": 12,
-     "name": "?sub_006119E0_SkillsCalcParamCount@@YIHH@Z"
+     "name": "?DATATBLS_GetSkillsCalcParamCount@@YIHH@Z"
     },
     {
      "va": "0x006119F0",
      "length": 476,
-     "name": "?sub_006119F0_SkillsCalcParamCallback@@YIHPADPAHHH@Z"
+     "name": "?DATATBLS_SkillsCalcParamCallback@@YIHPADPAHHH@Z"
     },
     {
      "va": "0x00611BD0",
@@ -71736,52 +71736,52 @@
     {
      "va": "0x00611D60",
      "length": 85,
-     "name": "?sub_00611D60_BuildStateMask@@YIXPAIH@Z"
+     "name": "?DATATBLS_BuildStateMask@@YIXPAIH@Z"
     },
     {
      "va": "0x00611DC0",
      "length": 155,
-     "name": "sub_00611DC0_BuildStateListByFlag"
+     "name": "DATATBLS_BuildStateListByFlag"
     },
     {
      "va": "0x00611E60",
      "length": 126,
-     "name": "sub_00611E60_BuildStateListByField"
+     "name": "DATATBLS_BuildStateListByField"
     },
     {
      "va": "0x00611EE0",
      "length": 85,
-     "name": "?sub_00611EE0_PlayerName@@YAXPADHH@Z"
+     "name": "?DATATBLS_GetPlayerClassDebugName@@YAXPADHH@Z"
     },
     {
      "va": "0x00611F40",
      "length": 87,
-     "name": "?sub_00611F40_MonsterName@@YAXPADHH@Z"
+     "name": "?DATATBLS_GetMonsterDebugName@@YAXPADHH@Z"
     },
     {
      "va": "0x00611FA0",
      "length": 58,
-     "name": "?sub_00611FA0_CopyObjectLabel@@YAXPADHH@Z"
+     "name": "?DATATBLS_GetObjectDebugName@@YAXPADHH@Z"
     },
     {
      "va": "0x00611FE0",
      "length": 66,
-     "name": "?sub_00611FE0_ItemName@@YAXPADHH@Z"
+     "name": "?DATATBLS_GetItemDebugName@@YAXPADHH@Z"
     },
     {
      "va": "0x00612030",
      "length": 26,
-     "name": "?sub_00612030_MissileName@@YAXPADHH@Z"
+     "name": "?DATATBLS_GetMissileDebugName@@YAXPADHH@Z"
     },
     {
      "va": "0x00612050",
      "length": 200,
-     "name": "?sub_00612050_UnitName@@YGPADPAUUnitHeader@@PADH@Z"
+     "name": "?DATATBLS_GetUnitDebugName@@YGPADPAUUnitHeader@@PADH@Z"
     },
     {
      "va": "0x00612120",
      "length": 200,
-     "name": "?sub_00612120_TypedName@@YGPADIFPADH@Z"
+     "name": "?DATATBLS_GetUnitTypeAndClassDebugName@@YGPADIFPADH@Z"
     },
     {
      "va": "0x006121F0",
@@ -71806,7 +71806,7 @@
     {
      "va": "0x00612EA0",
      "length": 952,
-     "name": "?sub_00612EA0_UnloadCompCodeAndCompileBins@@YGXXZ"
+     "name": "?DATATBLS_UnloadCompCodeAndCompileBins@@YGXXZ"
     },
     {
      "va": "0x00613260",
@@ -71821,7 +71821,7 @@
     {
      "va": "0x00617C20",
      "length": 7,
-     "name": "?sub_00617C20_LoadSkills@@YIXPAX@Z"
+     "name": "?DATATBLS_LoadSkills@@YIXPAX@Z"
     },
     {
      "va": "0x00617C30",
@@ -71846,7 +71846,7 @@
     {
      "va": "0x00619100",
      "length": 59,
-     "name": "?sub_00619100_UnloadPetTypeTxt@@YIXXZ"
+     "name": "?DATATBLS_UnloadPetTypeTxt@@YIXXZ"
     },
     {
      "va": "0x00619300",
@@ -71871,7 +71871,7 @@
     {
      "va": "0x006254F0",
      "length": 9,
-     "name": "sub_006254F0_GetTotalStatValue"
+     "name": "STATLIST_GetTotalStatValueStub"
     },
     {
      "va": "0x00625500",
@@ -71881,7 +71881,7 @@
     {
      "va": "0x00625520",
      "length": 59,
-     "name": "sub_00625520_GetStatBonus"
+     "name": "STATLIST_GetStatBonus"
     },
     {
      "va": "0x00625560",
@@ -71922,17 +71922,17 @@
     {
      "va": "0x00612280",
      "length": 99,
-     "name": "?sub_00612280_ReadExcelFile@@YIPAXPAXPBD1PAI1H@Z"
+     "name": "?DATATBLS_ReadExcelFile@@YIPAXPAXPBD1PAI1H@Z"
     },
     {
      "va": "0x00612600",
      "length": 334,
-     "name": "?sub_00612600@@YIXPAXHHHHH@Z"
+     "name": "?DATATBLS_InitUnicodeClassNamesInCharStatsTxt@@YIXPAXHHHHH@Z"
     },
     {
      "va": "0x00613D30",
      "length": 289,
-     "name": "sub_00613D30"
+     "name": "DATATBLS_LoadExperienceTxt"
     },
     {
      "va": "0x00613F80",
@@ -72002,7 +72002,7 @@
     {
      "va": "0x00619720",
      "length": 13,
-     "name": "_sub_00619720@4"
+     "name": "_DUNGEON_GetTileDataFromAct@4"
     },
     {
      "va": "0x00619730",
@@ -72017,12 +72017,12 @@
     {
      "va": "0x006197D0",
      "length": 45,
-     "name": "?sub_006197D0_AllocCleared80@@YIPAXPAX@Z"
+     "name": "?DUNGEON_AllocZeroedBlock@@YIPAXPAX@Z"
     },
     {
      "va": "0x00619800",
      "length": 136,
-     "name": "?sub_00619800@@YGXPAXPAUD2ActiveRoomStrc@@@Z"
+     "name": "?DUNGEON_InitAdjacentRoomList@@YGXPAXPAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x00619890",
@@ -72066,7 +72066,7 @@
     {
      "va": "0x00619DA0",
      "length": 76,
-     "name": "?sub_00619DA0_ActLookup@@YGPAUD2ActRoom00619DA0Strc@@PAUD2Act00619DA0Strc@@HH@Z"
+     "name": "?DUNGEON_FindRoomBySubtileCoordinates@@YGPAUD2ActRoom00619DA0Strc@@PAUD2Act00619DA0Strc@@HH@Z"
     },
     {
      "va": "0x00619DF0",
@@ -72086,7 +72086,7 @@
     {
      "va": "0x00619EE0",
      "length": 18,
-     "name": "_sub_00619EE0@4"
+     "name": "_DUNGEON_IncreaseAlliedCountOfRoom@4"
     },
     {
      "va": "0x00619F00",
@@ -72215,7 +72215,7 @@
     {
      "va": "0x0061A550",
      "length": 69,
-     "name": "?sub_0061A550_CheckClientsOfRoom@@YAHPAUD2ActiveRoomStrc@@@Z"
+     "name": "?DUNGEON_ValidateRoomClients@@YAHPAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0061A5A0",
@@ -72240,7 +72240,7 @@
     {
      "va": "0x0061A7E0",
      "length": 87,
-     "name": "sub_0061A7E0_HasEntryMissingFrom"
+     "name": "DUNGEON_HasClientNotInRoom"
     },
     {
      "va": "0x0061A840",
@@ -72250,7 +72250,7 @@
     {
      "va": "0x0061A8E0",
      "length": 43,
-     "name": "?sub_0061A8E0_ClearRoomField08@@YIXPAUD2ActiveRoomStrc@@@Z"
+     "name": "?DUNGEON_ClearRoomTiles@@YIXPAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0061A910",
@@ -72305,7 +72305,7 @@
     {
      "va": "0x0061AB30",
      "length": 40,
-     "name": "sub_0061AB30"
+     "name": "DUNGEON_GetActNoFromRoom"
     },
     {
      "va": "0x0061AB60",
@@ -72350,7 +72350,7 @@
     {
      "va": "0x0061AD10",
      "length": 25,
-     "name": "?sub_0061AD10@@YGXPAURoom@@PAPAUCoord@@PAH@Z"
+     "name": "?DUNGEON_GetTombStoneTileCoords@@YGXPAURoom@@PAPAUCoord@@PAH@Z"
     },
     {
      "va": "0x0061AD30",
@@ -72405,7 +72405,7 @@
     {
      "va": "0x0061AFA0",
      "length": 37,
-     "name": "_sub_0061AFA0@8"
+     "name": "_DUNGEON_SaveKilledUnitGUID@8"
     },
     {
      "va": "0x0061AFD0",
@@ -72425,17 +72425,17 @@
     {
      "va": "0x0061B390",
      "length": 245,
-     "name": "sub_0061B390_WalkLevels"
+     "name": "DRLGACTIVATE_RoomExPropagateSetStatus"
     },
     {
      "va": "0x00627B70",
      "length": 51,
-     "name": "?sub_6FD98220@@YIHHHHPAX@Z"
+     "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
      "va": "0x00643700",
      "length": 51,
-     "name": "?sub_00643700_SkillCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
+     "name": "?DUNGEON_SkillCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
      "va": "0x0064B720",
@@ -72491,17 +72491,17 @@
     {
      "va": "0x0061B290",
      "length": 10,
-     "name": "?sub_0061B290_ForceStatusClientInRoom@@YAXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_ForceRoomExStatus_ClientInRoom@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061B2A0",
      "length": 10,
-     "name": "?sub_0061B2A0_ForceStatusClientInSight@@YAXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_ForceRoomExStatus_ClientInSight@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061B2B0",
      "length": 10,
-     "name": "?sub_0061B2B0_ForceStatusUntile@@YAXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_ForceRoomExStatus_Untile@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061B2C0",
@@ -72521,7 +72521,7 @@
     {
      "va": "0x0061B360",
      "length": 43,
-     "name": "?sub_0061B360_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
+     "name": "?DRLGACTIVATE_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
     },
     {
      "va": "0x0061B490",
@@ -72531,22 +72531,22 @@
     {
      "va": "0x0061B4F0",
      "length": 61,
-     "name": "?sub_0061B4F0@@YAXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_RoomExIdentifyRealStatus@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061B530",
      "length": 7,
-     "name": "?sub_0061B530_UnsetStatusClientInRoom@@YIXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_RoomExStatusUnset_ClientInRoom@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061B540",
      "length": 7,
-     "name": "?sub_0061B540_UnsetStatusClientInSight@@YIXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_RoomExStatusUnset_ClientInSight@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061B550",
      "length": 7,
-     "name": "?sub_0061B550_UnsetStatusClientOutOfSight@@YIXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_RoomExStatusUnset_ClientOutOfSight@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061B560",
@@ -72556,7 +72556,7 @@
     {
      "va": "0x0061B5A0",
      "length": 12,
-     "name": "?sub_0061B5A0_CallUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
+     "name": "?DRLGACTIVATE_CallRoomExUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
     },
     {
      "va": "0x0061B5B0",
@@ -72566,7 +72566,7 @@
     {
      "va": "0x0061B610",
      "length": 45,
-     "name": "?sub_0061B610_RoomUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
+     "name": "?DRLGACTIVATE_RoomUnsetAndPropagateStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
     },
     {
      "va": "0x0061B640",
@@ -72596,7 +72596,7 @@
     {
      "va": "0x0061B7E0",
      "length": 42,
-     "name": "?sub_0061B7E0_InitEntries@@YIXPAUD2Owner0061B7E0Strc@@@Z"
+     "name": "?DRLGACTIVATE_InitializeRoomExStatusLists@@YIXPAUD2Owner0061B7E0Strc@@@Z"
     },
     {
      "va": "0x0061B810",
@@ -72611,7 +72611,7 @@
     {
      "va": "0x0061B8B0",
      "length": 53,
-     "name": "?sub_0061B8B0_UpdateRoomStats@@YAXPAUD2DrlgStrc@@@Z"
+     "name": "?DRLGACTIVATE_UpdateRoomsAllocationStats@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x0061B8F0",
@@ -72626,7 +72626,7 @@
     {
      "va": "0x0061BA10",
      "length": 23,
-     "name": "?sub_0061BA10_CanUntileLevel@@YAHH@Z"
+     "name": "?DRLGACTIVATE_CanUntileLevel@@YAHH@Z"
     },
     {
      "va": "0x0061BA30",
@@ -72646,7 +72646,7 @@
     {
      "va": "0x0061BAF0",
      "length": 24,
-     "name": "?sub_0061BAF0_ForceStatusClientOutOfSight@@YAXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGACTIVATE_ForceRoomExStatus_ClientOutOfSight@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061BB10",
@@ -72661,7 +72661,7 @@
     {
      "va": "0x0061BB60",
      "length": 25,
-     "name": "?sub_0061BB60_SetColorForId@@YGXPAUD2ColorRecordStrc@@H@Z"
+     "name": "?DRLGACTIVATE_ApplyArreatSummitLightColor@@YGXPAUD2ColorRecordStrc@@H@Z"
     }
    ]
   },
@@ -72764,7 +72764,7 @@
     {
      "va": "0x0061DD00",
      "length": 234,
-     "name": "?sub_0061DD00_InitPortalLevels@@YAXPAUD2LevelDefBin@@@Z"
+     "name": "?DATATBLS_InitPortalLevels@@YAXPAUD2LevelDefBin@@@Z"
     },
     {
      "va": "0x0061DDF0",
@@ -72789,12 +72789,12 @@
     {
      "va": "0x0061E4A0",
      "length": 124,
-     "name": "?sub_0061E4A0@@YAXPBDPAD@Z"
+     "name": "?DATATBLS_PrefixPathWithDirectory@@YAXPBDPAD@Z"
     },
     {
      "va": "0x0061E520",
      "length": 1378,
-     "name": "?sub_0061E520@@YIXPAX@Z"
+     "name": "?DATATBLS_LoadLevelTypesTxt@@YIXPAX@Z"
     },
     {
      "va": "0x0061EA90",
@@ -72893,12 +72893,12 @@
     {
      "va": "0x0061FC10",
      "length": 109,
-     "name": "?sub_0061FC10_GetAutomapLevelType@@YAHPBD@Z"
+     "name": "?DATATBLS_GetAutomapLevelType@@YAHPBD@Z"
     },
     {
      "va": "0x0061FC80",
      "length": 109,
-     "name": "?sub_0061FC80_GetAutomapTileType@@YAHPBD@Z"
+     "name": "?DATATBLS_GetAutomapTileType@@YAHPBD@Z"
     },
     {
      "va": "0x0061FCF0",
@@ -72917,7 +72917,7 @@
     {
      "va": "0x00644140",
      "length": 10,
-     "name": "?sub_00644140_GetSkillsTxtFromSkill@@YIPAUD2SkillsTxt@@PAUD2SkillStrc@@@Z"
+     "name": "?SKILLS_GetSkillsTxtRecordFromSkill@@YIPAUD2SkillsTxt@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x006446A0",
@@ -72927,7 +72927,7 @@
     {
      "va": "0x00673FF0",
      "length": 65,
-     "name": "?sub_00673FF0_GetVisFlagToLevel@@YIHPAUD2DrlgLevelStrc@@0@Z"
+     "name": "?DATATBLS_GetVisFlagToLevel@@YIHPAUD2DrlgLevelStrc@@0@Z"
     }
    ]
   },
@@ -72947,7 +72947,7 @@
     {
      "va": "0x0061BDF0",
      "length": 65,
-     "name": "?sub_0061BDF0_SetCycleState@@YAXPAUD2DrlgEnvironmentStrc@@@Z"
+     "name": "?ENVIRONMENT_SetCycleState@@YAXPAUD2DrlgEnvironmentStrc@@@Z"
     },
     {
      "va": "0x0061BE40",
@@ -73078,12 +73078,12 @@
     {
      "va": "0x00620300",
      "length": 92,
-     "name": "?sub_00620300_FreeUnit@@YGXPAUUnit@@@Z"
+     "name": "?UNITS_FreeUnit@@YGXPAUUnit@@@Z"
     },
     {
      "va": "0x00620360",
      "length": 78,
-     "name": "sub_00620360"
+     "name": "UNITS_SetTileUnitCoords"
     },
     {
      "va": "0x006203B0",
@@ -73158,7 +73158,7 @@
     {
      "va": "0x00620980",
      "length": 66,
-     "name": "sub_00620980"
+     "name": "UNITS_SetTileUnitTargetCoords"
     },
     {
      "va": "0x006209D0",
@@ -73202,7 +73202,7 @@
     {
      "va": "0x00620D80",
      "length": 179,
-     "name": "sub_00620D80_SetMonsterAnimSpeed"
+     "name": "UNITS_SetMonsterAnimSpeed"
     },
     {
      "va": "0x00620E40",
@@ -73257,7 +73257,7 @@
     {
      "va": "0x00621210",
      "length": 80,
-     "name": "?sub_00621210@@YGHPAUD2UnitStrc@@H@Z"
+     "name": "?UNITS_UpdateSequenceFrame@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00621260",
@@ -73291,7 +73291,7 @@
     {
      "va": "0x00621420",
      "length": 37,
-     "name": "?sub_00621420_GetRecordForValue@@YGPBUD2ValueRecordStrc@@HH@Z"
+     "name": "?UNITS_GetMonModeAnimModulator@@YGPBUD2ValueRecordStrc@@HH@Z"
     },
     {
      "va": "0x00621450",
@@ -73301,7 +73301,7 @@
     {
      "va": "0x00621480",
      "length": 19,
-     "name": "?sub_00621480@@YAHH@Z"
+     "name": "?UNITS_IsWalkOrRunMode@@YAHH@Z"
     },
     {
      "va": "0x006214A0",
@@ -73326,7 +73326,7 @@
     {
      "va": "0x006216B0",
      "length": 33,
-     "name": "?sub_006216B0_IsModeValue@@YAHHH@Z"
+     "name": "?UNITS_IsAnimModeBlock@@YAHHH@Z"
     },
     {
      "va": "0x006216E0",
@@ -73515,7 +73515,7 @@
     {
      "va": "0x00622520",
      "length": 53,
-     "name": "?sub_00622520_GetToHitFactor@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?UNITS_GetCharStatsToHitFactor@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00622560",
@@ -73524,7 +73524,7 @@
     {
      "va": "0x006225F0",
      "length": 297,
-     "name": "?sub_006225F0_MonsterCanBlock@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?UNITS_CanMonsterBlock@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00622720",
@@ -73659,7 +73659,7 @@
     {
      "va": "0x00623460",
      "length": 8,
-     "name": "_sub_00623460@4"
+     "name": "_UNITS_GetStashGoldLimit@4"
     },
     {
      "va": "0x00623470",
@@ -73765,17 +73765,17 @@
     {
      "va": "0x00624700",
      "length": 7,
-     "name": "?sub_00624700_SetLogValue@@YIXH@Z"
+     "name": "?LOG_SetLogValue@@YIXH@Z"
     },
     {
      "va": "0x00624720",
      "length": 15,
-     "name": "?sub_00624720_OpenLogFile@@YAPAU_iobuf@@PBD@Z"
+     "name": "?LOG_OpenLogFile@@YAPAU_iobuf@@PBD@Z"
     },
     {
      "va": "0x00624730",
      "length": 8,
-     "name": "?sub_00624730_CloseLogFile@@YAXPAU_iobuf@@@Z"
+     "name": "?LOG_CloseLogFile@@YAXPAU_iobuf@@@Z"
     },
     {
      "va": "0x00624780",
@@ -73785,7 +73785,7 @@
     {
      "va": "0x006248B0",
      "length": 45,
-     "name": "?sub_006248B0_StoreLoggingToFile@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
+     "name": "?LOG_WriteLogEntry@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
     },
     {
      "va": "0x006248E0",
@@ -73795,22 +73795,22 @@
     {
      "va": "0x00624930",
      "length": 400,
-     "name": "?sub_00624930_WriteLogLine@@YAXHHHHHPBDZZ"
+     "name": "?LOG_WriteGameLogLine@@YAXHHHHHPBDZZ"
     },
     {
      "va": "0x00624AC0",
      "length": 84,
-     "name": "?sub_00624AC0_OpenLog@@YIHPBD@Z"
+     "name": "?LOG_OpenLog@@YIHPBD@Z"
     },
     {
      "va": "0x00624B20",
      "length": 40,
-     "name": "?sub_00624B20_CloseLog@@YAXXZ"
+     "name": "?LOG_CloseLog@@YAXXZ"
     },
     {
      "va": "0x00624B50",
      "length": 60,
-     "name": "?sub_00624B50@@YIXH@Z"
+     "name": "?LOG_SetLoggingEnabled@@YIXH@Z"
     }
    ]
   },
@@ -73837,42 +73837,42 @@
     {
      "va": "0x00624BD0",
      "length": 58,
-     "name": "?sub_00624BD0_FindStatInsertIndex@@YAHPAUD2StatsArrayStrc@@H@Z"
+     "name": "?STATLIST_FindStatInsertIndex@@YAHPAUD2StatsArrayStrc@@H@Z"
     },
     {
      "va": "0x00624C10",
      "length": 75,
-     "name": "?sub_00624C10_FindFirstStatIndex@@YGHPAUD2StatsArrayStrc@@H@Z"
+     "name": "?STATLIST_FindFirstStatIndex@@YGHPAUD2StatsArrayStrc@@H@Z"
     },
     {
      "va": "0x00624C80",
      "length": 139,
-     "name": "?sub_00624C80_InsertStatOrFail@@YGPAUD2StatStrc@@PAXPAUD2StatsArrayStrc@@H@Z"
+     "name": "?STATLIST_InsertStatOrFail@@YGPAUD2StatStrc@@PAXPAUD2StatsArrayStrc@@H@Z"
     },
     {
      "va": "0x00624D10",
      "length": 121,
-     "name": "?sub_00624D10_RemoveStat@@YGXPAXPAUD2StatsArrayStrc@@PAUD2StatStrc@@@Z"
+     "name": "?STATLIST_RemoveStat@@YGXPAXPAUD2StatsArrayStrc@@PAUD2StatStrc@@@Z"
     },
     {
      "va": "0x00624D90",
      "length": 58,
-     "name": "?sub_00624D90_FindModStatInsertIndex@@YAHPAUD2ModStatsArrayStrc@@H@Z"
+     "name": "?STATLIST_FindModStatInsertIndex@@YAHPAUD2ModStatsArrayStrc@@H@Z"
     },
     {
      "va": "0x00624DD0",
      "length": 241,
-     "name": "?sub_00624DD0_InsertStatModOrFail@@YGXPAUD2StatListStrc@@H@Z"
+     "name": "?STATLIST_InsertStatModOrFail@@YGXPAUD2StatListStrc@@H@Z"
     },
     {
      "va": "0x00624ED0",
      "length": 104,
-     "name": "?sub_00624ED0_GetBaseStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
+     "name": "?STATLIST_GetBaseStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
     },
     {
      "va": "0x00624F40",
      "length": 17,
-     "name": "?sub_00624F40_GetStatsArray@@YAPAUD2StatsArrayStrc@@PAUD2StatListExStrc@@@Z"
+     "name": "?STATLIST_GetStatsArray@@YAPAUD2StatsArrayStrc@@PAUD2StatListExStrc@@@Z"
     },
     {
      "va": "0x00624F60",
@@ -73882,17 +73882,17 @@
     {
      "va": "0x00624FE0",
      "length": 207,
-     "name": "?sub_00624FE0_GetStatWithChildLists@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
+     "name": "?STATLIST_GetStatWithChildLists@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
     },
     {
      "va": "0x006250B0",
      "length": 154,
-     "name": "?sub_006250B0_AddFullStatValue@@YGHPAUD2StatListStrc@@HHPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_AddFullStatValue@@YGHPAUD2StatListStrc@@HHPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00625150",
      "length": 156,
-     "name": "?sub_00625150_UpdateUnitStat@@YGXPAUD2StatListStrc@@HHPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_UpdateUnitStat@@YGXPAUD2StatListStrc@@HHPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x006251F0",
@@ -73902,7 +73902,7 @@
     {
      "va": "0x00625250",
      "length": 26,
-     "name": "_sub_00625250@4"
+     "name": "_STATLIST_GetOwnerType@4"
     },
     {
      "va": "0x00625270",
@@ -73917,17 +73917,17 @@
     {
      "va": "0x006252B0",
      "length": 21,
-     "name": "_sub_006252B0@4"
+     "name": "_STATLIST_GetOwnerGUID@4"
     },
     {
      "va": "0x006252D0",
      "length": 20,
-     "name": "_sub_006252D0@8"
+     "name": "_STATLIST_SetState@8"
     },
     {
      "va": "0x006252F0",
      "length": 21,
-     "name": "_sub_006252F0@4"
+     "name": "_STATLIST_GetState@4"
     },
     {
      "va": "0x00625310",
@@ -73937,12 +73937,12 @@
     {
      "va": "0x00625330",
      "length": 21,
-     "name": "_sub_00625330@4"
+     "name": "_STATLIST_GetExpireFrame@4"
     },
     {
      "va": "0x00625350",
      "length": 85,
-     "name": "?sub_00625350@@YGHPAUD2StatListStrc@@HG@Z"
+     "name": "?STATLIST_GetBaseStatValue@@YGHPAUD2StatListStrc@@HG@Z"
     },
     {
      "va": "0x006253B0",
@@ -73967,17 +73967,17 @@
     {
      "va": "0x006255A0",
      "length": 94,
-     "name": "sub_006255A0_GetStatValueWithPercent"
+     "name": "STATLIST_GetStatValueWithPercent"
     },
     {
      "va": "0x00625600",
      "length": 31,
-     "name": "sub_00625600_UnitGetStatValueWithPercent"
+     "name": "STATLIST_UnitGetStatValueWithPercent"
     },
     {
      "va": "0x00625620",
      "length": 38,
-     "name": "sub_00625620"
+     "name": "STATLIST_GetBaseStatValueByIndex"
     },
     {
      "va": "0x00625650",
@@ -73992,7 +73992,7 @@
     {
      "va": "0x006256E0",
      "length": 66,
-     "name": "sub_006256E0_StatListFindByFlags"
+     "name": "STATLIST_FindStatListByFlag"
     },
     {
      "va": "0x00625730",
@@ -74037,7 +74037,7 @@
     {
      "va": "0x006259B0",
      "length": 65,
-     "name": "?sub_006259B0_GetStateStat@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_GetUnitAlignment@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00625A00",
@@ -74052,12 +74052,12 @@
     {
      "va": "0x00625A70",
      "length": 244,
-     "name": "?sub_00625A70_ToggleState@@YGXPAUD2UnitStrc@@HH@Z"
+     "name": "?STATLIST_ToggleState@@YGXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00625B70",
      "length": 60,
-     "name": "sub_00625B70_CheckStatFlag"
+     "name": "STATLIST_CheckState"
     },
     {
      "va": "0x00625BB0",
@@ -74082,7 +74082,7 @@
     {
      "va": "0x00625CE0",
      "length": 20,
-     "name": "_sub_00625CE0@8"
+     "name": "_STATLIST_SetStatRemoveCallback@8"
     },
     {
      "va": "0x00625D00",
@@ -74117,7 +74117,7 @@
     {
      "va": "0x00625EF0",
      "length": 132,
-     "name": "?sub_00625EF0_MinDamage@@YGHPAUD2UnitStrc@@H@Z"
+     "name": "?STATLIST_GetMinDamageFromUnit@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00625F80",
@@ -74127,12 +74127,12 @@
     {
      "va": "0x00625FD0",
      "length": 77,
-     "name": "?sub_00625FD0_MinDamage@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_GetMinThrowDamageFromUnit@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00626020",
      "length": 74,
-     "name": "?sub_00626020_ArmorValue@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_GetDefenseFromUnit@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00626070",
@@ -74142,17 +74142,17 @@
     {
      "va": "0x00626090",
      "length": 21,
-     "name": "_sub_00626090@4"
+     "name": "_STATLIST_GetListExpireFrame@4"
     },
     {
      "va": "0x006260B0",
      "length": 28,
-     "name": "_sub_006260B0@8"
+     "name": "_STATLIST_SetListExpireFrame@8"
     },
     {
      "va": "0x006260E0",
      "length": 13,
-     "name": "sub_006260E0"
+     "name": "STATLIST_GetSkillId"
     },
     {
      "va": "0x00626100",
@@ -74162,7 +74162,7 @@
     {
      "va": "0x00626110",
      "length": 147,
-     "name": "?sub_00626110_CopyStats@@YGHPAUD2StatListStrc@@HPAUD2StatStrc@@H@Z"
+     "name": "?STATLIST_CopyStatsOfId@@YGHPAUD2StatListStrc@@HPAUD2StatStrc@@H@Z"
     },
     {
      "va": "0x006261B0",
@@ -74181,12 +74181,12 @@
     {
      "va": "0x006266C0",
      "length": 602,
-     "name": "?sub_006266C0_UpdateStatOps@@YIHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_UpdateStatOps@@YIHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00626920",
      "length": 194,
-     "name": "?sub_00626920_UpdateStatValue@@YIXPAUD2StatListStrc@@HHPAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_UpdateStatValue@@YIXPAUD2StatListStrc@@HHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x006269F0",
@@ -74205,7 +74205,7 @@
     {
      "va": "0x00626CF0",
      "length": 19,
-     "name": "?sub_00626CF0_FreeExtendedStatList@@YIXPAUD2StatListStrc@@@Z"
+     "name": "?STATLIST_FreeExtendedStatList@@YIXPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x00626D10",
@@ -74228,7 +74228,7 @@
     {
      "va": "0x006270B0",
      "length": 160,
-     "name": "?sub_006270B0@@YGHPAUD2StatListStrc@@HHG@Z"
+     "name": "?STATLIST_SetStatValue@@YGHPAUD2StatListStrc@@HHG@Z"
     },
     {
      "va": "0x00627150",
@@ -74303,7 +74303,7 @@
     {
      "va": "0x00627830",
      "length": 43,
-     "name": "sub_00627830_GetStatAccumulated"
+     "name": "STATLIST_GetStatAccumulated"
     },
     {
      "va": "0x00627860",
@@ -74328,27 +74328,27 @@
     {
      "va": "0x00627AF0",
      "length": 62,
-     "name": "?sub_00627AF0_HasSkillDesc@@YIHH@Z"
+     "name": "?STATLIST_HasSkillDesc@@YIHH@Z"
     },
     {
      "va": "0x00627B30",
      "length": 12,
-     "name": "sub_00627B30"
+     "name": "STATLIST_GetItemTypesTxtRecordCount"
     },
     {
      "va": "0x00627B40",
      "length": 3,
-     "name": "sub_00627B40"
+     "name": "STATLIST_ReturnZero"
     },
     {
      "va": "0x00627B50",
      "length": 11,
-     "name": "sub_00627B50_Min"
+     "name": "STATLIST_GetMinimum"
     },
     {
      "va": "0x00627B60",
      "length": 11,
-     "name": "sub_00627B60_Max"
+     "name": "STATLIST_GetMaximum"
     },
     {
      "va": "0x00627C20",
@@ -74447,7 +74447,7 @@
     {
      "va": "0x00627DF0",
      "length": 35,
-     "name": "_sub_00627DF0@4"
+     "name": "_ITEMS_GetItemStartSeed@4"
     },
     {
      "va": "0x00627E20",
@@ -74462,7 +74462,7 @@
     {
      "va": "0x00627EA0",
      "length": 31,
-     "name": "_sub_00627EA0@8"
+     "name": "_ITEMS_SetItemQuality@8"
     },
     {
      "va": "0x00627EC0",
@@ -74477,12 +74477,12 @@
     {
      "va": "0x00627F20",
      "length": 37,
-     "name": "_sub_00627F20@4"
+     "name": "_ITEMS_GetAutoAffix@4"
     },
     {
      "va": "0x00627F50",
      "length": 34,
-     "name": "_sub_00627F50@8"
+     "name": "_ITEMS_SetAutoAffix@8"
     },
     {
      "va": "0x00627F80",
@@ -74497,7 +74497,7 @@
     {
      "va": "0x00627FE0",
      "length": 37,
-     "name": "_sub_00627FE0@4"
+     "name": "_ITEMS_GetRarePrefixIndex@4"
     },
     {
      "va": "0x00628010",
@@ -74507,7 +74507,7 @@
     {
      "va": "0x00628040",
      "length": 37,
-     "name": "_sub_00628040@4"
+     "name": "_ITEMS_GetRareSuffixIndex@4"
     },
     {
      "va": "0x00628070",
@@ -74532,7 +74532,7 @@
     {
      "va": "0x00628140",
      "length": 38,
-     "name": "_sub_00628140@8"
+     "name": "_ITEMS_CheckItemCMDFlag@8"
     },
     {
      "va": "0x00628170",
@@ -74557,7 +74557,7 @@
     {
      "va": "0x00628250",
      "length": 35,
-     "name": "_sub_00628250@4"
+     "name": "_ITEMS_GetInventoryPage@4"
     },
     {
      "va": "0x00628280",
@@ -74567,7 +74567,7 @@
     {
      "va": "0x006282A0",
      "length": 35,
-     "name": "?sub_006282A0_GetCellOverlap@@YGEPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_GetCellOverlap@@YGEPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x006282D0",
@@ -74617,7 +74617,7 @@
     {
      "va": "0x00628440",
      "length": 54,
-     "name": "_sub_00628440_GetShootsFromItemType@4"
+     "name": "_ITEMS_GetAmmoTypeFromItemType@4"
     },
     {
      "va": "0x00628480",
@@ -74672,7 +74672,7 @@
     {
      "va": "0x006287A0",
      "length": 13,
-     "name": "_sub_006287A0@8"
+     "name": "_ITEMS_CheckIfFlagIsSet@8"
     },
     {
      "va": "0x006287B0",
@@ -74767,7 +74767,7 @@
     {
      "va": "0x00629370",
      "length": 500,
-     "name": "?sub_00629370_GetGambleCost@@YGHHPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_GetGambleCost@@YGHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00629570",
@@ -74912,7 +74912,7 @@
     {
      "va": "0x00629EA0",
      "length": 38,
-     "name": "_sub_00629EA0@12"
+     "name": "_ITEMS_SetRealmData@12"
     },
     {
      "va": "0x00629ED0",
@@ -74967,22 +74967,22 @@
     {
      "va": "0x0062A250",
      "length": 25,
-     "name": "?sub_0062A250@@YAEHH@Z"
+     "name": "?ITEMS_PackTransformColor@@YAEHH@Z"
     },
     {
      "va": "0x0062A270",
      "length": 49,
-     "name": "?sub_0062A270_HasSocketedItem@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_HasSocketedItem@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062A2B0",
      "length": 61,
-     "name": "?sub_0062A2B0_GetCompactSave@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_GetCompactSave@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062A2F0",
      "length": 23,
-     "name": "?sub_0062A2F0_IsPlainQuality@@YAHH@Z"
+     "name": "?ITEMS_IsPlainQuality@@YAHH@Z"
     },
     {
      "va": "0x0062A310",
@@ -75049,7 +75049,7 @@
     {
      "va": "0x0062A960",
      "length": 8,
-     "name": "?sub_0062A960_ReadBits@@YAIPAUD2BitBufferStrc@@H@Z"
+     "name": "?ITEMS_ReadBits@@YAIPAUD2BitBufferStrc@@H@Z"
     },
     {
      "va": "0x0062A970",
@@ -75088,7 +75088,7 @@
     {
      "va": "0x0062B450",
      "length": 119,
-     "name": "?sub_0062B450_GetSocketedStatBonus@@YGXHPAHPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_GetBonusStatFromSockets@@YGXHPAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062B4D0",
@@ -75128,7 +75128,7 @@
     {
      "va": "0x0062BC20",
      "length": 144,
-     "name": "?sub_0062BC20@@YGEPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_GetMaxSockets@@YGEPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062BCB0",
@@ -75164,7 +75164,7 @@
     {
      "va": "0x0062C590",
      "length": 261,
-     "name": "?sub_0062C590@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_CanBeImbued@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062C6A0",
@@ -75193,7 +75193,7 @@
     {
      "va": "0x0062E410",
      "length": 30,
-     "name": "sub_0062E410"
+     "name": "ITEMS_GetCompactItemDataFromBitstreamDefault"
     },
     {
      "va": "0x0062E430",
@@ -75202,7 +75202,7 @@
     {
      "va": "0x0062E5D0",
      "length": 132,
-     "name": "?sub_0062E5D0_IsQuantityRepairable@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_IsQuantityRepairable@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062E660",
@@ -75288,7 +75288,7 @@
     {
      "va": "0x0062FDC0",
      "length": 34,
-     "name": "?sub_0062FDC0_GetRepairCost@@YGHPAUD2UnitStrc@@0HPAUD2BitBufferStrc@@HH@Z"
+     "name": "?ITEMS_GetTransactionCost@@YGHPAUD2UnitStrc@@0HPAUD2BitBufferStrc@@HH@Z"
     },
     {
      "va": "0x0062FDF0",
@@ -75322,7 +75322,7 @@
     {
      "va": "0x006314A0",
      "length": 142,
-     "name": "sub_6FD55150"
+     "name": "ITEMS_ResolveItemCalcKeyword"
     },
     {
      "va": "0x00639D60",
@@ -75382,7 +75382,7 @@
     {
      "va": "0x0063A180",
      "length": 134,
-     "name": "sub_0063A180_UpdateGfxFlagsWithMask"
+     "name": "STATES_UpdateGfxFlagsWithMask"
     },
     {
      "va": "0x0063A210",
@@ -75432,12 +75432,12 @@
     {
      "va": "0x0063A380",
      "length": 28,
-     "name": "?sub_0063A380@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?STATES_CheckStateMaskDamBlueOnUnit@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A3A0",
      "length": 28,
-     "name": "?sub_0063A3A0@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?STATES_CheckStateMaskDamRedOnUnit@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A3C0",
@@ -75567,12 +75567,12 @@
     {
      "va": "0x0063A7E0",
      "length": 23,
-     "name": "?sub_0063A7E0@@YAPAUD2ItemExtraDataStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?INVENTORY_GetExtraDataFromItem@@YAPAUD2ItemExtraDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A800",
      "length": 1,
-     "name": "?sub_0063A800_Nop@@YAXXZ"
+     "name": "?ITEMS_Nop@@YAXXZ"
     }
    ]
   },
@@ -75832,7 +75832,7 @@
     {
      "va": "0x00639420",
      "length": 126,
-     "name": "?sub_00639420@@YGHPAXPBD1@Z"
+     "name": "?DATATBLS_DoesExcelFileExist@@YGHPAXPBD1@Z"
     },
     {
      "va": "0x006394A0",
@@ -75947,27 +75947,27 @@
     {
      "va": "0x0063A810",
      "length": 129,
-     "name": "?sub_0063A810_UnlinkPair@@YAXPAUD2InventoryPairStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?INVENTORY_UnlinkItem@@YAXPAUD2InventoryPairStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A8A0",
      "length": 111,
-     "name": "?sub_0063A8A0_CheckGridCellsFree@@YGHPAUD2InventoryGridStrc@@HHEE@Z"
+     "name": "?INVENTORY_AreGridCellsFree@@YGHPAUD2InventoryGridStrc@@HHEE@Z"
     },
     {
      "va": "0x0063A910",
      "length": 86,
-     "name": "?sub_0063A910_FillGridCells@@YGXPAUD2InventoryGridStrc@@HHEEPAUD2UnitStrc@@@Z"
+     "name": "?INVENTORY_FillGridCells@@YGXPAUD2InventoryGridStrc@@HHEEPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A970",
      "length": 347,
-     "name": "?sub_0063A970_UnlinkGrid@@YGXPAUD2InventoryGridStrc@@HPAUD2UnitStrc@@@Z"
+     "name": "?INVENTORY_UnlinkGridItem@@YGXPAUD2InventoryGridStrc@@HPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063AAD0",
      "length": 18,
-     "name": "?sub_0063AAD0_IsItem@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?INVENTORY_IsUnitItem@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063AAF0",
@@ -76000,12 +76000,12 @@
     {
      "va": "0x0063AF20",
      "length": 79,
-     "name": "?sub_0063AF20_LinkItem@@YAXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?INVENTORY_LinkItem@@YAXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063AF70",
      "length": 90,
-     "name": "?sub_0063AF70_LinkGridItem@@YGXPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?INVENTORY_LinkGridItem@@YGXPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063AFD0",
@@ -76042,12 +76042,12 @@
     {
      "va": "0x0063B540",
      "length": 155,
-     "name": "?sub_0063B540_FindFreePositionRightToLeft@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
+     "name": "?INVENTORY_FindFreePositionRightToLeft@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
     },
     {
      "va": "0x0063B5E0",
      "length": 59,
-     "name": "?sub_0063B5E0_FindFreePositionHeight1@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+     "name": "?INVENTORY_FindFreePositionForSingleRowItem@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
     },
     {
      "va": "0x0063B620",
@@ -76062,17 +76062,17 @@
     {
      "va": "0x0063B790",
      "length": 59,
-     "name": "?sub_0063B790_FindFreePositionHeight3@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+     "name": "?INVENTORY_FindFreePositionForTallNarrowItem@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
     },
     {
      "va": "0x0063B7D0",
      "length": 59,
-     "name": "?sub_0063B7D0_FindFreePosition2x2@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+     "name": "?INVENTORY_FindFreePositionForSquareItem@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
     },
     {
      "va": "0x0063B810",
      "length": 59,
-     "name": "?sub_0063B810_FindFreePositionOther@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+     "name": "?INVENTORY_FindFreePositionForOtherItem@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
     },
     {
      "va": "0x0063B850",
@@ -76086,7 +76086,7 @@
     {
      "va": "0x0063B9C0",
      "length": 1,
-     "name": "?sub_0063B9C0_Nop@@YAXXZ"
+     "name": "?INVENTORY_Nop@@YAXXZ"
     },
     {
      "va": "0x0063B9D0",
@@ -76100,7 +76100,7 @@
     {
      "va": "0x0063BCB0",
      "length": 8,
-     "name": "?sub_0063BCB0_AlwaysOne@@YGHHHHH@Z"
+     "name": "?INVENTORY_ReturnTrue@@YGHHHHH@Z"
     },
     {
      "va": "0x0063BCC0",
@@ -76115,7 +76115,7 @@
     {
      "va": "0x0063BD00",
      "length": 3,
-     "name": "sub_0063BD00_Return"
+     "name": "D2COMMON_10251_Return"
     },
     {
      "va": "0x0063BD10",
@@ -76197,7 +76197,7 @@
     {
      "va": "0x0063C4C0",
      "length": 39,
-     "name": "?sub_0063C4C0_PlaceItemInBeltSlot@@YAHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?INVENTORY_PlaceItemInBeltGrid@@YAHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0063C4F0",
@@ -76281,12 +76281,12 @@
     {
      "va": "0x0063CD20",
      "length": 21,
-     "name": "_sub_0063CD20@4"
+     "name": "_INVENTORY_GetNextNode@4"
     },
     {
      "va": "0x0063CD40",
      "length": 20,
-     "name": "_sub_0063CD40@4"
+     "name": "_INVENTORY_GetItemGUIDFromNode@4"
     },
     {
      "va": "0x0063CD60",
@@ -76319,7 +76319,7 @@
     {
      "va": "0x0063D190",
      "length": 56,
-     "name": "sub_0063D190_SetLeftItemGUID"
+     "name": "INVENTORY_SetLeftItemGUID"
     },
     {
      "va": "0x0063D1D0",
@@ -76362,7 +76362,7 @@
     {
      "va": "0x0063D590",
      "length": 81,
-     "name": "sub_0063D590_FreeCorpses"
+     "name": "INVENTORY_FreeAllCorpses"
     },
     {
      "va": "0x0063D5F0",
@@ -76382,17 +76382,17 @@
     {
      "va": "0x0063D650",
      "length": 21,
-     "name": "_sub_0063D650@4"
+     "name": "_INVENTORY_GetCorpseMercNameId@4"
     },
     {
      "va": "0x0063D670",
      "length": 20,
-     "name": "_sub_0063D670@4"
+     "name": "_INVENTORY_IsPlayerCorpse@4"
     },
     {
      "va": "0x0063D690",
      "length": 117,
-     "name": "?sub_0063D690_CopySix@@YAXPAUAppearanceSix@@PAUUnit@@@Z"
+     "name": "?INVENTORY_GetArmorComponents@@YAXPAUAppearanceSix@@PAUUnit@@@Z"
     },
     {
      "va": "0x0063D710",
@@ -76402,7 +76402,7 @@
     {
      "va": "0x0063D900",
      "length": 44,
-     "name": "?sub_0063D900_FindCode@@YAHII@Z"
+     "name": "?INVENTORY_FindComponentArrayIndex@@YAHII@Z"
     },
     {
      "va": "0x0063D930",
@@ -76420,7 +76420,7 @@
     {
      "va": "0x0063DBC0",
      "length": 454,
-     "name": "?sub_0063DBC0_PairIsWieldable@@YAHPAUD2UnitStrc@@00@Z"
+     "name": "?INVENTORY_CanItemsBeWieldedTogether@@YAHPAUD2UnitStrc@@00@Z"
     },
     {
      "va": "0x0063DD90",
@@ -76497,12 +76497,12 @@
     {
      "va": "0x0063E7A0",
      "length": 17,
-     "name": "sub_0063E7A0_GetByteTableEntry"
+     "name": "INVENTORY_GetEightWayDirection"
     },
     {
      "va": "0x0063E7E0",
      "length": 35,
-     "name": "sub_0063E7E0_GetDirectionDelta"
+     "name": "INVENTORY_GetDirectionDelta"
     }
    ]
   },
@@ -76582,7 +76582,7 @@
     {
      "va": "0x0063EE10",
      "length": 115,
-     "name": "?sub_0063EE10@@YGXPAUUnit@@PAH1@Z"
+     "name": "?MONSTERS_GetChainDirectionDelta@@YGXPAUUnit@@PAH1@Z"
     },
     {
      "va": "0x0063EE90",
@@ -76647,7 +76647,7 @@
     {
      "va": "0x00653D30",
      "length": 37,
-     "name": "sub_00653D30"
+     "name": "DATATBLS_UnloadMonStatsTxt"
     },
     {
      "va": "0x00653D60",
@@ -76657,17 +76657,17 @@
     {
      "va": "0x00653DB0",
      "length": 98,
-     "name": "?sub_00653DB0@@YIXPAXPBDI@Z"
+     "name": "?DATATBLS_LoadUniqueNameTxt@@YIXPAXPBDI@Z"
     },
     {
      "va": "0x00653E20",
      "length": 44,
-     "name": "?sub_00653E20@@YAXXZ"
+     "name": "?DATATBLS_UnloadUniqueNameTxts@@YAXXZ"
     },
     {
      "va": "0x00653E50",
      "length": 58,
-     "name": "?sub_00653E50_RollRandomUniqueNameString@@YIPBUUnicode@@PAUD2UnitStrc@@H@Z"
+     "name": "?DATATBLS_RollRandomUniqueNameString@@YIPBUUnicode@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00653E90",
@@ -76687,7 +76687,7 @@
     {
      "va": "0x00654080",
      "length": 55,
-     "name": "?sub_00654080@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
+     "name": "?DATATBLS_AddTreasureClassInfo@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
     },
     {
      "va": "0x006540C0",
@@ -76701,17 +76701,17 @@
     {
      "va": "0x006543C0",
      "length": 33,
-     "name": "?sub_006543C0_StripQuotes@@YAPADPAD@Z"
+     "name": "?DATATBLS_StripQuotes@@YAPADPAD@Z"
     },
     {
      "va": "0x006543F0",
      "length": 32,
-     "name": "?sub_006543F0_NextStrToken@@YAPADPAPADD@Z"
+     "name": "?DATATBLS_GetNextStringToken@@YAPADPAPADD@Z"
     },
     {
      "va": "0x00654410",
      "length": 39,
-     "name": "?sub_00654410_NextIntToken@@YAHPAPADD@Z"
+     "name": "?DATATBLS_GetNextIntToken@@YAHPAPADD@Z"
     },
     {
      "va": "0x00654440",
@@ -76720,12 +76720,12 @@
     {
      "va": "0x006547D0",
      "length": 1396,
-     "name": "?sub_006547D0@@YGXPAX@Z"
+     "name": "?DATATBLS_CompileTreasureClassExTxt@@YGXPAX@Z"
     },
     {
      "va": "0x00654D50",
      "length": 127,
-     "name": "sub_00654D50"
+     "name": "DATATBLS_FreeTreasureClassEx"
     },
     {
      "va": "0x00654DD0",
@@ -76745,12 +76745,12 @@
     {
      "va": "0x00654EF0",
      "length": 5,
-     "name": "?sub_00654EF0_UnloadTCEx@@YIXXZ"
+     "name": "?DATATBLS_UnloadTreasureClassExTxt@@YIXXZ"
     },
     {
      "va": "0x00654F00",
      "length": 32,
-     "name": "?sub_00654F00_AssertFail@@YAXXZ"
+     "name": "?DATATBLS_ShouldNeverCallInExpansion@@YAXXZ"
     },
     {
      "va": "0x00654F20",
@@ -76780,7 +76780,7 @@
     {
      "va": "0x006552A0",
      "length": 53,
-     "name": "sub_006552A0"
+     "name": "DATATBLS_UnloadMonUModTxt"
     },
     {
      "va": "0x006552E0",
@@ -76790,7 +76790,7 @@
     {
      "va": "0x006556A0",
      "length": 51,
-     "name": "sub_006556A0"
+     "name": "DATATBLS_UnloadSuperUniquesTxt"
     },
     {
      "va": "0x006556E0",
@@ -76809,7 +76809,7 @@
     {
      "va": "0x006562B0",
      "length": 51,
-     "name": "sub_006562B0"
+     "name": "DATATBLS_UnloadHirelingTxt"
     },
     {
      "va": "0x006562F0",
@@ -76843,7 +76843,7 @@
     {
      "va": "0x006568F0",
      "length": 12,
-     "name": "sub_006568F0_FreeNpcTable"
+     "name": "DATATBLS_UnloadNpcTxt"
     },
     {
      "va": "0x00656900",
@@ -76858,7 +76858,7 @@
     {
      "va": "0x00656F60",
      "length": 37,
-     "name": "sub_00656F60_FreeMonSoundsTable"
+     "name": "DATATBLS_UnloadMonSoundsTxt"
     },
     {
      "va": "0x00656F90",
@@ -76896,7 +76896,7 @@
     {
      "va": "0x006586D0",
      "length": 72,
-     "name": "sub_006586D0"
+     "name": "DATATBLS_FreeMonTypeTxt"
     },
     {
      "va": "0x00658720",
@@ -76906,7 +76906,7 @@
     {
      "va": "0x006594D0",
      "length": 37,
-     "name": "sub_006594D0"
+     "name": "DATATBLS_UnloadMonPropTxt"
     },
     {
      "va": "0x00659500",
@@ -76916,7 +76916,7 @@
     {
      "va": "0x00659970",
      "length": 26,
-     "name": "sub_00659970"
+     "name": "DATATBLS_UnloadMonLvlTxt"
     },
     {
      "va": "0x00659990",
@@ -76931,7 +76931,7 @@
     {
      "va": "0x00659AF0",
      "length": 80,
-     "name": "sub_00659AF0"
+     "name": "DATATBLS_UnloadMonPresetTxt"
     },
     {
      "va": "0x00659B40",
@@ -76951,7 +76951,7 @@
     {
      "va": "0x00659C30",
      "length": 37,
-     "name": "sub_00659C30"
+     "name": "DATATBLS_UnloadSoundsTxt"
     },
     {
      "va": "0x00659C60",
@@ -76961,12 +76961,12 @@
     {
      "va": "0x00659DE0",
      "length": 76,
-     "name": "sub_00659DE0"
+     "name": "DATATBLS_UnloadMonSeqTxt"
     },
     {
      "va": "0x00659E30",
      "length": 40,
-     "name": "sub_00659E30"
+     "name": "DATATBLS_GetMonSeqTableRecord"
     },
     {
      "va": "0x00659E60",
@@ -76975,7 +76975,7 @@
     {
      "va": "0x0065A170",
      "length": 26,
-     "name": "sub_0065A170"
+     "name": "DATATBLS_UnloadMonEquipTxt"
     },
     {
      "va": "0x0065A190",
@@ -76985,12 +76985,12 @@
     {
      "va": "0x0065A2C0",
      "length": 206,
-     "name": "?sub_0065A2C0@@YAXXZ"
+     "name": "?DATATBLS_InitChestTreasureClasses@@YAXXZ"
     },
     {
      "va": "0x0065A390",
      "length": 89,
-     "name": "?sub_0065A390@@YGXPAX@Z"
+     "name": "?DATATBLS_InitTreasureClassEx@@YGXPAX@Z"
     },
     {
      "va": "0x0065A3F0",
@@ -77037,17 +77037,17 @@
     {
      "va": "0x00641F60",
      "length": 168,
-     "name": "sub_00641F60_LoadTownTiles"
+     "name": "DRLG_LoadTownTiles"
     },
     {
      "va": "0x00642010",
      "length": 379,
-     "name": "?sub_00642010_ClearLevel@@YGXPAXHPAULevel@@@Z"
+     "name": "?DRLG_FreeLevel@@YGXPAXHPAULevel@@@Z"
     },
     {
      "va": "0x00642190",
      "length": 150,
-     "name": "?sub_00642190_FreeDungeon@@YIXPAUDungeon@@@Z"
+     "name": "?DRLG_FreeDrlg@@YIXPAUDungeon@@@Z"
     },
     {
      "va": "0x00642230",
@@ -77071,7 +77071,7 @@
     {
      "va": "0x00642390",
      "length": 61,
-     "name": "?sub_00642390_MarkPresetRooms@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLG_RestoreSavedRoomFlags@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x006423D0",
@@ -77110,17 +77110,17 @@
     {
      "va": "0x00642770",
      "length": 9,
-     "name": "?sub_00642770_GetDrlgTypeFromLevelId@@YIHH@Z"
+     "name": "?DRLG_GetDrlgTypeFromLevelId@@YIHH@Z"
     },
     {
      "va": "0x00642780",
      "length": 27,
-     "name": "?sub_00642780_WalkLevels@@YAPAUD2DrlgLevelStrc@@PAUD2DrlgStrc@@@Z"
+     "name": "?DRLG_WalkLevelList@@YAPAUD2DrlgLevelStrc@@PAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x006427A0",
      "length": 68,
-     "name": "sub_006427A0_GetLevelIdFromCoordinates"
+     "name": "DRLG_GetLevelIdFromCoordinates"
     },
     {
      "va": "0x006427F0",
@@ -77150,12 +77150,12 @@
     {
      "va": "0x006429D0",
      "length": 1,
-     "name": "?sub_006429D0_Nop@@YAXXZ"
+     "name": "?DRLG_Nop@@YAXXZ"
     },
     {
      "va": "0x006429E0",
      "length": 22,
-     "name": "sub_006429E0_GetActFromLevelType"
+     "name": "DRLG_GetActFromLevelType"
     },
     {
      "va": "0x00642A00",
@@ -77198,27 +77198,27 @@
     {
      "va": "0x00642F70",
      "length": 165,
-     "name": "sub_00642F70_AddLevelActivity"
+     "name": "DRLG_AddLevelActivity"
     },
     {
      "va": "0x00643020",
      "length": 58,
-     "name": "?sub_6FD745C0@@YIXPAUD2DrlgRoomStrc@@0@Z"
+     "name": "?DRLG_UpdateLevelActivityOnRoomChange@@YIXPAUD2DrlgRoomStrc@@0@Z"
     },
     {
      "va": "0x00643060",
      "length": 405,
-     "name": "sub_00643060_FreeInactiveVisRoomTiles"
+     "name": "DRLG_FreeInactiveVisRoomTiles"
     },
     {
      "va": "0x00643200",
      "length": 94,
-     "name": "?sub_00643200_UpdateInactive@@YIXPAUDungeon@@@Z"
+     "name": "?DRLG_UpdateAndFreeInactiveRooms@@YIXPAUDungeon@@@Z"
     },
     {
      "va": "0x00643260",
      "length": 40,
-     "name": "sub_00643260"
+     "name": "DUNGEON_GameSubtileToClientCoords"
     },
     {
      "va": "0x00643290",
@@ -77253,7 +77253,7 @@
     {
      "va": "0x0067B1C0",
      "length": 59,
-     "name": "?sub_0067B1C0_AllocTableEntry@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
+     "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
     },
     {
      "va": "0x0067F560",
@@ -77360,12 +77360,12 @@
     {
      "va": "0x006434A0",
      "length": 29,
-     "name": "sub_006434A0_GameTileToSubtileCoords"
+     "name": "DUNGEON_ConvertTileToSubtileCoords"
     },
     {
      "va": "0x006434C0",
      "length": 73,
-     "name": "sub_006434C0_GameSubtileToTileCoords"
+     "name": "DUNGEON_ConvertSubtileToTileCoords"
     },
     {
      "va": "0x00643510",
@@ -77380,17 +77380,17 @@
     {
      "va": "0x00643580",
      "length": 57,
-     "name": "?sub_00643580_GetSkillParam7Formula@@YIHHH@Z"
+     "name": "?SKILLS_GetSkillParam7Formula@@YIHHH@Z"
     },
     {
      "va": "0x006435C0",
      "length": 12,
-     "name": "?sub_006435C0_GetPassiveSkillCount@@YAHXZ"
+     "name": "?SKILLS_GetPassiveSkillCount@@YAHXZ"
     },
     {
      "va": "0x006435D0",
      "length": 33,
-     "name": "?sub_006435D0_GetPassiveSkillId@@YIFH@Z"
+     "name": "?SKILLS_GetPassiveSkillId@@YIFH@Z"
     },
     {
      "va": "0x00643600",
@@ -77405,7 +77405,7 @@
     {
      "va": "0x00643620",
      "length": 104,
-     "name": "sub_00643620"
+     "name": "SKILLS_GetOrRemoveStateStatList"
     },
     {
      "va": "0x00643690",
@@ -77415,27 +77415,27 @@
     {
      "va": "0x006436E0",
      "length": 11,
-     "name": "?sub_006436E0_Min@@YIHHHHH@Z"
+     "name": "?SKILLS_GetMinimum@@YIHHHHH@Z"
     },
     {
      "va": "0x006436F0",
      "length": 11,
-     "name": "?sub_006436F0_Max@@YIHHHHH@Z"
+     "name": "?SKILLS_GetMaximum@@YIHHHHH@Z"
     },
     {
      "va": "0x00643740",
      "length": 36,
-     "name": "sub_00643740_SkillCalcMissileParam"
+     "name": "SKILLS_CalcMissileParamCallback"
     },
     {
      "va": "0x00643770",
      "length": 98,
-     "name": "sub_00643770_ItemCalcStatParam"
+     "name": "SKILLS_ItemCalcStatParamCallback"
     },
     {
      "va": "0x006437E0",
      "length": 44,
-     "name": "?sub_006437E0_GetSkillById@@YAPAUD2SkillStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_GetSkillByIdAndOwner@@YAPAUD2SkillStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00643810",
@@ -77450,7 +77450,7 @@
     {
      "va": "0x00643880",
      "length": 8,
-     "name": "?sub_00643880_AlwaysOne@@YGHH@Z"
+     "name": "?SKILLS_Return1@@YGHH@Z"
     },
     {
      "va": "0x00643890",
@@ -77554,17 +77554,17 @@
     {
      "va": "0x00643D60",
      "length": 33,
-     "name": "?sub_6FDB1050@@YGPAUD2UnitStrc@@HPAUD2InventoryStrc@@@Z"
+     "name": "?SKILLS_GetOtherHandItem@@YGPAUD2UnitStrc@@HPAUD2InventoryStrc@@@Z"
     },
     {
      "va": "0x00643D90",
      "length": 495,
-     "name": "?sub_6FDB1130@@YGHPAUD2UnitStrc@@0PAUD2SkillsTxt@@H@Z"
+     "name": "?SKILLS_IsItemAllowedForSkill@@YGHPAUD2UnitStrc@@0PAUD2SkillsTxt@@H@Z"
     },
     {
      "va": "0x00643F80",
      "length": 211,
-     "name": "?sub_00643F80_CheckWeaponTypes@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?SKILLS_CheckWeaponTypes@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x00644060",
@@ -77598,12 +77598,12 @@
     {
      "va": "0x00644340",
      "length": 25,
-     "name": "_sub_00644340@8"
+     "name": "_SKILLS_SetSkillMode@8"
     },
     {
      "va": "0x00644360",
      "length": 21,
-     "name": "_sub_00644360@4"
+     "name": "_SKILLS_GetSkillMode@4"
     },
     {
      "va": "0x00644380",
@@ -77678,7 +77678,7 @@
     {
      "va": "0x006446C0",
      "length": 66,
-     "name": "?sub_006446C0_UnitHasSkillsTxtRecord@@YAHPAUD2UnitStrc@@PAUD2SkillsTxt@@@Z"
+     "name": "?SKILLS_UnitHasSkillsTxtRecord@@YAHPAUD2UnitStrc@@PAUD2SkillsTxt@@@Z"
     },
     {
      "va": "0x00644710",
@@ -77693,7 +77693,7 @@
     {
      "va": "0x006447B0",
      "length": 22,
-     "name": "sub_006447B0"
+     "name": "SKILLS_GetBaseSkillLevelById"
     },
     {
      "va": "0x006447D0",
@@ -77728,7 +77728,7 @@
     {
      "va": "0x00644C20",
      "length": 111,
-     "name": "sub_00644C20"
+     "name": "SKILLS_GetKickDamage"
     },
     {
      "va": "0x00644C90",
@@ -77777,7 +77777,7 @@
     {
      "va": "0x00645160",
      "length": 34,
-     "name": "?sub_00645160_ConvertShapeshiftMonMode@@YGHHH@Z"
+     "name": "?SKILLS_ConvertShapeshiftMonMode@@YGHHH@Z"
     },
     {
      "va": "0x00645190",
@@ -77801,7 +77801,7 @@
     {
      "va": "0x006454C0",
      "length": 67,
-     "name": "?sub_006454C0_IsSelectableCorpse@@YGHHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_IsSelectableCorpse@@YGHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00645510",
@@ -77811,27 +77811,27 @@
     {
      "va": "0x00645590",
      "length": 71,
-     "name": "?sub_00645590_IsSelectableSoftCorpse@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?D2COMMON_11018@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x006455E0",
      "length": 66,
-     "name": "sub_006455E0_CanUnitCorpseBeSelected"
+     "name": "D2COMMON_11019"
     },
     {
      "va": "0x00645630",
      "length": 71,
-     "name": "?sub_00645630_IsSelectableSoftCorpse@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?D2Common_11020@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00645680",
      "length": 66,
-     "name": "sub_00645680_CanUnitCorpseBeSelected"
+     "name": "D2COMMON_11021"
     },
     {
      "va": "0x006456D0",
      "length": 66,
-     "name": "?sub_006456D0_CanUnitCorpseBeSelected@@YGHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_CanUnitCorpseBeSelected@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00645720",
@@ -77856,7 +77856,7 @@
     {
      "va": "0x006459F0",
      "length": 115,
-     "name": "sub_006459F0"
+     "name": "SKILLS_GetShiftedManaCosts"
     },
     {
      "va": "0x00645A70",
@@ -77866,7 +77866,7 @@
     {
      "va": "0x00645A90",
      "length": 138,
-     "name": "sub_00645A90_GetDiminishingValue"
+     "name": "SKILLS_GetDiminishingValue"
     },
     {
      "va": "0x00645B20",
@@ -77891,7 +77891,7 @@
     {
      "va": "0x00645C60",
      "length": 54,
-     "name": "?sub_00645C60_IsOutsideTown@@YGHHHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_IsPointOutsideTown@@YGHHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00645CA0",
@@ -77915,7 +77915,7 @@
     {
      "va": "0x00646000",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?SKILLS_Return0@@YGHH@Z"
     },
     {
      "va": "0x00646010",
@@ -77988,17 +77988,17 @@
     {
      "va": "0x00646BE0",
      "length": 25,
-     "name": "?sub_00646BE0@@YIHHPAX@Z"
+     "name": "?SKILLS_CalcSpecialParamCallback@@YIHHPAX@Z"
     },
     {
      "va": "0x00646C00",
      "length": 82,
-     "name": "sub_6FDAF6C0"
+     "name": "SKILLS_CalcOtherSkillParamCallback"
     },
     {
      "va": "0x00646C60",
      "length": 59,
-     "name": "sub_00646C60_SkillCalcNestedParam"
+     "name": "SKILLS_CalcNestedParamCallback"
     },
     {
      "va": "0x00646CA0",
@@ -78056,12 +78056,12 @@
     {
      "va": "0x00647640",
      "length": 511,
-     "name": "?sub_00647640_CheckSkillQuantity@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?SKILLS_CheckSkillQuantity@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x00647840",
      "length": 164,
-     "name": "?sub_6FDB1070@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?SKILLS_HasChargesLeft@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x006478F0",
@@ -78149,12 +78149,12 @@
     {
      "va": "0x0064B700",
      "length": 11,
-     "name": "?sub_0064B700_Min@@YIHHHHH@Z"
+     "name": "?MISSILE_GetMinimum@@YIHHHHH@Z"
     },
     {
      "va": "0x0064B710",
      "length": 11,
-     "name": "?sub_0064B710_Max@@YIHHHHH@Z"
+     "name": "?MISSILE_GetMaximum@@YIHHHHH@Z"
     },
     {
      "va": "0x0064C350",
@@ -78164,12 +78164,12 @@
     {
      "va": "0x0064EFE0",
      "length": 63,
-     "name": "sub_0064EFE0_FixThrowWeaponClassCode"
+     "name": "SKILLS_FixThrowWeaponClassCode"
     },
     {
      "va": "0x0064FC20",
      "length": 64,
-     "name": "sub_0064FC20_ResetDynamicPathRoom"
+     "name": "PATH_ResetDynamicPathRoom"
     },
     {
      "va": "0x00650540",
@@ -78209,7 +78209,7 @@
     {
      "va": "0x006755C0",
      "length": 52,
-     "name": "sub_006755C0_LookupTable"
+     "name": "DRLGOUTDOORS_GetBorderLevelPrestId"
     },
     {
      "va": "0x00678B40",
@@ -78219,12 +78219,12 @@
     {
      "va": "0x00679380",
      "length": 90,
-     "name": "sub_00679380_PathTableHeuristic"
+     "name": "PATH_GetTableHeuristic"
     },
     {
      "va": "0x0067A390",
      "length": 129,
-     "name": "sub_0067A390_GetScaledDirectionVector"
+     "name": "PATH_GetScaledDirectionVector"
     },
     {
      "va": "0x0067A550",
@@ -78234,7 +78234,7 @@
     {
      "va": "0x0067A5F0",
      "length": 60,
-     "name": "sub_0067A5F0_IsPointInBounds"
+     "name": "PATH_IsPointInBounds"
     },
     {
      "va": "0x0067ADC0",
@@ -78254,12 +78254,12 @@
     {
      "va": "0x0067B9C0",
      "length": 41,
-     "name": "sub_0067B9C0_SquaredDistance"
+     "name": "PATH_GetSquaredDistanceBetweenPoints"
     },
     {
      "va": "0x0067BBC0",
      "length": 47,
-     "name": "sub_0067BBC0_DeltaTableLookup"
+     "name": "PATH_GetAdjacentPointDirection"
     }
    ]
   },
@@ -78360,7 +78360,7 @@
     {
      "va": "0x00648480",
      "length": 82,
-     "name": "?sub_00648480_GetMonsterMoveTestMask@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?PATH_GetMonsterMoveTestMask@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00648580",
@@ -78370,12 +78370,12 @@
     {
      "va": "0x006485F0",
      "length": 69,
-     "name": "?sub_6FDA9720@@YIXPAUD2DynamicPathStrc@@E@Z"
+     "name": "?PATH_SetNewDirection@@YIXPAUD2DynamicPathStrc@@E@Z"
     },
     {
      "va": "0x00648690",
      "length": 38,
-     "name": "_sub_00648690@16"
+     "name": "_PATH_SetVelocity@16"
     },
     {
      "va": "0x006486C0",
@@ -78385,37 +78385,37 @@
     {
      "va": "0x006486D0",
      "length": 19,
-     "name": "_sub_006486D0@8"
+     "name": "_PATH_SetMaxVelocity@8"
     },
     {
      "va": "0x00648700",
      "length": 19,
-     "name": "_sub_00648700_acceleration@8"
+     "name": "_PATH_SetAcceleration@8"
     },
     {
      "va": "0x00648730",
      "length": 21,
-     "name": "_sub_00648730@4"
+     "name": "_PATH_ClearPathingFlagAndPoints@4"
     },
     {
      "va": "0x00648750",
      "length": 28,
-     "name": "_sub_00648750@8"
+     "name": "_PATH_SetPathingFlag@8"
     },
     {
      "va": "0x00648780",
      "length": 13,
-     "name": "_sub_00648780_pointCount@4"
+     "name": "_PATH_GetNumberOfPathPoints@4"
     },
     {
      "va": "0x00648790",
      "length": 36,
-     "name": "_sub_00648790@8"
+     "name": "_PATH_SetNumberOfPathPoints@8"
     },
     {
      "va": "0x006487D0",
      "length": 24,
-     "name": "_sub_006487D0@8"
+     "name": "_PATH_GetPathPoints@8"
     },
     {
      "va": "0x006487F0",
@@ -78425,7 +78425,7 @@
     {
      "va": "0x00648810",
      "length": 13,
-     "name": "_sub_00648810@4"
+     "name": "_PATH_GetNewDirection@4"
     },
     {
      "va": "0x00648820",
@@ -78470,12 +78470,12 @@
     {
      "va": "0x006489C0",
      "length": 13,
-     "name": "_sub_006489C0@4"
+     "name": "_PATH_GetClientCoordX@4"
     },
     {
      "va": "0x006489D0",
      "length": 13,
-     "name": "_sub_006489D0@4"
+     "name": "_PATH_GetClientCoordY@4"
     },
     {
      "va": "0x006489E0",
@@ -78500,27 +78500,27 @@
     {
      "va": "0x00648A20",
      "length": 14,
-     "name": "_sub_00648A20@4"
+     "name": "_PATH_GetFinalTargetX@4"
     },
     {
      "va": "0x00648A30",
      "length": 14,
-     "name": "_sub_00648A30@4"
+     "name": "_PATH_GetFinalTargetY@4"
     },
     {
      "va": "0x00648A40",
      "length": 31,
-     "name": "_sub_00648A40@4"
+     "name": "_PATH_GetLastPointX@4"
     },
     {
      "va": "0x00648A60",
      "length": 31,
-     "name": "_sub_00648A60@4"
+     "name": "_PATH_GetLastPointY@4"
     },
     {
      "va": "0x00648A80",
      "length": 13,
-     "name": "_sub_00648A80@4"
+     "name": "_PATH_GetRoom@4"
     },
     {
      "va": "0x00648A90",
@@ -78530,22 +78530,22 @@
     {
      "va": "0x00648AA0",
      "length": 13,
-     "name": "_sub_00648AA0_previousRoom@4"
+     "name": "_PATH_GetNextRoom@4"
     },
     {
      "va": "0x00648AB0",
      "length": 17,
-     "name": "_sub_00648AB0@4"
+     "name": "_PATH_ClearNextRoom@4"
     },
     {
      "va": "0x00648AD0",
      "length": 37,
-     "name": "_sub_00648AD0@12"
+     "name": "_PATH_SetTargetPos@12"
     },
     {
      "va": "0x00648B00",
      "length": 43,
-     "name": "sub_00648B00_SetTargetCoordFromClient"
+     "name": "PATH_SetTargetCoordFromClient"
     },
     {
      "va": "0x00648B30",
@@ -78555,7 +78555,7 @@
     {
      "va": "0x00648B40",
      "length": 28,
-     "name": "_sub_00648B40_roomInvalid@8"
+     "name": "_PATH_SetCurrentRoomInvalid@8"
     },
     {
      "va": "0x00648B60",
@@ -78585,7 +78585,7 @@
     {
      "va": "0x00648C10",
      "length": 26,
-     "name": "_sub_00648C10@4"
+     "name": "_PATH_GetFootprintCollisionMaskExported@4"
     },
     {
      "va": "0x00648C30",
@@ -78595,7 +78595,7 @@
     {
      "va": "0x00648CD0",
      "length": 13,
-     "name": "_sub_00648CD0@4"
+     "name": "_PATH_GetMoveTestCollisionMask@4"
     },
     {
      "va": "0x00648CE0",
@@ -78620,7 +78620,7 @@
     {
      "va": "0x00648E40",
      "length": 19,
-     "name": "?sub_00648E40_SetByte90@@YGXPAUD2Record00648E40Strc@@E@Z"
+     "name": "?PATH_SetDist@@YGXPAUD2Record00648E40Strc@@E@Z"
     },
     {
      "va": "0x00648E60",
@@ -78630,7 +78630,7 @@
     {
      "va": "0x00648E70",
      "length": 35,
-     "name": "_sub_00648E70_SetDistance@8"
+     "name": "_PATH_SetNewDistance@8"
     },
     {
      "va": "0x00648EA0",
@@ -78640,7 +78640,7 @@
     {
      "va": "0x00648EB0",
      "length": 54,
-     "name": "_sub_00648EB0@4"
+     "name": "_PATH_GetCollidedWithMask@4"
     },
     {
      "va": "0x00648EF0",
@@ -78675,17 +78675,17 @@
     {
      "va": "0x00649050",
      "length": 20,
-     "name": "_sub_00649050@4"
+     "name": "_PATH_ClearPreviousTargetPoint@4"
     },
     {
      "va": "0x00649070",
      "length": 46,
-     "name": "_sub_00649070@8"
+     "name": "_PATH_SetStepNum@8"
     },
     {
      "va": "0x006490A0",
      "length": 20,
-     "name": "_sub_006490A0@4"
+     "name": "_PATH_GetStepNum@4"
     },
     {
      "va": "0x006490C0",
@@ -78700,7 +78700,7 @@
     {
      "va": "0x00649120",
      "length": 17,
-     "name": "_sub_00649120@4"
+     "name": "_PATH_GetDistance@4"
     },
     {
      "va": "0x00649140",
@@ -78812,7 +78812,7 @@
     {
      "va": "0x0064FD70",
      "length": 75,
-     "name": "sub_0064FD70_GetDirectionVectorFromPoints"
+     "name": "PATH_GetDirectionVectorFromPoints"
     },
     {
      "va": "0x0064FDC0",
@@ -78822,7 +78822,7 @@
     {
      "va": "0x006505C0",
      "length": 24,
-     "name": "?sub_006505C0_TestPathFlag8@@YGHPAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_HasEnteredNewSubtile@@YGHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x0066A280",
@@ -79142,7 +79142,7 @@
     {
      "va": "0x0064BF60",
      "length": 218,
-     "name": "?sub_0064BF60_CanAddUnitToRoom@@YGHHPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@@Z"
+     "name": "?UNITROOM_CanAddUnitToRoom@@YGHHPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0064C040",
@@ -79193,7 +79193,7 @@
     {
      "va": "0x0064C790",
      "length": 196,
-     "name": "?sub_6FD413E0@@YGXPAUD2RoomCollisionGridStrc@@0PAUD2DrlgTileDataStrc@@HH@Z"
+     "name": "?COLLISION_ApplyAdjacentRoomTileCollision@@YGXPAUD2RoomCollisionGridStrc@@0PAUD2DrlgTileDataStrc@@HH@Z"
     },
     {
      "va": "0x0064E810",
@@ -79219,12 +79219,12 @@
     {
      "va": "0x0064C4C0",
      "length": 184,
-     "name": "?sub_6FD411F0@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
+     "name": "?COLLISION_AddTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
     },
     {
      "va": "0x0064C580",
      "length": 187,
-     "name": "?sub_0064C580_ClearTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
+     "name": "?COLLISION_ClearTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
     },
     {
      "va": "0x0064C640",
@@ -79239,12 +79239,12 @@
     {
      "va": "0x0064C860",
      "length": 144,
-     "name": "?sub_0064C860@@YIXPAUD2ActiveRoomStrc@@PAUD2DrlgTileDataStrc@@PAUD2TileLibraryEntryStrc@@@Z"
+     "name": "?COLLISION_ReplaceTileCollision@@YIXPAUD2ActiveRoomStrc@@PAUD2DrlgTileDataStrc@@PAUD2TileLibraryEntryStrc@@@Z"
     },
     {
      "va": "0x0064C8F0",
      "length": 3,
-     "name": "_sub_0064C8F0"
+     "name": "_COLLISION_ReturnZero"
     },
     {
      "va": "0x0064C900",
@@ -79334,12 +79334,12 @@
     {
      "va": "0x0064D450",
      "length": 73,
-     "name": "sub_0064D450"
+     "name": "COLLISION_CheckCollisionMaskAtCell"
     },
     {
      "va": "0x0064D4A0",
      "length": 51,
-     "name": "sub_0064D4A0"
+     "name": "COLLISION_CheckCollisionMaskForBigPattern"
     },
     {
      "va": "0x0064D4E0",
@@ -79348,7 +79348,7 @@
     {
      "va": "0x0064D7C0",
      "length": 51,
-     "name": "sub_0064D7C0"
+     "name": "COLLISION_CheckAnyCollisionForBigPattern"
     },
     {
      "va": "0x0064D800",
@@ -79373,17 +79373,17 @@
     {
      "va": "0x0064DA40",
      "length": 303,
-     "name": "sub_0064DA40"
+     "name": "COLLISION_ResetCollisionMaskWithAdjacentCells"
     },
     {
      "va": "0x0064DB70",
      "length": 66,
-     "name": "sub_0064DB70"
+     "name": "COLLISION_ResetCellCollisionMask"
     },
     {
      "va": "0x0064DBC0",
      "length": 51,
-     "name": "sub_0064DBC0"
+     "name": "COLLISION_ResetCollisionMaskForBigPattern"
     },
     {
      "va": "0x0064DC00",
@@ -79459,7 +79459,7 @@
     {
      "va": "0x0064EE20",
      "length": 77,
-     "name": "?sub_0064EE20@@YIHPAUD2ActiveRoomStrc@@HHHHHGG@Z"
+     "name": "?COLLISION_CheckAnyCollisionAtDestinationWithPattern@@YIHPAUD2ActiveRoomStrc@@HHHHHGG@Z"
     },
     {
      "va": "0x0064EE70",
@@ -79595,7 +79595,7 @@
     {
      "va": "0x00650E90",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00650EA0",
@@ -79835,12 +79835,12 @@
     {
      "va": "0x0065A620",
      "length": 140,
-     "name": "?sub_0065A620_FindUnitInAdjacentRooms@@YGPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+     "name": "?UNITFINDS_FindUnitInNeighboredRooms@@YGPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x0065A6B0",
      "length": 85,
-     "name": "?sub_0065A6B0_IsAreaNearRoomEdge@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
+     "name": "?UNITFINDS_IsAreaNearRoomEdge@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
     },
     {
      "va": "0x0065A710",
@@ -79859,7 +79859,7 @@
     {
      "va": "0x0065A900",
      "length": 80,
-     "name": "?sub_0065A900_GrowUnitsArray@@YAXPAUD2UnitFindDataStrc@@@Z"
+     "name": "?UNITFINDS_GrowUnitsArray@@YAXPAUD2UnitFindDataStrc@@@Z"
     },
     {
      "va": "0x0065A950",
@@ -80050,7 +80050,7 @@
     {
      "va": "0x0065C5A0",
      "length": 33,
-     "name": "?sub_0065C5A0_GetPropertiesTxtRecord@@YIPBUD2PropertiesTxt@@H@Z"
+     "name": "?QUESTRECORD_GetPropertiesTxtRecord@@YIPBUD2PropertiesTxt@@H@Z"
     }
    ]
   },
@@ -80061,7 +80061,7 @@
     {
      "va": "0x0065C5D0",
      "length": 12,
-     "name": "?sub_0065C5D0@@YAHXZ"
+     "name": "?ITEMMODS_GetPropertiesTxtRecordCount@@YAHXZ"
     },
     {
      "va": "0x0065C7A0",
@@ -80115,67 +80115,67 @@
     {
      "va": "0x0065CCC0",
      "length": 384,
-     "name": "?sub_0065CCC0_SetItemBaseStats@@YGXPAUD2UnitStrc@@H@Z"
+     "name": "?ITEMMODS_SetItemBaseStats@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0065CE40",
      "length": 252,
-     "name": "?sub_0065CE40_ShiftStatValue@@YAXHPAH@Z"
+     "name": "?ITEMMODS_ShiftStatValue@@YAXHPAH@Z"
     },
     {
      "va": "0x0065CF40",
      "length": 298,
-     "name": "?sub_0065CF40_AddRolledStat@@YGHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHHH@Z"
+     "name": "?ITEMMODS_AddRolledStatEx@@YGHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHHH@Z"
     },
     {
      "va": "0x0065D070",
      "length": 157,
-     "name": "?sub_0065D070_AddValueStat@@YGHHPAUD2UnitStrc@@0HHHHHH@Z"
+     "name": "?ITEMMODS_AddValueStatEx@@YGHHPAUD2UnitStrc@@0HHHHHH@Z"
     },
     {
      "va": "0x0065D110",
      "length": 176,
-     "name": "?sub_0065D110_AddLayerStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignLayerStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065D1C0",
      "length": 38,
-     "name": "?sub_0065D1C0_AddRolledStat0@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignRolledStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065D1F0",
      "length": 33,
-     "name": "?sub_0065D1F0_AddValueStat0@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
+     "name": "?ITEMMODS_AddValueStat@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
     },
     {
      "va": "0x0065D220",
      "length": 80,
-     "name": "sub_6FD93170"
+     "name": "ITEMMODS_AssignSockets"
     },
     {
      "va": "0x0065D270",
      "length": 53,
-     "name": "?sub_0065D270@@YIHHPAUUnit@@0PBUProperty@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignIndestructible@@YIHHPAUUnit@@0PBUProperty@@HHHH0@Z"
     },
     {
      "va": "0x0065D2B0",
      "length": 38,
-     "name": "?sub_0065D2B0_AddRolledStat1@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignRolledStatForceBase@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065D2E0",
      "length": 33,
-     "name": "?sub_0065D2E0_AddValueStat1@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
+     "name": "?ITEMMODS_AddValueStatForceBase@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
     },
     {
      "va": "0x0065D310",
      "length": 413,
-     "name": "?sub_0065D310_AddAllResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignAllResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065D4B0",
      "length": 413,
-     "name": "?sub_0065D4B0_AddAllMaxResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignAllMaxResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065D650",
@@ -80192,7 +80192,7 @@
     {
      "va": "0x0065DB90",
      "length": 39,
-     "name": "?sub_0065DB90_AddAllSkills@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignAllSkills@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065DBC0",
@@ -80201,12 +80201,12 @@
     {
      "va": "0x0065DD80",
      "length": 184,
-     "name": "?sub_0065DD80_AddByTimeStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignByTimeStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065DE40",
      "length": 559,
-     "name": "?sub_0065DE40_AddStatPair@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignStatPair@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065E070",
@@ -80219,7 +80219,7 @@
     {
      "va": "0x0065E230",
      "length": 158,
-     "name": "?sub_0065E230_AddElemSkillStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignElemSkill@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065E2D0",
@@ -80228,12 +80228,12 @@
     {
      "va": "0x0065E440",
      "length": 8,
-     "name": "?sub_0065E440_StatFuncTrue@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignNothing@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065E450",
      "length": 120,
-     "name": "?sub_0065E450_AddRangeStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+     "name": "?ITEMMODS_AssignRangeStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
      "va": "0x0065E4D0",
@@ -80243,12 +80243,12 @@
     {
      "va": "0x0065E600",
      "length": 16,
-     "name": "?sub_0065E600_GetSetItemsCount@@YAHI@Z"
+     "name": "?ITEMMODS_GetSetItemsCountFromMask@@YAHI@Z"
     },
     {
      "va": "0x0065E610",
      "length": 3,
-     "name": "?sub_0065E610_Empty@@YGXHHH@Z"
+     "name": "?ITEMMODS_Nop@@YGXHHH@Z"
     },
     {
      "va": "0x0065E620",
@@ -80272,7 +80272,7 @@
     {
      "va": "0x0065E9B0",
      "length": 43,
-     "name": "?sub_0065E9B0@@YIPAUD2ItemsTxt@@PAUD2UnitStrc@@0@Z"
+     "name": "?ITEMMODS_GetItemsTxtRecordFromUnitOrItem@@YIPAUD2ItemsTxt@@PAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x0065EA50",
@@ -80341,7 +80341,7 @@
     {
      "va": "0x0065F590",
      "length": 257,
-     "name": "?sub_0065F590@@YIHHPAUUnit@@0PBUProperty@@HFHHHH0@Z"
+     "name": "?ITEMMODS_PropertyFunc14@@YIHHPAUUnit@@0PBUProperty@@HFHHHH0@Z"
     },
     {
      "va": "0x0065F6A0",
@@ -80403,7 +80403,7 @@
     {
      "va": "0x0065FE10",
      "length": 169,
-     "name": "?sub_0065FE10@@YGXHPAUD2UnitStrc@@0PBXHHHPBUD2PropertyStrc@@HH0@Z"
+     "name": "?ITEMMODS_DispatchPropertyAssign@@YGXHPAUD2UnitStrc@@0PBXHHHPBUD2PropertyStrc@@HH0@Z"
     },
     {
      "va": "0x0065FEC0",
@@ -80489,7 +80489,7 @@
     {
      "va": "0x00660C70",
      "length": 53,
-     "name": "sub_00660C70"
+     "name": "DATATBLS_GetBeltsTxtRecordFromIndex"
     },
     {
      "va": "0x00660CB0",
@@ -80534,7 +80534,7 @@
     {
      "va": "0x00660F80",
      "length": 65,
-     "name": "?sub_00660F80_ValidateWaypointData@@YIHPAUD2WaypointDataStrc@@@Z"
+     "name": "?WAYPOINTS_ValidateWaypointHeader@@YIHPAUD2WaypointDataStrc@@@Z"
     },
     {
      "va": "0x00660FD0",
@@ -80616,7 +80616,7 @@
     {
      "va": "0x00661270",
      "length": 41,
-     "name": "sub_00661270"
+     "name": "TEXT_FreeTextNodes"
     },
     {
      "va": "0x006612A0",
@@ -80646,12 +80646,12 @@
     {
      "va": "0x00661400",
      "length": 53,
-     "name": "sub_00661400"
+     "name": "TEXT_GetStringIdOfMenuType0Node"
     },
     {
      "va": "0x00661440",
      "length": 53,
-     "name": "sub_00661440"
+     "name": "TEXT_GetStringIdOfMenuType1Node"
     },
     {
      "va": "0x00661480",
@@ -80666,12 +80666,12 @@
     {
      "va": "0x006615D0",
      "length": 20,
-     "name": "sub_006615D0"
+     "name": "TEXT_CompareTextNodesByStringId"
     },
     {
      "va": "0x006615F0",
      "length": 238,
-     "name": "sub_006615F0"
+     "name": "TEXT_InsertionSortTextNodes"
     },
     {
      "va": "0x006616E0",
@@ -80737,7 +80737,7 @@
     {
      "va": "0x006632C0",
      "length": 67,
-     "name": "sub_006632C0"
+     "name": "DATATBLS_GetWeaponClassIndexFromUnit"
     },
     {
      "va": "0x00663310",
@@ -80980,7 +80980,7 @@
     {
      "va": "0x00664B10",
      "length": 103,
-     "name": "sub_00664B10"
+     "name": "DATATBLS_InitCharTemplateStartIds"
     },
     {
      "va": "0x00664B80",
@@ -81061,7 +81061,7 @@
     {
      "va": "0x00666070",
      "length": 49,
-     "name": "?sub_00666070_FindLevelFile@@YAXPAPAUD2DrlgFileStrc@@PAPAUD2LevelFileListStrc@@1@Z"
+     "name": "?DRLGPRESET_FindLevelFileListEntry@@YAXPAPAUD2DrlgFileStrc@@PAPAUD2LevelFileListStrc@@1@Z"
     },
     {
      "va": "0x006660B0",
@@ -81081,7 +81081,7 @@
     {
      "va": "0x00666170",
      "length": 37,
-     "name": "sub_00666170"
+     "name": "DRLGPRESET_AddSpawnedObjectPresetUnit"
     },
     {
      "va": "0x006661A0",
@@ -81096,12 +81096,12 @@
     {
      "va": "0x006663C0",
      "length": 211,
-     "name": "?sub_006663C0@@YAXPAUD2DrlgMapStrc@@PAX@Z"
+     "name": "?DRLGPRESET_SpawnMapRivers@@YAXPAUD2DrlgMapStrc@@PAX@Z"
     },
     {
      "va": "0x006664A0",
      "length": 119,
-     "name": "sub_006664A0"
+     "name": "DRLGPRESET_AddNaviPresetUnit"
     },
     {
      "va": "0x00666520",
@@ -81131,7 +81131,7 @@
     {
      "va": "0x00666710",
      "length": 189,
-     "name": "sub_00666710"
+     "name": "DRLGPRESET_MovePresetUnitsToRoom"
     },
     {
      "va": "0x006667D0",
@@ -81155,12 +81155,12 @@
     {
      "va": "0x00666E00",
      "length": 165,
-     "name": "sub_00666E00"
+     "name": "DRLGPRESET_InitPopsLocations"
     },
     {
      "va": "0x00666EB0",
      "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00666EC0",
@@ -81185,7 +81185,7 @@
     {
      "va": "0x00666FF0",
      "length": 10,
-     "name": "?sub_00666FF0_GetRoomSubFieldEC@@YIHPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGPRESET_GetMazeGridFromRoom@@YIHPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x00667000",
@@ -81257,7 +81257,7 @@
     {
      "va": "0x00668240",
      "length": 180,
-     "name": "sub_00668240"
+     "name": "DRLGPRESET_FreeDrlgFileData"
     },
     {
      "va": "0x00668300",
@@ -81283,7 +81283,7 @@
     {
      "va": "0x00668560",
      "length": 33,
-     "name": "?sub_006543C0_StripQuotes@@YAPADPAD@Z"
+     "name": "?DATATBLS_StripQuotes@@YAPADPAD@Z"
     },
     {
      "va": "0x00668590",
@@ -81432,17 +81432,17 @@
     {
      "va": "0x0066A290",
      "length": 29,
-     "name": "?sub_0066A290_AssertFail@@YAXXZ"
+     "name": "?DRLGWARP_ShouldNeverBeCalled@@YAXXZ"
     },
     {
      "va": "0x0066A870",
      "length": 28,
-     "name": "?sub_0066A870_SumStringBytes@@YAHPBD@Z"
+     "name": "?DRLGWARP_SumStringBytes@@YAHPBD@Z"
     },
     {
      "va": "0x0066A890",
      "length": 83,
-     "name": "?sub_0066A890_CompareCodes@@YAHPBD0@Z"
+     "name": "?DRLGWARP_AreCodesEqual@@YAHPBD0@Z"
     },
     {
      "va": "0x0066AB00",
@@ -81452,7 +81452,7 @@
     {
      "va": "0x0066AC30",
      "length": 11,
-     "name": "?sub_0066AC30_GetActiveRoom@@YAPAUD2ActiveRoomStrc@@PAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGWARP_GetActiveRoomFromRoomEx@@YAPAUD2ActiveRoomStrc@@PAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0066AD80",
@@ -81467,7 +81467,7 @@
     {
      "va": "0x0066AF10",
      "length": 17,
-     "name": "?sub_0066AF10_GetWarpIdArray@@YIPAHPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGWARP_GetWarpIdArrayFromLevel@@YIPAHPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0066AF30",
@@ -81487,17 +81487,17 @@
     {
      "va": "0x0066AFB0",
      "length": 49,
-     "name": "?sub_0066AFB0_FindVisIndex@@YAHPAUD2DrlgStrc@@HHH@Z"
+     "name": "?DRLGWARP_FindVisIndex@@YAHPAUD2DrlgStrc@@HHH@Z"
     },
     {
      "va": "0x0066AFF0",
      "length": 32,
-     "name": "?sub_0066AFF0_FindFlaggedEntry@@YAPAUD2DrlgListEntryStrc@@PAUD2DrlgStrc@@H@Z"
+     "name": "?DRLGWARP_FindRoomWithWarpFlag@@YAPAUD2DrlgListEntryStrc@@PAUD2DrlgStrc@@H@Z"
     },
     {
      "va": "0x0066B010",
      "length": 29,
-     "name": "?sub_0066B010_FindPresetTile@@YIPAUD2PresetUnitStrc@@PAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGWARP_FindPresetTileUnit@@YIPAUD2PresetUnitStrc@@PAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0066B030",
@@ -81506,7 +81506,7 @@
     {
      "va": "0x0066B1F0",
      "length": 183,
-     "name": "?sub_0066B1F0_GetFirstWarpRoom@@YAPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGWARP_GetFirstWarpRoom@@YAPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0066B2B0",
@@ -81515,7 +81515,7 @@
     {
      "va": "0x0066B7F0",
      "length": 1,
-     "name": "?sub_0066B7F0_Nop@@YAXXZ"
+     "name": "?DRLGWARP_Nop@@YAXXZ"
     }
    ]
   },
@@ -81672,7 +81672,7 @@
     {
      "va": "0x0066AE30",
      "length": 53,
-     "name": "sub_0066AE30"
+     "name": "DRLGROOM_GetRoomExAtLevelCenterOffset"
     },
     {
      "va": "0x0066B3E0",
@@ -81682,7 +81682,7 @@
     {
      "va": "0x0066B4C0",
      "length": 46,
-     "name": "sub_0066B4C0"
+     "name": "DRLGROOM_UnlinkActiveRoom"
     },
     {
      "va": "0x0066B4F0",
@@ -81697,7 +81697,7 @@
     {
      "va": "0x0066B560",
      "length": 117,
-     "name": "sub_0066B560"
+     "name": "DRLGROOM_AllocDrlgOrthForRoom"
     },
     {
      "va": "0x0066B5E0",
@@ -81707,22 +81707,22 @@
     {
      "va": "0x0066B610",
      "length": 89,
-     "name": "sub_0066B610"
+     "name": "DRLGROOM_FreeDrlgOrthToRoom"
     },
     {
      "va": "0x0066B670",
      "length": 36,
-     "name": "sub_0066B670"
+     "name": "DRLGROOM_FreeDrlgOrthsBetweenRooms"
     },
     {
      "va": "0x0066B6A0",
      "length": 120,
-     "name": "sub_0066B6A0"
+     "name": "DRLGROOM_CompareOrths"
     },
     {
      "va": "0x0066B720",
      "length": 104,
-     "name": "sub_0066B720"
+     "name": "DRLGROOM_InsertOrthSorted"
     },
     {
      "va": "0x0066B790",
@@ -81756,7 +81756,7 @@
     {
      "va": "0x0066BA20",
      "length": 67,
-     "name": "sub_0066BA20"
+     "name": "DRLGROOM_AreSubtileXYInsideCoordinates"
     },
     {
      "va": "0x0066BA70",
@@ -81766,7 +81766,7 @@
     {
      "va": "0x0066BA90",
      "length": 16,
-     "name": "sub_0066BA90"
+     "name": "DRLGROOM_CheckMazeRoomOutdoorFlag"
     },
     {
      "va": "0x0066BAA0",
@@ -81806,12 +81806,12 @@
     {
      "va": "0x0066BC20",
      "length": 200,
-     "name": "sub_0066BC20"
+     "name": "DRLGROOM_CollectNearRooms"
     },
     {
      "va": "0x0066BCF0",
      "length": 4,
-     "name": "sub_0066BCF0"
+     "name": "DRLGROOM_GetNumberOfNearRooms"
     },
     {
      "va": "0x0066BD00",
@@ -81821,22 +81821,22 @@
     {
      "va": "0x0066BD50",
      "length": 75,
-     "name": "sub_0066BD50"
+     "name": "DRLGROOM_FlagIfNearTown"
     },
     {
      "va": "0x0066BDA0",
      "length": 102,
-     "name": "sub_0066BDA0"
+     "name": "DRLGROOM_AddNearRoom"
     },
     {
      "va": "0x0066BE10",
      "length": 102,
-     "name": "sub_0066BE10"
+     "name": "DRLGROOM_AddWarpRoomTile"
     },
     {
      "va": "0x0066BE80",
      "length": 175,
-     "name": "sub_0066BE80"
+     "name": "DRLGROOM_LinkNearRoomsByWarp"
     },
     {
      "va": "0x0066BF30",
@@ -81861,7 +81861,7 @@
     {
      "va": "0x0066C020",
      "length": 18,
-     "name": "?sub_0066C020_GetDrlgTypeFromRoom@@YIHPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGROOM_GetDrlgTypeFromRoom@@YIHPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0066C040",
@@ -81871,7 +81871,7 @@
     {
      "va": "0x0066C090",
      "length": 17,
-     "name": "?sub_0066C090_GetVisArrayFromLevel@@YIPAHPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGROOM_GetVisArrayFromLevel@@YIPAHPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0066C0B0",
@@ -81886,7 +81886,7 @@
     {
      "va": "0x0066C220",
      "length": 329,
-     "name": "sub_0066C220"
+     "name": "DRLGROOM_LinkRoomToWarpDestination"
     },
     {
      "va": "0x0066C370",
@@ -81975,7 +81975,7 @@
     {
      "va": "0x0066C580",
      "length": 151,
-     "name": "sub_0066C580"
+     "name": "DRLGLOGIC_FloodFillUnassignedTiles"
     },
     {
      "va": "0x0066C620",
@@ -81984,12 +81984,12 @@
     {
      "va": "0x0066C660",
      "length": 54,
-     "name": "sub_0066C660"
+     "name": "DRLGLOGIC_AllocLogicalRoomInfo"
     },
     {
      "va": "0x0066C6A0",
      "length": 55,
-     "name": "sub_0066C6A0"
+     "name": "DRLGLOGIC_AllocCoordListArray"
     },
     {
      "va": "0x0066C6E0",
@@ -81999,12 +81999,12 @@
     {
      "va": "0x0066C770",
      "length": 127,
-     "name": "sub_0066C770"
+     "name": "DRLGLOGIC_ReplaceCoordListIndex"
     },
     {
      "va": "0x0066C7F0",
      "length": 79,
-     "name": "sub_0066C7F0"
+     "name": "DRLGLOGIC_MarkWallTilesInGrid"
     },
     {
      "va": "0x0066C840",
@@ -82014,7 +82014,7 @@
     {
      "va": "0x0066C870",
      "length": 324,
-     "name": "sub_0066C870"
+     "name": "DRLGLOGIC_MarkBlockingTilesInGrid"
     },
     {
      "va": "0x0066C9C0",
@@ -82037,7 +82037,7 @@
     {
      "va": "0x0066CDE0",
      "length": 79,
-     "name": "sub_0066CDE0"
+     "name": "DRLGLOGIC_GetCoordListIndexAtTile"
     },
     {
      "va": "0x0066CE30",
@@ -82047,7 +82047,7 @@
     {
      "va": "0x0066CEB0",
      "length": 116,
-     "name": "sub_0066CEB0"
+     "name": "DRLGLOGIC_GetRoomCoordListAtSubtile"
     },
     {
      "va": "0x0066CF30",
@@ -82057,12 +82057,12 @@
     {
      "va": "0x0066CF60",
      "length": 223,
-     "name": "sub_0066CF60"
+     "name": "DRLGLOGIC_MergeCoordListsAtPoint"
     },
     {
      "va": "0x0066D040",
      "length": 196,
-     "name": "sub_0066D040"
+     "name": "DRLGLOGIC_MergeCoordListsWithNearRooms"
     },
     {
      "va": "0x0066D110",
@@ -82139,7 +82139,7 @@
     {
      "va": "0x0066D960",
      "length": 120,
-     "name": "?sub_0066D960_FindTilePresetEntry@@YGHHIH@Z"
+     "name": "?DRLGROOMTILE_FindTilePresetUnitIndex@@YGHHIH@Z"
     },
     {
      "va": "0x0066D9E0",
@@ -82153,7 +82153,7 @@
     {
      "va": "0x0066DC10",
      "length": 60,
-     "name": "sub_0066DC10"
+     "name": "DRLGROOMTILE_SetTileDataPosition"
     },
     {
      "va": "0x0066DC50",
@@ -82182,7 +82182,7 @@
     {
      "va": "0x0066E090",
      "length": 165,
-     "name": "?sub_0066E090@@YIXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGROOMTILE_ShrinkRoofTilesToShadowCount@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0066E160",
@@ -82207,7 +82207,7 @@
     {
      "va": "0x0066E4C0",
      "length": 183,
-     "name": "?sub_0066E4C0_FindLinkedTileInRoom@@YGPAUD2DrlgTileDataStrc@@PAUD2DrlgRoomStrc@@HHHI@Z"
+     "name": "?DRLGROOMTILE_FindLinkedTileInRoom@@YGPAUD2DrlgTileDataStrc@@PAUD2DrlgRoomStrc@@HHHI@Z"
     },
     {
      "va": "0x0066E580",
@@ -82217,7 +82217,7 @@
     {
      "va": "0x0066E5E0",
      "length": 54,
-     "name": "?sub_0066E5E0_NewTileLink@@YGPAUD2DrlgTileLinkStrc@@PAXPAUD2DrlgRoomStrc@@H@Z"
+     "name": "?DRLGROOMTILE_AllocTileLink@@YGPAUD2DrlgTileLinkStrc@@PAXPAUD2DrlgRoomStrc@@H@Z"
     },
     {
      "va": "0x0066E620",
@@ -82283,7 +82283,7 @@
     {
      "va": "0x0066F050",
      "length": 94,
-     "name": "sub_0066F050"
+     "name": "DRLGROOMTILE_FreeTileArrays"
     },
     {
      "va": "0x0066F0B0",
@@ -82293,7 +82293,7 @@
     {
      "va": "0x0066F180",
      "length": 30,
-     "name": "?sub_0066F180_ResetRoomTiles@@YAXPAUD2DrlgRoomStrc@@@Z"
+     "name": "?DRLGROOMTILE_ResetRoomTileSelections@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0066F1A0",
@@ -82493,7 +82493,7 @@
     {
      "va": "0x00670810",
      "length": 69,
-     "name": "sub_00670810"
+     "name": "DRLGMAZE_HasSingleRoomForDifficulty"
     },
     {
      "va": "0x00670860",
@@ -82503,7 +82503,7 @@
     {
      "va": "0x00670880",
      "length": 216,
-     "name": "sub_00670880"
+     "name": "DRLGMAZE_LinkMazeRooms"
     },
     {
      "va": "0x00670960",
@@ -82518,7 +82518,7 @@
     {
      "va": "0x006709A0",
      "length": 7,
-     "name": "?sub_006709A0_SetPickedFile@@YAXPAUD2DrlgRoomStrc@@H@Z"
+     "name": "?DRLGMAZE_SetPickedFile@@YAXPAUD2DrlgRoomStrc@@H@Z"
     },
     {
      "va": "0x006709B0",
@@ -82616,22 +82616,22 @@
     {
      "va": "0x00672550",
      "length": 179,
-     "name": "?sub_00672550@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGMAZE_PlaceAct1CaveStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00672610",
      "length": 183,
-     "name": "?sub_00672610@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGMAZE_PlaceAct1CryptStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x006726D0",
      "length": 193,
-     "name": "?sub_006726D0@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGMAZE_PlaceAct1JailStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x006727A0",
      "length": 105,
-     "name": "?sub_006727A0@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGMAZE_PlaceAct1CatacombsStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00672810",
@@ -82650,7 +82650,7 @@
     {
      "va": "0x00672E50",
      "length": 76,
-     "name": "?sub_00672E50@@YIXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGMAZE_PlaceSummonerPreset@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00672EA0",
@@ -82703,7 +82703,7 @@
     {
      "va": "0x00673A60",
      "length": 138,
-     "name": "?sub_00673A60@@YGXPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGMAZE_BuildRoomPresetArea@@YGXPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00673AF0",
@@ -82744,7 +82744,7 @@
     {
      "va": "0x00674320",
      "length": 155,
-     "name": "?sub_00674320_PickFile@@YAHPAUD2DrlgLevelStrc@@H@Z"
+     "name": "?DRLGOUTDOORS_PickNextPresetFile@@YAHPAUD2DrlgLevelStrc@@H@Z"
     },
     {
      "va": "0x006743C0",
@@ -82763,7 +82763,7 @@
     {
      "va": "0x00674920",
      "length": 590,
-     "name": "?sub_00674920_PlaceRandomPreset@@YIHPAUD2DrlgLevelStrc@@HH@Z"
+     "name": "?DRLGOUTDOORS_SpawnRandomOutdoorDS1@@YIHPAUD2DrlgLevelStrc@@HH@Z"
     },
     {
      "va": "0x00674B70",
@@ -82778,7 +82778,7 @@
     {
      "va": "0x00675080",
      "length": 107,
-     "name": "?sub_00675080_ScaleAndMergeVertices@@YAXPAXPAPAUD2DrlgVertexStrc@@@Z"
+     "name": "?DRLGOUTDOORS_ScaleAndMergeVertices@@YAXPAXPAPAUD2DrlgVertexStrc@@@Z"
     },
     {
      "va": "0x006750F0",
@@ -82787,7 +82787,7 @@
     {
      "va": "0x00675290",
      "length": 8,
-     "name": "?sub_00675290_GetOutdoorValue@@YIHPAUD2DrlgLevelStrc@@H@Z"
+     "name": "?DRLGOUTDOORS_GetRoadEntry@@YIHPAUD2DrlgLevelStrc@@H@Z"
     },
     {
      "va": "0x00675320",
@@ -82806,7 +82806,7 @@
     {
      "va": "0x006757E0",
      "length": 110,
-     "name": "?sub_006757E0_GetLevelStyle@@YIHPAUD2DrlgLevelStrc@@_N@Z"
+     "name": "?DRLGOUTDOORS_GetBorderLookupId@@YIHPAUD2DrlgLevelStrc@@_N@Z"
     }
    ]
   },
@@ -83487,32 +83487,32 @@
     {
      "va": "0x0067C420",
      "length": 3,
-     "name": "sub_0067C420"
+     "name": "DRLGGRID_OverwriteFlag"
     },
     {
      "va": "0x0067C430",
      "length": 3,
-     "name": "sub_0067C430"
+     "name": "DRLGGRID_OrFlag"
     },
     {
      "va": "0x0067C440",
      "length": 3,
-     "name": "sub_0067C440"
+     "name": "DRLGGRID_AndFlag"
     },
     {
      "va": "0x0067C450",
      "length": 3,
-     "name": "sub_0067C450"
+     "name": "DRLGGRID_XorFlag"
     },
     {
      "va": "0x0067C460",
      "length": 12,
-     "name": "sub_0067C460"
+     "name": "DRLGGRID_OverwriteFlagIfZero"
     },
     {
      "va": "0x0067C470",
      "length": 5,
-     "name": "sub_0067C470"
+     "name": "DRLGGRID_AndNegatedFlag"
     },
     {
      "va": "0x0067C480",
@@ -83527,7 +83527,7 @@
     {
      "va": "0x0067C4D0",
      "length": 21,
-     "name": "sub_0067C4D0"
+     "name": "DRLGGRID_GetCellFlagsPointer"
     },
     {
      "va": "0x0067C4F0",
@@ -83537,7 +83537,7 @@
     {
      "va": "0x0067C520",
      "length": 40,
-     "name": "sub_0067C520"
+     "name": "DRLGGRID_AlterGridFlagAtCoord"
     },
     {
      "va": "0x0067C550",
@@ -83562,7 +83562,7 @@
     {
      "va": "0x0067C6D0",
      "length": 143,
-     "name": "sub_0067C6D0"
+     "name": "DRLGGRID_AlterBottomAndRightEdgeFlags"
     },
     {
      "va": "0x0067C760",
@@ -83571,12 +83571,12 @@
     {
      "va": "0x0067C8E0",
      "length": 628,
-     "name": "sub_0067C8E0"
+     "name": "DRLGGRID_AlterFlagsAlongVertexLine"
     },
     {
      "va": "0x0067CB60",
      "length": 27,
-     "name": "sub_0067CB60"
+     "name": "DRLGGRID_CopyGridFlags"
     },
     {
      "va": "0x0067CB80",
@@ -83586,17 +83586,17 @@
     {
      "va": "0x0067CBF0",
      "length": 103,
-     "name": "sub_0067CBF0"
+     "name": "DRLGGRID_FillGrid"
     },
     {
      "va": "0x0067CC60",
      "length": 93,
-     "name": "sub_0067CC60"
+     "name": "DRLGGRID_InitializeGridRowOffsets"
     },
     {
      "va": "0x0067CCC0",
      "length": 110,
-     "name": "sub_0067CCC0"
+     "name": "DRLGGRID_FillNewCellFlags"
     },
     {
      "va": "0x0067CD30",
@@ -83651,7 +83651,7 @@
     {
      "va": "0x0067CE00",
      "length": 26,
-     "name": "sub_0067CE00_MarkVertex"
+     "name": "DRLGVER_MarkVertex"
     },
     {
      "va": "0x0067CE20",
@@ -83660,7 +83660,7 @@
     {
      "va": "0x0067D030",
      "length": 22,
-     "name": "sub_0067D030"
+     "name": "DRLGVER_MakeVerticesRelative"
     },
     {
      "va": "0x0067D050",
@@ -83675,12 +83675,12 @@
     {
      "va": "0x0067D250",
      "length": 34,
-     "name": "sub_0067D250"
+     "name": "DRLGVER_ReverseVertexList"
     },
     {
      "va": "0x0067D280",
      "length": 76,
-     "name": "sub_0067D280"
+     "name": "DRLGVER_GetCoordDiff"
     }
    ]
   },
@@ -83702,27 +83702,27 @@
     {
      "va": "0x0067D540",
      "length": 133,
-     "name": "sub_0067D540"
+     "name": "DRLGOUTPLACE_CreateOutdoorRoomEx"
     },
     {
      "va": "0x0067D5D0",
      "length": 49,
-     "name": "sub_0067D5D0"
+     "name": "DRLGOUTROOM_FreeOutdoorRoomGrids"
     },
     {
      "va": "0x0067D610",
      "length": 108,
-     "name": "sub_0067D610"
+     "name": "DRLGOUTROOM_FreeDrlgOutdoorRoom"
     },
     {
      "va": "0x0067D680",
      "length": 77,
-     "name": "sub_0067D680"
+     "name": "DRLGOUTROOM_FreeDrlgOutdoorRoomData"
     },
     {
      "va": "0x0067D6D0",
      "length": 62,
-     "name": "sub_0067D6D0"
+     "name": "DRLGOUTROOM_AllocDrlgOutdoorRoom"
     },
     {
      "va": "0x0067D710",
@@ -83732,7 +83732,7 @@
     {
      "va": "0x0067D7A0",
      "length": 12,
-     "name": "sub_0067D7A0"
+     "name": "DRLGOUTROOM_CheckOutdoorRoomFlag"
     }
    ]
   },
@@ -83790,12 +83790,12 @@
     {
      "va": "0x0067DB00",
      "length": 69,
-     "name": "sub_0067DB00"
+     "name": "DRLGOUTSIEGE_SpawnPresetAtLvlLinkCell"
     },
     {
      "va": "0x0067DB50",
      "length": 331,
-     "name": "sub_0067DB50"
+     "name": "DRLGOUTSIEGE_PlaceBarricadeEntrancesAndExits"
     },
     {
      "va": "0x0067DCA0",
@@ -83804,7 +83804,7 @@
     {
      "va": "0x0067DCE0",
      "length": 16,
-     "name": "sub_0067DCE0"
+     "name": "DRLGOUTSIEGE_GetBorderLookupId"
     },
     {
      "va": "0x0067DCF0",
@@ -83817,27 +83817,27 @@
     {
      "va": "0x0067E000",
      "length": 127,
-     "name": "sub_0067E000"
+     "name": "DRLGOUTSIEGE_GetSecondaryBorderPresetId"
     },
     {
      "va": "0x0067E080",
      "length": 81,
-     "name": "sub_0067E080"
+     "name": "DRLGOUTSIEGE_TestSecondaryBorderCell"
     },
     {
      "va": "0x0067E0E0",
      "length": 118,
-     "name": "sub_0067E0E0"
+     "name": "DRLGOUTSIEGE_AddAct5SecondaryBorder"
     },
     {
      "va": "0x0067E160",
      "length": 166,
-     "name": "sub_0067E160"
+     "name": "DRLGOUTSIEGE_PlaceSpecialPresets"
     },
     {
      "va": "0x0067E210",
      "length": 48,
-     "name": "?sub_0067E210_PlaceShiftedPreset@@YAHPAUD2DrlgLevelStrc@@HH@Z"
+     "name": "?DRLGOUTSIEGE_PlacePrisonAtCell@@YAHPAUD2DrlgLevelStrc@@HH@Z"
     },
     {
      "va": "0x0067E240",
@@ -83846,12 +83846,12 @@
     {
      "va": "0x0067E4B0",
      "length": 168,
-     "name": "sub_0067E4B0"
+     "name": "DRLGOUTSIEGE_ConnectBarricadeAndSiege"
     },
     {
      "va": "0x0067E560",
      "length": 147,
-     "name": "sub_0067E560"
+     "name": "DRLGOUTSIEGE_PlaceSiegeToTownPresets"
     },
     {
      "va": "0x0067E600",
@@ -83917,17 +83917,17 @@
     {
      "va": "0x0067F190",
      "length": 540,
-     "name": "sub_0067F190"
+     "name": "DRLGOUTPLACE_BuildKurast"
     },
     {
      "va": "0x0067F3B0",
      "length": 148,
-     "name": "sub_0067F3B0"
+     "name": "DRLGOUTJUNG_PlaceTravincalPresets"
     },
     {
      "va": "0x0067F450",
      "length": 30,
-     "name": "sub_0067F450"
+     "name": "DRLGOUTPLACE_InitAct3OutdoorLevel"
     }
    ]
   },
@@ -83953,17 +83953,17 @@
     {
      "va": "0x0067F6F0",
      "length": 72,
-     "name": "?sub_0067F6F0_PlaceRockyWasteVariants@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGOUTDESR_PlaceRockyWasteVariants@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0067F740",
      "length": 96,
-     "name": "?sub_0067F740_PlaceDryHillsVariants@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGOUTDESR_PlaceDryHillsVariants@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0067F7A0",
      "length": 37,
-     "name": "?sub_0067F7A0_PlaceFarOasisVariants@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGOUTDESR_PlaceFarOasisVariants@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x0067F7D0",
@@ -84089,7 +84089,7 @@
     {
      "va": "0x00680040",
      "length": 37,
-     "name": "?sub_00680040_IsVertexBlocking@@YAHPAUD2DrlgVertexStrc@@@Z"
+     "name": "?DRLGOUTWILD_IsVertexBlocking@@YAHPAUD2DrlgVertexStrc@@@Z"
     },
     {
      "va": "0x006804E0",

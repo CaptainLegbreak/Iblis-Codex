@@ -637,7 +637,7 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
 }
 
 // 0x004203D0
-char* __fastcall sub_00416800_LinkRawNext(D2StormLinkStrc* pLink)
+char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
 {
     return pLink->m_next;
 }
@@ -735,7 +735,7 @@ void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
 // 0x00420480
 D2StormLinkStrc* __fastcall sub_00420480_Identity(D2IdentityView* value) {return &value->link;}
 
-bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
+bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
 {
     return m_next != 0;
 }
@@ -782,7 +782,7 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
     m_next = 0;
 }
 
-char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
+char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 {
     return f_14;
 }
@@ -794,7 +794,7 @@ D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
     f_8 = 0;
 }
 
-unsigned int D2ChatStormBaseArrayAStrc::sub_0060E230_Count()
+unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
     return f_4;
 }
@@ -806,33 +806,33 @@ D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
     f_8 = 0;
 }
 
-unsigned int D2ChatStormBaseArrayBStrc::sub_0060E250_Count()
+unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
     return f_4;
 }
 
-void D2ChatStormListAStrc::sub_0060E260_InitializeTerminator()
+void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
 {
     InitializeTerminator();
 }
 
 // 0x00420490
-char* D2ChatStormListAStrc::sub_0060E440_Head()
+char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
 {
     return m_terminator.MaskNext();
 }
 
-void D2ChatStormListBStrc::sub_0060E270_InitializeTerminator()
+void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
 {
     InitializeTerminator();
 }
 
-char* D2ChatStormListBStrc::sub_0060E5D0_Head()
+char* D2ChatStormListBStrc::IGNORELIST_GetMappingListHead()
 {
     return m_terminator.MaskNext();
 }
 
-void D2ChatStormListBStrc::sub_0060E610_Reset()
+void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
 {
     m_linkoffset = 0;
     InitializeTerminator();
@@ -848,7 +848,7 @@ char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
     return pNode + nLinkOffset;
 }
 
-char* D2ChatStormHashTableStrc::sub_0060E6D0_Head()
+char* D2ChatStormHashTableStrc::IGNORELIST_GetStringTableHead()
 {
     return m_fulllist.m_terminator.MaskNext();
 }
@@ -883,18 +883,18 @@ D2CommonMappingEntryNodeStrc::~D2CommonMappingEntryNodeStrc()
         SMemFree(pMapped, gszIgnoreListSourceFile_006E6290, 0x11, 0);
 }
 
-void D2CommonStringEntryNodeStrc::sub_0060EE30_Destroy()
+void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
 {
     this->~D2CommonStringEntryNodeStrc();
 }
 
-void D2CommonStormHashTableAStrc::sub_0060ED60_Clear()
+void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 {
-    sub_0060EB70_InternalClear(0);
+    IGNORELIST_InternalClearStringTable(0);
 }
 
 // 0x00420500
-void D2ChatStormListAStrc::sub_0060E5F0_Reset()
+void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 {
     m_linkoffset = 0;
     InitializeTerminator();

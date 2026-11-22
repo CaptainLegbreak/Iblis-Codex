@@ -67,11 +67,11 @@ void __fastcall sub_004DA5B0_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFr
 
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit);                                     // 0x004DA690
 
-D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(void* pAct, int nX, int nY);                             // 0x00619DA0
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(void* pAct, int nX, int nY);                             // 0x00619DA0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
+int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit); // 0x00624390
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
@@ -204,15 +204,15 @@ struct D2OwnerStrc_004CA990;
 
 void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 
-void __stdcall sub_00648690(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
+void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 
-void __stdcall sub_006486D0(D2DynamicPathStrc* pDynamicPath, int nMaxVelocity); // 0x006486D0
+void __stdcall PATH_SetMaxVelocity(D2DynamicPathStrc* pDynamicPath, int nMaxVelocity); // 0x006486D0
 
-void __stdcall sub_00648700_acceleration(D2DynamicPathStrc* pDynamicPath, int nAcceleration); // 0x00648700
+void __stdcall PATH_SetAcceleration(D2DynamicPathStrc* pDynamicPath, int nAcceleration); // 0x00648700
 
 void __stdcall sub_006488A0(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006488A0
 
-void __stdcall sub_00648AD0(D2DynamicPathStrc* pDynamicPath, int nX, int nY); // 0x00648AD0
+void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pDynamicPath, int nX, int nY); // 0x00648AD0
 
 void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 
@@ -413,7 +413,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
     if (pMissileParams->pOwner)
     {
         if (!COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pMissileParams->pOwner), nX, nY)
-            && !sub_00619DA0_ActLookup(gpGlobal_007A0634, nX, nY))
+            && !DUNGEON_FindRoomBySubtileCoordinates(gpGlobal_007A0634, nX, nY))
         {
             return 0;
         }
@@ -422,7 +422,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && !COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pPlayer), nX, nY)
-            && !sub_00619DA0_ActLookup(gpGlobal_007A0634, nX, nY))
+            && !DUNGEON_FindRoomBySubtileCoordinates(gpGlobal_007A0634, nX, nY))
         {
             return 0;
         }
@@ -512,7 +512,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         return 0;
     }
 
-    sub_00624390_AnimInit(pMissile);
+    UNITS_SetAnimStartFrame(pMissile);
     STATLIST_AllocStatListEx(pMissile, 0, 0, 0);
     pMissile->dwFrameCountPrecise = pMissilesTxtRecord->nAnimLen << 8;
     MISSILE_SetAnimSpeed(pMissile, pMissilesTxtRecord->nAnimSpeed << 4);
@@ -1592,7 +1592,7 @@ void __fastcall sub_004D63E0_CltDoZigZag(D2UnitStrc* pMissile)
         nNextOffsetY = 1;
     }
 
-    sub_00648AD0(pMissile->pDynamicPath, nNextOffsetX + CLIENTS_GetUnitX(pMissile), nNextOffsetY + CLIENTS_GetUnitY(pMissile));
+    PATH_SetTargetPos(pMissile->pDynamicPath, nNextOffsetX + CLIENTS_GetUnitX(pMissile), nNextOffsetY + CLIENTS_GetUnitY(pMissile));
     D2Common_10142(pMissile->pDynamicPath, pMissile, 0);
 
     MISSILE_SetTargetX(pMissile, SEED_GetLowSeed(pSeed));

@@ -247,9 +247,9 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 
 void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639E30
 
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY); // 0x0063E7E0
+void __stdcall INVENTORY_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY); // 0x0063E7E0
 
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 
@@ -293,7 +293,7 @@ void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int
 
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
 
-int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath); // 0x006505C0
+int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
 
 int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int* pChainId); // 0x006510C0
 
@@ -409,7 +409,7 @@ void __stdcall PATH_SetVelocity(D2DynamicPathStrc*, int, const char*, int); // 0
 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc*, unsigned char); // 0x00648E70
 
-void __stdcall sub_00649050(D2DynamicPathStrc*); // 0x00649050
+void __stdcall PATH_ClearPreviousTargetPoint(D2DynamicPathStrc*); // 0x00649050
 
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
 
@@ -455,7 +455,7 @@ typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 typedef int BOOL;
 
-D2SkillStrc* __stdcall sub_006260E0(D2StatListStrc* pStatList);                                        // 0x006260E0
+D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList);                                        // 0x006260E0
 
 int __stdcall STATLIST_GetSkillLevel(D2StatListStrc* pStatList);                                            // 0x00626100
 
@@ -650,7 +650,7 @@ int __fastcall SKILLS_SrvDo150_Smite(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_HOLYSHIELD);
             if (pStatList)
             {
-                const int nHolyShieldId = (int)sub_006260E0(pStatList);
+                const int nHolyShieldId = (int)STATLIST_GetSkillId(pStatList);
                 const int nHolyShieldLevel = STATLIST_GetSkillLevel(pStatList);
                 nMinDamage += SKILLS_GetMinPhysDamage(pUnit, nHolyShieldId, nHolyShieldLevel, 1);
                 nMaxDamage += SKILLS_GetMaxPhysDamage(pUnit, nHolyShieldId, nHolyShieldLevel, 1);
@@ -1083,7 +1083,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         if (pRecord) {
             nVelocity = pRecord->nRun << 8;
             if (nMonsterId == MONSTER_DURIEL) SKILLS_SetParam4(pSkill, 15);
-            sub_00649050(pPath);
+            PATH_ClearPreviousTargetPoint(pPath);
             PATH_SetNewDistance(pPath, 20);
         }
     }
@@ -1715,7 +1715,7 @@ int __fastcall SKILLS_SrvDo081_HolyFreeze(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 int __fastcall SKILLS_ApplyRedemptionEffect(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillId, int nSkillLevel, int bSkipChanceRoll)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord || !pCorpse || !sub_006456D0_CanUnitCorpseBeSelected(pCorpse))
+    if (!pSkillsTxtRecord || !pCorpse || !SKILLS_CanUnitCorpseBeSelected(pCorpse))
     {
         return 0;
     }
@@ -1767,7 +1767,7 @@ static inline int SKILLS_ApplyRedemptionEffect_Inline(D2GameStrc* pGame, D2UnitS
         return 0;
     }
 
-    if (!sub_006456D0_CanUnitCorpseBeSelected(pCorpse))
+    if (!SKILLS_CanUnitCorpseBeSelected(pCorpse))
     {
         return 0;
     }

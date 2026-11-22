@@ -839,7 +839,7 @@ void __fastcall sub_004D55C0_CltDoOwnerSkill(D2UnitStrc* pMissile)
             D2SkillStrc* pSkill = UNITS_GetUsedSkill(pOwner);
             if (pSkill && SKILLS_GetSkillIdFromSkill(pSkill, gszMissileSourceFile_006DAEF4, 2285) == MISSILE_GetSkill(pMissile))
             {
-                if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+                if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
                 {
                     sub_004CDBA0_SubmitOwnerRequest(pMissile, pMissilesTxtRecord->wCltSubMissile[0], 0, 0, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
                 }
@@ -870,7 +870,7 @@ void __fastcall sub_004D5710_CltDoPerpendicular(D2UnitStrc* pMissile)
             MISSILE_SetTargetY(pMissile, nDX);
         }
 
-        if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+        if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
         {
             D2MissileStrc tMissileParams;
             memset(&tMissileParams, 0, sizeof(tMissileParams));

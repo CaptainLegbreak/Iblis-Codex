@@ -449,7 +449,7 @@ void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame);          
 
 void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* pUnit, int* pFrameNo, int* pFrameCount);           // 0x00621810
 
-int __stdcall sub_006229F0_IsRayFreeFromUnit(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask);      // 0x006229F0
+int __stdcall UNITS_TestCollisionByCoordinates(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask);      // 0x006229F0
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
@@ -2115,8 +2115,8 @@ int __fastcall SKILLITEM_EventFunc19_Slow(D2GameStrc* pGame, int nEvent, D2UnitS
         return 0;
     }
 
-    sub_006270B0(pStatList, STAT_ATTACKRATE, -nSlowValue, 0);
-    sub_006270B0(pStatList, STAT_OTHER_ANIMRATE, -nSlowValue, 0);
+    STATLIST_SetStatValue(pStatList, STAT_ATTACKRATE, -nSlowValue, 0);
+    STATLIST_SetStatValue(pStatList, STAT_OTHER_ANIMRATE, -nSlowValue, 0);
     UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillItem.cpp", 2186);
     return 1;
 }
@@ -2792,7 +2792,7 @@ int __fastcall SKILLS_SrvDo027_Teleport(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom));
-    if (pLevelsTxtRecord && pLevelsTxtRecord->nTeleport != 0 && (pLevelsTxtRecord->nTeleport != 2 || !sub_006229F0_IsRayFreeFromUnit(pUnit, nTargetX, nTargetY, COLLIDE_MASK_PLAYER_FLYING)))
+    if (pLevelsTxtRecord && pLevelsTxtRecord->nTeleport != 0 && (pLevelsTxtRecord->nTeleport != 2 || !UNITS_TestCollisionByCoordinates(pUnit, nTargetX, nTargetY, COLLIDE_MASK_PLAYER_FLYING)))
     {
         return sub_6FCBDFE0(pGame, pUnit, 0, nTargetX, nTargetY, 0, 0);
     }

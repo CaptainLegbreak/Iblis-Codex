@@ -527,11 +527,11 @@ unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem); // 0x00628110
 
 int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwFlags, unsigned int dwMask); // 0x006287A0
 
-unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BCB0
 
-int __stdcall sub_0062C590(D2UnitStrc* pItem); // 0x0062C590
+int __stdcall ITEMS_CanBeImbued(D2UnitStrc* pItem); // 0x0062C590
 
 int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* pItem); // 0x0062C6A0
 
@@ -596,7 +596,7 @@ int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); /
 
 void __stdcall INVENTORY_RemoveInventoryItems(D2InventoryStrc* pInventory); // 0x0063CB70
 
-void __stdcall sub_0063BD00_Return(D2InventoryStrc* pInventory); // 0x0063BD00
+void __stdcall D2COMMON_10251_Return(D2InventoryStrc* pInventory); // 0x0063BD00
 
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient);                                           // 0x005382B0
 
@@ -614,7 +614,7 @@ void __fastcall sub_005762B0_RepairItemCallback(D2GameStrc* pGame, D2UnitStrc* p
 
 int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void (__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*)); // 0x0062FE60
 
-int __stdcall sub_0062FDC0_GetRepairCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062FDC0
+int __stdcall ITEMS_GetTransactionCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062FDC0
 
 int __stdcall ITEMS_IsRepairable(D2UnitStrc* pItem); // 0x0062E660
 
@@ -2069,7 +2069,7 @@ lNotRepairable:
     }
 
     const int nVendorId = pNpc->dwClassId;
-    const int nTransactionCosts = sub_0062FDC0_GetRepairCost(pUnit, pItem, ptGame->nDifficulty, sub_00543520(ptGame, pUnit), nVendorId, 3);
+    const int nTransactionCosts = ITEMS_GetTransactionCost(pUnit, pItem, ptGame->nDifficulty, sub_00543520(ptGame, pUnit), nVendorId, 3);
     if (!sub_00576D90_SpendGold(ptGame, pUnit, nTransactionCosts))
     {
         const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
@@ -2662,7 +2662,7 @@ void __fastcall sub_00579090_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlay
     if (pInventory)
     {
         INVENTORY_RemoveInventoryItems(pInventory);
-        sub_0063BD00_Return(pInventory);
+        D2COMMON_10251_Return(pInventory);
     }
 
     D2NpcTradeDataStrc* pTrade = SUNITNPC_GetNpcTrade(pNpcRecord);
@@ -3169,7 +3169,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
             return 0;
         }
 
-        if (!sub_0062C590(pInput))
+        if (!ITEMS_CanBeImbued(pInput))
         {
             packet58.nAction = 7;
             sub_0053D8D0_SendPacket0x58(pClient, &packet58);
@@ -3308,7 +3308,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         {
             ITEMS_SetItemFlag(pOutput, IFLAG_SOCKETED, 1);
 
-            int nSockets = sub_0062BC20(pOutput);
+            int nSockets = ITEMS_GetMaxSockets(pOutput);
             switch (ITEMS_GetItemQuality(pOutput))
             {
             case ITEMQUAL_MAGIC:

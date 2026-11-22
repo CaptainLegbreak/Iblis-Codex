@@ -82,7 +82,7 @@ static inline int PATH_GetSquaredDistance(D2PathPointStrc tPoint, D2PathPointStr
 }
 
 // 0x0067BBC0
-int __stdcall sub_0067BBC0_DeltaTableLookup(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     return gaPathDeltaTable_006F1E28[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
 }
@@ -97,7 +97,7 @@ int __fastcall PATH_FindSubpathWithoutObstacles(D2PathInfoStrc* pInfo, D2PathPoi
     pOtherPath = &tCache2;
     pCurPath = &tCache1;
 
-    const int nAdjacentCellIndex = sub_0067BBC0_DeltaTableLookup(tSubPathStart, pPathPoints[*pSubPathStartIdx]);
+    const int nAdjacentCellIndex = PATH_GetAdjacentPointDirection(tSubPathStart, pPathPoints[*pSubPathStartIdx]);
     tCache1.nDirectionIndex = nAdjacentCellIndex + 1;
     tCache2.nDirectionIndex = nAdjacentCellIndex + 7;
 

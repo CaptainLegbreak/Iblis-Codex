@@ -436,7 +436,7 @@ int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
 
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
 
-int __stdcall sub_00645680_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x00645680
+int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 
 int __stdcall UNITFINDS_TestUnit(D2UnitStrc* pUnit, D2UnitFindArgStrc* pArg); // 0x0065AA40
 
@@ -458,9 +458,9 @@ void __fastcall sub_6FCFE0E0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2Ski
 
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused); // 0x00621E40
 
-void __stdcall sub_006252D0(D2StatListStrc* pStatList, int nState);                                      // 0x006252D0
+void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState);                                      // 0x006252D0
 
-void __stdcall sub_00625CE0(D2StatListStrc* pStatList, void (__fastcall* pfRemove)(D2UnitStrc*, int, D2StatListStrc*)); // 0x00625CE0
+void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, void (__fastcall* pfRemove)(D2UnitStrc*, int, D2StatListStrc*)); // 0x00625CE0
 
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 
@@ -510,7 +510,7 @@ int __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId
 
 int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam); // 0x0057B420
 
@@ -538,7 +538,7 @@ void __stdcall STATLIST_SetExpireFrame(D2StatListStrc*, int); // 0x00625310
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc*, int); // 0x00625760
 
-D2SkillStrc* __stdcall sub_006260E0(D2StatListStrc*); // 0x006260E0
+D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc*); // 0x006260E0
 
 int __stdcall STATLIST_GetSkillLevel(D2StatListStrc*); // 0x00626100
 
@@ -738,7 +738,7 @@ extern SKILLSTARTFUNC gpSkillSrvStartFnTable_00732140[];                        
 
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                          // 0x0046ACE0
 
-void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nExpireFrame);                                // 0x006260B0
+void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame);                                // 0x006260B0
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
@@ -1309,7 +1309,7 @@ int __fastcall SKILLS_HasManaOrChargesForUsedSkill(D2UnitStrc* pUnit)
         return pSkill->nCharges > 0;
     }
 
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxtRecord)
     {
         return 0;
@@ -2813,7 +2813,7 @@ int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState)
 // 0x0056E370
 int __fastcall sub_6FD15320(D2UnitStrc* pUnit, D2UnitFindArgStrc* pArg)
 {
-    if (sub_00645680_CanUnitCorpseBeSelected(pUnit))
+    if (D2COMMON_11021(pUnit))
     {
         return UNITFINDS_TestUnit(pUnit, pArg);
     }
@@ -3101,7 +3101,7 @@ D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse)
         pStatList = STATLIST_GetStatListFromUnitAndState(pTarget, nState);
     if (pStatList)
     {
-        if (STATLIST_GetState(pStatList) == pCurse->nState && pCurse->nSkill == (int)sub_006260E0(pStatList))
+        if (STATLIST_GetState(pStatList) == pCurse->nState && pCurse->nSkill == (int)STATLIST_GetSkillId(pStatList))
         {
             const int nSkillLevel = STATLIST_GetSkillLevel(pStatList);
             if (pCurse->nSkillLevel == nSkillLevel)
@@ -3463,9 +3463,9 @@ int __fastcall SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Con
 
             sub_005417D0_DirectDated(pGame, pTarget, 0xC, nExpireFrame, 0, 0);
             STATES_ToggleState(pTarget, pSkillsTxtRecord->wAuraTargetState, 1);
-            sub_006252D0(pStatList, pSkillsTxtRecord->wAuraTargetState);
+            STATLIST_SetState(pStatList, pSkillsTxtRecord->wAuraTargetState);
             D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);
-            sub_00625CE0(pStatList, sub_6FD10E50);
+            STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
             sub_6FCFE0E0(pTarget, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
         }
     }
@@ -3484,9 +3484,9 @@ int __fastcall SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Con
                 return 1;
             }
 
-            sub_006252D0(pStatList, pSkillsTxtRecord->nAuraState);
+            STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
             D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-            sub_00625CE0(pStatList, sub_6FD10E50);
+            STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
         }
 
         STATES_ToggleState(pUnit, pSkillsTxtRecord->nAuraState, 1);

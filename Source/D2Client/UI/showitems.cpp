@@ -80,7 +80,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 
 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
 
-unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 
@@ -317,7 +317,7 @@ Placed:
                 case ITEMQUAL_UNIQUE:nColor=4;break;
                 case ITEMQUAL_SET:nColor=2;break;
                 default:
-                    if((ITEMS_CheckItemFlag(pItem,0x800,0x106,gszShowItems_006DAB64) && ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0) || ITEMS_CheckItemFlag(pItem,0x400000,0x10C,gszShowItems_006DAB64))nColor=5;
+                    if((ITEMS_CheckItemFlag(pItem,0x800,0x106,gszShowItems_006DAB64) && ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0) || ITEMS_CheckItemFlag(pItem,0x400000,0x10C,gszShowItems_006DAB64))nColor=5;
                     break;
                 }
                 int nClassId=pItem->dwClassId;

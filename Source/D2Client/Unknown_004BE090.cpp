@@ -108,7 +108,7 @@ void ListBoxImplementation::sub_004BE8D0_ClampTopToSelection()
 }
 
 // 0x004BEA40
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
+int __stdcall SKILLS_Return0(int nUnused)
 {
     return 0;
 }

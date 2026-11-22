@@ -286,7 +286,7 @@ void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* 
 
 void __fastcall sub_6FC681C0(D2MonsterRegionStrc** pMonReg, D2UnitStrc* pUnit, int nAlignment, int nAlignNew); // 0x00547DD0
 
-void __stdcall sub_00619EE0(D2ActiveRoomStrc* pRoom); // 0x00619EE0
+void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 
 void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 
@@ -322,7 +322,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
 
 void __fastcall sub_00571600(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571600
 
-void __stdcall sub_00648B40_roomInvalid(D2DynamicPathStrc* pPath, int bValue); // 0x00648B40
+void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pPath, int bValue); // 0x00648B40
 
 struct D2AiTableStrc
 {
@@ -597,7 +597,7 @@ void __fastcall MONSTER_ToggleSummonerFlag(D2UnitStrc* pUnit, int bSet, int bUpd
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
-D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 D2ActiveRoomStrc* __stdcall DUNGEON_StreamRoomAtCoords(D2DrlgActStrc* pAct, int nX, int nY); // 0x0061A140
 
@@ -1162,7 +1162,7 @@ D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* pGame, D2Unit
     const int nX = pUnit->pObjectData->DestRoomCooords.nX;
     const int nY = pUnit->pObjectData->DestRoomCooords.nY;
 
-    if (!sub_00619DA0_ActLookup(pGame->pAct[nAct], nX, nY))
+    if (!DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[nAct], nX, nY))
     {
         D2ActiveRoomStrc* pRoom = DUNGEON_StreamRoomAtCoords(pGame->pAct[nAct], nX, nY);
         if (pRoom)
@@ -1792,7 +1792,7 @@ static void __stdcall sub_00554340_UpdateAlignmentRegion(D2UnitStrc* pUnit, int 
     }
     if (nAlignNew == UNIT_ALIGNMENT_GOOD)
     {
-        sub_00619EE0(pRoom);
+        DUNGEON_IncreaseAlliedCountOfRoom(pRoom);
     }
     else if (nAlignment == UNIT_ALIGNMENT_GOOD)
     {
@@ -1983,7 +1983,7 @@ void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2Unit
         ++j;
     }
 
-    sub_00648B40_roomInvalid(pUnit->pDynamicPath, 0);
+    PATH_SetCurrentRoomInvalid(pUnit->pDynamicPath, 0);
 }
 
 // 0x00554850

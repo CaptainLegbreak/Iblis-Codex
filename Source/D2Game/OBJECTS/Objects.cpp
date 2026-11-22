@@ -612,7 +612,7 @@ struct Unit00552D60 {
 
 void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
 
-int __stdcall sub_00643880_AlwaysOne(int nArg)
+int __stdcall SKILLS_Return1(int nArg)
 {
     return 1;
 }
@@ -627,22 +627,22 @@ int __stdcall sub_00646270_AlwaysOne(int nArg)
     return 1;
 }
 
-int __fastcall sub_006436E0_Min(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall SKILLS_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA < nB ? nA : nB;
 }
 
-int __fastcall sub_0064B700_Min(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA < nB ? nA : nB;
 }
 
-int __fastcall sub_006436F0_Max(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall SKILLS_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA > nB ? nA : nB;
 }
 
-int __fastcall sub_0064B710_Max(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA > nB ? nA : nB;
 }

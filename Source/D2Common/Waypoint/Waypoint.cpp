@@ -121,7 +121,7 @@ D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool)
 #include "gen/data/Source/D2Common/Waypoint/Waypoint.inc"
 
 // 0x00660F80
-int __fastcall sub_00660F80_ValidateWaypointData(D2WaypointDataStrc* pData)
+int __fastcall WAYPOINTS_ValidateWaypointHeader(D2WaypointDataStrc* pData)
 {
     if (pData->nFlags[0] != 0x102)
     {

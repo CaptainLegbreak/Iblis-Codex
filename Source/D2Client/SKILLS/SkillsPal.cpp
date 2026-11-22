@@ -32,7 +32,7 @@ void __stdcall SKILLS_SetParam4(D2SkillStrc*, int); // 0x00644620
 void __stdcall SKILLS_SetFlags(D2SkillStrc*, int); // 0x00644660
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc*, int, const char*, int); // 0x00648690
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc*, unsigned char); // 0x00648E70
-void __stdcall sub_00649050(D2DynamicPathStrc*); // 0x00649050
+void __stdcall PATH_ClearPreviousTargetPoint(D2DynamicPathStrc*); // 0x00649050
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
 static inline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {

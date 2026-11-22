@@ -207,7 +207,7 @@ extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 void __cdecl sub_00453EC0(); // 0x00453EC0
 
@@ -355,7 +355,7 @@ void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags); 
 
 int __stdcall UNITS_GetPlayerPortalFlags(D2UnitStrc* pUnit);                                                // 0x00622230
 
-int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);                // 0x00622C40
 
@@ -371,7 +371,7 @@ int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);             // 0x00625480
 
-int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject);                        // 0x00623660
+int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject);                        // 0x00623660
 
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);                                             // 0x00648730
 
@@ -491,7 +491,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc*, int); // 0x00648CF0
 
 void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc*); // 0x00648DC0
 
-void __stdcall sub_00648E40_SetByte90(D2DynamicPathStrc*, unsigned char); // 0x00648E40
+void __stdcall PATH_SetDist(D2DynamicPathStrc*, unsigned char); // 0x00648E40
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int, int); // 0x0064F380
 
@@ -933,7 +933,7 @@ void __fastcall sub_00460BF0_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStr
     }
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!sub_0061AB30(pRoom))
+    if (!DUNGEON_GetActNoFromRoom(pRoom))
     {
         D2GfxLightStrc* pLight = sub_00474160_MakeLightEntry(pUnit, pPlayer && pUnit != pPlayer, 0xD, 0xFF, 0xFF, 0xFF, 0xFF);
         if (pLight)
@@ -1115,7 +1115,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(D2SkillStrc** ppSkill, int* pUse
     if (pUseState)
         *pUseState = nUseState;
 
-    D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(*ppSkill);
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(*ppSkill);
     if (!pSkillsTxt)
         return 0;
 
@@ -1271,7 +1271,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         pUnit->dwLastHitClass = pTarget->nParam3;
         PATH_RecacheRoomIfNeeded(pPath);
         PATH_SetType(pPath, 11);
-        sub_00648E40_SetByte90(pPath, 5);
+        PATH_SetDist(pPath, 5);
         D2COMMON_10170_PathSetTargetPos(pPath, pTarget->nParam1, pTarget->nParam2);
         D2Common_10142(pPath, pUnit, 0);
         sub_00480E70_SetUnitMode(pUnit, 19);
@@ -1491,7 +1491,7 @@ static void __stdcall sub_00461890_OperateObject(int nObjectIdArg, D2PlayerCmdSt
     if ((!pObject ? -1 : pObject->dwClassId) == 0x3B && STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_JUST_PORTALED))
         bSetMode = 0;
 
-    if (sub_00623660_IsInObjectInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
+    if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
     {
         if (bSetMode)
             sub_00481030_DoUnitAction(0x13, pCmd->pPlayer, 2, nObjectId, 0);
@@ -1513,7 +1513,7 @@ static void sub_004619E0_InteractWithTarget(D2PlayerCmdStrc* pCmd, int nTargetId
     case 0:
     case 1:
     case 2:
-        if (!sub_00622B50_IsRayFreeBetweenUnits(pCmd->pTarget, pCmd->pPlayer, 0x804))
+        if (!UNITS_TestCollisionBetweenInteractingUnits(pCmd->pTarget, pCmd->pPlayer, 0x804))
         {
             sub_00481030_DoUnitAction(0x13, pCmd->pPlayer, 0, nTargetId, 0);
             return;
@@ -1603,7 +1603,7 @@ static void __stdcall sub_00461C70_UseSkillOnTarget(int nArg1, int nArg2, D2Play
     D2SkillStrc* pSkill = pCmd->pSkill;
     if (pSkill)
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (pSkillsTxt && pSkillsTxt->wSrvDoFunc == 0x13)
         {
             sub_00461B40_ApproachForAura(pCmd, nArg1, nArg2);
@@ -1701,7 +1701,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             int bSetMode = 1;
             if (pCmd->pTarget && pCmd->pTarget->dwClassId == 0x3B && STATES_CheckState(pPlayerUnit, STATE_JUST_PORTALED))
                 bSetMode = 0;
-            if (!sub_00623660_IsInObjectInteractRange(pCmd->pPlayer, pCmd->pTarget) || sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (!UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) || UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 if (sub_00461D60_CheckPlayerState(nUnitType, nUnitId))
                     return;
@@ -1725,7 +1725,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
         {
             if (pCmd->dwFlags & 8)
                 return;
-            if (sub_00641530(pTarget, pCmd->pPlayer) > 4 || sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (sub_00641530(pTarget, pCmd->pPlayer) > 4 || UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 if (sub_00461D60_CheckPlayerState(nUnitType, nUnitId))
                     return;
@@ -1740,7 +1740,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
         }
         case UNIT_PLAYER:
         {
-            if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 sub_00481030_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 return;
@@ -1865,7 +1865,7 @@ static int sub_004621D0_PrepareCommand(D2PlayerCmdStrc* pCmd)
     const int nResult = D2Common_11016(pCmd->pPlayer, pCmd->pSkill);
     if (pCmd->pSkill && (pCmd->dwFlags & 2) && nResult != 1)
     {
-        D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pCmd->pSkill);
+        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pCmd->pSkill);
         if (!pSkillsTxt)
             return 0;
 
@@ -2130,7 +2130,7 @@ static void sub_004625B0_ExecuteCommand(D2PlayerCmdStrc* pCmd)
     D2SkillsTxt* pSkillsTxt = 0;
     if (*ppSkill)
     {
-        pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(*ppSkill);
+        pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(*ppSkill);
         if (!pSkillsTxt)
             goto no_target;
     }
@@ -2210,7 +2210,7 @@ with_target:
             D2SkillStrc* pSkill = *ppSkill;
             if (pSkill)
             {
-                D2SkillsTxt* pTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+                D2SkillsTxt* pTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
                 if (pTxt && (pTxt->nFlags[3] & gdwBitMasks[3]))
                 {
                     if (!sub_004610C0_CheckSkillUse(ppSkill, 0, pCmd->pPlayer))

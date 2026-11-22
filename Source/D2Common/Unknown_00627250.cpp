@@ -18,7 +18,7 @@ struct D2ItemStatCostTxt;
 typedef void (__fastcall* StatListValueChangeFunc)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
 
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
+int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627030
 
 
@@ -37,7 +37,7 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 // 0x00627250
 int __stdcall sub_00627250_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer)
 {
-    return sub_006270B0(pStatList, nStatId, nValue, nLayer);
+    return STATLIST_SetStatValue(pStatList, nStatId, nValue, nLayer);
 }
 
 // 0x006272A0

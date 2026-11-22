@@ -118,7 +118,7 @@ void EditBoxImplementation::sub_004BB200_SetUnk20(int nValue)
 }
 
 // 0x004BB950
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
+int __stdcall SKILLS_Return0(int nUnused)
 {
     return 0;
 }

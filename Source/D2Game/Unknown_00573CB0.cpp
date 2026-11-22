@@ -47,7 +47,7 @@ void __stdcall sub_00626E10(D2UnitStrc*,D2StatListStrc*,int); // 0x00626E10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void*,D2UnitStrc*); // 0x0063ABD0
 void __stdcall sub_0063EBC0_SetSkillBonus(D2UnitStrc*,int); // 0x0063EBC0
-void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc*,int,unsigned char); // 0x0063EEF0
+void __stdcall MONSTERS_ApplyClassicScaling(D2UnitStrc*,int,unsigned char); // 0x0063EEF0
 D2SkillsStrc* __stdcall SKILLS_AllocSkillList(void*); // 0x006438B0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 void __stdcall sub_00644340_SetSkillMode(void*,int); // 0x00644340
@@ -155,7 +155,7 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
     STATLIST_SetUnitStat(pMonster,STAT_ARMORCLASS,tStats.nArmor,0);
     STATLIST_SetUnitStat(pMonster,STAT_EXPERIENCE,tStats.nExperience+DATATBLS_ApplyRatio(tStats.nExperience,tBonus.nExperience,100),0);
     STATLIST_SetUnitStat(pMonster,STAT_HPREGEN,MONSTER_Regeneration(nShiftedHp,pStats->nDamageRegen),0);
-    sub_0063EEF0_AdjustMonsterStats(pMonster,pGame->bExpansion,pGame->nDifficulty);
+    MONSTERS_ApplyClassicScaling(pMonster,pGame->bExpansion,pGame->nDifficulty);
     D2StatListStrc* pStatList=STATLIST_AllocStatList(pGame->pMemoryPool,1,0,1,!pMonster ? -1 : pMonster->dwUnitId);
     sub_00626E10(pMonster,pStatList,1);
     if(pStats->nFlags[3]&(unsigned char)gdwBitMasks[0])

@@ -607,7 +607,7 @@ unsigned short __fastcall sub_004B1830_GetFreeStringId(unsigned short wStringId)
 
     D2TextHeaderStrc* pTextHeader = sub_0049F900();
     int nNode = 0;
-    unsigned short wNode = sub_00661400(pTextHeader, nNode);
+    unsigned short wNode = TEXT_GetStringIdOfMenuType0Node(pTextHeader, nNode);
     while (wNode != 0xFFFF)
     {
         if (wNode != wStringId && !CLIENT_IsStringUsed(wNode))
@@ -615,7 +615,7 @@ unsigned short __fastcall sub_004B1830_GetFreeStringId(unsigned short wStringId)
             return wNode;
         }
         ++nNode;
-        wNode = sub_00661400(pTextHeader, nNode);
+        wNode = TEXT_GetStringIdOfMenuType0Node(pTextHeader, nNode);
     }
     return 0xFFFF;
 }

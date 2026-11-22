@@ -900,9 +900,9 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
         else
             SStrCopy(szName, pPacket->szName, 0x11);
 
-        if (sub_00611560_GetOrCreateIgnoreList()->sub_00610380_IsListed(szName))
+        if (IGNORELIST_GetOrCreateIgnoreList()->IGNORELIST_IsListed(szName))
             return;
-        if (sub_00611560_GetOrCreateIgnoreList()->sub_0060FC40_IsTextFiltered(pPacket->szMessage))
+        if (IGNORELIST_GetOrCreateIgnoreList()->sub_0060FC40_IsTextFiltered(pPacket->szMessage))
             return;
     }
 

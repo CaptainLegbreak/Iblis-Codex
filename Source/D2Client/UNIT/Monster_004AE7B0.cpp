@@ -48,7 +48,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
@@ -127,7 +127,7 @@ extern const char gszMonsterFile_006DA5C8[]; // 0x006DA5C8
 
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
-void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc*, int, unsigned char); // 0x0063EEF0
+void __stdcall MONSTERS_ApplyClassicScaling(D2UnitStrc*, int, unsigned char); // 0x0063EEF0
 
 void __stdcall PATH_AllocDynamicPath(void*, D2RoomStrc*, int, int, D2UnitStrc*, int); // 0x00649D00
 
@@ -234,7 +234,7 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue);                
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                                                         // 0x006446A0
 
-void __stdcall sub_00648750(D2DynamicPathStrc* pPath, int nArg);                                            // 0x00648750
+void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pPath, int nArg);                                            // 0x00648750
 
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath);                           // 0x00648A00
 
@@ -352,10 +352,10 @@ int __fastcall sub_004AE7B0_CheckMonsterFacing(D2UnitStrc* pUnit, D2UnitStrc* pT
 
     const unsigned char nDirection = PATH_GetDirection(pTarget->pDynamicPath);
     unsigned char aDirections[8] = { 6, 7, 0, 1, 2, 3, 4, 5 };
-    const unsigned char nNewDirection = aDirections[sub_0063E7A0_GetByteTableEntry(nDirection)];
+    const unsigned char nNewDirection = aDirections[INVENTORY_GetEightWayDirection(nDirection)];
     int nOffsetX;
     int nOffsetY;
-    sub_0063E7E0_GetDirectionDelta(nNewDirection, &nOffsetX, &nOffsetY);
+    INVENTORY_GetDirectionDelta(nNewDirection, &nOffsetX, &nOffsetY);
     const int nX = CLIENTS_GetUnitX(pTarget) + 3 * nOffsetX;
     const int nY = CLIENTS_GetUnitY(pTarget) + 3 * nOffsetY;
     if (nX == CLIENTS_GetUnitX(pUnit) && nY == CLIENTS_GetUnitY(pUnit))
@@ -558,7 +558,7 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     STATLIST_SetUnitStat(pUnit,STAT_LIGHTRESIST,pMonStats->wResLi[nDifficulty],0);
     STATLIST_SetUnitStat(pUnit,STAT_COLDRESIST,pMonStats->wResCo[nDifficulty],0);
     STATLIST_SetUnitStat(pUnit,STAT_POISONRESIST,pMonStats->wResPo[nDifficulty],0);
-    sub_0063EEF0_AdjustMonsterStats(pUnit,sub_0044DCC0(),sub_0044DCD0_GetDifficulty());
+    MONSTERS_ApplyClassicScaling(pUnit,sub_0044DCC0(),sub_0044DCD0_GetDifficulty());
     STATLIST_SetUnitStat(pUnit,STAT_MAXHP,0x6400,0);
     STATLIST_SetUnitStat(pUnit,STAT_HITPOINTS,0x6400,0);
     PATH_AllocDynamicPath(0,pRoom,nX,nY,pUnit,1);

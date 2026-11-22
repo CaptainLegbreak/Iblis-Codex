@@ -1606,7 +1606,7 @@ void __fastcall DATATBLS_UnloadItemTypesTxt()
 }
 
 // 0x00639420
-static int __stdcall sub_00639420(HD2ARCHIVE hArchive, const char* szFileName, const char* szExtension)
+static int __stdcall DATATBLS_DoesExcelFileExist(HD2ARCHIVE hArchive, const char* szFileName, const char* szExtension)
 {
     char szPath[260];
     HSFILE hFile;
@@ -1678,9 +1678,9 @@ void __fastcall DATATBLS_LoadRunesTxt(HD2ARCHIVE hArchive)
 
     sgtDataTables.pRunesLinker = sub_006BD040_AllocBlock(".\\DATATBLS\\ItemTbls.cpp", 2303);
 
-    D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".txt"), 2308);
-    D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".bin"), 2312);
-    D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".xls"), 2316);
+    D2_ASSERT(!DATATBLS_DoesExcelFileExist(hArchive, "runessrv", ".txt"), 2308);
+    D2_ASSERT(!DATATBLS_DoesExcelFileExist(hArchive, "runessrv", ".bin"), 2312);
+    D2_ASSERT(!DATATBLS_DoesExcelFileExist(hArchive, "runessrv", ".xls"), 2316);
 
     sgtDataTables.pRuneDataTables.pRunesTxt = (D2RunesTxt*)DATATBLS_CompileTxt(hArchive, "runes", pTbl, &sgtDataTables.pRuneDataTables.nRunesTxtRecordCount, sizeof(D2RunesTxt));
 

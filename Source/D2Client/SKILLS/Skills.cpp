@@ -238,7 +238,7 @@ void __fastcall sub_004C7890(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* pUnit); // 0x00622870
+int __stdcall UNITS_GetMeleeRange(D2UnitStrc* pUnit); // 0x00622870
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
@@ -498,7 +498,7 @@ void __fastcall sub_0044CE40(int); // 0x0044CE40
 
 D2UnitStrc* __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 
-void __stdcall sub_006252D0(D2StatListStrc* pStatList, int nState); // 0x006252D0
+void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
@@ -595,7 +595,7 @@ int __stdcall sub_00551FF0_AlwaysOne(int nArg)
     return 1;
 }
 
-int __stdcall sub_00643880_AlwaysOne(int nArg)
+int __stdcall SKILLS_Return1(int nArg)
 {
     return 1;
 }
@@ -610,22 +610,22 @@ int __stdcall sub_00646270_AlwaysOne(int nArg)
     return 1;
 }
 
-int __fastcall sub_006436E0_Min(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall SKILLS_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA < nB ? nA : nB;
 }
 
-int __fastcall sub_0064B700_Min(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA < nB ? nA : nB;
 }
 
-int __fastcall sub_006436F0_Max(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall SKILLS_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA > nB ? nA : nB;
 }
 
-int __fastcall sub_0064B710_Max(int nA, int nB, int nUnused1, int nUnused2)
+int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA > nB ? nA : nB;
 }
@@ -1960,7 +1960,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
             return;
         }
 
-        sub_006252D0(pStatList, pSkillsTxtRecord->nAuraState);
+        STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wAuraStat[0], nCharges, 0);
     }
@@ -2608,7 +2608,7 @@ int __fastcall sub_004C7B20(D2UnitStrc* pUnit, int nMissile)
 // 0x004C7BD0
 int __fastcall sub_004C7BD0_GetMeleeRangePlus4(D2UnitStrc* pUnit)
 {
-    return sub_00622870_GetMeleeRange(pUnit) + 4;
+    return UNITS_GetMeleeRange(pUnit) + 4;
 }
 
 // 0x004C7BE0

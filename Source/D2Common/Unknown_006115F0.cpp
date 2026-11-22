@@ -14,8 +14,8 @@ struct D2ProfileCounterStrc
 typedef int (__cdecl* PROFHOOK0096BC24FN)();
 
 extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
-void __cdecl sub_006116B0_WriteProfileCounters(); // 0x006116B0
-void __cdecl sub_00624B20_CloseLog(); // 0x00624B20
+void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
+void __cdecl LOG_CloseLog(); // 0x00624B20
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
 extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
@@ -72,7 +72,7 @@ static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
 }
 
 // 0x006119F0
-int __fastcall sub_006119F0_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber)
+int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber)
 {
     char szCode[4];
     if (nType == 1)

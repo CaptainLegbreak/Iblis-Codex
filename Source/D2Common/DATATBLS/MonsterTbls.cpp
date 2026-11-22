@@ -74,15 +74,15 @@ struct D2MonItemPercentTxt;
 
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
-void __fastcall sub_006562B0(); // 0x006562B0
+void __fastcall DATATBLS_UnloadHirelingTxt(); // 0x006562B0
 
-void __fastcall sub_00659AF0(); // 0x00659AF0
+void __fastcall DATATBLS_UnloadMonPresetTxt(); // 0x00659AF0
 
-void __fastcall sub_00659DE0(); // 0x00659DE0
+void __fastcall DATATBLS_UnloadMonSeqTxt(); // 0x00659DE0
 
-void __fastcall sub_00654D50(); // 0x00654D50
+void __fastcall DATATBLS_FreeTreasureClassEx(); // 0x00654D50
 
-void __cdecl sub_00653E20(); // 0x00653E20
+void __cdecl DATATBLS_UnloadUniqueNameTxts(); // 0x00653E20
 
 extern int gnObjgroupTxtRecordCount; // 0x0096D47C
 
@@ -245,7 +245,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 D2TCExShortStrc* __fastcall DATATBLS_NewTreasureClassEx(const char* szTreasureClass); // 0x00653F90
 
-__declspec(noinline) D2TCExInfoStrc* __fastcall sub_00654080(D2TCExShortStrc* pTCExShort); // 0x00654080
+__declspec(noinline) D2TCExInfoStrc* __fastcall DATATBLS_AddTreasureClassInfo(D2TCExShortStrc* pTCExShort); // 0x00654080
 
 void __fastcall DATATBLS_UpdateTreasureClassProbabilities(D2TCExShortStrc* pTCExShort, D2TCExInfoStrc* pTCExInfo, int nProbability, int bExpansion); // 0x006540C0
 
@@ -634,7 +634,7 @@ extern T006510C0 gUniqueNameTables; // 0x0096D488
 
 void __fastcall DATATBLS_LoadMonLvlTxt(void* hArchive); // 0x00659500
 
-void __stdcall sub_0065A390(void* hArchive); // 0x0065A390
+void __stdcall DATATBLS_InitTreasureClassEx(void* hArchive); // 0x0065A390
 
 D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive); // 0x006571A0
 
@@ -652,7 +652,7 @@ void __fastcall DATATBLS_LoadSuperUniquesTxt(void* hArchive); // 0x006552E0
 
 void __fastcall DATATBLS_LoadMonPresetTxt(void* hArchive); // 0x00659A10
 
-void __fastcall sub_00655720_LoadHirelingTxt(void* hArchive); // 0x00655720
+void __fastcall DATATBLS_LoadHirelingTxt(void* hArchive); // 0x00655720
 
 void __fastcall DATATBLS_LoadNpcTxt(void* hArchive); // 0x00656620
 
@@ -670,7 +670,7 @@ void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const
 
 void __cdecl DATATBLS_CreateItemTypeTreasureClasses(); // 0x006541C0
 
-void __stdcall sub_006547D0(void* hArchive); // 0x006547D0
+void __stdcall DATATBLS_CompileTreasureClassExTxt(void* hArchive); // 0x006547D0
 
 int gnTreasureClassEx; // 0x0096C5F0
 
@@ -856,7 +856,7 @@ extern D2TxtLinkStrc* gpUniqueItemsLinker;                                      
 
 extern void* gpUniqueItemsTxt;                                                                              // 0x0096C854
 
-static int __declspec(noinline) sub_00654410_NextIntToken(char** ppString, char chSeparator);
+static int __declspec(noinline) DATATBLS_GetNextIntToken(char** ppString, char chSeparator);
 
 struct D2TCExRecordArgStrc
 {
@@ -1369,7 +1369,7 @@ int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameTyp
 }
 
 // 0x00653D30
-void __fastcall sub_00653D30()
+void __fastcall DATATBLS_UnloadMonStatsTxt()
 {
     if (gpMonstatsTxt)
     {
@@ -1391,7 +1391,7 @@ void __stdcall DATATBLS_SetVelocityInMonStatsTxtRecord(int nMonsterId, short nVe
 }
 
 // 0x00653DB0
-void __fastcall sub_00653DB0(void* hArchive, const char* szName, unsigned int nIndex)
+void __fastcall DATATBLS_LoadUniqueNameTxt(void* hArchive, const char* szName, unsigned int nIndex)
 {
     D2BinFieldStrc pTbl[] =
     {
@@ -1406,7 +1406,7 @@ void __fastcall sub_00653DB0(void* hArchive, const char* szName, unsigned int nI
 }
 
 // 0x00653E20
-void __cdecl sub_00653E20()
+void __cdecl DATATBLS_UnloadUniqueNameTxts()
 {
     for (int i = 0; i < 4; ++i)
     {
@@ -1420,7 +1420,7 @@ void __cdecl sub_00653E20()
 }
 
 // 0x00653E50
-const Unicode* __fastcall sub_00653E50_RollRandomUniqueNameString(D2UnitStrc* pUnit, int nTable)
+const Unicode* __fastcall DATATBLS_RollRandomUniqueNameString(D2UnitStrc* pUnit, int nTable)
 {
     if (pUnit && gnUniqueNameTxtRecordCounts_0096D498[nTable] > 0)
     {
@@ -1478,7 +1478,7 @@ void __fastcall DATATBLS_ReallocTCExInfo(D2TCExShortStrc* pTCExShort, int nNewRe
 }
 
 // 0x00654080
-D2TCExInfoStrc* __fastcall sub_00654080(D2TCExShortStrc* pTCExShort)
+D2TCExInfoStrc* __fastcall DATATBLS_AddTreasureClassInfo(D2TCExShortStrc* pTCExShort)
 {
     const int nRecordId = pTCExShort->nTypes;
 
@@ -1581,7 +1581,7 @@ void __cdecl DATATBLS_CreateItemTypeTreasureClasses()
                                 if (pTypeRecord)
                                 {
                                     const int nProbability = pTypeRecord->nRarity > 1 ? pTypeRecord->nRarity : 1;
-                                    D2TCExInfoStrc* pTCExInfo = sub_00654080(pTCExTxtRecord);
+                                    D2TCExInfoStrc* pTCExInfo = DATATBLS_AddTreasureClassInfo(pTCExTxtRecord);
                                     pTCExInfo->nItemId = j;
                                     if (pItemsTxtRecord->wVersion >= 100)
                                     {
@@ -1601,7 +1601,7 @@ void __cdecl DATATBLS_CreateItemTypeTreasureClasses()
 }
 
 // 0x006543C0
-static char* sub_006543C0_StripQuotes(char* szText)
+static char* DATATBLS_StripQuotes(char* szText)
 {
     if (*szText == '"')
         ++szText;
@@ -1614,7 +1614,7 @@ static char* sub_006543C0_StripQuotes(char* szText)
 }
 
 // 0x006543F0
-static char* sub_006543F0_NextStrToken(char** ppString, char chSeparator)
+static char* DATATBLS_GetNextStringToken(char** ppString, char chSeparator)
 {
     char* szToken = *ppString;
     *ppString = strchr(szToken, chSeparator);
@@ -1627,7 +1627,7 @@ static char* sub_006543F0_NextStrToken(char** ppString, char chSeparator)
 }
 
 // 0x00654410
-static int sub_00654410_NextIntToken(char** ppString, char chSeparator)
+static int DATATBLS_GetNextIntToken(char** ppString, char chSeparator)
 {
     char* szToken = *ppString;
     *ppString = strchr(szToken, chSeparator);
@@ -1711,7 +1711,7 @@ static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord
         D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(dwCode, &nItemId);
         if (pItemsTxtRecord)
         {
-            pTCExInfo = sub_00654080(tRecord.pRecord);
+            pTCExInfo = DATATBLS_AddTreasureClassInfo(tRecord.pRecord);
             pTCExInfo->nItemId = nItemId;
             if (pItemsTxtRecord->wVersion >= 100)
             {
@@ -1726,7 +1726,7 @@ static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord
         int nIndex = FOG_GetRowFromTxt(gpTreasureClassExLinker, szItem, 0);
         if (nIndex > 0)
         {
-            pTCExInfo = sub_00654080(tRecord.pRecord);
+            pTCExInfo = DATATBLS_AddTreasureClassInfo(tRecord.pRecord);
             pTCExInfo->nFlags |= 4;
             pTCExInfo->nItemId = nIndex;
             if (!gpTreasureClassEx[nIndex].nClassic)
@@ -1737,7 +1737,7 @@ static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord
         }
         else if (gpUniqueItemsLinker && (nIndex = FOG_GetRowFromTxt(gpUniqueItemsLinker, szItem, 0)) > 0)
         {
-            pTCExInfo = sub_00654080(tRecord.pRecord);
+            pTCExInfo = DATATBLS_AddTreasureClassInfo(tRecord.pRecord);
             int nUniqueItemId;
             DATATBLS_GetItemRecordFromItemCode(((D2UniqueItemsTxt*)gpUniqueItemsTxt)[nIndex].dwCode, &nUniqueItemId);
             pTCExInfo->nItemId = nUniqueItemId;
@@ -1747,7 +1747,7 @@ static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord
         }
         else if (gpSetItemsLinker && (nIndex = FOG_GetRowFromTxt(gpSetItemsLinker, szItem, 0)) >= 0)
         {
-            pTCExInfo = sub_00654080(tRecord.pRecord);
+            pTCExInfo = DATATBLS_AddTreasureClassInfo(tRecord.pRecord);
             int nSetItemId;
             DATATBLS_GetItemRecordFromItemCode(((D2SetItemsTxt*)gpSetItemsTxt)[nIndex].dwItemCode, &nSetItemId);
             pTCExInfo->nItemId = nSetItemId;
@@ -1812,23 +1812,23 @@ MODIFIERS:
         }
         else if (!strcmp(szKey, "cr"))
         {
-            pTCExInfo->nRare = sub_00654410_NextIntToken(&szNext, ',');
+            pTCExInfo->nRare = DATATBLS_GetNextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "cm"))
         {
-            pTCExInfo->nMagic = sub_00654410_NextIntToken(&szNext, ',');
+            pTCExInfo->nMagic = DATATBLS_GetNextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "ce"))
         {
-            pTCExInfo->nSuperior = sub_00654410_NextIntToken(&szNext, ',');
+            pTCExInfo->nSuperior = DATATBLS_GetNextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "cg"))
         {
-            pTCExInfo->nNormal = sub_00654410_NextIntToken(&szNext, ',');
+            pTCExInfo->nNormal = DATATBLS_GetNextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "ma") || !strcmp(szKey, "mg"))
         {
-            pTCExInfo->nTxtRow = sub_00654410_NextIntToken(&szNext, ',');
+            pTCExInfo->nTxtRow = DATATBLS_GetNextIntToken(&szNext, ',');
         }
         else
         {
@@ -1840,7 +1840,7 @@ MODIFIERS:
 }
 
 // 0x006547D0
-void __stdcall sub_006547D0(void* hArchive)
+void __stdcall DATATBLS_CompileTreasureClassExTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
@@ -1921,7 +1921,7 @@ void __stdcall sub_006547D0(void* hArchive)
 }
 
 // 0x00654D50
-void __fastcall sub_00654D50()
+void __fastcall DATATBLS_FreeTreasureClassEx()
 {
     FOG_FreeLinker(gpTreasureClassExLinker);
 
@@ -1989,19 +1989,19 @@ int __stdcall sub_00654E70(int a1, int a2)
 
 char* __stdcall sub_M116_Emit_006543C0(char* szText, char** ppOut)
 {
-    ppOut[0] = sub_006543C0_StripQuotes(sub_006543F0_NextStrToken(&szText, ','));
-    ppOut[1] = sub_006543F0_NextStrToken(&szText, ',');
+    ppOut[0] = DATATBLS_StripQuotes(DATATBLS_GetNextStringToken(&szText, ','));
+    ppOut[1] = DATATBLS_GetNextStringToken(&szText, ',');
     return szText;
 }
 
 // 0x00654EF0
-void __fastcall sub_00654EF0_UnloadTCEx()
+void __fastcall DATATBLS_UnloadTreasureClassExTxt()
 {
-    sub_00654D50();
+    DATATBLS_FreeTreasureClassEx();
 }
 
 // 0x00654F00
-void __cdecl sub_00654F00_AssertFail()
+void __cdecl DATATBLS_ShouldNeverCallInExpansion()
 {
     D2_ASSERT(0, 0x6AE);
 }
@@ -2080,7 +2080,7 @@ void __fastcall DATATBLS_LoadMonUModTxt(void* hArchive)
 }
 
 // 0x006552A0
-void __fastcall sub_006552A0()
+void __fastcall DATATBLS_UnloadMonUModTxt()
 {
     if (gpMonUModLinker)
     {
@@ -2153,7 +2153,7 @@ void __fastcall DATATBLS_LoadSuperUniquesTxt(void* hArchive)
 }
 
 // 0x006556A0
-void __fastcall sub_006556A0()
+void __fastcall DATATBLS_UnloadSuperUniquesTxt()
 {
     if (gpSuperUniquesLinker)
     {
@@ -2187,7 +2187,7 @@ int __fastcall DATATBLS_GetSuperUniquesTxtRecordCount()
 }
 
 // 0x00655720
-void __fastcall sub_00655720_LoadHirelingTxt(void* hArchive)
+void __fastcall DATATBLS_LoadHirelingTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
@@ -2290,7 +2290,7 @@ void __fastcall sub_00655720_LoadHirelingTxt(void* hArchive)
 }
 
 // 0x006562B0
-void __fastcall sub_006562B0()
+void __fastcall DATATBLS_UnloadHirelingTxt()
 {
     DATATBLS_UnloadBin(gpHirelingTxt);
     gnHirelingTxtRecordCount = 0;
@@ -2478,7 +2478,7 @@ void __fastcall DATATBLS_LoadNpcTxt(void* hArchive)
 }
 
 // 0x006568F0
-void __fastcall sub_006568F0_FreeNpcTable()
+void __fastcall DATATBLS_UnloadNpcTxt()
 {
     DATATBLS_UnloadBin(gpNpcTxt);
 }
@@ -2551,7 +2551,7 @@ void __fastcall DATATBLS_LoadMonSoundsTxt(void* hArchive)
 }
 
 // 0x00656F60
-void __fastcall sub_00656F60_FreeMonSoundsTable()
+void __fastcall DATATBLS_UnloadMonSoundsTxt()
 {
     if (gpMonsoundsTxt)
     {
@@ -2932,7 +2932,7 @@ void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive)
 }
 
 // 0x006586D0
-void __fastcall sub_006586D0()
+void __fastcall DATATBLS_FreeMonTypeTxt()
 {
     if (gpMonTypeTxt)
     {
@@ -3048,7 +3048,7 @@ void __fastcall DATATBLS_LoadMonPropTxt(void* hArchive)
 }
 
 // 0x006594D0
-void __fastcall sub_006594D0()
+void __fastcall DATATBLS_UnloadMonPropTxt()
 {
     if (gpMonpropTxt)
     {
@@ -3100,7 +3100,7 @@ void __fastcall DATATBLS_LoadMonLvlTxt(void* hArchive)
 }
 
 // 0x00659970
-void __fastcall sub_00659970()
+void __fastcall DATATBLS_UnloadMonLvlTxt()
 {
     if (gpMonlvlTxt)
     {
@@ -3183,7 +3183,7 @@ void __fastcall DATATBLS_LoadMonPresetTxt(void* hArchive)
 }
 
 // 0x00659AF0
-void __fastcall sub_00659AF0()
+void __fastcall DATATBLS_UnloadMonPresetTxt()
 {
     if (gpMonPresetTxt)
     {
@@ -3246,7 +3246,7 @@ void __fastcall DATATBLS_LoadSoundsTxt(void* hArchive)
 }
 
 // 0x00659C30
-void __fastcall sub_00659C30()
+void __fastcall DATATBLS_UnloadSoundsTxt()
 {
     if (gpSoundsTxt)
     {
@@ -3293,7 +3293,7 @@ void __fastcall DATATBLS_LoadMonSeqTxt(void* hArchive)
 }
 
 // 0x00659DE0
-void __fastcall sub_00659DE0()
+void __fastcall DATATBLS_UnloadMonSeqTxt()
 {
     if (gpMonseqTxt)
     {
@@ -3310,7 +3310,7 @@ void __fastcall sub_00659DE0()
 }
 
 // 0x00659E30
-D2AnimSeqRecordStrc* __stdcall sub_00659E30(int nIndex)
+D2AnimSeqRecordStrc* __stdcall DATATBLS_GetMonSeqTableRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < gnMonSeqTableRecordCount)
     {
@@ -3372,7 +3372,7 @@ void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
 }
 
 // 0x0065A170
-void __fastcall sub_0065A170()
+void __fastcall DATATBLS_UnloadMonEquipTxt()
 {
     if (gpMonEquipTxt)
     {
@@ -3392,8 +3392,8 @@ void __fastcall DATATBLS_UnloadSomeMonsterTxts()
 
     DATATBLS_UnloadBin(gpNpcTxt);
 
-    sub_006562B0();
-    sub_00659AF0();
+    DATATBLS_UnloadHirelingTxt();
+    DATATBLS_UnloadMonPresetTxt();
 
     if (gpSuperUniquesLinker)
     {
@@ -3445,8 +3445,8 @@ void __fastcall DATATBLS_UnloadSomeMonsterTxts()
         gnMonsoundsTxtRecordCount = 0;
     }
 
-    sub_00659DE0();
-    sub_00654D50();
+    DATATBLS_UnloadMonSeqTxt();
+    DATATBLS_FreeTreasureClassEx();
 
     if (gpMonlvlTxt)
     {
@@ -3454,11 +3454,11 @@ void __fastcall DATATBLS_UnloadSomeMonsterTxts()
         gnMonlvlTxtRecordCount = 0;
     }
 
-    sub_00653E20();
+    DATATBLS_UnloadUniqueNameTxts();
 }
 
 // 0x0065A2C0
-void __cdecl sub_0065A2C0()
+void __cdecl DATATBLS_InitChestTreasureClasses()
 {
     char szName[0x100];
 
@@ -3478,19 +3478,19 @@ void __cdecl sub_0065A2C0()
 }
 
 // 0x0065A390
-void __stdcall sub_0065A390(void* hArchive)
+void __stdcall DATATBLS_InitTreasureClassEx(void* hArchive)
 {
     gpTreasureClassExLinker = sub_006BD040(".\\DATATBLS\\MonsterTbls.cpp", 1550);
     DATATBLS_CreateItemTypeTreasureClasses();
-    sub_006547D0(hArchive);
-    sub_0065A2C0();
+    DATATBLS_CompileTreasureClassExTxt(hArchive);
+    DATATBLS_InitChestTreasureClasses();
     TC_ASSERT(gnTreasureClassEx < 0xFFFF, 1558);
 }
 
 // 0x0065A3F0
 void __fastcall DATATBLS_LoadTreasureClassExTxt(void* hArchive)
 {
-    sub_0065A390(hArchive);
+    DATATBLS_InitTreasureClassEx(hArchive);
 }
 
 // 0x0065A400
@@ -3533,7 +3533,7 @@ void __fastcall DATATBLS_LoadSomeMonsterTxts(void* hArchive)
     }
 
     DATATBLS_LoadMonLvlTxt(hArchive);
-    sub_0065A390(hArchive);
+    DATATBLS_InitTreasureClassEx(hArchive);
     DATATBLS_LoadMonStats2Txt(hArchive);
     DATATBLS_LoadMonPropTxt(hArchive);
     DATATBLS_LoadMonSoundsTxt(hArchive);
@@ -3542,7 +3542,7 @@ void __fastcall DATATBLS_LoadSomeMonsterTxts(void* hArchive)
     DATATBLS_LoadMonUModTxt(hArchive);
     DATATBLS_LoadSuperUniquesTxt(hArchive);
     DATATBLS_LoadMonPresetTxt(hArchive);
-    sub_00655720_LoadHirelingTxt(hArchive);
+    DATATBLS_LoadHirelingTxt(hArchive);
     DATATBLS_LoadNpcTxt(hArchive);
     DATATBLS_LoadMonEquipTxt(hArchive);
 }

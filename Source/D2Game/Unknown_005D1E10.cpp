@@ -61,7 +61,7 @@ extern "C" int __stdcall D2GAME_ModeChange_6FC65220(Game*, ModeRequest*, int); /
 extern "C" void __stdcall STATES_ToggleState(Unit*, int, int); // 0x00639DB0
 extern "C" T005C40D0* __stdcall STATLIST_AllocStatList(void*, int, int, int, int); // 0x006251F0
 extern "C" void __stdcall D2COMMON_10475_PostStatToStatList(Unit*, T005C40D0*, int); // 0x00626E10
-extern "C" void __stdcall sub_006252D0(T005C40D0*, int); // 0x006252D0
+extern "C" void __stdcall STATLIST_SetState(T005C40D0*, int); // 0x006252D0
 extern "C" void __stdcall STATLIST_SetStatIfListIsValid(T005C40D0*, int, int, int); // 0x00627150
 extern "C" void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(Game*, Unit*, int, int); // 0x005A4850
 extern "C" Unit* __stdcall SUNIT_GetTargetUnit(Game*, Unit*); // 0x00553540
@@ -169,7 +169,7 @@ static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, 
     if (list)
     {
         D2COMMON_10475_PostStatToStatList(target, list, 1);
-        sub_006252D0(list, 142);
+        STATLIST_SetState(list, 142);
         STATLIST_SetStatIfListIsValid(list, STAT_SHORTPARAM1, resolved, 0);
     }
 

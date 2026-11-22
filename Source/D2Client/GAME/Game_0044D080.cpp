@@ -904,7 +904,7 @@ extern "C" void __cdecl sub_0044DD20_MouseExtTables_451DB0()
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHandlers_0070F360, 2);
 }
 
-bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
+bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
 {
     return m_next != 0;
 }
@@ -951,7 +951,7 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
     m_next = 0;
 }
 
-char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
+char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 {
     return f_14;
 }
@@ -963,7 +963,7 @@ D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
     f_8 = 0;
 }
 
-unsigned int D2ChatStormBaseArrayAStrc::sub_0060E230_Count()
+unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
     return f_4;
 }
@@ -975,27 +975,27 @@ D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
     f_8 = 0;
 }
 
-unsigned int D2ChatStormBaseArrayBStrc::sub_0060E250_Count()
+unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
     return f_4;
 }
 
-void D2ChatStormListAStrc::sub_0060E260_InitializeTerminator()
+void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
 {
     InitializeTerminator();
 }
 
-void D2ChatStormListBStrc::sub_0060E270_InitializeTerminator()
+void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
 {
     InitializeTerminator();
 }
 
-char* D2ChatStormListBStrc::sub_0060E5D0_Head()
+char* D2ChatStormListBStrc::IGNORELIST_GetMappingListHead()
 {
     return m_terminator.MaskNext();
 }
 
-void D2ChatStormListBStrc::sub_0060E610_Reset()
+void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
 {
     m_linkoffset = 0;
     InitializeTerminator();
@@ -1012,7 +1012,7 @@ char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
     return pNode + nLinkOffset;
 }
 
-char* D2ChatStormHashTableStrc::sub_0060E6D0_Head()
+char* D2ChatStormHashTableStrc::IGNORELIST_GetStringTableHead()
 {
     return m_fulllist.m_terminator.MaskNext();
 }
@@ -1054,14 +1054,14 @@ D2CommonMappingEntryNodeStrc::~D2CommonMappingEntryNodeStrc()
         SMemFree(pMapped, gszIgnoreListSourceFile_006E6290, 0x11, 0);
 }
 
-void D2CommonStringEntryNodeStrc::sub_0060EE30_Destroy()
+void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
 {
     this->~D2CommonStringEntryNodeStrc();
 }
 
-void D2CommonStormHashTableAStrc::sub_0060ED60_Clear()
+void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 {
-    sub_0060EB70_InternalClear(0);
+    IGNORELIST_InternalClearStringTable(0);
 }
 
 int __fastcall sub_0044DFF0_TimerExpired(D2LoadingTimerStrc* pTimer)
@@ -1189,13 +1189,13 @@ void __stdcall sub_0044E4F0_MouseMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0044ED10
-char* D2ChatStormListAStrc::sub_0060E440_Head()
+char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
 {
     return m_terminator.MaskNext();
 }
 
 // 0x0044EE70
-void D2ChatStormListAStrc::sub_0060E5F0_Reset()
+void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 {
     m_linkoffset = 0;
     InitializeTerminator();

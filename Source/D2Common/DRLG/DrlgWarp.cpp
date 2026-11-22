@@ -131,18 +131,18 @@ void __fastcall sub_00678AD0_CreateLevelConnections(D2DrlgStrc* pDrlg); // 0x006
 
 static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevelStrc* pLevel, int* pX, int* pY);
 
-static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel);
+static D2DrlgRoomStrc* DRLGWARP_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel);
 
-D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY);
+D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY);
 
 // 0x0066A290
-void __cdecl sub_0066A290_AssertFail()
+void __cdecl DRLGWARP_ShouldNeverBeCalled()
 {
     D2_ASSERT(0, 0x65);
 }
 
 // 0x0066A870
-static inline int sub_0066A870_SumStringBytes(const char* szText)
+static inline int DRLGWARP_SumStringBytes(const char* szText)
 {
     int nSum = 0;
     while (*szText)
@@ -155,7 +155,7 @@ static inline int sub_0066A870_SumStringBytes(const char* szText)
 }
 
 // 0x0066A890
-static inline int sub_0066A890_CompareCodes(const char* szA, const char* szB)
+static inline int DRLGWARP_AreCodesEqual(const char* szA, const char* szB)
 {
     D2_ASSERT(sub_006C9A38(szA) <= 8, 0xD9);
     D2_ASSERT(sub_006C9A38(szB) <= 8, 0xDA);
@@ -199,7 +199,7 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRo
 }
 
 // 0x0066AC30
-static inline D2ActiveRoomStrc* sub_0066AC30_GetActiveRoom(D2DrlgRoomStrc* pDrlgRoom)
+static inline D2ActiveRoomStrc* DRLGWARP_GetActiveRoomFromRoomEx(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
     return pDrlgRoom->pRoom;
@@ -262,7 +262,7 @@ int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevel
 }
 
 // 0x0066AF10
-int* __fastcall sub_0066AF10_GetWarpIdArray(D2DrlgLevelStrc* pLevel)
+int* __fastcall DRLGWARP_GetWarpIdArrayFromLevel(D2DrlgLevelStrc* pLevel)
 {
     return DRLGWARP_GetWarpIdArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
 }
@@ -318,7 +318,7 @@ D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromUnit(D2DrlgRoomStrc* pD
 }
 
 // 0x0066AFB0
-static inline int sub_0066AFB0_FindVisIndex(D2DrlgStrc* pDrlg, int nLevelId, int nVisLevel, int nIndex)
+static inline int DRLGWARP_FindVisIndex(D2DrlgStrc* pDrlg, int nLevelId, int nVisLevel, int nIndex)
 {
     int* pVis = DRLGROOM_GetVisArrayFromLevelId(pDrlg, nLevelId);
     int nCount = 0;
@@ -339,7 +339,7 @@ static inline int sub_0066AFB0_FindVisIndex(D2DrlgStrc* pDrlg, int nLevelId, int
 }
 
 // 0x0066AFF0
-static inline D2DrlgListEntryStrc* sub_0066AFF0_FindFlaggedEntry(D2DrlgStrc* pDrlg, int nBit)
+static inline D2DrlgListEntryStrc* DRLGWARP_FindRoomWithWarpFlag(D2DrlgStrc* pDrlg, int nBit)
 {
     const int nMask = 1 << (nBit + 4);
     for (D2DrlgListEntryStrc* pEntry = ((D2DrlgListOwnerStrc*)pDrlg)->pFirst; pEntry; pEntry = pEntry->pNext)
@@ -355,16 +355,16 @@ static inline D2DrlgListEntryStrc* sub_0066AFF0_FindFlaggedEntry(D2DrlgStrc* pDr
 
 int __fastcall sub_M117_Emit_0066A870(const char* szText, D2DrlgRoomStrc* pDrlgRoom, D2DrlgStrc* pDrlg, int nLevelId)
 {
-    int n = sub_0066A870_SumStringBytes(szText);
-    n += sub_0066A890_CompareCodes(szText, (const char*)pDrlgRoom);
-    n += (int)sub_0066AC30_GetActiveRoom(pDrlgRoom);
-    n += sub_0066AFB0_FindVisIndex(pDrlg, nLevelId, n, nLevelId);
-    n += (int)sub_0066AFF0_FindFlaggedEntry(pDrlg, n);
+    int n = DRLGWARP_SumStringBytes(szText);
+    n += DRLGWARP_AreCodesEqual(szText, (const char*)pDrlgRoom);
+    n += (int)DRLGWARP_GetActiveRoomFromRoomEx(pDrlgRoom);
+    n += DRLGWARP_FindVisIndex(pDrlg, nLevelId, n, nLevelId);
+    n += (int)DRLGWARP_FindRoomWithWarpFlag(pDrlg, n);
     return n;
 }
 
 // 0x0066B010
-D2PresetUnitStrc* __fastcall sub_0066B010_FindPresetTile(D2DrlgRoomStrc* pDrlgRoom)
+D2PresetUnitStrc* __fastcall DRLGWARP_FindPresetTileUnit(D2DrlgRoomStrc* pDrlgRoom)
 {
     D2PresetUnitStrc* pPreset = DRLGROOM_GetPresetUnits(pDrlgRoom);
     for (; pPreset; pPreset = pPreset->pNext)
@@ -394,7 +394,7 @@ static inline D2DrlgRoomStrc* FindRoom(D2DrlgLevelStrc* pLevel,int nIndex)
 }
 
 // 0x0066B030
-void __fastcall sub_0066B030_InitializeConnectedLevels(D2DrlgStrc* pDrlg,int unused,int nLevel1,int nLevel2)
+void __fastcall DRLGWARP_InitializeConnectedLevels(D2DrlgStrc* pDrlg,int unused,int nLevel1,int nLevel2)
 {
  sub_00678AD0_CreateLevelConnections(pDrlg);
  D2DrlgLevelStrc* pLevel1=DRLG_GetLevel(pDrlg,nLevel1);
@@ -433,7 +433,7 @@ static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0066B1F0
-static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
+static D2DrlgRoomStrc* DRLGWARP_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
 {
     for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
@@ -457,7 +457,7 @@ static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0066B2B0
-D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY)
+D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY)
 {
     D2LevelDefBin* pLevelDefBinRecord = 0;
     D2DrlgLevelStrc* pLevel = 0;
@@ -490,7 +490,7 @@ D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, i
     pDrlgRoom = DRLGWARP_GetWaypointRoomExFromLevel(pLevel, pX, pY);
     if (!pDrlgRoom)
     {
-        pDrlgRoom = sub_0066B1F0_GetFirstWarpRoom(pLevel);
+        pDrlgRoom = DRLGWARP_GetFirstWarpRoom(pLevel);
         if (!pDrlgRoom)
         {
             const int nX = pLevel->nWidth / 2 + pLevel->nPosX - 2;
@@ -519,6 +519,6 @@ D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, i
 }
 
 // 0x0066B7F0
-void __cdecl sub_0066B7F0_Nop()
+void __cdecl DRLGWARP_Nop()
 {
 }

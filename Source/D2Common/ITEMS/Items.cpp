@@ -197,7 +197,7 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 int __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bSaveItemInv, int bGamble); // 0x006312B0
 
-int __stdcall sub_00625B70_CheckStatFlag(D2UnitStrc* pUnit, int nState); // 0x00625B70
+int __stdcall STATLIST_CheckState(D2UnitStrc* pUnit, int nState); // 0x00625B70
 
 struct Data00627DF0
 {
@@ -403,7 +403,7 @@ D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex); /
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
-unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 
@@ -453,7 +453,7 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 
 extern char* gpszDefaultString; // 0x007446E4
 
-static int sub_0062A2F0_IsPlainQuality(int nQuality);
+static int ITEMS_IsPlainQuality(int nQuality);
 
 inline D2ItemDataStrc* ITEMS_GetItemDataInl(D2UnitStrc* pItem);
 
@@ -559,7 +559,7 @@ unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem);                   
 
 unsigned char __stdcall ITEMS_GetEarLevel(D2UnitStrc* pItem);                                               // 0x006283A0
 
-int __fastcall sub_00628D30_GetChargedSkillsCost(D2UnitStrc* pItem, int nBaseCost);                         // 0x00628D30
+int __fastcall ITEMS_CalculateAdditionalCostsForChargedSkills(D2UnitStrc* pItem, int nBaseCost);                         // 0x00628D30
 
 void __fastcall ITEMS_CalculateAdditionalCostsForBonusStats(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor); // 0x00628E70
 
@@ -581,9 +581,9 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
-static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost); // 0x006292F0
+static void __stdcall ITEMS_CalculateAdditionalCostsForSocketables(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost); // 0x006292F0
 
-static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor); // 0x0062EDD0
+static void __stdcall ITEMS_CalculateAdditionalCostsForItemSkill(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor); // 0x0062EDD0
 
 int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nBaseTime, int* pItemModPeriodOfDay, int* pItemModMin, int* pItemModMax); // 0x0065CA30
 
@@ -676,7 +676,7 @@ D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables();              
 
 static void __stdcall ITEMS_SerializeItemCompact(int bServer, D2UnitStrc* pItem, D2BitBufferStrc* pBuffer); // 0x0062AF80
 
-static int sub_0062A270_HasSocketedItem(D2UnitStrc* pItem);
+static int ITEMS_HasSocketedItem(D2UnitStrc* pItem);
 
 int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem);
 
@@ -700,15 +700,15 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);               
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
-void __stdcall sub_006252D0(D2StatListStrc* pStatList, int nState);                                       // 0x006252D0
+void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState);                                       // 0x006252D0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
+int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
-int __fastcall sub_00627AF0_HasSkillDesc(int nSkillId);                                                     // 0x00627AF0
+int __fastcall STATLIST_HasSkillDesc(int nSkillId);                                                     // 0x00627AF0
 
 void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);                    // 0x00627EF0
 
@@ -720,7 +720,7 @@ void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix);         
 
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex);                             // 0x00629DF0
 
-void __stdcall sub_00629EA0(D2UnitStrc* pItem, int nRealmData0, int nRealmData1);                         // 0x00629EA0
+void __stdcall ITEMS_SetRealmData(D2UnitStrc* pItem, int nRealmData0, int nRealmData1);                         // 0x00629EA0
 
 void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat);                          // 0x0062A6C0
 
@@ -738,9 +738,9 @@ void __stdcall D2Common_10845(int nValue, int* pSkillId, int* pSkillLevel, int* 
 
 void __stdcall D2Common_10848(int nValue, int* pClass, int* pTab, int* pLevel);             // 0x0065CB60
 
-static int __stdcall sub_00629370_GetGambleCost(D2UnitStrc* pItem, int nLevel);                             // 0x00629370
+static int __stdcall ITEMS_GetGambleCost(D2UnitStrc* pItem, int nLevel);                             // 0x00629370
 
-int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType);
+int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType);
 
 #define D2_NORETURN __declspec(noreturn)
 
@@ -758,13 +758,13 @@ int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc*, unsigned int); // 0x0046
 
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
-static int __fastcall sub_00628830_ApplyClassMinimum(D2MagicAffixTxt*, D2UnitStrc*, int);
+static int __fastcall ITEMS_ApplyAffixLevelRequirement(D2MagicAffixTxt*, D2UnitStrc*, int);
 
 typedef int BOOL;
 
 extern "C" const char gszItemsSourceFile_006E1150[]; // 0x006E1150
 
-static int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem);
+static int ITEMS_GetSocketedItemCount(D2UnitStrc* pItem);
 
 #define IFLAG_NEWITEM 0x00080000
 
@@ -782,17 +782,17 @@ typedef char check_D2RunesTxt_size[sizeof(D2RunesTxt) == 0x120 ? 1 : -1];
 
 D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables(); // 0x00639CB0
 
-static int sub_0062E5D0_IsQuantityRepairable(D2UnitStrc* pItem); // 0x0062E5D0
+static int ITEMS_IsQuantityRepairable(D2UnitStrc* pItem); // 0x0062E5D0
 
 unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pColor, int nTransType);
 
-static unsigned char sub_0062A250(int nTransform, int nColor);
+static unsigned char ITEMS_PackTransformColor(int nTransform, int nColor);
 
-static void __stdcall sub_0062B450_GetSocketedStatBonus(int nStatId, int* pValue, D2UnitStrc* pItem);
+static void __stdcall ITEMS_GetBonusStatFromSockets(int nStatId, int* pValue, D2UnitStrc* pItem);
 
 #define STATEMASK_BOSSSTAYDEATH 15
 
-void __stdcall sub_00625A70_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00625A70
+void __stdcall STATLIST_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00625A70
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
@@ -852,7 +852,7 @@ struct D2InventoryPairStrc;
 
 struct D2InventoryGridStrc;
 
-void __stdcall sub_0063A180_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask); // 0x0063A180
+void __stdcall STATES_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask); // 0x0063A180
 
 struct D2InventoryPairStrc
 {
@@ -974,7 +974,7 @@ void __stdcall ITEMS_InitItemSeed(D2UnitStrc* pItem)
 }
 
 // 0x00627DF0
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_00627DF0(Unit00627DF0* pUnit) {
+extern "C" __declspec(dllexport) unsigned int __stdcall ITEMS_GetItemStartSeed(Unit00627DF0* pUnit) {
     if (pUnit && pUnit->nType == 4 && pUnit->pData) {
         return pUnit->pData->dwValue10;
     }
@@ -1002,7 +1002,7 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem)
 }
 
 // 0x00627EA0
-extern "C" __declspec(dllexport) void __stdcall sub_00627EA0(Unit00627EA0* pUnit, unsigned int dwValue) {
+extern "C" __declspec(dllexport) void __stdcall ITEMS_SetItemQuality(Unit00627EA0* pUnit, unsigned int dwValue) {
     if (pUnit && pUnit->nType == 4 && pUnit->pData) {
         pUnit->pData->dwValue00 = dwValue;
     }
@@ -1038,7 +1038,7 @@ unsigned short __stdcall ITEMS_GetAutoAffix(D2UnitStrc* pItem)
 }
 
 // 0x00627F50
-extern "C" __declspec(dllexport) void __stdcall sub_00627F50(Unit00627F50* pUnit, unsigned short wValue) {
+extern "C" __declspec(dllexport) void __stdcall ITEMS_SetAutoAffix(Unit00627F50* pUnit, unsigned short wValue) {
     if (pUnit && pUnit->nType == 4 && pUnit->pData) {
         pUnit->pData->wValue36 = wValue;
     }
@@ -1063,7 +1063,7 @@ extern "C" __declspec(dllexport) void __stdcall sub_00627FB0(Unit00627FB0* pUnit
 }
 
 // 0x00627FE0
-extern "C" __declspec(dllexport) unsigned short __stdcall sub_00627FE0(Unit00627FE0* pUnit) {
+extern "C" __declspec(dllexport) unsigned short __stdcall ITEMS_GetRarePrefixIndex(Unit00627FE0* pUnit) {
     if (pUnit && pUnit->nType == 4 && pUnit->pData) {
         return pUnit->pData->wValue32;
     }
@@ -1080,7 +1080,7 @@ void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc* pItem, unsigned short nPrefix)
 }
 
 // 0x00628040
-extern "C" __declspec(dllexport) unsigned short __stdcall sub_00628040(Unit00628040* pUnit) {
+extern "C" __declspec(dllexport) unsigned short __stdcall ITEMS_GetRareSuffixIndex(Unit00628040* pUnit) {
     if (pUnit && pUnit->nType == 4 && pUnit->pData) {
         return pUnit->pData->wValue34;
     }
@@ -1129,7 +1129,7 @@ unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem)
 }
 
 // 0x00628140
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_00628140(Unit00628140* pUnit, unsigned int dwMask) {
+extern "C" __declspec(dllexport) unsigned int __stdcall ITEMS_CheckItemCMDFlag(Unit00628140* pUnit, unsigned int dwMask) {
     if (pUnit && pUnit->nType == 4 && pUnit->pData) {
         return pUnit->pData->dwFlags14 & dwMask;
     }
@@ -1204,7 +1204,7 @@ void __stdcall ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel)
 }
 
 // 0x00628250
-extern "C" __declspec(dllexport) char __stdcall sub_00628250(Unit00628250* pUnit) {
+extern "C" __declspec(dllexport) char __stdcall ITEMS_GetInventoryPage(Unit00628250* pUnit) {
     if (pUnit && pUnit->nType == 4 && pUnit->pData) {
         return pUnit->pData->cValue45;
     }
@@ -1221,7 +1221,7 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage)
 }
 
 // 0x006282A0
-unsigned char __stdcall sub_006282A0_GetCellOverlap(D2UnitStrc* pItem) {
+unsigned char __stdcall ITEMS_GetCellOverlap(D2UnitStrc* pItem) {
  if(D2ItemDataStrc* pItemData=ITEMS_GetItemData(pItem)) return pItemData->nCellOverlap;
  return 0xFF;
 }
@@ -1385,7 +1385,7 @@ extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId)
 }
 
 // 0x00628440
-extern "C" int __stdcall sub_00628440_GetShootsFromItemType(int nItemType)
+extern "C" int __stdcall ITEMS_GetAmmoTypeFromItemType(int nItemType)
 {
     D2ItemTypesTxt* pItemTypesTxtRecord = DATATBLS_GetItemTypesTxtRecord(nItemType);
     if (!pItemTypesTxtRecord)
@@ -1533,7 +1533,7 @@ unsigned char __stdcall ITEMS_GetItemQlvl(const D2UnitStrc* hItem)
 }
 
 // 0x006287A0
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_006287A0(unsigned int dwA, unsigned int dwB) {
+extern "C" __declspec(dllexport) unsigned int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwA, unsigned int dwB) {
     return dwA & dwB;
 }
 
@@ -1578,7 +1578,7 @@ static inline int sub_00623C60(D2UnitStrc* pUnit)
 }
 
 // 0x00628830
-static int __fastcall sub_00628830_ApplyClassMinimum(D2MagicAffixTxt* record, D2UnitStrc* player, int required)
+static int __fastcall ITEMS_ApplyAffixLevelRequirement(D2MagicAffixTxt* record, D2UnitStrc* player, int required)
 {
     if (!record)
         return required;
@@ -1777,9 +1777,9 @@ int __fastcall sub_00628830_Shim(D2UnitStrc* item, D2UnitStrc* player)
     D2MagicAffixTxt* prefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(item, 0));
     D2MagicAffixTxt* suffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(item, 0));
     D2MagicAffixTxt* automatic = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(item));
-    int required = sub_00628830_ApplyClassMinimum(prefix, player, 0);
-    required = sub_00628830_ApplyClassMinimum(suffix, player, required);
-    required = sub_00628830_ApplyClassMinimum(automatic, player, required);
+    int required = ITEMS_ApplyAffixLevelRequirement(prefix, player, 0);
+    required = ITEMS_ApplyAffixLevelRequirement(suffix, player, required);
+    required = ITEMS_ApplyAffixLevelRequirement(automatic, player, required);
     return required;
 }
 
@@ -1844,7 +1844,7 @@ static D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inl(int nSkillId)
 }
 
 // 0x00628D30
-int __fastcall sub_00628D30_GetChargedSkillsCost(D2UnitStrc* pItem, int nBaseCost)
+int __fastcall ITEMS_CalculateAdditionalCostsForChargedSkills(D2UnitStrc* pItem, int nBaseCost)
 {
     D2StatStrc pStat[64];
 
@@ -1974,7 +1974,7 @@ void __fastcall ITEMS_CalculateAdditionalCostsForBonusStats(D2UnitStrc* pItem, i
 }
 
 // 0x006292F0
-static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost)
+static void __stdcall ITEMS_CalculateAdditionalCostsForSocketables(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost)
 {
     int nSellCost = 0;
     int nBuyCost = 0;
@@ -2003,7 +2003,7 @@ static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pS
 }
 
 // 0x00629370
-static int __stdcall sub_00629370_GetGambleCost(int nLevel, D2UnitStrc* pItem)
+static int __stdcall ITEMS_GetGambleCost(int nLevel, D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(DATATBLS_GetItemIdFromItemCode(ITEMS_GetNormalCode(pItem)));
     D2_ASSERT(pItemsTxtRecord, 2842);
@@ -2432,7 +2432,7 @@ void __stdcall ITEMS_GetRealmData(D2UnitStrc* pItem, int* pRealmData0, int* pRea
 }
 
 // 0x00629EA0
-extern "C" __declspec(dllexport) void __stdcall sub_00629EA0(Unit00629EA0* pUnit, unsigned int dwFirst, unsigned int dwSecond) {
+extern "C" __declspec(dllexport) void __stdcall ITEMS_SetRealmData(Unit00629EA0* pUnit, unsigned int dwFirst, unsigned int dwSecond) {
     if (pUnit && pUnit->nType == 4) {
         Data00629EA0* pData = pUnit->pData;
         if (pData) {
@@ -2585,9 +2585,9 @@ int __stdcall ITEMS_Is1Or2Handed(D2UnitStrc* hPlayer, D2UnitStrc* hItem)
 
 int __stdcall sub_M88_Emit_0062A2F0(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 {
-    if (!sub_0062A2F0_IsPlainQuality(ITEMS_GetItemQuality(pItem1)))
+    if (!ITEMS_IsPlainQuality(ITEMS_GetItemQuality(pItem1)))
         return 0;
-    if (!sub_0062A2F0_IsPlainQuality(ITEMS_GetItemQuality(pItem2)))
+    if (!ITEMS_IsPlainQuality(ITEMS_GetItemQuality(pItem2)))
         return 0;
     return 1;
 }
@@ -2671,7 +2671,7 @@ inline D2StatesTxt* DATATBLS_GetStatesTxtRecord_Inl(int nState)
 }
 
 // 0x0062A250
-static unsigned char sub_0062A250(int nTransform, int nColor)
+static unsigned char ITEMS_PackTransformColor(int nTransform, int nColor)
 {
     if (nTransform <= 0 || nTransform >= 9 || nColor < 0 || nColor >= 0x15)
     {
@@ -2707,7 +2707,7 @@ inline int UNITS_IsExpansion_Inl(D2UnitStrc* pUnit)
 }
 
 // 0x0062A270
-static int sub_0062A270_HasSocketedItem(D2UnitStrc* pItem)
+static int ITEMS_HasSocketedItem(D2UnitStrc* pItem)
 {
     D2InventoryStrc* pInventory = pItem->pInventory;
     for (D2UnitStrc* pSocket = INVENTORY_GetFirstItem(pInventory); pSocket; pSocket = INVENTORY_GetNextItem(pSocket))
@@ -2722,7 +2722,7 @@ static int sub_0062A270_HasSocketedItem(D2UnitStrc* pItem)
 }
 
 // 0x0062A2B0
-static int sub_0062A2B0_GetCompactSave(D2UnitStrc* pItem)
+static int ITEMS_GetCompactSave(D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pItemsTxtRecord, 0x12E0);
@@ -2730,7 +2730,7 @@ static int sub_0062A2B0_GetCompactSave(D2UnitStrc* pItem)
 }
 
 // 0x0062A2F0
-static int sub_0062A2F0_IsPlainQuality(int nQuality)
+static int ITEMS_IsPlainQuality(int nQuality)
 {
     switch (nQuality)
     {
@@ -2788,7 +2788,7 @@ int __fastcall sub_006292F0_Shim(D2UnitStrc* pItem, int nDivisor)
     int nSellCost = nDivisor;
     int nBuyCost = nDivisor * 2;
     int nRepCost = nDivisor * 3;
-    sub_006292F0_AddSocketablesCost(pItem, &nSellCost, &nBuyCost, &nRepCost);
+    ITEMS_CalculateAdditionalCostsForSocketables(pItem, &nSellCost, &nBuyCost, &nRepCost);
     return nSellCost + nBuyCost + nRepCost;
 }
 
@@ -3085,7 +3085,7 @@ static inline int ITEMS_CheckIfSocketableForceInl(D2UnitStrc* pItem)
 }
 
 // 0x0062A900
-static int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem)
+static int ITEMS_GetSocketedItemCount(D2UnitStrc* pItem)
 {
     int nSocketedItems = 0;
     if (!ITEMS_CheckIfSocketableForceInl(pItem))
@@ -3115,7 +3115,7 @@ static int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem)
 }
 
 // 0x0062A960
-static inline unsigned int sub_0062A960_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
+static inline unsigned int ITEMS_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
 {
     return sub_00411020_ReadBits(pBuffer, nBits);
 }
@@ -3320,7 +3320,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
     if (bCheckForHeader && dwVersion > 0x56 && sub_00411020_ReadBits(pBuffer, 1))
     {
         const int nFirst = sub_00411020_ReadBits(pBuffer, 32);
-        sub_00629EA0(pItem, nFirst, sub_00411020_ReadBits(pBuffer, 32));
+        ITEMS_SetRealmData(pItem, nFirst, sub_00411020_ReadBits(pBuffer, 32));
         if (dwVersion > 0x5D)
             sub_00411020_ReadBits(pBuffer, 32);
     }
@@ -3335,7 +3335,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
 
 int __stdcall sub_M231_Emit_00629370(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
-    return sub_00629370_GetGambleCost(STATLIST_UnitGetStatValue(pPlayer, 12, 0), pItem);
+    return ITEMS_GetGambleCost(STATLIST_UnitGetStatValue(pPlayer, 12, 0), pItem);
 }
 
 // 0x0062AC80
@@ -3707,7 +3707,7 @@ inline int ITEMS_CheckItemFlagInl(D2UnitStrc* pItem, unsigned int nFlag)
 }
 
 // 0x0062B450
-static void __stdcall sub_0062B450_GetSocketedStatBonus(int nStatId, int* pValue, D2UnitStrc* pItem)
+static void __stdcall ITEMS_GetBonusStatFromSockets(int nStatId, int* pValue, D2UnitStrc* pItem)
 {
     *pValue = 0;
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
@@ -3860,7 +3860,7 @@ int __stdcall ITEMS_GetStaffMods(D2UnitStrc* pItem)
 }
 
 // 0x0062BC20
-unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem)
+unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -3886,7 +3886,7 @@ unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem)
 // calling-convention shim (not game code)
 int __fastcall sub_0062A900_Shim(D2UnitStrc* pItem)
 {
-    return sub_0062A900_CountSocketedItems(pItem) + 1;
+    return ITEMS_GetSocketedItemCount(pItem) + 1;
 }
 
 static inline void GetDimensions(D2UnitStrc* item, unsigned char* width, unsigned char* height, const char* file, int line) {
@@ -3929,7 +3929,7 @@ void __stdcall sub_0062BCB0_AddSockets(D2UnitStrc* item, int sockets) {
     case 4: maximum = Min(maximum, 4); break;
     case 8: case 9: maximum = Min(maximum, 3); break;
     }
-    maximum = Min(maximum, sub_0062BC20(item));
+    maximum = Min(maximum, ITEMS_GetMaxSockets(item));
     sockets = Min(Max(sockets, 1), maximum);
     if (sockets > 0) {
         if (D2ItemDataStrc* data = GetData(item)) data->dwItemFlags |= 0x800;
@@ -3992,9 +3992,9 @@ void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets)
         }
 
         {
-            if (nMaxSockets >= sub_0062BC20(pItem))
+            if (nMaxSockets >= ITEMS_GetMaxSockets(pItem))
             {
-                nMaxSockets = sub_0062BC20(pItem);
+                nMaxSockets = ITEMS_GetMaxSockets(pItem);
             }
 
             if (nSockets <= 1)
@@ -4230,7 +4230,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 if (pMagicAffixTxtRecord && pMagicAffixTxtRecord->nTransformColor != 0xFF)
                 {
                     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
-                    *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
+                    *pColor = ITEMS_PackTransformColor(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
 
                     if (nTransType)
                     {
@@ -4250,7 +4250,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 if (pMagicAffixTxtRecord && pMagicAffixTxtRecord->nTransformColor != 0xFF)
                 {
                     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
-                    *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
+                    *pColor = ITEMS_PackTransformColor(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
 
                     if (nTransType)
                     {
@@ -4291,7 +4291,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 }
 
                 int const nUniqueColor = pUniqueItemsTxtRecord->nChrTransform;
-                *pColor = sub_0062A250(pItemsTxtRecord->nTransform, nUniqueColor);
+                *pColor = ITEMS_PackTransformColor(pItemsTxtRecord->nTransform, nUniqueColor);
                 int const nInventoryTransform = pItemsTxtRecord->nInvTrans;
                 return D2CMPPalShiftGetTransform(nInventoryTransform, pUniqueItemsTxtRecord->nInvTransform);
             }
@@ -4301,7 +4301,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 return 0;
             }
 
-            *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pUniqueItemsTxtRecord->nChrTransform);
+            *pColor = ITEMS_PackTransformColor(pItemsTxtRecord->nTransform, pUniqueItemsTxtRecord->nChrTransform);
             return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pUniqueItemsTxtRecord->nChrTransform);
         }
         case 5:
@@ -4327,7 +4327,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
                 int const nTransform = pItemsTxtRecord->nTransform;
                 int const nSetColor = pSetItemsTxtRecord->nChrTransform;
-                *pColor = sub_0062A250(nTransform, nSetColor);
+                *pColor = ITEMS_PackTransformColor(nTransform, nSetColor);
                 return D2CMPPalShiftGetTransform(pItemsTxtRecord->nInvTrans, pSetItemsTxtRecord->nInvTransform);
             }
 
@@ -4336,11 +4336,11 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 return 0;
             }
 
-            *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
+            *pColor = ITEMS_PackTransformColor(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
             return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
         }
         default:
-            if (ITEMS_CheckIfSocketableAlt_Inl(pItem) && sub_0062BC20(pItem) > 0 && ITEMS_CheckItemFlag_Inl(pItem, 0x800))
+            if (ITEMS_CheckIfSocketableAlt_Inl(pItem) && ITEMS_GetMaxSockets(pItem) > 0 && ITEMS_CheckItemFlag_Inl(pItem, 0x800))
             {
                 D2InventoryStrc* pInventory = pItem->pInventory;
                 D2UnitStrc* pInventoryItem = INVENTORY_GetFirstItem(pInventory);
@@ -4354,7 +4354,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
                         D2GemsTxt* pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pGemItemsTxtRecord->dwGemOffset);
                         D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
-                        *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pGemsTxtRecord->nTransform);
+                        *pColor = ITEMS_PackTransformColor(pItemsTxtRecord->nTransform, pGemsTxtRecord->nTransform);
                         if (nTransType)
                         {
                             return D2CMPPalShiftGetTransform(pItemsTxtRecord->nInvTrans, pGemsTxtRecord->nTransform);
@@ -4371,7 +4371,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
         if (pMagicAffixTxtRecord && pMagicAffixTxtRecord->nTransformColor != 0xFF)
         {
             D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
-            *pColor = sub_0062A250(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
+            *pColor = ITEMS_PackTransformColor(pItemsTxtRecord->nTransform, pMagicAffixTxtRecord->nTransformColor);
 
             if (nTransType)
             {
@@ -4397,7 +4397,7 @@ inline int UNITS_IsExpansionChecked_Inl(D2UnitStrc* pUnit)
 }
 
 // 0x0062C590
-int __stdcall sub_0062C590(D2UnitStrc* pItem)
+int __stdcall ITEMS_CanBeImbued(D2UnitStrc* pItem)
 {
     if (ITEMS_GetItemType_Inl(pItem) == 4 || ITEMS_CheckItemFlag_Inl(pItem, 0x1000))
     {
@@ -4420,7 +4420,7 @@ int __stdcall sub_0062C590(D2UnitStrc* pItem)
         return 0;
     }
 
-    if (sub_0062A270_HasSocketedItem(pItem))
+    if (ITEMS_HasSocketedItem(pItem))
     {
         return 0;
     }
@@ -4473,7 +4473,7 @@ int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* hItem)
         && ITEMS_GetItemType(hItem) != ITEMTYPE_CROSSBOW_QUIVER
         && !ITEMS_CheckItemFlag(hItem, 0x100, 0x12F7, ".\\ITEMS\\Items.cpp")
         && !(ITEMS_GetItemFlags(hItem) & 0x1000000)
-        && !sub_0062A2B0_GetCompactSave(hItem))
+        && !ITEMS_GetCompactSave(hItem))
     {
         return DATATBLS_GetItemsTxtRecord(sub_T03_GetClassId(hItem))->nNameable != 0;
     }
@@ -4503,7 +4503,7 @@ int __stdcall ITEMS_IsImbueable(D2UnitStrc* pItem)
         return 0;
     }
 
-    if (sub_0062A270_HasSocketedItem(pItem))
+    if (ITEMS_HasSocketedItem(pItem))
     {
         return 0;
     }
@@ -4530,9 +4530,9 @@ int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem)
         const int nItemId = pItem->dwClassId;
         if (!DATATBLS_GetItemsTxtRecord(nItemId)->nQuest || ITEMS_GetBaseCode(pItem) == ' gel')
         {
-            if (!ITEMS_CheckItemFlag_Inl(pItem, 0x100) && !sub_0062A270_HasSocketedItem(pItem) && !ITEMS_CheckItemFlag(pItem, 0x800, 4907, ".\\ITEMS\\Items.cpp"))
+            if (!ITEMS_CheckItemFlag_Inl(pItem, 0x100) && !ITEMS_HasSocketedItem(pItem) && !ITEMS_CheckItemFlag(pItem, 0x800, 4907, ".\\ITEMS\\Items.cpp"))
             {
-                if (sub_0062BC20(pItem))
+                if (ITEMS_GetMaxSockets(pItem))
                 {
                     return !(unsigned char)ITEMS_GetSockets(pItem);
                 }
@@ -4559,8 +4559,8 @@ int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
     if (ITEMS_GetFileIndex(pItem1) != ITEMS_GetFileIndex(pItem2)
         || !ITEMS_CheckIfStackable(pItem1)
         || ITEMS_IsEthereal(pItem1) != ITEMS_IsEthereal(pItem2)
-        || !sub_0062A2F0_IsPlainQuality(ITEMS_GetItemQuality(pItem1))
-        || !sub_0062A2F0_IsPlainQuality(ITEMS_GetItemQuality(pItem2))
+        || !ITEMS_IsPlainQuality(ITEMS_GetItemQuality(pItem1))
+        || !ITEMS_IsPlainQuality(ITEMS_GetItemQuality(pItem2))
         || STATLIST_UnitGetStatValue(pItem1, STAT_MINDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_MINDAMAGE, 0)
         || STATLIST_UnitGetStatValue(pItem1, STAT_MAXDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_MAXDAMAGE, 0)
         || STATLIST_UnitGetStatValue(pItem1, STAT_SECONDARY_MINDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_SECONDARY_MINDAMAGE, 0)
@@ -4644,7 +4644,7 @@ static inline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecordInl(int nSkillI
     return 0;
 }
 
-int __fastcall sub_00627AF0_HasSkillDesc(int nSkillId)
+int __fastcall STATLIST_HasSkillDesc(int nSkillId)
 {
     if (D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordInl(nSkillId))
     {
@@ -5139,7 +5139,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         {
             BITMANIP_ReadInl(pBuffer, 32);
         }
-        sub_00629EA0(pItem, nRealmData0, nRealmData1);
+        ITEMS_SetRealmData(pItem, nRealmData0, nRealmData1);
     }
 
     int b109 = 0;
@@ -5359,7 +5359,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         {
             pStatList = STATLIST_AllocStatList(sub_004DC0B0_GetNextRosterInfo(pItem), nFlag, 0, UNIT_ITEM, sub_00451F50_GetUnitGUID(pItem));
             D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
-            sub_006252D0(pStatList, nState);
+            STATLIST_SetState(pStatList, nState);
         }
 
         nLastStatId = -1;
@@ -5533,7 +5533,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 3);
-                    sub_006270B0(pStatList, 83, nValue, 0);
+                    STATLIST_SetStatValue(pStatList, 83, nValue, 0);
                 }
                 else
                 {
@@ -5545,7 +5545,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 3);
-                    sub_006270B0(pStatList, 83, nValue, 3);
+                    STATLIST_SetStatValue(pStatList, 83, nValue, 3);
                 }
                 else
                 {
@@ -5557,7 +5557,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 3);
-                    sub_006270B0(pStatList, 83, nValue, 2);
+                    STATLIST_SetStatValue(pStatList, 83, nValue, 2);
                 }
                 else
                 {
@@ -5569,7 +5569,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 3);
-                    sub_006270B0(pStatList, 83, nValue, 1);
+                    STATLIST_SetStatValue(pStatList, 83, nValue, 1);
                 }
                 else
                 {
@@ -5581,7 +5581,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 3);
-                    sub_006270B0(pStatList, 83, nValue, 4);
+                    STATLIST_SetStatValue(pStatList, 83, nValue, 4);
                 }
                 else
                 {
@@ -5593,7 +5593,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 3);
-                    sub_006270B0(pStatList, 83, nValue, 5);
+                    STATLIST_SetStatValue(pStatList, 83, nValue, 5);
                 }
                 else
                 {
@@ -5605,7 +5605,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 3);
-                    sub_006270B0(pStatList, 83, nValue, 6);
+                    STATLIST_SetStatValue(pStatList, 83, nValue, 6);
                 }
                 else
                 {
@@ -5627,7 +5627,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                     {
                         nTabLevel = 7;
                     }
-                    sub_006270B0(pStatList, 188, nTabLevel, v237 + 8 * v238);
+                    STATLIST_SetStatValue(pStatList, 188, nTabLevel, v237 + 8 * v238);
                 }
                 else
                 {
@@ -5639,7 +5639,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 4);
-                    sub_006270B0(pStatList, 126, nValue, 1);
+                    STATLIST_SetStatValue(pStatList, 126, nValue, 1);
                 }
                 else
                 {
@@ -5671,9 +5671,9 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
 
                     if (nSkillValue > 0 && nSkillValue <= nMax)
                     {
-                        if (sub_00627AF0_HasSkillDesc(nSkillId))
+                        if (STATLIST_HasSkillDesc(nSkillId))
                         {
-                            sub_006270B0(pStatList, 107, nSkillValue, nSkillId);
+                            STATLIST_SetStatValue(pStatList, 107, nSkillValue, nSkillId);
                         }
                     }
                 }
@@ -5690,7 +5690,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 21);
                     D2Common_10845(nValue, &v241, &v240, &v242);
-                    sub_006270B0(pStatList, 195, v242, (v240 & 0x3F) + ((unsigned short)v241 << 6));
+                    STATLIST_SetStatValue(pStatList, 195, v242, (v240 & 0x3F) + ((unsigned short)v241 << 6));
                 }
                 else
                 {
@@ -5705,7 +5705,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 21);
                     D2Common_10845(nValue, &v244, &v243, &v245);
-                    sub_006270B0(pStatList, 198, v245, (v243 & 0x3F) + ((unsigned short)v244 << 6));
+                    STATLIST_SetStatValue(pStatList, 198, v245, (v243 & 0x3F) + ((unsigned short)v244 << 6));
                 }
                 else
                 {
@@ -5720,7 +5720,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 21);
                     D2Common_10845(nValue, &v247, &v246, &v248);
-                    sub_006270B0(pStatList, 201, v248, (v246 & 0x3F) + ((unsigned short)v247 << 6));
+                    STATLIST_SetStatValue(pStatList, 201, v248, (v246 & 0x3F) + ((unsigned short)v247 << 6));
                 }
                 else
                 {
@@ -5749,7 +5749,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                         nValue = BITMANIP_ReadInl(pBuffer, 30);
                     }
                     D2Common_10846(nValue, &v249, &v250, &v251, &v252);
-                    sub_006270B0(pStatList, 204, (v251 & 0xFF) + (v252 << 8), (v250 & (unsigned short)sgptDataTables->nShiftedStuff) + ((unsigned short)v249 << sgptDataTables->nStuff));
+                    STATLIST_SetStatValue(pStatList, 204, (v251 & 0xFF) + (v252 << 8), (v250 & (unsigned short)sgptDataTables->nShiftedStuff) + ((unsigned short)v249 << sgptDataTables->nStuff));
                 }
                 else
                 {
@@ -5791,7 +5791,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
 
 unsigned int __fastcall sub_M111_Emit_0062A960(D2BitBufferStrc* pBuffer, int nBits)
 {
-    return sub_0062A960_ReadBits(pBuffer, nBits) + 1;
+    return ITEMS_ReadBits(pBuffer, nBits) + 1;
 }
 
 inline int ITEMS_CheckItemFlagData_Inl(D2UnitStrc* pItem, unsigned int dwFlag)
@@ -5805,7 +5805,7 @@ inline int ITEMS_CheckItemFlagData_Inl(D2UnitStrc* pItem, unsigned int dwFlag)
 }
 
 // 0x0062E410
-int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave)
+int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave)
 {
     return sub_0062AE20(pBitstream, nSize, bCheckForHeader, pItemSave, ITEMVERSION);
 }
@@ -5884,7 +5884,7 @@ inline int ITEMS_GetItemTypeInl(D2UnitStrc* pItem)
 }
 
 // 0x0062E5D0
-static int sub_0062E5D0_IsQuantityRepairable(D2UnitStrc* pItem)
+static int ITEMS_IsQuantityRepairable(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 1661);
 
@@ -5942,7 +5942,7 @@ int __stdcall ITEMS_IsRepairable(D2UnitStrc* pItem)
         return 0;
     }
 
-    if (sub_0062E5D0_IsQuantityRepairable(pItem))
+    if (ITEMS_IsQuantityRepairable(pItem))
     {
         return 1;
     }
@@ -6218,7 +6218,7 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
         else if (bEquipping && STATLIST_GetOwner(pItem, 0))
         {
             nStrSocketBonus = 0;
-            sub_0062B450_GetSocketedStatBonus(STAT_STRENGTH, &nStrSocketBonus, pItem);
+            ITEMS_GetBonusStatFromSockets(STAT_STRENGTH, &nStrSocketBonus, pItem);
             const int nAdjusted = nStrength - nStrSocketBonus;
             if (nAdjusted <= 0)
             {
@@ -6246,7 +6246,7 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
         else if (bEquipping)
         {
             int nSocketBonus = 0;
-            sub_0062B450_GetSocketedStatBonus(STAT_DEXTERITY, &nSocketBonus, pItem);
+            ITEMS_GetBonusStatFromSockets(STAT_DEXTERITY, &nSocketBonus, pItem);
             const int nAdjusted = nDexterity - nSocketBonus;
             if (nAdjusted <= 0)
             {
@@ -6336,7 +6336,7 @@ int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc* pItem, int nBodyLoc)
 }
 
 // 0x0062EDD0
-static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor)
+static void __stdcall ITEMS_CalculateAdditionalCostsForItemSkill(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor)
 {
     D2StatStrc pStat[64];
     if (ITEMS_GetStaffMods(pItem) != 7)
@@ -6383,7 +6383,7 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x0062EFB0
-int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* hItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType)
+int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* hItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType)
 {
     int nSellCost;
     int nBuyCost;
@@ -6426,7 +6426,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
     {
         if (ITEMS_GetItemFormat(hItem) >= 1)
         {
-            int nCost = sub_00629370_GetGambleCost(nLevel, hItem);
+            int nCost = ITEMS_GetGambleCost(nLevel, hItem);
             if (nReducePricePct)
             {
                 nCost -= DATATBLS_ApplyRatio(nCost, nReducePricePct, 100);
@@ -6498,7 +6498,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
 
     if (!bMagic)
     {
-        sub_0062EDD0_AddItemSkillCost(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
+        ITEMS_CalculateAdditionalCostsForItemSkill(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
     }
 
     if (bIdentified)
@@ -6666,11 +6666,11 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
 
         if (bMagic)
         {
-            sub_0062EDD0_AddItemSkillCost(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
+            ITEMS_CalculateAdditionalCostsForItemSkill(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
         }
     }
 
-    sub_006292F0_AddSocketablesCost(hItem, &nSellCost, &nBuyCost, &nRepCost);
+    ITEMS_CalculateAdditionalCostsForSocketables(hItem, &nSellCost, &nBuyCost, &nRepCost);
 
     if (ITEMS_CheckItemFlag(hItem, 0x400000, 3235, ".\\ITEMS\\Items.cpp"))
     {
@@ -6817,7 +6817,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
 
     if (nTransactionType == 3 && !ITEMS_IsEthereal(hItem))
     {
-        nRepCost += sub_00628D30_GetChargedSkillsCost(hItem, 10000);
+        nRepCost += ITEMS_CalculateAdditionalCostsForChargedSkills(hItem, 10000);
     }
 
     const int* pMaxBuy = pNpcTxtRecord->nMaxBuy;
@@ -6848,7 +6848,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
 }
 
 // 0x0062FDC0
-int __stdcall sub_0062FDC0_GetRepairCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode)
+int __stdcall ITEMS_GetTransactionCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode)
 {
     return sub_0062EFB0_GetRepairCost(pUnit, pItem, nDifficulty, pQuestFlags, nNpcId, nMode);
 }
@@ -6909,7 +6909,7 @@ int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             }
         }
 
-        if (sub_0062E5D0_IsQuantityRepairable(pItem))
+        if (ITEMS_IsQuantityRepairable(pItem))
         {
             const int nMaxQuantity = ITEMS_GetTotalMaxStack(pItem);
             if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) < nMaxQuantity)
@@ -7730,7 +7730,7 @@ int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* p
 }
 
 // 0x006314A0
-int __fastcall sub_6FD55150(char* szText, int* a2, int a3, int nKeywordNumber)
+int __fastcall ITEMS_ResolveItemCalcKeyword(char* szText, int* a2, int a3, int nKeywordNumber)
 {
     int nRow = 0;
 
@@ -7777,7 +7777,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
 {
     if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
     {
-        sub_00625A70_ToggleState(pUnit, nState, bSet);
+        STATLIST_ToggleState(pUnit, nState, bSet);
         UNITROOM_RefreshUnit(pUnit);
     }
 }
@@ -7794,7 +7794,7 @@ __declspec(noinline) int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nSta
         case UNIT_MISSILE:
             if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
             {
-                return sub_00625B70_CheckStatFlag(pUnit, nState);
+                return STATLIST_CheckState(pUnit, nState);
             }
             break;
         }
@@ -7941,7 +7941,7 @@ static int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned i
 }
 
 // 0x0063A180
-void __stdcall sub_0063A180_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask)
+void __stdcall STATES_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask)
 {
     unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
     unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
@@ -7995,7 +7995,7 @@ int __stdcall STATES_CheckStateMaskPgsvOnUnit(D2UnitStrc* pUnit)
 // 0x0063A2D0
 void __stdcall STATES_UpdatePgsvFlags(D2UnitStrc* pUnit)
 {
-    sub_0063A180_UpdateGfxFlagsWithMask(pUnit, sgptDataTables->fStateMasks[STATEMASK_PGSV]);
+    STATES_UpdateGfxFlagsWithMask(pUnit, sgptDataTables->fStateMasks[STATEMASK_PGSV]);
 }
 
 // 0x0063A2F0
@@ -8023,13 +8023,13 @@ int __stdcall STATES_CheckStateMaskRemHitOnUnit(D2UnitStrc* pUnit)
 }
 
 // 0x0063A380
-int __stdcall sub_0063A380(D2UnitStrc* pUnit)
+int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit)
 {
     return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMBLUE]);
 }
 
 // 0x0063A3A0
-int __stdcall sub_0063A3A0(D2UnitStrc* pUnit)
+int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit)
 {
     return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMRED]);
 }
@@ -8235,7 +8235,7 @@ int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask)
 }
 
 // 0x0063A7E0
-static inline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
+static inline D2ItemExtraDataStrc* INVENTORY_GetExtraDataFromItem(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -8244,14 +8244,14 @@ static inline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
     return 0;
 }
 
-static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
+static void __cdecl INVENTORY_UnlinkItem(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)
     {
         return;
     }
-    D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+    D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
     if (!pExtra)
     {
         return;
@@ -8265,7 +8265,7 @@ static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitSt
     }
     else
     {
-        D2ItemExtraDataStrc* pPrevious = sub_0063A7E0(pExtra->pPreviousItem);
+        D2ItemExtraDataStrc* pPrevious = INVENTORY_GetExtraDataFromItem(pExtra->pPreviousItem);
         if (pPrevious)
         {
             pPrevious->pNextItem = pExtra->pNextItem;
@@ -8280,7 +8280,7 @@ static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitSt
     }
     else
     {
-        D2ItemExtraDataStrc* pNext = sub_0063A7E0(pExtra->pNextItem);
+        D2ItemExtraDataStrc* pNext = INVENTORY_GetExtraDataFromItem(pExtra->pNextItem);
         if (pNext)
         {
             pNext->pPreviousItem = pExtra->pPreviousItem;
@@ -8290,14 +8290,14 @@ static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitSt
     pExtra->pPreviousItem = 0;
 }
 
-static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
+static void __stdcall INVENTORY_UnlinkGridItem(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)
     {
         return;
     }
-    D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+    D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
     if (!pExtra)
     {
         return;
@@ -8311,7 +8311,7 @@ static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bM
     }
     else
     {
-        D2ItemExtraDataStrc* pPrevious = sub_0063A7E0(pExtra->pPreviousGridItem);
+        D2ItemExtraDataStrc* pPrevious = INVENTORY_GetExtraDataFromItem(pExtra->pPreviousGridItem);
         if (pPrevious)
         {
             pPrevious->pNextGridItem = pExtra->pNextGridItem;
@@ -8326,7 +8326,7 @@ static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bM
     }
     else
     {
-        D2ItemExtraDataStrc* pNext = sub_0063A7E0(pExtra->pNextGridItem);
+        D2ItemExtraDataStrc* pNext = INVENTORY_GetExtraDataFromItem(pExtra->pNextGridItem);
         if (pNext)
         {
             pNext->pPreviousGridItem = pExtra->pPreviousGridItem;
@@ -8367,7 +8367,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType == 4)
     {
-        D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+        D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
         if (!pExtra)
         {
             return 0;
@@ -8386,7 +8386,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
             const int nGrid = pExtra->nNodePos - 1;
             if (pInventory->nGridCount > nGrid)
             {
-                sub_0063A970_UnlinkGrid(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
+                INVENTORY_UnlinkGridItem(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
             }
         }
         if (pInventory->pCursorItem == pItem)
@@ -8395,7 +8395,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
         }
         else
         {
-            sub_0063A810_UnlinkPair((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
+            INVENTORY_UnlinkItem((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
             --pInventory->dwItemCount;
         }
         pExtra->pParentInv = 0;
@@ -8424,7 +8424,7 @@ void __cdecl sub_00405A60_Nop()
 }
 
 // 0x0063A800
-void __cdecl sub_0063A800_Nop()
+void __cdecl ITEMS_Nop()
 {
 }
 

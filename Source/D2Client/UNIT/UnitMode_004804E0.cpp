@@ -10,9 +10,9 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
-void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 int __fastcall sub_004DBF20_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY); // 0x004DBF20
-D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
 void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
 void __fastcall sub_00463180_UpdatePathAndMove(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463180
@@ -126,7 +126,7 @@ void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, u
         const int nPixelY = UNITS_GetClientCoordY(pUnit);
         int nScreenX = nX;
         int nScreenY = nY;
-        sub_00643260(&nScreenX, &nScreenY);
+        DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
         if (nX != nCurX && nY != nCurY && !sub_004DBF20_HitTestUnitCel(pUnit, nPixelX, nPixelY) && !sub_004DBF20_HitTestUnitCel(pUnit, nScreenX, nScreenY))
         {
             bWarp = 1;
@@ -140,7 +140,7 @@ void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, u
     D2ActiveRoomStrc* pNewRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
     if (!pNewRoom)
     {
-        pNewRoom = sub_00619DA0_ActLookup(gpAct_007A0634, nX, nY);
+        pNewRoom = DUNGEON_FindRoomBySubtileCoordinates(gpAct_007A0634, nX, nY);
         if (!pNewRoom)
         {
             return;

@@ -78,7 +78,7 @@ struct D2ChatStormBaseArrayAStrc
     void* f_8;
 
     D2ChatStormBaseArrayAStrc();
-    unsigned int sub_0060E230_Count();
+    unsigned int IGNORELIST_GetStringSlotArrayCount();
 };
 
 struct D2ChatStormBaseArrayBStrc
@@ -88,7 +88,7 @@ struct D2ChatStormBaseArrayBStrc
     void* f_8;
 
     D2ChatStormBaseArrayBStrc();
-    unsigned int sub_0060E250_Count();
+    unsigned int IGNORELIST_GetMappingSlotArrayCount();
 };
 
 struct D2ChatStormCtorLinkStrc
@@ -130,7 +130,7 @@ struct D2ChatStormLinkStrc
             m_next = 0;
         }
     }
-    bool sub_0060E0C0_IsLinked();
+    bool IGNORELIST_IsLinkLinked();
     char* sub_0060E1A0_Next();
     char* sub_0060E240_Next();
     void sub_0060E3B0_Unlink();
@@ -149,9 +149,9 @@ struct D2ChatStormListAStrc
         m_terminator.m_prevlink = &m_terminator;
         m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
     }
-    void sub_0060E260_InitializeTerminator();
-    char* sub_0060E440_Head();
-    void sub_0060E5F0_Reset();
+    void IGNORELIST_InitStringListTerminator();
+    char* IGNORELIST_GetStringListHead();
+    void IGNORELIST_ResetStringList();
     char* sub_006020C0_Head();
     void sub_00603510_Reset();
 };
@@ -161,7 +161,7 @@ struct D2ChatStormHashTableStrc
     void* m_pVTable;
     D2ChatStormListAStrc m_fulllist;
 
-    char* sub_0060E6D0_Head();
+    char* IGNORELIST_GetStringTableHead();
 };
 
 struct D2ChatStormLinkAStrc
@@ -190,9 +190,9 @@ struct D2ChatStormListBStrc
         m_terminator.m_prevlink = &m_terminator;
         m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
     }
-    void sub_0060E270_InitializeTerminator();
-    char* sub_0060E5D0_Head();
-    void sub_0060E610_Reset();
+    void IGNORELIST_InitMappingListTerminator();
+    char* IGNORELIST_GetMappingListHead();
+    void IGNORELIST_ResetMappingList();
 };
 
 struct D2ChatStormListCStrc
@@ -234,7 +234,7 @@ struct D2ChatStormNodeStrc
     D2ChatStormLinkStrc f_C;
     char* f_14;
 
-    char* sub_0060E0B0_GetKey();
+    char* IGNORELIST_GetStringEntryKey();
 };
 
 struct D2CmpByteMapStrc
@@ -300,8 +300,8 @@ struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
 
 struct D2CommonStormHashTableAStrc
 {
-    void sub_0060EB70_InternalClear(int bWarn);
-    void sub_0060ED60_Clear();
+    void IGNORELIST_InternalClearStringTable(int bWarn);
+    void IGNORELIST_ClearStringTable();
 };
 
 struct D2CommonStormSlotLinkStrc
@@ -358,7 +358,7 @@ struct D2CommonStringEntryNodeStrc
     char* f_14;
 
     ~D2CommonStringEntryNodeStrc();
-    void sub_0060EE30_Destroy();
+    void IGNORELIST_DestroyStringEntryNode();
 };
 
 struct D2HslStrc

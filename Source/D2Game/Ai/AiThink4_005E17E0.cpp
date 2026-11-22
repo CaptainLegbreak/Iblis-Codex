@@ -64,8 +64,8 @@ int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* p
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x00648900
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY);                          // 0x00621DC0
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex);                               // 0x0063E7A0
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, unsigned int* pX, unsigned int* pY); // 0x0063E7E0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex);                               // 0x0063E7A0
+void __stdcall INVENTORY_GetDirectionDelta(unsigned char nDirection, unsigned int* pX, unsigned int* pY); // 0x0063E7E0
 int __fastcall sub_6FC68350(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5);              // 0x005FD350
 
 inline int CLIENTS_GetUnitXInline_005E17E0(D2UnitStrc* pUnit)

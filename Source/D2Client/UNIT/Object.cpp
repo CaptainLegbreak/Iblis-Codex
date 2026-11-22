@@ -138,7 +138,7 @@ void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2Shrines
 
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
 
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
+int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit); // 0x00624390
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 
@@ -413,7 +413,7 @@ int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
             if (!bNoRefresh)
                 sub_00470610_Refresh(pUnit, 0);
 
-            sub_00624390_AnimInit(pUnit);
+            UNITS_SetAnimStartFrame(pUnit);
             sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
             if (pTxt->nSelectable[pUnit->dwAnimMode])
                 pUnit->dwFlags |= 2;
@@ -432,7 +432,7 @@ int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
             if (!bNoRefresh)
                 sub_00470610_Refresh(pUnit, 0);
 
-            sub_00624390_AnimInit(pUnit);
+            UNITS_SetAnimStartFrame(pUnit);
             sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
         }
         sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
@@ -472,7 +472,7 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
 
     UNITROOM_AddUnitToRoom(pUnit, pRoom);
     pUnit->dwFlags &= ~8;
-    sub_00624390_AnimInit(pUnit);
+    UNITS_SetAnimStartFrame(pUnit);
 
     if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
         pUnit->dwFlags |= 0x20;
@@ -581,7 +581,7 @@ static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
     }
 
     sub_00470610_Refresh(pUnit, 0);
-    sub_00624390_AnimInit(pUnit);
+    UNITS_SetAnimStartFrame(pUnit);
     if (pUnit->pObjectData->pObjectTxt->nSelectable[pUnit->dwAnimMode])
         pUnit->dwFlags |= 2;
     else
@@ -650,7 +650,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
                 pUnit->dwAnimMode = nMode;
                 pUnit->nSeqCurrentFramePrecise = pTxt->nStart[nMode] << 8;
                 sub_00470610_Refresh(pUnit, 0);
-                sub_00624390_AnimInit(pUnit);
+                UNITS_SetAnimStartFrame(pUnit);
                 return;
             }
 
@@ -671,7 +671,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
 
             pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;
             sub_00470610_Refresh(pUnit, 0);
-            sub_00624390_AnimInit(pUnit);
+            UNITS_SetAnimStartFrame(pUnit);
             if (pTxt->nOverlay)
             {
                 const int nClassId = pUnit->dwClassId;
@@ -705,7 +705,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
         pUnit->dwAnimMode = 4;
         pUnit->nSeqCurrentFramePrecise = pTxt->nStart[4] << 8;
         sub_00470610_Refresh(pUnit, 0);
-        sub_00624390_AnimInit(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
         return;
     }
 
@@ -810,7 +810,7 @@ static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTar
     }
 
     sub_004CB460_UpdateModeSound(pUnit);
-    sub_00624390_AnimInit(pUnit);
+    UNITS_SetAnimStartFrame(pUnit);
     if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
         pUnit->dwFlags |= 0x20;
     else
@@ -1084,7 +1084,7 @@ char __fastcall sub_004BD730_AnimCycle(D2UnitStrc* pUnit)
     if (!(pUnit->dwTickCount & 0x3F) && pUnit->dwAnimMode != 1)
     {
         pUnit->dwAnimMode = 1;
-        sub_00624390_AnimInit(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
     }
 
     ++pUnit->dwTickCount;
@@ -1093,7 +1093,7 @@ char __fastcall sub_004BD730_AnimCycle(D2UnitStrc* pUnit)
     {
         pUnit->dwTickCount += SEED_RollRandomNumberLoFirst(&pUnit->pSeed) & 0x3F;
         pUnit->dwAnimMode = 0;
-        sub_00624390_AnimInit(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
     }
 
     return 1;
@@ -1111,7 +1111,7 @@ char __fastcall sub_004BD7C0_AnimCycleUpdate(D2UnitStrc* pUnit)
     if (!(pUnit->dwTickCount & 0x3F) && pUnit->dwAnimMode != 1)
     {
         pUnit->dwAnimMode = 1;
-        sub_00624390_AnimInit(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
     }
 
     ++pUnit->dwTickCount;
@@ -1120,7 +1120,7 @@ char __fastcall sub_004BD7C0_AnimCycleUpdate(D2UnitStrc* pUnit)
     {
         pUnit->dwTickCount += SEED_RollRandomNumberLoFirst(&pUnit->pSeed) & 0x3F;
         pUnit->dwAnimMode = 0;
-        sub_00624390_AnimInit(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
     }
 
     sub_004CB460(pUnit);
@@ -1417,7 +1417,7 @@ char __fastcall sub_004BDE00_FinishOperate(D2UnitStrc* pUnit)
         pUnit->dwAnimMode = 2;
         pUnit->nSeqCurrentFramePrecise = 0;
         sub_00470610_Refresh(pUnit, 0);
-        sub_00624390_AnimInit(pUnit);
+        UNITS_SetAnimStartFrame(pUnit);
     }
     return 1;
 }

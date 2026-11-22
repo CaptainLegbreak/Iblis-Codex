@@ -45,7 +45,7 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_0046AE50_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce); // 0x0046AE50
 D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
+D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -181,7 +181,7 @@ void __cdecl sub_0046AEE0_ObjectMissileTimedBox()
         return;
     }
 
-    D2UnitStrc* pObject = sub_0065A620_FindUnitInAdjacentRooms(pRoom, 2, 0x11);
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(pRoom, 2, 0x11);
     if (!pObject)
     {
         return;
@@ -241,7 +241,7 @@ void __cdecl sub_0046B100_EventObject98Request()
     if (!pRoom)
         return;
 
-    D2UnitStrc* pObject = sub_0065A620_FindUnitInAdjacentRooms(pRoom, 2, 0x98);
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(pRoom, 2, 0x98);
     if (!pObject)
         return;
 
@@ -292,7 +292,7 @@ void __cdecl sub_0046B300_EventObject178Request()
     if (!pRoom)
         return;
 
-    D2UnitStrc* pObject = sub_0065A620_FindUnitInAdjacentRooms(pRoom, 2, 0x178);
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(pRoom, 2, 0x178);
     if (!pObject)
         return;
 
@@ -339,7 +339,7 @@ void __cdecl sub_0046B440_EventObject1CCRequest()
     if (!pRoom)
         return;
 
-    D2UnitStrc* pObject = sub_0065A620_FindUnitInAdjacentRooms(pRoom, 2, 0x1CC);
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(pRoom, 2, 0x1CC);
     if (!pObject)
         return;
 
@@ -378,7 +378,7 @@ void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit)
         return;
     }
 
-    D2UnitStrc* pObject = sub_0065A620_FindUnitInAdjacentRooms(UNITS_GetRoom(pUnit), 2, nObjectId);
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pUnit), 2, nObjectId);
     if (!pObject)
         return;
 
@@ -423,7 +423,7 @@ void __fastcall sub_0046BB90_PlayerRequestAtUnit16B(D2UnitStrc* pUnit)
 void __fastcall sub_0046BC90_RequestAtMonster220(D2UnitStrc* pUnit)
 {
     D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
-    D2UnitStrc* pMonster = sub_0065A620_FindUnitInAdjacentRooms(UNITS_GetRoom(pPlayer), 1, 0x220);
+    D2UnitStrc* pMonster = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pPlayer), 1, 0x220);
     if (pMonster)
     {
         sub_004CDB40_SubmitRequest(pPlayer, 0x271, CLIENTS_GetUnitXInline(pMonster), CLIENTS_GetUnitYInline(pMonster), 0, 1);
@@ -543,7 +543,7 @@ void __cdecl sub_0046B1E0_EventObject95Request()
         return;
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    D2UnitStrc* pObject = sub_0065A620_FindUnitInAdjacentRooms(pRoom, 2, 0x95);
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(pRoom, 2, 0x95);
     if (!pObject)
         return;
 

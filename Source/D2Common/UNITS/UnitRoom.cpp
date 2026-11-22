@@ -17,7 +17,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
-void __stdcall sub_00619EE0(D2ActiveRoomStrc* pRoom); // 0x00619EE0
+void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 D2UnitStrc** __fastcall DUNGEON_GetUnitListFromRoom(D2ActiveRoomStrc* pRoom); // 0x00619F60
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
@@ -27,7 +27,7 @@ int __stdcall D2Common_10084(D2ActiveRoomStrc* pRoom); // 0x0061AB60
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
-void __stdcall sub_0064FC20_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath); // 0x0064FC20
+void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath); // 0x0064FC20
 void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 void __stdcall UNITS_ResetRoom(D2UnitStrc* pUnit); // 0x00620B50
 void __stdcall UNITROOM_RemoveUnitFromUpdateQueue(D2UnitStrc* pUnit); // 0x0064C1B0
@@ -57,7 +57,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x0064BF60
-static int __stdcall sub_0064BF60_CanAddUnitToRoom(int bAssertIfPresent, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
+static int __stdcall UNITROOM_CanAddUnitToRoom(int bAssertIfPresent, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
 {
     D2DrlgCoordsStrc tRoomCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tRoomCoords);
@@ -86,7 +86,7 @@ int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* hRoo
 {
     D2_ASSERT(pUnit, 72);
     D2_ASSERT(hRoom, 73);
-    D2_ASSERT(sub_0064BF60_CanAddUnitToRoom(TRUE, pUnit, hRoom), 82);
+    D2_ASSERT(UNITROOM_CanAddUnitToRoom(TRUE, pUnit, hRoom), 82);
 
     D2UnitStrc** ppUnitFirst = DUNGEON_GetUnitListFromRoom(hRoom);
     D2_ASSERT(ppUnitFirst, 87);
@@ -98,12 +98,12 @@ int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* hRoo
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        sub_00619EE0(hRoom);
+        DUNGEON_IncreaseAlliedCountOfRoom(hRoom);
         break;
     case UNIT_MONSTER:
         if (STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_GOOD)
         {
-            sub_00619EE0(hRoom);
+            DUNGEON_IncreaseAlliedCountOfRoom(hRoom);
         }
         break;
     }
@@ -241,7 +241,7 @@ void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit)
     }
 
     default:
-        sub_0064FC20_ResetDynamicPathRoom(pUnit->pDynamicPath);
+        PATH_ResetDynamicPathRoom(pUnit->pDynamicPath);
         break;
     }
 }

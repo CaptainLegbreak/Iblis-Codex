@@ -129,7 +129,7 @@ static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0066B1F0
-static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
+static D2DrlgRoomStrc* DRLGWARP_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
 {
     for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
@@ -153,7 +153,7 @@ static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0066B2B0
-D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY)
+D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY)
 {
     D2LevelDefBin* pLevelDefBinRecord = 0;
     D2DrlgLevelStrc* pLevel = 0;
@@ -186,7 +186,7 @@ D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, i
     pDrlgRoom = DRLGWARP_GetWaypointRoomExFromLevel(pLevel, pX, pY);
     if (!pDrlgRoom)
     {
-        pDrlgRoom = sub_0066B1F0_GetFirstWarpRoom(pLevel);
+        pDrlgRoom = DRLGWARP_GetFirstWarpRoom(pLevel);
         if (!pDrlgRoom)
         {
             const int nX = pLevel->nWidth / 2 + pLevel->nPosX - 2;

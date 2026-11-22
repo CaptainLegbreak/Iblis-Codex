@@ -89,12 +89,12 @@ D2DrlgRoomStrc* __fastcall sub_0066B3E0(D2DrlgLevelStrc* pLevel, int nType);
 void __fastcall sub_0066B970(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);
 int __fastcall sub_006706A0(D2DrlgRoomStrc* pRoom, int a2, int a3);
 void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom);
-D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50);
-void sub_0067D5D0(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor);
-void __fastcall sub_0067D610(D2DrlgRoomStrc* pRoom);
-void __fastcall sub_0067D680(D2DrlgRoomStrc* pRoom);
-void __fastcall sub_0067D6D0(D2DrlgRoomStrc* pRoom);
-unsigned int __fastcall sub_0067D7A0(D2DrlgRoomStrc* pRoom);
+D2DrlgRoomStrc* __fastcall DRLGOUTPLACE_CreateOutdoorRoomEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50);
+void DRLGOUTROOM_FreeOutdoorRoomGrids(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor);
+void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGOUTROOM_AllocDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
+unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom);
 void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType);
 void __stdcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int nType, int nDirection, D2DrlgCoordsStrc* pBase);
 
@@ -115,7 +115,7 @@ extern const D2DrlgOutSiegeInitStrc gaOutSiegeCaves[3]; // 0x006F1F9C
 D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nLevelPrestId); // 0x0061F0B0
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nDirection, int a6); // 0x006743C0
 void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x00675770
-void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel); // 0x0067E160
+void __stdcall DRLGOUTSIEGE_PlaceSpecialPresets(D2DrlgLevelStrc* pLevel); // 0x0067E160
 
 static const D2CoordStrc gOutdoorOrthOffsets[2][2] =
 {
@@ -212,13 +212,13 @@ void __fastcall sub_M170_Emit_0067DA70(D2DrlgLevelStrc* pLevel)
         return;
     }
     DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
-    sub_0067E160(pLevel);
+    DRLGOUTSIEGE_PlaceSpecialPresets(pLevel);
     DRLGOUTSIEGE_PlaceCaves(pLevel);
     if (pLevel->eLevelId == LEVEL_ID_ACT5_BARRICADE_1)
     {
         DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     }
-    sub_0067E160(pLevel);
+    DRLGOUTSIEGE_PlaceSpecialPresets(pLevel);
 }
 
 #include "gen/data/Source/D2Common/Unknown_0067D710.inc"

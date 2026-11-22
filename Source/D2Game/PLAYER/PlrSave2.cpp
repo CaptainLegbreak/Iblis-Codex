@@ -456,7 +456,7 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 
-int __stdcall sub_0062FDC0_GetRepairCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int a6); // 0x0062FDC0
+int __stdcall ITEMS_GetTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int a6); // 0x0062FDC0
 
 unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory);                                 // 0x0063CD60
 
@@ -899,7 +899,7 @@ int __fastcall PLRSAVE2_WriteCorpsesSection(D2GameStrc* pGame, D2UnitStrc* pPlay
                 if (!ITEMSIsA(pInvItem, 4))
                 {
                     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-                    nValue += sub_0062FDC0_GetRepairCost(pPlayer, pInvItem, 3, pQuestFlags, 0x201, 0);
+                    nValue += ITEMS_GetTransactionCost(pPlayer, pInvItem, 3, pQuestFlags, 0x201, 0);
                 }
             }
 

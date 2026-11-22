@@ -114,7 +114,7 @@ int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
 
 int __fastcall DRLG_IsTownLevel(int nLevelId); // 0x006426A0
 
-int __fastcall sub_0066BCF0(D2DrlgRoomStrc* pDrlgRoom);                                        // 0x0066BCF0
+int __fastcall DRLGROOM_GetNumberOfNearRooms(D2DrlgRoomStrc* pDrlgRoom);                                        // 0x0066BCF0
 
 int gStatsClientAllocatedRooms;                                                                             // 0x0096C8B8
 
@@ -126,7 +126,7 @@ int gStatsAllocatedRooms;                                                       
 
 #define ROOMFLAG_1 0x00000001
 
-static void __stdcall sub_0061BB60_SetColorForId(D2DrlgEnvironmentStrc* pRecord, int nId)
+static void __stdcall DRLGACTIVATE_ApplyArreatSummitLightColor(D2DrlgEnvironmentStrc* pRecord, int nId)
 {
     if (nId == 0x78)
     {
@@ -251,7 +251,7 @@ static void __stdcall ENVIRONMENT_UpdateLightColor(int nAct, D2DrlgEnvironmentSt
 }
 
 // 0x0061BDF0
-static void sub_0061BDF0_SetCycleState(D2DrlgEnvironmentStrc* pEnvironment)
+static void ENVIRONMENT_SetCycleState(D2DrlgEnvironmentStrc* pEnvironment)
 {
     const D2EnvironmentCycleStrc* pEnvironmentCycle = !pEnvironment->bEclipse ? &gNormalEnvironmentCycle[pEnvironment->nCycleIndex] : &gEclipseEnvironmentCycle[pEnvironment->nCycleIndex];
     pEnvironment->nPeriodOfDay = pEnvironmentCycle->nPeriodOfDay;
@@ -360,7 +360,7 @@ int __stdcall ENVIRONMENT_UpdatePeriodOfDay(D2DrlgActStrc* pAct, D2ActiveRoomStr
     ENVIRONMENT_UpdateTicks(pEnvironment, nActNo);
     ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
     ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
-    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
     return nPreviousPeriodOfDay != pEnvironment->nPeriodOfDay;
 }
 
@@ -483,7 +483,7 @@ void __stdcall ENVIRONMENT_NextEnvCycle(D2DrlgActStrc* pAct, D2ActiveRoomStrc* p
     const int nActNo = DRLG_GetActNoFromLevelId(nLevelId);
     ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
     ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
-    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
 }
 
 // 0x0061C220
@@ -519,12 +519,12 @@ void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRo
     pEnvironment->bEclipse = bEclipse;
     if (bEclipse)
     {
-        sub_0061BDF0_SetCycleState(pEnvironment);
+        ENVIRONMENT_SetCycleState(pEnvironment);
         ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nAct);
         ENVIRONMENT_UpdateLightColor(nAct, pEnvironment);
     }
 
-    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
 }
 
 // 0x0061C330
@@ -572,7 +572,7 @@ void __stdcall ENVIRONMENT_SetNextTimeRate(D2DrlgActStrc* pAct, D2ActiveRoomStrc
     const int nActNo = DRLG_GetActNoFromLevelId(nLevelId);
     ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
     ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
-    sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+    DRLGACTIVATE_ApplyArreatSummitLightColor(pEnvironment, nLevelId);
 }
 
 // 0x0061C450

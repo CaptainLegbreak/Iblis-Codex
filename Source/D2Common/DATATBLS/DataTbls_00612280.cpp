@@ -68,7 +68,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 extern void* gpDifficultylevelsTxt; // 0x0096C8AC
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-void __stdcall sub_00612EA0_UnloadCompCodeAndCompileBins(); // 0x00612EA0
+void __stdcall DATATBLS_UnloadCompCodeAndCompileBins(); // 0x00612EA0
 void __fastcall DATATBLS_UnloadMissilesTxt(); // 0x00663210
 void __fastcall DATATBLS_UnloadOverlayTxt(); // 0x00664530
 void __fastcall DATATBLS_UnloadSkills_SkillDescTxt(); // 0x00617C30
@@ -87,7 +87,7 @@ void __fastcall DATATBLS_UnloadBooksTxt(); // 0x00637490
 void __fastcall DATATBLS_UnloadItemRatioTxt(); // 0x006378F0
 void __fastcall DATATBLS_UnloadGambleTxt(); // 0x00638C80
 void __fastcall DATATBLS_UnloadItemTypesTxt(); // 0x006393E0
-void __fastcall sub_006586D0(); // 0x006586D0
+void __fastcall DATATBLS_FreeMonTypeTxt(); // 0x006586D0
 void __fastcall DATATBLS_UnloadPlrMode_Type_MonMode_ObjMode_Type_Composit_ArmtypeTxt(); // 0x0065B3C0
 void __fastcall DATATBLS_UnloadAnimDataD2(D2AnimDataTableStrc* pAnimData); // 0x0066A830
 void __fastcall DATATBLS_UnloadSomeMonsterTxts(); // 0x0065A190
@@ -119,7 +119,7 @@ D2ItemTypesTxt* gpItemTypesTxt_0096C828; // 0x0096C828
 int gnItemTypesTxtRecordCount_0096C82C; // 0x0096C82C
 
 // 0x00612280
-void* __fastcall sub_00612280_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, unsigned int* pnSize, const char* szFile, int nLine)
+void* __fastcall DATATBLS_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, unsigned int* pnSize, const char* szFile, int nLine)
 {
     char szPath[0x104];
     wsprintfA(szPath, "%s\\%s%s", gszExcelDirectory_006D8ED4, szName, szExtension);
@@ -158,7 +158,7 @@ int __fastcall DATATBLS_CheckItemTypesEquivalenceNested(int nItemType1, int nIte
 }
 
 // 0x00612600
-void __fastcall sub_00612600(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength)
+void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength)
 {
     Unicode wszClass[512];
     Unicode wszName[512];
@@ -198,7 +198,7 @@ void __fastcall sub_00612600(void* pTable, int nRecordCount, int nRecordSize, in
 }
 
 // 0x00613D30
-void __stdcall sub_00613D30(void* hArchive)
+void __stdcall DATATBLS_LoadExperienceTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
@@ -825,7 +825,7 @@ static void DATATBLS_UnloadBinInline(void* pBinFile)
 // 0x00619140
 void __stdcall DATATBLS_UnloadAllBins()
 {
-    sub_00612EA0_UnloadCompCodeAndCompileBins();
+    DATATBLS_UnloadCompCodeAndCompileBins();
     DATATBLS_UnloadBinInline(gpCharstatsTxt);
     DATATBLS_UnloadMissilesTxt();
     DATATBLS_UnloadOverlayTxt();
@@ -847,7 +847,7 @@ void __stdcall DATATBLS_UnloadAllBins()
     DATATBLS_UnloadItemRatioTxt();
     DATATBLS_UnloadGambleTxt();
     DATATBLS_UnloadItemTypesTxt();
-    sub_006586D0();
+    DATATBLS_FreeMonTypeTxt();
     DATATBLS_UnloadPlrMode_Type_MonMode_ObjMode_Type_Composit_ArmtypeTxt();
     DATATBLS_UnloadBinInline(gpExperienceTxt);
     DATATBLS_UnloadAnimDataD2(gpAnimData_0096C8A4);

@@ -21,8 +21,8 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nPickedFile, int bFlag); // 0x006743C0
 void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel); // 0x00675670
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
-void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
-int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
+void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
+int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
 
 
@@ -40,10 +40,10 @@ struct D2MotionPathStrc
     unsigned int nFlags;
 };
 
-void __fastcall sub_0064FD70_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
+void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
 
 // 0x006755C0
-int __fastcall sub_006755C0_LookupTable(int nA, int nB, int nC)
+int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
 {
     const int nRow = gaLookupRow_006F0FD0[nA + 3 * nB];
     if (nC >= 4)
@@ -89,7 +89,7 @@ int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
 }
 
 // 0x006757E0
-int __fastcall sub_006757E0_GetLevelStyle(D2DrlgLevelStrc* pLevel, bool bFlag)
+int __fastcall DRLGOUTDOORS_GetBorderLookupId(D2DrlgLevelStrc* pLevel, bool bFlag)
 {
     switch (pLevel->nLevelType)
     {
@@ -100,7 +100,7 @@ int __fastcall sub_006757E0_GetLevelStyle(D2DrlgLevelStrc* pLevel, bool bFlag)
     case 27:
         return 3;
     case 31:
-        return sub_0067DCE0(pLevel);
+        return DRLGOUTSIEGE_GetBorderLookupId(pLevel);
     }
     return -1;
 }
@@ -135,8 +135,8 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
 
     do
     {
-        sub_0067D280(pVertex, &nCurrentDiffX, &nCurrentDiffY);
-        sub_0067D280(pNext, &nNextDiffX, &nNextDiffY);
+        DRLGVER_GetCoordDiff(pVertex, &nCurrentDiffX, &nCurrentDiffY);
+        DRLGVER_GetCoordDiff(pNext, &nNextDiffX, &nNextDiffY);
 
         if (nCurrentDiffX >= 0)
         {
@@ -188,7 +188,7 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
         nDirection = pVertex->nDirection;
         nPacked = nDirection != 0 ? 3 : 1;
 
-        nLevelPrestId = sub_006755C0_LookupTable(nCurrentDiffX, nCurrentDiffY, sub_006757E0_GetLevelStyle(pLevel, nDirection != 0));
+        nLevelPrestId = DRLGOUTDOORS_GetBorderLevelPrestId(nCurrentDiffX, nCurrentDiffY, DRLGOUTDOORS_GetBorderLookupId(pLevel, nDirection != 0));
 
         if (!(pVertex->dwFlags & 2))
         {
@@ -249,7 +249,7 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
             nPacked |= 2;
         }
 
-        nStyle = sub_006757E0_GetLevelStyle(pLevel, nDirection != 0);
+        nStyle = DRLGOUTDOORS_GetBorderLookupId(pLevel, nDirection != 0);
 
         if (pVertex->dwFlags & 2)
         {
@@ -521,7 +521,7 @@ int __fastcall sub_00678E30_UpdateMotion(D2MotionPathStrc* pPath)
         return 1;
     }
     int nDirection;
-    sub_0064FD70_GetDirectionVectorFromPoints(&pPath->tDirectionVector, &nDirection, pPath->tStart, pPath->tTarget);
+    PATH_GetDirectionVectorFromPoints(&pPath->tDirectionVector, &nDirection, pPath->tStart, pPath->tTarget);
     pPath->nDirection = nDirection;
     if (pPath->nFlags & 0x200)
         pPath->nDirection = (pPath->nDirection - 32) & 63;

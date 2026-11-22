@@ -52,7 +52,7 @@ unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEn
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord);
 int __fastcall sub_0047A1E0(D2StoredUnitRecordStrc* pEntry);
 void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY);
-void __stdcall sub_00643260(int* pX, int* pY);
+void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);
 const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry);
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
 
@@ -409,7 +409,7 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
     }
 
     sub_0047A1B0_GetEntryPosition(pEntry, &nX, &nY);
-    sub_00643260(&nX, &nY);
+    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
     nX = nX / gnAutomapScale_00711254 - gnAutomapOffsetX_007A5198 + 8;
     nY = nY / gnAutomapScale_00711254 - gnAutomapOffsetY_007A519C - 8;
     if (nX < gnGlobal_007A51C8 || nX > gnGlobal_007A51D0 || nY < gnGlobal_007A51CC || nY > gnGlobal_007A51D4)

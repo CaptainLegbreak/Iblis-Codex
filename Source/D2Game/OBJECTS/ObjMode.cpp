@@ -311,7 +311,7 @@ int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem,
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
@@ -647,7 +647,7 @@ int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker);                       
 
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2);                                            // 0x00623990
 
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
+int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 
 extern "C" void _ReadWriteBarrier();
 
@@ -2026,7 +2026,7 @@ static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D
     }
 
     const int nBonus = SKILLS_GetWeaponMasteryBonus(pUnit, pWeapon, pSkill, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
-    D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     const int nToHit = *pToHit;
     *pToHit = nToHit + nToHit * (pSkillsTxtRecord->dwToHit + (nSkillLevel - 1) * pSkillsTxtRecord->dwLevToHit + nBonus) / 100;
 
@@ -2128,7 +2128,7 @@ void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2S
     const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->bCode];
     const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, ptShrineData->dwArg0, pOp->hPlayer);
     D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, ptShrineData->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
-    sub_006270B0(pStatList, 0x13, nValue, 0);
+    STATLIST_SetStatValue(pStatList, 0x13, nValue, 0);
 }
 
 // 0x00583A70
@@ -2141,8 +2141,8 @@ void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2Shrin
     STATLIST_SetUnitStat(pOp->hPlayer, STAT_STAMINA, nMaxStamina, 0);
     const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->hPlayer);
     D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, sub_6FC77AB0);
-    sub_006270B0(pStatList, 0x0A, 2 * nStatValue, 0);
-    sub_006270B0(pStatList, 0x1C, 1000, 0);
+    STATLIST_SetStatValue(pStatList, 0x0A, 2 * nStatValue, 0);
+    STATLIST_SetStatValue(pStatList, 0x1C, 1000, 0);
 }
 
 // 0x00583B30

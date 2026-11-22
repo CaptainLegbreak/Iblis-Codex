@@ -58,24 +58,24 @@ static void DRLGACTIVATE_ForceRoomExStatusImpl(D2DrlgRoomStrc* pDrlgRoom, unsign
     }
 }
 
-static void sub_0061B290_ForceStatusClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 0);
 }
 
-static void sub_0061B2A0_ForceStatusClientInSight(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_ClientInSight(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 1);
 }
 
-static void sub_0061B2B0_ForceStatusUntile(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_Untile(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 3);
 }
 
 void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B290_ForceStatusClientInRoom(pDrlgRoom);
+    DRLGACTIVATE_ForceRoomExStatus_ClientInRoom(pDrlgRoom);
 }
 
 void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInSight(D2DrlgRoomStrc* pDrlgRoom)
@@ -87,7 +87,7 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInSight(D2DrlgRoomStrc* pDrlg
         pDrlg->nRoomsInitTimeout = DRLG_IsOnClient(pDrlg) == 0 ? 7 : 5;
     }
     if (pDrlgRoom->fRoomStatus > 1)
-        sub_0061B2A0_ForceStatusClientInSight(pDrlgRoom);
+        DRLGACTIVATE_ForceRoomExStatus_ClientInSight(pDrlgRoom);
 }
 
 void __fastcall DRLGACTIVATE_RoomExSetStatus_Untile(D2DrlgRoomStrc* pDrlgRoom)
@@ -97,10 +97,10 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_Untile(D2DrlgRoomStrc* pDrlgRoom)
     if (pDrlgRoom->nType == 2 && !(pDrlgRoom->dwFlags & 0x2000000))
         DRLGPRESET_SpawnHardcodedPresetUnits(pDrlgRoom);
     if (pDrlgRoom->fRoomStatus > 3)
-        sub_0061B2B0_ForceStatusUntile(pDrlgRoom);
+        DRLGACTIVATE_ForceRoomExStatus_Untile(pDrlgRoom);
 }
 
-static void sub_0061B4F0(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_RoomExIdentifyRealStatus(D2DrlgRoomStrc* pDrlgRoom)
 {
     if (pDrlgRoom->fRoomStatus < 4 && pDrlgRoom->wRoomsInList[pDrlgRoom->fRoomStatus])
         return;
@@ -115,26 +115,26 @@ static void sub_0061B4F0(D2DrlgRoomStrc* pDrlgRoom)
     pDrlgRoom->fRoomStatus = nStatus;
 }
 
-void __fastcall sub_0061B530_UnsetStatusClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientInRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B4F0(pDrlgRoom);
+    DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
 }
 
-void __fastcall sub_0061B540_UnsetStatusClientInSight(D2DrlgRoomStrc* pDrlgRoom)
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientInSight(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B4F0(pDrlgRoom);
+    DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
 }
 
-void __fastcall sub_0061B550_UnsetStatusClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
+void __fastcall DRLGACTIVATE_RoomExStatusUnset_ClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
 {
-    sub_0061B4F0(pDrlgRoom);
+    DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
 }
 
 void __fastcall DRLGACTIVATE_RoomExStatusUnset_Untile(D2DrlgRoomStrc* pDrlgRoom)
 {
     if (pDrlgRoom->fRoomStatus != 4)
     {
-        sub_0061B4F0(pDrlgRoom);
+        DRLGACTIVATE_RoomExIdentifyRealStatus(pDrlgRoom);
         if (pDrlgRoom->fRoomStatus == 4 && DRLG_IsOnClient(pDrlgRoom->ptDrlgLevel->pDrlg))
             DRLGROOMTILE_FreeRoom(pDrlgRoom, 0);
     }
@@ -183,7 +183,7 @@ void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg)
     }
 }
 
-static void sub_0061BAF0_ForceStatusClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
+static void DRLGACTIVATE_ForceRoomExStatus_ClientOutOfSight(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_ForceRoomExStatusImpl(pDrlgRoom, 2);
     if (pDrlgRoom->wRoomsInList[1])
@@ -195,6 +195,6 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientOutOfSight(D2DrlgRoomStrc* pD
     if ((pDrlgRoom->dwFlags & 0x1000000) && (pDrlgRoom->nType != 2 || (pDrlgRoom->dwFlags & 0x2000000)))
     {
         if (pDrlgRoom->fRoomStatus > 2)
-            sub_0061BAF0_ForceStatusClientOutOfSight(pDrlgRoom);
+            DRLGACTIVATE_ForceRoomExStatus_ClientOutOfSight(pDrlgRoom);
     }
 }

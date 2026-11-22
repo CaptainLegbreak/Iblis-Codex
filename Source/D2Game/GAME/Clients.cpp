@@ -527,8 +527,8 @@ int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUn
 D2CorpseStrc* __stdcall INVENTORY_GetFirstCorpse(D2InventoryStrc* pInventory); // 0x0063D570
 D2CorpseStrc* __stdcall INVENTORY_GetNextCorpse(D2CorpseStrc* pCorpse); // 0x0063D610
 int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
-extern "C" unsigned short __stdcall sub_0063D650(D2CorpseStrc* pCorpse); // 0x0063D650
-extern "C" unsigned int __stdcall sub_0063D670(D2CorpseStrc* pCorpse); // 0x0063D670
+extern "C" unsigned short __stdcall INVENTORY_GetCorpseMercNameId(D2CorpseStrc* pCorpse); // 0x0063D650
+extern "C" unsigned int __stdcall INVENTORY_IsPlayerCorpse(D2CorpseStrc* pCorpse); // 0x0063D670
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
@@ -1239,9 +1239,9 @@ void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameS
     while (pCorpse)
     {
         const int nCorpseGUID = INVENTORY_GetUnitGUIDFromCorpse(pCorpse);
-        if (!sub_0063D670(pCorpse))
+        if (!INVENTORY_IsPlayerCorpse(pCorpse))
         {
-            const unsigned short wName = sub_0063D650(pCorpse);
+            const unsigned short wName = INVENTORY_GetCorpseMercNameId(pCorpse);
             pCorpse = INVENTORY_GetNextCorpse(pCorpse);
             INVENTORY_FreeCorpse(pPlayer->pInventory, nCorpseGUID, 0);
             if (nCorpseGUID && wName)

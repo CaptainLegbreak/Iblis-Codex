@@ -248,7 +248,7 @@ D2AutomapIndexStrc gAutomapIndex_0096C8D0[36]; // 0x0096C8D0
 
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
-void __fastcall sub_0061E520(void* hArchive);
+void __fastcall DATATBLS_LoadLevelTypesTxt(void* hArchive);
 
 void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles);
 
@@ -331,7 +331,7 @@ int __stdcall DATATBLS_GetMonsterLevelInArea(int nLevelId, unsigned char nDiffic
 }
 
 // 0x0061DD00
-static void sub_0061DD00_InitPortalLevels(D2LevelDefBin* pLevelDefBin)
+static void DATATBLS_InitPortalLevels(D2LevelDefBin* pLevelDefBin)
 {
     gnPortalLevels_0096C9F8 = 0;
     for (int i = 0; i < sgptDataTables->nLevelsTxtRecordCount; ++i)
@@ -368,7 +368,7 @@ int* __fastcall DATATBLS_GetPortalLevels(int* pnPortalLevels)
 void __stdcall sub_M13_Emit_0061DD00(D2LevelDefBin* pLevelDefBin)
 {
     gpLevelDefBin = pLevelDefBin;
-    sub_0061DD00_InitPortalLevels(pLevelDefBin);
+    DATATBLS_InitPortalLevels(pLevelDefBin);
 }
 
 // 0x0061DE00
@@ -422,7 +422,7 @@ void __fastcall DATATBLS_LoadLevelDefsBin(void* hArchive)
     };
 
     gpLevelDefBin = (D2LevelDefBin*)DATATBLS_CompileTxt(hArchive, "leveldefs", pTbl, 0, 0x9C);
-    sub_0061DD00_InitPortalLevels(gpLevelDefBin);
+    DATATBLS_InitPortalLevels(gpLevelDefBin);
 }
 
 // 0x0061E440
@@ -451,7 +451,7 @@ D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId)
 }
 
 // 0x0061E4A0
-static void sub_0061E4A0(const char* szDirectory, char* szPath)
+static void DATATBLS_PrefixPathWithDirectory(const char* szDirectory, char* szPath)
 {
     char szBuffer[60];
     const int nLength = strlen(szPath);
@@ -471,7 +471,7 @@ static void sub_0061E4A0(const char* szDirectory, char* szPath)
 }
 
 // 0x0061E520
-void __fastcall sub_0061E520(void* hArchive)
+void __fastcall DATATBLS_LoadLevelTypesTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
@@ -518,7 +518,7 @@ void __fastcall sub_0061E520(void* hArchive)
     {
         for (int j = 0; j < 0x20; ++j)
         {
-            sub_0061E4A0(gszDirectory_006E867C, pRecord->szFile[j]);
+            DATATBLS_PrefixPathWithDirectory(gszDirectory_006E867C, pRecord->szFile[j]);
         }
         ++pRecord;
     }
@@ -603,7 +603,7 @@ void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles)
         {
             for (unsigned int j = 0; j < 6; ++j)
             {
-                sub_0061E4A0(gszDirectory_006E867C, pRecord->szFile[j]);
+                DATATBLS_PrefixPathWithDirectory(gszDirectory_006E867C, pRecord->szFile[j]);
                 if (bLoadFiles && strlen(pRecord->szFile[j]) > 1)
                     DRLGPRESET_LoadDrlgFile(&sgtDataTables.ppLvlPrestFiles[j + 6 * i], 0, pRecord->szFile[j]);
             }
@@ -666,7 +666,7 @@ void __fastcall sub_Z16_EmitFixPathSlashes(char* pRecords, int nCount)
 {
     for (int i = 0; i < nCount; ++i)
     {
-        sub_0061E4A0("DATA\\GLOBAL\\TILES", pRecords);
+        DATATBLS_PrefixPathWithDirectory("DATA\\GLOBAL\\TILES", pRecords);
         pRecords += 0x3C;
     }
 }
@@ -821,7 +821,7 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
  D2LvlSubTxt* row=gpLvlSubTxt;
  int expansion=sub_00408F20_HasExpansionMpq();
  for(int i=0;i<gnLvlSubTxtRecordCount;++i,++row) {
-  sub_0061E4A0(gszDirectory_006E867C,row->szFile);
+  DATATBLS_PrefixPathWithDirectory(gszDirectory_006E867C,row->szFile);
   if((expansion||!row->dwExpansion)&&(loadFiles||extra)) {
    DRLGPRESET_LoadDrlgFile(&gppLvlSubDrlgFiles[i],0,row->szFile);
    if(!gppLvlSubDrlgFiles[i]->nSubstGroups) {
@@ -924,7 +924,7 @@ void sub_W12_EmitLvlTypesTxtWrites(D2LvlTypesTxt* pLvlTypesTxt, int nRecordCount
 }
 
 // 0x0061FC10
-static int sub_0061FC10_GetAutomapLevelType(const char* szLevelName)
+static int DATATBLS_GetAutomapLevelType(const char* szLevelName)
 {
     if (szLevelName[0] != '0')
     {
@@ -943,7 +943,7 @@ static int sub_0061FC10_GetAutomapLevelType(const char* szLevelName)
 }
 
 // 0x0061FC80
-static int sub_0061FC80_GetAutomapTileType(const char* szTileName)
+static int DATATBLS_GetAutomapTileType(const char* szTileName)
 {
     if (szTileName[0] != '0')
     {
@@ -963,8 +963,8 @@ static int sub_0061FC80_GetAutomapTileType(const char* szTileName)
 
 void __stdcall sub_M14_EmitAutomapLookups(const char* pAutomapRecord, int* pTypes)
 {
-    pTypes[0] = sub_0061FC10_GetAutomapLevelType(pAutomapRecord);
-    pTypes[1] = sub_0061FC80_GetAutomapTileType(pAutomapRecord + 16);
+    pTypes[0] = DATATBLS_GetAutomapLevelType(pAutomapRecord);
+    pTypes[1] = DATATBLS_GetAutomapTileType(pAutomapRecord + 16);
 }
 
 // 0x0061FCF0
@@ -997,8 +997,8 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
 
     for (int i = 0; i < nRecordCount; ++i)
     {
-        pAutomap[i].nLevelNo = sub_0061FC10_GetAutomapLevelType(pAutomapTxt[i].szLevelName);
-        pAutomap[i].nTileType = sub_0061FC80_GetAutomapTileType(pAutomapTxt[i].szTileName);
+        pAutomap[i].nLevelNo = DATATBLS_GetAutomapLevelType(pAutomapTxt[i].szLevelName);
+        pAutomap[i].nTileType = DATATBLS_GetAutomapTileType(pAutomapTxt[i].szTileName);
         pAutomap[i].nStyle = pAutomapTxt[i].nStyle;
         pAutomap[i].nStartSequence = pAutomapTxt[i].nStartSequence;
         pAutomap[i].nEndSequence = pAutomapTxt[i].nEndSequence;
@@ -1048,7 +1048,7 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
 }
 
 // 0x0061FFF0
-int __fastcall sub_0061FFF0_GetAutomapCel(int nLevelNo, int nTileType, int nStyle, int nSequence)
+int __fastcall DATATBLS_GetAutomapCellId(int nLevelNo, int nTileType, int nStyle, int nSequence)
 {
     if (!nLevelNo)
         return -1;
@@ -1086,7 +1086,7 @@ void __fastcall DATATBLS_FreeAutomap()
 }
 
 // 0x00644140
-D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill)
+D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill)
 {
     if (!pSkill)
     {
@@ -1108,7 +1108,7 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill)
 }
 
 // 0x00673FF0
-int __fastcall sub_00673FF0_GetVisFlagToLevel(D2DrlgLevelStrc* pLevel, D2DrlgLevelStrc* pOtherLevel)
+int __fastcall DATATBLS_GetVisFlagToLevel(D2DrlgLevelStrc* pLevel, D2DrlgLevelStrc* pOtherLevel)
 {
     int* pLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
     int i = 0;

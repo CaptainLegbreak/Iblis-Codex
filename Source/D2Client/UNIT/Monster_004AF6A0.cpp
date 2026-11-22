@@ -133,7 +133,7 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue);                
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                                                         // 0x006446A0
 
-void __stdcall sub_00648750(D2DynamicPathStrc* pPath, int nArg);                                            // 0x00648750
+void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pPath, int nArg);                                            // 0x00648750
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 
@@ -278,7 +278,7 @@ void __stdcall STATLIST_DeactivateTemporaryStates(D2UnitStrc* pUnit);           
 
 int __stdcall STATES_CheckStateMaskShatterOnUnit(D2UnitStrc* pUnit);                                       // 0x0063A6F0
 
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex);                               // 0x0063E7A0
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex);                               // 0x0063E7A0
 
 int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                          // 0x00643860
 
@@ -286,7 +286,7 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
-void __stdcall sub_00648730(D2DynamicPathStrc* pDynamicPath);                                // 0x00648730
+void __stdcall PATH_ClearPathingFlagAndPoints(D2DynamicPathStrc* pDynamicPath);                                // 0x00648730
 
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath);                                        // 0x006487F0
 
@@ -739,7 +739,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         if (pPath)
         {
             sub_00650590(pPath);
-            sub_00648750(pPath, 0);
+            PATH_SetPathingFlag(pPath, 0);
             sub_00648DC0(pPath);
             sub_00480E70_SetUnitMode(pUnit, 3);
         }
@@ -1494,7 +1494,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         case MONSTER_MINION1:
         {
             unsigned char nDirection = UNITS_GetDirection(pUnit);
-            switch (sub_0063E7A0_GetByteTableEntry(nDirection) % 4)
+            switch (INVENTORY_GetEightWayDirection(nDirection) % 4)
             {
             case 0:
                 sub_004B9A00(0x51C, pUnit, 0, 0, 0);
@@ -1717,7 +1717,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             sub_004AE1D0_RefreshMonsterMode(pUnit);
 
         if (pPath)
-            sub_00648730(pPath);
+            PATH_ClearPathingFlagAndPoints(pPath);
     }
 }
 

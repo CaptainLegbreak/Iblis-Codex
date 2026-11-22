@@ -176,7 +176,7 @@ extern "C" int __stdcall sub_005A7C20_SetMode(Game*, ModeRequest*, int); // 0x00
 extern "C" int __stdcall sub_0062FF70_Check(Unit*, Unit*); // 0x0062FF70
 extern "C" int __stdcall sub_00639DF0_HasState(Unit*, int); // 0x00639DF0
 extern "C" int __stdcall sub_0063B210_Add(void*, Unit*, int); // 0x0063B210
-extern "C" int __stdcall sub_00648780_pointCount(D2DynamicPathStrc* pPath); // 0x00648780
+extern "C" int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pPath); // 0x00648780
 extern "C" int __stdcall sub_006488C0_X(StaticPath*); // 0x006488C0
 extern "C" int __stdcall sub_00648900_Y(StaticPath*); // 0x00648900
 extern "C" int __stdcall sub_0064A210(D2UnitStrc* pMissile); // 0x0064A210
@@ -423,12 +423,12 @@ int __stdcall sub_0061ABF0(int nActData, int nLevelId); // 0x0061ABF0
 int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
 int __stdcall sub_006253B0_GetBaseStat(D2UnitStrc*,int,int); // 0x006253B0
 int __stdcall sub_00625560(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625560
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x006270B0
+int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x006270B0
 int __stdcall sub_006287A0_TestFlags(unsigned int dwFlags, unsigned int dwMask); // 0x006287A0
 int __stdcall sub_00628C70(D2UnitStrc* pItem); // 0x00628C70
 int __stdcall sub_0063BDB0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
 int __stdcall sub_0063EE90_IsHireling(D2UnitStrc*); // 0x0063EE90
-int __stdcall sub_006456D0_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x006456D0
+int __stdcall SKILLS_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x006456D0
 int __stdcall sub_00645910_TestLine(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
 int __stdcall sub_006488C0_PathGetX(D2PathRecordStrc* pPath); // 0x006488C0
 int __stdcall sub_006488C0_PathX(Path*); // 0x006488C0

@@ -95,7 +95,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
-int __stdcall sub_00645680_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x00645680
+int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 
 void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 
@@ -349,7 +349,7 @@ extern "C" int __fastcall sub_005A0180(Unit005A0180* pUnit, unsigned short wMask
 
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
 
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
+int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 
 enum D2C_Q05SkillConstants
 {
@@ -422,9 +422,9 @@ void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x006
 
 void __stdcall sub_006488A0_SetDirection(D2PathRecordStrc* pPath, int nDirection); // 0x006488A0
 
-int __stdcall sub_006252B0(D2StatListStrc* pStatList); // 0x006252B0
+int __stdcall STATLIST_GetOwnerGUID(D2StatListStrc* pStatList); // 0x006252B0
 
-int __stdcall sub_00625250(D2StatListStrc* pStatList); // 0x00625250
+int __stdcall STATLIST_GetOwnerType(D2StatListStrc* pStatList); // 0x00625250
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 
@@ -663,7 +663,7 @@ int __fastcall SKILLS_SrvSt17_Poison_CorpseExplosion(D2GameStrc* pGame, D2UnitSt
         return 0;
     }
 
-    return sub_00645680_CanUnitCorpseBeSelected(pTarget);
+    return D2COMMON_11021(pTarget);
 }
 
 // 0x005C3260
@@ -1753,7 +1753,7 @@ int __fastcall sub_6FD0D000(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit
 int __fastcall sub_005C4DF0_DetonateCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget || !sub_00645680_CanUnitCorpseBeSelected(pTarget))
+    if (!pTarget || !D2COMMON_11021(pTarget))
         return 0;
     STATES_ToggleState(pTarget, 104, 1);
     UNITROOM_RefreshUnit(pTarget);
@@ -2272,7 +2272,7 @@ int __fastcall SKILLS_SrvDo063_PoisonExplosion(D2GameStrc* pGame, D2UnitStrc* pU
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
         D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-        if (!pTarget || !sub_00645680_CanUnitCorpseBeSelected(pTarget))
+        if (!pTarget || !D2COMMON_11021(pTarget))
         {
             return 0;
         }
@@ -2475,7 +2475,7 @@ int __fastcall sub_005C61E0_ApplyLifeTap(D2GameStrc* pGame, int nEvent, D2UnitSt
         return 0;
     }
 
-    D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, sub_00625250(pStatList), sub_006252B0(pStatList));
+    D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, STATLIST_GetOwnerType(pStatList), STATLIST_GetOwnerGUID(pStatList));
     const int nPercent = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc[0], nSkillId, nLevel);
     const int nLifeGain = DATATBLS_ApplyRatio(pDamage->dwPhysDamage, nPercent, 100);
     int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
@@ -2809,8 +2809,8 @@ int __fastcall sub_005C6760(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
     D2StatListStrc* pStatList = sub_0056E970(&curse);
     if (!pStatList)
         return 0;
-    sub_006270B0(pStatList, STAT_B, nSlow, 0);
-    sub_006270B0(pStatList, STAT_C, nSlow, 0);
+    STATLIST_SetStatValue(pStatList, STAT_B, nSlow, 0);
+    STATLIST_SetStatValue(pStatList, STAT_C, nSlow, 0);
     UnitUpdateAnimRateAndVel(pTarget, ".\\SKILLS\\SkillNec.cpp", SOURCE_LINE);
     return 1;
 }

@@ -40,7 +40,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define SEQ_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x006632C0
-static int sub_006632C0(D2UnitStrc* pUnit)
+static int DATATBLS_GetWeaponClassIndexFromUnit(D2UnitStrc* pUnit)
 {
     int nWeaponClass;
     COMPOSIT_GetWeaponClassId(pUnit, pUnit->pInventory, &nWeaponClass, -1, 1);
@@ -80,7 +80,7 @@ static D2AnimSeqRecordStrc* DATATBLS_GetSeqRecordFromUnit(D2UnitStrc* pUnit)
     if (nUnitType == 0)
     {
         D2PlayerWeaponSequencesStrc* pWeaponSequences = gPlayerWeaponsSequenceTable[nSequenceNum];
-        int nWClassIndex = sub_006632C0(pUnit);
+        int nWClassIndex = DATATBLS_GetWeaponClassIndexFromUnit(pUnit);
         SEQ_ASSERT(nWClassIndex != -1, 1331);
         pSeqRecord = &pWeaponSequences->weaponRecords[nWClassIndex];
     }

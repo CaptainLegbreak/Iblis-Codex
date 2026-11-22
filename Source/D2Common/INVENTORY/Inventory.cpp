@@ -236,9 +236,9 @@ extern const signed char gaDirectionDeltaX_006EA998[32]; // 0x006EA998
 
 extern const signed char gaDirectionDeltaY_006EA978[32]; // 0x006EA978
 
-static s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first);
+static s32 __cdecl INVENTORY_FindComponentArrayIndex(u32 second, u32 first);
 
-static int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
+static int INVENTORY_CanItemsBeWieldedTogether(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
 
 static BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
 
@@ -377,7 +377,7 @@ static BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D
 
 static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B620
 
-static void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item);
+static void __stdcall INVENTORY_FillItemComponentGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item);
 
 int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc* pItem, int nBodyLoc);                                     // 0x0062ED50
 
@@ -387,39 +387,39 @@ int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                  
 
 int __stdcall INVENTORY_IsItemBodyLocFree(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc, int nInventoryRecordId); // 0x0063CB00
 
-static int __stdcall sub_0063DD90_CheckHandSlots(D2UnitStrc* pUnit, int nOtherLoc, D2UnitStrc* pNewItem, D2UnitStrc* pLocItem, D2UnitStrc* pOtherItem);
+static int __stdcall INVENTORY_CheckHandSlotPlacement(D2UnitStrc* pUnit, int nOtherLoc, D2UnitStrc* pNewItem, D2UnitStrc* pLocItem, D2UnitStrc* pOtherItem);
 
 int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem, int bSkipRequirementCheck);
 
-static BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight);
+static BOOL __stdcall INVENTORY_AreGridCellsFree(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight);
 
-static void __stdcall sub_0063A910_FillGridCells(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight, D2UnitStrc* pItem);
+static void __stdcall INVENTORY_FillGridCells(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight, D2UnitStrc* pItem);
 
-static void sub_0063AF20_LinkItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);
+static void INVENTORY_LinkItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);
 
-static void __stdcall sub_0063AF70_LinkGridItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, D2UnitStrc* pItem);
+static void __stdcall INVENTORY_LinkGridItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, D2UnitStrc* pItem);
 
 inline BOOL INVENTORY_ValidateBodyLoc(int nBodyLoc);
 
 static BOOL __stdcall INVENTORY_CanItemBePlacedAtPos(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight);
 
-static BOOL __stdcall sub_0063B540_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
+static BOOL __stdcall INVENTORY_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
 
-static BOOL __stdcall sub_0063B5E0_FindFreePositionHeight1(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
+static BOOL __stdcall INVENTORY_FindFreePositionForSingleRowItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
 
 static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
 
-static BOOL __stdcall sub_0063B790_FindFreePositionHeight3(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
+static BOOL __stdcall INVENTORY_FindFreePositionForTallNarrowItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
 
-static BOOL __stdcall sub_0063B7D0_FindFreePosition2x2(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
+static BOOL __stdcall INVENTORY_FindFreePositionForSquareItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
 
-static BOOL __stdcall sub_0063B810_FindFreePositionOther(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
+static BOOL __stdcall INVENTORY_FindFreePositionForOtherItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
 
 BOOL __stdcall INVENTORY_PlaceItemAtInventoryPage(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nXPos, int nYPos, int nInventoryRecordId, BOOL bUnused, unsigned char nPage);
 
 BOOL __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);
 
-static BOOL sub_0063C4C0_PlaceItemInBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot);
+static BOOL INVENTORY_PlaceItemInBeltGrid(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot);
 
 BOOL __stdcall INVENTORY_PlaceItemInBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot);
 
@@ -427,17 +427,17 @@ BOOL __stdcall INVENTORY_PlaceItemInFreeBeltSlot(D2InventoryStrc* pInventory, D2
 
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
-static void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output);
+static void __cdecl INVENTORY_GetArmorComponents(Unit* item, AppearanceSix* output);
 
 BOOL __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nUnused);
 
 BOOL __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, BOOL bUnused, unsigned char nPage, const char* szFile, int nLine);
 
-static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* item, Unit* unit);
+static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* secondOutput, Unit* item, Unit* unit);
 
 inline void INVENTORY_SetLeftItemGUIDInline(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet);
 
-void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8* secondOutput);
+void __stdcall INVENTORY_GetItemSaveGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput);
 
 // 0x0063A110
 int __fastcall STATES_GetNumberOfStateFlags()
@@ -470,7 +470,7 @@ int __stdcall STATES_CheckStateMaskBlueOnUnit(D2UnitStrc* pUnit)
     return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_BLUE]);
 }
 
-static inline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
+static inline D2ItemExtraDataStrc* INVENTORY_GetExtraDataFromItem(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -480,14 +480,14 @@ static inline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
 }
 
 // 0x0063A810
-static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
+static void __cdecl INVENTORY_UnlinkItem(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)
     {
         return;
     }
-    D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+    D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
     if (!pExtra)
     {
         return;
@@ -501,7 +501,7 @@ static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitSt
     }
     else
     {
-        D2ItemExtraDataStrc* pPrevious = sub_0063A7E0(pExtra->pPreviousItem);
+        D2ItemExtraDataStrc* pPrevious = INVENTORY_GetExtraDataFromItem(pExtra->pPreviousItem);
         if (pPrevious)
         {
             pPrevious->pNextItem = pExtra->pNextItem;
@@ -516,7 +516,7 @@ static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitSt
     }
     else
     {
-        D2ItemExtraDataStrc* pNext = sub_0063A7E0(pExtra->pNextItem);
+        D2ItemExtraDataStrc* pNext = INVENTORY_GetExtraDataFromItem(pExtra->pNextItem);
         if (pNext)
         {
             pNext->pPreviousItem = pExtra->pPreviousItem;
@@ -558,7 +558,7 @@ static D2ItemExtraDataStrc* INVENTORY_GetItemExtraDataNoInl(D2UnitStrc* pItem) /
 }
 
 // 0x0063A8A0
-static BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_AreGridCellsFree(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
@@ -576,7 +576,7 @@ static BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInve
 }
 
 // 0x0063A910
-static void __stdcall sub_0063A910_FillGridCells(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight, D2UnitStrc* pItem)
+static void __stdcall INVENTORY_FillGridCells(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight, D2UnitStrc* pItem)
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
@@ -589,14 +589,14 @@ static void __stdcall sub_0063A910_FillGridCells(D2InventoryGridStrc* pInventory
 }
 
 // 0x0063A970
-static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
+static void __stdcall INVENTORY_UnlinkGridItem(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)
     {
         return;
     }
-    D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+    D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
     if (!pExtra)
     {
         return;
@@ -610,7 +610,7 @@ static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bM
     }
     else
     {
-        D2ItemExtraDataStrc* pPrevious = sub_0063A7E0(pExtra->pPreviousGridItem);
+        D2ItemExtraDataStrc* pPrevious = INVENTORY_GetExtraDataFromItem(pExtra->pPreviousGridItem);
         if (pPrevious)
         {
             pPrevious->pNextGridItem = pExtra->pNextGridItem;
@@ -625,7 +625,7 @@ static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bM
     }
     else
     {
-        D2ItemExtraDataStrc* pNext = sub_0063A7E0(pExtra->pNextGridItem);
+        D2ItemExtraDataStrc* pNext = INVENTORY_GetExtraDataFromItem(pExtra->pNextGridItem);
         if (pNext)
         {
             pNext->pPreviousGridItem = pExtra->pPreviousGridItem;
@@ -662,7 +662,7 @@ static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bM
 }
 
 // 0x0063AAD0
-int __fastcall sub_0063AAD0_IsItem(D2UnitStrc* pUnit)
+int __fastcall INVENTORY_IsUnitItem(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
     {
@@ -677,7 +677,7 @@ int __fastcall sub_0063AAF0_RemoveItem(D2UnitStrc* pItem)
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType == 4)
     {
-        D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+        D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
         if (!pExtra)
         {
             return 0;
@@ -696,7 +696,7 @@ int __fastcall sub_0063AAF0_RemoveItem(D2UnitStrc* pItem)
             const int nGrid = (signed char)pExtra->nNodePos - 1;
             if (pInventory->nGridCount > nGrid)
             {
-                sub_0063A970_UnlinkGrid(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
+                INVENTORY_UnlinkGridItem(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
             }
         }
         if (pInventory->pCursorItem == pItem)
@@ -705,7 +705,7 @@ int __fastcall sub_0063AAF0_RemoveItem(D2UnitStrc* pItem)
         }
         else
         {
-            sub_0063A810_UnlinkPair((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
+            INVENTORY_UnlinkItem((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
             --pInventory->dwItemCount;
         }
         pExtra->pParentInv = 0;
@@ -732,7 +732,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType == 4)
     {
-        D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+        D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
         if (!pExtra)
         {
             return 0;
@@ -751,7 +751,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
             const int nGrid = (signed char)pExtra->nNodePos - 1;
             if (pInventory->nGridCount > nGrid)
             {
-                sub_0063A970_UnlinkGrid(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
+                INVENTORY_UnlinkGridItem(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
             }
         }
         if (pInventory->pCursorItem == pItem)
@@ -760,7 +760,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
         }
         else
         {
-            sub_0063A810_UnlinkPair((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
+            INVENTORY_UnlinkItem((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
             --pInventory->dwItemCount;
         }
         pExtra->pParentInv = 0;
@@ -984,7 +984,7 @@ D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, in
 }
 
 // 0x0063AF20
-static void sub_0063AF20_LinkItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
+static void INVENTORY_LinkItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
 {
     D2ItemExtraDataStrc* pItemExtraData = INVENTORY_GetItemExtraTyped(pItem);
     if (!pItemExtraData)
@@ -1011,7 +1011,7 @@ static void sub_0063AF20_LinkItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem
 }
 
 // 0x0063AF70
-static void __stdcall sub_0063AF70_LinkGridItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, D2UnitStrc* pItem)
+static void __stdcall INVENTORY_LinkGridItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, D2UnitStrc* pItem)
 {
     D2ItemExtraDataStrc* pItemExtraData = INVENTORY_GetItemExtraTyped(pItem);
     if (!pItemExtraData || pItemExtraData->pParentInv != pInventory)
@@ -1099,7 +1099,7 @@ static BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2U
         return FALSE;
     }
 
-    if (!sub_0063A8A0_CheckGridCellsFree(pInventoryGrid, nXPos, nYPos, nWidth, nHeight))
+    if (!INVENTORY_AreGridCellsFree(pInventoryGrid, nXPos, nYPos, nWidth, nHeight))
     {
         return FALSE;
     }
@@ -1116,9 +1116,9 @@ static BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2U
     }
 
     INVENTORY_RemoveItem(pItem);
-    sub_0063AF20_LinkItem(pInventory, pItem);
-    sub_0063AF70_LinkGridItem(pInventory, pInventoryGrid, pItem);
-    sub_0063A910_FillGridCells(pInventoryGrid, nXPos, nYPos, nWidth, nHeight, pItem);
+    INVENTORY_LinkItem(pInventory, pItem);
+    INVENTORY_LinkGridItem(pInventory, pInventoryGrid, pItem);
+    INVENTORY_FillGridCells(pInventoryGrid, nXPos, nYPos, nWidth, nHeight, pItem);
 
     pItemExtraData->nNodePos = nInventoryGrid + 1;
     ++pInventory->dwItemCount;
@@ -1195,7 +1195,7 @@ BOOL __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitSt
     }
 
     INVENTORY_RemoveItem(pItem);
-    sub_0063AF20_LinkItem(pInventory, pItem);
+    INVENTORY_LinkItem(pInventory, pItem);
 
     UNITS_SetXForStaticUnit(pItem, pInventory->dwItemCount);
     UNITS_SetYForStaticUnit(pItem, 0);
@@ -1248,7 +1248,7 @@ static BOOL __stdcall INVENTORY_CanItemBePlacedAtPos(D2InventoryGridStrc* pInven
         return FALSE;
     }
 
-    return sub_0063A8A0_CheckGridCellsFree(pInventoryGrid, nX, nY, nItemWidth, nItemHeight);
+    return INVENTORY_AreGridCellsFree(pInventoryGrid, nX, nY, nItemWidth, nItemHeight);
 }
 
 // 0x0063B340
@@ -1358,7 +1358,7 @@ static BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D
 }
 
 // 0x0063B540
-static BOOL __stdcall sub_0063B540_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     for (int nX = pInventoryGrid->nGridWidth - 1; nX >= 0; --nX)
     {
@@ -1377,7 +1377,7 @@ static BOOL __stdcall sub_0063B540_FindFreePositionRightToLeft(D2InventoryGridSt
 }
 
 // 0x0063B5E0
-static BOOL __stdcall sub_0063B5E0_FindFreePositionHeight1(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionForSingleRowItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -1389,7 +1389,7 @@ static BOOL __stdcall sub_0063B5E0_FindFreePositionHeight1(D2InventoryStrc* pInv
         return INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(pInventoryGrid, pFreeX, pFreeY, nItemWidth, nItemHeight);
     }
 
-    return sub_0063B540_FindFreePositionRightToLeft(pInventoryGrid, pFreeX, pFreeY, nItemWidth, nItemHeight);
+    return INVENTORY_FindFreePositionRightToLeft(pInventoryGrid, pFreeX, pFreeY, nItemWidth, nItemHeight);
 }
 
 // 0x0063B620
@@ -1443,7 +1443,7 @@ static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRight(D2Inventory
 }
 
 // 0x0063B790
-static BOOL __stdcall sub_0063B790_FindFreePositionHeight3(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionForTallNarrowItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -1459,7 +1459,7 @@ static BOOL __stdcall sub_0063B790_FindFreePositionHeight3(D2InventoryStrc* pInv
 }
 
 // 0x0063B7D0
-static BOOL __stdcall sub_0063B7D0_FindFreePosition2x2(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionForSquareItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -1475,7 +1475,7 @@ static BOOL __stdcall sub_0063B7D0_FindFreePosition2x2(D2InventoryStrc* pInvento
 }
 
 // 0x0063B810
-static BOOL __stdcall sub_0063B810_FindFreePositionOther(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionForOtherItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -1528,20 +1528,20 @@ BOOL __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc
 
     if (nHeight == 1)
     {
-        return sub_0063B5E0_FindFreePositionHeight1(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
+        return INVENTORY_FindFreePositionForSingleRowItem(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
     }
 
     if (nHeight == 3 && nWidth <= 2)
     {
-        return sub_0063B790_FindFreePositionHeight3(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
+        return INVENTORY_FindFreePositionForTallNarrowItem(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
     }
 
     if (nHeight == 2 && nWidth == 2)
     {
-        return sub_0063B7D0_FindFreePosition2x2(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
+        return INVENTORY_FindFreePositionForSquareItem(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
     }
 
-    return sub_0063B810_FindFreePositionOther(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
+    return INVENTORY_FindFreePositionForOtherItem(pInventory, pInventoryGrid, pFreeX, pFreeY, nWidth, nHeight);
 }
 
 // 0x0063B950
@@ -1570,11 +1570,11 @@ BOOL __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc* pInventory, D2
 
 int __fastcall sub_G08_Emit_0063DBC0(D2UnitStrc* pItem2, D2UnitStrc* pItem1, D2UnitStrc* pUnit)
 {
-    return sub_0063DBC0_PairIsWieldable(pUnit, pItem1, pItem2);
+    return INVENTORY_CanItemsBeWieldedTogether(pUnit, pItem1, pItem2);
 }
 
 // 0x0063B9C0
-void __cdecl sub_0063B9C0_Nop()
+void __cdecl INVENTORY_Nop()
 {
 }
 
@@ -1661,7 +1661,7 @@ BOOL __stdcall INVENTORY_CanItemBePlaced(D2InventoryStrc* pInventory, D2UnitStrc
 }
 
 // 0x0063BB20
-int __stdcall sub_0063BB20_CheckInventoryOverlap(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nInventoryRecordId, D2UnitStrc** ppOtherItem, unsigned char nPage, int bExcludeCube)
+int __stdcall INVENTORY_CanItemsBeExchanged(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nInventoryRecordId, D2UnitStrc** ppOtherItem, unsigned char nPage, int bExcludeCube)
 {
     if (!pInventory)
         return 0;
@@ -1718,7 +1718,7 @@ int __stdcall sub_0063BB20_CheckInventoryOverlap(D2InventoryStrc* pInventory, D2
 }
 
 // 0x0063BCB0
-int __stdcall sub_0063BCB0_AlwaysOne(int nUnused1, int nUnused2, int nUnused3, int nUnused4)
+int __stdcall INVENTORY_ReturnTrue(int nUnused1, int nUnused2, int nUnused3, int nUnused4)
 {
     return 1;
 }
@@ -1750,7 +1750,7 @@ inline D2UnitStrc* INVENTORY_UnitIsItem_Inl(D2UnitStrc* pItem)
 }
 
 // 0x0063BD00
-void __stdcall sub_0063BD00_Return(int nUnused)
+void __stdcall D2COMMON_10251_Return(int nUnused)
 {
 }
 
@@ -1928,7 +1928,7 @@ static __forceinline D2UnitStrc* GetBodyItemSigInl(D2InventoryStrc* pInventory, 
 }
 
 // 0x0063BEF0
-D2UnitStrc* __stdcall sub_0063BEF0_GetLeftWeapon(D2InventoryStrc* pInventory)
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory)
 {
     if (!pInventory)
         return 0;
@@ -1964,7 +1964,7 @@ static inline D2UnitStrc* GetBodyItem(D2InventoryStrc* pInventory, int nBodyLoc)
 }
 
 // 0x0063BF90
-D2UnitStrc* __stdcall sub_0063BF90_GetSecondaryWeapon(D2InventoryStrc* pInventory)
+D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory)
 {
     if (!pInventory)
         return 0;
@@ -2279,7 +2279,7 @@ int __stdcall sub_0063C4B0_AlwaysZero(int nUnused)
 }
 
 // 0x0063C4C0
-static __declspec(noinline) BOOL sub_0063C4C0_PlaceItemInBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot)
+static __declspec(noinline) BOOL INVENTORY_PlaceItemInBeltGrid(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot)
 {
     if (pInventory && INVENTORY_UnitIsItemInline(pItem) && nSlot >= 0 && nSlot < BELT_SLOTS)
     {
@@ -2299,7 +2299,7 @@ BOOL __stdcall INVENTORY_PlaceItemInBeltSlot(D2InventoryStrc* pInventory, D2Unit
         ITEMS_GetDimensions(pItem, &nWidth, &nHeight, gszInventorySourceFile_006EA918, 2731);
         if (nWidth == 1 && nHeight == 1)
         {
-            return sub_0063C4C0_PlaceItemInBeltSlot(pInventory, pItem, nSlot);
+            return INVENTORY_PlaceItemInBeltGrid(pInventory, pItem, nSlot);
         }
     }
 
@@ -2473,7 +2473,7 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc* pInventory,
 }
 
 // 0x0063C830
-int __stdcall sub_0063C830_CheckBeltItem(D2InventoryStrc* inventory, D2UnitStrc* item, int slot, D2UnitStrc** previous)
+int __stdcall INVENTORY_GetUseableItemFromBeltSlot(D2InventoryStrc* inventory, D2UnitStrc* item, int slot, D2UnitStrc** previous)
 {
     if (!inventory)
         return 0;
@@ -2733,7 +2733,7 @@ void __stdcall sub_006460E0_Empty(int nUnused)
 }
 
 // 0x0063CD20
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063CD20(Obj0063CD20* pObj) {
+extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_GetNextNode(Obj0063CD20* pObj) {
     if (!pObj) {
         return 0;
     }
@@ -2741,7 +2741,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063CD20(Obj0063CD20
 }
 
 // 0x0063CD40
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063CD40(Obj0063CD40* pObj) {
+extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_GetItemGUIDFromNode(Obj0063CD40* pObj) {
     if (!pObj) {
         return 0;
     }
@@ -2952,7 +2952,7 @@ D2UnitStrc* __stdcall INVENTORY_GetEquippedItemByCode(D2InventoryStrc* pInventor
 }
 
 // 0x0063D010
-D2UnitStrc* __stdcall sub_0063D010_GetInventoryItemByCode(D2InventoryStrc* pInventory, int nItemCode, D2UnitStrc* pCheckItem)
+D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByCode(D2InventoryStrc* pInventory, int nItemCode, D2UnitStrc* pCheckItem)
 {
     int nClassId;
     if (!pInventory)
@@ -3032,7 +3032,7 @@ int __stdcall INVENTORY_GetSetItemEquipCountByFileIndex(D2InventoryStrc* invento
 }
 
 // 0x0063D190
-void __fastcall sub_0063D190_SetLeftItemGUID(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet)
+void __fastcall INVENTORY_SetLeftItemGUID(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet)
 {
     if (pInventory && pInventory->dwSignature == INVENTORY_SIGNATURE && pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -3332,7 +3332,7 @@ D2CorpseStrc* __stdcall INVENTORY_GetFirstCorpse(D2InventoryStrc* pInventory)
 }
 
 // 0x0063D590
-void __stdcall sub_0063D590_FreeCorpses(D2InventoryStrc* pInventory)
+void __stdcall INVENTORY_FreeAllCorpses(D2InventoryStrc* pInventory)
 {
     if (INVENTORY_GetPtrIfValid(pInventory))
     {
@@ -3407,7 +3407,7 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 }
 
 // 0x0063D650
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063D650(Obj0063D650* pObj) {
+extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_GetCorpseMercNameId(Obj0063D650* pObj) {
     if (!pObj) {
         return 0;
     }
@@ -3415,7 +3415,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063D650(Obj0063D650
 }
 
 // 0x0063D670
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063D670(Obj0063D670* pObj) {
+extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_IsPlayerCorpse(Obj0063D670* pObj) {
     if (!pObj) {
         return 0;
     }
@@ -3423,7 +3423,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063D670(Obj0063D670
 }
 
 // 0x0063D690
-static void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output)
+static void __cdecl INVENTORY_GetArmorComponents(Unit* item, AppearanceSix* output)
 {
     if (item)
     {
@@ -3527,7 +3527,7 @@ void __fastcall INVENTORY_InitializeComponentArray()
 }
 
 // 0x0063D900
-static s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first)
+static s32 __cdecl INVENTORY_FindComponentArrayIndex(u32 second, u32 first)
 {
     sub_0063D710_InitCodes();
     for (u32 index = 1; index < 0xFF; ++index)
@@ -3542,7 +3542,7 @@ static s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first)
 }
 
 // 0x0063D930
-static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* hItem, Unit* unit)
+static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* secondOutput, Unit* hItem, Unit* unit)
 {
     D2_ASSERT(unit, 0x13B3);
     D2_ASSERT(hItem, 0x13B4);
@@ -3567,7 +3567,7 @@ static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput
                         D2_ASSERT(record, 0x13CF);
                         const u32 c80 = FIELD(u32, record, 0x80);
  const u32 c90 = FIELD(u32, record, 0x90);
- const s32 code = sub_0063D900_FindCode(c80, c90);
+ const s32 code = INVENTORY_FindComponentArrayIndex(c80, c90);
                         if (code <= 0)
                         {
                             firstOutput[6] = 0xFF;
@@ -3591,7 +3591,7 @@ static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput
                 {
                     const u32 c80 = FIELD(u32, record, 0x80);
  const u32 c90 = FIELD(u32, record, 0x90);
- const s32 code = sub_0063D900_FindCode(c80, c90);
+ const s32 code = INVENTORY_FindComponentArrayIndex(c80, c90);
                     if (!code)
                     {
                         firstOutput[5] = 0xFF;
@@ -3608,7 +3608,7 @@ static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput
 }
 
 // 0x0063DA70
-static void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item)
+static void __stdcall INVENTORY_FillItemComponentGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item)
 {
     Inventory* inventory = FIELD(Inventory*, unit, 0x60);
     if (inventory)
@@ -3620,7 +3620,7 @@ static void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* se
         u8 slot = sub_00628660_BodySlot(item);
         const u32 code1 = FIELD(u32, record, 0x80);
         const u32 code2 = FIELD(u32, record, 0x90);
-        const s32 code = sub_0063D900_FindCode(code1, code2);
+        const s32 code = INVENTORY_FindComponentArrayIndex(code1, code2);
         if (!code)
         {
             if (slot < 0x10)
@@ -3644,7 +3644,7 @@ static void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* se
                 return;
             }
             firstOutput[slot] = (u8)code;
-            sub_0063D930_WeaponSlots(firstOutput, secondOutput, item, unit);
+            INVENTORY_SetBowHandComponents(firstOutput, secondOutput, item, unit);
             if (!sub_0062C100_Transform(unit, item, &secondOutput[slot], 0))
             {
                 secondOutput[slot] = 0xFF;
@@ -3671,7 +3671,7 @@ int __stdcall sub_K15_Emit5(int* p, int n)
 }
 
 // 0x0063DBC0
-static int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2)
+static int INVENTORY_CanItemsBeWieldedTogether(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 {
     if (!pItem1 || !pItem2
         || ITEMS_GetAmmoType(pItem1) && ITEMSIsA(pItem2, ITEMS_GetAmmoType(pItem1))
@@ -3757,7 +3757,7 @@ static int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D
 }
 
 // 0x0063DD90
-static int __stdcall sub_0063DD90_CheckHandSlots(D2UnitStrc* pUnit, int nOtherLoc, D2UnitStrc* pNewItem, D2UnitStrc* pLocItem, D2UnitStrc* pOtherItem)
+static int __stdcall INVENTORY_CheckHandSlotPlacement(D2UnitStrc* pUnit, int nOtherLoc, D2UnitStrc* pNewItem, D2UnitStrc* pLocItem, D2UnitStrc* pOtherItem)
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (pNewItem)
@@ -3769,7 +3769,7 @@ static int __stdcall sub_0063DD90_CheckHandSlots(D2UnitStrc* pUnit, int nOtherLo
                 return 6;
             }
 
-            if (sub_0063DBC0_PairIsWieldable(pUnit, pNewItem, pOtherItem))
+            if (INVENTORY_CanItemsBeWieldedTogether(pUnit, pNewItem, pOtherItem))
             {
                 return 5;
             }
@@ -3779,7 +3779,7 @@ static int __stdcall sub_0063DD90_CheckHandSlots(D2UnitStrc* pUnit, int nOtherLo
 
         if (pOtherItem)
         {
-            return sub_0063DBC0_PairIsWieldable(pUnit, pNewItem, pOtherItem) ? 1 : 2;
+            return INVENTORY_CanItemsBeWieldedTogether(pUnit, pNewItem, pOtherItem) ? 1 : 2;
         }
 
         return 1;
@@ -3836,7 +3836,7 @@ int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem,
         const int nOtherLoc = nBodyLoc != 5 ? 5 : 4;
         D2UnitStrc* pLocItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
         D2UnitStrc* pOtherItem = INVENTORY_GetItemFromBodyLoc(pInventory, nOtherLoc);
-        return sub_0063DD90_CheckHandSlots(pUnit, nOtherLoc, pItem, pLocItem, pOtherItem);
+        return INVENTORY_CheckHandSlotPlacement(pUnit, nOtherLoc, pItem, pLocItem, pOtherItem);
     }
 
     case 11:
@@ -3845,7 +3845,7 @@ int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem,
         const int nOtherLoc = nBodyLoc != 12 ? 12 : 11;
         D2UnitStrc* pLocItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
         D2UnitStrc* pOtherItem = INVENTORY_GetItemFromBodyLoc(pInventory, nOtherLoc);
-        return sub_0063DD90_CheckHandSlots(pUnit, nOtherLoc, pItem, pLocItem, pOtherItem);
+        return INVENTORY_CheckHandSlotPlacement(pUnit, nOtherLoc, pItem, pLocItem, pOtherItem);
     }
 
     default:
@@ -4195,7 +4195,7 @@ static inline Unit* INVENTORY_GetNextItem_Inline(Unit* item)
 }
 
 // 0x0063E510
-void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8* secondOutput)
+void __stdcall INVENTORY_GetItemSaveGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput)
 {
     Inventory* inventory = FIELD(Inventory*, unit, 0x60);
     if (INVENTORY_CheckSignature_Inline(inventory))
@@ -4212,7 +4212,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                     if (page == 3)
                     {
                         AppearanceSix appearance;
-                        sub_0063D690_CopySix(item, &appearance);
+                        INVENTORY_GetArmorComponents(item, &appearance);
                         for (u32 slot = 0; slot < 0x10; ++slot)
                         {
                             if (COMPOSIT_IsArmorComponent(slot))
@@ -4221,7 +4221,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                                 if (sub_00451F60_ClassId(item) > 0)
                                 {
                                     const u32 appearanceCode = FIELD(u32, appearanceRecord, 0x20);
-                                    const s32 code = sub_0063D900_FindCode(appearanceCode, appearanceCode);
+                                    const s32 code = INVENTORY_FindComponentArrayIndex(appearanceCode, appearanceCode);
                                     if (code)
                                     {
                                         if (slot < 0x10)
@@ -4252,7 +4252,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                 {
                     if (!ITEMS_CheckType(FIELD(short, record, 0x11E), ITEMTYPE_CIRCLET))
                     {
-                        sub_0063DA70_ItemSlots(unit, firstOutput, secondOutput, item);
+                        INVENTORY_FillItemComponentGfxInfo(unit, firstOutput, secondOutput, item);
                     }
                 }
             }
@@ -4261,13 +4261,13 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
 }
 
 // 0x0063E7A0
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex)
+unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex)
 {
     return gaByteTable_00745600[nIndex];
 }
 
 // 0x0063E7E0
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY)
+void __stdcall INVENTORY_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY)
 {
     *pX = gaDirectionDeltaX_006EA998[nDirection];
     *pY = gaDirectionDeltaY_006EA978[nDirection];
