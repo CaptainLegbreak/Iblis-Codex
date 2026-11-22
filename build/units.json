@@ -24502,6 +24502,11 @@
      "name": "?sub_00480490_RecacheUnitPath@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004807C0",
+     "length": 67,
+     "name": "@sub_004807C0_UpdateUnitPath@4"
+    },
+    {
      "va": "0x00480930",
      "length": 516
     },
@@ -24586,17 +24591,6 @@
      "va": "0x004804E0",
      "length": 657,
      "name": "?sub_004804E0_SetPosition@@YIXPAUD2UnitStrc@@GGHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004807C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004807C0",
-     "length": 67,
-     "name": "@sub_004807C0_UpdateUnitPath@4"
     }
    ]
   },

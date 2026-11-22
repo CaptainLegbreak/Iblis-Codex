@@ -178,8 +178,6 @@ static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
 
 static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
 
-static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
-
 #pragma intrinsic(memset)
 
 void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nArg3); // 0x00481030
@@ -190,15 +188,37 @@ static int __stdcall sub_004814A0_TryMonsterAction(int nAction, int nArg1, int n
 
 static inline void memset0(D2UnitTargetStrc* p) { int* q = (int*)p; for (int i = 0; i < 7; ++i) q[i] = 0; }
 
-void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nArg3);
-
 static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit);
 
+extern "C" void __fastcall sub_00480420_ValidatePath(D2UnitStrc* unit);
+
+extern "C" int __stdcall sub_00639DF0_CheckState(D2UnitStrc* unit, int state);
+
+extern "C" void __fastcall sub_004E3AB0_UpdateState13(D2UnitStrc* unit);
+
+extern "C" int __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* unit);
+
+extern "C" unsigned int __cdecl sub_0044DB10_GetFrame();
+
+extern "C" int __stdcall sub_00650840_UpdatePath(D2UnitStrc* unit, unsigned int frame);
+
+int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
 
 // 0x00480490
 void __fastcall sub_00480490_RecacheUnitPath(D2UnitStrc* pUnit)
 {
     PATH_RecacheRoomIfNeeded(pUnit->pDynamicPath);
+}
+
+// 0x004807C0
+extern "C" int __fastcall sub_004807C0_UpdateUnitPath(D2UnitStrc* unit)
+{
+    sub_00480420_ValidatePath(unit);
+    if (sub_00639DF0_CheckState(unit, 13))
+        sub_004E3AB0_UpdateState13(unit);
+    if (sub_00639DF0_CheckState(unit, 22))
+        sub_004E2D40_UpdateState22(unit);
+    return sub_00650840_UpdatePath(unit, sub_0044DB10_GetFrame()) ? 0 : 1;
 }
 
 // 0x00480930
@@ -1006,8 +1026,6 @@ static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D
 
     return 1;
 }
-
-int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
 
 static inline D2SkillsTxt* sub_004814A0_GetSkillsTxtRecord(int nSkillId)
 {
