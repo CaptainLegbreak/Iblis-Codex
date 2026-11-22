@@ -85,15 +85,6 @@ const char* __fastcall sub_0043CC00_StrChr(const char* szString, char nChar, int
     return SStrChr(szString, nChar);
 }
 
-// 0x00451880
-int __fastcall sub_00451880_DispatchMsg(D2WinMsgStrc* pMsg)
-{
-    int bUseResult = 0;
-    int lResult = 0;
-    D2_ASSERT(pMsg->hWnd == sub_0044DA90(), 0x12A);
-    return SMsgDispatchMessage(sub_004F59A0(), pMsg->uMsg, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
-}
-
 // 0x0043CC20
 int __fastcall sub_0043CC20_TestBit2(int nValue)
 {

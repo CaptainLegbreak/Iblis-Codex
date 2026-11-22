@@ -75,6 +75,10 @@ extern D2RecordHeaderStrc sgtReadFileHeader; // 0x007A2768
 extern int gnRecordPos_007A2784; // 0x007A2784
 extern int gbRecordPlaying_007A2788; // 0x007A2788
 
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
+
+void* __cdecl sub_004F59A0(); // 0x004F59A0
+
 // 0x00451260
 int __cdecl sub_00451260_RegisterLngArgument()
 {
@@ -209,3 +213,13 @@ void __cdecl sub_00451850_FreeMsgRecordChunks()
         FOG_Free(pFree, ".\\GAME\\Record.cpp", 0x120, 0);
     }
 }
+
+// 0x00451880
+int __fastcall sub_00451880_DispatchMsg(D2WinMsgStrc* pMsg)
+{
+    int bUseResult = 0;
+    int lResult = 0;
+    D2_ASSERT(pMsg->dwTick == sub_0044DA90(), 0x12A);
+    return SMsgDispatchMessage(sub_004F59A0(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
+}
+

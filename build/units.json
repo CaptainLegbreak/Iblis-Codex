@@ -12732,11 +12732,6 @@
      "va": "0x0043DBF0",
      "length": 52,
      "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00451880",
-     "length": 93,
-     "name": "sub_00451880_DispatchMsg"
     }
    ]
   },
@@ -16238,6 +16233,11 @@
      "va": "0x00451850",
      "length": 47,
      "name": "?sub_00451850_FreeMsgRecordChunks@@YAXXZ"
+    },
+    {
+     "va": "0x00451880",
+     "length": 93,
+     "name": "sub_00451880_DispatchMsg"
     }
    ]
   },
