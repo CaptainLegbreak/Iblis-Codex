@@ -751,6 +751,7 @@ struct D2HighPriestAiCallbackArgStrc
     D2UnitStrc* pTarget;
     int nLifePercentage;
     int nMaxDistance;
+    int unk0x0C[7];
 };
 
 struct D2PetMoveStrc
@@ -1655,6 +1656,10 @@ enum D2C_M422FingerMageAi
 
 D2UnitStrc* __fastcall AITHINK_FindTargetForMephisto(D2GameStrc*,D2UnitStrc*,D2MonStatsTxt*,D2UnitStrc*); // 0x005F77C0
 
+extern D2CoordStrc offsets_006E337C[]; // 0x006E337C
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E0430
+
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -1954,6 +1959,97 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_HighPriest(D2GameStrc* pGame, D2Un
     pArg->nLifePercentage = nLifePercentage;
     pArg->pTarget = pTarget;
     return 0;
+}
+
+// 0x005E0490
+void __fastcall sub_005E0490_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (!pAiControl->dwAiParam[0]) {
+        if (bCombat) {
+            if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, 0)) {
+                pAiControl->dwAiParam[0] = 1;
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                return;
+            }
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 6, 1);
+            return;
+        }
+        if (pMonStatsTxt->nSkill[1] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1]
+            && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 1)) {
+            D2HighPriestAiCallbackArgStrc tArg;
+            tArg.pTarget = 0;
+            tArg.nLifePercentage = 75;
+            tArg.nMaxDistance = 2500;
+            AIUTIL_FindTargetWithCallback(pGame, pUnit, &tArg, AITHINK_TargetCallback_HighPriest, 1);
+            if (tArg.pTarget) {
+                pAiControl->dwAiParam[1] = AI_PARAM(pGame, pMonStatsTxt, 2) + pGame->dwGameFrame;
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], tArg.pTarget, 0, 0);
+                return;
+            }
+        }
+        if (pMonStatsTxt->nSkill[0] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1] && nDistance < AI_PARAM(pGame, pMonStatsTxt, 7)
+            && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 3)) {
+            int nIndex = sub_00472210_SeedRollMasked(pSeed, 4);
+            int nX = CLIENTS_GetUnitX(pTarget) + offsets_006E337C[nIndex].nX;
+            int nY = CLIENTS_GetUnitY(pTarget) + offsets_006E337C[nIndex].nY;
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, nX, nY);
+            pAiControl->dwAiParam[1] = pGame->dwGameFrame + 100;
+            return;
+        }
+        if (AI_PARAM(pGame, pMonStatsTxt, 4) > 0 && pMonStatsTxt->wMissiles[2] > 0) {
+            D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pMonStatsTxt->wMissiles[2]);
+            if (pMissilesTxtRecord && nDistance < pMissilesTxtRecord->wRange - 2 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 4)) {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 8, pTarget);
+                return;
+            }
+        }
+        if (AI_ROLL_PERCENT(pSeed) < 80) {
+            if (nDistance > AI_PARAM(pGame, pMonStatsTxt, 7)) {
+                AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, 6);
+                return;
+            }
+            sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+            return;
+        }
+    }
+    pAiControl->dwAiParam[0] = 1;
+    if (bCombat) {
+        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, 6)) {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 8, pTarget);
+            return;
+        }
+        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, 5)) {
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 6, 1);
+            pAiControl->dwAiParam[0] = 0;
+            return;
+        }
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 90) {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            return;
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+    if (nDistance < 6 && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, 6)) {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 8, pTarget);
+        return;
+    }
+    if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, 5)) {
+        pAiControl->dwAiParam[0] = 0;
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+    if (AI_ROLL_PERCENT(pSeed) < 70) {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+    AITACTICS_WalkCloseToUnit(pGame, pUnit, 12);
 }
 
 static short AITHINK_GetParam_Desert(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nParamId)

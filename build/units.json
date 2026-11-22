@@ -53963,6 +53963,11 @@
      "name": "?ClearSkills@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00570420",
+     "length": 259,
+     "name": "?SKILLS_StunMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    },
+    {
      "va": "0x00570530",
      "length": 86,
      "name": "SKILLS_StatRemoveCallback_ResetAiAndRefresh"
@@ -54034,17 +54039,6 @@
     {
      "va": "0x00570E30",
      "length": 914
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_00570420.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00570420",
-     "length": 259,
-     "name": "?SKILLS_StunMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
     }
    ]
   },
@@ -55908,6 +55902,16 @@
      "name": "?OBJMODE_ExpireHoverText@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00581680",
+     "length": 118,
+     "name": "?sub_00581680_DamagePlayersInRange@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00581700",
+     "length": 146,
+     "name": "?OBJMODE_UpdateTrapProximity@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005817A0",
      "length": 272,
      "name": "?OBJMODE_DispatchTrap@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -56323,22 +56327,6 @@
      "va": "0x00586B30",
      "length": 23,
      "name": "?OBJMODE_GetSuperUniqueId@@YIHI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00581680.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00581680",
-     "length": 118,
-     "name": "?sub_00581680_DamagePlayersInRange@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00581700",
-     "length": 146,
-     "name": "?OBJMODE_UpdateTrapProximity@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -60840,6 +60828,10 @@
      "name": "MISSILES_Initialize"
     },
     {
+     "va": "0x005A0760",
+     "length": 451
+    },
+    {
      "va": "0x005A11F0",
      "length": 55,
      "name": "MONSTERUNIQUE_UMod37_Fanatic"
@@ -60849,6 +60841,14 @@
      "length": 642
     },
     {
+     "va": "0x005A1650",
+     "length": 389
+    },
+    {
+     "va": "0x005A21D0",
+     "length": 509
+    },
+    {
      "va": "0x005A2530",
      "length": 179
     },
@@ -60856,6 +60856,11 @@
      "va": "0x005A2840",
      "length": 199,
      "name": "MONSTERUNIQUE_CastCorpseExplode2"
+    },
+    {
+     "va": "0x005A29A0",
+     "length": 506,
+     "name": "?MONSTERUNIQUE_CastLightUniqueMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A2BA0",
@@ -60954,22 +60959,6 @@
      "va": "0x005A6130",
      "length": 94,
      "name": "FRIENDLY_AreUnitsFriendly"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterEval_005A4EF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A4EF0",
-     "length": 45,
-     "name": "MONSTERMODE_DistributeExperienceIfEligible"
-    },
-    {
-     "va": "0x005A5490",
-     "length": 86,
-     "name": "MONSTERMODE_AllocateTargetCombat"
     }
    ]
   },
@@ -61251,16 +61240,6 @@
      "va": "0x005A03E0",
      "length": 278,
      "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A0760.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A0760",
-     "length": 451
     }
    ]
   },
@@ -61647,34 +61626,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A1650.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A1650",
-     "length": 389
-    },
-    {
-     "va": "0x005A21D0",
-     "length": 509
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/MONSTER/MonsterUnique_005A17E0.cpp",
    "rank": 0,
    "functions": [
@@ -61710,17 +61661,6 @@
      "va": "0x005A3040",
      "length": 100,
      "name": "?MONSTERUNIQUE_ApplyElementalDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A29A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A29A0",
-     "length": 506,
-     "name": "?MONSTERUNIQUE_CastLightUniqueMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -61795,22 +61735,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/MONSTER/MonsterEval.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A4EE0",
-     "length": 15,
-     "name": "@MONSTERMODE_IsMonster@4"
-    },
-    {
-     "va": "0x005A5470",
-     "length": 22,
-     "name": "?MONSTERMODE_GetAttackResultFlags@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A4200.cpp",
    "rank": 0,
    "functions": [
@@ -61833,6 +61757,32 @@
      "va": "0x005A5560",
      "length": 232,
      "name": "?D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70@@YIXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterEval.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005A4EE0",
+     "length": 15,
+     "name": "@MONSTERMODE_IsMonster@4"
+    },
+    {
+     "va": "0x005A4EF0",
+     "length": 45,
+     "name": "MONSTERMODE_DistributeExperienceIfEligible"
+    },
+    {
+     "va": "0x005A5470",
+     "length": 22,
+     "name": "?MONSTERMODE_GetAttackResultFlags@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
+    },
+    {
+     "va": "0x005A5490",
+     "length": 86,
+     "name": "MONSTERMODE_AllocateTargetCombat"
     }
    ]
   },
@@ -62466,6 +62416,10 @@
      "va": "0x005E0430",
      "length": 96,
      "name": "AITHINK_TargetCallback_HighPriest"
+    },
+    {
+     "va": "0x005E0490",
+     "length": 1249
     },
     {
      "va": "0x005E0980",
@@ -66097,17 +66051,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CB940.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CB940",
-     "length": 679,
-     "name": "?SKILLS_SrvDo089_Jump@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005C8BF0.cpp",
    "rank": 0,
    "functions": [
@@ -66242,6 +66185,32 @@
    ]
   },
   {
+   "file": "Source/D2Game/Unknown_005CD910.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005CDF00",
+     "length": 16,
+     "name": "?sub_005CDF00_HasTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CDF10",
+     "length": 160,
+     "name": "?sub_005CDF10@@YIHPAUGame@@PAUUnit@@HH@Z"
+    },
+    {
+     "va": "0x005CDFB0",
+     "length": 249,
+     "name": "?sub_005CDFB0@@YIHPAUGame@@PAUUnit@@HH@Z"
+    },
+    {
+     "va": "0x005CE2B0",
+     "length": 576,
+     "name": "?SKILLS_SrvDo112_MonCurseCast@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "rank": 0,
    "functions": [
@@ -66254,6 +66223,11 @@
      "va": "0x005CB4D0",
      "length": 174,
      "name": "?SKILLS_SrvSt46_AndrialSpray@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CB940",
+     "length": 679,
+     "name": "?SKILLS_SrvDo089_Jump@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CBBF0",
@@ -66380,32 +66354,6 @@
      "va": "0x005CEC50",
      "length": 52,
      "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CD910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CDF00",
-     "length": 16,
-     "name": "?sub_005CDF00_HasTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CDF10",
-     "length": 160,
-     "name": "?sub_005CDF10@@YIHPAUGame@@PAUUnit@@HH@Z"
-    },
-    {
-     "va": "0x005CDFB0",
-     "length": 249,
-     "name": "?sub_005CDFB0@@YIHPAUGame@@PAUUnit@@HH@Z"
-    },
-    {
-     "va": "0x005CE2B0",
-     "length": 576,
-     "name": "?SKILLS_SrvDo112_MonCurseCast@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -67294,8 +67242,23 @@
      "name": "?SKILLS_SrvSt10_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005DB2D0",
+     "length": 315,
+     "name": "SKILLS_SrvDo007_Jab"
+    },
+    {
      "va": "0x005DBC60",
      "length": 488
+    },
+    {
+     "va": "0x005DBE50",
+     "length": 432,
+     "name": "?SKILLS_SrvDo014_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DC1E0",
+     "length": 379,
+     "name": "SKILLS_SrvDo016_Valkyrie"
     }
    ]
   },
@@ -67307,22 +67270,6 @@
      "va": "0x005DB6A0",
      "length": 36,
      "name": "?SKILLS_AddDamagePercentBonus@@YIXPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAma_005DB2D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DB2D0",
-     "length": 315,
-     "name": "SKILLS_SrvDo007_Jab"
-    },
-    {
-     "va": "0x005DBE50",
-     "length": 432,
-     "name": "?SKILLS_SrvDo014_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -67361,17 +67308,6 @@
     {
      "va": "0x005DC000",
      "length": 471
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAma_005DC1E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DC1E0",
-     "length": 379,
-     "name": "SKILLS_SrvDo016_Valkyrie"
     }
    ]
   },
@@ -67744,16 +67680,6 @@
      "va": "0x005E0060",
      "length": 1,
      "name": "?QUESTSFX_OnQuestCompleteModeChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E0490.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E0490",
-     "length": 1249
     }
    ]
   },

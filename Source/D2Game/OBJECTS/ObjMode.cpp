@@ -5,6 +5,9 @@
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
+#include "D2ObjModes.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -18,9 +21,6 @@
 #include "D2ItemsWorld.h"
 #include "D2GameTypes.h"
 #include "D2GameRecords.h"
-#include "D2ObjModes.h"
-#include "D2PlayerModes.h"
-#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -30,23 +30,16 @@
 
 #define UNITFLAG_HASTXTMSG 0x00000100
 
-#define UNIT_OBJECT 2
 
 #define UNITFLAGEX_TELEPORTED 0x10000
 
 #define UNITFLAG_TARGETABLE 0x00000002
 
-#define STAT_HITPOINTS 6
 
-#define STAT_MANA 8
 
-#define UNIT_PLAYER 0
 
-#define UNIT_MONSTER 1
 
-#define UNIT_TILE 5
 
-#define STAT_STAMINA 10
 
 #define STATE_FREEZE 1
 
@@ -58,7 +51,6 @@
 
 #define EVENTTYPE_PERIODICSTATS 9
 
-#define ITEMQUAL_NORMAL 2
 
 struct D2ObjectControlStrc;
 
@@ -194,9 +186,17 @@ int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int a2); // 0x005
 
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3); // 0x00558D90
 
-struct D2ContextDataStrc { unsigned char padding[16]; unsigned int state; };
+struct D2ContextDataStrc
+{
+    unsigned char padding[16];
+    unsigned int state;
+};
 
-struct D2ContextStrc { int unknown; D2ContextDataStrc* data; };
+struct D2ContextStrc
+{
+    int unknown;
+    D2ContextDataStrc* data;
+};
 
 int __fastcall sub_00581F60_HandleState(D2ContextStrc* context, void* argument); // 0x00581F60
 
@@ -359,7 +359,6 @@ int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp
 
 enum
 {
-    EVENTTYPE_ENDANIM = 1,
     ARCANE_TILECALC = 11,
 };
 
@@ -513,15 +512,12 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQues
 
 void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned short wField);                // 0x00660EC0
 
-#define UNIT_INVALID 6
 
 #define EVENTTYPE_ENDANIM 1
 
 #define EVENTTYPE_ACTIVESTATE 5
 
-#define STAT_MAXHP 7
 
-#define ITEMQUAL_MAGIC 4
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -537,7 +533,12 @@ void __fastcall SCMD_SendPortalState(D2ClientStrc* pClient, D2UnitStrc* pUnit); 
 
 extern "C" const char gszObjModeSourceFile_006E1970[]; // 0x006E1970
 
-struct D2ObjOperateStrc { D2GameStrc* game; D2UnitStrc* object; D2UnitStrc* player; };
+struct D2ObjOperateStrc
+{
+    D2GameStrc* game;
+    D2UnitStrc* object;
+    D2UnitStrc* player;
+};
 
 unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 
@@ -555,7 +556,11 @@ static int __stdcall OBJMODE_ApplyObeliskPowerUp(D2GameStrc* pGame, unsigned cha
 
 struct D2PortalQuestStrc;
 
-struct D2PortalQuestStrc { int nQuest; int nExpansionQuest; };
+struct D2PortalQuestStrc
+{
+    int nQuest;
+    int nExpansionQuest;
+};
 
 int __fastcall PLAYER_HasHostilePlayer(D2GameStrc*, D2UnitStrc*); // 0x00535B10
 
@@ -595,7 +600,6 @@ struct D2RoomCoordListStrc;
 
 #define UNITFLAG_TARGETABLE 2
 
-#define STAT_LEVEL 12
 
 struct D2MonRegDataStrc;
 
@@ -623,9 +627,17 @@ typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 
-struct D2SfxStrc { D2GameStrc* pGame; D2UnitStrc* pObject; D2UnitStrc* pOwner; };
+struct D2SfxStrc
+{
+    D2GameStrc* pGame;
+    D2UnitStrc* pObject;
+    D2UnitStrc* pOwner;
+};
 
-struct D2SfxArgStrc { int unk, nDamagePct, nRadius; };
+struct D2SfxArgStrc
+{
+    int unk, nDamagePct, nRadius;
+};
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
@@ -655,8 +667,6 @@ extern "C" void _ReadWriteBarrier();
 
 D2TimerArgStrc* __fastcall UNITS_GetTimerArg(D2UnitStrc* pUnit); // 0x006234F0
 
-static NOINLINE void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2UnitStrc* pWeapon); // 0x00583740
-
 static int __stdcall OBJMODE_IsTrapMonsterAllowed(D2ActiveRoomStrc* pRoom, int nMonsterId);
 
 static void D2GAME_SpawnTrapMonster_6FC75B40(D2ObjOperateFnStrc* pOp, int nMonsterId, int nAnimMode);
@@ -685,13 +695,7 @@ D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2U
 
 int __fastcall OBJECTS_OperateFunction27_TeleportPad(D2ObjOperateFnStrc* pOp, int nOperate);
 
-static int __stdcall OBJMODE_DropShrineGem(D2UnitStrc* pItem, int nItemId, D2GameStrc* pGame, D2UnitStrc* pPlayer);
-
 void __fastcall D2GAME_SHRINES_Gem(D2ObjOperateFnStrc* pOp, int nOperate);
-
-static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2UnitStrc* pWeapon); // 0x00583740
-
-static int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int nValue, D2UnitStrc* pUnit); // 0x00583840
 
 void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 
@@ -700,6 +704,12 @@ void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2Shrin
 void __fastcall D2GAME_SHRINES_DefensiveBoost_6FC77AE0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 
 static int OBJMODE_ExplodeBarrel(D2ObjOperateFnStrc* pOp);
+
+void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject);
+
+static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc* pObject);
+
+void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObject);
 
 void __fastcall sub_0045D0A0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned char* pPacket)
 {
@@ -865,6 +875,45 @@ void __fastcall OBJMODE_ExpireHoverText(D2GameStrc* pGame, D2UnitStrc* pObject)
             EVENT_SetEvent(pGame, pObject, EVENTTYPE_FREEHOVER, nTimeout, 0, 0);
         }
     }
+}
+
+// 0x00581680
+static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc* pObject)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pObject);
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId);
+    D2CoordStrc tCoord;
+    UNITS_GetCoords(pObject, &tCoord);
+    for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->ptRoomNext)
+    {
+        const int nType = (i ? i->dwUnitType : UNIT_INVALID);
+        const int nMode = (i ? i->dwAnimMode : 0);
+        if (nType == UNIT_PLAYER && nMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pObject, i) <= pObjectsTxtRecord->dwParm[0] + 1)
+        {
+            OBJEVAL_ApplyTrapObjectDamage(pGame, pObject, i, 1);
+        }
+    }
+}
+
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x00581700
+void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObject)
+{
+    if (pObject && pObject->dwAnimMode == OBJMODE_OPERATING)
+    {
+        pObject->dwAnimMode = 2;
+    }
+
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
+    sub_00581680_DamagePlayersInRange(pGame, pObject);
+    EVENT_SetEvent(pGame, pObject, EVENTTYPE_MODECHANGE, pGame->dwGameFrame + SEED_RollRandomNumber_Inline(&pObjectControl->pSeed) % 35 + 15, 0, 0);
 }
 
 // 0x005817A0
@@ -1340,14 +1389,6 @@ static void D2GAME_SpawnTrapMonster_6FC75B40(D2ObjOperateFnStrc* pOp, int nMonst
             }
         }
     }
-}
-
-static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
 }
 
 // 0x005822F0
@@ -3345,33 +3386,6 @@ D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pO
     D2UnitStrc* ppDroppableItems[6] = {};
     D2GAME_DropTC_6FC51360(ptGame, pOp->hObject, pOp->hPlayer, pTCExRecord, nItemQuality, nTCIndex, 0, ppDroppableItems, &nItemDropCount, 6);
     return ppDroppableItems[0];
-}
-
-static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc* pObject)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pObject);
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId);
-    D2CoordStrc tCoord;
-    UNITS_GetCoords(pObject, &tCoord);
-    for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->ptRoomNext)
-    {
-        if (i->dwUnitType == UNIT_PLAYER && i->dwAnimMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pObject, i) <= pObjectsTxtRecord->dwParm[0] + 1)
-        {
-            OBJEVAL_ApplyTrapObjectDamage(pGame, pObject, i, 1);
-        }
-    }
-}
-
-void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObject)
-{
-    if (pObject && pObject->dwAnimMode == OBJMODE_OPERATING)
-    {
-        pObject->dwAnimMode = 2;
-    }
-
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
-    sub_00581680_DamagePlayersInRange(pGame, pObject);
-    EVENT_SetEvent(pGame, pObject, EVENTTYPE_MODECHANGE, pGame->dwGameFrame + SEED_RollRandomNumber_Inline(&pObjectControl->pSeed) % 35 + 15, 0, 0);
 }
 
 // 0x00585CE0

@@ -373,7 +373,7 @@ struct D2MonStatsTxt
     short nRun; // 0x34
     short nWalkAnimSpeed; // 0x36
     short nRunAnimSpeed; // 0x38
-    unsigned char unk0x3A[0x10]; // 0x3A
+    short wMissiles[8]; // 0x3A, by mode: A1, A2, S1, S2, S3, S4, C, SQ
     unsigned char nMaxChainId; // 0x4A
     unsigned char nChainId; // 0x4B
     unsigned char nAlign; // 0x4C
