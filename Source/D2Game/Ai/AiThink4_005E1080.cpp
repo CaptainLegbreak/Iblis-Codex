@@ -110,7 +110,7 @@ void __fastcall AITHINK_Fn095_PantherJavelin(D2GameStrc* pGame, D2UnitStrc* pUni
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, PANTHERJAVELIN_AI_PARAM_STALL_DURATION));
 }
 
-static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_005E1080(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -118,7 +118,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber_005E1080(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -127,13 +127,13 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
 
     if ((nMax - 1) & nMax)
     {
-        return SEED_RollRandomNumber(pSeed) % nMax;
+        return SEED_RollRandomNumber_005E1080(pSeed) % nMax;
     }
 
-    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+    return SEED_RollRandomNumber_005E1080(pSeed) & (nMax - 1);
 }
 
-static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord_005E1080(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -143,7 +143,7 @@ static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_005E1080(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -166,7 +166,7 @@ static inline int MONSTERS_GetValidMonsterId(int nMonsterId)
 // 0x005E4D30
 void __fastcall AITHINK_SelectHirelingAction(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nHirelingId, D2UnitStrc* pTarget, D2SeedStrc* pSeed)
 {
-    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(nMonsterId);
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord_005E1080(nMonsterId);
     if (!pMonStatsTxtRecord)
     {
         return;
@@ -197,7 +197,7 @@ void __fastcall AITHINK_SelectHirelingAction(D2GameStrc* pGame, D2UnitStrc* pUni
 
         const int nSkillId = pHirelingTxtRecord->dwSkill[i];
 
-        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord_005E1080(nSkillId);
         if (!pSkillsTxtRecord)
         {
             continue;
@@ -230,7 +230,7 @@ void __fastcall AITHINK_SelectHirelingAction(D2GameStrc* pGame, D2UnitStrc* pUni
         nSkillChances[i] = nChance;
     }
 
-    const int nRoll = SEED_RollLimitedRandomNumber(pSeed, nChance + 1);
+    const int nRoll = SEED_RollLimitedRandomNumber_005E1080(pSeed, nChance + 1);
 
     if (nRoll >= pHirelingTxtRecord->dwDefaultChance)
     {
@@ -245,7 +245,7 @@ void __fastcall AITHINK_SelectHirelingAction(D2GameStrc* pGame, D2UnitStrc* pUni
             const int nSkillId = pHirelingTxtRecord->dwSkill[i];
             if (nSkillId > 0)
             {
-                D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+                D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord_005E1080(nSkillId);
                 if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_AURA >> 3] & gdwBitMasks[SKILLSFLAGINDEX_AURA & 7])
                 {
                     D2GAME_AssignSkill_6FD13800(pUnit, 0, nSkillId, -1);
