@@ -2045,6 +2045,84 @@ int __fastcall SKILLS_SrvSt55_Mosquito(D2GameStrc* pGame,D2UnitStrc* pUnit,int n
     return 1;
 }
 
+int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00647BC0
+
+int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00647D00
+
+// 0x005CDA00
+int __fastcall sub_005CDA00_ApplySkillDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam3(pSkill), SKILLS_GetParam2(pSkill));
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (!UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+    {
+        return 0;
+    }
+
+    int nCount = SKILLS_GetParam1(pSkill);
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (!pSeed)
+    {
+        return 0;
+    }
+
+    const int nMin = SKILLS_GetMinPhysDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
+    const int nMax = SKILLS_GetMaxPhysDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
+    D2GAME_RollPhysicalDamage_6FD14EC0(pUnit, &damage, nSkillId, nSkillLevel);
+    D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
+    damage.dwPoisDamage = 2 * (ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin) + nMin);
+    damage.dwPoisLen = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 1);
+    damage.dwManaLeech = (ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin) + nMin) << 8;
+    damage.dwStamLeech = (ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin) + nMin) << 8;
+    damage.wResultFlags = 1;
+
+    const int nPercent = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
+    const int nHeal = DATATBLS_ApplyRatio(damage.dwPhysDamage, nPercent, 100);
+    int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) + nHeal;
+    const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit);
+    if (nLife >= nMaxLife)
+    {
+        nLife = nMaxLife;
+    }
+
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nLife, 0);
+    SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
+    if (!STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0))
+    {
+        damage.wResultFlags |= 2;
+    }
+
+    SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pTarget, &damage);
+    --nCount;
+    if (nCount > 0)
+    {
+        SKILLS_SetParam1(pSkill, nCount);
+        UNITS_SetAnimationFrame(pUnit, pSkillsTxtRecord->dwParam[0]);
+        pUnit->dwFrameCountPrecise = (pUnit->dwFrameCountPrecise & 0xFFFFFF00) + 0x100;
+    }
+
+    return 1;
+}
+
+
 // 0x005CDDD0
 int __fastcall SKILLS_RollMonFrenzyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, int nSkillId, int nSkillLevel)
 {

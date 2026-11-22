@@ -66236,6 +66236,10 @@
      "name": "?SKILLS_SrvSt55_Mosquito@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CDA00",
+     "length": 528
+    },
+    {
      "va": "0x005CDDD0",
      "length": 304,
      "name": "SKILLS_RollMonFrenzyDamage"
@@ -66259,30 +66263,6 @@
      "length": 52,
      "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CDA00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005CDA00",
-     "length": 528
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
