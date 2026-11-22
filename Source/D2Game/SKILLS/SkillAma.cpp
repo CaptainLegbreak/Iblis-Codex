@@ -1,4 +1,5 @@
 #include "D2StatIds.h"
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -6,6 +7,8 @@
 #include "D2GameTypes.h"
 #include "D2Constants.h"
 #include "D2Path.h"
+#include "D2GameStrc.h"
+#include "D2GameAux.h"
 
 union D2SeedStrc;
 
@@ -62,7 +65,6 @@ static void __stdcall SKILLS_DamageImpaleWeapon(D2GameStrc* pGame, int nChance, 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
-
 
 struct Skills;
 
@@ -152,6 +154,33 @@ int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit); // 0x0056E510
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
+
+struct D2GameStrc;
+
+int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+
+D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg);         // 0x0056D940
+
+int __fastcall D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nPetLevelArg, int nSkillLevel); // 0x005C49E0
+
+void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nItemLevel); // 0x005C4470
+
+void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);                                 // 0x00639DB0
+
+void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
+
+void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
+
+enum
+{
+    UNITFLAG_SKSRVDOFUNC = 0x40,
+    AISPECIALSTATE_NONE = 0,
+    EVENTTYPE_AITHINK = 2,
+};
 
 static inline unsigned int sub_M401_RollUnitSeed(D2UnitStrc* pUnit)
 {
@@ -632,5 +661,63 @@ int __fastcall SKILLS_SrvDo014_LightningStrike(D2GameStrc* game,D2UnitStrc* unit
     params.nTargetY=CLIENTS_GetUnitY(other);
     D2UnitStrc* missile=sub_0059FA30(game,&params);
     if(missile) sub_0064A710(missile,duration);
+    return 1;
+}
+
+// 0x005DC1E0
+int __fastcall SKILLS_SrvDo016_Valkyrie(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    if (pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    int nSpawnMode;
+    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    if (nSummonId < 0)
+    {
+        return 0;
+    }
+
+    unsigned char nPetType = pSkillsTxtRecord->nPetType;
+    if (nPetType >= sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        nPetType = 0;
+    }
+
+    pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+
+    D2SummonArgStrc summonArg = {};
+    summonArg.nHcIdx = nSummonId;
+    summonArg.nAiSpecialState = AISPECIALSTATE_NONE;
+    summonArg.pOwner = pUnit;
+    summonArg.nMonMode = nSpawnMode;
+    summonArg.nPetType = nPetType;
+    summonArg.nPetMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPetMax, nSkillId, nSkillLevel);
+
+    D2UnitStrc* pPet = D2GAME_SummonPet_6FD14430(pGame, &summonArg);
+    if (!pPet)
+    {
+        return 0;
+    }
+
+    D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
+    D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel));
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, EVENTTYPE_AITHINK, 0);
+    EVENT_SetEvent(pGame, pPet, EVENTTYPE_AITHINK, pGame->dwGameFrame + 20, 0, 0);
+    STATES_ToggleState(pPet, STATE_VALKYRIE, 1);
+    UNITS_StoreOwner(pPet, pUnit);
+    D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pUnit->dwNodeIndex);
     return 1;
 }

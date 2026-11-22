@@ -67292,6 +67292,11 @@
      "va": "0x005DBE50",
      "length": 432,
      "name": "?SKILLS_SrvDo014_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DC1E0",
+     "length": 379,
+     "name": "SKILLS_SrvDo016_Valkyrie"
     }
    ]
   },
@@ -67341,17 +67346,6 @@
     {
      "va": "0x005DC000",
      "length": 471
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAma_005DC1E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DC1E0",
-     "length": 379,
-     "name": "SKILLS_SrvDo016_Valkyrie"
     }
    ]
   },
