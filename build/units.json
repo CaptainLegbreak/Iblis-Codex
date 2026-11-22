@@ -86253,11 +86253,6 @@
     {
      "va": "0x006BC370",
      "length": 36
-    },
-    {
-     "va": "0x006BC5A0",
-     "length": 118,
-     "name": "?sub_006BC5A0_StartThread@@YGXPAUD2ThreadRecord006BC5A0Strc@@@Z"
     }
    ]
   },
@@ -86312,6 +86307,11 @@
     {
      "va": "0x006BC560",
      "length": 50
+    },
+    {
+     "va": "0x006BC5A0",
+     "length": 118,
+     "name": "?sub_006BC5A0_StartThread@@YGXPAUD2ThreadRecord006BC5A0Strc@@@Z"
     },
     {
      "va": "0x006BC6A0",
