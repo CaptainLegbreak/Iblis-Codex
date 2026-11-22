@@ -4,6 +4,9 @@
 #include "D2ClientGame.h"
 #include "D2StormTypes.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2LevelTxt.h"
+#include "D2ClientUi.h"
 
 struct Unicode;
 
@@ -131,10 +134,13 @@ static T0045FED0* gpTimer_007C0E54;                                             
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 struct D2RosterPetStrc;
+
 struct D2Packet81ArgsStrc;
+
 struct D2HirelingInfoStrc;
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 struct D2HirelingInfoStrc
 {
     unsigned short f_0;
@@ -142,12 +148,20 @@ struct D2HirelingInfoStrc
     int nSeed;
     int unk0x08[2];
 };
+
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
+
 void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
+
 void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
+
 void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo); // 0x004B1090
+
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
+struct D2ClientEntryStrc;
 
 // 0x0045FED0
 void __stdcall ROSTERPETS_HandlePopupButtonUp(SMSGHANDLER_PARAMS* pMsg)
@@ -235,6 +249,19 @@ void __cdecl ROSTERPETS_FreeRosterPets()
     gpRosterPets_007BB5BC = 0;
 }
 
+// 0x00478A90
+D2RosterPetStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
+{
+    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->dwUnitId == nKey)
+        {
+            return pNode;
+        }
+    }
+    return 0;
+}
+
 // 0x00478AB0
 void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey)
 {
@@ -252,21 +279,6 @@ void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey)
         }
         pPrev = pNode;
     }
-}
-
-// 0x0047ACA0
-void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbGlobal_007BB5E0 = 1;
-    gwGlobal_007BC850 = 0;
-    gwGlobal_007BB5F8 = 0;
-    if (gnGlobal_007BB5DC == 9)
-        gnGlobal_007BB5F0 = 4;
-    else if (gnGlobal_007BB5DC == 8)
-        gnGlobal_007BB5F0 = 5;
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x00478B10
@@ -297,6 +309,97 @@ void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nVa
     pNew->nLifePercent = 0x64;
     pNew->pNext = pHead;
     gpRosterPets_007BB5BC = pNew;
+}
+
+// 0x00478BB0
+void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs)
+{
+    if (nType == 7)
+        ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
+
+    D2RosterPetStrc* pNode;
+    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->dwUnitId != nKey; pNode = pNode->pNext)
+        ;
+
+    ROSTERPETS_SetRosterEntry(nKey, nArg, nType, nValue);
+
+    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->dwUnitId != nKey; pNode = pNode->pNext)
+        ;
+    D2_ASSERT(pNode, 0x95);
+
+    pNode->dwUnitId = nKey;
+    pNode->dwOwnerId = nArg;
+    pNode->nType = nType;
+    pNode->tEntry = *(D2ClientEntryStrc*)pArgs;
+
+    if (nType == 7)
+    {
+        D2HirelingInfoStrc tInfo;
+        tInfo.nSeed = pArgs->nArg0C;
+        tInfo.f_0 = (unsigned short)pArgs->nArg10;
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(nKey, 1);
+        if (pUnit)
+        {
+            MONSTER_InitHireling(pUnit, &tInfo);
+            CUNIT_UpdateAttackableFlag(pUnit);
+            MONSTER_SetMonsterLight(pUnit);
+            UNITS_ChangeAnimMode(pUnit, 1);
+        }
+    }
+}
+
+// 0x00478C90
+void __fastcall ROSTERPETS_DropPetEntry(int nKey)
+{
+    D2RosterPetStrc* pPrev = 0;
+    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->dwUnitId == nKey)
+        {
+            if (pNode->nType == 7)
+            {
+                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+                if (pNode->dwOwnerId == (!pPlayer ? -1 : pPlayer->dwUnitId))
+                {
+                    pNode->bDead = 1;
+                    return;
+                }
+            }
+            if (pPrev)
+                pPrev->pNext = pNode->pNext;
+            else
+                gpRosterPets_007BB5BC = pNode->pNext;
+            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0xD1, 0);
+            return;
+        }
+        pPrev = pNode;
+    }
+}
+
+// 0x00478E40
+D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey)
+{
+    for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
+    {
+        if (pPet->dwUnitId == nKey)
+            return &pPet->tEntry;
+    }
+    return 0;
+}
+
+// 0x0047ACA0
+void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
+{
+    gbGlobal_007BB5E0 = 1;
+    gwGlobal_007BC850 = 0;
+    gwGlobal_007BB5F8 = 0;
+    if (gnGlobal_007BB5DC == 9)
+        gnGlobal_007BB5F0 = 4;
+    else if (gnGlobal_007BB5DC == 8)
+        gnGlobal_007BB5F0 = 5;
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004890B0
@@ -463,84 +566,6 @@ void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
         {
             pfnCallback();
             UI_StartUIVarDelay();
-        }
-    }
-}
-
-// 0x00478A90
-D2RosterPetStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
-{
-    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->dwUnitId == nKey)
-        {
-            return pNode;
-        }
-    }
-    return 0;
-}
-
-// 0x00478C90
-void __fastcall ROSTERPETS_DropPetEntry(int nKey)
-{
-    D2RosterPetStrc* pPrev = 0;
-    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->dwUnitId == nKey)
-        {
-            if (pNode->nType == 7)
-            {
-                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-                if (pNode->dwOwnerId == (!pPlayer ? -1 : pPlayer->dwUnitId))
-                {
-                    pNode->bDead = 1;
-                    return;
-                }
-            }
-            if (pPrev)
-                pPrev->pNext = pNode->pNext;
-            else
-                gpRosterPets_007BB5BC = pNode->pNext;
-            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0xD1, 0);
-            return;
-        }
-        pPrev = pNode;
-    }
-}
-
-// 0x00478BB0
-void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs)
-{
-    if (nType == 7)
-        ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
-
-    D2RosterPetStrc* pNode;
-    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->dwUnitId != nKey; pNode = pNode->pNext)
-        ;
-
-    ROSTERPETS_SetRosterEntry(nKey, nArg, nType, nValue);
-
-    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->dwUnitId != nKey; pNode = pNode->pNext)
-        ;
-    D2_ASSERT(pNode, 0x95);
-
-    pNode->dwUnitId = nKey;
-    pNode->dwOwnerId = nArg;
-    pNode->nType = nType;
-    pNode->tEntry = *(D2ClientEntryStrc*)pArgs;
-
-    if (nType == 7)
-    {
-        D2HirelingInfoStrc tInfo;
-        tInfo.nSeed = pArgs->nArg0C;
-        tInfo.f_0 = (unsigned short)pArgs->nArg10;
-        D2UnitStrc* pUnit = CUNIT_FindClientUnit(nKey, 1);
-        if (pUnit)
-        {
-            MONSTER_InitHireling(pUnit, &tInfo);
-            CUNIT_UpdateAttackableFlag(pUnit);
-            MONSTER_SetMonsterLight(pUnit);
-            UNITS_ChangeAnimMode(pUnit, 1);
         }
     }
 }
