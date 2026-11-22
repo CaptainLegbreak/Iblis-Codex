@@ -50856,6 +50856,11 @@
      "name": "?PARTY_IteratePartyMembersInSameLevel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@P6IX01PAX@Z2@Z"
     },
     {
+     "va": "0x00540650",
+     "length": 66,
+     "name": "?PARTY_CalculatePickAndDrop@@YGXPAH0PAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x005406A0",
      "length": 110,
      "name": "?PARTY_SynchronizeWithClient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -50873,17 +50878,6 @@
     {
      "va": "0x00540900",
      "length": 529
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/Party_00540650.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00540650",
-     "length": 66,
-     "name": "?PARTY_CalculatePickAndDrop@@YGXPAH0PAUD2UnitStrc@@H@Z"
     }
    ]
   },

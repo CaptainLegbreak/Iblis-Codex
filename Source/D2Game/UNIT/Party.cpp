@@ -7,56 +7,93 @@
 #pragma intrinsic(_ReadWriteBarrier)
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_PLAYER 0
+
+
 #define PARTY_FIRST_ID 3
-#define UNIT_INVALID 6
-#define STAT_GOLD 14
+
+
 
 struct D2PartyNodeStrc;
+
 struct D2PartyStrc;
+
 struct D2PartyControlStrc;
+
 struct D2UnitStrc;
+
 struct D2GameStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
+
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+
 void __fastcall D2GAME_PACKETS_SendPacket0x8D_6FC3F960(D2UnitStrc* pUnit, D2UnitStrc* pPlayer); // 0x0053DF00
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
 unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
+
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+
 void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
+
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
+
 int __fastcall sub_00540460_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId); // 0x00540460
+
 void __fastcall sub_00540220_RemoveParty(D2GameStrc* pGame, short nPartyId); // 0x00540220
+
 void __fastcall sub_6FC3F8F0(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0053DEC0
+
 int __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pPlayer2); // 0x005A6080
+
 void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits); // 0x005404F0
+
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
+
 void __fastcall PLRTRADE_AddGold(D2UnitStrc*, int, int); // 0x0053FF00
+
 static D2PartyStrc* sub_00540290_FindParty(D2GameStrc*, short); // 0x00540290
+
 static void __stdcall PARTY_CalculatePickAndDrop(int*, int*, D2UnitStrc*, int); // 0x00540650
+
 void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc*, D2UnitStrc*, PartyCallbackFunction, void*); // 0x005405A0
+
 extern "C" void _ReadWriteBarrier();
+
 extern "C" const char gszPartySourceFile_006E0B88[]; // 0x006E0B88
 
 static D2PartyStrc* sub_M08_FindPartyById(D2PartyControlStrc* pPartyControl, short nPartyId);
+
+void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit);
+
+void __fastcall PARTY_LeaveParty(D2GameStrc* pGame, D2UnitStrc* pUnit);
+
+int __fastcall PARTY_ShareGoldDrop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nGoldValue);
 
 static D2PartyStrc* PARTY_FindParty_Inlined(D2GameStrc* pGame, short nPartyId)
 {
@@ -332,6 +369,20 @@ void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitSt
     }
 }
 
+// 0x00540650
+static void __stdcall PARTY_CalculatePickAndDrop(int* pGoldToPick, int* pGoldToDrop, D2UnitStrc* pUnit, int nValue)
+{
+    const int nGoldLimit = UNITS_GetInventoryGoldLimit(pUnit);
+    const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
+    *pGoldToDrop = 0;
+    *pGoldToPick = nValue;
+    if (nGold + nValue > nGoldLimit)
+    {
+        *pGoldToPick = nGoldLimit - nGold;
+        *pGoldToDrop = nValue - *pGoldToPick;
+    }
+}
+
 // 0x005406A0
 void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -514,19 +565,6 @@ static inline int PARTY_GetLivingUnitsInSameLevel(D2GameStrc* pGame, D2UnitStrc*
     int nLivingUnits = 0;
     PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_CountLivingUnits, &nLivingUnits);
     return nLivingUnits;
-}
-
-static void __stdcall PARTY_CalculatePickAndDrop(int* pGoldToPick, int* pGoldToDrop, D2UnitStrc* pUnit, int nValue)
-{
-    const int nGoldLimit = UNITS_GetInventoryGoldLimit(pUnit);
-    const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
-    *pGoldToDrop = 0;
-    *pGoldToPick = nValue;
-    if (nGold + nValue > nGoldLimit)
-    {
-        *pGoldToPick = nGoldLimit - nGold;
-        *pGoldToDrop = nValue - *pGoldToPick;
-    }
 }
 
 // 0x00540900
