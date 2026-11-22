@@ -164,7 +164,7 @@ static OptionStrc* __stdcall sub_006C42E0_FindLongestPrefix(const char* szString
 }
 
 // 0x006C4820
-static int __stdcall sub_006C4820_ParseOption(const char* szString, int* pLength, OptionStrc* pOption)
+static int __stdcall PerformConversion(const char* szString, int* pLength, OptionStrc* pOption)
 {
     *pLength = 0;
     switch (pOption->dwFlags & 0x30000)
@@ -235,7 +235,7 @@ static int __stdcall sub_006C4980_ApplyOptions(OptionContextStrc* pContext, cons
     while (pOption)
     {
         int nLength;
-        if (!sub_006C4820_ParseOption(szString, &nLength, pOption))
+        if (!PerformConversion(szString, &nLength, pOption))
             return 0;
 
         *pLength = *pLength > nLength ? *pLength : nLength;
@@ -428,7 +428,7 @@ static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pConte
     OptionStrc* pOption = *ppOption;
     if (pOption)
     {
-        if (!sub_006C4820_ParseOption(szToken, &nLength, pOption))
+        if (!PerformConversion(szToken, &nLength, pOption))
         {
             return 0;
         }

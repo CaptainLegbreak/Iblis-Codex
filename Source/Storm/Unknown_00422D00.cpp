@@ -179,7 +179,7 @@ struct BigBuffer
     }
     unsigned int& Ref(int nIndex)
     {
-        sub_00421FE0_GrowToFit(nIndex);
+        GrowToFit(nIndex);
         return m_array.f_8[m_start + nIndex];
     }
     inline unsigned int& At(unsigned int nIndex)
@@ -191,9 +191,9 @@ struct BigBuffer
     {
         m_start = nStart;
         if (nStart)
-            sub_00421FE0_GrowToFit(-1);
+            GrowToFit(-1);
     }
-    void sub_00421FE0_GrowToFit(int nIndex);                                                                // 0x00421FE0
+    void GrowToFit(int nIndex);                                                                // 0x00421FE0
     void sub_004220D0_SetCount(unsigned int nCount);                                                        // 0x004220D0
     void sub_00422140_Trim();                                                                               // 0x00422140
 };
@@ -324,7 +324,7 @@ static void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent)
 static void SetOne(BigBuffer& a)
 {
     a.SetCount(1);
-    a.sub_00421FE0_GrowToFit(0);
+    a.GrowToFit(0);
     a.m_array.f_8[a.m_start] = 1;
 }
 
@@ -335,7 +335,7 @@ static void SetZero(BigBuffer& a)
 }
 
 // 0x00422D00
-static void __stdcall sub_00422D00_Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
+static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -394,7 +394,7 @@ static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
     a.SetCount(1);
 }
 
-void __stdcall sub_00423600_ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack); // 0x00423600
+void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack); // 0x00423600
 
 // 0x00423800
 void __stdcall SBigDec(D2StormBigStrc* pResult, D2StormBigStrc* pA)
@@ -453,7 +453,7 @@ void __stdcall SBigSetZero(D2StormBigStrc* pBig)
 // 0x00423A80
 void __stdcall SBigShl(D2StormBigStrc* pResult, D2StormBigStrc* pA, unsigned int nShift)
 {
-    sub_00422D00_Shl(pResult->tPrimary, pA->tPrimary, nShift);
+    Shl(pResult->tPrimary, pA->tPrimary, nShift);
 }
 
 // 0x00423AA0
@@ -471,7 +471,7 @@ void __stdcall SBigSub(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 // 0x00423BC0
 void __stdcall SBigToStrArray(D2StormBigStrc* pBig, D2StormArrayCStrc* pArray, int bAppend)
 {
-    sub_00423600_ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
+    ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
     if (bAppend)
         pArray->sub_00421F60_Add(pBig->tOutput.f_4, (const char*)pBig->tOutput.f_8);
     else
@@ -481,27 +481,27 @@ void __stdcall SBigToStrArray(D2StormBigStrc* pBig, D2StormArrayCStrc* pArray, i
 // 0x00423C20
 void __stdcall SBigToStrBuffer(D2StormBigStrc* pBig, char* szBuffer, unsigned int nSize)
 {
-    sub_00423600_ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
+    ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
     SStrCopy(szBuffer, (const char*)pBig->tOutput.f_8, nSize);
 }
 
 // 0x00423C60
 void __stdcall SBigToStrPtr(D2StormBigStrc* pBig, const char** pszString)
 {
-    sub_00423600_ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
+    ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
     *pszString = (const char*)pBig->tOutput.f_8;
 }
 
-void __stdcall sub_00423DC0_Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
+void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
 
-void __stdcall sub_00424180_Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
+void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
 
 // 0x004245F0
 static void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
 {
     BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
     sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
-    sub_00423DC0_Div(tProduct, a, tProduct, d, tStack);
+    Div(tProduct, a, tProduct, d, tStack);
     tStack.nUsed--;
 }
 
@@ -510,14 +510,14 @@ void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 {
     BigStack& tStack = pResult->tStack;
     BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    sub_00423DC0_Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
+    Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
 
 // 0x00424EB0
 void __stdcall SBigGcd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
-    sub_00424180_Gcd(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pResult->tStack);
+    Gcd(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pResult->tStack);
 }
 
 // 0x00424ED0
@@ -525,7 +525,7 @@ void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 {
     BigStack& tStack = pResult->tStack;
     BigBuffer& tQuotient = tStack.f_0[tStack.nUsed++];
-    sub_00423DC0_Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
+    Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
 

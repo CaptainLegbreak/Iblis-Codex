@@ -52,7 +52,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 
-void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szDetail); // 0x0041D010
+void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
 
 void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 
@@ -386,7 +386,7 @@ struct D2StormNodeListAStrc
     }
     D2StormLinkStrc* sub_0041EB40_Link(char* pNode);
     void sub_0041EB60_UnlinkNode(char* pNode);
-    void sub_0041ED90_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
+    void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
 };
 
 struct D2StormNodeListBStrc
@@ -453,7 +453,7 @@ static __declspec(noinline) void __stdcall sub_0041D370_HashData(unsigned int nL
 }
 
 // 0x0041D3B0
-void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize)
+void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize)
 {
     *ppBuffer = new D2StormHashBufferStrc;
     (*ppBuffer)->nSignSize = nSignSize;
@@ -520,7 +520,7 @@ int __fastcall SSignatureGenerate(char* pData, unsigned int* pnSize, const void*
 }
 
 // 0x0041D6D0
-int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus)
+int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus)
 {
     int bResult = 0;
     if (pBuffer->nUsed == pBuffer->nWindow && *(int*)pBuffer->pBuffer == 0x5349474E)
@@ -543,7 +543,7 @@ int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, con
 }
 
 // 0x0041D810
-void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags)
+void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags)
 {
     unsigned int nCrc = 0;
     if (pCrc)
@@ -633,8 +633,8 @@ void D2StormNodeListAStrc::sub_0041EB60_UnlinkNode(char* pNode)
     Link(pNode)->Unlink();
 }
 
-// 0x0041ED90
-void D2StormNodeListAStrc::sub_0041ED90_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
+// build: symbol ?LinkNode@D2StormNodeListAStrc@@QAEXPADI0@Z 0x0041ED90
+void D2StormNodeListAStrc::LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
 {
     D2StormLinkStrc* pLink = Link(pNode);
     pLink->Unlink();

@@ -39,7 +39,7 @@ void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* pColors); // 0
 
 void __cdecl sub_0050E330_GlideRefresh(); // 0x0050E330
 
-int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
+int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
 extern int gbRenderPaused_007C9144; // 0x007C9144
 
@@ -309,7 +309,7 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2SmackRecor
         int nWidth;
         int nHeight;
         int nDepth;
-        const int bDecoded = sub_006C6A80_DecodeImage(2, pBuffer, nSize, aPalette, sgbSmack8BitBuffer, 0x6DB0, &nWidth, &nHeight, &nDepth);
+        const int bDecoded = SBmpDecodeImage(2, pBuffer, nSize, aPalette, sgbSmack8BitBuffer, 0x6DB0, &nWidth, &nHeight, &nDepth);
         SMemFree(pBuffer, ".\\Src\\glSmack.cpp", 219, 0);
         if (!bDecoded || nWidth != 468 || nHeight != 60 || nDepth != 8)
         {

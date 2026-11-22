@@ -189,7 +189,7 @@ static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pW
 
 static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
 
-__declspec(noinline) int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
+__declspec(noinline) int __stdcall SBmpDecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
 
 static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
 
@@ -1640,7 +1640,7 @@ static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int n
 }
 
 // 0x006C6A80
-int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
+int __stdcall SBmpDecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
 {
     if (pWidth)
         *pWidth = 0;
@@ -1804,7 +1804,7 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
     int nWidth;
     int nHeight;
     int nBitDepth;
-    if (sub_006C6A80_DecodeImage(0, pFileData, nFileSize, 0, 0, 0, &nWidth, &nHeight, &nBitDepth))
+    if (SBmpDecodeImage(0, pFileData, nFileSize, 0, 0, 0, &nWidth, &nHeight, &nBitDepth))
     {
         if (!nRequestedBitDepth)
             nRequestedBitDepth = nBitDepth;
@@ -1819,7 +1819,7 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
 
         if (*ppBuffer)
         {
-            sub_006C6A80_DecodeImage(0, pFileData, nFileSize, (unsigned char*)pPalette, *ppBuffer, nBufferSize, 0, 0, 0);
+            SBmpDecodeImage(0, pFileData, nFileSize, (unsigned char*)pPalette, *ppBuffer, nBufferSize, 0, 0, 0);
             if (pWidth)
                 *pWidth = nWidth;
             if (pHeight)

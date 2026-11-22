@@ -6336,7 +6336,7 @@
     {
      "va": "0x0041D010",
      "length": 256,
-     "name": "sub_0041D010_ReportHandleLeak"
+     "name": "SErrReportNamedResourceLeak"
     }
    ]
   },
@@ -6422,7 +6422,7 @@
     {
      "va": "0x0041D3B0",
      "length": 95,
-     "name": "sub_0041D3B0_NewHashBuffer"
+     "name": "SSignatureVerifyStream_Begin"
     },
     {
      "va": "0x0041D420",
@@ -6437,12 +6437,12 @@
     {
      "va": "0x0041D6D0",
      "length": 247,
-     "name": "sub_0041D6D0_VerifyHashBuffer"
+     "name": "SSignatureVerifyStream_Finish"
     },
     {
      "va": "0x0041D810",
      "length": 99,
-     "name": "sub_0041D810_Crc32"
+     "name": "CrcBuffer"
     },
     {
      "va": "0x0041D8D0",
@@ -6487,7 +6487,7 @@
     {
      "va": "0x0041ED90",
      "length": 161,
-     "name": "sub_0041ED90_LinkNode"
+     "name": "LinkNode"
     },
     {
      "va": "0x0041F510",
@@ -6628,7 +6628,7 @@
     {
      "va": "0x0041D1E0",
      "length": 18,
-     "name": "sub_0041D1E0_ReportHandleLeak"
+     "name": "SErrReportResourceLeak"
     }
    ]
   },
@@ -7043,7 +7043,7 @@
     {
      "va": "0x004234F0",
      "length": 65,
-     "name": "?sub_004234F0_FromLengthPrefixed@@YGXPAUBigBuffer@@PAIIPBE@Z"
+     "name": "?FromStream@@YGXPAUBigBuffer@@PAIIPBE@Z"
     },
     {
      "va": "0x00423850",
@@ -7343,7 +7343,7 @@
     {
      "va": "0x00420A70",
      "length": 62,
-     "name": "?sub_00420A70_RegisterHandler@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
+     "name": "?InternalRegister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
     },
     {
      "va": "0x00420AB0",
@@ -7620,7 +7620,7 @@
     {
      "va": "0x004235F0",
      "length": 15,
-     "name": "?sub_004235F0_ToBinary@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
+     "name": "?ToBinary@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
     },
     {
      "va": "0x00423AE0",
@@ -7692,7 +7692,7 @@
     {
      "va": "0x00421FE0",
      "length": 104,
-     "name": "?sub_00421FE0_GrowToFit@BigBuffer@@QAEXH@Z"
+     "name": "?GrowToFit@BigBuffer@@QAEXH@Z"
     },
     {
      "va": "0x00422140",
@@ -7904,7 +7904,7 @@
     {
      "va": "0x00423770",
      "length": 27,
-     "name": "?sub_00423770_ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
+     "name": "?ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
     },
     {
      "va": "0x00423820",

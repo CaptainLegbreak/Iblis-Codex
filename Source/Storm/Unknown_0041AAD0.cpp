@@ -23,8 +23,8 @@ int __stdcall SMemFree(void*,const char*,int,unsigned int); // 0x00412650
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __stdcall sub_0041C340_SetLastError(unsigned long); // 0x0041C340
 int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nLine,const char* szDescription,int bRecoverable,unsigned int nExitCode); // 0x0041CAF0
-void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
-unsigned int __stdcall sub_00416AD0_ReadBlocks(FILEREC*,unsigned int,unsigned char*,unsigned int); // 0x00416AD0
+void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
+unsigned int __stdcall InternalReadAligned(FILEREC*,unsigned int,unsigned char*,unsigned int); // 0x00416AD0
 void __cdecl sub_0041A880_StartThread(); // 0x0041A880
 extern const char gszDelete_006CC824[]; // 0x006CC824
 extern const char gszTypeNameRequest_007083F0[]; // 0x007083F0
@@ -115,14 +115,14 @@ static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile)
         nSize = pBlock->nFileSize - nOffset;
     pFile->archive->pCachedFile = pFile;
     pFile->archive->nCachedOffset = nOffset;
-    pFile->archive->f_12C = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
+    pFile->archive->f_12C = InternalReadAligned(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
     return pFile->archive->f_12C;
 }
 static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile); // 0x00416FB0
-static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition); // 0x00417040
+static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition); // 0x00417040
 // 0x00417040
 
-static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
+static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
 {
     const unsigned int nFileSize = pFile->pBlock->nFileSize;
     if (nFileSize <= nPosition)
@@ -130,7 +130,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
     nSize = nSize < nFileSize - nPosition ? nSize : nFileSize - nPosition;
     if (pFile->bCrc && !nPosition)
     {
-        sub_0041D810_Crc32(0, 0, &pFile->nCrc, 1);
+        CrcBuffer(0, 0, &pFile->nCrc, 1);
         pFile->nCrcPos = 0;
         pFile->nCrcState = 2;
     }
@@ -144,7 +144,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         SMemCopy(pBuffer, pFile->archive->pBlockBuffer + ((pFile->archive->sectorsize - 1) & nPosition), nCopy);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nCopy, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nCopy, &pFile->nCrc, 2);
             pFile->nCrcPos += nCopy;
         }
         pBuffer += nCopy;
@@ -165,10 +165,10 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
         const unsigned int nAligned = ~(pFile->archive->sectorsize - 1) & nSize;
-        nMiddle = sub_00416AD0_ReadBlocks(pFile, nPosition, pBuffer, nAligned);
+        nMiddle = InternalReadAligned(pFile, nPosition, pBuffer, nAligned);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nMiddle, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nMiddle, &pFile->nCrc, 2);
             pFile->nCrcPos += nMiddle;
         }
         pBuffer += nAligned;
@@ -188,7 +188,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
             nTail = nSize;
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nTail, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nTail, &pFile->nCrc, 2);
             pFile->nCrcPos += nTail;
         }
     }
@@ -229,7 +229,7 @@ static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, v
 static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, AUDIOSTREAM* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback); // 0x00419790
 #define min(a,b) (((a) < (b)) ? (a) : (b))
 // 0x0041AAD0
-int __stdcall sub_0041AAD0_StormReadFile(void* hFile,unsigned char* buffer,unsigned int size,unsigned int* read,D2StormOverlappedStrc* overlap,int unused,void* callback)
+int __stdcall SFileReadFileEx2(void* hFile,unsigned char* buffer,unsigned int size,unsigned int* read,D2StormOverlappedStrc* overlap,int unused,void* callback)
 {
     if (read)
         *read = 0;
@@ -297,10 +297,10 @@ int __stdcall sub_0041AAD0_StormReadFile(void* hFile,unsigned char* buffer,unsig
     unsigned int chunk = gnReadUnit_00708348;
     if (file->hFile == (void*)-1 && !file->archive->nMode)
     {
-        total = sub_00417040_ReadArchived(dest, count, file, pos);
+        total = InternalReadUnaligned(dest, count, file, pos);
         if (file->bCrc && file->nCrcState == 2 && file->nCrcPos == file->pBlock->nFileSize)
         {
-            sub_0041D810_Crc32(0, 0, &file->nCrc, 4);
+            CrcBuffer(0, 0, &file->nCrc, 4);
             file->nCrcState = 4;
         }
         if (overlap && overlap->event)

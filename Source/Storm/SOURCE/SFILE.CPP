@@ -191,7 +191,7 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
-void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
+void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
 int __cdecl sub_00418B50(); // 0x00418B50
 void* __cdecl StormGetInstance(); // 0x0041BEF0
 void __cdecl sub_0041A880_StartThread(); // 0x0041A880
@@ -201,7 +201,7 @@ int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
 int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
-unsigned int __stdcall sub_00416AD0_ReadBlocks(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);
+unsigned int __stdcall InternalReadAligned(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize); // 0x00416AD0
 void __stdcall CheckRequests(ARCHIVEREC* pLastArchive, unsigned int nLastOffset, REQUEST** ppDue, REQUEST** ppNear, int* pnDistance); // 0x0041A450
 extern unsigned int* gpCryptTable_00779048; // 0x00779048
 extern int (__stdcall* gpfnReadErrorCallback_00779030)(const char* szName, unsigned long dwError, int nRetry); // 0x00779030
@@ -463,7 +463,7 @@ struct D2StormNodeListBStrc
 
 int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh);
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-int __stdcall sub_0041AAD0_StormReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7);
+int __stdcall SFileReadFileEx2(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
 
 inline void* operator new(unsigned int, void* pWhere) throw();
 static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, ARCHIVEREC** ppRec);
@@ -1017,11 +1017,11 @@ static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile)
         nSize = pBlock->nFileSize - nOffset;
     pFile->archive->pCachedFile = pFile;
     pFile->archive->nCachedOffset = nOffset;
-    pFile->archive->nCachedSize = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
+    pFile->archive->nCachedSize = InternalReadAligned(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
     return pFile->archive->nCachedSize;
 }
 
-static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
+static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
 {
     const unsigned int nFileSize = pFile->pBlock->nFileSize;
     if (nFileSize <= nPosition)
@@ -1029,7 +1029,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
     nSize = nSize < nFileSize - nPosition ? nSize : nFileSize - nPosition;
     if (pFile->bCrc && !nPosition)
     {
-        sub_0041D810_Crc32(0, 0, &pFile->nCrc, 1);
+        CrcBuffer(0, 0, &pFile->nCrc, 1);
         pFile->nCrcPos = 0;
         pFile->nCrcState = 2;
     }
@@ -1045,7 +1045,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         SMemCopy(pBuffer, pFile->archive->pBlockBuffer + ((pFile->archive->sectorsize - 1) & nPosition), nCopy);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nCopy, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nCopy, &pFile->nCrc, 2);
             pFile->nCrcPos += nCopy;
         }
         pBuffer += nCopy;
@@ -1066,10 +1066,10 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
         const unsigned int nAligned = ~(pFile->archive->sectorsize - 1) & nSize;
-        nMiddle = sub_00416AD0_ReadBlocks(pFile, nPosition, pBuffer, nAligned);
+        nMiddle = InternalReadAligned(pFile, nPosition, pBuffer, nAligned);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nMiddle, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nMiddle, &pFile->nCrc, 2);
             pFile->nCrcPos += nMiddle;
         }
         pBuffer += nAligned;
@@ -1089,7 +1089,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
             nTail = nSize;
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
-            sub_0041D810_Crc32(pBuffer, nTail, &pFile->nCrc, 2);
+            CrcBuffer(pBuffer, nTail, &pFile->nCrc, 2);
             pFile->nCrcPos += nTail;
         }
     }
@@ -1227,7 +1227,7 @@ cleanup:
     return bResult;
 }
 
-int __fastcall sub_00417F10_FindFile(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, ARCHIVEREC** ppArchive, char* szFoundPath)
+int __fastcall GetFileBlockEntry(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, ARCHIVEREC** ppArchive, char* szFoundPath)
 {
     if (ppArchive)
         *ppArchive = 0;
@@ -1340,11 +1340,11 @@ unsigned long __stdcall CdThreadProc(void* pParam)
         {
             if (gpCurrentRequest_0077902C->pFile->hFile == INVALID_FILE_HANDLE)
             {
-                gpCurrentRequest_0077902C->nRead = sub_00417040_ReadArchived(pDest, gpCurrentRequest_0077902C->nBytes, gpCurrentRequest_0077902C->pFile, gpCurrentRequest_0077902C->location);
+                gpCurrentRequest_0077902C->nRead = InternalReadUnaligned(pDest, gpCurrentRequest_0077902C->nBytes, gpCurrentRequest_0077902C->pFile, gpCurrentRequest_0077902C->location);
                 FILEREC* pFile = gpCurrentRequest_0077902C->pFile;
                 if (pFile->bCrc && pFile->nCrcState == 2 && pFile->nCrcPos == pFile->pBlock->nFileSize)
                 {
-                    sub_0041D810_Crc32(0, 0, &pFile->nCrc, 4);
+                    CrcBuffer(0, 0, &pFile->nCrc, 4);
                     gpCurrentRequest_0077902C->pFile->nCrcState = 4;
                 }
             }
@@ -3048,7 +3048,7 @@ int __stdcall SFileLoadFileEx2(void* hMpq, const char* szFileName, void** ppBuff
     {
         unsigned int nSize = sub_00416370_StormGetFileSize(hFile, 0);
         pBuffer = SMemAlloc(nSize + nExtraSize, ".\\SOURCE\\SFILE.CPP", 0xFEA, 0);
-        if (sub_0041AAD0_StormReadFile(hFile, pBuffer, nSize, 0, pOverlapped, nArg8, 0))
+        if (SFileReadFileEx2(hFile, pBuffer, nSize, 0, pOverlapped, nArg8, 0))
         {
             if (nExtraSize)
                 SMemZero(nSize + (char*)pBuffer, nExtraSize);

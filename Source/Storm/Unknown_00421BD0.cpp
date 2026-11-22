@@ -21,7 +21,7 @@ struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
-    void sub_00421FE0_GrowToFit(int nIndex); // 0x00421FE0
+    void GrowToFit(int nIndex); // 0x00421FE0
 };
 
 struct BigStack
@@ -106,7 +106,7 @@ unsigned int D2StormArrayBStrc::sub_004219D0_AddOne(const unsigned char* pData)
 }
 
 // 0x00421BD0
-static void sub_00421BD0_AppendLength(unsigned int nValue, D2StormArrayBStrc* pArray)
+static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray)
 {
     while (nValue)
     {
@@ -117,24 +117,24 @@ static void sub_00421BD0_AppendLength(unsigned int nValue, D2StormArrayBStrc* pA
 }
 
 // 0x004235F0
-static void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
+static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
 // 0x00423770
-static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
+static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
-    sub_004235F0_ToBinary(pOut, pIn);
-    sub_00421BD0_AppendLength(pOut->f_4, pOut);
+    ToBinary(pOut, pIn);
+    EncodeDataBytes(pOut->f_4, pOut);
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
 // 0x00423AE0
 void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray, int bAppend)
 {
-    sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);
+    ToBinary(&pBig->tBuffer, &pBig->tQueue);
     if (bAppend)
         pArray->sub_004218B0_Add(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
     else
@@ -145,7 +145,7 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
 {
     D2StormBigStrc* pBig = (D2StormBigStrc*)hBig;
-    sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);
+    ToBinary(&pBig->tBuffer, &pBig->tQueue);
     unsigned int nCopy = pBig->tBuffer.f_4 < nSize ? pBig->tBuffer.f_4 : nSize;
     SMemCopy(pBuffer, pBig->tBuffer.f_8, nCopy);
     if (pRead)
@@ -155,7 +155,7 @@ void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize,
 // 0x00423B80
 void __stdcall SBigToBinaryPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
-    sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);
+    ToBinary(&pBig->tBuffer, &pBig->tQueue);
     *ppData = pBig->tBuffer.f_8;
     if (pSize)
         *pSize = pBig->tBuffer.f_4;
@@ -164,7 +164,7 @@ void __stdcall SBigToBinaryPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
 // 0x00423C90
 void __stdcall SBigToStreamArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray, int bAppend)
 {
-    sub_00423770_ToStream(&pBig->tBuffer, &pBig->tQueue);
+    ToStream(&pBig->tBuffer, &pBig->tQueue);
     if (bAppend)
         pArray->sub_004218B0_Add(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
     else
@@ -174,7 +174,7 @@ void __stdcall SBigToStreamArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 // 0x00423CE0
 void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pWritten)
 {
-    sub_00423770_ToStream(&pBig->tBuffer, &pBig->tQueue);
+    ToStream(&pBig->tBuffer, &pBig->tQueue);
     unsigned int nCopy = pBig->tBuffer.f_4 < nSize ? pBig->tBuffer.f_4 : nSize;
     SMemCopy(pBuffer, pBig->tBuffer.f_8, nCopy);
     if (pWritten)
@@ -184,7 +184,7 @@ void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned 
 // 0x00423D30
 void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
-    sub_00423770_ToStream(&pBig->tBuffer, &pBig->tQueue);
+    ToStream(&pBig->tBuffer, &pBig->tQueue);
     *ppData = pBig->tBuffer.f_8;
     *pSize = pBig->tBuffer.f_4;
 }
@@ -226,7 +226,7 @@ static void __stdcall sub_00423380_FromBytes(BigBuffer* pThis, const unsigned ch
         unsigned int nCur;
         if (nShift)
         {
-            pThis->sub_00421FE0_GrowToFit(nIdx);
+            pThis->GrowToFit(nIdx);
             nCur = pThis->m_array.f_8[pThis->m_start + nIdx];
         }
         else

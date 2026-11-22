@@ -22,7 +22,7 @@ struct D2StormHashBufferStrc
 };
 
 // 0x0041D3B0
-void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize)
+void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize)
 {
     *ppBuffer = new D2StormHashBufferStrc;
     (*ppBuffer)->nSignSize = nSignSize;
@@ -33,13 +33,13 @@ void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, uns
     (*ppBuffer)->tHash.Initialize();
 }
 int __fastcall sub_0041D420_HashBuffered(void* pHash, const void* pData, int nSize); // 0x0041D420
-int __fastcall sub_0041D6D0_VerifyHashBuffer(void* pHash, const void* pSignature, int nSignatureSize); // 0x0041D6D0
+int __fastcall SSignatureVerifyStream_Finish(void* pHash, const void* pSignature, int nSignatureSize); // 0x0041D6D0
 
 // 0x0041D7D0
 int __fastcall SSignatureVerify(const void* pData, int nSize, const void* pSignature, int nAlgorithm, int nSignatureSize, int nFlags)
 {
     D2StormHashBufferStrc* pHash;
-    sub_0041D3B0_NewHashBuffer(&pHash, nAlgorithm, nFlags);
+    SSignatureVerifyStream_Begin(&pHash, nAlgorithm, nFlags);
     sub_0041D420_HashBuffered(pHash, pData, nSize);
-    return sub_0041D6D0_VerifyHashBuffer(pHash, pSignature, nSignatureSize);
+    return SSignatureVerifyStream_Finish(pHash, pSignature, nSignatureSize);
 }

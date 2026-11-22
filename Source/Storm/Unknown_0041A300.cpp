@@ -78,7 +78,7 @@ struct D2StormRequestListStrc {
 extern D2StormRequestListStrc gRequests_00708360; // 0x00708360
 extern D2StormEventListStrc gEvents_00708378; // 0x00708378
 // 0x0041A300
-int __stdcall sub_0041A300_CancelRequests(void* buffer, void* other) {
+int __stdcall CancelRequest(void* buffer, void* other) {
     if (!buffer && !other) return 0;
     EnterCriticalSection(&gLock_00779068);
     int result = 0;

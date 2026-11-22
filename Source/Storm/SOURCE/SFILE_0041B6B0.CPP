@@ -23,7 +23,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);  
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 const char* __stdcall SStrChrR(const char* szString, char nChar);                                           // 0x004134D0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
+void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
 void __cdecl sub_004158E0_InitBasePath();                                                                   // 0x004158E0
 int __cdecl sub_00418B50();                                                                         // 0x00418B50
 void* __cdecl StormGetInstance();                                                                  // 0x0041BEF0
@@ -34,7 +34,7 @@ int __stdcall SFileCloseArchive(void* hMpq);                                    
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
 int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
-unsigned int __stdcall sub_00416AD0_ReadBlocks(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);
+unsigned int __stdcall InternalReadAligned(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize); // 0x00416AD0
 void __stdcall CheckRequests(ARCHIVEREC* pLastArchive, unsigned int nLastOffset, REQUEST** ppDue, REQUEST** ppNear, int* pnDistance); // 0x0041A450
 
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
