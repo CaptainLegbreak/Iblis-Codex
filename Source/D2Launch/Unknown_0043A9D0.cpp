@@ -60,40 +60,6 @@ extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 extern int s_bConnected_0077AC08; // 0x0077AC08
 
-unsigned long gdwLastClick_00779DEC; // 0x00779DEC
-
-// 0x0043A9D0
-int __stdcall sub_0043A9D0_ListClick(D2ListMsgStrc* pMsg)
-{
-    if (!gbFlag_00779C6C)
-    {
-        const int nPrevious = gnSelected_0070CC00;
-        void* hWnd = pMsg->hWnd;
-        int nRow;
-        for (nRow = 0; nRow < gnVisibleRows_0070CC0C; nRow += 1)
-        {
-            if (sub_00408F20_HasExpansionMpq() && hWnd == gapRowControlsX_00779B40[nRow])
-                break;
-            if (hWnd == gapRowControls_00779A20[nRow])
-                break;
-        }
-        const int nIndex = gnTopRow_00779DC8 + nRow;
-        if (gdwGlobal_00779DC4 < nIndex)
-            return 0;
-        gnSelected_0070CC00 = nIndex;
-        if (gdwGlobal_00779DC4 <= 0)
-            gnSelected_0070CC00 = -1;
-        if (pMsg->uMessage == 0x201)
-        {
-            const unsigned long dwTick = GetTickCount();
-            if (gnSelected_0070CC00 != -1 && gnSelected_0070CC00 == nPrevious && dwTick - gdwLastClick_00779DEC < 500)
-                return sub_00439840(pMsg);
-            gdwLastClick_00779DEC = dwTick;
-        }
-        return sub_00439210_Redraw();
-    }
-    return 1;
-}
 
 D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 

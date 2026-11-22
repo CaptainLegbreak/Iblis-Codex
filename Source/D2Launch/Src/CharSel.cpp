@@ -325,6 +325,14 @@ int gnGlobal_007B0A58; // 0x007B0A58
 
 void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket); // 0x00462F60
 
+struct D2ListMsgStrc
+{
+    void* hWnd;
+    unsigned int uMessage;
+};
+
+int __stdcall sub_00439840(D2ListMsgStrc* pMsg); // 0x00439840
+
 // 0x0042E5B0
 char* __cdecl sub_0042E5B0_StrStr(char* szString, const char* szSubString)
 {
@@ -849,6 +857,41 @@ void __cdecl sub_0043A610_ShowString()
     wEmpty.wChar = 0;
     gdwGlobal_0070CC08 = gdwGlobal_00779DC4;
     sub_0043A460_CreateNotice(pTitle, &wEmpty, 2, 0x12);
+}
+
+unsigned long gdwLastClick_00779DEC; // 0x00779DEC
+
+// 0x0043A9D0
+int __stdcall sub_0043A9D0_ListClick(D2ListMsgStrc* pMsg)
+{
+    if (!gbFlag_00779C6C)
+    {
+        const int nPrevious = gnSelected_0070CC00;
+        void* hWnd = pMsg->hWnd;
+        int nRow;
+        for (nRow = 0; nRow < gnVisibleRows_0070CC0C; nRow += 1)
+        {
+            if (sub_00408F20_HasExpansionMpq() && hWnd == gapRowControlsX_00779B40[nRow])
+                break;
+            if (hWnd == gapRowControls_00779A20[nRow])
+                break;
+        }
+        const int nIndex = gnTopRow_00779DC8 + nRow;
+        if (gdwGlobal_00779DC4 < nIndex)
+            return 0;
+        gnSelected_0070CC00 = nIndex;
+        if (gdwGlobal_00779DC4 <= 0)
+            gnSelected_0070CC00 = -1;
+        if (pMsg->uMessage == 0x201)
+        {
+            const unsigned long dwTick = GetTickCount();
+            if (gnSelected_0070CC00 != -1 && gnSelected_0070CC00 == nPrevious && dwTick - gdwLastClick_00779DEC < 500)
+                return sub_00439840(pMsg);
+            gdwLastClick_00779DEC = dwTick;
+        }
+        return sub_00439210_Redraw();
+    }
+    return 1;
 }
 
 // 0x0043AE30
