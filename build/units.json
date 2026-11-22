@@ -67079,6 +67079,10 @@
      "name": "?sub_005D2B40_RemoveState114@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005D2B60",
+     "length": 190
+    },
+    {
      "va": "0x005D2C20",
      "length": 551,
      "name": "?SKILLS_SrvDo140_BaalTentacle@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -67087,6 +67091,10 @@
      "va": "0x005D2E80",
      "length": 248,
      "name": "SKILLS_SrvDo141_BaalCorpseExplode"
+    },
+    {
+     "va": "0x005D30F0",
+     "length": 75
     },
     {
      "va": "0x005D32F0",
@@ -67109,9 +67117,17 @@
      "name": "?SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D35D0",
+     "length": 175
+    },
+    {
      "va": "0x005D3680",
      "length": 261,
      "name": "?sub_005D3680_ApplyProgressiveDamage@@YGXPAUD2StatListStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005D3790",
+     "length": 234
     },
     {
      "va": "0x005D3880",
@@ -67127,6 +67143,10 @@
      "va": "0x005D3CB0",
      "length": 51,
      "name": "sub_005D3CB0_AuraDamageCopy"
+    },
+    {
+     "va": "0x005D3CF0",
+     "length": 162
     },
     {
      "va": "0x005D3DA0",
@@ -67346,32 +67366,6 @@
      "va": "0x005DB6D0",
      "length": 380,
      "name": "SKILLS_SrvDo010_GuidedArrow_BoneSpirit"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAss_005D2B60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D2B60",
-     "length": 190
-    },
-    {
-     "va": "0x005D30F0",
-     "length": 75
-    },
-    {
-     "va": "0x005D35D0",
-     "length": 175
-    },
-    {
-     "va": "0x005D3790",
-     "length": 234
-    },
-    {
-     "va": "0x005D3CF0",
-     "length": 162
     }
    ]
   },

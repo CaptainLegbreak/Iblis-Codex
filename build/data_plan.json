@@ -5241,7 +5241,6 @@
     "extern \"C\" void __cdecl sub_005D1CD0_SrvDoMissileVolley(); // 0x005D1CD0",
     "extern \"C\" void __cdecl sub_005D1F70_Dispatch(); // 0x005D1F70",
     "extern \"C\" void __cdecl sub_005D3140(); // 0x005D3140",
-    "extern \"C\" void __cdecl sub_005D35D0_AlternateChargeWeapon(); // 0x005D35D0",
     "extern \"C\" void __cdecl sub_005D8780(); // 0x005D8780",
     "extern \"C\" void __cdecl sub_005D8E00_SequenceAction(); // 0x005D8E00",
     "extern \"C\" void __cdecl sub_005DB410_CreateMissileWall(); // 0x005DB410",
