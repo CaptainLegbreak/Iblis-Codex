@@ -1008,16 +1008,7 @@ static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
-
-// 0x004CA4C0
-int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
-{
-    D2_ASSERT(pUnit, 0xB5C);
-    nDirection &= 0xF;
-    if (nDirection <= 0xD)
-        return gaDirRate_00727ED8[nDirection].nValue;
-    D2_ASSERT(0, 0xB60);
-}
+int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
 
 // 0x004CA500
 unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection)
@@ -1058,13 +1049,6 @@ int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode)
         break;
     }
     return nSound;
-}
-
-// 0x004CA8A0
-void __fastcall sub_004CA8A0_AddUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
-{
-    D2_ASSERT(pUnit, 0xC2C);
-    sub_00516950_LinkEntry((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 // 0x004CA8D0

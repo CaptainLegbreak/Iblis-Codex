@@ -32990,6 +32990,16 @@
      "name": "?sub_004CA3E0_GetPlayerSoundRecord@@YAPAUD2UnitSndPlayerStrc@@I@Z"
     },
     {
+     "va": "0x004CA4C0",
+     "length": 58,
+     "name": "?sub_004CA4C0@@YIHPAUD2UnitStrc@@I@Z"
+    },
+    {
+     "va": "0x004CA8A0",
+     "length": 43,
+     "name": "?sub_004CA8A0_AddUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
+    },
+    {
      "va": "0x004CAB30",
      "length": 39,
      "name": "?sub_004CAB30_ReadSoundTick@@YAIPAUD2UnitStrc@@@Z"
@@ -33102,11 +33112,6 @@
      "name": "?sub_004CA410_GetMonSoundsRecord@@YAPAUD2MonSoundsTxt@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004CA4C0",
-     "length": 58,
-     "name": "?sub_004CA4C0@@YIHPAUD2UnitStrc@@I@Z"
-    },
-    {
      "va": "0x004CA500",
      "length": 83,
      "name": "?sub_004CA500_GetAnimRate@@YIIPAUD2UnitStrc@@I@Z"
@@ -33115,11 +33120,6 @@
      "va": "0x004CA810",
      "length": 95,
      "name": "?sub_004CA810_GetModeSound@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004CA8A0",
-     "length": 43,
-     "name": "?sub_004CA8A0_AddUnitHint@@YIXPAUD2UnitStrc@@PAUD2TimedHintEntryStrc@@@Z"
     },
     {
      "va": "0x004CA8D0",

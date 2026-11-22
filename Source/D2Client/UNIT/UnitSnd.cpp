@@ -233,6 +233,11 @@ void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int 
 
 void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit);
 
+extern struct D2TimedHintEntryStrc;
+extern struct D2TimedHintNodeStrc;
+
+void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
+
 // 0x004CA2C0
 static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
 {
@@ -332,15 +337,6 @@ static D2MonSoundsTxt* sub_004CA410_GetMonSoundsRecord(D2UnitStrc* pUnit)
     return DATATBLS_GetMonSoundsTxtRecordFromMonsterId(nClass);
 }
 
-int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
-{
-    D2_ASSERT(pUnit, 0xB5C);
-    nDirection &= 0xF;
-    if (nDirection <= 0xD)
-        return gaDirRate_00727ED8[nDirection].nValue;
-    D2_ASSERT(0, 0xB60);
-}
-
 void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int bParam, int* pSound1, int* pSound2)
 {
     D2_ASSERT(pUnit, 0xB82);
@@ -418,6 +414,25 @@ void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int 
         *pSound2 = 0x187;
         break;
     }
+}
+
+
+// 0x004CA4C0
+int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
+{
+    D2_ASSERT(pUnit, 0xB5C);
+    nDirection &= 0xF;
+    if (nDirection <= 0xD)
+        return gaDirRate_00727ED8[nDirection].nValue;
+    D2_ASSERT(0, 0xB60);
+}
+
+
+// 0x004CA8A0
+void __fastcall sub_004CA8A0_AddUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
+{
+    D2_ASSERT(pUnit, 0xC2C);
+    sub_00516950_LinkEntry((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 // 0x004CAB30
