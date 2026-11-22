@@ -715,7 +715,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
     SKILLS_DoUsedSkill(pUnit);
 }
 
-// 0x004AF6A0
+// build: context MONSTER_HandleAttackEvent
 static void MONSTER_HandleAttackEvent(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
@@ -1094,25 +1094,7 @@ static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCo
     UNITMODE_SetUnitMode(pUnit, nMode);
 }
 
-// 0x004B11F0
-int __fastcall MONSTER_IsConvertible(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 0;
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != 1)
-        return 0;
-    if (!UNITS_CanSwitchAI(pUnit->dwClassId))
-        return 0;
-    if (pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        if (sub_004AC7E0(pUnit, 8))
-            return 0;
-        if (pUnit->dwUnitType == UNIT_MONSTER && sub_004AC7E0(pUnit, 2))
-            return 0;
-    }
-    return 1;
-}
+int __fastcall MONSTER_IsConvertible(D2UnitStrc* pUnit); // 0x004B11F0
 
 // 0x004B13A0
 void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
@@ -1265,74 +1247,7 @@ static D2MonStatsTxt* MONSTATS_GetUnitRecord(D2UnitStrc* pUnit, int nType)
     return 0;
 }
 
-// 0x004B1280
-int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMode)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    const int nType = pUnit->dwUnitType;
-
-    if (nType == UNIT_MONSTER)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetUnitRecord(pUnit, nType);
-        if (!pMonStatsTxtRecord)
-        {
-            return 0;
-        }
-
-        switch (pMonStatsTxtRecord->nSplEndDeath)
-        {
-        case 1:
-            if (!pUnit->dwAnimMode && UNITS_IsAtEndOfFrameCycle(pUnit))
-            {
-                D2UnitTargetStrc tTarget = {};
-                MONSTER_HandleMonsterCommand(9, pUnit, &tTarget);
-            }
-            break;
-        }
-    }
-
-    int nResult = 0;
-    switch (pMode->nMode)
-    {
-    case 0:
-        UNITS_StopSequence(pUnit);
-        break;
-
-    case 1:
-        nResult = UNITS_IsAtEndOfFrameCycle(pUnit);
-        if (!nResult)
-        {
-            UNITS_StopSequence(pUnit);
-        }
-        break;
-
-    case 2:
-        if (!UNITS_IsAtEndOfFrameCycle(pUnit))
-        {
-            UNITS_StopSequence(pUnit);
-            break;
-        }
-
-        pUnit->nSeqCurrentFramePrecise = pUnit->dwFrameCountPrecise - 0x100;
-        pUnit->wAnimSpeed = 0;
-        if (!pUnit->dwAnimMode)
-        {
-            pUnit->dwFlags |= 0x20;
-        }
-        break;
-
-    case 3:
-        pUnit->nSeqCurrentFramePrecise = 0x100;
-        pUnit->wAnimSpeed = 0;
-        break;
-    }
-
-    return nResult;
-}
+int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMode); // 0x004B1280
 
 static inline unsigned int sub_I20_SeedStep(D2SeedStrc* pSeed)
 {
@@ -2022,10 +1937,4 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
     }
 }
 
-// 0x004B15F0
-Unicode Unicode::sub_004B15F0() const
-{
-    return Unicode(wChar < CASE_BOUND ? gaCaseTable_00730778[wChar] : wChar);
-}
 
-#include "gen/data/Source/D2Client/UNIT/Monster_004AF6A0.inc"
