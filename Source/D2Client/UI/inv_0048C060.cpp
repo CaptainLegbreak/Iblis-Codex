@@ -34,7 +34,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
-extern "C" unsigned int __cdecl strlen(const char* szString);
+extern "C" size_t __cdecl strlen(const char* szString);
 
 #pragma intrinsic(memset, strcpy, strcat, strlen)
 
@@ -104,7 +104,7 @@ Unicode* __fastcall sub_00526F20(Unicode* pDest, const char* szSource, int nCoun
 
 void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, const Unicode* pFormat, int nMaxLength, int nLanguage); // 0x005272B0
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);             // 0x00625480
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);             // 0x00625480
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);                                                      // 0x00627E70
 
