@@ -296,6 +296,22 @@ D2PaletteTableStrc* gpDDrawCaps_007C9150;                                       
 
 void* gpDDrawSmackBuffer_008816B0;                                                                          // 0x008816B0
 
+int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
+
+struct T004013C0
+{
+    int unk0x00;
+    int nPlatform;
+    char unk0x08[0x04];
+    unsigned int nTotalMemory;
+};
+
+extern int gbDDrawPlatformFlag_0088125C; // 0x0088125C
+
+extern char gszDDrawDeviceName_00881154[256]; // 0x00881154
+
+T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
+
 // 0x00508FE0
 int __fastcall sub_00508FE0_GlideStartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
@@ -351,6 +367,42 @@ void __cdecl sub_0050FD10_GlideDrawVideoFrame()
         return;
     }
     BinkNextFrame(gpGlideBink_00880C0C);
+}
+
+extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
+
+// 0x00510020
+int __fastcall sub_00510020_DDrawDetect(void* hInstance)
+{
+    T004013C0* pSystemInfo = sub_00407360_GetSystemInfo();
+    D2_ASSERT(pSystemInfo, 0x6F);
+
+    if (pSystemInfo->nPlatform == 1)
+    {
+        gbDDrawPlatformFlag_0088125C = 1;
+    }
+
+    char szKey[] = "Diablo II\\VideoConfig";
+    if (SRegLoadString(szKey, "DeviceName", 0, gszDDrawDeviceName_00881154, sizeof(gszDDrawDeviceName_00881154))
+        && SRegLoadValue(szKey, "dwFlags", 0, &gdwVideoFlags_00881140))
+    {
+        if (gdwVideoFlags_00881140 & gdwBitMasks[0])
+        {
+            return 1;
+        }
+
+        unsigned int nSize = sizeof(gabDDrawDeviceGuid_00881144);
+        if (SRegLoadData(szKey, "GUID", 0, gabDDrawDeviceGuid_00881144, sizeof(gabDDrawDeviceGuid_00881144), &nSize)
+            && nSize == sizeof(gabDDrawDeviceGuid_00881144))
+        {
+            return 1;
+        }
+    }
+
+    strcpy(gszDDrawDeviceName_00881154, "Fallback DirectDraw Device");
+    gdwVideoFlags_00881140 = gdwBitMasks[0];
+    return 1;
 }
 
 // 0x00511210

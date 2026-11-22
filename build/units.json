@@ -40126,6 +40126,11 @@
      "name": "sub_0050FD10_GlideDrawVideoFrame"
     },
     {
+     "va": "0x00510020",
+     "length": 270,
+     "name": "?sub_00510020_DDrawDetect@@YIHPAX@Z"
+    },
+    {
      "va": "0x00511210",
      "length": 696,
      "name": "?sub_00511210_DDrawOpenSurfaces@@YAHH@Z"
@@ -40225,6 +40230,20 @@
      "length": 238,
      "name": "sub_005136F0_BlitBinkFrame"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -41017,11 +41036,6 @@
    "file": "Source/D2DDraw/Unknown_00510020.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00510020",
-     "length": 270,
-     "name": "?sub_00510020_DDrawDetect@@YIHPAX@Z"
-    },
     {
      "va": "0x00510160",
      "length": 360,

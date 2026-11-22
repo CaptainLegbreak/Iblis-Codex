@@ -30,38 +30,6 @@ char gszDDrawDeviceName_00881154[256]; // 0x00881154
 
 int gbDDrawPlatformFlag_0088125C; // 0x0088125C
 
-// 0x00510020
-int __fastcall sub_00510020_DDrawDetect(void* hInstance)
-{
-    T004013C0* pSystemInfo = sub_00407360_GetSystemInfo();
-    D2_ASSERT(pSystemInfo, 0x6F);
-
-    if (pSystemInfo->nPlatform == 1)
-    {
-        gbDDrawPlatformFlag_0088125C = 1;
-    }
-
-    char szKey[] = "Diablo II\\VideoConfig";
-    if (SRegLoadString(szKey, "DeviceName", 0, gszDDrawDeviceName_00881154, sizeof(gszDDrawDeviceName_00881154))
-        && SRegLoadValue(szKey, "dwFlags", 0, &gdwVideoFlags_00881140))
-    {
-        if (gdwVideoFlags_00881140 & gdwBitMasks[0])
-        {
-            return 1;
-        }
-
-        unsigned int nSize = sizeof(gabDDrawDeviceGuid_00881144);
-        if (SRegLoadData(szKey, "GUID", 0, gabDDrawDeviceGuid_00881144, sizeof(gabDDrawDeviceGuid_00881144), &nSize)
-            && nSize == sizeof(gabDDrawDeviceGuid_00881144))
-        {
-            return 1;
-        }
-    }
-
-    strcpy(gszDDrawDeviceName_00881154, "Fallback DirectDraw Device");
-    gdwVideoFlags_00881140 = gdwBitMasks[0];
-    return 1;
-}
 
 tagPALETTEENTRY gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
 
