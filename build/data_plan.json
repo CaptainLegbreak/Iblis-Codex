@@ -2604,8 +2604,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Missile_004CD540.cpp": {
-   "bytes": 64,
-   "definitions": 2,
+   "bytes": 144,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Missile_004D01D0.inc",
@@ -2675,15 +2675,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Missile_004D2D70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/Missile_004D1820.cpp": {
-   "bytes": 80,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/Missile_004D6820.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -73411,7 +73402,7 @@
    "cname": "gData_006DB7F8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Missile_004D1820.cpp",
+   "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006DB7F8_t gData_006DB7F8; // 0x006DB7F8",
    "head": "extern \"C\" const struct d2data_006DB7F8_t gData_006DB7F8 = ",

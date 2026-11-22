@@ -33738,7 +33738,7 @@
   },
   {
    "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x004CD310",
@@ -33793,8 +33793,18 @@
      "length": 331
     },
     {
+     "va": "0x004D1820",
+     "length": 106,
+     "name": "?sub_004D1820_SpawnSubMissile@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D19D0",
      "length": 504
+    },
+    {
+     "va": "0x004D3070",
+     "length": 70,
+     "name": "?sub_004D3070_CltDoOwnerStep@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D48B0",
@@ -33807,6 +33817,14 @@
     {
      "va": "0x004D4F20",
      "length": 364
+    },
+    {
+     "va": "0x004D63E0",
+     "length": 344
+    },
+    {
+     "va": "0x004D6820",
+     "length": 985
     },
     {
      "va": "0x004D7880",
@@ -33930,30 +33948,6 @@
      "va": "0x004D8000",
      "length": 594,
      "name": "?sub_004D8000_CltDoEruption@@YIXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D1820.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004D1820",
-     "length": 106,
-     "name": "?sub_004D1820_SpawnSubMissile@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D3070",
-     "length": 70,
-     "name": "?sub_004D3070_CltDoOwnerStep@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D63E0",
-     "length": 344
-    },
-    {
-     "va": "0x004D6820",
-     "length": 985
     }
    ]
   },
