@@ -1552,7 +1552,6 @@ int __stdcall PATH_GetX(D2DynamicPathStrc*); // 0x00648A20
 
 #define SKILLSFLAGINDEX_AURA 5
 
-
 enum D2C_M80PantherJavelinAi
 {
     PANTHERJAVELIN_AI_PARAM_APPROACH_CHANCE_PCT = 0,
@@ -1562,6 +1561,21 @@ enum D2C_M80PantherJavelinAi
     PANTHERJAVELIN_AI_PARAM_STALL_DURATION = 4,
     PANTHERJAVELIN_AI_PARAM_THROW_DISTANCE = 5,
 };
+
+enum D2C_M80SiegeBeastAi
+{
+    SIEGEBEAST_AI_PARAM_CALL_IMP_DISTANCE = 0,
+    SIEGEBEAST_AI_PARAM_ATTACK_CHANCE_PCT = 1,
+    SIEGEBEAST_AI_PARAM_STAMP_MELEE_CHANCE_PCT = 2,
+    SIEGEBEAST_AI_PARAM_MELEE_STALL_DURATION = 3,
+    SIEGEBEAST_AI_PARAM_STOMP_RANGED_CHANCE_PCT = 4,
+    SIEGEBEAST_AI_PARAM_CHARGE_CHANCE_PCT = 5,
+    SIEGEBEAST_AI_PARAM_CHARGE_VELOCITY = 6,
+};
+
+#define AI_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+#define AI_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 // 0x005B0D00
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
@@ -2385,6 +2399,67 @@ void __fastcall AITHINK_Fn113_SiegeTower(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[0][pGame->nDifficulty]);
+}
+
+// 0x005E1900
+void __fastcall AITHINK_Fn115_SiegeBeast(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTickTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pUnit);
+    if (MONSTERS_IsDead(pUnit))
+    {
+        return;
+    }
+
+    if (!pOwner && STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_EVIL)
+    {
+        D2SiegeBeastTowerAiCallbackArgStrc arg;
+        arg.nMaxDistance = AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_CALL_IMP_DISTANCE) * AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_CALL_IMP_DISTANCE);
+        D2UnitStrc* pTower = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_SiegeBeast, 1);
+        if (pTower)
+        {
+            sub_005E17E0_SiegeBeastSetTower(pTower, pUnit);
+        }
+    }
+
+    if (bCombat)
+    {
+        if (pMonStatsTxt->nSkill[0] >= 0 && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_STAMP_MELEE_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, 0, 0);
+            return;
+        }
+
+        if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTickTarget);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_MELEE_STALL_DURATION));
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && nDistance < sub_004E6C70(pMonStatsTxt->nSkill[0])
+        && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_STOMP_RANGED_CHANCE_PCT))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, 0, 0);
+        return;
+    }
+
+    if (sub_005DC640_HasFreeSpotNearTarget(pUnit, pTickTarget) && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_CHARGE_CHANCE_PCT))
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, AI_MIN(AI_MAX(AI_PARAM(pGame, pMonStatsTxt, SIEGEBEAST_AI_PARAM_CHARGE_VELOCITY), 0), 127), 0);
+        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTickTarget, 12, 0);
+        return;
+    }
+
+    D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTickTarget, 12, 0);
 }
 
 // 0x005E1B60

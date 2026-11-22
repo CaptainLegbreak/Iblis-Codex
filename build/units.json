@@ -62942,6 +62942,11 @@
      "name": "AITHINK_Fn113_SiegeTower"
     },
     {
+     "va": "0x005E1900",
+     "length": 606,
+     "name": "?AITHINK_Fn115_SiegeBeast@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E1B60",
      "length": 459,
      "name": "?AITHINK_Fn116_Minion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68149,17 +68154,6 @@
      "va": "0x005FB7E0",
      "length": 284,
      "name": "AITHINK_Fn079_TrapLeftArrow"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E1900.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E1900",
-     "length": 606,
-     "name": "?AITHINK_Fn115_SiegeBeast@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
