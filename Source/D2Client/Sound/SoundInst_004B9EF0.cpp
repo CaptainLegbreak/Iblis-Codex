@@ -167,3 +167,23 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
     *(int*)pEntry->bArmed = 1;
 }
 
+
+// 0x004BA890
+void __fastcall sub_004BA890_RefreshHintsById(int nHintId)
+{
+    for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
+    {
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
+        if (pEntry->nHintId == nHintId)
+        {
+            D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
+            *(int*)pEntry->f_3D = 1;
+            unsigned char nCount = pCursor->nRefreshCount;
+            if (nCount && pEntry->nState == 1)
+            {
+                sub_004B9EF0_ArmHint(pEntry->nKey, 0, 0, nCount);
+            }
+        }
+    }
+}
+

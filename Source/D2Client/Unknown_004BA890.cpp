@@ -46,25 +46,6 @@ struct D2HintKeyListStrc
 int __cdecl sub_00481820(); // 0x00481820
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
-// 0x004BA890
-void __fastcall sub_004BA890_RefreshHintsById(int nHintId)
-{
-    for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
-    {
-        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-        if (pEntry->nHintId == nHintId)
-        {
-            D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
-            *(int*)pEntry->f_3D = 1;
-            unsigned char nCount = pCursor->nRefreshCount;
-            if (nCount && pEntry->nState == 1)
-            {
-                sub_004B9EF0_ArmHint(pEntry->nKey, 0, 0, nCount);
-            }
-        }
-    }
-}
-
 // 0x004BA950
 void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
 {
