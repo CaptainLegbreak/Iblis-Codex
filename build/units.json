@@ -12524,6 +12524,11 @@
      "name": "sub_004413E0_Enable"
     },
     {
+     "va": "0x00441500",
+     "length": 1409,
+     "name": "?JoinOrCreateGame@@YGHH@Z"
+    },
+    {
      "va": "0x00442180",
      "length": 454
     },
@@ -13156,17 +13161,6 @@
      "va": "0x004435D0",
      "length": 38,
      "name": "?sub_004435D0@@YGHPAX0PBUCharacter@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00441500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00441500",
-     "length": 1409,
-     "name": "?JoinOrCreateGame@@YGHH@Z"
     }
    ]
   },
