@@ -230,13 +230,13 @@ void __stdcall sub_00423850(BigBuffer* pThis, const unsigned char* pData, unsign
 }
 
 // 0x00425720
-unsigned int __fastcall sub_00425720_Rotl(unsigned int nValue, int nShift)
+inline unsigned int __fastcall sub_00425720_Rotl(unsigned int nValue, int nShift)
 {
     return _rotl(nValue, nShift);
 }
 
 // 0x00425730
-void __fastcall sub_00425730_Sha1Round0(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
+inline void __fastcall sub_00425730_Sha1Round0(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
 {
     *e += sub_00425720_Rotl(a, 5) + ((*b & c) | (~*b & d)) + *w + 0x5A827999;
     *b = sub_00425720_Rotl(*b, 30);
@@ -244,7 +244,7 @@ void __fastcall sub_00425730_Sha1Round0(unsigned int a, unsigned int* b, unsigne
 }
 
 // 0x00425770
-void __fastcall sub_00425770_Sha1Round1(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
+inline void __fastcall sub_00425770_Sha1Round1(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
 {
     *e += sub_00425720_Rotl(a, 5) + (*b ^ c ^ d) + *w + 0x6ED9EBA1;
     *b = sub_00425720_Rotl(*b, 30);
@@ -252,7 +252,7 @@ void __fastcall sub_00425770_Sha1Round1(unsigned int a, unsigned int* b, unsigne
 }
 
 // 0x004257B0
-void __fastcall sub_004257B0_Sha1Round2(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
+inline void __fastcall sub_004257B0_Sha1Round2(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
 {
     *e += sub_00425720_Rotl(a, 5) + ((*b & c) | (*b & d) | (c & d)) + *w + 0x8F1BBCDC;
     *b = sub_00425720_Rotl(*b, 30);
@@ -260,7 +260,7 @@ void __fastcall sub_004257B0_Sha1Round2(unsigned int a, unsigned int* b, unsigne
 }
 
 // 0x004257F0
-void __fastcall sub_004257F0_Sha1Round3(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
+inline void __fastcall sub_004257F0_Sha1Round3(unsigned int a, unsigned int* b, unsigned int c, unsigned int d, unsigned int* e, unsigned int* w)
 {
     *e += sub_00425720_Rotl(a, 5) + (*b ^ c ^ d) + *w + 0xCA62C1D6;
     *b = sub_00425720_Rotl(*b, 30);
@@ -268,7 +268,7 @@ void __fastcall sub_004257F0_Sha1Round3(unsigned int a, unsigned int* b, unsigne
 }
 
 // 0x00425830
-void __fastcall sub_00425830_LoadBE32(unsigned int* pOut, const unsigned char* pIn)
+inline void __fastcall sub_00425830_LoadBE32(unsigned int* pOut, const unsigned char* pIn)
 {
     *pOut = ((((pIn[0] << 8) | pIn[1]) << 8 | pIn[2]) << 8) | pIn[3];
 }

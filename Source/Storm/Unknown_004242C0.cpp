@@ -119,7 +119,7 @@ struct BigStack
 };
 
 // 0x004210A0
-unsigned int D2StormArrayAStrc::sub_004210A0_CalcChunkSize(unsigned int nCount)
+inline unsigned int D2StormArrayAStrc::sub_004210A0_CalcChunkSize(unsigned int nCount)
 {
     unsigned int nResult = nCount;
     if (nCount < 0x40)
@@ -133,13 +133,13 @@ unsigned int D2StormArrayAStrc::sub_004210A0_CalcChunkSize(unsigned int nCount)
 }
 
 // 0x00420DB0
-int BigBuffer::sub_00420DB0_InRange(unsigned int nIndex) const
+inline int BigBuffer::sub_00420DB0_InRange(unsigned int nIndex) const
 {
     return m_start + nIndex < m_array.f_4.n;
 }
 
 // 0x004212D0
-unsigned int BigBuffer::sub_004212D0_Get(unsigned int nIndex) const
+inline unsigned int BigBuffer::sub_004212D0_Get(unsigned int nIndex) const
 {
     return sub_00420DB0_InRange(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
 }

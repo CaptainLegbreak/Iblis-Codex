@@ -188,7 +188,7 @@ static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile,
     return 1;
 }
 
-static unsigned int sub_A21_FreeListIndex(unsigned int nSize)
+static inline unsigned int sub_A21_FreeListIndex(unsigned int nSize)
 {
     unsigned int nIndex = nSize >> 5;
     if (nIndex >= 8)

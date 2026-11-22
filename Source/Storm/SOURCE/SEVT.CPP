@@ -21,7 +21,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 void __cdecl operator delete(void* pMemory);                                                                // 0x004053F0
 
-static D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType);
+static inline D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType);
 
 struct BREAKCMD
 {
@@ -100,7 +100,7 @@ static void __cdecl sub_00426210_DeleteHandlerTable(_IDHASHTABLE* pTable)
 }
 
 // 0x00426270
-static D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType)
+static inline D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType)
 {
     if (!gppSEvtTypes_00779300 || !gnSEvtTypeTableSize_00779304)
         return 0;
@@ -162,7 +162,7 @@ int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubType)
 }
 
 // build: context CalcTableSize
-static unsigned int CalcTableSize(unsigned int nCount)
+static inline unsigned int CalcTableSize(unsigned int nCount)
 {
     unsigned int nSize = 1;
     while (nSize <= nCount * 2 + 2)

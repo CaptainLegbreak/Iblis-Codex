@@ -405,7 +405,7 @@ static D2SMemHeapStrc* __stdcall sub_004117F0_CreateHeap(int nLine, unsigned int
     return pHeap;
 }
 
-static unsigned int sub_A21_FreeListIndex(unsigned int nSize)
+static inline unsigned int sub_A21_FreeListIndex(unsigned int nSize)
 {
     unsigned int nIndex = nSize >> 5;
     if (nIndex >= 8)
