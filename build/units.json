@@ -28771,6 +28771,11 @@
      "length": 592
     },
     {
+     "va": "0x004B5810",
+     "length": 64,
+     "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
+    },
+    {
      "va": "0x004B5890",
      "length": 570,
      "name": "?NPCMENU_OpenNpcPanel@@YGXHH@Z"
@@ -28779,6 +28784,11 @@
      "va": "0x004B5AD0",
      "length": 237,
      "name": "?NPCMENU_OpenConfirmDialog@@YGXH@Z"
+    },
+    {
+     "va": "0x004B65F0",
+     "length": 35,
+     "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
     }
    ],
    "flags": [
@@ -28794,22 +28804,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B5810.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B5810",
-     "length": 64,
-     "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
-    },
-    {
-     "va": "0x004B65F0",
-     "length": 35,
-     "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
-    }
    ]
   },
   {
