@@ -34058,6 +34058,11 @@
      "name": "sub_004DA080_FreeGfxMotion"
     },
     {
+     "va": "0x004DA0B0",
+     "length": 28,
+     "name": "_sub_004DA0B0_GetGfxOffsetX@4"
+    },
+    {
      "va": "0x004DA700",
      "length": 22,
      "name": "?sub_004DA700_GetGfxMotionFlag5@@YIHPAUD2UnitStrc@@@Z"
@@ -34071,17 +34076,6 @@
      "va": "0x004DAD20",
      "length": 44,
      "name": "?sub_004DAD20_SetOverlayCelName@@YIXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DA0B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DA0B0",
-     "length": 28,
-     "name": "_sub_004DA0B0_GetGfxOffsetX@4"
     }
    ]
   },
