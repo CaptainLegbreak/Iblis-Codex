@@ -29103,6 +29103,22 @@
    ]
   },
   {
+   "file": "Source/D2Client/UI/npcmenu_004B6620.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004B6620",
+     "length": 35,
+     "name": "?sub_004B6620_InitHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6680",
+     "length": 44,
+     "name": "?sub_004B6680_InitHandler@@YAHXZ"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/Unknown_004AD2F0.cpp",
    "rank": 1,
    "functions": [
@@ -29626,19 +29642,9 @@
      "name": "?sub_004B6390_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
     },
     {
-     "va": "0x004B6620",
-     "length": 35,
-     "name": "?sub_004B6620_InitHandler@@YAHXZ"
-    },
-    {
      "va": "0x004B6650",
      "length": 35,
      "name": "?sub_004B6650_InitHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B6680",
-     "length": 44,
-     "name": "?sub_004B6680_InitHandler@@YAHXZ"
     },
     {
      "va": "0x004B6C70",
