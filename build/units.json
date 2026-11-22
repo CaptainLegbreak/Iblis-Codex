@@ -44196,21 +44196,6 @@
      "name": "?sub_00520200_DeleteQueueLock@@YAXXZ"
     },
     {
-     "va": "0x005204A0",
-     "length": 47,
-     "name": "?sub_005204A0_SetError@@YIHH@Z"
-    },
-    {
-     "va": "0x00520520",
-     "length": 38,
-     "name": "?sub_00520520_SetState@@YIHH@Z"
-    },
-    {
-     "va": "0x00520550",
-     "length": 38,
-     "name": "?sub_00520550_SetStateArg@@YIHPAX@Z"
-    },
-    {
      "va": "0x005205F0",
      "length": 64,
      "name": "?sub_005205F0_GetState@@YIHPAUD2BnStateStrc@@@Z"
@@ -44254,6 +44239,21 @@
     {
      "va": "0x00520440",
      "length": 85
+    },
+    {
+     "va": "0x005204A0",
+     "length": 47,
+     "name": "?sub_005204A0_SetError@@YIHH@Z"
+    },
+    {
+     "va": "0x00520520",
+     "length": 38,
+     "name": "?sub_00520520_SetState@@YIHH@Z"
+    },
+    {
+     "va": "0x00520550",
+     "length": 38,
+     "name": "?sub_00520550_SetStateArg@@YIHPAX@Z"
     },
     {
      "va": "0x00520580",
