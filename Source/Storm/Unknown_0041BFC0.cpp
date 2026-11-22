@@ -1,3 +1,4 @@
+#include "SValidate.h"
 #define OPTION_BIAS 0
 #define INPUT_INDEX 0
 #define ERROR_INVALID 0x57
@@ -7,9 +8,6 @@ extern int gnOption_007790A0;  // 0x007790A0
 extern int gnFlag_00779098;  // 0x00779098
 extern int gbAlignReads_007790A4;  // 0x007790A4
 extern int gbSLogDebugOutput_007790AC;  // 0x007790AC
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(ERROR_INVALID); return 0; }
 // 0x0041BFC0
 int __stdcall StormGetOption(unsigned int nOption, const void* pInput, unsigned int nSize)
 {

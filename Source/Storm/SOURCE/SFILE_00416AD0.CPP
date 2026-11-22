@@ -65,7 +65,6 @@ static int __stdcall ReadFileChecked(unsigned int offset, unsigned int* filePos,
         }
     }
 }
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 // 0x00416AD0
 unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileStrc* file, unsigned int offset, unsigned char* buffer, unsigned int size)

@@ -151,9 +151,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define INVALID_FILE_HANDLE ((void*)-1)
 #define MAX_WBITS       15
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATEENDVOID if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
+#include "SValidate.h"
 #define ZSWAP32(q) ((((q) >> 24) & 0xff) + (((q) >> 8) & 0xff00) + \
                     (((q) & 0xff00) << 8) + (((q) & 0xff) << 24))
 #define Z_BLOCK         5

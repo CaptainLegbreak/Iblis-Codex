@@ -1,5 +1,4 @@
 #include "Storm.h"
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2StormQuadStrc;
 extern "C" int gnBufferBase_007D5448;
@@ -282,14 +281,9 @@ int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, un
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
-    __assume((*szKeyName) != 0);
     VALIDATE(szValueName);
-    __assume((szValueName) != 0);
     VALIDATE(*szValueName);
-    __assume((*szValueName) != 0);
     VALIDATEEND;
     return InternalDeleteEntry(nFlags, szKeyName, szValueName);
 }
@@ -299,14 +293,9 @@ int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsig
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
-    __assume((*szKeyName) != 0);
     VALIDATE(szValueName);
-    __assume((szValueName) != 0);
     VALIDATE(*szValueName);
-    __assume((*szValueName) != 0);
     VALIDATEEND;
     if (!pData)
     {
@@ -320,16 +309,10 @@ int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, uns
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
-    __assume((*szKeyName) != 0);
     VALIDATE(szValueName);
-    __assume((szValueName) != 0);
     VALIDATE(*szValueName);
-    __assume((*szValueName) != 0);
     VALIDATE(szString);
-    __assume((szString) != 0);
     VALIDATEEND;
     return nValid ? InternalSaveEntry(szKeyName, szValueName, nFlags, 1, (const unsigned char*)szString, SStrLen(szString) + 1) : 0;
 }
@@ -339,14 +322,9 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
-    __assume((*szKeyName) != 0);
     VALIDATE(szValueName);
-    __assume((szValueName) != 0);
     VALIDATE(*szValueName);
-    __assume((*szValueName) != 0);
     VALIDATEEND;
     return InternalSaveEntry(szKeyName, szValueName, nFlags, 4, (const unsigned char*)&dwValue, 4);
 }

@@ -128,11 +128,8 @@ extern const char gszCorruptCache_006DEF00[]; // 0x006DEF00
         dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
     dwCrc = ~dwCrc
 
-#define VALIDATEBEGIN int nValid = -1
 
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2);
 

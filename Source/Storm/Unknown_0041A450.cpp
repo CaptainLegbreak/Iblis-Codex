@@ -1,6 +1,5 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 #define STREAM_NEXT(l) ((D2StormAudioStreamStrc*)((((int)(l)->m_next <= 0) - 1) & (int)(l)->m_next))
 
 struct D2StormSoundBufferStrc;

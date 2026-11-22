@@ -86,9 +86,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
     for (; nCount; --nCount, ++pBytes) \
         dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
     dwCrc = ~dwCrc
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
+#include "SValidate.h"
 
 struct D2BigLoginRecordStrc
 {

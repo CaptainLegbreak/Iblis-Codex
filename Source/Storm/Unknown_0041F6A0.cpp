@@ -1,7 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormLink.h"
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct HWND__;
 struct D2StormLinkStrc;

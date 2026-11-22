@@ -1,4 +1,5 @@
 #include "D2SysTypes.h"
+#include "SValidate.h"
 struct D2StormFileRecStrc;
 struct D2StormBlockStrc { unsigned int nOffset,nPackedSize,nFileSize,dwFlags,unk10,unk14,nCrc; };
 struct D2StormArchiveRecStrc { char pad00[0x110];int nMode;char pad114[8];D2StormFileRecStrc* pCachedFile;unsigned int nCachedOffset,nBlockSize;unsigned char* pBlockBuffer;unsigned int f_12C; };
@@ -196,13 +197,9 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
 // 0x00419790
 static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
 {
-    int nValid = -1;
-    nValid &= (pDest || pBuffer) ? -1 : 0;
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return 0;
-    }
+    VALIDATEBEGIN;
+    VALIDATE(pDest || pBuffer);
+    VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     D2StormRequestStrc* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;
@@ -230,10 +227,7 @@ static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, uns
     return pRequest;
 }
 static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback); // 0x00419790
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define min(a,b) (((a) < (b)) ? (a) : (b))
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 // 0x0041AAD0
 int __stdcall sub_0041AAD0_StormReadFile(void* hFile,unsigned char* buffer,unsigned int size,unsigned int* read,D2StormOverlappedStrc* overlap,int unused,void* callback)
 {

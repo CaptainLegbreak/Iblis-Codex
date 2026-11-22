@@ -2,7 +2,6 @@
 #include "D2SFileTypes.h"
 #include "D2StormLink.h"
 #include "D2GameTypes.h"
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2ChatStormLinkStrc;
 struct D2ChatStormLinkAStrc;
@@ -228,10 +227,7 @@ int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefi
     else
         *phArchive = 0;
     VALIDATE(szPrefix);
-    // stands for the original keeping the null test of szPrefix when *szPrefix is validated next (a plain pair drops it)
-    __assume((szPrefix) != 0);
     VALIDATE(*szPrefix);
-    __assume((*szPrefix) != 0);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     sub_00415B90_InitCryptTable();

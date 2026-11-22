@@ -263,13 +263,9 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
 // 0x00419790
 static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
 {
-    int nValid = -1;
-    nValid &= (pDest || pBuffer) ? -1 : 0;
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return 0;
-    }
+    VALIDATEBEGIN;
+    VALIDATE(pDest || pBuffer);
+    VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     D2StormRequestStrc* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;

@@ -58,7 +58,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLin
 
 void __stdcall CopyIdHashTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource); // 0x00426180
 
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 
@@ -174,7 +173,8 @@ static unsigned int CalcTableSize(unsigned int nCount)
 // 0x00426420
 int __stdcall SEvtRegisterHandler(unsigned int nType, unsigned int nSubType, unsigned int nId, unsigned int dwFlags, SEVTHANDLER pfnHandler)
 {
-    int nValid = (__int64)pfnHandler ? -1 : 0;
+    VALIDATEBEGIN;
+    VALIDATE(pfnHandler);
     VALIDATE(!dwFlags);
     VALIDATEEND;
 

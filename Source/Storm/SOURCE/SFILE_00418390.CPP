@@ -8,12 +8,12 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 void __cdecl sub_00415B90_InitCryptTable();
 int __fastcall sub_00417F10_FindFile(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, char* szFoundPath);
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return nValid; }
 
 // 0x00418390
 int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags)
 {
-    int nValid = (__int64)szFileName ? -1 : 0;
+    VALIDATEBEGIN;
+    VALIDATE(szFileName);
     VALIDATE(*szFileName);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);

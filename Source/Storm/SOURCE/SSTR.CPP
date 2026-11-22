@@ -1,12 +1,10 @@
+#include "SValidate.h"
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                              // 0x0041D2A0
 double __cdecl sub_00414260_PowInt(double x, int nExp);
 
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 // 0x00414310
 char* __stdcall SStrDup(const char* szString)

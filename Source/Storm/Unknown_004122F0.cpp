@@ -1,7 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2CriticalSectionStrc;
 struct D2SMemBlockInfoStrc;
@@ -173,15 +172,10 @@ int __stdcall SMemFindNextBlock(unsigned int hHeap, void* pMemory, void** ppBloc
     }
 
     int nValid = -1;
-    nValid &= hHeap ? -1 : 0;
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(hHeap != 0);
-    nValid &= ppBlock ? -1 : 0;
-    __assume(ppBlock != 0);
-    nValid &= pInfo ? -1 : 0;
-    __assume(pInfo != 0);
-    nValid &= (pInfo->dwSize == sizeof(D2SMemBlockInfoStrc)) ? -1 : 0;
-    __assume(pInfo->dwSize == sizeof(D2SMemBlockInfoStrc));
+    VALIDATE(hHeap);
+    VALIDATE(ppBlock);
+    VALIDATE(pInfo);
+    VALIDATE(pInfo->dwSize == sizeof(D2SMemBlockInfoStrc));
     if (!nValid)
     {
         sub_0041C340_SetLastError(0x57);
@@ -263,12 +257,8 @@ int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, D2SMemH
     }
     VALIDATEBEGIN;
     VALIDATE(phNext);
-    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
-    __assume(phNext != 0);
     VALIDATE(pInfo);
-    __assume(pInfo != 0);
     VALIDATE(pInfo->dwSize == 0x128);
-    __assume(pInfo->dwSize == 0x128);
     VALIDATEEND;
 
     SMemZero(&pInfo->hHeap, pInfo->dwSize - 4);

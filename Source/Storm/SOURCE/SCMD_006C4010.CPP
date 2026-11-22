@@ -1,3 +1,4 @@
+#include "SValidate.h"
 struct D2ScmdNode006C4CF0Strc;
 
 struct sub_006C4010_Link;
@@ -334,12 +335,10 @@ int __stdcall SCmdGetString(int nId, char* szBuffer, unsigned int nBufferSize)
         *szBuffer = 0;
     }
 
-    int nValid = (szBuffer ? -1 : 0) & (nBufferSize ? -1 : 0);
-    if (!nValid)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return nValid;
-    }
+    VALIDATEBEGIN;
+    VALIDATE(szBuffer);
+    VALIDATE(nBufferSize);
+    VALIDATEEND;
 
     for (int i = 0; i <= 1; ++i)
     {
