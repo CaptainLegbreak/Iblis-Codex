@@ -95,6 +95,94 @@ void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQu
 
 void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget); // 0x00545780
 
+#define QFLAG_UPDATEQUESTLOG 13
+
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
+
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
+
+static inline int sub_00623C60(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
+}
+
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwUnitId;
+}
+
+// 0x0059BBC0
+void __fastcall ACT2Q5_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pQuestArg->pPlayer);
+    D2BitBufferStrc* pQuestFlags = pPlayerData->pQuestData[pGame->nDifficulty];
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_REWARDPENDING))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
+    }
+    else if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+    }
+    else if (pQuestData->bNotIntro && pQuestData->fState)
+    {
+        const int nRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_REWARDGRANTED);
+        const int nUpdateLog = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_UPDATEQUESTLOG);
+        if (nRewardGranted == 1 && !nUpdateLog)
+        {
+            return;
+        }
+
+        if (pQuestData->fState >= 2 && !nUpdateLog)
+        {
+            return;
+        }
+
+        const int nIndex = gnAct2Quest5NpcIndices[pQuestData->fState];
+        if (nIndex != -1 && (unsigned int)nIndex < 4)
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
+        }
+    }
+}
+
+// 0x0059BD10
+int __fastcall ACT2Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 13, 0) == 1)
+    {
+        return 0;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 13, 1) == 1)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 12);
+    if (pQuestData && pQuestData->fState == 1)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 13, 2);
+    }
+
+    return 0;
+}
+
 // 0x0059BD70
 void __fastcall ACT2Q5_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

@@ -586,6 +586,31 @@ D2EventTimerStrc* __fastcall sub_00540DF0_Shim(D2GameStrc* pGame, D2UnitStrc* pU
     return EVENT_AllocateUnitTimer(pGame, pUnit);
 }
 
+struct Data00541860;
+
+struct Unit00541860;
+
+// 0x005415A0
+int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent)
+{
+    D2EventTimerStrc* pEventTimer = SUNIT_GetTimerFromUnit(pUnit);
+    int nEventFrame = 0;
+    while (pEventTimer)
+    {
+        D2EventTimerStrc* pNext = pEventTimer->pNext;
+        if (pEventTimer->nEventType == nEvent)
+        {
+            const int nFrame = pEventTimer->nExpireFrame;
+            if (nFrame > 0 && (nFrame < nEventFrame || !nEventFrame))
+            {
+                nEventFrame = nFrame;
+            }
+        }
+        pEventTimer = pNext;
+    }
+    return nEventFrame;
+}
+
 // 0x005415E0
 static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType)
 {

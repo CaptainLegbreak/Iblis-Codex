@@ -4538,12 +4538,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_0059C3C0.cpp": {
+  "Source/D2Game/Quests/a2q6_0059C3C0.cpp": {
    "bytes": 24,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_0059C3C0.inc",
+   "include": "gen/data/Source/D2Game/Quests/a2q6_0059C3C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4668,12 +4668,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005A1650.cpp": {
+  "Source/D2Game/MONSTER/MonsterUnique_005A1650.cpp": {
    "bytes": 160,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005A1650.inc",
+   "include": "gen/data/Source/D2Game/MONSTER/MonsterUnique_005A1650.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -107568,7 +107568,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_0059C3C0.cpp",
+   "file": "Source/D2Game/Quests/a2q6_0059C3C0.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
@@ -108854,7 +108854,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005A1650.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A1650.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2AuraEnchantStrc gAuraEnchantTable_0073BF68[8] = ",

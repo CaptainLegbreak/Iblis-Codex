@@ -1693,6 +1693,12 @@ static __declspec(noinline) void sub_0052C260_SendGameInit(D2GameStrc* pGame, D2
     CLIENTS_SetClientState(pClient, 1);
 }
 
+// 0x0052C320
+void __stdcall GAME_SetInitSeed(int nInitSeed)
+{
+    gnInitSeed_00731004 = nInitSeed;
+}
+
 // 0x0052C330
 int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket)
 {
@@ -1731,11 +1737,6 @@ int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket)
         return 0;
     }
     return nPlayerClass < 7u;
-}
-
-void __stdcall GAME_SetInitSeed(int nInitSeed)
-{
-    nInitSeed_6FDC2CA08 = nInitSeed;
 }
 
 // 0x0052C3E0

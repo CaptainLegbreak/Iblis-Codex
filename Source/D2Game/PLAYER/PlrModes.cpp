@@ -2151,4 +2151,38 @@ void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
+#define PREFIX
+
+#define HOVER_FLAG 0x100
+
+#define HOVER_EVENT 6
+
+// 0x005A7F00
+void __fastcall sub_005A7F00_ExpireHover(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2HoverTextStrc* pHoverText = pUnit->pHoverText;
+    if (!pHoverText)
+    {
+        return;
+    }
+
+    const unsigned int nTimeout = CHAT_GetTimeoutFromHoverMsg(pHoverText);
+    if (nTimeout <= pGame->dwGameFrame)
+    {
+        CHAT_FreeHoverMsg(pGame->pMemoryPool, pHoverText);
+        pUnit->pHoverText = 0;
+        UNITROOM_RefreshUnit(pUnit);
+        pUnit->dwFlags |= UNITFLAG_HASTXTMSG;
+    }
+    else
+    {
+        EVENT_SetEvent(pGame, pUnit, HOVER_EVENT, nTimeout, 0, 0);
+    }
+}
+
 #include "gen/data/Source/D2Game/PLAYER/PlrModes.inc"

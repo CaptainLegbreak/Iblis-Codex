@@ -1,0 +1,80 @@
+#include "D2MonsterIds.h"
+#include "D2Game.h"
+#include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
+#include "D2GameServer.h"
+#include "D2GameObjs.h"
+#include "D2ItemsWorld.h"
+
+struct D2ObjectControlStrc;
+struct Entry00547390;
+struct Sub00547390;
+struct Obj00547390;
+struct D2MonRegDataStrc;
+struct D2MonsterRegionStrc;
+struct D2ObjOperateFnStrc;
+
+struct Entry00547390 { unsigned int dwUnknown00[4]; int nCount10; };
+
+struct Sub00547390 { unsigned char bUnknown00[0x48]; Entry00547390* pEntries48[1]; };
+
+struct Obj00547390 { unsigned char bUnknown00[0x10F0]; Sub00547390* pSub10F0; };
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
+enum
+{
+    ACT_II = 1,
+};
+
+// 0x005474C0
+int __fastcall OBJRGN_GetTrapMonsterId(D2ObjOperateFnStrc* pOp)
+{
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOp->hObject));
+    const unsigned char nAct = DRLG_GetActNoFromLevelId(nLevelId);
+    D2ObjectRegionStrc* pObjectRegion = pOp->pGame->pObjectControl->pObjectRegion[nLevelId];
+    if (pObjectRegion->nTrapMonsterId < 0 || pObjectRegion->nTrapMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        int nTrapMonsterIds1[] = { MONSTER_ZOMBIE1 };
+        int nTrapMonsterIds2[] = { MONSTER_MUMMY1 };
+        int nTrapMonsterIds3[] = { MONSTER_SKELETON1, MONSTER_SK_ARCHER1, MONSTER_SKMAGE_POIS1, MONSTER_SKMAGE_COLD1, MONSTER_SKMAGE_FIRE1, MONSTER_SKMAGE_LTNG1 };
+
+        const int* pTrapMonsterIds = nTrapMonsterIds1;
+        if (nAct == ACT_II)
+        {
+            pTrapMonsterIds = nTrapMonsterIds2;
+        }
+
+        D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pOp->pGame->pMonReg, nLevelId);
+        pObjectRegion->nTrapMonsterId = MONSTER_FLYINGSCIMITAR;
+
+        for (int j = 0; j < pMonsterRegion->nMonCount; ++j)
+        {
+            const int nMonsterId = pMonsterRegion->pMonData[j].nMonHcIdx;
+            for (int i = 0; i < 1; ++i)
+            {
+                if (nMonsterId >= pTrapMonsterIds[i] && nMonsterId < pTrapMonsterIds[i] + 5)
+                {
+                    pObjectRegion->nTrapMonsterId = pTrapMonsterIds[i];
+                    return pTrapMonsterIds[i];
+                }
+            }
+
+            for (int i = 0; i < 6; ++i)
+            {
+                if (nMonsterId >= nTrapMonsterIds3[i] && nMonsterId < nTrapMonsterIds3[i] + 4)
+                {
+                    pObjectRegion->nTrapMonsterId = nTrapMonsterIds3[i];
+                    return nTrapMonsterIds3[i];
+                }
+            }
+        }
+    }
+
+    return pObjectRegion->nTrapMonsterId;
+}

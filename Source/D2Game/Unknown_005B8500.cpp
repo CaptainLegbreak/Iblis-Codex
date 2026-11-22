@@ -42,12 +42,6 @@ int __fastcall sub_005B8500_IsSewerStairsClosed(D2GameStrc* pGame)
     return 0;
 }
 
-// 0x005B8750
-int __fastcall sub_005B8750_LacksKhalimFlail(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
-}
-
 // 0x005B8B00
 void __fastcall sub_005B8B00_AddFlailsDropped(D2GameStrc* pGame, int nCount)
 {
@@ -58,43 +52,4 @@ void __fastcall sub_005B8B00_AddFlailsDropped(D2GameStrc* pGame, int nCount)
         pQuestDataEx->nFlailsDropped += nCount;
         pQuestDataEx->bFlailDropped = 1;
     }
-}
-
-// 0x005B85E0
-void __fastcall sub_005B85E0_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bSewerStairsInitialized == 1)
-    {
-        D2UnitStrc* pFoundUnit = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSewerStairsObjectGUID);
-        if (!pFoundUnit)
-        {
-            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
-            return;
-        }
-
-        UNITS_ChangeAnimMode(pFoundUnit, pQuestDataEx->nSewerStairsObjectMode);
-        if (pQuestDataEx->nSewerStairsObjectMode != OBJMODE_OPENED)
-        {
-            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
-            const int nClassId = pFoundUnit->dwClassId;
-            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
-            sub_005417D0_DirectDated(pQuestData->pGame, pFoundUnit, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pQuestData->pGame->dwGameFrame, 0, 0);
-        }
-    }
-}
-
-// 0x005B8BF0
-int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_REWARDGRANTED) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_COMPLETEDBEFORE)
-        || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_PRIMARYGOALDONE)
-        || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_COMPLETEDNOW))
-    {
-        QUESTS_StatusCyclerEx(pGame, pUnit, QUEST_A3Q3_GIDBINN);
-    }
-
-    return 0;
 }

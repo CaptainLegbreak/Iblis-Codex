@@ -150,6 +150,32 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
+#define UNIT_OBJECT 2
+
+#define EVENTTYPE_ENDANIM 1
+
+#define QUEST_A3Q3_GIDBINN 17
+
+#define QFLAG_REWARDGRANTED 0
+
+#define QFLAG_PRIMARYGOALDONE 13
+
+#define QFLAG_COMPLETEDNOW 14
+
+#define QFLAG_COMPLETEDBEFORE 15
+
+struct D2Act3Quest2Strc;
+
+union D2SeedStrc;
+
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+
+// 0x005B8750
+int __fastcall sub_005B8750_LacksKhalimFlail(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
+}
+
 // 0x005B9090
 void __fastcall ACT3Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -618,6 +644,35 @@ void __fastcall sub_005B9C80_ClearBossSpawned(D2QuestDataStrc* pQuestData, D2Uni
     {
         pQuestDataEx->bBossHasSpawned = 0;
     }
+}
+
+void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam);
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitId);                 // 0x00552F60
+
+// 0x005B9CD0
+void __fastcall ACT3Q3_SetAltarMode(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 17);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->bAltarCanBeActivated = 0;
+
+    D2UnitStrc* pAltar = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nAltarGUID);
+    if (!pAltar)
+    {
+        return;
+    }
+
+    UNITS_ChangeAnimMode(pAltar, 1);
+    const int nClassId = pAltar->dwClassId;
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
+    sub_005417D0_DirectDated(pGame, pAltar, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pGame->dwGameFrame + 1, 0, 0);
+    pQuestDataEx->nAltarObjectMode = 2;
 }
 
 // 0x005B9D40

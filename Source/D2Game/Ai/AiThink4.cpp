@@ -3781,6 +3781,31 @@ bool __fastcall sub_6FCE69A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
 
 }
 
+#define CMD_ID 4
+
+#define DURATION 20
+
+#define INTERVAL 10
+
+// 0x005E6E80
+bool __fastcall sub_005E6E80(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
+{
+    bool bResult = false;
+    if (pUnit && pPosition && pPosition->nX && pPosition->nY)
+    {
+        bResult = sub_6FCE61E0(pGame, pUnit, pAiTickParam, pPosition);
+        D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, CMD_ID, 0);
+        if (pAiCmd)
+        {
+            pAiCmd->nCmdParam[1] = pPosition->nX;
+            pAiCmd->nCmdParam[2] = pPosition->nY;
+            pAiCmd->nCmdParam[3] = DURATION;
+            pAiCmd->nCmdParam[4] = INTERVAL;
+        }
+    }
+    return bResult;
+}
+
 // 0x005E6EF0
 bool __fastcall sub_005E6EF0_MapAiActionWalkToPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
 {
@@ -10355,6 +10380,124 @@ void __fastcall AITHINK_Fn037_SkeletonBow(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
 }
 
+enum D2C_J11AiConstants
+{
+    LEVEL_AI_TRAPARROW_RANDOM = 40,
+    UNITFLAG_J11_SPAWNED = 0x4000000,
+    STATE_J11_SPAWNED = 184,
+};
+
+int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax);                                       // 0x004BC500
+
+inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005F6220
+void __fastcall AITHINK_Fn038_MaggotLarva(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (pAiTickParam->bCombat)
+    {
+        if (pAiControl->dwAiParam[0] || AI_RollPercentage(pUnit) >= AI_GetParam(pGame, pMonStatsTxt, 0))
+        {
+            pAiControl->dwAiParam[0] = 0;
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 1));
+        }
+        else
+        {
+            pAiControl->dwAiParam[0] = 1;
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        }
+        return;
+    }
+
+    pAiControl->dwAiParam[0] = 0;
+    if (AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 2))
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 1);
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 3));
+}
+
+enum D2C_M84PinHeadAi
+{
+    PINHEAD_AI_PARAM_ATTACK_CHANCE_PCT = 0,
+    PINHEAD_AI_PARAM_ATTACK_STALL_DURATION = 1,
+    PINHEAD_AI_PARAM_APPROACH_CHANCE_PCT = 2,
+    PINHEAD_AI_PARAM_IDLE_STALL_DURATION = 3,
+    PINHEAD_AI_PARAM_SMITE_CHANCE_PCT = 4,
+    PINHEAD_AI_PARAM_SKILL2_CHANCE_PCT = 5,
+};
+
+// 0x005F6340
+void __fastcall AITHINK_Fn039_PinHead(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (pAiTickParam->bCombat)
+    {
+        if (pAiControl->dwAiParam[0] && !((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, PINHEAD_AI_PARAM_ATTACK_CHANCE_PCT)))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, PINHEAD_AI_PARAM_ATTACK_STALL_DURATION));
+            return;
+        }
+
+        pAiControl->dwAiParam[0] = 1;
+
+        if (pMonStatsTxt->nSkill[0] >= 0 && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, PINHEAD_AI_PARAM_SMITE_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[1] >= 0 && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, PINHEAD_AI_PARAM_SKILL2_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+            return;
+        }
+
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    pAiControl->dwAiParam[0] = 0;
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, PINHEAD_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, PINHEAD_AI_PARAM_IDLE_STALL_DURATION));
+}
+
 // 0x005F6530
 void __fastcall AITHINK_Fn040_MaggotEgg(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -12030,6 +12173,24 @@ void __fastcall sub_005FB9B0_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     }
     pAiControl->dwAiParam[1] = 0;
     AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[2][pGame->nDifficulty]);
+}
+
+// 0x005FBA60
+void __fastcall AITHINK_Fn087_TrapMelee(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (pAiTickParam->bCombat)
+    {
+        if (AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 0))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 1));
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 40);
 }
 
 // 0x005FC830

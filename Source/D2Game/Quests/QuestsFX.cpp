@@ -237,3 +237,8 @@ void __fastcall QUESTSFX_ShenkTheOverseer(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     return QUESTSFX_MainHandler(pGame, pUnit, 35, 25, 125, 0);
 }
+// 0x005E0060
+void __fastcall sub_005E0060_QuestsFxEmpty(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+}
+

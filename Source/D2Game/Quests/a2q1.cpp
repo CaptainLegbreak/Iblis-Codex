@@ -254,6 +254,38 @@ int __fastcall ACT2Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+#define QFLAG_PRIMARYGOALDONE 13
+
+struct Flags;
+
+struct D2Act3Quest5Strc;
+
+struct Quest { char pad[9]; unsigned char notIntro; char padA[2]; unsigned char state; char padD[0xD3]; int filter; };
+
+int __stdcall sub_0065C310(Flags*,int,int); // 0x0065C310
+
+enum { NPC_ID = 176 };
+
+extern "C" const char gszAct3Q5SourceFile[];
+
+int __fastcall QUESTS_GetGlobalState(D2GameStrc* pGame, int nQuestState, int nFlag);
+
+void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00545530
+
+int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
+
+int __fastcall ACT3Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
+
+// 0x00598910
+bool __fastcall sub_00598910(Quest* quest,int npc,Unit* player,Flags* flags,Unit* npcUnit)
+{
+    if (npc == NPC_ID && sub_0065C310(flags,quest->filter,0)!=1) {
+        if (quest->notIntro && quest->state==1 && !sub_0065C310(flags,quest->filter,15)) return true;
+        if (sub_0065C310(flags,quest->filter,1)==1) return true;
+    }
+    return false;
+}
+
 // 0x00598990
 void __fastcall ACT2Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

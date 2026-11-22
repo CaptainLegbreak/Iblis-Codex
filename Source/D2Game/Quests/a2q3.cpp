@@ -419,6 +419,29 @@ bool __fastcall sub_005994F0_ACT2Q1_IsDoneOrInactive(D2GameStrc* pGame)
     return pQuestData->fState == 5 ? true : false;
 }
 
+// 0x00599700
+int __fastcall ACT2Q2_UnitIterate_DetermineHoradricScrollDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, 0) == 1)
+    {
+        return 0;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, 3))
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A2Q2_HORADRICSTAFF);
+    if (pQuestData)
+    {
+        ++((D2Act2Quest2Strc*)pQuestData->pQuestDataEx)->nItemDropCount;
+    }
+
+    return 0;
+}
+
 // 0x00599A20
 void __fastcall sub_00599A20_EmptyCallback(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -467,6 +490,48 @@ int __fastcall OBJECTS_OperateFunction40_HoradricScrollChest(D2ObjOperateFnStrc*
             {
                 int nItemLevel;
                 D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
+            }
+        }
+
+        OBJMODE_DropFromChestTCWithQuality(pOp, ITEMQUAL_MAGIC);
+
+        D2SeedStrc* pSeed = QUESTS_GetGlobalSeed(pOp->pGame);
+        const int nCounter = SEED_RollRandomNumber(pSeed) % 5 + 5;
+        for (int i = 0; i < nCounter; ++i)
+        {
+            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
+        }
+    }
+    return nResult;
+}
+
+int __fastcall ACT2Q2_UnitIterate_DetermineStaffDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00599750
+
+// 0x00599CF0
+int __fastcall sub_00599CF0(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    int nResult = 0;
+    if (QUESTS_SetObjectSelection(pOp))
+    {
+        pOp->hObject->dwDropItemCode = ' fsm';
+
+        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q2_HORADRICSTAFF);
+        if (pQuestData)
+        {
+            D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)pQuestData->pQuestDataEx;
+            pQuestDataEx->nItemDropCount = 0;
+            SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT2Q2_UnitIterate_DetermineStaffDropCount);
+
+            for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
+            {
+                int nItemLevel;
+                D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
+                if (pItem)
+                {
+                    ITEMS_SetItemFlag(pItem, 0x10, 1);
+                    ++pQuestDataEx->nBaseStaffs;
+                    pQuestDataEx->bHoradricScrollDropped = 1;
+                }
             }
         }
 
@@ -544,6 +609,19 @@ void __fastcall sub_M118_Emit_0059A3C0(D2QuestDataStrc* pQuestData)
         sub_0059A3C0_ACT2Q3_EndTaintedSun(pQuestData, pQuestData->pGame);
         QUESTS_TriggerFX(pQuestData->pGame, 6);
     }
+}
+
+// 0x00599F10
+void __fastcall sub_00599F10_GetA2Q2Value(D2GameStrc* pGame, int* pnValue, unsigned char* pbFlag)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 9);
+    if (pQuestData)
+    {
+        *pnValue = ((D2Act2Quest2Strc*)pQuestData->pQuestDataEx)->nHoradricCubes;
+        *pbFlag = ((D2Act2Quest2Strc*)pQuestData->pQuestDataEx)->bCubeDropped;
+    }
+    *pnValue = 0;
+    *pbFlag = 1;
 }
 
 // 0x00599F50

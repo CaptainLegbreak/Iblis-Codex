@@ -54,6 +54,22 @@ static inline int GetUnitType(D2UnitStrc* pUnit)
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
+void __stdcall MISSILE_FreeMissileData(D2UnitStrc* pMissile); // 0x0064A150
+
+void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
+
+// 0x0059F8E0
+void __fastcall MISSILES_Free(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    if (!pMissile)
+    {
+        return;
+    }
+
+    MISSILE_FreeMissileData(pMissile);
+    sub_6FC349F0(pGame, pMissile);
+}
+
 // 0x0059F900
 static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nLevel) // 0x0059F900
 {

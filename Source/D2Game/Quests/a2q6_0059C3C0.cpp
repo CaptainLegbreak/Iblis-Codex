@@ -114,4 +114,4 @@ void __fastcall sub_0059C3C0_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArg
     QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
 }
 
-#include "gen/data/Source/D2Game/Unknown_0059C3C0.inc"
+#include "gen/data/Source/D2Game/Quests/a2q6_0059C3C0.inc"
