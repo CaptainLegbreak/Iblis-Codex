@@ -152,7 +152,8 @@ struct D2MonsterRegionStrc
     int nMonsterRegionLevel; // 0x0C
     unsigned char nMonCount; // 0x10
     unsigned char nTotalRarity; // 0x11
-    unsigned short unk0x12; // 0x12
+    unsigned char nSpawnCount; // 0x12
+    unsigned char unk0x13; // 0x13
     D2MonRegDataStrc pMonData[13]; // 0x14
     int nMonsterCount; // 0x2B8
     unsigned char nBossMin; // 0x2BC

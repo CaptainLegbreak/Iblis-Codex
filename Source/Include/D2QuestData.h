@@ -350,7 +350,8 @@ struct D2Act2Quest7Strc
 
 struct D2Act2Quest8Strc
 {
-    unsigned short unk0x00; // 0x00
+    unsigned char unk0x00; // 0x00
+    unsigned char unk0x01; // 0x01
 };
 
 struct D2Act3Quest0Strc

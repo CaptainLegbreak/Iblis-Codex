@@ -219,28 +219,6 @@ void __fastcall ACT2Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
-// 0x00598810
-void __fastcall ACT2Q0_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[11] = ACT2Q0_Callback11_ScrollMessage;
-    pQuestData->pCallback[0] = ACT2Q0_Callback00_NpcActivate;
-    pQuestData->pCallback[10] = ACT2Q0_Callback10_PlayerLeavesGame;
-    pQuestData->pCallback[13] = ACT2Q0_Callback13_PlayerStartedGame;
-    pQuestData->pNPCMessages = gpAct2Q0NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    pQuestData->fLastState = 0;
-    pQuestData->pQuestDataEx = 0;
-    pQuestData->eFilter = 8;
-    pQuestData->pfStatusFilter = ACT3Q7_StatusFilterCallback;
-    pQuestData->pfActiveFilter = ACT2Q0_ActiveFilterCallback;
-
-    D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest0Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q0.cpp", 172, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
-}
-
 // 0x005988B0
 int __fastcall ACT2Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

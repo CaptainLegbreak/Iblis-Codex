@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -19,17 +20,6 @@ typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArg
 typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
 typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-
-struct D2Act2Quest7Strc
-{
-    unsigned char unk0x00;
-};
-
-struct D2Act2Quest8Strc
-{
-    unsigned char unk0x00;
-    unsigned char unk0x01;
-};
 
 enum
 {
@@ -301,25 +291,6 @@ void __fastcall ACT2Q8_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, MONSTER_ACT2GUARD5, 0);
     }
-}
-
-// 0x0059E530
-void __fastcall ACT2Q8_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[11] = ACT2Q8_Callback11_ScrollMessage;
-    pQuestData->pCallback[0] = ACT2Q8_Callback00_NpcActivate;
-    pQuestData->pNPCMessages = gpAct2Q8NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    pQuestData->fLastState = 0;
-    D2Act2Quest8Strc* pQuestDataEx = (D2Act2Quest8Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest8Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q8.cpp", 150, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestDataEx->unk0x00 = 0;
-    pQuestDataEx->unk0x01 = 0;
-    pQuestData->eFilter = QUESTSTATEFLAG_A2Q8;
-    pQuestData->pfStatusFilter = ACT2Q8_StatusFilterCallback;
-    pQuestData->pfActiveFilter = ACT2Q8_ActiveFilterCallback;
 }
 
 #include "gen/data/Source/D2Game/Quests/a2q7.inc"
