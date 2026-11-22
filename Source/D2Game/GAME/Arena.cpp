@@ -37,6 +37,19 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
+// 0x0053F470
+static int __stdcall sub_0053F470_ArenaHasFlag(D2GameStrc* pGame, unsigned int nFlag)
+{
+    D2ArenaStrc* pArena = pGame->pArenaCtrl;
+    D2_ASSERT(pArena, 39);
+    return (pArena->fFlags & nFlag) != 0;
+}
+
+int __fastcall sub_K10_EmitArenaTestFlag(D2GameStrc* pGame)
+{
+    return sub_0053F470_ArenaHasFlag(pGame, 0x800);
+}
+
 // 0x0053F4B0
 void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int nUnused, unsigned int nFlags, unsigned char nTemplate)
 {
