@@ -16,7 +16,7 @@ int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc
 int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nStep); // 0x005DEF80
 int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005FA690
-#define AI_PARAM(i) (pMonStats->wAiParam[i][pGame->nDifficulty])
+#define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define ROLL() ((int)SEED_RollLimitedRandomNumber(pSeed, 100))
 
 // 0x005FA710
@@ -93,7 +93,7 @@ void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pU
     }
     D2RegurgitatorAiCallbackArgStrc args;
     args.pTarget = 0;
-    const int nDistance = AI_PARAM(5);
+    const int nDistance = AI_PARAM(pGame, pMonStats, 5);
     args.nDistance = nDistance * nDistance;
     AIUTIL_FindTargetWithCallback(pGame, pUnit, &args, AITHINK_TargetCallback_Regurgitator, 1);
     pCorpse = args.pTarget;
@@ -126,7 +126,7 @@ void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pU
     }
     if (pCorpse)
     {
-        if (AITHINK_GetSquaredDistance(pUnit, pCorpse) < 9 && ROLL() < AI_PARAM(1))
+        if (AITHINK_GetSquaredDistance(pUnit, pCorpse) < 9 && ROLL() < AI_PARAM(pGame, pMonStats, 1))
         {
             AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
             pAi->dwAiParam[0] = 2;
@@ -134,7 +134,7 @@ void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pU
             pAi->dwAiParam[2] = 0;
             return;
         }
-        if (ROLL() < AI_PARAM(4))
+        if (ROLL() < AI_PARAM(pGame, pMonStats, 4))
         {
             AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
             pAi->dwAiParam[0] = 2;
@@ -156,7 +156,7 @@ void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pU
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
         return;
     }
-    if (pCorpse && ROLL() < AI_PARAM(3))
+    if (pCorpse && ROLL() < AI_PARAM(pGame, pMonStats, 3))
     {
         AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pCorpse, 1);
         pAi->dwAiParam[0] = 2;

@@ -32,7 +32,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkill)
 }
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
-#define AI_PARAM(n) pMonStats->wAiParam[n][pGame->nDifficulty]
+#define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 // 0x005EC8C0
 void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
 {
@@ -48,7 +48,7 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     D2UnitStrc* pCombatTarget = pTick->pTarget;
     int bCombat = pTick->bCombat;
     bUseSkill = 1;
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(4))
+    if (sub_006416D0_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(pGame, pMonStats, 4))
     {
         if (sub_005E3EA0(pGame, pOwner, pUnit, 3, 0, 0, 6)) return;
     }
@@ -69,7 +69,7 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
             if (pTarget) nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
         }
     }
-    if (nDistance >= AI_PARAM(1))
+    if (nDistance >= AI_PARAM(pGame, pMonStats, 1))
         pTarget = 0;
     else if (pTarget)
         bReachable = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
@@ -94,7 +94,7 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     }
     if (pTarget && bReachable && bUseSkill)
     {
-        if (pAiControl->dwAiParam[1] + AI_PARAM(0) < pGame->dwGameFrame)
+        if (pAiControl->dwAiParam[1] + AI_PARAM(pGame, pMonStats, 0) < pGame->dwGameFrame)
         {
             AITACTICS_UseSkill(pGame, pUnit, 8, pMonStats->nSkill[0], pTarget, 0, 0);
             pAiControl->dwAiParam[1] = pGame->dwGameFrame;
@@ -105,10 +105,10 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     {
         if (SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25)
         {
-            sub_005DEFE0_Escape(pGame, pUnit, pCombatTarget, (unsigned char)AI_PARAM(3), 0);
+            sub_005DEFE0_Escape(pGame, pUnit, pCombatTarget, (unsigned char)AI_PARAM(pGame, pMonStats, 3), 0);
             return;
         }
     }
     if (pTarget) sub_005DEC80_Walk(pGame, pUnit, pTarget, 7);
-    else AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(2));
+    else AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStats, 2));
 }

@@ -27,8 +27,7 @@ int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUni
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
-#define AI_PARAM(n) pMonStats->wAiParam[n][pGame->nDifficulty]
-
+#define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 // 0x005ECEE0
 void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
 {
@@ -62,7 +61,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    const int nRange = AI_PARAM(3);
+    const int nRange = AI_PARAM(pGame, pMonStats, 3);
     int nDistance;
     int bCombat;
     D2UnitStrc* pTarget = sub_6FCCFD40(pGame, pUnit, pAiControl, &nDistance, &bCombat, nRange);
@@ -98,7 +97,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    if (nOwnerDistance2 > AI_PARAM(4))
+    if (nOwnerDistance2 > AI_PARAM(pGame, pMonStats, 4))
     {
         if (sub_005E3EA0(pGame, pOwner, pUnit, 0, 1, 100, 0))
         {
@@ -107,7 +106,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 
     const int nOwnerMode = pOwner->dwAnimMode;
-    if (nOwnerDistance2 > AI_PARAM(2))
+    if (nOwnerDistance2 > AI_PARAM(pGame, pMonStats, 2))
     {
         if (nOwnerMode == 2 || nOwnerMode == 6)
         {
@@ -136,7 +135,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         if (bCombat)
         {
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
-            AITACTICS_Idle(pGame, pUnit, AI_PARAM(0));
+            AITACTICS_Idle(pGame, pUnit, AI_PARAM(pGame, pMonStats, 0));
             return;
         }
 
@@ -157,7 +156,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(1))
+    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(pGame, pMonStats, 1))
     {
         AITACTICS_WalkCloseToUnit(pGame, pUnit, 10);
         return;
