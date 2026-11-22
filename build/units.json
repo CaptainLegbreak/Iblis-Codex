@@ -3916,6 +3916,11 @@
      "name": "?SFileGetLocale@@YGGXZ"
     },
     {
+     "va": "0x00416700",
+     "length": 15,
+     "name": "SFileSetPlatform"
+    },
+    {
      "va": "0x00416710",
      "length": 54,
      "name": "?SFileUnloadFile@@YGHPAX@Z"
@@ -4226,6 +4231,11 @@
      "name": "?SFileDdaSetVolume@@YGHPAXHH@Z"
     },
     {
+     "va": "0x00418390",
+     "length": 92,
+     "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
+    },
+    {
      "va": "0x00418470",
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
@@ -4289,6 +4299,11 @@
      "va": "0x00418B50",
      "length": 46,
      "name": "?sub_00418B50@@YAHXZ"
+    },
+    {
+     "va": "0x00418B80",
+     "length": 24,
+     "name": "SFileFileExists"
     },
     {
      "va": "0x00418C60",
@@ -4371,6 +4386,16 @@
      "name": "?SFileLoadFileEx2@@YGHPAXPBDPAPAXPAIIH0H@Z"
     },
     {
+     "va": "0x0041B210",
+     "length": 112,
+     "name": "?sub_0041B210_FindWaveChunk@@YAHPAXIPAI@Z"
+    },
+    {
+     "va": "0x0041BEB0",
+     "length": 36,
+     "name": "sub_0041BEB0_FlushAndNotify"
+    },
+    {
      "va": "0x0041D410",
      "length": 4,
      "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
@@ -4440,6 +4465,20 @@
      "length": 6,
      "name": "sub_0042DC40"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -5274,6 +5313,20 @@
      "va": "0x0041BCA0",
      "length": 514
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -5844,7 +5897,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -5872,28 +5926,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00416700.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00416700",
-     "length": 15,
-     "name": "SFileSetPlatform"
-    },
-    {
-     "va": "0x00418B80",
-     "length": 24,
-     "name": "SFileFileExists"
-    },
-    {
-     "va": "0x0041BEB0",
-     "length": 36,
-     "name": "sub_0041BEB0_FlushAndNotify"
-    }
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -5917,7 +5951,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6182,7 +6217,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6219,6 +6255,20 @@
      "length": 423,
      "name": "?SFileDestroy@@YAHXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6240,6 +6290,20 @@
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6260,17 +6324,20 @@
      "va": "0x00419180",
      "length": 364
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00418390.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00418390",
-     "length": 92,
-     "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
-    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6353,7 +6420,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6377,7 +6445,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6434,6 +6503,20 @@
      "length": 71,
      "name": "?SFilePrioritizeRequest@@YGXPAXH@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6457,7 +6540,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6481,18 +6565,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_0041B210.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041B210",
-     "length": 112,
-     "name": "?sub_0041B210_FindWaveChunk@@YAHPAXIPAI@Z"
-    }
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6516,7 +6590,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6540,7 +6615,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {

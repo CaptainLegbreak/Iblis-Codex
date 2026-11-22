@@ -839,64 +839,39 @@ D2ChatStormListCStrc::D2ChatStormListCStrc()
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-static D2StormLinkStrc* STORM_LinkNextLink(D2StormLinkStrc* pLink, int nLinkOffset)
-{
-    if ((int)pLink->m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)pLink->m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)pLink - pLink->m_prevlink->m_next;
-    return (D2StormLinkStrc*)(pLink->m_next + nLinkOffset);
-}
-
-static char* STORM_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next <= 0 ? 0 : pLink->m_next;
-}
-
-static void STORM_LinkUnlink(D2StormLinkStrc* pLink)
-{
-    if (pLink->m_prevlink)
-    {
-        STORM_LinkNextLink(pLink, -1)->m_prevlink = pLink->m_prevlink;
-        pLink->m_prevlink->m_next = pLink->m_next;
-        pLink->m_prevlink = 0;
-        pLink->m_next = 0;
-    }
-}
-
 // 0x00418900
 void D2StormList00708354Strc::sub_00418900_UnlinkAll()
 {
-    while (char* pNode = STORM_LinkNext(&m_terminator))
-        STORM_LinkUnlink((D2StormLinkStrc*)pNode);
+    while (char* pNode = m_terminator.Next())
+        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // 0x00418940
 void D2StormList00708360Strc::sub_00418940_UnlinkAll()
 {
-    while (char* pNode = STORM_LinkNext(&m_terminator))
-        STORM_LinkUnlink((D2StormLinkStrc*)pNode);
+    while (char* pNode = m_terminator.Next())
+        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // 0x00418980
 void D2StormList0070836CStrc::sub_00418980_UnlinkAll()
 {
-    while (char* pNode = STORM_LinkNext(&m_terminator))
-        STORM_LinkUnlink((D2StormLinkStrc*)pNode);
+    while (char* pNode = m_terminator.Next())
+        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // 0x004189C0
 void D2StormList00708378Strc::sub_004189C0_UnlinkAll()
 {
-    while (char* pNode = STORM_LinkNext(&m_terminator))
-        STORM_LinkUnlink((D2StormLinkStrc*)pNode);
+    while (char* pNode = m_terminator.Next())
+        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // 0x00418A00
 void D2StormList00708384Strc::sub_00418A00_UnlinkAll()
 {
-    while (char* pNode = STORM_LinkNext(&m_terminator))
-        STORM_LinkUnlink((D2StormLinkStrc*)pNode);
+    while (char* pNode = m_terminator.Next())
+        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // build: symbol ??_GARCHIVEREC@@QAEPAXI@Z 0x00418B20
