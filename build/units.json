@@ -65510,6 +65510,10 @@
      "name": "SKILLS_SrvSt60_SuckBlood"
     },
     {
+     "va": "0x005D16A0",
+     "length": 339
+    },
+    {
      "va": "0x005D1800",
      "length": 216,
      "name": "SKILLS_SrvDo128_CryHelp"
@@ -65540,9 +65544,17 @@
      "name": "?SKILLS_CreateMissileVolley@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@HHH@Z"
     },
     {
+     "va": "0x005D1CD0",
+     "length": 154
+    },
+    {
      "va": "0x005D1D70",
      "length": 152,
      "name": "?SKILLS_ApplyAuraStateToTarget@@YGXPAUUnit@@0HH@Z"
+    },
+    {
+     "va": "0x005D1F70",
+     "length": 280
     },
     {
      "va": "0x005D2090",
@@ -66082,24 +66094,6 @@
     {
      "va": "0x005D0E90",
      "length": 489
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillDruid_005D16A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D16A0",
-     "length": 339
-    },
-    {
-     "va": "0x005D1CD0",
-     "length": 154
-    },
-    {
-     "va": "0x005D1F70",
-     "length": 280
     }
    ]
   },
