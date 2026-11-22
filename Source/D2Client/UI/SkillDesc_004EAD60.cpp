@@ -685,35 +685,7 @@ static int __stdcall sub_004E80F0_AddRangeText(Unicode* wszText, int bSeparator,
     return 1;
 }
 
-// 0x004EC090
-static void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nPercent, int nBonus, int nMonsterId)
-{
-    if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return;
-    }
-
-    D2MonStatsTxt* pMonStatsTxt = &sgptDataTables->pMonStatsTxt[nMonsterId];
-    if (!pMonStatsTxt)
-    {
-        return;
-    }
-
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
-    D2MonStatsInitStrc monStatsInit;
-    memset(&monStatsInit, 0, sizeof(monStatsInit));
-    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
-    {
-        return;
-    }
-
-    int nLife = (monStatsInit.nMinHP + monStatsInit.nMaxHP) / 2;
-    nLife += nLife * nPercent / 100 + nBonus;
-    if (nLife)
-    {
-        sub_004E79E0_AddValueText(0x10C6, 0, nLife, wszText);
-    }
-}
+void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nPercent, int nBonus, int nMonsterId); // 0x004EC090
 
 static int __stdcall sub_004EC140_AddElemRange(int nElemType, unsigned short nString, int nMax, int nMin, Unicode* wszText)
 {
@@ -767,77 +739,11 @@ static int __stdcall sub_004EC280_AddMissileElemDamage(D2UnitStrc* pUnit, Unicod
     return sub_004EC140_AddElemRange(MISSILE_GetElemTypeFromMissileId(nMissileId), nString, nMax, nMin, wszText);
 }
 
-// 0x004EC2E0
-static int __stdcall sub_004EC2E0_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nBonus, int nPercent, int nSkillLevel)
-{
-    Unicode wszNumber[32];
-    char szNumber[32];
-    int nMin = SKILLS_GetMinPhysDamage(pUnit, nSkillId, nSkillLevel, 0) >> 8;
-    int nMax = SKILLS_GetMaxPhysDamage(pUnit, nSkillId, nSkillLevel, 0) >> 8;
-    nMin += ApplyPercent_2E0(nMin, nPercent) + nBonus;
-    nMax += ApplyPercent_2E0(nMax, nPercent) + nBonus;
-    if (!nMin && !nMax)
-    {
-        return 0;
-    }
+int __stdcall sub_004EC2E0_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nBonus, int nPercent, int nSkillLevel); // 0x004EC2E0
 
-    if (nMin != nMax)
-    {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
-    }
-    else if (nMin >= 0)
-    {
-        wsprintfA(szNumber, szFmtPlusD_006DBE90, nMin);
-    }
-    else
-    {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
-    }
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10A0));
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int sub_004EC510_AddToHit(int nSkillLevel, int nSkillId, D2UnitStrc* pUnit, Unicode* wszText); // 0x004EC510
 
-// 0x004EC510
-static int sub_004EC510_AddToHit(int nSkillLevel, int nSkillId, D2UnitStrc* pUnit, Unicode* wszText)
-{
-    const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel);
-    if (!nToHit)
-    {
-        return 0;
-    }
-
-    return sub_004E7E70_AddValueTwoTexts(0x10A6, 0x10B3, 1, nToHit, wszText);
-}
-
-// 0x004EC540
-static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, int nMin, int nMax, Unicode* wszText)
-{
-    Unicode wszNumber[32];
-    char szNumber[32];
-    if (!nMin && !nMax)
-    {
-        return 0;
-    }
-
-    if (nMin == nMax)
-    {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
-    }
-    else
-    {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
-    }
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10E2));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10BE));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, int nMin, int nMax, Unicode* wszText); // 0x004EC540
 
 static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nMissileId, int nSkillLevel)
 {
@@ -912,155 +818,17 @@ static int __stdcall sub_004EC740_AddSkillElemRateByType(Unicode* wszText, D2Ski
     return sub_004EC540_AddElemRatePerSecond(nString, nMin, nMax, wszText);
 }
 
-// 0x004EC7E0
-static int __stdcall sub_004EC7E0_AddValueLine(unsigned short nStringAfter, int bPlus, int bPercent, int nValue, unsigned short nStringBefore, Unicode* wszText)
-{
-    if (!nValue)
-    {
-        return 0;
-    }
+int __stdcall sub_004EC7E0_AddValueLine(unsigned short nStringAfter, int bPlus, int bPercent, int nValue, unsigned short nStringBefore, Unicode* wszText); // 0x004EC7E0
 
-    Unicode wszNumber[32];
-    char szNumber[32];
-    if (bPlus && nValue >= 0)
-    {
-        wsprintfA(szNumber, szFmtPlusD_006DBE90, nValue);
-    }
-    else
-    {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
-    }
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    if (nStringBefore != 0x1506)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    }
-    sub_00526700(wszText, wszNumber);
-    if (bPercent)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA1));
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004EC900_AddDecimalLine(unsigned short nStringAfter, int bPlus, int bPercent, int nWhole, int nFraction, unsigned short nStringBefore, Unicode* wszText); // 0x004EC900
 
-// 0x004EC900
-static int __stdcall sub_004EC900_AddDecimalLine(unsigned short nStringAfter, int bPlus, int bPercent, int nWhole, int nFraction, unsigned short nStringBefore, Unicode* wszText)
-{
-    if (nStringBefore == 0x1506)
-    {
-        return 0;
-    }
+int __stdcall sub_004ECA00_AddValueOverTime(unsigned short nStringAfter, int nValue, int bPlus, int nCount, unsigned short nStringBefore, Unicode* wszText); // 0x004ECA00
 
-    if (!nWhole && !nFraction)
-    {
-        return 0;
-    }
+int sub_004ECB10_AddTextPair(unsigned short nString1, unsigned short nString2, Unicode* wszText); // 0x004ECB10
 
-    Unicode wszNumber[32];
-    sub_004E7430_FormatDecimal(wszNumber, bPlus, nWhole, nFraction);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, wszNumber);
-    if (bPercent)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA1));
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004ECB80_AddValueAfterText(unsigned short nStringAfter, int bPlus, int bPercent, int nValue, unsigned short nStringBefore, Unicode* wszText); // 0x004ECB80
 
-// 0x004ECA00
-static int __stdcall sub_004ECA00_AddValueOverTime(unsigned short nStringAfter, int nValue, int bPlus, int nCount, unsigned short nStringBefore, Unicode* wszText)
-{
-    if (nStringBefore != 0x1506 && nValue && nCount > 0)
-    {
-    char szNumber[32];
-    Unicode wszNumber[32];
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_004E73E0_FormatValue(wszNumber, bPlus, nValue);
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA0));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nCount);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-    }
-
-    return 0;
-}
-
-// 0x004ECB10
-static int sub_004ECB10_AddTextPair(unsigned short nString1, unsigned short nString2, Unicode* wszText)
-{
-    if (nString1 != 0x1506 && nString2 != 0x1506)
-    {
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString1));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString2));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-    }
-
-    return 0;
-}
-
-// 0x004ECB80
-static int __stdcall sub_004ECB80_AddValueAfterText(unsigned short nStringAfter, int bPlus, int bPercent, int nValue, unsigned short nStringBefore, Unicode* wszText)
-{
-    if (nStringBefore == 0x1506)
-    {
-        return 0;
-    }
-
-    if (!nValue)
-    {
-        return 0;
-    }
-
-    Unicode wszNumber[32];
-    sub_004E73E0_FormatValue(wszNumber, bPlus, nValue);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, wszNumber);
-    if (bPercent)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA1));
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004ECC80
-static int __stdcall sub_004ECC80_AddFormattedText(int nValue, unsigned short nString, Unicode* wszText)
-{
-    if (nString == 0x1506)
-    {
-        return 0;
-    }
-
-    Unicode wszLine[0x100];
-    sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nString), nValue);
-    sub_00526700(wszText, wszLine);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004ECC80_AddFormattedText(int nValue, unsigned short nString, Unicode* wszText); // 0x004ECC80
 
 static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt)
 {
@@ -1168,17 +936,7 @@ static inline int SkillParam_0D0(int nSkillId, int nLevel)
     return pSkillsTxt->dwParam[0] + (nLevel - 1) * pSkillsTxt->dwParam[1];
 }
 
-// 0x004ED0D0
-static int sub_004ED0D0_AddNextLevelParam(int nSkillLevel, int nSkillId, Unicode* wszText)
-{
-    if (nSkillLevel > 1)
-    {
-        sub_004E7C30_AddValueTextAfter(0x10D5, 0, SkillParam_0D0(nSkillId, nSkillLevel - 1), wszText);
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x110D));
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    }
-    return 1;
-}
+int sub_004ED0D0_AddNextLevelParam(int nSkillLevel, int nSkillId, Unicode* wszText); // 0x004ED0D0
 
 int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
@@ -1236,31 +994,7 @@ int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszT
     return 1;
 }
 
-// 0x004EDB30
-static int __stdcall sub_004EDB30_AddSeconds(unsigned short nString, int bPlus, int nFrames, Unicode* wszText)
-{
-    Unicode wszNumber[32];
-    const int nSeconds = nFrames / 25;
-    const int nTenths = nFrames % 25 * 10 / 25;
-    if (!nSeconds && !nTenths)
-    {
-        return 0;
-    }
-
-    if (nTenths)
-    {
-        sub_004E7430_FormatDecimal(wszNumber, bPlus, nSeconds, nTenths);
-    }
-    else
-    {
-        sub_004E73E0_FormatValue(wszNumber, bPlus, nSeconds);
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nSeconds == 1 && !nTenths ? 0x10AB : 0x10AC));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004EDB30_AddSeconds(unsigned short nString, int bPlus, int nFrames, Unicode* wszText); // 0x004EDB30
 
 static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nSkillId, D2UnitStrc* pUnit)
 {

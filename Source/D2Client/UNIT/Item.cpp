@@ -1891,28 +1891,7 @@ static void __stdcall sub_004C3F60_BeltItemToCursor(D2GSPacketSrv9C* pPacket, D2
     sub_004C2180_UpdateCursorItem(pItem);
 }
 
-// 0x004C40D0
-void __fastcall sub_004C40D0_BeltPacket2_9C(D2GSPacketSrv9C* pPacket)
-{
-    D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
-
-    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
-    if (!pItem)
-    {
-        return;
-    }
-
-    const int nMode = pItem->dwAnimMode;
-    if (nMode == 0)
-    {
-        sub_004C3F60_BeltItemToCursor(pPacket, &tItemSave);
-    }
-    else if (nMode == 4)
-    {
-        sub_004C3E00_CursorItemToBelt(pPacket, &tItemSave);
-    }
-}
+void __fastcall sub_004C40D0_BeltPacket2_9C(D2GSPacketSrv9C* pPacket); // 0x004C40D0
 
 static void __stdcall sub_004C43E0_ItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStrc* pItemSave)
 {
@@ -1984,28 +1963,7 @@ void __stdcall sub_004C44D0_ItemFromBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStr
     sub_004C2180_UpdateCursorItem(pItem);
 }
 
-// 0x004C45C0
-void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket)
-{
-    D2ItemSaveStrc tItemSave;
-    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
-
-    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
-    if (!pItem)
-    {
-        return;
-    }
-
-    const int nMode = pItem->dwAnimMode;
-    if (nMode == 2)
-    {
-        sub_004C44D0_ItemFromBelt(pPacket, &tItemSave);
-    }
-    else if (nMode == 4)
-    {
-        sub_004C43E0_ItemToBelt(pPacket, &tItemSave);
-    }
-}
+void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket); // 0x004C45C0
 
 // 0x004C4620
 void __fastcall sub_004C4620(D2PacketRecord8Strc* pPacket)

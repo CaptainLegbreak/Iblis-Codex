@@ -530,11 +530,7 @@ extern D2HirelingIconRecordStrc* gpHirelingRecords_007BEEAC; // 0x007BEEAC
 
 int gdwGlobal_007BC974; // 0x007BC974
 
-// 0x00402A80
-int __cdecl sub_00402A80_IsDbgHelpLoaded()
-{
-    return ghDbgHelp_0098A680 != 0;
-}
+int __cdecl sub_00402A80_IsDbgHelpLoaded(); // 0x00402A80
 
 // 0x0044BFF0
 int __cdecl sub_0044BFF0_IsSet()

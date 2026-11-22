@@ -794,33 +794,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     }
 }
 
-// 0x0046FEB0
-static void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit)
-{
-    const int nId = sub_0046DAC0_GetItemClassId(pUnit);
-    if (nId < 0 || nId >= sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return;
-    }
-    const int nIndex = sgptDataTables->pMonStatsTxt[nId].wMonStatsEx;
-    if (nIndex < 0 || nIndex >= sgptDataTables->nMonStats2TxtRecordCount)
-    {
-        return;
-    }
-    D2MonStats2Txt* pMonStats2 = &sgptDataTables->pMonStats2Txt[nIndex];
-    if (!pMonStats2)
-    {
-        return;
-    }
-    for (unsigned int i = 0; i < gnCofModeCount_00712B00; ++i)
-    {
-        const unsigned int nMode = gaCofModes_00712AC4[i];
-        if (pMonStats2->aModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7])
-        {
-            sub_0046FDA0_PreloadMonsterMode(bAsync, pUnit, nMode);
-        }
-    }
-}
+void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit); // 0x0046FEB0
 
 // build: context sub_0046FF50_PreloadPlayerMode
 static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)

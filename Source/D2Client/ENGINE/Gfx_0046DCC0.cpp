@@ -116,21 +116,7 @@ static void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest
     }
 }
 
-// 0x0046DC40
-D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
-{
-    char szName[0x104] = { 0 };
-    sub_0046DBF0_GetBaseName(szPath, szName);
-    _strlwr(szName);
-    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
-    {
-        if (*(unsigned int*)&szName[0] == pEntry->dwName[0] && *(unsigned int*)&szName[4] == pEntry->dwName[1])
-        {
-            return pEntry;
-        }
-    }
-    return 0;
-}
+D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
 
 // 0x0046DCC0
 static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)

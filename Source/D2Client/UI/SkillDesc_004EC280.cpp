@@ -143,456 +143,53 @@ static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType)
     return 0;
 }
 
-// 0x004E6EA0
-static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pSkillsTxt && pSkillsTxt->nEType == 1)
-    {
-        int nBonus = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_FIRE_MASTERY, 0);
-        if (nBonus)
-        {
-            int nValue = *pValue1;
-            *pValue1 = nValue + DATATBLS_ApplyRatio(nValue, nBonus, 100);
-            nValue = *pValue2;
-            *pValue2 = nValue + DATATBLS_ApplyRatio(nValue, nBonus, 100);
-        }
-    }
-}
+void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2); // 0x004E6EA0
 
-// 0x004E6F00
-static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pSkillsTxt && pSkillsTxt->nEType == 2)
-    {
-        int nBonus = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_LTNG_MASTERY, 0);
-        if (nBonus)
-        {
-            int nValue = *pValue1;
-            *pValue1 = nValue + DATATBLS_ApplyRatio(nValue, nBonus, 100);
-            nValue = *pValue2;
-            *pValue2 = nValue + DATATBLS_ApplyRatio(nValue, nBonus, 100);
-        }
-    }
-}
+void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2); // 0x004E6F00
 
 void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel); // 0x004E72D0
 
-// 0x004E73E0
-static int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
-{
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusD_006DBE90, nValue);
-    else
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    return 1;
-}
+int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue); // 0x004E73E0
 
-// 0x004E7430
-static int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
-{
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusDecimal_006DBE9C, nValue, nFraction);
-    else
-        wsprintfA(szText, szFmtDecimal_006DBE94, nValue, nFraction);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    return 1;
-}
+int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction); // 0x004E7430
 
-// 0x004E7480
-static int sub_004E7480_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
-{
-    if (!nValue && !nFraction)
-        return 0;
-    if (nFraction)
-        return sub_004E7430_FormatSignedDecimal(wszText, bPrefixSign, nValue, nFraction);
-    return sub_004E73E0_FormatSignedInt(wszText, bPrefixSign, nValue);
-}
+int sub_004E7480_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction); // 0x004E7480
 
-// 0x004E7650
-static int __stdcall sub_004E7650_AppendFrameRange(Unicode* wszOut, unsigned short wStr, int nMinFrames, int nMaxFrames)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
+int __stdcall sub_004E7650_AppendFrameRange(Unicode* wszOut, unsigned short wStr, int nMinFrames, int nMaxFrames); // 0x004E7650
 
-    int nMin = nMinFrames / 25;
-    int nMinFraction = nMinFrames % 25 * 10 / 25;
-    int nMax = nMaxFrames / 25;
-    int nMaxFraction = nMaxFrames % 25 * 10 / 25;
-    if (!nMin && !nMinFraction && !nMax)
-        return 0;
+int __stdcall sub_004E77A0_AppendScaledRange(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int nMaxValue, int nMultiplier, int nMinValue); // 0x004E77A0
 
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (nMinFraction || nMaxFraction)
-        wsprintfA(szText, szFmtDecRange_006DBEC8, nMin, nMinFraction, nMax, nMaxFraction);
-    else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0x10AC));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004E7930_AppendFormattedValue(Unicode* wszOut, int nValue, unsigned short wStr); // 0x004E7930
 
-// 0x004E77A0
-static int __stdcall sub_004E77A0_AppendScaledRange(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int nMaxValue, int nMultiplier, int nMinValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
+int __stdcall sub_004E79E0_AppendLabelValue(Unicode* wszOut, unsigned short wStr, int nValue, int bPrefixSign); // 0x004E79E0
 
-    int nMin = nMinValue / 256;
-    int nMinFraction = nMinValue % 256 * nMultiplier / 256;
-    int nMax = nMaxValue / 256;
-    int nMaxFraction = nMaxValue % 256 * nMultiplier / 256;
-    if (!nMin && !nMax && !nMinFraction && !nMaxFraction)
-        return 0;
+int __stdcall sub_004E7A90_AppendScaledValue(Unicode* wszOut, int bPrefixSign, int nValue, unsigned short wStr1, unsigned short wStr2, int nMultiplier); // 0x004E7A90
 
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (nMinFraction || nMaxFraction)
-        wsprintfA(szText, szFmtDecRange_006DBEC8, nMin, nMinFraction, nMax, nMaxFraction);
-    else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    if (wStr1 != 0x1506)
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
-    sub_00526700(wszOut, wszText);
-    if (wStr2 != 0x1506)
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, Unicode* wszOut, int bPrefixSign, int nValue, int nFraction); // 0x004E7B90
 
-// 0x004E7930
-static int __stdcall sub_004E7930_AppendFormattedValue(Unicode* wszOut, int nValue, unsigned short wStr)
-{
-    int wszText_[128]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 256; ++i)
-        wszText[i] = 0;
+int __stdcall sub_004E7C30_AppendValueLabel(Unicode* wszOut, unsigned short wStr, int nValue, int bPrefixSign); // 0x004E7C30
 
-    if (wStr == 0x1506)
-    {
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0x1506));
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-        return 1;
-    }
+int __stdcall sub_004E7CE0_AppendValueTwoLabels(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int bPrefixSign, int nValue); // 0x004E7CE0
 
-    sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(wStr), nValue);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    sub_00526700(wszOut, wszText);
-    return 1;
-}
+int __stdcall sub_004E7DB0_AppendValueCountLabel(Unicode* wszOut, int nValue, int nStr1, int nStr2, int bPrefixSign); // 0x004E7DB0
 
-// 0x004E79E0
-static int __stdcall sub_004E79E0_AppendLabelValue(Unicode* wszOut, unsigned short wStr, int nValue, int bPrefixSign)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
+int __stdcall sub_004E7E70_AppendLabelValueLabel(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int bPrefixSign, int nValue); // 0x004E7E70
 
-    if (!nValue)
-        return 0;
+int __stdcall sub_004E7F40_AppendLabelRangeLabel(unsigned short wStr1, unsigned short wStr2, Unicode* wszOut, int bPrefixSign, int nMin, int nMax); // 0x004E7F40
 
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusD_006DBE90, nValue);
-    else
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004E8020_AppendLabelsRange(unsigned short wStr1, unsigned short wStr2, Unicode* wszOut, int bPrefixSign, int nMin, int nMax); // 0x004E8020
 
-// 0x004E7A90
-static int __stdcall sub_004E7A90_AppendScaledValue(Unicode* wszOut, int bPrefixSign, int nValue, unsigned short wStr1, unsigned short wStr2, int nMultiplier)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
+int __stdcall sub_004E80F0_AppendLabelRange(unsigned short wStr, Unicode* wszOut, int bSeparator, int nMin, int nMax, int bPrefixSign); // 0x004E80F0
 
-    if (!nValue)
-        return 0;
-
-    sub_004E7480_FormatIntOrDecimal(wszText, bPrefixSign, nValue / 256, nValue % 256 * nMultiplier / 256);
-    if (wStr1 != 0x1506)
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
-    sub_00526700(wszOut, wszText);
-    if (wStr2 != 0x1506)
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E7B90
-static int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, Unicode* wszOut, int bPrefixSign, int nValue, int nFraction)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    if (!nValue && nFraction <= 0)
-        return 0;
-
-    sub_004E7480_FormatIntOrDecimal(wszText, bPrefixSign, nValue, nFraction);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E7C30
-static int __stdcall sub_004E7C30_AppendValueLabel(Unicode* wszOut, unsigned short wStr, int nValue, int bPrefixSign)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    if (!nValue)
-        return 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusD_006DBE90, nValue);
-    else
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E7CE0
-static int __stdcall sub_004E7CE0_AppendValueTwoLabels(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int bPrefixSign, int nValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    if (!nValue)
-        return 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusD_006DBE90, nValue);
-    else
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E7DB0
-static int __stdcall sub_004E7DB0_AppendValueCountLabel(Unicode* wszOut, int nValue, int nStr1, int nStr2, int bPrefixSign)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    if (!nValue)
-        return 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusD_006DBE90, nValue);
-    else
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(nValue == 1 ? nStr1 : nStr2));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E7E70
-static int __stdcall sub_004E7E70_AppendLabelValueLabel(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int bPrefixSign, int nValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    if (!nValue)
-        return 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusD_006DBE90, nValue);
-    else
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E7F40
-static int __stdcall sub_004E7F40_AppendLabelRangeLabel(unsigned short wStr1, unsigned short wStr2, Unicode* wszOut, int bPrefixSign, int nMin, int nMax)
-{
-    if (nMin == nMax)
-        return sub_004E7E70_AppendLabelValueLabel(wszOut, wStr1, wStr2, 0, nMin);
-
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign)
-        wsprintfA(szText, szFmtPlusRange_006DBEA4, nMin, nMax);
-    else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    if (wStr1 != 0x1506)
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
-    sub_00526700(wszOut, wszText);
-    if (wStr2 != 0x1506)
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E8020
-static int __stdcall sub_004E8020_AppendLabelsRange(unsigned short wStr1, unsigned short wStr2, Unicode* wszOut, int bPrefixSign, int nMin, int nMax)
-{
-    if (nMin == nMax)
-        return sub_004E7E70_AppendLabelValueLabel(wszOut, wStr1, wStr2, 0, nMin);
-
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign)
-        wsprintfA(szText, szFmtPlusRange_006DBEA4, nMin, nMax);
-    else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E80F0
-static int __stdcall sub_004E80F0_AppendLabelRange(unsigned short wStr, Unicode* wszOut, int bSeparator, int nMin, int nMax, int bPrefixSign)
-{
-    if (nMin == nMax)
-        return sub_004E79E0_AppendLabelValue(wszOut, wStr, nMin, bPrefixSign);
-
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign)
-        wsprintfA(szText, szFmtPlusRange_006DBEA4, nMin, nMax);
-    else
-        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    if (bSeparator)
-        sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E81C0
-static int __stdcall sub_004E81C0_AppendLabelValueLabels(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, unsigned short wStr3, int bPrefixSign, int nValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    if (!nValue)
-        return 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    if (bPrefixSign && nValue >= 0)
-        wsprintfA(szText, szFmtPlusD_006DBE90, nValue);
-    else
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr1));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr2));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr3));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004E81C0_AppendLabelValueLabels(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, unsigned short wStr3, int bPrefixSign, int nValue); // 0x004E81C0
 
 int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue); // 0x004E82A0
 
 int __stdcall sub_004E83E0_AppendSecondsThirds(Unicode* wszOut, unsigned short wStr, int nValue); // 0x004E83E0
 
-// 0x004E84F0
-static int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut)
-{
-    const Unicode* wszStr1 = D2LANG_GetStringFromTblIndex(0x5300);
-    const Unicode* wszStr2 = D2LANG_GetStringFromTblIndex(0x5304);
-    const Unicode* wszStr3 = D2LANG_GetStringFromTblIndex(0x5305);
-    const Unicode* wszStr4 = D2LANG_GetStringFromTblIndex(0xF9B);
-    int wszText_[8]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 16; ++i)
-        wszText[i] = 0;
+int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut); // 0x004E84F0
 
-    int szText_[8]; char* const szText = (char*)szText_;
-    wsprintfA(szText, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, wszStr2);
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, wszStr4);
-    sub_00526700(wszOut, wszStr1);
-    sub_00526700(wszOut, wszStr3);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004E85C0
-static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue)
-{
-    short nMana = pSkillsTxt->wMana;
-    if (!nMana && !pSkillsTxt->wLevelMana)
-        return 0;
-
-    if (nValue)
-        return sub_004E84F0_AppendManaValue(nValue, wszOut);
-
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
-    if (!pSkillDescTxt)
-        return 0;
-
-    nSkillId = pSkillDescTxt->wStrMana;
-    const int nShift = pSkillsTxt->nManaShift;
-    const int nLevelMana = pSkillsTxt->wLevelMana;
-    const int nLevelCost = nLevelMana << nShift;
-    int nCost = ((nLevel - 1) * nLevelMana + nMana) << nShift;
-    const int nMinCost = pSkillsTxt->wMinMana << 8;
-    if (nMinCost > nCost)
-        nCost = nMinCost;
-
-    _ReadWriteBarrier();
-    if (pSkillsTxt->nManaShift == 8 || nLevelCost > 0x100 || nCost > 0x1900)
-        return sub_004E79E0_AppendLabelValue(wszOut, (unsigned short)nSkillId, nCost >> 8, 0);
-
-    if (nMultiplier <= 10)
-        return sub_004E7B90_AppendLabelDecimal((unsigned short)nSkillId, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
-
-    return sub_004E7A90_AppendScaledValue(wszOut, 0, nCost, (unsigned short)nSkillId, 0x1506, nMultiplier);
-}
+int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue); // 0x004E85C0
 
 void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nMonsterId, int nPercent, int nBonus); // 0x004EC090
 
@@ -627,18 +224,7 @@ static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsig
     return 1;
 }
 
-// 0x004EC220
-static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString)
-{
-    const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
-    const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
-    if (!nMin && !nMax)
-    {
-        return 0;
-    }
-
-    return sub_004EC140_AddElemRange(wszText, nMin >> 8, nString, nMax >> 8, pSkillsTxt->nEType);
-}
+int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString); // 0x004EC220
 
 // 0x004EC280
 static int __stdcall sub_004EC280_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel)
@@ -653,120 +239,13 @@ static int __stdcall sub_004EC280_AddMissileElemDamage(D2UnitStrc* pUnit, Unicod
     return sub_004EC140_AddElemRange(wszText, nMin, nString, nMax, MISSILE_GetElemTypeFromMissileId(nMissileId));
 }
 
-// 0x004EC2E0
-static int __stdcall sub_004EC2E0_AddPhysDamage(int nPercent, D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, int nBonus)
-{
-    int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
-    for (int i = 0; i < 16; ++i)
-        wszNumber_[i] = 0;
-    int szNumber_[8]; char* const szNumber = (char*)szNumber_;
-    int nMin = SKILLS_GetMinPhysDamage(pUnit, nSkillId, nSkillLevel, 0) >> 8;
-    int nMax = SKILLS_GetMaxPhysDamage(pUnit, nSkillId, nSkillLevel, 0) >> 8;
-    nMin += ApplyPercent(nMin, nPercent) + nBonus;
-    nMax += ApplyPercent(nMax, nPercent) + nBonus;
-    if (!nMin && !nMax)
-    {
-        return 0;
-    }
+int __stdcall sub_004EC2E0_AddPhysDamage(int nPercent, D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, int nBonus); // 0x004EC2E0
 
-    if (nMin != nMax)
-    {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
-    }
-    else if (nMin >= 0)
-    {
-        wsprintfA(szNumber, szFmtPlusD_006DBE90, nMin);
-    }
-    else
-    {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
-    }
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10A0));
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int sub_004EC510_AddToHit(Unicode* wszText, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004EC510
 
-// 0x004EC510
-static int sub_004EC510_AddToHit(Unicode* wszText, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel);
-    if (!nToHit)
-    {
-        return 0;
-    }
+int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, Unicode* wszText, int nMin, int nMax); // 0x004EC540
 
-    return sub_004E7E70_AppendLabelValueLabel(wszText, 0x10A6, 0x10B3, 1, nToHit);
-}
-
-// 0x004EC540
-static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, Unicode* wszText, int nMin, int nMax)
-{
-    int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
-    for (int i = 0; i < 16; ++i)
-        wszNumber_[i] = 0;
-    int szNumber_[8]; char* const szNumber = (char*)szNumber_;
-    if (!nMin && !nMax)
-    {
-        return 0;
-    }
-
-    if (nMin == nMax)
-    {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
-    }
-    else
-    {
-        wsprintfA(szNumber, szFmtRange_006D9D70, nMin, nMax);
-    }
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10E2));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10BE));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004EC620
-static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nMissileId, int nSkillLevel)
-{
-    int nMin = MISSILE_GetMinElemDamage(0, pUnit, nMissileId, nSkillLevel) * 0x4B;
-    int nMax = MISSILE_GetMaxElemDamage(0, pUnit, nMissileId, nSkillLevel) * 0x4B;
-    int* const pMax = &nMax;
-    sub_004E6EA0_ApplyColdSkillBonus(&nMin, pSkillsTxt, pMax);
-    sub_004E6F00_ApplyFireSkillBonus(&nMin, pSkillsTxt, pMax);
-    const int nMinRate = nMin >> 8;
-    const int nMaxRate = nMax >> 8;
-    unsigned short nString;
-    switch (MISSILE_GetElemTypeFromMissileId(nMissileId))
-    {
-    case 2:
-        nString = 0x10A3;
-        break;
-    case 4:
-        nString = 0x10A2;
-        break;
-    case 3:
-        nString = 0x10C3;
-        break;
-    case 5:
-        nString = 0x10A4;
-        break;
-    case 6:
-        nString = 0xDC4;
-        break;
-    case 1:
-        nString = 0x10A1;
-        break;
-    default:
-        nString = 0x10A1;
-        break;
-    }
-
-    return sub_004EC540_AddElemRatePerSecond(nString, wszText, nMinRate, nMaxRate);
-}
+int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nMissileId, int nSkillLevel); // 0x004EC620
 
 static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
 // 0x004EC6F0
@@ -777,267 +256,27 @@ static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkill
     return sub_004EC540_AddElemRatePerSecond(0x10A1, wszText, nMin, nMax);
 }
 
-// 0x004EC740
-static int __stdcall sub_004EC740_AddSkillElemRateByType(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt)
-{
-    int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
-    int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
-    nMin = nMin * 0x19 >> 8;
-    nMax = nMax * 0x19 >> 8;
-    unsigned short nString;
-    switch (pSkillsTxt->nEType)
-    {
-    case 2:
-        nString = 0x10A3;
-        break;
-    case 4:
-        nString = 0x10A2;
-        break;
-    case 3:
-        nString = 0x10C3;
-        break;
-    case 5:
-        nString = 0x10A4;
-        break;
-    case 6:
-        nString = 0xDC4;
-        break;
-    case 1:
-        nString = 0x10A1;
-        break;
-    default:
-        nString = 0x10A1;
-        break;
-    }
+int __stdcall sub_004EC740_AddSkillElemRateByType(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt); // 0x004EC740
 
-    return sub_004EC540_AddElemRatePerSecond(nString, wszText, nMin, nMax);
-}
+int __stdcall sub_004EC7E0_AddValueLine(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int bPlus, int bPercent, int nValue); // 0x004EC7E0
 
-// 0x004EC7E0
-static int __stdcall sub_004EC7E0_AddValueLine(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int bPlus, int bPercent, int nValue)
-{
-    if (!nValue)
-    {
-        return 0;
-    }
+int __stdcall sub_004EC900_AddDecimalLine(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int bPlus, int bPercent, int nWhole, int nFraction); // 0x004EC900
 
-    int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
-    for (int i = 0; i < 16; ++i)
-        wszNumber_[i] = 0;
-    int szNumber_[8]; char* const szNumber = (char*)szNumber_;
-    if (bPlus && nValue >= 0)
-    {
-        wsprintfA(szNumber, szFmtPlusD_006DBE90, nValue);
-    }
-    else
-    {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
-    }
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    if (nStringBefore != 0x1506)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    }
-    sub_00526700(wszText, wszNumber);
-    if (bPercent)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA1));
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004ECA00_AddValueOverTime(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int nValue, int bPlus, int nCount); // 0x004ECA00
 
-// 0x004EC900
-static int __stdcall sub_004EC900_AddDecimalLine(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int bPlus, int bPercent, int nWhole, int nFraction)
-{
-    if (nStringBefore == 0x1506)
-    {
-        return 0;
-    }
+int sub_004ECB10_AddTextPair(Unicode* wszText, unsigned short nString1, unsigned short nString2); // 0x004ECB10
 
-    if (!nWhole && !nFraction)
-    {
-        return 0;
-    }
+int __stdcall sub_004ECB80_AddValueAfterText(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int bPlus, int bPercent, int nValue); // 0x004ECB80
 
-    int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
-    for (int i = 0; i < 16; ++i)
-        wszNumber_[i] = 0;
-    sub_004E7430_FormatSignedDecimal(wszNumber, bPlus, nWhole, nFraction);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, wszNumber);
-    if (bPercent)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA1));
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004ECA00
-static int __stdcall sub_004ECA00_AddValueOverTime(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int nValue, int bPlus, int nCount)
-{
-    if (nStringBefore != 0x1506 && nValue && nCount > 0)
-    {
-    int szNumber_[8]; char* const szNumber = (char*)szNumber_;
-    int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
-    sub_00403040_VectorConstructor(wszNumber, 2, 0x20, sub_0042F530_ClearUnicode);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_004E73E0_FormatSignedInt(wszNumber, bPlus, nValue);
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA0));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nCount);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-    }
-
-    return 0;
-}
-
-// 0x004ECB10
-static int sub_004ECB10_AddTextPair(Unicode* wszText, unsigned short nString1, unsigned short nString2)
-{
-    if (nString1 != 0x1506 && nString2 != 0x1506)
-    {
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString1));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString2));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-    }
-
-    return 0;
-}
-
-// 0x004ECB80
-static int __stdcall sub_004ECB80_AddValueAfterText(Unicode* wszText, unsigned short nStringBefore, unsigned short nStringAfter, int bPlus, int bPercent, int nValue)
-{
-    if (nStringBefore == 0x1506)
-    {
-        return 0;
-    }
-
-    if (!nValue)
-    {
-        return 0;
-    }
-
-    int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
-    for (int i = 0; i < 16; ++i)
-        wszNumber_[i] = 0;
-    sub_004E73E0_FormatSignedInt(wszNumber, bPlus, nValue);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringBefore));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringAfter));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-    sub_00526700(wszText, wszNumber);
-    if (bPercent)
-    {
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA1));
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004ECC80
-static int __stdcall sub_004ECC80_AddFormattedText(Unicode* wszText, int nValue, unsigned short nString)
-{
-    if (nString == 0x1506)
-    {
-        return 0;
-    }
-
-    int wszLine_[128]; Unicode* const wszLine = (Unicode*)wszLine_;
-    for (int i = 0; i < 128; ++i)
-        wszLine_[i] = 0;
-    sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nString), nValue);
-    sub_00526700(wszText, wszLine);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004ECC80_AddFormattedText(Unicode* wszText, int nValue, unsigned short nString); // 0x004ECC80
 
 int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt); // 0x004ECCF0
 
-// 0x004ED0D0
-static int sub_004ED0D0_AddNextLevelParam(int nSkillId, int nSkillLevel, Unicode* wszText)
-{
-    if (nSkillLevel > 1)
-    {
-        sub_004E7C30_AppendValueLabel(wszText, 0x10D5, SkillParam_0D0(nSkillId, nSkillLevel - 1), 0);
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x110D));
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    }
-    return 1;
-}
+int sub_004ED0D0_AddNextLevelParam(int nSkillId, int nSkillLevel, Unicode* wszText); // 0x004ED0D0
 
-// 0x004EDB30
-static int __stdcall sub_004EDB30_AddSeconds(int nFrames, unsigned short nString, int bPlus, Unicode* wszText)
-{
-    int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
-    for (int i = 0; i < 16; ++i)
-        wszNumber_[i] = 0;
-    const int nSeconds = nFrames / 25;
-    const int nTenths = nFrames % 25 * 10 / 25;
-    if (!nSeconds && !nTenths)
-    {
-        return 0;
-    }
+int __stdcall sub_004EDB30_AddSeconds(int nFrames, unsigned short nString, int bPlus, Unicode* wszText); // 0x004EDB30
 
-    if (nTenths)
-    {
-        sub_004E7430_FormatSignedDecimal(wszNumber, bPlus, nSeconds, nTenths);
-    }
-    else
-    {
-        sub_004E73E0_FormatSignedInt(wszNumber, bPlus, nSeconds);
-    }
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nSeconds == 1 && !nTenths ? 0x10AB : 0x10AC));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// 0x004EDC40
-static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    const int nLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 0);
-    if (nLength)
-    {
-        unsigned short nString;
-        switch (pSkillsTxt->nEType)
-        {
-        case 5:
-            nString = 0x10AA;
-            break;
-        case 4:
-            nString = 0x10A9;
-            break;
-        default:
-            return 0;
-        }
-
-        return sub_004EDB30_AddSeconds(nLength, nString, 0, wszText);
-    }
-
-    return 0;
-}
+int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004EDC40
 
 int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel); // 0x004EDCA0
 
