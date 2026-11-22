@@ -52,7 +52,6 @@ struct D2CompItemStrc;
 
 struct Unicode;
 
-
 struct D2GfxDataStrc
 {
     int nFrame;
@@ -75,7 +74,6 @@ struct D2GfxDataStrc
     int nDirection;
     unsigned int dwFlags;
 };
-
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -233,7 +231,6 @@ struct D2CompPairStrc;
 
 struct D2ItemsTxt;
 
-
 struct D2HoverLineStrc
 {
     Unicode wszText[256];
@@ -303,14 +300,6 @@ struct D2WinListDataStrc;
 
 struct D2WinListStrc;
 
-struct D2WinAccountListStrc;
-
-struct D2WinAccountListFontStrc;
-
-struct D2WinProgressBarStrc;
-
-struct D2WinScrollBarStrc;
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -379,18 +368,6 @@ struct D2WinListDataStrc
     D2WinListDataStrc* pNext;
 };
 
-struct D2WinAccountListFontStrc
-{
-    int eFont;
-    int field_04;
-};
-
-struct D2WinProgressBarStrc
-{
-    D2WinControlStrc controlHeader;
-    float fProgress;
-};
-
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
@@ -421,16 +398,6 @@ int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 
 const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
 
-int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00507A10
-
-int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl); // 0x00507B30
-
-int __fastcall PROGRESSBAR_Draw(D2WinControlStrc* pControl); // 0x00507DC0
-
-int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00508120
-
-int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl); // 0x00508370
-
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
 
 extern char gszSmackFileName_0087E860[260]; // 0x0087E860
@@ -438,8 +405,6 @@ extern char gszSmackFileName_0087E860[260]; // 0x0087E860
 extern char gnSmackVersion_0087E964; // 0x0087E964
 
 extern int gbSmackKeepFile_0087E968; // 0x0087E968
-
-int __stdcall SCROLLBAR_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);
 
 struct D2FontStrc;
 
@@ -2669,122 +2634,6 @@ int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
             return pData->field_204(pMsg);
     }
     return 0;
-}
-
-// 0x00507CA0
-D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, D2WinAccountListFontStrc* pFont)
-{
-    D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)FOG_Alloc(sizeof(D2WinAccountListStrc), ".\\Src\\D2WinAccountList.cpp", 0x24, 0);
-    memset(pAccountList, 0, sizeof(D2WinAccountListStrc));
-    pAccountList->controlHeader.eType = D2WIN_ACCOUNTLIST;
-    pAccountList->controlHeader.dwFlags |= gdwBitMasks[0];
-    pAccountList->controlHeader.dwFlags |= gdwBitMasks[2];
-    pAccountList->unk0x4C = a5;
-    pAccountList->controlHeader.nImageX = nX;
-    pAccountList->controlHeader.nImageY = nY;
-    pAccountList->controlHeader.nWidth = nWidth;
-    pAccountList->controlHeader.nHeight = nHeight;
-    pAccountList->controlHeader.pfDraw = ACCOUNTLIST_Draw;
-    pAccountList->controlHeader.pfHandleMouseDown = ACCOUNTLIST_HandleMouseDown;
-    pAccountList->controlHeader.pfHandleMouseUp = 0;
-    pAccountList->controlHeader.pfHandleCharInput = 0;
-    pAccountList->controlHeader.pfHandleVirtualKeyInput = 0;
-    pAccountList->controlHeader.field_34 = 0;
-    pAccountList->pDataList = 0;
-    pAccountList->pSelectedDataEntry = 0;
-    pAccountList->nFirstDrawnEntry = 0;
-    pAccountList->controlHeader.pNext = 0;
-    if (pFont)
-    {
-        pAccountList->eFont = pFont->eFont;
-        pAccountList->unk0x54 = pFont->field_04;
-    }
-    else
-    {
-        pAccountList->eFont = 1;
-        pAccountList->unk0x54 = 0;
-    }
-    CONTROL_AppendToList(&pAccountList->controlHeader);
-    return pAccountList;
-}
-
-// 0x00507D70
-int __stdcall PROGRESSBAR_SetProgress(D2WinProgressBarStrc* pProgressBar, float fProgress)
-{
-    D2_ASSERT(pProgressBar->controlHeader.eType == D2WIN_PROGRESSBAR, 0x3A);
-    pProgressBar->fProgress = fProgress;
-    return 1;
-}
-
-// 0x00507E50
-D2WinProgressBarStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int nHeight)
-{
-    D2WinProgressBarStrc* pProgressBar = (D2WinProgressBarStrc*)FOG_Alloc(sizeof(D2WinProgressBarStrc), ".\\Src\\D2WinProgressBar.cpp", 0x1A, 0);
-    memset(pProgressBar, 0, sizeof(D2WinProgressBarStrc));
-    pProgressBar->controlHeader.eType = D2WIN_PROGRESSBAR;
-    pProgressBar->controlHeader.dwFlags |= gdwBitMasks[0];
-    pProgressBar->controlHeader.dwFlags |= gdwBitMasks[2];
-    pProgressBar->controlHeader.pCellFile = 0;
-    pProgressBar->controlHeader.nImageX = nX;
-    pProgressBar->controlHeader.nImageY = nY;
-    pProgressBar->controlHeader.nWidth = nWidth;
-    pProgressBar->controlHeader.nHeight = nHeight;
-    pProgressBar->controlHeader.pfDraw = PROGRESSBAR_Draw;
-    pProgressBar->controlHeader.pNext = 0;
-    pProgressBar->controlHeader.pfHandleMouseDown = 0;
-    pProgressBar->controlHeader.pfHandleMouseUp = 0;
-    pProgressBar->controlHeader.pfHandleCharInput = 0;
-    pProgressBar->controlHeader.pfHandleVirtualKeyInput = 0;
-    pProgressBar->controlHeader.field_34 = 0;
-    pProgressBar->fProgress = 0.0f;
-    CONTROL_AppendToList(&pProgressBar->controlHeader);
-    return pProgressBar;
-}
-
-// 0x00508310
-int __stdcall SCROLLBAR_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)pMsg->hWnd;
-    D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0x1B0);
-    if (pScrollBar->bIsUpperArrowPressed || pScrollBar->bIsLowerArrowPressed || pScrollBar->bIsStepIndicatorDragged)
-    {
-        pScrollBar->bIsUpperArrowPressed = 0;
-        pScrollBar->bIsLowerArrowPressed = 0;
-        pScrollBar->bIsStepIndicatorDragged = 0;
-        return 1;
-    }
-    return 0;
-}
-
-// 0x005084F0
-D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler a6)
-{
-    D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)FOG_Alloc(sizeof(D2WinScrollBarStrc), ".\\Src\\D2WinScrollbar.cpp", 0x1C, 0);
-    memset(pScrollBar, 0, sizeof(D2WinScrollBarStrc));
-    pScrollBar->controlHeader.eType = D2WIN_SCROLLBAR;
-    pScrollBar->controlHeader.dwFlags |= gdwBitMasks[0];
-    pScrollBar->controlHeader.dwFlags |= gdwBitMasks[2];
-    pScrollBar->controlHeader.pCellFile = pCellFile;
-    pScrollBar->controlHeader.nImageX = nX;
-    pScrollBar->controlHeader.nImageY = nY;
-    pScrollBar->controlHeader.nWidth = nWidth;
-    pScrollBar->controlHeader.nHeight = nHeight;
-    pScrollBar->controlHeader.pfDraw = SCROLLBAR_Draw;
-    pScrollBar->controlHeader.pNext = 0;
-    pScrollBar->controlHeader.pfHandleMouseDown = SCROLLBAR_HandleMouseDown;
-    pScrollBar->controlHeader.pfHandleMouseUp = SCROLLBAR_HandleMouseUp;
-    pScrollBar->controlHeader.pfHandleCharInput = 0;
-    pScrollBar->controlHeader.pfHandleVirtualKeyInput = 0;
-    pScrollBar->controlHeader.field_34 = a6;
-    pScrollBar->bIsUpperArrowPressed = 0;
-    pScrollBar->bIsLowerArrowPressed = 0;
-    pScrollBar->nMaxSteps = 0;
-    pScrollBar->nCurrentStep = 0;
-    pScrollBar->pTextBox = 0;
-    pScrollBar->field_5C = 0;
-    pScrollBar->nPageStep = 0;
-    CONTROL_AppendToList(&pScrollBar->controlHeader);
-    return pScrollBar;
 }
 
 #include "gen/data/Source/D2Win/Src/D2Comp.inc"

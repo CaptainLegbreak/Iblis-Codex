@@ -28,6 +28,7 @@ struct D2UnitStrc;
 #define AISPECIALSTATE_NONE 0
 
 #define SKILLDRUID_MIN(a, b) ((a) < (b) ? (a) : (b))
+#define SKILLDRUID_MAX(a, b) ((a) < (b) ? (b) : (a))
 
 struct D2SummonArgStrc;
 
@@ -3338,6 +3339,65 @@ int __fastcall SKILLS_SrvSt60_SuckBlood(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return 1;
 }
 
+static inline int SKILLDRUID_GetUnitType(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+    return pUnit->dwUnitType;
+}
+
+// 0x005D16A0
+int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);
+    if (!pDamage)
+    {
+        return 0;
+    }
+
+    if (pDamage->wResultFlags & 1)
+    {
+        D2UnitStrc* pOwner = 0;
+        if (SKILLDRUID_GetUnitType(pUnit) == 1)
+        {
+            pOwner = AIGENERAL_GetMinionOwner(pUnit);
+            if (!pOwner)
+            {
+                pOwner = pUnit;
+            }
+        }
+
+        int nLife = STATLIST_UnitGetStatValue(pOwner, STAT_HITPOINTS, 0);
+        const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pOwner);
+        const int nAmount = SKILLDRUID_MIN(pDamage->dwPhysDamage, STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0));
+        nLife += DATATBLS_ApplyRatio(nAmount, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel), 100);
+        nLife = SKILLDRUID_MIN(SKILLDRUID_MAX(nLife, 1), nMaxLife);
+        STATLIST_SetUnitStat(pOwner, STAT_HITPOINTS, nLife, 0);
+    }
+
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+    return 1;
+}
+
 // 0x005D1800
 int __fastcall SKILLS_SrvDo128_CryHelp(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -3523,7 +3583,7 @@ int __fastcall SKILLS_SrvSt61_SelfResurrect(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x005D1C30
-static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, int nCount, D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel)
+static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
 {
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 3;
@@ -3548,7 +3608,7 @@ static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, int nCount, D
     return 1;
 }
 
-// build: context sub_005D1CD0_SrvDoMissileVolley
+// 0x005D1CD0
 int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
@@ -3574,13 +3634,15 @@ int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    SKILLS_CreateMissileVolley(pGame, nCount, pUnit, nMissile, nSkillId, nSkillLevel);
+    SKILLS_CreateMissileVolley(pGame, pUnit, nCount, nMissile, nSkillId, nSkillLevel);
     return 1;
 }
 
 static inline SkillRecord* GetSkillRecord(int skill)
 {
-    if (skill < 0 || skill >= gVar_00744304->skillCount)
+    if (skill < 0)
+        return 0;
+    if (skill >= gVar_00744304->skillCount)
         return 0;
     return &gVar_00744304->skills[skill];
 }
@@ -4191,29 +4253,40 @@ D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* p
     return 0;
 }
 
-static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, Game* game, Unit* target, int skill)
+static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, Game* game, Unit* target)
 {
-    SkillRecord* record = GetSkillRecord(skill);
+    SkillRecord* record = 0;
+    if (skill >= 0 && skill < gVar_00744304->skillCount)
+        record = &gVar_00744304->skills[skill];
     if (!record)
         return;
+
     int selected = sub_0056E620_Select(owner, 0, skill, level, &level, 0, 0);
     if (selected < 0)
         return;
-    const int type = GetUnitType(target);
-    if (type != 1)
+    if (GetUnitType(target) != 1)
         return;
+
     int variant;
-    sub_006510C0_ClassInfo(target->classId, 0, &variant);
+    sub_006510C0_ClassInfo(!target ? -1 : target->classId, 0, &variant);
     int resolved = sub_0054DA60_Resolve(selected, variant);
     sub_00574370_Change(game, target, resolved, level);
-    AiState* ai = GetAiState(target);
+
+    AiState* ai;
+    if (target->type == 1 && target->monster)
+        ai = target->monster->ai;
+    else
+        ai = 0;
     sub_005B0E00_Ai(game, target, ai, 15);
+
     ModeRequest mode;
     sub_005A7E60_FillMode(target, level, &mode);
     sub_005A7C20_SetMode(game, &mode, 1);
     sub_00639DB0_SetState(target, 142, 1);
-    int ownerType, ownerId;
-    if (!owner)
+
+    int ownerType;
+    unsigned int ownerId;
+    if (owner == 0)
     {
         ownerId = -1;
         ownerType = 6;
@@ -4230,10 +4303,12 @@ static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, Game* game,
         sub_006252D0_State(list, 142);
         sub_00627150_Stat(list, 355, resolved, 0);
     }
+
     if (record->effect > 0 && record->effect < 43)
         sub_005A4850_Effect(game, target, record->effect, 0);
 }
 
+// 0x005D1F70
 extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int skill, int level)
 {
     SkillRecord* record = GetSkillRecord(skill);
@@ -4247,14 +4322,23 @@ extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int ski
     if (target && !sub_005541B0_Inactive(target))
     {
         const int type = GetUnitType(target);
-        if (type != 1 || sub_00463900_ValidateClass(sub_00463860_BaseClass(target)) != 453
-            || SkillChanceSucceeds(owner, record, skill, level)
-            || sub_00639DF0_HasState(target, record->state))
+        int bSkip = 1;
+        if (type == 1 && sub_00463900_ValidateClass(sub_00463860_BaseClass(target)) == 453)
+        {
+            bSkip = SkillChanceSucceeds(owner, record, skill, level);
+        }
+        if (bSkip)
         {
             SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
-            return 1;
         }
-        sub_005D1E10_Transform(owner, level, game, target, skill);
+        else if (sub_00639DF0_HasState(target, record->state))
+        {
+            SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
+        }
+        else
+        {
+            sub_005D1E10_Transform(owner, level, skill, game, target);
+        }
         return 1;
     }
     return 0;

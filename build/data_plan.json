@@ -3577,31 +3577,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/GAME/Clients_00537B50.cpp": {
-   "bytes": 120,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl OBJMODE_UpdateTrapProximity(); // 0x00581700",
-    "extern \"C\" void __cdecl OBJMODE_UpdateTrappedSoul(); // 0x00585CE0",
-    "extern \"C\" void __cdecl ITEMMODE_EventFn4_Return(); // 0x0055F120",
-    "extern \"C\" void __cdecl ITEMMODE_UpdateItemStatListExpiration(); // 0x0055F130",
-    "extern \"C\" void __cdecl sub_00562D30(); // 0x00562D30",
-    "extern \"C\" void __cdecl sub_00581250_ObjectTimer_Light(); // 0x00581250",
-    "extern \"C\" void __cdecl sub_00581410_OpenLinkPortal(); // 0x00581410",
-    "extern \"C\" void __cdecl sub_00581490(); // 0x00581490",
-    "extern \"C\" void __cdecl sub_005814D0(); // 0x005814D0",
-    "extern \"C\" void __cdecl sub_00581510(); // 0x00581510",
-    "extern \"C\" void __cdecl sub_00581620(); // 0x00581620",
-    "extern \"C\" void __cdecl sub_005817A0(); // 0x005817A0",
-    "extern \"C\" void __cdecl sub_005818B0(); // 0x005818B0",
-    "extern \"C\" void __cdecl OBJMODE_HandleQuestObjectEvent(); // 0x00581A10",
-    "extern \"C\" void __cdecl sub_00586850(); // 0x00586850"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/GAME/Clients_00537B50.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/GAME/Event.cpp": {
    "bytes": 24,
    "definitions": 1,
@@ -5094,12 +5069,13 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 3032,
-   "definitions": 9,
+   "bytes": 3132,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl CelFileConvertRle24To8(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
-    "extern \"C\" void __cdecl CelCompressEncodeRleCels(); // 0x00608EE0"
+    "extern \"C\" void __cdecl CelCompressEncodeRleCels(); // 0x00608EE0",
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/CelCmp.inc",
@@ -5121,17 +5097,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/Tilecmp_00600CB0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2CMP/SRC/CelCmp_006022A0.cpp": {
-   "bytes": 100,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2CMP/SRC/CelCmp_006022A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -6158,6 +6123,31 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/GAME/Clients.cpp": {
+   "bytes": 120,
+   "definitions": 2,
+   "externs": [
+    "extern \"C\" void __cdecl OBJMODE_UpdateTrapProximity(); // 0x00581700",
+    "extern \"C\" void __cdecl OBJMODE_UpdateTrappedSoul(); // 0x00585CE0",
+    "extern \"C\" void __cdecl ITEMMODE_EventFn4_Return(); // 0x0055F120",
+    "extern \"C\" void __cdecl ITEMMODE_UpdateItemStatListExpiration(); // 0x0055F130",
+    "extern \"C\" void __cdecl sub_00562D30(); // 0x00562D30",
+    "extern \"C\" void __cdecl sub_00581250_ObjectTimer_Light(); // 0x00581250",
+    "extern \"C\" void __cdecl sub_00581410_OpenLinkPortal(); // 0x00581410",
+    "extern \"C\" void __cdecl sub_00581490(); // 0x00581490",
+    "extern \"C\" void __cdecl sub_005814D0(); // 0x005814D0",
+    "extern \"C\" void __cdecl sub_00581510(); // 0x00581510",
+    "extern \"C\" void __cdecl sub_00581620(); // 0x00581620",
+    "extern \"C\" void __cdecl sub_005817A0(); // 0x005817A0",
+    "extern \"C\" void __cdecl sub_005818B0(); // 0x005818B0",
+    "extern \"C\" void __cdecl OBJMODE_HandleQuestObjectEvent(); // 0x00581A10",
+    "extern \"C\" void __cdecl sub_00586850(); // 0x00586850"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/GAME/Clients.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -94318,7 +94308,7 @@
    "cname": "gData_006E117C",
    "declared": true,
    "decorated": "?scpfnItemEventFunctions_6FD27DDC@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@@ZA",
-   "file": "Source/D2Game/GAME/Clients_00537B50.cpp",
+   "file": "Source/D2Game/GAME/Clients.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const EventCallbackFunction gData_006E117C[15]; // 0x006E117C",
    "head": "extern \"C\" const EventCallbackFunction gData_006E117C[15] = ",
@@ -94373,7 +94363,7 @@
    "cname": "gData_006E19B0",
    "declared": true,
    "decorated": "?gpEventFunctions_6FD28CD8@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@@ZA",
-   "file": "Source/D2Game/GAME/Clients_00537B50.cpp",
+   "file": "Source/D2Game/GAME/Clients.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const EventCallbackFunction gData_006E19B0[15]; // 0x006E19B0",
    "head": "extern \"C\" const EventCallbackFunction gData_006E19B0[15] = ",
@@ -120422,7 +120412,7 @@
    "cname": "gData_00741F14",
    "declared": true,
    "decorated": "_gszTypeNameCelEntry",
-   "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 24,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00741F14_t gData_00741F14; // 0x00741F14",
@@ -120451,7 +120441,7 @@
    "cname": "gData_00741F2C",
    "declared": true,
    "decorated": "_gszTypeNameCelList",
-   "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 24,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00741F2C_t gData_00741F2C; // 0x00741F2C",
@@ -120480,7 +120470,7 @@
    "cname": "gData_00741FB4",
    "declared": true,
    "decorated": "_gszTypeNameCelHashChunk",
-   "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 52,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_00741FB4[52]; // 0x00741FB4",

@@ -5,6 +5,7 @@
 #include "D2WinTypes.h"
 #include "D2CmpTypes.h"
 #include "D2CmpCache.h"
+#include "D2SpriteCache.h"
 
 #pragma intrinsic(strcpy)
 
@@ -400,7 +401,7 @@ static void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpr
 
 static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int nArg2, int nArg3, const char* szName, D2CmpSpriteContextStrc* pContext);
 
-void __stdcall sub_006000B0_LoadConvertedEntry(int nDirection, unsigned int nFrames, char* szName, int bDC6, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile, char* szPath); // 0x006000B0
+static void __stdcall sub_006000B0_LoadConvertedEntry(int nDirection, unsigned int nFrames, char* szName, int bDC6, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile, char* szPath); // 0x006000B0
 
 // 0x005B0CC0
 void __stdcall sub_005B0CC0(int nUnused1)
@@ -1673,7 +1674,7 @@ D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheAlloc(D2SpriteCacheStrc* pCach
     return pNode;
 }
 
-static inline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pContext, int nDirection, unsigned int nFrames)
+static __forceinline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pContext, int nDirection, unsigned int nFrames)
 {
     unsigned int bConvert = 1;
     if (!(pContext->nType == 6 && (pContext->dwFlags & 2)))
@@ -1693,6 +1694,7 @@ static inline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pContext, in
     return 1;
 }
 
+// 0x005FE990
 static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc* context, char* name, char* path)
 {
     SpriteFile* file = 0;
@@ -1756,6 +1758,133 @@ static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*
     return file;
 }
 
+// 0x006000B0
+static void __stdcall sub_006000B0_LoadConvertedEntry(int nDirection, unsigned int nFrames, char* szName, int bDC6, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile, char* szPath)
+{
+    if (!pFile || !pContext)
+    {
+        return;
+    }
+
+    if (!SpriteCache_ShouldConvert(pContext, nDirection, nFrames))
+    {
+        return;
+    }
+
+    unsigned int const tArg1 = nFrames * 2;
+    const unsigned int nConverted = sub_00600D30_CanConvertDirections(nFrames, tArg1);
+    pContext->nDirection = (unsigned int)pFile->nDirections > 1 ? (nConverted << 6) / (unsigned int)pFile->nDirections : 1;
+
+    if (GfxHashFind(&gCmpBlockTableB, pContext, &nDirection, &nFrames, pFile))
+    {
+        return;
+    }
+
+    D2_ASSERT(nDirection == 1, 0x686);
+    D2_ASSERT(nFrames > 1, 0x687);
+
+    if (!*szName && !sub_005FE2B0_BuildGfxName(pContext, szName))
+    {
+        return;
+    }
+
+    if (!*szPath && !sub_005FE610_BuildGfxPath(szName, pContext, szPath))
+    {
+        return;
+    }
+
+    if (bDC6)
+    {
+        sub_005FFFA0_LoadDC6CacheEntry(pFile, nDirection, nFrames, szPath, pContext);
+    }
+    else
+    {
+        sub_005FFE90_LoadDC6Entry(pFile, nDirection, nFrames, szPath, pContext);
+    }
+}
+
+// 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2CmpSpriteContextStrc* context, int async, int flags)
+{
+    if (!context)
+        return 0;
+    context->pFrame = 0;
+    if (context->pCel)
+    {
+        context->pFrame = CelGetHandle(context);
+        return 1;
+    }
+    char name[0x104];
+    char path[0x104];
+    SpriteFile* file = sub_005FE990_LoadSpriteFile(context, name, path);
+    unsigned int index = 0;
+    unsigned int count = 0;
+    HashNode* node = (HashNode*)GfxHashFind(&gCmpBlockTableB, context, (int*)&index, &count, (D2CmpSpriteFileStrc*)file);
+    int result = 1;
+    int loaded = 0;
+    if (count > 1 && index > 0)
+    {
+        if (node)
+        {
+            if (!node->entry->pAsync)
+                return 0;
+            loaded = FOG_AsyncDataTestLoaded(node->entry->pAsync);
+        }
+        if (!node || !loaded)
+        {
+            if (!(file->flags & 1))
+            {
+                const unsigned int directions = file->directions;
+                unsigned int frameDirection = (unsigned int)context->nDirection * directions;
+                const int directionFlags = *(unsigned char*)&context->dwFlags & 4;
+                frameDirection >>= 6;
+                unsigned int direction = CelConvertDir(frameDirection, directions, count, directionFlags);
+                if (file->directions > 1)
+                    direction = (direction << 6) / file->directions;
+                else
+                    direction = 1;
+                context->nDirection = direction;
+                node = (HashNode*)GfxHashFind(&gCmpBlockTableB, context, (int*)&index, &count, (D2CmpSpriteFileStrc*)file);
+            }
+        }
+    }
+    if (node)
+    {
+        D2CmpSpriteEntryStrc* entry = node->entry;
+        if (!entry || (*(unsigned char*)&entry->nFlags & 1) || !entry->pAsync)
+            return 0;
+        if (async)
+            return FOG_AsyncDataTestLoaded(entry->pAsync) != 0;
+        D2CMPSpriteCacheTouch(&gCmpTileCache, (D2SpriteCacheNodeStrc*)node->link);
+        if (*(int*)((char*)entry + 0x28) == 0)
+            D2CMPSpriteInitFrames((D2CmpSpriteFileStrc*)file, context, entry);
+        context->pFrame = sub_005FEC50_GetCachedDC6Frame(context, entry);
+        if (!context->pFrame)
+        {
+            if (!gWarn_008ADBB0)
+                gWarn_008ADBB0 = 1;
+            return 0;
+        }
+        if (!loaded && !index && count > 1)
+        {
+            if (!path[0] && !sub_005FE610_BuildGfxPath(name, context, path))
+                return 0;
+            sub_006000B0_LoadConvertedEntry(index, count, name, flags, context, (D2CmpSpriteFileStrc*)file, path);
+        }
+    }
+    else
+    {
+        if (async)
+            return 0;
+        if (!path[0] && !sub_005FE610_BuildGfxPath(name, context, path))
+            return 0;
+        result = sub_005FFE90_LoadDC6Entry((D2CmpSpriteFileStrc*)file, index, count, path, context);
+        if (result)
+            sub_006000B0_LoadConvertedEntry(index, count, name, flags, context, (D2CmpSpriteFileStrc*)file, path);
+    }
+    return result;
+}
+
 // 0x006004E0
 int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)
 {
@@ -1802,21 +1931,6 @@ int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections)
 {
     return gaDirectionIndex64_006E45A0[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
-}
-
-int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirections)
-{
-    if (nDirections == 4)
-    {
-        return 0;
-    }
-
-    if (nDirections == 8 && nNewDirections == 16)
-    {
-        return 1;
-    }
-
-    return 0;
 }
 
 // 0x00600D60

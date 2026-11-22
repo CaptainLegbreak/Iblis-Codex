@@ -2817,9 +2817,9 @@ void __fastcall SCMD_HandleUnitsUpdate(const D2GSPacketSrv16* pPacket)
     const D2ClientUnitUpdateStrc* pUpdate = pPacket->unitUpdate;
     for (int i = 0; i < pPacket->nNumUpdates; ++i)
     {
-        unsigned short nX = *(const unsigned short*)pUpdate->nX;
-        unsigned short nY = *(const unsigned short*)pUpdate->nY;
-        D2UnitStrc* pUnit = CUNIT_FindClientUnit(*(const int*)pUpdate->nUnitGUID, pUpdate->nUnitType);
+        unsigned short nX = pUpdate->nX;
+        unsigned short nY = pUpdate->nY;
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(pUpdate->nUnitGUID, pUpdate->nUnitType);
         if (pUnit)
         {
             UNITMODE_SetPosition(pUnit, nX, nY, 0, 0, 0);

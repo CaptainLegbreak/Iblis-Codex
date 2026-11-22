@@ -586,7 +586,7 @@ void __fastcall AITACTICS_ScheduleEarlierAiThink(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x005DE190
-void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg)
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, unsigned char nArg)
 {
 	D2_ASSERT(nValue >= -126 && nValue <= 126, 272);
 
@@ -736,7 +736,7 @@ int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Un
 {
     int nNewMode = nMode;
 
-    if (nMode == MONMODE_RUN && STATES_CheckState(pUnit, STATE_DECREPIFY))
+    if (nNewMode == MONMODE_RUN && STATES_CheckState(pUnit, STATE_DECREPIFY))
     {
         D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
         nNewMode = MONMODE_WALK;
@@ -789,6 +789,84 @@ int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Un
     }
 
     return nResult;
+}
+
+// 0x005DF400
+int __fastcall AITACTICS_WanderToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance)
+{
+    int nTargetX = AI_GetUnitX(pUnit);
+    int nTargetY = AI_GetUnitY(pUnit);
+
+    int nOffsetX;
+    int nOffsetY;
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = nMaxDistance;
+        nOffsetY = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+    }
+    else
+    {
+        nOffsetX = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+        nOffsetY = nMaxDistance;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = -nOffsetX;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetY = -nOffsetY;
+    }
+
+    nTargetX += nOffsetX;
+    nTargetY += nOffsetY;
+
+    return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nTargetX, nTargetY, 1, 0);
+}
+// 0x005DF530
+int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance)
+{
+    if (!pOwner)
+    {
+        return AITACTICS_WalkCloseToUnit(pGame, pUnit, 2);
+    }
+
+    int nOffsetX = 0;
+    int nOffsetY = 0;
+
+    int nTargetX = AI_GetUnitX(pOwner);
+    int nTargetY = AI_GetUnitY(pOwner);
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = nMaxDistance;
+        nOffsetY = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+    }
+    else
+    {
+        nOffsetX = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+        nOffsetY = nMaxDistance;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = -nOffsetX;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetY = -nOffsetY;
+    }
+
+    nTargetX += nOffsetX;
+    nTargetY += nOffsetY;
+
+    return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nTargetX, nTargetY, 1, 0);
 }
 
 // 0x005DED40
@@ -1038,5 +1116,153 @@ D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* 
         return 0;
     }
 }
+// 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteEvent)
+{
+    if (!pUnit || !pTarget)
+    {
+        return 0;
+    }
+
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+    const int nTargetX = CLIENTS_GetUnitX(pTarget);
+    const int nTargetY = CLIENTS_GetUnitY(pTarget);
+
+    int nDirX = 0;
+    int nDirY = 0;
+    if (nTargetX > nX)
+    {
+        nDirX = -1;
+    }
+    else if (nTargetX < nX)
+    {
+        nDirX = 1;
+    }
+
+    if (nTargetY > nY)
+    {
+        nDirY = -1;
+    }
+    else if (nTargetY < nY)
+    {
+        nDirY = 1;
+    }
+
+    const int nDestX = nX + nMaxDistance * nDirX;
+    const int nDestY = nY + nMaxDistance * nDirY;
+    if (nMaxDistance > 5)
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, 0, nMaxDistance);
+    }
+
+    int nFlags;
+    if (bDeleteEvent)
+    {
+        nFlags = 4;
+    }
+    else
+    {
+        nFlags = 0;
+    }
+    return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nDestX, nDestY, 1, nFlags);
+}
+// build: context AITACTICS_GetUnitX
+static inline unsigned int AITACTICS_GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+// build: context AITACTICS_GetUnitY
+static inline unsigned int AITACTICS_GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005DF140
+int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nDistance, int bDeleteEvent)
+{
+    unsigned int nX;
+    unsigned int nY;
+    nX = AITACTICS_GetUnitX(pUnit);
+    nY = AITACTICS_GetUnitY(pUnit);
+    const unsigned int nTargetX = AITACTICS_GetUnitX(pTarget);
+    const unsigned int nTargetY = AITACTICS_GetUnitY(pTarget);
+
+    int nDirY = 0;
+    int nDirX = 0;
+    if (nTargetX > nX)
+    {
+        nDirX = -1;
+    }
+    if (nTargetX < nX)
+    {
+        nDirX = 1;
+    }
+    if (nTargetY > nY)
+    {
+        nDirY = -1;
+    }
+    if (nTargetY < nY)
+    {
+        nDirY = 1;
+    }
+
+    nX += nDistance * nDirX;
+    if (nDistance > 5)
+    {
+        nY += nDistance * nDirY;
+        D2AiParamStrc* pAiParam;
+        if (pUnit->dwUnitType == UNIT_MONSTER)
+        {
+            if (pUnit->pMonsterData)
+            {
+                pAiParam = pUnit->pMonsterData->pAiParam;
+            }
+            else
+            {
+                pAiParam = 0;
+            }
+        }
+        else
+        {
+            pAiParam = 0;
+        }
+        MONSTERMODE_SetVelocityParams(pAiParam, 0, 0, nDistance);
+    }
+    else
+    {
+        nY += nDistance * nDirY;
+    }
+
+    int nFlags;
+    if (bDeleteEvent)
+    {
+        nFlags = 4;
+    }
+    else
+    {
+        nFlags = 0;
+    }
+    return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_RUN, nX, nY, 1, nFlags);
+}
+
+
+
+
 
 #include "gen/data/Source/D2Game/Ai/AiTatics.inc"

@@ -266,3 +266,49 @@ int __fastcall SCROLLBAR_SetTextBox(D2WinScrollBarStrc* pScrollBar, D2WinTextBox
     pScrollBar->pTextBox = pTextBox;
     return 1;
 }
+
+// 0x00508310
+int __stdcall SCROLLBAR_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)pMsg->hWnd;
+    D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0x1B0);
+    if (pScrollBar->bIsUpperArrowPressed || pScrollBar->bIsLowerArrowPressed || pScrollBar->bIsStepIndicatorDragged)
+    {
+        pScrollBar->bIsUpperArrowPressed = 0;
+        pScrollBar->bIsLowerArrowPressed = 0;
+        pScrollBar->bIsStepIndicatorDragged = 0;
+        return 1;
+    }
+    return 0;
+}
+
+// 0x005084F0
+D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler a6)
+{
+    D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)FOG_Alloc(sizeof(D2WinScrollBarStrc), ".\\Src\\D2WinScrollbar.cpp", 0x1C, 0);
+    memset(pScrollBar, 0, sizeof(D2WinScrollBarStrc));
+    pScrollBar->controlHeader.eType = D2WIN_SCROLLBAR;
+    pScrollBar->controlHeader.dwFlags |= gdwBitMasks[0];
+    pScrollBar->controlHeader.dwFlags |= gdwBitMasks[2];
+    pScrollBar->controlHeader.pCellFile = pCellFile;
+    pScrollBar->controlHeader.nImageX = nX;
+    pScrollBar->controlHeader.nImageY = nY;
+    pScrollBar->controlHeader.nWidth = nWidth;
+    pScrollBar->controlHeader.nHeight = nHeight;
+    pScrollBar->controlHeader.pfDraw = SCROLLBAR_Draw;
+    pScrollBar->controlHeader.pNext = 0;
+    pScrollBar->controlHeader.pfHandleMouseDown = SCROLLBAR_HandleMouseDown;
+    pScrollBar->controlHeader.pfHandleMouseUp = SCROLLBAR_HandleMouseUp;
+    pScrollBar->controlHeader.pfHandleCharInput = 0;
+    pScrollBar->controlHeader.pfHandleVirtualKeyInput = 0;
+    pScrollBar->controlHeader.field_34 = a6;
+    pScrollBar->bIsUpperArrowPressed = 0;
+    pScrollBar->bIsLowerArrowPressed = 0;
+    pScrollBar->nMaxSteps = 0;
+    pScrollBar->nCurrentStep = 0;
+    pScrollBar->pTextBox = 0;
+    pScrollBar->field_5C = 0;
+    pScrollBar->nPageStep = 0;
+    CONTROL_AppendToList(&pScrollBar->controlHeader);
+    return pScrollBar;
+}
