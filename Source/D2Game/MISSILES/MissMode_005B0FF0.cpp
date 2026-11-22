@@ -2,10 +2,10 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2UnitData.h"
 
 struct D2AiTableStrc;
 struct D2MonStatsTxt;
-struct D2MonsterDataStrc;
 struct D2AiStateStrc;
 
 
@@ -22,7 +22,6 @@ int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc*
 struct D2AiTableStrc { int a, b, c, d; };
 
 
-struct D2MonsterDataStrc { D2MonStatsTxt* pMonStatsTxt; };
 extern const D2AiTableStrc gpAiTable_6FD3F990[148]; // 0x0073CA18
 
 struct D2AiStateStrc { int nTargetMode; };
@@ -82,7 +81,7 @@ int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc*
 static inline D2MonStatsTxt* GetRec(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
-        return pUnit->pMonsterData->pMonStatsTxt;
+        return (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
     }
     return 0;
 }
