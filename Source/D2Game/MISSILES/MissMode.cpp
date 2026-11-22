@@ -6837,16 +6837,6 @@ bool __fastcall ACT3Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpc
     return false;
 }
 
-// 0x005B6FA0
-bool __fastcall ACT3Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == 253 && !QUESTRECORD_GetQuestState(pQuestFlags, 16, 0))
-    {
-        return true;
-    }
-    return false;
-}
-
 // 0x005BAD60
 bool __fastcall ACT3Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {

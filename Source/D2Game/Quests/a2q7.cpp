@@ -253,44 +253,4 @@ void __fastcall ACT2Q7_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = ACT2Q7_ActiveFilterCallback;
 }
 
-// 0x0059E3C0
-void __fastcall ACT2Q8_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    if (pQuestArg->nNPCNo == MONSTER_ACT2GUARD5 && pQuestArg->nMessageIndex == 303)
-    {
-        D2GameStrc* pGame = pQuestArg->pGame;
-        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q8, 0);
-    }
-}
-
-// 0x0059E3F0
-void __fastcall ACT2Q8_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-    D2GameStrc* pGame = pQuestData->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-    if (nNpcId != MONSTER_ACT2GUARD5)
-    {
-        return;
-    }
-
-    D2QuestDataStrc* pQuestData13 = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A2Q6_DURIEL);
-    if (!pQuestData13 || !pQuestData13->bNotIntro || pQuestData13->fState >= 2)
-    {
-        return;
-    }
-
-    D2QuestDataStrc* pQuestData10 = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A2Q3_TAINTEDSUN);
-    if (pQuestData10 && pQuestData10->bNotIntro && pQuestData10->fState < 4)
-    {
-        return;
-    }
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, 1) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, 0))
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, MONSTER_ACT2GUARD5, 0);
-    }
-}
-
 #include "gen/data/Source/D2Game/Quests/a2q7.inc"

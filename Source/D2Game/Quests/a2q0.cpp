@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -40,6 +41,62 @@ int __fastcall QUESTS_QuickCheckPlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID);
 
 void __fastcall sub_005940A0_ACT1Q4_RemovePlayerGUID(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005940A0
 
+void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
+
+void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544720
+
+void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); // 0x00545200
+
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit) return -1;
+    return pUnit->dwUnitId;
+}
+
+int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
+
+enum D2QuestConstants
+{
+    QUEST_A1Q1_DENOFEVIL = 1,
+    QUEST_A2Q2_HORADRICSTAFF = 9,
+    QUEST_A2Q5_SUMMONER = 12,
+    QUEST_A2Q6_DURIEL = 13,
+    QUESTSTATEFLAG_A1Q1 = 1,
+    QUESTSTATEFLAG_A2Q0 = 8,
+    QUESTSTATEFLAG_A2Q1 = 9,
+    QUESTSTATEFLAG_A2Q4 = 12,
+    QUESTSTATEFLAG_A2Q5 = 13,
+    QUESTSTATEFLAG_A2Q6 = 14,
+    QUESTSTATEFLAG_A2Q7 = 30,
+    QFLAG_PRIMARYGOALDONE = 13,
+};
+
+#define QFLAG_REWARDGRANTED 0
+
+// 0x00598640
+void __fastcall ACT2Q0_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const unsigned short nNPCNo = pQuestArg->nNPCNo;
+    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
+    if (nNPCNo == 201)
+    {
+        if (nMessageIndex == 253)
+        {
+            D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
+            QUESTRECORD_SetQuestState(pQuestFlags, 8, 0);
+            QUESTS_SetGlobalState(pQuestArg->pGame, 8, 13);
+        }
+    }
+    else if (nNPCNo == 244)
+    {
+        if (nMessageIndex == 125)
+        {
+            D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)pQuestData->pQuestDataEx;
+            QUESTS_AddPlayerGUID(&pQuestDataEx->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
+        }
+    }
+}
+
 // 0x005986B0
 void __fastcall ACT2Q0_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -69,6 +126,34 @@ void __fastcall ACT2Q0_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 244, 1);
         sub_005940A0_ACT1Q4_RemovePlayerGUID(pQuestData->pGame, pQuestArg->pPlayer);
+    }
+}
+
+// 0x00598780
+bool __fastcall ACT2Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == MONSTER_JERHYN && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q0, QFLAG_REWARDGRANTED))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+// 0x005987B0
+void __fastcall ACT2Q0_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)pQuestData->pQuestDataEx;
+    QUESTS_FastRemovePlayerGUID(&pQuestDataEx->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
+}
+
+// 0x005987D0
+void __fastcall ACT2Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 8, 0) == 1)
+    {
+        QUESTS_SetGlobalState(pQuestData->pGame, 8, 13);
     }
 }
 

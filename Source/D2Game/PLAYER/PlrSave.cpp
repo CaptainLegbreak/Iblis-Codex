@@ -244,21 +244,6 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
 void __fastcall sub_M93_UseCount_00531750(int nCount);
 
-struct D2PartyStrc
-{
-    unsigned short nPartyId;
-    short field_2;
-    D2PartyNodeStrc* pPartyNodes;
-    D2PartyStrc* pNext;
-};
-
-struct D2PartyControlStrc
-{
-    short field_0;
-    short field_2;
-    D2PartyStrc* pParties;
-};
-
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 int __fastcall sub_005317B0_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InventoryStrc* pInventory, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x005317B0
@@ -3896,7 +3881,7 @@ void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPar
 
     for (D2PartyStrc* pParty = pGame->hParty->pParties; pParty; pParty = pParty->pNext)
     {
-        if (pParty->nPartyId == nPartyId)
+        if ((unsigned short)pParty->nPartyId == nPartyId)
         {
             if (nPartyId != 0xFFFF)
             {

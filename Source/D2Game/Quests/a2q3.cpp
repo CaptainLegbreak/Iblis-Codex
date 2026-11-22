@@ -405,17 +405,6 @@ bool __fastcall sub_005985B0_StatusFilterCallback(D2QuestDataStrc* pQuest, D2Uni
     return false;
 }
 
-// 0x00598780
-bool __fastcall ACT2Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == MONSTER_JERHYN && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q0, QFLAG_REWARDGRANTED))
-    {
-        return true;
-    }
-
-    return false;
-}
-
 // 0x005994F0
 bool __fastcall sub_005994F0_ACT2Q1_IsDoneOrInactive(D2GameStrc* pGame)
 {
@@ -1272,26 +1261,6 @@ void __fastcall ACT2Q6_UnitIterate_CheckDistanceToTyrael(D2GameStrc* pGame, D2Un
     {
         pQuestDataEx->bCloseToTyrael = 1;
     }
-}
-
-// 0x0059E4B0
-bool __fastcall ACT2Q8_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == MONSTER_ACT2GUARD5)
-    {
-        D2GameStrc* pGame = pQuest->pGame;
-        D2BitBufferStrc* pFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pQuest->pGame, QUEST_A2Q6_DURIEL);
-        if (pQuestData && pQuestData->bNotIntro && pQuestData->fState < 2
-            && QUESTS_GetGlobalState(pQuest->pGame, QUESTSTATEFLAG_A2Q3, QFLAG_PRIMARYGOALDONE)
-            && !QUESTRECORD_GetQuestState(pFlags, QUESTSTATEFLAG_A2Q6, QFLAG_REWARDPENDING)
-            && !QUESTRECORD_GetQuestState(pFlags, QUESTSTATEFLAG_A2Q6, QFLAG_REWARDGRANTED))
-        {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 // 0x0059EBE0

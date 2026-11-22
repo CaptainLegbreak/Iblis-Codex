@@ -36,8 +36,7 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int n
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                               // 0x00639DF0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x006416D0
 
-#define AI_PARAM(n) pMonStatsTxtRecord->wAiParam[n][pGame->nDifficulty]
-
+#define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 // 0x005ED2A0
 void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -77,7 +76,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     int bCombat;
     int nOwnerTargetDistance;
     int bOwnerTargetCombat;
-    const int nMaxDistance = AI_PARAM(3);
+    const int nMaxDistance = AI_PARAM(pGame, pMonStatsTxtRecord, 3);
     D2UnitStrc* pTarget = sub_6FCCFD40(pGame, pUnit, pAiControl, &nDistance, &bCombat, nMaxDistance);
     D2UnitStrc* pOwnerTarget = sub_6FCF2110(pGame, pOwner, pAiControl, &nOwnerTargetDistance, &bOwnerTargetCombat);
 
@@ -112,7 +111,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         return;
     }
 
-    if (nOwnerDistance > AI_PARAM(4))
+    if (nOwnerDistance > AI_PARAM(pGame, pMonStatsTxtRecord, 4))
     {
         D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 0, 1, 100, 0);
         return;
@@ -141,7 +140,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
 
     const int bState = STATES_CheckState(pUnit, STATE_FENRIS_RAGE);
     if (pMonStatsTxtRecord->nSkill[0] >= 0 && !bState
-        && ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(2) || !pTarget || pAiTickParam->pAiControl->dwAiParam[0]))
+        && ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(pGame, pMonStatsTxtRecord, 2) || !pTarget || pAiTickParam->pAiControl->dwAiParam[0]))
     {
         D2UnitStrc* pCorpse = SKILLS_FindUseableCorpse(pGame, pUnit, pOwner, 10);
         if (pCorpse && sub_006416D0_UnitEdgeDistance(pCorpse, pUnit) < nMaxDistance / 2)
@@ -170,7 +169,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     if (bCombat)
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
-        AITACTICS_Idle(pGame, pUnit, AI_PARAM(0));
+        AITACTICS_Idle(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxtRecord, 0));
         return;
     }
 
@@ -181,7 +180,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         return;
     }
 
-    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(1))
+    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(pGame, pMonStatsTxtRecord, 1))
     {
         AITACTICS_WalkCloseToUnit(pGame, pUnit, 10);
         return;

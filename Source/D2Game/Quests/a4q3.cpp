@@ -688,59 +688,6 @@ void __fastcall ACT3Intro_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = ACT3Intro_ActiveFilterCallback;
 }
 
-// 0x005B6ED0
-void __fastcall ACT3Q0_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
-    if (pQuestArg->nNPCNo != 253)
-    {
-        return;
-    }
-
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestData->pGame, pQuestArg->pPlayer);
-    if (nMessageIndex == 465 || nMessageIndex == 466)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 16, 0);
-        QUESTS_SetGlobalState(pQuestData->pGame, 16, 13);
-    }
-}
-
-// 0x005B6F20
-void __fastcall ACT3Q0_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-    if (nNpcId != 253)
-    {
-        return;
-    }
-
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 16, 0))
-    {
-        return;
-    }
-
-    const int nClassId = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwClassId;
-    if (nClassId == 1)
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 253, 1);
-    }
-    else
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 253, 0);
-    }
-}
-
-// 0x005B6FD0
-void __fastcall ACT3Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 16, 0) == 1)
-    {
-        QUESTS_SetGlobalState(pQuestData->pGame, 16, 13);
-    }
-}
-
 struct D2UnitStrc;
 
 // 0x005B72B0

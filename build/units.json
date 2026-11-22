@@ -50856,6 +50856,11 @@
      "name": "?PARTY_IteratePartyMembersInSameLevel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@P6IX01PAX@Z2@Z"
     },
     {
+     "va": "0x00540650",
+     "length": 66,
+     "name": "?PARTY_CalculatePickAndDrop@@YGXPAH0PAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x005406A0",
      "length": 110,
      "name": "?PARTY_SynchronizeWithClient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -50873,17 +50878,6 @@
     {
      "va": "0x00540900",
      "length": 529
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/Party_00540650.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00540650",
-     "length": 66,
-     "name": "?PARTY_CalculatePickAndDrop@@YGXPAH0PAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -58965,11 +58959,6 @@
      "name": "sub_005985B0_StatusFilterCallback"
     },
     {
-     "va": "0x00598780",
-     "length": 40,
-     "name": "ACT2Q0_ActiveFilterCallback"
-    },
-    {
      "va": "0x005994F0",
      "length": 31,
      "name": "?sub_005994F0_ACT2Q1_IsDoneOrInactive@@YI_NPAUD2GameStrc@@@Z"
@@ -59148,11 +59137,6 @@
      "va": "0x0059DF30",
      "length": 31,
      "name": "ACT2Q6_UnitIterate_CheckDistanceToTyrael"
-    },
-    {
-     "va": "0x0059E4B0",
-     "length": 126,
-     "name": "ACT2Q8_ActiveFilterCallback"
     },
     {
      "va": "0x0059EBE0",
@@ -59617,9 +59601,29 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00598640",
+     "length": 111,
+     "name": "?ACT2Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005986B0",
      "length": 180,
      "name": "?ACT2Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00598780",
+     "length": 40,
+     "name": "ACT2Q0_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005987B0",
+     "length": 30,
+     "name": "?ACT2Q0_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005987D0",
+     "length": 54,
+     "name": "?ACT2Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x00598810",
@@ -59781,21 +59785,6 @@
      "va": "0x005985D0",
      "length": 101,
      "name": "?ACT2Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00598640",
-     "length": 111,
-     "name": "?ACT2Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005987B0",
-     "length": 30,
-     "name": "?ACT2Q0_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005987D0",
-     "length": 54,
-     "name": "?ACT2Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005988B0",
@@ -60283,7 +60272,13 @@
      "va": "0x0059E330",
      "length": 137,
      "name": "?ACT2Q7_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a2q8.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0059E3C0",
      "length": 48,
@@ -60293,13 +60288,12 @@
      "va": "0x0059E3F0",
      "length": 166,
      "name": "?ACT2Q8_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q8.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x0059E4B0",
+     "length": 126,
+     "name": "ACT2Q8_ActiveFilterCallback"
+    },
     {
      "va": "0x0059E530",
      "length": 132,
@@ -60311,6 +60305,26 @@
    "file": "Source/D2Game/Quests/a3q0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B6ED0",
+     "length": 80,
+     "name": "?ACT3Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6F20",
+     "length": 112,
+     "name": "?ACT3Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6FA0",
+     "length": 40,
+     "name": "ACT3Q0_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005B6FD0",
+     "length": 54,
+     "name": "?ACT3Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
     {
      "va": "0x005B7010",
      "length": 157,
@@ -61192,11 +61206,6 @@
      "va": "0x005B6E30",
      "length": 39,
      "name": "ACT3Intro_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005B6FA0",
-     "length": 40,
-     "name": "ACT3Q0_ActiveFilterCallback"
     },
     {
      "va": "0x005BAD60",
@@ -62908,6 +62917,11 @@
      "name": "AITHINK_Fn093_ArcaneTower"
     },
     {
+     "va": "0x005E1080",
+     "length": 457,
+     "name": "?AITHINK_Fn095_PantherJavelin@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E1250",
      "length": 741,
      "name": "?AITHINK_Fn096_FetishBlowgun@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -62923,9 +62937,19 @@
      "name": "?AITHINK_TargetCallback_SiegeBeast@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005E17E0",
+     "length": 118,
+     "name": "sub_005E17E0_SiegeBeastSetTower"
+    },
+    {
      "va": "0x005E1860",
      "length": 147,
      "name": "AITHINK_Fn113_SiegeTower"
+    },
+    {
+     "va": "0x005E1900",
+     "length": 606,
+     "name": "?AITHINK_Fn115_SiegeBeast@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E1B60",
@@ -62967,6 +62991,11 @@
      "name": "?AITHINK_TargetCallback_MinionSpawner@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005E2BD0",
+     "length": 256,
+     "name": "AITHINK_Fn121_MinionSpawner"
+    },
+    {
      "va": "0x005E2CD0",
      "length": 162,
      "name": "?sub_005E2CD0@@YIXPAXPAUUnit@@PAUTick@@@Z"
@@ -62979,6 +63008,10 @@
      "va": "0x005E2FD0",
      "length": 19,
      "name": "sub_005E2FD0"
+    },
+    {
+     "va": "0x005E2FF0",
+     "length": 1231
     },
     {
      "va": "0x005E34C0",
@@ -63028,6 +63061,11 @@
      "va": "0x005E4CF0",
      "length": 56,
      "name": "AITHINK_Fn067_NecroPet"
+    },
+    {
+     "va": "0x005E4D30",
+     "length": 788,
+     "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PATD2SeedStrc@@@Z"
     },
     {
      "va": "0x005E5050",
@@ -63201,6 +63239,11 @@
      "name": "?D2GAME_AI_SpecialState11_6FCE7E20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005E8140",
+     "length": 497,
+     "name": "D2GAME_AI_SpecialState11_6FCE7E80"
+    },
+    {
      "va": "0x005E8340",
      "length": 313,
      "name": "D2GAME_AI_SpecialState12_6FCE81B0"
@@ -63352,6 +63395,10 @@
      "name": "sub_005EC6A0"
     },
     {
+     "va": "0x005EC8C0",
+     "length": 682
+    },
+    {
      "va": "0x005ECB70",
      "length": 76,
      "name": "?AITHINK_InitializeRaven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -63365,6 +63412,10 @@
      "va": "0x005ECC10",
      "length": 709,
      "name": "?AITHINK_Fn107_Raven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005ECEE0",
+     "length": 953
     },
     {
      "va": "0x005ED710",
@@ -63457,6 +63508,11 @@
      "name": "AITHINK_TargetCallback_PutridDefiler"
     },
     {
+     "va": "0x005EFA90",
+     "length": 227,
+     "name": "AITHINK_Fn137_PutridDefiler"
+    },
+    {
      "va": "0x005EFB80",
      "length": 362,
      "name": "?AITHINK_Fn007_Brute@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -63496,6 +63552,11 @@
     {
      "va": "0x005F0A20",
      "length": 211
+    },
+    {
+     "va": "0x005F0B00",
+     "length": 449,
+     "name": "?AITHINK_Fn010_CorruptRogue@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005F0CD0",
@@ -63702,6 +63763,15 @@
      "name": "AITHINK_TargetCallback_Mephisto"
     },
     {
+     "va": "0x005F77C0",
+     "length": 230,
+     "name": "?AITHINK_FindTargetForMephisto@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2MonStatsTxt@@1@Z"
+    },
+    {
+     "va": "0x005F78B0",
+     "length": 1620
+    },
+    {
      "va": "0x005F8010",
      "length": 417,
      "name": "?AITHINK_GetTargetForUberMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
@@ -63774,9 +63844,28 @@
      "name": "AITHINK_Fn066_SandMaggotQueen"
     },
     {
+     "va": "0x005F9E30",
+     "length": 474,
+     "name": "sub_005F9E30_VileMotherSpawnDirection"
+    },
+    {
      "va": "0x005FA010",
      "length": 611,
      "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005FA380",
+     "length": 781,
+     "name": "?AITHINK_Fn070_FingerMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005FA710",
+     "length": 893
+    },
+    {
+     "va": "0x005FAA90",
+     "length": 231,
+     "name": "?AITHINK_Fn072_DoomKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005FAB80",
@@ -63789,6 +63878,11 @@
      "name": "?AITHINK_TargetCallback_OblivionKnight@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005FAF00",
+     "length": 914,
+     "name": "?AITHINK_Fn074_OblivionKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005FB2A0",
      "length": 357,
      "name": "?AITHINK_Fn075_QuillMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -63796,6 +63890,16 @@
     {
      "va": "0x005FB410",
      "length": 401
+    },
+    {
+     "va": "0x005FB6C0",
+     "length": 284,
+     "name": "AITHINK_Fn078_TrapRightArrow"
+    },
+    {
+     "va": "0x005FB7E0",
+     "length": 284,
+     "name": "AITHINK_Fn079_TrapLeftArrow"
     },
     {
      "va": "0x005FB900",
@@ -64503,21 +64607,6 @@
      "va": "0x005B6E60",
      "length": 101,
      "name": "?ACT3Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B6ED0",
-     "length": 80,
-     "name": "?ACT3Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6F20",
-     "length": 112,
-     "name": "?ACT3Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6FD0",
-     "length": 54,
-     "name": "?ACT3Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005B72B0",
@@ -68103,100 +68192,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiThink4_005E1080.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E1080",
-     "length": 457,
-     "name": "?AITHINK_Fn095_PantherJavelin@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E4D30",
-     "length": 788,
-     "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PATD2SeedStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Ai/AiThink4_005E17E0.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x005E17E0",
-     "length": 118,
-     "name": "sub_005E17E0_SiegeBeastSetTower"
-    },
-    {
-     "va": "0x005E2BD0",
-     "length": 256,
-     "name": "AITHINK_Fn121_MinionSpawner"
-    },
-    {
-     "va": "0x005E8140",
-     "length": 497,
-     "name": "D2GAME_AI_SpecialState11_6FCE7E80"
-    },
-    {
      "va": "0x005EC6C0",
      "length": 501,
      "name": "AITHINK_Fn110_Vines"
-    },
-    {
-     "va": "0x005EFA90",
-     "length": 227,
-     "name": "AITHINK_Fn137_PutridDefiler"
-    },
-    {
-     "va": "0x005F9E30",
-     "length": 474,
-     "name": "sub_005F9E30_VileMotherSpawnDirection"
-    },
-    {
-     "va": "0x005FB6C0",
-     "length": 284,
-     "name": "AITHINK_Fn078_TrapRightArrow"
-    },
-    {
-     "va": "0x005FB7E0",
-     "length": 284,
-     "name": "AITHINK_Fn079_TrapLeftArrow"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E1900.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E1900",
-     "length": 606,
-     "name": "?AITHINK_Fn115_SiegeBeast@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E2FF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E2FF0",
-     "length": 1231
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -68218,40 +68221,6 @@
      "va": "0x005E8EB0",
      "length": 99,
      "name": "AITHINK_CullPotentialTargetsForDiablo"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EC8C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EC8C0",
-     "length": 682
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005ECEE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005ECEE0",
-     "length": 953
     }
    ]
   },
@@ -68298,22 +68267,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005F0B00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F0B00",
-     "length": 449,
-     "name": "?AITHINK_Fn010_CorruptRogue@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005FAF00",
-     "length": 914,
-     "name": "?AITHINK_Fn074_OblivionKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
@@ -68365,46 +68318,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiThink4_005F77C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F77C0",
-     "length": 230,
-     "name": "?AITHINK_FindTargetForMephisto@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2MonStatsTxt@@1@Z"
-    },
-    {
-     "va": "0x005FAA90",
-     "length": 231,
-     "name": "?AITHINK_Fn072_DoomKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005F78B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F78B0",
-     "length": 1620
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005FA280.cpp",
    "rank": 0,
    "functions": [
@@ -68413,41 +68326,6 @@
      "length": 253,
      "name": "?AITHINK_Fn069_VileDog@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005FA380.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FA380",
-     "length": 781,
-     "name": "?AITHINK_Fn070_FingerMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005FA710.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FA710",
-     "length": 893
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

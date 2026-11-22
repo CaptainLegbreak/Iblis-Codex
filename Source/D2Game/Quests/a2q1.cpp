@@ -178,47 +178,6 @@ void __fastcall ACT2Intro_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = ACT2Intro_ActiveFilterCallback;
 }
 
-// 0x00598640
-void __fastcall ACT2Q0_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const unsigned short nNPCNo = pQuestArg->nNPCNo;
-    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
-    if (nNPCNo == 201)
-    {
-        if (nMessageIndex == 253)
-        {
-            D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-            QUESTRECORD_SetQuestState(pQuestFlags, 8, 0);
-            QUESTS_SetGlobalState(pQuestArg->pGame, 8, 13);
-        }
-    }
-    else if (nNPCNo == 244)
-    {
-        if (nMessageIndex == 125)
-        {
-            D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)pQuestData->pQuestDataEx;
-            QUESTS_AddPlayerGUID(&pQuestDataEx->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
-        }
-    }
-}
-
-// 0x005987B0
-void __fastcall ACT2Q0_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)pQuestData->pQuestDataEx;
-    QUESTS_FastRemovePlayerGUID(&pQuestDataEx->tPlayerGUIDs, UNITS_GetUnitId(pQuestArg->pPlayer));
-}
-
-// 0x005987D0
-void __fastcall ACT2Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 8, 0) == 1)
-    {
-        QUESTS_SetGlobalState(pQuestData->pGame, 8, 13);
-    }
-}
-
 // 0x005988B0
 int __fastcall ACT2Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
