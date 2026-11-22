@@ -44844,17 +44844,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Clients_00538E60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00538E60",
-     "length": 165,
-     "name": "CLIENTS_CopySaveDataToClient"
-    }
-   ]
-  },
-  {
    "file": "Source/Bnclient/Unknown_00520DC0.cpp",
    "rank": 0,
    "functions": [
@@ -47934,17 +47923,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Clients_00538CE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00538CE0",
-     "length": 287,
-     "name": "CLIENTS_AttachSaveFile"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/DEBUG/Debug.cpp",
    "rank": 0,
    "functions": [
@@ -48213,17 +48191,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Clients_00537AC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00537AC0",
-     "length": 51,
-     "name": "?CLIENTS_FreeClientsFromGame@@YIXPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/GAME/Clients.cpp",
    "rank": 0,
    "functions": [
@@ -48263,6 +48230,16 @@
      "name": "?CLIENTS_SetPlayerInClient@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00537930",
+     "length": 52,
+     "name": "?sub_00537930_SendPlayerAssign@@YGXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00537970",
+     "length": 43,
+     "name": "@CLIENTS_SetPlayerUnitAlive@4"
+    },
+    {
      "va": "0x005379A0",
      "length": 41,
      "name": "?CLIENTS_SetGameData@@YIXPAUD2ClientStrc@@@Z"
@@ -48283,9 +48260,18 @@
      "name": "?CLIENTS_MoveClientBetweenRooms@@YAXPAUD2ActiveRoomStrc@@0@Z"
     },
     {
+     "va": "0x00537AC0",
+     "length": 51,
+     "name": "?CLIENTS_FreeClientsFromGame@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x00537B00",
      "length": 67,
      "name": "?CLIENTS_UpdatePlayerPortalFlags@@YAXPAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x00537B50",
+     "length": 442
     },
     {
      "va": "0x00537D10",
@@ -48300,6 +48286,56 @@
      "va": "0x00537FD0",
      "length": 251,
      "name": "?CLIENTS_RefreshUnitsUpdateList@@YIXPAUD2ClientStrc@@I@Z"
+    },
+    {
+     "va": "0x005380D0",
+     "length": 240,
+     "name": "?CLIENTS_SynchronizePlayer@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x005381C0",
+     "length": 39,
+     "name": "CLIENTS_IsInGame"
+    },
+    {
+     "va": "0x005381F0",
+     "length": 64,
+     "name": "?CLIENTS_SetRoomInClient@@YIXPAUD2ClientStrc@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x00538230",
+     "length": 42,
+     "name": "CLIENTS_GetRoom"
+    },
+    {
+     "va": "0x00538260",
+     "length": 72,
+     "name": "D2GAME_SetClientDead_6FC33830"
+    },
+    {
+     "va": "0x005382B0",
+     "length": 42,
+     "name": "CLIENTS_GetActNo"
+    },
+    {
+     "va": "0x005382E0",
+     "length": 54,
+     "name": "CLIENTS_SetActNo"
+    },
+    {
+     "va": "0x00538320",
+     "length": 46,
+     "name": "CLIENTS_EnableCharacterUnlock"
+    },
+    {
+     "va": "0x00538350",
+     "length": 42,
+     "name": "D2GAME_GetSaveChecksumFromClient_6FC33940"
+    },
+    {
+     "va": "0x00538380",
+     "length": 42,
+     "name": "D2GAME_SetSaveFileChecksum_6FC33970"
     },
     {
      "va": "0x005383B0",
@@ -48317,9 +48353,44 @@
      "name": "?CLIENTS_SendUnitIfOutsideAdjacentRooms@@YIXPAUClient@@PAUUnit@@@Z"
     },
     {
+     "va": "0x00538590",
+     "length": 38,
+     "name": "CLIENTS_GetClientId"
+    },
+    {
+     "va": "0x005385C0",
+     "length": 4,
+     "name": "CLIENTS_GetPlayTime"
+    },
+    {
+     "va": "0x005385D0",
+     "length": 3,
+     "name": "sub_005385D0"
+    },
+    {
      "va": "0x005385E0",
      "length": 1,
      "name": "?sub_005385E0@@YAXXZ"
+    },
+    {
+     "va": "0x005385F0",
+     "length": 40,
+     "name": "CLIENTS_GetClassId"
+    },
+    {
+     "va": "0x00538620",
+     "length": 4,
+     "name": "CLIENTS_SetClassId"
+    },
+    {
+     "va": "0x00538630",
+     "length": 5,
+     "name": "CLIENTS_SetFlags"
+    },
+    {
+     "va": "0x00538640",
+     "length": 5,
+     "name": "CLIENTS_GetFlags"
     },
     {
      "va": "0x00538650",
@@ -48336,9 +48407,44 @@
      "length": 74
     },
     {
+     "va": "0x005386D0",
+     "length": 39,
+     "name": "CLIENTS_SetClientState"
+    },
+    {
+     "va": "0x00538700",
+     "length": 42,
+     "name": "CLIENTS_SetIronGolemItemGUID"
+    },
+    {
      "va": "0x00538730",
      "length": 42,
      "name": "?CLIENTS_GetIronGolemItemGUID@@YIHPAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x00538760",
+     "length": 42,
+     "name": "CLIENTS_SetCreateTime"
+    },
+    {
+     "va": "0x00538790",
+     "length": 42,
+     "name": "CLIENTS_GetCreateTime"
+    },
+    {
+     "va": "0x005387C0",
+     "length": 42,
+     "name": "CLIENTS_GetGame"
+    },
+    {
+     "va": "0x005387F0",
+     "length": 55,
+     "name": "CLIENTS_IsInUnitsRoom"
+    },
+    {
+     "va": "0x00538830",
+     "length": 39,
+     "name": "CLIENTS_GetName"
     },
     {
      "va": "0x00538860",
@@ -48361,9 +48467,63 @@
      "name": "?CLIENTS_CheckState@@YIHHH@Z"
     },
     {
+     "va": "0x005389A0",
+     "length": 450
+    },
+    {
+     "va": "0x00538B70",
+     "length": 126,
+     "name": "?CLIENTS_GetNameById@@YIHHPAD@Z"
+    },
+    {
      "va": "0x00538BF0",
      "length": 97,
      "name": "?CLIENTS_GetClientIdByName@@YIHPBD@Z"
+    },
+    {
+     "va": "0x00538CE0",
+     "length": 287,
+     "name": "CLIENTS_AttachSaveFile"
+    },
+    {
+     "va": "0x00538E00",
+     "length": 42,
+     "name": "CLIENTS_GetSaveHeader"
+    },
+    {
+     "va": "0x00538E30",
+     "length": 42,
+     "name": "CLIENTS_GetSaveHeaderSize"
+    },
+    {
+     "va": "0x00538E60",
+     "length": 165,
+     "name": "CLIENTS_CopySaveDataToClient"
+    },
+    {
+     "va": "0x00538F10",
+     "length": 110,
+     "name": "?CLIENTS_FreeSaveHeader@@YIXPAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x00538F80",
+     "length": 63,
+     "name": "D2GAME_SetSaveLoadComplete_6FC34300"
+    },
+    {
+     "va": "0x00538FC0",
+     "length": 62,
+     "name": "CLIENTS_HasLoadedSave"
+    },
+    {
+     "va": "0x00539000",
+     "length": 43,
+     "name": "CLIENTS_SetGameOwner"
+    },
+    {
+     "va": "0x00539030",
+     "length": 49,
+     "name": "?CLIENT_IsGameOwner@@YIIPAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x00539070",
@@ -48379,6 +48539,16 @@
      "va": "0x00539090",
      "length": 4,
      "name": "?CLIENTS_GetClientState@@YIHPAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x005390A0",
+     "length": 43,
+     "name": "CLIENTS_SetSkillHotKey"
+    },
+    {
+     "va": "0x005390D0",
+     "length": 51,
+     "name": "CLIENTS_GetSkillHotKey"
     },
     {
      "va": "0x00539110",
@@ -48421,6 +48591,11 @@
      "name": "@CLIENTS_SetGuildEmblem@16"
     },
     {
+     "va": "0x005391E0",
+     "length": 42,
+     "name": "CLIENTS_SetExperienceLoss"
+    },
+    {
      "va": "0x00539210",
      "length": 7,
      "name": "@CLIENTS_GetExperienceLoss@4"
@@ -48446,6 +48621,11 @@
      "name": "?CLIENTS_PacketDataList_Reset@@YIXPAUD2ClientStrc@@PAUD2PacketDataStrc@@@Z"
     },
     {
+     "va": "0x005392A0",
+     "length": 45,
+     "name": "?CLIENTS_PacketDataList_PopHead@@YIPAUD2PacketDataStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
      "va": "0x005392D0",
      "length": 7,
      "name": "@CLIENTS_PacketDataList_GetTail@4"
@@ -48454,6 +48634,11 @@
      "va": "0x005392E0",
      "length": 7,
      "name": "@CLIENTS_PacketDataList_GetHead@4"
+    },
+    {
+     "va": "0x005392F0",
+     "length": 13,
+     "name": "CLIENTS_CopyAccountNameToBuffer"
     },
     {
      "va": "0x00539300",
@@ -48466,14 +48651,58 @@
      "name": "@CLIENTS_GetClientInfo@8"
     },
     {
+     "va": "0x00539320",
+     "length": 4,
+     "name": "CLIENTS_SetClientInfo"
+    },
+    {
+     "va": "0x00539330",
+     "length": 42,
+     "name": "CLIENTS_GetClientPlayerData"
+    },
+    {
+     "va": "0x00539360",
+     "length": 137,
+     "name": "?CLIENTS_NotifyWarpAttempt@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005393F0",
+     "length": 128,
+     "name": "?CLIENTS_ShouldDelayWarpAttempt@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00539470",
+     "length": 42,
+     "name": "CLIENTS_GetLocale"
+    },
+    {
      "va": "0x005394A0",
      "length": 703,
      "name": "?sub_005394A0@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
+     "va": "0x00539760",
+     "length": 715,
+     "name": "?ClientAddPlayerToGame@@YIHPAUD2ClientStrc@@PAUD2GameStrc@@HPAUD2ActiveRoomStrc@@HH@Z"
+    },
+    {
+     "va": "0x00539A30",
+     "length": 424,
+     "name": "?ClientAddToGame@@YIPAUD2ClientStrc@@PAUD2GameStrc@@HEPBD1HEHH@Z"
+    },
+    {
      "va": "0x00539BE0",
      "length": 447,
      "name": "?CLIENTS_FillCharacterPreviewInfo@@YIXPAUD2ClientStrc@@PAD@Z"
+    },
+    {
+     "va": "0x00539DA0",
+     "length": 1239
+    },
+    {
+     "va": "0x0053A2F0",
+     "length": 290,
+     "name": "?CLIENTS_ResetClientInAct@@YIXPAUD2ClientStrc@@H@Z"
     },
     {
      "va": "0x0053A6F0",
@@ -48484,104 +48713,6 @@
      "va": "0x0053AB10",
      "length": 101,
      "name": "?LEVEL_ClearAdjacentRoomUnitTargets@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0053E2C0",
-     "length": 24,
-     "name": "?SCMD_WriteBitBufferBool@D2BitBufferStrc@@QAEXH@Z"
-    },
-    {
-     "va": "0x00547080",
-     "length": 228,
-     "name": "?OBJRGN_PrintObjectPlacementStats@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x00552840",
-     "length": 147,
-     "name": "?OBJECTS_PopulateObject@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x005536E0",
-     "length": 62,
-     "name": "?SUNIT_StoreRoomTile@@YIXPAUD2W11RoomTileOwnerStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x005B7230",
-     "length": 100,
-     "name": "?ACT3Q0_ChangeHratliMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
-    },
-    {
-     "va": "0x005BD040",
-     "length": 100,
-     "name": "?ACT3Q6_ChangeNatalyaMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005377B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005377B0",
-     "length": 83,
-     "name": "?sub_005377B0_CountFlaggedClients@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_00537930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00537930",
-     "length": 52,
-     "name": "?sub_00537930_SendPlayerAssign@@YGXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_00537970.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00537970",
-     "length": 43,
-     "name": "@CLIENTS_SetPlayerUnitAlive@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_00537B50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00537B50",
-     "length": 442
-    },
-    {
-     "va": "0x005380D0",
-     "length": 240,
-     "name": "?CLIENTS_SynchronizePlayer@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x00538B70",
-     "length": 126,
-     "name": "?CLIENTS_GetNameById@@YIHHPAD@Z"
-    },
-    {
-     "va": "0x005390A0",
-     "length": 43,
-     "name": "CLIENTS_SetSkillHotKey"
-    },
-    {
-     "va": "0x00539A30",
-     "length": 424,
-     "name": "?ClientAddToGame@@YIPAUD2ClientStrc@@PAUD2GameStrc@@HEPBD1HEHH@Z"
-    },
-    {
-     "va": "0x0053A2F0",
-     "length": 290,
-     "name": "?CLIENTS_ResetClientInAct@@YIXPAUD2ClientStrc@@H@Z"
     },
     {
      "va": "0x00540890",
@@ -48599,6 +48730,11 @@
      "name": "SKILLS_SetMonsterComponent"
     },
     {
+     "va": "0x00547080",
+     "length": 228,
+     "name": "?OBJRGN_PrintObjectPlacementStats@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x00547400",
      "length": 46,
      "name": "OBJRGN_SetWellCoordinates"
@@ -48607,6 +48743,16 @@
      "va": "0x00547490",
      "length": 46,
      "name": "OBJRGN_SetShrineCoordinates"
+    },
+    {
+     "va": "0x00552840",
+     "length": 147,
+     "name": "?OBJECTS_PopulateObject@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x005536E0",
+     "length": 62,
+     "name": "?SUNIT_StoreRoomTile@@YIXPAUD2W11RoomTileOwnerStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x005544B0",
@@ -48632,250 +48778,27 @@
      "va": "0x005A7F80",
      "length": 114,
      "name": "MONSTERMODE_EventHandler"
+    },
+    {
+     "va": "0x005B7230",
+     "length": 100,
+     "name": "?ACT3Q0_ChangeHratliMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
+    },
+    {
+     "va": "0x005BD040",
+     "length": 100,
+     "name": "?ACT3Q6_ChangeNatalyaMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
     }
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Clients_005381C0.cpp",
+   "file": "Source/D2Game/Unknown_005377B0.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x005381C0",
-     "length": 39,
-     "name": "CLIENTS_IsInGame"
-    },
-    {
-     "va": "0x00538230",
-     "length": 42,
-     "name": "CLIENTS_GetRoom"
-    },
-    {
-     "va": "0x00538260",
-     "length": 72,
-     "name": "D2GAME_SetClientDead_6FC33830"
-    },
-    {
-     "va": "0x005382B0",
-     "length": 42,
-     "name": "CLIENTS_GetActNo"
-    },
-    {
-     "va": "0x005382E0",
-     "length": 54,
-     "name": "CLIENTS_SetActNo"
-    },
-    {
-     "va": "0x00538320",
-     "length": 46,
-     "name": "CLIENTS_EnableCharacterUnlock"
-    },
-    {
-     "va": "0x00538350",
-     "length": 42,
-     "name": "D2GAME_GetSaveChecksumFromClient_6FC33940"
-    },
-    {
-     "va": "0x00538380",
-     "length": 42,
-     "name": "D2GAME_SetSaveFileChecksum_6FC33970"
-    },
-    {
-     "va": "0x00538590",
-     "length": 38,
-     "name": "CLIENTS_GetClientId"
-    },
-    {
-     "va": "0x005385C0",
-     "length": 4,
-     "name": "CLIENTS_GetPlayTime"
-    },
-    {
-     "va": "0x005385D0",
-     "length": 3,
-     "name": "sub_005385D0"
-    },
-    {
-     "va": "0x005385F0",
-     "length": 40,
-     "name": "CLIENTS_GetClassId"
-    },
-    {
-     "va": "0x00538620",
-     "length": 4,
-     "name": "CLIENTS_SetClassId"
-    },
-    {
-     "va": "0x00538630",
-     "length": 5,
-     "name": "CLIENTS_SetFlags"
-    },
-    {
-     "va": "0x00538640",
-     "length": 5,
-     "name": "CLIENTS_GetFlags"
-    },
-    {
-     "va": "0x005386D0",
-     "length": 39,
-     "name": "CLIENTS_SetClientState"
-    },
-    {
-     "va": "0x00538700",
-     "length": 42,
-     "name": "CLIENTS_SetIronGolemItemGUID"
-    },
-    {
-     "va": "0x00538760",
-     "length": 42,
-     "name": "CLIENTS_SetCreateTime"
-    },
-    {
-     "va": "0x00538790",
-     "length": 42,
-     "name": "CLIENTS_GetCreateTime"
-    },
-    {
-     "va": "0x005387C0",
-     "length": 42,
-     "name": "CLIENTS_GetGame"
-    },
-    {
-     "va": "0x005387F0",
-     "length": 55,
-     "name": "CLIENTS_IsInUnitsRoom"
-    },
-    {
-     "va": "0x00538830",
-     "length": 39,
-     "name": "CLIENTS_GetName"
-    },
-    {
-     "va": "0x00538E00",
-     "length": 42,
-     "name": "CLIENTS_GetSaveHeader"
-    },
-    {
-     "va": "0x00538E30",
-     "length": 42,
-     "name": "CLIENTS_GetSaveHeaderSize"
-    },
-    {
-     "va": "0x00538F80",
-     "length": 63,
-     "name": "D2GAME_SetSaveLoadComplete_6FC34300"
-    },
-    {
-     "va": "0x00538FC0",
-     "length": 62,
-     "name": "CLIENTS_HasLoadedSave"
-    },
-    {
-     "va": "0x00539000",
-     "length": 43,
-     "name": "CLIENTS_SetGameOwner"
-    },
-    {
-     "va": "0x005390D0",
-     "length": 51,
-     "name": "CLIENTS_GetSkillHotKey"
-    },
-    {
-     "va": "0x005391E0",
-     "length": 42,
-     "name": "CLIENTS_SetExperienceLoss"
-    },
-    {
-     "va": "0x005392F0",
-     "length": 13,
-     "name": "CLIENTS_CopyAccountNameToBuffer"
-    },
-    {
-     "va": "0x00539320",
-     "length": 4,
-     "name": "CLIENTS_SetClientInfo"
-    },
-    {
-     "va": "0x00539330",
-     "length": 42,
-     "name": "CLIENTS_GetClientPlayerData"
-    },
-    {
-     "va": "0x00539470",
-     "length": 42,
-     "name": "CLIENTS_GetLocale"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_005381F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005381F0",
-     "length": 64,
-     "name": "?CLIENTS_SetRoomInClient@@YIXPAUD2ClientStrc@@PAUD2ActiveRoomStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_005389A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005389A0",
-     "length": 450
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_00538F10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00538F10",
-     "length": 110,
-     "name": "?CLIENTS_FreeSaveHeader@@YIXPAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x00539030",
-     "length": 49,
-     "name": "?CLIENT_IsGameOwner@@YIIPAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x005392A0",
-     "length": 45,
-     "name": "?CLIENTS_PacketDataList_PopHead@@YIPAUD2PacketDataStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x00539360",
-     "length": 137,
-     "name": "?CLIENTS_NotifyWarpAttempt@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005393F0",
-     "length": 128,
-     "name": "?CLIENTS_ShouldDelayWarpAttempt@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_00539760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00539760",
-     "length": 715,
-     "name": "?ClientAddPlayerToGame@@YIHPAUD2ClientStrc@@PAUD2GameStrc@@HPAUD2ActiveRoomStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Clients_00539DA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00539DA0",
-     "length": 1239
+     "va": "0x005377B0",
+     "length": 83,
+     "name": "?sub_005377B0_CountFlaggedClients@@YAHXZ"
     }
    ]
   },
@@ -49868,6 +49791,17 @@
      "va": "0x005A6220",
      "length": 4,
      "name": "sub_005A6220"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/GAME/SCmd_0053E2C0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0053E2C0",
+     "length": 24,
+     "name": "?SCMD_WriteBitBufferBool@D2BitBufferStrc@@QAEXH@Z"
     }
    ]
   },

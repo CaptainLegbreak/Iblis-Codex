@@ -82,13 +82,14 @@ struct D2UnkMonCreateStrc
 typedef void (__fastcall* D2EnterGameFn)(int nGameId, char* szName, int nClass, int nLevel, int nSaveFlags);
 typedef void (__fastcall* FnUpdateCharacterLadder)(const char* szCharName, int nClassId, int nLevel, unsigned __int64 nExperience, unsigned int nFlags, D2FileTimeStrc* pSaveCreationTimestamp);
 typedef const char* (__stdcall* FnLoadComplete)();
+typedef void (__fastcall* D2LeaveGameFn)(D2ClientInfoStrc** ppClientInfo, int nGameId, int nClassId, int nLevel, __int64 nExperience, int nSaveFlags, const char* szCharName, const char* szPreview, int bUnlockCharacter, int a10, int a11, const char* szAccountName, int nCharSaveTransactionToken, int a14, int a15, int a16, int a17, int a18, D2FileTimeStrc* pSaveCreationTimestamp);
 typedef void (__fastcall* RealmSaveCallback)(unsigned int*, const char*, char*, void*, int, unsigned int);
 typedef void (__fastcall* RealmUpdateCallback)(unsigned int*, const char*, char*);
 
 struct D2ServerCallbackFunctions
 {
     void (__fastcall* pfCloseGame)(int nGameId, int nProgramId, int nLastUnitGUID, int nSeconds); // 0x00
-    void* pfLeaveGame; // 0x04
+    D2LeaveGameFn pfLeaveGame; // 0x04
     void (__fastcall* pfGetDatabaseCharacter)(D2ClientInfoStrc** ppClientInfo, const char* szCharName, int dwClientId, const char* szAccountName); // 0x08
     RealmSaveCallback pfSaveDatabaseCharacter; // 0x0C
     void* pfServerLogMessage; // 0x10

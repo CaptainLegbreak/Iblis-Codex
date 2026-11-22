@@ -15,12 +15,33 @@ struct D2UnitStrc;
 struct D2ClientUnitUpdateStrc;
 struct D2ClientStrc;
 
+#pragma pack(push, 1)
 struct D2ClientUnitUpdateStrc
 {
     unsigned char nUnitType; // 0x00
-    unsigned char nUnitGUID[4]; // 0x01
-    unsigned char nX[2]; // 0x05
-    unsigned char nY[2]; // 0x07
+    int nUnitGUID; // 0x01
+    unsigned short nX; // 0x05
+    unsigned short nY; // 0x07
+};
+#pragma pack(pop)
+
+union D2PackedClientSaveFlags
+{
+    unsigned short nPackedValue;
+    struct
+    {
+        unsigned short bInit : 1;
+        unsigned short bUnkFlag0x02 : 1;
+        unsigned short bHardcore : 1;
+        unsigned short bDead : 1;
+        unsigned short bUnkFlag0x10 : 1;
+        unsigned short bExpansion : 1;
+        unsigned short bLadder : 1;
+        unsigned short bUnkFlag0x80 : 1;
+        unsigned short nProgression : 5;
+        unsigned short bWeaponSwitch : 1;
+        unsigned short nDONOTUSEBITS : 2;
+    };
 };
 
 struct D2ClientStrc
@@ -29,7 +50,11 @@ struct D2ClientStrc
     int dwClientState; // 0x04
     unsigned char nClassId; // 0x08
     char unk0x09; // 0x09
-    unsigned short nSaveFlags; // 0x0A
+    union
+    {
+        unsigned short nSaveFlags; // 0x0A
+        D2PackedClientSaveFlags tSaveFlags; // 0x0A
+    };
     unsigned char nCharTemplate; // 0x0C
     char szName[16]; // 0x0D
     char szAccount[16]; // 0x1D
@@ -40,10 +65,17 @@ struct D2ClientStrc
     int nCharSaveTransactionToken; // 0x60
     int unk0x64; // 0x64
     D2ClientInfoStrc* pClientInfo; // 0x68
-    int unk0x6C[7]; // 0x6C
-    int nValue_088; // 0x88
-    int nValue_08C; // 0x8C
-    int unk0x90[55]; // 0x90
+    union
+    {
+        char szPreview[256]; // 0x6C
+        struct
+        {
+            int unk0x6C[7]; // 0x6C
+            int nValue_088; // 0x88
+            int nValue_08C; // 0x8C
+            int unk0x90[55]; // 0x90
+        };
+    };
     int dwUnitType; // 0x16C
     int dwUnitGUID; // 0x170
     D2UnitStrc* pPlayer; // 0x174
@@ -77,7 +109,9 @@ struct D2ClientStrc
         unsigned int dwFlags; // 0x3D4
         struct
         {
-            unsigned char bFlagsLow : 5; // 0x3D4
+            unsigned char bFlagsLow : 2; // 0x3D4
+            unsigned char bArena : 1; // 0x3D4
+            unsigned char bFlagsMid : 2; // 0x3D4
             unsigned char bGameOwner : 1; // 0x3D4
         };
     };
@@ -86,11 +120,11 @@ struct D2ClientStrc
     unsigned char bSwitchWeapon; // 0x45C
     unsigned char unk0x45D; // 0x45D
     unsigned short nGuildFlags; // 0x45E
-    unsigned int unk0x460; // 0x460
-    int unk0x464[7]; // 0x464
+    unsigned int dwGuildTag; // 0x460
+    char szGuildName[28]; // 0x464
     unsigned char nGuildBgColor; // 0x480
     unsigned char nGuildFgColor; // 0x481
-    unsigned char unk0x482; // 0x482
+    unsigned char nGuildEmblem; // 0x482
     unsigned char unk0x483; // 0x483
     int nIronGolemItemGUID; // 0x484
     unsigned int nCreateTime; // 0x488
@@ -98,7 +132,9 @@ struct D2ClientStrc
     D2ClientStrc* pNext; // 0x4A8
     D2ClientStrc* pServerNext; // 0x4AC
     D2ClientStrc* pServerNextByName; // 0x4B0
-    int unk0x4B4[19]; // 0x4B4
+    unsigned int dwPings[16]; // 0x4B4
+    int unk0x4F4; // 0x4F4
+    __int64 nAveragePing; // 0x4F8
     unsigned int dwPingsCount; // 0x500
     int dw504; // 0x504
     int nExpLoss; // 0x508
