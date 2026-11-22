@@ -147,10 +147,6 @@ extern "C" __declspec(dllexport) unsigned int* __fastcall sub_004BDFD0(Obj004BDF
 }
 
 // build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
-// 0x004BE080
-UIWidget::~UIWidget()
-{
-}
 
 // 0x004BE0A0
 int ListBoxImplementation::sub_004BE0A0_GetLineCount()
