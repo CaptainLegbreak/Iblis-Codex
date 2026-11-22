@@ -63757,6 +63757,10 @@
      "length": 530
     },
     {
+     "va": "0x005F9490",
+     "length": 547
+    },
+    {
      "va": "0x005F96C0",
      "length": 651,
      "name": "?AITHINK_Fn064_SkeletonMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68448,16 +68452,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005F9490.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F9490",
-     "length": 547
-    }
    ]
   },
   {

@@ -1524,6 +1524,14 @@ void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc*,D2UnitStrc*); // 0x005994
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_GreaterMummy(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,void*); // 0x005F2A00
 
+extern "C" int __cdecl abs(int);
+
+void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc*, int); // 0x006488A0
+
+extern const unsigned char gnDirectionMap_006E3540[]; // 0x006E3540
+
+extern const unsigned char gnDirectionAxis_006E353C[]; // 0x006E353C
+
 // 0x005B0D00
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -5841,6 +5849,7 @@ static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed
     return SEED_RollRandomNumber_Inline(pSeed) & (nMax - 1);
 }
 
+// build: context CLIENTS_GetUnitXInline
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -5878,6 +5887,7 @@ static inline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
     }
 }
 
+// build: context CLIENTS_GetUnitYInline
 static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -12329,6 +12339,58 @@ void __fastcall sub_005F9270_ThinkSkillModes(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 4));
+}
+
+// build: context AI_RollPercentage_005F9490
+static int AI_RollPercentage_005F9490(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed % 100;
+}
+
+// build: context ABS_VALUE
+static inline int ABS_VALUE(int n) { return n < 0 ? -n : n; }
+
+// 0x005F9490
+void __fastcall sub_005F9490_ThinkAxisCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (pAiControl->dwAiParam[0] > 0)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, pAiControl->dwAiParam[0]);
+        pAiControl->dwAiParam[0] = 0;
+        return;
+    }
+    UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
+    const int nTargetX = CLIENTS_GetUnitXInline(pTarget);
+    const int nTargetY = CLIENTS_GetUnitYInline(pTarget);
+    const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
+    const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
+    int nX = nTargetX;
+    int nY = nTargetY;
+    if (ABS_VALUE(nTargetX - nUnitX) < ABS_VALUE(nTargetY - nUnitY))
+    {
+        nX = nUnitX;
+    }
+    else
+    {
+        nY = nUnitY;
+    }
+    const unsigned char nDirection = UNITS_GetDirectionToCoords(pUnit, nX, nY);
+    sub_006488A0_SetDirection(pUnit->pDynamicPath, gnDirectionAxis_006E353C[gnDirectionMap_006E3540[nDirection]]);
+    if ((ABS_VALUE(nTargetX - nUnitX) < 6 || ABS_VALUE(nTargetY - nUnitY) < 6)
+        && pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 0) && AI_RollPercentage_005F9490(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 1))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        pAiControl->dwAiParam[0] = AI_PARAM(pGame, pMonStatsTxt, 2);
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 3));
 }
 
 // 0x005F96C0

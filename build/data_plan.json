@@ -5303,8 +5303,8 @@
    "state": "included"
   },
   "Source/D2Game/Ai/AiThink4.cpp": {
-   "bytes": 732,
-   "definitions": 6,
+   "bytes": 800,
+   "definitions": 8,
    "externs": [
     "extern \"C\" void __cdecl sub_005E6DE0(); // 0x005E6DE0",
     "extern \"C\" void __cdecl sub_005E6F00(); // 0x005E6F00",
@@ -5351,15 +5351,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005E8EB0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Ai/AiThink4_005F9490.cpp": {
-   "bytes": 68,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Ai/AiThink4_005F9490.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -120261,7 +120252,7 @@
    "cname": "gData_006E353C",
    "declared": true,
    "decorated": "?gnDirectionAxis_006E353C@@3QBEB",
-   "file": "Source/D2Game/Ai/AiThink4_005F9490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E353C[4]; // 0x006E353C",
@@ -120292,7 +120283,7 @@
    "cname": "gData_006E3540",
    "declared": true,
    "decorated": "?gnDirectionMap_006E3540@@3QBEB",
-   "file": "Source/D2Game/Ai/AiThink4_005F9490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "fill": 64,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3540[64]; // 0x006E3540",
