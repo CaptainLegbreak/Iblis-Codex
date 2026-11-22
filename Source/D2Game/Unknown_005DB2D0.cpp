@@ -12,10 +12,6 @@ struct D2SkillsTxt;
 struct D2StaticPathStrc;
 struct Skills;
 
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
@@ -26,7 +22,6 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
-
 
 struct Skills { char pad0[0x138]; unsigned rangeCalc,durationCalc; char pad140[0xFC]; };
 
@@ -55,67 +50,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     }
 
     return 0;
-}
-
-// 0x005DB2D0
-int __fastcall SKILLS_SrvDo007_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    D2DamageStrc damage;
-    memset(&damage, 0, sizeof(damage));
-
-    int nType;
-    if (!pUnit)
-    {
-        nType = UNIT_INVALID;
-    }
-    else
-    {
-        nType = pUnit->dwUnitType;
-    }
-
-    const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel);
-    if (nType == UNIT_MONSTER)
-    {
-        sub_6FC627B0(pUnit, 8);
-    }
-
-    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, nToHit, 0);
-    if (damage.wResultFlags & 1)
-    {
-        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-        if (pSkillsTxtRecord->nEType > 0)
-        {
-            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
-            if (damage.dwConvPct > 0)
-            {
-                damage.nConvType = pSkillsTxtRecord->nEType;
-            }
-        }
-
-        D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
-    }
-
-    unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
-    if (!nSrcDam)
-    {
-        nSrcDam = 0x80;
-    }
-
-    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
-    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
-    return 1;
 }
 
 // 0x005DB6A0
@@ -156,34 +90,4 @@ inline Skills* GetSkills(int skillId)
 {
     if(skillId>=0 && skillId<tables->skillCount) return &tables->skills[skillId];
     return 0;
-}
-
-// 0x005DBE50
-int __fastcall sub_005DBE50(D2GameStrc* game,D2UnitStrc* unit,int skillId,int level)
-{
-    Skills* record=GetSkills(skillId);
-    if(!record) return 0;
-    D2UnitStrc* target=SUNIT_GetTargetUnit(game,unit);
-    if(!target) return 0;
-    SUNITDMG_DrainItemDurability(game,unit,target,0);
-    int range=sub_00646CA0(unit,record->rangeCalc,skillId,level);
-    const int targetId=target->dwUnitId;
-    D2UnitStrc* other=sub_6FD107F0(game,unit,UNITS_GetUnitXPosition(target),UNITS_GetUnitYPosition(target),range,3,targetId,0);
-    if(!other) return 0;
-    int missileId=SKILLS_GetProgressiveSkillMissileId(unit,skillId);
-    if(missileId<0 || missileId>=tables->missileCount) return 0;
-    int duration=sub_00646CA0(unit,record->durationCalc,skillId,level);
-    D2MissileStrc params;
-    memset(&params,0,sizeof(params));
-    params.dwFlags=MISSILE_FLAGS;
-    params.pOwner=unit;
-    params.pOrigin=target;
-    params.nSkill=skillId;
-    params.nSkillLevel=level;
-    params.nMissile=missileId;
-    params.nTargetX=CLIENTS_GetUnitX(other);
-    params.nTargetY=CLIENTS_GetUnitY(other);
-    D2UnitStrc* missile=sub_0059FA30(game,&params);
-    if(missile) sub_0064A710(missile,duration);
-    return 1;
 }

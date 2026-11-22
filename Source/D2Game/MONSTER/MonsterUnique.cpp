@@ -1093,27 +1093,6 @@ void __fastcall MONSTERUNIQUE_SetTrapDamage(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 }
 
-// 0x005A4EF0
-void __fastcall sub_6FC62780(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2GameStrc* pGame)
-{
-    if (pAttacker && pDefender && !UNIT_HasFlag(pDefender, UNITFLAG_NOXP))
-    {
-        SUNITDMG_DistributeExperience(pGame, pAttacker, pDefender);
-    }
-}
-
-// 0x005A5490
-void __fastcall sub_6FC62D90(D2UnitStrc* pUnit, D2GameStrc* pGame)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (pTarget)
-    {
-        D2DamageStrc damage = {};
-        damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, 0, 0);
-        SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
-    }
-}
-
 // 0x005A5D50
 void __fastcall sub_6FC7B3F0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, void* pArg)
 {

@@ -51686,6 +51686,37 @@
      "name": "OBJRGN_CanSpawnShrine"
     },
     {
+     "va": "0x005484B0",
+     "length": 100,
+     "name": "sub_6FC82270"
+    },
+    {
+     "va": "0x005490E0",
+     "length": 98,
+     "name": "sub_005490E0_CheckCursorItem"
+    },
+    {
+     "va": "0x00549150",
+     "length": 94,
+     "name": "sub_00549150_CheckStoredItem"
+    },
+    {
+     "va": "0x005491B0",
+     "length": 101,
+     "name": "sub_005491B0_CheckStoredOrEquippedItem"
+    },
+    {
+     "va": "0x005492F0",
+     "length": 95,
+     "name": "sub_005492F0_CheckBeltItem"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterRegion_00547BB0.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x00547BB0",
      "length": 4,
      "name": "?MONSTERREGION_GetMonsterRegionFromLevelId@@YIPAUD2MonsterRegionStrc@@PAPAU1@H@Z"
@@ -51719,31 +51750,6 @@
      "va": "0x00547ED0",
      "length": 113,
      "name": "sub_6FC682C0"
-    },
-    {
-     "va": "0x005484B0",
-     "length": 100,
-     "name": "sub_6FC82270"
-    },
-    {
-     "va": "0x005490E0",
-     "length": 98,
-     "name": "sub_005490E0_CheckCursorItem"
-    },
-    {
-     "va": "0x00549150",
-     "length": 94,
-     "name": "sub_00549150_CheckStoredItem"
-    },
-    {
-     "va": "0x005491B0",
-     "length": 101,
-     "name": "sub_005491B0_CheckStoredOrEquippedItem"
-    },
-    {
-     "va": "0x005492F0",
-     "length": 95,
-     "name": "sub_005492F0_CheckBeltItem"
     }
    ]
   },
@@ -61452,16 +61458,6 @@
      "name": "?MONSTERUNIQUE_SetTrapDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005A4EF0",
-     "length": 45,
-     "name": "sub_6FC62780"
-    },
-    {
-     "va": "0x005A5490",
-     "length": 86,
-     "name": "sub_6FC62D90"
-    },
-    {
      "va": "0x005A5D50",
      "length": 98,
      "name": "sub_6FC7B3F0"
@@ -61475,6 +61471,22 @@
      "va": "0x005A6130",
      "length": 94,
      "name": "sub_005A6130_AreUnitsFriendly"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterEval_005A4EF0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005A4EF0",
+     "length": 45,
+     "name": "sub_6FC62780"
+    },
+    {
+     "va": "0x005A5490",
+     "length": 86,
+     "name": "sub_6FC62D90"
     }
    ]
   },
@@ -65912,11 +65924,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005CD910",
-     "length": 235,
-     "name": "?sub_005CD910@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005CDF00",
      "length": 16,
      "name": "?sub_005CDF00_HasTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -65935,6 +65942,17 @@
      "va": "0x005CE2B0",
      "length": 576,
      "name": "?SKILLS_SrvDo112_MonCurseCast@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/SKILLS/SkillMonst_005CD910.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005CD910",
+     "length": 235,
+     "name": "?sub_005CD910@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE4F0",
@@ -66828,14 +66846,20 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005DB2D0",
-     "length": 315,
-     "name": "SKILLS_SrvDo007_Jab"
-    },
-    {
      "va": "0x005DB6A0",
      "length": 36,
      "name": "?SKILLS_AddDamagePercentBonus@@YIXPAUD2UnitStrc@@H@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/SKILLS/SkillAma_005DB2D0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005DB2D0",
+     "length": 315,
+     "name": "SKILLS_SrvDo007_Jab"
     },
     {
      "va": "0x005DBE50",

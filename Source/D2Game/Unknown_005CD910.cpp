@@ -14,11 +14,6 @@ struct MonsterData;
 struct Skills;
 struct D2UnkNecSkillStrc;
 
-
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __fastcall D2GAME_RefreshPassiveSkills_6FD14CC0(D2UnitStrc* pUnit); // 0x0056DFA0
@@ -118,29 +113,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     }
 
     return 0;
-}
-
-// 0x005CD910
-int __fastcall sub_005CD910(D2GameStrc* pGame,D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
-{
-    D2SkillsTxt* pRecord=SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pRecord) return 0;
-    D2SkillStrc* pSkill=UNITS_GetUsedSkill(pUnit);
-    if (!pSkill) return 0;
-    D2UnitStrc* pTarget=SUNIT_GetTargetUnit(pGame,pUnit);
-    if (!pTarget) return 0;
-    D2SeedStrc seed;
-    SEED_InitSeed(&seed);
-    SEED_InitLowSeed(&seed,(!pUnit ? -1 : pUnit->dwUnitId)+(!pTarget ? -1 : pTarget->dwUnitId));
-    const int minimum=SKILLS_EvaluateSkillFormula(pUnit,pRecord->dwCalc[0],nSkillId,nSkillLevel);
-    const int maximum=SKILLS_EvaluateSkillFormula(pUnit,pRecord->dwCalc[1],nSkillId,nSkillLevel);
-    int value=ITEMS_RollLimitedRandomNumber(&seed,maximum-minimum)+minimum;
-    if (value<1) value=1;
-    SKILLS_SetParam1(pSkill,value);
-    SKILLS_SetParam2(pSkill,pTarget->dwUnitId);
-    const int type=(pTarget ? pTarget->dwUnitType : UNIT_INVALID);
-    SKILLS_SetParam3(pSkill,type);
-    return 1;
 }
 
 // 0x005CDF00
@@ -321,42 +293,4 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// 0x005CE4F0
-D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2UnitStrc* pMissile = 0;
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (pPath && sub_006505C0_TestPathFlag8(pPath))
-    {
-        int nXOffset;
-        int nYOffset;
-        {
-            unsigned char spiderLayDirections[8] = { 10, 8, 22, 20, 18, 16, 14, 12 };
-            const unsigned char nLayDirection = spiderLayDirections[sub_0063E7A0_GetByteTableEntry(sub_00648810(pPath))];
-            sub_0063E7E0_GetDirectionDelta(nLayDirection, &nXOffset, &nYOffset);
-        }
-        const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_SPIDERLAY), 1);
-        const int nUnitX = UNITS_GetXPositionInline(pUnit);
-        const int nUnitY = UNITS_GetYPositionInline(pUnit);
-        const int nX = nUnitX + nXOffset;
-        const int nY = nUnitY + nYOffset;
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
-        D2MissileStrc missileParams;
-        memset(&missileParams, 0, sizeof(missileParams));
-        missileParams.dwFlags = 0x21;
-        missileParams.pOwner = pUnit;
-        missileParams.nX = nX;
-        missileParams.nY = nY;
-        missileParams.nTargetX = nX + 2 * nXOffset;
-        missileParams.nTargetY = nY + 2 * nYOffset;
-        missileParams.nVelocity = 3;
-        missileParams.nSkill = 173;
-        missileParams.nSkillLevel = nSkillLevel;
-        missileParams.nMissile = MISSILE_SPIDERGOOLAY;
-        pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
-    }
-    return pMissile;
 }
