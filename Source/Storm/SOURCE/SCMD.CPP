@@ -1,36 +1,23 @@
 #include "Storm.h"
-#include "D2StormAutoLink.h"
 #include "D2StormTypes.h"
+#include "SValidate.h"
+#include "stpl.h"
 
 struct T0051755C;
-
 struct PairStrc_006C4030;
-
 struct D2SCompLinkStrc;
-
 struct D2FogUnlinkStrc;
-
-
-struct D2StormFixedListStrc;
-
-struct sub_006C4250;
-
-struct D2StormListAStrc;
-
 struct D2FogUnlinkBStrc;
-
-struct D2StormListStrc;
-
 struct CMDDEF;
+struct OptionInfoStrc;
+struct OptionContextStrc;
 
-struct CMDDEFList;
-
-
-struct D2StormCmdDefListStrc;
-
-struct D2CmdListStrc;
+typedef int (__stdcall* OptionCallback)(OptionInfoStrc* pInfo, const char* szString);
+typedef int (__stdcall* OptionCallbackToken)(const char* szToken);
 
 struct T0051755C { T0051755C* pPrevLink; int pNext; };
+
+struct T0051755C_1 { int nLinkOffset; T0051755C head; };
 
 struct PairStrc_006C4030
 {
@@ -38,9 +25,57 @@ struct PairStrc_006C4030
     int nSecond;
 };
 
-extern int gdwGlobal_0098A164; // 0x0098A164
+struct sub_006C40B0_Link
+{
+    sub_006C40B0_Link* pPrev;
+    unsigned int dwNext;
+};
 
-extern int gdwGlobal_007C914C; // 0x007C914C
+struct sub_006C40B0_List
+{
+    int unk_00;
+    sub_006C40B0_Link tLink;
+};
+
+struct sub_006C40D0_Link
+{
+    sub_006C40D0_Link* m_prevlink;
+    char* m_next;
+};
+
+struct sub_006C4140_Link
+{
+    sub_006C4140_Link* m_prevlink;
+    char* m_next;
+};
+
+struct sub_006C4140_List
+{
+    int m_linkoffset;
+    sub_006C4140_Link m_terminator;
+};
+
+struct sub_006C4470_Pair
+{
+    int nFirst;
+    int nSecond;
+};
+
+struct D2ScmdLinkStrc
+{
+    D2ScmdLinkStrc* m_prevlink;
+    int m_next;
+
+    D2ScmdLinkStrc() { m_prevlink = 0; m_next = 0; }
+};
+
+struct D2ScmdListStrc
+{
+    int m_linkoffset;
+    D2ScmdLinkStrc m_terminator;
+
+    D2ScmdListStrc();
+};
 
 struct D2FogUnlinkStrc
 {
@@ -49,116 +84,7 @@ struct D2FogUnlinkStrc
     void sub_006C4480_Unlink();
 };
 
-struct D2StormFixedListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-    D2StormLinkStrc* Link(char* pNode) { return pNode ? (D2StormLinkStrc*)pNode : &m_terminator; }
-    void sub_006C4180_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    char* sub_006C44C0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-};
-
-struct sub_006C4250
-{
-    D2StormLinkStrc f_0;
-    ~sub_006C4250();
-};
-
-struct D2StormListAStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* sub_006C4380_RawNext(D2StormLinkStrc* pNode);
-};
-
 struct D2FogUnlinkBStrc { D2SCompLinkStrc tLink; void sub_006C43B0_Unlink(); };
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Head()
-    {
-        return (int)m_terminator.m_next <= 0 ? 0 : (D2StormLinkStrc*)m_terminator.m_next;
-    }
-    void UnlinkAll();
-};
-
-int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-extern "C" const char gszDelete[]; // 0x006CC824
-
-struct CMDDEF
-{
-    D2StormLinkStrc m_link;
-    union
-    {
-        int nData;
-        char unk0x08[0x38];
-    };
-
-    CMDDEF()
-    {
-        m_link.m_prevlink = 0;
-        m_link.m_next = 0;
-    }
-
-    ~CMDDEF()
-    {
-        m_link.Unlink();
-    }
-
-    static void operator delete(void* pMemory);
-};
-
-struct CMDDEFList
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    CMDDEF* Head()
-    {
-        return (int)m_terminator.m_next <= 0 ? 0 : (CMDDEF*)m_terminator.m_next;
-    }
-};
-
-struct D2StormCmdDefListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    void sub_006C4760_DeleteAll();
-};
-
-extern const char gszCmdDef_0074C47C[]; // 0x0074C47C
-
-struct D2CmdListStrc {
- int offset; D2StormLinkStrc terminator;
- D2StormLinkStrc* Link(char* node) { return node ? (D2StormLinkStrc*)node : &terminator; }
- char* sub_006C47B0_DeleteNode(char* node);
-};
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-
-extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned int nCount); // 0x00682591
-
-extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
-
-extern "C" long __cdecl strtol(const char* szString, char** ppEnd, int nRadix); // 0x0068676E
-
-extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
 
 struct OptionInfoStrc
 {
@@ -171,70 +97,243 @@ struct OptionInfoStrc
     int nValue;
 };
 
-typedef int (__stdcall* OptionCallback)(OptionInfoStrc* pInfo, const char* szString);
-
-struct OptionStrc
+struct CMDDEF : TSLinkedNode<CMDDEF>
 {
-    OptionStrc* pPrev;
-    OptionStrc* pNext;
-    unsigned int dwFlags;
-    unsigned int dwId;
-    char szName[0x10];
-    int nNameLength;
-    int nParam24;
-    int nParam28;
-    void* pTarget;
-    unsigned int nTargetSize;
-    OptionCallback pfnCallback;
-    int bSet;
+    unsigned int dwFlags;                                   // 0x08
+    unsigned int dwId;                                      // 0x0C
+    char szName[0x10];                                      // 0x10
+    int nNameLength;                                        // 0x20
+    int nParam24;                                           // 0x24
+    int nParam28;                                           // 0x28
+    void* pTarget;                                          // 0x2C
+    unsigned int nTargetSize;                               // 0x30
+    OptionCallback pfnCallback;                             // 0x34
+    int bSet;                                               // 0x38
     union
     {
-        int nValue;
+        int nValue;                                         // 0x3C
         char* szValue;
     };
-};
 
-struct OptionListStrc
-{
-    int nLinkOffset;
-    OptionStrc* pTail;
-    OptionStrc* pHead;
+    ~CMDDEF()
+    {
+    }
+    static void operator delete(void* pMemory);
 };
 
 struct OptionContextStrc
 {
-    OptionStrc* pCurrent;
+    CMDDEF* pCurrent;
     char szBuffer[0x10];
     int nMinLength;
 };
 
-extern OptionListStrc gOptionList_0074C48C; // 0x0074C48C
+struct D2CmdArg006C4E50Strc
+{
+    unsigned int dwFlags;
+    unsigned int dwId;
+    const char* szName;
+    void* pParam;
+};
 
-extern const char gszSCmdFile_006FCC30[]; // 0x006FCC30
+extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char*, unsigned int, unsigned int, void*, unsigned int, unsigned int, void*);
+extern "C" __declspec(dllimport) unsigned int __stdcall GetFileSize(void*, unsigned int*);
+extern "C" __declspec(dllimport) int __stdcall ReadFile(void*, void*, unsigned int, unsigned int*, void*);
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
+extern "C" __declspec(dllimport) int __stdcall LoadStringA(void*, unsigned int, char*, int);
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*, const char*, ...);
+extern "C" __declspec(dllimport) char* __stdcall GetCommandLineA(); // 0x006CC3AC
+extern "C" char* __cdecl strstr(const char*, const char*);
+extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned int nCount); // 0x00682591
+extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
+extern "C" long __cdecl strtol(const char* szString, char** ppEnd, int nRadix); // 0x0068676E
+extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
 
-extern OptionListStrc gOptionList_0074C498; // 0x0074C498
-
-extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
-
-extern const char gszPercentS_006FFC58[]; // 0x006FFC58
-
-extern const char gszNewline_006FFCB0[]; // 0x006FFCB0
-
-void* __cdecl StormGetInstance(); // 0x0041BEF0
-
+int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+void __stdcall SMemZero(void* pDst, unsigned int nSize); // 0x0041D300
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
-
+const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
+void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted); // 0x00413B80
+void* __cdecl StormGetInstance(); // 0x0041BEF0
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 
-extern "C" char* __cdecl strstr(const char*, const char*);
+extern "C" const char gszDelete[]; // 0x006CC824
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern const char gszEmpty_006CC837[]; // 0x006CC837
+extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
+extern const char gszSCmdFile_006FCC30[]; // 0x006FCC30
+extern "C" const char gszCmdWhitespace_006FCC4C[];                                                         // 0x006FCC4C
+extern const char gszPercentS_006FFC58[]; // 0x006FFC58
+extern const char gszNewline_006FFCB0[]; // 0x006FFCB0
 
-extern "C" __declspec(dllimport) int __stdcall LoadStringA(void*, unsigned int, char*, int);
+extern TSList<CMDDEF> gOptionList_0074C48C; // 0x0074C48C
+extern TSList<CMDDEF> gOptionList_0074C498; // 0x0074C498
+int gnGlobal_00989C38; // 0x00989C38
+extern int gdwGlobal_0098A164; // 0x0098A164
+extern int gdwGlobal_007C914C; // 0x007C914C
 
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*, const char*, ...);
+#define OPTION_MAX(a, b) ((a) < (b) ? (b) : (a))
 
-static
+static void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const char* context);
+static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
+static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, CMDDEF** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
+static int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* arg1, CMDDEF** arg2, OptionCallbackToken arg3, D2ErrorCallback callback);
+int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionContextStrc* pContext, CMDDEF** ppOption, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
+int __stdcall sub_006C4D70_FindValue(int nId);
+int __stdcall SCmdProcess(const char* szCommandLine, int bSkipFirst, OptionCallbackToken pfnExtra, D2ErrorCallback pfnError);
+int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int nSetValue, int nSetMask, OptionCallback pfnCallback);
+
+inline void* operator new(unsigned int, void* pMemory) throw() { return pMemory; }
+
+inline void CMDDEF::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, gszDelete, -1, 0);
+}
+
+static inline CMDDEF* OPTION_Next(CMDDEF* pLink)
+{
+    return (int)pLink > 0 ? pLink : 0;
+}
+
+template<class T, class TGetLink>
+void TSList<T, TGetLink>::UnlinkAll()
+{
+    while (T* ptr = Head())
+        UnlinkNode(ptr);
+}
+
+template<class T, class TGetLink>
+T* TSList<T, TGetLink>::DeleteNode(T* ptr)
+{
+    T* next = Next(ptr);
+    ptr->~T();
+    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
+    return next;
+}
+
+template<class T, class TGetLink>
+void TSList<T, TGetLink>::Clear()
+{
+    while (T* ptr = Head())
+    {
+        ptr->~T();
+        SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
+    }
+}
+
+// build: symbol ??_R0?AUCMDDEF@@@8 0x0074C474
+// build: symbol ?SMemAlloc@@YGPAXIPBDHI@Z 0x00413020
+// build: symbol ?SMemFree@@YGHPAXPBDHI@Z 0x00412650
+// build: symbol ?Next@?$TSLink@UCMDDEF@@@@QAEPAUCMDDEF@@XZ 0x006C4010
+// build: symbol ?RawNext@?$TSLink@UCMDDEF@@@@QAEPAUCMDDEF@@XZ 0x006C4020
+// build: symbol ?NextLink@?$TSLink@UCMDDEF@@@@QAEPAU1@H@Z 0x006C4040
+// build: symbol ?Unlink@?$TSLink@UCMDDEF@@@@QAEXXZ 0x006C4070
+// build: symbol ??0?$TSLink@UCMDDEF@@@@QAE@XZ 0x006C40F0
+// build: symbol ?Head@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEPAUCMDDEF@@XZ 0x006C40E0
+// build: symbol ?Link@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEPAU?$TSLink@UCMDDEF@@@@PBUCMDDEF@@@Z 0x006C4160
+// build: symbol ?LinkNode@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEXPAUCMDDEF@@I0@Z 0x006C4180
+// build: symbol ?Next@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEPAUCMDDEF@@PBU2@@Z 0x006C4230
+// build: symbol ??1?$TSLink@UCMDDEF@@@@QAE@XZ 0x006C4250
+// build: symbol ?UnlinkNode@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEXPAUCMDDEF@@@Z 0x006C4290
+// build: symbol ?RawNext@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEPAUCMDDEF@@PBU2@@Z 0x006C4380
+// build: symbol ?UnlinkAll@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEXXZ 0x006C43F0
+// build: symbol ??1?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAE@XZ 0x006C4430
+// build: symbol ?NewNode@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEPAUCMDDEF@@III@Z 0x006C44C0
+// build: symbol ??_GCMDDEF@@QAEPAXI@Z 0x006C4520
+// build: symbol ?Clear@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEXXZ 0x006C4760
+// build: symbol ?DeleteNode@?$TSList@UCMDDEF@@U?$TSGetLink@UCMDDEF@@@@@@QAEPAUCMDDEF@@PAU2@@Z 0x006C47B0
+template CMDDEF* TSLink<CMDDEF>::Next();
+template CMDDEF* TSLink<CMDDEF>::RawNext();
+template TSLink<CMDDEF>* TSLink<CMDDEF>::NextLink(int);
+template void TSLink<CMDDEF>::Unlink();
+template TSLink<CMDDEF>::TSLink();
+template CMDDEF* TSList<CMDDEF>::Head();
+template TSLink<CMDDEF>* TSList<CMDDEF>::Link(const CMDDEF*);
+template void TSList<CMDDEF>::LinkNode(CMDDEF*, unsigned int, CMDDEF*);
+template CMDDEF* TSList<CMDDEF>::Next(const CMDDEF*);
+template TSLink<CMDDEF>::~TSLink();
+template void TSList<CMDDEF>::UnlinkNode(CMDDEF*);
+template CMDDEF* TSList<CMDDEF>::RawNext(const CMDDEF*);
+template void TSList<CMDDEF>::UnlinkAll();
+template TSList<CMDDEF>::~TSList();
+template CMDDEF* TSList<CMDDEF>::NewNode(unsigned int, unsigned int, unsigned int);
+template void TSList<CMDDEF>::Clear();
+template CMDDEF* TSList<CMDDEF>::DeleteNode(CMDDEF*);
+
+// 0x006C3CB0
+static void __stdcall ConvertBool(int* pLength, CMDDEF* pOption, const char* szString)
+{
+    int bValue;
+    if (*szString == '-')
+    {
+        bValue = 0;
+        *pLength = 1;
+    }
+    else if (*szString == '+')
+    {
+        bValue = 1;
+        *pLength = 1;
+    }
+    else
+    {
+        bValue = (unsigned char)((pOption->dwFlags & 1) - 1) != 0;
+    }
+
+    int nMask = ~pOption->nParam28;
+    pOption->nValue &= nMask;
+    if (bValue)
+        pOption->nValue |= pOption->nParam24;
+
+    if (pOption->pTarget)
+    {
+        *(int*)pOption->pTarget &= nMask;
+        if (bValue)
+            *(int*)pOption->pTarget |= pOption->nParam24;
+    }
+}
+
+// 0x006C3D20
+static void __stdcall sub_006C3D20_ParseInteger(CMDDEF* pOption, const char* szString, int* pLength)
+{
+    char* pEnd = 0;
+    if (pOption->dwFlags & 1)
+        pOption->nValue = strtol(szString, &pEnd, 0);
+    else
+        pOption->nValue = strtoul(szString, &pEnd, 0);
+
+    if (pEnd)
+        *pLength = pEnd - szString;
+    else
+        *pLength = SStrLen(szString);
+
+    if (pOption->pTarget)
+    {
+        unsigned int nSize = pOption->nTargetSize;
+        if (nSize > 4)
+            nSize = 4;
+        SMemCopy(pOption->pTarget, &pOption->nValue, nSize);
+    }
+}
+
+// 0x006C3DA0
+static void __stdcall sub_006C3DA0_ParseString(CMDDEF* pOption, const char* szString, int* pLength)
+{
+    *pLength = SStrLen(szString);
+    if (pOption->szValue)
+        SMemFree(pOption->szValue, gszSCmdFile_006FCC30, 0x8B, 0);
+    pOption->szValue = (char*)SMemAlloc(SStrLen(szString) + 1, gszSCmdFile_006FCC30, 0x8C, 0);
+    SStrCopy(pOption->szValue, szString, 0x7FFFFFFF);
+    if (pOption->pTarget)
+        SStrCopy((char*)pOption->pTarget, szString, pOption->nTargetSize);
+}
+
 // 0x006C3E10
-void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const char* context)
+static void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const char* context)
 {
     D2ErrorReportStrc report;
     report.callback = callback;
@@ -276,43 +375,26 @@ void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const
     report.callback(&report);
 }
 
-const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-
-#define OPTION_MAX(a, b) ((a) < (b) ? (b) : (a))
-
-static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
-
-typedef int (__stdcall* OptionCallbackToken)(const char* szToken);
-
-static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
-
-extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char*, unsigned int, unsigned int, void*, unsigned int, unsigned int, void*);
-
-extern "C" __declspec(dllimport) unsigned int __stdcall GetFileSize(void*, unsigned int*);
-
-extern "C" __declspec(dllimport) int __stdcall ReadFile(void*, void*, unsigned int, unsigned int*, void*);
-
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
-
-int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionContextStrc* pContext, OptionStrc** ppOption, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError); // 0x006C4EC0
-
-void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted); // 0x00413B80
-
-extern "C" const char gszCmdWhitespace_006FCC4C[];                                                         // 0x006FCC4C
-
-extern "C" unsigned int __security_cookie;                                                                  // 0x00749DE0
-
-extern "C" void __fastcall __security_check_cookie(unsigned int nCookie);                                   // 0x00681A48
-
-static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
-
-static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
-
-
-// 0x006C4020
-int __fastcall sub_006C4020_GetRawNext(T0051755C* pLink)
+// 0x006C3F50
+static int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* arg1, CMDDEF** arg2, OptionCallbackToken arg3, D2ErrorCallback callback)
 {
-    return pLink->pNext;
+    void* handle = CreateFileA(file, 0x80000000, 1, 0, 3, 0x08000000, 0);
+    if (handle == (void*)-1)
+    {
+        if (callback)
+            GenerateError(callback, 110, file);
+        return 0;
+    }
+    unsigned int size = GetFileSize(handle, 0);
+    char* buffer = (char*)SMemAlloc(size + 1, gszSCmdFile_006FCC30, 339, 0);
+    unsigned int read;
+    ReadFile(handle, buffer, size, &read, 0);
+    CloseHandle(handle);
+    buffer[read] = 0;
+    const char* cursor = buffer;
+    int result = sub_006C4EC0_ParseCommandLine(&cursor, arg1, arg2, arg3, callback);
+    SMemFree(buffer, gszSCmdFile_006FCC30, 356, 0);
+    return result;
 }
 
 // 0x006C4030
@@ -322,179 +404,44 @@ void __fastcall sub_006C4030(PairStrc_006C4030* pPair)
     pPair->nSecond = 0;
 }
 
+// 0x006C40B0
+void __fastcall sub_006C40B0_InitList(sub_006C40B0_List* pList)
+{
+    sub_006C40B0_Link* pLink = &pList->tLink;
+    pLink->pPrev = pLink;
+    pList->tLink.dwNext = ~(unsigned int)pLink;
+}
+
+// 0x006C40C0
+void* __fastcall sub_006C40C0_Identity(void* p)
+{
+    return p;
+}
+
+// 0x006C40D0
+char* __fastcall sub_006C40D0_Head(sub_006C40D0_Link* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
 // 0x006C4100
 void D2FogUnlinkStrc::sub_006C4100_Unlink() { tLink.Unlink(); }
 
-// 0x006C4180
-void D2StormFixedListStrc::sub_006C4180_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
+// 0x006C4140
+void __fastcall sub_006C4140_InitList(sub_006C4140_List* pList)
 {
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_linkoffset = 0;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
-// 0x006C4250
-sub_006C4250::~sub_006C4250()
-{
-    f_0.Unlink();
-}
-
-// 0x006C4380
-char* D2StormListAStrc::sub_006C4380_RawNext(D2StormLinkStrc* pNode)
-{
-    return pNode ? pNode->m_next : m_terminator.m_next;
-}
-
-// 0x006C43B0
-void D2FogUnlinkBStrc::sub_006C43B0_Unlink() { tLink.Unlink(); }
-
-// 0x006C43F0
-void D2StormListStrc::UnlinkAll()
-{
-    D2StormLinkStrc* pLink;
-    while ((pLink = Head()) != 0)
-        pLink->Unlink();
-}
-
-// 0x006C4480
-void D2FogUnlinkStrc::sub_006C4480_Unlink() { tLink.Unlink(); }
-
-inline void* operator new(unsigned int, void* pMemory) throw() { return pMemory; }
-
-// 0x006C44C0
-char* D2StormFixedListStrc::sub_006C44C0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(CMDDEF) + nExtraBytes, gszTypeNameCmdDef_0074C47C, -2, nFlags | 8);
-    CMDDEF* pRecord = pMemory ? new (pMemory) CMDDEF : 0;
-    if (nLinkType)
-        sub_006C4180_LinkNode((char*)pRecord, nLinkType, 0);
-    return (char*)pRecord;
-}
-
-// build: symbol ??_GCMDDEF@@* 0x006C4520
-inline void CMDDEF::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, gszDelete, -1, 0);
-}
-
-// build: context sub_Emit_CMDDEF
-void sub_Emit_CMDDEF(CMDDEFList* pList)
-{
-    CMDDEF* p;
-    while ((p = pList->Head()) != 0)
-        delete p;
-}
-
-// 0x006C4760
-void D2StormCmdDefListStrc::sub_006C4760_DeleteAll()
-{
-    while (CMDDEF* pRecord = (CMDDEF*)Head())
-    {
-        pRecord->~CMDDEF();
-        SMemFree(pRecord, gszTypeNameCmdDef_0074C47C, -2, 0);
-    }
-}
-
-// 0x006C47B0
-char* D2CmdListStrc::sub_006C47B0_DeleteNode(char* node) {
- char* next=Link(node)->Next();
- ((D2StormLinkStrc*)node)->Unlink();
- SMemFree(node,gszCmdDef_0074C47C,-2,0);
- return next;
-}
-
-static inline OptionStrc* OPTION_Next(OptionStrc* pLink)
-{
-    return (int)pLink > 0 ? pLink : 0;
-}
-
-static void __stdcall ConvertBool(int* pLength, OptionStrc* pOption, const char* szString)
-{
-    int bValue;
-    if (*szString == '-')
-    {
-        bValue = 0;
-        *pLength = 1;
-    }
-    else if (*szString == '+')
-    {
-        bValue = 1;
-        *pLength = 1;
-    }
-    else
-    {
-        bValue = (unsigned char)((pOption->dwFlags & 1) - 1) != 0;
-    }
-
-    int nMask = ~pOption->nParam28;
-    pOption->nValue &= nMask;
-    if (bValue)
-        pOption->nValue |= pOption->nParam24;
-
-    if (pOption->pTarget)
-    {
-        *(int*)pOption->pTarget &= nMask;
-        if (bValue)
-            *(int*)pOption->pTarget |= pOption->nParam24;
-    }
-}
-
-static void __stdcall sub_006C3D20_ParseInteger(OptionStrc* pOption, const char* szString, int* pLength)
-{
-    char* pEnd = 0;
-    if (pOption->dwFlags & 1)
-        pOption->nValue = strtol(szString, &pEnd, 0);
-    else
-        pOption->nValue = strtoul(szString, &pEnd, 0);
-
-    if (pEnd)
-        *pLength = pEnd - szString;
-    else
-        *pLength = SStrLen(szString);
-
-    if (pOption->pTarget)
-    {
-        unsigned int nSize = pOption->nTargetSize;
-        if (nSize > 4)
-            nSize = 4;
-        SMemCopy(pOption->pTarget, &pOption->nValue, nSize);
-    }
-}
-
-static void __stdcall sub_006C3DA0_ParseString(OptionStrc* pOption, const char* szString, int* pLength)
-{
-    *pLength = SStrLen(szString);
-    if (pOption->szValue)
-        SMemFree(pOption->szValue, gszSCmdFile_006FCC30, 0x8B, 0);
-    pOption->szValue = (char*)SMemAlloc(SStrLen(szString) + 1, gszSCmdFile_006FCC30, 0x8C, 0);
-    SStrCopy(pOption->szValue, szString, 0x7FFFFFFF);
-    if (pOption->pTarget)
-        SStrCopy((char*)pOption->pTarget, szString, pOption->nTargetSize);
-}
-
-static OptionStrc* __stdcall sub_006C42E0_FindLongestPrefix(const char* szString, int nMinLength, OptionStrc* pHead)
+// 0x006C42E0
+static CMDDEF* __stdcall sub_006C42E0_FindLongestPrefix(const char* szString, int nMinLength, CMDDEF* pHead)
 {
     int nStringLength = SStrLen(szString);
     int nBestLength = nMinLength - 1;
-    OptionStrc* pBest = 0;
-    for (OptionStrc* pNode = pHead; pNode; pNode = (int)pNode->pNext > 0 ? pNode->pNext : 0)
+    CMDDEF* pBest = 0;
+    for (CMDDEF* pNode = pHead; pNode; pNode = (int)pNode->m_link.m_next > 0 ? pNode->m_link.m_next : 0)
     {
         if (pNode->nNameLength > nBestLength && pNode->nNameLength <= nStringLength)
         {
@@ -514,7 +461,77 @@ static OptionStrc* __stdcall sub_006C42E0_FindLongestPrefix(const char* szString
     return pBest;
 }
 
-static int __stdcall PerformConversion(const char* szString, int* pLength, OptionStrc* pOption) // 0x006C4820
+// 0x006C4360
+D2ScmdListStrc::D2ScmdListStrc()
+{
+    D2ScmdLinkStrc* pLink = &m_terminator;
+    pLink->m_prevlink = pLink;
+    m_linkoffset = 0;
+    m_terminator.m_next = ~(unsigned int)pLink;
+}
+
+// 0x006C43A0
+T0051755C* __fastcall sub_006C43A0_ResetLink(T0051755C* pLink)
+{
+    pLink->pPrevLink = 0;
+    pLink->pNext = 0;
+    return pLink;
+}
+
+// 0x006C43B0
+void D2FogUnlinkBStrc::sub_006C43B0_Unlink() { tLink.Unlink(); }
+
+// 0x006C4470
+sub_006C4470_Pair* __fastcall sub_006C4470_Clear(sub_006C4470_Pair* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+    return pPair;
+}
+
+// 0x006C4480
+void D2FogUnlinkStrc::sub_006C4480_Unlink() { tLink.Unlink(); }
+
+// 0x006C4580
+int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int nSetValue, int nSetMask, OptionCallback pfnCallback)
+{
+    if (!szName)
+        szName = gszEmpty_006CC837;
+    int nNameLength = SStrLen(szName);
+
+    VALIDATEBEGIN;
+    VALIDATE(nNameLength < 16);
+    VALIDATE(!nBytes || pVariable);
+    VALIDATE((dwFlags & 0x03000000) != 0x02000000 || !gnGlobal_00989C38);
+    VALIDATE((dwFlags & 0x03000000) || nNameLength > 0);
+    VALIDATE((dwFlags & 0x00030000) || !pVariable || nBytes == 4);
+    VALIDATEEND;
+
+    CMDDEF* pCommand;
+    if (!(dwFlags & 0x03000000))
+        pCommand = gOptionList_0074C498.NewNode(2, 0, 0);
+    else
+        pCommand = gOptionList_0074C48C.NewNode(2, 0, 0);
+    SStrCopy(pCommand->szName, szName, sizeof(pCommand->szName));
+    pCommand->dwId = dwId;
+    pCommand->dwFlags = dwFlags;
+    pCommand->nNameLength = nNameLength;
+    pCommand->pTarget = pVariable;
+    pCommand->nTargetSize = nBytes;
+    pCommand->nParam28 = nSetMask;
+    pCommand->nParam24 = nSetValue;
+    pCommand->pfnCallback = pfnCallback;
+    if (!(dwFlags & 0x00030000) && (dwFlags & 1))
+        pCommand->nValue = nSetValue;
+    else
+        pCommand->nValue = 0;
+    if ((dwFlags & 0x03000000) == 0x01000000)
+        gnGlobal_00989C38 = 1;
+    return nValid ? 1 : 0;
+}
+
+// 0x006C4820
+static int __stdcall PerformConversion(const char* szString, int* pLength, CMDDEF* pOption)
 {
     *pLength = 0;
     switch (pOption->dwFlags & 0x30000)
@@ -550,8 +567,8 @@ static int __stdcall PerformConversion(const char* szString, int* pLength, Optio
     int nPass = 0;
     do
     {
-        OptionListStrc* pList = nPass ? &gOptionList_0074C498 : &gOptionList_0074C48C;
-        for (OptionStrc* pOther = pList->pHead; (int)pOther > 0; pOther = pOther->pNext)
+        TSList<CMDDEF>* pList = nPass ? &gOptionList_0074C498 : &gOptionList_0074C48C;
+        for (CMDDEF* pOther = pList->m_terminator.m_next; (int)pOther > 0; pOther = pOther->m_link.m_next)
         {
             if (pOther->dwId == pOption->dwId
                 && (pOther->dwFlags & 0x30000) == (pOption->dwFlags & 0x30000)
@@ -576,10 +593,11 @@ static int __stdcall PerformConversion(const char* szString, int* pLength, Optio
     return 1;
 }
 
+// 0x006C4980
 static int __stdcall sub_006C4980_ApplyOptions(OptionContextStrc* pContext, const char* szString, int* pLength)
 {
     *pLength = 0;
-    OptionStrc* pOption = pContext->pCurrent;
+    CMDDEF* pOption = pContext->pCurrent;
     pContext->pCurrent = 0;
     while (pOption)
     {
@@ -589,7 +607,7 @@ static int __stdcall sub_006C4980_ApplyOptions(OptionContextStrc* pContext, cons
 
         *pLength = *pLength > nLength ? *pLength : nLength;
 
-        pOption = sub_006C42E0_FindLongestPrefix(pContext->szBuffer, pContext->nMinLength, OPTION_Next(pOption->pNext));
+        pOption = sub_006C42E0_FindLongestPrefix(pContext->szBuffer, pContext->nMinLength, OPTION_Next(pOption->m_link.m_next));
     }
     return 1;
 }
@@ -603,13 +621,13 @@ static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pCont
     {
         const int nStringLength = SStrLen(szString);
         unsigned int nPos = OPTION_MAX(SStrLen(szBuffer), 1);
-        OptionStrc* pFound = 0;
+        CMDDEF* pFound = 0;
         while (nPos--)
         {
             if ((int)(nPos + nStringLength) < 0x100)
             {
                 SStrCopy(&szBuffer[nPos], szString, 0x100);
-                pFound = sub_006C42E0_FindLongestPrefix(szBuffer, 0, OPTION_Next(gOptionList_0074C498.pHead));
+                pFound = sub_006C42E0_FindLongestPrefix(szBuffer, 0, OPTION_Next(gOptionList_0074C498.m_terminator.m_next));
                 if (pFound)
                 {
                     nPos = pFound->nNameLength;
@@ -655,10 +673,8 @@ static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pCont
     return 1;
 }
 
-int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* arg1, OptionStrc** arg2, OptionCallbackToken arg3, D2ErrorCallback callback); // 0x006C3F50
-
 // 0x006C4BC0
-static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError)
+static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, CMDDEF** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError)
 {
     if (*szToken == '@' && !nQuoted)
     {
@@ -677,7 +693,7 @@ static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pConte
         return sub_006C4980_ApplyOptions(pContext, szToken, &nLength);
     }
 
-    OptionStrc* pOption = *ppOption;
+    CMDDEF* pOption = *ppOption;
     if (pOption)
     {
         if (!PerformConversion(szToken, &nLength, pOption))
@@ -685,7 +701,7 @@ static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pConte
             return 0;
         }
 
-        *ppOption = (int)(*ppOption)->pNext <= 0 ? 0 : (*ppOption)->pNext;
+        *ppOption = (int)(*ppOption)->m_link.m_next <= 0 ? 0 : (*ppOption)->m_link.m_next;
         return 1;
     }
 
@@ -700,6 +716,181 @@ static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pConte
     }
 
     return 0;
+}
+
+// 0x006C4CA0
+int __stdcall sub_006C4CA0_FindValue(int nId)
+{
+    for (int i = 0; i <= 1; ++i)
+    {
+        TSList<CMDDEF>* pList = i ? &gOptionList_0074C498 : &gOptionList_0074C48C;
+        for (CMDDEF* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->m_link.m_next)
+        {
+            if (pNode->dwId == nId)
+                return pNode->bSet;
+        }
+    }
+    return 0;
+}
+
+// 0x006C4CF0
+int __cdecl SCmdDestroy()
+{
+    for (int i = 0; i <= 1; ++i)
+    {
+        TSList<CMDDEF>* pList = i ? &gOptionList_0074C498 : &gOptionList_0074C48C;
+        for (CMDDEF* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->m_link.m_next)
+        {
+            if ((pNode->dwFlags & 0x30000) == 0x20000 && pNode->szValue)
+            {
+                SMemFree(pNode->szValue, ".\\SOURCE\\SCMD.CPP", 0x212, 0);
+                pNode->szValue = 0;
+            }
+        }
+    }
+    gOptionList_0074C48C.Clear();
+    gOptionList_0074C498.Clear();
+    gnGlobal_00989C38 = 0;
+    return 1;
+}
+
+// 0x006C4D70
+int __stdcall sub_006C4D70_FindValue(int nId)
+{
+    for (int i = 0; i <= 1; ++i)
+    {
+        TSList<CMDDEF>* pList = i ? &gOptionList_0074C498 : &gOptionList_0074C48C;
+        for (CMDDEF* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->m_link.m_next)
+        {
+            if (pNode->dwId == nId)
+            {
+                return pNode->nValue;
+            }
+        }
+    }
+    return 0;
+}
+
+// 0x006C4DC0
+int __stdcall SCmdGetString(int nId, char* szBuffer, unsigned int nBufferSize)
+{
+    if (szBuffer)
+    {
+        *szBuffer = 0;
+    }
+
+    VALIDATEBEGIN;
+    VALIDATE(szBuffer);
+    VALIDATE(nBufferSize);
+    VALIDATEEND;
+
+    for (int i = 0; i <= 1; ++i)
+    {
+        TSList<CMDDEF>* pList = i ? &gOptionList_0074C498 : &gOptionList_0074C48C;
+        for (CMDDEF* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->m_link.m_next)
+        {
+            if (pNode->dwId == nId)
+            {
+                if (pNode->szValue)
+                {
+                    SStrCopy(szBuffer, pNode->szValue, nBufferSize);
+                }
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+// 0x006C4E50
+int __stdcall sub_006C4E50_RegisterArgList(D2CmdArg006C4E50Strc* pArgs, unsigned int nCount)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pArgs);
+    VALIDATEEND;
+    for (unsigned int i = 0; i < nCount; ++i, ++pArgs)
+    {
+        if (!SCmdRegisterArgument(pArgs->dwFlags, pArgs->dwId, pArgs->szName, 0, 0, 1, -1, (OptionCallback)pArgs->pParam))
+        {
+            return 0;
+        }
+    }
+    return nValid ? 1 : 0;
+}
+
+// 0x006C4EC0
+int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionContextStrc* pnState, CMDDEF** pnContext, OptionCallbackToken pfnCallback, D2ErrorCallback pUserData)
+{
+    while (**ppszCmdLine)
+    {
+        const char* pszNext = *ppszCmdLine;
+        int nQuoted = 0;
+        char szToken[0x100];
+        SStrTokenize(&pszNext, szToken, 0x100, gszCmdWhitespace_006FCC4C, &nQuoted);
+        if (szToken[0] && !ProcessToken(szToken, pnState, pnContext, nQuoted, pfnCallback, pUserData))
+        {
+            break;
+        }
+        *ppszCmdLine = pszNext;
+    }
+    return **ppszCmdLine == 0;
+}
+
+// 0x006C4F90
+int __stdcall SCmdGetBool(int nKey)
+{
+    return sub_006C4D70_FindValue(nKey) != 0;
+}
+
+// 0x006C4FB0
+int __stdcall SCmdProcess(const char* szCommandLine, int bSkipFirst, OptionCallbackToken pfnExtra, D2ErrorCallback pfnError)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szCommandLine);
+    VALIDATEEND;
+
+    if (bSkipFirst)
+    {
+        SStrTokenize(&szCommandLine, 0, 0, gszCmdWhitespace_006FCC4C, 0);
+    }
+
+    OptionContextStrc tState;
+    SMemZero(&tState, sizeof(tState));
+    CMDDEF* pCmd = gOptionList_0074C48C.Head();
+    if (!sub_006C4EC0_ParseCommandLine(&szCommandLine, &tState, &pCmd, pfnExtra, pfnError))
+    {
+        return 0;
+    }
+
+    int bResult = 1;
+    while (pCmd && bResult)
+    {
+        if ((pCmd->dwFlags & 0x3000000) == 0x2000000)
+        {
+            bResult = 0;
+        }
+        else if ((int)pCmd->m_link.m_next > 0)
+        {
+            pCmd = pCmd->m_link.m_next;
+        }
+        else
+        {
+            pCmd = 0;
+        }
+    }
+
+    if (pfnError && !bResult)
+    {
+        GenerateError(pfnError, 0x8510006D, &gszEmptyAssertText);
+    }
+
+    return nValid ? bResult : 0;
+}
+
+// 0x006C50B0
+int __stdcall SCmdProcessCommandLine(OptionCallbackToken extra, D2ErrorCallback error)
+{
+    return SCmdProcess(GetCommandLineA(), 1, extra, error);
 }
 
 // 0x006C7A60
@@ -774,57 +965,6 @@ void __stdcall sub_006C88A0(int nUnused1, int nUnused2)
 // 0x006C8A40
 void __stdcall sub_006C8A40(int nUnused1, int nUnused2)
 {
-}
-
-static
-// 0x006C3F50
-int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* arg1, OptionStrc** arg2, OptionCallbackToken arg3, D2ErrorCallback callback)
-{
-    void* handle = CreateFileA(file, 0x80000000, 1, 0, 3, 0x08000000, 0);
-    if (handle == (void*)-1)
-    {
-        if (callback)
-            GenerateError(callback, 110, file);
-        return 0;
-    }
-    unsigned int size = GetFileSize(handle, 0);
-    char* buffer = (char*)SMemAlloc(size + 1, gszSCmdFile_006FCC30, 339, 0);
-    unsigned int read;
-    ReadFile(handle, buffer, size, &read, 0);
-    CloseHandle(handle);
-    buffer[read] = 0;
-    const char* cursor = buffer;
-    int result = sub_006C4EC0_ParseCommandLine(&cursor, arg1, arg2, arg3, callback);
-    SMemFree(buffer, gszSCmdFile_006FCC30, 356, 0);
-    return result;
-}
-
-// 0x006C4EC0
-int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionContextStrc* pnState, OptionStrc** pnContext, OptionCallbackToken pfnCallback, D2ErrorCallback pUserData)
-{
-    while (**ppszCmdLine)
-    {
-        const char* pszNext = *ppszCmdLine;
-        int nQuoted = 0;
-        char szToken[0x100];
-        SStrTokenize(&pszNext, szToken, 0x100, gszCmdWhitespace_006FCC4C, &nQuoted);
-        if (szToken[0] && !ProcessToken(szToken, pnState, pnContext, nQuoted, pfnCallback, pUserData))
-        {
-            break;
-        }
-        *ppszCmdLine = pszNext;
-    }
-    return **ppszCmdLine == 0;
-}
-
-typedef int (__stdcall* D2CmdCallback)(const char*);
-extern "C" __declspec(dllimport) char* __stdcall GetCommandLineA(); // 0x006CC3AC
-int __stdcall SCmdProcess(const char*, int, D2CmdCallback, D2CmdCallback); // 0x006C4FB0
-
-// 0x006C50B0
-int __stdcall SCmdProcessCommandLine(D2CmdCallback extra, D2CmdCallback error)
-{
-    return SCmdProcess(GetCommandLineA(), 1, extra, error);
 }
 
 #include "gen/data/Source/Storm/SOURCE/SCMD.inc"

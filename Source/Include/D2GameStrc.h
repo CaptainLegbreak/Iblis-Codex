@@ -94,6 +94,8 @@ struct D2GameStrc
             int bUberMephistoKilled; // 0x1DF0
         };
     };
+
+    void OBJRGN_BroadcastServerText(const char* szText); // 0x00546FF0
 };
 
 D2_CHECK_SIZE(D2GameLinkStrc, 0x8);
