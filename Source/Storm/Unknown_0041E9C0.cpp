@@ -3,7 +3,7 @@
 #include "D2StormTypes.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
-#define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
+#define FROM_LENGTH_PREFIXED FromStream
 
 struct HUFFNODE;
 struct UiContext;
@@ -477,7 +477,7 @@ extern "C" int gState;
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
-static void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
+static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData); // 0x004234F0
 
 // 0x0041E9C0
 D2StormLinkStrc* __fastcall sub_0041E9C0_Identity(D2IdentityView* value) {return &value->link;}
@@ -1076,7 +1076,7 @@ static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsign
 }
 
 // 0x004234F0
-static void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
+static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
 {
     unsigned int nOffset;
     unsigned int nLength;

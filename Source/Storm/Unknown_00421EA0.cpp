@@ -2,7 +2,7 @@
 #include "D2StormSha1.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
-#define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
+#define FROM_LENGTH_PREFIXED FromStream
 
 struct D2GameStrc;
 struct D2StormArrayAStrc;
@@ -294,7 +294,7 @@ struct D2StormTSListStrc
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
-static __declspec(noinline) void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
+static __declspec(noinline) void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
 
 // build: symbol ??4BigBuffer@@QAEAAU0@ABU0@@Z 0x004221B0
 // 0x00421EA0
@@ -426,7 +426,7 @@ unsigned int D2StormArrayBStrc::sub_004219D0_AddOne(const unsigned char* pData)
     return sub_004218B0_Add(1, pData);
 }
 
-static void sub_00421BD0_AppendLength(D2StormArrayBStrc* pArray, unsigned int nValue)
+static void EncodeDataBytes(D2StormArrayBStrc* pArray, unsigned int nValue) // 0x00421BD0
 {
     while (nValue)
     {
@@ -437,7 +437,7 @@ static void sub_00421BD0_AppendLength(D2StormArrayBStrc* pArray, unsigned int nV
     pArray->Push(0xFF);
 }
 
-static __declspec(noinline) void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
+static __declspec(noinline) void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x004235F0
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
@@ -446,14 +446,14 @@ static __declspec(noinline) void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, 
 // 0x00423770
 static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
-    sub_004235F0_ToBinary(pOut, pIn);
-    sub_00421BD0_AppendLength(pOut, pOut->f_4);
+    ToBinary(pOut, pIn);
+    EncodeDataBytes(pOut, pOut->f_4);
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
 void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray, int bAppend)
 {
-    sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);
+    ToBinary(&pBig->tBuffer, &pBig->tQueue);
     if (bAppend)
         pArray->sub_004218B0_Add(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
     else
@@ -463,7 +463,7 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
 {
     D2StormBigStrc* pBig = (D2StormBigStrc*)hBig;
-    sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);
+    ToBinary(&pBig->tBuffer, &pBig->tQueue);
     unsigned int nCopy = pBig->tBuffer.f_4 < nSize ? pBig->tBuffer.f_4 : nSize;
     SMemCopy(pBuffer, pBig->tBuffer.f_8, nCopy);
     if (pRead)
@@ -472,7 +472,7 @@ void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize,
 
 void __stdcall SBigToBinaryPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
-    sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);
+    ToBinary(&pBig->tBuffer, &pBig->tQueue);
     *ppData = pBig->tBuffer.f_8;
     if (pSize)
         *pSize = pBig->tBuffer.f_4;
@@ -614,7 +614,7 @@ static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsign
     }
 }
 
-static __declspec(noinline) void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
+static __declspec(noinline) void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData) // 0x004234F0
 {
     unsigned int nOffset;
     unsigned int nLength;

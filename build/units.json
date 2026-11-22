@@ -7043,7 +7043,7 @@
     {
      "va": "0x004234F0",
      "length": 65,
-     "name": "?sub_004234F0_FromLengthPrefixed@@YGXPAUBigBuffer@@PAIIPBE@Z"
+     "name": "?FromStream@@YGXPAUBigBuffer@@PAIIPBE@Z"
     },
     {
      "va": "0x00423850",
@@ -7620,7 +7620,7 @@
     {
      "va": "0x004235F0",
      "length": 15,
-     "name": "?sub_004235F0_ToBinary@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
+     "name": "?ToBinary@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
     },
     {
      "va": "0x00423AE0",
