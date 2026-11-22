@@ -37,7 +37,7 @@ int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSi
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped);       // 0x0041B050
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
 int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
-unsigned int __stdcall sub_00416AD0_ReadBlocks(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);
+unsigned int __stdcall InternalReadAligned(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize); // 0x00416AD0
 void __stdcall CheckRequests(ARCHIVEREC* pLastArchive, unsigned int nLastOffset, REQUEST** ppDue, REQUEST** ppNear, int* pnDistance); // 0x0041A450
 
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068

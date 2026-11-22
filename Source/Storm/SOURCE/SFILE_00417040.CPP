@@ -34,7 +34,7 @@ int __stdcall SFileCloseArchive(void* hMpq);                                    
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
 int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
-unsigned int __stdcall sub_00416AD0_ReadBlocks(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize); // 0x00416AD0
+unsigned int __stdcall InternalReadAligned(FILEREC* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize); // 0x00416AD0
 void __stdcall CheckRequests(ARCHIVEREC* pLastArchive, unsigned int nLastOffset, REQUEST** ppDue, REQUEST** ppNear, int* pnDistance); // 0x0041A450
 
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
@@ -275,12 +275,12 @@ static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, FILEREC* pFile)
         nSize = pBlock->nFileSize - nOffset;
     pFile->archive->pCachedFile = pFile;
     pFile->archive->nCachedOffset = nOffset;
-    pFile->archive->nCachedSize = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
+    pFile->archive->nCachedSize = InternalReadAligned(pFile, nOffset, pFile->archive->pBlockBuffer, nSize);
     return pFile->archive->nCachedSize;
 }
 
 // 0x00417040
-static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
+static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsigned int nSize, FILEREC* pFile, unsigned int nPosition)
 {
     const unsigned int nFileSize = pFile->pBlock->nFileSize;
     if (nFileSize <= nPosition)
@@ -323,7 +323,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
         const unsigned int nAligned = ~(pFile->archive->sectorsize - 1) & nSize;
-        nMiddle = sub_00416AD0_ReadBlocks(pFile, nPosition, pBuffer, nAligned);
+        nMiddle = InternalReadAligned(pFile, nPosition, pBuffer, nAligned);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
             sub_0041D810_Crc32(pBuffer, nMiddle, &pFile->nCrc, 2);
@@ -481,7 +481,7 @@ cleanup:
     return bResult;
 }
 
-int __fastcall sub_00417F10_FindFile(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, ARCHIVEREC** ppArchive, char* szFoundPath)
+int __fastcall GetFileBlockEntry(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, ARCHIVEREC** ppArchive, char* szFoundPath)
 {
     if (ppArchive)
         *ppArchive = 0;
@@ -594,7 +594,7 @@ unsigned long __stdcall CdThreadProc(void* pParam)
         {
             if (gpCurrentRequest_0077902C->pFile->hFile == INVALID_FILE_HANDLE)
             {
-                gpCurrentRequest_0077902C->nRead = sub_00417040_ReadArchived(pDest, gpCurrentRequest_0077902C->nBytes, gpCurrentRequest_0077902C->pFile, gpCurrentRequest_0077902C->location);
+                gpCurrentRequest_0077902C->nRead = InternalReadUnaligned(pDest, gpCurrentRequest_0077902C->nBytes, gpCurrentRequest_0077902C->pFile, gpCurrentRequest_0077902C->location);
                 FILEREC* pFile = gpCurrentRequest_0077902C->pFile;
                 if (pFile->bCrc && pFile->nCrcState == 2 && pFile->nCrcPos == pFile->pBlock->nFileSize)
                 {

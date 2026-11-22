@@ -67,7 +67,7 @@ static int __stdcall ReadFileChecked(unsigned int offset, unsigned int* filePos,
 }
 
 // 0x00416AD0
-unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileStrc* file, unsigned int offset, unsigned char* buffer, unsigned int size)
+unsigned int __stdcall InternalReadAligned(D2StormFileStrc* file, unsigned int offset, unsigned char* buffer, unsigned int size)
 {
     VALIDATEBEGIN;
     VALIDATE(!((file->archive->blockSize - 1) & offset));

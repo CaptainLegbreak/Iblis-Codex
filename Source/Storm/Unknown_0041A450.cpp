@@ -90,7 +90,7 @@ extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 extern D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
 extern void* ghStormEvent_00779054; // 0x00779054
-int __stdcall sub_0041A300_CancelRequests(void* pBuffer, void* pOther);
+int __stdcall CancelRequest(void* pBuffer, void* pOther); // 0x0041A300
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 struct D2StormStreamLinkStrc
@@ -244,7 +244,7 @@ void __stdcall sub_0041A930_CancelRead(void* pBuffer)
     VALIDATEENDVOID;
 
     if (nValid)
-        sub_0041A300_CancelRequests(pBuffer, 0);
+        CancelRequest(pBuffer, 0);
 }
 
 // 0x0041A960
@@ -255,7 +255,7 @@ int __stdcall sub_0041A960_CancelReadResult(void* pBuffer)
     VALIDATEEND;
 
     if (nValid)
-        return sub_0041A300_CancelRequests(pBuffer, 0);
+        return CancelRequest(pBuffer, 0);
     return 0;
 }
 
@@ -285,7 +285,7 @@ int __stdcall sub_0041A990_DdaClose(void* hFile)
             {
                 if (gpCurrentRequest_0077902C && gpCurrentRequest_0077902C->pBuffer && gpCurrentRequest_0077902C->pBuffer == pStream->pBuffer)
                     gpCurrentRequest_0077902C->pBuffer = 0;
-                sub_0041A300_CancelRequests(0, pStream->pBuffer);
+                CancelRequest(0, pStream->pBuffer);
                 pStream->f_0.Unlink();
                 if (!--pStream->nRefCount)
                     delete pStream;
