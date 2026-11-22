@@ -1,6 +1,7 @@
 #include "Storm.h"
 #include "D2StormAutoLink.h"
 #include "D2StormTypes.h"
+#include "D2StormSha1.h"
 
 
 struct D2StormNodeListStrc;
@@ -9,7 +10,6 @@ struct D2StormHandlerNodeStrc;
 
 struct D2StormWndRecNodeStrc;
 
-struct D2StormHashCtxStrc;
 
 struct D2StormHashBufferStrc;
 
@@ -17,11 +17,11 @@ struct D2StormRsaKeyStrc;
 
 struct D2StormHuffInputStrc;
 
-struct D2StormHuffItemStrc;
+struct HUFFNODE;
 
 struct D2StormHuffLinkSlotStrc;
 
-struct D2StormHuffTreeStrc;
+struct CHuffman;
 
 struct D2StormArrayAStrc;
 
@@ -29,15 +29,12 @@ struct D2StormArrayBStrc;
 
 struct D2StormArrayCStrc;
 
-struct D2StormQueueStrc;
+struct BigBuffer;
 
-struct D2StormRecord14Strc;
-
-struct D2StormRecordStackStrc;
+struct BigStack;
 
 struct D2StormBigStrc;
 
-struct T0041D340;
 
 extern "C" void* __cdecl _alloca(unsigned int nSize);
 
@@ -122,17 +119,6 @@ extern D2StormNodeListStrc gHandlerList_00708420; // 0x00708420
 
 extern D2StormNodeListStrc gWndRecList_00708860; // 0x00708860
 
-struct D2StormHashCtxStrc
-{
-    unsigned int nBitCountLo;
-    unsigned int nBitCountHi;
-    unsigned int nState[5];
-    unsigned char pBlock[64];
-
-    void Initialize();                                                                               // 0x00425D90
-    void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
-    void Append(const void* pData, unsigned int nSize);                                        // 0x00425DD0
-};
 
 struct D2StormHashBufferStrc
 {
@@ -142,8 +128,7 @@ struct D2StormHashBufferStrc
     unsigned int nWindow;
     char* pBuffer;
     int unk0x14;
-    D2StormHashCtxStrc tHash;
-    int f_74;
+    Sha1 tHash;
 
     static void* operator new(unsigned int nSize)
     {
@@ -175,28 +160,28 @@ struct D2StormHuffInputStrc
     D2StormHuffInputStrc(void* pInputBuffer);                                                               // 0x0041D880
 };
 
-struct D2StormHuffItemStrc
+struct HUFFNODE
 {
     D2StormLinkStrc f_0;
     unsigned int nValue;
     unsigned int nWeight;
-    D2StormHuffItemStrc* pParent;
-    D2StormHuffItemStrc* pChild;
+    HUFFNODE* pParent;
+    HUFFNODE* pChild;
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int unk0x00[2];
-    D2StormHuffItemStrc f_8[0x203];
+    HUFFNODE f_8[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
     unsigned int nItemsUsed;
-    D2StormHuffItemStrc* pItemsByValue[0x102];
+    HUFFNODE* pItemsByValue[0x102];
     D2StormHuffLinkSlotStrc f_3474[0x80];
 
-    D2StormHuffTreeStrc();                                                                                  // 0x0041F950
-    ~D2StormHuffTreeStrc();                                                                                 // 0x0041F6A0
-    void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);                                               // 0x0041F350
+    CHuffman();                                                                                  // 0x0041F950
+    ~CHuffman();                                                                                 // 0x0041F6A0
+    void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
     unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
     void AddSymbol(unsigned int nValue);
 };
@@ -296,7 +281,7 @@ struct D2StormArrayCStrc
     unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -310,24 +295,19 @@ struct D2StormQueueStrc
     int sub_00420DB0_InRange(unsigned int nIndex);
 };
 
-struct D2StormRecord14Strc
+struct BigStack
 {
-    int nData[5];
-};
-
-struct D2StormRecordStackStrc
-{
-    D2StormRecord14Strc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 
-    D2StormRecord14Strc* sub_00420DD0_Push(int* pCounter);
+    BigBuffer* sub_00420DD0_Push(int* pCounter);
     void sub_00420E00_Drop(unsigned int nCount);
 };
 
 struct D2StormBigStrc
 {
     int unk0x00[5];
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     int unk0x158[4];
 
     ~D2StormBigStrc();                                                                                      // 0x00421D80
@@ -337,22 +317,12 @@ struct D2StormBigStrc
     }
 };
 
-int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormRecordStackStrc* pStack); // 0x004242C0
+int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x004242C0
 
-int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormRecordStackStrc* pStack); // 0x00424700
+int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x00424700
 
-int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormRecordStackStrc* pStack); // 0x00424B00
+int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, BigStack* pStack); // 0x00424B00
 
-struct T0041D340
-{
-    unsigned __int64 nBitCount;
-    unsigned int aState[5];
-    unsigned char f_1C[64];
-
-    void Initialize();                                                                               // 0x00425D90
-    void Append(const unsigned char* pData, unsigned int nLen);                                // 0x00425DD0
-    void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
-};
 
 inline void* operator new(unsigned int, void* pPlace) throw();
 
@@ -379,7 +349,7 @@ struct D2StormMemSinkStrc
     unsigned int nSize;
 };
 
-struct D2StormBitReaderStrc
+struct CBitInput
 {
     unsigned char* pInput;
     unsigned int nBitBuffer;
@@ -476,7 +446,7 @@ static __declspec(noinline) int __stdcall sub_0041D340_FindSignatureTag(const ch
 // 0x0041D370
 static __declspec(noinline) void __stdcall sub_0041D370_HashData(unsigned int nLen, const unsigned char* pData, unsigned char* pDigest)
 {
-    T0041D340 tHash;
+    Sha1 tHash;
     tHash.Initialize();
     tHash.Append(pData, nLen);
     tHash.sub_00425F00_Final(pDigest);
@@ -501,9 +471,9 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
     if (nExtra >= 0)
     {
         if (pBuffer->nUsed > 0)
-            pBuffer->tHash.Append(pBuffer->pBuffer, pBuffer->nUsed);
+            pBuffer->tHash.Append((const unsigned char*)pBuffer->pBuffer, pBuffer->nUsed);
         if (nExtra > 0)
-            pBuffer->tHash.Append(pData, nExtra);
+            pBuffer->tHash.Append((const unsigned char*)pData, nExtra);
         SMemCopy(pBuffer->pBuffer, pData + nExtra, pBuffer->nWindow);
         pBuffer->nUsed = pBuffer->nWindow;
     }
@@ -512,7 +482,7 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
         int nOver = pBuffer->nUsed - pBuffer->nWindow + nSize;
         if (nOver > 0)
         {
-            pBuffer->tHash.Append(pBuffer->pBuffer, nOver);
+            pBuffer->tHash.Append((const unsigned char*)pBuffer->pBuffer, nOver);
             pBuffer->nUsed -= nOver;
             SMemMove(pBuffer->pBuffer, pBuffer->pBuffer + nOver, pBuffer->nUsed);
         }
@@ -596,7 +566,7 @@ void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSiz
 }
 
 // 0x0041D8D0
-unsigned int D2StormBitReaderStrc::sub_0041D8D0_Peek(unsigned int nBits, unsigned int nMask)
+unsigned int CBitInput::sub_0041D8D0_Peek(unsigned int nBits, unsigned int nMask)
 {
     if (nBitCount <= nBits)
     {
@@ -608,7 +578,7 @@ unsigned int D2StormBitReaderStrc::sub_0041D8D0_Peek(unsigned int nBits, unsigne
 }
 
 // 0x0041D900
-void D2StormBitReaderStrc::sub_0041D900_Skip(unsigned int nBits)
+void CBitInput::sub_0041D900_Skip(unsigned int nBits)
 {
     nBitBuffer >>= nBits;
     nBitCount -= nBits;
@@ -644,7 +614,7 @@ D2StormLinkStrc* D2StormLinkStrc::sub_0041E900_NextLink(int nLinkOffset)
 }
 
 // 0x0041E9E0
-unsigned int D2StormBitReaderStrc::sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask)
+unsigned int CBitInput::sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask)
 {
     unsigned int nValue = Peek(nBits, nMask);
     Skip(nBits);
@@ -690,10 +660,10 @@ void D2StormNodeListAStrc::sub_0041ED90_LinkNode(char* pNode, unsigned int nLink
 }
 
 // 0x0041F510
-void D2StormHuffTreeStrc::AddSymbol(unsigned int nValue)
+void CHuffman::AddSymbol(unsigned int nValue)
 {
-    D2StormHuffItemStrc* pFirst = (D2StormHuffItemStrc*)tItemList.Head();
-    D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.Head();
+    HUFFNODE* pFirst = (HUFFNODE*)tItemList.Head();
+    HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
         pItem = &f_8[nItemsUsed++];
     tItemList.LinkNode((char*)pItem, 1, 0);
@@ -703,7 +673,7 @@ void D2StormHuffTreeStrc::AddSymbol(unsigned int nValue)
     pItem->nWeight = pFirst->nWeight;
     pItem->pParent = pFirst;
     pItemsByValue[pItem->nValue] = pItem;
-    pItem = (D2StormHuffItemStrc*)tFreeList.Head();
+    pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
         pItem = &f_8[nItemsUsed++];
     tItemList.LinkNode((char*)pItem, 1, 0);
@@ -721,18 +691,18 @@ void D2StormHuffTreeStrc::AddSymbol(unsigned int nValue)
 void __fastcall HuffmanDecompress(void* pOutput, unsigned int* pOutputSize, void* pInput, unsigned int nInputSize, int nUnused)
 {
     D2StormHuffInputStrc tInput(pInput);
-    D2StormHuffTreeStrc tTree;
+    CHuffman tTree;
     *pOutputSize = tTree.Decompress(pOutput, *pOutputSize, &tInput);
 }
 
 // 0x00420DB0
-int D2StormQueueStrc::sub_00420DB0_InRange(unsigned int nIndex)
+int BigBuffer::sub_00420DB0_InRange(unsigned int nIndex)
 {
     return m_start + nIndex < m_array.f_4;
 }
 
 // 0x00420DD0
-D2StormRecord14Strc* D2StormRecordStackStrc::sub_00420DD0_Push(int* pCounter)
+BigBuffer* BigStack::sub_00420DD0_Push(int* pCounter)
 {
     if (pCounter)
         ++*pCounter;
@@ -740,7 +710,7 @@ D2StormRecord14Strc* D2StormRecordStackStrc::sub_00420DD0_Push(int* pCounter)
 }
 
 // 0x00420E00
-void D2StormRecordStackStrc::sub_00420E00_Drop(unsigned int nCount)
+void BigStack::sub_00420E00_Drop(unsigned int nCount)
 {
     nUsed -= nCount;
 }
@@ -827,13 +797,13 @@ unsigned int __stdcall sub_00421280_RoundUp(unsigned int nValue, unsigned int nA
 }
 
 // 0x004212D0
-int D2StormQueueStrc::sub_004212D0_Get(unsigned int nIndex)
+int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
 {
     return InRange(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
 }
 
 // 0x004213B0
-unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue)
+unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue)
 {
     unsigned int nCount = pQueue->m_array.f_4;
     unsigned int nStart = pQueue->m_start;
@@ -885,13 +855,13 @@ unsigned int D2StormArrayCStrc::sub_00421F60_Add(unsigned int nCount, const char
 }
 
 // 0x004220D0
-void D2StormQueueStrc::sub_004220D0_SetCount(unsigned int nCount)
+void BigBuffer::sub_004220D0_SetCount(unsigned int nCount)
 {
     m_array.SetCount(m_start + nCount);
 }
 
 // 0x004237D0
-void __stdcall SBigCopy(D2StormQueueStrc* pDest, D2StormQueueStrc* pSource)
+void __stdcall SBigCopy(BigBuffer* pDest, BigBuffer* pSource)
 {
     if (pDest != pSource)
         pDest->m_array.sub_004215C0_Set(pSource->m_array.f_4, pSource->m_array.f_8);

@@ -7,6 +7,7 @@
 #include "D2NetTypes.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2StormSha1.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -20,7 +21,6 @@ struct QServer;
 
 struct D2CriticalSectionStrc;
 
-struct T0041D340;
 
 struct D2BnRegistrationPacketStrc;
 
@@ -82,16 +82,6 @@ struct D2FileTimeStrc;
 
 struct D2TimeZoneInformationStrc;
 
-struct T0041D340
-{
-    unsigned __int64 nBitCount;
-    unsigned int aState[5];
-    unsigned char f_1C[64];
-
-    void Initialize();                                                                               // 0x00425D90
-    void Append(const unsigned char* pData, unsigned int nLen);                                // 0x00425DD0
-    void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
-};
 
 struct D2BnRegistrationPacketStrc
 {
@@ -1647,7 +1637,7 @@ unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C
 // 0x0051DC80
 void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
 {
-    T0041D340 tContext;
+    Sha1 tContext;
     tContext.Initialize();
     tContext.Append(pData, nLength);
     tContext.sub_00425F00_Final(pDigest);

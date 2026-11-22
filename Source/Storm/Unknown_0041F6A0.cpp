@@ -5,8 +5,8 @@
 struct HWND__;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
-struct D2StormHuffItemStrc;
-struct D2StormHuffTreeStrc;
+struct HUFFNODE;
+struct CHuffman;
 class TOutputStream;
 class THuffmannTree;
 struct D2CriticalSectionStrc;
@@ -23,7 +23,7 @@ struct D2StormGrowUIntArrayStrc;
 struct D2StormGrowUCharArrayStrc;
 struct D2StormArrayBStrc;
 struct D2StormQueueArrayStrc;
-struct D2StormQueueStrc;
+struct BigBuffer;
 struct D2StormBigStrc;
 
 struct D2StormNodeListStrc
@@ -38,18 +38,18 @@ struct D2StormNodeListStrc
     }
 };
 
-struct D2StormHuffItemStrc
+struct HUFFNODE
 {
     D2StormLinkStrc link;
     unsigned int nValue, nWeight;
-    D2StormHuffItemStrc* pParent;
-    D2StormHuffItemStrc* pChild;
+    HUFFNODE* pParent;
+    HUFFNODE* pChild;
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int unk_00[2];
-    D2StormHuffItemStrc items[515];
+    HUFFNODE items[515];
     D2StormNodeListStrc listA;
     D2StormNodeListStrc listB;
 };
@@ -208,7 +208,7 @@ struct D2StormQueueArrayStrc
     unsigned int f_C;
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormQueueArrayStrc m_array;
     unsigned int m_start;
@@ -229,15 +229,15 @@ struct D2StormQueueStrc
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tPrimary;
+    BigBuffer tPrimary;
 };
 
 // 0x0041F6A0
-void __fastcall sub_0041F6A0_DestroyTree(D2StormHuffTreeStrc* pTree)
+void __fastcall sub_0041F6A0_DestroyTree(CHuffman* pTree)
 {
     pTree->listB.Clear();
     pTree->listA.Clear();
-    sub_00686AD1_DestroyArray(pTree->items, sizeof(D2StormHuffItemStrc), 515, sub_0041EE90_DestroyItem);
+    sub_00686AD1_DestroyArray(pTree->items, sizeof(HUFFNODE), 515, sub_0041EE90_DestroyItem);
 }
 
 // 0x0041F980
@@ -356,7 +356,7 @@ void __cdecl sub_004212B0_Empty()
 {
 }
 
-static __declspec(noinline) int sub_00421440_IsEven(const D2StormQueueStrc& a)
+static __declspec(noinline) int sub_00421440_IsEven(const BigBuffer& a)
 {
     return !a.Count() || !(a[0] & 1);
 }

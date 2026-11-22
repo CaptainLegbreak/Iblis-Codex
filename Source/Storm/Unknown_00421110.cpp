@@ -7,7 +7,7 @@ struct D2StormArrayAStrc;
 struct D2StormFixedArrayBStrc;
 struct D2StormFixedArrayCStrc;
 struct D2StormArrayBStrc;
-struct D2StormBigBufferStrc;
+struct BigBuffer;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
 
@@ -68,7 +68,7 @@ struct D2StormArrayBStrc
     void sub_00421980_SetCount(unsigned int nCount);
 };
 
-struct D2StormBigBufferStrc
+struct BigBuffer
 {
     unsigned int f_0;
     unsigned int f_4;
@@ -86,7 +86,7 @@ int __stdcall sub_004212F0_Compare(void* hLeft, void* hRight); // 0x004212F0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
-static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, D2StormBigBufferStrc* pBuf);
+static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf);
 
 // 0x00421110
 void D2StormFixedArrayAStrc::sub_00421110_ReallocData(unsigned int nAlloc)
@@ -141,7 +141,7 @@ D2StormArrayAStrc& D2StormArrayAStrc::sub_00421BA0_Assign(const D2StormArrayAStr
 }
 
 // 0x00421510
-static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, D2StormBigBufferStrc* pBuf)
+static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf)
 {
     *pnResult = 0;
     *pnResult = pBuf->At(0);
@@ -156,7 +156,7 @@ int __stdcall sub_00421530(void* hLeft, void* hRight)
 // 0x00421550
 void __stdcall SBigToUnsigned(void* hBig, unsigned int* pnResult)
 {
-    TO_UNSIGNED(pnResult, (D2StormBigBufferStrc*)hBig);
+    TO_UNSIGNED(pnResult, (BigBuffer*)hBig);
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)

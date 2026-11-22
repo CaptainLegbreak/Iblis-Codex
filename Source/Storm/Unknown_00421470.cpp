@@ -6,7 +6,7 @@ struct D2StormArrayAStrc
     unsigned int f_C;
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -15,7 +15,7 @@ struct D2StormQueueStrc
 };
 
 // 0x00421470
-unsigned int __stdcall sub_00421470_FindLowestSetBit(D2StormQueueStrc* pQueue)
+unsigned int __stdcall sub_00421470_FindLowestSetBit(BigBuffer* pQueue)
 {
     const unsigned int nStart = pQueue->m_start;
     unsigned int i = 0;

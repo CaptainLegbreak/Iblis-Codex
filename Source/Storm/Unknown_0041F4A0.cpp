@@ -1,14 +1,14 @@
 #include "D2StormAutoLink.h"
-struct D2StormHuffItemStrc
+struct HUFFNODE
 {
     D2StormLinkStrc f_0;
     unsigned int nValue;
     unsigned int nWeight;
-    D2StormHuffItemStrc* pParent;
-    D2StormHuffItemStrc* pChild;
+    HUFFNODE* pParent;
+    HUFFNODE* pChild;
 
-    D2StormHuffItemStrc();                                                                                  // 0x0041EE80
-    ~D2StormHuffItemStrc();                                                                                 // 0x0041EE90
+    HUFFNODE();                                                                                  // 0x0041EE80
+    ~HUFFNODE();                                                                                 // 0x0041EE90
 };
 
 struct D2StormNodeListStrc
@@ -30,7 +30,7 @@ public:
 
     int bIsCmp0;
     unsigned int nUnk0x04;
-    D2StormHuffItemStrc aItems[0x203];
+    HUFFNODE aItems[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
     unsigned int nItemsUsed;

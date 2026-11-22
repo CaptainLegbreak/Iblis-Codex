@@ -1,4 +1,5 @@
 #include "D2StormAutoLink.h"
+#include "D2StormSha1.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
@@ -6,9 +7,9 @@
 struct D2GameStrc;
 struct D2StormArrayAStrc;
 struct D2StormArray2Strc;
-struct D2StormQueueStrc;
+struct BigBuffer;
 struct D2StormBigStrc;
-struct D2StormRecordStackStrc;
+struct BigStack;
 struct D2StormArrayBStrc;
 struct BREAKCMD;
 struct D2GameLinkStrc;
@@ -16,8 +17,6 @@ struct D2StormListAStrc;
 struct D2StormGameArrayStrc;
 struct D2StormHashObjectChunkStrc;
 struct D2StormListArrayStrc;
-struct D2StormBigBufferStrc;
-struct T0041D340;
 struct D2StormTSListStrc;
 
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
@@ -83,14 +82,14 @@ struct D2StormArray2Strc
     void sub_00450F50_ReserveExact(unsigned int nCount);
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
     void sub_00421FE0_GrowToFit(int nIndex);                                                                // 0x00421FE0
     unsigned int* sub_00422050_At(unsigned int nIndex);
     void sub_00422120_SetStart(unsigned int nStart);
-    D2StormQueueStrc& operator=(const D2StormQueueStrc& tSource);
+    BigBuffer& operator=(const BigBuffer& tSource);
     void sub_00422080_TrimToStart();
     unsigned int Count() const
     {
@@ -105,11 +104,58 @@ struct D2StormQueueStrc
         return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
     }
     void sub_00422140_Trim();                                                                               // 0x00422140
+    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
+    {
+        unsigned int nRemainder = nValue % nAlign;
+        if (nRemainder)
+            nValue += nAlign - nRemainder;
+        return nValue;
+    }
+    void InlineSetCount(unsigned int nCount)
+    {
+        if (nCount > m_array.f_4 && nCount > m_array.f_0)
+        {
+            unsigned int nChunk = m_array.f_C;
+            if (!nChunk)
+                nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
+            unsigned int nAlloc = nCount;
+            const unsigned int nRemainder = nCount % nChunk;
+            if (nRemainder)
+                nAlloc = nCount + nChunk - nRemainder;
+            m_array.sub_004216E0_ReallocData(nAlloc);
+        }
+        m_array.f_4 = nCount;
+    }
+    void InlineGrowToFit(int nIndex)
+    {
+        unsigned int nPosition = m_start + nIndex;
+        if (nPosition >= m_array.f_4)
+        {
+            unsigned int nNewCount = nPosition + 1;
+            if (nNewCount > m_array.f_0)
+            {
+                unsigned int nChunk = m_array.f_C ? m_array.f_C : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+                m_array.sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
+            }
+            SMemZero(&m_array.f_8[m_array.f_4], (nPosition - m_array.f_4 + 1) * sizeof(unsigned int));
+            m_array.f_4 = nNewCount;
+        }
+    }
+    unsigned int& Get(unsigned int nIndex)
+    {
+        sub_00421FE0_GrowToFit(nIndex);
+        return m_array.f_8[m_start + nIndex];
+    }
+    unsigned int& At(unsigned int nIndex)
+    {
+        InlineGrowToFit(nIndex);
+        return m_array.f_8[m_start + nIndex];
+    }
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
-    D2StormQueueStrc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -155,15 +201,15 @@ struct D2StormArrayBStrc
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigBuffer tQueue;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
     ~D2StormBigStrc();                                                                                      // 0x00421D80
     static void operator delete(void* pMemory);
 };
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn); // 0x00421CB0
+void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x00421CB0
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 struct BREAKCMD
@@ -230,78 +276,10 @@ struct D2StormListArrayStrc
     static void operator delete(void* pMemory);
 };
 
-struct D2StormBigBufferStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-    unsigned int m_offset;
-
-    unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
-    void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
-    void sub_00421FE0_GrowToFit(int nIndex);                                                                // 0x00421FE0
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    void InlineSetCount(unsigned int nCount)
-    {
-        if (nCount > f_4 && nCount > f_0)
-        {
-            unsigned int nChunk = f_C;
-            if (!nChunk)
-                nChunk = sub_004210A0_CalcChunkSize(nCount);
-            unsigned int nAlloc = nCount;
-            const unsigned int nRemainder = nCount % nChunk;
-            if (nRemainder)
-                nAlloc = nCount + nChunk - nRemainder;
-            sub_004216E0_ReallocData(nAlloc);
-        }
-        f_4 = nCount;
-    }
-    void InlineGrowToFit(int nIndex)
-    {
-        unsigned int nPosition = m_offset + nIndex;
-        if (nPosition >= f_4)
-        {
-            unsigned int nNewCount = nPosition + 1;
-            if (nNewCount > f_0)
-            {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nNewCount);
-                sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
-            }
-            SMemZero(&f_8[f_4], (nPosition - f_4 + 1) * sizeof(unsigned int));
-            f_4 = nNewCount;
-        }
-    }
-    unsigned int& Get(unsigned int nIndex)
-    {
-        sub_00421FE0_GrowToFit(nIndex);
-        return f_8[m_offset + nIndex];
-    }
-    unsigned int& At(unsigned int nIndex)
-    {
-        InlineGrowToFit(nIndex);
-        return f_8[m_offset + nIndex];
-    }
-};
 
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned char* pBlock); // 0x00425850
 
-struct T0041D340
-{
-    unsigned __int64 nBitCount;
-    unsigned int aState[5];
-    unsigned char f_1C[64];
-    unsigned char unk_5C[0x4];
-    void Append(const unsigned char* pData, unsigned int nLen);
-    void sub_00425F00_Final(unsigned char* pDigest);
-};
 
 extern "C" const unsigned char gaSha1Padding_00708890[]; // 0x00708890
 
@@ -315,10 +293,10 @@ struct D2StormTSListStrc
 };
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
-static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, D2StormBigBufferStrc* pBuf);
-static __declspec(noinline) void __stdcall sub_004234F0_FromLengthPrefixed(D2StormBigBufferStrc* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
+static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
+static __declspec(noinline) void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
 
-// build: symbol ??4D2StormQueueStrc@@QAEAAU0@ABU0@@Z 0x004221B0
+// build: symbol ??4BigBuffer@@QAEAAU0@ABU0@@Z 0x004221B0
 // 0x00421EA0
 void D2StormArrayAStrc::sub_00421EA0_GrowToFit(unsigned int nIndex, int bZero)
 {
@@ -360,14 +338,14 @@ void D2StormArrayAStrc::sub_00421F10_SetCount(unsigned int nCount)
 }
 
 // 0x00422050
-unsigned int* D2StormQueueStrc::sub_00422050_At(unsigned int nIndex)
+unsigned int* BigBuffer::sub_00422050_At(unsigned int nIndex)
 {
     sub_00421FE0_GrowToFit(nIndex);
     return &m_array.f_8[m_start + nIndex];
 }
 
 // 0x00422120
-void D2StormQueueStrc::sub_00422120_SetStart(unsigned int nStart)
+void BigBuffer::sub_00422120_SetStart(unsigned int nStart)
 {
     m_start = nStart;
     if (nStart)
@@ -375,7 +353,7 @@ void D2StormQueueStrc::sub_00422120_SetStart(unsigned int nStart)
 }
 
 // 0x004221B0
-D2StormQueueStrc& D2StormQueueStrc::operator=(const D2StormQueueStrc& tSource)
+BigBuffer& BigBuffer::operator=(const BigBuffer& tSource)
 {
     if (this != &tSource)
         m_array.sub_004215C0_Set(tSource.m_array.f_4, tSource.m_array.f_8);
@@ -408,13 +386,13 @@ void D2StormArray2Strc::sub_00450F50_ReserveExact(unsigned int nCount)
 }
 
 // 0x00422080
-void D2StormQueueStrc::sub_00422080_TrimToStart()
+void BigBuffer::sub_00422080_TrimToStart()
 {
     m_array.SetCount(m_start);
 }
 
 // 0x00422710
-static __declspec(noinline) int IsOdd(D2StormQueueStrc* pQueue)
+static __declspec(noinline) int IsOdd(BigBuffer* pQueue)
 {
     pQueue->sub_00422140_Trim();
     if (pQueue->Count() >= 1 && ((*pQueue)[0] & 1))
@@ -459,14 +437,14 @@ static void sub_00421BD0_AppendLength(D2StormArrayBStrc* pArray, unsigned int nV
     pArray->Push(0xFF);
 }
 
-static __declspec(noinline) void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static __declspec(noinline) void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
 // 0x00423770
-static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     sub_004235F0_ToBinary(pOut, pIn);
     sub_00421BD0_AppendLength(pOut, pOut->f_4);
@@ -624,9 +602,9 @@ static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsign
     *pnLength = *pnLength < nSize - *pnOffset ? *pnLength : nSize - *pnOffset;
 }
 
-static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, D2StormBigBufferStrc* pBuf)
+static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf)
 {
-    pBuf->InlineSetCount(pBuf->m_offset);
+    pBuf->InlineSetCount(pBuf->m_start);
     for (unsigned int i = 0; i < nCount; i++)
     {
         unsigned int nByte = pData[i];
@@ -636,7 +614,7 @@ static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsign
     }
 }
 
-static __declspec(noinline) void __stdcall sub_004234F0_FromLengthPrefixed(D2StormBigBufferStrc* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
+static __declspec(noinline) void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
 {
     unsigned int nOffset;
     unsigned int nLength;
@@ -648,13 +626,13 @@ static __declspec(noinline) void __stdcall sub_004234F0_FromLengthPrefixed(D2Sto
 
 void __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize)
 {
-    FROM_BINARY((const unsigned char*)pData, nSize, (D2StormBigBufferStrc*)hBig);
+    FROM_BINARY((const unsigned char*)pData, nSize, (BigBuffer*)hBig);
 }
 
 // 0x00423890
 void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
 {
-    FROM_LENGTH_PREFIXED((D2StormBigBufferStrc*)hBig, pnUsed, nSize, (const unsigned char*)pData);
+    FROM_LENGTH_PREFIXED((BigBuffer*)hBig, pnUsed, nSize, (const unsigned char*)pData);
 }
 
 // 0x00425720
@@ -702,7 +680,7 @@ void __fastcall sub_004257F0_Sha1Round3(unsigned int a, unsigned int* b, unsigne
 }
 
 // 0x00425DD0
-void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
+void Sha1::Append(const unsigned char* pData, unsigned int nLen)
 {
     unsigned int nUsed = (unsigned int)nBitCount >> 3 & 0x3F;
     nBitCount += (unsigned __int64)nLen * 8;
@@ -713,8 +691,8 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         if (nLen >= 64)
         {
             for (; nUsed < 64; nUsed++)
-                f_1C[nUsed] = pData[nUsed];
-            sub_00425850_Sha1Transform(aState, f_1C);
+                aBlock[nUsed] = pData[nUsed];
+            sub_00425850_Sha1Transform(aState, aBlock);
             nLen -= 64;
             pData += 64;
             nUsed = 0;
@@ -727,7 +705,7 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         pData += 64;
     }
     for (; nUsed < nLen; nUsed++)
-        f_1C[nUsed] = pData[nUsed];
+        aBlock[nUsed] = pData[nUsed];
 }
 
 // 0x00425E80
@@ -765,7 +743,7 @@ static inline void sub_PutBE64(unsigned char* p, unsigned __int64 v)
 }
 
 // 0x00425F00
-void T0041D340::sub_00425F00_Final(unsigned char* pDigest)
+void Sha1::sub_00425F00_Final(unsigned char* pDigest)
 {
     unsigned char aCount[8];
     sub_PutBE64(aCount, nBitCount);

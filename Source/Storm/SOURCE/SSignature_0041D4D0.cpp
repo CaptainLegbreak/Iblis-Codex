@@ -8,16 +8,16 @@ int __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize);  
 void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead);            // 0x00423B30
 void __stdcall SBigPowMod(D2StormBigStrc* pResult, D2StormBigStrc* pBase, D2StormBigStrc* pExponent, D2StormBigStrc* pModulus); // 0x00425330
 
-struct D2StormHandleStrc
+struct BigNum
 {
     D2StormBigStrc* hHandle;
 
-    D2StormHandleStrc()
+    BigNum()
     {
         SBigNew(&hHandle);
     }
     // 0x0041D330
-    ~D2StormHandleStrc()
+    ~BigNum()
     {
         SBigDel(hHandle);
     }
@@ -31,32 +31,37 @@ struct D2StormHandleStrc
     }
 };
 
-struct D2StormHandlePairStrc
+namespace Crypt
 {
-    D2StormHandleStrc hFirst;
-    D2StormHandleStrc hSecond;
 
-    D2StormHandlePairStrc();
-    ~D2StormHandlePairStrc();
+struct RSA
+{
+    BigNum hFirst;
+    BigNum hSecond;
+
+    RSA();
+    ~RSA();
     void Process(void* pBuffer, unsigned int nSize);
 };
 
+}
+
 // 0x0041D4D0
-D2StormHandlePairStrc::D2StormHandlePairStrc()
+Crypt::RSA::RSA()
 {
 }
 
 // 0x0041D530
-D2StormHandlePairStrc::~D2StormHandlePairStrc()
+Crypt::RSA::~RSA()
 {
 }
 
 // 0x004260A0
-void D2StormHandlePairStrc::Process(void* pBuffer, unsigned int nSize)
+void Crypt::RSA::Process(void* pBuffer, unsigned int nSize)
 {
-    D2StormHandleStrc tInput;
+    BigNum tInput;
     sub_00423850(tInput.hHandle, pBuffer, nSize);
-    D2StormHandleStrc tOutput;
+    BigNum tOutput;
     SBigPowMod(tOutput.hHandle, tInput.hHandle, hSecond.hHandle, hFirst.hHandle);
     tOutput.ReadFill(pBuffer, nSize);
 }

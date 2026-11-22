@@ -98,7 +98,7 @@ void D2StormArrayAStrc::sub_004215C0_Set(unsigned int nCount, const unsigned int
     f_4 = nCount;
 }
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -124,7 +124,7 @@ struct D2StormQueueStrc
     {
         m_array.SetCount(m_start + nCount);
     }
-    void CopyFrom(const D2StormQueueStrc& tSource)
+    void CopyFrom(const BigBuffer& tSource)
     {
         if (this != &tSource)
         {
@@ -158,21 +158,21 @@ struct D2StormQueueStrc
     void sub_00422140_Trim();                                                                               // 0x00422140
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
-    D2StormQueueStrc f_0[16];
+    BigBuffer f_0[16];
     unsigned int nUsed;
 };
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tPrimary;
-    D2StormBigStackStrc tStack;
+    BigBuffer tPrimary;
+    BigStack tStack;
 };
 
-unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue);                              // 0x004213B0
-int __stdcall sub_004212F0_Compare(D2StormQueueStrc* pLeft, D2StormQueueStrc* pRight);                      // 0x004212F0
-int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormBigStackStrc* pStack); // 0x004242C0
+unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue);                              // 0x004213B0
+int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
+int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
 inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
 {
@@ -195,8 +195,8 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c); // 0x00422300
-static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
+static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -208,8 +208,8 @@ static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueSt
     a.SetCount(i);
 }
 
-static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c); // 0x004225C0
-static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c)
+static void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c); // 0x004225C0
+static void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c)
 {
     a.SetCount(b.Count());
     unsigned __int64 nData = 0;
@@ -225,15 +225,15 @@ static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pR
     *pRemainder = (unsigned int)nData;
 }
 
-static int IsZero(D2StormQueueStrc& a); // 0x00422780
-static __declspec(noinline) int IsZero(D2StormQueueStrc& a)
+static int IsZero(BigBuffer& a); // 0x00422780
+static __declspec(noinline) int IsZero(BigBuffer& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;
 }
 
-static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned __int64 c); // 0x004227A0
-static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned __int64 c)
+static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
+static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -245,22 +245,22 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static void SetOne(D2StormQueueStrc& a); // 0x00422C60
-static void SetOne(D2StormQueueStrc& a)
+static void SetOne(BigBuffer& a); // 0x00422C60
+static void SetOne(BigBuffer& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
     a.m_array.f_8[a.m_start] = 1;
 }
 
-static void SetZero(D2StormQueueStrc& a); // 0x00422CC0
-static __declspec(noinline) void SetZero(D2StormQueueStrc& a)
+static void SetZero(BigBuffer& a); // 0x00422CC0
+static __declspec(noinline) void SetZero(BigBuffer& a)
 {
     a.SetCount(0);
 }
 
-static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422D00
-static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
+static void __stdcall sub_00422D00_Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422D00
+static void __stdcall sub_00422D00_Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -282,8 +282,8 @@ static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueSt
     a.sub_00422140_Trim();
 }
 
-static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422E70
-static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
+static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422E70
+static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -298,8 +298,8 @@ static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsign
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c); // 0x00423100
-static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00423100
+static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nBorrow = 0;
     unsigned int i = 0;
@@ -311,8 +311,8 @@ static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueSt
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack); // 0x00423DC0
-static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00423DC0_Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
+static void __stdcall sub_00423DC0_Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     d.sub_00422140_Trim();
@@ -326,14 +326,14 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
     }
     if (nDCount <= 1)
     {
-        const D2StormQueueStrc& tD = d;
+        const BigBuffer& tD = d;
         sub_004225C0_DivUInt(a, &b.Ref(0), c, tD[0]);
         b.sub_004220D0_SetCount(1);
         return;
     }
-    D2StormQueueStrc& tRem = tStack.f_0[tStack.nUsed++];
-    D2StormQueueStrc& tDiv = tStack.f_0[tStack.nUsed++];
-    D2StormQueueStrc& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
     unsigned int nShift = 31 - (sub_004213B0_FindLastSetBit(&d) & 31);
     sub_00422D00_Shl(tRem, c, nShift);
     sub_00422D00_Shl(tDiv, d, nShift);
@@ -366,13 +366,13 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
 }
 
 // 0x00424FB0
-static void __stdcall sub_00424FB0_InvMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00424FB0_InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack)
 {
-    D2StormQueueStrc& tPrev = tStack.f_0[tStack.nUsed++];
-    D2StormQueueStrc& tNum = tStack.f_0[tStack.nUsed++];
-    D2StormQueueStrc& tDen = tStack.f_0[tStack.nUsed++];
-    D2StormQueueStrc& tQuot = tStack.f_0[tStack.nUsed++];
-    D2StormQueueStrc& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tPrev = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tNum = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tDen = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tQuot = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
     tNum.CopyFrom(b);
     tDen.CopyFrom(c);
     SetOne(a);

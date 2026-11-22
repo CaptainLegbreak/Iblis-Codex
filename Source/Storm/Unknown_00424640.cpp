@@ -1,7 +1,7 @@
 #include "D2StormTypes.h"
 struct D2StormArrayAStrc;
-struct D2StormQueueStrc;
-struct D2StormRecordStackStrc;
+struct BigBuffer;
+struct BigStack;
 struct D2StormBigStrc;
 
 struct D2StormArrayAStrc
@@ -14,12 +14,12 @@ struct D2StormArrayAStrc
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
 
-    D2StormQueueStrc& operator=(const D2StormQueueStrc& tSource)
+    BigBuffer& operator=(const BigBuffer& tSource)
     {
         if (this != &tSource)
         {
@@ -31,30 +31,30 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
-    D2StormQueueStrc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigBuffer tQueue;
+    BigStack tStack;
     int unk0x158[4];
 };
 
-int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormRecordStackStrc* pStack);
+int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack);
 
 // 0x00424640
-static void __stdcall Pow(D2StormQueueStrc* pResult, D2StormQueueStrc* pBase, unsigned int nExp, D2StormRecordStackStrc* pStack)
+static void __stdcall Pow(BigBuffer* pResult, BigBuffer* pBase, unsigned int nExp, BigStack* pStack)
 {
     unsigned int nBit = nExp;
     while (nBit & (nBit - 1))
     {
         nBit &= nBit - 1;
     }
-    D2StormQueueStrc* pWork = (pResult == pBase) ? &pStack->pRecords[pStack->nUsed++] : pResult;
+    BigBuffer* pWork = (pResult == pBase) ? &pStack->pRecords[pStack->nUsed++] : pResult;
     if (pWork != pBase)
     {
         D2StormArrayViewStrc tView;

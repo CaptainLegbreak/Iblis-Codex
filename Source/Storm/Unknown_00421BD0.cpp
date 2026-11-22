@@ -1,9 +1,9 @@
+#include "D2StormSha1.h"
 struct D2StormArrayAStrc;
-struct D2StormQueueStrc;
-struct D2StormRecordStackStrc;
+struct BigBuffer;
+struct BigStack;
 struct D2StormArrayBStrc;
 struct D2StormBigStrc;
-struct T0041D340;
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
@@ -17,16 +17,16 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc); // 0x004216E0
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
     void sub_00421FE0_GrowToFit(int nIndex); // 0x00421FE0
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
-    D2StormQueueStrc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -74,24 +74,16 @@ struct D2StormArrayBStrc
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigBuffer tQueue;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
 };
 
 
-void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn); // 0x00421CB0
+void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x00421CB0
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 
-struct T0041D340
-{
-    unsigned __int64 nBitCount;
-    unsigned int aState[5];
-    unsigned char f_1C[64];
-
-    void Append(const unsigned char* pData, unsigned int nLen);
-};
 
 
 // 0x00421160
@@ -125,14 +117,14 @@ static void sub_00421BD0_AppendLength(unsigned int nValue, D2StormArrayBStrc* pA
 }
 
 // 0x004235F0
-static void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
 // 0x00423770
-static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     sub_004235F0_ToBinary(pOut, pIn);
     sub_00421BD0_AppendLength(pOut->f_4, pOut);
@@ -217,7 +209,7 @@ static inline void ReserveCount(D2StormArrayAStrc* pArray, unsigned int nCount)
 }
 
 // 0x00423380
-static void __stdcall sub_00423380_FromBytes(D2StormQueueStrc* pThis, const unsigned char* pData, unsigned int nSize)
+static void __stdcall sub_00423380_FromBytes(BigBuffer* pThis, const unsigned char* pData, unsigned int nSize)
 {
     unsigned int nStart = pThis->m_start;
     if (nStart > pThis->m_array.f_4)
@@ -254,7 +246,7 @@ static void __stdcall sub_00423380_FromBytes(D2StormQueueStrc* pThis, const unsi
 }
 
 // 0x00423850
-void __stdcall sub_00423850(D2StormQueueStrc* pThis, const unsigned char* pData, unsigned int nSize)
+void __stdcall sub_00423850(BigBuffer* pThis, const unsigned char* pData, unsigned int nSize)
 {
     sub_00423380_FromBytes(pThis, pData, nSize);
 }
@@ -375,7 +367,7 @@ void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned 
 }
 
 // 0x00425DD0
-void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
+void Sha1::Append(const unsigned char* pData, unsigned int nLen)
 {
     unsigned int nUsed = (unsigned int)nBitCount >> 3 & 0x3F;
     nBitCount += (unsigned __int64)nLen * 8;
@@ -386,8 +378,8 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         if (nLen >= 64)
         {
             for (; nUsed < 64; nUsed++)
-                f_1C[nUsed] = pData[nUsed];
-            sub_00425850_Sha1Transform(aState, f_1C);
+                aBlock[nUsed] = pData[nUsed];
+            sub_00425850_Sha1Transform(aState, aBlock);
             nLen -= 64;
             pData += 64;
             nUsed = 0;
@@ -400,7 +392,7 @@ void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
         pData += 64;
     }
     for (; nUsed < nLen; nUsed++)
-        f_1C[nUsed] = pData[nUsed];
+        aBlock[nUsed] = pData[nUsed];
 }
 
 // 0x00425E80

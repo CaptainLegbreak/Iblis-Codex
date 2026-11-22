@@ -2,16 +2,16 @@
 #include "D2StormLink.h"
 
 struct Obj0041D880;
-struct D2StormHandleStrc;
-struct D2StormBitReaderStrc;
+struct BigNum;
+struct CBitInput;
 struct Obj0041D920;
 struct Obj0041D940;
 struct D2StormHuffInputStrc;
-struct D2StormHuffOutputStrc;
+struct CBitOutput;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
-struct D2StormHuffItemStrc;
-struct D2StormHuffTreeStrc;
+struct HUFFNODE;
+struct CHuffman;
 struct D2AdpcmHeaderStrc;
 
 struct Obj0041D880 { const unsigned int* pCur00; unsigned int dwBits04; int nBitCount08; };
@@ -19,15 +19,15 @@ struct Obj0041D880 { const unsigned int* pCur00; unsigned int dwBits04; int nBit
 void __stdcall SBigNew(void** phBig); // 0x00423950
 void __stdcall SBigDel(void* hBig); // 0x00424E40
 
-struct D2StormHandleStrc
+struct BigNum
 {
     void* hHandle;
 
-    D2StormHandleStrc();
-    ~D2StormHandleStrc();
+    BigNum();
+    ~BigNum();
 };
 
-struct D2StormBitReaderStrc
+struct CBitInput
 {
     unsigned int* pData;
     unsigned int dwBits;
@@ -49,14 +49,14 @@ struct D2StormHuffInputStrc
     D2StormHuffInputStrc(void* pInputBuffer);
 };
 
-struct D2StormHuffOutputStrc
+struct CBitOutput
 {
     unsigned char* pOutputStart;
     unsigned int f_4;
     unsigned char* pOutput;
     unsigned int nBitBuffer;
     unsigned int nBitCount;
-    D2StormHuffOutputStrc(void* pOutputBuffer, unsigned int nOutputSize);
+    CBitOutput(void* pOutputBuffer, unsigned int nOutputSize);
     void sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits);
 };
 
@@ -95,27 +95,27 @@ struct D2StormNodeListStrc
     }
 };
 
-struct D2StormHuffItemStrc
+struct HUFFNODE
 {
     D2StormLinkStrc f_0;
     unsigned int nValue;
     unsigned int nWeight;
-    D2StormHuffItemStrc* pParent;
-    D2StormHuffItemStrc* pChild;
+    HUFFNODE* pParent;
+    HUFFNODE* pChild;
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int bIsCmp0;
     unsigned int nUnk0x04;
-    D2StormHuffItemStrc f_8[0x203];
+    HUFFNODE f_8[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
     unsigned int nItemsUsed;
-    D2StormHuffItemStrc* pItemsByValue[0x102];
+    HUFFNODE* pItemsByValue[0x102];
 
-    void sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue);
-    void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);
+    void sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue);
+    void sub_0041F350_IncWeights(HUFFNODE* pItem);
 };
 
 // 0x0041D880
@@ -127,19 +127,19 @@ extern "C" __declspec(dllexport) Obj0041D880* __fastcall sub_0041D880(Obj0041D88
 }
 
 // 0x0041D320
-D2StormHandleStrc::D2StormHandleStrc()
+BigNum::BigNum()
 {
     SBigNew(&hHandle);
 }
 
 // 0x0041D330
-D2StormHandleStrc::~D2StormHandleStrc()
+BigNum::~BigNum()
 {
     SBigDel(hHandle);
 }
 
 // 0x0041D8A0
-int D2StormBitReaderStrc::sub_0041D8A0_ReadBit()
+int CBitInput::sub_0041D8A0_ReadBit()
 {
     int nBit = dwBits & 1;
     dwBits >>= 1;
@@ -167,7 +167,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_0041D940(Obj0041D940* pObj) 
 }
 
 // 0x0041D950
-void D2StormHuffOutputStrc::sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits)
+void CBitOutput::sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits)
 {
     nBitBuffer |= nValue << nBitCount;
     nBitCount += nBits;
@@ -184,12 +184,12 @@ void D2StormHuffOutputStrc::sub_0041D950_PutBits(unsigned int nValue, unsigned i
 }
 
 // 0x0041D9E0
-void D2StormHuffTreeStrc::sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue)
+void CHuffman::sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue)
 {
-    D2StormHuffItemStrc* pItem = pItemsByValue[nValue];
+    HUFFNODE* pItem = pItemsByValue[nValue];
     unsigned int nCode = 0;
     unsigned int nBits = 0;
-    for (D2StormHuffItemStrc* pParent = pItem->pParent; pParent; pParent = pParent->pParent)
+    for (HUFFNODE* pParent = pItem->pParent; pParent; pParent = pParent->pParent)
     {
         nCode = (nCode << 1) | (pParent->pChild != pItem);
         nBits++;
@@ -199,16 +199,16 @@ void D2StormHuffTreeStrc::sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput,
 }
 
 // 0x0041F350
-void D2StormHuffTreeStrc::sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem)
+void CHuffman::sub_0041F350_IncWeights(HUFFNODE* pItem)
 {
     for (; pItem; pItem = pItem->pParent)
     {
         pItem->nWeight++;
-        D2StormHuffItemStrc* pCur = pItem;
-        D2StormHuffItemStrc* pNext;
+        HUFFNODE* pCur = pItem;
+        HUFFNODE* pNext;
         for (;;)
         {
-            pNext = (D2StormHuffItemStrc*)pCur->f_0.Next();
+            pNext = (HUFFNODE*)pCur->f_0.Next();
             if (!pNext || pNext->nWeight >= pItem->nWeight)
                 break;
             pCur = pNext;
@@ -217,12 +217,12 @@ void D2StormHuffTreeStrc::sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem)
             continue;
         tItemList.LinkNode((char*)pCur, 2, (char*)pItem);
         tItemList.LinkNode((char*)pItem, 2, (char*)pNext);
-        D2StormHuffItemStrc* pCurParentChild = pCur->pParent->pChild;
+        HUFFNODE* pCurParentChild = pCur->pParent->pChild;
         if (pItem->pParent->pChild == pItem)
             pItem->pParent->pChild = pCur;
         if (pCurParentChild == pCur)
             pCur->pParent->pChild = pItem;
-        D2StormHuffItemStrc* pTemp = pItem->pParent;
+        HUFFNODE* pTemp = pItem->pParent;
         pItem->pParent = pCur->pParent;
         pCur->pParent = pTemp;
         nUnk0x04++;

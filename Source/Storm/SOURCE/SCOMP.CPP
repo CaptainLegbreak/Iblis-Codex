@@ -18,9 +18,9 @@ struct D2StormZArenaStrc;
 
 struct D2StormNodeListAStrc;
 
-struct D2StormHuffItemStrc;
+struct HUFFNODE;
 
-struct D2StormHuffTreeStrc;
+struct CHuffman;
 
 struct D2AdpcmHeaderStrc;
 
@@ -108,27 +108,27 @@ struct D2StormNodeListAStrc
     void sub_0041ED90_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);                       // 0x0041ED90
 };
 
-struct D2StormHuffItemStrc
+struct HUFFNODE
 {
     D2StormLinkStrc f_0;
     unsigned int nValue;
     unsigned int nWeight;
-    D2StormHuffItemStrc* pParent;
-    D2StormHuffItemStrc* pChild;
+    HUFFNODE* pParent;
+    HUFFNODE* pChild;
 
-    D2StormHuffItemStrc();
-    ~D2StormHuffItemStrc();
+    HUFFNODE();
+    ~HUFFNODE();
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int unk0x00[2];
-    D2StormHuffItemStrc f_8[0x203];
+    HUFFNODE f_8[0x203];
     D2StormNodeListAStrc tFreeList;
     D2StormNodeListAStrc tItemList;
     unsigned int nItemsUsed;
 
-    D2StormHuffItemStrc* sub_0041EED0_NewItem(unsigned int nLinkType);
+    HUFFNODE* sub_0041EED0_NewItem(unsigned int nLinkType);
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -902,22 +902,22 @@ D2SCompListStrc::D2SCompListStrc()
 }
 
 // 0x0041EE80
-D2StormHuffItemStrc::D2StormHuffItemStrc()
+HUFFNODE::HUFFNODE()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
 }
 
 // 0x0041EE90
-D2StormHuffItemStrc::~D2StormHuffItemStrc()
+HUFFNODE::~HUFFNODE()
 {
     f_0.Unlink();
 }
 
 // 0x0041EED0
-D2StormHuffItemStrc* D2StormHuffTreeStrc::sub_0041EED0_NewItem(unsigned int nLinkType)
+HUFFNODE* CHuffman::sub_0041EED0_NewItem(unsigned int nLinkType)
 {
-    D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.Head();
+    HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
         pItem = &f_8[nItemsUsed++];
     tItemList.sub_0041ED90_LinkNode((char*)pItem, nLinkType, 0);

@@ -53,7 +53,7 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -80,7 +80,7 @@ struct D2StormQueueStrc
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tPrimary;
+    BigBuffer tPrimary;
     char unk0x14[0x154];
 };
 
@@ -95,7 +95,7 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
 }
 
 // 0x00423100
-static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
+static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nBorrow = 0;
     unsigned int i = 0;

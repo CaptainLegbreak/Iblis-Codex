@@ -1,4 +1,4 @@
-struct D2StormRecord14Strc
+struct BigBuffer
 {
     unsigned int f_0;
     unsigned int f_4;
@@ -6,25 +6,25 @@ struct D2StormRecord14Strc
     unsigned int f_C;
     unsigned int m_offset;
 
-    D2StormRecord14Strc();                                                                                  // 0x00421B50
-    ~D2StormRecord14Strc();                                                                                 // 0x00421810
+    BigBuffer();                                                                                  // 0x00421B50
+    ~BigBuffer();                                                                                 // 0x00421810
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
-    D2StormRecord14Strc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 
-    D2StormRecordStackStrc();
-    ~D2StormRecordStackStrc();
+    BigStack();
+    ~BigStack();
 };
 
 // 0x00421830
-D2StormRecordStackStrc::~D2StormRecordStackStrc()
+BigStack::~BigStack()
 {
 }
 
 // 0x00421B70
-D2StormRecordStackStrc::D2StormRecordStackStrc() : nUsed(0)
+BigStack::BigStack() : nUsed(0)
 {
 }

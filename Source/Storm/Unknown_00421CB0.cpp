@@ -13,7 +13,7 @@ struct D2StormArrayAStrc
     }
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -29,9 +29,9 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
-    D2StormQueueStrc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -92,15 +92,15 @@ inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int n
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigBuffer tQueue;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
 };
 
-static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn);
+static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn);
 
 // 0x00421CB0
-static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
 
     for (unsigned int i = 0; i < 4 * pIn->Count(); ++i)
@@ -131,14 +131,14 @@ static void sub_00421BD0_AppendLength(unsigned int nValue, D2StormArrayBStrc* pA
 }
 
 // 0x004235F0
-static void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
 // 0x00423770
-static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     sub_004235F0_ToBinary(pOut, pIn);
     sub_00421BD0_AppendLength(pOut->f_4, pOut);
@@ -207,5 +207,5 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
 // build: context ?InlineReserve@D2StormArrayBStrc@@QAEXIH@Z
 // build: context ?New@D2StormArrayBStrc@@QAEPAEXZ
 // build: context ?Count@D2StormArrayAStrc@@QBEIXZ
-// build: context ?Count@D2StormQueueStrc@@QBEIXZ
-// build: context ??AD2StormQueueStrc@@QBEII@Z
+// build: context ?Count@BigBuffer@@QBEIXZ
+// build: context ??ABigBuffer@@QBEII@Z

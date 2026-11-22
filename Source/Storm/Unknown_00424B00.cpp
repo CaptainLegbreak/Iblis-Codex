@@ -29,7 +29,7 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                      // 0x004216E0
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -88,9 +88,9 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
-    D2StormQueueStrc f_0[16];
+    BigBuffer f_0[16];
     unsigned int nUsed;
 };
 
@@ -106,9 +106,9 @@ static __declspec(noinline) unsigned int __stdcall sub_00420EB0_AddWithCarry(uns
 }
 
 // 0x00424B00
-void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormBigStackStrc* pStack)
+void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStack* pStack)
 {
-    D2StormQueueStrc* pWork;
+    BigBuffer* pWork;
     if (pResult == pA)
     {
         // the original relies on the work-stack index staying below 16 here (its push/pop check); without it the frame and loads differ
@@ -148,9 +148,9 @@ void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStr
 }
 
 // build: context ?RoundUp@D2StormArrayAStrc@@SGIII@Z
-// build: context ?IsUsed@D2StormQueueStrc@@QBEHI@Z
-// build: context ?GetInline@D2StormQueueStrc@@QBEII@Z
-// build: context ?SetCountInline@D2StormQueueStrc@@QAEXI@Z
-// build: context ?ChunkSizeInline@D2StormQueueStrc@@QAEII@Z
-// build: context ?GrowToFitInline@D2StormQueueStrc@@QAEXI@Z
-// build: context ?AtInline@D2StormQueueStrc@@QAEAAII@Z
+// build: context ?IsUsed@BigBuffer@@QBEHI@Z
+// build: context ?GetInline@BigBuffer@@QBEII@Z
+// build: context ?SetCountInline@BigBuffer@@QAEXI@Z
+// build: context ?ChunkSizeInline@BigBuffer@@QAEII@Z
+// build: context ?GrowToFitInline@BigBuffer@@QAEXI@Z
+// build: context ?AtInline@BigBuffer@@QAEAAII@Z

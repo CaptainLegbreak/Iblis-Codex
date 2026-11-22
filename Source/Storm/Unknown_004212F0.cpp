@@ -2,10 +2,9 @@
 
 struct D2StormArrayAStrc;
 struct D2StormArrayCStrc;
-struct D2StormQueueStrc;
+struct BigBuffer;
 struct D2StormFixedArrayAStrc;
 struct D2StormArrayBStrc;
-struct D2StormBigBufferStrc;
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
@@ -58,10 +57,11 @@ struct D2StormArrayCStrc
     void sub_00421770_ReallocData(unsigned int nAlloc);
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
+    void sub_00421FE0_GrowToFit(int nIndex);
 
     unsigned int Count() const
     {
@@ -127,13 +127,6 @@ struct D2StormArrayBStrc
     unsigned int sub_004218B0_Add(unsigned int nCount, const unsigned char* pData);
 };
 
-struct D2StormBigBufferStrc : D2StormArrayAStrc
-{
-    unsigned int m_offset;
-
-    void sub_00421FE0_GrowToFit(int nIndex);
-};
-
 inline void* operator new(unsigned int, void* pWhere) throw();
 
 inline void* operator new(unsigned int, void* pWhere) throw()
@@ -142,7 +135,7 @@ inline void* operator new(unsigned int, void* pWhere) throw()
 }
 
 // 0x004212F0
-int __stdcall sub_004212F0_Compare(D2StormQueueStrc* pLeft, D2StormQueueStrc* pRight)
+int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight)
 {
     int nResult = 0;
     for (unsigned int i = 0; pLeft->IsUsed(i) || pRight->IsUsed(i); ++i)
@@ -174,7 +167,7 @@ void D2StormArrayCStrc::sub_00421770_ReallocData(unsigned int nAlloc)
 }
 
 // 0x00422140
-void D2StormQueueStrc::sub_00422140_Trim()
+void BigBuffer::sub_00422140_Trim()
 {
     while (Count())
     {
@@ -206,18 +199,18 @@ unsigned int D2StormArrayBStrc::sub_004218B0_Add(unsigned int nCount, const unsi
 }
 
 // 0x00421FE0
-void D2StormBigBufferStrc::sub_00421FE0_GrowToFit(int nIndex)
+void BigBuffer::sub_00421FE0_GrowToFit(int nIndex)
 {
-    unsigned int nPosition = m_offset + nIndex;
-    if (nPosition >= f_4)
+    unsigned int nPosition = m_start + nIndex;
+    if (nPosition >= m_array.f_4)
     {
         unsigned int nNewCount = nPosition + 1;
-        if (nNewCount > f_0)
+        if (nNewCount > m_array.f_0)
         {
-            unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nNewCount);
-            sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
+            unsigned int nChunk = m_array.f_C ? m_array.f_C : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+            m_array.sub_004216E0_ReallocData(D2StormArrayAStrc::RoundUp(nNewCount, nChunk));
         }
-        SMemZero(&f_8[f_4], (nPosition - f_4 + 1) * sizeof(unsigned int));
-        f_4 = nNewCount;
+        SMemZero(&m_array.f_8[m_array.f_4], (nPosition - m_array.f_4 + 1) * sizeof(unsigned int));
+        m_array.f_4 = nNewCount;
     }
 }

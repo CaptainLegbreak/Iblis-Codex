@@ -5,17 +5,17 @@
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
 
-struct D2StormHuffItemStrc;
+struct HUFFNODE;
 struct UiContext;
 struct D2StormLinkStrc;
 struct D2IdentityView;
 struct D2StormNodeListStrc;
 class THuffmannTree;
-class D2StormHuffEncTreeStrc;
-class D2StormHuffDecTreeStrc;
+class CHuffmanEncoder;
+class CHuffmanDecoder;
 struct D2StormHuffInputStrc;
-struct D2StormHuffTreeStrc;
-struct D2StormHuffOutputStrc;
+struct CHuffman;
+struct CBitOutput;
 struct D2CriticalSectionStrc;
 struct T0041FA40;
 struct D2StormListStrc;
@@ -52,9 +52,8 @@ struct SlotArray;
 struct D2Field14Strc;
 struct D2UnitStrc;
 struct D2StormArrayAStrc;
-struct D2StormQueueStrc;
-struct D2StormBigStackStrc;
-struct D2StormBigBufferStrc;
+struct BigBuffer;
+struct BigStack;
 struct LimbCell;
 struct SequenceView;
 struct StoredRecordView;
@@ -113,17 +112,17 @@ public:
     unsigned int adwData[0x3474 / 4];
 };
 
-class D2StormHuffEncTreeStrc : public THuffmannTree
+class CHuffmanEncoder : public THuffmannTree
 {
 public:
-    D2StormHuffEncTreeStrc();
-    ~D2StormHuffEncTreeStrc();
+    CHuffmanEncoder();
+    ~CHuffmanEncoder();
 };
 
-class D2StormHuffDecTreeStrc : public THuffmannTree
+class CHuffmanDecoder : public THuffmannTree
 {
 public:
-    ~D2StormHuffDecTreeStrc();
+    ~CHuffmanDecoder();
 };
 
 struct D2StormHuffInputStrc
@@ -147,22 +146,22 @@ struct D2StormHuffInputStrc
     }
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int bIsCmp0;
     int unk0x04;
     unsigned int unk0x08[0xC19];
-    D2StormHuffItemStrc* pItemsByValue[0x102];
+    HUFFNODE* pItemsByValue[0x102];
     void BuildTree(unsigned char nCmpType);                                                    // 0x0041EF20
     unsigned int sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* pInput);                                      // 0x0041EBC0
     void AddSymbol(unsigned int nValue);                                                    // 0x0041F510
-    void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);                                               // 0x0041F350
+    void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
     unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
-    void sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue);                       // 0x0041D9E0
-    unsigned int Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
+    void sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue);                       // 0x0041D9E0
+    unsigned int Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
 };
 
-struct D2StormHuffOutputStrc
+struct CBitOutput
 {
     unsigned char* pOutputStart;
     unsigned int f_4;
@@ -310,10 +309,11 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                      // 0x004216E0
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
+    void sub_00421FE0_GrowToFit(int nIndex);                                                                // 0x00421FE0
 
     unsigned int sub_004212D0_Get(unsigned int nIndex);                                                      // 0x004212D0
 
@@ -322,7 +322,7 @@ struct D2StormQueueStrc
         const unsigned int nPosition = m_start + nIndex;
         return nPosition < m_array.f_4 ? m_array.f_8[nPosition] : 0;
     }
-    // build: context D2StormQueueStrc::SetCountInline
+    // build: context BigBuffer::SetCountInline
     void SetCountInline(unsigned int nCount)
     {
         if (nCount > m_array.f_4 && nCount > m_array.f_0)
@@ -374,25 +374,6 @@ struct D2StormQueueStrc
         GrowToFitInline(nIndex);
         return m_array.f_8[m_start + nIndex];
     }
-};
-
-struct D2StormBigStackStrc
-{
-    D2StormQueueStrc f_0[16];
-    unsigned int nUsed;
-};
-
-struct D2StormBigBufferStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-    unsigned int m_offset;
-
-    unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
-    void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
-    void sub_00421FE0_GrowToFit(int nIndex);                                                                // 0x00421FE0
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
         unsigned int nRemainder = nValue % nAlign;
@@ -400,48 +381,55 @@ struct D2StormBigBufferStrc
             nValue += nAlign - nRemainder;
         return nValue;
     }
-    // build: context D2StormBigBufferStrc::InlineSetCount
+    // build: context BigBuffer::InlineSetCount
     void InlineSetCount(unsigned int nCount)
     {
-        if (nCount > f_4 && nCount > f_0)
+        if (nCount > m_array.f_4 && nCount > m_array.f_0)
         {
-            unsigned int nChunk = f_C;
+            unsigned int nChunk = m_array.f_C;
             if (!nChunk)
-                nChunk = sub_004210A0_CalcChunkSize(nCount);
+                nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
             unsigned int nAlloc = nCount;
             const unsigned int nRemainder = nCount % nChunk;
             if (nRemainder)
                 nAlloc = nCount + nChunk - nRemainder;
-            sub_004216E0_ReallocData(nAlloc);
+            m_array.sub_004216E0_ReallocData(nAlloc);
         }
-        f_4 = nCount;
+        m_array.f_4 = nCount;
     }
     void InlineGrowToFit(int nIndex)
     {
-        unsigned int nPosition = m_offset + nIndex;
-        if (nPosition >= f_4)
+        unsigned int nPosition = m_start + nIndex;
+        if (nPosition >= m_array.f_4)
         {
             unsigned int nNewCount = nPosition + 1;
-            if (nNewCount > f_0)
+            if (nNewCount > m_array.f_0)
             {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nNewCount);
-                sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
+                unsigned int nChunk = m_array.f_C ? m_array.f_C : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+                m_array.sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
             }
-            SMemZero(&f_8[f_4], (nPosition - f_4 + 1) * sizeof(unsigned int));
-            f_4 = nNewCount;
+            SMemZero(&m_array.f_8[m_array.f_4], (nPosition - m_array.f_4 + 1) * sizeof(unsigned int));
+            m_array.f_4 = nNewCount;
         }
     }
     unsigned int& Get(unsigned int nIndex)
     {
         sub_00421FE0_GrowToFit(nIndex);
-        return f_8[m_offset + nIndex];
+        return m_array.f_8[m_start + nIndex];
     }
     unsigned int& At(unsigned int nIndex)
     {
         InlineGrowToFit(nIndex);
-        return f_8[m_offset + nIndex];
+        return m_array.f_8[m_start + nIndex];
     }
 };
+
+struct BigStack
+{
+    BigBuffer f_0[16];
+    unsigned int nUsed;
+};
+
 
 typedef unsigned int U32;
 
@@ -488,8 +476,8 @@ extern "C" int gRequest;
 extern "C" int gState;
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
-static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, D2StormBigBufferStrc* pBuf);
-static void __stdcall sub_004234F0_FromLengthPrefixed(D2StormBigBufferStrc* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
+static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
+static void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
 
 // 0x0041E9C0
 D2StormLinkStrc* __fastcall sub_0041E9C0_Identity(D2IdentityView* value) {return &value->link;}
@@ -510,22 +498,22 @@ void D2StormNodeListStrc::sub_0041F460_Destroy()
 }
 
 // 0x0041F920
-D2StormHuffEncTreeStrc::D2StormHuffEncTreeStrc()
+CHuffmanEncoder::CHuffmanEncoder()
 {
 }
 
 // 0x0041F930
-D2StormHuffEncTreeStrc::~D2StormHuffEncTreeStrc()
+CHuffmanEncoder::~CHuffmanEncoder()
 {
 }
 
 // 0x0041F940
-D2StormHuffDecTreeStrc::~D2StormHuffDecTreeStrc()
+CHuffmanDecoder::~CHuffmanDecoder()
 {
 }
 
 // 0x0041F740
-unsigned int D2StormHuffTreeStrc::Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput)
+unsigned int CHuffman::Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput)
 {
     if (!nOutputSize)
     {
@@ -563,7 +551,7 @@ unsigned int D2StormHuffTreeStrc::Decompress(void* pOutput, unsigned int nOutput
     }
 }
 
-void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
+void CBitOutput::sub_0041D9A0_Flush()
 {
     while (nBitCount)
     {
@@ -578,7 +566,7 @@ void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
 }
 
 // 0x0041F850
-unsigned int D2StormHuffTreeStrc::Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
+unsigned int CHuffman::Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
 {
     BuildTree(nCmpType);
     bIsCmp0 = nCmpType == 0;
@@ -1001,9 +989,9 @@ static unsigned int __stdcall sub_00420EB0_Accumulate64(unsigned __int64 nValue,
     return nLow;
 }
 
-void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormBigStackStrc* pStack)
+void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStack* pStack)
 {
-    D2StormQueueStrc* pWork;
+    BigBuffer* pWork;
     if (pResult == pA)
         pWork = &pStack->f_0[pStack->nUsed++];
     else
@@ -1075,9 +1063,9 @@ static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsign
     *pnLength = *pnLength < nSize - *pnOffset ? *pnLength : nSize - *pnOffset;
 }
 
-static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, D2StormBigBufferStrc* pBuf)
+static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf)
 {
-    pBuf->InlineSetCount(pBuf->m_offset);
+    pBuf->InlineSetCount(pBuf->m_start);
     for (unsigned int i = 0; i < nCount; i++)
     {
         unsigned int nByte = pData[i];
@@ -1088,7 +1076,7 @@ static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsign
 }
 
 // 0x004234F0
-static void __stdcall sub_004234F0_FromLengthPrefixed(D2StormBigBufferStrc* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
+static void __stdcall sub_004234F0_FromLengthPrefixed(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
 {
     unsigned int nOffset;
     unsigned int nLength;
@@ -1101,13 +1089,13 @@ static void __stdcall sub_004234F0_FromLengthPrefixed(D2StormBigBufferStrc* pBuf
 // 0x00423850
 void __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize)
 {
-    FROM_BINARY((const unsigned char*)pData, nSize, (D2StormBigBufferStrc*)hBig);
+    FROM_BINARY((const unsigned char*)pData, nSize, (BigBuffer*)hBig);
 }
 
 // build: context SBigFromStream
 void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
 {
-    FROM_LENGTH_PREFIXED((D2StormBigBufferStrc*)hBig, pnUsed, nSize, (const unsigned char*)pData);
+    FROM_LENGTH_PREFIXED((BigBuffer*)hBig, pnUsed, nSize, (const unsigned char*)pData);
 }
 
 // 0x00420FE0

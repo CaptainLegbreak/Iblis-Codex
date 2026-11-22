@@ -3,6 +3,7 @@
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
 #include "D2StormLink.h"
+#include "D2StormSha1.h"
 
 #define STORM_LOOKUP2_MIX(a, b, c) \
 { \
@@ -71,11 +72,10 @@ struct D2CommonStormHashTableAStrc;
 struct D2StormList00418490Strc;
 struct D2StormList004185B0Strc;
 struct D2StormHashBufferStrc;
-struct D2StormHuffOutputStrc;
+struct CBitOutput;
 class THuffmannTree;
 struct D2StormHuffLinkSlotStrc;
-struct D2StormHuffTreeStrc;
-struct D2StormHashCtxStrc;
+struct CHuffman;
 struct D2StormHandlerStrc;
 struct D2StormWndRecStrc;
 struct D2StormNodeListBStrc;
@@ -380,7 +380,7 @@ struct D2StormHashBufferStrc
     unsigned int nWindow;
 };
 
-struct D2StormHuffOutputStrc
+struct CBitOutput
 {
     unsigned char* pOutputStart;
     unsigned int f_4;
@@ -399,22 +399,13 @@ public:
     unsigned int adwData[0x3474 / 4];
 };
 
-struct D2StormHuffTreeStrc : THuffmannTree
+struct CHuffman : THuffmannTree
 {
     D2StormHuffLinkSlotStrc f_3474[0x80];
 
-    D2StormHuffTreeStrc();
+    CHuffman();
 };
 
-struct D2StormHashCtxStrc
-{
-    unsigned int nBitCountLo;
-    unsigned int nBitCountHi;
-    unsigned int nState[5];
-    unsigned char pBlock[64];
-
-    void Initialize();
-};
 
 extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 extern void* ghStormThread_00779034; // 0x00779034
@@ -2914,7 +2905,7 @@ unsigned int __fastcall sub_0041D410_GetWindow(D2StormHashBufferStrc* pBuffer)
 }
 
 // 0x0041D9A0
-void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
+void CBitOutput::sub_0041D9A0_Flush()
 {
     while (nBitCount)
     {
@@ -2936,22 +2927,21 @@ void D2StormNodeListStrc::sub_0041EE40_UnlinkAll()
 }
 
 // 0x0041F950
-D2StormHuffTreeStrc::D2StormHuffTreeStrc()
+CHuffman::CHuffman()
 {
     for (int i = 0; i < 0x80; ++i)
         f_3474[i].nData[0] = 0;
 }
 
 // 0x00425D90
-void D2StormHashCtxStrc::Initialize()
+void Sha1::Initialize()
 {
-    nBitCountLo = 0;
-    nBitCountHi = 0;
-    nState[0] = 0x67452301;
-    nState[1] = 0xEFCDAB89;
-    nState[2] = 0x98BADCFE;
-    nState[3] = 0x10325476;
-    nState[4] = 0xC3D2E1F0;
+    nBitCount = 0;
+    aState[0] = 0x67452301;
+    aState[1] = 0xEFCDAB89;
+    aState[2] = 0x98BADCFE;
+    aState[3] = 0x10325476;
+    aState[4] = 0xC3D2E1F0;
 }
 
 // build: symbol ??_GAUDIOSTREAM@@QAEPAXI@Z 0x00419A50

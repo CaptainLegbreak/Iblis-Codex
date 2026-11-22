@@ -5,8 +5,8 @@ struct D2StormArrayBStrc;
 struct D2StormArrayCStrc;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
-struct D2StormQueueStrc;
-struct D2StormRecordStackStrc;
+struct BigBuffer;
+struct BigStack;
 struct D2StormBigStrc;
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
@@ -91,26 +91,26 @@ extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
-    D2StormQueueStrc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
 struct D2StormBigStrc
 {
-    D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigBuffer tQueue;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
 };
 
-void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn); // 0x00421CB0
+void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x00421CB0
 
 inline void* operator new(unsigned int, void* pPlace) throw();
 
@@ -330,13 +330,13 @@ static void sub_00421BD0_AppendLength(unsigned int nValue, D2StormArrayBStrc* pA
 }
 
 // 0x004235F0
-static __declspec(noinline) void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static __declspec(noinline) void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
-static __declspec(noinline) void sub_00423770_ToStream(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static __declspec(noinline) void sub_00423770_ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     sub_004235F0_ToBinary(pOut, pIn);
     sub_00421BD0_AppendLength(pOut->f_4, pOut);

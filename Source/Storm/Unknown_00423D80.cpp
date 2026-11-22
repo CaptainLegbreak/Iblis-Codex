@@ -45,21 +45,21 @@ struct D2StormArrayAStrc : D2StormFixedArrayAStrc
     unsigned int f_C;
 };
 
-struct D2StormQueueStrc : D2StormArrayAStrc
+struct BigBuffer : D2StormArrayAStrc
 {
     unsigned int m_start;
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
-    D2StormQueueStrc pRecords[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 
-    void sub_00423D80_Release(D2StormQueueStrc* pResult, D2StormQueueStrc* pWork);
+    void sub_00423D80_Release(BigBuffer* pResult, BigBuffer* pWork);
 };
 
 // 0x00423D80
-void D2StormRecordStackStrc::sub_00423D80_Release(D2StormQueueStrc* pResult, D2StormQueueStrc* pWork)
+void BigStack::sub_00423D80_Release(BigBuffer* pResult, BigBuffer* pWork)
 {
     if (pResult != pWork)
     {

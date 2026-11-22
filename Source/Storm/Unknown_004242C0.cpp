@@ -57,7 +57,7 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
 };
 
-struct D2StormQueueStrc
+struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
@@ -81,7 +81,7 @@ struct D2StormQueueStrc
     {
         m_array.SetCount(m_start + nCount);
     }
-    void CopyFrom(const D2StormQueueStrc& tSource)
+    void CopyFrom(const BigBuffer& tSource)
     {
         if (this != &tSource)
             m_array.sub_004215C0_Set(tSource.m_array.f_4.n, tSource.m_array.f_8);
@@ -91,12 +91,12 @@ struct D2StormQueueStrc
     unsigned int sub_004212D0_Get(unsigned int nIndex) const;                                               // 0x004212D0
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
-    D2StormQueueStrc f_0[16];
+    BigBuffer f_0[16];
     unsigned int nUsed;
 
-    D2StormQueueStrc& Alloc()
+    BigBuffer& Alloc()
     {
         return f_0[nUsed++];
     }
@@ -104,11 +104,11 @@ struct D2StormBigStackStrc
     {
         nUsed--;
     }
-    D2StormQueueStrc& MakeDistinct(D2StormQueueStrc& tOrig, int bRequired)
+    BigBuffer& MakeDistinct(BigBuffer& tOrig, int bRequired)
     {
         return bRequired ? Alloc() : tOrig;
     }
-    void UnmakeDistinct(D2StormQueueStrc& tOrig, D2StormQueueStrc& tDistinct)
+    void UnmakeDistinct(BigBuffer& tOrig, BigBuffer& tDistinct)
     {
         if (&tOrig != &tDistinct)
         {
@@ -133,13 +133,13 @@ unsigned int D2StormArrayAStrc::sub_004210A0_CalcChunkSize(unsigned int nCount)
 }
 
 // 0x00420DB0
-int D2StormQueueStrc::sub_00420DB0_InRange(unsigned int nIndex) const
+int BigBuffer::sub_00420DB0_InRange(unsigned int nIndex) const
 {
     return m_start + nIndex < m_array.f_4.n;
 }
 
 // 0x004212D0
-unsigned int D2StormQueueStrc::sub_004212D0_Get(unsigned int nIndex) const
+unsigned int BigBuffer::sub_004212D0_Get(unsigned int nIndex) const
 {
     return sub_00420DB0_InRange(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
 }
@@ -152,12 +152,12 @@ inline unsigned int ExtractLowPart(unsigned __int64& nValue)
 }
 
 // 0x004242C0
-void __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, const D2StormQueueStrc* pB, const D2StormQueueStrc* pC, D2StormBigStackStrc* pStack)
+void __stdcall sub_004242C0_BigOp(BigBuffer* pResult, const BigBuffer* pB, const BigBuffer* pC, BigStack* pStack)
 {
-    D2StormQueueStrc& a = *pResult;
-    const D2StormQueueStrc& b = *pB;
-    const D2StormQueueStrc& c = *pC;
-    D2StormQueueStrc& aa = pStack->MakeDistinct(a, &a == &b || &a == &c);
+    BigBuffer& a = *pResult;
+    const BigBuffer& b = *pB;
+    const BigBuffer& c = *pC;
+    BigBuffer& aa = pStack->MakeDistinct(a, &a == &b || &a == &c);
 
     aa.SetCount(0);
 
@@ -187,12 +187,12 @@ void __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, const D2StormQueueS
 }
 
 // build: context ?RoundUp@D2StormArrayAStrc@@SGIII@Z
-// build: context ?Alloc@D2StormBigStackStrc@@QAEAAUD2StormQueueStrc@@XZ
-// build: context ?MakeDistinct@D2StormBigStackStrc@@QAEAAUD2StormQueueStrc@@AAU2@H@Z
+// build: context ?Alloc@BigStack@@QAEAAUBigBuffer@@XZ
+// build: context ?MakeDistinct@BigStack@@QAEAAUBigBuffer@@AAU2@H@Z
 // build: context ?ExtractLowPart@@YAIAA_K@Z
 // build: context ?Reserve@D2StormArrayAStrc@@QAEXIH@Z
 // build: context ?SetCount@D2StormArrayAStrc@@QAEXI@Z
 // build: context ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z
-// build: context ??AD2StormQueueStrc@@QBEII@Z
-// build: context ??AD2StormQueueStrc@@QAEAAII@Z
-// build: context ?SetCount@D2StormQueueStrc@@QAEXI@Z
+// build: context ??ABigBuffer@@QBEII@Z
+// build: context ??ABigBuffer@@QAEAAII@Z
+// build: context ?SetCount@BigBuffer@@QAEXI@Z
