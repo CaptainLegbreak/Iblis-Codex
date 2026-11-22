@@ -1,5 +1,6 @@
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
+#include "D2ObjModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -15,7 +16,6 @@
 #include "D2QuestData.h"
 #include "D2GameTypes.h"
 #include "D2Win32Base.h"
-#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -307,7 +307,12 @@ int __fastcall sub_005B31B0_SpawnMinionsAt(D2GameStrc* pGame, D2UnitStrc* pOwner
 
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
-struct D2RoomCoordListStrc { tagRECT box[2]; char unknown20[8]; int nIndex; };
+struct D2RoomCoordListStrc
+{
+    tagRECT box[2];
+    char unknown20[8];
+    int nIndex;
+};
 
 extern unsigned char gbNeverCount_006CE270; // 0x006CE270
 
