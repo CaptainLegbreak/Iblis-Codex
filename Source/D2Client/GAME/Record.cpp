@@ -79,6 +79,10 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
 
 void* __cdecl sub_004F59A0(); // 0x004F59A0
 
+int gdwGlobal_007A277C;                                                                                     // 0x007A277C
+extern int gdwGlobal_007A2784;                                                                              // 0x007A2784
+int gnRecordInitSeed_007A2778;                                                                              // 0x007A2778
+
 // 0x00451260
 int __cdecl RECORD_RegisterLngArgument()
 {
@@ -221,5 +225,19 @@ int __fastcall RECORD_DispatchRecordedMessage(D2WinMsgStrc* pMsg)
     int lResult = 0;
     D2_ASSERT(pMsg->dwTick == sub_0044DA90(), 0x12A);
     return SMsgDispatchMessage(sub_004F59A0(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
+}
+
+
+// 0x004518E0
+void __cdecl WINMAIN_StartPlayback()
+{
+    if (gdwGlobal_007A277C)
+        gdwGlobal_007A277C = 0;
+    else
+    {
+        gdwGlobal_007A2784 = 1;
+        RECORD_LoadRecordFile();
+        GAME_SetInitSeed(gnRecordInitSeed_007A2778);
+    }
 }
 
