@@ -134,14 +134,6 @@ static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, in
     }
 }
 
-// 0x00478590
-void __fastcall sub_00478590(char nValue)
-{
-    D2PacketSize1Strc tPacket;
-    tPacket.nHeader = nValue;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 1);
-}
-
 // 0x004785B0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg)
 {

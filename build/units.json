@@ -22845,6 +22845,11 @@
    ],
    "functions": [
     {
+     "va": "0x00478590",
+     "length": 27,
+     "name": "?sub_00478590@@YIXD@Z"
+    },
+    {
      "va": "0x004786A0",
      "length": 40,
      "name": "?sub_004786A0_SendDwords2@@YIXEII@Z"
@@ -22859,11 +22864,6 @@
      "va": "0x00478350",
      "length": 566,
      "name": "?sub_00478350_SendToServer@@YGXPBEH@Z"
-    },
-    {
-     "va": "0x00478590",
-     "length": 27,
-     "name": "?sub_00478590@@YIXD@Z"
     },
     {
      "va": "0x004785B0",
