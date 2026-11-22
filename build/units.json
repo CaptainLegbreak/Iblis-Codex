@@ -58965,11 +58965,6 @@
      "name": "sub_005985B0_StatusFilterCallback"
     },
     {
-     "va": "0x00598780",
-     "length": 40,
-     "name": "ACT2Q0_ActiveFilterCallback"
-    },
-    {
      "va": "0x005994F0",
      "length": 31,
      "name": "?sub_005994F0_ACT2Q1_IsDoneOrInactive@@YI_NPAUD2GameStrc@@@Z"
@@ -59148,11 +59143,6 @@
      "va": "0x0059DF30",
      "length": 31,
      "name": "ACT2Q6_UnitIterate_CheckDistanceToTyrael"
-    },
-    {
-     "va": "0x0059E4B0",
-     "length": 126,
-     "name": "ACT2Q8_ActiveFilterCallback"
     },
     {
      "va": "0x0059EBE0",
@@ -59617,9 +59607,29 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00598640",
+     "length": 111,
+     "name": "?ACT2Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005986B0",
      "length": 180,
      "name": "?ACT2Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00598780",
+     "length": 40,
+     "name": "ACT2Q0_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005987B0",
+     "length": 30,
+     "name": "?ACT2Q0_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005987D0",
+     "length": 54,
+     "name": "?ACT2Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x00598810",
@@ -59781,21 +59791,6 @@
      "va": "0x005985D0",
      "length": 101,
      "name": "?ACT2Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00598640",
-     "length": 111,
-     "name": "?ACT2Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005987B0",
-     "length": 30,
-     "name": "?ACT2Q0_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005987D0",
-     "length": 54,
-     "name": "?ACT2Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005988B0",
@@ -60283,7 +60278,13 @@
      "va": "0x0059E330",
      "length": 137,
      "name": "?ACT2Q7_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a2q8.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0059E3C0",
      "length": 48,
@@ -60293,13 +60294,12 @@
      "va": "0x0059E3F0",
      "length": 166,
      "name": "?ACT2Q8_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q8.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x0059E4B0",
+     "length": 126,
+     "name": "ACT2Q8_ActiveFilterCallback"
+    },
     {
      "va": "0x0059E530",
      "length": 132,
@@ -60311,6 +60311,26 @@
    "file": "Source/D2Game/Quests/a3q0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B6ED0",
+     "length": 80,
+     "name": "?ACT3Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6F20",
+     "length": 112,
+     "name": "?ACT3Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6FA0",
+     "length": 40,
+     "name": "ACT3Q0_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005B6FD0",
+     "length": 54,
+     "name": "?ACT3Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
     {
      "va": "0x005B7010",
      "length": 157,
@@ -61192,11 +61212,6 @@
      "va": "0x005B6E30",
      "length": 39,
      "name": "ACT3Intro_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005B6FA0",
-     "length": 40,
-     "name": "ACT3Q0_ActiveFilterCallback"
     },
     {
      "va": "0x005BAD60",
@@ -64503,21 +64518,6 @@
      "va": "0x005B6E60",
      "length": 101,
      "name": "?ACT3Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B6ED0",
-     "length": 80,
-     "name": "?ACT3Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6F20",
-     "length": 112,
-     "name": "?ACT3Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6FD0",
-     "length": 54,
-     "name": "?ACT3Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005B72B0",
