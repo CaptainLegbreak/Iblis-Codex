@@ -63234,6 +63234,10 @@
      "name": "sub_005E6300"
     },
     {
+     "va": "0x005E6320",
+     "length": 1245
+    },
+    {
      "va": "0x005E6860",
      "length": 141,
      "name": "sub_005E6860_HomeCommandStep"
@@ -68371,30 +68375,6 @@
     {
      "va": "0x005E2FF0",
      "length": 1231
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E6320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E6320",
-     "length": 1245
     }
    ],
    "flags": [
