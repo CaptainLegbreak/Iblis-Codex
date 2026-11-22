@@ -25331,12 +25331,17 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/inv_00488400.cpp",
-   "rank": 1,
+   "file": "Source/D2Client/UI/inv_00488B00.cpp",
+   "rank": 0,
    "functions": [
     {
-     "va": "0x00488400",
-     "length": 696
+     "va": "0x00488B00",
+     "length": 740
+    },
+    {
+     "va": "0x0048BE80",
+     "length": 471,
+     "name": "?sub_0048BE80_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
     }
    ],
    "flags": [
@@ -25359,6 +25364,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00488400",
+     "length": 696
+    },
+    {
      "va": "0x004886C0",
      "length": 454,
      "name": "?sub_004886C0_DrawButtonHoverText@@YAXXZ"
@@ -25377,35 +25386,6 @@
      "va": "0x004927C0",
      "length": 550,
      "name": "?sub_004927C0_CubeButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_00488B00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00488B00",
-     "length": 740
-    },
-    {
-     "va": "0x0048BE80",
-     "length": 471,
-     "name": "?sub_0048BE80_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
     }
    ],
    "flags": [
