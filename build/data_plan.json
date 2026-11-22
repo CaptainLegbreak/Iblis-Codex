@@ -3421,7 +3421,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2BNClient/BnSend_0051BEB0.cpp": {
+  "Source/D2BNClient/BnSend.cpp": {
    "bytes": 436,
    "definitions": 1,
    "externs": [
@@ -88648,7 +88648,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2BNClient/BnSend_0051BEB0.cpp",
+   "file": "Source/D2BNClient/BnSend.cpp",
    "fill": 109,
    "form": "declared",
    "fwd": null,

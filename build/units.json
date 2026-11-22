@@ -43297,9 +43297,28 @@
      "name": "?sub_0051BEA0_GetConnected@@YAJXZ"
     },
     {
+     "va": "0x0051BEB0",
+     "length": 14
+    },
+    {
      "va": "0x0051BED0",
      "length": 15,
      "name": "?sub_0051BED0_SetDnsPending@@YIXH@Z"
+    },
+    {
+     "va": "0x0051BEE0",
+     "length": 500,
+     "name": "?GetDnsResults@@YGKPAX@Z"
+    },
+    {
+     "va": "0x0051C170",
+     "length": 15,
+     "name": "?sub_0051C170_PostBnServerIniMessage@@YAHXZ"
+    },
+    {
+     "va": "0x0051C180",
+     "length": 16,
+     "name": "?sub_0051C180_GetBnGatewayAccess@@YAPAVBNGatewayAccess@@XZ"
     },
     {
      "va": "0x0051C190",
@@ -43307,9 +43326,68 @@
      "name": "?GetBnetIp@@YIXPADH@Z"
     },
     {
+     "va": "0x0051C210",
+     "length": 43,
+     "name": "?sub_0051C210_GetConnectionState@@YIXPAH@Z"
+    },
+    {
+     "va": "0x0051C240",
+     "length": 68,
+     "name": "?sub_0051C240_Logon@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x0051C290",
+     "length": 51,
+     "name": "?sub_0051C290_GetLogonInfo@@YAHXZ"
+    },
+    {
+     "va": "0x0051C2D0",
+     "length": 68,
+     "name": "?sub_0051C2D0_CreateAccount@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x0051C320",
+     "length": 43,
+     "name": "?sub_0051C320_GetCreateAccountResult@@YIHPAH@Z"
+    },
+    {
      "va": "0x0051C350",
      "length": 89,
      "name": "sub_0051C350_ChangePassword"
+    },
+    {
+     "va": "0x0051C3B0",
+     "length": 43,
+     "name": "?sub_0051C3B0_GetChangePasswordResult@@YIHPAH@Z"
+    },
+    {
+     "va": "0x0051C5C0",
+     "length": 225,
+     "name": "sub_0051C5C0_SendPacket"
+    },
+    {
+     "va": "0x0051C6B0",
+     "length": 12,
+     "name": "?sub_0051C6B0_QueueTextLine@@YIHPBD@Z"
+    },
+    {
+     "va": "0x0051C6C0",
+     "length": 152
+    },
+    {
+     "va": "0x0051CA20",
+     "length": 3,
+     "name": "?sub_0051CA20_GetGatewayLetter@@YADXZ"
+    },
+    {
+     "va": "0x0051CA80",
+     "length": 7,
+     "name": "?sub_0051CA80_SetFlag@@YIXH@Z"
+    },
+    {
+     "va": "0x0051D0A0",
+     "length": 286,
+     "name": "?BattleConnectFastest@@YAKPAX@Z"
     },
     {
      "va": "0x0051D1C0",
@@ -43335,6 +43413,21 @@
      "va": "0x0051F2D0",
      "length": 56,
      "name": "sub_0051F2D0_PatchUnk"
+    },
+    {
+     "va": "0x005204D0",
+     "length": 67,
+     "name": "?sub_005204D0_SetErrorText@@YIHHPBD@Z"
+    },
+    {
+     "va": "0x00520630",
+     "length": 22,
+     "name": "?sub_00520630_SetText@@YIHPBD@Z"
+    },
+    {
+     "va": "0x00521B00",
+     "length": 56,
+     "name": "sub_00521B00"
     },
     {
      "va": "0x00521BF0",
@@ -43372,6 +43465,16 @@
      "name": "?sub_005223F0_SendUpgradeProof@@YIHI@Z"
     },
     {
+     "va": "0x005224C0",
+     "length": 17,
+     "name": "?sub_005224C0_CheckServerProof@@YIHPBE@Z"
+    },
+    {
+     "va": "0x005224F0",
+     "length": 13,
+     "name": "?sub_005224F0_ClearPassword@@YAXXZ"
+    },
+    {
      "va": "0x00528890",
      "length": 210,
      "name": "sub_00528890_CompareServerProof"
@@ -43394,116 +43497,13 @@
    ]
   },
   {
-   "file": "Source/D2BNClient/BnSend_0051BEB0.cpp",
+   "file": "Source/D2BNClient/BnSend_0051C460.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0051BEB0",
-     "length": 14
-    },
-    {
-     "va": "0x0051BEE0",
-     "length": 500,
-     "name": "?GetDnsResults@@YGKPAX@Z"
-    },
-    {
-     "va": "0x0051C170",
-     "length": 15,
-     "name": "?sub_0051C170_PostBnServerIniMessage@@YAHXZ"
-    },
-    {
-     "va": "0x0051C180",
-     "length": 16,
-     "name": "?sub_0051C180_GetBnGatewayAccess@@YAPAVBNGatewayAccess@@XZ"
-    },
-    {
-     "va": "0x0051C210",
-     "length": 43,
-     "name": "?sub_0051C210_GetConnectionState@@YIXPAH@Z"
-    },
-    {
-     "va": "0x0051C240",
-     "length": 68,
-     "name": "?sub_0051C240_Logon@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x0051C290",
-     "length": 51,
-     "name": "?sub_0051C290_GetLogonInfo@@YAHXZ"
-    },
-    {
-     "va": "0x0051C2D0",
-     "length": 68,
-     "name": "?sub_0051C2D0_CreateAccount@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x0051C320",
-     "length": 43,
-     "name": "?sub_0051C320_GetCreateAccountResult@@YIHPAH@Z"
-    },
-    {
-     "va": "0x0051C3B0",
-     "length": 43,
-     "name": "?sub_0051C3B0_GetChangePasswordResult@@YIHPAH@Z"
-    },
     {
      "va": "0x0051C460",
      "length": 11,
      "name": "?sub_0051C460_LeaveChat@@YAHXZ"
-    },
-    {
-     "va": "0x0051C5C0",
-     "length": 225,
-     "name": "sub_0051C5C0_SendPacket"
-    },
-    {
-     "va": "0x0051C6B0",
-     "length": 12,
-     "name": "?sub_0051C6B0_QueueTextLine@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0051C6C0",
-     "length": 152
-    },
-    {
-     "va": "0x0051CA20",
-     "length": 3,
-     "name": "?sub_0051CA20_GetGatewayLetter@@YADXZ"
-    },
-    {
-     "va": "0x0051CA80",
-     "length": 7,
-     "name": "?sub_0051CA80_SetFlag@@YIXH@Z"
-    },
-    {
-     "va": "0x0051D0A0",
-     "length": 286,
-     "name": "?BattleConnectFastest@@YAKPAX@Z"
-    },
-    {
-     "va": "0x005204D0",
-     "length": 67,
-     "name": "?sub_005204D0_SetErrorText@@YIHHPBD@Z"
-    },
-    {
-     "va": "0x00520630",
-     "length": 22,
-     "name": "?sub_00520630_SetText@@YIHPBD@Z"
-    },
-    {
-     "va": "0x00521B00",
-     "length": 56,
-     "name": "sub_00521B00"
-    },
-    {
-     "va": "0x005224C0",
-     "length": 17,
-     "name": "?sub_005224C0_CheckServerProof@@YIHPBE@Z"
-    },
-    {
-     "va": "0x005224F0",
-     "length": 13,
-     "name": "?sub_005224F0_ClearPassword@@YAXXZ"
     }
    ]
   },
