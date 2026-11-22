@@ -3039,16 +3039,6 @@ void __stdcall sub_005665B0_GetLocalDate(D2LocalDateStrc* pDate)
     pDate->f_C = systemTime.wYear;
 }
 
-// 0x00567020
-void __fastcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, int nUnused, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
-{
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2422), UPDATEUI_TRADEACCEPTED);
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 2423), UPDATEUI_TRADEACCEPTED);
-
-    pPlayerData->dwTradeState = TRADESTATE_ACCEPTED;
-    pInteractPlayerData->dwTradeState = TRADESTATE_ACCEPTED;
-}
-
 // 0x005675E0
 int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize)
 {

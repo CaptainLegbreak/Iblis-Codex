@@ -58,8 +58,6 @@ struct D2MissileDataStrc;
 
 struct D2CoordStrc;
 
-
-
 union D2FP32_16;
 
 struct D2MissilesTxt;
@@ -152,8 +150,6 @@ struct D2MissileDataStrc
     int nTargetY;
     void* pStream;
 };
-
-
 
 struct D2Unk00667030InnerStrc
 {
@@ -4946,12 +4942,6 @@ void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY)
 int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
 {
     return 0;
-}
-
-// 0x00648460
-void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath)
-{
-    sub_0040B480(pMemPool, pDynamicPath, ".\\PATH\\Path.cpp", 985, 0);
 }
 
 // 0x006484E0

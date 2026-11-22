@@ -343,6 +343,7 @@ int gnItemratioTxtRecordCount; // 0x0096CC48
 
 int gnPropertiesTxtRecordCount; // 0x0096BCDC
 
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 // 0x006315D0
 void __fastcall DATATBLS_LoadItemsTxt(void* hArchive)
 {
@@ -1710,3 +1711,37 @@ D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables()
 {
     return &sgtRuneWordsTblDesc;
 }
+// 0x00639CC0
+void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRecord)
+{
+    D2RunesTxt* pRunesTxt = 0;
+    D2RunesTxt* pTmp = 0;
+    int nSize = 0;
+
+    if (sgtRuneWordsTblDesc.nRunesTxtRecordCount <= nRecordId)
+    {
+        pRunesTxt = sgtRuneWordsTblDesc.pRunesTxt;
+        nSize = sizeof(D2RunesTxt) * (nRecordId + 1);
+
+        if (DATATBLS_LoadFromBin)
+        {
+            pRunesTxt = (D2RunesTxt*)((char*)sgtRuneWordsTblDesc.pRunesTxt - 4);
+            nSize += 4;
+        }
+
+        pTmp = (D2RunesTxt*)FOG_ReallocPool(0, pRunesTxt, nSize, ".\\DATATBLS\\ItemTbls.cpp", 2395, 0);
+
+        if (DATATBLS_LoadFromBin)
+        {
+            *(int*)pTmp = nRecordId + 1;
+            pTmp = (D2RunesTxt*)((char*)pTmp + 4);
+        }
+        sgtRuneWordsTblDesc.pRunesTxt = pTmp;
+
+        memset(&pTmp[sgtRuneWordsTblDesc.nRunesTxtRecordCount], 0, sizeof(D2RunesTxt) * (nRecordId - sgtRuneWordsTblDesc.nRunesTxtRecordCount));
+        sgtRuneWordsTblDesc.nRunesTxtRecordCount = nRecordId + 1;
+    }
+
+    sgtRuneWordsTblDesc.pRunesTxt[nRecordId] = *pRecord;
+}
+

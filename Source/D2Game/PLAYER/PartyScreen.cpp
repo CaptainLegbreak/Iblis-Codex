@@ -64,6 +64,23 @@ struct D2GSPacketSrv5A
 
 void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, D2GSPacketSrv5A* pPacket); // 0x0053C850
 
+void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x005A60E0
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+#define PARTYSCREENTYPE_HOSTILE 3
+enum D2C_M187TrapConstants
+{
+    STAT_LEVEL = 12,
+    STAT_TOHIT = 19,
+    STAT_MINDAMAGE = 21,
+    STAT_MAXDAMAGE = 22,
+    STAT_FIREMINDAM = 48,
+    STAT_FIREMAXDAM = 49,
+    STAT_LIGHTMINDAM = 50,
+    STAT_LIGHTMAXDAM = 51,
+    STAT_POISONMINDAM = 57,
+    STAT_POISONMAXDAM = 58,
+    STAT_POISONLENGTH = 59,
+};
 // 0x005A5690
 void D2ClientStrc::PARTYSCREEN_SendEventUpdateToClient(int nUnitGUID, unsigned char nType)
 {
@@ -350,3 +367,18 @@ void __fastcall PARTYSCREEN_PlayerLeftParty(D2GameStrc* pGame, D2UnitStrc* pPlay
     PARTY_IteratePartyMembers(pGame, nPartyId, PARTYSCREEN_PartyIterate_PlayerLeftParty, pPlayer1);
     PARTY_LeaveParty(pGame, pPlayer1);
 }
+// 0x005A5D50
+void __fastcall sub_6FC7B3F0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, void* pArg)
+{
+    D2UnitStrc* pPlayer2 = (D2UnitStrc*)pArg;
+    if (pPlayer2 == pPlayer1 || STATLIST_GetUnitBaseStat(pPlayer1, STAT_LEVEL, 0) < 9)
+    {
+        return;
+    }
+
+    FRIENDLY_OpenHostility(pGame, pPlayer2, pPlayer1);
+    FRIENDLY_OpenHostility(pGame, pPlayer1, pPlayer2);
+
+    UnitGetClient(pPlayer1, ".\\PLAYER\\PartyScreen.cpp", 391)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer2 ? -1 : pPlayer2->dwUnitId, PARTYSCREENTYPE_HOSTILE);
+}
+

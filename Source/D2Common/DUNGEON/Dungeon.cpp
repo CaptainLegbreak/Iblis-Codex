@@ -879,6 +879,21 @@ const char* __stdcall DUNGEON_GetPickedLevelPrestFilePathFromRoom(D2ActiveRoomSt
     return DRLGROOM_GetPickedLevelPrestFilePathFromRoomEx(pRoom->pDrlgRoom);
 }
 
+// 0x0061A270
+void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID)
+{
+    if (pRoom)
+    {
+        D2DrlgDeleteStrc* pDrlgDelete = (D2DrlgDeleteStrc*)FOG_AllocPool(pRoom->pAct->pMemPool, sizeof(D2DrlgDeleteStrc),
+            ".\\DUNGEON\\Dungeon.cpp", 0x384, 0);
+        pDrlgDelete->nUnitType = nUnitType;
+        pDrlgDelete->nUnitGUID = nUnitGUID;
+        pDrlgDelete->pNext = pRoom->pDrlgDelete;
+        pRoom->pDrlgDelete = pDrlgDelete;
+        pRoom->pAct->bHasPendingRoomDeletions = 1;
+    }
+}
+
 // 0x0061A2C0
 void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* ptRoom)
 {

@@ -624,6 +624,13 @@ static inline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
     return nFlags;
 }
 
+// 0x00675320
+void __fastcall DRLGOUTDOORS_AllocOutdoorInfo(D2DrlgLevelStrc* pLevel)
+{
+    pLevel->pOutdoors = (D2DrlgOutdoorInfoStrc*)sub_0040B430(pLevel->pDrlg->pMempool, 0x268, ".\\DRLG\\Outdoors.cpp", 0x34C, 0);
+    memset(pLevel->pOutdoors, 0, 0x268);
+}
+
 // 0x00675360
 void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
 {

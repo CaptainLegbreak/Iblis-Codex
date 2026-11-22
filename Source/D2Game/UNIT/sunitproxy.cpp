@@ -1009,18 +1009,6 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
     }
 }
 
-// 0x00537AC0
-void __fastcall CLIENTS_FreeClientsFromGame(D2GameStrc* pGame)
-{
-    D2ClientStrc* pClient = pGame->pClientList;
-    while (pClient)
-    {
-        D2ClientStrc* pCurrent = pClient;
-        pClient = pClient->pNext;
-        FOG_FreePool(pGame->pMemoryPool, pCurrent, ".\\GAME\\Clients.cpp", 0x617, 0);
-    }
-}
-
 // 0x00545300
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
 {
