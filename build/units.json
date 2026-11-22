@@ -7429,6 +7429,21 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004202A0",
+     "length": 105,
+     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
+    },
+    {
+     "va": "0x004206C0",
+     "length": 25,
+     "name": "?sub_004206C0_IsEmpty@D2TSListStrc@@QAEHXZ"
+    },
+    {
+     "va": "0x00420790",
+     "length": 60,
+     "name": "?sub_00420790_Destroy@D2TSListStrc@@QAEXXZ"
+    },
+    {
      "va": "0x00420A70",
      "length": 62,
      "name": "?InternalRegister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
@@ -7518,27 +7533,6 @@
      "va": "0x00420F00",
      "length": 44,
      "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMSG_004202A0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004202A0",
-     "length": 105,
-     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
-    },
-    {
-     "va": "0x004206C0",
-     "length": 25,
-     "name": "?sub_004206C0_IsEmpty@D2TSListStrc@@QAEHXZ"
-    },
-    {
-     "va": "0x00420790",
-     "length": 60,
-     "name": "?sub_00420790_Destroy@D2TSListStrc@@QAEXXZ"
     }
    ]
   },
