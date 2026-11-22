@@ -34291,10 +34291,6 @@
      "length": 160
     },
     {
-     "va": "0x004DE070",
-     "length": 279
-    },
-    {
      "va": "0x004DE260",
      "length": 430
     }
@@ -34449,6 +34445,10 @@
    "file": "Source/D2Client/DRAW/dFloor.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004DE070",
+     "length": 279
+    },
     {
      "va": "0x004DEA70",
      "length": 668
