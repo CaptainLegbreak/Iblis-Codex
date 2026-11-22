@@ -263,11 +263,9 @@ extern void* gpGlobal_007A5240; // 0x007A5240
 
 extern void* gpGlobal_007A5244; // 0x007A5244
 
-extern int gnGlobal_007B8D20; // 0x007B8D20
 
 extern int gnGlobal_007B9534; // 0x007B9534
 
-extern int gnGlobal_007B9538; // 0x007B9538
 
 extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 

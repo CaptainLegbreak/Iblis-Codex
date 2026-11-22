@@ -14233,6 +14233,10 @@
      "name": "?sub_00476BC0@@YIXPAUD2ViewStrc@@@Z"
     },
     {
+     "va": "0x00476D40",
+     "length": 235
+    },
+    {
      "va": "0x00477030",
      "length": 33,
      "name": "?VIEW_FindPalShiftNode@@YIPAUD2PalShiftNodeStrc@@H@Z"
@@ -22498,30 +22502,6 @@
      "length": 51,
      "name": "?sub_00475EB0_FreeCels@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/View_00476D40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00476D40",
-     "length": 235
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
