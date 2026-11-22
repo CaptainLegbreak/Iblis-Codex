@@ -15199,6 +15199,10 @@
     {
      "va": "0x004ACC70",
      "length": 219
+    },
+    {
+     "va": "0x004AD2F0",
+     "length": 539
     }
    ]
   },
@@ -29102,30 +29106,6 @@
      "length": 44,
      "name": "?sub_004B6680_InitHandler@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004AD2F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004AD2F0",
-     "length": 539
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
