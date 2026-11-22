@@ -1080,4 +1080,29 @@ int __fastcall sub_006B3610_ReadScreenRGB(unsigned char* pDst)
     return 1;
 }
 
+// 0x006B3730
+int __fastcall sub_006B3730_CreateMemoryTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
+{
+    D2DDSurfaceDesc006B58A0Strc tDesc = { sizeof(tDesc) };
+    tDesc.dwFlags = 0x1007;
+    tDesc.dwCaps = 0x840;
+    tDesc.tPixelFormat = gtWantedFormat_0074C024;
+    tDesc.dwWidth = nWidth;
+    tDesc.dwHeight = nHeight;
+    long hResult = gpDirectDraw_00970E60->lpVtbl->CreateSurface(gpDirectDraw_00970E60, &tDesc, ppSurface, 0);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("CreateSurface (memory surface)", hResult);
+        return 0;
+    }
+    hResult = (*ppSurface)->lpVtbl->QueryInterface(*ppSurface, gIidTexture_006FF478, (void**)ppTexture);
+    if (hResult)
+    {
+        sub_006B20E0_DDrawLogError("Failed to get texture interface for memory surface", hResult);
+        (*ppSurface)->lpVtbl->Release(*ppSurface);
+        return 0;
+    }
+    return 1;
+}
+
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"
