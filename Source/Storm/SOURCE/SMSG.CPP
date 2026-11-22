@@ -79,10 +79,10 @@ int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHan
 
 int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
 
-static __declspec(noinline) int __stdcall sub_00420A70_RegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+static __declspec(noinline) int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
 
 // 0x00420A70
-static __declspec(noinline) int __stdcall sub_00420A70_RegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+static __declspec(noinline) int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
     VALIDATEBEGIN;
     VALIDATE(pHandler);
@@ -140,25 +140,25 @@ int __stdcall SMsgUnregisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER 
 // 0x00420BF0
 int __stdcall SMsgRegisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420A70_RegisterHandler(0x534D5348, hWnd, nId, pHandler);
+    return InternalRegister(0x534D5348, hWnd, nId, pHandler);
 }
 
 // 0x00420C10
 int __stdcall SMsgRegisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420A70_RegisterHandler(0x534D5349, hWnd, nId, pHandler);
+    return InternalRegister(0x534D5349, hWnd, nId, pHandler);
 }
 
 // 0x00420C30
 int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420A70_RegisterHandler(0x534D534A, hWnd, nId, pHandler);
+    return InternalRegister(0x534D534A, hWnd, nId, pHandler);
 }
 
 // 0x00420C50
 int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420A70_RegisterHandler(0x534D5347, hWnd, nId, pHandler);
+    return InternalRegister(0x534D5347, hWnd, nId, pHandler);
 }
 
 unsigned short __stdcall SFileGetLocale()

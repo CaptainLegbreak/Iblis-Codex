@@ -971,7 +971,7 @@ address,name,source,alias
 0x00420970,sub_00420970_DeleteNode,placeholder,
 0x004209E0,FindWindow,blizzard,
 0x00420A10,DeleteWindow,blizzard,
-0x00420A70,sub_00420A70_RegisterHandler,placeholder,
+0x00420A70,InternalRegister,blizzard,
 0x00420AB0,InternalUnregister,blizzard,
 0x00420AE0,sub_00420AE0_UnregisterAllWindows,placeholder,
 0x00420B00,SMsgDispatchMessage,blizzard,

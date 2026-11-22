@@ -987,7 +987,7 @@
   ["0x00420970", 106, "verified", "sub_00420970_DeleteNode"],
   ["0x004209E0", 36, "verified"],
   ["0x00420A10", 89, "verified", "?DeleteWindow@@YAXPAX@Z"],
-  ["0x00420A70", 62, "verified", "?sub_00420A70_RegisterHandler@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"],
+  ["0x00420A70", 62, "verified", "?InternalRegister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"],
   ["0x00420AB0", 42, "verified", "?InternalUnregister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"],
   ["0x00420AE0", 27, "verified", "?sub_00420AE0_UnregisterAllWindows@@YAHXZ"],
   ["0x00420B00", 235, "verified", "?SMsgDispatchMessage@@YGHPAXIIHPAH1@Z"],
