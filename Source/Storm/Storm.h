@@ -4,7 +4,7 @@
 struct D2BitmapInfoStrc;
 struct D2GfxBufferFuncsStrc;
 struct D2ModuleEntry32Strc;
-struct D2StormArchiveRecStrc;
+struct ARCHIVEREC;
 struct D2SystemTimeStrc;
 struct D2ThreadContextStrc;
 struct T004013C0;
@@ -89,7 +89,7 @@ extern "C" int __stdcall Module32NextW(void* hSnapshot, D2ModuleEntry32Strc* pEn
 extern "C" int gnFlag_007788DC; // 0x007788DC
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern "C" void* __stdcall CreateToolhelp32Snapshot(unsigned long dwFlags, unsigned long dwProcessId); // 0x006B1446
-extern D2StormArchiveRecStrc* gpArchiveHead_0070835C; // 0x0070835C
+extern ARCHIVEREC* gpArchiveHead_0070835C; // 0x0070835C
 extern bool gbSymInitialized_0098A6B0; // 0x0098A6B0
 extern char gszTypeNameArchiveRec_00708398[]; // 0x00708398
 extern char gszTypeNameChar_0070888C[]; // 0x0070888C

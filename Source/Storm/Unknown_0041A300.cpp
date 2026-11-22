@@ -25,19 +25,19 @@ struct D2StormLinkStrc {
         }
     }
 };
-struct D2StormEventRecStrc {
+struct EVENTREC {
     D2StormLinkStrc f_0;
     void* user;
-    D2StormEventRecStrc() { f_0.m_prevlink = 0; f_0.m_next = 0; }
+    EVENTREC() { f_0.m_prevlink = 0; f_0.m_next = 0; }
 };
-struct D2StormRequestStrc {
+struct REQUEST {
     D2StormLinkStrc f_0;
     void* user;
     int unk0C[6];
     void* buffer;
     void* other;
     int unk2C[6];
-    ~D2StormRequestStrc(); // 0x0041A020
+    ~REQUEST(); // 0x0041A020
 };
 struct D2StormEventListStrc {
     int m_linkoffset;
@@ -63,9 +63,9 @@ struct D2StormEventListStrc {
             break;
         }
     }
-    D2StormEventRecStrc* NewNode(unsigned int type, unsigned int extra, unsigned int flags) {
-        void* memory = SMemAlloc(sizeof(D2StormEventRecStrc) + extra, gszEventType_007083D8, -2, flags | 8);
-        D2StormEventRecStrc* record = memory ? new(memory) D2StormEventRecStrc : 0;
+    EVENTREC* NewNode(unsigned int type, unsigned int extra, unsigned int flags) {
+        void* memory = SMemAlloc(sizeof(EVENTREC) + extra, gszEventType_007083D8, -2, flags | 8);
+        EVENTREC* record = memory ? new(memory) EVENTREC : 0;
         if (type) LinkNode((char*)record, type, 0);
         return record;
     }
@@ -73,7 +73,7 @@ struct D2StormEventListStrc {
 struct D2StormRequestListStrc {
     int offset;
     D2StormLinkStrc m_terminator;
-    D2StormLinkStrc* Link(D2StormRequestStrc* p) { return p ? &p->f_0 : &m_terminator; }
+    D2StormLinkStrc* Link(REQUEST* p) { return p ? &p->f_0 : &m_terminator; }
 };
 extern D2StormRequestListStrc gRequests_00708360; // 0x00708360
 extern D2StormEventListStrc gEvents_00708378; // 0x00708378
@@ -82,20 +82,20 @@ int __stdcall sub_0041A300_CancelRequests(void* buffer, void* other) {
     if (!buffer && !other) return 0;
     EnterCriticalSection(&gLock_00779068);
     int result = 0;
-    D2StormRequestStrc* request = (D2StormRequestStrc*)gRequests_00708360.m_terminator.Next();
+    REQUEST* request = (REQUEST*)gRequests_00708360.m_terminator.Next();
     while ((int)request > 0) {
         if ((buffer && request->buffer == buffer) || (other && request->other == other)) {
             result = 1;
             if (request->user) {
-                D2StormEventRecStrc* event = gEvents_00708378.NewNode(2, 0, 0);
+                EVENTREC* event = gEvents_00708378.NewNode(2, 0, 0);
                 event->user = request->user;
             }
-            D2StormRequestStrc* next = (D2StormRequestStrc*)request->f_0.Next();
-            request->~D2StormRequestStrc();
+            REQUEST* next = (REQUEST*)request->f_0.Next();
+            request->~REQUEST();
             SMemFree(request, gszRequestType_007083F0, -2, 0);
             request = next;
         } else {
-            request = (D2StormRequestStrc*)gRequests_00708360.Link(request)->m_next;
+            request = (REQUEST*)gRequests_00708360.Link(request)->m_next;
         }
     }
     LeaveCriticalSection(&gLock_00779068);

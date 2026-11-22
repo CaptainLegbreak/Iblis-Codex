@@ -41,9 +41,9 @@ struct D2StormStreamLinkStrc
     }
 };
 
-struct D2StormAudioStreamStrc;
+struct AUDIOSTREAM;
 
-struct D2StormAudioStreamStrc
+struct AUDIOSTREAM
 {
     D2StormStreamLinkStrc tLink;
     void* pFileRec;
@@ -54,7 +54,7 @@ struct D2StormAudioStreamStrc
     int nUnk0x48;
     int nRefCount;
 
-    ~D2StormAudioStreamStrc();                                                                              // 0x004199A0
+    ~AUDIOSTREAM();                                                                              // 0x004199A0
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -62,7 +62,7 @@ struct D2StormAudioStreamStrc
     }
 };
 
-struct D2StormRequestStrc;
+struct REQUEST;
 
 struct D2StormListStrc
 {
@@ -79,11 +79,11 @@ struct D2StormDdaListStrc
 {
     int m_linkoffset;
     D2StormStreamLinkStrc m_terminator;
-    D2StormStreamLinkStrc* Link(D2StormAudioStreamStrc* pNode)
+    D2StormStreamLinkStrc* Link(AUDIOSTREAM* pNode)
     {
         return pNode ? &pNode->tLink : &m_terminator;
     }
-    void sub_006C4290(D2StormAudioStreamStrc* pNode)
+    void sub_006C4290(AUDIOSTREAM* pNode)
     {
         Link(pNode)->Unlink();
     }
@@ -95,7 +95,7 @@ extern D2CriticalSectionStrc gBasePathLock_00779068;                            
 extern D2StormListStrc gRequestList_00708360;                                                               // 0x00708360
 extern D2StormDdaListStrc gDdaList_00708384;                                                                // 0x00708384
 extern void* gpDirectSound_00778F20;                                                                        // 0x00778F20
-extern D2StormRequestStrc* gpCurrentRequest_0077902C;                                                       // 0x0077902C
+extern REQUEST* gpCurrentRequest_0077902C;                                                       // 0x0077902C
 extern void* ghStormThread_00779034;                                                                        // 0x00779034
 extern int gbStreamsPaused_00779044;                                                                        // 0x00779044
 
@@ -113,12 +113,12 @@ int __cdecl SFileDdaDestroy()
     }
 
     EnterCriticalSection(&gBasePathLock_00779068);
-    D2StormAudioStreamStrc* pStream = (D2StormAudioStreamStrc*)gDdaList_00708384.m_terminator.m_next;
+    AUDIOSTREAM* pStream = (AUDIOSTREAM*)gDdaList_00708384.m_terminator.m_next;
     if ((int)pStream > 0)
     {
         do
         {
-            D2StormAudioStreamStrc* pNext = (D2StormAudioStreamStrc*)pStream->tLink.Next();
+            AUDIOSTREAM* pNext = (AUDIOSTREAM*)pStream->tLink.Next();
             gDdaList_00708384.sub_006C4290(pStream);
             if (!--pStream->nRefCount)
                 delete pStream;

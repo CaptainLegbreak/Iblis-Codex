@@ -10,7 +10,7 @@ struct D2StormQueueStrc;
 struct D2StormBigStrc;
 struct D2StormRecordStackStrc;
 struct D2StormArrayBStrc;
-struct D2StormBreakCmdStrc;
+struct BREAKCMD;
 struct D2GameLinkStrc;
 struct D2StormListAStrc;
 struct D2StormGameArrayStrc;
@@ -166,7 +166,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn); // 0x00421CB0
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-struct D2StormBreakCmdStrc
+struct BREAKCMD
 {
     D2StormLinkStrc f_0;
     int nData;
@@ -527,7 +527,7 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
 
 // build: symbol ??_GD2GameStrc@@QAEPAXI@Z 0x0044FBB0
 // build: symbol ??_GD2StormBigStrc@@QAEPAXI@Z 0x00423820
-// build: symbol ??_GD2StormBreakCmdStrc@@QAEPAXI@Z 0x00426E20
+// build: symbol ??_GBREAKCMD@@QAEPAXI@Z 0x00426E20
 // build: symbol ??_GD2StormHashObjectChunkStrc@@QAEPAXI@Z 0x004500A0
 // build: symbol ??_GD2StormListArrayStrc@@QAEPAXI@Z 0x004504D0
 // 0x00423820
@@ -538,7 +538,7 @@ inline void D2StormBigStrc::operator delete(void* pMemory)
 }
 
 // 0x00426E20
-inline void D2StormBreakCmdStrc::operator delete(void* pMemory)
+inline void BREAKCMD::operator delete(void* pMemory)
 {
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
@@ -582,8 +582,8 @@ void sub_Emit_D2StormBigStrc(D2StormBigStrc* p)
     delete p;
 }
 
-// build: context sub_Emit_D2StormBreakCmdStrc
-void sub_Emit_D2StormBreakCmdStrc(D2StormBreakCmdStrc* p)
+// build: context sub_Emit_BREAKCMD
+void sub_Emit_BREAKCMD(BREAKCMD* p)
 {
     delete p;
 }

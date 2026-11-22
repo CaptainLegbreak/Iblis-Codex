@@ -9,9 +9,9 @@ struct D2StormHashEntryStrc;
 struct D2StormFileSubStrc;
 struct D2StormArchiveFileStrc;
 struct D2StormRequestCallbackStrc;
-struct D2StormArchiveRecStrc;
-struct D2StormFileRecStrc;
-struct D2StormStreamStrc;
+struct ARCHIVEREC;
+struct FILEREC;
+struct AUDIOSTREAM;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
@@ -38,7 +38,7 @@ struct D2StormBlockStrc
 };
 
 // An open archive (0x25C bytes).
-struct D2StormArchiveRecStrc
+struct ARCHIVEREC
 {
     D2StormLinkStrc tLink;                      // 0x000
     union
@@ -63,7 +63,7 @@ struct D2StormArchiveRecStrc
     };
     union
     {
-        D2StormFileRecStrc* pCachedFile;        // 0x11C
+        FILEREC* pCachedFile;        // 0x11C
         int nUnk0x11C;
     };
     unsigned int nCachedOffset;                 // 0x120
@@ -106,19 +106,19 @@ struct D2StormArchiveRecStrc
     };
     union
     {
-        D2StormArchiveRecStrc* pPatch;          // 0x150
-        D2StormArchiveRecStrc* pParent;
+        ARCHIVEREC* pPatch;          // 0x150
+        ARCHIVEREC* pParent;
         int bMapped;
     };
     char szPrefix[0x104];                       // 0x154
     int nRefs;                                  // 0x258
 
-    D2StormArchiveRecStrc()
+    ARCHIVEREC()
     {
         tLink.m_prevlink = 0;
         tLink.m_next = 0;
     }
-    ~D2StormArchiveRecStrc();                                                                                // 0x00418A50
+    ~ARCHIVEREC();                                                                                // 0x00418A50
     void ReadAdditionalAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
     static void operator delete(void* pMemory)
     {
@@ -128,7 +128,7 @@ struct D2StormArchiveRecStrc
 };
 
 // An open file (0x158 bytes).
-struct D2StormFileRecStrc
+struct FILEREC
 {
     D2StormLinkStrc tLink;                      // 0x000
     union
@@ -157,7 +157,7 @@ struct D2StormFileRecStrc
     };
     union
     {
-        D2StormArchiveRecStrc* pArchive;        // 0x114
+        ARCHIVEREC* pArchive;        // 0x114
         int nValue;
     };
     union
@@ -203,8 +203,8 @@ struct D2StormFileRecStrc
     int nCrcState;                              // 0x150
     unsigned int nCrcPos;                       // 0x154
 
-    D2StormFileRecStrc();                                                                                   // 0x00418E60
-    ~D2StormFileRecStrc();                                                                                  // 0x00419070
+    FILEREC();                                                                                   // 0x00418E60
+    ~FILEREC();                                                                                  // 0x00419070
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -238,10 +238,10 @@ struct D2StormSoundBufferStrc
 };
 
 // A streamed sound (0x50 bytes).
-struct D2StormStreamStrc
+struct AUDIOSTREAM
 {
     D2StormLinkStrc tLink;                      // 0x00
-    D2StormFileRecStrc* pFile;                  // 0x08
+    FILEREC* pFile;                  // 0x08
     unsigned int nWritePos;                     // 0x0C
     int unk0x10;                                // 0x10
     int bRestart;                               // 0x14
@@ -259,7 +259,15 @@ struct D2StormStreamStrc
     int unk0x44;                                // 0x44
     unsigned char nFill;                        // 0x48
     char pad0x49[3];                            // 0x49
-    int nRefs;                                  // 0x4C
+    union
+    {
+        int nRefs;                              // 0x4C
+        int nRefCount;
+    };
+
+    AUDIOSTREAM();
+    ~AUDIOSTREAM();                                                                                   // 0x004199A0
+    static void operator delete(void* pMemory);
 };
 
 // The list of playing streams.
@@ -268,14 +276,14 @@ struct D2StormStreamListStrc
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
-    D2StormStreamStrc* Head()
+    AUDIOSTREAM* Head()
     {
-        return (D2StormStreamStrc*)m_terminator.Next();
+        return (AUDIOSTREAM*)m_terminator.Next();
     }
 };
 
 // A pending read request (0x44 bytes).
-struct D2StormRequestStrc
+struct REQUEST
 {
     D2StormLinkStrc tLink;                      // 0x00
     union
@@ -283,7 +291,7 @@ struct D2StormRequestStrc
         void* hEvent;                           // 0x08
         int nUser;
     };
-    D2StormFileRecStrc* pFile;                  // 0x0C
+    FILEREC* pFile;                  // 0x0C
     unsigned int nPosition;                     // 0x10
     unsigned int nFileOffset;                   // 0x14
     unsigned int nDueTime;                      // 0x18
@@ -292,14 +300,14 @@ struct D2StormRequestStrc
     unsigned int nDestSize;                     // 0x24
     D2StormSoundBufferStrc* pBuffer;            // 0x28
     unsigned int nBufferOffset;                 // 0x2C
-    D2StormStreamStrc* pStream;                 // 0x30
+    AUDIOSTREAM* pStream;                 // 0x30
     unsigned int nBytes;                        // 0x34
     int bDelete;                                // 0x38
     unsigned int nRead;                         // 0x3C
     D2StormRequestCallbackStrc* pCallback;      // 0x40
 
-    ~D2StormRequestStrc();                                                                                  // 0x0041A020
-    D2StormRequestStrc()
+    ~REQUEST();                                                                                  // 0x0041A020
+    REQUEST()
     {
         tLink.m_prevlink = 0;
         tLink.m_next = 0;
@@ -313,11 +321,11 @@ struct D2StormArchiveListStrc
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
-    D2StormArchiveRecStrc* Head()
+    ARCHIVEREC* Head()
     {
-        return (D2StormArchiveRecStrc*)m_terminator.Next();
+        return (ARCHIVEREC*)m_terminator.Next();
     }
-    void LinkBefore(D2StormArchiveRecStrc* pNode, D2StormArchiveRecStrc* pExisting)
+    void LinkBefore(ARCHIVEREC* pNode, ARCHIVEREC* pExisting)
     {
         pNode->tLink.Unlink();
         D2StormLinkStrc* pExistingLink = pExisting ? &pExisting->tLink : &m_terminator;
@@ -330,7 +338,7 @@ struct D2StormArchiveListStrc
 };
 
 // A request-completion event.
-struct D2StormEventStrc
+struct EVENTREC
 {
     D2StormLinkStrc tLink;
     void* hEvent;
@@ -423,25 +431,6 @@ struct D2StormNodeListStrc
         return m_terminator.Next();
     }
     void sub_0041EE40_UnlinkAll();                                                                           // 0x0041EE40
-};
-
-// A streamed audio record (0x50 bytes).
-struct D2StormAudioStreamStrc
-{
-    D2StormLinkStrc tLink;                      // 0x00
-    union
-    {
-        char unk0x08[0x48];                     // 0x08
-        struct
-        {
-            char unk0x08b[0x44];
-            int nRefCount;                      // 0x4C
-        };
-    };
-
-    D2StormAudioStreamStrc();
-    ~D2StormAudioStreamStrc();                                                                              // 0x004199A0
-    static void operator delete(void* pMemory);
 };
 
 struct D2Storm4167B0Strc

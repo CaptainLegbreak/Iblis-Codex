@@ -26,7 +26,7 @@ struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct Node;
 struct List;
-struct D2StormStreamOwnerStrc;
+struct REQUEST;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
@@ -49,13 +49,6 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);
 void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName);
 void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szDetail);
 void __cdecl sub_00419F30();
-
-struct D2StormStreamOwnerStrc
-{
-    void* pLink[2];
-    ~D2StormStreamOwnerStrc();
-    STORM_DELETEOP
-};
 
 extern D2StormListStrc gRequestList_00708360; // 0x00708360
 extern D2StormListStrc gDdaList_00708384; // 0x00708384
@@ -264,7 +257,7 @@ void* ghStormEvent_00779054; // 0x00779054
 
 int gbThreadStop_00778F24; // 0x00778F24
 
-D2StormStreamOwnerStrc* gpCurrentRequest_0077902C; // 0x0077902C
+REQUEST* gpCurrentRequest_0077902C; // 0x0077902C
 
 unsigned int* gpCryptTable_00779048; // 0x00779048
 
@@ -272,16 +265,22 @@ char* gpStormExplodeWork; // 0x0077903C
 
 unsigned char* gpStreamBuffer_00779050; // 0x00779050
 
-inline void D2StormAudioStreamStrc::operator delete(void* pMemory)
+inline void REQUEST::operator delete(void* pMemory)
 {
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
 
-// build: symbol ??1D2StormArchiveRecStrc@@QAE@XZ 0x00418A50
-// build: symbol ??1D2StormAudioStreamStrc@@QAE@XZ 0x004199A0
-// build: symbol ??1D2StormFileRecStrc@@QAE@XZ 0x00419070
-// build: symbol ??1D2StormStreamOwnerStrc@@QAE@XZ 0x0041A020
+inline void AUDIOSTREAM::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
+// build: symbol ??1ARCHIVEREC@@QAE@XZ 0x00418A50
+// build: symbol ??1AUDIOSTREAM@@QAE@XZ 0x004199A0
+// build: symbol ??1FILEREC@@QAE@XZ 0x00419070
+// build: symbol ??1REQUEST@@QAE@XZ 0x0041A020
 // 0x0041A110
 int __cdecl SFileDestroy()
 {
@@ -308,18 +307,18 @@ int __cdecl SFileDestroy()
         gpCurrentRequest_0077902C = 0;
     }
     while (gRequestList_00708360.Head())
-        delete (D2StormStreamOwnerStrc*)gRequestList_00708360.Head();
-    while (D2StormAudioStreamStrc* pStream = (D2StormAudioStreamStrc*)gDdaList_00708384.Head())
+        delete (REQUEST*)gRequestList_00708360.Head();
+    while (AUDIOSTREAM* pStream = (AUDIOSTREAM*)gDdaList_00708384.Head())
     {
         sub_0041D1E0_ReportHandleLeak("AUDIOSTREAM");
         delete pStream;
     }
-    while (D2StormFileRecStrc* pFile = (D2StormFileRecStrc*)gFileList_0070836C.Head())
+    while (FILEREC* pFile = (FILEREC*)gFileList_0070836C.Head())
     {
         sub_0041D010_ReportHandleLeak("HSFILE", pFile->szName);
         delete pFile;
     }
-    while (D2StormArchiveRecStrc* pArchive = (D2StormArchiveRecStrc*)gArchiveList_00708354.Head())
+    while (ARCHIVEREC* pArchive = (ARCHIVEREC*)gArchiveList_00708354.Head())
     {
         sub_0041D010_ReportHandleLeak("HSARCHIVE", pArchive->szName);
         delete pArchive;

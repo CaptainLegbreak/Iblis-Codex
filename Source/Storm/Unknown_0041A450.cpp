@@ -1,9 +1,9 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
-#define STREAM_NEXT(l) ((D2StormAudioStreamStrc*)((((int)(l)->m_next <= 0) - 1) & (int)(l)->m_next))
+#define STREAM_NEXT(l) ((AUDIOSTREAM*)((((int)(l)->m_next <= 0) - 1) & (int)(l)->m_next))
 
 struct D2StormSoundBufferStrc;
-struct D2StormAudioStreamStrc;
+struct AUDIOSTREAM;
 struct D2StormLink0041A450Strc;
 struct D2StormArchive0041A450Strc;
 struct D2StormFile0041A450Strc;
@@ -12,8 +12,8 @@ struct D2StormListStrc;
 struct D2CriticalSectionStrc;
 struct D2StormWindowNodeStrc;
 struct D2StormStreamLinkStrc;
-struct D2StormFileRecStrc;
-struct D2StormRequestStrc;
+struct FILEREC;
+struct REQUEST;
 
 struct D2StormLink0041A450Strc
 {
@@ -122,23 +122,23 @@ struct D2StormStreamLinkStrc
     }
 };
 
-struct D2StormFileRecStrc
+struct FILEREC
 {
     char unk0x00[0x134];
     int nUnk0x134;
     char unk0x138[0x20];
 };
 
-struct D2StormRequestStrc
+struct REQUEST
 {
     char unk0x00[0x28];
     D2StormSoundBufferStrc* pBuffer;
 };
 
-struct D2StormAudioStreamStrc
+struct AUDIOSTREAM
 {
     D2StormStreamLinkStrc f_0;
-    D2StormFileRecStrc* pFileRec;
+    FILEREC* pFileRec;
     char unk0x0C[0x30];
     D2StormSoundBufferStrc* pBuffer;
     int nUnk0x40;
@@ -146,7 +146,7 @@ struct D2StormAudioStreamStrc
     int nUnk0x48;
     int nRefCount;
 
-    ~D2StormAudioStreamStrc();
+    ~AUDIOSTREAM();
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -154,8 +154,8 @@ struct D2StormAudioStreamStrc
     }
 };
 
-extern D2StormAudioStreamStrc* gpDdaHead_0070838C; // 0x0070838C
-extern D2StormRequestStrc* gpCurrentRequest_0077902C; // 0x0077902C
+extern AUDIOSTREAM* gpDdaHead_0070838C; // 0x0070838C
+extern REQUEST* gpCurrentRequest_0077902C; // 0x0077902C
 extern D2StormWindowNodeStrc* gpWindowNodeHead_00708368;
 
 // 0x0041A450
@@ -259,29 +259,29 @@ int __stdcall sub_0041A960_CancelReadResult(void* pBuffer)
     return 0;
 }
 
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
-    *ppRec = (D2StormFileRecStrc*)hFile;
+    *ppRec = (FILEREC*)hFile;
     return 1;
 }
 
-// build: symbol ??1D2StormAudioStreamStrc@@QAE@XZ 0x004199A0
+// build: symbol ??1AUDIOSTREAM@@QAE@XZ 0x004199A0
 // 0x0041A990
 int __stdcall sub_0041A990_DdaClose(void* hFile)
 {
     EnterCriticalSection(&gBasePathLock_00779068);
-    if (!sub_00415950_GetFileRec(hFile, (D2StormFileRecStrc**)&hFile))
+    if (!sub_00415950_GetFileRec(hFile, (FILEREC**)&hFile))
     {
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    D2StormAudioStreamStrc* pStream = gpDdaHead_0070838C;
+    AUDIOSTREAM* pStream = gpDdaHead_0070838C;
     if ((int)pStream > 0)
     {
         do
         {
-            D2StormAudioStreamStrc* pNext = STREAM_NEXT(&pStream->f_0);
-            if (pStream->pFileRec == (D2StormFileRecStrc*)hFile)
+            AUDIOSTREAM* pNext = STREAM_NEXT(&pStream->f_0);
+            if (pStream->pFileRec == (FILEREC*)hFile)
             {
                 if (gpCurrentRequest_0077902C && gpCurrentRequest_0077902C->pBuffer && gpCurrentRequest_0077902C->pBuffer == pStream->pBuffer)
                     gpCurrentRequest_0077902C->pBuffer = 0;
@@ -293,7 +293,7 @@ int __stdcall sub_0041A990_DdaClose(void* hFile)
             pStream = pNext;
         } while (pStream);
     }
-    ((D2StormFileRecStrc*)hFile)->nUnk0x134 = 0;
+    ((FILEREC*)hFile)->nUnk0x134 = 0;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
 }

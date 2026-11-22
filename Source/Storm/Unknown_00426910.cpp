@@ -10,7 +10,7 @@ struct D2Storm4167B0Strc;
 struct D2Storm4168F0Strc;
 struct D2Storm416A90Strc;
 struct D2StormTSListStrc;
-struct D2StormBreakCmdStrc;
+struct BREAKCMD;
 struct D2GameLinkStrc;
 struct D2StormGameArrayStrc;
 struct D2StormHashObjectChunkStrc;
@@ -62,7 +62,7 @@ extern char gszTypeNameBreakCmd_007088D8[]; // 0x007088D8
 extern "C" const char gszSGameDataTypeName[]; // 0x0070F56C
 extern char gszTypeNameHashObjectChunk_0070F5F4[]; // 0x0070F5F4
 
-struct D2StormBreakCmdStrc
+struct BREAKCMD
 {
     D2StormLinkStrc f_0;
     int nData;
@@ -115,8 +115,8 @@ struct D2StormBreakCmdListStrc
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
-    void sub_00426B00_LinkNode(D2StormBreakCmdStrc* pNode, unsigned int nLinkType, D2StormBreakCmdStrc* pExisting); // 0x00426B00
-    D2StormBreakCmdStrc* sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags);
+    void sub_00426B00_LinkNode(BREAKCMD* pNode, unsigned int nLinkType, BREAKCMD* pExisting); // 0x00426B00
+    BREAKCMD* sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 struct D2GameListStrc
@@ -416,10 +416,10 @@ inline void* operator new(unsigned int nSize, void* pWhere) throw()
 }
 
 // 0x00426DC0
-D2StormBreakCmdStrc* D2StormBreakCmdListStrc::sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
+BREAKCMD* D2StormBreakCmdListStrc::sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2StormBreakCmdStrc) + nExtraBytes, gszTypeNameBreakCmd_007088D8, -2, nFlags | 8);
-    D2StormBreakCmdStrc* pNode = pMemory ? new (pMemory) D2StormBreakCmdStrc : 0;
+    void* pMemory = SMemAlloc(sizeof(BREAKCMD) + nExtraBytes, gszTypeNameBreakCmd_007088D8, -2, nFlags | 8);
+    BREAKCMD* pNode = pMemory ? new (pMemory) BREAKCMD : 0;
     if (nLocation)
         sub_00426B00_LinkNode(pNode, nLocation, 0);
     return pNode;

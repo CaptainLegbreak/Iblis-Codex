@@ -23,7 +23,7 @@ void __cdecl operator delete(void* pMemory);                                    
 
 static D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType);
 
-struct D2StormBreakCmdStrc
+struct BREAKCMD
 {
     D2StormLinkStrc f_0;
     void* pData;
@@ -380,7 +380,7 @@ int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned i
             char* pNode = gtSEvtBreakCmdList_007088E8.Head();
             while ((int)pNode > 0)
             {
-                if (((D2StormBreakCmdStrc*)pNode)->pData == pData)
+                if (((BREAKCMD*)pNode)->pData == pData)
                 {
                     bBreak = 1;
                     nDelete = -12;
@@ -449,7 +449,7 @@ int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned i
         char* pNode = gtSEvtBreakCmdList_007088E8.Head();
         while ((int)pNode > 0)
         {
-            if (((D2StormBreakCmdStrc*)pNode)->pData == pData)
+            if (((BREAKCMD*)pNode)->pData == pData)
                 pNode = gtSEvtBreakCmdList_007088E8.sub_00426F20_DeleteNode(pNode);
             else
                 pNode = gtSEvtBreakCmdList_007088E8.sub_00426C80_RawNext((D2StormLinkStrc*)pNode);

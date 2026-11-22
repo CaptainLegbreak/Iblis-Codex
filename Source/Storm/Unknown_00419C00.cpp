@@ -10,19 +10,19 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);              
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 
-struct D2StormArchiveRecStrc
+struct ARCHIVEREC
 {
 
     char pad00[0x124];
     unsigned int nBlockSize;
 };
 
-struct D2StormFileRecStrc
+struct FILEREC
 {
 
     char pad00[0x110];
     int hFile;
-    D2StormArchiveRecStrc* f_114;
+    ARCHIVEREC* f_114;
     unsigned int* pBlock;
     int unk0x11C;
     unsigned int nPosition;
@@ -54,24 +54,24 @@ struct D2StormSoundBufferStrc
     virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
 };
 
-struct D2StormStreamStrc;
+struct AUDIOSTREAM;
 
 struct D2StormStreamLinkStrc
 {
     D2StormStreamLinkStrc* m_prevlink;
-    D2StormStreamStrc* m_next;
+    AUDIOSTREAM* m_next;
 
-    D2StormStreamStrc* Next()
+    AUDIOSTREAM* Next()
     {
         return (int)m_next > 0 ? m_next : 0;
     }
 };
 
-struct D2StormStreamStrc
+struct AUDIOSTREAM
 {
     D2StormStreamLinkStrc f_0;
 
-    D2StormFileRecStrc* pFile;
+    FILEREC* pFile;
     unsigned int f_C;
     int unk0x10;
     int bRestart;
@@ -97,19 +97,19 @@ struct D2StormStreamListStrc
     int m_linkoffset;
     D2StormStreamLinkStrc m_terminator;
 
-    D2StormStreamStrc* Head()
+    AUDIOSTREAM* Head()
     {
-        D2StormStreamStrc* pHead = m_terminator.Next();
+        AUDIOSTREAM* pHead = m_terminator.Next();
         return pHead;
     }
 };
 
-struct D2StormRequestStrc
+struct REQUEST
 {
     D2StormRequestLinkStrc f_0;
 
     int nUser;
-    D2StormFileRecStrc* pFile;
+    FILEREC* pFile;
     unsigned int nPosition;
     unsigned int nFileOffset;
     unsigned int nDueTime;
@@ -118,13 +118,13 @@ struct D2StormRequestStrc
     unsigned int f_24;
     D2StormSoundBufferStrc* pBuffer;
     unsigned int f_2C;
-    D2StormStreamStrc* pStream;
+    AUDIOSTREAM* pStream;
     unsigned int nBytes;
     int nArg11;
     unsigned int nRead;
     void* pCallback;
 
-    D2StormRequestStrc()
+    REQUEST()
     {
         f_0.m_prevlink = 0;
         f_0.m_next = 0;
@@ -168,10 +168,10 @@ struct D2StormRequestListStrc
             break;
         }
     }
-    D2StormRequestStrc* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+    REQUEST* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
     {
-        void* pMemory = SMemAlloc(sizeof(D2StormRequestStrc) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
-        D2StormRequestStrc* pRecord = pMemory ? new (pMemory) D2StormRequestStrc : 0;
+        void* pMemory = SMemAlloc(sizeof(REQUEST) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
+        REQUEST* pRecord = pMemory ? new (pMemory) REQUEST : 0;
         if (nLinkType)
             LinkNode((char*)pRecord, nLinkType, 0);
         return pRecord;
@@ -186,14 +186,14 @@ static int gbStreamsPaused_00779044;                                            
 static unsigned int gnStreamChunk_00779038;                                                                 // 0x00779038
 
 // 0x00415950
-static int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
-    *ppRec = (D2StormFileRecStrc*)hFile;
+    *ppRec = (FILEREC*)hFile;
     return 1;
 }
 
 // 0x00415760
-static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
+static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
 {
     unsigned long nPlay = 0;
     unsigned long nWrite = 0;
@@ -213,13 +213,13 @@ static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
 int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize); // 0x00418140
 
 // 0x00419790
-static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
+static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, AUDIOSTREAM* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
 {
     VALIDATEBEGIN;
     VALIDATE(pDest || pBuffer);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
-    D2StormRequestStrc* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
+    REQUEST* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;
     pRequest->pFile = pFile;
     pRequest->nPosition = nPosition;
@@ -250,7 +250,7 @@ void __cdecl sub_00419C00_PumpStreams()
 {
     if (gbStreamsPaused_00779044)
         return;
-    for (D2StormStreamStrc* pStream = gDdaList_00708384.Head(); (int)pStream > 0; pStream = pStream->f_0.m_next)
+    for (AUDIOSTREAM* pStream = gDdaList_00708384.Head(); (int)pStream > 0; pStream = pStream->f_0.m_next)
     {
         if (pStream->nState == 3 || (pStream->nState == 2 && pStream->pFile->nPosition >= pStream->nStart + pStream->nSize))
         {
@@ -354,11 +354,11 @@ void __cdecl sub_00419C00_PumpStreams()
     }
 }
 
-// build: context ?Next@D2StormStreamLinkStrc@@QAEPAUD2StormStreamStrc@@XZ
-// build: context ?Head@D2StormStreamListStrc@@QAEPAUD2StormStreamStrc@@XZ
+// build: context ?Next@D2StormStreamLinkStrc@@QAEPAUAUDIOSTREAM@@XZ
+// build: context ?Head@D2StormStreamListStrc@@QAEPAUAUDIOSTREAM@@XZ
 // build: context ?NextLink@D2StormRequestLinkStrc@@QAEPAU1@H@Z
 // build: context ?Unlink@D2StormRequestLinkStrc@@QAEXXZ
-// build: context ??0D2StormRequestStrc@@QAE@XZ
+// build: context ??0REQUEST@@QAE@XZ
 // build: context ??2@YAPAXIPAX@Z
 // build: context ?Link@D2StormRequestListStrc@@QAEPAUD2StormRequestLinkStrc@@PAD@Z
-// build: context ?NewNode@D2StormRequestListStrc@@QAEPAUD2StormRequestStrc@@III@Z
+// build: context ?NewNode@D2StormRequestListStrc@@QAEPAUREQUEST@@III@Z

@@ -10,19 +10,19 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);              
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 
-struct D2StormArchiveRecStrc
+struct ARCHIVEREC
 {
 
     char pad00[0x124];
     unsigned int nBlockSize;
 };
 
-struct D2StormFileRecStrc
+struct FILEREC
 {
 
     char pad00[0x110];
     int hFile;
-    D2StormArchiveRecStrc* f_114;
+    ARCHIVEREC* f_114;
     unsigned int* pBlock;
     int unk0x11C;
     unsigned int nPosition;
@@ -54,24 +54,24 @@ struct D2StormSoundBufferStrc
     virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
 };
 
-struct D2StormStreamStrc;
+struct AUDIOSTREAM;
 
 struct D2StormStreamLinkStrc
 {
     D2StormStreamLinkStrc* m_prevlink;
-    D2StormStreamStrc* m_next;
+    AUDIOSTREAM* m_next;
 
-    D2StormStreamStrc* Next()
+    AUDIOSTREAM* Next()
     {
         return (int)m_next > 0 ? m_next : 0;
     }
 };
 
-struct D2StormStreamStrc
+struct AUDIOSTREAM
 {
     D2StormStreamLinkStrc f_0;
 
-    D2StormFileRecStrc* pFile;
+    FILEREC* pFile;
     unsigned int f_C;
     int unk0x10;
     int bRestart;
@@ -97,18 +97,18 @@ struct D2StormStreamListStrc
     int m_linkoffset;
     D2StormStreamLinkStrc m_terminator;
 
-    D2StormStreamStrc* Head()
+    AUDIOSTREAM* Head()
     {
         return m_terminator.Next();
     }
 };
 
-struct D2StormRequestStrc
+struct REQUEST
 {
     D2StormRequestLinkStrc f_0;
 
     int nUser;
-    D2StormFileRecStrc* pFile;
+    FILEREC* pFile;
     unsigned int nPosition;
     unsigned int nFileOffset;
     unsigned int nDueTime;
@@ -117,13 +117,13 @@ struct D2StormRequestStrc
     unsigned int f_24;
     D2StormSoundBufferStrc* pBuffer;
     unsigned int f_2C;
-    D2StormStreamStrc* pStream;
+    AUDIOSTREAM* pStream;
     unsigned int nBytes;
     int nArg11;
     unsigned int nRead;
     void* pCallback;
 
-    D2StormRequestStrc()
+    REQUEST()
     {
         f_0.m_prevlink = 0;
         f_0.m_next = 0;
@@ -166,10 +166,10 @@ struct D2StormRequestListStrc
             break;
         }
     }
-    D2StormRequestStrc* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+    REQUEST* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
     {
-        void* pMemory = SMemAlloc(sizeof(D2StormRequestStrc) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
-        D2StormRequestStrc* pRecord = pMemory ? new (pMemory) D2StormRequestStrc : 0;
+        void* pMemory = SMemAlloc(sizeof(REQUEST) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
+        REQUEST* pRecord = pMemory ? new (pMemory) REQUEST : 0;
         if (nLinkType)
             LinkNode((char*)pRecord, nLinkType, 0);
         return pRecord;
@@ -182,21 +182,21 @@ extern D2StormRequestListStrc gRequestList_00708360;                            
 extern void* ghStormEvent_00779054;                                                                         // 0x00779054
 int gbStreamsPaused_00779044;                                                                               // 0x00779044
 unsigned int gnStreamChunk_00779038;                                                                        // 0x00779038
-extern D2StormStreamStrc* gpDdaHead_0070838C;                                                               // 0x0070838C
+extern AUDIOSTREAM* gpDdaHead_0070838C;                                                               // 0x0070838C
 
-static inline D2StormStreamStrc* DdaHead()
+static inline AUDIOSTREAM* DdaHead()
 {
     return (int)gpDdaHead_0070838C > 0 ? gpDdaHead_0070838C : 0;
 }
 
-static int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
-    *ppRec = (D2StormFileRecStrc*)hFile;
+    *ppRec = (FILEREC*)hFile;
     return 1;
 }
 
 // 0x00415760
-static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
+static unsigned int sub_00415760_UpdatePlayed(AUDIOSTREAM* pStream)
 {
     unsigned long nPlay = 0;
     unsigned long nWrite = 0;
@@ -220,10 +220,10 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
     unsigned int nSize = 0;
     unsigned int nPlayed = 0;
     EnterCriticalSection(&gBasePathLock_00779068);
-    D2StormFileRecStrc* pRec;
+    FILEREC* pRec;
     if (sub_00415950_GetFileRec(hFile, &pRec))
     {
-        D2StormStreamStrc* pStream;
+        AUDIOSTREAM* pStream;
         for (pStream = gDdaList_00708384.Head(); pStream; pStream = pStream->f_0.Next())
         {
             if (pStream->pFile == pRec)
@@ -261,13 +261,13 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
 }
 
 // 0x00419790
-static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
+static REQUEST* __stdcall IssueRequest(FILEREC* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, AUDIOSTREAM* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
 {
     VALIDATEBEGIN;
     VALIDATE(pDest || pBuffer);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
-    D2StormRequestStrc* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
+    REQUEST* pRequest = gRequestList_00708360.NewNode(2, 0, 0);
     pRequest->nUser = nUser;
     pRequest->pFile = pFile;
     pRequest->nPosition = nPosition;
@@ -297,7 +297,7 @@ void __cdecl sub_00419C00_PumpStreams()
 {
     if (gbStreamsPaused_00779044)
         return;
-    for (D2StormStreamStrc* pStream = DdaHead(); (int)pStream > 0; pStream = pStream->f_0.m_next)
+    for (AUDIOSTREAM* pStream = DdaHead(); (int)pStream > 0; pStream = pStream->f_0.m_next)
     {
         if (pStream->nState == 3 || (pStream->nState == 2 && pStream->pFile->nPosition >= pStream->nStart + pStream->nSize))
         {
