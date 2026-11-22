@@ -751,7 +751,7 @@ void __fastcall ACT5Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     if (pQuestData->fLastState != 13)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 13, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
     }
 }
@@ -782,7 +782,7 @@ void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 899);
             if (pQuestData->fLastState != 1)
             {
-                pQuestData->dwFlags &= 0xFFFFFF00;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
             }
 
@@ -795,7 +795,7 @@ void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         unsigned char bUpdate = 0;
         if (pQuestData->fLastState < 2 && pQuestData->fState > 2)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
             bUpdate = 1;
         }

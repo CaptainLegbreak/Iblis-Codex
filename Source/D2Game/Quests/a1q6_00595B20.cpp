@@ -71,7 +71,7 @@ void __fastcall sub_00595B80_HandleNpcDeactivate(D2QuestDataStrc* pQuestData, D2
         D2Act1Quest6Strc* pQuestDataEx = (D2Act1Quest6Strc*)pQuestData->pQuestDataEx;
         if (pQuestDataEx->bCainActivated == 1)
         {
-            *(unsigned char*)&pQuestData->dwFlags = 0;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q6_UnitIterate_StatusCyclerEx, true);
             pQuestDataEx->bCainActivated = 0;
             pQuestData->pCallback[2] = 0;

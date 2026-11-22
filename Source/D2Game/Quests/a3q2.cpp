@@ -209,7 +209,7 @@ void __fastcall ACT3Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 
     if (((D2Act3Quest2Strc*)pQuestData->pQuestDataEx)->bInitiallyTalkedToCain == 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q2_UnitIterate_StatusCyclerEx, 1);
         pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
     }

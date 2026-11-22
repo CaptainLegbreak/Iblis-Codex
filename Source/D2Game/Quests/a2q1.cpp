@@ -300,7 +300,7 @@ void __fastcall ACT2Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         return;
     }
 
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT2Q1_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bAtmaActivated = 0;
     pQuestData->pCallback[2] = 0;
@@ -426,7 +426,7 @@ bool __fastcall ACT2Q1_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
     D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)pQuestData->pQuestDataEx;
     if (pQuestData->fState == 4)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 3, 0, ACT2Q1_UnitIterate_StatusCyclerEx, 1);
     }
     pQuestDataEx->bStatusTimerStarted = 0;

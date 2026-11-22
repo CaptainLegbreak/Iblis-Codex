@@ -614,7 +614,7 @@ void __fastcall ACT2Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             {
                 QUESTS_SetGlobalState(pQuestData->pGame, 14, 13);
                 QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 644);
-                pQuestData->dwFlags &= 0xFFFFFF00;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 13, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
             }
 

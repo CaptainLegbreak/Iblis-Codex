@@ -298,7 +298,7 @@ void __fastcall ACT3Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 QUESTS_SetGlobalState(pQuestArg->pGame, QUESTSTATEFLAG_A3Q3, 13);
             }
 
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 13, 0, ACT3Q3_UnitIterate_StatusCyclerEx, 0);
 
             if (!pQuestData->bNotIntro || pQuestData->fState == 5)
@@ -374,7 +374,7 @@ void __fastcall ACT3Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId);
     if (pQuestData->bNotIntro && pItemsTxtRecord->dwCode == ' 33g')
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 4, 0, ACT3Q3_UnitIterate_StatusCyclerEx, 1);
 
         D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
@@ -385,7 +385,7 @@ void __fastcall ACT3Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
         }
 
         QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q3.cpp", 710);
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q3_UnitIterate_StatusCyclerEx, 1);
     }
 

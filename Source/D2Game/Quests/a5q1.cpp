@@ -409,14 +409,14 @@ void __fastcall ACT5Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     D2Act5Quest1Strc* pQuestDataEx = (D2Act5Quest1Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bLarzukStartActivated == 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q1_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bLarzukStartActivated = 0;
     }
 
     if (pQuestDataEx->bLarzukEndActivated == 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 4, 0, ACT5Q1_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bLarzukEndActivated = 0;
     }
@@ -497,7 +497,7 @@ void __fastcall ACT5Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 0x109);
             pQuestData->pfSeqFilter(pQuestData);
 
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 13, 0, ACT5Q1_UnitIterate_StatusCyclerEx, 1);
         }
 
@@ -683,7 +683,7 @@ void __fastcall ACT5Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     if (pQuestData->fLastState < 3)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 3, 0, ACT5Q1_UnitIterate_StatusCyclerEx, 1);
     }
 }
@@ -737,7 +737,7 @@ void __fastcall ACT5Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q1.cpp", 0x23F);
     if (!pQuestData->fLastState)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q1_UnitIterate_StatusCyclerEx, 1);
     }
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT5Q1_UnitIterate_UpdateQuestStateFlags);
@@ -932,7 +932,7 @@ void __fastcall ACT5Q1_OnSiegeBossActivated(D2GameStrc* pGame, D2UnitStrc* pUnit
         return;
     }
 
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q1_UnitIterate_StatusCyclerEx, 1);
 }
 
@@ -986,7 +986,7 @@ void __fastcall ACT5Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bQualKehkActivated == 1 && pQuestDataEx->nKilledWussies < 5)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bQualKehkActivated = 0;
         pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
@@ -1124,7 +1124,7 @@ void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
 }
 
@@ -1313,7 +1313,7 @@ int __fastcall OBJECTS_OperateFunction67_FrozenAnya(D2ObjOperateFnStrc* pOp, int
 
         if (pQuestData->fLastState == 1)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 3, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
         }
 
@@ -1333,7 +1333,7 @@ int __fastcall OBJECTS_OperateFunction67_FrozenAnya(D2ObjOperateFnStrc* pOp, int
         QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_PRIMARYGOALDONE);
         QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDPENDING);
 
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
         QUESTS_TriggerFX(pQuestData->pGame, 16);
 

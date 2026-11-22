@@ -184,13 +184,13 @@ void __fastcall ACT1Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     if (pQuestDataEx->bCharsiIntroActivated == 1)
     {
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q3_UnitIterate_UpdateQuestStateFlags);
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bCharsiIntroActivated = 0;
     }
     else if (pQuestDataEx->bCharsiEndActivated == 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, ITERSTATE_13, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bCharsiEndActivated = 0;
     }
@@ -369,7 +369,7 @@ void __fastcall ACT1Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
     if (pQuestData->fLastState != 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -394,7 +394,7 @@ static bool sub_005918D0_ResetMalus(D2QuestDataStrc* pQuestData)
     }
 
     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", 0x1C8);
-    pQuestData->dwFlags = (pQuestData->dwFlags & 0xFFFFFF00) | 1;
+    pQuestData->nStatusFlags = 1;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, true);
     pQuestDataEx->unk0x08 = 0;
     if (pQuestDataEx->bMalusInitialized == 1)
@@ -423,7 +423,7 @@ void __fastcall ACT1Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
         SUNIT_AttachSound(pQuestArg->pPlayer, SOUND_MALUS_PICKUP, pQuestArg->pPlayer);
     }
 
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, ITERSTATE_2, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
 }
 
@@ -474,7 +474,7 @@ void __fastcall ACT1Q3_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
 
     if (!pQuestDataEx->nMalusItemsInGame && pQuestDataEx->bMalusInitialized && pQuestDataEx->nMalusObjectMode == OBJMODE_OPENED)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, ITERSTATE_3, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
     }
 }

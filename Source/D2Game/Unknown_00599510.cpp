@@ -79,7 +79,7 @@ void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
     const int bLeftTown = QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q2, QFLAG_LEAVETOWN);
 
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pQuestArg->pPlayer);
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);

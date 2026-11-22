@@ -16,7 +16,7 @@ void __fastcall ACT5Q5_Callback02_NpcDeactivate(D2QuestDataStrc* quest, D2QuestA
         D2Act5Quest5Strc* data = (D2Act5Quest5Strc*)quest->pQuestDataEx;
         if (data->bQualKehkActivated == 1)
         {
-            (*(unsigned char*)&quest->dwFlags) = 0;
+            quest->nStatusFlags = 0;
             QUESTS_UnitIterate(quest, 1, 0, ACT5Q5_UnitIterate_StatusCyclerEx, true);
             data->bQualKehkActivated = 0;
         }

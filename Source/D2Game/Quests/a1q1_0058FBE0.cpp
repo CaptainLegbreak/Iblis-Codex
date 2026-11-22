@@ -86,7 +86,7 @@ void __fastcall ACT1Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     D2Act1Quest1Strc* pQuestDataEx = (D2Act1Quest1Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bAkaraActivated == 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bAkaraActivated = 0;
         pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;

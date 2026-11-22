@@ -487,7 +487,7 @@ void __fastcall ACT5Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 626);
             if (pQuestData->fLastState != 1)
             {
-                pQuestData->dwFlags &= 0xFFFFFF00;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q6_UnitIterate_StatusCyclerEx, 1);
             }
 
@@ -499,7 +499,7 @@ void __fastcall ACT5Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     {
         if (pQuestData->bNotIntro && pQuestData->fLastState < 2)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q6_UnitIterate_StatusCyclerEx, 1);
         }
 
@@ -592,7 +592,7 @@ bool __fastcall ACT5Q6_SeqCallback(D2QuestDataStrc* pQuestData)
     {
         ((D2Act5Quest6Strc*)pQuest->pQuestDataEx)->bQuestStarted = 1;
         pQuest->fState = 2;
-        pQuest->dwFlags &= 0xFFFFFF00;
+        pQuest->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuest, 1, 0, ACT5Q6_UnitIterate_StatusCyclerEx, 1);
         SUNIT_IterateUnitsOfType(pQuest->pGame, 0, 0, ACT5Q6_UnitIterate_UpdateQuestStateFlags);
     }

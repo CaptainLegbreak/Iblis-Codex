@@ -355,7 +355,7 @@ void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bDrehyaActivated == 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bDrehyaActivated = 0;
     }
@@ -460,7 +460,7 @@ void __fastcall ACT5Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
     else if (nMessageIndex == MSG_DREHYA_DONE)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, pQuestData->fLastState, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
 
         QUESTRECORD_SetQuestState(QUESTS_GetQuestFlagsInline(pQuestData->pGame, pQuestArg->pPlayer), QUESTSTATEFLAG_A5Q4, QFLAG_ENTERAREA);
@@ -573,7 +573,7 @@ bool __fastcall ACT5Q4_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
 
     if (pQuestData->fLastState != QSTATE_4)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, QSTATE_4, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -715,7 +715,7 @@ void __fastcall ACT5Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
     if (nNewLevel == LEVEL_NIHLATHAKSTEMPLE && pQuestData->fLastState == 1)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, QSTATE_2, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bDrehyaActivated = 0;
     }
@@ -1093,7 +1093,7 @@ int __fastcall OBJECTS_OperateFunction21_HoradrimMalus(D2ObjOperateFnStrc* pOp, 
 
             if (pQuestData->fLastState != 1)
             {
-                pQuestData->dwFlags &= 0xFFFFFF00;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 0);
             }
         }
@@ -1258,7 +1258,7 @@ void __fastcall sub_00595160_UpdateCountessQuestState(D2GameStrc* pGame, D2UnitS
     }
 
     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q5.cpp", 705);
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q5_UnitIterate_StatusCyclerEx, true);
     SUNIT_IterateUnitsOfType(pGame, UNIT_PLAYER, 0, ACT1Q5_UnitIterate_UpdateQuestStateFlags);
 }

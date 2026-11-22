@@ -188,7 +188,7 @@ void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     {
         if (pQuestDataEx->bTalkedToAlkor == 1)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 5, 0, ACT3Q4_UnitIterate_StatusCyclerEx, 1);
             pQuestDataEx->bTalkedToAlkor = 0;
             pQuestDataEx->bGoldenBirdBroughtToAlkor = 1;
@@ -198,14 +198,14 @@ void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     {
         if (pQuestDataEx->bTalkedToCainOnce == 1)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q4_UnitIterate_StatusCyclerEx, 1);
             pQuestDataEx->bTalkedToCainOnce = 0;
         }
 
         if (pQuestDataEx->bTalkedToCainTwice == 1)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 4, 0, ACT3Q4_UnitIterate_StatusCyclerEx, 1);
             pQuestDataEx->bTalkedToCainTwice = 0;
         }
@@ -214,7 +214,7 @@ void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     {
         if (pQuestDataEx->bTalkedToMeshif == 1)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q4_UnitIterate_StatusCyclerEx, 1);
             pQuestDataEx->bTalkedToMeshif = 0;
         }
@@ -421,7 +421,7 @@ void __fastcall ACT3Q4_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
     if (!pQuestDataEx->nGoldenBirdsInGame && pQuestData->bNotIntro && pQuestDataEx->bJadeFigurineDropped && pQuestData->fState < 4)
     {
         pQuestDataEx->bPlayerDroppedWithItem = 1;
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 6, 0, ACT3Q4_UnitIterate_StatusCyclerEx, 1);
     }
 }
@@ -483,7 +483,7 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         if (pQuestData->fLastState != 1)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
         }
     }
@@ -491,7 +491,7 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         if (pQuestData->fLastState != 3)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
         }
     }

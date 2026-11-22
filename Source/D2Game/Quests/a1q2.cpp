@@ -197,7 +197,7 @@ void __fastcall ACT1Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
 
         if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE) && pQuestData->fState != 5)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 13, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 0);
             QUESTS_StateDebug(pQuestData, 5, gszA1Q2SourceFile, 205);
             D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 206);
@@ -247,7 +247,7 @@ void __fastcall ACT1Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         if (pQuestData->fState < 3)
         {
             QUESTS_StateDebug(pQuestData, 3, gszA1Q2SourceFile, 489);
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             bStateUpdated = true;
         }
 

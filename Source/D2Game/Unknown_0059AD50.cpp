@@ -63,7 +63,7 @@ void __fastcall ACT2Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         return;
     }
 
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, A2Q4_ITERATE_DEACTIVATE, 0, ACT2Q4_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bDrognanActivated = 0;
     pQuestData->pCallback[2] = 0;

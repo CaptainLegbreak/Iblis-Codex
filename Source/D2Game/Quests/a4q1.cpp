@@ -1457,7 +1457,7 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                         exit(-1);
                     }
                     pQuestData->pfSeqFilter(pQuestData);
-                    pQuestData->dwFlags &= 0xFFFFFF00;
+                    pQuestData->nStatusFlags = 0;
                     QUESTS_UnitIterate(pQuestData, 13, 0, ACT4Q1_UnitIterate_StatusCyclerEx, 0);
                 }
                 pQuestData->pCallback[2] = 0;
@@ -1479,7 +1479,7 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         QUESTRECORD_SetQuestState(pFlags, pQuestData->eFilter, 5);
         if (pQuestData->fLastState != 4)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 4, 0, ACT4Q1_UnitIterate_StatusCyclerEx, 1);
         }
     }
@@ -1635,7 +1635,7 @@ bool __fastcall ACT4Q1_SpawnIzualGhost(D2GameStrc* pGame, D2QuestDataStrc* pQues
     D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pQuest->pQuestDataEx;
     if (pQuest->fState == 4 && pQuest->fLastState != 4 && pQuest->fLastState != 13)
     {
-        pQuest->dwFlags &= 0xFFFFFF00;
+        pQuest->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuest, 3, 0, ACT4Q1_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -1722,7 +1722,7 @@ void __fastcall ACT4Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT4Q1_UnitIterate_UpdateQuestStateFlags);
     if (!pQuestData->fLastState)
     {
-        pQuestData->dwFlags &= 0xFFFFFF00;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT4Q1_UnitIterate_StatusCyclerEx, 0);
     }
 }
@@ -1739,7 +1739,7 @@ void __fastcall ACT4Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     {
         return;
     }
-    pQuestData->dwFlags &= 0xFFFFFF00;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT4Q1_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bTyraelActivated = 0;
     pQuestData->pCallback[2] = 0;
@@ -2109,7 +2109,7 @@ int __fastcall OBJECTS_OperateFunction28_LamEsenTome(D2ObjOperateFnStrc* pOp, in
 
             if (pQuestData->fLastState != 1)
             {
-                pQuestData->dwFlags &= 0xFFFFFF00;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q1_UnitIterate_StatusCyclerEx, false);
             }
         }

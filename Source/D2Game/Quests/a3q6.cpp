@@ -357,7 +357,7 @@ void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         return;
     }
 
-    *(unsigned char*)&pQuestData->dwFlags = 0;
+    pQuestData->nStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q6_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bOrmusActivated = 0;
     pQuestData->pCallback[2] = 0;
@@ -369,13 +369,13 @@ static inline int ACT3Q6_CycleStatusFromLastState(D2QuestDataStrc* pQuestData)
     int bResult = 0;
     if (pQuestData->fLastState == 2)
     {
-        *(unsigned char*)&pQuestData->dwFlags = 0;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q6_UnitIterate_StatusCyclerEx, 1);
         bResult = 1;
     }
     else if (pQuestData->fLastState == 0)
     {
-        *(unsigned char*)&pQuestData->dwFlags = 0;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q6_UnitIterate_StatusCyclerEx, 1);
         bResult = 1;
     }
@@ -405,7 +405,7 @@ void __fastcall ACT3Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
             if (pQuestData->fLastState < 3)
             {
-                *(unsigned char*)&pQuestData->dwFlags = 0;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q6_UnitIterate_StatusCyclerEx, 0);
             }
 
@@ -454,7 +454,7 @@ void __fastcall ACT3Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     {
         if (pQuestData->fLastState != 4)
         {
-            *(unsigned char*)&pQuestData->dwFlags = 0;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 4, 0, ACT3Q6_UnitIterate_StatusCyclerEx, 1);
         }
 
@@ -511,7 +511,7 @@ void __fastcall ACT3Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         {
             if (QUESTRECORD_GetQuestState(pQuestFlags, 22, 13))
             {
-                pQuestData->dwFlags &= 0xFFFFFF00;
+                pQuestData->nStatusFlags = 0;
                 QUESTS_UnitIterate(pQuestData, 13, 0, ACT3Q6_UnitIterate_StatusCyclerEx, false);
                 QUESTS_StateDebug(pQuestData, 7, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q6.cpp", 487);
             }
@@ -535,7 +535,7 @@ bool __fastcall ACT3Q6_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
     D2Act3Quest6Strc* pQuestDataEx = (D2Act3Quest6Strc*)pQuestData->pQuestDataEx;
     if (pQuestData->fLastState != 4)
     {
-        *(unsigned char*)&pQuestData->dwFlags = 0;
+        pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 4, 0, ACT3Q6_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -854,7 +854,7 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         if (pQuestData->fLastState != 1)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
         }
     }
@@ -862,7 +862,7 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         if (pQuestData->fLastState != 3)
         {
-            pQuestData->dwFlags &= 0xFFFFFF00;
+            pQuestData->nStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
         }
     }
