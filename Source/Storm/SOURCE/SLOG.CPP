@@ -2,7 +2,7 @@
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
 D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
-T0041FA40* gapSLogBuckets_00779298[4]; // 0x00779298
+D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
 static unsigned long gnSLogTimeLength_007792A8; // 0x007792A8
 static char gszSLogTime_007792B0[0x40]; // 0x007792B0
 static unsigned long gdwSLogLastTick_007792F0; // 0x007792F0
@@ -28,7 +28,7 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
 
 // 0x0041FA40
-static __declspec(noinline) void sub_0041FA40_FlushLog(T0041FA40* pLog)
+static __declspec(noinline) void sub_0041FA40_FlushLog(D2SLogStrc* pLog)
 {
     unsigned long dwWritten;
     if (pLog->nUsed)
@@ -41,7 +41,7 @@ static __declspec(noinline) void sub_0041FA40_FlushLog(T0041FA40* pLog)
 }
 
 // 0x0041FA80
-static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog)
+static D2SLogStrc* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog)
 {
     if (!hLog)
     {
@@ -51,8 +51,8 @@ static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hL
     unsigned long nIndex = (unsigned long)hLog & 3;
     EnterCriticalSection(&gaSLogLocks_00779238[nIndex]);
     *pIndex = nIndex;
-    T0041FA40** ppNext = &gapSLogBuckets_00779298[nIndex];
-    for (T0041FA40* p = *ppNext; p; p = *ppNext)
+    D2SLogStrc** ppNext = &gapSLogBuckets_00779298[nIndex];
+    for (D2SLogStrc* p = *ppNext; p; p = *ppNext)
     {
         if (p->hLog == hLog)
             return p;
@@ -64,7 +64,7 @@ static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hL
         *pIndex = (unsigned long)-1;
         return 0;
     }
-    T0041FA40* pLog = (T0041FA40*)VirtualAlloc(0, sizeof(T0041FA40), 0x1000, 4);
+    D2SLogStrc* pLog = (D2SLogStrc*)VirtualAlloc(0, sizeof(D2SLogStrc), 0x1000, 4);
     *ppNext = pLog;
     if (!pLog)
     {
@@ -81,9 +81,9 @@ static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hL
 }
 
 // 0x0041FB40
-static __declspec(noinline) void sub_0041FB40_AppendIndent(T0041FA40* pLog)
+static __declspec(noinline) void sub_0041FB40_AppendIndent(D2SLogStrc* pLog)
 {
-    int nIndent = pLog->nIndent;
+    int nIndent = pLog->indent;
     if (nIndent > 0)
     {
         if (nIndent >= 0x80)
@@ -95,14 +95,14 @@ static __declspec(noinline) void sub_0041FB40_AppendIndent(T0041FA40* pLog)
 }
 
 // 0x0041FB80
-static __declspec(noinline) void sub_0041FB80_AppendNewline(T0041FA40* pLog)
+static __declspec(noinline) void sub_0041FB80_AppendNewline(D2SLogStrc* pLog)
 {
     SMemCopy(pLog->szBuffer + pLog->nUsed, gszSLogNewline_006CFF08, 3);
     pLog->nUsed += 2;
 }
 
 // 0x0041FBA0
-static void __stdcall sub_0041FBA0_AppendTimestamp(int bText, T0041FA40* pLog)
+static void __stdcall sub_0041FBA0_AppendTimestamp(int bText, D2SLogStrc* pLog)
 {
     if (!pLog->f_18)
         return;
@@ -129,10 +129,10 @@ static void __stdcall sub_0041FBA0_AppendTimestamp(int bText, T0041FA40* pLog)
 }
 
 // 0x0041FC80
-static void sub_0041FC80_UnlinkLog(T0041FA40* pLog, unsigned long nIndex)
+static void sub_0041FC80_UnlinkLog(D2SLogStrc* pLog, unsigned long nIndex)
 {
-    T0041FA40** ppNext = &gapSLogBuckets_00779298[nIndex];
-    for (T0041FA40* p = *ppNext; p; p = *ppNext)
+    D2SLogStrc** ppNext = &gapSLogBuckets_00779298[nIndex];
+    for (D2SLogStrc* p = *ppNext; p; p = *ppNext)
     {
         if (p == pLog)
         {
@@ -155,7 +155,7 @@ static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex)
 void __stdcall SLogClose(void* hLog)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         sub_0041FA40_FlushLog(pLog);
@@ -183,7 +183,7 @@ int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** p
     void* hLog = (void*)++gnSLogLastHandle_00779230;
     *phLog = hLog;
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 1, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 1, hLog);
     if (!pLog)
     {
         *phLog = 0;
@@ -191,7 +191,7 @@ int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** p
     }
     pLog->hFile = hFile;
     pLog->f_18 = 1;
-    pLog->nIndent = 0;
+    pLog->indent = 0;
     sub_0041FCE0_UnlockLog(nIndex);
     return 1;
 }
@@ -200,7 +200,7 @@ int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** p
 void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     for (unsigned long nOffset = 0; nOffset < nSize; nOffset += 8)
@@ -251,7 +251,7 @@ void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
 void __stdcall SLogFlush(void* hLog)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         sub_0041FA40_FlushLog(pLog);
@@ -265,7 +265,7 @@ void __cdecl SLogFlushAll()
     for (unsigned int i = 0; i < 4; ++i)
     {
         EnterCriticalSection(&gaSLogLocks_00779238[i]);
-        for (T0041FA40* p = gapSLogBuckets_00779298[i]; p; p = p->pNext)
+        for (D2SLogStrc* p = gapSLogBuckets_00779298[i]; p; p = p->pNext)
             sub_0041FA40_FlushLog(p);
         LeaveCriticalSection(&gaSLogLocks_00779238[i]);
     }
@@ -275,7 +275,7 @@ void __cdecl SLogFlushAll()
 void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     pLog->nUsed = pLog->nPended;
@@ -292,11 +292,11 @@ void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
 int __stdcall SLogSetAbsIndent(void* hLog, int nIndent)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return 0;
-    int nOld = pLog->nIndent;
-    pLog->nIndent = nIndent;
+    int nOld = pLog->indent;
+    pLog->indent = nIndent;
     sub_0041FCE0_UnlockLog(nIndex);
     return nOld;
 }
@@ -305,11 +305,11 @@ int __stdcall SLogSetAbsIndent(void* hLog, int nIndent)
 int __stdcall SLogSetIndent(void* hLog, int nDelta)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return 0;
-    int nOld = pLog->nIndent;
-    pLog->nIndent = nOld + nDelta;
+    int nOld = pLog->indent;
+    pLog->indent = nOld + nDelta;
     sub_0041FCE0_UnlockLog(nIndex);
     return nOld;
 }
@@ -318,7 +318,7 @@ int __stdcall SLogSetIndent(void* hLog, int nDelta)
 void __stdcall SLogSetTimestamp(void* hLog, int bTimestamp)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         pLog->f_18 = bTimestamp;
@@ -330,7 +330,7 @@ void __stdcall SLogSetTimestamp(void* hLog, int bTimestamp)
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
+    D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     sub_0041FBA0_AppendTimestamp(1, pLog);

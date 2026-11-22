@@ -23,7 +23,7 @@ void __stdcall SLogClose(void* hLog);                                           
 void __cdecl SLogFlushAll();                                                                                // 0x0041FFF0
 void __stdcall SErrReportResourceLeak(const char* szName);                                           // 0x0041D1E0
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4];                                                       // 0x00779238
-extern T0041FA40* gapSLogBuckets_00779298[4];                                                              // 0x00779298
+extern D2SLogStrc* gapSLogBuckets_00779298[4];                                                              // 0x00779298
 
 
 typedef int (__stdcall* SMSGIDLEPROC)(int nCount);

@@ -27,9 +27,9 @@ struct D2SMemBlockSigStrc
 
 struct D2SMemBlockStrc
 {
-    unsigned short wSize; // 0x00
+    unsigned short bytes; // 0x00
     unsigned char nPadding; // 0x02
-    unsigned char nFlags; // 0x03
+    unsigned char flags; // 0x03
     union
     {
         D2SMemBlockSigStrc tSig; // 0x04

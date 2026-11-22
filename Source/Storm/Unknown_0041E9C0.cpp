@@ -17,7 +17,7 @@ class CHuffmanDecoder;
 struct D2StormHuffInputStrc;
 struct CHuffman;
 struct D2CriticalSectionStrc;
-struct T0041FA40;
+struct D2SLogStrc;
 struct D2StormListStrc;
 struct D2Storm4167B0Strc;
 struct D2Storm4168F0Strc;

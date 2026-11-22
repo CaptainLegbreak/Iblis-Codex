@@ -3,7 +3,7 @@
 #include "D2StormTypes.h"
 
 struct D2CriticalSectionStrc;
-struct D2SMemHeapInfoStrc;
+struct SMEMHEAPDETAILS;
 
 enum D2SMemBlockFlags
 {
@@ -58,7 +58,7 @@ static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile,
 
 typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
 
-int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, D2SMemHeapInfoStrc* pInfo); // 0x004124B0
+int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, SMEMHEAPDETAILS* pInfo); // 0x004124B0
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned int nCount);
 
 extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22

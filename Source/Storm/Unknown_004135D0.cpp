@@ -3,8 +3,8 @@
 #include "D2StormTypes.h"
 
 struct D2CriticalSectionStrc;
-struct D2SMemBlockInfoStrc;
-struct D2SMemHeapInfoStrc;
+struct SMEMBLOCKDETAILS;
+struct SMEMHEAPDETAILS;
 
 enum D2SMemBlockFlags
 {
@@ -17,9 +17,9 @@ enum D2SMemBlockFlags
     SMEM_BLOCK_KEEP = 0x80,
 };
 
-struct D2SMemBlockInfoStrc
+struct SMEMBLOCKDETAILS
 {
-    unsigned int dwSize;
+    unsigned int size;
     void* pMemory;
     int bAllocated;
     int bValid;
