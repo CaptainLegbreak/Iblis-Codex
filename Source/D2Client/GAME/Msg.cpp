@@ -40,7 +40,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
+void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 
 extern char gszCharName_007A05C4[]; // 0x007A05C4
 
@@ -129,7 +129,7 @@ void __fastcall MSG_UploadSaveFile(int bAnimate)
     unsigned char* pBuffer = MSG_ReadSaveFile(&nFileSize);
     D2_ASSERT(pBuffer, 0x232);
     if (bAnimate)
-        sub_00478160_ShowProgressSteps(0, 0);
+        CHARSEL_ShowProgressSteps(0, 0);
     unsigned char* pRead = pBuffer;
     const int nChunks = nFileSize / 0xFF;
     for (int i = 0; i < nChunks; ++i)
@@ -144,7 +144,7 @@ void __fastcall MSG_UploadSaveFile(int bAnimate)
         gnSentBytes_007A6AF8 += 0xFF + 7;
         gnSentPackets_007A6B00 += 1;
         if (bAnimate)
-            sub_00478160_ShowProgressSteps(i, nChunks);
+            CHARSEL_ShowProgressSteps(i, nChunks);
     }
     const int nRemain = nFileSize - nChunks * 0xFF;
     tPacket.nHeader = 0x6C;

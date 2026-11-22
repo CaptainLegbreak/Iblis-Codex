@@ -205,7 +205,7 @@ int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);               
 
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);                                         // 0x004FB6A0
 
-void __fastcall sub_00507EE0(void* pArg);                                                                   // 0x00507EE0
+void __fastcall SCROLLBAR_Destroy(void* pArg);                                                                   // 0x00507EE0
 
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -428,7 +428,7 @@ int __fastcall D2Win_10043_TEXTBOX_Destroy(D2WinTextBoxStrc* ptTextData)
     D2_ASSERT(ptTextData, 0xCB);
     D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xCC);
     if (ptTextData->pScrollBar)
-        sub_00507EE0(ptTextData->pScrollBar);
+        SCROLLBAR_Destroy(ptTextData->pScrollBar);
     sub_004FB6A0_ClearText(&ptTextData->controlHeader);
     return CONTROL_RemoveFromList(&ptTextData->controlHeader);
 }

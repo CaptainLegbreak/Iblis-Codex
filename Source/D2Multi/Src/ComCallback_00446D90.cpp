@@ -28,9 +28,9 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 int __fastcall sub_0043E630_ShowChannelText(Unicode* pText);                                                // 0x0043E630
 
-void __fastcall sub_00447400_SetNamedValue(const char* szName, const char* szValue);                        // 0x00447400
+void __fastcall COMCALLBACK_SetNamedValue(const char* szName, const char* szValue);                        // 0x00447400
 
-void __fastcall sub_00448BD0_UpdateScroll(int nDelta);                                                      // 0x00448BD0
+void __fastcall CHATDLG_UpdateScroll(int nDelta);                                                      // 0x00448BD0
 
 void __stdcall sub_00504270_SetCompositeText(D2CompositeStrc* pComposite, Unicode* wszName, Unicode* wszAccount, Unicode* wszS97, Unicode* wszRealm, int nLevel, unsigned int dwCode); // 0x00504270
 
@@ -44,9 +44,9 @@ extern int gnChannelLines_00798F40;                                             
 
 extern int gbRandSeeded_00798F54;                                                                           // 0x00798F54
 
-static unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat);
+static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat); // 0x00446D90
 
-static unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat);
+static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat); // 0x00446D90
 
 struct D2LaunchMsgStrc;
 
@@ -93,9 +93,9 @@ extern "C" const char szLaunchFile_006D5810[]; // 0x006D5810
 
 extern "C" const char gszChannelCountFormat_006D5994[]; // 0x006D5994
 
-static void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser);
+static void COMCALLBACK_UpdateUserText(D2MultiChannelUserStrc* pUser); // 0x004471B0
 
-static void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat);
+static void __fastcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat); // 0x00447FD0
 
 struct D2ChannelEntryStrc;
 
@@ -103,9 +103,9 @@ struct D2LaunchCharInfoStrc;
 
 int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
 
-void __stdcall sub_00446A90_RemoveTableString(Unicode* pText); // 0x00446A90
+void __stdcall CHATDLG_RemoveTableString(Unicode* pText); // 0x00446A90
 
-void __cdecl sub_00448050_ClearSelectedUser(); // 0x00448050
+void __cdecl COMCALLBACK_ClearSelectedUser(); // 0x00448050
 
 D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); // 0x00449050
 
@@ -207,19 +207,19 @@ public:
 };
 
 
-void __fastcall sub_00447940_PrependNumberText(Unicode* pText, int nValue);                                 // 0x00447940
+void __fastcall COMCALLBACK_PrependNumberText(Unicode* pText, int nValue);                                 // 0x00447940
 
-void __fastcall sub_00447870_AppendNumberText(Unicode* pText, int nValue);                                  // 0x00447870
+void __fastcall COMCALLBACK_AppendNumberText(Unicode* pText, int nValue);                                  // 0x00447870
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 
-void __fastcall sub_00447560_SplitName(const char* szName, char* szTitle, char* szOut);                     // 0x00447560
+void __fastcall COMCALLBACK_SplitName(const char* szName, char* szTitle, char* szOut);                     // 0x00447560
 
-static void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser);
+static void COMCALLBACK_UpdateUserText(D2MultiChannelUserStrc* pUser); // 0x004471B0
 
-static void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat);
+static void __fastcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat); // 0x00447FD0
 
-int __fastcall sub_004480D0_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat);
+int __fastcall COMCALLBACK_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat); // 0x004480D0
 
 D2ChannelEntryStrc* gpChannelEntries_00798F38; // 0x00798F38
 
@@ -247,7 +247,7 @@ static int CHANNEL_IsMaleClass(int nClass)
 }
 
 // 0x00446D90
-static unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat)
+static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat)
 {
     unsigned char nResult = 7;
     int bValid = 0;
@@ -484,7 +484,7 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
         szNewName = !szNewName ? szName : szNewName + 1;
         if (!strcmp(szUserName, szNewName))
         {
-            sub_00447FD0_UpdateUser(pUser, nFlags, szName, pStat);
+            COMCALLBACK_UpdateUser(pUser, nFlags, szName, pStat);
             return pUser;
         }
     }
@@ -494,7 +494,7 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
     strcpy(pUser->szName, szName);
     pUser->dwFlags = nFlags;
 
-    const unsigned char nResult = sub_00446D90_ParseStatString(pUser, nFlags, pStat);
+    const unsigned char nResult = COMCALLBACK_ParseStatString(pUser, nFlags, pStat);
     int nMode = 5;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && !(pUser->dwFlags & 2) && (FOG_IsExpansion() || nResult < 5))
@@ -534,7 +534,7 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
 
     const int nFrames = D2Win_10169(pUser->pComposite) << 8;
     sub_00505260(pUser->pComposite, rand() % nFrames);
-    sub_004471B0_UpdateUserText(pUser);
+    COMCALLBACK_UpdateUserText(pUser);
 
     if (gpChannelUsers_00798F34)
     {
@@ -550,7 +550,7 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
         gpChannelUsers_00798F34 = pUser;
     }
 
-    sub_00447400_SetNamedValue(pUser->szName, pUser->szText);
+    COMCALLBACK_SetNamedValue(pUser->szName, pUser->szText);
 
     char szText[0x100];
     ++gnChannelLines_00798F40;
@@ -559,14 +559,14 @@ D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, cons
     Unicode wszText[0x240];
     Unicode::win2Unicode(wszText, szText, 0x240);
     sub_0043E630_ShowChannelText(wszText);
-    sub_00448BD0_UpdateScroll(0);
-    sub_00447BB0_Refresh();
+    CHATDLG_UpdateScroll(0);
+    COMCALLBACK_RefreshChannelList();
     return pUser;
 }
 
 
 // 0x004471B0
-static void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser)
+static void COMCALLBACK_UpdateUserText(D2MultiChannelUserStrc* pUser)
 {
     Unicode wszName[51];
     Unicode wszAccount[17];
@@ -659,7 +659,7 @@ static int sub_00446B70_PlayVideoMessage(D2LaunchMsgStrc* pMsg)
 }
 
 // 0x00447740
-static int sub_00447740_DispatchMessage(D2LaunchMsgStrc* pMsg)
+static int COMCALLBACK_DispatchMessage(D2LaunchMsgStrc* pMsg)
 {
     int nArg = pMsg->nArg;
     char* pArg = pMsg->szName;
@@ -680,7 +680,7 @@ static int sub_00447740_DispatchMessage(D2LaunchMsgStrc* pMsg)
 }
 
 // 0x00447A10
-int __cdecl sub_00447A10_Pump()
+int __cdecl COMCALLBACK_PumpMessages()
 {
     int nType;
     D2LaunchMsgStrc tMsg;
@@ -690,7 +690,7 @@ int __cdecl sub_00447A10_Pump()
     switch (nType)
     {
     case 0:
-        sub_00447740_DispatchMessage(&tMsg);
+        COMCALLBACK_DispatchMessage(&tMsg);
         break;
     case 2:
         SStrCopy(gszText_00798CF8, (char*)&tMsg, 0x32);
@@ -703,11 +703,11 @@ int __cdecl sub_00447A10_Pump()
 }
 
 // 0x00447AB0
-static int __stdcall sub_00447AB0_AddChatLine(const char* szText, int nColor)
+static int __stdcall COMCALLBACK_AddChatLine(const char* szText, int nColor)
 {
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
+    CHATDLG_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, nColor);
     return 1;
 }
@@ -745,7 +745,7 @@ static inline int CHAN_GetLevelClass(D2ChatChannelMemberStrc* pUser)
 }
 
 // 0x00447BB0
-void __cdecl sub_00447BB0_Refresh()
+void __cdecl COMCALLBACK_RefreshChannelList()
 {
     int n;
     if (gpChannelUsers_00798F34)
@@ -852,10 +852,10 @@ void __cdecl sub_00447BB0_Refresh()
 }
 
 // 0x00447FD0
-static void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
+static void __fastcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
 {
     pUser->dwFlags = nFlags;
-    const unsigned char nResult = sub_00446D90_ParseStatString(pUser, nFlags, pStat);
+    const unsigned char nResult = COMCALLBACK_ParseStatString(pUser, nFlags, pStat);
     SStrCopy(pUser->szName, szName, 0x7FFFFFFF);
 
     int nMode = 5;
@@ -865,21 +865,21 @@ static void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, un
     }
 
     sub_00504F80_UpdateComposite(pUser->pComposite, nResult, nMode, pUser->aComponents, pUser->aColors);
-    sub_004471B0_UpdateUserText(pUser);
-    sub_00447BB0_Refresh();
+    COMCALLBACK_UpdateUserText(pUser);
+    COMCALLBACK_RefreshChannelList();
 }
 
 // calling-convention shim (not game code)
 void __fastcall Caller_00447FD0(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
 {
-    sub_00447FD0_UpdateUser(pUser, nFlags, szName, pStat);
+    COMCALLBACK_UpdateUser(pUser, nFlags, szName, pStat);
 }
 
 // 0x004495A0
-void __cdecl sub_004495A0_ClearChannel()
+void __cdecl COMCALLBACK_ClearChannel()
 {
     char szText[0x100];
-    sub_00448050_ClearSelectedUser();
+    COMCALLBACK_ClearSelectedUser();
     D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
     while (pUser)
     {
@@ -905,7 +905,7 @@ void __cdecl sub_004495A0_ClearChannel()
     sub_00526F20_ToUnicode(wszText, szText, 0x240);
     sub_0043E630_ShowChannelText(wszText);
     gnChannelScroll_00798F44 = 0;
-    sub_00448BD0_UpdateScroll(0);
+    CHATDLG_UpdateScroll(0);
 }
 
 static const char* SkipStarPrefix_Inl(const char* szName)
@@ -922,7 +922,8 @@ static const char* SkipStarPrefix_Inl(const char* szName)
     return szName;
 }
 
-static void __stdcall sub_00447B00_PrintChannelLine(const char* szText, int nPrefix, const char* szName, int nColor)
+// build: symbol ?COMCALLBACK_PrintChannelLine@* 0x00447B00
+static void __stdcall COMCALLBACK_PrintChannelLine(const char* szText, int nPrefix, const char* szName, int nColor)
 {
     Unicode wszName[0x240];
     Unicode wszText[0x240];
@@ -932,23 +933,24 @@ static void __stdcall sub_00447B00_PrintChannelLine(const char* szText, int nPre
         wszText[i].wChar = 0;
     Unicode::win2Unicode(wszName, szName, 0x240);
     Unicode::win2Unicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszName);
-    sub_00446A90_RemoveTableString(wszText);
-    sub_00447940_PrependNumberText(wszName, nPrefix);
-    sub_00447870_AppendNumberText(wszName, nColor);
+    CHATDLG_RemoveTableString(wszName);
+    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_PrependNumberText(wszName, nPrefix);
+    COMCALLBACK_AppendNumberText(wszName, nColor);
     sub_00526700(wszName, wszText);
     sub_0043E610_PrintText(wszName, nColor);
 }
 
-static void __stdcall sub_004481B0_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor)
+// build: symbol ?COMCALLBACK_PrintNamedLine@* 0x004481B0
+static void __stdcall COMCALLBACK_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor)
 {
     char szBuffer[0x100];
     sprintf(szBuffer, "<%s> ", szName);
-    sub_00447B00_PrintChannelLine(szText, nPrefix, szBuffer, nColor);
+    COMCALLBACK_PrintChannelLine(szText, nPrefix, szBuffer, nColor);
 }
 
 // 0x004493E0
-void __stdcall sub_004493E0_RemoveChannelUser(const char* szName)
+void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName)
 {
     D2MultiChannelUserStrc* pPrev = 0;
     D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
@@ -995,7 +997,7 @@ void __stdcall sub_004493E0_RemoveChannelUser(const char* szName)
             {
                 sprintf(szText, "%s has left the channel.", pUser->szName);
             }
-            sub_00447AB0_AddChatLine(szText, 5);
+            COMCALLBACK_AddChatLine(szText, 5);
         }
 
         if (pPrev)
@@ -1009,7 +1011,7 @@ void __stdcall sub_004493E0_RemoveChannelUser(const char* szName)
 
         if (gpSelectedChannelUser_00798F48 == pUser)
         {
-            sub_00448050_ClearSelectedUser();
+            COMCALLBACK_ClearSelectedUser();
         }
 
         sub_005041B0_Destroy(pUser->pComposite, 1);
@@ -1024,12 +1026,12 @@ void __stdcall sub_004493E0_RemoveChannelUser(const char* szName)
     Unicode wszCount[0x240];
     sub_00526F20_ToUnicode(wszCount, szCount, 0x240);
     sub_0043E630_ShowChannelText(wszCount);
-    sub_00448BD0_UpdateScroll(0);
-    sub_00447BB0_Refresh();
+    CHATDLG_UpdateScroll(0);
+    COMCALLBACK_RefreshChannelList();
 }
 
 // 0x004480D0
-int __fastcall sub_004480D0_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat)
+int __fastcall COMCALLBACK_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat)
 {
     D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
     if (gpChannelUsers_00798F34)
@@ -1038,7 +1040,7 @@ int __fastcall sub_004480D0_OnUserUpdate(unsigned int nFlags, int nUnused, const
         {
             if (!strcmp(pUser->szName, szName))
             {
-                sub_00447FD0_UpdateUser(pUser, nFlags, szName, pStat);
+                COMCALLBACK_UpdateUser(pUser, nFlags, szName, pStat);
                 return 1;
             }
             pUser = pUser->pNext;
@@ -1050,7 +1052,7 @@ int __fastcall sub_004480D0_OnUserUpdate(unsigned int nFlags, int nUnused, const
 }
 
 // 0x004481F0
-void __fastcall sub_004481F0_PrintOwnLine(const char* szText)
+void __fastcall COMCALLBACK_PrintOwnLine(const char* szText)
 {
     char szName[0x100];
     char szOut[0x100];
@@ -1079,7 +1081,7 @@ void __fastcall sub_004481F0_PrintOwnLine(const char* szText)
         }
         while (pUser);
     }
-    sub_00447560_SplitName(szName, szTitle, szPlain);
+    COMCALLBACK_SplitName(szName, szTitle, szPlain);
     if (strlen(szPlain))
     {
         if (strlen(szTitle))
@@ -1091,11 +1093,11 @@ void __fastcall sub_004481F0_PrintOwnLine(const char* szText)
     {
         sprintf(szOut, "<%s> ", szName);
     }
-    sub_00447B00_PrintChannelLine(szText, nPrefix, szOut, nColor);
+    COMCALLBACK_PrintChannelLine(szText, nPrefix, szOut, nColor);
 }
 
 // 0x00449350
-static void sub_00449350_ShowUserJoined(const char* szName, int nLength, int nA)
+static void COMCALLBACK_ShowUserJoined(const char* szName, int nLength, int nA)
 {
     D2MultiChannelUserStrc* pUser = sub_00449050_AddEntry(szName, nLength, nA);
     if (!gbShowJoinLeave_0077BD54)
@@ -1112,24 +1114,24 @@ static void sub_00449350_ShowUserJoined(const char* szName, int nLength, int nA)
     {
         sprintf(szText, "%s has joined the channel.", szName);
     }
-    sub_00447AB0_AddChatLine(szText, 5);
+    COMCALLBACK_AddChatLine(szText, 5);
 }
 
 // 0x004493C0
-int __fastcall sub_004493C0_OnUserJoin(int nA, int nB, const char* szText, int nLength)
+int __fastcall COMCALLBACK_OnUserJoin(int nA, int nB, const char* szText, int nLength)
 {
-    sub_00449350_ShowUserJoined(szText, nLength, nA);
+    COMCALLBACK_ShowUserJoined(szText, nLength, nA);
     return 1;
 }
 
 // 0x004496B0
-int __fastcall sub_004496B0_OnJoinChannel(int nA, int nB, int nC, const char* szChannel)
+int __fastcall COMCALLBACK_OnJoinChannel(int nA, int nB, int nC, const char* szChannel)
 {
     char szText[500];
     sprintf(szText, "You have joined channel: %s", szChannel);
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    sub_00446A90_RemoveTableString(wszText);
+    CHATDLG_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, 5);
     strcpy(gData_00798D30, szChannel);
     strcpy(gpCharInfo_0077BBD8->szRealm0x361, gData_00798D30);
@@ -1143,10 +1145,10 @@ int __fastcall sub_004496B0_OnJoinChannel(int nA, int nB, int nC, const char* sz
         CONTROL_SetEnabled(gapChatButtons_0077AD78[i], 1);
     }
     sub_004F9740_SetControlState(gpChatControl_0077BC44, 0);
-    sub_004495A0_ClearChannel();
+    COMCALLBACK_ClearChannel();
     return 1;
 }
 
-int __stdcall sub_00448370_OnChannelTalk(const char* szSender, const char* szMessage); // 0x00448370
+int __stdcall COMCALLBACK_OnChannelTalk(const char* szSender, const char* szMessage); // 0x00448370
 
 #include "gen/data/Source/D2Multi/Src/ComCallback_00446D90.inc"

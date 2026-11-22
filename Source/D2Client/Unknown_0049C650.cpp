@@ -3,7 +3,7 @@
 struct Archive;
 
 extern "C" const U16* __fastcall sub_00524A30_GetLocaleString(U16 id);
-extern "C" int __stdcall sub_0043A460_CreateNotice(const U16* title,const U16* text,U32 state,U8 selector);
+extern "C" int __stdcall CHARSEL_CreateNotice(const U16* title,const U16* text,U32 state,U8 selector); // 0x0043A460
 extern "C" void __fastcall sub_00478A00_CloseArchive(Archive* archive);
 extern "C" int __fastcall sub_00469D90_HasBinding(U32 action,U32 selector);
 extern "C" U16 __fastcall sub_00469AA0_GetBinding(U32 action,U32 selector);

@@ -60,7 +60,7 @@ struct D2DSPropertySet : D2DSUnknown
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" long __stdcall DirectSoundCreate(const D2DSGuid* pGuid, D2DSDirectSound** ppDS, D2DSUnknown* pOuter); // 0x006B1344
-void* __cdecl sub_004F59A0(); // 0x004F59A0
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __cdecl D2SOUND_ReleaseSoundObjects(); // 0x00513AF0
 int __fastcall sub_00513BC0_SetEaxRoomOff(int nEaxVersion); // 0x00513BC0
 const char* __fastcall D2SOUND_GetDirectSoundErrorString(long hResult); // 0x00513ED0
@@ -121,7 +121,7 @@ void __cdecl sub_005140D0_InitDirectSound()
         return;
     }
 
-    hResult = gpDirectSound_00881768->SetCooperativeLevel(sub_004F59A0(), 2);
+    hResult = gpDirectSound_00881768->SetCooperativeLevel(WINDOW_GetWindow(), 2);
     if (hResult < 0)
     {
         sub_00410610_WriteLogLine("DirectSound error: %s returned on SetCooperativeLevel", D2SOUND_GetDirectSoundErrorString(hResult));

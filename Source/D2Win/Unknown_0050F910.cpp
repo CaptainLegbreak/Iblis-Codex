@@ -10,7 +10,7 @@ struct D2DDrawSurfaceStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void __fastcall sub_00509460_GlideSelectTmuState(int nTmu); // 0x00509460
+void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
 void __fastcall sub_0050F0F0_TileCacheTouch(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F0F0
 short __fastcall sub_0050F2B0_TileCacheAdd(D2GlideTileCacheStrc* pCache); // 0x0050F2B0
 extern D2GrTexInfoStrc gGlideTileTexInfo_0072F6A8; // 0x0072F6A8
@@ -26,8 +26,8 @@ extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDra
 extern "C" __declspec(dllimport) int __stdcall BinkSetSoundSystem(void* pfOpen, unsigned long nParam); // 0x006CC5D4
 extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned long nParam); // 0x006CC5D8
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
-void __cdecl sub_0050FD10_GlideDrawVideoFrame(); // 0x0050FD10
-void __cdecl sub_005136F0_BlitBinkFrame(); // 0x005136F0
+void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
+void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern unsigned int gnGlideBinkY_00880C04; // 0x00880C04
@@ -99,7 +99,7 @@ void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile)
     }
 
     gpfGlideTexSource_0087EB98(gnGlideTileTmu_00880BF8, nTexAddress, 3, &gGlideTileTexInfo_0072F6A8);
-    sub_00509460_GlideSelectTmuState(gnGlideTileTmu_00880BF8);
+    GLIDE_SetTextureCombineMode(gnGlideTileTmu_00880BF8);
 }
 
 #include "gen/data/Source/D2Win/Unknown_0050F910.inc"
@@ -226,7 +226,7 @@ LABEL_FAIL:
             }
             else if (!BinkWait(gpGlideBink_00880C0C))
             {
-                sub_0050FD10_GlideDrawVideoFrame();
+                GLIDE_DrawVideoFrame();
             }
             else
             {
@@ -350,7 +350,7 @@ LABEL_FAIL:
             }
             else if (!BinkWait(gpDDrawBink_008816C0))
             {
-                sub_005136F0_BlitBinkFrame();
+                DDRAW_DrawVideoFrame();
             }
             else
             {

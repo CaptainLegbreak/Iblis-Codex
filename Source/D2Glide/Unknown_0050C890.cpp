@@ -7,7 +7,7 @@ extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4]; // 0x00880600
 typedef void (__stdcall* GLIDEDRAWVERTEXARRAYCONTIGUOUS)(int nMode, int nCount, void* pVertices, int nStride);
 
 extern GLIDEDRAWVERTEXARRAYCONTIGUOUS gpfGlideDrawVertexArrayContiguous_0087EAC4; // 0x0087EAC4
-void __fastcall sub_0050DBE0_GlideSetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity); // 0x0050DBE0
+void __fastcall GLIDE_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity); // 0x0050DBE0
 
 struct D2TileVertexStrc
 {
@@ -20,10 +20,10 @@ typedef void (__stdcall* GlideConstantColorFn)(unsigned int dwColor);
 
 typedef void (__stdcall* GlideDrawVertexArrayFn)(int nMode, int nCount, void** ppVertices);
 
-int __fastcall sub_0050FAD0_GlideBindFloorTexture(void* pTile); // 0x0050FAD0
-void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
-void __fastcall sub_00509500_GlideSetCombine(int nMode); // 0x00509500
-void __fastcall sub_005095D0_GlideSetDepth(int nMode); // 0x005095D0
+int __fastcall GLIDE_BindFloorTexture(void* pTile); // 0x0050FAD0
+void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
+void __fastcall GLIDE_SetTextureFilterMode(int nMode); // 0x005095D0
 extern GlideConstantColorFn gpfGlideConstantColor_0087EFA0; // 0x0087EFA0
 extern GlideDrawVertexArrayFn gpfGlideDrawVertexArray_0087EB18; // 0x0087EB18
 extern unsigned char* gpBlendTable_00880B5C; // 0x00880B5C
@@ -72,7 +72,7 @@ int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, i
             gaGlideTileQuad_00880600[2].y = (float)nBottom;
             gaGlideTileQuad_00880600[3].x = (float)nRight;
             gaGlideTileQuad_00880600[3].y = (float)nTop;
-            sub_0050DBE0_GlideSetVertexAmbientColor(gaGlideTileQuad_00880600, nShade);
+            GLIDE_SetVertexAmbientColor(gaGlideTileQuad_00880600, nShade);
             gaGlideTileQuad_00880600[1].dwColor = gaGlideTileQuad_00880600[0].dwColor;
             gaGlideTileQuad_00880600[2].dwColor = gaGlideTileQuad_00880600[0].dwColor;
             gaGlideTileQuad_00880600[3].dwColor = gaGlideTileQuad_00880600[0].dwColor;
@@ -94,23 +94,23 @@ static __forceinline void GLIDE_SetTileVertex(const D2TileVertexStrc* pSource, D
 // 0x0050D6A0
 void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexStrc* pVertices, int a3, int a4, int a5, int a6, unsigned char nAlpha, int a8, int bDepth)
 {
-    if (!sub_0050FAD0_GlideBindFloorTexture(pTile))
+    if (!GLIDE_BindFloorTexture(pTile))
         return;
 
-    sub_005094B0_GlideSetState(1);
+    GLIDE_SetColorCombineMode(1);
     if (nAlpha == 0xFF)
     {
-        sub_00509500_GlideSetCombine(1);
+        GLIDE_SetAlphaBlendMode(1);
     }
     else
     {
-        sub_00509500_GlideSetCombine(4);
+        GLIDE_SetAlphaBlendMode(4);
         gpfGlideConstantColor_0087EFA0(nAlpha);
     }
     if (bDepth)
-        sub_005095D0_GlideSetDepth(2);
+        GLIDE_SetTextureFilterMode(2);
     else
-        sub_005095D0_GlideSetDepth(1);
+        GLIDE_SetTextureFilterMode(1);
 
     if (gpGfxSettings_007C9148->bLowQuality)
     {

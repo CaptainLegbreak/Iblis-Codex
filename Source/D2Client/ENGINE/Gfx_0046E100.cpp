@@ -131,7 +131,7 @@ void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 int __fastcall sub_00478830_SendPacket66(const void* pData, int nSize); // 0x00478830
 int __fastcall sub_00478E70_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00478E70
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90

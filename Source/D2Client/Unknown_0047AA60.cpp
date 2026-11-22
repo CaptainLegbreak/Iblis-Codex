@@ -8,7 +8,7 @@ extern "C" T0046E1B0* __stdcall ImmGetContext(int hWnd);                        
 extern "C" int __stdcall ImmReleaseContext(int hWnd, T0046E1B0* hImc);                                         // 0x006B00B4
 extern "C" long __stdcall ImmGetCompositionStringA(T0046E1B0* hImc, unsigned long dwIndex, void* pBuf, unsigned long dwBufLen); // 0x006B00C0
 extern "C" int __stdcall ImmGetOpenStatus(T0046E1B0* hImc);                                                    // 0x006B00BA
-int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
+int __cdecl WINDOW_GetWindow();                                                                                // 0x004F59A0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
@@ -25,7 +25,7 @@ void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
 {
     char szComp[200];
     memset(szComp, 0, sizeof(szComp));
-    T0046E1B0* hImc = ImmGetContext(sub_004F59A0());
+    T0046E1B0* hImc = ImmGetContext(WINDOW_GetWindow());
     if (hImc)
     {
         Unicode wszText[32];
@@ -85,7 +85,7 @@ void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
                 }
             }
         }
-        ImmReleaseContext(sub_004F59A0(), hImc);
+        ImmReleaseContext(WINDOW_GetWindow(), hImc);
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;

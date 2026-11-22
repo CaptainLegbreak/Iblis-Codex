@@ -1,7 +1,7 @@
 #include "Bnclient.h"
 #include "D2BnCryptTypes.h"
 
-unsigned char* __fastcall sub_0052A120_ShaInterleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
+unsigned char* __fastcall SHA_Interleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
 void* __fastcall sub_0052A240_BigFromUnsigned(unsigned int nValue);                                         // 0x0052A240
 void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSize);                         // 0x0052A270
 unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize);            // 0x0052A2A0
@@ -57,7 +57,7 @@ int D2BigPairStrc::sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord,
         return 0;
     }
     const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
-    sub_0052A120_ShaInterleave(pRecord->abKey, abKey, nSize);
+    SHA_Interleave(pRecord->abKey, abKey, nSize);
     BNCLIENT_DeleteBigNum(hKeyRef);
     pState->sub_005282A0_ComputeProof(pRecord->szName, pSalt, pRecord->abPublic, pServerPublic, pRecord->abKey, pRecord->abProof);
     return 1;

@@ -13,8 +13,8 @@ extern D2StormArray408Strc gtNewsItems_00881C30; // 0x00881C30
 extern int (__fastcall* gpfnNewsMessage_00881C28)(unsigned,const char*); // 0x00881C28
 extern unsigned gnNewsFirstIndex_00881C40; // 0x00881C40
 extern unsigned gnNewsLastStamp_00881C44; // 0x00881C44
-int __cdecl sub_0051D370_SaveNews(); // 0x0051D370
-void __cdecl sub_0051D510_ReportNews(); // 0x0051D510
+int __cdecl BNNEWS_SaveNews(); // 0x0051D370
+void __cdecl BNNEWS_ReportNews(); // 0x0051D510
 // 0x0051D860
 int __fastcall sub_0051D860_ParseNewsInfo(const char* data)
 {
@@ -59,5 +59,5 @@ next:;
  unsigned index=0;
  while(index<gtNewsItems_00881C30.count && gtNewsItems_00881C30.data[index].stamp<first)++index;
  gnNewsFirstIndex_00881C40=index;
- sub_0051D370_SaveNews();sub_0051D510_ReportNews();return 1;
+ BNNEWS_SaveNews();BNNEWS_ReportNews();return 1;
 }

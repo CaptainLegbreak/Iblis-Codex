@@ -42,9 +42,9 @@ D2SoundRecordStrc* __fastcall sub_00481860(int nId); // 0x00481860
 float __fastcall SOUNDHDR_GetFalloffVolume(int nIndex); // 0x004825B0
 float __fastcall SOUNDHDR_GetFalloffRange(int nIndex); // 0x00482610
 float __stdcall GFXUTIL_VectorLength(float fX, float fY); // 0x004E4130
-int __cdecl sub_00514CC0(); // 0x00514CC0
-int __cdecl sub_00514CF0(); // 0x00514CF0
-int __cdecl sub_00514D20(); // 0x00514D20
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
+int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
+int __cdecl D2SOUND_GetPositionalBiasOption(); // 0x00514D20
 void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
 void __fastcall D2SOUND_SetSoundPan(D2SoundStrc* pSound, int nPan); // 0x00515890
 void __fastcall D2SOUND_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z); // 0x00515950
@@ -81,8 +81,8 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
 
     int nVolume = pObject->nVolume;
     if (pRecord->bMusic)
-        nVolume = sub_00514CF0() * nVolume / 100;
-    nVolume = sub_00514CC0() * nVolume / 100;
+        nVolume = D2SOUND_GetMusicVolumeOption() * nVolume / 100;
+    nVolume = D2SOUND_GetMasterVolumeOption() * nVolume / 100;
 
     if (gnSfxVolume_00727564 != 100)
     {
@@ -96,10 +96,11 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
 
     if (gdwGlobal_007C8C78)
     {
-        const int nMode = sub_00514C90();
-        if ((nMode == 1 || nMode == 2) && sub_00514D20() != 50)
+// build: symbol ?D2SOUND_GetSoundMixerOption@* 0x00514C90
+        const int nMode = D2SOUND_GetSoundMixerOption();
+        if ((nMode == 1 || nMode == 2) && D2SOUND_GetPositionalBiasOption() != 50)
         {
-            const int nLevel = (sub_00514D20() * 2 - 100) / 3;
+            const int nLevel = (D2SOUND_GetPositionalBiasOption() * 2 - 100) / 3;
             if (pSlot->pSound && nLevel > 0)
                 nVolume = (255 - nLevel * 255 / 50) * nVolume / 255;
             if ((pSlot->nType & 2) && nLevel < 0)

@@ -17,7 +17,7 @@ struct D2CelContext00512250Strc
 };
 
 int __stdcall sub_006001F0_Prepare(D2CelContext00512250Strc* pContext, int a2, int a3); // 0x006001F0
-int __fastcall sub_00511D70_GetCapsValue(int nArg, D2ClipRect00512250Strc** ppClip, int nY1, int nY2, int nFlags); // 0x00511D70
+int __fastcall DDRAW_GetDrawModePalette(int nArg, D2ClipRect00512250Strc** ppClip, int nY1, int nY2, int nFlags); // 0x00511D70
 void __stdcall D2CMP_CelDrawEx(D2CelContext00512250Strc* pContext, int nX, int nY, int nX1, int nX2, int a6, int a7, int a8, int a9, int a10); // 0x00601650
 int __stdcall sub_006018C0_CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
 int __stdcall sub_006018F0_CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
@@ -108,5 +108,5 @@ void __fastcall sub_00512250_DrawCel(D2CelContext00512250Strc* pContext, int nX,
     }
 
     D2CMP_CelDrawEx(pContext, nX, nY, tRect.nX1, tRect.nX2, gnValue_007C9154, gnValue_007C913C, gnValue_007C9138, 0,
-        sub_00511D70_GetCapsValue(nC, &pClip, tRect.nY1, tRect.nY2, 0));
+        DDRAW_GetDrawModePalette(nC, &pClip, tRect.nY1, tRect.nY2, 0));
 }

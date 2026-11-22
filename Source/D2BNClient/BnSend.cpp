@@ -146,25 +146,25 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize); //
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-int __fastcall sub_0051A8F0_HandleLogon(unsigned int dwExeVersion, unsigned int dwExeHash, const char* szExeInfo); // 0x0051A8F0
+int __fastcall BNSEND_SendReportVersion(unsigned int dwExeVersion, unsigned int dwExeHash, const char* szExeInfo); // 0x0051A8F0
 
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 
-int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
+int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 
 int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength); // 0x0051C760
 
 int __fastcall sub_0051E370_SetText(const char* szText, int nLength); // 0x0051E370
 
-void __fastcall sub_0051EA40_SetStatus(int nStatus); // 0x0051EA40
+void __fastcall BNDOWNLOAD_SetStatus(int nStatus); // 0x0051EA40
 
 int __fastcall sub_0051EA80_SetName(const char* szName); // 0x0051EA80
 
-int __cdecl sub_0051EAA0_HasName(); // 0x0051EAA0
+int __cdecl BNDOWNLOAD_HasArchiveName(); // 0x0051EAA0
 
 int __fastcall sub_0051E6D0_ParseLogon(int* pArg1, int* pArg2, char* szText); // 0x0051E6D0
 
-int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
+int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
 
 extern "C" const char szEmpty_006DEF80[]; // 0x006DEF80
 
@@ -213,7 +213,7 @@ struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
 
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
 
-extern "C" int __fastcall sub_00520C20_GetSlotB(unsigned char nSlot); // 0x00520C20
+extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot); // 0x00520C20
 
 struct D2SetsTxt { char unk0x000[0x128]; };
 
@@ -358,29 +358,29 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pThreadAttri
 
 extern "C" int __cdecl memcmp(const void* pBuffer1, const void* pBuffer2, unsigned int nSize);
 
-void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
+void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...); // 0x00518D40
 
-int __cdecl sub_005193E0_LoadCache(); // 0x005193E0
+int __cdecl CACHE_LoadCache(); // 0x005193E0
 
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 
-int __fastcall sub_0051A7D0_ChangePasswordLegacy(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x0051A7D0
+int __fastcall BNSEND_SendChangePasswordLegacy(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x0051A7D0
 
 int __cdecl sub_0051C470_CloseBNetConnection(); // 0x0051C470
 
 unsigned long __cdecl BattleConnectFastest(void* pParameter); // 0x0051D0A0
 
-void __cdecl sub_0051D510_ReportNews(); // 0x0051D510
+void __cdecl BNNEWS_ReportNews(); // 0x0051D510
 
-int __cdecl sub_0051DA30_LoadNews(); // 0x0051DA30
+int __cdecl BNNEWS_LoadNews(); // 0x0051DA30
 
-int __fastcall sub_0051ED00_ApplyPatches(int* pResult); // 0x0051ED00
+int __fastcall BNDOWNLOAD_ApplyPatches(int* pResult); // 0x0051ED00
 
-int __cdecl sub_00520B30_ResetReplies(); // 0x00520B30
+int __cdecl BNDOWNLOAD_ResetReplies(); // 0x00520B30
 
 void __cdecl sub_00521B50_ReseedLogin(); // 0x00521B50
 
-int __fastcall sub_005221F0_ChangePasswordProof(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x005221F0
+int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x005221F0
 
 void __fastcall CLIENT_ReadPacketFromBuffer(D2PacketBufferStrc* pBuffer, int nBufferSize); // 0x0052AEB0
 
@@ -593,9 +593,9 @@ int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength); // 0x005
 
 int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2);   // 0x0051DDD0
 
-void __cdecl sub_005234D0_LockCDKeys();                                                                     // 0x005234D0
+void __cdecl GRID_LockCDKeys();                                                                     // 0x005234D0
 
-void __cdecl sub_005239C0_UnlockCDKeys();                                                                   // 0x005239C0
+void __cdecl GRID_UnlockCDKeys();                                                                   // 0x005239C0
 
 void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField);                                                 // 0x00525260
 
@@ -615,7 +615,7 @@ class BNGatewayAccess;
 
 struct D2BnPacketHeaderStrc;
 
-static long sub_0051BEB0_ExchangeConnected(long nComparand, long nExchange);
+static long BNSEND_ExchangeConnected(long nComparand, long nExchange); // 0x0051BEB0
 
 extern "C" int __cdecl isdigit(int c); // 0x00686F0F
 
@@ -627,21 +627,21 @@ extern "C" int __cdecl rand(); // 0x00687461
 
 extern "C" const char gszSemicolon_006CDA54[]; // 0x006CDA54
 
-int __fastcall sub_005202F0_QueueText(int nId, const char* szText); // 0x005202F0
+int __fastcall BNMESSQUEUE_QueueText(int nId, const char* szText); // 0x005202F0
 
-int __fastcall sub_0051A660_SendLogonResponse2(const char* szName, const char* szPassword); // 0x0051A660
+int __fastcall BNSEND_SendLogonResponseEx(const char* szName, const char* szPassword); // 0x0051A660
 
-int __fastcall sub_0051A740_SendCreateAccount2(const char* szName, const char* szPassword); // 0x0051A740
+int __fastcall BNSEND_SendCreateAccountEx(const char* szName, const char* szPassword); // 0x0051A740
 
-int __cdecl sub_0051AF20_SendPacket10(); // 0x0051AF20
+int __cdecl BNSEND_SendLeaveChat(); // 0x0051AF20
 
 int __cdecl BNCLIENT_GetCreateAccountResult(); // 0x00520B10
 
 int __cdecl BNCLIENT_GetChangePasswordResult(); // 0x00520B20
 
-int __fastcall sub_00521F60_SendLogon(const char* szName, const char* szPassword); // 0x00521F60
+int __fastcall BNSEND_SendAccountLogon(const char* szName, const char* szPassword); // 0x00521F60
 
-int __fastcall sub_00522130_SendCreateAccount(const char* szName, const char* szPassword); // 0x00522130
+int __fastcall BNSEND_SendAccountCreate(const char* szName, const char* szPassword); // 0x00522130
 
 struct D2BnPacketHeaderStrc
 {
@@ -670,13 +670,13 @@ extern int gnBnState_0088201C; // 0x0088201C
 
 int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
 
-void __fastcall sub_0051C0E0_ResolveHost(char* szResult, const char* szHost); // 0x0051C0E0
+void __fastcall BNDOWNLOAD_ResolveHost(char* szResult, const char* szHost); // 0x0051C0E0
 
-void __fastcall sub_0051C190(char* szText, int nSize); // 0x0051C190
+void __fastcall BNSEND_GetServerAddress(char* szText, int nSize); // 0x0051C190
 
 int __stdcall sFastestConnect(char* szServerList); // 0x0051CA90
 
-int __fastcall sub_00520520_SetState(int nState); // 0x00520520
+int __fastcall BNMESSQUEUE_SetState(int nState); // 0x00520520
 
 int gnClientToken_008818C4; // 0x008818C4
 
@@ -913,7 +913,8 @@ int __cdecl sub_004B8A10()
     return 0;
 }
 
-void __cdecl sub_005125B0_DDrawFreeDebugFont()
+// build: symbol ?DDRAW_FreeDebugFont@* 0x005125B0
+void __cdecl DDRAW_FreeDebugFont()
 {
     if (gpDDrawDebugFontGlyphs_008815AC)
     {
@@ -923,7 +924,7 @@ void __cdecl sub_005125B0_DDrawFreeDebugFont()
 }
 
 // 0x0051A490
-int __cdecl sub_0051A490_SendRegistration()
+int __cdecl BNSEND_SendClientId()
 {
     D2BnRegistrationPacketStrc tPacket;
     SRegLoadValue(szConfiguration_006DEC7C, "Registration Version", 2, &tPacket.nRegistrationVersion);
@@ -932,12 +933,12 @@ int __cdecl sub_0051A490_SendRegistration()
     SRegLoadValue(szConfiguration_006DEC7C, "Client Token", 2, &tPacket.f_10);
     tPacket.nLead = 1;
     tPacket.szText[1] = tPacket.szText[0] = 0;
-    sub_0051C5C0_SendPacket(0x1E, &tPacket, 0x16);
+    BNSEND_SendPacket(0x1E, &tPacket, 0x16);
     return 1;
 }
 
 // 0x0051A580
-int __fastcall sub_0051A580_SendLogonResponse(const char* szName, const char* szPassword)
+int __fastcall BNSEND_SendLogonResponse(const char* szName, const char* szPassword)
 {
     D2BnLogonResponsePacketStrc tPacket;
     D2BnHashInputStrc tInput;
@@ -952,12 +953,12 @@ int __fastcall sub_0051A580_SendLogonResponse(const char* szName, const char* sz
     tPacket.f_0 = tInput.f_0;
     tPacket.f_4 = tInput.f_4;
     sub_005209D0_HashData(tPacket.abProof, &tInput, sizeof(tInput));
-    sub_0051C5C0_SendPacket(0x29, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
+    BNSEND_SendPacket(0x29, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
     return 1;
 }
 
 // 0x0051A660
-int __fastcall sub_0051A660_SendLogonResponse2(const char* szName, const char* szPassword)
+int __fastcall BNSEND_SendLogonResponseEx(const char* szName, const char* szPassword)
 {
     D2BnLogonResponsePacketStrc tPacket;
     D2BnHashInputStrc tInput;
@@ -972,12 +973,12 @@ int __fastcall sub_0051A660_SendLogonResponse2(const char* szName, const char* s
     tPacket.f_0 = tInput.f_0;
     tPacket.f_4 = tInput.f_4;
     sub_005209D0_HashData(tPacket.abProof, &tInput, sizeof(tInput));
-    sub_0051C5C0_SendPacket(0x3A, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
+    BNSEND_SendPacket(0x3A, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
     return 1;
 }
 
 // 0x0051A740
-int __fastcall sub_0051A740_SendCreateAccount2(const char* szName, const char* szPassword)
+int __fastcall BNSEND_SendCreateAccountEx(const char* szName, const char* szPassword)
 {
     D2BnCreateAccountPacketStrc tPacket;
     char szLower[0x100];
@@ -985,12 +986,12 @@ int __fastcall sub_0051A740_SendCreateAccount2(const char* szName, const char* s
     unsigned int nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
     sub_005209D0_HashData(tPacket.f_0, szLower, nLength);
-    sub_0051C5C0_SendPacket(0x3D, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x15);
+    BNSEND_SendPacket(0x3D, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x15);
     return 1;
 }
 
 // 0x0051A7D0
-int __fastcall sub_0051A7D0_ChangePasswordLegacy(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
+int __fastcall BNSEND_SendChangePasswordLegacy(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
 {
     D2BnChangePasswordPacketStrc tPacket;
     D2BnHashInputStrc tInput;
@@ -1008,12 +1009,12 @@ int __fastcall sub_0051A7D0_ChangePasswordLegacy(const char* szAccountName, cons
     tPacket.f_4 = tInput.f_4;
     sub_005209D0_HashData(tPacket.abOldProof, &tInput, sizeof(tInput));
     sub_005209D0_HashData(tPacket.abNewHash, szLower, nLength);
-    sub_0051C5C0_SendPacket(0x31, &tPacket, SStrCopy(tPacket.szName, szAccountName, 0x100) + 0x31);
+    BNSEND_SendPacket(0x31, &tPacket, SStrCopy(tPacket.szName, szAccountName, 0x100) + 0x31);
     return 1;
 }
 
 // 0x0051A8F0
-int __fastcall sub_0051A8F0_HandleLogon(unsigned int dwExeVersion, unsigned int dwExeHash, const char* szExeInfo)
+int __fastcall BNSEND_SendReportVersion(unsigned int dwExeVersion, unsigned int dwExeHash, const char* szExeInfo)
 {
     D2BnReportVersionPacketStrc tPacket;
     memset(&tPacket, 0, sizeof(tPacket));
@@ -1023,11 +1024,11 @@ int __fastcall sub_0051A8F0_HandleLogon(unsigned int dwExeVersion, unsigned int 
     tPacket.f_C = dwExeVersion;
     tPacket.f_10 = dwExeHash;
     SStrCopy(tPacket.f_14, szExeInfo, 0x100);
-    return sub_0051C5C0_SendPacket(7, &tPacket, strlen(tPacket.f_14) + 0x15) >= 0;
+    return BNSEND_SendPacket(7, &tPacket, strlen(tPacket.f_14) + 0x15) >= 0;
 }
 
 // 0x0051A9C0
-int __cdecl sub_0051A9C0_RequestLogon()
+int __cdecl BNSEND_SendStartVersioning()
 {
     sub_00520C00_ClearReply(7);
     sub_0051EA80_SetName(&gszEmptyAssertText);
@@ -1037,35 +1038,37 @@ int __cdecl sub_0051A9C0_RequestLogon()
     tRequest.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
     tRequest.dwVersion = 0x0E;
     sub_00520C00_ClearReply(6);
-    if (sub_0051C5C0_SendPacket(6, &tRequest, sizeof(tRequest)) < 0)
+    if (BNSEND_SendPacket(6, &tRequest, sizeof(tRequest)) < 0)
         return 0;
-    while (!sub_0051EAA0_HasName())
+    while (!BNDOWNLOAD_HasArchiveName())
     {
-        if (sub_00520BF0_IsReplyReceived(7))
+// build: symbol ?BNDOWNLOAD_IsReplyReceived@* 0x00520BF0
+        if (BNDOWNLOAD_IsReplyReceived(7))
             break;
         if (sub_00520AE0())
             return 0;
         Sleep(10);
     }
-    sub_0051EA40_SetStatus(0x66);
-    if (sub_00520BF0_IsReplyReceived(7))
+    BNDOWNLOAD_SetStatus(0x66);
+    if (BNDOWNLOAD_IsReplyReceived(7))
         return 0;
     char szText[0x100] = { 0 };
     int nArg2;
     int nArg1;
     if (!sub_0051E6D0_ParseLogon(&nArg1, &nArg2, szText))
     {
-        sub_005204A0_SetError(1);
+        BNMESSQUEUE_SetError(1);
         return 0;
     }
     sub_0051E370_SetText(szEmpty_006DEF80, 2);
-    sub_0051A8F0_HandleLogon(nArg1, nArg2, szText);
-    sub_00520B70_WaitForReply(7);
+    BNSEND_SendReportVersion(nArg1, nArg2, szText);
+// build: symbol ?BNDOWNLOAD_WaitForReply@* 0x00520B70
+    BNDOWNLOAD_WaitForReply(7);
     return 0;
 }
 
 // 0x0051AB30
-void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize)
+void __fastcall BNSEND_SetAdUrlReply(const void* pData, unsigned int nSize)
 {
     if (gpAdUrlReply_008818DC)
         SMemFree(gpAdUrlReply_008818DC, ".\\BnSend.cpp", 0x188, 0);
@@ -1074,7 +1077,7 @@ void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize
 }
 
 // 0x0051AB80
-void __cdecl sub_0051AB80_FreeReplyBuffer()
+void __cdecl BNSEND_FreeRealmList()
 {
     if (gpReply_008818CC)
     {
@@ -1084,15 +1087,15 @@ void __cdecl sub_0051AB80_FreeReplyBuffer()
 }
 
 // 0x0051ABB0
-char* __fastcall sub_0051ABB0_QueryAdUrl(int nAdId)
+char* __fastcall BNSEND_QueryAdUrl(int nAdId)
 {
     sub_00520C00_ClearReply(0x41);
-    if (sub_0051C5C0_SendPacket(0x41, &nAdId, 4) < 0)
+    if (BNSEND_SendPacket(0x41, &nAdId, 4) < 0)
     {
         return 0;
     }
 
-    sub_00520B70_WaitForReply(0x41);
+    BNDOWNLOAD_WaitForReply(0x41);
     if (!gpAdUrlReply_008818DC)
     {
         return 0;
@@ -1102,19 +1105,19 @@ char* __fastcall sub_0051ABB0_QueryAdUrl(int nAdId)
 }
 
 // 0x0051ABF0
-void* __cdecl sub_0051ABF0_QueryRealms()
+void* __cdecl BNSEND_QueryRealms()
 {
     sub_00520C00_ClearReply(0x40);
-    if (sub_0051C5C0_SendPacket(0x40, 0, 0) < 0)
+    if (BNSEND_SendPacket(0x40, 0, 0) < 0)
     {
         return 0;
     }
-    sub_00520B70_WaitForReply(0x40);
+    BNDOWNLOAD_WaitForReply(0x40);
     return gpReply_008818CC;
 }
 
 // 0x0051AC20
-void __cdecl sub_0051AC20_FreeChannelList()
+void __cdecl BNSEND_FreeChannelList()
 {
     if (gnChannelList_008818C8)
     {
@@ -1124,7 +1127,7 @@ void __cdecl sub_0051AC20_FreeChannelList()
 }
 
 // 0x0051AC50
-int __fastcall sub_0051AC50_GetChannelList(int bNoExpansion)
+int __fastcall BNSEND_GetChannelList(int bNoExpansion)
 {
     unsigned int nFlags = 0;
     if (sub_0051BEC0_IsExpansion() && !bNoExpansion)
@@ -1133,13 +1136,13 @@ int __fastcall sub_0051AC50_GetChannelList(int bNoExpansion)
     }
 
     sub_00520C00_ClearReply(0x0B);
-    sub_0051C5C0_SendPacket(0x0B, &nFlags, 4);
-    sub_00520B70_WaitForReply(0x0B);
+    BNSEND_SendPacket(0x0B, &nFlags, 4);
+    BNDOWNLOAD_WaitForReply(0x0B);
     return (int)gnChannelList_008818C8;
 }
 
 // 0x0051ACA0
-int __fastcall sub_0051ACA0_SendString(const char* szChannel, int bFlag, int bNoExpansion)
+int __fastcall BNSEND_JoinChannel(const char* szChannel, int bFlag, int bNoExpansion)
 {
     D2BnJoinChannelPacketStrc tPacket;
     memset(&tPacket, 0, sizeof(tPacket));
@@ -1155,12 +1158,12 @@ int __fastcall sub_0051ACA0_SendString(const char* szChannel, int bFlag, int bNo
             tPacket.dwFlags |= 4;
         SStrCopy(tPacket.szChannel, "Diablo II", 0x100);
     }
-    sub_0051C5C0_SendPacket(0xC, &tPacket, strlen(tPacket.szChannel) + 5);
+    BNSEND_SendPacket(0xC, &tPacket, strlen(tPacket.szChannel) + 5);
     return 1;
 }
 
 // 0x0051AD70
-int __fastcall sub_0051AD70_EscapeBytes(unsigned char* data, unsigned int length)
+int __fastcall BNSEND_EscapeBytes(unsigned char* data, unsigned int length)
 {
  if(length>0) {
  unsigned int i=0;
@@ -1189,25 +1192,25 @@ int __fastcall sub_0051AD70_EscapeBytes(unsigned char* data, unsigned int length
 }
 
 // 0x0051AE10
-int __fastcall sub_0051AE10_Send(const char* szArg1, const char* szArg2, int nArg3)
+int __fastcall BNSEND_SendEnterChat(const char* szArg1, const char* szArg2, int nArg3)
 {
     int nProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
-    sub_0051C5C0_SendPacket(0x0B, &nProduct, 4);
+    BNSEND_SendPacket(0x0B, &nProduct, 4);
 
     char szBuffer[0x200] = { 0 };
     SStrCopy(szBuffer, szArg1, 0x100);
     SStrCopy(&szBuffer[strlen(szBuffer) + 1], szArg2, 0x100);
-    return sub_0051C5C0_SendPacket(0x0A, szBuffer, strlen(szBuffer) + strlen(&szBuffer[strlen(szBuffer) + 1]) + 2) >= 0;
+    return BNSEND_SendPacket(0x0A, szBuffer, strlen(szBuffer) + strlen(&szBuffer[strlen(szBuffer) + 1]) + 2) >= 0;
 }
 
 // 0x0051AF20
-int __cdecl sub_0051AF20_SendPacket10()
+int __cdecl BNSEND_SendLeaveChat()
 {
-    return sub_0051C5C0_SendPacket(0x10, 0, 0) >= 0;
+    return BNSEND_SendPacket(0x10, 0, 0) >= 0;
 }
 
 // 0x0051AF40
-int __fastcall sub_0051AF40_ChatCommand(const char* szText)
+int __fastcall BNSEND_ChatCommand(const char* szText)
 {
     if (!szText || !strlen(szText))
     {
@@ -1230,35 +1233,35 @@ int __fastcall sub_0051AF40_ChatCommand(const char* szText)
     }
 
     szBuffer[nLength] = 0;
-    return sub_0051C5C0_SendPacket(0x0E, szBuffer, nLength) >= 0;
+    return BNSEND_SendPacket(0x0E, szBuffer, nLength) >= 0;
 }
 
 // 0x0051B010
-int __cdecl sub_0051B010_CheckAd()
+int __cdecl BNSEND_CheckAd()
 {
     D2BnCheckAdPacketStrc tPacket;
     tPacket.dwPlatform = 0x49583836;
     tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
     tPacket.dwVersion = gnVersion_0088252C;
     tPacket.nTime = _time32(0);
-    sub_0051C5C0_SendPacket(0x15, &tPacket, sizeof(tPacket));
+    BNSEND_SendPacket(0x15, &tPacket, sizeof(tPacket));
     return 1;
 }
 
 // 0x0051B060
-int __cdecl sub_0051B060_SendVersion()
+int __cdecl BNSEND_SendDisplayAd()
 {
     D2BnVersionPacketStrc tPacket;
     tPacket.dwPlatform = 0x49583836;
     tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
     tPacket.dwVersion = gnVersion_0088252C;
     tPacket.szText[1] = tPacket.szText[0] = 0;
-    sub_0051C5C0_SendPacket(0x21, &tPacket, 0x0E);
+    BNSEND_SendPacket(0x21, &tPacket, 0x0E);
     return 1;
 }
 
 // 0x0051B0E0
-int __fastcall sub_0051B0E0_SendStartAdvex3(const char* szGameName, const char* szPassword, const char* szStatstring, int nGameType)
+int __fastcall BNSEND_SendStartAdvex(const char* szGameName, const char* szPassword, const char* szStatstring, int nGameType)
 {
     D2BnStartAdvexPacketStrc tPacket;
     tPacket.dwState = 0;
@@ -1279,34 +1282,34 @@ int __fastcall sub_0051B0E0_SendStartAdvex3(const char* szGameName, const char* 
     pText += SStrCopy(pText, szPassword, 0x100) + 1;
     unsigned int nLength = SStrCopy(pText, szStatstring, 0x100);
     nLength += (pText - tPacket.aData) + 0x15;
-    sub_0051C5C0_SendPacket(0x1C, &tPacket, nLength);
+    BNSEND_SendPacket(0x1C, &tPacket, nLength);
     return 1;
 }
 
 // 0x0051B1B0
-int __cdecl sub_0051B1B0_SendStopAdv()
+int __cdecl BNSEND_SendStopAdv()
 {
-    sub_0051C5C0_SendPacket(2, 0, 0);
+    BNSEND_SendPacket(2, 0, 0);
     return 1;
 }
 
 // 0x0051B1D0
-int __cdecl sub_0051B1D0_LeaveGame()
+int __cdecl BNSEND_LeaveGame()
 {
     IGNORELIST_GetOrCreateIgnoreList()->IGNORELIST_ClearAccountAliases();
-    sub_0051C5C0_SendPacket(0x1F, 0, 0);
+    BNSEND_SendPacket(0x1F, 0, 0);
     return 1;
 }
 
 // 0x0051B1F0
-int __fastcall sub_0051B1F0_GetStartAdvResult(int* pValue)
+int __fastcall BNSEND_GetStartAdvResult(int* pValue)
 {
-    *pValue = sub_00520C20_GetSlotB(0x1C);
-    return sub_00520BF0_IsReplyReceived(0x1C);
+    *pValue = BNDOWNLOAD_GetReplyValue(0x1C);
+    return BNDOWNLOAD_IsReplyReceived(0x1C);
 }
 
 // 0x0051B210
-void __cdecl sub_0051B210_FreeBuffer()
+void __cdecl BNSEND_FreeGamesList()
 {
     if (gpReply_008818D0)
     {
@@ -1317,7 +1320,7 @@ void __cdecl sub_0051B210_FreeBuffer()
 }
 
 // 0x0051B240
-void* __fastcall sub_0051B240_GetGamesList(const char* szGameName, const char* szGamePassword, int a3, int a4)
+void* __fastcall BNSEND_GetGamesList(const char* szGameName, const char* szGamePassword, int a3, int a4)
 {
     D2BnGamesListPacketStrc tPacket;
     tPacket.unk0x00 = 0;
@@ -1348,13 +1351,13 @@ void* __fastcall sub_0051B240_GetGamesList(const char* szGameName, const char* s
     const int nSize = (int)(pText - tPacket.szText) + nLength + 1 + 0x10;
 
     sub_00520C00_ClearReply(9);
-    sub_0051C5C0_SendPacket(9, &tPacket, nSize);
-    sub_00520B70_WaitForReply(9);
+    BNSEND_SendPacket(9, &tPacket, nSize);
+    BNDOWNLOAD_WaitForReply(9);
     return gpReply_008818D0;
 }
 
 // 0x0051B320
-int __fastcall sub_0051B320_SendNotifyJoin(const char* szGameName, const char* szPassword)
+int __fastcall BNSEND_SendNotifyJoin(const char* szGameName, const char* szPassword)
 {
     D2BnNotifyJoinPacketStrc tPacket;
     tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
@@ -1363,12 +1366,12 @@ int __fastcall sub_0051B320_SendNotifyJoin(const char* szGameName, const char* s
     pText += SStrCopy(pText, szGameName, 0x100) + 1;
     unsigned int nLength = SStrCopy(pText, szPassword, 0x100);
     nLength += (pText - tPacket.aData) + 9;
-    sub_0051C5C0_SendPacket(0x22, &tPacket, nLength);
+    BNSEND_SendPacket(0x22, &tPacket, nLength);
     return 1;
 }
 
 // 0x0051B3B0
-void __cdecl sub_0051B3B0_FreeSizedReply()
+void __cdecl BNSEND_FreeRealmLogonReply()
 {
     if (gpSizedReply_008818D4)
     {
@@ -1378,7 +1381,7 @@ void __cdecl sub_0051B3B0_FreeSizedReply()
 }
 
 // 0x0051B3E0
-void __fastcall sub_0051B3E0_SetSizedReply(const void* pData, unsigned int nSize)
+void __fastcall BNSEND_SetRealmLogonReply(const void* pData, unsigned int nSize)
 {
     if (gpSizedReply_008818D4)
         FOG_Free(gpSizedReply_008818D4, ".\\BnSend.cpp", 0x3B2, 0);
@@ -1394,7 +1397,7 @@ void __fastcall sub_0051B3E0_SetSizedReply(const void* pData, unsigned int nSize
 }
 
 // 0x0051B460
-D2BnSizedReplyStrc* __fastcall sub_0051B460_LogonRealm(const char* szRealmName, const char* szRealmPassword)
+D2BnSizedReplyStrc* __fastcall BNSEND_LogonRealm(const char* szRealmName, const char* szRealmPassword)
 {
     if (!szRealmName)
     {
@@ -1413,17 +1416,17 @@ D2BnSizedReplyStrc* __fastcall sub_0051B460_LogonRealm(const char* szRealmName, 
     const int nLength = SStrCopy(tPacket.szRealmName, szRealmName, 0x100) + 1;
 
     sub_00520C00_ClearReply(0x3E);
-    if (sub_0051C5C0_SendPacket(0x3E, &tPacket, nLength + 0x18) < 0)
+    if (BNSEND_SendPacket(0x3E, &tPacket, nLength + 0x18) < 0)
     {
         return 0;
     }
 
-    sub_00520B70_WaitForReply(0x3E);
+    BNDOWNLOAD_WaitForReply(0x3E);
     return gpSizedReply_008818D4;
 }
 
 // 0x0051B540
-void __cdecl sub_0051B540_SendLocale()
+void __cdecl BNSEND_SendLocaleInfo()
 {
     D2TimeZoneInformationStrc tTimeZone;
     memset(&tTimeZone, 0, sizeof(tTimeZone));
@@ -1448,21 +1451,21 @@ void __cdecl sub_0051B540_SendLocale()
     p += strlen(p) + 1;
     GetLocaleInfoA(0x400, 0x1002, p, 0x40);
     p += strlen(p) + 1;
-    sub_0051C5C0_SendPacket(0x12, &tPacket, p - tPacket.szText + 0x20);
+    BNSEND_SendPacket(0x12, &tPacket, p - tPacket.szText + 0x20);
 }
 
 // 0x0051B6C0
-int __fastcall sub_0051B6C0_OnAdClick(int nAdId, int bFlag)
+int __fastcall BNSEND_SendAdClick(int nAdId, int bFlag)
 {
     D2BnAdClickStrc tRecord;
     tRecord.nAdId = nAdId;
     tRecord.bFlag = bFlag != 0;
-    sub_0051C5C0_SendPacket(0x16, &tRecord, sizeof(tRecord));
+    BNSEND_SendPacket(0x16, &tRecord, sizeof(tRecord));
     return 1;
 }
 
 // 0x0051B6F0
-int __fastcall sub_0051B6F0_SendKeyValues(const char* szName, unsigned int nCount, const char** ppKeys, const char** ppValues)
+int __fastcall BNSEND_SendWriteUserData(const char* szName, unsigned int nCount, const char** ppKeys, const char** ppValues)
 {
     unsigned int nSize = SStrLen(szName) + 1;
     for (unsigned int i = 0; i < nCount; ++i)
@@ -1490,13 +1493,13 @@ int __fastcall sub_0051B6F0_SendKeyValues(const char* szName, unsigned int nCoun
     }
 
     sub_00520C00_ClearReply(0x27);
-    int bResult = sub_0051C5C0_SendPacket(0x27, pPacket, (unsigned int)(pText - (char*)pPacket)) >= 0;
+    int bResult = BNSEND_SendPacket(0x27, pPacket, (unsigned int)(pText - (char*)pPacket)) >= 0;
     FOG_Free(pPacket, ".\\BnSend.cpp", 0x4E0, 0);
     return bResult;
 }
 
 // 0x0051B820
-void __fastcall sub_0051B820_SetReply(const void* pData, unsigned int nSize)
+void __fastcall BNSEND_SetReadUserDataReply(const void* pData, unsigned int nSize)
 {
     if (gpReply_008818D8)
         FOG_Free(gpReply_008818D8, ".\\BnSend.cpp", 0x4EC, 0);
@@ -1505,7 +1508,7 @@ void __fastcall sub_0051B820_SetReply(const void* pData, unsigned int nSize)
 }
 
 // 0x0051B870
-int __fastcall sub_0051B870_SendReadUserData(const char* szAccount, unsigned int nKeys, unsigned int nCookie, const char* const* ppKeys)
+int __fastcall BNSEND_SendReadUserData(const char* szAccount, unsigned int nKeys, unsigned int nCookie, const char* const* ppKeys)
 {
     unsigned int nSize = SStrLen(szAccount) + 1;
     for (unsigned int i = 0; i < nKeys; ++i)
@@ -1521,15 +1524,15 @@ int __fastcall sub_0051B870_SendReadUserData(const char* szAccount, unsigned int
         pText += SStrCopy(pText, ppKeys[i], 0x7FFFFFFF) + 1;
 
     sub_00520C00_ClearReply(0x26);
-    int bResult = sub_0051C5C0_SendPacket(0x26, pPacket, pText - (char*)pPacket) >= 0;
+    int bResult = BNSEND_SendPacket(0x26, pPacket, pText - (char*)pPacket) >= 0;
     FOG_Free(pPacket, ".\\BnSend.cpp", 0x521, 0);
     return bResult != 0;
 }
 
 // 0x0051B960
-int __fastcall sub_0051B960_GetReadUserDataReply(unsigned int nKeys, unsigned int nCookie, char** ppValues, const unsigned int* pSizes)
+int __fastcall BNSEND_GetReadUserDataReply(unsigned int nKeys, unsigned int nCookie, char** ppValues, const unsigned int* pSizes)
 {
-    if (!sub_00520BF0_IsReplyReceived(0x26))
+    if (!BNDOWNLOAD_IsReplyReceived(0x26))
         return 0;
 
     D2BnReadUserDataReplyStrc* pReply = (D2BnReadUserDataReplyStrc*)gpReply_008818D8;
@@ -1555,7 +1558,7 @@ int __fastcall sub_0051B960_GetReadUserDataReply(unsigned int nKeys, unsigned in
 }
 
 // 0x0051BA00
-int __fastcall sub_0051BA00_SetEmail(const char* szEmail)
+int __fastcall BNSEND_SetEmail(const char* szEmail)
 {
     char szBuffer[0x100];
     D2_ASSERT(szEmail, 0x55D);
@@ -1563,11 +1566,11 @@ int __fastcall sub_0051BA00_SetEmail(const char* szEmail)
     D2_ASSERT(nLength < 0x100, 0x565);
     memcpy(szBuffer, szEmail, nLength);
     szBuffer[nLength] = 0;
-    return sub_0051C5C0_SendPacket(0x59, szBuffer, nLength + 1) >= 0;
+    return BNSEND_SendPacket(0x59, szBuffer, nLength + 1) >= 0;
 }
 
 // 0x0051BAA0
-int __fastcall sub_0051BAA0_ResetPassword(const char* szAccountName, const char* szEmail)
+int __fastcall BNSEND_ResetPassword(const char* szAccountName, const char* szEmail)
 {
     char szBuffer[0x200];
     D2_ASSERT(szAccountName, 0x578);
@@ -1580,13 +1583,13 @@ int __fastcall sub_0051BAA0_ResetPassword(const char* szAccountName, const char*
         unsigned int nEmail = SStrLen(szEmail) + 1;
         D2_ASSERT(nEmail <= 0x100, 0x588);
         memcpy(&szBuffer[nAccount], szEmail, nEmail);
-        return sub_0051C5C0_SendPacket(0x5A, szBuffer, nEmail + nAccount) >= 0;
+        return BNSEND_SendPacket(0x5A, szBuffer, nEmail + nAccount) >= 0;
     }
     return 0;
 }
 
 // 0x0051BB90
-int __fastcall sub_0051BB90_SendStrings(const char* first,const char* second,const char* third)
+int __fastcall BNSEND_ChangeEmail(const char* first,const char* second,const char* third)
 {
  char buffer[768];
  D2_ASSERT(first,1433);
@@ -1604,21 +1607,21 @@ int __fastcall sub_0051BB90_SendStrings(const char* first,const char* second,con
  unsigned int thirdSize=SStrLen(third)+1;
  D2_ASSERT(thirdSize<=256,1460);
  memcpy(*ppCursor,third,thirdSize);
- return sub_0051C5C0_SendPacket(0x5B,buffer,thirdSize+secondSize+firstSize)>=0;
+ return BNSEND_SendPacket(0x5B,buffer,thirdSize+secondSize+firstSize)>=0;
 }
 
 // 0x0051BCF0
-int __cdecl sub_0051BCF0_SendBuffer()
+int __cdecl BNSEND_SendCrashDump()
 {
     unsigned int nSize = 0x5DC;
     char aBuffer[0x5DC];
     if (!EXCEPTIONS_ReadCrashDump(aBuffer, &nSize))
         return 0;
-    return sub_0051C5C0_SendPacket(0x5D, aBuffer, nSize) >= 0;
+    return BNSEND_SendPacket(0x5D, aBuffer, nSize) >= 0;
 }
 
 // 0x0051BD60
-void __fastcall sub_0051BD60_SetReply(const void* pData, unsigned int nSize)
+void __fastcall BNSEND_SetRealmList(const void* pData, unsigned int nSize)
 {
     if (gpReply_008818CC)
         FOG_Free(gpReply_008818CC, ".\\BnSend.cpp", 0x19A, 0);
@@ -1628,7 +1631,7 @@ void __fastcall sub_0051BD60_SetReply(const void* pData, unsigned int nSize)
 }
 
 // 0x0051BDC0
-void __fastcall sub_0051BDC0_SetReply(const void* pData, unsigned int nSize)
+void __fastcall BNSEND_SetChannelList(const void* pData, unsigned int nSize)
 {
     if (gnChannelList_008818C8)
         FOG_Free(gnChannelList_008818C8, ".\\BnSend.cpp", 0x1EF, 0);
@@ -1638,7 +1641,7 @@ void __fastcall sub_0051BDC0_SetReply(const void* pData, unsigned int nSize)
 }
 
 // 0x0051BE20
-void __fastcall sub_0051BE20_SetReply(const void* pData, unsigned int nSize)
+void __fastcall BNSEND_SetGamesList(const void* pData, unsigned int nSize)
 {
     if (gpReply_008818D0)
         FOG_Free(gpReply_008818D0, ".\\BnSend.cpp", 0x36A, 0);
@@ -1648,19 +1651,19 @@ void __fastcall sub_0051BE20_SetReply(const void* pData, unsigned int nSize)
 }
 
 // 0x0051BEA0
-long __cdecl sub_0051BEA0_GetConnected()
+long __cdecl BNSEND_IsConnected()
 {
     return InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
 }
 
 // 0x0051BEB0
-static long sub_0051BEB0_ExchangeConnected(long nComparand, long nExchange)
+static long BNSEND_ExchangeConnected(long nComparand, long nExchange)
 {
     return InterlockedCompareExchange(&gnConnected_00881BF0, nExchange, nComparand);
 }
 
 // 0x0051BED0
-void __fastcall sub_0051BED0_SetDnsPending(int bPending)
+void __fastcall BNSEND_SetDnsPending(int bPending)
 {
     gbDnsPending_008818E0 = bPending;
     Sleep(10);
@@ -1668,11 +1671,11 @@ void __fastcall sub_0051BED0_SetDnsPending(int bPending)
 
 long __fastcall ExchangeConnectedContext(long nExchange, long nComparand)
 {
-    return sub_0051BEB0_ExchangeConnected(nComparand, nExchange);
+    return BNSEND_ExchangeConnected(nComparand, nExchange);
 }
 
 // 0x0051BEE0
-unsigned long __stdcall sub_0051BEE0(void* pArguments)
+unsigned long __stdcall BNSEND_ResolveHostThread(void* pArguments)
 {
     D2BnDnsArgsStrc* pArgs = (D2BnDnsArgsStrc*)pArguments;
     char* szOut = pArgs->szResult;
@@ -1683,7 +1686,7 @@ unsigned long __stdcall sub_0051BEE0(void* pArguments)
         const unsigned long nAddr = inet_addr(szHost);
         if (nAddr == 0xFFFFFFFF)
         {
-            sub_00518D40_Log("ERROR GetServersList: inet_addr failed to convert IP (%d)", WSAGetLastError());
+            BNDOWNLOAD_LogPrintf("ERROR GetServersList: inet_addr failed to convert IP (%d)", WSAGetLastError());
             return 0;
         }
         gDnsHostent_00881C14.h_addr_list = gapDnsAddrList_00881C0C;
@@ -1697,7 +1700,7 @@ unsigned long __stdcall sub_0051BEE0(void* pArguments)
         pHost = gethostbyname(szHost);
         if (!pHost)
         {
-            sub_00518D40_Log("ERROR GetServersList: gethostbyname failed to get server list (%d)", WSAGetLastError());
+            BNDOWNLOAD_LogPrintf("ERROR GetServersList: gethostbyname failed to get server list (%d)", WSAGetLastError());
             return 0;
         }
     }
@@ -1738,20 +1741,20 @@ unsigned long __stdcall sub_0051BEE0(void* pArguments)
 }
 
 // 0x0051C170
-int __cdecl sub_0051C170_PostBnServerIniMessage()
+int __cdecl BNSEND_RequestBnServerIni()
 {
     return sub_0051E3D0_PostMessage("bnserver-D2DV.ini", 0x80000004);
 }
 
 // 0x0051C180
-BNGatewayAccess* __cdecl sub_0051C180_GetBnGatewayAccess()
+BNGatewayAccess* __cdecl BNSEND_GetGatewayAccess()
 {
     gBnGatewayAccess_00881838.Load();
     return &gBnGatewayAccess_00881838;
 }
 
 // 0x0051C190
-void __fastcall sub_0051C190(char* szText, int nSize)
+void __fastcall BNSEND_GetServerAddress(char* szText, int nSize)
 {
     char szBuffer[0x100];
     *szText = 0;
@@ -1762,108 +1765,108 @@ void __fastcall sub_0051C190(char* szText, int nSize)
 }
 
 // 0x0051C210
-void __fastcall sub_0051C210_GetConnectionState(int* pState)
+void __fastcall BNSEND_GetDnsPending(int* pState)
 {
     D2_ASSERT(pState, 0x280);
     *pState = gbDnsPending_008818E0;
 }
 
 // 0x0051C240
-int __fastcall sub_0051C240_Logon(const char* szName, const char* szPassword)
+int __fastcall BNSEND_Logon(const char* szName, const char* szPassword)
 {
     switch (sub_0051A570_GetMode())
     {
     case 0:
         sub_00520C00_ClearReply(0x3A);
-        sub_0051A660_SendLogonResponse2(szName, szPassword);
+        BNSEND_SendLogonResponseEx(szName, szPassword);
         return 1;
     case 1:
         sub_00520C00_ClearReply(0x54);
-        return sub_00521F60_SendLogon(szName, szPassword);
+        return BNSEND_SendAccountLogon(szName, szPassword);
     }
     return 0;
 }
 
 // 0x0051C290
-int __cdecl sub_0051C290_GetLogonInfo()
+int __cdecl BNSEND_GetLogonResult()
 {
     if (sub_00520AE0())
     {
-        sub_005204A0_SetError(0x12);
+        BNMESSQUEUE_SetError(0x12);
         return 0;
     }
     switch (sub_0051A570_GetMode())
     {
     case 0:
-        return sub_00520BF0_IsReplyReceived(0x3A);
+        return BNDOWNLOAD_IsReplyReceived(0x3A);
     case 1:
-        return sub_00520BF0_IsReplyReceived(0x54);
+        return BNDOWNLOAD_IsReplyReceived(0x54);
     }
     return 0;
 }
 
 // 0x0051C2D0
-int __fastcall sub_0051C2D0_CreateAccount(const char* szName, const char* szPassword)
+int __fastcall BNSEND_CreateAccount(const char* szName, const char* szPassword)
 {
     switch (sub_0051A570_GetMode())
     {
     case 0:
         sub_00520C00_ClearReply(0x3D);
-        sub_0051A740_SendCreateAccount2(szName, szPassword);
+        BNSEND_SendCreateAccountEx(szName, szPassword);
         return 1;
     case 1:
         sub_00520C00_ClearReply(0x52);
-        return sub_00522130_SendCreateAccount(szName, szPassword);
+        return BNSEND_SendAccountCreate(szName, szPassword);
     }
     return 0;
 }
 
 // 0x0051C320
-int __fastcall sub_0051C320_GetCreateAccountResult(int* pResult)
+int __fastcall BNSEND_GetCreateAccountResult(int* pResult)
 {
     *pResult = BNCLIENT_GetCreateAccountResult();
     switch (sub_0051A570_GetMode())
     {
     case 0:
-        return sub_00520BF0_IsReplyReceived(0x3D);
+        return BNDOWNLOAD_IsReplyReceived(0x3D);
     case 1:
-        return sub_00520BF0_IsReplyReceived(0x52);
+        return BNDOWNLOAD_IsReplyReceived(0x52);
     }
     return 0;
 }
 
 // 0x0051C350
-int __fastcall sub_0051C350_ChangePassword(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
+int __fastcall BNSEND_ChangePassword(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
 {
     switch (sub_0051A570_GetMode())
     {
     case 0:
         sub_00520C00_ClearReply(0x31);
-        sub_0051A7D0_ChangePasswordLegacy(szAccountName, szOldPassword, szNewPassword);
+        BNSEND_SendChangePasswordLegacy(szAccountName, szOldPassword, szNewPassword);
         return 1;
     case 1:
         sub_00520C00_ClearReply(0x56);
-        return sub_005221F0_ChangePasswordProof(szAccountName, szOldPassword, szNewPassword);
+        return BNSEND_SendAccountChange(szAccountName, szOldPassword, szNewPassword);
     }
     return 0;
 }
 
 // 0x0051C3B0
-int __fastcall sub_0051C3B0_GetChangePasswordResult(int* pResult)
+int __fastcall BNSEND_GetChangePasswordResult(int* pResult)
 {
     *pResult = BNCLIENT_GetChangePasswordResult();
     switch (sub_0051A570_GetMode())
     {
     case 0:
-        return sub_00520BF0_IsReplyReceived(0x31);
+        return BNDOWNLOAD_IsReplyReceived(0x31);
     case 1:
-        return sub_00520BF0_IsReplyReceived(0x56);
+        return BNDOWNLOAD_IsReplyReceived(0x56);
     }
     return 0;
 }
 
 // 0x0051C5C0
-int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize)
+int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize)
 {
     D2BnPacketHeaderStrc tHeader;
     char aBuffer[0x2000];
@@ -1886,13 +1889,13 @@ int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, uns
 }
 
 // 0x0051C6B0
-int __fastcall sub_0051C6B0_QueueTextLine(const char* szText)
+int __fastcall BNSEND_QueueTextLine(const char* szText)
 {
-    return sub_005202F0_QueueText(1, szText);
+    return BNMESSQUEUE_QueueText(1, szText);
 }
 
 // 0x0051C6C0
-void __fastcall sub_0051C6C0_QueueTextLines(const char* szText)
+void __fastcall BNSEND_QueueTextLines(const char* szText)
 {
     char szLine[288];
 
@@ -1902,7 +1905,7 @@ void __fastcall sub_0051C6C0_QueueTextLines(const char* szText)
         const int nLength = D2_MIN(pEnd - szText, 287);
         memcpy(szLine, szText, nLength);
         szLine[nLength] = 0;
-        sub_005202F0_QueueText(1, szLine);
+        BNMESSQUEUE_QueueText(1, szLine);
         szText = pEnd + 1;
         if (pEnd[1] == '\n')
             ++szText;
@@ -1911,13 +1914,13 @@ void __fastcall sub_0051C6C0_QueueTextLines(const char* szText)
 }
 
 // 0x0051CA20
-char __cdecl sub_0051CA20_GetGatewayLetter()
+char __cdecl BNSEND_GetGatewayLetter()
 {
     return 'G';
 }
 
 // 0x0051CA80
-void __fastcall sub_0051CA80_SetFlag(int nValue)
+void __fastcall BNSEND_SetEmailRequested(int nValue)
 {
     gdwGlobal_00881C04 = nValue;
 }
@@ -1932,39 +1935,39 @@ unsigned long __cdecl BattleConnectFastest(void* pParameter)
         return 0;
     }
 
-    sub_0051EA40_SetStatus(0x66);
-    sub_0051C190(gszBnetHost_008818E8, 0x100);
+    BNDOWNLOAD_SetStatus(0x66);
+    BNSEND_GetServerAddress(gszBnetHost_008818E8, 0x100);
     sub_0051A480_DebugLog("   connect to: %s", gszBnetHost_008818E8);
     sub_00518C70_LogIndent(2, 4);
-    sub_00518D40_Log("querying gateway %s", gszBnetHost_008818E8);
+    BNDOWNLOAD_LogPrintf("querying gateway %s", gszBnetHost_008818E8);
     gszBnetAddress_008819E8[0] = 0;
     if (FOG_SOCKET_WSAStartup())
-        sub_0051C0E0_ResolveHost(gszBnetAddress_008819E8, gszBnetHost_008818E8);
+        BNDOWNLOAD_ResolveHost(gszBnetAddress_008819E8, gszBnetHost_008818E8);
 
     if (!gszBnetAddress_008819E8[0])
     {
         InterlockedDecrement(&gnSendBusy_00881C00);
-        sub_00520520_SetState(0xC);
+        BNMESSQUEUE_SetState(0xC);
         sub_0051A480_DebugLog("   failed to get server list");
         sub_00518C70_LogIndent(2, -4);
         return 0;
     }
 
-    sub_00520520_SetState(0);
+    BNMESSQUEUE_SetState(0);
     sFastestConnect(gszBnetAddress_008819E8);
     sub_00518C70_LogIndent(2, -4);
     if (!InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0) && !InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
-        sub_00520520_SetState(0xC);
+        BNMESSQUEUE_SetState(0xC);
 
     InterlockedDecrement(&gnSendBusy_00881C00);
     return 1;
 }
 
 // 0x0051D1C0
-void* __cdecl sub_0051D1C0_OpenBNetConnection()
+void* __cdecl BNSEND_OpenBNetConnection()
 {
     unsigned long nThreadId;
-    sub_00518D40_Log("Connecting to Battle.net...");
+    BNDOWNLOAD_LogPrintf("Connecting to Battle.net...");
     if (InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0))
     {
         sub_0051A480_DebugLog("   already connected");
@@ -1975,15 +1978,15 @@ void* __cdecl sub_0051D1C0_OpenBNetConnection()
     InterlockedExchange(&gnDnsDone_00881BFC, 0);
     gbDnsPending_008818E0 = 0;
     Sleep(10);
-    sub_005193E0_LoadCache();
-    sub_00520B30_ResetReplies();
+    CACHE_LoadCache();
+    BNDOWNLOAD_ResetReplies();
     sub_00521B50_ReseedLogin();
     gdwGlobal_00881C04 = 0;
     return CreateThread(0, 0, (unsigned long (__stdcall*)(void*))BattleConnectFastest, 0, 0, &nThreadId);
 }
 
 // 0x0051DBF0
-int __fastcall sub_0051DBF0_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned int nStamp, const char* szText), int (__cdecl* pfnRefresh)())
+int __fastcall BNSEND_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned int nStamp, const char* szText), int (__cdecl* pfnRefresh)())
 {
     gbNewsActive_00881C24 = 1;
     gpfnNewsMessage_00881C28 = pfnMessage;
@@ -1995,15 +1998,15 @@ int __fastcall sub_0051DBF0_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned i
     gtNewsItems_00881C30.f_8 = 0;
     gnNewsNewest_00881C44 = 0;
     gnNewsFirstIndex_00881C40 = 0;
-    if (sub_0051DA30_LoadNews())
-        sub_0051D510_ReportNews();
+    if (BNNEWS_LoadNews())
+        BNNEWS_ReportNews();
     unsigned int nStamp = gnNewsNewest_00881C44;
-    sub_0051C5C0_SendPacket(0x46, &nStamp, sizeof(nStamp));
+    BNSEND_SendPacket(0x46, &nStamp, sizeof(nStamp));
     return 1;
 }
 
 // 0x0051DC80
-void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
+void __fastcall BNSEND_ComputeShaDigest(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
 {
     Sha1 tContext;
     tContext.Initialize();
@@ -2028,25 +2031,25 @@ static inline int CheckCDKeySlot(int nSlot, int* pProduct, int* pValue1, int* pV
 }
 
 // 0x0051E270
-int __stdcall sub_0051E270_CheckCDKeys()
+int __stdcall BNSEND_CheckCDKeys()
 {
     int nProduct;
     int nValue1;
     int nValue2;
     char aKeyBlock[12];
-    sub_005234D0_LockCDKeys();
+    GRID_LockCDKeys();
     int bResult = CheckCDKeySlot(0, &nProduct, &nValue1, &nValue2, aKeyBlock);
     if (bResult && sub_0051BEC0_IsExpansion())
         bResult = CheckCDKeySlot(1, &nProduct, &nValue1, &nValue2, aKeyBlock);
-    sub_005239C0_UnlockCDKeys();
+    GRID_UnlockCDKeys();
     return bResult;
 }
 
 // 0x0051F2D0
-int __fastcall sub_0051F2D0_PatchUnk(int* pResult)
+int __fastcall BNSEND_GetPatchResult(int* pResult)
 {
     int nState;
-    sub_0051ED00_ApplyPatches(&nState);
+    BNDOWNLOAD_ApplyPatches(&nState);
     switch (nState)
     {
     case 0:
@@ -2061,7 +2064,7 @@ int __fastcall sub_0051F2D0_PatchUnk(int* pResult)
 }
 
 // 0x005204D0
-int __fastcall sub_005204D0_SetErrorText(int nError, const char* szText)
+int __fastcall BNSEND_SetErrorText(int nError, const char* szText)
 {
     EnterCriticalSection(&gMessageLock_00882004);
     if (!gnBnState_0088201C)
@@ -2074,14 +2077,14 @@ int __fastcall sub_005204D0_SetErrorText(int nError, const char* szText)
 }
 
 // 0x00520630
-int __fastcall sub_00520630_SetText(const char* szText)
+int __fastcall BNSEND_SetInfoText(const char* szText)
 {
     SStrCopy(gData_00882028, szText, 0x100);
     return 1;
 }
 
 // 0x00521B00
-int __fastcall sub_00521B00(unsigned char nId, const void* pData, int nSize)
+int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize)
 {
     int nResult = 0;
     if (nId < 0x5E)
@@ -2111,7 +2114,7 @@ static unsigned int GetUILanguageId()
 }
 
 // 0x00521BF0
-int __stdcall sub_00521BF0()
+int __stdcall BNSEND_SendAuthInfo()
 {
     D2BnAuthInfoPacketStrc tPacket;
     memset(&tPacket, 0, sizeof(tPacket));
@@ -2142,12 +2145,12 @@ int __stdcall sub_00521BF0()
     szAbbrev[3] = 0;
     tPacket.nCountryAbbrev = *(unsigned int*)szAbbrev;
     GetLocaleInfoA(0x400, 0x1002, tPacket.szCountry, sizeof(tPacket.szCountry));
-    sub_0051C5C0_SendPacket(0x50, &tPacket, SStrLen(tPacket.szCountry) + 0x29);
+    BNSEND_SendPacket(0x50, &tPacket, SStrLen(tPacket.szCountry) + 0x29);
     return 1;
 }
 
 // 0x00521F60
-int __fastcall sub_00521F60_SendLogon(const char* szName, const char* szPassword)
+int __fastcall BNSEND_SendAccountLogon(const char* szName, const char* szPassword)
 {
     D2BnLogonPacketStrc tPacket;
     char szPasswordUpper[0x100];
@@ -2162,12 +2165,12 @@ int __fastcall sub_00521F60_SendLogon(const char* szName, const char* szPassword
     gtBigPair_0088273C.sub_005286D0_InitLogin(&gtLoginRecord_00882680, szNameUpper, szPasswordUpper);
     sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord_00882680.abPublic, sizeof(tPacket.abPublic));
     unsigned int nLength = SStrCopy(tPacket.szName, szName, 0x100);
-    sub_0051C5C0_SendPacket(0x53, &tPacket, nLength + 0x21);
+    BNSEND_SendPacket(0x53, &tPacket, nLength + 0x21);
     return 1;
 }
 
 // 0x005220B0
-int __fastcall sub_005220B0_SendLogonProof(const unsigned char* pSalt, const unsigned char* pServerPublic)
+int __fastcall BNSEND_SendAccountLogonProof(const unsigned char* pSalt, const unsigned char* pServerPublic)
 {
     unsigned char abProof[0x14];
     const int bResult = gtBigPair_0088273C.sub_00528760_ComputeLoginProof(&gtLoginRecord_00882680, pSalt, pServerPublic);
@@ -2175,14 +2178,14 @@ int __fastcall sub_005220B0_SendLogonProof(const unsigned char* pSalt, const uns
     if (bResult)
     {
         sub_0041D2A0_MemCopy(abProof, gtLoginRecord_00882680.abProof, sizeof(abProof));
-        sub_0051C5C0_SendPacket(0x54, abProof, sizeof(abProof));
+        BNSEND_SendPacket(0x54, abProof, sizeof(abProof));
         return 1;
     }
     return 0;
 }
 
 // 0x00522130
-int __fastcall sub_00522130_SendCreateAccount(const char* szName, const char* szPassword)
+int __fastcall BNSEND_SendAccountCreate(const char* szName, const char* szPassword)
 {
     D2BnAuthAccountCreatePacketStrc tPacket;
     char szPasswordUpper[0x100];
@@ -2193,12 +2196,12 @@ int __fastcall sub_00522130_SendCreateAccount(const char* szName, const char* sz
     SStrUpper(szPasswordUpper);
     gtBigPair_0088273C.sub_00528660_MakeVerifier(szNameUpper, szPasswordUpper, tPacket.abSalt, tPacket.abVerifier);
     unsigned int nLength = SStrCopy(tPacket.szName, szName, 0x7FFFFFFF);
-    sub_0051C5C0_SendPacket(0x52, &tPacket, nLength + 0x41);
+    BNSEND_SendPacket(0x52, &tPacket, nLength + 0x41);
     return 1;
 }
 
 // 0x005221F0
-int __fastcall sub_005221F0_ChangePasswordProof(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
+int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
 {
     D2BnLogonPacketStrc tPacket;
     char szOldUpper[0x100];
@@ -2216,12 +2219,12 @@ int __fastcall sub_005221F0_ChangePasswordProof(const char* szAccountName, const
     gtBigPair_0088273C.sub_005286D0_InitLogin(&gtLoginRecord_00882680, szAccountUpper, szOldUpper);
     sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord_00882680.abPublic, sizeof(tPacket.abPublic));
     unsigned int nLength = SStrCopy(tPacket.szName, szAccountName, 0x100);
-    sub_0051C5C0_SendPacket(0x55, &tPacket, nLength + 0x21);
+    BNSEND_SendPacket(0x55, &tPacket, nLength + 0x21);
     return 0;
 }
 
 // 0x00522310
-int __fastcall sub_00522310_SendChangeProof(const unsigned char* pSalt, const unsigned char* pServerPublic)
+int __fastcall BNSEND_SendAccountChangeProof(const unsigned char* pSalt, const unsigned char* pServerPublic)
 {
     D2BnChangeProofStrc tPacket;
     const int bResult = gtBigPair_0088273C.sub_00528760_ComputeLoginProof(&gtLoginRecord_00882680, pSalt, pServerPublic);
@@ -2231,14 +2234,14 @@ int __fastcall sub_00522310_SendChangeProof(const unsigned char* pSalt, const un
         sub_0041D2A0_MemCopy(tPacket.abProof, gtLoginRecord_00882680.abProof, sizeof(tPacket.abProof));
         sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier_00882640, sizeof(tPacket.abVerifier));
         sub_0041D300_ZeroMemory(gabNewVerifier_00882640, sizeof(gabNewVerifier_00882640));
-        sub_0051C5C0_SendPacket(0x56, &tPacket, sizeof(tPacket));
+        BNSEND_SendPacket(0x56, &tPacket, sizeof(tPacket));
         return 1;
     }
     return 0;
 }
 
 // 0x005223F0
-int __fastcall sub_005223F0_SendUpgradeProof(unsigned int nServerToken)
+int __fastcall BNSEND_SendAccountUpgradeProof(unsigned int nServerToken)
 {
     D2BnUpgradePacketStrc tPacket;
     D2BnUpgradeInputStrc tInput;
@@ -2251,18 +2254,18 @@ int __fastcall sub_005223F0_SendUpgradeProof(unsigned int nServerToken)
     sub_005209D0_HashData(tPacket.abProof, &tInput, sizeof(tInput));
     sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier_00882640, sizeof(tPacket.abVerifier));
     sub_0041D300_ZeroMemory(gabNewVerifier_00882640, sizeof(gabNewVerifier_00882640));
-    sub_0051C5C0_SendPacket(0x58, &tPacket, sizeof(tPacket));
+    BNSEND_SendPacket(0x58, &tPacket, sizeof(tPacket));
     return 0;
 }
 
 // 0x005224C0
-int __fastcall sub_005224C0_CheckServerProof(const unsigned char* pServerProof)
+int __fastcall BNSEND_CheckServerProof(const unsigned char* pServerProof)
 {
     return gtBigPair_0088273C.sub_00528890_CompareServerProof(&gtLoginRecord_00882680, pServerProof);
 }
 
 // 0x005224F0
-void __cdecl sub_005224F0_ClearPassword()
+void __cdecl BNSEND_ClearPassword()
 {
     sub_0041D300_ZeroMemory(gtLoginRecord_00882680.szPassword, sizeof(gtLoginRecord_00882680.szPassword));
 }
@@ -2276,7 +2279,7 @@ int D2BigPairStrc::sub_00528890_CompareServerProof(const D2BigLoginRecordStrc* p
 }
 
 // 0x0052B0E0
-int __fastcall sub_0052B0E0(QServer* pUnused, D2PacketBufferStrc* pPacketBuffer, int nBufferSize)
+int __fastcall SERVER_SendToLocalClientCallback(QServer* pUnused, D2PacketBufferStrc* pPacketBuffer, int nBufferSize)
 {
     CLIENT_ReadPacketFromBuffer(pPacketBuffer, nBufferSize);
     return 1;
@@ -2326,7 +2329,7 @@ int __fastcall SERVER_ValidateClientPacket(D2PacketBufferStrc* pPacketBuffer, in
 }
 
 // 0x0052B720
-int __fastcall sub_6FC020B0(QServer* pServer, int nClientId, const char* szFile, int nLine)
+int __fastcall SERVER_OnClientConnectedCallback(QServer* pServer, int nClientId, const char* szFile, int nLine)
 {
     unsigned char data[2];
     data[0] = 0xAF;

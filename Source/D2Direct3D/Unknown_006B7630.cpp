@@ -42,9 +42,9 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
 typedef char* va_list;
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szOut, const char* szFormat, va_list args);
 
-void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlendMode(int nMode); // 0x006B1F40
-void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
+void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3D_SetAlphaBlendMode(int nMode); // 0x006B1F40
+void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
 
 // 0x006B7630
 void __fastcall sub_006B7630_DrawTextV(int nX, int nY, const char* szFormat, va_list args)
@@ -52,9 +52,9 @@ void __fastcall sub_006B7630_DrawTextV(int nX, int nY, const char* szFormat, va_
     char szBuffer[0x200];
     const int nLength = wvsprintfA(szBuffer, szFormat, args);
     const int nStartX = nX;
-    sub_006B1EA0_SetState(1);
-    sub_006B1F40_SetBlendMode(1);
-    sub_006B2030_SetFilterMode(1);
+    D3D_SetColorCombineMode(1);
+    D3D_SetAlphaBlendMode(1);
+    D3D_SetTextureFilterMode(1);
     for (int i = 0; i < nLength; ++i)
     {
         nX += sub_006B7530_DrawGlyph(nX, nY, szBuffer[i]);

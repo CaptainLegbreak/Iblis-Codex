@@ -25,7 +25,7 @@ unsigned long gdwGlideDebugFontBkColor_00880448; // 0x00880448
 unsigned char* gpGlideDebugFontGlyphs_0088044C; // 0x0088044C
 
 // 0x004F69B0
-void __fastcall sub_004F69B0_DrawSubtileRows(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette)
+void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette)
 {
     unsigned char* pRow = pDst;
     for (int i = 0; i < 15; ++i)
@@ -117,7 +117,7 @@ void __cdecl sub_0050B9E0_GlideCreateDebugFont()
 }
 
 // 0x0050BB70
-void __cdecl sub_0050BB70_GlideFreeDebugFont()
+void __cdecl GLIDE_FreeDebugFont()
 {
     if (gpGlideDebugFontGlyphs_0088044C)
     {
@@ -170,7 +170,7 @@ static int __fastcall GlideAlignAddress(int nAddress, int nAlignment)
 }
 
 // 0x0050B860
-int __fastcall sub_0050B860_GlideDownloadDebugFont(int nStartAddress, int nAlignment)
+int __fastcall GLIDE_DownloadDebugFont(int nStartAddress, int nAlignment)
 {
     int nStride = GlideAlignAddress(0x80, nAlignment);
     int nTotal = nStride * 96;

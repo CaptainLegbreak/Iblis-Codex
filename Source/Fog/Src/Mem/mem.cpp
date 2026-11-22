@@ -8,7 +8,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall RaiseException(unsigned long dwCode, unsigned long dwFlags, unsigned long nArgs, const unsigned long* pArgs); // 0x006CC224
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-void __cdecl sub_00409020_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
+void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
 extern D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                            // 0x0074F0E8
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -74,7 +74,7 @@ int __cdecl sub_00409DD0_InitPoolSystem(D2PoolSystemStrc** ppPoolSystem, const c
         if (gtPoolManager_0074F0E8.nUsed >= 8)
         {
             LeaveCriticalSection(&gtPoolManager_0074F0E8.tLock);
-            sub_00409020_LogPoolError("Insufficient pre-allocated pool systems");
+            MAINMENUS_LogPoolError("Insufficient pre-allocated pool systems");
             RaiseException(0xE0000001, 0, 0, 0);
             return 0;
         }

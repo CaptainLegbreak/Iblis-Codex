@@ -9,7 +9,7 @@ extern D2CriticalSectionStrc* gpLock_007C9134; // 0x007C9134
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
 // 0x006C7A70
-int __fastcall sub_006C7A70_Init(void* pArg1, void* pArg2)
+int __fastcall GDI_Init(void* pArg1, void* pArg2)
 {
     gpArg1_007C9148 = pArg1;
     gpArg2_007C914C = pArg2;
@@ -19,7 +19,7 @@ int __fastcall sub_006C7A70_Init(void* pArg1, void* pArg2)
 }
 
 // 0x006C7AB0
-int __cdecl sub_006C7AB0_Free()
+int __cdecl GDI_Close()
 {
     if (gpLock_007C9134)
     {
@@ -40,7 +40,7 @@ extern const char gszEmptyAssertText; // 0x006CC837
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd); // 0x006CC44C
 extern "C" __declspec(dllimport) int __stdcall ReleaseDC(void* hWnd, void* hDC); // 0x006CC448
-static void sub_006C7B00_CreateBackBuffer(int nResolution);
+static void GDI_CreateBackBuffer(int nResolution); // 0x006C7B00
 
 extern "C" __declspec(dllimport) void* __stdcall CreatePalette(const D2LogPalette006C7C10Strc* pLogPalette);
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* ho);
@@ -51,7 +51,7 @@ void* gpBufferBits_007C9154; // 0x007C9154
 void* ghBufferBitmap_0098A164; // 0x0098A164
 
 // 0x006C7B00
-static void sub_006C7B00_CreateBackBuffer(int nResolution)
+static void GDI_CreateBackBuffer(int nResolution)
 {
     D2_ASSERT(!gpBufferBits_007C9154, 111);
 
@@ -97,10 +97,10 @@ static void sub_006C7B00_CreateBackBuffer(int nResolution)
 void* ghPalette_0098A160; // 0x0098A160
 
 // 0x006C7C10
-int __fastcall sub_006C7C10_InitPalette(int nValue, int nArg)
+int __fastcall GDI_CreateSurface(int nValue, int nArg)
 {
     gnValue_007C9140 = nValue;
-    sub_006C7B00_CreateBackBuffer(nArg);
+    GDI_CreateBackBuffer(nArg);
     memset(gaPalette_007C8CC8, 0, sizeof(gaPalette_007C8CC8));
     D2LogPalette006C7C10Strc tLogPalette;
     tLogPalette.palVersion = 0x300;
@@ -129,7 +129,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 extern D2RgbQuad006C7FA0Strc gaColors_00989C40[256];                                                                // 0x00989C40
 
 // 0x006C7CF0
-int __cdecl sub_006C7CF0_Close()
+int __cdecl GDI_CloseSurface()
 {
     sub_006C8960_DeleteGraphicObject();
     DeleteObject(ghBufferBitmap_0098A164);
@@ -139,7 +139,7 @@ int __cdecl sub_006C7CF0_Close()
 }
 
 // 0x006C7D30
-void __stdcall sub_006C7D30_SetValue(int nValue)
+void __stdcall GDI_PauseSurface(int nValue)
 {
     D2_ASSERT(gpLock_007C9134, 0xF9);
     EnterCriticalSection(gpLock_007C9134);
@@ -148,7 +148,7 @@ void __stdcall sub_006C7D30_SetValue(int nValue)
 }
 
 // 0x006C7DF0
-int __cdecl sub_006C7DF0_Unlock()
+int __cdecl GDI_EndDraw()
 {
     D2_ASSERT(gpLock_007C9134, 0x11D);
     LeaveCriticalSection(gpLock_007C9134);
@@ -156,7 +156,7 @@ int __cdecl sub_006C7DF0_Unlock()
 }
 
 // 0x006C7FA0
-void __fastcall sub_006C7FA0_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
+void __fastcall GDI_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
 {
     for (int i = 0; i < 256; ++i)
     {
@@ -169,12 +169,12 @@ void __fastcall sub_006C7FA0_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
 }
 
 // 0x006C80B0
-int __fastcall sub_006C80B0_ResetSurface(int nUnused, int nMode)
+int __fastcall GDI_ChangeRes(int nUnused, int nMode)
 {
     DeleteObject(ghBufferBitmap_0098A164);
     gpBufferBits_007C9154 = 0;
     gpBufferFuncs_007C914C->pfnSetBuffer(0, 0, 0, 0);
-    sub_006C7B00_CreateBackBuffer(nMode);
+    GDI_CreateBackBuffer(nMode);
     sub_006C82D0_Apply(nMode);
     return 1;
 }

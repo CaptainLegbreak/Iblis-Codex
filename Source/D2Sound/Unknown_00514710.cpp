@@ -30,7 +30,8 @@ static D2SoundChannelEntryStrc* sub_00514710_GetChannelEntry(int nIndex)
     if (!gbChannelTableInit_008817A8)
     {
         gbChannelTableInit_008817A8 = 1;
-        gnChannelTableSel_008817A4 = sub_00513AE0();
+// build: symbol ?D2SOUND_IsExpansion@* 0x00513AE0
+        gnChannelTableSel_008817A4 = D2SOUND_IsExpansion();
     }
     D2_ASSERT(gnChannelCountA_0072F874 == gnChannelCountB_0072F8F8, 0x52);
     D2_ASSERT(nIndex < gnChannelCountA_0072F874, 0x53);
@@ -81,7 +82,7 @@ int __cdecl sub_00514990_PickRandomChannel()
                 if (!gbChannelTableInit_008817A8)
                 {
                     gbChannelTableInit_008817A8 = 1;
-                    gnChannelTableSel_008817A4 = sub_00513AE0();
+                    gnChannelTableSel_008817A4 = D2SOUND_IsExpansion();
                 }
                 D2_ASSERT(gnChannelCountA_0072F874 == gnChannelCountB_0072F8F8, 0x52);
                 D2_ASSERT(n < gnChannelCountA_0072F874, 0x53);

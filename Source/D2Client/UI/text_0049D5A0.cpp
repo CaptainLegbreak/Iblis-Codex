@@ -244,14 +244,14 @@ extern void* gpCloseArg_007BF25C; // 0x007BF25C
 extern int gbHandlers_007BF27C; // 0x007BF27C
 extern char gHandlerTable_00722600[]; // 0x00722600
 
-int __cdecl sub_00514CC0(); // 0x00514CC0
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
 void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
 void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
-void* __stdcall sub_004F59A0(); // 0x004F59A0
+void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, void* pTable, int nCount); // 0x00451E10
 
 // 0x004A0770
@@ -263,7 +263,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
         return 0;
     }
 
-    const int bBusy = sub_00514CC0();
+    const int bBusy = D2SOUND_GetMasterVolumeOption();
     if (!gpHint_007BF24B || sub_004B95C0_IsHintPlaying(gpHint_007BF24B) || !bBusy)
     {
         gpHint_007BF24B = 0;
@@ -298,7 +298,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
             if (gbHandlers_007BF27C == 1)
             {
                 gbHandlers_007BF27C = 0;
-                AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gHandlerTable_00722600, 7);
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gHandlerTable_00722600, 7);
             }
 
             return 0;

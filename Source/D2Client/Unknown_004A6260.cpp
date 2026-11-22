@@ -14,7 +14,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 void __cdecl UI_RegisterKeyConfigHandlers();                                                                                // 0x00454980
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
-int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
+int __cdecl WINDOW_GetWindow();                                                                                // 0x004F59A0
 extern D2MsgHandlerEntryStrc gaMsgHandlers_0072472C[];                                                      // 0x0072472C
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00724738[];                                                      // 0x00724738
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00724780[];                                                      // 0x00724780
@@ -26,10 +26,10 @@ extern unsigned long gnGlobal_007C02C8;                                         
 // 0x004A5D70
 static inline void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset)
 {
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00724738, 6);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072478C, 1);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00724780, 1);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072472C, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724738, 6);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072478C, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_00724780, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMsgHandlers_0072472C, 1);
     if (bReset)
     {
         UI_RegisterKeyConfigHandlers();

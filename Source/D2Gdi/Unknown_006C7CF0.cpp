@@ -43,7 +43,7 @@ extern "C" __declspec(dllimport) int __stdcall GetClientRect(void* hWnd, tagRECT
 extern "C" __declspec(dllimport) int __stdcall StretchBlt(void* hDest, int nX, int nY, int nWidth, int nHeight, void* hSrc, int nSrcX, int nSrcY, int nSrcWidth, int nSrcHeight, unsigned long nRop);
 extern "C" __declspec(dllimport) int __stdcall GdiFlush();
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hDC);
-void* __stdcall sub_004F59A0(); // 0x004F59A0
+void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern D2RgbQuadStrc gaPalette_00989C40[256]; // 0x00989C40
 extern void* ghPalette_0098A160; // 0x0098A160
@@ -94,7 +94,7 @@ int __cdecl sub_006C7E30_BlitWindow()
     SelectPalette(hDC, ghPalette_0098A160, 0);
     RealizePalette(hDC);
     tagRECT tRect;
-    GetClientRect(sub_004F59A0(), &tRect);
+    GetClientRect(WINDOW_GetWindow(), &tRect);
     StretchBlt(hDC, 0, 0, tRect.right - tRect.left, tRect.bottom - tRect.top,
         hMemoryDC, 0, 0, gnScreenWidth_007C9138, gnScreenHeight_007C913C, 0xCC0020);
     GdiFlush();

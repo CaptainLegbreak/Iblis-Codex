@@ -2,13 +2,15 @@
 
 #include "D2Primitives.h"
 
-unsigned int __fastcall sub_00522570_GetBit(const unsigned int* pKey, unsigned int nIndex)
+// build: symbol ?BNDOWNLOAD_GetKeyBit@* 0x00522570
+unsigned int __fastcall BNDOWNLOAD_GetKeyBit(const unsigned int* pKey, unsigned int nIndex)
 {
     const int nShift = nIndex & 0x1F;
     return (pKey[3 - (nIndex >> 5)] & (1 << nShift)) >> nShift;
 }
 
-void __fastcall sub_005225A0_SetBit(unsigned int* pKey, unsigned int nIndex, unsigned char nValue)
+// build: symbol ?BNDOWNLOAD_SetKeyBit@* 0x005225A0
+void __fastcall BNDOWNLOAD_SetKeyBit(unsigned int* pKey, unsigned int nIndex, unsigned char nValue)
 {
     const unsigned int nShift = nIndex & 0x1F;
     const unsigned int nWord = 3 - (nIndex >> 5);
@@ -27,7 +29,7 @@ void __fastcall sub_005226D0_PermuteKeyBits(int nUnused, unsigned int* pKey)
     unsigned int nPos = 0;
     for (unsigned int i = 0; i < 120; ++i)
     {
-        sub_005225A0_SetBit(pKey, i, (unsigned char)sub_00522570_GetBit(aCopy, nPos));
+        BNDOWNLOAD_SetKeyBit(pKey, i, (unsigned char)BNDOWNLOAD_GetKeyBit(aCopy, nPos));
         nPos += 11;
         if (nPos >= 120)
         {

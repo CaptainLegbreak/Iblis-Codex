@@ -10,9 +10,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __cdecl sub_0043B830(); // 0x0043B830
 
-void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
-void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
-void __cdecl sub_00435330_ShowLoginScreen(); // 0x00435330
+void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
+void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
@@ -23,10 +23,12 @@ int gnStatusDots_007799B4; // 0x007799B4
 // 0x004374F0
 int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
 {
-    sub_00436AD0_UpdateStatus();
+// build: symbol ?MAINMENUS_UpdateStatus@* 0x00436AD0
+    MAINMENUS_UpdateStatus();
     if (!gnStatusDots_007799B4)
     {
-        sub_0043B820_Clear();
+// build: symbol ?CHARSEL_ClearCancelled@* 0x0043B820
+        CHARSEL_ClearCancelled();
         gnStatusDots_007799B4 = (int)gpFuncTable_0077ABF0->pfnSlot04();
         if (!gnStatusDots_007799B4)
         {
@@ -82,22 +84,22 @@ int __stdcall sub_00437730_ChangePassword(int bOk)
             }
             if (gpFuncTable_0077ABF0->pfnSlot68() && gpFuncTable_0077ABF0->pfnSlotC0(szName, szOld, szNew))
             {
-                sub_00435330_ShowLoginScreen();
+                MAINMENUS_ShowLoginScreen();
                 return 1;
             }
-            sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
             return 0;
         }
         else
         {
             Unicode aText[0x100];
-            sub_0042F540_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B71), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
+            MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B71), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
         }
     }
     else
     {
         Unicode aText[0x100];
-        sub_0042F540_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B72), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
+        MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B72), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
     }
     return 1;
 }

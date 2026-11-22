@@ -384,7 +384,7 @@ extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsign
 
 void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, int nArg2, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6, int nArg7); // 0x00403070
 
-void __cdecl sub_00409020_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
+void __cdecl MAINMENUS_LogPoolError(const char* szFormat, ...);                                          // 0x00409020
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 
@@ -811,7 +811,8 @@ static __declspec(noinline) void __stdcall ERRORMANAGER_DebugPrintV(unsigned int
     }
     if (nFlags & 1)
     {
-        sub_00410740_LogWritePrefixed00("LOG", gszPercentS_006FFC58, szBuffer);
+// build: symbol ?MAINMENUS_LogWritePrefixed@* 0x00410740
+        MAINMENUS_LogWritePrefixed("LOG", gszPercentS_006FFC58, szBuffer);
     }
     if (nFlags & 0x18)
     {
@@ -866,7 +867,7 @@ void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
     int* pBlock = (int*)malloc(nSize + 4);
     if (!pBlock)
     {
-        sub_00409020_LogPoolError("(3) Pool Blocks overflowed at %d", pSystem->nPoolBlocks);
+        MAINMENUS_LogPoolError("(3) Pool Blocks overflowed at %d", pSystem->nPoolBlocks);
         D2_ASSERT(pBlock, 904);
     }
     const int nBucket = (int)pBlock % 1023;
@@ -1104,7 +1105,7 @@ void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nL
     {
         szFormat = "<no reason given>";
     }
-    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStringFormat_006FFC58, "---finished error callback---\n");
+    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStringFormat_006FFC58, "---finished error callback---\n");
     LOGMANAGER_CloseLogFiles();
     int bFatal = nErrorType == 5 || nErrorType == 6 || nErrorType == 2;
     if (!sub_004013A0_IsDebuggerAttached())

@@ -684,7 +684,8 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
 void __cdecl sub_0044A980_SendPacket0D()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetValue(0);
+// build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
+    CHATDLG_SetMcpResult(0);
     nHeader = 0x0D;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -693,7 +694,7 @@ void __cdecl sub_0044A980_SendPacket0D()
 void __cdecl sub_0044A9B0_SendPacket0F()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     nHeader = 0x0F;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -702,7 +703,7 @@ void __cdecl sub_0044A9B0_SendPacket0F()
 void __cdecl sub_0044A9E0_SendPacket10()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     nHeader = 0x10;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -711,7 +712,7 @@ void __cdecl sub_0044A9E0_SendPacket10()
 void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nArg2)
 {
     D2ClientPacket11Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     tPacket.nHeader = 0x11;
     tPacket.nArg1 = nArg1;
     tPacket.nArg2 = nArg2;
@@ -722,7 +723,7 @@ void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nA
 void __cdecl VIEW_SendMcpMotdRequest()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     nHeader = 0x12;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -731,7 +732,7 @@ void __cdecl VIEW_SendMcpMotdRequest()
 void __cdecl VIEW_SendMcpCancelGameCreate()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     nHeader = 0x13;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -740,7 +741,7 @@ void __cdecl VIEW_SendMcpCancelGameCreate()
 void __cdecl VIEW_SendMcpCharListRequest()
 {
     D2ClientPacket19Strc tPacket;
-    sub_00449BF0_SetValue(0);
+    CHATDLG_SetMcpResult(0);
     tPacket.nHeader = 0x19;
     *(int*)&tPacket.nValue0 = 8;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &tPacket.nHeader, 5);
@@ -1009,7 +1010,8 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
     }
 
     SCALE_UpdateFactor();
-    gdwGlobal_007B57E4 = sub_004F65E0();
+// build: symbol ?SCALE_GetFactor@* 0x004F65E0
+    gdwGlobal_007B57E4 = SCALE_GetFactor();
     if (D2GFX_CheckPerspective())
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();

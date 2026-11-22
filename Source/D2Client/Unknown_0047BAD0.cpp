@@ -80,9 +80,9 @@ struct D2MenuItemStrc
     D2CelFileStrc* pChoices[4];
 };
 
-int __cdecl sub_00514CC0(); // 0x00514CC0
-int __cdecl sub_00514CF0(); // 0x00514CF0
-int __cdecl sub_00514D20(); // 0x00514D20
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
+int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
+int __cdecl D2SOUND_GetPositionalBiasOption(); // 0x00514D20
 static unsigned int __stdcall sub_0047CC90_ValueToSlider(D2MenuItemStrc* pItem, unsigned int nValue, unsigned int nMin, unsigned int nMax);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -275,17 +275,17 @@ static unsigned int __stdcall sub_0047CC90_ValueToSlider(D2MenuItemStrc* pItem, 
 
 void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514CC0(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMasterVolumeOption(), 0, 100);
 }
 
 void __fastcall sub_0047CE10_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514CF0(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMusicVolumeOption(), 0, 100);
 }
 
 void __fastcall sub_0047CE90_PositionalBiasOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514D20(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetPositionalBiasOption(), 0, 100);
 }
 
 void __fastcall Caller_GammaSlider(D2MenuItemStrc* pItem, int nGamma)

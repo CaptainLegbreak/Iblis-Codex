@@ -11,12 +11,12 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 void __cdecl sub_0042E6D0_LoadFrontEndCells();                                                              // 0x0042E6D0
-void __cdecl sub_0042EF50_FreeFrontEndCells();                                                              // 0x0042EF50
+void __cdecl MAINMENUS_FreeFrontEndCells();                                                              // 0x0042EF50
 int __cdecl sub_004309B0_ClearState();                                                                      // 0x004309B0
 void __stdcall sub_00430BB0_LoopCallback(unsigned long nArg);                                               // 0x00430BB0
-void __cdecl sub_00435230_PlayIntroVideos();                                                                // 0x00435230
-void __cdecl sub_00435330_ShowLoginScreen();                                                                // 0x00435330
-int __fastcall sub_0043B7A0_InitFuncTable(D2LaunchRecordStrc* pRecord);                                     // 0x0043B7A0
+void __cdecl MAINMENUS_PlayIntroVideos();                                                                // 0x00435230
+void __cdecl MAINMENUS_ShowLoginScreen();                                                                // 0x00435330
+int __fastcall CHARSEL_InitFuncTable(D2LaunchRecordStrc* pRecord);                                     // 0x0043B7A0
 int __stdcall WINDOW_CenterWindow(int nResolution);                                                   // 0x004F5BC0
 int __fastcall D2Win_10015();                                                                               // 0x004F8FE0
 int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile);                                                 // 0x004F9160
@@ -81,7 +81,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
         {
             gnLaunchMode_007795EC = 1;
             sub_004F90A0(1);
-            sub_00435330_ShowLoginScreen();
+            MAINMENUS_ShowLoginScreen();
         }
     }
     else if (nStartMode == 4)
@@ -96,19 +96,20 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
         {
             gnLaunchMode_007795EC = 3;
             sub_004F90A0(1);
-            sub_00435330_ShowLoginScreen();
+            MAINMENUS_ShowLoginScreen();
         }
     }
     else if (nStartMode == 3)
     {
-        sub_0043B7A0_InitFuncTable(gpLaunchRecord_007795D4);
+        CHARSEL_InitFuncTable(gpLaunchRecord_007795D4);
         gnLaunchMode_007795EC = 2;
         sub_004F90A0(1);
-        sub_0042FFE0_CreateScreen();
+// build: symbol ?CHARSEL_CreateTcpIpScreen@* 0x0042FFE0
+        CHARSEL_CreateTcpIpScreen();
     }
     else
     {
-        sub_0043B7A0_InitFuncTable(gpLaunchRecord_007795D4);
+        CHARSEL_InitFuncTable(gpLaunchRecord_007795D4);
         if (gpLaunchRecord_007795D4->bRegistryMode)
         {
             unsigned long nValue = 0;
@@ -118,7 +119,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
             sub_004F90A0(1);
             WINDOW_CenterWindow(1);
             gnLaunchMode_007795EC = nValue ? 3 : 1;
-            sub_00435330_ShowLoginScreen();
+            MAINMENUS_ShowLoginScreen();
         }
         else
         {
@@ -127,7 +128,7 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
                 gnLaunchMode_007795EC = 0;
                 sub_004F90A0(1);
                 WINDOW_CenterWindow(1);
-                sub_00435230_PlayIntroVideos();
+                MAINMENUS_PlayIntroVideos();
                 gpLaunchRecord_007795D4->bIntroPlayed = 1;
             }
             else
@@ -144,8 +145,9 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     while (D2SOUND_IsAnyWavePlaying())
         Sleep(0);
     sub_00515070();
-    sub_0042F480_Reset();
-    sub_0042EF50_FreeFrontEndCells();
+// build: symbol ?MAINMENUS_Reset@* 0x0042F480
+    MAINMENUS_Reset();
+    MAINMENUS_FreeFrontEndCells();
     sub_00524E40();
     memset(gpLaunchRecord_007795D4->adwSecret, 0, sizeof(gpLaunchRecord_007795D4->adwSecret));
     sub_004FA550();

@@ -11,7 +11,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 char* gpMcpPacket_007992F4; // 0x007992F4
 
 // 0x00449E70
-void __stdcall sub_00449E70_SetMcpPacket(const char* pData, int nSize)
+void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize)
 {
     if (gpMcpPacket_007992F4)
     {

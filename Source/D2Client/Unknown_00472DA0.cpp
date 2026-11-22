@@ -38,7 +38,7 @@ struct D2WeatherLineStrc
     int nY2;
 };
 int __cdecl sub_0045AE90(); // 0x0045AE90
-int __cdecl sub_004F5210(); // 0x004F5210
+int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 extern D2WeatherLineStrc gaWeatherLines_006D6E78[]; // 0x006D6E78
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -160,7 +160,7 @@ void __fastcall sub_00472EC0_CreateBubble(int nX, int nY, int nFixX, int nFixY)
 // 0x00473470
 void __cdecl sub_00473470()
 {
-    if (sub_004F5210())
+    if (D2GFX_CheckLowQuality())
         return;
 
     int nLeft = 0;

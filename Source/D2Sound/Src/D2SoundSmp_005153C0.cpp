@@ -13,7 +13,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 
-D2DirectSoundStrc* __cdecl sub_00513B50();                                                                   // 0x00513B50
+D2DirectSoundStrc* __cdecl D2SOUND_GetDirectSound();                                                                   // 0x00513B50
 
 void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
 
@@ -61,7 +61,7 @@ extern int gbIconic_00881814; // 0x00881814
 
 extern "C" void* __cdecl sub_004F59A0_GetHwnd(); // 0x004F59A0
 
-int __cdecl sub_00514920(); // 0x00514920
+int __cdecl D2SOUND_GetStreamChannelValue(); // 0x00514920
 
 int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
 
@@ -97,7 +97,7 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
     tDesc.dwBufferBytes = nBytes;
     tDesc.lpwfxFormat = &tFormat;
 
-    if (sub_00513B50()->CreateSoundBuffer(&tDesc, &pSound->pBuffer, 0) < 0)
+    if (D2SOUND_GetDirectSound()->CreateSoundBuffer(&tDesc, &pSound->pBuffer, 0) < 0)
         return 0;
 
     if (nFlags & 2)
@@ -109,7 +109,8 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
         }
     }
 
-    if ((nFlags & 2) && sub_00513B70())
+// build: symbol ?D2SOUND_IsEaxEnabled@* 0x00513B70
+    if ((nFlags & 2) && D2SOUND_IsEaxEnabled())
     {
         if (pSound->p3DBuffer->QueryInterface(gIidKsPropertySet_006DE410, (void**)&pSound->pPropertySet) < 0)
         {
@@ -118,7 +119,8 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
         }
 
         unsigned long dwSupport = 0;
-        if (sub_00513B90() == 1)
+// build: symbol ?D2SOUND_GetEaxVersion@* 0x00513B90
+        if (D2SOUND_GetEaxVersion() == 1)
         {
             if (pSound->pPropertySet->QuerySupport(gEaxBuffer10PropertySet_006DE490, 1, &dwSupport) < 0 || (dwSupport & 3) != 3)
             {
@@ -149,7 +151,8 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
 D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue)
 {
     gbSoundGlobalFocus_00881804 = nValue;
-    if ((nFlags & 2) && !sub_00513B60())
+// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
+    if ((nFlags & 2) && !D2SOUND_IsPositionalSoundEnabled())
         return 0;
     if ((nFlags & 2) && (nFlags & 1))
         return 0;
@@ -275,7 +278,7 @@ unsigned long __stdcall sub_00516250_SoundThread(void* pParameter)
         const int bWasIconic = gbIconic_00881814;
         gbIconic_00881814 = IsIconic(sub_004F59A0_GetHwnd());
 
-        if (sub_00514920() && !D2SOUND_IsStreamChannelPlaying())
+        if (D2SOUND_GetStreamChannelValue() && !D2SOUND_IsStreamChannelPlaying())
         {
             sub_00514990_PickRandomChannel();
         }

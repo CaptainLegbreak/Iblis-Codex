@@ -14,7 +14,7 @@ struct D2PaletteStrc
 };
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void __fastcall sub_004F69B0_DrawSubtileRows(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
+void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
 void __fastcall sub_004F6BB0_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep); // 0x004F6BB0
 void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F71A0
 void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
@@ -132,7 +132,7 @@ void __fastcall sub_004F8810_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned 
     if (pBlock->nFormat & 4)
         sub_004F6F60_DrawRleRows(pBlock->pData, pDst, pPalette, 0xF);
     else
-        sub_004F69B0_DrawSubtileRows(pBlock->pData, pDst, pPalette);
+        CMNSUBTILE_DrawIsoBlockFlat(pBlock->pData, pDst, pPalette);
 }
 
 // 0x004F8850

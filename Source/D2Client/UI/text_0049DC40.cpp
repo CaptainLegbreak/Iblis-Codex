@@ -286,9 +286,9 @@ extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x
 
 void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-int __cdecl sub_00514CC0(); // 0x00514CC0
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers_00722600[]; // 0x00722600
 
@@ -991,8 +991,8 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 // calling-convention shim (not game code)
 static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
 {
-    int nA = sub_004F59A0();
-    int nB = sub_004F59A0();
+    int nA = WINDOW_GetWindow();
+    int nB = WINDOW_GetWindow();
     sub_00467430(nA);
     sub_00467430(nB);
     sub_00467430(nA);
@@ -1009,7 +1009,7 @@ static int __stdcall TEXT_AdvanceTextBox(T00479230* pTextBox, int bIgnore)
         return 0;
     }
 
-    const int bBusy = sub_00514CC0();
+    const int bBusy = D2SOUND_GetMasterVolumeOption();
     if (!gnHintSound_007BF24B || sub_004B95C0_IsHintPlaying((void*)gnHintSound_007BF24B) || !bBusy)
     {
         gnHintSound_007BF24B = 0;
@@ -1044,7 +1044,7 @@ static int __stdcall TEXT_AdvanceTextBox(T00479230* pTextBox, int bIgnore)
             if (gbStarted_007BF27C == 1)
             {
                 gbStarted_007BF27C = 0;
-                AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
             }
 
             return 0;
@@ -1129,7 +1129,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
             if (gbStarted_007BF27C == 1)
             {
                 gbStarted_007BF27C = 0;
-                AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
             }
         }
     }
@@ -1157,7 +1157,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
         if (gbStarted_007BF27C == 1)
         {
             gbStarted_007BF27C = 0;
-            AUTOMAP_UnregisterHandlerTable(sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+            AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
         }
     }
 

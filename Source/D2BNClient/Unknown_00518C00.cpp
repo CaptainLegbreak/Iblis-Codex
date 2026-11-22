@@ -8,14 +8,14 @@ struct D2CacheHashEntryStrc;
 struct D2CacheBlockEntryStrc;
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* pDestination, long nExchange, long nComparand); // 0x006CC3A0
 int __fastcall FOG_SOCKET_GetSockName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DF20
-void __cdecl sub_00519300_FreeCache(); // 0x00519300
-void __cdecl sub_0051AC20_FreeChannelList(); // 0x0051AC20
-void __cdecl sub_0051B210_FreeBuffer(); // 0x0051B210
-void __cdecl sub_0051E5D0_SetStopFlag(); // 0x0051E5D0
-extern "C" int __cdecl sub_0051E5E0_IsPendingCountPositive(); // 0x0051E5E0
+void __cdecl CACHE_FreeCache(); // 0x00519300
+void __cdecl BNSEND_FreeChannelList(); // 0x0051AC20
+void __cdecl BNSEND_FreeGamesList(); // 0x0051B210
+void __cdecl BNDOWNLOAD_StopDownloads(); // 0x0051E5D0
+extern "C" int __cdecl BNDOWNLOAD_HasPendingDownloads(); // 0x0051E5E0
 void __cdecl sub_005201E0_InitMessageQueue(); // 0x005201E0
-int __cdecl sub_00520440_FreeAllMessages(); // 0x00520440
-extern "C" int __cdecl sub_00520AD0_SetFlag882528(); // 0x00520AD0
+int __cdecl BNMESSQUEUE_FreeAllMessages(); // 0x00520440
+extern "C" int __cdecl BNDOWNLOAD_SetDisconnected(); // 0x00520AD0
 void __cdecl sub_00521B90_ClearSrpState(); // 0x00521B90
 extern BnClientInterface gBnClientInterface_0072FAA0; // 0x0072FAA0
 extern int gdwGlobal_008818BC; // 0x008818BC
@@ -86,10 +86,10 @@ int __cdecl sub_0051BEC0_IsExpansion()
 // 0x0051C470
 int __cdecl sub_0051C470_CloseBNetConnection()
 {
-    sub_0051AC20_FreeChannelList();
-    sub_0051B210_FreeBuffer();
-    sub_00519300_FreeCache();
-    sub_00520440_FreeAllMessages();
+    BNSEND_FreeChannelList();
+    BNSEND_FreeGamesList();
+    CACHE_FreeCache();
+    BNMESSQUEUE_FreeAllMessages();
     sub_00521B90_ClearSrpState();
     InterlockedExchange(&gnDnsDone_00881BFC, 1);
     while (InterlockedCompareExchange(&gnReceiveThreads_00881BF4, 0, 0))
@@ -97,14 +97,14 @@ int __cdecl sub_0051C470_CloseBNetConnection()
     const long hSocket = InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
     if (hSocket)
     {
-        sub_00520AD0_SetFlag882528();
+        BNDOWNLOAD_SetDisconnected();
         while (InterlockedCompareExchange(&gnSendBusy_00881C00, 0, 0))
             Sleep(10);
         if (InterlockedCompareExchange(&gnConnected_00881BF0, 0, hSocket) == hSocket)
             FOG_SOCKET_Destroy((FSafeSock*)hSocket);
     }
-    sub_0051E5D0_SetStopFlag();
-    while (sub_0051E5E0_IsPendingCountPositive())
+    BNDOWNLOAD_StopDownloads();
+    while (BNDOWNLOAD_HasPendingDownloads())
         Sleep(10);
     if (InterlockedCompareExchange(&gnSendBusy_00881C00, 0, 0))
     {

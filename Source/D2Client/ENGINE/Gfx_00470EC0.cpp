@@ -259,7 +259,7 @@ void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc*, int, int, int, int*, int*, int
 int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc*, int, int*, int); // 0x004DB360
 unsigned char* __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc*, int, unsigned char*); // 0x004DB570
 void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int bForce); // 0x004DC7B0
-int __cdecl sub_004F5170(); // 0x004F5170
+int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
 void __stdcall sub_004F5190_SetTownMode(int); // 0x004F5190
 void __stdcall sub_004F6450_DrawPerspective(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
@@ -313,7 +313,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         }
     }
     int bRestoreTown = 0;
-    int nTown = sub_004F5170();
+    int nTown = D2GFX_CheckUnitPerspective();
     if (nTown && bPerspective && pUnit == sub_00463DD0_GetPlayerUnit() && nUnitType == 0)
     {
         sub_004F5190_SetTownMode(0);

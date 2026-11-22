@@ -7,7 +7,7 @@ extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack
 
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
 
-void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
+void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 unsigned char gabRemapTable_008815B0[256];                                                                  // 0x008815B0
 
@@ -88,7 +88,7 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
-                sub_00513330_DDrawCloseSmacker(pRecord);
+                DDRAW_CloseSmacker(pRecord);
             else
                 SmackNextFrame(hSmack);
         }
@@ -107,7 +107,7 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
 }
 
 // 0x00513330
-void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
+void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord)
 {
     if (gpDDrawSmackBuffer_008816B0)
     {
@@ -122,7 +122,7 @@ void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
 }
 
 // 0x00513400
-void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecordStrc* pRecord, unsigned char nType)
+void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pRecord, unsigned char nType)
 {
     pRecord->nType = nType;
     switch (nType)
@@ -180,7 +180,7 @@ void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecor
         return;
     }
 
-    sub_00513330_DDrawCloseSmacker(pRecord);
+    DDRAW_CloseSmacker(pRecord);
 }
 
 #include "gen/data/Source/D2DDraw/Src/ddSmack.inc"

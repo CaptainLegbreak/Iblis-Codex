@@ -8,7 +8,7 @@ extern D2GrTexInfoStrc gGlideFloorTexInfo_0072F6BC; // 0x0072F6BC
 extern D2GrTexInfoStrc gGlideTileTexInfo_0072F6A8; // 0x0072F6A8
 
 // 0x0050F8C0
-void __cdecl sub_0050F8C0_GlideShutdownStep()
+void __cdecl GLIDE_FreeBlockBuffers()
 {
     if (gpGlideTileDecodeBuffer_00880BFC)
     {
@@ -23,7 +23,7 @@ void __cdecl sub_0050F8C0_GlideShutdownStep()
 }
 
 // 0x0050F870
-void __cdecl sub_0050F870_GlideBlocksInit()
+void __cdecl GLIDE_InitBlockBuffers()
 {
     gpGlideTileDecodeBuffer_00880BFC = (unsigned char*)FOG_Alloc(0x400, ".\\Src\\glBlocks.cpp", 0x33, 0);
     gpGlideFloorDecodeBuffer_00880C00 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glBlocks.cpp", 0x34, 0);

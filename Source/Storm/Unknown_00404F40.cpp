@@ -111,7 +111,7 @@ struct D2ConfigStrc
 };
 int __stdcall ERRORMANAGER_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
 void __stdcall sub_00405A70_WriteSurveyLocale(); // 0x00405A70
-void __fastcall sub_00406870_InitStorm(int nDirectFlags, int nValue); // 0x00406870
+void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
 void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
 void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused); // 0x0040A390
@@ -127,7 +127,7 @@ int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
 int __stdcall D2GFX_ToggleLowQuality(); // 0x004F54F0
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
 int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
@@ -645,7 +645,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
     BOOL bSoundStarted = 0;
     BOOL bGfxStarted = 0;
 
-    sub_00406870_InitStorm(pCfg->bDirect, 0);
+    MAINMENUS_InitStorm(pCfg->bDirect, 0);
     FOG_AsyncDataInitialize(1, 0);
     FOG_10082_Noop();
     FOG_10218();
@@ -707,7 +707,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
             void (__stdcall* pfnInstall)(int) = (void (__stdcall*)(int))GetProcAddress(ghModKeyhook_0074C70C, "InstallKeyboardHook");
             if (pfnInstall)
             {
-                pfnInstall(sub_004F59A0());
+                pfnInstall(WINDOW_GetWindow());
             }
         }
 

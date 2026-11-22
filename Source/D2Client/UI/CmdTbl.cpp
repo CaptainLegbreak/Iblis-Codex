@@ -41,9 +41,9 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 extern "C" int __cdecl isalpha(int c); // 0x00686DA5
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -448,10 +448,10 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
             gnGlobal_007A7428 = 1;
             if (bFlag && gnGlobal_007A7424 != 0)
             {
-                sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712974, 2);
+                sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHotkeyHandlers_00712974, 2);
                 gnGlobal_007A7424 = 0;
             }
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
         }
     }
     else
@@ -459,10 +459,10 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
         if (gnGlobal_007A7428 == 1)
         {
             gnGlobal_007A7428 = 0;
-            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
             if (bFlag && gnGlobal_007A7424 == 0)
             {
-                sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712974, 2);
+                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHotkeyHandlers_00712974, 2);
                 gnGlobal_007A7424 = 1;
             }
         }
@@ -477,7 +477,7 @@ void __cdecl CMDTBL_EnableHotkeyHandlers()
     if (gnGlobal_007A7428 == 0)
     {
         gnGlobal_007A7428 = 1;
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
     }
 }
 
@@ -502,7 +502,7 @@ void __cdecl CMDTBL_DisableHotkeyHandlers()
     if (gnGlobal_007A7428 == 1)
     {
         gnGlobal_007A7428 = 0;
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtHotkeyHandlers_00712944, 4);
     }
 }
 

@@ -91,7 +91,7 @@ void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -368,7 +368,7 @@ int __cdecl TEXT_CloseText()
         if (gbStarted_007BF27C == 1)
         {
             gbStarted_007BF27C = 0;
-            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
         }
         bResult = 1;
     }

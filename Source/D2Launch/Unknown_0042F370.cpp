@@ -3,13 +3,13 @@
 struct D2LaunchControlTemplateStrc;
 
 int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
-void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
+void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
-void __cdecl sub_0042F6C0_SetDone(); // 0x0042F6C0
-void __cdecl sub_00437B90_FreeCache(); // 0x00437B90
-void __cdecl sub_00438EA0_FreeCharList(); // 0x00438EA0
+void __cdecl MAINMENUS_SetDone(); // 0x0042F6C0
+void __cdecl CHARSEL_FreeCache(); // 0x00437B90
+void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
 void __stdcall D2Win_10029(int a1); // 0x004FA410
@@ -40,7 +40,7 @@ void __cdecl sub_0042F370_RestorePalette()
 // 0x0042F880
 void __cdecl sub_0042F880_DestroyControls()
 {
-    sub_0042F3F0_DestroyControls();
+    MAINMENUS_DestroyControls();
 }
 
 D2WinControlStrc* gpControl_00779338; // 0x00779338
@@ -62,17 +62,18 @@ int gnValue_00779980; // 0x00779980
 // 0x0042F800
 void __cdecl sub_0042F800()
 {
-    sub_0042F3F0_DestroyControls();
+    MAINMENUS_DestroyControls();
     gbGatewayFlag_00779954 = 1;
     gdwGlobal_00779974 = 0;
-    D2WinControlStrc* pControlA = sub_0042F3A0_CreateFromTemplate(0xDE);
+// build: symbol ?MAINMENUS_CreateFromTemplate@* 0x0042F3A0
+    D2WinControlStrc* pControlA = MAINMENUS_CreateFromTemplate(0xDE);
     D2Win_10033(pControlA, 0);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControlA, 1);
-    D2WinControlStrc* pControlB = sub_0042F3A0_CreateFromTemplate(0xFC);
+    D2WinControlStrc* pControlB = MAINMENUS_CreateFromTemplate(0xFC);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControlB, 1);
-    D2WinControlStrc* pControlC = sub_0042F3A0_CreateFromTemplate(0xE0);
+    D2WinControlStrc* pControlC = MAINMENUS_CreateFromTemplate(0xE0);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControlC, 1);
-    sub_0042F3A0_CreateFromTemplate(0xFB);
+    MAINMENUS_CreateFromTemplate(0xFB);
     sub_004FD060_SetText(pControlC, D2LANG_GetStringFromTblIndex(0x147B));
 }
 

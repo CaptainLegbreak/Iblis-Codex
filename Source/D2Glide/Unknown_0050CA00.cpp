@@ -23,13 +23,13 @@ extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4];                     
 typedef void (__stdcall* GlideDrawVertexArrayFn)(int nMode, int nCount, void** ppVertices);
 extern GlideDrawVertexArrayFn gpfGlideDrawVertexArray_0087EB18;                                             // 0x0087EB18
 
-void __fastcall sub_005094B0_GlideSetState(int nState);                                                      // 0x005094B0
-void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                     // 0x00509500
-void __fastcall sub_005095D0_GlideSetDepth(int nMode);                                                       // 0x005095D0
+void __fastcall GLIDE_SetColorCombineMode(int nState);                                                      // 0x005094B0
+void __fastcall GLIDE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
+void __fastcall GLIDE_SetTextureFilterMode(int nMode);                                                       // 0x005095D0
 void __fastcall sub_0050DBE0_GlideSetVertexShade(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade);   // 0x0050DBE0
-void __fastcall sub_0050DC30_GlideSetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
-int __cdecl sub_0050DD30_GlideIsPerspective();                                                               // 0x0050DD30
-void __fastcall sub_0050DD60_ProjectToScreen(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);          // 0x0050DD60
+void __fastcall GLIDE_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
+int __cdecl GLIDE_IsPerspective();                                                               // 0x0050DD30
+void __fastcall GLIDE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);          // 0x0050DD60
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);                                   // 0x0050FBD0
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
 
@@ -104,16 +104,16 @@ int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStr
         int nScreenX;
         int nScreenY;
 
-        sub_0050DD60_ProjectToScreen(nX0, nY0, 0, &nScreenX, &nScreenY);
+        GLIDE_PerspectiveTransform(nX0, nY0, 0, &nScreenX, &nScreenY);
         gaGlideTileGrid_00880458[0].x = (float)nScreenX;
         gaGlideTileGrid_00880458[0].y = (float)nScreenY;
-        sub_0050DD60_ProjectToScreen(nPosX + nWorldX + 0x20000, nPosY + nWorldY + 0x20000, 0, &nScreenX, &nScreenY);
+        GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x20000, nPosY + nWorldY + 0x20000, 0, &nScreenX, &nScreenY);
         gaGlideTileGrid_00880458[12].x = (float)nScreenX;
         gaGlideTileGrid_00880458[12].y = (float)nScreenY;
-        sub_0050DD60_ProjectToScreen(nPosX + nWorldX + 0x30000, nPosY + nWorldY + 0x10000, 0, &nScreenX, &nScreenY);
+        GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x30000, nPosY + nWorldY + 0x10000, 0, &nScreenX, &nScreenY);
         gaGlideTileGrid_00880458[14].x = (float)nScreenX;
         gaGlideTileGrid_00880458[14].y = (float)nScreenY;
-        sub_0050DD60_ProjectToScreen(nPosX + nWorldX + 0x10000, nPosY + nWorldY - 0x10000, 0, &nScreenX, &nScreenY);
+        GLIDE_PerspectiveTransform(nPosX + nWorldX + 0x10000, nPosY + nWorldY - 0x10000, 0, &nScreenX, &nScreenY);
         gaGlideTileGrid_00880458[2].x = (float)nScreenX;
         gaGlideTileGrid_00880458[2].y = (float)nScreenY;
 
@@ -134,7 +134,7 @@ DrawVisibleTile:
                 int nY = *(volatile int*)&nStartY;
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {
-                    sub_0050DD60_ProjectToScreen(nX, nY, 0, &nScreenX, &nScreenY);
+                    GLIDE_PerspectiveTransform(nX, nY, 0, &nScreenX, &nScreenY);
                     pVertex->y = (float)nScreenY;
                     pVertex->x = (float)nScreenX + fOffset;
                     sub_0050DBE0_GlideSetVertexShade(pVertex, eDrawMode);

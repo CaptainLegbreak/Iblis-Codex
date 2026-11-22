@@ -3,7 +3,7 @@
 #include "D2Unicode.h"
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
-void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
+void __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
@@ -11,7 +11,7 @@ void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (_
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox);                                                      // 0x004F91C0
 int __stdcall sub_004450A0_JoinNameKey(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004450A0
 int __stdcall sub_004450C0_JoinNameEnter(int nArg);                                                         // 0x004450C0
-int __stdcall sub_00443600_IsPrintableChar(D2WinControlStrc* pControl, int nArg, const char* pChar);        // 0x00443600
+int __stdcall CHATDLG_IsPrintableChar(D2WinControlStrc* pControl, int nArg, const char* pChar);        // 0x00443600
 
 extern D2WinControlInitStrc gtControlInit_0070D630;                                                         // 0x0070D630
 extern D2WinControlInitStrc gtControlInit_0070D660;                                                         // 0x0070D660
@@ -37,9 +37,10 @@ unsigned long gdwLastRefresh_00798CF0;                                          
 // 0x00445DF0
 void __cdecl sub_00445DF0_CreateJoinScreen()
 {
-    if (sub_0043DC30_GetStatus() == -1)
+// build: symbol ?CHARSEL_GetConnectStatus@* 0x0043DC30
+    if (CHARSEL_GetConnectStatus() == -1)
     {
-        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
+        CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
         return;
     }
     gpControl_00798BC8 = CONTROL_Create(&gtControlInit_0070D630);
@@ -60,7 +61,7 @@ void __cdecl sub_00445DF0_CreateJoinScreen()
     sub_004FDB00_SetEnterCallback(gpJoinName_00798BD4, sub_004450C0_JoinNameEnter);
     gpControl_00798BD8 = CONTROL_Create(&gtControlInit_0070D750);
     sub_004FDD50_SetMaxLength(gpControl_00798BD8, 0x10);
-    sub_004FDAD0_SetKeyCallback(gpControl_00798BD8, sub_00443600_IsPrintableChar);
+    sub_004FDAD0_SetKeyCallback(gpControl_00798BD8, CHATDLG_IsPrintableChar);
     sub_004FDDD0_LinkTab(gpJoinName_00798BD4, gpControl_00798BD8);
     sub_004FDDD0_LinkTab(gpControl_00798BD8, gpJoinName_00798BD4);
     gpGameList_00798BC0 = CONTROL_Create(&gtControlInit_0070D780);
@@ -74,12 +75,14 @@ void __cdecl sub_00445DF0_CreateJoinScreen()
     if (dwElapsed >= 0x1388)
     {
         gdwLastRefresh_00798CF0 += dwElapsed;
-        sub_00445020_SendLaunchRequest();
+// build: symbol ?CHARSEL_RequestGameList@* 0x00445020
+        CHARSEL_RequestGameList();
     }
     CONTROL_SetFocusedEditBox(gpJoinName_00798BD4);
     gnGameCount_00798CC8 = 0;
     gnValue_00798CCC = 0;
-    sub_004437E0_UpdateButtonState();
+// build: symbol ?CHARSEL_UpdateJoinButtonState@* 0x004437E0
+    CHARSEL_UpdateJoinButtonState();
 }
 
 #include "gen/data/Source/D2Multi/Unknown_00445DF0.inc"

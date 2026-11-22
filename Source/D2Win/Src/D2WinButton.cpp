@@ -220,7 +220,8 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
 
     if (pButton->pfUpdateHoverState)
     {
-        if (sub_004FA4B0())
+// build: symbol ?CONTROL_GetActiveControlList@* 0x004FA4B0
+        if (CONTROL_GetActiveControlList())
         {
             pButton->isButtonHovered = 0;
         }

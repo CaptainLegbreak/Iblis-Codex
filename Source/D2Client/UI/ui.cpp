@@ -139,9 +139,9 @@ struct D2PanelHotkeysStrc
     D2MsgHandlerEntryStrc* f_20;
 };
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -660,7 +660,7 @@ void __cdecl sub_0048EDF0_DrawInventoryPanel(); // 0x0048EDF0
 
 void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
 
-void __cdecl sub_00453470_DrawProgressiveStates(); // 0x00453470
+void __cdecl CHARSEL_DrawProgressiveStates(); // 0x00453470
 
 void __cdecl sub_004AC690_DrawSkillPanel(); // 0x004AC690
 
@@ -1473,14 +1473,14 @@ void __fastcall UI_TogglePanelHandlers(int bRegister)
     {
         if (gnPanelState_007A27E8)
         {
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6084, 5);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 5);
         }
     }
     else
     {
         if (gnPanelState_007A27E8)
         {
-            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6084, 5);
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 5);
         }
     }
 }
@@ -1521,8 +1521,8 @@ int __cdecl UI_IsLoadingScreenActive()
 // 0x00454980
 void __cdecl UI_RegisterKeyConfigHandlers()
 {
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D60C0, 13);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6024, 1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D60C0, 13);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6024, 1);
 }
 
 // 0x004549B0
@@ -1771,43 +1771,43 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
     switch (nPanel)
     {
     case 0xA:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6084, 0x5);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
         gnPanelFlag_007A2864 = 0x1;
         return;
     case 0x0:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5F28, 0x4);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 0x4);
         return;
     case 0x3:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5FC4, 0x1);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FC4, 0x1);
         return;
     case 0x4:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5FAC, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FAC, 0x2);
         return;
     case 0x2:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5FD0, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FD0, 0x2);
         return;
     case 0x1:
         sub_00487B30();
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5F58, 0x4);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5F58, 0x4);
         return;
     case 0x5:
         CHAT_InitChatIme();
         sub_0046AA20(0, 0x1);
         if (gnPanelState_007A27E8)
-            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6084, 0x5);
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
         sub_0047B4D0_Nop();
         return;
     case 0x6:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5FE8, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D5FE8, 0x2);
         return;
     case 0x13:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6000, 0x1);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6000, 0x1);
         return;
     case 0x7:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D600C, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D600C, 0x2);
         return;
     case 0x9:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6030, 0x7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6030, 0x7);
         sub_00467A70_RefreshHoverUnit(0);
         return;
     case 0xB:
@@ -1818,26 +1818,26 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         sub_0046AA20(0x2, 0x1);
         TEXT_ResetNpcPanel();
         UI_SetPanelHotkeys(&gtPanelHotkeys_006D5F88);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_0070F878, 0x8);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F878, 0x8);
         return;
     case 0xF:
         UI_SetPanelHotkeys(&gtPanelHotkeys_006D618C);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_0070F8D8, 0x7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F8D8, 0x7);
         return;
     case 0x11:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D615C, 0x4);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D615C, 0x4);
         return;
     case 0x10:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D61B0, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D61B0, 0x2);
         return;
     case 0x14:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D61C8, 0x5);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D61C8, 0x5);
         return;
     case 0x15:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6204, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 0x2);
         return;
     case 0x16:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D621C, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D621C, 0x2);
         PARTY_RebuildRosterUnits();
         return;
     case 0x17:
@@ -1845,41 +1845,41 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         sub_004B8920();
         sub_0048A680();
         UI_SetPanelHotkeys(&gtPanelHotkeys_006D6234);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_0070F930, 0xD);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F930, 0xD);
         return;
     case 0x19:
         sub_0046AA20(0x2, 0x1);
         INV_LoadStashPanelCels();
         UI_SetPanelHotkeys(&gtPanelHotkeys_006D6258);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_0070F9D0, 0x8);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070F9D0, 0x8);
         return;
     case 0x1A:
         sub_0046AA20(0x2, 0x1);
         INV_LoadCubePanelCel();
         UI_SetPanelHotkeys(&gtPanelHotkeys_006D627C);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_0070FA30, 0x7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070FA30, 0x7);
         return;
     case 0x18:
         TEXT_OpenMessageLogDialog();
         return;
     case 0x1F:
         UI_SetPanelHotkeys(&gtPanelHotkeys_006D62A0);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_0070FA84, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_0070FA84, 0x2);
         return;
     case 0x21:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D62C4, 0x5);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 0x5);
         return;
     case 0x22:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6300, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 0x2);
         return;
     case 0x23:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6318, 0x3);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6318, 0x3);
         return;
     case 0x24:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D633C, 0x3);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D633C, 0x3);
         return;
     case 0x25:
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6360, 0x2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6360, 0x2);
         return;
     }
 }
@@ -1890,29 +1890,29 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
     switch (nPanel)
     {
     case 0xA:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6084, 0x5);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
         gnPanelFlag_007A2864 = 0x0;
         return;
     case 0x0:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F28, 0x4);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F28, 0x4);
         return;
     case 0x3:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5FC4, 0x1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FC4, 0x1);
         return;
     case 0x4:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5FAC, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FAC, 0x2);
         UI_StartUIVarDelay();
         sub_004ABF10_ClearSkillStates();
         return;
     case 0x2:
         UI_CloseGoldDialog();
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5FD0, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FD0, 0x2);
     case 0x12:
         UI_StartUIVarDelay();
         return;
     case 0x1:
         UI_CloseGoldDialog();
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F58, 0x4);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5F58, 0x4);
         UI_StartUIVarDelay();
         return;
     case 0x5:
@@ -1923,16 +1923,16 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
             && !gaUIVarStates_007A27C0[0x1D] && !gaUIVarStates_007A27C0[0x1E] && !gaUIVarStates_007A27C0[0x20])
             sub_0046AA20(0x1, 0x1);
         if (gaUIVarStates_007A27C0[0xA])
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6084, 0x5);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6084, 0x5);
         return;
     case 0x6:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5FE8, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D5FE8, 0x2);
         return;
     case 0x13:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6000, 0x1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6000, 0x1);
         return;
     case 0x7:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D600C, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D600C, 0x2);
         return;
     case 0x8:
     case 0xE:
@@ -1940,43 +1940,43 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         NPCMENU_CloseByState();
         return;
     case 0x9:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6030, 0x7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6030, 0x7);
         sub_00466FE0();
         return;
     case 0xB:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6024, 0x1);
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D60C0, 0xD);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6024, 0x1);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D60C0, 0xD);
         TEXT_ToggleKeyConfigPanel(0);
         return;
     case 0xC:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070F878, 0x8);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F878, 0x8);
         NPCMENU_CloseByState();
         sub_0046AA20(0x1, 0x1);
         return;
     case 0xF:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070F8D8, 0x7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F8D8, 0x7);
         TEXT_ResetQuestButton();
         UI_StartUIVarDelay();
         return;
     case 0x11:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D615C, 0x4);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D615C, 0x4);
         TEXT_ResetQuestButtonState();
         return;
     case 0x10:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D61B0, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D61B0, 0x2);
         sub_0049FF00();
         UI_StartUIVarDelay();
         return;
     case 0x14:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D61C8, 0x5);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D61C8, 0x5);
         sub_0049CF50_SendWaypointClose();
         UI_StartUIVarDelay();
         return;
     case 0x15:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6204, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 0x2);
         return;
     case 0x16:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D621C, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D621C, 0x2);
         PARTY_FreeRosterUnits();
         UI_StartUIVarDelay();
         return;
@@ -1985,7 +1985,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
             return;
         PLAYER_SetPanelSlide(0);
         UI_CloseGoldDialog();
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070F930, 0xD);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F930, 0xD);
         UI_StartUIVarDelay();
         sub_004B8940_CloseWait(0);
         sub_0046AA20(0x1, 0x1);
@@ -1994,14 +1994,14 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         UI_CloseGoldDialog();
         PLAYER_SetPanelSlide(0);
         sub_00489EE0();
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070F9D0, 0x8);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070F9D0, 0x8);
         UI_StartUIVarDelay();
         sub_0046AA20(0x1, 0x1);
         return;
     case 0x1A:
         PLAYER_SetPanelSlide(0);
         sub_0048A500();
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070FA30, 0x7);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070FA30, 0x7);
         UI_StartUIVarDelay();
         sub_0046AA20(0x1, 0x1);
         return;
@@ -2009,24 +2009,24 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         TEXT_CloseMessageLogDialog();
         return;
     case 0x1F:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070FA84, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_0070FA84, 0x2);
         return;
     case 0x21:
         sub_00494FC0();
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D62C4, 0x5);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 0x5);
         return;
     case 0x22:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6300, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6300, 0x2);
         return;
     case 0x23:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6318, 0x3);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6318, 0x3);
         return;
     case 0x24:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D633C, 0x3);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D633C, 0x3);
         INV_ResetHover();
         return;
     case 0x25:
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6360, 0x2);
+        sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6360, 0x2);
         return;
     }
 }
@@ -2217,12 +2217,12 @@ void __cdecl UI_ToggleMiniPanel()
     if (!bWasOn)
     {
         if (gbMiniPanel_007A2814)
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6204, 2);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 2);
     }
     else
     {
         if (!gbMiniPanel_007A2814)
-            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6204, 2);
+            sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D6204, 2);
     }
     sub_00468730();
     sub_00468740();
@@ -2278,7 +2278,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         sub_004B8730_DrawDialogHover();
         sub_0048EDF0_DrawInventoryPanel();
     }
-    sub_00453470_DrawProgressiveStates();
+    CHARSEL_DrawProgressiveStates();
     if (gaUIVarStates_007A27C0[4])
         sub_004AC690_DrawSkillPanel();
     if (gaUIVarStates_007A27C0[2])
@@ -2368,14 +2368,14 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
             if (!bWasOn)
             {
                 if (gaUIVarStates_007A27C0[33])
-                    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D62C4, 5);
+                    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 5);
             }
             else
             {
                 if (!gaUIVarStates_007A27C0[33])
                 {
                     sub_00494FC0();
-                    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D62C4, 5);
+                    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gtPanelHandlers_006D62C4, 5);
                 }
             }
             sub_00468730();

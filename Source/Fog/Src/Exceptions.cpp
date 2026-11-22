@@ -505,7 +505,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
-void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* szFormat, ...); // 0x00410740
+void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
 char* __fastcall sub_004113E0_EscapeString(char* szDst, const char* szSrc, int nSize, char cQuote); // 0x004113E0
 
@@ -854,7 +854,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
         D2ModuleInfoStrc* pModule = EXCEPTIONS_FindModuleByAddress(dwEip, pModules);
         const char* szSymbol = gpfnSymGetSymFromAddr_0075CFF4(hProcess, dwEip, &dwDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
         const char* szModule = pModule ? pModule->szName : "unknown";
-        sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStackEipLine_006CD938, dwEip, szModule, szSymbol, dwDisplacement);
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackEipLine_006CD938, dwEip, szModule, szSymbol, dwDisplacement);
     }
 
     int nLines = 0;
@@ -863,7 +863,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
     {
         if (nLines >= 400)
             break;
-        sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "              %08X:", pStack);
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "              %08X:", pStack);
         int nCount = nRemaining < 16 ? nRemaining : 16;
         szLine[0] = 0;
         int bFound = 0;
@@ -898,7 +898,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
             szLine[j++] = (c & 0x7F) < 0x20 ? '.' : c;
         }
         szLine[nLen + i] = 0;
-        sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStackRowEnd_006CD90C, szLine);
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackRowEnd_006CD90C, szLine);
 
         if (bFound)
         {
@@ -908,9 +908,9 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
             unsigned long dwValueDisplacement;
             const char* szName = gpfnSymGetSymFromAddr_0075CFF4(hProcess, dwValue, &dwValueDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
             if (!_stricmp(szName, "`string'") && !dwValueDisplacement)
-                sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStackStringLine_006CD8C8, dwValue, pValueModule->szName, szName, sub_004113E0_EscapeString(szEscaped, (const char*)dwValue, 0x50, 0));
+                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackStringLine_006CD8C8, dwValue, pValueModule->szName, szName, sub_004113E0_EscapeString(szEscaped, (const char*)dwValue, 0x50, 0));
             else
-                sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszStackSymbolLine_006CD890, dwValue, pValueModule->szName, szName, dwValueDisplacement);
+                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszStackSymbolLine_006CD890, dwValue, pValueModule->szName, szName, dwValueDisplacement);
             nLines += 3;
         }
 
@@ -1383,13 +1383,13 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
         tModule.dwSizeOfStruct = 0x23C;
         if (gpfnSymGetModuleInfo_0075CFEC(hProcess, tFrame.tAddrPC.dwOffset, &tModule))
         {
-            sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "%s!", tModule.szModuleName);
+            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%s!", tModule.szModuleName);
         }
 
-        sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "%s+%04X ", szSymbol, dwSymDisplacement);
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%s+%04X ", szSymbol, dwSymDisplacement);
         if (pSymbol->dwFlags & 3)
         {
-            sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "[omap] ");
+            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "[omap] ");
         }
 
         if (tFrame.pFuncTableEntry)
@@ -1400,26 +1400,26 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
             case 0:
                 if (pFpo->fHasSEH)
                 {
-                    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "(FPO: [SEH])");
+                    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "(FPO: [SEH])");
                 }
                 else
                 {
-                    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, " (FPO:");
+                    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, " (FPO:");
                     if (pFpo->fUseBP)
                     {
-                        sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, " [EBP 0x%08x]", tFrame.dwReserved[0]);
+                        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, " [EBP 0x%08x]", tFrame.dwReserved[0]);
                     }
 
-                    sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, " [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
+                    MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, " [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
                 }
                 break;
 
             case 3:
-                sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "(FPO: Non-FPO [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
+                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "(FPO: Non-FPO [%d, %d, %d])", pFpo->wParams, pFpo->dwLocals, pFpo->cbRegs);
                 break;
 
             default:
-                sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "(UNKNOWN FPO TYPE)");
+                MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "(UNKNOWN FPO TYPE)");
                 break;
             }
         }
@@ -1434,10 +1434,10 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
                 nPad = 1;
             }
 
-            sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "%*s %s, %d", nPad, gszSpace_006FFC44, szFile, tLine.dwLineNumber);
+            MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, "%*s %s, %d", nPad, gszSpace_006FFC44, szFile, tLine.dwLineNumber);
         }
 
-        sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, gszNewline_006FFCB0);
+        MAINMENUS_LogWritePrefixed(&gszEmptyAssertText, gszNewline_006FFCB0);
     }
 
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "%d frames dumped", nFrames);

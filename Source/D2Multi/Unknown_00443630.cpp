@@ -45,28 +45,28 @@ const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); 
 void* __fastcall D2Win_10048(D2WinControl004FBB30Strc* pControl); // 0x004FBB30
 int __fastcall D2Win_10061(D2WinTextBoxStrc* ptTextData); // 0x004FBD20
 int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
-void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
-void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone);                        // 0x00433450
-void __cdecl sub_004336C0_ShowMainMenu();                                                                                // 0x004336C0
-int __fastcall sub_00434960_Validate(D2LaunchCharEntryStrc* pEntry, const char* szName);                    // 0x00434960
-int __fastcall sub_004349B0_Validate(D2LaunchCharEntryStrc* pEntry, const char* szName);                    // 0x004349B0
-void __fastcall sub_00435180_ShowMessage2(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg);              // 0x00435180
+void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
+void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone);                        // 0x00433450
+void __cdecl MAINMENUS_ShowMainMenu();                                                                                // 0x004336C0
+int __fastcall CHARSEL_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName);                    // 0x00434960
+int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName);                    // 0x004349B0
+void __fastcall MAINMENUS_ShowExpansionMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg);              // 0x00435180
 int __stdcall sub_004370B0_ShowLoginScreen(int nArg);                                                                       // 0x004370B0
-void __cdecl sub_004370C0_CreateInfoScreen();                                                                                // 0x004370C0
+void __cdecl MAINMENUS_CreateInfoScreen();                                                                                // 0x004370C0
 void __cdecl sub_00438560_Refresh();                                                                        // 0x00438560
-void __cdecl sub_0043B080_InitCharSelectScreen();                                                                                // 0x0043B080
-void __fastcall sub_0043C750(const char* szCharName, const char* szSubdirectory); // 0x0043C750
-int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName);                                            // 0x0043CAA0
-int __fastcall sub_0043F5F0_CallTable74(int nA, int nB, int nC, int nD);                                    // 0x0043F5F0
-void __cdecl sub_0043FC20();                                                                                // 0x0043FC20
-int __fastcall sub_0043FFA0_SetupCharacter(unsigned short wValue, const char* szText0x1F, const char* szText0x245, const char* szText0x37); // 0x0043FFA0
-void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone);                     // 0x00440140
-void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x004401C0
-void __fastcall sub_004411E0_Use(const char* szText);                                                       // 0x004411E0
+void __cdecl CHARSEL_InitCharSelectScreen();                                                                                // 0x0043B080
+void __fastcall MAINMENUS_DeleteCharFiles(const char* szCharName, const char* szSubdirectory); // 0x0043C750
+int __fastcall CHATDLG_UpdateSaveFlags(const char* szName);                                            // 0x0043CAA0
+int __fastcall CHATDLG_WriteUserData(int nA, int nB, int nC, int nD);                                    // 0x0043F5F0
+void __cdecl CHATDLG_CreateChatScreen();                                                                                // 0x0043FC20
+int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0x1F, const char* szText0x245, const char* szText0x37); // 0x0043FFA0
+void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone);                     // 0x00440140
+void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x004401C0
+void __fastcall CHATDLG_JoinChannel(const char* szText);                                                       // 0x004411E0
 int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
-void __cdecl sub_00443130_Reset();                                                                          // 0x00443130
+void __cdecl CHATDLG_DestroyJoinControls();                                                                          // 0x00443130
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
-void __cdecl sub_00443E10();                                                                                // 0x00443E10
+void __cdecl CHATDLG_DestroyProfileControls();                                                                                // 0x00443E10
 extern int gnSelected_0070CC00;                                                                             // 0x0070CC00
 extern D2WinControlStrc* gpEdit_007799DC;                                                                   // 0x007799DC
 extern D2WinControlStrc* gpEdit_007799E0;                                                                   // 0x007799E0

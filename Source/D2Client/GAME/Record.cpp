@@ -46,7 +46,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileN
 int __cdecl sub_0044DA90(); // 0x0044DA90
 int __stdcall DUNGEON_GetInitSeedFromAct(D2DrlgActStrc* pAct); // 0x0061AAC0
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
-void __stdcall sub_00451450_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
+void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
 extern int gdwGlobal_007A2780; // 0x007A2780
 
 struct D2RecordBlockStrc
@@ -77,7 +77,7 @@ extern int gbRecordPlaying_007A2788; // 0x007A2788
 
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
 
-void* __cdecl sub_004F59A0(); // 0x004F59A0
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int gdwGlobal_007A277C;                                                                                     // 0x007A277C
 extern int gdwGlobal_007A2784;                                                                              // 0x007A2784
@@ -112,7 +112,7 @@ void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wP
         {
         case 0x100:
         case 0x200:
-            sub_00451450_RecordMessage(uMessage, wParam, lParam);
+            COMCALLBACK_RecordMessage(uMessage, wParam, lParam);
             return;
         case 0x10:
         case 0x101:
@@ -122,7 +122,7 @@ void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wP
         case 0x202:
         case 0x204:
         case 0x205:
-            sub_00451450_RecordMessage(uMessage, wParam, lParam);
+            COMCALLBACK_RecordMessage(uMessage, wParam, lParam);
             break;
         }
     }
@@ -224,7 +224,7 @@ int __fastcall RECORD_DispatchRecordedMessage(D2WinMsgStrc* pMsg)
     int bUseResult = 0;
     int lResult = 0;
     D2_ASSERT(pMsg->dwTick == sub_0044DA90(), 0x12A);
-    return SMsgDispatchMessage(sub_004F59A0(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
+    return SMsgDispatchMessage(WINDOW_GetWindow(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
 }
 
 

@@ -116,7 +116,8 @@ static void __stdcall sub_00409370_InsertBlockRecord(D2MemPoolBlockStrc* pBlock,
         pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
         if (!pSystem->pRecords)
         {
-            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
+// build: symbol ?MAINMENUS_LogPoolError@* 0x00409020
+            MAINMENUS_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x261);
         }
     }
@@ -156,7 +157,7 @@ static D2MemPoolBlockStrc* __stdcall sub_004095E0_NewBlock(D2MemPoolRecStrc* pPo
         pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
         if (!pSystem->pRecords)
         {
-            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
+            MAINMENUS_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x2FF);
         }
     }
@@ -174,7 +175,7 @@ static D2MemPoolBlockStrc* __stdcall sub_004095E0_NewBlock(D2MemPoolRecStrc* pPo
         sub_00409370_InsertBlockRecord(pBlock, pSystem);
         return pBlock;
     }
-    sub_00409020_LogPoolError("(2) nPoolBlocks = %d/%d  nBlockSize = %d  nUsageTableSize = %d", pSystem->nPoolBlocks, pSystem->nMaxPoolBlocks, pPool->nChunkSize, nBitsSize);
+    MAINMENUS_LogPoolError("(2) nPoolBlocks = %d/%d  nBlockSize = %d  nUsageTableSize = %d", pSystem->nPoolBlocks, pSystem->nMaxPoolBlocks, pPool->nChunkSize, nBitsSize);
     D2_ASSERT(0, 0x320);
     return 0;
 }

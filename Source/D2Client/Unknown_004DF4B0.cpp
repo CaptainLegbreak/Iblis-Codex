@@ -163,7 +163,8 @@ int __cdecl sub_004DF940()
     {
         return 0;
     }
-    return sub_00513B60();
+// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
+    return D2SOUND_IsPositionalSoundEnabled();
 }
 
 // 0x004DF960
@@ -262,7 +263,8 @@ int __cdecl sub_004E00D0_ToggleSoundMode01()
         return 0;
 
     InterlockedIncrement(&gnGlobal_007C8A74);
-    const int nOld = sub_00514C90();
+// build: symbol ?D2SOUND_GetSoundMixerOption@* 0x00514C90
+    const int nOld = D2SOUND_GetSoundMixerOption();
     int nNew;
     if (nOld == 0)
         nNew = 1;
@@ -285,7 +287,7 @@ int __cdecl sub_004E0140_ToggleSoundMode12()
         return 0;
 
     InterlockedIncrement(&gnGlobal_007C8A74);
-    const int nOld = sub_00514C90();
+    const int nOld = D2SOUND_GetSoundMixerOption();
     int nNew;
     if (nOld == 2)
         nNew = 1;

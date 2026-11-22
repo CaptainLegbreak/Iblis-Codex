@@ -12,7 +12,8 @@ static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
     return 1;
 }
 
-static void sub_0042FD10_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile)
+// build: symbol ?MAINMENUS_BuildLocalizedVideoPath@* 0x0042FD10
+static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile)
 {
     char szLang[4];
 // build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
@@ -34,6 +35,6 @@ static void sub_0042FD10_BuildLocalizedVideoPath(char* szOut, const char* szForm
 
 void __fastcall sub_J02_EmitLaunchVideoPath(char* szOut, const char* szFormat, const char* szFile)
 {
-    sub_0042FD10_BuildLocalizedVideoPath(szOut, szFormat, szFile);
-    sub_0042FD10_BuildLocalizedVideoPath(szOut + 1, szFormat, szFile);
+    MAINMENUS_BuildLocalizedVideoPath(szOut, szFormat, szFile);
+    MAINMENUS_BuildLocalizedVideoPath(szOut + 1, szFormat, szFile);
 }

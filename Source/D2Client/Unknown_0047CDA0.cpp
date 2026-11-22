@@ -37,10 +37,10 @@ struct D2MenuItemStrc
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-int __cdecl sub_00514CC0(); // 0x00514CC0
-int __cdecl sub_00514CF0(); // 0x00514CF0
-int __cdecl sub_00514D20(); // 0x00514D20
-int __cdecl sub_00514D50(); // 0x00514D50
+int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
+int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
+int __cdecl D2SOUND_GetPositionalBiasOption(); // 0x00514D20
+int __cdecl D2SOUND_GetNpcSpeechOption(); // 0x00514D50
 int __fastcall D2SOUND_SetMasterVolumeOption(int nValue); // 0x00514CD0
 int __fastcall D2SOUND_SetMusicVolumeOption(int nValue); // 0x00514D00
 int __fastcall D2SOUND_SetPositionalBiasOption(int nValue); // 0x00514D30
@@ -114,7 +114,7 @@ void __fastcall sub_0047CDA0_MasterVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDL
 // 0x0047CDC0
 void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514CC0(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMasterVolumeOption(), 0, 100);
 }
 
 // 0x0047CDF0
@@ -126,7 +126,7 @@ void __fastcall sub_0047CDF0_MusicVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLE
 // 0x0047CE10
 void __fastcall sub_0047CE10_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514CF0(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMusicVolumeOption(), 0, 100);
 }
 
 // 0x0047CE50
@@ -144,7 +144,7 @@ void __fastcall sub_0047CE70_PositionalBiasSelect(D2MenuItemStrc* pItem, SMSGHAN
 // 0x0047CE90
 void __fastcall sub_0047CE90_PositionalBiasOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, sub_00514D20(), 0, 100);
+    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetPositionalBiasOption(), 0, 100);
 }
 
 // 0x0047CED0
@@ -177,7 +177,7 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
 // 0x0047CF50
 void __fastcall sub_0047CF50_NpcSpeechOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_00514D50();
+    pItem->dwMoveCount = D2SOUND_GetNpcSpeechOption();
     if (sub_004DF880())
     {
         sub_0047CEF0_NpcSpeechSelect(pItem, (SMSGHANDLER_PARAMS*)nArg);

@@ -3,7 +3,7 @@
 
 struct D2Palette256Strc;
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
 void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
@@ -31,19 +31,19 @@ extern int gdwGlobal_00841B70; // 0x00841B70
 // 0x004FAB00
 int __cdecl sub_004FAB00_ShowInsertExpansionDisc()
 {
-    return MessageBoxA((void*)sub_004F59A0(), "Insert Expansion Disc", "Diablo II", 0x31) == 1;
+    return MessageBoxA((void*)WINDOW_GetWindow(), "Insert Expansion Disc", "Diablo II", 0x31) == 1;
 }
 
 // 0x004FAB30
 int __cdecl sub_004FAB30_ShowInsertPlayDisc()
 {
-    return MessageBoxA((void*)sub_004F59A0(), "Insert Play Disc", "Diablo II", 0x31) == 1;
+    return MessageBoxA((void*)WINDOW_GetWindow(), "Insert Play Disc", "Diablo II", 0x31) == 1;
 }
 
 // 0x004FAB60
 int __cdecl sub_004FAB60_ShowInsertDisc()
 {
-    return MessageBoxA((void*)sub_004F59A0(), "Insert Cinematics Disc", "Diablo II", 0x31) == 1;
+    return MessageBoxA((void*)WINDOW_GetWindow(), "Insert Cinematics Disc", "Diablo II", 0x31) == 1;
 }
 
 D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604

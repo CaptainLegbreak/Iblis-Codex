@@ -14,13 +14,13 @@ extern int gnScreenWidth_007C9138;                                              
 extern int gnScreenHeight_007C913C;                                                                         // 0x007C913C
 extern unsigned char* gpScreenBuffer_007C9154;                                                              // 0x007C9154
 
-int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType);                                           // 0x00511D70
+int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
 
 // 0x00512710
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode)
 {
     int nTransMode;
-    const unsigned char* pTable = (const unsigned char*)sub_00511D70_GetCapsValue(nDrawMode, &nTransMode);
+    const unsigned char* pTable = (const unsigned char*)DDRAW_GetDrawModePalette(nDrawMode, &nTransMode);
 
     const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138 - 1);
     const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138 - 1);

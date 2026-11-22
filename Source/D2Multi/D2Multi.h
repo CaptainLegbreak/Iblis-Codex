@@ -84,8 +84,8 @@ extern int gnValue_00798CCC; // 0x00798CCC
 extern unsigned short gwRequestId_0070CD60; // 0x0070CD60
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl GAME_IsLaunchExpansion(); // 0x0043DB10
-int __cdecl sub_0043DC30_GetStatus(); // 0x0043DC30
-int __cdecl sub_0043F850(); // 0x0043F850
+int __cdecl CHARSEL_GetConnectStatus(); // 0x0043DC30
+int __cdecl CHARSEL_CancelGameCreate(); // 0x0043F850
 int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
 int __cdecl sub_00449BE0(); // 0x00449BE0
@@ -116,19 +116,19 @@ int __stdcall sub_0043F9B0_EditKey(D2WinControlStrc* pControl, int nPos, const c
 int __stdcall sub_004F95C0_ControlDestroy(D2WinControlStrc** ppControl); // 0x004F95C0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned short __stdcall sub_006BBF20_ReadPackedWord(const unsigned char* pData); // 0x006BBF20
-void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
+void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0043D990(); // 0x0043D990
-int __cdecl sub_0043E570(); // 0x0043E570
-void __cdecl sub_0043E660_UpdateOkEnabled(); // 0x0043E660
-void __cdecl sub_0043EA20_Wait(); // 0x0043EA20
-void __cdecl sub_0043F8C0_ResetLaunchState(); // 0x0043F8C0
-void __cdecl sub_00442C20_HandleList(); // 0x00442C20
-void __cdecl sub_004437E0_UpdateButtonState(); // 0x004437E0
+int __cdecl CHATDLG_PostClearMessage(); // 0x0043E570
+void __cdecl CHARSEL_UpdateOkEnabled(); // 0x0043E660
+void __cdecl CHARSEL_DestroyPopupControls(); // 0x0043EA20
+void __cdecl CHARSEL_ResetLaunchState(); // 0x0043F8C0
+void __cdecl CHARSEL_FillGameListControl(); // 0x00442C20
+void __cdecl CHARSEL_UpdateJoinButtonState(); // 0x004437E0
 void __cdecl sub_00444020(); // 0x00444020
-void __cdecl sub_00445020_SendLaunchRequest(); // 0x00445020
-void __cdecl sub_00447BB0_Refresh(); // 0x00447BB0
+void __cdecl CHARSEL_RequestGameList(); // 0x00445020
+void __cdecl COMCALLBACK_RefreshChannelList(); // 0x00447BB0
 void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nArg); // 0x004FCFF0
-void __fastcall sub_00434A00_Join(D2LaunchCharEntryStrc* pEntry, unsigned short wFlags, int nType, char* szName); // 0x00434A00
+void __fastcall MAINMENUS_JoinGame(D2LaunchCharEntryStrc* pEntry, unsigned short wFlags, int nType, char* szName); // 0x00434A00
 void __fastcall sub_0044B210_SetHandlers(void (__fastcall* pfnA)(int, int), void (__cdecl* pfnB)()); // 0x0044B210
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 void __fastcall sub_004F9740_ControlSetState(D2WinControlStrc* pControl, int nFlags); // 0x004F9740

@@ -57,9 +57,9 @@ int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int*
 int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DC60
 int __fastcall FOG_SOCKET_Select(FSafeSock* pSafeSock); // 0x0040DDF0
 int __fastcall sub_0051E3D0_PostMessage(const char* szText, int nCode); // 0x0051E3D0
-void __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
-int __fastcall sub_00520B70_WaitForReply(unsigned char nReply); // 0x00520B70
-int __fastcall sub_00520BF0_IsReplyReceived(unsigned char nReply); // 0x00520BF0
+void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
+int __fastcall BNDOWNLOAD_WaitForReply(unsigned char nReply); // 0x00520B70
+int __fastcall BNDOWNLOAD_IsReplyReceived(unsigned char nReply); // 0x00520BF0
 int __fastcall sub_00522AE0_DecodeCDKey(const char* szKey, void* pArg2, void* pArg3, void* pArg4); // 0x00522AE0
 int __stdcall SFileAuthenticateArchive(void* hArchive, unsigned int* pnResult); // 0x004172F0
 int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80

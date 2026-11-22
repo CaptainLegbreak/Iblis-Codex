@@ -218,7 +218,7 @@ char gszClipboardText_00841B80[0x200];                                          
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 
-void* __cdecl sub_004F59A0();                                                                              // 0x004F59A0
+void* __cdecl WINDOW_GetWindow();                                                                              // 0x004F59A0
 
 extern "C" __declspec(dllimport) void* __stdcall GlobalFree(void* hMem);                                    // 0x006CC370
 
@@ -1069,7 +1069,7 @@ const char* __cdecl EDITBOX_GetClipboardText()
 {
     if (!IsClipboardFormatAvailable(1))
         return &gszEmptyAssertText;
-    if (!OpenClipboard(sub_004F59A0()))
+    if (!OpenClipboard(WINDOW_GetWindow()))
         return &gszEmptyAssertText;
     void* hData = GetClipboardData(1);
     if (hData)
@@ -1093,7 +1093,7 @@ int __fastcall EDITBOX_SetClipboardText(const char* szText)
         GlobalFree(ghClipboardData_00841D80);
         ghClipboardData_00841D80 = 0;
     }
-    if (!OpenClipboard(sub_004F59A0()))
+    if (!OpenClipboard(WINDOW_GetWindow()))
         return 0;
     EmptyClipboard();
     const int nLength = strlen(szText);
@@ -1433,7 +1433,8 @@ int __fastcall EDITBOX_DrawMultiLine(D2WinEditBoxStrc* pEditBox)
 
     if (pEditBox->controlHeader.dwFlags & gdwBitMasks[2] && pEditBox->controlHeader.dwFlags & gdwBitMasks[0])
     {
-        if (!sub_004FA460())
+// build: symbol ?D2Win_IsMouseButtonPressed@* 0x004FA460
+        if (!D2Win_IsMouseButtonPressed())
         {
             pEditBox->bMouseSelecting = 0;
         }
@@ -1460,7 +1461,8 @@ int __fastcall EDITBOX_DrawMultiLine(D2WinEditBoxStrc* pEditBox)
         const int nCaretWidth = D2Win_10122(wszCaret, 2);
 
         int bBlink;
-        if (sub_004F9200() == (int)pEditBox && GetTickCount() / 250 & 1)
+// build: symbol ?CONTROL_GetFocusedEditBox@* 0x004F9200
+        if (CONTROL_GetFocusedEditBox() == (int)pEditBox && GetTickCount() / 250 & 1)
             bBlink = 1;
         else
             bBlink = 0;
@@ -1602,7 +1604,7 @@ int __fastcall EDITBOX_DrawSingleLine(D2WinEditBoxStrc* pEditBox)
 
     if (pEditBox->controlHeader.dwFlags & gdwBitMasks[2] && pEditBox->controlHeader.dwFlags & gdwBitMasks[0])
     {
-        if (!sub_004FA460())
+        if (!D2Win_IsMouseButtonPressed())
         {
             pEditBox->bMouseSelecting = 0;
         }
@@ -1672,7 +1674,7 @@ int __fastcall EDITBOX_DrawSingleLine(D2WinEditBoxStrc* pEditBox)
             D2Win_10117_DrawText(wszText, nX, nY, pEditBox->nTextColor, 0);
         }
 
-        if (sub_004F9200() == (int)pEditBox && GetTickCount() / 250 & 1)
+        if (CONTROL_GetFocusedEditBox() == (int)pEditBox && GetTickCount() / 250 & 1)
         {
             char szCaret[] = "_";
             UnicodeChar wszCaret[2];

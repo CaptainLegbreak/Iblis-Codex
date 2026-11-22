@@ -445,7 +445,7 @@ void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __stdcall SMsgRegisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420BF0
 
@@ -2218,7 +2218,7 @@ int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int))
             bContinue = GetMessageA(&msg, 0, 0, 0);
             if (bContinue && gxGlobal_007A0708)
             {
-                TranslateAcceleratorA((void*)sub_004F59A0(), gxGlobal_007A0708, &msg);
+                TranslateAcceleratorA((void*)WINDOW_GetWindow(), gxGlobal_007A0708, &msg);
             }
             TranslateMessage(&msg);
             DispatchMessageA(&msg);

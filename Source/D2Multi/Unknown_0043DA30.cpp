@@ -3,7 +3,7 @@
 struct SMSGHANDLER_PARAMS;
 struct D2CompositeUnitStrc;
 
-void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
+void __fastcall CHATDLG_UpdateScroll(int nDelta); // 0x00448BD0
 extern D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
 void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
 extern D2CelFileStrc* gpChatCellFile_0077BBFC; // 0x0077BBFC
@@ -11,7 +11,7 @@ extern D2CelFileStrc* gpChatCellFile_0077BBFC; // 0x0077BBFC
 // 0x0043DA30
 int __stdcall sub_0043DA30_ScrollForward(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00448BD0_UpdateScroll(1);
+    CHATDLG_UpdateScroll(1);
     return 1;
 }
 

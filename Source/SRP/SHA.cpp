@@ -38,7 +38,7 @@ extern "C" __declspec(dllexport) __declspec(noinline) void __fastcall sub_00529F
 }
 
 // 0x0052A120
-unsigned char* __fastcall sub_0052A120_ShaInterleave(unsigned char* key, const unsigned char* sk, unsigned int sklen)
+unsigned char* __fastcall SHA_Interleave(unsigned char* key, const unsigned char* sk, unsigned int sklen)
 {
     unsigned int i;
     unsigned int klen;

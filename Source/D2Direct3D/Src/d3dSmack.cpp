@@ -46,19 +46,19 @@ extern void* gpBuffer_009897D8; // 0x009897D8
 
 void __fastcall sub_006B38A0_Copy(void* pTarget, void* pBuffer, int nSize); // 0x006B38A0
 
-void __fastcall sub_006B9BB0_CloseSmack(D2SmackRecordStrc* video); // 0x006B9BB0
+void __fastcall D3D_CloseSmacker(D2SmackRecordStrc* video); // 0x006B9BB0
 
-void __cdecl sub_006B9BD0_Apply(); // 0x006B9BD0
+void __cdecl D3D_UploadSmackTextures(); // 0x006B9BD0
 
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 
-void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
+void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
 
-void __fastcall sub_006B1F40_SetBlendMode(int nState); // 0x006B1F40
+void __fastcall D3D_SetAlphaBlendMode(int nState); // 0x006B1F40
 
-void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
+void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
 
-static void __stdcall sub_006B9EB0_CopyBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch);
+static void __stdcall D3D_CopySmackBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch); // 0x006B9EB0
 
 extern "C" const char gszUnlockFailed_006FC284[]; // 0x006FC284
 
@@ -80,7 +80,7 @@ int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffe
 
 int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
-void __cdecl sub_006B9F00_UploadFrameBuffer(); // 0x006B9F00
+void __cdecl D3D_UploadSmackFrameBuffer(); // 0x006B9F00
 
 extern "C" const char szD3DSmackFile_006FC358[]; // 0x006FC358
 
@@ -89,7 +89,7 @@ extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
 extern "C" void* gAllocation_009897D0; // 0x009897D0
 
 // 0x006B9A10
-void __cdecl sub_006B9A10_Init()
+void __cdecl D3D_SmackInit()
 {
     gnHandle_00989760 = -1;
     gnHandle_00989780 = -1;
@@ -100,7 +100,7 @@ void __cdecl sub_006B9A10_Init()
 }
 
 // 0x006B9A50
-char* __fastcall sub_006B9A50_InitBuffers(char* pBuffer)
+char* __fastcall D3D_CreateSmackSurfaces(char* pBuffer)
 {
     for (int i = 0; i < 2; ++i)
     {
@@ -120,7 +120,7 @@ char* __fastcall sub_006B9A50_InitBuffers(char* pBuffer)
 }
 
 // 0x006B9B30
-void __cdecl sub_006B9B30_ReleaseObjects()
+void __cdecl D3D_ReleaseSmackSurfaces()
 {
     for (int i = 0; i < 2; ++i)
     {
@@ -132,7 +132,7 @@ void __cdecl sub_006B9B30_ReleaseObjects()
 }
 
 // 0x006B9BB0
-void __fastcall sub_006B9BB0_CloseSmack(D2SmackRecordStrc* pRecord)
+void __fastcall D3D_CloseSmacker(D2SmackRecordStrc* pRecord)
 {
     if (pRecord->nType == 's' && pRecord->hSmack)
     {
@@ -154,7 +154,7 @@ D2D3DTextureStrc* gpObject_009897EC; // 0x009897EC
 D2D3DTextureStrc* gpObject_009897F0; // 0x009897F0
 
 // 0x006B9BD0
-void __cdecl sub_006B9BD0_Apply()
+void __cdecl D3D_UploadSmackTextures()
 {
     if (gpBuffer_009897D4)
     {
@@ -172,13 +172,13 @@ void __cdecl sub_006B9BD0_Apply()
 }
 
 // 0x006B9C40
-static void __stdcall sub_006B9C40_BlitVideo(D2SmackRecordStrc* video, int width, int height)
+static void __stdcall D3D_DrawSmackFrame(D2SmackRecordStrc* video, int width, int height)
 {
     const int top = video->nY - height;
     const int bottom = video->nY;
-    sub_006B1EA0_SetState(1);
-    sub_006B1F40_SetBlendMode(1);
-    sub_006B2030_SetFilterMode(1);
+    D3D_SetColorCombineMode(1);
+    D3D_SetAlphaBlendMode(1);
+    D3D_SetTextureFilterMode(1);
 
     int x = video->nX;
     int right = x + 256;
@@ -241,7 +241,7 @@ static void __stdcall sub_006B9C40_BlitVideo(D2SmackRecordStrc* video, int width
 }
 
 // 0x006BA390
-void __fastcall sub_006BA390_PlaySmack(D2SmackRecordStrc* video)
+void __fastcall D3D_PlaySmacker(D2SmackRecordStrc* video)
 {
     switch (video->nType)
     {
@@ -257,27 +257,27 @@ void __fastcall sub_006BA390_PlaySmack(D2SmackRecordStrc* video)
                     SmackDoFrame(smack);
                     sub_006B9F00_PresentFrame();
                     if (smack->nFrameNum == smack->nFrames)
-                        sub_006B9BB0_CloseSmack(video);
+                        D3D_CloseSmacker(video);
                     else
                         SmackNextFrame(smack);
                     if (gbRenderPaused_007C9144)
                         return;
-                    sub_006B9BD0_Apply();
+                    D3D_UploadSmackTextures();
                 }
                 if (!gbRenderPaused_007C9144)
-                    sub_006B9C40_BlitVideo(video, smack->nWidth, smack->nHeight);
+                    D3D_DrawSmackFrame(video, smack->nWidth, smack->nHeight);
             }
         }
         break;
     case 'p':
         if (!gbRenderPaused_007C9144)
-            sub_006B9C40_BlitVideo(video, 468, 60);
+            D3D_DrawSmackFrame(video, 468, 60);
         break;
     }
 }
 
 // 0x006B9EB0
-static void __stdcall sub_006B9EB0_CopyBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch)
+static void __stdcall D3D_CopySmackBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch)
 {
     for (unsigned int nRow = 64; nRow; --nRow)
     {
@@ -296,7 +296,7 @@ static void __stdcall sub_006B9EB0_CopyBlock(unsigned short* pSource, unsigned s
 // calling-convention shim (not game code)
 void __fastcall sub_006B9EB0_Shim(unsigned short* pSource, unsigned short* pDest, int nDestPitch)
 {
-    sub_006B9EB0_CopyBlock(pSource, pDest, nDestPitch);
+    D3D_CopySmackBlock(pSource, pDest, nDestPitch);
 }
 
 unsigned char* gpFrameBuffer_009897D0; // 0x009897D0
@@ -320,7 +320,7 @@ static void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, uns
 }
 
 // 0x006B9F00
-void __cdecl sub_006B9F00_UploadFrameBuffer()
+void __cdecl D3D_UploadSmackFrameBuffer()
 {
     D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
     if (!gpMemSurfaceA_009897D4)
@@ -360,14 +360,14 @@ void __cdecl sub_006B9F00_UploadFrameBuffer()
 }
 
 // 0x006BA010
-void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
+void __fastcall D3D_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
 {
     if (!gbRenderPaused_007C9144)
     {
         D2_ASSERT(gpD3DSmackBuffer_009897D0, 0x94);
         memset(gpD3DSmackBuffer_009897D0, 0, 0x10000);
-        sub_006B9F00_UploadFrameBuffer();
-        sub_006B9BD0_Apply();
+        D3D_UploadSmackFrameBuffer();
+        D3D_UploadSmackTextures();
     }
 
     pSmack->nType = nType;
@@ -419,8 +419,8 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
 
         if (!gbRenderPaused_007C9144)
         {
-            sub_006B9F00_UploadFrameBuffer();
-            sub_006B9BD0_Apply();
+            D3D_UploadSmackFrameBuffer();
+            D3D_UploadSmackTextures();
         }
         return;
     }
@@ -437,7 +437,7 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
 }
 
 // 0x006B9B00
-extern "C" void __cdecl sub_006B9B00_FreeGlobal()
+extern "C" void __cdecl D3D_SmackFree()
 {
     if (gAllocation_009897D0)
     {

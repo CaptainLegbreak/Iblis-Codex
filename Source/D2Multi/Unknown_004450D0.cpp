@@ -9,8 +9,8 @@ int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                        
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl);                                 // 0x004FBB30
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);                     // 0x00526F70
 void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText);                 // 0x004FF5A0
-int __stdcall sub_004439F0_JoinByName(int nArg);                                                            // 0x004439F0
-void __fastcall sub_00442DD0_SetPendingText(const char* szText, unsigned short wRequestId);                 // 0x00442DD0
+int __stdcall CHARSEL_JoinByName(int nArg);                                                            // 0x004439F0
+void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId);                 // 0x00442DD0
 
 extern D2LaunchGameRecStrc gaNewGames_0077BDC8[];                                                           // 0x0077BDC8
 extern D2WinControlStrc* gpJoinName_00798BD4;                                                               // 0x00798BD4
@@ -57,7 +57,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
     {
         if (pMsg->uMessage == 0x201 && sub_004450D0_IsDoubleClick(nSelection))
         {
-            sub_004439F0_JoinByName(0);
+            CHARSEL_JoinByName(0);
             return 0;
         }
 
@@ -71,7 +71,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
                 while (++gwRequestId_0070CD60 == 0)
                 {
                 }
-                sub_00442DD0_SetPendingText(szText, gwRequestId_0070CD60);
+                CHATDLG_SetPendingText(szText, gwRequestId_0070CD60);
                 sub_004FF5A0_SetEditText(gpJoinName_00798BD4, pText);
                 CONTROL_SetFocusedEditBox(0);
             }

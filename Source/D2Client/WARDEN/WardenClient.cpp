@@ -134,7 +134,7 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -194,7 +194,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
 
 int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId); // 0x004E0650
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
@@ -994,7 +994,8 @@ int __fastcall WARDENCLIENT_InitWarden(int nValue)
 {
     sub_00480340();
     gnWardenIfaceValue_00721C94 = nValue;
-    gpService_007BC998 = sub_00518C10();
+// build: symbol ?BNCLIENT_GetInterfaceTable@* 0x00518C10
+    gpService_007BC998 = BNCLIENT_GetInterfaceTable();
     if (!gpService_007BC998)
     {
         return 0;
@@ -1272,7 +1273,7 @@ void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, 
     {
         gbStarted_007BF27C = 1;
         gnGlobal_007BF22C = GetTickCount();
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaTextMsgHandlers_00722600, 7);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers_00722600, 7);
     }
 
     const int nSoundId = sub_004E0650_GetStringSound(nStringId);

@@ -87,7 +87,8 @@ int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
     int nY = pScrollBar->controlHeader.nImageY - 1;
     if (pScrollBar->nMaxSteps)
     {
-        if (!sub_004FA460())
+// build: symbol ?D2Win_IsMouseButtonPressed@* 0x004FA460
+        if (!D2Win_IsMouseButtonPressed())
             pScrollBar->bIsStepIndicatorDragged = 0;
         if (pScrollBar->bIsStepIndicatorDragged)
         {

@@ -28,12 +28,12 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
-void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
 void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840

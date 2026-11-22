@@ -380,7 +380,7 @@ extern float gfOsVersion_0074D894; // 0x0074D894
 
 void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
 
-void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* szFormat, ...); // 0x00410740
+void __cdecl MAINMENUS_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
@@ -1484,7 +1484,7 @@ static void __stdcall ERRORMANAGER_LogPrefixedText(const char* szPrefix, const c
     }
     else
     {
-        sub_00410740_LogWritePrefixed00(szPrefix, gszPercentS_006FFC58, szText);
+        MAINMENUS_LogWritePrefixed(szPrefix, gszPercentS_006FFC58, szText);
     }
 }
 
@@ -1597,7 +1597,8 @@ void __cdecl sub_0051D2E0_Nop()
 {
 }
 
-void __fastcall sub_0051D350_CopyElement(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
+// build: symbol ?BNNEWS_CopyNewsItem@* 0x0051D350
+void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
 {
     if (pDst)
         *pDst = *pSrc;

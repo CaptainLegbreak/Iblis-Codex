@@ -81,7 +81,7 @@ int __fastcall D2Win_10015(); // 0x004F8FE0
 
 int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc); // 0x004F8FC0
 
-int __stdcall sub_00451B30_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
+int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
@@ -433,7 +433,7 @@ int __cdecl UI_IsPlaybackEnabled(); // 0x00451980
 
 int __fastcall SCMD_RunMessageLoop(D2IdleHandler); // 0x00451BB0
 
-extern "C" void __fastcall sub_00451DB0_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
+extern "C" void __fastcall COMCALLBACK_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 
 void __fastcall sub_00451E10_UnregisterMsgHandlers(int,D2MsgHandlerEntryStrc*,int); // 0x00451E10
 
@@ -465,7 +465,7 @@ void __fastcall INV_PlayCinematic(int); // 0x00482EF0
 
 void __cdecl INV_ResetCinematicFlags(); // 0x00483310
 
-int __cdecl sub_004F59A0(); // 0x004F59A0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __stdcall D2Win_10006_ClearDrawCaches(); // 0x004F9130
 
@@ -524,7 +524,7 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord)
     if (!GAME_LoadLngModule())
         return 0;
     D2Win_10015();
-    D2Win_10014_SetWndProc((WNDPROC)sub_00451B30_WindowProc);
+    D2Win_10014_SetWndProc((WNDPROC)COMCALLBACK_WindowProc);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0))
         return 0;
@@ -983,10 +983,10 @@ int __cdecl GAME_RunGameSession()
     INV_ResetCinematicFlags();
     GAME_PushRegisterState();
     CURSOR_InitCursor(0);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2C4,1);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F348,2);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F360,2);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F2D0,10);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F2C4,1);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F348,2);
+    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F360,2);
     if(gnMode_007A0610!=3 && gnMode_007A0610!=7 && gnMode_007A0610!=9)
     {
         sub_00477CA0_SendPacket67(gszGameName_007A05DC,DLIGHTMAP_GetClientFlags());
@@ -1027,20 +1027,20 @@ int __cdecl GAME_RunGameSession()
     if(UI_IsRecordingEnabled())RECORD_WriteRecordFile();
     if(gnBetaScreens_007A0600)
     {
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2C4,1);
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F348,2);
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F360,2);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F3C0,7);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F2D0,10);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F2C4,1);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F348,2);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F360,2);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F3C0,7);
         SCMD_RunMessageLoop(GAME_ShowBetaScreens);
     }
     else if(gnDifficultyDirty_007A0604)
     {
         INV_PlayCinematic(5);
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F2D0,10);
         GAME_UnregisterMouseHandlers();
         GAME_SetResolution(0);
-        sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
+        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F418,9);
         SCMD_RunMessageLoop(GAME_DrawEndGameScreen);
     }
     else if(gnPlayCinematic_007A0628)
@@ -1067,10 +1067,10 @@ int __cdecl GAME_RunGameSession()
         pClientInfo->wFlags=((nDifficulty<<10)+0x500)|(pClientInfo->wFlags&0xE0FF);
         if(bEndGame)
         {
-            sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
+            sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F2D0,10);
             GAME_UnregisterMouseHandlers();
             GAME_SetResolution(2);
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
+            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F418,9);
             SCMD_RunMessageLoop(GAME_DrawEndGameScreen);
         }
     }
@@ -1082,22 +1082,22 @@ int __cdecl GAME_RunGameSession()
     GAME_PushStateValue(4);
     if(gnBetaScreens_007A0600)
     {
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F3C0,7);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F3C0,7);
         gnBetaScreens_007A0600=0;
     }
     else if(gnDifficultyDirty_007A0604)
     {
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F418,9);
         gnDifficultyDirty_007A0604=0;
     }
     else if(bEndGame && gnCinematicPlayed_007A062C)
     {
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F418,9);
         gnCinematicPlayed_007A062C=0;
     }
     else
     {
-        sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
+        sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gtHandlers_0070F2D0,10);
         GAME_UnregisterMouseHandlers();
     }
     if(gnMode_007A0610==2 || gnMode_007A0610==6 || gnMode_007A0610==3 || gnMode_007A0610==7)

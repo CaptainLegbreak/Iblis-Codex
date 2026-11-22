@@ -113,7 +113,8 @@ void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)
 // 0x004DF800
 void __cdecl sub_004DF800()
 {
-    if (!sub_00513B50())
+// build: symbol ?D2SOUND_GetDirectSound@* 0x00513B50
+    if (!D2SOUND_GetDirectSound())
     {
         return;
     }

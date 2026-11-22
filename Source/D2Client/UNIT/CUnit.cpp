@@ -2446,7 +2446,8 @@ int __cdecl sub_004B8A10()
     return 0;
 }
 
-void __cdecl sub_005125B0_DDrawFreeDebugFont()
+// build: symbol ?DDRAW_FreeDebugFont@* 0x005125B0
+void __cdecl DDRAW_FreeDebugFont()
 {
     if (gpDDrawDebugFontGlyphs_008815AC)
     {
@@ -2455,7 +2456,8 @@ void __cdecl sub_005125B0_DDrawFreeDebugFont()
     }
 }
 
-void __cdecl sub_0051B210_FreeBuffer()
+// build: symbol ?BNSEND_FreeGamesList@* 0x0051B210
+void __cdecl BNSEND_FreeGamesList()
 {
     if (gpReply_008818D0)
     {
@@ -2465,7 +2467,8 @@ void __cdecl sub_0051B210_FreeBuffer()
     gpReply_008818D0 = 0;
 }
 
-void __cdecl sub_005239C0_UnlockCDKeys()
+// build: symbol ?GRID_UnlockCDKeys@* 0x005239C0
+void __cdecl GRID_UnlockCDKeys()
 {
     if (gpCDKeyHandle_00882744)
     {

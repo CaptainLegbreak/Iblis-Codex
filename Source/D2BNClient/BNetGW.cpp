@@ -20,9 +20,9 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
-void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
+void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...); // 0x00518D40
 
-char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize); // 0x00518300
+char* __stdcall BNETGW_LoadGatewayFile(unsigned int* pSize); // 0x00518300
 
 class BNGatewayAccess
 {
@@ -88,7 +88,7 @@ extern "C" const char szAutoPickGateway_006DED9C[]; // 0x006DED9C
 
 extern "C" const char szObsoleteGatewayList_006DEDC0[]; // 0x006DEDC0
 
-int __cdecl sub_00518C70_StartLogging(int nChannel, int nIndent); // 0x00518C70
+int __cdecl BNDOWNLOAD_ConfigureLog(int nChannel, int nIndent); // 0x00518C70
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
@@ -124,7 +124,7 @@ void __stdcall BNGatewayAccess::Unload()
 {
     if (m_bModified && m_pGatewayList)
     {
-        sub_00518D40_Log("Recording gateway list selection");
+        BNDOWNLOAD_LogPrintf("Recording gateway list selection");
         char* pCurGateway = m_pGatewayList;
         pCurGateway += SStrLen(pCurGateway) + 1;
         pCurGateway[0] = m_nCurGateway / 10 + '0';
@@ -248,7 +248,7 @@ void BNGatewayAccess::GetBattlenetRealmsList()
 }
 
 // 0x00518300
-char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize)
+char* __stdcall BNETGW_LoadGatewayFile(unsigned int* pSize)
 {
     void* pBuffer;
     unsigned int nSize = 0;
@@ -264,8 +264,8 @@ char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize)
 void BNGatewayAccess::WriteDefaultGatewayList()
 {
     unsigned int nSize;
-    sub_00518D40_Log(szWritingDefaultGateways_006DED24);
-    char* szText = sub_00518300_LoadGatewayFile(&nSize);
+    BNDOWNLOAD_LogPrintf(szWritingDefaultGateways_006DED24);
+    char* szText = BNETGW_LoadGatewayFile(&nSize);
     if (szText)
         UpdateGatewaysFromIni(szText);
 }
@@ -307,8 +307,8 @@ char* BNGatewayAccess::FindSection(char* pText, const char* szSection)
 // 0x00518580
 void BNGatewayAccess::PickClosestZone(int nTimeZone)
 {
-    sub_00518C70_StartLogging(2, 4);
-    sub_00518D40_Log("Find gateway closest to %02d.%02d", nTimeZone / 60, nTimeZone % 60);
+    BNDOWNLOAD_ConfigureLog(2, 4);
+    BNDOWNLOAD_LogPrintf("Find gateway closest to %02d.%02d", nTimeZone / 60, nTimeZone % 60);
 
     int nBest = 1;
     int nBestDistance = 0x564;
@@ -324,8 +324,8 @@ void BNGatewayAccess::PickClosestZone(int nTimeZone)
 
     const int nGMT = GMT(nBest);
     const char* szName = Nth(nBest);
-    sub_00518D40_Log("Gateway %d (%s at GMT %02d) is closest to %02d.%02d", nBest, szName, nGMT, nTimeZone / 60, nTimeZone % 60);
-    sub_00518C70_StartLogging(2, -4);
+    BNDOWNLOAD_LogPrintf("Gateway %d (%s at GMT %02d) is closest to %02d.%02d", nBest, szName, nGMT, nTimeZone / 60, nTimeZone % 60);
+    BNDOWNLOAD_ConfigureLog(2, -4);
 
     if (m_pGatewayList && nBest >= 1 && nBest <= m_nNumGateways)
     {
@@ -399,7 +399,7 @@ void __stdcall BNGatewayAccess::Load()
 
     if (m_pGatewayList && m_nVersion < 1000)
     {
-        sub_00518D40_Log("Obsolete gateway list (%d) - autodeleting", m_nVersion);
+        BNDOWNLOAD_LogPrintf("Obsolete gateway list (%d) - autodeleting", m_nVersion);
         m_bModified = 0;
         Unload();
         SRegDeleteValue("Configuration", "Diablo II Battle.net gateways", 2);
@@ -407,8 +407,8 @@ void __stdcall BNGatewayAccess::Load()
 
     if (!m_pGatewayList)
     {
-        sub_00518D40_Log("Writing default gateway list");
-        char* szText = sub_00518300_LoadGatewayFile((unsigned int*)&nOffset);
+        BNDOWNLOAD_LogPrintf("Writing default gateway list");
+        char* szText = BNETGW_LoadGatewayFile((unsigned int*)&nOffset);
         if (szText)
         {
             UpdateGatewaysFromIni(szText);
@@ -437,7 +437,7 @@ void __stdcall BNGatewayAccess::Load()
     m_bModified = 0;
     if (m_nCurGateway < 1 || m_nCurGateway > m_nNumGateways)
     {
-        sub_00518D40_Log("Auto-picking gateway based on GMT");
+        BNDOWNLOAD_LogPrintf("Auto-picking gateway based on GMT");
         PickClosestZone(GetSystemTimeZone());
     }
 }
@@ -472,7 +472,7 @@ void __stdcall BNGatewayAccess::UpdateGatewaysFromIni(char* szText)
             {
                 int nTimeZone = 0;
 
-                sub_00518D40_Log("Parsing new gateway list (version %d)", nVersion);
+                BNDOWNLOAD_LogPrintf("Parsing new gateway list (version %d)", nVersion);
                 if (m_pGatewayList)
                     {
                     nTimeZone = GMT(m_nCurGateway) * 60;

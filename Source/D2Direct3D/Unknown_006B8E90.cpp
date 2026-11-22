@@ -22,9 +22,9 @@ void __fastcall sub_006B9860_Project(int,int,int,int*,int*); // 0x006B9860
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,U32,U8); // 0x006B9780
 void __fastcall sub_006BBA00_BindTile(D2TileBlockStrc*); // 0x006BBA00
 int __stdcall D2CMPTileValidate(D2TileStrc*,int,int); // 0x005FDEA0
-void __fastcall sub_006B1EA0_SetState(int); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
-void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
+void __fastcall D3D_SetColorCombineMode(int); // 0x006B1EA0
+void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
+void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 #define D3D_VERTEX_IN_RECT(v, r) ((v).fX >= (r).nLeft && (v).fX < (r).nRight && (v).fY >= (r).nTop && (v).fY < (r).nBottom)
 #define D2ASSERT(c,l) if(!(c)) { sub_00408A60(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
@@ -176,9 +176,9 @@ int __fastcall sub_006B8E90_DrawWallTile(D2TileStrc* pTile, int nPosX, int nPosY
     int nResult = 0;
     if (D2CMPTileValidate(pTile, 1, 0))
     {
-        sub_006B1EA0_SetState(1);
-        sub_006B1F40_SetBlendMode(1);
-        sub_006B2030_SetFilterMode(1);
+        D3D_SetColorCombineMode(1);
+        D3D_SetAlphaBlendMode(1);
+        D3D_SetTextureFilterMode(1);
         if (sub_006B9830_GetPerspective())
             nResult = sub_006B8950_Lit(nScreenPanels, pTile, nPosX, nPosY, pLight, 0xFF);
         else

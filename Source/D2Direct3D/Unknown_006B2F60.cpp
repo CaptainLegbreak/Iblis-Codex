@@ -79,9 +79,9 @@ struct D2Cache006BA830Strc
     int unk0x00[7];
 };
 
-void __cdecl sub_006B5B10_ReleaseSprites(); // 0x006B5B10
+void __cdecl D3D_ReleaseSprites(); // 0x006B5B10
 void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
-void __cdecl sub_006B9B30_ReleaseObjects(); // 0x006B9B30
+void __cdecl D3D_ReleaseSmackSurfaces(); // 0x006B9B30
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
 void __fastcall sub_006BADC0_Free(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
 void __fastcall sub_006BB3E0_Free(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
@@ -91,7 +91,7 @@ extern D2Object006BB3E0Strc gObject_0096FC9C; // 0x0096FC9C
 extern D2Cache006BA830Strc gCache_00970EC8; // 0x00970EC8
 extern D2Cache006BA830Strc gCache_00970EE4; // 0x00970EE4
 extern D2Cache006BA830Strc gCache_00970F00; // 0x00970F00
-void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
+void __cdecl D3D_ReleaseResources(); // 0x006B3320
 extern void* ghDDrawWindow_007C9140; // 0x007C9140
 
 struct D2DDCaps006B3420Strc
@@ -183,19 +183,19 @@ void __cdecl sub_006B32B0_ReleaseRenderer()
     }
     else
     {
-        sub_006B9B30_ReleaseObjects();
+        D3D_ReleaseSmackSurfaces();
     }
 
     sub_006BA830_FreeCache(&gCache_00970EC8, 1);
     sub_006BA830_FreeCache(&gCache_00970EE4, 1);
     sub_006BA830_FreeCache(&gCache_00970F00, 1);
-    sub_006B5B10_ReleaseSprites();
+    D3D_ReleaseSprites();
 }
 
 // 0x006B3400
 int __cdecl sub_006B3400_ReleaseWindow()
 {
-    sub_006B3320_ReleaseResources();
+    D3D_ReleaseResources();
     ghDDrawWindow_007C9140 = 0;
     return 1;
 }

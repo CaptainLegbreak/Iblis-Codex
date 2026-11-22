@@ -14,7 +14,7 @@ void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unico
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
-void __fastcall sub_004411E0_Use(const char* szText); // 0x004411E0
+void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
 
 extern D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
 extern int gnLastSelection_0070EB90; // 0x0070EB90
@@ -29,7 +29,7 @@ static __forceinline int DoubleClick()
         return 0;
     }
     sub_00526F70((char*)aText, pEditText, 0x100);
-    sub_004411E0_Use((const char*)aText);
+    CHATDLG_JoinChannel((const char*)aText);
     return 0;
 }
 

@@ -61,22 +61,23 @@ struct D2AuthCheck1Strc
 };
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-int __cdecl sub_0051A550(); // 0x0051A550
+int __cdecl BNCLIENT_GetServerToken(); // 0x0051A550
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
-int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
-void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength); // 0x0051DC80
+int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
+void __fastcall BNSEND_ComputeShaDigest(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength); // 0x0051DC80
 int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2); // 0x0051DDD0
 int __cdecl BNCLIENT_GetExeHash(); // 0x00523A00
 const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern unsigned int gdwClientToken_00881C48; // 0x00881C48
-void __cdecl sub_005234D0_LockCDKeys(); // 0x005234D0
+void __cdecl GRID_LockCDKeys(); // 0x005234D0
 int __stdcall sub_0051E0B0_SendAuthCheck(); // 0x0051E0B0
-void __cdecl sub_005239C0_UnlockCDKeys(); // 0x005239C0
-int __fastcall sub_00520520_SetState(int nState); // 0x00520520
+void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
+int __fastcall BNMESSQUEUE_SetState(int nState); // 0x00520520
 
 // 0x0051DC70
-static long sub_0051DC70_GetTime(long* pTime)
+// build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40
+static long BNDOWNLOAD_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
@@ -107,7 +108,7 @@ static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 {
-    return sub_0051DC70_GetTime(pTime);
+    return BNDOWNLOAD_GetTime(pTime);
 }
 
 unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
@@ -287,7 +288,7 @@ static int __stdcall sub_0051DFC0_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const c
         pInfo->f_4 = tHash26.f_8;
         pInfo->nValue1 = tHash26.nValue1;
         pInfo->f_C = 0;
-        sub_0051DC80(pInfo->abDigest, (const unsigned char*)&tHash26, 0x1A);
+        BNSEND_ComputeShaDigest(pInfo->abDigest, (const unsigned char*)&tHash26, 0x1A);
         return 1;
     }
 
@@ -308,15 +309,15 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
     if (sub_0051BEC0_IsExpansion())
     {
         D2AuthCheck2Strc tPacket;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, sub_0051A550()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, BNCLIENT_GetServerToken()))
             return 0;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken_00881C48, sub_0051A550()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken_00881C48, BNCLIENT_GetServerToken()))
             return 0;
 
         tPacket.f_0 = gdwClientToken_00881C48;
         tPacket.nKeys = 2;
         tPacket.f_8 = dwExeHash;
-        if (sub_0051C5C0_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_54, szExeInfo, 0x100) + 0x55) < 0)
+        if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_54, szExeInfo, 0x100) + 0x55) < 0)
             return 0;
     }
     else
@@ -325,10 +326,10 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
         tPacket.f_0 = gdwClientToken_00881C48;
         tPacket.nKeys = 1;
         tPacket.f_8 = dwExeHash;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, sub_0051A550()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, BNCLIENT_GetServerToken()))
             return 0;
 
-        if (sub_0051C5C0_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_30, szExeInfo, 0x100) + 0x31) < 0)
+        if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_30, szExeInfo, 0x100) + 0x31) < 0)
             return 0;
     }
 
@@ -338,16 +339,16 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
 // 0x0051E340
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot)
 {
-    return sub_0051DFC0_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, sub_0051A550());
+    return sub_0051DFC0_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, BNCLIENT_GetServerToken());
 }
 
 // 0x0051E240
 int __cdecl sub_0051E240_CheckAuth()
 {
-    sub_005234D0_LockCDKeys();
+    GRID_LockCDKeys();
     const int nResult = sub_0051E0B0_SendAuthCheck();
-    sub_005239C0_UnlockCDKeys();
+    GRID_UnlockCDKeys();
     if (!nResult)
-        sub_00520520_SetState(3);
+        BNMESSQUEUE_SetState(3);
     return nResult;
 }
