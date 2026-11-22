@@ -30223,6 +30223,16 @@
      "va": "0x004BA890",
      "length": 92,
      "name": "sub_004BA890_RefreshHintsById"
+    },
+    {
+     "va": "0x004BA950",
+     "length": 123,
+     "name": "sub_004BA950_RefreshHintsInRangeA"
+    },
+    {
+     "va": "0x004BA9D0",
+     "length": 126,
+     "name": "sub_004BA9D0_RefreshHintsInRangeB"
     }
    ]
   },
@@ -30318,16 +30328,6 @@
    "file": "Source/D2Client/Unknown_004BA890.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004BA950",
-     "length": 123,
-     "name": "sub_004BA950_RefreshHintsInRangeA"
-    },
-    {
-     "va": "0x004BA9D0",
-     "length": 126,
-     "name": "sub_004BA9D0_RefreshHintsInRangeB"
-    },
     {
      "va": "0x004BAAB0",
      "length": 267,
