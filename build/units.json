@@ -65170,6 +65170,25 @@
      "name": "SUNITEVENT_GetEvent"
     },
     {
+     "va": "0x005C0D00",
+     "length": 27,
+     "name": "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
+    },
+    {
+     "va": "0x005C0D20",
+     "length": 21,
+     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
+    },
+    {
+     "va": "0x005C0D40",
+     "length": 36,
+     "name": "?sub_005C0D40_PercentWithMinimum@@YGHHHH@Z"
+    },
+    {
+     "va": "0x005C0D70",
+     "length": 537
+    },
+    {
      "va": "0x005C1260",
      "length": 131,
      "name": "ITEMS_AssignStaffModsForFormat"
@@ -65177,6 +65196,11 @@
     {
      "va": "0x005C12F0",
      "length": 525
+    },
+    {
+     "va": "0x005C1500",
+     "length": 82,
+     "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005C18E0",
@@ -65187,6 +65211,36 @@
      "va": "0x005C1940",
      "length": 83,
      "name": "ITEMS_RollMagicAffixes"
+    },
+    {
+     "va": "0x005C19A0",
+     "length": 270,
+     "name": "?sub_005C19A0_RollRareAffixOld@@YGGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C1AB0",
+     "length": 270,
+     "name": "?sub_005C1AB0_RollRareAffixNew@@YGGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C1BC0",
+     "length": 37,
+     "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C21D0",
+     "length": 873,
+     "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2940",
+     "length": 36,
+     "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2FB0",
+     "length": 34,
+     "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x005C2FF0",
@@ -65337,6 +65391,11 @@
      "length": 100
     },
     {
+     "va": "0x005FDA80",
+     "length": 536,
+     "name": "?SKILLITEM_HandleItemEffectSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH1HHPAH222H@Z"
+    },
+    {
      "va": "0x005FDCA0",
      "length": 189,
      "name": "?SKILLITEM_CastSkillOnTarget@@YIHPAUD2UnitStrc@@HH0H@Z"
@@ -65367,66 +65426,6 @@
      "va": "0x005C0A90",
      "length": 61,
      "name": "?SUNITEVENT_FreeEventList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005C0D00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C0D00",
-     "length": 27,
-     "name": "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
-    },
-    {
-     "va": "0x005C0D20",
-     "length": 21,
-     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
-    },
-    {
-     "va": "0x005C0D40",
-     "length": 36,
-     "name": "?sub_005C0D40_PercentWithMinimum@@YGHHHH@Z"
-    },
-    {
-     "va": "0x005C0D70",
-     "length": 537
-    },
-    {
-     "va": "0x005C1500",
-     "length": 82,
-     "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C19A0",
-     "length": 270,
-     "name": "?sub_005C19A0_RollRareAffixOld@@YGGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C1AB0",
-     "length": 270,
-     "name": "?sub_005C1AB0_RollRareAffixNew@@YGGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C1BC0",
-     "length": 37,
-     "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C21D0",
-     "length": 873,
-     "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2940",
-     "length": 36,
-     "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2FB0",
-     "length": 34,
-     "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     }
    ]
   },
@@ -67855,17 +67854,6 @@
      "va": "0x005FD850",
      "length": 359,
      "name": "?SKILLITEM_FindTargetPosition@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005FDA80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FDA80",
-     "length": 536,
-     "name": "?SKILLITEM_HandleItemEffectSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH1HHPAH222H@Z"
     }
    ]
   },
