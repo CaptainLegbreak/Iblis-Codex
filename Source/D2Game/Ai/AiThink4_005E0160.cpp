@@ -77,7 +77,7 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char); // 0x0063E7A0
 void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char, unsigned int*, unsigned int*); // 0x0063E7E0
 int __stdcall PATH_GetX(D2DynamicPathStrc*); // 0x00648A20
-int __stdcall PATH_GetY(D2DynamicPathStrc*); // 0x00648A30
+unsigned int __stdcall sub_00648A30_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A30
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc*); // 0x0064C040
 
 // build: context ValidateMonsterId
@@ -225,8 +225,8 @@ void __fastcall sub_005E2D80_ThinkControlledMinion(D2GameStrc* pGame, D2UnitStrc
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 1);
 }
 
-// build: context SEED_RollRandomNumber
-static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+// build: context SEED_RollRandomNumber_005E3530
+static inline unsigned int SEED_RollRandomNumber_005E3530(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -253,7 +253,7 @@ void __fastcall AITHINK_Fn124_FrozenHorror(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
 
     if (pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < (nSkillLevel < 0 ? 0 : nSkillLevel)
-        && (int)(SEED_RollRandomNumber(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 2)
+        && (int)(SEED_RollRandomNumber_005E3530(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 2)
         && !STATES_CheckState(pUnit, STATE_INFERNO))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
@@ -267,7 +267,7 @@ void __fastcall AITHINK_Fn124_FrozenHorror(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if (bCombat)
     {
-        if ((int)(SEED_RollRandomNumber(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
+        if ((int)(SEED_RollRandomNumber_005E3530(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
         {
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
             return;
@@ -276,7 +276,7 @@ void __fastcall AITHINK_Fn124_FrozenHorror(D2GameStrc* pGame, D2UnitStrc* pUnit,
         return;
     }
 
-    if ((int)(SEED_RollRandomNumber(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 1))
+    if ((int)(SEED_RollRandomNumber_005E3530(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 1))
     {
         AITACTICS_WalkToTargetUnit(pGame, pUnit, pTarget);
         return;
@@ -293,7 +293,7 @@ int __fastcall sub_005E3930_MovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
     const int nPlayerMode = pPlayer->dwAnimMode;
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     const int nOwnerX = PATH_GetX(pPath);
-    const int nOwnerY = PATH_GetY(pPath);
+    const int nOwnerY = sub_00648A30_GetLastPointY(pPath);
     switch (nMode)
     {
     case 0:
