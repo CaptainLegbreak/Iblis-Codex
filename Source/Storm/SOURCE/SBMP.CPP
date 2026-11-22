@@ -357,6 +357,7 @@ static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader)
     return 0;
 }
 
+// 0x006C5150
 static int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, D2PaletteColorStrc* palette)
 {
     int bytesPerColor = (header->bytes[7] + 7) / 8;
@@ -1833,6 +1834,12 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
 done:
     SMemFree(pFileData, gszSBmpSource, 0x5F3, 0);
     return bResult;
+}
+
+// 0x006C7000
+int __stdcall sub_006C7000_Wrapper(char* szFile, unsigned char* pPalette, unsigned char* pPixels, int nWidth, int nHeight, int nBits)
+{
+    return SBmpSaveImageEx(szFile, pPalette, pPixels, nWidth, nHeight, nBits, 0);
 }
 
 #include "gen/data/Source/Storm/SOURCE/SBMP.inc"

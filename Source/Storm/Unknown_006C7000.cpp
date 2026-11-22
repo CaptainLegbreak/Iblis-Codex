@@ -1,6 +1,5 @@
 #include "Storm.h"
 
-int __stdcall sub_006C6CB0(int a1, int a2, int a3, int a4, int a5, int a6, int a7); // 0x006C6CB0
 extern const unsigned int gdwUtf8FirstByteMark_006FCDA0[]; // 0x006FCDA0
 extern unsigned char gnUtf8Trailing_006FCCA0[]; // 0x006FCCA0
 extern unsigned int gnUtf8Offsets_006FCC88[]; // 0x006FCC88
@@ -11,11 +10,6 @@ extern const unsigned short gWideTable_006FCDC0[]; // 0x006FCDC0
 static int __stdcall sub_006C78C0_ConvertToWide(unsigned short*,const unsigned char*,unsigned int,const unsigned short*); // 0x006C78C0
 static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
 
-// 0x006C7000
-int __stdcall sub_006C7000_Wrapper(int a1, int a2, int a3, int a4, int a5, int a6)
-{
-    return sub_006C6CB0(a1, a2, a3, a4, a5, a6, 0);
-}
 
 // 0x006C7030
 int __stdcall SUniConvertUTF16to8Len(const unsigned short* pSrc, unsigned int nSrcLength, unsigned int* pSrcRead)
