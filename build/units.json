@@ -47621,6 +47621,10 @@
      "name": "D2GAME_AICORE_Escape_6FCD0560"
     },
     {
+     "va": "0x005DE6F0",
+     "length": 319
+    },
+    {
      "va": "0x005DE830",
      "length": 86,
      "name": "?AITACTICS_GetTargetMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
@@ -67264,16 +67268,6 @@
      "va": "0x005FD7B0",
      "length": 150,
      "name": "?MONSTERSPAWN_GetResurrectMode@@YIHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiTatics_005DE6F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DE6F0",
-     "length": 319
     }
    ]
   },

@@ -215,29 +215,37 @@ int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMis
 // build: context CLIENTS_GetUnitX
 inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
+    int nX;
     switch (pUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+        break;
     default:
-        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+        nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+        break;
     }
+    return nX;
 }
 
 // build: context CLIENTS_GetUnitY
 inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
+    int nY;
     switch (pUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+        break;
     default:
-        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+        nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+        break;
     }
+    return nY;
 }
 
 __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonsterId)
@@ -246,6 +254,30 @@ __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonster
     {
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
+    return 0;
+}
+
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
+
+// 0x005DE6F0
+int __fastcall AITACTICS_WalkAroundTargetWithScaledDistance(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nScale)
+{
+    const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+    const int nTargetX = CLIENTS_GetUnitX(pTarget);
+    const int nTargetY = CLIENTS_GetUnitY(pTarget);
+    if (nDistance)
+    {
+        const int nXOffset = nScale * (CLIENTS_GetUnitX(pUnit) - nTargetX) / nDistance;
+        const int nY = CLIENTS_GetUnitY(pUnit);
+
+        D2ModeChangeStrc modeChange;
+        MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
+        modeChange.nX = nTargetX + nXOffset;
+        const int nYOffset = nScale * (nY - nTargetY) / nDistance;
+        modeChange.nY = nTargetY + nYOffset;
+        return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    }
+
     return 0;
 }
 
