@@ -99,7 +99,7 @@ const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);              
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
-void __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText);                                // 0x00485410
+int __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText);                                // 0x00485410
 
 void __stdcall sub_00485EE0_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText);            // 0x00485EE0
 
@@ -167,7 +167,7 @@ int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                       
 
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);                                                       // 0x00629930
 
-int __stdcall ITEMS_GetSockets(D2UnitStrc* hItem); // 0x006299B0
+unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 
