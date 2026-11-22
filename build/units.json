@@ -47263,6 +47263,15 @@
     {
      "va": "0x005DF530",
      "length": 326
+    },
+    {
+     "va": "0x005DF7D0",
+     "length": 114
+    },
+    {
+     "va": "0x005DF850",
+     "length": 308,
+     "name": "?AITACTICS_UseSkillInRange@@YIXPAUD2UnitStrc@@HHE@Z"
     }
    ]
   },
@@ -66723,15 +66732,6 @@
      "va": "0x005DF680",
      "length": 335,
      "name": "?AITACTICS_RunCloseToTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1E@Z"
-    },
-    {
-     "va": "0x005DF7D0",
-     "length": 114
-    },
-    {
-     "va": "0x005DF850",
-     "length": 308,
-     "name": "?AITACTICS_UseSkillInRange@@YIXPAUD2UnitStrc@@HHE@Z"
     }
    ]
   },
