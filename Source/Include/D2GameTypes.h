@@ -17,6 +17,7 @@ struct D2AiControlStrc;
 struct D2TextHeaderStrc;
 struct D2ObjectControlStrc;
 struct D2ObjectsTxt;
+struct D2PartyNodeStrc;
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -168,6 +169,21 @@ struct D2QuestArgStrc
     };
 };
 
+struct D2PartyStrc
+{
+    short nPartyId; // 0x00
+    short unk0x02; // 0x02
+    D2PartyNodeStrc* pPartyNodes; // 0x04
+    D2PartyStrc* pNext; // 0x08
+};
+
+struct D2PartyControlStrc
+{
+    short nNextPartyId; // 0x00
+    short unk0x02; // 0x02
+    D2PartyStrc* pParties; // 0x04
+};
+
 D2_CHECK_SIZE(D2DamageStrc, 0x70);
 D2_CHECK_OFFSET(D2DamageStrc, dwHitClass, 0x60);
 D2_CHECK_SIZE(D2MissileStrc, 0x5C);
@@ -178,3 +194,5 @@ D2_CHECK_SIZE(D2AiControlStrc, 0x40);
 D2_CHECK_SIZE(D2AiTickParamStrc, 0x24);
 D2_CHECK_SIZE(D2ObjInitFnStrc, 0x1C);
 D2_CHECK_SIZE(D2QuestArgStrc, 0x1C);
+D2_CHECK_SIZE(D2PartyStrc, 0x0C);
+D2_CHECK_SIZE(D2PartyControlStrc, 0x08);

@@ -1135,21 +1135,6 @@ enum D2C_MonStatsTxtFlagIndices
     MONSTATSFLAGINDEX_INTERACT = 9,
 };
 
-struct D2PartyStrc
-{
-    short nPartyId;
-    short field_2;
-    D2PartyNodeStrc* pPartyNodes;
-    D2PartyStrc* pNext;
-};
-
-struct D2PartyControlStrc
-{
-    short field_0;
-    short field_2;
-    D2PartyStrc* pParties;
-};
-
 typedef unsigned char (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest);
 
 struct D2QuestTimerStrc

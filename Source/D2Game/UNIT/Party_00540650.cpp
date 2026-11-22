@@ -2,6 +2,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -9,21 +10,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-
-struct D2PartyStrc
-{
-    short nPartyId;
-    short field_2;
-    D2PartyNodeStrc* pPartyNodes;
-    D2PartyStrc* pNext;
-};
-
-struct D2PartyControlStrc
-{
-    short field_0;
-    short field_2;
-    D2PartyStrc* pParties;
-};
 
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);

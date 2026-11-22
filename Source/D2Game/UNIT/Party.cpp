@@ -2,6 +2,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -22,21 +23,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-struct D2PartyStrc
-{
-    short nPartyId;
-    short field_2;
-    D2PartyNodeStrc* pPartyNodes;
-    D2PartyStrc* pNext;
-};
-
-struct D2PartyControlStrc
-{
-    short nNextPartyId;
-    short field_2;
-    D2PartyStrc* pParties;
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
