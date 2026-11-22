@@ -664,6 +664,8 @@ extern D2CelFileStrc* gpCellFile_007798B0; // 0x007798B0
 extern D2CelFileStrc* gpCellFile_007798C4; // 0x007798C4
 
 extern D2CelFileStrc* gpCellFile_00779724; // 0x00779724
+extern int gnGatewayValue_007795BC; // 0x007795BC
+
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
 {
@@ -828,6 +830,18 @@ unsigned __int64 __cdecl sub_004107F0_GetSaveDiskFreeSpace()
 int gnValue_0077994C; // 0x0077994C
 int gnValue_00779950; // 0x00779950
 int gbGatewayFlag_00779954; // 0x00779954
+
+// 0x0042E6A0
+void __fastcall sub_0042E6A0_SetGatewayValue(int nValue)
+{
+    gnGatewayValue_007795BC = nValue;
+}
+
+// 0x0042E6B0
+void __cdecl sub_0042E6B0_SetGatewayFlag()
+{
+    gbGatewayFlag_00779954 = 1;
+}
 
 // 0x0042EF50
 void __cdecl sub_0042EF50_FreeFrontEndCells()

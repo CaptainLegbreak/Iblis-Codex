@@ -2258,6 +2258,16 @@
      "name": "sub_004107F0_GetSaveDiskFreeSpace"
     },
     {
+     "va": "0x0042E6A0",
+     "length": 7,
+     "name": "sub_0042E6A0_SetGatewayValue"
+    },
+    {
+     "va": "0x0042E6B0",
+     "length": 11,
+     "name": "sub_0042E6B0_SetGatewayFlag"
+    },
+    {
      "va": "0x0042EF50",
      "length": 907,
      "name": "?sub_0042EF50_FreeFrontEndCells@@YAXXZ"
@@ -9709,16 +9719,6 @@
      "va": "0x0042E690",
      "length": 13,
      "name": "CurGateway"
-    },
-    {
-     "va": "0x0042E6A0",
-     "length": 7,
-     "name": "sub_0042E6A0_SetGatewayValue"
-    },
-    {
-     "va": "0x0042E6B0",
-     "length": 11,
-     "name": "sub_0042E6B0_SetGatewayFlag"
     },
     {
      "va": "0x0042E6C0",

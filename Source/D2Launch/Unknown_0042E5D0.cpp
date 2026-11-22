@@ -119,18 +119,6 @@ int __stdcall BNGatewayAccess::CurGateway()
     return m_nCurGateway;
 }
 
-// 0x0042E6A0
-void __fastcall sub_0042E6A0_SetGatewayValue(int nValue)
-{
-    gnGatewayValue_007795BC = nValue;
-}
-
-// 0x0042E6B0
-void __cdecl sub_0042E6B0_SetGatewayFlag()
-{
-    gbGatewayFlag_00779954 = 1;
-}
-
 // 0x0042E6C0
 int __cdecl sub_0042E6C0_GetGatewayFlag()
 {
