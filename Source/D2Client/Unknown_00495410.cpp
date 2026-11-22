@@ -6,15 +6,15 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-void __cdecl sub_004943B0_DrawFrameCels();                                                                  // 0x004943B0
-void __cdecl sub_004944F0_DrawFrameCels();                                                                  // 0x004944F0
-void __cdecl sub_00494620_DrawColumn();                                                                     // 0x00494620
-void __cdecl sub_00494680_DrawCelsAndLines();                                                               // 0x00494680
-void __cdecl sub_00494A00_DrawCelsAndLines();                                                               // 0x00494A00
-void __cdecl sub_00494E40_DrawPanelCel();                                                                   // 0x00494E40
+void __cdecl VIEW_DrawHelpFrameLowRes();                                                                  // 0x004943B0
+void __cdecl VIEW_DrawHelpFrameHighRes();                                                                  // 0x004944F0
+void __cdecl ROSTERPETS_DrawHelpColumn();                                                                     // 0x00494620
+void __cdecl VIEW_DrawHelpLinesLowRes();                                                               // 0x00494680
+void __cdecl VIEW_DrawHelpLinesHighRes();                                                               // 0x00494A00
+void __cdecl VIEW_DrawHelpPanelCel();                                                                   // 0x00494E40
 void __cdecl sub_00495DC0_DrawHelpText();                                                                   // 0x00495DC0
 extern int gbHelpUiOpened_007BEF00;                                                                         // 0x007BEF00
 
@@ -139,25 +139,25 @@ void __cdecl sub_00495410_DrawHelpText()
 // 0x004966C0
 void __cdecl sub_004966C0_DrawHelpScreen()
 {
-    if (!sub_004538D0(0x15))
+    if (!GAME_GetUIVarState(0x15))
     {
         sub_00455F20(0x15, 0, 0);
         gbHelpUiOpened_007BEF00 = 1;
     }
     if (D2GFX_GetResolutionMode() == 2)
     {
-        sub_004944F0_DrawFrameCels();
-        sub_00494E40_DrawPanelCel();
-        sub_00494620_DrawColumn();
-        sub_00494A00_DrawCelsAndLines();
+        VIEW_DrawHelpFrameHighRes();
+        VIEW_DrawHelpPanelCel();
+        ROSTERPETS_DrawHelpColumn();
+        VIEW_DrawHelpLinesHighRes();
         sub_00495410_DrawHelpText();
     }
     else
     {
-        sub_004943B0_DrawFrameCels();
-        sub_00494E40_DrawPanelCel();
-        sub_00494620_DrawColumn();
-        sub_00494680_DrawCelsAndLines();
+        VIEW_DrawHelpFrameLowRes();
+        VIEW_DrawHelpPanelCel();
+        ROSTERPETS_DrawHelpColumn();
+        VIEW_DrawHelpLinesLowRes();
         sub_00495DC0_DrawHelpText();
     }
 }

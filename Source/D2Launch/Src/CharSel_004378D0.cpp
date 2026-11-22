@@ -451,7 +451,7 @@ struct D2WinTextBoxStrc;
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-int __cdecl sub_00430B40(); // 0x00430B40
+int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 
 void __cdecl sub_00437BF0_CreateControls(); // 0x00437BF0
 
@@ -551,7 +551,7 @@ static int sub_00437A20_FindSlotName(const char* szName)
 {
     for (int i = 0; ; ++i)
     {
-        char* szSlot = i < sub_00430B40() ? sub_00430B50_GetSlotName(i) : 0;
+        char* szSlot = i < GAME_GetSlotNameCount() ? sub_00430B50_GetSlotName(i) : 0;
         if (!szSlot)
         {
             break;
@@ -576,7 +576,7 @@ static void sub_00437CB0_SelectNamedSlot(const char* szName)
 
     int i = 0;
     char* szSlot;
-    while ((szSlot = (i < sub_00430B40() ? sub_00430B50_GetSlotName(i) : 0)) != 0)
+    while ((szSlot = (i < GAME_GetSlotNameCount() ? sub_00430B50_GetSlotName(i) : 0)) != 0)
     {
         if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
             D2Win_10188(gpNameControl_007799E8, i, 1);
@@ -629,11 +629,13 @@ int __stdcall sub_0043AC00_PollConnect(int nUnused)
         case 0:
             sub_00449E70_SetMcpPacket(0, 0);
             gnState_00779DAC = 3;
-            if (!sub_0044AAB0_SendPacket19())
-                sub_0043A1F0_ShowConnectError(sub_00449C00());
+// build: symbol ?VIEW_SendMcpCharListRequest@* 0x0044AAB0
+            if (!VIEW_SendMcpCharListRequest())
+// build: symbol ?GAME_GetConnectError@* 0x00449C00
+                sub_0043A1F0_ShowConnectError(GAME_GetConnectError());
             break;
         case 2:
-            sub_0043A1F0_ShowConnectError(sub_00449C00());
+            sub_0043A1F0_ShowConnectError(GAME_GetConnectError());
             break;
         }
         break;
@@ -1306,7 +1308,7 @@ void __cdecl sub_0043A800()
         D2Win_10062((D2WinTextBoxStrc*)gpControl_00779D9C, -6, 0);
         for (int i = 0; ; ++i)
         {
-            char* szName = i < sub_00430B40() ? sub_00430B50_GetSlotName(i) : 0;
+            char* szName = i < GAME_GetSlotNameCount() ? sub_00430B50_GetSlotName(i) : 0;
             if (!szName) { break; }
             D2Win_10045(gpNameControl_007799E8, szName);
             if (!SStrCmpI(gData_00779A40, szName, 0x7FFFFFFF))
@@ -1412,7 +1414,7 @@ int __stdcall sub_0043B520_OnCharSelect(int nArg)
                 bOk = sub_004349B0_Validate(pEntry, szName);
                 if (!bOk)
                 {
-                    if (sub_00449C00() != 0x7B)
+                    if (GAME_GetConnectError() != 0x7B)
                     {
                         sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080_InitCharSelectScreen);
                     }
@@ -2061,7 +2063,7 @@ int __cdecl sub_0043A2B0_InitRealmScreen()
     if (gnLaunchMode_007795EC == 1)
     {
         sub_00434060();
-        const int nCount = sub_00430B40();
+        const int nCount = GAME_GetSlotNameCount();
         if (nCount != -1)
         {
             if (nCount != 0)
@@ -2084,7 +2086,7 @@ int __cdecl sub_0043A2B0_InitRealmScreen()
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
                     if (!sub_00437A20_FindSlotName(gData_00779A40))
                     {
-                        const char* szFirst = sub_00430B40() > 0 ? sub_00430B50_GetSlotName(0) : 0;
+                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? sub_00430B50_GetSlotName(0) : 0;
                         SStrCopy(gData_00779A40, szFirst, 0x7FFFFFFF);
                         SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
                     }

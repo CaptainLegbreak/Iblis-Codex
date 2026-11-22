@@ -83,7 +83,7 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -362,7 +362,7 @@ int __fastcall SKILLS_AuraCallback_HolyFreeze(D2AuraCallbackStrc* pAuraCallback,
 
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 
-int __fastcall sub_00463900_GetValidMonsterId(int nClassId); // 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int nClassId); // 0x00463900
 
 void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553DC0
 
@@ -395,7 +395,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 
-int __fastcall sub_004C9460_GetSkillParam1(int nSkillId); // 0x004C9460
+int __fastcall SKILLS_GetFirstSkillParam(int nSkillId); // 0x004C9460
 
 void __fastcall SUNIT_SetCombatMode(D2GameStrc*, D2UnitStrc*, int); // 0x00553570
 
@@ -729,7 +729,8 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
         }
         int nValue = SKILLS_ApplyResistanceImmunityPenalty(pUnit, nStat, pAuraStat[6]);
         if (!nValue) continue;
-        D2ItemStatCostTxt* pRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStat);
+// build: symbol ?PLAYER_GetItemStatCostTxtRecord@* 0x0045C4F0
+        D2ItemStatCostTxt* pRecord = PLAYER_GetItemStatCostTxtRecord(nStat);
         if (!pRecord) continue;
         if (!(pRecord->nItemStatFlags[0] & gdwBitMasks[4]))
         {
@@ -944,7 +945,7 @@ int __fastcall SKILLS_SrvDo066_HolyFire_HolyShock_Sanctuary_Conviction(D2GameStr
     for (int i = 0; i < 5; ++i)
     {
         args1.nAuraStat[i] = pSkillsTxtRecord->nPassiveStat[i];
-        if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) != UNIT_PLAYER || nMana >= nManaCost)
+        if (GAME_GetUnitTypeOrInvalid(pUnit) != UNIT_PLAYER || nMana >= nManaCost)
         {
             args1.nAuraStatCalcValue[i] = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPassiveCalc[i], nSkillId, nSkillLevel);
         }
@@ -1054,7 +1055,7 @@ int __fastcall SKILLS_SrvSt31_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             if (pUnit->dwUnitType == UNIT_PLAYER) return SKILLS_StartBasicAttack(pGame, pUnit, pTarget);
             SUNIT_SetCombatMode(pGame, pUnit, 1);
             UNITS_SetUsedSkill(pUnit, 0);
-            const int nMonsterId = sub_00463900_GetValidMonsterId(sub_00463860(pUnit));
+            const int nMonsterId = CUNIT_ValidateMonsterId(sub_00463860(pUnit));
             const int nMode = nMonsterId != MONSTER_CLAWVIPER1 ? (nMonsterId == MONSTER_DURIEL ? 5 : 4) : 5;
             D2ModeChangeStrc modeChange;
             MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
@@ -1089,7 +1090,7 @@ int __fastcall SKILLS_SrvSt31_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     }
     int nBonus = STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
     if (nBonus <= 50) nBonus = 50;
-    PATH_SetVelocity(pPath, DATATBLS_ApplyRatio(nVelocity, sub_004C9460_GetSkillParam1(nSkillId) + nBonus, 100), ".\\SKILLS\\SkilPal.cpp", 816);
+    PATH_SetVelocity(pPath, DATATBLS_ApplyRatio(nVelocity, SKILLS_GetFirstSkillParam(nSkillId) + nBonus, 100), ".\\SKILLS\\SkilPal.cpp", 816);
     D2Common_10142(pPath, pUnit, 0);
     SKILLS_SetFlags(pSkill, 0x1001);
     STATES_ToggleState(pUnit, 18, 1);
@@ -1153,7 +1154,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             }
             else
             {
-                if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 436 || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 441)
+                if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || CUNIT_ValidateMonsterId(sub_00463860(pUnit)) != 436 || CUNIT_ValidateMonsterId(sub_00463860(pUnit)) != 441)
                 {
                     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
                     EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 1, 0, 0);
@@ -1211,7 +1212,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         {
             int nMode;
-            switch (sub_00463900_GetValidMonsterId(pUnit->dwClassId))
+            switch (CUNIT_ValidateMonsterId(pUnit->dwClassId))
             {
             case 73: nMode = 8; break;
             case 211: case 436: nMode = 5; break;
@@ -1640,7 +1641,7 @@ int __fastcall SKILLS_SrvDo081_HolyFreeze(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     for (int i = 0; i < 5; ++i)
     {
         args1.nAuraStat[i] = pSkillsTxtRecord->nPassiveStat[i];
-        if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) != UNIT_PLAYER || nMana >= nManaCost)
+        if (GAME_GetUnitTypeOrInvalid(pUnit) != UNIT_PLAYER || nMana >= nManaCost)
         {
             args1.nAuraStatCalcValue[i] = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPassiveCalc[i], nSkillId, nSkillLevel);
         }
@@ -1864,7 +1865,7 @@ int __fastcall SKILLS_SrvDo082_Redemption(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         args.nAuraStat[i] = nStat;
         if (nStat >= 0)
         {
-            if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) != UNIT_PLAYER || nMana >= nManaCost)
+            if (GAME_GetUnitTypeOrInvalid(pUnit) != UNIT_PLAYER || nMana >= nManaCost)
             {
                 args.nAuraStatCalcValue[i] = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPassiveCalc[i], nSkillId, nSkillLevel);
             }

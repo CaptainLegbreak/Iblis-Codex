@@ -50,19 +50,19 @@ int __cdecl TEXT_IsTextBoxOpen();                                               
 D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
 void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit);                                                            // 0x0049DA30
 void __cdecl TEXT_ClearHoverUnit();                                                                      // 0x0049DA50
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType);                    // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);                    // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
-void __fastcall sub_00475FF0_SetViewDirty(D2ViewStrc* pView);                                               // 0x00475FF0
+void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView);                                               // 0x00475FF0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
-int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
-int __cdecl sub_0044BF30();                                                                                 // 0x0044BF30
-int __cdecl sub_0044DAA0(); // 0x0044DAA0
-int __cdecl sub_0044DAC0(); // 0x0044DAC0
-void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
-extern "C" int __cdecl sub_0045AFC0();                                                          // 0x0045AFC0
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset();                                                      // 0x0045AFD0
+int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
+int __cdecl GAME_IsLeftButtonHeld();                                                                                 // 0x0044BF30
+int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
+int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
+void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
+extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
+extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
@@ -70,7 +70,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);              // 0x00643CE0
@@ -79,12 +79,12 @@ D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, D2UnitFindCallback pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
 int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg);                                    // 0x00467470
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                           // 0x00644140
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
-void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY);                     // 0x004C51E0
+void __fastcall ITEM_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY);                     // 0x004C51E0
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);                                                   // 0x00643260
 
@@ -153,11 +153,11 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 
     if (!bSame && gdwGlobal_007A6A94 && gnSelectedUnitType_007A6A8C == 5)
     {
-        D2UnitStrc* pOld = sub_00463990(gnSelectedUnitId_007A6A78, 5);
+        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, 5);
         if (pOld)
         {
             DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), pOld->dwClassId);
-            sub_00475FF0_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpView_007A0640);
         }
     }
 
@@ -177,7 +177,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         if (!bSame)
         {
             DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), pUnit->dwClassId);
-            sub_00475FF0_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpView_007A0640);
         }
         break;
 
@@ -223,20 +223,20 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, int nY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_TILE
-        && sub_00463EE0_IsPointInTileRect(pUnit, nX1, nY1)
-        && sub_00463EE0_IsPointInTileRect(pUnit, nX2, nY2)
+        && SCMD_IsPointInTileRect(pUnit, nX1, nY1)
+        && SCMD_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)
-        && sub_0044BF30())
+        && GAME_IsLeftButtonHeld())
     {
-        if (sub_0044DAA0() < sub_0044DAC0())
+        if (GAME_GetCurrentTime() < GAME_GetInteractDeadline())
         {
-            sub_0044DAD0(sub_0044DAA0() + 0x1F4);
+            GAME_SetInteractDeadline(GAME_GetCurrentTime() + 0x1F4);
             return 1;
         }
 
         if (!*pnFlag)
         {
-            sub_0044DAD0(sub_0044DAA0() + 0x1F4);
+            GAME_SetInteractDeadline(GAME_GetCurrentTime() + 0x1F4);
             *pnFlag = 1;
         }
     }
@@ -254,8 +254,8 @@ static void __stdcall sub_004670A0_AdjustCursorPerspective(int* pnX, int* pnY)
         *pnX += (40 - *pnY / 4) * (*pnX - nHalfWidth) / nHalfWidth;
     }
 
-    *pnX += sub_0045AFC0();
-    *pnY += sub_0045AFD0_GetMouseYOffset();
+    *pnX += PLAYER_GetScreenOffsetX();
+    *pnY += PLAYER_GetScreenOffsetY();
 }
 
 static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
@@ -277,11 +277,11 @@ static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
         TEXT_ClearHoverUnit();
         if (gdwGlobal_007A6A94 && gnSelectedUnitType_007A6A8C == 5)
         {
-            D2UnitStrc* pOld = sub_00463990(gnSelectedUnitId_007A6A78, 5);
+            D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, 5);
             if (pOld)
             {
                 DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), pOld->dwClassId);
-                sub_00475FF0_SetViewDirty(gpView_007A0640);
+                VIEW_SetViewDirty(gpView_007A0640);
             }
         }
         gdwGlobal_007A6A94 = 0;
@@ -379,7 +379,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
 {
     if (pUnit)
     {
-        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) && sub_00464820_IsDeadOrDying(pUnit))
+        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) && CUNIT_IsDeadOrDying(pUnit))
         {
             return pUnit;
         }
@@ -444,7 +444,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             if (UNIT_HasFlag(pTarget, 4))
             {
                 if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
-                    || (pTarget->dwUnitType == UNIT_MONSTER && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
+                    || (pTarget->dwUnitType == UNIT_MONSTER && MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {
                     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
@@ -491,12 +491,12 @@ D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitSt
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pUnit)
     {
-        if (pUnit->dwUnitType == UNIT_PLAYER && sub_00464820_IsDeadOrDying(pUnit))
+        if (pUnit->dwUnitType == UNIT_PLAYER && CUNIT_IsDeadOrDying(pUnit))
         {
             return pUnit;
         }
 
-        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) || !sub_00464820_IsDeadOrDying(pUnit))
+        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) || !CUNIT_IsDeadOrDying(pUnit))
         {
             goto skip;
         }
@@ -509,7 +509,7 @@ D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitSt
 
     if (*pnX == CLIENT_GetUnitXInline(pPlayer) && *pnY == CLIENT_GetUnitYInline(pPlayer))
     {
-        sub_004C51E0_GetAdjacentPosition(pPlayer, pnX, pnY);
+        ITEM_GetAdjacentPosition(pPlayer, pnX, pnY);
     }
 
 skip:

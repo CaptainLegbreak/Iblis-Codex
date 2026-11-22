@@ -7,7 +7,7 @@ extern "C" void* __stdcall UNITS_GetRoom(void* pUnit); // 0x00620BB0
 extern "C" void* __stdcall STATLIST_GetOwner(void* pUnit, int* pStatNotDynamic); // 0x00625820
 
 // 0x004F3F50
-int __fastcall sub_004F3F50_CheckNecromancerSkill(void* pUnit, int nArg1, int nArg2)
+int __fastcall SKILLSNEC_CheckNecromancerSkill(void* pUnit, int nArg1, int nArg2)
 {
     void* pTarget = sub_004648F0_GetTargetUnit(pUnit);
     if (!pTarget)

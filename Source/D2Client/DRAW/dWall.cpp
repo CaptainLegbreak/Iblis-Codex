@@ -68,8 +68,8 @@ struct D2LightPairStrc
 
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-int __cdecl sub_00477730();                                                                                 // 0x00477730
-void __fastcall sub_00475AA0_ReadGridCell(D2LightPointStrc* pA, D2LightPointStrc* pB, unsigned char* pC0, unsigned char* pC1, unsigned char* pC2, unsigned char* pC3); // 0x00475AA0
+int __cdecl DLIGHTMAP_GetRenderMode();                                                                                 // 0x00477730
+void __fastcall SCMD_ReadGridCell(D2LightPointStrc* pA, D2LightPointStrc* pB, unsigned char* pC0, unsigned char* pC1, unsigned char* pC2, unsigned char* pC3); // 0x00475AA0
 int __stdcall TILE_TileDrawLit(D2TileGfxStrc* pTile, int nX, int nY, unsigned int* pLight, int nGamma);   // 0x004F6920
 int __stdcall TILE_TileDrawTrans(D2TileGfxStrc* pTile, int nX, int nY, unsigned int* pLight, int nGamma, unsigned char nAlpha); // 0x004F6950
 
@@ -90,7 +90,7 @@ void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2Ce
 {
     const int nGamma = sub_0045AE90();
     const int bPerspective = D2GFX_CheckPerspective();
-    const int nDetail = sub_00477730();
+    const int nDetail = DLIGHTMAP_GetRenderMode();
     const unsigned int dwTick = GetTickCount();
     const int bFade = nDetail >= 4;
     D2_ASSERT(nPass == 0 || nPass == 1, 0xF3);
@@ -143,7 +143,7 @@ void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2Ce
             for (unsigned int i = 0; i < nCount; ++i)
             {
                 unsigned char nC0, nC1, nC2, nC3;
-                sub_00475AA0_ReadGridCell(&pNode->pLightA[pPairs[i].nA], &pNode->pLightB[pPairs[i].nB], &nC0, &nC1, &nC2, &nC3);
+                SCMD_ReadGridCell(&pNode->pLightA[pPairs[i].nA], &pNode->pLightB[pPairs[i].nB], &nC0, &nC1, &nC2, &nC3);
                 nC0 = nC0 > 0 ? nC0 : 0;
                 aLight[i] = (((((nC3 << 8) | nC2) << 8) | nC1) << 8) | nC0;
             }

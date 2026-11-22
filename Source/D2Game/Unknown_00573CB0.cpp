@@ -31,7 +31,7 @@ const char* __cdecl sub_00408090_GetAssertText(int); // 0x00408090
 void __cdecl sub_00408A60_Assert(const char*,...); // 0x00408A60
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 unsigned int __fastcall sub_0045C3E0(D2SeedStrc*,int); // 0x0045C3E0
-int __fastcall sub_00463900_GetValidMonsterId(int); // 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int); // 0x00463900
 int __fastcall DATATBLS_ApplyRatio(int,int,int); // 0x00483360
 D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc*,int); // 0x00536B20
 void __fastcall sub_0055B800_StatCallback(D2UnitStrc*,int,int,int,void*); // 0x0055B800
@@ -161,7 +161,7 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
     if(pStats->nFlags[3]&(unsigned char)gdwBitMasks[0])
     {
         if(pStats->nFlags[1]&(unsigned char)gdwBitMasks[1])
-            pMonster->pInventory=SUNITPROXY_GetNpcInventory(pGame,sub_00463900_GetValidMonsterId(nClass));
+            pMonster->pInventory=SUNITPROXY_GetNpcInventory(pGame,CUNIT_ValidateMonsterId(nClass));
         else INVENTORY_AllocInventory(0,pMonster);
     }
     pMonster->pSkills=SKILLS_AllocSkillList(pGame->pMemoryPool);

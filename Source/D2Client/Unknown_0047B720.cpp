@@ -17,7 +17,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6);  // 0x0046EFD0
-int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
+int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
 void __cdecl sub_0047B5C0_DrawImeCandidates();                                                              // 0x0047B5C0
@@ -102,7 +102,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
     sub_0046EFD0_DrawFramedBox(0x7F, gnGlobal_00711470 - 0x67, gnGlobal_0071146C - 0xFF, 0x2F, 0, 1);
 
     int nWidth = 0;
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         sub_00455F20(5, 1, 0);
     }

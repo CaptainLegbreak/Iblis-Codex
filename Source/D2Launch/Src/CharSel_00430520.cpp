@@ -142,11 +142,11 @@ void __cdecl sub_0043A730_UpdateButtons();                                      
 
 void __stdcall sub_00449E50_SetValue(int nValue);                                                                    // 0x00449E50
 
-void __fastcall sub_0044A7A0_SendPacket0A(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
+void __fastcall WINMAIN_SendMcpCharDelete(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
 
-void __fastcall sub_0044A810_SendPacket18(const char* szName);                                                           // 0x0044A810
+void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szName);                                                           // 0x0044A810
 
-void __cdecl sub_0044AA80_SendPacket13();                                                                                // 0x0044AA80
+void __cdecl VIEW_SendMcpCancelGameCreate();                                                                                // 0x0044AA80
 
 int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 
@@ -486,7 +486,7 @@ int __fastcall sub_00434960_Validate(D2LaunchCharEntryStrc* pEntry, const char* 
         }
     }
     sub_0042F6E0();
-    sub_0044A7A0_SendPacket0A(pEntry->szName, 0);
+    WINMAIN_SendMcpCharDelete(pEntry->szName, 0);
     sub_004FA590_RunLoop(sub_00433020_PollConnectA);
     return 1;
 }
@@ -504,9 +504,10 @@ int __fastcall sub_004349B0_Validate(D2LaunchCharEntryStrc* pEntry, const char* 
         }
     }
     sub_0042F6E0();
-    sub_0044A810_SendPacket18(pEntry->szName);
+    WINMAIN_SendMcpCharUpgrade(pEntry->szName);
     sub_004FA590_RunLoop(sub_00433060_PollConnectB);
-    return sub_00449C00() == 0;
+// build: symbol ?GAME_GetConnectError@* 0x00449C00
+    return GAME_GetConnectError() == 0;
 }
 
 // 0x00435E00
@@ -802,7 +803,8 @@ static void sub_00437CB0_SelectNamedSlot(const char* szName)
 
     int i = 0;
 next:
-    if (i >= sub_00430B40())
+// build: symbol ?GAME_GetSlotNameCount@* 0x00430B40
+    if (i >= GAME_GetSlotNameCount())
         return;
     char* szSlot = sub_00430B50_GetSlotName(i);
     if (!szSlot)
@@ -974,11 +976,12 @@ int __stdcall sub_0043AC00_PollConnect(int nUnused)
         case 0:
             sub_00449E70_SetMcpPacket(0, 0);
             gnState_00779DAC = 3;
-            if (!sub_0044AAB0_SendPacket19())
-                sub_0043A1F0_ShowConnectError(sub_00449C00());
+// build: symbol ?VIEW_SendMcpCharListRequest@* 0x0044AAB0
+            if (!VIEW_SendMcpCharListRequest())
+                sub_0043A1F0_ShowConnectError(GAME_GetConnectError());
             break;
         case 2:
-            sub_0043A1F0_ShowConnectError(sub_00449C00());
+            sub_0043A1F0_ShowConnectError(GAME_GetConnectError());
             break;
         }
         break;
@@ -1132,7 +1135,7 @@ void __fastcall sub_0043F560_Disable(D2WinControlStrc* pControl)
 // 0x0043F850
 int __cdecl sub_0043F850()
 {
-    sub_0044AA80_SendPacket13();
+    VIEW_SendMcpCancelGameCreate();
     sub_00449E50_SetValue(0);
     return 1;
 }

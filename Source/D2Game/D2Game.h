@@ -99,7 +99,7 @@ D2GameStrc* __fastcall sub_00554010_GetGame(D2UnitStrc* pUnit); // 0x00554010
 D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int bExpansion, int nId, int nLevel); // 0x006562F0
 D2HoverTextStrc* __stdcall CHAT_AllocHoverMsg(void* pMemoryPool, const char* szText, int nGameFrame); // 0x00661110
 D2ItemDataTbl* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
-D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
+D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
 D2ObjGroupTxt* __stdcall DATATBLS_GetObjGroupTxtRecord(int nId); // 0x006412F0
 D2ObjectRegionStrc* __fastcall OBJRGN_GetObjectRegionForLevel(D2GameStrc* pGame, int nLevelId); // 0x00546F90
 D2ObjectsTxt* __stdcall UNITS_GetObjectTxtRecordFromObject(D2UnitStrc* pUnit); // 0x00621B30
@@ -290,11 +290,11 @@ int __fastcall MONSTER_GetLevelId(D2UnitStrc* pUnit); // 0x00573520
 int __fastcall NET_IsLocalConnection(); // 0x0052B7E0
 int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
 int __fastcall UNITS_CanSwitchAI(int nMonsterId); // 0x00623470
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
-int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 int __fastcall sub_00463860_GetMonsterId(D2UnitStrc* pUnit); // 0x00463860
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId); // 0x004E6C50
 int __fastcall SKILLDESC_GetSkillParamFive(int nSkillId); // 0x004E6C70
 int __fastcall SKILLDESC_GetSkillParamThree(int nSkillId); // 0x004EFC50

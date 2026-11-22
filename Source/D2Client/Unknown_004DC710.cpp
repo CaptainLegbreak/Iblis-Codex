@@ -14,16 +14,16 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
-extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
+extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
-void __fastcall sub_004D85B0_SkillSeqDo1Thunk(D2UnitStrc* pUnit, int nArg); // 0x004D85B0
-void __fastcall sub_004D8650(D2UnitStrc* pUnit, int nArg); // 0x004D8650
-void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg); // 0x004D8520
-void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg); // 0x004D85C0
+void __fastcall PLRSKILLS_CallSkillSeqDoForward(D2UnitStrc* pUnit, int nArg); // 0x004D85B0
+void __fastcall MISSILE_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg); // 0x004D8650
+void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg); // 0x004D8520
+void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg); // 0x004D85C0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __cdecl sub_004817F0(); // 0x004817F0
 int __cdecl sub_00481800(); // 0x00481800
@@ -126,8 +126,8 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         }
         int nTempY;
         SCALE_ScalePerspectivePosition(nPrecisionX, nPrecisionY, 0x60, &nX, &nTempY, bOrder);
-        nX += sub_0045AFC0();
-        nY = nTempY + sub_0045AFD0_GetMouseYOffset();
+        nX += PLAYER_GetScreenOffsetX();
+        nY = nTempY + PLAYER_GetScreenOffsetY();
     }
     else
     {
@@ -138,18 +138,18 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     switch (nType)
     {
     case 0:
-        sub_004D8520_SkillSeqDo1(pUnit, nColor);
+        PLRSKILLS_SkillSeqDoForward(pUnit, nColor);
         if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nY, 0, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
-        sub_004D85C0_SkillSeqDo0(pUnit, nColor);
+        PLRSKILLS_SkillSeqDoBackward(pUnit, nColor);
         break;
     case 1:
         if (sub_004AE340(pUnit))
             bSpecial = 1;
-        sub_004D85B0_SkillSeqDo1Thunk(pUnit, nColor);
+        PLRSKILLS_CallSkillSeqDoForward(pUnit, nColor);
         if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nY, bSpecial, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
-        sub_004D8650(pUnit, nColor);
+        MISSILE_CallSkillSeqDoBackward(pUnit, nColor);
         break;
     case 3:
     {

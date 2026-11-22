@@ -56,7 +56,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
@@ -119,11 +119,11 @@ void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-void __fastcall sub_004898D0(int nState); // 0x004898D0
+void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
 
 void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 
@@ -139,11 +139,11 @@ extern "C" int __stdcall sub_00420290_QueueMessage(Message*); // 0x00420290
 
 extern "C" int __fastcall sub_004B9A00_Notify(int, void*, int, int, int); // 0x004B9A00
 
-unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
-int __fastcall sub_00469D90(int nA, int nB);                                                                // 0x00469D90
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB);                                                                // 0x00469D90
 
-void __stdcall sub_004B76D0_TimedCallbackMsg(SMSGHANDLER_PARAMS* pMsg);                                     // 0x004B76D0
+void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg);                                     // 0x004B76D0
 
 struct D2RectStrc;
 
@@ -153,7 +153,7 @@ void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStr
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern int gnGlobal_007273F4; // 0x007273F4
 
@@ -183,7 +183,7 @@ static int gnGlobal_007C0E5C; // 0x007C0E5C
 
 extern const char* gaszDialogCels_007274AC[]; // 0x007274AC
 
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -274,7 +274,7 @@ void __stdcall DIALOG_LButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     D2ClientDialogStrc* pDialog = gpGlobal_007C0E54;
-    if (sub_004538D0(0x15) && sub_0047F190_IsInMiniPanelRect(nX, nY))
+    if (GAME_GetUIVarState(0x15) && sub_0047F190_IsInMiniPanelRect(nX, nY))
     {
         if (!pDialog)
             return;
@@ -343,19 +343,19 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         const int nY = pMsg->nYpos;
         if (nX >= pDialog->nX - 4 && nX <= pDialog->nX + pDialog->nWidth + 4 && nY >= pDialog->nY - 4 && nY <= pDialog->nY + pDialog->nHeight + 4)
             goto handled;
-        if (sub_004538D0(0x15) && sub_0047F190_IsInMiniPanelRect(nX, nY))
+        if (GAME_GetUIVarState(0x15) && sub_0047F190_IsInMiniPanelRect(nX, nY))
             return;
         if (pDialog->pfnOutside)
         {
             if (!pDialog->pfnOutside())
                 return;
-            if (sub_004538D0(6) && TEXT_IsInPanelButton(sub_0045AE90(), nX, nY))
+            if (GAME_GetUIVarState(6) && TEXT_IsInPanelButton(sub_0045AE90(), nX, nY))
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_00420290_BreakHandlerChain(pMsg);
             }
-            if (sub_004538D0(7) && sub_004A6630_IsInPanelButton2(sub_0045AE90(), nX, nY))
+            if (GAME_GetUIVarState(7) && sub_004A6630_IsInPanelButton2(sub_0045AE90(), nX, nY))
                 goto handled;
             return;
         }
@@ -412,7 +412,7 @@ static void __stdcall DIALOG_HandleDialogKey(int bClose, SMSGHANDLER_PARAMS* pMs
 void __stdcall DIALOG_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     D2ClientDialogStrc* pDialog = gpGlobal_007C0E54;
-    if (pDialog->bKeepKeys || !sub_004538D0(5))
+    if (pDialog->bKeepKeys || !GAME_GetUIVarState(5))
         DIALOG_HandleDialogKey(pDialog->bModal == 0, pMsg);
 }
 
@@ -541,9 +541,9 @@ static __declspec(noinline) int DIALOG_IsChatKey(D2ClientDialogStrc* pDialog, in
 {
     if (pDialog->bKeepKeys)
         return 0;
-    if (sub_00469D90(5, 1) && sub_00469AA0(5, 1) == nKey)
+    if (CUNIT_HasHotkeyBinding(5, 1) && CUNIT_GetHotkeyBinding(5, 1) == nKey)
         return 1;
-    if (sub_00469D90(5, 0) && sub_00469AA0(5, 0) == nKey)
+    if (CUNIT_HasHotkeyBinding(5, 0) && CUNIT_GetHotkeyBinding(5, 0) == nKey)
         return 1;
     return 0;
 }
@@ -597,7 +597,7 @@ void __stdcall DIALOG_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     if (pMsg->wParam == 0x1B)
     {
-        sub_004B76D0_TimedCallbackMsg(pMsg);
+        ROSTERPETS_HandleDialogEscape(pMsg);
         return;
     }
     if (pDialog->unk0x18 == 1)
@@ -663,17 +663,17 @@ void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int
 // 0x004B7C60
 void __cdecl DIALOG_LoadDialogHotkeys()
 {
-    if (sub_00469D90(0x26, 1))
+    if (CUNIT_HasHotkeyBinding(0x26, 1))
     {
-        unsigned short nValue = sub_00469AA0(0x26, 1);
+        unsigned short nValue = CUNIT_GetHotkeyBinding(0x26, 1);
         if (nValue != 0xFFFF && nValue <= 0xDF)
         {
             gnGlobal_007273F4 = nValue;
         }
     }
-    if (sub_00469D90(0x26, 0))
+    if (CUNIT_HasHotkeyBinding(0x26, 0))
     {
-        unsigned short nValue = sub_00469AA0(0x26, 0);
+        unsigned short nValue = CUNIT_GetHotkeyBinding(0x26, 0);
         if (nValue != 0xFFFF && nValue <= 0xDF)
         {
             gnGlobal_00727400 = nValue;
@@ -688,8 +688,8 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     D2CelContextStrc tContext;
 
     sub_004545C0(0);
-    sub_004898D0(0);
-    sub_0044DA40();
+    CUNIT_SetDialogState(0);
+    GAME_ResetMouseState();
     if (!nArg8)
     {
         return 0;
@@ -725,7 +725,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     pDialog->nState = 0;
     pDialog->bDrawCel = 1;
     sprintf(szPath, "%s\\ui\\menu\\%s", szDataGlobal_006D4118, gaszDialogCels_007274AC[nType]);
-    pDialog->pCelFile = sub_004788B0(szPath, 0);
+    pDialog->pCelFile = ARCHIVE_LoadClientCellFile(szPath, 0);
 
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pDialog->pCelFile;
@@ -753,8 +753,8 @@ D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, i
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28)
 {
     sub_004545C0(0);
-    sub_004898D0(0);
-    sub_0044DA40();
+    CUNIT_SetDialogState(0);
+    GAME_ResetMouseState();
     if (!nArg8)
     {
         return 0;
@@ -809,7 +809,7 @@ void __fastcall DIALOG_DestroyDialog(void* pRes)
         sub_004545C0(1);
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_007273E4, 1);
-        sub_004898D0(1);
+        CUNIT_SetDialogState(1);
         sub_00467430(0);
         gnGlobal_007C0E58 = 0;
         D2ClientDialogStrc* pDialog = gpGlobal_007C0E54;
@@ -823,7 +823,7 @@ void __fastcall DIALOG_DestroyDialog(void* pRes)
 
         if (pDialog->bDrawCel && pDialog->pCelFile)
         {
-            sub_00478A00(pDialog->pCelFile);
+            ARCHIVE_FreeClientCellFile(pDialog->pCelFile);
         }
 
         D2ClientDialogStrc* pNext = pDialog->pNext;

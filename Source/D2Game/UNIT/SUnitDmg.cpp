@@ -120,7 +120,7 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
@@ -1013,7 +1013,8 @@ static int SUNITDMG_IsMonsterWithoutDeadCol(D2UnitStrc* pUnit)
         return 0;
 
     const int nClassId = pUnit->dwClassId;
-    return !sub_004638A0_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_DEADCOL_0057AF00);
+// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
+    return !MONSTERREGION_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_DEADCOL_0057AF00);
 }
 
 // 0x0057AF30
@@ -1100,7 +1101,7 @@ static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, int nColdLe
     }
 
     if ((int)(sub_I19_RollSeedInline(&pDefender->pSeed) % 100) < 20 && pDefender && pDefender->dwUnitType == UNIT_MONSTER
-        && !sub_004638A0_CheckMonStats2Flag(pDefender->dwClassId, 0x13))
+        && !MONSTERREGION_CheckMonStats2Flag(pDefender->dwClassId, 0x13))
     {
         STATES_ToggleState(pDefender, 0x6B, 1);
         return;
@@ -2004,7 +2005,8 @@ void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker,
     else
     {
         nDefenderUnitType = pDefender->dwUnitType;
-        if (nDefenderUnitType == 1 && !sub_00457490_CheckMonStatsFlag(pDefender->dwClassId, 15))
+// build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
+        if (nDefenderUnitType == 1 && !MONSTERUNIQUE_CheckMonStatsFlag(pDefender->dwClassId, 15))
         {
             return;
         }
@@ -2370,7 +2372,7 @@ void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D
             return;
         }
 
-        if (!sub_00457490_CheckMonStatsFlag(pDefender->dwClassId, MONSTATSFLAGINDEX_KILLABLE))
+        if (!MONSTERUNIQUE_CheckMonStatsFlag(pDefender->dwClassId, MONSTATSFLAGINDEX_KILLABLE))
         {
             return;
         }
@@ -2421,7 +2423,7 @@ void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D
         }
 
         const int nClassId = pDefender->dwClassId;
-        if (sub_004638A0_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_OBJCOL))
+        if (MONSTERREGION_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_OBJCOL))
         {
             if (nClassId == MONSTER_BARRICADEDOOR1)
             {
@@ -2821,8 +2823,8 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAtt
     D2CombatStrc* pCombat = pAttacker->pCombat;
     while (pCombat)
     {
-        if (pCombat->dwAttackerType == sub_0044BE50_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == sub_00451F50_GetUnitGUID(pAttacker)
-            && pCombat->dwDefenderType == sub_0044BE50_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == sub_00451F50_GetUnitGUID(pDefender))
+        if (pCombat->dwAttackerType == GAME_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == sub_00451F50_GetUnitGUID(pAttacker)
+            && pCombat->dwDefenderType == GAME_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == sub_00451F50_GetUnitGUID(pDefender))
         {
             break;
         }
@@ -2888,8 +2890,8 @@ D2DamageStrc* __fastcall SUNITDMG_GetDamageFromUnits(D2UnitStrc* pAttacker, D2Un
 
     for (D2CombatStrc* pCombat = pAttacker->pCombat; pCombat; pCombat = pCombat->pNext)
     {
-        if (pCombat->dwAttackerType == sub_0044BE50_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == sub_00451F50_GetUnitGUID(pAttacker)
-            && pCombat->dwDefenderType == sub_0044BE50_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == sub_00451F50_GetUnitGUID(pDefender))
+        if (pCombat->dwAttackerType == GAME_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == sub_00451F50_GetUnitGUID(pAttacker)
+            && pCombat->dwDefenderType == GAME_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == sub_00451F50_GetUnitGUID(pDefender))
         {
             return &pCombat->tDamage;
         }

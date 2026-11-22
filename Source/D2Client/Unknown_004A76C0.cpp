@@ -131,21 +131,21 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2CharTextStrc gaCharTexts_00724818[15]; // 0x00724818
 extern D2CharFieldStrc gaCharFields_00724928[18]; // 0x00724928
 extern D2HoverBoxStrc gaHoverBoxes_006DA430[2]; // 0x006DA430
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-void* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
+void* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_00466DC0(); // 0x00466DC0
 int __cdecl UI_GetHoverClassId(); // 0x00466DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
+char* __fastcall ROSTER_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
 void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 int __stdcall TEXT_GetChanceToHit(int nAttackRating); // 0x004A7340
-int __cdecl sub_004A74A0_GetPercentB(); // 0x004A74A0
+int __cdecl MONSTER_GetPlayerDefensePercent(); // 0x004A74A0
 void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
 int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
@@ -190,7 +190,7 @@ extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
 extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 extern "C" int gnValue_007C0C3C; // 0x007C0C3C
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity); // 0x004A9D70
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nX, int nArg3, int nArg4, int nArg5); // 0x004AA3A0
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
@@ -413,7 +413,7 @@ static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
     }
 
     D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
-    int nLevel = UNITS_GetBlockRate(pPlayer, sub_0044DCC0());
+    int nLevel = UNITS_GetBlockRate(pPlayer, GAME_IsExpansion());
     if (nLevel <= 0)
     {
         nLevel = sub_004A70C0_GetWieldedTypeStatMax(pPlayer);
@@ -616,12 +616,12 @@ NEXT_TEXT:;
     sub_00502EF0(0);
     const int nLeftChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
     const int nRightChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
-    const int nPercent = sub_004A74A0_GetPercentB();
+    const int nPercent = MONSTER_GetPlayerDefensePercent();
     sub_004A7AE0_DrawHoverToHit(nMouseX, nMouseY, nLeftChance, nRightChance);
     TEXT_DrawBlockChanceHover(nMouseX, nMouseY, nPercent);
     sub_00502EF0(1);
 
-    tCel.pCellFile = sub_00454600_GetBuySellButtonCells();
+    tCel.pCellFile = GAME_GetBuySellButtonCells();
     tCel.nFrame = (gnGlobal_007C02F4 != 0) + 10;
     TEXTURE_CelDraw(&tCel, gnGlobal_007A2858 + 0x80, gnGlobal_007A285C + gnGlobal_00711470 - 0x3C, -1, 5, 0);
 
@@ -633,7 +633,7 @@ NEXT_TEXT:;
         D2CharStatsTxt* pCharStatsTxtRecord = sub_CharStatsTxtRecord(pPlayer->dwClassId);
         TEXT_DrawCenteredText(gnGlobal_007A2858 + 0xC1, gnGlobal_007A285C + gnGlobal_00711470 - 0x1C7, gnGlobal_007A2858 + 0x136, (const Unicode*)pCharStatsTxtRecord->wszClassName, 0);
 
-        const char* szName = sub_0047A210_GetUnitName(pPlayer);
+        const char* szName = ROSTER_GetUnitName(pPlayer);
         const unsigned int nChars = sub_005262A0_Utf8CountChars(szName, strlen(szName)) + 1;
         if (nChars > 11)
         {
@@ -736,7 +736,7 @@ NEXT_TEXT:;
         case STAT_COLDRESIST:
         case STAT_POISONRESIST:
         {
-            D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(sub_0044DCD0_GetDifficulty());
+            D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(GAME_GetDifficulty());
             int nMax = 0;
             switch (gaCharFields_00724928[i].nStatId)
             {
@@ -801,13 +801,13 @@ NEXT_TEXT:;
                 break;
             }
 
-            if (sub_0044DCC0())
+            if (GAME_IsExpansion())
             {
                 nValue += pDifficultyLevelsTxtRecord->dwResistPenalty;
             }
             else
             {
-                switch (sub_0044DCD0_GetDifficulty())
+                switch (GAME_GetDifficulty())
                 {
                 case 1:
                     nValue -= 20;
@@ -861,7 +861,7 @@ NEXT_TEXT:;
         case STAT_NEXTEXP:
         {
             const int nLevel = STATLIST_GetUnitBaseStat(pPlayer, STAT_LEVEL, 0);
-            const int nClass = sub_00451F60_UnitClassId(pPlayer);
+            const int nClass = GAME_GetUnitClassId(pPlayer);
             if (nLevel != DATATBLS_GetMaxLevel(nClass))
             {
                 nValue = DATATBLS_GetLevelThreshold(nClass, nLevel);
@@ -1014,13 +1014,13 @@ void __cdecl sub_004A8C00_FreeSkillIcons()
 {
     if (gpSkillIconCel_007C07F8)
     {
-        sub_00478A00(gpSkillIconCel_007C07F8);
+        ARCHIVE_FreeClientCellFile(gpSkillIconCel_007C07F8);
         gpSkillIconCel_007C07F8 = 0;
     }
 
     if (gaSkillIconCels_00724AC0[gbGlobal_007A0522].pCelFile)
     {
-        sub_00478A00(gaSkillIconCels_00724AC0[gbGlobal_007A0522].pCelFile);
+        ARCHIVE_FreeClientCellFile(gaSkillIconCels_00724AC0[gbGlobal_007A0522].pCelFile);
         gaSkillIconCels_00724AC0[gbGlobal_007A0522].pCelFile = 0;
     }
 
@@ -1028,7 +1028,7 @@ void __cdecl sub_004A8C00_FreeSkillIcons()
     {
         if (gaSkillIconCels_00724AC0[i].pCelFile)
         {
-            sub_00478A00(gaSkillIconCels_00724AC0[i].pCelFile);
+            ARCHIVE_FreeClientCellFile(gaSkillIconCels_00724AC0[i].pCelFile);
             gaSkillIconCels_00724AC0[i].pCelFile = 0;
         }
     }

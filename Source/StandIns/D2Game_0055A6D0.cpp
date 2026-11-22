@@ -172,7 +172,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat, int nValue); // 0x00530EA0
 int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame); // 0x00535790
 int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005408E0
@@ -573,7 +573,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                     nPlayerCount = D2_MIN(D2_MAX(nPlayerCount, 1), 8);
 
                     nPlayerCount += (PLAYER_GetPlayerCount(pGame) - nPlayerCount) / 2;
-                    if (pMonster && sub_0044BE50_GetUnitTypeOrInvalid(pMonster) == 1)
+                    if (pMonster && GAME_GetUnitTypeOrInvalid(pMonster) == 1)
                     {
                         int nMonsterPlayers = STATLIST_UnitGetStatValue(pMonster, 100, 0);
                         nMonsterPlayers = D2_MAX(1, nMonsterPlayers);

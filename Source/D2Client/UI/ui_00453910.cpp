@@ -20,23 +20,23 @@ struct D2UIVarRecordStrc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-int __cdecl sub_0044B850_IsHardcore();                                                                      // 0x0044B850
+int __cdecl GAME_IsHardcore();                                                                      // 0x0044B850
 
-void __cdecl sub_0044B860();                                                                                // 0x0044B860
+void __cdecl GAME_SetCharDiedFlag();                                                                                // 0x0044B860
 
 void __fastcall sub_0044B880_SetValue(int nValue);                                                          // 0x0044B880
 
-void __cdecl sub_0044D520();                                                                                // 0x0044D520
+void __cdecl GAME_RequestExit();                                                                                // 0x0044D520
 
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
 void __fastcall UI_SetPanelHandlers(int nUIVar);                                                         // 0x00455720
 
-void __fastcall sub_0045AEA0_SetPanelSlide(int nMode);                                                      // 0x0045AEA0
+void __fastcall PLAYER_SetPanelSlide(int nMode);                                                      // 0x0045AEA0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 
@@ -86,7 +86,7 @@ struct D2UiControlBStrc;
 
 typedef unsigned short Unicode;
 
-void __fastcall sub_0044DB40(int nDelay); // 0x0044DB40
+void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
@@ -108,7 +108,7 @@ void __fastcall sub_00472890(D2DrlgActStrc* pAct); // 0x00472890
 
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __cdecl sub_0047DFD0_FreeOptionMenus(); // 0x0047DFD0
 
@@ -118,7 +118,7 @@ void __cdecl sub_0047E750_SaveAlwaysRun(); // 0x0047E750
 
 void __cdecl sub_0047F130_SaveMiniPanel(); // 0x0047F130
 
-void __cdecl sub_00483960(); // 0x00483960
+void __cdecl CUNIT_InitColorTable(); // 0x00483960
 
 void __cdecl sub_00486980(); // 0x00486980
 
@@ -128,7 +128,7 @@ void __cdecl sub_0048A600(); // 0x0048A600
 
 void __cdecl HIREABLES_FreeHirelingIcons(); // 0x00492EC0
 
-void __cdecl sub_00492F90(); // 0x00492F90
+void __cdecl VIEW_ResetLifeColors(); // 0x00492F90
 
 void __cdecl TEXT_LoadPopupHireling(); // 0x004939B0
 
@@ -297,14 +297,14 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
                 {
                     sub_004647D0(pPlayer);
                     sub_00478590(0x41);
-                    if (sub_0044B850_IsHardcore())
+                    if (GAME_IsHardcore())
                     {
                         sub_00477EE0();
                         gdwGlobal_007A061C = 0;
                         gdwGlobal_007A0618 = 0;
-                        sub_0044B860();
+                        GAME_SetCharDiedFlag();
                         sub_0044B880_SetValue(0);
-                        sub_0044D520();
+                        GAME_RequestExit();
                     }
                     return 0;
                 }
@@ -395,20 +395,20 @@ void __cdecl UI_FreePlayerUI()
     NPCMENU_ResetNpcMenu();
     sub_004B91F0();
     TEXT_FreeTextLists();
-    sub_00492F90();
+    VIEW_ResetLifeColors();
     if (gpLoadingCell_007A2794)
     {
-        sub_00478A00(gpLoadingCell_007A2794);
+        ARCHIVE_FreeClientCellFile(gpLoadingCell_007A2794);
         gpLoadingCell_007A2794 = 0;
     }
     if (gpYouDiedHardcoreCel_007A2894)
     {
-        sub_00478A00(gpYouDiedHardcoreCel_007A2894);
+        ARCHIVE_FreeClientCellFile(gpYouDiedHardcoreCel_007A2894);
         gpYouDiedHardcoreCel_007A2894 = 0;
     }
     if (gpYouDiedInstCel_007A2898)
     {
-        sub_00478A00(gpYouDiedInstCel_007A2898);
+        ARCHIVE_FreeClientCellFile(gpYouDiedInstCel_007A2898);
         gpYouDiedInstCel_007A2898 = 0;
     }
     sub_0047E750_SaveAlwaysRun();
@@ -508,12 +508,12 @@ void __fastcall UI_FreeLoadingScreen()
 {
     if (gpLoadingScreen_007A2888)
     {
-        sub_00478A00(gpLoadingScreen_007A2888);
+        ARCHIVE_FreeClientCellFile(gpLoadingScreen_007A2888);
         gpLoadingScreen_007A2888 = 0;
         sub_004FB480_SetActA(gdwGlobal_007A288C);
         sub_00600C00_SetActB(gdwGlobal_007A288C);
         AUTOMAP_InitAutomapColors();
-        sub_00483960();
+        CUNIT_InitColorTable();
         sub_00499E10();
         PANEL_SetBlackColour();
         sub_004AB2F0();
@@ -522,7 +522,7 @@ void __fastcall UI_FreeLoadingScreen()
         sub_004972B0();
         sub_00497290();
         sub_00472890(gpGlobal_007A063C);
-        sub_0044DB40(0x7D0);
+        GAME_ExtendDelay(0x7D0);
     }
     gdwGlobal_007A2884 = 0;
     gpLoadingScreen_007A2888 = 0;
@@ -573,7 +573,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     D2_ASSERT(nState <= 2, 0x13FC);
     const int nOldState = gaUIVarStates_007A27C0[nUIVar];
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (!FOG_IsExpansion() || !sub_0044DCC0())
+    if (!FOG_IsExpansion() || !GAME_IsExpansion())
     {
         if (nUIVar == 0x23 || nUIVar == 0x24 || nUIVar == 0x25)
         {
@@ -588,7 +588,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     switch (nState)
     {
     case 0:
-        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer)))
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
         {
             gaUIVarStates_007A27C0[nUIVar] = 1;
         }
@@ -599,7 +599,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 2:
         if (pPlayer)
         {
-            if (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer))
+            if (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer))
             {
                 gaUIVarStates_007A27C0[nUIVar] = !gaUIVarStates_007A27C0[nUIVar];
             }
@@ -639,11 +639,11 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 14:
         if (nNewState)
         {
-            sub_0045AEA0_SetPanelSlide(1);
+            PLAYER_SetPanelSlide(1);
         }
         else
         {
-            sub_0045AEA0_SetPanelSlide(0);
+            PLAYER_SetPanelSlide(0);
         }
         break;
     case 12:
@@ -655,11 +655,11 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 32:
         if (nNewState)
         {
-            sub_0045AEA0_SetPanelSlide(3);
+            PLAYER_SetPanelSlide(3);
         }
         else
         {
-            sub_0045AEA0_SetPanelSlide(0);
+            PLAYER_SetPanelSlide(0);
         }
         break;
     case 11:
@@ -677,7 +677,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
         {
             if (nNewState)
             {
-                sub_0045AEA0_SetPanelSlide(1);
+                PLAYER_SetPanelSlide(1);
                 if (nArg && nA > gnGlobal_0071146C / 4)
                 {
                     UI_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
@@ -685,7 +685,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
             }
             else
             {
-                sub_0045AEA0_SetPanelSlide(0);
+                PLAYER_SetPanelSlide(0);
                 if (nArg && nA < gnGlobal_0071146C / 2)
                 {
                     UI_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
@@ -694,11 +694,11 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
         }
         else if (nNewState)
         {
-            sub_0045AEA0_SetPanelSlide(3);
+            PLAYER_SetPanelSlide(3);
         }
         else
         {
-            sub_0045AEA0_SetPanelSlide(2);
+            PLAYER_SetPanelSlide(2);
         }
         break;
     case 2:
@@ -712,7 +712,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
         {
             if (nNewState)
             {
-                sub_0045AEA0_SetPanelSlide(2);
+                PLAYER_SetPanelSlide(2);
                 if (nArg && nA < gnGlobal_0071146C - gnGlobal_0071146C / 4)
                 {
                     UI_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
@@ -720,7 +720,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
             }
             else
             {
-                sub_0045AEA0_SetPanelSlide(0);
+                PLAYER_SetPanelSlide(0);
                 if (nArg && nA > gnGlobal_0071146C / 2)
                 {
                     UI_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
@@ -729,11 +729,11 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
         }
         else if (nNewState)
         {
-            sub_0045AEA0_SetPanelSlide(3);
+            PLAYER_SetPanelSlide(3);
         }
         else
         {
-            sub_0045AEA0_SetPanelSlide(1);
+            PLAYER_SetPanelSlide(1);
         }
         break;
     }
@@ -765,7 +765,7 @@ void __cdecl UI_ShutdownUI()
     const int nPrevState = gaUIVarStates_007A27C0[0];
     if (FOG_IsExpansion())
     {
-        sub_0044DCC0();
+        GAME_IsExpansion();
     }
     D2_ASSERT(gnUIVarCount_0070F9CC == 0x26, 0x1397);
     sub_00463DD0_GetPlayerUnit();
@@ -801,27 +801,27 @@ void __cdecl UI_ShutdownUI()
     sub_004BE060();
     if (gpPentspinCel_007A2878)
     {
-        sub_00478A00(gpPentspinCel_007A2878);
+        ARCHIVE_FreeClientCellFile(gpPentspinCel_007A2878);
         gpPentspinCel_007A2878 = 0;
     }
     if (gpFocus16Cel_007A2880)
     {
-        sub_00478A00(gpFocus16Cel_007A2880);
+        ARCHIVE_FreeClientCellFile(gpFocus16Cel_007A2880);
         gpFocus16Cel_007A2880 = 0;
     }
     if (gpBoxPiecesCel_007A2798)
     {
-        sub_00478A00(gpBoxPiecesCel_007A2798);
+        ARCHIVE_FreeClientCellFile(gpBoxPiecesCel_007A2798);
         gpBoxPiecesCel_007A2798 = 0;
     }
     if (gpBuySellButton_007A287C)
     {
-        sub_00478A00(gpBuySellButton_007A287C);
+        ARCHIVE_FreeClientCellFile(gpBuySellButton_007A287C);
         gpBuySellButton_007A287C = 0;
     }
     if (gpLoadingCell_007A2794)
     {
-        sub_00478A00(gpLoadingCell_007A2794);
+        ARCHIVE_FreeClientCellFile(gpLoadingCell_007A2794);
         gpLoadingCell_007A2794 = 0;
     }
     CMDTBL_DisableHotkeyHandlers();

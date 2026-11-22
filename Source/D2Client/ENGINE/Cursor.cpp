@@ -27,11 +27,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __cdecl sub_00468310_UpdateCursor();                                                                // 0x00468310
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
+int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 unsigned int __stdcall CelGetWidth(D2CelStrc* pCel);                                                        // 0x006018C0
 unsigned int __stdcall CelGetHeight(D2CelStrc* pCel);                                                       // 0x006018F0
-int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
+int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C
 extern int gnGlobal_00711470;                                                                               // 0x00711470
@@ -49,7 +49,7 @@ static int gnGlobal_007A6AE0;                                                   
 static int gnGlobal_007A6AF0;                                                                               // 0x007A6AF0
 
 // 0x004683C0
-void __cdecl sub_004683C0_DrawDefaultCursor()
+void __cdecl CURSOR_DrawDefaultCursor()
 {
     int nX = gnGlobal_007A6AB0 + gnGlobal_007A6AB4;
     int nY = gnGlobal_007A6AAC;
@@ -79,7 +79,7 @@ void __cdecl sub_004683C0_DrawDefaultCursor()
 }
 
 // 0x004684C0
-void __cdecl sub_004684C0()
+void __cdecl CURSOR_DrawCursor()
 {
     if (!gnGlobal_007A6B08)
     {
@@ -91,10 +91,10 @@ void __cdecl sub_004684C0()
         D2CelContextStrc tContext;
         int nOut;
         memset(&tContext, 0, sizeof(tContext));
-        if (sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
+        if (GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
             D2_ASSERT(tContext.pCel, 0x27D);
-            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - CelGetWidth(tContext.pCel) / 2 + gnGlobal_007A6AB4,
+            GFX_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - CelGetWidth(tContext.pCel) / 2 + gnGlobal_007A6AB4,
                 gnGlobal_007A6AAC - CelGetHeight(tContext.pCel) / 2);
         }
     }
@@ -105,7 +105,7 @@ void __cdecl sub_004684C0()
 }
 
 // 0x004685C0
-void __cdecl sub_004685C0_PaintCursorItem()
+void __cdecl CURSOR_PaintCursorItem()
 {
     if (!gnGlobal_007A6B08)
     {
@@ -117,10 +117,10 @@ void __cdecl sub_004685C0_PaintCursorItem()
     {
         int nOut;
         memset(&tContext, 0, sizeof(tContext));
-        if (sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
+        if (GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
             D2_ASSERT(tContext.pCel, 0x2BB);
-            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - CelGetWidth(tContext.pCel) / 2 + gnGlobal_007A6AB4,
+            GFX_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - CelGetWidth(tContext.pCel) / 2 + gnGlobal_007A6AB4,
                 gnGlobal_007A6AAC - CelGetHeight(tContext.pCel) / 2);
         }
     }

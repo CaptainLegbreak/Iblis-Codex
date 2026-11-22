@@ -29,7 +29,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2MsgHandlerEntryStrc gMsgHandlers_0070F7E4[4]; // 0x0070F7E4
-void __fastcall sub_00451D10_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
+void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 struct Pad40_00451F30 {
@@ -116,7 +116,7 @@ void __fastcall sub_00451EB0_UnregisterWindowHandlers(void* hWnd)
     D2_ASSERT(hWnd, 0x166);
     for (unsigned int i = 0; i < 4; ++i)
     {
-        sub_00451D10_UnregisterMsgHandler(hWnd, gMsgHandlers_0070F7E4[i].nType, gMsgHandlers_0070F7E4[i].nId, (SMSGHANDLER)gMsgHandlers_0070F7E4[i].pfnHandler);
+        SCMD_UnregisterMsgHandler(hWnd, gMsgHandlers_0070F7E4[i].nType, gMsgHandlers_0070F7E4[i].nId, (SMSGHANDLER)gMsgHandlers_0070F7E4[i].pfnHandler);
     }
     sub_00420320_RegisterHandlers(hWnd);
 }

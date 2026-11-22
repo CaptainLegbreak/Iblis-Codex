@@ -9,9 +9,9 @@ struct D2SkillsTxt;
 struct D2MissileStrc;
 
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit); // 0x004C54F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+int __fastcall SKILLS_CanThrow(D2UnitStrc* pUnit); // 0x004C54F0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 
@@ -24,10 +24,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
-void __fastcall sub_004C76D0_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent); // 0x004C76D0
+void __fastcall SKILLS_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent); // 0x004C76D0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
@@ -39,7 +39,7 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 // 0x004F3FB0
 D2UnitStrc* __fastcall sub_004F3FB0_GetTargetMonster(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -48,7 +48,7 @@ D2UnitStrc* __fastcall sub_004F3FB0_GetTargetMonster(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    if (!sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 8))
+    if (!MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 8))
     {
         return 0;
     }
@@ -62,7 +62,7 @@ D2UnitStrc* __fastcall sub_004F3FB0_GetTargetMonster(D2UnitStrc* pUnit)
 // 0x004F4140
 int __fastcall sub_004F4140_CanThrowCheck(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    return sub_004C54F0_CanThrow(pUnit) != 0;
+    return SKILLS_CanThrow(pUnit) != 0;
 }
 
 // 0x004F4150
@@ -111,7 +111,7 @@ int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId,
 
     const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
     const int nUnitGUID = SKILLS_GetParam3(pSkill);
-    D2UnitStrc* pTarget = sub_00463990(nUnitGUID, SKILLS_GetParam2(pSkill));
+    D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitGUID, SKILLS_GetParam2(pSkill));
     if (!pTarget)
     {
         pTarget = sub_004C5EB0_FindDestination(pUnit, 0, 0, nRange, 3, nUnitGUID, 0);
@@ -180,7 +180,7 @@ int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId,
             nNextGUID = pNext->dwUnitId;
         }
         SKILLS_SetParam3(pSkill, nNextGUID);
-        sub_004C76D0_ScaleFramePrecise(pUnit, SKILLDESC_GetSkillParamSix(nSkillId));
+        SKILLS_ScaleFramePrecise(pUnit, SKILLDESC_GetSkillParamSix(nSkillId));
     }
 
     return 1;

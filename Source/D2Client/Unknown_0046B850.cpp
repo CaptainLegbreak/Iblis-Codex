@@ -19,7 +19,7 @@ struct D2MonStats2Txt;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-void __fastcall sub_004DCD40_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
+void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -31,7 +31,7 @@ D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoo
 
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* room, int x, int y); // 0x00463740
-D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
+D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
@@ -74,7 +74,7 @@ void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* unit)
  D2UnitStrc* object=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(unit),2,0x182);
  int x,y;
  if(object) {
-  sub_004DCD40_ShowTimedHint((void*)0x124F,0,0x15E,0,0,0,0);
+  ITEM_ShowTimedHint((void*)0x124F,0,0x15E,0,0,0,0);
   x=CLIENTS_GetUnitXInline(object);
   y=CLIENTS_GetUnitYInline(object);
  } else {
@@ -128,7 +128,7 @@ void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, 
         pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
         if (!COLLISION_CheckMaskWithSize(pRoom, nX, nY, pTxt->nSizeX, 0x3F11))
         {
-            sub_00466730_SpawnPresetUnit(nMonsterId, nX, nY, 1, 0);
+            CUNIT_SpawnPresetUnit(nMonsterId, nX, nY, 1, 0);
             --nCount;
         }
         if (nCount <= 0)

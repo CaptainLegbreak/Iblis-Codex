@@ -41,9 +41,9 @@ int __cdecl TEXT_IsTextBoxOpen();                                               
 D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
 void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit);                                                            // 0x0049DA30
 void __cdecl TEXT_ClearHoverUnit();                                                                      // 0x0049DA50
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType);                    // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);                    // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
-void __fastcall sub_00475FF0_SetViewDirty(D2ViewStrc* pView);                                               // 0x00475FF0
+void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView);                                               // 0x00475FF0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
@@ -79,11 +79,11 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 
     if (!bSame && gdwGlobal_007A6A94 && gnSelectedUnitType_007A6A8C == 5)
     {
-        D2UnitStrc* pOld = sub_00463990(gnSelectedUnitId_007A6A78, 5);
+        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, 5);
         if (pOld)
         {
             DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), pOld->dwClassId);
-            sub_00475FF0_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpView_007A0640);
         }
     }
 
@@ -103,7 +103,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         if (!bSame)
         {
             DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), pUnit->dwClassId);
-            sub_00475FF0_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpView_007A0640);
         }
         break;
 

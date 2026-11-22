@@ -17,16 +17,16 @@ int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2U
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit); // 0x00622DC0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nRangeBonus); // 0x00622C40
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-unsigned short __cdecl sub_0044BEC0_GetClickFlags(); // 0x0044BEC0
+unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
 int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-int __fastcall sub_0047A4F0_TestFlag1(int nUnitId1, int nUnitId2); // 0x0047A4F0
-void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nArg3); // 0x00481030
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
-void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
-int __cdecl sub_0044DAA0(); // 0x0044DAA0
-void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
+void __fastcall UNITMODE_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nArg3); // 0x00481030
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
+int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
+void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 extern "C" const char szUnitModeFile_006D8E84[]; // 0x006D8E84
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -44,11 +44,11 @@ static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
+static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer); // 0x00480BA0
 
 // 0x00480BA0
 
-static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer)
+static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pPlayer);
     if (!pSkill)
@@ -73,11 +73,11 @@ static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer)
     return 0;
 }
 
-static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
+static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction); // 0x00480C80
 
 // 0x00480C80
 
-static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction)
+static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction)
 {
     D2SkillStrc* pSkill;
     switch (nAction)
@@ -141,12 +141,12 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 #pragma intrinsic(memset)
 
 // 0x004812E0
-static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     D2UnitTargetStrc tTarget;
-    if (sub_0044BEC0_GetClickFlags() & 8)
+    if (GAME_GetClickFlags() & 8)
     {
-        if (sub_00480BA0_CanUseSkillNow(pPlayer))
+        if (UNITMODE_CanUseSkillNow(pPlayer))
         {
             memset(&tTarget, 0, sizeof(tTarget));
             tTarget.nParam1 = nArg1;
@@ -156,7 +156,7 @@ static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nActi
             sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
         }
     }
-    else if (sub_00480BA0_CanUseSkillNow(pPlayer))
+    else if (UNITMODE_CanUseSkillNow(pPlayer))
     {
         memset(&tTarget, 0, sizeof(tTarget));
         tTarget.nParam1 = nArg1;
@@ -179,18 +179,18 @@ static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* p
         sub_00467A70_RefreshHoverUnit(0);
         return 0;
     }
-    if (sub_00480C80_IsTargetInRange(pPlayer, pUnit, nAction))
+    if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
     {
-        sub_004812E0_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
+        UNITMODE_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
         return 0;
     }
     return 1;
 }
 
 // 0x004814A0
-static int __stdcall sub_004814A0_TryMonsterAction(int nAction, int nArg1, int nArg2, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
+static int __stdcall UNITMODE_TryMonsterAction(int nAction, int nArg1, int nArg2, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
-    if (sub_00464820_IsDeadOrDying(pUnit))
+    if (CUNIT_IsDeadOrDying(pUnit))
     {
         D2SkillStrc* pSkill;
         switch (nAction)
@@ -245,23 +245,23 @@ static int __stdcall sub_004814A0_TryMonsterAction(int nAction, int nArg1, int n
     }
 
 InRange:
-    if (sub_00480C80_IsTargetInRange(pPlayer, pUnit, nAction))
+    if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
     {
-        sub_004812E0_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
+        UNITMODE_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
         return 0;
     }
     return 1;
 }
 
 // 0x00481400
-static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
+static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
-    if (sub_00464820_IsDeadOrDying(pUnit))
+    if (CUNIT_IsDeadOrDying(pUnit))
     {
         const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
-        if (sub_0047A4F0_TestFlag1(nPlayerId, nId))
+        if (ROSTER_CanLoot(nPlayerId, nId))
         {
-            sub_00481030_DoUnitAction(nAction, pPlayer, nType, nId, 0);
+            UNITMODE_DoUnitAction(nAction, pPlayer, nType, nId, 0);
             return 0;
         }
 
@@ -280,9 +280,9 @@ static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D
         }
     }
 
-    if (sub_00480C80_IsTargetInRange(pPlayer, pUnit, nAction))
+    if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
     {
-        sub_004812E0_DoPlayerAction(pPlayer, nAction, nType, nId);
+        UNITMODE_DoPlayerAction(pPlayer, nAction, nType, nId);
         return 0;
     }
 
@@ -309,12 +309,12 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
         const int nArg1 = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nArg1 : 0;
         const int nArg2 = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nArg2 : 0;
 
-        D2UnitStrc* pUnit = sub_00463990(nArg2, nArg1);
-        sub_0045C470_ClearPendingAction(pPlayer);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(nArg2, nArg1);
+        GFX_ClearPendingAction(pPlayer);
 
         if (nAction == 0x13 && nArg1 == 5)
         {
-            sub_0044DAD0(sub_0044DAA0() + 500);
+            GAME_SetInteractDeadline(GAME_GetCurrentTime() + 500);
         }
 
         if (pUnit && nAction)
@@ -322,11 +322,11 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
             switch (nArg1)
             {
             case 0:
-                if (!sub_00481400_ActOnPlayer(nAction, 0, nArg2, pPlayer, pUnit))
+                if (!UNITMODE_ActOnPlayer(nAction, 0, nArg2, pPlayer, pUnit))
                     return;
                 break;
             case 1:
-                if (!sub_004814A0_TryMonsterAction(nAction, 1, nArg2, pPlayer, pUnit))
+                if (!UNITMODE_TryMonsterAction(nAction, 1, nArg2, pPlayer, pUnit))
                     return;
                 break;
             case 2:
@@ -341,7 +341,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
                 }
                 break;
             }
-            sub_00481030_DoUnitAction(nAction, pPlayer, nArg1, nArg2, 0);
+            UNITMODE_DoUnitAction(nAction, pPlayer, nArg1, nArg2, 0);
         }
     }
 }

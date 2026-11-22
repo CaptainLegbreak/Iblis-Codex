@@ -383,7 +383,7 @@ int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc* pItem, int nBodyLoc);         
 
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
 
-int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                                             // 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId);                                             // 0x00463900
 
 int __stdcall INVENTORY_IsItemBodyLocFree(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc, int nInventoryRecordId); // 0x0063CB00
 

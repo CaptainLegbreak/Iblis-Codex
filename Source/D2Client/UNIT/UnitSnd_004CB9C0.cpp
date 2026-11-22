@@ -23,12 +23,13 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nFlags, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey); // 0x004B9CA0
 int __fastcall sub_004B9E90_HasUnitSound(D2UnitStrc* pUnit); // 0x004B9E90
-void __fastcall sub_004DCD40_ShowTimedHint(int nStringId, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
+void __fastcall ITEM_ShowTimedHint(int nStringId, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 unsigned int gnLastRequestTick_007C88C4;        // 0x007C88C4
 int gnLastRequestSound_007C88C8;        // 0x007C88C8
 extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[]; // 0x0072A008
 
-static inline D2UnitSndPlayerStrc* sub_004CA3E0_GetPlayerSoundRecord(unsigned int nClass)
+// build: symbol ?UNITSND_GetPlayerSoundRecord@* 0x004CA3E0
+static inline D2UnitSndPlayerStrc* UNITSND_GetPlayerSoundRecord(unsigned int nClass)
 {
     D2_ASSERT(nClass < 7, 0xB22);
     return gpUnitSndPlayer_0072A008[nClass];
@@ -37,7 +38,7 @@ static inline D2UnitSndPlayerStrc* sub_004CA3E0_GetPlayerSoundRecord(unsigned in
 // 0x004CB9C0
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId)
 {
-    D2UnitSndPlayerStrc* pRecord = sub_004CA3E0_GetPlayerSoundRecord(pUnit ? pUnit->dwClassId : -1);
+    D2UnitSndPlayerStrc* pRecord = UNITSND_GetPlayerSoundRecord(pUnit ? pUnit->dwClassId : -1);
     if (!pRecord)
     {
         return;
@@ -61,67 +62,67 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
         int nHintSound = pRecord->nHintSound + nId - 0x21;
         if (nId == 0x23)
         {
-            sub_004DCD40_ShowTimedHint(0x1250, 0x0, 0x12C, 1, nHintSound, 0xFA, 1);
+            ITEM_ShowTimedHint(0x1250, 0x0, 0x12C, 1, nHintSound, 0xFA, 1);
             return;
         }
 
         if (nId == 0x22)
         {
-            sub_004DCD40_ShowTimedHint(0x124E, 0x1DB, 0x320, 1, nHintSound, 0x20D, 1);
+            ITEM_ShowTimedHint(0x124E, 0x1DB, 0x320, 1, nHintSound, 0x20D, 1);
             return;
         }
 
         if (nId == 0x25)
         {
-            sub_004DCD40_ShowTimedHint(0x0, 0x0, 0x5DC, 0, nHintSound, 0x0, 0);
+            ITEM_ShowTimedHint(0x0, 0x0, 0x5DC, 0, nHintSound, 0x0, 0);
             return;
         }
 
         if (nId == 0x21)
         {
-            sub_004DCD40_ShowTimedHint(0x124D, 0x0, 0x1DB, 0, nHintSound, 0x1A9, 1);
+            ITEM_ShowTimedHint(0x124D, 0x0, 0x1DB, 0, nHintSound, 0x1A9, 1);
             return;
         }
 
         if (nId == 0x32)
         {
-            sub_004DCD40_ShowTimedHint(0x1255, 0x1DB, 0x44C, 1, nHintSound, 0x20D, 1);
+            ITEM_ShowTimedHint(0x1255, 0x1DB, 0x44C, 1, nHintSound, 0x20D, 1);
             return;
         }
 
         if (nId == 0x34)
         {
-            sub_004DCD40_ShowTimedHint(0x1256, 0x0, 0x1A9, 1, nHintSound, 0x177, 1);
+            ITEM_ShowTimedHint(0x1256, 0x0, 0x1A9, 1, nHintSound, 0x177, 1);
             return;
         }
 
         if (nId == 0x42)
         {
-            sub_004DCD40_ShowTimedHint(0x1254, 0x0, 0x1A9, 0, nHintSound, 0x177, 1);
+            ITEM_ShowTimedHint(0x1254, 0x0, 0x1A9, 0, nHintSound, 0x177, 1);
             return;
         }
 
         if (nId == 0x4B)
         {
-            sub_004DCD40_ShowTimedHint(0x1257, 0x0, 0x1DB, 0, nHintSound, 0x145, 1);
+            ITEM_ShowTimedHint(0x1257, 0x0, 0x1DB, 0, nHintSound, 0x145, 1);
             return;
         }
 
         if (nId == 0x50)
         {
-            sub_004DCD40_ShowTimedHint(0x125A, 0x0, 0x1F4, 1, nHintSound, 0x1DB, 1);
+            ITEM_ShowTimedHint(0x125A, 0x0, 0x1F4, 1, nHintSound, 0x1DB, 1);
             return;
         }
 
         if (nId == 0x52)
         {
-            sub_004DCD40_ShowTimedHint(0x1259, 0x0, 0x226, 1, nHintSound, 0x190, 1);
+            ITEM_ShowTimedHint(0x1259, 0x0, 0x226, 1, nHintSound, 0x190, 1);
             return;
         }
 
         if (nId == 0x53)
         {
-            sub_004DCD40_ShowTimedHint(0x1258, 0x0, 0x20D, 1, nHintSound, 0x1A9, 1);
+            ITEM_ShowTimedHint(0x1258, 0x0, 0x20D, 1, nHintSound, 0x1A9, 1);
             return;
         }
 

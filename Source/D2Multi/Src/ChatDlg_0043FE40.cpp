@@ -71,7 +71,7 @@ int __stdcall sub_00449E10_Forward1(const char* szName);                        
 void __stdcall sub_00449E50_SetValue(int nValue);                                                           // 0x00449E50
 void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord);                                 // 0x0044A130
 int __fastcall sub_0044A400_SendLogin(D2LaunchLoginStrc* pLogin, unsigned short wRequestId);                // 0x0044A400
-int __fastcall sub_0044A610_SendText(char* szText, unsigned short wRequestId);                              // 0x0044A610
+int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId);                              // 0x0044A610
 void __stdcall sub_006BC780(void* pConnection);                                                             // 0x006BC780
 
 extern "C" const char gszPassword_006D423C[];                                                               // 0x006D423C
@@ -248,7 +248,8 @@ int __cdecl sub_00441A90()
     sub_0044A130_StartThread(&pPayload->tRecord);
     sub_004FA590_RunLoop(sub_0043DBC0);
     sub_0043EA20_Wait();
-    if (gnFlag_0077BD60 || !sub_00449B30_QueryAddress() || sub_00449C00())
+// build: symbol ?GAME_GetConnectError@* 0x00449C00
+    if (gnFlag_0077BD60 || !sub_00449B30_QueryAddress() || GAME_GetConnectError())
     {
         sub_0043EA20_Wait();
         return 0;
@@ -256,7 +257,7 @@ int __cdecl sub_00441A90()
     sub_00449E10_Forward1(gpCharInfo_0077BBD8->szName0xBD);
     sub_004FA590_RunLoop(sub_0043DBF0);
     sub_0043EA20_Wait();
-    return sub_00449C00() == 0;
+    return GAME_GetConnectError() == 0;
 }
 
 // 0x00442AE0
@@ -297,7 +298,7 @@ void __cdecl sub_00442E00_Poll()
 {
     if (gnPendingId_0070EBD8 != -1)
     {
-        sub_0044A610_SendText(gszPendingText_00798AB8, gnPendingId_0070EBD8);
+        WINMAIN_SendMcpGameInfoRequest(gszPendingText_00798AB8, gnPendingId_0070EBD8);
         gwOtherRequestId_0077BBE0 = gnPendingId_0070EBD8;
         gnPendingId_0070EBD8 = -1;
     }

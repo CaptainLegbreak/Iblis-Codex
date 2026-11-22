@@ -73,7 +73,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -81,7 +81,7 @@ void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 
@@ -213,16 +213,16 @@ void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
 D2UnitStrc* __cdecl TEXT_GetTextUnit()
 {
     if (gdwGlobal_007BF20A)
-        return sub_00463990(gdwGlobal_007BF202, 1);
+        return CUNIT_FindClientUnit(gdwGlobal_007BF202, 1);
     if (gnGlobal_007BF1C0)
-        return sub_00463990(gdwGlobal_007BF206, 2);
+        return CUNIT_FindClientUnit(gdwGlobal_007BF206, 2);
     return 0;
 }
 
 // 0x0049F8C0
 void __fastcall TEXT_ClearHoverText(D2HoverClearPacketStrc* pPacket)
 {
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, pPacket->nUnitType);
     if (pUnit)
     {
         if (pUnit->pHoverText)
@@ -264,7 +264,7 @@ void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pText
 {
     gpTextData_007BF228 = pTextData;
     sub_00455F20(0x10, 2, 0);
-    sub_0044DA40();
+    GAME_ResetMouseState();
     if (gpTextData_007BF228->dwTag == 0x20646B62)
     {
         gnGlobal_007BF254 = 1;

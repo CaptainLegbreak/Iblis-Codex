@@ -31,7 +31,7 @@ int __cdecl sub_00468730();
 int __cdecl sub_00468740();
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);
 void __cdecl sub_0044DA70();
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);
 D2UnitStrc* __cdecl sub_00463DD0();

@@ -947,7 +947,8 @@ static inline unsigned __int64 SEED_RollNextHL_Inline(D2SeedStrc* pSeed, unsigne
  return lSeed;
 }
 
-int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId)
+// build: symbol ?CUNIT_ValidateMonsterId@* 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId)
 {
  if(nMonsterId<0 || nMonsterId>=sgptDataTables->nMonStatsTxtRecordCount) return -1;
  return nMonsterId;
@@ -962,7 +963,7 @@ static bool __stdcall AIBAAL_SummonClone(D2GameStrc* game,D2UnitStrc* unit,D2AiC
  if(living)return false;
  D2UnitStrc* owner=SUNIT_GetOwner(game,unit);
  if(!owner || SUNIT_IsDead(owner)) {
- int monsterId=sub_00463900_GetValidMonsterId(570);
+ int monsterId=CUNIT_ValidateMonsterId(570);
  int x,y;
  int mode=1;
  MONSTERS_GetMinionSpawnInfo(unit,&monsterId,&x,&y,&mode,game->nDifficulty,0);

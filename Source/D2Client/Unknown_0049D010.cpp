@@ -8,16 +8,16 @@ struct D2PacketRecord21Strc
     unsigned char nUnitGUID[4];
     unsigned char pWaypointData[16];
 };
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-D2BitBufferStrc* __cdecl sub_004B32D0();                                                           // 0x004B32D0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags();                                                           // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
-void __cdecl sub_0049C7F0_BuildWaypointList();                                                              // 0x0049C7F0
+void __cdecl WARDENCLIENT_BuildWaypointList();                                                              // 0x0049C7F0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-void __cdecl sub_0044DA40();                                                                                // 0x0044DA40
+void __cdecl GAME_ResetMouseState();                                                                                // 0x0044DA40
 int __cdecl sub_0047F210_IsMouseInSlots();                                                                  // 0x0047F210
 void __cdecl sub_0049C6C0_SendWaypointClose();                                                              // 0x0049C6C0
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
@@ -37,7 +37,7 @@ extern int gnGlobal_007A285C;                                                   
 static int sub_0049C490_GetActTabAtPoint(int nX, int nY)
 {
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (FOG_IsExpansion() && sub_0044DCC0())
+    if (FOG_IsExpansion() && GAME_IsExpansion())
     {
         if (nY > 0x1E || nX > 0x140)
             return -1;
@@ -84,16 +84,16 @@ static void sub_0049C760_SetWaypointAct(int nAct)
     switch (nAct)
     {
     case 4:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0x1C, 0))
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x1C, 0))
             nAct = 3;
     case 3:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0x17, 0))
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x17, 0))
             nAct = 2;
     case 2:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0xF, 0))
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0xF, 0))
             nAct = 1;
     case 1:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 7, 0))
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 7, 0))
             nAct = 0;
     }
 
@@ -113,14 +113,14 @@ void __cdecl sub_0049C980_UpdateWaypointAct()
             if (nLevelId)
             {
                 sub_0049C760_SetWaypointAct(DRLG_GetActNoFromLevelId(nLevelId));
-                sub_0049C7F0_BuildWaypointList();
+                WARDENCLIENT_BuildWaypointList();
                 return;
             }
         }
     }
 
     gnWaypointAct_007BF086 = 0;
-    sub_0049C7F0_BuildWaypointList();
+    WARDENCLIENT_BuildWaypointList();
 }
 
 // 0x0049CF90
@@ -128,12 +128,12 @@ void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket)
 {
     if (sub_00455F20(0x14, 0, 1) == 1)
     {
-        sub_0044DA40();
+        GAME_ResetMouseState();
         sub_0049C980_UpdateWaypointAct();
         gnGlobal_007BF07D = *(int*)pPacket->nUnitGUID;
         WAYPOINTS_CopyAndValidateWaypointData(gpWaypointData_007BF081, pPacket->pWaypointData);
         gbGlobal_007BF085 = 0;
-        sub_0049C7F0_BuildWaypointList();
+        WARDENCLIENT_BuildWaypointList();
     }
 }
 
@@ -215,7 +215,7 @@ void __stdcall sub_0049D160_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
         if (nTab != gnWaypointAct_007BF086)
             sub_004B9A00(6, 0, 0, 0, 0);
         sub_0049C760_SetWaypointAct(nTab);
-        sub_0049C7F0_BuildWaypointList();
+        WARDENCLIENT_BuildWaypointList();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);

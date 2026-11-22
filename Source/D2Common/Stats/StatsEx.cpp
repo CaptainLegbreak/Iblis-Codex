@@ -57,7 +57,7 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
-D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
+D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
 
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 
@@ -1676,7 +1676,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pOpStatData->nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseItemStatCostTxtRecord)
                     {
                         const int nShiftedVal = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseItemStatCostTxtRecord->nValShift;
@@ -1700,7 +1700,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pOpStatData->nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseItemStatCostTxtRecord)
                     {
                         const int nShiftedVal = sub_00624F60_GetTotalStat(pStatListEx, nOpBase << STAT_SHIFT, 0) >> pOpBaseItemStatCostTxtRecord->nValShift;
@@ -1724,7 +1724,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pOpStatData->nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseItemStatCostTxtRecord)
                     {
                         D2UnitStrc* const pUnit = pStatListEx->pUnit;
@@ -1749,7 +1749,7 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatList, int nLayer_S
                 const unsigned short nOpBase = pOpStatData->nOpBase;
                 if (nOpBase != STAT_NONE)
                 {
-                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nOpBase);
+                    D2ItemStatCostTxt* pOpBaseItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(nOpBase);
                     if (pOpBaseItemStatCostTxtRecord)
                     {
                         D2UnitStrc* const pUnit = pStatListEx->pUnit;
@@ -2300,7 +2300,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListEx
         for (int i = 0; i < nCount; ++i)
         {
             const int nPacked = aStats[i];
-            D2ItemStatCostTxt* pRecord = sub_0045C4F0_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
+            D2ItemStatCostTxt* pRecord = PLAYER_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
             if (pRecord)
                 STATLIST_UpdateStatOps(pStatList, nPacked, pRecord, 0);
         }
@@ -2730,7 +2730,7 @@ int __stdcall D2Common_11274(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
     for (D2StatStrc* i = pStatsArray->pStat; i < pEnd; ++i)
     {
         const int nPacked = i->nPackedValue;
-        D2ItemStatCostTxt* pRecord = sub_0045C4F0_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
+        D2ItemStatCostTxt* pRecord = PLAYER_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
         if (pRecord && (pRecord->nItemStatFlags[2 >> 3] & gdwBitMasks_006CE268[2 & 7]))
             STATLIST_UpdateStatValue(pTargetStatListEx, nPacked, i->nValue, pUnit);
     }
@@ -2843,7 +2843,7 @@ int __stdcall D2Common_11275(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
     for (D2StatStrc* i = pStatsArray->pStat; i < pEnd; ++i)
     {
         const int nPacked = i->nPackedValue;
-        D2ItemStatCostTxt* pRecord = sub_0045C4F0_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
+        D2ItemStatCostTxt* pRecord = PLAYER_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
         if (pRecord && (pRecord->nItemStatFlags[2 >> 3] & gdwBitMasks_006CE268[2 & 7]))
             STATLIST_UpdateStatValue(pTargetStatListEx, nPacked, -i->nValue, pUnit);
     }

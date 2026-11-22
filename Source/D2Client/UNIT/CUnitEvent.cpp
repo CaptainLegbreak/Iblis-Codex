@@ -5,7 +5,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
 
 // 0x004DC0C0
-void __fastcall sub_004DC0C0_FreeCltUnitEvents(D2UnitStrc* pUnit)
+void __fastcall CUNITEVENT_FreeCltUnitEvents(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -25,7 +25,7 @@ void __fastcall sub_004DC0C0_FreeCltUnitEvents(D2UnitStrc* pUnit)
 
 
 // 0x004DC110
-D2CltUnitEventStrc* __fastcall sub_004DC110_AddCltUnitEvent(D2UnitStrc* pUnit, int nType, int nParam1, int nParam2, int nParam3, int nParam4, int nParam5)
+D2CltUnitEventStrc* __fastcall CUNITEVENT_AddCltUnitEvent(D2UnitStrc* pUnit, int nType, int nParam1, int nParam2, int nParam3, int nParam4, int nParam5)
 {
     if (!pUnit)
     {
@@ -51,7 +51,7 @@ D2CltUnitEventStrc* __fastcall sub_004DC110_AddCltUnitEvent(D2UnitStrc* pUnit, i
 
 
 // 0x004DC190
-void __fastcall sub_004DC190_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5)
+void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5)
 {
     if (!pUnit)
     {

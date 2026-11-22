@@ -88,7 +88,7 @@ extern int gnGlobal_007BEFD0; // 0x007BEFD0
 
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
 
-int __cdecl sub_0044DA30(); // 0x0044DA30
+int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -125,13 +125,13 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
+D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
@@ -159,7 +159,7 @@ extern int gbGlobal_007C07FC; // 0x007C07FC
 
 extern int gbGlobal_007C0C38; // 0x007C0C38
 
-int __cdecl sub_0047A560(); // 0x0047A560
+int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
@@ -213,17 +213,17 @@ void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pItem); // 0x004C21F0
 
 int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
 
-int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
+int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 int __cdecl sub_00463DF0(); // 0x00463DF0
 
-int __cdecl sub_0044BFE0(); // 0x0044BFE0
+int __cdecl GAME_IsLeftClickRepeating(); // 0x0044BFE0
 
 void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 
@@ -267,7 +267,7 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __cdecl sub_00499E50_DrawPanelQuad(); // 0x00499E50
 
@@ -337,13 +337,13 @@ D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
-void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
+void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
 
-unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                          // 0x0046A530
 
-int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
+int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 
@@ -361,7 +361,7 @@ unsigned char gabBeltColors_007BEF6C[4];                                        
 
 int gbGlobal_007BEFA0;                                                                                      // 0x007BEFA0
 
-void __cdecl sub_004972B0_InitBeltColors(); // 0x004972B0
+void __cdecl VIEW_InitBeltColors(); // 0x004972B0
 
 static void __stdcall PANEL_DrawBeltBoxFrame(int nBox, int nColor); // 0x004978D0
 
@@ -411,7 +411,7 @@ void __cdecl PANEL_ValidateActiveSkills()
         SKILLS_SetLeftActiveSkill(pPlayer, SKILL_ATTACK, -1);
         pSkill = UNITS_GetLeftSkill(pPlayer);
     }
-    sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, 0x75, gnGlobal_00711470, 1);
+    WARDENCLIENT_DrawSkillInfo(pPlayer, pSkill, 0x75, gnGlobal_00711470, 1);
     pSkill = UNITS_GetRightSkill(pPlayer);
     if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
     {
@@ -419,7 +419,7 @@ void __cdecl PANEL_ValidateActiveSkills()
         SKILLS_SetRightActiveSkill(pPlayer, SKILL_ATTACK, -1);
         pSkill = UNITS_GetRightSkill(pPlayer);
     }
-    sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, gnGlobal_0071146C - 0xA5, gnGlobal_00711470, 0);
+    WARDENCLIENT_DrawSkillInfo(pPlayer, pSkill, gnGlobal_0071146C - 0xA5, gnGlobal_00711470, 0);
 }
 
 // 0x00496DD0
@@ -689,7 +689,7 @@ static int __cdecl sub_00497780_Bounds(int nX,int nY)
 // @ref 0x00499500
 void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30() || sub_00463DF0_StateBlocked())
+    if (GAME_IsExitPending() || sub_00463DF0_StateBlocked())
     {
         pMsg->bReturn=0;
         return;
@@ -759,7 +759,7 @@ void __cdecl PANEL_DrawMiniPanelButton()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpStateButtonCel_007BEF70;
     tContext.nDirection = 0;
-    if (sub_004538D0(21))
+    if (GAME_GetUIVarState(21))
     {
         if (gbGlobal_007BEFD0 && sub_004977C0_IsInButtonRect(sub_00468730(), sub_00468740()))
         {
@@ -828,9 +828,9 @@ static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int nQuiverTyp
     tContext.pCellFile = gpCellFile_007BEF60;
     tContext.nDirection = 0;
     tContext.nFrame = nFrame;
-    if (sub_004538D0(10))
+    if (GAME_GetUIVarState(10))
     {
-        if (sub_0047A560())
+        if (ROSTER_IsAnyoneHostile())
             nOffset = 0x2B;
         sub_004F6480(&tContext, gnGlobal_0071146C - 0x3C, nOffset + 0x8C, -1, 1, 0);
     }
@@ -1084,7 +1084,7 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
 
 static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift)
 {
-    if (!sub_0044DCC0())
+    if (!GAME_IsExpansion())
     {
         bShift = 0;
     }
@@ -1094,13 +1094,13 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
         return;
     }
 
-    if (sub_004538D0(9))
+    if (GAME_GetUIVarState(9))
     {
         return;
     }
 
     D2Block1 tBlock1;
-    const int nClass = UNITS_GetInventoryRecordId(pPlayer, 0, sub_0044DCC0());
+    const int nClass = UNITS_GetInventoryRecordId(pPlayer, 0, GAME_IsExpansion());
     sub_0065C1F0(nClass, gnUiRecordRow_007A5218, &tBlock1);
     D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nSlot);
     if (!pItem)
@@ -1140,12 +1140,12 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
             return;
         }
 
-        sub_004B9A00(sub_004C1E20_GetItemUseSound(pItem), 0, 0, 0, 0);
+        sub_004B9A00(ITEM_GetItemUseSound(pItem), 0, 0, 0, 0);
         gnBeltHover_007BEF94 = 0;
         return;
     }
 
-    sub_004B9A00(sub_004C1E20_GetItemUseSound(pItem), 0, 0, 0, 0);
+    sub_004B9A00(ITEM_GetItemUseSound(pItem), 0, 0, 0, 0);
     gnBeltHover_007BEF94 = 0;
 }
 
@@ -1229,7 +1229,7 @@ static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pI
 // 0x00498C10
 static void PANEL_BeltHotkey(int nSlot)
 {
-    if (sub_0044DA30() || sub_00463DF0())
+    if (GAME_IsExitPending() || sub_00463DF0())
     {
         return;
     }
@@ -1356,7 +1356,7 @@ void __cdecl PANEL_DrawExperienceBar()
     }
 }
 
-void __cdecl sub_004972B0_InitBeltColors()
+void __cdecl VIEW_InitBeltColors()
 {
     gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
     gabBeltColors_007BEF6C[1] = D2Win_10034_MixRGB(0, 0x80, 0);
@@ -1366,7 +1366,7 @@ void __cdecl sub_004972B0_InitBeltColors()
 
 static void __stdcall PANEL_DrawBeltBoxFrame(int nBox, int nColor)
 {
-    sub_004972B0_InitBeltColors();
+    VIEW_InitBeltColors();
     if (nColor == 2)
         return;
 
@@ -1429,10 +1429,10 @@ void __cdecl sub_00499040_DrawBelt()
         gnUiRecordIndex_00722354 = 2;
     }
 
-    if (!sub_004538D0(0x1F) && !gnBeltRecordMode2_007BEF9C)
+    if (!GAME_GetUIVarState(0x1F) && !gnBeltRecordMode2_007BEF9C)
         gbUiRecordMode_007BEF98 = 0;
 
-    if (sub_004538D0(9))
+    if (GAME_GetUIVarState(9))
         gbUiRecordMode_007BEF98 = 0;
 
     gbGlobal_007BEFA0 = 0;
@@ -1525,7 +1525,7 @@ void __cdecl sub_00499040_DrawBelt()
 
         D2UiRectStrc tRect;
         DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
-        sub_0046EE80_DrawItemCel(pItem, tRect.nLeft, tRect.nTop);
+        GFX_DrawItemCel(pItem, tRect.nLeft, tRect.nTop);
         if (nSlot < sizeof(gaBeltKeys_00722404) / sizeof(gaBeltKeys_00722404[0]) && ITEMS_CheckIfUseable(pItem))
         {
             Unicode wszKey[100];
@@ -1534,7 +1534,7 @@ void __cdecl sub_00499040_DrawBelt()
                 wszKey[i].wChar = 0;
             }
 
-            if (sub_00469AA0(gaBeltKeys_00722404[nSlot], 1) != 0xFFFF || sub_00469AA0(gaBeltKeys_00722404[nSlot], 0) != 0xFFFF)
+            if (CUNIT_GetHotkeyBinding(gaBeltKeys_00722404[nSlot], 1) != 0xFFFF || CUNIT_GetHotkeyBinding(gaBeltKeys_00722404[nSlot], 0) != 0xFFFF)
             {
                 sub_005267E0(wszKey, CMDTBL_GetKeyName(gaBeltKeys_00722404[nSlot], 1));
                 const int nLength = sub_00526800(wszKey);
@@ -1553,13 +1553,13 @@ void __cdecl sub_00499040_DrawBelt()
         }
     }
 
-    if (gnUiRecordIndex_00722354 == 2 || sub_004538D0(0x1F) || gbUiRecordMode_007BEF98)
+    if (gnUiRecordIndex_00722354 == 2 || GAME_GetUIVarState(0x1F) || gbUiRecordMode_007BEF98)
         PANEL_DrawCursorBeltBox(pInventory);
 }
 
 void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!gdwGlobal_007A061C || sub_0044DA30() || sub_00463DF0())
+    if (!gdwGlobal_007A061C || GAME_IsExitPending() || sub_00463DF0())
     {
         pMsg->bReturn = 0;
         return;
@@ -1568,7 +1568,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
     const int nY = pMsg->nYpos;
     const int nX = pMsg->nXpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_0044BFE0())
+    if (GAME_IsLeftClickRepeating())
     {
         return;
     }
@@ -1577,7 +1577,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
     {
         if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         {
-            if (sub_004538D0(0x1F))
+            if (GAME_GetUIVarState(0x1F))
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
@@ -1586,7 +1586,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
 
-        if (!sub_004538D0(0x1F))
+        if (!GAME_GetUIVarState(0x1F))
         {
             pMsg->bReturn = 0;
             gbUiRecordMode_007BEF98 = 0;
@@ -1621,7 +1621,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 // 0x00499D10
 void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30() || sub_00463DF0())
+    if (GAME_IsExitPending() || sub_00463DF0())
     {
         pMsg->bReturn = 0;
         return;
@@ -1686,27 +1686,27 @@ void __cdecl PANEL_FreePartyCels()
 {
     if (gpPanelQuadCel_007BF018)
     {
-        sub_00478A00(gpPanelQuadCel_007BF018);
+        ARCHIVE_FreeClientCellFile(gpPanelQuadCel_007BF018);
         gpPanelQuadCel_007BF018 = 0;
     }
     if (gpCelFile_007BF01C)
     {
-        sub_00478A00(gpCelFile_007BF01C);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007BF01C);
         gpCelFile_007BF01C = 0;
     }
     if (gpCelFile_007BF020)
     {
-        sub_00478A00(gpCelFile_007BF020);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007BF020);
         gpCelFile_007BF020 = 0;
     }
     if (gpCelFile_007BF024)
     {
-        sub_00478A00(gpCelFile_007BF024);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007BF024);
         gpCelFile_007BF024 = 0;
     }
     if (gpCelFile_007BF028)
     {
-        sub_00478A00(gpCelFile_007BF028);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007BF028);
         gpCelFile_007BF028 = 0;
     }
 }

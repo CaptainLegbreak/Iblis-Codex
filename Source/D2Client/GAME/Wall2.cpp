@@ -240,7 +240,7 @@ void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
 }
 
 // 0x004DCF10
-extern "C" __declspec(dllexport) void __fastcall sub_004DCF10(Obj004DCF10* pObj) {
+extern "C" __declspec(dllexport) void __fastcall WALL2_ResetViewCells(Obj004DCF10* pObj) {
     pObj->dwValueEAB0 = 0;
     pObj->dwValueEA9C = 0;
     pObj->dwValue38 = 0;
@@ -248,7 +248,7 @@ extern "C" __declspec(dllexport) void __fastcall sub_004DCF10(Obj004DCF10* pObj)
 }
 
 // 0x004DCF30
-void __fastcall sub_004DCF30(D2ViewStrc* pView)
+void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView)
 {
     if (pView->pCells)
     {
@@ -559,7 +559,7 @@ static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* 
 }
 
 // 0x004DD7C0
-s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
+s32 __stdcall WALL2_VisitRoom(Room* room,View* view)
 {
     Context* context=(Context*)((u8*)FIELD(void*,view,0)+56);
     Rectangle rectangle;

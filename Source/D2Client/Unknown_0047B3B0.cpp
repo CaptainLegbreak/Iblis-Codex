@@ -83,11 +83,11 @@ int __cdecl sub_004E0140_ToggleSoundMode12(); // 0x004E0140
 
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows); // 0x004F5200
-void __fastcall sub_0044BA20(int nResolution); // 0x0044BA20
+void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
 void __fastcall AUTOMAP_SetAutomapMode(int nMode); // 0x0045A720
 int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 int __cdecl UI_GetAutomapCenters(); // 0x00457740
-int __fastcall sub_00457750_SaveAutomapCenters(int nValue); // 0x00457750
+int __fastcall OBJECT_SaveAutomapCenters(int nValue); // 0x00457750
 int __cdecl UI_GetAutomapParty(); // 0x004577B0
 int __cdecl UI_GetAutomapPartyNames(); // 0x004577E0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -100,10 +100,10 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void __fastcall sub_0044BE80(int bAlwaysRun); // 0x0044BE80
+void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 int __cdecl UI_GetAutomapMode(); // 0x0045A710
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 extern "C" const char gszDiablo2_006CC8B8[];
 extern "C" const char gszResolution_006CC8AC[];
 extern "C" const char gszAutoMapFade_006D66A0[];
@@ -111,7 +111,7 @@ extern "C" const char szBlendedShadows_006D73B8[];
 extern "C" const char szPerspective_006D73C8[];
 extern "C" const char gszAutoMapMode_006D73E8[];
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern D2EscMenuUIStateStrc gaEscMenuUIState_00713058[38]; // 0x00713058
 
@@ -122,12 +122,12 @@ extern int gnGlobal_00711470; // 0x00711470
 extern int gdwGlobal_007BC978; // 0x007BC978
 void __cdecl sub_K04_EmitUse(int nValue);
 
-int __cdecl sub_0044DB30(); // 0x0044DB30
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __cdecl UI_DisableUIVarDelay(); // 0x00453AC0
-void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
+void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); // 0x0047E090
 void __cdecl UI_EnableUIVarDelay(); // 0x00453AD0
 void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -136,8 +136,8 @@ int __cdecl sub_00468830(); // 0x00468830
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 int __cdecl sub_004979E0(); // 0x004979E0
 int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
-void __cdecl sub_0044DA40(); // 0x0044DA40
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 void __cdecl sub_0044DA70(); // 0x0044DA70
 extern int gbSlotClicked_007BC97C; // 0x007BC97C
 extern int gdwGlobal_007BC970; // 0x007BC970
@@ -147,7 +147,7 @@ extern int gdwGlobal_007BC96C; // 0x007BC96C
 extern int gnSlotX_007BC898[]; // 0x007BC898
 extern int gaSlotKind_007BC8D8[]; // 0x007BC8D8
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
-void __fastcall sub_0044C860_SetValue(int nValue); // 0x0044C860
+void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 extern D2OptionHeaderStrc gOptionHeader_00713044; // 0x00713044
 extern D2OptionEntryStrc gaOptionEntries_00713220[]; // 0x00713220
@@ -557,7 +557,7 @@ void __fastcall sub_0047D0A0_ResolutionChanged(D2OptionEntryStrc* pEntry, SMSGHA
     {
         nResolution = 0;
     }
-    sub_0044BA20(nResolution);
+    GAME_SetResolution(nResolution);
 }
 
 // 0x0047D0E0
@@ -572,7 +572,7 @@ void __fastcall sub_0047D0E0_ResolutionLoad(D2OptionEntryStrc* pEntry, int nArg)
     {
         nResolution = 0;
     }
-    sub_0044BA20(nResolution);
+    GAME_SetResolution(nResolution);
 }
 
 // 0x0047D130
@@ -622,7 +622,7 @@ void __fastcall sub_0047D3F0_AutoMapFadeChanged(D2OptionEntryStrc* pEntry, SMSGH
 // 0x0047D470
 void __fastcall sub_0047D470_AutoMapCentersChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00457750_SaveAutomapCenters(pEntry->nValue);
+    OBJECT_SaveAutomapCenters(pEntry->nValue);
 }
 
 // 0x0047D480
@@ -785,7 +785,7 @@ void __fastcall sub_0047DF00_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
         D2OptionEntryStrc* pEntry = &pEntries[i];
         if (pEntry->pCel)
         {
-            sub_00478A00(pEntry->pCel);
+            ARCHIVE_FreeClientCellFile(pEntry->pCel);
             pEntry->pCel = 0;
         }
         if (pEntry->nKind == 1)
@@ -795,7 +795,7 @@ void __fastcall sub_0047DF00_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
             {
                 if (pEntry->pValueCels[j])
                 {
-                    sub_00478A00(pEntry->pValueCels[j]);
+                    ARCHIVE_FreeClientCellFile(pEntry->pValueCels[j]);
                     pEntry->pValueCels[j] = 0;
                 }
             }
@@ -808,7 +808,7 @@ void __cdecl sub_0047E720_LoadAlwaysRun()
 {
     unsigned long dwValue = 0;
     SRegLoadValue("Diablo II", "Always Run", 0, &dwValue);
-    sub_0044BE80(dwValue);
+    GAME_SetAlwaysRun(dwValue);
 }
 
 // 0x0047F1D0
@@ -824,7 +824,7 @@ void __cdecl sub_0047F1D0_LoadResolution()
     {
         nResolution = 0;
     }
-    sub_0044BA20(nResolution);
+    GAME_SetResolution(nResolution);
 }
 
 // 0x0047D500
@@ -836,7 +836,7 @@ static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
 // 0x0047E200
 void __fastcall sub_0047E200_CloseMenus(int bRestore)
 {
-    if (sub_004538D0(9))
+    if (GAME_GetUIVarState(9))
     {
         sub_00455F20(9, 1, 0);
     }
@@ -855,7 +855,7 @@ void __fastcall sub_0047E200_CloseMenus(int bRestore)
 // 0x0047EC20
 int __fastcall sub_0047EC20_IsPanelFreeForArg(int bArg)
 {
-    if (bArg && !sub_004538D0(0x17))
+    if (bArg && !GAME_GetUIVarState(0x17))
     {
         return 1;
     }
@@ -902,42 +902,42 @@ static void sub_0047EC50_DoSlotAction(int nButton)
     switch (nButton)
     {
     case 0:
-        if (sub_004538D0(2))
+        if (GAME_GetUIVarState(2))
             sub_00455F20(2, 1, 0);
         else
             sub_00455F20(2, 2, 0);
         break;
     case 1:
-        if (sub_004538D0(1))
+        if (GAME_GetUIVarState(1))
             sub_00455F20(1, 1, 0);
         else
             sub_00455F20(1, 2, 0);
         break;
     case 2:
-        if (sub_004538D0(4))
+        if (GAME_GetUIVarState(4))
             sub_00455F20(4, 1, 0);
         else
             sub_00455F20(4, 2, 0);
         break;
     case 3:
-        if (sub_0044DB30())
+        if (GAME_GetConnectionType())
         {
-            if (sub_004538D0(0x16))
+            if (GAME_GetUIVarState(0x16))
                 sub_00455F20(0x16, 1, 0);
             else
                 sub_00455F20(0x16, 2, 0);
         }
         break;
     case 4:
-        if (sub_004538D0(0xA))
+        if (GAME_GetUIVarState(0xA))
             sub_00455F20(0xA, 1, 0);
         else
             sub_00455F20(0xA, 2, 0);
         break;
     case 5:
-        if (sub_004538D0(0x1F))
+        if (GAME_GetUIVarState(0x1F))
             sub_00455F20(0x1F, 1, 0);
-        if (sub_004538D0(0x18))
+        if (GAME_GetUIVarState(0x18))
             sub_00455F20(0x18, 1, 0);
         else
             sub_00455F20(0x18, 2, 0);
@@ -949,7 +949,7 @@ static void sub_0047EC50_DoSlotAction(int nButton)
     case 7:
         UI_CloseUIVars(0, 0);
         UI_DisableUIVarDelay();
-        sub_0047E090(1, 0);
+        WARDENCLIENT_ToggleEscMenuUIState(1, 0);
         UI_EnableUIVarDelay();
         UI_StartUIVarDelay();
         break;
@@ -1005,12 +1005,12 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
                 {
                     sub_0047EC50_DoSlotAction(nButton);
                 }
-                else if (!sub_0044BE50_GetUnitTypeOrInvalid(pUnit) && sub_00451F70_GetUnitMode(pUnit) != 0x11)
+                else if (!GAME_GetUnitTypeOrInvalid(pUnit) && sub_00451F70_GetUnitMode(pUnit) != 0x11)
                 {
                     sub_0047EC50_DoSlotAction(nButton);
                 }
             }
-            sub_0044DA40();
+            GAME_ResetMouseState();
             sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
@@ -1047,7 +1047,7 @@ void __fastcall sub_0047F2D0_ExitGame(D2OptionEntryStrc* pEntry, SMSGHANDLER_PAR
 {
     sub_0044B880_SetValue(0);
     SendMessageA(pMsg->hWnd, 0x10, 0, 0);
-    sub_0044C860_SetValue(1);
+    GAME_SetCinematicExit(1);
     sub_0047E200_CloseMenus(1);
 }
 
@@ -1104,7 +1104,7 @@ void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 // 0x0047F400
 void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_004538D0(9))
+    if (GAME_GetUIVarState(9))
         sub_00455F20(9, 1, 0);
     sub_00455F20(0xB, 0, 0);
 }

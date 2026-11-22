@@ -47,7 +47,7 @@ extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
 
 int __cdecl sub_004DF870(); // 0x004DF870
 
-int __cdecl sub_00481780_GetPlayerLevelId(); // 0x00481780
+int __cdecl UNITMODE_GetPlayerLevelId(); // 0x00481780
 
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
@@ -251,7 +251,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
     if (!sub_004DF870())
         return;
-    const int nLevelId = sub_00481780_GetPlayerLevelId();
+    const int nLevelId = UNITMODE_GetPlayerLevelId();
     if (!nLevelId)
         return;
     int nSound = 0;

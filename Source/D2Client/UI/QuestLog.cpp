@@ -38,9 +38,9 @@ struct D2QuestTableStrc
 };
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
-D2BitBufferStrc* __cdecl sub_004B32D0();                                                           // 0x004B32D0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags();                                                           // 0x004B32D0
 int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 const unsigned short* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                       // 0x00524A30
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
@@ -91,7 +91,7 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
 
     pMsg->nCelId = gaQuestTable_00723F30[nIndex].nCelId2;
     pMsg->nCelId2 = gaQuestTable_00723F30[nIndex].nCelId;
-    D2BitBufferStrc* pQuestInfo = sub_004B32D0();
+    D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
     D2BitBufferStrc* pQuestHistory = sub_004B32E0_GetQuestHistory();
     unsigned char nStep = gabQuestFlagsA_007BF356[nIndex];
     pMsg->nStep = nStep;
@@ -401,7 +401,7 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
 
     gnIndex_007BF2B9 = -1;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if ((!FOG_IsExpansion() || !sub_0044DCC0()) && nPage == 4)
+    if ((!FOG_IsExpansion() || !GAME_IsExpansion()) && nPage == 4)
     {
         return;
     }
@@ -411,7 +411,7 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
         if (!gapCelFiles_007BF2E1[i])
         {
             sprintf(szPath, "%s\\ui\\menu\\%s", gszDataGlobal_006D4118, gaszQuestCelNames_006DA2C8[i]);
-            gapCelFiles_007BF2E1[i] = sub_004788B0(szPath, 0);
+            gapCelFiles_007BF2E1[i] = ARCHIVE_LoadClientCellFile(szPath, 0);
         }
     }
 
@@ -499,9 +499,9 @@ int __fastcall TEXT_TestQuestCondition(int nCondition)
                 break;
             }
 
-            if (!sub_004B32D0() || QUESTRECORD_GetQuestState(sub_004B32D0(), nQuestId, 1)
-                || QUESTRECORD_GetQuestState(sub_004B32D0(), nQuestId, 0)
-                || QUESTRECORD_GetQuestState(sub_004B32D0(), nQuestId, 0xE))
+            if (!MONSTER_GetQuestFlags() || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 1)
+                || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 0)
+                || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 0xE))
             {
                 break;
             }
@@ -541,7 +541,7 @@ struct T0044CB60
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __cdecl sub_00463DF0();                                                                                 // 0x00463DF0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
@@ -619,7 +619,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
         return;
     }
 
-    if (sub_004538D0(0x12))
+    if (GAME_GetUIVarState(0x12))
     {
         sub_004A26B0_OpenPanel(0);
         return;
@@ -657,7 +657,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
         {
             int bExpansion = 0;
             int aX[5];
-            if (FOG_IsExpansion() && sub_0044DCC0())
+            if (FOG_IsExpansion() && GAME_IsExpansion())
             {
                 bExpansion = 1;
                 aX[0] = 5;
@@ -687,21 +687,21 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             switch (i)
             {
             case 1:
-                if (QUESTRECORD_GetQuestState(sub_004B32D0(), 7, 0))
+                if (QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 7, 0))
                     break;
                 continue;
             case 2:
-                if (QUESTRECORD_GetQuestState(sub_004B32D0(), 0xF, 0))
+                if (QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0xF, 0))
                     break;
                 continue;
             case 3:
-                if (QUESTRECORD_GetQuestState(sub_004B32D0(), 0x17, 0))
+                if (QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x17, 0))
                     break;
                 continue;
             case 4:
-                if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0x1A, 0))
+                if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x1A, 0))
                     bShow = 0;
-                if (!FOG_IsExpansion() || !sub_0044DCC0() || !bShow)
+                if (!FOG_IsExpansion() || !GAME_IsExpansion() || !bShow)
                     continue;
                 break;
             }
@@ -737,7 +737,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
                     if (nFrame >= 0x19)
                     {
                         nFrame = 0x18;
-                        D2BitBufferStrc* pQuestInfo = sub_004B32D0();
+                        D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
                         QUESTRECORD_SetQuestState(pQuestInfo, pEntry->nQuestId, 0xC);
                         sub_004785B0_SendPacket3(0x58, (unsigned short)pEntry->nQuestId);
                     }

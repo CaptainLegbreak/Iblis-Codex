@@ -3,10 +3,10 @@ struct Unicode;
 
 extern int gnGlobal_007BEEE8; // 0x007BEEE8
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-int __cdecl sub_0044DB30(); // 0x0044DB30
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB); // 0x0046A530
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -25,7 +25,7 @@ void __cdecl sub_00493840_TogglePopup()
     switch (gnGlobal_007BEECC)
     {
     case 0:
-        if (!sub_0044DB30())
+        if (!GAME_GetConnectionType())
         {
             gnGlobal_007BEECC = 2;
             gnGlobal_007BEEE8 = 0;
@@ -39,7 +39,7 @@ void __cdecl sub_00493840_TogglePopup()
         break;
 
     case 1:
-        if (!sub_0044DB30())
+        if (!GAME_GetConnectionType())
         {
             gnGlobal_007BEECC = 0;
             sub_00455F20(0x23, 0, 0);
@@ -65,13 +65,13 @@ void __cdecl sub_00495030_DrawKeyHelp()
     Unicode wszText[200];
     Unicode wszKey[30];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1051));
-    if (sub_00469AA0(6, 1) != 0xFFFF)
+    if (CUNIT_GetHotkeyBinding(6, 1) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKey));
         sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 1));
         sub_00526700(wszText, wszKey);
     }
-    if (sub_00469AA0(6, 0) != 0xFFFF)
+    if (CUNIT_GetHotkeyBinding(6, 0) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKey));
         sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 0));

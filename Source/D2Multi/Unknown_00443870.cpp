@@ -11,7 +11,7 @@ char gszName_00798CD4[16];                                                      
 int gnPendingValueA_00798CE4;                                                                               // 0x00798CE4
 int gnPendingValueB_00798CE8;                                                                               // 0x00798CE8
 int __fastcall D2Win_StopMessageLoop();                                                            // 0x004F9190
-int __cdecl sub_00449B70_PollMcpConnection();                                                               // 0x00449B70
+int __cdecl WINMAIN_PollMcpConnection();                                                               // 0x00449B70
 int __cdecl sub_0043EBA0_ResetControls();                                                                   // 0x0043EBA0
 void __cdecl sub_00443220_DestroyControls();                                                                // 0x00443220
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed);                             // 0x005009A0
@@ -32,8 +32,9 @@ int __stdcall sub_00443870_SetCancel(int nArg)
 // 0x00443880
 int __stdcall sub_00443880_PollMcp(int nArg)
 {
-    sub_00449B70_PollMcpConnection();
-    if (sub_00449E40() || sub_00449BE0() || sub_00449C00() || gdwGlobal_00798CC4)
+    WINMAIN_PollMcpConnection();
+// build: symbol ?GAME_GetConnectError@* 0x00449C00
+    if (sub_00449E40() || sub_00449BE0() || GAME_GetConnectError() || gdwGlobal_00798CC4)
         D2Win_StopMessageLoop();
     return 1;
 }

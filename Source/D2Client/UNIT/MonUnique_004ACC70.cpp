@@ -16,25 +16,25 @@ struct D2MonStats2Txt;
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
-void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
+void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
-int __fastcall sub_00474350_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
+int __fastcall DLIGHTMAP_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
 
 void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit);                                             // 0x0046B3C0
 
 void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit);                                       // 0x0046B530
 
-void __fastcall sub_0046B680_SpawnMissileTrio(D2UnitStrc* pUnit);                                           // 0x0046B680
+void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit);                                           // 0x0046B680
 
 void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit);                                                            // 0x0046B710
 
 void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* pUnit);                                                            // 0x0046B850
 
-void __fastcall sub_0046B9A0_SpawnMissileTrio2(D2UnitStrc* pUnit);                                          // 0x0046B9A0
+void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit);                                          // 0x0046B9A0
 
-void __fastcall sub_0046BA50_SpawnMissile(D2UnitStrc* pUnit);                                               // 0x0046BA50
+void __fastcall VIEW_SpawnAndarielDeath(D2UnitStrc* pUnit);                                               // 0x0046BA50
 
 void __fastcall sub_0046BA90_PlayerRequestAtUnit15B(D2UnitStrc* pUnit);                                     // 0x0046BA90
 
@@ -42,7 +42,7 @@ void __fastcall sub_0046BB10_PlayerRequestAtUnit161(D2UnitStrc* pUnit);         
 
 void __fastcall sub_0046BB90_PlayerRequestAtUnit16B(D2UnitStrc* pUnit);                                     // 0x0046BB90
 
-void __fastcall sub_0046BC10_HintAndMissile(D2UnitStrc* pUnit);                                             // 0x0046BC10
+void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit);                                             // 0x0046BC10
 
 int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit);                                              // 0x0046BC70
 
@@ -57,14 +57,14 @@ static inline unsigned __int64 SEED_RollLocalSeed(D2SeedStrc* pSeed)
 }
 
 // 0x004ACC70
-void __fastcall sub_004ACC70_InitMonsterLight(D2UnitStrc* pUnit, int nUnused, int bInit)
+void __fastcall MONUNIQUE_InitUModLight(D2UnitStrc* pUnit, int nUnused, int bInit)
 {
     if (!bInit)
     {
         return;
     }
 
-    sub_00464930_FreeLight(pUnit);
+    CUNIT_FreeLight(pUnit);
 
     D2GfxLightStrc* pLight;
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & MONTYPEFLAG_CHAMPION))
@@ -91,11 +91,11 @@ void __fastcall sub_004ACC70_InitMonsterLight(D2UnitStrc* pUnit, int nUnused, in
     }
 
     pUnit->pLight = pLight;
-    sub_00464CF0(pUnit, sub_00474350_GetLightSize(pLight));
+    sub_00464CF0(pUnit, DLIGHTMAP_GetLightSize(pLight));
 }
 
 // 0x004AD2F0
-void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int nUnused2)
+void __fastcall MONUNIQUE_HandleUnitClassEvent(D2UnitStrc* pUnit, int nUnused, int nUnused2)
 {
     if (!pUnit)
     {
@@ -107,7 +107,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
     case 0x9C:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046BA50_SpawnMissile(pUnit);
+            VIEW_SpawnAndarielDeath(pUnit);
         }
         break;
 
@@ -135,7 +135,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
     case 0xF2:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046B9A0_SpawnMissileTrio2(pUnit);
+            VIEW_SpawnMephistoDeath(pUnit);
         }
         break;
 
@@ -149,7 +149,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
     case 0x100:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046BC10_HintAndMissile(pUnit);
+            VIEW_SpawnIzualDeath(pUnit);
         }
         break;
 
@@ -170,7 +170,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
     case 0x10B:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046B680_SpawnMissileTrio(pUnit);
+            VIEW_SpawnBrDeathControl(pUnit);
         }
         break;
 

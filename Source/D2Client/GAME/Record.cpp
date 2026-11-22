@@ -80,7 +80,7 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
 void* __cdecl sub_004F59A0(); // 0x004F59A0
 
 // 0x00451260
-int __cdecl sub_00451260_RegisterLngArgument()
+int __cdecl RECORD_RegisterLngArgument()
 {
     SCmdRegisterArgument(0x20000, -1, "lng", gszLngPath_007A0710, sizeof(gszLngPath_007A0710), 0, 0, 0);
     return 1;
@@ -88,7 +88,7 @@ int __cdecl sub_00451260_RegisterLngArgument()
 
 
 // 0x00451400
-void __cdecl sub_00451400_AddRecordChunk()
+void __cdecl RECORD_AddRecordChunk()
 {
     D2MsgRecordChunkStrc* pChunk = (D2MsgRecordChunkStrc*)FOG_Alloc(sizeof(D2MsgRecordChunkStrc), ".\\GAME\\Record.cpp", 0x35, 0);
     D2MsgRecordChunkStrc* pOld = gpMsgRecordChunk_0070F7A0;
@@ -100,7 +100,7 @@ void __cdecl sub_00451400_AddRecordChunk()
 }
 
 // 0x004514B0
-void __fastcall sub_004514B0_FilterMessage(unsigned int uMessage, unsigned int wParam, int lParam)
+void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam)
 {
     if (gdwGlobal_007A2780)
     {
@@ -127,7 +127,7 @@ void __fastcall sub_004514B0_FilterMessage(unsigned int uMessage, unsigned int w
 D2MsgRecordChunkStrc gtMsgRecordChunkFirst_007A0818; // 0x007A0818
 
 // 0x00451620
-void __cdecl sub_00451620_WriteRecordFile()
+void __cdecl RECORD_WriteRecordFile()
 {
     void* hFile = CreateFileA("Record.dr1", GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 
@@ -158,7 +158,7 @@ void __cdecl sub_00451620_WriteRecordFile()
 static D2RecordBlockStrc* gpRecordBlock_0070F7A0; // 0x0070F7A0
 
 // 0x00451710
-void __cdecl sub_00451710_LoadRecord()
+void __cdecl RECORD_LoadRecordFile()
 {
     unsigned long nMagic;
     unsigned long nRead;
@@ -203,7 +203,7 @@ void __cdecl sub_00451710_LoadRecord()
 }
 
 // 0x00451850
-void __cdecl sub_00451850_FreeMsgRecordChunks()
+void __cdecl RECORD_FreeMsgRecordChunks()
 {
     D2MsgRecordChunkStrc* pChunk = gpMsgRecordChunkHead_007A2760;
     while (pChunk)
@@ -215,7 +215,7 @@ void __cdecl sub_00451850_FreeMsgRecordChunks()
 }
 
 // 0x00451880
-int __fastcall sub_00451880_DispatchMsg(D2WinMsgStrc* pMsg)
+int __fastcall RECORD_DispatchRecordedMessage(D2WinMsgStrc* pMsg)
 {
     int bUseResult = 0;
     int lResult = 0;

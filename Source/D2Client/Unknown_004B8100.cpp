@@ -88,10 +88,10 @@ extern int gbSoundReady_007C545C; // 0x007C545C
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00481820(); // 0x00481820
 D2SoundsTxtStrc* __fastcall sub_00481860(int nId); // 0x00481860
-int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
+int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
-float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY); // 0x004E4160
+float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
 void __fastcall D2SOUND_ListAddHead(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
@@ -179,7 +179,7 @@ static D2ClientSoundStrc* __stdcall sub_004B9760_FindGroupSound(D2ClientSoundStr
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
-        if (sub_00481890_GetCacheFirst(pSound->nSoundId) == pTxt->nGroup && pSound != pExclude && !pSound->bLocked)
+        if (SOUNDHDR_GetGroupStart(pSound->nSoundId) == pTxt->nGroup && pSound != pExclude && !pSound->bLocked)
         {
             if (pTxt->nTimeout < 0 || sub_00481820() - pSound->f_34 <= pTxt->nTimeout)
                 return pSound;
@@ -252,7 +252,7 @@ static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecS
     pSound->vPos = *pPos;
     const float fX = sub_004B93A0_ClampFloat(pPos->fX, -2000.0f, 2000.0f);
     const float fY = sub_004B93A0_ClampFloat(pPos->fY, -2000.0f, 2000.0f);
-    pSound->fDistance = sub_004E4160_LengthSquared2D(fX, fY);
+    pSound->fDistance = GFXUTIL_VectorLengthSquared(fX, fY);
 }
 
 // 0x004B9A00

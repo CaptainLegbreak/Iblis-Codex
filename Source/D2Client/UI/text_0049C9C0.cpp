@@ -16,7 +16,7 @@ int __fastcall sub_00502EF0(int nFontSize); // 0x00502EF0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl FOG_IsExpansion(); // 0x00408F20
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 D2BitBufferStrc* __cdecl sub_004B32D0_GetQuestFlags(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 void* __cdecl sub_00454600_GetCloseButtonCell(); // 0x00454600
@@ -79,7 +79,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
     int nActCount=5;
     int nYOffset=0;
     int nActPositions[5];
-    if(FOG_IsExpansion() && sub_0044DCC0())
+    if(FOG_IsExpansion() && GAME_IsExpansion())
     {
         nYOffset=1;
         nActPositions[0]=5;
@@ -116,7 +116,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
                 break;
             case 4:
                 if(!QUESTRECORD_GetQuestState(sub_004B32D0_GetQuestFlags(),26,0))bAllowed=0;
-                if(!FOG_IsExpansion() || !sub_0044DCC0())bAllowed=0;
+                if(!FOG_IsExpansion() || !GAME_IsExpansion())bAllowed=0;
                 break;
             }
             if(!bAllowed)continue;

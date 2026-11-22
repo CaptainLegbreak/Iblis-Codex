@@ -19,7 +19,7 @@ int __stdcall UNITS_GetNewDirection(D2UnitStrc* pUnit);                         
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
 int __fastcall sub_00467640_UnitFindTest(D2UnitStrc* pUnit, void* pArg);                                    // 0x00467640
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit);               // 0x00620C10
 static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x00467660
@@ -76,7 +76,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             if (UNITS_IsSelectable(pTarget))
             {
                 if (!(pSkillsTxtRecord->nFlags[2] & gdwMask_006CE278)
-                    || (pTarget->dwUnitType == UNIT_MONSTER && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
+                    || (pTarget->dwUnitType == UNIT_MONSTER && MONSTERREGION_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {
                     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);

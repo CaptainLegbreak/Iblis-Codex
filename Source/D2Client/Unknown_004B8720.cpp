@@ -11,7 +11,7 @@ struct D2TimedHintNodeStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_00463DF0(); // 0x00463DF0
 void __cdecl sub_0048A6F0_ClearValue(); // 0x0048A6F0
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
@@ -112,7 +112,7 @@ void __fastcall sub_004B8940_CloseWait(int bReopen)
         return;
     }
 
-    if (sub_004538D0(0x17))
+    if (GAME_GetUIVarState(0x17))
     {
         sub_00455F20(0x17, 1, 0);
         sub_0048A6F0_ClearValue();
@@ -122,7 +122,7 @@ void __fastcall sub_004B8940_CloseWait(int bReopen)
             sub_00455F20(1, 2, 0);
         }
 
-        if (sub_004538D0(5))
+        if (GAME_GetUIVarState(5))
         {
             sub_00455F20(5, 1, 0);
         }

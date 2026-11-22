@@ -10,15 +10,15 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
-D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
-void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY); // 0x004706E0
-extern "C" int __stdcall sub_004DA0B0_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
+D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
+void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY); // 0x004706E0
+extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY);                                                // 0x00643290
 
 // 0x004DA350
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
 {
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (!pMotion || pMotion->dwFlags & 1)
     {
         return;
@@ -85,14 +85,14 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
                 break;
             }
 
-            sub_004706E0_GetUnitCelOffsets(pOwner, nComponent, &nOffsetX, &nOffsetY);
+            GFX_GetUnitCelOffsets(pOwner, nComponent, &nOffsetX, &nOffsetY);
             pMotion->nClientX = nOffsetX;
             pMotion->nClientZ = nOffsetY;
             if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
             {
                 pMotion->nClientZ += 10;
             }
-            pMotion->nClientX += sub_004DA0B0_GetGfxOffsetX(pOwner);
+            pMotion->nClientX += PARTICLE_GetGfxOffsetX(pOwner);
             pMotion->nClientZ += sub_004DA0F0_GetUnitGfxOffsetZ(pOwner);
             pMotion->tA.nX = pMotion->nClientX;
             pMotion->tA.nY = pMotion->nClientY;

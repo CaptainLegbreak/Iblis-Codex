@@ -77,9 +77,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
+void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 int __cdecl sub_004FAC90_CheckCharArchive(); // 0x004FAC90
-void __cdecl sub_004DA790_InitModeTokens(); // 0x004DA790
+void __cdecl PARTICLE_InitModeTokens(); // 0x004DA790
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
 extern D2HashedFileStrc gtHashedFile_007A8100; // 0x007A8100
@@ -125,7 +125,7 @@ extern "C" int __stdcall ImmGetConversionStatus(T0046E1B0* hImc, unsigned long* 
 void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
@@ -176,13 +176,13 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
-D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
-void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
+D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
+void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
-void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
+void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
+int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
@@ -190,9 +190,9 @@ extern D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern int gbPreloadForce_007A8920; // 0x007A8920
 extern int gdwGlobal_007A8928; // 0x007A8928
-static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit);
+static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit); // 0x00470040
 
-D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nWeaponClass, int nIndex); // 0x0046E5A0
+D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nWeaponClass, int nIndex); // 0x0046E5A0
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
 struct D2GfxBoundsStrc
@@ -209,7 +209,7 @@ extern "C" void* __fastcall sub_004DB040_identity(void* pointer); // 0x004DB040
 int gdwGlobal_007A8928; // 0x007A8928
 
 // 0x0046E100
-int __fastcall sub_0046E100_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
+int __fastcall GFX_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x1EA);
@@ -224,7 +224,7 @@ int __fastcall sub_0046E100_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
 }
 
 // 0x0046E570
-int __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode)
+int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (pGfxData)
@@ -241,7 +241,7 @@ int __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode)
 }
 
 // 0x0046EBB0
-D2GfxDataStrc* __cdecl sub_0046EBB0_AllocGfxData()
+D2GfxDataStrc* __cdecl GFX_AllocGfxData()
 {
     D2GfxDataStrc* pGfxData = (D2GfxDataStrc*)FOG_Alloc(sizeof(D2GfxDataStrc), ".\\ENGINE\\Gfx.cpp", 0x804, 0);
     D2_ASSERT(pGfxData, 0x805);
@@ -252,7 +252,7 @@ D2GfxDataStrc* __cdecl sub_0046EBB0_AllocGfxData()
 }
 
 // 0x0046EC80
-void __fastcall sub_0046EC80_FreeGfxNodes(D2UnitStrc* pUnit)
+void __fastcall GFX_FreeGfxNodes(D2UnitStrc* pUnit)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x82A);
@@ -267,7 +267,7 @@ void __fastcall sub_0046EC80_FreeGfxNodes(D2UnitStrc* pUnit)
 }
 
 // 0x0046ECE0
-void __fastcall sub_0046ECE0_PruneGfxNodes(D2UnitStrc* pUnit)
+void __fastcall GFX_PruneGfxNodes(D2UnitStrc* pUnit)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x83D);
@@ -297,7 +297,7 @@ void __fastcall sub_0046ECE0_PruneGfxNodes(D2UnitStrc* pUnit)
 }
 
 // 0x0046F020
-void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
+void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0xBBA);
@@ -308,7 +308,7 @@ void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nVa
 }
 
 // 0x0046F070
-void __fastcall sub_0046F070_SetGfxValue(D2UnitStrc* pUnit, int nValue)
+void __fastcall GFX_SetGfxMotionFlag(D2UnitStrc* pUnit, int nValue)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (pGfxData)
@@ -318,7 +318,7 @@ void __fastcall sub_0046F070_SetGfxValue(D2UnitStrc* pUnit, int nValue)
 }
 
 // 0x0046F170
-void __fastcall sub_0046F170_RemoveOverlays(D2UnitStrc* pUnit)
+void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit)
 {
     D2GfxDataStrc* ptGfxInfo = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(ptGfxInfo, 0xCCF);
@@ -326,27 +326,27 @@ void __fastcall sub_0046F170_RemoveOverlays(D2UnitStrc* pUnit)
     while (pOverlay)
     {
         D2UnitOverlayStrc* pNext = pOverlay->pNext;
-        sub_0046E040_RemoveOverlay(pUnit, pOverlay);
+        GFX_RemoveStateOverlay(pUnit, pOverlay);
         pOverlay = pNext;
     }
 }
 
 // 0x0046F1C0
-void __fastcall sub_0046F1C0_SetGfx34(D2GfxDataStrc* pGfxData, int nValue)
+void __fastcall GFX_SetGfxBasePalShift(D2GfxDataStrc* pGfxData, int nValue)
 {
     D2_ASSERT(pGfxData, 0xCE4);
     pGfxData->nUnk0x34 = nValue;
 }
 
 // 0x0046F220
-void __fastcall sub_0046F220_SetGfx38(D2GfxDataStrc* pGfxData, int nValue)
+void __fastcall GFX_SetGfxPalShift(D2GfxDataStrc* pGfxData, int nValue)
 {
     D2_ASSERT(pGfxData, 0xCFD);
     pGfxData->nUnk0x38 = nValue;
 }
 
 // 0x0046F280
-void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nIndex)
+void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nIndex)
 {
     if (nIndex >= GFX_INDEX_COUNT)
     {
@@ -379,13 +379,13 @@ void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nIndex)
 }
 
 // 0x0046F9D0
-D2MonGfxCacheStrc* __fastcall sub_0046F9D0_GetMonGfxCache(int nMonsterId)
+D2MonGfxCacheStrc* __fastcall GFX_GetMonGfxCache(int nMonsterId)
 {
     return &gpPoolBlock_007A80FC[nMonsterId];
 }
 
 // 0x00470200
-void __fastcall sub_00470200_InitGfxTables(int nValue)
+void __fastcall GFX_InitGfxTables(int nValue)
 {
     gdwGlobal_007A8910 = 0;
     gdwGlobal_007A891C = nValue;
@@ -396,7 +396,7 @@ void __fastcall sub_00470200_InitGfxTables(int nValue)
     gpPoolBlock_007A80FC = (D2MonGfxCacheStrc*)sub_0040B430(0, nSize, ".\\ENGINE\\Gfx.cpp", 0x7E1, 0);
     memset(gpPoolBlock_007A80FC, 0, nSize);
     gdwGlobal_007A8928 = sub_004FAC90_CheckCharArchive();
-    sub_004DA790_InitModeTokens();
+    PARTICLE_InitModeTokens();
 }
 
 int gnPhase_007A8A24; // 0x007A8A24
@@ -412,7 +412,7 @@ unsigned char gRowTable_007B5C10[49][0x100]; // 0x007B5C10
 int gnChatIndex_007BB5D8; // 0x007BB5D8
 
 // 0x0046E1B0
-void __fastcall sub_0046E1B0_DrawUnitOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY)
+void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (!pGfxData)
@@ -476,7 +476,7 @@ void __fastcall sub_0046E1B0_DrawUnitOverlays(D2UnitStrc* pUnit, int nOverlay, i
 }
 
 // 0x00473E50
-void __stdcall sub_00473E50_StepPhase(D2SeedStrc* pSeed)
+void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed)
 {
     int nPhase = gnPhase_007A8A24;
     if (gbPhaseActive_007A8A1C && nPhase != 2)
@@ -513,7 +513,7 @@ void __stdcall sub_00473E50_StepPhase(D2SeedStrc* pSeed)
 }
 
 // 0x00475B80
-unsigned char* __stdcall sub_00475B80_BuildLerpTable(unsigned int nCount, int nSteps)
+unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps)
 {
     unsigned char* pTable = (unsigned char*)sub_00517993_VirtualAlloc(nCount * nCount * nSteps + 3);
     unsigned char* pOut = pTable;
@@ -534,7 +534,7 @@ unsigned char* __stdcall sub_00475B80_BuildLerpTable(unsigned int nCount, int nS
 }
 
 // 0x00475C40
-unsigned char** __stdcall sub_00475C40_BuildLerpRowTable(unsigned int nCount, int nSteps)
+unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
 {
     unsigned char** pTable = (unsigned char**)sub_00517993_VirtualAlloc((nSteps + 1) * nCount * nCount * sizeof(unsigned char*));
     unsigned char** pOut = pTable;
@@ -558,7 +558,7 @@ unsigned char** __stdcall sub_00475C40_BuildLerpRowTable(unsigned int nCount, in
 }
 
 // 0x00478FA0
-void __cdecl sub_00478FA0_UpdatePetFlags()
+void __cdecl GFX_UpdatePetFlags()
 {
     D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -566,7 +566,7 @@ void __cdecl sub_00478FA0_UpdatePetFlags()
     {
         if (pPet->nType == 4)
         {
-            D2UnitStrc* pUnit = sub_00463990(pPet->dwUnitId, 1);
+            D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPet->dwUnitId, 1);
             if (pUnit)
             {
                 int bSet = !sub_00478E70_IsPetFriendly(pPlayer, pUnit);
@@ -578,7 +578,7 @@ void __cdecl sub_00478FA0_UpdatePetFlags()
 }
 
 // 0x004795F0
-D2RosterUnitStrc* __stdcall sub_004795F0_SortRosterByName(D2RosterUnitStrc* pList)
+D2RosterUnitStrc* __stdcall GFX_SortRosterByName(D2RosterUnitStrc* pList)
 {
     D2RosterUnitStrc* pSorted = 0;
     D2RosterUnitStrc* pCurrent = pList;
@@ -610,7 +610,7 @@ D2RosterUnitStrc* __stdcall sub_004795F0_SortRosterByName(D2RosterUnitStrc* pLis
 }
 
 // 0x0047BA80
-void __stdcall sub_0047BA80_StepChatIndex(int nDelta)
+void __stdcall GFX_StepChatIndex(int nDelta)
 {
     int nOld = gnChatIndex_007BB5D8;
     gnChatIndex_007BB5D8 += nDelta;
@@ -631,13 +631,13 @@ void __stdcall sub_0047BA80_StepChatIndex(int nDelta)
 void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
 
 // 0x00480000
-int __stdcall sub_00480000_SendWardenPacket(const void* pData, int nSize)
+int __stdcall GFX_SendWardenPacket(const void* pData, int nSize)
 {
     return sub_00478830_SendPacket66(pData, nSize);
 }
 
 // 0x00480420
-void __fastcall sub_00480420_RefreshPathTarget(D2UnitStrc* pUnit)
+void __fastcall GFX_RefreshPathTarget(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x26);
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -647,7 +647,7 @@ void __fastcall sub_00480420_RefreshPathTarget(D2UnitStrc* pUnit)
         int nUnitType;
         int nUnitGUID;
         PATH_GetTargetTypeAndGUID(pPath, &nUnitType, &nUnitGUID);
-        D2UnitStrc* pTarget = sub_00463990(nUnitGUID, nUnitType);
+        D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitGUID, nUnitType);
         if (pTarget != PATH_GetTargetUnit(pPath))
         {
             PATH_SetTargetUnit(pPath, 0);
@@ -679,7 +679,8 @@ static inline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
     return 0;
 }
 
-static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit)
+// build: symbol ?GFX_LoadUnitLayers@* 0x0046FB60
+static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit)
 {
     int nResult = 1;
     D2InventoryStrc* pInventory;
@@ -694,7 +695,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     }
     int nWeaponClass;
     const int nToken = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClass, nMode, 0);
-    if (!sub_0046E5A0_FindGfxListNode(pUnit, nToken, nMode) && !sub_0046FA80_LoadGfxNode(pUnit, nToken, nMode))
+    if (!GFXUTIL_FindGfxListNode(pUnit, nToken, nMode) && !GFX_LoadUnitGfxNode(pUnit, nToken, nMode))
     {
         char szBuffer[256];
         const int nClassArg = pUnit ? pUnit->dwClassId : -1;
@@ -724,7 +725,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     int nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x6CD);
     int nB;
-    sub_004DB2E0_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &tArg.nA, &nB, tArg.nIndex, 0);
+    GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &tArg.nA, &nB, tArg.nIndex, 0);
     unsigned char* pOrder = sub_004DB110_GetLayerOrder(pLayer, tArg.nA, 0);
     D2_ASSERT(pOrder, 0x6D6);
     tArg.nIndex = 0;
@@ -735,7 +736,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         int nItemId;
-        if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), 0, &nItemId, nLayer, nMode))
+        if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), 0, &nItemId, nLayer, nMode))
         {
             if (!sub_006001F0(&tContext, bAsync, bAsync))
             {
@@ -755,7 +756,8 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     return nResult;
 }
 
-static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int nMode)
+// build: symbol ?GFX_PreloadMonsterMode@* 0x0046FDA0
+static void __stdcall GFX_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int nMode)
 {
     int nAnimMode;
     int nType;
@@ -778,7 +780,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     }
     if (!gpPoolBlock_007A80FC[nClass].aPending[nMode])
     {
-        if (sub_0046FB60_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
+        if (GFX_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
             gpPoolBlock_007A80FC[nClass].aPending[nMode] = 0;
             gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 0;
@@ -794,7 +796,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     }
 }
 
-void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit); // 0x0046FEB0
+void __stdcall GFX_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit); // 0x0046FEB0
 
 // build: context sub_0046FF50_PreloadPlayerMode
 static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)
@@ -820,7 +822,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     }
     if (!gaPlayerGfxCache_007A7490[nClass].aPending[nMode])
     {
-        if (sub_0046FB60_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
+        if (GFX_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
             gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 0;
             gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 0;
@@ -838,12 +840,12 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
 
 int __stdcall sub_M389_Emit_0046FEB0(int bAsync, D2UnitStrc* pUnit)
 {
-    sub_0046FEB0_PreloadMonsterModes(bAsync, pUnit);
+    GFX_PreloadMonsterModes(bAsync, pUnit);
     return 0x3B;
 }
 
 // 0x00470040
-static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
+static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
 {
     for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
     {
@@ -853,7 +855,7 @@ static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
 
 void __stdcall sub_Emit_00470040(int bAsync, D2UnitStrc* pUnit)
 {
-    sub_00470040_PreloadPlayerModes(bAsync, pUnit);
+    GFX_PreloadPlayerModes(bAsync, pUnit);
 }
 
 #include "gen/data/Source/D2Client/ENGINE/Gfx_0046E100.inc"
@@ -870,7 +872,7 @@ inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
 }
 
 // 0x004706E0
-void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY)
+void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     int nUnitType = pUnit->dwUnitType;
@@ -891,7 +893,7 @@ void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent
 
     int nWeaponClassCode;
     const int nWeaponClass = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassCode, nMode, 0);
-    if (!sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClass, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nWeaponClass, -1))
+    if (!GFXUTIL_FindGfxListNode(pUnit, nWeaponClass, -1) && !GFX_LoadUnitGfxNode(pUnit, nWeaponClass, -1))
     {
         return;
     }
@@ -918,7 +920,7 @@ void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent
     memset(&tContext, 0, sizeof(tContext));
 
     int nOut;
-    if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, PATH_GetDirection(pPath), pUnit->nSeqCurrentFramePrecise >> 8, &nOut, nComponent, -1) && sub_006001F0(&tContext, 0, 1))
+    if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, PATH_GetDirection(pPath), pUnit->nSeqCurrentFramePrecise >> 8, &nOut, nComponent, -1) && sub_006001F0(&tContext, 0, 1))
     {
         D2_ASSERT(tContext.pCel, 0xD7A);
         *pOffsetX = CelGetOffsetX(tContext.pCel);
@@ -927,7 +929,7 @@ void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent
 }
 
 // 0x00470860
-int __fastcall sub_00470860_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int nOriginY, int nX, int nY)
+int __fastcall GFX_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int nOriginY, int nX, int nY)
 {
     D2UnitStrc* pOwner;
     D2InventoryStrc* pInventory;
@@ -942,9 +944,9 @@ int __fastcall sub_00470860_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int 
 
     int nWeaponClassCode;
     const int nWeaponClass = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassCode, -1, 1);
-    if (!sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClass, -1))
+    if (!GFXUTIL_FindGfxListNode(pUnit, nWeaponClass, -1))
     {
-        sub_0046FA80_LoadGfxNode(pUnit, nWeaponClass, -1);
+        GFX_LoadUnitGfxNode(pUnit, nWeaponClass, -1);
     }
 
     int nUnitType = pUnit->dwUnitType;

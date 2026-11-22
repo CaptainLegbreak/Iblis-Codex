@@ -41,11 +41,11 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);  
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
-int __cdecl sub_0044DCA0_GetGameType();                                                                     // 0x0044DCA0
+int __cdecl GAME_GetLadderFlag();                                                                     // 0x0044DCA0
 
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                          // 0x0046ACE0
 
@@ -109,9 +109,9 @@ struct D2MissileStrc;
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -733,10 +733,10 @@ static void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nMonsterI
         return;
     }
 
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
+    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
     {
         return;
     }
@@ -1119,7 +1119,7 @@ static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* ws
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, sub_0044DCA0_GetGameType(), sub_0044DCD0_GetDifficulty(), pMonStatsTxt->nLevel[sub_0044DCD0_GetDifficulty()], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, GAME_GetLadderFlag(), GAME_GetDifficulty(), pMonStatsTxt->nLevel[GAME_GetDifficulty()], 8, &monStatsInit);
     int nMin = monStatsInit.nA1MinD;
     int nMax = monStatsInit.nA1MaxD;
     int nPercent = 0;
@@ -1227,7 +1227,7 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
 
 static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
 {
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
         sub_004EC220_AddSkillElemDamage(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt, 0);
@@ -1489,7 +1489,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 31:
     {
-        D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(sub_0044DCD0_GetDifficulty());
+        D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(GAME_GetDifficulty());
         const int nDivisor = pDifficultyLevelsTxt->dwAiCurseDivisor;
         sub_004EDB30_AddSeconds(nDivisor > 0 ? nCalcA / nDivisor : nCalcA, nStringA, 0, wszText);
         break;
@@ -1816,7 +1816,7 @@ int __fastcall SKILLDESC_CltDoTargetPrgOverlay(D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -1841,7 +1841,7 @@ int __fastcall SKILLDESC_CltDoTargetPrgOverlay(D2UnitStrc* pUnit, int nSkillId, 
         nSound = pSkillsTxtRecord->wPrgSound;
     }
 
-    sub_00470390(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
+    GFX_AddUnitOverlay(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
     sub_004B9A00(nSound, pUnit, 0, 0, 0);
     return 1;
 }
@@ -1874,7 +1874,7 @@ int __fastcall SKILLDESC_CltDoPrgOverlay(D2UnitStrc* pUnit, int nSkillId, int nS
         nSound = pSkillsTxtRecord->wPrgSound;
     }
 
-    sub_00470390(pUnit, nOverlay, 2, 0, 0, 0, 0, 0);
+    GFX_AddUnitOverlay(pUnit, nOverlay, 2, 0, 0, 0, 0, 0);
     sub_004B9A00(nSound, pUnit, 0, 0, 0);
     return 1;
 }
@@ -1972,7 +1972,7 @@ int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nS
         sub_004CD540_CreateMissile(&tMissileParams);
     }
 
-    if (!sub_004648F0_GetPathTargetUnit(pUnit) && pMissile)
+    if (!CUNIT_GetPathTargetUnit(pUnit) && pMissile)
     {
         const short nSound = pSkillsTxtRecord->wTgtSound;
         if (nSound > 0)

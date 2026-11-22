@@ -15,9 +15,10 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 static inline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int nRadius) {
  return nY+nRadius>=pCoords->nSubtileY || nY-nRadius<=pCoords->nSubtileHeight+pCoords->nSubtileY;
 }
-static int sub_00641930_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
+// build: symbol ?SKILLS_IsPointNearRoom@* 0x004C5BD0
+static int SKILLS_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
 // 0x00641930
-static int sub_00641930_IsPointNearRoom(D2ActiveRoomStrc* pRoom,int nX,int nY,int nRadius) {
+static int SKILLS_IsPointNearRoom(D2ActiveRoomStrc* pRoom,int nX,int nY,int nRadius) {
  D2DrlgCoordsStrc tCoords;
  DUNGEON_GetRoomCoordinates(pRoom,&tCoords);
  if(nX+nRadius>=tCoords.nSubtileX) return IsNearRoomY(&tCoords,nY,nRadius);
@@ -56,7 +57,7 @@ D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom,int nX,int nY,D2Uni
  int nRooms;
  DUNGEON_GetAdjacentRoomsListFromRoom(pRoom,&ppRoomList,&nRooms);
  for(int i=0;i<nRooms;++i) {
-  if(!sub_00641930_IsPointNearRoom(ppRoomList[i],nX,nY,2)) continue;
+  if(!SKILLS_IsPointNearRoom(ppRoomList[i],nX,nY,2)) continue;
   for(D2UnitStrc* pUnit=ppRoomList[i]->pUnitFirst;pUnit;pUnit=pUnit->ptRoomNext) {
    if(IsTarget(pUnit)) {
     int nUnitSize=UNITS_GetUnitSizeX(pUnit);

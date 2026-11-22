@@ -20,7 +20,7 @@ struct D2ChatMessageStrc
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" size_t __cdecl strlen(const char* sz);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
+D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 void __stdcall sub_Z12_EmitUse(int nValue);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
@@ -30,7 +30,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -68,7 +68,7 @@ static int sub_0047C100(char* szInput, const char* szCommand)
                 }
                 if (nTokens == 1)
                 {
-                    D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
+                    D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
                     if (pNotify)
                         pNotify->pfnResign(szInput);
                     return 1;
@@ -231,13 +231,13 @@ static void __stdcall sub_0047F490_ShowSlotTooltip(int nX, int nY, int nKind)
     if (bHasKey && nHotKey != 0x39)
     {
         Unicode wszKey[30];
-        if (sub_00469AA0(nHotKey, 1) != 0xFFFF)
+        if (CUNIT_GetHotkeyBinding(nHotKey, 1) != 0xFFFF)
         {
             memset(wszKey, 0, sizeof(wszKey));
             sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 1));
             sub_00526700(wszText, wszKey);
         }
-        if (sub_00469AA0(nHotKey, 0) != 0xFFFF)
+        if (CUNIT_GetHotkeyBinding(nHotKey, 0) != 0xFFFF)
         {
             memset(wszKey, 0, sizeof(wszKey));
             sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 0));

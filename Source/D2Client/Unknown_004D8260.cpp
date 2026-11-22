@@ -24,7 +24,7 @@ struct D2SkillsTxt;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
+void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -41,7 +41,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
-void __fastcall sub_004C9060_DrawRotated(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
+void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -123,7 +123,7 @@ void __fastcall sub_004D8260_CltDoMissileSpray(D2UnitStrc* pMissile)
         sub_004CD540_CreateMissile(&tParams);
     }
 
-    sub_004D30C0_CltDoCommon(pMissile);
+    MISSILE_CltDoCommon(pMissile);
 }
 
 // 0x004D8400
@@ -139,7 +139,7 @@ void __fastcall sub_004D8400_CltDoRotateTarget(D2UnitStrc* pMissile)
         PATH_SetTargetPos(pPath, nX + nDY, nY - nDX);
         D2Common_10142(pPath, pMissile, 0);
     }
-    sub_004D30C0_CltDoCommon(pMissile);
+    MISSILE_CltDoCommon(pMissile);
 }
 
 // 0x004D84C0
@@ -158,7 +158,8 @@ static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
     return 0;
 }
 
-void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg)
+// build: symbol ?PLRSKILLS_SkillSeqDoForward@* 0x004D8520
+void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -175,7 +176,7 @@ void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg)
     switch (pSkillsTxtRecord->wSrvDoFunc)
     {
     case 0x4C:
-        sub_004C9060_DrawRotated(pUnit, nArg, 1);
+        SKILLS_RotateUnitDirection(pUnit, nArg, 1);
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)
@@ -184,12 +185,14 @@ void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg)
     }
 }
 
-void __fastcall sub_004D85B0_SkillSeqDo1Thunk(D2UnitStrc* pUnit, int nArg)
+// build: symbol ?PLRSKILLS_CallSkillSeqDoForward@* 0x004D85B0
+void __fastcall PLRSKILLS_CallSkillSeqDoForward(D2UnitStrc* pUnit, int nArg)
 {
-    sub_004D8520_SkillSeqDo1(pUnit, nArg);
+    PLRSKILLS_SkillSeqDoForward(pUnit, nArg);
 }
 
-void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg)
+// build: symbol ?PLRSKILLS_SkillSeqDoBackward@* 0x004D85C0
+void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -206,7 +209,7 @@ void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg)
     switch (pSkillsTxtRecord->wSrvDoFunc)
     {
     case 0x4C:
-        sub_004C9060_DrawRotated(pUnit, nArg, 0);
+        SKILLS_RotateUnitDirection(pUnit, nArg, 0);
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)

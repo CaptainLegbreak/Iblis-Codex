@@ -98,7 +98,7 @@ struct D2HoverTextPacketStrc
 
 #pragma pack(pop)
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound);
 
@@ -156,11 +156,11 @@ struct D2QuestTableStrc
     int nQuestId;
 };
 
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
+D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
 int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 
@@ -212,7 +212,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -405,11 +405,11 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
 int __cdecl sub_00466DC0(); // 0x00466DC0
 
-int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
 static int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate);
 
@@ -522,7 +522,7 @@ void __fastcall TEXT_HandleNpcTextPacket(D2HoverTextPacketStrc* pPacket)
 {
     if (pPacket->nType == 1)
     {
-        D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, 1);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 1);
         if (pUnit && pPacket->nArg == 1 && pPacket->nMode == 3)
         {
             if (pUnit->pHoverText)
@@ -547,7 +547,7 @@ void __fastcall TEXT_HandleNpcTextPacket(D2HoverTextPacketStrc* pPacket)
     }
     else if (pPacket->nType == 2)
     {
-        D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, 2);
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 2);
         if (pPacket->nMode == 3)
         {
             sub_004A1510_ShowTextBox(pPacket->wStringId);
@@ -606,7 +606,7 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
 
     pMsg->nCelId = gaQuestTable_00723F30[nIndex].nCelId2;
     pMsg->nCelId2 = gaQuestTable_00723F30[nIndex].nCelId;
-    D2BitBufferStrc* pQuestInfo = sub_004B32D0();
+    D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
     D2BitBufferStrc* pQuestHistory = sub_004B32E0_GetQuestHistory();
     unsigned char nStep = gabQuestFlagsA_007BF356[nIndex];
     pMsg->nStep = nStep;
@@ -917,13 +917,13 @@ static void sub_004A2220_SetQuestPage(int nPageArg)
     switch (nPage)
     {
     case 4:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0x1A, 0)) nPage = 3;
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x1A, 0)) nPage = 3;
     case 3:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0x17, 0)) nPage = 2;
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x17, 0)) nPage = 2;
     case 2:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 0xF, 0)) nPage = 1;
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0xF, 0)) nPage = 1;
     case 1:
-        if (!QUESTRECORD_GetQuestState(sub_004B32D0(), 7, 0)) nPage = 0;
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 7, 0)) nPage = 0;
     }
     gnIndex_007BF2B9 = -1;
     gnIndex_007BF2B5 = -1;
@@ -988,7 +988,7 @@ static int __stdcall sub_004A26F0_GetTabAtPoint(int nY, int nX)
         return -1;
     }
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (FOG_IsExpansion() && sub_0044DCC0())
+    if (FOG_IsExpansion() && GAME_IsExpansion())
     {
         int i = 0;
         for (int n = 0; n < 0x140; n += 0x40, ++i)
@@ -1083,7 +1083,7 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
     char szPath[260];
 
     gnIndex_007BF2B9 = -1;
-    if ((!FOG_IsExpansion() || !sub_0044DCC0()) && nPage == 4)
+    if ((!FOG_IsExpansion() || !GAME_IsExpansion()) && nPage == 4)
     {
         return;
     }
@@ -1093,7 +1093,7 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
         if (!gapCelFiles_007BF2E1[i])
         {
             sprintf(szPath, "%s\\ui\\menu\\%s", gszDataGlobal_006D4118, gaszQuestCelNames_006DA2C8[i]);
-            gapCelFiles_007BF2E1[i] = sub_004788B0(szPath, 0);
+            gapCelFiles_007BF2E1[i] = ARCHIVE_LoadClientCellFile(szPath, 0);
         }
     }
 
@@ -1206,7 +1206,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         nIndex = sub_004A26F0_GetTabAtPoint(nY, nX);
         if (nIndex != -1)
         {
-            if (nIndex < 5 && nIndex != gnGlobal_007C0255 && ((FOG_IsExpansion() && sub_0044DCC0()) || nIndex != 4))
+            if (nIndex < 5 && nIndex != gnGlobal_007C0255 && ((FOG_IsExpansion() && GAME_IsExpansion()) || nIndex != 4))
             {
                 sub_004A2760(gnGlobal_007C0255);
                 sub_004A2220_SetQuestPage(nIndex);
@@ -1268,9 +1268,9 @@ int __fastcall TEXT_TestQuestCondition(int nCondition)
                 break;
             }
 
-            if (!sub_004B32D0() || QUESTRECORD_GetQuestState(sub_004B32D0(), nQuestId, 1)
-                || QUESTRECORD_GetQuestState(sub_004B32D0(), nQuestId, 0)
-                || QUESTRECORD_GetQuestState(sub_004B32D0(), nQuestId, 0xE))
+            if (!MONSTER_GetQuestFlags() || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 1)
+                || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 0)
+                || QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), nQuestId, 0xE))
             {
                 break;
             }
@@ -1320,7 +1320,7 @@ static inline int sub_KEYCFG_TrackCels()
 // 0x004A43E0
 void __cdecl TEXT_InitKeyConfigEntries()
 {
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         gpListEntries_00724264 = gaEntries_00724468;
         gnEntryCount_007C0274 = 62;
@@ -1450,7 +1450,7 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nPercent = 100;
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 398);
 
     const int nMonsterId = sub_00466DC0();
@@ -1459,9 +1459,9 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 2, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 2, &monStatsInit);
     int nDefense = monStatsInit.nAC;
-    if (pMonStatsTxtRecord->nAlign != 1 && !sub_0044DCC0() && sub_0044DCD0_GetDifficulty())
+    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
     {
         nDefense = nDefense * 10 / 12;
     }

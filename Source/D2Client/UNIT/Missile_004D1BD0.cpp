@@ -27,20 +27,20 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
-D2UnitStrc* __fastcall sub_004CE320(D2UnitStrc* pMissile, int nArg1, int nArg2, int nArg3); // 0x004CE320
-void __fastcall sub_004CE420(D2UnitStrc* pMissile); // 0x004CE420
-void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
+void __fastcall MISSILE_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
+D2UnitStrc* __fastcall MISSILE_SpawnAtRandomUnitInRange(D2UnitStrc* pMissile, int nArg1, int nArg2, int nArg3); // 0x004CE320
+void __fastcall MISSILE_InitCltParamMotion(D2UnitStrc* pMissile); // 0x004CE420
+void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-D2UnitStrc* __fastcall sub_004639B0_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
-void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
+D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
+void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
-void __fastcall sub_004DA6E0_SetMotionFlag20(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
+void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
@@ -149,7 +149,7 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
     }
     if (!pMissilesTxt || pMissilesTxt->wCltSubMissile[0] < 0)
     {
-        sub_004CD390_CltDoDefault(pMissile);
+        MISSILE_CltDoDefault(pMissile);
         return;
     }
 
@@ -172,7 +172,7 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
     }
     if (!pSkillsTxt)
     {
-        sub_004CD390_CltDoDefault(pMissile);
+        MISSILE_CltDoDefault(pMissile);
         return;
     }
 
@@ -182,15 +182,15 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
     int nValue2 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->dwCalc[1], nSkillId, tLocal.nLevel);
     if (nValue2 && tLocal.nValue1 > 0)
     {
-        D2UnitStrc* pTarget = sub_004CE320(pMissile, tLocal.nValue1, nValue2, tLocal.nRange);
+        D2UnitStrc* pTarget = MISSILE_SpawnAtRandomUnitInRange(pMissile, tLocal.nValue1, nValue2, tLocal.nRange);
         if (pTarget)
         {
-            sub_004CE420(pTarget);
+            MISSILE_InitCltParamMotion(pTarget);
         }
-        sub_004D30C0_CltDoCommon(pMissile);
+        MISSILE_CltDoCommon(pMissile);
         return;
     }
-    sub_004CD390_CltDoDefault(pMissile);
+    MISSILE_CltDoDefault(pMissile);
 }
 
 inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
@@ -209,11 +209,11 @@ void __fastcall sub_004D6FA0_CltDoLinked(D2UnitStrc* pMissile)
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
     if (!pPath)
     {
-        sub_004D30C0_CltDoCommon(pMissile);
+        MISSILE_CltDoCommon(pMissile);
         return;
     }
 
-    D2UnitStrc* pLinked = sub_004639B0_FindServerSideUnit(sub_0064A730_GetMissileTargetStatus(pMissile), 3);
+    D2UnitStrc* pLinked = CUNIT_FindServerSideUnit(sub_0064A730_GetMissileTargetStatus(pMissile), 3);
     if (pLinked)
     {
         int nState = sub_0064A730_GetMissileTargetStatus(pLinked);
@@ -227,32 +227,32 @@ void __fastcall sub_004D6FA0_CltDoLinked(D2UnitStrc* pMissile)
             {
             case 4:
                 sub_004DA690_ReplaceMotionFlag1With8(pMissile);
-                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, 20, 1);
-                sub_004DA2A0_SetMotionVectorC(pMissile, 0, 0, 400, 0);
-                sub_004DA6E0_SetMotionFlag20(pMissile, 1);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 20, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 400, 0);
+                MISSILE_SetMotionFlagMask(pMissile, 1);
                 D2Common_10142(pPath, pMissile, 0);
-                sub_004D30C0_CltDoCommon(pMissile);
+                MISSILE_CltDoCommon(pMissile);
                 return;
 
             case 3:
                 sub_004DA690_ReplaceMotionFlag1With8(pMissile);
-                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, -6, 1);
-                sub_004DA2A0_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40), 0);
-                sub_004DA6E0_SetMotionFlag20(pMissile, 0);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40), 0);
+                MISSILE_SetMotionFlagMask(pMissile, 0);
                 D2Common_10142(pPath, pMissile, 0);
-                sub_004D30C0_CltDoCommon(pMissile);
+                MISSILE_CltDoCommon(pMissile);
                 return;
 
             case 2:
                 PATH_SetVelocity(pPath, 0, gszMissileSourceFile_006DAEF4, 6004);
                 sub_004DA690_ReplaceMotionFlag1With8(pMissile);
-                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, 6, 1);
-                sub_004DA2A0_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40) + 170, 0);
-                sub_004DA6E0_SetMotionFlag20(pMissile, 1);
+                GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 6, 1);
+                GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40) + 170, 0);
+                MISSILE_SetMotionFlagMask(pMissile, 1);
                 D2COMMON_10170_PathSetTargetPos(pPath, CLIENTS_GetUnitX(pLinked), CLIENTS_GetUnitY(pLinked));
                 PATH_SetVelocity(pPath, 0x300, gszMissileSourceFile_006DAEF4, 6012);
                 D2Common_10142(pPath, pMissile, 0);
-                sub_004D30C0_CltDoCommon(pMissile);
+                MISSILE_CltDoCommon(pMissile);
                 return;
             }
         }
@@ -260,8 +260,8 @@ void __fastcall sub_004D6FA0_CltDoLinked(D2UnitStrc* pMissile)
         {
             MISSILE_SetTargetY(pMissile, 1);
             sub_004DA690_ReplaceMotionFlag1With8(pMissile);
-            sub_004DA200_SetMotionVectorB(pMissile, 0, 0, 1, 1);
-            sub_004D30C0_CltDoCommon(pMissile);
+            GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 1, 1);
+            MISSILE_CltDoCommon(pMissile);
             return;
         }
         else if (nPrevState == 1)
@@ -283,5 +283,5 @@ void __fastcall sub_004D6FA0_CltDoLinked(D2UnitStrc* pMissile)
         }
     }
 
-    sub_004D30C0_CltDoCommon(pMissile);
+    MISSILE_CltDoCommon(pMissile);
 }

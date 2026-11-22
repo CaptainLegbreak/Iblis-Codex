@@ -9,7 +9,7 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                               
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                  // 0x00650E40
 int __fastcall SEED_GetRandomValue(int nValue);
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                           // 0x0045C390
-D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                               // 0x004788B0
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                               // 0x004788B0
 int __stdcall D2GFX_GetResolutionMode();                                                                     // 0x004F5160
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                      // 0x00620650
@@ -25,7 +25,8 @@ extern int gaCloudY_007B5790[10];
 extern int gaCloudSpeed_007B57B8[10];
 extern int gaCloudX_007B5BE8[10];
 
-static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer)
+// build: symbol ?VIEW_DrawSummitBackdrop@* 0x00476460
+static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
 {
     if (gdwGlobal_007A0620)
     {
@@ -55,14 +56,14 @@ static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer)
     {
         char szPath[260];
         strcpy(szPath, "data\\global\\ui\\summit01");
-        gpSummitCel_007B9554 = sub_004788B0(szPath, 0);
+        gpSummitCel_007B9554 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
     if (!gpCloudCel_007B9558)
     {
         char szPath[260];
         strcpy(szPath, "data\\global\\ui\\cloud01");
-        gpCloudCel_007B9558 = sub_004788B0(szPath, 0);
+        gpCloudCel_007B9558 = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
     D2GfxDataStrc tGfxData = {};
@@ -181,19 +182,19 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                        // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
 int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
-void __cdecl sub_004DED20_UpdateRoomColor();                                                                 // 0x004DED20
+void __cdecl MISSILE_UpdateRoomColor();                                                                 // 0x004DED20
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
-void __cdecl sub_00476290_DrawStarfield();
-void __fastcall sub_00478A00(void* pCel);                                                                    // 0x00478A00
+void __cdecl VIEW_DrawStarfield(); // 0x00476290
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                    // 0x00478A00
 void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
 void __fastcall sub_004DED10(void* pArg);                                                                    // 0x004DED10
 void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
 void __fastcall sub_004DF1C0(D2ViewStrc* pView);
 void __fastcall sub_004DEA70(D2ViewStrc* pView);
-void __cdecl sub_00475B20_DebugDrawLights();                                                                 // 0x00475B20
+void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
 void __cdecl sub_00473910();
-void __cdecl sub_004DC000_DrawFadeBox();                                                                     // 0x004DC000
+void __cdecl GFXUTIL_DrawFadeBox();                                                                     // 0x004DC000
 extern int gnGlobal_007B9534;                                                                                // 0x007B9534
 extern int gnGlobal_007B9538;                                                                                // 0x007B9538
 extern int gnGlobal_007B8D20;                                                                                // 0x007B8D20
@@ -235,28 +236,28 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
         sub_00475800_RunLightPass();
     }
 
-    sub_004DED20_UpdateRoomColor();
+    MISSILE_UpdateRoomColor();
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
     {
-        sub_00476290_DrawStarfield();
+        VIEW_DrawStarfield();
     }
 
     if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ROCKYSUMMIT)
     {
-        sub_00476460_DrawSummitBackdrop(pPlayer);
+        VIEW_DrawSummitBackdrop(pPlayer);
     }
     else
     {
         if (gpSummitCel_007B9554)
         {
-            sub_00478A00(gpSummitCel_007B9554);
+            ARCHIVE_FreeClientCellFile(gpSummitCel_007B9554);
             gpSummitCel_007B9554 = 0;
         }
         if (gpCloudCel_007B9558)
         {
-            sub_00478A00(gpCloudCel_007B9558);
+            ARCHIVE_FreeClientCellFile(gpCloudCel_007B9558);
             gpCloudCel_007B9558 = 0;
         }
     }
@@ -278,9 +279,9 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
     }
     if (gnGlobal_007B9564)
     {
-        sub_00475B20_DebugDrawLights();
+        DLIGHTMAP_DebugDrawLights();
     }
     SCALE_SetDefaultFactor();
     sub_00473910();
-    sub_004DC000_DrawFadeBox();
+    GFXUTIL_DrawFadeBox();
 }

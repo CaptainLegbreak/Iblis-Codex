@@ -42,7 +42,7 @@ extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
 
 extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
 
-extern "C" int __cdecl sub_0044BB80_ShutdownIfActive(); // 0x0044BB80
+extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
 
 

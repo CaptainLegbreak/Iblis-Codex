@@ -24,16 +24,16 @@ void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);               
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 void __fastcall sub_004C21F0(D2UnitStrc* pItem);
 int __fastcall sub_004C1D60(D2UnitStrc* pItem);                                                             // 0x004C1D60
-int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem);                                             // 0x004C1E20
+int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem);                                             // 0x004C1E20
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
+int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 int __cdecl sub_00463DF0();                                                                                 // 0x00463DF0
-int __cdecl sub_0044BFE0();                                                                                 // 0x0044BFE0
+int __cdecl GAME_IsLeftClickRepeating();                                                                                 // 0x0044BFE0
 void __cdecl UI_CancelCursorItemUse();                                                                                // 0x00453EC0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-int __fastcall sub_004538D0(unsigned int nUIVar);                                                    // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar);                                                    // 0x004538D0
 int __fastcall UI_GetUIVarUnchecked(int nUIVar);                                                  // 0x00453A90
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode);                           // 0x00621050
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock);              // 0x0065C1F0
@@ -151,7 +151,7 @@ void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2Invent
 
 static void PANEL_BeltHotkey(int nSlot)
 {
-    if (sub_0044DA30() || sub_00463DF0())
+    if (GAME_IsExitPending() || sub_00463DF0())
     {
         return;
     }
@@ -188,7 +188,7 @@ void __cdecl PANEL_BeltHotkeyFourth()
 // 0x00499BB0
 void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!gdwGlobal_007A061C || sub_0044DA30() || sub_00463DF0())
+    if (!gdwGlobal_007A061C || GAME_IsExitPending() || sub_00463DF0())
     {
         pMsg->bReturn = 0;
         return;
@@ -197,7 +197,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_0044BFE0())
+    if (GAME_IsLeftClickRepeating())
     {
         return;
     }
@@ -206,7 +206,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
     {
         if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
         {
-            if (sub_004538D0(0x1F))
+            if (GAME_GetUIVarState(0x1F))
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
@@ -215,7 +215,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
 
-        if (!sub_004538D0(0x1F))
+        if (!GAME_GetUIVarState(0x1F))
         {
             pMsg->bReturn = 0;
             gbUiRecordMode_007BEF98 = 0;
@@ -249,7 +249,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
 void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30() || sub_00463DF0())
+    if (GAME_IsExitPending() || sub_00463DF0())
     {
         pMsg->bReturn = 0;
         return;

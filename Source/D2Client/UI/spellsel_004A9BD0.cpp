@@ -13,8 +13,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-void __cdecl sub_0044DA40(); // 0x0044DA40
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -48,7 +48,7 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
                 int nCharges;
                 if (SKILLS_GetOwnerGUIDFromSkill(pSkill) != -1 && SKILLS_GetSkillInfo(pSkill, 0, 0, 0, &nCharges) && nCharges <= 0)
                 {
-                    if (sub_004538D0(3))
+                    if (GAME_GetUIVarState(3))
                     {
                         sub_00455F20(3, 1, 0);
                     }
@@ -63,12 +63,12 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
                 sub_00455F20(3, 1, 0);
                 gbGlobal_007C07FC = 0;
                 bHandled = 1;
-                sub_0044DA40();
+                GAME_ResetMouseState();
             }
         }
     }
 
-    if (nStartY <= gnGlobal_00711470 - 49 && !bHandled && sub_004538D0(3))
+    if (nStartY <= gnGlobal_00711470 - 49 && !bHandled && GAME_GetUIVarState(3))
     {
         sub_00455F20(3, 1, 0);
     }

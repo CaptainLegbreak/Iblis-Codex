@@ -15,8 +15,8 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...);                           // 0x004F6890
 void __cdecl sub_00477760_DrawCacheStats(); // 0x00477760
-int __stdcall sub_0044CE60(); // 0x0044CE60
-int __cdecl sub_0044DAF0(); // 0x0044DAF0
+int __stdcall GAME_GetPing(); // 0x0044CE60
+int __cdecl GAME_GetSkippedFrames(); // 0x0044DAF0
 int __cdecl UI_GetGfxMemory(); // 0x0046F980
 int __cdecl UI_GetCofMemoryUsed(); // 0x0046F990
 int __cdecl UI_GetCofMemoryLimit(); // 0x0046F9A0
@@ -50,8 +50,8 @@ void __fastcall sub_00477980()
     if(nElapsed<=FRAME_INTERVAL){++g_007BB398;++g_007BB39C;}
     else {g_007BB394=nNow;g_007BB390=g_007BB398;g_007BB398=0;}
     if(!g_007BB3A4){g_007BB3A0=0;return;}
-    D2GFX_OutputString(SCREEN_X,2,"%d FPS  %d Skip",g_007BB390,sub_0044DAF0());
-    D2GFX_OutputString(SCREEN_RIGHT,2,"Ping: %d",sub_0044CE60());
+    D2GFX_OutputString(SCREEN_X,2,"%d FPS  %d Skip",g_007BB390,GAME_GetSkippedFrames());
+    D2GFX_OutputString(SCREEN_RIGHT,2,"Ping: %d",GAME_GetPing());
     D2MemoryStatusStrc memory;
     memory.dwLength=sizeof(memory);
     GlobalMemoryStatus(&memory);

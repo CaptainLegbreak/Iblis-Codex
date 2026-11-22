@@ -2,7 +2,7 @@
 #include "D2Client.h"
 #include "D2ClientMenus.h"
 
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 int __cdecl NPCMENU_TravelToKurastDocks();                                                                                 // 0x004B51A0
 int __cdecl NPCMENU_TravelToHarrogath();                                                                                 // 0x004B5200
 
@@ -22,7 +22,7 @@ int __cdecl NPCMENU_InitTravelKurastDocksHandler()
 // 0x004B6680
 int __cdecl NPCMENU_InitTravelHarrogathHandler()
 {
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         gnGlobal_00726F7F = 3;
         gpfnGlobal_00726F91 = NPCMENU_TravelToHarrogath;

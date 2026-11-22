@@ -73,9 +73,9 @@ struct D2ClientCharRecordStrc
 
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc); // 0x00409FF0
 
-int __stdcall sub_0044B6B0_ProcessCommandLine(void* pArg); // 0x0044B6B0
+int __stdcall WINMAIN_ProcessCommandLine(void* pArg); // 0x0044B6B0
 
-int __cdecl sub_00451330(); // 0x00451330
+int __cdecl GAME_LoadLngModule(); // 0x00451330
 
 int __fastcall D2Win_10015(); // 0x004F8FE0
 
@@ -93,7 +93,7 @@ void __cdecl sub_00451290_FreeLngModule(); // 0x00451290
 
 void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 
-extern "C" int __cdecl sub_0044BB80_ShutdownIfActive(); // 0x0044BB80
+extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
 extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
 
@@ -235,7 +235,7 @@ void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeig
 
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
@@ -247,13 +247,13 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
-void __cdecl sub_0044D3E0_DrawOverlayA(); // 0x0044D3E0
+void __cdecl GAME_DrawEndGameTitle(); // 0x0044D3E0
 
-void __cdecl sub_0044E5A0_DrawOverlayB(); // 0x0044E5A0
+void __cdecl GAME_DrawEndGameCharInfo(); // 0x0044E5A0
 
-int __fastcall sub_0044D390_GetTextX(unsigned short nStringIndex, int nCenterX); // 0x0044D390
+int __fastcall GAME_GetCenteredTextX(unsigned short nStringIndex, int nCenterX); // 0x0044D390
 
-void __cdecl sub_004684C0(); // 0x004684C0
+void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 
@@ -267,7 +267,7 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
 
 void __fastcall UI_FreeLoadingScreen(); // 0x004547B0
 
-void __fastcall sub_00478130_SetScale(int nValue, int nDivisor); // 0x00478130
+void __fastcall MSG_SetProgress(int nValue, int nDivisor); // 0x00478130
 
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 
@@ -277,11 +277,11 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-void __fastcall sub_00492F40_SetFade(int nMode); // 0x00492F40
+void __fastcall VIEW_InitLifeColors(int nMode); // 0x00492F40
 
-int __fastcall sub_0044DFF0_TimerExpired(D2LoadingTimerStrc* pTimer); // 0x0044DFF0
+int __fastcall GAME_IsTimerExpired(D2LoadingTimerStrc* pTimer); // 0x0044DFF0
 
 void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 
@@ -399,67 +399,67 @@ extern int gnThreadReady_007A064C; // 0x007A064C
 
 extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
 
-void __fastcall sub_0044B440_PushValue(int); // 0x0044B440
+void __fastcall GAME_PushStateValue(int); // 0x0044B440
 
-void __fastcall sub_0044BA20(int); // 0x0044BA20
+void __fastcall GAME_SetResolution(int); // 0x0044BA20
 
-void __cdecl sub_0044C890_ReleaseGameState(); // 0x0044C890
+void __cdecl GAME_ReleaseGameState(); // 0x0044C890
 
-unsigned long __stdcall sub_0044CF20(void*); // 0x0044CF20
+unsigned long __stdcall GAME_RunQServerThread(void*); // 0x0044CF20
 
-int __stdcall sub_0044D100_ShowBetaScreens(int); // 0x0044D100
+int __stdcall GAME_ShowBetaScreens(int); // 0x0044D100
 
-extern "C" void __cdecl sub_0044DCE0_MouseExtTables_451E10(); // 0x0044DCE0
+extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 
-int __fastcall sub_0044E040_TimerRunning(D2LoadingTimerStrc*); // 0x0044E040
+int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc*); // 0x0044E040
 
-void __cdecl sub_0044E200_InitGameState(); // 0x0044E200
+void __cdecl GAME_InitGameState(); // 0x0044E200
 
-int __stdcall sub_0044E400_LoadingTimerCallback(int); // 0x0044E400
+int __stdcall GAME_LoadingTimerCallback(int); // 0x0044E400
 
-int __stdcall sub_0044E770_DrawEndGameScreen(int); // 0x0044E770
+int __stdcall GAME_DrawEndGameScreen(int); // 0x0044E770
 
-int __stdcall sub_0044EFA0_GameFrame(int); // 0x0044EFA0
+int __stdcall GAME_RunGameFrame(int); // 0x0044EFA0
 
-void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
+void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
 int __cdecl UI_IsRecordingEnabled(); // 0x00451910
 
-void __cdecl sub_00451940_InstallRecordHandler(); // 0x00451940
+void __cdecl GAME_InstallRecordHandler(); // 0x00451940
 
 void __cdecl sub_00451970(); // 0x00451970
 
 int __cdecl UI_IsPlaybackEnabled(); // 0x00451980
 
-int __fastcall sub_00451BB0_MessageLoop(D2IdleHandler); // 0x00451BB0
+int __fastcall SCMD_RunMessageLoop(D2IdleHandler); // 0x00451BB0
 
 extern "C" void __fastcall sub_00451DB0_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 
 void __fastcall sub_00451E10_UnregisterMsgHandlers(int,D2MsgHandlerEntryStrc*,int); // 0x00451E10
 
-int __cdecl sub_00451F10_PushRegisterState(); // 0x00451F10
+int __cdecl GAME_PushRegisterState(); // 0x00451F10
 
-int __fastcall sub_004680B0_InitCursor(int); // 0x004680B0
+int __fastcall CURSOR_InitCursor(int); // 0x004680B0
 
-void __cdecl sub_00468170_ShutdownCursor(); // 0x00468170
+void __cdecl CURSOR_ShutdownCursor(); // 0x00468170
 
-void __cdecl sub_00475DF0_BuildLerpTables(); // 0x00475DF0
+void __cdecl DLIGHTMAP_BuildLerpTables(); // 0x00475DF0
 
-void __cdecl sub_00475EF0_FreeLerpTables(); // 0x00475EF0
+void __cdecl VIEW_FreeLerpTables(); // 0x00475EF0
 
 void __fastcall sub_00477CA0_SendPacket67(const char*,int); // 0x00477CA0
 
 void __fastcall sub_00477F70_SendGameLogon(int,int); // 0x00477F70
 
-int __cdecl sub_0047A990(); // 0x0047A990
+int __cdecl DLIGHTMAP_GetClientFlags(); // 0x0047A990
 
-int __fastcall sub_004803C0_InitWarden(int); // 0x004803C0
+int __fastcall WARDENCLIENT_InitWarden(int); // 0x004803C0
 
 void __cdecl sub_00481830(); // 0x00481830
 
-void __fastcall sub_00482260_UpdateSoundSystem(int); // 0x00482260
+void __fastcall SOUNDHDR_UpdateSoundSystem(int); // 0x00482260
 
-void __cdecl sub_00482940_UpdateSound(); // 0x00482940
+void __cdecl SOUNDHDR_ShutdownSound(); // 0x00482940
 
 void __fastcall INV_PlayCinematic(int); // 0x00482EF0
 
@@ -512,16 +512,16 @@ unsigned char* gpSaveBuffer_007A5224; // 0x007A5224
 unsigned int gnSaveBufferSize_007A5228; // 0x007A5228
 
 // 0x0044B8A0
-int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord)
+int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord)
 {
     gpCharRecord_007A0438 = pRecord;
     sub_00409B80(0);
     FOG_SetMemoryPoolSystemMode(0, 1);
     ghInstance_007A043C = hInstance;
     GetModuleFileNameA(hInstance, gszModulePath_007A0320, 0x104);
-    if (!sub_0044B6B0_ProcessCommandLine(pRecord))
+    if (!WINMAIN_ProcessCommandLine(pRecord))
         return 0;
-    if (!sub_00451330())
+    if (!GAME_LoadLngModule())
         return 0;
     D2Win_10015();
     D2Win_10014_SetWndProc((WNDPROC)sub_00451B30_WindowProc);
@@ -545,7 +545,7 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
     sub_00524E40();
     sub_00451290_FreeLngModule();
     PROFCORE_WriteProfileCounters();
-    sub_0044BB80_ShutdownIfActive();
+    GAME_ShutdownIfActive();
     int nResult;
     if (gdwGlobal_0070EE8C)
     {
@@ -690,14 +690,14 @@ int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
 }
 
 // 0x0044BE30
-unsigned short __fastcall sub_0044BE30_SetFlagBits(D2FlagWordStrc* pFlags, unsigned short nValue)
+unsigned short __fastcall GAME_SetFlagWordField(D2FlagWordStrc* pFlags, unsigned short nValue)
 {
     pFlags->wFlags = (pFlags->wFlags & 0xE0FF) | (nValue << 8);
     return pFlags->wFlags;
 }
 
 // 0x0044BE50
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
 {
     int nUnitType = 6;
     if (pUnit)
@@ -705,9 +705,9 @@ int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
     return nUnitType;
 }
 
-// build: symbol ?$S4@?7??sub_00455510_DrawLevelLoadingScreen@@YAXXZ@4IA 0x007A314C
+// build: symbol ?$S4@?7??GAME_DrawLevelLoadingScreen@@YAXXZ@4IA 0x007A314C
 // 0x0044DB60
-void __stdcall sub_0044DB60_PreloadActTiles(unsigned char nAct)
+void __stdcall GAME_PreloadActTiles(unsigned char nAct)
 {
     char szFile[60];
     ++nAct;
@@ -735,7 +735,7 @@ void __stdcall sub_0044DB60_PreloadActTiles(unsigned char nAct)
 }
 
 // 0x0044E5A0
-void __cdecl sub_0044E5A0_DrawOverlayB() {
+void __cdecl GAME_DrawEndGameCharInfo() {
  D2CharInfo* info=sub_0044B7A0_GetCharInfo();
  Unicode nameText[100];
  char name[100];
@@ -773,7 +773,7 @@ void __cdecl sub_0044E5A0_DrawOverlayB() {
 }
 
 // 0x0044E770
-int __stdcall sub_0044E770_DrawEndGameScreen(int nUnused)
+int __stdcall GAME_DrawEndGameScreen(int nUnused)
 {
     D2CelContextStrc tContext;
     char szName[0x104];
@@ -859,22 +859,22 @@ int __stdcall sub_0044E770_DrawEndGameScreen(int nUnused)
             }
 
             sub_00502EF0(3);
-            sub_0044D3E0_DrawOverlayA();
-            sub_0044E5A0_DrawOverlayB();
+            GAME_DrawEndGameTitle();
+            GAME_DrawEndGameCharInfo();
             sub_00502EF0(1);
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = s_pEndGameOkCell_007A06FC;
             tContext.nDirection = 0;
             tContext.nFrame = gdwGlobal_007A0680 != 0;
             sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0x30, gnGlobal_00711470 - 0x50, -1, 5, 0);
-            const int nX = sub_0044D390_GetTextX(0x13EE, gnGlobal_0071146C / 2);
+            const int nX = GAME_GetCenteredTextX(0x13EE, gnGlobal_0071146C / 2);
             int nOffset = 0;
             if (gdwGlobal_007A0680)
             {
                 nOffset = 2;
             }
             D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x13EE), nX - nOffset, gnGlobal_00711470 + nOffset - 0x58, 0, 0);
-            sub_004684C0();
+            CURSOR_DrawCursor();
             D2GFX_EndScene();
         }
         else
@@ -890,12 +890,12 @@ int __stdcall sub_0044E770_DrawEndGameScreen(int nUnused)
 
     if (s_pEndGameCell_007A0700)
     {
-        sub_00478A00(s_pEndGameCell_007A0700);
+        ARCHIVE_FreeClientCellFile(s_pEndGameCell_007A0700);
         s_pEndGameCell_007A0700 = 0;
     }
     if (s_pEndGameOkCell_007A06FC)
     {
-        sub_00478A00(s_pEndGameOkCell_007A06FC);
+        ARCHIVE_FreeClientCellFile(s_pEndGameOkCell_007A06FC);
         s_pEndGameOkCell_007A06FC = 0;
     }
     sub_0044B880_SetValue(0);
@@ -925,44 +925,44 @@ static inline int TimerExpired(D2LoadingTimerStrc* pTimer)
 }
 
 // 0x0044F360
-int __cdecl sub_0044F360_RunGameSession()
+int __cdecl GAME_RunGameSession()
 {
     if(TimerExpired(&gtLoadingTimer_007A0684))sub_0044B880_SetValue(1);
     GetTickCount();
     gtVersionInfo_007A0528.dwSize=sizeof(gtVersionInfo_007A0528);
     if(GetVersionExA(&gtVersionInfo_007A0528))gnVersionValid_007A0644=1;
-    sub_00475DF0_BuildLerpTables();
+    DLIGHTMAP_BuildLerpTables();
     INV_ResetCinematicFlags();
-    sub_00451F10_PushRegisterState();
-    sub_004680B0_InitCursor(0);
+    GAME_PushRegisterState();
+    CURSOR_InitCursor(0);
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2C4,1);
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F348,2);
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F360,2);
     if(gnMode_007A0610!=3 && gnMode_007A0610!=7 && gnMode_007A0610!=9)
     {
-        sub_00477CA0_SendPacket67(gszGameName_007A05DC,sub_0047A990());
+        sub_00477CA0_SendPacket67(gszGameName_007A05DC,DLIGHTMAP_GetClientFlags());
         if(gnMode_007A0610==6 || gnMode_007A0610==8)
         {
             gnThreadStop_007A0648=0;
             gnThreadReady_007A064C=0;
             InitializeCriticalSection(&gtCriticalSection_007A0468);
-            ghThread_007A05BC=CreateThread(0,0,sub_0044CF20,0,0,&gnThreadId_007A05F0);
+            ghThread_007A05BC=CreateThread(0,0,GAME_RunQServerThread,0,0,&gnThreadId_007A05F0);
         }
     }
     else
     {
         sub_00477F70_SendGameLogon(gnServerToken_007A0520,gnServerHash_007A05C0);
-        if(gnMode_007A0610==2 || gnMode_007A0610==3)sub_004803C0_InitWarden(gnServerHash_007A05C0);
+        if(gnMode_007A0610==2 || gnMode_007A0610==3)WARDENCLIENT_InitWarden(gnServerHash_007A05C0);
     }
-    sub_00482260_UpdateSoundSystem(gpClientInfo_007A0438->nSoundArg);
-    sub_0044E200_InitGameState();
+    SOUNDHDR_UpdateSoundSystem(gpClientInfo_007A0438->nSoundArg);
+    GAME_InitGameState();
     if(UI_IsRecordingEnabled() || UI_IsPlaybackEnabled())
     {
         D2MessageStrc tMessage;
         while(PeekMessageA(&tMessage,0,0,0,1)){}
         if(UI_IsPlaybackEnabled())sub_00451970();
-        else if(UI_IsRecordingEnabled())sub_00451940_InstallRecordHandler();
+        else if(UI_IsRecordingEnabled())GAME_InstallRecordHandler();
     }
     FOG_SetMemoryPoolSystemMode(0,0);
     if(gnMode_007A0610==6 || gnMode_007A0610==8)
@@ -971,12 +971,12 @@ int __cdecl sub_0044F360_RunGameSession()
         gnThreadReady_007A064C=1;
         LeaveCriticalSection(&gtCriticalSection_007A0468);
     }
-    sub_00451BB0_MessageLoop(sub_0044EFA0_GameFrame);
+    SCMD_RunMessageLoop(GAME_RunGameFrame);
     GetTickCount();
     D2SOUND_FadeOutMasterVolume(180);
     sub_00481830();
-    if(sub_0044E040_TimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)sub_00451BB0_MessageLoop(sub_0044E400_LoadingTimerCallback);
-    if(UI_IsRecordingEnabled())sub_00451620_WriteRecordFile();
+    if(GAME_IsTimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)SCMD_RunMessageLoop(GAME_LoadingTimerCallback);
+    if(UI_IsRecordingEnabled())RECORD_WriteRecordFile();
     if(gnBetaScreens_007A0600)
     {
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
@@ -984,16 +984,16 @@ int __cdecl sub_0044F360_RunGameSession()
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F348,2);
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F360,2);
         sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F3C0,7);
-        sub_00451BB0_MessageLoop(sub_0044D100_ShowBetaScreens);
+        SCMD_RunMessageLoop(GAME_ShowBetaScreens);
     }
     else if(gnDifficultyDirty_007A0604)
     {
         INV_PlayCinematic(5);
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-        sub_0044DCE0_MouseExtTables_451E10();
-        sub_0044BA20(0);
+        GAME_UnregisterMouseHandlers();
+        GAME_SetResolution(0);
         sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
-        sub_00451BB0_MessageLoop(sub_0044E770_DrawEndGameScreen);
+        SCMD_RunMessageLoop(GAME_DrawEndGameScreen);
     }
     else if(gnPlayCinematic_007A0628)
     {
@@ -1020,18 +1020,18 @@ int __cdecl sub_0044F360_RunGameSession()
         if(bEndGame)
         {
             sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-            sub_0044DCE0_MouseExtTables_451E10();
-            sub_0044BA20(2);
+            GAME_UnregisterMouseHandlers();
+            GAME_SetResolution(2);
             sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
-            sub_00451BB0_MessageLoop(sub_0044E770_DrawEndGameScreen);
+            SCMD_RunMessageLoop(GAME_DrawEndGameScreen);
         }
     }
-    sub_0044C890_ReleaseGameState();
-    sub_00482940_UpdateSound();
-    sub_00475EF0_FreeLerpTables();
-    sub_00468170_ShutdownCursor();
+    GAME_ReleaseGameState();
+    SOUNDHDR_ShutdownSound();
+    VIEW_FreeLerpTables();
+    CURSOR_ShutdownCursor();
     D2Win_10006_ClearDrawCaches();
-    sub_0044B440_PushValue(4);
+    GAME_PushStateValue(4);
     if(gnBetaScreens_007A0600)
     {
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F3C0,7);
@@ -1050,7 +1050,7 @@ int __cdecl sub_0044F360_RunGameSession()
     else
     {
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-        sub_0044DCE0_MouseExtTables_451E10();
+        GAME_UnregisterMouseHandlers();
     }
     if(gnMode_007A0610==2 || gnMode_007A0610==6 || gnMode_007A0610==3 || gnMode_007A0610==7)
         if(gpComInterface_007A05F4)gpComInterface_007A05F4->Close();
@@ -1058,7 +1058,7 @@ int __cdecl sub_0044F360_RunGameSession()
 }
 
 // 0x00453BB0
-void __cdecl sub_00453BB0_DrawEntryList()
+void __cdecl GAME_DrawEntryList()
 {
     sub_0046EFD0_DrawFramedBox(0x78, 0x1E, 0x190, 0x15E, 0, 0);
     D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
@@ -1066,7 +1066,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
     int nY = 2 * gnLineHeight_007111C8 + 0x1E;
     while (pEntry)
     {
-        const char* szName = sub_004795C0_GetEntryName(pEntry);
+        const char* szName = ROSTER_GetEntryName(pEntry);
         Unicode wszName[16] = {};
         sub_00526F20_ToUnicode(wszName, szName, 16);
         const int nRowY = nY + 0x19;
@@ -1114,7 +1114,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
 }
 
 // 0x00454600
-D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells()
+D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells()
 {
     if (!gpBuySellButton_007A287C)
     {
@@ -1126,7 +1126,7 @@ D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells()
 }
 
 // 0x00454740
-void __cdecl sub_00454740_LoadLoadingPalette()
+void __cdecl GAME_LoadLoadingPalette()
 {
     char szPl2[0x104];
     char szPalette[0x104];
@@ -1136,7 +1136,7 @@ void __cdecl sub_00454740_LoadLoadingPalette()
 }
 
 // 0x00455510
-void __cdecl sub_00455510_DrawLevelLoadingScreen()
+void __cdecl GAME_DrawLevelLoadingScreen()
 {
     char szLanguage[4];
     char szAct[32];
@@ -1146,7 +1146,7 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
     {
         if (gpLoadingCell_007A2794)
         {
-            sub_00478A00(gpLoadingCell_007A2794);
+            ARCHIVE_FreeClientCellFile(gpLoadingCell_007A2794);
             gpLoadingCell_007A2794 = 0;
         }
         return;
@@ -1157,10 +1157,10 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     if (nLevelId != s_nLastLevelId)
     {
-        sub_00492F40_SetFade(1);
+        VIEW_InitLifeColors(1);
         if (gpLoadingCell_007A2794)
         {
-            sub_00478A00(gpLoadingCell_007A2794);
+            ARCHIVE_FreeClientCellFile(gpLoadingCell_007A2794);
             gpLoadingCell_007A2794 = 0;
         }
 
@@ -1177,11 +1177,11 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
         s_nLastLevelId = nLevelId;
     }
 
-    if (sub_0044DFF0_TimerExpired(&s_tTimer))
+    if (GAME_IsTimerExpired(&s_tTimer))
     {
         if (gpLoadingCell_007A2794)
         {
-            sub_00478A00(gpLoadingCell_007A2794);
+            ARCHIVE_FreeClientCellFile(gpLoadingCell_007A2794);
             gpLoadingCell_007A2794 = 0;
         }
         return;
@@ -1215,11 +1215,11 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen()
 }
 
 // 0x00456550
-void __cdecl sub_00456550_LoadLoadingScreen()
+void __cdecl GAME_LoadLoadingScreen()
 {
     char szPath[0x104];
     UI_FreeLoadingScreen();
-    sub_00454740_LoadLoadingPalette();
+    GAME_LoadLoadingPalette();
     if (STRTABLE_GetLanguage())
     {
         sprintf(szPath, "%s\\UI\\LoadingScreen", gszDataLocal_006D41A8);
@@ -1231,7 +1231,7 @@ void __cdecl sub_00456550_LoadLoadingScreen()
     gpLoadingScreen_007A2888 = sub_004788B0_LoadCellFile(szPath, 0);
     gnLoadingFrame_007A2A6C = 0;
     gdwGlobal_007A2868 = 1;
-    sub_00478130_SetScale(0, 0);
+    MSG_SetProgress(0, 0);
     gnValue_007A27B8 = gnValue_007A0624;
 }
 
@@ -1263,7 +1263,7 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 }
 
 // 0x0045C520
-void __cdecl sub_0045C520_SaveCharFile()
+void __cdecl GAME_SaveCharFile()
 {
     char szPath[500];
     char szDir[0x400];

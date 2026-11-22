@@ -4,8 +4,8 @@
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
@@ -34,7 +34,7 @@ static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBo
 // 0x00493760
 void __stdcall sub_00493760_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!sub_0044DCC0())
+    if (!GAME_IsExpansion())
     {
         return;
     }
@@ -75,7 +75,7 @@ void __stdcall sub_00493760_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x004938E0
 void __stdcall sub_004938E0_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!sub_0044DCC0())
+    if (!GAME_IsExpansion())
     {
         return;
     }
@@ -97,7 +97,7 @@ void __stdcall sub_004938E0_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
-        if (!sub_004538D0(0x23) || sub_004538D0(0x24) || sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
+        if (!GAME_GetUIVarState(0x23) || GAME_GetUIVarState(0x24) || sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
         {
             return;
         }

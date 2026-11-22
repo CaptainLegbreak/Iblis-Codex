@@ -52,27 +52,27 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2StateOwnerStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
-void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
-static void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay);
+void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
+static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay); // 0x0046E040
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
-extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
+extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-void* __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
-D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
-void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
+void* __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
+D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
+void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
-int __stdcall sub_004DA0B0_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
-int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit); // 0x004DA0D0
-int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit); // 0x004DA0F0
-int __stdcall sub_004DA1B0_GetMotionRawAZ(D2UnitStrc* pUnit); // 0x004DA1B0
+int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
+int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
+int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit); // 0x004DA0F0
+int __stdcall GFXUTIL_GetMotionRawAZ(D2UnitStrc* pUnit); // 0x004DA1B0
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
-int __fastcall sub_004DB090_GetCofLayerShadow(void* pGfx, int nLayer); // 0x004DB090
-int __fastcall sub_004DB180_IsGfxUnitType(D2UnitStrc* pUnit); // 0x004DB180
-void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
+int __fastcall GFXUTIL_GetCofLayerShadow(void* pGfx, int nLayer); // 0x004DB090
+int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit); // 0x004DB180
+void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
+int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 void __stdcall TEXTURE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
 int __stdcall SCALE_CheckPerspectivePosition(int nX, int nY); // 0x004F66E0
@@ -98,7 +98,7 @@ static unsigned int sub_0046DB90_HashName(const char* szName)
 }
 
 // 0x0046DBF0
-static void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest)
+static void __fastcall GFX_GetBaseName(const char* szPath, char* szDest)
 {
     const int nPathLength = strlen(szPath);
     if (szPath[nPathLength - 4] == 0x2E)
@@ -116,16 +116,16 @@ static void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest
     }
 }
 
-D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
+D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
 
 // 0x0046DCC0
 static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)
 {
     char szName[0x104] = { 0 };
     char* pName = szName;
-    sub_0046DBF0_GetBaseName(szPath, pName);
+    GFX_GetBaseName(szPath, pName);
     _strlwr(pName);
-    if (!sub_0046DC40_FindHashedEntry(pTable, pName))
+    if (!GFX_FindHashedEntry(pTable, pName))
     {
         D2HashedFileEntryStrc* pEntry = (D2HashedFileEntryStrc*)FOG_Alloc(sizeof(D2HashedFileEntryStrc), ".\\ENGINE\\Gfx.cpp", 0xDC, 0);
         memset(pEntry, 0, sizeof(D2HashedFileEntryStrc));
@@ -152,7 +152,7 @@ int __stdcall sub_M274_Emit_0046DCC0(int nMode, int nUnused)
     char szPath[0x110];
     sub_M274_EmitBuildPath(szPath, nMode);
     D2HashedFileStrc* const pTable = &gtHashedFile_007A78F0;
-    if (!sub_0046DC40_FindHashedEntry(pTable, szPath))
+    if (!GFX_FindHashedEntry(pTable, szPath))
     {
         if (!sub_0046DCC0_LoadHashedEntry(pTable, szPath))
             return 0;
@@ -223,7 +223,7 @@ static void __stdcall sub_0046DF40_RecalcStateOverlays(D2StateOwnerStrc* pOwner,
 }
 
 // 0x0046E040
-static void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay)
+static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay)
 {
     D2StateOwnerStrc* ptGfxInfo = sub_00463E10_GetGfxData(pUnit);
     D2_ASSERT(ptGfxInfo, 0x1BF);
@@ -245,7 +245,7 @@ AdvanceToNextNode:
 
     if (pNode->pResource)
     {
-        sub_004743D0_ReleaseOverlayResource(pNode->pResource);
+        DLIGHTMAP_ReleaseLight(pNode->pResource);
         pNode->pResource = 0;
     }
 
@@ -270,7 +270,7 @@ AdvanceToNextNode:
 // calling-convention shim (not game code)
 void __stdcall sub_0046E040_Shim(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay)
 {
-    sub_0046E040_RemoveOverlay(pUnit, pOverlay);
+    GFX_RemoveStateOverlay(pUnit, pOverlay);
 }
 
 inline int UNITS_IsFlag5SetInl(D2UnitStrc* pUnit)
@@ -291,12 +291,12 @@ static inline int IsShapeShifted(D2UnitStrc* pUnit)
 }
 
 // 0x00471620
-int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
+int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
 {
     if (UNITS_IsFlag5SetInl(pUnit) || STATES_CheckState(pUnit, STATE_INVIS))
         return 0;
 
-    if (!sub_004DB180_IsGfxUnitType(pUnit))
+    if (!GFXUTIL_IsPlayerMonsterOrObject(pUnit))
     {
         sub_00471450(pUnit);
         return 1;
@@ -337,7 +337,7 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
     bPerspective = D2GFX_CheckPerspective();
     if (bPerspective)
     {
-        int nHalf = sub_004DA1B0_GetMotionRawAZ(pUnit) / 2;
+        int nHalf = GFXUTIL_GetMotionRawAZ(pUnit) / 2;
         int nPrecX = UNITS_GetPrecisionX(pUnit) - nHalf;
         int nPrecY = UNITS_GetPrecisionY(pUnit) - nHalf;
         if (!SCALE_CheckPerspectivePosition(nPrecX, nPrecY))
@@ -348,12 +348,12 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
         }
 
         SCALE_AdjustPerspectivePosition(nPrecX, nPrecY, 0, &nX, &nY);
-        nX += sub_0045AFC0();
-        nY += sub_0045AFD0_GetMouseYOffset() + 16;
+        nX += PLAYER_GetScreenOffsetX();
+        nY += PLAYER_GetScreenOffsetY() + 16;
     }
     else
     {
-        int nHalf = sub_004DA0F0_GetGfxMotionField3C(pUnit) / 2;
+        int nHalf = ITEM_GetGfxClientZ(pUnit) / 2;
         nX = UNITS_GetClientCoordX(pUnit) + nHalf;
         nY = UNITS_GetClientCoordY(pUnit) + nHalf;
     }
@@ -361,11 +361,11 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
     if (bTownMode)
         nY -= 8;
 
-    nX += sub_004DA0B0_GetGfxOffsetX(pUnit);
-    nY += sub_004DA0D0_GetGfxMotionField38(pUnit);
+    nX += PARTICLE_GetGfxOffsetX(pUnit);
+    nY += ITEM_GetGfxClientY(pUnit);
 
-    nDrawX = nX - sub_0045AFC0() - 2;
-    nDrawY = nY - sub_0045AFD0_GetMouseYOffset();
+    nDrawX = nX - PLAYER_GetScreenOffsetX() - 2;
+    nDrawY = nY - PLAYER_GetScreenOffsetY();
     if (pUnit && pUnit->dwUnitType == UNIT_OBJECT)
     {
         const int nObjectId = pUnit->dwClassId;
@@ -413,16 +413,16 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
         pInventory = pUnit->pInventory;
 
     nWeaponClass = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassId, nMode, 0);
-    if (!sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClass, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nWeaponClass, -1))
+    if (!GFXUTIL_FindGfxListNode(pUnit, nWeaponClass, -1) && !GFX_LoadUnitGfxNode(pUnit, nWeaponClass, -1))
         return 0;
 
-    pGfx = sub_0046E570_GetNodeValue(pUnit, nMode);
+    pGfx = GFX_GetNodeValue(pUnit, nMode);
     if (!pGfx)
         return 0;
 
     pHeader = sub_004DB040_GetLayerHeader(pGfx);
     nDirection = UNITS_GetDirection(pUnit);
-    sub_004DB2E0_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nComponent, &nUnused, pHeader->nArg, 1);
+    GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nComponent, &nUnused, pHeader->nArg, 1);
     pOrder = sub_004DB110_GetLayerOrder(pGfx, nComponent, nFrame);
     D2_ASSERT(pOrder, 0x94E);
 
@@ -438,12 +438,12 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
     {
         int nLayer = pOrder[i];
         D2_ASSERT(nLayer < 16, 0x960);
-        if (sub_004DB090_GetCofLayerShadow(pGfx, nLayer))
+        if (GFXUTIL_GetCofLayerShadow(pGfx, nLayer))
         {
             D2CelContextStrc tContext;
             int nOut;
             memset(&tContext, 0, sizeof(tContext));
-            if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, nDirection, nFrame, &nOut, nLayer, -1))
+            if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrame, &nOut, nLayer, -1))
                 TEXTURE_CelDrawShadow(&tContext, nDrawX, nDrawY);
         }
     }

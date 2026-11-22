@@ -61,25 +61,25 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 
-void __cdecl sub_0044DA40();                                                                                // 0x0044DA40
+void __cdecl GAME_ResetMouseState();                                                                                // 0x0044DA40
 
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
-void __fastcall sub_00464420_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420
+void __fastcall CUNIT_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420
 
-void __fastcall sub_004644E0_PlayerFaceUnit(D2UnitStrc* pUnit);                                             // 0x004644E0
+void __fastcall CUNIT_PlayerFaceUnit(D2UnitStrc* pUnit);                                             // 0x004644E0
 
-void __fastcall sub_00464990(UNITFN pfnCallback);                                                           // 0x00464990
+void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback);                                                           // 0x00464990
 
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
 
@@ -89,7 +89,7 @@ void __cdecl INV_ResetHover();                                                  
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext);                   // 0x0049E7E0
 
-D2TextHeaderStrc* __cdecl sub_0049F900();                                                                   // 0x0049F900
+D2TextHeaderStrc* __cdecl DLIGHTMAP_GetTextHeader();                                                                   // 0x0049F900
 
 void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nArg);                         // 0x004A10E0
 
@@ -123,7 +123,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 void __fastcall sub_004BA840(int nHandle);                                                                  // 0x004BA840
 
-void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit);                                            // 0x004CB190
+void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit);                                            // 0x004CB190
 
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType);                                     // 0x004E0590
 
@@ -273,7 +273,7 @@ static int sub_004B2E30_FindNpcIndex(D2UnitStrc* pRecord)
 // 0x004B6440
 static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
 {
-    if (!FOG_IsExpansion() || !sub_0044DCC0())
+    if (!FOG_IsExpansion() || !GAME_IsExpansion())
     {
         return 0;
     }
@@ -365,10 +365,10 @@ int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue
 
     if (gbGlobal_007C0C69 == 1)
     {
-        if (gwGlobal_007C0C79 != 0xFFFF && (gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0))
+        if (gwGlobal_007C0C79 != 0xFFFF && (gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0))
         {
             gwGlobal_007C0C7B = gwGlobal_007C0C79;
-            sub_004A10E0_ShowNpcMessage(gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0, gwGlobal_007C0C7B, 1);
+            sub_004A10E0_ShowNpcMessage(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0, gwGlobal_007C0C7B, 1);
             sub_004B1980_AddUsedString(gwGlobal_007C0C7B);
             TEXT_SetTextCallback(sub_004B6A30_NpcTextCallback, 0);
             gwGlobal_007C0C77 = gwGlobal_007C0C7B;
@@ -379,7 +379,7 @@ int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue
 
         gbGlobal_007C0C69 = 0;
         TEXT_SetTextCallback(0, 0);
-        const int nIndex = sub_004B2E30_FindNpcIndex(gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0);
+        const int nIndex = sub_004B2E30_FindNpcIndex(gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0);
         if ((!nArg || !nValue) && !sub_004B1A10_IsSpecialNpc(gdwGlobal_007C0D2D) && nIndex >= 0 && NPCMENU_GetInteractNpc()
             && nIndex < gnNpcIndexCount_00725A74 && gaNpcIndex_00726C48[nIndex].bEnabled)
         {
@@ -415,7 +415,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         return;
     }
 
-    D2UnitStrc* pUnit = sub_00463990(nUnitId, nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, nUnitType);
     if (!pUnit)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -431,12 +431,12 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         return;
     }
 
-    sub_00464990(NPCMENU_ClearInteractOverlay);
+    CUNIT_ForEachMonster(NPCMENU_ClearInteractOverlay);
     pUnit->dwFlags |= 2;
     QUESTRECORD_CopyBufferToRecord(gpQuestFlags_007C0D43, pBuffer, 0x60, 0);
     NPCMENU_ResetHandlers();
     sub_004786A0_SendDwords2(0x2F, nUnitType, nUnitId);
-    sub_0044DA40();
+    GAME_ResetMouseState();
 
     if (gaGlobal_007C0C68[0])
     {
@@ -446,15 +446,15 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         return;
     }
 
-    D2TextHeaderStrc* pTextHeader = sub_0049F900();
+    D2TextHeaderStrc* pTextHeader = DLIGHTMAP_GetTextHeader();
     D2_ASSERT(pTextHeader, 0x1060);
 
     const unsigned short wString = TEXT_GetStringIdOfMenuType0Node(pTextHeader, 0);
     const int nClassId = pUnit->dwClassId;
-    if (sub_00457490_CheckMonStatsFlag(nClassId, 9) && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B
+    if (MONSTERUNIQUE_CheckMonStatsFlag(nClassId, 9) && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B
         && nClassId != 0x20F)
     {
-        sub_00464420_TurnTowardPlayer(pUnit);
+        CUNIT_TurnTowardPlayer(pUnit);
     }
 
     if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
@@ -485,7 +485,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         const unsigned short wString2 = TEXT_GetStringIdOfMenuType1Node(pTextHeader, 0);
         if (pUnit->dwClassId != 0x20F)
         {
-            sub_004644E0_PlayerFaceUnit(pUnit);
+            CUNIT_PlayerFaceUnit(pUnit);
         }
         if (pUnit->pDynamicPath)
         {
@@ -503,7 +503,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         else
         {
             const int nClass = pUnit->dwClassId;
-            if (sub_00457490_CheckMonStatsFlag(nClass, 9))
+            if (MONSTERUNIQUE_CheckMonStatsFlag(nClass, 9))
             {
                 if (sub_004B1A10_IsSpecialNpc(nClass))
                 {
@@ -531,7 +531,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
 // 0x004B66B0
 static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
 {
-    sub_0044DA40();
+    GAME_ResetMouseState();
     if (!pUnit)
     {
         gnGlobal_007C0C6B = 0;
@@ -548,11 +548,11 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
 
     if (!bReopen)
     {
-        if (pUnit == (gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0))
+        if (pUnit == (gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0))
         {
             return;
         }
-        if (gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0)
+        if (gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0)
         {
             sub_004B3DE0_CloseNpc();
             return;
@@ -560,7 +560,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     }
     else
     {
-        gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0;
+        gnGlobal_007C0D29 ? CUNIT_FindClientUnit(gnGlobal_007C0D25, 1) : 0;
     }
 
     gnGlobal_007C0D29 = 1;
@@ -649,7 +649,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
         return;
     }
 
-    sub_004CB190_ReleaseSkillSfx(pUnit);
+    UNITSND_ReleaseSkillSfx(pUnit);
     gnNpcSoundHandle_007C0DB8 = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
     if (nType == 2)
     {

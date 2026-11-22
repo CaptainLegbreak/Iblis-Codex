@@ -32,7 +32,7 @@ public:
     virtual int IsTextSquelched(const char* szText);
 };
 
-D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
+D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
@@ -49,7 +49,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __cdecl sub_0044DA40(); // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
@@ -94,7 +94,7 @@ static void sub_0047BD80_CopyCharPart(const char* szSource, char* szDest)
 // 0x0047BDF0
 int __cdecl sub_0047BDF0_HandleBnetChatMessage()
 {
-    D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
+    D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
     if (!pNotify)
         return 0;
 
@@ -336,7 +336,7 @@ void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg) // 0x0047D84
     {
         sub_0047D5C0_ActivateOption(pMsg);
     }
-    sub_0044DA40();
+    GAME_ResetMouseState();
     gbOptionPressed_007BC948 = 0;
     gbOptionDragging_007BC94C = 0;
     pMsg->bReturn = 1;

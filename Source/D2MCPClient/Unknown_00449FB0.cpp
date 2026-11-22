@@ -25,7 +25,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMillisecond
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DEE0
 int __fastcall FOG_SOCKET_GetError(FSafeSock* pSafeSock, unsigned long* pFogError, unsigned long* pWSALastError); // 0x0040E0B0
-int __fastcall sub_0044A1D0_StartConnect(D2LaunchThreadRecordStrc* pRecord);                                // 0x0044A1D0
+int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord);                                // 0x0044A1D0
 int __fastcall sub_0044B1C0_HandlePacket(const unsigned char* pData, unsigned int nSize, int nArg);         // 0x0044B1C0
 void __stdcall sub_006BC010_SetHandler(void* pConnection, D2LaunchPacketHandler pfnHandler, int nArg);      // 0x006BC010
 int __stdcall FOG_ConnectionSend(void* pConnection, const char* pData, int nSize);                           // 0x006BC0B0
@@ -56,7 +56,7 @@ void __stdcall sub_00449FB0_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
 {
     if (!ghConnectEvent_007992EC)
         ghConnectEvent_007992EC = CreateEventA(0, 0, 0, 0);
-    if (sub_0044A1D0_StartConnect(pRecord) == -1)
+    if (WINMAIN_SendMcpStartup(pRecord) == -1)
     {
         gnValue_0079929C = 0xB;
         return;

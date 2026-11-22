@@ -245,9 +245,9 @@ struct D2PropertyAssignStrc
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
-D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nUniqueItemId); // 0x00483470
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nUniqueItemId); // 0x00483470
 
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex); // 0x00483440
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
@@ -2572,7 +2572,7 @@ void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pI
     case 3:
         if (ITEMS_GetFileIndex(pItem) >= 0)
         {
-            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+            D2UniqueItemsTxt* pUniqueItemsTxtRecord = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (pUniqueItemsTxtRecord)
             {
                 for (int i = 0; i < 12; ++i)
@@ -2586,7 +2586,7 @@ void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pI
 
     case 4:
     {
-        D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+        D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
         if (!pSetItemsTxtRecord)
         {
             return;
@@ -2670,10 +2670,11 @@ void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem,
     const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType == 4 && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
     {
-        D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+        D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
         if (pSetItemsTxtRecord)
         {
-            D2SetsTxt* pSetsTxtRecord = sub_00483410_GetSetsTxtRecord(pSetItemsTxtRecord->nSetId);
+// build: symbol ?DATATBLS_GetSetsTxtRecord@* 0x00483410
+            D2SetsTxt* pSetsTxtRecord = DATATBLS_GetSetsTxtRecord(pSetItemsTxtRecord->nSetId);
             if (pSetsTxtRecord)
             {
                 const unsigned int nMask = ITEMS_GetSetItemsMask(pUnit, pItem, 1);

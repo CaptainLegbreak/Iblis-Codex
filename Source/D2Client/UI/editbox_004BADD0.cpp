@@ -2,7 +2,7 @@
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
-void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                   // 0x00478A00
 
 #pragma pack(push, 2)
 
@@ -146,7 +146,7 @@ EditBoxImplementation::~EditBoxImplementation()
         FOG_Free(pTextCopy, ".\\UI\\editbox.cpp", 0x93, 0);
         pTextCopy = 0;
     }
-    sub_00478A00(pCellFile);
+    ARCHIVE_FreeClientCellFile(pCellFile);
 }
 
 // 0x004BB9F0
@@ -158,7 +158,7 @@ EditBoxWrapper::~EditBoxWrapper()
 // 0x004BBE10
 SpinnerImplementation::~SpinnerImplementation()
 {
-    sub_00478A00(pCellFile);
+    ARCHIVE_FreeClientCellFile(pCellFile);
 }
 
 // 0x004BC1C0

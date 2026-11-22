@@ -395,11 +395,11 @@ struct Unit00629EA0
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex); // 0x00483440
 
-D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
@@ -648,7 +648,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 static __declspec(noinline) void __stdcall ITEMS_WriteBitsToBitstream(D2BitBufferStrc* pBuffer, unsigned int nData, int nBits); // 0x0062AF50
 
-D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
+D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 
@@ -690,7 +690,7 @@ struct D2SetsTxt
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
-void* __fastcall sub_004DC0B0_GetNextRosterInfo(D2UnitStrc* pUnit);                                         // 0x004DC0B0
+void* __fastcall PLAYERLIST_GetNextRosterInfo(D2UnitStrc* pUnit);                                         // 0x004DC0B0
 
 void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX);                                          // 0x00620470
 
@@ -756,7 +756,7 @@ int __stdcall DATATBLS_GetMaxLevel(int); // 0x00611830
 
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc*, unsigned int); // 0x00463720
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
 static int __fastcall ITEMS_ApplyAffixLevelRequirement(D2MagicAffixTxt*, D2UnitStrc*, int);
 
@@ -2813,12 +2813,13 @@ unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pS
         return 0;
     }
 
-    D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pSetItem));
+    D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pSetItem));
     if (!pSetItemsTxtRecord)
     {
         return 0;
     }
-    if (!sub_00483410_GetSetsTxtRecord(pSetItemsTxtRecord->nSetId))
+// build: symbol ?DATATBLS_GetSetsTxtRecord@* 0x00483410
+    if (!DATATBLS_GetSetsTxtRecord(pSetItemsTxtRecord->nSetId))
     {
         return 0;
     }
@@ -2834,7 +2835,7 @@ unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pS
                 && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x144E, gszItemsSourceFile_006E1150)
                 && !ITEMS_CheckItemFlag(pItem, 0x100, 0x144F, gszItemsSourceFile_006E1150))
             {
-                D2SetItemsTxt* pRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+                D2SetItemsTxt* pRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (pRecord && pRecord->nSetId == pSetItemsTxtRecord->nSetId)
                 {
                     nMask |= 1 << (unsigned char)pRecord->nSetItems;
@@ -4210,7 +4211,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord_Inl(nState);
                     if (pStatesTxtRecord && pStatesTxtRecord->nItemTrans < 0x15 && ITEMSIsA(pItem, pStatesTxtRecord->wItemType))
                     {
-                        if (D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(sub_00451F60_UnitClassId(pItem)))
+                        if (D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(GAME_GetUnitClassId(pItem)))
                         {
                             return D2CMPPalShiftGetTransform(pItemsTxtRecord->nTransform, pStatesTxtRecord->nItemTrans);
                         }
@@ -4277,7 +4278,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 return 0;
             }
 
-            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+            D2UniqueItemsTxt* pUniqueItemsTxtRecord = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (!pUniqueItemsTxtRecord)
             {
                 return 0;
@@ -4312,7 +4313,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 return 0;
             }
 
-            D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+            D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (!pSetItemsTxtRecord)
             {
                 return 0;
@@ -5054,7 +5055,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
             const int nSetRecordId = BITMANIP_ReadInl(pBuffer, 12);
             if (dwVersion <= 92)
             {
-                D2SetsTxt* pSetsTxtRecord = sub_00483410_GetSetsTxtRecord(nSetRecordId);
+                D2SetsTxt* pSetsTxtRecord = DATATBLS_GetSetsTxtRecord(nSetRecordId);
                 if (pSetsTxtRecord)
                 {
                     int nIndex = -1;
@@ -5083,7 +5084,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
             }
             else
             {
-                D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(nSetRecordId);
+                D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(nSetRecordId);
                 if (pSetItemsTxtRecord)
                 {
                     ITEMS_SetFileIndex(pItem, pSetItemsTxtRecord->wSetItemId);
@@ -5357,7 +5358,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, nState, nFlag);
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(sub_004DC0B0_GetNextRosterInfo(pItem), nFlag, 0, UNIT_ITEM, sub_00451F50_GetUnitGUID(pItem));
+            pStatList = STATLIST_AllocStatList(PLAYERLIST_GetNextRosterInfo(pItem), nFlag, 0, UNIT_ITEM, sub_00451F50_GetUnitGUID(pItem));
             D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
             STATLIST_SetState(pStatList, nState);
         }
@@ -5663,7 +5664,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                     D2Common_10844_ITEMMODS_First(nValue, &nSkillId, &nSkillValue);
 
                     int nMax = 7;
-                    D2ItemStatCostTxt* pSingleSkillTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(107);
+                    D2ItemStatCostTxt* pSingleSkillTxtRecord = PLAYER_GetItemStatCostTxtRecord(107);
                     if (pSingleSkillTxtRecord)
                     {
                         nMax = (1 << pSingleSkillTxtRecord->nSaveBits) - 1;
@@ -6570,7 +6571,7 @@ int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* h
         case 7:
             if (ITEMS_GetFileIndex(hItem) >= 0)
             {
-                D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(hItem));
+                D2UniqueItemsTxt* pUniqueItemsTxtRecord = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(hItem));
                 if (pUniqueItemsTxtRecord)
                 {
                     if (nSellCost > 65535 && pUniqueItemsTxtRecord->dwCostMult)
@@ -6628,7 +6629,7 @@ int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* h
 
         case 5:
         {
-            D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(hItem));
+            D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(hItem));
             if (pSetItemsTxtRecord)
             {
                 if (nSellCost > 65535 && pSetItemsTxtRecord->dwCostMult)
@@ -7565,7 +7566,7 @@ L_NO_RECORD:
                         if (nStatId == 17)
                         {
                     ITEMS_WriteBitsInl(pItemStatCostTxtRecord->nSaveBits, pItemStatCostTxtRecord->dwSaveAdd + nValue, pBuffer);
-                    D2ItemStatCostTxt* pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(18);
+                    D2ItemStatCostTxt* pNextRecord = PLAYER_GetItemStatCostTxtRecord(18);
                     anValues[18] = STATLIST_GetStatValue(pStatList, 18, 0);
                     ITEMS_WriteBitsInl(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[18], pBuffer);
                         }
@@ -7585,7 +7586,7 @@ L_NO_RECORD:
                     else
                     {
                     ITEMS_WriteBitsInl(pItemStatCostTxtRecord->nSaveBits, pItemStatCostTxtRecord->dwSaveAdd + nValue, pBuffer);
-                    D2ItemStatCostTxt* pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(49);
+                    D2ItemStatCostTxt* pNextRecord = PLAYER_GetItemStatCostTxtRecord(49);
                     anValues[49] = STATLIST_GetStatValue(pStatList, 49, 0);
                     ITEMS_WriteBitsInl(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[49], pBuffer);
                     }
@@ -7597,7 +7598,7 @@ L_NO_RECORD:
                 case 50:
                 {
                     ITEMS_WriteBitsCall(pItemStatCostTxtRecord->nSaveBits, pItemStatCostTxtRecord->dwSaveAdd + nValue, pBuffer);
-                    D2ItemStatCostTxt* pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(51);
+                    D2ItemStatCostTxt* pNextRecord = PLAYER_GetItemStatCostTxtRecord(51);
                     anValues[51] = STATLIST_GetStatValue(pStatList, 51, 0);
                     ITEMS_WriteBitsCall(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[51], pBuffer);
                     break;
@@ -7605,7 +7606,7 @@ L_NO_RECORD:
                 case 52:
                 {
                     ITEMS_WriteBitsCall(pItemStatCostTxtRecord->nSaveBits, pItemStatCostTxtRecord->dwSaveAdd + nValue, pBuffer);
-                    D2ItemStatCostTxt* pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(53);
+                    D2ItemStatCostTxt* pNextRecord = PLAYER_GetItemStatCostTxtRecord(53);
                     anValues[53] = STATLIST_GetStatValue(pStatList, 53, 0);
                     ITEMS_WriteBitsCall(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[53], pBuffer);
                     break;
@@ -7613,10 +7614,10 @@ L_NO_RECORD:
                 case 54:
                 {
                     ITEMS_WriteBitsCall(pItemStatCostTxtRecord->nSaveBits, pItemStatCostTxtRecord->dwSaveAdd + nValue, pBuffer);
-                    D2ItemStatCostTxt* pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(55);
+                    D2ItemStatCostTxt* pNextRecord = PLAYER_GetItemStatCostTxtRecord(55);
                     anValues[55] = STATLIST_GetStatValue(pStatList, 55, 0);
                     ITEMS_WriteBitsCall(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[55], pBuffer);
-                    pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(56);
+                    pNextRecord = PLAYER_GetItemStatCostTxtRecord(56);
                     anValues[56] = STATLIST_GetStatValue(pStatList, 56, 0);
                     ITEMS_WriteBitsCall(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[56], pBuffer);
                     break;
@@ -7624,10 +7625,10 @@ L_NO_RECORD:
                 case 57:
                 {
                     ITEMS_WriteBitsCall(pItemStatCostTxtRecord->nSaveBits, pItemStatCostTxtRecord->dwSaveAdd + nValue, pBuffer);
-                    D2ItemStatCostTxt* pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(58);
+                    D2ItemStatCostTxt* pNextRecord = PLAYER_GetItemStatCostTxtRecord(58);
                     anValues[58] = STATLIST_GetStatValue(pStatList, 58, 0);
                     ITEMS_WriteBitsCall(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[58], pBuffer);
-                    pNextRecord = sub_0045C4F0_GetItemStatCostTxtRecord(59);
+                    pNextRecord = PLAYER_GetItemStatCostTxtRecord(59);
                     anValues[59] = STATLIST_GetStatValue(pStatList, 59, 0);
                     ITEMS_WriteBitsCall(pNextRecord->nSaveBits, pNextRecord->dwSaveAdd + anValues[59], pBuffer);
                     break;

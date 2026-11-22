@@ -29,7 +29,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern D2SoundNodeStrc* gpSoundList_007C5458;                                                               // 0x007C5458
 extern int gbSoundReady_007C545C;                                                                           // 0x007C545C
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax);                             // 0x004B93A0
-float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY);                                           // 0x004E4160
+float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY);                                           // 0x004E4160
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle);                                // 0x004CA8D0
 extern "C" void __cdecl sub_004E4280();                                                                     // 0x004E4280
 void __fastcall D2SOUND_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound);               // 0x00516980
@@ -80,7 +80,7 @@ static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecS
     pSound->vPos = *pPos;
     const float fX = sub_004B93A0_ClampFloat(pPos->fX, -2000.0f, 2000.0f);
     const float fY = sub_004B93A0_ClampFloat(pPos->fY, -2000.0f, 2000.0f);
-    pSound->fDistance = sub_004E4160_LengthSquared2D(fX, fY);
+    pSound->fDistance = GFXUTIL_VectorLengthSquared(fX, fY);
 }
 
 // 0x004B99A0

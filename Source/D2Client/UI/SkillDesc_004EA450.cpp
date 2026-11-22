@@ -70,8 +70,8 @@ int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
-int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsigned short nString, int nMax, int nElemType);
 static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt);
 
@@ -948,7 +948,7 @@ static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* ws
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, sub_0044DCA0_GetGameType(), sub_0044DCD0_GetDifficulty(), pMonStatsTxt->nLevel[sub_0044DCD0_GetDifficulty()], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, GAME_GetLadderFlag(), GAME_GetDifficulty(), pMonStatsTxt->nLevel[GAME_GetDifficulty()], 8, &monStatsInit);
     int nMin = monStatsInit.nA1MinD;
     int nMax = monStatsInit.nA1MaxD;
     int nPercent = 0;

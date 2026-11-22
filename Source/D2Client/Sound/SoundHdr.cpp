@@ -19,9 +19,9 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-int __fastcall sub_004DF630_QueryAddress(D2SoundsTxtStrc* pEntry); // 0x004DF630
+int __fastcall ITEM_QueryCacheAddress(D2SoundsTxtStrc* pEntry); // 0x004DF630
 
-void __fastcall sub_00482860_TouchCacheEntry(int nIndex); // 0x00482860
+void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex); // 0x00482860
 
 int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
 
@@ -33,7 +33,7 @@ void __cdecl sub_004B9D20_FreeAllSounds(); // 0x004B9D20
 
 void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
 
-void __cdecl sub_004828B0_ReleaseSoundTables(); // 0x004828B0
+void __cdecl SOUNDHDR_ReleaseSoundTables(); // 0x004828B0
 
 extern int gdwGlobal_007BC9BC; // 0x007BC9BC
 
@@ -103,7 +103,7 @@ unsigned int gnCacheLastLoadTick_007BC9C4; // 0x007BC9C4
 
 unsigned int gnCacheLoading_007BC9C8; // 0x007BC9C8
 
-void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg);
+void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg); // 0x00482970
 
 struct D2SlotStrc;
 
@@ -121,13 +121,13 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-void __cdecl sub_00481950_LoadSoundTables(); // 0x00481950
+void __cdecl SOUNDHDR_LoadSoundTables(); // 0x00481950
 
 void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
 
 extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
 
-void __cdecl sub_004CA280(); // 0x004CA280
+void __cdecl SKILLS_ResetLevelSpeech(); // 0x004CA280
 
 D2SlotStrc* __fastcall SoundChannelFind(int nOwner); // 0x004DF9D0
 
@@ -154,7 +154,7 @@ PlayerListHead* __fastcall sub_0047A310(int playerId);
 
 void* __fastcall Allocate(U32 bytes, const char* file, int line, U32 flags);
 
-void __fastcall sub_004823E0_ReleaseCacheEntry(int nIndex); // 0x004823E0
+void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex); // 0x004823E0
 
 void* __cdecl sub_004646A0();
 
@@ -183,18 +183,18 @@ static int gnSongMax_007BC9B4; // 0x007BC9B4
 static int gnSongMin_007BC9B0; // 0x007BC9B0
 
 // 0x00481720
-static void sub_00481720_FinishCacheLoad(D2SoundsTxtStrc* pEntry)
+static void SOUNDHDR_FinishCacheLoad(D2SoundsTxtStrc* pEntry)
 {
     D2_ASSERT(pEntry->nState == 1, 0x40);
     pEntry->pData = sub_0040A9E0(pEntry->pAsync);
     pEntry->nSize = sub_0040AA40(pEntry->pAsync);
     pEntry->nState = 2;
-    sub_004DF630_QueryAddress(pEntry);
+    ITEM_QueryCacheAddress(pEntry);
     gnCacheLoading_007BC9C8 -= 1;
 }
 
 // 0x00481840
-void __fastcall sub_00481840_SetCacheMax(unsigned int nMax)
+void __fastcall SOUNDHDR_SetCacheMax(unsigned int nMax)
 {
     gnCacheMax_007BC9CC = nMax;
 }
@@ -205,7 +205,7 @@ void __cdecl sub_00481850()
 }
 
 // 0x00481860
-D2SoundsTxtStrc* __fastcall sub_00481860_GetCacheEntry(int nIndex)
+D2SoundsTxtStrc* __fastcall SOUNDHDR_GetSoundRecord(int nIndex)
 {
     if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnSoundsTxtRecordCount_007BC9A4)
         return &sgptSoundHeaderTable[nIndex];
@@ -213,31 +213,31 @@ D2SoundsTxtStrc* __fastcall sub_00481860_GetCacheEntry(int nIndex)
 }
 
 // 0x00481890
-int __fastcall sub_00481890_GetCacheFirst(int nIndex)
+int __fastcall SOUNDHDR_GetGroupStart(int nIndex)
 {
     if (!sgptSoundHeaderTable)
         return 0;
-    return sub_00481860_GetCacheEntry(nIndex)->nGroupStart;
+    return SOUNDHDR_GetSoundRecord(nIndex)->nGroupStart;
 }
 
 // 0x004818C0
-unsigned char __fastcall sub_004818C0_GetCacheCount(int nIndex)
+unsigned char __fastcall SOUNDHDR_GetGroupSize(int nIndex)
 {
     if (!sgptSoundHeaderTable)
         return 0;
-    return sub_00481860_GetCacheEntry(nIndex)->nGroupSize;
+    return SOUNDHDR_GetSoundRecord(nIndex)->nGroupSize;
 }
 
 // 0x004818F0
-int __fastcall sub_004818F0_GetCacheKind(int nIndex)
+int __fastcall SOUNDHDR_GetLoopFlag(int nIndex)
 {
     if (!sgptSoundHeaderTable)
         return 0;
-    return sub_00481860_GetCacheEntry(nIndex)->nLoop;
+    return SOUNDHDR_GetSoundRecord(nIndex)->nLoop;
 }
 
 // 0x00481950
-void __cdecl sub_00481950_LoadSoundTables()
+void __cdecl SOUNDHDR_LoadSoundTables()
 {
     D2BinFieldStrc pTbl2[] =
     {
@@ -371,15 +371,15 @@ void __cdecl sub_00481950_LoadSoundTables()
 }
 
 // 0x00482260
-void __fastcall sub_00482260_UpdateSoundSystem(int nArg)
+void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
 {
     if (!sub_00513B50())
         return;
-    sub_00481950_LoadSoundTables();
+    SOUNDHDR_LoadSoundTables();
     sub_004E0050_RestartSound(nArg);
     sub_004B9D00_ResetSoundState();
     sub_004DCA30();
-    sub_004CA280();
+    SKILLS_ResetLevelSpeech();
 // build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
     D2SOUND_SetMasterVolume(0xFF);
     gdwGlobal_007BC9BC = 0;
@@ -389,39 +389,39 @@ void __fastcall sub_00482260_UpdateSoundSystem(int nArg)
 }
 
 // 0x004822B0
-void __fastcall sub_004822B0_AddVariantRefs(int nIndex, int nDelta)
+void __fastcall SOUNDHDR_AddVariantRefs(int nIndex, int nDelta)
 {
     if (!nIndex)
         return;
-    D2SoundsTxtStrc* pEntry = sub_00481860_GetCacheEntry(nIndex);
+    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (!pEntry)
         return;
     if (!pEntry->nRefCount && nDelta == -1)
         return;
     for (int i = pEntry->nGroupStart; i < pEntry->nGroupStart + pEntry->nGroupSize; i++)
     {
-        D2SoundsTxtStrc* pVariant = sub_00481860_GetCacheEntry(i);
+        D2SoundsTxtStrc* pVariant = SOUNDHDR_GetSoundRecord(i);
         D2_ASSERT(pVariant->nRefCount > 0 || nDelta != -1, 0x1DC);
         pVariant->nRefCount += nDelta;
     }
 }
 
 // 0x00482370
-void __fastcall sub_00482370_ClearVariantRefs(int nIndex)
+void __fastcall SOUNDHDR_ClearVariantRefs(int nIndex)
 {
     if (!nIndex)
         return;
-    D2SoundsTxtStrc* pEntry = sub_00481860_GetCacheEntry(nIndex);
+    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (!pEntry)
         return;
     for (int i = pEntry->nGroupStart; i < pEntry->nGroupStart + pEntry->nGroupSize; i++)
-        sub_00481860_GetCacheEntry(i)->nRefCount = 0;
+        SOUNDHDR_GetSoundRecord(i)->nRefCount = 0;
 }
 
 // 0x004823E0
-void __fastcall sub_004823E0_ReleaseCacheEntry(int nIndex)
+void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex)
 {
-    D2SoundsTxtStrc* pEntry = sub_00481860_GetCacheEntry(nIndex);
+    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (!pEntry->nState)
         return;
     if (SoundChannelFind(nIndex))
@@ -446,9 +446,9 @@ void __fastcall sub_004823E0_ReleaseCacheEntry(int nIndex)
 }
 
 // 0x004825B0
-float __fastcall sub_004825B0_GetCacheVolume(int nIndex)
+float __fastcall SOUNDHDR_GetFalloffVolume(int nIndex)
 {
-    switch (sub_00481860_GetCacheEntry(nIndex)->nFalloff)
+    switch (SOUNDHDR_GetSoundRecord(nIndex)->nFalloff)
     {
     case 0:
         return 60.0f;
@@ -465,9 +465,9 @@ float __fastcall sub_004825B0_GetCacheVolume(int nIndex)
 }
 
 // 0x00482610
-float __fastcall sub_00482610_GetCacheRange(int nIndex)
+float __fastcall SOUNDHDR_GetFalloffRange(int nIndex)
 {
-    switch (sub_00481860_GetCacheEntry(nIndex)->nFalloff)
+    switch (SOUNDHDR_GetSoundRecord(nIndex)->nFalloff)
     {
     case 0:
         return 400.0f;
@@ -483,11 +483,11 @@ float __fastcall sub_00482610_GetCacheRange(int nIndex)
 }
 
 // 0x00482680
-int __fastcall sub_00482680_PickVariant(int nIndex)
+int __fastcall SOUNDHDR_PickVariant(int nIndex)
 {
     if (!sgptSoundHeaderTable)
         return nIndex;
-    D2SoundsTxtStrc* pEntry = sub_00481860_GetCacheEntry(nIndex);
+    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     const unsigned char nVariants = pEntry->nGroupSize;
     if (nVariants <= 1)
         return nIndex;
@@ -514,9 +514,9 @@ int __fastcall sub_00482680_PickVariant(int nIndex)
 }
 
 // 0x00482710
-void __fastcall sub_00482710_GetCachePath(int nIndex, char* szPath)
+void __fastcall SOUNDHDR_GetSoundPath(int nIndex, char* szPath)
 {
-    D2SoundsTxtStrc* pEntry = sub_00481860_GetCacheEntry(nIndex);
+    D2SoundsTxtStrc* pEntry = SOUNDHDR_GetSoundRecord(nIndex);
     if (nIndex >= 0xB76 && nIndex <= 0xB76 + 0x6BA)
         strcpy(szPath, "DATA\\LOCAL");
     else
@@ -532,15 +532,15 @@ void __fastcall sub_00482710_GetCachePath(int nIndex, char* szPath)
 }
 
 // 0x00482860
-void __fastcall sub_00482860_TouchCacheEntry(int nIndex)
+void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex)
 {
-    sub_00481860_GetCacheEntry(nIndex)->dwLastUse = gdwGlobal_007BC9BC;
+    SOUNDHDR_GetSoundRecord(nIndex)->dwLastUse = gdwGlobal_007BC9BC;
     D2SOUND_ListRemove(&gpCacheList_007BC9B8, nIndex);
     D2SOUND_ListAddTail(&gpCacheList_007BC9B8, nIndex);
 }
 
 // 0x004828B0
-void __cdecl sub_004828B0_ReleaseSoundTables()
+void __cdecl SOUNDHDR_ReleaseSoundTables()
 {
     if (sgptSoundEnvironTable)
     {
@@ -551,7 +551,7 @@ void __cdecl sub_004828B0_ReleaseSoundTables()
     if (sgptSoundHeaderTable)
     {
         for (int index = 1; index < gnSoundsTxtRecordCount_007BC9A4; index += 1)
-            sub_004823E0_ReleaseCacheEntry(index);
+            SOUNDHDR_ReleaseCacheEntry(index);
         FOG_Free(sgptSoundHeaderTable, ".\\Sound\\SoundHdr.cpp", 398, 0);
         sgptSoundHeaderTable = 0;
         gnSoundsTxtRecordCount_007BC9A4 = 0;
@@ -561,7 +561,7 @@ void __cdecl sub_004828B0_ReleaseSoundTables()
 }
 
 // 0x00482940
-void __cdecl sub_00482940_UpdateSound()
+void __cdecl SOUNDHDR_ShutdownSound()
 {
     if (!sub_00513B50())
         return;
@@ -569,11 +569,11 @@ void __cdecl sub_00482940_UpdateSound()
     sub_004BAAB0();
     sub_004B9D20_FreeAllSounds();
     sub_004E00C0_CloseSoundChannels();
-    sub_004828B0_ReleaseSoundTables();
+    SOUNDHDR_ReleaseSoundTables();
 }
 
 // 0x00482970
-void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
+void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
 {
     D2SoundsTxtStrc* pEntry;
     if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnSoundsTxtRecordCount_007BC9A4)
@@ -591,7 +591,7 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
         return;
     if (pEntry->nState == 1 && bDirect)
     {
-        sub_00481720_FinishCacheLoad(pEntry);
+        SOUNDHDR_FinishCacheLoad(pEntry);
         return;
     }
     if (pEntry->nState)
@@ -626,9 +626,9 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
         pEntry->pData = ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szPath, &pEntry->nSize, ".\\Sound\\SoundHdr.cpp", 0x301);
         D2_ASSERT(pEntry->pData && pEntry->nSize, 0x302);
         gdwCacheUsed_007BC9D0 += pEntry->nSize;
-        sub_00482860_TouchCacheEntry(nIndex);
+        SOUNDHDR_TouchCacheEntry(nIndex);
         pEntry->nState = 2;
-        sub_004DF630_QueryAddress(pEntry);
+        ITEM_QueryCacheAddress(pEntry);
         return;
     }
 
@@ -638,14 +638,14 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
         const unsigned int nAsyncSize = sub_0040AA40(pEntry->pAsync);
         gdwCacheUsed_007BC9D0 += nAsyncSize;
         pEntry->nSize = nAsyncSize;
-        sub_00482860_TouchCacheEntry(nIndex);
+        SOUNDHDR_TouchCacheEntry(nIndex);
         gnCacheLoading_007BC9C8 += 1;
         pEntry->nState = 1;
     }
 }
 
 // 0x00482B40
-void __fastcall sub_00482B40_UpdateCache(unsigned int nTick)
+void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
 {
     if (!sgptSoundHeaderTable)
         return;
@@ -666,10 +666,10 @@ void __fastcall sub_00482B40_UpdateCache(unsigned int nTick)
                 if (nTick - gnCacheLastLoadTick_007BC9C4 < 0xFA)
                     continue;
             }
-            sub_00482970_LoadCacheEntry(i, bForce, 1);
+            SOUNDHDR_LoadCacheEntry(i, bForce, 1);
         }
         if (pEntry->nState == 1 && sub_0040A7F0_AsyncDataCheck(pEntry->pAsync))
-            sub_00481720_FinishCacheLoad(pEntry);
+            SOUNDHDR_FinishCacheLoad(pEntry);
     }
     gnCacheLastTick_007BC9C0 = nTick;
 }

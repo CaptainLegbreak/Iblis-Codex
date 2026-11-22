@@ -208,7 +208,7 @@ void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2Uni
 
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
 
-int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                                             // 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId);                                             // 0x00463900
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
 
@@ -323,7 +323,7 @@ struct D2UnkNecSkillStrc
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
 
@@ -2441,7 +2441,7 @@ int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pPet);
             if (pAiControl)
                 AITHINK_SetAiControlParams(pAiControl, nExpireFrame, -666, -666);
-            if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) == 1)
+            if (GAME_GetUnitTypeOrInvalid(pUnit) == 1)
                 SUNIT_SetAlignment(pPet, STATLIST_GetUnitAlignment(pUnit), 1);
         }
     }
@@ -4022,7 +4022,8 @@ int __fastcall SKILLS_SrvDo071_Taunt(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             break;
         }
 
-        D2ItemStatCostTxt* pItemStatCostTxtRecord = sub_0045C4F0_GetItemStatCostTxtRecord(pSkillsTxtRecord->wAuraStat[i]);
+// build: symbol ?PLAYER_GetItemStatCostTxtRecord@* 0x0045C4F0
+        D2ItemStatCostTxt* pItemStatCostTxtRecord = PLAYER_GetItemStatCostTxtRecord(pSkillsTxtRecord->wAuraStat[i]);
         if (!pItemStatCostTxtRecord)
         {
             break;

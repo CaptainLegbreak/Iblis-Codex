@@ -269,7 +269,7 @@ int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
 typedef void (__fastcall* RemoveCallback)(D2UnitStrc*,int,D2StatListStrc*);
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
@@ -760,7 +760,7 @@ int __fastcall SKILLITEM_pSpell03_Potion(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         {
         case 6: bUpdateLife = 1;
         case 74:
-            if (!sub_0044BE50_GetUnitTypeOrInvalid(pUnit))
+            if (!GAME_GetUnitTypeOrInvalid(pUnit))
                 nValue = SKILLS_SharePotionLifeWithBloodGolem(pGame, pUnit, nValue);
             break;
         }
@@ -782,11 +782,11 @@ int __fastcall SKILLITEM_pSpell03_Potion(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             const int nExpireFrame = pGame->dwGameFrame + nOldLength + nLength;
             if (!pStatList)
             {
-                pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
+                pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
                 if (!pStatList) continue;
                 STATLIST_SetState(pStatList, nState);
                 STATES_ToggleState(pUnit, nState, 1);
-                if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit))
+                if (GAME_GetUnitTypeOrInvalid(pUnit))
                 {
                     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
                     EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
@@ -844,7 +844,7 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
   if(value<=0)continue;
   switch(stat){
    case 6:updateLife=1;
-   case 74:if(!sub_0044BE50_GetUnitTypeOrInvalid(unit))value=SKILLS_SharePotionLifeWithBloodGolem(game,unit,value);break;
+   case 74:if(!GAME_GetUnitTypeOrInvalid(unit))value=SKILLS_SharePotionLifeWithBloodGolem(game,unit,value);break;
   }
   if(duration<=0){
    const int current=STATLIST_UnitGetStatValue(unit,stat,0);
@@ -858,11 +858,11 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
    int expiry=game->dwGameFrame+remaining+duration;
    if(!list){
     int const nUnitGUID = sub_00451F50_GetUnitGUID(unit);
-    list=STATLIST_AllocStatList(game->pMemoryPool,2,expiry,sub_0044BE50_GetUnitTypeOrInvalid(unit),nUnitGUID);
+    list=STATLIST_AllocStatList(game->pMemoryPool,2,expiry,GAME_GetUnitTypeOrInvalid(unit),nUnitGUID);
     if(!list)continue;
     STATLIST_SetState(list,state);
     STATES_ToggleState(unit,state,1);
-    if(sub_0044BE50_GetUnitTypeOrInvalid(unit)){
+    if(GAME_GetUnitTypeOrInvalid(unit)){
      sub_00540E60(game,unit,3,0);
      EVENT_SetEvent(game,unit,3,game->dwGameFrame+1,0,0);
     }
@@ -957,7 +957,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
                 case 6:
                     bAffectsHitpoints = 1;
                 case 74:
-                    if (!sub_0044BE50_GetUnitTypeOrInvalid(pUnit))
+                    if (!GAME_GetUnitTypeOrInvalid(pUnit))
                     {
                         nAddValue = SKILLS_SharePotionLifeWithBloodGolem(pGame, pUnit, nAddValue);
                     }
@@ -980,7 +980,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
                     const int nExpireFrame = pGame->dwGameFrame + nRemainingDuration + nLength;
                     if (!pStatList)
                     {
-                        pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
+                        pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, GAME_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
                         if (!pStatList)
                         {
                             continue;
@@ -989,7 +989,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
                         STATLIST_SetState(pStatList, nState);
                         STATES_ToggleState(pUnit, nState, 1);
 
-                        if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit))
+                        if (GAME_GetUnitTypeOrInvalid(pUnit))
                         {
                             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
                             EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
@@ -1086,7 +1086,8 @@ int __fastcall SKILLITEM_pSpell09_StaminaPotion(D2GameStrc* pGame, D2UnitStrc* p
     for (int i = 0; i < 3; ++i)
     {
         const int nStatId = pItemsTxtRecord->wStat[i];
-        if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount && sub_0045C4F0_GetItemStatCostTxtRecord(nStatId))
+// build: symbol ?PLAYER_GetItemStatCostTxtRecord@* 0x0045C4F0
+        if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount && PLAYER_GetItemStatCostTxtRecord(nStatId))
         {
             const int nValue = ITEMMODS_EvaluateItemFormula(pUnit, pItem, pItemsTxtRecord->dwCalc[i]);
             if (nValue)

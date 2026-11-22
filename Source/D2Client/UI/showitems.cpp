@@ -60,9 +60,9 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
 
-extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
+extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
-extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
 void __fastcall UI_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
 
@@ -258,8 +258,8 @@ void __cdecl sub_004C0810_DrawUnitNames()
             }
             else
             {
-                nX=UNITS_GetClientCoordX(pItem)-sub_0045AFC0();
-                nY=UNITS_GetClientCoordY(pItem)+(-16-sub_0045AFD0_GetMouseYOffset());
+                nX=UNITS_GetClientCoordX(pItem)-PLAYER_GetScreenOffsetX();
+                nY=UNITS_GetClientCoordY(pItem)+(-16-PLAYER_GetScreenOffsetY());
                 nBottom=nY;
             }
             int nMinX=0;

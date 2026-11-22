@@ -51,17 +51,17 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nAffix); // 0x00633EE0
 int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwFlag); // 0x00463720
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex); // 0x00483440
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pUnit); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pUnit); // 0x0063DFA0
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStat, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
-int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, unsigned short nLayer); // 0x00625480
 
 #define UNIT_ITEM 4
@@ -214,7 +214,7 @@ int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
     case ITEMQUAL_UNIQUE:
         if (ITEMS_GetFileIndex(pItem) >= 0)
         {
-            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+            D2UniqueItemsTxt* pUniqueItemsTxtRecord = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (pUniqueItemsTxtRecord)
             {
                 if (!pPlayer || sub_00463720_TestUnitFlagEx(pPlayer, UNITFLAGEX_ISEXPANSION) || ITEMS_GetItemFormat(pItem) >= 1)
@@ -230,7 +230,7 @@ int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         break;
     case ITEMQUAL_SET:
     {
-        D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+        D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
         if (pSetItemsTxtRecord)
         {
             const int nLevelReq = pSetItemsTxtRecord->wLvlReq;
@@ -293,9 +293,9 @@ int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         {
             int nRequiredLevelForSkill;
             signed char nCharClass;
-            if (pPlayer && !sub_0044BE50_GetUnitTypeOrInvalid(pPlayer) && (nCharClass = pSkillsTxtRecord->nCharClass) >= 0)
+            if (pPlayer && !GAME_GetUnitTypeOrInvalid(pPlayer) && (nCharClass = pSkillsTxtRecord->nCharClass) >= 0)
             {
-                if (nCharClass < 7 && (unsigned char)sub_00451F60_UnitClassId(pPlayer) == nCharClass)
+                if (nCharClass < 7 && (unsigned char)GAME_GetUnitClassId(pPlayer) == nCharClass)
                 {
                     nRequiredLevelForSkill = pSkillsTxtRecord->wReqLevel;
                 }

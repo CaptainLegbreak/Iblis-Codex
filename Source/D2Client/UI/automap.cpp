@@ -279,7 +279,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 int gdwGlobal_007A520C; // 0x007A520C
 
@@ -349,23 +349,23 @@ extern "C" int __stdcall SRegLoadValue(const char* szKeyName, const char* szValu
 
 void __cdecl AUTOMAP_ReloadAutomapCels(); // 0x0045A2B0
 
-int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
+int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
-void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
+void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 
-void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 
-void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BD6D0
+void __fastcall OBJECT_HandleObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BD6D0
 
-void __fastcall sub_004C1B80_ItemCommand(int nCommand, D2UnitStrc* pUnit, int nParam1, int nParam2); // 0x004C1B80
+void __fastcall ITEM_HandleItemCommand(int nCommand, D2UnitStrc* pUnit, int nParam1, int nParam2); // 0x004C1B80
 
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 
-D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
+D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
@@ -454,7 +454,7 @@ struct D2PacketTableEntryStrc
     D2PacketHandlerFn f_8;
 };
 
-void __fastcall sub_00451D10_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
+void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -464,11 +464,11 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
 
-int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
+int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
 
-int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit); // 0x004AE380
+int __fastcall MONSTER_IsMinionMonster(D2UnitStrc* pUnit); // 0x004AE380
 
-void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId); // 0x004ADEA0
+void __fastcall MONSTER_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId); // 0x004ADEA0
 
 D2AutomapCellStrc* __cdecl AUTOMAP_AllocAutomapCell(); // 0x00457C30
 
@@ -492,7 +492,7 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
-int __fastcall sub_00476AC0_GetViewShift(int* pX, int* pY); // 0x00476AC0
+int __fastcall VIEW_GetViewShift(int* pX, int* pY); // 0x00476AC0
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
@@ -524,7 +524,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 
 void __fastcall sub_004742D0(D2GfxLightStrc* pLight, int nRadius); // 0x004742D0
 
-void __fastcall sub_00474390_SetRecordBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
+void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
 
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 
@@ -534,7 +534,7 @@ unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 void __stdcall sub_00650C60_UpdatePath(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
 
@@ -580,9 +580,9 @@ struct D2AutomapRecordStrc;
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
-void __cdecl sub_00470290_FreeHashedFiles(); // 0x00470290
+void __cdecl GFX_FreeHashedFiles(); // 0x00470290
 
-int __cdecl sub_00492C10(); // 0x00492C10
+int __cdecl VIEW_IsPetIconVisible(); // 0x00492C10
 
 void __stdcall D2CMPTileCacheDestroy(int bFree); // 0x005FDE10
 
@@ -912,7 +912,7 @@ void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc
     D2_ASSERT(hWnd, 0x166);
     for (unsigned int i = 0; i < nCount; ++i)
     {
-        sub_00451D10_UnregisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
+        SCMD_UnregisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
     }
 }
 
@@ -929,11 +929,11 @@ int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg)
         return 0;
     }
     gwszHoverName_007A2F38[0].wChar = 0;
-    if (!sub_004AE360_IsUniqueMonster(pUnit) && !sub_004AE380_IsMinionMonster(pUnit))
+    if (!MONSTER_IsUniqueMonster(pUnit) && !MONSTER_IsMinionMonster(pUnit))
     {
         return 0;
     }
-    sub_004ADEA0_GetMonsterName(pUnit, gwszHoverName_007A2F38, 0x100, nArg);
+    MONSTER_GetMonsterName(pUnit, gwszHoverName_007A2F38, 0x100, nArg);
     return 1;
 }
 
@@ -942,7 +942,7 @@ void __fastcall AUTOMAP_FreeCaches(int bFree)
 {
     D2CMPTileCacheDestroy(bFree);
     D2CMPSpriteCacheDestroy(bFree);
-    sub_00470290_FreeHashedFiles();
+    GFX_FreeHashedFiles();
 }
 
 // 0x00457440
@@ -953,9 +953,9 @@ void __fastcall sub_00457440_Nop(int nUnused)
 // 0x00457520
 void __cdecl AUTOMAP_UpdateAutomapLayout()
 {
-    if (gnGlobal_007A51F0 != sub_00492C10() && gdwGlobal_007A5150 == 1)
+    if (gnGlobal_007A51F0 != VIEW_IsPetIconVisible() && gdwGlobal_007A5150 == 1)
     {
-        gnGlobal_007A51F0 = sub_00492C10();
+        gnGlobal_007A51F0 = VIEW_IsPetIconVisible();
         sub_00457640(1);
         return;
     }
@@ -968,7 +968,7 @@ void __cdecl AUTOMAP_UpdateAutomapLayout()
     if (gdwGlobal_007A51E0)
     {
         gnMiniMapX_007A51DC = 0;
-        gnMiniMapY_007A51D8 = sub_00492C10() ? 0x60 : 0;
+        gnMiniMapY_007A51D8 = VIEW_IsPetIconVisible() ? 0x60 : 0;
     }
     else
     {
@@ -1828,7 +1828,7 @@ void __cdecl AUTOMAP_FreeAutomapCels()
     {
         if (gpAutomapCels_007A5168[i])
         {
-            sub_00478A00(gpAutomapCels_007A5168[i]);
+            ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
         }
         gpAutomapCels_007A5168[i] = 0;
     }
@@ -1876,7 +1876,7 @@ void __cdecl AUTOMAP_FreeAutomap()
     {
         if (gpAutomapCels_007A5168[i])
         {
-            sub_00478A00(gpAutomapCels_007A5168[i]);
+            ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
         }
         gpAutomapCels_007A5168[i] = 0;
     }
@@ -2043,7 +2043,7 @@ void __cdecl AUTOMAP_UpdateAutomapOrigin()
     int nY = UNITS_GetClientCoordY(pPlayer);
     gdwGlobal_007A520C = nX - gnGlobal_0071146C / 2;
     gdwGlobal_007A5208 = nY - gnGlobal_00711470 / 2 + 0x10;
-    if (sub_00476AC0_GetViewShift(&nShiftX, &nShiftY))
+    if (VIEW_GetViewShift(&nShiftX, &nShiftY))
     {
         gdwGlobal_007A520C += nShiftX;
         gdwGlobal_007A5208 += nShiftY;
@@ -2285,7 +2285,7 @@ void __fastcall AUTOMAP_SetUnitLightColor(D2UnitStrc* pUnit, int nColor)
         nGreen = (unsigned char)(nColor >> 8);
         nBlue = (unsigned char)nColor;
     }
-    sub_00474390_SetRecordBytes(pLight, nRed, nGreen, nBlue);
+    SCMD_SetLightColorBytes(pLight, nRed, nGreen, nBlue);
 }
 
 // 0x00461AC0
@@ -2337,7 +2337,7 @@ void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg
     if (nMode >= PLAYER_MODE_WALK && (nMode <= PLAYER_MODE_RUN || nMode == PLAYER_MODE_6))
     {
         bMove = 1;
-        pTargetUnit = sub_004648F0_GetPathTargetUnit(pUnit);
+        pTargetUnit = CUNIT_GetPathTargetUnit(pUnit);
         if (!pTargetUnit)
         {
             sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);
@@ -2352,13 +2352,13 @@ void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg
         {
             tTarget.nParam1 = pTargetUnit->dwUnitType;
             tTarget.nParam2 = pTargetUnit->dwUnitId;
-            sub_00461250_QueueMove(nMode == PLAYER_MODE_RUN ? 0x18 : 0, pUnit, &tTarget, 0);
+            PLAYER_ApplyUnitCommand(nMode == PLAYER_MODE_RUN ? 0x18 : 0, pUnit, &tTarget, 0);
         }
         else
         {
             tTarget.nParam1 = nX;
             tTarget.nParam2 = nY;
-            sub_00461250_QueueMove(nMode == PLAYER_MODE_RUN ? 0x17 : 1, pUnit, &tTarget, 0);
+            PLAYER_ApplyUnitCommand(nMode == PLAYER_MODE_RUN ? 0x17 : 1, pUnit, &tTarget, 0);
         }
     }
 }
@@ -2397,13 +2397,13 @@ void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValu
         D2UnitOverlayStrc* pNext = pOverlay->pNext;
         if (pOverlay->nOverlay == nValue)
         {
-            sub_0046E040_RemoveOverlay(pUnit, pOverlay);
+            GFX_RemoveStateOverlay(pUnit, pOverlay);
             return;
         }
         const int nType = pOverlay->nType;
         if ((nType == 4 || nType == 9) && (pOverlay->nUnk0x08 == nValue || pOverlay->f_C == nValue))
         {
-            sub_0046E040_RemoveOverlay(pUnit, pOverlay);
+            GFX_RemoveStateOverlay(pUnit, pOverlay);
             return;
         }
         pOverlay = pNext;
@@ -2416,15 +2416,15 @@ int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2Un
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        return sub_00461250_QueueMove(nCommand, pUnit, pTarget, nArg);
+        return PLAYER_ApplyUnitCommand(nCommand, pUnit, pTarget, nArg);
     case UNIT_MONSTER:
-        sub_004AFF60_MonsterCommand(nCommand, pUnit, pTarget);
+        MONSTER_HandleMonsterCommand(nCommand, pUnit, pTarget);
         return 1;
     case UNIT_OBJECT:
-        sub_004BD6D0_ObjectCommand(nCommand, pUnit, pTarget);
+        OBJECT_HandleObjectCommand(nCommand, pUnit, pTarget);
         return 1;
     case UNIT_ITEM:
-        sub_004C1B80_ItemCommand(nCommand, pUnit, pTarget->nParam1, pTarget->nParam2);
+        ITEM_HandleItemCommand(nCommand, pUnit, pTarget->nParam1, pTarget->nParam2);
         return 1;
     }
     return 1;
@@ -2462,7 +2462,7 @@ D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, 
     {
         return 0;
     }
-    return sub_004CDBA0_SubmitOwnerRequest(pUnit, nRequest, nX, nY, nArg3, nArg4);
+    return MISSILE_SubmitOwnerRequest(pUnit, nRequest, nX, nY, nArg3, nArg4);
 }
 
 #include "gen/data/Source/D2Client/UI/automap.inc"

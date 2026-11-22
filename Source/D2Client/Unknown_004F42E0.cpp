@@ -7,10 +7,10 @@
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc*); // 0x00620250
-int __fastcall sub_004C7BD0_GetMeleeRangePlus4(D2UnitStrc*); // 0x004C7BD0
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
+int __fastcall SKILLS_GetExtendedMeleeRange(D2UnitStrc*); // 0x004C7BD0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc*, int, int, int, int, int, int*); // 0x004C5EB0
-int __fastcall sub_004C5E30_ScanCount(D2UnitStrc*, int, int, int, int); // 0x004C5E30
+int __fastcall SKILLS_ScanCount(D2UnitStrc*, int, int, int, int); // 0x004C5E30
 void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc*, int); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc*, int); // 0x006445E0
@@ -47,8 +47,8 @@ int __fastcall sub_004F42E0_SkillStartMeleeTarget(D2UnitStrc* unit, int skillId,
     if (!record) return 0;
     D2SkillStrc* skill = UNITS_GetUsedSkill(unit);
     if (!skill) return 0;
-    int range = sub_004C7BD0_GetMeleeRangePlus4(unit);
-    D2UnitStrc* target = sub_004648F0_GetPathTargetUnit(unit);
+    int range = SKILLS_GetExtendedMeleeRange(unit);
+    D2UnitStrc* target = CUNIT_GetPathTargetUnit(unit);
     int count = 0;
     if (!target)
     {
@@ -61,7 +61,7 @@ int __fastcall sub_004F42E0_SkillStartMeleeTarget(D2UnitStrc* unit, int skillId,
     }
     else
     {
-        count = sub_004C5E30_ScanCount(unit, 0, 0, range, 0x20003);
+        count = SKILLS_ScanCount(unit, 0, 0, range, 0x20003);
     }
     int max = SKILLS_EvaluateSkillFormula(unit, record->dwCalc[0], skillId, skillLevel);
     if (count >= max)

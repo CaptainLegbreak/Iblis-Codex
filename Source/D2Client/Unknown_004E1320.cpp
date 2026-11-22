@@ -13,7 +13,7 @@ struct D2MissilesTxt;
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-void __fastcall sub_004CED60(D2UnitStrc* pMissile, int nX, int nY, int nCount, int nMissile, int nSkill, int nLevel, int nPerStep, int nMult); // 0x004CED60
+void __fastcall MISSILE_CreateBurstAt(D2UnitStrc* pMissile, int nX, int nY, int nCount, int nMissile, int nSkill, int nLevel, int nPerStep, int nMult); // 0x004CED60
 static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -41,6 +41,6 @@ int __fastcall sub_004E1320(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
     if (nCount < MIN_COUNT)
         nCount = MIN_COUNT;
     int nPerStep = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCltCalc[0], nSkillId, nSkillLevel);
-    sub_004CED60(pUnit, nTargetX, nTargetY, nCount, nMissile, nSkillId, nSkillLevel, nPerStep, BURST_MULT);
+    MISSILE_CreateBurstAt(pUnit, nTargetX, nTargetY, nCount, nMissile, nSkillId, nSkillLevel, nPerStep, BURST_MULT);
     return 1;
 }

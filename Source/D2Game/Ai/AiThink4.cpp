@@ -343,7 +343,7 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitS
 
 int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FE80
 
-int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId); // 0x00463900
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 
@@ -597,7 +597,7 @@ struct D2ShadowMasterSkillStrc
 
 extern "C" const char szAiThink4File[];                                                                     // 0x006E3500
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
 
@@ -1243,7 +1243,7 @@ int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
 
 void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
 
@@ -6009,7 +6009,8 @@ void __fastcall D2GAME_AI_SpecialState11_6FCE7E80(D2GameStrc* pGame, D2UnitStrc*
         return;
     }
 
-    if (bCombat && !sub_00457490_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, MONSTATSFLAGINDEX_INTERACT) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_ATTACK1))
+// build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
+    if (bCombat && !MONSTERUNIQUE_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, MONSTATSFLAGINDEX_INTERACT) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_ATTACK1))
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
         return;
@@ -7372,9 +7373,10 @@ void __fastcall AITHINK_InitializeShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
     SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
     SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
 
-    for (int i = 0; i < SKILLS_GetPlayerSkillCount(sub_00451F60_UnitClassId(pOwner)); ++i)
+// build: symbol ?GAME_GetUnitClassId@* 0x00451F60
+    for (int i = 0; i < SKILLS_GetPlayerSkillCount(GAME_GetUnitClassId(pOwner)); ++i)
     {
-        const int nSkillId = SKILLS_GetClassSkillId(sub_00451F60_UnitClassId(pOwner), i);
+        const int nSkillId = SKILLS_GetClassSkillId(GAME_GetUnitClassId(pOwner), i);
 
         if (AITHINK_ShadowMasterCheckTargetPetType(pGame, pOwner, pUnit, nSkillId))
         {
@@ -8076,7 +8078,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
                     break;
 
                 case 12:
-                    if (sub_0044BE50_GetUnitTypeOrInvalid(pTarget) == UNIT_MONSTER)
+                    if (GAME_GetUnitTypeOrInvalid(pTarget) == UNIT_MONSTER)
                     {
                         D2MonStatsTxt* pTargetMonStatsTxt = sub_0055B7E0_GetMonStatsTxtFromUnit(pTarget);
                         if (!pTargetMonStatsTxt || pTargetMonStatsTxt->nDrain[pGame->nDifficulty] < 25)
@@ -9262,7 +9264,7 @@ void __cdecl TEXT_FreeTextSliderCel()
 {
     if (gpCelFile_007C02BC)
     {
-        sub_00478A00(gpCelFile_007C02BC);
+        ARCHIVE_FreeClientCellFile(gpCelFile_007C02BC);
         gpCelFile_007C02BC = 0;
     }
 }
@@ -12865,7 +12867,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D
         return 0;
     }
 
-    switch (sub_00463900_GetValidMonsterId(sub_00463860(pTarget)))
+    switch (CUNIT_ValidateMonsterId(sub_00463860(pTarget)))
     {
     case MONSTER_ZEALOT1:
     case MONSTER_CANTOR1:
@@ -13976,7 +13978,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_FetishShaman(D2GameStrc* pGame, D2
         return 0;
     }
 
-    const int nClassId = sub_00463900_GetValidMonsterId(sub_00463860(pTarget));
+    const int nClassId = CUNIT_ValidateMonsterId(sub_00463860(pTarget));
     if ((nClassId == MONSTER_FETISH1 || nClassId == MONSTER_FETISHBLOW1 && pArg->nHealCapability != 1)
         && STATLIST_GetUnitAlignment(pTarget) == UNIT_ALIGNMENT_EVIL
         && (pArg->nHealCapability >= 3 || !MONSTERUNIQUE_CheckMonTypeFlag(pTarget, MONTYPEFLAG_UNIQUE | MONTYPEFLAG_CHAMPION)))

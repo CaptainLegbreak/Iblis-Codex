@@ -14,7 +14,7 @@ extern const int gaUModList_006DA4C8[4];                                        
 extern UMODCALLBACK gpfnUModCallbacks_00724D78[];                                                            // 0x00724D78
 
 // 0x004ACD70
-void __fastcall sub_004ACD70_AssignSkillB8(D2UnitStrc* pUnit, int nUnused, int bAssign)
+void __fastcall MONUNIQUE_AssignTeleportSkill(D2UnitStrc* pUnit, int nUnused, int bAssign)
 {
     if (bAssign)
     {
@@ -44,7 +44,7 @@ static int MONSTERS_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 }
 
 // 0x004AD020
-void __fastcall sub_004AD020_ApplyUMods(D2UnitStrc* pUnit)
+void __fastcall MONUNIQUE_ApplyUMods(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = sub_0044BE50(pUnit) == 1 ? pUnit->pMonsterData : 0;
     if (pMonsterData)

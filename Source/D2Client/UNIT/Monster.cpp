@@ -66,33 +66,33 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 int __cdecl UI_GetHoverClassId(); // 0x00466DD0
-int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
+int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
+int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
-void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
+void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int bExpansion, int nId, int nLevel); // 0x006562F0
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const Unicode* wszName); // 0x0063E810
-void __fastcall sub_004C1C10(D2UnitStrc* pUnit); // 0x004C1C10
+void __fastcall ITEM_RefreshUnitEquipment(D2UnitStrc* pUnit); // 0x004C1C10
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
-float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY); // 0x004E4160
+float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
 
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
-void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit); // 0x0046EC10
-void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
-void __stdcall sub_004ADD90_DispatchStates(D2UnitStrc* pUnit, void* pArg, int nMode); // 0x004ADD90
+void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
+void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit); // 0x0046EC10
+void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
+void __stdcall MONSTER_RunUModCallbacks(D2UnitStrc* pUnit, void* pArg, int nMode); // 0x004ADD90
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory); // 0x0063AC40
 void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
 void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath); // 0x00648460
@@ -103,9 +103,9 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 #pragma pack(pop)
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
-void __fastcall sub_00480490_RecacheUnitPath(D2UnitStrc* pUnit); // 0x00480490
-void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
+void __fastcall UNITMODE_RecacheUnitPath(D2UnitStrc* pUnit); // 0x00480490
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
@@ -137,19 +137,19 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
-D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
-void __fastcall sub_004ADE60(D2UnitStrc* pUnit); // 0x004ADE60
-void __stdcall sub_004AF1B0(D2UnitStrc* pUnit, int nMissile, int nX, int nY); // 0x004AF1B0
-int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
-void __fastcall sub_004C72F0(D2UnitStrc* pUnit); // 0x004C72F0
-void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit); // 0x004CB460
-D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
-D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
-void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
+void __fastcall MONSTER_RunUModFrameCallbacks(D2UnitStrc* pUnit); // 0x004ADE60
+void __stdcall MONSTER_SpawnQuillRatMissiles(D2UnitStrc* pUnit, int nMissile, int nX, int nY); // 0x004AF1B0
+int __fastcall SKILLS_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
+void __fastcall SKILLS_RunStateActiveFuncs(D2UnitStrc* pUnit); // 0x004C72F0
+void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit); // 0x004CB460
+D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitOffsetRequest(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
+void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x00641530
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
@@ -170,12 +170,12 @@ typedef char I07_check_unit_b[(I07_OFFSET(D2UnitStrc, dwFlagEx) == 0xC8 && I07_O
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, D2DirectionArgStrc tDirection); // 0x006488A0
 extern const int gnBloodOffsetY_006DA5F0[]; // 0x006DA5F0
 extern const int gnBloodOffsetX_006DA610[]; // 0x006DA610
-D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
+D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
-void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
+void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
-void __fastcall sub_004DA6E0_SetMotionFlag20(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
+void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
 extern int gdwGlobal_007C0D43; // 0x007C0D43
 extern int gdwGlobal_007C0D47; // 0x007C0D47
 extern int gdwGlobal_007C0DB0; // 0x007C0DB0
@@ -222,14 +222,14 @@ int __stdcall MONSTERS_IsSandLeaper(D2UnitStrc* pMonster, int bAlwaysReturnFalse
 static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit);
 
 static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit);
-static void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit);
-static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord);
-static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit);
-static inline void sub_004B17D0_SetMenuState(int nState);
-static inline void sub_004B17E0_SetMenuUnit(D2UnitStrc* pUnit);
-static inline void sub_004B17F0_SetMenuValue(unsigned short wValue);
-static inline bool sub_004B1800_IsStringFree(unsigned short wString);
-static inline int sub_004B1F60_IsItemIdentified(D2UnitStrc* pItem);
+static void MONSTER_ReplaySequence(D2UnitStrc* pUnit); // 0x004AFB60
+static int MONSTER_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord); // 0x004AFBC0
+static void MONSTER_CreateDeathMissiles(D2UnitStrc* pUnit); // 0x004AFC10
+static inline void MONSTER_SetNpcMenuState(int nState); // 0x004B17D0
+static inline void MONSTER_SetNpcMenuUnit(D2UnitStrc* pUnit); // 0x004B17E0
+static inline void MONSTER_SetNpcMenuValue(unsigned short wValue); // 0x004B17F0
+static inline bool MONSTER_IsStringUnused(unsigned short wString); // 0x004B1800
+static inline int MONSTER_IsItemIdentified(D2UnitStrc* pItem); // 0x004B1F60
 
 inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
@@ -242,13 +242,13 @@ inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 }
 
 // 0x004A74A0
-int __cdecl sub_004A74A0_GetPercentB()
+int __cdecl MONSTER_GetPlayerDefensePercent()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nPercent = 100;
     int nDefense = UNITS_GetDefense(pPlayer);
     nDefense += STATLIST_UnitGetStatValue(pPlayer, STAT_ARMORCLASS_VS_HTH, 0);
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nDifficulty = GAME_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 470);
 
     const int nMonsterId = UI_GetHoverClassId();
@@ -260,22 +260,22 @@ int __cdecl sub_004A74A0_GetPercentB()
 
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 8, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 8, &monStatsInit);
     int nToHit = monStatsInit.nTH;
     if (!nToHit)
     {
         memset(&monStatsInit, 0, sizeof(monStatsInit));
-        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x10, &monStatsInit);
+        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x10, &monStatsInit);
         nToHit = monStatsInit.nTH;
         if (!nToHit)
         {
             memset(&monStatsInit, 0, sizeof(monStatsInit));
-            DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x20, &monStatsInit);
+            DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x20, &monStatsInit);
             nToHit = monStatsInit.nTH;
         }
     }
 
-    if (pMonStatsTxtRecord->nAlign != 1 && !sub_0044DCC0() && sub_0044DCD0_GetDifficulty())
+    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
     {
         nToHit = nToHit * 10 / 15;
     }
@@ -311,7 +311,7 @@ static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
 }
 
 // 0x004AC740
-unsigned char* __fastcall sub_004AC740_GetMonsterBytes(D2UnitStrc* pUnit)
+unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterData(pUnit);
     if (!pMonsterData)
@@ -322,35 +322,35 @@ unsigned char* __fastcall sub_004AC740_GetMonsterBytes(D2UnitStrc* pUnit)
 }
 
 // 0x004ADE40
-void __fastcall sub_004ADE40(D2UnitStrc* pUnit)
+void __fastcall MONSTER_RunUModCommandCallbacks(D2UnitStrc* pUnit)
 {
-    sub_004ADD90_DispatchStates(pUnit, 0, 0);
+    MONSTER_RunUModCallbacks(pUnit, 0, 0);
 }
 
 // 0x004ADE50
-void __fastcall sub_004ADE50(D2UnitStrc* pUnit)
+void __fastcall MONSTER_RunUModUpdateCallbacks(D2UnitStrc* pUnit)
 {
-    sub_004ADD90_DispatchStates(pUnit, 0, 1);
+    MONSTER_RunUModCallbacks(pUnit, 0, 1);
 }
 
 // 0x004ADE60
-void __fastcall sub_004ADE60(D2UnitStrc* pUnit)
+void __fastcall MONSTER_RunUModFrameCallbacks(D2UnitStrc* pUnit)
 {
-    sub_004ADD90_DispatchStates(pUnit, 0, 2);
+    MONSTER_RunUModCallbacks(pUnit, 0, 2);
 }
 
 // 0x004ADE70
-void __fastcall sub_004ADE70(D2UnitStrc* pUnit)
+void __fastcall MONSTER_RunUModHitCallbacks(D2UnitStrc* pUnit)
 {
-    sub_004ADD90_DispatchStates(pUnit, 0, 3);
+    MONSTER_RunUModCallbacks(pUnit, 0, 3);
 }
 
 // 0x004ADE80
-void __fastcall sub_004ADE80(D2UnitStrc* pUnit, void* pArg)
+void __fastcall MONSTER_RunUModMissileCallbacks(D2UnitStrc* pUnit, void* pArg)
 {
     if (pUnit && pArg && pUnit->dwUnitType == UNIT_MONSTER)
     {
-        sub_004ADD90_DispatchStates(pUnit, pArg, 4);
+        MONSTER_RunUModCallbacks(pUnit, pArg, 4);
     }
 }
 
@@ -364,7 +364,7 @@ static inline D2MonStatsTxt* CLIENT_GetMonStatsTxtRecord(int nMonsterId)
 }
 
 // 0x004AE0A0
-void __fastcall sub_004AE0A0_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags)
+void __fastcall MONSTER_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -378,7 +378,7 @@ void __fastcall sub_004AE0A0_SetClientFlags(D2UnitStrc* pUnit, unsigned short wF
 }
 
 // 0x004AE0E0
-void __fastcall sub_004AE0E0_FreeMonsterBuffer(D2UnitStrc* pUnit)
+void __fastcall MONSTER_FreeMonsterName(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -392,7 +392,7 @@ void __fastcall sub_004AE0E0_FreeMonsterBuffer(D2UnitStrc* pUnit)
 }
 
 // 0x004AE110
-extern "C" __declspec(dllexport) unsigned int* __fastcall sub_004AE110(D2UnitStrc* pUnit) {
+extern "C" __declspec(dllexport) unsigned int* __fastcall MONSTER_GetMonInteractPtr(D2UnitStrc* pUnit) {
     D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData) {
         return 0;
@@ -411,7 +411,7 @@ static inline D2MonsterDataStrc* CLIENT_GetMonsterDataInline(D2UnitStrc* pUnit)
 }
 
 // 0x004AE130
-int __fastcall sub_004AE130(D2UnitStrc* pUnit)
+int __fastcall MONSTER_GetOwnerGUID(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterDataInline(pUnit);
     if (!pMonsterData)
@@ -423,14 +423,14 @@ int __fastcall sub_004AE130(D2UnitStrc* pUnit)
 }
 
 // 0x004AE150
-extern "C" __declspec(dllexport) void __fastcall sub_004AE150(D2UnitStrc* pUnit, int nValue) {
+extern "C" __declspec(dllexport) void __fastcall MONSTER_SetOwnerGUID(D2UnitStrc* pUnit, int nValue) {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
         pUnit->pMonsterData->nOwnerGUID = nValue;
     }
 }
 
 // 0x004AE170
-extern "C" __declspec(dllexport) int* __fastcall sub_004AE170(D2UnitStrc* pUnit) {
+extern "C" __declspec(dllexport) int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit) {
     D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData) {
         return 0;
@@ -439,7 +439,7 @@ extern "C" __declspec(dllexport) int* __fastcall sub_004AE170(D2UnitStrc* pUnit)
 }
 
 // 0x004AE190
-void __fastcall sub_004AE190_SetMonsterField40(D2UnitStrc* pUnit, int nValue)
+void __fastcall MONSTER_SetMinionSpawnClassId(D2UnitStrc* pUnit, int nValue)
 {
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterDataInline(pUnit);
     if (pMonsterData)
@@ -449,7 +449,7 @@ void __fastcall sub_004AE190_SetMonsterField40(D2UnitStrc* pUnit, int nValue)
 }
 
 // 0x004AE1B0
-int __fastcall sub_004AE1B0_GetMonsterField40(D2UnitStrc* pUnit)
+int __fastcall MONSTER_GetMinionSpawnClassId(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterDataInline(pUnit);
     if (!pMonsterData)
@@ -461,7 +461,7 @@ int __fastcall sub_004AE1B0_GetMonsterField40(D2UnitStrc* pUnit)
 }
 
 // 0x004AE1D0
-static void sub_004AE1D0_RefreshMonsterMode(D2UnitStrc* pUnit)
+static void MONSTER_RefreshMonsterMode(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -469,14 +469,14 @@ static void sub_004AE1D0_RefreshMonsterMode(D2UnitStrc* pUnit)
         if (nMode < 0x10 && nMode && nMode != 0xC)
         {
             sub_00465BF0(pUnit, 0);
-            sub_00480490_RecacheUnitPath(pUnit);
-            sub_00480E70_SetUnitMode(pUnit, 1);
+            UNITMODE_RecacheUnitPath(pUnit);
+            UNITMODE_SetUnitMode(pUnit, 1);
         }
     }
 }
 
 // 0x004AE210
-void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
+void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_MONSTER)
@@ -515,7 +515,7 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
     D2GfxLightStrc* pLight = sub_00474160_MakeLightEntry(pUnit, 0, nLight, 0xFF, pMonStats2TxtRecord->nLight_R, pMonStats2TxtRecord->nLight_G, pMonStats2TxtRecord->nLight_B);
     if (pUnit->pLight)
     {
-        sub_00464930_FreeLight(pUnit);
+        CUNIT_FreeLight(pUnit);
     }
 
     pUnit->pLight = pLight;
@@ -524,26 +524,26 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
 
 void __cdecl sub_F03_Emit_004AE1D0(D2UnitStrc* pUnit)
 {
-    sub_004AE1D0_RefreshMonsterMode(pUnit);
+    MONSTER_RefreshMonsterMode(pUnit);
 }
 
 void __cdecl sub_F03_Emit_004AFB60(D2UnitStrc* pUnit)
 {
-    sub_004AFB60_ReplaySequence(pUnit);
+    MONSTER_ReplaySequence(pUnit);
 }
 
 int __cdecl sub_F03_Emit_004AFBC0(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
 {
-    return sub_004AFBC0_HasMonStatsFlag(pUnit, pRecord);
+    return MONSTER_HasMonStatsFlag(pUnit, pRecord);
 }
 
 void __cdecl sub_F03_Emit_004AFC10(D2UnitStrc* pUnit)
 {
-    sub_004AFC10_CreateDeathMissiles(pUnit);
+    MONSTER_CreateDeathMissiles(pUnit);
 }
 
 // 0x004AE320
-int __fastcall sub_004AE320_IsChampionMonster(D2UnitStrc* pUnit)
+int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x04);
@@ -551,7 +551,7 @@ int __fastcall sub_004AE320_IsChampionMonster(D2UnitStrc* pUnit)
 }
 
 // 0x004AE340
-int __fastcall sub_004AE340_IsGhostlyMonster(D2UnitStrc* pUnit)
+int __fastcall MONSTER_IsGhostlyMonster(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x40);
@@ -559,7 +559,7 @@ int __fastcall sub_004AE340_IsGhostlyMonster(D2UnitStrc* pUnit)
 }
 
 // 0x004AE360
-int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit)
+int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x08);
@@ -567,7 +567,7 @@ int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit)
 }
 
 // 0x004AE380
-int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit)
+int __fastcall MONSTER_IsMinionMonster(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x10);
@@ -575,7 +575,7 @@ int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit)
 }
 
 // 0x004AE3A0
-int __fastcall sub_004AE3A0_IsSuperUniqueMonster(D2UnitStrc* pUnit)
+int __fastcall MONSTER_IsSuperUniqueMonster(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x02);
@@ -583,7 +583,7 @@ int __fastcall sub_004AE3A0_IsSuperUniqueMonster(D2UnitStrc* pUnit)
 }
 
 // 0x004AE3C0
-void __fastcall sub_004AE3C0_OwnerMissileHit(D2UnitStrc* pUnit)
+void __fastcall MONSTER_OwnerMissileHit(D2UnitStrc* pUnit)
 {
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
     if (pOwner)
@@ -661,12 +661,12 @@ static void sub_004AE400_CastRandomCurse(D2UnitStrc* pUnit)
     D2_ASSERT(nIndex < 5, 0x174);
 
     const int nSkill = gaRandomCurseSkills_006DA5DC[nIndex];
-    D2UnitStrc* pMissile = sub_004CDB40_SubmitRequest(pUnit, nSkill, sub_H12_UnitX(pUnit), sub_H12_UnitY(pUnit), 0, 1);
+    D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nSkill, sub_H12_UnitX(pUnit), sub_H12_UnitY(pUnit), 0, 1);
     if (pMissile)
     {
         UNITS_StoreOwner(pMissile, pUnit);
         UNITS_StoreOwner(pUnit, pMissile);
-        sub_004DA000_ResetGfxMotion(pMissile);
+        PARTICLE_ResetGfxMotion(pMissile);
         sub_004DA620(pMissile, 1);
         pMissile->dwFlagEx |= 0x40000;
     }
@@ -702,7 +702,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
             nFlags |= 2;
             SKILLS_SetFlags(pSkill, nFlags);
         }
-        sub_004C68F0_DoUsedSkill(pUnit);
+        SKILLS_DoUsedSkill(pUnit);
         bCheckFrame = 0;
     }
 
@@ -720,7 +720,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
                     return;
                 }
 
-                sub_004C68F0_DoUsedSkill(pUnit);
+                SKILLS_DoUsedSkill(pUnit);
                 if ((pUnit->nSeqCurrentFramePrecise >> 8) > pMonStats2Txt->nInfernoAnim)
                 {
                     pUnit->nSeqCurrentFramePrecise = pMonStats2Txt->nInfernoRollback << 8;
@@ -728,7 +728,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
                 return;
 
             case 0x7E:
-                sub_004C68F0_DoUsedSkill(pUnit);
+                SKILLS_DoUsedSkill(pUnit);
                 if ((pUnit->nSeqCurrentFramePrecise & ~0xFF) >= 0xC00)
                 {
                     pUnit->nSeqCurrentFramePrecise = 0x800;
@@ -746,7 +746,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
                 const int nFrame = pUnit->nSeqCurrentFramePrecise >> 8;
                 if (nFrame >= pMonStats2Txt->nInfernoAnim)
                 {
-                    sub_004C68F0_DoUsedSkill(pUnit);
+                    SKILLS_DoUsedSkill(pUnit);
                 }
 
                 if (nFrame >= pMonStats2Txt->nInfernoRollback)
@@ -760,10 +760,11 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
         }
     }
 
-    sub_004C68F0_DoUsedSkill(pUnit);
+    SKILLS_DoUsedSkill(pUnit);
 }
 
-static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
+// build: symbol ?MONSTER_HandleAttackEvent@* 0x004AF6A0
+static void MONSTER_HandleAttackEvent(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
@@ -788,12 +789,12 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
             sub_00650590(pPath);
             PATH_SetPathingFlag(pPath, 0);
             sub_00648DC0(pPath);
-            sub_00480E70_SetUnitMode(pUnit, 3);
+            UNITMODE_SetUnitMode(pUnit, 3);
         }
         return;
     }
 
-    if (sub_004648F0_GetPathTargetUnit(pUnit))
+    if (CUNIT_GetPathTargetUnit(pUnit))
     {
         sub_00465BF0(pUnit, 0);
     }
@@ -817,7 +818,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         case 9:
             if (nMonsterId == MONSTER_TRAPPEDSOUL1 || nMonsterId == MONSTER_TRAPPEDSOUL2)
             {
-                sub_00480E70_SetUnitMode(pUnit, 8);
+                UNITMODE_SetUnitMode(pUnit, 8);
                 sub_00624390(pUnit);
                 return;
             }
@@ -826,7 +827,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         case 10:
             if (nMonsterId == MONSTER_BATDEMON1)
             {
-                sub_00480E70_SetUnitMode(pUnit, 0xB);
+                UNITMODE_SetUnitMode(pUnit, 0xB);
                 sub_00624390(pUnit);
                 return;
             }
@@ -849,7 +850,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         case 4:
             if (nMonsterId == MONSTER_TRAPPEDSOUL1 || nMonsterId == MONSTER_TRAPPEDSOUL2)
             {
-                sub_00480E70_SetUnitMode(pUnit, 8);
+                UNITMODE_SetUnitMode(pUnit, 8);
                 sub_00624390(pUnit);
                 return;
             }
@@ -878,19 +879,20 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
 
     if (sub_H12_HasUnitFlagBit(pUnit))
     {
-        sub_00480E70_SetUnitMode(pUnit, 1);
+        UNITMODE_SetUnitMode(pUnit, 1);
         sub_00624390(pUnit);
         return;
     }
 
     if (!sub_00463720_TestUnitFlagEx(pUnit, 0x2000))
     {
-        sub_00480E70_SetUnitMode(pUnit, 1);
+        UNITMODE_SetUnitMode(pUnit, 1);
         sub_00624390(pUnit);
     }
 }
 
-void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
+// build: symbol ?MONSTER_UpdateMonsterClient@* 0x004B13A0
+void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
@@ -898,7 +900,7 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
         return;
     }
 
-    if (STATES_CheckState(pUnit, STATE_FREEZE) && !sub_00464820_IsDeadOrDying(pUnit))
+    if (STATES_CheckState(pUnit, STATE_FREEZE) && !CUNIT_IsDeadOrDying(pUnit))
     {
         return;
     }
@@ -937,7 +939,7 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
             int nUnitType;
             int nUnitGUID;
             PATH_GetTargetTypeAndGUID(pPath, &nUnitType, &nUnitGUID);
-            D2UnitStrc* pTarget = sub_00463990(nUnitGUID, nUnitType);
+            D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitGUID, nUnitType);
             PATH_SetTargetUnit(pPath, pTarget);
             if (pTarget)
             {
@@ -957,7 +959,7 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
         return;
     }
 
-    if ((pMonStatsTxt->nMonStatsFlags[9 >> 3] & gdwBitMasks[9 & 7]) && !sub_004638A0_CheckMonStats2Flag(nClassId, 0xD)
+    if ((pMonStatsTxt->nMonStatsFlags[9 >> 3] & gdwBitMasks[9 & 7]) && !MONSTERREGION_CheckMonStats2Flag(nClassId, 0xD)
         && pUnit->dwAnimMode == 1 && !sub_00451F30_TestUnitFlag(pUnit, 0x200)
         && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B)
     {
@@ -998,7 +1000,7 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
     }
 
     sub_004AF2E0_MonsterSkillEvent(pUnit);
-    sub_004ADE60(pUnit);
+    MONSTER_RunUModFrameCallbacks(pUnit);
     if (pUnit->pDynamicPath)
     {
         D2COMMON_10193_PATH_AdjustDirection(pUnit->pDynamicPath);
@@ -1006,21 +1008,21 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
 
     if (bAttack)
     {
-        sub_004AF6A0_MonsterAttackEvent(pUnit);
+        MONSTER_HandleAttackEvent(pUnit);
     }
 
     if (!pUnit->dwAnimMode && pUnit->dwClassId == 0x210 && sub_00451F30_TestUnitFlag(pUnit, 1))
     {
         pUnit->dwFlags &= ~1;
-        sub_00466730_SpawnPresetUnit(0x1DE, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 2, 0);
+        CUNIT_SpawnPresetUnit(0x1DE, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 2, 0);
     }
 
     if (sub_0063A340(pUnit))
     {
-        sub_004C72F0(pUnit);
+        SKILLS_RunStateActiveFuncs(pUnit);
     }
 
-    sub_004CB460_UpdateModeSound(pUnit);
+    UNITSND_UpdateModeSound(pUnit);
     sub_004CAF60(pUnit);
 }
 
@@ -1034,7 +1036,7 @@ static inline unsigned __int64 sub_I07_SeedRoll(D2SeedStrc* pSeed)
 }
 
 // 0x004AE4F0
-static void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
+static void MONSTER_HandleMonsterEvent(D2UnitStrc* pUnit, int nEvent)
 {
     switch (nEvent)
     {
@@ -1076,7 +1078,7 @@ static void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
         break;
     case 0x19D:
     {
-        D2UnitStrc* pMissile = sub_004CDB40_SubmitRequest(pUnit, 0x188, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, 0x188, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
         if (pMissile)
         {
             UNITS_StoreOwner(pMissile, pUnit);
@@ -1084,21 +1086,21 @@ static void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
         break;
     }
     case 0x23A:
-        sub_004CDB40_SubmitRequest(pUnit, 0x265, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        GFXUTIL_SubmitMissileRequest(pUnit, 0x265, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
         break;
     }
 }
 
 // 0x004AED30
-void __fastcall sub_004AED30_FreeClientUnit(D2UnitStrc* pUnit)
+void __fastcall MONSTER_FreeClientUnit(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
         return;
     }
 
-    sub_0046EC10_FreeGfxData(pUnit);
-    sub_00466CB0_RemoveInventoryUnits(pUnit, 1);
+    GFX_FreeGfxData(pUnit);
+    CUNIT_RemoveInventoryUnits(pUnit, 1);
     INVENTORY_FreeInventory(pUnit->pInventory);
     pUnit->pInventory = 0;
 
@@ -1106,7 +1108,7 @@ void __fastcall sub_004AED30_FreeClientUnit(D2UnitStrc* pUnit)
     {
         D2Common_10228(pUnit);
         UNITROOM_RemoveUnitFromRoom(pUnit);
-        sub_00464930_FreeLight(pUnit);
+        CUNIT_FreeLight(pUnit);
     }
 
     PATH_FreeDynamicPath(0, pUnit->pDynamicPath);
@@ -1115,7 +1117,7 @@ void __fastcall sub_004AED30_FreeClientUnit(D2UnitStrc* pUnit)
     void* pResource = D2Common_10958(pUnit, 0);
     if (pResource)
     {
-        sub_004743D0_ReleaseOverlayResource(pResource);
+        DLIGHTMAP_ReleaseLight(pResource);
     }
 
     if (pUnit->dwUnitType == UNIT_MONSTER)
@@ -1162,7 +1164,7 @@ static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit)
     tMissile.nMissile = nMissile;
     tMissile.nSkillLevel = 1;
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -1183,7 +1185,7 @@ static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit)
     {
         if (pTarget)
         {
-            sub_004CDC30(pUnit, nMissile, 0, 0, 0, 0, 0, 1, 0);
+            MISSILE_SubmitOffsetRequest(pUnit, nMissile, 0, 0, 0, 0, 0, 1, 0);
         }
     }
     else if (nMissile == MISSILE_CATAPULTCHARGEDBALL_ON)
@@ -1196,18 +1198,18 @@ static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit)
         sub_004CD540_CreateMissile(&tMissile);
     }
 
-    sub_004AF1B0(pUnit, nMissile, tMissile.nTargetX, tMissile.nTargetY);
+    MONSTER_SpawnQuillRatMissiles(pUnit, nMissile, tMissile.nTargetX, tMissile.nTargetY);
 }
 
 void __fastcall sub_M103_Emit_004B1000(D2UnitStrc* pItem, int nArg)
 {
-    if (sub_004B1800_IsStringFree((unsigned short)nArg))
+    if (MONSTER_IsStringUnused((unsigned short)nArg))
     {
-        sub_M103_EmitSink(sub_004B1F60_IsItemIdentified(pItem));
+        sub_M103_EmitSink(MONSTER_IsItemIdentified(pItem));
     }
-    sub_004B17D0_SetMenuState(nArg);
-    sub_004B17E0_SetMenuUnit(pItem);
-    sub_004B17F0_SetMenuValue((unsigned short)nArg);
+    MONSTER_SetNpcMenuState(nArg);
+    MONSTER_SetNpcMenuUnit(pItem);
+    MONSTER_SetNpcMenuValue((unsigned short)nArg);
 }
 
 static inline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
@@ -1331,7 +1333,7 @@ static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit)
 
 void __fastcall sub_I07_Emit_004AE4F0(D2UnitStrc* pUnit, int nEvent)
 {
-    sub_004AE4F0_MonsterEvent(pUnit, nEvent);
+    MONSTER_HandleMonsterEvent(pUnit, nEvent);
 }
 
 static inline unsigned int sub_M165_SeedStep(D2SeedStrc* pSeed)
@@ -1409,7 +1411,7 @@ static inline int sub_M165_UnitY(D2UnitStrc* pUnit)
 }
 
 // 0x004AF890
-void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultCount, int bRandomChance)
+void __fastcall MONSTER_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultCount, int bRandomChance)
 {
     if (bRandomChance && sub_M165_SeedStep(&pUnit->pSeed) % 25)
     {
@@ -1473,12 +1475,12 @@ void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultC
         return;
 
 LABEL_SPAWN:
-        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x12 + sub_M165_RollLimited(&pUnit->pSeed, 2 * pMonStats2Txt->nBleed), nX, nY, 0, 1);
+        MISSILE_SubmitOwnerRequest(pUnit, 0x12 + sub_M165_RollLimited(&pUnit->pSeed, 2 * pMonStats2Txt->nBleed), nX, nY, 0, 1);
     }
 }
 
 // 0x004AFB60
-static void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
+static void MONSTER_ReplaySequence(D2UnitStrc* pUnit)
 {
     D2AnimSeqTxt* pSequenceRecord = DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit);
     const int nCount = DATATBLS_GetSeqFramePointsCount(pUnit) >> 8;
@@ -1490,12 +1492,12 @@ static void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
         int nEvent;
         DATATBLS_ComputeSequenceAnimation(pSequenceRecord, i << 8, i << 8, &nMode, &nFrame, &nDirection, &nEvent);
         pUnit->dwAnimMode = nMode;
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
     }
 }
 
 // 0x004AFBC0
-static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
+static int MONSTER_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
 {
     if (!pUnit || !pRecord)
         return 0;
@@ -1514,7 +1516,7 @@ static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* p
 }
 
 // 0x004AFC10
-static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
+static void MONSTER_CreateDeathMissiles(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
@@ -1582,7 +1584,7 @@ static inline int sub_J10_UnitY(D2UnitStrc* pUnit)
 }
 
 // 0x004AFCE0
-static void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
+static void MONSTER_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
 {
     if (nMode == 12)
     {
@@ -1598,11 +1600,11 @@ static void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
         {
             return;
         }
-        sub_004DA000_ResetGfxMotion(pUnit);
+        PARTICLE_ResetGfxMotion(pUnit);
         sub_004DA690_ReplaceMotionFlag1With8(pUnit);
-        sub_004DA6E0_SetMotionFlag20(pUnit, 1);
-        sub_004DA200_SetMotionVectorB(pUnit, 0, 0, 2, 1);
-        sub_004DA2A0_SetMotionVectorC(pUnit, 0, 0, 0xA0, 0);
+        MISSILE_SetMotionFlagMask(pUnit, 1);
+        GFXUTIL_SetMotionVectorB(pUnit, 0, 0, 2, 1);
+        GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0xA0, 0);
     }
     else if (nMode == 14 || nMode == 10)
     {
@@ -1619,16 +1621,16 @@ static void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
             return;
         }
         sub_004DA690_ReplaceMotionFlag1With8(pUnit);
-        sub_004DA6E0_SetMotionFlag20(pUnit, 0);
-        sub_004DA200_SetMotionVectorB(pUnit, 0, 0, -8, 1);
-        sub_004DA2A0_SetMotionVectorC(pUnit, 0, 0, 0, 0);
+        MISSILE_SetMotionFlagMask(pUnit, 0);
+        GFXUTIL_SetMotionVectorB(pUnit, 0, 0, -8, 1);
+        GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0, 0);
     }
 }
 
 void __fastcall sub_J10_Emit_004AFCE0(D2UnitStrc* pUnit, int nMode, int nOtherMode)
 {
-    sub_004AFCE0_UpdateCollisionForMode(pUnit, nMode);
-    sub_004AFCE0_UpdateCollisionForMode(pUnit, nOtherMode);
+    MONSTER_UpdateCollisionForMode(pUnit, nMode);
+    MONSTER_UpdateCollisionForMode(pUnit, nOtherMode);
 }
 
 int gdwGlobal_007C0C5C; // 0x007C0C5C
@@ -1644,17 +1646,17 @@ int __cdecl sub_004B1020()
 }
 
 // 0x004B1030
-D2UnitStrc* __fastcall sub_004B1030_GetMonsterLinkedPlayer(D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall MONSTER_GetLinkedPlayer(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nOwnerGUID != -1)
     {
-        return sub_00463990(pUnit->pMonsterData->nOwnerGUID, 0);
+        return CUNIT_FindClientUnit(pUnit->pMonsterData->nOwnerGUID, 0);
     }
     return 0;
 }
 
 // 0x004B1090
-void __fastcall sub_004B1090_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo)
+void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo)
 {
     if (!pUnit || !pInfo)
     {
@@ -1662,16 +1664,16 @@ void __fastcall sub_004B1090_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc*
     }
 
     pUnit->dwFlags |= 0x202;
-    const int nAct = MONSTERS_GetActFromHirelingTxt(sub_0044DCC0(), 0, pInfo->f_0);
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
+    const int nAct = MONSTERS_GetActFromHirelingTxt(GAME_IsExpansion(), 0, pInfo->f_0);
+    const int nDifficulty = GAME_GetDifficulty();
     D2HirelingInitStrc hirelingInit;
-    if (!MONSTERS_HirelingInit(sub_0044DCC0(), sub_00463DD0_GetPlayerUnit(), pInfo->nSeed, nAct, nDifficulty, &hirelingInit))
+    if (!MONSTERS_HirelingInit(GAME_IsExpansion(), sub_00463DD0_GetPlayerUnit(), pInfo->nSeed, nAct, nDifficulty, &hirelingInit))
     {
         return;
     }
 
     const int nLevel = hirelingInit.nLevel;
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(sub_0044DCC0(), hirelingInit.nId, nLevel);
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(GAME_IsExpansion(), hirelingInit.nId, nLevel);
     if (!pHirelingTxtRecord)
     {
         return;
@@ -1709,35 +1711,35 @@ void __fastcall sub_004B1090_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc*
     }
 
     MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(wNameId));
-    sub_004C1C10(pUnit);
+    ITEM_RefreshUnitEquipment(pUnit);
 }
 
 // 0x004B1670
-int __cdecl sub_004B1670()
+int __cdecl MONSTER_GetUseItemMode()
 {
     return gdwGlobal_007C0D2D;
 }
 
 // 0x004B17D0
-static inline void sub_004B17D0_SetMenuState(int nState)
+static inline void MONSTER_SetNpcMenuState(int nState)
 {
     gnGlobal_007C0C6B = nState;
 }
 
 // 0x004B17E0
-static inline void sub_004B17E0_SetMenuUnit(D2UnitStrc* pUnit)
+static inline void MONSTER_SetNpcMenuUnit(D2UnitStrc* pUnit)
 {
     gpUnit_007C0DD4 = pUnit;
 }
 
 // 0x004B17F0
-static inline void sub_004B17F0_SetMenuValue(unsigned short wValue)
+static inline void MONSTER_SetNpcMenuValue(unsigned short wValue)
 {
     gwGlobal_007C0DD8 = wValue;
 }
 
 // 0x004B1800
-static inline bool sub_004B1800_IsStringFree(unsigned short wString)
+static inline bool MONSTER_IsStringUnused(unsigned short wString)
 {
     for (int i = 0; i < gtStringList_007C0D9A.wCount; ++i)
     {
@@ -1750,13 +1752,13 @@ static inline bool sub_004B1800_IsStringFree(unsigned short wString)
 }
 
 // 0x004B1970
-void __cdecl sub_004B1970_ResetUsedStrings()
+void __cdecl MONSTER_ResetUsedStrings()
 {
     gtStringList_007C0D9A.wCount = 0;
 }
 
 // 0x004B1D50
-void __cdecl sub_004B1D50_CloseRes()
+void __cdecl MONSTER_CloseNpcResource()
 {
     if (gpRes_007C0D6B)
     {
@@ -1772,7 +1774,7 @@ int __cdecl sub_004B1DC0()
 }
 
 // 0x004B1F60
-static inline int sub_004B1F60_IsItemIdentified(D2UnitStrc* pItem)
+static inline int MONSTER_IsItemIdentified(D2UnitStrc* pItem)
 {
     return ITEMS_CheckItemFlag(pItem, 0x10, 2457, ".\\UI\\npcmenu.cpp");
 }
@@ -1784,13 +1786,13 @@ int __cdecl sub_004B2010()
 }
 
 // 0x004B32D0
-int __cdecl sub_004B32D0()
+int __cdecl MONSTER_GetQuestFlags()
 {
     return gdwGlobal_007C0D43;
 }
 
 // 0x004B32E0
-int __cdecl sub_004B32E0()
+int __cdecl MONSTER_GetGameQuestFlags()
 {
     return gdwGlobal_007C0D47;
 }
@@ -1814,25 +1816,25 @@ int __cdecl sub_004B85E0()
 }
 
 // 0x004B9060
-void* __cdecl sub_004B9060()
+void* __cdecl MONSTER_GetTradePartnerName()
 {
     return gData_007C0E84;
 }
 
 // 0x004B90F0
-int __cdecl sub_004B90F0()
+int __cdecl MONSTER_GetSecondaryTradeGold()
 {
     return gdwGlobal_007C0E78;
 }
 
 // 0x004B9100
-int __cdecl sub_004B9100()
+int __cdecl MONSTER_GetPrimaryTradeGold()
 {
     return gdwGlobal_007C0E68;
 }
 
 // 0x004B9E10
-int __fastcall sub_004B9E10_IsNearPlayer(D2UnitStrc* pUnit)
+int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit)
 {
     D2Vector3FStrc tDelta;
     D2CoordStrc tPlayerCoords;
@@ -1842,7 +1844,7 @@ int __fastcall sub_004B9E10_IsNearPlayer(D2UnitStrc* pUnit)
     UNITS_GetClientCoords(pUnit, &tUnitCoords);
     tDelta.fX = tUnitCoords.nX - tPlayerCoords.nX;
     tDelta.fY = (tUnitCoords.nY - tPlayerCoords.nY) * 2.0f;
-    if (sub_004E4160_LengthSquared2D(tDelta.fX, tDelta.fY) <= 490000.0)
+    if (GFXUTIL_VectorLengthSquared(tDelta.fX, tDelta.fY) <= 490000.0)
     {
         return 1;
     }

@@ -30,9 +30,9 @@ void __stdcall sub_00403040_VectorConstructor(void* pArray, unsigned int nSize, 
 void __fastcall INV_PrefixColorCode(Unicode* wszText, int nLevel);                                // 0x004521C0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-int __cdecl sub_0044DCA0_GetGameType();                                                                     // 0x0044DCA0
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+int __cdecl GAME_GetLadderFlag();                                                                     // 0x0044DCA0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
+unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                          // 0x0046ACE0
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);                                        // 0x004A89D0
 int __fastcall sub_004A9A90_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9A90
@@ -282,7 +282,7 @@ int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wsz
 // build: context sub_004EDDD0_AddAttackInfo
 static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
 {
-    if (sub_0044DCC0())
+    if (GAME_IsExpansion())
     {
         sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
         sub_004EC220_AddSkillElemDamage(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt, 0);
@@ -545,7 +545,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 31:
     {
-        D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(sub_0044DCD0_GetDifficulty());
+        D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(GAME_GetDifficulty());
         const int nDivisor = pDifficultyLevelsTxt->dwAiCurseDivisor;
         sub_004EDB30_AddSeconds(wszText, nDivisor > 0 ? nCalcA / nDivisor : nCalcA, nStringA, 0);
         break;

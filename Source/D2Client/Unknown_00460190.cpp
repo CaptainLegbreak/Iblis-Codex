@@ -2,9 +2,9 @@
 
 void __stdcall UI_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
 void __cdecl UI_DrawCenteredStrings();                                                            // 0x0045FFC0
-void __stdcall sub_00460060_DrawPanelCels(int nFrame1, int nFrame2);                                        // 0x00460060
+void __stdcall VIEW_DrawPanelCels(int nFrame1, int nFrame2);                                        // 0x00460060
 void __cdecl UI_DrawCenteredStringPair();                                                         // 0x004600F0
-void __cdecl sub_004684C0(); // 0x004684C0
+void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
 extern int gnGlobal_007A524C;                                                                               // 0x007A524C
 extern int gnGlobal_007A5250;                                                                               // 0x007A5250
@@ -20,8 +20,8 @@ void __cdecl sub_00460190_DrawFrame()
     sub_004FB0D0();
     UI_DrawCelPair(0);
     UI_DrawCenteredStrings();
-    sub_00460060_DrawPanelCels(gnGlobal_007A524C, gnGlobal_007A5250);
+    VIEW_DrawPanelCels(gnGlobal_007A524C, gnGlobal_007A5250);
     UI_DrawCenteredStringPair();
-    sub_004684C0();
+    CURSOR_DrawCursor();
     D2GFX_EndScene();
 }

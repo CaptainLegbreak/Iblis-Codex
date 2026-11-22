@@ -68,7 +68,8 @@ int gnValue_00798CC0; // 0x00798CC0
 int __cdecl sub_00444020_CreateControls()
 {
     sub_0043F8C0_ResetLaunchState();
-    int bExpansion = sub_0043DB10();
+// build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
+    int bExpansion = GAME_IsLaunchExpansion();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpControlA_0077B070, 0);
     BUTTON_SetIsPressed(gpControlB_0077B078, 0);

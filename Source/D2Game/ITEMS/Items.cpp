@@ -479,7 +479,7 @@ struct D2TCArrayStrc
     D2TCModsStrc tMods;
 };
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat, int nValue); // 0x00530EA0
 
@@ -2521,7 +2521,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                     }
 
                     nPlayerCount += (PLAYER_GetPlayerCount(pGame) - nPlayerCount) / 2;
-                    if (pMonster && sub_0044BE50_GetUnitTypeOrInvalid(pMonster) == 1)
+                    if (pMonster && GAME_GetUnitTypeOrInvalid(pMonster) == 1)
                     {
                         int nMonsterPlayers = STATLIST_UnitGetStatValue(pMonster, STAT_MONSTER_PLAYERCOUNT, 0);
                         nMonsterPlayers = D2_MAX(1, nMonsterPlayers);

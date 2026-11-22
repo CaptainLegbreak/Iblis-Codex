@@ -12,18 +12,18 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
-int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
-short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit); // 0x00465400
-const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit);                                     // 0x00464A60
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
+const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit);                                     // 0x00464A60
 int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nPetType);                                 // 0x00478EE0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                  // 0x00478F20
 int __fastcall sub_00479080_GetPetLife(int nUnitId);                                                       // 0x00479080
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);              // 0x004795A0
-extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
-int __fastcall sub_00479BA0(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479BA0
+extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+int __fastcall ROSTER_GetClassId(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479BA0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);                      // 0x00479BC0
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord);                              // 0x0047A0C0
 int __fastcall sub_0047A150_GetPartyLife(int nUnitId);                                                     // 0x0047A150
@@ -128,7 +128,7 @@ static void __stdcall sub_00493B00_DrawUnitName(D2UnitStrc* pUnit, int nX, int n
     {
         unsigned short wszName[32];
         memset(wszName, 0, sizeof(wszName));
-        sub_00526790((Unicode*)wszName, sub_00464A60_GetUnitName(pUnit), 32);
+        sub_00526790((Unicode*)wszName, CUNIT_GetUnitName(pUnit), 32);
         wszName[31] = 0;
         HIREABLES_DrawFittedText(nX, nY, 0, (Unicode*)wszName);
     }
@@ -137,7 +137,7 @@ static void __stdcall sub_00493B00_DrawUnitName(D2UnitStrc* pUnit, int nX, int n
 static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2UnitStrc* pPlayer, int* pnX)
 {
     int bDrawn = 0;
-    const unsigned short nIndex = sub_00465400_GetPlayerRosterField22(pPlayer);
+    const unsigned short nIndex = CUNIT_GetPlayerPartyId(pPlayer);
     int nPlayerId;
     int nUnitId;
     if (!pPlayer)
@@ -157,7 +157,7 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
                 continue;
 
             D2CelFileStrc* pCelFile;
-            switch (sub_00479BA0(pEntry))
+            switch (ROSTER_GetClassId(pEntry))
             {
             case 0:
                 pCelFile = gapHirelingIcons_007BEEB0[0];
@@ -188,7 +188,7 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
                 continue;
 
             sub_00493A00_DrawLifeBar(0, *pnX, nUnitId);
-            sub_004930A0_DrawRosterName(sub_004795C0_GetEntryName(pEntry), *pnX, *pnY);
+            sub_004930A0_DrawRosterName(ROSTER_GetEntryName(pEntry), *pnX, *pnY);
             if (*pbAlternate)
             {
                 *pnY -= *pbAlternate;
@@ -225,7 +225,7 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
         return 0;
 
     sub_00493A00_DrawLifeBar(7, *pnX, nUnitId);
-    sub_00493B00_DrawUnitName(sub_00463990(nUnitId, 1), *pnX, *pnY);
+    sub_00493B00_DrawUnitName(CUNIT_FindClientUnit(nUnitId, 1), *pnX, *pnY);
     if (*pbAlternate)
     {
         *pnY -= *pbAlternate;
@@ -343,9 +343,9 @@ void __cdecl sub_00494020_DrawPetIcons()
     int bAlternate = 0;
     int nX = 0xF;
     const int nMode = sub_0045AE90();
-    if (nMode != 3 && nMode != 2 && !sub_004538D0(9) && !sub_004538D0(0xB) && gnGlobal_007BEECC != 2)
+    if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnGlobal_007BEECC != 2)
     {
-        if (sub_0044DCC0() && !sub_004538D0(0x23) && gnGlobal_007BEECC != 2 && sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0) != -1)
+        if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnGlobal_007BEECC != 2 && sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0) != -1)
             sub_00455F20(0x23, 0, 0);
 
         int bAny = sub_00493B50_DrawRosterIcons(&nY, &bAlternate, pPlayer, &nX);
@@ -373,7 +373,7 @@ void __cdecl sub_00494020_DrawPetIcons()
         if (!bAny)
             sub_00455F20(0x13, 1, 0);
 
-        if (gbGlobal_007BEEE4 && !sub_004538D0(0x24) && sub_00455F20(0x24, 0, 0))
+        if (gbGlobal_007BEEE4 && !GAME_GetUIVarState(0x24) && sub_00455F20(0x24, 0, 0))
         {
             SRegSaveValue("Diablo II", "PopupHireling", 0, 1);
             gbGlobal_007BEEE4 = 0;

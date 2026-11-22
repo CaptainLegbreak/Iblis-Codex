@@ -236,7 +236,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn); // 0x006CC34C
 
-void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
+void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
@@ -611,7 +611,8 @@ extern int gdwGlobal_00882538;                                                  
 
 extern char gszAccountName_00882540[0x100];                                                                 // 0x00882540
 
-void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit)
+// build: symbol ?CUNIT_MarkUnitDead@* 0x00464810
+void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -619,7 +620,8 @@ void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit)
     }
 }
 
-int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
+// build: symbol ?CUNIT_IsDeadOrDying@* 0x00464820
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit)
 {
     if (pUnit->dwFlags & 0x10000)
     {
@@ -647,16 +649,18 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
     return 0;
 }
 
-void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit)
+// build: symbol ?CUNIT_FreeLight@* 0x00464930
+void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit)
 {
     if (pUnit->pLight)
     {
-        sub_004743D0_ReleaseOverlayResource(pUnit->pLight);
+        DLIGHTMAP_ReleaseLight(pUnit->pLight);
         pUnit->pLight = 0;
     }
 }
 
-void __fastcall sub_004693B0(int nSteps)
+// build: symbol ?CUNIT_DispatchMouseWheel@* 0x004693B0
+void __fastcall CUNIT_DispatchMouseWheel(int nSteps)
 {
     if (nSteps > 0)
     {
@@ -676,7 +680,8 @@ void __fastcall sub_004693B0(int nSteps)
     }
 }
 
-unsigned short __fastcall sub_00469AA0(int nA, int nB)
+// build: symbol ?CUNIT_GetHotkeyBinding@* 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
@@ -689,7 +694,8 @@ unsigned short __fastcall sub_00469AA0(int nA, int nB)
     return 0xFFFF;
 }
 
-void __fastcall sub_00469D70(int nId, int nB)
+// build: symbol ?CUNIT_ClearHotkeyBinding@* 0x00469D70
+void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
@@ -700,12 +706,14 @@ void __fastcall sub_00469D70(int nId, int nB)
     }
 }
 
-int __fastcall sub_00469D90(int nA, int nB)
+// build: symbol ?CUNIT_HasHotkeyBinding@* 0x00469D90
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB)
 {
-    return sub_00469AA0(nA, nB) != 0xFFFF;
+    return CUNIT_GetHotkeyBinding(nA, nB) != 0xFFFF;
 }
 
-void __cdecl sub_0046D750()
+// build: symbol ?CUNIT_ClearAiTargets@* 0x0046D750
+void __cdecl CUNIT_ClearAiTargets()
 {
     for (int i = 0; i < 8; ++i)
     {
@@ -713,7 +721,8 @@ void __cdecl sub_0046D750()
     }
 }
 
-D2SetsTxt* __fastcall sub_00483410_GetSetsTxtRecord(int nSetId)
+// build: symbol ?DATATBLS_GetSetsTxtRecord@* 0x00483410
+D2SetsTxt* __fastcall DATATBLS_GetSetsTxtRecord(int nSetId)
 {
     if (nSetId >= 0 && nSetId < sgptDataTables->nSetsTxtRecordCount)
     {
@@ -723,7 +732,8 @@ D2SetsTxt* __fastcall sub_00483410_GetSetsTxtRecord(int nSetId)
     return 0;
 }
 
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex)
+// build: symbol ?DATATBLS_GetSetItemsTxtRecord@* 0x00483440
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < sgptDataTables->nSetItemsTxtRecordCount)
     {
@@ -733,7 +743,8 @@ D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex)
     return 0;
 }
 
-D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex)
+// build: symbol ?DATATBLS_GetUniqueItemsTxtRecord@* 0x00483470
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < sgptDataTables->nUniqueItemsTxtRecordCount)
     {
@@ -743,7 +754,8 @@ D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex)
     return 0;
 }
 
-void __cdecl sub_00483960()
+// build: symbol ?CUNIT_InitColorTable@* 0x00483960
+void __cdecl CUNIT_InitColorTable()
 {
     gabColors_007BCAD8[0] = sub_004FB180_FindPaletteIndex(0x80, 0, 0);
     gabColors_007BCAD8[1] = sub_004FB180_FindPaletteIndex(0, 0x80, 0);
@@ -773,7 +785,8 @@ void __fastcall sub_004898A0(int nMode)
     sub_00455F20(5, 1, 0);
 }
 
-void __fastcall sub_004898D0(int nState)
+// build: symbol ?CUNIT_SetDialogState@* 0x004898D0
+void __fastcall CUNIT_SetDialogState(int nState)
 {
     gnGlobal_00721E34 = nState;
     if (nState == 0)
@@ -791,7 +804,8 @@ void __fastcall sub_004898D0(int nState)
     }
 }
 
-void __cdecl sub_004A1730_ClearPanel()
+// build: symbol ?CUNIT_ClearTextPanel@* 0x004A1730
+void __cdecl CUNIT_ClearTextPanel()
 {
     TEXT_ResetTextBox();
     gnGlobal_007BF1FA = 0;

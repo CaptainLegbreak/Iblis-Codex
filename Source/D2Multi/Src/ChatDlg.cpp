@@ -309,7 +309,7 @@ Unicode* __fastcall D2Win_10196(D2WinControlStrc* pTextBox, int nLineNum, int nC
 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-void __fastcall sub_0044AA10_SendPacket11(unsigned char nArg1, unsigned short nArg2); // 0x0044AA10
+void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nArg2); // 0x0044AA10
 
 extern D2WinControlStrc* gpControlA_0077B070; // 0x0077B070
 
@@ -364,9 +364,9 @@ void __cdecl sub_0043FBD0_Refresh(); // 0x0043FBD0
 
 int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC); // 0x0044AAE0
 
-int __fastcall sub_0044A2E0_Forward3(int nA, int nB, int nC); // 0x0044A2E0
+int __fastcall WINMAIN_SendMcpCharCreate(int nA, int nB, int nC); // 0x0044A2E0
 
-int __fastcall sub_0044A380_Forward1(int nA); // 0x0044A380
+int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
 
 int __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone); // 0x0043FB50
 
@@ -1926,7 +1926,8 @@ int __fastcall sub_0043FFA0_SetupCharacter(unsigned short wValue, const char* sz
             while (++gwRequestId_0070CD60 == 0)
             {
             }
-            sub_0044A4E0_SendConnect(szText0x1F, szText0x245, gwRequestId_0070CD60);
+// build: symbol ?WINMAIN_SendMcpJoinGame@* 0x0044A4E0
+            WINMAIN_SendMcpJoinGame(szText0x1F, szText0x245, gwRequestId_0070CD60);
             gwSavedRequestId_0077BBDC = gwRequestId_0070CD60;
             sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
             return 1;
@@ -2038,7 +2039,7 @@ int __stdcall sub_00440350_OnIdle(SMSGHANDLER_PARAMS* pMsg)
     {
         gnSelectModeB_0070CD63 = gnSelectModeA_0070CD62;
         gnSelectIdB_0070CD80 = gnSelectIdA_0070CD7C;
-        sub_0044AA10_SendPacket11(gnSelectModeA_0070CD62, gnSelectLine_0070CD68);
+        VIEW_SendMcpLadderRequest(gnSelectModeA_0070CD62, gnSelectLine_0070CD68);
         gdwSelectTime_0077BD5C = GetTickCount() + 1000;
         gnSelection_0077BBF4 = gnSelectIdB_0070CD80;
         gnSelectLinePrev_0070CD64 = gnSelectLine_0070CD68;
@@ -2448,7 +2449,8 @@ int __stdcall sub_00441500(int nUnused)
                 {
                     if (wId == gwSavedRequestId_0077BBDC)
                     {
-                        const int nResult = sub_00449C00();
+// build: symbol ?GAME_GetConnectError@* 0x00449C00
+                        const int nResult = GAME_GetConnectError();
                         if (nResult == 0x33)
                         {
                             sub_00442C20_HandleList();
@@ -2487,7 +2489,7 @@ int __stdcall sub_00441500(int nUnused)
                 const int nId = sub_00449BD0_GetRequestId();
                 if (nId != 0 && nId == gwSavedRequestId_0077BBDC)
                 {
-                    switch (sub_00449C00())
+                    switch (GAME_GetConnectError())
                     {
                     case 0:
                     {
@@ -2575,14 +2577,14 @@ int __stdcall sub_00441500(int nUnused)
                 const int nId = sub_00449BD0_GetRequestId();
                 if (nId != 0 && nId == gwSavedRequestId_0077BBDC)
                 {
-                    switch (sub_00449C00())
+                    switch (GAME_GetConnectError())
                     {
                     case 0:
                         gnLaunchMode_0077BBE4 = 2;
                         while (++gwRequestId_0070CD60 == 0)
                         {
                         }
-                        sub_0044A4E0_SendConnect(gpCharInfo_0077BBD8->szText0x1F, gpCharInfo_0077BBD8->szText0x245, gwRequestId_0070CD60);
+                        WINMAIN_SendMcpJoinGame(gpCharInfo_0077BBD8->szText0x1F, gpCharInfo_0077BBD8->szText0x245, gwRequestId_0070CD60);
                         gwSavedRequestId_0077BBDC = gwRequestId_0070CD60;
                         gpLaunchFuncs_0077B09C->pfn0x34(gpCharInfo_0077BBD8->szText0x1F, gpCharInfo_0077BBD8->szText0x245, &gszEmptyAssertText, 0);
                         break;
@@ -2836,13 +2838,13 @@ void __stdcall sub_00449DD0_SetValue(int nValue)
 // 0x00449DF0
 int __stdcall sub_00449DF0_Forward3(int nA, int nB, int nC)
 {
-    return sub_0044A2E0_Forward3(nA, nB, nC);
+    return WINMAIN_SendMcpCharCreate(nA, nB, nC);
 }
 
 // 0x00449E10
 int __stdcall sub_00449E10_Forward1(int nA)
 {
-    return sub_0044A380_Forward1(nA);
+    return WINMAIN_SendMcpCharLogon(nA);
 }
 
 // 0x00449E30

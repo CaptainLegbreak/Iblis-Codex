@@ -53,7 +53,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*,const char*,...); /
 D2ModeTypeTxt* __stdcall DATATBLS_GetPlrModeTypeTxtRecord(int,int); // 0x0065B480
 D2ModeTypeTxt* __stdcall DATATBLS_GetMonModeTxtRecord(int,int); // 0x0065B500
 D2ModeTypeTxt* __stdcall DATATBLS_GetObjModeTypeTxtRecord(int,int); // 0x0065B570
-int __fastcall sub_004638A0_CheckMonStats2Flag(int,int); // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int,int); // 0x004638A0
 
 // 0x0064F020
 int __stdcall COMPOSIT_GetWeaponClassIdFromCode(int nWeaponClassCode)
@@ -208,7 +208,7 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
   clsCode=record->dwCode;
   modeCode=DATATBLS_GetMonModeTxtRecord(mode,1)->token;
   if(mode && mode!=12){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}
-  else{if(sub_004638A0_CheckMonStats2Flag(cls,16)){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
+  else{if(MONSTERREGION_CheckMonStats2Flag(cls,16)){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
   for(unsigned int i=0;i<gMonsterModeCount_0074591C;++i)if(mode==gMonsterModes_00745914[i].nWeaponClassId)modeCode=gMonsterModes_00745914[i].code;
   COMPOSIT_FormatPathInto(path,clsCode,modeCode,weapon,gMonsters_006D6CAC,full,w,c,m);return;
  }

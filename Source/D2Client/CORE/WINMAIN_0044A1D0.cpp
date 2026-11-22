@@ -157,7 +157,7 @@ extern int gdwGlobal_007A2784;                                                  
 
 int gnRecordInitSeed_007A2778;                                                                              // 0x007A2778
 
-void __cdecl sub_00451710_LoadRecord();                                                                 // 0x00451710
+void __cdecl RECORD_LoadRecordFile();                                                                 // 0x00451710
 
 static char* __stdcall sub_0044A170_AppendText(char* pDest, const char* szText, unsigned int nMax, unsigned int* pnSize)
 {
@@ -169,7 +169,7 @@ static char* __stdcall sub_0044A170_AppendText(char* pDest, const char* szText, 
 }
 
 // 0x0044A1D0
-int __fastcall sub_0044A1D0_StartConnect(D2LaunchThreadRecordStrc* pRecord)
+int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord)
 {
     D2McpPacket01Strc tPacket;
     sub_00449BF0_SetValue(0);
@@ -197,7 +197,8 @@ int __fastcall sub_0044A1D0_StartConnect(D2LaunchThreadRecordStrc* pRecord)
     return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
 }
 
-int __fastcall sub_0044A2E0_Forward3(const char* szText, int nValue, unsigned short wValue)
+// build: symbol ?WINMAIN_SendMcpCharCreate@* 0x0044A2E0
+int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigned short wValue)
 {
     D2McpPacket02Strc tPacket;
     sub_00449BF0_SetValue(0);
@@ -212,7 +213,8 @@ int __fastcall sub_0044A2E0_Forward3(const char* szText, int nValue, unsigned sh
     return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
 }
 
-int __fastcall sub_0044A380_Forward1(const char* szText)
+// build: symbol ?WINMAIN_SendMcpCharLogon@* 0x0044A380
+int __fastcall WINMAIN_SendMcpCharLogon(const char* szText)
 {
     D2McpPacket07Strc tPacket;
     sub_00449BF0_SetValue(0);
@@ -224,7 +226,8 @@ int __fastcall sub_0044A380_Forward1(const char* szText)
     return sub_006BC8A0_SendBuffer(gpConnection_00798FB4, &tPacket.f_0, nTotal);
 }
 
-int __fastcall sub_0044A4E0_SendConnect(const char* szName, const char* szRealm, unsigned short wRequestId)
+// build: symbol ?WINMAIN_SendMcpJoinGame@* 0x0044A4E0
+int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, unsigned short wRequestId)
 {
     D2McpPacket04Strc tPacket;
     sub_00449BF0_SetValue(0);
@@ -307,7 +310,7 @@ int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC)
 }
 
 // 0x0044A400
-int __fastcall sub_0044A400_SendCreateGame(D2McpCreateGameStrc* pRecord, unsigned short wRequestId)
+int __fastcall WINMAIN_SendMcpCreateGame(D2McpCreateGameStrc* pRecord, unsigned short wRequestId)
 {
     D2McpPacket03Strc tPacket;
     sub_00449BF0_SetValue(0);
@@ -329,14 +332,14 @@ int __fastcall sub_0044A400_SendCreateGame(D2McpCreateGameStrc* pRecord, unsigne
 }
 
 // 0x004518E0
-void __cdecl sub_004518E0_StartPlayback()
+void __cdecl WINMAIN_StartPlayback()
 {
     if (gdwGlobal_007A277C)
         gdwGlobal_007A277C = 0;
     else
     {
         gdwGlobal_007A2784 = 1;
-        sub_00451710_LoadRecord();
+        RECORD_LoadRecordFile();
         GAME_SetInitSeed(gnRecordInitSeed_007A2778);
     }
 }

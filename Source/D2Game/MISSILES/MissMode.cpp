@@ -179,7 +179,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath);
 
@@ -187,7 +187,7 @@ void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirect
 
 void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear);
 
-void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8);
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);
 
@@ -3202,7 +3202,8 @@ static inline D2MissilesTxt* CLTMISS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
+// build: symbol ?MISSILE_InitFromOwner@* 0x004CC870
+void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
 {
     D2UnitStrc* pOwner = (D2UnitStrc*)nInitArg;
     if (!pMissile)
@@ -3216,7 +3217,7 @@ void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
     if (pMissilesTxtRecord->dwCltParam[1] > 0)
         nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
 
-    sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nOffset);
+    GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nOffset);
     PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
     sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
     pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
@@ -3457,7 +3458,8 @@ int __fastcall MISSMODE_SrvHit47_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* pM
     }
 
     int bValidTarget = 1;
-    if (pUnit && (pUnit->dwUnitType != UNIT_MONSTER || !sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_LARGE)))
+// build: symbol ?MONSTERREGION_CheckMonStats2Flag@* 0x004638A0
+    if (pUnit && (pUnit->dwUnitType != UNIT_MONSTER || !MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_LARGE)))
     {
         bValidTarget = 0;
     }
@@ -4188,7 +4190,7 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         const int nParam = pMissilesTxtRecord->dwDmgParam[0];
         if (nParam < 1)
         {
-            if (!sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 10))
+            if (!MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, 10))
             {
                 return;
             }
@@ -4197,11 +4199,11 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         else if (nParam == 1)
         {
             const int nClassId = pUnit->dwClassId;
-            if (sub_004638A0_CheckMonStats2Flag(nClassId, 10))
+            if (MONSTERREGION_CheckMonStats2Flag(nClassId, 10))
             {
                 nChance = 2 * pMissilesTxtRecord->dwDmgParam[1];
             }
-            else if (!sub_004638A0_CheckMonStats2Flag(nClassId, 11))
+            else if (!MONSTERREGION_CheckMonStats2Flag(nClassId, 11))
             {
                 nChance = pMissilesTxtRecord->dwDmgParam[1];
             }
@@ -4213,11 +4215,11 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         else if (nParam > 1)
         {
             const int nClassId = pUnit->dwClassId;
-            if (sub_004638A0_CheckMonStats2Flag(nClassId, 10))
+            if (MONSTERREGION_CheckMonStats2Flag(nClassId, 10))
             {
                 nChance = 3 * pMissilesTxtRecord->dwDmgParam[1];
             }
-            else if (!sub_004638A0_CheckMonStats2Flag(nClassId, 11))
+            else if (!MONSTERREGION_CheckMonStats2Flag(nClassId, 11))
             {
                 nChance = 2 * pMissilesTxtRecord->dwDmgParam[1];
             }
@@ -6437,7 +6439,8 @@ int __fastcall AITHINK_TryTeleportAway(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     const int nId = sub_00463860(pUnit);
     const int nBaseId = (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) ? nId : -1;
 
-    int bNoHeal = sub_00457490_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, 1);
+// build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
+    int bNoHeal = MONSTERUNIQUE_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, 1);
     if (nBaseId == MONSTER_BIGHEAD1 || nBaseId == MONSTER_COUNCILMEMBER1 || nBaseId == MONSTER_BAALHIGHPRIEST)
     {
         bNoHeal = 1;

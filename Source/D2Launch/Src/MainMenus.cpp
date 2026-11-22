@@ -300,7 +300,7 @@ extern D2WinControlStrc* gpButton_007799E4; // 0x007799E4
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
-int __cdecl sub_00449AC0(); // 0x00449AC0
+int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
 
 int __cdecl sub_00449C50(); // 0x00449C50
 
@@ -1899,7 +1899,8 @@ int __cdecl sub_00432400_PollStatus()
         _ReadWriteBarrier();
         return 3;
     case 0:
-        sub_00449C00();
+// build: symbol ?GAME_GetConnectError@* 0x00449C00
+        GAME_GetConnectError();
         return sub_00432350_GetStatus() ? 2 : 0;
     }
 }
@@ -2028,12 +2029,12 @@ int __cdecl sub_00432400_GetWaitStatus()
     if (gnWaitDone_00779994)
         return 1;
 
-    if (sub_00449AC0())
+    if (GAME_GetWaitHandle())
     {
-        switch (WaitForSingleObject((void*)sub_00449AC0(), 0))
+        switch (WaitForSingleObject((void*)GAME_GetWaitHandle(), 0))
         {
         case 0:
-            return sub_00432350_IsListedCode(sub_00449C00()) ? 2 : 0;
+            return sub_00432350_IsListedCode(GAME_GetConnectError()) ? 2 : 0;
         case 0x102:
             return 3;
         }

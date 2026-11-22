@@ -25,18 +25,18 @@ int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 D2UnitStrc* __cdecl TEXT_GetTextUnit(); // 0x0049E8B0
 void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit); // 0x0049DA30
 void __cdecl TEXT_ClearHoverUnit(); // 0x0049DA50
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-void __fastcall sub_00475FF0_SetViewDirty(D2ViewStrc* pView); // 0x00475FF0
+void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView); // 0x00475FF0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit);
-int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY); // 0x00463EE0
-int __cdecl sub_0044BF30(); // 0x0044BF30
-int __cdecl sub_0044DAA0(); // 0x0044DAA0
-unsigned int __cdecl sub_0044DAC0(); // 0x0044DAC0
-void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
+int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY); // 0x00463EE0
+int __cdecl GAME_IsLeftButtonHeld(); // 0x0044BF30
+int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
+unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
+void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 
 static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag);
 
@@ -90,11 +90,11 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 
     if (!bSame && gdwGlobal_007A6A94 && gnSelectedUnitType_007A6A8C == 5)
     {
-        D2UnitStrc* pOld = sub_00463990(gnSelectedUnitId_007A6A78, 5);
+        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId_007A6A78, 5);
         if (pOld)
         {
             DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), pOld->dwClassId);
-            sub_00475FF0_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpView_007A0640);
         }
     }
 
@@ -116,7 +116,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         if (!bSame)
         {
             DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), !pUnit ? -1 : pUnit->dwClassId);
-            sub_00475FF0_SetViewDirty(gpView_007A0640);
+            VIEW_SetViewDirty(gpView_007A0640);
         }
         break;
 
@@ -194,20 +194,20 @@ int gdwGlobal_007A6AA0; // 0x007A6AA0
 static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_TILE
-        && sub_00463EE0_IsPointInTileRect(pUnit, nX1, tY1.nValue)
-        && sub_00463EE0_IsPointInTileRect(pUnit, nX2, nY2)
+        && SCMD_IsPointInTileRect(pUnit, nX1, tY1.nValue)
+        && SCMD_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)
-        && sub_0044BF30())
+        && GAME_IsLeftButtonHeld())
     {
-        if (sub_0044DAA0() < sub_0044DAC0())
+        if (GAME_GetCurrentTime() < GAME_GetInteractDeadline())
         {
-            sub_0044DAD0(sub_0044DAA0() + 0x1F4);
+            GAME_SetInteractDeadline(GAME_GetCurrentTime() + 0x1F4);
             return 1;
         }
 
         if (!*pnFlag)
         {
-            sub_0044DAD0(sub_0044DAA0() + 0x1F4);
+            GAME_SetInteractDeadline(GAME_GetCurrentTime() + 0x1F4);
             *pnFlag = 1;
         }
     }

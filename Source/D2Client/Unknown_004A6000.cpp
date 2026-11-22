@@ -13,11 +13,11 @@ struct D2ClientListEntryStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
-int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
+int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __cdecl UI_RegisterKeyConfigHandlers();                                                                                // 0x00454980
-unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                          // 0x0046A530
 void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                                                // 0x004A5D70
@@ -46,7 +46,7 @@ extern void* gpGlobal_007C02DC;                                                 
 // 0x004A6000
 void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pMsg->bReturn = 0;
         return;
@@ -70,7 +70,7 @@ void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 // 0x004A63B0
 void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30())
+    if (GAME_IsExitPending())
     {
         pMsg->bReturn = 0;
         return;
@@ -109,7 +109,7 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
     tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02DC;
     tContext.nFrame = 2;
-    if (sub_004A65E0_IsInLeftButton() && !sub_004538D0(9))
+    if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
     {
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnGlobal_0071146C / 2 - 0xB3, gnGlobal_00711470 - 0x32, 0, 1);
     }
@@ -130,7 +130,7 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
     tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02DC;
     tContext.nFrame = 2;
-    if (sub_004A6690_IsInRightButton() && !sub_004538D0(9))
+    if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
     {
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnGlobal_0071146C / 2 + 0xB2, gnGlobal_00711470 - 0x32, 0, 1);
     }
@@ -141,7 +141,7 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
 // 0x004A8DF0
 void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor)
 {
-    if (sub_00469AA0(nKeyId, 1) == 0xFFFF)
+    if (CUNIT_GetHotkeyBinding(nKeyId, 1) == 0xFFFF)
     {
         return;
     }

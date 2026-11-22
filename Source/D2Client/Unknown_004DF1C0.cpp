@@ -81,9 +81,9 @@ struct D2TileLightCtxStrc
 extern D2LightOffsetsStrc gaLightOffsetsA_0072ABC8[]; // 0x0072ABC8
 extern D2LightOffsetsStrc gaLightOffsetsB_0072A9E8[]; // 0x0072A9E8
 int __cdecl sub_0045AE90(); // 0x0045AE90
-int __cdecl sub_00477730(); // 0x00477730
+int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3); // 0x00475AA0
+void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3); // 0x00475AA0
 int __stdcall TILE_TileDrawTrans(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha); // 0x004F6950
 int __stdcall TILE_TileDrawLit(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels); // 0x004F6920
 
@@ -135,8 +135,8 @@ struct D2SoundRecordStrc
 extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
 int __fastcall sub_004B9DA0_CompareItems(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
 D2SoundRecordStrc* __fastcall sub_00481860(int nId); // 0x00481860
-int __fastcall sub_00482680_PickVariant(int nId); // 0x00482680
-void __fastcall sub_00482970_LoadCacheEntry(int nId, int bFlag, int nArg); // 0x00482970
+int __fastcall SOUNDHDR_PickVariant(int nId); // 0x00482680
+void __fastcall SOUNDHDR_LoadCacheEntry(int nId, int bFlag, int nArg); // 0x00482970
 D2SlotStrc* __fastcall SoundChannelFind(int nId); // 0x004DF9D0
 void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
 int __fastcall sub_005155D0(D2SoundStrc* pSound, int nA, int nB); // 0x005155D0
@@ -223,7 +223,7 @@ extern const unsigned char gaDirection64To4_006DBA60[64]; // 0x006DBA60
 extern const unsigned char gaDirection4_006DBA58[4]; // 0x006DBA58
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
@@ -252,7 +252,7 @@ void __fastcall sub_004DF1C0_UpdateFadingTileLights(D2TileLightCtxStrc* pCtx)
         {
             const int nScreenPanels = sub_0045AE90();
             const int bPerspective = sub_004F51D0_IsPerspective();
-            const int nLightDetail = sub_00477730();
+            const int nLightDetail = DLIGHTMAP_GetRenderMode();
             const unsigned int nTick = GetTickCount();
             const int bFade = nLightDetail >= 4;
             for (D2TileLightNodeStrc* pNode = pEntry->pFadeList; pNode; pNode = pNode->pNext)
@@ -310,7 +310,7 @@ void __fastcall sub_004DF1C0_UpdateFadingTileLights(D2TileLightCtxStrc* pCtx)
                     unsigned char nValue1;
                     unsigned char nValue2;
                     unsigned char nValue3;
-                    sub_00475AA0_ReadGridCell(pNode->nX + 8 * pOffsets->aOffset[i].nX, pNode->nY + 8 * pOffsets->aOffset[i].nY, &nValue0, &nValue1, &nValue2, &nValue3);
+                    SCMD_ReadGridCell(pNode->nX + 8 * pOffsets->aOffset[i].nX, pNode->nY + 8 * pOffsets->aOffset[i].nY, &nValue0, &nValue1, &nValue2, &nValue3);
                     nValue0 = nValue0 > 0 ? nValue0 : 0;
                     tLight.aColor[i] = (nValue3 << 24) | (nValue2 << 16) | (nValue1 << 8) | nValue0;
                 }
@@ -346,7 +346,7 @@ void __fastcall sub_004DF1C0_UpdateFadingTileLights(D2TileLightCtxStrc* pCtx)
             unsigned char nValue1;
             unsigned char nValue2;
             unsigned char nValue3;
-            sub_00475AA0_ReadGridCell(pUnitNode->nX, pUnitNode->nY, &nValue0, &nValue1, &nValue2, &nValue3);
+            SCMD_ReadGridCell(pUnitNode->nX, pUnitNode->nY, &nValue0, &nValue1, &nValue2, &nValue3);
             sub_004DC7B0(pUnitNode->pPos, (nValue3 << 24) | (nValue2 << 16) | (nValue1 << 8) | nValue0, 0);
         }
 
@@ -396,7 +396,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
 {
     D2SoundRecordStrc* pFirst = sub_00481860(pObject->f_4);
     if (!(pObject->nFlags & 1))
-        pObject->f_4 = sub_00482680_PickVariant(pObject->f_4);
+        pObject->f_4 = SOUNDHDR_PickVariant(pObject->f_4);
     D2SlotStrc* pOld = SoundChannelFind(pObject->f_4);
     if (pOld && !pOld->pObject->nField0x3D && pObject->nKey - pOld->pObject->nKey < 2 && pOld->pObject->nPriority >= pObject->nPriority)
         return 0;
@@ -405,7 +405,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     pFirst->nField0x64 = pObject->f_4;
     if (!pRecord->bStream && pRecord->nState != 2)
     {
-        sub_00482970_LoadCacheEntry(pObject->f_4, pRecord->nField0x4D == 0, 0);
+        SOUNDHDR_LoadCacheEntry(pObject->f_4, pRecord->nField0x4D == 0, 0);
         if (pRecord->nState != 2)
             return 0;
     }
@@ -583,11 +583,11 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
                 }
             }
 
-            nSound = sub_00482680_PickVariant(nSound);
+            nSound = SOUNDHDR_PickVariant(nSound);
         }
         else
         {
-            nSound = sub_00482680_PickVariant(nSound);
+            nSound = SOUNDHDR_PickVariant(nSound);
         }
 
         if (nSound != pSound->nLastSound)
@@ -764,7 +764,7 @@ int __fastcall sub_004E1120_SkillCreateTargetMissile(D2UnitStrc* pUnit, int nSki
         pUnit->dwFlags |= 0x40;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;

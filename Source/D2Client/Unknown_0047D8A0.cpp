@@ -11,11 +11,11 @@ extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C
 extern D2OptionEntryStrc* gpOptionEntries_007BC940; // 0x007BC940
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 void __fastcall sub_0047DF00_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries); // 0x0047DF00
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
-int __cdecl sub_0044BE90(); // 0x0044BE90
-int __cdecl sub_0044DB30(); // 0x0044DB30
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
+int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_004979E0(); // 0x004979E0
 int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 int __cdecl sub_00468730(); // 0x00468730
@@ -116,17 +116,17 @@ void __cdecl sub_0047DFD0_FreeOptionMenus()
     }
     if (gpOptionCel_007BC950)
     {
-        sub_00478A00(gpOptionCel_007BC950);
+        ARCHIVE_FreeClientCellFile(gpOptionCel_007BC950);
         gpOptionCel_007BC950 = 0;
     }
     if (gpOptionCel_007BC954)
     {
-        sub_00478A00(gpOptionCel_007BC954);
+        ARCHIVE_FreeClientCellFile(gpOptionCel_007BC954);
         gpOptionCel_007BC954 = 0;
     }
     if (gpOptionCel_007BC958)
     {
-        sub_00478A00(gpOptionCel_007BC958);
+        ARCHIVE_FreeClientCellFile(gpOptionCel_007BC958);
         gpOptionCel_007BC958 = 0;
     }
 }
@@ -134,22 +134,22 @@ void __cdecl sub_0047DFD0_FreeOptionMenus()
 // 0x0047E750
 void __cdecl sub_0047E750_SaveAlwaysRun()
 {
-    SRegSaveValue("Diablo II", "Always Run", 0, sub_0044BE90());
+    SRegSaveValue("Diablo II", "Always Run", 0, GAME_GetAlwaysRun());
 }
 
 // 0x0047EA60
 int __cdecl sub_0047EA60_IsAnyPanelOpen()
 {
     int bResult = 0;
-    if (sub_004538D0(0x17) || sub_004538D0(0x19) || sub_004538D0(0x1A) || sub_004538D0(0xC)
-        || sub_004538D0(0x1C) || sub_004538D0(0x1D) || sub_004538D0(0x18) || sub_004538D0(3)
-        || sub_004538D0(0x10) || sub_004538D0(0x16) || sub_004538D0(0x24) || sub_004538D0(2)
-        || sub_004538D0(0xF) || sub_004538D0(0x14) || sub_004538D0(0x1B))
+    if (GAME_GetUIVarState(0x17) || GAME_GetUIVarState(0x19) || GAME_GetUIVarState(0x1A) || GAME_GetUIVarState(0xC)
+        || GAME_GetUIVarState(0x1C) || GAME_GetUIVarState(0x1D) || GAME_GetUIVarState(0x18) || GAME_GetUIVarState(3)
+        || GAME_GetUIVarState(0x10) || GAME_GetUIVarState(0x16) || GAME_GetUIVarState(0x24) || GAME_GetUIVarState(2)
+        || GAME_GetUIVarState(0xF) || GAME_GetUIVarState(0x14) || GAME_GetUIVarState(0x1B))
     {
         bResult = 1;
     }
     gdwGlobal_007BC96C = bResult;
-    if (sub_004538D0(0x24))
+    if (GAME_GetUIVarState(0x24))
     {
         bResult = 1;
         gdwGlobal_007BC96C = bResult;
@@ -161,18 +161,18 @@ int __cdecl sub_0047EA60_IsAnyPanelOpen()
 int __cdecl sub_0047EB50_IsAnyLeftPanelOpen()
 {
     int bResult = 0;
-    if (sub_004538D0(0x17) || sub_004538D0(0x19) || sub_004538D0(0x1C) || sub_004538D0(0x1A)
-        || sub_004538D0(0xC) || sub_004538D0(0x18) || sub_004538D0(0x1B) || sub_004538D0(3))
+    if (GAME_GetUIVarState(0x17) || GAME_GetUIVarState(0x19) || GAME_GetUIVarState(0x1C) || GAME_GetUIVarState(0x1A)
+        || GAME_GetUIVarState(0xC) || GAME_GetUIVarState(0x18) || GAME_GetUIVarState(0x1B) || GAME_GetUIVarState(3))
     {
         bResult = 1;
         gdwGlobal_007BC968 = bResult;
     }
-    if ((sub_004538D0(0x1F) || sub_004979E0()) && HIREABLES_GetBeltRowCount() > 1)
+    if ((GAME_GetUIVarState(0x1F) || sub_004979E0()) && HIREABLES_GetBeltRowCount() > 1)
     {
         bResult = 1;
         gdwGlobal_007BC968 = bResult;
     }
-    if (sub_004538D0(1) || sub_004538D0(4))
+    if (GAME_GetUIVarState(1) || GAME_GetUIVarState(4))
     {
         bResult = 1;
         gdwGlobal_007BC968 = bResult;
@@ -187,7 +187,7 @@ int __cdecl sub_0047EB50_IsAnyLeftPanelOpen()
 // 0x0047F0C0
 void __cdecl sub_0047F0C0_LoadMiniPanel()
 {
-    if (sub_0044DB30())
+    if (GAME_GetConnectionType())
     {
         gpCellFile_007BC960 = sub_004520C0_LoadUiCelFile("Panel\\minipanel");
         gdwGlobal_007BC978 = 0;
@@ -214,12 +214,12 @@ void __cdecl sub_0047F130_SaveMiniPanel()
     SRegSaveValue("Diablo II", "Mini Panel", 1, bValue);
     if (gpCellFile_007BC960)
     {
-        sub_00478A00(gpCellFile_007BC960);
+        ARCHIVE_FreeClientCellFile(gpCellFile_007BC960);
         gpCellFile_007BC960 = 0;
     }
     if (gpSlotCells_007BC964)
     {
-        sub_00478A00(gpSlotCells_007BC964);
+        ARCHIVE_FreeClientCellFile(gpSlotCells_007BC964);
         gpSlotCells_007BC964 = 0;
     }
 }
@@ -238,7 +238,7 @@ int __cdecl sub_0047F210_IsMouseInSlots()
 {
     const int nX = sub_00468730();
     const int nY = sub_00468740();
-    if (sub_004538D0(0x14) && sub_004538D0(0x15))
+    if (GAME_GetUIVarState(0x14) && GAME_GetUIVarState(0x15))
     {
         const int bSmallPanel = gdwGlobal_007BC978;
         int nLeft = gnGlobal_0071146C / 2;

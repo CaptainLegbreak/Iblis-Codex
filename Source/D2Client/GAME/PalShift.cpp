@@ -28,7 +28,7 @@ extern unsigned char* gpBloodRemap_007BB384; // 0x007BB384
 
 void __fastcall sub_00477060_EmitSink(D2PalShiftNodeStrc* pShift);
 
-static void sub_00477060_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift);
+static void PALSHIFT_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift); // 0x00477060
 
 struct D2PalShiftNodeStrc
 {
@@ -50,7 +50,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __fastcall sub_00477170_LoadPalShift(int nMonsterId); // 0x00477170
+void __fastcall PALSHIFT_LoadPalShift(int nMonsterId); // 0x00477170
 
 extern D2PalShiftNodeStrc* gpPalShiftList_007B957C; // 0x007B957C
 
@@ -79,7 +79,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);        
 
 int __fastcall DATATBLS_GetMonStatsTxtRecordCount();                                                        // 0x0045C460
 
-D2PalShiftNodeStrc* __fastcall sub_00477030_FindPalShiftNode(int nId);                                          // 0x00477030
+D2PalShiftNodeStrc* __fastcall VIEW_FindPalShiftNode(int nId);                                          // 0x00477030
 
 int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
 
@@ -105,7 +105,7 @@ static inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId(int nMons
 }
 
 // 0x00476E30
-void __cdecl sub_00476E30_LoadGreenBlood()
+void __cdecl PALSHIFT_LoadGreenBlood()
 {
     void* hFile;
     if (ARCHIVE_OpenFile(0, "Data\\Global\\Monsters\\GreenBlood.dat", &hFile, 1))
@@ -119,7 +119,7 @@ void __cdecl sub_00476E30_LoadGreenBlood()
 }
 
 // 0x00476EA0
-void __cdecl sub_00476EA0_LoadPalShift()
+void __cdecl PALSHIFT_AllocPalShiftEntries()
 {
     int nSize = sgptDataTables->nMonStatsTxtRecordCount * sizeof(D2PalShiftEntryStrc);
     D2PalShiftEntryStrc* pEntries = (D2PalShiftEntryStrc*)FOG_Alloc(nSize, ".\\GAME\\PalShift.cpp", 0x63, 0);
@@ -150,7 +150,7 @@ void __cdecl sub_00476EA0_LoadPalShift()
 }
 
 // 0x00476FB0
-void __cdecl sub_00476FB0()
+void __cdecl PALSHIFT_FreePalShifts()
 {
     while (gpPalShiftList_007B957C)
     {
@@ -171,7 +171,7 @@ void __cdecl sub_00476FB0()
 }
 
 // 0x00477060
-static void sub_00477060_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift)
+static void PALSHIFT_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift)
 {
     D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nMonsterId);
     if (!pMonStats2TxtRecord || pMonStats2TxtRecord->nLocalBlood != 2)
@@ -200,7 +200,7 @@ static void sub_00477060_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pSh
 // The original builds this function without optimization (its code keeps every value on the stack).
 #pragma optimize("", off)
 // 0x00477170
-void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
+void __fastcall PALSHIFT_LoadPalShift(int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord;
     char szCode[4];
@@ -214,7 +214,7 @@ void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
         return;
     }
 
-    if (sub_00477030_FindPalShiftNode(nMonsterId))
+    if (VIEW_FindPalShiftNode(nMonsterId))
     {
         return;
     }
@@ -238,7 +238,7 @@ void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
     memset(pShift, 0, sizeof(D2PalShiftNodeStrc));
     ARCHIVE_ReadFileToBuffer(0, hFile, &pShift->tBase, sizeof(pShift->tBase));
     ARCHIVE_CloseFile(0, hFile);
-    sub_00477060_BuildBloodShift(nMonsterId, pShift);
+    PALSHIFT_BuildBloodShift(nMonsterId, pShift);
     pShift->nId = nMonsterId;
     pShift->pNext = gpPalShiftList_007B957C;
     gpPalShiftList_007B957C = pShift;
@@ -257,12 +257,12 @@ void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
 // calling-convention shim (not game code)
 void __fastcall sub_00477060_Shim(D2PalShiftNodeStrc* pShift, int nMonsterId)
 {
-    sub_00477060_BuildBloodShift(nMonsterId, pShift);
+    PALSHIFT_BuildBloodShift(nMonsterId, pShift);
     sub_00477060_EmitSink(pShift);
 }
 
 // 0x00477470
-void __cdecl sub_00477470_InitPalShifts()
+void __cdecl PALSHIFT_InitPalShifts()
 {
     while (gpPalShiftList_007B957C)
     {
@@ -285,9 +285,9 @@ void __cdecl sub_00477470_InitPalShifts()
         pEntries[i].nId = i;
     }
 
-    sub_00477170_LoadPalShift(MONSTER_NECROSKELETON);
-    sub_00477170_LoadPalShift(MONSTER_NECROMAGE);
-    sub_00477170_LoadPalShift(MONSTER_SPIRITWOLF);
-    sub_00477170_LoadPalShift(MONSTER_FENRIS);
+    PALSHIFT_LoadPalShift(MONSTER_NECROSKELETON);
+    PALSHIFT_LoadPalShift(MONSTER_NECROMAGE);
+    PALSHIFT_LoadPalShift(MONSTER_SPIRITWOLF);
+    PALSHIFT_LoadPalShift(MONSTER_FENRIS);
 }
 

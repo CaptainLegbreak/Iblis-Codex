@@ -10,13 +10,13 @@ struct D2StatesTxt;
 
 typedef void (__fastcall* CLIENTSTATEFN)(D2UnitStrc* pUnit, int nState);
 
-int __fastcall sub_004C7C40_RegisterTableEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7); // 0x004C7C40
+int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7); // 0x004C7C40
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern CLIENTSTATEFN gpfClientStateSetFuncs_0072A690[]; // 0x0072A690
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-void __fastcall sub_004DC190_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5); // 0x004DC190
+void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5); // 0x004DC190
 extern CLIENTSTATEFN gpfClientStateRemFuncs_0072A710[]; // 0x0072A710
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
@@ -73,7 +73,7 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
 
     const int nValue1 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     const int nValue2 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
-    sub_004C7C40_RegisterTableEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
+    ITEM_CallClientStateEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
 }
 
 #include "gen/data/Source/D2Client/Unknown_004D9E60.inc"
@@ -107,7 +107,7 @@ void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    sub_004DC190_RemoveCltUnitEvents(pUnit, 1, nState);
+    CUNITEVENT_RemoveCltUnitEvents(pUnit, 1, nState);
 }
 
 // 0x004D9FC0

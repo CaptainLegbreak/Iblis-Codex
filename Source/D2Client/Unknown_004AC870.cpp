@@ -25,7 +25,7 @@ extern const D2HoverModeStrc gaHoverModes_006DA488[];                           
 
 int __fastcall sub_0045C390_RollRandom(D2SeedStrc* pSeed, int nMax);                                        // 0x0045C390
 int __cdecl sub_0048BE80_Sprintf(wchar_t* wszDest, const wchar_t* wszFormat, ...);                          // 0x0048BE80
-int __fastcall sub_004AE320_IsChampionMonster(D2UnitStrc* pUnit);                                                             // 0x004AE320
+int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit);                                                             // 0x004AE320
 wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short wIndex);                                    // 0x00524A30
 void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
 void __fastcall sub_0063E810_SetUnitName(D2UnitStrc* pUnit, const wchar_t* wszName);                        // 0x0063E810
@@ -123,7 +123,7 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
     }
 
     int nClassId = !pUnit ? -1 : pUnit->dwClassId;
-    if (sub_004AE320_IsChampionMonster(pUnit))
+    if (MONSTER_IsChampionMonster(pUnit))
     {
         int i = 0;
         for (; i < 4; ++i)

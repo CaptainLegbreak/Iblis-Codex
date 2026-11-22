@@ -29,10 +29,10 @@ struct D2GSPacketSrv7DStrc
 #pragma pack(pop)
 
 void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent);
-void __fastcall sub_0046F950(D2UnitStrc* pUnit);
-void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType);                    // 0x00463990
-void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
+void __fastcall GFX_RequeuePlayerMode(D2UnitStrc* pUnit); // 0x0046F950
+void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);                    // 0x00463990
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 int __fastcall sub_004C10E0_CanUseItem(D2UnitStrc* pUnit, D2UnitStrc* pItem);
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);
@@ -131,7 +131,8 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
     STATLIST_MergeStatLists(pUnit, pItem, 1);
 }
 
-static void sub_004C1160_SaveSkillState(D2SkillStateStrc* pState, D2UnitStrc* pUnit)
+// build: symbol ?ITEM_SaveSkillState@* 0x004C1160
+static void ITEM_SaveSkillState(D2SkillStateStrc* pState, D2UnitStrc* pUnit)
 {
     pState->nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     pState->nMana = STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0);
@@ -162,7 +163,8 @@ static void sub_004C1160_SaveSkillState(D2SkillStateStrc* pState, D2UnitStrc* pU
     }
 }
 
-static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState)
+// build: symbol ?ITEM_RestoreSkillState@* 0x004C1200
+static void ITEM_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState)
 {
     if (pState->nLeftSkillId)
     {
@@ -213,7 +215,8 @@ static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit,
     sub_0046F280(pUnit, nComponent);
 }
 
-static void __stdcall sub_004C12F0_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+// build: symbol ?ITEM_ReattachItemComponent@* 0x004C12F0
+static void __stdcall ITEM_ReattachItemComponent(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (!pUnit || !pItem)
         return;
@@ -258,7 +261,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
 
     D2SkillStateStrc tState;
     int bChanged = 0;
-    sub_004C1160_SaveSkillState(&tState, pUnit);
+    ITEM_SaveSkillState(&tState, pUnit);
 
     for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(pInventory); pNode; pNode = INVENTORY_GetNextItem(pNode))
     {
@@ -349,28 +352,29 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
         }
     }
 
-    sub_004C1200_RestoreSkillState(pUnit, &tState);
+    ITEM_RestoreSkillState(pUnit, &tState);
     if (bChanged)
     {
         if (pUnit->dwUnitType == UNIT_PLAYER)
         {
-            sub_0046F950(pUnit);
-            sub_00470610_Refresh(pUnit, 0);
+            GFX_RequeuePlayerMode(pUnit);
+            GFX_RefreshUnitGfx(pUnit, 0);
         }
         else
         {
-            sub_004AFF60_MonsterCommand(7, pUnit, NULL);
+            MONSTER_HandleMonsterCommand(7, pUnit, NULL);
         }
     }
 }
 
-void __fastcall sub_004C2270(D2GSPacketSrv7DStrc* pPacket)
+// build: symbol ?ITEM_HandleItemStatePacket@* 0x004C2270
+void __fastcall ITEM_HandleItemStatePacket(D2GSPacketSrv7DStrc* pPacket)
 {
-    D2UnitStrc* pItem = sub_00463990(pPacket->dwItemId, 4);
+    D2UnitStrc* pItem = CUNIT_FindClientUnit(pPacket->dwItemId, 4);
     if (!pItem)
         return;
 
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, pPacket->nUnitType);
     if (!pUnit)
         return;
 
@@ -379,16 +383,16 @@ void __fastcall sub_004C2270(D2GSPacketSrv7DStrc* pPacket)
     if (pPacket->dwAction == 0x100)
     {
         ITEMS_SetItemFlag(pItem, 0x100, pPacket->bSet);
-        sub_0046F950(pUnit);
+        GFX_RequeuePlayerMode(pUnit);
         sub_004C1290_AttachItem(nComponent, pUnit, pItem);
-        sub_00470610_Refresh(pUnit, 0);
+        GFX_RefreshUnitGfx(pUnit, 0);
         ITEMS_UpdateSets(pUnit, pItem, 1, 1);
         sub_004C1350_RefreshEquippedItems(pUnit);
     }
     else if (pPacket->dwAction == 0x200)
     {
         ITEMS_SetItemFlag(pItem, 0x100, 0);
-        sub_004C12F0_ReattachItem(nMode, nComponent, pUnit, pItem);
+        ITEM_ReattachItemComponent(nMode, nComponent, pUnit, pItem);
         ITEMS_UpdateSets(pUnit, pItem, 0, 0);
         sub_004C1350_RefreshEquippedItems(pUnit);
     }
@@ -414,13 +418,13 @@ static void sub_004C1BE0_RefreshUnitItems(D2UnitStrc* pUnit)
 // 0x004C1BF0
 void __fastcall sub_004C1BF0(D2PacketRecord11Strc* pPacket)
 {
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, pPacket->nUnitType);
     if (pUnit)
         sub_004C1BE0_RefreshUnitItems(pUnit);
 }
 
 // 0x004C1C10
-void __fastcall sub_004C1C10(D2UnitStrc* pUnit)
+void __fastcall ITEM_RefreshUnitEquipment(D2UnitStrc* pUnit)
 {
     sub_004C1350_RefreshEquippedItems(pUnit);
 }
@@ -434,9 +438,9 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, in
 int __fastcall sub_004C1E40_SetChargedSkill(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges);
 
 // 0x004C1F30
-void __fastcall sub_004C1F30(unsigned int nA, unsigned char nB, unsigned int nC, unsigned int nD, unsigned short nE)
+void __fastcall ITEM_UpdateItemStat(unsigned int nA, unsigned char nB, unsigned int nC, unsigned int nD, unsigned short nE)
 {
-    D2UnitStrc* pItem = sub_00463990(nA, 4);
+    D2UnitStrc* pItem = CUNIT_FindClientUnit(nA, 4);
     if (!pItem)
         return;
 

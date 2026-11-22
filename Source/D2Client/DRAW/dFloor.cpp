@@ -77,8 +77,8 @@ struct D2ViewStrc
 extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
 unsigned char __stdcall sub_0061C0E0(void* pAct);                                                           // 0x0061C0E0
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB);           // 0x0061C0B0
-void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
-int __cdecl sub_00477730(); // 0x00477730
+void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
+int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
 int __cdecl sub_004F5210(); // 0x004F5210
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
@@ -116,7 +116,7 @@ static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2G
     {
         for (int i = 0; i < 8; ++i)
         {
-            sub_00475AA0_ReadGridCell(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nB0, &pCells->nB1, &pCells->nB2, &pCells->nB3);
+            SCMD_ReadGridCell(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nB0, &pCells->nB1, &pCells->nB2, &pCells->nB3);
             ++pCells;
         }
     }
@@ -157,7 +157,7 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
                     pCell->nB2 = nB2;
                 }
                 else
-                    sub_00475AA0_ReadGridCell((nSubX + i) << 3, 8 * (nSubY + j), &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
+                    SCMD_ReadGridCell((nSubX + i) << 3, 8 * (nSubY + j), &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
             }
         }
     }
@@ -167,7 +167,7 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
 void __fastcall sub_004DEA70(D2ViewStrc* pView)
 {
     const unsigned int nTick = GetTickCount();
-    const int nDetail = sub_00477730();
+    const int nDetail = DLIGHTMAP_GetRenderMode();
     const int bPerspective = D2GFX_CheckPerspective();
     const int nCorners = sub_004F5210();
     const int nOffX = 0x50 - pView->nOffX;
@@ -243,7 +243,7 @@ void __fastcall sub_004DEA70(D2ViewStrc* pView)
 
                 const int nSubX = pNode->nX >> 3;
                 const int nSubY = pNode->nY >> 3;
-                if (sub_00477730() < 4)
+                if (DLIGHTMAP_GetRenderMode() < 4)
                 {
                     sub_004DDEF0_BuildLargeGrid(nSubX, nSubY, pInfo->wZ, tLarge);
                     D2GFX_FloorTileDraw(pObj->pInfo, tLarge, nX, nY, nSubX, nSubY, pObj->nAlpha, nMode, 0);

@@ -22,18 +22,18 @@ extern CLTHITFUNC gpfCltHitFuncs_0072A508[];                                    
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
-void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
-void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
+void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 void __fastcall sub_00474470_ReleaseLight(D2GfxLightStrc* pLight);                                          // 0x00474470
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce);                 // 0x004BA790
-void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
+void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
 void __fastcall sub_004CD380_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004CD380
-D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nMissileId, int nArg3, int nArg4, int nSkill, int nLevel); // 0x004CDBA0
-int __stdcall sub_004DA110_GetMotionAX(D2UnitStrc* pUnit);                                             // 0x004DA110
-int __stdcall sub_004DA130_GetMotionAY(D2UnitStrc* pUnit);                                             // 0x004DA130
-int __stdcall sub_004DA150_GetMotionAZ(D2UnitStrc* pUnit);                                                  // 0x004DA150
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
+D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nMissileId, int nArg3, int nArg4, int nSkill, int nLevel); // 0x004CDBA0
+int __stdcall GFXUTIL_GetMotionAX(D2UnitStrc* pUnit);                                             // 0x004DA110
+int __stdcall GFXUTIL_GetMotionAY(D2UnitStrc* pUnit);                                             // 0x004DA130
+int __stdcall GFXUTIL_GetMotionAZ(D2UnitStrc* pUnit);                                                  // 0x004DA150
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
 void __stdcall sub_004DA640_SetMotionFlag1(D2UnitStrc* pUnit);                                              // 0x004DA640
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit);                                     // 0x004DA690
 int __fastcall sub_004DC210_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, D2UnitStrc* pOther, int nArg);   // 0x004DC210
@@ -161,10 +161,10 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
 
             if ((short)pMissilesTxtRecord->wExplosionMissile >= 0 && nSubMissile != -1)
             {
-                pSubMissile = sub_004CDBA0_SubmitOwnerRequest(pMissile, nSubMissile, 0, 0, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+                pSubMissile = MISSILE_SubmitOwnerRequest(pMissile, nSubMissile, 0, 0, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
                 if (pSubMissile)
                 {
-                    sub_004DA1D0_SetMotionVectorA(pSubMissile, sub_004DA110_GetMotionAX(pMissile), sub_004DA130_GetMotionAY(pMissile), sub_004DA150_GetMotionAZ(pMissile));
+                    GFXUTIL_SetMotionVectorA(pSubMissile, GFXUTIL_GetMotionAX(pMissile), GFXUTIL_GetMotionAY(pMissile), GFXUTIL_GetMotionAZ(pMissile));
                     sub_004DA640_SetMotionFlag1(pSubMissile);
                     sub_004DA690_ReplaceMotionFlag1With8(pSubMissile);
                     if (pSubMissile->dwClassId != 0x92)
@@ -181,7 +181,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
         const short nProgSfx = pMissilesTxtRecord->wTravelSound;
         if (nProgSfx >= 0)
         {
-            void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pMissile, nProgSfx);
+            void* pUnitSfx = MISSILE_FindUnitSfxInRange(pMissile, nProgSfx);
             if (pUnitSfx)
                 sub_004BA790_ReleaseUnitSfx(pUnitSfx, pMissile, 0);
         }
@@ -197,11 +197,11 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
             const int nUnitId = pMissile->dwUnitId;
             if (bFlag)
             {
-                sub_00465F00_RemoveServerSideUnit(nUnitId, nUnitType);
+                CUNIT_RemoveServerSideUnit(nUnitId, nUnitType);
             }
             else
             {
-                sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
+                CUNIT_RemoveClientSideUnit(nUnitId, nUnitType);
             }
         }
 

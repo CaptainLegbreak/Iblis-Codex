@@ -39,7 +39,7 @@ int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 extern D2RosterPetNodeStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
 // 0x00478040
-static unsigned char* sub_00478040(int* pnFileSize)
+static unsigned char* MSG_ReadSaveFile(int* pnFileSize)
 {
     char szSavePath[0x400];
     char szFileName[0x1F4];
@@ -65,7 +65,7 @@ static unsigned char* sub_00478040(int* pnFileSize)
 int gnProgress_007BB3B4; // 0x007BB3B4
 
 // 0x00478130
-void __fastcall sub_00478130_SetScale(int nValue, int nDivisor)
+void __fastcall MSG_SetProgress(int nValue, int nDivisor)
 {
     if (!nDivisor)
     {
@@ -76,11 +76,11 @@ void __fastcall sub_00478130_SetScale(int nValue, int nDivisor)
 }
 
 // 0x004781D0
-void __fastcall sub_004781D0(int bAnimate)
+void __fastcall MSG_UploadSaveFile(int bAnimate)
 {
     D2SaveFilePacketStrc tPacket;
     int nFileSize = 0;
-    unsigned char* pBuffer = sub_00478040(&nFileSize);
+    unsigned char* pBuffer = MSG_ReadSaveFile(&nFileSize);
     D2_ASSERT(pBuffer, 0x232);
     if (bAnimate)
         sub_00478160_ShowProgressSteps(0, 0);

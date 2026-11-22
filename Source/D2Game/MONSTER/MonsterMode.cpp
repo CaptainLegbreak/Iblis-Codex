@@ -400,7 +400,7 @@ void __stdcall D2Common_10469(D2UnitStrc* pUnit);                               
 
 void __stdcall STATES_UpdateStayDeathFlags(D2UnitStrc* pUnit, int bIsBoss);                                  // 0x00639FB0
 
-int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                   // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                   // 0x004638A0
 
 void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int bForGameLogic);                              // 0x00649F70
 
@@ -1190,7 +1190,7 @@ static void __stdcall MONSTERMODE_CleanupDeath(int nDirection, D2GameStrc* pGame
     }
 
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (!sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 0x13))
+    if (!MONSTERREGION_CheckMonStats2Flag(pUnit->dwClassId, 0x13))
     {
         PATH_SetUnitDeadCollision(pUnit, 1);
     }

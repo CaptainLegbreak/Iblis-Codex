@@ -38,7 +38,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0

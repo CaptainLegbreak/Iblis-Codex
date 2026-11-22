@@ -97,7 +97,7 @@ char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLeng
 int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode);
 extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
@@ -434,7 +434,7 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
         gtTextList_007BF1EA.wCount--;
     }
 
-    if (sub_004538D0(0x18) && gpListBox_007BF1B4)
+    if (GAME_GetUIVarState(0x18) && gpListBox_007BF1B4)
     {
         gpListBox_007BF1B4->Refresh();
         sub_0049E340();
