@@ -60652,6 +60652,11 @@
      "name": "?MONSTERUNIQUE_SetTrapDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A3EF0",
+     "length": 773,
+     "name": "?MONSTERUNIQUE_CastSuicideExplodeMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005A4440",
      "length": 663
     },
@@ -61391,17 +61396,6 @@
      "va": "0x005A43B0",
      "length": 36,
      "name": "?sub_005A43B0_OwnerMissileHook@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A3EF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A3EF0",
-     "length": 773,
-     "name": "?MONSTERUNIQUE_CastSuicideExplodeMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
