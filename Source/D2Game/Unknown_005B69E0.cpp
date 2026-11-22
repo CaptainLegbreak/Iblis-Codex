@@ -3,28 +3,13 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 
+#include "D2GameObjs.h"
+#include "D2QuestData.h"
+#include "D2UnitData.h"
 struct D2ObjOperateFnStrc;
 struct D2Act4Quest2Strc;
 
 
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-};
-
-struct D2Act4Quest2Strc
-{
-    char unk0x00[0x24];
-    D2CoordStrc pSealCoords[3];
-};
-
-struct D2QuestDataStrc
-{
-    char unk0x00[0x18];
-    D2Act4Quest2Strc* pQuestDataEx;
-};
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
@@ -87,7 +72,7 @@ int __fastcall OBJECTS_OperateFunction54_DiabloSeal(D2ObjOperateFnStrc* pOp, int
         return 0;
     }
 
-    D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
     D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[0];
     UNITS_GetCoords(pOp->hObject, pCoord);
     pQuestDataEx->pSealCoords[0].nX -= 12;
@@ -110,7 +95,7 @@ int __fastcall OBJECTS_OperateFunction55_DiabloSeal(D2ObjOperateFnStrc* pOp, int
         return 0;
     }
 
-    D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
     D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[1];
     UNITS_GetCoords(pOp->hObject, pCoord);
     pQuestDataEx->pSealCoords[1].nX -= 39;
@@ -133,7 +118,7 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
         return 0;
     }
 
-    D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
     D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[2];
     UNITS_GetCoords(pOp->hObject, pCoord);
     pQuestDataEx->pSealCoords[2].nX += 32;
