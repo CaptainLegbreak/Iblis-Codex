@@ -40,7 +40,7 @@ int __cdecl EmitFindArchive(const char* filename,int priority,void** outHandle,c
  return sub_00517128_FindArchive(filename,priority,outHandle,path);
 }
 
-// 0x00517299
+// build: context sub_00517299_FindAndOpenArchive
 static void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething)
 {
     unsigned int nFlags = 2;

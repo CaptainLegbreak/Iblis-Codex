@@ -42275,6 +42275,10 @@
      "length": 110
     },
     {
+     "va": "0x00517299",
+     "length": 153
+    },
+    {
      "va": "0x00517332",
      "length": 122
     },
@@ -42330,10 +42334,6 @@
     {
      "va": "0x00517128",
      "length": 369
-    },
-    {
-     "va": "0x00517299",
-     "length": 153
     }
    ],
    "flags": [
@@ -73086,10 +73086,6 @@
     {
      "va": "0x0061B870",
      "length": 57
-    },
-    {
-     "va": "0x0061BB80",
-     "length": 344
     }
    ],
    "flags": [
@@ -73347,6 +73343,10 @@
    "file": "Source/D2Common/ENVIRONMENT/Env.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0061BB80",
+     "length": 344
+    },
     {
      "va": "0x0061BCE0",
      "length": 263,
