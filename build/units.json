@@ -31319,6 +31319,10 @@
      "length": 550
     },
     {
+     "va": "0x004BCDE0",
+     "length": 383
+    },
+    {
      "va": "0x004BCF60",
      "length": 304
     },
@@ -31487,30 +31491,6 @@
      "length": 176,
      "name": "?sub_004C1AD0_UpdateAnim@@YIXPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BCDE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BCDE0",
-     "length": 383
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

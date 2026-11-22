@@ -267,12 +267,11 @@ void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2Un
 void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit);
 
 
-
-static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
-
 static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
 
-static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
+
+
+static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit);
 
 // 0x00457450
 int __fastcall sub_00457450_Abs(int nValue)
@@ -721,6 +720,61 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
     }
 }
 
+// 0x004BCDE0
+static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUnit, int nMode)
+{
+    D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
+    D2_ASSERT(nMode < 8, 0x210);
+
+    const unsigned int nOpenFrames = pUnit->pObjectData->pObjectTxt->dwFrameCnt[1];
+    const unsigned int nCloseFrames = pUnit->pObjectData->pObjectTxt->dwFrameCnt[3];
+    if (nMode == 0 && pUnit->dwAnimMode == 2 && nCloseFrames != 0x100)
+    {
+        pUnit->nSeqCurrentFramePrecise = pTxt->nStart[0];
+        UNITS_ChangeAnimMode(pUnit, 3);
+        sub_00470610_Refresh(pUnit, 0);
+        pUnit->dwFlags &= ~2;
+        UNITS_BlockCollisionPath(pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+    }
+    else if (nMode == 2 && pUnit->dwAnimMode == 0 && nOpenFrames != 0x100)
+    {
+        UNITS_ChangeAnimMode(pUnit, 1);
+        sub_00470610_Refresh(pUnit, 0);
+        pUnit->dwFlags &= ~2;
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[2];
+    }
+    else
+    {
+        if (bSelectable)
+            pUnit->dwFlags |= 2;
+        else
+            pUnit->dwFlags &= ~2;
+
+        const int nCurrentMode = pUnit->dwAnimMode;
+        if (nMode != nCurrentMode)
+        {
+            if (nMode == 4 || nMode == 2 || nMode == 5)
+            {
+                if (nCurrentMode != 5 && nCurrentMode != 2 && nCurrentMode != 4)
+                    UNITS_FreeCollisionPath(pUnit);
+            }
+            else if (nMode == 0 && nCurrentMode != 0)
+            {
+                UNITS_BlockCollisionPath(pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+            }
+
+            UNITS_ChangeAnimMode(pUnit, nMode);
+            sub_00470610_Refresh(pUnit, 0);
+        }
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[nMode];
+    }
+
+    if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
+        pUnit->dwFlags |= 0x20;
+    else
+        pUnit->dwFlags &= ~0x20;
+}
+
 // 0x004BCF60
 static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
 {
@@ -940,59 +994,6 @@ void __fastcall sub_004BD4A0_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt*
             sub_00470390(pUnit, pHandler->f_C, 3, 0, 0, 0, 0, 0);
         }
     }
-}
-
-static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUnit, int nMode)
-{
-    D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
-    D2_ASSERT(nMode < 8, 0x210);
-
-    const unsigned int nOpenFrames = pTxt->dwFrameCnt[1];
-    if (nMode == 0 && pUnit->dwAnimMode == 2 && pTxt->dwFrameCnt[3] != 0x100)
-    {
-        pUnit->nSeqCurrentFramePrecise = pTxt->nStart[0];
-        UNITS_ChangeAnimMode(pUnit, 3);
-        sub_00470610_Refresh(pUnit, 0);
-        pUnit->dwFlags &= ~2;
-        UNITS_BlockCollisionPath(pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
-    }
-    else if (nMode == 2 && pUnit->dwAnimMode == 0 && nOpenFrames != 0x100)
-    {
-        UNITS_ChangeAnimMode(pUnit, 1);
-        sub_00470610_Refresh(pUnit, 0);
-        pUnit->dwFlags &= ~2;
-        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[2];
-    }
-    else
-    {
-        if (bSelectable)
-            pUnit->dwFlags |= 2;
-        else
-            pUnit->dwFlags &= ~2;
-
-        const int nCurrentMode = pUnit->dwAnimMode;
-        if (nMode != nCurrentMode)
-        {
-            if (nMode == 4 || nMode == 2 || nMode == 5)
-            {
-                if (nCurrentMode != 5 && nCurrentMode != 2 && nCurrentMode != 4)
-                    UNITS_FreeCollisionPath(pUnit);
-            }
-            else if (nMode == 0 && nCurrentMode != 0)
-            {
-                UNITS_BlockCollisionPath(pUnit, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
-            }
-
-            UNITS_ChangeAnimMode(pUnit, nMode);
-            sub_00470610_Refresh(pUnit, 0);
-        }
-        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[nMode];
-    }
-
-    if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
-        pUnit->dwFlags |= 0x20;
-    else
-        pUnit->dwFlags &= ~0x20;
 }
 
 // 0x004BD550
