@@ -102,22 +102,6 @@ unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
     return nResult;
 }
 
-// 0x00521150
-int __fastcall sub_00521150(const D2BnCheckAdReplyStrc* pPacket, unsigned int nSize)
-{
-    const unsigned int nAdId = pPacket->nAdId;
-    if (nSize >= 0x11 && nAdId != gnVersion_0088252C)
-    {
-        const unsigned char* pData = pPacket->pData;
-        const char* szFileName = (const char*)(pData + sizeof(D2FileTimeStrc));
-        gnVersion_0088252C = nAdId;
-        const char* szLink = szFileName + strlen(szFileName) + 1;
-        if (*szFileName && *szLink)
-            sub_0051F910_Report(0x80000003, 5, nAdId, pPacket->nExtension, (const D2FileTimeStrc*)pData, szFileName, szLink);
-    }
-    return 1;
-}
-
 int gbDnsPending_008818E0; // 0x008818E0
 
 long volatile gnConnected_00881BF0; // 0x00881BF0

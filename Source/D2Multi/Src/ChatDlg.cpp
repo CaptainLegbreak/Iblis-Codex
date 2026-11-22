@@ -2,6 +2,7 @@
 #include "D2StormTypes.h"
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
+#include "D2Win32Types.h"
 
 struct D2WinButtonStrc;
 
@@ -93,7 +94,7 @@ extern D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
 
-extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
+D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                                  // 0x0077BBD8
 
 int gbToggle_0077BBEC; // 0x0077BBEC
 
@@ -223,7 +224,7 @@ struct D2ChatMessageStrc
     D2ChatMessageStrc* pNext;
 };
 
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
+extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetACP(); // 0x006CC32C
 
@@ -373,7 +374,6 @@ void* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); 
 
 unsigned long __stdcall sub_0044A070_ThreadProc(void* pParameter); // 0x0044A070
 
-
 extern char gKey_0070CD54; // 0x0070CD54
 
 char gszSelectName_0077B040[16];                                                                            // 0x0077B040
@@ -382,15 +382,15 @@ extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
 
 extern char gKey_0077B0A8; // 0x0077B0A8
 
-extern unsigned short gwSavedRequestId_0077BBDC; // 0x0077BBDC
+unsigned short gwSavedRequestId_0077BBDC;                                                                   // 0x0077BBDC
 
-extern int gnLaunchMode_0077BBE4; // 0x0077BBE4
+int gnLaunchMode_0077BBE4;                                                                                  // 0x0077BBE4
 
 extern int gbCheck_0077BD58; // 0x0077BD58
 
 extern int gbSelectActive_0077BD00; // 0x0077BD00
 
-extern int gbDone_0077BDA0; // 0x0077BDA0
+static int gbDone_0077BDA0;                                                                                 // 0x0077BDA0
 
 extern int gnValue_00798F5C; // 0x00798F5C
 
@@ -419,7 +419,6 @@ extern int gnValue_007992E0; // 0x007992E0
 extern int gnValue_007992E8; // 0x007992E8
 
 extern int gnValue_007992F0; // 0x007992F0
-
 
 extern D2WinControlStrc* gpControl_0077BD98; // 0x0077BD98
 
@@ -494,9 +493,7 @@ extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48;                  
 
 static int __stdcall sub_0043E860_FindHashedWord(char* szText, unsigned int nHash, int nLength);
 
-
 struct D2WinTextBoxStrc;
-
 
 struct UnicodeChar;
 
@@ -528,7 +525,7 @@ int __stdcall sub_0043EB00_OnErrorDone(int nArg); // 0x0043EB00
 
 extern D2WinControlInitStrc gtControlInits_0070CE50[]; // 0x0070CE50
 
-extern unsigned long gdwConnectTime_0077BBF0; // 0x0077BBF0
+unsigned long gdwConnectTime_0077BBF0;                                                                      // 0x0077BBF0
 
 struct UnicodeChar : Unicode
 {
@@ -536,8 +533,6 @@ struct UnicodeChar : Unicode
 };
 
 extern "C" void __fastcall sub_00500B20_SetButtonField5C(D2WinButtonStrc* pButton, int nValue); // 0x00500B20
-
-
 
 extern "C" int __cdecl rand();
 
@@ -548,7 +543,6 @@ int gnControlCount_0077BBE8; // 0x0077BBE8
 struct D2WinMsgStrc;
 
 void __cdecl sub_0043F060_ReleaseClassButtons();                                                            // 0x0043F060
-
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 
@@ -561,7 +555,6 @@ Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLengt
 void __cdecl sub_004406F0_CreateClassScreen();                                                              // 0x004406F0
 
 void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone);              // 0x004401C0
-
 
 static D2WinControlStrc* sub_0043E9D0_CreateControl(int nIndex);
 
@@ -589,7 +582,6 @@ void __stdcall sub_005255C0_FormatDate(Unicode* wszOut, int nA, int nB, int nMax
 
 extern "C" const char* const gaszClassNames_006D5524[];                                                     // 0x006D5524
 
-
 static D2CriticalSectionStrc gtChatLock_0077AE28; // 0x0077AE28
 
 static D2ChatMessageStrc* gpChatQueueHead_0077BDAC; // 0x0077BDAC
@@ -598,13 +590,75 @@ static D2ChatMessageStrc* gpChatQueueTail_0077BDB0; // 0x0077BDB0
 
 void __cdecl sub_004408B0_OpenClassSelectA();
 
-void __cdecl sub_00440980_OpenClassSelectB();
+void __cdecl sub_00440980_OpenClassSelectB(); // 0x00440980
 
 void __cdecl sub_00440A50_OpenClassSelectC();
 
 void __cdecl sub_00440B30_OpenClassSelectD();
 
 unsigned long gdwSelectTime_0077BD5C; // 0x0077BD5C
+
+void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
+
+struct D2LaunchReplyStrc
+{
+    int nStatus;
+    unsigned short f_4;
+};
+
+extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
+
+int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect);                                                // 0x004F97B0
+
+void __stdcall sub_004413E0_Enable(int bEnable);                                                            // 0x004413E0
+
+void __cdecl sub_0043E3A0_FlushChatMessages();                                                                   // 0x0043E3A0
+
+void __fastcall sub_00442B90_HandleReply(D2LaunchReplyStrc* pReply);                                        // 0x00442B90
+
+void __cdecl sub_00442E00_Poll();                                                                           // 0x00442E00
+
+void __fastcall sub_00442EB0_HandleOther(D2LaunchReplyStrc* pReply);                                        // 0x00442EB0
+
+void __cdecl sub_00443130_Reset();                                                                          // 0x00443130
+
+int __cdecl sub_00447A10_Pump();                                                                            // 0x00447A10
+
+void* __cdecl sub_00449BC0();                                                                               // 0x00449BC0
+
+unsigned short __cdecl sub_00449BD0_GetRequestId();                                                         // 0x00449BD0
+
+void* __cdecl sub_00449D50();                                                                               // 0x00449D50
+
+void __cdecl sub_00449D60_ClearReply();                                                                     // 0x00449D60
+
+int __cdecl sub_00449DE0();                                                                                 // 0x00449DE0
+
+unsigned short gwOtherRequestId_0077BBE0;                                                                   // 0x0077BBE0
+
+extern int gnLoopValueOut_0077BC14;                                                                         // 0x0077BC14
+
+extern int gnLoopValueIn_0077BC18;                                                                          // 0x0077BC18
+
+extern int gnFlag_0077BD60; // 0x0077BD60
+
+static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
+{
+    strcpy(szCopy, szText);
+    char szDelim[2] = " ";
+    char* pToken = strtok(szCopy, szDelim);
+    int nCount = 0;
+    while (pToken)
+    {
+        if (++nCount == 2)
+        {
+            *ppArg = szText + (pToken - szCopy);
+            return 1;
+        }
+        pToken = strtok(0, szDelim);
+    }
+    return 0;
+}
 
 // 0x0043C6B0
 int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName)
@@ -787,6 +841,13 @@ void __cdecl sub_0043CC30_LoadFrontEndCels()
     sub_00504D30(gpCellFile_0077BCB8, gpCellFile_0077BCBC);
 }
 
+// 0x0043D9A0
+int __stdcall sub_0043D9A0_SetFlag(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnFlag_0077BD60 = 1;
+    return 1;
+}
+
 // 0x0043D9B0
 int __stdcall sub_0043D9B0_NextRequestCallback(int nArg)
 {
@@ -794,6 +855,27 @@ int __stdcall sub_0043D9B0_NextRequestCallback(int nArg)
     {
     }
     gpfnLaunchCallback_0077BDA4(nArg);
+    return 1;
+}
+
+// 0x0043D9E0
+int __stdcall sub_0043D9E0_ScrollPageUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    sub_00448BD0_UpdateScroll(-10);
+    return 1;
+}
+
+// 0x0043DAF0
+int __stdcall sub_0043DAF0_OnConnect(int nArg)
+{
+    sub_004F9740_SetControlState(gpControlMain_0077BC4C, 1);
+    return 1;
+}
+
+// 0x0043DB90
+int __stdcall sub_0043DB90(int nArg)
+{
+    sub_004477A0_Refresh();
     return 1;
 }
 
@@ -961,6 +1043,29 @@ int __fastcall sub_0043E4C0_OnChatTime(unsigned int nTime, const char* szText)
         sub_0043E310_PostChatMessage(szDate, 0, 0);
         sub_0043E310_PostChatMessage(szText, 4, 0);
         sub_0043E310_PostChatMessage(&gszEmptyAssertText, 0, 0);
+    }
+    return 1;
+}
+
+struct D2WinControlStrc;
+
+// 0x0043E570
+int __cdecl sub_0043E570()
+{
+    D2ChatMessageStrc* pMessage = (D2ChatMessageStrc*)FOG_Alloc(sizeof(D2ChatMessageStrc), ".\\Src\\ChatDlg.cpp", 0xC1D, 0);
+    memset(pMessage, 0, sizeof(D2ChatMessageStrc));
+    if (pMessage)
+    {
+        pMessage->szText = 0;
+        pMessage->nColor = 0;
+        pMessage->bClear = 1;
+        EnterCriticalSection(&gtChatLock_0077AE28);
+        if (gpChatQueueHead_0077BDAC)
+            gpChatQueueTail_0077BDB0->pNext = pMessage;
+        else
+            gpChatQueueHead_0077BDAC = pMessage;
+        gpChatQueueTail_0077BDB0 = pMessage;
+        LeaveCriticalSection(&gtChatLock_0077AE28);
     }
     return 1;
 }
@@ -1199,40 +1304,30 @@ static void __stdcall sub_0043F870_GetArgument(int nSize, char* szDest, const ch
         *szDest = 0;
 }
 
-static int sub_00442180_ReplyCommand(const char* szCommand, const char* szText)
+// 0x00442180
+static int sub_00442180_ReplyCommand(const char* szText, const char* szCommand)
 {
     const size_t nLength = strlen(szCommand);
-    if (!sub_0043E6E0_CompareCommand(szText, szCommand) && (szText[nLength] == ' ' || !szText[nLength]))
+    if (!sub_0043E6E0_CompareCommand(szText, szCommand))
     {
-        char szMessage[0x100];
-        if (!strlen(gszLastWhisperer_0077B0D0))
+        if (szText[nLength] == ' ' || !szText[nLength])
         {
-            unsigned short wszMessage[0x100];
-            for (int i = 0; i < 0x100; ++i)
-                wszMessage[i] = 0;
-            sprintf(szMessage, gszNobodyToReply_006D561C);
-            sub_00526320_ToUnicode((Unicode*)wszMessage, szMessage, 0x100);
-            if (gpChatTextBox_0077BD8C)
-                sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, (Unicode*)wszMessage, 1, 0, 1);
-        }
-        else
-        {
-            char szPrefix[0x100];
-            char szCopy[0x100];
-            sprintf(szPrefix, gszCommandSpace_006D5618, szCommand);
-            strcpy(szCopy, szText);
-            char szDelim[2] = " ";
-            int nCount = 0;
-            char* pToken = strtok(szCopy, szDelim);
-            while (pToken)
+            char szMessage[260];
+            if (!strlen(gszLastWhisperer_0077B0D0))
             {
-                ++nCount;
-                if (nCount == 2)
-                    break;
-                pToken = strtok(0, szDelim);
+                Unicode wszMessage[0x100] = {};
+                sprintf(szMessage, gszNobodyToReply_006D561C);
+                sub_00526320_ToUnicode(wszMessage, szMessage, 0x100);
+                if (gpChatTextBox_0077BD8C)
+                    sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
+                return 1;
             }
 
-            if (!pToken)
+            char szPrefix[0x100];
+            sprintf(szPrefix, gszCommandSpace_006D5618, szCommand);
+            char szCopy[0x100];
+            const char* pMessage;
+            if (!CONSOLE_FindSecondTokenInline(szText, szCopy, &pMessage))
             {
                 Unicode wszMessage[0x100];
                 sprintf(szMessage, gszCorrectUsage_006D55F8, szCommand);
@@ -1241,17 +1336,16 @@ static int sub_00442180_ReplyCommand(const char* szCommand, const char* szText)
                     sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
                 return 1;
             }
-
-            const char* pMessage = szText + (pToken - szCopy);
             if (!gpLaunchFuncs_0077B09C->pfn0x68())
             {
                 sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
                 return 1;
             }
+
             sprintf(szMessage, gszReplyFormat_006D55EC, gszLastWhisperer_0077B0D0, pMessage);
             gpLaunchFuncs_0077B09C->pfn0x14(szMessage);
+            return 1;
         }
-        return 1;
     }
     return 0;
 }
@@ -2313,6 +2407,246 @@ void __stdcall sub_004413E0_Enable(int bEnable)
         sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
 }
 
+// 0x00441500
+int __stdcall sub_00441500(int nUnused)
+{
+    static unsigned long s_dwTimer_0077BDC0; // 0x0077BDC0
+    static unsigned long s_dwTimer_0077BDBC; // 0x0077BDBC
+    static unsigned long s_dwTimer_0077BDB8; // 0x0077BDB8
+    tagRECT tRect;
+    SetRect(&tRect, 0x91, 0xB, 0x28F, 0x47);
+    if (CONTROL_MouseInsideRect(&tRect))
+        sub_004F9160_SetLoopValue(gnLoopValueIn_0077BC18);
+    else
+        sub_004F9160_SetLoopValue(gnLoopValueOut_0077BC14);
+
+    if (gnLaunchMode_0077BBE4 == 2 && gdwConnectTime_0077BBF0 > 0)
+    {
+        if (GetTickCount() - gdwConnectTime_0077BBF0 > 30000)
+        {
+            gnLaunchMode_0077BBE4 = 0;
+            sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1415), 0);
+            gdwConnectTime_0077BBF0 = 0;
+        }
+    }
+
+    int bPending;
+    do
+    {
+        bPending = sub_00447A10_Pump() | sub_00449B70_Receive();
+
+        switch (gnLaunchMode_0077BBE4)
+        {
+        case 3:
+            if (sub_00449B30_QueryAddress())
+            {
+                D2LaunchReplyStrc* pReply = (D2LaunchReplyStrc*)sub_00449D50();
+                const unsigned short wId = pReply->f_4;
+                if (wId != 0)
+                {
+                    if (wId == gwSavedRequestId_0077BBDC)
+                    {
+                        const int nResult = sub_00449C00();
+                        if (nResult == 0x33)
+                        {
+                            sub_00442C20_HandleList();
+                            sub_00449D60_ClearReply();
+                        }
+                        else if (nResult == 0x32)
+                        {
+                            sub_00443130_Reset();
+                            sub_004413E0_Enable(1);
+                            sub_00449D60_ClearReply();
+                        }
+                        else if (pReply->nStatus)
+                        {
+                            sub_00442C20_HandleList();
+                            sub_00449D60_ClearReply();
+                        }
+                        else
+                        {
+                            sub_00442B90_HandleReply(pReply);
+                            sub_00449D60_ClearReply();
+                        }
+                    }
+                    else
+                    {
+                        if (wId == gwOtherRequestId_0077BBE0)
+                            sub_00442EB0_HandleOther(pReply);
+                        sub_00449D60_ClearReply();
+                    }
+                }
+            }
+            break;
+
+        case 2:
+            if (sub_00449B30_QueryAddress())
+            {
+                const int nId = sub_00449BD0_GetRequestId();
+                if (nId != 0 && nId == gwSavedRequestId_0077BBDC)
+                {
+                    switch (sub_00449C00())
+                    {
+                    case 0:
+                    {
+                        *(int*)gpCharInfo_0077BBD8->nState = 3;
+                        *(unsigned short*)gpCharInfo_0077BBD8->wValue = (unsigned short)sub_00449BE0();
+                        *(int*)gpCharInfo_0077BBD8->nValue0x229 = sub_00449DE0();
+                        const char* szSource = (const char*)sub_00449BC0();
+                        char* szDest = (char*)&gpCharInfo_0077BBD8->unk0x37;
+                        char c;
+                        do
+                        {
+                            c = *szSource;
+                            *szDest = c;
+                            szSource++;
+                            szDest++;
+                        }
+                        while (c != 0);
+                        gbDone_0077BDA0 = 1;
+                        gpLaunchFuncs_0077B09C->pfn0x3C(gpCharInfo_0077BBD8->szText0x1F, gpCharInfo_0077BBD8->szText0x245);
+                        sub_004F9160_SetLoopValue(0);
+                        sub_004F9190();
+                        return 1;
+                    }
+                    case 42:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1427), sub_0043DAF0_OnConnect);
+                        break;
+                    case 41:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1428), sub_0043DAF0_OnConnect);
+                        break;
+                    case 43:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1429), sub_0043DAF0_OnConnect);
+                        break;
+                    case 44:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x142A), sub_0043DAF0_OnConnect);
+                        break;
+                    case 115:
+                        gnLaunchMode_0077BBE4 = 0;
+                        if (*(unsigned short*)gpCharInfo_0077BBD8->wFlags & 0x20)
+                            sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x5522), sub_0043DAF0_OnConnect);
+                        else
+                            sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x14F4), sub_0043DAF0_OnConnect);
+                        break;
+                    case 116:
+                        gnLaunchMode_0077BBE4 = 0;
+                        if (*(unsigned short*)gpCharInfo_0077BBD8->wFlags & 0x20)
+                            sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x5521), sub_0043DAF0_OnConnect);
+                        else
+                            sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x14F3), sub_0043DAF0_OnConnect);
+                        break;
+                    case 125:
+                        gnLaunchMode_0077BBE4 = 0;
+                        if (gpCharInfo_0077BBD8->nValue3C2)
+                            sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x2AB1), sub_0043DAF0_OnConnect);
+                        else
+                            sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x2AB2), sub_0043DAF0_OnConnect);
+                        break;
+                    case 113:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1426), sub_0043DAF0_OnConnect);
+                        break;
+                    case 120:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x2775), sub_0043DAF0_OnConnect);
+                        break;
+                    case 121:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x2776), sub_0043DAF0_OnConnect);
+                        break;
+                    default:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1415), sub_0043DAF0_OnConnect);
+                        break;
+                    }
+                }
+            }
+            break;
+
+        case 1:
+            if (sub_00449B30_QueryAddress())
+            {
+                const int nId = sub_00449BD0_GetRequestId();
+                if (nId != 0 && nId == gwSavedRequestId_0077BBDC)
+                {
+                    switch (sub_00449C00())
+                    {
+                    case 0:
+                        gnLaunchMode_0077BBE4 = 2;
+                        while (++gwRequestId_0070CD60 == 0)
+                        {
+                        }
+                        sub_0044A4E0_SendConnect(gpCharInfo_0077BBD8->szText0x1F, gpCharInfo_0077BBD8->szText0x245, gwRequestId_0070CD60);
+                        gwSavedRequestId_0077BBDC = gwRequestId_0070CD60;
+                        gpLaunchFuncs_0077B09C->pfn0x34(gpCharInfo_0077BBD8->szText0x1F, gpCharInfo_0077BBD8->szText0x245, &gszEmptyAssertText, 0);
+                        break;
+                    case 30:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1411), sub_0043DAF0_OnConnect);
+                        break;
+                    case 31:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1412), sub_0043DAF0_OnConnect);
+                        break;
+                    case 32:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), sub_0043DAF0_OnConnect);
+                        break;
+                    default:
+                        gnLaunchMode_0077BBE4 = 0;
+                        sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x1414), sub_0043DAF0_OnConnect);
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+
+        int bUpdated = 0;
+        unsigned long dwElapsed = GetTickCount() - s_dwTimer_0077BDC0;
+        if (dwElapsed >= 15000)
+        {
+            s_dwTimer_0077BDC0 += dwElapsed;
+            bUpdated = 1;
+            gpLaunchFuncs_0077B09C->pfn0x30();
+            const unsigned short wFlags = *(unsigned short*)gpCharInfo_0077BBD8->wFlags;
+            if (!(wFlags & 8) || !(wFlags & 4))
+            {
+                int bEnable = 0;
+                if (gpCharInfo_0077BBD8->nByte22D && !sub_00449B30_QueryAddress())
+                    bEnable = 1;
+                sub_004413E0_Enable(bEnable);
+            }
+        }
+        if (gnLaunchMode_0077BBE4 == 3)
+        {
+            dwElapsed = GetTickCount() - s_dwTimer_0077BDBC;
+            if (dwElapsed >= 15000)
+            {
+                s_dwTimer_0077BDBC += dwElapsed;
+                bUpdated = 1;
+                sub_00445020_SendLaunchRequest();
+            }
+        }
+        dwElapsed = GetTickCount() - s_dwTimer_0077BDB8;
+        if (dwElapsed >= 1000)
+        {
+            s_dwTimer_0077BDB8 += dwElapsed;
+            bUpdated = 1;
+            sub_00442E00_Poll();
+        }
+        sub_0043E3A0_FlushChatMessages();
+        if (!bUpdated)
+            return 0;
+    }
+    while (bPending);
+    return 1;
+}
+
 // 0x00442810
 int __cdecl sub_00442810_SendChatBuffer()
 {
@@ -2530,29 +2864,6 @@ void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord)
         unsigned long nThreadId;
         ghThread_007992A4 = CreateThread(0, 0, sub_0044A070_ThreadProc, 0, 0, &nThreadId);
     }
-}
-
-struct D2WinControlStrc;
-
-// 0x0043E570
-int __cdecl sub_0043E570()
-{
-    D2ChatMessageStrc* pMessage = (D2ChatMessageStrc*)FOG_Alloc(sizeof(D2ChatMessageStrc), ".\\Src\\ChatDlg.cpp", 0xC1D, 0);
-    memset(pMessage, 0, sizeof(D2ChatMessageStrc));
-    if (pMessage)
-    {
-        pMessage->szText = 0;
-        pMessage->nColor = 0;
-        pMessage->bClear = 1;
-        EnterCriticalSection(&gtChatLock_0077AE28);
-        if (gpChatQueueHead_0077BDAC)
-            gpChatQueueTail_0077BDB0->pNext = pMessage;
-        else
-            gpChatQueueHead_0077BDAC = pMessage;
-        gpChatQueueTail_0077BDB0 = pMessage;
-        LeaveCriticalSection(&gtChatLock_0077AE28);
-    }
-    return 1;
 }
 
 #include "gen/data/Source/D2Multi/Src/ChatDlg.inc"

@@ -377,6 +377,8 @@ D2CriticalSectionStrc gBnLogLock_00881860;                                      
 
 extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 
+extern unsigned int gnVersion_0088252C; // 0x0088252C
+
 // 0x00518BA0
 void D2BnLogStrc::sub_00518BA0_LogWrite(const char* szText)
 {
@@ -1645,6 +1647,29 @@ void __fastcall sub_005225A0_SetBit(unsigned int* pKey, unsigned int nIndex, uns
     const unsigned int nShift = nIndex & 0x1F;
     const unsigned int nWord = 3 - (nIndex >> 5);
     pKey[nWord] = (pKey[nWord] & ~(1 << nShift)) | ((nValue & 1) << nShift);
+}
+
+struct D2BnCheckAdReplyStrc
+{
+    unsigned int nAdId;
+    unsigned int nExtension;
+    unsigned char pData[1];
+};
+
+// 0x00521150
+int __fastcall sub_00521150(const D2BnCheckAdReplyStrc* pPacket, unsigned int nSize)
+{
+    const unsigned int nAdId = pPacket->nAdId;
+    if (nSize >= 0x11 && nAdId != gnVersion_0088252C)
+    {
+        const unsigned char* pData = pPacket->pData;
+        const char* szFileName = (const char*)(pData + sizeof(D2FileTimeStrc));
+        gnVersion_0088252C = nAdId;
+        const char* szLink = szFileName + strlen(szFileName) + 1;
+        if (*szFileName && *szLink)
+            sub_0051F910_Report(0x80000003, 5, nAdId, pPacket->nExtension, (const D2FileTimeStrc*)pData, szFileName, szLink);
+    }
+    return 1;
 }
 
 // 0x005226D0

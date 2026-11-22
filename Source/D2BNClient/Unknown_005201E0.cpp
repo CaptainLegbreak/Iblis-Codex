@@ -32,34 +32,6 @@ void __cdecl sub_005201E0_InitMessageQueue()
     InitializeCriticalSection(&gMessageLock_00882004);
 }
 
-// 0x005204A0
-int __fastcall sub_005204A0_SetError(int nError)
-{
-    EnterCriticalSection(&gMessageLock_00882004);
-    if (!gnBnState_0088201C)
-        gnBnState_0088201C = nError;
-    LeaveCriticalSection(&gMessageLock_00882004);
-    return 1;
-}
-
-// 0x00520520
-int __fastcall sub_00520520_SetState(int nState)
-{
-    EnterCriticalSection(&gMessageLock_00882004);
-    gnBnState_0088201C = nState;
-    LeaveCriticalSection(&gMessageLock_00882004);
-    return 1;
-}
-
-// 0x00520550
-int __fastcall sub_00520550_SetStateArg(void* pArg)
-{
-    EnterCriticalSection(&gMessageLock_00882004);
-    gpBnStateArg_00882000 = pArg;
-    LeaveCriticalSection(&gMessageLock_00882004);
-    return 1;
-}
-
 // 0x005205F0
 int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState)
 {

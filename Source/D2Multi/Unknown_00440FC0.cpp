@@ -71,6 +71,8 @@ D2WinControlStrc* gpEditBox_0077BCF4; // 0x0077BCF4
 
 D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
 
+int sub_00442180_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
+
 // 0x00440FC0
 void __cdecl sub_00440FC0_CreateGatewayControls()
 {
@@ -171,52 +173,6 @@ static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char*
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x00442180
-static int sub_00442180_ReplyCommand(const char* szText, const char* szCommand)
-{
-    const size_t nLength = strlen(szCommand);
-    if (!sub_0043E6E0_CompareCommand(szText, szCommand))
-    {
-        if (szText[nLength] == ' ' || !szText[nLength])
-        {
-            char szMessage[260];
-            if (!strlen(gszLastWhisperer_0077B0D0))
-            {
-                Unicode wszMessage[0x100] = {};
-                sprintf(szMessage, gszNobodyToReply_006D561C);
-                sub_00526320_ToUnicode(wszMessage, szMessage, 0x100);
-                if (gpChatTextBox_0077BD8C)
-                    sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
-                return 1;
-            }
-
-            char szPrefix[0x100];
-            sprintf(szPrefix, gszCommandSpace_006D5618, szCommand);
-            char szCopy[0x100];
-            const char* pMessage;
-            if (!CONSOLE_FindSecondTokenInline(szText, szCopy, &pMessage))
-            {
-                Unicode wszMessage[0x100];
-                sprintf(szMessage, gszCorrectUsage_006D55F8, szCommand);
-                sub_00526320_ToUnicode(wszMessage, szMessage, 0x100);
-                if (gpChatTextBox_0077BD8C)
-                    sub_004FC9B0_SetText(gpChatTextBox_0077BD8C, wszMessage, 1, 0, 1);
-                return 1;
-            }
-            if (!gpLaunchFuncs_0077B09C->pfn0x68())
-            {
-                sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
-                return 1;
-            }
-
-            sprintf(szMessage, gszReplyFormat_006D55EC, gszLastWhisperer_0077B0D0, pMessage);
-            gpLaunchFuncs_0077B09C->pfn0x14(szMessage);
-            return 1;
-        }
-    }
-    return 0;
-}
-
 // calling-convention shim (not game code)
 int __fastcall sub_00442180_Shim(char* szText)
 {

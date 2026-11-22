@@ -2258,6 +2258,41 @@
      "name": "sub_004107F0_GetSaveDiskFreeSpace"
     },
     {
+     "va": "0x0042E6A0",
+     "length": 7,
+     "name": "sub_0042E6A0_SetGatewayValue"
+    },
+    {
+     "va": "0x0042E6B0",
+     "length": 11,
+     "name": "sub_0042E6B0_SetGatewayFlag"
+    },
+    {
+     "va": "0x0042EF50",
+     "length": 907,
+     "name": "?sub_0042EF50_FreeFrontEndCells@@YAXXZ"
+    },
+    {
+     "va": "0x0042F3A0",
+     "length": 80,
+     "name": "?sub_0042F3A0_CreateFromTemplate@@YIPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x0042F3F0",
+     "length": 58,
+     "name": "?sub_0042F3F0_DestroyControls@@YAXXZ"
+    },
+    {
+     "va": "0x0042F430",
+     "length": 80,
+     "name": "?sub_0042F430_CreateControl@@YIPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x0042F480",
+     "length": 162,
+     "name": "?sub_0042F480_Reset@@YAXXZ"
+    },
+    {
      "va": "0x0042F540",
      "length": 380,
      "name": "sub_0042F540_ShowMessageBox"
@@ -2268,9 +2303,19 @@
      "name": "?sub_0042F6C0_SetDone@@YAXXZ"
     },
     {
+     "va": "0x0042F6E0",
+     "length": 175,
+     "name": "?sub_0042F6E0@@YAXXZ"
+    },
+    {
      "va": "0x0042F790",
      "length": 103,
      "name": "?sub_0042F790_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0042FDD0",
+     "length": 15,
+     "name": "?sub_0042FDD0@@YAXXZ"
     },
     {
      "va": "0x0042FE60",
@@ -9605,6 +9650,16 @@
      "name": "sub_0043A610_ShowString"
     },
     {
+     "va": "0x0043A9D0",
+     "length": 209,
+     "name": "?sub_0043A9D0_ListClick@@YGHPAUD2ListMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043AE30",
+     "length": 586,
+     "name": "?sub_0043AE30_InitCharList@@YAXXZ"
+    },
+    {
      "va": "0x00445020",
      "length": 126,
      "name": "sub_00445020_SendLaunchRequest"
@@ -9666,24 +9721,9 @@
      "name": "CurGateway"
     },
     {
-     "va": "0x0042E6A0",
-     "length": 7,
-     "name": "sub_0042E6A0_SetGatewayValue"
-    },
-    {
-     "va": "0x0042E6B0",
-     "length": 11,
-     "name": "sub_0042E6B0_SetGatewayFlag"
-    },
-    {
      "va": "0x0042E6C0",
      "length": 6,
      "name": "sub_0042E6C0_GetGatewayFlag"
-    },
-    {
-     "va": "0x0042EF50",
-     "length": 907,
-     "name": "?sub_0042EF50_FreeFrontEndCells@@YAXXZ"
     }
    ]
   },
@@ -9899,36 +9939,6 @@
      "va": "0x0042F370",
      "length": 35,
      "name": "?sub_0042F370_RestorePalette@@YAXXZ"
-    },
-    {
-     "va": "0x0042F3A0",
-     "length": 80,
-     "name": "?sub_0042F3A0_CreateFromTemplate@@YIPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x0042F3F0",
-     "length": 58,
-     "name": "?sub_0042F3F0_DestroyControls@@YAXXZ"
-    },
-    {
-     "va": "0x0042F430",
-     "length": 80,
-     "name": "?sub_0042F430_CreateControl@@YIPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x0042F480",
-     "length": 162,
-     "name": "?sub_0042F480_Reset@@YAXXZ"
-    },
-    {
-     "va": "0x0042F530",
-     "length": 6,
-     "name": "?sub_0042F530_ClearUnicode@@YIXPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x0042F6E0",
-     "length": 175,
-     "name": "?sub_0042F6E0@@YAXXZ"
     },
     {
      "va": "0x0042F800",
@@ -10848,6 +10858,11 @@
      "name": "?sub_00446970_SendEmoteLine@@YGHH@Z"
     },
     {
+     "va": "0x00446A00",
+     "length": 141,
+     "name": "?sub_00446A00@@YGHH@Z"
+    },
+    {
      "va": "0x00446B70",
      "length": 300
     },
@@ -10960,17 +10975,6 @@
      "va": "0x0042FCE0",
      "length": 44,
      "name": "?sub_0042FCE0_ArchiveFilePresent@@YAHPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0042FDD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042FDD0",
-     "length": 15,
-     "name": "?sub_0042FDD0@@YAXXZ"
     }
    ]
   },
@@ -12144,11 +12148,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0043A9D0",
-     "length": 209,
-     "name": "?sub_0043A9D0_ListClick@@YGHPAUD2ListMsgStrc@@@Z"
-    },
-    {
      "va": "0x0043BF40",
      "length": 24,
      "name": "?sub_0043BF40_ReportStatus@@YAXHH@Z"
@@ -12162,17 +12161,6 @@
      "va": "0x0043C180",
      "length": 872,
      "name": "?sub_0043C180_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043AE30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043AE30",
-     "length": 586,
-     "name": "?sub_0043AE30_InitCharList@@YAXXZ"
     }
    ]
   },
@@ -12210,9 +12198,29 @@
      "name": "?sub_0043CC30_LoadFrontEndCels@@YAXXZ"
     },
     {
+     "va": "0x0043D9A0",
+     "length": 13,
+     "name": "?sub_0043D9A0_SetFlag@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x0043D9B0",
      "length": 47,
      "name": "sub_0043D9B0_NextRequestCallback"
+    },
+    {
+     "va": "0x0043D9E0",
+     "length": 18,
+     "name": "?sub_0043D9E0_ScrollPageUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DAF0",
+     "length": 24,
+     "name": "?sub_0043DAF0_SetMainState@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DB90",
+     "length": 13,
+     "name": "?sub_0043DB90_Refresh@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0043E1A0",
@@ -12521,6 +12529,15 @@
      "name": "sub_004413E0_Enable"
     },
     {
+     "va": "0x00441500",
+     "length": 1409,
+     "name": "?JoinOrCreateGame@@YGHH@Z"
+    },
+    {
+     "va": "0x00442180",
+     "length": 454
+    },
+    {
      "va": "0x00442810",
      "length": 153,
      "name": "?sub_00442810_SendChatBuffer@@YAHXZ"
@@ -12706,16 +12723,6 @@
      "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
     },
     {
-     "va": "0x0043D9A0",
-     "length": 13,
-     "name": "?sub_0043D9A0_SetFlag@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043D9E0",
-     "length": 18,
-     "name": "?sub_0043D9E0_ScrollPageUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
      "va": "0x0043DA00",
      "length": 18,
      "name": "?sub_0043DA00_ScrollPageDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -12724,16 +12731,6 @@
      "va": "0x0043DA20",
      "length": 16,
      "name": "?sub_0043DA20_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043DAF0",
-     "length": 24,
-     "name": "?sub_0043DAF0_SetMainState@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043DB90",
-     "length": 13,
-     "name": "?sub_0043DB90_Refresh@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0043DBA0",
@@ -12749,11 +12746,6 @@
      "va": "0x0043DBF0",
      "length": 52,
      "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00451880",
-     "length": 93,
-     "name": "sub_00451880_DispatchMsg"
     }
    ]
   },
@@ -13093,10 +13085,6 @@
      "length": 540
     },
     {
-     "va": "0x00442180",
-     "length": 454
-    },
-    {
      "va": "0x004438E0",
      "length": 262
     }
@@ -13178,17 +13166,6 @@
      "va": "0x004435D0",
      "length": 38,
      "name": "?sub_004435D0@@YGHPAX0PBUCharacter@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00441500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00441500",
-     "length": 1409,
-     "name": "?JoinOrCreateGame@@YGHH@Z"
     }
    ]
   },
@@ -13589,31 +13566,6 @@
      "length": 5,
      "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00446A00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446A00",
-     "length": 141,
-     "name": "?sub_00446A00@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -16255,6 +16207,11 @@
      "va": "0x00451850",
      "length": 47,
      "name": "?sub_00451850_FreeMsgRecordChunks@@YAXXZ"
+    },
+    {
+     "va": "0x00451880",
+     "length": 93,
+     "name": "sub_00451880_DispatchMsg"
     }
    ]
   },
@@ -28867,6 +28824,11 @@
    "file": "Source/D2Client/UI/npcmenu.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0042F530",
+     "length": 6,
+     "name": "??_FUnicode@@QAEXXZ"
+    },
     {
      "va": "0x004AD0C0",
      "length": 215,
@@ -43349,6 +43311,11 @@
      "length": 180
     },
     {
+     "va": "0x00521150",
+     "length": 120,
+     "name": "sub_00521150"
+    },
+    {
      "va": "0x005226D0",
      "length": 678
     },
@@ -43986,11 +43953,6 @@
      "va": "0x0051CA90",
      "length": 1539,
      "name": "?sFastestConnect@@YGHPAD@Z"
-    },
-    {
-     "va": "0x00521150",
-     "length": 120,
-     "name": "sub_00521150"
     }
    ]
   },
@@ -44208,21 +44170,6 @@
      "name": "?sub_00520200_DeleteQueueLock@@YAXXZ"
     },
     {
-     "va": "0x005204A0",
-     "length": 47,
-     "name": "?sub_005204A0_SetError@@YIHH@Z"
-    },
-    {
-     "va": "0x00520520",
-     "length": 38,
-     "name": "?sub_00520520_SetState@@YIHH@Z"
-    },
-    {
-     "va": "0x00520550",
-     "length": 38,
-     "name": "?sub_00520550_SetStateArg@@YIHPAX@Z"
-    },
-    {
      "va": "0x005205F0",
      "length": 64,
      "name": "?sub_005205F0_GetState@@YIHPAUD2BnStateStrc@@@Z"
@@ -44266,6 +44213,21 @@
     {
      "va": "0x00520440",
      "length": 85
+    },
+    {
+     "va": "0x005204A0",
+     "length": 47,
+     "name": "?sub_005204A0_SetError@@YIHH@Z"
+    },
+    {
+     "va": "0x00520520",
+     "length": 38,
+     "name": "?sub_00520520_SetState@@YIHH@Z"
+    },
+    {
+     "va": "0x00520550",
+     "length": 38,
+     "name": "?sub_00520550_SetStateArg@@YIHPAX@Z"
     },
     {
      "va": "0x00520580",
@@ -47285,19 +47247,13 @@
    ]
   },
   {
-   "file": "Source/D2Net/Unknown_0052B330.cpp",
-   "rank": 1,
+   "file": "Source/D2Net/SRC/Server.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x0052B330",
      "length": 343
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Net/SRC/Server.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0052B570",
      "length": 33,

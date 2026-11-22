@@ -222,7 +222,6 @@ int gnLastClickTick_007799A0; // 0x007799A0
 
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 
-
 int __cdecl CLIENT_GetConnectionStatus(); // 0x0052B050
 
 D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
@@ -251,11 +250,11 @@ extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
 
-void __cdecl sub_00515020_FadeOutWaves();
+void __cdecl sub_00515020_FadeOutWaves(); // 0x00515020
 
 void __cdecl sub_0043B080();
 
-void __cdecl sub_00432100_CreateLoginScreen();
+void __cdecl sub_00432100_CreateLoginScreen(); // 0x00432100
 
 void __cdecl sub_0043C4F0(); // 0x0043C4F0
 
@@ -270,7 +269,6 @@ void __fastcall sub_0042E6A0(void (__cdecl* pfnCallback)()); // 0x0042E6A0
 void __cdecl sub_0043B810_SetFlag(); // 0x0043B810
 
 void __cdecl sub_00436AD0_UpdateStatus(); // 0x00436AD0
-
 
 int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 
@@ -299,7 +297,6 @@ extern int gnStatusDots_007799B4; // 0x007799B4
 extern unsigned long gdwStatusStart_007799B8; // 0x007799B8
 
 extern D2WinControlStrc* gpButton_007799E4; // 0x007799E4
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
@@ -349,7 +346,6 @@ int __stdcall sub_00432450_OnWait(int nArg); // 0x00432450
 void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0x0044A130
 
 int gnCmdShow_0074C71C; // 0x0074C71C
-
 
 struct D2LaunchControlTemplateStrc;
 
@@ -564,6 +560,112 @@ void __cdecl sub_004336C0_ShowMainMenu();                                       
 
 void __cdecl sub_00435580_CreateCharCreateScreen();                                                                                // 0x00435580
 
+extern int gnControlCountA_00779948; // 0x00779948
+
+D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
+
+extern D2WinControlStrc* gapControlsA_00779450[0x40]; // 0x00779450
+
+int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
+
+extern int gbPaletteBusy_00779970; // 0x00779970
+
+extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
+
+void __cdecl sub_00438EA0_FreeCharList(); // 0x00438EA0
+
+void __cdecl sub_00437B90_FreeCache(); // 0x00437B90
+
+extern int gbFeCharPalette_007795F0; // 0x007795F0
+
+extern D2CelFileStrc* gpCellFile_007797A0; // 0x007797A0
+
+void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+
+extern D2CelFileStrc* gpCellFile_007797A4; // 0x007797A4
+
+extern D2CelFileStrc* gpCellFile_007797A8; // 0x007797A8
+
+extern D2CelFileStrc* gpCellFile_007797AC; // 0x007797AC
+
+extern D2CelFileStrc* gpCellFile_00779780; // 0x00779780
+
+extern D2CelFileStrc* gpCellFile_00779784; // 0x00779784
+
+extern D2CelFileStrc* gpCellFile_007797B0; // 0x007797B0
+
+extern D2CelFileStrc* gpCellFile_007797B4; // 0x007797B4
+
+extern D2CelFileStrc* gpCellFile_00779788; // 0x00779788
+
+extern D2CelFileStrc* gpCellFile_0077978C; // 0x0077978C
+
+extern D2CelFileStrc* gpCellFile_00779790; // 0x00779790
+
+extern D2CelFileStrc* gpCellFile_007797B8; // 0x007797B8
+
+extern D2CelFileStrc* gpCellFile_00779794; // 0x00779794
+
+extern D2CelFileStrc* gapCellFiles_00779808[5]; // 0x00779808
+
+extern D2CelFileStrc* gapCellFiles_0077981C[5]; // 0x0077981C
+
+extern D2CelFileStrc* gapCellFiles_007797E0[5]; // 0x007797E0
+extern D2CelFileStrc* gapCellFiles_007797F4[5]; // 0x007797F4
+extern D2CelFileStrc* gapCellFiles_00779830[5]; // 0x00779830
+extern D2CelFileStrc* gapCellFiles_00779844[5]; // 0x00779844
+extern D2CelFileStrc* gapCellFiles_00779858[5]; // 0x00779858
+extern D2CelFileStrc* gapCellFiles_00779888[3]; // 0x00779888
+extern D2CelFileStrc* gapCellFiles_0077989C[3]; // 0x0077989C
+extern D2CelFileStrc* gpCellFile_007796F8; // 0x007796F8
+extern D2CelFileStrc* gpCellFile_007796FC; // 0x007796FC
+extern D2CelFileStrc* gpCellFile_00779704; // 0x00779704
+extern D2CelFileStrc* gpCellFile_00779708; // 0x00779708
+extern D2CelFileStrc* gpCellFile_0077970C; // 0x0077970C
+extern D2CelFileStrc* gpCellFile_00779710; // 0x00779710
+extern D2CelFileStrc* gpCellFile_00779714; // 0x00779714
+extern D2CelFileStrc* gpCellFile_00779718; // 0x00779718
+extern D2CelFileStrc* gpCellFile_0077971C; // 0x0077971C
+extern D2CelFileStrc* gpCellFile_00779720; // 0x00779720
+extern D2CelFileStrc* gpCellFile_0077972C; // 0x0077972C
+extern D2CelFileStrc* gpCellFile_00779730; // 0x00779730
+extern D2CelFileStrc* gpCellFile_00779734; // 0x00779734
+extern D2CelFileStrc* gpCellFile_00779738; // 0x00779738
+extern D2CelFileStrc* gpCellFile_0077973C; // 0x0077973C
+extern D2CelFileStrc* gpCellFile_00779740; // 0x00779740
+extern D2CelFileStrc* gpCellFile_00779748; // 0x00779748
+extern D2CelFileStrc* gpCellFile_0077974C; // 0x0077974C
+extern D2CelFileStrc* gpCellFile_00779750; // 0x00779750
+extern D2CelFileStrc* gpCellFile_00779754; // 0x00779754
+extern D2CelFileStrc* gpCellFile_00779758; // 0x00779758
+extern D2CelFileStrc* gpCellFile_0077975C; // 0x0077975C
+extern D2CelFileStrc* gpCellFile_00779764; // 0x00779764
+extern D2CelFileStrc* gpCellFile_00779768; // 0x00779768
+extern D2CelFileStrc* gpCellFile_0077976C; // 0x0077976C
+extern D2CelFileStrc* gpCellFile_00779770; // 0x00779770
+extern D2CelFileStrc* gpCellFile_00779774; // 0x00779774
+extern D2CelFileStrc* gpCellFile_00779778; // 0x00779778
+extern D2CelFileStrc* gpCellFile_0077977C; // 0x0077977C
+extern D2CelFileStrc* gpCellFile_00779798; // 0x00779798
+extern D2CelFileStrc* gpCellFile_0077979C; // 0x0077979C
+extern D2CelFileStrc* gpCellFile_007797C8; // 0x007797C8
+extern D2CelFileStrc* gpCellFile_007797CC; // 0x007797CC
+extern D2CelFileStrc* gpCellFile_007797D0; // 0x007797D0
+extern D2CelFileStrc* gpCellFile_007797D4; // 0x007797D4
+extern D2CelFileStrc* gpCellFile_007797D8; // 0x007797D8
+extern D2CelFileStrc* gpCellFile_007797DC; // 0x007797DC
+extern D2CelFileStrc* gpCellFile_00779700; // 0x00779700
+extern D2CelFileStrc* gpCellFile_00779728; // 0x00779728
+extern D2CelFileStrc* gpCellFile_00779744; // 0x00779744
+extern D2CelFileStrc* gpCellFile_007797BC; // 0x007797BC
+extern D2CelFileStrc* gpCellFile_007797C0; // 0x007797C0
+extern D2CelFileStrc* gpCellFile_007797C4; // 0x007797C4
+extern D2CelFileStrc* gpCellFile_007798B0; // 0x007798B0
+extern D2CelFileStrc* gpCellFile_007798C4; // 0x007798C4
+
+extern D2CelFileStrc* gpCellFile_00779724; // 0x00779724
+extern int gnGatewayValue_007795BC; // 0x007795BC
+
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
 {
@@ -725,7 +827,161 @@ unsigned __int64 __cdecl sub_004107F0_GetSaveDiskFreeSpace()
     return nFreeClusters * nBytesPerSector * nSectorsPerCluster;
 }
 
+int gnValue_0077994C; // 0x0077994C
+int gnValue_00779950; // 0x00779950
+int gbGatewayFlag_00779954; // 0x00779954
 
+// 0x0042E6A0
+void __fastcall sub_0042E6A0_SetGatewayValue(int nValue)
+{
+    gnGatewayValue_007795BC = nValue;
+}
+
+// 0x0042E6B0
+void __cdecl sub_0042E6B0_SetGatewayFlag()
+{
+    gbGatewayFlag_00779954 = 1;
+}
+
+// 0x0042EF50
+void __cdecl sub_0042EF50_FreeFrontEndCells()
+{
+    ARCHIVE_FreeCellFile(gpCellFile_007796F8);
+    ARCHIVE_FreeCellFile(gpCellFile_007796FC);
+    ARCHIVE_FreeCellFile(gpCellFile_00779700);
+    ARCHIVE_FreeCellFile(gpCellFile_0077971C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779704);
+    ARCHIVE_FreeCellFile(gpCellFile_00779708);
+    ARCHIVE_FreeCellFile(gpCellFile_0077970C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779710);
+    ARCHIVE_FreeCellFile(gpCellFile_00779714);
+    ARCHIVE_FreeCellFile(gpCellFile_00779718);
+    ARCHIVE_FreeCellFile(gpCellFile_00779720);
+    ARCHIVE_FreeCellFile(gpCellFile_00779738);
+    ARCHIVE_FreeCellFile(gpCellFile_00779754);
+    ARCHIVE_FreeCellFile(gpCellFile_00779758);
+    ARCHIVE_FreeCellFile(gpCellFile_0077975C);
+    if (sub_00408F20_HasExpansionMpq())
+    {
+        ARCHIVE_FreeCellFile(gpCellFile_0077972C);
+        ARCHIVE_FreeCellFile(gpCellFile_00779730);
+        ARCHIVE_FreeCellFile(gpCellFile_00779734);
+        ARCHIVE_FreeCellFile(gpCellFile_00779774);
+    }
+    ARCHIVE_FreeCellFile(gpCellFile_0077973C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779740);
+    ARCHIVE_FreeCellFile(gpCellFile_00779748);
+    ARCHIVE_FreeCellFile(gpCellFile_0077974C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779764);
+    ARCHIVE_FreeCellFile(gpCellFile_00779768);
+    ARCHIVE_FreeCellFile(gpCellFile_0077976C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779770);
+    ARCHIVE_FreeCellFile(gpCellFile_00779778);
+    ARCHIVE_FreeCellFile(gpCellFile_0077977C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779798);
+    ARCHIVE_FreeCellFile(gpCellFile_0077979C);
+    ARCHIVE_FreeCellFile(gpCellFile_007797A0);
+    ARCHIVE_FreeCellFile(gpCellFile_007797A4);
+    ARCHIVE_FreeCellFile(gpCellFile_007797A8);
+    ARCHIVE_FreeCellFile(gpCellFile_007797AC);
+    ARCHIVE_FreeCellFile(gpCellFile_00779780);
+    ARCHIVE_FreeCellFile(gpCellFile_00779784);
+    ARCHIVE_FreeCellFile(gpCellFile_007797B0);
+    ARCHIVE_FreeCellFile(gpCellFile_007797B4);
+    ARCHIVE_FreeCellFile(gpCellFile_00779788);
+    ARCHIVE_FreeCellFile(gpCellFile_0077978C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779790);
+    ARCHIVE_FreeCellFile(gpCellFile_007797B8);
+    ARCHIVE_FreeCellFile(gpCellFile_00779794);
+    if (gpCellFile_00779724)
+    {
+        ARCHIVE_FreeCellFile(gpCellFile_00779724);
+        gpCellFile_00779724 = 0;
+        ARCHIVE_FreeCellFile(gpCellFile_00779728);
+        ARCHIVE_FreeCellFile(gpCellFile_00779744);
+        ARCHIVE_FreeCellFile(gpCellFile_007797BC);
+        ARCHIVE_FreeCellFile(gpCellFile_007797C0);
+        for (int i = 0; i < 5; ++i)
+            ARCHIVE_FreeCellFile(gapCellFiles_00779808[i]);
+        for (int i = 0; i < 5; ++i)
+            ARCHIVE_FreeCellFile(gapCellFiles_0077981C[i]);
+        for (int i = 0; i < 5; ++i)
+            ARCHIVE_FreeCellFile(gapCellFiles_00779830[i]);
+        for (int i = 0; i < 5; ++i)
+            ARCHIVE_FreeCellFile(gapCellFiles_00779844[i]);
+        for (int i = 0; i < 5; ++i)
+            ARCHIVE_FreeCellFile(gapCellFiles_00779858[i]);
+        for (int i = 0; i < 3; ++i)
+            ARCHIVE_FreeCellFile(gapCellFiles_0077989C[i]);
+        for (int i = 0; i < 3; ++i)
+            ARCHIVE_FreeCellFile(gapCellFiles_00779888[i]);
+        ARCHIVE_FreeCellFile(gpCellFile_007798B0);
+        ARCHIVE_FreeCellFile(gpCellFile_007798C4);
+        if (sub_00408F20_HasExpansionMpq())
+        {
+            for (int i = 0; i < 5; ++i)
+                ARCHIVE_FreeCellFile(gapCellFiles_007797E0[i]);
+            for (int i = 0; i < 5; ++i)
+                ARCHIVE_FreeCellFile(gapCellFiles_007797F4[i]);
+            ARCHIVE_FreeCellFile(gpCellFile_007797C4);
+        }
+    }
+    ARCHIVE_FreeCellFile(gpCellFile_007797C8);
+    ARCHIVE_FreeCellFile(gpCellFile_007797CC);
+    ARCHIVE_FreeCellFile(gpCellFile_007797D0);
+    ARCHIVE_FreeCellFile(gpCellFile_007797D4);
+    ARCHIVE_FreeCellFile(gpCellFile_007797D8);
+    ARCHIVE_FreeCellFile(gpCellFile_007797DC);
+    ARCHIVE_FreeCellFile(gpCellFile_00779750);
+}
+
+// 0x0042F3A0
+D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId)
+{
+    D2_ASSERT(gnControlCountA_00779948 < 0x40, 0x610);
+    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nTemplateId]);
+    gapControlsA_00779450[gnControlCountA_00779948++] = pControl;
+    return pControl;
+}
+
+// 0x0042F3F0
+void __cdecl sub_0042F3F0_DestroyControls()
+{
+    for (int i = 0; i < gnControlCountA_00779948; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
+    gnControlCountA_00779948 = 0;
+}
+
+// 0x0042F430
+D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId)
+{
+    D2_ASSERT(gnControlCountB_00779944 < 0x40, 0x627);
+    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nId]);
+    gapControlsB_00779350[gnControlCountB_00779944++] = pControl;
+    return pControl;
+}
+
+// 0x0042F480
+void __cdecl sub_0042F480_Reset()
+{
+    for (int i = 0; i < gnControlCountB_00779944; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsB_00779350[i]);
+    gnValue_0077994C = 0;
+    gnValue_00779950 = 0;
+    gnControlCountB_00779944 = 0;
+    for (int i = 0; i < gnControlCountA_00779948; ++i)
+        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
+    gnControlCountA_00779948 = 0;
+    BACKGROUND_SetCellFile(0);
+    if (gbPaletteBusy_00779970)
+    {
+        sub_0042F2E0_ReadPaletteFiles(gszPalFeCharDat_006D39E8, "palette\\fechar\\pal.pl2");
+        gbPaletteBusy_00779970 = 0;
+    }
+    sub_00438EA0_FreeCharList();
+    sub_00437B90_FreeCache();
+    D2Win_10029(1);
+}
 
 // 0x0042F540
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2)
@@ -787,6 +1043,36 @@ void __cdecl sub_0042F6C0_SetDone()
     gdwGlobal_00779974 = 1;
 }
 
+// 0x0042F6E0
+void __cdecl sub_0042F6E0()
+{
+    sub_0042F3F0_DestroyControls();
+    gbGatewayFlag_00779954 = 1;
+    gdwGlobal_00779974 = 0;
+    D2WinControlStrc* pControlA;
+    D2WinControlStrc* pControlB;
+    D2WinControlStrc* pControlC;
+    if (gbFeCharPalette_007795F0)
+    {
+        pControlA = sub_0042F3A0_CreateFromTemplate(0xF7);
+        D2Win_10033(pControlA, 0);
+        pControlB = sub_0042F3A0_CreateFromTemplate(0xFA);
+        pControlC = sub_0042F3A0_CreateFromTemplate(0xF9);
+    }
+    else
+    {
+        pControlA = sub_0042F3A0_CreateFromTemplate(0xDE);
+        D2Win_10033(pControlA, 0);
+        pControlB = sub_0042F3A0_CreateFromTemplate(0xDF);
+        pControlC = sub_0042F3A0_CreateFromTemplate(0xE0);
+    }
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControlA, 1);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControlB, 1);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControlC, 1);
+    sub_004FD060_SetText(pControlC, D2LANG_GetStringFromTblIndex(0x147B));
+    gpfnGatewayDone_007795BC = sub_0042F6C0_SetDone;
+}
+
 // 0x0042F790
 int __stdcall sub_0042F790_ShowCantConnect(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -801,6 +1087,14 @@ int __stdcall sub_0042F790_ShowCantConnect(SMSGHANDLER_PARAMS* pMsg)
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     sub_004FCF80_SetTextA(pControl, "Can't connect to Battle.Net. Try again later.");
     return 1;
+}
+
+// 0x0042FDD0
+void __cdecl sub_0042FDD0()
+{
+    sub_00515020();
+    sub_0042F480_Reset();
+    sub_0043B080_InitCharSelectScreen();
 }
 
 // 0x0042FE60

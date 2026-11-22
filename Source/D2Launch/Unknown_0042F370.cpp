@@ -37,12 +37,6 @@ void __cdecl sub_0042F370_RestorePalette()
     }
 }
 
-// 0x0042F530
-void __fastcall sub_0042F530_ClearUnicode(Unicode* pChar)
-{
-    pChar->wChar = 0;
-}
-
 // 0x0042F880
 void __cdecl sub_0042F880_DestroyControls()
 {
@@ -59,91 +53,11 @@ D2WinControlStrc* gpControl_007795A4; // 0x007795A4
 
 int gnControlCountB_00779944; // 0x00779944
 
-int gnValue_0077994C; // 0x0077994C
 
-int gnValue_00779950; // 0x00779950
 
-int gbGatewayFlag_00779954; // 0x00779954
+extern int gbGatewayFlag_00779954; // 0x00779954
 
 int gnValue_00779980; // 0x00779980
-
-// 0x0042F3A0
-D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId)
-{
-    D2_ASSERT(gnControlCountA_00779948 < 0x40, 0x610);
-    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nTemplateId]);
-    gapControlsA_00779450[gnControlCountA_00779948++] = pControl;
-    return pControl;
-}
-
-// 0x0042F3F0
-void __cdecl sub_0042F3F0_DestroyControls()
-{
-    for (int i = 0; i < gnControlCountA_00779948; ++i)
-        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
-    gnControlCountA_00779948 = 0;
-}
-
-// 0x0042F430
-D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId)
-{
-    D2_ASSERT(gnControlCountB_00779944 < 0x40, 0x627);
-    D2WinControlStrc* pControl = CONTROL_Create(&gtControlTemplates_00708D10[nId]);
-    gapControlsB_00779350[gnControlCountB_00779944++] = pControl;
-    return pControl;
-}
-
-// 0x0042F480
-void __cdecl sub_0042F480_Reset()
-{
-    for (int i = 0; i < gnControlCountB_00779944; ++i)
-        sub_004F95C0_ControlDestroy(&gapControlsB_00779350[i]);
-    gnValue_0077994C = 0;
-    gnValue_00779950 = 0;
-    gnControlCountB_00779944 = 0;
-    for (int i = 0; i < gnControlCountA_00779948; ++i)
-        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
-    gnControlCountA_00779948 = 0;
-    BACKGROUND_SetCellFile(0);
-    if (gbPaletteBusy_00779970)
-    {
-        sub_0042F2E0_ReadPaletteFiles(gszPalFeCharDat_006D39E8, "palette\\fechar\\pal.pl2");
-        gbPaletteBusy_00779970 = 0;
-    }
-    sub_00438EA0_FreeCharList();
-    sub_00437B90_FreeCache();
-    D2Win_10029(1);
-}
-
-// 0x0042F6E0
-void __cdecl sub_0042F6E0()
-{
-    sub_0042F3F0_DestroyControls();
-    gbGatewayFlag_00779954 = 1;
-    gdwGlobal_00779974 = 0;
-    D2WinControlStrc* pControlA;
-    D2WinControlStrc* pControlB;
-    D2WinControlStrc* pControlC;
-    if (gbFeCharPalette_007795F0)
-    {
-        pControlA = sub_0042F3A0_CreateFromTemplate(0xF7);
-        D2Win_10033(pControlA, 0);
-        pControlB = sub_0042F3A0_CreateFromTemplate(0xFA);
-        pControlC = sub_0042F3A0_CreateFromTemplate(0xF9);
-    }
-    else
-    {
-        pControlA = sub_0042F3A0_CreateFromTemplate(0xDE);
-        D2Win_10033(pControlA, 0);
-        pControlB = sub_0042F3A0_CreateFromTemplate(0xDF);
-        pControlC = sub_0042F3A0_CreateFromTemplate(0xE0);
-    }
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControlA, 1);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControlB, 1);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControlC, 1);
-    sub_004FD060_SetText(pControlC, D2LANG_GetStringFromTblIndex(0x147B));
-    gpfnGatewayDone_007795BC = sub_0042F6C0_SetDone;
-}
 
 // 0x0042F800
 void __cdecl sub_0042F800()
