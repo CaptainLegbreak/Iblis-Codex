@@ -114,7 +114,7 @@ static void __stdcall sub_0061BB60_SetColorForId(D2DrlgEnvironmentStrc* pRecord,
     }
 }
 
-// 0x0061BB80
+// build: context ENVIRONMENT_UpdateLightIntensity
 static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct)
 {
     if (nAct == ACT_IV)

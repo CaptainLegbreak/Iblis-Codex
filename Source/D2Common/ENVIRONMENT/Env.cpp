@@ -136,7 +136,7 @@ static void __stdcall sub_0061BB60_SetColorForId(D2DrlgEnvironmentStrc* pRecord,
     }
 }
 
-// build: context ENVIRONMENT_UpdateLightIntensity
+// 0x0061BB80
 static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct)
 {
     if (nAct == ACT_IV)
@@ -182,19 +182,13 @@ static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment
         else
         {
             const double dAngle = (double)pEnvironment->nTicks / (double)pEnvironment->nTimeRate / 180.0 * 3.14159265f;
-            if (pEnvironment->nTicks < ENV_HALF_CIRCLE_DEGREES * pEnvironment->nTimeRate)
-            {
-                pEnvironment->fCos = (float)-cos(dAngle);
-                pEnvironment->fSin = (float)sin(dAngle);
-            }
-            else
-            {
-                pEnvironment->fCos = (float)-cos(dAngle);
-                pEnvironment->fSin = (float)(sin(dAngle) * 0.5);
-            }
+            pEnvironment->fSin = (float)(pEnvironment->nTicks < ENV_HALF_CIRCLE_DEGREES * pEnvironment->nTimeRate
+                ? (pEnvironment->fCos = (float)-cos(dAngle), sin(dAngle))
+                : (pEnvironment->fCos = (float)-cos(dAngle), sin(dAngle) * 0.5));
 
             pEnvironment->fLast = 0.0f;
-            pEnvironment->nIntensity = (int)(pEnvironment->fSin * 128.0 + 128.0 + 0.5);
+            const float& fSin = pEnvironment->fSin;
+            pEnvironment->nIntensity = (int)(fSin * 128.0 + 128.0 + 0.5);
             int nTargetIntensity = 255;
             if (nAct == ACT_V)
             {
