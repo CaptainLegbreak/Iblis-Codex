@@ -4494,27 +4494,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMEM_00411700.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00411700",
-     "length": 11,
-     "name": "sub_00411700_ToByte"
-    },
-    {
-     "va": "0x00411A20",
-     "length": 48,
-     "name": "sub_00411A20_InitPageSize"
-    },
-    {
-     "va": "0x00411D40",
-     "length": 82,
-     "name": "sub_00411D40_SetFlags"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_0040EB30.cpp",
    "rank": 0,
    "functions": [
@@ -4876,27 +4855,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMEM_00411670.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00411670",
-     "length": 107,
-     "name": "?sub_00411670_GetCallerId@@YAIHPBD@Z"
-    },
-    {
-     "va": "0x004117A0",
-     "length": 42,
-     "name": "?sub_004117A0_SetAndShowError@@YGXPBDHI@Z"
-    },
-    {
-     "va": "0x00411DC0",
-     "length": 306,
-     "name": "?sub_00411DC0_RebuildFreeLists@@YAXPAUD2SMemHeapStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00410F60.cpp",
    "rank": 1,
    "functions": [
@@ -4936,153 +4894,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMEM_00411640.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00411640",
-     "length": 18,
-     "name": "?sub_00411640_GetBlockHeader@@YAPADPAD@Z"
-    },
-    {
-     "va": "0x00411660",
-     "length": 11,
-     "name": "?sub_00411660_GetSegmentField@@YAHPAD@Z"
-    },
-    {
-     "va": "0x004116E0",
-     "length": 19,
-     "name": "?sub_004116E0_GetBlockData@@YIPADPAD@Z"
-    },
-    {
-     "va": "0x00411740",
-     "length": 89,
-     "name": "?sub_00411740_FindFreeBlock@@YGPAUD2FogBlockStrc@@IPAIH@Z"
-    },
-    {
-     "va": "0x00411DA0",
-     "length": 20,
-     "name": "?sub_00411DA0_GetHeap@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMEM.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00411620",
-     "length": 23,
-     "name": "?sub_00411620_FatalError@@YAXIPBDH@Z"
-    },
-    {
-     "va": "0x00411710",
-     "length": 46,
-     "name": "?sub_00411710_LockHeap@@YGPAUD2SMemHeapStrc@@PAHPAUD2SMemBlockStrc@@@Z"
-    },
-    {
-     "va": "0x004117D0",
-     "length": 31,
-     "name": "?sub_004117D0_ReleaseHeapLock@@YAXPAH@Z"
-    },
-    {
-     "va": "0x00411910",
-     "length": 132,
-     "name": "?sub_00411910_CheckPtr@@YAHPAXHPBDH@Z"
-    },
-    {
-     "va": "0x00411A50",
-     "length": 41,
-     "name": "?sub_00411A50_InitBlock@@YGXPAUD2SMemHeapStrc@@PAUD2SMemBlockStrc@@IIE@Z"
-    },
-    {
-     "va": "0x00411B90",
-     "length": 49,
-     "name": "?sub_00411B90_GetBlockSizes@@YAXPAUD2SMemBlockStrc@@PAXPAI2@Z"
-    },
-    {
-     "va": "0x00411BD0",
-     "length": 69,
-     "name": "?sub_00411BD0_CommitHeap@@YAHPAUD2SMemHeapStrc@@I@Z"
-    },
-    {
-     "va": "0x00411C20",
-     "length": 67,
-     "name": "?sub_00411C20_FreeBlockEx@@YGXPAXPAUD2SMemHeapStrc@@PAUD2SMemBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00411C70",
-     "length": 95,
-     "name": "?sub_00411C70_SplitBlock@@YGXPAIPAUD2SMemHeapStrc@@0PAUD2SMemBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00411F00",
-     "length": 247,
-     "name": "?sub_00411F00_ProcessUsedBlock@@YIPAPAUD2SMemHeapStrc@@PAPAU1@@Z"
-    },
-    {
-     "va": "0x00412650",
-     "length": 179,
-     "name": "?SMemFree@@YGHPAXPBDHI@Z"
-    },
-    {
-     "va": "0x00412710",
-     "length": 69,
-     "name": "?SMemGetHeapByCaller@@YGIPBDH@Z"
-    },
-    {
-     "va": "0x00412760",
-     "length": 121,
-     "name": "?SMemGetHeapByPtr@@YGIPAX@Z"
-    },
-    {
-     "va": "0x004127E0",
-     "length": 132,
-     "name": "?SMemGetSize@@YGIPAXPBDH@Z"
-    },
-    {
-     "va": "0x00412870",
-     "length": 340,
-     "name": "?SMemHeapCreate@@YGIIII@Z"
-    },
-    {
-     "va": "0x00412A60",
-     "length": 174,
-     "name": "?SMemHeapFree@@YGHIIPAX@Z"
-    },
-    {
-     "va": "0x00412B10",
-     "length": 143,
-     "name": "?SMemHeapSize@@YGIIIPAX@Z"
-    },
-    {
-     "va": "0x00412E40",
-     "length": 236,
-     "name": "?sub_00412E40_HeapAlloc@@YGPAXPAUD2SMemHeapStrc@@IPAHI@Z"
-    },
-    {
-     "va": "0x00412F30",
-     "length": 234,
-     "name": "?sub_00412F30_ReAlloc@@YGPAXPAHPAUD2SMemHeapStrc@@PAXPAUD2SMemBlockStrc@@II@Z"
-    },
-    {
-     "va": "0x00413250",
-     "length": 188,
-     "name": "?SMemHeapAlloc@@YGPAXIII@Z"
-    },
-    {
-     "va": "0x00413310",
-     "length": 180,
-     "name": "?SMemHeapReAlloc@@YGPAXIIPAXI@Z"
-    },
-    {
-     "va": "0x004133D0",
-     "length": 180,
-     "name": "?SMemReAlloc@@YGPAXPAXIPBDHI@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SMEM_004117F0.CPP",
    "rank": 0,
    "functions": [
@@ -5090,38 +4901,6 @@
      "va": "0x004117F0",
      "length": 277,
      "name": "?sub_004117F0_CreateHeap@@YGPAUD2SMemHeapStrc@@HIHIIIPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMEM_004119A0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004119A0",
-     "length": 14,
-     "name": "?sub_A21_FreeListIndex@@YAII@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMEM_004119B0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004119B0",
-     "length": 101,
-     "name": "?sub_004119B0_CalcBlockSize@@YGXPAI0PAH1I@Z"
-    },
-    {
-     "va": "0x00412080",
-     "length": 331,
-     "name": "?sub_00412080_GrowBlock@@YGHPAUD2SMemBlockStrc@@IIPAUD2SMemHeapStrc@@@Z"
-    },
-    {
-     "va": "0x004121D0",
-     "length": 103,
-     "name": "?sub_004121D0_ShrinkBlock@@YGXPAUD2SMemBlockStrc@@IIPAUD2SMemHeapStrc@@@Z"
     }
    ]
   },
@@ -5328,46 +5107,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMEM_00411A80.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00411A80",
-     "length": 21,
-     "name": "?sub_00411A80_ReleaseBlock@@YIXPAPAUD2FogBlockStrc@@@Z"
-    },
-    {
-     "va": "0x00411CD0",
-     "length": 97,
-     "name": "?SMemInitialize@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMEM_00411AA0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00411AA0",
-     "length": 239
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SCOMP.CPP",
    "rank": 0,
    "functions": [
@@ -5554,20 +5293,153 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMEM_00412240.CPP",
+   "file": "Source/Storm/SOURCE/SMEM.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00411620",
+     "length": 23,
+     "name": "?sub_00411620_FatalError@@YAXIPBDH@Z"
+    },
+    {
+     "va": "0x00411640",
+     "length": 18,
+     "name": "?sub_00411640_GetBlockHeader@@YAPADPAD@Z"
+    },
+    {
+     "va": "0x00411660",
+     "length": 11,
+     "name": "?sub_00411660_GetSegmentField@@YAHPAD@Z"
+    },
+    {
+     "va": "0x00411670",
+     "length": 107,
+     "name": "?sub_00411670_GetCallerId@@YAIHPBD@Z"
+    },
+    {
+     "va": "0x004116E0",
+     "length": 19,
+     "name": "?sub_004116E0_GetBlockData@@YIPADPAD@Z"
+    },
+    {
+     "va": "0x00411700",
+     "length": 11,
+     "name": "sub_00411700_ToByte"
+    },
+    {
+     "va": "0x00411710",
+     "length": 46,
+     "name": "?sub_00411710_LockHeap@@YGPAUD2SMemHeapStrc@@PAHPAUD2SMemBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00411740",
+     "length": 89,
+     "name": "?sub_00411740_FindFreeBlock@@YGPAUD2FogBlockStrc@@IPAIH@Z"
+    },
+    {
+     "va": "0x004117A0",
+     "length": 42,
+     "name": "?sub_004117A0_SetAndShowError@@YGXPBDHI@Z"
+    },
+    {
+     "va": "0x004117D0",
+     "length": 31,
+     "name": "?sub_004117D0_ReleaseHeapLock@@YAXPAH@Z"
+    },
+    {
+     "va": "0x00411910",
+     "length": 132,
+     "name": "?sub_00411910_CheckPtr@@YAHPAXHPBDH@Z"
+    },
+    {
+     "va": "0x004119A0",
+     "length": 14,
+     "name": "?sub_A21_FreeListIndex@@YAII@Z"
+    },
+    {
+     "va": "0x004119B0",
+     "length": 101,
+     "name": "?sub_004119B0_CalcBlockSize@@YGXPAI0PAH1I@Z"
+    },
+    {
+     "va": "0x00411A20",
+     "length": 48,
+     "name": "sub_00411A20_InitPageSize"
+    },
+    {
+     "va": "0x00411A50",
+     "length": 41,
+     "name": "?sub_00411A50_InitBlock@@YGXPAUD2SMemHeapStrc@@PAUD2SMemBlockStrc@@IIE@Z"
+    },
+    {
+     "va": "0x00411A80",
+     "length": 21,
+     "name": "?sub_00411A80_ReleaseBlock@@YIXPAPAUD2FogBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00411AA0",
+     "length": 239
+    },
+    {
+     "va": "0x00411B90",
+     "length": 49,
+     "name": "?sub_00411B90_GetBlockSizes@@YAXPAUD2SMemBlockStrc@@PAXPAI2@Z"
+    },
+    {
+     "va": "0x00411BD0",
+     "length": 69,
+     "name": "?sub_00411BD0_CommitHeap@@YAHPAUD2SMemHeapStrc@@I@Z"
+    },
+    {
+     "va": "0x00411C20",
+     "length": 67,
+     "name": "?sub_00411C20_FreeBlockEx@@YGXPAXPAUD2SMemHeapStrc@@PAUD2SMemBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00411C70",
+     "length": 95,
+     "name": "?sub_00411C70_SplitBlock@@YGXPAIPAUD2SMemHeapStrc@@0PAUD2SMemBlockStrc@@@Z"
+    },
+    {
+     "va": "0x00411CD0",
+     "length": 97,
+     "name": "?SMemInitialize@@YAXXZ"
+    },
+    {
+     "va": "0x00411D40",
+     "length": 82,
+     "name": "sub_00411D40_SetFlags"
+    },
+    {
+     "va": "0x00411DA0",
+     "length": 20,
+     "name": "?sub_00411DA0_GetHeap@@YAHXZ"
+    },
+    {
+     "va": "0x00411DC0",
+     "length": 306,
+     "name": "?sub_00411DC0_RebuildFreeLists@@YAXPAUD2SMemHeapStrc@@@Z"
+    },
+    {
+     "va": "0x00411F00",
+     "length": 247,
+     "name": "?sub_00411F00_ProcessUsedBlock@@YIPAPAUD2SMemHeapStrc@@PAPAU1@@Z"
+    },
+    {
+     "va": "0x00412080",
+     "length": 331,
+     "name": "?sub_00412080_GrowBlock@@YGHPAUD2SMemBlockStrc@@IIPAUD2SMemHeapStrc@@@Z"
+    },
+    {
+     "va": "0x004121D0",
+     "length": 103,
+     "name": "?sub_004121D0_ShrinkBlock@@YGXPAUD2SMemBlockStrc@@IIPAUD2SMemHeapStrc@@@Z"
+    },
     {
      "va": "0x00412240",
      "length": 161,
      "name": "sub_00412240_DestroyHeaps"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMEM_004122F0.CPP",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004122F0",
      "length": 441
@@ -5577,37 +5449,81 @@
      "length": 410
     },
     {
-     "va": "0x00413020",
-     "length": 210
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMEM_004129D0.CPP",
-   "rank": 0,
-   "functions": [
+     "va": "0x00412650",
+     "length": 179,
+     "name": "?SMemFree@@YGHPAXPBDHI@Z"
+    },
+    {
+     "va": "0x00412710",
+     "length": 69,
+     "name": "?SMemGetHeapByCaller@@YGIPBDH@Z"
+    },
+    {
+     "va": "0x00412760",
+     "length": 121,
+     "name": "?SMemGetHeapByPtr@@YGIPAX@Z"
+    },
+    {
+     "va": "0x004127E0",
+     "length": 132,
+     "name": "?SMemGetSize@@YGIPAXPBDH@Z"
+    },
+    {
+     "va": "0x00412870",
+     "length": 340,
+     "name": "?SMemHeapCreate@@YGIIII@Z"
+    },
     {
      "va": "0x004129D0",
      "length": 142
     },
     {
+     "va": "0x00412A60",
+     "length": 174,
+     "name": "?SMemHeapFree@@YGHIIPAX@Z"
+    },
+    {
+     "va": "0x00412B10",
+     "length": 143,
+     "name": "?SMemHeapSize@@YGIIIPAX@Z"
+    },
+    {
+     "va": "0x00412BA0",
+     "length": 663
+    },
+    {
+     "va": "0x00412E40",
+     "length": 236,
+     "name": "?sub_00412E40_HeapAlloc@@YGPAXPAUD2SMemHeapStrc@@IPAHI@Z"
+    },
+    {
+     "va": "0x00412F30",
+     "length": 234,
+     "name": "?sub_00412F30_ReAlloc@@YGPAXPAHPAUD2SMemHeapStrc@@PAXPAUD2SMemBlockStrc@@II@Z"
+    },
+    {
+     "va": "0x00413020",
+     "length": 210
+    },
+    {
      "va": "0x00413100",
      "length": 327,
      "name": "?SMemDumpState@@YGHP6GXPAXPBD@Z0@Z"
+    },
+    {
+     "va": "0x00413250",
+     "length": 188,
+     "name": "?SMemHeapAlloc@@YGPAXIII@Z"
+    },
+    {
+     "va": "0x00413310",
+     "length": 180,
+     "name": "?SMemHeapReAlloc@@YGPAXIIPAXI@Z"
+    },
+    {
+     "va": "0x004133D0",
+     "length": 180,
+     "name": "?SMemReAlloc@@YGPAXPAXIPBDHI@Z"
     }
    ]
   },
@@ -5634,30 +5550,6 @@
      "length": 216,
      "name": "?SStrHash@@YGIPBDII@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMEM_00412BA0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00412BA0",
-     "length": 663
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
