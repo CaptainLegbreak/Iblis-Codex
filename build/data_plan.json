@@ -2295,7 +2295,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004B66B0.cpp": {
+  "Source/D2Client/UI/npcmenu_004B6440.cpp": {
    "bytes": 186,
    "definitions": 3,
    "externs": [
@@ -60661,12 +60661,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnHandlerCount_007253DC = ",
-   "include": "gen/data/Source/D2Client/Unknown_004B66B0/gnHandlerCount_007253DC.inc",
+   "include": "gen/data/Source/D2Client/UI/npcmenu_004B6440/gnHandlerCount_007253DC.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -60689,7 +60689,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
    "fill": 9,
    "form": "declared",
    "fwd": null,
@@ -60844,7 +60844,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B6440.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern unsigned short gwGlobal_00725494 = ",

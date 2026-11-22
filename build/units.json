@@ -29586,27 +29586,7 @@
     {
      "va": "0x004B6440",
      "length": 432
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B66B0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004B66B0",
      "length": 713
