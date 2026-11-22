@@ -129,6 +129,25 @@ static T0045FED0* gpTimer_007C0E54;                                             
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
+struct D2RosterPetNodeStrc;
+struct D2Packet81ArgsStrc;
+struct D2HirelingInfoStrc;
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+struct D2HirelingInfoStrc
+{
+    unsigned short f_0;
+    unsigned short unk0x02;
+    int nSeed;
+    int unk0x08[2];
+};
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
+void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
+void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
+void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo); // 0x004B1090
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
 // 0x0045FED0
 void __stdcall ROSTERPETS_HandlePopupButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -201,8 +220,6 @@ int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGree
     }
     return (int)(sub_0040B330_Cos(gnGlobal_007129CC * 128 / 30) * 80.0);
 }
-
-
 
 // 0x00478A50
 void __cdecl ROSTERPETS_FreeRosterPets()
@@ -448,37 +465,6 @@ void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
         }
     }
 }
-
-struct D2RosterPetNodeStrc;
-
-struct D2Packet81ArgsStrc;
-
-struct D2HirelingInfoStrc;
-
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-
-
-struct D2HirelingInfoStrc
-{
-    unsigned short f_0;
-    unsigned short unk0x02;
-    int nSeed;
-    int unk0x08[2];
-};
-
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
-
-void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
-
-void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
-
-void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
-
-void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo); // 0x004B1090
-
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 // 0x00478A90
 D2RosterPetNodeStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)

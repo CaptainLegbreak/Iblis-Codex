@@ -256,7 +256,6 @@ extern T0044A980* gpPalShiftEntries_007B9578; // 0x007B9578
 
 extern int gnGlobal_007B957C; // 0x007B957C
 
-
 extern void* gpGlobal_007BEEF0; // 0x007BEEF0
 
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -487,8 +486,6 @@ int gnGlobal_007BEF04; // 0x007BEF04
 
 int gnGlobal_007BEF08; // 0x007BEF08
 
-
-
 #define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
 
@@ -574,7 +571,6 @@ static int gnBaseGuard; // 0x007B9574
 
 static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer); // 0x00476460
 
-
 struct Obj004DCF10
 {
     unsigned int flags;
@@ -605,6 +601,30 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
         nLinkOffset = (int)pLink - (int)pLink->pPrevLink->pNext;
     return (D2ClientListLinkStrc*)(nOffset + nLinkOffset);
 }
+
+struct D2TileLightCtxStrc;
+struct D2CellGridViewStrc
+{
+    void __thiscall sub_004DF510_DrawCellNodes();                                                            // 0x004DF510
+};
+int __stdcall D2GFX_CheckPerspective();                                                                      // 0x004F51D0
+int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                        // 0x006203B0
+int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
+int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
+void __cdecl MISSILE_UpdateRoomColor();                                                                 // 0x004DED20
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
+void __cdecl VIEW_DrawStarfield();                                                                   // 0x00476290
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                    // 0x00478A00
+void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
+void __fastcall sub_004DED10(void* pArg);                                                                    // 0x004DED10
+void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
+void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
+void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
+void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
+void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
+void __cdecl GFXUTIL_DrawFadeBox();                                                                     // 0x004DC000
+extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
 
 // 0x0044A980
 void __cdecl sub_0044A980_SendPacket0D()
@@ -1389,49 +1409,6 @@ static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
     }
 }
 
-struct D2TileLightCtxStrc;
-
-struct D2CellGridViewStrc
-{
-    void __thiscall sub_004DF510_DrawCellNodes();                                                            // 0x004DF510
-};
-
-int __stdcall D2GFX_CheckPerspective();                                                                      // 0x004F51D0
-
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                        // 0x006203B0
-
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
-
-int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
-
-void __cdecl MISSILE_UpdateRoomColor();                                                                 // 0x004DED20
-
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
-
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
-
-void __cdecl VIEW_DrawStarfield();                                                                   // 0x00476290
-
-void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                    // 0x00478A00
-
-void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
-
-void __fastcall sub_004DED10(void* pArg);                                                                    // 0x004DED10
-
-void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
-
-void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
-
-void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
-
-void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
-
-void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
-
-void __cdecl GFXUTIL_DrawFadeBox();                                                                     // 0x004DC000
-
-extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
-
 void __fastcall sub_00476BC0(D2ViewStrc* pView)
 {
     if (!pView->tRect.right && !pView->tRect.bottom)
@@ -1687,7 +1664,6 @@ void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
     tContext.nFrame = nFrame;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
 }
-
 
 static int gnPopupX_007BEED4; // 0x007BEED4
 
