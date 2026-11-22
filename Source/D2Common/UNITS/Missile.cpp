@@ -47,13 +47,29 @@ int __fastcall SKILLS_CalculateDamageBonusByLevel(int nLevel, int* pLevelDamage)
 int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int nSkillId, int nSkillLevel);  // 0x00646460
 int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned int nCalc, int nMissileId, int nLevel); // 0x0064B7C0
 
-inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
+// __forceinline: 0x64A470 inlines this lookup; with plain inline it stays a call there
+__forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
         return &sgptDataTables->pMissilesTxt[nMissileId];
     }
     return 0;
+}
+
+extern unsigned int gdwBitMasks[]; // 0x006CE268
+#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
+static inline unsigned int GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit) return 0xFFFFFFFFu;
+    return pUnit->dwUnitId;
+}
+
+static inline int GetUnitType(D2UnitStrc* pUnit)
+{
+    if (!pUnit) return 6;
+    return pUnit->dwUnitType;
 }
 
 // 0x0064A100
@@ -76,6 +92,45 @@ void __stdcall MISSILE_FreeMissileData(D2UnitStrc* pMissile)
         sub_0040B480(pMissile->pMemoryPool, pMissile->pMissileData, ".\\UNITS\\Missile.cpp", 62, 0);
         pMissile->pMissileData = 0;
     }
+}
+
+// 0x0064A2B0
+void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        nTotalFrames = D2_MIN(D2_MAX(nTotalFrames, -32768), 32767);
+        pMissile->pMissileData->nTotalFrames = nTotalFrames;
+    }
+}
+
+// 0x0064A330
+void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        nCurrentFrame = D2_MIN(D2_MAX(nCurrentFrame, -32768), 32767);
+        pMissile->pMissileData->nCurrentFrame = nCurrentFrame;
+    }
+}
+
+// 0x0064A470
+int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    if (pMissile && pUnit && pMissile->dwUnitType == UNIT_MISSILE)
+    {
+        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecordInline(pMissile->dwClassId);
+        if (pMissilesTxtRecord && pMissilesTxtRecord->nMissileFlags[0 >> 3] & gdwBitMasks[0 & 7])
+        {
+            D2MissileDataStrc* pData = pMissile->pMissileData;
+            if (pData && pData->nOwnerType == GetUnitType(pUnit) && pData->dwOwnerGUID == GetUnitId(pUnit))
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 
 // 0x0064AF20
