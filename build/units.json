@@ -60946,22 +60946,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/MONSTER/MonsterEval_005A4EF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A4EF0",
-     "length": 45,
-     "name": "MONSTERMODE_DistributeExperienceIfEligible"
-    },
-    {
-     "va": "0x005A5490",
-     "length": 86,
-     "name": "MONSTERMODE_AllocateTargetCombat"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0059F8E0.cpp",
    "rank": 0,
    "functions": [
@@ -61783,22 +61767,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/MONSTER/MonsterEval.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A4EE0",
-     "length": 15,
-     "name": "@MONSTERMODE_IsMonster@4"
-    },
-    {
-     "va": "0x005A5470",
-     "length": 22,
-     "name": "?MONSTERMODE_GetAttackResultFlags@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A4200.cpp",
    "rank": 0,
    "functions": [
@@ -61821,6 +61789,32 @@
      "va": "0x005A5560",
      "length": 232,
      "name": "?D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70@@YIXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterEval.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005A4EE0",
+     "length": 15,
+     "name": "@MONSTERMODE_IsMonster@4"
+    },
+    {
+     "va": "0x005A4EF0",
+     "length": 45,
+     "name": "MONSTERMODE_DistributeExperienceIfEligible"
+    },
+    {
+     "va": "0x005A5470",
+     "length": 22,
+     "name": "?MONSTERMODE_GetAttackResultFlags@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
+    },
+    {
+     "va": "0x005A5490",
+     "length": 86,
+     "name": "MONSTERMODE_AllocateTargetCombat"
     }
    ]
   },
