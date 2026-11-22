@@ -57805,11 +57805,6 @@
      "name": "ACT2Q4_Callback13_PlayerStartedGame"
     },
     {
-     "va": "0x0059D1C0",
-     "length": 313,
-     "name": "ACT2Q6_Callback03_ChangedLevel"
-    },
-    {
      "va": "0x0059D720",
      "length": 150,
      "name": "ACT2Q6_GetTombArcaneThingObjectId"
@@ -58343,6 +58338,11 @@
     {
      "va": "0x0059D050",
      "length": 359
+    },
+    {
+     "va": "0x0059D1C0",
+     "length": 313,
+     "name": "ACT2Q6_Callback03_ChangedLevel"
     },
     {
      "va": "0x0059D450",
