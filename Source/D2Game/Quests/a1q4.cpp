@@ -2046,38 +2046,6 @@ void __fastcall ACT2Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
     }
 }
 
-// 0x005986B0
-void __fastcall ACT2Q0_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-    if (nNpcId == 201)
-    {
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, 8, 0))
-        {
-            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 201, 0);
-        }
-    }
-    else if (nNpcId == 244)
-    {
-        D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)pQuestData->pQuestDataEx;
-        if (QUESTRECORD_GetQuestState(pQuestFlags, 4, 14) != 1)
-        {
-            return;
-        }
-
-        const int nUnitId = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId;
-        if (QUESTS_QuickCheckPlayerGUID(&pQuestDataEx->tPlayerGUIDs, nUnitId))
-        {
-            return;
-        }
-
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 244, 1);
-        sub_005940A0_ACT1Q4_RemovePlayerGUID(pQuestData->pGame, pQuestArg->pPlayer);
-    }
-}
-
 // 0x00598E20
 int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

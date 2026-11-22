@@ -57047,11 +57047,6 @@
      "name": "?ACT2Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x005986B0",
-     "length": 180,
-     "name": "?ACT2Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
      "va": "0x00598E20",
      "length": 325,
      "name": "?ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -59665,6 +59660,11 @@
    "file": "Source/D2Game/Quests/a2q0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005986B0",
+     "length": 180,
+     "name": "?ACT2Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
     {
      "va": "0x00598810",
      "length": 158,
