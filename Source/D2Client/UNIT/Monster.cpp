@@ -26,12 +26,6 @@ struct D2HirelingTxt;
 struct D2MonStats2Txt;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
-struct Data004AE110;
-struct Unit004AE110;
-struct Data004AE150;
-struct Unit004AE150;
-struct Data004AE170;
-struct Unit004AE170;
 struct D2MonCmdRecordStrc;
 struct D2MissileStrc;
 union D2SeedStrc;
@@ -105,48 +99,8 @@ void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicP
 void __stdcall D2Common_10228(D2UnitStrc* pUnit); // 0x00649F50
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
-struct Data004AE110 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    unsigned int dwUnknown14;
-    unsigned int dwUnknown18;
-    unsigned int dwUnknown1C;
-    unsigned int dwUnknown20;
-    unsigned int dwUnknown24;
-    unsigned int dwUnknown28;
-    unsigned int dwUnknown2C;
-    unsigned int dwField30;
-};
-
-struct Unit004AE110 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    Data004AE110* pData;
-};
-
 #pragma pack(push, 1)
-struct Data004AE150 { unsigned char bUnknown00[0x3C]; unsigned int dwValue3C; };
-
 #pragma pack(pop)
-struct Unit004AE150 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    Data004AE150* pData;
-};
-
-struct Data004AE170 { unsigned char bUnknown00[0x34]; unsigned int dwMember34; };
-
-struct Unit004AE170 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data004AE170* pData; };
-
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
@@ -438,12 +392,12 @@ void __fastcall sub_004AE0E0_FreeMonsterBuffer(D2UnitStrc* pUnit)
 }
 
 // 0x004AE110
-extern "C" __declspec(dllexport) unsigned int* __fastcall sub_004AE110(Unit004AE110* pUnit) {
-    Data004AE110* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
-    if (!pData) {
+extern "C" __declspec(dllexport) unsigned int* __fastcall sub_004AE110(D2UnitStrc* pUnit) {
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
+    if (!pMonsterData) {
         return 0;
     }
-    return &pData->dwField30;
+    return (unsigned int*)&pMonsterData->pMonInteract;
 }
 
 static inline D2MonsterDataStrc* CLIENT_GetMonsterDataInline(D2UnitStrc* pUnit)
@@ -469,19 +423,19 @@ int __fastcall sub_004AE130(D2UnitStrc* pUnit)
 }
 
 // 0x004AE150
-extern "C" __declspec(dllexport) void __fastcall sub_004AE150(Unit004AE150* pUnit, unsigned int dwValue) {
-    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
-        pUnit->pData->dwValue3C = dwValue;
+extern "C" __declspec(dllexport) void __fastcall sub_004AE150(D2UnitStrc* pUnit, int nValue) {
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
+        pUnit->pMonsterData->nOwnerGUID = nValue;
     }
 }
 
 // 0x004AE170
-extern "C" __declspec(dllexport) unsigned int* __fastcall sub_004AE170(Unit004AE170* pUnit) {
-    Data004AE170* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
-    if (!pData) {
+extern "C" __declspec(dllexport) int* __fastcall sub_004AE170(D2UnitStrc* pUnit) {
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
+    if (!pMonsterData) {
         return 0;
     }
-    return &pData->dwMember34;
+    return &pMonsterData->nAiValue;
 }
 
 // 0x004AE190
