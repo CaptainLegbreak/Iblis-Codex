@@ -1308,13 +1308,6 @@ const Unicode* __fastcall sub_00463810_GetMonsterName(D2UnitStrc* pUnit)
     return 0;
 }
 
-// 0x00463C70
-void __cdecl sub_00463C70()
-{
-    for (int i = 0; i < 6 * 0x80; ++i) gpUnitHashTable_007A5E70[i] = 0;
-    for (int i = 0; i < 6 * 0x80; ++i) gpUnitHashTable_007A5270[i] = 0;
-}
-
 // 0x00463E10
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit)
 {

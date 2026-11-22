@@ -622,6 +622,14 @@ static void sub_00463B80_QueueIdleMove(D2UnitStrc* pUnit)
     }
 }
 
+
+// 0x00463C70
+void __cdecl sub_00463C70()
+{
+    for (int i = 0; i < 6 * 0x80; ++i) gpUnitHashTable_007A5E70[i] = 0;
+    for (int i = 0; i < 6 * 0x80; ++i) gpUnitHashTable_007A5270[i] = 0;
+}
+
 // 0x00463C90
 static void __stdcall sub_00463C90_ForEachUnitInTable(D2UnitStrc** ppTable, UNITFN pfnCallback)
 {

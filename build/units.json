@@ -19020,11 +19020,6 @@
      "name": "?sub_00463810_GetMonsterName@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x00463C70",
-     "length": 29,
-     "name": "?sub_00463C70@@YAXXZ"
-    },
-    {
      "va": "0x00463E10",
      "length": 11,
      "name": "?sub_00463E10_GetGfxData@@YIPAUD2GfxDataStrc@@PAUD2UnitStrc@@@Z"
@@ -19138,6 +19133,11 @@
      "va": "0x00463B80",
      "length": 53,
      "name": "?sub_00463B80_QueueIdleMove@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463C70",
+     "length": 29,
+     "name": "?sub_00463C70@@YAXXZ"
     },
     {
      "va": "0x00463C90",
