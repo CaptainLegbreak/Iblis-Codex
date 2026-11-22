@@ -350,7 +350,7 @@ int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc*); // 0x00621190
 
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc*,int*,int*,int*,const char*,int); // 0x00645270
 
-D2MonStats2SelectStrc* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 int __fastcall sub_00470860_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 
@@ -2525,7 +2525,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
     {
     case 1:
     {
-        D2MonStats2SelectStrc* pStats=UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
+        D2MonStats2SelectStrc* pStats=(D2MonStats2SelectStrc*)UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
         if(pStats->nFlags[0]&gdwBitMasks[0])
         {
             D2RectStrc tBox;
@@ -2568,7 +2568,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
         break;
     case 1:
     {
-        D2MonStats2SelectStrc* pStats=UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
+        D2MonStats2SelectStrc* pStats=(D2MonStats2SelectStrc*)UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
         if(pStats && pStats->nComponents>1) bAllComponents=1;
         break;
     }

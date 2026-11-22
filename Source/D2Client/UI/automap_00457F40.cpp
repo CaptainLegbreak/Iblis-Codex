@@ -220,7 +220,7 @@ void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 
 extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 char gszAccountFolder_007A0500[32]; // 0x007A0500
 
@@ -1311,7 +1311,7 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc** ppRooms = 0;
     int nRooms = 0;
-    DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pPlayer), &ppRooms, &nRooms);
+    DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pPlayer), &ppRooms, (unsigned int*)&nRooms);
     const int nCount = nRooms;
     for (int i = 0; i < nCount; ++i)
     {

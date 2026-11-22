@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Path.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -33,75 +34,6 @@ D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 int __fastcall sub_00479150_FindRosterIndex(int nUnitId); // 0x00479150
-
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
-
-struct D2DynamicPathStrc
-{
-    union
-    {
-        int dwPrecisionX;
-        struct
-        {
-            unsigned short wOffsetX;
-            unsigned short wPosX;
-        };
-    };
-    union
-    {
-        int dwPrecisionY;
-        struct
-        {
-            unsigned short wOffsetY;
-            unsigned short wPosY;
-        };
-    };
-    int dwTargetX;
-    int dwTargetY;
-    D2PathPointStrc tSP1;
-    D2PathPointStrc tSP2;
-    D2PathPointStrc tSP3;
-    D2ActiveRoomStrc* pRoom;
-    D2ActiveRoomStrc* pRoomNext;
-    int unk0x24;
-    int dwPathPoints;
-    int unk0x2C;
-    void* pUnit;
-    int dwFlags;
-    int unk0x38;
-    int eType;
-    int ePrevType;
-    int dwUnitSize;
-    char unk0x48[0x14];
-    int dwTargetType;
-    int dwTargetId;
-    unsigned char unk0x64[3];
-    unsigned char nDist;
-    unsigned char bDistMax;
-    unsigned char unk0x69;
-    D2PathPointStrc tPrevPoint;
-    D2PathPointStrc tNextPoint;
-    char unk0x72[0x0A];
-    int dwVelocity;
-    int unk0x80;
-    int dwVelocity2;
-    int unk0x88;
-    int unk0x8C;
-    unsigned char unk0x90;
-    unsigned char nStepNum;
-    unsigned char nSteps;
-    unsigned char unk0x93;
-    unsigned char unk0x94;
-    char unk0x95[3];
-    int unk0x98;
-    D2PathPointStrc PathPoints[78];
-    int nSavedSteps;
-    D2PathPointStrc SavedSteps[7];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -150,19 +82,6 @@ int __fastcall sub_00464EC0_CheckSkillOwner(D2UnitStrc* pUnit, D2UnitStrc* pTarg
 int __fastcall sub_0047A4F0_TestFlag1(int nUnitId1, int nUnitId2); // 0x0047A4F0
 unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
-
-struct D2StaticPathStrc
-{
-    char unk0x000[0x0C];
-    D2CoordStrc tGameCoords;
-};
-
-
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
@@ -192,7 +111,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 int __fastcall sub_00451F30(D2UnitStrc*,unsigned int); // 0x00451F30
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc*); // 0x00621190
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc*,int*,int*,int*,const char*,int); // 0x00645270
-D2MonStats2SelectStrc* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 int __fastcall sub_00470860_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc*,int,int); // 0x00463EE0
@@ -319,38 +238,37 @@ void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit)
 
     pDst->dwPrecisionX = pSrc->dwPrecisionX;
     pDst->dwPrecisionY = pSrc->dwPrecisionY;
-    pDst->dwTargetX = pSrc->dwTargetX;
-    pDst->dwTargetY = pSrc->dwTargetY;
-    pDst->unk0x24 = pSrc->unk0x24;
+    pDst->dwClientCoordX = pSrc->dwClientCoordX;
+    pDst->dwClientCoordY = pSrc->dwClientCoordY;
+    pDst->dwCurrentPointIdx = pSrc->dwCurrentPointIdx;
     pDst->dwPathPoints = pSrc->dwPathPoints;
     pDst->unk0x38 = pSrc->unk0x38;
-    pDst->tSP1 = pSrc->tSP1;
-    pDst->tSP2 = pSrc->tSP2;
-    pDst->tSP3 = pSrc->tSP3;
+    pDst->tTargetCoord = pSrc->tTargetCoord;
+    pDst->tPrevTargetCoord = pSrc->tPrevTargetCoord;
+    pDst->tFinalTargetCoord = pSrc->tFinalTargetCoord;
     pDst->dwTargetType = pSrc->dwTargetType;
     pDst->dwTargetId = pSrc->dwTargetId;
-    pDst->nDist = pSrc->nDist;
-    pDst->bDistMax = pSrc->bDistMax;
+    pDst->unk0x67 = pSrc->unk0x67;
+    pDst->dwSpeed = pSrc->dwSpeed;
     pDst->dwVelocity = pSrc->dwVelocity;
-    pDst->unk0x80 = pSrc->unk0x80;
-    pDst->dwVelocity2 = pSrc->dwVelocity2;
-    pDst->unk0x88 = pSrc->unk0x88;
-    pDst->unk0x8C = pSrc->unk0x8C;
+    pDst->nPreviousVelocity = pSrc->nPreviousVelocity;
+    pDst->dwMaxVelocity = pSrc->dwMaxVelocity;
+    pDst->dwAcceleration = pSrc->dwAcceleration;
+    pDst->dwAccelerationsCounter = pSrc->dwAccelerationsCounter;
+    pDst->bDistMax = pSrc->bDistMax;
+    pDst->nIDAStarInitFScore = pSrc->nIDAStarInitFScore;
     pDst->nStepNum = pSrc->nStepNum;
-    pDst->nSteps = pSrc->nSteps;
-    pDst->unk0x93 = pSrc->unk0x93;
-    pDst->unk0x94 = pSrc->unk0x94;
-    pDst->unk0x98 = pSrc->unk0x98;
-    pDst->tPrevPoint = pSrc->tPrevPoint;
-    pDst->tNextPoint = pSrc->tNextPoint;
+    pDst->nDistance = pSrc->nDistance;
+    pDst->nDirOffset = pSrc->nDirOffset;
+    pDst->tDirectionVector = pSrc->tDirectionVector;
 
     if (pSrc->dwPathPoints)
         memcpy(pDst->PathPoints, pSrc->PathPoints, pSrc->dwPathPoints * sizeof(D2PathPointStrc));
 
-    if (pSrc->nSavedSteps)
-        memcpy(pDst->SavedSteps, pSrc->SavedSteps, pSrc->nSavedSteps * sizeof(D2PathPointStrc));
+    if (pSrc->nSavedStepsCount)
+        memcpy(pDst->SavedSteps, pSrc->SavedSteps, pSrc->nSavedStepsCount * sizeof(D2PathPointStrc));
 
-    pDst->nSavedSteps = pSrc->nSavedSteps;
+    pDst->nSavedStepsCount = pSrc->nSavedStepsCount;
 
     if (pSrc->eType != 8 && pSrc->eType != 11)
         pDst->eType = pSrc->eType;
@@ -854,7 +772,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
     {
     case 1:
     {
-        D2MonStats2SelectStrc* pStats=UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
+        D2MonStats2SelectStrc* pStats=(D2MonStats2SelectStrc*)UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
         if(pStats->nFlags[0]&gdwBitMasks[0])
         {
             D2RectStrc tBox;
@@ -897,7 +815,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
         break;
     case 1:
     {
-        D2MonStats2SelectStrc* pStats=UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
+        D2MonStats2SelectStrc* pStats=(D2MonStats2SelectStrc*)UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
         if(pStats && pStats->nComponents>1) bAllComponents=1;
         break;
     }
