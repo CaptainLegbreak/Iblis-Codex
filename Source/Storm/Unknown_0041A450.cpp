@@ -246,7 +246,7 @@ int __stdcall sub_0041A960_CancelReadResult(void* pBuffer)
     return 0;
 }
 
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
     *ppRec = (FILEREC*)hFile;
     return 1;

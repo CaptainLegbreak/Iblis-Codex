@@ -62,7 +62,7 @@ extern void* gpBuffer_00779050; // 0x00779050
 extern void* ghEvent_00779054; // 0x00779054
 extern D2StormDdaListStrc gDdaList_00708384; // 0x00708384
 extern const char gszSource_006CF084[]; // 0x006CF084
-__declspec(noinline) static int sub_00415950_GetFileRec(void*, FILEREC**);
+static int sub_00415950_GetFileRec(void*, FILEREC**);
 static int sub_00415950_GetFileRec(void*, FILEREC**); // 0x00415950
 // 0x00415950
 static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)

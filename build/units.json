@@ -1,5 +1,5 @@
 {
- "note": "compilation units in link order; flags only where a unit differs from config.json flags; rank 0 units take precedence over rank 1 units for a function both define; ltcg units are compiled /GL and linked /LTCG",
+ "note": "compilation units in link order; flags only where a unit differs from its default (config.json flags, or module_flags for its module); rank 0 units take precedence over rank 1 units for a function both define; ltcg units are compiled /GL and linked /LTCG",
  "units": [
   {
    "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
@@ -2186,7 +2186,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/Oy"
    ]
@@ -2278,6 +2278,19 @@
      "length": 71,
      "name": "?sub_00406470_OpenServiceHandles@@YAHPAPAX0@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
    ]
   },
   {
@@ -2314,6 +2327,19 @@
      "length": 277,
      "name": "?GameInit@@YIHHPAPBD@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
    ]
   },
   {
@@ -4465,20 +4491,6 @@
      "length": 6,
      "name": "sub_0042DC40"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -5313,20 +5325,6 @@
      "va": "0x0041BCA0",
      "length": 514
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -5364,7 +5362,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -5593,7 +5591,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -5657,7 +5655,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -5681,7 +5679,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -5839,20 +5837,6 @@
      "length": 83,
      "name": "?SRegSaveValue@@YGHPBD0IK@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -5889,10 +5873,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -5918,10 +5901,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -5943,10 +5925,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6174,20 +6155,6 @@
      "length": 18,
      "name": "SErrReportResourceLeak"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -6209,10 +6176,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6249,20 +6215,6 @@
      "length": 423,
      "name": "?SFileDestroy@@YAHXZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -6284,20 +6236,6 @@
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -6318,20 +6256,6 @@
      "va": "0x00419180",
      "length": 364
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -6353,7 +6277,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -6388,7 +6312,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/EHsc"
    ]
@@ -6412,10 +6336,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6437,10 +6360,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6497,20 +6419,6 @@
      "length": 71,
      "name": "?SFilePrioritizeRequest@@YGXPAXH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -6532,10 +6440,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6557,10 +6464,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6582,10 +6488,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6607,10 +6512,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -6879,20 +6783,6 @@
      "length": 12,
      "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -7059,20 +6949,6 @@
      "length": 4,
      "name": "?DRLGPRESET_GetLinkRawNext@@YIPAUWNDREC@@PAU?$TSLink@UWNDREC@@@@@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -7161,7 +7037,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/EHsc"
    ]
@@ -7185,10 +7061,9 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
@@ -7214,7 +7089,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -7248,7 +7123,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -7507,20 +7382,6 @@
      "length": 111,
      "name": "?SLogDestroy@@YAXXZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -7546,7 +7407,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -7570,7 +7431,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/EHsc",
     "/GS-"
@@ -7747,20 +7608,6 @@
      "va": "0x00421100",
      "length": 3
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -7972,7 +7819,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8012,7 +7859,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/EHsc"
    ]
@@ -8042,7 +7889,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/EHsc"
    ]
@@ -8074,7 +7921,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8098,7 +7945,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8451,7 +8298,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8475,7 +8322,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8585,7 +8432,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8609,7 +8456,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8633,7 +8480,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8657,7 +8504,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8691,7 +8538,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8715,7 +8562,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8739,7 +8586,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8779,7 +8626,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8803,7 +8650,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8827,7 +8674,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8851,7 +8698,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8891,7 +8738,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -8926,7 +8773,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -9140,6 +8987,19 @@
      "length": 12,
      "name": "?sub_0042E590_SetOwner@@YIPAXPAX@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
    ]
   },
   {
@@ -9226,6 +9086,19 @@
      "length": 87,
      "name": "sub_00450FA0_NewNode"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
    ]
   },
   {
@@ -9415,6 +9288,19 @@
      "length": 174,
      "name": "?inflateSetDictionary@@YIHPAUz_stream@@PBEI@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
    ]
   },
   {
@@ -28885,6 +28771,11 @@
      "length": 592
     },
     {
+     "va": "0x004B5810",
+     "length": 64,
+     "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
+    },
+    {
      "va": "0x004B5890",
      "length": 570,
      "name": "?NPCMENU_OpenNpcPanel@@YGXHH@Z"
@@ -28893,6 +28784,11 @@
      "va": "0x004B5AD0",
      "length": 237,
      "name": "?NPCMENU_OpenConfirmDialog@@YGXH@Z"
+    },
+    {
+     "va": "0x004B65F0",
+     "length": 35,
+     "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
     }
    ],
    "flags": [
@@ -28908,22 +28804,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B5810.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B5810",
-     "length": 64,
-     "name": "?NPCMENU_CloseSubMenuToMain@@YAHXZ"
-    },
-    {
-     "va": "0x004B65F0",
-     "length": 35,
-     "name": "?NPCMENU_InitTravelLutGholeinHandler@@YAHXZ"
-    }
    ]
   },
   {
@@ -32065,6 +31945,11 @@
      "name": "?MISSILE_CheckLevelSpeech@@YAXXZ"
     },
     {
+     "va": "0x004CC870",
+     "length": 151,
+     "name": "?MISSILE_InitFromOwner@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CC950",
      "length": 72,
      "name": "?MISSILE_GetSubMissileCount@@YAHPAUD2MissilesTxt@@H@Z"
@@ -32524,17 +32409,6 @@
      "va": "0x004F16F0",
      "length": 337,
      "name": "MISSILE_CreateMissileVolley"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004CC870.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004CC870",
-     "length": 151,
-     "name": "?MISSILE_InitFromOwner@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -54063,6 +53937,11 @@
      "length": 322
     },
     {
+     "va": "0x00573930",
+     "length": 151,
+     "name": "?MONSTER_GetPlayerCountBonus@@YIXPAUD2GameStrc@@PAUD2PlayerCountBonusStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00573C00",
      "length": 176,
      "name": "MONSTER_ResetMonsterModesInLevel"
@@ -54100,17 +53979,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/Monster_00573930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00573930",
-     "length": 151,
-     "name": "?MONSTER_GetPlayerCountBonus@@YIXPAUD2GameStrc@@PAUD2PlayerCountBonusStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
@@ -60287,6 +60155,11 @@
      "length": 485
     },
     {
+     "va": "0x005B13E0",
+     "length": 252,
+     "name": "?AITHINK_HandleMonsterAiPreActions@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005B14E0",
      "length": 236,
      "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -60956,6 +60829,10 @@
      "name": "?MONSTERMODE_TakeVelocityParams@@YGXPAUD2TakeRecordStrc@@PAH1PAE@Z"
     },
     {
+     "va": "0x005A61F0",
+     "length": 43
+    },
+    {
      "va": "0x005A6250",
      "length": 4,
      "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
@@ -61359,6 +61236,10 @@
      "name": "MONSTERMODE_DistributeExperienceIfEligible"
     },
     {
+     "va": "0x005A4F50",
+     "length": 1312
+    },
+    {
      "va": "0x005A5470",
      "length": 22,
      "name": "?MONSTERMODE_GetAttackResultFlags@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
@@ -61413,30 +61294,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterEval_005A4F50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A4F50",
-     "length": 1312
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -61529,30 +61386,6 @@
      "length": 82,
      "name": "?FRIENDLY_RemoveHostility@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A61F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A61F0",
-     "length": 43
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -61938,17 +61771,6 @@
      "va": "0x00604A40",
      "length": 94,
      "name": "TileLibraryAddProject"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005B0CD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B13E0",
-     "length": 252,
-     "name": "?AITHINK_HandleMonsterAiPreActions@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
@@ -85903,7 +85725,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -86193,20 +86015,6 @@
      "length": 3,
      "name": "sub_006C8A40"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -87042,7 +86850,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/EHa"
    ]
@@ -87055,20 +86863,6 @@
      "va": "0x006CA890",
      "length": 5
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -87120,7 +86914,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -87354,7 +87148,7 @@
     "/MT",
     "/O2",
     "/Oy-",
-    "/Ob2",
+    "/Ob1",
     "/Gd",
     "/GS-"
    ]
@@ -87377,20 +87171,6 @@
      "va": "0x006CB090",
      "length": 10
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {

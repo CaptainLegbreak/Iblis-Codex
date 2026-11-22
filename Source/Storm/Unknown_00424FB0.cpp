@@ -226,7 +226,7 @@ static void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainde
 }
 
 static int IsZero(BigBuffer& a); // 0x00422780
-static __declspec(noinline) int IsZero(BigBuffer& a)
+static int IsZero(BigBuffer& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;
@@ -254,7 +254,7 @@ static void SetOne(BigBuffer& a)
 }
 
 static void SetZero(BigBuffer& a); // 0x00422CC0
-static __declspec(noinline) void SetZero(BigBuffer& a)
+static void SetZero(BigBuffer& a)
 {
     a.SetCount(0);
 }

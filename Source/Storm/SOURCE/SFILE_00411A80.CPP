@@ -321,9 +321,9 @@ int __stdcall sub_00415960_CheckVolume(const char* szPath);                     
 
 int __fastcall s_OpenArchive(ARCHIVEREC* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive); // 0x0041B6B0
 
-static __declspec(noinline) int sub_00415940_PathPresent(const char* szPath);                                // 0x00415940
+static int sub_00415940_PathPresent(const char* szPath);                                // 0x00415940
 
-static __declspec(noinline) void __stdcall sub_00415A80_BuildPath(int bStripPath, const char* szName, char* szOut); // 0x00415A80
+static void __stdcall sub_00415A80_BuildPath(int bStripPath, const char* szName, char* szOut); // 0x00415A80
 
 typedef void (__stdcall* SFILEOPENCALLBACK)(const char* szFileName, void* pParam);
 
@@ -340,7 +340,7 @@ char* __stdcall SStrDup(const char* szString); // 0x00414310
 
 static unsigned int __stdcall sub_00415330_HashString(unsigned int nHashType, const char* szString);
 
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec);
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec);
 
 int __stdcall SFileOpenFileAsArchive(void* hMpq, const char* szName, int nPriority, unsigned int nFlags, void** phArchive);
 
@@ -650,7 +650,7 @@ static inline char* EventHead()
     return (int)gpEventHead_00708380 > 0 ? gpEventHead_00708380 : 0;
 }
 
-static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, ARCHIVEREC** ppRec)
+static int sub_00415930_GetArchiveRec(void* hArchive, ARCHIVEREC** ppRec)
 {
     *ppRec = (ARCHIVEREC*)hArchive;
     return 1;
@@ -669,7 +669,7 @@ static unsigned int __stdcall sub_00415330_HashString(unsigned int nHashType, co
     return nSeed1;
 }
 
-static __declspec(noinline) D2StormBlockStrc* sub_004155B0_GetBlockEntry(ARCHIVEREC* pArchive, int nHashIndex)
+static D2StormBlockStrc* sub_004155B0_GetBlockEntry(ARCHIVEREC* pArchive, int nHashIndex)
 {
     return &pArchive->pBlockTable[pArchive->pHashTable[nHashIndex].nBlockIndex];
 }
@@ -937,7 +937,7 @@ char* D2StormFixedListStrc::sub_00419700_NewNode(unsigned int nLinkType, unsigne
     return (char*)pRecord;
 }
 
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
     *ppRec = (FILEREC*)hFile;
     return 1;

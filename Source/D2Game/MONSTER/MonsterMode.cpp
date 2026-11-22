@@ -1599,6 +1599,28 @@ inline int GetY(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
+inline D2MonVelocityParamStrc* MONSTERMODE_GetVelocityParam(D2UnitStrc* pUnit)
+{
+    if (GetUnitType(pUnit) == 1)
+    {
+        D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
+        if (pMonsterData)
+        {
+            return (D2MonVelocityParamStrc*)pMonsterData->pAiParam;
+        }
+    }
+    return 0;
+}
+
+// 0x005A61F0
+void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUnit)
+{
+    D2MonVelocityParamStrc* pAiParam = MONSTERMODE_GetVelocityParam(pUnit);
+    pAiParam->f_18 = 0;
+    pAiParam->f_1C = 0;
+    pAiParam->nNewDistOverride = 0;
+}
+
 static inline int HasCorpseExplosion(D2MonStatsTxt* pRecord)
 {
     if (pRecord) return pRecord->nMonStatsFlags[2] & gdwBitMasks[4];

@@ -199,7 +199,7 @@ static void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, uns
 }
 
 // 0x00422570
-static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b)
+static int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b)
 {
     a.sub_00422140_Trim();
     if (a.Count() > 1)

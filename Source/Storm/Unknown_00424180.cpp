@@ -209,7 +209,7 @@ static int IsOne(BigBuffer& a)
 }
 
 // 0x00422780
-static __declspec(noinline) int IsZero(BigBuffer& a)
+static int IsZero(BigBuffer& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;

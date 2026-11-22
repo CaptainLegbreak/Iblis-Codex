@@ -22,6 +22,7 @@
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
 #include "D2TxtTables.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -6498,6 +6499,97 @@ static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
     pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
+}
+
+struct D2LevelsTxt;
+
+struct D2PantherAiCallbackArgStrc;
+
+struct D2AiCallback11ArgStrc;
+
+
+struct D2PantherAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+};
+
+struct D2AiCallback11ArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+    D2UnitStrc* unk0x08;
+    int unk0x0C[7];
+};
+
+int __fastcall AIUTIL_HasClearApproachToTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
+
+D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
+
+int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
+
+// 0x005B13E0
+int __fastcall AITHINK_HandleMonsterAiPreActions(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (!pAiTickParam->pTarget)
+    {
+        return 0;
+    }
+
+    if (AITHINK_TryBossTauntOnSight(pGame, pUnit, pAiTickParam))
+    {
+        return 1;
+    }
+
+    if (AITHINK_TryTeleportAway(pGame, pUnit, pAiTickParam))
+    {
+        return 1;
+    }
+
+// build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
+    if (!MONSTERUNIQUE_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, 1))
+    {
+        return 0;
+    }
+
+    if (!sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
+    {
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    const int nMonSpcWalk = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom))->nMonSpcWalk;
+    if (nMonSpcWalk <= 0 || (unsigned int)pAiTickParam->nTargetDistance <= nMonSpcWalk)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    if (AIUTIL_HasClearApproachToTarget(pUnit, pTarget))
+    {
+        return 0;
+    }
+
+    D2AiCallback11ArgStrc arg;
+    arg.pTarget = 0;
+    arg.nDistance = 0x7FFFFFFF;
+    arg.unk0x08 = pTarget;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 11);
+
+    if (!arg.pTarget)
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
+        return 1;
+    }
+
+    pAiTickParam->pTarget = arg.pTarget;
+    pAiTickParam->nTargetDistance = arg.nDistance;
+    return 0;
 }
 
 // 0x005B14E0

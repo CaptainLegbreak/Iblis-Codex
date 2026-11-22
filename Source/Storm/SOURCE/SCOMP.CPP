@@ -427,7 +427,7 @@ int __fastcall ZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, cons
     return sub_0041E250_uncompress(pOut, pOutSize, pIn, nInSize);
 }
 
-static __declspec(noinline) void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
+static void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
 {
     switch (nCmpLevel)
     {

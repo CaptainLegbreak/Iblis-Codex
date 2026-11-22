@@ -102,7 +102,7 @@ static D2SMemHeapStrc* __stdcall sub_00411710_LockHeap(int* pLockIndex, D2SMemBl
     return pHeap;
 }
 
-static __declspec(noinline) void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
+static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError)
 {
     sub_0041C340_SetLastError(nError);
     if (gnFlag1_007784C0)
@@ -193,7 +193,7 @@ static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile,
     return 1;
 }
 
-static unsigned int sub_A21_FreeListIndex(unsigned int nSize)
+static inline unsigned int sub_A21_FreeListIndex(unsigned int nSize)
 {
     unsigned int nIndex = nSize >> 5;
     if (nIndex >= 8)

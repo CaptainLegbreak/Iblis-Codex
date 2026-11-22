@@ -359,7 +359,7 @@ extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFor
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args);                          // 0x00682DA1
 
 // build: context sub_00413A00_VPrintf
-static __declspec(noinline) int sub_00413A00_VPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args)
+static int sub_00413A00_VPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args)
 {
     if (nSize)
     {
@@ -379,7 +379,7 @@ static __declspec(noinline) int sub_00413A00_VPrintf(char* szDest, size_t nSize,
 }
 
 // 0x00413490
-__declspec(noinline) const char* __stdcall SStrChr(const char* szString, char nChar)
+const char* __stdcall SStrChr(const char* szString, char nChar)
 {
     VALIDATEBEGIN;
     VALIDATE(szString);

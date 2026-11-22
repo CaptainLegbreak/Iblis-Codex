@@ -16,7 +16,9 @@ rd = lambda p: open(os.path.join(ROOT, p), encoding='latin-1').read()
 
 FUNCS = json.loads(rd('build/functions.json'))['functions']
 UNITS = json.loads(rd('build/units.json'))['units']
-DEFAULT = json.loads(rd('build/config.json'))['flags']
+CONFIG = json.loads(rd('build/config.json'))
+DEFAULT = CONFIG['flags']
+MODULE_FLAGS = CONFIG.get('module_flags', {})
 NAMES = {}
 for line in rd('names.csv').splitlines()[1:]:
     a, n, s = (line.split(',') + ['', '', ''])[:3]
@@ -53,9 +55,10 @@ for t in TEXT.values():
 
 
 def flag_notes(u):
-    fl = u.get('flags') or DEFAULT
-    notes = ['compiler option %s' % x for x in fl if x not in DEFAULT and x not in ('/GS-', '/EHsc')]
-    notes += ['compiler option %s, without %s' % (x.replace('-', ''), x) for x in DEFAULT if x not in fl and x.endswith('-')]
+    base = MODULE_FLAGS.get(u['file'].split('/')[1]) or DEFAULT
+    fl = u.get('flags') or base
+    notes = ['compiler option %s' % x for x in fl if x not in base and x not in ('/GS-', '/EHsc')]
+    notes += ['compiler option %s, without %s' % (x.replace('-', ''), x) for x in base if x not in fl and x.endswith('-')]
     if u.get('ltcg'):
         notes.append('link-time code generation (/GL /LTCG)')
     return notes
@@ -175,7 +178,7 @@ L.append('\n`docs/shape.svg` draws the same per function: whole original file, f
 um = re.search(r'## Unmatched functions.*?(?=\n## )', old, re.S)
 L.append('\n' + (um.group(0).rstrip() if um else ''))
 
-L.append('\n## Non-original constructs\n\nFunctions whose source needs something the original source very likely did not have: a per-file compiler option other than the default (`build/config.json`), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.\n')
+L.append('\n## Non-original constructs\n\nFunctions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.\n')
 gs = sum(len(u['functions']) for u in UNITS if '/GS-' in (u.get('flags') or []))
 eh = sum(len(u['functions']) for u in UNITS if '/EHsc' in (u.get('flags') or []))
 L.append('Not listed one by one: %d functions are compiled with `/GS-` and %d with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` %d times and `__declspec(dllexport)` %d times to keep a body out of line or emitted.\n' % (gs, eh, count(r'__declspec\(noinline\)'), count(r'__declspec\(dllexport\)')))

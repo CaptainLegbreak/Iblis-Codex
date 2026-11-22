@@ -55,7 +55,7 @@ extern int gnFlag_00779098;                                                     
 static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError);
 static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
 
-static __declspec(noinline) __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
+static __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
 {
     SErrDisplayError(nError, szFile, nLine, 0, 0, 1);
     ExitProcess(1);
@@ -188,7 +188,7 @@ static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile,
     return 1;
 }
 
-static unsigned int sub_A21_FreeListIndex(unsigned int nSize)
+static inline unsigned int sub_A21_FreeListIndex(unsigned int nSize)
 {
     unsigned int nIndex = nSize >> 5;
     if (nIndex >= 8)

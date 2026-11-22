@@ -183,6 +183,13 @@ def missing_gen_includes(text):
 HEADER_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]+"([^"\n/]+\.h)"[ \t]*$', re.M)
 
 
+def default_flags(rel):
+    """The compiler options of a unit that records none: its module's (config.json module_flags) or the base set."""
+    parts = rel.replace("\\", "/").split("/")
+    mod = parts[1] if len(parts) > 2 and parts[0] == "Source" else None
+    return list(CFG.get("module_flags", {}).get(mod) or CFG["flags"])
+
+
 def module_dir(rel):
     """Source/<Module>: the folder whose headers a unit includes by bare name."""
     parts = rel.replace("\\", "/").split("/")

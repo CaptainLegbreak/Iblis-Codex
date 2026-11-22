@@ -63,7 +63,7 @@ struct D2StormArchiveFileStrc
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void* hFile, unsigned long* pdwFileSizeHigh); // 0x006CC2F0
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec);
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec);
 
 inline void* operator new(unsigned int, void* pWhere) throw();
 

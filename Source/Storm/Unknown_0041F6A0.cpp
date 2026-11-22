@@ -338,7 +338,7 @@ void __cdecl sub_004212B0_Empty()
 {
 }
 
-static __declspec(noinline) int sub_00421440_IsEven(const BigBuffer& a)
+static int sub_00421440_IsEven(const BigBuffer& a)
 {
     return !a.Count() || !(a[0] & 1);
 }

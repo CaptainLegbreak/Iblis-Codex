@@ -53,7 +53,7 @@ struct D2StormRequestListStrc {
  REQUEST* NewNode(unsigned int type,unsigned int extra,unsigned int flags){void* mem=SMemAlloc(sizeof(REQUEST)+extra,gszTypeNameRequest_007083F0,-2,flags|8);REQUEST* rec=mem?new(mem)REQUEST:0;if(type)LinkNode((char*)rec,type,0);return rec;}
 };
 extern D2StormRequestListStrc gRequestList_00708360; // 0x00708360
-static __declspec(noinline) int sub_00415950_GetFileRec(void*,FILEREC**);
+static int sub_00415950_GetFileRec(void*,FILEREC**);
 static int sub_00415950_GetFileRec(void*,FILEREC**); // 0x00415950
 // 0x00415950
 static int sub_00415950_GetFileRec(void* hFile,FILEREC** out){*out=(FILEREC*)hFile;return 1;}

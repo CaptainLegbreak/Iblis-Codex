@@ -456,8 +456,8 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 int __stdcall SFileReadFileEx2(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
 
 inline void* operator new(unsigned int, void* pWhere) throw();
-static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, ARCHIVEREC** ppRec);
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec);
+static int sub_00415930_GetArchiveRec(void* hArchive, ARCHIVEREC** ppRec);
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec);
 
 D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 
@@ -948,7 +948,7 @@ static void sub_004157C0_FillStreamBuffer(REQUEST* pRequest)
 }
 
 // 0x00415940
-static __declspec(noinline) int sub_00415940_PathPresent(const char* szPath)
+static int sub_00415940_PathPresent(const char* szPath)
 {
     return ~(GetFileAttributesA(szPath) >> 4) & 1;
 }
@@ -1605,14 +1605,14 @@ void D2StormBlockStrc::sub_004156A0_ExpandEntries(unsigned int nCount)
 D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
 
 // 0x00415930
-static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, ARCHIVEREC** ppRec)
+static int sub_00415930_GetArchiveRec(void* hArchive, ARCHIVEREC** ppRec)
 {
     *ppRec = (ARCHIVEREC*)hArchive;
     return 1;
 }
 
 // 0x00415950
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, FILEREC** ppRec)
 {
     *ppRec = (FILEREC*)hFile;
     return 1;
