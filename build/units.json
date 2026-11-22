@@ -14007,7 +14007,7 @@
   },
   {
    "file": "Source/D2Client/CORE/WINMAIN_0044A1D0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x0044A1D0",
@@ -14016,6 +14016,11 @@
     {
      "va": "0x0044A400",
      "length": 224
+    },
+    {
+     "va": "0x004518E0",
+     "length": 47,
+     "name": "?sub_004518E0_StartPlayback@@YAXXZ"
     }
    ],
    "flags": [
@@ -16237,17 +16242,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004518E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004518E0",
-     "length": 47,
-     "name": "?sub_004518E0_StartPlayback@@YAXXZ"
-    }
    ]
   },
   {
