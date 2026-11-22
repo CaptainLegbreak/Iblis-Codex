@@ -4,7 +4,7 @@
 struct D2StormLinkStrc;
 struct D2CriticalSectionStrc;
 struct D2StormNodeListBStrc;
-struct D2StormWndRecStrc;
+struct WNDREC;
 struct SMSGHANDLER_PARAMS;
 struct D2StormLinkStrc
 {
@@ -56,7 +56,7 @@ struct D2StormNodeListBStrc
     }
     char* sub_00420970_DeleteNode(char* pNode);                                                            // 0x00420970
 };
-struct D2StormWndRecStrc
+struct WNDREC
 {
     D2StormLinkStrc f_0;
     void* hWnd;
@@ -152,7 +152,7 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
 // 0x00420AE0
 static int sub_00420AE0_UnregisterAllWindows()
 {
-    while (D2StormWndRecStrc* pRec = (D2StormWndRecStrc*)gWndRecList_00708860.Head())
+    while (WNDREC* pRec = (WNDREC*)gWndRecList_00708860.Head())
     {
         DeleteWindow(pRec->hWnd);
     }

@@ -74,13 +74,13 @@ extern const char gszErrorFormat_006CF33C[]; // 0x006CF33C
 extern const char gszLineFormat_006CF34C[]; // 0x006CF34C
 extern int gbErrorSuppress_007790F0; // 0x007790F0
 extern int gbErrorActive_007790E4; // 0x007790E4
-struct D2ErrorHandlerStrc
+struct HANDLER
 {
     void* pPrevious;
-    D2ErrorHandlerStrc* pNext;
+    HANDLER* pNext;
     int (__stdcall* pfnHandler)(unsigned int,const char*,const char*,int,const char*);
 };
-extern D2ErrorHandlerStrc* gpErrorHandlers_00708428; // 0x00708428
+extern HANDLER* gpErrorHandlers_00708428; // 0x00708428
 typedef void (__fastcall* D2ErrorReportFn)(const char*,const char*,void*,void*,int,int);
 extern D2ErrorReportFn gpErrorReport_007790F8; // 0x007790F8
 struct D2FindDataStrc { unsigned int dwAttributes; unsigned int timesAndSize[10]; char szFileName[260]; char szAlternateName[16]; };
@@ -147,7 +147,7 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nL
     }
     unsigned long nFlags=(bRecoverable?3:1)|0x52010;
     int nChoice=7;
-    D2ErrorHandlerStrc* pHandler=(int)gpErrorHandlers_00708428<=0?0:gpErrorHandlers_00708428;
+    HANDLER* pHandler=(int)gpErrorHandlers_00708428<=0?0:gpErrorHandlers_00708428;
     while((int)pHandler>0)
     {
         if(!pHandler->pfnHandler(nErrorCode,szError,szName,nLine,szDescription?szDescription:&gszEmptyAssertText)) goto DialogDone;

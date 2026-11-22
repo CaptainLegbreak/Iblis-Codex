@@ -45,7 +45,7 @@ struct D2CommonStormHashTableAStrc;
 struct D2TSLinkStrc;
 struct D2TSListStrc;
 struct D2StormNodeListBStrc;
-struct D2StormWndRecStrc;
+struct WNDREC;
 struct SMSGHANDLER_PARAMS;
 struct Entry;
 struct SlotArray;
@@ -261,7 +261,7 @@ struct D2StormNodeListBStrc
     char* sub_00420970_DeleteNode(char* pNode);                                                            // 0x00420970
 };
 
-struct D2StormWndRecStrc
+struct WNDREC
 {
     D2StormLinkStrc f_0;
     void* hWnd;

@@ -1,6 +1,6 @@
 #include "D2StormLink.h"
 
-struct D2StormHandlerNodeStrc
+struct HANDLER
 {
     D2StormLinkStrc f_0;
     int nValue;
@@ -30,7 +30,7 @@ void __stdcall SErrUnregisterHandler(int nValue)
     char* pNode = gHandlerList_00708420.Head();
     while ((int)pNode > 0)
     {
-        if (((D2StormHandlerNodeStrc*)pNode)->nValue == nValue)
+        if (((HANDLER*)pNode)->nValue == nValue)
             pNode = gHandlerList_00708420.sub_0041CA10_DeleteNode(pNode);
         else
             pNode = ((D2StormLinkStrc*)pNode)->m_next;

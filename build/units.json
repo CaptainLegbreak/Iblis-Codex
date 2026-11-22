@@ -4265,7 +4265,7 @@
     {
      "va": "0x00420880",
      "length": 81,
-     "name": "?_GD2StormWndRecStrc"
+     "name": "?_GWNDREC"
     },
     {
      "va": "0x00420970",
@@ -4402,7 +4402,7 @@
     {
      "va": "0x0041C8A0",
      "length": 81,
-     "name": "?_GD2StormHandlerStrc"
+     "name": "?_GHANDLER"
     },
     {
      "va": "0x0041CA10",
@@ -7566,7 +7566,7 @@
     {
      "va": "0x004209E0",
      "length": 36,
-     "name": "?FindWindow@@YIPAUD2StormIdNodeStrc@@H@Z"
+     "name": "?FindWindow@@YIPAUWNDREC@@H@Z"
     }
    ]
   },

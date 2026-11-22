@@ -4,7 +4,7 @@
 
 struct D2StormNodeListStrc;
 
-struct D2StormHandlerNodeStrc;
+struct HANDLER;
 
 
 struct D2StormArrayCStrc;
@@ -58,7 +58,7 @@ struct D2StormNodeListStrc
     }
 };
 
-struct D2StormHandlerNodeStrc
+struct HANDLER
 {
     D2StormLinkStrc f_0;
     int nValue;
@@ -134,7 +134,7 @@ void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 void __stdcall SErrRegisterHandler(int nValue)
 {
     sub_0041C1A0_LockErrorState();
-    D2StormHandlerNodeStrc* pNode = new (SMemAlloc(sizeof(D2StormHandlerNodeStrc), gszTypeNameHandler_00708434, -2, 0x8000008)) D2StormHandlerNodeStrc;
+    HANDLER* pNode = new (SMemAlloc(sizeof(HANDLER), gszTypeNameHandler_00708434, -2, 0x8000008)) HANDLER;
     gHandlerList_00708420.LinkNode((char*)pNode, 1, 0);
     pNode->nValue = nValue;
     sub_0041C1E0_UnlockErrorState();

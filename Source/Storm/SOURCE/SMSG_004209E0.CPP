@@ -1,9 +1,9 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-struct D2StormIdNodeStrc
+struct WNDREC
 {
-    D2StormIdNodeStrc* pPrevLink;
-    D2StormIdNodeStrc* pNext;
+    WNDREC* pPrevLink;
+    WNDREC* pNext;
     int nId;
 };
 struct D2StormListStrc
@@ -19,9 +19,9 @@ struct D2StormListStrc
 extern D2StormListStrc gIdList_00708860; // 0x00708860
 
 // 0x004209E0
-D2StormIdNodeStrc* __fastcall FindWindow(int nId)
+WNDREC* __fastcall FindWindow(int nId)
 {
-    for (D2StormIdNodeStrc* pNode = (D2StormIdNodeStrc*)gIdList_00708860.Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = pNode->pNext)
+    for (WNDREC* pNode = (WNDREC*)gIdList_00708860.Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = pNode->pNext)
     {
         if (pNode->nId == nId)
             return pNode;
