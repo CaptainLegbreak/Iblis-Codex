@@ -4,6 +4,7 @@
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2Txt.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
@@ -61,49 +62,6 @@ struct D2HirelingInfoStrc
 };
 
 
-
-
-struct D2MonStats2Txt
-{
-    char unk0x000[0xB];
-    unsigned char nValue0B;
-    char unk0x00C[0xF8];
-    union
-    {
-        struct
-        {
-            unsigned char nFlags[16];
-        };
-        struct
-        {
-            unsigned char nModeEnabledWhenMovingFlags[4];
-            unsigned char unk_108[0x1];
-            unsigned char nInfernoAnim;
-            unsigned char nInfernoRollback;
-        };
-    };
-    unsigned char unk_114[0x9];
-    unsigned char nLocalBlood;
-    unsigned char nLight;
-    unsigned char nLight_R;
-    unsigned char nLight_G;
-    unsigned char nLight_B;
-    char unk0x122[0x12];
-};
-
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    unsigned char unk_10[0x8];
-    short wMonStatsEx;
-    unsigned char unk_1A[0x32];
-    unsigned char nAlign;
-    char unk0x4D[0x5D];
-    short nLevel[3];
-    unsigned char unk_B0[0xF7];
-    unsigned char nByte1A7;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -199,13 +157,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 typedef unsigned int DWORD;
 
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x2E];
-    short wSrvDoFunc;
-    char unk0x030[0x20C];
-};
 
 typedef char H12_check_unit_a[(H12_OFFSET(D2UnitStrc, dwAnimMode) == 0x10 && H12_OFFSET(D2UnitStrc, pSeed) == 0x20) ? 1 : -1];
 
@@ -592,9 +543,9 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
     }
 
     unsigned char nLight = sub_0063EBD0_GetLightRadius(pUnit);
-    if (nLight < pMonStats2TxtRecord->nLight)
+    if (nLight < pMonStats2TxtRecord->nLightRadius)
     {
-        nLight = pMonStats2TxtRecord->nLight;
+        nLight = pMonStats2TxtRecord->nLightRadius;
     }
 
     if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_DENOFEVIL && sub_004B92E0_GetTableByte(0, 1) && !sub_00451F30_TestUnitFlag(pUnit, 0x200000)
@@ -1524,7 +1475,7 @@ void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultC
     }
 
     D2MonStats2Txt* pMonStats2Txt = sub_M165_GetMonStats2Txt(pUnit);
-    if (!pMonStats2Txt || pMonStats2Txt->nLocalBlood <= 0)
+    if (!pMonStats2Txt || pMonStats2Txt->nBleed <= 0)
     {
         return;
     }
@@ -1568,7 +1519,7 @@ void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultC
         return;
 
 LABEL_SPAWN:
-        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x12 + sub_M165_RollLimited(&pUnit->pSeed, 2 * pMonStats2Txt->nLocalBlood), nX, nY, 0, 1);
+        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x12 + sub_M165_RollLimited(&pUnit->pSeed, 2 * pMonStats2Txt->nBleed), nX, nY, 0, 1);
     }
 }
 
@@ -1602,7 +1553,7 @@ static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* p
         {
             D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
             if (pMonStats2Txt)
-                return pMonStats2Txt->nFlags[nIndex >> 3] & gdwBitMasks[nIndex & 7];
+                return pMonStats2Txt->nModeEnabledWhenMovingFlags[nIndex >> 3] & gdwBitMasks[nIndex & 7];
         }
     }
     return 0;
@@ -1630,7 +1581,7 @@ static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
         return;
     }
 
-    const int nMissile = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId)->nValue0B + 0x10F;
+    const int nMissile = (unsigned char)UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId)->nType + 0x10F;
     memset(&tMissile, 0, sizeof(tMissile));
     tMissile.dwFlags = 0x2020;
     tMissile.pOwner = pUnit;
