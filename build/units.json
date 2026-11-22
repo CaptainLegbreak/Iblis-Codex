@@ -60160,8 +60160,43 @@
      "name": "MISSILES_Initialize"
     },
     {
+     "va": "0x005A0280",
+     "length": 91,
+     "name": "?sub_005A0280_GetChampionUMod@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A02E0",
+     "length": 58,
+     "name": "?sub_005A02E0_AddUMod@@YGXHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0320",
+     "length": 94,
+     "name": "?sub_005A0320_MarkUnique@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0500",
+     "length": 249,
+     "name": "?sub_005A0500_RollChampionUMod@@YAHPAUD2UnitStrc@@PAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x005A0760",
      "length": 451
+    },
+    {
+     "va": "0x005A09E0",
+     "length": 457,
+     "name": "?MONSTERUNIQUE_SpawnUniqueMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHHHH@Z"
+    },
+    {
+     "va": "0x005A0BB0",
+     "length": 69,
+     "name": "?sub_005A0BB0_GetMinionId@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A0C00",
+     "length": 220,
+     "name": "?sub_005A0C00_SpawnMinionGroup@@YGXPAUD2GameStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A11F0",
@@ -60183,6 +60218,11 @@
     {
      "va": "0x005A1910",
      "length": 121
+    },
+    {
+     "va": "0x005A2120",
+     "length": 173,
+     "name": "?MONSTERUNIQUE_SpawnMinions@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x005A21D0",
@@ -60310,8 +60350,22 @@
      "name": "?MONSTERUNIQUE_CastSuicideExplodeMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A43E0",
+     "length": 90,
+     "name": "?MONSTERUNIQUE_SpawnUniqueGroup@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHGGH@Z"
+    },
+    {
      "va": "0x005A4440",
      "length": 663
+    },
+    {
+     "va": "0x005A4850",
+     "length": 105,
+     "name": "?D2GAME_BOSSES_AssignUMod_6FC6FF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A4940",
+     "length": 109
     },
     {
      "va": "0x005A6000",
@@ -60493,67 +60547,6 @@
      "va": "0x005C8BC0",
      "length": 43,
      "name": "@sub_005C8BC0_GetSkillsTxtParam7@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A0280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A0280",
-     "length": 91,
-     "name": "?sub_005A0280_GetChampionUMod@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A02E0",
-     "length": 58,
-     "name": "?sub_005A02E0_AddUMod@@YGXHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0320",
-     "length": 94,
-     "name": "?sub_005A0320_MarkUnique@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0500",
-     "length": 249,
-     "name": "?sub_005A0500_RollChampionUMod@@YAHPAUD2UnitStrc@@PAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x005A09E0",
-     "length": 457,
-     "name": "?MONSTERUNIQUE_SpawnUniqueMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHHHH@Z"
-    },
-    {
-     "va": "0x005A0BB0",
-     "length": 69,
-     "name": "?sub_005A0BB0_GetMinionId@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A0C00",
-     "length": 220,
-     "name": "?sub_005A0C00_SpawnMinionGroup@@YGXPAUD2GameStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A2120",
-     "length": 173,
-     "name": "?MONSTERUNIQUE_SpawnMinions@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@PAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x005A43E0",
-     "length": 90,
-     "name": "?MONSTERUNIQUE_SpawnUniqueGroup@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHGGH@Z"
-    },
-    {
-     "va": "0x005A4850",
-     "length": 105,
-     "name": "?D2GAME_BOSSES_AssignUMod_6FC6FF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A48C0",
-     "length": 120,
-     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
     }
    ]
   },
@@ -61124,19 +61117,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A4940.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A4940",
-     "length": 109
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x005A48C0",
+     "length": 120,
+     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
+    },
     {
      "va": "0x005A49B0",
      "length": 1325

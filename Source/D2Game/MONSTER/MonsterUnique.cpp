@@ -595,6 +595,64 @@ static inline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
     return RollRandomInline(pSeed) & (nMax - 1);
 }
 
+#define MONTYPEFLAG_CHAMPION 4
+
+#define MONSTERUNIQUE_UMOD_COUNT 9
+
+struct D2MonsterRegionStrc;
+
+struct D2SuperUniquesTxt;
+
+int __stdcall sub_O05_EmitArg_AddUMod(D2UnitStrc* pUnit, int nValue);
+
+static inline D2MonUModTxt* sub_M433_GetMonUModTxtRecord(int nUMod)
+{
+    if (nUMod >= sgptDataTables->nMonUModTxtRecordCount)
+    {
+        return 0;
+    }
+    return &sgptDataTables->pMonUModTxt[nUMod];
+}
+
+// 0x005A0280
+int __fastcall sub_005A0280_GetChampionUMod(D2UnitStrc* pUnit)
+{
+    const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    D2MonsterDataStrc* pMonsterData = (nUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
+    if (!pMonsterData)
+    {
+        return 0;
+    }
+
+    if (!(pMonsterData->nTypeFlag & MONTYPEFLAG_CHAMPION))
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < MONSTERUNIQUE_UMOD_COUNT; ++i)
+    {
+        if (!pMonsterData->nMonUmod[i])
+        {
+            return 0;
+        }
+
+        D2MonUModTxt* pMonUModTxtRecord = sub_M433_GetMonUModTxtRecord(pMonsterData->nMonUmod[i]);
+        if (!pMonUModTxtRecord)
+        {
+            return 0;
+        }
+
+        if (pMonUModTxtRecord->nChampion)
+        {
+            return pMonsterData->nMonUmod[i];
+        }
+    }
+
+    return 0;
+}
+
+void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4940
+
 // 0x005A02E0
 static void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
 {
@@ -2712,6 +2770,29 @@ static inline void PromoteSetTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1 && pUnit->pMonsterData)
         pUnit->pMonsterData->nTypeFlag |= nFlag;
+}
+
+// 0x005A4940
+void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType != 1)
+    {
+        return;
+    }
+
+    unsigned char* pUMods = PromoteGetUMods(pUnit);
+    if (!pUMods)
+    {
+        return;
+    }
+
+    PromoteSetTypeFlag(pUnit, 1);
+    sub_005A0320_MarkUnique(pGame, pUnit);
+    MONSTERUNIQUE_AssignRandomUMods(pGame, pUnit, 1);
+    MONSTERUNIQUE_SpawnMinions(pGame, UNITS_GetRoom(pUnit), 0, pUnit, 0, 0, 0);
+    pUnit->dwFlags |= 0x800;
+    MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
 }
 
 void __fastcall MONSTERUNIQUE_ApplyElementalDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
