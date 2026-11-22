@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
@@ -6,7 +7,6 @@
 
 enum D2C_M422FingerMageAi
 {
-    STATE_TERROR = 84,
     FINGERMAGE_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     FINGERMAGE_AI_PARAM_CAST_CHANCE_PCT = 1,
     FINGERMAGE_AI_PARAM_FLEE_LIFE_PCT = 2,
@@ -132,7 +132,7 @@ void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             return;
         }
 
-        if (STATES_CheckState(pTarget, STATE_TERROR))
+        if (STATES_CheckState(pTarget, STATE_FINGERMAGECURSE))
         {
             AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
             return;
