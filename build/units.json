@@ -2258,6 +2258,11 @@
      "name": "sub_004107F0_GetSaveDiskFreeSpace"
     },
     {
+     "va": "0x0042EF50",
+     "length": 907,
+     "name": "?sub_0042EF50_FreeFrontEndCells@@YAXXZ"
+    },
+    {
      "va": "0x0042F3A0",
      "length": 80,
      "name": "?sub_0042F3A0_CreateFromTemplate@@YIPAUD2WinControlStrc@@H@Z"
@@ -9719,11 +9724,6 @@
      "va": "0x0042E6C0",
      "length": 6,
      "name": "sub_0042E6C0_GetGatewayFlag"
-    },
-    {
-     "va": "0x0042EF50",
-     "length": 907,
-     "name": "?sub_0042EF50_FreeFrontEndCells@@YAXXZ"
     }
    ]
   },
