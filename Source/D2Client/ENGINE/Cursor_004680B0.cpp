@@ -45,6 +45,11 @@ extern int gnGlobal_007A6AF0; // 0x007A6AF0
 extern void* gpCursorCells_007A6AC0[NUM_CURSOR_CELLS]; // 0x007A6AC0
 extern unsigned short gwGlobal_007A6AE4; // 0x007A6AE4
 
+#define NUM_CURSOR_MSG_HANDLERS 3
+void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+
+void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+
 // 0x004680B0
 int __fastcall sub_004680B0_InitCursor(int nArg)
 {
@@ -65,5 +70,21 @@ int __fastcall sub_004680B0_InitCursor(int nArg)
     gnGlobal_007A6AB0 = gnGlobal_0071146C / 2;
     gnGlobal_007A6AAC = gnGlobal_00711470 / 2;
     return 1;
+}
+
+
+// 0x00468170
+void __cdecl sub_00468170_ShutdownCursor()
+{
+    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaCursorMsgHandlers_00711FEC, NUM_CURSOR_MSG_HANDLERS);
+    gnGlobal_007A6B08 = 0;
+    for (int i = 0; i < NUM_CURSOR_CELLS; ++i)
+    {
+        if (gpCursorCells_007A6AC0[i])
+        {
+            sub_00478A00(gpCursorCells_007A6AC0[i]);
+            gpCursorCells_007A6AC0[i] = 0;
+        }
+    }
 }
 

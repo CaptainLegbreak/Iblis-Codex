@@ -122,21 +122,6 @@ static void* gpCursorCells_007A6AC0[NUM_CURSOR_CELLS]; // 0x007A6AC0
 
 static unsigned int gnGlobal_007A6AEC; // 0x007A6AEC
 
-// 0x00468170
-void __cdecl sub_00468170_ShutdownCursor()
-{
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaCursorMsgHandlers_00711FEC, NUM_CURSOR_MSG_HANDLERS);
-    gnGlobal_007A6B08 = 0;
-    for (int i = 0; i < NUM_CURSOR_CELLS; ++i)
-    {
-        if (gpCursorCells_007A6AC0[i])
-        {
-            sub_00478A00(gpCursorCells_007A6AC0[i]);
-            gpCursorCells_007A6AC0[i] = 0;
-        }
-    }
-}
-
 // 0x00468310
 void __cdecl sub_00468310_UpdateCursor()
 {

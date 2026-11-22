@@ -20016,11 +20016,6 @@
      "name": "?sub_00467E90_GetCursorAnimLength@@YAHH@Z"
     },
     {
-     "va": "0x00468170",
-     "length": 65,
-     "name": "?sub_00468170_ShutdownCursor@@YAXXZ"
-    },
-    {
      "va": "0x004682C0",
      "length": 71,
      "name": "?sub_004682C0_StepCursorAnim@@YAXXZ"
@@ -20096,6 +20091,11 @@
      "va": "0x004680B0",
      "length": 188,
      "name": "?sub_004680B0_InitCursor@@YIHH@Z"
+    },
+    {
+     "va": "0x00468170",
+     "length": 65,
+     "name": "?sub_00468170_ShutdownCursor@@YAXXZ"
     }
    ]
   },
