@@ -1,7 +1,7 @@
 #include "D2StormTypes.h"
 struct D2StormArrayAStrc;
 struct D2StormQueueStrc;
-struct D2StormRecordStackStrc;
+struct BigStack;
 struct D2StormBigStrc;
 
 struct D2StormArrayAStrc
@@ -31,7 +31,7 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormQueueStrc pRecords[16];
     unsigned int nUsed;
@@ -40,14 +40,14 @@ struct D2StormRecordStackStrc
 struct D2StormBigStrc
 {
     D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     int unk0x158[4];
 };
 
-int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormRecordStackStrc* pStack);
+int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, BigStack* pStack);
 
 // 0x00424640
-static void __stdcall Pow(D2StormQueueStrc* pResult, D2StormQueueStrc* pBase, unsigned int nExp, D2StormRecordStackStrc* pStack)
+static void __stdcall Pow(D2StormQueueStrc* pResult, D2StormQueueStrc* pBase, unsigned int nExp, BigStack* pStack)
 {
     unsigned int nBit = nExp;
     while (nBit & (nBit - 1))

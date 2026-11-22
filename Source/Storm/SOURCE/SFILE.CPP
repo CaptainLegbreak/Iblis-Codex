@@ -74,7 +74,7 @@ struct D2StormHashBufferStrc;
 struct D2StormHuffOutputStrc;
 class THuffmannTree;
 struct D2StormHuffLinkSlotStrc;
-struct D2StormHuffTreeStrc;
+struct CHuffman;
 struct D2StormHashCtxStrc;
 struct D2StormHandlerStrc;
 struct D2StormWndRecStrc;
@@ -399,11 +399,11 @@ public:
     unsigned int adwData[0x3474 / 4];
 };
 
-struct D2StormHuffTreeStrc : THuffmannTree
+struct CHuffman : THuffmannTree
 {
     D2StormHuffLinkSlotStrc f_3474[0x80];
 
-    D2StormHuffTreeStrc();
+    CHuffman();
 };
 
 struct D2StormHashCtxStrc
@@ -2936,7 +2936,7 @@ void D2StormNodeListStrc::sub_0041EE40_UnlinkAll()
 }
 
 // 0x0041F950
-D2StormHuffTreeStrc::D2StormHuffTreeStrc()
+CHuffman::CHuffman()
 {
     for (int i = 0; i < 0x80; ++i)
         f_3474[i].nData[0] = 0;

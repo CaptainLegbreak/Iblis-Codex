@@ -1,6 +1,6 @@
 struct D2StormArrayAStrc;
 struct D2StormQueueStrc;
-struct D2StormRecordStackStrc;
+struct BigStack;
 struct D2StormArrayBStrc;
 struct D2StormBigStrc;
 struct T0041D340;
@@ -24,7 +24,7 @@ struct D2StormQueueStrc
     void sub_00421FE0_GrowToFit(int nIndex); // 0x00421FE0
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormQueueStrc pRecords[16];
     unsigned int nUsed;
@@ -75,7 +75,7 @@ struct D2StormArrayBStrc
 struct D2StormBigStrc
 {
     D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
 };
 

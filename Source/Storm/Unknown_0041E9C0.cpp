@@ -5,16 +5,16 @@
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
 
-struct D2StormHuffItemStrc;
+struct HUFFNODE;
 struct UiContext;
 struct D2StormLinkStrc;
 struct D2IdentityView;
 struct D2StormNodeListStrc;
 class THuffmannTree;
-class D2StormHuffEncTreeStrc;
-class D2StormHuffDecTreeStrc;
+class CHuffmanEncoder;
+class CHuffmanDecoder;
 struct D2StormHuffInputStrc;
-struct D2StormHuffTreeStrc;
+struct CHuffman;
 struct D2StormHuffOutputStrc;
 struct D2CriticalSectionStrc;
 struct T0041FA40;
@@ -53,7 +53,7 @@ struct D2Field14Strc;
 struct D2UnitStrc;
 struct D2StormArrayAStrc;
 struct D2StormQueueStrc;
-struct D2StormBigStackStrc;
+struct BigStack;
 struct D2StormBigBufferStrc;
 struct LimbCell;
 struct SequenceView;
@@ -113,17 +113,17 @@ public:
     unsigned int adwData[0x3474 / 4];
 };
 
-class D2StormHuffEncTreeStrc : public THuffmannTree
+class CHuffmanEncoder : public THuffmannTree
 {
 public:
-    D2StormHuffEncTreeStrc();
-    ~D2StormHuffEncTreeStrc();
+    CHuffmanEncoder();
+    ~CHuffmanEncoder();
 };
 
-class D2StormHuffDecTreeStrc : public THuffmannTree
+class CHuffmanDecoder : public THuffmannTree
 {
 public:
-    ~D2StormHuffDecTreeStrc();
+    ~CHuffmanDecoder();
 };
 
 struct D2StormHuffInputStrc
@@ -147,16 +147,16 @@ struct D2StormHuffInputStrc
     }
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int bIsCmp0;
     int unk0x04;
     unsigned int unk0x08[0xC19];
-    D2StormHuffItemStrc* pItemsByValue[0x102];
+    HUFFNODE* pItemsByValue[0x102];
     void BuildTree(unsigned char nCmpType);                                                    // 0x0041EF20
     unsigned int sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* pInput);                                      // 0x0041EBC0
     void AddSymbol(unsigned int nValue);                                                    // 0x0041F510
-    void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);                                               // 0x0041F350
+    void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
     unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
     void sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue);                       // 0x0041D9E0
     unsigned int Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
@@ -376,7 +376,7 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     D2StormQueueStrc f_0[16];
     unsigned int nUsed;
@@ -510,22 +510,22 @@ void D2StormNodeListStrc::sub_0041F460_Destroy()
 }
 
 // 0x0041F920
-D2StormHuffEncTreeStrc::D2StormHuffEncTreeStrc()
+CHuffmanEncoder::CHuffmanEncoder()
 {
 }
 
 // 0x0041F930
-D2StormHuffEncTreeStrc::~D2StormHuffEncTreeStrc()
+CHuffmanEncoder::~CHuffmanEncoder()
 {
 }
 
 // 0x0041F940
-D2StormHuffDecTreeStrc::~D2StormHuffDecTreeStrc()
+CHuffmanDecoder::~CHuffmanDecoder()
 {
 }
 
 // 0x0041F740
-unsigned int D2StormHuffTreeStrc::Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput)
+unsigned int CHuffman::Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput)
 {
     if (!nOutputSize)
     {
@@ -578,7 +578,7 @@ void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
 }
 
 // 0x0041F850
-unsigned int D2StormHuffTreeStrc::Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
+unsigned int CHuffman::Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
 {
     BuildTree(nCmpType);
     bIsCmp0 = nCmpType == 0;
@@ -1001,7 +1001,7 @@ static unsigned int __stdcall sub_00420EB0_Accumulate64(unsigned __int64 nValue,
     return nLow;
 }
 
-void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormBigStackStrc* pStack)
+void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, BigStack* pStack)
 {
     D2StormQueueStrc* pWork;
     if (pResult == pA)

@@ -17,11 +17,11 @@ struct D2StormRsaKeyStrc;
 
 struct D2StormHuffInputStrc;
 
-struct D2StormHuffItemStrc;
+struct HUFFNODE;
 
 struct D2StormHuffLinkSlotStrc;
 
-struct D2StormHuffTreeStrc;
+struct CHuffman;
 
 struct D2StormArrayAStrc;
 
@@ -33,7 +33,7 @@ struct D2StormQueueStrc;
 
 struct D2StormRecord14Strc;
 
-struct D2StormRecordStackStrc;
+struct BigStack;
 
 struct D2StormBigStrc;
 
@@ -175,28 +175,28 @@ struct D2StormHuffInputStrc
     D2StormHuffInputStrc(void* pInputBuffer);                                                               // 0x0041D880
 };
 
-struct D2StormHuffItemStrc
+struct HUFFNODE
 {
     D2StormLinkStrc f_0;
     unsigned int nValue;
     unsigned int nWeight;
-    D2StormHuffItemStrc* pParent;
-    D2StormHuffItemStrc* pChild;
+    HUFFNODE* pParent;
+    HUFFNODE* pChild;
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int unk0x00[2];
-    D2StormHuffItemStrc f_8[0x203];
+    HUFFNODE f_8[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
     unsigned int nItemsUsed;
-    D2StormHuffItemStrc* pItemsByValue[0x102];
+    HUFFNODE* pItemsByValue[0x102];
     D2StormHuffLinkSlotStrc f_3474[0x80];
 
-    D2StormHuffTreeStrc();                                                                                  // 0x0041F950
-    ~D2StormHuffTreeStrc();                                                                                 // 0x0041F6A0
-    void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);                                               // 0x0041F350
+    CHuffman();                                                                                  // 0x0041F950
+    ~CHuffman();                                                                                 // 0x0041F6A0
+    void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
     unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
     void AddSymbol(unsigned int nValue);
 };
@@ -315,7 +315,7 @@ struct D2StormRecord14Strc
     int nData[5];
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormRecord14Strc pRecords[16];
     unsigned int nUsed;
@@ -327,7 +327,7 @@ struct D2StormRecordStackStrc
 struct D2StormBigStrc
 {
     int unk0x00[5];
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     int unk0x158[4];
 
     ~D2StormBigStrc();                                                                                      // 0x00421D80
@@ -337,11 +337,11 @@ struct D2StormBigStrc
     }
 };
 
-int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormRecordStackStrc* pStack); // 0x004242C0
+int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x004242C0
 
-int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormRecordStackStrc* pStack); // 0x00424700
+int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x00424700
 
-int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormRecordStackStrc* pStack); // 0x00424B00
+int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, BigStack* pStack); // 0x00424B00
 
 struct T0041D340
 {
@@ -690,10 +690,10 @@ void D2StormNodeListAStrc::sub_0041ED90_LinkNode(char* pNode, unsigned int nLink
 }
 
 // 0x0041F510
-void D2StormHuffTreeStrc::AddSymbol(unsigned int nValue)
+void CHuffman::AddSymbol(unsigned int nValue)
 {
-    D2StormHuffItemStrc* pFirst = (D2StormHuffItemStrc*)tItemList.Head();
-    D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.Head();
+    HUFFNODE* pFirst = (HUFFNODE*)tItemList.Head();
+    HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
         pItem = &f_8[nItemsUsed++];
     tItemList.LinkNode((char*)pItem, 1, 0);
@@ -703,7 +703,7 @@ void D2StormHuffTreeStrc::AddSymbol(unsigned int nValue)
     pItem->nWeight = pFirst->nWeight;
     pItem->pParent = pFirst;
     pItemsByValue[pItem->nValue] = pItem;
-    pItem = (D2StormHuffItemStrc*)tFreeList.Head();
+    pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
         pItem = &f_8[nItemsUsed++];
     tItemList.LinkNode((char*)pItem, 1, 0);
@@ -721,7 +721,7 @@ void D2StormHuffTreeStrc::AddSymbol(unsigned int nValue)
 void __fastcall HuffmanDecompress(void* pOutput, unsigned int* pOutputSize, void* pInput, unsigned int nInputSize, int nUnused)
 {
     D2StormHuffInputStrc tInput(pInput);
-    D2StormHuffTreeStrc tTree;
+    CHuffman tTree;
     *pOutputSize = tTree.Decompress(pOutput, *pOutputSize, &tInput);
 }
 
@@ -732,7 +732,7 @@ int D2StormQueueStrc::sub_00420DB0_InRange(unsigned int nIndex)
 }
 
 // 0x00420DD0
-D2StormRecord14Strc* D2StormRecordStackStrc::sub_00420DD0_Push(int* pCounter)
+D2StormRecord14Strc* BigStack::sub_00420DD0_Push(int* pCounter)
 {
     if (pCounter)
         ++*pCounter;
@@ -740,7 +740,7 @@ D2StormRecord14Strc* D2StormRecordStackStrc::sub_00420DD0_Push(int* pCounter)
 }
 
 // 0x00420E00
-void D2StormRecordStackStrc::sub_00420E00_Drop(unsigned int nCount)
+void BigStack::sub_00420E00_Drop(unsigned int nCount)
 {
     nUsed -= nCount;
 }

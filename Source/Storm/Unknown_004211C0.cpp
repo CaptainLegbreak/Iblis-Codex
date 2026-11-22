@@ -6,7 +6,7 @@ struct D2StormArrayCStrc;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
 struct D2StormQueueStrc;
-struct D2StormRecordStackStrc;
+struct BigStack;
 struct D2StormBigStrc;
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
@@ -97,7 +97,7 @@ struct D2StormQueueStrc
     unsigned int m_start;
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormQueueStrc pRecords[16];
     unsigned int nUsed;
@@ -106,7 +106,7 @@ struct D2StormRecordStackStrc
 struct D2StormBigStrc
 {
     D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
 };
 

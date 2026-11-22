@@ -2,9 +2,9 @@
 #include "Storm.h"
 
 struct D2StormHuffInputStrc;
-struct D2StormHuffItemStrc;
+struct HUFFNODE;
 struct D2StormHuffCacheStrc;
-struct D2StormHuffTreeStrc;
+struct CHuffman;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
 struct D2StormHuffOutputStrc;
@@ -55,7 +55,7 @@ struct D2StormLinkStrc
     }
 };
 
-struct D2StormHuffItemStrc
+struct HUFFNODE
 {
     union
     {
@@ -65,8 +65,8 @@ struct D2StormHuffItemStrc
         };
         struct
         {
-            D2StormHuffItemStrc* next;
-            D2StormHuffItemStrc* prev;
+            HUFFNODE* next;
+            HUFFNODE* prev;
         };
     };
     union
@@ -75,15 +75,15 @@ struct D2StormHuffItemStrc
         unsigned int nValue;
     };
     unsigned int nWeight;
-    D2StormHuffItemStrc* pParent;
+    HUFFNODE* pParent;
     union
     {
-        D2StormHuffItemStrc* child;
-        D2StormHuffItemStrc* pChild;
+        HUFFNODE* child;
+        HUFFNODE* pChild;
     };
 };
 
-struct D2StormHuffCacheStrc { unsigned int generation,bits; union { unsigned int value; D2StormHuffItemStrc* node; }; };
+struct D2StormHuffCacheStrc { unsigned int generation,bits; union { unsigned int value; HUFFNODE* node; }; };
 
 struct D2StormNodeListStrc
 {
@@ -120,7 +120,7 @@ struct D2StormNodeListStrc
     }
 };
 
-struct D2StormHuffTreeStrc
+struct CHuffman
 {
     int isCmp0;
     union
@@ -128,7 +128,7 @@ struct D2StormHuffTreeStrc
         unsigned int generation;
         unsigned int nUnk0x04;
     };
-    D2StormHuffItemStrc f_8[0x203];
+    HUFFNODE f_8[0x203];
     D2StormNodeListStrc tFreeList;
     union
     {
@@ -139,21 +139,21 @@ struct D2StormHuffTreeStrc
         struct
         {
             unsigned char unk_305C[0x4];
-            D2StormHuffItemStrc* head;
+            HUFFNODE* head;
         };
     };
     unsigned int nItemsUsed;
-    D2StormHuffItemStrc* pItemsByValue[0x102];
+    HUFFNODE* pItemsByValue[0x102];
     D2StormHuffCacheStrc cache[128];
     unsigned int sub_0041EBC0_DecodeOne(D2StormHuffInputStrc*);
-    D2StormHuffItemStrc* First() {
-  D2StormHuffItemStrc* item=head->next->prev;
+    HUFFNODE* First() {
+  HUFFNODE* item=head->next->prev;
   return (int)item>0?item:0;
  }
     void BuildTree(unsigned char nCmpType);
-    D2StormHuffItemStrc* AllocateItem(unsigned int nLinkType)
+    HUFFNODE* AllocateItem(unsigned int nLinkType)
     {
-        D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.m_terminator.Next();
+        HUFFNODE* pItem = (HUFFNODE*)tFreeList.m_terminator.Next();
         if (!pItem) pItem = &f_8[nItemsUsed++];
         tItemList.LinkNode((char*)pItem, nLinkType, 0);
         pItem->pParent = 0;
@@ -192,18 +192,18 @@ static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hL
 static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex);
 
 // 0x0041EBC0
-unsigned int D2StormHuffTreeStrc::sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* input)
+unsigned int CHuffman::sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* input)
 {
  unsigned int prefix=input->Peek7();
  D2StormHuffCacheStrc* entry=&cache[prefix];
  int cached=entry->generation==generation;
- D2StormHuffItemStrc* node;
+ HUFFNODE* node;
  if(cached) {
   if(entry->bits>7) { input->Skip(7); node=entry->node; }
   else { input->Skip(entry->bits); return entry->value; }
  } else node=First();
  unsigned int depth=0;
- D2StormHuffItemStrc* seventh=0;
+ HUFFNODE* seventh=0;
  do {
   node=node->child;
   if(input->GetBit()) node=node->prev;
@@ -231,10 +231,10 @@ unsigned int D2StormHuffTreeStrc::sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* i
 }
 
 // 0x0041EF20
-void D2StormHuffTreeStrc::BuildTree(unsigned char nCmpType)
+void CHuffman::BuildTree(unsigned char nCmpType)
 {
-    D2StormHuffItemStrc* pItem;
-    while ((pItem = (D2StormHuffItemStrc*)tItemList.m_terminator.Next()) != 0)
+    HUFFNODE* pItem;
+    while ((pItem = (HUFFNODE*)tItemList.m_terminator.Next()) != 0)
         tFreeList.LinkNode((char*)pItem, 1, 0);
     SMemZero(pItemsByValue, sizeof(pItemsByValue));
     unsigned int nMaxWeight = 0;
@@ -249,9 +249,9 @@ void D2StormHuffTreeStrc::BuildTree(unsigned char nCmpType)
         if (pItem->nWeight >= nMaxWeight) nMaxWeight = pItem->nWeight;
         else
         {
-            D2StormHuffItemStrc* pNext = (D2StormHuffItemStrc*)tItemList.m_terminator.Next();
+            HUFFNODE* pNext = (HUFFNODE*)tItemList.m_terminator.Next();
             while (pNext && pNext->nWeight < pItem->nWeight)
-                pNext = (D2StormHuffItemStrc*)pNext->f_0.Next();
+                pNext = (HUFFNODE*)pNext->f_0.Next();
             tItemList.LinkNode((char*)pItem, 2, (char*)pNext);
         }
     }
@@ -262,10 +262,10 @@ void D2StormHuffTreeStrc::BuildTree(unsigned char nCmpType)
         pItem->nValue = nValue;
         pItem->nWeight = 1;
     }
-    D2StormHuffItemStrc* pLow = (D2StormHuffItemStrc*)tItemList.m_terminator.Next();
+    HUFFNODE* pLow = (HUFFNODE*)tItemList.m_terminator.Next();
     while (pLow)
     {
-        D2StormHuffItemStrc* pNext = (D2StormHuffItemStrc*)pLow->f_0.Next();
+        HUFFNODE* pNext = (HUFFNODE*)pLow->f_0.Next();
         if (!pNext)
             break;
         pItem = AllocateItem(2);
@@ -276,12 +276,12 @@ void D2StormHuffTreeStrc::BuildTree(unsigned char nCmpType)
         if (pItem->nWeight >= nMaxWeight) nMaxWeight = pItem->nWeight;
         else
         {
-            D2StormHuffItemStrc* pInsert = (D2StormHuffItemStrc*)pNext->f_0.Next();
+            HUFFNODE* pInsert = (HUFFNODE*)pNext->f_0.Next();
             while (pInsert && pInsert->nWeight < pItem->nWeight)
-                pInsert = (D2StormHuffItemStrc*)pInsert->f_0.Next();
+                pInsert = (HUFFNODE*)pInsert->f_0.Next();
             tItemList.LinkNode((char*)pItem, 2, (char*)pInsert);
         }
-        pLow = (D2StormHuffItemStrc*)pNext->f_0.Next();
+        pLow = (HUFFNODE*)pNext->f_0.Next();
     }
     nUnk0x04 = 1;
 }

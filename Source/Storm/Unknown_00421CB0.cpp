@@ -29,7 +29,7 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormQueueStrc pRecords[16];
     unsigned int nUsed;
@@ -93,7 +93,7 @@ inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int n
 struct D2StormBigStrc
 {
     D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
 };
 

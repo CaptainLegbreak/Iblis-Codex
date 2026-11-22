@@ -50,7 +50,7 @@ struct D2StormQueueStrc : D2StormArrayAStrc
     unsigned int m_start;
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormQueueStrc pRecords[16];
     unsigned int nUsed;
@@ -59,7 +59,7 @@ struct D2StormRecordStackStrc
 };
 
 // 0x00423D80
-void D2StormRecordStackStrc::sub_00423D80_Release(D2StormQueueStrc* pResult, D2StormQueueStrc* pWork)
+void BigStack::sub_00423D80_Release(D2StormQueueStrc* pResult, D2StormQueueStrc* pWork)
 {
     if (pResult != pWork)
     {

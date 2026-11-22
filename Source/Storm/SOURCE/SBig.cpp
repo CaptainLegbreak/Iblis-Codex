@@ -32,12 +32,12 @@ struct D2StormRecord14Strc
     }
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormRecord14Strc pRecords[16];
     unsigned int nUsed;
 
-    D2StormRecordStackStrc() : nUsed(0)
+    BigStack() : nUsed(0)
     {
     }
 };
@@ -57,7 +57,7 @@ struct D2StormByteArrayStrc
 struct D2StormBigStrc
 {
     D2StormRecord14Strc tPrimary;
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     D2StormByteArrayStrc tOutput;
 
     D2StormBigStrc();

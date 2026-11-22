@@ -88,7 +88,7 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     D2StormQueueStrc f_0[16];
     unsigned int nUsed;
@@ -106,7 +106,7 @@ static __declspec(noinline) unsigned int __stdcall sub_00420EB0_AddWithCarry(uns
 }
 
 // 0x00424B00
-void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormBigStackStrc* pStack)
+void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, BigStack* pStack)
 {
     D2StormQueueStrc* pWork;
     if (pResult == pA)

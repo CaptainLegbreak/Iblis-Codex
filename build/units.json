@@ -4156,7 +4156,7 @@
     {
      "va": "0x0041F950",
      "length": 37,
-     "name": "??0D2StormHuffTreeStrc@@QAE@XZ"
+     "name": "??0CHuffman@@QAE@XZ"
     },
     {
      "va": "0x004203E0",
@@ -5346,12 +5346,12 @@
     {
      "va": "0x0041EE80",
      "length": 16,
-     "name": "??0D2StormHuffItemStrc@@QAE@XZ"
+     "name": "??0HUFFNODE@@QAE@XZ"
     },
     {
      "va": "0x0041EE90",
      "length": 50,
-     "name": "??1D2StormHuffItemStrc@@QAE@XZ"
+     "name": "??1HUFFNODE@@QAE@XZ"
     },
     {
      "va": "0x0041EED0",
@@ -6730,12 +6730,12 @@
     {
      "va": "0x0041D320",
      "length": 13,
-     "name": "??0D2StormHandleStrc@@QAE@XZ"
+     "name": "??0BigNum@@QAE@XZ"
     },
     {
      "va": "0x0041D330",
      "length": 9,
-     "name": "??1D2StormHandleStrc@@QAE@XZ"
+     "name": "??1BigNum@@QAE@XZ"
     },
     {
      "va": "0x0041D880",
@@ -6765,7 +6765,7 @@
     {
      "va": "0x0041D9E0",
      "length": 75,
-     "name": "?sub_0041D9E0_EncodeOne@D2StormHuffTreeStrc@@QAEXPAUD2StormHuffOutputStrc@@I@Z"
+     "name": "?sub_0041D9E0_EncodeOne@CHuffman@@QAEXPAUD2StormHuffOutputStrc@@I@Z"
     },
     {
      "va": "0x0041DA30",
@@ -6775,7 +6775,7 @@
     {
      "va": "0x0041F350",
      "length": 270,
-     "name": "?sub_0041F350_IncWeights@D2StormHuffTreeStrc@@QAEXPAUD2StormHuffItemStrc@@@Z"
+     "name": "?sub_0041F350_IncWeights@CHuffman@@QAEXPAUHUFFNODE@@@Z"
     }
    ]
   },
@@ -6928,22 +6928,22 @@
     {
      "va": "0x0041F850",
      "length": 197,
-     "name": "?Compress@D2StormHuffTreeStrc@@QAEIPAUD2StormHuffOutputStrc@@PAXHE@Z"
+     "name": "?Compress@CHuffman@@QAEIPAUD2StormHuffOutputStrc@@PAXHE@Z"
     },
     {
      "va": "0x0041F920",
      "length": 12,
-     "name": "??0D2StormHuffEncTreeStrc@@QAE@XZ"
+     "name": "??0CHuffmanEncoder@@QAE@XZ"
     },
     {
      "va": "0x0041F930",
      "length": 5,
-     "name": "??1D2StormHuffEncTreeStrc@@QAE@XZ"
+     "name": "??1CHuffmanEncoder@@QAE@XZ"
     },
     {
      "va": "0x0041F940",
      "length": 5,
-     "name": "??1D2StormHuffDecTreeStrc@@QAE@XZ"
+     "name": "??1CHuffmanDecoder@@QAE@XZ"
     },
     {
      "va": "0x004203C0",
@@ -7783,12 +7783,12 @@
     {
      "va": "0x00421830",
      "length": 16,
-     "name": "??1D2StormRecordStackStrc@@QAE@XZ"
+     "name": "??1BigStack@@QAE@XZ"
     },
     {
      "va": "0x00421B70",
      "length": 37,
-     "name": "??0D2StormRecordStackStrc@@QAE@XZ"
+     "name": "??0BigStack@@QAE@XZ"
     }
    ],
    "flags": [
@@ -8155,7 +8155,7 @@
     {
      "va": "0x004245F0",
      "length": 66,
-     "name": "?sub_004245F0_MulMod@@YGXAAUD2StormQueueStrc@@000AAUD2StormBigStackStrc@@@Z"
+     "name": "?sub_004245F0_MulMod@@YGXAAUD2StormQueueStrc@@000AAUBigStack@@@Z"
     },
     {
      "va": "0x00424E70",
@@ -8510,7 +8510,7 @@
     {
      "va": "0x00424640",
      "length": 185,
-     "name": "?Pow@@YGXPAUD2StormQueueStrc@@0IPAUD2StormRecordStackStrc@@@Z"
+     "name": "?Pow@@YGXPAUD2StormQueueStrc@@0IPAUBigStack@@@Z"
     },
     {
      "va": "0x00424F50",

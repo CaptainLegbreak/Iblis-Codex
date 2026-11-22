@@ -131,7 +131,7 @@ struct D2StormQueueStrc
     void sub_00422140_Trim();
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     D2StormQueueStrc f_0[16];
     unsigned int nUsed;
@@ -140,13 +140,13 @@ struct D2StormBigStackStrc
 struct D2StormBigStrc
 {
     D2StormQueueStrc tPrimary;
-    D2StormBigStackStrc tStack;
+    BigStack tStack;
 };
 
 unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue);
 int __stdcall sub_004212F0_Compare(D2StormQueueStrc* pLeft, D2StormQueueStrc* pRight);
-int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormBigStackStrc* pStack);
-int __stdcall sub_00424B00_Square(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormBigStackStrc* pStack);
+int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, BigStack* pStack);
+int __stdcall sub_00424B00_Square(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, BigStack* pStack);
 unsigned int __stdcall sub_00421470_FindLowestSetBit(D2StormQueueStrc* pQueue);
 extern const unsigned int gaSBigFermatBases[1];
 extern const unsigned int gaSBigSmallPrimes[171];
@@ -279,7 +279,7 @@ static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueSt
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     d.sub_00422140_Trim();
@@ -378,7 +378,7 @@ static void __stdcall FromUnsigned(D2StormQueueStrc& a, unsigned int nValue)
     a.SetCount(1);
 }
 
-static void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, BigStack& tStack)
 {
     D2StormQueueStrc& tRem = tStack.f_0[tStack.nUsed++];
     D2StormQueueStrc& tNext = tStack.f_0[tStack.nUsed++];
@@ -401,7 +401,7 @@ static void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b,
     tStack.nUsed -= 2;
 }
 
-static __declspec(noinline) void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static __declspec(noinline) void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack)
 {
     D2StormQueueStrc& tProduct = tStack.f_0[tStack.nUsed++];
     sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
@@ -409,7 +409,7 @@ static __declspec(noinline) void __stdcall sub_004245F0_MulMod(D2StormQueueStrc&
     tStack.nUsed--;
 }
 
-static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     if (!c.Count())
@@ -457,7 +457,7 @@ static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc&
     tStack.nUsed -= 3;
 }
 
-static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQueueStrc& a)
+static int __stdcall sub_00425350_IsPrime(BigStack* pStack, D2StormQueueStrc& a)
 {
     const unsigned int nUsed = pStack->nUsed;
     D2StormQueueStrc& tMinusOne = pStack->f_0[nUsed];
@@ -535,9 +535,9 @@ static int sub_00421440_IsEven(const D2StormQueueStrc& a)
     return !a.Count() || !(a[0] & 1);
 }
 
-static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a)
+static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, BigStack* pStack, D2StormQueueStrc& a)
 {
-    D2StormBigStackStrc* pFrame = pStack;
+    BigStack* pFrame = pStack;
     D2StormQueueStrc& tLow = pFrame->f_0[pFrame->nUsed++];
     D2StormQueueStrc& tHigh = pFrame->f_0[pFrame->nUsed++];
     D2StormQueueStrc& tWork = pFrame->f_0[pFrame->nUsed++];
@@ -584,7 +584,7 @@ void __stdcall SBigFindPrime(D2StormBigStrc* pResult, unsigned int nBits, D2Stor
     sub_004255E0_FindPrime(nBits, pRandom->tPrimary, pExponent->tPrimary, &pResult->tStack, pResult->tPrimary);
 }
 
-static void __stdcall sub_00424FB0_InvMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00424FB0_InvMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, BigStack& tStack)
 {
     D2StormQueueStrc& tPrev = tStack.f_0[tStack.nUsed++];
     D2StormQueueStrc& tNum = tStack.f_0[tStack.nUsed++];

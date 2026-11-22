@@ -158,7 +158,7 @@ struct D2StormQueueStrc
     void sub_00422140_Trim();                                                                               // 0x00422140
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     D2StormQueueStrc f_0[16];
     unsigned int nUsed;
@@ -167,12 +167,12 @@ struct D2StormBigStackStrc
 struct D2StormBigStrc
 {
     D2StormQueueStrc tPrimary;
-    D2StormBigStackStrc tStack;
+    BigStack tStack;
 };
 
 unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(D2StormQueueStrc* pLeft, D2StormQueueStrc* pRight);                      // 0x004212F0
-int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormBigStackStrc* pStack); // 0x004242C0
+int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, BigStack* pStack); // 0x004242C0
 
 inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
 {
@@ -311,8 +311,8 @@ static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueSt
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack); // 0x00423DC0
-static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack); // 0x00423DC0
+static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     d.sub_00422140_Trim();
@@ -366,7 +366,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
 }
 
 // 0x00424FB0
-static void __stdcall sub_00424FB0_InvMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00424FB0_InvMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, BigStack& tStack)
 {
     D2StormQueueStrc& tPrev = tStack.f_0[tStack.nUsed++];
     D2StormQueueStrc& tNum = tStack.f_0[tStack.nUsed++];

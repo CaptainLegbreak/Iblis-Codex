@@ -197,7 +197,7 @@ struct D2StormQueueStrc
     void sub_00422140_Trim();                                                                               // 0x00422140
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     D2StormQueueStrc f_0[16];
     unsigned int nUsed;
@@ -206,13 +206,13 @@ struct D2StormBigStackStrc
 struct D2StormBigStrc
 {
     D2StormQueueStrc tPrimary;
-    D2StormBigStackStrc tStack;
+    BigStack tStack;
     D2StormArrayBStrc tOutput;
 };
 
 unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(D2StormQueueStrc* pLeft, D2StormQueueStrc* pRight);                      // 0x004212F0
-int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormBigStackStrc* pStack); // 0x004242C0
+int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, BigStack* pStack); // 0x004242C0
 
 inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
 {
@@ -372,7 +372,7 @@ static void __stdcall FromUnsigned(D2StormQueueStrc& a, unsigned int nValue)
 }
 
 // build: context sub_00423600_ToStr
-static void __stdcall sub_00423600_ToStr(const D2StormQueueStrc& tNumber, D2StormArrayBStrc& tOutput, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00423600_ToStr(const D2StormQueueStrc& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack)
 {
     D2StormQueueStrc& tBuffer = tStack.f_0[tStack.nUsed++];
     tBuffer.CopyFrom(tNumber);
@@ -491,12 +491,12 @@ void __stdcall SBigToStrPtr(D2StormBigStrc* pBig, const char** pszString)
     *pszString = (const char*)pBig->tOutput.f_8;
 }
 
-void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack); // 0x00423DC0
+void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack); // 0x00423DC0
 
-void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc& tStack); // 0x00424180
+void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, BigStack& tStack); // 0x00424180
 
 // 0x004245F0
-static void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack)
 {
     D2StormQueueStrc& tProduct = tStack.f_0[tStack.nUsed++];
     sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
@@ -507,7 +507,7 @@ static void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc&
 // 0x00424E70
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
-    D2StormBigStackStrc& tStack = pResult->tStack;
+    BigStack& tStack = pResult->tStack;
     D2StormQueueStrc& tRem = tStack.f_0[tStack.nUsed++];
     sub_00423DC0_Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
@@ -522,7 +522,7 @@ void __stdcall SBigGcd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 // 0x00424ED0
 void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
-    D2StormBigStackStrc& tStack = pResult->tStack;
+    BigStack& tStack = pResult->tStack;
     D2StormQueueStrc& tQuotient = tStack.f_0[tStack.nUsed++];
     sub_00423DC0_Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;

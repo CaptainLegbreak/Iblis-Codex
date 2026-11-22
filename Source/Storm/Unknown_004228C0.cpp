@@ -4,9 +4,9 @@
 struct D2StormArrayAStrc;
 struct D2StormQueueStrc;
 struct D2StormBigStrc;
-struct D2StormBigStackStrc;
+struct BigStack;
 struct D2StormHandleRefStrc;
-struct D2StormHandleStrc;
+struct BigNum;
 struct D2StormHandlePairStrc;
 struct D2StormLinkStrc;
 struct D2StormListAStrc;
@@ -89,7 +89,7 @@ struct D2StormBigStrc
     char unk0x14[0x154];
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     D2StormQueueStrc f_0[16];
     unsigned int nUsed;
@@ -107,7 +107,7 @@ struct D2StormHandleRefStrc
     D2StormHandleRefStrc& sub_00425FE0_Apply(const int& nArg1, const int& nArg2, const int& nArg3);
 };
 
-struct D2StormHandleStrc
+struct BigNum
 {
     void* hHandle;
 
@@ -242,7 +242,7 @@ D2StormHandleRefStrc& D2StormHandleRefStrc::sub_00425FE0_Apply(const int& nArg1,
 }
 
 // 0x00426010
-void* D2StormHandleStrc::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize)
+void* BigNum::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize)
 {
     unsigned int nRead;
     SBigToBinaryBuffer(hHandle, pBuffer, nSize, &nRead);
@@ -252,7 +252,7 @@ void* D2StormHandleStrc::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize
 }
 
 // 0x00426050
-int D2StormHandleStrc::sub_00426050_Call(int nArg1, int nArg2)
+int BigNum::sub_00426050_Call(int nArg1, int nArg2)
 {
     return sub_00423850(hHandle, nArg1, nArg2);
 }

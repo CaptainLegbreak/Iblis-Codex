@@ -8,7 +8,7 @@ struct D2StormArrayAStrc;
 struct D2StormArray2Strc;
 struct D2StormQueueStrc;
 struct D2StormBigStrc;
-struct D2StormRecordStackStrc;
+struct BigStack;
 struct D2StormArrayBStrc;
 struct BREAKCMD;
 struct D2GameLinkStrc;
@@ -107,7 +107,7 @@ struct D2StormQueueStrc
     void sub_00422140_Trim();                                                                               // 0x00422140
 };
 
-struct D2StormRecordStackStrc
+struct BigStack
 {
     D2StormQueueStrc pRecords[16];
     unsigned int nUsed;
@@ -156,7 +156,7 @@ struct D2StormArrayBStrc
 struct D2StormBigStrc
 {
     D2StormQueueStrc tQueue;
-    D2StormRecordStackStrc tStack;
+    BigStack tStack;
     D2StormArrayBStrc tBuffer;
     ~D2StormBigStrc();                                                                                      // 0x00421D80
     static void operator delete(void* pMemory);

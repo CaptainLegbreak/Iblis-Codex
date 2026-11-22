@@ -91,7 +91,7 @@ struct D2StormQueueStrc
     unsigned int sub_004212D0_Get(unsigned int nIndex) const;                                               // 0x004212D0
 };
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     D2StormQueueStrc f_0[16];
     unsigned int nUsed;
@@ -152,7 +152,7 @@ inline unsigned int ExtractLowPart(unsigned __int64& nValue)
 }
 
 // 0x004242C0
-void __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, const D2StormQueueStrc* pB, const D2StormQueueStrc* pC, D2StormBigStackStrc* pStack)
+void __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, const D2StormQueueStrc* pB, const D2StormQueueStrc* pC, BigStack* pStack)
 {
     D2StormQueueStrc& a = *pResult;
     const D2StormQueueStrc& b = *pB;
@@ -187,8 +187,8 @@ void __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, const D2StormQueueS
 }
 
 // build: context ?RoundUp@D2StormArrayAStrc@@SGIII@Z
-// build: context ?Alloc@D2StormBigStackStrc@@QAEAAUD2StormQueueStrc@@XZ
-// build: context ?MakeDistinct@D2StormBigStackStrc@@QAEAAUD2StormQueueStrc@@AAU2@H@Z
+// build: context ?Alloc@BigStack@@QAEAAUD2StormQueueStrc@@XZ
+// build: context ?MakeDistinct@BigStack@@QAEAAUD2StormQueueStrc@@AAU2@H@Z
 // build: context ?ExtractLowPart@@YAIAA_K@Z
 // build: context ?Reserve@D2StormArrayAStrc@@QAEXIH@Z
 // build: context ?SetCount@D2StormArrayAStrc@@QAEXI@Z

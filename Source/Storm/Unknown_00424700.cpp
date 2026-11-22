@@ -18,10 +18,10 @@
 // build: context D2StormQueueStrc::Ref
 // build: context D2StormQueueStrc::At
 // build: context D2StormQueueStrc::SetStart
-// build: context D2StormBigStackStrc::Alloc
-// build: context D2StormBigStackStrc::Free
-// build: context D2StormBigStackStrc::MakeDistinct
-// build: context D2StormBigStackStrc::UnmakeDistinct
+// build: context BigStack::Alloc
+// build: context BigStack::Free
+// build: context BigStack::MakeDistinct
+// build: context BigStack::UnmakeDistinct
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
@@ -178,7 +178,7 @@ inline void D2StormQueueStrc::sub_00421FE0_GrowToFit(int nIndex)
     m_array.GrowToFit(m_start + nIndex, 1);
 }
 
-struct D2StormBigStackStrc
+struct BigStack
 {
     union { D2StormQueueStrc aBuffers[16]; D2StormQueueStrc f_0[16]; };
     unsigned int nUsed;
@@ -209,7 +209,7 @@ struct D2StormBigStackStrc
 
 unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue); // 0x004213B0
 int __stdcall sub_004212F0_Compare(D2StormQueueStrc* pLeft, D2StormQueueStrc* pRight); // 0x004212F0
-int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormBigStackStrc* pStack); // 0x004242C0
+int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, BigStack* pStack); // 0x004242C0
 extern const unsigned char gabSBigRandMul_006CFF60[8]; // 0x006CFF60
 extern const unsigned char gabSBigRandSeed_006CFF68[8]; // 0x006CFF68
 
@@ -237,7 +237,7 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
 static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c); // 0x00422300
 static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422D00
 static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422E70
-static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack); // 0x00423DC0
+static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack); // 0x00423DC0
 
 // 0x00422300
 static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
@@ -341,7 +341,7 @@ static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x00423DC0
-static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     d.sub_00422140_Trim();
@@ -406,7 +406,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
 }
 
 // 0x00424700
-void __stdcall Rand(D2StormQueueStrc* pResult, D2StormQueueStrc* pModulus, D2StormQueueStrc* pSeed, D2StormBigStackStrc* pStack)
+void __stdcall Rand(D2StormQueueStrc* pResult, D2StormQueueStrc* pModulus, D2StormQueueStrc* pSeed, BigStack* pStack)
 {
     D2StormQueueStrc& tMul = pStack->Alloc();
     D2StormQueueStrc& tTemp = pStack->Alloc();
