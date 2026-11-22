@@ -5,12 +5,12 @@
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
 #include "D2MonModes.h"
+#include "D2DataTbls.h"
 
-#define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
+#define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2SandRaiderAiCallbackArgStrc;
-struct D2DataTables;
 struct D2GreaterMummyAiCallbackArgStrc;
 
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
@@ -39,11 +39,19 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_SandRaider(D2GameStrc*,D2UnitStrc*
 void __stdcall UNITS_SetOverlay(D2UnitStrc*,int,int); // 0x00621E40
 void __stdcall STATES_ToggleState(D2UnitStrc*,int,int); // 0x00639DB0
 
-struct D2DataTables { char unk00[0xA80]; int nMonStatsTxtRecordCount; };
+struct D2GreaterMummyAiCallbackArgStrc
+{
+    D2UnitStrc* pReviveTarget;
+    D2UnitStrc* pHealTarget;
+    int nHealReviveCounter;
+    int nCounter;
+    int nMaxDistance;
+    int bRadament;
+    int bNormal;
+    int unk0x1C[3];
+};
 
-struct D2GreaterMummyAiCallbackArgStrc { D2UnitStrc* pReviveTarget; D2UnitStrc* pHealTarget; int nHealReviveCounter,nCounter,nMaxDistance,bRadament,bNormal; int unk_1C[3]; };
-
-extern D2DataTables* sgptDataTables; // 0x00744304
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc*,D2UnitStrc*); // 0x00599420
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc*,D2UnitStrc*,int*,int*); // 0x005DDC30
 int __fastcall AITACTICS_UseSequenceSkill(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*,int,int); // 0x005DE000
@@ -127,10 +135,10 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
         pAiControl->dwAiParam[1] = 0;
     }
     ++pAiControl->dwAiParam[0];
-    int nDelay = AI_PARAM(4);
+    int nDelay = AI_PARAM(pGame, pMonStatsTxt, 4);
     if (pAiControl->dwAiParam[0] == nDelay)
     {
-        switch(AI_PARAM(5))
+        switch(AI_PARAM(pGame, pMonStatsTxt, 5))
         {
         default: UNITS_SetOverlay(pUnit,46,0); break;
         case 1: UNITS_SetOverlay(pUnit,150,0); break;
@@ -140,14 +148,14 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
     }
     if (pAiControl->dwAiParam[0] > nDelay)
     {
-        switch(AI_PARAM(5))
+        switch(AI_PARAM(pGame, pMonStatsTxt, 5))
         {
         default: STATES_ToggleState(pUnit,91,1); break;
         case 1: STATES_ToggleState(pUnit,90,1); break;
         }
         pAiControl->dwAiParam[1] = 1;
     }
-    if (pAiControl->dwAiParam[2] < 7 && sub_005DD280(pUnit) < AI_PARAM(0))
+    if (pAiControl->dwAiParam[2] < 7 && sub_005DD280(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 0))
     {
         D2SandRaiderAiCallbackArgStrc args;
         args.pTarget = 0;
@@ -160,7 +168,7 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
         }
         ++pAiControl->dwAiParam[2];
     }
-    if (nDistance > 4 && !pAiControl->dwAiParam[1] && (int)(AI_RollSeed(pSeed)%100) < AI_PARAM(1))
+    if (nDistance > 4 && !pAiControl->dwAiParam[1] && (int)(AI_RollSeed(pSeed)%100) < AI_PARAM(pGame, pMonStatsTxt, 1))
     {
         sub_005DF7D0_Maneuver(pGame,pUnit,pTarget,0,0);
         return;
@@ -174,21 +182,21 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
             pAiControl->dwAiParam[1] = 0;
             return;
         }
-        if((int)(AI_RollSeed(pSeed)%100) < AI_PARAM(2))
+        if((int)(AI_RollSeed(pSeed)%100) < AI_PARAM(pGame, pMonStatsTxt, 2))
         {
-            if((int)SEED_RollLimitedRandomNumber(pSeed,100) < AI_PARAM(6))
+            if((int)SEED_RollLimitedRandomNumber(pSeed,100) < AI_PARAM(pGame, pMonStatsTxt, 6))
                 AITACTICS_ChangeModeAndTargetUnit(pGame,pUnit,5,pTarget);
             else
                 AITACTICS_ChangeModeAndTargetUnit(pGame,pUnit,4,pTarget);
             return;
         }
     }
-    else if(pAiControl->dwAiParam[1] || (int)(AI_RollSeed(pSeed)%100) < AI_PARAM(3))
+    else if(pAiControl->dwAiParam[1] || (int)(AI_RollSeed(pSeed)%100) < AI_PARAM(pGame, pMonStatsTxt, 3))
     {
         AITACTICS_WalkToTargetUnitWithFlags(pGame,pUnit,pTarget,0);
         return;
     }
-    nDelay = AI_PARAM(4);
+    nDelay = AI_PARAM(pGame, pMonStatsTxt, 4);
     nDistance = 24-nDelay;
     if(nDistance<6) nDistance=6;
     if(pAiControl->dwAiParam[0]>nDelay+nDistance)
@@ -215,37 +223,37 @@ void __fastcall sub_005F2B10_GreaterMummyThink(D2GameStrc* pGame,D2UnitStrc* pUn
  int nDistance=pAiTickParam->nTargetDistance;
  D2UnitStrc* pTarget=pAiTickParam->pTarget;
  D2MonStatsTxt* pMonStatsTxt=pAiTickParam->pMonstatsTxt;
- if(pAiTickParam->bCombat && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(0))
+ if(pAiTickParam->bCombat && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(pGame, pMonStatsTxt, 0))
  {
   AITACTICS_ChangeModeAndTargetUnit(pGame,pUnit,4,pTarget); return;
  }
- if(nDistance<5 && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(0))
+ if(nDistance<5 && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(pGame, pMonStatsTxt, 0))
  {
   AITACTICS_ChangeModeAndTargetUnit(pGame,pUnit,5,pTarget); return;
  }
  D2GreaterMummyAiCallbackArgStrc args;
  args.pReviveTarget=0;args.pHealTarget=0;args.nHealReviveCounter=0;args.nCounter=0;
- int nRange=AI_PARAM(4);args.nMaxDistance=nRange*nRange;args.bRadament=0;args.bNormal=0;
+ int nRange=AI_PARAM(pGame, pMonStatsTxt, 4);args.nMaxDistance=nRange*nRange;args.bRadament=0;args.bNormal=0;
  if(UnitClassId(pUnit)==MonsterId(229))
  {
   ACT2Q1_OnRadamentActivated(pGame,pUnit);
-  args.nMaxDistance=(AI_PARAM(4)+10)*(AI_PARAM(4)+10);args.bRadament=1;
+  args.nMaxDistance=(AI_PARAM(pGame, pMonStatsTxt, 4)+10)*(AI_PARAM(pGame, pMonStatsTxt, 4)+10);args.bRadament=1;
   if(!pGame->nDifficulty) args.bNormal=1;
  }
  AIUTIL_FindTargetWithCallback(pGame,pUnit,&args,AITHINK_TargetCallback_GreaterMummy,1);
  D2UnitStrc* pActionTarget=args.pHealTarget;
- if(pMonStatsTxt->nSkill[1]>=0 && pActionTarget && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(2))
+ if(pMonStatsTxt->nSkill[1]>=0 && pActionTarget && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(pGame, pMonStatsTxt, 2))
  {
   UNITS_SetTargetUnitForDynamicUnit(pUnit,args.pHealTarget);
   AITACTICS_UseSkill(pGame,pUnit,pMonStatsTxt->nSkillMode[1],pMonStatsTxt->nSkill[1],pActionTarget,0,0); return;
  }
  pActionTarget=args.pReviveTarget;
- if(pActionTarget && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(1) && sub_005FD470(pGame,pUnit,pMonStatsTxt->nSkill[0],args.pReviveTarget,0,0))
+ if(pActionTarget && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(pGame, pMonStatsTxt, 1) && sub_005FD470(pGame,pUnit,pMonStatsTxt->nSkill[0],args.pReviveTarget,0,0))
  {
   UNITS_SetTargetUnitForDynamicUnit(pUnit,pActionTarget);
   AITACTICS_UseSequenceSkill(pGame,pUnit,pMonStatsTxt->nSkill[0],pActionTarget,0,0); return;
  }
- if(pMonStatsTxt->nSkill[2]>=0 && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(3))
+ if(pMonStatsTxt->nSkill[2]>=0 && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(pGame, pMonStatsTxt, 3))
  {
   pActionTarget=AIUTIL_SelectAiTargetWithCollisionCheck(pGame,pUnit,&nDistance,0);
   if(pActionTarget)
