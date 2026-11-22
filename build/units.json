@@ -60841,6 +60841,14 @@
      "length": 642
     },
     {
+     "va": "0x005A1650",
+     "length": 389
+    },
+    {
+     "va": "0x005A21D0",
+     "length": 509
+    },
+    {
      "va": "0x005A2530",
      "length": 179
     },
@@ -61610,34 +61618,6 @@
      "length": 50,
      "name": "?MONSTERUNIQUE_UMod41_AlwaysRun@@YIXPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A1650.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A1650",
-     "length": 389
-    },
-    {
-     "va": "0x005A21D0",
-     "length": 509
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

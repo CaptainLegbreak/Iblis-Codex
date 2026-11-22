@@ -4596,8 +4596,8 @@
    "state": "included"
   },
   "Source/D2Game/MONSTER/MonsterUnique.cpp": {
-   "bytes": 72,
-   "definitions": 3,
+   "bytes": 232,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
     "extern \"C\" void __cdecl PARTYSCREEN_PlayerLeftParty(); // 0x005A5D20",
@@ -4683,15 +4683,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMode_005A1080.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/MONSTER/MonsterUnique_005A1650.cpp": {
-   "bytes": 160,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/MONSTER/MonsterUnique_005A1650.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -108655,7 +108646,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A1650.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2AuraEnchantStrc gAuraEnchantTable_0073BF68[8] = ",
