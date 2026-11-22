@@ -319,20 +319,11 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SMEM.CPP": {
-   "bytes": 236,
-   "definitions": 5,
+   "bytes": 248,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SMEM.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/SOURCE/SMEM_004117F0.CPP": {
-   "bytes": 12,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SMEM_004117F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9279,7 +9270,7 @@
    "cname": "gData_006CEDCC",
    "declared": true,
    "decorated": "_szSMemAlloc_006CEDCC",
-   "file": "Source/Storm/SOURCE/SMEM_004117F0.CPP",
+   "file": "Source/Storm/SOURCE/SMEM.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CEDCC[12]; // 0x006CEDCC",
