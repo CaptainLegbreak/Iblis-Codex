@@ -32684,6 +32684,16 @@
      "length": 310
     },
     {
+     "va": "0x004CF500",
+     "length": 318,
+     "name": "?sub_004CF500_CltHitSpawnSubMissiles@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CF640",
+     "length": 433,
+     "name": "?sub_004CF640_CltHitPatternSubMissiles@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x004D0060",
      "length": 358,
      "name": "?sub_004D0060_HitScanArea@@YIHPAUD2UnitStrc@@0@Z"
@@ -32694,6 +32704,11 @@
      "name": "sub_004D06F0_HitSubMissiles"
     },
     {
+     "va": "0x004D0920",
+     "length": 188,
+     "name": "?sub_004D0920_HitCollisionBurst@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x004D0A80",
      "length": 267,
      "name": "sub_004D0A80_HitBurst"
@@ -32702,6 +32717,11 @@
      "va": "0x004D0EB0",
      "length": 309,
      "name": "sub_004D0EB0_HitLob"
+    },
+    {
+     "va": "0x004D0FF0",
+     "length": 74,
+     "name": "?sub_004D0FF0_HitCreateSubMissile@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004D1040",
@@ -32788,6 +32808,11 @@
      "name": "?sub_004D3540_CltDoSubLoop@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D3630",
+     "length": 446,
+     "name": "?sub_004D3630_CltDoCommon2@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D37F0",
      "length": 222,
      "name": "?sub_004D37F0_CltDoCommon3@@YIXPAUD2UnitStrc@@@Z"
@@ -32853,6 +32878,10 @@
      "name": "?sub_004D4B80_CltDoFrameFloor@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D4BB0",
+     "length": 516
+    },
+    {
      "va": "0x004D5200",
      "length": 259,
      "name": "sub_004D5200_CltDoOwnerQuad"
@@ -32888,6 +32917,10 @@
      "name": "?sub_004D5BA0_CltDoPeriodicSub@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D5C10",
+     "length": 445
+    },
+    {
      "va": "0x004D5DD0",
      "length": 421,
      "name": "?sub_004D5DD0_CltDoTimedBurst@@YIXPAUD2UnitStrc@@@Z"
@@ -32917,6 +32950,10 @@
      "name": "?sub_004D6680_CltDoObjectRing@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D66E0",
+     "length": 305
+    },
+    {
      "va": "0x004D6C00",
      "length": 317,
      "name": "sub_004D6C00_CltDoRateTable"
@@ -32934,6 +32971,10 @@
      "va": "0x004D7690",
      "length": 116,
      "name": "?sub_004D7690_CltDoOwnerSpawner@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D7E00",
+     "length": 435
     },
     {
      "va": "0x004D9180",
@@ -33825,53 +33866,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004CF500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004CF500",
-     "length": 318,
-     "name": "?sub_004CF500_CltHitSpawnSubMissiles@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CF640",
-     "length": 433,
-     "name": "?sub_004CF640_CltHitPatternSubMissiles@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004D0920",
-     "length": 188,
-     "name": "?sub_004D0920_HitCollisionBurst@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004D0FF0",
-     "length": 74,
-     "name": "?sub_004D0FF0_HitCreateSubMissile@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004D3630",
-     "length": 446,
-     "name": "?sub_004D3630_CltDoCommon2@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D4BB0",
-     "length": 516
-    },
-    {
-     "va": "0x004D5C10",
-     "length": 445
-    },
-    {
-     "va": "0x004D66E0",
-     "length": 305
-    },
-    {
-     "va": "0x004D7E00",
-     "length": 435
-    }
    ]
   },
   {
