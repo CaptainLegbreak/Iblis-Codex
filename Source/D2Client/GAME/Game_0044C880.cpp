@@ -55,7 +55,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern "C" size_t __cdecl strlen(const char* szString);
+extern "C" unsigned int __cdecl strlen(const char* pString);
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
