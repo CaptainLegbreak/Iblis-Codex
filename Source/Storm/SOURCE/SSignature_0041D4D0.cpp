@@ -31,28 +31,33 @@ struct BigNum
     }
 };
 
-struct D2StormHandlePairStrc
+namespace Crypt
+{
+
+struct RSA
 {
     BigNum hFirst;
     BigNum hSecond;
 
-    D2StormHandlePairStrc();
-    ~D2StormHandlePairStrc();
+    RSA();
+    ~RSA();
     void Process(void* pBuffer, unsigned int nSize);
 };
 
+}
+
 // 0x0041D4D0
-D2StormHandlePairStrc::D2StormHandlePairStrc()
+Crypt::RSA::RSA()
 {
 }
 
 // 0x0041D530
-D2StormHandlePairStrc::~D2StormHandlePairStrc()
+Crypt::RSA::~RSA()
 {
 }
 
 // 0x004260A0
-void D2StormHandlePairStrc::Process(void* pBuffer, unsigned int nSize)
+void Crypt::RSA::Process(void* pBuffer, unsigned int nSize)
 {
     BigNum tInput;
     sub_00423850(tInput.hHandle, pBuffer, nSize);

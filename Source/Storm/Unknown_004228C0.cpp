@@ -7,7 +7,7 @@ struct D2StormBigStrc;
 struct BigStack;
 struct D2StormHandleRefStrc;
 struct BigNum;
-struct D2StormHandlePairStrc;
+namespace Crypt { struct RSA; }
 struct D2StormLinkStrc;
 struct D2StormListAStrc;
 
@@ -115,13 +115,18 @@ struct BigNum
     int sub_00426050_Call(int nArg1, int nArg2);
 };
 
-struct D2StormHandlePairStrc
+namespace Crypt
+{
+
+struct RSA
 {
     void* hFirst;
     void* hSecond;
 
     void Prepare(int nArg1, int nArg2, int nArg3, int nArg4);
 };
+
+}
 
 struct D2StormListAStrc
 {
@@ -258,7 +263,7 @@ int BigNum::sub_00426050_Call(int nArg1, int nArg2)
 }
 
 // 0x00426070
-void D2StormHandlePairStrc::Prepare(int nArg1, int nArg2, int nArg3, int nArg4)
+void Crypt::RSA::Prepare(int nArg1, int nArg2, int nArg3, int nArg4)
 {
     sub_00423850(hFirst, nArg1, nArg2);
     sub_00423850(hSecond, nArg3, nArg4);

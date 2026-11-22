@@ -6786,17 +6786,17 @@
     {
      "va": "0x0041D4D0",
      "length": 81,
-     "name": "??0D2StormHandlePairStrc@@QAE@XZ"
+     "name": "??0RSA@Crypt@@QAE@XZ"
     },
     {
      "va": "0x0041D530",
      "length": 88,
-     "name": "??1D2StormHandlePairStrc@@QAE@XZ"
+     "name": "??1RSA@Crypt@@QAE@XZ"
     },
     {
      "va": "0x004260A0",
      "length": 190,
-     "name": "?Process@D2StormHandlePairStrc@@QAEXPAXI@Z"
+     "name": "?Process@RSA@Crypt@@QAEXPAXI@Z"
     }
    ],
    "flags": [
