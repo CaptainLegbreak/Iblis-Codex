@@ -472,7 +472,7 @@ int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionCon
 extern const char gszEmpty_006CC837[]; // 0x006CC837
 extern const char gszCmdDefType_0074C47C[]; // 0x0074C47C
 
-struct D2CmdDefStrc
+struct CMDDEF
 {
     D2StormLinkStrc link;
     unsigned int dwFlags;
@@ -496,9 +496,9 @@ int gnGlobal_00989C38; // 0x00989C38
 inline void* operator new(unsigned int, void* pPlace) throw() { return pPlace; }
 
 // build: context NewCommand
-static __forceinline D2CmdDefStrc* NewCommand(D2StormLinkStrc& terminator)
+static __forceinline CMDDEF* NewCommand(D2StormLinkStrc& terminator)
 {
-    D2CmdDefStrc* pNode = new (SMemAlloc(sizeof(D2CmdDefStrc), gszCmdDefType_0074C47C, -2, 8)) D2CmdDefStrc;
+    CMDDEF* pNode = new (SMemAlloc(sizeof(CMDDEF), gszCmdDefType_0074C47C, -2, 8)) CMDDEF;
     D2StormLinkStrc* pLink = pNode ? &pNode->link : &terminator;
     pLink->Unlink();
     D2StormLinkStrc* pPrevLink = terminator.m_prevlink;
@@ -524,7 +524,7 @@ int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, cons
     VALIDATE((dwFlags & 0x00030000) || !pVariable || nBytes == 4);
     VALIDATEEND;
 
-    D2CmdDefStrc* pCommand;
+    CMDDEF* pCommand;
     if (!(dwFlags & 0x03000000))
         pCommand = NewCommand(gtArguments_0074C49C);
     else

@@ -25,7 +25,6 @@ struct CMDDEF;
 
 struct CMDDEFList;
 
-struct D2StormCmdDefStrc;
 
 struct D2StormCmdDefListStrc;
 
@@ -94,7 +93,22 @@ extern "C" const char gszDelete[]; // 0x006CC824
 struct CMDDEF
 {
     D2StormLinkStrc m_link;
-    int nData;
+    union
+    {
+        int nData;
+        char unk0x08[0x38];
+    };
+
+    CMDDEF()
+    {
+        m_link.m_prevlink = 0;
+        m_link.m_next = 0;
+    }
+
+    ~CMDDEF()
+    {
+        m_link.Unlink();
+    }
 
     static void operator delete(void* pMemory);
 };
@@ -294,24 +308,6 @@ static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pCont
 
 static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
 
-// build: context ??_GD2StormCmdDefStrc@@QAEPAXI@Z
-
-struct D2StormCmdDefStrc
-{
-    D2StormLinkStrc tLink;
-    char unk0x08[0x38];
-
-    D2StormCmdDefStrc()
-    {
-        tLink.m_prevlink = 0;
-        tLink.m_next = 0;
-    }
-
-    ~D2StormCmdDefStrc()
-    {
-        tLink.Unlink();
-    }
-};
 
 // 0x006C4020
 int __fastcall sub_006C4020_GetRawNext(T0051755C* pLink)
@@ -384,8 +380,8 @@ inline void* operator new(unsigned int, void* pMemory) throw() { return pMemory;
 // 0x006C44C0
 char* D2StormFixedListStrc::sub_006C44C0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2StormCmdDefStrc) + nExtraBytes, gszTypeNameCmdDef_0074C47C, -2, nFlags | 8);
-    D2StormCmdDefStrc* pRecord = pMemory ? new (pMemory) D2StormCmdDefStrc : 0;
+    void* pMemory = SMemAlloc(sizeof(CMDDEF) + nExtraBytes, gszTypeNameCmdDef_0074C47C, -2, nFlags | 8);
+    CMDDEF* pRecord = pMemory ? new (pMemory) CMDDEF : 0;
     if (nLinkType)
         sub_006C4180_LinkNode((char*)pRecord, nLinkType, 0);
     return (char*)pRecord;
@@ -409,9 +405,9 @@ void sub_Emit_CMDDEF(CMDDEFList* pList)
 // 0x006C4760
 void D2StormCmdDefListStrc::sub_006C4760_DeleteAll()
 {
-    while (D2StormCmdDefStrc* pRecord = (D2StormCmdDefStrc*)Head())
+    while (CMDDEF* pRecord = (CMDDEF*)Head())
     {
-        pRecord->~D2StormCmdDefStrc();
+        pRecord->~CMDDEF();
         SMemFree(pRecord, gszTypeNameCmdDef_0074C47C, -2, 0);
     }
 }
