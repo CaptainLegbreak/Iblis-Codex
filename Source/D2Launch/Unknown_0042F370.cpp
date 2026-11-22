@@ -37,12 +37,6 @@ void __cdecl sub_0042F370_RestorePalette()
     }
 }
 
-// 0x0042F530
-void __fastcall sub_0042F530_ClearUnicode(Unicode* pChar)
-{
-    pChar->wChar = 0;
-}
-
 // 0x0042F880
 void __cdecl sub_0042F880_DestroyControls()
 {
