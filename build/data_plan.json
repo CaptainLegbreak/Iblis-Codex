@@ -3504,7 +3504,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2BNClient/BnDownload_00520660.cpp": {
+  "Source/D2BNClient/BnDownload.cpp": {
    "bytes": 740,
    "definitions": 3,
    "externs": [],
@@ -89283,7 +89283,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
+   "file": "Source/D2BNClient/BnDownload.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0072FFA8 = ",
@@ -89309,7 +89309,7 @@
    "cname": "gData_006DFF20",
    "declared": true,
    "decorated": "?gaSubstitutionBox_006DFF20@@3PAY0BA@EA",
-   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
+   "file": "Source/D2BNClient/BnDownload.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006DFF20[30][16]; // 0x006DFF20",
    "head": "extern \"C\" const unsigned char gData_006DFF20[30][16] = ",
@@ -89344,7 +89344,7 @@
    "cname": "gData_006E0100",
    "declared": true,
    "decorated": "?gaCdKeyCharMap_006E0100@@3PAEA",
-   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
+   "file": "Source/D2BNClient/BnDownload.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E0100[256]; // 0x006E0100",
    "head": "extern \"C\" const unsigned char gData_006E0100[256] = ",

@@ -42867,6 +42867,11 @@
      "name": "?sub_00520020_SetAdList@@YIHPBDH@Z"
     },
     {
+     "va": "0x00520660",
+     "length": 18,
+     "name": "?sub_00520660_HandleReply0F@@YIHPBXI@Z"
+    },
+    {
      "va": "0x005206B0",
      "length": 792
     },
@@ -42881,6 +42886,21 @@
      "name": "_sub_00520AD0_SetFlag882528"
     },
     {
+     "va": "0x00520B30",
+     "length": 56,
+     "name": "?sub_00520B30_ResetReplies@@YAHXZ"
+    },
+    {
+     "va": "0x00520B70",
+     "length": 124,
+     "name": "sub_00520B70_WaitForReply"
+    },
+    {
+     "va": "0x00520BF0",
+     "length": 11,
+     "name": "?sub_00520BF0_IsReplyReceived@@YIHE@Z"
+    },
+    {
      "va": "0x00520C00",
      "length": 22,
      "name": "@sub_00520C00_ClearSlotPair@4"
@@ -42891,12 +42911,72 @@
      "name": "@sub_00520C20_GetSlotB@4"
     },
     {
+     "va": "0x00520C50",
+     "length": 13,
+     "name": "?sub_00520C50_HandleReply2A@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520C60",
+     "length": 18,
+     "name": "?sub_00520C60_HandleReply3D@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520C80",
+     "length": 38,
+     "name": "?sub_00520C80_HandleReply31@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520D50",
+     "length": 13,
+     "name": "?sub_00520D50_HandleReply28@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520D60",
+     "length": 16,
+     "name": "?sub_00520D60_HandleReply1C@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520DA0",
+     "length": 18,
+     "name": "?sub_00520DA0_HandleReply29@@YIHPBHI@Z"
+    },
+    {
      "va": "0x00520E50",
      "length": 262
     },
     {
+     "va": "0x00520FC0",
+     "length": 18,
+     "name": "?sub_00520FC0_HandleReply25@@YIHPBXI@Z"
+    },
+    {
      "va": "0x00520FE0",
      "length": 180
+    },
+    {
+     "va": "0x005210A0",
+     "length": 27,
+     "name": "?sub_005210A0_SaveServerList@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210C0",
+     "length": 11,
+     "name": "?sub_005210C0_SetReply@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210D0",
+     "length": 11,
+     "name": "?sub_005210D0_SetReply@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210F0",
+     "length": 29,
+     "name": "?sub_005210F0_ShowText@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521110",
+     "length": 58,
+     "name": "?sub_00521110_Report@@YIHPBXI@Z"
     },
     {
      "va": "0x00521150",
@@ -42904,13 +42984,203 @@
      "name": "sub_00521150"
     },
     {
-     "va": "0x005226D0",
-     "length": 678
+     "va": "0x005211D0",
+     "length": 11,
+     "name": "?sub_005211D0_SetReply@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005211E0",
+     "length": 11,
+     "name": "?sub_005211E0_QueryAdUrl@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005211F0",
+     "length": 11,
+     "name": "?sub_005211F0_LogonRealmEx@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521200",
+     "length": 11,
+     "name": "?sub_00521200_ReadUserData@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521210",
+     "length": 5,
+     "name": "?sub_00521210_NewsInfo@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005212D0",
+     "length": 735
+    },
+    {
+     "va": "0x005215B0",
+     "length": 256,
+     "name": "?sub_005215B0_AuthAccountCreate@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005216B0",
+     "length": 173
+    },
+    {
+     "va": "0x00521760",
+     "length": 146,
+     "name": "?sub_00521760_AuthAccountLogonProof@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521800",
+     "length": 145,
+     "name": "?sub_00521800_AuthAccountChange@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005218A0",
+     "length": 162,
+     "name": "?sub_005218A0_AuthAccountChangeProof@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521950",
+     "length": 84,
+     "name": "?sub_00521950_AuthAccountUpgrade@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005219B0",
+     "length": 241,
+     "name": "?sub_005219B0_AuthAccountUpgradeProof@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521AB0",
+     "length": 16,
+     "name": "?sub_00521AB0_SetEmail@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521AC0",
+     "length": 29,
+     "name": "?sub_00521AC0_OptionalWork@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521AE0",
+     "length": 29,
+     "name": "?sub_00521AE0_RequiredWork@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521B40",
+     "length": 10,
+     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
+    },
+    {
+     "va": "0x00521BA0",
+     "length": 71
+    },
+    {
+     "va": "0x00522050",
+     "length": 96,
+     "name": "?sub_00522050_SendAccountLogon@@YAHXZ"
+    },
+    {
+     "va": "0x005223A0",
+     "length": 72,
+     "name": "?sub_005223A0_SendAccountUpgrade@@YIHH@Z"
+    },
+    {
+     "va": "0x00522500",
+     "length": 38,
+     "name": "?sub_00522500_GetNibble@@YIIPBII@Z"
+    },
+    {
+     "va": "0x00522530",
+     "length": 58,
+     "name": "sub_00522530_SetNibble"
+    },
+    {
+     "va": "0x00522570",
+     "length": 34,
+     "name": "?sub_00522570_GetBit@@YIIPBII@Z"
+    },
+    {
+     "va": "0x005225A0",
+     "length": 54,
+     "name": "sub_005225A0_SetBit"
+    },
+    {
+     "va": "0x005225E0",
+     "length": 98,
+     "name": "sub_005225E0"
+    },
+    {
+     "va": "0x00522650",
+     "length": 113,
+     "name": "sub_00522650"
+    },
+    {
+     "va": "0x00522980",
+     "length": 349,
+     "name": "sub_00522980"
+    },
+    {
+     "va": "0x00522BC0",
+     "length": 86,
+     "name": "?sub_00522BC0_FillRandomBytes@@YIXPADH@Z"
+    },
+    {
+     "va": "0x00522C20",
+     "length": 10,
+     "name": "?sub_00522C20_ClearCryptState@@YAXXZ"
+    },
+    {
+     "va": "0x00522C30",
+     "length": 478
+    },
+    {
+     "va": "0x00522E10",
+     "length": 520
+    },
+    {
+     "va": "0x00523280",
+     "length": 43
     },
     {
      "va": "0x006CB430",
      "length": 12,
      "name": "?__FtLog_00881878"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2BNClient/BnDownload_005226D0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005226D0",
+     "length": 678
+    }
+   ]
+  },
+  {
+   "file": "Source/D2BNClient/BnDownload_00520CB0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00520CB0",
+     "length": 155,
+     "name": "?sub_00520CB0_HandleClientId@@YIHPBUD2BnClientIdReplyStrc@@I@Z"
+    },
+    {
+     "va": "0x00520D70",
+     "length": 45,
+     "name": "?sub_00520D70_HandleLogonAck@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520F60",
+     "length": 91,
+     "name": "?sub_00520F60_HandleStartVersioning@@YIHPBUD2BnStartVersioningStrc@@I@Z"
+    },
+    {
+     "va": "0x00521220",
+     "length": 166,
+     "name": "?sub_00521220_HandleAuthInfo@@YIHPBEI@Z"
+    },
+    {
+     "va": "0x00522AE0",
+     "length": 202
     }
    ]
   },
@@ -44849,270 +45119,6 @@
      "va": "0x00538E60",
      "length": 165,
      "name": "CLIENTS_CopySaveDataToClient"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00520660",
-     "length": 18,
-     "name": "?sub_00520660_HandleReply0F@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00520B30",
-     "length": 56,
-     "name": "?sub_00520B30_ResetReplies@@YAHXZ"
-    },
-    {
-     "va": "0x00520B70",
-     "length": 124,
-     "name": "sub_00520B70_WaitForReply"
-    },
-    {
-     "va": "0x00520BF0",
-     "length": 11,
-     "name": "?sub_00520BF0_IsReplyReceived@@YIHE@Z"
-    },
-    {
-     "va": "0x00520C50",
-     "length": 13,
-     "name": "?sub_00520C50_HandleReply2A@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520C60",
-     "length": 18,
-     "name": "?sub_00520C60_HandleReply3D@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520C80",
-     "length": 38,
-     "name": "?sub_00520C80_HandleReply31@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520CB0",
-     "length": 155,
-     "name": "?sub_00520CB0_HandleClientId@@YIHPBUD2BnClientIdReplyStrc@@I@Z"
-    },
-    {
-     "va": "0x00520D50",
-     "length": 13,
-     "name": "?sub_00520D50_HandleReply28@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520D60",
-     "length": 16,
-     "name": "?sub_00520D60_HandleReply1C@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520D70",
-     "length": 45,
-     "name": "?sub_00520D70_HandleLogonAck@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520DA0",
-     "length": 18,
-     "name": "?sub_00520DA0_HandleReply29@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520F60",
-     "length": 91,
-     "name": "?sub_00520F60_HandleStartVersioning@@YIHPBUD2BnStartVersioningStrc@@I@Z"
-    },
-    {
-     "va": "0x00520FC0",
-     "length": 18,
-     "name": "?sub_00520FC0_HandleReply25@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210A0",
-     "length": 27,
-     "name": "?sub_005210A0_SaveServerList@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210C0",
-     "length": 11,
-     "name": "?sub_005210C0_SetReply@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210D0",
-     "length": 11,
-     "name": "?sub_005210D0_SetReply@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005210F0",
-     "length": 29,
-     "name": "?sub_005210F0_ShowText@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521110",
-     "length": 58,
-     "name": "?sub_00521110_Report@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005211D0",
-     "length": 11,
-     "name": "?sub_005211D0_SetReply@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005211E0",
-     "length": 11,
-     "name": "?sub_005211E0_QueryAdUrl@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005211F0",
-     "length": 11,
-     "name": "?sub_005211F0_LogonRealmEx@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521200",
-     "length": 11,
-     "name": "?sub_00521200_ReadUserData@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521210",
-     "length": 5,
-     "name": "?sub_00521210_NewsInfo@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521220",
-     "length": 166,
-     "name": "?sub_00521220_HandleAuthInfo@@YIHPBEI@Z"
-    },
-    {
-     "va": "0x005212D0",
-     "length": 735
-    },
-    {
-     "va": "0x005215B0",
-     "length": 256,
-     "name": "?sub_005215B0_AuthAccountCreate@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005216B0",
-     "length": 173
-    },
-    {
-     "va": "0x00521760",
-     "length": 146,
-     "name": "?sub_00521760_AuthAccountLogonProof@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521800",
-     "length": 145,
-     "name": "?sub_00521800_AuthAccountChange@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005218A0",
-     "length": 162,
-     "name": "?sub_005218A0_AuthAccountChangeProof@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521950",
-     "length": 84,
-     "name": "?sub_00521950_AuthAccountUpgrade@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x005219B0",
-     "length": 241,
-     "name": "?sub_005219B0_AuthAccountUpgradeProof@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521AB0",
-     "length": 16,
-     "name": "?sub_00521AB0_SetEmail@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521AC0",
-     "length": 29,
-     "name": "?sub_00521AC0_OptionalWork@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521AE0",
-     "length": 29,
-     "name": "?sub_00521AE0_RequiredWork@@YIHPBXI@Z"
-    },
-    {
-     "va": "0x00521B40",
-     "length": 10,
-     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x00521BA0",
-     "length": 71
-    },
-    {
-     "va": "0x00522050",
-     "length": 96,
-     "name": "?sub_00522050_SendAccountLogon@@YAHXZ"
-    },
-    {
-     "va": "0x005223A0",
-     "length": 72,
-     "name": "?sub_005223A0_SendAccountUpgrade@@YIHH@Z"
-    },
-    {
-     "va": "0x00522500",
-     "length": 38,
-     "name": "?sub_00522500_GetNibble@@YIIPBII@Z"
-    },
-    {
-     "va": "0x00522530",
-     "length": 58,
-     "name": "sub_00522530_SetNibble"
-    },
-    {
-     "va": "0x00522570",
-     "length": 34,
-     "name": "?sub_00522570_GetBit@@YIIPBII@Z"
-    },
-    {
-     "va": "0x005225A0",
-     "length": 54,
-     "name": "sub_005225A0_SetBit"
-    },
-    {
-     "va": "0x005225E0",
-     "length": 98,
-     "name": "sub_005225E0"
-    },
-    {
-     "va": "0x00522650",
-     "length": 113,
-     "name": "sub_00522650"
-    },
-    {
-     "va": "0x00522980",
-     "length": 349,
-     "name": "sub_00522980"
-    },
-    {
-     "va": "0x00522AE0",
-     "length": 202
-    },
-    {
-     "va": "0x00522BC0",
-     "length": 86,
-     "name": "?sub_00522BC0_FillRandomBytes@@YIXPADH@Z"
-    },
-    {
-     "va": "0x00522C20",
-     "length": 10,
-     "name": "?sub_00522C20_ClearCryptState@@YAXXZ"
-    },
-    {
-     "va": "0x00522C30",
-     "length": 478
-    },
-    {
-     "va": "0x00522E10",
-     "length": 520
-    },
-    {
-     "va": "0x00523280",
-     "length": 43
     }
    ]
   },
