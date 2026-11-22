@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 
+#include "D2UnitData.h"
 struct Bits;
 struct Player;
 struct QuestEx;
@@ -28,18 +29,6 @@ Unit* __fastcall sub_00558110(Game*,Unit*,unsigned); // 0x00558110
 enum { QUEST_ID = 20 };
 
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char unk_0C[0xC];
-    D2QuestDataExStrc* pQuestDataEx;
-};
-
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C310
 D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
 
@@ -47,12 +36,6 @@ struct D2QuestDataExStrc
 {
     unsigned char unk_00[0x18];
     int nState18;
-};
-
-struct D2PlayerDataStrc
-{
-    unsigned char unk_00[0x10];
-    D2BitBufferStrc* pQuestData[3];
 };
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
@@ -145,7 +128,7 @@ void __fastcall sub_005BA290_UpdateQuest20(D2GameStrc* pGame, D2UnitStrc* pPlaye
         D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
         if (!QUESTRECORD_GetQuestState(pQuestRecord, 0x14, 0) && !QUESTRECORD_GetQuestState(pQuestRecord, 0x14, 1))
         {
-            QUESTRECORD_SetQuestState(pQuestRecord, 0x14, pQuestData->pQuestDataEx->nState18);
+            QUESTRECORD_SetQuestState(pQuestRecord, 0x14, ((D2QuestDataExStrc*)pQuestData->pQuestDataEx)->nState18);
         }
     }
 }
