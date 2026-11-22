@@ -25,31 +25,6 @@ void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName);               
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4];                                                       // 0x00779238
 extern T0041FA40* gapSLogBuckets_00779298[4];                                                              // 0x00779298
 
-// 0x00420220
-void __cdecl SLogDestroy()
-{
-    SLogFlushAll();
-    D2CriticalSectionStrc* pLock = gaSLogLocks_00779238;
-    T0041FA40** ppBucket = gapSLogBuckets_00779298;
-    for (int n = 4; n; --n)
-    {
-        EnterCriticalSection(pLock);
-        while (*ppBucket)
-        {
-            SLogClose((*ppBucket)->hLog);
-            sub_0041D1E0_ReportHandleLeak("HSLOG");
-        }
-        LeaveCriticalSection(pLock);
-        ++ppBucket;
-        ++pLock;
-    }
-    pLock = gaSLogLocks_00779238;
-    for (int n = 4; n; --n)
-    {
-        DeleteCriticalSection(pLock);
-        ++pLock;
-    }
-}
 
 typedef int (__stdcall* SMSGIDLEPROC)(int nCount);
 

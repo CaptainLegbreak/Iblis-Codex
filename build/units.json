@@ -6860,86 +6860,6 @@
      "name": "??1D2StormHuffDecTreeStrc@@QAE@XZ"
     },
     {
-     "va": "0x0041FA40",
-     "length": 60,
-     "name": "?sub_0041FA40_FlushLog@@YAXPAUD2SLogStrc@@@Z"
-    },
-    {
-     "va": "0x0041FA80",
-     "length": 188,
-     "name": "?LockLog@@YGPAUD2SLogStrc@@PAKHPAX@Z"
-    },
-    {
-     "va": "0x0041FB40",
-     "length": 55,
-     "name": "?sub_0041FB40_AppendIndent@@YAXPAUD2SLogStrc@@@Z"
-    },
-    {
-     "va": "0x0041FB80",
-     "length": 25,
-     "name": "?sub_0041FB80_AppendNewline@@YAXPAUD2SLogStrc@@@Z"
-    },
-    {
-     "va": "0x0041FC80",
-     "length": 86,
-     "name": "?sub_0041FC80_UnlinkLog@@YAXPAUD2SLogStrc@@K@Z"
-    },
-    {
-     "va": "0x0041FCE0",
-     "length": 18,
-     "name": "?sub_0041FCE0_UnlockLog@@YAXK@Z"
-    },
-    {
-     "va": "0x0041FD00",
-     "length": 58,
-     "name": "?SLogClose@@YGXPAX@Z"
-    },
-    {
-     "va": "0x0041FDF0",
-     "length": 464,
-     "name": "?SLogDump@@YGXPAXPBXK@Z"
-    },
-    {
-     "va": "0x0041FFC0",
-     "length": 44,
-     "name": "?SLogFlush@@YGXPAX@Z"
-    },
-    {
-     "va": "0x0041FFF0",
-     "length": 67,
-     "name": "?SLogFlushAll@@YAXXZ"
-    },
-    {
-     "va": "0x00420040",
-     "length": 34,
-     "name": "?SLogInitialize@@YAXXZ"
-    },
-    {
-     "va": "0x00420070",
-     "length": 98,
-     "name": "?SLogPend@@YAXPAXPBDZZ"
-    },
-    {
-     "va": "0x004200E0",
-     "length": 52,
-     "name": "?SLogSetAbsIndent@@YGHPAXH@Z"
-    },
-    {
-     "va": "0x00420120",
-     "length": 55,
-     "name": "?SLogSetIndent@@YGHPAXH@Z"
-    },
-    {
-     "va": "0x00420160",
-     "length": 41,
-     "name": "?SLogSetTimestamp@@YGXPAXH@Z"
-    },
-    {
-     "va": "0x00420190",
-     "length": 133,
-     "name": "?SLogWrite@@YAXPAXPBDZZ"
-    },
-    {
      "va": "0x004203C0",
      "length": 16,
      "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
@@ -7067,6 +6987,101 @@
    ]
   },
   {
+   "file": "Source/Storm/SOURCE/SLOG.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041FA40",
+     "length": 60,
+     "name": "?sub_0041FA40_FlushLog@@YAXPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FA80",
+     "length": 188,
+     "name": "?LockLog@@YGPAUD2SLogStrc@@PAKHPAX@Z"
+    },
+    {
+     "va": "0x0041FB40",
+     "length": 55,
+     "name": "?sub_0041FB40_AppendIndent@@YAXPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FB80",
+     "length": 25,
+     "name": "?sub_0041FB80_AppendNewline@@YAXPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FBA0",
+     "length": 217,
+     "name": "?sub_0041FBA0_AppendTimestamp@@YGXHPAUD2SLogStrc@@@Z"
+    },
+    {
+     "va": "0x0041FC80",
+     "length": 86,
+     "name": "?sub_0041FC80_UnlinkLog@@YAXPAUD2SLogStrc@@K@Z"
+    },
+    {
+     "va": "0x0041FCE0",
+     "length": 18,
+     "name": "?sub_0041FCE0_UnlockLog@@YAXK@Z"
+    },
+    {
+     "va": "0x0041FD00",
+     "length": 58,
+     "name": "?SLogClose@@YGXPAX@Z"
+    },
+    {
+     "va": "0x0041FD40",
+     "length": 165
+    },
+    {
+     "va": "0x0041FDF0",
+     "length": 464,
+     "name": "?SLogDump@@YGXPAXPBXK@Z"
+    },
+    {
+     "va": "0x0041FFC0",
+     "length": 44,
+     "name": "?SLogFlush@@YGXPAX@Z"
+    },
+    {
+     "va": "0x0041FFF0",
+     "length": 67,
+     "name": "?SLogFlushAll@@YAXXZ"
+    },
+    {
+     "va": "0x00420040",
+     "length": 34,
+     "name": "?SLogInitialize@@YAXXZ"
+    },
+    {
+     "va": "0x00420070",
+     "length": 98,
+     "name": "?SLogPend@@YAXPAXPBDZZ"
+    },
+    {
+     "va": "0x004200E0",
+     "length": 52,
+     "name": "?SLogSetAbsIndent@@YGHPAXH@Z"
+    },
+    {
+     "va": "0x00420120",
+     "length": 55,
+     "name": "?SLogSetIndent@@YGHPAXH@Z"
+    },
+    {
+     "va": "0x00420160",
+     "length": 41,
+     "name": "?SLogSetTimestamp@@YGXPAXH@Z"
+    },
+    {
+     "va": "0x00420190",
+     "length": 133,
+     "name": "?SLogWrite@@YAXPAXPBDZZ"
+    }
+   ]
+  },
+  {
    "file": "Source/Storm/Unknown_0041EBC0.cpp",
    "rank": 1,
    "functions": [
@@ -7077,10 +7092,6 @@
     {
      "va": "0x0041EF20",
      "length": 1070
-    },
-    {
-     "va": "0x0041FD40",
-     "length": 165
     }
    ],
    "flags": [
@@ -7135,11 +7146,6 @@
      "va": "0x0041F980",
      "length": 89,
      "name": "HuffmanCompress"
-    },
-    {
-     "va": "0x0041FBA0",
-     "length": 217,
-     "name": "?sub_0041FBA0_AppendTimestamp@@YGXHPAUD2SLogStrc@@@Z"
     },
     {
      "va": "0x004204F0",
@@ -7253,11 +7259,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00420220",
-     "length": 111,
-     "name": "?SLogDestroy@@YAXXZ"
-    },
-    {
      "va": "0x004202A0",
      "length": 105,
      "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
@@ -7296,6 +7297,17 @@
      "va": "0x00420F00",
      "length": 44,
      "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SLOG_00420220.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00420220",
+     "length": 111,
+     "name": "?SLogDestroy@@YAXXZ"
     }
    ]
   },
