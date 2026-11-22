@@ -20021,27 +20021,6 @@
   {
    "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "rank": 0,
-   "functions": [
-    {
-     "va": "0x004683C0",
-     "length": 155,
-     "name": "CURSOR_DrawDefaultCursor"
-    },
-    {
-     "va": "0x004684C0",
-     "length": 255,
-     "name": "CURSOR_DrawCursor"
-    },
-    {
-     "va": "0x004685C0",
-     "length": 366,
-     "name": "CURSOR_PaintCursorItem"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Cursor_004680B0.cpp",
-   "rank": 0,
    "flags": [
     "/nologo",
     "/c",
@@ -20068,8 +20047,23 @@
      "name": "?CURSOR_ShutdownCursor@@YAXXZ"
     },
     {
+     "va": "0x004683C0",
+     "length": 155,
+     "name": "CURSOR_DrawDefaultCursor"
+    },
+    {
      "va": "0x00468460",
      "length": 90
+    },
+    {
+     "va": "0x004684C0",
+     "length": 255,
+     "name": "CURSOR_DrawCursor"
+    },
+    {
+     "va": "0x004685C0",
+     "length": 366,
+     "name": "CURSOR_PaintCursorItem"
     }
    ]
   },
