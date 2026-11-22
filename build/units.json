@@ -26453,33 +26453,13 @@
      "name": "?sub_0049A640@@YAXXZ"
     },
     {
+     "va": "0x0049A690",
+     "length": 404
+    },
+    {
      "va": "0x0049C270",
      "length": 337,
      "name": "?sub_0049C270_DrawPartyRows@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0049A690.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0049A690",
-     "length": 404
     }
    ],
    "flags": [
