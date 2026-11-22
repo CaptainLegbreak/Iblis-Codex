@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Txt.h"
 #include "D2Constants.h"
 #include "D2Drlg.h"
 #include "D2GameObjs.h"
@@ -142,7 +143,6 @@ void __fastcall sub_00463D80_OnUnitB(D2UnitStrc* pUnit); // 0x00463D80
 
 void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit); // 0x00465070
 
-struct D2SkillsTxt { unsigned char unk_00[7]; unsigned char nFlags; };
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* unit); // 0x00620190
 
@@ -450,14 +450,14 @@ int __fastcall sub_00464EC0_CheckSkillOwner(D2UnitStrc* unit, D2UnitStrc* target
         if (skill)
         {
             D2SkillsTxt* record = sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(skill, ".\\UNIT\\CUnit.cpp", 0xB4A));
-            if (record && (record->nFlags & gnSkillMask_006CE26C))
+            if (record && (record->nFlags[3] & gnSkillMask_006CE26C))
                 enabled = 1;
         }
         skill = UNITS_GetRightSkill(unit);
         if (skill)
         {
             D2SkillsTxt* record = sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(skill, ".\\UNIT\\CUnit.cpp", 0xB55));
-            if (record && (record->nFlags & gnSkillMask_006CE26C))
+            if (record && (record->nFlags[3] & gnSkillMask_006CE26C))
                 enabled = 1;
         }
         if (enabled)
