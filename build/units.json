@@ -71255,11 +71255,6 @@
      "name": "STATLIST_SetSkillLevel"
     },
     {
-     "va": "0x00638CD0",
-     "length": 172,
-     "name": "?DATATBLS_CheckItemTypesEquivalenceNested@@YIHHH@Z"
-    },
-    {
      "va": "0x00640E90",
      "length": 72,
      "name": "DATATBLS_GetObjectsTxtRecord"
@@ -74965,6 +74960,10 @@
      "name": "DATATBLS_GetMagicAffixTxtRecord"
     },
     {
+     "va": "0x00633F40",
+     "length": 724
+    },
+    {
      "va": "0x00634220",
      "length": 40,
      "name": "DATATBLS_UnloadRareSuffix_PrefixTxt"
@@ -75139,6 +75138,15 @@
      "name": "DATATBLS_GetGambleDataTables"
     },
     {
+     "va": "0x00638CD0",
+     "length": 172,
+     "name": "?DATATBLS_CheckItemTypesEquivalenceNested@@YIHHH@Z"
+    },
+    {
+     "va": "0x00638D80",
+     "length": 1631
+    },
+    {
      "va": "0x006393E0",
      "length": 49,
      "name": "DATATBLS_UnloadItemTypesTxt"
@@ -75182,35 +75190,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00633F40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00633F40",
-     "length": 724
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
    "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
    "rank": 1,
    "functions": [
@@ -75218,30 +75197,6 @@
      "va": "0x00634DC0",
      "length": 6502
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00638D80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00638D80",
-     "length": 1631
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

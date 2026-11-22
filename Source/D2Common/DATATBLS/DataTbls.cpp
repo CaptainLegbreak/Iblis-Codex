@@ -2130,37 +2130,6 @@ void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel
     pStatList->dwSLvl = nSkillLevel;
 }
 
-// 0x00638CD0
-int __fastcall DATATBLS_CheckItemTypesEquivalenceNested(int nItemType1, int nItemType2)
-{
-    if (nItemType2 <= 0)
-        return 1;
-    if (nItemType1 <= 0 || nItemType1 >= gnItemTypesTxtRecordCount_0096C82C)
-        return 0;
-    int nParentItemTypes[128];
-    nParentItemTypes[0] = nItemType1;
-    int nIndex = 1;
-    do
-    {
-        int nItemType = nParentItemTypes[--nIndex];
-        if (nItemType2 == nItemType)
-            return 1;
-        if (nItemType >= gnItemTypesTxtRecordCount_0096C82C)
-            return 0;
-        if (nIndex > 124)
-            return 0;
-        D2ItemTypesTxt* pItemTypesTxtRecord = &gpItemTypesTxt_0096C828[nItemType];
-        if (pItemTypesTxtRecord->nEquiv1 > 0)
-        {
-            nParentItemTypes[nIndex++] = pItemTypesTxtRecord->nEquiv1;
-            if (pItemTypesTxtRecord->nEquiv2)
-                nParentItemTypes[nIndex++] = pItemTypesTxtRecord->nEquiv2;
-        }
-    }
-    while (nIndex);
-    return 0;
-}
-
 // 0x00640E90
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
 {
