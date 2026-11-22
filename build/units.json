@@ -61831,6 +61831,10 @@
      "length": 894
     },
     {
+     "va": "0x005FE990",
+     "length": 496
+    },
+    {
      "va": "0x005FEC90",
      "length": 366,
      "name": "?D2CMPSpriteInitFrames@@YGXPAUD2CmpSpriteFileStrc@@PAUD2CmpSpriteContextStrc@@PAUD2CmpSpriteEntryStrc@@@Z"
@@ -61953,6 +61957,14 @@
      "va": "0x005FFFA0",
      "length": 267,
      "name": "?sub_005FFFA0_LoadDC6CacheEntry@@YGHPAUD2CmpSpriteFileStrc@@HHPBDPAUD2CmpSpriteContextStrc@@@Z"
+    },
+    {
+     "va": "0x006000B0",
+     "length": 313
+    },
+    {
+     "va": "0x006001F0",
+     "length": 744
     },
     {
      "va": "0x006004E0",
@@ -68476,30 +68488,6 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FE990.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FE990",
-     "length": 496
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2CMP/SRC/CelCmp_005FF2A0.cpp",
    "rank": 0,
    "functions": [
@@ -68627,40 +68615,6 @@
      "va": "0x0060A440",
      "length": 119,
      "name": "?TileProjectBuildFindTable@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_006000B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006000B0",
-     "length": 313
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_006001F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006001F0",
-     "length": 744
     }
    ]
   },
