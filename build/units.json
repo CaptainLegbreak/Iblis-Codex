@@ -62468,6 +62468,10 @@
      "name": "AITHINK_TargetCallback_HighPriest"
     },
     {
+     "va": "0x005E0490",
+     "length": 1249
+    },
+    {
      "va": "0x005E0980",
      "length": 760,
      "name": "?AITHINK_Fn094_DesertTurret@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -67744,16 +67748,6 @@
      "va": "0x005E0060",
      "length": 1,
      "name": "?QUESTSFX_OnQuestCompleteModeChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E0490.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E0490",
-     "length": 1249
     }
    ]
   },
