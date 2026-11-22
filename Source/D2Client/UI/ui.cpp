@@ -253,7 +253,6 @@ int gdwGlobal_007A2780; // 0x007A2780
 
 int gdwGlobal_007A2868; // 0x007A2868
 
-int gdwGlobal_007A5210; // 0x007A5210
 
 int gdwGlobal_007A8914; // 0x007A8914
 
@@ -846,12 +845,6 @@ int __cdecl sub_0045AE80()
     return gdwGlobal_0071142C;
 }
 
-// 0x0045AE90
-int __cdecl sub_0045AE90()
-{
-    return gdwGlobal_007A5210;
-}
-
 // 0x0045AFA0
 int __cdecl sub_0045AFA0()
 {
@@ -970,18 +963,6 @@ int __cdecl sub_00468030()
 int __cdecl sub_004680A0()
 {
     return gdwGlobal_007A6ABC;
-}
-
-// 0x00468730
-int __cdecl sub_00468730()
-{
-    return gdwGlobal_007A6AB0;
-}
-
-// 0x00468740
-int __cdecl sub_00468740()
-{
-    return gdwGlobal_007A6AAC;
 }
 
 // 0x00468830

@@ -16423,11 +16423,6 @@
      "name": "sub_0045AE80"
     },
     {
-     "va": "0x0045AE90",
-     "length": 6,
-     "name": "sub_0045AE90"
-    },
-    {
      "va": "0x0045AFA0",
      "length": 6,
      "name": "sub_0045AFA0"
@@ -16498,16 +16493,6 @@
      "name": "sub_004680A0"
     },
     {
-     "va": "0x00468730",
-     "length": 6,
-     "name": "sub_00468730"
-    },
-    {
-     "va": "0x00468740",
-     "length": 6,
-     "name": "sub_00468740"
-    },
-    {
      "va": "0x00468830",
      "length": 6,
      "name": "sub_00468830"
@@ -16551,6 +16536,61 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_0045AE90.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x0045AE90",
+     "length": 6,
+     "name": "sub_0045AE90"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_00468730.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x00468730",
+     "length": 6,
+     "name": "sub_00468730"
+    },
+    {
+     "va": "0x00468740",
+     "length": 6,
+     "name": "sub_00468740"
+    }
    ]
   },
   {
