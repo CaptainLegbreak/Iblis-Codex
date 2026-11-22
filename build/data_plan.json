@@ -5957,12 +5957,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0067F5C0.cpp": {
+  "Source/D2Common/DRLG/OutDesr_0067F5C0.cpp": {
    "bytes": 640,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0067F5C0.inc",
+   "include": "gen/data/Source/D2Common/DRLG/OutDesr_0067F5C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -153226,7 +153226,7 @@
    "cname": "gData_006F2390",
    "declared": true,
    "decorated": "?gaDesertCliffs_006F2390@@3QAY143$$CBHA",
-   "file": "Source/D2Common/Unknown_0067F5C0.cpp",
+   "file": "Source/D2Common/DRLG/OutDesr_0067F5C0.cpp",
    "form": "declared_owner",
    "fwd": "extern \"C\" const int gData_006F2390[8][5][4]; // 0x006F2390",
    "head": "extern \"C\" const int gData_006F2390[8][5][4] = ",

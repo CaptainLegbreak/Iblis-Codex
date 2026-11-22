@@ -13,6 +13,81 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 static void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething);
 int __stdcall SFileCloseArchive(void* hArchive); // 0x00419A80
 
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
+#define D2_ASSERT(expr,line) if(!(expr)) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
+int __fastcall sub_00406930(void*,unsigned int*);  // 0x00406930
+int __stdcall sub_00416230_GetFileName(void*,char*,unsigned int);
+#define FAIL_LINE 0x5F
+#define NAME_SIZE 0x104
+#define NULL_LINE 0x59
+int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
+// 0x00516E84
+void __fastcall sub_00516E84_CloseFile(void* pUnused, void* hFile)
+{
+    if (!hFile)
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 73);
+        exit(-1);
+    }
+
+    sub_004068F0(hFile);
+}
+
+// 0x00516EAB
+unsigned int __fastcall sub_00516EAB_FileSize(void* unused,void* file,unsigned int* high) {
+ char name[NAME_SIZE];
+ D2_ASSERT(file,NULL_LINE);
+ unsigned int size=sub_00406930(file,high);
+ if(!size) {
+  sub_00416230_GetFileName(file,name,NAME_SIZE);
+  D2_ASSERT(0,FAIL_LINE);
+ }
+ return size;
+}
+
+// 0x00516F14
+int __fastcall sub_00516F14_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod)
+{
+    char name[0x104];
+    D2_ASSERT(file, 0x70);
+    int nResult = sub_00406940_mpqSetFilePointer(file, nOffset, pnOffsetHigh, nMethod);
+    if (nResult != -1)
+    {
+        return nResult;
+    }
+
+    sub_00416230_GetFileName(file, name, 0x104);
+    D2_ASSERT(0, 0x79);
+}
+
+// 0x00516F85
+void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead)
+{
+    D2_ASSERT(hFile, 0x87);
+
+    int dwBytes;
+    if (!sub_00406900(hFile, pBuffer, dwBytesToRead, &dwBytes, 0, 0, 0))
+    {
+        char szArchivePath[0x104];
+        sub_00416230_GetFileName(hFile, szArchivePath, sizeof(szArchivePath));
+        D2_ASSERT(0, 0x8F);
+    }
+
+    D2_ASSERT(dwBytesToRead == dwBytes, 0x92);
+}
+
+// 0x00517015
+unsigned int __fastcall sub_00517015_ReadFileToSizedBuffer(void* hArchive, const char* szFilePath, void* pBuffer, unsigned int dwBufferSize)
+{
+    void* hFile;
+    sub_00516E46_OpenFile(hArchive, szFilePath, &hFile, 0);
+    D2_ASSERT(dwBufferSize >= sub_00516EAB_FileSize(hArchive, hFile, 0), 0xA5);
+    ARCHIVE_ReadFileToBuffer(hArchive, hFile, pBuffer, dwBufferSize);
+    sub_00516E84_CloseFile(hArchive, hFile);
+    return dwBufferSize;
+}
+
 // 0x00517079
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine)
 {

@@ -26,9 +26,6 @@ struct D2MissileDataStrc
     int dwOwnerGUID;
 };
 
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -53,26 +50,6 @@ extern void* gpMissileCalcFunctions_00745828[]; // 0x00745828
 extern int gnMissileCalcFunctions_00745848; // 0x00745848
 int __fastcall MISSILE_GetCalcParamValue(int nParamId, void* pUserData); // 0x0064B6E0
 
-// 0x0064A2B0
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames)
-{
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
-    {
-        nTotalFrames = D2_MIN(D2_MAX(nTotalFrames, -32768), 32767);
-        pMissile->pMissileData->nTotalFrames = nTotalFrames;
-    }
-}
-
-// 0x0064A330
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame)
-{
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
-    {
-        nCurrentFrame = D2_MIN(D2_MAX(nCurrentFrame, -32768), 32767);
-        pMissile->pMissileData->nCurrentFrame = nCurrentFrame;
-    }
-}
-
 __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
@@ -92,25 +69,6 @@ static inline unsigned int GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit) return 0xFFFFFFFFu;
     return pUnit->dwUnitId;
-}
-
-// 0x0064A470
-int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
-{
-    if (pMissile && pUnit && pMissile->dwUnitType == UNIT_MISSILE)
-    {
-        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecordInline(pMissile->dwClassId);
-        if (pMissilesTxtRecord && pMissilesTxtRecord->nMissileFlags[0 >> 3] & gdwBitMasks[0 & 7])
-        {
-            D2MissileDataStrc* pData = pMissile->pMissileData;
-            if (pData && pData->nOwnerType == GetUnitType(pUnit) && pData->dwOwnerGUID == GetUnitId(pUnit))
-            {
-                return 1;
-            }
-        }
-    }
-
-    return 0;
 }
 
 // 0x0064A5F0

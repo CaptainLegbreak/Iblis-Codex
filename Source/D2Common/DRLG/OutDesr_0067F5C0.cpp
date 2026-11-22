@@ -36,4 +36,4 @@ void __fastcall sub_G04_Emit_0067F5C0(D2DrlgLevelStrc* pLevel)
     DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
 }
 
-#include "gen/data/Source/D2Common/Unknown_0067F5C0.inc"
+#include "gen/data/Source/D2Common/DRLG/OutDesr_0067F5C0.inc"
