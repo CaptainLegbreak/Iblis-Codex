@@ -1,8 +1,8 @@
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
-#define BUFFER_SIZE 0x100
-#define COMMAND_DELAY 1000
-#define ERROR_STRING 0x14E7
+#define AWAY_TEXT_SIZE 0x100
+#define AWAY_COMMAND_DELAY 1000
+#define AWAY_ERROR_STRING 0x14E7
 struct D2WinEditBoxStrc;
 typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
@@ -18,15 +18,15 @@ static unsigned long s_dwLastCommandTick_00798F50;  // 0x00798F50
 // 0x00446A00
 int __stdcall sub_00446A00(int nUnused)
 {
-    char szText[BUFFER_SIZE];
+    char szText[AWAY_TEXT_SIZE];
     const unsigned long dwTick = GetTickCount();
-    if (dwTick >= s_dwLastCommandTick_00798F50 + COMMAND_DELAY)
+    if (dwTick >= s_dwLastCommandTick_00798F50 + AWAY_COMMAND_DELAY)
     {
         s_dwLastCommandTick_00798F50 = dwTick;
         sprintf(szText, "/away Away from the keyboard.");
         if (!gpLaunchFuncs_0077B09C->pfn0x68())
         {
-            sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(ERROR_STRING), sub_0043E6C0_OnError);
+            sub_00440140_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
             return 0;
         }
         gpLaunchFuncs_0077B09C->pfn0x14(szText);
