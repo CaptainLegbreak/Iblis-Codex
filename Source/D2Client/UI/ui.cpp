@@ -527,7 +527,6 @@ extern D2ViewStrc* gpView_007A0640;                                             
 
 extern int gaUIVarStates_007A27C0[];                                                                        // 0x007A27C0
 
-
 extern Unicode gxGlobal_007A2C80[80];                                                                       // 0x007A2C80
 
 extern int gdwGlobal_007A2D20;                                                                              // 0x007A2D20
@@ -747,6 +746,33 @@ unsigned short gwDialogAmountHigh_007A2A6A; // 0x007A2A6A
 
 int gnDialogMode_007A279C; // 0x007A279C
 
+
+int __cdecl sub_0044B850_IsHardcore();                                                                      // 0x0044B850
+
+unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0
+
+void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC);  // 0x00502680
+
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);                  // 0x005269D0
+
+int gbDeathScreenShown_007A2890;                                                                            // 0x007A2890
+
+D2CelFileStrc* gpYouDiedHardcoreCel_007A2894;                                                              // 0x007A2894
+
+D2CelFileStrc* gpYouDiedInstCel_007A2898;                                                                  // 0x007A2898
+
+extern int gnAutomapWidth_007A5220;                                                                         // 0x007A5220
+
+static void __stdcall sub_00452AF0_GetPartyText(D2UnitStrc* pUnit, Unicode* pDst, int nMaxLength, int* pValue, int* pFlag);
+
+static void __stdcall sub_00452BE0_ShowUnitHoverName(D2UnitStrc* pUnit, int bSet);
+
+static int __stdcall sub_00452C70_GetRosterText(D2UnitStrc* pUnit, Unicode* pDst, int* pValue, int* pFlag);
+
+static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit);
+
 // 0x00451910
 int __cdecl sub_00451910()
 {
@@ -891,6 +917,118 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
     }
 }
 
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x00452AF0
+static void __stdcall sub_00452AF0_GetPartyText(D2UnitStrc* pUnit, Unicode* pDst, int nMaxLength, int* pValue, int* pFlag)
+{
+    const char* szName = sub_0047A210_GetPartyName(pUnit);
+    if (pUnit && pUnit->dwAnimMode == 0x11)
+    {
+        *pValue = 0;
+        unsigned short wszName[0x80];
+        for (int i = 0; i < 0x80; i++)
+            wszName[i] = 0;
+        sub_00526F20_ToUnicode((Unicode*)wszName, szName, 0x80);
+        sub_005272B0_FormatText(pDst, (Unicode*)wszName, D2LANG_GetStringFromTblIndex(0x90B), nMaxLength, STRTABLE_GetLanguage());
+        *pFlag = 1;
+        return;
+    }
+    *pValue = sub_0047A6B0_GetLifeValue(!pUnit ? -1 : pUnit->dwUnitId) * 128 / 100;
+    *pFlag = 0;
+    const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nUnitId))
+    {
+        *pFlag = 1;
+    }
+    sub_00526F20_ToUnicode(pDst, szName, 0x80);
+}
+
+// 0x00452BE0
+static void __stdcall sub_00452BE0_ShowUnitHoverName(D2UnitStrc* pUnit, int bSet)
+{
+    int nValues[2];
+    if (sub_004B3230_GetTickPair(&nValues[0]))
+    {
+        return;
+    }
+    nValues[1] = sub_004525F0_GetHoverTextY(pUnit);
+    const int nY = gnHoverY_0070F858 - 0x48;
+    const int nX = gnHoverX_0070F854;
+    const Unicode* pName = sub_00464A60_GetUnitName(pUnit);
+    if (bSet)
+    {
+        gxGlobal_007A2C80[0].wChar = 0;
+        if (pName)
+        {
+            sub_005267E0(gxGlobal_007A2C80, pName);
+            gdwGlobal_007A2D24 = nY;
+            gdwGlobal_007A2D20 = nX;
+            gdwGlobal_007A2D28 = nValues[1];
+        }
+    }
+    else
+    {
+        D2Win_10130_DrawFramedTextEx(pName, nX, nY, 0, 1, nValues[1]);
+    }
+}
+
+// 0x00452C70
+static int __stdcall sub_00452C70_GetRosterText(D2UnitStrc* pUnit, Unicode* pDst, int* pValue, int* pFlag)
+{
+    const int nIndex = sub_00479150_FindRosterIndex(!pUnit ? -1 : pUnit->dwUnitId);
+    if (nIndex == -1)
+    {
+        return 0;
+    }
+    if (!pUnit || !pUnit->dwAnimMode || pUnit->dwAnimMode == 0x0C)
+    {
+        return 1;
+    }
+    const char* szName = sub_0047A1F0(nIndex);
+    if (!szName)
+    {
+        return 0;
+    }
+    sub_00526320_ToUnicode(pDst, szName, 0x80);
+    *pValue = sub_0047A6B0_GetLifeValue(nIndex) * 128 / 100;
+    *pFlag = 0;
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nIndex))
+    {
+        *pFlag = 1;
+    }
+    return 1;
+}
+
+// 0x00452D20
+void __cdecl sub_00452D20_DrawPetHover()
+{
+    if (sub_0045AE90() == 3)
+    {
+        return;
+    }
+    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    if (nPetId == -1)
+    {
+        return;
+    }
+    if (sub_00478E40_FindEntry(nPetId)->nValue != 1)
+    {
+        return;
+    }
+    D2UnitStrc* pPet = sub_00463990(nPetId, 1);
+    if (!pPet)
+    {
+        return;
+    }
+    if (!SetHoverPositionFromUnit(pPet))
+    {
+        return;
+    }
+    sub_00452BE0_ShowUnitHoverName(pPet, 1);
+}
+
 // 0x00452E50
 void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect)
 {
@@ -937,6 +1075,122 @@ void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect)
     sub_004F6480(&context, nLeft, nBottom + 1, -1, 5, 0);
     context.nFrame = 9;
     sub_004F6480(&context, nRightCorner, nBottom + 1, -1, 5, 0);
+}
+
+// 0x00453100
+void __cdecl sub_00453100_DrawDeathScreen()
+{
+    char szPath[0x104];
+    char szLanguage[4];
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+        return;
+
+    if (sub_00464820_IsDeadOrDying(pPlayer))
+    {
+        int nY = gnGlobal_00711470 / 2 - 0x5E;
+        sub_00525260(szLanguage, 0);
+        if (!gpYouDiedHardcoreCel_007A2894)
+        {
+            sprintf(szPath, "%s\\UI\\%s\\youdiedhardcore", szDataLocal_006D41A8, szLanguage);
+            gpYouDiedHardcoreCel_007A2894 = sub_004788B0(szPath, 0);
+        }
+        if (gpYouDiedHardcoreCel_007A2894)
+            sub_00502680_DrawCellFile(gpYouDiedHardcoreCel_007A2894, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+
+        nY += 0x30;
+        gbDeathScreenShown_007A2890 = 1;
+        if (!gpYouDiedInstCel_007A2898)
+        {
+            sprintf(szPath, "%s\\UI\\%s\\youdiedinst", szDataLocal_006D41A8, szLanguage);
+            gpYouDiedInstCel_007A2898 = sub_004788B0(szPath, 0);
+        }
+        if (gpYouDiedInstCel_007A2898)
+            sub_00502680_DrawCellFile(gpYouDiedInstCel_007A2898, gnGlobal_0071146C / 2, nY, 1, 5, 1);
+
+        Unicode wszText[0x100];
+        if (sub_0044B850_IsHardcore())
+        {
+            sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x13E8));
+        }
+        else
+        {
+            if (!STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0))
+                goto second_text;
+            sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E6), STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0));
+        }
+        nY += 0x30;
+        sub_00502EF0(2);
+        {
+            const int nWidth = sub_00501820(wszText);
+            const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
+            sub_00502320(wszText, nX, nY, 1, 1);
+        }
+
+second_text:
+        if (sub_0044DCD0_GetDifficulty() > 0 && !sub_0044B850_IsHardcore())
+        {
+            sub_00502EF0(2);
+            const int nWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0x13E7));
+            const int nX = gnAutomapWidth_007A5220 / 2 - nWidth / 2;
+            nY += 0x30;
+            sub_00502320(D2LANG_GetStringFromTblIndex(0x13E7), nX, nY, 1, 1);
+        }
+    }
+    else
+    {
+        gbDeathScreenShown_007A2890 = 0;
+    }
+}
+
+// 0x00453330
+void __fastcall sub_00453330_DrawPartyMemberText(D2UnitStrc* pUnit)
+{
+    const int nBorder = sub_0045AE90();
+    if (nBorder == 3)
+    {
+        return;
+    }
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    {
+        return;
+    }
+    D2RectStrc tView;
+    sub_00476070_GetViewRect(gpView_007A0640, &tView.nLeft, &tView.nTop, &tView.nRight, &tView.nBottom);
+    int nOffsetX;
+    int nOffsetY;
+    sub_004760C0_GetViewOffset(gpView_007A0640, &nOffsetX, &nOffsetY);
+    tagRECT tRect;
+    SetRect(&tRect, nOffsetX, nOffsetY, tView.nRight - tView.nLeft + nOffsetX, tView.nBottom - tView.nTop + nOffsetY);
+    D2CoordStrc tCoords;
+    UNITS_GetClientCoords(pUnit, &tCoords);
+    tCoords.nY = tCoords.nY - tRect.top - 0x46;
+    tCoords.nX -= tRect.left;
+    switch (nBorder)
+    {
+    case 1:
+        tCoords.nX -= gnGlobal_0071146C / 4;
+        if (tCoords.nX > gnGlobal_0071146C / 2)
+        {
+            return;
+        }
+        break;
+    case 2:
+        tCoords.nX += gnGlobal_0071146C / 4;
+        if (tCoords.nX < gnGlobal_0071146C / 2)
+        {
+            return;
+        }
+        break;
+    }
+    if (tCoords.nY <= 0 || tCoords.nY >= gnGlobal_0071146C || tCoords.nX <= -0x32 || tCoords.nX >= gnGlobal_00711470 + 0x32)
+    {
+        return;
+    }
+    Unicode wszName[0x80];
+    int nPercent;
+    int bFlag;
+    sub_00452AF0_GetPartyText(pUnit, wszName, 0x80, &nPercent, &bFlag);
 }
 
 // 0x004535D0
@@ -1301,86 +1555,6 @@ D2Block0xA0Strc* __fastcall sub_004549D0_ClearBlock(D2Block0xA0Strc* pBlock)
     return pBlock;
 }
 
-static void __stdcall sub_00452AF0_GetPartyText(D2UnitStrc* pUnit, Unicode* pDst, int nMaxLength, int* pValue, int* pFlag)
-{
-    const char* szName = sub_0047A210_GetPartyName(pUnit);
-    if (pUnit && pUnit->dwAnimMode == 0x11)
-    {
-        *pValue = 0;
-        unsigned short wszName[0x80];
-        for (int i = 0; i < 0x80; i++)
-            wszName[i] = 0;
-        sub_00526F20_ToUnicode((Unicode*)wszName, szName, 0x80);
-        sub_005272B0_FormatText(pDst, (Unicode*)wszName, D2LANG_GetStringFromTblIndex(0x90B), nMaxLength, STRTABLE_GetLanguage());
-        *pFlag = 1;
-        return;
-    }
-    *pValue = sub_0047A6B0_GetLifeValue(!pUnit ? -1 : pUnit->dwUnitId) * 128 / 100;
-    *pFlag = 0;
-    const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nUnitId))
-    {
-        *pFlag = 1;
-    }
-    sub_00526F20_ToUnicode(pDst, szName, 0x80);
-}
-
-static void __stdcall sub_00452BE0_ShowUnitHoverName(D2UnitStrc* pUnit, int bSet)
-{
-    int nValues[2];
-    if (sub_004B3230_GetTickPair(&nValues[0]))
-    {
-        return;
-    }
-    nValues[1] = sub_004525F0_GetHoverTextY(pUnit);
-    const int nY = gnHoverY_0070F858 - 0x48;
-    const int nX = gnHoverX_0070F854;
-    const Unicode* pName = sub_00464A60_GetUnitName(pUnit);
-    if (bSet)
-    {
-        gxGlobal_007A2C80[0].wChar = 0;
-        if (pName)
-        {
-            sub_005267E0(gxGlobal_007A2C80, pName);
-            gdwGlobal_007A2D24 = nY;
-            gdwGlobal_007A2D20 = nX;
-            gdwGlobal_007A2D28 = nValues[1];
-        }
-    }
-    else
-    {
-        D2Win_10130_DrawFramedTextEx(pName, nX, nY, 0, 1, nValues[1]);
-    }
-}
-
-static int __stdcall sub_00452C70_GetRosterText(D2UnitStrc* pUnit, Unicode* pDst, int* pValue, int* pFlag)
-{
-    const int nIndex = sub_00479150_FindRosterIndex(!pUnit ? -1 : pUnit->dwUnitId);
-    if (nIndex == -1)
-    {
-        return 0;
-    }
-    if (!pUnit || !pUnit->dwAnimMode || pUnit->dwAnimMode == 0x0C)
-    {
-        return 1;
-    }
-    const char* szName = sub_0047A1F0(nIndex);
-    if (!szName)
-    {
-        return 0;
-    }
-    sub_00526320_ToUnicode(pDst, szName, 0x80);
-    *pValue = sub_0047A6B0_GetLifeValue(nIndex) * 128 / 100;
-    *pFlag = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nIndex))
-    {
-        *pFlag = 1;
-    }
-    return 1;
-}
-
 static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
 {
     if (sub_004F51D0_IsPerspective())
@@ -1412,82 +1586,6 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
         gnHoverY_0070F858 = UNITS_GetClientCoordY(pUnit) - sub_0045AFD0_GetMouseYOffset();
     }
     return 1;
-}
-
-void __cdecl sub_00452D20_DrawPetHover()
-{
-    if (sub_0045AE90() == 3)
-    {
-        return;
-    }
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
-    if (nPetId == -1)
-    {
-        return;
-    }
-    if (sub_00478E40_FindEntry(nPetId)->nValue != 1)
-    {
-        return;
-    }
-    D2UnitStrc* pPet = sub_00463990(nPetId, 1);
-    if (!pPet)
-    {
-        return;
-    }
-    if (!SetHoverPositionFromUnit(pPet))
-    {
-        return;
-    }
-    sub_00452BE0_ShowUnitHoverName(pPet, 1);
-}
-
-void __fastcall sub_00453330_DrawPartyMemberText(D2UnitStrc* pUnit)
-{
-    const int nBorder = sub_0045AE90();
-    if (nBorder == 3)
-    {
-        return;
-    }
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
-    {
-        return;
-    }
-    D2RectStrc tView;
-    sub_00476070_GetViewRect(gpView_007A0640, &tView.nLeft, &tView.nTop, &tView.nRight, &tView.nBottom);
-    int nOffsetX;
-    int nOffsetY;
-    sub_004760C0_GetViewOffset(gpView_007A0640, &nOffsetX, &nOffsetY);
-    tagRECT tRect;
-    SetRect(&tRect, nOffsetX, nOffsetY, tView.nRight - tView.nLeft + nOffsetX, tView.nBottom - tView.nTop + nOffsetY);
-    D2CoordStrc tCoords;
-    UNITS_GetClientCoords(pUnit, &tCoords);
-    tCoords.nY = tCoords.nY - tRect.top - 0x46;
-    tCoords.nX -= tRect.left;
-    switch (nBorder)
-    {
-    case 1:
-        tCoords.nX -= gnGlobal_0071146C / 4;
-        if (tCoords.nX > gnGlobal_0071146C / 2)
-        {
-            return;
-        }
-        break;
-    case 2:
-        tCoords.nX += gnGlobal_0071146C / 4;
-        if (tCoords.nX < gnGlobal_0071146C / 2)
-        {
-            return;
-        }
-        break;
-    }
-    if (tCoords.nY <= 0 || tCoords.nY >= gnGlobal_0071146C || tCoords.nX <= -0x32 || tCoords.nX >= gnGlobal_00711470 + 0x32)
-    {
-        return;
-    }
-    Unicode wszName[0x80];
-    int nPercent;
-    int bFlag;
-    sub_00452AF0_GetPartyText(pUnit, wszName, 0x80, &nPercent, &bFlag);
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
