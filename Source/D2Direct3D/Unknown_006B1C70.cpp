@@ -7,49 +7,7 @@ unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
 
 unsigned int gdwColors_009702C0[256]; // 0x009702C0
 
-// 0x006B1C70
-void __fastcall sub_006B1C70_SetPalette(tagPALETTEENTRY* pPalette)
-{
-    for (int i = 0; i < 256; ++i)
-    {
-        gdwColors_009702C0[i] = 0xFF000000 | (pPalette[i].peRed << 16) | (pPalette[i].peGreen << 8) | pPalette[i].peBlue;
 
-        int nRed = pPalette[i].peRed >> 3;
-        int nBlue = pPalette[i].peBlue >> 3;
-        int nGreen = pPalette[i].peGreen >> 3;
-        if (nRed < 31 && (pPalette[i].peRed & 7) >= 4)
-            ++nRed;
-        if (nBlue < 31 && (pPalette[i].peBlue & 7) >= 4)
-            ++nBlue;
-        if (nGreen < 31 && (pPalette[i].peGreen & 7) >= 4)
-            ++nGreen;
-        gwColors16_0096FA80[i] = (unsigned short)(0x8000 | (nRed << 10) | (nGreen << 5) | nBlue);
-
-        if (!pPalette[i].peRed && !pPalette[i].peGreen && !pPalette[i].peBlue)
-        {
-            gdwColors_009702C0[i] = 0;
-            gwColors16_0096FA80[i] = 0;
-        }
-    }
-}
-
-// 0x006B1DC0
-void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSrc, unsigned short* pDst, int nWidth, int nHeight, int nDstPitch, int nUnused)
-{
-    unsigned short* pRowDst = pDst;
-    const unsigned char* pRowSrc = pSrc;
-    for (int y = 0; y < nHeight; ++y)
-    {
-        unsigned short* d = pRowDst;
-        const unsigned char* s = pRowSrc;
-        for (int x = 0; x < nWidth; ++x)
-        {
-            *d++ = gwColors16_0096FA80[*s++];
-        }
-        pRowSrc += nWidth;
-        pRowDst += nDstPitch;
-    }
-}
 
 // 0x006B20E0
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult)
