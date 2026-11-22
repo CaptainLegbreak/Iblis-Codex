@@ -1,14 +1,5 @@
+#include "D2Client.h"
 #include "D2Structs.h"
-
-struct D2UnitSndPlayerStrc
-{
-    int f_0;
-    int nDeathSound;
-    int nRequestSound[6];
-    int nBaseSound;
-    int nHintSound;
-    int nFootstep;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -54,12 +45,12 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
 
     if (nId >= 0x19 && nId <= 0x20 && !sub_004B9E90_HasUnitSound(pUnit))
     {
-        nSoundId = pRecord->nBaseSound + 2 * (nId - 0x19);
+        nSoundId = pRecord->unk0x08[6] + 2 * (nId - 0x19);
     }
 
     if (nId >= 0x21 && nId <= 0x53)
     {
-        int nHintSound = pRecord->nHintSound + nId - 0x21;
+        int nHintSound = pRecord->unk0x08[7] + nId - 0x21;
         if (nId == 0x23)
         {
             ITEM_ShowTimedHint(0x1250, 0x0, 0x12C, 1, nHintSound, 0xFA, 1);
@@ -155,32 +146,32 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
     switch (nId)
     {
     case 0x13:
-        nSoundId = pRecord->nRequestSound[0];
+        nSoundId = pRecord->unk0x08[0];
         bCheckRepeat = 1;
         break;
 
     case 0x15:
-        nSoundId = pRecord->nRequestSound[1];
+        nSoundId = pRecord->unk0x08[1];
         bCheckRepeat = 1;
         break;
 
     case 0x16:
-        nSoundId = pRecord->nRequestSound[2];
+        nSoundId = pRecord->unk0x08[2];
         bCheckRepeat = 1;
         break;
 
     case 0x17:
-        nSoundId = pRecord->nRequestSound[3];
+        nSoundId = pRecord->unk0x08[3];
         bCheckRepeat = 1;
         break;
 
     case 0x14:
-        nSoundId = pRecord->nRequestSound[4];
+        nSoundId = pRecord->unk0x08[4];
         bCheckRepeat = 1;
         break;
 
     case 0x18:
-        nSoundId = pRecord->nRequestSound[5];
+        nSoundId = pRecord->unk0x08[5];
         bCheckRepeat = 1;
         break;
 
