@@ -19031,9 +19031,173 @@
    ]
   },
   {
+   "file": "Source/D2Client/Unknown_00463BC0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00463BC0",
+     "length": 49,
+     "name": "?sub_00463BC0_PlaceUnitInRoom@@YGXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_00466DC0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00466DC0",
+     "length": 6,
+     "name": "?sub_00466DC0@@YAHXZ"
+    },
+    {
+     "va": "0x00466FE0",
+     "length": 13,
+     "name": "?sub_00466FE0@@YAXXZ"
+    },
+    {
+     "va": "0x00466FF0",
+     "length": 11,
+     "name": "?sub_00466FF0@@YAXXZ"
+    },
+    {
+     "va": "0x00467430",
+     "length": 59,
+     "name": "?sub_00467430_SetSelectionRect@@YIXPBUD2SelectionRectStrc@@@Z"
+    },
+    {
+     "va": "0x00467470",
+     "length": 31,
+     "name": "?sub_00467470_UnitFindTest@@YIHPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00467A00",
+     "length": 16,
+     "name": "?sub_00467A00@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_00466DE0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x00466DE0",
+     "length": 508
+    },
+    {
+     "va": "0x00467000",
+     "length": 158
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004670A0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004670A0",
+     "length": 131,
+     "name": "?sub_004670A0_AdjustCursorPerspective@@YGXPAH0@Z"
+    },
+    {
+     "va": "0x00467310",
+     "length": 166,
+     "name": "?sub_00467310_CheckDoorSideB@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004673C0",
+     "length": 51,
+     "name": "?sub_004673C0_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004677B0",
+     "length": 207,
+     "name": "?sub_004677B0_FindFreeTargetCoords@@YGPAUD2UnitStrc@@PAH0PAU1@@Z"
+    },
+    {
+     "va": "0x00467880",
+     "length": 377,
+     "name": "?sub_00467880_GetSkillTarget@@YIPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2EH@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_00467130.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x00467130",
+     "length": 279
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Client/UNIT/CUnit.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004519C0",
+     "length": 207,
+     "name": "?CUNIT_ReplayRecords@@YAXXZ"
+    },
+    {
+     "va": "0x0045B1A0",
+     "length": 60,
+     "name": "?sub_0045B1A0_DrawDiamond@@YIXHHE@Z"
+    },
+    {
+     "va": "0x004637F0",
+     "length": 23,
+     "name": "?CUNIT_GetMonsterComponents@@YIPAEPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463860",
+     "length": 58,
+     "name": "?sub_00463860@@YIHPAUD2UnitStrc@@@Z"
+    },
     {
      "va": "0x004638A0",
      "length": 90,
@@ -19043,6 +19207,16 @@
      "va": "0x00463900",
      "length": 24,
      "name": "?CUNIT_ValidateMonsterId@@YIHH@Z"
+    },
+    {
+     "va": "0x00463920",
+     "length": 9,
+     "name": "?CUNIT_GetClientHashTable@@YAPAPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00463930",
+     "length": 9,
+     "name": "?CUNIT_GetServerHashTable@@YAPAPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00463940",
@@ -19065,9 +19239,18 @@
      "name": "?sub_004639D0_GetOwnerUnit@@YIPAUD2UnitStrc@@PAU1@@Z"
     },
     {
+     "va": "0x00463A50",
+     "length": 302
+    },
+    {
      "va": "0x00463B80",
      "length": 53,
      "name": "?CUNIT_QueueIdleMove@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463C60",
+     "length": 16,
+     "name": "?CUNIT_RemoveUnitFromRoom@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00463C70",
@@ -19085,8 +19268,18 @@
      "name": "?CUNIT_FreeUnitTable@@YGXPAPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00463D70",
+     "length": 1,
+     "name": "?sub_00463D70_Empty@@YAXXZ"
+    },
+    {
      "va": "0x00463D90",
      "length": 60
+    },
+    {
+     "va": "0x00463DD0",
+     "length": 6,
+     "name": "?sub_00463DD0_GetPlayerUnit@@YAPAUD2UnitStrc@@XZ"
     },
     {
      "va": "0x00463DE0",
@@ -19117,6 +19310,11 @@
      "va": "0x00463EB0",
      "length": 43,
      "name": "?CUNIT_GetPalShiftIndex@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463FE0",
+     "length": 186,
+     "name": "?CUNIT_IsInObjectSelectBox@@YGHHPAUD2ObjectsTxt@@HPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004640A0",
@@ -19153,6 +19351,11 @@
      "name": "?sub_004642A0_SkillSelectProc5@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x004642B0",
+     "length": 86,
+     "name": "?sub_004642B0_CheckSkillSelectProc@@YGHPAUD2UnitStrc@@0H@Z"
+    },
+    {
      "va": "0x00464310",
      "length": 91,
      "name": "?CUNIT_CheckMonsterSkillSelect@@YGHPAUD2UnitStrc@@0@Z"
@@ -19181,6 +19384,10 @@
      "va": "0x004644E0",
      "length": 196,
      "name": "?CUNIT_PlayerFaceUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004645B0",
+     "length": 70
     },
     {
      "va": "0x00464600",
@@ -19220,6 +19427,11 @@
      "va": "0x00464820",
      "length": 54,
      "name": "?CUNIT_IsDeadOrDying@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00464860",
+     "length": 144,
+     "name": "?CUNIT_IsUnitDead@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004648F0",
@@ -19306,9 +19518,22 @@
      "length": 175
     },
     {
+     "va": "0x00464F70",
+     "length": 243
+    },
+    {
+     "va": "0x00465070",
+     "length": 902
+    },
+    {
      "va": "0x00465400",
      "length": 19,
      "name": "?CUNIT_GetPlayerPartyId@@YIFPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00465420",
+     "length": 157,
+     "name": "?CUNIT_FindRoomBySubtile@@YIPAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x004654C0",
@@ -19339,6 +19564,10 @@
      "va": "0x00465BF0",
      "length": 107,
      "name": "?CUNIT_SetPathTargetToTargetUnit@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00465C60",
+     "length": 540
     },
     {
      "va": "0x00465E80",
@@ -19381,6 +19610,10 @@
      "name": "?CUNIT_CreateObjectUnit@@YIPAUD2UnitStrc@@IHHHHHHE@Z"
     },
     {
+     "va": "0x00466360",
+     "length": 966
+    },
+    {
      "va": "0x00466730",
      "length": 180,
      "name": "?CUNIT_SpawnPresetUnit@@YIPAUD2UnitStrc@@HHHHH@Z"
@@ -19389,6 +19622,10 @@
      "va": "0x004667F0",
      "length": 48,
      "name": "?CUNIT_SpawnPresetUnitInRoom@@YAXPAUD2ActiveRoomStrc@@PAUD2PresetUnitStrc@@@Z"
+    },
+    {
+     "va": "0x00466870",
+     "length": 1080
     },
     {
      "va": "0x00466CB0",
@@ -19465,293 +19702,50 @@
      "length": 24,
      "name": "?sub_004B8A10@@YAHXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00463BC0.cpp",
+   "file": "Source/D2Client/UNIT/CUnit_0046C060.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
-    {
-     "va": "0x00463BC0",
-     "length": 49,
-     "name": "?sub_00463BC0_PlaceUnitInRoom@@YGXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/CUnit_004645B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004645B0",
-     "length": 70
-    },
-    {
-     "va": "0x00464F70",
-     "length": 243
-    },
-    {
-     "va": "0x00465070",
-     "length": 902
-    },
-    {
-     "va": "0x00465420",
-     "length": 157,
-     "name": "?CUNIT_FindRoomBySubtile@@YIPAUD2ActiveRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x00465C60",
-     "length": 540
-    },
-    {
-     "va": "0x00466870",
-     "length": 1080
-    },
     {
      "va": "0x0046C060",
      "length": 208,
      "name": "?CUNIT_DrawCountdown@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00466DC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00466DC0",
-     "length": 6,
-     "name": "?sub_00466DC0@@YAHXZ"
-    },
-    {
-     "va": "0x00466FE0",
-     "length": 13,
-     "name": "?sub_00466FE0@@YAXXZ"
-    },
-    {
-     "va": "0x00466FF0",
-     "length": 11,
-     "name": "?sub_00466FF0@@YAXXZ"
-    },
-    {
-     "va": "0x00467430",
-     "length": 59,
-     "name": "?sub_00467430_SetSelectionRect@@YIXPBUD2SelectionRectStrc@@@Z"
-    },
-    {
-     "va": "0x00467470",
-     "length": 31,
-     "name": "?sub_00467470_UnitFindTest@@YIHPAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00467A00",
-     "length": 16,
-     "name": "?sub_00467A00@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00466DE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00466DE0",
-     "length": 508
-    },
-    {
-     "va": "0x00467000",
-     "length": 158
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/CUnit_00466360.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004519C0",
-     "length": 207,
-     "name": "?CUNIT_ReplayRecords@@YAXXZ"
-    },
-    {
-     "va": "0x0045B1A0",
-     "length": 60,
-     "name": "?sub_0045B1A0_DrawDiamond@@YIXHHE@Z"
-    },
-    {
-     "va": "0x004637F0",
-     "length": 23,
-     "name": "?CUNIT_GetMonsterComponents@@YIPAEPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463860",
-     "length": 58,
-     "name": "?sub_00463860@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463920",
-     "length": 9,
-     "name": "?CUNIT_GetClientHashTable@@YAPAPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00463930",
-     "length": 9,
-     "name": "?CUNIT_GetServerHashTable@@YAPAPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00463A50",
-     "length": 302
-    },
-    {
-     "va": "0x00463C60",
-     "length": 16,
-     "name": "?CUNIT_RemoveUnitFromRoom@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463D70",
-     "length": 1,
-     "name": "?sub_00463D70_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00463DD0",
-     "length": 6,
-     "name": "?sub_00463DD0_GetPlayerUnit@@YAPAUD2UnitStrc@@XZ"
-    },
-    {
-     "va": "0x00463FE0",
-     "length": 186,
-     "name": "?CUNIT_IsInObjectSelectBox@@YGHHPAUD2ObjectsTxt@@HPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004642B0",
-     "length": 86,
-     "name": "?sub_004642B0_CheckSkillSelectProc@@YGHPAUD2UnitStrc@@0H@Z"
-    },
-    {
-     "va": "0x00464860",
-     "length": 144,
-     "name": "?CUNIT_IsUnitDead@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00466360",
-     "length": 966
     },
     {
      "va": "0x00477530",
      "length": 232,
      "name": "?CUNIT_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004670A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004670A0",
-     "length": 131,
-     "name": "?sub_004670A0_AdjustCursorPerspective@@YGXPAH0@Z"
-    },
-    {
-     "va": "0x00467310",
-     "length": 166,
-     "name": "?sub_00467310_CheckDoorSideB@@YGHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004673C0",
-     "length": 51,
-     "name": "?sub_004673C0_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004677B0",
-     "length": 207,
-     "name": "?sub_004677B0_FindFreeTargetCoords@@YGPAUD2UnitStrc@@PAH0PAU1@@Z"
-    },
-    {
-     "va": "0x00467880",
-     "length": 377,
-     "name": "?sub_00467880_GetSkillTarget@@YIPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2EH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00467130.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00467130",
-     "length": 279
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -65170,6 +65164,25 @@
      "name": "SUNITEVENT_GetEvent"
     },
     {
+     "va": "0x005C0D00",
+     "length": 27,
+     "name": "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
+    },
+    {
+     "va": "0x005C0D20",
+     "length": 21,
+     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
+    },
+    {
+     "va": "0x005C0D40",
+     "length": 36,
+     "name": "?sub_005C0D40_PercentWithMinimum@@YGHHHH@Z"
+    },
+    {
+     "va": "0x005C0D70",
+     "length": 537
+    },
+    {
      "va": "0x005C1260",
      "length": 131,
      "name": "ITEMS_AssignStaffModsForFormat"
@@ -65177,6 +65190,11 @@
     {
      "va": "0x005C12F0",
      "length": 525
+    },
+    {
+     "va": "0x005C1500",
+     "length": 82,
+     "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005C18E0",
@@ -65187,6 +65205,36 @@
      "va": "0x005C1940",
      "length": 83,
      "name": "ITEMS_RollMagicAffixes"
+    },
+    {
+     "va": "0x005C19A0",
+     "length": 270,
+     "name": "?sub_005C19A0_RollRareAffixOld@@YGGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C1AB0",
+     "length": 270,
+     "name": "?sub_005C1AB0_RollRareAffixNew@@YGGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C1BC0",
+     "length": 37,
+     "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C21D0",
+     "length": 873,
+     "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2940",
+     "length": 36,
+     "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2FB0",
+     "length": 34,
+     "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x005C2FF0",
@@ -65337,6 +65385,11 @@
      "length": 100
     },
     {
+     "va": "0x005FDA80",
+     "length": 536,
+     "name": "?SKILLITEM_HandleItemEffectSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH1HHPAH222H@Z"
+    },
+    {
      "va": "0x005FDCA0",
      "length": 189,
      "name": "?SKILLITEM_CastSkillOnTarget@@YIHPAUD2UnitStrc@@HH0H@Z"
@@ -65367,66 +65420,6 @@
      "va": "0x005C0A90",
      "length": 61,
      "name": "?SUNITEVENT_FreeEventList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005C0D00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C0D00",
-     "length": 27,
-     "name": "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
-    },
-    {
-     "va": "0x005C0D20",
-     "length": 21,
-     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
-    },
-    {
-     "va": "0x005C0D40",
-     "length": 36,
-     "name": "?sub_005C0D40_PercentWithMinimum@@YGHHHH@Z"
-    },
-    {
-     "va": "0x005C0D70",
-     "length": 537
-    },
-    {
-     "va": "0x005C1500",
-     "length": 82,
-     "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C19A0",
-     "length": 270,
-     "name": "?sub_005C19A0_RollRareAffixOld@@YGGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C1AB0",
-     "length": 270,
-     "name": "?sub_005C1AB0_RollRareAffixNew@@YGGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C1BC0",
-     "length": 37,
-     "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C21D0",
-     "length": 873,
-     "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2940",
-     "length": 36,
-     "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2FB0",
-     "length": 34,
-     "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     }
    ]
   },
@@ -66232,6 +66225,15 @@
      "name": "SKILLS_SrvDo104_DiabPrison"
     },
     {
+     "va": "0x005CD910",
+     "length": 235,
+     "name": "?SKILLS_SrvSt55_Mosquito@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CDA00",
+     "length": 528
+    },
+    {
      "va": "0x005CDDD0",
      "length": 304,
      "name": "SKILLS_RollMonFrenzyDamage"
@@ -66240,6 +66242,10 @@
      "va": "0x005CE1B0",
      "length": 254,
      "name": "?SKILLS_SrvDo110_Hireable_RogueMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CE4F0",
+     "length": 383
     },
     {
      "va": "0x005CE670",
@@ -66251,45 +66257,6 @@
      "length": 52,
      "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CD910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CD910",
-     "length": 235,
-     "name": "?SKILLS_SrvSt55_Mosquito@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CE4F0",
-     "length": 383
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CDA00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005CDA00",
-     "length": 528
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -67855,17 +67822,6 @@
      "va": "0x005FD850",
      "length": 359,
      "name": "?SKILLITEM_FindTargetPosition@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005FDA80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FDA80",
-     "length": 536,
-     "name": "?SKILLITEM_HandleItemEffectSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH1HHPAH222H@Z"
     }
    ]
   },
