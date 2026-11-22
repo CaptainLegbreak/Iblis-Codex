@@ -538,20 +538,6 @@ void __cdecl sub_0043D510_FreeCellFiles()
 
 int gnFlag_0077BD60; // 0x0077BD60
 
-// 0x0043D9A0
-int __stdcall sub_0043D9A0_SetFlag(SMSGHANDLER_PARAMS* pMsg)
-{
-    gnFlag_0077BD60 = 1;
-    return 1;
-}
-
-// 0x0043D9E0
-int __stdcall sub_0043D9E0_ScrollPageUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    sub_00448BD0_UpdateScroll(-10);
-    return 1;
-}
-
 // 0x0043DA00
 int __stdcall sub_0043DA00_ScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -563,20 +549,6 @@ int __stdcall sub_0043DA00_ScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00448BD0_UpdateScroll(-1);
-    return 1;
-}
-
-// 0x0043DAF0
-int __stdcall sub_0043DAF0_SetMainState(SMSGHANDLER_PARAMS* pMsg)
-{
-    sub_004F9740_SetControlState(gpControlMain_0077BC4C, 1);
-    return 1;
-}
-
-// 0x0043DB90
-int __stdcall sub_0043DB90_Refresh(SMSGHANDLER_PARAMS* pMsg)
-{
-    sub_004477A0_Refresh();
     return 1;
 }
 

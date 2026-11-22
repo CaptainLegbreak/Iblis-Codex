@@ -983,7 +983,6 @@
    "bytes": 712,
    "definitions": 29,
    "externs": [
-    "extern \"C\" void __cdecl sub_0043D9E0_ScrollPageUp(); // 0x0043D9E0",
     "extern \"C\" void __cdecl sub_0043DA00_ScrollPageDown(); // 0x0043DA00",
     "extern \"C\" void __cdecl sub_0043DA20_ScrollUp(); // 0x0043DA20",
     "extern \"C\" void __cdecl sub_0043DA30_ScrollForward(); // 0x0043DA30",

@@ -606,6 +606,8 @@ void __cdecl sub_00440B30_OpenClassSelectD();
 
 unsigned long gdwSelectTime_0077BD5C; // 0x0077BD5C
 
+void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
+
 // 0x0043C6B0
 int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName)
 {
@@ -787,6 +789,15 @@ void __cdecl sub_0043CC30_LoadFrontEndCels()
     sub_00504D30(gpCellFile_0077BCB8, gpCellFile_0077BCBC);
 }
 
+extern int gnFlag_0077BD60; // 0x0077BD60
+
+// 0x0043D9A0
+int __stdcall sub_0043D9A0_SetFlag(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnFlag_0077BD60 = 1;
+    return 1;
+}
+
 // 0x0043D9B0
 int __stdcall sub_0043D9B0_NextRequestCallback(int nArg)
 {
@@ -794,6 +805,27 @@ int __stdcall sub_0043D9B0_NextRequestCallback(int nArg)
     {
     }
     gpfnLaunchCallback_0077BDA4(nArg);
+    return 1;
+}
+
+// 0x0043D9E0
+int __stdcall sub_0043D9E0_ScrollPageUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    sub_00448BD0_UpdateScroll(-10);
+    return 1;
+}
+
+// 0x0043DAF0
+int __stdcall sub_0043DAF0_OnConnect(int nArg)
+{
+    sub_004F9740_SetControlState(gpControlMain_0077BC4C, 1);
+    return 1;
+}
+
+// 0x0043DB90
+int __stdcall sub_0043DB90(int nArg)
+{
+    sub_004477A0_Refresh();
     return 1;
 }
 
