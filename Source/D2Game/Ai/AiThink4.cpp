@@ -1483,6 +1483,18 @@ int __fastcall sub_005F9E30_VileMotherSpawnDirection(D2GameStrc* pGame, D2UnitSt
 
 int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int* pChainId);                // 0x006510C0
 
+enum D2C_M81AbyssKnightAi
+{
+    ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_HP_PCT = 0,
+    ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_CHANCE_PCT = 1,
+    ABYSSKNIGHT_AI_PARAM_ATTACK_CHANCE_PCT = 2,
+    ABYSSKNIGHT_AI_PARAM_MELEE_STALL_DURATION = 3,
+    ABYSSKNIGHT_AI_PARAM_NO_FIRE_DISTANCE = 4,
+    ABYSSKNIGHT_AI_PARAM_FIRE_RECOVERY = 5,
+    ABYSSKNIGHT_AI_PARAM_APPROACH_CHANCE_PCT = 6,
+    ABYSSKNIGHT_AI_PARAM_ACTIVE_DISTANCE = 7,
+};
+
 // 0x005B0D00
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -12256,6 +12268,74 @@ void __fastcall AITHINK_Fn068_VileMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     if ((int)(AI_RollSeedUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, VILEMOTHER_AI_PARAM_CIRCLE_CHANCE_PCT))
     {
         sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+}
+
+// 0x005FAB80
+void __fastcall AITHINK_Fn073_AbyssKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nTargetDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    int nLifePct = UNITS_GetCurrentLifePercentage(pUnit);
+
+    if (pMonStatsTxt->nSkill[1] >= 0)
+    {
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(pMonStatsTxt->nSkill[1]);
+        if (pSkillsTxtRecord && pSkillsTxtRecord->nAuraState >= 0 && !STATES_CheckState(pUnit, pSkillsTxtRecord->nAuraState)
+            && nLifePct < AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_HP_PCT)
+            && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], 0, 0, 0);
+            return;
+        }
+    }
+
+    if (bCombat)
+    {
+        if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_MELEE_STALL_DURATION));
+        return;
+    }
+
+    if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_NO_FIRE_DISTANCE) && pAiControl->dwAiParam[0] <= 0)
+    {
+        pAiControl->dwAiParam[0] = AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_FIRE_RECOVERY);
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && !pAiControl->dwAiParam[0] && (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || !pUnit->pMonsterData || pUnit->pMonsterData->nComponent[10] < 4u))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        pAiControl->dwAiParam[0] = AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_FIRE_RECOVERY);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[0] > 0)
+    {
+        --pAiControl->dwAiParam[0];
+    }
+
+    if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        AITACTICS_SetVelocity(pUnit, 2, 0, ((unsigned int)SEED_RollRandomNumber(pSeed) & 1) + 6);
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, ABYSSKNIGHT_AI_PARAM_ACTIVE_DISTANCE))
+    {
+        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
         return;
     }
 
