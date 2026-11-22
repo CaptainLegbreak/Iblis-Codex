@@ -15179,6 +15179,30 @@
    ]
   },
   {
+   "file": "Source/D2Client/UNIT/MonUnique_004ACC70.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x004ACC70",
+     "length": 219
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/GAME/Game_0044C880.cpp",
    "rank": 0,
    "functions": [
@@ -28706,10 +28730,6 @@
    "file": "Source/D2Client/Unknown_004ACC70.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x004ACC70",
-     "length": 219
-    },
     {
      "va": "0x004ACD50",
      "length": 26
