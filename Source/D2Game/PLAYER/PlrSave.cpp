@@ -2817,6 +2817,36 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientS
     return 0;
 }
 
+struct D2SaveFileTagStrc
+{
+    unsigned int dwHeaderMagic;
+    unsigned int dwVersion;
+};
+
+int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char* pSaveFile, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoomArg, int nXArg, int nYArg); // 0x0056B180
+
+// 0x00534330
+int __fastcall PLRSAVE_ReadSaveData(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHeaderStrc* pSave, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoom, int nX, int nY)
+{
+    if (nSize < 8)
+    {
+        return 9;
+    }
+
+    const D2SaveFileTagStrc tTag = *(D2SaveFileTagStrc*)pSave;
+    if (tTag.dwHeaderMagic != 0xAA55AA55)
+    {
+        return 9;
+    }
+
+    if (tTag.dwVersion <= 0x5B)
+    {
+        return D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(pGame, pClient, (unsigned char*)pSave, nSize, ppPlayer, pRoom, nX, nY);
+    }
+
+    return PlayerCreate(pGame, pClient, (unsigned char*)pSave, nSize, ppPlayer, pRoom, nX, nY);
+}
+
 // 0x005343A0
 static int __stdcall D2GAME_SAVE_ReadFile_6FC8C9D0(D2GameStrc* pGame, D2ClientStrc* pClient, const char* szName, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoomArg, int nXArg, int nYArg)
 {

@@ -47921,6 +47921,11 @@
      "length": 770
     },
     {
+     "va": "0x00534330",
+     "length": 99,
+     "name": "PLRSAVE_ReadSaveData"
+    },
+    {
      "va": "0x005343A0",
      "length": 261,
      "name": "?D2GAME_SAVE_ReadFile_6FC8C9D0@@YGHPAUD2GameStrc@@PAUD2ClientStrc@@PBDPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
@@ -48149,17 +48154,6 @@
      "va": "0x00538CE0",
      "length": 287,
      "name": "CLIENTS_AttachSaveFile"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_00534330.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00534330",
-     "length": 99,
-     "name": "PLRSAVE_ReadSaveData"
     }
    ]
   },
