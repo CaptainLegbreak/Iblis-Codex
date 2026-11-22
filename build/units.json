@@ -22025,11 +22025,6 @@
      "name": "?sub_00472BD0@@YAXXZ"
     },
     {
-     "va": "0x004A9BD0",
-     "length": 409,
-     "name": "sub_004A9BD0_SkillSelectClickHandler"
-    },
-    {
      "va": "0x004A9FC0",
      "length": 108,
      "name": "?sub_004A9FC0_IsHotkeyUsable@@YAHH@Z"
@@ -28455,6 +28450,17 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/spellsel_004A9BD0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004A9BD0",
+     "length": 409,
+     "name": "sub_004A9BD0_SkillSelectClickHandler"
+    }
    ]
   },
   {

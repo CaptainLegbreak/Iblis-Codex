@@ -76,57 +76,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 
-// 0x004A9BD0
-void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 954);
-
-    const int nStartY = sub_00468740();
-    int bHandled = 0;
-    for (int i = 0; i < 60; ++i)
-    {
-        const int nY = gtHotkeySlots_007C0300.nY[i];
-        const int nX = gtHotkeySlots_007C0300.nX[i];
-        const int nMouseX = sub_00468730();
-        const int nMouseY = sub_00468740();
-        if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
-        {
-            D2SkillStrc* pSkill = SKILLS_GetSkillById(sub_00463DD0_GetPlayerUnit(), gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
-            if (pSkill)
-            {
-                int nCharges;
-                if (SKILLS_GetOwnerGUIDFromSkill(pSkill) != -1 && SKILLS_GetSkillInfo(pSkill, 0, 0, 0, &nCharges) && nCharges <= 0)
-                {
-                    if (sub_004538D0(3))
-                    {
-                        sub_00455F20(3, 1, 0);
-                    }
-
-                    pMsg->bReturn = 1;
-                    pMsg->lResult = 0;
-                    sub_00420290_BreakHandlerChain(pMsg);
-                    return;
-                }
-
-                sub_004786A0_SendDwords2(0x3C, (gbGlobal_007C07FC ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
-                sub_00455F20(3, 1, 0);
-                gbGlobal_007C07FC = 0;
-                bHandled = 1;
-                sub_0044DA40();
-            }
-        }
-    }
-
-    if (nStartY <= gnGlobal_00711470 - 49 && !bHandled && sub_004538D0(3))
-    {
-        sub_00455F20(3, 1, 0);
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
 int gnSelectedHotkey_007C0708; // 0x007C0708
 
 // 0x004A9FC0
