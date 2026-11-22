@@ -20131,31 +20131,11 @@
      "va": "0x00468170",
      "length": 65,
      "name": "?sub_00468170_ShutdownCursor@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00468460.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00468460",
      "length": 90
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
