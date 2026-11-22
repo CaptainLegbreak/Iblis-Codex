@@ -37,8 +37,8 @@ int __cdecl sub_004F59A0(); // 0x004F59A0
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 D2BitBufferStrc* __stdcall QUESTRECORD_AllocRecord(void* pMemPool); // 0x0065C430
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470

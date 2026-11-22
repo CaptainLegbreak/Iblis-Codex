@@ -82,7 +82,7 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             {
                 for (int i = 0; i < 256; ++i)
                 {
-                    gabRemapTable_008815B0[i] = sub_00605210_FindNearestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
+                    gabRemapTable_008815B0[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
                 }
                 gbRemapValid_008816B4 = 1;
             }
@@ -171,7 +171,7 @@ void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecor
 
         for (int i = 0; i < 256; ++i)
         {
-            gaDDrawSmackRemap_008815B0[i] = sub_00605210_FindNearestColor((const unsigned char*)gaDDrawPalette_007C8CC8, 256, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
+            gaDDrawSmackRemap_008815B0[i] = GetClosestColor((const unsigned char*)gaDDrawPalette_007C8CC8, 256, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
         }
         return;
     }

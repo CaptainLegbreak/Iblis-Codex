@@ -99,7 +99,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int nArg5); // 0x00502320
@@ -726,7 +726,7 @@ void __cdecl sub_004A2A80_DrawButton()
     tCel.pCellFile = gpGlobal_007C02E0;
     tCel.nFrame = 0;
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
-    const int nCelWidth = sub_006018C0(CelGetHandle(&tCel));
+    const int nCelWidth = CelGetWidth(CelGetHandle(&tCel));
     const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF58));
     int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts_007241C0[nIndex].nTextX + 1;
     const int nTextY = gaButtonLayouts_007241C0[nIndex].nTextY + gnGlobal_00711470 - 0x1E0;

@@ -34,7 +34,7 @@ struct D2Direct3D006B7110Strc
 
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
-void __stdcall sub_00601A30_StorePixelFreeHandler(PixelDataFreeCallback pfnCallback); // 0x00601A30
+void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
 int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 void __fastcall sub_006B5BB0_FreePixelData(void* pData); // 0x006B5BB0
@@ -278,5 +278,5 @@ void __cdecl sub_006B7110_InitSprites()
     }
 
     gnVertexCount_00970F40 = 0;
-    sub_00601A30_StorePixelFreeHandler(sub_006B5BB0_FreePixelData);
+    CelSetHardwareFreeCallback(sub_006B5BB0_FreePixelData);
 }

@@ -1,6 +1,6 @@
 #include "D2Unicode.h"
 // 0x00526D00
-int Unicode::sub_00526D00_IsNotRightToLeft() const
+int Unicode::isLeftToRight() const
 {
     if ((wChar >= 0x590 && wChar <= 0x5FF) || (wChar >= 0x600 && wChar <= 0x6FF))
         return 0;

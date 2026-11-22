@@ -28,7 +28,7 @@ class BNGatewayAccess
 {
 public:
     BNGatewayAccess& operator=(const BNGatewayAccess& source);
-    void __stdcall SaveAndUnload();                                                                         // 0x00517ED0
+    void __stdcall Unload();                                                                         // 0x00517ED0
     int __stdcall GMT(int nGateway);                                                                        // 0x00518060
     const char* __stdcall Name(int nGateway);
     const char* __stdcall Realm(int nGateway);
@@ -42,7 +42,7 @@ private:
     const char* sub_00517FD0_GetGatewayEntry(int nGateway);                                                 // 0x00517FD0
     const char* Nth(int nGateway);
     void GetGatewayList(const char* szValueName);                                                           // 0x00518190
-    void sub_00518270_LoadGatewayList();
+    void GetBattlenetGatewayList();
     void GetBattlenetRealmsList();                                                                          // 0x005182B0
     void WriteDefaultGatewayList();
     char* SkipToEOL(char* pText, char* pEnd);                                                               // 0x00518390
@@ -120,7 +120,7 @@ int BNGatewayAccess::GetSystemTimeZone()
 
 // build: symbol ?Nth@BNGatewayAccess@@AAEPBDH@Z 0x00517FD0
 // 0x00517ED0
-void __stdcall BNGatewayAccess::SaveAndUnload()
+void __stdcall BNGatewayAccess::Unload()
 {
     if (m_bModified && m_pGatewayList)
     {
@@ -268,7 +268,7 @@ void BNGatewayAccess::GetGatewayList(const char* szValueName)
 }
 
 // 0x00518270
-void BNGatewayAccess::sub_00518270_LoadGatewayList()
+void BNGatewayAccess::GetBattlenetGatewayList()
 {
     m_bOverride = 0;
     GetGatewayList(szOverrideGateways_006DECAC);
@@ -441,7 +441,7 @@ void __stdcall BNGatewayAccess::Load()
     {
         sub_00518D40_Log("Obsolete gateway list (%d) - autodeleting", m_nVersion);
         m_bModified = 0;
-        SaveAndUnload();
+        Unload();
         SRegDeleteValue("Configuration", "Diablo II Battle.net gateways", 2);
     }
 
@@ -523,7 +523,7 @@ void __stdcall BNGatewayAccess::UpdateGatewaysFromIni(char* szText)
                 }
                 m_bModified = 0;
 
-                SaveAndUnload();
+                Unload();
                 m_nVersion = nVersion;
                 m_bOverride = 0;
                 m_bModified = 1;
@@ -601,7 +601,7 @@ void __stdcall BNGatewayAccess::UpdateGatewaysFromIni(char* szText)
                     m_pGatewayList = pVersionSection;
                     m_nGatewayListSize = pDest - pVersionSection;
                     PickClosestZone(nTimeZone);
-                    SaveAndUnload();
+                    Unload();
                     Load();
                 }
                 else

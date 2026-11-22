@@ -183,8 +183,8 @@ static int gnGlobal_007C0E5C; // 0x007C0E5C
 
 extern const char* gaszDialogCels_007274AC[]; // 0x007274AC
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
@@ -721,8 +721,8 @@ D2ClientDialogStrc* __fastcall sub_004B7CD0_CreateDialogFromFile(int nArg1, int 
     tContext.nFrame = 0;
     D2CelStrc* hCel = CelGetHandle(&tContext);
     D2_ASSERT(hCel, 0x3B3);
-    pDialog->nWidth = sub_006018C0(hCel);
-    pDialog->nHeight = sub_006018F0(hCel);
+    pDialog->nWidth = CelGetWidth(hCel);
+    pDialog->nHeight = CelGetHeight(hCel);
     pDialog->nCenterX = nArg1;
     pDialog->nCenterY = nArg2;
     pDialog->nX = nArg1;

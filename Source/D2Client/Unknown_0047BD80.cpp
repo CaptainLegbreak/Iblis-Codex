@@ -111,7 +111,7 @@ D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x0047
 D2CelFileStrc* __cdecl sub_00453AA0(); // 0x00453AA0
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 extern D2OptionHeaderStrc gOptionHeader_00713044; // 0x00713044
 extern D2OptionEntryStrc gaOptionEntries_00713220[]; // 0x00713220
 extern D2OptionHeaderStrc gOptionHeader_00714210; // 0x00714210
@@ -583,6 +583,6 @@ void __cdecl sub_0047DD70_LoadOptionMenus()
     const unsigned int nFrames = CelFileGetCelsPerDirection(tContext.pCellFile);
     int nMax = 0;
     for (tContext.nFrame = 0; tContext.nFrame < nFrames; ++tContext.nFrame)
-        nMax = D2_MAX(nMax, sub_006018C0(CelGetHandle(&tContext)));
+        nMax = D2_MAX(nMax, CelGetWidth(CelGetHandle(&tContext)));
     gnOptionMaxWidth_007BC95C = nMax;
 }

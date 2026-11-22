@@ -25,7 +25,7 @@ struct D2TileLightStrc
     int nCorner[4];
 };
 
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
 
 int gaDDrawDebugFontCharWidths_00881428[96]; // 0x00881428
 
@@ -190,7 +190,7 @@ void __fastcall sub_00512ED0_ClearScreen(int bPartial)
 int __fastcall sub_005130A0_DrawLitTile(D2TileLibraryEntryStrc* pTile, int nX, int nY, unsigned char* pLight, int nHalf, int nArg)
 {
     int bResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nLeft = -32;
         int nRight = gnScreenWidth_007C9138;
@@ -231,7 +231,7 @@ int __fastcall sub_005130A0_DrawLitTile(D2TileLibraryEntryStrc* pTile, int nX, i
 int __fastcall sub_005131B0_DrawTile(D2TileLibraryEntryStrc* pTile, int nX, int nY, unsigned char* pLight, int nHalf)
 {
     int bResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nLeft = -32;
         int nRight = gnScreenWidth_007C9138;

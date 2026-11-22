@@ -11,8 +11,8 @@ int __fastcall sub_00501820(const Unicode* wszText);                            
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
 extern "C" D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
-extern "C" int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
-extern "C" int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+extern "C" int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
+extern "C" int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 extern "C" const char gszEditBoxCpp_006DA760[];                                                             // 0x006DA760
 extern "C" const char gszTextSlidPath_006DA824[];                                                           // 0x006DA824
 extern D2ButtonStringStrc gaButtonStrings_007275A8[];                                                       // 0x007275A8
@@ -107,8 +107,8 @@ SpinnerImplementation::SpinnerImplementation(int nX, int nY, int bHorizontal, in
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     D2CelStrc* pCel = CelGetHandle(&tContext);
-    nArrowHeight = sub_006018F0(pCel);
-    nArrowWidth = sub_006018C0(pCel);
+    nArrowHeight = CelGetHeight(pCel);
+    nArrowWidth = CelGetWidth(pCel);
     nUpY = nY;
     if (this->f_2C)
     {

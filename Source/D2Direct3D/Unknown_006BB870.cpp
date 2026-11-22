@@ -112,7 +112,7 @@ extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc*, int, int); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc*, int, int); // 0x005FDEA0
 int __fastcall sub_006BB520_AddCacheEntry(D2TextureCacheStrc*); // 0x006BB520
 void __fastcall sub_006BB2D0_TouchCacheEntry(D2TextureCacheStrc*, int); // 0x006BB2D0
 void __stdcall sub_006BB720_DecodeTile(D2TileLibraryEntryStrc*, void*, int); // 0x006BB720
@@ -132,7 +132,7 @@ extern const char gszUnlockError[]; // 0x006FC284
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
 {
     int nResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         D2_ASSERT(pTile->nCacheIndex >= 0, 0x191);
         if (pTile->nCacheIndex == 0)

@@ -12,10 +12,10 @@ extern int gnScale_00989748; // 0x00989748
 
 int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
-int __stdcall sub_006018C0(D2CelStrc* cel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* cel); // 0x006018F0
-int __stdcall sub_00601920(D2CelStrc* cel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* cel); // 0x00601950
+int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* cel); // 0x006018F0
+int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 void __fastcall sub_006BA760_Touch(int* pValue, int nValue); // 0x006BA760
 void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
@@ -43,10 +43,10 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
         return 0;
     }
     info->pContext = context;
-    info->nWidth = sub_006018C0(context->pCel);
-    info->nOffsetX = sub_00601920(context->pCel);
-    info->nHeight = sub_006018F0(context->pCel);
-    info->nOffsetY = sub_00601950(context->pCel);
+    info->nWidth = CelGetWidth(context->pCel);
+    info->nOffsetX = CelGetOffsetX(context->pCel);
+    info->nHeight = CelGetHeight(context->pCel);
+    info->nOffsetY = CelGetOffsetY(context->pCel);
     return 1;
 }
 

@@ -25,7 +25,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 int __fastcall sub_0060D040_LookupTilesInProject(D2CmpTileProjectStrc* pProject, D2CmpTileStrc** ppTiles, int nMaxTiles, int nOrientation, int nMainIndex, int nSubIndex); // 0x0060D040
-void* __stdcall sub_00606930_BuildTables(void* pSource); // 0x00606930
+void* __stdcall CreateD2Palette(void* pSource); // 0x00606930
 
 void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
 
@@ -112,7 +112,7 @@ int __stdcall TileLibraryGetTiles(D2CmpTileProjectStrc** ppProjects, int nOrient
 void* __stdcall CreateD2PaletteByteStream(void* pSource, int* pSize)
 {
     *pSize = 0x6C327;
-    return sub_00606930_BuildTables(pSource);
+    return CreateD2Palette(pSource);
 }
 
 
@@ -255,7 +255,7 @@ int __stdcall TileGetTileLight(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile,
 int __stdcall TileGetTotalHeight(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 128); return hTile->nHeight; }
 
 // 0x00604CE0
-unsigned char* __stdcall sub_00604CE0(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 129); return pTile->aSubtileFlags; }
+unsigned char* __stdcall TileGetCollisionInfo(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 129); return pTile->aSubtileFlags; }
 
 // 0x00604D10
 int __stdcall TileGetHeightToBottom(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 130); return hTile->unk0x10; }

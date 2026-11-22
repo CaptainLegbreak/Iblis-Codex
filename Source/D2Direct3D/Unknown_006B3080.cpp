@@ -33,7 +33,7 @@ char* __fastcall sub_006BA9A0(BufferPool*,char*,char*,unsigned int); // 0x006BA9
 char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
 void __cdecl sub_006B7110_InitSprites(); // 0x006B7110
 void __fastcall sub_006BBB90_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
-void __stdcall sub_00604A30_StoreTileFreeHandler(void*); // 0x00604A30
+void __stdcall TileSetHardwareFreeCallback(void*); // 0x00604A30
 
 struct D2ComVtblStrc
 {
@@ -102,7 +102,7 @@ void __cdecl sub_006B3080()
  sub_006BA420(&gSmallPool,current,(char*)memory,32,32);
  gSmallBudget=gSmallPool.count*gBufferCopies*1024;
  sub_006B7110_InitSprites();
- sub_00604A30_StoreTileFreeHandler((void*)sub_006BBB90_InvalidateTileCaches);
+ TileSetHardwareFreeCallback((void*)sub_006BBB90_InvalidateTileCaches);
 }
 
 int gbVideoUp_00970E40; // 0x00970E40

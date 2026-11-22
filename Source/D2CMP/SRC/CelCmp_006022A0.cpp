@@ -197,7 +197,7 @@ static inline D2CelEntryStrc* __cdecl sub_F43_NewCelEntry(D2StormNodeListStrc* p
 }
 
 // 0x00603860
-void __stdcall sub_00603860_AddCelListEntry(unsigned int hCelList, void* pSrc, unsigned int nSrcSize, unsigned int dwPixelWidth, unsigned int dwPixelHeight, int nArg6, int nArg7, int nArg8)
+void __stdcall CelCompressAddImage(unsigned int hCelList, void* pSrc, unsigned int nSrcSize, unsigned int dwPixelWidth, unsigned int dwPixelHeight, int nArg6, int nArg7, int nArg8)
 {
     D2_ASSERT(dwPixelWidth && dwPixelHeight, 0x229);
     D2_ASSERT(nSrcSize >= dwPixelHeight, 0x22A);

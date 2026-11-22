@@ -361,7 +361,7 @@ static int __stdcall sub_00503970_CountLayerCels(D2CofDataStrc* pCofData, const 
 
         if (sub_006001F0(&tGfxData, 0, 1) && tGfxData.pCel)
         {
-            const int nHeight = sub_00601950(tGfxData.pCel) + pCompositeUnit->nX;
+            const int nHeight = CelGetOffsetY(tGfxData.pCel) + pCompositeUnit->nX;
             if (nHeight > *pMaxHeight)
             {
                 *pMaxHeight = nHeight;

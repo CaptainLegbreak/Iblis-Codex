@@ -43179,7 +43179,7 @@
     {
      "va": "0x00517ED0",
      "length": 254,
-     "name": "?SaveAndUnload@BNGatewayAccess@@QAGXXZ"
+     "name": "?Unload@BNGatewayAccess@@QAGXXZ"
     },
     {
      "va": "0x00517FD0",
@@ -43218,7 +43218,7 @@
     {
      "va": "0x00518270",
      "length": 49,
-     "name": "?sub_00518270_LoadGatewayList@BNGatewayAccess@@AAEXXZ"
+     "name": "?GetBattlenetGatewayList@BNGatewayAccess@@AAEXXZ"
     },
     {
      "va": "0x005182B0",
@@ -46259,7 +46259,7 @@
     {
      "va": "0x00526D00",
      "length": 36,
-     "name": "?sub_00526D00_IsNotRightToLeft@Unicode@@QBEHXZ"
+     "name": "?isLeftToRight@Unicode@@QBEHXZ"
     },
     {
      "va": "0x00526FB0",
@@ -47394,7 +47394,7 @@
     {
      "va": "0x00604A30",
      "length": 15,
-     "name": "sub_00604A30_StoreTileFreeHandler"
+     "name": "TileSetHardwareFreeCallback"
     },
     {
      "va": "0x0063E780",
@@ -62931,7 +62931,7 @@
     {
      "va": "0x005FE070",
      "length": 10,
-     "name": "?sub_005FE070@@YAXXZ"
+     "name": "?D2CMPTileFreeAsyncLoads@@YAXXZ"
     },
     {
      "va": "0x005FE0E0",
@@ -62969,22 +62969,22 @@
     {
      "va": "0x005FEE00",
      "length": 10,
-     "name": "?sub_005FEE00_DestroyBlockTableB@@YAXXZ"
+     "name": "?D2CMPSpriteCacheDumpHashTableStats@@YAXXZ"
     },
     {
      "va": "0x005FEE10",
      "length": 33,
-     "name": "?sub_005FEE10_GetTileCacheTotalSize@@YAIXZ"
+     "name": "?D2CMPSpriteCacheGetUsedMemory@@YAIXZ"
     },
     {
      "va": "0x005FEE40",
      "length": 6,
-     "name": "sub_005FEE40"
+     "name": "D2CMPSpriteCacheGetMaxMemory"
     },
     {
      "va": "0x005FEE50",
      "length": 10,
-     "name": "?sub_005FEE50_DestroyBlockTableA@@YAXXZ"
+     "name": "?D2CMPCelDataCacheDumpHashTableStats@@YAXXZ"
     },
     {
      "va": "0x005FEE60",
@@ -69226,7 +69226,7 @@
     {
      "va": "0x005FDE10",
      "length": 64,
-     "name": "sub_005FDE10_FreeCelPool"
+     "name": "D2CMPTileCacheDestroy"
     },
     {
      "va": "0x005FDE50",
@@ -69235,7 +69235,7 @@
     {
      "va": "0x005FDEA0",
      "length": 166,
-     "name": "sub_005FDEA0"
+     "name": "D2CMPTileValidate"
     },
     {
      "va": "0x005FDF50",
@@ -69255,7 +69255,7 @@
     {
      "va": "0x005FE120",
      "length": 69,
-     "name": "sub_005FE120_InitCelPool"
+     "name": "D2CMPTileCacheInit"
     },
     {
      "va": "0x005FE1F0",
@@ -69265,7 +69265,7 @@
     {
      "va": "0x005FE280",
      "length": 45,
-     "name": "sub_005FE280_LoadCompressedDataFlag"
+     "name": "D2CMPSetNoCompress"
     },
     {
      "va": "0x005FF300",
@@ -69280,12 +69280,12 @@
     {
      "va": "0x005FFE30",
      "length": 88,
-     "name": "sub_005FFE30_FreeTileCache"
+     "name": "D2CMPSpriteCacheDestroy"
     },
     {
      "va": "0x00600960",
      "length": 89,
-     "name": "sub_00600960_FindTileLibrary"
+     "name": "D2CMPFindTileProject"
     },
     {
      "va": "0x00600C00",
@@ -69328,7 +69328,7 @@
     {
      "va": "0x00601410",
      "length": 62,
-     "name": "sub_00601410_CelFileFree"
+     "name": "CelFileFreeSerialized"
     },
     {
      "va": "0x006014C0",
@@ -69347,7 +69347,7 @@
     {
      "va": "0x00601980",
      "length": 48,
-     "name": "?sub_00601980@@YGPADPAUD2CelStrc@@@Z"
+     "name": "?CelGetControlData@@YGPADPAUD2CelStrc@@@Z"
     },
     {
      "va": "0x006019B0",
@@ -70154,7 +70154,7 @@
     {
      "va": "0x005FE210",
      "length": 98,
-     "name": "?Palette24BitTo8BitImage@@YGXPADHPBD0@Z"
+     "name": "?D2CMPBuildFileName@@YGXPADHPBD0@Z"
     },
     {
      "va": "0x005FEB80",
@@ -70199,7 +70199,7 @@
     {
      "va": "0x005FF2A0",
      "length": 96,
-     "name": "?sub_005FF2A0_CountPendingEntries@@YAHXZ"
+     "name": "?D2CMPSpriteNumAsyncLoads@@YAHXZ"
     },
     {
      "va": "0x005FF3A0",
@@ -70224,7 +70224,7 @@
     {
      "va": "0x006018C0",
      "length": 48,
-     "name": "sub_006018C0"
+     "name": "CelGetWidth"
     },
     {
      "va": "0x006018F0",
@@ -70239,7 +70239,7 @@
     {
      "va": "0x00601950",
      "length": 48,
-     "name": "?sub_00601950@@YGHPAUD2CelStrc@@@Z"
+     "name": "?CelGetOffsetY@@YGHPAUD2CelStrc@@@Z"
     },
     {
      "va": "0x006019F0",
@@ -70249,17 +70249,17 @@
     {
      "va": "0x00601A30",
      "length": 15,
-     "name": "sub_00601A30_StorePixelFreeHandler"
+     "name": "CelSetHardwareFreeCallback"
     },
     {
      "va": "0x00601A40",
      "length": 6,
-     "name": "sub_00601A40"
+     "name": "CelGetHardwareFreeCallback"
     },
     {
      "va": "0x00601B10",
      "length": 48,
-     "name": "sub_00601B10_GetCelPixels"
+     "name": "CelGetHardwareData"
     },
     {
      "va": "0x00601DD0",
@@ -70374,7 +70374,7 @@
     {
      "va": "0x00600760",
      "length": 33,
-     "name": "?sub_00600760_GetTileHashBlock@@YGPAUD2TileLibraryHashStrc@@PBD@Z"
+     "name": "?D2CMPGetFindTile@@YGPAUD2TileLibraryHashStrc@@PBD@Z"
     },
     {
      "va": "0x00600790",
@@ -70390,7 +70390,7 @@
     {
      "va": "0x006008D0",
      "length": 129,
-     "name": "sub_006008D0_ForEachTile"
+     "name": "D2CMPIterateAllTiles"
     },
     {
      "va": "0x00600B80",
@@ -70429,7 +70429,7 @@
     {
      "va": "0x00600CB0",
      "length": 128,
-     "name": "?sub_00600CB0_ConvertDirection@@YGHIIHH@Z"
+     "name": "?CelConvertDir@@YGHIIHH@Z"
     },
     {
      "va": "0x00605D20",
@@ -70464,7 +70464,7 @@
     {
      "va": "0x00609670",
      "length": 91,
-     "name": "?sub_00609670_FreeTileList@@YGXPAUD2CmpTileListStrc@@@Z"
+     "name": "?TileListDestroy@@YGXPAUD2CmpTileListStrc@@@Z"
     },
     {
      "va": "0x00609770",
@@ -70474,7 +70474,7 @@
     {
      "va": "0x00609810",
      "length": 292,
-     "name": "?sub_00609810_AddTileBlock@@YGXPAUD2CmpTileStrc@@PAEHHH@Z"
+     "name": "?TileAddAddSubTile@@YGXPAUD2CmpTileStrc@@PAEHHH@Z"
     },
     {
      "va": "0x00609940",
@@ -70493,7 +70493,7 @@
     {
      "va": "0x00609B90",
      "length": 95,
-     "name": "?sub_00609B90_InitFloorTile@@YGXPAUD2CmpTileStrc@@PBE@Z"
+     "name": "?TileAddAddFloorTile@@YGXPAUD2CmpTileStrc@@PBE@Z"
     },
     {
      "va": "0x00609BF0",
@@ -70508,7 +70508,7 @@
     {
      "va": "0x00609D60",
      "length": 291,
-     "name": "?sub_00609D60_BuildTileLibrary@@YGHPAUD2CmpTileListStrc@@PAPAUD2CmpTileLibraryStrc@@@Z"
+     "name": "?TileListCreateProject@@YGHPAUD2CmpTileListStrc@@PAPAUD2CmpTileLibraryStrc@@@Z"
     },
     {
      "va": "0x00609E90",
@@ -70655,7 +70655,7 @@
     {
      "va": "0x00603860",
      "length": 349,
-     "name": "sub_00603860_AddCelListEntry"
+     "name": "CelCompressAddImage"
     },
     {
      "va": "0x00603B60",
@@ -70843,7 +70843,7 @@
     {
      "va": "0x00604AA0",
      "length": 60,
-     "name": "sub_00604AA0_ClearMatchingSlot"
+     "name": "TileLibraryReleaseProject"
     },
     {
      "va": "0x00604DD0",
@@ -70858,7 +70858,7 @@
     {
      "va": "0x006051F0",
      "length": 19,
-     "name": "sub_006051F0_FreeIfSet"
+     "name": "DestroyD2Palette"
     },
     {
      "va": "0x00605320",
@@ -70868,12 +70868,12 @@
     {
      "va": "0x006056C0",
      "length": 15,
-     "name": "sub_006056C0_SetGlobal"
+     "name": "PaletteTestBackground"
     },
     {
      "va": "0x00605840",
      "length": 15,
-     "name": "sub_00605840_SetGlobal"
+     "name": "PaletteFixBlack"
     },
     {
      "va": "0x00605850",
@@ -70979,7 +70979,7 @@
     {
      "va": "0x00608C00",
      "length": 352,
-     "name": "sub_00608C00_RemapRegion"
+     "name": "CmpDoLensEffect"
     },
     {
      "va": "0x00608D60",
@@ -71078,7 +71078,7 @@
     {
      "va": "0x00604CE0",
      "length": 48,
-     "name": "sub_00604CE0"
+     "name": "TileGetCollisionInfo"
     },
     {
      "va": "0x00604D10",
@@ -71165,12 +71165,12 @@
     {
      "va": "0x00605210",
      "length": 110,
-     "name": "?sub_00605210_FindNearestColor@@YGEPBEIHHH@Z"
+     "name": "?GetClosestColor@@YGEPBEIHHH@Z"
     },
     {
      "va": "0x00605280",
      "length": 110,
-     "name": "?sub_00605280_FindFarthestPaletteIndex@@YGEPAEIHHH@Z"
+     "name": "?GetFurthestColor@@YGEPAEIHHH@Z"
     },
     {
      "va": "0x006052F0",
@@ -71236,7 +71236,7 @@
     {
      "va": "0x006057A0",
      "length": 145,
-     "name": "?sub_006057A0_MapColors@@YGHPBEPAEIP6GEEEE@Z@Z"
+     "name": "?Palette24BitTo8BitImage@@YGHPBEPAEIP6GEEEE@Z@Z"
     },
     {
      "va": "0x00605AA0",
@@ -71259,7 +71259,7 @@
     {
      "va": "0x00606930",
      "length": 188,
-     "name": "?sub_00606930_BuildTables@@YGPAXPAX@Z"
+     "name": "?CreateD2Palette@@YGPAXPAX@Z"
     }
    ]
   },

@@ -14,7 +14,7 @@ typedef unsigned char (__stdcall* MapFn)(unsigned char nRed, unsigned char nGree
 unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x006056D0
 extern int gbPaletteLoaded_008E9934; // 0x008E9934
 
-unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
 struct D2ColorBlockStrc
 {
@@ -83,7 +83,7 @@ unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned cha
 int gbDarkTest_008E9D3C; // 0x008E9D3C
 
 // 0x006057A0
-int __stdcall sub_006057A0_MapColors(const unsigned char* pSource, unsigned char* pDest, unsigned int nCount, MapFn pfnMap)
+int __stdcall Palette24BitTo8BitImage(const unsigned char* pSource, unsigned char* pDest, unsigned int nCount, MapFn pfnMap)
 {
     const unsigned char* pSrc = pSource;
     unsigned char* pDst = pDest;
@@ -118,7 +118,7 @@ void __stdcall sub_00605AA0_BuildMultiplyTable(unsigned char* pTables)
     {
         for (int j = 0; j < 256; ++j)
         {
-            pTables[0x43500 + j * 256 + i] = sub_00605210_FindNearestColor(pTables, 256,
+            pTables[0x43500 + j * 256 + i] = GetClosestColor(pTables, 256,
                 (unsigned char)((unsigned int)(pPalette[j].nRed * pPalette[i].nRed) / 255),
                 (unsigned char)((unsigned int)(pPalette[j].nGreen * pPalette[i].nGreen) / 255),
                 (unsigned char)((unsigned int)(pPalette[j].nBlue * pPalette[i].nBlue) / 255));
@@ -150,7 +150,7 @@ void __stdcall sub_00605B70_BuildBlendTables(unsigned char* pData)
             nC1 += nC1 / -3;
         }
 
-        pData[0x6B500 + i] = sub_00605210_FindNearestColor(pData, 256, nC0, nC1, nC2);
+        pData[0x6B500 + i] = GetClosestColor(pData, 256, nC0, nC1, nC2);
     }
 
     for (unsigned int j = 0; j < 256; ++j)
@@ -159,7 +159,7 @@ void __stdcall sub_00605B70_BuildBlendTables(unsigned char* pData)
         const unsigned int nInv = 255 - nMax;
         for (unsigned int k = 0; k < 256; ++k)
         {
-            pData[0x5B500 + k * 256 + j] = sub_00605210_FindNearestColor(pData, 256,
+            pData[0x5B500 + k * 256 + j] = GetClosestColor(pData, 256,
                 (unsigned char)((pData[j * 4 + 0] * nMax + pData[k * 4 + 0] * nInv) / 255),
                 (unsigned char)((pData[j * 4 + 1] * nMax + pData[k * 4 + 1] * nInv) / 255),
                 (unsigned char)((pData[j * 4 + 2] * nMax + pData[k * 4 + 2] * nInv) / 255));
@@ -174,7 +174,7 @@ void __stdcall sub_00605E60_BuildLightenTables(unsigned char* pData)
     {
         for (unsigned int j = 0; j < 256; ++j)
         {
-            pData[0x2400 + i * 256 + j] = sub_00605210_FindNearestColor(pData, 256,
+            pData[0x2400 + i * 256 + j] = GetClosestColor(pData, 256,
                 pData[j * 4 + 0] + ((0xFF - pData[j * 4 + 0]) * (i + 1) >> 4),
                 pData[j * 4 + 1] + ((0xFF - pData[j * 4 + 1]) * (i + 1) >> 4),
                 pData[j * 4 + 2] + ((0xFF - pData[j * 4 + 2]) * (i + 1) >> 4));
@@ -291,12 +291,12 @@ static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc*
     sub_00605080_HslToRgb(pHsl, tRgb);
     for (unsigned int i = 0; i < 256; ++i)
     {
-        pTables[0x3400 + i] = sub_00605210_FindNearestColor(pTables, 256, tRgb[i].nRed, tRgb[i].nGreen, tRgb[i].nBlue);
+        pTables[0x3400 + i] = GetClosestColor(pTables, 256, tRgb[i].nRed, tRgb[i].nGreen, tRgb[i].nBlue);
     }
 }
 
 // 0x00606930
-void* __stdcall sub_00606930_BuildTables(void* pSource)
+void* __stdcall CreateD2Palette(void* pSource)
 {
     D2HslStrc tHsl[256];
 

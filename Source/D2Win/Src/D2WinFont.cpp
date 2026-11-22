@@ -920,7 +920,7 @@ void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, 
         {
             tGfxData.nFrame = i;
             D2CelStrc* pCel = CelGetHandle((D2CmpCelContextStrc*)&tGfxData);
-            nWidth += sub_006018C0(pCel);
+            nWidth += CelGetWidth(pCel);
         }
 
         if (nAlign == 1)

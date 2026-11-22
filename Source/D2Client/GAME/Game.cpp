@@ -371,7 +371,7 @@ void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 void __fastcall sub_00624B50(int nValue); // 0x00624B50
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __fastcall sub_0047AA10_SetGlobal(int nValue); // 0x0047AA10
-void __stdcall sub_005FE280_LoadCompressedDataFlag(int bCompress); // 0x005FE280
+void __stdcall D2CMPSetNoCompress(int bCompress); // 0x005FE280
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bValue); // 0x006125A0
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 
@@ -2287,7 +2287,7 @@ void __fastcall sub_0044D990_ApplyConfigNop(D2ConfigStrc* pConfig)
 void __fastcall sub_0044D9A0_ApplyConfigNoCompress(D2ConfigStrc* pConfig)
 {
     if (pConfig->bNoCompress)
-        sub_005FE280_LoadCompressedDataFlag(pConfig->bNoCompress);
+        D2CMPSetNoCompress(pConfig->bNoCompress);
 }
 
 // 0x0044D9C0

@@ -150,7 +150,7 @@ typedef char check_ClientNode_gameGuid[OFFSET(ClientNode,gameGuid)==0x20?1:-1];
 
 typedef char check_ClientNode_size[sizeof(ClientNode)==0x24?1:-1];
 
-extern "C" U8 __stdcall sub_00605210_FindNearestColor(const U8* palette,U32 count,int c0,int c1,int c2);
+extern "C" U8 __stdcall GetClosestColor(const U8* palette,U32 count,int c0,int c1,int c2);
 
 extern "C" int __fastcall sub_0063E860_UnitPredicate(Unit* unit);
 

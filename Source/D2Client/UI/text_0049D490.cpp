@@ -566,7 +566,7 @@ void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor,
 
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 void* gpGlobal_007C02DC; // 0x007C02DC
 
@@ -2490,7 +2490,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
     tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
-    const int nCelWidth = sub_006018C0(CelGetHandle(&tContext));
+    const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
     const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF92));
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -2515,7 +2515,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
         else
             tContext.nFrame = 0;
     }
-    sub_006018C0(CelGetHandle(&tContext));
+    CelGetWidth(CelGetHandle(&tContext));
     sub_00501820(D2LANG_GetStringFromTblIndex(0xF92));
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -2563,7 +2563,7 @@ void __cdecl sub_004A6E60_DrawRightPanelButtons()
     tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
-    const int nCelWidth = sub_006018C0(CelGetHandle(&tContext));
+    const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
     const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF93));
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -2588,7 +2588,7 @@ void __cdecl sub_004A6E60_DrawRightPanelButtons()
         else
             tContext.nFrame = 0;
     }
-    sub_006018C0(CelGetHandle(&tContext));
+    CelGetWidth(CelGetHandle(&tContext));
     sub_00501820(D2LANG_GetStringFromTblIndex(0xF93));
     if (D2GFX_GetResolutionMode() != 2)
     {

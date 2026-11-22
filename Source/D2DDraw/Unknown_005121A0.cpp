@@ -1,10 +1,10 @@
 #include "D2CmpTypes.h"
 struct D2CelStrc;
 int __stdcall sub_006001F0_ValidateContext(D2CmpCelContextStrc*, int, int); // 0x006001F0
-int __stdcall sub_006018C0(D2CelStrc*); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc*); // 0x006018F0
-int __stdcall sub_00601920(D2CelStrc*); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc*); // 0x00601950
+int __stdcall CelGetWidth(D2CelStrc*); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc*); // 0x006018F0
+int __stdcall CelGetOffsetX(D2CelStrc*); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc*); // 0x00601950
 int __fastcall sub_00511D70_GetCapsValue(int, int*); // 0x00511D70
 void __stdcall CelDrawEx(D2CmpCelContextStrc*, int, int, int, int, unsigned char*, int, int, int, int, int, int, int); // 0x00601650
 extern int gnWidth_007C9138; // 0x007C9138
@@ -15,8 +15,8 @@ extern int gnClip_008812A0; // 0x008812A0
 
 static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
-    int nWidth = sub_006018C0(pCel);
-    int nHeight = sub_006018F0(pCel);
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
     if (bCenter)
     {
         nX -= nHeight;
@@ -24,10 +24,10 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
         nHeight >>= 1;
     }
 
-    nX += sub_00601920(pCel);
+    nX += CelGetOffsetX(pCel);
     if (nX < gnWidth_007C9138 && nWidth + nX >= 0)
     {
-        nY += sub_00601950(pCel);
+        nY += CelGetOffsetY(pCel);
         if (nY >= 0 && nY - nHeight < gnHeight_007C913C)
             return 0;
     }

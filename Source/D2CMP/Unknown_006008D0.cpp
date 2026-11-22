@@ -26,7 +26,7 @@ void __stdcall sub_P11_EmitSetTileRecords(D2TileRecordStrc* pRecords)
 }
 
 // 0x006008D0
-int __stdcall sub_006008D0_ForEachTile(TILEFN pfnTile, void* pArg)
+int __stdcall D2CMPIterateAllTiles(TILEFN pfnTile, void* pArg)
 {
     D2TileRecordStrc* pRecord = gpTileRecords_008ADBB4;
     int nCount = 0;

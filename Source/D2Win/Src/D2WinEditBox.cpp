@@ -177,7 +177,7 @@ int __fastcall sub_004FFE50_EditBoxDraw(D2WinEditBoxStrc* pEditBox);            
 
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
 
-int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
 

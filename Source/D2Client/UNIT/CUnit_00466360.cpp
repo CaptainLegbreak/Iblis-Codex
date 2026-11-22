@@ -127,9 +127,9 @@ int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitSt
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 
-int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
 
-int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
 
@@ -1525,12 +1525,12 @@ static int __stdcall sub_004640A0_GetUnitSelectRect(unsigned int nFrame, D2RectS
             {
                 D2_ASSERT(nFrame <= tContext.nFrames, 0x5DF);
 
-                const int nOffsetX = sub_00601920(pCell) - 12;
+                const int nOffsetX = CelGetOffsetX(pCell) - 12;
                 pRect->nLeft = nOffsetX + UNITS_GetClientCoordX(pUnit);
-                pRect->nRight = sub_006018C0(pCell) + pRect->nLeft + 24;
-                const int nTop = sub_00601950(pCell) + UNITS_GetClientCoordY(pUnit) + 12;
+                pRect->nRight = CelGetWidth(pCell) + pRect->nLeft + 24;
+                const int nTop = CelGetOffsetY(pCell) + UNITS_GetClientCoordY(pUnit) + 12;
                 pRect->nTop = nTop;
-                pRect->nBottom = nTop - sub_006018F0(pCell) - 24;
+                pRect->nBottom = nTop - CelGetHeight(pCell) - 24;
 
                 const int nWidth = pRect->nRight - pRect->nLeft;
                 if (nWidth < 32)

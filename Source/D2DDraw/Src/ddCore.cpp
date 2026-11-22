@@ -71,7 +71,7 @@ int __fastcall sub_005115E0_DDrawRestoreSurface(void* hWnd, int nResolutionMode)
 
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
 
 extern "C" const char gszCourier_006DD52C[]; // 0x006DD52C
 
@@ -815,7 +815,7 @@ void __fastcall sub_00512900_DDrawPutPixel(int nX, int nY, unsigned char nColor)
 // 0x005132C0
 int __fastcall sub_005132C0_DDrawFloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)
 {
-    int nResult = sub_005FDEA0(pTile, 1, 0);
+    int nResult = D2CMPTileValidate(pTile, 1, 0);
     if (nResult)
     {
         nPosX -= 0x50;

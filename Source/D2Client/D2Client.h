@@ -657,10 +657,10 @@ int __stdcall sub_004F66E0_IsPrecisionOnScreen(int nPrecisionX, int nPrecisionY)
 int __stdcall sub_0052AE50_SendPacket(int nSize, int nFlags, void* pData); // 0x0052AE50
 int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC); // 0x005FF300
 int __stdcall sub_006004E0_LoadSprite(D2CelContextStrc* pContext); // 0x006004E0
-int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
+int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
 int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirections); // 0x00600E20
-int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
+int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 int __stdcall sub_0061A1D0_GetTileLevelId(D2ActiveRoomStrc* pRoom, int nClassId); // 0x0061A1D0
 int __stdcall sub_0061AB30(D2ActiveRoomStrc* pRoom); // 0x0061AB30
 int __stdcall sub_0061B130_GetCollision(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061B130

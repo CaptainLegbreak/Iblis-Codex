@@ -52,9 +52,9 @@ void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
 int __cdecl sub_00492C10(); // 0x00492C10
 
-void __stdcall sub_005FDE10_FreeCelPool(int bFree); // 0x005FDE10
+void __stdcall D2CMPTileCacheDestroy(int bFree); // 0x005FDE10
 
-void __stdcall sub_005FFE30_FreeTileCache(int bFree); // 0x005FFE30
+void __stdcall D2CMPSpriteCacheDestroy(int bFree); // 0x005FFE30
 
 extern int gnGlobal_0071146C; // 0x0071146C
 
@@ -199,8 +199,8 @@ void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom);
 // 0x00457420
 void __fastcall sub_00457420_FreeCaches(int bFree)
 {
-    sub_005FDE10_FreeCelPool(bFree);
-    sub_005FFE30_FreeTileCache(bFree);
+    D2CMPTileCacheDestroy(bFree);
+    D2CMPSpriteCacheDestroy(bFree);
     sub_00470290_FreeHashedFiles();
 }
 

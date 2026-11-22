@@ -78,7 +78,7 @@ struct Transport
 
 typedef char check_Transport_enabled[OFFSET(Transport,enabled)==0?1:-1];
 
-extern "C" U8 __stdcall sub_00605210_FindNearestColor(const U8* palette, U32 count, int c0, int c1, int c2);
+extern "C" U8 __stdcall GetClosestColor(const U8* palette, U32 count, int c0, int c1, int c2);
 extern "C" void* __fastcall sub_00451F80_MonStats(int classId);
 extern "C" int* __fastcall sub_0066C040_Visibility(Drlg* drlg, int levelId);
 extern "C" unsigned short __fastcall sub_006C2090_ReadQueue(ReceiveQueue* queue, char* buffer, int capacity);

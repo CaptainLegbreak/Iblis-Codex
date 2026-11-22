@@ -45,7 +45,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage);
 
-int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
 extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
 
@@ -195,8 +195,8 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
         tContext.nDirection = 0;
         tContext.nFrame = 0;
         D2CelStrc* pCel = CelGetHandle(&tContext);
-        nY -= sub_00601950(pCel);
-        nX -= sub_00601920(pCel);
+        nY -= CelGetOffsetY(pCel);
+        nX -= CelGetOffsetX(pCel);
     }
 
     if (pCellFile1)
@@ -293,10 +293,10 @@ int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
     D2CelStrc* pCel = CelGetHandle(&tContext);
     const int nImageX = pAnimImage->controlHeader.nImageX;
     const int nImageY = pAnimImage->controlHeader.nImageY;
-    const int nWidth = sub_006018C0(pCel);
-    const int nHeight = sub_006018F0(pCel);
-    nX -= sub_00601920(pCel);
-    nY -= sub_00601950(pCel);
+    const int nWidth = CelGetWidth(pCel);
+    const int nHeight = CelGetHeight(pCel);
+    nX -= CelGetOffsetX(pCel);
+    nY -= CelGetOffsetY(pCel);
     return nX >= nImageX && nY >= nImageY - nHeight && nX < nImageX + nWidth && nY < nImageY;
 }
 

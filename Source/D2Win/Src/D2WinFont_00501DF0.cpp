@@ -17,7 +17,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nGamma, int nDrawMode, unsigned char* pPalette); // 0x004F6480
 void __stdcall TEXTURE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nSkipLines, int nDrawLines, int nDrawMode); // 0x004F64E0
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 extern int gnCurrentFont_0072DFFC; // 0x0072DFFC
 extern D2FontCacheStrc* gpFontCache_00841D88; // 0x00841D88
@@ -87,7 +87,7 @@ void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, i
                 {
                     tContext.pCellFile = gpFontCache_00841D88->pCellFile;
                     tContext.nFrame = pChar->nImageIndex;
-                    const int nHeight = sub_006018F0(CelGetHandle(&tContext));
+                    const int nHeight = CelGetHeight(CelGetHandle(&tContext));
                     if (nSkipLines + nDrawLines <= nHeight)
                         TEXTURE_CelDrawEx(&tContext, nX, nY, nSkipLines, nDrawLines, 5);
                     else

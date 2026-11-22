@@ -21,7 +21,7 @@ void __cdecl sub_00681E09_Exit(int); // 0x00681E09
 void __fastcall sub_006B9860_Project(int,int,int,int*,int*); // 0x006B9860
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,U32,U8); // 0x006B9780
 void __fastcall sub_006BBA00_BindTile(D2TileBlockStrc*); // 0x006BBA00
-int __stdcall sub_005FDEA0(D2TileStrc*,int,int); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileStrc*,int,int); // 0x005FDEA0
 void __fastcall sub_006B1EA0_SetState(int); // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
@@ -175,7 +175,7 @@ static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, uns
 // 0x006B8DF0
 static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, unsigned char nAlpha, int nPosX, int nPosY, U32* pLight, int nScreenPanels)
 {
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         sub_006B1EA0_SetState(1);
         int nBlendMode = 1;

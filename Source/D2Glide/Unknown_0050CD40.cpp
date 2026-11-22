@@ -15,7 +15,7 @@ extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor);  
 int __fastcall sub_0050CD40_GlideShadowTileDraw(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)
 {
     int nResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         sub_005094B0_GlideSetState(1);
         if (sub_0050BF40_GlideGetBlendedShadows())

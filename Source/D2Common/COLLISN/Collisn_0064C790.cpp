@@ -13,7 +13,7 @@ enum
 
 extern "C" const char gszCollisnSourceFile[];
 
-unsigned char* __stdcall sub_00604CE0(D2TileLibraryEntryStrc* pTile);
+unsigned char* __stdcall TileGetCollisionInfo(D2TileLibraryEntryStrc* pTile);
 
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom);
 
@@ -62,7 +62,7 @@ static void __stdcall sub_6FD411F0(D2RoomCollisionGridStrc* pCollisionGrid, int 
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
     {
-        unsigned char* pFlags = sub_00604CE0(pTileLibraryEntry);
+        unsigned char* pFlags = TileGetCollisionInfo(pTileLibraryEntry);
         const int nWidth = pCollisionGrid->pRoomCoords.nSubtileWidth;
         const int nCappedX = nX > 0 ? nX : 0;
         const int nCappedY = nY > 0 ? nY : 0;
@@ -84,7 +84,7 @@ static void __stdcall sub_0064C640_SetTileCollisionFlags(D2RoomCollisionGridStrc
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
     {
-        unsigned char* pFlags = sub_00604CE0(pTileLibraryEntry);
+        unsigned char* pFlags = TileGetCollisionInfo(pTileLibraryEntry);
         const int nWidth = pCollisionGrid->pRoomCoords.nSubtileWidth;
         const int nCappedY = nY > 0 ? nY : 0;
         const int nEndY = nY + 5;

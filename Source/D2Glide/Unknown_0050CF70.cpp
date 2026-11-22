@@ -209,7 +209,7 @@ static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStr
 int __fastcall sub_0050D4C0_GlideTileDrawLit(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)
 {
     int nResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         sub_005094B0_GlideSetState(1);
         sub_00509500_GlideSetCombine(1);

@@ -39,7 +39,7 @@ struct Unicode
     int ToDigit() const { return wChar - '0'; }
     Unicode toUpper() const { return Unicode(wChar < 0x100 ? gwToUpperTable_00730578[wChar] : wChar); }
     int isAlpha() const;
-    int sub_00526D00_IsNotRightToLeft() const; // 0x00526D00
+    int isLeftToRight() const; // 0x00526D00
     Direction directionality(); // 0x00526FB0
     Unicode sub_004B15F0() const;
 

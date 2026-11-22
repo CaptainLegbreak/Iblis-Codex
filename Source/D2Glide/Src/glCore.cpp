@@ -342,7 +342,7 @@ void __cdecl sub_0050B7B0_GlideInitSprites(); // 0x0050B7B0
 
 void __stdcall sub_0050FCB0_GlideReleaseTileCache(); // 0x0050FCB0
 
-void __stdcall sub_00604A30_StoreTileFreeHandler(void* pfnCallback); // 0x00604A30
+void __stdcall TileSetHardwareFreeCallback(void* pfnCallback); // 0x00604A30
 
 extern unsigned int (__stdcall* gpfnGrTexMinAddress_0087EB24)(int nTmu); // 0x0087EB24
 
@@ -912,7 +912,7 @@ int __cdecl sub_00509670_InitTextureMemory()
 	}
 
 	sub_0050B7B0_GlideInitSprites();
-	sub_00604A30_StoreTileFreeHandler(sub_0050FCB0_GlideReleaseTileCache);
+	TileSetHardwareFreeCallback(sub_0050FCB0_GlideReleaseTileCache);
 	return 1;
 }
 

@@ -5,7 +5,7 @@
 struct D2HslStrc;
 struct D2PalRgbaStrc;
 
-unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
 // 0x00605880
 void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
@@ -37,7 +37,7 @@ void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
             {
                 for (int j = 0; 256 > j; ++j)
                 {
-                    pTables[0x3500 + (n << 16) + j * 256 + i] = sub_00605210_FindNearestColor(pTables, 256,
+                    pTables[0x3500 + (n << 16) + j * 256 + i] = GetClosestColor(pTables, 256,
                         (unsigned char)((unsigned int)(pTables[j * 4 + 0] * nInverse + pTables[i * 4 + 0] * nAlpha) / 255),
                         (unsigned char)((unsigned int)(pTables[j * 4 + 1] * nInverse + pTables[i * 4 + 1] * nAlpha) / 255),
                         (unsigned char)((unsigned int)(pTables[j * 4 + 2] * nInverse + pTables[i * 4 + 2] * nAlpha) / 255));
@@ -60,7 +60,7 @@ void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pTables)
             const unsigned char nR = (unsigned char)PAL_SATURATE(pPalette[j].nRed + pPalette[i].nRed);
             const unsigned char nG = (unsigned char)PAL_SATURATE(pPalette[j].nGreen + pPalette[i].nGreen);
             const unsigned char nB = (unsigned char)PAL_SATURATE(pPalette[j].nBlue + pPalette[i].nBlue);
-            pTables[0x33500 + j * 256 + i] = sub_00605210_FindNearestColor(pTables, 256, nR, nG, nB);
+            pTables[0x33500 + j * 256 + i] = GetClosestColor(pTables, 256, nR, nG, nB);
         }
     }
 }
@@ -136,7 +136,7 @@ static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc*
     sub_00605080_HslToRgb(pHsl, tRgb);
     for (unsigned int i = 0; i < 256; ++i)
     {
-        pTables[0x3400 + i] = sub_00605210_FindNearestColor(pTables, 256, tRgb[i].nRed, tRgb[i].nGreen, tRgb[i].nBlue);
+        pTables[0x3400 + i] = GetClosestColor(pTables, 256, tRgb[i].nRed, tRgb[i].nGreen, tRgb[i].nBlue);
     }
 }
 
@@ -166,7 +166,7 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (j = 0; j < 256; ++j)
-            pTables[0x53500 + 0x100 * i + j] = sub_00605210_FindNearestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
+            pTables[0x53500 + 0x100 * i + j] = GetClosestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
     }
 
     for (i = 0; i < 24; ++i)
@@ -185,7 +185,7 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (k = 0; k < 256; ++k)
-            pTables[0x54D00 + 0x100 * i + k] = sub_00605210_FindNearestColor(pTables, 256, tRgb[k].nRed, tRgb[k].nGreen, tRgb[k].nBlue);
+            pTables[0x54D00 + 0x100 * i + k] = GetClosestColor(pTables, 256, tRgb[k].nRed, tRgb[k].nGreen, tRgb[k].nBlue);
     }
 
     for (i = 0; i < 24; ++i)
@@ -204,7 +204,7 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (j = 0; j < 256; ++j)
-            pTables[0x56500 + 0x100 * i + j] = sub_00605210_FindNearestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
+            pTables[0x56500 + 0x100 * i + j] = GetClosestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
     }
 
     for (j = 0; j < 256; ++j)
@@ -215,7 +215,7 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
     }
     sub_00605080_HslToRgb(aHsl, tRgb);
     for (j = 0; j < 256; ++j)
-        pTables[0x57D00 + j] = sub_00605210_FindNearestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
+        pTables[0x57D00 + j] = GetClosestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
 
     for (j = 0; j < 256; ++j)
     {
@@ -225,7 +225,7 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
     }
     sub_00605080_HslToRgb(aHsl, tRgb);
     for (j = 0; j < 256; ++j)
-        pTables[0x57E00 + j] = sub_00605210_FindNearestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
+        pTables[0x57E00 + j] = GetClosestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
 
     for (i = 0; i < 24; ++i)
     {
@@ -241,7 +241,7 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (j = 0; j < 256; ++j)
-            pTables[0x57F00 + 0x100 * i + j] = sub_00605210_FindNearestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
+            pTables[0x57F00 + 0x100 * i + j] = GetClosestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
     }
 
     for (i = 0; i < 12; ++i)
@@ -255,14 +255,14 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (j = 0; j < 256; ++j)
-            pTables[0x59800 + 0x100 * i + j] = sub_00605210_FindNearestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
+            pTables[0x59800 + 0x100 * i + j] = GetClosestColor(pTables, 256, tRgb[j].nRed, tRgb[j].nGreen, tRgb[j].nBlue);
     }
 
     for (k = 0; k < 256; ++k)
     {
         const unsigned char nGrey = (unsigned char)sqrt((double)(pTables[4 * k + 1] * pTables[4 * k + 1] + pTables[4 * k] * pTables[4 * k] + pTables[4 * k + 2] * pTables[4 * k + 2]));
-        pTables[0x5A400 + k] = sub_00605210_FindNearestColor(pTables, 256, nGrey, 0, 0);
-        pTables[0x5A500 + k] = sub_00605210_FindNearestColor(pTables, 256, 0, nGrey, 0);
-        pTables[0x5A600 + k] = sub_00605210_FindNearestColor(pTables, 256, 0, 0, nGrey);
+        pTables[0x5A400 + k] = GetClosestColor(pTables, 256, nGrey, 0, 0);
+        pTables[0x5A500 + k] = GetClosestColor(pTables, 256, 0, nGrey, 0);
+        pTables[0x5A600 + k] = GetClosestColor(pTables, 256, 0, 0, nGrey);
     }
 }

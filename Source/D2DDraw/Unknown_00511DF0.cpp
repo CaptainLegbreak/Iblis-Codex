@@ -6,10 +6,10 @@ struct D2DDrawClipRectStrc;
 struct D2DDrawCelClipStrc;
 
 extern int gnDDrawOriginX_0088129C; // 0x0088129C
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
-int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -35,7 +35,7 @@ int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType); // 0x00511D70
 
 extern D2PaletteTableStrc* gpDDrawCaps_007C9150; // 0x007C9150
 extern int gnDDrawModeWidth_008812A0; // 0x008812A0
-void __stdcall sub_00608C00_RemapRegion(unsigned char* pBuffer, int nPitch); // 0x00608C00
+void __stdcall CmpDoLensEffect(unsigned char* pBuffer, int nPitch); // 0x00608C00
 
 int gnDDrawModeWidth_008812A0; // 0x008812A0
 
@@ -57,8 +57,8 @@ void __fastcall sub_00511DF0_DDrawSetMode(int nResolutionMode)
 // 0x00511E10
 static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
-    int nWidth = sub_006018C0(pCel);
-    int nHeight = sub_006018F0(pCel);
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
     if (bCenter)
     {
         nX -= nHeight;
@@ -66,10 +66,10 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
         nHeight >>= 1;
     }
 
-    nX += sub_00601920(pCel);
+    nX += CelGetOffsetX(pCel);
     if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
     {
-        nY += sub_00601950(pCel);
+        nY += CelGetOffsetY(pCel);
         if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
             return 0;
     }
@@ -86,21 +86,21 @@ extern "C" int __stdcall sub_K08_EmitCelClip(D2CelStrc* pCel, int nX, int nY)
 // 0x00511E80
 static int __fastcall sub_00511E80_ClipCel(D2CelStrc* pCel, int nY, int nX, D2DDrawCelClipStrc* pOut, const D2DDrawClipRectStrc* pClip)
 {
-    int nWidth = sub_006018C0(pCel);
-    int nHeight = sub_006018F0(pCel);
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
 
     const int nLeft = D2_MAX(pClip->nLeft, 0);
     const int nRight = D2_MIN(pClip->nRight, gnScreenWidth_007C9138);
     if (nLeft <= nRight)
     {
-        nX += sub_00601920(pCel);
+        nX += CelGetOffsetX(pCel);
         if (nX < nRight && nWidth + nX >= nLeft)
         {
             const int nTop = D2_MAX(pClip->nTop, 0);
             const int nBottom = D2_MIN(pClip->nBottom, gnScreenHeight_007C913C);
             if (nTop <= nBottom)
             {
-                nY += sub_00601950(pCel);
+                nY += CelGetOffsetY(pCel);
                 if (nY >= nTop && nY - nHeight <= nBottom)
                 {
                     pOut->nLeft = nLeft;
@@ -168,5 +168,5 @@ void __fastcall sub_005123B0_DDrawDebugFillBackBuffer(int nX, int nY)
 {
     D2_ASSERT(nX > 0 && nX < gnScreenWidth_007C9138 - 0x50, 0x186);
     D2_ASSERT(nY > 0 && nY < gnScreenHeight_007C913C - 0x50, 0x187);
-    sub_00608C00_RemapRegion(gpScreenBuffer_007C9154 + gnScreenWidth_007C9138 * nY + nX, gnScreenWidth_007C9138);
+    CmpDoLensEffect(gpScreenBuffer_007C9154 + gnScreenWidth_007C9138 * nY + nX, gnScreenWidth_007C9138);
 }

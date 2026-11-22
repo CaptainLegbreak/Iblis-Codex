@@ -279,7 +279,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);       
 
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 
-void __cdecl sub_005FE070();                                                                                // 0x005FE070
+void __cdecl D2CMPTileFreeAsyncLoads();                                                                                // 0x005FE070
 
 void __cdecl D2CMPSpriteFreeAsyncLoads();                                                                                // 0x005FF3A0
 
@@ -962,7 +962,7 @@ void __cdecl sub_0044C890_ReleaseGameState()
         DUNGEON_FreeAct(gpAct_007A0634);
     gpAct_007A0634 = 0;
     D2CMPSpriteFreeAsyncLoads();
-    sub_005FE070();
+    D2CMPTileFreeAsyncLoads();
     sub_00457420_FreeCaches(0);
     sub_00475FD0(gpView_007A0640);
     gpView_007A0640 = 0;
