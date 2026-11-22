@@ -438,6 +438,14 @@ void __fastcall sub_006B7F70_ClearTarget(int); // 0x006B7F70
 
 void __fastcall sub_006B9710_SetColorComponents(int, int, int); // 0x006B9710
 
+extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
+
+void __cdecl sub_006B32B0_ReleaseRenderer(); // 0x006B32B0
+
+void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
+
+void __cdecl sub_006BB640_ReleaseSurfaces(); // 0x006BB640
+
 // 0x006B4FD0
 static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
 {
@@ -754,6 +762,74 @@ int __fastcall sub_006B59A0_D3DInit(int nArg1, int nArg2)
     gpCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(0x18, gszD3DCoreFile_006FC120, 0x6EA, 0);
     InitializeCriticalSection(gpCriticalSection_007C9134);
     return 1;
+}
+
+extern int gbVideoUp_00970E40; // 0x00970E40
+extern int gnVideoState_00970E44; // 0x00970E44
+extern D2ComObjectStrc* gpInterface_00970E68; // 0x00970E68
+extern D2ComObjectStrc* gpInterface_00970E6C; // 0x00970E6C
+extern D2ComObjectStrc* gpInterface_00970E70; // 0x00970E70
+extern D2ComObjectStrc* gpGammaControl_00970E74; // 0x00970E74
+extern D2ComObjectStrc* gpInterface_00970E7C; // 0x00970E7C
+extern char gabGammaRamp_0096FCB8[1536]; // 0x0096FCB8
+
+typedef long (__stdcall* D2DDSetGammaRampFn)(D2ComObjectStrc* pThis, unsigned long dwFlags, void* pRamp);
+
+// 0x006B3320
+void __cdecl sub_006B3320_ReleaseResources()
+{
+    if (!gbVideoUp_00970E40)
+    {
+        return;
+    }
+
+    sub_006B9150_ReleaseResource();
+    sub_006BB640_ReleaseSurfaces();
+    sub_006B32B0_ReleaseRenderer();
+
+    if (gpInterface_00970E7C)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E7C->lpVtbl[2])(gpInterface_00970E7C);
+        gpInterface_00970E7C = 0;
+    }
+
+    if (gpInterface_00970E78)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E78->lpVtbl[2])(gpInterface_00970E78);
+        gpInterface_00970E78 = 0;
+    }
+
+    if (gpGammaControl_00970E74)
+    {
+        const long hResult = ((D2DDSetGammaRampFn)gpGammaControl_00970E74->lpVtbl[4])(gpGammaControl_00970E74, 0, gabGammaRamp_0096FCB8);
+        if (hResult && hResult != (long)0x887601C2)
+        {
+            sub_006B20E0_DDrawLogError("Failed to restore original gamma ramp", hResult);
+        }
+        ((D2ComReleaseFn)gpGammaControl_00970E74->lpVtbl[2])(gpGammaControl_00970E74);
+        gpGammaControl_00970E74 = 0;
+    }
+
+    if (gpInterface_00970E70)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E70->lpVtbl[2])(gpInterface_00970E70);
+        gpInterface_00970E70 = 0;
+    }
+
+    if (gpInterface_00970E6C)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E6C->lpVtbl[2])(gpInterface_00970E6C);
+        gpInterface_00970E6C = 0;
+    }
+
+    if (gpInterface_00970E68)
+    {
+        ((D2ComReleaseFn)gpInterface_00970E68->lpVtbl[2])(gpInterface_00970E68);
+        gpInterface_00970E68 = 0;
+    }
+
+    gbVideoUp_00970E40 = 0;
+    gnVideoState_00970E44 = 0;
 }
 
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"

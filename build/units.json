@@ -85010,10 +85010,6 @@
     {
      "va": "0x006B3080",
      "length": 555
-    },
-    {
-     "va": "0x006B3320",
-     "length": 224
     }
    ],
    "flags": [
@@ -85159,6 +85155,10 @@
    "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x006B3320",
+     "length": 224
+    },
     {
      "va": "0x006B4FD0",
      "length": 1359
