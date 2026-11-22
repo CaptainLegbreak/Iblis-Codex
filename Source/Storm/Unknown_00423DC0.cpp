@@ -264,7 +264,7 @@ static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, uns
     a.SetCount(i);
 }
 
-static __declspec(noinline) void SetZero(BigBuffer& a);
+static void SetZero(BigBuffer& a);
 // 0x00422CC0
 static void SetZero(BigBuffer& a)
 {

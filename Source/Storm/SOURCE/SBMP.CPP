@@ -173,7 +173,7 @@ static void __stdcall FlipImage(unsigned char* pDst, int nRows, const unsigned c
 
 static int __stdcall DecodeBmpMem(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
 
-static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppOutput);
+static void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppOutput);
 
 static void __fastcall Output(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode);
 
@@ -181,7 +181,7 @@ static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pSta
 
 static const char* sub_006C5EE0_FindExtension(const char* szPath);
 
-static __declspec(noinline) int sub_006C5F40_GetImageType(unsigned short signature);
+static int sub_006C5F40_GetImageType(unsigned short signature);
 
 static void __stdcall UncompressPcxImage(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, int nSrcSize, int nWidth, int nBytesPerLine, int nPlanes);
 
@@ -189,7 +189,7 @@ static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pW
 
 static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
 
-__declspec(noinline) int __stdcall SBmpDecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
+int __stdcall SBmpDecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
 
 static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
 
@@ -197,7 +197,7 @@ static int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHea
 
 static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
 
-static __declspec(noinline) unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows);
+static unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows);
 
 
 

@@ -294,7 +294,7 @@ struct D2StormTSListStrc
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
-static __declspec(noinline) void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
+static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);
 
 // build: symbol ??4BigBuffer@@QAEAAU0@ABU0@@Z 0x004221B0
 // 0x00421EA0
@@ -392,7 +392,7 @@ void BigBuffer::sub_00422080_TrimToStart()
 }
 
 // 0x00422710
-static __declspec(noinline) int IsOdd(BigBuffer* pQueue)
+static int IsOdd(BigBuffer* pQueue)
 {
     pQueue->sub_00422140_Trim();
     if (pQueue->Count() >= 1 && ((*pQueue)[0] & 1))
@@ -437,7 +437,7 @@ static void EncodeDataBytes(D2StormArrayBStrc* pArray, unsigned int nValue) // 0
     pArray->Push(0xFF);
 }
 
-static __declspec(noinline) void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x004235F0
+static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x004235F0
 {
     pOut->f_4 = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
@@ -614,7 +614,7 @@ static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsign
     }
 }
 
-static __declspec(noinline) void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData) // 0x004234F0
+static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData) // 0x004234F0
 {
     unsigned int nOffset;
     unsigned int nLength;

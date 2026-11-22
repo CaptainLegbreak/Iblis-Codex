@@ -126,7 +126,7 @@ static void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, uns
 }
 
 // 0x00422570
-static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b)
+static int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b)
 {
     a.sub_00422140_Trim();
     if (a.Count() > 1)
@@ -141,7 +141,7 @@ static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(BigBuffer& a,
 void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c); // 0x004225C0
 
 // 0x00422750
-static __declspec(noinline) int IsOne(BigBuffer& a)
+static int IsOne(BigBuffer& a)
 {
     a.sub_00422140_Trim();
     const BigBuffer& tRead = a;
@@ -149,7 +149,7 @@ static __declspec(noinline) int IsOne(BigBuffer& a)
 }
 
 // 0x00422780
-static __declspec(noinline) int IsZero(BigBuffer& a)
+static int IsZero(BigBuffer& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;
@@ -187,7 +187,7 @@ static void SetOne(BigBuffer& a)
 }
 
 // 0x00422CC0
-static __declspec(noinline) void SetZero(BigBuffer& a)
+static void SetZero(BigBuffer& a)
 {
     a.SetCount(0);
 }
@@ -473,7 +473,7 @@ static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tS
 }
 
 // 0x004245F0
-static __declspec(noinline) void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
+static void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
 {
     BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
     sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);

@@ -95,7 +95,7 @@ struct BigStack
 };
 
 // 0x00420EB0
-static __declspec(noinline) unsigned int __stdcall sub_00420EB0_AddWithCarry(unsigned __int64 nValue, unsigned __int64* pAccumulator)
+static unsigned int __stdcall sub_00420EB0_AddWithCarry(unsigned __int64 nValue, unsigned __int64* pAccumulator)
 {
     *pAccumulator += nValue;
     const unsigned __int64 nCarry = *pAccumulator < nValue ? 1ui64 : 0ui64;
