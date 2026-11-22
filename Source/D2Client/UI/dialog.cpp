@@ -182,13 +182,25 @@ static int gnGlobal_007C0E58; // 0x007C0E58
 static int gnGlobal_007C0E5C; // 0x007C0E5C
 
 extern const char* gaszDialogCels_007274AC[]; // 0x007274AC
+
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+
+
+static int sub_004B7180_FindDialogItem(D2ClientDialogStrc* pDialog, SMSGHANDLER_PARAMS* pMsg);
+
+static int __stdcall sub_004B7200_UpdateHoverItem(SMSGHANDLER_PARAMS* pMsg, D2ClientDialogStrc* pDialog);
+
+void __stdcall sub_004B72E0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
+
+void __stdcall sub_004B73E0_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
 
 // 0x004B7150
 static inline void sub_004B7150_HoverFirstTypedItem(D2ClientDialogStrc* pDialog)
@@ -203,6 +215,7 @@ static inline void sub_004B7150_HoverFirstTypedItem(D2ClientDialogStrc* pDialog)
     }
 }
 
+// 0x004B7180
 static int sub_004B7180_FindDialogItem(D2ClientDialogStrc* pDialog, SMSGHANDLER_PARAMS* pMsg)
 {
     if (pDialog)
@@ -667,7 +680,6 @@ void __cdecl sub_004B7C60()
         }
     }
 }
-
 
 // 0x004B7CD0
 D2ClientDialogStrc* __fastcall sub_004B7CD0_CreateDialogFromFile(int nArg1, int nArg2, int nArg8, int nArgC, int nType, int nArg14)

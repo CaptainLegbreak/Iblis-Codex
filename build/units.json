@@ -29632,12 +29632,16 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B7180.cpp",
+   "file": "Source/D2Client/Unknown_004B8100.cpp",
    "rank": 1,
    "functions": [
     {
-     "va": "0x004B7180",
-     "length": 125
+     "va": "0x004B8100",
+     "length": 488
+    },
+    {
+     "va": "0x004B9A00",
+     "length": 277
     }
    ],
    "flags": [
@@ -29677,6 +29681,10 @@
      "va": "0x004B7150",
      "length": 40,
      "name": "?sub_004B7150_HoverFirstTypedItem@@YAXPAUD2ClientDialogStrc@@@Z"
+    },
+    {
+     "va": "0x004B7180",
+     "length": 125
     },
     {
      "va": "0x004B7200",
@@ -29782,34 +29790,6 @@
      "length": 222,
      "name": "?sub_004B8020@@YIXPAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B8100.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B8100",
-     "length": 488
-    },
-    {
-     "va": "0x004B9A00",
-     "length": 277
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
