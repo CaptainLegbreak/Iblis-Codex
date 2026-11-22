@@ -66142,16 +66142,6 @@
      "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
     },
     {
-     "va": "0x005DB150",
-     "length": 101,
-     "name": "SKILLS_AuraCallback_InnerSight_SlowMissiles"
-    },
-    {
-     "va": "0x005DB1C0",
-     "length": 261,
-     "name": "SKILLS_SrvDo006_InnerSight_SlowMissiles"
-    },
-    {
      "va": "0x005DB6D0",
      "length": 380,
      "name": "SKILLS_SrvDo010_GuidedArrow_BoneSpirit"
@@ -66446,6 +66436,16 @@
      "va": "0x005DB020",
      "length": 295,
      "name": "?SKILLS_SrvSt10_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DB150",
+     "length": 101,
+     "name": "SKILLS_AuraCallback_InnerSight_SlowMissiles"
+    },
+    {
+     "va": "0x005DB1C0",
+     "length": 261,
+     "name": "SKILLS_SrvDo006_InnerSight_SlowMissiles"
     },
     {
      "va": "0x005DB2D0",
