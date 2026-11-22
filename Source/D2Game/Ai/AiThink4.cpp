@@ -625,7 +625,7 @@ D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkill
 enum D2C_ShadowMasterConstants
 {
     COLLIDE_MISSILE_BARRIER = 4,
-    SKILLSFLAGINDEX_AURA = 2,
+    SKILLSFLAGINDEX_PROGRESSIVE = 2,
 
     ELEMTYPE_NONE = 0,
     ELEMTYPE_FIRE = 1,
@@ -7232,7 +7232,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
                         nTemp += 10;
                     }
 
-                    if (pSkillsTxtRecord->nFlags[0] & gdwBitMasks[SKILLSFLAGINDEX_AURA])
+                    if (pSkillsTxtRecord->nFlags[0] & gdwBitMasks[SKILLSFLAGINDEX_PROGRESSIVE])
                     {
                         if (D2StatListStrc* pStatList = GetAuraStateStatList(pUnit, pSkillsTxtRecord))
                         {
@@ -7416,7 +7416,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
                         nTemp += 10;
                     }
 
-                    if (pSkillsTxtRecord->nFlags[0] & gdwBitMasks[SKILLSFLAGINDEX_AURA])
+                    if (pSkillsTxtRecord->nFlags[0] & gdwBitMasks[SKILLSFLAGINDEX_PROGRESSIVE])
                     {
                         if (D2StatListStrc* pStatList = GetAuraStateStatList(pUnit, pSkillsTxtRecord))
                         {
