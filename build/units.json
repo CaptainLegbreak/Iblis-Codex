@@ -63846,6 +63846,11 @@
      "name": "?AITHINK_Fn068_VileMother@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005FA380",
+     "length": 781,
+     "name": "?AITHINK_Fn070_FingerMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005FA710",
      "length": 893
     },
@@ -68360,17 +68365,6 @@
      "va": "0x005FA280",
      "length": 253,
      "name": "?AITHINK_Fn069_VileDog@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005FA380.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FA380",
-     "length": 781,
-     "name": "?AITHINK_Fn070_FingerMage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },

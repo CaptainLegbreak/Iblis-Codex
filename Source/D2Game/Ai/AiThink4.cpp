@@ -1641,6 +1641,18 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, 
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Mephisto(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F7700
 
+enum D2C_M422FingerMageAi
+{
+    FINGERMAGE_AI_PARAM_ATTACK_CHANCE_PCT = 0,
+    FINGERMAGE_AI_PARAM_CAST_CHANCE_PCT = 1,
+    FINGERMAGE_AI_PARAM_FLEE_LIFE_PCT = 2,
+    FINGERMAGE_AI_PARAM_ESCAPE_LIFE_PCT = 3,
+    FINGERMAGE_AI_PARAM_CAST_RANGE = 4,
+    FINGERMAGE_AI_PARAM_FLEE_TICKS = 5,
+    FINGERMAGE_AI_PARAM_APPROACH_RANGE = 6,
+    FINGERMAGE_AI_PARAM_IDLE_FRAMES = 7,
+};
+
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -13994,6 +14006,117 @@ void __fastcall AITHINK_Fn068_VileMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+}
+
+// 0x005FA380
+void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    const int nLifePercentage = UNITS_GetCurrentLifePercentage(pUnit);
+    int nVel = 0;
+
+    if (pMonStatsTxt->nVelocity > 0)
+    {
+        const int nExcess = 100 * pMonStatsTxt->nRun / pMonStatsTxt->nVelocity - 100;
+        nVel = nExcess > 0 ? nExcess : 0;
+        if (nVel >= 120)
+        {
+            nVel = 120;
+        }
+    }
+
+    if (sub_6FCF2E70(pUnit))
+    {
+        pAiControl->dwAiParam[0] = 0;
+
+        if (bCombat)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[0] >= 0 && nDistance < AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_CAST_RANGE))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+    }
+
+    if (pAiControl->dwAiParam[0] == 1)
+    {
+        ++pAiControl->dwAiParam[1];
+
+        if (nLifePercentage > AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_FLEE_LIFE_PCT) || (int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < 25 || pAiControl->dwAiParam[1] > AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_FLEE_TICKS))
+        {
+            pAiControl->dwAiParam[0] = 0;
+        }
+        else if (nDistance < 14)
+        {
+            sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+        return;
+    }
+
+    if (!AIGENERAL_GetMinionOwner(pUnit) && nLifePercentage < AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_ESCAPE_LIFE_PCT))
+    {
+        pAiControl->dwAiParam[0] = 1;
+        pAiControl->dwAiParam[1] = 0;
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 9, 0);
+        return;
+    }
+
+    if (bCombat)
+    {
+        if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[0] >= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_CAST_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+
+        sub_005DF7D0(pGame, pUnit, pTarget, MONMODE_ATTACK2, 0);
+        return;
+    }
+
+    if (nDistance < AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_CAST_RANGE))
+    {
+        if (pMonStatsTxt->nSkill[0] >= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_CAST_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+
+        if (STATES_CheckState(pTarget, STATE_FINGERMAGECURSE))
+        {
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_IDLE_FRAMES));
+        return;
+    }
+
+    if (nDistance >= AI_PARAM(pGame, pMonStatsTxt, FINGERMAGE_AI_PARAM_APPROACH_RANGE))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+        return;
+    }
+
+    AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 
 // 0x005FA710
