@@ -5974,6 +5974,10 @@
      "va": "0x0041C9C0",
      "length": 78,
      "name": "?sub_0041C9C0_DeleteAll@D2StormList00708420Strc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041D110",
+     "length": 68
     }
    ]
   },
@@ -6804,16 +6808,6 @@
     {
      "va": "0x0041CAF0",
      "length": 1216
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SERR_0041D110.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041D110",
-     "length": 68
     }
    ]
   },
