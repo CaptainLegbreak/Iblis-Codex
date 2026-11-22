@@ -1,17 +1,55 @@
+#include "D2ObjModes.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
-#include "D2Drlg.h"
-#include "D2QuestData.h"
-#include "D2GameObjs.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
+#include "D2Drlg.h"
+#include "D2GameObjs.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+#define EVENTTYPE_ENDANIM 1
+
+#define QUEST_A3Q3_GIDBINN 17
+
+#define QFLAG_REWARDGRANTED 0
+
+#define QFLAG_PRIMARYGOALDONE 13
+
+#define QFLAG_COMPLETEDNOW 14
+
+#define QFLAG_COMPLETEDBEFORE 15
+
+struct D2Act3Quest2Strc;
+
+union D2SeedStrc;
 
 struct D2PlayerDataStrc;
+
+typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
+
+D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
+
+D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
+
+void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam);
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitId); // 0x00552F60
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+
+D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
+
+int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2Act3Quest3Strc;
 
@@ -29,7 +67,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -45,8 +82,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern char gpAct3Q3NpcMessages[]; // 0x0073FB98
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
-D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 
@@ -64,10 +99,7 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 
-D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
-
 D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
-
 
 D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(void* pAct, int a2, int a3); // 0x00619DA0
 
@@ -75,19 +107,11 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
-
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
-
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
@@ -127,22 +151,9 @@ int __fastcall ACT3Q3_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 
 void __fastcall ACT3Q3_UnitIterate_SetGidbinnBroughtBackQuestState(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B91B0
 
-
-
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
-
-
-
-
-
-
 bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc*, D2QuestDataStrc*); // 0x005B9A30
-
-static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-}
 
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
@@ -150,30 +161,54 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
-#define UNIT_OBJECT 2
+// 0x005B85E0
+void __fastcall sub_005B85E0_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bSewerStairsInitialized == 1)
+    {
+        D2UnitStrc* pFoundUnit = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSewerStairsObjectGUID);
+        if (!pFoundUnit)
+        {
+            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
+            return;
+        }
 
-#define EVENTTYPE_ENDANIM 1
+        UNITS_ChangeAnimMode(pFoundUnit, pQuestDataEx->nSewerStairsObjectMode);
+        if (pQuestDataEx->nSewerStairsObjectMode != OBJMODE_OPENED)
+        {
+            pQuestDataEx->nSewerStairsObjectMode = OBJMODE_OPENED;
+            const int nClassId = pFoundUnit->dwClassId;
+            D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
+            sub_005417D0_DirectDated(pQuestData->pGame, pFoundUnit, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pQuestData->pGame->dwGameFrame, 0, 0);
+        }
+    }
+}
 
-#define QUEST_A3Q3_GIDBINN 17
-
-#define QFLAG_REWARDGRANTED 0
-
-#define QFLAG_PRIMARYGOALDONE 13
-
-#define QFLAG_COMPLETEDNOW 14
-
-#define QFLAG_COMPLETEDBEFORE 15
-
-struct D2Act3Quest2Strc;
-
-union D2SeedStrc;
-
-void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
+static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
 
 // 0x005B8750
 int __fastcall sub_005B8750_LacksKhalimFlail(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     return ITEMS_FindQuestItem(pGame, pUnit, ' 2fq') == 0;
+}
+
+// 0x005B8BF0
+int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_REWARDGRANTED) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_COMPLETEDBEFORE)
+        || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_PRIMARYGOALDONE)
+        || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, QFLAG_COMPLETEDNOW))
+    {
+        QUESTS_StatusCyclerEx(pGame, pUnit, QUEST_A3Q3_GIDBINN);
+    }
+
+    return 0;
 }
 
 // 0x005B9090
@@ -645,10 +680,6 @@ void __fastcall sub_005B9C80_ClearBossSpawned(D2QuestDataStrc* pQuestData, D2Uni
         pQuestDataEx->bBossHasSpawned = 0;
     }
 }
-
-void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam);
-
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitId);                 // 0x00552F60
 
 // 0x005B9CD0
 void __fastcall ACT3Q3_SetAltarMode(D2GameStrc* pGame)
