@@ -1,23 +1,59 @@
+#include "SValidate.h"
 #include "Storm.h"
-extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
-extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* szSubKey, unsigned long nReserved, char* szClass, unsigned long nOptions, unsigned long samDesired, void* pSecurity, void** phkResult, unsigned long* pDisposition); // 0x006CC004
-extern "C" __declspec(dllimport) long __stdcall RegDeleteValueA(void* hKey, const char* szValueName); // 0x006CC018
-extern "C" __declspec(dllimport) long __stdcall RegFlushKey(void* hKey); // 0x006CC008
-extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult); // 0x006CC010
-extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, const char* szValueName, unsigned long* lpReserved, unsigned long* lpType, unsigned char* lpData, unsigned long* lpcbData); // 0x006CC00C
-int __stdcall SRegGetBaseKey(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
-extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
+
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMaxLength); // 0x004135D0
+
+extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
+
+extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* szSubKey, unsigned long nReserved, char* szClass, unsigned long nOptions, unsigned long samDesired, void* pSecurity, void** phkResult, unsigned long* pDisposition); // 0x006CC004
+
+extern "C" __declspec(dllimport) long __stdcall RegDeleteValueA(void* hKey, const char* szValueName); // 0x006CC018
+
+extern "C" __declspec(dllimport) long __stdcall RegFlushKey(void* hKey); // 0x006CC008
+
+extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult); // 0x006CC010
+
+extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, const char* szValueName, unsigned long* lpReserved, unsigned long* lpType, unsigned char* lpData, unsigned long* lpcbData); // 0x006CC00C
+
+int __stdcall SRegGetBaseKey(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
+
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+
+extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
+
 extern "C" const char gszEmptyString_006CC837; // 0x006CC837
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
+
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
+
 extern "C" const char gszFmtUnsigned_006CEF68[]; // 0x006CEF68
+
 static int __stdcall sub_00414B00_SRegLoadEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData);
+
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned char* pData, unsigned long nSize, unsigned long* pcbData);
+
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize);
+
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue);
+
+// 0x00414930
+int __stdcall SRegGetBaseKey(unsigned int nFlags, char* szDest, unsigned int nMaxLength)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szDest);
+    VALIDATE(nMaxLength);
+    VALIDATEEND;
+    if (nFlags & 2)
+        SStrCopy(szDest, "Software\\Battle.net\\", nMaxLength);
+    else
+        SStrCopy(szDest, "Software\\Blizzard Entertainment\\", nMaxLength);
+    return nValid ? 1 : 0;
+}
 
 // 0x00414990
 int __fastcall InternalDeleteEntry(unsigned int nFlags, const char* szKeyName, const char* szValueName)
@@ -171,6 +207,18 @@ static int __stdcall InternalSaveEntry(const char* szKeyName, const char* szValu
     return 0;
 }
 
+// 0x00414D90
+int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szKeyName);
+    VALIDATE(*szKeyName);
+    VALIDATE(szValueName);
+    VALIDATE(*szValueName);
+    VALIDATEEND;
+    return InternalDeleteEntry(nFlags, szKeyName, szValueName);
+}
+
 // 0x00414DE0
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned char* pData, unsigned long nSize, unsigned long* pcbData)
 {
@@ -295,16 +343,4 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
     VALIDATE(*szValueName);
     VALIDATEEND;
     return InternalSaveEntry(szKeyName, szValueName, nFlags, 4, (const unsigned char*)&dwValue, 4);
-}
-
-// 0x00414D90
-int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags)
-{
-    VALIDATEBEGIN;
-    VALIDATE(szKeyName);
-    VALIDATE(*szKeyName);
-    VALIDATE(szValueName);
-    VALIDATE(*szValueName);
-    VALIDATEEND;
-    return InternalDeleteEntry(nFlags, szKeyName, szValueName);
 }

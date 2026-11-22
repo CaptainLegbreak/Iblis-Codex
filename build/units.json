@@ -3916,6 +3916,11 @@
      "name": "?SFileGetLocale@@YGGXZ"
     },
     {
+     "va": "0x00416700",
+     "length": 15,
+     "name": "SFileSetPlatform"
+    },
+    {
      "va": "0x00416710",
      "length": 54,
      "name": "?SFileUnloadFile@@YGHPAX@Z"
@@ -4226,6 +4231,11 @@
      "name": "?SFileDdaSetVolume@@YGHPAXHH@Z"
     },
     {
+     "va": "0x00418390",
+     "length": 92,
+     "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
+    },
+    {
      "va": "0x00418470",
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
@@ -4289,6 +4299,11 @@
      "va": "0x00418B50",
      "length": 46,
      "name": "?sub_00418B50@@YAHXZ"
+    },
+    {
+     "va": "0x00418B80",
+     "length": 24,
+     "name": "SFileFileExists"
     },
     {
      "va": "0x00418C60",
@@ -4371,6 +4386,16 @@
      "name": "?SFileLoadFileEx2@@YGHPAXPBDPAPAXPAIIH0H@Z"
     },
     {
+     "va": "0x0041B210",
+     "length": 112,
+     "name": "?sub_0041B210_FindWaveChunk@@YAHPAXIPAI@Z"
+    },
+    {
+     "va": "0x0041BEB0",
+     "length": 36,
+     "name": "sub_0041BEB0_FlushAndNotify"
+    },
+    {
      "va": "0x0041D410",
      "length": 4,
      "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
@@ -4440,6 +4465,20 @@
      "length": 6,
      "name": "sub_0042DC40"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -5274,6 +5313,20 @@
      "va": "0x0041BCA0",
      "length": 514
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -5736,6 +5789,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00414930",
+     "length": 87
+    },
+    {
      "va": "0x00414990",
      "length": 358
     },
@@ -5782,27 +5839,6 @@
      "length": 83,
      "name": "?SRegSaveValue@@YGHPBD0IK@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004144B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004144B0",
-     "length": 15,
-     "name": "_sub_004144B0_EnsureInit"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SREG_00414930.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00414930",
-     "length": 87
-    }
    ],
    "flags": [
     "/nologo",
@@ -5816,7 +5852,18 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/Ob1"
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_004144B0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004144B0",
+     "length": 15,
+     "name": "_sub_004144B0_EnsureInit"
+    }
    ]
   },
   {
@@ -5844,7 +5891,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -5872,28 +5920,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00416700.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00416700",
-     "length": 15,
-     "name": "SFileSetPlatform"
-    },
-    {
-     "va": "0x00418B80",
-     "length": 24,
-     "name": "SFileFileExists"
-    },
-    {
-     "va": "0x0041BEB0",
-     "length": 36,
-     "name": "sub_0041BEB0_FlushAndNotify"
-    }
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -5917,7 +5945,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6182,7 +6211,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6219,6 +6249,20 @@
      "length": 423,
      "name": "?SFileDestroy@@YAHXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6240,6 +6284,20 @@
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6260,17 +6318,20 @@
      "va": "0x00419180",
      "length": 364
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00418390.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00418390",
-     "length": 92,
-     "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
-    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6353,7 +6414,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6377,7 +6439,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6434,6 +6497,20 @@
      "length": 71,
      "name": "?SFilePrioritizeRequest@@YGXPAXH@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -6457,7 +6534,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6481,18 +6559,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_0041B210.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041B210",
-     "length": 112,
-     "name": "?sub_0041B210_FindWaveChunk@@YAHPAXIPAI@Z"
-    }
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6516,7 +6584,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6540,7 +6609,8 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
@@ -6571,43 +6641,6 @@
      "va": "0x0041D300",
      "length": 25,
      "name": "SMemZero"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/STORM_0041C0C0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041C0C0",
-     "length": 12,
-     "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/STORM.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041BEE0",
-     "length": 15,
-     "name": "?sub_0041BEE0_InitStorm@@YAXXZ"
-    },
-    {
-     "va": "0x0041BEF0",
-     "length": 9,
-     "name": "?StormGetInstance@@YAPAXXZ"
-    },
-    {
-     "va": "0x0041BF00",
-     "length": 180,
-     "name": "?StormSetOption@@YGHIPAXPAI@Z"
-    },
-    {
-     "va": "0x0041BFC0",
-     "length": 252,
-     "name": "?StormGetOption@@YGHIPBXI@Z"
     }
    ]
   },
@@ -6815,6 +6848,51 @@
      "length": 24,
      "name": "SBigSquare"
     }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/STORM.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041BEE0",
+     "length": 15,
+     "name": "?sub_0041BEE0_InitStorm@@YAXXZ"
+    },
+    {
+     "va": "0x0041BEF0",
+     "length": 9,
+     "name": "?StormGetInstance@@YAPAXXZ"
+    },
+    {
+     "va": "0x0041BF00",
+     "length": 180,
+     "name": "?StormSetOption@@YGHIPAXPAI@Z"
+    },
+    {
+     "va": "0x0041BFC0",
+     "length": 252,
+     "name": "?StormGetOption@@YGHIPBXI@Z"
+    },
+    {
+     "va": "0x0041C0C0",
+     "length": 12,
+     "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -7423,7 +7501,26 @@
      "va": "0x00420190",
      "length": 133,
      "name": "?SLogWrite@@YAXPAXPBDZZ"
+    },
+    {
+     "va": "0x00420220",
+     "length": 111,
+     "name": "?SLogDestroy@@YAXXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -7617,17 +7714,6 @@
      "va": "0x00420F00",
      "length": 44,
      "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SLOG_00420220.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00420220",
-     "length": 111,
-     "name": "?SLogDestroy@@YAXXZ"
     }
    ]
   },
@@ -10873,6 +10959,11 @@
      "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
     },
     {
+     "va": "0x00445300",
+     "length": 165,
+     "name": "COMCALLBACK_LoadLevelRestriction"
+    },
+    {
      "va": "0x004453B0",
      "length": 379,
      "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
@@ -10888,9 +10979,24 @@
      "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
     },
     {
+     "va": "0x00446780",
+     "length": 67,
+     "name": "?COMCALLBACK_OpenJoinScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004467D0",
+     "length": 57,
+     "name": "?COMCALLBACK_OpenCreateScreen@@YGHH@Z"
+    },
+    {
      "va": "0x004468F0",
      "length": 91,
      "name": "?COMCALLBACK_SendChatLine@@YGHH@Z"
+    },
+    {
+     "va": "0x00446950",
+     "length": 18,
+     "name": "?COMCALLBACK_OnChatPanelClick@@YGHH@Z"
     },
     {
      "va": "0x00446970",
@@ -10907,6 +11013,64 @@
      "length": 300
     },
     {
+     "va": "0x00446CA0",
+     "length": 79,
+     "name": "?COMCALLBACK_PlayTempSmack@@YAHXZ"
+    },
+    {
+     "va": "0x00446D00",
+     "length": 19,
+     "name": "?COMCALLBACK_SetText@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00446D20",
+     "length": 8,
+     "name": "?COMCALLBACK_IgnoreChatEvent@@YGHHH@Z"
+    },
+    {
+     "va": "0x00446D30",
+     "length": 46
+    },
+    {
+     "va": "0x00446D60",
+     "length": 46,
+     "name": "?sub_00446D60_Classify@@YAHH@Z"
+    },
+    {
+     "va": "0x00446D90",
+     "length": 1042
+    },
+    {
+     "va": "0x004471B0",
+     "length": 478,
+     "name": "?COMCALLBACK_UpdateUserText@@YAXPAUD2ChannelUserStrc@@@Z"
+    },
+    {
+     "va": "0x00447390",
+     "length": 89,
+     "name": "?COMCALLBACK_CompareNames@@YAHPBD0@Z"
+    },
+    {
+     "va": "0x00447400",
+     "length": 342,
+     "name": "COMCALLBACK_SetNamedValue"
+    },
+    {
+     "va": "0x00447560",
+     "length": 395,
+     "name": "COMCALLBACK_SplitName"
+    },
+    {
+     "va": "0x00447740",
+     "length": 86,
+     "name": "?COMCALLBACK_DispatchMessage@@YAHPAUD2LaunchMsgStrc@@@Z"
+    },
+    {
+     "va": "0x004477A0",
+     "length": 207,
+     "name": "?COMCALLBACK_RefreshChatButtons@@YAXXZ"
+    },
+    {
      "va": "0x00447870",
      "length": 202,
      "name": "?COMCALLBACK_AppendNumberText@@YIXPAUUnicode@@H@Z"
@@ -10917,14 +11081,61 @@
      "name": "?COMCALLBACK_PrependNumberText@@YIXPAUUnicode@@H@Z"
     },
     {
+     "va": "0x00447A10",
+     "length": 124,
+     "name": "?COMCALLBACK_PumpMessages@@YAHXZ"
+    },
+    {
+     "va": "0x00447A90",
+     "length": 18,
+     "name": "?COMCALLBACK_OnActivate@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00447AB0",
+     "length": 79,
+     "name": "?COMCALLBACK_AddChatLine@@YGHPBDH@Z"
+    },
+    {
+     "va": "0x00447B00",
+     "length": 161,
+     "name": "?COMCALLBACK_PrintChannelLine@@YGXPBDH0H@Z"
+    },
+    {
+     "va": "0x00447BB0",
+     "length": 1050
+    },
+    {
+     "va": "0x00447FD0",
+     "length": 122
+    },
+    {
      "va": "0x00448050",
      "length": 123,
      "name": "?COMCALLBACK_ClearSelectedUser@@YAXXZ"
     },
     {
+     "va": "0x004480D0",
+     "length": 113
+    },
+    {
      "va": "0x00448150",
      "length": 81,
      "name": "?COMCALLBACK_PrintNormalText@@YGHHPBD@Z"
+    },
+    {
+     "va": "0x004481B0",
+     "length": 55,
+     "name": "?COMCALLBACK_PrintNamedLine@@YGXPBDH0H@Z"
+    },
+    {
+     "va": "0x004481F0",
+     "length": 377,
+     "name": "?COMCALLBACK_PrintOwnLine@@YIXPBD@Z"
+    },
+    {
+     "va": "0x00448370",
+     "length": 367,
+     "name": "?COMCALLBACK_OnChannelTalk@@YGHPBD0@Z"
     },
     {
      "va": "0x004484E0",
@@ -10947,6 +11158,26 @@
      "name": "?COMCALLBACK_OnChannelRestricted@@YGHHPBD@Z"
     },
     {
+     "va": "0x00448680",
+     "length": 102,
+     "name": "?COMCALLBACK_PrintEmote@@YAXPBD0@Z"
+    },
+    {
+     "va": "0x004486F0",
+     "length": 277,
+     "name": "?COMCALLBACK_OnEmote@@YGHPBD0@Z"
+    },
+    {
+     "va": "0x00448810",
+     "length": 262,
+     "name": "?COMCALLBACK_FormatWhisperReply@@YGXPBD00@Z"
+    },
+    {
+     "va": "0x00448920",
+     "length": 305,
+     "name": "?COMCALLBACK_OnWhisper@@YGHPBD0@Z"
+    },
+    {
      "va": "0x00448A60",
      "length": 102,
      "name": "?COMCALLBACK_PrintWhisperSent@@YAXPBD0@Z"
@@ -10957,6 +11188,10 @@
      "name": "?COMCALLBACK_OnWhisperSent@@YGHPBD0@Z"
     },
     {
+     "va": "0x00448C70",
+     "length": 444
+    },
+    {
      "va": "0x00448E30",
      "length": 299,
      "name": "?COMCALLBACK_SquelchSelectedUser@@YGHH@Z"
@@ -10965,6 +11200,90 @@
      "va": "0x00448F60",
      "length": 240,
      "name": "?COMCALLBACK_UnsquelchSelectedUser@@YGHH@Z"
+    },
+    {
+     "va": "0x00449050",
+     "length": 712
+    },
+    {
+     "va": "0x00449320",
+     "length": 9,
+     "name": "?COMCALLBACK_AddEntry@@YAPAXPBDHH@Z"
+    },
+    {
+     "va": "0x00449350",
+     "length": 102,
+     "name": "?COMCALLBACK_ShowUserJoined@@YAXPBDHH@Z"
+    },
+    {
+     "va": "0x004493C0",
+     "length": 27,
+     "name": "?COMCALLBACK_OnUserJoin@@YIHHHPBDH@Z"
+    },
+    {
+     "va": "0x004493E0",
+     "length": 446,
+     "name": "?COMCALLBACK_RemoveChannelUser@@YGXPBD@Z"
+    },
+    {
+     "va": "0x004495A0",
+     "length": 235,
+     "name": "?COMCALLBACK_ClearChannel@@YAXXZ"
+    },
+    {
+     "va": "0x00449690",
+     "length": 21,
+     "name": "COMCALLBACK_OnUserLeave"
+    },
+    {
+     "va": "0x004496B0",
+     "length": 262,
+     "name": "?COMCALLBACK_OnJoinChannel@@YIHHHHPBD@Z"
+    },
+    {
+     "va": "0x004497C0",
+     "length": 11,
+     "name": "?COMCALLBACK_MapKeyChar@@YIHE@Z"
+    },
+    {
+     "va": "0x004497D0",
+     "length": 27,
+     "name": "?COMCALLBACK_HexToNibble@@YIHD@Z"
+    },
+    {
+     "va": "0x00449840",
+     "length": 18,
+     "name": "?COMCALLBACK_NibbleToHex@@YIII@Z"
+    },
+    {
+     "va": "0x00449860",
+     "length": 45,
+     "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
+    },
+    {
+     "va": "0x0044CCA0",
+     "length": 52,
+     "name": "COMCALLBACK_CountLevelThresholds"
+    },
+    {
+     "va": "0x004512C0",
+     "length": 97,
+     "name": "COMCALLBACK_LoadLngString"
+    },
+    {
+     "va": "0x00451450",
+     "length": 83,
+     "name": "COMCALLBACK_RecordMessage"
+    },
+    {
+     "va": "0x00451B30",
+     "length": 114,
+     "name": "COMCALLBACK_WindowProc"
+    },
+    {
+     "va": "0x00451DB0",
+     "length": 85,
+     "name": "COMCALLBACK_RegisterMsgHandlers"
     }
    ],
    "flags": [
@@ -13407,140 +13726,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ComCallback_00445300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00445300",
-     "length": 165,
-     "name": "COMCALLBACK_LoadLevelRestriction"
-    },
-    {
-     "va": "0x00446780",
-     "length": 67,
-     "name": "?COMCALLBACK_OpenJoinScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004467D0",
-     "length": 57,
-     "name": "?COMCALLBACK_OpenCreateScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00446950",
-     "length": 18,
-     "name": "?COMCALLBACK_OnChatPanelClick@@YGHH@Z"
-    },
-    {
-     "va": "0x00446CA0",
-     "length": 79,
-     "name": "?COMCALLBACK_PlayTempSmack@@YAHXZ"
-    },
-    {
-     "va": "0x00446D00",
-     "length": 19,
-     "name": "?COMCALLBACK_SetText@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00446D20",
-     "length": 8,
-     "name": "?COMCALLBACK_IgnoreChatEvent@@YGHHH@Z"
-    },
-    {
-     "va": "0x00446D30",
-     "length": 46
-    },
-    {
-     "va": "0x00446D60",
-     "length": 46,
-     "name": "?sub_00446D60_Classify@@YAHH@Z"
-    },
-    {
-     "va": "0x00447390",
-     "length": 89,
-     "name": "?COMCALLBACK_CompareNames@@YAHPBD0@Z"
-    },
-    {
-     "va": "0x00447400",
-     "length": 342,
-     "name": "COMCALLBACK_SetNamedValue"
-    },
-    {
-     "va": "0x00447560",
-     "length": 395,
-     "name": "COMCALLBACK_SplitName"
-    },
-    {
-     "va": "0x004477A0",
-     "length": 207,
-     "name": "?COMCALLBACK_RefreshChatButtons@@YAXXZ"
-    },
-    {
-     "va": "0x00447A90",
-     "length": 18,
-     "name": "?COMCALLBACK_OnActivate@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00448C70",
-     "length": 444
-    },
-    {
-     "va": "0x00449320",
-     "length": 9,
-     "name": "?COMCALLBACK_AddEntry@@YAPAXPBDHH@Z"
-    },
-    {
-     "va": "0x00449690",
-     "length": 21,
-     "name": "COMCALLBACK_OnUserLeave"
-    },
-    {
-     "va": "0x004497C0",
-     "length": 11,
-     "name": "?COMCALLBACK_MapKeyChar@@YIHE@Z"
-    },
-    {
-     "va": "0x004497D0",
-     "length": 27,
-     "name": "?COMCALLBACK_HexToNibble@@YIHD@Z"
-    },
-    {
-     "va": "0x00449840",
-     "length": 18,
-     "name": "?COMCALLBACK_NibbleToHex@@YIII@Z"
-    },
-    {
-     "va": "0x00449860",
-     "length": 45,
-     "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0044CCA0",
-     "length": 52,
-     "name": "COMCALLBACK_CountLevelThresholds"
-    },
-    {
-     "va": "0x004512C0",
-     "length": 97,
-     "name": "COMCALLBACK_LoadLngString"
-    },
-    {
-     "va": "0x00451450",
-     "length": 83,
-     "name": "COMCALLBACK_RecordMessage"
-    },
-    {
-     "va": "0x00451B30",
-     "length": 114,
-     "name": "COMCALLBACK_WindowProc"
-    },
-    {
-     "va": "0x00451DB0",
-     "length": 85,
-     "name": "COMCALLBACK_RegisterMsgHandlers"
-    }
-   ]
-  },
-  {
    "file": "Source/D2MCPClient/Src/McpConnect.cpp",
    "rank": 0,
    "functions": [
@@ -13616,171 +13801,6 @@
      "va": "0x00446B30",
      "length": 62,
      "name": "?sub_00446B30_ShowText@@YIHHPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446D90",
-     "length": 1042
-    },
-    {
-     "va": "0x004471B0",
-     "length": 478,
-     "name": "?COMCALLBACK_UpdateUserText@@YAXPAUD2ChannelUserStrc@@@Z"
-    },
-    {
-     "va": "0x00447740",
-     "length": 86,
-     "name": "?COMCALLBACK_DispatchMessage@@YAHPAUD2LaunchMsgStrc@@@Z"
-    },
-    {
-     "va": "0x00447A10",
-     "length": 124,
-     "name": "?COMCALLBACK_PumpMessages@@YAHXZ"
-    },
-    {
-     "va": "0x00447AB0",
-     "length": 79,
-     "name": "?COMCALLBACK_AddChatLine@@YGHPBDH@Z"
-    },
-    {
-     "va": "0x00447BB0",
-     "length": 1050
-    },
-    {
-     "va": "0x00447FD0",
-     "length": 122
-    },
-    {
-     "va": "0x004480D0",
-     "length": 113
-    },
-    {
-     "va": "0x004481F0",
-     "length": 377,
-     "name": "?COMCALLBACK_PrintOwnLine@@YIXPBD@Z"
-    },
-    {
-     "va": "0x00449350",
-     "length": 102,
-     "name": "?COMCALLBACK_ShowUserJoined@@YAXPBDHH@Z"
-    },
-    {
-     "va": "0x004493C0",
-     "length": 27,
-     "name": "?COMCALLBACK_OnUserJoin@@YIHHHPBDH@Z"
-    },
-    {
-     "va": "0x004493E0",
-     "length": 446,
-     "name": "?COMCALLBACK_RemoveChannelUser@@YGXPBD@Z"
-    },
-    {
-     "va": "0x004495A0",
-     "length": 235,
-     "name": "?COMCALLBACK_ClearChannel@@YAXXZ"
-    },
-    {
-     "va": "0x004496B0",
-     "length": 262,
-     "name": "?COMCALLBACK_OnJoinChannel@@YIHHHHPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447B00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00447B00",
-     "length": 161,
-     "name": "?COMCALLBACK_PrintChannelLine@@YGXPBDH0H@Z"
-    },
-    {
-     "va": "0x004481B0",
-     "length": 55,
-     "name": "?COMCALLBACK_PrintNamedLine@@YGXPBDH0H@Z"
-    },
-    {
-     "va": "0x00448370",
-     "length": 367,
-     "name": "?COMCALLBACK_OnChannelTalk@@YGHPBD0@Z"
-    },
-    {
-     "va": "0x00448680",
-     "length": 102,
-     "name": "?COMCALLBACK_PrintEmote@@YAXPBD0@Z"
-    },
-    {
-     "va": "0x004486F0",
-     "length": 277,
-     "name": "?COMCALLBACK_OnEmote@@YGHPBD0@Z"
-    },
-    {
-     "va": "0x00448810",
-     "length": 262,
-     "name": "?COMCALLBACK_FormatWhisperReply@@YGXPBD00@Z"
-    },
-    {
-     "va": "0x00448920",
-     "length": 305,
-     "name": "?COMCALLBACK_OnWhisper@@YGHPBD0@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00449050.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00449050",
-     "length": 712
     }
    ],
    "flags": [
@@ -29916,118 +29936,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Sound/SoundInst.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BA020",
-     "length": 1852
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9EF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9EF0",
-     "length": 304,
-     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
-    },
-    {
-     "va": "0x004BA890",
-     "length": 92,
-     "name": "sub_004BA890_RefreshHintsById"
-    },
-    {
-     "va": "0x004BA950",
-     "length": 123,
-     "name": "sub_004BA950_RefreshHintsInRangeA"
-    },
-    {
-     "va": "0x004BA9D0",
-     "length": 126,
-     "name": "sub_004BA9D0_RefreshHintsInRangeB"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9B20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9610",
-     "length": 37,
-     "name": "?sub_004B9610@@YIPAXH@Z"
-    },
-    {
-     "va": "0x004B9B20",
-     "length": 37,
-     "name": "?sub_004B9B20@@YIHH@Z"
-    },
-    {
-     "va": "0x004B9B50",
-     "length": 37,
-     "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
-    },
-    {
-     "va": "0x004B9C20",
-     "length": 56,
-     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x004B9C60",
-     "length": 56,
-     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
-    },
-    {
-     "va": "0x004B9CA0",
-     "length": 37,
-     "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9D50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9D50",
-     "length": 76,
-     "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
-    },
-    {
-     "va": "0x004BA840",
-     "length": 78,
-     "name": "?sub_004BA840@@YIXH@Z"
-    },
-    {
-     "va": "0x004BA8F0",
-     "length": 94,
-     "name": "?sub_004BA8F0@@YAXXZ"
-    },
-    {
-     "va": "0x004BAA50",
-     "length": 86,
-     "name": "?sub_004BAA50_RefreshHintRange@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004BA760.cpp",
    "rank": 0,
    "functions": [
@@ -30061,6 +29969,92 @@
      "va": "0x004BAAB0",
      "length": 267,
      "name": "?sub_004BAAB0_RefreshGroupTimers@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Sound/SoundInst.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9610",
+     "length": 37,
+     "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
+     "va": "0x004B9B20",
+     "length": 37,
+     "name": "?sub_004B9B20@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9C20",
+     "length": 56,
+     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x004B9C60",
+     "length": 56,
+     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
+    },
+    {
+     "va": "0x004B9CA0",
+     "length": 37,
+     "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9D50",
+     "length": 76,
+     "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9EF0",
+     "length": 304,
+     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
+    },
+    {
+     "va": "0x004BA020",
+     "length": 1852
+    },
+    {
+     "va": "0x004BA840",
+     "length": 78,
+     "name": "?sub_004BA840@@YIXH@Z"
+    },
+    {
+     "va": "0x004BA890",
+     "length": 92,
+     "name": "sub_004BA890_RefreshHintsById"
+    },
+    {
+     "va": "0x004BA8F0",
+     "length": 94,
+     "name": "?sub_004BA8F0@@YAXXZ"
+    },
+    {
+     "va": "0x004BA950",
+     "length": 123,
+     "name": "sub_004BA950_RefreshHintsInRangeA"
+    },
+    {
+     "va": "0x004BA9D0",
+     "length": 126,
+     "name": "sub_004BA9D0_RefreshHintsInRangeB"
+    },
+    {
+     "va": "0x004BAA50",
+     "length": 86,
+     "name": "?sub_004BAA50_RefreshHintRange@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Sound/SoundInst_004B9B50.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B9B50",
+     "length": 37,
+     "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
     }
    ]
   },
@@ -31252,9 +31246,23 @@
      "name": "ITEM_DrawPanelUnit"
     },
     {
+     "va": "0x004C0D20",
+     "length": 410
+    },
+    {
      "va": "0x004C0EC0",
      "length": 83,
      "name": "ITEM_UpdateItemLink"
+    },
+    {
+     "va": "0x004C0F20",
+     "length": 195,
+     "name": "?ITEM_CreateWorldItem@@YGPAUD2UnitStrc@@GGHPAUD2ItemPacket9CStrc@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C0FF0",
+     "length": 195,
+     "name": "?sub_004C0FF0_CreateOwnedItem@@YGPAUD2UnitStrc@@GGHPAUD2ItemPacket9DStrc@@PAUD2ItemSaveStrc@@@Z"
     },
     {
      "va": "0x004C10C0",
@@ -31267,9 +31275,28 @@
      "name": "?ITEMMODE_CheckEquipRequirements@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x004C1160",
+     "length": 158,
+     "name": "?ITEM_SaveSkillState@@YAXPAUD2SkillStateStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C1200",
+     "length": 137,
+     "name": "?ITEM_RestoreSkillState@@YAXPAUD2UnitStrc@@PAUD2SkillStateStrc@@@Z"
+    },
+    {
+     "va": "0x004C1290",
+     "length": 81,
+     "name": "?sub_004C1290_AttachItem@@YGXHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x004C12F0",
      "length": 95,
      "name": "?ITEM_ReattachItemComponent@@YGXHHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004C1350",
+     "length": 870
     },
     {
      "va": "0x004C16C0",
@@ -31277,9 +31304,23 @@
      "name": "?sub_004C16C0_RefreshUnitItems@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004C16D0",
+     "length": 273,
+     "name": "?ITEM_GetDropSoundAndDelay@@YAHPAUD2UnitStrc@@PAH@Z"
+    },
+    {
      "va": "0x004C17F0",
      "length": 184,
      "name": "?ITEM_ResolveItemUseSound@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C18B0",
+     "length": 86,
+     "name": "?ITEM_PlayDropSound@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C1910",
+     "length": 340
     },
     {
      "va": "0x004C1B80",
@@ -31292,9 +31333,34 @@
      "name": "?ITEM_RefreshUnitItemsFromPacket@@YIXPAUD2PacketRecord11Strc@@H@Z"
     },
     {
+     "va": "0x004C1BE0",
+     "length": 5,
+     "name": "?sub_004C1BE0_RefreshUnitItems@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C1BF0",
+     "length": 26,
+     "name": "?sub_004C1BF0@@YIXPAUD2PacketRecord11Strc@@@Z"
+    },
+    {
+     "va": "0x004C1C10",
+     "length": 10,
+     "name": "?ITEM_RefreshUnitEquipment@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C1C20",
+     "length": 33,
+     "name": "?ITEM_StoreHandWeaponClass@@YAXPAUD2UnitStrc@@E@Z"
+    },
+    {
      "va": "0x004C1C50",
      "length": 64,
      "name": "ITEM_PlaceBodyItem"
+    },
+    {
+     "va": "0x004C1C90",
+     "length": 195,
+     "name": "?ITEM_RemoveBodyItem@@YGXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004C1D60",
@@ -31312,6 +31378,15 @@
      "name": "?sub_004C1E30@@YAXXZ"
     },
     {
+     "va": "0x004C1E40",
+     "length": 236
+    },
+    {
+     "va": "0x004C1F30",
+     "length": 233,
+     "name": "?ITEM_UpdateItemStat@@YIXIEIIG@Z"
+    },
+    {
      "va": "0x004C2020",
      "length": 36,
      "name": "?ITEM_SetItemFlagFromPacket@@YIXPAUD2PacketRecord13Strc@@@Z"
@@ -31320,6 +31395,11 @@
      "va": "0x004C2050",
      "length": 91,
      "name": "?ITEM_ClearCursorItemFromPacket@@YIXPAUD2GSPacketSrv42Strc@@@Z"
+    },
+    {
+     "va": "0x004C20B0",
+     "length": 159,
+     "name": "?ITEM_HandleItemToCursor@@YIXPAUD2GSPacketSrv9C@@@Z"
     },
     {
      "va": "0x004C2150",
@@ -31337,6 +31417,10 @@
      "name": "?SKILLDESC_ToggleStateOffCallback@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x004C21F0",
+     "length": 80
+    },
+    {
      "va": "0x004C2240",
      "length": 42,
      "name": "?sub_004C2240@@YIHPAUD2UnitStrc@@@Z"
@@ -31347,14 +31431,71 @@
      "name": "?ITEM_HandleItemStatePacket@@YIXPAUD2GSPacketSrv7DStrc@@@Z"
     },
     {
+     "va": "0x004C2340",
+     "length": 158,
+     "name": "?ITEM_HandleOwnedItemToCursor@@YIXPAUD2GSPacketSrv9D@@@Z"
+    },
+    {
      "va": "0x004C23E0",
      "length": 333,
      "name": "?ITEM_RemoveEquippedItems@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004C2540",
+     "length": 103,
+     "name": "?sub_004C2540_PlaceItem@@YGXPAUD2UnitStrc@@GGHHE@Z"
+    },
+    {
+     "va": "0x004C25B0",
+     "length": 147,
+     "name": "?ITEM_HandleAddToGround@@YIXPAUD2ItemPacket9CStrc@@@Z"
+    },
+    {
+     "va": "0x004C2650",
+     "length": 156,
+     "name": "?ITEM_HandleGroundToCursor@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C26F0",
+     "length": 279,
+     "name": "?ITEM_HandleDropToGround@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C2810",
+     "length": 350,
+     "name": "?ITEM_HandleItemOnGround@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C2970",
+     "length": 339,
+     "name": "?sub_004C2970_PlaceItemAt@@YGXGEPAUD2UnitStrc@@0G@Z"
+    },
+    {
      "va": "0x004C2AD0",
      "length": 421,
      "name": "?ITEM_HandleItemToStorage@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C2C80",
+     "length": 519
+    },
+    {
+     "va": "0x004C2E90",
+     "length": 472,
+     "name": "?ITEM_HandleEquipItem@@YIXPAUD2GSPacketSrv9D@@@Z"
+    },
+    {
+     "va": "0x004C3070",
+     "length": 780
+    },
+    {
+     "va": "0x004C3380",
+     "length": 619
+    },
+    {
+     "va": "0x004C35F0",
+     "length": 366,
+     "name": "?ITEM_HandleItemToBody@@YGXPAUD2GSPacketSrv9D@@PAUD2ItemSaveStrc@@@Z"
     },
     {
      "va": "0x004C3760",
@@ -31367,6 +31508,16 @@
      "name": "?ITEM_HandleSwapBodyItem@@YIXPAUD2GSPacketSrv9D@@@Z"
     },
     {
+     "va": "0x004C3980",
+     "length": 377,
+     "name": "?ITEM_SwapBodyItem@@YGXPAUD2ItemSaveStrc@@PAUD2GSPacketSrv9D@@@Z"
+    },
+    {
+     "va": "0x004C3B00",
+     "length": 48,
+     "name": "?ITEM_HandleWeaponSwitch@@YIXPAUD2GSPacketSrv9D@@@Z"
+    },
+    {
      "va": "0x004C3B30",
      "length": 194,
      "name": "ITEM_UpdateItemFromPacket"
@@ -31377,9 +31528,69 @@
      "name": "?ITEM_HandleShopItem@@YIXPAUD2GSPacketSrv9C@@@Z"
     },
     {
+     "va": "0x004C3E00",
+     "length": 339,
+     "name": "?ITEM_CursorItemToBelt@@YAXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C3F60",
+     "length": 363,
+     "name": "?ITEM_BeltItemToCursor@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C40D0",
+     "length": 90,
+     "name": "?ITEM_HandleCursorBeltSwap@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C4130",
+     "length": 358,
+     "name": "?ITEM_HandlePutInBelt@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C42A0",
+     "length": 312,
+     "name": "?ITEM_HandleRemoveFromBelt@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C43E0",
+     "length": 236,
+     "name": "?ITEM_MoveItemToBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C44D0",
+     "length": 235,
+     "name": "?ITEM_MoveItemFromBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C45C0",
+     "length": 91,
+     "name": "?ITEM_HandleBeltSwap@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
      "va": "0x004C4620",
      "length": 273,
      "name": "?ITEM_HandleUseStackableItem@@YIXPAUD2PacketRecord8Strc@@@Z"
+    },
+    {
+     "va": "0x004C4740",
+     "length": 579,
+     "name": "?ITEM_HandleAutoUnequip@@YIXPAUD2GSPacketSrv9D@@@Z"
+    },
+    {
+     "va": "0x004C4990",
+     "length": 260,
+     "name": "?ITEM_HandleItemToSocket@@YIXPAUD2GSPacketSrv9D@@@Z"
+    },
+    {
+     "va": "0x004C4AA0",
+     "length": 458,
+     "name": "?ITEM_HandleGridItemToBody@@YIXPAUD2GSPacketSrv9D@@@Z"
+    },
+    {
+     "va": "0x004C4C70",
+     "length": 1338,
+     "name": "?ITEM_HandleBodyGridSwap@@YIPAUD2UnitStrc@@PAUD2GSPacketSrv9D@@@Z"
     },
     {
      "va": "0x004C51E0",
@@ -31701,72 +31912,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Item_004C0D20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C0D20",
-     "length": 410
-    },
-    {
-     "va": "0x004C1350",
-     "length": 870
-    },
-    {
-     "va": "0x004C1E40",
-     "length": 236
-    },
-    {
-     "va": "0x004C21F0",
-     "length": 80
-    },
-    {
-     "va": "0x004C2C80",
-     "length": 519
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C1BE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C1BE0",
-     "length": 5,
-     "name": "?sub_004C1BE0_RefreshUnitItems@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004C1BF0",
-     "length": 26,
-     "name": "?sub_004C1BF0@@YIXPAUD2PacketRecord11Strc@@@Z"
-    },
-    {
-     "va": "0x004C1C10",
-     "length": 10,
-     "name": "?ITEM_RefreshUnitEquipment@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004C1F30",
-     "length": 233,
-     "name": "?ITEM_UpdateItemStat@@YIXIEIIG@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004C51D0.cpp",
    "rank": 0,
    "functions": [
@@ -31779,189 +31924,6 @@
      "va": "0x004C53D0",
      "length": 73,
      "name": "?sub_004C53D0_ScaleDownDirection@@YIXPAH0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C1C90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C0F20",
-     "length": 195,
-     "name": "?ITEM_CreateWorldItem@@YGPAUD2UnitStrc@@GGHPAUD2ItemPacket9CStrc@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C0FF0",
-     "length": 195,
-     "name": "?sub_004C0FF0_CreateOwnedItem@@YGPAUD2UnitStrc@@GGHPAUD2ItemPacket9DStrc@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C1160",
-     "length": 158,
-     "name": "?ITEM_SaveSkillState@@YAXPAUD2SkillStateStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004C1200",
-     "length": 137,
-     "name": "?ITEM_RestoreSkillState@@YAXPAUD2UnitStrc@@PAUD2SkillStateStrc@@@Z"
-    },
-    {
-     "va": "0x004C1290",
-     "length": 81,
-     "name": "?sub_004C1290_AttachItem@@YGXHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004C16D0",
-     "length": 273,
-     "name": "?ITEM_GetDropSoundAndDelay@@YAHPAUD2UnitStrc@@PAH@Z"
-    },
-    {
-     "va": "0x004C18B0",
-     "length": 86,
-     "name": "?ITEM_PlayDropSound@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004C1910",
-     "length": 340
-    },
-    {
-     "va": "0x004C1C20",
-     "length": 33,
-     "name": "?ITEM_StoreHandWeaponClass@@YAXPAUD2UnitStrc@@E@Z"
-    },
-    {
-     "va": "0x004C1C90",
-     "length": 195,
-     "name": "?ITEM_RemoveBodyItem@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004C20B0",
-     "length": 159,
-     "name": "?ITEM_HandleItemToCursor@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C2340",
-     "length": 158,
-     "name": "?ITEM_HandleOwnedItemToCursor@@YIXPAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C2540",
-     "length": 103,
-     "name": "?sub_004C2540_PlaceItem@@YGXPAUD2UnitStrc@@GGHHE@Z"
-    },
-    {
-     "va": "0x004C25B0",
-     "length": 147,
-     "name": "?ITEM_HandleAddToGround@@YIXPAUD2ItemPacket9CStrc@@@Z"
-    },
-    {
-     "va": "0x004C2650",
-     "length": 156,
-     "name": "?ITEM_HandleGroundToCursor@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C26F0",
-     "length": 279,
-     "name": "?ITEM_HandleDropToGround@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C2810",
-     "length": 350,
-     "name": "?ITEM_HandleItemOnGround@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C2970",
-     "length": 339,
-     "name": "?sub_004C2970_PlaceItemAt@@YGXGEPAUD2UnitStrc@@0G@Z"
-    },
-    {
-     "va": "0x004C2E90",
-     "length": 472,
-     "name": "?ITEM_HandleEquipItem@@YIXPAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C3070",
-     "length": 780
-    },
-    {
-     "va": "0x004C3380",
-     "length": 619
-    },
-    {
-     "va": "0x004C35F0",
-     "length": 366,
-     "name": "?ITEM_HandleItemToBody@@YGXPAUD2GSPacketSrv9D@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C3980",
-     "length": 377,
-     "name": "?ITEM_SwapBodyItem@@YGXPAUD2ItemSaveStrc@@PAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C3B00",
-     "length": 48,
-     "name": "?ITEM_HandleWeaponSwitch@@YIXPAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C3E00",
-     "length": 339,
-     "name": "?ITEM_CursorItemToBelt@@YAXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C3F60",
-     "length": 363,
-     "name": "?ITEM_BeltItemToCursor@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C40D0",
-     "length": 90,
-     "name": "?ITEM_HandleCursorBeltSwap@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C4130",
-     "length": 358,
-     "name": "?ITEM_HandlePutInBelt@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C42A0",
-     "length": 312,
-     "name": "?ITEM_HandleRemoveFromBelt@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C43E0",
-     "length": 236,
-     "name": "?ITEM_MoveItemToBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C44D0",
-     "length": 235,
-     "name": "?ITEM_MoveItemFromBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C45C0",
-     "length": 91,
-     "name": "?ITEM_HandleBeltSwap@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C4740",
-     "length": 579,
-     "name": "?ITEM_HandleAutoUnequip@@YIXPAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C4990",
-     "length": 260,
-     "name": "?ITEM_HandleItemToSocket@@YIXPAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C4AA0",
-     "length": 458,
-     "name": "?ITEM_HandleGridItemToBody@@YIXPAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C4C70",
-     "length": 1338,
-     "name": "?ITEM_HandleBodyGridSwap@@YIPAUD2UnitStrc@@PAUD2GSPacketSrv9D@@@Z"
     }
    ]
   },
@@ -43721,6 +43683,10 @@
      "name": "sub_0051D810_SetCount"
     },
     {
+     "va": "0x0051D860",
+     "length": 459
+    },
+    {
      "va": "0x0051DA30",
      "length": 445
     },
@@ -43729,16 +43695,20 @@
      "length": 35,
      "name": "?BNNEWS_DecodeCDKey26Char@@YIHPBDPAX11@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNNews_0051D860.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051D860",
-     "length": 459
-    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -71255,11 +71225,6 @@
      "name": "STATLIST_SetSkillLevel"
     },
     {
-     "va": "0x00638CD0",
-     "length": 172,
-     "name": "?DATATBLS_CheckItemTypesEquivalenceNested@@YIHHH@Z"
-    },
-    {
      "va": "0x00640E90",
      "length": 72,
      "name": "DATATBLS_GetObjectsTxtRecord"
@@ -74965,6 +74930,10 @@
      "name": "DATATBLS_GetMagicAffixTxtRecord"
     },
     {
+     "va": "0x00633F40",
+     "length": 724
+    },
+    {
      "va": "0x00634220",
      "length": 40,
      "name": "DATATBLS_UnloadRareSuffix_PrefixTxt"
@@ -75139,6 +75108,15 @@
      "name": "DATATBLS_GetGambleDataTables"
     },
     {
+     "va": "0x00638CD0",
+     "length": 172,
+     "name": "?DATATBLS_CheckItemTypesEquivalenceNested@@YIHHH@Z"
+    },
+    {
+     "va": "0x00638D80",
+     "length": 1631
+    },
+    {
      "va": "0x006393E0",
      "length": 49,
      "name": "DATATBLS_UnloadItemTypesTxt"
@@ -75182,35 +75160,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00633F40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00633F40",
-     "length": 724
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
    "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
    "rank": 1,
    "functions": [
@@ -75218,30 +75167,6 @@
      "va": "0x00634DC0",
      "length": 6502
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00638D80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00638D80",
-     "length": 1631
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

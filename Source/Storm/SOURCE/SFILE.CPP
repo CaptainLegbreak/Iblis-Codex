@@ -2724,77 +2724,52 @@ D2ChatStormListCStrc::D2ChatStormListCStrc()
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-static D2StormLinkStrc* STORM_LinkNextLink(D2StormLinkStrc* pLink, int nLinkOffset)
-{
-    if ((int)pLink->m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)pLink->m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)pLink - pLink->m_prevlink->m_next;
-    return (D2StormLinkStrc*)(pLink->m_next + nLinkOffset);
-}
-
-static char* STORM_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next <= 0 ? 0 : pLink->m_next;
-}
-
-static void STORM_LinkUnlink(D2StormLinkStrc* pLink)
-{
-    if (pLink->m_prevlink)
-    {
-        STORM_LinkNextLink(pLink, -1)->m_prevlink = pLink->m_prevlink;
-        pLink->m_prevlink->m_next = pLink->m_next;
-        pLink->m_prevlink = 0;
-        pLink->m_next = 0;
-    }
-}
-
 // build: symbol ??1ARCHIVEREC@@QAE@XZ 0x00418A50
 // 0x00418490
 int D2StormList00418490Strc::sub_00418490_IsEmpty()
 {
-    return STORM_LinkNext(&m_terminator) == 0;
+    return m_terminator.Next() == 0;
 }
 
 // 0x004185B0
 int D2StormList004185B0Strc::sub_004185B0_IsEmpty()
 {
-    return STORM_LinkNext(&m_terminator) == 0;
+    return m_terminator.Next() == 0;
 }
 
 // 0x00418C60
 D2StormList00708354Strc::~D2StormList00708354Strc()
 {
     sub_00418900_UnlinkAll();
-    STORM_LinkUnlink(&m_terminator);
+    m_terminator.Unlink();
 }
 
 // 0x00418CC0
 D2StormList00708360Strc::~D2StormList00708360Strc()
 {
     sub_00418940_UnlinkAll();
-    STORM_LinkUnlink(&m_terminator);
+    m_terminator.Unlink();
 }
 
 // 0x00418D00
 D2StormList0070836CStrc::~D2StormList0070836CStrc()
 {
     sub_00418980_UnlinkAll();
-    STORM_LinkUnlink(&m_terminator);
+    m_terminator.Unlink();
 }
 
 // 0x00418D40
 D2StormList00708378Strc::~D2StormList00708378Strc()
 {
     sub_004189C0_UnlinkAll();
-    STORM_LinkUnlink(&m_terminator);
+    m_terminator.Unlink();
 }
 
 // 0x00418DA0
 D2StormList00708384Strc::~D2StormList00708384Strc()
 {
     sub_00418A00_UnlinkAll();
-    STORM_LinkUnlink(&m_terminator);
+    m_terminator.Unlink();
 }
 
 // 0x00418E60
@@ -3052,4 +3027,118 @@ int __stdcall SFileLoadFileEx2(void* hMpq, const char* szFileName, void** ppBuff
     if (hFile)
         SFileCloseFile(hFile);
     return *ppBuffer != 0;
+}
+
+#include "Storm.h"
+extern "C" __declspec(dllimport) void* __stdcall HeapAlloc(void* hHeap, unsigned long dwFlags, unsigned long dwBytes); // 0x006CC318
+
+unsigned char gnStormByteFlag_0077905E;                                                                     // 0x0077905E
+int (__stdcall* gpfnStormNotify_007790B8)(int nArg);                                                        // 0x007790B8
+extern void* gpStormOwnerA_007790C0;                                                                        // 0x007790C0
+
+int __cdecl sub_00418B50();                                                                         // 0x00418B50
+int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags);                  // 0x00418390
+void* __cdecl StormGetInstance();                                                                  // 0x0041BEF0
+void __cdecl sub_0041C1A0_LockErrorState();                                                                 // 0x0041C1A0
+void __cdecl sub_0041C1E0_UnlockErrorState();                                                               // 0x0041C1E0
+void __stdcall sub_0041C360_SetSuppress(int bSuppress);                                                     // 0x0041C360
+void __cdecl SLogFlushAll();                                                                       // 0x0041FFF0
+
+// 0x00416700
+void __stdcall SFileSetPlatform(unsigned char nValue)
+{
+    gnStormByteFlag_0077905E = nValue;
+}
+
+// 0x00418B80
+int __stdcall SFileFileExists(const char* szFileName)
+{
+    return SFileFileExistsEx(0, szFileName, sub_00418B50());
+}
+
+// 0x0041BEB0
+int __stdcall sub_0041BEB0_FlushAndNotify(int nArg)
+{
+    sub_0041C360_SetSuppress(1);
+    SLogFlushAll();
+    if (gpfnStormNotify_007790B8)
+        gpfnStormNotify_007790B8(nArg);
+    return 0;
+}
+
+struct D2StormBlockStrc;
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
+void __cdecl sub_00415B90_InitCryptTable();
+int __fastcall GetFileBlockEntry(void* hArchive, D2StormBlockStrc** ppBlock, const char* szName, unsigned int nFlags, ARCHIVEREC** ppArchive, char* szFoundPath); // 0x00417F10
+extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
+
+// 0x00418390
+int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags)
+{
+    VALIDATEBEGIN;
+    VALIDATE(szFileName);
+    VALIDATE(*szFileName);
+    VALIDATEEND;
+    EnterCriticalSection(&gBasePathLock_00779068);
+    sub_00415B90_InitCryptTable();
+    int nResult = GetFileBlockEntry(hArchive, 0, szFileName, nFlags, 0, 0);
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return nResult;
+}
+
+struct D2WaveChunkHeaderStrc
+{
+    unsigned int dwTag;
+    unsigned int dwSize;
+};
+
+#define FILE_CURRENT 1
+#define INVALID_SET_FILE_POINTER (-1)
+
+int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped);       // 0x0041B050
+void __stdcall sub_A02_EmitUse(unsigned int nValue);
+
+// 0x0041B210
+static int sub_0041B210_FindWaveChunk(void* hFile, unsigned int dwTag, unsigned int* pChunk)
+{
+    D2WaveChunkHeaderStrc tHeader;
+    while (SFileReadFile(hFile, &tHeader, sizeof(tHeader), 0, 0))
+    {
+        if (tHeader.dwTag == dwTag)
+        {
+            pChunk[0] = tHeader.dwSize;
+            const int nPosition = SFileSetFilePointer(hFile, 0, 0, FILE_CURRENT);
+            pChunk[1] = nPosition;
+            return nPosition != INVALID_SET_FILE_POINTER;
+        }
+
+        if (SFileSetFilePointer(hFile, tHeader.dwSize, 0, FILE_CURRENT) == INVALID_SET_FILE_POINTER)
+        {
+            break;
+        }
+    }
+
+    return 0;
+}
+
+int __stdcall sub_A02_EmitFindChunk(void* hFile)
+{
+    unsigned int aChunk[2];
+    aChunk[0] = 0;
+    aChunk[1] = 0;
+    if (!sub_0041B210_FindWaveChunk(hFile, 0x20746D66, aChunk))
+    {
+        return 0;
+    }
+
+    sub_A02_EmitUse(aChunk[0]);
+    if (!sub_0041B210_FindWaveChunk(hFile, 0x61746164, aChunk))
+    {
+        return 0;
+    }
+
+    sub_A02_EmitUse(aChunk[1]);
+    return 1;
 }
