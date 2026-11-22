@@ -249,7 +249,7 @@ void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nVa
 
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 
-void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pCommand); // 0x004AFF60
+void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 
 void __fastcall sub_004B2A20(int nUnitId);                                                                  // 0x004B2A20
 
