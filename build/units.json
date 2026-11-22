@@ -65786,6 +65786,11 @@
      "name": "?SKILLS_SrvDo126_ImpInferno@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D1570",
+     "length": 299,
+     "name": "SKILLS_SrvSt60_SuckBlood"
+    },
+    {
      "va": "0x005D1800",
      "length": 216,
      "name": "SKILLS_SrvDo128_CryHelp"
@@ -65799,6 +65804,11 @@
      "va": "0x005D19D0",
      "length": 223,
      "name": "?SKILLS_DetachImpFromMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
+    },
+    {
+     "va": "0x005D1AB0",
+     "length": 315,
+     "name": "SKILLS_SrvDo129_ImpTeleport"
     },
     {
      "va": "0x005D1BF0",
@@ -66353,22 +66363,6 @@
     {
      "va": "0x005D0E90",
      "length": 489
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillDruid_005D1570.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D1570",
-     "length": 299,
-     "name": "SKILLS_SrvSt60_SuckBlood"
-    },
-    {
-     "va": "0x005D1AB0",
-     "length": 315,
-     "name": "SKILLS_SrvDo129_ImpTeleport"
     }
    ]
   },

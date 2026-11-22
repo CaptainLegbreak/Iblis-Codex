@@ -4946,8 +4946,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillDruid.cpp": {
-   "bytes": 144,
-   "definitions": 7,
+   "bytes": 208,
+   "definitions": 8,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005C7F10.inc",
@@ -4978,15 +4978,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005CD910.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/SKILLS/SkillDruid_005D1570.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005D1570.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -116040,7 +116031,7 @@
    "cname": "gData_006E31A8",
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillDruid_005D1570.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E31A8[16]; // 0x006E31A8",
    "head": "extern \"C\" const int gData_006E31A8[16] = ",
