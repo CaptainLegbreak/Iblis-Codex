@@ -204,7 +204,7 @@ int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
 
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 
-int __fastcall sub_004B3870(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B3870
+int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -1056,7 +1056,7 @@ static void __stdcall sub_00487BA0_Forward(int nArg1, int nArg2, int nArg3, int 
 {
     if (!nArg2)
         return;
-    if (!sub_004B3870(nArg1, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
+    if (!sub_004B3870_HandleTradeClick((D2UnitStrc*)nArg1, (D2UnitStrc*)nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
         return;
     if (!nArg7)
         gdwGlobal_007BCBF0 = 5;

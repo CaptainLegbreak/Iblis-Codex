@@ -481,7 +481,7 @@ extern D2InventoryGridInfoStrc gGrid_007BCB58;                                  
 
 #define gnGlobal_007BCB68 (gGrid_007BCB58.nGridBottom)
 
-extern int gdwGlobal_007BCBF4; // 0x007BCBF4
+extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 
 #define gnGlobal_007BCA7C (gGrid_007BCA78.nGridLeft)
 
@@ -519,7 +519,7 @@ int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
 
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-int __fastcall sub_004B3870(D2UnitStrc* pUnit, int nSkill, int nArg3, int nX, int nY, unsigned int nArg6, int nArg7, int nArg8); // 0x004B3870
+int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
@@ -2076,7 +2076,7 @@ void __stdcall sub_00491AD0_OnInventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
                         else
                         {
                             const unsigned int nParam = pMsg->wParam;
-                            if (gdwGlobal_007BCBF4 && sub_004B3870(pUnit, gdwGlobal_007BCBF4, 0, nX, nY, nParam, 1, 0))
+                            if (gdwGlobal_007BCBF4 && sub_004B3870_HandleTradeClick(pUnit, gdwGlobal_007BCBF4, 0, nX, nY, nParam, 1, 0))
                             {
                                 sub_00468070_SetCursorItemState(0);
                             }

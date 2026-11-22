@@ -407,7 +407,7 @@ extern int gnGlobal_00722108;                                                   
 
 extern int gnGlobal_0072210C;                                                                               // 0x0072210C
 
-static void* gpCellFile_007BCB04;                                                                           // 0x007BCB04
+static D2CelFileStrc* gpCellFile_007BCB04;                                                                           // 0x007BCB04
 
 static unsigned char gnSelectedTab_007BCC04;                                                                // 0x007BCC04
 
@@ -421,15 +421,15 @@ static unsigned int gnQuestTimerValue_007BCC14;                                 
 
 static unsigned long gdwQuestTimerTicks_007BCC18;                                                           // 0x007BCC18
 
-static void* gpHoradricCel_007BCC1C;                                                                        // 0x007BCC1C
+static D2CelFileStrc* gpHoradricCel_007BCC1C;                                                                        // 0x007BCC1C
 
-static void* gpCellFile_007BCC28;                                                                           // 0x007BCC28
+static D2CelFileStrc* gpCellFile_007BCC28;                                                                           // 0x007BCC28
 
-static void* gpCellFile_007BCC2C;                                                                           // 0x007BCC2C
+static D2CelFileStrc* gpCellFile_007BCC2C;                                                                           // 0x007BCC2C
 
-static void* gpCellFile_007BCC30;                                                                           // 0x007BCC30
+static D2CelFileStrc* gpCellFile_007BCC30;                                                                           // 0x007BCC30
 
-static void* gpCellFile_007BCC3C;                                                                           // 0x007BCC3C
+static D2CelFileStrc* gpCellFile_007BCC3C;                                                                           // 0x007BCC3C
 
 static int gnGlobal_007BCC4C;                                                                               // 0x007BCC4C
 

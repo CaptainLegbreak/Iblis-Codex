@@ -244,9 +244,9 @@ extern int gnGlobal_007BCA4C; // 0x007BCA4C
 extern int gnGlobal_007BCAF0; // 0x007BCAF0
 extern int gnGlobal_007BCBD8; // 0x007BCBD8
 extern int gdwGlobal_007BCBE8; // 0x007BCBE8
-extern int gdwGlobal_007BCBF8; // 0x007BCBF8
+extern D2UnitStrc* gdwGlobal_007BCBF8; // 0x007BCBF8
 extern unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
-extern int gnQuestTimerValue_007BCC14; // 0x007BCC14
+extern unsigned int gnQuestTimerValue_007BCC14; // 0x007BCC14
 extern unsigned long gdwQuestTimerTicks_007BCC18; // 0x007BCC18
 extern D2CelFileStrc* gpCellFile_007BCC24; // 0x007BCC24
 extern D2CelFileStrc* gpCellFile_007BCC28; // 0x007BCC28
@@ -278,7 +278,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall sub_0063BD10(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, unsigned char nPage); // 0x0063BD10
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-int __fastcall sub_004B3870(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B3870
+int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 void __cdecl sub_K04_EmitUse(int nValue);
 
 #pragma pack(push, 2)
@@ -544,7 +544,7 @@ int __cdecl sub_0044BFF0_IsSet()
 
 void __cdecl sub_004972B0_InitializePalette(); // 0x004972B0
 
-int gnQuestTimerValue_007BCC14; // 0x007BCC14
+unsigned int gnQuestTimerValue_007BCC14; // 0x007BCC14
 
 unsigned long gdwQuestTimerTicks_007BCC18; // 0x007BCC18
 
@@ -627,7 +627,7 @@ D2ClientServiceStrc* gpService_007BC998; // 0x007BC998
 
 int gdwGlobal_007BCBE8; // 0x007BCBE8
 
-int gdwGlobal_007BCBF8; // 0x007BCBF8
+D2UnitStrc* gdwGlobal_007BCBF8; // 0x007BCBF8
 
 int gdwGlobal_007BEEFC; // 0x007BEEFC
 
@@ -1565,7 +1565,7 @@ static void __stdcall sub_00487BA0_Forward(int nArg1, int nArg2, int nArg3, int 
 {
     if (!nArg2)
         return;
-    if (!sub_004B3870(nArg1, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
+    if (!sub_004B3870_HandleTradeClick((D2UnitStrc*)nArg1, (D2UnitStrc*)nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
         return;
     if (!nArg7)
         gdwGlobal_007BCBF0 = 5;

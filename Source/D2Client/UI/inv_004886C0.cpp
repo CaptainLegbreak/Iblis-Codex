@@ -46,11 +46,11 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 
 D2UnitStrc* __cdecl sub_004B1620_GetInteractNpc();                                                          // 0x004B1620
 
-int __cdecl sub_004B32D0();                                                                        // 0x004B32D0
+D2BitBufferStrc* __cdecl sub_004B32D0();                                                                        // 0x004B32D0
 
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
 
-int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, int pQuestFlags, void* pfCallback); // 0x0062FE60
+int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
