@@ -1159,23 +1159,6 @@ void* __fastcall sub_004B9610(int nHintId)
     return 0;
 }
 
-// 0x004B9B20
-int __fastcall sub_004B9B20(int nKey)
-{
-    if (nKey)
-    {
-        for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
-        {
-            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-            if (pEntry->nKey == nKey)
-            {
-                return pEntry->nValue1C;
-            }
-        }
-    }
-    return 0;
-}
-
 // 0x004B9BE0
 int __fastcall sub_004B9BE0_HasActiveHint(int nKey)
 {
@@ -1226,23 +1209,6 @@ int __cdecl sub_004B9C60_IsSongPlaying()
     return 0;
 }
 
-// 0x004B9CA0
-int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey)
-{
-    if (nKey)
-    {
-        for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
-        {
-            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-            if (pEntry->nKey == nKey)
-            {
-                return pEntry->nHintId;
-            }
-        }
-    }
-    return 0;
-}
-
 // 0x004B9690
 D2TimedHintEntryStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, int nKey, D2TimedHintEntryStrc* pExclude)
 {
@@ -1262,26 +1228,6 @@ D2TimedHintEntryStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, int nKe
     }
 
     return pOldest;
-}
-
-// 0x004B9B50
-void __fastcall sub_004B9B50_SetValue(int nKey, int nValue)
-{
-    if (!nKey)
-        return;
-    D2ValueLinkStrc* pLink = gpValueList_007C5458;
-    if (!pLink)
-        return;
-    do
-    {
-        D2ValueNodeStrc* pValue = pLink->pValue;
-        if (pValue->nKey == nKey)
-        {
-            pValue->nValue = nValue;
-            return;
-        }
-        pLink = pLink->pNext;
-    } while (pLink);
 }
 
 // 0x004B9BC0
