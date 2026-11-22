@@ -60836,6 +60836,10 @@
      "name": "?MONSTERMODE_TakeVelocityParams@@YGXPAUD2TakeRecordStrc@@PAH1PAE@Z"
     },
     {
+     "va": "0x005A61F0",
+     "length": 43
+    },
+    {
      "va": "0x005A6250",
      "length": 4,
      "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
@@ -61409,30 +61413,6 @@
      "length": 82,
      "name": "?FRIENDLY_RemoveHostility@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A61F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A61F0",
-     "length": 43
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
