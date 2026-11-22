@@ -32956,6 +32956,14 @@
      "name": "?sub_004CAC30_WriteStepSoundTick@@YGXPAUD2UnitStrc@@I@Z"
     },
     {
+     "va": "0x004CADB0",
+     "length": 248
+    },
+    {
+     "va": "0x004CAF60",
+     "length": 522
+    },
+    {
      "va": "0x004CB190",
      "length": 144,
      "name": "?sub_004CB190_ReleaseSkillSfx@@YIXPAUD2UnitStrc@@@Z"
@@ -33183,34 +33191,6 @@
     {
      "va": "0x004CA560",
      "length": 677
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004CADB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CADB0",
-     "length": 248
-    },
-    {
-     "va": "0x004CAF60",
-     "length": 522
     }
    ],
    "flags": [
