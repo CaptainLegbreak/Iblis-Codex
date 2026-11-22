@@ -63768,6 +63768,10 @@
      "name": "?AITHINK_FindTargetForMephisto@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2MonStatsTxt@@1@Z"
     },
     {
+     "va": "0x005F78B0",
+     "length": 1620
+    },
+    {
      "va": "0x005F8010",
      "length": 417,
      "name": "?AITHINK_GetTargetForUberMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
@@ -68311,30 +68315,6 @@
      "length": 98,
      "name": "?sub_005FB650_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005F78B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F78B0",
-     "length": 1620
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
