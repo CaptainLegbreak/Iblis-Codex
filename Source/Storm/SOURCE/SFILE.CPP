@@ -2451,67 +2451,13 @@ void D2StormFixedListStrc::sub_00418710_UnlinkNode(char* pNode)
     Link(pNode)->Unlink();
 }
 
-// 0x0041C3A0
-D2StormLinkStrc* D2StormLinkStrc::sub_0041C3A0_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
 
-// 0x0041C560
-D2StormLinkStrc* D2StormFixedListStrc::sub_0041C560_Link(char* pNode)
-{
-    return Link(pNode);
-}
 
-// 0x0041C580
-void D2StormFixedListStrc::sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
 
-// 0x0041C630
-char* D2StormFixedListStrc::sub_0041C630_Next(char* pNode)
-{
-    return Link(pNode)->Next();
-}
 
-// 0x0041C690
-void D2StormFixedListStrc::sub_0041C690_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
 
-// 0x0041C700
-char* D2StormFixedListStrc::sub_0041C700_RawNext(char* pNode)
-{
-    return Link(pNode)->m_next;
-}
 
-int gdwGlobal_007790F4; // 0x007790F4
 
-int gdwGlobal_007790E4; // 0x007790E4
 
 // 0x00416810
 void __fastcall sub_00416810(PairStrc_00416810* pPair)
@@ -2548,24 +2494,8 @@ void __fastcall sub_004169A0(PairStrc_004169A0* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x0041C2A0
-int __cdecl sub_0041C2A0()
-{
-    return gdwGlobal_007790F4;
-}
 
-// 0x0041C2B0
-int __cdecl sub_0041C2B0()
-{
-    return gdwGlobal_007790E4;
-}
 
-// 0x0041C390
-void __fastcall sub_0041C390(PairStrc_0041C390* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
 
 // 0x0041E8F0
 void __fastcall sub_0041E8F0(PairStrc_0041E8F0* pPair)
@@ -2937,9 +2867,7 @@ void __fastcall RemoveArchiveRef(D2StormArchiveRecStrc* pArch)
 
 unsigned long gdwStormThreadId_00779040; // 0x00779040
 
-D2CriticalSectionStrc gErrorStateLock_007790CC; // 0x007790CC
 
-void* gpCallback_007790F8; // 0x007790F8
 
 // 0x00418A50
 D2StormArchiveRecStrc::~D2StormArchiveRecStrc()
@@ -3004,41 +2932,10 @@ void __cdecl sub_0041A880_StartThread()
 }
 
 
-// 0x0041C0E0
-void __fastcall sub_0041C0E0_SetCallback(void* pCallback)
-{
-    gpCallback_007790F8 = pCallback;
-}
 
-// 0x0041C140
-void __cdecl sub_0041C140_AppendExeMsgSources()
-{
-    sub_0041C0F0_AppendExeMsgSource(0x510);
-    sub_0041C0F0_AppendExeMsgSource(0x876);
-    sub_0041C0F0_AppendExeMsgSource(0x878);
-}
 
-// 0x0041C160
-void __cdecl sub_0041C160_DebugBreak()
-{
-    __debugbreak();
-}
 
-// 0x0041C1A0
-void __cdecl sub_0041C1A0_LockErrorState()
-{
-    if (!InterlockedIncrement(&gnErrorLockUsers_0070841C))
-        InitializeCriticalSection(&gErrorStateLock_007790CC);
-    else
-        InterlockedDecrement(&gnErrorLockUsers_0070841C);
-    EnterCriticalSection(&gErrorStateLock_007790CC);
-}
 
-// 0x0041C1E0
-void __cdecl sub_0041C1E0_UnlockErrorState()
-{
-    LeaveCriticalSection(&gErrorStateLock_007790CC);
-}
 
 // 0x0041D410
 unsigned int __fastcall sub_0041D410_GetWindow(D2StormHashBufferStrc* pBuffer)
@@ -3103,7 +3000,6 @@ inline void D2StormRequestStrc::operator delete(void* pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
 
-// build: symbol ??_GD2StormHandlerStrc@@QAEPAXI@Z 0x0041C8A0
 inline D2StormHandlerStrc::~D2StormHandlerStrc()
 {
     f_0.Unlink();
@@ -3153,24 +3049,7 @@ char* D2StormFixedListStrc::sub_0041A2C0_DeleteNode(char* pNode)
     return pNext;
 }
 
-// 0x0041C840
-char* D2StormFixedListStrc::sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2StormHandlerStrc) + nExtraBytes, gszTypeNameHandler_00708434, -2, nFlags | 8);
-    D2StormHandlerStrc* pRecord = pMemory ? new (pMemory) D2StormHandlerStrc : 0;
-    if (nLinkType)
-        sub_0041C580_LinkNode((char*)pRecord, nLinkType, 0);
-    return (char*)pRecord;
-}
 
-// 0x0041CA10
-char* D2StormFixedListStrc::sub_0041CA10_DeleteNode(char* pNode)
-{
-    char* pNext = Link(pNode)->Next();
-    ((D2StormHandlerStrc*)pNode)->~D2StormHandlerStrc();
-    SMemFree(pNode, gszTypeNameHandler_00708434, -2, 0);
-    return pNext;
-}
 
 // 0x00420820
 char* D2StormNodeListBStrc::sub_00420820_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)

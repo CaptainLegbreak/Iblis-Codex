@@ -726,26 +726,6 @@ unsigned __int64 __cdecl sub_004107F0_GetSaveDiskFreeSpace()
     return nFreeClusters * nBytesPerSector * nSectorsPerCluster;
 }
 
-// 0x0041D160
-void __cdecl sub_0041D160_DisplayAppFatal(const char* szFormat, ...)
-{
-    const char* szFile = 0;
-    int nLine = 0;
-    sub_0041C1A0_LockErrorState();
-    if (gdwStormOwnerThread_007790C8 == GetCurrentThreadId())
-    {
-        szFile = (const char*)gpStormOwnerA_007790C0;
-        nLine = (int)gpStormOwnerB_007790C4;
-        SMemZero(&gpStormOwnerA_007790C0, 12);
-    }
-    sub_0041C1E0_UnlockErrorState();
-    char szText[0x400];
-    va_list args;
-    va_start(args, szFormat);
-    vsprintf(szText, szFormat, args);
-    SErrDisplayError(0x85100084, szFile, nLine, szText, 0, 1);
-    ExitProcess(1);
-}
 
 
 // 0x0042F540

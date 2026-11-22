@@ -462,21 +462,7 @@ inline void* operator new(unsigned int, void* pPlace) throw()
     return pPlace;
 }
 
-// 0x0041C900
-void __stdcall SErrRegisterHandler(int nValue)
-{
-    sub_0041C1A0_LockErrorState();
-    D2StormHandlerNodeStrc* pNode = new (SMemAlloc(sizeof(D2StormHandlerNodeStrc), gszTypeNameHandler_00708434, -2, 0x8000008)) D2StormHandlerNodeStrc;
-    gHandlerList_00708420.LinkNode((char*)pNode, 1, 0);
-    pNode->nValue = nValue;
-    sub_0041C1E0_UnlockErrorState();
-}
 
-// 0x0041D1E0
-void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName)
-{
-    sub_0041D010_ReportHandleLeak(szName, 0);
-}
 
 // 0x0041D340
 static __declspec(noinline) int __stdcall sub_0041D340_FindSignatureTag(const char* pData, unsigned int nSize, unsigned int nSignSize, unsigned int* pOffset)

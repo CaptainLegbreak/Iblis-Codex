@@ -405,12 +405,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_0041C170.cpp": {
+  "Source/Storm/SOURCE/SERR_0041C170.CPP": {
    "bytes": 48,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0041C170.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SERR_0041C170.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -423,12 +423,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_0041CAF0.cpp": {
+  "Source/Storm/SOURCE/SERR_0041CAF0.CPP": {
    "bytes": 36,
    "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0041CAF0.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SERR_0041CAF0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -10100,7 +10100,7 @@
    "cname": "gData_006CF2F4",
    "declared": true,
    "decorated": "?gpszMessageFallback_006CF2F4@@3PAPBDA",
-   "file": "Source/Storm/Unknown_0041C170.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041C170.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006CF2F4[12]; // 0x006CF2F4",
@@ -10289,7 +10289,7 @@
    "cname": "gData_006CF330",
    "declared": true,
    "decorated": "?gszDiagnosticFormat_006CF330@@3QBDB",
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CF330[12]; // 0x006CF330",
@@ -10320,7 +10320,7 @@
    "cname": "gData_006CF33C",
    "declared": true,
    "decorated": "?gszErrorFormat_006CF33C@@3QBDB",
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "fill": 16,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CF33C[16]; // 0x006CF33C",
@@ -10351,7 +10351,7 @@
    "cname": "gData_006CF34C",
    "declared": true,
    "decorated": "?gszLineFormat_006CF34C@@3QBDB",
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CF34C[8]; // 0x006CF34C",

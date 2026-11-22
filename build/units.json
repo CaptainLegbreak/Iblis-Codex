@@ -2164,11 +2164,6 @@
      "name": "sub_004107F0_GetSaveDiskFreeSpace"
     },
     {
-     "va": "0x0041D160",
-     "length": 128,
-     "name": "sub_0041D160_DisplayAppFatal"
-    },
-    {
      "va": "0x0042F540",
      "length": 380,
      "name": "sub_0042F540_ShowMessageBox"
@@ -4154,6 +4149,82 @@
      "name": "?SFileLoadFileEx2@@YGHPAXPBDPAPAXPAIIH0H@Z"
     },
     {
+     "va": "0x0041D410",
+     "length": 4,
+     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
+    },
+    {
+     "va": "0x0041D9A0",
+     "length": 57,
+     "name": "?sub_0041D9A0_Flush@D2StormHuffOutputStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041E8F0",
+     "length": 14,
+     "name": "sub_0041E8F0"
+    },
+    {
+     "va": "0x0041EE40",
+     "length": 61,
+     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041F950",
+     "length": 37,
+     "name": "??0D2StormHuffTreeStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x004203E0",
+     "length": 14,
+     "name": "sub_004203E0"
+    },
+    {
+     "va": "0x00420820",
+     "length": 82,
+     "name": "sub_00420820_NewNode"
+    },
+    {
+     "va": "0x00420880",
+     "length": 81,
+     "name": "?_GD2StormWndRecStrc"
+    },
+    {
+     "va": "0x00420970",
+     "length": 106,
+     "name": "sub_00420970_DeleteNode"
+    },
+    {
+     "va": "0x00425D90",
+     "length": 49,
+     "name": "?Initialize@D2StormHashCtxStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426920",
+     "length": 14,
+     "name": "sub_00426920"
+    },
+    {
+     "va": "0x0042D450",
+     "length": 6,
+     "name": "sub_0042D450"
+    },
+    {
+     "va": "0x0042DC30",
+     "length": 6,
+     "name": "sub_0042DC30"
+    },
+    {
+     "va": "0x0042DC40",
+     "length": 6,
+     "name": "sub_0042DC40"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SERR_0041C0E0.CPP",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x0041C0E0",
      "length": 7,
      "name": "?sub_0041C0E0_SetCallback@@YIXPAX@Z"
@@ -4237,76 +4308,6 @@
      "va": "0x0041CA10",
      "length": 106,
      "name": "sub_0041CA10_DeleteNode"
-    },
-    {
-     "va": "0x0041D410",
-     "length": 4,
-     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
-    },
-    {
-     "va": "0x0041D9A0",
-     "length": 57,
-     "name": "?sub_0041D9A0_Flush@D2StormHuffOutputStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041E8F0",
-     "length": 14,
-     "name": "sub_0041E8F0"
-    },
-    {
-     "va": "0x0041EE40",
-     "length": 61,
-     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041F950",
-     "length": 37,
-     "name": "??0D2StormHuffTreeStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x004203E0",
-     "length": 14,
-     "name": "sub_004203E0"
-    },
-    {
-     "va": "0x00420820",
-     "length": 82,
-     "name": "sub_00420820_NewNode"
-    },
-    {
-     "va": "0x00420880",
-     "length": 81,
-     "name": "?_GD2StormWndRecStrc"
-    },
-    {
-     "va": "0x00420970",
-     "length": 106,
-     "name": "sub_00420970_DeleteNode"
-    },
-    {
-     "va": "0x00425D90",
-     "length": 49,
-     "name": "?Initialize@D2StormHashCtxStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426920",
-     "length": 14,
-     "name": "sub_00426920"
-    },
-    {
-     "va": "0x0042D450",
-     "length": 6,
-     "name": "sub_0042D450"
-    },
-    {
-     "va": "0x0042DC30",
-     "length": 6,
-     "name": "sub_0042DC30"
-    },
-    {
-     "va": "0x0042DC40",
-     "length": 6,
-     "name": "sub_0042DC40"
     }
    ]
   },
@@ -5732,7 +5733,13 @@
      "va": "0x0041BEB0",
      "length": 36,
      "name": "sub_0041BEB0_FlushAndNotify"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SERR.CPP",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0041C0D0",
      "length": 9,
@@ -5744,6 +5751,11 @@
      "name": "sub_0041C0F0_AppendExeMsgSource"
     },
     {
+     "va": "0x0041C1F0",
+     "length": 163,
+     "name": "?sub_0041C1F0_FormatTypeName@@YGHPBDPADI@Z"
+    },
+    {
      "va": "0x0041C2C0",
      "length": 45,
      "name": "SErrPrepareAppFatal"
@@ -5752,6 +5764,66 @@
      "va": "0x0041C2F0",
      "length": 66,
      "name": "SErrRegisterMessageSource"
+    },
+    {
+     "va": "0x0041C340",
+     "length": 22,
+     "name": "sub_0041C340_SetLastError"
+    },
+    {
+     "va": "0x0041C360",
+     "length": 15,
+     "name": "sub_0041C360_SetSuppress"
+    },
+    {
+     "va": "0x0041C370",
+     "length": 16,
+     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x0041C380",
+     "length": 4,
+     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x0041C410",
+     "length": 11,
+     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+    },
+    {
+     "va": "0x0041C420",
+     "length": 3,
+     "name": "?sub_0041C420_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
+    },
+    {
+     "va": "0x0041C4E0",
+     "length": 16,
+     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x0041C540",
+     "length": 17,
+     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C650",
+     "length": 50,
+     "name": "?sub_0041C650@D2StormLinkStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C6E0",
+     "length": 32,
+     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C770",
+     "length": 61,
+     "name": "?sub_0041C770_UnlinkAll@D2StormList00708420Strc@@QAEXXZ"
+    },
+    {
+     "va": "0x0041C9C0",
+     "length": 78,
+     "name": "?sub_0041C9C0_DeleteAll@D2StormList00708420Strc@@QAEXXZ"
     }
    ]
   },
@@ -6156,105 +6228,9 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041BEE0.cpp",
+   "file": "Source/Storm/Unknown_0041D200.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041C1F0",
-     "length": 163,
-     "name": "?sub_0041C1F0_FormatTypeName@@YGHPBDPADI@Z"
-    },
-    {
-     "va": "0x0041C340",
-     "length": 22,
-     "name": "sub_0041C340_SetLastError"
-    },
-    {
-     "va": "0x0041C360",
-     "length": 15,
-     "name": "sub_0041C360_SetSuppress"
-    },
-    {
-     "va": "0x0041C370",
-     "length": 16,
-     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0041C380",
-     "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0041C410",
-     "length": 11,
-     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    },
-    {
-     "va": "0x0041C420",
-     "length": 3,
-     "name": "?sub_0041C420_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
-    },
-    {
-     "va": "0x0041C4E0",
-     "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x0041C540",
-     "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041C650",
-     "length": 50,
-     "name": "?sub_0041C650@D2StormLinkStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041C6E0",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C770",
-     "length": 61,
-     "name": "?sub_0041C770_UnlinkAll@D2StormList00708420Strc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041C9C0",
-     "length": 78,
-     "name": "?sub_0041C9C0_DeleteAll@D2StormList00708420Strc@@QAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041CA80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041C0C0",
-     "length": 12,
-     "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C7B0",
-     "length": 60,
-     "name": "??1D2StormList00708420Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041CA80",
-     "length": 107,
-     "name": "?SErrDestroy@@YAHXZ"
-    },
-    {
-     "va": "0x0041CFB0",
-     "length": 90,
-     "name": "?SErrDisplayErrorFmt@@YAHHPBDHHH0ZZ"
-    },
-    {
-     "va": "0x0041D010",
-     "length": 256,
-     "name": "sub_0041D010_ReportHandleLeak"
-    },
     {
      "va": "0x0041D200",
      "length": 148,
@@ -6279,6 +6255,43 @@
      "va": "0x0041D300",
      "length": 25,
      "name": "SMemZero"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/SERR_0041C7B0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041C7B0",
+     "length": 60,
+     "name": "??1D2StormList00708420Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041CA80",
+     "length": 107,
+     "name": "?SErrDestroy@@YAHXZ"
+    },
+    {
+     "va": "0x0041CFB0",
+     "length": 90,
+     "name": "?SErrDisplayErrorFmt@@YAHHPBDHHH0ZZ"
+    },
+    {
+     "va": "0x0041D010",
+     "length": 256,
+     "name": "sub_0041D010_ReportHandleLeak"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/SOURCE/STORM_0041C0C0.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041C0C0",
+     "length": 12,
+     "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
     }
    ]
   },
@@ -6309,7 +6322,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041C170.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041C170.CPP",
    "rank": 1,
    "functions": [
     {
@@ -6340,16 +6353,6 @@
    "file": "Source/Storm/SOURCE/SSignature.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041C900",
-     "length": 184,
-     "name": "SErrRegisterHandler"
-    },
-    {
-     "va": "0x0041D1E0",
-     "length": 18,
-     "name": "sub_0041D1E0_ReportHandleLeak"
-    },
     {
      "va": "0x0041D340",
      "length": 46,
@@ -6553,6 +6556,27 @@
    ]
   },
   {
+   "file": "Source/Storm/SOURCE/SERR_0041C900.CPP",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0041C900",
+     "length": 184,
+     "name": "SErrRegisterHandler"
+    },
+    {
+     "va": "0x0041D160",
+     "length": 128,
+     "name": "sub_0041D160_DisplayAppFatal"
+    },
+    {
+     "va": "0x0041D1E0",
+     "length": 18,
+     "name": "sub_0041D1E0_ReportHandleLeak"
+    }
+   ]
+  },
+  {
    "file": "Source/Storm/SOURCE/SMSG_00420290.CPP",
    "rank": 0,
    "functions": [
@@ -6624,7 +6648,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041CAF0.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041CAF0.CPP",
    "rank": 1,
    "functions": [
     {
@@ -6634,7 +6658,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041D110.cpp",
+   "file": "Source/Storm/SOURCE/SERR_0041D110.CPP",
    "rank": 1,
    "functions": [
     {
