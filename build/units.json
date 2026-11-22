@@ -63410,6 +63410,10 @@
      "name": "?AITHINK_Fn107_Raven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005ECEE0",
+     "length": 953
+    },
+    {
      "va": "0x005ED710",
      "length": 28,
      "name": "?AITHINK_Fn108_DruidWolf@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68204,16 +68208,6 @@
      "va": "0x005E8EB0",
      "length": 99,
      "name": "AITHINK_CullPotentialTargetsForDiablo"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005ECEE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005ECEE0",
-     "length": 953
     }
    ]
   },

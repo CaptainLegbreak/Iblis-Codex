@@ -8277,6 +8277,143 @@ void __fastcall AITHINK_Fn107_Raven(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     }
 }
 
+// 0x005ECEE0
+void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+{
+    D2MonStatsTxt* pMonStats = pTick->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pTick->pAiControl;
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner)
+    {
+        if (pAiControl->dwAiParam[2])
+        {
+            D2UnitStrc* pPlayer = SUNIT_GetServerUnit(pGame, 0, pAiControl->dwAiParam[2]);
+            if (pPlayer && pMonStats->nSkill[0] >= 0)
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStats->nSkillMode[0], pMonStats->nSkill[0], 0, CLIENTS_GetUnitX(pPlayer), CLIENTS_GetUnitY(pPlayer));
+                EVENT_SetEvent(pGame, pUnit, 0, pGame->dwGameFrame + 6, 0, 0);
+                AITACTICS_Idle(pGame, pUnit, 8);
+                return;
+            }
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    pAiControl->dwAiParam[2] = !pOwner ? -1 : pOwner->dwUnitId;
+    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        if (!sub_005E45D0_PetFollow(pGame, pUnit, 0, pOwner, 0, pTick, 0, 6))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 33);
+        }
+        return;
+    }
+
+    const int nRange = AI_PARAM(pGame, pMonStats, 3);
+    int nDistance;
+    int bCombat;
+    D2UnitStrc* pTarget = sub_6FCCFD40(pGame, pUnit, pAiControl, &nDistance, &bCombat, nRange);
+    int nOwnerDistance;
+    int bOwnerCombat;
+    D2UnitStrc* pOwnerTarget = sub_6FCF2110(pGame, pOwner, pAiControl, &nOwnerDistance, &bOwnerCombat);
+    if (pTarget && !sub_005DC640_HasFreeSpotNearTarget(pUnit, pTarget))
+    {
+        pTarget = 0;
+    }
+
+    if (!pTarget && pOwnerTarget)
+    {
+        nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwnerTarget);
+        if (nDistance < nRange && !sub_005DC640_HasFreeSpotNearTarget(pUnit, pOwnerTarget))
+        {
+            pTarget = pOwnerTarget;
+        }
+    }
+
+    int nVelocity;
+    if (pMonStats->nVelocity <= 0 || (nVelocity = pMonStats->nRun * 100 / pMonStats->nVelocity - 100) >= 100)
+    {
+        nVelocity = 100;
+    }
+
+    const int nOwnerDistance2 = sub_006416D0_UnitEdgeDistance(pOwner, pUnit);
+    if (pMonStats->nSkill[0] >= 0 && nOwnerDistance2 > 50)
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStats->nSkillMode[0], pMonStats->nSkill[0], 0, CLIENTS_GetUnitX(pOwner), CLIENTS_GetUnitY(pOwner));
+        EVENT_SetEvent(pGame, pUnit, 0, pGame->dwGameFrame + 4, 0, 0);
+        AITACTICS_Idle(pGame, pUnit, 10);
+        return;
+    }
+
+    if (nOwnerDistance2 > AI_PARAM(pGame, pMonStats, 4))
+    {
+        if (sub_005E3EA0(pGame, pOwner, pUnit, 0, 1, 100, 0))
+        {
+            return;
+        }
+    }
+
+    const int nOwnerMode = pOwner->dwAnimMode;
+    if (nOwnerDistance2 > AI_PARAM(pGame, pMonStats, 2))
+    {
+        if (nOwnerMode == 2 || nOwnerMode == 6)
+        {
+            if (sub_005E3EA0(pGame, pOwner, pUnit, 0, 0, 0, 0))
+            {
+                return;
+            }
+        }
+
+        if (nOwnerMode == 3)
+        {
+            if (sub_005E3EA0(pGame, pOwner, pUnit, 0, 1, 100, 0))
+            {
+                return;
+            }
+        }
+    }
+
+    if (sub_005E45D0_PetFollow(pGame, pUnit, pTarget, pOwner, bCombat, pTick, 1, 6))
+    {
+        return;
+    }
+
+    if (pTarget)
+    {
+        if (bCombat)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            AITACTICS_Idle(pGame, pUnit, AI_PARAM(pGame, pMonStats, 0));
+            return;
+        }
+
+        if (sub_006416D0_UnitEdgeDistance(pOwner, pTarget) < nRange)
+        {
+            sub_005DE190_SetAiParam(pUnit, 0, nVelocity, 0);
+            AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
+            return;
+        }
+
+        if (nOwnerDistance2 > 10)
+        {
+            D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pOwner, 8, 6);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+        return;
+    }
+
+    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(pGame, pMonStats, 1))
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 10);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+}
+
 // 0x005ED710
 void __fastcall AITHINK_Fn108_DruidWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
