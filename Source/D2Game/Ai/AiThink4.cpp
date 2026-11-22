@@ -1577,6 +1577,27 @@ enum D2C_M80SiegeBeastAi
 
 #define AI_MIN(a, b) ((a) < (b) ? (a) : (b))
 
+void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit);                                           // 0x00573120
+
+enum D2C_P11AiConstants
+{
+    MONSTATSFLAGINDEX_INTERACT = 9,
+};
+
+int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit);                     // 0x005FB650
+
+int __fastcall sub_005541B0_IsDead(D2UnitStrc* pUnit); // 0x005541B0
+
+D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nRange); // 0x005D2F80
+
+int __stdcall sub_00625D60(D2UnitStrc* pUnit); // 0x00625D60
+
+void __fastcall sub_005DEC80_Walk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSteps); // 0x005DEC80
+
+#define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
+
+#define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
+
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -1596,13 +1617,6 @@ inline void AITHINK_IdleInline_005E17E0(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrames + pGame->dwGameFrame, 0, 0);
 }
-
-void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit);                                           // 0x00573120
-
-enum D2C_P11AiConstants
-{
-    MONSTATSFLAGINDEX_INTERACT = 9,
-};
 
 inline short AI_GetParamValue_005E17E0(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nParamId)
 {
@@ -1632,8 +1646,6 @@ inline int CLIENTS_GetUnitYInline_005E17E0(D2UnitStrc* pUnit)
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
-
-int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit);                     // 0x005FB650
 
 // 0x005B0D00
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
@@ -5946,6 +5958,12 @@ __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_005EC8C0(int nSkill)
+{
+    if (nSkill >= 0 && nSkill < sgptDataTables->nSkillsTxtRecordCount) return &sgptDataTables->pSkillsTxt[nSkill];
+    return 0;
+}
+
 // 0x005E8530
 int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
 {
@@ -8033,6 +8051,86 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
 void __fastcall sub_005EC6A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     pAiTickParam->pAiControl->dwAiParam[0] = 0;
+}
+
+// 0x005EC8C0
+void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+{
+    D2MonStatsTxt* pMonStats = pTick->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pTick->pAiControl;
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner) return;
+    D2UnitStrc* pTarget = 0;
+    int bReachable = 0;
+    int bUseSkill;
+    int nDistance = 0;
+    int nRange;
+    D2UnitStrc* pCombatTarget = pTick->pTarget;
+    int bCombat = pTick->bCombat;
+    bUseSkill = 1;
+    if (sub_006416D0_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(pGame, pMonStats, 4))
+    {
+        if (sub_005E3EA0(pGame, pOwner, pUnit, 3, 0, 0, 6)) return;
+    }
+    if (pCombatTarget && sub_005541B0_IsDead(pCombatTarget))
+    {
+        pCombatTarget = 0;
+        bCombat = 0;
+    }
+    if (pMonStats->nSkill[0] > 0)
+    {
+        D2SkillsTxt* pSkills = SKILLS_GetSkillsTxtRecord_005EC8C0(pMonStats->nSkill[0]);
+        D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, pMonStats->nSkill[0]);
+        if (pSkills && pSkill)
+        {
+            nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwAuraRangeCalc, pMonStats->nSkill[0], SKILLS_GetSkillLevel(pUnit, pSkill, 1));
+            nRange = D2_MIN(D2_MAX(nRange, 5), 50);
+            pTarget = SKILLS_FindUseableCorpse(pGame, pUnit, pOwner, nRange);
+            if (pTarget) nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+        }
+    }
+    if (nDistance >= AI_PARAM(pGame, pMonStats, 1))
+        pTarget = 0;
+    else if (pTarget)
+        bReachable = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
+    if (sub_005E45D0_PetFollow(pGame, pUnit, pTarget, pOwner, bReachable, pTick, 0, 6)) return;
+    int nClass;
+    if (!pUnit) nClass = -1;
+    else nClass = pUnit->dwClassId;
+    int nCurrent;
+    int nMaximum;
+    switch (nClass)
+    {
+    case 426:
+        nCurrent = STATLIST_UnitGetStatValue(pOwner, STAT_HITPOINTS, 0);
+        nMaximum = STATLIST_GetMaxLifeFromUnit(pOwner);
+        if (nCurrent >= nMaximum) bUseSkill = 0;
+        break;
+    case 427:
+        nCurrent = STATLIST_UnitGetStatValue(pOwner, STAT_MANA, 0);
+        nMaximum = sub_00625D60(pOwner);
+        if (nCurrent >= nMaximum) bUseSkill = 0;
+        break;
+    }
+    if (pTarget && bReachable && bUseSkill)
+    {
+        if (pAiControl->dwAiParam[1] + AI_PARAM(pGame, pMonStats, 0) < pGame->dwGameFrame)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, 8, pMonStats->nSkill[0], pTarget, 0, 0);
+            pAiControl->dwAiParam[1] = pGame->dwGameFrame;
+            return;
+        }
+    }
+    if (bCombat && pCombatTarget)
+    {
+        if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25)
+        {
+            sub_005DEFE0_Escape(pGame, pUnit, pCombatTarget, (unsigned char)AI_PARAM(pGame, pMonStats, 3), 0);
+            return;
+        }
+    }
+    if (pTarget) sub_005DEC80_Walk(pGame, pUnit, pTarget, 7);
+    else AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStats, 2));
 }
 
 // 0x005ECB70

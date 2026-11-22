@@ -63391,6 +63391,10 @@
      "name": "sub_005EC6A0"
     },
     {
+     "va": "0x005EC8C0",
+     "length": 682
+    },
+    {
      "va": "0x005ECB70",
      "length": 76,
      "name": "?AITHINK_InitializeRaven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68201,30 +68205,6 @@
      "length": 99,
      "name": "AITHINK_CullPotentialTargetsForDiablo"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EC8C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EC8C0",
-     "length": 682
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
