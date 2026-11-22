@@ -747,15 +747,6 @@ void __cdecl sub_0041D160_DisplayAppFatal(const char* szFormat, ...)
     ExitProcess(1);
 }
 
-// 0x00420320
-int __stdcall sub_00420320_RegisterHandlers(void* pContext)
-{
-    sub_004269C0_RegisterHandler(0x534D5348, pContext);
-    sub_004269C0_RegisterHandler(0x534D5349, pContext);
-    sub_004269C0_RegisterHandler(0x534D534A, pContext);
-    sub_004269C0_RegisterHandler(0x534D5347, pContext);
-    return 1;
-}
 
 // 0x0042F540
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2)

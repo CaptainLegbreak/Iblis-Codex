@@ -1,7 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
-
 D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
 T0041FA40* gapSLogBuckets_00779298[4]; // 0x00779298
 static unsigned long gnSLogTimeLength_007792A8; // 0x007792A8
@@ -25,10 +24,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args); // 0x00682DA1
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
-void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName);                                           // 0x0041D1E0
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
-
 
 // 0x0041FA40
 static __declspec(noinline) void sub_0041FA40_FlushLog(T0041FA40* pLog)

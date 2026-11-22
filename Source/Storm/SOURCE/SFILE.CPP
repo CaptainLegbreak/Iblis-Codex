@@ -2574,11 +2574,6 @@ void __fastcall sub_0041E8F0(PairStrc_0041E8F0* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x00420310
-int __cdecl sub_00420310()
-{
-    return gdwGlobal_007792F4;
-}
 
 // 0x004203E0
 void __fastcall sub_004203E0(PairStrc_004203E0* pPair)

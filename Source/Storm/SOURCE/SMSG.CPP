@@ -1,19 +1,54 @@
-#include "D2StormLink.h"
 #include "Storm.h"
+#include "D2GameTypes.h"
+#include "D2StormLink.h"
+
+
 struct HWND__;
-struct D2StormLinkStrc;
-struct D2StormListStrc;
-struct D2Storm4167B0Strc;
-struct D2Storm4168F0Strc;
-struct D2Storm416A90Strc;
+
+struct D2CriticalSectionStrc;
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+
+extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
+
+extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, size_t nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
+
+extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
+
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+
+extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 
-int __fastcall sub_004209E0_FindWndRec(HWND__* hWnd); // 0x004209E0
-void __stdcall sub_004208E0_AddWndRec(HWND__* hWnd); // 0x004208E0
-int __stdcall SEvtUnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler); // 0x00426720
-void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
+
+void __stdcall sub_004208E0_AddWndRec(int nValue);
+
+int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam);
+
+int __fastcall sub_004209E0_FindWndRec(HWND__* hWnd);
+
 int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
+
+struct D2StormLinkStrc;
+
+struct D2StormListStrc;
+
+struct D2Storm4167B0Strc;
+
+struct D2Storm4168F0Strc;
+
+struct D2Storm416A90Strc;
+
+int __stdcall SEvtUnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler); // 0x00426720
+
 extern unsigned short gwValue_0077905C;
 
 struct D2StormListStrc
@@ -36,12 +71,44 @@ struct D2Storm4168F0Strc
     ~D2Storm4168F0Strc();
 };
 
+int __stdcall SMsgRegisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+int __stdcall SMsgRegisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+static __declspec(noinline) int __stdcall sub_00420A70_RegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+// 0x00420A70
+static __declspec(noinline) int __stdcall sub_00420A70_RegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pHandler);
+    VALIDATEEND;
+    if (!sub_004209E0_FindWndRec(hWnd))
+    {
+        sub_004208E0_AddWndRec((int)hWnd);
+    }
+    return nValid ? SEvtRegisterHandler(nType, hWnd, nId, 0, pHandler) : 0;
+}
+
+// 0x00420D50
+int __stdcall SMsgGetDispatcher(int a1)
+{
+    VALIDATEBEGIN;
+    VALIDATE(!a1);
+    VALIDATEEND;
+    return nValid ? (int)&sub_00420CF0_WindowProc : 0;
+}
+
 // 0x00420AB0
 static __declspec(noinline) int __stdcall InternalUnregister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
     if (!sub_004209E0_FindWndRec(hWnd))
     {
-        sub_004208E0_AddWndRec(hWnd);
+        sub_004208E0_AddWndRec((int)hWnd);
     }
     return SEvtUnregisterHandler(nType, hWnd, nId, pHandler);
 }
@@ -68,21 +135,6 @@ int __stdcall SMsgUnregisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pH
 int __stdcall SMsgUnregisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
     return InternalUnregister(0x534D5347, hWnd, nId, pHandler);
-}
-
-// calling-convention shim (not game code)
-static __declspec(noinline) int __stdcall sub_00420A70_RegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    if (!pHandler)
-    {
-        sub_0041C340_SetLastError(0x57);
-        return 0;
-    }
-    if (!sub_004209E0_FindWndRec(hWnd))
-    {
-        sub_004208E0_AddWndRec(hWnd);
-    }
-    return SEvtRegisterHandler(nType, hWnd, nId, 0, pHandler);
 }
 
 // 0x00420BF0
