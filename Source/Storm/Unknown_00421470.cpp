@@ -1,10 +1,4 @@
-struct D2StormArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-};
+#include "D2StormArrayA.h"
 
 struct BigBuffer
 {

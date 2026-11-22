@@ -51,7 +51,6 @@ struct Entry;
 struct SlotArray;
 struct D2Field14Strc;
 struct D2UnitStrc;
-struct D2StormArrayAStrc;
 struct BigBuffer;
 struct BigStack;
 struct LimbCell;
@@ -297,17 +296,7 @@ struct SlotArray {
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
-struct D2StormArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-
-    unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                            // 0x004210A0
-    void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                   // 0x004215C0
-    void sub_004216E0_ReallocData(unsigned int nAlloc);                                                      // 0x004216E0
-};
+#include "D2StormArrayA.h"
 
 struct BigBuffer
 {

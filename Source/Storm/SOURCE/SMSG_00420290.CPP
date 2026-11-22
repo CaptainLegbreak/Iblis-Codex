@@ -3,7 +3,6 @@
 #include "D2StormTypes.h"
 struct D2StormNodeListStrc;
 struct D2StormWndRecNodeStrc;
-struct D2StormArrayAStrc;
 struct D2StormArrayCStrc;
 extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x006CC488
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
@@ -54,44 +53,7 @@ struct D2StormWndRecNodeStrc
     int nValue;
 };
 extern D2StormNodeListStrc gWndRecList_00708860; // 0x00708860
-struct D2StormArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    void Reserve(unsigned int nCount, int bRound)
-    {
-        nCount += f_4;
-        if (nCount > f_0)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_004216E0_ReallocData(nCount);
-        }
-    }
-    // build: context D2StormArrayAStrc::SetCount
-    void SetCount(unsigned int nCount)
-    {
-        if (nCount > f_4)
-            Reserve(nCount - f_4, 1);
-        f_4 = nCount;
-    }
-    unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
-    void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                  // 0x004215C0
-    void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
-};
+#include "D2StormBigBuffer.h"
 struct D2StormArrayCStrc
 {
     unsigned int f_0;
