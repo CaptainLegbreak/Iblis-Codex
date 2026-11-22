@@ -175,6 +175,9 @@ struct D2LoadingTimerStrc
 {
     unsigned long dwStart;
     unsigned long dwLength;
+    D2LoadingTimerStrc() : dwStart(0), dwLength(0)
+    {
+    }
 };
 
 struct D2WinMsgStrc
