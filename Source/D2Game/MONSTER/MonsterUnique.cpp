@@ -355,6 +355,12 @@ enum D2C_H16ElemConstants
     MONLVL_DM = 6,
 };
 
+#define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
+
+int __fastcall SKILLS_ApplyAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, D2DamageStrc* pDamage, unsigned int nAuraFilter); // 0x0056BAD0
+
+void __fastcall MISSMODE_FillDamageParams(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A89A0
+
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -1256,6 +1262,125 @@ void __fastcall MONSTERUNIQUE_CastCorpseExplode2(D2GameStrc* pGame, D2UnitStrc* 
     damage.dwPhysDamage = 0x6400;
     damage.dwFireDamage = 0x6400;
     SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pMissile, nX, nY, 6, &damage, 0, 0, 0, 0x583);
+}
+
+static D2MissilesTxt* SKILLS_GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
+    }
+
+    return 0;
+}
+
+static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+static D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInline(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        return pUnit->pMonsterData;
+    }
+
+    return 0;
+}
+
+// 0x005A29A0
+void __fastcall MONSTERUNIQUE_CastLightUniqueMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    static const int nYOffsets[] = { -1, 0, 1, 0 };                                                       // 0x006E2178
+    static const int nXOffsets[] = { 0, 1, 0, -1 };                                                       // 0x006E2188
+
+    if (!bUnique)
+    {
+        return;
+    }
+
+    D2MonsterDataStrc* pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
+    const int nLastFrame = !pMonsterData ? 0 : pMonsterData->dwDurielFlag;
+
+    int nFrameDiff = pGame->dwGameFrame - nLastFrame;
+    if (nFrameDiff < 0)
+    {
+        nFrameDiff = -nFrameDiff;
+    }
+
+    if (nFrameDiff < 10)
+    {
+        pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
+        if (pMonsterData)
+        {
+            pMonsterData->nTypeFlag &= ~MONTYPEFLAG_LIGHTNINGUNIQUE;
+        }
+        return;
+    }
+
+    pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
+    if (pMonsterData)
+    {
+        pMonsterData->dwDurielFlag = pGame->dwGameFrame;
+    }
+
+    pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
+    if (pMonsterData)
+    {
+        pMonsterData->nTypeFlag |= MONTYPEFLAG_LIGHTNINGUNIQUE;
+    }
+
+    int nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0) / 2;
+    if (nSkillLevel < 1)
+    {
+        nSkillLevel = 1;
+    }
+
+    D2MissileStrc missileParams = {};
+    missileParams.dwFlags = 0x21;
+    missileParams.pOwner = pUnit;
+    missileParams.nX = UNITS_GetXPositionInline(pUnit);
+    missileParams.nY = UNITS_GetYPositionInline(pUnit);
+    missileParams.nSkillLevel = nSkillLevel;
+    missileParams.nMissile = MISSILE_LIGHTUNIQUE;
+    missileParams.pInitFunc = SKILLS_MissileInit_ChargedBolt;
+
+    const int nBaseX = UNITS_GetXPositionInline(pUnit);
+    const int nBaseY = UNITS_GetYPositionInline(pUnit);
+    for (int i = 0; i < 4; ++i)
+    {
+        const int nX = nBaseX + nXOffsets[i];
+        const int nY = nBaseY + nYOffsets[i];
+        for (int j = 0; j < 2; ++j)
+        {
+            missileParams.nInitArg = j;
+            missileParams.nTargetX = nX;
+            missileParams.nTargetY = nY;
+            MISSILES_CreateMissileFromParams(pGame, &missileParams);
+        }
+    }
 }
 
 // 0x005A2BA0

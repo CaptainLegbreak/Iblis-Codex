@@ -60858,6 +60858,11 @@
      "name": "MONSTERUNIQUE_CastCorpseExplode2"
     },
     {
+     "va": "0x005A29A0",
+     "length": 506,
+     "name": "?MONSTERUNIQUE_CastLightUniqueMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005A2BA0",
      "length": 34,
      "name": "MONSTERUNIQUE_CastLightUniqueMissileIfNotGetHit"
@@ -61656,17 +61661,6 @@
      "va": "0x005A3040",
      "length": 100,
      "name": "?MONSTERUNIQUE_ApplyElementalDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A29A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A29A0",
-     "length": 506,
-     "name": "?MONSTERUNIQUE_CastLightUniqueMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
