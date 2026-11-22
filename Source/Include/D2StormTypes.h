@@ -13,7 +13,7 @@ struct D2StormMpqHeaderStrc;
 struct D2StormHashEntryStrc;
 struct D2StormArrayViewStrc;
 struct D2StormEventHandlerStrc;
-struct D2StormHandlerTableStrc;
+struct _IDHASHTABLE;
 struct D2StormEventTypeStrc;
 
 typedef void (__stdcall* D2ErrorCallback)(D2ErrorReportStrc*);
@@ -111,12 +111,12 @@ struct D2StormEventHandlerStrc
     D2StormEventHandlerStrc* pNext; // 0x0C
 };
 
-struct D2StormHandlerTableStrc
+struct _IDHASHTABLE
 {
     D2StormEventHandlerStrc** ppTable; // 0x00
     unsigned int nSize; // 0x04
     int nUsed; // 0x08
-    D2StormHandlerTableStrc* pPrevState; // 0x0C
+    _IDHASHTABLE* pPrevState; // 0x0C
 };
 
 struct D2StormEventTypeStrc
@@ -124,7 +124,7 @@ struct D2StormEventTypeStrc
     unsigned int nType; // 0x00
     unsigned int nSubType; // 0x04
     unsigned int nSequence; // 0x08
-    D2StormHandlerTableStrc* pHandlers; // 0x0C
+    _IDHASHTABLE* pHandlers; // 0x0C
     D2StormEventTypeStrc* pNext; // 0x10
 };
 
@@ -166,5 +166,5 @@ D2_CHECK_SIZE(D2StormMpqHeaderStrc, 0x20);
 D2_CHECK_SIZE(D2StormHashEntryStrc, 0x10);
 D2_CHECK_SIZE(D2StormArrayViewStrc, 0x8);
 D2_CHECK_SIZE(D2StormEventHandlerStrc, 0x10);
-D2_CHECK_SIZE(D2StormHandlerTableStrc, 0x10);
+D2_CHECK_SIZE(_IDHASHTABLE, 0x10);
 D2_CHECK_SIZE(D2StormEventTypeStrc, 0x14);

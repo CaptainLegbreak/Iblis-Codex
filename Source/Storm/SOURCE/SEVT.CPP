@@ -56,7 +56,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLine, unsigned int nFlags);    // 0x00413020
 
-void __stdcall CopyIdHashTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource); // 0x00426180
+void __stdcall CopyIdHashTable(_IDHASHTABLE* pDest, _IDHASHTABLE* pSource); // 0x00426180
 
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
@@ -65,7 +65,7 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned int nId, void* pData);
 
 // 0x00426180
-void __stdcall CopyIdHashTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource)
+void __stdcall CopyIdHashTable(_IDHASHTABLE* pDest, _IDHASHTABLE* pSource)
 {
     pDest->nSize = pSource->nSize;
     pDest->nUsed = pSource->nUsed;
@@ -84,7 +84,7 @@ void __stdcall CopyIdHashTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTab
 }
 
 // 0x00426210
-static void __cdecl sub_00426210_DeleteHandlerTable(D2StormHandlerTableStrc* pTable)
+static void __cdecl sub_00426210_DeleteHandlerTable(_IDHASHTABLE* pTable)
 {
     for (unsigned int i = 0; i < pTable->nSize; i++)
     {
@@ -122,7 +122,7 @@ int __stdcall SEvtDestroy()
         D2StormEventTypeStrc* pType;
         while ((pType = gppSEvtTypes_00779300[i]) != 0)
         {
-            D2StormHandlerTableStrc* pState;
+            _IDHASHTABLE* pState;
             while ((pState = pType->pHandlers) != 0)
             {
                 pType->pHandlers = pState->pPrevState;
@@ -150,7 +150,7 @@ int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubType)
     D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
     if (pType)
     {
-        D2StormHandlerTableStrc* pState = (D2StormHandlerTableStrc*)SMemAlloc(sizeof(D2StormHandlerTableStrc), gszSEvtCpp, 284, 0);
+        _IDHASHTABLE* pState = (_IDHASHTABLE*)SMemAlloc(sizeof(_IDHASHTABLE), gszSEvtCpp, 284, 0);
         CopyIdHashTable(pState, pType->pHandlers);
         pState->pPrevState = pType->pHandlers;
         pType->pHandlers = pState;
@@ -210,7 +210,7 @@ int __stdcall SEvtRegisterHandler(unsigned int nType, unsigned int nSubType, uns
         pType = (D2StormEventTypeStrc*)SMemAlloc(sizeof(D2StormEventTypeStrc), gszSEvtCpp, 0x15D, 8);
         pType->nType = nType;
         pType->nSubType = nSubType;
-        pType->pHandlers = (D2StormHandlerTableStrc*)SMemAlloc(sizeof(D2StormHandlerTableStrc), gszSEvtCpp, 0x160, 8);
+        pType->pHandlers = (_IDHASHTABLE*)SMemAlloc(sizeof(_IDHASHTABLE), gszSEvtCpp, 0x160, 8);
         ++gnSEvtTypeCount_00779308;
         pType->pNext = gppSEvtTypes_00779300[nBucket];
         gppSEvtTypes_00779300[nBucket] = pType;
@@ -303,7 +303,7 @@ int __stdcall SEvtUnregisterType(unsigned int nType, unsigned int nSubType)
     D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
     if (pType)
     {
-        D2StormHandlerTableStrc* pState;
+        _IDHASHTABLE* pState;
         while ((pState = pType->pHandlers) != 0)
         {
             pType->pHandlers = pState->pPrevState;
@@ -339,8 +339,8 @@ int __stdcall SEvtPopState(unsigned int nType, unsigned int nSubType)
     D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
     if (pType)
     {
-        D2StormHandlerTableStrc* pState = pType->pHandlers;
-        D2StormHandlerTableStrc* pPrev = pState->pPrevState;
+        _IDHASHTABLE* pState = pType->pHandlers;
+        _IDHASHTABLE* pPrev = pState->pPrevState;
         if (!pPrev)
             bResult = UNREGISTER_TYPE(nType, nSubType);
         else

@@ -8807,7 +8807,7 @@
     {
      "va": "0x00426210",
      "length": 95,
-     "name": "?sub_00426210_DeleteHandlerTable@@YAXPAUD2StormHandlerTableStrc@@@Z"
+     "name": "?sub_00426210_DeleteHandlerTable@@YAXPAU_IDHASHTABLE@@@Z"
     },
     {
      "va": "0x00426270",
