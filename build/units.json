@@ -6422,6 +6422,11 @@
      "name": "??1D2StormList00708420Strc@@QAE@XZ"
     },
     {
+     "va": "0x0041C900",
+     "length": 184,
+     "name": "SErrRegisterHandler"
+    },
+    {
      "va": "0x0041CA80",
      "length": 107,
      "name": "?SErrDestroy@@YAHXZ"
@@ -6435,6 +6440,16 @@
      "va": "0x0041D010",
      "length": 256,
      "name": "SErrReportNamedResourceLeak"
+    },
+    {
+     "va": "0x0041D160",
+     "length": 128,
+     "name": "sub_0041D160_DisplayAppFatal"
+    },
+    {
+     "va": "0x0041D1E0",
+     "length": 18,
+     "name": "SErrReportResourceLeak"
     }
    ]
   },
@@ -6706,27 +6721,6 @@
      "va": "0x00424F90",
      "length": 24,
      "name": "SBigSquare"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SERR_0041C900.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041C900",
-     "length": 184,
-     "name": "SErrRegisterHandler"
-    },
-    {
-     "va": "0x0041D160",
-     "length": 128,
-     "name": "sub_0041D160_DisplayAppFatal"
-    },
-    {
-     "va": "0x0041D1E0",
-     "length": 18,
-     "name": "SErrReportResourceLeak"
     }
    ]
   },
