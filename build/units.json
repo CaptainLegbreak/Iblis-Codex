@@ -64639,20 +64639,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a3q5_005BAE20.cpp",
+   "file": "Source/D2Game/Quests/a3q5.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x005BAE20",
      "length": 333,
      "name": "?ACT3Q5_UnitIterate_UpdateQuestStateAfterMonsterKill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q5.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005BAF70",
      "length": 96,
