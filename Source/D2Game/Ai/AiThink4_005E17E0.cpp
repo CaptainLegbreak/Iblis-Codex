@@ -65,10 +65,10 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);               
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x00648900
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY);                          // 0x00621DC0
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex);                               // 0x0063E7A0
-void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY);                  // 0x0063E7E0
+void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, unsigned int* pX, unsigned int* pY); // 0x0063E7E0
 int __fastcall sub_6FC68350(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5);              // 0x005FD350
 
-inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline_005E17E0(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -80,7 +80,7 @@ inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline_005E17E0(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -94,12 +94,12 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
-inline short AI_GetParamValue(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nParamId)
+inline short AI_GetParamValue_005E17E0(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nParamId)
 {
     return pMonStatsTxt->wAiParam[nParamId][pGame->nDifficulty];
 }
 
-inline void AITHINK_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+inline void AITHINK_IdleInline_005E17E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
 {
     if (!nFrames)
     {
@@ -185,7 +185,7 @@ void __fastcall D2GAME_AI_SpecialState11_6FCE7E80(D2GameStrc* pGame, D2UnitStrc*
     if (!STATES_CheckState(pUnit, STATE_TERROR))
     {
         AITHINK_ExecuteAiFn(pGame, pUnit, pAiTickParam->pAiControl, AISPECIALSTATE_NONE);
-        AITHINK_IdleInline(pGame, pUnit, 1);
+        AITHINK_IdleInline_005E17E0(pGame, pUnit, 1);
         return;
     }
 
@@ -355,9 +355,9 @@ void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit
         return;
     }
 
-    if (nDistance < AI_GetParamValue(pGame, pMonStatsTxt, 0))
+    if (nDistance < AI_GetParamValue_005E17E0(pGame, pMonStatsTxt, 0))
     {
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_GetParamValue(pGame, pMonStatsTxt, 1), 0);
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_GetParamValue_005E17E0(pGame, pMonStatsTxt, 1), 0);
         return;
     }
 
@@ -467,7 +467,7 @@ void __fastcall AITHINK_Fn079_TrapLeftArrow(D2GameStrc* pGame, D2UnitStrc* pUnit
 // 0x005F9E30
 int __fastcall sub_005F9E30_VileMotherSpawnDirection(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2MonStatsTxt* pMonStatsTxt)
 {
-    unsigned char nIndex = UNITS_GetDirectionToCoords(pUnit, CLIENTS_GetUnitXInline(pTarget), CLIENTS_GetUnitYInline(pTarget));
+    unsigned char nIndex = UNITS_GetDirectionToCoords(pUnit, CLIENTS_GetUnitXInline_005E17E0(pTarget), CLIENTS_GetUnitYInline_005E17E0(pTarget));
     nIndex = sub_0063E7A0_GetByteTableEntry(nIndex);
     const unsigned char nIndices[8] = { 6, 4, 2, 2, 2, 0, 6, 6 };
 
@@ -477,10 +477,10 @@ int __fastcall sub_005F9E30_VileMotherSpawnDirection(D2GameStrc* pGame, D2UnitSt
 
         int nX;
         int nY;
-        sub_0063E7E0_GetDirectionDelta(nIndices[nIndex], &nX, &nY);
+        sub_0063E7E0_GetDirectionDelta(nIndices[nIndex], (unsigned int*)&nX, (unsigned int*)&nY);
 
-        const int nFinalX = 3 * nX + CLIENTS_GetUnitXInline(pUnit);
-        const int nFinalY = 3 * nY + CLIENTS_GetUnitYInline(pUnit);
+        const int nFinalX = 3 * nX + CLIENTS_GetUnitXInline_005E17E0(pUnit);
+        const int nFinalY = 3 * nY + CLIENTS_GetUnitYInline_005E17E0(pUnit);
         const int nMonsterId = sub_004E6C50_ValidateMonsterId(MONSTER_VILEMOTHER1);
         if (pMonStatsTxt->nSkill[0] >= 0 && sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), nFinalX, nFinalY, 0))
         {
