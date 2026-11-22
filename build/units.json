@@ -13762,6 +13762,10 @@
      "name": "?sub_0044A170_AppendText@@YGPADIPADPBDPAI@Z"
     },
     {
+     "va": "0x0044A1D0",
+     "length": 266
+    },
+    {
      "va": "0x0044A2E0",
      "length": 150,
      "name": "?WINMAIN_SendMcpCharCreate@@YIHPBDHG@Z"
@@ -13770,6 +13774,10 @@
      "va": "0x0044A380",
      "length": 125,
      "name": "?WINMAIN_SendMcpCharLogon@@YIHPBD@Z"
+    },
+    {
+     "va": "0x0044A400",
+     "length": 224
     },
     {
      "va": "0x0044A4E0",
@@ -13971,39 +13979,6 @@
      "length": 190,
      "name": "sub_0044A070_ConnectThread"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/CORE/WINMAIN_0044A1D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044A1D0",
-     "length": 266
-    },
-    {
-     "va": "0x0044A400",
-     "length": 224
-    },
-    {
-     "va": "0x004518E0",
-     "length": 47,
-     "name": "?WINMAIN_StartPlayback@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -14218,9 +14193,23 @@
      "name": "?VIEW_GetViewShift@@YIHPAH0@Z"
     },
     {
+     "va": "0x00476AF0",
+     "length": 18,
+     "name": "?UI_ClearGlobals@@YAXXZ"
+    },
+    {
      "va": "0x00476B10",
      "length": 176,
      "name": "?VIEW_CreateView@@YAPAUObj004DCF10@@XZ"
+    },
+    {
+     "va": "0x00476BC0",
+     "length": 370,
+     "name": "?sub_00476BC0@@YIXPAUD2ViewStrc@@@Z"
+    },
+    {
+     "va": "0x00476D40",
+     "length": 235
     },
     {
      "va": "0x00477030",
@@ -15131,6 +15120,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004ACC70",
+     "length": 219
+    },
+    {
      "va": "0x004ACD70",
      "length": 62,
      "name": "MONUNIQUE_AssignTeleportSkill"
@@ -15138,30 +15131,6 @@
     {
      "va": "0x004AD020",
      "length": 150
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/MonUnique_004ACC70.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x004ACC70",
-     "length": 219
     },
     {
      "va": "0x004AD2F0",
@@ -16217,6 +16186,11 @@
      "va": "0x00451880",
      "length": 93,
      "name": "RECORD_DispatchRecordedMessage"
+    },
+    {
+     "va": "0x004518E0",
+     "length": 47,
+     "name": "?WINMAIN_StartPlayback@@YAXXZ"
     }
    ]
   },
@@ -16597,11 +16571,6 @@
      "va": "0x0046F9A0",
      "length": 6,
      "name": "UI_GetCofMemoryLimit"
-    },
-    {
-     "va": "0x00476AF0",
-     "length": 18,
-     "name": "?UI_ClearGlobals@@YAXXZ"
     }
    ],
    "flags": [
@@ -18874,6 +18843,11 @@
      "name": "?ROSTERPETS_DropPetEntry@@YIXH@Z"
     },
     {
+     "va": "0x00478E40",
+     "length": 35,
+     "name": "?sub_00478E40_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
+    },
+    {
      "va": "0x0047ACA0",
      "length": 103,
      "name": "ROSTERPETS_HandleImeStartComposition"
@@ -18907,17 +18881,6 @@
      "va": "0x004B76D0",
      "length": 146,
      "name": "ROSTERPETS_HandleDialogEscape"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/RosterPets_00478E40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00478E40",
-     "length": 35,
-     "name": "?sub_00478E40_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
     }
    ]
   },
@@ -20058,27 +20021,6 @@
   {
    "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "rank": 0,
-   "functions": [
-    {
-     "va": "0x004683C0",
-     "length": 155,
-     "name": "CURSOR_DrawDefaultCursor"
-    },
-    {
-     "va": "0x004684C0",
-     "length": 255,
-     "name": "CURSOR_DrawCursor"
-    },
-    {
-     "va": "0x004685C0",
-     "length": 366,
-     "name": "CURSOR_PaintCursorItem"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Cursor_004680B0.cpp",
-   "rank": 0,
    "flags": [
     "/nologo",
     "/c",
@@ -20105,8 +20047,23 @@
      "name": "?CURSOR_ShutdownCursor@@YAXXZ"
     },
     {
+     "va": "0x004683C0",
+     "length": 155,
+     "name": "CURSOR_DrawDefaultCursor"
+    },
+    {
      "va": "0x00468460",
      "length": 90
+    },
+    {
+     "va": "0x004684C0",
+     "length": 255,
+     "name": "CURSOR_DrawCursor"
+    },
+    {
+     "va": "0x004685C0",
+     "length": 366,
+     "name": "CURSOR_PaintCursorItem"
     }
    ]
   },
@@ -22516,55 +22473,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00476BC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00476BC0",
-     "length": 370,
-     "name": "?sub_00476BC0@@YIXPAUD2ViewStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/View_00476D40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00476D40",
-     "length": 235
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/PalShift.cpp",
    "rank": 0,
    "flags": [
@@ -22781,41 +22689,7 @@
      "va": "0x004781D0",
      "length": 379,
      "name": "?NET_D2GS_CLIENT_Send_0x6C@@YIXH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Msg_004786A0.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
+    },
     {
      "va": "0x00478590",
      "length": 27,
@@ -22826,6 +22700,20 @@
      "length": 40,
      "name": "?sub_004786A0_SendDwords2@@YIXEII@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -24523,6 +24411,11 @@
      "name": "?UNITMODE_RecacheUnitPath@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004804E0",
+     "length": 657,
+     "name": "?UNITMODE_SetPosition@@YIXPAUD2UnitStrc@@GGHHH@Z"
+    },
+    {
      "va": "0x004807C0",
      "length": 67,
      "name": "@UNITMODE_UpdateUnitPath@4"
@@ -24600,17 +24493,6 @@
      "va": "0x00481830",
      "length": 10,
      "name": "?sub_00481830@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_004804E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004804E0",
-     "length": 657,
-     "name": "?UNITMODE_SetPosition@@YIXPAUD2UnitStrc@@GGHHH@Z"
     }
    ]
   },
@@ -28425,6 +28307,11 @@
      "name": "?SPELLSEL_RegisterSkillSlot@@YGHHHHPAUD2SkillStrc@@H@Z"
     },
     {
+     "va": "0x004A9BD0",
+     "length": 409,
+     "name": "SPELLSEL_SkillSelectClickMsg"
+    },
+    {
      "va": "0x004AA3A0",
      "length": 736,
      "name": "?SPELLSEL_BuildSkillRows@@YIXPAUD2UnitStrc@@HHHH@Z"
@@ -28443,17 +28330,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/spellsel_004A9BD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A9BD0",
-     "length": 409,
-     "name": "SPELLSEL_SkillSelectClickMsg"
-    }
    ]
   },
   {
@@ -31929,6 +31805,10 @@
     {
      "va": "0x004C0810",
      "length": 1232
+    },
+    {
+     "va": "0x006CADB0",
+     "length": 48
     }
    ],
    "flags": [
@@ -33050,6 +32930,10 @@
      "name": "?sub_004CB950_PlayFleeSound@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004CB9C0",
+     "length": 1052
+    },
+    {
      "va": "0x004CC160",
      "length": 230,
      "name": "?UNITSND_AddUnitSoundRefs@@YIXPAUD2UnitStrc@@H@Z"
@@ -33213,30 +33097,6 @@
     {
      "va": "0x004CA560",
      "length": 677
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitSnd_004CB9C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CB9C0",
-     "length": 1052
     }
    ],
    "flags": [
@@ -34843,6 +34703,20 @@
   {
    "file": "Source/D2Client/SKILLS/SkillsMon.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004E1D30",
@@ -34873,6 +34747,10 @@
      "va": "0x004E26C0",
      "length": 253,
      "name": "SKILLSMON_StreamAtTarget"
+    },
+    {
+     "va": "0x004E2D40",
+     "length": 390
     },
     {
      "va": "0x004E3590",
@@ -34958,30 +34836,6 @@
      "va": "0x004F4610",
      "length": 402,
      "name": "SKILLSMON_MissileLine"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/SkillsMon_004E2D40.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x004E2D40",
-     "length": 390
     }
    ]
   },
@@ -88113,30 +87967,6 @@
      "length": 15,
      "name": "?sub_006CAE50_InitializeMonsterCode@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/showitems_006CADB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CADB0",
-     "length": 48
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

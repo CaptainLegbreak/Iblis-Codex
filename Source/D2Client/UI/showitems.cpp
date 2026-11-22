@@ -86,6 +86,14 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 
+typedef void (__fastcall* D2UnicodeConstructor)(Unicode*);
+
+void __fastcall sub_0042F530_ClearUnicode(Unicode* pChar); // 0x0042F530
+
+void __stdcall sub_00403040_VectorConstruct(void* pArray, unsigned int nElementSize, int nCount, D2UnicodeConstructor pConstructor); // 0x00403040
+
+unsigned char gaRecords_007C54BC[260];     // 0x007C54BC
+
 // build: context sub_004C0640_ClampToScreen
 static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)
 {
@@ -338,6 +346,19 @@ Placed:
         sub_00466FE0();
         D2Win_10129_DrawFramedText(0,0,0,0,0);
     }
+}
+
+// 0x006CADB0
+void __cdecl sub_006CADB0_InitializeUnicodeRecords()
+{
+    int nRemaining = 31;
+    unsigned char* pRecord = gaRecords_007C54BC;
+    do
+    {
+        sub_00403040_VectorConstruct(pRecord, 2, 128, sub_0042F530_ClearUnicode);
+        pRecord += 0x120;
+    }
+    while (--nRemaining >= 0);
 }
 
 #include "gen/data/Source/D2Client/UI/showitems.inc"

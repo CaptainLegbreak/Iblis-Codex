@@ -256,7 +256,6 @@ extern T0044A980* gpPalShiftEntries_007B9578; // 0x007B9578
 
 extern int gnGlobal_007B957C; // 0x007B957C
 
-
 extern void* gpGlobal_007BEEF0; // 0x007BEEF0
 
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -393,7 +392,7 @@ extern "C" int gnModeValue_00712CCC; // 0x00712CCC
 
 int gnGlobal_007B8D2C; // 0x007B8D2C
 
-extern int gnGlobal_007B9534; // 0x007B9534
+static int gnGlobal_007B9534;                                                                               // 0x007B9534
 
 unsigned char** gppLerpRows_007B953C;        // 0x007B953C
 
@@ -453,15 +452,15 @@ void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 
 int gnGlobal_007B8D10; // 0x007B8D10
 
-extern int gnGlobal_007B8D14; // 0x007B8D14
+static int gnGlobal_007B8D14;                                                                               // 0x007B8D14
 
-extern int gnGlobal_007B8D18; // 0x007B8D18
+static int gnGlobal_007B8D18;                                                                               // 0x007B8D18
 
-extern int gnGlobal_007B8D1C; // 0x007B8D1C
+static int gnGlobal_007B8D1C;                                                                               // 0x007B8D1C
 
-int gnGlobal_007B8D20; // 0x007B8D20
+static int gnGlobal_007B8D20; // 0x007B8D20
 
-int gnGlobal_007B9538; // 0x007B9538
+static int gnGlobal_007B9538; // 0x007B9538
 
 extern D2SeedStrc* gpClientSeed_00712C4C; // 0x00712C4C
 
@@ -487,12 +486,8 @@ int gnGlobal_007BEF04; // 0x007BEF04
 
 int gnGlobal_007BEF08; // 0x007BEF08
 
-
-
 #define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
-
-union D2SeedStrc;
 
 struct D2QuestLookupEntryStrc;
 
@@ -574,7 +569,6 @@ static int gnBaseGuard; // 0x007B9574
 
 static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer); // 0x00476460
 
-
 struct Obj004DCF10
 {
     unsigned int flags;
@@ -595,6 +589,86 @@ void __fastcall sub_004DDDF0(void* rows, void* data); // 0x004DDDF0
 extern "C" void __fastcall WALL2_ResetViewCells(Obj004DCF10*); // 0x004DCF10
 
 int gnGlobal_007B9530;        // 0x007B9530
+
+struct D2TileLightCtxStrc;
+
+struct D2CellGridViewStrc
+{
+    void __thiscall sub_004DF510_DrawCellNodes();                                                            // 0x004DF510
+};
+
+int __stdcall D2GFX_CheckPerspective();                                                                      // 0x004F51D0
+
+int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                        // 0x006203B0
+
+int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
+
+int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
+
+void __cdecl MISSILE_UpdateRoomColor();                                                                 // 0x004DED20
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
+
+void __cdecl VIEW_DrawStarfield();                                                                   // 0x00476290
+
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                    // 0x00478A00
+
+void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
+
+void __fastcall sub_004DED10(void* pArg);                                                                    // 0x004DED10
+
+void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
+
+void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
+
+void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
+
+void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
+
+void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
+
+void __cdecl GFXUTIL_DrawFadeBox();                                                                     // 0x004DC000
+
+extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
+
+void __cdecl sub_00473910();
+
+static D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
+
+void* gpLerpTable_007B9540; // 0x007B9540
+
+void* gpLerpTable_007B9544; // 0x007B9544
+
+void* gpLerpTable_007B954C; // 0x007B954C
+
+void* gpLerpTable_007B9550; // 0x007B9550
+
+D2PalShiftNodeStrc* gpPalShiftList_007B957C; // 0x007B957C
+
+int gbCacheStats_007BB3A4; // 0x007BB3A4
+
+int gdwGlobal_007BEFAC; // 0x007BEFAC
+
+unsigned char gnLifeColorHigh_007BEED0; // 0x007BEED0
+
+unsigned char gnLifeColorMid_007BEED1; // 0x007BEED1
+
+unsigned char gnLifeColorLow_007BEED2; // 0x007BEED2
+
+unsigned char gbLifeColorsInit_007BEED3; // 0x007BEED3
+
+int gnGlobal_007B9564; // 0x007B9564
+
+void __fastcall sub_00476BC0(D2ViewStrc* pView);
+
+static int gnPopupX_007BEED4; // 0x007BEED4
+
+
+
+
+void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY);
 
 static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, int nLinkOffset)
 {
@@ -743,8 +817,6 @@ void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode,
         break;
     }
 }
-
-static D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
 // 0x0045B0B0
 void __fastcall VIEW_DrawRoomUnitBoxes(D2ActiveRoomStrc* pRoom)
@@ -975,18 +1047,6 @@ void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit)
     sub_004CD540_CreateMissile(&tMissileParams);
 }
 
-void* gpLerpTable_007B9540; // 0x007B9540
-
-void* gpLerpTable_007B9544; // 0x007B9544
-
-void* gpLerpTable_007B954C; // 0x007B954C
-
-void* gpLerpTable_007B9550; // 0x007B9550
-
-D2PalShiftNodeStrc* gpPalShiftList_007B957C; // 0x007B957C
-
-int gbCacheStats_007BB3A4; // 0x007BB3A4
-
 // 0x00475EF0
 void __cdecl VIEW_FreeLerpTables()
 {
@@ -1066,16 +1126,6 @@ void __fastcall VIEW_SetViewPos(D2ClientViewStrc* pView, int nX, int nY)
     }
 }
 
-int gdwGlobal_007BEFAC; // 0x007BEFAC
-
-unsigned char gnLifeColorHigh_007BEED0; // 0x007BEED0
-
-unsigned char gnLifeColorMid_007BEED1; // 0x007BEED1
-
-unsigned char gnLifeColorLow_007BEED2; // 0x007BEED2
-
-unsigned char gbLifeColorsInit_007BEED3; // 0x007BEED3
-
 // 0x004760C0
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
 {
@@ -1102,55 +1152,6 @@ void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
             sub_004DDB70_PrepareWallCells(pView, nArg);
         pView->dwFlags &= ~1;
     }
-}
-
-void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
-{
-    const unsigned int nElapsed = GetTickCount() - gnGlobal_007B8D10;
-    const unsigned int nFadeIn = gnGlobal_007B8D14;
-    const unsigned int nHold = gnGlobal_007B8D18;
-    const unsigned int nFadeOut = gnGlobal_007B8D1C;
-    if (nElapsed > nFadeOut + nHold + nFadeIn)
-    {
-        VIEW_UpdateShakeSound(0);
-        gnGlobal_007B9534 = 0;
-        gnGlobal_007B9538 = 0;
-        gnGlobal_007B8D20 = 0;
-        return;
-    }
-
-    int nMagnitude = 0;
-    if (nElapsed < nFadeIn)
-    {
-        if (!nFadeIn)
-        {
-            return;
-        }
-        nMagnitude = gnGlobal_007B9534 * nElapsed / nFadeIn;
-    }
-    else if (nElapsed < nHold + nFadeIn)
-    {
-        nMagnitude = gnGlobal_007B9534;
-    }
-    else
-    {
-        if (!nFadeOut)
-        {
-            return;
-        }
-        nMagnitude = (nFadeOut - nElapsed + nHold + nFadeIn) * gnGlobal_007B9534 / nFadeOut;
-    }
-
-    if (nMagnitude)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        gnGlobal_007B9538 = sub_00472280(&pPlayer->pSeed, -nMagnitude, 2 * nMagnitude);
-        const int nOffsetY = sub_00472280(&pPlayer->pSeed, -nMagnitude, 2 * nMagnitude);
-        *pX += gnGlobal_007B9538;
-        *pY += nOffsetY;
-        gnGlobal_007B8D20 = nOffsetY;
-    }
-    VIEW_UpdateShakeSound(nMagnitude);
 }
 
 static inline unsigned int STARS_Roll(D2SeedStrc* pSeed)
@@ -1245,8 +1246,6 @@ void __cdecl VIEW_DrawStarfield()
         gdwStarTick_007B57E0 = dwTick;
     }
 }
-
-int gnGlobal_007B9564; // 0x007B9564
 
 // 0x00476460
 static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
@@ -1389,49 +1388,116 @@ static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
     }
 }
 
-struct D2TileLightCtxStrc;
-
-struct D2CellGridViewStrc
+// 0x004769B0
+void __cdecl sub_004769B0_Toggle()
 {
-    void __thiscall sub_004DF510_DrawCellNodes();                                                            // 0x004DF510
-};
+    gnGlobal_007B9564 = gnGlobal_007B9564 == 0;
+}
 
-int __stdcall D2GFX_CheckPerspective();                                                                      // 0x004F51D0
+// 0x004769D0
+static void VIEW_UpdateShakeSound(int nIntensity)
+{
+    int nVolume = nIntensity * 0xFF / 20;
+    nVolume = nVolume > 0 ? nVolume : 0;
+    if (nVolume >= 0xFF)
+    {
+        nVolume = 0xFF;
+    }
 
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                        // 0x006203B0
+    if (nVolume && !gnGlobal_007B8D2C)
+    {
+        gnGlobal_007B8D2C = sub_004B9A00(0x1C4, 0, 0, 0, 0);
+        if (!gnGlobal_007B8D2C)
+        {
+            return;
+        }
+        sub_004B9B50_SetValue(gnGlobal_007B8D2C, 0);
+    }
 
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
+    if (!gnGlobal_007B8D2C)
+    {
+        return;
+    }
 
-int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
+    const int nCurrent = sub_004B9B20(gnGlobal_007B8D2C);
+    if (nVolume == nCurrent)
+    {
+        return;
+    }
 
-void __cdecl MISSILE_UpdateRoomColor();                                                                 // 0x004DED20
+    int nNew;
+    if (nVolume > nCurrent)
+    {
+        nNew = nCurrent + 6;
+        if (nVolume < nNew)
+        {
+            nNew = nVolume;
+        }
+    }
+    else
+    {
+        nNew = nCurrent - 6;
+        if (nVolume > nNew)
+        {
+            nNew = nVolume;
+        }
+    }
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
+    if (nNew)
+    {
+        sub_004B9B50_SetValue(gnGlobal_007B8D2C, nNew);
+        return;
+    }
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
+    sub_004BA840(gnGlobal_007B8D2C);
+    gnGlobal_007B8D2C = 0;
+}
 
-void __cdecl VIEW_DrawStarfield();                                                                   // 0x00476290
+// 0x00476AC0
+int __fastcall VIEW_GetViewShift(int* pX, int* pY)
+{
+    if (!gnGlobal_007B9534)
+        return 0;
 
-void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                    // 0x00478A00
+    *pX = gnGlobal_007B9538;
+    *pY = gnGlobal_007B8D20;
+    return 1;
+}
 
-void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
+// 0x00476AF0
+void __cdecl UI_ClearGlobals()
+{
+    gnGlobal_007B9534 = 0;
+    gnGlobal_007B9538 = 0;
+    gnGlobal_007B8D20 = 0;
+}
 
-void __fastcall sub_004DED10(void* pArg);                                                                    // 0x004DED10
+// 0x00476B10
+Obj004DCF10* __cdecl VIEW_CreateView()
+{
+    SYN_ASSERT(gppLerpRows_007B953C, 0x119);
+    SYN_ASSERT(gpLerpTable_007B9540, 0x11A);
+    SYN_ASSERT(gpLerpTable_007B9544, 0x11B);
 
-void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
+    Obj004DCF10* view = static_cast<Obj004DCF10*>(FOG_Alloc(sizeof(Obj004DCF10), ".\\GAME\\View.cpp", 0x11D, 0));
+    SetRect(&view->rect, 0, 0, 0, 0);
 
-void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
+    void* const rows = gppLerpRows_007B953C;
+    void* const data = gpLerpTable_007B9540;
+    void* const table = gpLerpTable_007B9544;
 
-void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
+    view->flags = 0;
+    view->rows = rows;
+    view->data = data;
+    view->table = table;
+    sub_004DDDF0(rows, data);
+    WALL2_ResetViewCells(view);
+    view->flags |= 1;
+    gnGlobal_007B9530 = 0;
+    return view;
+}
 
-void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
-
-void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
-
-void __cdecl GFXUTIL_DrawFadeBox();                                                                     // 0x004DC000
-
-extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
-
+// 0x00476BC0
 void __fastcall sub_00476BC0(D2ViewStrc* pView)
 {
     if (!pView->tRect.right && !pView->tRect.bottom)
@@ -1512,109 +1578,54 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
         DLIGHTMAP_DebugDrawLights();
     }
     SCALE_SetDefaultFactor();
-    sub_00473910_UpdateWeather();
+    sub_00473910();
     GFXUTIL_DrawFadeBox();
 }
 
-// 0x004769B0
-void __cdecl sub_004769B0_Toggle()
+// 0x00476D40
+void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
 {
-    gnGlobal_007B9564 = gnGlobal_007B9564 == 0;
-}
-
-// 0x004769D0
-static void VIEW_UpdateShakeSound(int nIntensity)
-{
-    int nVolume = nIntensity * 0xFF / 20;
-    nVolume = nVolume > 0 ? nVolume : 0;
-    if (nVolume >= 0xFF)
+    const unsigned int nTick = GetTickCount();
+    const unsigned int nElapsed = nTick - gnGlobal_007B8D10;
+    const unsigned int nFadeIn = gnGlobal_007B8D14;
+    const unsigned int nHold = gnGlobal_007B8D18;
+    const unsigned int nFadeOut = gnGlobal_007B8D1C;
+    int nMagnitude = 0;
+    if (nElapsed > nFadeOut + nHold + nFadeIn)
     {
-        nVolume = 0xFF;
-    }
-
-    if (nVolume && !gnGlobal_007B8D2C)
-    {
-        gnGlobal_007B8D2C = sub_004B9A00(0x1C4, 0, 0, 0, 0);
-        if (!gnGlobal_007B8D2C)
-        {
-            return;
-        }
-        sub_004B9B50_SetValue(gnGlobal_007B8D2C, 0);
-    }
-
-    if (!gnGlobal_007B8D2C)
-    {
+        VIEW_UpdateShakeSound(nMagnitude);
+        gnGlobal_007B9534 = 0;
+        gnGlobal_007B9538 = 0;
+        gnGlobal_007B8D20 = 0;
         return;
     }
 
-    const int nCurrent = sub_004B9B20(gnGlobal_007B8D2C);
-    if (nVolume == nCurrent)
+    if (nElapsed < nFadeIn)
     {
-        return;
-    }
-
-    int nNew;
-    if (nVolume > nCurrent)
-    {
-        nNew = nCurrent + 6;
-        if (nVolume < nNew)
+        if (nFadeIn)
         {
-            nNew = nVolume;
+            nMagnitude = gnGlobal_007B9534 * nElapsed / nFadeIn;
         }
     }
-    else
+    else if (nElapsed < nHold + nFadeIn)
     {
-        nNew = nCurrent - 6;
-        if (nVolume > nNew)
-        {
-            nNew = nVolume;
-        }
+        nMagnitude = gnGlobal_007B9534;
+    }
+    else if (nFadeOut)
+    {
+        nMagnitude = (nFadeOut - nElapsed + nHold + nFadeIn) * gnGlobal_007B9534 / nFadeOut;
     }
 
-    if (nNew)
+    if (nMagnitude)
     {
-        sub_004B9B50_SetValue(gnGlobal_007B8D2C, nNew);
-        return;
+        D2SeedStrc* pSeed = &sub_00463DD0_GetPlayerUnit()->pSeed;
+        gnGlobal_007B9538 = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
+        const int nOffsetY = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
+        *pX += gnGlobal_007B9538;
+        *pY += nOffsetY;
+        gnGlobal_007B8D20 = nOffsetY;
     }
-
-    sub_004BA840(gnGlobal_007B8D2C);
-    gnGlobal_007B8D2C = 0;
-}
-
-// 0x00476AC0
-int __fastcall VIEW_GetViewShift(int* pX, int* pY)
-{
-    if (!gnGlobal_007B9534)
-        return 0;
-
-    *pX = gnGlobal_007B9538;
-    *pY = gnGlobal_007B8D20;
-    return 1;
-}
-
-// 0x00476B10
-Obj004DCF10* __cdecl VIEW_CreateView()
-{
-    SYN_ASSERT(gppLerpRows_007B953C, 0x119);
-    SYN_ASSERT(gpLerpTable_007B9540, 0x11A);
-    SYN_ASSERT(gpLerpTable_007B9544, 0x11B);
-
-    Obj004DCF10* view = static_cast<Obj004DCF10*>(FOG_Alloc(sizeof(Obj004DCF10), ".\\GAME\\View.cpp", 0x11D, 0));
-    SetRect(&view->rect, 0, 0, 0, 0);
-
-    void* const rows = gppLerpRows_007B953C;
-    void* const data = gpLerpTable_007B9540;
-    void* const table = gpLerpTable_007B9544;
-
-    view->flags = 0;
-    view->rows = rows;
-    view->data = data;
-    view->table = table;
-    sub_004DDDF0(rows, data);
-    WALL2_ResetViewCells(view);
-    view->flags |= 1;
-    gnGlobal_007B9530 = 0;
-    return view;
+    VIEW_UpdateShakeSound(nMagnitude);
 }
 
 // 0x00477030
@@ -1687,9 +1698,6 @@ void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
     tContext.nFrame = nFrame;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
 }
-
-
-static int gnPopupX_007BEED4; // 0x007BEED4
 
 // 0x004801C0
 D2WardenClientM114Strc::D2WardenClientM114Strc() : pServices(gapWardenServices_006D8E68)
