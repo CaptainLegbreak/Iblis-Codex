@@ -57034,6 +57034,10 @@
      "name": "?ACT1Q4_UnitIterate_FindPlayersInTristram@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x00593260",
+     "length": 34
+    },
+    {
      "va": "0x00593290",
      "length": 482,
      "name": "ACT1Q4_SpawnCainInTristram"
@@ -58851,16 +58855,6 @@
      "va": "0x00592090",
      "length": 64,
      "name": "?sub_00592090_ACT1Q3_InitMalusObject@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q4_00593260.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00593260",
-     "length": 34
     }
    ]
   },

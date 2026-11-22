@@ -1,6 +1,7 @@
 #include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
+#include "D2ObjModes.h"
 #include "D2Game.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
@@ -12,7 +13,6 @@
 #include "D2Drlg.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
-#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -246,7 +246,6 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
 void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00597030
 
-
 #define ITEM_RING 0x206E6972
 
 #define DIFFMODE_NIGHTMARE 1
@@ -333,7 +332,6 @@ static void sub_00592860_DebugStartedQuest(D2QuestDataStrc* pQuestData);
 
 extern "C" const char szStartedQuest_006E1C7C[];                                                            // 0x006E1C7C
 
-
 void __stdcall UNITS_GetCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620870
 
 D2UnitStrc* __fastcall sub_0056EDE0_CreatePortal(D2GameStrc*,D2UnitStrc*,int,int,int,int,int); // 0x0056EDE0
@@ -343,7 +341,6 @@ int __fastcall sub_005936B0_UpdateParty(D2GameStrc*,D2UnitStrc*,void*); // 0x005
 void __fastcall sub_00540510(D2GameStrc*,unsigned short,QUESTUNITITERATE,void*); // 0x00540510
 
 static inline int GetGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
-
 
 static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY);
 
@@ -358,6 +355,23 @@ void __fastcall sub_00596D70_StartCainRemoval(D2GameStrc* pGame);
 void __fastcall ACT1Q4_UpdateQuestStateOnActChange(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, int nOperate);
+
+struct D2GSPacketSrv5D
+{
+    unsigned char nHeader;
+    unsigned char nQuestId;
+    unsigned char nFlags;
+    unsigned char nState;
+    unsigned short field_4;
+};
+
+void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+
+struct D2Act1Quest4ExStrc
+{
+    unsigned char padding[0x46];
+    unsigned char cainActive;
+};
 
 inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -413,17 +427,6 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
         return 0;
     }
 }
-
-struct D2GSPacketSrv5D
-{
-    unsigned char nHeader;
-    unsigned char nQuestId;
-    unsigned char nFlags;
-    unsigned char nState;
-    unsigned short field_4;
-};
-
-void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
 // 0x00586B50
 void __fastcall ACT5Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
@@ -1222,6 +1225,14 @@ int __fastcall ACT1Q4_UnitIterate_FindPlayersInTristram(D2GameStrc* pGame, D2Uni
     }
     ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->pPlayerInTristram = pUnit;
     return 1;
+}
+
+// 0x00593260
+bool __fastcall ACT1Q4_Timer_RemoveCainFromTristram(D2GameStrc* unused, D2QuestDataStrc* quest)
+{
+    SUNIT_IterateUnitsOfType(quest->pGame, 1, 0, ACT1Q4_UnitIterate_RemoveCainFromTristram);
+    ((D2Act1Quest4ExStrc*)quest->pQuestDataEx)->cainActive = 0;
+    return true;
 }
 
 // 0x00593290
