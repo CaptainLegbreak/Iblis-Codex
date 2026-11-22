@@ -32930,6 +32930,10 @@
      "name": "?sub_004CB950_PlayFleeSound@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004CB9C0",
+     "length": 1052
+    },
+    {
      "va": "0x004CC160",
      "length": 230,
      "name": "?UNITSND_AddUnitSoundRefs@@YIXPAUD2UnitStrc@@H@Z"
@@ -33093,30 +33097,6 @@
     {
      "va": "0x004CA560",
      "length": 677
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitSnd_004CB9C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CB9C0",
-     "length": 1052
     }
    ],
    "flags": [
