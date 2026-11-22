@@ -4,27 +4,11 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2SkillsTxt;
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x38];
-    unsigned char nPrgDamage;
-    unsigned char unk_45[0x1];
-    short wSrvMissile[4];
-    char unk0x04E[0x06];
-    short wAuraStat[6];
-    char unk0x060[0x20];
-    short nAuraState;
-    unsigned char unk_82[0xC6];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -253,10 +237,10 @@ int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkill
                 int nIndex = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
                 nIndex = MIN(MAX(nIndex, 1), 3);
 
-                return pSkillsTxtRecord->wSrvMissile[nIndex];
+                return (&pSkillsTxtRecord->wSrvMissile)[nIndex];
             }
         }
     }
 
-    return pSkillsTxtRecord->wSrvMissile[1];
+    return pSkillsTxtRecord->wSrvMissileA;
 }
