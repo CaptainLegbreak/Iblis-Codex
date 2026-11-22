@@ -67305,6 +67305,11 @@
      "name": "?AIUTIL_CanSelectHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
+     "va": "0x005DCA20",
+     "length": 70,
+     "name": "?AIUTIL_IsHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005DCA70",
      "length": 338,
      "name": "?AIUTIL_TargetCallback_SelectHostileTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -67460,17 +67465,6 @@
      "va": "0x005FD7B0",
      "length": 150,
      "name": "?MONSTERSPAWN_GetResurrectMode@@YIHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiUtil_005DCA20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DCA20",
-     "length": 70,
-     "name": "?AIUTIL_IsHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
    ]
   },
