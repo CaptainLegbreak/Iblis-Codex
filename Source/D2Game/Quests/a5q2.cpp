@@ -833,7 +833,7 @@ void __fastcall OBJECTS_InitFunction62_CagedWussie(D2ObjInitFnStrc* pOp)
             pQuestDataEx->pWussieCoords[nCounter].nY = pOp->nY;
             pQuestDataEx->nSpawnedWussies += ACT5Q2_SpawnCagedWussies(pQuestData, pOp, nCounter);
             pQuestDataEx->bWussiesSpawned[nCounter] = 1;
-            pQuestDataEx->unk0x10E[nCounter] = 0;
+            pQuestDataEx->bPortalAttempted[nCounter] = 0;
             return;
         }
     }
