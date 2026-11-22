@@ -156,7 +156,7 @@ __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nId)
 }
 
 // 0x0059FEE0
-void __fastcall sub_0059FEE0_SendMissilePacket(D2ClientStrc* pClient, D2GameStrc* pGame, D2UnitStrc* pMissile, int bSendPath)
+void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, D2UnitStrc* pMissile, int bSendPath)
 {
     if (!pMissile || pMissile->dwUnitType != UNIT_MISSILE)
         return;

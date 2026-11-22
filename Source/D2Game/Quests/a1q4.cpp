@@ -290,7 +290,7 @@ struct D2ModeChangeStrc;
 
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); // 0x00572DC0
 
-void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
+void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
 
 void __fastcall ACT1Q4_SendPacket0x5DToClient(D2UnitStrc* pUnit); // 0x00592880
 
@@ -881,7 +881,7 @@ int __fastcall ACT1Q4_UnitIterate_RemoveCainFromTristram(D2GameStrc* pGame, D2Un
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (MONSTERAI_HasInteractUnit(nType == 1 ? MONSTERS_GetMonInteractInline(pUnit) : 0))
     {
-        sub_00573180(pGame, pUnit, ACT1Q4_SendPacket0x5DToClient, 0);
+        MONSTERAI_CloseNpcInteractions(pGame, pUnit, ACT1Q4_SendPacket0x5DToClient, 0);
         return 1;
     }
 

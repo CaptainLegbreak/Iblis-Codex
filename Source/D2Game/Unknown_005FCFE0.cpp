@@ -24,7 +24,7 @@ D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);                   
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);               // 0x00643CE0
-int __fastcall sub_005DD290_NoMissileBarrierCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget);             // 0x005DD290
+int __fastcall AIUTIL_HasClearMissilePath(D2UnitStrc* pUnit, D2UnitStrc* pTarget);             // 0x005DD290
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -46,10 +46,10 @@ inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
+static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
 
 // 0x005FBB00
-static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
+static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
 {
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
 
@@ -107,7 +107,7 @@ static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitSt
     {
         nCollisionRangeWeight = 100;
     }
-    else if (sub_005DD290_NoMissileBarrierCollision(pUnit, pTarget))
+    else if (AIUTIL_HasClearMissilePath(pUnit, pTarget))
     {
         nCollisionRangeWeight = 75;
     }
@@ -201,7 +201,7 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
                 int nCurrent;
                 if (pTargetUnit && pTargetUnit->dwAnimMode != PLRMODE_DEAD && pTargetUnit->dwAnimMode != PLRMODE_DEATH)
                 {
-                    nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
+                    nCurrent = AIBAAL_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
                 }
                 else
                 {
@@ -225,7 +225,7 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
                     }
 
                     pTargetUnit = pTargetNode->hUnit;
-                    nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
+                    nCurrent = AIBAAL_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
                 }
             }
         }
@@ -238,7 +238,7 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
         D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
         if (nAct == pTargetUnit->nAct)
         {
-            const int nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
+            const int nCurrent = AIBAAL_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
             if (nMax < nCurrent)
             {
                 nMax = nCurrent;
@@ -261,7 +261,7 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
             D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
             if (nAct == pTargetUnit->nAct)
             {
-                const int nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
+                const int nCurrent = AIBAAL_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
                 if (nTemp < nCurrent)
                 {
                     nTemp = nCurrent;
@@ -359,10 +359,10 @@ static inline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int nArrayS
     return nDefaultValue;
 }
 
-static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+static int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
 // 0x005FC070
-static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pSkill)
     {
@@ -428,7 +428,7 @@ static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit)
         }
     }
 
-    return sub_005FC070_CheckPrimeEvilSkill(pUnit, UNITS_GetLeftSkill(pUnit));
+    return AIBAAL_IsDangerousSkill(pUnit, UNITS_GetLeftSkill(pUnit));
 }
 
 static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax); // 0x005FC450
@@ -562,9 +562,9 @@ static inline int AIBAAL_GetRandomArrayIndex_Inline(int* pArray, int nArraySize,
     return nDefaultValue;
 }
 
-static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc*, D2UnitStrc*, int, int, int, D2UnitStrc*);
+static int __stdcall AIBAAL_RollRangedAiParam(D2GameStrc*, D2UnitStrc*, int, int, int, D2UnitStrc*);
 // 0x005FC300
-static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, D2UnitStrc* pUnit)
+static int __stdcall AIBAAL_RollRangedAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, D2UnitStrc* pUnit)
 {
     int aiParams[16] = { 0, 100, 20, 20, 20, 0, 20, 0, 80, 70, 0, 0, 0, 0, 0, 0 };
     if (!pGame->nDifficulty)
@@ -602,7 +602,7 @@ static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc* pGame, D2UnitStrc*
     return AIBAAL_GetRandomArrayIndex_Inline(aiParams, 16, pUnit, 1);
 }
 
-int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int bNotCollidingWithWall, D2UnitStrc* pUnit); // 0x005FC1C0
+int __stdcall AIBAAL_RollMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int bNotCollidingWithWall, D2UnitStrc* pUnit); // 0x005FC1C0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 int __stdcall PATH_GetY(void* pPath); // 0x00648900
@@ -659,10 +659,10 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
     const int bNotCollidingWithWall = sub_005DD290_HasClearPath(pUnit, pTarget);
     if (bInMeleeRange)
-        return sub_005FC1C0_RollBaalMeleeAiParam(pGame, pTarget, bNotCollidingWithWall, pUnit);
+        return AIBAAL_RollMeleeAiParam(pGame, pTarget, bNotCollidingWithWall, pUnit);
     if (bNotCollidingWithWall)
         return AIBAAL_RollRandomAiParamForNonCollidingUnit(pGame, pAiControl, pUnit, pTarget, nCount, bInMediumRange, bInFarRange, bInCloseRange, nMax);
-    return sub_005FC300_RollUberAiParam(pGame, pTarget, nCount, bInMediumRange, bInFarRange, pUnit);
+    return AIBAAL_RollRangedAiParam(pGame, pTarget, nCount, bInMediumRange, bInFarRange, pUnit);
 }
 
 typedef int(__fastcall* CULLFN)(D2UnitStrc*, D2UnitStrc*);

@@ -54,7 +54,7 @@ int __fastcall sub_005CDD30(Unit*); // 0x005CDD30
 int __fastcall sub_0056F640(Game*, Unit*, int, int, int); // 0x0056F640
 int __fastcall sub_005CDDD0(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
 int __stdcall sub_006444A0(Skill*); // 0x006444A0
-int __fastcall sub_005D8C70(Game*, Unit*, int, int); // 0x005D8C70
+int __fastcall SKILLS_ApplyFrenzyStats(Game*, Unit*, int, int); // 0x005D8C70
 
 enum { UNIT_FLAG = 0x40 };
 
@@ -90,7 +90,7 @@ typedef char D2UnkNecSkillStrcSizeCheck[sizeof(D2UnkNecSkillStrc) == 0x68 ? 1 : 
 
 extern const int gaMonCurseIds_006E3228[5]; // 0x006E3228
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-int __fastcall sub_6FD10360(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
+int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
 int __fastcall sub_6FD0B450(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
@@ -140,7 +140,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x005CD910
-int __fastcall sub_005CD910(D2GameStrc* pGame,D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
+int __fastcall SKILLS_SrvSt55_Mosquito(D2GameStrc* pGame,D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
 {
     D2SkillsTxt* pRecord=SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pRecord) return 0;

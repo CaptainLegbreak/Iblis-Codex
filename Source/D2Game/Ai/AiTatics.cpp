@@ -85,7 +85,7 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget,
 
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
 
-int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
+int __fastcall AIUTIL_IsGettingHit(D2UnitStrc* pUnit); // 0x005DD2B0
 
 int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNPC); // 0x00544590
 
@@ -147,7 +147,7 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
 
-D2UnitStrc* __fastcall sub_6FCCFDE0(D2GameStrc* pGame, D2UnitStrc* pNPC, D2UnitStrc* pPlayer, void* pCallbackArg); // 0x005DDE80
+D2UnitStrc* __fastcall AITACTICS_TargetCallback_FindNearbyPlayer(D2GameStrc* pGame, D2UnitStrc* pNPC, D2UnitStrc* pPlayer, void* pCallbackArg); // 0x005DDE80
 
 D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553010
 
@@ -175,30 +175,30 @@ enum D2C_Y10UseSkillConstants
 };
 
 // 0x00530F30
-void __fastcall sub_00530F30_SetGlobal(int nValue)
+void __fastcall PLRSAVE_EnableSaveFileWriting(int nValue)
 {
     gnGlobal_007310CC = nValue;
 }
 
 // 0x00568D70
-int __cdecl sub_00568D70_GetHighestClassSkillCount()
+int __cdecl PLRSAVE2_GetHighestClassSkillCount()
 {
     return sgptDataTables->nHighestClassSkillCount;
 }
 
 // 0x00576320
-static inline int sub_00576320_CheckItem(D2UnitStrc* pItem)
+static inline int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem)
 {
     return sub_0062E880(pItem);
 }
 
 int __stdcall sub_M114_Emit_00576320(D2UnitStrc* pItem)
 {
-    return sub_00576320_CheckItem(pItem) + 1;
+    return SUNITNPC_GetItemStorePage(pItem) + 1;
 }
 
 // 0x005875D0
-void __fastcall sub_005875D0_SetQuestStateIfIntroDone(D2QuestDataStrc* pQuest)
+void __fastcall ACT5Q1_SetQuestStateIfIntroDone(D2QuestDataStrc* pQuest)
 {
     if (!pQuest->fState && pQuest->bNotIntro)
     {
@@ -250,7 +250,7 @@ __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonster
 }
 
 // 0x005DDE50
-D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance)
+D2UnitStrc* __fastcall AITACTICS_FindTargetInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance)
 {
     D2UnitStrc* pResult = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
     if (pResult && *pDistance <= nMaxDistance)
@@ -262,7 +262,7 @@ D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 }
 
 // 0x005DDE80
-D2UnitStrc* __fastcall sub_6FCCFDE0(D2GameStrc* pGame, D2UnitStrc* pNPC, D2UnitStrc* pPlayer, void* pCallbackArg)
+D2UnitStrc* __fastcall AITACTICS_TargetCallback_FindNearbyPlayer(D2GameStrc* pGame, D2UnitStrc* pNPC, D2UnitStrc* pPlayer, void* pCallbackArg)
 {
     UnkAiStrc1* pArg = (UnkAiStrc1*)pCallbackArg;
     const int nType = pPlayer ? pPlayer->dwUnitType : UNIT_INVALID;
@@ -302,7 +302,7 @@ D2UnitStrc* __fastcall sub_6FCCFDE0(D2GameStrc* pGame, D2UnitStrc* pNPC, D2UnitS
 }
 
 // 0x005DDF20
-D2UnitStrc* __fastcall sub_6FCCFD70(D2GameStrc* pGame, D2UnitStrc* pUnit, int* bCloseToTarget)
+D2UnitStrc* __fastcall AITACTICS_FindNearbyPlayerOrSelf(D2GameStrc* pGame, D2UnitStrc* pUnit, int* bCloseToTarget)
 {
     if (!UNITS_GetRoom(pUnit))
     {
@@ -312,7 +312,7 @@ D2UnitStrc* __fastcall sub_6FCCFD70(D2GameStrc* pGame, D2UnitStrc* pUnit, int* b
     UnkAiStrc1 tCallbackArg;
     tCallbackArg.pTarget = 0;
     tCallbackArg.nDistance = 0x7FFFFFFF;
-    AIUTIL_FindTargetWithCallback(pGame, pUnit, &tCallbackArg, sub_6FCCFDE0, 2);
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &tCallbackArg, AITACTICS_TargetCallback_FindNearbyPlayer, 2);
 
     if (!tCallbackArg.pTarget)
     {
@@ -397,7 +397,7 @@ void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames
 }
 
 // 0x005DE130
-void __fastcall sub_6FCD0150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+void __fastcall AITACTICS_ScheduleEarlierAiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
 {
     if (!nFrames)
     {
@@ -494,7 +494,7 @@ int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, u
 }
 
 // 0x005DE320
-void __fastcall sub_005DE320_AttachSoundNoOrigin(D2UnitStrc* pUnit, int nUpdateType)
+void __fastcall AITACTICS_AttachSound(D2UnitStrc* pUnit, int nUpdateType)
 {
     SUNIT_AttachSound(pUnit, nUpdateType, 0);
 }
@@ -684,7 +684,7 @@ D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x005DE890
-D2UnitStrc* __fastcall sub_6FCCF9D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
+D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
 {
     D2UnitStrc* pResult = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
     if (pResult)
@@ -692,7 +692,7 @@ D2UnitStrc* __fastcall sub_6FCCF9D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
         return pResult;
     }
 
-    if (sub_6FCF2E70(pUnit) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_WALK))
+    if (AIUTIL_IsGettingHit(pUnit) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_WALK))
     {
         AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
         return 0;
@@ -732,7 +732,7 @@ static inline void AITACTICS_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 }
 
 // 0x005DE9D0
-D2UnitStrc* __fastcall sub_005DE9D0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
+D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdle(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
 {
     D2UnitStrc* pTarget = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
     if (pTarget)
@@ -898,7 +898,7 @@ int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 }
 
 // 0x005DED40
-int __fastcall sub_6FCD0410(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags)
+int __fastcall AITACTICS_WalkToTargetWithPathType13(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags)
 {
     sub_005A6260_SetAiParamFields((pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0, 13, 0, 0);
     return AITACTICS_MoveToTarget(pGame, pUnit, pTarget, MONMODE_WALK, 0, 0, 1, nFlags);

@@ -15,7 +15,7 @@ void __stdcall sub_00644560(Skill*,int);  // 0x00644560
 inline D2SkillsTxt* GetSkills(int id) { if(id>=0 && id<tables->skillCount) return &tables->skills[id]; return 0; }
 enum { DEFAULT_SRC = 0x80 };
 // 0x005D8B10
-int __fastcall sub_005D8B10(Game* game,Unit* unit,Unit* target,int id,int level)
+int __fastcall SKILLS_RollFrenzyDamage(Game* game,Unit* unit,Unit* target,int id,int level)
 {
     D2SkillsTxt* record=GetSkills(id);
     if(!record) return 0;

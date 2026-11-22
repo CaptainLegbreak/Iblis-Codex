@@ -284,7 +284,7 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* pOwnerType); // 0x0058F090
 
-void __fastcall sub_6FC681C0(D2MonsterRegionStrc** pMonReg, D2UnitStrc* pUnit, int nAlignment, int nAlignNew); // 0x00547DD0
+void __fastcall MONSTERREGION_UpdateSpawnCountForAlignmentChange(D2MonsterRegionStrc** pMonReg, D2UnitStrc* pUnit, int nAlignment, int nAlignNew); // 0x00547DD0
 
 void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 
@@ -1779,7 +1779,7 @@ static void __stdcall sub_00554340_UpdateAlignmentRegion(D2UnitStrc* pUnit, int 
     }
     if (bUpdate)
     {
-        sub_6FC681C0(pUnit->pGame->pMonReg, pUnit, nAlignment, nAlignNew);
+        MONSTERREGION_UpdateSpawnCountForAlignmentChange(pUnit->pGame->pMonReg, pUnit, nAlignment, nAlignNew);
     }
     if (nAlignment == nAlignNew)
     {

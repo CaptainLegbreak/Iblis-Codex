@@ -61,7 +61,7 @@ struct D2QuestDataStrc
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 int __fastcall MONSTERAI_HasInteractUnit(void*); // 0x00572DC0
-void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
+void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*,int); // 0x00543640
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
@@ -138,7 +138,7 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2ActiveRoomStr
         if (unit) {
             void* interact=GetMonsterInteract(unit);
             if (MONSTERAI_HasInteractUnit(interact)) {
-                sub_00573180(quest->game,unit,0,1);
+                MONSTERAI_CloseNpcInteractions(quest->game,unit,0,1);
                 return;
             }
             sub_0052E050_RemoveUnit(unit,quest->game);

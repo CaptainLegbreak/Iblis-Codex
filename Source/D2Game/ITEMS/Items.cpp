@@ -189,15 +189,15 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame, D2UnitStrc* pItem, 
 
 int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x00556F60
 
-unsigned short __fastcall sub_005C1BC0_RollTemperedAffix(D2UnitStrc* pItem, int bPrefix); // 0x005C1BC0
+unsigned short __fastcall ITEMS_RollTemperedItemAffix(D2UnitStrc* pItem, int bPrefix); // 0x005C1BC0
 
 int __fastcall D2GAME_RollRareItem_6FC53360(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C21A0
 
-int __fastcall sub_005C21D0_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C21D0
+int __fastcall ITEMS_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C21D0
 
 int __fastcall ITEMS_FindBookRecordIndex(D2UnitStrc* pItem, int bScroll); // 0x005C2540
 
-int __fastcall sub_005C2940_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2940
+int __fastcall ITEMS_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2940
 
 int __fastcall ITEMS_RollSuperiorItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2AD0
 
@@ -1614,7 +1614,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         ITEMS_AssignRarePrefix(*ppItem, 0);
         ITEMS_AssignRareSuffix(*ppItem, 0);
         const unsigned int nLowSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
-        if (!sub_005C21D0_RollCraftedItem(*ppItem, pItemDrop))
+        if (!ITEMS_RollCraftedItem(*ppItem, pItemDrop))
         {
             ITEMS_ResetToNormalQuality(pGame, pItemDrop, ppItem, nLowSeed);
         }
@@ -1625,8 +1625,8 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         ITEMS_AssignRarePrefix(*ppItem, 0);
         ITEMS_AssignRareSuffix(*ppItem, 0);
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
-        const unsigned short nPrefix = sub_005C1BC0_RollTemperedAffix(*ppItem, 1);
-        const unsigned short nSuffix = sub_005C1BC0_RollTemperedAffix(*ppItem, 0);
+        const unsigned short nPrefix = ITEMS_RollTemperedItemAffix(*ppItem, 1);
+        const unsigned short nSuffix = ITEMS_RollTemperedItemAffix(*ppItem, 0);
         if (nPrefix && nSuffix)
         {
             ITEMS_AssignRarePrefix(*ppItem, nPrefix);
@@ -1641,7 +1641,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
     case ITEMQUAL_SET:
         ITEMS_SetFileIndex(*ppItem, -1);
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
-        if (!sub_005C2940_RollSetItem(*ppItem, pItemDrop))
+        if (!ITEMS_RollSetItem(*ppItem, pItemDrop))
         {
             if (ITEMS_HasDurability(*ppItem) && ITEMS_GetItemFormat(*ppItem) >= 1)
             {

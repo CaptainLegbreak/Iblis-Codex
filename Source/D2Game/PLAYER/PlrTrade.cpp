@@ -353,7 +353,7 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc*,D2UnitStrc*); // 0x0
 
 void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc*,D2UnitStrc*); // 0x005B86E0
 
-unsigned short __fastcall sub_005C1BC0_RollTemperedAffix(D2UnitStrc*,int); // 0x005C1BC0
+unsigned short __fastcall ITEMS_RollTemperedItemAffix(D2UnitStrc*,int); // 0x005C1BC0
 
 int __stdcall DATATBLS_GetMaxLevel(int); // 0x00611830
 
@@ -1279,8 +1279,8 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
    D2UnitStrc* item=ITEMS_Duplicate(game,original,0,remove[index]==0);
    outputs[index]=item;UNITS_ChangeAnimMode(item,4);ITEMS_SetInvPage(original,3);
    if(out->nQuality==9) {
-    unsigned short prefix=sub_005C1BC0_RollTemperedAffix(item,1);
-    unsigned short suffix=sub_005C1BC0_RollTemperedAffix(item,0);
+    unsigned short prefix=ITEMS_RollTemperedItemAffix(item,1);
+    unsigned short suffix=ITEMS_RollTemperedItemAffix(item,0);
     if(prefix&&suffix) { ITEMS_SetItemQuality(item,9);ITEMS_AssignRarePrefix(item,prefix);ITEMS_AssignRareSuffix(item,suffix); }
     else bAddCraftStats=0;
    }

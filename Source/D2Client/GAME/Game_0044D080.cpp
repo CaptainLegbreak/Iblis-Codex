@@ -151,7 +151,7 @@ void __cdecl sub_00478A50_FreeRosterPets(); // 0x00478A50
 
 void __cdecl sub_00451F20_RegisterWindowHandlers(); // 0x00451F20
 
-void __fastcall sub_00530F30_SetGlobal(int nValue); // 0x00530F30
+void __fastcall PLRSAVE_EnableSaveFileWriting(int nValue); // 0x00530F30
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
@@ -821,7 +821,7 @@ int __cdecl sub_0044D550_Shutdown()
 void __fastcall sub_0044D580_ApplyConfig219(D2ConfigStrc* pConfig)
 {
     if (pConfig->bFlag219)
-        sub_00530F30_SetGlobal(0);
+        PLRSAVE_EnableSaveFileWriting(0);
 }
 
 // 0x0044D5A0

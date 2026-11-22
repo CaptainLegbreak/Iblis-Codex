@@ -442,7 +442,7 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, in
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwCmdFlag); // 0x0053D010
 
 
-int __fastcall sub_6FD136E0(D2UnitStrc* pUnit, int nSkillId); // 0x00570080
+int __fastcall SKILLS_TryIncreaseSkillLevel(D2UnitStrc* pUnit, int nSkillId); // 0x00570080
 
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
 
@@ -536,13 +536,13 @@ void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc
 
 D2MonStatsTxt* __fastcall sub_0055B7E0_GetMonStatsTxtFromUnit(D2UnitStrc*); // 0x0055B7E0
 
-void __fastcall sub_0056BD90_RefreshPetMaxForSkill(D2GameStrc*, D2UnitStrc*, int); // 0x0056BD90
+void __fastcall SKILLS_UpdatePetLimitForSkill(D2GameStrc*, D2UnitStrc*, int); // 0x0056BD90
 
-int __fastcall sub_6FD11C90(D2UnitStrc* pUnit, int nStateId, int a3); // 0x0056C740
+int __fastcall SKILLS_RemoveStatesInGroup(D2UnitStrc* pUnit, int nStateId, int a3); // 0x0056C740
 
 void __fastcall D2GAME_RefreshPassiveSkills_6FD14CC0(D2UnitStrc*); // 0x0056DFA0
 
-D2UnitEventStrc* __fastcall sub_6FD156A0(D2GameStrc*, D2UnitStrc*, int, int, int, int, int, int); // 0x0056E740
+D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int, int, int); // 0x0056E740
 
 void __fastcall SKILLITEM_ActivateAura(D2GameStrc*, D2UnitStrc*, int, int, int); // 0x005BF510
 
@@ -620,7 +620,7 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D
 
 void __fastcall ACT5Q3_ApplyResistanceReward(D2GameStrc*, D2UnitStrc*); // 0x0058A0A0
 
-void __fastcall sub_00570360(D2GameStrc*, D2UnitStrc*); // 0x00570360
+void __fastcall SKILLS_ResetSkillsAndRefundPoints(D2GameStrc*, D2UnitStrc*); // 0x00570360
 
 void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc*, D2UnitStrc*); // 0x00570C80
 
@@ -1033,9 +1033,9 @@ void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGam
     if (pCost->wItemEvent[0] > 0) {
         if (nNewValue) {
             if (!SUNITEVENT_GetEvent(pGame, pUnit, 2, nLayerStatId, nLayerStatId)) {
-                sub_6FD156A0(pGame, pUnit, pCost->wItemEvent[0], nLayerStatId, 0, pCost->wItemEventFunc[0], 2, nLayerStatId);
+                SKILLS_RegisterUnitEvent(pGame, pUnit, pCost->wItemEvent[0], nLayerStatId, 0, pCost->wItemEventFunc[0], 2, nLayerStatId);
                 short nSecondEvent = pCost->wItemEvent[1];
-                if (nSecondEvent > 0) sub_6FD156A0(pGame, pUnit, nSecondEvent, nLayerStatId, 0, pCost->wItemEventFunc[1], 2, nLayerStatId);
+                if (nSecondEvent > 0) SKILLS_RegisterUnitEvent(pGame, pUnit, nSecondEvent, nLayerStatId, 0, pCost->wItemEventFunc[1], 2, nLayerStatId);
             }
         } else SUNITEVENT_Unregister(pGame, pUnit, 2, nLayerStatId);
     }
@@ -1093,7 +1093,7 @@ void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGam
                     D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(pClient, pUnit, nSkillId, 0, 0);
                 }
                 SKILLS_RefreshSkill(pUnit, nSkillId);
-                sub_0056BD90_RefreshPetMaxForSkill(pGame, pUnit, nSkillId);
+                SKILLS_UpdatePetLimitForSkill(pGame, pUnit, nSkillId);
                 if (nNewValue <= 0) {
                     nNewValue = 1;
                     if (SKILLS_GetSkillLevel(pUnit, pSkill, 0)) {
@@ -1172,7 +1172,7 @@ void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGam
                 D2Common_10954(pUnit, nItemGUID, nSkillId, nLevel, nCharges, 0);
             } else {
                 D2Common_10954(pUnit, nItemGUID, nSkillId, nLevel, 0, 1);
-                sub_0056BD90_RefreshPetMaxForSkill(pGame, pUnit, nSkillId);
+                SKILLS_UpdatePetLimitForSkill(pGame, pUnit, nSkillId);
             }
         }
         break;
@@ -1183,11 +1183,11 @@ void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGam
                 int bState = STATES_CheckState(pUnit, nState);
                 if (nNewValue) {
                     if (bState) return;
-                    sub_6FD11C90(pUnit, nState, 0);
+                    SKILLS_RemoveStatesInGroup(pUnit, nState, 0);
                     STATES_ToggleState(pUnit, nState, 1);
                 } else {
                     if (!bState) return;
-                    sub_6FD11C90(pUnit, nState, 1);
+                    SKILLS_RemoveStatesInGroup(pUnit, nState, 1);
                     STATES_ToggleState(pUnit, nState, 0);
                 }
                 STATES_ToggleGfxStateFlag(pUnit, nState, 1);
@@ -1333,7 +1333,7 @@ static int __stdcall sub_0055C110_UpdateBookScrollSkillQuantity(int bAddQuantity
                 {
                     nNewQuantity = nQuantity;
                     STATLIST_AddUnitStat(pUnit, STAT_SKILLPTS, nNewQuantity, 0);
-                    sub_6FD136E0(pUnit, nSkillId);
+                    SKILLS_TryIncreaseSkillLevel(pUnit, nSkillId);
                     hSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
                     D2_ASSERT(hSkill, 0x225);
                 }
@@ -2951,7 +2951,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* ptGame, D2UnitStr
     }
     if (record->dwCode == 0x20616F74) {
         sub_0055BF50_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x110D);
-        sub_00570360(ptGame, hUnit);
+        SKILLS_ResetSkillsAndRefundPoints(ptGame, hUnit);
         sub_00570C80_PLAYERSTATS_ResetToBaseStats(ptGame, hUnit);
         sub_0055E000_RemoveItemAndNotify(ptGame, hUnit, item);
         SUNIT_AttachSound(hUnit, 2, hUnit);

@@ -56,12 +56,12 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit);            
 void __fastcall sub_005A0200(D2UnitStrc* pUnit, short nBossHcIdx);                             // 0x005A0200
 int __fastcall MONSTERUNIQUE_GetUModCount(unsigned char* pUMods);                                            // 0x005A0260
 void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod, int bUnique);              // 0x005A1650
-void __fastcall sub_6FC6F670(D2UnitStrc* pUnit, int nUMod, int bUnique);                    // 0x005A2100
+void __fastcall MONSTERUNIQUE_InitializeUMod(D2UnitStrc* pUnit, int nUMod, int bUnique);                    // 0x005A2100
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
-D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
 int __fastcall sub_6FC6A230(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags); // 0x005B24E0
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
-D2UnitStrc* __fastcall sub_6FC69F70(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnitInCoordList(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
 D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags); // 0x005B3040
 D2UnitStrc* __fastcall sub_005B30E0_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags); // 0x005B30E0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
@@ -696,11 +696,11 @@ static void __stdcall sub_005A0C00_SpawnMinionGroup(D2GameStrc* pGame, D2RoomCoo
         D2UnitStrc* pMinion;
         if (pRoomCoordList)
         {
-            pMinion = sub_6FC69F70(pGame, pRoomCoordList, pUnit, nMinionId, 1, 3, 64);
+            pMinion = MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pRoomCoordList, pUnit, nMinionId, 1, 3, 64);
         }
         else
         {
-            pMinion = sub_6FC68D70(pGame, pUnit, nMinionId, 1, 3, 64);
+            pMinion = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, nMinionId, 1, 3, 64);
         }
 
         if (pMinion)
@@ -726,7 +726,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinions(D2GameStrc* pGame, D2ActiveRoom
     {
         const int nUMod = gnBaseUMods_006E2168[i];
         InitUMod(pUnit, nUMod, 1);
-        AIGENERAL_ExecuteCallbackOnMinions(pUnit, (void*)nUMod, 0, (MinionCallbackFunc)sub_6FC6F670);
+        AIGENERAL_ExecuteCallbackOnMinions(pUnit, (void*)nUMod, 0, (MinionCallbackFunc)MONSTERUNIQUE_InitializeUMod);
     }
 
     unsigned char* pUMods = UModsOf(pUnit);
@@ -741,7 +741,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinions(D2GameStrc* pGame, D2ActiveRoom
             }
 
             InitUMod(pUnit, nUMod, 1);
-            AIGENERAL_ExecuteCallbackOnMinions(pUnit, (void*)nUMod, 0, (MinionCallbackFunc)sub_6FC6F670);
+            AIGENERAL_ExecuteCallbackOnMinions(pUnit, (void*)nUMod, 0, (MinionCallbackFunc)MONSTERUNIQUE_InitializeUMod);
         }
     }
 }
@@ -1113,13 +1113,13 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
         unsigned int nMinionCount = SEED_RollLimitedRandomNumber(&pMonster->pSeed, 5) + 2;
         for (; nMinionCount; --nMinionCount)
         {
-            sub_6FC68D70(pGame, pMonster, MONSTER_SKELETON5, 1, 4, 64);
+            MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKELETON5, 1, 4, 64);
         }
 
-        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_POIS3, 1, 4, 64);
-        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_COLD4, 1, 4, 64);
-        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_FIRE3, 1, 4, 64);
-        sub_6FC68D70(pGame, pMonster, MONSTER_SKMAGE_LTNG3, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_POIS3, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_COLD4, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_FIRE3, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_LTNG3, 1, 4, 64);
         break;
     }
 

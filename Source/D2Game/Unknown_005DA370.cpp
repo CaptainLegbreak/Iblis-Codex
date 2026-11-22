@@ -28,8 +28,8 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553DC0
 void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int a2); // 0x005544B0
-int __fastcall sub_6FD10200(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, D2DamageStrc* pDamage, unsigned int nAuraFilter); // 0x0056BAD0
-D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
+int __fastcall SKILLS_ApplyAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, D2DamageStrc* pDamage, unsigned int nAuraFilter); // 0x0056BAD0
+D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 void __fastcall sub_00571B70_SkillUpdate(D2UnitStrc* pUnit, int nSkillId); // 0x00571B70
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
@@ -68,14 +68,14 @@ int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3); // 0x00649970
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064EC10
 int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY); // 0x00645CA0
-int __fastcall sub_6FD150A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0056E230
+int __fastcall SKILLS_StartBasicAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0056E230
 void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-void __fastcall sub_6FD14F70(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay); // 0x00570420
-int __fastcall sub_6FD119C0(D2UnitStrc* pUnit); // 0x0056C4E0
+void __fastcall SKILLS_StunMonster(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay); // 0x00570420
+int __fastcall SKILLS_CanUseWeaponAmmo(D2UnitStrc* pUnit); // 0x0056C4E0
 void __fastcall sub_6FC80A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
 void __fastcall sub_6FC80E10(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);
@@ -111,10 +111,10 @@ static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
     return pUnit->dwUnitType == UNIT_MONSTER;
 }
 
-int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x005D9F70
+int __stdcall SKILLS_SetVelocityForLeap(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x005D9F70
 
 // 0x005DA020
-static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX, int nY, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static int __stdcall SKILLS_ApplySandLeaperKnockback(D2GameStrc* pGame, int nX, int nY, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pSkill)
     {
@@ -156,7 +156,7 @@ static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX,
     return 1;
 }
 
-static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitStrc* pUnit)
+static int __stdcall SKILLS_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     if (!pPath)
@@ -191,7 +191,7 @@ static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D
 
             if (nBaseId == 0x4E)
             {
-                sub_005DA020_SandLeaperKnockback(pGame, nX, nY, pUnit, pSkill);
+                SKILLS_ApplySandLeaperKnockback(pGame, nX, nY, pUnit, pSkill);
             }
             else
             {
@@ -268,20 +268,20 @@ int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
     const int nSkillFlags = SKILLS_GetFlags(pSkill);
     if (nSkillFlags & 0x100)
     {
-        if (sub_005DA120_Leap(pGame, pSkill, pUnit) && !bMonster)
+        if (SKILLS_Leap(pGame, pSkill, pUnit) && !bMonster)
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
             damage.wResultFlags = 9;
             const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-            sub_6FD10200(pGame, pUnit, 0, 0, nDamage, &damage, 0);
+            SKILLS_ApplyAreaDamage(pGame, pUnit, 0, 0, nDamage, &damage, 0);
         }
     }
     else
     {
         if (nSkillFlags & 0x80)
         {
-            return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
+            return SKILLS_SetVelocityForLeap(pGame, pUnit, pSkill);
         }
 
         if (!bMonster)
@@ -294,7 +294,7 @@ int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
 }
 
 // 0x005DA490
-static D2UnitStrc* __stdcall sub_005DA490_FindLeapAttackTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static D2UnitStrc* __stdcall SKILLS_FindLeapAttackTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pSkill)
     {
@@ -319,7 +319,7 @@ static D2UnitStrc* __stdcall sub_005DA490_FindLeapAttackTarget(D2GameStrc* pGame
         if (!pTarget)
         {
             const int nRange = sub_6FD15460(pUnit);
-            pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nRange, 0x20003, -1, 0);
+            pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nRange, 0x20003, -1, 0);
         }
     }
 
@@ -337,7 +337,7 @@ static D2UnitStrc* __stdcall sub_005DA490_FindLeapAttackTarget(D2GameStrc* pGame
 }
 
 // 0x005DA660
-static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
+static int __stdcall SKILLS_ApplyLeapAttackDamage(D2GameStrc* pGame, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
 {
     D2SkillsTxt* pSkillsTxtRecord = sub_I16_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -351,7 +351,7 @@ static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId,
         return 0;
     }
 
-    D2UnitStrc* pDefender = sub_005DA490_FindLeapAttackTarget(pGame, pUnit, pSkill);
+    D2UnitStrc* pDefender = SKILLS_FindLeapAttackTarget(pGame, pUnit, pSkill);
     if (!pDefender)
     {
         return 0;
@@ -414,9 +414,9 @@ int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     const int nSkillFlags = SKILLS_GetFlags(pSkill);
     if (nSkillFlags & 0x100)
     {
-        if (sub_005DA120_Leap(pGame, pSkill, pUnit))
+        if (SKILLS_Leap(pGame, pSkill, pUnit))
         {
-            if (!sub_005DA490_FindLeapAttackTarget(pGame, pUnit, pSkill))
+            if (!SKILLS_FindLeapAttackTarget(pGame, pUnit, pSkill))
             {
                 D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
                 EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 4, 0, 0);
@@ -431,12 +431,12 @@ int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (nSkillFlags & 0x80)
     {
-        return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
+        return SKILLS_SetVelocityForLeap(pGame, pUnit, pSkill);
     }
 
     if (SKILLS_GetFlags(pSkill) & 0x200)
     {
-        return sub_005DA660_LeapAttackHit(pGame, nSkillId, nSkillLevel, pUnit);
+        return SKILLS_ApplyLeapAttackDamage(pGame, nSkillId, nSkillLevel, pUnit);
     }
 
     SKILLS_SetFlags(pSkill, 0x1000);
@@ -460,7 +460,7 @@ int __fastcall SKILLS_SrvSt41_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     {
         if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
         {
-            sub_6FD150A0(pGame, pUnit, pTarget);
+            SKILLS_StartBasicAttack(pGame, pUnit, pTarget);
             return 1;
         }
 
@@ -495,7 +495,7 @@ int __fastcall SKILLS_SrvSt41_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
     if (pTarget && STATES_CheckState(pTarget, 0x36))
     {
-        sub_6FD14F70(pGame, pUnit, pTarget, 100);
+        SKILLS_StunMonster(pGame, pUnit, pTarget, 100);
     }
 
     return 1;
@@ -504,7 +504,7 @@ int __fastcall SKILLS_SrvSt41_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 // 0x005DA8B0
 int __fastcall SKILLS_SrvSt65_Throw_LeftHandThrow(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    if (!sub_6FD119C0(pUnit))
+    if (!SKILLS_CanUseWeaponAmmo(pUnit))
     {
         sub_6FC80A30(pGame, pUnit);
         sub_6FC80E10(pGame, pUnit);

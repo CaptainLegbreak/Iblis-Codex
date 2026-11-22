@@ -286,7 +286,7 @@ int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc*); // 0x0058F710
 
 void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00597E20
 
-void __fastcall sub_0059FEE0_SendMissilePacket(D2ClientStrc*, D2GameStrc*, D2UnitStrc*, int); // 0x0059FEE0
+void __fastcall MISSILES_SyncToClient(D2ClientStrc*, D2GameStrc*, D2UnitStrc*, int); // 0x0059FEE0
 
 void __stdcall UNITS_GetCoords(D2UnitStrc*, D2CoordStrc*); // 0x00620870
 
@@ -1055,7 +1055,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         }
         break;
     case UNIT_MISSILE:
-        sub_0059FEE0_SendMissilePacket(pClient, pGame, pUnit, PATH_GetVelocity(UnitPath(pUnit)));
+        MISSILES_SyncToClient(pClient, pGame, pUnit, PATH_GetVelocity(UnitPath(pUnit)));
         break;
     default:
         D2GAME_PACKETS_SendPacket0x09_6FC3D1A0(pClient, 9, pUnit->dwUnitType, pUnit->dwUnitId, pUnit->dwClassId, tCoords.nX, tCoords.nY);

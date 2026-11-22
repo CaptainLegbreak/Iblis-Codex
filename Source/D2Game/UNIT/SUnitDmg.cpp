@@ -245,7 +245,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 
 int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
 
-void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
+void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
@@ -395,7 +395,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 
-void __fastcall sub_6FC62DF0(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A54F0
+void __fastcall MONSTERMODE_AddSandLeaperKnockback(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A54F0
 
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
 
@@ -465,7 +465,7 @@ void __fastcall SUNITDMG_RemoveFreezeState(D2UnitStrc* pUnit, int nState, D2Stat
 
 void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4390
 
-void __fastcall sub_6FCF8DD0(D2UnitStrc* pUnit); // 0x005D6410
+void __fastcall SKILLS_RemoveStatesOnHit(D2UnitStrc* pUnit); // 0x005D6410
 
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 
@@ -503,7 +503,7 @@ void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 
 void __fastcall sub_6FC7D470(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet); // 0x005751A0
 
-void __fastcall sub_6FC62780(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2GameStrc* pGame); // 0x005A4EF0
+void __fastcall MONSTERMODE_DistributeExperienceIfEligible(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2GameStrc* pGame); // 0x005A4EF0
 
 void __fastcall ARENA_ProcessKillEvent(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0053F720
 
@@ -907,7 +907,7 @@ static void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLen
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nStunEndFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nStunEndFrame, 0, 0);
         STATLIST_SetState(pNewStatList, STATE_STUNNED);
-        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
+        STATLIST_SetStatRemoveCallback(pNewStatList, SKILLS_RemoveStateAndRefreshPassives);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
         STATES_ToggleState(pDefender, 21, 1);
     }
@@ -942,7 +942,7 @@ static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitSt
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
         STATLIST_SetStatValue(pNewStatList, 0x4A, -nPoisonDamage, 0);
         STATLIST_SetState(pNewStatList, STATE_POISON);
-        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
+        STATLIST_SetStatRemoveCallback(pNewStatList, SKILLS_RemoveStateAndRefreshPassives);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
     }
     else if (-STATLIST_GetStatValue(pStatList, STAT_HPREGEN, 0) <= nPoisonDamage)
@@ -994,7 +994,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
         STATLIST_SetStatValue(pNewStatList, 0x4A, -nBurnDamage, 0);
         STATLIST_SetState(pNewStatList, STATE_BURNING);
-        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
+        STATLIST_SetStatRemoveCallback(pNewStatList, SKILLS_RemoveStateAndRefreshPassives);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
     }
     else if (-STATLIST_GetStatValue(pStatList, STAT_HPREGEN, 0) <= nBurnDamage)
@@ -2083,7 +2083,7 @@ void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker,
                 D2GAME_EVENTS_Delete_6FC34840(pGame, pDefender, 3, 0);
                 EVENT_SetEvent(pGame, pDefender, 3, pGame->dwGameFrame + 1, 0, 0);
             }
-            sub_6FCF8DD0(pDefender);
+            SKILLS_RemoveStatesOnHit(pDefender);
         }
     }
     else
@@ -2388,7 +2388,7 @@ void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D
 
     if (pAttacker)
     {
-        sub_6FC62780(pAttacker, pDefender, pGame);
+        MONSTERMODE_DistributeExperienceIfEligible(pAttacker, pDefender, pGame);
         ARENA_ProcessKillEvent(pGame, pAttacker, pDefender);
 
         const unsigned int nMonsterId = pDefender->dwClassId;
@@ -2657,7 +2657,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
             }
         }
 
-        sub_6FC62DF0(pGame, pAttacker, pUnit, pDamage);
+        MONSTERMODE_AddSandLeaperKnockback(pGame, pAttacker, pUnit, pDamage);
 
         if (pDamage->wResultFlags & 0x02)
         {
@@ -4193,7 +4193,7 @@ void __fastcall D2GAME_SHRINES_Portal_6FC76880(D2ObjOperateFnStrc* pOp, D2Shrine
 // 0x00583A40
 void __fastcall sub_6FC77AB0(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
-    sub_6FD10E50(pUnit, nState, pStatList);
+    SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
     STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nMaxStamina, 0);
 }
@@ -4201,7 +4201,7 @@ void __fastcall sub_6FC77AB0(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 // 0x00583BD0
 void __fastcall sub_6FC77C10(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
-    sub_6FD10E50(pUnit, nState, pStatList);
+    SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
     sub_6FD14C30(pUnit);
 }
 

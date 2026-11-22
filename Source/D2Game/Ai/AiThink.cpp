@@ -47,11 +47,11 @@ int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x004
 
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
 
-int __fastcall sub_005B1140_BossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B1140
+int __fastcall AITHINK_TryBossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B1140
 
-int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B11F0
+int __fastcall AITHINK_TryTeleportAway(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B11F0
 
-int __fastcall sub_005DC640_HasFreeSpotNearTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
+int __fastcall AIUTIL_HasClearApproachToTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
 
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
 
@@ -131,7 +131,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void*);
 
 int __stdcall STATES_CheckState(D2UnitStrc*,int); // 0x00639DF0
 
-D2AiTableStrc* __fastcall sub_005B15D0_GetAiTable(D2UnitStrc*,int); // 0x005B15D0
+D2AiTableStrc* __fastcall AITHINK_GetAiTableRecord(D2UnitStrc*,int); // 0x005B15D0
 
 void __fastcall AIGENERAL_FreeAllAiCommands(D2GameStrc*,D2UnitStrc*); // 0x0058EDE0
 
@@ -183,7 +183,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 
 extern const int gnSkillTable_006E3514[5]; // 0x006E3514
 
-int __fastcall sub_005EDF70_TryRoomSteps(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005EDF70
+int __fastcall AITHINK_FindDeadMonsterBehind(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005EDF70
 
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
@@ -216,7 +216,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 
 D2UnitStrc* __fastcall sub_005DD0B0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, void* pCallback, int nCallbackId); // 0x005DD0B0
 
-void __fastcall sub_005EF210_BaalThroneSpawnMinion(D2UnitStrc* pUnit, int nSuperUnique, D2AiTickParamStrc* pTick); // 0x005EF210
+void __fastcall AITHINK_BaalThroneSpawnMinions(D2UnitStrc* pUnit, int nSuperUnique, D2AiTickParamStrc* pTick); // 0x005EF210
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
@@ -282,7 +282,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiCo
 
     if (pAiControl->pAiParamFn)
     {
-        D2AiTableStrc* pAiTableRecord = sub_005B15D0_GetAiTable(hUnit, pAiControl->nAiSpecialState);
+        D2AiTableStrc* pAiTableRecord = AITHINK_GetAiTableRecord(hUnit, pAiControl->nAiSpecialState);
         if ((AiFn)pAiControl->pAiParamFn == pAiTableRecord->function && pAiTableRecord->alternate)
         {
             pAiControl->nAiSpecialState = nAiSpecialState;
@@ -295,7 +295,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiCo
 
     AIGENERAL_FreeAllAiCommands(pGame, hUnit);
 
-    D2AiTableStrc* __restrict pAiTableRecord = sub_005B15D0_GetAiTable(hUnit, nAiSpecialState);
+    D2AiTableStrc* __restrict pAiTableRecord = AITHINK_GetAiTableRecord(hUnit, nAiSpecialState);
     if (!pAiTableRecord)
     {
         return;
@@ -364,7 +364,7 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x005E5730
-void __fastcall sub_005E5730_InitOwnerOffset(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AITHINK_InitializeFormationOffsets(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
     D2_ASSERT(pOwner, 3607);
@@ -520,7 +520,7 @@ inline D2SkillsTxt* GetSkill(int nId) {
 }
 
 // 0x005E9170
-void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+void __fastcall AITHINK_Fn051_Diablo(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
 {
     D2MonStatsTxt* pStats = pTick->pMonstatsTxt;
     D2AiCmdStrc* pCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
@@ -654,13 +654,13 @@ static inline int AI_RollPercentage(D2SeedStrc* pSeed)
 }
 
 // 0x005EE040
-void __fastcall sub_005EE040_ChooseAreaSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AITHINK_Fn126_CatapultSpotter(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
     D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
     D2SeedStrc* pSeed = &pUnit->pSeed;
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    if ((!pAiControl->dwAiParam[2] || AI_RollPercentage(pSeed) < 3) && sub_005EDF70_TryRoomSteps(pGame, pUnit))
+    if ((!pAiControl->dwAiParam[2] || AI_RollPercentage(pSeed) < 3) && AITHINK_FindDeadMonsterBehind(pGame, pUnit))
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 0, pTarget);
         return;
@@ -734,7 +734,7 @@ static inline int BAALTHRONE_GetSuperUniqueClass(int nSuperUnique)
 }
 
 // 0x005EF320
-void __fastcall sub_005EF320_ThinkBaalThrone(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+void __fastcall AITHINK_Fn134_BaalThrone(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
 {
     D2MonStatsTxt* pMonStats = pTick->pMonstatsTxt;
     D2AiControlStrc* pAiControl = pTick->pAiControl;
@@ -793,7 +793,7 @@ void __fastcall sub_005EF320_ThinkBaalThrone(D2GameStrc* pGame, D2UnitStrc* pUni
             return;
         }
         int nSuperUnique = DATATBLS_MapSuperUniqueId(2, sub_00586B30_GetSuperUniqueId(gnBaalThroneSuperUniqueIds[nWave]));
-        sub_005EF210_BaalThroneSpawnMinion(pUnit, nSuperUnique, pTick);
+        AITHINK_BaalThroneSpawnMinions(pUnit, nSuperUnique, pTick);
         return;
     }
     D2UnitStrc* pTarget = pTick->pTarget;

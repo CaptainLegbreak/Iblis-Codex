@@ -9,7 +9,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, unsigned short nLayer); // 0x00627260
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, unsigned short nLayer); // 0x00625480
 
-int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue); // 0x005C5F10
+int SKILLS_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue); // 0x005C5F10
 
 static __forceinline int sub_IsBloodGolem(D2UnitStrc* pUnit)
 {
@@ -36,7 +36,7 @@ int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc* pGame, D2UnitStr
         if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill[0] >= 0)
         {
             const int nParam = sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill[0]);
-            const int nResult = nLife - sub_005C5F10_AddLifeAndGetGain(pBloodGolem, nParam * nLife / 100);
+            const int nResult = nLife - SKILLS_AddLifeAndGetGain(pBloodGolem, nParam * nLife / 100);
 
             return nResult;
         }

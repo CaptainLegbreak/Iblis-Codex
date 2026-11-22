@@ -105,7 +105,7 @@ void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x0
 
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
-int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2F0
+int __fastcall SKILLS_CanSwitchAi(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2F0
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
@@ -121,7 +121,7 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
 
-void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
+void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
@@ -939,7 +939,7 @@ int __fastcall sub_005C31F0_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* 
         return 0;
     }
 
-    if (!sub_6FD15190(pTarget, 19))
+    if (!SKILLS_CanSwitchAi(pTarget, 19))
     {
         return 0;
     }
@@ -970,7 +970,7 @@ void __fastcall sub_6FD0B250(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
             AITHINK_ExecuteAiFn(SUNIT_GetGameFromUnit(pUnit), pUnit, AIGENERAL_GetAiControlFromUnit(pUnit), 0);
         }
 
-        sub_6FD10E50(pUnit, nState, pStatList);
+        SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
     }
 }
 
@@ -998,7 +998,7 @@ int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* p
         return 0;
     }
 
-    return sub_6FD15190(pTarget, 11) != 0;
+    return SKILLS_CanSwitchAi(pTarget, 11) != 0;
 }
 
 // 0x005D8510
@@ -1010,7 +1010,7 @@ int __fastcall SKILLS_Callback_FindTargetForTaunt(D2GameStrc* pGame, D2UnitStrc*
         return 0;
     }
 
-    if (!sub_6FD15190(pUnit, 12))
+    if (!SKILLS_CanSwitchAi(pUnit, 12))
     {
         return 0;
     }

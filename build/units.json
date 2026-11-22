@@ -7140,7 +7140,7 @@
     {
      "va": "0x00420E60",
      "length": 4,
-     "name": "?sub_005A6250_GetField14@@YIPAHPAUD2Field14Strc@@@Z"
+     "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
     },
     {
      "va": "0x00420EB0",
@@ -7353,7 +7353,7 @@
     {
      "va": "0x00420E70",
      "length": 4,
-     "name": "?sub_005A6250_GetField14@@YIPAHPAUD2Field14Strc@@@Z"
+     "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
     },
     {
      "va": "0x00421010",
@@ -33224,7 +33224,7 @@
     {
      "va": "0x004CCCC0",
      "length": 84,
-     "name": "?sub_004CCCC0_SubmissileInitFunc@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004CCF00",
@@ -47813,22 +47813,22 @@
     {
      "va": "0x00530F30",
      "length": 7,
-     "name": "?sub_00530F30_SetGlobal@@YIXH@Z"
+     "name": "?PLRSAVE_EnableSaveFileWriting@@YIXH@Z"
     },
     {
      "va": "0x00568D70",
      "length": 12,
-     "name": "?sub_00568D70_GetHighestClassSkillCount@@YAHXZ"
+     "name": "?PLRSAVE2_GetHighestClassSkillCount@@YAHXZ"
     },
     {
      "va": "0x00576320",
      "length": 7,
-     "name": "?sub_00576320_CheckItem@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?SUNITNPC_GetItemStorePage@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005875D0",
      "length": 17,
-     "name": "?sub_005875D0_SetQuestStateIfIntroDone@@YIXPAUD2QuestDataStrc@@@Z"
+     "name": "?ACT5Q1_SetQuestStateIfIntroDone@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x005B0BC0",
@@ -47838,17 +47838,17 @@
     {
      "va": "0x005DDE50",
      "length": 39,
-     "name": "sub_6FCCFD40"
+     "name": "AITACTICS_FindTargetInRange"
     },
     {
      "va": "0x005DDE80",
      "length": 156,
-     "name": "sub_6FCCFDE0"
+     "name": "AITACTICS_TargetCallback_FindNearbyPlayer"
     },
     {
      "va": "0x005DDF20",
      "length": 104,
-     "name": "?sub_6FCCFD70@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH@Z"
+     "name": "?AITACTICS_FindNearbyPlayerOrSelf@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH@Z"
     },
     {
      "va": "0x005DDF90",
@@ -47878,7 +47878,7 @@
     {
      "va": "0x005DE130",
      "length": 93,
-     "name": "sub_6FCD0150"
+     "name": "AITACTICS_ScheduleEarlierAiThink"
     },
     {
      "va": "0x005DE190",
@@ -47892,7 +47892,7 @@
     {
      "va": "0x005DE320",
      "length": 8,
-     "name": "?sub_005DE320_AttachSoundNoOrigin@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?AITACTICS_AttachSound@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005DE330",
@@ -47927,7 +47927,7 @@
     {
      "va": "0x005DE890",
      "length": 309,
-     "name": "sub_6FCCF9D0"
+     "name": "AITACTICS_FindTargetOrIdleInNeutralMode"
     },
     {
      "va": "0x005DE9D0",
@@ -47961,7 +47961,7 @@
     {
      "va": "0x005DED40",
      "length": 77,
-     "name": "sub_6FCD0410"
+     "name": "AITACTICS_WalkToTargetWithPathType13"
     },
     {
      "va": "0x005DED90",
@@ -51420,27 +51420,27 @@
     {
      "va": "0x00547D90",
      "length": 53,
-     "name": "sub_6FC68180"
+     "name": "MONSTERREGION_RegisterSpawnedMonster"
     },
     {
      "va": "0x00547DD0",
      "length": 121,
-     "name": "sub_6FC681C0"
+     "name": "MONSTERREGION_UpdateSpawnCountForAlignmentChange"
     },
     {
      "va": "0x00547E50",
      "length": 52,
-     "name": "sub_6FC68240"
+     "name": "MONSTERREGION_RecordMonsterKill"
     },
     {
      "va": "0x00547E90",
      "length": 52,
-     "name": "sub_6FC68280"
+     "name": "MONSTERREGION_UndoMonsterKill"
     },
     {
      "va": "0x00547ED0",
      "length": 113,
-     "name": "sub_6FC682C0"
+     "name": "MONSTERREGION_AdjustCountsForInactiveMonster"
     }
    ]
   },
@@ -53674,32 +53674,32 @@
     {
      "va": "0x0056B770",
      "length": 104,
-     "name": "?sub_0056B770_IsRoomInRange@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
+     "name": "?SKILLS_IsRoomInRange@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
     },
     {
      "va": "0x0056B7E0",
      "length": 476,
-     "name": "?sub_6FD0FE80@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHHIP6IHPAUD2AuraCallbackStrc@@1@ZPAXHPBDH@Z"
+     "name": "?SKILLS_IterateAuraTargets@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHHIP6IHPAUD2AuraCallbackStrc@@1@ZPAXHPBDH@Z"
     },
     {
      "va": "0x0056B9C0",
      "length": 205,
-     "name": "sub_6FD10140"
+     "name": "SKILLS_ApplyDamageToTarget"
     },
     {
      "va": "0x0056BA90",
      "length": 51,
-     "name": "sub_6FCF5DE0"
+     "name": "SKILLS_AuraCallback_ApplyAreaDamage"
     },
     {
      "va": "0x0056BAD0",
      "length": 69,
-     "name": "sub_6FD10200"
+     "name": "SKILLS_ApplyAreaDamage"
     },
     {
      "va": "0x0056BB20",
      "length": 147,
-     "name": "?sub_6FD106F0@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_AuraCallback_FindClosestTarget@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0056BBC0",
@@ -53709,27 +53709,27 @@
     {
      "va": "0x0056BC70",
      "length": 12,
-     "name": "?sub_0056BC70_CountAuraTargets@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_AuraCallback_CountTargets@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0056BC80",
      "length": 67,
-     "name": "sub_6FD10790"
+     "name": "SKILLS_CountAuraTargets"
     },
     {
      "va": "0x0056BCD0",
      "length": 61,
-     "name": "?sub_6FD10880@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_AuraCallback_FindNextTarget@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0056BD10",
      "length": 118,
-     "name": "sub_6FD107F0"
+     "name": "SKILLS_FindNextAuraTarget"
     },
     {
      "va": "0x0056BD90",
      "length": 300,
-     "name": "sub_0056BD90_RefreshPetMaxForSkill"
+     "name": "SKILLS_UpdatePetLimitForSkill"
     },
     {
      "va": "0x0056BEC0",
@@ -53738,7 +53738,7 @@
     {
      "va": "0x0056BFE0",
      "length": 300,
-     "name": "?sub_0056BFE0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_ConsumeSkillMana@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x0056C110",
@@ -53752,7 +53752,7 @@
     {
      "va": "0x0056C210",
      "length": 136,
-     "name": "sub_6FD10D90"
+     "name": "SKILLS_AllocUnitSearch"
     },
     {
      "va": "0x0056C2A0",
@@ -53762,32 +53762,32 @@
     {
      "va": "0x0056C310",
      "length": 222,
-     "name": "sub_6FD11340"
+     "name": "SKILLS_ConsumeItemQuantity"
     },
     {
      "va": "0x0056C3F0",
      "length": 227,
-     "name": "sub_6FD118C0"
+     "name": "SKILLS_ConsumeWeaponOrAmmoQuantity"
     },
     {
      "va": "0x0056C4E0",
      "length": 283,
-     "name": "sub_6FD119C0"
+     "name": "SKILLS_CanUseWeaponAmmo"
     },
     {
      "va": "0x0056C600",
      "length": 98,
-     "name": "sub_0056C600_ApplyWeaponBonusToMissile"
+     "name": "SKILLS_ApplyWeaponBonusToMissile"
     },
     {
      "va": "0x0056C670",
      "length": 33,
-     "name": "?sub_0056C670_GetOtherHandItem@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+     "name": "?SKILLS_GetOtherHandItem@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
      "va": "0x0056C6A0",
      "length": 92,
-     "name": "sub_6FD11AE0"
+     "name": "SKILLS_HandleTransmogrify"
     },
     {
      "va": "0x0056C700",
@@ -53796,7 +53796,7 @@
     {
      "va": "0x0056C740",
      "length": 253,
-     "name": "?sub_6FD11C90@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_RemoveStatesInGroup@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x0056C8E0",
@@ -53829,17 +53829,17 @@
     {
      "va": "0x0056CC60",
      "length": 230,
-     "name": "?sub_0056CC60_CheckUsedSkillTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_CheckUsedSkillTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0056CDA0",
      "length": 194,
-     "name": "sub_6FD13260"
+     "name": "SKILLS_SchedulePeriodicSkill"
     },
     {
      "va": "0x0056CE70",
      "length": 197,
-     "name": "sub_6FD13330"
+     "name": "SKILLS_SchedulePeriodicStat"
     },
     {
      "va": "0x0056CF40",
@@ -53864,7 +53864,7 @@
     {
      "va": "0x0056D400",
      "length": 224,
-     "name": "sub_6FD14170"
+     "name": "SKILLS_CreateMissileRing"
     },
     {
      "va": "0x0056D4E0",
@@ -53874,7 +53874,7 @@
     {
      "va": "0x0056D5F0",
      "length": 414,
-     "name": "?sub_0056D5F0_SpawnItemInFreeHand@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@I@Z"
+     "name": "?SKILLS_SpawnItemInFreeHand@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@I@Z"
     },
     {
      "va": "0x0056D790",
@@ -53883,17 +53883,17 @@
     {
      "va": "0x0056D810",
      "length": 40,
-     "name": "sub_6FD14400"
+     "name": "SKILLS_ExecuteServerDoFunction"
     },
     {
      "va": "0x0056D840",
      "length": 132,
-     "name": "?sub_6FD146D0@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_RemoveTrackedSummon@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0056D8D0",
      "length": 103,
-     "name": "?sub_0056D8D0_SetPetFlagsAndCount@@YGXPAUD2GameStrc@@PAUD2SummonArgStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_RegisterSummonedPet@@YGXPAUD2GameStrc@@PAUD2SummonArgStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0056D940",
@@ -53912,7 +53912,7 @@
     {
      "va": "0x0056DCC0",
      "length": 273,
-     "name": "?sub_6FD149B0@@YIXPAUD2GameStrc@@PAUD2EffectStrc@@@Z"
+     "name": "?SKILLS_ApplyAreaEffect@@YIXPAUD2GameStrc@@PAUD2EffectStrc@@@Z"
     },
     {
      "va": "0x0056DE40",
@@ -53922,7 +53922,7 @@
     {
      "va": "0x0056DE70",
      "length": 49,
-     "name": "?sub_0056DE70_AddSkillAndRefresh@@YIPAUD2SkillStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_AddSkillAndRefresh@@YIPAUD2SkillStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0056DEB0",
@@ -53932,12 +53932,12 @@
     {
      "va": "0x0056DF10",
      "length": 54,
-     "name": "?sub_0056DF10_RemoveSkillAndRefresh@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_RemoveSkillAndRefresh@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0056DF50",
      "length": 79,
-     "name": "?sub_0056DF50_IsActiveSkill@@YIHPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_IsActiveSkill@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0056DFA0",
@@ -53947,12 +53947,12 @@
     {
      "va": "0x0056E000",
      "length": 69,
-     "name": "?sub_0056E000_FillMonSkillInfo@@YGXPAUD2UnitStrc@@HPAUD2MonSkillInfoStrc@@@Z"
+     "name": "?SKILLS_FillMonSkillInfo@@YGXPAUD2UnitStrc@@HPAUD2MonSkillInfoStrc@@@Z"
     },
     {
      "va": "0x0056E050",
      "length": 102,
-     "name": "?sub_6FD14D20@@YIXPAUD2UnitStrc@@HPAUD2MonSkillInfoStrc@@@Z"
+     "name": "?SKILLS_FillMinionSkillDamage@@YIXPAUD2UnitStrc@@HPAUD2MonSkillInfoStrc@@@Z"
     },
     {
      "va": "0x0056E0C0",
@@ -53967,37 +53967,37 @@
     {
      "va": "0x0056E1E0",
      "length": 48,
-     "name": "sub_0056E1E0_GetCrossbowClassFlag"
+     "name": "SKILLS_GetCrossbowClassFlag"
     },
     {
      "va": "0x0056E210",
      "length": 20,
-     "name": "?sub_0056E210@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_RewindUnitAnimation@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0056E230",
      "length": 187,
-     "name": "?sub_6FD150A0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?SKILLS_StartBasicAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x0056E2F0",
      "length": 114,
-     "name": "?sub_6FD15190@@YIHPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_CanSwitchAi@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0056E370",
      "length": 31,
-     "name": "?sub_6FD15320@@YIHPAUD2UnitStrc@@PAUD2UnitFindArgStrc@@@Z"
+     "name": "?SKILLS_UnitFindTest_Corpse@@YIHPAUD2UnitStrc@@PAUD2UnitFindArgStrc@@@Z"
     },
     {
      "va": "0x0056E390",
      "length": 191,
-     "name": "sub_6FD15210"
+     "name": "SKILLS_FindCorpseNearTarget"
     },
     {
      "va": "0x0056E450",
      "length": 187,
-     "name": "?sub_6FD15340@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_IsMissileTargetPositionClear@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0056E510",
@@ -54022,27 +54022,27 @@
     {
      "va": "0x0056E680",
      "length": 109,
-     "name": "sub_6FD155E0"
+     "name": "SKILLS_SetDamageResultFlagsFromSkill"
     },
     {
      "va": "0x0056E6F0",
      "length": 70,
-     "name": "sub_6FD15650"
+     "name": "SKILLS_SetDamageResultFlags"
     },
     {
      "va": "0x0056E740",
      "length": 60,
-     "name": "sub_6FD156A0"
+     "name": "SKILLS_RegisterUnitEvent"
     },
     {
      "va": "0x0056E780",
      "length": 380,
-     "name": "?sub_6FD10360@@YIHPAUD2GameStrc@@IPAUD2UnitStrc@@HP6IH1PAX@Z2@Z"
+     "name": "?SKILLS_IterateTargetsAroundTarget@@YIHPAUD2GameStrc@@IPAUD2UnitStrc@@HP6IH1PAX@Z2@Z"
     },
     {
      "va": "0x0056E900",
      "length": 106,
-     "name": "?sub_6FD10E50@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLS_RemoveStateAndRefreshPassives@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x0056E970",
@@ -54055,7 +54055,7 @@
     {
      "va": "0x0056ECB0",
      "length": 295,
-     "name": "?sub_6FD11420@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHHHHHH@Z"
+     "name": "?SKILLS_CreateMissileAtOffset@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHHHHHH@Z"
     },
     {
      "va": "0x0056EDE0",
@@ -54064,7 +54064,7 @@
     {
      "va": "0x0056EE90",
      "length": 255,
-     "name": "?sub_6FD11710@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHHHHHH@Z"
+     "name": "?SKILLS_CreateMissileFromOrigin@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHHHHHH@Z"
     },
     {
      "va": "0x0056EF90",
@@ -54073,7 +54073,7 @@
     {
      "va": "0x0056F020",
      "length": 80,
-     "name": "?sub_6FD11BA0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_ApplySkillDelay@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x0056F070",
@@ -54109,27 +54109,27 @@
     {
      "va": "0x0056FC50",
      "length": 92,
-     "name": "sub_6FD13410"
+     "name": "SKILLS_ExecuteUsedSkill"
     },
     {
      "va": "0x0056FCB0",
      "length": 399,
-     "name": "sub_0056FCB0"
+     "name": "SKILLS_EventCallback_PeriodicSkillAura"
     },
     {
      "va": "0x0056FE40",
      "length": 194,
-     "name": "sub_0056FE40"
+     "name": "SKILLS_EventCallback_ItemAura"
     },
     {
      "va": "0x0056FF10",
      "length": 354,
-     "name": "?sub_0056FF10_StartAssignedAura@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_StartAssignedAura@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00570080",
      "length": 294,
-     "name": "sub_6FD136E0"
+     "name": "SKILLS_TryIncreaseSkillLevel"
     },
     {
      "va": "0x005701B0",
@@ -54143,7 +54143,7 @@
     {
      "va": "0x00570530",
      "length": 86,
-     "name": "sub_00570530_StatRemoveCallback"
+     "name": "SKILLS_StatRemoveCallback_ResetAiAndRefresh"
     },
     {
      "va": "0x00571580",
@@ -54222,7 +54222,7 @@
     {
      "va": "0x00570420",
      "length": 259,
-     "name": "?sub_6FD14F70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+     "name": "?SKILLS_StunMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
     }
    ]
   },
@@ -54487,17 +54487,17 @@
     {
      "va": "0x00572DA0",
      "length": 24,
-     "name": "@sub_00572DA0@4"
+     "name": "@MONSTERAI_GetInteractUnitCount@4"
     },
     {
      "va": "0x00572DC0",
      "length": 27,
-     "name": "@sub_00572DC0@4"
+     "name": "@MONSTERAI_HasInteractUnit@4"
     },
     {
      "va": "0x00572DE0",
      "length": 26,
-     "name": "@sub_00572DE0@8"
+     "name": "@MONSTERAI_IsInteractingWith@8"
     },
     {
      "va": "0x00572E00",
@@ -54507,7 +54507,7 @@
     {
      "va": "0x00572E60",
      "length": 57,
-     "name": "?sub_6FC61AB0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2MonsterInteractStrc@@@Z"
+     "name": "?MONSTERAI_ActivateNpcInteraction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2MonsterInteractStrc@@@Z"
     },
     {
      "va": "0x00572EA0",
@@ -54520,7 +54520,7 @@
     {
      "va": "0x00572F20",
      "length": 246,
-     "name": "sub_6FC61B70"
+     "name": "MONSTERAI_EndNpcInteraction"
     },
     {
      "va": "0x00573020",
@@ -54530,12 +54530,12 @@
     {
      "va": "0x00573040",
      "length": 79,
-     "name": "?sub_00573040_AiSwitchAllowed@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?MONSTERAI_CanSwitchAi@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00573090",
      "length": 70,
-     "name": "?sub_00573090_ApplyAiMode@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERAI_SetTargetOverride@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005730E0",
@@ -54550,17 +54550,17 @@
     {
      "va": "0x00573120",
      "length": 27,
-     "name": "?sub_00573120_ClearMonsterPair@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?MONSTERAI_ClearTargetOverride@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00573140",
      "length": 63,
-     "name": "?sub_6FC61F20@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?MONSTERAI_IsInteractionReady@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x00573180",
      "length": 225,
-     "name": "?sub_00573180@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@P6IX1@ZD@Z"
+     "name": "?MONSTERAI_CloseNpcInteractions@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@P6IX1@ZD@Z"
     },
     {
      "va": "0x00573270",
@@ -54569,7 +54569,7 @@
     {
      "va": "0x0057C3E0",
      "length": 61,
-     "name": "?sub_0057C3E0_GetMonsterDrain@@YIHPAUD2UnitStrc@@HPAUD2GameStrc@@@Z"
+     "name": "?SUNITDMG_GetMonsterDrain@@YIHPAUD2UnitStrc@@HPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -54645,7 +54645,7 @@
     {
      "va": "0x00573C00",
      "length": 176,
-     "name": "sub_00573C00_ResetMonsterModesInLevel"
+     "name": "MONSTER_ResetMonsterModesInLevel"
     },
     {
      "va": "0x00574370",
@@ -55576,7 +55576,7 @@
     {
      "va": "0x0057B7A0",
      "length": 46,
-     "name": "?sub_0057B7A0_AddDefenseFromStat@@YAXPAUD2UnitStrc@@0@Z"
+     "name": "?SUNITDMG_ApplyDamageTargetAc@@YAXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005C3070",
@@ -55625,12 +55625,12 @@
     {
      "va": "0x005C3400",
      "length": 20,
-     "name": "@sub_005C3400@4"
+     "name": "@SKILLS_IsDimVisionOrTerrorState@4"
     },
     {
      "va": "0x005C3420",
      "length": 131,
-     "name": "?sub_005C3420_ValidTarget@@YIHPAUGame@@PAUUnit@@1@Z"
+     "name": "?SKILLS_CanApplyCurseToTarget@@YIHPAUGame@@PAUUnit@@1@Z"
     },
     {
      "va": "0x005C35C0",
@@ -55639,7 +55639,7 @@
     {
      "va": "0x005C37A0",
      "length": 29,
-     "name": "?sub_005C37A0_ApplyAiCurseDivisor@@YAHEH@Z"
+     "name": "?SKILLS_ApplyAiCurseDivisor@@YAHEH@Z"
     },
     {
      "va": "0x005C37C0",
@@ -55649,17 +55649,17 @@
     {
      "va": "0x005C39C0",
      "length": 306,
-     "name": "sub_6FD0B9F0"
+     "name": "SKILLS_ApplyDimVisionToTarget"
     },
     {
      "va": "0x005C3B00",
      "length": 45,
-     "name": "?sub_005C3B00_AttractStateRemove@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLS_CurseStateCallback_EndAttract@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x005C3B30",
      "length": 90,
-     "name": "?sub_6FD0BDA0@@YIHPAUD2UnitStrc@@PAX@Z"
+     "name": "?SKILLS_AuraCallback_SetAttractTarget@@YIHPAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x005C3B90",
@@ -55668,12 +55668,12 @@
     {
      "va": "0x005C3DB0",
      "length": 45,
-     "name": "?sub_6FD0C2B0@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLS_CurseStateCallback_ResetAlignment@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x005C3DE0",
      "length": 320,
-     "name": "sub_6FD0C060"
+     "name": "SKILLS_AuraCallback_ApplyConfuse"
     },
     {
      "va": "0x005C3F20",
@@ -55683,7 +55683,7 @@
     {
      "va": "0x005C40D0",
      "length": 176,
-     "name": "?sub_005C40D0@@YIXPAUUnit@@0@Z"
+     "name": "?SKILLS_SetSummonResistance@@YIXPAUUnit@@0@Z"
     },
     {
      "va": "0x005C4180",
@@ -55692,17 +55692,17 @@
     {
      "va": "0x005C4300",
      "length": 204,
-     "name": "?sub_005C4300_SetSkeletonComponents@@YGXPAUD2UnitStrc@@H0H@Z"
+     "name": "?SKILLS_SetSkeletonComponents@@YGXPAUD2UnitStrc@@H0H@Z"
     },
     {
      "va": "0x005C43D0",
      "length": 88,
-     "name": "?sub_005C43D0_SetMageComponents@@YGXPAUD2UnitStrc@@0@Z"
+     "name": "?SKILLS_SetSkeletonMageComponents@@YGXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005C4430",
      "length": 56,
-     "name": "?sub_005C4430_SetNecroPetComponents@@YIXPAUD2UnitStrc@@0HH@Z"
+     "name": "?SKILLS_SetNecroPetComponents@@YIXPAUD2UnitStrc@@0HH@Z"
     },
     {
      "va": "0x005C4470",
@@ -55725,7 +55725,7 @@
     {
      "va": "0x005C4D10",
      "length": 212,
-     "name": "sub_6FD0D000"
+     "name": "SKILLS_AuraCallback_ApplyCorpseExplosionDamage"
     },
     {
      "va": "0x005C4DF0",
@@ -55748,7 +55748,7 @@
     {
      "va": "0x005C5430",
      "length": 398,
-     "name": "?sub_005C5430_MoveRevivedTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_RelocateRevivedTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005C55C0",
@@ -55765,7 +55765,7 @@
     {
      "va": "0x005C5BC0",
      "length": 316,
-     "name": "?sub_005C5BC0_SpawnBonePrisonPet@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHH@Z"
+     "name": "?SKILLS_SpawnBonePrisonPet@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHH@Z"
     },
     {
      "va": "0x005C5D00",
@@ -55779,7 +55779,7 @@
     {
      "va": "0x005C5F10",
      "length": 60,
-     "name": "?sub_005C5F10_AddLifeAndGetGain@@YAHPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_AddLifeAndGetGain@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005C5F50",
@@ -55792,7 +55792,7 @@
     {
      "va": "0x005C6370",
      "length": 434,
-     "name": "?sub_005C6370@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+     "name": "?SKILLS_EventFunc22_AbsorbPhysicalDamage@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x005C6530",
@@ -55802,12 +55802,12 @@
     {
      "va": "0x005C6690",
      "length": 208,
-     "name": "?sub_005C6690_ShareDamageWithOwner@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+     "name": "?SKILLS_EventFunc26_ShareDamageWithOwner@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x005C6760",
      "length": 269,
-     "name": "?sub_005C6760@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+     "name": "?SKILLS_EventFunc27_Slow@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x005C6870",
@@ -55983,7 +55983,7 @@
     {
      "va": "0x00580800",
      "length": 16,
-     "name": "?D2GAME_MONSTERS_AiFunction13_6FC65890@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERMODE_EventUpdateStatListExpirations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00580810",
@@ -57997,7 +57997,7 @@
     {
      "va": "0x0058ED80",
      "length": 83,
-     "name": "?sub_0058ED80_FreeAllAiCommands@@YAXPAUD2GameStrc@@PAUD2AiControlStrc@@@Z"
+     "name": "?AIGENERAL_FreeAiControlCommands@@YAXPAUD2GameStrc@@PAUD2AiControlStrc@@@Z"
     },
     {
      "va": "0x0058EDE0",
@@ -58012,7 +58012,7 @@
     {
      "va": "0x0058EEA0",
      "length": 79,
-     "name": "sub_0058EEA0_StepCurrentAiCommand"
+     "name": "AIGENERAL_StepCurrentAiCommand"
     },
     {
      "va": "0x0058EEF0",
@@ -58083,12 +58083,12 @@
     {
      "va": "0x0058F530",
      "length": 302,
-     "name": "?sub_0058F530_LinkMinions@@YGXPAUD2UnitStrc@@PAUD2AiControlStrc@@@Z"
+     "name": "?AIGENERAL_TransferMinionsToNewLeader@@YGXPAUD2UnitStrc@@PAUD2AiControlStrc@@@Z"
     },
     {
      "va": "0x0058F660",
      "length": 83,
-     "name": "?sub_0058F660_ReleaseMinions@@YAXPAUD2AiControlStrc@@@Z"
+     "name": "?AIGENERAL_ReleaseMinions@@YAXPAUD2AiControlStrc@@@Z"
     },
     {
      "va": "0x0058F6C0",
@@ -60150,7 +60150,7 @@
     {
      "va": "0x005A2100",
      "length": 26,
-     "name": "sub_6FC6F670"
+     "name": "MONSTERUNIQUE_InitializeUMod"
     },
     {
      "va": "0x005A25F0",
@@ -60170,7 +60170,7 @@
     {
      "va": "0x005A54F0",
      "length": 109,
-     "name": "sub_6FC62DF0"
+     "name": "MONSTERMODE_AddSandLeaperKnockback"
     },
     {
      "va": "0x005A5840",
@@ -60190,17 +60190,17 @@
     {
      "va": "0x005A6230",
      "length": 28,
-     "name": "sub_005A6230_GetFields"
+     "name": "MONSTERMODE_GetVelocityParams"
     },
     {
      "va": "0x005A8000",
      "length": 34,
-     "name": "sub_005A8000_ModeChangeTarget"
+     "name": "MONSTERMODE_DropTreasureForFindItem"
     },
     {
      "va": "0x005A88E0",
      "length": 42,
-     "name": "sub_005A88E0_RollMissileHit"
+     "name": "MISSMODE_RollMissileHit"
     },
     {
      "va": "0x005A8910",
@@ -60219,7 +60219,7 @@
     {
      "va": "0x005A8FB0",
      "length": 292,
-     "name": "?sub_005A8FB0@@YIXPAUGame@@PAUUnit@@1PAUDamage@@H@Z"
+     "name": "?MISSMODE_SetDamageValue@@YIXPAUGame@@PAUUnit@@1PAUDamage@@H@Z"
     },
     {
      "va": "0x005A90E0",
@@ -60243,7 +60243,7 @@
     {
      "va": "0x005A94C0",
      "length": 104,
-     "name": "?sub_005A94C0_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
+     "name": "?MISSMODE_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x005A9530",
@@ -60257,17 +60257,17 @@
     {
      "va": "0x005A9820",
      "length": 260,
-     "name": "?sub_005A9820_SpawnNearby@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHGPAU1@H@Z"
+     "name": "?MISSMODE_CreateMissileWithCollisionCheck@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHGPAU1@H@Z"
     },
     {
      "va": "0x005A9930",
      "length": 169,
-     "name": "sub_005A9930_CreateCairnPortal"
+     "name": "MISSMODE_CreateCairnPortal"
     },
     {
      "va": "0x005A99E0",
      "length": 140,
-     "name": "?sub_005A99E0_MISSMODE_PlacePathAtOwner@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_PlacePathAtOwner@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A9A70",
@@ -60306,7 +60306,7 @@
     {
      "va": "0x005AA1C0",
      "length": 129,
-     "name": "?sub_005AA1C0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?MISSMODE_SrvHit06_SpawnMonster@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005AA250",
@@ -60315,12 +60315,12 @@
     {
      "va": "0x005AA460",
      "length": 329,
-     "name": "?sub_005AA460_MISSMODE_GuidedRetarget@@YGXPAUD2UnitStrc@@0@Z"
+     "name": "?MISSMODE_SetGuidedMissileTarget@@YGXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005AA5B0",
      "length": 157,
-     "name": "?sub_005AA5B0_MISSMODE_GuidedFindTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_FindGuidedMissileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005AA650",
@@ -60421,7 +60421,7 @@
     {
      "va": "0x005ABC40",
      "length": 290,
-     "name": "sub_005ABC40"
+     "name": "MISSMODE_SrvHit05_CreateRadialSubmissiles"
     },
     {
      "va": "0x005ABD70",
@@ -60456,7 +60456,7 @@
     {
      "va": "0x005AC040",
      "length": 84,
-     "name": "?sub_004CCCC0_SubmissileInitFunc@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005AC0A0",
@@ -60539,7 +60539,7 @@
     {
      "va": "0x005ACFC0",
      "length": 143,
-     "name": "sub_005ACFC0"
+     "name": "MISSMODE_SrvHit23_ExecuteSkillDo"
     },
     {
      "va": "0x005AD050",
@@ -60627,7 +60627,7 @@
     {
      "va": "0x005AD930",
      "length": 49,
-     "name": "?sub_005AD930_BaalFxOpenPortal@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_BaalFxOpenPortal@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005AD970",
@@ -60637,12 +60637,12 @@
     {
      "va": "0x005AD9D0",
      "length": 109,
-     "name": "?sub_005AD9D0_HitAndRemoveMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?MISSMODE_HitAndRemoveMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005ADA40",
      "length": 64,
-     "name": "?sub_005ADA40_CheckMissileMode@@YAHHPAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_IsUnitTypeValidForMissileMode@@YAHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005ADA80",
@@ -60656,22 +60656,22 @@
     {
      "va": "0x005ADB00",
      "length": 169,
-     "name": "?sub_005ADB00_SetJustHitState@@YIXPAUD2UnitStrc@@0@Z"
+     "name": "?MISSMODE_SetJustHitState@@YIXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005ADBB0",
      "length": 272,
-     "name": "?sub_005ADBB0_MISSMODE_SrvDo@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_SrvDoHandler@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005ADCC0",
      "length": 13,
-     "name": "?sub_005ADCC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?MISSMODE_SrvDoEventCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005ADCD0",
      "length": 73,
-     "name": "?sub_005ADCD0_ApplyDamageFlags@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@@Z"
+     "name": "?MISSMODE_ApplyDamageFlagsAndTargetAc@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@@Z"
     },
     {
      "va": "0x005ADD20",
@@ -60717,7 +60717,7 @@
     {
      "va": "0x005AEA60",
      "length": 243,
-     "name": "?sub_005AEA60_SpawnBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_SrvDo10_BlizzardCenter@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005AEB60",
@@ -60750,7 +60750,7 @@
     {
      "va": "0x005AF240",
      "length": 179,
-     "name": "?sub_005AF240_SpawnDuringFrames@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_SrvDo17_CairnStones@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005AF300",
@@ -60779,7 +60779,7 @@
     {
      "va": "0x005AF880",
      "length": 251,
-     "name": "?sub_005AF880_SpawnBySkillMask@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_SrvDo25_EruptionCenter@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005AF980",
@@ -60833,7 +60833,7 @@
     {
      "va": "0x005B0870",
      "length": 200,
-     "name": "sub_005B0870"
+     "name": "MISSMODE_SrvHit11_CreateHitSubmissiles"
     },
     {
      "va": "0x005B0940",
@@ -60848,7 +60848,7 @@
     {
      "va": "0x005B0AA0",
      "length": 281,
-     "name": "?sub_005B0AA0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MISSMODE_SrvDo37_CreateTimedSubmissiles@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B0D70",
@@ -60858,7 +60858,7 @@
     {
      "va": "0x005B0F50",
      "length": 154,
-     "name": "?sub_005B0F50_OpenDoorInReach@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_TryOpenNearbyDoor@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005B0FF0",
@@ -60867,12 +60867,12 @@
     {
      "va": "0x005B10E0",
      "length": 92,
-     "name": "sub_005B10E0_AiTickPreChecks"
+     "name": "AITHINK_CheckAiTickPreconditions"
     },
     {
      "va": "0x005B1140",
      "length": 176,
-     "name": "sub_005B1140_BossTauntOnSight"
+     "name": "AITHINK_TryBossTauntOnSight"
     },
     {
      "va": "0x005B11F0",
@@ -60894,17 +60894,17 @@
     {
      "va": "0x005B1740",
      "length": 313,
-     "name": "?sub_005B1740@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005B23C0",
      "length": 204,
-     "name": "sub_6FC68D70"
+     "name": "MONSTERSPAWN_SpawnAtUnit"
     },
     {
      "va": "0x005B2F70",
      "length": 207,
-     "name": "sub_6FC69F70"
+     "name": "MONSTERSPAWN_SpawnAtUnitInCoordList"
     },
     {
      "va": "0x005B3750",
@@ -60929,7 +60929,7 @@
     {
      "va": "0x005B4FF0",
      "length": 55,
-     "name": "sub_005B4FF0_ActivateHarrogathWaypoint"
+     "name": "ACT4Q2_ActivateHarrogathWaypoint"
     },
     {
      "va": "0x005B69F0",
@@ -60989,7 +60989,7 @@
     {
      "va": "0x005DC480",
      "length": 164,
-     "name": "?sub_005DC480_Distance@@YIHPAUSynUnit@@HH@Z"
+     "name": "?AIUTIL_GetDistanceToCoordinates_HalfUnitSize@@YIHPAUSynUnit@@HH@Z"
     },
     {
      "va": "0x005DC530",
@@ -60999,7 +60999,7 @@
     {
      "va": "0x005DCD50",
      "length": 65,
-     "name": "sub_6FCF1CB0"
+     "name": "AIUTIL_TargetCallback_FindClosestClosedDoor"
     },
     {
      "va": "0x005DEC80",
@@ -61038,7 +61038,7 @@
     {
      "va": "0x005A2BA0",
      "length": 34,
-     "name": "sub_6FC6CD30"
+     "name": "MONSTERUNIQUE_CastLightUniqueMissileIfNotGetHit"
     },
     {
      "va": "0x005A2BD0",
@@ -61058,12 +61058,12 @@
     {
      "va": "0x005A2D80",
      "length": 124,
-     "name": "?sub_6FC6CF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERUNIQUE_AddSecondaryDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A2E00",
      "length": 167,
-     "name": "sub_6FC6CF90"
+     "name": "MONSTERUNIQUE_AddRogueHireMissileSecondaryDamage"
     },
     {
      "va": "0x005A2EB0",
@@ -61078,7 +61078,7 @@
     {
      "va": "0x005A30B0",
      "length": 33,
-     "name": "sub_6FC6D440"
+     "name": "MONSTERUNIQUE_ApplyMissileElementalDamage"
     },
     {
      "va": "0x005A30E0",
@@ -61101,12 +61101,12 @@
     {
      "va": "0x005A3840",
      "length": 205,
-     "name": "?sub_6FC6DD20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERUNIQUE_ScheduleSelfResurrection@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A3910",
      "length": 359,
-     "name": "?sub_6FC6DDE0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERUNIQUE_TrySelfResurrection@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A3A80",
@@ -61116,7 +61116,7 @@
     {
      "va": "0x005A3AA0",
      "length": 170,
-     "name": "sub_6FC6DFC0"
+     "name": "MONSTERUNIQUE_KillUnitOrRemovePet"
     },
     {
      "va": "0x005A3B50",
@@ -61131,7 +61131,7 @@
     {
      "va": "0x005A6130",
      "length": 94,
-     "name": "sub_005A6130_AreUnitsFriendly"
+     "name": "FRIENDLY_AreUnitsFriendly"
     }
    ]
   },
@@ -61142,12 +61142,12 @@
     {
      "va": "0x005A4EF0",
      "length": 45,
-     "name": "sub_6FC62780"
+     "name": "MONSTERMODE_DistributeExperienceIfEligible"
     },
     {
      "va": "0x005A5490",
      "length": 86,
-     "name": "sub_6FC62D90"
+     "name": "MONSTERMODE_AllocateTargetCombat"
     }
    ]
   },
@@ -61524,17 +61524,17 @@
     {
      "va": "0x005A6190",
      "length": 23,
-     "name": "@sub_005A6190@4"
+     "name": "@MONSTERMODE_GetAiParamFromUnit@4"
     },
     {
      "va": "0x005A61B0",
      "length": 56,
-     "name": "?sub_005A61B0_TakeRecordValues@@YGXPAUD2TakeRecordStrc@@PAH1PAE@Z"
+     "name": "?MONSTERMODE_TakeVelocityParams@@YGXPAUD2TakeRecordStrc@@PAH1PAE@Z"
     },
     {
      "va": "0x005A6250",
      "length": 4,
-     "name": "?sub_005A6250_GetField14@@YIPAHPAUD2Field14Strc@@@Z"
+     "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
     },
     {
      "va": "0x005A6290",
@@ -61544,17 +61544,17 @@
     {
      "va": "0x005A6380",
      "length": 102,
-     "name": "?sub_005A6380_SetVelocityPercent@@YAXPAUD2UnitStrc@@PAUD2MonVelocityParamStrc@@@Z"
+     "name": "?MONSTERMODE_SetVelocityPercent@@YAXPAUD2UnitStrc@@PAUD2MonVelocityParamStrc@@@Z"
     },
     {
      "va": "0x005A63F0",
      "length": 160,
-     "name": "?sub_005A63F0_UpdateModePath@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2MonVelocityParamStrc@@HE@Z"
+     "name": "?MONSTERMODE_UpdateModePath@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2MonVelocityParamStrc@@HE@Z"
     },
     {
      "va": "0x005A6490",
      "length": 54,
-     "name": "?sub_005A6490_AllocateMonsterModeData@@YIPAUD2MonsterModeDataStrc@@PAUD2GameStrc@@@Z"
+     "name": "?MONSTERMODE_AllocParams@@YIPAUD2MonsterModeDataStrc@@PAUD2GameStrc@@@Z"
     },
     {
      "va": "0x005A64D0",
@@ -61564,27 +61564,27 @@
     {
      "va": "0x005A64F0",
      "length": 35,
-     "name": "?sub_005A64F0_IsActionFrame@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_IsActionFrame@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A6520",
      "length": 214,
-     "name": "?sub_6FC63E80@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_CleanupDeath@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A6600",
      "length": 549,
-     "name": "?sub_6FC631B0@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_DropTreasure@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A6830",
      "length": 175,
-     "name": "?sub_005A6830@@YIXPAUD2GameStrc@@PAUD2ModeChangeStrc@@H@Z"
+     "name": "?MONSTERMODE_TryDropTreasure@@YIXPAUD2GameStrc@@PAUD2ModeChangeStrc@@H@Z"
     },
     {
      "va": "0x005A68E0",
      "length": 50,
-     "name": "?sub_005A68E0_SetAiStateForMode@@YAXHPAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_SetAiStateForMode@@YAXHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A6920",
@@ -61593,7 +61593,7 @@
     {
      "va": "0x005A6B10",
      "length": 92,
-     "name": "?sub_005A6B10_IsModeEventEnabled@@YAHPAUD2UnitStrc@@H@Z"
+     "name": "?MONSTERMODE_IsModeEventEnabled@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005A6B70",
@@ -61602,7 +61602,7 @@
     {
      "va": "0x005A6D50",
      "length": 134,
-     "name": "?sub_005A6D50_CreateMonsterMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?MONSTERMODE_CreateMonsterMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005A6DE0",
@@ -61616,7 +61616,7 @@
     {
      "va": "0x005A6EB0",
      "length": 310,
-     "name": "sub_6FC64090"
+     "name": "MONSTERMODE_HandleSiegeBeastDeath"
     },
     {
      "va": "0x005A6FF0",
@@ -61625,17 +61625,17 @@
     {
      "va": "0x005A72B0",
      "length": 158,
-     "name": "?sub_6FC641D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_EndDeath@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A7350",
      "length": 62,
-     "name": "?sub_6FC64280@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_UpdateDeath@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A7390",
      "length": 72,
-     "name": "?sub_005A7390_MONSTERMODE_EndDeath@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartDead@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A73E0",
@@ -61645,52 +61645,52 @@
     {
      "va": "0x005A7490",
      "length": 16,
-     "name": "?sub_6FC643D0@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartSkill3@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A74A0",
      "length": 46,
-     "name": "?sub_6FC643E0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_UpdateSkill3@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A74D0",
      "length": 1,
-     "name": "?sub_005A74D0_MonMode10End@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_EndSkill3@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A74E0",
      "length": 49,
-     "name": "?sub_6FC64410@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartSkill4@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A7520",
      "length": 42,
-     "name": "?sub_6FC64450@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartWalk@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A7550",
      "length": 42,
-     "name": "?sub_6FC644E0@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartRun@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A7580",
      "length": 62,
-     "name": "?sub_6FC64540@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartGetHit@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A75C0",
      "length": 171,
-     "name": "?sub_005A75C0_StartModeWithPath@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartAttackOrSkill@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A7670",
      "length": 325,
-     "name": "?sub_005A7670_UpdateModeSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_UpdateAttackOrSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A77C0",
      "length": 16,
-     "name": "?sub_6FC64B50@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartBlock@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A77D0",
@@ -61699,7 +61699,7 @@
     {
      "va": "0x005A7870",
      "length": 38,
-     "name": "?sub_6FC64E60@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+     "name": "?MONSTERMODE_StartSequence@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
     },
     {
      "va": "0x005A78A0",
@@ -61709,17 +61709,17 @@
     {
      "va": "0x005A7B30",
      "length": 100,
-     "name": "?sub_005A7B30_TryStartNeutral@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_StartNeutralUnlessDead@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A7BA0",
      "length": 62,
-     "name": "?sub_005A7BA0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERMODE_EventModeChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A7BE0",
      "length": 62,
-     "name": "?sub_005A7BE0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERMODE_EventEndAnimation@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A7C20",
@@ -61733,12 +61733,12 @@
     {
      "va": "0x005A7EF0",
      "length": 16,
-     "name": "?D2GAME_MONSTERS_AiFunction13_6FC65890@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERMODE_EventUpdateStatListExpirations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A7F70",
      "length": 10,
-     "name": "?sub_005A7F70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERMODE_EventClearTargetOverride@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A8030",
@@ -61747,17 +61747,17 @@
     {
      "va": "0x005A8330",
      "length": 170,
-     "name": "sub_6FC63940"
+     "name": "MONSTERMODE_EndTrappedSoulAttack"
     },
     {
      "va": "0x005A83E0",
      "length": 170,
-     "name": "sub_6FC63A30"
+     "name": "MONSTERMODE_EndTrappedSoulSkill"
     },
     {
      "va": "0x005A8670",
      "length": 192,
-     "name": "?sub_6FC64E90@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_UpdateSequence@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A8730",
@@ -61979,12 +61979,12 @@
     {
      "va": "0x005A4EE0",
      "length": 15,
-     "name": "@sub_005A4EE0@4"
+     "name": "@MONSTERMODE_IsMonster@4"
     },
     {
      "va": "0x005A5470",
      "length": 22,
-     "name": "?sub_005A5470@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
+     "name": "?MONSTERMODE_GetAttackResultFlags@@YIGPAUGame@@PAUUnit@@1UStatValue@@H@Z"
     }
    ]
   },
@@ -62604,7 +62604,7 @@
     {
      "va": "0x005B13E0",
      "length": 252,
-     "name": "?sub_005B13E0_AiMeleeWalkTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_HandleMonsterAiPreActions@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
@@ -62633,7 +62633,7 @@
     {
      "va": "0x005E0390",
      "length": 105,
-     "name": "sub_005E0390"
+     "name": "AITHINK_InitializeBoneWallLifetime"
     },
     {
      "va": "0x005E0400",
@@ -62683,7 +62683,7 @@
     {
      "va": "0x005E17E0",
      "length": 118,
-     "name": "sub_005E17E0_SiegeBeastSetTower"
+     "name": "AITHINK_UpdateSiegeMountPartner"
     },
     {
      "va": "0x005E1860",
@@ -62717,7 +62717,7 @@
     {
      "va": "0x005E2610",
      "length": 189,
-     "name": "?sub_005E2610@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_SpecialState14_AttackOrApproach@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E26D0",
@@ -62742,7 +62742,7 @@
     {
      "va": "0x005E2CD0",
      "length": 162,
-     "name": "?sub_005E2CD0@@YIXPAXPAUUnit@@PAUTick@@@Z"
+     "name": "?AITHINK_InitializeMountedImpSkills@@YIXPAXPAUUnit@@PAUTick@@@Z"
     },
     {
      "va": "0x005E2D80",
@@ -62751,7 +62751,7 @@
     {
      "va": "0x005E2FD0",
      "length": 19,
-     "name": "sub_005E2FD0"
+     "name": "AITHINK_InitializeImpMountTarget"
     },
     {
      "va": "0x005E2FF0",
@@ -62783,7 +62783,7 @@
     {
      "va": "0x005E3900",
      "length": 42,
-     "name": "sub_6FCE34B0"
+     "name": "AITHINK_CountNearbyPets"
     },
     {
      "va": "0x005E3930",
@@ -62818,12 +62818,12 @@
     {
      "va": "0x005E5280",
      "length": 76,
-     "name": "D2GAME_AI_SpecialState04_6FCDC170"
+     "name": "AITHINK_FetishShamanClearInfernoAndResetAi"
     },
     {
      "va": "0x005E5710",
      "length": 27,
-     "name": "?sub_6FCE4FD0@@YIXPAUD2UnitStrc@@PAX1@Z"
+     "name": "?AITHINK_MinionCallback_CheckDead@@YIXPAUD2UnitStrc@@PAX1@Z"
     },
     {
      "va": "0x005E5870",
@@ -62837,7 +62837,7 @@
     {
      "va": "0x005E5B70",
      "length": 211,
-     "name": "sub_6FCE5520"
+     "name": "AITHINK_UseSkillAtMapAiPosition"
     },
     {
      "va": "0x005E5C50",
@@ -62850,7 +62850,7 @@
     {
      "va": "0x005E6190",
      "length": 27,
-     "name": "sub_005E6190"
+     "name": "AITHINK_InitializeGenericSpawner"
     },
     {
      "va": "0x005E61B0",
@@ -62860,7 +62860,7 @@
     {
      "va": "0x005E6300",
      "length": 19,
-     "name": "sub_005E6300"
+     "name": "AITHINK_ResetBloodRavenReturnState"
     },
     {
      "va": "0x005E6320",
@@ -62869,7 +62869,7 @@
     {
      "va": "0x005E6860",
      "length": 141,
-     "name": "sub_005E6860_HomeCommandStep"
+     "name": "AITHINK_ReturnToHomeIfTooFar"
     },
     {
      "va": "0x005E68F0",
@@ -62878,27 +62878,27 @@
     {
      "va": "0x005E6AE0",
      "length": 760,
-     "name": "?sub_6FCE69A0@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_ExecuteNpcAiCommands@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E6E80",
      "length": 101,
-     "name": "?sub_005E6E80@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
+     "name": "?AITHINK_MapAiAction_WalkToPositionOrWait@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
     },
     {
      "va": "0x005E6EF0",
      "length": 9,
-     "name": "sub_005E6EF0_MapAiActionWalkToPosition"
+     "name": "AITHINK_MapAiAction_ForwardWalkToPosition"
     },
     {
      "va": "0x005E6F00",
      "length": 184,
-     "name": "sub_6FCE6340"
+     "name": "AITHINK_MapAiAction_QueueSkill1"
     },
     {
      "va": "0x005E6FC0",
      "length": 184,
-     "name": "sub_6FCE64D0"
+     "name": "AITHINK_MapAiAction_QueueSkill2"
     },
     {
      "va": "0x005E7080",
@@ -62913,7 +62913,7 @@
     {
      "va": "0x005E7350",
      "length": 65,
-     "name": "?sub_005E7350_StopUnlessInteracting@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?AITHINK_StopIfNotInteracting@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005E73A0",
@@ -62945,7 +62945,7 @@
     {
      "va": "0x005E7D30",
      "length": 33,
-     "name": "?sub_005E7D30_IsInTownOrRoomless@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?AITHINK_IsInTownOrRoomless@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005E7D60",
@@ -62955,7 +62955,7 @@
     {
      "va": "0x005E7DC0",
      "length": 91,
-     "name": "sub_005E7DC0_SpecialState08TownRogue"
+     "name": "AITHINK_SpecialState08_TownRogue"
     },
     {
      "va": "0x005E7E20",
@@ -62975,7 +62975,7 @@
     {
      "va": "0x005E8020",
      "length": 190,
-     "name": "?sub_005E8020_Think@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_SpecialState10_17_DimVision@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E80E0",
@@ -62995,7 +62995,7 @@
     {
      "va": "0x005E8480",
      "length": 168,
-     "name": "sub_005E8480"
+     "name": "AITHINK_ResetAiAndPreserveHomeCommand"
     },
     {
      "va": "0x005E8530",
@@ -63046,7 +63046,7 @@
     {
      "va": "0x005EA290",
      "length": 28,
-     "name": "sub_005EA290"
+     "name": "AITHINK_InitializeAssassinSentry"
     },
     {
      "va": "0x005EA2B0",
@@ -63061,7 +63061,7 @@
     {
      "va": "0x005EA510",
      "length": 33,
-     "name": "sub_005EA510"
+     "name": "AITHINK_InitializeBladeCreeper"
     },
     {
      "va": "0x005EA540",
@@ -63093,12 +63093,12 @@
     {
      "va": "0x005EAF00",
      "length": 74,
-     "name": "sub_005EAF00_ShadowWarriorSkillLevel"
+     "name": "AITHINK_GetShadowWarriorSkillLevel"
     },
     {
      "va": "0x005EAF50",
      "length": 71,
-     "name": "sub_005EAF50"
+     "name": "AITHINK_InitializeShadowWarrior"
     },
     {
      "va": "0x005EAFA0",
@@ -63107,17 +63107,17 @@
     {
      "va": "0x005EB420",
      "length": 99,
-     "name": "sub_005EB420_ShadowMasterSkillLevel"
+     "name": "AITHINK_GetShadowMasterSkillLevel"
     },
     {
      "va": "0x005EB490",
      "length": 298,
-     "name": "?sub_005EB490@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_InitializeShadowMaster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005EB5C0",
      "length": 136,
-     "name": "sub_005EB5C0"
+     "name": "AITHINK_InitializeShadowMasterAttackSkills"
     },
     {
      "va": "0x005EB6D0",
@@ -63127,7 +63127,7 @@
     {
      "va": "0x005EB8B0",
      "length": 180,
-     "name": "sub_005EB8B0_ShadowMasterUseSkill"
+     "name": "AITHINK_UseShadowMasterSkill"
     },
     {
      "va": "0x005EB970",
@@ -63136,7 +63136,7 @@
     {
      "va": "0x005EC6A0",
      "length": 19,
-     "name": "sub_005EC6A0"
+     "name": "AITHINK_InitializeVineState"
     },
     {
      "va": "0x005EC8C0",
@@ -63150,7 +63150,7 @@
     {
      "va": "0x005ECBC0",
      "length": 77,
-     "name": "?sub_005ECBC0_RavenWalkToUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1EH@Z"
+     "name": "?AITHINK_RavenWalkToUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1EH@Z"
     },
     {
      "va": "0x005ECC10",
@@ -63179,12 +63179,12 @@
     {
      "va": "0x005EDC00",
      "length": 54,
-     "name": "sub_005EDC00_SetAiParams12"
+     "name": "AITHINK_SetSecondaryAiParams"
     },
     {
      "va": "0x005EDF70",
      "length": 202,
-     "name": "sub_005EDF70_TryRoomSteps"
+     "name": "AITHINK_FindDeadMonsterBehind"
     },
     {
      "va": "0x005EE3C0",
@@ -63210,7 +63210,7 @@
     {
      "va": "0x005EF1E0",
      "length": 8,
-     "name": "?sub_005EF1E0_BaalThroneGetAiParamFlag@@YIHPAUD2AiTickParamStrc@@H@Z"
+     "name": "?AITHINK_BaalThroneCheckAiParamFlag@@YIHPAUD2AiTickParamStrc@@H@Z"
     },
     {
      "va": "0x005EF1F0",
@@ -63220,7 +63220,7 @@
     {
      "va": "0x005EF210",
      "length": 249,
-     "name": "sub_005EF210_BaalThroneSpawnMinion"
+     "name": "AITHINK_BaalThroneSpawnMinions"
     },
     {
      "va": "0x005EF5E0",
@@ -63329,7 +63329,7 @@
     {
      "va": "0x005F1750",
      "length": 165,
-     "name": "sub_005F1750"
+     "name": "AITHINK_SpecialFn015_SandMaggot"
     },
     {
      "va": "0x005F1800",
@@ -63402,7 +63402,7 @@
     {
      "va": "0x005F4FD0",
      "length": 100,
-     "name": "sub_005F4FD0"
+     "name": "AITHINK_BatDemon_HandleSpecialAiState"
     },
     {
      "va": "0x005F5040",
@@ -63455,7 +63455,7 @@
     {
      "va": "0x005F6630",
      "length": 28,
-     "name": "@sub_005F6630@12"
+     "name": "@AITHINK_InitializeSpawnTimerAndCount@12"
     },
     {
      "va": "0x005F6650",
@@ -63484,7 +63484,7 @@
     {
      "va": "0x005F6E20",
      "length": 50,
-     "name": "?sub_005F6E20_GetPercentOver100@@YIHPAUD2Record5F6E20Strc@@@Z"
+     "name": "?AITHINK_GetPercentOverMax@@YIHPAUD2Record5F6E20Strc@@@Z"
     },
     {
      "va": "0x005F6E60",
@@ -63570,7 +63570,7 @@
     {
      "va": "0x005F9950",
      "length": 76,
-     "name": "D2GAME_AI_SpecialState04_6FCDC170"
+     "name": "AITHINK_FetishShamanClearInfernoAndResetAi"
     },
     {
      "va": "0x005F99A0",
@@ -63590,7 +63590,7 @@
     {
      "va": "0x005F9E30",
      "length": 474,
-     "name": "sub_005F9E30_VileMotherSpawnDirection"
+     "name": "AITHINK_VileMotherTrySpawnInDirection"
     },
     {
      "va": "0x005FA010",
@@ -63681,7 +63681,7 @@
     {
      "va": "0x005E5730",
      "length": 317,
-     "name": "?sub_005E5730_InitOwnerOffset@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_InitializeFormationOffsets@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E8F20",
@@ -65315,12 +65315,12 @@
     {
      "va": "0x005BE180",
      "length": 54,
-     "name": "?sub_005BE180_INVENTORY_ContainsItem@@YAHPAUD2UnitStrc@@0@Z"
+     "name": "?SKILLITEM_InventoryContainsItem@@YAHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005BE1C0",
      "length": 110,
-     "name": "?sub_005BE1C0_SKILLITEM_ClearTargetingItems@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?SKILLITEM_ClearTargetingItems@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005BE230",
@@ -65351,12 +65351,12 @@
     {
      "va": "0x005BEF90",
      "length": 200,
-     "name": "?sub_005BEF90@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11HHH@Z"
+     "name": "?SKILLITEM_pSpell06_AntidoteThawingPotion@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11HHH@Z"
     },
     {
      "va": "0x005BF060",
      "length": 81,
-     "name": "sub_005BF060"
+     "name": "SKILLITEM_pSpell08_AddItemValueToStat"
     },
     {
      "va": "0x005BF0C0",
@@ -65452,7 +65452,7 @@
     {
      "va": "0x005C0130",
      "length": 151,
-     "name": "?sub_005C0130_RestoreManaAfterKill@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+     "name": "?SKILLITEM_EventFunc17_ManaAfterKill@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x005C0260",
@@ -65500,7 +65500,7 @@
     {
      "va": "0x005C1260",
      "length": 131,
-     "name": "sub_005C1260"
+     "name": "ITEMS_AssignStaffModsForFormat"
     },
     {
      "va": "0x005C12F0",
@@ -65519,27 +65519,27 @@
     {
      "va": "0x005C2FF0",
      "length": 120,
-     "name": "sub_005C2FF0_DamagePaladinCaster"
+     "name": "SKILLS_DamagePaladinCaster"
     },
     {
      "va": "0x005C34B0",
      "length": 136,
-     "name": "sub_005C34B0_ExecuteCurseTargetAi"
+     "name": "SKILLS_ExecuteCurseTargetAi"
     },
     {
      "va": "0x005C3540",
      "length": 122,
-     "name": "sub_6FD0B3D0"
+     "name": "SKILLS_ApplyResistanceImmunityPenalty"
     },
     {
      "va": "0x005C50C0",
      "length": 61,
-     "name": "sub_005C50C0_SetSummonStats"
+     "name": "SKILLS_SetGolemStats"
     },
     {
      "va": "0x005C6C50",
      "length": 87,
-     "name": "sub_6FCFE030"
+     "name": "SKILLS_RemoveStateAndRestoreSkillMode"
     },
     {
      "va": "0x005C72F0",
@@ -65609,7 +65609,7 @@
     {
      "va": "0x005CF8C0",
      "length": 57,
-     "name": "?sub_005CF8C0_GetSeqEventFrame@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_GetSequenceEventFrame@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D1280",
@@ -65634,12 +65634,12 @@
     {
      "va": "0x005DC920",
      "length": 67,
-     "name": "?sub_005DC920_GetThreat@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?AIUTIL_GetThreat@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005FCF30",
      "length": 168,
-     "name": "sub_005FCF30"
+     "name": "AIBAAL_RunSpecialAiState"
     },
     {
      "va": "0x005FD0F0",
@@ -65658,7 +65658,7 @@
     {
      "va": "0x005FD9C0",
      "length": 80,
-     "name": "sub_005FD9C0_SelectSkillTarget"
+     "name": "SKILLITEM_FindCorpseTarget"
     },
     {
      "va": "0x005FDA10",
@@ -65705,12 +65705,12 @@
     {
      "va": "0x005C0D00",
      "length": 27,
-     "name": "?sub_005C0D00_ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
+     "name": "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
     },
     {
      "va": "0x005C0D20",
      "length": 21,
-     "name": "?sub_005C0D20_GetArrayEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
+     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
     },
     {
      "va": "0x005C0D40",
@@ -65739,22 +65739,22 @@
     {
      "va": "0x005C1BC0",
      "length": 37,
-     "name": "?sub_005C1BC0_RollTemperedAffix@@YIGPAUD2UnitStrc@@H@Z"
+     "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005C21D0",
      "length": 873,
-     "name": "?sub_005C21D0_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+     "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x005C2940",
      "length": 36,
-     "name": "?sub_005C2940_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+     "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x005C2FB0",
      "length": 34,
-     "name": "?sub_6FC55270@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+     "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     }
    ]
   },
@@ -65913,22 +65913,22 @@
     {
      "va": "0x005C6BF0",
      "length": 86,
-     "name": "sub_005C6BF0_GetConvertedMode"
+     "name": "SKILLS_GetConvertedMode"
     },
     {
      "va": "0x005C6CB0",
      "length": 8,
-     "name": "?sub_005C6CB0_SetStateOn@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_RemoveAllStatesInGroup@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005C6CC0",
      "length": 253,
-     "name": "sub_6FCFE0E0"
+     "name": "SKILLS_ApplyAuraStatsToStatList"
     },
     {
      "va": "0x005C6DC0",
      "length": 253,
-     "name": "sub_6FCFE200"
+     "name": "SKILLS_ApplyPassiveStatsToStatList"
     },
     {
      "va": "0x005C6EC0",
@@ -65938,7 +65938,7 @@
     {
      "va": "0x005C7040",
      "length": 277,
-     "name": "sub_6FCFE4C0"
+     "name": "SKILLS_CreateMissileSpread"
     },
     {
      "va": "0x005C7160",
@@ -65948,7 +65948,7 @@
     {
      "va": "0x005C7520",
      "length": 355,
-     "name": "sub_005C7520"
+     "name": "SKILLS_SummonDruidPetAtOwner"
     },
     {
      "va": "0x005C7690",
@@ -65968,27 +65968,27 @@
     {
      "va": "0x005C7B10",
      "length": 260,
-     "name": "?sub_005C7B10_ApplyAuraTargetState@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
+     "name": "?SKILLS_ApplyAuraTargetState@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
     },
     {
      "va": "0x005C7C20",
      "length": 191,
-     "name": "?sub_005C7C20_RabiesDamage@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2SkillsTxt@@HHH@Z"
+     "name": "?SKILLS_ApplyRabiesDamage@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2SkillsTxt@@HHH@Z"
     },
     {
      "va": "0x005C7CE0",
      "length": 195,
-     "name": "?sub_005C7CE0_CreateAuraTargetMissile@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HH1H@Z"
+     "name": "?SKILLS_CreateTargetAuraMissile@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HH1H@Z"
     },
     {
      "va": "0x005C7DB0",
      "length": 80,
-     "name": "?sub_6FCFEDD0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
+     "name": "?SKILLS_ApplyTargetAuraAndMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
     },
     {
      "va": "0x005C7E00",
      "length": 261,
-     "name": "?sub_005C7E00_SkillDamage@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt58_FireClaws@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005C7F10",
@@ -66015,17 +66015,17 @@
     {
      "va": "0x005C8780",
      "length": 22,
-     "name": "?sub_005C8780_AbsorbDamage@@YAHPAHH@Z"
+     "name": "?SKILLS_SubtractAbsorbedDamage@@YAHPAHH@Z"
     },
     {
      "va": "0x005C87A0",
      "length": 477,
-     "name": "?sub_005C87A0@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+     "name": "?SKILLS_EventFunc25_AbsorbElementalDamage@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x005C8980",
      "length": 326,
-     "name": "sub_005C8980_ProgressiveHit"
+     "name": "SKILLS_AllocTransformSkillCombat"
     },
     {
      "va": "0x005C8AD0",
@@ -66098,7 +66098,7 @@
     {
      "va": "0x005CB170",
      "length": 250,
-     "name": "?sub_005CB170@@YIHPAUGame@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt44_MaggotUp@@YIHPAUGame@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CB300",
@@ -66142,7 +66142,7 @@
     {
      "va": "0x005D1080",
      "length": 61,
-     "name": "?sub_005D1080_GetThornsPercent@@YAHPAUD2UnitStrc@@0@Z"
+     "name": "?SKILLS_GetThornsPercent@@YAHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005D10C0",
@@ -66157,7 +66157,7 @@
     {
      "va": "0x005D1320",
      "length": 39,
-     "name": "?sub_005D1320_ResetUnitEvents@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_ResetEventsAndScheduleAiThink@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D1350",
@@ -66172,27 +66172,27 @@
     {
      "va": "0x005D18E0",
      "length": 229,
-     "name": "?sub_6FD00EC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
+     "name": "?SKILLS_AttachImpToMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
      "va": "0x005D19D0",
      "length": 223,
-     "name": "?sub_6FD01010@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
+     "name": "?SKILLS_DetachImpFromMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
      "va": "0x005D1BF0",
      "length": 55,
-     "name": "?sub_005D1BF0_ResurrectMonster@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt61_SelfResurrect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D1C30",
      "length": 157,
-     "name": "?sub_005D1C30_CreateMissileVolley@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@HHH@Z"
+     "name": "?SKILLS_CreateMissileVolley@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x005D1D70",
      "length": 152,
-     "name": "?sub_005D1D70_ApplyAura@@YGXPAUUnit@@0HH@Z"
+     "name": "?SKILLS_ApplyAuraStateToTarget@@YGXPAUUnit@@0HH@Z"
     },
     {
      "va": "0x005D2090",
@@ -66227,7 +66227,7 @@
     {
      "va": "0x005D6410",
      "length": 264,
-     "name": "sub_6FCF8DD0"
+     "name": "SKILLS_RemoveStatesOnHit"
     },
     {
      "va": "0x005D68A0",
@@ -66242,7 +66242,7 @@
     {
      "va": "0x005D7C40",
      "length": 147,
-     "name": "sub_005D7C40"
+     "name": "SKILLS_AuraCallback_AllocSkillCombat"
     },
     {
      "va": "0x005D8290",
@@ -66368,7 +66368,7 @@
     {
      "va": "0x005CA260",
      "length": 246,
-     "name": "sub_005CA260"
+     "name": "SKILLS_SrvDo151_CreateMissileAtTargetOffset"
     },
     {
      "va": "0x005CAC50",
@@ -66460,7 +66460,7 @@
     {
      "va": "0x005CC220",
      "length": 19,
-     "name": "?sub_005CC220_SetUnitFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt52_Emerge@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CC2E0",
@@ -66469,7 +66469,7 @@
     {
      "va": "0x005CC3B0",
      "length": 132,
-     "name": "?sub_005CC3B0_EndInfernoAnim@@YAHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_ScheduleInfernoEndAnim@@YAHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005CC440",
@@ -66504,7 +66504,7 @@
     {
      "va": "0x005CCD10",
      "length": 365,
-     "name": "?sub_005CCD10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo099_PrimePoisonNova@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CCE80",
@@ -66594,7 +66594,7 @@
     {
      "va": "0x005CD910",
      "length": 235,
-     "name": "?sub_005CD910@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt55_Mosquito@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE4F0",
@@ -66681,7 +66681,7 @@
     {
      "va": "0x005CF280",
      "length": 20,
-     "name": "?sub_005CF280_IsUnitOutsideTown@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_IsUnitOutsideTown@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005CF2A0",
@@ -66699,7 +66699,7 @@
     {
      "va": "0x005CF8A0",
      "length": 17,
-     "name": "?sub_005CF8A0_FindMeleeTarget@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@H@Z"
+     "name": "?SKILLS_FindMeleeTarget@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@H@Z"
     },
     {
      "va": "0x005CF900",
@@ -66708,12 +66708,12 @@
     {
      "va": "0x005CFD20",
      "length": 238,
-     "name": "?sub_005CFD20_RangeRoll@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_RollWeaponPhysicalDamage@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005CFE10",
      "length": 558,
-     "name": "?sub_005CFE10_ElementalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt35_Vengeance@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D0180",
@@ -66728,7 +66728,7 @@
     {
      "va": "0x005D02B0",
      "length": 154,
-     "name": "?sub_005D02B0_CanConvertTarget@@YGHPAUD2UnitStrc@@HH0H@Z"
+     "name": "?SKILLS_CanConvertTarget@@YGHPAUD2UnitStrc@@HH0H@Z"
     },
     {
      "va": "0x005D0350",
@@ -66832,7 +66832,7 @@
     {
      "va": "0x005D21B0",
      "length": 156,
-     "name": "sub_6FD01B00"
+     "name": "SKILLS_RemovePregnantStateAndSpawnMonster"
     },
     {
      "va": "0x005D2250",
@@ -66847,7 +66847,7 @@
     {
      "va": "0x005D2490",
      "length": 287,
-     "name": "?sub_005D2490@@YIHPAUGame@@PAUUnit@@HH@Z"
+     "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUGame@@PAUUnit@@HH@Z"
     },
     {
      "va": "0x005D26F0",
@@ -66857,7 +66857,7 @@
     {
      "va": "0x005D27B0",
      "length": 396,
-     "name": "sub_005D27B0"
+     "name": "SKILLS_SrvDo138_CreatePerpendicularMissileLine"
     },
     {
      "va": "0x005D2940",
@@ -66872,12 +66872,12 @@
     {
      "va": "0x005D2B20",
      "length": 28,
-     "name": "?sub_005D2B20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo147_UpdateRiderPath@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D2B40",
      "length": 30,
-     "name": "?sub_005D2B40_RemoveState114@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_RemoveBloodManaState@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D2B60",
@@ -66910,7 +66910,7 @@
     {
      "va": "0x005D3320",
      "length": 362,
-     "name": "?sub_005D3320_ApplyChargeState@@YGHPAUD2GameStrc@@HHHHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_AddProgressiveCharge@@YGHPAUD2GameStrc@@HHHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D3490",
@@ -66924,7 +66924,7 @@
     {
      "va": "0x005D3680",
      "length": 261,
-     "name": "?sub_005D3680_ApplyProgressiveDamage@@YGXPAUD2StatListStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_ApplyProgressiveDamageBonus@@YGXPAUD2StatListStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D3790",
@@ -66933,17 +66933,17 @@
     {
      "va": "0x005D3880",
      "length": 233,
-     "name": "sub_005D3880_ProgressiveElemental"
+     "name": "SKILLS_ApplyProgressiveElementalDamage"
     },
     {
      "va": "0x005D3970",
      "length": 336,
-     "name": "?sub_6FCF5BC0@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
+     "name": "?SKILLS_ApplyProgressiveElementalConversion@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
     },
     {
      "va": "0x005D3CB0",
      "length": 51,
-     "name": "sub_005D3CB0_AuraDamageCopy"
+     "name": "SKILLS_AuraCallback_ApplyCopiedDamage"
     },
     {
      "va": "0x005D3CF0",
@@ -66967,7 +66967,7 @@
     {
      "va": "0x005D40F0",
      "length": 93,
-     "name": "?sub_005D40F0_RingMissileInit@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLS_MissileInit_SeededChargedBolt@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005D4150",
@@ -66996,7 +66996,7 @@
     {
      "va": "0x005D5080",
      "length": 411,
-     "name": "?sub_005D5080_CreateMissileBurst@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo041_RoyalStrike_ProgressiveFn3@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D5220",
@@ -67005,12 +67005,12 @@
     {
      "va": "0x005D54B0",
      "length": 967,
-     "name": "?sub_005D54B0_KickDamage@@YGXPAUD2GameStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@HH2@Z"
+     "name": "?SKILLS_FillKickDamage@@YGXPAUD2GameStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@HH2@Z"
     },
     {
      "va": "0x005D5880",
      "length": 231,
-     "name": "?sub_005D5880_KickAttack@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@HHH1@Z"
+     "name": "?SKILLS_AllocDragonTalonCombat@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@HHH1@Z"
     },
     {
      "va": "0x005D5970",
@@ -67037,7 +67037,7 @@
     {
      "va": "0x005D6200",
      "length": 290,
-     "name": "?sub_005D6200_SKILLS_StrikeDamage@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H1H@Z"
+     "name": "?SKILLS_AllocDragonClawCombat@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H1H@Z"
     },
     {
      "va": "0x005D6330",
@@ -67047,7 +67047,7 @@
     {
      "va": "0x005D6340",
      "length": 200,
-     "name": "?sub_005D6340_SKILLS_SrvDo_AlternatingStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo046_DragonClaw@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D6520",
@@ -67062,7 +67062,7 @@
     {
      "va": "0x005D69B0",
      "length": 27,
-     "name": "?sub_005D69B0_StatRemoveCallback_RemoveState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?SKILLS_StatRemoveCallback_BladeFury@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x005D69D0",
@@ -67077,12 +67077,12 @@
     {
      "va": "0x005D6CF0",
      "length": 372,
-     "name": "?sub_005D6CF0_SetSummonStats@@YGXPAUD2GameStrc@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_ScaleSummonedPetStats@@YGXPAUD2GameStrc@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D6E70",
      "length": 534,
-     "name": "?sub_005D6E70_SrvDoSummonPet@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo049_ShadowWarrior_Master@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D7090",
@@ -67096,7 +67096,7 @@
     {
      "va": "0x005D72B0",
      "length": 82,
-     "name": "?sub_005D72B0_CanConvertTarget@@YGHPAUD2UnitStrc@@H0@Z"
+     "name": "?SKILLS_CanMindBlastConvertTarget@@YGHPAUD2UnitStrc@@H0@Z"
     },
     {
      "va": "0x005D7310",
@@ -67106,7 +67106,7 @@
     {
      "va": "0x005D7430",
      "length": 585,
-     "name": "?sub_005D7430_ApplyConversion@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2SrvDo51Strc@@@Z"
+     "name": "?SKILLS_ApplyMindBlastConversion@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2SrvDo51Strc@@@Z"
     },
     {
      "va": "0x005D7680",
@@ -67126,12 +67126,12 @@
     {
      "va": "0x005D7B60",
      "length": 222,
-     "name": "sub_005D7B60"
+     "name": "SKILLS_SrvDo053_ApplyAreaDamage"
     },
     {
      "va": "0x005D7CE0",
      "length": 298,
-     "name": "sub_005D7CE0"
+     "name": "SKILLS_SrvDo142_ApplyAreaCombat"
     },
     {
      "va": "0x005D88B0",
@@ -67275,12 +67275,12 @@
     {
      "va": "0x005D8B10",
      "length": 352,
-     "name": "?sub_005D8B10@@YIHPAUGame@@PAUUnit@@1HH@Z"
+     "name": "?SKILLS_RollFrenzyDamage@@YIHPAUGame@@PAUUnit@@1HH@Z"
     },
     {
      "va": "0x005D8E00",
      "length": 236,
-     "name": "?sub_005D8E00_SequenceAction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo009_Frenzy@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D8EF0",
@@ -67295,7 +67295,7 @@
     {
      "va": "0x005D92D0",
      "length": 78,
-     "name": "?sub_005D92D0_IsDualWieldingMelee@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_IsDualWieldingMeleeWeapons@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D9320",
@@ -67323,12 +67323,12 @@
     {
      "va": "0x005D9C80",
      "length": 85,
-     "name": "?sub_005D9C80_StartMonsterLeapAttack@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillStrc@@1@Z"
+     "name": "?SKILLS_StartMonsterLeapAttack@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillStrc@@1@Z"
     },
     {
      "va": "0x005D9CE0",
      "length": 107,
-     "name": "?sub_005D9CE0_CheckLeapRoom@@YGHPAUD2UnitStrc@@HHH@Z"
+     "name": "?SKILLS_CanLeapToPosition@@YGHPAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x005D9D50",
@@ -67342,12 +67342,12 @@
     {
      "va": "0x005DA020",
      "length": 251,
-     "name": "?sub_005DA020_SandLeaperKnockback@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?SKILLS_ApplySandLeaperKnockback@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x005DA120",
      "length": 578,
-     "name": "?sub_005DA120_Leap@@YGHPAUD2GameStrc@@PAUD2SkillStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_Leap@@YGHPAUD2GameStrc@@PAUD2SkillStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005DA370",
@@ -67357,7 +67357,7 @@
     {
      "va": "0x005DA490",
      "length": 168,
-     "name": "?sub_005DA490_FindLeapAttackTarget@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2SkillStrc@@@Z"
+     "name": "?SKILLS_FindLeapAttackTarget@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x005DA540",
@@ -67367,7 +67367,7 @@
     {
      "va": "0x005DA660",
      "length": 383,
-     "name": "?sub_005DA660_LeapAttackHit@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_ApplyLeapAttackDamage@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005DA7E0",
@@ -67441,7 +67441,7 @@
     {
      "va": "0x005D8C70",
      "length": 400,
-     "name": "?sub_005D8C70@@YIHPAUGame@@PAUUnit@@HH@Z"
+     "name": "?SKILLS_ApplyFrenzyStats@@YIHPAUGame@@PAUUnit@@HH@Z"
     }
    ]
   },
@@ -67452,7 +67452,7 @@
     {
      "va": "0x005DAA40",
      "length": 256,
-     "name": "?sub_005DAA40_ImpaleWearItem@@YGXPAUD2GameStrc@@HHPAUD2UnitStrc@@1@Z"
+     "name": "?SKILLS_DamageImpaleWeapon@@YGXPAUD2GameStrc@@HHPAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005DAB40",
@@ -67500,7 +67500,7 @@
     {
      "va": "0x005DBE50",
      "length": 432,
-     "name": "?sub_005DBE50@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo014_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -67560,7 +67560,7 @@
     {
      "va": "0x005DC360",
      "length": 23,
-     "name": "?sub_005DC360_GetMonsterVision@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?AIUTIL_GetMonsterVision@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005DC640",
@@ -67569,22 +67569,22 @@
     {
      "va": "0x005DC840",
      "length": 42,
-     "name": "?sub_005DC840_IsActiveUnit@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?AIUTIL_IsActiveUnit@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005DC870",
      "length": 106,
-     "name": "?sub_005DC870_FindNearestMonster@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NearestRecord005DC870Strc@@@Z"
+     "name": "?AIUTIL_TargetCallback_CountAndFindFriendlyMonster@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NearestRecord005DC870Strc@@@Z"
     },
     {
      "va": "0x005DC8E0",
      "length": 50,
-     "name": "sub_6FCF1740"
+     "name": "AIUTIL_TargetCallback_FindMonsterInDeathMode"
     },
     {
      "va": "0x005DC970",
      "length": 176,
-     "name": "?sub_6FCF1A50@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?AIUTIL_CanSelectHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005DCA70",
@@ -67594,17 +67594,17 @@
     {
      "va": "0x005DCBD0",
      "length": 133,
-     "name": "?sub_6FCF1980@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+     "name": "?AIUTIL_TargetCallback_SelectEligibleHostileTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005DCC60",
      "length": 95,
-     "name": "?sub_6FCF1B30@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+     "name": "?AIUTIL_TargetCallback_SelectHighThreatTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005DCCC0",
      "length": 141,
-     "name": "?sub_6FCF1BD0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+     "name": "?AIUTIL_TargetCallback_SelectHighThreatTargetWithClearApproach@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005DCDA0",
@@ -67614,7 +67614,7 @@
     {
      "va": "0x005DCE10",
      "length": 70,
-     "name": "sub_6FCF1E30"
+     "name": "AIUTIL_TargetCallback_CountLivingMonstersOfClass"
     },
     {
      "va": "0x005DCE60",
@@ -67624,7 +67624,7 @@
     {
      "va": "0x005DCEE0",
      "length": 135,
-     "name": "sub_005DCEE0_FindPlayerTargetInAdjacentRooms"
+     "name": "AIUTIL_FindPlayerTargetInAdjacentRooms"
     },
     {
      "va": "0x005DCF70",
@@ -67633,12 +67633,12 @@
     {
      "va": "0x005DD020",
      "length": 46,
-     "name": "sub_6FCF20E0"
+     "name": "AIUTIL_MinionCallback_FindTarget"
     },
     {
      "va": "0x005DD050",
      "length": 86,
-     "name": "?sub_005DD050_FindTargetAmongMinions@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
+     "name": "?AIUTIL_FindTargetAmongMinions@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
     },
     {
      "va": "0x005DD0B0",
@@ -67651,12 +67651,12 @@
     {
      "va": "0x005DD220",
      "length": 15,
-     "name": "@sub_005DD220@8"
+     "name": "@AIUTIL_CheckAiControlFlag@8"
     },
     {
      "va": "0x005DD230",
      "length": 27,
-     "name": "@sub_005DD230@12"
+     "name": "@AIUTIL_ToggleAiControlFlag@12"
     },
     {
      "va": "0x005DD250",
@@ -67665,12 +67665,12 @@
     {
      "va": "0x005DD290",
      "length": 17,
-     "name": "?sub_005DD290_NoMissileBarrierCollision@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?AIUTIL_HasClearMissilePath@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005DD2B0",
      "length": 24,
-     "name": "?sub_6FCF2E70@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?AIUTIL_IsGettingHit@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005DD2D0",
@@ -67711,12 +67711,12 @@
     {
      "va": "0x005E6800",
      "length": 81,
-     "name": "?sub_005E6800_InitHomeCommand@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+     "name": "?AITHINK_InitHomeCommand@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x005E6DE0",
      "length": 160,
-     "name": "?sub_6FCE61E0@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
+     "name": "?AITHINK_MapAiAction_WalkToPosition@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
     },
     {
      "va": "0x005EB650",
@@ -67726,7 +67726,7 @@
     {
      "va": "0x005F2EB0",
      "length": 262,
-     "name": "?sub_005F2EB0_RemoveGroundCollision@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?AITHINK_RemoveGroundCollision@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005F2FC0",
@@ -67752,7 +67752,7 @@
     {
      "va": "0x005DCA20",
      "length": 70,
-     "name": "?sub_005DCA20_IsHostile@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?AIUTIL_IsHostileTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
    ]
   },
@@ -68079,7 +68079,7 @@
     {
      "va": "0x005FBB00",
      "length": 706,
-     "name": "?sub_005FBB00_GetUberTargetScore@@YGHPAUD2UnitStrc@@0PAUD2AiBaalTargetArgsStrc@@@Z"
+     "name": "?AIBAAL_GetUberTargetScore@@YGHPAUD2UnitStrc@@0PAUD2AiBaalTargetArgsStrc@@@Z"
     },
     {
      "va": "0x005FBDD0",
@@ -68093,7 +68093,7 @@
     {
      "va": "0x005FC070",
      "length": 77,
-     "name": "?sub_005FC070_CheckPrimeEvilSkill@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?AIBAAL_IsDangerousSkill@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x005FC0C0",
@@ -68107,7 +68107,7 @@
     {
      "va": "0x005FC1C0",
      "length": 319,
-     "name": "?sub_005FC1C0_RollBaalMeleeAiParam@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
+     "name": "?AIBAAL_RollMeleeAiParam@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
     },
     {
      "va": "0x005FC300",
@@ -68227,7 +68227,7 @@
     {
      "va": "0x005FDA80",
      "length": 536,
-     "name": "?sub_005FDA80_HandleItemEffectSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH1HHPAH222H@Z"
+     "name": "?SKILLITEM_HandleItemEffectSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH1HHPAH222H@Z"
     }
    ]
   },

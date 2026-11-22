@@ -14,9 +14,9 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 int __fastcall SKILLITEM_FindTargetPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005FD850
-int __fastcall sub_005FD9C0_SelectSkillTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID); // 0x005FD9C0
-int __fastcall sub_005FDA10_TargetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID); // 0x005FDA10
-int __fastcall sub_0056F640_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5); // 0x0056F640
+int __fastcall SKILLITEM_FindCorpseTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID); // 0x005FD9C0
+int __fastcall SKILLITEM_TargetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID); // 0x005FDA10
+int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5); // 0x0056F640
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -28,7 +28,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 // 0x005FDA80
-int __fastcall sub_005FDA80_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7)
+int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!nSkillId) return 0;
@@ -53,13 +53,13 @@ int __fastcall sub_005FDA80_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc*
         if (pY) *pY = D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath);
         break;
     case 3:
-        if (!sub_005FD9C0_SelectSkillTarget(pGame, pUnit, nSkillId, nSkillLevel, pUnitType, pUnitGUID)) goto restore;
+        if (!SKILLITEM_FindCorpseTarget(pGame, pUnit, nSkillId, nSkillLevel, pUnitType, pUnitGUID)) goto restore;
         break;
     case 4:
-        if (!sub_005FDA10_TargetLastAttacker(pGame, pUnit, nSkillId, nSkillLevel, pUnitType, pUnitGUID)) goto restore;
+        if (!SKILLITEM_TargetLastAttacker(pGame, pUnit, nSkillId, nSkillLevel, pUnitType, pUnitGUID)) goto restore;
         break;
     }
-    if ((pSkillsTxtRecord->nFlags[4] & gdwBitMasks[1]) && !sub_0056F640_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 1)) goto restore;
+    if ((pSkillsTxtRecord->nFlags[4] & gdwBitMasks[1]) && !SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 1)) goto restore;
     nResult = sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 0, 1, a7);
 restore:
     if (pOldTarget) UNITS_SetTargetUnitForDynamicUnit(pUnit, pOldTarget);

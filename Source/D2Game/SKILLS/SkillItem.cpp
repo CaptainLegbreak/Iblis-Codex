@@ -112,7 +112,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 int __stdcall ITEMMODS_EvaluateItemFormula(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int nCalc); // 0x00627C20
 
-int __fastcall sub_6FD11C90(D2UnitStrc* pUnit, int nStateId, int a3); // 0x0056C740
+int __fastcall SKILLS_RemoveStatesInGroup(D2UnitStrc* pUnit, int nStateId, int a3); // 0x0056C740
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
@@ -128,7 +128,7 @@ void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatLis
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
+void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 
@@ -281,7 +281,7 @@ void __fastcall SUNITMSG_QueueLifeUpdate(D2UnitStrc*,unsigned char); // 0x00571A
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-void __fastcall sub_6FD0B9F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel); // 0x005C39C0
+void __fastcall SKILLS_ApplyDimVisionToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel); // 0x005C39C0
 
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
@@ -301,7 +301,7 @@ struct D2MonStats2Txt;
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
-static void sub_005BE1C0_SKILLITEM_ClearTargetingItems(D2UnitStrc* pUnit);
+static void SKILLITEM_ClearTargetingItems(D2UnitStrc* pUnit);
 
 int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY);
 
@@ -403,9 +403,9 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomSt
 
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
 
-void __fastcall sub_6FD14170(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOrigin, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity); // 0x0056D400
+void __fastcall SKILLS_CreateMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOrigin, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity); // 0x0056D400
 
-int __fastcall sub_0056F640_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5);   // 0x0056F640
+int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5);   // 0x0056F640
 
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
 
@@ -417,7 +417,7 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit);             
 
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
 
-void __stdcall sub_005C0D70(D2UnitStrc* pItem, int nItemLevel, int nClassFirstSkillId);                    // 0x005C0D70
+void __stdcall ITEMS_AssignLegacyStaffMods(D2UnitStrc* pItem, int nItemLevel, int nClassFirstSkillId);                    // 0x005C0D70
 
 void __stdcall ITEMS_AssignModernStaffMods(D2UnitStrc* pItem, int nItemLvl, int nClassFirstSkillId, int nItemDropLvl);   // 0x005C0F90
 
@@ -431,9 +431,9 @@ void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitS
 
 int __fastcall D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nPetLevelArg, int nSkillLevel); // 0x005C49E0
 
-int __fastcall sub_005C6BF0_GetConvertedMode(D2UnitStrc* pUnit, int nMode);                                 // 0x005C6BF0
+int __fastcall SKILLS_GetConvertedMode(D2UnitStrc* pUnit, int nMode);                                 // 0x005C6BF0
 
-int __fastcall sub_6FCFE4C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int a7); // 0x005C7040
+int __fastcall SKILLS_CreateMissileSpread(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int a7); // 0x005C7040
 
 int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId); // 0x005C8CA0
 
@@ -562,7 +562,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc*, int, int, int, unsigned short); // 0x0064D9B0
 
-D2UnitStrc* __fastcall sub_6FD15210(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
+D2UnitStrc* __fastcall SKILLS_FindCorpseNearTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
 
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
 
@@ -572,7 +572,7 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 void __fastcall sub_6FCC60D0(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6); // 0x005717C0
 
-int __fastcall sub_005FDA80_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
+int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
 
 // 0x005BE130
 int __fastcall SKILLITEM_pSpell01_Initializer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
@@ -589,7 +589,7 @@ int __fastcall SKILLITEM_pSpell01_Initializer(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005BE180
-static int sub_005BE180_INVENTORY_ContainsItem(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
+static int SKILLITEM_InventoryContainsItem(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 {
     if (!pUnit->pInventory)
     {
@@ -608,7 +608,7 @@ static int sub_005BE180_INVENTORY_ContainsItem(D2UnitStrc* pTarget, D2UnitStrc* 
 }
 
 // 0x005BE1C0
-static void sub_005BE1C0_SKILLITEM_ClearTargetingItems(D2UnitStrc* pUnit)
+static void SKILLITEM_ClearTargetingItems(D2UnitStrc* pUnit)
 {
     if (!pUnit->pInventory)
     {
@@ -639,7 +639,7 @@ int __fastcall SKILLITEM_pSpell01_IdentifyItem(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    if (!sub_005BE180_INVENTORY_ContainsItem(pTarget, pUnit))
+    if (!SKILLITEM_InventoryContainsItem(pTarget, pUnit))
     {
         return 0;
     }
@@ -659,7 +659,7 @@ static inline int GetItemType(D2UnitStrc* pItem)
 }
 
 // 0x005BE290
-int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* item,int unused1,int unused2,int unused3,int unused4)
+int __fastcall SKILLITEM_pSpell02_CastPortal(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* item,int unused1,int unused2,int unused3,int unused4)
 {
  if(GetUnitType(unit)!=0) return 0;
  unit->dwFlags|=0x40;
@@ -703,7 +703,7 @@ static inline D2ItemStatCostTxt* GetItemStatCost(int nStat)
 }
 
 // 0x005BE3F0
-int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int a4, int a5, int a6, int a7)
+int __fastcall SKILLITEM_pSpell03_Potion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int a4, int a5, int a6, int a7)
 {
     D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     if (!pItemsTxt) return 0;
@@ -791,7 +791,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
                     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
                     EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
                 }
-                STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
+                STATLIST_SetStatRemoveCallback(pStatList, SKILLS_RemoveStateAndRefreshPassives);
                 D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
             }
             D2COMMON_10476(pStatList, nExpireFrame);
@@ -866,7 +866,7 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
      sub_00540E60(game,unit,3,0);
      EVENT_SetEvent(game,unit,3,game->dwGameFrame+1,0,0);
     }
-    STATLIST_SetStatRemoveCallback(list,sub_6FD10E50);
+    STATLIST_SetStatRemoveCallback(list,SKILLS_RemoveStateAndRefreshPassives);
     D2COMMON_10475_PostStatToStatList(unit,list,1);
    }
    D2COMMON_10476(list,expiry);
@@ -995,7 +995,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
                             EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
                         }
 
-                        STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
+                        STATLIST_SetStatRemoveCallback(pStatList, SKILLS_RemoveStateAndRefreshPassives);
                         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
                     }
 
@@ -1049,7 +1049,7 @@ int __fastcall SKILLITEM_pSpell09_StaminaPotion(D2GameStrc* pGame, D2UnitStrc* p
         return 0;
     }
 
-    sub_6FD11C90(pUnit, nState, 0);
+    SKILLS_RemoveStatesInGroup(pUnit, nState, 0);
 
     int nRemaining = 0;
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
@@ -1073,7 +1073,7 @@ int __fastcall SKILLITEM_pSpell09_StaminaPotion(D2GameStrc* pGame, D2UnitStrc* p
 
         STATLIST_SetState(pStatList, nState);
         STATES_ToggleState(pUnit, nState, 1);
-        STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
+        STATLIST_SetStatRemoveCallback(pStatList, SKILLS_RemoveStateAndRefreshPassives);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     }
 
@@ -1108,7 +1108,7 @@ int __fastcall SKILLITEM_pSpell09_StaminaPotion(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // 0x005BEF90
-int __fastcall sub_005BEF90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
+int __fastcall SKILLITEM_pSpell06_AntidoteThawingPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     if (!pItemsTxtRecord)
@@ -1147,7 +1147,7 @@ int __fastcall sub_005BEF90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pI
 }
 
 // 0x005BF060
-int __fastcall sub_005BF060(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
+int __fastcall SKILLITEM_pSpell08_AddItemValueToStat(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
 {
     const int nStatId = ITEMS_GetFileIndex(pItem);
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
@@ -1272,7 +1272,7 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         {
             if (!gPSpellTable_00741790[nPSpell].pfSpellPrepare(pGame, pUnit, pItem, 0, nX, nY, nSkillId))
             {
-                sub_005BE1C0_SKILLITEM_ClearTargetingItems(pUnit);
+                SKILLITEM_ClearTargetingItems(pUnit);
                 const unsigned int nItemGUID = pItem->dwUnitId;
                 const int nItemType = pItem->dwUnitType;
                 D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 1135), 0x7C, nItemType, nItemGUID);
@@ -1291,7 +1291,7 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         const int nResult = gPSpellTable_00741790[nPSpell].pfSpellDo(pGame, pUnit, pItem, pTarget, nX, nY, nSkillId);
         if (!nResult)
         {
-            sub_005BE1C0_SKILLITEM_ClearTargetingItems(pUnit);
+            SKILLITEM_ClearTargetingItems(pUnit);
             const unsigned int nItemGUID = pItem->dwUnitId;
             const int nItemType = pItem->dwUnitType;
             D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 1151), 0x7C, nItemType, nItemGUID);
@@ -1594,7 +1594,7 @@ static inline int sub_00623C60(D2UnitStrc* pUnit)
 }
 
 // 0x005BF960
-int __stdcall sub_005BF960_StatCallback_Knockback(D2UnitStrc* pUnit, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned int nStatLayer, int nUnused)
+int __stdcall SKILLITEM_EventFunc07_Knockback(D2UnitStrc* pUnit, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned int nStatLayer, int nUnused)
 {
     if (!pUnit || !pDefender || !pDamage)
     {
@@ -1709,7 +1709,7 @@ ReturnZero:
     int nLevel = (nChance - nRoll) / 5 + 1;
     nLevel = D2_MIN(D2_MAX(nLevel, 1), 20);
 
-    sub_6FD0B9F0(pGame, pAttacker, pUnit, nLevel);
+    SKILLS_ApplyDimVisionToTarget(pGame, pAttacker, pUnit, nLevel);
     return 1;
 }
 
@@ -1724,7 +1724,7 @@ static inline int GetUnitTypeChecked(const D2UnitStrc* pUnit)
 }
 
 // 0x005BFBB0
-int __fastcall sub_005BFBB0_DamageToMana(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+int __fastcall SKILLITEM_EventFunc13_DamageToMana(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
     if (!pAttacker || GetUnitTypeChecked(pAttacker) != 0)
     {
@@ -1754,7 +1754,7 @@ int __fastcall sub_005BFBB0_DamageToMana(D2GameStrc* pGame, int nEvent, D2UnitSt
 }
 
 // 0x005BFC60
-int __fastcall sub_005BFC60_EventFuncFreeze(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+int __fastcall SKILLITEM_EventFunc14_Freeze(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
     if (!pAttacker || !pUnit)
     {
@@ -1988,7 +1988,7 @@ int __fastcall SKILLITEM_EventFunc16_CrushingBlow(D2GameStrc* pGame, int nEvent,
 }
 
 // 0x005C0130
-int __fastcall sub_005C0130_RestoreManaAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+int __fastcall SKILLITEM_EventFunc17_ManaAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
     if (!pAttacker || !pUnit || pAttacker->dwUnitType != UNIT_PLAYER)
         return 0;
@@ -2317,7 +2317,7 @@ static inline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
 }
 
 // 0x005C07A0
-int __fastcall sub_005C07A0_ReanimateMonster(D2GameStrc* pGame, int nUnusedRegister, D2UnitStrc* pCorpse, int nUnused1, int nUnused2, int nMonsterId, int nOwnerGUID)
+int __fastcall SKILLITEM_TimerCallback_ReanimateMonster(D2GameStrc* pGame, int nUnusedRegister, D2UnitStrc* pCorpse, int nUnused1, int nUnused2, int nMonsterId, int nOwnerGUID)
 {
     D2UnitStrc* pOwner = 0;
     if (UNIT_GetUnitType(pCorpse) == 1)
@@ -2379,7 +2379,7 @@ int __fastcall sub_005C07A0_ReanimateMonster(D2GameStrc* pGame, int nUnusedRegis
 }
 
 // 0x005C09E0
-int __fastcall sub_005C09E0_SkillItemEventFunc_Reanimate(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+int __fastcall SKILLITEM_EventFunc31_Reanimate(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
     if (!pAttacker || !pUnit || sub_0044BE50(pUnit) != UNIT_MONSTER)
     {
@@ -2444,7 +2444,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // 0x005C1260
-void __fastcall sub_005C1260(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+void __fastcall ITEMS_AssignStaffModsForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     const int nClassId = ITEMS_GetStaffMods(pItem);
     if (nClassId < 0 || nClassId >= NUMBER_OF_PLAYERCLASSES)
@@ -2461,7 +2461,7 @@ void __fastcall sub_005C1260(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
     const int nItemLevel = pItemDrop->nItemLvl;
     if (!ITEMS_GetItemFormat(pItem))
     {
-        sub_005C0D70(pItem, nItemLevel, nSkillId);
+        ITEMS_AssignLegacyStaffMods(pItem, nItemLevel, nSkillId);
     }
     else
     {
@@ -2559,7 +2559,7 @@ short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int bRequireSpawnable
 }
 
 // 0x005C2FF0
-void __fastcall sub_005C2FF0_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+void __fastcall SKILLS_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwClassId == PCLASS_PALADIN)
     {
@@ -2611,7 +2611,7 @@ int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 }
 
 // 0x005C34B0
-void __fastcall sub_005C34B0_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel)
+void __fastcall SKILLS_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (pSkillsTxtRecord)
@@ -2621,7 +2621,7 @@ void __fastcall sub_005C34B0_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x005C3540
-int __fastcall sub_6FD0B3D0(D2UnitStrc* pUnit, int nStatId, int nResist)
+int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nStatId, int nResist)
 {
     switch (nStatId)
     {
@@ -2646,7 +2646,7 @@ int __fastcall sub_6FD0B3D0(D2UnitStrc* pUnit, int nStatId, int nResist)
 }
 
 // 0x005C50C0
-void __fastcall sub_005C50C0_SetSummonStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel)
+void __fastcall SKILLS_SetGolemStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel)
 {
     D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
@@ -2654,9 +2654,9 @@ void __fastcall sub_005C50C0_SetSummonStats(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x005C6C50
-void __fastcall sub_6FCFE030(D2UnitStrc* pUnit, int nStateId, D2StatListStrc* pStatList)
+void __fastcall SKILLS_RemoveStateAndRestoreSkillMode(D2UnitStrc* pUnit, int nStateId, D2StatListStrc* pStatList)
 {
-    sub_6FD11C90(pUnit, nStateId, 1);
+    SKILLS_RemoveStatesInGroup(pUnit, nStateId, 1);
 
     if (!pStatList)
     {
@@ -2669,7 +2669,7 @@ void __fastcall sub_6FCFE030(D2UnitStrc* pUnit, int nStateId, D2StatListStrc* pS
         return;
     }
 
-    SKILLS_SetSkillMode(pSkill, sub_005C6BF0_GetConvertedMode(pUnit, 10));
+    SKILLS_SetSkillMode(pSkill, SKILLS_GetConvertedMode(pUnit, 10));
     STATES_ToggleState(pUnit, nStateId, 0);
 }
 
@@ -2699,7 +2699,7 @@ int __fastcall SKILLS_SrvDo118_Twister_Tornado(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    return sub_6FCFE4C0(pGame, pUnit, nParam, nMissileId, nSkillId, nSkillLevel, 0);
+    return SKILLS_CreateMissileSpread(pGame, pUnit, nParam, nMissileId, nSkillId, nSkillLevel, 0);
 }
 
 // 0x005C8FA0
@@ -2811,7 +2811,7 @@ int __fastcall SKILLS_SrvDo083_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
     SUNITDMG_FreeAttackerDefenderCombatList(pGame, pUnit, pTarget);
-    return sub_0056F640_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
+    return SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
 }
 
 // 0x005CBC80
@@ -2956,7 +2956,7 @@ int __fastcall SKILLS_SrvDo106_ArcaneTower(D2GameStrc* pGame, D2UnitStrc* pUnit,
         return 0;
     }
 
-    sub_6FD14170(pGame, pUnit, pUnit, nMissileId, nSkillId, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(nMissileId, nSkillLevel));
+    SKILLS_CreateMissileRing(pGame, pUnit, pUnit, nMissileId, nSkillId, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(nMissileId, nSkillLevel));
     return 1;
 }
 
@@ -2999,7 +2999,7 @@ int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc* pUnit)
 }
 
 // 0x005CF8C0
-int __fastcall sub_005CF8C0_GetSeqEventFrame(D2UnitStrc* pUnit)
+int __fastcall SKILLS_GetSequenceEventFrame(D2UnitStrc* pUnit)
 {
     D2AnimSeqTxt* pMonSeqTxtRecord = DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit);
     if (pMonSeqTxtRecord)
@@ -3124,7 +3124,7 @@ int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY
 }
 
 // 0x005DC920
-int __fastcall sub_005DC920_GetThreat(D2UnitStrc* pUnit)
+int __fastcall AIUTIL_GetThreat(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -3155,7 +3155,7 @@ int __fastcall sub_005DC920_GetThreat(D2UnitStrc* pUnit)
 }
 
 // 0x005FCF30
-void __fastcall sub_005FCF30(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AIBAAL_RunSpecialAiState(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
     int nParam1 = 0;
@@ -3263,7 +3263,7 @@ static inline int ValidateMonsterId(int nId)
 }
 
 // 0x005FD350
-int __fastcall sub_005FD350_CheckMonsterCollision(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int nFlag)
+int __fastcall MONSTERSPAWN_CanSpawnAtSpawnerExit(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int nFlag)
 {
     switch (ValidateMonsterId(GetMonsterBaseId(nMonsterId)))
     {
@@ -3321,10 +3321,10 @@ int __fastcall sub_005FD350_CheckMonsterCollision(int nMonsterId, D2ActiveRoomSt
 }
 
 // 0x005FD9C0
-int __fastcall sub_005FD9C0_SelectSkillTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID)
+int __fastcall SKILLITEM_FindCorpseTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID)
 {
     D2UnitStrc* pCurrentTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    D2UnitStrc* pTarget = sub_6FD15210(pUnit, pCurrentTarget, nSkillId, nSkillLevel);
+    D2UnitStrc* pTarget = SKILLS_FindCorpseNearTarget(pUnit, pCurrentTarget, nSkillId, nSkillLevel);
     if (!pTarget)
     {
         return 0;
@@ -3340,7 +3340,7 @@ int __fastcall sub_005FD9C0_SelectSkillTarget(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005FDA10
-int __fastcall sub_005FDA10_TargetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused1, int nUnused2, int* pTargetType, int* pTargetGUID)
+int __fastcall SKILLITEM_TargetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused1, int nUnused2, int* pTargetType, int* pTargetGUID)
 {
     if (!SUNIT_GetTargetUnit(pGame, pUnit))
     {
@@ -3392,7 +3392,7 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
     int nTargetUnitGUID = -1;
     int nTargetX;
     int nTargetY;
-    if (!sub_005FDA80_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, pTargetUnit, 0, 0, &nTargetUnitType, &nTargetUnitGUID, &nTargetX, &nTargetY, a5))
+    if (!SKILLITEM_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, pTargetUnit, 0, 0, &nTargetUnitType, &nTargetUnitGUID, &nTargetX, &nTargetY, a5))
     {
         return 0;
     }

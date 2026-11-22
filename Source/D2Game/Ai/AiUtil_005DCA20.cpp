@@ -20,7 +20,7 @@ struct D2AiTargetSearchArgsStrc
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource);      // 0x005DC380
-int __fastcall sub_005DC920_GetThreat(D2UnitStrc* pUnit);                                                   // 0x005DC920
+int __fastcall AIUTIL_GetThreat(D2UnitStrc* pUnit);                                                   // 0x005DC920
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask);
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit);                                                 // 0x006259B0
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
@@ -39,7 +39,7 @@ static inline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
 }
 
 // 0x005DCA20
-static int __stdcall sub_005DCA20_IsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+static int __stdcall AIUTIL_IsHostileTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
  if (!pTarget) return 0;
  if (pTarget->dwUnitType < 0 || pTarget->dwUnitType > 1 || SUNIT_IsDead(pTarget) || !UNITS_CanBeAttackedInline(pTarget)) return 0;
@@ -55,7 +55,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHostileTarget(D2GameStrc* pGa
         return 0;
     }
 
-    if (!sub_005DCA20_IsHostile(pGame, pUnit, pTarget))
+    if (!AIUTIL_IsHostileTarget(pGame, pUnit, pTarget))
     {
         if (pTarget->dwUnitType == UNIT_MONSTER && (!pUnit || pUnit->dwUnitType != UNIT_PLAYER) && !STATLIST_GetUnitAlignment(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
         {
@@ -76,7 +76,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHostileTarget(D2GameStrc* pGa
         return 0;
     }
 
-    const int nThreat = sub_005DC920_GetThreat(pTarget);
+    const int nThreat = AIUTIL_GetThreat(pTarget);
     if (nThreat > 1)
     {
         if (nDistance >= pArg->nDistance)

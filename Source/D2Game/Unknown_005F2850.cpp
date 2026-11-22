@@ -4,7 +4,7 @@
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
 
-int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit);                                                             // 0x005DD2B0
+int __fastcall AIUTIL_IsGettingHit(D2UnitStrc* pUnit);                                                             // 0x005DD2B0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
@@ -62,7 +62,7 @@ void __fastcall AITHINK_Fn021_Mummy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
     D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
 
-    if (sub_6FCF2E70(pUnit) && !bCombat)
+    if (AIUTIL_IsGettingHit(pUnit) && !bCombat)
     {
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
         return;

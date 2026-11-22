@@ -62,7 +62,7 @@ struct D2MonStatsInitStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
+D2UnitStrc* __fastcall SKILLS_CreateMissileAtOffset(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
@@ -94,7 +94,7 @@ static __forceinline int sub_A17E0_GetUModConstant(int nUMod)
 }
 
 // 0x005A17E0
-void __fastcall sub_005A17E0_UModDamageBonus(D2UnitStrc* pUnit, int nUMod, int bUnique)
+void __fastcall MONSTERUNIQUE_UMod5_Strong(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
@@ -147,7 +147,7 @@ static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 }
 
 // 0x005A1910
-void __fastcall sub_005A1910_ApplyVelocity(D2UnitStrc* pUnit, int nUnused1, int nUnused2)
+void __fastcall MONSTERUNIQUE_UMod6_Fast(D2UnitStrc* pUnit, int nUnused1, int nUnused2)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -275,11 +275,11 @@ static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
 }
 
 // 0x005A2620
-void __fastcall sub_005A2620_CastExplosion(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+void __fastcall MONSTERUNIQUE_CastCorpseExplode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     const int nX = CLIENTS_GetUnitXInline(pUnit);
     const int nY = CLIENTS_GetUnitYInline(pUnit);
-    D2UnitStrc* pMissile = sub_6FD11420(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
+    D2UnitStrc* pMissile = SKILLS_CreateMissileAtOffset(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
     if (!pMissile) return;
     int nGameType;
     if (pGame->nGameType || pGame->dwGameType) nGameType = 1;

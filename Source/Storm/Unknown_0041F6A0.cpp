@@ -263,12 +263,12 @@ void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
 }
 
 // 0x00420E70
-int* __fastcall sub_005A6250_GetField14(D2Field14Strc* pRecord)
+int* __fastcall MONSTERMODE_GetTargetTimerPtr(D2Field14Strc* pRecord)
 {
     return &pRecord->nField14;
 }
 
-static inline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
+static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode == 14)
         return (pUnit->dwFlags >> 6) & 1;
@@ -277,7 +277,7 @@ static inline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
 
 void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
 {
-    *pResult = sub_005A64F0_IsActionFrame(pUnit) + 1;
+    *pResult = MONSTERMODE_IsActionFrame(pUnit) + 1;
 }
 
 // 0x00421010

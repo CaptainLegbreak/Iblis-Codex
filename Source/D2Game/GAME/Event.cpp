@@ -34,7 +34,7 @@ void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
 void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int nEvent); // 0x00586AD0
 
-void __fastcall sub_005ADCC0(D2GameStrc* pGame, D2UnitStrc* pMissile, int nEvent); // 0x005ADCC0
+void __fastcall MISSMODE_SrvDoEventCallback(D2GameStrc* pGame, D2UnitStrc* pMissile, int nEvent); // 0x005ADCC0
 
 void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pItem, int nEvent); // 0x00562DA0
 
@@ -521,7 +521,7 @@ static void __stdcall EVENT_ExecuteObjectEvents(int a4, D2GameStrc* pGame, D2Eve
 // 0x00541240
 static void __stdcall EVENT_ExecuteMissileEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl3(sub_005ADCC0, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl3(MISSMODE_SrvDoEventCallback, pGame, pTimerQueue, pEventTimer, a4);
 }
 
 // 0x00541320
