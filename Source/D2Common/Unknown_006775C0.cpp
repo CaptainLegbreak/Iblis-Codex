@@ -49,7 +49,7 @@ extern D2DrlgLinkStrc gAct4OutdoorDrlgLink[15];                                 
 extern D2DrlgLinkStrc gAct4ChaosSanctumDrlgLink[15];                                                        // 0x006F0CF0
 extern D2DrlgLinkStrc gAct5OutdoorDrlgLink[15];                                                             // 0x006F0DE0
 extern D2DrlgLinkStrc gAct5TundraDrlgLink[15];                                                              // 0x006F0ED0
-int dword_6FDEA6FC;                                                                                         // 0x0096D66C
+int gnDrlgLinkFlags;                                                                                         // 0x0096D66C
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -269,7 +269,7 @@ static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
     sub_006772C0_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
     sub_006772C0_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
 
-    DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= dword_6FDEA6FC;
+    DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= gnDrlgLinkFlags;
 
     sub_00677680_AddLevelOrths(pDrlg, 0x6A, 0x67);
 }

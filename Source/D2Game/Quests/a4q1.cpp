@@ -82,7 +82,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-extern D2UnkMonCreateStrc2 gBonePrisonSpawnInfo_0073D4F0; // 0x0073D4F0
+extern D2UnkMonCreateStrc2 gtBonePrisonSpawnInfo; // 0x0073D4F0
 
 D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc*); // 0x005B2A00
 
@@ -1243,7 +1243,7 @@ int __fastcall MONSTERSPAWN_SpawnBonePrison(D2GameStrc* pGame, D2ActiveRoomStrc*
 
         const int nX = CLIENTS_GetUnitX_Inline(pTargetUnit);
         const int nY = CLIENTS_GetUnitY_Inline(pTargetUnit);
-        nResult = sub_005B3270(pGame, pRoom, nX, nY, 0, 340, 8, &gBonePrisonSpawnInfo_0073D4F0, a7);
+        nResult = sub_005B3270(pGame, pRoom, nX, nY, 0, 340, 8, &gtBonePrisonSpawnInfo, a7);
     }
     return nResult;
 }
@@ -1490,22 +1490,22 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-static int nIndices_0073D56C[] =                                                                            // 0x0073D56C
+static int gnAct4Q2NpcMessageIndices[] =                                                                            // 0x0073D56C
 {
     -1, 0, 1, -1, -1
 };
 
-static int nIndices_0073DBA0[] =                                                                            // 0x0073DBA0
+static int gnAct4Q1NpcMessageIndices[] =                                                                            // 0x0073DBA0
 {
     -1, 0, 1, 2, 3, 4
 };
 
-static int nIndices_0073F188[] =                                                                            // 0x0073F188
+static int gnAct3Q1NpcMessageIndices[] =                                                                            // 0x0073F188
 {
     -1, 0, 1, 2, 3, 4
 };
 
-static int nIndices_007401B8[] =                                                                            // 0x007401B8
+static int gnAct3Q3NpcMessageIndices[] =                                                                            // 0x007401B8
 {
     -1, 0, 1, 2, 3, 4
 };
@@ -1548,7 +1548,7 @@ void __fastcall ACT4Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
             return;
         }
 
-        const int nIndex = nIndices_0073DBA0[pQuestData->fState];
+        const int nIndex = gnAct4Q1NpcMessageIndices[pQuestData->fState];
         if (nIndex != -1 && (unsigned int)nIndex < 6)
         {
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -1911,7 +1911,7 @@ void __fastcall ACT4Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 
     if ((pQuestData->fState < 4 || bPrimaryGoalDone) && pQuestData->bNotIntro && pQuestData->fState)
     {
-        const int nIndex = nIndices_0073D56C[pQuestData->fState];
+        const int nIndex = gnAct4Q2NpcMessageIndices[pQuestData->fState];
         if (nIndex != -1 && (unsigned int)nIndex < 7)
         {
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -2046,7 +2046,7 @@ void __fastcall ACT3Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     }
     else if (pQuestData->bNotIntro && pQuestData->fState < 4)
     {
-        const int nIndex = nIndices_0073F188[pQuestData->fState];
+        const int nIndex = gnAct3Q1NpcMessageIndices[pQuestData->fState];
         if (nIndex != -1 && (unsigned int)nIndex < 6)
         {
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
@@ -2280,7 +2280,7 @@ void __fastcall ACT3Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 
         if (pQuestData->fState < 4 && !pGidbinn)
         {
-            const int nIndex = nIndices_007401B8[pQuestData->fState];
+            const int nIndex = gnAct3Q3NpcMessageIndices[pQuestData->fState];
             if (nIndex != -1 && (unsigned int)nIndex < 8)
             {
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);

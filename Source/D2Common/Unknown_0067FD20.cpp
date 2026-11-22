@@ -7,7 +7,7 @@ struct D2OutdoorColumnFilesStrc
     int nLeft;
     int nRight;
 };
-extern D2OutdoorColumnFilesStrc gColumnFiles_006F2680[]; // 0x006F2680
+extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
 
 // build: context SEED_RollRandomNumber_Inline
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
@@ -82,7 +82,7 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
                 nFile = 3;
             else
-                nFile = gColumnFiles_006F2680[nType].nLeft;
+                nFile = gaPresetPairs[nType].nLeft;
         }
         else
             nFile = (nFlags & 0x100) ? 0 : 3;
@@ -95,7 +95,7 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
                 nFile = 3;
             else
-                nFile = gColumnFiles_006F2680[nType].nRight;
+                nFile = gaPresetPairs[nType].nRight;
         }
         else
             nFile = (nFlags & 0x100) ? 0 : 3;

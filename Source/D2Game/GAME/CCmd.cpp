@@ -64,7 +64,7 @@ struct D2GSPacketClt6D
 
 #pragma pack(pop)
 
-extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
+extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId); // 0x0052C060
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID); // 0x0052E860
@@ -183,7 +183,7 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         int n3C = 0;
         int n40 = 0;
         GAME_LogMessage(6, "[JOIN 1] %d clientid - Begin", nClientId);
-        if (!gpD2EventCallbackTable_6FD45830)
+        if (!gpD2EventCallbackTable)
         {
             const unsigned int nErrorCode = CCMD_CanClientJoinGame(p67->nGameId, p67->unk0x08, p67->szClientName);
             if (nErrorCode)

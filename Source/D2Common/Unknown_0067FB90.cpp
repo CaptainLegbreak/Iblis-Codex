@@ -39,7 +39,7 @@ struct D2OutdoorColumnFilesStrc
     int nRight;
 };
 
-extern D2OutdoorColumnFilesStrc gColumnFiles_006F2680[]; // 0x006F2680
+extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
 
 // build: symbol ?DRLGOUTWILD_FindBridgeInColumn@@YGXPAUD2DrlgLevelStrc@@HPAH1@Z 0x0067FB90
 static void __stdcall DRLGOUTWILD_FindBridgeInColumn(D2DrlgLevelStrc* pLevel, int nX, int* pX, int* pY)
@@ -178,7 +178,7 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
                 nFile = 3;
             else
-                nFile = gColumnFiles_006F2680[nType].nLeft;
+                nFile = gaPresetPairs[nType].nLeft;
         }
         else
             nFile = (nFlags & 0x100) ? 0 : 3;
@@ -191,7 +191,7 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
                 nFile = 3;
             else
-                nFile = gColumnFiles_006F2680[nType].nRight;
+                nFile = gaPresetPairs[nType].nRight;
         }
         else
             nFile = (nFlags & 0x100) ? 0 : 3;

@@ -298,13 +298,13 @@ struct D2InventoryRecordMapStrc
     int nRecord;
 };
 
-extern D2InventoryRecordMapStrc gInventoryRecordMap_00744544[]; // 0x00744544
+extern D2InventoryRecordMapStrc gaInventoryRecordMap[]; // 0x00744544
 
-extern unsigned int gnInventoryRecordMapCount_0074457C; // 0x0074457C
+extern unsigned int gnInventoryRecordMapCount; // 0x0074457C
 
-extern unsigned int gdwNoBlockItemCodes_00744580[]; // 0x00744580
+extern unsigned int gdwNoBlockItemCodes[]; // 0x00744580
 
-extern unsigned int gnNoBlockItemCodeCount_00744584; // 0x00744584
+extern unsigned int gnNoBlockItemCodeCount; // 0x00744584
 
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
 
@@ -346,7 +346,7 @@ extern D2AnimModeModulatorStrc gaMonModesAnimModulators_006E8B90[]; // 0x006E8B9
 
 extern D2AnimModeModulatorStrc gaMonModesAnimModulatorsExpansion_006E8CD0[]; // 0x006E8CD0
 
-extern D2AnimModeStatBasePercentageStrc gaAnimModeStatBasePercentage_006E8E24[]; // 0x006E8E24
+extern D2AnimModeStatBasePercentageStrc gaAnimModeStatBasePercentage[]; // 0x006E8E24
 
 int __fastcall UNITS_CanAnimModeUseAttackRate(int nAnimMode, int nUnitType, D2UnitStrc* pUnit, int nClassId); // 0x00621580
 
@@ -532,7 +532,7 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 
 static __declspec(noinline) int __stdcall sub_00622920_TestCollision(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask);
 
-extern int gaFrameBonus_006E8E60[][7]; // 0x006E8E60
+extern int gaClassesWeaponFrameBonus[][7]; // 0x006E8E60
 
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);
 
@@ -1365,11 +1365,11 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* hUnit, int nInvPage, int bL
         default:
         {
             const int nClassId = hUnit->dwClassId;
-            for (unsigned int i = 0; i < gnInventoryRecordMapCount_0074457C; ++i)
+            for (unsigned int i = 0; i < gnInventoryRecordMapCount; ++i)
             {
-                if (nClassId == gInventoryRecordMap_00744544[i].nClassId)
+                if (nClassId == gaInventoryRecordMap[i].nClassId)
                 {
-                    nRet = gInventoryRecordMap_00744544[i].nRecord;
+                    nRet = gaInventoryRecordMap[i].nRecord;
                     break;
                 }
             }
@@ -1893,13 +1893,13 @@ static int UNITS_IsSeqAnimSpeedModulatedByFCR(int nUnitType, int nAnimMode, D2Un
 // 0x00621740
 static int UNITS_GetAnimStatBasePercentage(D2UnitStrc* pUnit, int nStat)
 {
-    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, gaAnimModeStatBasePercentage_006E8E24[nStat].nStatId, 0);
-    switch (gaAnimModeStatBasePercentage_006E8E24[nStat].bHasBasePercentage)
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, gaAnimModeStatBasePercentage[nStat].nStatId, 0);
+    switch (gaAnimModeStatBasePercentage[nStat].bHasBasePercentage)
     {
     case 1:
         if (nValue)
         {
-            return nValue * gaAnimModeStatBasePercentage_006E8E24[nStat].nBasePercentage / (nValue + gaAnimModeStatBasePercentage_006E8E24[nStat].nBasePercentage);
+            return nValue * gaAnimModeStatBasePercentage[nStat].nBasePercentage / (nValue + gaAnimModeStatBasePercentage[nStat].nBasePercentage);
         }
         break;
     }
@@ -2767,9 +2767,9 @@ int __fastcall UNITS_CanMonsterBlock(D2UnitStrc* pUnit)
         return 0;
     }
 
-    for (unsigned int i = 0; i < gnNoBlockItemCodeCount_00744584; ++i)
+    for (unsigned int i = 0; i < gnNoBlockItemCodeCount; ++i)
     {
-        if (dwCode == gdwNoBlockItemCodes_00744580[i])
+        if (dwCode == gdwNoBlockItemCodes[i])
         {
             return 0;
         }
@@ -3696,7 +3696,7 @@ int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit)
         unsigned short nWeaponClass = 0;
         if (pWeapon)
             nWeaponClass = ITEMS_GetWeaponClassId(pWeapon);
-        return gaFrameBonus_006E8E60[nWeaponClass][nClassId];
+        return gaClassesWeaponFrameBonus[nWeaponClass][nClassId];
     }
     case 15:
     case 16:
@@ -3706,7 +3706,7 @@ int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit)
             unsigned short nWeaponClass = 0;
             if (pWeapon)
                 nWeaponClass = ITEMS_GetWeaponClassId(pWeapon);
-            return gaFrameBonus_006E8E60[nWeaponClass][nClassId];
+            return gaClassesWeaponFrameBonus[nWeaponClass][nClassId];
         }
         break;
     }

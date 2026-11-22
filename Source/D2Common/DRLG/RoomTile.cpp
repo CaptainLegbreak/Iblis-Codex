@@ -143,11 +143,11 @@ struct D2UnkDrlgRoomTileStrc
     int nArrayEndId;
 };
 
-extern const D2UnkDrlgRoomTileStrc gDrlgRoomTileLevelRanges_006EEFC8[RANGE_COUNT];                                  // 0x006EEFC8
+extern const D2UnkDrlgRoomTileStrc gaDrlgRoomTileLevelRanges[RANGE_COUNT];                                  // 0x006EEFC8
 
-extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[];                                   // 0x006EF188
+extern const D2UnkDrlgRoomTileStrc2 gaDrlgRoomTilePresetUnits[];                                   // 0x006EF188
 
-extern const D2CoordStrc gWarpTileOffsets_006EF554[4];                                                     // 0x006EF554
+extern const D2CoordStrc gaWarpTileOffsets[4];                                                     // 0x006EF554
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 
@@ -265,8 +265,8 @@ D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDr
 // 0x0066D960
 int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor)
 {
-    for (const int* rangeEnd = &gDrlgRoomTileLevelRanges_006EEFC8[0].nArrayEndId;
-         (int)rangeEnd < (int)&gDrlgRoomTileLevelRanges_006EEFC8[RANGE_COUNT].nArrayEndId; rangeEnd += 3)
+    for (const int* rangeEnd = &gaDrlgRoomTileLevelRanges[0].nArrayEndId;
+         (int)rangeEnd < (int)&gaDrlgRoomTileLevelRanges[RANGE_COUNT].nArrayEndId; rangeEnd += 3)
     {
         if (rangeEnd[-2] == nLevelId)
         {
@@ -275,9 +275,9 @@ int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nP
 
             for (int j = rangeEnd[-1]; j <= *rangeEnd; ++j)
             {
-                if (nTileStyle == gDrlgRoomTilePresetUnits_006EF188[j].nTileStyle
-                    && nTileSequence == gDrlgRoomTilePresetUnits_006EF188[j].nTileSequence
-                    && bIsRightWallWithDoor == gDrlgRoomTilePresetUnits_006EF188[j].bIsRightWallWithDoor)
+                if (nTileStyle == gaDrlgRoomTilePresetUnits[j].nTileStyle
+                    && nTileSequence == gaDrlgRoomTilePresetUnits[j].nTileSequence
+                    && bIsRightWallWithDoor == gaDrlgRoomTilePresetUnits[j].bIsRightWallWithDoor)
                 {
                     return j;
                 }
@@ -365,13 +365,13 @@ static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileD
 
         DUNGEON_GameTileToSubtileCoords(&nPosX, &nPosY);
 
-        nPosX += gDrlgRoomTilePresetUnits_006EF188[nIndex].nX;
-        nPosY += gDrlgRoomTilePresetUnits_006EF188[nIndex].nY;
+        nPosX += gaDrlgRoomTilePresetUnits[nIndex].nX;
+        nPosY += gaDrlgRoomTilePresetUnits[nIndex].nY;
 
         if (nPosX >= 0 && nPosY >= 0 && nPosX < 5 * pDrlgRoom->pDrlgCoord.nWidth && nPosY < 5 * pDrlgRoom->pDrlgCoord.nHeight)
         {
-            int nUnitId = gDrlgRoomTilePresetUnits_006EF188[nIndex].nUnitId;
-            int nUnitType = gDrlgRoomTilePresetUnits_006EF188[nIndex].nUnitType;
+            int nUnitId = gaDrlgRoomTilePresetUnits[nIndex].nUnitId;
+            int nUnitType = gaDrlgRoomTilePresetUnits[nIndex].nUnitType;
             int nMode = 0;
             int bAdd = 1;
             switch (nUnitType)
@@ -764,7 +764,7 @@ static void __stdcall DRLGROOMTILE_LoadFloorWarpTiles(D2DrlgRoomStrc* pDrlgRoom,
             {
                 const unsigned int nDestinationPacked = (nTileSequence << 20) | ((i | 4) << 8);
                 D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, nDestinationPacked);
-                D2DrlgTileDataStrc* pDestTileData = sub_B04_InitFloorTileDataInline(pDrlgRoom, &pWarpTile->pSelectedTiles, gWarpTileOffsets_006EF554[i].nX + nX, gWarpTileOffsets_006EF554[i].nY + nY, nDestinationPacked, pTileCache);
+                D2DrlgTileDataStrc* pDestTileData = sub_B04_InitFloorTileDataInline(pDrlgRoom, &pWarpTile->pSelectedTiles, gaWarpTileOffsets[i].nX + nX, gaWarpTileOffsets[i].nY + nY, nDestinationPacked, pTileCache);
                 pDestTileData->dwFlags |= 8;
             }
 
@@ -1031,7 +1031,8 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
 static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY)
 {
     int nNewTileType;
-    const int nRemapIndex = gnWallRemapIndices_006EF620[nTileType];
+// build: symbol ?gnWallRemapIndices@* 0x006EF620
+    const int nRemapIndex = gnWallRemapIndices[nTileType];
 
     if (pTileData->dwFlags & 1)
     {
@@ -1069,7 +1070,8 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
             else
             {
                 const int nWallIdx = pTileData->nTileType - 1;
-                nNewTileType = gnWallTileTypeRemap_006EF578[nRemapIndex][nWallIdx];
+// build: symbol ?gnWallTileTypeRemap@* 0x006EF578
+                nNewTileType = gnWallTileTypeRemap[nRemapIndex][nWallIdx];
                 goto TileTypeChosen;
             }
         }

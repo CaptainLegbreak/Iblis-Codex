@@ -50,7 +50,7 @@ extern "C" const char gszDrlgPresetSourceFile; // 0x006EE7C4
 extern "C" const char gszDrlgPresetSourceFile_006EE7C4[]; // 0x006EE7C4
 extern "C" const char gszDrlgRoomTileSourceFile; // 0x006EF540
 extern "C" const char gszExcelDirectory_006D8ED4[]; // 0x006D8ED4
-extern "C" const char gszInventorySourceFile_006EA918[]; // 0x006EA918
+extern "C" const char gszInventorySourceFile[]; // 0x006EA918
 extern "C" const char gszMonsterTblsSourceFile[]; // 0x006EBE70
 extern "C" const char gszNewline_006FFCB0[]; // 0x006FFCB0
 extern "C" const char gszOutRoomSourceFile; // 0x006F1F68
@@ -93,7 +93,7 @@ extern "C" void __cdecl qsort(void* pBase, unsigned int nCount, unsigned int nSi
 extern "C" void __stdcall sub_00622E90_EndWeapon(Unit*, int); // 0x00622E90
 extern "C" void __stdcall sub_00623C80_BeginWeapon(Unit*, int); // 0x00623C80
 extern D2DataTablesStrc* sgptDataTable; // 0x00744304
-extern D2TxtLinkStrc* gTxtLink_0096BDC8; // 0x0096BDC8
+extern D2TxtLinkStrc* gpSoundsLinker; // 0x0096BDC8
 extern D2TxtLinkStrc* gTxtLink_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gTxtLink_0096C800; // 0x0096C800
 extern D2TxtLinkStrc* gpItemStatCostLinker; // 0x0096C800
@@ -105,32 +105,32 @@ extern D2TxtLinkStrc* gpPettypeLinker; // 0x0096C81C
 extern D2TxtLinkStrc* gpSetItemsLinker; // 0x0096C844
 extern D2TxtLinkStrc* gpTreasureClassExLinker; // 0x0096C5E8
 extern D2TxtLinkStrc* gpUniqueItemsLinker; // 0x0096C850
-extern const int dword_6FDD1BE0[8][8]; // 0x006F17D8
-extern const int dword_6FDD1CE0[32]; // 0x006F18D8
+extern const int gnIdaStarNeighborSequences[8][8]; // 0x006F17D8
+extern const int gnIdaStarNeighborRandOffsets[32]; // 0x006F18D8
 extern const int gaCollisionPatternsFromSize[4]; // 0x006EB3DC
-extern const int gaPathDeltaTable_006F1E28[]; // 0x006F1E28
+extern const int gaPathDeltaTable[]; // 0x006F1E28
 extern const int gnCellOffsetsToDirections[9]; // 0x006F1E18
 extern const int gnMazeTombBaalPrevPresets[4][2]; // 0x006EF888
 extern const int gnNextDirection1[16]; // 0x006F1EC0
 extern const int gnNextDirection2[16]; // 0x006F1E40
 extern const int gnPreviousDirection1[16]; // 0x006F1F00
 extern const int gnPreviousDirection2[16]; // 0x006F1E80
-extern const int gnSetItemStates_006EDB40[]; // 0x006EDB40
-extern const int gnSetItemStatlistFlags_006EDB5C[]; // 0x006EDB5C
-extern const int gnSetItemsCount_006EDA40[]; // 0x006EDA40
-extern const int gnTable_006EB490[][9]; // 0x006EB490
-extern const int gnWallRemapIndices_006EF620[]; // 0x006EF620
-extern const int gnWallTileTypeRemap_006EF578[6][7]; // 0x006EF578
+extern const int gnSetItemStates[]; // 0x006EDB40
+extern const int gnSetItemStatlistFlags[]; // 0x006EDB5C
+extern const int gnSetItemsCount[]; // 0x006EDA40
+extern const int gnOrthogonalStepTable[][9]; // 0x006EB490
+extern const int gnWallRemapIndices[]; // 0x006EF620
+extern const int gnWallTileTypeRemap[6][7]; // 0x006EF578
 extern int DATATBLS_LoadFromBin; // 0x00744308
 extern int __fastcall sub_00674200_IsValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200
 extern int __fastcall sub_0067C570_GetGrid(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
-extern int gaLookupLarge_006F06F0[][2]; // 0x006F06F0
-extern int gaLookupRow_006F0FD0[]; // 0x006F0FD0
-extern int gaLookupRow_006F1088[]; // 0x006F1088
-extern int gaLookupSmall_006F0630[][4]; // 0x006F0630
-extern int gnDirectionDiffTable_006EB548[]; // 0x006EB548
+extern int gaBarricadeCliffBorderIds[][2]; // 0x006F06F0
+extern int gaBorderIndices[]; // 0x006F0FD0
+extern int gaBorderIndicesByDelta[]; // 0x006F1088
+extern int gaBorderLevelPrestIds[][4]; // 0x006F0630
+extern int gnDirectionDiffTable[]; // 0x006EB548
 extern int gnHirelingTxtRecordCount; // 0x0096BDD4
-extern int gnItemSetStates_006E90B8[5]; // 0x006E90B8
+extern int gnItemSetStatesBySetIndex[5]; // 0x006E90B8
 extern int gnObjectsTxtRecordCount; // 0x0096D474
 extern int gnShrinesTxtRecordCount; // 0x0096D46C
 extern int gnSkillsCalcFunctions; // 0x007457AC

@@ -46,7 +46,7 @@ extern char gszCharName_007A05C4[]; // 0x007A05C4
 
 extern "C" const char gszSavePathFormat_006D4230[]; // 0x006D4230
 
-extern "C" const char gszModeRb_006CDC90[]; // 0x006CDC90
+extern "C" const char gszFileModeRb[]; // 0x006CDC90
 
 extern int gnSentBytes_007A6AF8; // 0x007A6AF8
 
@@ -94,7 +94,7 @@ static unsigned char* MSG_ReadSaveFile(int* pnFileSize)
     D2_ASSERT(gszCharName_007A05C4[0], 0x1EB);
     FOG_GetSavePath(szSavePath, 0x400);
     sprintf(szFileName, gszSavePathFormat_006D4230, szSavePath, gszCharName_007A05C4);
-    _iobuf* pFile = fopen(szFileName, gszModeRb_006CDC90);
+    _iobuf* pFile = fopen(szFileName, gszFileModeRb);
     if (!pFile)
         return 0;
     if (fseek(pFile, 0, 2))

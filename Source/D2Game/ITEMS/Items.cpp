@@ -235,7 +235,7 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc*); // 0x00554010
 
 D2ItemRatioTxt* __stdcall DATATBLS_GetItemRatioTxtRecord(int, unsigned char, unsigned short); // 0x00637910
 
-extern const int gnQualityOrder_006E1138[6]; // 0x006E1138
+extern const int gnQualityOrder[6]; // 0x006E1138
 
 void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555AE0
 
@@ -398,13 +398,13 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 
 
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 
-extern int gdwHealthPotionCodes_00731F4C[4]; // 0x00731F4C
+extern int gdwDropHealthPotionCodes[4]; // 0x00731F4C
 
-extern unsigned int gnHealthPotionCodes_00731F5C; // 0x00731F5C
+extern unsigned int gnDropHealthPotionCodeCount; // 0x00731F5C
 
-extern int gdwManaPotionCodes_00731F60[4]; // 0x00731F60
+extern int gdwDropManaPotionCodes[4]; // 0x00731F60
 
-extern unsigned int gnManaPotionCodes_00731F70; // 0x00731F70
+extern unsigned int gnDropManaPotionCodeCount; // 0x00731F70
 
 struct D2ActiveRoomStrcView
 {
@@ -529,7 +529,7 @@ static void ITEMS_SetWeaponDamage(D2UnitStrc* pItem);
 
 static void ITEMS_RollVarInvGfx(D2UnitStrc* pItem);
 
-static int s_nGoldItemId_0088C6F8; // 0x0088C6F8
+static int gnGoldItemId; // 0x0088C6F8
 
 int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevelId);
 
@@ -1612,7 +1612,7 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
     {
         for (unsigned int i = 0; i < 6; ++i)
         {
-            switch (gnQualityOrder_006E1138[i])
+            switch (gnQualityOrder[i])
             {
             case 7: nChance = pRatio->dwUnique - nItemLevel / pRatio->dwUniqueDivisor; nQuality = 7; break;
             case 6: nChance = pRatio->dwRare - nItemLevel / pRatio->dwRareDivisor; nQuality = 6; break;
@@ -1629,7 +1629,7 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
     {
         for (unsigned int i = 0; i < 6; ++i)
         {
-            switch (gnQualityOrder_006E1138[i])
+            switch (gnQualityOrder[i])
             {
             case 7: nChance = pRatio->dwUnique - nItemLevel; nQuality = 7; break;
             case 6: nChance = pRatio->dwRare - nItemLevel; nQuality = 6; break;
@@ -2143,12 +2143,12 @@ int __fastcall ITEMS_GetHealthPotionDropCode(D2UnitStrc* pUnit)
         nIndex += 2;
     }
 
-    if (nIndex >= gnHealthPotionCodes_00731F5C)
+    if (nIndex >= gnDropHealthPotionCodeCount)
     {
-        return gdwHealthPotionCodes_00731F4C[3];
+        return gdwDropHealthPotionCodes[3];
     }
 
-    return gdwHealthPotionCodes_00731F4C[nIndex];
+    return gdwDropHealthPotionCodes[nIndex];
 }
 
 // 0x005584C0
@@ -2164,12 +2164,12 @@ int __fastcall ITEMS_GetManaPotionDropCode(D2UnitStrc* pUnit)
         nIndex += 2;
     }
 
-    if (nIndex >= gnManaPotionCodes_00731F70)
+    if (nIndex >= gnDropManaPotionCodeCount)
     {
-        return gdwManaPotionCodes_00731F60[3];
+        return gdwDropManaPotionCodes[3];
     }
 
-    return gdwManaPotionCodes_00731F60[nIndex];
+    return gdwDropManaPotionCodes[nIndex];
 }
 
 // 0x00558530
@@ -2853,9 +2853,9 @@ D2UnitStrc* __fastcall ITEMS_DropGoldAtCoordinates(D2GameStrc* pGame, D2ActiveRo
 
     D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
 
-    if (!s_nGoldItemId_0088C6F8)
+    if (!gnGoldItemId)
     {
-        DATATBLS_GetItemRecordFromItemCode(' dlg', &s_nGoldItemId_0088C6F8);
+        DATATBLS_GetItemRecordFromItemCode(' dlg', &gnGoldItemId);
     }
 
     D2CoordStrc coords1;
@@ -2886,7 +2886,7 @@ D2UnitStrc* __fastcall ITEMS_DropGoldAtCoordinates(D2GameStrc* pGame, D2ActiveRo
         itemDrop.pSeed = pSeed;
         itemDrop.wItemFormat = pGame->wItemFormat;
         itemDrop.pGame = pGame;
-        itemDrop.nId = s_nGoldItemId_0088C6F8;
+        itemDrop.nId = gnGoldItemId;
         itemDrop.nX = coords1.nX;
         itemDrop.nY = coords1.nY;
         itemDrop.nSpawnType = ITEMSPAWN_GROUND;

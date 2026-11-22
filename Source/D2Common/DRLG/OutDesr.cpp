@@ -53,9 +53,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern const D2DrlgOutDesertInitStrc gaDesertCliffs_006F2390[8][5];                                         // 0x006F2390
+extern const D2DrlgOutDesertInitStrc gaDesertCliffs[8][5];                                         // 0x006F2390
 
-extern const D2DrlgOutDesertInitStrc gaCanyonTombEntries_006F2610[9];                                       // 0x006F2610
+extern const D2DrlgOutDesertInitStrc gaCanyonTombEntries[9];                                       // 0x006F2610
 
 union D2SeedStrc;
 
@@ -186,7 +186,7 @@ static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel)
 {
     for (int i = 0; i < 9; ++i)
     {
-        const D2DrlgOutDesertInitStrc* pInit = &gaCanyonTombEntries_006F2610[i];
+        const D2DrlgOutDesertInitStrc* pInit = &gaCanyonTombEntries[i];
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pInit->nX, pInit->nY, pInit->nLvlPrestId, pInit->nRand, 0);
     }
 
@@ -209,7 +209,7 @@ static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
 {
     const unsigned int nRand = SEED_RollRandomNumber_Inline(&pLevel->pSeed) & 7;
 
-    const int* pY = &gaDesertCliffs_006F2390[nRand][0].nY;
+    const int* pY = &gaDesertCliffs[nRand][0].nY;
     for (int i = 0; i < 5; ++i, pY += 4)
     {
         const D2DrlgOutDesertInitStrc* pEntry = (const D2DrlgOutDesertInitStrc*)(pY - 3);

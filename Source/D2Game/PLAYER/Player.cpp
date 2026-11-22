@@ -203,7 +203,7 @@ void __fastcall PLAYER_Destroy(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
 void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2CharStatsTxt* pCharStatsTxt, int nCount, D2CharItemStrc* pCharItem);
 
-int gnVirtualPlayerCount_6FD4DC1C; // 0x00883D70
+int gnVirtualPlayerCount; // 0x00883D70
 
 static void __stdcall PLAYER_ApplyDeathExperienceLoss(D2GameStrc* pGame, D2UnitStrc* pDefender);
 
@@ -601,7 +601,7 @@ void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers)
 {
     if (nPlayers >= 0 && nPlayers <= 8)
     {
-        gnVirtualPlayerCount_6FD4DC1C = nPlayers;
+        gnVirtualPlayerCount = nPlayers;
     }
 }
 

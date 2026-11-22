@@ -234,17 +234,17 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern const int gnSignX_006E1510[4]; // 0x006E1510
+extern const int gnMissilePatternSignX[4]; // 0x006E1510
 
-extern const int gnSignY_006E14E4[4]; // 0x006E14E4
+extern const int gnMissilePatternSignY[4]; // 0x006E14E4
 
-extern const int gnOffset1_006E14F4[7]; // 0x006E14F4
+extern const int gnMissilePatternOffsets1[7]; // 0x006E14F4
 
-extern const int gnOffset2_006E14C8[7]; // 0x006E14C8
+extern const int gnMissilePatternOffsets2[7]; // 0x006E14C8
 
-extern const int gnXOffsets_006E14A8[8]; // 0x006E14A8
+extern const int gnMissilePatternXOffsets[8]; // 0x006E14A8
 
-extern const int gnYOffsets_006E1488[8]; // 0x006E1488
+extern const int gnMissilePatternYOffsets[8]; // 0x006E1488
 
 void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); // 0x0065AA00
 
@@ -560,7 +560,7 @@ enum D2C_ElemTypes
     ELEMTYPE_FREEZE = 12,
 };
 
-extern const int gnRandomElemTypes_006E1278[4]; // 0x006E1278
+extern const int gnRandomElemTypes[4]; // 0x006E1278
 
 typedef void (__fastcall* CurseCallbackFunc)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int);
 
@@ -572,7 +572,7 @@ typedef char SkillsRecordSize[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 typedef int (__fastcall* SkillStartFunc)(D2GameStrc*, D2UnitStrc*, int, int);
 
-extern SkillStartFunc gpSkillStartHandlers_00732140[]; // 0x00732140
+extern SkillStartFunc gpfnSkillSrvStartFunctions[]; // 0x00732140
 
 int __fastcall SKILLS_HasManaOrChargesForUsedSkill(D2UnitStrc* pUnit); // 0x0056C160
 
@@ -617,9 +617,9 @@ typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nEv
 
 typedef int (__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit, D2UnitFindArgStrc* pUnitFindArg);
 
-extern const SkillDoFunc gpSkillSrvDoFnTable_007322B0[SKILLSRVDOFN_COUNT]; // 0x007322B0
+extern const SkillDoFunc gpfnSkillSrvDoFunctions[SKILLSRVDOFN_COUNT]; // 0x007322B0
 
-extern const D2UnitEventCallbackFunction gpEventCallbackTable_007325B0[EVENTFN_COUNT]; // 0x007325B0
+extern const D2UnitEventCallbackFunction gpfnSkillEventCallbacks[EVENTFN_COUNT]; // 0x007325B0
 
 void __fastcall SKILLS_IterateAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, AURACALLBACK pCallback, void* pCallbackArgs, int bCheckMonAuraFlag, const char* szFile, int nLine); // 0x0056B7E0
 
@@ -1981,7 +1981,7 @@ void __fastcall SKILLS_AddElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDama
 {
     if (nElementalType == ELEMTYPE_RAND)
     {
-        nElementalType = gnRandomElemTypes_006E1278[ITEMS_RollRandomNumber(&pUnit->pSeed) & 3];
+        nElementalType = gnRandomElemTypes[ITEMS_RollRandomNumber(&pUnit->pSeed) & 3];
         if (nLength <= 0)
         {
             nLength = 50;
@@ -2737,7 +2737,7 @@ int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         nDoFunc = pSkillsTxtRecord->wItemEffect;
     }
 
-    SKILLDOFUNC pDoFunc = gpSkillSrvDoFnTable_007322B0[nDoFunc];
+    SKILLDOFUNC pDoFunc = gpfnSkillSrvDoFunctions[nDoFunc];
     if (pDoFunc)
     {
         nResult = pDoFunc(pGame, pUnit, nSkillId, nSkillLevel);
@@ -3241,18 +3241,18 @@ void __fastcall SKILLS_CreateMissilePattern(D2GameStrc* pGame, int nMissiles, D2
                 break;
             }
 
-            pMissileParams->nTargetX = gnOffset1_006E14F4[j] * gnSignX_006E1510[i];
-            pMissileParams->nTargetY = gnOffset2_006E14C8[j] * gnSignY_006E14E4[i];
+            pMissileParams->nTargetX = gnMissilePatternOffsets1[j] * gnMissilePatternSignX[i];
+            pMissileParams->nTargetY = gnMissilePatternOffsets2[j] * gnMissilePatternSignY[i];
             MISSILES_CreateMissileFromParams(pGame, pMissileParams);
 
-            pMissileParams->nTargetX = gnOffset2_006E14C8[j] * gnSignX_006E1510[i];
-            pMissileParams->nTargetY = gnOffset1_006E14F4[j] * gnSignY_006E14E4[i];
+            pMissileParams->nTargetX = gnMissilePatternOffsets2[j] * gnMissilePatternSignX[i];
+            pMissileParams->nTargetY = gnMissilePatternOffsets1[j] * gnMissilePatternSignY[i];
             MISSILES_CreateMissileFromParams(pGame, pMissileParams);
             nSubMissiles -= 2;
         }
 
-        pMissileParams->nTargetX = gnXOffsets_006E14A8[j];
-        pMissileParams->nTargetY = gnYOffsets_006E1488[j];
+        pMissileParams->nTargetX = gnMissilePatternXOffsets[j];
+        pMissileParams->nTargetY = gnMissilePatternYOffsets[j];
         MISSILES_CreateMissileFromParams(pGame, pMissileParams);
         nSubMissiles -= 1;
     }
@@ -3343,9 +3343,9 @@ void __fastcall SKILLS_EventCallback_ActiveState(D2GameStrc* game, D2UnitStrc* u
 // 0x0056D810
 void __fastcall SKILLS_ExecuteServerDoFunction(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDoFunc, int nSkillId, int nSkillLevel)
 {
-    if (nDoFunc >= 0 && nDoFunc < SKILLSRVDOFN_COUNT && gpSkillSrvDoFnTable_007322B0[nDoFunc])
+    if (nDoFunc >= 0 && nDoFunc < SKILLSRVDOFN_COUNT && gpfnSkillSrvDoFunctions[nDoFunc])
     {
-        gpSkillSrvDoFnTable_007322B0[nDoFunc](pGame, pUnit, nSkillId, nSkillLevel);
+        gpfnSkillSrvDoFunctions[nDoFunc](pGame, pUnit, nSkillId, nSkillLevel);
     }
 }
 
@@ -3770,7 +3770,7 @@ int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkil
     }
     if (pSkillsTxtRecord->wSrvStartFunc < 0 || pSkillsTxtRecord->wSrvStartFunc >= 91)
         return 0;
-    SkillStartFunc pStart = gpSkillStartHandlers_00732140[pSkillsTxtRecord->wSrvStartFunc];
+    SkillStartFunc pStart = gpfnSkillSrvStartFunctions[pSkillsTxtRecord->wSrvStartFunc];
     int nResult;
     if (!pStart)
     {
@@ -4312,9 +4312,9 @@ unsigned short __fastcall SKILLS_SetDamageResultFlags(D2GameStrc* pGame, D2UnitS
 // 0x0056E740
 D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEventType, int a4, int a5, int nEventFunc, int a7, int a8)
 {
-    if (nEventFunc >= 0 && nEventFunc < EVENTFN_COUNT && gpEventCallbackTable_007325B0[nEventFunc])
+    if (nEventFunc >= 0 && nEventFunc < EVENTFN_COUNT && gpfnSkillEventCallbacks[nEventFunc])
     {
-        return SUNITEVENT_Register(pGame, pUnit, nUnitEventType, a4, a5, gpEventCallbackTable_007325B0[nEventFunc], a7, a8);
+        return SUNITEVENT_Register(pGame, pUnit, nUnitEventType, a4, a5, gpfnSkillEventCallbacks[nEventFunc], a7, a8);
     }
 
     return 0;

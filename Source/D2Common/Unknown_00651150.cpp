@@ -5,7 +5,7 @@ extern "C" unsigned int __cdecl strlen(const char* sz);
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 
-extern D2TxtLinkStrc* gTxtLink_0096BC5C;                                                                    // 0x0096BC5C
+extern D2TxtLinkStrc* gpMonModeLinker;                                                                    // 0x0096BC5C
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError);                 // 0x006BD130
 
@@ -65,7 +65,7 @@ void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPositi
         unsigned int dwCode;
         strcpy((char*)&nText, pSrc);
         sub_00650EB0_MakeCode((const char*)&nText, (char*)&dwCode);
-        const char nMode = (char)FOG_GetLinkIndex(gTxtLink_0096BC5C, dwCode, 1);
+        const char nMode = (char)FOG_GetLinkIndex(gpMonModeLinker, dwCode, 1);
         pMonStatsTxtRecord->nSkillMode[nOffset] = nMode;
         if (nMode >= 0 && nMode != 14)
         {

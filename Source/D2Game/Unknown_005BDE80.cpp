@@ -27,7 +27,7 @@ struct D2SeedOwnerStrc
     D2SeedStrc pSeed;
 };
 
-extern void* gpUnk_007415F0; // 0x007415F0
+extern void* gpDiamondMonsterFormation; // 0x007415F0
 
 static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
@@ -106,7 +106,7 @@ void* __fastcall sub_005BDFF0_RollSeedGetTable(D2SeedOwnerStrc* pOwner)
 {
     D2SeedStrc* pSeed = pOwner ? &pOwner->pSeed : 0;
     SEED_RollRandomNumber(pSeed);
-    return gpUnk_007415F0;
+    return gpDiamondMonsterFormation;
 }
 
 #include "gen/data/Source/D2Game/Unknown_005BDE80.inc"

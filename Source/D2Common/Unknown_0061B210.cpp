@@ -11,10 +11,10 @@ void __fastcall DRLGROOMTILE_InitRoomGrids(D2DrlgRoomStrc* pDrlgRoom);          
 void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom);                     // 0x006422A0
 int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg);                                                          // 0x00642A00
 void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom);                                // 0x0066F240
-static int gnStatsClientAllocatedRooms_0096C8B8;                                                            // 0x0096C8B8
-static int gnStatsClientFreedRooms_0096C8BC;                                                                // 0x0096C8BC
-static int gnStatsAllocatedRooms_0096C8C4;                                                                  // 0x0096C8C4
-static int gnStatsFreedRooms_0096C8C0;                                                                      // 0x0096C8C0
+static int gnStatsClientAllocatedRooms;                                                            // 0x0096C8B8
+static int gnStatsClientFreedRooms;                                                                // 0x0096C8BC
+static int gnStatsAllocatedRooms;                                                                  // 0x0096C8C4
+static int gnStatsFreedRooms;                                                                      // 0x0096C8C0
 
 static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
 {
@@ -144,13 +144,13 @@ void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg)
 {
     if (DRLG_IsOnClient(pDrlg))
     {
-        gnStatsClientAllocatedRooms_0096C8B8 = pDrlg->nAllocatedRooms;
-        gnStatsClientFreedRooms_0096C8BC = pDrlg->nFreedRooms;
+        gnStatsClientAllocatedRooms = pDrlg->nAllocatedRooms;
+        gnStatsClientFreedRooms = pDrlg->nFreedRooms;
     }
     else
     {
-        gnStatsAllocatedRooms_0096C8C4 = pDrlg->nAllocatedRooms;
-        gnStatsFreedRooms_0096C8C0 = pDrlg->nFreedRooms;
+        gnStatsAllocatedRooms = pDrlg->nAllocatedRooms;
+        gnStatsFreedRooms = pDrlg->nFreedRooms;
     }
 
     if (pDrlg->nRoomsInitSinceLastUpdate > 1)

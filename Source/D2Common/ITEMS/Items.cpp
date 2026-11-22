@@ -762,7 +762,7 @@ static int __fastcall ITEMS_ApplyAffixLevelRequirement(D2MagicAffixTxt*, D2UnitS
 
 typedef int BOOL;
 
-extern "C" const char gszItemsSourceFile_006E1150[]; // 0x006E1150
+extern "C" const char gszItemsSourceFile[]; // 0x006E1150
 
 static int ITEMS_GetSocketedItemCount(D2UnitStrc* pItem);
 
@@ -1750,12 +1750,12 @@ unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem)
 // 0x00628A40
 int __stdcall ITEMS_ComparePotionTypes(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 {
-    static int s_nHealthPotionCodes_00744684[] = { 0x20317068, 0x20327068, 0x20337068, 0x20347068, 0x20357068 };  // 0x00744684
-    extern unsigned int s_nHealthPotionCodeCount_00744698; // 0x00744698
-    static int s_nManaPotionCodes_0074466C[] = { 0x2031706D, 0x2032706D, 0x2033706D, 0x2034706D, 0x2035706D };    // 0x0074466C
-    extern unsigned int s_nManaPotionCodeCount_00744680; // 0x00744680
-    static int s_nRejuvPotionCodes_00744660[] = { 0x206C7672, 0x20737672 };                                       // 0x00744660
-    extern unsigned int s_nRejuvPotionCodeCount_00744668; // 0x00744668
+    static int gdwHealthPotionCodes[] = { 0x20317068, 0x20327068, 0x20337068, 0x20347068, 0x20357068 };  // 0x00744684
+    extern unsigned int gnHealthPotionCodeCount; // 0x00744698
+    static int gdwManaPotionCodes[] = { 0x2031706D, 0x2032706D, 0x2033706D, 0x2034706D, 0x2035706D };    // 0x0074466C
+    extern unsigned int gnManaPotionCodeCount; // 0x00744680
+    static int gdwRejuvPotionCodes[] = { 0x206C7672, 0x20737672 };                                       // 0x00744660
+    extern unsigned int gnRejuvPotionCodeCount; // 0x00744668
 
     if (pItem1 && pItem2)
     {
@@ -1774,13 +1774,13 @@ int __stdcall ITEMS_ComparePotionTypes(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 
         bPotion1 = 0;
         bPotion2 = 0;
-        for (unsigned int i = 0; i < s_nHealthPotionCodeCount_00744698; ++i)
+        for (unsigned int i = 0; i < gnHealthPotionCodeCount; ++i)
         {
-            if (!bPotion1 && pItemsTxtRecord1->dwCode == s_nHealthPotionCodes_00744684[i])
+            if (!bPotion1 && pItemsTxtRecord1->dwCode == gdwHealthPotionCodes[i])
             {
                 bPotion1 = 1;
             }
-            if (!bPotion2 && pItemsTxtRecord2->dwCode == s_nHealthPotionCodes_00744684[i])
+            if (!bPotion2 && pItemsTxtRecord2->dwCode == gdwHealthPotionCodes[i])
             {
                 bPotion2 = 1;
             }
@@ -1792,13 +1792,13 @@ int __stdcall ITEMS_ComparePotionTypes(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 
         bPotion1 = 0;
         bPotion2 = 0;
-        for (unsigned int i = 0; i < s_nManaPotionCodeCount_00744680; ++i)
+        for (unsigned int i = 0; i < gnManaPotionCodeCount; ++i)
         {
-            if (!bPotion1 && pItemsTxtRecord1->dwCode == s_nManaPotionCodes_0074466C[i])
+            if (!bPotion1 && pItemsTxtRecord1->dwCode == gdwManaPotionCodes[i])
             {
                 bPotion1 = 1;
             }
-            if (!bPotion2 && pItemsTxtRecord2->dwCode == s_nManaPotionCodes_0074466C[i])
+            if (!bPotion2 && pItemsTxtRecord2->dwCode == gdwManaPotionCodes[i])
             {
                 bPotion2 = 1;
             }
@@ -1810,13 +1810,13 @@ int __stdcall ITEMS_ComparePotionTypes(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 
         bPotion1 = 0;
         bPotion2 = 0;
-        for (unsigned int i = 0; i < s_nRejuvPotionCodeCount_00744668; ++i)
+        for (unsigned int i = 0; i < gnRejuvPotionCodeCount; ++i)
         {
-            if (!bPotion1 && pItemsTxtRecord1->dwCode == s_nRejuvPotionCodes_00744660[i])
+            if (!bPotion1 && pItemsTxtRecord1->dwCode == gdwRejuvPotionCodes[i])
             {
                 bPotion1 = 1;
             }
-            if (!bPotion2 && pItemsTxtRecord2->dwCode == s_nRejuvPotionCodes_00744660[i])
+            if (!bPotion2 && pItemsTxtRecord2->dwCode == gdwRejuvPotionCodes[i])
             {
                 bPotion2 = 1;
             }
@@ -2829,8 +2829,8 @@ unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pS
             D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
             if (pItem && pItem->dwUnitType == UNIT_ITEM && (bDontIgnoreInputItem || pItem != pSetItem)
                 && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET
-                && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x144E, gszItemsSourceFile_006E1150)
-                && !ITEMS_CheckItemFlag(pItem, 0x100, 0x144F, gszItemsSourceFile_006E1150))
+                && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x144E, gszItemsSourceFile)
+                && !ITEMS_CheckItemFlag(pItem, 0x100, 0x144F, gszItemsSourceFile))
             {
                 D2SetItemsTxt* pRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (pRecord && pRecord->nSetId == pSetItemsTxtRecord->nSetId)
@@ -5347,7 +5347,8 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         }
         else if (nSetItemMask & (1 << nCounter))
         {
-            nState = gnItemSetStates_006E90B8[nCounter];
+// build: symbol ?gnItemSetStatesBySetIndex@* 0x006E90B8
+            nState = gnItemSetStatesBySetIndex[nCounter];
             nFlag = 0x2040;
         }
         else
@@ -7464,8 +7465,8 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
         int nSetMask = 0;
         for (int i = 0; i < 5; ++i)
         {
-            if (STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStates_006E90B8[i], 0x2040)
-                || STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStates_006E90B8[i], 0x40))
+            if (STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStatesBySetIndex[i], 0x2040)
+                || STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStatesBySetIndex[i], 0x40))
             {
                 if (pBuffer)
                 {
@@ -7503,10 +7504,10 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
         }
         else
         {
-            pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStates_006E90B8[nIndex], 0x2040);
+            pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStatesBySetIndex[nIndex], 0x2040);
             if (!pStatList)
             {
-                pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStates_006E90B8[nIndex], 0x40);
+                pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pItem, gnItemSetStatesBySetIndex[nIndex], 0x40);
             }
         }
 

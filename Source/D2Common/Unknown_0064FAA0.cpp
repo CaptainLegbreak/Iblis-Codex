@@ -36,7 +36,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern const D2CoordStrc gtPathZeroVelocity_006EB7D4; // 0x006EB7D4
+extern const D2CoordStrc gtPathZeroVelocity; // 0x006EB7D4
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064EBA0
@@ -514,7 +514,7 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
 static void PATH_ResetMovement(D2DynamicPathStrc* pPath)
 {
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
-    const D2CoordStrc tZeroVelocity = gtPathZeroVelocity_006EB7D4;
+    const D2CoordStrc tZeroVelocity = gtPathZeroVelocity;
     pPath->dwFlags &= 0xFFFFFFDF;
     pPath->dwPathPoints = 0;
     pPath->dwCurrentPointIdx = 0;

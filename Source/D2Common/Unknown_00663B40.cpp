@@ -9,7 +9,7 @@
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-extern const int gnItemSetStates_006EE424[6];                                                               // 0x006EE424
+extern const int gnItemSetStates[6];                                                               // 0x006EE424
 
 D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFlags, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
@@ -63,7 +63,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
     {
         if (!(i < 6))
             break;
-        nState = gnItemSetStates_006EE424[i];
+        nState = gnItemSetStates[i];
         pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
         if (pStatList)
         {
@@ -92,7 +92,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
         return 0;
     }
 
-    nState = gnItemSetStates_006EE424[nIndex];
+    nState = gnItemSetStates[nIndex];
     int const nItemId = pItem->dwUnitId;
     void* const pPool = pUnit->pMemoryPool;
     pStatList = STATLIST_AllocStatList(pPool, 0, 0, !pItem ? 6 : pItem->dwUnitType, nItemId);

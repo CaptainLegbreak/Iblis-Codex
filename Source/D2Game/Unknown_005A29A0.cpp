@@ -190,7 +190,8 @@ void __fastcall MONSTERUNIQUE_ApplyElementalDamage(D2GameStrc* pGame, D2UnitStrc
         return;
 
     const unsigned int nRand = MONUNIQUE_RollSeed_Inline(&pUnit->pSeed) % 5;
-    sub_005A21D0_ApplyElementalDamageStats(pUnit, gnUniqueElementalStats_006E21B8[nRand][0], gnUniqueElementalStats_006E21B8[nRand][1], gnUniqueElementalStats_006E21B8[nRand][2], pGame);
+// build: symbol ?gnUniqueElementalStats@* 0x006E21B8
+    sub_005A21D0_ApplyElementalDamageStats(pUnit, gnUniqueElementalStats[nRand][0], gnUniqueElementalStats[nRand][1], gnUniqueElementalStats[nRand][2], pGame);
 }
 
 #include "gen/data/Source/D2Game/Unknown_005A29A0.inc"

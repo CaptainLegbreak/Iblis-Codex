@@ -301,7 +301,7 @@ int __fastcall QUESTS_GetGlobalState(D2GameStrc*, int, int); // 0x00544760
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc*, int); // 0x005452C0
 
-extern unsigned int gnAct2Quest6DialogIndex_0073B8A8[]; // 0x0073B8A8
+extern unsigned int gnAct2Quest6DialogIndex[]; // 0x0073B8A8
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
 
@@ -560,8 +560,8 @@ void __fastcall ACT2Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     const unsigned char nState = pQuestData->fState;
     if (nState >= 4 && !bCustom1)
         return;
-    const unsigned int nIndex = gnAct2Quest6DialogIndex_0073B8A8[nState];
-    if (gnAct2Quest6DialogIndex_0073B8A8[nState] == 1 && nNpcId == 177)
+    const unsigned int nIndex = gnAct2Quest6DialogIndex[nState];
+    if (gnAct2Quest6DialogIndex[nState] == 1 && nNpcId == 177)
     {
         if (QUESTS_GetGlobalState(pQuestData->pGame, 12, 13) == 1)
             return;

@@ -27,9 +27,9 @@ struct D2UnkMonCompStrc
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-extern int gnMonStatsMissileOffsets_006EA938[];                                                             // 0x006EA938
-extern const unsigned int* gpSkeletonComponentCodes_007489A8[16];                                           // 0x007489A8
-extern const unsigned int* gpArcherComponentCodes_00748A18[16];                                             // 0x00748A18
+extern int gnMonStatsMissileOffsets[];                                                             // 0x006EA938
+extern const unsigned int* gpSkeletonComponentCodes[16];                                           // 0x007489A8
+extern const unsigned int* gpArcherComponentCodes[16];                                             // 0x00748A18
 
 void __stdcall UNITS_GetFrameMetrics(D2UnitStrc* pUnit, int* pFrame, int* pFrameCount);                    // 0x00621870
 int __stdcall UNITS_GetEventFrameInfo(D2UnitStrc* pUnit, int nFrame);                                       // 0x00621920
@@ -106,7 +106,7 @@ int __stdcall D2Common_11050(D2UnitStrc* pUnit, int a2)
         }
     }
 
-    const int nOffset = gnMonStatsMissileOffsets_006EA938[UNITS_GetAnimModeInline(pUnit)];
+    const int nOffset = gnMonStatsMissileOffsets[UNITS_GetAnimModeInline(pUnit)];
     if (!nOffset)
     {
         return -1;
@@ -146,7 +146,7 @@ unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex,
             {
             case MONSTER_SK_ARCHER1:
             {
-                const unsigned int* pCode = gpArcherComponentCodes_00748A18[nIndex];
+                const unsigned int* pCode = gpArcherComponentCodes[nIndex];
                 if (pCode)
                 {
                     dwCode = pCode[nComponent];
@@ -156,7 +156,7 @@ unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex,
 
             case MONSTER_SKELETON1:
             {
-                const unsigned int* pCode = gpSkeletonComponentCodes_007489A8[nIndex];
+                const unsigned int* pCode = gpSkeletonComponentCodes[nIndex];
                 if (pCode)
                 {
                     dwCode = pCode[nComponent];

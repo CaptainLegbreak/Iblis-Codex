@@ -70,7 +70,7 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
-extern MONUMODFUNC gpfUModCallbacks_0073C0B8[][6]; // 0x0073C0B8
+extern MONUMODFUNC gpfnSrvUModCallbacks[][6]; // 0x0073C0B8
 
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x005A0180
 
@@ -157,9 +157,9 @@ D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 
 
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 
-extern const int gnBugLightningXOffsets_006E21A8[]; // 0x006E21A8
+extern const int gnBugLightningXOffsets[]; // 0x006E21A8
 
-extern const int gnBugLightningYOffsets_006E2198[]; // 0x006E2198
+extern const int gnBugLightningYOffsets[]; // 0x006E2198
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -217,7 +217,7 @@ typedef int(__stdcall* FARPROC)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-extern PartyCommandFunc gpfPartyCommands_6FD28E60[10]; // 0x006E2218
+extern PartyCommandFunc gpfnPartyCommands[10]; // 0x006E2218
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 

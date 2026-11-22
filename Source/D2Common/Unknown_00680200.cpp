@@ -38,8 +38,8 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern const D2DrlgOutDesertInitStrc gaDesertCliffs_006F2390[8][5];                                         // 0x006F2390
-extern const D2DrlgOutDesertInitStrc gaCanyonTombEntries_006F2610[9];                                       // 0x006F2610
+extern const D2DrlgOutDesertInitStrc gaDesertCliffs[8][5];                                         // 0x006F2390
+extern const D2DrlgOutDesertInitStrc gaCanyonTombEntries[9];                                       // 0x006F2610
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
@@ -94,7 +94,7 @@ static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
 
     for (int i = 0; i < 5; ++i)
     {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, gaDesertCliffs_006F2390[nRand][i].nX, gaDesertCliffs_006F2390[nRand][i].nY, gaDesertCliffs_006F2390[nRand][i].nLvlPrestId, gaDesertCliffs_006F2390[nRand][i].nRand, 0);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, gaDesertCliffs[nRand][i].nX, gaDesertCliffs[nRand][i].nY, gaDesertCliffs[nRand][i].nLvlPrestId, gaDesertCliffs[nRand][i].nRand, 0);
     }
 }
 
@@ -160,7 +160,7 @@ static void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel)
 {
     for (int i = 0; i < 9; ++i)
     {
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, gaCanyonTombEntries_006F2610[i].nX, gaCanyonTombEntries_006F2610[i].nY, gaCanyonTombEntries_006F2610[i].nLvlPrestId, gaCanyonTombEntries_006F2610[i].nRand, 0);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, gaCanyonTombEntries[i].nX, gaCanyonTombEntries[i].nY, gaCanyonTombEntries[i].nLvlPrestId, gaCanyonTombEntries[i].nRand, 0);
     }
 
     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 4, 4, 0x18A, -1, 0);

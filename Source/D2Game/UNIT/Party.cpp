@@ -85,7 +85,7 @@ void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc*, D2UnitStrc*, P
 
 extern "C" void _ReadWriteBarrier();
 
-extern "C" const char gszPartySourceFile_006E0B88[]; // 0x006E0B88
+extern "C" const char gszPartySourceFile[]; // 0x006E0B88
 
 static D2PartyStrc* sub_M08_FindPartyById(D2PartyControlStrc* pPartyControl, short nPartyId);
 
@@ -282,7 +282,7 @@ int __fastcall PARTY_AddPlayerToParty(D2GameStrc* pGame, short nPartyId, D2UnitS
         {
             return 1;
         }
-        D2PartyNodeStrc* ptNode = (D2PartyNodeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PartyNodeStrc), gszPartySourceFile_006E0B88, 264, 0);
+        D2PartyNodeStrc* ptNode = (D2PartyNodeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PartyNodeStrc), gszPartySourceFile, 264, 0);
         D2_ASSERT(ptNode, 265);
         const D2PartyNodeStrc tZeroNode = {};
         *ptNode = tZeroNode;

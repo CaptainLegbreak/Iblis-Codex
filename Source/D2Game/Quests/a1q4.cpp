@@ -330,7 +330,7 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 
 static void ACT1Q4_DebugStartedQuest(D2QuestDataStrc* pQuestData);
 
-extern "C" const char szStartedQuest_006E1C7C[];                                                            // 0x006E1C7C
+extern "C" const char gszStartedQuest[];                                                            // 0x006E1C7C
 
 void __stdcall UNITS_GetCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620870
 

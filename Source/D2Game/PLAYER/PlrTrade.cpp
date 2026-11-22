@@ -97,7 +97,7 @@ extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* p
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int gbEnableAllCubeRecipes_0088CAC0; // 0x0088CAC0
+int gbEnableAllCubeRecipes; // 0x0088CAC0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -326,7 +326,7 @@ struct D2PropertyStrc;
 
 typedef int (__fastcall *CubeOutputFunc)(D2GameStrc*,D2UnitStrc*);
 
-extern const CubeOutputFunc gCubeOutputFunctions_006E11C8[]; // 0x006E11C8
+extern const CubeOutputFunc gpfnCubeOutputFunctions[]; // 0x006E11C8
 
 extern const unsigned gdwBitMasks[]; // 0x006CE268
 
@@ -1257,7 +1257,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
   }
   level=CUBE_MIN(CUBE_MAX(level,1),DATATBLS_GetMaxLevel(0));
   if(out->nType && out->nType<4) {
-   CubeOutputFunc f=gCubeOutputFunctions_006E11C8[out->nType];
+   CubeOutputFunc f=gpfnCubeOutputFunctions[out->nType];
    if(f) bSuccess=f(game,player);
   }
   if(out->wItemFlags&1) {
@@ -1432,7 +1432,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
             return;
         }
 
-        if ((pCubeMainTxtRecord->nEnabled || gbEnableAllCubeRecipes_0088CAC0)
+        if ((pCubeMainTxtRecord->nEnabled || gbEnableAllCubeRecipes)
             && (pGame->bExpansion || pCubeMainTxtRecord->wVersion < 100)
             && (pGame->nGameType || pGame->dwGameType || !pCubeMainTxtRecord->nLadder)
             && pCubeMainTxtRecord->nMinDiff <= pGame->nDifficulty

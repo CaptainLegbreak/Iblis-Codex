@@ -143,7 +143,7 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc*, D2TextHeaderStrc*, 
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc*, int); // 0x005452C0
 
-extern const unsigned int gnAct5Q3MessageIndices_00734304[]; // 0x00734304
+extern const unsigned int gnAct5Q3MessageIndices[]; // 0x00734304
 
 static void ACT5Q3_RemoveTownNpcs(D2QuestDataStrc* pQuestData);
 
@@ -1420,7 +1420,7 @@ void __fastcall ACT5Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     }
     if (bRewardGranted != 1 && (pQuestData->fState < 5 || bPrimaryGoalDone) && pQuestData->bNotIntro)
     {
-        const unsigned int nIndex = gnAct5Q3MessageIndices_00734304[pQuestData->fState];
+        const unsigned int nIndex = gnAct5Q3MessageIndices[pQuestData->fState];
         if (nIndex != -1 && nIndex < 10)
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
     }

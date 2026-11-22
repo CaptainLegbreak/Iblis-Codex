@@ -129,7 +129,7 @@ struct D2pSpellTblStrc
     PSPELLFN pfSpellDo;
 };
 
-extern D2pSpellTblStrc gPSpellTable_00741790[]; // 0x00741790
+extern D2pSpellTblStrc gaPSpellTable[]; // 0x00741790
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
@@ -803,9 +803,9 @@ int __fastcall ARENA_GetTemplateType(D2GameStrc* pGame); // 0x0053FEA0
 
 int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLevel); // 0x006657C0
 
-extern D2CriticalSectionStrc gClientListLock_008846A8; // 0x008846A8
+extern D2CriticalSectionStrc gClientListLock; // 0x008846A8
 
-extern D2CriticalSectionStrc gSrvClientListByNameLock_008846C0; // 0x008846C0
+extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 
 struct D2AiParamStrc
 {
@@ -825,9 +825,9 @@ typedef void (__fastcall* MonEventFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-extern EventCallbackFunction scpfnItemEventFunctions_6FD27DDC[15]; // 0x006E117C
+extern EventCallbackFunction gpfnItemEventFunctions[15]; // 0x006E117C
 
-extern EventCallbackFunction gpEventFunctions_6FD28CD8[15]; // 0x006E19B0
+extern EventCallbackFunction gpfnObjectEventFunctions[15]; // 0x006E19B0
 
 extern MonEventFunc gpMonsterEventFunctions[15]; // 0x006E2490
 

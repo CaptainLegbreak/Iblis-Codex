@@ -234,7 +234,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-extern const int dword_6FD307F8[]; // 0x00731AD8
+extern const int gnBaseStatIdsToSend[]; // 0x00731AD8
 
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 
@@ -329,9 +329,9 @@ extern int gbHasHighResolutionClock; // 0x0088C7A0
 
 extern D2LargeIntegerStrc gPerformanceFrequency; // 0x0088C790
 
-extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
+extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 
-extern int gbD2ServerCallbackFunctionsInitialized_6FD45834; // 0x00883D54
+extern int gbD2ServerCallbackFunctionsInitialized; // 0x00883D54
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
@@ -421,13 +421,13 @@ extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 
 extern "C" const char gszFileModeWb_006D69E0[]; // 0x006D69E0
 
-extern "C" const char gszSaveOpenError_006E09C4[]; // 0x006E09C4
+extern "C" const char gszSaveOpenError[]; // 0x006E09C4
 
-extern "C" const char szPlrSaveCppFile_006E09AC[]; // 0x006E09AC
+extern "C" const char gszPlrSaveSourceFile[]; // 0x006E09AC
 
 typedef int (__stdcall* FARPROC)();
 
-extern int gnGlobal_00883D6C; // 0x00883D6C
+extern int gnUnchangedSaveCount; // 0x00883D6C
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
@@ -777,11 +777,11 @@ struct D2DrlgDeleteStrc
 
 typedef void (__fastcall* STATLIST_CallbackFn)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
-extern int gbClientListInitialized_008846D8; // 0x008846D8
+extern int gbClientListInitialized; // 0x008846D8
 
-extern D2CriticalSectionStrc gClientListLock_008846A8; // 0x008846A8
+extern D2CriticalSectionStrc gClientListLock; // 0x008846A8
 
-extern D2ClientStrc* gpClientList_008842A8[256]; // 0x008842A8
+extern D2ClientStrc* gpClientList[256]; // 0x008842A8
 
 int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
 
@@ -933,7 +933,7 @@ struct _iobuf;
 
 #define SYSERROR_UNK_14 14
 
-extern "C" const char gszModeRb_006CDC90[];                                                                 // 0x006CDC90
+extern "C" const char gszFileModeRb[];                                                                 // 0x006CDC90
 
 extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
 
@@ -1602,7 +1602,8 @@ int __fastcall D2GAME_SAVE_CalculateChecksum_6FC8A140(D2SaveHeaderStrc* pSaveHea
 static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, char* szAccountName, int bInteractsWithPlayer, unsigned int nToken, unsigned int dwArg, unsigned int nClientInfo)
 {
     unsigned char pData[0x2000];
-    if (!gnGlobal_007310CC) return 0;
+// build: symbol ?gbWriteSaveFile@* 0x007310CC
+    if (!gbWriteSaveFile) return 0;
     unsigned int nTotalSize;
     {
     unsigned int nSize = 0;
@@ -1611,7 +1612,7 @@ static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc*
     nTotalSize = nSize + 2;
     }
     *(unsigned short*)pData = (unsigned short)nTotalSize;
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, szPlrSaveCppFile_006E09AC, 0xA3B);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlrSaveSourceFile, 0xA3B);
     unsigned int nOldChecksum = D2GAME_GetSaveChecksumFromClient_6FC33940(pClient);
     unsigned int nChecksum = D2GAME_SAVE_CalculateChecksum_6FC8A140((D2SaveHeaderStrc*)(pData + 2), nTotalSize - 2);
     int bMatching = nChecksum == nOldChecksum;
@@ -1683,20 +1684,20 @@ static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc*
     }
     if (bMatching)
     {
-        ++gnGlobal_00883D6C;
-        if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfUpdate)
+        ++gnUnchangedSaveCount;
+        if (gpD2EventCallbackTable && gpD2EventCallbackTable->pfUpdate)
         {
-            gpD2EventCallbackTable_6FD45830->pfUpdate(&nClientInfo, szName, szAccountName);
+            gpD2EventCallbackTable->pfUpdate(&nClientInfo, szName, szAccountName);
         }
         CLIENTS_SetClientInfo(pClient, nClientInfo);
         return 0;
     }
     CLIENTS_SetClientInfo(pClient, nClientInfo);
     D2GAME_SetSaveFileChecksum_6FC33970(pClient, nChecksum);
-    if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfSaveDatabaseCharacter)
+    if (gpD2EventCallbackTable && gpD2EventCallbackTable->pfSaveDatabaseCharacter)
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable_6FD45830->pfSaveDatabaseCharacter), 0xADC);
-        gpD2EventCallbackTable_6FD45830->pfSaveDatabaseCharacter(&nClientInfo, szName, szAccountName, pData, nTotalSize, nToken);
+        D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable->pfSaveDatabaseCharacter), 0xADC);
+        gpD2EventCallbackTable->pfSaveDatabaseCharacter(&nClientInfo, szName, szAccountName, pData, nTotalSize, nToken);
         CLIENTS_CopySaveDataToClient(pClient, pData + 2, nTotalSize - 2);
     }
     return 1;
@@ -1705,7 +1706,7 @@ static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc*
 // 0x00532240
 static void __stdcall PLRSAVE_SaveToLocalFile(int bInteractsWithPlayer, unsigned int dwArg, D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName)
 {
-    if (!gnGlobal_007310CC)
+    if (!gbWriteSaveFile)
     {
         return;
     }
@@ -1732,7 +1733,7 @@ static void __stdcall PLRSAVE_SaveToLocalFile(int bInteractsWithPlayer, unsigned
     }
     else
     {
-        sub_00410610_WriteLogLine(gszSaveOpenError_006E09C4, szFile);
+        sub_00410610_WriteLogLine(gszSaveOpenError, szFile);
     }
 }
 
@@ -1774,7 +1775,7 @@ int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPl
         bInteractsWithPlayer = 1;
     }
 
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, szPlrSaveCppFile_006E09AC, 2919);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlrSaveSourceFile, 2919);
     char szAccountName[50];
     CLIENTS_CopyAccountNameToBuffer(pClient, szAccountName);
     unsigned int nToken;
@@ -1787,7 +1788,7 @@ int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPl
     {
         PLRSAVE_SaveToClient(bInteractsWithPlayer, pGame, pPlayer, pClient);
     }
-    else if (gpD2EventCallbackTable_6FD45830)
+    else if (gpD2EventCallbackTable)
     {
         nResult = D2GAME_SAVE_WriteFileOnRealm(pGame, pPlayer, szName, szAccountName, bInteractsWithPlayer, nToken, dwArg, nClientInfo);
     }
@@ -1877,11 +1878,11 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  D2LegacySaveHeaderStrc header=*pSave;
  sub_00538630(pClient,0);
  if(header.dwMagic!=0xAA55AA55) {
-  if(gpD2EventCallbackTable_6FD45830) { *pNewPlayer=1;return 0; }
+  if(gpD2EventCallbackTable) { *pNewPlayer=1;return 0; }
   return 1;
  }
  if(header.nHeaderSize!=130) {
-  if(gpD2EventCallbackTable_6FD45830) { *pNewPlayer=1;return 0; }
+  if(gpD2EventCallbackTable) { *pNewPlayer=1;return 0; }
   return 14;
  }
  const unsigned int nVersion=header.dwVersion;
@@ -1935,7 +1936,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  *pStats=16;
  *pSkills=sgptDataTables->nSkillsTxtRecordCount;
  if(header.nStats>16 || header.nSkills>sgptDataTables->nSkillsTxtRecordCount) {
-  if(gpD2EventCallbackTable_6FD45830) { *pNewPlayer=1;return 0; }
+  if(gpD2EventCallbackTable) { *pNewPlayer=1;return 0; }
   return 1;
  }
  if(header.nStats!=16) *pStats=header.nStats;
@@ -1949,7 +1950,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  return 0;
  }
 invalidVersion:
- if(gpD2EventCallbackTable_6FD45830) { *pNewPlayer=1;return 9; }
+ if(gpD2EventCallbackTable) { *pNewPlayer=1;return 9; }
  return 1;
 }
 
@@ -2860,7 +2861,7 @@ static int __stdcall D2GAME_SAVE_ReadFile_6FC8C9D0(D2GameStrc* pGame, D2ClientSt
     FOG_GetSavePath(szPath, sizeof(szPath));
     sprintf(szFileName, gszSaveFormat_006D4230, szPath, szName);
 
-    _iobuf* pSaveFile = fopen(szFileName, gszModeRb_006CDC90);
+    _iobuf* pSaveFile = fopen(szFileName, gszFileModeRb);
     if (pSaveFile)
     {
         const unsigned int nFileSize = fread(saveFile, 1, sizeof(saveFile), pSaveFile);
@@ -2889,7 +2890,7 @@ static int __stdcall PLRSAVE_ReadSaveFromDisk(D2GameStrc* pGame, D2ClientStrc* p
 {
     int nErrorCode = SYSERROR_UNK_14;
     D2UnitStrc* pPlayer = 0;
-    if (!gpD2EventCallbackTable_6FD45830)
+    if (!gpD2EventCallbackTable)
     {
         nErrorCode = D2GAME_SAVE_ReadFile_6FC8C9D0(pGame, pClient, szName, &pPlayer, pRoomArg, nXArg, nYArg);
         if (pPlayer)
@@ -2937,7 +2938,7 @@ static int __stdcall PLRSAVE_ReadSaveFromClient(D2GameStrc* pGame, D2ClientStrc*
 int __fastcall D2GAME_SAVE_GetUnitDataFromFile_6FC8CB40(D2GameStrc* pGame, D2ClientStrc* pClient, const char* szName, int bLoadSave, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoomArg, int nXArg, int nYArg)
 {
     int nErrorCode;
-    if (pGame->nGameType != GAMETYPE_1 && pGame->nGameType != GAMETYPE_2 && !gpD2EventCallbackTable_6FD45830)
+    if (pGame->nGameType != GAMETYPE_1 && pGame->nGameType != GAMETYPE_2 && !gpD2EventCallbackTable)
     {
         if (bLoadSave)
         {
@@ -3890,9 +3891,9 @@ void __fastcall PLRMSG_SendUnitBaseStats(D2UnitStrc* pUnit, D2ClientStrc* pClien
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     if (pPlayer != pUnit)
     {
-        for (int i = 0; dword_6FD307F8[i] != -1; ++i)
+        for (int i = 0; gnBaseStatIdsToSend[i] != -1; ++i)
         {
-            const int nStatId = dword_6FD307F8[i];
+            const int nStatId = gnBaseStatIdsToSend[i];
             const int nValue = STATLIST_GetUnitBaseStat(pUnit, nStatId, 0);
             D2GAME_UpdateAttribute_6FC822D0(pUnit, nStatId, nValue, pPlayer);
         }
@@ -4008,10 +4009,10 @@ int __fastcall PLRSAVE2_CheckPlayerFlags(D2GameStrc* pGame, unsigned short nFlag
         }
     }
 
-    if (gbD2ServerCallbackFunctionsInitialized_6FD45834)
+    if (gbD2ServerCallbackFunctionsInitialized)
     {
         D2FileTimeStrc tNow;
-        gpD2EventCallbackTable_6FD45830->pfGetTime(&tNow);
+        gpD2EventCallbackTable->pfGetTime(&tNow);
         if ((nFlags & CLIENTSAVEFLAG_LADDER) && CompareFileTime(&pClient->nSaveCreationTimestamp, &tNow) > 0)
         {
             if (!pGame->dwGameType)

@@ -46,8 +46,8 @@ struct D2MissileCalcStrc
     int nMissileLevel;
 };
 
-extern void* gpMissileCalcFunctions_00745828[]; // 0x00745828
-extern int gnMissileCalcFunctions_00745848; // 0x00745848
+extern void* gpfnMissileCalcFunctions[]; // 0x00745828
+extern int gnMissileCalcFunctionCount; // 0x00745848
 int __fastcall MISSILE_GetCalcParamValue(int nParamId, void* pUserData); // 0x0064B6E0
 
 __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
@@ -302,7 +302,7 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
     pMissileCalc.nMissileId = nMissileId;
     pMissileCalc.nMissileLevel = nLevel;
 
-    return DATATBLS_CalcEvaluateExpression((char*)sgptDataTables->pMissCode + nCalc, sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpMissileCalcFunctions_00745828, gnMissileCalcFunctions_00745848, &pMissileCalc);
+    return DATATBLS_CalcEvaluateExpression((char*)sgptDataTables->pMissCode + nCalc, sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpfnMissileCalcFunctions, gnMissileCalcFunctionCount, &pMissileCalc);
 }
 
 #include "gen/data/Source/D2Common/Unknown_0064A2B0.inc"

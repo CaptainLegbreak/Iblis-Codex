@@ -96,9 +96,9 @@ int gnMonumodTxtRecordCount; // 0x0096C884
 
 D2MonStatsTxt* gpMonstatsTxt; // 0x0096C6A8
 
-D2TxtLinkStrc* gTxtLink_0096C6AC; // 0x0096C6AC
+D2TxtLinkStrc* gpMonStatsLinker; // 0x0096C6AC
 
-D2TxtLinkStrc* gTxtLink_0096C85C; // 0x0096C85C
+D2TxtLinkStrc* gpMonPropLinker; // 0x0096C85C
 
 D2MonSoundsTxt* gpMonsoundsTxt; // 0x0096C6B4
 
@@ -108,11 +108,11 @@ int gnMonsoundsTxtRecordCount; // 0x0096C6BC
 
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 
-D2TxtLinkStrc* gTxtLink_0096C6C4; // 0x0096C6C4
+D2TxtLinkStrc* gpMonStats2Linker; // 0x0096C6C4
 
-D2TxtLinkStrc* gTxtLink_0096C868;                                                                           // 0x0096C868
+D2TxtLinkStrc* gpMonTypeLinker;                                                                           // 0x0096C868
 
-extern D2TxtLinkStrc* gTxtLink_0096BCBC; // 0x0096BCBC
+extern D2TxtLinkStrc* gpMonAiLinker; // 0x0096BCBC
 
 extern D2TxtLinkStrc* gTxtLink_0096C798; // 0x0096C798
 
@@ -176,9 +176,9 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-extern D2UniqueNameTxt* gpUniqueNameTxtTables_0096D488[4]; // 0x0096D488
+extern D2UniqueNameTxt* gpUniqueNameTxtTables[4]; // 0x0096D488
 
-extern int gnUniqueNameTxtRecordCounts_0096D498[4]; // 0x0096D498
+extern int gnUniqueNameTxtRecordCounts[4]; // 0x0096D498
 
 extern Unicode gwszDataTablesDefault; // 0x0096D4B4
 
@@ -273,7 +273,7 @@ extern "C" unsigned int __cdecl strlen(const char* sz);
 
 D2TCExShortStrc* gpTreasureClassEx; // 0x0096C5EC
 
-extern "C" const char gszTxtField_magic_006DCFBC[]; // 0x006DCFBC
+extern "C" const char gszTxtField_magic[]; // 0x006DCFBC
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
@@ -285,7 +285,7 @@ extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
 D2HirelingTxt* gpHirelingTxt; // 0x0096BDD0
 
-D2TxtLinkStrc* gTxtLink_0096BC5C; // 0x0096BC5C
+D2TxtLinkStrc* gpMonModeLinker; // 0x0096BC5C
 
 enum
 {
@@ -555,7 +555,7 @@ extern "C" const char gszMonStats2TxtName[]; // 0x006ECE74
 
 void __fastcall DATATBLS_MonStats2CompositLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00657010
 
-extern D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
+extern D2TxtLinkStrc* gpPropertiesLinker; // 0x0096BCD8
 
 void* gpMonpropTxt; // 0x0096C860
 
@@ -598,7 +598,7 @@ struct D2AnimSeqRecordStrc
     int nFramesCount;
 };
 
-D2TxtLinkStrc* gTxtLink_0096C7AC; // 0x0096C7AC
+D2TxtLinkStrc* gpMonSeqLinker; // 0x0096C7AC
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -725,9 +725,9 @@ extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC;                                  
 
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 
-extern "C" const char gszField_006DCCF0[]; // 0x006DCCF0
+extern "C" const char gszTxtField_version[]; // 0x006DCCF0
 
-extern "C" const char gszField_006DCD90[]; // 0x006DCD90
+extern "C" const char gszTxtField_gold[]; // 0x006DCD90
 
 extern "C" const char gszField_006D9060[]; // 0x006D9060
 
@@ -748,7 +748,7 @@ extern D2HirelingTableGlobals gHirelingTables;  // 0x0096BDD0
 
 #define gaHirelingIds (gHirelingTables.indices)
 
-D2TxtLinkStrc* gTxtLink_0096C5E8; // 0x0096C5E8
+D2TxtLinkStrc* gpTreasureClassExLinker; // 0x0096C5E8
 
 int gnMonstatsTxtRecordCount; // 0x0096C6B0
 
@@ -813,7 +813,7 @@ struct D2MonEquipTxt
     char unk1A[2];
 };
 
-extern void* gpItemsLinker_0096BCC4; // 0x0096BCC4
+extern void* gpItemsLinker; // 0x0096BCC4
 
 extern void* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
 
@@ -925,25 +925,25 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "Id", 17, 0, 0, &gTxtLink_0096C6AC },
-        { "BaseId", 20, 0, 2, &gTxtLink_0096C6AC },
-        { "NextInClass", 20, 0, 4, &gTxtLink_0096C6AC },
+        { "Id", 17, 0, 0, &gpMonStatsLinker },
+        { "BaseId", 20, 0, 2, &gpMonStatsLinker },
+        { "NextInClass", 20, 0, 4, &gpMonStatsLinker },
         { "NameStr", 22, 0, 6, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "DescStr", 22, 0, 8, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "Code", 9, 0, 16, 0 },
         { "TransLvl", 4, 0, 77, 0 },
         { "MonSound", 20, 0, 20, &gpMonSoundsLinker },
         { "UMonSound", 20, 0, 22, &gpMonSoundsLinker },
-        { "MonStatsEx", 20, 0, 24, &gTxtLink_0096C6C4 },
-        { "MonType", 20, 0, 28, &gTxtLink_0096C868 },
-        { "MonProp", 20, 0, 26, &gTxtLink_0096C85C },
-        { "AI", 20, 0, 30, &gTxtLink_0096BCBC },
-        { "spawn", 20, 0, 32, &gTxtLink_0096C6AC },
+        { "MonStatsEx", 20, 0, 24, &gpMonStats2Linker },
+        { "MonType", 20, 0, 28, &gpMonTypeLinker },
+        { "MonProp", 20, 0, 26, &gpMonPropLinker },
+        { "AI", 20, 0, 30, &gpMonAiLinker },
+        { "spawn", 20, 0, 32, &gpMonStatsLinker },
         { "spawnx", 4, 0, 34, 0 },
         { "spawny", 4, 0, 35, 0 },
-        { "spawnmode", 13, 0, 36, &gTxtLink_0096BC5C },
-        { "minion1", 20, 0, 38, &gTxtLink_0096C6AC },
-        { "minion2", 20, 0, 40, &gTxtLink_0096C6AC },
+        { "spawnmode", 13, 0, 36, &gpMonModeLinker },
+        { "minion1", 20, 0, 38, &gpMonStatsLinker },
+        { "minion2", 20, 0, 40, &gpMonStatsLinker },
         { "PartyMin", 4, 0, 44, 0 },
         { "PartyMax", 4, 0, 45, 0 },
         { "Rarity", 4, 0, 46, 0 },
@@ -989,18 +989,18 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { "MissS4", 20, 0, 68, &gTxtLink_0096C798 },
         { "MissC", 20, 0, 70, &gTxtLink_0096C798 },
         { "MissSQ", 20, 0, 72, &gTxtLink_0096C798 },
-        { "TreasureClass1", 20, 0, 134, &gTxtLink_0096C5E8 },
-        { "TreasureClass2", 20, 0, 136, &gTxtLink_0096C5E8 },
-        { "TreasureClass3", 20, 0, 138, &gTxtLink_0096C5E8 },
-        { "TreasureClass4", 20, 0, 140, &gTxtLink_0096C5E8 },
-        { "TreasureClass1(N)", 20, 0, 142, &gTxtLink_0096C5E8 },
-        { "TreasureClass2(N)", 20, 0, 144, &gTxtLink_0096C5E8 },
-        { "TreasureClass3(N)", 20, 0, 146, &gTxtLink_0096C5E8 },
-        { "TreasureClass4(N)", 20, 0, 148, &gTxtLink_0096C5E8 },
-        { "TreasureClass1(H)", 20, 0, 150, &gTxtLink_0096C5E8 },
-        { "TreasureClass2(H)", 20, 0, 152, &gTxtLink_0096C5E8 },
-        { "TreasureClass3(H)", 20, 0, 154, &gTxtLink_0096C5E8 },
-        { "TreasureClass4(H)", 20, 0, 156, &gTxtLink_0096C5E8 },
+        { "TreasureClass1", 20, 0, 134, &gpTreasureClassExLinker },
+        { "TreasureClass2", 20, 0, 136, &gpTreasureClassExLinker },
+        { "TreasureClass3", 20, 0, 138, &gpTreasureClassExLinker },
+        { "TreasureClass4", 20, 0, 140, &gpTreasureClassExLinker },
+        { "TreasureClass1(N)", 20, 0, 142, &gpTreasureClassExLinker },
+        { "TreasureClass2(N)", 20, 0, 144, &gpTreasureClassExLinker },
+        { "TreasureClass3(N)", 20, 0, 146, &gpTreasureClassExLinker },
+        { "TreasureClass4(N)", 20, 0, 148, &gpTreasureClassExLinker },
+        { "TreasureClass1(H)", 20, 0, 150, &gpTreasureClassExLinker },
+        { "TreasureClass2(H)", 20, 0, 152, &gpTreasureClassExLinker },
+        { "TreasureClass3(H)", 20, 0, 154, &gpTreasureClassExLinker },
+        { "TreasureClass4(H)", 20, 0, 156, &gpTreasureClassExLinker },
         { "TCQuestId", 4, 0, 158, 0 },
         { "TCQuestCP", 4, 0, 159, 0 },
         { "threat", 4, 0, 78, 0 },
@@ -1085,7 +1085,7 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { "S1MaxD", 3, 0, 248, 0 },
         { "S1MaxD(N)", 3, 0, 250, 0 },
         { "S1MaxD(H)", 3, 0, 252, 0 },
-        { "El1Mode", 13, 0, 254, &gTxtLink_0096BC5C },
+        { "El1Mode", 13, 0, 254, &gpMonModeLinker },
         { "El1Type", 13, 0, 257, &gTxtLink_0096BC4C },
         { "El1Pct", 4, 0, 260, 0 },
         { "El1Pct(N)", 4, 0, 261, 0 },
@@ -1099,7 +1099,7 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { "El1Dur", 3, 0, 306, 0 },
         { "El1Dur(N)", 3, 0, 308, 0 },
         { "El1Dur(H)", 3, 0, 310, 0 },
-        { "El2Mode", 13, 0, 255, &gTxtLink_0096BC5C },
+        { "El2Mode", 13, 0, 255, &gpMonModeLinker },
         { "El2Type", 13, 0, 258, &gTxtLink_0096BC4C },
         { "El2Pct", 4, 0, 263, 0 },
         { "El2Pct(N)", 4, 0, 264, 0 },
@@ -1113,7 +1113,7 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { "El2Dur", 3, 0, 312, 0 },
         { "El2Dur(N)", 3, 0, 314, 0 },
         { "El2Dur(H)", 3, 0, 316, 0 },
-        { "El3Mode", 13, 0, 256, &gTxtLink_0096BC5C },
+        { "El3Mode", 13, 0, 256, &gpMonModeLinker },
         { "El3Type", 13, 0, 259, &gTxtLink_0096BC4C },
         { "El3Pct", 4, 0, 266, 0 },
         { "El3Pct(N)", 4, 0, 267, 0 },
@@ -1181,7 +1181,7 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gTxtLink_0096C6AC = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 521);
+    gpMonStatsLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 521);
     gpMonstatsTxt = (D2MonStatsTxt*)DATATBLS_CompileTxt(hArchive, "monstats", pTbl, &gnMonstatsTxtRecordCount, 424);
     TBL_ASSERT(gnMonstatsTxtRecordCount < 32767, 540);
     sub_00651040_ComputeDepths();
@@ -1422,12 +1422,12 @@ void __cdecl DATATBLS_UnloadUniqueNameTxts()
 // 0x00653E50
 const Unicode* __fastcall DATATBLS_RollRandomUniqueNameString(D2UnitStrc* pUnit, int nTable)
 {
-    if (pUnit && gnUniqueNameTxtRecordCounts_0096D498[nTable] > 0)
+    if (pUnit && gnUniqueNameTxtRecordCounts[nTable] > 0)
     {
-        const int nRand = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, gnUniqueNameTxtRecordCounts_0096D498[nTable]);
-        if (gpUniqueNameTxtTables_0096D488[nTable][nRand].wStringId)
+        const int nRand = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, gnUniqueNameTxtRecordCounts[nTable]);
+        if (gpUniqueNameTxtTables[nTable][nRand].wStringId)
         {
-            const Unicode* pString = D2LANG_GetStringFromTblIndex(gpUniqueNameTxtTables_0096D488[nTable][nRand].wStringId);
+            const Unicode* pString = D2LANG_GetStringFromTblIndex(gpUniqueNameTxtTables[nTable][nRand].wStringId);
             if (pString)
             {
                 return pString;
@@ -1440,12 +1440,12 @@ const Unicode* __fastcall DATATBLS_RollRandomUniqueNameString(D2UnitStrc* pUnit,
 // 0x00653E90
 const Unicode* __fastcall DATATBLS_RollRandomUniqueTitleString(D2UnitStrc* pUnit)
 {
-    if (pUnit && gnUniqueNameTxtRecordCounts_0096D498[0] > 0)
+    if (pUnit && gnUniqueNameTxtRecordCounts[0] > 0)
     {
-        const int nRand = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, gnUniqueNameTxtRecordCounts_0096D498[0]);
-        if (gpUniqueNameTxtTables_0096D488[0][nRand].wStringId)
+        const int nRand = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, gnUniqueNameTxtRecordCounts[0]);
+        if (gpUniqueNameTxtTables[0][nRand].wStringId)
         {
-            const Unicode* pString = D2LANG_GetStringFromTblIndex(gpUniqueNameTxtTables_0096D488[0][nRand].wStringId);
+            const Unicode* pString = D2LANG_GetStringFromTblIndex(gpUniqueNameTxtTables[0][nRand].wStringId);
             if (pString)
             {
                 return pString;
@@ -1851,7 +1851,7 @@ void __stdcall DATATBLS_CompileTreasureClassExTxt(void* hArchive)
         { "unique", 3, 0, 46, 0 },
         { "set", 3, 0, 44, 0 },
         { "rare", 3, 0, 42, 0 },
-        { gszTxtField_magic_006DCFBC, 3, 0, 40, 0 },
+        { gszTxtField_magic, 3, 0, 40, 0 },
         { "nodrop", 2, 0, 52, 0 },
         { "item1", 1, 64, 56, 0 },
         { "prob1", 2, 0, 696, 0 },
@@ -2059,8 +2059,8 @@ void __fastcall DATATBLS_LoadMonUModTxt(void* hArchive)
         { "xfer", 4, 0, 7, 0 },
         { "champion", 4, 0, 8, 0 },
         { "fpick", 4, 0, 9, 0 },
-        { "exclude1", 20, 0, 10, &gTxtLink_0096C868 },
-        { "exclude2", 20, 0, 12, &gTxtLink_0096C868 },
+        { "exclude1", 20, 0, 10, &gpMonTypeLinker },
+        { "exclude2", 20, 0, 12, &gpMonTypeLinker },
         { "cpick", 3, 0, 14, 0 },
         { "cpick (N)", 3, 0, 16, 0 },
         { "cpick (H)", 3, 0, 18, 0 },
@@ -2191,13 +2191,13 @@ void __fastcall DATATBLS_LoadHirelingTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { FIELD_TEXT(gszField_006DCCF0), 3, 0, 0x0, 0 },
+        { FIELD_TEXT(gszTxtField_version), 3, 0, 0x0, 0 },
         { FIELD_TEXT("id"), 2, 0, 0x4, 0 },
         { FIELD_TEXT("class"), 2, 0, 0x8, 0 },
         { FIELD_TEXT("act"), 2, 0, 0xC, 0 },
         { FIELD_TEXT("difficulty"), 2, 0, 0x10, 0 },
         { FIELD_TEXT("seller"), 2, 0, 0x14, 0 },
-        { FIELD_TEXT(gszField_006DCD90), 2, 0, 0x18, 0 },
+        { FIELD_TEXT(gszTxtField_gold), 2, 0, 0x18, 0 },
         { FIELD_TEXT("level"), 2, 0, 0x1C, 0 },
         { FIELD_TEXT("namefirst"), 1, 32, 0xD3, 0 },
         { FIELD_TEXT("namelast"), 1, 32, 0xF3, 0 },
@@ -2452,7 +2452,7 @@ void __fastcall DATATBLS_LoadNpcTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "npc", 19, 0, 0, &gTxtLink_0096C6AC },
+        { "npc", 19, 0, 0, &gpMonStatsLinker },
         { "sell mult", 2, 0, 4, 0 },
         { "buy mult", 2, 0, 8, 0 },
         { "rep mult", 2, 0, 12, 0 },
@@ -2504,45 +2504,45 @@ void __fastcall DATATBLS_LoadMonSoundsTxt(void* hArchive)
     D2BinFieldStrc pTbl[] =
     {
         { "Id", 17, 0, 0, &gpMonSoundsLinker },
-        { "Attack1", 19, 0, 4, &gTxtLink_0096BDC8 },
+        { "Attack1", 19, 0, 4, &gpSoundsLinker },
         { "Att1Del", 2, 0, 8, 0 },
         { "Att1Prb", 2, 0, 12, 0 },
-        { "Attack2", 19, 0, 28, &gTxtLink_0096BDC8 },
+        { "Attack2", 19, 0, 28, &gpSoundsLinker },
         { "Att2Del", 2, 0, 32, 0 },
         { "Att2Prb", 2, 0, 36, 0 },
-        { "Weapon1", 19, 0, 16, &gTxtLink_0096BDC8 },
+        { "Weapon1", 19, 0, 16, &gpSoundsLinker },
         { "Wea1Del", 2, 0, 20, 0 },
         { "Wea1Vol", 2, 0, 24, 0 },
-        { "Weapon2", 19, 0, 40, &gTxtLink_0096BDC8 },
+        { "Weapon2", 19, 0, 40, &gpSoundsLinker },
         { "Wea2Del", 2, 0, 44, 0 },
         { "Wea2Vol", 2, 0, 48, 0 },
-        { "HitSound", 19, 0, 52, &gTxtLink_0096BDC8 },
+        { "HitSound", 19, 0, 52, &gpSoundsLinker },
         { "HitDelay", 2, 0, 56, 0 },
-        { "DeathSound", 19, 0, 60, &gTxtLink_0096BDC8 },
+        { "DeathSound", 19, 0, 60, &gpSoundsLinker },
         { "DeaDelay", 2, 0, 64, 0 },
-        { "Skill1", 19, 0, 68, &gTxtLink_0096BDC8 },
-        { "Skill2", 19, 0, 72, &gTxtLink_0096BDC8 },
-        { "Skill3", 19, 0, 76, &gTxtLink_0096BDC8 },
-        { "Skill4", 19, 0, 80, &gTxtLink_0096BDC8 },
-        { "Footstep", 19, 0, 84, &gTxtLink_0096BDC8 },
-        { "FootstepLayer", 19, 0, 88, &gTxtLink_0096BDC8 },
+        { "Skill1", 19, 0, 68, &gpSoundsLinker },
+        { "Skill2", 19, 0, 72, &gpSoundsLinker },
+        { "Skill3", 19, 0, 76, &gpSoundsLinker },
+        { "Skill4", 19, 0, 80, &gpSoundsLinker },
+        { "Footstep", 19, 0, 84, &gpSoundsLinker },
+        { "FootstepLayer", 19, 0, 88, &gpSoundsLinker },
         { "FsCnt", 2, 0, 92, 0 },
         { "FsOff", 2, 0, 96, 0 },
         { "FsPrb", 2, 0, 100, 0 },
-        { "Neutral", 19, 0, 104, &gTxtLink_0096BDC8 },
+        { "Neutral", 19, 0, 104, &gpSoundsLinker },
         { "NeuTime", 2, 0, 108, 0 },
-        { "Init", 19, 0, 112, &gTxtLink_0096BDC8 },
-        { "Taunt", 19, 0, 116, &gTxtLink_0096BDC8 },
-        { "Flee", 19, 0, 120, &gTxtLink_0096BDC8 },
-        { "CvtMo1", 13, 0, 124, &gTxtLink_0096BC5C },
-        { "CvtMo2", 13, 0, 132, &gTxtLink_0096BC5C },
-        { "CvtMo3", 13, 0, 140, &gTxtLink_0096BC5C },
+        { "Init", 19, 0, 112, &gpSoundsLinker },
+        { "Taunt", 19, 0, 116, &gpSoundsLinker },
+        { "Flee", 19, 0, 120, &gpSoundsLinker },
+        { "CvtMo1", 13, 0, 124, &gpMonModeLinker },
+        { "CvtMo2", 13, 0, 132, &gpMonModeLinker },
+        { "CvtMo3", 13, 0, 140, &gpMonModeLinker },
         { "CvtSk1", 19, 0, 128, &gTxtLink_0096C7CC },
         { "CvtSk2", 19, 0, 136, &gTxtLink_0096C7CC },
         { "CvtSk3", 19, 0, 144, &gTxtLink_0096C7CC },
-        { "CvtTgt1", 13, 0, 125, &gTxtLink_0096BC5C },
-        { "CvtTgt2", 13, 0, 133, &gTxtLink_0096BC5C },
-        { "CvtTgt3", 13, 0, 141, &gTxtLink_0096BC5C },
+        { "CvtTgt1", 13, 0, 125, &gpMonModeLinker },
+        { "CvtTgt2", 13, 0, 133, &gpMonModeLinker },
+        { "CvtTgt3", 13, 0, 141, &gpMonModeLinker },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
@@ -2843,7 +2843,7 @@ void __fastcall DATATBLS_UnloadMonTypeTxt()
     if (gpMonTable_96C6C0)
     {
         DATATBLS_UnloadBin(gpMonTable_96C6C0);
-        FOG_FreeLinker(gTxtLink_0096C6C4);
+        FOG_FreeLinker(gpMonStats2Linker);
     }
 }
 
@@ -2937,16 +2937,16 @@ void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "type", 17, 0, 0, &gTxtLink_0096C868 },
-        { gszTxtField_equiv1, 20, 0, 2, &gTxtLink_0096C868 },
-        { gszTxtField_equiv2, 20, 0, 4, &gTxtLink_0096C868 },
-        { "equiv3", 20, 0, 6, &gTxtLink_0096C868 },
+        { "type", 17, 0, 0, &gpMonTypeLinker },
+        { gszTxtField_equiv1, 20, 0, 2, &gpMonTypeLinker },
+        { gszTxtField_equiv2, 20, 0, 4, &gpMonTypeLinker },
+        { "equiv3", 20, 0, 6, &gpMonTypeLinker },
         { "strsing", 22, 0, 8, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "strplur", 22, 0, 10, (void*)DATATBLS_GetStringIdFromReferenceString },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gTxtLink_0096C868 = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2806);
+    gpMonTypeLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2806);
     gpMonTypeTxt = (D2MonTypeTxt*)DATATBLS_CompileTxt(hArchive, "montype", pTbl, &gnMonTypeTxtRecordCount, 12);
 
     gnMonTypeIndex = (gnMonTypeTxtRecordCount + 31) / 32;
@@ -2973,10 +2973,10 @@ void __fastcall DATATBLS_FreeMonTypeTxt()
     if (gpMonTypeTxt)
     {
         DATATBLS_UnloadBin(gpMonTypeTxt);
-        FOG_FreeLinker(gTxtLink_0096C868);
+        FOG_FreeLinker(gpMonTypeLinker);
         sub_0040B480(0, gpMonTypeNest, ".\\DATATBLS\\MonsterTbls.cpp", 2838, 0);
         gpMonTypeTxt = 0;
-        gTxtLink_0096C868 = 0;
+        gpMonTypeLinker = 0;
     }
 }
 
@@ -2985,93 +2985,93 @@ void __fastcall DATATBLS_LoadMonPropTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "Id", 18, 0, 0, &gTxtLink_0096C85C },
-        { "prop1", 19, 0, 4, &gTxtLink_0096BCD8 },
+        { "Id", 18, 0, 0, &gpMonPropLinker },
+        { "prop1", 19, 0, 4, &gpPropertiesLinker },
         { "par1", 2, 0, 8, 0 },
         { "chance1", 4, 0, 292, 0 },
         { "min1", 2, 0, 12, 0 },
         { "max1", 2, 0, 16, 0 },
-        { "prop2", 19, 0, 20, &gTxtLink_0096BCD8 },
+        { "prop2", 19, 0, 20, &gpPropertiesLinker },
         { "chance2", 4, 0, 293, 0 },
         { "par2", 2, 0, 24, 0 },
         { "min2", 2, 0, 28, 0 },
         { "max2", 2, 0, 32, 0 },
-        { "prop3", 19, 0, 36, &gTxtLink_0096BCD8 },
+        { "prop3", 19, 0, 36, &gpPropertiesLinker },
         { "chance3", 4, 0, 294, 0 },
         { "par3", 2, 0, 40, 0 },
         { "min3", 2, 0, 44, 0 },
         { "max3", 2, 0, 48, 0 },
-        { "prop4", 19, 0, 52, &gTxtLink_0096BCD8 },
+        { "prop4", 19, 0, 52, &gpPropertiesLinker },
         { "chance4", 4, 0, 295, 0 },
         { "par4", 2, 0, 56, 0 },
         { "min4", 2, 0, 60, 0 },
         { "max4", 2, 0, 64, 0 },
-        { "prop5", 19, 0, 68, &gTxtLink_0096BCD8 },
+        { "prop5", 19, 0, 68, &gpPropertiesLinker },
         { "chance5", 4, 0, 296, 0 },
         { "par5", 2, 0, 72, 0 },
         { "min5", 2, 0, 76, 0 },
         { "max5", 2, 0, 80, 0 },
-        { "prop6", 19, 0, 84, &gTxtLink_0096BCD8 },
+        { "prop6", 19, 0, 84, &gpPropertiesLinker },
         { "chance6", 4, 0, 297, 0 },
         { "par6", 2, 0, 88, 0 },
         { "min6", 2, 0, 92, 0 },
         { "max6", 2, 0, 96, 0 },
-        { "prop1 (N)", 19, 0, 100, &gTxtLink_0096BCD8 },
+        { "prop1 (N)", 19, 0, 100, &gpPropertiesLinker },
         { "chance1 (N)", 4, 0, 298, 0 },
         { "par1 (N)", 2, 0, 104, 0 },
         { "min1 (N)", 2, 0, 108, 0 },
         { "max1 (N)", 2, 0, 112, 0 },
-        { "prop2 (N)", 19, 0, 116, &gTxtLink_0096BCD8 },
+        { "prop2 (N)", 19, 0, 116, &gpPropertiesLinker },
         { "chance2 (N)", 4, 0, 299, 0 },
         { "par2 (N)", 2, 0, 120, 0 },
         { "min2 (N)", 2, 0, 124, 0 },
         { "max2 (N)", 2, 0, 128, 0 },
-        { "prop3 (N)", 19, 0, 132, &gTxtLink_0096BCD8 },
+        { "prop3 (N)", 19, 0, 132, &gpPropertiesLinker },
         { "chance3 (N)", 4, 0, 300, 0 },
         { "par3 (N)", 2, 0, 136, 0 },
         { "min3 (N)", 2, 0, 140, 0 },
         { "max3 (N)", 2, 0, 144, 0 },
-        { "prop4 (N)", 19, 0, 148, &gTxtLink_0096BCD8 },
+        { "prop4 (N)", 19, 0, 148, &gpPropertiesLinker },
         { "chance4 (N)", 4, 0, 301, 0 },
         { "par4 (N)", 2, 0, 152, 0 },
         { "min4 (N)", 2, 0, 156, 0 },
         { "max4 (N)", 2, 0, 160, 0 },
-        { "prop5 (N)", 19, 0, 164, &gTxtLink_0096BCD8 },
+        { "prop5 (N)", 19, 0, 164, &gpPropertiesLinker },
         { "chance5 (N)", 4, 0, 302, 0 },
         { "par5 (N)", 2, 0, 168, 0 },
         { "min5 (N)", 2, 0, 172, 0 },
         { "max5 (N)", 2, 0, 176, 0 },
-        { "prop6 (N)", 19, 0, 180, &gTxtLink_0096BCD8 },
+        { "prop6 (N)", 19, 0, 180, &gpPropertiesLinker },
         { "chance6 (N)", 4, 0, 303, 0 },
         { "par6 (N)", 2, 0, 184, 0 },
         { "min6 (N)", 2, 0, 188, 0 },
         { "max6 (N)", 2, 0, 192, 0 },
-        { "prop1 (H)", 19, 0, 196, &gTxtLink_0096BCD8 },
+        { "prop1 (H)", 19, 0, 196, &gpPropertiesLinker },
         { "chance1 (H)", 4, 0, 304, 0 },
         { "par1 (H)", 2, 0, 200, 0 },
         { "min1 (H)", 2, 0, 204, 0 },
         { "max1 (H)", 2, 0, 208, 0 },
-        { "prop2 (H)", 19, 0, 212, &gTxtLink_0096BCD8 },
+        { "prop2 (H)", 19, 0, 212, &gpPropertiesLinker },
         { "chance2 (H)", 4, 0, 305, 0 },
         { "par2 (H)", 2, 0, 216, 0 },
         { "min2 (H)", 2, 0, 220, 0 },
         { "max2 (H)", 2, 0, 224, 0 },
-        { "prop3 (H)", 19, 0, 228, &gTxtLink_0096BCD8 },
+        { "prop3 (H)", 19, 0, 228, &gpPropertiesLinker },
         { "chance3 (H)", 4, 0, 306, 0 },
         { "par3 (H)", 2, 0, 232, 0 },
         { "min3 (H)", 2, 0, 236, 0 },
         { "max3 (H)", 2, 0, 240, 0 },
-        { "prop4 (H)", 19, 0, 244, &gTxtLink_0096BCD8 },
+        { "prop4 (H)", 19, 0, 244, &gpPropertiesLinker },
         { "chance4 (H)", 4, 0, 307, 0 },
         { "par4 (H)", 2, 0, 248, 0 },
         { "min4 (H)", 2, 0, 252, 0 },
         { "max4 (H)", 2, 0, 256, 0 },
-        { "prop5 (H)", 19, 0, 260, &gTxtLink_0096BCD8 },
+        { "prop5 (H)", 19, 0, 260, &gpPropertiesLinker },
         { "chance5 (H)", 4, 0, 308, 0 },
         { "par5 (H)", 2, 0, 264, 0 },
         { "min5 (H)", 2, 0, 268, 0 },
         { "max5 (H)", 2, 0, 272, 0 },
-        { "prop6 (H)", 19, 0, 276, &gTxtLink_0096BCD8 },
+        { "prop6 (H)", 19, 0, 276, &gpPropertiesLinker },
         { "chance6 (H)", 4, 0, 309, 0 },
         { "par6 (H)", 2, 0, 280, 0 },
         { "min6 (H)", 2, 0, 284, 0 },
@@ -3079,7 +3079,7 @@ void __fastcall DATATBLS_LoadMonPropTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gTxtLink_0096C85C = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2953);
+    gpMonPropLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2953);
     gpMonpropTxt = DATATBLS_CompileTxt(hArchive, "monprop", pTbl, &gnMonpropTxtRecordCount, 312);
 }
 
@@ -3089,7 +3089,7 @@ void __fastcall DATATBLS_UnloadMonPropTxt()
     if (gpMonpropTxt)
     {
         DATATBLS_UnloadBin(gpMonpropTxt);
-        FOG_FreeLinker(gTxtLink_0096C85C);
+        FOG_FreeLinker(gpMonPropLinker);
     }
     gnMonpropTxtRecordCount = 0;
 }
@@ -3272,11 +3272,11 @@ void __fastcall DATATBLS_LoadSoundsTxt(void* hArchive)
     {
         D2BinFieldStrc pTbl[] =
         {
-            { "Sound", 17, 0, 0, &gTxtLink_0096BDC8 },
+            { "Sound", 17, 0, 0, &gpSoundsLinker },
             { gszTxtField_end, 0, 0, 0, 0 },
         };
 
-        gTxtLink_0096BDC8 = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 3225);
+        gpSoundsLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 3225);
         gpSoundsTxt = DATATBLS_CompileTxt(hArchive, "sounds", pTbl, &gnSoundsTxtRecordCount, 2);
     }
 }
@@ -3303,15 +3303,15 @@ void __fastcall DATATBLS_LoadMonSeqTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "sequence", 17, 0, 0, &gTxtLink_0096C7AC },
-        { "mode", 13, 0, 2, &gTxtLink_0096BC5C },
+        { "sequence", 17, 0, 0, &gpMonSeqLinker },
+        { "mode", 13, 0, 2, &gpMonModeLinker },
         { "frame", 4, 0, 3, 0 },
         { "dir", 4, 0, 4, 0 },
         { "event", 4, 0, 5, 0 },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gTxtLink_0096C7AC = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 3267);
+    gpMonSeqLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 3267);
     gpMonseqTxt = (D2AnimSeqTxt*)DATATBLS_CompileTxt(hArchive, "monseq", pTbl, &gnMonseqTxtRecordCount, 6);
 
     if (gnMonseqTxtRecordCount > 0)
@@ -3340,7 +3340,7 @@ void __fastcall DATATBLS_UnloadMonSeqTxt()
     if (gpMonseqTxt)
     {
         DATATBLS_UnloadBin(gpMonseqTxt);
-        FOG_FreeLinker(gTxtLink_0096C7AC);
+        FOG_FreeLinker(gpMonSeqLinker);
         gnMonseqTxtRecordCount = 0;
     }
 
@@ -3366,16 +3366,16 @@ D2AnimSeqRecordStrc* __stdcall DATATBLS_GetMonSeqTableRecord(int nIndex)
 void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
 {
  D2BinFieldStrc fields[]={
- {gszField_monster,20,0,0,&gTxtLink_0096C6AC},
+ {gszField_monster,20,0,0,&gpMonStatsLinker},
  {gszField_level,3,0,2,0},
  {gszField_oninit,4,0,4,0},
- {gszField_item1,9,0,8,&gpItemsLinker_0096BCC4},
+ {gszField_item1,9,0,8,&gpItemsLinker},
  {gszField_loc1,13,0,20,&gpBodyLocsLinker_0096BC3C},
  {gszField_mod1,4,0,23,0},
- {gszField_item2,9,0,12,&gpItemsLinker_0096BCC4},
+ {gszField_item2,9,0,12,&gpItemsLinker},
  {gszField_loc2,13,0,21,&gpBodyLocsLinker_0096BC3C},
  {gszField_mod2,4,0,24,0},
- {gszField_item3,9,0,16,&gpItemsLinker_0096BCC4},
+ {gszField_item3,9,0,16,&gpItemsLinker},
  {gszField_loc3,13,0,22,&gpBodyLocsLinker_0096BC3C},
  {gszField_mod3,4,0,25,0},
  {gszTxtField_end,0,0,0,0}};
@@ -3511,20 +3511,20 @@ void __fastcall DATATBLS_UnloadSomeMonsterTxts()
     if (gpMonstatsTxt)
     {
         DATATBLS_UnloadBin(gpMonstatsTxt);
-        FOG_FreeLinker(gTxtLink_0096C6AC);
+        FOG_FreeLinker(gpMonStatsLinker);
     }
     gpMonstatsTxt = 0;
 
     if (gpMonTable_96C6C0)
     {
         DATATBLS_UnloadBin(gpMonTable_96C6C0);
-        FOG_FreeLinker(gTxtLink_0096C6C4);
+        FOG_FreeLinker(gpMonStats2Linker);
     }
 
     if (gpMonpropTxt)
     {
         DATATBLS_UnloadBin(gpMonpropTxt);
-        FOG_FreeLinker(gTxtLink_0096C85C);
+        FOG_FreeLinker(gpMonPropLinker);
     }
     gnMonpropTxtRecordCount = 0;
 

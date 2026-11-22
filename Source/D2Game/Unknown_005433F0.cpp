@@ -228,14 +228,17 @@ static void __stdcall SUNITINACTIVE_SaveSpecialMonsterParameters(D2GameStrc* pGa
 
     if (UNIT_HasFlag(pUnit, 0x04000000))
     {
-        pNode->nCmdParam1 = gnInactiveCmdParam1_007314C0;
-        pNode->nCmdParam2 |= gnInactiveNoXpParam2_007314C4;
+// build: symbol ?gnInactiveCmdParam1@* 0x007314C0
+        pNode->nCmdParam1 = gnInactiveCmdParam1;
+// build: symbol ?gnInactiveNoXpParam2@* 0x007314C4
+        pNode->nCmdParam2 |= gnInactiveNoXpParam2;
     }
 
     if (UNIT_HasFlag(pUnit, 0x00020000))
     {
-        pNode->nCmdParam1 = gnInactiveCmdParam1_007314C0;
-        pNode->nCmdParam2 |= gnInactiveNoTcParam2_007314C8;
+        pNode->nCmdParam1 = gnInactiveCmdParam1;
+// build: symbol ?gnInactiveNoTcParam2@* 0x007314C8
+        pNode->nCmdParam2 |= gnInactiveNoTcParam2;
     }
 
     if (BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, 9)

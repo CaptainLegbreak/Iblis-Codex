@@ -40,7 +40,7 @@ struct Unit { int type, classId; };
 
 struct Coord { int x,y; };
 
-extern Coord table_006EA9D0[4]; // 0x006EA9D0
+extern Coord gaMonsterChainDirections[4]; // 0x006EA9D0
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
@@ -84,7 +84,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* unit, int stat, int layer); 
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* unit, int stat, int value, int layer); // 0x00627260
 
-extern const D2DifficultyStatStrc gaDifficultyStats_006EA9F0[3]; // 0x006EA9F0
+extern const D2DifficultyStatStrc gaClassicStatAdjustments[3]; // 0x006EA9F0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -445,8 +445,8 @@ void __stdcall MONSTERS_GetChainDirectionDelta(Unit* unit,int* x,int* y)
     DATATBLS_GetMonsterChainInfo(classId,0,&index);
     CHECK(index<4,0x2c8);
     CHECK(index>=0,0x2c9);
-    *x=table_006EA9D0[index].x;
-    *y=table_006EA9D0[index].y;
+    *x=gaMonsterChainDirections[index].x;
+    *y=gaMonsterChainDirections[index].y;
 }
 
 // 0x0063EE90
@@ -490,7 +490,7 @@ void __stdcall MONSTERS_ApplyClassicScaling(D2UnitStrc* unit, int mode, unsigned
     D2MonStatsTxt* record = DATATBLS_GetMonStatsTxtRecord(unit->dwClassId);
     if (!record || record->nAlign == 1)
         return;
-    const D2DifficultyStatStrc* p = gaDifficultyStats_006EA9F0;
+    const D2DifficultyStatStrc* p = gaClassicStatAdjustments;
     for (int i = 0; i < 3; ++i, ++p)
     {
         int value = STATLIST_UnitGetStatValue(unit, p->stat, 0);

@@ -22,7 +22,7 @@ extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
 extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
-extern PROFHOOK0096BC24FN gpfnHook_0096BC24; // 0x0096BC24
+extern PROFHOOK0096BC24FN gpfnProfSecondaryHook; // 0x0096BC24
 
 typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 extern PROFHOOKFN gpfnProfHook; // 0x0096BC28
@@ -47,9 +47,9 @@ void __fastcall PROFCORE_CallProfHook(int nA, char* pBuffer, int nC)
 // 0x00611650
 int __cdecl PROFCORE_CallSecondaryHook()
 {
-    if (gpfnHook_0096BC24)
+    if (gpfnProfSecondaryHook)
     {
-        return gpfnHook_0096BC24();
+        return gpfnProfSecondaryHook();
     }
     return 0;
 }

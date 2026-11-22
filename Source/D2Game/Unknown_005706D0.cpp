@@ -37,11 +37,13 @@ static void __stdcall sub_005706A0_UseActEntry(D2GameStrc* pGame, D2UnitStrc* pU
     {
         nAct = 4;
     }
-    if (nAct >= gnActCount_007326B4)
+// build: symbol ?gnActCount@* 0x007326B4
+    if (nAct >= gnActCount)
     {
         nAct = 0;
     }
-    sub_0057EB10(pGame, pUnit, gnActEntries_006E1520[nAct]);
+// build: symbol ?gnStartingActTargetLevels@* 0x006E1520
+    sub_0057EB10(pGame, pUnit, gnStartingActTargetLevels[nAct]);
 }
 
 // 0x005706D0

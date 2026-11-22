@@ -55,7 +55,8 @@ static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, in
     pTimer->dwEventCustomParam = nCustomParam;
     pTimer->pCallback = pCallback;
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
-    D2EventTimerStrc** ppFirst = &pGame->pTimerQueue->pInfinite[gaSlotRows_006E0B9C[nUnitType]];
+// build: symbol ?gaSlotRows@* 0x006E0B9C
+    D2EventTimerStrc** ppFirst = &pGame->pTimerQueue->pInfinite[gaSlotRows[nUnitType]];
     pTimer->pNextFreeEventTimer = *ppFirst;
     pTimer->pPreviousQueuedTimer = 0;
     if (pTimer->pNextFreeEventTimer)
@@ -73,7 +74,7 @@ void __fastcall EVENT_SetRecurringEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
 static __forceinline D2EventTimerStrc** EVENT_GetTimerListHead(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
 {
-    const int nIndex = gaSlotRows_006E0B9C[nUnitType];
+    const int nIndex = gaSlotRows[nUnitType];
     D2EventTimerQueueStrc* pQueue = pGame->pTimerQueue;
     if (nExpireFrame == -1)
     {
@@ -90,7 +91,7 @@ static __forceinline D2EventTimerStrc** EVENT_GetTimerListTail(D2GameStrc* pGame
         return 0;
     }
 
-    return &pGame->pTimerQueue->pTail[gaSlotRows_006E0B9C[nUnitType]][nExpireFrame % 64];
+    return &pGame->pTimerQueue->pTail[gaSlotRows[nUnitType]][nExpireFrame % 64];
 }
 
 // 0x005416B0

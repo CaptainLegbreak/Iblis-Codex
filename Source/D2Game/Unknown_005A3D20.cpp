@@ -44,7 +44,7 @@ struct D2MonsterDataStrc
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
-extern MONUMODFUNC gpfUModCallbacks_0073C0B8[][6]; // 0x0073C0B8
+extern MONUMODFUNC gpfnSrvUModCallbacks[][6]; // 0x0073C0B8
 D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
@@ -173,7 +173,7 @@ static void __stdcall MONSTERUNIQUE_ExecuteUModCallbacks(D2GameStrc* pGame, D2Un
     {
         for (int i = 0; i < 9; ++i)
         {
-            MONUMODFUNC pUModFunc = gpfUModCallbacks_0073C0B8[pUMods[i]][nCallbackIndex];
+            MONUMODFUNC pUModFunc = gpfnSrvUModCallbacks[pUMods[i]][nCallbackIndex];
             if (pUModFunc)
             {
                 pUModFunc(pGame, pUnit, pUMods[i], bUnique);
@@ -184,7 +184,7 @@ static void __stdcall MONSTERUNIQUE_ExecuteUModCallbacks(D2GameStrc* pGame, D2Un
     {
         for (int i = 0; i < 9; ++i)
         {
-            MONUMODFUNC pUModFunc = gpfUModCallbacks_0073C0B8[pUMods[i]][nCallbackIndex];
+            MONUMODFUNC pUModFunc = gpfnSrvUModCallbacks[pUMods[i]][nCallbackIndex];
             if (pUModFunc)
             {
                 pUModFunc(pGame, pMissile, pUMods[i], bUnique);

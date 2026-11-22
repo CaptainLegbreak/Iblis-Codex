@@ -4,9 +4,9 @@
 
 #define FIELD_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define FIELD_CELL(pFieldArg, nPosX, nPosY) \
-    *reinterpret_cast<unsigned char*>(gCollisionField_0096D658.nCenterX \
-        + ((((nPosY - (pFieldArg)->nY + gCollisionField_0096D658.nCenterY) << 8) - (pFieldArg)->nX + nPosX) \
-        + reinterpret_cast<unsigned int>(gpFieldData_0096D654)))
+    *reinterpret_cast<unsigned char*>(gtCollisionField.nCenterX \
+        + ((((nPosY - (pFieldArg)->nY + gtCollisionField.nCenterY) << 8) - (pFieldArg)->nX + nPosX) \
+        + reinterpret_cast<unsigned int>(gpFieldData)))
 
 struct D2ActiveRoomStrc;
 struct D2FieldStrc;
@@ -141,9 +141,9 @@ int __stdcall D2Common_11097(D2FieldStrc* pField, int nX, int nY)
     return *(&sgtDataTables.pFieldData[((nY - pField->nY) << 8) - pField->nX] + nX);
 }
 
-unsigned char* gpFieldData_0096D654; // 0x0096D654
+unsigned char* gpFieldData; // 0x0096D654
 
-D2CollisionFieldStrc gCollisionField_0096D658; // 0x0096D658
+D2CollisionFieldStrc gtCollisionField; // 0x0096D658
 
 // 0x0066A5D0
 int __stdcall D2Common_11098(D2FieldStrc* pField, int* pX, int* pY)

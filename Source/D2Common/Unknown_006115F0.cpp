@@ -32,7 +32,7 @@ void __cdecl sub_006115F0_Empty()
 {
 }
 
-PROFHOOK0096BC24FN gpfnHook_0096BC24; // 0x0096BC24
+PROFHOOK0096BC24FN gpfnProfSecondaryHook; // 0x0096BC24
 
 #include "gen/data/Source/D2Common/Unknown_006115F0.inc"
 

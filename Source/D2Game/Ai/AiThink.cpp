@@ -181,7 +181,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 
-extern const int gnSkillTable_006E3514[5]; // 0x006E3514
+extern const int gnCatapultSkills[5]; // 0x006E3514
 
 int __fastcall AITHINK_FindDeadMonsterBehind(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005EDF70
 
@@ -687,7 +687,7 @@ void __fastcall AITHINK_Fn126_CatapultSpotter(D2GameStrc* pGame, D2UnitStrc* pUn
             coords.nY = CLIENTS_GetUnitY(pTarget) + SEED_RollLimitedRandomNumber(pSeed, 2 * AI_PARAM(3)) - AI_PARAM(3);
             if (COLLISION_GetFreeCoordinatesEx(UNITS_GetRoom(pUnit), &coords, 2, 0x805, 3))
             {
-                AITACTICS_UseSkill(pGame, pUnit, 4, gnSkillTable_006E3514[nSkill], 0, coords.nX, coords.nY);
+                AITACTICS_UseSkill(pGame, pUnit, 4, gnCatapultSkills[nSkill], 0, coords.nX, coords.nY);
                 pAiControl->dwAiParam[2] = pGame->dwGameFrame;
                 return;
             }

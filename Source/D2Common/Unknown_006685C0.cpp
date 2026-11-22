@@ -26,15 +26,15 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" unsigned int __cdecl strlen(const char* szString);
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
-extern "C" const char gszComma_006EE82C[]; // 0x006EE82C
-extern "C" const char gszEqualComma_006EE824[]; // 0x006EE824
-extern "C" const char gszCowPortal_006EE88C[]; // 0x006EE88C
-extern "C" const char gszPandemoniumPortal_006EE878[]; // 0x006EE878
-extern "C" const char gszPandemoniumFinalePortal_006EE85C[]; // 0x006EE85C
+extern "C" const char gszComma[]; // 0x006EE82C
+extern "C" const char gszEqualComma[]; // 0x006EE824
+extern "C" const char gszCowPortal[]; // 0x006EE88C
+extern "C" const char gszPandemoniumPortal[]; // 0x006EE878
+extern "C" const char gszPandemoniumFinalePortal[]; // 0x006EE85C
 extern D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
-extern D2TxtLinkStrc* gpSetItemsLinker_0096C844; // 0x0096C844
+extern D2TxtLinkStrc* gpSetItemsLinker; // 0x0096C844
 extern D2SetItemsTxt* gpSetItemsTxt_0096C848; // 0x0096C848
-extern D2TxtLinkStrc* gpUniqueItemsLinker_0096C850; // 0x0096C850
+extern D2TxtLinkStrc* gpUniqueItemsLinker; // 0x0096C850
 extern D2UniqueItemsTxt* gpUniqueItemsTxt_0096C854; // 0x0096C854
 static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, char* szInput);
 
@@ -134,9 +134,9 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
     else
     {
         nLinkId = -1;
-        if (gpUniqueItemsLinker_0096C850)
+        if (gpUniqueItemsLinker)
         {
-            nLinkId = FOG_GetRowFromTxt(gpUniqueItemsLinker_0096C850, szText, 0);
+            nLinkId = FOG_GetRowFromTxt(gpUniqueItemsLinker, szText, 0);
         }
         if (nLinkId >= 0)
         {
@@ -152,9 +152,9 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
         else
         {
             nLinkId = -1;
-            if (gpSetItemsLinker_0096C844)
+            if (gpSetItemsLinker)
             {
-                nLinkId = FOG_GetRowFromTxt(gpSetItemsLinker_0096C844, szText, 0);
+                nLinkId = FOG_GetRowFromTxt(gpSetItemsLinker, szText, 0);
             }
             if (nLinkId >= 0)
             {
@@ -189,17 +189,17 @@ static inline int sub_00668A90_TryItemCode(D2CubeInputItemStrc* pInput, char* sz
 // build: context sub_00668A90_ParseItemName
 static __forceinline int sub_00668A90_ParseItemName(D2CubeInputItemStrc* pInput, char* szText)
 {
-    if (!_stricmp(szText, gszCowPortal_006EE88C))
+    if (!_stricmp(szText, gszCowPortal))
     {
         pInput->nType = 1;
         return 1;
     }
-    if (!_stricmp(szText, gszPandemoniumPortal_006EE878))
+    if (!_stricmp(szText, gszPandemoniumPortal))
     {
         pInput->nType = 2;
         return 1;
     }
-    if (!_stricmp(szText, gszPandemoniumFinalePortal_006EE85C))
+    if (!_stricmp(szText, gszPandemoniumFinalePortal))
     {
         pInput->nType = 3;
         return 1;
@@ -236,7 +236,7 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
         }
     }
 
-    char* szNext = szText + strcspn(szText, gszComma_006EE82C);
+    char* szNext = szText + strcspn(szText, gszComma);
     if (*szNext)
     {
         *szNext = 0;
@@ -259,7 +259,7 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
         unsigned short* pPrefix = pInput->wPrefix;
         do
         {
-            char* szToken = sub_00668590_NextSetToken(&szNext, gszEqualComma_006EE824);
+            char* szToken = sub_00668590_NextSetToken(&szNext, gszEqualComma);
             if (!szToken)
             {
                 break;
@@ -267,16 +267,16 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
 
             if (!strcmp(szToken, "qty"))
             {
-                pInput->nQuantity = sub_006685C0_NextSetTokenInt(&szNext, gszComma_006EE82C);
+                pInput->nQuantity = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
             }
             else if (!strcmp(szToken, "pre"))
             {
-                *pPrefix = sub_006685C0_NextSetTokenInt(&szNext, gszComma_006EE82C);
+                *pPrefix = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
                 ++pPrefix;
             }
             else if (!strcmp(szToken, "suf"))
             {
-                *pSuffix = sub_006685C0_NextSetTokenInt(&szNext, gszComma_006EE82C);
+                *pSuffix = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
                 ++pSuffix;
             }
             else if (!strcmp(szToken, "low"))
@@ -322,7 +322,7 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
             else if (!strcmp(szToken, "sock"))
             {
                 pInput->wFlags |= 2;
-                pInput->nQuantity = sub_006685C0_NextSetTokenInt(&szNext, gszComma_006EE82C);
+                pInput->nQuantity = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
             }
             else if (!strcmp(szToken, "mod"))
             {

@@ -78,7 +78,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-extern const unsigned int gdwAct5Q2RuneCodes_00732FEC[3]; // 0x00732FEC
+extern const unsigned int gdwAct5Q2RuneCodes[3]; // 0x00732FEC
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
@@ -577,7 +577,7 @@ void __fastcall ACT5Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 {
                     for (int i = 0; i < nRewards; ++i)
                     {
-                        if (QUESTS_CreateItem(pQuestArg->pGame, pQuestArg->pPlayer, gdwAct5Q2RuneCodes_00732FEC[i], 0, 2, 1))
+                        if (QUESTS_CreateItem(pQuestArg->pGame, pQuestArg->pPlayer, gdwAct5Q2RuneCodes[i], 0, 2, 1))
                         {
                             bRewardGranted = true;
                         }

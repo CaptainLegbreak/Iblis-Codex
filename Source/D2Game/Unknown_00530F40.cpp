@@ -77,7 +77,8 @@ struct D2ItemKeyStrc
     unsigned int nItemSeed;
 };
 
-extern "C" const char szPlrSaveCppFile_006E09AC[];
+// build: symbol _gszPlrSaveSourceFile 0x006E09AC
+extern "C" const char gszPlrSaveSourceFile[];
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex);                             // 0x00629DF0
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage);                                    // 0x00628280
@@ -162,7 +163,7 @@ static int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem(D2GameStrc* pGame, D
         UNITS_SetXForStaticUnit(pItem, nX);
         UNITS_SetYForStaticUnit(pItem, nY);
         const int nItemId = pItem->dwUnitId;
-        if (!D2GAME_PlaceItem_6FC44410(szPlrSaveCppFile_006E09AC, 0x1C2, pGame, pUnit, nItemId, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), 0, 0, 0))
+        if (!D2GAME_PlaceItem_6FC44410(gszPlrSaveSourceFile, 0x1C2, pGame, pUnit, nItemId, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), 0, 0, 0))
             return 13;
         break;
     }

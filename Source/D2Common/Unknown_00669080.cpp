@@ -32,9 +32,9 @@ int __stdcall FOG_GetRowFromTxt(void* pLinker, const char* szText, int nColumn);
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 extern void* gpItemTypesLinker_0096C824;                                                                    // 0x0096C824
-extern void* gpSetItemsLinker_0096C844;                                                                     // 0x0096C844
+extern void* gpSetItemsLinker;                                                                     // 0x0096C844
 extern D2SetItemsTxtStrc* gpSetItemsTxt_0096C848;                                                          // 0x0096C848
-extern void* gpUniqueItemsLinker_0096C850;                                                                  // 0x0096C850
+extern void* gpUniqueItemsLinker;                                                                  // 0x0096C850
 extern D2UniqueItemsTxtStrc* gpUniqueItemsTxt_0096C854;                                                    // 0x0096C854
 
 static void sub_00668510_MakeCode(const char* szText, char* szCode);
@@ -153,9 +153,9 @@ StoreBaseItem:
             {
                 nLinkId = -1;
 
-                if (gpUniqueItemsLinker_0096C850)
+                if (gpUniqueItemsLinker)
                 {
-                    nLinkId = FOG_GetRowFromTxt(gpUniqueItemsLinker_0096C850, szInput, 0);
+                    nLinkId = FOG_GetRowFromTxt(gpUniqueItemsLinker, szInput, 0);
                 }
 
                 if (nLinkId >= 0)
@@ -170,9 +170,9 @@ StoreBaseItem:
                 {
                     nLinkId = -1;
 
-                    if (gpSetItemsLinker_0096C844)
+                    if (gpSetItemsLinker)
                     {
-                        nLinkId = FOG_GetRowFromTxt(gpSetItemsLinker_0096C844, szInput, 0);
+                        nLinkId = FOG_GetRowFromTxt(gpSetItemsLinker, szInput, 0);
                     }
 
                     if (nLinkId >= 0)

@@ -21,7 +21,7 @@ struct D2DrlgTableRefStrc
     int nIndex;
 };
 
-extern int gaTable_007443E4[]; // 0x007443E4
+extern int gnTimeRates[]; // 0x007443E4
 
 int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
 
@@ -106,7 +106,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern const int gnTownLevelIds_006E7D1C[5]; // 0x006E7D1C
+extern const int gnTownLevelIdsByAct[5]; // 0x006E7D1C
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -116,13 +116,13 @@ D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom); // 0x0
 
 static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);
 
-static int gnStatsClientAllocatedRooms_0096C8B8; // 0x0096C8B8
+static int gnStatsClientAllocatedRooms; // 0x0096C8B8
 
-static int gnStatsClientFreedRooms_0096C8BC; // 0x0096C8BC
+static int gnStatsClientFreedRooms; // 0x0096C8BC
 
-static int gnStatsAllocatedRooms_0096C8C4; // 0x0096C8C4
+static int gnStatsAllocatedRooms; // 0x0096C8C4
 
-static int gnStatsFreedRooms_0096C8C0; // 0x0096C8C0
+static int gnStatsFreedRooms; // 0x0096C8C0
 
 static inline D2DrlgRoomStrc* DRLGACTIVATE_RoomExStatusList_GetFirst(D2DrlgStrc* pDrlg, unsigned char nStatus);
 
@@ -532,13 +532,13 @@ void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg)
 {
     if (DRLG_IsOnClient(pDrlg))
     {
-        gnStatsClientAllocatedRooms_0096C8B8 = pDrlg->nAllocatedRooms;
-        gnStatsClientFreedRooms_0096C8BC = pDrlg->nFreedRooms;
+        gnStatsClientAllocatedRooms = pDrlg->nAllocatedRooms;
+        gnStatsClientFreedRooms = pDrlg->nFreedRooms;
     }
     else
     {
-        gnStatsAllocatedRooms_0096C8C4 = pDrlg->nAllocatedRooms;
-        gnStatsFreedRooms_0096C8C0 = pDrlg->nFreedRooms;
+        gnStatsAllocatedRooms = pDrlg->nAllocatedRooms;
+        gnStatsFreedRooms = pDrlg->nFreedRooms;
     }
 
     if (pDrlg->nRoomsInitSinceLastUpdate > 1)
@@ -644,7 +644,7 @@ int __stdcall sub_M121_Emit_0061BA10(int nLevelId) { return DRLGACTIVATE_CanUnti
 // 0x0061BB50
 static inline void sub_0061BB50_SetFieldFromTable(D2DrlgTableRefStrc* pRecord)
 {
-    pRecord->nValue = gaTable_007443E4[pRecord->nIndex];
+    pRecord->nValue = gnTimeRates[pRecord->nIndex];
 }
 
 void __stdcall sub_M121_Emit_0061BB50(D2DrlgTableRefStrc* pRecord) { sub_0061BB50_SetFieldFromTable(pRecord); }

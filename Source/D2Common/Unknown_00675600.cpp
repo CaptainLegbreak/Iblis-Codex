@@ -60,7 +60,7 @@ extern D2DrlgLinkStrc gAct2CanyonDrlgLink[15]; // 0x006F0A20
 extern D2DrlgLinkStrc gAct5UbersDrlgLink[15]; // 0x006F0B10
 extern D2DrlgLinkStrc gAct4OutdoorDrlgLink[15]; // 0x006F0C00
 extern D2DrlgLinkStrc gAct4ChaosSanctumDrlgLink[15]; // 0x006F0CF0
-extern const D2UnkOutdoorStrc3 stru_6FDD06C0[15]; // 0x006F1258
+extern const D2UnkOutdoorStrc3 gaAct1OutdoorRandFlags[15]; // 0x006F1258
 
 
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
@@ -98,8 +98,8 @@ struct D2UnkPathStrc2
     unsigned char unk0x02;
 };
 
-extern const D2UnkPathStrc stru_6FDD2158[25]; // 0x006F1518
-extern const D2UnkPathStrc2 byte_6FDD2288[25]; // 0x006F1648
+extern const D2UnkPathStrc gaPathDirectionTriplets[25]; // 0x006F1518
+extern const D2UnkPathStrc2 gaPathDirectionTripletsAlt[25]; // 0x006F1648
 
 
 int __stdcall sub_00678C10(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678C10
@@ -154,7 +154,8 @@ int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
         nC += 2;
     }
 
-    const int nRow = gaLookupRow_006F1088[nA + 9 * (nC + nD) + nB];
+// build: symbol ?gaBorderIndicesByDelta@* 0x006F1088
+    const int nRow = gaBorderIndicesByDelta[nA + 9 * (nC + nD) + nB];
     if (nRow == -1)
     {
         return 0;
@@ -162,10 +163,12 @@ int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
 
     if (nE >= 4)
     {
-        return gaLookupLarge_006F06F0[nRow - 1][nE - 4];
+// build: symbol ?gaBarricadeCliffBorderIds@* 0x006F06F0
+        return gaBarricadeCliffBorderIds[nRow - 1][nE - 4];
     }
 
-    return gaLookupSmall_006F0630[nRow - 1][nE];
+// build: symbol ?gaBorderLevelPrestIds@* 0x006F0630
+    return gaBorderLevelPrestIds[nRow - 1][nE];
 }
 
 // 0x00675670
@@ -782,13 +785,13 @@ void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nI
         D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
         for (int i = 0; i < 15; ++i)
         {
-            if (pLevel->eLevelId == stru_6FDD06C0[i].nLevelId || !stru_6FDD06C0[i].nLevelId)
+            if (pLevel->eLevelId == gaAct1OutdoorRandFlags[i].nLevelId || !gaAct1OutdoorRandFlags[i].nLevelId)
             {
-                if (pLevel->eLevelId != stru_6FDD06C0[i].nIgnoredLevel1 && pLevel->eLevelId != stru_6FDD06C0[i].nIgnoredLevel2 && pRand[nIteration] == stru_6FDD06C0[i].nRand)
+                if (pLevel->eLevelId != gaAct1OutdoorRandFlags[i].nIgnoredLevel1 && pLevel->eLevelId != gaAct1OutdoorRandFlags[i].nIgnoredLevel2 && pRand[nIteration] == gaAct1OutdoorRandFlags[i].nRand)
                 {
-                    if (pRand[nIteration + 1] == stru_6FDD06C0[i].nNextRand)
+                    if (pRand[nIteration + 1] == gaAct1OutdoorRandFlags[i].nNextRand)
                     {
-                        pOutdoors->dwFlags |= stru_6FDD06C0[i].nFlags;
+                        pOutdoors->dwFlags |= gaAct1OutdoorRandFlags[i].nFlags;
                     }
                 }
             }
@@ -961,13 +964,13 @@ static int __fastcall sub_6FDAB610(int nX1, int nY1, int nX2, int nY2)
 // 0x00678CB0
 int __fastcall sub_00678CB0_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2)
 {
-    return byte_6FDD2288[sub_6FDAB610(nX1, nY1, nX2, nY2)].unk0x00;
+    return gaPathDirectionTripletsAlt[sub_6FDAB610(nX1, nY1, nX2, nY2)].unk0x00;
 }
 
 // 0x00678CF0
 int __fastcall sub_6FDAB750(int nX1, int nY1, int nX2, int nY2)
 {
-    return stru_6FDD2158[sub_6FDAB610(nX1, nY1, nX2, nY2)].unk0x00;
+    return gaPathDirectionTriplets[sub_6FDAB610(nX1, nY1, nX2, nY2)].unk0x00;
 }
 
 // 0x00678D30
@@ -975,9 +978,9 @@ void __fastcall sub_00678D30_GetDirectionsXY(int nX1, int nY1, int nX2, int nY2,
 {
     int nIndex = sub_6FDAB610(nX1, nY1, nX2, nY2);
 
-    pTestDir[0] = stru_6FDD2158[nIndex].unk0x00;
-    pTestDir[1] = stru_6FDD2158[nIndex].unk0x04;
-    pTestDir[2] = stru_6FDD2158[nIndex].unk0x08;
+    pTestDir[0] = gaPathDirectionTriplets[nIndex].unk0x00;
+    pTestDir[1] = gaPathDirectionTriplets[nIndex].unk0x04;
+    pTestDir[2] = gaPathDirectionTriplets[nIndex].unk0x08;
 }
 
 // 0x00678DB0
@@ -985,9 +988,9 @@ void __fastcall sub_00678DB0_GetDirectionTripletXY(int nX1, int nY1, int nX2, in
 {
     int nIndex = sub_6FDAB610(nX1, nY1, nX2, nY2);
 
-    pTestDir[0] = byte_6FDD2288[nIndex].unk0x00;
-    pTestDir[1] = byte_6FDD2288[nIndex].unk0x01;
-    pTestDir[2] = byte_6FDD2288[nIndex].unk0x02;
+    pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].unk0x00;
+    pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].unk0x01;
+    pTestDir[2] = gaPathDirectionTripletsAlt[nIndex].unk0x02;
 }
 
 // 0x00678C10
@@ -1055,7 +1058,7 @@ int __stdcall sub_00678C10(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 // 0x00678CD0
 int __stdcall sub_00678CD0_GetFirstDirection(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
-    return byte_6FDD2288[sub_00678C10(pPoint1, pPoint2)].unk0x00;
+    return gaPathDirectionTripletsAlt[sub_00678C10(pPoint1, pPoint2)].unk0x00;
 }
 
 // 0x00678D70
@@ -1063,9 +1066,9 @@ void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoin
 {
     int nIndex = sub_00678C10(pPoint1, pPoint2);
 
-    pTestDir[0] = stru_6FDD2158[nIndex].unk0x00;
-    pTestDir[1] = stru_6FDD2158[nIndex].unk0x04;
-    pTestDir[2] = stru_6FDD2158[nIndex].unk0x08;
+    pTestDir[0] = gaPathDirectionTriplets[nIndex].unk0x00;
+    pTestDir[1] = gaPathDirectionTriplets[nIndex].unk0x04;
+    pTestDir[2] = gaPathDirectionTriplets[nIndex].unk0x08;
 }
 
 // 0x00678DF0
@@ -1073,15 +1076,15 @@ void __fastcall sub_00678DF0(int* pTestDir, D2PathPointStrc pPoint1, D2PathPoint
 {
     int nIndex = sub_00678C10(pPoint1, pPoint2);
 
-    pTestDir[0] = byte_6FDD2288[nIndex].unk0x00;
-    pTestDir[1] = byte_6FDD2288[nIndex].unk0x01;
-    pTestDir[2] = byte_6FDD2288[nIndex].unk0x02;
+    pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].unk0x00;
+    pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].unk0x01;
+    pTestDir[2] = gaPathDirectionTripletsAlt[nIndex].unk0x02;
 }
 
 // 0x00678D10
 int __stdcall sub_6FDAB770(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    return stru_6FDD2158[sub_00678C10(tPoint1, tPoint2)].unk0x00;
+    return gaPathDirectionTriplets[sub_00678C10(tPoint1, tPoint2)].unk0x00;
 }
 
 // 0x00678F00

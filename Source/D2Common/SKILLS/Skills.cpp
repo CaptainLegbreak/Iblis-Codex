@@ -227,11 +227,11 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern int gdwPathResetPrecisionX_006EB7C8; // 0x006EB7C8
+extern int gnPathResetPrecisionX; // 0x006EB7C8
 
-extern int gdwPathResetPrecisionY_006EB7CC; // 0x006EB7CC
+extern int gnPathResetPrecisionY; // 0x006EB7CC
 
-extern const int gaPathHeuristicTable_006F1698[]; // 0x006F1698
+extern const int gaPathHeuristicTable[]; // 0x006F1698
 
 extern const int gaIdaStar_PointCacheHashMaskX[]; // 0x006F1998
 
@@ -368,7 +368,7 @@ int __stdcall SKILLS_GetPassiveState(int nSkillId); // 0x00643690
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-extern const int gnShapeshiftMonModes_006EB308[]; // 0x006EB308
+extern const int gnShapeshiftMonModes[]; // 0x006EB308
 
 int __stdcall D2Common_11014_ConvertShapeShiftedMode(int nArrayIndex, int nMonsterId); // 0x00645190
 
@@ -2389,7 +2389,7 @@ void __stdcall SKILLS_SetQuantity(D2SkillStrc* ptSkill, int nValue)
 // 0x00645160
 static int __stdcall SKILLS_ConvertShapeshiftMonMode(int nMode, int nClass)
 {
-    return (nClass == 6 && nMode == 4) ? 12 : gnShapeshiftMonModes_006EB308[nMode];
+    return (nClass == 6 && nMode == 4) ? 12 : gnShapeshiftMonModes[nMode];
 }
 
 // 0x00645190
@@ -2484,7 +2484,7 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
                     if (pUnit->dwUnitType == UNIT_MONSTER)
                     {
                         const int nMode = *pMode;
-                        *pMode = (nClass == 6 && nMode == 4) ? 12 : gnShapeshiftMonModes_006EB308[nMode];
+                        *pMode = (nClass == 6 && nMode == 4) ? 12 : gnShapeshiftMonModes[nMode];
                     }
                     return;
                 }
@@ -2906,8 +2906,8 @@ static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 // 0x0064FC20
 void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath)
 {
-    const int nPrecisionX = gdwPathResetPrecisionX_006EB7C8;
-    const int nPrecisionY = gdwPathResetPrecisionY_006EB7CC;
+    const int nPrecisionX = gnPathResetPrecisionX;
+    const int nPrecisionY = gnPathResetPrecisionY;
 
     pDynamicPath->tGameCoords.dwPrecisionX = nPrecisionX;
     pDynamicPath->dwClientCoordX = nPrecisionX;
@@ -2943,12 +2943,15 @@ int __stdcall D2Common_10227(D2UnitStrc* pUnit)
 // 0x006755C0
 int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
 {
-    const int nRow = gaLookupRow_006F0FD0[nA + 3 * nB];
+// build: symbol ?gaBorderIndices@* 0x006F0FD0
+    const int nRow = gaBorderIndices[nA + 3 * nB];
     if (nC >= 4)
     {
-        return gaLookupLarge_006F06F0[nRow][nC - 4];
+// build: symbol ?gaBarricadeCliffBorderIds@* 0x006F06F0
+        return gaBarricadeCliffBorderIds[nRow][nC - 4];
     }
-    return gaLookupSmall_006F0630[nRow][nC];
+// build: symbol ?gaBorderLevelPrestIds@* 0x006F0630
+    return gaBorderLevelPrestIds[nRow][nC];
 }
 
 // 0x00678B40
@@ -2988,7 +2991,7 @@ int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pP
 
     if (nDiffX < 8 && nDiffY < 8)
     {
-        const int nResult = gaPathHeuristicTable_006F1698[nDiffX + 8 * nDiffY];
+        const int nResult = gaPathHeuristicTable[nDiffX + 8 * nDiffY];
         if (nResult < 0)
         {
             return 0;
@@ -3072,7 +3075,8 @@ int __stdcall PATH_GetSquaredDistanceBetweenPoints(D2PathPointStrc tPoint1, D2Pa
 // 0x0067BBC0
 int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    return gaPathDeltaTable_006F1E28[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
+// build: symbol ?gaPathDeltaTable@* 0x006F1E28
+    return gaPathDeltaTable[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
 }
 
 // 0x00646460

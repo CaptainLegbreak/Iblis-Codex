@@ -49,7 +49,7 @@ typedef int (__fastcall* D2StreamCreate)(D2UnitStrc*, int, int, int, int, int, c
 
 typedef void (__fastcall* D2StreamFree)(int);
 extern const char gszAssertExpression_006CC837[]; // 0x006CC837
-extern const char gszMisStream_006EE540[]; // 0x006EE540
+extern const char gszMisStreamSourceFile[]; // 0x006EE540
 
 // 0x00663D40
 void __stdcall MISSTREAM_AllocMissileStream(D2UnitStrc* pMissile)
@@ -129,11 +129,11 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
             unsigned int nSize = sizeof(int) * nPoints;
             ptStream->nCapacity = nPoints;
             void* const pPool = pMissile->pMemoryPool;
-            ptStream->pData = (int*)FOG_AllocPool(pPool, nSize, gszMisStream_006EE540, 151, 0);
+            ptStream->pData = (int*)FOG_AllocPool(pPool, nSize, gszMisStreamSourceFile, 151, 0);
             memset(ptStream->pData, 0, nSize);
         } else if (ptStream->nCapacity < nPoints) {
             void* const pPool = pMissile->pMemoryPool;
-            ptStream->pData = (int*)FOG_ReallocPool(pPool, ptStream->pData, sizeof(int) * nPoints, gszMisStream_006EE540, 154, 0);
+            ptStream->pData = (int*)FOG_ReallocPool(pPool, ptStream->pData, sizeof(int) * nPoints, gszMisStreamSourceFile, 154, 0);
         }
         int nMax = nTemp / nRatio;
         int nExtra = 0;

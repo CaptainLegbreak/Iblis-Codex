@@ -16,7 +16,7 @@ static inline unsigned short PATH_FromFP16(unsigned int nValue)
     return (nValue >> 16) & 0xFFFF;
 }
 
-extern int gDirectionTable_006EB7E0[128 * 3];                                                               // 0x006EB7E0
+extern int gaTanToDirectionTable[128 * 3];                                                               // 0x006EB7E0
 
 static inline void SwapPrecision(unsigned int& a, unsigned int& b)
 {
@@ -75,17 +75,17 @@ void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOut
     else
         nIndex = 0;
     const int nEntry = 3 * nIndex;
-    int nDirection = gDirectionTable_006EB7E0[nEntry + 2];
+    int nDirection = gaTanToDirectionTable[nEntry + 2];
     if (bSwapped)
     {
-        pDirectionVector->nY = gDirectionTable_006EB7E0[nEntry];
-        pDirectionVector->nX = gDirectionTable_006EB7E0[nEntry + 1];
+        pDirectionVector->nY = gaTanToDirectionTable[nEntry];
+        pDirectionVector->nX = gaTanToDirectionTable[nEntry + 1];
         nDirection = (-1 - nDirection) & 0x0F;
     }
     else
     {
-        pDirectionVector->nX = gDirectionTable_006EB7E0[nEntry];
-        pDirectionVector->nY = gDirectionTable_006EB7E0[nEntry + 1];
+        pDirectionVector->nX = gaTanToDirectionTable[nEntry];
+        pDirectionVector->nY = gaTanToDirectionTable[nEntry + 1];
     }
     if (!bPositiveY)
     {

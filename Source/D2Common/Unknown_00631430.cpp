@@ -1,8 +1,8 @@
 #include "D2Common.h"
 
-extern char* gpItemsCode_0096BCC8; // 0x0096BCC8
-extern int gnItemsCodeSize_0096BCCC; // 0x0096BCCC
-extern int gnItemsCodeSizeEx_0096BCD0; // 0x0096BCD0
+extern char* gpItemsCode; // 0x0096BCC8
+extern int gnItemsCodeSize; // 0x0096BCCC
+extern int gnItemsCodeSizeEx; // 0x0096BCD0
 int __fastcall DATATBLS_MapItemsTxtKeywordToNumber(char* szKey); // 0x00631430
 int __cdecl sub_00631490(); // 0x00631490
 int __fastcall ITEMS_ResolveItemCalcKeyword(char* szText, int* a2, int a3, int nKeywordNumber); // 0x006314A0
@@ -57,5 +57,5 @@ void __fastcall DATATBLS_ItemCalcLinker(char* pSrc, void* pRecord, int nOffset, 
         return;
     }
 
-    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpItemsCode_0096BCC8, &gnItemsCodeSize_0096BCCC, &gnItemsCodeSizeEx_0096BCD0, szBuffer, nBufferSize);
+    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpItemsCode, &gnItemsCodeSize, &gnItemsCodeSizeEx, szBuffer, nBufferSize);
 }

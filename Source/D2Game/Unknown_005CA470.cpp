@@ -45,7 +45,7 @@ struct D2EnergyShieldDataStrc
     int bPlayerOnly;
 };
 
-extern const D2EnergyShieldDataStrc gEnergyShieldData_006E30E0[8]; // 0x006E30E0
+extern const D2EnergyShieldDataStrc gaEnergyShieldData[8]; // 0x006E30E0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
@@ -197,7 +197,7 @@ int __fastcall SKILLS_EventFunc24_EnergyShield(D2GameStrc* pGame, int nEvent, D2
     int nAbsorbedDamage = 0;
     for (int i = 0; i < 8; ++i)
     {
-        const D2EnergyShieldDataStrc* pEnergyShieldData = &gEnergyShieldData_006E30E0[i];
+        const D2EnergyShieldDataStrc* pEnergyShieldData = &gaEnergyShieldData[i];
         if (!pEnergyShieldData->bPlayerOnly || bIsPlayer)
         {
             int* pDamageValue = (int*)((char*)pDamage + pEnergyShieldData->nDamageOffset);

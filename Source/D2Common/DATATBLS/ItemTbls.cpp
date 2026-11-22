@@ -138,9 +138,9 @@ struct D2LowQualityItemDataTbl { int nLowQualityItemsTxtRecordCount; D2LowQualit
 
 struct D2ItemRatioDataTbl { int nItemRatioTxtRecordCount; D2ItemRatioTxt* pItemRatioTxt; };
 
-D2TxtLinkStrc* gpItemsLinker_0096BCC4; // 0x0096BCC4
+D2TxtLinkStrc* gpItemsLinker; // 0x0096BCC4
 
-D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
+D2TxtLinkStrc* gpPropertiesLinker; // 0x0096BCD8
 
 D2ItemStatCostTxt* gpItemStatCostTxt; // 0x0096C7FC
 
@@ -156,7 +156,7 @@ int gnUniqueitemsTxtRecordCount; // 0x0096C858
 
 extern D2ItemDataTbl gItemDataTables; // 0x0096CA58
 
-unsigned short* gpIndexOldToCurrent_0096CA78; // 0x0096CA78
+unsigned short* gpIndexOldToCurrent; // 0x0096CA78
 
 extern D2GemDataTbl gGemDataTables; // 0x0096CA90
 
@@ -188,7 +188,7 @@ extern D2TxtLinkStrc* gpMonTypeLinker_0096C868; // 0x0096C868
 
 extern "C" const char gszTxtField_index[]; // 0x006E9CCC
 
-extern D2TxtLinkStrc* gTxtLink_0096C5E4; // 0x0096C5E4
+extern D2TxtLinkStrc* gpColorsLinker; // 0x0096C5E4
 
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x006336A0
 
@@ -196,7 +196,7 @@ void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const c
 
 unsigned short __stdcall D2LANG_GetTblIndex(const char* szReference, void** ppUnicode); // 0x00524D30
 
-D2ItemsTxt* gpItemsTxt_0096CA5C; // 0x0096CA5C
+D2ItemsTxt* gpItemsTxt; // 0x0096CA5C
 
 struct D2ItemRatioTxt
 {
@@ -272,25 +272,25 @@ extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
 D2TxtLinkStrc* gpHitClassLinker_0096BC54; // 0x0096BC54
 
-void* gpItemsCode_0096BCC8; // 0x0096BCC8
+void* gpItemsCode; // 0x0096BCC8
 
-int gnItemsCodeSize_0096BCCC; // 0x0096BCCC
+int gnItemsCodeSize; // 0x0096BCCC
 
-int gnItemsCodeSizeEx_0096BCD0; // 0x0096BCD0
+int gnItemsCodeSizeEx; // 0x0096BCD0
 
-int gnItemsTxtRecordCount_0096CA58; // 0x0096CA58
+int gnItemsTxtRecordCount; // 0x0096CA58
 
-D2ItemsTxt* gpWeaponsTxt_0096CA60; // 0x0096CA60
+D2ItemsTxt* gpWeaponsTxt; // 0x0096CA60
 
-int gnWeaponsTxtRecordCount_0096CA64; // 0x0096CA64
+int gnWeaponsTxtRecordCount; // 0x0096CA64
 
-D2ItemsTxt* gpArmorTxt_0096CA68; // 0x0096CA68
+D2ItemsTxt* gpArmorTxt; // 0x0096CA68
 
-int gnArmorTxtRecordCount_0096CA6C; // 0x0096CA6C
+int gnArmorTxtRecordCount; // 0x0096CA6C
 
-D2ItemsTxt* gpMiscTxt_0096CA70; // 0x0096CA70
+D2ItemsTxt* gpMiscTxt; // 0x0096CA70
 
-int gnMiscTxtRecordCount_0096CA74; // 0x0096CA74
+int gnMiscTxtRecordCount; // 0x0096CA74
 
 struct D2OpStatDataStrc;
 
@@ -304,9 +304,9 @@ int __cdecl DATATBLS_CompareItemStatCostDescs(const void* pRecord1, const void* 
 
 int __cdecl DATATBLS_CompareGambleTxtRecords(const void* pRecord1, const void* pRecord2); // 0x00638AC0
 
-int gnItemStatCostStuff_0096C89C; // 0x0096C89C
+int gnItemStatCostStuff; // 0x0096C89C
 
-int gnItemStatCostStuffMask_0096C8A0; // 0x0096C8A0
+int gnItemStatCostStuffMask; // 0x0096C8A0
 
 D2TxtLinkStrc* gpRunesLinker; // 0x0096BCE0
 
@@ -359,7 +359,7 @@ void __fastcall DATATBLS_LoadItemsTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { gszTxtField_code, 10, 0, 128, &gpItemsLinker_0096BCC4 },
+        { gszTxtField_code, 10, 0, 128, &gpItemsLinker },
         { "namestr", 22, 0, 244, (void*)DATATBLS_GetStringIdFromReferenceString },
         { gszTxtField_version, 3, 0, 246, 0 },
         { "compactsave", 6, 0, 323, 0 },
@@ -556,75 +556,75 @@ void __fastcall DATATBLS_LoadItemsTxt(void* hArchive)
     };
 
 // build: symbol ?FOG_AllocLinker@* 0x006BD040
-    gpItemsLinker_0096BCC4 = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 392);
+    gpItemsLinker = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 392);
 
-    D2ItemsTxt* pWeapons = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "weapons", pTbl, &gnWeaponsTxtRecordCount_0096CA64, sizeof(D2ItemsTxt));
-    D2ItemsTxt* pArmor = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "armor", pTbl, &gnArmorTxtRecordCount_0096CA6C, sizeof(D2ItemsTxt));
-    D2ItemsTxt* pMisc = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "misc", pTbl, &gnMiscTxtRecordCount_0096CA74, sizeof(D2ItemsTxt));
+    D2ItemsTxt* pWeapons = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "weapons", pTbl, &gnWeaponsTxtRecordCount, sizeof(D2ItemsTxt));
+    D2ItemsTxt* pArmor = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "armor", pTbl, &gnArmorTxtRecordCount, sizeof(D2ItemsTxt));
+    D2ItemsTxt* pMisc = (D2ItemsTxt*)DATATBLS_CompileTxt(hArchive, "misc", pTbl, &gnMiscTxtRecordCount, sizeof(D2ItemsTxt));
 
-    gnItemsTxtRecordCount_0096CA58 = gnWeaponsTxtRecordCount_0096CA64 + gnArmorTxtRecordCount_0096CA6C + gnMiscTxtRecordCount_0096CA74;
+    gnItemsTxtRecordCount = gnWeaponsTxtRecordCount + gnArmorTxtRecordCount + gnMiscTxtRecordCount;
 
-    gpItemsTxt_0096CA5C = (D2ItemsTxt*)FOG_AllocPool(0, sizeof(D2ItemsTxt) * gnItemsTxtRecordCount_0096CA58, ".\\DATATBLS\\ItemTbls.cpp", 399, 0);
-    D2ItemsTxt* pItems = gpItemsTxt_0096CA5C;
-    gpWeaponsTxt_0096CA60 = gpItemsTxt_0096CA5C;
-    memcpy(gpWeaponsTxt_0096CA60, pWeapons, sizeof(D2ItemsTxt) * gnWeaponsTxtRecordCount_0096CA64);
+    gpItemsTxt = (D2ItemsTxt*)FOG_AllocPool(0, sizeof(D2ItemsTxt) * gnItemsTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 399, 0);
+    D2ItemsTxt* pItems = gpItemsTxt;
+    gpWeaponsTxt = gpItemsTxt;
+    memcpy(gpWeaponsTxt, pWeapons, sizeof(D2ItemsTxt) * gnWeaponsTxtRecordCount);
 
-    pItems += gnWeaponsTxtRecordCount_0096CA64;
-    gpArmorTxt_0096CA68 = pItems;
-    memcpy(pItems, pArmor, sizeof(D2ItemsTxt) * gnArmorTxtRecordCount_0096CA6C);
+    pItems += gnWeaponsTxtRecordCount;
+    gpArmorTxt = pItems;
+    memcpy(pItems, pArmor, sizeof(D2ItemsTxt) * gnArmorTxtRecordCount);
 
-    pItems += gnArmorTxtRecordCount_0096CA6C;
-    gpMiscTxt_0096CA70 = pItems;
-    memcpy(pItems, pMisc, sizeof(D2ItemsTxt) * gnMiscTxtRecordCount_0096CA74);
+    pItems += gnArmorTxtRecordCount;
+    gpMiscTxt = pItems;
+    memcpy(pItems, pMisc, sizeof(D2ItemsTxt) * gnMiscTxtRecordCount);
 
     DATATBLS_UnloadBin(pWeapons);
     DATATBLS_UnloadBin(pArmor);
     DATATBLS_UnloadBin(pMisc);
 
-    DATATBLS_GetBinFileHandle(hArchive, "itemscode", &gpItemsCode_0096BCC8, &gnItemsCodeSize_0096BCCC, &gnItemsCodeSizeEx_0096BCD0);
+    DATATBLS_GetBinFileHandle(hArchive, "itemscode", &gpItemsCode, &gnItemsCodeSize, &gnItemsCodeSizeEx);
 
     if (!gbCompileTxt)
     {
-        for (int i = 0; i < gnItemsTxtRecordCount_0096CA58; ++i)
+        for (int i = 0; i < gnItemsTxtRecordCount; ++i)
         {
-            sub_006BD230_AddLinkCode(gpItemsLinker_0096BCC4, gpItemsTxt_0096CA5C[i].dwCode);
+            sub_006BD230_AddLinkCode(gpItemsLinker, gpItemsTxt[i].dwCode);
         }
     }
 
-    gpIndexOldToCurrent_0096CA78 = (unsigned short*)FOG_AllocPool(0, sizeof(unsigned short) * gnItemsTxtRecordCount_0096CA58, ".\\DATATBLS\\ItemTbls.cpp", 431, 0);
-    memset(gpIndexOldToCurrent_0096CA78, 0, sizeof(unsigned short) * gnItemsTxtRecordCount_0096CA58);
+    gpIndexOldToCurrent = (unsigned short*)FOG_AllocPool(0, sizeof(unsigned short) * gnItemsTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 431, 0);
+    memset(gpIndexOldToCurrent, 0, sizeof(unsigned short) * gnItemsTxtRecordCount);
 
     int i = 0;
-    if (i < gnItemsTxtRecordCount_0096CA58)
+    if (i < gnItemsTxtRecordCount)
     {
-        D2ItemsTxt* pItemsTxt = gpItemsTxt_0096CA5C;
+        D2ItemsTxt* pItemsTxt = gpItemsTxt;
         int nCount = 0;
         do
         {
             if (pItemsTxt[i].wVersion == 0)
             {
-                gpIndexOldToCurrent_0096CA78[nCount] = i;
+                gpIndexOldToCurrent[nCount] = i;
                 ++nCount;
             }
             ++i;
         }
-        while (i < gnItemsTxtRecordCount_0096CA58);
+        while (i < gnItemsTxtRecordCount);
     }
 }
 
 // 0x00633540
 void __fastcall DATATBLS_UnloadItemsTxt()
 {
-    FOG_FreeLinker(gpItemsLinker_0096BCC4);
+    FOG_FreeLinker(gpItemsLinker);
 
     if (gItemDataTables.pItemsTxt)
     {
         sub_0040B480(0, gItemDataTables.pItemsTxt, ".\\DATATBLS\\ItemTbls.cpp", 456, 0);
     }
 
-    if (gpIndexOldToCurrent_0096CA78)
+    if (gpIndexOldToCurrent)
     {
-        sub_0040B480(0, gpIndexOldToCurrent_0096CA78, ".\\DATATBLS\\ItemTbls.cpp", 459, 0);
+        sub_0040B480(0, gpIndexOldToCurrent, ".\\DATATBLS\\ItemTbls.cpp", 459, 0);
     }
 
     gItemDataTables.pItemsTxt = 0;
@@ -649,8 +649,8 @@ int __stdcall DATATBLS_MapOldItemIndexToCurrent(int nItemId)
         return -1;
     }
 
-    ITEM_ASSERT(gpIndexOldToCurrent_0096CA78, 482);
-    return gpIndexOldToCurrent_0096CA78[nItemId];
+    ITEM_ASSERT(gpIndexOldToCurrent, 482);
+    return gpIndexOldToCurrent[nItemId];
 }
 
 // 0x006335F0
@@ -666,7 +666,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId)
 // 0x00633640
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId)
 {
-    int nItemId = FOG_GetLinkIndex(gpItemsLinker_0096BCC4, dwCode, 0);
+    int nItemId = FOG_GetLinkIndex(gpItemsLinker, dwCode, 0);
     if (nItemId < 0)
     {
         *pItemId = 0;
@@ -680,7 +680,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 // 0x00633680
 int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode)
 {
-    return FOG_GetLinkIndex(gpItemsLinker_0096BCC4, dwCode, 0);
+    return FOG_GetLinkIndex(gpItemsLinker, dwCode, 0);
 }
 
 // 0x006336A0
@@ -850,60 +850,61 @@ void __fastcall DATATBLS_LoadUniqueItemsTxt(void* hArchive)
         { "lvl req", 3, 0, 54, 0 },
         { "nolimit", 26, 1, 44, 0 },
         { "carry1", 26, 2, 44, 0 },
-        { "chrtransform", 13, 0, 56, &gTxtLink_0096C5E4 },
-        { "invtransform", 13, 0, 57, &gTxtLink_0096C5E4 },
+        { "chrtransform", 13, 0, 56, &gpColorsLinker },
+        { "invtransform", 13, 0, 57, &gpColorsLinker },
         { "flippyfile", 1, 31, 58, 0 },
         { "invfile", 1, 31, 90, 0 },
         { "cost mult", 2, 0, 124, 0 },
         { "cost add", 2, 0, 128, 0 },
-        { "dropsound", 20, 0, 132, &gTxtLink_0096BDC8 },
+// build: symbol ?gpSoundsLinker@* 0x0096BDC8
+        { "dropsound", 20, 0, 132, &gpSoundsLinker },
         { "dropsfxframe", 4, 0, 136, 0 },
-        { "usesound", 20, 0, 134, &gTxtLink_0096BDC8 },
-        { "prop1", 19, 0, 140, &gTxtLink_0096BCD8 },
+        { "usesound", 20, 0, 134, &gpSoundsLinker },
+        { "prop1", 19, 0, 140, &gpPropertiesLinker },
         { "par1", 25, 0, 144, (void*)DATATBLS_ItemParamLinker },
         { "min1", 2, 0, 148, 0 },
         { "max1", 2, 0, 152, 0 },
-        { "prop2", 19, 0, 156, &gTxtLink_0096BCD8 },
+        { "prop2", 19, 0, 156, &gpPropertiesLinker },
         { "par2", 25, 0, 160, (void*)DATATBLS_ItemParamLinker },
         { "min2", 2, 0, 164, 0 },
         { "max2", 2, 0, 168, 0 },
-        { "prop3", 19, 0, 172, &gTxtLink_0096BCD8 },
+        { "prop3", 19, 0, 172, &gpPropertiesLinker },
         { "par3", 25, 0, 176, (void*)DATATBLS_ItemParamLinker },
         { "min3", 2, 0, 180, 0 },
         { "max3", 2, 0, 184, 0 },
-        { "prop4", 19, 0, 188, &gTxtLink_0096BCD8 },
+        { "prop4", 19, 0, 188, &gpPropertiesLinker },
         { "par4", 25, 0, 192, (void*)DATATBLS_ItemParamLinker },
         { "min4", 2, 0, 196, 0 },
         { "max4", 2, 0, 200, 0 },
-        { "prop5", 19, 0, 204, &gTxtLink_0096BCD8 },
+        { "prop5", 19, 0, 204, &gpPropertiesLinker },
         { "par5", 25, 0, 208, (void*)DATATBLS_ItemParamLinker },
         { "min5", 2, 0, 212, 0 },
         { "max5", 2, 0, 216, 0 },
-        { "prop6", 19, 0, 220, &gTxtLink_0096BCD8 },
+        { "prop6", 19, 0, 220, &gpPropertiesLinker },
         { "par6", 25, 0, 224, (void*)DATATBLS_ItemParamLinker },
         { "min6", 2, 0, 228, 0 },
         { "max6", 2, 0, 232, 0 },
-        { "prop7", 19, 0, 236, &gTxtLink_0096BCD8 },
+        { "prop7", 19, 0, 236, &gpPropertiesLinker },
         { "par7", 25, 0, 240, (void*)DATATBLS_ItemParamLinker },
         { "min7", 2, 0, 244, 0 },
         { "max7", 2, 0, 248, 0 },
-        { "prop8", 19, 0, 252, &gTxtLink_0096BCD8 },
+        { "prop8", 19, 0, 252, &gpPropertiesLinker },
         { "par8", 25, 0, 256, (void*)DATATBLS_ItemParamLinker },
         { "min8", 2, 0, 260, 0 },
         { "max8", 2, 0, 264, 0 },
-        { "prop9", 19, 0, 268, &gTxtLink_0096BCD8 },
+        { "prop9", 19, 0, 268, &gpPropertiesLinker },
         { "par9", 25, 0, 272, (void*)DATATBLS_ItemParamLinker },
         { "min9", 2, 0, 276, 0 },
         { "max9", 2, 0, 280, 0 },
-        { "prop10", 19, 0, 284, &gTxtLink_0096BCD8 },
+        { "prop10", 19, 0, 284, &gpPropertiesLinker },
         { "par10", 25, 0, 288, (void*)DATATBLS_ItemParamLinker },
         { "min10", 2, 0, 292, 0 },
         { "max10", 2, 0, 296, 0 },
-        { "prop11", 19, 0, 300, &gTxtLink_0096BCD8 },
+        { "prop11", 19, 0, 300, &gpPropertiesLinker },
         { "par11", 25, 0, 304, (void*)DATATBLS_ItemParamLinker },
         { "min11", 2, 0, 308, 0 },
         { "max11", 2, 0, 312, 0 },
-        { "prop12", 19, 0, 316, &gTxtLink_0096BCD8 },
+        { "prop12", 19, 0, 316, &gpPropertiesLinker },
         { "par12", 25, 0, 320, (void*)DATATBLS_ItemParamLinker },
         { "min12", 2, 0, 324, 0 },
         { "max12", 2, 0, 328, 0 },
@@ -953,8 +954,8 @@ void __fastcall DATATBLS_LoadQualityItemsTxt(void* hArchive)
     D2BinFieldStrc pTbl[] =
     {
         { "nummods", 4, 0, 10, 0 },
-        { "mod1code", 19, 0, 12, &gTxtLink_0096BCD8 },
-        { "mod2code", 19, 0, 28, &gTxtLink_0096BCD8 },
+        { "mod1code", 19, 0, 12, &gpPropertiesLinker },
+        { "mod2code", 19, 0, 28, &gpPropertiesLinker },
         { "mod1param", 2, 0, 16, 0 },
         { "mod1min", 2, 0, 20, 0 },
         { "mod1max", 2, 0, 24, 0 },
@@ -1027,42 +1028,42 @@ void __fastcall DATATBLS_LoadGemsTxt(void* hArchive)
     {
         { "name", 1, 31, 0, 0 },
         { "letter", 1, 5, 32, 0 },
-        { gszTxtField_code, 11, 0, 40, &gpItemsLinker_0096BCC4 },
+        { gszTxtField_code, 11, 0, 40, &gpItemsLinker },
         { "transform", 4, 0, 47, 0 },
         { "nummods", 4, 0, 46, 0 },
-        { "weaponmod1code", 19, 0, 48, &gTxtLink_0096BCD8 },
+        { "weaponmod1code", 19, 0, 48, &gpPropertiesLinker },
         { "weaponmod1param", 25, 0, 52, (void*)DATATBLS_ItemParamLinker },
         { "weaponmod1min", 2, 0, 56, 0 },
         { "weaponmod1max", 2, 0, 60, 0 },
-        { "weaponmod2code", 19, 0, 64, &gTxtLink_0096BCD8 },
+        { "weaponmod2code", 19, 0, 64, &gpPropertiesLinker },
         { "weaponmod2param", 25, 0, 68, (void*)DATATBLS_ItemParamLinker },
         { "weaponmod2min", 2, 0, 72, 0 },
         { "weaponmod2max", 2, 0, 76, 0 },
-        { "weaponmod3code", 19, 0, 80, &gTxtLink_0096BCD8 },
+        { "weaponmod3code", 19, 0, 80, &gpPropertiesLinker },
         { "weaponmod3param", 25, 0, 84, (void*)DATATBLS_ItemParamLinker },
         { "weaponmod3min", 2, 0, 88, 0 },
         { "weaponmod3max", 2, 0, 92, 0 },
-        { "helmmod1code", 19, 0, 96, &gTxtLink_0096BCD8 },
+        { "helmmod1code", 19, 0, 96, &gpPropertiesLinker },
         { "helmmod1param", 25, 0, 100, (void*)DATATBLS_ItemParamLinker },
         { "helmmod1min", 2, 0, 104, 0 },
         { "helmmod1max", 2, 0, 108, 0 },
-        { "helmmod2code", 19, 0, 112, &gTxtLink_0096BCD8 },
+        { "helmmod2code", 19, 0, 112, &gpPropertiesLinker },
         { "helmmod2param", 25, 0, 116, (void*)DATATBLS_ItemParamLinker },
         { "helmmod2min", 2, 0, 120, 0 },
         { "helmmod2max", 2, 0, 124, 0 },
-        { "helmmod3code", 19, 0, 128, &gTxtLink_0096BCD8 },
+        { "helmmod3code", 19, 0, 128, &gpPropertiesLinker },
         { "helmmod3param", 25, 0, 132, (void*)DATATBLS_ItemParamLinker },
         { "helmmod3min", 2, 0, 136, 0 },
         { "helmmod3max", 2, 0, 140, 0 },
-        { "shieldmod1code", 19, 0, 144, &gTxtLink_0096BCD8 },
+        { "shieldmod1code", 19, 0, 144, &gpPropertiesLinker },
         { "shieldmod1param", 25, 0, 148, (void*)DATATBLS_ItemParamLinker },
         { "shieldmod1min", 2, 0, 152, 0 },
         { "shieldmod1max", 2, 0, 156, 0 },
-        { "shieldmod2code", 19, 0, 160, &gTxtLink_0096BCD8 },
+        { "shieldmod2code", 19, 0, 160, &gpPropertiesLinker },
         { "shieldmod2param", 25, 0, 164, (void*)DATATBLS_ItemParamLinker },
         { "shieldmod2min", 2, 0, 168, 0 },
         { "shieldmod2max", 2, 0, 172, 0 },
-        { "shieldmod3code", 19, 0, 176, &gTxtLink_0096BCD8 },
+        { "shieldmod3code", 19, 0, 176, &gpPropertiesLinker },
         { "shieldmod3param", 25, 0, 180, (void*)DATATBLS_ItemParamLinker },
         { "shieldmod3min", 2, 0, 184, 0 },
         { "shieldmod3max", 2, 0, 188, 0 },
@@ -1085,11 +1086,11 @@ void __fastcall DATATBLS_LoadGemsTxt(void* hArchive)
 
     for (int i = 0; i < gnGemsTxtRecordCount; ++i)
     {
-        gpItemsTxt_0096CA5C[i].dwGemOffset = -1;
+        gpItemsTxt[i].dwGemOffset = -1;
         int nItemCode = gpGemsTxt[i].dwItemCode;
         if (nItemCode >= 0)
         {
-            gpItemsTxt_0096CA5C[nItemCode].dwGemOffset = i;
+            gpItemsTxt[nItemCode].dwGemOffset = i;
         }
     }
 }
@@ -1370,12 +1371,12 @@ void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)
 
     ITEM_ASSERT(gnItemStatCostTxtRecordCount <= 511, 1718);
 
-    gnItemStatCostStuff_0096C89C = gpItemStatCostTxt->nStuff;
-    if (gnItemStatCostStuff_0096C89C <= 0 || gnItemStatCostStuff_0096C89C > 8)
+    gnItemStatCostStuff = gpItemStatCostTxt->nStuff;
+    if (gnItemStatCostStuff <= 0 || gnItemStatCostStuff > 8)
     {
-        gnItemStatCostStuff_0096C89C = 6;
+        gnItemStatCostStuff = 6;
     }
-    gnItemStatCostStuffMask_0096C8A0 = (1 << gnItemStatCostStuff_0096C89C) - 1;
+    gnItemStatCostStuffMask = (1 << gnItemStatCostStuff) - 1;
 
     D2ItemStatCostTxt* pTxt = gpItemStatCostTxt;
     for (int i = 0; i < gnItemStatCostTxtRecordCount; ++i)
@@ -1517,7 +1518,7 @@ void __fastcall DATATBLS_LoadPropertiesTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { gszTxtField_code, 17, 0, 0, &gTxtLink_0096BCD8 },
+        { gszTxtField_code, 17, 0, 0, &gpPropertiesLinker },
         { "set1", 4, 0, 2, 0 },
         { "val1", 3, 0, 10, 0 },
         { "func1", 4, 0, 24, 0 },
@@ -1549,7 +1550,7 @@ void __fastcall DATATBLS_LoadPropertiesTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gTxtLink_0096BCD8 = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 1942);
+    gpPropertiesLinker = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 1942);
     gpPropertiesTxt = DATATBLS_CompileTxt(hArchive, "properties", pTbl, &gnPropertiesTxtRecordCount, 46);
 }
 
@@ -1557,7 +1558,7 @@ void __fastcall DATATBLS_LoadPropertiesTxt(void* hArchive)
 void __fastcall DATATBLS_UnloadPropertiesTxt()
 {
     DATATBLS_UnloadBin(gpPropertiesTxt);
-    FOG_FreeLinker(gTxtLink_0096BCD8);
+    FOG_FreeLinker(gpPropertiesLinker);
 }
 
 // 0x00638AC0
@@ -1668,13 +1669,13 @@ extern D2ItemTypesTxt* gpItemTypesTxt_0096C828;                                 
 
 extern int gnItemTypesTxtRecordCount_0096C82C;                                                                     // 0x0096C82C
 
-extern int gnItemTypesIndex_0096C830;                                                                       // 0x0096C830
+extern int gnItemTypesIndex;                                                                       // 0x0096C830
 
 extern unsigned int* gpItemTypesEquivalenceLUTs_0096C834;                                                   // 0x0096C834
 
-extern int gbCompileTxt_0096C8B4;                                                                           // 0x0096C8B4
+extern int gbCompileTxt;                                                                           // 0x0096C8B4
 
-extern int gbLoadFromBin_00744308;                                                                          // 0x00744308
+extern int gbLoadFromBin;                                                                          // 0x00744308
 
 // 0x00638CD0
 int __fastcall DATATBLS_CheckItemTypesEquivalenceNested(int nItemType1, int nItemType2)
@@ -1755,7 +1756,7 @@ void __fastcall DATATBLS_LoadItemTypesTxt(void* hArchive)
     gpItemTypesLinker_0096C824 = FOG_AllocLinker(".\\DATATBLS\\ItemTbls.cpp", 0x884);
     gpItemTypesTxt_0096C828 = (D2ItemTypesTxt*)DATATBLS_CompileTxt(hArchive, "itemtypes", pTbl, &gnItemTypesTxtRecordCount_0096C82C, sizeof(D2ItemTypesTxt));
 
-    if (!gbCompileTxt_0096C8B4 && gbLoadFromBin_00744308)
+    if (!gbCompileTxt && gbLoadFromBin)
     {
         for (int i = 0; i < gnItemTypesTxtRecordCount_0096C82C; ++i)
         {
@@ -1763,14 +1764,14 @@ void __fastcall DATATBLS_LoadItemTypesTxt(void* hArchive)
         }
     }
 
-    gnItemTypesIndex_0096C830 = (gnItemTypesTxtRecordCount_0096C82C + 31) / 32;
-    const int nCount = gnItemTypesTxtRecordCount_0096C82C * gnItemTypesIndex_0096C830;
+    gnItemTypesIndex = (gnItemTypesTxtRecordCount_0096C82C + 31) / 32;
+    const int nCount = gnItemTypesTxtRecordCount_0096C82C * gnItemTypesIndex;
     gpItemTypesEquivalenceLUTs_0096C834 = (unsigned int*)FOG_AllocPool(0, sizeof(unsigned int) * nCount, ".\\DATATBLS\\ItemTbls.cpp", 0x893, 0);
     memset(gpItemTypesEquivalenceLUTs_0096C834, 0, sizeof(unsigned int) * nCount);
 
     for (int i = 0; i < gnItemTypesTxtRecordCount_0096C82C; ++i)
     {
-        pItemTypesNest = &gpItemTypesEquivalenceLUTs_0096C834[gnItemTypesIndex_0096C830 * i];
+        pItemTypesNest = &gpItemTypesEquivalenceLUTs_0096C834[gnItemTypesIndex * i];
 
         for (int j = 0; j < gnItemTypesTxtRecordCount_0096C82C; ++j)
         {

@@ -56,7 +56,7 @@ int __fastcall DRLGPRESET_MapTileType(int nId);                                 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-extern const char* gpszPresetItemCodes_00748AD4[];                                                          // 0x00748AD4
+extern const char* gpszPresetItemCodes[];                                                          // 0x00748AD4
 
 extern int gnPresetObjectIndices[5][150];                                                                   // 0x00748AD8
 
@@ -660,7 +660,7 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
                 if (nVersion > 4)
                 {
                     char szCode[4];
-                    strncpy(szCode, gpszPresetItemCodes_00748AD4[nIndex], 4);
+                    strncpy(szCode, gpszPresetItemCodes[nIndex], 4);
                     szCode[3] = 0;
                     for (int j = 0; j < 3; ++j)
                     {

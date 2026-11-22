@@ -392,7 +392,8 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
         return 0;
     }
 
-    PATH_SetVelocity(pPath, 0, gszMissilesCppFile_006E2150, 0x18E);
+// build: symbol ?gszMissilesSourceFile@* 0x006E2150
+    PATH_SetVelocity(pPath, 0, gszMissilesSourceFile, 0x18E);
 
     if (pTarget)
     {
@@ -420,7 +421,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 
     if (nVelocity)
     {
-        PATH_SetVelocity(pPath, nVelocity, gszMissilesCppFile_006E2150, 0x1AA);
+        PATH_SetVelocity(pPath, nVelocity, gszMissilesSourceFile, 0x1AA);
         D2Common_10142(pPath, pMissile, 0);
     }
 

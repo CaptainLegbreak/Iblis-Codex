@@ -37,7 +37,7 @@ int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                             
 int __stdcall ITEMS_CanBeRare(D2UnitStrc* pItem);                                                           // 0x0062E990
 D2RareAffixDataTbl* __fastcall DATATBLS_GetRareAffixDataTables();                                           // 0x00634250
 int __stdcall ITEMMODS_CanItemHaveRareAffix(D2UnitStrc* pItem, const D2RareAffixTxt* pRareAffixTxtRecord); // 0x0065E710
-extern const int gnRareAffixCounts_006E3014[];                                                              // 0x006E3014
+extern const int gnRareAffixCounts[];                                                              // 0x006E3014
 extern "C" void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);        // 0x00627EF0
 extern "C" void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);        // 0x00627FB0
 extern "C" void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix);                       // 0x00628070

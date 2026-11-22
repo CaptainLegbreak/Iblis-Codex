@@ -31,7 +31,7 @@ unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 void __stdcall ITEMMODS_AssignProperty(int nMode, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nSet, int nUnused); // 0x0065FEC0
-extern const int gnRareAffixCounts_006E3014[]; // 0x006E3014
+extern const int gnRareAffixCounts[]; // 0x006E3014
 static int __stdcall ITEMS_RollLegacyRareItem(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem); // 0x005C1E80
 
 struct D2LowQualityItemDataTbl
@@ -283,7 +283,7 @@ static int __stdcall sub_005C1BF0_RollRareItemNew(D2ItemDropStrc* pItemDrop, D2U
     }
     else
     {
-        nAffixCount = gnRareAffixCounts_006E3014[sub_RareSeedRollLimited(pSeed, 8)];
+        nAffixCount = gnRareAffixCounts[sub_RareSeedRollLimited(pSeed, 8)];
     }
 
     for (int i = 0; i < nAffixCount; ++i)

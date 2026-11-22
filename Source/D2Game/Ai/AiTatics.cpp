@@ -177,7 +177,8 @@ enum D2C_Y10UseSkillConstants
 // 0x00530F30
 void __fastcall PLRSAVE_EnableSaveFileWriting(int nValue)
 {
-    gnGlobal_007310CC = nValue;
+// build: symbol ?gbWriteSaveFile@* 0x007310CC
+    gbWriteSaveFile = nValue;
 }
 
 // 0x00568D70

@@ -15,8 +15,8 @@ struct D2DrlgRouteNodeStrc;
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200
 void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, int* pY); // 0x0067FC20
-extern const int gnXOffsets_006F2810[4]; // 0x006F2810
-extern const int gnYOffsets_006F2800[4]; // 0x006F2800
+extern const int gnOutdoorScanXOffsets[4]; // 0x006F2810
+extern const int gnOutdoorScanYOffsets[4]; // 0x006F2800
 
 struct D2DrlgRouteNodeStrc
 {
@@ -240,8 +240,8 @@ void __stdcall sub_00681000(D2DrlgLevelStrc* pLevel)
 
                     for (int k = 0; k < 4; ++k)
                     {
-                        nX = nPosX + j * gnXOffsets_006F2810[k];
-                        nY = nPosY + j * gnYOffsets_006F2800[k];
+                        nX = nPosX + j * gnOutdoorScanXOffsets[k];
+                        nY = nPosY + j * gnOutdoorScanYOffsets[k];
 
                         if (nX >= 0 && nX < pOutdoors->nGridWidth && nY >= 0 && nY < pOutdoors->nGridHeight)
                         {

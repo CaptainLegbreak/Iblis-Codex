@@ -235,8 +235,10 @@ static int __stdcall SKILLS_CreateMissileVolley(D2GameStrc* pGame, int nCount, D
 
     for (int i = 0; i < nCount; ++i)
     {
-        missileParams.nTargetX = gnVolleyOffsetX_006E3254[i & 3];
-        missileParams.nTargetY = gnVolleyOffsetY_006E3264[i & 3];
+// build: symbol ?gnVolleyOffsetX@* 0x006E3254
+        missileParams.nTargetX = gnVolleyOffsetX[i & 3];
+// build: symbol ?gnVolleyOffsetY@* 0x006E3264
+        missileParams.nTargetY = gnVolleyOffsetY[i & 3];
         missileParams.nInitArg = i;
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
