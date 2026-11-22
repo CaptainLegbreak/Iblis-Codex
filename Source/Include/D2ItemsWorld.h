@@ -158,7 +158,8 @@ struct D2MonsterRegionStrc
     int nMonsterCount; // 0x2B8
     unsigned char nBossMin; // 0x2BC
     unsigned char nBossMax; // 0x2BD
-    unsigned short unk0x2BE; // 0x2BE
+    unsigned char nMonWander; // 0x2BE
+    unsigned char unk0x2BF; // 0x2BF
     int dwlevel; // 0x2C0
     int nWanderingCount; // 0x2C4
     unsigned int dwUniqueCount; // 0x2C8
@@ -168,6 +169,8 @@ struct D2MonsterRegionStrc
     unsigned char nQuest; // 0x2D8
     unsigned char unk0x2D9; // 0x2D9
     unsigned short unk0x2DA; // 0x2DA
+    int nDungeonLevel; // 0x2DC
+    int nDungeonLevelEx; // 0x2E0
 };
 
 struct D2UnitFindDataStrc
@@ -211,7 +214,7 @@ D2_CHECK_SIZE(D2ItemDataStrc, 0x74);
 D2_CHECK_SIZE(D2ItemDropStrc, 0x84);
 D2_CHECK_SIZE(D2PresetUnitStrc, 0x20);
 D2_CHECK_SIZE(D2ObjectControlStrc, 0x1114);
-D2_CHECK_SIZE(D2MonsterRegionStrc, 0x2DC);
+D2_CHECK_SIZE(D2MonsterRegionStrc, 0x2E4);
 D2_CHECK_SIZE(D2UnitFindDataStrc, 0x2C);
 D2_CHECK_SIZE(D2CurseStrc, 0x24);
 D2_CHECK_SIZE(D2PetInfoStrc, 0xC);

@@ -51192,47 +51192,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/MONSTER/MonsterRegion_00547BB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00547BB0",
-     "length": 4,
-     "name": "?MONSTERREGION_GetMonsterRegionFromLevelId@@YIPAUD2MonsterRegionStrc@@PAPAU1@H@Z"
-    },
-    {
-     "va": "0x00547D20",
-     "length": 107,
-     "name": "?MONSTERREGION_InitializeForGame@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x00547D90",
-     "length": 53,
-     "name": "MONSTERREGION_RegisterSpawnedMonster"
-    },
-    {
-     "va": "0x00547DD0",
-     "length": 121,
-     "name": "MONSTERREGION_UpdateSpawnCountForAlignmentChange"
-    },
-    {
-     "va": "0x00547E50",
-     "length": 52,
-     "name": "MONSTERREGION_RecordMonsterKill"
-    },
-    {
-     "va": "0x00547E90",
-     "length": 52,
-     "name": "MONSTERREGION_UndoMonsterKill"
-    },
-    {
-     "va": "0x00547ED0",
-     "length": 113,
-     "name": "MONSTERREGION_AdjustCountsForInactiveMonster"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/OBJECTS/objrgn.cpp",
    "rank": 0,
    "functions": [
@@ -51316,21 +51275,6 @@
     {
      "va": "0x005475E0",
      "length": 991
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterRegion.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005479C0",
-     "length": 393
-    },
-    {
-     "va": "0x00547B50",
-     "length": 81,
-     "name": "?MONSTERREGION_FreeAll@@YIXPAXPAPAUD2MonsterRegionStrc@@@Z"
     }
    ]
   },
@@ -51998,6 +51942,56 @@
      "va": "0x0054DA10",
      "length": 65,
      "name": "PLRMSG_SendDeathMode"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterRegion.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005479C0",
+     "length": 393
+    },
+    {
+     "va": "0x00547B50",
+     "length": 81,
+     "name": "?MONSTERREGION_FreeAll@@YIXPAXPAPAUD2MonsterRegionStrc@@@Z"
+    },
+    {
+     "va": "0x00547BB0",
+     "length": 4,
+     "name": "?MONSTERREGION_GetMonsterRegionFromLevelId@@YIPAUD2MonsterRegionStrc@@PAPAU1@H@Z"
+    },
+    {
+     "va": "0x00547D20",
+     "length": 107,
+     "name": "?MONSTERREGION_InitializeForGame@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x00547D90",
+     "length": 53,
+     "name": "MONSTERREGION_RegisterSpawnedMonster"
+    },
+    {
+     "va": "0x00547DD0",
+     "length": 121,
+     "name": "MONSTERREGION_UpdateSpawnCountForAlignmentChange"
+    },
+    {
+     "va": "0x00547E50",
+     "length": 52,
+     "name": "MONSTERREGION_RecordMonsterKill"
+    },
+    {
+     "va": "0x00547E90",
+     "length": 52,
+     "name": "MONSTERREGION_UndoMonsterKill"
+    },
+    {
+     "va": "0x00547ED0",
+     "length": 113,
+     "name": "MONSTERREGION_AdjustCountsForInactiveMonster"
     }
    ]
   },
