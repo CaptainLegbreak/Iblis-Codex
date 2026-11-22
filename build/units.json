@@ -26297,6 +26297,10 @@
      "va": "0x00499450",
      "length": 170,
      "name": "?sub_00499450_DrawControlPanel@@YAXXZ"
+    },
+    {
+     "va": "0x004996A0",
+     "length": 1289
     }
    ],
    "flags": [
@@ -26352,30 +26356,6 @@
      "length": 188,
      "name": "sub_004AB530_DrawTabCel"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004996A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004996A0",
-     "length": 1289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

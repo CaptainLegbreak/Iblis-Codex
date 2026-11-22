@@ -2040,13 +2040,14 @@
    "state": "included"
   },
   "Source/D2Client/UI/panel_004978D0.cpp": {
-   "bytes": 168,
-   "definitions": 9,
+   "bytes": 172,
+   "definitions": 10,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/panel_004978D0.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "static_definitions": 1
   },
   "Source/D2Client/UI/panel.cpp": {
    "bytes": 80,
@@ -2065,16 +2066,6 @@
    "include": "gen/data/Source/D2Client/Unknown_00499500.inc",
    "lang": "cpp",
    "state": "included"
-  },
-  "Source/D2Client/Unknown_004996A0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": null,
-   "lang": "cpp",
-   "state": "included",
-   "static_definitions": 1
   },
   "Source/D2Client/UI/text_0049A950.cpp": {
    "bytes": 116,
@@ -51982,12 +51973,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Client/Unknown_004996A0.cpp",
+   "file": "Source/D2Client/UI/panel_004978D0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnGlobal_00722358 = ",
-   "include": "gen/data/Source/D2Client/Unknown_004996A0/gnGlobal_00722358.inc",
+   "include": "gen/data/Source/D2Client/UI/panel_004978D0/gnGlobal_00722358.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
