@@ -1,6 +1,7 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
+#include "D2StormBitOutput.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED FromStream
@@ -15,7 +16,6 @@ class CHuffmanEncoder;
 class CHuffmanDecoder;
 struct D2StormHuffInputStrc;
 struct CHuffman;
-struct CBitOutput;
 struct D2CriticalSectionStrc;
 struct T0041FA40;
 struct D2StormListStrc;
@@ -160,18 +160,6 @@ struct CHuffman
     unsigned int Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
 };
 
-struct CBitOutput
-{
-    unsigned char* pOutputStart;
-    unsigned int f_4;
-    unsigned char* pOutput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-
-    unsigned int sub_0041D940_GetSize();                                                                    // 0x0041D940
-    void sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits);                                     // 0x0041D950
-    void sub_0041D9A0_Flush();                                                                              // 0x0041D9A0
-};
 
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218

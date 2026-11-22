@@ -7,7 +7,6 @@ struct D2StormHuffCacheStrc;
 struct CHuffman;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
-struct CBitOutput;
 struct D2CriticalSectionStrc;
 struct T0041FA40;
 
@@ -162,16 +161,7 @@ struct CHuffman
     }
 };
 
-struct CBitOutput
-{
-    unsigned char* pOutputStart;
-    unsigned int f_4;
-    unsigned char* pOutput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-
-    void sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits);                                     // 0x0041D950
-};
+#include "D2StormBitOutput.h"
 
 
 extern unsigned char gaHuffDistribution_006CF3A0[][0x102]; // 0x006CF3A0

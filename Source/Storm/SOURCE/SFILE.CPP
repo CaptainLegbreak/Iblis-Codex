@@ -72,7 +72,6 @@ struct D2CommonStormHashTableAStrc;
 struct D2StormList00418490Strc;
 struct D2StormList004185B0Strc;
 struct D2StormHashBufferStrc;
-struct CBitOutput;
 class THuffmannTree;
 struct D2StormHuffLinkSlotStrc;
 struct CHuffman;
@@ -380,16 +379,7 @@ struct D2StormHashBufferStrc
     unsigned int nWindow;
 };
 
-struct CBitOutput
-{
-    unsigned char* pOutputStart;
-    unsigned int f_4;
-    unsigned char* pOutput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-
-    void sub_0041D9A0_Flush();
-};
+#include "D2StormBitOutput.h"
 
 class THuffmannTree
 {
