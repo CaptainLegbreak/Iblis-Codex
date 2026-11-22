@@ -177,7 +177,7 @@ struct BigBuffer
     }
     unsigned int& Ref(int nIndex)
     {
-        sub_00421FE0_GrowToFit(nIndex);
+        GrowToFit(nIndex);
         return m_array.f_8[m_start + nIndex];
     }
     inline unsigned int& At(unsigned int nIndex)
@@ -189,9 +189,9 @@ struct BigBuffer
     {
         m_start = nStart;
         if (nStart)
-            sub_00421FE0_GrowToFit(-1);
+            GrowToFit(-1);
     }
-    void sub_00421FE0_GrowToFit(int nIndex);                                                                // 0x00421FE0
+    void GrowToFit(int nIndex);                                                                // 0x00421FE0
     void sub_004220D0_SetCount(unsigned int nCount);                                                        // 0x004220D0
     void sub_00422140_Trim();                                                                               // 0x00422140
 };
@@ -271,8 +271,8 @@ static void SetZero(BigBuffer& a)
     a.SetCount(0);
 }
 
-// build: context sub_00422D00_Shl
-static void __stdcall sub_00422D00_Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
+// build: context Shl
+static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift) // 0x00422D00
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -323,9 +323,9 @@ static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const B
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423DC0_Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack);
+static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
 // 0x00423DC0
-static void __stdcall sub_00423DC0_Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
+static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     d.sub_00422140_Trim();
@@ -352,8 +352,8 @@ static void __stdcall sub_00423DC0_Div(BigBuffer& a, BigBuffer& b, BigBuffer& c,
     __assume(tStack.nUsed < 16);
     BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
     unsigned int nShift = 31 - (sub_004213B0_FindLastSetBit(&d) & 31);
-    sub_00422D00_Shl(tRem, c, nShift);
-    sub_00422D00_Shl(tDiv, d, nShift);
+    Shl(tRem, c, nShift);
+    Shl(tDiv, d, nShift);
     unsigned int nLastDigit = nDCount - 1;
     unsigned int nTop = tDiv.Ref(nLastDigit) + 1;
     unsigned int i = nCCount - nDCount + 1;
@@ -395,7 +395,7 @@ void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 {
     BigStack& tStack = pResult->tStack;
     BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    sub_00423DC0_Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
+    Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
 
@@ -404,6 +404,6 @@ void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 {
     BigStack& tStack = pResult->tStack;
     BigBuffer& tQuotient = tStack.f_0[tStack.nUsed++];
-    sub_00423DC0_Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
+    Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }

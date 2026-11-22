@@ -313,7 +313,7 @@ struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
-    void sub_00421FE0_GrowToFit(int nIndex);                                                                // 0x00421FE0
+    void GrowToFit(int nIndex);                                                                // 0x00421FE0
 
     unsigned int sub_004212D0_Get(unsigned int nIndex);                                                      // 0x004212D0
 
@@ -414,7 +414,7 @@ struct BigBuffer
     }
     unsigned int& Get(unsigned int nIndex)
     {
-        sub_00421FE0_GrowToFit(nIndex);
+        GrowToFit(nIndex);
         return m_array.f_8[m_start + nIndex];
     }
     unsigned int& At(unsigned int nIndex)

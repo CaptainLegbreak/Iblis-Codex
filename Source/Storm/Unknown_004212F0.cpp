@@ -61,7 +61,7 @@ struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
-    void sub_00421FE0_GrowToFit(int nIndex);
+    void GrowToFit(int nIndex); // 0x00421FE0
 
     unsigned int Count() const
     {
@@ -199,7 +199,7 @@ unsigned int D2StormArrayBStrc::sub_004218B0_Add(unsigned int nCount, const unsi
 }
 
 // 0x00421FE0
-void BigBuffer::sub_00421FE0_GrowToFit(int nIndex)
+void BigBuffer::GrowToFit(int nIndex)
 {
     unsigned int nPosition = m_start + nIndex;
     if (nPosition >= m_array.f_4)

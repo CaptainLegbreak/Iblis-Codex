@@ -7692,7 +7692,7 @@
     {
      "va": "0x00421FE0",
      "length": 104,
-     "name": "?sub_00421FE0_GrowToFit@BigBuffer@@QAEXH@Z"
+     "name": "?GrowToFit@BigBuffer@@QAEXH@Z"
     },
     {
      "va": "0x00422140",
@@ -7904,7 +7904,7 @@
     {
      "va": "0x00423770",
      "length": 27,
-     "name": "?sub_00423770_ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
+     "name": "?ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
     },
     {
      "va": "0x00423820",
