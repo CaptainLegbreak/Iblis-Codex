@@ -1,4 +1,5 @@
 #include <D2UnitData.h>
+#include "D2ClientUi.h"
 #include "D2Txt.h"
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
@@ -52,12 +53,6 @@ extern int gnGlobal_007A5254; // 0x007A5254
 
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 
-
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x90];
-    void (__cdecl* pfnNotify)();
-};
 
 struct D2ClientNodeStrc
 {
