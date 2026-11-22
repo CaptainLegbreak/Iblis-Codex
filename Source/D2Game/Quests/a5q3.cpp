@@ -599,6 +599,80 @@ void __fastcall ACT5Q3_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
     }
 }
 
+#define ITEMCODE_DEFROST_POTION 0x20656369
+struct D2ObjOperateFnStrc;
+typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
+void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
+void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode); // 0x00544160
+void __fastcall QUESTS_SendScrollMessage(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, unsigned short nMessage); // 0x005456A0
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x00545760
+int __fastcall ACT5Q3_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00589A50
+bool __fastcall ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x0058AAB0
+void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bReset); // 0x0061AED0
+inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
+
+
+// 0x0058ABC0
+int __fastcall OBJECTS_OperateFunction67_FrozenAnya(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q3_PRISONOFICE);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
+
+    if (!ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ITEMCODE_DEFROST_POTION))
+    {
+        QUESTS_SendScrollMessage(pOp->hPlayer, pOp->hObject, 20131);
+
+        if (pQuestData->fLastState == 1)
+        {
+            pQuestData->nStatusFlags = 0;
+            QUESTS_UnitIterate(pQuestData, 3, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
+        }
+
+        return 0;
+    }
+
+    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED)
+        && !QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING)
+        && ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ITEMCODE_DEFROST_POTION))
+    {
+        --pQuestDataEx->nDefrostPotionsInGame;
+        QUESTS_DeleteItem(pOp->pGame, pOp->hPlayer, ITEMCODE_DEFROST_POTION);
+        QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 2001);
+
+        pQuestDataEx->unk0x84[0] = 1;
+        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_PRIMARYGOALDONE);
+        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDPENDING);
+
+        pQuestData->nStatusFlags = 0;
+        QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
+        QUESTS_TriggerFX(pQuestData->pGame, 16);
+
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT5Q3_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT5Q3_UnitIterate_SetCompletionFlag);
+
+        if (!pQuestDataEx->bTimerActive)
+        {
+            pQuestDataEx->bTimerActive = 1;
+            pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX = CLIENTS_GetUnitX(pOp->hObject);
+            pQuestDataEx->pDrehyaObjectOutsideTownCoords.nY = CLIENTS_GetUnitY(pOp->hObject);
+
+            QUESTS_CreateTimer(pQuestData, ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown, 1);
+            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pOp->hObject), 0);
+        }
+    }
+
+    return 0;
+}
+
 // 0x0058EAC0
 void __fastcall OBJECTS_InitFunction66_DrehyaStartInTown(D2ObjInitFnStrc* pOp)
 {

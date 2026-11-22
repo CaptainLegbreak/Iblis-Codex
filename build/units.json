@@ -56113,11 +56113,6 @@
      "name": "ACT5Q3_GetDrehyaPortalCoordinates"
     },
     {
-     "va": "0x0058ABC0",
-     "length": 448,
-     "name": "OBJECTS_OperateFunction67_FrozenAnya"
-    },
-    {
      "va": "0x0058AD80",
      "length": 134,
      "name": "ACT5Q3_ChangeDrehyaMapAI"
@@ -56487,6 +56482,11 @@
      "va": "0x0058AAB0",
      "length": 264,
      "name": "?ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0058ABC0",
+     "length": 448,
+     "name": "OBJECTS_OperateFunction67_FrozenAnya"
     },
     {
      "va": "0x0058BC00",
