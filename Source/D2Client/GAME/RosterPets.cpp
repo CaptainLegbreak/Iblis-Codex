@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
+#include "D2ClientGame.h"
 #include "D2StormTypes.h"
 #include "D2Structs.h"
 
@@ -113,7 +114,7 @@ static int gnGlobal_007A6AF0;                                                   
 
 static int gnGlobal_007A745C;                                                                               // 0x007A745C
 
-static D2RosterPetNodeStrc* gpRosterPets_007BB5BC;                                                          // 0x007BB5BC
+static D2RosterPetStrc* gpRosterPets_007BB5BC;                                                          // 0x007BB5BC
 
 static int gnGlobal_007BB5F0;                                                                               // 0x007BB5F0
 
@@ -129,7 +130,7 @@ static T0045FED0* gpTimer_007C0E54;                                             
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-struct D2RosterPetNodeStrc;
+struct D2RosterPetStrc;
 struct D2Packet81ArgsStrc;
 struct D2HirelingInfoStrc;
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
@@ -224,10 +225,10 @@ int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGree
 // 0x00478A50
 void __cdecl ROSTERPETS_FreeRosterPets()
 {
-    D2RosterPetNodeStrc* pPet = gpRosterPets_007BB5BC;
+    D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
     while (pPet)
     {
-        D2RosterPetNodeStrc* pNext = pPet->pNext;
+        D2RosterPetStrc* pNext = pPet->pNext;
         FOG_Free(pPet, ".\\GAME\\RosterPets.cpp", 0x2F, 0);
         pPet = pNext;
     }
@@ -237,10 +238,10 @@ void __cdecl ROSTERPETS_FreeRosterPets()
 // 0x00478AB0
 void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey)
 {
-    D2RosterPetNodeStrc* pPrev = 0;
-    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    D2RosterPetStrc* pPrev = 0;
+    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
     {
-        if (pNode->nType == 7 && pNode->nKey == nKey)
+        if (pNode->nType == 7 && pNode->dwUnitId == nKey)
         {
             if (pPrev)
                 pPrev->pNext = pNode->pNext;
@@ -275,25 +276,25 @@ void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nVa
     {
         ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
     }
-    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
     {
-        if (pNode->nKey == nKey)
+        if (pNode->dwUnitId == nKey)
         {
             pNode->nType = nType;
-            pNode->nArg = nArg;
-            pNode->nValue = nValue;
-            pNode->nClear = 0;
+            pNode->dwOwnerId = nArg;
+            pNode->nClassId = nValue;
+            pNode->bDead = 0;
             return;
         }
     }
-    D2RosterPetNodeStrc* pNew = (D2RosterPetNodeStrc*)FOG_Alloc(sizeof(D2RosterPetNodeStrc), ".\\GAME\\RosterPets.cpp", 0x7A, 0);
-    memset(pNew, 0, sizeof(D2RosterPetNodeStrc));
-    D2RosterPetNodeStrc* pHead = gpRosterPets_007BB5BC;
-    pNew->nKey = nKey;
-    pNew->nArg = nArg;
+    D2RosterPetStrc* pNew = (D2RosterPetStrc*)FOG_Alloc(sizeof(D2RosterPetStrc), ".\\GAME\\RosterPets.cpp", 0x7A, 0);
+    memset(pNew, 0, sizeof(D2RosterPetStrc));
+    D2RosterPetStrc* pHead = gpRosterPets_007BB5BC;
+    pNew->dwUnitId = nKey;
+    pNew->dwOwnerId = nArg;
     pNew->nType = nType;
-    pNew->nValue = nValue;
-    pNew->nInit = 0x64;
+    pNew->nClassId = nValue;
+    pNew->nLifePercent = 0x64;
     pNew->pNext = pHead;
     gpRosterPets_007BB5BC = pNew;
 }
@@ -467,11 +468,11 @@ void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00478A90
-D2RosterPetNodeStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
+D2RosterPetStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
 {
-    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
     {
-        if (pNode->nKey == nKey)
+        if (pNode->dwUnitId == nKey)
         {
             return pNode;
         }
@@ -482,17 +483,17 @@ D2RosterPetNodeStrc* __fastcall ROSTERPETS_FindRosterPet(int nKey)
 // 0x00478C90
 void __fastcall ROSTERPETS_DropPetEntry(int nKey)
 {
-    D2RosterPetNodeStrc* pPrev = 0;
-    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    D2RosterPetStrc* pPrev = 0;
+    for (D2RosterPetStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
     {
-        if (pNode->nKey == nKey)
+        if (pNode->dwUnitId == nKey)
         {
             if (pNode->nType == 7)
             {
                 D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-                if (pNode->nArg == (!pPlayer ? -1 : pPlayer->dwUnitId))
+                if (pNode->dwOwnerId == (!pPlayer ? -1 : pPlayer->dwUnitId))
                 {
-                    pNode->nClear = 1;
+                    pNode->bDead = 1;
                     return;
                 }
             }
@@ -513,22 +514,20 @@ void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nV
     if (nType == 7)
         ROSTERPETS_RemoveHirelingEntries(nKey, nKey);
 
-    D2RosterPetNodeStrc* pNode;
-    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->nKey != nKey; pNode = pNode->pNext)
+    D2RosterPetStrc* pNode;
+    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->dwUnitId != nKey; pNode = pNode->pNext)
         ;
 
     ROSTERPETS_SetRosterEntry(nKey, nArg, nType, nValue);
 
-    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->nKey != nKey; pNode = pNode->pNext)
+    for (pNode = gpRosterPets_007BB5BC; pNode && pNode->dwUnitId != nKey; pNode = pNode->pNext)
         ;
     D2_ASSERT(pNode, 0x95);
 
-    pNode->nKey = nKey;
-    pNode->nArg = nArg;
+    pNode->dwUnitId = nKey;
+    pNode->dwOwnerId = nArg;
     pNode->nType = nType;
-    pNode->unk0x24[0] = pArgs->nArg0C;
-    pNode->unk0x24[1] = pArgs->nArg10;
-    pNode->unk0x24[2] = pArgs->nZero;
+    pNode->tEntry = *(D2ClientEntryStrc*)pArgs;
 
     if (nType == 7)
     {
