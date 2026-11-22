@@ -6832,13 +6832,18 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMSG_00420290.CPP",
+   "file": "Source/Storm/SOURCE/SMSG.CPP",
    "rank": 0,
    "functions": [
     {
      "va": "0x00420290",
      "length": 9,
      "name": "sub_00420290_BreakHandlerChain"
+    },
+    {
+     "va": "0x004202A0",
+     "length": 105,
+     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
     },
     {
      "va": "0x00420310",
@@ -6863,32 +6868,42 @@
     {
      "va": "0x004203F0",
      "length": 36,
-     "name": "sub_004203F0_NextLink"
+     "name": "?NextLink@?$TSLink@UWNDREC@@@@QAEPAU1@H@Z"
     },
     {
      "va": "0x00420520",
      "length": 17,
-     "name": "sub_00420520_Link"
+     "name": "?Link@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAU?$TSLink@UWNDREC@@@@PBUWNDREC@@@Z"
     },
     {
      "va": "0x00420540",
      "length": 161,
-     "name": "sub_00420540_LinkNode"
+     "name": "?LinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@I0@Z"
     },
     {
      "va": "0x004205F0",
      "length": 32,
-     "name": "sub_004205F0_Next"
+     "name": "?Next@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z"
     },
     {
      "va": "0x00420650",
      "length": 66,
-     "name": "sub_00420650_sub_006C4290"
+     "name": "?UnlinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@@Z"
+    },
+    {
+     "va": "0x004206C0",
+     "length": 25,
+     "name": "?IsEmpty@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEHXZ"
     },
     {
      "va": "0x004206E0",
      "length": 24,
-     "name": "sub_004206E0_RawNext"
+     "name": "?RawNext@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z"
+    },
+    {
+     "va": "0x00420790",
+     "length": 60,
+     "name": "??1?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAE@XZ"
     },
     {
      "va": "0x004208E0",
@@ -6896,10 +6911,104 @@
      "name": "sub_004208E0_AddWndRec"
     },
     {
+     "va": "0x004209E0",
+     "length": 36,
+     "name": "?FindWindow@@YAPAUWNDREC@@PAX@Z"
+    },
+    {
+     "va": "0x00420A10",
+     "length": 89,
+     "name": "?DeleteWindow@@YAXPAX@Z"
+    },
+    {
+     "va": "0x00420A70",
+     "length": 62,
+     "name": "?InternalRegister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420AB0",
+     "length": 42,
+     "name": "?InternalUnregister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420AE0",
+     "length": 27,
+     "name": "?sub_00420AE0_UnregisterAllWindows@@YAHXZ"
+    },
+    {
+     "va": "0x00420B00",
+     "length": 235,
+     "name": "?SMsgDispatchMessage@@YGHPAXIIHPAH1@Z"
+    },
+    {
+     "va": "0x00420BF0",
+     "length": 31,
+     "name": "?SMsgRegisterCommand@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420C10",
+     "length": 31,
+     "name": "?SMsgRegisterKeyDown@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420C30",
+     "length": 31,
+     "name": "?SMsgRegisterKeyUp@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420C50",
+     "length": 31,
+     "name": "?SMsgRegisterMessage@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420C70",
+     "length": 30,
+     "name": "?SMsgUnregisterCommand@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420C90",
+     "length": 30,
+     "name": "?SMsgUnregisterKeyDown@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420CB0",
+     "length": 30,
+     "name": "?SMsgUnregisterKeyUp@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
+     "va": "0x00420CD0",
+     "length": 30,
+     "name": "?SMsgUnregisterMessage@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
+    },
+    {
      "va": "0x00420CF0",
      "length": 90,
      "name": "sub_00420CF0_WindowProc"
+    },
+    {
+     "va": "0x00420D50",
+     "length": 37,
+     "name": "?SMsgGetDispatcher@@YGHH@Z"
+    },
+    {
+     "va": "0x00420D90",
+     "length": 4,
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPAUWNDREC@@PAU?$TSLink@UWNDREC@@@@@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/Ob1"
    ]
   },
   {
@@ -7505,102 +7614,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SMSG.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004202A0",
-     "length": 105,
-     "name": "?SMsgDoMessageLoop@@YGIP6GHH@ZH@Z"
-    },
-    {
-     "va": "0x004206C0",
-     "length": 25,
-     "name": "?sub_004206C0_IsEmpty@D2TSListStrc@@QAEHXZ"
-    },
-    {
-     "va": "0x00420790",
-     "length": 60,
-     "name": "?sub_00420790_Destroy@D2TSListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00420A10",
-     "length": 89,
-     "name": "?DeleteWindow@@YAXPAX@Z"
-    },
-    {
-     "va": "0x00420A70",
-     "length": 62,
-     "name": "?InternalRegister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420AB0",
-     "length": 42,
-     "name": "?InternalUnregister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420AE0",
-     "length": 27,
-     "name": "?sub_00420AE0_UnregisterAllWindows@@YAHXZ"
-    },
-    {
-     "va": "0x00420B00",
-     "length": 235,
-     "name": "?SMsgDispatchMessage@@YGHPAXIIHPAH1@Z"
-    },
-    {
-     "va": "0x00420BF0",
-     "length": 31,
-     "name": "?SMsgRegisterCommand@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420C10",
-     "length": 31,
-     "name": "?SMsgRegisterKeyDown@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420C30",
-     "length": 31,
-     "name": "?SMsgRegisterKeyUp@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420C50",
-     "length": 31,
-     "name": "?SMsgRegisterMessage@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420C70",
-     "length": 30,
-     "name": "?SMsgUnregisterCommand@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420C90",
-     "length": 30,
-     "name": "?SMsgUnregisterKeyDown@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420CB0",
-     "length": 30,
-     "name": "?SMsgUnregisterKeyUp@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420CD0",
-     "length": 30,
-     "name": "?SMsgUnregisterMessage@@YGHPAUHWND__@@IP6GHPAX@Z@Z"
-    },
-    {
-     "va": "0x00420D50",
-     "length": 37,
-     "name": "?SMsgGetDispatcher@@YGHH@Z"
-    },
-    {
-     "va": "0x00420D90",
-     "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_00420220.cpp",
    "rank": 0,
    "functions": [
@@ -7639,17 +7652,6 @@
      "va": "0x00420220",
      "length": 111,
      "name": "?SLogDestroy@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SMSG_004209E0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004209E0",
-     "length": 36,
-     "name": "?FindWindow@@YIPAUWNDREC@@H@Z"
     }
    ]
   },

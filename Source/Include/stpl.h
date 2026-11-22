@@ -22,7 +22,9 @@ private:
 #define STORM_TYPENAME(T) ((const char*)&typeid(T) + 8)
 
 template<class T> struct TSLink;
+template<class T> struct TSLinkedNode;
 template<class T> struct TSGetLink;
+template<class T> struct TSGetExplicitLink;
 template<class T, class TGetLink> struct TSList;
 template<class T> struct TSCD;
 template<class T> struct TSBaseArray;
@@ -74,10 +76,31 @@ struct TSLink
     }
 };
 
-// The link-offset policy: the list keeps the offset of the link inside T in m_linkoffset.
+// A node type that embeds its link as m_link (Storm's NODEDECL form).
+template<class T>
+struct TSLinkedNode
+{
+    TSLink<T> m_link;                                       // 0x00
+};
+
+// The link policies: TSGetLink finds a node's link in its m_link member; TSGetExplicitLink uses the list's
+// m_linkoffset.
 template<class T>
 struct TSGetLink
 {
+    static TSLink<T>* Link(const T* nodeptr, int linkoffset)
+    {
+        return &((T*)nodeptr)->m_link;
+    }
+};
+
+template<class T>
+struct TSGetExplicitLink
+{
+    static TSLink<T>* Link(const T* nodeptr, int linkoffset)
+    {
+        return (TSLink<T>*)((char*)nodeptr + linkoffset);
+    }
 };
 
 template<class T, class TGetLink = TSGetLink<T> >
@@ -94,14 +117,57 @@ struct TSList
     {
         return m_terminator.Next();
     }
+    int IsEmpty()
+    {
+        return Head() == 0;
+    }
     TSLink<T>* Link(const T* ptr)
     {
-        return (TSLink<T>*)((char*)ptr + m_linkoffset);
+        return ptr ? TGetLink::Link(ptr, m_linkoffset) : &m_terminator;
+    }
+    void LinkNode(T* ptr, unsigned int linktype, T* existingptr)
+    {
+        TSLink<T>* link = Link(ptr);
+        link->Unlink();
+        TSLink<T>* existinglink = Link(existingptr);
+        switch (linktype)
+        {
+        case 1:
+            link->m_prevlink = existinglink;
+            link->m_next = existinglink->m_next;
+            existinglink->NextLink(m_linkoffset)->m_prevlink = link;
+            existinglink->m_next = ptr;
+            break;
+        default:
+            {
+                TSLink<T>* prevlink = existinglink->m_prevlink;
+                link->m_prevlink = prevlink;
+                link->m_next = prevlink->m_next;
+                prevlink->m_next = ptr;
+                existinglink->m_prevlink = link;
+            }
+            break;
+        }
+    }
+    T* Next(const T* ptr)
+    {
+        return Link(ptr)->Next();
+    }
+    T* RawNext(const T* ptr)
+    {
+        return ptr ? TGetLink::Link(ptr, m_linkoffset)->m_next : m_terminator.m_next;
+    }
+    void UnlinkNode(T* ptr)
+    {
+        Link(ptr)->Unlink();
+    }
+    T* NewNode(unsigned int linktype, unsigned int extrabytes, unsigned int flags)
+    {
+        T* ptr = new (SMemAlloc(sizeof(T) + extrabytes, STORM_TYPENAME(T), -2, flags | 8)) T;
+        LinkNode(ptr, linktype, 0);
+        return ptr;
     }
     void UnlinkAll();
-    void LinkNode(T* ptr, int linktype, T* existingptr);
-    void UnlinkNode(T* ptr);
-    T* NewNode(unsigned int linktype, unsigned int extrabytes, unsigned int flags);
     T* DeleteNode(T* ptr);
     void Clear();
 };

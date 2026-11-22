@@ -1,86 +1,20 @@
 #include "D2StormTypes.h"
 #include "Storm.h"
 #include "D2GameTypes.h"
-#include "D2StormLink.h"
-
+#include "stpl.h"
 
 struct HWND__;
 
-struct D2CriticalSectionStrc;
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
-
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
-
-extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
-
-extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, size_t nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
-
-extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
-
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-
-extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
-
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
+
+struct SMSGHANDLER_PARAMS;
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 
-void __stdcall sub_004208E0_AddWndRec(int nValue);
-
-int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam);
-
-char* __fastcall sub_004209E0_FindWndRec(void* hWnd);
-
-int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
-
-struct D2StormLinkStrc;
-
-struct D2StormListStrc;
-
-struct D2Storm4167B0Strc;
-
-struct D2Storm4168F0Strc;
-
-struct D2Storm416A90Strc;
-
-int __stdcall SEvtUnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler); // 0x00426720
-
-extern unsigned short gwValue_0077905C;
-
-struct D2StormListStrc
+struct WNDREC : TSLinkedNode<WNDREC>
 {
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    void* hWnd;                                             // 0x08
 };
-
-struct D2Storm4167B0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4167B0Strc();
-};
-
-struct D2Storm4168F0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4168F0Strc();
-};
-
-int __stdcall SMsgRegisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
-
-int __stdcall SMsgRegisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
-
-int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
-
-int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
-
-static __declspec(noinline) int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
 
 struct D2WinMsgStrc
 {
@@ -95,241 +29,65 @@ struct D2WinMsgStrc
 
 typedef int (__stdcall* SMSGIDLEPROC)(int nCount);
 
+extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x006CC488
 extern "C" __declspec(dllimport) int __stdcall DispatchMessageA(const D2WinMsgStrc* pMsg);                  // 0x006CC478
-
 extern "C" __declspec(dllimport) int __stdcall GetMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax); // 0x006CC484
-
 extern "C" __declspec(dllimport) int __stdcall PeekMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax, unsigned int nRemove); // 0x006CC480
-
 extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const D2WinMsgStrc* pMsg);                  // 0x006CC47C
 
-int __stdcall SEvtUnregisterType(unsigned int nType, void* hWnd); // 0x00426810
-
-struct SMSGHANDLER_PARAMS;
-
-struct WNDREC;
-
-struct D2StormNodeListBStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    char* sub_00420970_DeleteNode(char* pNode);                                                            // 0x00420970
-};
-
-struct WNDREC
-{
-    D2StormLinkStrc f_0;
-    void* hWnd;
-};
-
+int __stdcall SEvtBreakHandlerChain(void* pData); // 0x00426E80
 int __stdcall SEvtDispatch(unsigned int nType, void* hWnd, unsigned int nId, SMSGHANDLER_PARAMS* pParams); // 0x00426F90
-extern D2StormNodeListBStrc gWndRecList_00708860; // 0x00708860
+int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubtype); // 0x00426370
+int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
+int __stdcall SEvtUnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler); // 0x00426720
+int __stdcall SEvtUnregisterType(unsigned int nType, void* hWnd); // 0x00426810
+int __stdcall sub_004269C0_RegisterHandler(unsigned long dwId, void* pContext); // 0x004269C0
+
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult);
+int __stdcall SMsgRegisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+int __stdcall SMsgRegisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+static int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+inline void* operator new(unsigned int, void* pPlace) throw()
+{
+    return pPlace;
+}
+
+extern TSList<WNDREC> gWndRecList_00708860; // 0x00708860
 
 void* gdwGlobal_007792F4; // 0x007792F4
 
-struct D2StormNodeListBStrc;
+// build: symbol ??_R0?AUWNDREC@@@8 0x00708848
+// build: symbol ?SMemAlloc@@YGPAXIPBDHI@Z 0x00413020
+// build: symbol ?NextLink@?$TSLink@UWNDREC@@@@QAEPAU1@H@Z 0x004203F0
+// build: symbol ?Link@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAU?$TSLink@UWNDREC@@@@PBUWNDREC@@@Z 0x00420520
+// build: symbol ?LinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@I0@Z 0x00420540
+// build: symbol ?Next@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z 0x004205F0
+// build: symbol ?UnlinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@@Z 0x00420650
+// build: symbol ?IsEmpty@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEHXZ 0x004206C0
+// build: symbol ?RawNext@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z 0x004206E0
+// build: symbol ?UnlinkAll@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ 0x00420750
+// build: symbol ??1?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAE@XZ 0x00420790
+// build: symbol ?DeleteNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PAU2@@Z 0x00420970
+template TSLink<WNDREC>* TSLink<WNDREC>::NextLink(int);
+template TSLink<WNDREC>* TSList<WNDREC>::Link(const WNDREC*);
+template void TSList<WNDREC>::LinkNode(WNDREC*, unsigned int, WNDREC*);
+template WNDREC* TSList<WNDREC>::Next(const WNDREC*);
+template void TSList<WNDREC>::UnlinkNode(WNDREC*);
+template int TSList<WNDREC>::IsEmpty();
+template WNDREC* TSList<WNDREC>::RawNext(const WNDREC*);
+template TSList<WNDREC>::~TSList();
 
-struct D2StormNodeListBStrc;
-
-struct D2StormNodeListBStrc;
-
-// 0x00420A70
-static __declspec(noinline) int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+// 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg)
 {
-    VALIDATEBEGIN;
-    VALIDATE(pHandler);
-    VALIDATEEND;
-    if (!sub_004209E0_FindWndRec(hWnd))
-    {
-        sub_004208E0_AddWndRec((int)hWnd);
-    }
-    return nValid ? SEvtRegisterHandler(nType, hWnd, nId, 0, pHandler) : 0;
-}
-
-// 0x00420D50
-int __stdcall SMsgGetDispatcher(int a1)
-{
-    VALIDATEBEGIN;
-    VALIDATE(!a1);
-    VALIDATEEND;
-    return nValid ? (int)&sub_00420CF0_WindowProc : 0;
-}
-
-// 0x00420AB0
-static __declspec(noinline) int __stdcall InternalUnregister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    if (!sub_004209E0_FindWndRec(hWnd))
-    {
-        sub_004208E0_AddWndRec((int)hWnd);
-    }
-    return SEvtUnregisterHandler(nType, hWnd, nId, pHandler);
-}
-
-// 0x00420C70
-int __stdcall SMsgUnregisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalUnregister(0x534D5348, hWnd, nId, pHandler);
-}
-
-// 0x00420C90
-int __stdcall SMsgUnregisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalUnregister(0x534D5349, hWnd, nId, pHandler);
-}
-
-// 0x00420CB0
-int __stdcall SMsgUnregisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalUnregister(0x534D534A, hWnd, nId, pHandler);
-}
-
-// 0x00420CD0
-int __stdcall SMsgUnregisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalUnregister(0x534D5347, hWnd, nId, pHandler);
-}
-
-// 0x00420BF0
-int __stdcall SMsgRegisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalRegister(0x534D5348, hWnd, nId, pHandler);
-}
-
-// 0x00420C10
-int __stdcall SMsgRegisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalRegister(0x534D5349, hWnd, nId, pHandler);
-}
-
-// 0x00420C30
-int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalRegister(0x534D534A, hWnd, nId, pHandler);
-}
-
-// 0x00420C50
-int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
-{
-    return InternalRegister(0x534D5347, hWnd, nId, pHandler);
-}
-
-unsigned short __stdcall SFileGetLocale()
-{
-    return gwValue_0077905C;
-}
-
-void __stdcall sub_00416750_Nop()
-{
-}
-
-void __stdcall sub_00416760_Nop()
-{
-}
-
-char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-D2Storm4167B0Strc::~D2Storm4167B0Strc()
-{
-    f_0.Unlink();
-}
-
-char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x00420D90
-char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
-char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-char* __fastcall sub_00416830_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-char* __fastcall sub_00416840_LinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
-char* __fastcall sub_00416850_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-char* __fastcall sub_00416860_LinkPrev(D2StormLinkStrc* pLink)
-{
-    D2StormLinkStrc* pPrev = pLink->m_prevlink->m_prevlink;
-    return (int)pPrev->m_next > 0 ? pPrev->m_next : 0;
-}
-
-char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
-D2Storm4168F0Strc::~D2Storm4168F0Strc()
-{
-    f_0.Unlink();
-}
-
-void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A00_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A10_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A20_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A30_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-int __fastcall sub_00416A90_TestField150(D2Storm416A90Strc* pRecord)
-{
-    if (pRecord && pRecord->n150)
-        return 1;
-    return 0;
-}
-
-int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
-{
-    if (pRecord && pRecord->n14C)
-        return 1;
-    return 0;
+    return SEvtBreakHandlerChain(pMsg);
 }
 
 // 0x004202A0
@@ -353,87 +111,102 @@ unsigned int __stdcall SMsgDoMessageLoop(SMSGIDLEPROC pfIdle, int bCleanUponQuit
     return tMsg.wParam;
 }
 
-struct D2TSLinkStrc
+// 0x00420310
+void* __cdecl sub_00420310()
 {
-    D2TSLinkStrc* pPrevLink;
-    D2TSLinkStrc* pNext;
-
-    D2TSLinkStrc* NextLink(int nLinkOffset)
-    {
-        const int nNext = (int)pNext;
-        if (nNext < 0)
-        {
-            return (D2TSLinkStrc*)~nNext;
-        }
-        if (nLinkOffset < 0)
-        {
-            nLinkOffset = (int)this - (int)pPrevLink->pNext;
-        }
-        return (D2TSLinkStrc*)(nNext + nLinkOffset);
-    }
-
-    void Unlink()
-    {
-        if (pPrevLink)
-        {
-            NextLink(-1)->pPrevLink = pPrevLink;
-            pPrevLink->pNext = pNext;
-            pPrevLink = 0;
-            pNext = 0;
-        }
-    }
-};
-
-struct D2TSListStrc
-{
-    int nLinkOffset;
-    D2TSLinkStrc tTerminator;
-
-    D2TSLinkStrc* Head()
-    {
-        return (int)tTerminator.pNext > 0 ? tTerminator.pNext : 0;
-    }
-
-    void sub_00420750_UnlinkAll();
-    int sub_004206C0_IsEmpty();
-    void sub_00420790_Destroy();
-};
-
-// 0x004206C0
-int D2TSListStrc::sub_004206C0_IsEmpty()
-{
-    return Head() == 0;
+    return gdwGlobal_007792F4;
 }
 
-// 0x00420790
-void D2TSListStrc::sub_00420790_Destroy()
+// 0x00420320
+int __stdcall sub_00420320_RegisterHandlers(void* pContext)
 {
-    sub_00420750_UnlinkAll();
-    tTerminator.Unlink();
+    sub_004269C0_RegisterHandler(0x534D5348, pContext);
+    sub_004269C0_RegisterHandler(0x534D5349, pContext);
+    sub_004269C0_RegisterHandler(0x534D534A, pContext);
+    sub_004269C0_RegisterHandler(0x534D5347, pContext);
+    return 1;
+}
+
+// 0x00420360
+int __stdcall SMsgPushRegisterState(int nType)
+{
+    SEvtPushState('SMSH', nType);
+    SEvtPushState('SMSI', nType);
+    SEvtPushState('SMSJ', nType);
+    SEvtPushState('SMSG', nType);
+    return 1;
+}
+
+// 0x004203A0
+int __stdcall SMsgSetDefaultWindow(void* hWnd)
+{
+    gdwGlobal_007792F4 = hWnd;
+    return 1;
+}
+
+// 0x004208E0
+void __stdcall sub_004208E0_AddWndRec(void* hWnd)
+{
+    WNDREC* pNode = gWndRecList_00708860.NewNode(2, 0, 0);
+    pNode->hWnd = hWnd;
+}
+
+// 0x004209E0
+static WNDREC* FindWindow(void* hWnd)
+{
+    for (WNDREC* pNode = gWndRecList_00708860.Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = pNode->m_link.m_next)
+    {
+        if (pNode->hWnd == hWnd)
+            return pNode;
+    }
+    return 0;
 }
 
 // 0x00420A10
-static __declspec(noinline) void DeleteWindow(void* hWnd)
+static void DeleteWindow(void* hWnd)
 {
     if (hWnd == gdwGlobal_007792F4)
     {
         gdwGlobal_007792F4 = 0;
     }
-    char* pRec = sub_004209E0_FindWndRec(hWnd);
+    WNDREC* pRec = FindWindow(hWnd);
     if (pRec)
     {
         SEvtUnregisterType(0x534D5347, hWnd);
         SEvtUnregisterType(0x534D5348, hWnd);
         SEvtUnregisterType(0x534D534A, hWnd);
         SEvtUnregisterType(0x534D5349, hWnd);
-        gWndRecList_00708860.sub_00420970_DeleteNode(pRec);
+        gWndRecList_00708860.DeleteNode(pRec);
     }
+}
+
+// 0x00420A70
+static int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pHandler);
+    VALIDATEEND;
+    if (!FindWindow(hWnd))
+    {
+        sub_004208E0_AddWndRec(hWnd);
+    }
+    return nValid ? SEvtRegisterHandler(nType, hWnd, nId, 0, pHandler) : 0;
+}
+
+// 0x00420AB0
+static int __stdcall InternalUnregister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    if (!FindWindow(hWnd))
+    {
+        sub_004208E0_AddWndRec(hWnd);
+    }
+    return SEvtUnregisterHandler(nType, hWnd, nId, pHandler);
 }
 
 // 0x00420AE0
 int sub_00420AE0_UnregisterAllWindows()
 {
-    while (WNDREC* pRec = (WNDREC*)gWndRecList_00708860.Head())
+    while (WNDREC* pRec = gWndRecList_00708860.Head())
     {
         DeleteWindow(pRec->hWnd);
     }
@@ -501,4 +274,77 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
         *plResult = tParams.lResult;
     }
     return 1;
+}
+
+// 0x00420BF0
+int __stdcall SMsgRegisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalRegister(0x534D5348, hWnd, nId, pHandler);
+}
+
+// 0x00420C10
+int __stdcall SMsgRegisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalRegister(0x534D5349, hWnd, nId, pHandler);
+}
+
+// 0x00420C30
+int __stdcall SMsgRegisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalRegister(0x534D534A, hWnd, nId, pHandler);
+}
+
+// 0x00420C50
+int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalRegister(0x534D5347, hWnd, nId, pHandler);
+}
+
+// 0x00420C70
+int __stdcall SMsgUnregisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalUnregister(0x534D5348, hWnd, nId, pHandler);
+}
+
+// 0x00420C90
+int __stdcall SMsgUnregisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalUnregister(0x534D5349, hWnd, nId, pHandler);
+}
+
+// 0x00420CB0
+int __stdcall SMsgUnregisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalUnregister(0x534D534A, hWnd, nId, pHandler);
+}
+
+// 0x00420CD0
+int __stdcall SMsgUnregisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+{
+    return InternalUnregister(0x534D5347, hWnd, nId, pHandler);
+}
+
+// 0x00420CF0
+int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam)
+{
+    int bUseResult = 0;
+    int lResult = 0;
+    if (SMsgDispatchMessage(hWnd, uMsg, wParam, lParam, &bUseResult, &lResult) && bUseResult)
+        return lResult;
+    return DefWindowProcA(hWnd, uMsg, wParam, lParam);
+}
+
+// 0x00420D50
+int __stdcall SMsgGetDispatcher(int a1)
+{
+    VALIDATEBEGIN;
+    VALIDATE(!a1);
+    VALIDATEEND;
+    return nValid ? (int)&sub_00420CF0_WindowProc : 0;
+}
+
+// 0x00420D90
+WNDREC* __fastcall DRLGPRESET_GetLinkRawNext(TSLink<WNDREC>* pLink)
+{
+    return pLink->m_next;
 }
