@@ -59689,6 +59689,11 @@
      "name": "?sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive@@YI_NPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x0059DFD0",
+     "length": 138,
+     "name": "?ACT2Q6_ActivateTomb@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@PAPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
      "va": "0x0059E060",
      "length": 76,
      "name": "?sub_0059E060_ACT2Q6_SetPortalState@@YIXPAUD2QuestDataStrc@@E@Z"
@@ -60363,17 +60368,6 @@
     "/Gd",
     "/Oy",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q6_0059DFD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059DFD0",
-     "length": 138,
-     "name": "?ACT2Q6_ActivateTomb@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@PAPAUD2ActiveRoomStrc@@@Z"
-    }
    ]
   },
   {
