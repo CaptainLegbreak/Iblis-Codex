@@ -47538,17 +47538,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00567020.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00567020",
-     "length": 75,
-     "name": "PLRTRADE_SetTradeAccepted"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Ai/AiTatics.cpp",
    "rank": 0,
    "functions": [
@@ -53099,6 +53088,11 @@
      "va": "0x00566E60",
      "length": 440,
      "name": "PLRTRADE_TryToTrade"
+    },
+    {
+     "va": "0x00567020",
+     "length": 75,
+     "name": "PLRTRADE_SetTradeAccepted"
     },
     {
      "va": "0x00567070",
