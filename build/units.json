@@ -59547,6 +59547,10 @@
      "name": "?ACT2Q4_SetPortalMode@@YIXPAUD2GameStrc@@H@Z"
     },
     {
+     "va": "0x0059C3C0",
+     "length": 652
+    },
+    {
      "va": "0x0059C6C0",
      "length": 72,
      "name": "?sub_0059C6C0_ACT2Q6_UpdateRewardFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
@@ -60334,30 +60338,6 @@
      "length": 147,
      "name": "?ACT2Q6_UnitIterate_SetCustom1FlagForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q6_0059C3C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059C3C0",
-     "length": 652
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

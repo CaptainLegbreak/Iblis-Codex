@@ -1,4 +1,5 @@
 #include "D2LevelIds.h"
+#include "D2ObjModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -9,7 +10,6 @@
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
-#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -87,7 +87,11 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-struct Game { char pad[0x1C]; void* pool; };
+struct Game
+{
+    char pad[0x1C];
+    void* pool;
+};
 
 typedef void (__fastcall *Callback)(Quest*,Arg*);
 
@@ -97,9 +101,34 @@ typedef bool (__fastcall *Active)(Quest*,int,Unit*,Flags*,Unit*);
 
 typedef bool (__fastcall *Sequence)(Quest*);
 
-struct Extra { unsigned char f0,f1,f2,f3; char pad4[0x14]; int value18,value1c; char pad20[0x14]; int value34; char f_38[0x30]; };
+struct Extra
+{
+    unsigned char f0,f1,f2,f3;
+    char pad4[0x14];
+    int value18,value1c;
+    char pad20[0x14];
+    int value34;
+    char f_38[0x30];
+};
 
-struct Quest { int number; Game* game; unsigned char act,notIntro,active,lastState,state,init; short padE; int sequenceId; unsigned int flags; Extra* extra; char guidPad[0x84]; Callback callbacks[15]; void* messages; int filter; int padE4; Status statusFilter; Active activeFilter; Sequence sequenceFilter; };
+struct Quest
+{
+    int number;
+    Game* game;
+    unsigned char act,notIntro,active,lastState,state,init;
+    short padE;
+    int sequenceId;
+    unsigned int flags;
+    Extra* extra;
+    char guidPad[0x84];
+    Callback callbacks[15];
+    void* messages;
+    int filter;
+    int padE4;
+    Status statusFilter;
+    Active activeFilter;
+    Sequence sequenceFilter;
+};
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
@@ -133,7 +162,6 @@ enum { QUEST_FILTER = 14, ALLOC_LINE = 1090 };
 
 #define QUEST_A2Q4_HORAZONTOME 11
 
-#define UNIT_TILE 5
 
 struct D2ObjectControlStrc;
 
@@ -262,15 +290,19 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 extern "C" const char gszA2Q6SourceFile[]; // 0x006E2068
 
-static void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags);
+static void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags); // 0x0059C810
 
 void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
 
-int __fastcall ACT2Q6_UnitIterate_SetLeaveTownFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059C860
-
 void __fastcall ACT2Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059C920
 
-static void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags); // 0x0059C810
+void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc*, D2TextHeaderStrc*, int, int); // 0x00543790
+
+int __fastcall QUESTS_GetGlobalState(D2GameStrc*, int, int); // 0x00544760
+
+int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc*, int); // 0x005452C0
+
+extern unsigned int gnAct2Quest6DialogIndex_0073B8A8[]; // 0x0073B8A8
 
 // 0x005945F0
 void __fastcall ACT1Q4_OnCainInTownActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -418,6 +450,92 @@ void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
             pQuestDataEx->nPortalModeInCellar = OBJMODE_OPENED;
         }
     }
+}
+
+// 0x0059C3C0
+void __fastcall sub_0059C3C0_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+    const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    if (nNpcId == 251)
+    {
+        if (((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->nTyraelsDoorObjectMode == 2)
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
+        return;
+    }
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 14, 13))
+    {
+        if (nNpcId == 176 && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 6))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 176, 6);
+            return;
+        }
+        if (nNpcId == 175 && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 7))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 175, 6);
+            return;
+        }
+        if (nNpcId == 177 && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 8))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 177, 6);
+            return;
+        }
+        if (nNpcId == 202 && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 9))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 202, 6);
+            return;
+        }
+        if (nNpcId == 244 && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 10))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 244, 6);
+            return;
+        }
+        if (nNpcId == 178 && !QUESTRECORD_GetQuestState(pQuestFlags, 14, 11))
+        {
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 178, 6);
+            return;
+        }
+    }
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 14, 3))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
+        return;
+    }
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 14, 4))
+    {
+        if (nNpcId == 210)
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5);
+        else
+            QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
+        return;
+    }
+    if (QUESTS_CheckPlayerGUID(pQuestData, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId))
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
+        return;
+    }
+    if (!pQuestData->fState)
+        return;
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, 14, 0);
+    const int bCustom1 = QUESTRECORD_GetQuestState(pQuestFlags, 14, 13);
+    if (bRewardGranted == 1 && !bCustom1)
+        return;
+    const unsigned char nState = pQuestData->fState;
+    if (nState >= 4 && !bCustom1)
+        return;
+    const unsigned int nIndex = gnAct2Quest6DialogIndex_0073B8A8[nState];
+    if (gnAct2Quest6DialogIndex_0073B8A8[nState] == 1 && nNpcId == 177)
+    {
+        if (QUESTS_GetGlobalState(pQuestData->pGame, 12, 13) == 1)
+            return;
+    }
+    else
+    {
+        if (nIndex == -1 || static_cast<unsigned int>(nIndex) >= 8)
+            return;
+    }
+    QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, nIndex);
 }
 
 // 0x0059C6C0
