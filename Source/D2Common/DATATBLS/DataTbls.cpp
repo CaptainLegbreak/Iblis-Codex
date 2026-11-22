@@ -1,30 +1,51 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2TxtItems.h"
 #include "D2Skills.h"
+#include "D2TxtTables.h"
+#include "D2Unicode.h"
+
 struct D2SkillListStrc;
+
 struct D2InventoryStrc;
+
 struct D2PropertyStrc;
+
 struct D2BinFieldStrc;
+
 struct D2BinFileStrc;
+
 struct D2StatesTxt;
+
 struct D2ExperienceTxt;
+
 struct D2ExperienceDataTbl;
+
 struct D2StaticPathStrc;
+
 struct D2SkillsTxt;
+
 struct D2DifficultyLevelsTxt;
+
 struct D2ObjectsTxt;
+
 struct D2RunesTxt;
+
 struct D2RuneDataTbl;
+
 struct PlayerRecord;
+
 struct MonsterRecord;
+
 struct ItemRecord;
+
 struct ObjectRecord;
+
 struct DataTables;
+
 struct UnitHeader;
 
 struct D2StatesTxt
@@ -36,16 +57,26 @@ struct D2StatesTxt
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
 extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
+
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
+
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
+
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
+
 extern "C" const char gszFileModeWb_006D69E0[]; // 0x006D69E0
+
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern D2StatesTxt* gpStatesTxt; // 0x0096BCEC
+
+D2StatesTxt* gpStatesTxt; // 0x0096BCEC
 
 struct D2ExperienceTxt
 {
@@ -60,20 +91,35 @@ struct D2ExperienceDataTbl
 };
 
 extern D2ExperienceDataTbl* gpExperienceTxt; // 0x0096C8A8
-extern char* gpSkillsCode_0096BC70; // 0x0096BC70
-extern int gnSkillsCodeSize_0096BC74; // 0x0096BC74
-extern int gnSkillsCodeSizeEx_0096BC78; // 0x0096BC78
-extern char* gpSkillDescCode_0096BC7C; // 0x0096BC7C
-extern int gnSkillDescCodeSize_0096BC80; // 0x0096BC80
-extern int gnSkillDescCodeSizeEx_0096BC84; // 0x0096BC84
+
+char* gpSkillsCode_0096BC70; // 0x0096BC70
+
+int gnSkillsCodeSize_0096BC74; // 0x0096BC74
+
+int gnSkillsCodeSizeEx_0096BC78; // 0x0096BC78
+
+char* gpSkillDescCode_0096BC7C; // 0x0096BC7C
+
+int gnSkillDescCodeSize_0096BC80; // 0x0096BC80
+
+int gnSkillDescCodeSizeEx_0096BC84; // 0x0096BC84
+
 int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize); // 0x006118B0
+
 int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey); // 0x00611930
+
 int __fastcall DATATBLS_GetSkillsCalcParamCount(int nValue); // 0x006119E0
+
 int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber); // 0x006119F0
+
 int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOutBuffer, int nOutBufferSize, int (__fastcall* pfnKeywordToNumber)(char*), int (__fastcall* pfnGetParameterCount)(int), int (__fastcall* pfnLinkParse)(char*, int*, int, int)); // 0x006C1AE0
-extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
-extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
+
+D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
+
+D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
+
 extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
+
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
 struct D2DataTablesStrc
@@ -170,40 +216,70 @@ struct D2RuneDataTbl
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern int gnDifficultylevelsTxtRecordCount; // 0x0096C8B0
-extern D2ObjectsTxt* gpObjectsTxt; // 0x0096D470
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
-int __stdcall STATLIST_GetBaseStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
-int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
-int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
-int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem); // 0x0062A8D0
-D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
-D2ActiveRoomStrc* __stdcall PATH_GetRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648A80
-void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory, char* szPath, int* pWeaponClassCode, int a8, int a9); // 0x0064F5B0
-void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem); // 0x0065E4D0
-int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-void* __fastcall DATATBLS_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, int* pSize, const char* szFile, int nLine); // 0x00612280
-extern "C" const char szBinExtension_006DCC68[]; // 0x006DCC68
-extern int gbCompileTxt; // 0x0096C8B4
-extern D2TxtLinkStrc* gpStatesLinker_0096BCF0; // 0x0096BCF0
-extern int gnStatesTxtRecordCount; // 0x0096BCF4
-extern void* gpSkillDescTxt_0096C7BC; // 0x0096C7BC
-extern D2TxtLinkStrc* gpSkillDescLinker_0096C7C0; // 0x0096C7C0
-extern int gnSkillDescTxtRecordCount_0096C7C4; // 0x0096C7C4
-extern void* gpSkillsTxt_0096C7C8; // 0x0096C7C8
-extern int gnSkillsTxtRecordCount_0096C7D0; // 0x0096C7D0
-extern short* gpClassSkillCount_0096C7D4; // 0x0096C7D4
-extern int gnHighestClassSkillCount_0096C7D8; // 0x0096C7D8
-extern short* gpClassSkillList_0096C7DC; // 0x0096C7DC
-extern int gnPassiveSkills_0096C7E0; // 0x0096C7E0
-extern short* gpPassiveSkills_0096C7E4; // 0x0096C7E4
 
-typedef unsigned short Unicode;
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
+int gnDifficultylevelsTxtRecordCount; // 0x0096C8B0
+
+extern D2ObjectsTxt* gpObjectsTxt; // 0x0096D470
+
+int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
+
+int __stdcall STATLIST_GetBaseStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
+
+int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
+
+int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
+
+int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem); // 0x0062A8D0
+
+D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
+
+void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
+
+D2ActiveRoomStrc* __stdcall PATH_GetRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648A80
+
+void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory, char* szPath, int* pWeaponClassCode, int a8, int a9); // 0x0064F5B0
+
+void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem); // 0x0065E4D0
+
+int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
+
+void* __fastcall DATATBLS_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, int* pSize, const char* szFile, int nLine); // 0x00612280
+
+extern "C" const char szBinExtension_006DCC68[]; // 0x006DCC68
+
+int gbCompileTxt; // 0x0096C8B4
+
+D2TxtLinkStrc* gpStatesLinker_0096BCF0; // 0x0096BCF0
+
+int gnStatesTxtRecordCount; // 0x0096BCF4
+
+void* gpSkillDescTxt_0096C7BC; // 0x0096C7BC
+
+D2TxtLinkStrc* gpSkillDescLinker_0096C7C0; // 0x0096C7C0
+
+int gnSkillDescTxtRecordCount_0096C7C4; // 0x0096C7C4
+
+D2SkillsTxt* gpSkillsTxt_0096C7C8; // 0x0096C7C8
+
+int gnSkillsTxtRecordCount_0096C7D0; // 0x0096C7D0
+
+int* gpClassSkillCount_0096C7D4; // 0x0096C7D4
+
+int gnHighestClassSkillCount_0096C7D8; // 0x0096C7D8
+
+short* gpClassSkillList_0096C7DC; // 0x0096C7DC
+
+int gnPassiveSkills_0096C7E0; // 0x0096C7E0
+
+short* gpPassiveSkills_0096C7E4; // 0x0096C7E4
 
 struct PlayerRecord
 {
@@ -247,89 +323,171 @@ struct UnitHeader
 };
 
 extern DataTables* gVar_00744304; // 0x00744304
+
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int); // 0x00687330
+
 extern "C" int __cdecl _snprintf(char*, unsigned int, const char*, ...); // 0x006831DB
+
 extern "C" char* __cdecl sub_006883F8_Copy(char*, const char*); // 0x006883F8
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
+
 ObjectRecord* __stdcall sub_00640E90_Object(int); // 0x00640E90
+
 ItemRecord* __stdcall sub_006335F0_Item(int); // 0x006335F0
+
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
+
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
 void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsigned int nBufferSize, int nRecordCount); // 0x006121F0
+
 D2BinFileStrc* __stdcall FOG_CreateBinFile(void* pDataBuffer, int nBufferSize); // 0x006BD640
+
 int __stdcall FOG_GetRecordCountFromBinFile(D2BinFileStrc* pBinFile); // 0x006BCDE0
 
 void __stdcall FOG_10207(D2BinFileStrc* pBinFile, D2BinFieldStrc* pBinField, void* pTxt, int nRecordCount, int nRecordSize); // 0x006BD780
+
 void __stdcall FOG_FreeBinFile(D2BinFileStrc* pBinFile); // 0x006BCDA0
+
 extern "C" const char gszHitclassTxtName[]; // 0x006DCF50
+
 extern D2DataTablesStrc gD2DataTables; // 0x0096BC30
+
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
+
 void __fastcall DATATBLS_LoadItemTypesTxt(void* hArchive); // 0x00638D80
+
 void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive); // 0x00658520
+
 void __fastcall DATATBLS_LoadSoundsTxt(void* hArchive); // 0x00659BB0
+
 void __fastcall DATATBLS_LoadPetTypeTxt(void* hArchive); // 0x00618D90
+
 void __fastcall DATATBLS_LoadOverlayTxt(void* hArchive); // 0x00664150
+
 void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive); // 0x00637A00
+
 void __fastcall DATATBLS_LoadPropertiesTxt(void* hArchive); // 0x00638630
+
 void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive); // 0x00661B20
+
 void __fastcall DATATBLS_LoadStatesTxt(void* hArchive); // 0x00618100
+
 void __stdcall DATATBLS_LoadSkills_SkillDescTxt(void* hArchive); // 0x00613F80
+
 void __stdcall DATATBLS_LoadCharStatsTxt(void* hArchive); // 0x00613260
+
 void __fastcall DATATBLS_LoadArenaTxt(void* hArchive); // 0x006649B0
+
 void __fastcall DATATBLS_LoadCharTemplateTxt(void* hArchive); // 0x00664B80
+
 void __fastcall DATATBLS_LoadItemsTxt(void* hArchive); // 0x006315D0
+
 void __fastcall DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt(void* hArchive); // 0x00633730
+
 void __fastcall DATATBLS_LoadRareSuffix_PrefixTxt(void* hArchive); // 0x00633F40
+
 void __fastcall DATATBLS_LoadUniqueItemsTxt(void* hArchive); // 0x006342B0
+
 void __fastcall DATATBLS_LoadSets_SetItemsTxt(void* hArchive); // 0x00634DC0
+
 void __fastcall DATATBLS_LoadGemsTxt(void* hArchive); // 0x00636B70
+
 void __fastcall DATATBLS_LoadBooksTxt(void* hArchive); // 0x00637320
+
 void __fastcall DATATBLS_LoadQualityItemsTxt(void* hArchive); // 0x00636770
+
 void __fastcall DATATBLS_LoadLowQualityItemsTxt(void* hArchive); // 0x00637500
+
 void __fastcall DATATBLS_LoadRunesTxt(void* hArchive); // 0x006394A0
+
 void __fastcall DATATBLS_LoadItemRatioTxt(void* hArchive); // 0x00637620
+
 void __fastcall DATATBLS_LoadGambleTxt(void* hArchive); // 0x00638AE0
+
 void __fastcall DATATBLS_LoadPlrType_ModeTxt(void* hArchive); // 0x0065ADC0
+
 void __fastcall DATATBLS_LoadMonModeTxt(void* hArchive); // 0x0065AEF0
+
 void __fastcall DATATBLS_LoadObjType_ModeTxt(void* hArchive); // 0x0065B1B0
+
 void __fastcall DATATBLS_LoadCompositTxt(void* hArchive); // 0x0065B2E0
+
 void __fastcall DATATBLS_LoadArmTypeTxt(void* hArchive); // 0x0065B350
+
 void __stdcall DATATBLS_LoadExperienceTxt(void* hArchive); // 0x00613D30
+
 void* __fastcall DATATBLS_LoadAnimDataD2(void* hArchive); // 0x0066A770
+
 void __fastcall DATATBLS_LoadSomeMonsterTxts(void* hArchive); // 0x0065A400
+
 void __fastcall DATATBLS_LoadLevelsTxt(void* hArchive); // 0x0061C540
+
 void __fastcall DATATBLS_LoadLevelDefsBin(void* hArchive); // 0x0061DE00
+
 void __fastcall DATATBLS_LoadLevelTypesTxt(void* hArchive); // 0x0061E520
+
 void __fastcall DATATBLS_AllocGlobalTileLibraryHash(void* hArchive); // 0x0061FAE0
+
 void __fastcall DATATBLS_LoadLvlWarpTxt(void* hArchive); // 0x0061F130
+
 void __fastcall DATATBLS_LoadLvlMazeTxt(void* hArchive); // 0x0061F380
+
 void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive); // 0x0061FCF0
+
 void __fastcall DATATBLS_LoadObjectsTxt(void* hArchive); // 0x0063F690
+
 void __fastcall DATATBLS_LoadObjGroupTxt(void* hArchive); // 0x00640F20
+
 void __fastcall DATATBLS_LoadShrinesTxt(void* hArchive); // 0x00641320
+
 void __fastcall DATATBLS_LoadInventoryTxt(void* hArchive); // 0x0065B660
+
 int __fastcall DATATBLS_LoadExpFieldD2(void* hArchive); // 0x0066A700
+
 void __fastcall DATATBLS_LoadBeltsTxt(void* hArchive); // 0x00660290
+
 void __fastcall DATATBLS_LoadMonItemPercentTxt(void* hArchive); // 0x00654F20
+
 void __fastcall sub_0066A270(void* hArchive); // 0x0066A270
+
 void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive); // 0x00669130
+
 void __stdcall DATATBLS_LoadDifficultyLevelsTxt(void* hArchive); // 0x00617D90
+
 void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles); // 0x0061EBB0
+
 void __fastcall DATATBLS_LoadLvlSubTxt(void* hArchive, int a2, int a3); // 0x0061F500
+
 void __fastcall DATATBLS_UnloadSoundsTxt(); // 0x00659C30
+
 extern D2TxtLinkStrc* gpCompCodeLinker_0096BCB0; // 0x0096BCB0
-extern D2TxtLinkStrc* gpPlayerClassLinker_0096BC34; // 0x0096BC34
-extern D2TxtLinkStrc* gpElemTypesLinker_0096BC4C; // 0x0096BC4C
+
+D2TxtLinkStrc* gpPlayerClassLinker_0096BC34; // 0x0096BC34
+
+D2TxtLinkStrc* gpElemTypesLinker_0096BC4C; // 0x0096BC4C
+
 extern D2TxtLinkStrc* gpHitClassLinker_0096BC54; // 0x0096BC54
+
 extern D2TxtLinkStrc* gpHireDescLinker_0096BCE8; // 0x0096BCE8
-extern D2TxtLinkStrc* gpPlrModeLinker_0096BC64; // 0x0096BC64
-extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
-extern D2TxtLinkStrc* gpEventsLinker_0096BCA8; // 0x0096BCA8
+
+D2TxtLinkStrc* gpPlrModeLinker_0096BC64; // 0x0096BC64
+
+D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
+
+D2TxtLinkStrc* gpEventsLinker_0096BCA8; // 0x0096BCA8
+
 extern "C" const char gszTxtField_int[]; // 0x006E67EC
+
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
-extern D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
+
+D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
+
 void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength); // 0x00612600
 
 enum
@@ -345,11 +503,240 @@ enum
 };
 
 extern "C" const char gszTxtField_exp[]; // 0x006E7B3C
+
 void __fastcall DATATBLS_BuildStateMask(unsigned int* pMask, int nFlag); // 0x00611D60
+
 void __fastcall DATATBLS_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag); // 0x00611DC0
+
 void __fastcall DATATBLS_BuildStateListByField(short** ppList, short* pnCount, int nFieldOffset); // 0x00611E60
 
-int gnStatesTxtRecordCount; // 0x0096BCF4
+struct D2AnimDataTableStrc;
+
+struct Unicode;
+
+struct D2PetTypeTxt;
+
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+
+extern "C" const char gszOpenBracket_006E6438[]; // 0x006E6438
+
+extern "C" const char gszCloseBracket_006E6434[]; // 0x006E6434
+
+const Unicode* __fastcall D2LANG_GetStringByReferenceString(const char* szKey); // 0x00524E20
+
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
+
+Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
+
+extern "C" const char gszTxtField_Amazon[]; // 0x006E070C
+
+extern "C" const char gszTxtField_Sorceress[]; // 0x006E0700
+
+extern "C" const char gszTxtField_Necromancer[]; // 0x006E06F4
+
+extern "C" const char gszTxtField_Paladin[]; // 0x006E06EC
+
+extern "C" const char gszTxtField_Barbarian[]; // 0x006E06E0
+
+extern "C" const char gszTxtField_Druid[]; // 0x006E06D8
+
+extern "C" const char gszTxtField_Assassin[]; // 0x006E06CC
+
+typedef unsigned int size_t;
+
+struct D2PetTypeTxt
+{
+    char unk0x00[0xBC];
+    int nSkillCount;
+    short wSkillIds[15];
+    short unk0xDE;
+};
+
+extern D2TxtLinkStrc* gpPettypeLinker_0096C81C; // 0x0096C81C
+
+void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611BD0
+
+void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611C70
+
+extern int gnPettypeTxtRecordCount_0096C820; // 0x0096C820
+
+void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
+
+void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx); // 0x00613E90
+
+void __stdcall sub_006BD230_AddRecordToLinker(D2TxtLinkStrc* pLinker, int nCode); // 0x006BD230
+
+void __stdcall DATATBLS_UnloadCompCodeAndCompileBins(); // 0x00612EA0
+
+void __fastcall DATATBLS_UnloadMissilesTxt(); // 0x00663210
+
+void __fastcall DATATBLS_UnloadOverlayTxt(); // 0x00664530
+
+void __fastcall DATATBLS_UnloadSkills_SkillDescTxt(); // 0x00617C30
+
+void __fastcall DATATBLS_UnloadItemStatCostTxt(); // 0x006385D0
+
+void __fastcall DATATBLS_UnloadStatesTxt(); // 0x00618C90
+
+void __fastcall DATATBLS_UnloadItemsTxt(); // 0x00633540
+
+void __fastcall DATATBLS_UnloadPropertiesTxt(); // 0x00638AA0
+
+void __fastcall DATATBLS_UnloadMagicSuffix_Prefix_AutomagicTxt(); // 0x00633EA0
+
+void __fastcall DATATBLS_UnloadRareSuffix_PrefixTxt(); // 0x00634220
+
+void __fastcall DATATBLS_UnloadUniqueItemsTxt(); // 0x00634D90
+
+void __fastcall DATATBLS_UnloadSets_SetItemsTxt(); // 0x00636730
+
+void __fastcall DATATBLS_UnloadQualityItemsTxt(); // 0x00636B00
+
+void __fastcall DATATBLS_UnloadLowQualityItemsTxt(); // 0x006375A0
+
+void __fastcall DATATBLS_UnloadGemsTxt(); // 0x006372A0
+
+void __fastcall DATATBLS_UnloadBooksTxt(); // 0x00637490
+
+void __fastcall DATATBLS_UnloadItemRatioTxt(); // 0x006378F0
+
+void __fastcall DATATBLS_UnloadGambleTxt(); // 0x00638C80
+
+void __fastcall DATATBLS_UnloadItemTypesTxt(); // 0x006393E0
+
+void __fastcall DATATBLS_FreeMonTypeTxt(); // 0x006586D0
+
+void __fastcall DATATBLS_UnloadPlrMode_Type_MonMode_ObjMode_Type_Composit_ArmtypeTxt(); // 0x0065B3C0
+
+void __fastcall DATATBLS_UnloadAnimDataD2(D2AnimDataTableStrc* pAnimData); // 0x0066A830
+
+void __fastcall DATATBLS_UnloadSomeMonsterTxts(); // 0x0065A190
+
+void __fastcall DATATBLS_UnloadLevelsTxt(); // 0x0061DC60
+
+void __fastcall DATATBLS_UnloadLevelDefsBin(); // 0x0061E440
+
+void __fastcall DATATBLS_UnloadLevelTypesTxt(); // 0x0061EA90
+
+void __fastcall DATATBLS_UnloadLvlPrestTxt(); // 0x0061F030
+
+void __fastcall DATATBLS_UnloadLvlWarpTxt(); // 0x0061F300
+
+void __fastcall DATATBLS_UnloadLvlMazeTxt(); // 0x0061F480
+
+void __fastcall DATATBLS_FreeGlobalTileLibraryHash(); // 0x0061FBF0
+
+void __fastcall DATATBLS_UnloadLvlSubTxt(); // 0x0061F9C0
+
+void __fastcall DATATBLS_FreeAutomap(); // 0x006200D0
+
+void __fastcall DATATBLS_UnloadObjectsTxt(); // 0x00640EE0
+
+void __fastcall DATATBLS_UnloadObjGroupTxt(); // 0x00640F00
+
+void __fastcall DATATBLS_UnloadShrinesTxt(); // 0x00641510
+
+void __fastcall sub_0065C130(); // 0x0065C130
+
+void __fastcall DATATBLS_UnloadRunesTxt(); // 0x00639C90
+
+int __stdcall DATATBLS_FreeCollisionFieldTable(); // 0x0066A420
+
+void __fastcall DATATBLS_UnloadBeltsTxt(); // 0x00660C60
+
+void __fastcall DATATBLS_UnloadMonItemPercentTxt(); // 0x00654FC0
+
+void __fastcall DATATBLS_UnloadArenaTxt(); // 0x00664AF0
+
+void __fastcall DATATBLS_UnloadCubeMainTxt(); // 0x0066A1A0
+
+void __fastcall DATATBLS_UnloadCharTemplateTxt(); // 0x00665740
+
+void __fastcall D2COMMON_10916_Return(); // 0x0066A280
+
+extern D2AnimDataTableStrc* gpAnimData_0096C8A4; // 0x0096C8A4
+
+D2ItemTypesTxt* gpItemTypesTxt_0096C828; // 0x0096C828
+
+int gnItemTypesTxtRecordCount_0096C82C; // 0x0096C82C
+
+D2DifficultyLevelsTxt* gpDifficultylevelsTxt; // 0x0096C8AC
+
+D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
+
+void* gpCompCodeTxt_0096BCAC; // 0x0096BCAC
+
+void* gpPlayerClassTxt_0096BC30; // 0x0096BC30
+
+void* gpBodyLocsTxt_0096BC38; // 0x0096BC38
+
+void* gpStorePageTxt_0096BC40; // 0x0096BC40
+
+D2TxtLinkStrc* gpStorePageLinker_0096BC44; // 0x0096BC44
+
+void* gpElemTypesTxt_0096BC48; // 0x0096BC48
+
+void* gpHitClassTxt_0096BC50; // 0x0096BC50
+
+void* gpColorsTxt_0096C5E0; // 0x0096C5E0
+
+D2TxtLinkStrc* gpColorsLinker_0096C5E4; // 0x0096C5E4
+
+void* gpHireDescTxt_0096BCE4; // 0x0096BCE4
+
+void* gpMonModeTxt_0096BC58; // 0x0096BC58
+
+void* gpPlrModeTxt_0096BC60; // 0x0096BC60
+
+void* gpMonAiTxt_0096BCB8; // 0x0096BCB8
+
+D2TxtLinkStrc* gpMonAiLinker_0096BCBC; // 0x0096BCBC
+
+void* gpMonPlaceTxt_0096C6CC; // 0x0096C6CC
+
+D2TxtLinkStrc* gpMonPlaceLinker_0096C6D0; // 0x0096C6D0
+
+void* gpSkillCalcTxt_0096BC68; // 0x0096BC68
+
+void* gpMissileCalcTxt_0096BC88; // 0x0096BC88
+
+void* gpSkillCodeTxt_0096BC9C; // 0x0096BC9C
+
+D2TxtLinkStrc* gpSkillCodeLinker_0096BCA0; // 0x0096BCA0
+
+void* gpEventsTxt_0096BCA4; // 0x0096BCA4
+
+int gnCharstatsTxtRecordCount; // 0x0096C7F8
+
+D2TxtLinkStrc* gpSoundsLinker_0096BDC8; // 0x0096BDC8
+
+D2TxtLinkStrc* gpOverlayLinker_0096C7E8; // 0x0096C7E8
+
+D2TxtLinkStrc* gpItemStatCostLinker_0096C800; // 0x0096C800
+
+D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
+
+D2PetTypeTxt* gpPettypeTxt_0096C818; // 0x0096C818
+
+unsigned int* gpStateMasks_0096BCF8; // 0x0096BCF8
+
+unsigned int* gfStateMasks_0096BCFC[40]; // 0x0096BCFC
+
+short* gpProgressiveStates_0096BD9C; // 0x0096BD9C
+
+short* gpCurseStates_0096BDA4; // 0x0096BDA4
+
+short* gpTransformStates_0096BDAC; // 0x0096BDAC
+
+short* gpActionStates_0096BDB4; // 0x0096BDB4
+
+D2TxtLinkStrc* gTxtLink_0096C81C; // 0x0096C81C
+
+int gnPettypeTxtRecordCount; // 0x0096C820
 
 // 0x006117B0
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference)
@@ -359,52 +746,6 @@ unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szRefere
     if (!nIndex)
         nIndex = 5382;
     return nIndex;
-}
-
-// 0x006118B0
-int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize)
-{
-    while (*pSize + nBufferSize >= *pSizeEx)
-    {
-        *pSizeEx += 1024;
-        if (*pSizeEx >= 0x7FFFFFFF)
-            return 0;
-        *ppCodes = (char*)FOG_ReallocPool(0, *ppCodes, *pSizeEx, ".\\DATATBLS\\DataTbls.cpp", 658, 0);
-    }
-    int nResult = *pSize;
-    memcpy(*ppCodes + nResult, pBuffer, nBufferSize);
-    *pSize += nBufferSize;
-    return nResult;
-}
-
-// 0x00621780
-void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed)
-{
-    nSpeed = nSpeed > 0 ? nSpeed : 0;
-    pUnit->wAnimSpeed = nSpeed < 0x7FFF ? nSpeed : 0x7FFF;
-}
-
-// 0x006260F0
-void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel)
-{
-    pStatList->dwSLvl = nSkillLevel;
-}
-
-// 0x00611DC0
-void __fastcall DATATBLS_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag)
-{
-    *ppList = (short*)FOG_AllocPool(0, sizeof(short) * gnStatesTxtRecordCount, ".\\DATATBLS\\DataTbls.cpp", 1611, 0);
-    memset(*ppList, 0, sizeof(short) * gnStatesTxtRecordCount);
-    D2StatesTxt* pStatesTxt = gpStatesTxt;
-    *pnCount = 0;
-    for (int i = 0; i < gnStatesTxtRecordCount; ++i)
-    {
-        if (pStatesTxt[i].nStateFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7])
-        {
-            (*ppList)[*pnCount] = i;
-            ++*pnCount;
-        }
-    }
 }
 
 static int DATATBLS_GetMaxLevelFromTable(D2ExperienceDataTbl* pExperienceTxt, int nClass)
@@ -436,77 +777,20 @@ unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int 
     return nLevel;
 }
 
-// 0x00611BD0
-void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+// 0x006118B0
+int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize)
 {
-    char pBuffer[1024];
-
-    if (!pRecord)
+    while (*pSize + nBufferSize >= *pSizeEx)
     {
-        return;
+        *pSizeEx += 1024;
+        if (*pSizeEx >= 0x7FFFFFFF)
+            return 0;
+        *ppCodes = (char*)FOG_ReallocPool(0, *ppCodes, *pSizeEx, ".\\DATATBLS\\DataTbls.cpp", 658, 0);
     }
-
-    if (!pSrc)
-    {
-        *(int*)((char*)pRecord + nOffset) = -1;
-        return;
-    }
-
-    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, DATATBLS_GetSkillsCalcParamCount, DATATBLS_SkillsCalcParamCallback);
-    if (nBufferSize <= 0)
-    {
-        *(int*)((char*)pRecord + nOffset) = -1;
-        return;
-    }
-
-    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillsCode_0096BC70, &gnSkillsCodeSize_0096BC74, &gnSkillsCodeSizeEx_0096BC78, pBuffer, nBufferSize);
-}
-
-// 0x00611C70
-void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
-{
-    char pBuffer[1024];
-
-    if (!pRecord)
-    {
-        return;
-    }
-
-    if (!pSrc)
-    {
-        *(int*)((char*)pRecord + nOffset) = -1;
-        return;
-    }
-
-    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, DATATBLS_GetSkillsCalcParamCount, DATATBLS_SkillsCalcParamCallback);
-    if (nBufferSize <= 0)
-    {
-        *(int*)((char*)pRecord + nOffset) = -1;
-        return;
-    }
-
-    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillDescCode_0096BC7C, &gnSkillDescCodeSize_0096BC80, &gnSkillDescCodeSizeEx_0096BC84, pBuffer, nBufferSize);
-}
-
-// 0x00613E90
-void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx)
-{
-    int nSize;
-    char szFilePath[0x104];
-    if (gbCompileTxt && *ppFileHandle)
-    {
-        wsprintfA(szFilePath, "%s\\%s.bin", gszExcelDirectory_006D8ED4, szFile);
-        _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
-        if (pFile)
-        {
-            fwrite(*ppFileHandle, *pSize, 1, pFile);
-            fclose(pFile);
-        }
-        FOG_FreePool(0, *ppFileHandle, ".\\DATATBLS\\DataTbls.cpp", 0x275, 0);
-    }
-    *ppFileHandle = DATATBLS_ReadExcelFile(hArchive, szFile, szBinExtension_006DCC68, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
-    *pSizeEx = nSize;
-    *pSize = nSize;
+    int nResult = *pSize;
+    memcpy(*ppCodes + nResult, pBuffer, nBufferSize);
+    *pSize += nBufferSize;
+    return nResult;
 }
 
 // 0x00611930
@@ -546,15 +830,12 @@ int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey)
     }
 }
 
-D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
-
 // 0x006119E0
 int __fastcall DATATBLS_GetSkillsCalcParamCount(int nValue)
 {
     return (nValue == 6) + 2;
 }
 
-// 0x00611760
 static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
 {
     if (!szText[0])
@@ -588,10 +869,6 @@ static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
     }
     szCode[3] = szText[3];
 }
-
-D2DifficultyLevelsTxt* gpDifficultylevelsTxt; // 0x0096C8AC
-
-D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -692,6 +969,58 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
     return nIndex;
 }
 
+// 0x00611BD0
+void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    char pBuffer[1024];
+
+    if (!pRecord)
+    {
+        return;
+    }
+
+    if (!pSrc)
+    {
+        *(int*)((char*)pRecord + nOffset) = -1;
+        return;
+    }
+
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, DATATBLS_GetSkillsCalcParamCount, DATATBLS_SkillsCalcParamCallback);
+    if (nBufferSize <= 0)
+    {
+        *(int*)((char*)pRecord + nOffset) = -1;
+        return;
+    }
+
+    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillsCode_0096BC70, &gnSkillsCodeSize_0096BC74, &gnSkillsCodeSizeEx_0096BC78, pBuffer, nBufferSize);
+}
+
+// 0x00611C70
+void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    char pBuffer[1024];
+
+    if (!pRecord)
+    {
+        return;
+    }
+
+    if (!pSrc)
+    {
+        *(int*)((char*)pRecord + nOffset) = -1;
+        return;
+    }
+
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, DATATBLS_GetSkillsCalcParamCount, DATATBLS_SkillsCalcParamCallback);
+    if (nBufferSize <= 0)
+    {
+        *(int*)((char*)pRecord + nOffset) = -1;
+        return;
+    }
+
+    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillDescCode_0096BC7C, &gnSkillDescCodeSize_0096BC80, &gnSkillDescCodeSizeEx_0096BC84, pBuffer, nBufferSize);
+}
+
 // 0x00611D30
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty)
 {
@@ -701,124 +1030,6 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
         nDifficulty = gnDifficultylevelsTxtRecordCount - 1;
     }
     return &gpDifficultylevelsTxt[nDifficulty];
-}
-
-// 0x006125C0
-void __stdcall DATATBLS_UnloadBin(void* pBinFile)
-{
-    if (pBinFile)
-    {
-        if (DATATBLS_LoadFromBin)
-            FOG_FreePool(0, (char*)pBinFile - 4, ".\\DATATBLS\\DataTbls.cpp", 0x924, 0);
-        else
-            FOG_FreePool(0, pBinFile, ".\\DATATBLS\\DataTbls.cpp", 0x926, 0);
-    }
-}
-
-// 0x00620BB0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
-{
-    D2_ASSERT(ptUnit, 2198);
-
-    switch (ptUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return ptUnit->pStaticPath->pRoom;
-    default:
-        if (ptUnit->pDynamicPath)
-        {
-            return PATH_GetRoom(ptUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-// 0x006219F0
-D2SkillStrc* __stdcall UNITS_GetSkillFromSkillId(D2UnitStrc* hUnit, int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-
-    D2_ASSERT(pSkillsTxtRecord, 3579);
-    D2_ASSERT(hUnit, 1592);
-
-    for (D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(hUnit->pSkills); pSkill; pSkill = pSkill->pNextSkill)
-    {
-        if (pSkill->pSkillsTxt == pSkillsTxtRecord)
-        {
-            return pSkill;
-        }
-    }
-    return 0;
-}
-
-// 0x006254F0
-int __stdcall STATLIST_GetTotalStatValueStub(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
-{
-    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
-}
-
-// 0x00625500
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
-{
-    return STATLIST_GetTotalStatValue(pUnit->pStatListEx, nStatId, nLayer);
-}
-
-// 0x00625520
-int __stdcall STATLIST_GetStatBonus(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
-{
-    if (!pStatList)
-    {
-        return 0;
-    }
-
-    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer) - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
-}
-
-// 0x00625560
-int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
-{
-    if (!pUnit->pStatListEx)
-    {
-        return 0;
-    }
-
-    D2StatListStrc* pStatList = pUnit->pStatListEx;
-    int nValue = STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
-    return nValue - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
-}
-
-// 0x00625A50
-int __stdcall STATLIST_GetTotalStatValue_Layer0(D2StatListStrc* pStatListEx, int nStatId)
-{
-    return STATLIST_GetTotalStatValue(pStatListEx, nStatId, 0);
-}
-
-// 0x006260D0
-void __stdcall STATLIST_SetSkillId(D2StatListStrc* pStatList, int nSkillId)
-{
-    pStatList->dwSkillNo = nSkillId;
-}
-
-// 0x00640E90
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
-{
-    D2_ASSERT(nObjectId < gnObjectsTxtRecordCount, 221);
-    D2_ASSERT(nObjectId >= 0, 222);
-    return &gpObjectsTxt[nObjectId];
-}
-
-// 0x0065FD20
-int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
-{
-    if (pProperty && pItem && pItem->dwUnitType == UNIT_ITEM && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
-    {
-        ITEMMODS_ApplyEthereality(pItem);
-        return 1;
-    }
-
-    return 0;
 }
 
 // 0x00611D60
@@ -832,75 +1043,21 @@ void __fastcall DATATBLS_BuildStateMask(unsigned int* pMask, int nFlag)
     }
 }
 
-D2StatesTxt* gpStatesTxt; // 0x0096BCEC
-
-unsigned int* gpStateMasks_0096BCF8; // 0x0096BCF8
-
-unsigned int* gfStateMasks_0096BCFC[40]; // 0x0096BCFC
-
-short* gpProgressiveStates_0096BD9C; // 0x0096BD9C
-
-short* gpCurseStates_0096BDA4; // 0x0096BDA4
-
-short* gpTransformStates_0096BDAC; // 0x0096BDAC
-
-short* gpActionStates_0096BDB4; // 0x0096BDB4
-
-char* gpSkillsCode_0096BC70; // 0x0096BC70
-
-char* gpSkillDescCode_0096BC7C; // 0x0096BC7C
-
-static void DATATBLS_UnloadBinInline(void* pBinFile)
+// 0x00611DC0
+void __fastcall DATATBLS_BuildStateListByFlag(short** ppList, short* pnCount, int nFlag)
 {
-    if (pBinFile)
+    *ppList = (short*)FOG_AllocPool(0, sizeof(short) * gnStatesTxtRecordCount, ".\\DATATBLS\\DataTbls.cpp", 1611, 0);
+    memset(*ppList, 0, sizeof(short) * gnStatesTxtRecordCount);
+    D2StatesTxt* pStatesTxt = gpStatesTxt;
+    *pnCount = 0;
+    for (int i = 0; i < gnStatesTxtRecordCount; ++i)
     {
-        if (DATATBLS_LoadFromBin)
-            FOG_FreePool(0, (char*)pBinFile - 4, ".\\DATATBLS\\DataTbls.cpp", 0x924, 0);
-        else
-            FOG_FreePool(0, pBinFile, ".\\DATATBLS\\DataTbls.cpp", 0x926, 0);
+        if (pStatesTxt[i].nStateFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7])
+        {
+            (*ppList)[*pnCount] = i;
+            ++*pnCount;
+        }
     }
-}
-
-// 0x00617C30
-void __fastcall DATATBLS_UnloadSkills_SkillDescTxt()
-{
-    if (gpClassSkillCount_0096C7D4)
-    {
-        FOG_FreePool(0, gpClassSkillCount_0096C7D4, ".\\DATATBLS\\DataTbls.cpp", 0x5B8, 0);
-        gpClassSkillCount_0096C7D4 = 0;
-    }
-    if (gpClassSkillList_0096C7DC)
-    {
-        FOG_FreePool(0, gpClassSkillList_0096C7DC, ".\\DATATBLS\\DataTbls.cpp", 0x5BE, 0);
-        gpClassSkillList_0096C7DC = 0;
-    }
-    gnHighestClassSkillCount_0096C7D8 = 0;
-    if (gpPassiveSkills_0096C7E4)
-    {
-        FOG_FreePool(0, gpPassiveSkills_0096C7E4, ".\\DATATBLS\\DataTbls.cpp", 0x5C5, 0);
-        gpPassiveSkills_0096C7E4 = 0;
-    }
-    gnPassiveSkills_0096C7E0 = 0;
-    if (gpSkillsCode_0096BC70)
-    {
-        FOG_FreePool(0, gpSkillsCode_0096BC70, ".\\DATATBLS\\DataTbls.cpp", 0x5CC, 0);
-        gpSkillsCode_0096BC70 = 0;
-    }
-    gnSkillsCodeSize_0096BC74 = 0;
-    gnSkillsCodeSizeEx_0096BC78 = 0;
-    if (gpSkillDescCode_0096BC7C)
-    {
-        FOG_FreePool(0, gpSkillDescCode_0096BC7C, ".\\DATATBLS\\DataTbls.cpp", 0x5D4, 0);
-        gpSkillDescCode_0096BC7C = 0;
-    }
-    gnSkillDescCodeSize_0096BC80 = 0;
-    gnSkillDescCodeSizeEx_0096BC84 = 0;
-    DATATBLS_UnloadBinInline(gpSkillsTxt_0096C7C8);
-    FOG_FreeLinker(gpSkillsLinker_0096C7CC);
-    gnSkillsTxtRecordCount_0096C7D0 = 0;
-    DATATBLS_UnloadBinInline(gpSkillDescTxt_0096C7BC);
-    FOG_FreeLinker(gpSkillDescLinker_0096C7C0);
-    gnSkillDescTxtRecordCount_0096C7C4 = 0;
 }
 
 // 0x00611E60
@@ -918,53 +1075,6 @@ void __fastcall DATATBLS_BuildStateListByField(short** ppList, short* pnCount, i
             ++*pnCount;
         }
     }
-}
-
-// 0x006121F0
-void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsigned int nBufferSize, int nRecordCount)
-{
-    char szFilePath[260];
-    wsprintfA(szFilePath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, szFileName);
-    _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
-    if (pFile)
-    {
-        fwrite(&nRecordCount, sizeof(nRecordCount), 1, pFile);
-        fwrite(pWriteBuffer, nBufferSize, 1, pFile);
-        fclose(pFile);
-    }
-}
-
-// 0x00618C90
-void __fastcall DATATBLS_UnloadStatesTxt()
-{
-    if (gpStateMasks_0096BCF8)
-    {
-        FOG_FreePool(0, gpStateMasks_0096BCF8, ".\\DATATBLS\\DataTbls.cpp", 0x6E8, 0);
-        gpStateMasks_0096BCF8 = 0;
-    }
-    if (gpProgressiveStates_0096BD9C)
-    {
-        FOG_FreePool(0, gpProgressiveStates_0096BD9C, ".\\DATATBLS\\DataTbls.cpp", 0x6ED, 0);
-        gpProgressiveStates_0096BD9C = 0;
-    }
-    if (gpCurseStates_0096BDA4)
-    {
-        FOG_FreePool(0, gpCurseStates_0096BDA4, ".\\DATATBLS\\DataTbls.cpp", 0x6F2, 0);
-        gpCurseStates_0096BDA4 = 0;
-    }
-    if (gpTransformStates_0096BDAC)
-    {
-        FOG_FreePool(0, gpTransformStates_0096BDAC, ".\\DATATBLS\\DataTbls.cpp", 0x6F7, 0);
-        gpTransformStates_0096BDAC = 0;
-    }
-    if (gpActionStates_0096BDB4)
-    {
-        FOG_FreePool(0, gpActionStates_0096BDB4, ".\\DATATBLS\\DataTbls.cpp", 0x6FC, 0);
-        gpActionStates_0096BDB4 = 0;
-    }
-    memset(gfStateMasks_0096BCFC, 0, sizeof(gfStateMasks_0096BCFC));
-    DATATBLS_UnloadBinInline(gpStatesTxt);
-    FOG_FreeLinker(gpStatesLinker_0096BCF0);
 }
 
 // 0x00611EE0
@@ -1088,6 +1198,28 @@ char* __stdcall DATATBLS_GetUnitTypeAndClassDebugName(unsigned int type, short i
     return buffer;
 }
 
+// 0x006121F0
+void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsigned int nBufferSize, int nRecordCount)
+{
+    char szFilePath[260];
+    wsprintfA(szFilePath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, szFileName);
+    _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
+    if (pFile)
+    {
+        fwrite(&nRecordCount, sizeof(nRecordCount), 1, pFile);
+        fwrite(pWriteBuffer, nBufferSize, 1, pFile);
+        fclose(pFile);
+    }
+}
+
+// 0x00612280
+void* __fastcall DATATBLS_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, unsigned int* pnSize, const char* szFile, int nLine)
+{
+    char szPath[0x104];
+    wsprintfA(szPath, "%s\\%s%s", gszExcelDirectory_006D8ED4, szName, szExtension);
+    return ARCHIVE_AllocateBufferAndReadFile(hArchive, szPath, pnSize, ".\\DATATBLS\\DataTbls.cpp", 0x82F);
+}
+
 // 0x006122F0
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize)
 {
@@ -1156,6 +1288,58 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
     }
 
     return pTxt;
+}
+
+// 0x006125C0
+void __stdcall DATATBLS_UnloadBin(void* pBinFile)
+{
+    if (pBinFile)
+    {
+        if (DATATBLS_LoadFromBin)
+            FOG_FreePool(0, (char*)pBinFile - 4, ".\\DATATBLS\\DataTbls.cpp", 0x924, 0);
+        else
+            FOG_FreePool(0, pBinFile, ".\\DATATBLS\\DataTbls.cpp", 0x926, 0);
+    }
+}
+
+// 0x00612600
+void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength)
+{
+    Unicode wszClass[512];
+    Unicode wszName[512];
+    for (int n = 0; n < 512; ++n)
+    {
+        wszClass[n].wChar = 0;
+    }
+    for (int n = 0; n < 512; ++n)
+    {
+        wszName[n].wChar = 0;
+    }
+    Unicode wszOpen[16] = {};
+    Unicode wszClose[16] = {};
+
+    sub_00526320_ToUnicode(wszOpen, gszOpenBracket_006E6438, 16);
+    sub_00526320_ToUnicode(wszClose, gszCloseBracket_006E6434, 16);
+
+    for (int i = 0; i < nRecordCount; ++i)
+    {
+        char* pRecord = (char*)pTable + i * nRecordSize;
+        memset(pRecord + a5, 0, nNameLength);
+
+        const Unicode* pString = D2LANG_GetStringByReferenceString(pRecord + nNameOffset);
+        if (!pString)
+        {
+            sub_005267E0(wszClass, wszOpen);
+            sub_00526320_ToUnicode(wszName, pRecord + nNameOffset, nNameLength - 1);
+            sub_00526700(wszClass, wszName);
+            sub_00526700(wszClass, wszClose);
+            sub_00526790((Unicode*)(pRecord + a5), wszClass, nNameLength);
+        }
+        else
+        {
+            sub_00526790((Unicode*)(pRecord + a5), pString, nNameLength);
+        }
+    }
 }
 
 // 0x00612750
@@ -1295,111 +1479,16 @@ static void DATATBLS_LoadSomeTxts(void* hArchive)
     }
 }
 
-// 0x00619300
-void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3)
+static void DATATBLS_UnloadBinInline(void* pBinFile)
 {
-    DATATBLS_LoadSomeTxts(hArchive);
-    DATATBLS_LoadItemTypesTxt(hArchive);
-    DATATBLS_LoadMonTypeTxt(hArchive);
-    DATATBLS_LoadSoundsTxt(hArchive);
-    DATATBLS_LoadPetTypeTxt(hArchive);
-    DATATBLS_LoadOverlayTxt(hArchive);
-    DATATBLS_LoadItemStatCostTxt(hArchive);
-    DATATBLS_LoadPropertiesTxt(hArchive);
-    DATATBLS_LoadMissilesTxt(hArchive);
-    DATATBLS_LoadStatesTxt(hArchive);
-    DATATBLS_LoadSkills_SkillDescTxt(hArchive);
-    DATATBLS_LoadCharStatsTxt(hArchive);
-    DATATBLS_LoadArenaTxt(hArchive);
-    DATATBLS_LoadCharTemplateTxt(hArchive);
-    DATATBLS_LoadItemsTxt(hArchive);
-    DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt(hArchive);
-    DATATBLS_LoadRareSuffix_PrefixTxt(hArchive);
-    DATATBLS_LoadUniqueItemsTxt(hArchive);
-    DATATBLS_LoadSets_SetItemsTxt(hArchive);
-    DATATBLS_LoadGemsTxt(hArchive);
-    DATATBLS_LoadBooksTxt(hArchive);
-    DATATBLS_LoadQualityItemsTxt(hArchive);
-    DATATBLS_LoadLowQualityItemsTxt(hArchive);
-    DATATBLS_LoadRunesTxt(hArchive);
-    DATATBLS_LoadItemRatioTxt(hArchive);
-    DATATBLS_LoadGambleTxt(hArchive);
-    DATATBLS_LoadPlrType_ModeTxt(hArchive);
-    DATATBLS_LoadMonModeTxt(hArchive);
-    DATATBLS_LoadObjType_ModeTxt(hArchive);
-    DATATBLS_LoadCompositTxt(hArchive);
-    DATATBLS_LoadArmTypeTxt(hArchive);
-    DATATBLS_LoadExperienceTxt(hArchive);
-    gD2DataTables.pAnimData = DATATBLS_LoadAnimDataD2(hArchive);
-    DATATBLS_LoadSomeMonsterTxts(hArchive);
-    DATATBLS_LoadLevelsTxt(hArchive);
-    DATATBLS_LoadLevelDefsBin(hArchive);
-    DATATBLS_LoadLevelTypesTxt(hArchive);
-    if (a2)
+    if (pBinFile)
     {
-        DATATBLS_AllocGlobalTileLibraryHash(hArchive);
+        if (DATATBLS_LoadFromBin)
+            FOG_FreePool(0, (char*)pBinFile - 4, ".\\DATATBLS\\DataTbls.cpp", 0x924, 0);
+        else
+            FOG_FreePool(0, pBinFile, ".\\DATATBLS\\DataTbls.cpp", 0x926, 0);
     }
-    DATATBLS_LoadLvlPrestTxt(hArchive, a2);
-    DATATBLS_LoadLvlWarpTxt(hArchive);
-    DATATBLS_LoadLvlMazeTxt(hArchive);
-    DATATBLS_LoadLvlSubTxt(hArchive, a2, a3);
-    DATATBLS_LoadAutomapTxt(hArchive);
-    DATATBLS_LoadObjectsTxt(hArchive);
-    DATATBLS_LoadObjGroupTxt(hArchive);
-    DATATBLS_LoadShrinesTxt(hArchive);
-    DATATBLS_LoadInventoryTxt(hArchive);
-    DATATBLS_LoadExpFieldD2(hArchive);
-    DATATBLS_LoadBeltsTxt(hArchive);
-    DATATBLS_LoadMonItemPercentTxt(hArchive);
-    sub_0066A270(hArchive);
-    DATATBLS_LoadCubeMainTxt(hArchive);
-    DATATBLS_LoadDifficultyLevelsTxt(hArchive);
-    DATATBLS_UnloadSoundsTxt();
 }
-
-void* gpCompCodeTxt_0096BCAC; // 0x0096BCAC
-
-void* gpPlayerClassTxt_0096BC30; // 0x0096BC30
-
-void* gpBodyLocsTxt_0096BC38; // 0x0096BC38
-
-D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
-
-void* gpStorePageTxt_0096BC40; // 0x0096BC40
-
-D2TxtLinkStrc* gpStorePageLinker_0096BC44; // 0x0096BC44
-
-void* gpElemTypesTxt_0096BC48; // 0x0096BC48
-
-void* gpHitClassTxt_0096BC50; // 0x0096BC50
-
-void* gpColorsTxt_0096C5E0; // 0x0096C5E0
-
-D2TxtLinkStrc* gpColorsLinker_0096C5E4; // 0x0096C5E4
-
-void* gpHireDescTxt_0096BCE4; // 0x0096BCE4
-
-void* gpMonModeTxt_0096BC58; // 0x0096BC58
-
-void* gpPlrModeTxt_0096BC60; // 0x0096BC60
-
-void* gpMonAiTxt_0096BCB8; // 0x0096BCB8
-
-D2TxtLinkStrc* gpMonAiLinker_0096BCBC; // 0x0096BCBC
-
-void* gpMonPlaceTxt_0096C6CC; // 0x0096C6CC
-
-D2TxtLinkStrc* gpMonPlaceLinker_0096C6D0; // 0x0096C6D0
-
-void* gpSkillCalcTxt_0096BC68; // 0x0096BC68
-
-void* gpMissileCalcTxt_0096BC88; // 0x0096BC88
-
-void* gpSkillCodeTxt_0096BC9C; // 0x0096BC9C
-
-D2TxtLinkStrc* gpSkillCodeLinker_0096BCA0; // 0x0096BCA0
-
-void* gpEventsTxt_0096BCA4; // 0x0096BCA4
 
 // 0x00612EA0
 void __stdcall DATATBLS_UnloadCompCodeAndCompileBins()
@@ -1442,10 +1531,7 @@ void __stdcall DATATBLS_UnloadCompCodeAndCompileBins()
     }
 }
 
-#include "gen/data/Source/D2Common/DATATBLS/DataTbls.inc"
 struct D2UnitStrc;
-
-int gnCharstatsTxtRecordCount; // 0x0096C7F8
 
 // 0x00613260
 void __stdcall DATATBLS_LoadCharStatsTxt(void* hArchive)
@@ -1530,9 +1616,125 @@ void __stdcall DATATBLS_LoadCharStatsTxt(void* hArchive)
     DATATBLS_InitUnicodeClassNamesInCharStatsTxt(gpCharstatsTxt, gnCharstatsTxtRecordCount, 196, 32, 0, 16);
 }
 
+// 0x00613D30
+void __stdcall DATATBLS_LoadExperienceTxt(void* hArchive)
+{
+    D2BinFieldStrc pTbl[] =
+    {
+        { gszTxtField_Amazon, 2, 0, 0, 0 },
+        { gszTxtField_Sorceress, 2, 0, 4, 0 },
+        { gszTxtField_Necromancer, 2, 0, 8, 0 },
+        { gszTxtField_Paladin, 2, 0, 12, 0 },
+        { gszTxtField_Barbarian, 2, 0, 16, 0 },
+        { gszTxtField_Druid, 2, 0, 20, 0 },
+        { gszTxtField_Assassin, 2, 0, 24, 0 },
+        { "ExpRatio", 2, 0, 28, 0 },
+        { gszTxtField_end, 0, 0, 0, 0 },
+    };
+
+    gpExperienceTxt = (D2ExperienceDataTbl*)DATATBLS_CompileTxt(hArchive, "experience", pTbl, 0, 32);
+}
+
+// 0x00613E90
+void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx)
+{
+    int nSize;
+    char szFilePath[0x104];
+    if (gbCompileTxt && *ppFileHandle)
+    {
+        wsprintfA(szFilePath, "%s\\%s.bin", gszExcelDirectory_006D8ED4, szFile);
+        _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
+        if (pFile)
+        {
+            fwrite(*ppFileHandle, *pSize, 1, pFile);
+            fclose(pFile);
+        }
+        FOG_FreePool(0, *ppFileHandle, ".\\DATATBLS\\DataTbls.cpp", 0x275, 0);
+    }
+    *ppFileHandle = DATATBLS_ReadExcelFile(hArchive, szFile, szBinExtension_006DCC68, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
+    *pSizeEx = nSize;
+    *pSize = nSize;
+}
+
 // 0x00617C20
 void __fastcall DATATBLS_LoadSkills(void* hArchive) {
  DATATBLS_LoadSkills_SkillDescTxt(hArchive);
+}
+
+// 0x00617C30
+void __fastcall DATATBLS_UnloadSkills_SkillDescTxt()
+{
+    if (gpClassSkillCount_0096C7D4)
+    {
+        FOG_FreePool(0, gpClassSkillCount_0096C7D4, ".\\DATATBLS\\DataTbls.cpp", 0x5B8, 0);
+        gpClassSkillCount_0096C7D4 = 0;
+    }
+    if (gpClassSkillList_0096C7DC)
+    {
+        FOG_FreePool(0, gpClassSkillList_0096C7DC, ".\\DATATBLS\\DataTbls.cpp", 0x5BE, 0);
+        gpClassSkillList_0096C7DC = 0;
+    }
+    gnHighestClassSkillCount_0096C7D8 = 0;
+    if (gpPassiveSkills_0096C7E4)
+    {
+        FOG_FreePool(0, gpPassiveSkills_0096C7E4, ".\\DATATBLS\\DataTbls.cpp", 0x5C5, 0);
+        gpPassiveSkills_0096C7E4 = 0;
+    }
+    gnPassiveSkills_0096C7E0 = 0;
+    if (gpSkillsCode_0096BC70)
+    {
+        FOG_FreePool(0, gpSkillsCode_0096BC70, ".\\DATATBLS\\DataTbls.cpp", 0x5CC, 0);
+        gpSkillsCode_0096BC70 = 0;
+    }
+    gnSkillsCodeSize_0096BC74 = 0;
+    gnSkillsCodeSizeEx_0096BC78 = 0;
+    if (gpSkillDescCode_0096BC7C)
+    {
+        FOG_FreePool(0, gpSkillDescCode_0096BC7C, ".\\DATATBLS\\DataTbls.cpp", 0x5D4, 0);
+        gpSkillDescCode_0096BC7C = 0;
+    }
+    gnSkillDescCodeSize_0096BC80 = 0;
+    gnSkillDescCodeSizeEx_0096BC84 = 0;
+    DATATBLS_UnloadBinInline(gpSkillsTxt_0096C7C8);
+    FOG_FreeLinker(gpSkillsLinker_0096C7CC);
+    gnSkillsTxtRecordCount_0096C7D0 = 0;
+    DATATBLS_UnloadBinInline(gpSkillDescTxt_0096C7BC);
+    FOG_FreeLinker(gpSkillDescLinker_0096C7C0);
+    gnSkillDescTxtRecordCount_0096C7C4 = 0;
+}
+
+// 0x00617D90
+void __stdcall DATATBLS_LoadDifficultyLevelsTxt(void* hArchive)
+{
+    D2BinFieldStrc pTbl[] =
+    {
+        { "ResistPenalty", 2, 0, 0, 0 },
+        { "DeathExpPenalty", 2, 0, 4, 0 },
+        { "UberCodeOddsNormal", 2, 0, 8, 0 },
+        { "UberCodeOddsGood", 2, 0, 12, 0 },
+        { "UltraCodeOddsNormal", 2, 0, 32, 0 },
+        { "UltraCodeOddsGood", 2, 0, 36, 0 },
+        { "LifeStealDivisor", 2, 0, 40, 0 },
+        { "ManaStealDivisor", 2, 0, 44, 0 },
+        { "MonsterSkillBonus", 2, 0, 16, 0 },
+        { "MonsterFreezeDivisor", 2, 0, 20, 0 },
+        { "MonsterColdDivisor", 2, 0, 24, 0 },
+        { "AiCurseDivisor", 2, 0, 28, 0 },
+        { "UniqueDamageBonus", 2, 0, 48, 0 },
+        { "ChampionDamageBonus", 2, 0, 52, 0 },
+        { "HireableBossDamagePercent", 2, 0, 56, 0 },
+        { "MonsterCEDamagePercent", 2, 0, 60, 0 },
+        { "StaticFieldMin", 2, 0, 64, 0 },
+        { "GambleRare", 2, 0, 68, 0 },
+        { "GambleSet", 2, 0, 72, 0 },
+        { "GambleUnique", 2, 0, 76, 0 },
+        { "GambleUber", 2, 0, 80, 0 },
+        { "GambleUltra", 2, 0, 84, 0 },
+        { gszTxtField_end, 0, 0, 0, 0 },
+    };
+
+    gpDifficultylevelsTxt = (D2DifficultyLevelsTxt*)DATATBLS_CompileTxt(hArchive, "difficultylevels", pTbl, &gnDifficultylevelsTxtRecordCount, 88);
+    TBL_ASSERT(gnDifficultylevelsTxtRecordCount == 3, 1567);
 }
 
 // 0x00618100
@@ -1635,9 +1837,38 @@ void __fastcall DATATBLS_LoadStatesTxt(void* hArchive)
     DATATBLS_BuildStateListByField(&gD2DataTables.pColourStates, &gD2DataTables.nColourStates, 42);
 }
 
-D2TxtLinkStrc* gTxtLink_0096C81C; // 0x0096C81C
-
-int gnPettypeTxtRecordCount; // 0x0096C820
+// 0x00618C90
+void __fastcall DATATBLS_UnloadStatesTxt()
+{
+    if (gpStateMasks_0096BCF8)
+    {
+        FOG_FreePool(0, gpStateMasks_0096BCF8, ".\\DATATBLS\\DataTbls.cpp", 0x6E8, 0);
+        gpStateMasks_0096BCF8 = 0;
+    }
+    if (gpProgressiveStates_0096BD9C)
+    {
+        FOG_FreePool(0, gpProgressiveStates_0096BD9C, ".\\DATATBLS\\DataTbls.cpp", 0x6ED, 0);
+        gpProgressiveStates_0096BD9C = 0;
+    }
+    if (gpCurseStates_0096BDA4)
+    {
+        FOG_FreePool(0, gpCurseStates_0096BDA4, ".\\DATATBLS\\DataTbls.cpp", 0x6F2, 0);
+        gpCurseStates_0096BDA4 = 0;
+    }
+    if (gpTransformStates_0096BDAC)
+    {
+        FOG_FreePool(0, gpTransformStates_0096BDAC, ".\\DATATBLS\\DataTbls.cpp", 0x6F7, 0);
+        gpTransformStates_0096BDAC = 0;
+    }
+    if (gpActionStates_0096BDB4)
+    {
+        FOG_FreePool(0, gpActionStates_0096BDB4, ".\\DATATBLS\\DataTbls.cpp", 0x6FC, 0);
+        gpActionStates_0096BDB4 = 0;
+    }
+    memset(gfStateMasks_0096BCFC, 0, sizeof(gfStateMasks_0096BCFC));
+    DATATBLS_UnloadBinInline(gpStatesTxt);
+    FOG_FreeLinker(gpStatesLinker_0096BCF0);
+}
 
 // 0x00618D90
 void __fastcall DATATBLS_LoadPetTypeTxt(void* hArchive)
@@ -1683,3 +1914,271 @@ void __fastcall DATATBLS_UnloadPetTypeTxt()
     DATATBLS_UnloadBinInline(gpPettypeTxt);
     FOG_FreeLinker(gpPettypeLinker);
 }
+
+// 0x00619140
+void __stdcall DATATBLS_UnloadAllBins()
+{
+    DATATBLS_UnloadCompCodeAndCompileBins();
+    DATATBLS_UnloadBinInline(gpCharstatsTxt);
+    DATATBLS_UnloadMissilesTxt();
+    DATATBLS_UnloadOverlayTxt();
+    DATATBLS_UnloadSkills_SkillDescTxt();
+    DATATBLS_UnloadItemStatCostTxt();
+    DATATBLS_UnloadStatesTxt();
+    DATATBLS_UnloadBinInline(gpPettypeTxt);
+    FOG_FreeLinker(gpPettypeLinker);
+    DATATBLS_UnloadItemsTxt();
+    DATATBLS_UnloadPropertiesTxt();
+    DATATBLS_UnloadMagicSuffix_Prefix_AutomagicTxt();
+    DATATBLS_UnloadRareSuffix_PrefixTxt();
+    DATATBLS_UnloadUniqueItemsTxt();
+    DATATBLS_UnloadSets_SetItemsTxt();
+    DATATBLS_UnloadQualityItemsTxt();
+    DATATBLS_UnloadLowQualityItemsTxt();
+    DATATBLS_UnloadGemsTxt();
+    DATATBLS_UnloadBooksTxt();
+    DATATBLS_UnloadItemRatioTxt();
+    DATATBLS_UnloadGambleTxt();
+    DATATBLS_UnloadItemTypesTxt();
+    DATATBLS_FreeMonTypeTxt();
+    DATATBLS_UnloadPlrMode_Type_MonMode_ObjMode_Type_Composit_ArmtypeTxt();
+    DATATBLS_UnloadBinInline(gpExperienceTxt);
+    DATATBLS_UnloadAnimDataD2(gpAnimData_0096C8A4);
+    DATATBLS_UnloadSomeMonsterTxts();
+    DATATBLS_UnloadLevelsTxt();
+    DATATBLS_UnloadLevelDefsBin();
+    DATATBLS_UnloadLevelTypesTxt();
+    DATATBLS_UnloadLvlPrestTxt();
+    DATATBLS_UnloadLvlWarpTxt();
+    DATATBLS_UnloadLvlMazeTxt();
+    DATATBLS_FreeGlobalTileLibraryHash();
+    DATATBLS_UnloadLvlSubTxt();
+    DATATBLS_FreeAutomap();
+    DATATBLS_UnloadObjectsTxt();
+    DATATBLS_UnloadObjGroupTxt();
+    DATATBLS_UnloadShrinesTxt();
+    sub_0065C130();
+    DATATBLS_UnloadRunesTxt();
+    DATATBLS_FreeCollisionFieldTable();
+    DATATBLS_UnloadBeltsTxt();
+    DATATBLS_UnloadMonItemPercentTxt();
+    DATATBLS_UnloadArenaTxt();
+    DATATBLS_UnloadCubeMainTxt();
+    DATATBLS_UnloadCharTemplateTxt();
+    D2COMMON_10916_Return();
+    DATATBLS_UnloadBinInline(gpDifficultylevelsTxt);
+}
+
+// 0x00619300
+void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3)
+{
+    DATATBLS_LoadSomeTxts(hArchive);
+    DATATBLS_LoadItemTypesTxt(hArchive);
+    DATATBLS_LoadMonTypeTxt(hArchive);
+    DATATBLS_LoadSoundsTxt(hArchive);
+    DATATBLS_LoadPetTypeTxt(hArchive);
+    DATATBLS_LoadOverlayTxt(hArchive);
+    DATATBLS_LoadItemStatCostTxt(hArchive);
+    DATATBLS_LoadPropertiesTxt(hArchive);
+    DATATBLS_LoadMissilesTxt(hArchive);
+    DATATBLS_LoadStatesTxt(hArchive);
+    DATATBLS_LoadSkills_SkillDescTxt(hArchive);
+    DATATBLS_LoadCharStatsTxt(hArchive);
+    DATATBLS_LoadArenaTxt(hArchive);
+    DATATBLS_LoadCharTemplateTxt(hArchive);
+    DATATBLS_LoadItemsTxt(hArchive);
+    DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt(hArchive);
+    DATATBLS_LoadRareSuffix_PrefixTxt(hArchive);
+    DATATBLS_LoadUniqueItemsTxt(hArchive);
+    DATATBLS_LoadSets_SetItemsTxt(hArchive);
+    DATATBLS_LoadGemsTxt(hArchive);
+    DATATBLS_LoadBooksTxt(hArchive);
+    DATATBLS_LoadQualityItemsTxt(hArchive);
+    DATATBLS_LoadLowQualityItemsTxt(hArchive);
+    DATATBLS_LoadRunesTxt(hArchive);
+    DATATBLS_LoadItemRatioTxt(hArchive);
+    DATATBLS_LoadGambleTxt(hArchive);
+    DATATBLS_LoadPlrType_ModeTxt(hArchive);
+    DATATBLS_LoadMonModeTxt(hArchive);
+    DATATBLS_LoadObjType_ModeTxt(hArchive);
+    DATATBLS_LoadCompositTxt(hArchive);
+    DATATBLS_LoadArmTypeTxt(hArchive);
+    DATATBLS_LoadExperienceTxt(hArchive);
+    gD2DataTables.pAnimData = DATATBLS_LoadAnimDataD2(hArchive);
+    DATATBLS_LoadSomeMonsterTxts(hArchive);
+    DATATBLS_LoadLevelsTxt(hArchive);
+    DATATBLS_LoadLevelDefsBin(hArchive);
+    DATATBLS_LoadLevelTypesTxt(hArchive);
+    if (a2)
+    {
+        DATATBLS_AllocGlobalTileLibraryHash(hArchive);
+    }
+    DATATBLS_LoadLvlPrestTxt(hArchive, a2);
+    DATATBLS_LoadLvlWarpTxt(hArchive);
+    DATATBLS_LoadLvlMazeTxt(hArchive);
+    DATATBLS_LoadLvlSubTxt(hArchive, a2, a3);
+    DATATBLS_LoadAutomapTxt(hArchive);
+    DATATBLS_LoadObjectsTxt(hArchive);
+    DATATBLS_LoadObjGroupTxt(hArchive);
+    DATATBLS_LoadShrinesTxt(hArchive);
+    DATATBLS_LoadInventoryTxt(hArchive);
+    DATATBLS_LoadExpFieldD2(hArchive);
+    DATATBLS_LoadBeltsTxt(hArchive);
+    DATATBLS_LoadMonItemPercentTxt(hArchive);
+    sub_0066A270(hArchive);
+    DATATBLS_LoadCubeMainTxt(hArchive);
+    DATATBLS_LoadDifficultyLevelsTxt(hArchive);
+    DATATBLS_UnloadSoundsTxt();
+}
+
+// 0x00620BB0
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
+{
+    D2_ASSERT(ptUnit, 2198);
+
+    switch (ptUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return ptUnit->pStaticPath->pRoom;
+    default:
+        if (ptUnit->pDynamicPath)
+        {
+            return PATH_GetRoom(ptUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+// 0x00621780
+void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed)
+{
+    nSpeed = nSpeed > 0 ? nSpeed : 0;
+    pUnit->wAnimSpeed = nSpeed < 0x7FFF ? nSpeed : 0x7FFF;
+}
+
+// 0x006219F0
+D2SkillStrc* __stdcall UNITS_GetSkillFromSkillId(D2UnitStrc* hUnit, int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+
+    D2_ASSERT(pSkillsTxtRecord, 3579);
+    D2_ASSERT(hUnit, 1592);
+
+    for (D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(hUnit->pSkills); pSkill; pSkill = pSkill->pNextSkill)
+    {
+        if (pSkill->pSkillsTxt == pSkillsTxtRecord)
+        {
+            return pSkill;
+        }
+    }
+    return 0;
+}
+
+// 0x006254F0
+int __stdcall STATLIST_GetTotalStatValueStub(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+{
+    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
+}
+
+// 0x00625500
+int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
+{
+    return STATLIST_GetTotalStatValue(pUnit->pStatListEx, nStatId, nLayer);
+}
+
+// 0x00625520
+int __stdcall STATLIST_GetStatBonus(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+{
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    return STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer) - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
+}
+
+// 0x00625560
+int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
+{
+    if (!pUnit->pStatListEx)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    int nValue = STATLIST_GetTotalStatValue(pStatList, nStatId, nLayer);
+    return nValue - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
+}
+
+// 0x00625A50
+int __stdcall STATLIST_GetTotalStatValue_Layer0(D2StatListStrc* pStatListEx, int nStatId)
+{
+    return STATLIST_GetTotalStatValue(pStatListEx, nStatId, 0);
+}
+
+// 0x006260D0
+void __stdcall STATLIST_SetSkillId(D2StatListStrc* pStatList, int nSkillId)
+{
+    pStatList->dwSkillNo = nSkillId;
+}
+
+// 0x006260F0
+void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel)
+{
+    pStatList->dwSLvl = nSkillLevel;
+}
+
+// 0x00638CD0
+int __fastcall DATATBLS_CheckItemTypesEquivalenceNested(int nItemType1, int nItemType2)
+{
+    if (nItemType2 <= 0)
+        return 1;
+    if (nItemType1 <= 0 || nItemType1 >= gnItemTypesTxtRecordCount_0096C82C)
+        return 0;
+    int nParentItemTypes[128];
+    nParentItemTypes[0] = nItemType1;
+    int nIndex = 1;
+    do
+    {
+        int nItemType = nParentItemTypes[--nIndex];
+        if (nItemType2 == nItemType)
+            return 1;
+        if (nItemType >= gnItemTypesTxtRecordCount_0096C82C)
+            return 0;
+        if (nIndex > 124)
+            return 0;
+        D2ItemTypesTxt* pItemTypesTxtRecord = &gpItemTypesTxt_0096C828[nItemType];
+        if (pItemTypesTxtRecord->nEquiv1 > 0)
+        {
+            nParentItemTypes[nIndex++] = pItemTypesTxtRecord->nEquiv1;
+            if (pItemTypesTxtRecord->nEquiv2)
+                nParentItemTypes[nIndex++] = pItemTypesTxtRecord->nEquiv2;
+        }
+    }
+    while (nIndex);
+    return 0;
+}
+
+// 0x00640E90
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
+{
+    D2_ASSERT(nObjectId < gnObjectsTxtRecordCount, 221);
+    D2_ASSERT(nObjectId >= 0, 222);
+    return &gpObjectsTxt[nObjectId];
+}
+
+// 0x0065FD20
+int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (pProperty && pItem && pItem->dwUnitType == UNIT_ITEM && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
+    {
+        ITEMMODS_ApplyEthereality(pItem);
+        return 1;
+    }
+
+    return 0;
+}
+
+#include "gen/data/Source/D2Common/DATATBLS/DataTbls.inc"
