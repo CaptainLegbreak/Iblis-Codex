@@ -61152,6 +61152,10 @@
      "name": "?sub_005B0F50_OpenDoorInReach@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005B0FF0",
+     "length": 237
+    },
+    {
      "va": "0x005B10E0",
      "length": 92,
      "name": "sub_005B10E0_AiTickPreChecks"
@@ -61169,6 +61173,14 @@
      "va": "0x005B14E0",
      "length": 236,
      "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005B15D0",
+     "length": 116
+    },
+    {
+     "va": "0x005B1650",
+     "length": 232
     },
     {
      "va": "0x005B1740",
@@ -63893,24 +63905,6 @@
     {
      "va": "0x005EF320",
      "length": 701
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005B0FF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B0FF0",
-     "length": 237
-    },
-    {
-     "va": "0x005B15D0",
-     "length": 116
-    },
-    {
-     "va": "0x005B1650",
-     "length": 232
     }
    ]
   },
