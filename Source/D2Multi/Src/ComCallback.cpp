@@ -1,5 +1,8 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
+#include "D2StormTypes.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -18,10 +21,6 @@ struct D2MultiChannelUserStrc;
 struct D2LaunchFuncsStrc;
 
 struct ComAdStrc;
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2LaunchNameNodeStrc
 {
@@ -191,11 +190,11 @@ extern D2WinControlInitStrc gtControlInit_0070E980; // 0x0070E980
 
 extern D2WinControlStrc* gpControlA_0077B070; // 0x0077B070
 
-extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
+D2WinControlStrc* gpChatControl_0077B074;                                                                   // 0x0077B074
 
 extern D2WinControlStrc* gpControlB_0077B078; // 0x0077B078
 
-extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
+D2WinControlStrc* gpControlC_0077B07C;                                                                      // 0x0077B07C
 
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 
@@ -221,13 +220,17 @@ extern int gnPendingValueA_00798CE4; // 0x00798CE4
 
 extern int gnPendingValueB_00798CE8; // 0x00798CE8
 
-extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
+D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
 
 class D2SquelchListStrc
 {
 public:
     virtual void Squelch(const char* szName);
     virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -264,7 +267,7 @@ int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nTo
 
 extern void* gpLaunchContext_0077B0A4; // 0x0077B0A4
 
-extern char gszTempFile_00798E30[]; // 0x00798E30
+char gszTempFile_00798E30[260]; // 0x00798E30
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTempPathA(unsigned long nBufferLength, char* lpBuffer); // 0x006CC344
 
@@ -325,6 +328,296 @@ D2WinControlStrc* gpControl_00798CA4; // 0x00798CA4
 static unsigned long s_dwLastCommandTick_00798F50; // 0x00798F50
 
 D2WinSmackStrc* gpControl_0077B098; // 0x0077B098
+
+extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
+
+void __fastcall COMCALLBACK_PrependNumberText(Unicode* pText, int nValue); // 0x00447940
+
+void __fastcall COMCALLBACK_AppendNumberText(Unicode* pText, int nValue); // 0x00447870
+
+D2MultiChannelUserStrc* gpChannelUsers_00798F34;                                                                 // 0x00798F34
+
+char gszLastWhisperer_0077B0D0[256]; // 0x0077B0D0
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+
+extern "C" int __cdecl rand();                                                                              // 0x00687461
+
+int __fastcall sub_0043E630_ShowChannelText(Unicode* pText);                                                // 0x0043E630
+
+void __fastcall COMCALLBACK_SetNamedValue(const char* szName, const char* szValue);                        // 0x00447400
+
+void __fastcall CHATDLG_UpdateScroll(int nDelta);                                                      // 0x00448BD0
+
+void __stdcall sub_00504270_SetCompositeText(D2CompositeStrc* pComposite, Unicode* wszName, Unicode* wszAccount, Unicode* wszS97, Unicode* wszRealm, int nLevel, unsigned int dwCode); // 0x00504270
+
+D2CompositeStrc* __stdcall sub_005066C0(int nA, int nMode, unsigned char* pComponents, unsigned char* pColors); // 0x005066C0
+
+char gData_00798D30[256]; // 0x00798D30
+
+int gnChannelLines_00798F40;                                                                                // 0x00798F40
+
+int gbRandSeeded_00798F54;                                                                                  // 0x00798F54
+
+static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat); // 0x00446D90
+
+
+
+
+struct D2LaunchMsgStrc;
+
+struct D2LaunchMsgStrc
+{
+    int nType;
+    int nArg;
+    char* szName;
+    void* pExtra;
+    void* pData;
+    unsigned long nSize;
+    char szText[0x108];
+};
+
+typedef int (__fastcall* D2LaunchMsgHandler)(int nArg, char* pArg, const char* szText, const char* szNext);
+
+extern D2WinSmackStrc* gpSmack_0077B098; // 0x0077B098
+
+extern int gnVideoId_0077B0A4; // 0x0077B0A4
+
+char gszText_00798CF8[56]; // 0x00798CF8
+
+extern D2LaunchMsgHandler gpfnMsgHandlers_0070EC20[]; // 0x0070EC20
+
+extern "C" const char szLaunchFile_006D5810[]; // 0x006D5810
+
+extern "C" const char gszChannelCountFormat_006D5994[]; // 0x006D5994
+
+static void COMCALLBACK_UpdateUserText(D2MultiChannelUserStrc* pUser); // 0x004471B0
+
+static void __stdcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, const unsigned char* pStat, unsigned int nFlags, const char* szName); // 0x00447FD0
+
+struct D2ChannelEntryStrc;
+
+D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, const unsigned char* pStat, unsigned int nFlags); // 0x00449050
+
+int __stdcall sub_005041B0_Destroy(D2CompositeStrc* pComposite, int nFlag); // 0x005041B0
+
+extern D2WinControlStrc* gapChatButtons_0077AD78[]; // 0x0077AD78
+
+extern D2WinControlStrc* gpChatControl_0077BC44; // 0x0077BC44
+
+extern int gnChannelScroll_00798F44; // 0x00798F44
+
+int gbShowJoinLeave_0077BD54; // 0x0077BD54
+
+extern "C" void _ReadWriteBarrier();
+
+#pragma intrinsic(_ReadWriteBarrier)
+
+union D2ChannelFlagsStrc
+{
+    unsigned int dwFlags;
+    unsigned char nFlags;
+    struct
+    {
+        unsigned int bFlag01 : 1;
+        unsigned int bFlag02 : 1;
+        unsigned int bFlag04 : 1;
+        unsigned int bFlag08 : 1;
+        unsigned int bFlag10 : 1;
+        unsigned int bFlag20 : 1;
+    };
+};
+
+struct D2ChatChannelMemberStrc
+{
+    int nUnk0x00;
+    char szName[0x32];
+    char szText[0x50];
+    unsigned char nClass;
+    char unk0x87[0x3];
+    union
+    {
+        unsigned short wFlags8A;
+        struct
+        {
+            unsigned short nLow8A : 5;
+            unsigned short bExp8A : 1;
+            unsigned short nMid8A : 2;
+            unsigned short nLevel8A : 5;
+        };
+    };
+    char unk0x8C[0x4];
+    D2ChannelFlagsStrc tFlags90;
+    char nValue94;
+    char unk0x95[0x7];
+    D2CompositeUnitStrc* pComposite;
+    int nValue0xA0;
+    int unk0xA4;
+    int nValue0xA8;
+    int unk0xAC;
+    D2ChatChannelMemberStrc* pNext;
+};
+
+void __stdcall D2Win_10152(D2CompositeUnitStrc* pCompositeUnit, int nY);                                    // 0x005052B0
+
+#define CHAN_SETBIT(x, n, cond) if (cond) x |= gdwBitMasks[n]; else x &= gdwInvBitMasks[n]
+
+#pragma intrinsic(strcmp)
+
+#define D2_STACKARG(x) (x)
+
+int __fastcall COMCALLBACK_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat); // 0x004480D0
+
+D2ChannelEntryStrc* gpChannelEntries_00798F38; // 0x00798F38
+
+int gnChannelEntries_00798F3C; // 0x00798F3C
+
+
+void __fastcall COMCALLBACK_PrintOwnLine(const char* szText);
+
+
+
+static void __stdcall COMCALLBACK_PrintChannelLine(const char* szText, int nPrefix, const char* szName, int nColor);
+
+static void __stdcall COMCALLBACK_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor);
+
+int __stdcall COMCALLBACK_OnChannelTalk(const char* szSender, const char* szMessage); // 0x00448370
+
+struct D2WinButtonStrc;
+
+struct SMSGHANDLER_PARAMS;
+
+struct D2MsgRecordStrc;
+
+struct D2MsgRecordChunkStrc;
+
+struct D2MsgHandlerEntryStrc;
+
+typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
+
+struct D2MsgRecordStrc
+{
+    unsigned int dwTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nUnk0x1F44;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x006CC488
+
+extern "C" int __cdecl SStrPrintf(char* szBuffer, unsigned int nSize, const char* szFormat, ...); // 0x00413A40
+
+extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
+
+int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
+
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
+
+int __fastcall D2Win_10076(D2WinEditBoxStrc* pEditBox, const char* szText); // 0x004FFE10
+
+unsigned int __stdcall sub_00505330_GetCompositeFlags(D2CompositeStrc* pComposite); // 0x00505330
+
+const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
+
+void __cdecl sub_004451C0_UpdateLevelControls(); // 0x004451C0
+
+void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName); // 0x004493E0
+
+int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
+
+void __cdecl RECORD_AddRecordChunk(); // 0x00451400
+
+int __cdecl sub_0044DA90(); // 0x0044DA90
+
+int __cdecl UI_IsReplayActive(); // 0x00451990
+
+void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
+
+void __fastcall SCMD_RegisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451C70
+
+extern const char gszFormatInt_006D57BC[]; // 0x006D57BC
+
+extern const unsigned int gdwTitleMaskA_006CE280; // 0x006CE280
+
+extern const unsigned int gdwTitleMaskB_006CE284; // 0x006CE284
+
+extern D2WinEditBoxStrc* gpEditBox_00798C3C; // 0x00798C3C
+
+extern int gbStringsLoaded_007A070C; // 0x007A070C
+
+extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0; // 0x0070F7A0
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
+
+static int COMCALLBACK_GetUserRank(D2MultiChannelUserStrc* pUser); // 0x00446D30
+
+void __cdecl CHARSEL_ActivateChatEdit(); // 0x0043D990
+
+extern const unsigned char gnCdKeyMap_006D59F0[256]; // 0x006D59F0
+
+
+D2WinButtonStrc* gpButton_00798C40; // 0x00798C40
+
+void __cdecl sub_00445DF0_CreateJoinScreen();                                                               // 0x00445DF0
+
+void __cdecl sub_00445FF0_BuildCreateScreen();                                                              // 0x00445FF0
+
+extern int gnLaunchMode_0077BBE4;                                                                           // 0x0077BBE4
+
+extern "C" char* __cdecl strchr(const char* szString, int nChar);                                           // 0x00687740
+
+#pragma intrinsic(strcmp)
+
+struct D2NamedValueStrc;
+
+struct D2NamedValueStrc
+{
+    char szName[0x32];
+    char szValue[0x12];
+    D2NamedValueStrc* pNext;
+};
+
+extern D2WinControlStrc* gpChatEdit_0077BD94; // 0x0077BD94
+
+static D2NamedValueStrc* s_pNamedValues_00798F38; // 0x00798F38
+
+static int s_nNamedValues_00798F3C; // 0x00798F3C
+
+struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
+
+
+extern int gnChannelUserCount_00798F40; // 0x00798F40
+
+extern int gnChannelUserOffset_00798F44; // 0x00798F44
+
+extern unsigned int gdwSelectionTick_00798F4C; // 0x00798F4C
+
+
+void __cdecl CHATDLG_DestroyProfileControls(); // 0x00443E10
+
+void __fastcall COMCALLBACK_ShowProfileDialog(const char*,int,int); // 0x00445A80
+
+void __fastcall COMCALLBACK_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
+
+D2WinControlStrc* gpChatControl_0077B058; // 0x0077B058
+
+D2WinControlStrc* gpChatControl_0077B05C; // 0x0077B05C
+
+D2WinControlStrc* gpChatControl_0077B064; // 0x0077B064
+
+D2WinControlStrc* gpChatControl_0077B068; // 0x0077B068
+
+D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 
 static inline int ProgressBarValue(int nPercent)
 {
@@ -475,10 +768,8 @@ int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
 void __cdecl COMCALLBACK_UpdateNameListText()
 {
     char szText[0x200];
-    Unicode wszText[0x200];
 
-    for (int i = 0; i < 0x200; i++)
-        wszText[i].wChar = 0;
+    Unicode wszText[0x200];
 
     if (!gpControlMain_0077BC4C)
         return;
@@ -510,14 +801,33 @@ static void __stdcall COMCALLBACK_SetPendingName(int nA, int nB, const char* szT
     gnPendingValueB_00798CE8 = nB;
 }
 
+// 0x00445300
+void __cdecl COMCALLBACK_LoadLevelRestriction()
+{
+    unsigned long nValue = 4;
+    if (!SRegLoadValue("Diablo II", "LVL_REST", 0, &nValue))
+    {
+        SRegSaveValue("Diablo II", "LVL_REST", 0, nValue);
+        return;
+    }
+    char szText[4] = "4";
+    if (nValue == 666)
+    {
+        BUTTON_SetIsPressed((D2WinControlStrc*)gpButton_00798C40, 0);
+        sub_004451C0_UpdateLevelControls();
+        return;
+    }
+    SStrPrintf(szText, 4, gszFormatInt_006D57BC, nValue);
+    D2Win_10076(gpEditBox_00798C3C, szText);
+    BUTTON_SetIsPressed((D2WinControlStrc*)gpButton_00798C40, 1);
+    sub_004451C0_UpdateLevelControls();
+}
+
 // 0x004453B0
 void __cdecl COMCALLBACK_BuildCreateGamePanel()
 {
-    Unicode wszNumber[3];
     char szNumber[4];
     char szLevel[100];
-    Unicode wszLevel[0x64];
-    Unicode wszText[0xC8];
 
     gpPanelControl_00798BEC = CONTROL_Create(&gtControlInit_0070D300);
     gpPanelTitle_00798BF0 = CONTROL_Create(&gtControlInit_0070EAA0);
@@ -526,18 +836,14 @@ void __cdecl COMCALLBACK_BuildCreateGamePanel()
     D2Win_10044(gpPanelText_00798BF4, D2LANG_GetStringFromTblIndex(0x2B0F));
     sub_004FCFF0_SetTextA(gpPanelText_00798BF4, gszSpace_006FFC44, 0);
 
-    for (int i = 0; i < 0xC8; i++)
-        wszText[i].wChar = 0;
-    for (int i = 0; i < 0x64; i++)
-        wszLevel[i].wChar = 0;
+    Unicode wszText[0xC8];
+    Unicode wszLevel[0x64];
 
     sprintf(szLevel, "%d ", GAME_GetMcpCharLevel());
     sub_00526320_ToUnicode(wszLevel, szLevel, 0x32);
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x2B12));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9A));
-    wszNumber[0].wChar = 0;
-    wszNumber[1].wChar = 0;
-    wszNumber[2].wChar = 0;
+    Unicode wszNumber[3];
     wsprintfA(szNumber, gszFormatD_006D57BC, 0);
     sub_00526F20_ToUnicode(wszNumber, szNumber, 2);
     sub_00526700(wszText, wszNumber);
@@ -650,6 +956,30 @@ void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* s
     COMCALLBACK_SetPendingName(nA, nB, szText);
 }
 
+// 0x00446780
+int __stdcall COMCALLBACK_OpenJoinScreen(int nArg)
+{
+// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
+    CHARSEL_ResetLaunchState();
+    gnLaunchMode_0077BBE4 = 3;
+    sub_00445DF0_CreateJoinScreen();
+    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
+    BUTTON_SetIsPressed(gpControlA_0077B070, 0);
+    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    return 1;
+}
+
+// 0x004467D0
+int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
+{
+    CHARSEL_ResetLaunchState();
+    sub_00445FF0_BuildCreateScreen();
+    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
+    BUTTON_SetIsPressed(gpControlB_0077B078, 0);
+    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    return 1;
+}
+
 // 0x004468F0
 int __stdcall COMCALLBACK_SendChatLine(int nUnused)
 {
@@ -662,6 +992,1297 @@ int __stdcall COMCALLBACK_SendChatLine(int nUnused)
 
     sub_00526F70(szText, wszText, sizeof(szText));
     return sub_004428D0_SendChatText(szText, 1);
+}
+
+// 0x00446950
+int __stdcall COMCALLBACK_OnChatPanelClick(int nArg)
+{
+    sub_00444020();
+    sub_0043D990();
+    return 1;
+}
+
+// 0x00446970
+int __stdcall COMCALLBACK_SendEmoteLine(int nUnused)
+{
+    char szText[0x12C];
+    char szLine[0x12C];
+    const Unicode* wszText = D2Win_10077_EDITBOX_GetText(gpChatEditBox_0077BD94);
+    if (wszText && sub_00526800(wszText))
+    {
+        sub_00526F70(szText, wszText, sizeof(szText));
+        if (szText[0] != '/')
+        {
+            const unsigned long dwTick = GetTickCount();
+            if (dwTick >= s_dwLastCommandTick_00798F50 + 1000)
+            {
+                s_dwLastCommandTick_00798F50 = dwTick;
+                sprintf(szLine, "/me %s", szText);
+                sub_004428D0_SendChatText(szLine, 0);
+            }
+        }
+    }
+    return 1;
+}
+
+// 0x00446A00
+int __stdcall COMCALLBACK_SendAwayCommand(int nUnused)
+{
+    char szText[AWAY_TEXT_SIZE];
+    const unsigned long dwTick = GetTickCount();
+    if (dwTick >= s_dwLastCommandTick_00798F50 + AWAY_COMMAND_DELAY)
+    {
+        s_dwLastCommandTick_00798F50 = dwTick;
+        sprintf(szText, "/away Away from the keyboard.");
+        if (!gpLaunchFuncs_0077B09C->pfn0x68())
+        {
+            CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
+            return 0;
+        }
+        gpLaunchFuncs_0077B09C->pfn0x14(szText);
+        EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
+    }
+    return 1;
+}
+
+// 0x00446B70
+static int COMCALLBACK_PlayAd(ComAdStrc* pAd)
+{
+    char szTempFile[260];
+    char szTempPath[260];
+    unsigned long nWritten;
+
+    SMACK_DeleteFile(gpControl_0077B098);
+    if (!GetTempPathA(260, szTempPath))
+    {
+        *(unsigned short*)szTempPath = '.';
+    }
+    if (GetTempFileNameA(szTempPath, "BNetAd", 0, szTempFile) > 0)
+    {
+        DeleteFileA(gszTempFile_00798E30);
+        void* hFile = FOG_CreateFileA(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
+        if (hFile != (void*)-1)
+        {
+            FOG_WriteFile(hFile, pAd->pBuffer, pAd->nSize, &nWritten, 0);
+// build: symbol ?FOG_CloseFile@* 0x004069A0
+            FOG_CloseFile(hFile);
+        }
+        char* pExt = strrchr(pAd->szName, '.');
+        pExt++;
+        int ch = *pExt;
+        int n = tolower(ch);
+        SMACK_Decode(gpControl_0077B098, szTempFile, n);
+        int i = 0;
+        char c;
+        do
+        {
+            c = szTempFile[i];
+            gszTempFile_00798E30[i] = c;
+            i++;
+        } while (c);
+    }
+    gpLaunchContext_0077B0A4 = pAd->pContext;
+    FOG_Free(pAd->szName, ".\\Src\\ComCallback.cpp", 0x386, 0);
+    FOG_Free(pAd->pData, ".\\Src\\ComCallback.cpp", 0x387, 0);
+    return 1;
+}
+
+// 0x00446CA0
+int __cdecl COMCALLBACK_PlayTempSmack()
+{
+    if (gszTempFile_00798E30[0] && GetFileAttributesA(gszTempFile_00798E30) != (unsigned long)-1)
+    {
+        const char* pExt = strrchr(gszTempFile_00798E30, '.') + 1;
+        SMACK_Decode((D2WinSmackStrc*)gpControl_0077B098, gszTempFile_00798E30, tolower(*pExt));
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00446D00
+static inline int COMCALLBACK_SetText(const char* szText)
+{
+    SStrCopy(gszText_00798CF8, szText, 0x32);
+    return 1;
+}
+
+// 0x00446D20
+int __stdcall COMCALLBACK_IgnoreChatEvent(int nArg1, int nArg2)
+{
+    return 1;
+}
+
+int __stdcall sub_M121_Emit_00446D00(const char* szText) { return COMCALLBACK_SetText(szText); }
+
+// 0x00446D30
+static int COMCALLBACK_GetUserRank(D2MultiChannelUserStrc* pUser)
+{
+    const unsigned int dwFlags = pUser->dwFlags;
+    if (dwFlags & 2)
+        return 4;
+    if (dwFlags & 8)
+        return 3;
+    if (dwFlags & 1)
+        return 2;
+    if (dwFlags & 4)
+        return 1;
+    return 0;
+}
+
+// 0x00446D60
+static int sub_00446D60_Classify(int code) {
+ switch(code) {
+ case 0:
+ case 1:
+ case 6:
+ case 9:
+  return 0;
+ default:
+  return 1;
+ }
+}
+
+static int CHANNEL_IsMaleClass(int nClass)
+{
+    switch (nClass)
+    {
+    case 0:
+    case 1:
+    case 6:
+    case 9:
+        return 0;
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 7:
+    case 8:
+        return 1;
+    }
+
+    return 1;
+}
+
+// 0x00446D90
+static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat)
+{
+    unsigned char nResult = 7;
+    int bValid = 0;
+    int nLength = strlen((const char*)pStat);
+    pUser->wFlags = 0;
+
+    if (nFlags & 2)
+    {
+        nResult = 0x13;
+    }
+    else if (nFlags & 8)
+    {
+        nResult = 0x14;
+        goto LABEL_DEFAULT_LOOK;
+    }
+    else if (nFlags & 1)
+    {
+        nResult = 0x12;
+        goto LABEL_DEFAULT_LOOK;
+    }
+    else if (nFlags & 4)
+    {
+        nResult = 0x17;
+        goto LABEL_DEFAULT_LOOK;
+    }
+    else if (nFlags & 0x101000)
+    {
+        nResult = 0x15;
+        goto LABEL_DEFAULT_LOOK;
+    }
+    else if (nLength < 4)
+    {
+        nResult = 7;
+        goto LABEL_DEFAULT_LOOK;
+    }
+    else
+    {
+        bValid = 1;
+    }
+
+    if (nLength >= 4)
+    {
+        pUser->dwCode = *(const unsigned int*)pStat;
+        nLength -= 4;
+        pStat += 4;
+
+        switch (pUser->dwCode)
+        {
+        case 0x44324456:
+        case 0x44325354:
+        case 0x44325850:
+        {
+            if (!*pStat)
+            {
+                if (nResult == 7)
+                {
+                    nResult = 0x18;
+                }
+
+                pUser->dwCode = 0x554E4B4E;
+                strcpy(pUser->szText, pUser->szName);
+                break;
+            }
+
+            D2_ASSERT(nLength > 0, 0x579);
+
+            char* pDst = pUser->szRealm;
+            while (*pStat != ',')
+            {
+                *pDst++ = *pStat++;
+            }
+            ++pStat;
+            *pDst = 0;
+
+            pDst = pUser->szText;
+            while (*pStat != ',')
+            {
+                *pDst++ = *pStat++;
+            }
+            ++pStat;
+            *pDst = 0;
+
+            sub_006BBF20_ReadPackedWord(pStat);
+            pStat += 2;
+
+            int i;
+            for (i = 0; i < 11; ++i)
+            {
+                pUser->aComponents[i] = *pStat++;
+            }
+            for (; i < 16; ++i)
+            {
+                pUser->aComponents[i] = 0xFF;
+            }
+
+            if (!pUser->aComponents[0])
+            {
+                goto LABEL_UNKNOWN_CODE;
+            }
+
+            pUser->nClass = *pStat++ - 1;
+
+            for (i = 0; i < 11; ++i)
+            {
+                pUser->aColors[i] = *pStat++;
+            }
+            for (; i < 16; ++i)
+            {
+                pUser->aColors[i] = 0xFF;
+            }
+
+            pUser->wLevel = *pStat++;
+
+            pUser->wFlags = sub_006BBF20_ReadPackedWord(pStat);
+            unsigned int wFlags = pUser->wFlags;
+            pUser->bFlagA0 = (wFlags >> 2) & 1;
+            pUser->bFlagA4 = (wFlags >> 3) & 1;
+            pUser->bFlagA8 = (wFlags >> 5) & 1;
+            pUser->bFlagAC = (wFlags >> 6) & 1;
+            pStat += 2;
+
+            if (bValid)
+            {
+                if (pUser->bFlagA0 && pUser->bFlagA4)
+                {
+                    nResult = CHANNEL_IsMaleClass(pUser->nClass) ? 8 : 9;
+                }
+                else
+                {
+                    nResult = pUser->nClass;
+                }
+            }
+
+            pUser->wW8C = sub_006BBF20_ReadPackedWord(pStat);
+            pStat += 2;
+
+            pUser->nB94 = *pStat++;
+            pUser->nB94 = pUser->nB94 == 0xFF ? 0 : pUser->nB94;
+            pUser->nB95 = *pStat++;
+            pUser->nB95 = pUser->nB95 == 0xFF ? 0 : pUser->nB95;
+            pUser->nB96 = *pStat;
+            pUser->nB96 = pUser->nB96 == 0xFF ? 0 : pUser->nB96;
+
+            if (bValid)
+            {
+                return nResult;
+            }
+            break;
+        }
+
+        case 0x43484154:
+            if (bValid)
+            {
+                nResult = 0x16;
+            }
+            break;
+
+        case 0x4452544C:
+        case 0x44534852:
+        case 0x44545354:
+            if (bValid)
+            {
+                nResult = 0xA;
+            }
+            break;
+
+        case 0x53544152:
+        case 0x4A535452:
+        case 0x53534852:
+            if (bValid)
+            {
+                nResult = 0xD;
+            }
+            break;
+
+        case 0x53455850:
+            if (bValid)
+            {
+                nResult = 0xE;
+            }
+            break;
+
+        case 0x5732424E:
+            if (bValid)
+            {
+                nResult = 0xF;
+            }
+            break;
+
+        case 0x57415233:
+        case 0x57335850:
+            if (bValid)
+            {
+                nResult = 0x10;
+            }
+            break;
+
+        default:
+LABEL_UNKNOWN_CODE:
+            if (bValid)
+            {
+                pUser->dwCode = 0x554E4B4E;
+                nResult = 7;
+                strcpy(pUser->szText, pUser->szName);
+            }
+            break;
+        }
+    }
+
+LABEL_DEFAULT_LOOK:
+    for (int i = 0; i < 16; ++i)
+    {
+        if (i == 1)
+        {
+            pUser->aComponents[i] = 1;
+        }
+        else
+        {
+            pUser->aComponents[i] = 0;
+        }
+        pUser->aColors[i] = 0xFF;
+    }
+
+    return nResult;
+}
+
+// 0x004471B0
+static void COMCALLBACK_UpdateUserText(D2MultiChannelUserStrc* pUser)
+{
+    Unicode wszName[51];
+    Unicode wszAccount[17];
+    Unicode wszS97[51];
+    Unicode wszRealm[32];
+
+    if (pUser->szName[0] == '*')
+    {
+        Unicode::win2Unicode(wszName, pUser->szName, 50);
+        wszAccount[0] = 0;
+    }
+    else
+    {
+        char szAccount[50] = { 0 };
+        Unicode wszCharName[50];
+
+        const char* szName = pUser->szName;
+        if (*szName == '*')
+        {
+            SStrCopy(szAccount, szName, 0x7FFFFFFF);
+        }
+        else
+        {
+            const char* pStar = SStrChr(szName, '*');
+            if (pStar)
+            {
+                memcpy(szAccount, szName, pStar - szName);
+                szAccount[pStar - szName] = 0;
+            }
+            else
+            {
+                SStrCopy(szAccount, szName, 0x7FFFFFFF);
+            }
+        }
+
+        const char* szCharName = SStrChr(szName, '*');
+        if (!szCharName || !*++szCharName)
+        {
+            szCharName = szName;
+        }
+
+        Unicode::win2Unicode(wszCharName, szCharName, 50);
+        Unicode::win2Unicode(wszName, szStar_006D5830, 50);
+        Unicode::strncat(wszName, wszCharName, 50);
+        Unicode::win2Unicode(wszAccount, szAccount, 16);
+    }
+
+    Unicode::win2Unicode(wszS97, pUser->szS97, 50);
+    Unicode::win2Unicode(wszRealm, pUser->szRealm, 32);
+
+    const unsigned int dwCode = pUser->dwCode;
+    unsigned short nLevel = 0;
+    if (dwCode == 0x44324456 || dwCode == 0x44325354 || dwCode == 0x44325850)
+    {
+        nLevel = pUser->wLevel;
+    }
+
+    sub_00504270_SetCompositeText(pUser->pComposite, wszName, wszAccount, wszS97, wszRealm, nLevel, dwCode);
+}
+
+int __fastcall EmitClassify(int code) { return sub_00446D60_Classify(code); }
+
+// 0x00447390
+static int COMCALLBACK_CompareNames(const char* szNameA, const char* szNameB)
+{
+    const char* szA = strchr(szNameA, '*');
+    if (!szA)
+        szA = szNameA;
+    else
+        szA += 1;
+    const char* szB = strchr(szNameB, '*');
+    if (!szB)
+        szB = szNameB;
+    else
+        szB += 1;
+    return strcmp(szA, szB);
+}
+
+static inline const char* sub_SkipStarPrefix(const char* szName)
+{
+    const char* pFound = SStrChr(szName, '*');
+    if (pFound && *++pFound)
+        return pFound;
+    return szName;
+}
+
+// 0x00447400
+void __fastcall COMCALLBACK_SetNamedValue(const char* szName, const char* szValue)
+{
+    D2NamedValueStrc* pNode = s_pNamedValues_00798F38;
+    D2NamedValueStrc* pPrevious = 0;
+    const char* szKey = sub_SkipStarPrefix(szName);
+    for (; pNode; pNode = pNode->pNext)
+    {
+        if (!strcmp(sub_SkipStarPrefix(pNode->szName), szKey))
+            break;
+        pPrevious = pNode;
+    }
+    if (pNode)
+    {
+        strcpy(pNode->szValue, szValue);
+        return;
+    }
+    if (s_nNamedValues_00798F3C >= 0x400)
+    {
+        pNode = s_pNamedValues_00798F38;
+        s_pNamedValues_00798F38 = s_pNamedValues_00798F38->pNext;
+        FOG_Free(pNode, ".\\Src\\ComCallback.cpp", 0x936, 0);
+        --s_nNamedValues_00798F3C;
+    }
+    D2NamedValueStrc* pNew = (D2NamedValueStrc*)FOG_Alloc(sizeof(D2NamedValueStrc), ".\\Src\\ComCallback.cpp", 0x93A, 0);
+    strcpy(pNew->szName, szName);
+    strcpy(pNew->szValue, szValue);
+    pNew->pNext = 0;
+    if (pPrevious)
+        pPrevious->pNext = pNew;
+    else
+        s_pNamedValues_00798F38 = pNew;
+    ++s_nNamedValues_00798F3C;
+}
+
+// 0x00447560
+void __fastcall COMCALLBACK_SplitName(const char* szName, char* szTitle, char* szOut)
+{
+    *szOut = 0;
+    *szTitle = 0;
+    if (*szName == '*')
+    {
+        SStrCopy(szOut, szName, 0x7FFFFFFF);
+        return;
+    }
+    char* pAt = SStrChr(szName, '@');
+    char* pStar = SStrChr(szName, '*');
+    if (pAt && pStar && pAt < pStar)
+    {
+        SStrCopy(szOut, szName, 0x7FFFFFFF);
+        *SStrChr(szOut, '*') = 0;
+        return;
+    }
+    D2ChannelEntryStrc* pEntry = gpChannelEntries_00798F38;
+    while (pEntry)
+    {
+        if (!_stricmp(pEntry->szName, szName))
+            break;
+        pEntry = pEntry->pNext;
+    }
+    if (pEntry)
+    {
+        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+        while (pUser)
+        {
+            if (!_stricmp(pUser->szName, szName))
+                break;
+            pUser = pUser->pNext;
+        }
+        if (pUser)
+        {
+            const unsigned int nFlags = sub_00505330_GetCompositeFlags(pUser->pComposite);
+            if ((nFlags & gdwTitleMaskA_006CE280) || (nFlags & gdwTitleMaskB_006CE284))
+            {
+                SStrCopy(szTitle, D2Win_10160_GetPlayerTitle(pUser->nClass, 3 * ((nFlags >> 5) & 1) + 2 * ((nFlags >> 7) & 1) + ((nFlags >> 6) & 1), (nFlags >> 12) & 1), 0x7FFFFFFF);
+            }
+        }
+        SStrCopy(szOut, pEntry->szAccount, 0x7FFFFFFF);
+    }
+    if (*szName != '*')
+    {
+        char* pEnd = SStrChr(szName, '*');
+        if (pEnd)
+        {
+            memcpy(szOut, szName, pEnd - szName);
+            szOut[pEnd - szName] = 0;
+            return;
+        }
+    }
+    SStrCopy(szOut, szName, 0x7FFFFFFF);
+}
+
+// 0x00447740
+static int COMCALLBACK_DispatchMessage(D2LaunchMsgStrc* pMsg)
+{
+    int nArg = pMsg->nArg;
+    char* pArg = pMsg->szName;
+    unsigned int nIndex = pMsg->nType;
+    const char* szText = pMsg->szText;
+    int nLength = strlen(szText);
+    if (nIndex < 0x18)
+    {
+        D2LaunchMsgHandler pfnHandler = gpfnMsgHandlers_0070EC20[nIndex];
+        if (pfnHandler)
+        {
+            int nResult = pfnHandler(nArg, pArg, szText, szText + nLength + 1);
+            if (nResult)
+                return nResult;
+        }
+    }
+    return 1;
+}
+
+// 0x004477A0
+void __cdecl COMCALLBACK_RefreshChatButtons()
+{
+    const Unicode* pText = sub_004FDD90_GetEditText(gpChatEdit_0077BD94);
+    int bHasText = 0;
+    if (pText && sub_00526800(pText))
+        bHasText = 1;
+
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+    CONTROL_SetEnabled(gpChatControl_0077B06C, bHasText);
+    CONTROL_SetEnabled(gpChatControl_0077B058, bHasText);
+    CONTROL_SetEnabled(gpChatControl_0077B05C, gpSelectedChannelUser_00798F48 && bHasText);
+
+    unsigned int nFlags = 0;
+    if (gpSelectedChannelUser_00798F48 && gpSelectedChannelUser_00798F48->pComposite)
+    {
+        const unsigned int nComposite = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
+        nFlags = gdwBitMasks[9] & nComposite;
+    }
+
+    CONTROL_SetEnabled(gpChatControl_0077B064, gpSelectedChannelUser_00798F48 && !nFlags);
+    CONTROL_SetEnabled(gpChatControl_0077B068, gpSelectedChannelUser_00798F48 && nFlags);
+}
+
+// 0x00447870
+void __fastcall COMCALLBACK_AppendNumberText(Unicode* pText, int nValue)
+{
+    char szNumber[4];
+
+    Unicode wszBuffer[0x200];
+    Unicode wszNumber[3];
+    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
+    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
+    sub_00526700(wszBuffer, wszNumber);
+
+    if (!pText[0].wChar)
+    {
+        sub_005267E0(pText, wszBuffer);
+    }
+    else
+    {
+        D2_ASSERT(sub_00526800(pText) < 500, 0xB7D);
+        sub_00526700(pText, wszBuffer);
+    }
+}
+
+// 0x00447940
+void __fastcall COMCALLBACK_PrependNumberText(Unicode* pText, int nValue)
+{
+    char szNumber[4];
+
+    Unicode wszBuffer[0x200];
+    Unicode wszNumber[3];
+    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
+    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
+    sub_00526700(wszBuffer, wszNumber);
+
+    if (!pText[0].wChar)
+    {
+        sub_005267E0(pText, wszBuffer);
+    }
+    else
+    {
+        D2_ASSERT(sub_00526800(pText) < 500, 0xB9B);
+        sub_00526700(wszBuffer, pText);
+        sub_005267E0(pText, wszBuffer);
+    }
+}
+
+// 0x00447A10
+int __cdecl COMCALLBACK_PumpMessages()
+{
+    int nType;
+    D2LaunchMsgStrc tMsg;
+    if (!gpLaunchFuncs_0077B09C->pfnGetMessage(&nType, &tMsg))
+        return 0;
+
+    switch (nType)
+    {
+    case 0:
+        COMCALLBACK_DispatchMessage(&tMsg);
+        break;
+    case 2:
+        SStrCopy(gszText_00798CF8, (char*)&tMsg, 0x32);
+        break;
+    case 3:
+        COMCALLBACK_PlayAd((ComAdStrc*)&tMsg);
+        break;
+    }
+    return 1;
+}
+
+// 0x00447A90
+int __stdcall COMCALLBACK_OnActivate(SMSGHANDLER_PARAMS* pMsg)
+{
+    sub_00444020();
+    CHARSEL_ActivateChatEdit();
+    return 1;
+}
+
+// 0x00447AB0
+static int __stdcall COMCALLBACK_AddChatLine(const char* szText, int nColor)
+{
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, nColor);
+    return 1;
+}
+
+// 0x00447B00
+static void __stdcall COMCALLBACK_PrintChannelLine(const char* szText, int nPrefix, const char* szName, int nColor)
+{
+    Unicode wszName[0x240];
+    Unicode wszText[0x240];
+    Unicode::win2Unicode(wszName, szName, 0x240);
+    Unicode::win2Unicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszName);
+    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_PrependNumberText(wszName, nPrefix);
+    COMCALLBACK_AppendNumberText(wszName, nColor);
+    sub_00526700(wszName, wszText);
+    sub_0043E610_PrintText(wszName, nColor);
+}
+
+static inline int CHAN_GetRank(const D2ChannelFlagsStrc* pFlags)
+{
+    const D2ChannelFlagsStrc tFlags = *pFlags;
+    if (tFlags.dwFlags & 2)
+        return 4;
+    if (tFlags.dwFlags & 8)
+        return 3;
+    if (tFlags.dwFlags & 1)
+        return 2;
+    if (tFlags.nFlags & 4)
+        return 1;
+    return 0;
+}
+
+static inline int CHAN_GetLevelClass(D2ChatChannelMemberStrc* pUser)
+{
+    const int nLevel = pUser->nLevel8A;
+    if (pUser->bExp8A)
+    {
+        if (nLevel >= 15)
+            return 3;
+        if (nLevel >= 10)
+            return 2;
+        return nLevel >= 5;
+    }
+    if (nLevel >= 12)
+        return 3;
+    if (nLevel >= 8)
+        return 2;
+    return nLevel >= 4;
+}
+
+// 0x00447BB0
+void __cdecl COMCALLBACK_RefreshChannelList()
+{
+    int n;
+    if (gpChannelUsers_00798F34)
+    {
+        D2ChatChannelMemberStrc* pSorted = (D2ChatChannelMemberStrc*)gpChannelUsers_00798F34;
+        D2ChatChannelMemberStrc** ppNext = (D2ChatChannelMemberStrc**)&gpChannelUsers_00798F34->pNext;
+        D2ChatChannelMemberStrc* pList = *ppNext;
+        _ReadWriteBarrier();
+        *ppNext = 0;
+        while (pList)
+        {
+            n = CHAN_GetRank(&pList->tFlags90);
+            D2ChatChannelMemberStrc* pPrev = 0;
+            int bInserted = 0;
+            D2ChatChannelMemberStrc* pCur = pSorted;
+            while (pCur && !bInserted)
+            {
+                if (n > CHAN_GetRank(&pCur->tFlags90))
+                {
+                    D2ChatChannelMemberStrc* pInsert = pList;
+                    pList = pInsert->pNext;
+                    pInsert->pNext = pCur;
+                    if (pPrev)
+                    {
+                        pPrev->pNext = pInsert;
+                        bInserted = 1;
+                    }
+                    else
+                    {
+                        pSorted = pInsert;
+                        bInserted = 1;
+                    }
+                }
+                else
+                {
+                    pPrev = pCur;
+                    pCur = pCur->pNext;
+                }
+            }
+
+            if (!bInserted)
+            {
+                pPrev->pNext = pList;
+                D2ChatChannelMemberStrc* pLast = pList;
+                pList = pLast->pNext;
+                pLast->pNext = 0;
+            }
+        }
+        gpChannelUsers_00798F34 = (D2MultiChannelUserStrc*)pSorted;
+    }
+
+    D2ChatChannelMemberStrc* pUser = (D2ChatChannelMemberStrc*)gpChannelUsers_00798F34;
+    int nY = 0x46;
+    n = 0;
+    if (gpChannelUsers_00798F34)
+    do
+    {
+        unsigned int nState;
+        D2ChannelFlagsStrc tFlags;
+        if (n >= gnChannelScroll_00798F44 && n < gnChannelScroll_00798F44 + 11)
+        {
+            D2Win_10152(pUser->pComposite, nY);
+            nState = 0xF;
+            CHAN_SETBIT(nState, 11, pUser->tFlags90.dwFlags & 9);
+            const unsigned short wFlags = pUser->wFlags8A;
+            CHAN_SETBIT(nState, 4, wFlags & 8);
+            CHAN_SETBIT(nState, 5, wFlags & 4);
+            CHAN_SETBIT(nState, 12, wFlags & 0x20);
+            const int nLevelClass = CHAN_GetLevelClass(pUser);
+            CHAN_SETBIT(nState, 6, nLevelClass & 1);
+            CHAN_SETBIT(nState, 7, nLevelClass & 2);
+            if (n & 1)
+                nState |= gdwBitMasks[8];
+            CHAN_SETBIT(nState, 9, pUser->tFlags90.nFlags & 0x20);
+            CHAN_SETBIT(nState, 10, pUser == (D2ChatChannelMemberStrc*)gpSelectedChannelUser_00798F48);
+            nY += 0x3C;
+        }
+        else
+        {
+            tFlags = pUser->tFlags90;
+            nState = 0;
+            CHAN_SETBIT(nState, 11, tFlags.dwFlags & 9);
+            const unsigned short wFlags = pUser->wFlags8A;
+            CHAN_SETBIT(nState, 4, wFlags & 8);
+            CHAN_SETBIT(nState, 5, wFlags & 4);
+            CHAN_SETBIT(nState, 12, wFlags & 0x20);
+            int bDiffers = gpCharInfo_0077BBD8->nValue3C2 != pUser->nValue94;
+            const unsigned short wCharFlags = *(const unsigned short*)gpCharInfo_0077BBD8->wFlags;
+            bDiffers |= (wCharFlags & 4) && !pUser->nValue0xA0;
+            bDiffers |= !(wCharFlags & 4) && pUser->nValue0xA0;
+            bDiffers |= (wCharFlags & 0x20) && !pUser->nValue0xA8;
+            bDiffers |= !(wCharFlags & 0x20) && pUser->nValue0xA8;
+            CHAN_SETBIT(nState, 13, bDiffers);
+            const int nLevelClass = CHAN_GetLevelClass(pUser);
+            CHAN_SETBIT(nState, 6, nLevelClass & 1);
+            CHAN_SETBIT(nState, 7, nLevelClass & 2);
+            CHAN_SETBIT(nState, 9, tFlags.dwFlags & 0x20);
+            CHAN_SETBIT(nState, 10, pUser == (D2ChatChannelMemberStrc*)gpSelectedChannelUser_00798F48);
+        }
+        D2Win_10156(pUser->pComposite, nState);
+        n++;
+        pUser = pUser->pNext;
+    } while (pUser);
+}
+
+// 0x00447FD0
+static void __stdcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, const unsigned char* pStat, unsigned int nFlags, const char* szName)
+{
+    pUser->dwFlags = nFlags;
+    const unsigned char nResult = COMCALLBACK_ParseStatString(pUser, nFlags, pStat);
+    SStrCopy(pUser->szName, szName, 0x7FFFFFFF);
+
+    int nMode = 5;
+    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && (FOG_IsExpansion() || nResult < 5))
+    {
+        nMode = 1;
+    }
+
+    sub_00504F80_UpdateComposite(pUser->pComposite, nResult, nMode, pUser->aComponents, pUser->aColors);
+    COMCALLBACK_UpdateUserText(pUser);
+    COMCALLBACK_RefreshChannelList();
+}
+
+// 0x00448050
+void __cdecl COMCALLBACK_ClearSelectedUser()
+{
+    if (gpSelectedChannelUser_00798F48)
+    {
+        D2_ASSERT((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, 0x85A);
+        const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
+        D2Win_10156((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, nFlags & gdwInvBitMasks[10]);
+        gpSelectedChannelUser_00798F48 = 0;
+        gnSelectedLine_0070EC1C = -1;
+    }
+
+// build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
+    if (!GAME_IsLaunchExpansion())
+    {
+        COMCALLBACK_RefreshChatButtons();
+    }
+}
+
+// 0x004480D0
+int __fastcall COMCALLBACK_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat)
+{
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+    if (gpChannelUsers_00798F34)
+    {
+        do
+        {
+            if (!strcmp(pUser->szName, szName))
+            {
+                COMCALLBACK_UpdateUser(pUser, pStat, nFlags, szName);
+                return 1;
+            }
+            pUser = pUser->pNext;
+        }
+        while (pUser);
+    }
+
+    return 0;
+}
+
+// 0x00448150
+int __stdcall COMCALLBACK_PrintNormalText(int nUnused, const char* szText)
+{
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 0);
+    return 1;
+}
+
+static const char* SkipStarPrefix_Inl(const char* szName)
+{
+    const char* p = SStrChr(szName, '*');
+    if (p)
+    {
+        p++;
+        if (*p)
+        {
+            return p;
+        }
+    }
+    return szName;
+}
+
+// 0x004481B0
+static void __stdcall COMCALLBACK_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor)
+{
+    char szBuffer[0x100];
+    sprintf(szBuffer, "<%s> ", szName);
+    COMCALLBACK_PrintChannelLine(szText, nPrefix, szBuffer, nColor);
+}
+
+// 0x004481F0
+void __fastcall COMCALLBACK_PrintOwnLine(const char* szText)
+{
+    char szName[0x100];
+    char szOut[0x100];
+    char szPlain[0x100];
+    char szTitle[0x100];
+    SStrCopy(szName, gpLaunchFuncs_0077B09C->pfnGetUserName(), 0x7FFFFFFF);
+    int nPrefix = 4;
+    int nColor = 0;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+    if (gpChannelUsers_00798F34)
+    {
+        do
+        {
+            if (!strcmp(SkipStarPrefix_Inl(pUser->szName), szName))
+            {
+                SStrCopy(szName, pUser->szName, 0x7FFFFFFF);
+                if (pUser->dwFlags & 2)
+                    nPrefix = 0;
+                else if (pUser->dwFlags & 1)
+                    nPrefix = nColor = 3;
+                else if (pUser->dwFlags & 8)
+                    nPrefix = nColor = 3;
+                break;
+            }
+            pUser = pUser->pNext;
+        }
+        while (pUser);
+    }
+    COMCALLBACK_SplitName(szName, szTitle, szPlain);
+    if (strlen(szPlain))
+    {
+        if (strlen(szTitle))
+            sprintf(szOut, "<%s%s> ", szTitle, szPlain);
+        else
+            sprintf(szOut, "<%s> ", szPlain);
+    }
+    else
+    {
+        sprintf(szOut, "<%s> ", szName);
+    }
+    COMCALLBACK_PrintChannelLine(szText, nPrefix, szOut, nColor);
+}
+
+// 0x00448370
+int __stdcall COMCALLBACK_OnChannelTalk(const char* szSender, const char* szMessage)
+{
+    char szName[0x100];
+    char szTitle[0x100];
+    char szOut[0x100];
+    COMCALLBACK_SplitName(szSender, szTitle, szName);
+    if (sub_00611560_GetSquelchList()->IsSquelched(szSender) || sub_00611560_GetSquelchList()->IsFiltered(szMessage))
+        return 1;
+
+    int nPrefix = 4;
+    int nColor = 0;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+    if (gpChannelUsers_00798F34)
+    {
+        do
+        {
+            if (!strcmp(pUser->szName, szSender))
+            {
+                if (pUser->dwFlags & 2)
+                    nPrefix = 0;
+                else if (pUser->dwFlags & 1)
+                    nPrefix = nColor = 3;
+                else if (pUser->dwFlags & 8)
+                    nPrefix = nColor = 3;
+                break;
+            }
+            pUser = pUser->pNext;
+        }
+        while (pUser);
+    }
+    if (strlen(szName))
+    {
+        if (strlen(szTitle))
+            sprintf(szOut, "%s%s", szTitle, szName);
+        else
+            strcpy(szOut, szName);
+        COMCALLBACK_PrintNamedLine(szMessage, nPrefix, szOut, nColor);
+    }
+    else
+    {
+        COMCALLBACK_PrintNamedLine(szMessage, nPrefix, szSender, nColor);
+    }
+    return 1;
+}
+
+// 0x004484E0
+int __stdcall COMCALLBACK_PrintInfoText(int nUnused, const char* szText)
+{
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 3);
+    return 1;
+}
+
+// 0x00448540
+int __stdcall COMCALLBACK_PrintErrorText(int nUnused, const char* szText)
+{
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 1);
+    return 1;
+}
+
+// 0x004485A0
+int __stdcall COMCALLBACK_OnChannelFull(int nUnused, const char* szText)
+{
+    char szBuffer[0x1F4];
+    sprintf(szBuffer, "The channel \"%s\" is full. If you are having problems using Battle.net commands, please click the Help button.", szText);
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 1);
+    return 1;
+}
+
+// 0x00448610
+int __stdcall COMCALLBACK_OnChannelRestricted(int nUnused, const char* szText)
+{
+    char szBuffer[0x1F4];
+    sprintf(szBuffer, "The channel \"%s\" is restricted. If you are having problems using Battle.net commands, please click the Help button.", szText);
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 1);
+    return 1;
+}
+
+// 0x00448680
+static void COMCALLBACK_PrintEmote(const char* szName, const char* szMessage)
+{
+    char szText[0x1F4];
+    sprintf(szText, "*%s %s*", szName, szMessage);
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 5);
+}
+
+// 0x004486F0
+int __stdcall COMCALLBACK_OnEmote(const char* szSender, const char* szMessage)
+{
+    char szName[0x100];
+    char szTitle[0x100];
+    char szOut[0x100];
+    COMCALLBACK_SplitName(szSender, szTitle, szName);
+    if (sub_00611560_GetSquelchList()->IsSquelched(szSender) || sub_00611560_GetSquelchList()->IsFiltered(szMessage))
+    {
+        return 1;
+    }
+    if (strlen(szName))
+    {
+        if (strlen(szTitle))
+        {
+            sprintf(szOut, "%s%s", szTitle, szName);
+        }
+        else
+        {
+            strcpy(szOut, szName);
+        }
+        COMCALLBACK_PrintEmote(szOut, szMessage);
+    }
+    else
+    {
+        COMCALLBACK_PrintEmote(szSender, szMessage);
+    }
+    return 1;
+}
+
+// 0x00448810
+static void __stdcall COMCALLBACK_PrintWhisper(const char* szSender, const char* szAccount, const char* szMessage)
+{
+    char szText[0x1F4];
+    strcpy(gszLastWhisperer_0077B0D0, szSender);
+    if (*szAccount && (*szAccount != '*' || strcmp(SkipStarPrefix_Inl(szAccount), SkipStarPrefix_Inl(szSender))))
+    {
+        sprintf(szText, "%s (*%s) whispers: %s", szAccount, szSender, szMessage);
+    }
+    else
+    {
+        sprintf(szText, "%s whispers: %s", szAccount, szMessage);
+    }
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 2);
+}
+
+// 0x00448920
+int __stdcall COMCALLBACK_OnWhisper(const char* szSender, const char* szMessage)
+{
+    char szName[0x100];
+    char szTitle[0x100];
+    char szAccount[0x100];
+    COMCALLBACK_SplitName(szSender, szTitle, szName);
+    if (sub_00611560_GetSquelchList()->IsSquelched(szSender) || sub_00611560_GetSquelchList()->IsFiltered(szMessage))
+    {
+        return 1;
+    }
+    if (strlen(szName))
+    {
+        if (strlen(szTitle))
+        {
+            sprintf(szAccount, "%s%s", szTitle, szName);
+        }
+        else
+        {
+            strcpy(szAccount, szName);
+        }
+        COMCALLBACK_PrintWhisper(SkipStarPrefix_Inl(szSender), szAccount, szMessage);
+    }
+    else
+    {
+        COMCALLBACK_PrintWhisper(SkipStarPrefix_Inl(szSender), 0, szMessage);
+    }
+    return 1;
+}
+
+// 0x00448A60
+static void COMCALLBACK_PrintWhisperSent(const char* szName, const char* szText)
+{
+    char szLine[0x1F4];
+    sprintf(szLine, "You whisper to %s: %s", szName, szText);
+    Unicode wszLine[0x240];
+    sub_00526E40_Utf8ToUnicode(wszLine, szLine, 0x240);
+    CHATDLG_RemoveTableString(wszLine);
+    sub_0043E610_PrintText(wszLine, 2);
+}
+
+// 0x00448AD0
+int __stdcall COMCALLBACK_OnWhisperSent(const char* szTarget, const char* szText)
+{
+    char szName[0x100];
+    char szTitle[0x100];
+    char szAccount[0x100];
+    COMCALLBACK_SplitName(szTarget, szTitle, szName);
+    if (strlen(szName))
+    {
+        if (strlen(szTitle))
+        {
+            sprintf(szAccount, "%s%s", szTitle, szName);
+        }
+        else
+        {
+            strcpy(szAccount, szName);
+        }
+        COMCALLBACK_PrintWhisperSent(szAccount, szText);
+    }
+    else
+    {
+        COMCALLBACK_PrintWhisperSent(SkipStarPrefix_Inl(szTarget), szText);
+    }
+    return 1;
+}
+
+// build: context sub_00446D30_Shim
+// calling-convention shim (not game code)
+int __fastcall sub_00446D30_Shim(D2MultiChannelUserStrc* pLeft, D2MultiChannelUserStrc* pRight)
+{
+    return COMCALLBACK_GetUserRank(pRight) - COMCALLBACK_GetUserRank(pLeft);
+}
+
+// 0x00448C70
+int __stdcall COMCALLBACK_ButtonCallback(D2ChatMessageStrc* pMsg)
+{
+    int nButton;
+    nButton = 0;
+    for (;;)
+    {
+        if (!(nButton < 11))
+            break;
+        if (pMsg->pControl == gapChatButtons_0077AD78[nButton])
+            goto found;
+        ++nButton;
+    }
+    return 0;
+found:
+    const int nLine = gnChannelUserOffset_00798F44 + nButton;
+    if (pMsg->nMessage == 0x205)
+    {
+        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+        for (int n = 0; pUser; ++n, pUser = pUser->pNext)
+        {
+            if (n == nLine)
+            {
+                CHATDLG_DestroyProfileControls();
+                const char* szName = pUser->szName;
+                const char* szCompare = SStrChr(szName, '*');
+                if (szCompare && szCompare[1])
+                    ++szCompare;
+                else
+                    szCompare = szName;
+                if (!strcmp(szCompare, gpCharInfo_0077BBD8->szText0x8D))
+                {
+                    COMCALLBACK_ShowProfileDialog(pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
+                    return 1;
+                }
+                COMCALLBACK_ShowUserInfoDialog(szName, pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
+                return 1;
+            }
+        }
+        return 1;
+    }
+    const unsigned int nTick = GetTickCount();
+    if (nLine == gnSelectedLine_0070EC1C)
+    {
+        COMCALLBACK_ClearSelectedUser();
+        return 1;
+    }
+    if (nLine < gnChannelUserCount_00798F40)
+    {
+        COMCALLBACK_ClearSelectedUser();
+        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+        for (int n = 0; pUser; ++n, pUser = pUser->pNext)
+        {
+            if (n == nLine)
+            {
+                D2_ASSERT(pUser->pComposite,0x135);
+                const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)pUser->pComposite);
+                D2Win_10156((D2CompositeUnitStrc*)pUser->pComposite, gdwBitMasks[10] | nFlags);
+                gpSelectedChannelUser_00798F48 = pUser;
+                gnSelectedLine_0070EC1C = nLine;
+                gdwSelectionTick_00798F4C = nTick;
+                COMCALLBACK_RefreshChatButtons();
+            }
+        }
+    }
+    return 1;
 }
 
 // 0x00448E30
@@ -746,289 +2367,403 @@ int __stdcall COMCALLBACK_UnsquelchSelectedUser(int nUnused)
     return 1;
 }
 
-// 0x00446B70
-static int COMCALLBACK_PlayAd(ComAdStrc* pAd)
-{
-    char szTempFile[260];
-    char szTempPath[260];
-    unsigned long nWritten;
 
-    SMACK_DeleteFile(gpControl_0077B098);
-    if (!GetTempPathA(260, szTempPath))
-    {
-        *(unsigned short*)szTempPath = '.';
-    }
-    if (GetTempFileNameA(szTempPath, "BNetAd", 0, szTempFile) > 0)
-    {
-        DeleteFileA(gszTempFile_00798E30);
-        void* hFile = FOG_CreateFileA(szTempFile, 0x40000000, 0, 0, 4, 0x8000000, 0);
-        if (hFile != (void*)-1)
-        {
-            FOG_WriteFile(hFile, pAd->pBuffer, pAd->nSize, &nWritten, 0);
-// build: symbol ?FOG_CloseFile@* 0x004069A0
-            FOG_CloseFile(hFile);
-        }
-        char* pExt = strrchr(pAd->szName, '.');
-        pExt++;
-        int ch = *pExt;
-        int n = tolower(ch);
-        SMACK_Decode(gpControl_0077B098, szTempFile, n);
-        int i = 0;
-        char c;
-        do
-        {
-            c = szTempFile[i];
-            gszTempFile_00798E30[i] = c;
-            i++;
-        } while (c);
-    }
-    gpLaunchContext_0077B0A4 = pAd->pContext;
-    FOG_Free(pAd->szName, ".\\Src\\ComCallback.cpp", 0x386, 0);
-    FOG_Free(pAd->pData, ".\\Src\\ComCallback.cpp", 0x387, 0);
-    return 1;
-}
-
-// 0x00446970
-int __stdcall COMCALLBACK_SendEmoteLine(int nUnused)
+// 0x00449050
+D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szName, const unsigned char* pStat, unsigned int nFlags)
 {
-    char szText[0x12C];
-    char szLine[0x12C];
-    const Unicode* wszText = D2Win_10077_EDITBOX_GetText(gpChatEditBox_0077BD94);
-    if (wszText && sub_00526800(wszText))
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+    if (gpChannelUsers_00798F34)
     {
-        sub_00526F70(szText, wszText, sizeof(szText));
-        if (szText[0] != '/')
+        while (pUser)
         {
-            const unsigned long dwTick = GetTickCount();
-            if (dwTick >= s_dwLastCommandTick_00798F50 + 1000)
+            const char* szUserName = strchr(pUser->szName, '*');
+            szUserName = !szUserName ? pUser->szName : szUserName + 1;
+            const char* szNewName = strchr(szName, '*');
+            szNewName = !szNewName ? szName : szNewName + 1;
+            if (!strcmp(szUserName, szNewName))
             {
-                s_dwLastCommandTick_00798F50 = dwTick;
-                sprintf(szLine, "/me %s", szText);
-                sub_004428D0_SendChatText(szLine, 0);
+                COMCALLBACK_UpdateUser(pUser, pStat, nFlags, szName);
+                return pUser;
             }
+            pUser = pUser->pNext;
         }
     }
-    return 1;
-}
 
-// 0x00446A00
-int __stdcall COMCALLBACK_SendAwayCommand(int nUnused)
-{
-    char szText[AWAY_TEXT_SIZE];
-    const unsigned long dwTick = GetTickCount();
-    if (dwTick >= s_dwLastCommandTick_00798F50 + AWAY_COMMAND_DELAY)
+    pUser = (D2MultiChannelUserStrc*)FOG_Alloc(sizeof(D2MultiChannelUserStrc), ".\\Src\\ComCallback.cpp", 0x6D4, 0);
+    memset(pUser, 0, sizeof(D2MultiChannelUserStrc));
+    strcpy(pUser->szName, szName);
+    pUser->dwFlags = nFlags;
+
+    const unsigned char nResult = COMCALLBACK_ParseStatString(pUser, nFlags, pStat);
+    int nMode = 5;
+    if ((pUser->wFlags & 4) && !(pUser->wFlags & 8) && !(pUser->dwFlags & 2) && (FOG_IsExpansion() || nResult < 5))
     {
-        s_dwLastCommandTick_00798F50 = dwTick;
-        sprintf(szText, "/away Away from the keyboard.");
-        if (!gpLaunchFuncs_0077B09C->pfn0x68())
+        nMode = 1;
+    }
+
+    pUser->pComposite = sub_005066C0(nResult, nMode, pUser->aComponents, pUser->aColors);
+    if (!pUser->pComposite)
+    {
+        pUser->nClass = 7;
+        for (int i = 0; i < 16; ++i)
         {
-            CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
-            return 0;
+            if (i == 1)
+            {
+                pUser->aComponents[i] = 1;
+            }
+            else
+            {
+                pUser->aComponents[i] = 0;
+            }
+            pUser->aColors[i] = 0xFF;
         }
-        gpLaunchFuncs_0077B09C->pfn0x14(szText);
-        EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
-    }
-    return 1;
-}
 
-// 0x00448050
-void __cdecl COMCALLBACK_ClearSelectedUser()
-{
-    if (gpSelectedChannelUser_00798F48)
-    {
-        D2_ASSERT((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, 0x85A);
-        const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
-        D2Win_10156((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, nFlags & gdwInvBitMasks[10]);
-        gpSelectedChannelUser_00798F48 = 0;
-        gnSelectedLine_0070EC1C = -1;
+        pUser->pComposite = sub_005066C0(pUser->nClass, 5, pUser->aComponents, pUser->aColors);
     }
 
-// build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
-    if (!GAME_IsLaunchExpansion())
+    D2_ASSERT(pUser->pComposite, 0x708);
+    sub_005052F0(pUser->pComposite, 0x23B);
+    sub_005051A0(pUser->pComposite, 0);
+
+    if (!gbRandSeeded_00798F54)
     {
-        COMCALLBACK_RefreshChatButtons();
+        srand(GetTickCount());
+        gbRandSeeded_00798F54 = 1;
     }
-}
 
-// 0x00447870
-void __fastcall COMCALLBACK_AppendNumberText(Unicode* pText, int nValue)
-{
-    Unicode wszNumber[3];
-    char szNumber[4];
-    Unicode wszBuffer[0x200];
+    const int nFrames = D2Win_10169(pUser->pComposite) << 8;
+    sub_00505260(pUser->pComposite, rand() % nFrames);
+    COMCALLBACK_UpdateUserText(pUser);
 
-    for (int i = 0; i < 0x200; i++)
-        wszBuffer[i].wChar = 0;
-    wszNumber[0].wChar = 0;
-    wszNumber[1].wChar = 0;
-    wszNumber[2].wChar = 0;
-    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
-    sub_00526700(wszBuffer, wszNumber);
-
-    if (!pText[0].wChar)
+    if (gpChannelUsers_00798F34)
     {
-        sub_005267E0(pText, wszBuffer);
+        D2MultiChannelUserStrc* pLast = gpChannelUsers_00798F34;
+        D2MultiChannelUserStrc** ppNext = &gpChannelUsers_00798F34->pNext;
+        while (pLast->pNext)
+        {
+            pLast = *ppNext;
+            ppNext = &pLast->pNext;
+        }
+        pLast->pNext = pUser;
     }
     else
     {
-        D2_ASSERT(sub_00526800(pText) < 500, 0xB7D);
-        sub_00526700(pText, wszBuffer);
+        gpChannelUsers_00798F34 = pUser;
     }
+
+    COMCALLBACK_SetNamedValue(pUser->szName, pUser->szText);
+
+    char szText[0x100];
+    ++gnChannelLines_00798F40;
+    sprintf(szText, "%s (%d)", gData_00798D30, gnChannelLines_00798F40);
+
+    Unicode wszText[0x240];
+    Unicode::win2Unicode(wszText, szText, 0x240);
+    sub_0043E630_ShowChannelText(wszText);
+    CHATDLG_UpdateScroll(0);
+    COMCALLBACK_RefreshChannelList();
+    return pUser;
 }
 
-// 0x00447940
-void __fastcall COMCALLBACK_PrependNumberText(Unicode* pText, int nValue)
+int __cdecl sub_M133_Emit_00447390(const char* szNameA, const char* szNameB)
 {
-    Unicode wszNumber[3];
-    char szNumber[4];
-    Unicode wszBuffer[0x200];
+    return COMCALLBACK_CompareNames(szNameA, szNameB);
+}
 
-    for (int i = 0; i < 0x200; i++)
-        wszBuffer[i].wChar = 0;
-    wszNumber[0].wChar = 0;
-    wszNumber[1].wChar = 0;
-    wszNumber[2].wChar = 0;
-    sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xF9A));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 2);
-    sub_00526700(wszBuffer, wszNumber);
 
-    if (!pText[0].wChar)
+// 0x00449320
+static inline void* COMCALLBACK_AddEntry(const char* szName, const unsigned char* pStat, unsigned int nFlags)
+{
+    return sub_00449050_AddEntry(szName, pStat, nFlags);
+}
+
+// 0x00449350
+static void COMCALLBACK_ShowUserJoined(const char* szName, const unsigned char* pStat, unsigned int nFlags)
+{
+    D2MultiChannelUserStrc* pUser = sub_00449050_AddEntry(szName, pStat, nFlags);
+    if (!gbShowJoinLeave_0077BD54)
     {
-        sub_005267E0(pText, wszBuffer);
+        return;
+    }
+
+    char szText[500];
+    if (strlen(pUser->szText))
+    {
+        sprintf(szText, "%s has joined the channel.", pUser->szText);
     }
     else
     {
-        D2_ASSERT(sub_00526800(pText) < 500, 0xB9B);
-        sub_00526700(wszBuffer, pText);
-        sub_005267E0(pText, wszBuffer);
+        sprintf(szText, "%s has joined the channel.", szName);
     }
+    COMCALLBACK_AddChatLine(szText, 5);
 }
 
-// 0x00448150
-int __stdcall COMCALLBACK_PrintNormalText(int nUnused, const char* szText)
+// 0x004493C0
+int __fastcall COMCALLBACK_OnUserJoin(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat)
 {
-    Unicode wszText[0x240];
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 0);
+    COMCALLBACK_ShowUserJoined(szName, pStat, nFlags);
     return 1;
 }
 
-// 0x004484E0
-int __stdcall COMCALLBACK_PrintInfoText(int nUnused, const char* szText)
+// 0x004493E0
+void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName)
 {
-    Unicode wszText[0x240];
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 3);
-    return 1;
-}
-
-// 0x00448540
-int __stdcall COMCALLBACK_PrintErrorText(int nUnused, const char* szText)
-{
-    Unicode wszText[0x240];
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
-    return 1;
-}
-
-// build: symbol ?COMCALLBACK_PumpMessages@* 0x00447A10
-int __cdecl COMCALLBACK_PumpMessages(int n)
-{
-    ComAdStrc ad;
-    return COMCALLBACK_PlayAd(&ad);
-}
-
-static const char* SkipStarPrefix_Inl(const char* szName)
-{
-    const char* p = SStrChr(szName, '*');
-    if (p)
+    D2MultiChannelUserStrc* pPrev = 0;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+    if (gpChannelUsers_00798F34)
     {
-        p++;
-        if (*p)
-        {
-            return p;
-        }
-    }
-    return szName;
-}
-
-// 0x004485A0
-int __stdcall COMCALLBACK_OnChannelFull(int nUnused, const char* szText)
-{
-    char szBuffer[0x1F4];
-    Unicode wszText[0x240];
-    sprintf(szBuffer, "The channel \"%s\" is full. If you are having problems using Battle.net commands, please click the Help button.", szText);
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
-    return 1;
-}
-
-// 0x00448610
-int __stdcall COMCALLBACK_OnChannelRestricted(int nUnused, const char* szText)
-{
-    char szBuffer[0x1F4];
-    Unicode wszText[0x240];
-    sprintf(szBuffer, "The channel \"%s\" is restricted. If you are having problems using Battle.net commands, please click the Help button.", szText);
-    for (int i = 0; i < 0x240; i++)
-        wszText[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    CHATDLG_RemoveTableString(wszText);
-    sub_0043E610_PrintText(wszText, 1);
-    return 1;
-}
-
-// 0x00448A60
-static void COMCALLBACK_PrintWhisperSent(const char* szName, const char* szText)
-{
-    char szLine[0x1F4];
-    Unicode wszLine[0x240];
-    sprintf(szLine, "You whisper to %s: %s", szName, szText);
-    for (int i = 0; i < 0x240; i++)
-        wszLine[i].wChar = 0;
-    sub_00526E40_Utf8ToUnicode(wszLine, szLine, 0x240);
-    CHATDLG_RemoveTableString(wszLine);
-    sub_0043E610_PrintText(wszLine, 2);
-}
-
-// 0x00448AD0
-int __stdcall COMCALLBACK_OnWhisperSent(const char* szTarget, const char* szText)
-{
-    char szName[0x100];
-    char szTitle[0x100];
-    char szAccount[0x100];
-    COMCALLBACK_SplitName(szTarget, szTitle, szName);
-    if (strlen(szName))
+    while (pUser)
     {
-        if (strlen(szTitle))
+        const char* szA = strchr(pUser->szName, '*');
+        if (!szA)
         {
-            sprintf(szAccount, "%s%s", szTitle, szName);
+            szA = pUser->szName;
         }
         else
         {
-            strcpy(szAccount, szName);
+            szA += 1;
         }
-        COMCALLBACK_PrintWhisperSent(szAccount, szText);
+        const char* szB = strchr(szName, '*');
+        if (!szB)
+        {
+            szB = szName;
+        }
+        else
+        {
+            szB += 1;
+        }
+        if (!strcmp(szA, szB))
+        {
+            break;
+        }
+        pPrev = pUser;
+        pUser = pUser->pNext;
     }
-    else
+
+    if (pUser)
     {
-        COMCALLBACK_PrintWhisperSent(SkipStarPrefix_Inl(szTarget), szText);
+        if (gbShowJoinLeave_0077BD54)
+        {
+            char szText[500];
+            if (pUser->szText && strlen(pUser->szText))
+            {
+                sprintf(szText, "%s has left the channel.", pUser->szText);
+            }
+            else
+            {
+                sprintf(szText, "%s has left the channel.", pUser->szName);
+            }
+            COMCALLBACK_AddChatLine(szText, 5);
+        }
+
+        if (pPrev)
+        {
+            pPrev->pNext = pUser->pNext;
+        }
+        else
+        {
+            gpChannelUsers_00798F34 = pUser->pNext;
+        }
+
+        if (gpSelectedChannelUser_00798F48 == pUser)
+        {
+            COMCALLBACK_ClearSelectedUser();
+        }
+
+        sub_005041B0_Destroy(pUser->pComposite, 1);
+        pUser->pComposite = 0;
+        FOG_Free(pUser, ".\\Src\\ComCallback.cpp", 0x7FE, 0);
+    }
+    }
+
+    gnChannelLines_00798F40 -= 1;
+    char szCount[0x100];
+    sprintf(szCount, "%s (%d)", gData_00798D30, gnChannelLines_00798F40);
+    Unicode wszCount[0x240];
+    sub_00526F20_ToUnicode(wszCount, szCount, 0x240);
+    sub_0043E630_ShowChannelText(wszCount);
+    CHATDLG_UpdateScroll(0);
+    COMCALLBACK_RefreshChannelList();
+}
+
+// calling-convention shim (not game code)
+void __fastcall Caller_00447FD0(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
+{
+    COMCALLBACK_UpdateUser(pUser, pStat, nFlags, szName);
+}
+
+// 0x004495A0
+void __cdecl COMCALLBACK_ClearChannel()
+{
+    char szText[0x100];
+    COMCALLBACK_ClearSelectedUser();
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
+    while (pUser)
+    {
+        D2MultiChannelUserStrc* pNext = pUser->pNext;
+        sub_005041B0_Destroy(pUser->pComposite, 1);
+        pUser->pComposite = 0;
+        FOG_Free(pUser, ".\\Src\\ComCallback.cpp", 0x822, 0);
+        pUser = pNext;
+    }
+    gpChannelUsers_00798F34 = 0;
+    D2ChannelEntryStrc* pEntry = gpChannelEntries_00798F38;
+    while (pEntry)
+    {
+        D2ChannelEntryStrc* pNext = pEntry->pNext;
+        FOG_Free(pEntry, ".\\Src\\ComCallback.cpp", 0x82A, 0);
+        pEntry = pNext;
+    }
+    gpChannelEntries_00798F38 = 0;
+    gnChannelEntries_00798F3C = 0;
+    gnChannelLines_00798F40 = 0;
+    sprintf(szText, "%s (%d)", gData_00798D30, 0);
+    Unicode wszText[0x240];
+    sub_00526F20_ToUnicode(wszText, szText, 0x240);
+    sub_0043E630_ShowChannelText(wszText);
+    gnChannelScroll_00798F44 = 0;
+    CHATDLG_UpdateScroll(0);
+}
+
+// 0x00449690
+int __fastcall COMCALLBACK_OnUserLeave(int nA, int nB, const char* szText, int nLength)
+{
+    COMCALLBACK_RemoveChannelUser(szText);
+    return 1;
+}
+
+// 0x004496B0
+int __fastcall COMCALLBACK_OnJoinChannel(int nA, int nB, int nC, const char* szChannel)
+{
+    char szText[500];
+    sprintf(szText, "You have joined channel: %s", szChannel);
+    Unicode wszText[0x240];
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
+    CHATDLG_RemoveTableString(wszText);
+    sub_0043E610_PrintText(wszText, 5);
+    strcpy(gData_00798D30, szChannel);
+    strcpy(gpCharInfo_0077BBD8->szRealm0x361, gData_00798D30);
+    if (!gpCharInfo_0077BBD8->szRealm0x381[0])
+    {
+        strcpy(gpCharInfo_0077BBD8->szRealm0x381, gData_00798D30);
+    }
+    for (int i = 0; i < 11; i++)
+    {
+// build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
+        CONTROL_SetEnabled(gapChatButtons_0077AD78[i], 1);
+    }
+    sub_004F9740_SetControlState(gpChatControl_0077BC44, 0);
+    COMCALLBACK_ClearChannel();
+    return 1;
+}
+
+// 0x004497C0
+int __fastcall COMCALLBACK_MapKeyChar(unsigned char cChar)
+{
+    return (char)gnCdKeyMap_006D59F0[cChar];
+}
+
+// 0x004497D0
+int __fastcall COMCALLBACK_HexToNibble(char cChar)
+{
+    char cLower = (char)tolower(cChar);
+    if (cLower >= 'a')
+        return cLower - 0x57;
+    return cLower - 0x30;
+}
+
+// 0x00449840
+unsigned int __fastcall COMCALLBACK_NibbleToHex(unsigned int nValue)
+{
+    unsigned int nResult = nValue & 0xF;
+    if (nResult >= 10)
+        nResult += 0x37;
+    else
+        nResult += 0x30;
+    return nResult;
+}
+
+// 0x00449860
+int __fastcall COMCALLBACK_IsValidKeyText(const char* szKey)
+{
+    while (*szKey)
+    {
+        if (gnCdKeyMap_006D59F0[(unsigned char)*szKey++] > 0x17)
+        {
+            return 0;
+        }
     }
     return 1;
+}
+
+void* __fastcall sub_M109_Emit_00449320(const char* szName, const unsigned char* pStat)
+{
+    return COMCALLBACK_AddEntry(szName, pStat, 7);
+}
+
+// 0x0044CCA0
+int __fastcall COMCALLBACK_CountLevelThresholds(int nValue, int nUnused, int nLimit)
+{
+    int nCount = 0;
+    if (nLimit < 7)
+        nCount = 1;
+    if (nValue > 1)
+        nCount++;
+    if (nValue > 9)
+        nCount++;
+    if (nValue > 0x13)
+        nCount++;
+    if (nValue > 0x1D)
+        nCount++;
+    return nCount;
+}
+
+// 0x004512C0
+int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize)
+{
+    D2_ASSERT(gbStringsLoaded_007A070C, 0x81);
+    if (!SErrGetErrorStr(nId, szBuffer, nSize))
+    {
+        SStrCopy(szBuffer, "Stupid Lng.cpp error.", nSize);
+        return 0;
+    }
+    return 1;
+}
+
+// 0x00451450
+void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam)
+{
+    if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
+        RECORD_AddRecordChunk();
+    D2MsgRecordStrc* pRecord = &gpMsgRecordChunk_0070F7A0->tRecords[gpMsgRecordChunk_0070F7A0->nCount++];
+    pRecord->dwTick = sub_0044DA90();
+    pRecord->uMessage = uMessage;
+    pRecord->wParam = wParam;
+    pRecord->lParam = lParam;
+}
+
+// 0x00451B30
+int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
+{
+    int bUseResult = 0;
+    int lResult = 0;
+    RECORD_RecordInputMessage(uMessage, wParam, lParam);
+    if (!UI_IsReplayActive() || uMessage == 0x10)
+    {
+        if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
+            return lResult;
+    }
+    return DefWindowProcA(hWnd, uMessage, wParam, lParam);
+}
+
+// 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
+{
+    D2_ASSERT(hWnd, 0x153);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        SCMD_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
+    }
 }
 
 #include "gen/data/Source/D2Multi/Src/ComCallback.inc"

@@ -10873,6 +10873,11 @@
      "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
     },
     {
+     "va": "0x00445300",
+     "length": 165,
+     "name": "COMCALLBACK_LoadLevelRestriction"
+    },
+    {
      "va": "0x004453B0",
      "length": 379,
      "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
@@ -10888,9 +10893,24 @@
      "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
     },
     {
+     "va": "0x00446780",
+     "length": 67,
+     "name": "?COMCALLBACK_OpenJoinScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004467D0",
+     "length": 57,
+     "name": "?COMCALLBACK_OpenCreateScreen@@YGHH@Z"
+    },
+    {
      "va": "0x004468F0",
      "length": 91,
      "name": "?COMCALLBACK_SendChatLine@@YGHH@Z"
+    },
+    {
+     "va": "0x00446950",
+     "length": 18,
+     "name": "?COMCALLBACK_OnChatPanelClick@@YGHH@Z"
     },
     {
      "va": "0x00446970",
@@ -10907,6 +10927,64 @@
      "length": 300
     },
     {
+     "va": "0x00446CA0",
+     "length": 79,
+     "name": "?COMCALLBACK_PlayTempSmack@@YAHXZ"
+    },
+    {
+     "va": "0x00446D00",
+     "length": 19,
+     "name": "?COMCALLBACK_SetText@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00446D20",
+     "length": 8,
+     "name": "?COMCALLBACK_IgnoreChatEvent@@YGHHH@Z"
+    },
+    {
+     "va": "0x00446D30",
+     "length": 46
+    },
+    {
+     "va": "0x00446D60",
+     "length": 46,
+     "name": "?sub_00446D60_Classify@@YAHH@Z"
+    },
+    {
+     "va": "0x00446D90",
+     "length": 1042
+    },
+    {
+     "va": "0x004471B0",
+     "length": 478,
+     "name": "?COMCALLBACK_UpdateUserText@@YAXPAUD2ChannelUserStrc@@@Z"
+    },
+    {
+     "va": "0x00447390",
+     "length": 89,
+     "name": "?COMCALLBACK_CompareNames@@YAHPBD0@Z"
+    },
+    {
+     "va": "0x00447400",
+     "length": 342,
+     "name": "COMCALLBACK_SetNamedValue"
+    },
+    {
+     "va": "0x00447560",
+     "length": 395,
+     "name": "COMCALLBACK_SplitName"
+    },
+    {
+     "va": "0x00447740",
+     "length": 86,
+     "name": "?COMCALLBACK_DispatchMessage@@YAHPAUD2LaunchMsgStrc@@@Z"
+    },
+    {
+     "va": "0x004477A0",
+     "length": 207,
+     "name": "?COMCALLBACK_RefreshChatButtons@@YAXXZ"
+    },
+    {
      "va": "0x00447870",
      "length": 202,
      "name": "?COMCALLBACK_AppendNumberText@@YIXPAUUnicode@@H@Z"
@@ -10917,14 +10995,61 @@
      "name": "?COMCALLBACK_PrependNumberText@@YIXPAUUnicode@@H@Z"
     },
     {
+     "va": "0x00447A10",
+     "length": 124,
+     "name": "?COMCALLBACK_PumpMessages@@YAHXZ"
+    },
+    {
+     "va": "0x00447A90",
+     "length": 18,
+     "name": "?COMCALLBACK_OnActivate@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00447AB0",
+     "length": 79,
+     "name": "?COMCALLBACK_AddChatLine@@YGHPBDH@Z"
+    },
+    {
+     "va": "0x00447B00",
+     "length": 161,
+     "name": "?COMCALLBACK_PrintChannelLine@@YGXPBDH0H@Z"
+    },
+    {
+     "va": "0x00447BB0",
+     "length": 1050
+    },
+    {
+     "va": "0x00447FD0",
+     "length": 122
+    },
+    {
      "va": "0x00448050",
      "length": 123,
      "name": "?COMCALLBACK_ClearSelectedUser@@YAXXZ"
     },
     {
+     "va": "0x004480D0",
+     "length": 113
+    },
+    {
      "va": "0x00448150",
      "length": 81,
      "name": "?COMCALLBACK_PrintNormalText@@YGHHPBD@Z"
+    },
+    {
+     "va": "0x004481B0",
+     "length": 55,
+     "name": "?COMCALLBACK_PrintNamedLine@@YGXPBDH0H@Z"
+    },
+    {
+     "va": "0x004481F0",
+     "length": 377,
+     "name": "?COMCALLBACK_PrintOwnLine@@YIXPBD@Z"
+    },
+    {
+     "va": "0x00448370",
+     "length": 367,
+     "name": "?COMCALLBACK_OnChannelTalk@@YGHPBD0@Z"
     },
     {
      "va": "0x004484E0",
@@ -10947,6 +11072,26 @@
      "name": "?COMCALLBACK_OnChannelRestricted@@YGHHPBD@Z"
     },
     {
+     "va": "0x00448680",
+     "length": 102,
+     "name": "?COMCALLBACK_PrintEmote@@YAXPBD0@Z"
+    },
+    {
+     "va": "0x004486F0",
+     "length": 277,
+     "name": "?COMCALLBACK_OnEmote@@YGHPBD0@Z"
+    },
+    {
+     "va": "0x00448810",
+     "length": 262,
+     "name": "?COMCALLBACK_FormatWhisperReply@@YGXPBD00@Z"
+    },
+    {
+     "va": "0x00448920",
+     "length": 305,
+     "name": "?COMCALLBACK_OnWhisper@@YGHPBD0@Z"
+    },
+    {
      "va": "0x00448A60",
      "length": 102,
      "name": "?COMCALLBACK_PrintWhisperSent@@YAXPBD0@Z"
@@ -10957,6 +11102,10 @@
      "name": "?COMCALLBACK_OnWhisperSent@@YGHPBD0@Z"
     },
     {
+     "va": "0x00448C70",
+     "length": 444
+    },
+    {
      "va": "0x00448E30",
      "length": 299,
      "name": "?COMCALLBACK_SquelchSelectedUser@@YGHH@Z"
@@ -10965,6 +11114,90 @@
      "va": "0x00448F60",
      "length": 240,
      "name": "?COMCALLBACK_UnsquelchSelectedUser@@YGHH@Z"
+    },
+    {
+     "va": "0x00449050",
+     "length": 712
+    },
+    {
+     "va": "0x00449320",
+     "length": 9,
+     "name": "?COMCALLBACK_AddEntry@@YAPAXPBDHH@Z"
+    },
+    {
+     "va": "0x00449350",
+     "length": 102,
+     "name": "?COMCALLBACK_ShowUserJoined@@YAXPBDHH@Z"
+    },
+    {
+     "va": "0x004493C0",
+     "length": 27,
+     "name": "?COMCALLBACK_OnUserJoin@@YIHHHPBDH@Z"
+    },
+    {
+     "va": "0x004493E0",
+     "length": 446,
+     "name": "?COMCALLBACK_RemoveChannelUser@@YGXPBD@Z"
+    },
+    {
+     "va": "0x004495A0",
+     "length": 235,
+     "name": "?COMCALLBACK_ClearChannel@@YAXXZ"
+    },
+    {
+     "va": "0x00449690",
+     "length": 21,
+     "name": "COMCALLBACK_OnUserLeave"
+    },
+    {
+     "va": "0x004496B0",
+     "length": 262,
+     "name": "?COMCALLBACK_OnJoinChannel@@YIHHHHPBD@Z"
+    },
+    {
+     "va": "0x004497C0",
+     "length": 11,
+     "name": "?COMCALLBACK_MapKeyChar@@YIHE@Z"
+    },
+    {
+     "va": "0x004497D0",
+     "length": 27,
+     "name": "?COMCALLBACK_HexToNibble@@YIHD@Z"
+    },
+    {
+     "va": "0x00449840",
+     "length": 18,
+     "name": "?COMCALLBACK_NibbleToHex@@YIII@Z"
+    },
+    {
+     "va": "0x00449860",
+     "length": 45,
+     "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
+    },
+    {
+     "va": "0x0044CCA0",
+     "length": 52,
+     "name": "COMCALLBACK_CountLevelThresholds"
+    },
+    {
+     "va": "0x004512C0",
+     "length": 97,
+     "name": "COMCALLBACK_LoadLngString"
+    },
+    {
+     "va": "0x00451450",
+     "length": 83,
+     "name": "COMCALLBACK_RecordMessage"
+    },
+    {
+     "va": "0x00451B30",
+     "length": 114,
+     "name": "COMCALLBACK_WindowProc"
+    },
+    {
+     "va": "0x00451DB0",
+     "length": 85,
+     "name": "COMCALLBACK_RegisterMsgHandlers"
     }
    ],
    "flags": [
@@ -13407,140 +13640,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ComCallback_00445300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00445300",
-     "length": 165,
-     "name": "COMCALLBACK_LoadLevelRestriction"
-    },
-    {
-     "va": "0x00446780",
-     "length": 67,
-     "name": "?COMCALLBACK_OpenJoinScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004467D0",
-     "length": 57,
-     "name": "?COMCALLBACK_OpenCreateScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00446950",
-     "length": 18,
-     "name": "?COMCALLBACK_OnChatPanelClick@@YGHH@Z"
-    },
-    {
-     "va": "0x00446CA0",
-     "length": 79,
-     "name": "?COMCALLBACK_PlayTempSmack@@YAHXZ"
-    },
-    {
-     "va": "0x00446D00",
-     "length": 19,
-     "name": "?COMCALLBACK_SetText@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00446D20",
-     "length": 8,
-     "name": "?COMCALLBACK_IgnoreChatEvent@@YGHHH@Z"
-    },
-    {
-     "va": "0x00446D30",
-     "length": 46
-    },
-    {
-     "va": "0x00446D60",
-     "length": 46,
-     "name": "?sub_00446D60_Classify@@YAHH@Z"
-    },
-    {
-     "va": "0x00447390",
-     "length": 89,
-     "name": "?COMCALLBACK_CompareNames@@YAHPBD0@Z"
-    },
-    {
-     "va": "0x00447400",
-     "length": 342,
-     "name": "COMCALLBACK_SetNamedValue"
-    },
-    {
-     "va": "0x00447560",
-     "length": 395,
-     "name": "COMCALLBACK_SplitName"
-    },
-    {
-     "va": "0x004477A0",
-     "length": 207,
-     "name": "?COMCALLBACK_RefreshChatButtons@@YAXXZ"
-    },
-    {
-     "va": "0x00447A90",
-     "length": 18,
-     "name": "?COMCALLBACK_OnActivate@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00448C70",
-     "length": 444
-    },
-    {
-     "va": "0x00449320",
-     "length": 9,
-     "name": "?COMCALLBACK_AddEntry@@YAPAXPBDHH@Z"
-    },
-    {
-     "va": "0x00449690",
-     "length": 21,
-     "name": "COMCALLBACK_OnUserLeave"
-    },
-    {
-     "va": "0x004497C0",
-     "length": 11,
-     "name": "?COMCALLBACK_MapKeyChar@@YIHE@Z"
-    },
-    {
-     "va": "0x004497D0",
-     "length": 27,
-     "name": "?COMCALLBACK_HexToNibble@@YIHD@Z"
-    },
-    {
-     "va": "0x00449840",
-     "length": 18,
-     "name": "?COMCALLBACK_NibbleToHex@@YIII@Z"
-    },
-    {
-     "va": "0x00449860",
-     "length": 45,
-     "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0044CCA0",
-     "length": 52,
-     "name": "COMCALLBACK_CountLevelThresholds"
-    },
-    {
-     "va": "0x004512C0",
-     "length": 97,
-     "name": "COMCALLBACK_LoadLngString"
-    },
-    {
-     "va": "0x00451450",
-     "length": 83,
-     "name": "COMCALLBACK_RecordMessage"
-    },
-    {
-     "va": "0x00451B30",
-     "length": 114,
-     "name": "COMCALLBACK_WindowProc"
-    },
-    {
-     "va": "0x00451DB0",
-     "length": 85,
-     "name": "COMCALLBACK_RegisterMsgHandlers"
-    }
-   ]
-  },
-  {
    "file": "Source/D2MCPClient/Src/McpConnect.cpp",
    "rank": 0,
    "functions": [
@@ -13616,171 +13715,6 @@
      "va": "0x00446B30",
      "length": 62,
      "name": "?sub_00446B30_ShowText@@YIHHPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446D90",
-     "length": 1042
-    },
-    {
-     "va": "0x004471B0",
-     "length": 478,
-     "name": "?COMCALLBACK_UpdateUserText@@YAXPAUD2ChannelUserStrc@@@Z"
-    },
-    {
-     "va": "0x00447740",
-     "length": 86,
-     "name": "?COMCALLBACK_DispatchMessage@@YAHPAUD2LaunchMsgStrc@@@Z"
-    },
-    {
-     "va": "0x00447A10",
-     "length": 124,
-     "name": "?COMCALLBACK_PumpMessages@@YAHXZ"
-    },
-    {
-     "va": "0x00447AB0",
-     "length": 79,
-     "name": "?COMCALLBACK_AddChatLine@@YGHPBDH@Z"
-    },
-    {
-     "va": "0x00447BB0",
-     "length": 1050
-    },
-    {
-     "va": "0x00447FD0",
-     "length": 122
-    },
-    {
-     "va": "0x004480D0",
-     "length": 113
-    },
-    {
-     "va": "0x004481F0",
-     "length": 377,
-     "name": "?COMCALLBACK_PrintOwnLine@@YIXPBD@Z"
-    },
-    {
-     "va": "0x00449350",
-     "length": 102,
-     "name": "?COMCALLBACK_ShowUserJoined@@YAXPBDHH@Z"
-    },
-    {
-     "va": "0x004493C0",
-     "length": 27,
-     "name": "?COMCALLBACK_OnUserJoin@@YIHHHPBDH@Z"
-    },
-    {
-     "va": "0x004493E0",
-     "length": 446,
-     "name": "?COMCALLBACK_RemoveChannelUser@@YGXPBD@Z"
-    },
-    {
-     "va": "0x004495A0",
-     "length": 235,
-     "name": "?COMCALLBACK_ClearChannel@@YAXXZ"
-    },
-    {
-     "va": "0x004496B0",
-     "length": 262,
-     "name": "?COMCALLBACK_OnJoinChannel@@YIHHHHPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447B00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00447B00",
-     "length": 161,
-     "name": "?COMCALLBACK_PrintChannelLine@@YGXPBDH0H@Z"
-    },
-    {
-     "va": "0x004481B0",
-     "length": 55,
-     "name": "?COMCALLBACK_PrintNamedLine@@YGXPBDH0H@Z"
-    },
-    {
-     "va": "0x00448370",
-     "length": 367,
-     "name": "?COMCALLBACK_OnChannelTalk@@YGHPBD0@Z"
-    },
-    {
-     "va": "0x00448680",
-     "length": 102,
-     "name": "?COMCALLBACK_PrintEmote@@YAXPBD0@Z"
-    },
-    {
-     "va": "0x004486F0",
-     "length": 277,
-     "name": "?COMCALLBACK_OnEmote@@YGHPBD0@Z"
-    },
-    {
-     "va": "0x00448810",
-     "length": 262,
-     "name": "?COMCALLBACK_FormatWhisperReply@@YGXPBD00@Z"
-    },
-    {
-     "va": "0x00448920",
-     "length": 305,
-     "name": "?COMCALLBACK_OnWhisper@@YGHPBD0@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00449050.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00449050",
-     "length": 712
     }
    ],
    "flags": [

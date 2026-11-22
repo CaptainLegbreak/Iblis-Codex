@@ -717,8 +717,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ComCallback.cpp": {
-   "bytes": 888,
-   "definitions": 23,
+   "bytes": 1524,
+   "definitions": 31,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C",
@@ -730,7 +730,11 @@
     "extern \"C\" char gpCellFile_0077BD40[]; // 0x0077BD40",
     "extern \"C\" void __cdecl sub_00443EF0_OnSelect(); // 0x00443EF0",
     "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
-    "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80"
+    "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
+    "extern \"C\" void __cdecl CHATDLG_OnChannelDoesNotExist(); // 0x00447700",
+    "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
+    "extern \"C\" void __cdecl CHATDLG_OnShowUser(); // 0x00449330",
+    "extern \"C\" char gFirstRecordBlock_007A0818[]; // 0x007A0818"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ComCallback.inc",
@@ -1101,17 +1105,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Multi/Src/ComCallback_00445300.cpp": {
-   "bytes": 328,
-   "definitions": 5,
-   "externs": [
-    "extern \"C\" char gFirstRecordBlock_007A0818[]; // 0x007A0818"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Src/ComCallback_00445300.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Multi/Unknown_00445DF0.cpp": {
    "bytes": 696,
    "definitions": 13,
@@ -1167,28 +1160,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Unknown_00445FF0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Multi/Src/ComCallback_00446D90.cpp": {
-   "bytes": 308,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl COMCALLBACK_IgnoreChatEvent(); // 0x00446D20",
-    "extern \"C\" void __cdecl CHATDLG_OnChannelDoesNotExist(); // 0x00447700",
-    "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
-    "extern \"C\" void __cdecl COMCALLBACK_PrintInfoText(); // 0x004484E0",
-    "extern \"C\" void __cdecl COMCALLBACK_PrintErrorText(); // 0x00448540",
-    "extern \"C\" void __cdecl COMCALLBACK_OnChannelFull(); // 0x004485A0",
-    "extern \"C\" void __cdecl COMCALLBACK_OnChannelRestricted(); // 0x00448610",
-    "extern \"C\" void __cdecl COMCALLBACK_OnEmote(); // 0x004486F0",
-    "extern \"C\" void __cdecl COMCALLBACK_OnWhisper(); // 0x00448920",
-    "extern \"C\" void __cdecl COMCALLBACK_OnWhisperSent(); // 0x00448AD0",
-    "extern \"C\" void __cdecl CHATDLG_OnShowUser(); // 0x00449330",
-    "extern \"C\" void __cdecl COMCALLBACK_OnUserLeave(); // 0x00449690"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Src/ComCallback_00447740.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -26891,7 +26862,7 @@
    "cname": "gData_006CE280",
    "declared": true,
    "decorated": "?gdwTitleMaskA_006CE280@@3IB",
-   "file": "Source/D2Multi/Src/ComCallback_00445300.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "form": "declared_owner",
    "fwd": "extern \"C\" const unsigned int gData_006CE280; // 0x006CE280",
    "head": "extern \"C\" const unsigned int gData_006CE280 = ",
@@ -26916,7 +26887,7 @@
    "cname": "gData_006CE284",
    "declared": true,
    "decorated": "?gdwTitleMaskB_006CE284@@3IB",
-   "file": "Source/D2Multi/Src/ComCallback_00445300.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "form": "declared_owner",
    "fwd": "extern \"C\" const unsigned int gData_006CE284; // 0x006CE284",
    "head": "extern \"C\" const unsigned int gData_006CE284 = ",
@@ -26941,7 +26912,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00445300.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0 = ",
@@ -26975,7 +26946,7 @@
    "cname": "gData_0070F7A4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00445300.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070F7A4_t gData_0070F7A4; // 0x0070F7A4",
    "head": "extern \"C\" struct d2data_0070F7A4_t gData_0070F7A4 = ",
@@ -27113,7 +27084,7 @@
    "cname": "gData_006D59F0",
    "declared": true,
    "decorated": "?gnCdKeyMap_006D59F0@@3QBEB",
-   "file": "Source/D2Multi/Src/ComCallback_00445300.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006D59F0[256]; // 0x006D59F0",
    "head": "extern \"C\" const unsigned char gData_006D59F0[256] = ",
@@ -29842,7 +29813,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "fill": 56,
    "form": "declared",
    "fwd": null,
@@ -30306,7 +30277,7 @@
    "cname": "gData_006CE298",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006CE298_t gData_006CE298; // 0x006CE298",
    "head": "extern \"C\" const struct d2data_006CE298_t gData_006CE298 = ",
@@ -30323,7 +30294,7 @@
    "cname": "gData_006CE318",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
+   "file": "Source/D2Multi/Src/ComCallback.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006CE318_t gData_006CE318; // 0x006CE318",
    "head": "extern \"C\" const struct d2data_006CE318_t gData_006CE318 = ",
