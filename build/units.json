@@ -56705,11 +56705,6 @@
      "va": "0x00594450",
      "length": 87,
      "name": "ACT1Q4_GetCainPortalOutsideTownCoordinates"
-    },
-    {
-     "va": "0x00595160",
-     "length": 218,
-     "name": "ACT1Q5_UpdateCountessQuestState"
     }
    ]
   },
@@ -58185,6 +58180,11 @@
      "va": "0x00595010",
      "length": 326,
      "name": "?ACT1Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595160",
+     "length": 218,
+     "name": "ACT1Q5_UpdateCountessQuestState"
     },
     {
      "va": "0x00595240",

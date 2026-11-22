@@ -1148,56 +1148,6 @@ int __fastcall ACT1Q4_GetCainPortalOutsideTownCoordinates(D2GameStrc* pGame, D2U
     return 1;
 }
 
-// 0x00595160
-void __fastcall ACT1Q5_UpdateCountessQuestState(D2GameStrc* pGame, D2UnitStrc* pUnit, int bPending)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q5_COUNTESS);
-    if (!pQuestData)
-    {
-        return;
-    }
-
-    if (!pQuestData->bNotIntro)
-    {
-        return;
-    }
-
-    if (pQuestData->fState >= 4)
-    {
-        return;
-    }
-
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) == 1)
-    {
-        return;
-    }
-
-    if (bPending)
-    {
-        if (pQuestData->fState == 2 || pQuestData->fState == 3)
-        {
-            QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING);
-        }
-        return;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING) != 1)
-    {
-        return;
-    }
-
-    if (pQuestData->fState == 3)
-    {
-        return;
-    }
-
-    QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q5.cpp", 705);
-    pQuestData->nStatusFlags = 0;
-    QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q5_UnitIterate_StatusCyclerEx, true);
-    SUNIT_IterateUnitsOfType(pGame, UNIT_PLAYER, 0, ACT1Q5_UnitIterate_UpdateQuestStateFlags);
-}
-
 struct D2ActiveRoomStrc;
 
 struct D2ItemDropStrc;
