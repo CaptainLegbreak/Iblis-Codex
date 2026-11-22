@@ -1,9 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
-struct D2CoordStrc { int nX; int nY; };
-struct D2StaticPathStrc { void* pRoom; int dwClientCoordX; int dwClientCoordY; D2CoordStrc tGameCoords; };
-struct D2UnitStrc { int dwUnitType; char pad04[0x28]; union { D2StaticPathStrc* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
-enum D2C_UnitTypes { UNIT_OBJECT = 2, UNIT_ITEM = 4, UNIT_TILE = 5 };
 
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
